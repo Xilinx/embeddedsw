@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -565,6 +565,7 @@ extern "C" {
 /**
  * Register: PCSR_CONTROL
  */
+#define NPI_PCSR_UNLOCK_VAL				0xF9E8D7C6U
 #define NPI_PCSR_LOCK_OFFSET				0X0000000CU
 #define NPI_PCSR_MASK_OFFSET				0X00000000U
 #define NPI_PCSR_CONTROL_OFFSET				0X00000004U
@@ -579,6 +580,18 @@ extern "C" {
 #define NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK		0X00000020U
 #define NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK	0X01000000
 
+/**
+ * DDRMC_UB Registers
+ */
+#define DDRMC_UB_PMC2UB_INTERRUPT_OFFSET	0x228U
+#define DDRMC_UB_UB2PMC_ACK_OFFSET		0x22CU
+#define DDRMC_UB_UB2PMC_DONE_OFFSET		0x230U
+#define DDRMC_UB_PMC2UB_INTERRUPT_SPARE_0_MASK	BIT(2U)
+#define DDRMC_UB_UB2PMC_ACK_SPARE_0_MASK	BIT(2U)
+#define DDRMC_UB_UB2PMC_DONE_SPARE_0_MASK	BIT(2U)
+#define DDRMC_UB_PMC2UB_INTERRUPT_SR_EXIT_MASK	BIT(1U)
+#define DDRMC_UB_UB2PMC_ACK_SR_EXIT_MASK	BIT(1U)
+#define DDRMC_UB_UB2PMC_DONE_SR_EXIT_MASK	BIT(1U)
 
 /* Probe Counter Register related macros */
 #define CORESIGHT_LPD_ATM_BASE		(0xF0980000U)

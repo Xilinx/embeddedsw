@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,196 @@
 ******************************************************************************/
 #include "xpm_defs.h"
 #include "xplmi_dma.h"
+#include "xpm_regs.h"
 #include "xpm_device.h"
 #include "xpm_mem.h"
 #include "xpm_rpucore.h"
 
 #define XPM_TCM_BASEADDRESS_MODE_OFFSET	0x80000U
+
+#define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
+#define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
+#define DDRMC_TIMEOUT			300U
+
+
+static const XPm_StateCap XPmDDRDeviceStates[] = {
+	{
+		.State = XPM_DEVSTATE_UNUSED,
+		.Cap = XPM_MIN_CAPABILITY,
+	}, {
+		.State = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.Cap = PM_CAP_CONTEXT,
+	}, {
+		.State = XPM_DEVSTATE_RUNNING,
+		.Cap = XPM_MAX_CAPABILITY | PM_CAP_UNUSABLE,
+	},
+};
+
+static const XPm_StateTran XPmDDRDevTransitions[] = {
+	{
+		.FromState = XPM_DEVSTATE_RUNNING,
+		.ToState = XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_UNUSED,
+		.ToState = XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.ToState = XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_RUNNING,
+		.ToState = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.Latency = XPM_DEF_LATENCY,
+	},
+};
+
+static XStatus XPmDDRDevice_EnterSelfRefresh(void)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Device *Device;
+	u32 BaseAddress;
+	u32 Reg;
+	u8 i;
+
+	for (i = XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX;
+	     i++) {
+		Device = XPmDevice_GetById(DDRMC_DEVID(i));
+		BaseAddress = Device->Node.BaseAddress;
+
+		/* Unlock DDRMC UB */
+		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+		XPm_Out32(Reg, NPI_PCSR_UNLOCK_VAL);
+
+		/* Enable self-refresh */
+		Reg = BaseAddress + DDRMC_UB_PMC2UB_INTERRUPT_OFFSET;
+		XPm_Out32(Reg, DDRMC_UB_PMC2UB_INTERRUPT_SPARE_0_MASK);
+		Reg = BaseAddress + DDRMC_UB_UB2PMC_ACK_OFFSET;
+		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SPARE_0_MASK,
+					DDRMC_TIMEOUT);
+		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+			PmErr("Failed to enter self-refresh!\r\n");
+			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+			XPm_Out32(Reg, 0);
+			goto done;
+		}
+		XPm_Out32(Reg, 0);
+
+		Reg = BaseAddress + DDRMC_UB_UB2PMC_DONE_OFFSET;
+		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SPARE_0_MASK,
+					DDRMC_TIMEOUT);
+		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+			PmErr("Failed to enter self-refresh!\r\n");
+			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+			XPm_Out32(Reg, 0);
+			goto done;
+		}
+		XPm_Out32(Reg, 0);
+
+		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+		XPm_Out32(Reg, 0);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus XPmDDRDevice_ExitSelfRefresh(void)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Device *Device;
+	u32 BaseAddress;
+	u32 Reg;
+	u8 i;
+
+	for (i = XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX;
+	     i++) {
+		Device = XPmDevice_GetById(DDRMC_DEVID(i));
+		BaseAddress = Device->Node.BaseAddress;
+
+		/* Unlock DDRMC UB */
+		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+		XPm_Out32(Reg, NPI_PCSR_UNLOCK_VAL);
+
+		/* Disable self-refresh */
+		Reg = BaseAddress + DDRMC_UB_PMC2UB_INTERRUPT_OFFSET;
+		XPm_Out32(Reg, DDRMC_UB_PMC2UB_INTERRUPT_SR_EXIT_MASK);
+		Reg = BaseAddress + DDRMC_UB_UB2PMC_ACK_OFFSET;
+		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SR_EXIT_MASK,
+					DDRMC_TIMEOUT);
+		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+			PmErr("Failed to exit self-refresh!\r\n");
+			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+			XPm_Out32(Reg, 0);
+			goto done;
+		}
+		XPm_Out32(Reg, 0);
+
+		Reg = BaseAddress + DDRMC_UB_UB2PMC_DONE_OFFSET;
+		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SR_EXIT_MASK,
+					DDRMC_TIMEOUT);
+		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+			PmErr("Failed to exit self-refresh!\r\n");
+			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+			XPm_Out32(Reg, 0);
+			goto done;
+		}
+		XPm_Out32(Reg, 0);
+
+		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+		XPm_Out32(Reg, 0);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus HandleDDRDeviceState(XPm_Device* const Device, const u32 NextState)
+{
+	XStatus Status = XST_FAILURE;
+
+	switch (Device->Node.State) {
+	case XPM_DEVSTATE_UNUSED:
+		if (XPM_DEVSTATE_RUNNING == NextState) {
+			Status = XPmDevice_BringUp(Device);
+		} else {
+			Status = XST_SUCCESS;
+		}
+		break;
+	case XPM_DEVSTATE_RUNNING:
+		if (XPM_DEVSTATE_UNUSED == NextState) {
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_SHUTDOWN);
+		} else {
+			Status = XST_SUCCESS;
+		}
+		if (XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
+			Status = XPmDDRDevice_EnterSelfRefresh();
+		}
+		break;
+	case XPM_DEVSTATE_RUNTIME_SUSPEND:
+		if (XPM_DEVSTATE_RUNNING == NextState) {
+			Status = XPmDDRDevice_ExitSelfRefresh();
+		}
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}
+
+static const XPm_DeviceFsm XPmDDRDeviceFsm = {
+	DEFINE_DEV_STATES(XPmDDRDeviceStates),
+	DEFINE_DEV_TRANS(XPmDDRDevTransitions),
+	.EnterState = HandleDDRDeviceState,
+};
 
 static const XPm_StateCap XPmMemDeviceStates[] = {
 	{
@@ -203,10 +388,16 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 	MemDevice->StartAddress = MemStartAddress;
 	MemDevice->EndAddress = MemEndAddress;
 
-	if (XPM_NODETYPE_DEV_TCM == Type) {
+	switch (Type) {
+	case XPM_NODETYPE_DEV_DDR:
+		MemDevice->Device.DeviceFsm = &XPmDDRDeviceFsm;
+		break;
+	case XPM_NODETYPE_DEV_TCM:
 		MemDevice->Device.DeviceFsm = &XPmTcmDeviceFsm;
-	} else {
+		break;
+	default:
 		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
+		break;
 	}
 
 done:

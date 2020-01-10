@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -713,11 +713,12 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
+	XPm_Requirement *Reqm;
 
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
 
-	if((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) &&
+	if ((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) &&
 	   (NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 		Core->ResumeAddr = Address | 1U;
@@ -725,6 +726,18 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	} else {
 		Status = XPM_INVALID_DEVICEID;
 		goto done;
+	}
+
+	/* If subsystem is using DDR, enable self-refresh */
+	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
+		Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, SubsystemId);
+		if (XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) {
+			Status = XPmDevice_SetRequirement(SubsystemId, PM_DEV_DDR_0,
+							  PM_CAP_CONTEXT, 0);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
 	}
 
 	ENABLE_WFI(Core->SleepMask);
@@ -737,7 +750,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	Status = XST_SUCCESS;
 
 done:
-	if (Status != XST_SUCCESS) {
+	if (XST_SUCCESS != Status) {
 		PmErr("Unable to Self Suspend child subsystem. Returned: 0x%x\n\r", Status);
 	}
 	return Status;
@@ -857,6 +870,8 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	u32 CoreSubsystemId;
+	XPm_Requirement *Reqm;
+
 	/* Warning Fix */
 	(void) (Ack);
 
@@ -868,18 +883,28 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	}
 
 	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-	if(Core->CoreOps->RequestWakeup) {
-		Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
-		if (XST_SUCCESS == Status) {
-			CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
-			XPmSubsystem_SetState(CoreSubsystemId, ONLINE);
-		}
-	} else {
+	if (NULL == Core->CoreOps->RequestWakeup) {
 		Status = XPM_ERR_WAKEUP;
+		goto done;
+	}
+
+	Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+	XPmSubsystem_SetState(CoreSubsystemId, ONLINE);
+
+	/* If subsystem is using DDR, disable self-refresh */
+	Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, CoreSubsystemId);
+	if (XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) {
+		Status = XPmDevice_SetRequirement(CoreSubsystemId, PM_DEV_DDR_0,
+						  PM_CAP_ACCESS, 0);
 	}
 
 done:
-	if(Status != XST_SUCCESS) {
+	if (XST_SUCCESS != Status) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
 	return Status;
