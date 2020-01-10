@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -169,6 +169,9 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId);
 
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS);
+
+XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId,
+					   const u32 SubsystemId);
 
 XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			const u32 DeviceId,

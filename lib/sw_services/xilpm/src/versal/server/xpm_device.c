@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -118,6 +118,21 @@ static XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 		Reqm = Reqm->NextSubsystem;
 	}
 
+	return Reqm;
+}
+
+XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId, const u32 SubsystemId)
+{
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	XPm_Requirement *Reqm = NULL;
+
+	if (NULL == Device || NULL == Subsystem) {
+		goto done;
+	}
+
+	Reqm = FindReqm(Device, Subsystem);
+done:
 	return Reqm;
 }
 
