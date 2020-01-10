@@ -33,7 +33,7 @@ proc swapp_get_description {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "microblaze_0";
+	return "microblaze";
 }
 
 proc swapp_get_supported_os {} {
