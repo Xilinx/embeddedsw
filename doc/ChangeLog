@@ -8,6 +8,8 @@ Used correct macro to access RX FIFO1 buffer.
 Fix for missing RX can packets on CAND2.0
 Fix for missing TX canfd packet on CANFD2.0.
 Added PEE support and updated BusOff handler.
+Removed psu_canfd from supported peripherals.
+Updated all files with Copyright year 2020.
 
 csudma_v1_6:
 Added assert check XCsuDma_WaitForDoneTimeout().
