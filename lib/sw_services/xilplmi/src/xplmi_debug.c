@@ -50,22 +50,12 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xplmi_hw.h"
-#include "xpm_api.h"
-#include "xpm_subsystem.h"
-#include "xpm_nodeid.h"
 #include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifdef STDOUT_BASEADDRESS
-#if (STDOUT_BASEADDRESS == 0xFF000000)
-#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
-#elif (STDOUT_BASEADDRESS == 0xFF010000)
-#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
-#endif
-#endif
 
 #if ((XPAR_XUARTPSV_NUM_INSTANCES == 2U) && (STDOUT_BASEADDRESS == 0xFF010000))
 #define XPLMI_UART_INDEX 1U
@@ -95,36 +85,20 @@ u32 LpdInitialized = FALSE;
 int XPlmi_InitUart(void )
 {
 	int Status;
-	
-	/**
-	 * TODO If UART is defined, can we initialize UART with default
-	 * HW values so that we can print from the start
-	 */
+
 	/* Initialize UART */
 	/* If UART is already initialized, just return success */
 	if ((LpdInitialized & UART_INITIALIZED) == UART_INITIALIZED) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
-	
+
 #ifdef DEBUG_UART_PS
-	/**
-	 * PLM needs to request UART if debug is enabled, else LibPM will
-	 * turn it off when it is not used by other processor.
-	 * During such scenario when PLM tries to print debug message,
-	 * system may not work properly.
-	 */
-	Status = XPm_RequestDevice(PM_SUBSYS_PMC, NODE_UART, PM_CAP_ACCESS,
-				   XPM_MAX_QOS, 0);
-	if (XST_SUCCESS != Status) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_DEV_PM_REQ, Status);
-		goto END;
-	}
 	XUartPsv_Config *Config;
 
 	Config = XUartPsv_LookupConfig(XPLMI_UART_INDEX);
 	if (NULL == Config) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_LOOKUP, Status);
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_LOOKUP, 0x0U);
 		goto END;
 	}
 
@@ -145,6 +119,7 @@ int XPlmi_InitUart(void )
 
 #ifdef DEBUG_UART_MDM
 	LpdInitialized |= UART_INITIALIZED;
+	Status = XST_SUCCESS;
 #endif
 
 END:
