@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 *       psl     03/26/19 Fixed MISRA-C violation
 *       psl     04/05/19 Fixed IAR warnings.
 * 4.1   psl     07/31/19 Fixed MISRA-C violation
+* 4.2   har     01/03/20 Added blind write check for SssCfg
 * </pre>
 *
 ******************************************************************************/
@@ -241,6 +242,7 @@ static void XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
  * @param	OutputSrc	Output source to be selected for the resource.
  *
  * @return	- XST_SUCCESS - on successful configuration of the switch
+ *		    - XST_FAILURE - on unsuccessful configuration of the switch
  *
  * @note	Resource, InputSrc, OutputSrc are of type XSecure_SssSrc.
  *
@@ -251,6 +253,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	u32 InputSrcCfg = 0x00;
 	u32 OutputSrcCfg = 0x00;
 	u32 SssCfg = 0x00;
+	u32 Status = (u32)XST_FAILURE;
 
 	/*
 	 * Configure source of the input for given resource
@@ -269,9 +272,9 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 
 	SssCfg = InputSrcCfg | OutputSrcCfg;
 
-	XSecure_Out32(InstancePtr->Address, SssCfg);
+	Status = XSecure_SecureOut32(InstancePtr->Address, SssCfg);
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/

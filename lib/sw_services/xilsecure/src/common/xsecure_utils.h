@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 4.0   vns     03/12/19 Initial Release
 * 4.1	kal	05/20/19 Updated doxygen tags
 *       psl     08/05/19 Fixed MISRA-C violation
+* 4.2   har     01/06/20 Added macro XSecure_Out32
 * </pre>
 * @endcond
 ******************************************************************************/
@@ -161,6 +162,8 @@ typedef enum{
 #define XSecure_Out32(Addr, Data)		Xil_Out32((Addr), (Data))
 
 #define XSecure_Out64(Addr, Data)		Xil_Out64((Addr), (Data))
+
+#define XSecure_SecureOut32(Addr, Data)		Xil_SecureOut32((Addr),(Data))
 /**  @endcond */
 /************************** Function Prototypes ******************************/
 
