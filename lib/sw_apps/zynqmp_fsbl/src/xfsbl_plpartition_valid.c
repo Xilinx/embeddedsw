@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -65,7 +65,7 @@
 *                        XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
 *                        deprecated, also calls to secure stream switch
 *                        are modified
-*
+* 4.1   har     01/03/20 Added checks to verify the value of XSecure_SssAes
 * </pre>
 *
 ******************************************************************************/
@@ -757,8 +757,11 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 			(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 
 	/* Configure the SSS for AES. */
-	XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+	Status = XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
 					XSECURE_SSS_PCAP);
+	if(Status != XFSBL_SUCCESS) {
+		goto END;
+	}
 
 	/* Start the message. */
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
@@ -776,7 +779,7 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0);
 
-
+END:
 	return Status;
 
 }
@@ -819,8 +822,11 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
 
 		/* Configure AES engine */
-		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
 					XSECURE_SSS_PCAP);
+		if(Status != XFSBL_SUCCESS) {
+			goto END;
+		}
 
 		/* Send whole chunk of data to AES */
 		if ((Size <=
@@ -922,6 +928,7 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 
 	} while (Size != 0x00);
 
+END:
 	return Status;
 
 }
@@ -1021,8 +1028,12 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 	else  if (PartitionParams->Hdr != 0x00) {
 
 		/* Configure AES engine */
-		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
 					XSECURE_SSS_PCAP);
+		if(Status != XFSBL_SUCCESS) {
+			goto END;
+		}
+
 
 		XFsbl_CopyData(PartitionParams,
 		(u8 *)(PartitionParams->SecureHdr + PartitionParams->Hdr),

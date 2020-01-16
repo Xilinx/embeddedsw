@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@
 * 4.1   vns  08/06/2019 Added AES encryption APIs
 *       har  08/21/2019 Fixed MISRA C violations
 *       vns  08/23/2019 Initialized status variables
+* 4.2   har  01/03/2020 Added checks for return value of XSecure_SssAes
 * </pre>
 *
 * @note
@@ -448,13 +449,17 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
 	else {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
 	}
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 
 	if (KeyType == XSECURE_OBFUSCATED_KEY) {
 		KeySrc = XSECURE_AES_FAMILY_KEY;
@@ -572,13 +577,17 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
 	else {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
 	}
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 
 	/* Load key for decryption */
 	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
@@ -664,12 +673,15 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
 	else {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
+	}
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
 	}
 	/* Configure destination */
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
@@ -707,6 +719,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 					XCSUDMA_DST_CHANNEL, 0U);
 	Status = (u32)XST_SUCCESS;
 
+END:
 	return Status;
 
 }
@@ -744,12 +757,15 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
 	else {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
+	}
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
 	}
 
 	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
@@ -882,12 +898,15 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
 	else {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
+	}
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
 	}
 
 	/* Load key for encryption */
@@ -971,12 +990,15 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
 	else {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
+	}
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
 	}
 	/* Configure destination */
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
@@ -1017,6 +1039,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	Status = (u32)XST_SUCCESS;
 
+END:
 	return Status;
 
 }
@@ -1055,12 +1078,15 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
 	else {
-		XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
+	}
+	if (Status != (u32)XST_SUCCESS) {
+			goto END;
 	}
 
 	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
