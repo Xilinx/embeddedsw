@@ -61,6 +61,10 @@
 #endif
 #endif
 
+#define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
+	XPlmi_GicRegisterHandler( (GicId<<8U) | (SrcId<<16U), \
+		XPm_DispatchWakeHandler, (void *)NodeId)
+
 u32 ResetReason;
 u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];
 
@@ -335,6 +339,62 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Register wakeup handlers with XilPlmi
+ * @param none
+ * @return none
+ ****************************************************************************/
+static void XPm_RegisterWakeUpHandlers()
+{
+	/**
+	 * Register the events for PM
+	 */
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC13, XPM_NODEIDX_DEV_GPIO);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC14, XPM_NODEIDX_DEV_I2C_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC15, XPM_NODEIDX_DEV_I2C_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC16, XPM_NODEIDX_DEV_SPI_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC17, XPM_NODEIDX_DEV_SPI_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC18, XPM_NODEIDX_DEV_UART_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC19, XPM_NODEIDX_DEV_UART_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC20, XPM_NODEIDX_DEV_CAN_FD_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC21, XPM_NODEIDX_DEV_CAN_FD_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC22, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC23, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC24, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC25, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC26, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC5, XPM_NODEIDX_DEV_TTC_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC6, XPM_NODEIDX_DEV_TTC_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC7, XPM_NODEIDX_DEV_TTC_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC8, XPM_NODEIDX_DEV_TTC_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC9, XPM_NODEIDX_DEV_TTC_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC10, XPM_NODEIDX_DEV_TTC_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC11, XPM_NODEIDX_DEV_TTC_2);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC12, XPM_NODEIDX_DEV_TTC_2);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC13, XPM_NODEIDX_DEV_TTC_2);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC14, XPM_NODEIDX_DEV_TTC_3);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC15, XPM_NODEIDX_DEV_TTC_3);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC16, XPM_NODEIDX_DEV_TTC_3);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC24, XPM_NODEIDX_DEV_GEM_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC25, XPM_NODEIDX_DEV_GEM_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC26, XPM_NODEIDX_DEV_GEM_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC27, XPM_NODEIDX_DEV_GEM_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC28, XPM_NODEIDX_DEV_ADMA_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC29, XPM_NODEIDX_DEV_ADMA_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC30, XPM_NODEIDX_DEV_ADMA_2);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP1, XPLMI_GICP1_SRC31, XPM_NODEIDX_DEV_ADMA_3);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP2, XPLMI_GICP2_SRC0, XPM_NODEIDX_DEV_ADMA_4);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP2, XPLMI_GICP2_SRC1, XPM_NODEIDX_DEV_ADMA_5);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP2, XPLMI_GICP2_SRC2, XPM_NODEIDX_DEV_ADMA_6);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP2, XPLMI_GICP2_SRC3, XPM_NODEIDX_DEV_ADMA_7);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP2, XPLMI_GICP2_SRC10, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP3, XPLMI_GICP3_SRC30, XPM_NODEIDX_DEV_SDIO_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP3, XPLMI_GICP3_SRC31, XPM_NODEIDX_DEV_SDIO_0);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC0, XPM_NODEIDX_DEV_SDIO_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC1, XPM_NODEIDX_DEV_SDIO_1);
+	XPm_RegisterWakeUpHandler(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC14, XPM_NODEIDX_DEV_RTC);
+}
 
 /****************************************************************************/
 /**
@@ -421,12 +481,29 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0);
 	}
 
+	XPm_RegisterWakeUpHandlers();
 	Status = XST_SUCCESS;
-
 done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief This is the handler for wake up interrupts
+ *
+ * @param  DeviceIdx	Index of peripheral device
+ *
+ * @return Status	XST_SUCCESS if processor wake successfully
+ *			XST_FAILURE or error code in case of failure
+ *
+ *****************************************************************************/
+int XPm_DispatchWakeHandler(void *DeviceIdx)
+{
+	int Status;
+
+	Status = XPm_GicProxyWakeUp((int)DeviceIdx);
+	return Status;
+}
 
 XStatus XPm_HookAfterPlmCdo()
 {
