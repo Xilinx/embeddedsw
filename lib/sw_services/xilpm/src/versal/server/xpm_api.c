@@ -53,6 +53,14 @@
 #include "xsysmonpsv.h"
 #include "xpm_notifier.h"
 
+#ifdef STDOUT_BASEADDRESS
+#if (STDOUT_BASEADDRESS == 0xFF000000)
+#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
+#elif (STDOUT_BASEADDRESS == 0xFF010000)
+#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
+#endif
+#endif
+
 u32 ResetReason;
 u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];
 
@@ -581,6 +589,19 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	if ((NODEINDEX(NodeId) == XPM_NODEIDX_POWER_LPD) &&
 		(Function == FUNC_INIT_FINISH) &&
 		(XST_SUCCESS == Status)) {
+#ifdef DEBUG_UART_PS
+		/**
+		 * PLM needs to request UART if debug is enabled, else LibPM
+		 * will turn it off when it is not used by other processor.
+		 * During such scenario when PLM tries to print debug message,
+		 * system may not work properly.
+		 */
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, NODE_UART,
+					   PM_CAP_ACCESS, XPM_MAX_QOS, 0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+#endif
 		XPlmi_LpdInit();
 	}
 
