@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMANGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -33,11 +13,11 @@
 * Ver  Who      Date      Changes
 * ---- ---      --------  --------------------------------------------------.
 * 1.00 Nishant  19/12/19 Added support for vck190, VCU118
-* 						  DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
-* 						  set_vphy() renamed to config_phy() and has two
-* 						  parameters for linerate and lanecount.
-* 						  The application files are common for ZCU102, VCU118
-* 						  and VCK190 TX Only design
+* 			 DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
+* 			 set_vphy() renamed to config_phy() and has two
+* 			 parameters for linerate and lanecount.
+* 			 The application files are common for ZCU102, VCU118
+* 			 and VCK190 TX Only design
 *
 *
 * </pre>
@@ -47,8 +27,8 @@
 #include "xdptxss_dp14_tx.h"
 #include "xvidframe_crc.h"
 
-extern u8 hpd_pulse_con_event;
-u8 prev_line_rate;
+extern volatile u8 hpd_pulse_con_event;
+volatile u8 prev_line_rate;
 #ifndef PLATFORM_MB
 XScuGic IntcInst;
 #else
@@ -79,6 +59,10 @@ u8 UpdateBuffer[sizeof(AddressType) + PAGE_SIZE];
 XIicPs Ps_Iic0, Ps_Iic1;
 XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
+#ifdef versal
+XClk_Wiz_Config *CfgPtr_Dynamic;
+XClk_Wiz ClkWiz_Dynamic;
+#endif
 #endif
 #define PS_IIC_CLK 100000
 /************************** Function Prototypes ******************************/
@@ -113,7 +97,7 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
 void ReportVideoCRC(void);
 extern void main_loop(void);
 int set_phy = 0;
-u8 tx_is_reconnected = 0;
+volatile u8 tx_is_reconnected = 0;
 Video_CRC_Config VidFrameCRC; /* Video Frame CRC instance */
 
 /************************** Variable Definitions *****************************/
@@ -316,7 +300,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 
 	user_config_struct user_config;
 	user_config.user_bpc = 8;
-	user_config.VideoMode_local = XVIDC_VM_1920x1080_60_P; //XVIDC_VM_800x600_60_P;
+	user_config.VideoMode_local = XVIDC_VM_800x600_60_P;
 	user_config.user_pattern = 1; /*Color Ramp (Default)*/
 	user_config.user_format = XVIDC_CSF_RGB;
 #if !PHY_COMP
@@ -396,15 +380,6 @@ u32 DpTxSs_Main(u16 DeviceId)
 	i2c_write_dp141(IIC_BASE_ADDR, I2C_TI_DP141_ADDR, 0x08, 0x3C);
 	i2c_write_dp141(IIC_BASE_ADDR, I2C_TI_DP141_ADDR, 0x0B, 0x3C);
 
-#ifndef PLATFORM_MB
-    usleep (100000);
-    usleep (100000);
-    usleep (100000);
-    usleep (100000);
-    usleep (100000);
-    usleep (100000);
-#endif
-
 	/* Do platform initialization in this function. This is hardware
 	 * system specific. It is up to the user to implement this function.
 	 */
@@ -440,6 +415,8 @@ u32 DpTxSs_Main(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
+
+
 	/* Setup Video Phy, left to the user for implementation */
 	DpTxSs_PhyInit(XVPHY_DEVICE_ID);
 	DpTxSs_Setup(&LineRate_init, &LaneCount_init, Edid_org, Edid1_org);
@@ -469,12 +446,12 @@ u32 DpTxSs_Main(u16 DeviceId)
 
 #ifndef versal
 	XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
-#endif
 	// This configures the vid_phy for line rate to start with
 	//Even though CPLL can be used in limited case,
 	//using QPLL is recommended for more coverage.
-	Status = config_phy(LineRate_init_tx, LaneCount_init_tx);
-
+#else
+#endif
+	Status = config_phy(LineRate_init_tx);
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
 	//800x600 8bpc as default
 #if !PHY_COMP
@@ -518,6 +495,25 @@ u32 DpTxSs_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID);
 
 #ifndef PLATFORM_MB
+#ifdef versal
+     /*
+      * Get the CLK_WIZ Dynamic reconfiguration driver instance
+      */
+     CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_0_DEVICE_ID);
+     if (!CfgPtr_Dynamic) {
+             return XST_FAILURE;
+     }
+
+     /*
+      * Initialize the CLK_WIZ Dynamic reconfiguration driver
+      */
+     Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic, CfgPtr_Dynamic,
+              CfgPtr_Dynamic->BaseAddr);
+     if (Status != XST_SUCCESS) {
+             return XST_FAILURE;
+     }
+#endif
+
 	   XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
 	    if (NULL == XIic0Ps_ConfigPtr) {
 	            return XST_FAILURE;
@@ -745,7 +741,8 @@ u32 DpTxSs_PhyInit(u16 DeviceId)
 #else
 	//set vswing of value of 5
 	ReadModifyWrite(0x1F00,(5 << 8));
-
+	// Configuring lanes to 4
+	ReadModifyWrite(0x70,(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_LANE_COUNT << 4));
 //     releasing reset. bit[31] and bit[0] = > 0
 //     releasing reset. bit[31] and bit[0] = > 0
 	ReadModifyWrite(0x1, (0 << 0));
@@ -753,38 +750,40 @@ u32 DpTxSs_PhyInit(u16 DeviceId)
 	u32 dptx_sts = 0;
 	u8 retry=0;
 	dptx_sts = 0;
-    while ((dptx_sts != SINGLE_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_BASEADDR, 0x280);
-         dptx_sts &= SINGLE_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 10000);
+	//Checking the status for 4 lanes
+    while ((dptx_sts != ALL_LANE) && retry < 255) {
+         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+         dptx_sts &= ALL_LANE;
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
          retry++;
       }
     if(retry==255)
     {
-		xil_printf (
-   "+++++++ TX GT configuration encountered a failure +++++++\r\n");
-	return XST_FAILURE;
+		xil_printf ("+\r\n");
     }
 
-    //putting GT in 5.4x4 mode
-    ReadModifyWrite(0xE,(VERSAL_540G << 1));
-    ReadModifyWrite(0x70,(XDP_TX_LANE_COUNT_SET_4 << 4));
-
+    //This reset is needed for Versal GT. Sometimes the GT does not come out
+    //automatically and needs a reset
+    //This is because the refclk is not present at start
+    ReadModifyWrite(0x1, (1 << 0));
+    ReadModifyWrite(0x1, (0 << 0));
 	dptx_sts = 0;
 	retry=0;
     while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_BASEADDR, 0x280);
+         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
          dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 10000);
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
          retry++;
       }
-    prev_line_rate = XDP_TX_LINK_BW_SET_540GBPS;
-
     if(retry==255)
     {
+        prev_line_rate = XDP_TX_LINK_BW_SET_162GBPS;
 		xil_printf (
-   "+++++++ TX GT configuration encountered a failure +++++++\r\n");
-	return XST_FAILURE;
+   "+++++++ TX GT configuration encountered a failure init2 +++++++ \r\n");
+//	return XST_FAILURE;
+    } else {
+        prev_line_rate = XDP_TX_LINK_BW_SET_540GBPS;
+//    	xil_printf ("second time pass %x\r\n",dptx_sts1);
     }
 #endif
 	return XST_SUCCESS;
@@ -946,11 +945,11 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 	u8 rate;
 	u8 lanes;
 	rate = get_LineRate();
-    lanes = get_Lanecounts();
+    lanes = XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_LANE_COUNT;//get_Lanecounts();
 
 	// If the requested rate is same, do not re-program.
 	if (rate != prev_line_rate) {
-		config_phy(rate, lanes);
+		config_phy(rate);
 	}
 	//update the previous link rate info at here
 	prev_line_rate = rate;
@@ -1029,12 +1028,12 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 		}
 
 #ifdef versal
-		vswing = (diff_swing << 16) | diff_swing;
-		postcursor = (preemp << 26) | (preemp << 10);
-		value = vswing | postcursor;
+//		vswing = (diff_swing << 16) | diff_swing;
+//		postcursor = (preemp << 26) | (preemp << 10);
+//		value = vswing | postcursor;
 
-		ReadModifyWrite(0x1F00 ,(vswing << 8));
-		ReadModifyWrite(0x7C0000,(postcursor << 18));
+		ReadModifyWrite(0x1F00 ,(diff_swing << 8));
+		ReadModifyWrite(0x7C0000,(preemp << 18));
 #else
 		//setting vswing
 		XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
@@ -1772,7 +1771,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		user_config.user_pattern=1;
 		user_config.user_format = XVIDC_CSF_RGB;
 
-		Status = config_phy(max_cap_new, max_cap_lanes_new);
+		Status = config_phy(max_cap_new);
 		if (Status != XST_SUCCESS) {
 			xil_printf ("GT Configuration failed !!\r\n");
 		}
@@ -2054,7 +2053,7 @@ u8 get_Lanecounts(void){
 * @note		None.
 *
 ******************************************************************************/
-u32 config_phy(int LineRate_init_tx, int LaneCount_init_tx){
+u32 config_phy(int LineRate_init_tx){
 	u32 Status=XST_SUCCESS;
 	u8 linerate;
 	u32 dptx_sts = 0;
@@ -2139,13 +2138,13 @@ u32 config_phy(int LineRate_init_tx, int LaneCount_init_tx){
 
 
 #ifdef versal
-	ReadModifyWrite(0x70,(LaneCount_init_tx << 4));
+//	ReadModifyWrite(0x70,(LaneCount_init_tx << 4));
 	ReadModifyWrite(0xE,(linerate << 1));
-u8 retry=0;
+    u8 retry=0;
     while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_BASEADDR, 0x280);
+         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
          dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 10000);
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
          retry++;
     //        xil_printf ("tmp is %d\r\n", tmp);
       }
@@ -2157,7 +2156,7 @@ u8 retry=0;
 
 	if (Status != XST_SUCCESS) {
 		xil_printf (
-   "+++++++ TX GT configuration encountered a failure +++++++\r\n");
+   "+++++++ TX GT configuration encountered a failure config+++++++\r\n");
 	}
 	return Status;
 }
