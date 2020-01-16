@@ -2138,7 +2138,7 @@ u32 rx_maud_dup = 0;
 u32 rx_naud_dup = 0;
 u8 start_i2s_clk = 0;
 u8 lock = 0;
-u32 appx_fs_dup = 0;
+volatile u32 appx_fs_dup = 0;
 extern u32 maud_dup;
 extern u32 naud_dup;
 

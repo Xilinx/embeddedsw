@@ -77,7 +77,7 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
 void ReportVideoCRC(void);
 extern void main_loop(void);
 int set_phy = 0;
-u8 tx_is_reconnected = 0;
+volatile u8 tx_is_reconnected = 0;
 
 /************************** Variable Definitions *****************************/
 static XVphy_User_Config PHY_User_Config_Table[] =

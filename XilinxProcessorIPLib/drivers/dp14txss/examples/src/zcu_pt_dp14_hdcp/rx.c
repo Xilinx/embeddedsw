@@ -41,7 +41,7 @@
 #include "rx.h"
 #include "tx.h"
 
-u8 rx_unplugged = 0;
+volatile u8 rx_unplugged = 0;
 
 #if ENABLE_HDCP_IN_DESIGN
 extern u8 hdcp_capable_org ;

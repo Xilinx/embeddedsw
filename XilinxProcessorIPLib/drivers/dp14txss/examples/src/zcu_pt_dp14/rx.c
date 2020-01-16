@@ -40,12 +40,12 @@
 #include "main.h"
 #include "rx.h"
 
-u8 rx_unplugged = 0;
-u16 DrpVal=0;
-u16 DrpVal_lower_lane0=0;
-u16 DrpVal_lower_lane1=0;
-u16 DrpVal_lower_lane2=0;
-u16 DrpVal_lower_lane3=0;
+volatile u8 rx_unplugged = 0;
+volatile u16 DrpVal=0;
+volatile u16 DrpVal_lower_lane0=0;
+volatile u16 DrpVal_lower_lane1=0;
+volatile u16 DrpVal_lower_lane2=0;
+volatile u16 DrpVal_lower_lane3=0;
 extern u8 tx_after_rx;
 //extern u8 audio_info_avail;
 

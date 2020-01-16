@@ -127,7 +127,7 @@ user_config_struct user_config;
 XVidC_VideoMode VmId;
 
 extern u8 rx_unplugged;
-u8 rx_trained = 0;
+volatile u8 rx_trained = 0;
 u8 rx_aud_start = 0;
 
 extern lane_link_rate_struct lane_link_table[];

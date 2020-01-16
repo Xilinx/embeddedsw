@@ -47,8 +47,8 @@
 #include "xdptxss_dp14_tx.h"
 #include "xvidframe_crc.h"
 
-extern u8 hpd_pulse_con_event;
-u8 prev_line_rate;
+extern volatile u8 hpd_pulse_con_event;
+volatile u8 prev_line_rate;
 #ifndef PLATFORM_MB
 XScuGic IntcInst;
 #else
@@ -113,7 +113,7 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
 void ReportVideoCRC(void);
 extern void main_loop(void);
 int set_phy = 0;
-u8 tx_is_reconnected = 0;
+volatile u8 tx_is_reconnected = 0;
 Video_CRC_Config VidFrameCRC; /* Video Frame CRC instance */
 
 /************************** Variable Definitions *****************************/

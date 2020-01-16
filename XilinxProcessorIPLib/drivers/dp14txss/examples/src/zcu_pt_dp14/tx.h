@@ -202,11 +202,11 @@ XTmrCtr TmrCtr; 		/* Timer instance.*/
 Video_CRC_Config VidFrameCRC_tx;
 
 int tx_started;
-int tx_is_reconnected; 		/* This variable to keep track 
+volatile int tx_is_reconnected; 		/* This variable to keep track
 				 * of the status of Tx link*/
-u8 prev_line_rate; 		/* This previous line rate to keep 
+volatile u8 prev_line_rate; 		/* This previous line rate to keep
 				 * previous info to compare
 				 * with new line rate request*/
-u8 hpd_pulse_con_event; 	/* This variable triggers hpd_pulse_con */
+volatile u8 hpd_pulse_con_event; 	/* This variable triggers hpd_pulse_con */
 
 #endif /* SRC_TX_H_ */

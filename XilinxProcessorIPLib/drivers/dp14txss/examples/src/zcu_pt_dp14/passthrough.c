@@ -48,7 +48,7 @@ u8 WriteBuffer[sizeof(u8) + 16];
 u8 ReadBuffer[16];
 u16 tx_count_delay = 0;
 int tx_aud_started = 0;
-int i2s_started = 0;
+volatile int i2s_started = 0;
 
 extern u8 start_i2s_clk;
 extern u32 appx_fs_dup;
@@ -98,8 +98,8 @@ void DpPt_LaneLinkRateHelpMenu(void);
 void start_audio_passThrough();
 
 u8 edid_page;
-u8 tx_after_rx = 0;
-u8 rx_aud = 0;
+volatile u8 tx_after_rx = 0;
+volatile u8 rx_aud = 0;
 u8 downshift4K = 0;
 u8 LineRate_init_tx;
 u8 LaneCount_init_tx;
@@ -109,13 +109,13 @@ user_config_struct user_config;
 XVidC_VideoMode VmId;
 
 extern u8 rx_unplugged;
-u8 rx_trained = 0;
+volatile u8 rx_trained = 0;
 u8 rx_aud_start = 0;
 
 extern lane_link_rate_struct lane_link_table[];
 extern u32 StreamOffset[4];
-u8 tx_done = 0;
-u8 i2s_tx_started = 0;
+volatile u8 tx_done = 0;
+volatile u8 i2s_tx_started = 0;
 u8 rx_and_tx_started = 0;
 u8 status_captured = 0;
 u8 aes_sts[24];

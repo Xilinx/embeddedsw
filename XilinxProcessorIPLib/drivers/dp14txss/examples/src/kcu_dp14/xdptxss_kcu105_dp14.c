@@ -110,32 +110,32 @@ static void Dprx_DetectResolution(void *InstancePtr);
 static void Dprx_ResetVideoOutput(void *InstancePtr);
 
 
-u8 prog_tx; /*This variable triggers detect_rx_video_and_startTx()*/
-u8 rx_ran_once;
-u32 training_done;
-u32 vblank_count;
-u8 start_tracking;
-u8 change_detected;
-u8 only_tx_active;
-u8 rx_link_change_requested;
-u8 switch_to_patgen;
-u8 need_to_retrain_rx;
+volatile u8 prog_tx; /*This variable triggers detect_rx_video_and_startTx()*/
+volatile u8 rx_ran_once;
+volatile u32 training_done;
+volatile u32 vblank_count;
+volatile u8 start_tracking;
+volatile u8 change_detected;
+volatile u8 only_tx_active;
+volatile u8 rx_link_change_requested;
+volatile u8 switch_to_patgen;
+volatile u8 need_to_retrain_rx;
 u8 Edid_org[128];
 u8 Edid1_org[128];
 u8 Edid2_org[128];
 u8 max_cap_lanes;
 u8 max_cap_org;
-u8 tx_is_reconnected; /*This variable triggers hpd_con*/
-u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
+volatile u8 tx_is_reconnected; /*This variable triggers hpd_con*/
+volatile u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
 
-u8 enabled;
-u8 gt_stable;
+volatile u8 enabled;
+volatile u8 gt_stable;
 u8 LineRate_init_tx = 0x14;
 u8 LaneCount_init_tx = 0x4;
 int monitor_8K;
 u8 use_monitor_edid;
 u8 bypass_vid_common;
-u8 rx_linkup_trig;
+volatile u8 rx_linkup_trig;
 u8 edid_monitor[384];
 
 XV_axi4s_remap          rx_remap;
