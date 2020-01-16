@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,7 +59,8 @@
 *       psl  07/02/19 Fixed Coverity warnings.
 *       mmd  07/05/19 Optimized the code
 *       psl  07/31/19 Fixed MISRA-C violation
-*
+* 4.2   har  01/06/20 Removed asserts to validate zero size of data as per
+*                     CR-1049217 since hashing of zero size data is valid
 * </pre>
 *
 * @note
@@ -245,7 +246,7 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 	Xil_AssertVoid(MsgLen != 0U);
 
 	(void)memset(Dst, 0, MsgLen);
-	Dst[0] =  XSECURE_CSU_SHA3_START_NIST_PADDING_MASK;;
+	Dst[0] =  XSECURE_CSU_SHA3_START_NIST_PADDING_MASK;
 	Dst[MsgLen -1U] |= XSECURE_CSU_SHA3_END_NIST_PADDING_MASK;
 }
 /*****************************************************************************/
