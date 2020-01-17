@@ -326,7 +326,7 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 
 	switch (Action) {
 	case PM_RESET_ACTION_RELEASE:
-		if ((NULL != Ops) && (Ops->ActionRelease)) {
+		if ((NULL != Ops) && (NULL != Ops->ActionRelease)) {
 			Status = Ops->ActionRelease(Rst);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -338,7 +338,7 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_ASSERT:
-		if ((NULL != Ops) && (Ops->ActionAssert)) {
+		if ((NULL != Ops) && (NULL != Ops->ActionAssert)) {
 			Status = Ops->ActionAssert(Rst);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -350,7 +350,7 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_PULSE:
-		if ((NULL != Ops) && (Ops->ActionPulse)) {
+		if ((NULL != Ops) && (NULL != Ops->ActionPulse)) {
 			Status = Ops->ActionPulse(Rst);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -404,7 +404,7 @@ XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
 
-	if (Rst) {
+	if (NULL != Rst) {
 		Status = Rst->Ops->SetState(Rst, Action);
 	} else {
 		Status = XST_FAILURE;

@@ -135,7 +135,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	/* Deassert UB_INITSTATE for DDR blocks */
 	for (i = XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
-		if(Device) {
+		if (NULL != Device) {
 			BaseAddress = Device->Node.BaseAddress;
 			PmOut32(BaseAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 			PmOut32(BaseAddress + NPI_PCSR_MASK_OFFSET,
@@ -253,7 +253,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(XPM_NODEIDX_DEV_DDRMC_MIN + i));
-		if(Device)
+		if (NULL != Device)
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
 	}
 
@@ -373,7 +373,7 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(XPM_NODEIDX_DEV_DDRMC_MIN + i));
-		if(Device)
+		if(NULL != Device)
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
 	}
 

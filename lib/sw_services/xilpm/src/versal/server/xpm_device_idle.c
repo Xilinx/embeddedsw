@@ -327,12 +327,12 @@ void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 	}
 
 	if (DEVICE_IDLE_REQ == IdleReq) {
-		if (RstInfo->IdleHook) {
+		if (NULL != RstInfo->IdleHook) {
 			RstInfo->IdleHook(RstInfo->IdleHookArgs,
 					  Device->Node.BaseAddress);
 		}
 
-		if (RstInfo->SoftRst) {
+		if (NULL != RstInfo->SoftRst) {
 			RstInfo->SoftRst(Device->Node.BaseAddress);
 		}
 	}

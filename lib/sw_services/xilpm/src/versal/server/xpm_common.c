@@ -91,27 +91,27 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 	XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 
-	if (Pmc && ((RegAddress & 0xFFFF0000) == Pmc->PmcIouSlcrBaseAddr)) {
+	if ((NULL != Pmc) && ((RegAddress & 0xFFFF0000) == Pmc->PmcIouSlcrBaseAddr)) {
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
 			  0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
 			  0x1U);
-	} else if (PsLpd && ((RegAddress & 0xFFFF0000) ==
+	} else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000) ==
 			     PsLpd->LpdIouSlcrBaseAddr)) {
                 Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET,
 			  0x0U);
                 Xil_Out32(RegAddress, l_Val);
                 Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET,
 			  0x1U);
-        }  else if (PsLpd && ((RegAddress & 0xFFFF0000) ==
+        }  else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000) ==
 			      PsLpd->LpdSlcrBaseAddr)) {
                 Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET,
 			  0x0U);
                 Xil_Out32(RegAddress, l_Val);
                 Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET,
 			  0x1U);
-        }  else if (PsFpd && ((RegAddress & 0xFFFF0000) ==
+        }  else if ((NULL != PsFpd) && ((RegAddress & 0xFFFF0000) ==
 			      PsFpd->FpdSlcrBaseAddr)) {
                 Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET,
 			  0x0U);

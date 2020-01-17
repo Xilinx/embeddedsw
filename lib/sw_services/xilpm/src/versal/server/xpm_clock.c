@@ -217,7 +217,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	if (XST_SUCCESS == Status) {
 		Status = XPmClock_SetById(Id, Clk);
 	} else {
-		if (Clk) {
+		if (NULL != Clk) {
 			/* TODO: Free allocated memory */
 		}
 	}

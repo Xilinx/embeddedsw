@@ -53,19 +53,19 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 	PowerDomain->Children = NULL;
 	PowerDomain->DomainOps = Ops;
 
-	if (Ops && Ops->ScanClear) {
+	if ((NULL != Ops) && (NULL != Ops->ScanClear)) {
 		InitMask |= BIT(FUNC_SCAN_CLEAR);
 	}
 
-	if (Ops && Ops->Bisr) {
+	if ((NULL != Ops) && (NULL != Ops->Bisr)) {
 		InitMask |= BIT(FUNC_BISR);
 	}
 
-	if (Ops && Ops->Mbist) {
+	if ((NULL != Ops) && (NULL != Ops->Mbist)) {
 		InitMask |= BIT(FUNC_MBIST_CLEAR);
 	}
 
-	if (Ops && Ops->Lbist) {
+	if ((NULL != Ops) && (NULL != Ops->Lbist)) {
 		InitMask |= BIT(FUNC_LBIST);
 	}
 
@@ -814,7 +814,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	case FUNC_INIT_START:
 		PwrDomain->Power.Node.State = XPM_POWER_STATE_INITIALIZING;
 		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_START);
-		if (Ops && Ops->InitStart) {
+		if ((NULL != Ops) && (NULL != Ops->InitStart)) {
 			Status = Ops->InitStart(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -827,7 +827,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
-		if (Ops && Ops->InitFinish) {
+		if ((NULL != Ops) && (NULL != Ops->InitFinish)) {
 			Status = Ops->InitFinish(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -850,7 +850,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_SUCCESS;
 			goto done;
 		}
-		if (Ops && Ops->ScanClear) {
+		if ((NULL != Ops) && (NULL != Ops->ScanClear)) {
 			Status = Ops->ScanClear(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -870,7 +870,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_SUCCESS;
 			goto done;
 		}
-		if (Ops && Ops->Bisr) {
+		if ((NULL != Ops) && (NULL != Ops->Bisr)) {
 			Status = Ops->Bisr(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -889,7 +889,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_SUCCESS;
 			goto done;
 		}
-		if (Ops && Ops->Lbist) {
+		if ((NULL != Ops) && (NULL != Ops->Lbist)) {
 			Status = Ops->Lbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -908,7 +908,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_SUCCESS;
 			goto done;
 		}
-		if (Ops && Ops->Mbist) {
+		if ((NULL != Ops) && (NULL != Ops->Mbist)) {
 			Status = Ops->Mbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -922,7 +922,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
-		if (Ops && Ops->PlHouseclean) {
+		if ((NULL != Ops) && (NULL != Ops->PlHouseclean)) {
 			Status = Ops->PlHouseclean(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -935,7 +935,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                         Status = XST_FAILURE;
                         goto done;
                 }
-                if (Ops && Ops->MemInit) {
+                if ((NULL != Ops) && (NULL != Ops->MemInit)) {
                         Status = Ops->MemInit(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
                                 goto done;
@@ -948,7 +948,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                         Status = XST_FAILURE;
                         goto done;
                 }
-                if (Ops && Ops->HcComplete) {
+                if ((NULL != Ops) && (NULL != Ops->HcComplete)) {
                         Status = Ops->HcComplete(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
                                 goto done;
@@ -961,7 +961,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                         Status = XST_FAILURE;
                         goto done;
                 }
-                if (Ops && Ops->XppuCtrl) {
+                if ((NULL != Ops) && (NULL != Ops->XppuCtrl)) {
                         Status = Ops->XppuCtrl(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
                                 goto done;

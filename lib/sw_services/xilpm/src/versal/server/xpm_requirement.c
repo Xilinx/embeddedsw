@@ -47,7 +47,7 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 
 	Reqm->Flags = Flags & 0xF;
 
-	if (Params && NumParams && NumParams <= MAX_REQ_PARAMS) {
+	if ((NULL != Params) && NumParams && NumParams <= MAX_REQ_PARAMS) {
 		XPlmi_MemCpy(Reqm->Params, Params, NumParams);
 		Reqm->Flags |= ((NumParams & 0xF) << 4);
 	}
@@ -80,7 +80,7 @@ done:
 
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 {
-	if(Reqm)
+	if(NULL != Reqm)
 	{
 		Reqm->Next.Capabilities = Reqm->Curr.Capabilities;
 		Reqm->Next.Latency = Reqm->Curr.Latency;
@@ -90,7 +90,7 @@ void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 
 void XPmRequirement_Clear(XPm_Requirement* Reqm)
 {
-	if(Reqm) {
+	if(NULL != Reqm) {
 		/* Clear flag - master is not using slave anymore */
 		Reqm->Allocated = 0;
 		/* Release current and next requirements */

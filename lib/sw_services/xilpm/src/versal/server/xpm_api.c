@@ -306,7 +306,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	if ((PM_QUERY_DATA == (Cmd->CmdId & 0xFF)) &&
 	   ((XPM_QID_CLOCK_GET_NAME == Pload[0]) ||
 	   (XPM_QID_PINCTRL_GET_FUNCTION_NAME == Pload[0]))) {
-		if (!Cmd->Response) {
+		if (!Cmd->Response[0]) {
 			Status = XPM_INVALID_NAME;
 		} else {
 			Status = XST_SUCCESS;
@@ -819,7 +819,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	Payload[4] = 0U;
 
 	/* Send the suspend request via callback */
-	if (PmRequestCb) {
+	if (NULL != PmRequestCb) {
 		(*PmRequestCb)(IpiMask, PM_INIT_SUSPEND_CB, Payload);
 	}
 
@@ -957,7 +957,8 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 	if ((NODECLASS(NodeId) == XPM_NODECLASS_DEVICE) &&
 	    (NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(NodeId);
-		if (Core && Core->CoreOps && Core->CoreOps->PowerDown) {
+		if ((NULL != Core) && (NULL != Core->CoreOps)
+		    && (NULL != Core->CoreOps->PowerDown)) {
 			Status = Core->CoreOps->PowerDown(Core);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -970,7 +971,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 		}
 
 		Reqm = Core->Device.Requirements;
-		while (Reqm) {
+		while (NULL != Reqm) {
 			if (TRUE == Reqm->Allocated) {
 				TargetSubsystemId = Reqm->Subsystem->Id;
 				if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(TargetSubsystemId)) {
@@ -1095,7 +1096,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 				Device = Reqm->Device;
 				if (XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
 					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
-					if (Core->CoreOps->PowerDown) {
+					if (NULL != Core->CoreOps->PowerDown) {
 						Status = Core->CoreOps->PowerDown(Core);
 						if (XST_SUCCESS != Status) {
 							goto done;
@@ -1200,7 +1201,7 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 
 	Periph = (XPm_Periph *)XPmDevice_GetById(SourceNodeId);
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if(!Periph || !Subsystem) {
+	if((NULL == Periph) || (NULL == Subsystem)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3413,7 +3414,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmPsm_Init(Psm, Ipi, BaseAddr, Power, 0, 0);
+			Status = XPmPsm_Init(Psm, Ipi, BaseAddr, Power, NULL, NULL);
 			break;
 		case XPM_NODETYPE_DEV_CORE_APU:
 			ApuCore = (XPm_ApuCore *)XPm_AllocBytes(sizeof(XPm_ApuCore));
@@ -3421,7 +3422,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmApuCore_Init(ApuCore, DeviceId, Ipi, BaseAddr, Power, 0, 0);
+			Status = XPmApuCore_Init(ApuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
 			break;
 		case XPM_NODETYPE_DEV_CORE_RPU:
 			RpuCore = (XPm_RpuCore *)XPm_AllocBytes(sizeof(XPm_RpuCore));
@@ -3429,7 +3430,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmRpuCore_Init(RpuCore, DeviceId, Ipi, BaseAddr, Power, 0, 0);
+			Status = XPmRpuCore_Init(RpuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
 			break;
 		case XPM_NODETYPE_DEV_CORE_PMC:
 			Pmc = (XPm_Pmc *)XPm_AllocBytes(sizeof(XPm_Pmc));
@@ -3437,7 +3438,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, 0, 0);
+			Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, NULL, NULL);
 			break;
 		default:
 			break;

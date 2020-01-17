@@ -246,7 +246,7 @@ static XStatus GtyHouseClean()
 
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
 		Device = XPmDevice_GetById(GT_DEVID(XPM_NODEIDX_DEV_GT_MIN + i));
-		if(Device)
+		if(NULL != Device)
 			GtyAddresses[i] = Device->Node.BaseAddress;
 	}
 
