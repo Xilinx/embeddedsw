@@ -3201,7 +3201,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_AieDomain *AieDomain;
 	XPm_CpmDomain *CpmDomain;
 
-	if (NumArgs < 3) {
+	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3397,7 +3397,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	if (Index >= XPM_NODEIDX_DEV_MAX) {
+	if (Index >= (u32)XPM_NODEIDX_DEV_MAX) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
@@ -3529,7 +3529,7 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
 
-	if (Index >= XPM_NODEIDX_DEV_MAX) {
+	if (Index >= (u32)XPM_NODEIDX_DEV_MAX) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
@@ -3669,7 +3669,7 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 	u32 SubClass;
 	u32 PowerId;
 
-	if (NumArgs < 3) {
+	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3727,7 +3727,7 @@ static XStatus XPm_AddNodeMemIc(u32 *Args, u32 NumArgs)
 	u32 MemIcId;
 	u32 BaseAddress;
 
-	if (NumArgs < 3) {
+	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3770,7 +3770,7 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 	int Status = XST_FAILURE;
 	u32 NodeId, BaseAddress, NodeType;
 
-	if (NumArgs < 3) {
+	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3790,9 +3790,9 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 
 	NodeType = NODETYPE(NodeId);
 
-	if (((XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
-	    (XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType)
-		&& (XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
+	if ((((u32)XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
+	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType)
+		&& ((u32)XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
 	    (XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -3825,7 +3825,7 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 	u32 SubClass;
 	XPm_Prot *ProtNode;
 
-	if (NumArgs < 3) {
+	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3890,7 +3890,7 @@ static XStatus XPm_AddNodeMio(u32 *Args, u32 NumArgs)
 	u32 BaseAddress;
 	XPm_PinNode *MioPin;
 
-	if (NumArgs < 3) {
+	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

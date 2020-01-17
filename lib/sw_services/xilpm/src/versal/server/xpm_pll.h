@@ -82,9 +82,9 @@ struct XPm_PllClockNode {
 	PmPllContext Context;
 };
 
-#define ISPLL(id)	(((NODECLASS(id) == XPM_NODECLASS_CLOCK) && \
-			  (NODESUBCLASS(id) == XPM_NODESUBCL_CLOCK_PLL) && \
-			  (NODEINDEX(id) < XPM_NODEIDX_CLK_MAX)) ? 1 : 0)
+#define ISPLL(id)	(((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \
+			  (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_PLL) && \
+			  (NODEINDEX(id) < (u32)XPM_NODEIDX_CLK_MAX)) ? 1 : 0)
 
 #define RESET_SHIFT		0U
 #define BYPASS_SHIFT		3U
