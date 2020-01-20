@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -142,10 +142,10 @@ int main(void)
 	Status = SecureAesExample();
 
 	if(Status == XST_SUCCESS) {
-		xil_printf("\r\nDecryption was successful \r\n");
+		xil_printf("\r\nSuccessfully ran AES example \r\n");
 	}
 	else {
-		xil_printf("\r\nDecryption example was failed \r\n");
+		xil_printf("\r\nAES example failed \r\n");
 	}
 
 	return Status;

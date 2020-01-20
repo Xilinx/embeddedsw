@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -138,10 +138,10 @@ int main(void)
 	/* Encryption and decryption of the data */
 	Status = SecureAesExample();
 	if(Status == XST_SUCCESS) {
-		xil_printf("\r\nSuccessfully passed AES example\r\n");
+		xil_printf("\r\nSuccessfully ran Versal AES example\r\n");
 	}
 	else {
-		xil_printf("\r\n AES example was failed\r\n");
+		xil_printf("\r\nVersal AES example failed\r\n");
 	}
 
 END:

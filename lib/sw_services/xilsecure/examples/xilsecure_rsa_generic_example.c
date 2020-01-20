@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -289,12 +289,12 @@ int main(void)
 
 	if(Status != XST_SUCCESS)
 	{
-		xil_printf("\r\n RSA example is Failed with status: %d \r\n",
+		xil_printf("\r\nGeneric RSA example failed %d \r\n",
 					Status);
 		return XST_FAILURE;
 	}
 
-	xil_printf("\r\nRSA example passed successfully\r\n ");
+	xil_printf("\r\nSuccessfully ran Generic RSA example\r\n ");
 
 	return XST_SUCCESS;
 }

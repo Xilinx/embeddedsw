@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 19 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -119,11 +119,11 @@ int main(void)
 
 	if(Status != XST_SUCCESS)
 	{
-		xil_printf("\r\n Decryption Failed: %d \r\n ",Status);
+		xil_printf("\r\nRSA example failed %d \r\n ",Status);
 		return XST_FAILURE;
 	}
 
-	xil_printf("\r\n Hashes matched, Decryption successful \r\n ");
+	xil_printf("\r\n Successfully ran RSA example \r\n ");
 	xil_printf(" \r\n ");
 
 	return XST_SUCCESS;
