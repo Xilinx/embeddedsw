@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,6 +82,10 @@ void ModDapInit(void)
 {
 	const XPfw_Module_t *DapModPtr = XPfw_CoreCreateMod();
 
-	(void) XPfw_CoreSetCfgHandler(DapModPtr, DapCfgInit);
-	(void) XPfw_CoreSetEventHandler(DapModPtr, DapEventHandler);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(DapModPtr, DapCfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"DAP: Set Cfg handler failed\r\n");
+	} else if (XST_SUCCESS !=
+			XPfw_CoreSetEventHandler(DapModPtr, DapEventHandler)) {
+		XPfw_Printf(DEBUG_DETAILED,"DAP: Set Event handler failed\r\n");
+	}
 }

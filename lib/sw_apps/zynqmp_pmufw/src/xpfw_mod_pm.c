@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,10 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 
 		if (XPFW_PM_IPI_IS_PM_CALL == ipiStatus) {
 			/* Power management API processing */
-			(void)XPfw_PmIpiHandler(SrcMask, &Payload[0], Len);
+			if (XST_SUCCESS != XPfw_PmIpiHandler(SrcMask, &Payload[0], Len)) {
+				XPfw_Printf(DEBUG_DETAILED,"MOD-%d: Error in processing IPI"
+					"\r\n", ModPtr->ModId);
+			}
 		} else {
 			XPfw_Printf(DEBUG_DETAILED,"MOD-%d: Non-PM IPI-%lu call received"
 					"\r\n", ModPtr->ModId, IpiNum);
@@ -93,7 +96,9 @@ static void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		break;
 	case XPFW_EV_TYPE_GPI2:
 		RegValue = XPfw_EventGetRegMask(EventId);
-		(void)XPfw_PmWfiHandler(RegValue);
+		if (XST_SUCCESS != XPfw_PmWfiHandler(RegValue)) {
+			XPfw_Printf(DEBUG_DETAILED, "Error in WFI event\r\n");
+		}
 		break;
 	default:
 		XPfw_Printf(DEBUG_ERROR,"Unhandled PM Event: %lu\r\n", EventId);
@@ -224,9 +229,15 @@ void ModPmInit(void)
 {
 	PmModPtr = XPfw_CoreCreateMod();
 
-	(void)XPfw_CoreSetCfgHandler(PmModPtr, PmCfgInit);
-	(void)XPfw_CoreSetEventHandler(PmModPtr, PmEventHandler);
-	(void)XPfw_CoreSetIpiHandler(PmModPtr, PmIpiHandler, 0U);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(PmModPtr, PmCfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"PM: Set Cfg handler failed\r\n");
+	} else if (XST_SUCCESS !=
+			XPfw_CoreSetEventHandler(PmModPtr, PmEventHandler)) {
+		XPfw_Printf(DEBUG_DETAILED,"PM: Set Event handler failed\r\n");
+	} else if (XST_SUCCESS !=
+			XPfw_CoreSetIpiHandler(PmModPtr, PmIpiHandler, 0U)) {
+		XPfw_Printf(DEBUG_DETAILED,"PM: Set IPI handler failed\r\n");
+	}
 }
 #else /* ENABLE_PM */
 void ModPmInit(void) { }

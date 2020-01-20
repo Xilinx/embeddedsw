@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -440,8 +440,11 @@ s32 XPfw_RecoveryInit(void)
 	 */
 
 	if (NULL != RstTracker->TtcPtr) {
-		(void)PmResetAssertInt(RstTracker->TtcResetId,
+		Status = PmResetAssertInt(RstTracker->TtcResetId,
 							PM_RESET_ACTION_PULSE);
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 	}
 
 	WdtConfigPtr = GetWdtCfgPtr(RstTracker->WdtBaseAddress);
@@ -456,7 +459,10 @@ s32 XPfw_RecoveryInit(void)
 	}
 
 	/* Reset the WDT */
-	(void)PmResetAssertInt(RstTracker->WdtResetId, PM_RESET_ACTION_PULSE);
+	Status = PmResetAssertInt(RstTracker->WdtResetId, PM_RESET_ACTION_PULSE);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
 
 	WdtRestart(RstTracker->WdtPtr, RstTracker->WdtTimeout);
 
@@ -554,7 +560,9 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 							RstTracker->RestartScope) {
 
 					XPfw_Printf(DEBUG_DETAILED, "Restarting RPU from WDT\n\r");
-					(void)PmMasterRestart(RstTracker->Master);
+					if (XST_SUCCESS != PmMasterRestart(RstTracker->Master)) {
+						XPfw_Printf(DEBUG_DETAILED, "Master restart failed");
+					}
 
 				} else if (PMF_SHUTDOWN_SUBTYPE_PS_ONLY ==
 							RstTracker->RestartScope) {
@@ -577,7 +585,9 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 			/*
 			 * Fixme: reset as per the restartScope, don't assume subsystem only.
 			 */
-			(void)PmMasterRestart(RstTracker->Master);
+			if (XST_SUCCESS != PmMasterRestart(RstTracker->Master)) {
+				XPfw_Printf(DEBUG_DETAILED, "Master restart failed\r\n");
+			}
 #endif /* ENABLE_ESCALATION */
 		}
 END:

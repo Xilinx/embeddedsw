@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -147,10 +147,9 @@ void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr)
 	}
 }
 
-XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
+void XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 {
 	u32 Idx;
-	XStatus Status;
 	u32 CallCount = 0U;
 
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
@@ -168,15 +167,6 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 			}
 		}
 	}
-
-	if (CallCount > 0U) {
-		Status = XST_SUCCESS;
-	} else {
-		/* Failed because none of the tasks were triggered */
-		Status = XST_FAILURE;
-	}
-
-	return Status;
 }
 
 XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t CallbackFn)

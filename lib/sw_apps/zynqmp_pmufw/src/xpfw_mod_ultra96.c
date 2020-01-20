@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -136,7 +136,9 @@ static void Ultra96CfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 
 void ModUltra96Init(void)
 {
 	Ultra96ModPtr = XPfw_CoreCreateMod();
-	(void)XPfw_CoreSetCfgHandler(Ultra96ModPtr,Ultra96CfgInit);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(Ultra96ModPtr,Ultra96CfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"Ultra96: Set Cfg handler failed\r\n");
+	}
 }
 #else /* ENABLE_MOD_ULTRA96 */
 void ModUltra96Init(void) { }

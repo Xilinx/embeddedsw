@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -244,17 +244,23 @@ static void XPfw_InterruptGpi3Handler(void)
 
 static void XPfw_InterruptRtcAlaramHandler(void)
 {
-	(void)XPfw_CoreDispatchEvent(XPFW_EV_RTC_ALARM);
+	if (XST_SUCCESS != XPfw_CoreDispatchEvent(XPFW_EV_RTC_ALARM)) {
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch "
+				"Event ID: %d\r\n", XPFW_EV_RTC_ALARM);
+	}
 }
 
 static void XPfw_InterruptRtcSecondsmHandler(void)
 {
-	(void)XPfw_CoreDispatchEvent(XPFW_EV_RTC_SECONDS);
+	if (XST_SUCCESS != XPfw_CoreDispatchEvent(XPFW_EV_RTC_SECONDS)) {
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch "
+				"Event ID: %d\r\n", XPFW_EV_RTC_SECONDS);
+	}
 }
 
 static void XPfw_Pit1Handler(void)
 {
-	(void)XPfw_CoreTickHandler();
+	XPfw_CoreTickHandler();
 }
 
 static void XPfw_Ipi0Handler(void)

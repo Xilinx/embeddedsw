@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +58,11 @@ static void CheckFsblCompletion(void)
 		XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2, PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK);
 
 		/* Set PS Error Out action for PLL lock errors */
-		(void)XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
+		if (XST_SUCCESS !=
+				XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL)) {
+			XPfw_Printf(DEBUG_DETAILED,"Common: Set error action for "
+					"PLL Lock errors failed\r\n");
+		}
 
 		/*
 		 * Once FSBL execution is completed, PMU need to enable the LPD/FPD WDT
@@ -67,18 +71,30 @@ static void CheckFsblCompletion(void)
 		if (FSBL_RUNNING_ON_A53 ==
 				(FsblCompletionStatus & FSBL_STATE_PROC_INFO_MASK)) {
 
-			(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, SWDT_EM_ACTION,
-						ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
+			if (XST_SUCCESS != XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT,
+					SWDT_EM_ACTION, ErrorTable[EM_ERR_ID_FPD_SWDT].Handler)) {
+				XPfw_Printf(DEBUG_DETAILED,"Common: Set error action for "
+						"FPD WDT error failed\r\n");
+			}
 
-			(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
-							ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
+			if (XST_SUCCESS != XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT,
+					EM_ACTION_SRST, ErrorTable[EM_ERR_ID_LPD_SWDT].Handler)) {
+				XPfw_Printf(DEBUG_DETAILED,"Common: Set error action for "
+						"LPD WDT error failed\r\n");
+			}
 		} else {
 
-			(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_SRST,
-						ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
+			if (XST_SUCCESS != XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT,
+					EM_ACTION_SRST, ErrorTable[EM_ERR_ID_FPD_SWDT].Handler)) {
+				XPfw_Printf(DEBUG_DETAILED,"Common: Set error action for "
+						"FPD WDT error failed\r\n");
+			}
 
-			(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, SWDT_EM_ACTION,
-							ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
+			if (XST_SUCCESS != XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT,
+					SWDT_EM_ACTION, ErrorTable[EM_ERR_ID_LPD_SWDT].Handler)) {
+				XPfw_Printf(DEBUG_DETAILED,"Common: Set error action for "
+						"LPD WDT error failed\r\n");
+			}
 		}
 
 		/* If ENABLE_RECOVERY is defined, PMU need to call this function and
@@ -172,7 +188,9 @@ void ModCommonInit(void)
 {
 	CommonModPtr = XPfw_CoreCreateMod();
 
-	(void) XPfw_CoreSetCfgHandler(CommonModPtr, CommonCfgInit);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(CommonModPtr, CommonCfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"Common: Set Cfg handler failed\r\n");
+	}
 }
 #else
 void ModCommonInit(void) { }

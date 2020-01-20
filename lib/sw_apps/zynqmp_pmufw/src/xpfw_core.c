@@ -290,7 +290,7 @@ XStatus XPfw_CoreLoop(void)
 
 		#ifdef ENABLE_SCHEDULER
 			if(TRUE == CorePtr->Scheduler.Enabled){
-				(void)XPfw_SchedulerProcess(&CorePtr->Scheduler);
+				XPfw_SchedulerProcess(&CorePtr->Scheduler);
 			}
 		#endif
 

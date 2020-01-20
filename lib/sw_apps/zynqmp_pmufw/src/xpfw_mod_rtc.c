@@ -61,8 +61,12 @@ void ModRtcInit(void)
 {
 	const XPfw_Module_t *RtcModPtr = XPfw_CoreCreateMod();
 
-	(void)XPfw_CoreSetCfgHandler(RtcModPtr, RtcCfgInit);
-	(void)XPfw_CoreSetEventHandler(RtcModPtr, RtcEventHandler);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(RtcModPtr, RtcCfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"RTC: Set Cfg handler failed\r\n");
+	} else if (XST_SUCCESS !=
+			XPfw_CoreSetEventHandler(RtcModPtr, RtcEventHandler)) {
+		XPfw_Printf(DEBUG_DETAILED,"RTC: Set Event handler failed\r\n");
+	}
 }
 #else /* ENABLE_RTC_TEST */
 void ModRtcInit(void) { }
