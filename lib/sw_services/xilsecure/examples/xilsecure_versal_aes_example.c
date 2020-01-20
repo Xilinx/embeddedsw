@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMANGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -48,6 +30,8 @@
 #include "xparameters.h"
 #include "xsecure_aes.h"
 #include "xil_util.h"
+#include "xpmcdma.h"
+
 /************************** Constant Definitions *****************************/
 
 /* Harcoded KUP key for encryption of data */
@@ -65,7 +49,7 @@
 #define XSECURE_IV_SIZE		(12)
 #define XSECURE_KEY_SIZE	(32)
 
-#define XSECURE_CSUDMA_DEVICEID	XPAR_XCSUDMA_0_DEVICE_ID
+#define XSECURE_PMCDMA_DEVICEID	PMCDMA_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
@@ -138,10 +122,10 @@ int main(void)
 	/* Encryption and decryption of the data */
 	Status = SecureAesExample();
 	if(Status == XST_SUCCESS) {
-		xil_printf("\r\nSuccessfully passed AES example\r\n");
+		xil_printf("\r\nSuccessfully ran Versal AES example\r\n");
 	}
 	else {
-		xil_printf("\r\n AES example was failed\r\n");
+		xil_printf("\r\nVersal AES example failed\r\n");
 	}
 
 END:
@@ -167,30 +151,26 @@ END:
 /** //! [Generic AES example] */
 static s32 SecureAesExample(void)
 {
-	XCsuDma_Config *Config;
+	XPmcDma_Config *Config;
 	s32 Status = XST_FAILURE;
 	u32 Index;
-	XCsuDma CsuDmaInstance;
+	XPmcDma PmcDmaInstance;
 	XSecure_Aes Secure_Aes;
 
-	/* Initialize CSU DMA driver */
-	Config = XCsuDma_LookupConfig(XSECURE_CSUDMA_DEVICEID);
+	/* Initialize PMC DMA driver */
+	Config = XPmcDma_LookupConfig(XSECURE_PMCDMA_DEVICEID);
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
 
-	Status = XCsuDma_CfgInitialize(&CsuDmaInstance, Config,
+	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
 					Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&Secure_Aes, &CsuDmaInstance);
-
-	/* Take core out of reset */
-	XSecure_ReleaseReset(Secure_Aes.BaseAddress,
-				XSECURE_AES_SOFT_RST_OFFSET);
+	XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
 
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(&Secure_Aes, XSECURE_AES_USER_KEY_0,
@@ -244,6 +224,9 @@ static s32 SecureAesExample(void)
 	}
 	xil_printf( "\r\n\n");
 
+	/* Initialize the Aes driver so that it's ready to use */
+	XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
+
 	/* Decrypt's the encrypted data */
 	/*
 	 * If data to be decrypted is contiguous one can also call
@@ -263,9 +246,6 @@ static s32 SecureAesExample(void)
 		xil_printf("Decryption failure- GCM tag was not matched\n\r");
 		goto END;
 	}
-	/* Set AES engine into reset */
-	XSecure_SetReset(Secure_Aes.BaseAddress,
-				XSECURE_AES_SOFT_RST_OFFSET);
 
 	xil_printf("Decrypted data %x \n\r", DecData);
 	for (Index = 0; Index < XSECURE_DATA_SIZE; Index++) {
