@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -407,4 +407,18 @@ XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t 
 	}
 
 	return Status;
+}
+
+void XPfw_Exception_Handler(void)
+{
+	XPfw_Printf(DEBUG_PRINT_ALWAYS,"%s: Error! Exception has occurred\r\n",
+				__func__);
+	/* Write error occurrence to PERS register and trigger FW Error1 */
+	XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, HW_EXCEPTION_RECEIVED,
+			HW_EXCEPTION_RECEIVED);
+	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+			PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
+	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+			0x0U);
+	while(1);
 }

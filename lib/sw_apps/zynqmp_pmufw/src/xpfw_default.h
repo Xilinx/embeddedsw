@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -99,6 +99,9 @@ extern "C" {
 #define CHECK_FSBL_COMPLETION	100U
 
 #define FSBL_COMPLETION			1U
+
+#define IPI_CRC_ERROR_OCCURRED	0x1U
+#define HW_EXCEPTION_RECEIVED	0x2U
 
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);

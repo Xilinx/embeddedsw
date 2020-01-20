@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,7 @@ _vector_interrupt:
 		.section .vectors.hw_exception, "ax"
 		.align 2
 _vector_hw_exception:
-		brai	_hw_exception_handler
+		brai	XPfw_Exception_Handler
 
 /* FW StartUP Begins Here: Initialization of the Stack and Stack Protection. */
 		.section .text

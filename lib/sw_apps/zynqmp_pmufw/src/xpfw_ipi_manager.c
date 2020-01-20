@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -184,7 +184,9 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
-		/* Trigger FW Error1 */
+		/* Write error occurrence to PERS register and trigger FW Error1 */
+		XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, IPI_CRC_ERROR_OCCURRED,
+					IPI_CRC_ERROR_OCCURRED);
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
@@ -246,7 +248,9 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
-		/* Trigger FW Error1 */
+		/* Write error occurrence to PERS register and trigger FW Error1 */
+		XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, IPI_CRC_ERROR_OCCURRED,
+					IPI_CRC_ERROR_OCCURRED);
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
