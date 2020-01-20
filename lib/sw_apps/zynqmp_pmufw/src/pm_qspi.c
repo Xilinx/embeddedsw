@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -101,13 +101,6 @@
 
 #define DUMMY_CLOCKS		8U /* Number of dummy bytes for fast, dual and
 				     quad reads */
-
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#define QSPIPSU_DEVICE_ID		XPAR_XQSPIPSU_0_DEVICE_ID
 
 /*
  * Max page size to initialize write and read buffer

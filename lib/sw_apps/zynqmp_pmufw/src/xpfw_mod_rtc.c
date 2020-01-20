@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,10 @@ static void RtcCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 				"Warning: RtcCfgInit: Failed to register event ID:"
 						" %d\r\n", XPFW_EV_RTC_SECONDS)
 	}
+
+	/* Enable SLVERR for RTC */
+	XPfw_RMW32(RTC_CONTROL, RTC_CONTROL_SLVERR_ENABLE_MASK,
+			RTC_CONTROL_SLVERR_ENABLE_MASK);
 
 	/* Enable Seconds Alarm */
 	Xil_Out32(RTC_RTC_INT_EN, 1U);

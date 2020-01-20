@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,11 @@ extern "C" {
  * FPD SLCR Base Address
  */
 #define FPD_SLCR_BASEADDR                       ((u32)0xFD610000U)
+
+/*
+ * FPD SLCR Ctrl
+ */
+#define FPD_SLCR_CTRL							( ( FPD_SLCR_BASEADDR ) + ((u32)0x4U) )
 
 /*
  * Register: AFI_FS

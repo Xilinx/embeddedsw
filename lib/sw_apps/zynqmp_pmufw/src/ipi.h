@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,8 @@ extern "C" {
 #define IPI_PMU_1_ISR    ( ( IPI_BASEADDR ) + ((u32)0X00031010U) )
 #define IPI_PMU_2_ISR    ( ( IPI_BASEADDR ) + ((u32)0X00032010U) )
 #define IPI_PMU_3_ISR    ( ( IPI_BASEADDR ) + ((u32)0X00033010U) )
+
+#define IPI_CTRL				( ( IPI_BASEADDR ) + ((u32)0x00080000U) )
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -549,11 +549,6 @@ void NodeSataIdle(u32 BaseAddress)
 
 #if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || \
 	defined(XPAR_PSU_ADMA_0_DEVICE_ID)
-
-/* Total number of channels and offset per DMA */
-
-#define XZDMA_CH_OFFSET		0X10000
-#define XZDMA_NUM_CHANNEL		8U	/* Number of channels */
 
 /**
  * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)

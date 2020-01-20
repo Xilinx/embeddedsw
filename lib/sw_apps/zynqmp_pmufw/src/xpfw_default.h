@@ -59,6 +59,18 @@ extern "C" {
 #define IOU_SLCR_MIO_PIN_36_OFFSET	0x00000090U
 #define IOU_SLCR_MIO_PIN_37_OFFSET	0x00000094U
 
+#define IOU_SLCR_CTRL		( IOU_SLCR_BASE + (u32)(0x600U) )
+
+#define SLVERR_MASK				(u32)(0x1U)
+
+/* XPPU SINK Registers */
+#define XPPU_SINK_BASE_ADDR		0xFF9CFF00U
+#define XPPU_SINK_ERR_CTRL		(XPPU_SINK_BASE_ADDR + 0xECU)
+
+/* BBRAM registers */
+#define BBRAM_BASE_ADDR			0xFFCD0000U
+#define BBRAM_SLVERR_REG		(BBRAM_BASE_ADDR + 0x34U)
+
 /* RAM address used for scrubbing */
 #define PARAM_RAM_LOW_ADDRESS		0Xffdc0000U
 #define PARAM_RAM_HIGH_ADDRESS		0Xffdcff00U

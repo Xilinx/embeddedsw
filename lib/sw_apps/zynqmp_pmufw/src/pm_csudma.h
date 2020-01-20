@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,12 @@ extern "C" {
  */
 /* CSU DMA device Id */
 #define CSUDMA_DEVICE_ID	XPAR_XCSUDMA_0_DEVICE_ID
+/* CSU DMA Source control */
+#define CSUDMA_SRC_CTRL		(XPAR_XCSUDMA_0_BASEADDR + 0xCU)
+/* CSU DMA Destination control */
+#define CSUDMA_DEST_CTRL	(XPAR_XCSUDMA_0_BASEADDR + 0x80CU)
+/*CSU DMA APB error response mask */
+#define CSUDMA_APB_ERR_RESP_MASK	0x01000000U
 /* CSU SSS_CFG Offset */
 #define CSU_SSS_CONFIG_OFFSET	0x00000008U
 /* LOOP BACK configuration macro */
