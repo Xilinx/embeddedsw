@@ -204,7 +204,7 @@ Done:
 #ifdef ENABLE_IPI_CRC
 		RespBuf[7] = XPfw_CalculateCRC((u32)RespBuf, XPFW_IPI_W0_TO_W6_SIZE);
 #endif
-		(void)XIpiPsu_WriteMessage(Ipi0InstPtr, SrcCpuMask, RespBuf,
+		Status = XIpiPsu_WriteMessage(Ipi0InstPtr, SrcCpuMask, RespBuf,
 				XPFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 	}
 	return Status;

@@ -51,7 +51,9 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 {
 	IPI_REQUEST4(master->ipiMask, PM_ACKNOWLEDGE_CB, nodeId, status,
 		     oppoint);
-	(void)XPfw_IpiTrigger( master->ipiMask);
+	if (XST_SUCCESS != XPfw_IpiTrigger(master->ipiMask)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
 }
 
 /**
@@ -65,7 +67,9 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		const u32 event, const u32 oppoint)
 {
 	IPI_REQUEST4(master->ipiMask, PM_NOTIFY_CB, nodeId, event, oppoint);
-	(void)XPfw_IpiTrigger( master->ipiMask);
+	if (XST_SUCCESS != XPfw_IpiTrigger(master->ipiMask)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
 }
 
 /**
@@ -84,7 +88,9 @@ void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 
 	IPI_REQUEST5(master->ipiMask, PM_INIT_SUSPEND_CB, reason, latency,
 		     state, timeout);
-	(void)XPfw_IpiTrigger( master->ipiMask);
+	if (XST_SUCCESS != XPfw_IpiTrigger(master->ipiMask)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
 }
 
 #endif

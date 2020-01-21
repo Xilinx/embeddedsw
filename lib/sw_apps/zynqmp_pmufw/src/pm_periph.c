@@ -594,7 +594,10 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 			   ETH_RECV_ENABLE_MASK);
 
 		/* Change OCM Bank3 requirement to default */
-		(void)PmRequirementUpdate(req, req->defaultReq);
+		if (XST_SUCCESS != PmRequirementUpdate(req, req->defaultReq)) {
+			PmWarn("Error in update OCM Bank3 requirement to default\r\n");
+		}
+
 		ethWake->wakeEnabled = false;
 	}
 }
@@ -619,7 +622,9 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 
 	if (enable != 0U) {
 		/* Keep OCM Bank3 ON while suspend */
-		(void)PmRequirementUpdate(req, PM_CAP_ACCESS);
+		if (XST_SUCCESS != PmRequirementUpdate(req, PM_CAP_ACCESS)) {
+			PmWarn("Error in requirement update for OCM Bank3\r\n");
+		}
 
 		if (0U == ocmStored) {
 			/*

@@ -717,7 +717,10 @@ s32 PmPllSetModeInt(PmPll* const pll, const u32 mode)
 	XPfw_RMW32(pll->addr + PM_PLL_FRAC_OFFSET, PLL_FRAC_CFG_ENABLED_MASK,
 		   val);
 
-	(void)PmPllLock(pll);
+	status = PmPllLock(pll);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
 	/* Deassert bypass if the PLL has locked */
 	if (XST_SUCCESS == status) {

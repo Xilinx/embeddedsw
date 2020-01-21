@@ -122,7 +122,9 @@ void RpuLsHandler(u8 ErrorId)
 	XPfw_Printf(DEBUG_ERROR,"EM: RPU Lock-Step Error Occurred "
 			"(Error ID: %d)\r\n", ErrorId);
 	XPfw_Printf(DEBUG_ERROR,"EM: Initiating RPU Reset \r\n");
-	(void)XPfw_ResetRpu();
+	if (XST_SUCCESS != XPfw_ResetRpu()) {
+		XPfw_Printf(DEBUG_ERROR,"EM: Error in Reset RPU\r\n");
+	}
 }
 
 /**

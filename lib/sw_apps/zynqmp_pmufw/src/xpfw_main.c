@@ -131,7 +131,11 @@ XStatus XPfw_Main(void)
 
 #ifdef ENABLE_DDR_SR_WR
 	if (PM_SUSPEND_TYPE_POWER_OFF != PmSystemSuspendType()) {
-		PmHookSystemStart();
+		Status = PmHookSystemStart();
+		if (XST_SUCCESS != Status) {
+			XPfw_Printf(DEBUG_ERROR, "%s: Error! System start failed\r\n", __func__);
+			goto Done;
+		}
 	}
 #endif
 

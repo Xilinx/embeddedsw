@@ -138,11 +138,15 @@ void PmHookPowerDownLpd(void)
 }
 
 #ifdef ENABLE_DDR_SR_WR
-void PmHookSystemStart(void)
+s32 PmHookSystemStart(void)
 {
+	s32 Status = XST_SUCCESS;
+
 	if ((Xil_In32(XPFW_DDR_STATUS_REGISTER_OFFSET) & DDR_STATUS_FLAG_MASK) != 0U) {
-		PmDdrExitSr();
+		Status = PmDdrExitSr();
 	}
+
+	return Status;
 }
 #endif
 

@@ -816,7 +816,10 @@ static void PmNotifyR5AndModifyWdtTimeout(u32 Timeout,
 		PmR5StlNoOpNotification Notification)
 {
 	IPI_REQUEST2(IPI_PMU_0_IER_RPU_0_MASK, PM_NOTIFY_STL_NO_OP, Notification);
-	(void)XPfw_IpiTrigger(IPI_PMU_0_IER_RPU_0_MASK);
+	if (XST_SUCCESS != XPfw_IpiTrigger(IPI_PMU_0_IER_RPU_0_MASK)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
+
 	XPfw_WdtSetVal(Timeout);
 }
 

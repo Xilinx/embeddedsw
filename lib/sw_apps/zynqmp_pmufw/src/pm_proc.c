@@ -220,8 +220,8 @@ static s32 PmProcApu3Sleep(void)
  */
 static s32 PmProcRpu0Sleep(void)
 {
-	(void)XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
-	(void)XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
+	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
 
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
@@ -233,8 +233,8 @@ static s32 PmProcRpu0Sleep(void)
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
 
-	(void)XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
-	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
+	XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
 
 	return XST_SUCCESS;
 }
@@ -245,8 +245,8 @@ static s32 PmProcRpu0Sleep(void)
  */
 static s32 PmProcRpu1Sleep(void)
 {
-	(void)XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
-	(void)XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
+	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
 
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
@@ -258,8 +258,8 @@ static s32 PmProcRpu1Sleep(void)
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
 
-	(void)XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
-	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
+	XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
 
 	return XST_SUCCESS;
 }
@@ -382,7 +382,10 @@ static s32 PmProcWake(PmProc* const proc)
 		}
 	}
 	if (NULL != proc->node.clocks) {
-		(void)PmClockRequest(&proc->node);
+		status = PmClockRequest(&proc->node);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
 	}
 
 	proc->restoreResumeAddr(proc);

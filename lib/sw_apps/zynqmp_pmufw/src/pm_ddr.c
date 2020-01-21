@@ -1892,11 +1892,17 @@ err:
 	return status;
 }
 
-void PmDdrExitSr(void)
+s32 PmDdrExitSr(void)
 {
+	s32 Status;
+
 	/* Wait until FSBL initialize DDR controller */
-	(void)XPfw_UtilPollForMask(XPFW_DDR_STATUS_REGISTER_OFFSET,
-			     DDRC_INIT_FLAG_MASK, DDR_FLAG_POLL_PERIOD);
+	Status = XPfw_UtilPollForMask(XPFW_DDR_STATUS_REGISTER_OFFSET,
+				      DDRC_INIT_FLAG_MASK,
+				      DDR_FLAG_POLL_PERIOD);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Read DDRC & DDR PHY register values and modify some bitfields */
 	store_state(ctx_ddrc);
@@ -1921,6 +1927,9 @@ void PmDdrExitSr(void)
 	/* Indication to FSBL that DDR is out of self refresh mode */
 	XPfw_RMW32(XPFW_DDR_STATUS_REGISTER_OFFSET, DDR_STATUS_FLAG_MASK,
 		   ~DDR_STATUS_FLAG_MASK);
+
+done:
+	return Status;
 }
 #endif
 

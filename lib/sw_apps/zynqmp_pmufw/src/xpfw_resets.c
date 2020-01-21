@@ -77,7 +77,9 @@ static void XPfw_PrepareDDRForWR(void)
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
 
 	/* Put DDR in self refresh mode */
-	(void)PmDdrEnterSr();
+	if (XST_SUCCESS != PmDdrEnterSr()) {
+		PmWarn("Error while putting DDR in self refresh mode\r\n");
+	}
 }
 #endif
 

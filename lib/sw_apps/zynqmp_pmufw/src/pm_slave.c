@@ -836,7 +836,10 @@ void PmResetSlaveStates(void)
 
 	for (i = 0U; i < ARRAY_SIZE(pmNodeSlaveBucket); i++) {
 		slave = (PmSlave*)pmNodeSlaveBucket[i]->derived;
-		(void)PmSlaveChangeState(slave, slave->slvFsm->statesCnt - 1U);
+		if (XST_SUCCESS != PmSlaveChangeState(slave,
+						slave->slvFsm->statesCnt - 1U)) {
+			PmWarn("Error in change state for %s\r\n", slave->node.name);
+		}
 	}
 }
 
