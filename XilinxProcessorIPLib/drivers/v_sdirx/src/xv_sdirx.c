@@ -178,7 +178,7 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	if (InstancePtr->Config.MaxRateSupported < XSDIRX_LINE_RATE_6G)
 		SupportModes &= ~XV_SDIRX_SUPPORT_6G;
 
-	XV_SdiRx_EnableMode(InstancePtr, SupportedModes);
+	XV_SdiRx_EnableMode(InstancePtr, SupportModes);
 
 	/* Enables FF EDH and AP EDH errors counter */
 	XV_SdiRx_SetEdhErrCntTrigger(InstancePtr, 0x420);
