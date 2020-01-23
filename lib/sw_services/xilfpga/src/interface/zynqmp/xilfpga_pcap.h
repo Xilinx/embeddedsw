@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -208,6 +208,7 @@ extern "C" {
 #define PMU_GLOBAL_ISO_INT_EN		(PMU_GLOBAL_BASE + 0X318U)
 #define PMU_GLOBAL_ISO_TRIG		(PMU_GLOBAL_BASE + 0X320U)
 #define PMU_GLOBAL_ISO_STATUS		(PMU_GLOBAL_BASE + 0X310U)
+#define PMU_GLOBAL_ISO_NONPCAP_MASK	0X00000004U
 
 #define GPIO_DIRM_5_EMIO		0xFF0A0344U
 #define GPIO_MASK_DATA_5_MSW	0xFF0A002CU

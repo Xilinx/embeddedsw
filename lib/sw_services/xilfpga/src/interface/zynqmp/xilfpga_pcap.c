@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2016-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -103,6 +103,7 @@
  *                     XFpga_DecrypSecureHdr path.
  * 5.2 Nava 18/12/19   Fix for security violation in the readback path.
  * 5.2 Nava 02/01/20  Added conditional compilation support for readback feature.
+ * 5.2 Nava 21/01/20  Replace event poll logic with Xil_WaitForEvent() API.
  * </pre>
  *
  * @note
@@ -1266,7 +1267,7 @@ END:
  *
  * @return
  *	Error code on failure
- *	XFPGA_SUCESS on success
+ *	XFPGA_SUCCESS on success
  *
  * @note	 None.
  *
@@ -1416,7 +1417,7 @@ END:
  *
  * @return
  *	Error code on failure
- *	XFPGA_SUCESS on success
+ *	XFPGA_SUCCESS on success
  *
  * @note	None
  *
@@ -1502,7 +1503,7 @@ static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src, u32 Size,
  *
  * @return
  *	Error code on failure
- *	XFPGA_SUCESS on success
+ *	XFPGA_SUCCESS on success
  *
  * @note None
  *
@@ -1664,7 +1665,7 @@ END:
  *
  * @return
  *	Error code on failure
- *	XFPGA_SUCESS on success
+ *	XFPGA_SUCCESS on success
  *
  * @note	None
  *
@@ -1803,21 +1804,13 @@ END:
 static u32 XFpga_PLWaitForDone(void)
 {
 	u32 Status = XFPGA_FAILURE;
-	u32 PollCount;
 	u32 RegVal = 0U;
 
-	PollCount = (u32)(PL_DONE_POLL_COUNT);
-	while (PollCount != 0U) {
-		/* Read PCAP Status register and check for PL_DONE bit */
-		RegVal = Xil_In32(CSU_PCAP_STATUS);
-		RegVal &= CSU_PCAP_STATUS_PL_DONE_MASK;
-		if (RegVal == CSU_PCAP_STATUS_PL_DONE_MASK) {
-			break;
-		}
-		PollCount--;
-	}
-
-	if (PollCount == 0U) {
+	Status = Xil_WaitForEvent(CSU_PCAP_STATUS,
+				  CSU_PCAP_STATUS_PL_DONE_MASK,
+				  CSU_PCAP_STATUS_PL_DONE_MASK,
+				  PL_DONE_POLL_COUNT);
+	if (Status != XST_SUCCESS) {
 		Status = XFPGA_ERROR_PCAP_PL_DONE;
 		goto END;
 	}
@@ -1827,23 +1820,10 @@ static u32 XFpga_PLWaitForDone(void)
 	RegVal = RegVal | CSU_PCAP_RESET_RESET_MASK;
 	Xil_Out32(CSU_PCAP_RESET, RegVal);
 
-	PollCount = (u32)(PL_DONE_POLL_COUNT);
-	RegVal = 0U;
-	while (PollCount != 0U) {
-		RegVal = Xil_In32(CSU_PCAP_RESET);
-		RegVal = RegVal & CSU_PCAP_RESET_RESET_MASK;
-		if (RegVal == CSU_PCAP_RESET_RESET_MASK) {
-			break;
-		}
-		PollCount--;
-	}
-
-	if (PollCount == 0U) {
-		Status = XFPGA_FAILURE;
-	} else {
-		Status = XFPGA_SUCCESS;
-	}
-
+	Status = Xil_WaitForEvent(CSU_PCAP_RESET,
+				  CSU_PCAP_RESET_RESET_MASK,
+				  CSU_PCAP_RESET_RESET_MASK,
+				  PL_DONE_POLL_COUNT);
 END:
 	return Status;
 }
@@ -1867,22 +1847,13 @@ static u32 XFpga_PowerUpPl(void)
 #ifdef __MICROBLAZE__
 	Status = XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPLD]();
 #else
-
-	u32 RegVal;
-	u32 PollCount;
-
-
 	Xil_Out32(PMU_GLOBAL_PWRUP_EN, PMU_GLOBAL_PWR_PL_MASK);
 	Xil_Out32(PMU_GLOBAL_PWRUP_TRIG, PMU_GLOBAL_PWR_PL_MASK);
-	PollCount = (PL_DONE_POLL_COUNT);
-	do {
-		RegVal = Xil_In32(PMU_GLOBAL_PWRUP_STATUS) &
-					PMU_GLOBAL_PWR_PL_MASK;
-		PollCount--;
-		usleep(1);
-	} while ((RegVal != 0U) && (PollCount != 0U));
 
-	if (PollCount == 0U) {
+	Status = Xil_WaitForEvent(PMU_GLOBAL_PWRUP_STATUS,
+				  PMU_GLOBAL_PWR_PL_MASK, 0U,
+				  PL_DONE_POLL_COUNT);
+	if (Status != XST_SUCCESS) {
 		Status = XFPGA_ERROR_PL_POWER_UP;
 	} else {
 		Status = XFPGA_SUCCESS;
@@ -1910,26 +1881,17 @@ static u32 XFpga_IsolationRestore(void)
 #ifdef __MICROBLAZE__
 	Status = XpbrServHndlrTbl[XPBR_SERV_EXT_PLNONPCAPISO]();
 #else
-
-	u32 PollCount;
-	u32 RegVal;
-
-
 	/* Isolation request enable */
-	Xil_Out32(PMU_GLOBAL_ISO_INT_EN, PMU_GLOBAL_PWR_PL_MASK);
+	Xil_Out32(PMU_GLOBAL_ISO_INT_EN, PMU_GLOBAL_ISO_NONPCAP_MASK);
 
 	/* Trigger Isolation request */
-	Xil_Out32(PMU_GLOBAL_ISO_TRIG, PMU_GLOBAL_PWR_PL_MASK);
+	Xil_Out32(PMU_GLOBAL_ISO_TRIG, PMU_GLOBAL_ISO_NONPCAP_MASK);
 
 	/* Poll for Isolation complete */
-	PollCount = (PL_DONE_POLL_COUNT);
-	do {
-		RegVal = Xil_In32(PMU_GLOBAL_ISO_STATUS) &
-					PMU_GLOBAL_PWR_PL_MASK;
-		PollCount--;
-	} while ((RegVal != 0U) && (PollCount != 0U));
-
-	if (PollCount == 0U) {
+	Status = Xil_WaitForEvent(PMU_GLOBAL_ISO_STATUS,
+				  PMU_GLOBAL_ISO_NONPCAP_MASK, 0U,
+				  PL_DONE_POLL_COUNT);
+	if (Status != XST_SUCCESS) {
 		Status = XFPGA_ERROR_PL_ISOLATION;
 	} else {
 		Status = XFPGA_SUCCESS;
