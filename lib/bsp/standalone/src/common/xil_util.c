@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,9 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 6.4   mmd      04/21/19 First release.
+* 7.2   nava     08/01/20 Updated Xil_WaitForEvent() and Xil_WaitForEvents(()
+*                         API to use microsecond timeout instead of a free
+*                         counter.
 *
 * </pre>
 *
@@ -42,6 +45,7 @@
 
 /****************************** Include Files *********************************/
 #include "xil_util.h"
+#include "sleep.h"
 
 /************************** Constant Definitions ****************************/
 #define MAX_NIBBLES			8U
@@ -138,14 +142,13 @@ END:
 /*
  * Waits for the event
  *
- * @param   RegAddr   - Address of register to be checked for event(s) occurance
+ * @param   RegAddr   - Address of register to be checked for event(s) occurrence
  * @param   EventMask - Mask indicating event(s) to be checked
  * @param   Event     - Specific event(s) value to be checked
- * @param   Timeout   - Free counter decremented on each event(s) check and
- *                      declared timeout when reaches 0
+ * @param   Timeout   - Max number of microseconds to wait for an event(s).
  *
  * @return
- *          XST_SUCCESS - On occurance of the event(s).
+ *          XST_SUCCESS - On occurrence of the event(s).
  *          XST_FAILURE - Event did not occur before counter reaches 0
  *
  * @note    None.
@@ -164,6 +167,7 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 			break;
 		}
 		PollCount--;
+		usleep(1U);
 	}
 
 	return Status;
@@ -178,9 +182,8 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
  *                       occurrence
  * @param   EventMask  - Mask indicating event(s) to be checked
  * @param   WaitEvents - Specific event(s) to be checked
- * @param   Timeout    - Free counter decremented on each event(s) check and
- *                       declared timeout when reaches 0
- * @param   Events     - Mask of Events occured returned in memory pointed by
+ * @param   Timeout    - Max number of microseconds to wait for an event(s).
+ * @param   Events     - Mask of Events occurred returned in memory pointed by
  *                       this variable
  *
  * @return
@@ -207,6 +210,7 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 			break;
 		}
 		PollCount--;
+		usleep(1U);
 	}
 	while(PollCount > 0);
 
