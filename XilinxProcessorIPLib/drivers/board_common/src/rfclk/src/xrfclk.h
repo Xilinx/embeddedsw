@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfclk.h
-* @addtogroup xrfclk_v1_1
+* @addtogroup xrfclk
 * @{
 *
 * Contains the API of the XRFclk middleware.
@@ -41,6 +41,7 @@
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
 *       dc     11/25/19 update LMX and LMK configs
 *       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
+* 1.2   dc     22/01/20 add version and list of LMK frequencies
 *
 * </pre>
 *
@@ -51,6 +52,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define RFCLK_VERSION "1.2"
 
 #if !defined(XPS_BOARD_ZCU111) && !defined(XPS_BOARD_ZCU216)
 #define XPS_BOARD_ZCU216
