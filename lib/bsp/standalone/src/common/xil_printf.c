@@ -67,16 +67,15 @@ static void outs(const charptr lp, struct params_s *par)
     /* pad on left if needed                         */
 	if(LocalPtr != NULL) {
 		par->len = (s32)strlen( LocalPtr);
-	}
-    padding( !(par->left_flag), par);
-
-    /* Move string to the buffer                     */
-    while (((*LocalPtr) != (char8)0) && ((par->num2) != 0)) {
-		(par->num2)--;
+		padding( !(par->left_flag), par);
+		/* Move string to the buffer                     */
+		while (((*LocalPtr) != (char8)0) && ((par->num2) != 0)) {
+			(par->num2)--;
 #ifdef STDOUT_BASEADDRESS
-        outbyte(*LocalPtr);
+			outbyte(*LocalPtr);
 #endif
-		LocalPtr += 1;
+			LocalPtr += 1;
+		}
 }
 
     /* Pad on right if needed                        */
