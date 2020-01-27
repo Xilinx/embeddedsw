@@ -724,7 +724,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 			       CRP_RESET_REASON_SW_SYS_MASK |
 			       CRP_RESET_REASON_ERR_SYS_MASK |
 			       CRP_RESET_REASON_DAP_SYS_MASK);
-	u32 DomainStatusMask = 1U << (NODEINDEX(PwrDomain->Power.Node.Id) - 1U);
+	u32 DomainStatusMask = (u32)1U << (NODEINDEX(PwrDomain->Power.Node.Id) - 1U);
 
 	/* Clear System Reset and domain POR reset flags */
 	SystemResetFlag = 0;

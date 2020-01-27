@@ -2116,7 +2116,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 		/* Required by MISRA */
 	}
 
-	BitMask = 1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
+	BitMask = (u32)1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
 	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
 
 	switch (Param) {
@@ -2261,7 +2261,7 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 		/* Required by MISRA */
 	}
 
-	BitMask = 1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
+	BitMask = (u32)1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
 	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
 
 	switch (Param) {

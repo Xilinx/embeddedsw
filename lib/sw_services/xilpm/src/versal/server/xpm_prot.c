@@ -225,13 +225,13 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 				ApertureAddress = (PpuNode->ProtNode.Node.BaseAddress + XPPU_APERTURE_0_OFFSET) + (ApertureOffset * 4U);
 				DynamicReconfigAddrOffset = ApertureOffset;
 				PermissionRegAddress = PpuNode->ProtNode.Node.BaseAddress + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET + (((APER_64K_START + ApertureOffset) / 32U) * 4U);
-				PermissionRegMask = 1U << ((APER_64K_START + ApertureOffset) % 32U);
+				PermissionRegMask = (u32)1U << ((APER_64K_START + ApertureOffset) % 32U);
 			} else if ((DeviceBaseAddr >= PpuNode->Aperture_1m.StartAddress) && (DeviceBaseAddr <= PpuNode->Aperture_1m.EndAddress)) {
 				ApertureOffset =  (DeviceBaseAddr - PpuNode->Aperture_1m.StartAddress) / SIZE_1M;
 				ApertureAddress = (PpuNode->ProtNode.Node.BaseAddress + XPPU_APERTURE_384_OFFSET) + (ApertureOffset * 4U);
 				DynamicReconfigAddrOffset = ApertureOffset;
 				PermissionRegAddress = PpuNode->ProtNode.Node.BaseAddress + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET + (((APER_1M_START + ApertureOffset) / 32U) * 4U);
-				PermissionRegMask = 1U << ((APER_1M_START + ApertureOffset) % 32U);
+				PermissionRegMask = (u32)1U << ((APER_1M_START + ApertureOffset) % 32U);
 			/*TODO: 512M start and end address need to be validated */
 			/*} else if ((DeviceBaseAddr >= PpuNode->Aperture_512m.StartAddress) && (DeviceBaseAddr <= PpuNode->Aperture_512m.EndAddress)) {
 				ApertureOffset =  (DeviceBaseAddr - PpuNode->Aperture_512m.StartAddress) / SIZE_512M;
@@ -259,18 +259,18 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 	PmDbg("Aperoffset %x AperAddress %x DynamicReconfigAddrOffset %x\r\n",ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
 
 	if (Enable) {
-		u32 UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
-		u32 Security = (Reqm->Flags & REG_FLAGS_SECURITY_MASK) >> REG_FLAGS_SECURITY_OFFSET;
+		u8 UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
+		u32 Security = (Reqm->Flags & (u32)REG_FLAGS_SECURITY_MASK) >> REG_FLAGS_SECURITY_OFFSET;
 
 		PmIn32(ApertureAddress, Permissions);
 
 		/* Configure XPPU Aperture */
-		if ((UsagePolicy == (u32)REQ_NONSHARED) || (UsagePolicy == (u32)REQ_TIME_SHARED)) {
+		if ((UsagePolicy == (u8)REQ_NONSHARED) || (UsagePolicy == (u8)REQ_TIME_SHARED)) {
 			Permissions = ((Security << XPPU_APERTURE_TRUSTZONE_OFFSET) | (Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK));
-		} else if (UsagePolicy == (u32)REQ_SHARED) {
+		} else if (UsagePolicy == (u8)REQ_SHARED) {
 			/* if device is shared, permissions need to be ored with existing */
 			Permissions |= ((Security << XPPU_APERTURE_TRUSTZONE_OFFSET) | (Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK));
-		} else if (UsagePolicy == (u32)REQ_NO_RESTRICTION) {
+		} else if (UsagePolicy == (u8)REQ_NO_RESTRICTION) {
 			Permissions = (XPPU_APERTURE_PERMISSION_MASK | XPPU_APERTURE_TRUSTZONE_MASK);
 		}
 	} else {

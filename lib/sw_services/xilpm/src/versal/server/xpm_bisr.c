@@ -321,7 +321,7 @@ static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		goto done;
 	}
 
-	BisrDataDestAddr = LpDomain->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
+	BisrDataDestAddr = LpDomain->LpdSlcrBaseAddr + (u64)LPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
@@ -395,7 +395,7 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		goto done;
 	}
 
-	BisrDataDestAddr = PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
+	BisrDataDestAddr = PsFpd->FpdSlcrBaseAddr + (u64)FPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
@@ -467,7 +467,7 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		goto done;
 	}
 
-	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_DATA_0_OFFSET;
+	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + (u64)CPM_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
@@ -515,7 +515,7 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 		goto done;
 	}
 
-	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_DATA_0_OFFSET;
+	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + (u64)CPM5_SLCR_BISR_CACHE_DATA_0_OFFSET;
 	/* Disable write protection */
 	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_WPROTP_OFFSET, 0x0);
 

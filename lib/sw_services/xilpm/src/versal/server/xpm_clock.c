@@ -141,7 +141,7 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 		if (TopologyType == TOPOLOGY_CUSTOM) {
 			OutClkPtr->Topology.Id = TOPOLOGY_CUSTOM;
 			OutClkPtr->Topology.NumNodes = NumCustomNodes;
-			OutClkPtr->Topology.Nodes = XPm_AllocBytes(NumCustomNodes * sizeof(struct XPm_ClkTopologyNode));
+			OutClkPtr->Topology.Nodes = XPm_AllocBytes((u32)NumCustomNodes * sizeof(struct XPm_ClkTopologyNode));
 			if (OutClkPtr->Topology.Nodes == NULL) {
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;

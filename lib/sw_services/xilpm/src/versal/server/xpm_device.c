@@ -675,7 +675,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Requirement *Reqm;
-	u32 UsagePolicy = 0;
+	u8 UsagePolicy = 0;
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
@@ -696,7 +696,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	/* Check whether this device is shareable */
 	UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
-	if ((UsagePolicy == (u32)REQ_TIME_SHARED) || (UsagePolicy == (u32)REQ_NONSHARED)) {
+	if ((UsagePolicy == (u8)REQ_TIME_SHARED) || (UsagePolicy == (u8)REQ_NONSHARED)) {
 			//Check if it already requested by other subsystem. If yes, return
 			XPm_Requirement *NextReqm = Reqm->NextSubsystem;
 			while (NULL != NextReqm) {
@@ -1521,7 +1521,7 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
 {
 	u32 Idx;
 	u32 Latency = 0U;
-	u32 HighestState = Device->DeviceFsm->StatesCnt - 1U;
+	u32 HighestState = Device->DeviceFsm->StatesCnt - (u32)1U;
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->TransCnt; Idx++) {
 		if ((State == Device->DeviceFsm->Trans[Idx].FromState) &&

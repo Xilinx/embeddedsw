@@ -317,12 +317,12 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 
 	if (Flags & PLL_RESET_ASSERT) {
 		/* Bypass PLL before putting it into the reset */
-		XPm_RMW32(ControlReg, BIT(Pll->Topology->BypassShift),
-			   BIT(Pll->Topology->BypassShift));
+		XPm_RMW32(ControlReg, BIT32(Pll->Topology->BypassShift),
+			   BIT32(Pll->Topology->BypassShift));
 
 		/* Power down PLL (= reset PLL) */
-		XPm_RMW32(ControlReg, BIT(Pll->Topology->ResetShift),
-			   BIT(Pll->Topology->ResetShift));
+		XPm_RMW32(ControlReg, BIT32(Pll->Topology->ResetShift),
+			   BIT32(Pll->Topology->ResetShift));
 		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
 
 		if ((PLATFORM_VERSION_SILICON == Platform) &&
@@ -347,15 +347,15 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 	}
 	if (Flags & PLL_RESET_RELEASE) {
 		/* Deassert the reset */
-		XPm_RMW32(ControlReg, BIT(Pll->Topology->ResetShift),
-			   ~BIT(Pll->Topology->ResetShift));
+		XPm_RMW32(ControlReg, BIT32(Pll->Topology->ResetShift),
+			   ~BIT32(Pll->Topology->ResetShift));
 		/* Poll status register for the lock */
-		Status = XPm_PollForMask(Pll->StatusReg, BIT(Pll->Topology->LockShift),
+		Status = XPm_PollForMask(Pll->StatusReg, BIT32(Pll->Topology->LockShift),
 						  PLL_LOCK_TIMEOUT);
 		/* Deassert bypass if the PLL locked */
 		if (XST_SUCCESS == Status) {
-			XPm_RMW32(ControlReg, BIT(Pll->Topology->BypassShift),
-					~BIT(Pll->Topology->BypassShift));
+			XPm_RMW32(ControlReg, BIT32(Pll->Topology->BypassShift),
+					~BIT32(Pll->Topology->BypassShift));
 			Pll->ClkNode.Node.State = PM_PLL_STATE_LOCKED;
 		} else {
 			goto done;

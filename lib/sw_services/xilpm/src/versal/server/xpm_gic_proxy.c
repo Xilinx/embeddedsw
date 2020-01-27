@@ -80,7 +80,7 @@ static void XPmGicProxy_Enable(void)
 
 		if (0U != XPm_GicProxy.Groups[g].SetMask) {
 			XPm_Out32(BaseAddress +
-				  PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET, BIT(g));
+				  PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET, BIT32(g));
 		}
 	}
 
@@ -121,7 +121,7 @@ static void XPm_GicProxyDisable(void)
 
 		if (GIC_PROXY_ALL_MASK == XPm_In32(MaskAddr)) {
 			XPm_Out32(BaseAddress +
-				  PMC_GLOBAL_GICP_IRQ_DISABLE_OFFSET, BIT(g));
+				  PMC_GLOBAL_GICP_IRQ_DISABLE_OFFSET, BIT32(g));
 		}
 	}
 
