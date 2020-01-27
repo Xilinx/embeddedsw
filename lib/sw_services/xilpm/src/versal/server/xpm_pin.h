@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_PIN_H_
 #define XPM_PIN_H_
@@ -37,10 +17,10 @@ extern "C" {
 #endif
 
 /* IOU_SLCR register related macros */
-#define BITS_IN_REG			(32)
-#define PINS_PER_BANK			(26)
+#define BITS_IN_REG			(32U)
+#define PINS_PER_BANK			(26U)
 #define BNK_OFFSET			(0x200U)
-#define PINNUM(Id)	   		((NODEINDEX(Id) - XPM_NODEIDX_STMIC_LMIO_0) % PINS_PER_BANK)
+#define PINNUM(Id)	   		((NODEINDEX(Id) - (u32)XPM_NODEIDX_STMIC_LMIO_0) % PINS_PER_BANK)
 #define SEL_SLEW			(0x00000120U)
 #define EN_WK_PD			(0x00000110U)
 #define EN_WK_PU			(0x00000114U)
@@ -48,8 +28,8 @@ extern "C" {
 #define SEL_DRV0			(0x00000118U)
 #define SEL_DRV1			(0x0000011CU)
 #define SEL_DRV_WIDTH			(2U)
-#define SEL_DRV0_MASK(PinIdx)		(0x3 << (PINNUM(PinIdx)))
-#define SEL_DRV1_MASK(PinIdx)		(0x3 << (PINNUM(PinIdx) - (BITS_IN_REG / SEL_DRV_WIDTH)))
+#define SEL_DRV0_MASK(PinIdx)		((u32)0x3U << (PINNUM(PinIdx)))
+#define SEL_DRV1_MASK(PinIdx)		((u32)0x3U << (PINNUM(PinIdx) - (BITS_IN_REG / SEL_DRV_WIDTH)))
 #define VMODE				(0x0000015CU)
 #define VMODE_MASK			(0x1U)
 #define TRI_STATE			(0x200U)
@@ -78,7 +58,7 @@ struct XPm_PinNode {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPin_Init(XPm_PinNode *Pin, u32 Id, u32 BaseAddress);
+XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress);
 XPm_PinNode *XPmPin_GetById(u32 PinId);
 
 XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId);
