@@ -39,13 +39,13 @@ extern "C" {
 
 /* Global general storage register base address */
 #define GGS_BASEADDR	(0xF1110030U)
-#define GGS_NUM_REGS	(4)
+#define GGS_NUM_REGS	(4U)
 
 #define GGS_4_OFFSET	(0x10U)
 
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
-#define PGGS_NUM_REGS	(4)
+#define PGGS_NUM_REGS	(4U)
 
 /* Tap delay bypass */
 #define TAPDLY_BYPASS_OFFSET			(0x0000003CU)
@@ -79,9 +79,9 @@ extern "C" {
 #define PROBE_COUNTER_LPD_MAX_IDX		(5U)
 #define PROBE_COUNTER_FPD_MAX_IDX		(15U)
 
-#define PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE	(3)
-#define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7)
-#define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3)
+#define PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE	(3U)
+#define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7U)
+#define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3U)
 
 XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload));
 

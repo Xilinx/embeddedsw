@@ -41,10 +41,10 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 	switch (Node->State)
 	{
 		case XPM_POWER_STATE_ON:
-			if (XPM_POWER_EVENT_PWR_UP == Event) {
+			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount++;
-			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
+			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount--;
 			} else {
@@ -70,7 +70,7 @@ static XStatus PmcXppuCtrl(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	u32 XppuNodeId, Enable;
 
-	if(NumOfArgs < 2) {
+	if(NumOfArgs < 2U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -78,12 +78,12 @@ static XStatus PmcXppuCtrl(u32 *Args, u32 NumOfArgs)
 	XppuNodeId = Args[0];
 	Enable = Args[1];
 
-	if (XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
+	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
+	if ((u32)XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

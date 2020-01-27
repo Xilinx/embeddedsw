@@ -460,7 +460,7 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	/* Read and store the reset reason value */
 	PmIn32(CRP_RESET_REASON, ResetReason);
 
-	if (0 != (ResetReason & SysResetMask)) {
+	if (0U != (ResetReason & SysResetMask)) {
 		/* Clear the system reset bits of reset_reason register */
 		PmOut32(CRP_RESET_REASON, (ResetReason & SysResetMask));
 
@@ -663,8 +663,8 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	/*
 	 * Call LPD init to initialize required components
 	 */
-	if ((NODEINDEX(NodeId) == XPM_NODEIDX_POWER_LPD) &&
-		(Function == FUNC_INIT_FINISH) &&
+	if ((NODEINDEX(NodeId) == (u32)XPM_NODEIDX_POWER_LPD) &&
+		(Function == (u32)FUNC_INIT_FINISH) &&
 		(XST_SUCCESS == Status)) {
 #ifdef DEBUG_UART_PS
 		/**
@@ -769,8 +769,8 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 
 	PmInfo("(%lu, %lu)\r\n", Reason, DeviceId);
 
-	if((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) &&
-	   (NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE)) {
+	if((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
+	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 		Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
 		Status = XPM_PM_ABORT_SUSPEND;
@@ -822,8 +822,8 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
 
-	if ((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) &&
-	   (NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE)) {
+	if ((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
+	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 		Core->ResumeAddr = Address | 1U;
 		Core->Device.Node.State = XPM_DEVSTATE_SUSPENDING;
@@ -935,7 +935,7 @@ int XPm_GicProxyWakeUp(const u32 PeriphIdx)
 	int Status = XST_FAILURE;
 
 	XPm_Periph *Periph = (XPm_Periph *)XPmDevice_GetByIndex(PeriphIdx);
-	if ((NULL == Periph) || (0 == Periph->WakeProcId)) {
+	if ((NULL == Periph) || (0U == Periph->WakeProcId)) {
 		goto done;
 	}
 
@@ -1052,8 +1052,8 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 		goto done;
 	}
 
-	if ((NODECLASS(NodeId) == XPM_NODECLASS_DEVICE) &&
-	    (NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_CORE)) {
+	if ((NODECLASS(NodeId) == (u32)XPM_NODECLASS_DEVICE) &&
+	    (NODESUBCLASS(NodeId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(NodeId);
 		if ((NULL != Core) && (NULL != Core->CoreOps)
 		    && (NULL != Core->CoreOps->PowerDown)) {
@@ -1118,7 +1118,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			 */
 			Device = XPmDevice_GetByIndex(i);
 			if ((NULL == Device) ||
-			    (XPM_DEVSTATE_UNUSED == Device->Node.State)) {
+			    ((u32)XPM_DEVSTATE_UNUSED == Device->Node.State)) {
 				continue;
 			}
 
@@ -1276,16 +1276,16 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 	XPm_Subsystem *Subsystem;
 
 	/* Check if given target node is valid */
-	if(NODECLASS(TargetNodeId) != XPM_NODECLASS_DEVICE ||
-	   NODESUBCLASS(TargetNodeId) != XPM_NODESUBCL_DEV_CORE)
+	if(NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE ||
+	   NODESUBCLASS(TargetNodeId) != (u32)XPM_NODESUBCL_DEV_CORE)
 	{
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	/* The call applies only to peripheral nodes */
-	if (NODECLASS(SourceNodeId) != XPM_NODECLASS_DEVICE ||
-	    NODESUBCLASS(SourceNodeId) != XPM_NODESUBCL_DEV_PERIPH) {
+	if (NODECLASS(SourceNodeId) != (u32)XPM_NODECLASS_DEVICE ||
+	    NODESUBCLASS(SourceNodeId) != (u32)XPM_NODESUBCL_DEV_PERIPH) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1653,10 +1653,10 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
-	u32 CurrState = 0;
+	u32 CurrState = 0U;
 
 	/* HACK: Don't disable PLL clocks for now */
-	if(Enable == 0 && ISPLL(ClockId))
+	if(Enable == 0U && ISPLL(ClockId))
 	{
 		Status = XST_SUCCESS;
 		return Status;
@@ -1684,9 +1684,9 @@ bypass:
 		Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, Enable);
 	} else if (ISPLL(ClockId)) {
 		u32 Mode;
-		if (1 == Enable) {
+		if (1U == Enable) {
 			Mode = ((XPm_PllClockNode *)Clk)->PllMode;
-		} else if (0 == Enable) {
+		} else if (0U == Enable) {
 			Mode = PM_PLL_MODE_RESET;
 		} else {
 			Status = XST_INVALID_PARAM;
@@ -1726,7 +1726,7 @@ XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
 						TYPE_GATE, State);
 	} else if (ISPLL(ClockId)) {
 		Status = XPmClockPll_GetMode((XPm_PllClockNode *)Clk, State);
-		if (*State == PM_PLL_MODE_RESET) {
+		if (*State == (u32)PM_PLL_MODE_RESET) {
 			*State = 0;
 		} else {
 			*State = 1;
@@ -2629,8 +2629,8 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		PROBE_COUNTER_FPD_WR_RES_OFFSET,
 	};
 
-	CounterIdx = Arg1 & PROBE_COUNTER_IDX_MASK;
-	ReqType = ((Arg1 >> PROBE_COUNTER_REQ_TYPE_SHIFT) &
+	CounterIdx = Arg1 & (u32)PROBE_COUNTER_IDX_MASK;
+	ReqType = ((Arg1 >> (u32)PROBE_COUNTER_REQ_TYPE_SHIFT) &
 		   PROBE_COUNTER_REQ_TYPE_MASK);
 	switch (NODEINDEX(DeviceId)) {
 	case XPM_NODEIDX_POWER_LPD:
@@ -2684,11 +2684,11 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		Reg += ReqTypeOffset + PROBE_COUNTER_STATE_PERIOD_OFFSET;
 		break;
 	case XPM_PROBE_COUNTER_TYPE_PORT_SEL:
-		Reg += (ReqTypeOffset + (CounterIdx * 20) +
+		Reg += (ReqTypeOffset + ((u32)CounterIdx * 20U) +
 			PROBE_COUNTER_PORT_SEL_OFFSET);
 		break;
 	case XPM_PROBE_COUNTER_TYPE_SRC:
-		Reg += (ReqTypeOffset + (CounterIdx * 20) +
+		Reg += (ReqTypeOffset + ((u32)CounterIdx * 20U) +
 			PROBE_COUNTER_SRC_OFFSET);
 		break;
 	case XPM_PROBE_COUNTER_TYPE_VAL:
@@ -2696,7 +2696,7 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 			/* This type doesn't support write operation */
 			goto done;
 		}
-		Reg += (ReqTypeOffset + (CounterIdx * 20) +
+		Reg += (ReqTypeOffset + ((u32)CounterIdx * 20U) +
 			PROBE_COUNTER_VAL_OFFSET);
 		break;
 	default:
@@ -3042,7 +3042,7 @@ XStatus XPm_DescribeNodes(u32 NumArgs)
 	int Status = XST_FAILURE;
 	/*u32 NumPwrNodes, NumClkNodes, NumRstNodes, NumMioNodes, NumDevices;*/
 
-	if(NumArgs < 3) {
+	if(NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3091,12 +3091,12 @@ XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs)
 	u32 *Parents;
 	u32 NumParents;
 
-	if (NumArgs < 2) {
+	if (NumArgs < 2U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	NumParents = NumArgs-1;
+	NumParents = NumArgs-1U;
 	Parents = &Args[1];
 
 	switch ((Id >> NODE_CLASS_SHIFT) & NODE_CLASS_MASK_BITS) {
@@ -3150,7 +3150,7 @@ static XStatus XPm_AddClockSubNode(u32 *Args, u32 NumArgs)
 	u32 ClockId, ControlReg, Type, Flags;
 	u8 Param1, Param2;
 
-	if (NumArgs < 5) {
+	if (NumArgs < 5U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3159,7 +3159,7 @@ static XStatus XPm_AddClockSubNode(u32 *Args, u32 NumArgs)
 		Type = Args[1];
 		ControlReg = Args[2];
 		Param1 =  Args[3] & 0xFFU;
-		Param2 =  (Args[3] >> 8) & 0xFFU;
+		Param2 =  (Args[3] >> 8U) & 0xFFU;
 		Flags = Args[4];
 		Status = XPmClock_AddSubNode(ClockId, Type, ControlReg, Param1, Param2, Flags);
 	} else {
@@ -3191,22 +3191,22 @@ static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 	u32 PowerDomainId;
 	u8 TopologyType, NumCustomNodes=0, NumParents, ClkFlags;
 
-	if (NumArgs < 4) {
+	if (NumArgs < 4U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 	ClockId = Args[0];
 
-	if (NODETYPE(ClockId) == XPM_NODETYPE_CLOCK_SUBNODE) {
+	if (NODETYPE(ClockId) == (u32)XPM_NODETYPE_CLOCK_SUBNODE) {
 		Status = XPm_AddClockSubNode(Args, NumArgs);
 		goto done;
 	}
 	if (ISOUTCLK(ClockId) || ISREFCLK(ClockId) || ISPLL(ClockId)) {
 		ControlReg = Args[1];
 		TopologyType = Args[2] & 0xFFU;
-		NumCustomNodes = (Args[2] >> 8) & 0xFFU;
-		NumParents = (Args[2] >> 16) & 0xFFU;
-		ClkFlags = (Args[2] >> 24) & 0xFFU;
+		NumCustomNodes = (Args[2] >> 8U) & 0xFFU;
+		NumParents = (Args[2] >> 16U) & 0xFFU;
+		ClkFlags = (Args[2] >> 24U) & 0xFFU;
 		PowerDomainId = Args[3];
 		if (ISPLL(ClockId)) {
 			u16 *Offsets = (u16 *)&Args[4];
@@ -3248,14 +3248,14 @@ XStatus XPm_AddNodeName(u32 *Args, u32 NumArgs)
 	char Name[MAX_NAME_BYTES] = {0};
 	u32 i=0, j=0;
 
-	if (NumArgs == 0) {
+	if (NumArgs == 0U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 	NodeId = Args[0];
 	if (ISOUTCLK(NodeId) || ISREFCLK(NodeId) || ISPLL(NodeId)) {
-		for (i = 1; i < NumArgs; i++,j = j+4) {
-			memcpy(Name+j,&Args[i],4);
+		for (i = 1U; i < NumArgs; i++,j = j+4U) {
+			memcpy(Name+j,&Args[i],4U);
 		}
 		Status = XPmClock_AddClkName(NodeId, Name);
 	} else {
@@ -3310,10 +3310,10 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	Shift = Args[1] & 0xFFU;
 	ParentId = Args[2];
 
-	if (NODECLASS(PowerId) != XPM_NODECLASS_POWER) {
+	if (NODECLASS(PowerId) != (u32)XPM_NODECLASS_POWER) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else if (NODEINDEX(PowerId) >= XPM_NODEIDX_POWER_MAX) {
+	} else if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
@@ -3322,11 +3322,11 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 
 	BitMask = BITNMASK(Shift, Width);
 
-	if (ParentId != XPM_NODEIDX_POWER_MIN) {
-		if (NODECLASS(ParentId) != XPM_NODECLASS_POWER) {
+	if (ParentId != (u32)XPM_NODEIDX_POWER_MIN) {
+		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
 			Status = XST_INVALID_PARAM;
 			goto done;
-		} else if (NODEINDEX(ParentId) >= XPM_NODEIDX_POWER_MAX) {
+		} else if (NODEINDEX(ParentId) >= (u32)XPM_NODEIDX_POWER_MAX) {
 			Status = XST_DEVICE_NOT_FOUND;
 			goto done;
 		} else {
@@ -3368,7 +3368,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				goto done;
 			}
 			Status = XPmPsFpDomain_Init(PsFpDomain, PowerId,
-						    BitMask, PowerParent, &Args[3], (NumArgs - 3));
+						    BitMask, PowerParent, &Args[3], (NumArgs - 3U));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
 			PsLpDomain =
@@ -3379,7 +3379,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			}
 			Status = XPmPsLpDomain_Init(PsLpDomain, PowerId,
 						    BitMask, PowerParent,
-						    &Args[3], (NumArgs - 3));
+						    &Args[3], (NumArgs - 3U));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_NOC:
 			NpDomain = (XPm_NpDomain *)XPm_AllocBytes(sizeof(XPm_NpDomain));
@@ -3397,7 +3397,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				goto done;
 			}
 			Status = XPmPlDomain_Init(PlDomain, PowerId, 0x00000000,
-						  PowerParent, &Args[3], (NumArgs - 3));
+						  PowerParent, &Args[3], (NumArgs - 3U));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_CPM:
 			CpmDomain = (XPm_CpmDomain *)XPm_AllocBytes(sizeof(XPm_CpmDomain));
@@ -3406,7 +3406,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				goto done;
 			}
 			Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent,
-						   &Args[3], (NumArgs - 3));
+						   &Args[3], (NumArgs - 3U));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_ME:
 			AieDomain = (XPm_AieDomain *)XPm_AllocBytes(sizeof(XPm_AieDomain));
@@ -3446,7 +3446,7 @@ static XStatus XPm_AddNodeReset(u32 *Args, u32 NumArgs)
 	u8 Shift, Width, ResetType, NumParents;
 	u32 *Parents;
 
-	if (NumArgs < 4) {
+	if (NumArgs < 4U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3454,9 +3454,9 @@ static XStatus XPm_AddNodeReset(u32 *Args, u32 NumArgs)
 	ResetId = Args[0];
 	ControlReg = Args[1];
 	Shift = Args[2] & 0xFFU;
-	Width = (Args[2] >> 8) & 0xFFU;
-	ResetType = (Args[2] >> 16) & 0xFFU;
-	NumParents = (Args[2] >> 24) & 0xFFU;
+	Width = (Args[2] >> 8U) & 0xFFU;
+	ResetType = (Args[2] >> 16U) & 0xFFU;
+	NumParents = (Args[2] >> 24U) & 0xFFU;
 	Parents = &Args[3];
 
 	Status = XPmReset_AddNode(ResetId, ControlReg, Shift, Width, ResetType, NumParents, Parents);
@@ -3573,7 +3573,7 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	if (Index >= XPM_NODEIDX_DEV_MAX) {
+	if (Index >= (u32)XPM_NODEIDX_DEV_MAX) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}

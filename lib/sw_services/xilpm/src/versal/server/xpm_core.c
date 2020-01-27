@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -87,7 +87,7 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 		while (NULL != DeviceHandle) {
 			if ((Core->Device.Node.Id !=
 			    DeviceHandle->Device->Node.Id) &&
-			    (XPM_DEVSTATE_RUNNING ==
+			    ((u32)XPM_DEVSTATE_RUNNING ==
 			    DeviceHandle->Device->Node.State)) {
 				break;
 			}
@@ -110,7 +110,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core)
 
 	DISABLE_WAKE(Core->SleepMask);
 
-	if ((XPM_DEVSTATE_RUNNING != Core->Device.Node.State) &&
+	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) &&
 	    (NULL != Core->Device.Power)) {
 		PwrNode = Core->Device.Power;
 		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_UP);
@@ -126,7 +126,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core)
 		}
 	}
 
-	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
+	if ((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
 		if (NULL != Core->Device.ClkHandles) {
 			XPmClock_Request(Core->Device.ClkHandles);
 		}
@@ -142,12 +142,12 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
 
-	if (XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
+	if ((u32)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	if (XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
 		DISABLE_WFI(Core->SleepMask);
 	}
 
@@ -164,7 +164,7 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 		}
 	}
 
-	if (XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
 		ENABLE_WAKE(Core->SleepMask);
 	}
 
@@ -188,12 +188,12 @@ int XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 		goto done;
 	}
 
-	if (XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+	if ((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
 		goto done;
 	}
 
 	*Latency += Core->PwrUpLatency;
-	if (XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
 		*Latency += Core->PwrDwnLatency;
 		goto done;
 	}

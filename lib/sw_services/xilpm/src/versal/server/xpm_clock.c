@@ -121,12 +121,12 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents,
 			     u32 PowerDomainId, u8 ClkFlags)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Subclass = NODESUBCLASS(Id);
 
-	if (Subclass == XPM_NODETYPE_CLOCK_REF) {
+	if (Subclass == (u32)XPM_NODETYPE_CLOCK_REF) {
 		Status = XPmNode_Init(&Clk->Node, Id, (u8)XPM_CLK_STATE_ON, 0);
-	} else if (Subclass == XPM_NODETYPE_CLOCK_OUT) {
+	} else if (Subclass == (u32)XPM_NODETYPE_CLOCK_OUT) {
 		if (NumParents > MAX_MUX_PARENTS) {
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -156,8 +156,8 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 		goto done;
 	}
 
-	if ((XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
-	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PowerDomainId))) {
+	if (((u32)XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
+	    ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PowerDomainId))) {
 		Clk->PwrDomain = NULL;
 		Status = XST_SUCCESS;
 		goto done;
@@ -181,7 +181,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId,
 			 u8 ClkFlags)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Subclass = NODESUBCLASS(Id);
 	XPm_ClockNode *Clk;
 
@@ -189,13 +189,13 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (Subclass == XPM_NODETYPE_CLOCK_REF) {
+	if (Subclass == (u32)XPM_NODETYPE_CLOCK_REF) {
 		Clk = XPm_AllocBytes(sizeof(XPm_ClockNode));
 		if (Clk==NULL) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-	} else if (Subclass == XPM_NODETYPE_CLOCK_OUT) {
+	} else if (Subclass == (u32)XPM_NODETYPE_CLOCK_OUT) {
 		if (TopologyType >= MAX_TOPOLOGY || TopologyType < TOPOLOGY_GENERIC_MUX_DIV) {
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -228,7 +228,7 @@ done:
 
 XStatus XPmClock_AddClkName(u32 Id, char *Name)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(Id);
 
 	if (NULL == Clk) {
@@ -245,7 +245,8 @@ done:
 
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags)
 {
-	int Status = XST_FAILURE, i=0;
+	XStatus Status = XST_FAILURE;
+	u32 i = 0U;
 	XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 	struct XPm_ClkTopologyNode *SubNodes;
 
@@ -253,16 +254,16 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (Type <= TYPE_INVALID || Type >= TYPE_MAX || Type == TYPE_PLL) {
+	if (Type <= (u32)TYPE_INVALID || Type >= (u32)TYPE_MAX || Type == (u32)TYPE_PLL) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 	SubNodes = *OutClkPtr->Topology.Nodes;
 	for (i=0; i<OutClkPtr->Topology.NumNodes; i++) {
-		if (SubNodes[i].Type == 0) {
+		if (SubNodes[i].Type == 0U) {
 			SubNodes[i].Type = Type;
 			SubNodes[i].Reg = ControlReg;
-			if (Type == TYPE_FIXEDFACTOR) {
+			if (Type == (u32)TYPE_FIXEDFACTOR) {
 				SubNodes[i].Param1.Mult = Param1;
 				SubNodes[i].Param2.Div = Param2;
 			} else {
@@ -294,7 +295,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	XPm_ClockNode *ParentClk = NULL;
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 
-	if (ClkPtr == NULL || NumParents > MAX_MUX_PARENTS || NumParents == 0) {
+	if (ClkPtr == NULL || NumParents > MAX_MUX_PARENTS || NumParents == 0U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -309,7 +310,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		 * Remove this condition once EMIO and MIO clocks are added
 		 * as valid clocks.
 		 */
-		if (0 == ParentId) {
+		if (0U == ParentId) {
 			continue;
 		}
 
@@ -326,7 +327,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	 * So find parent index for second command from there remaining parents
 	 * should be stored.
 	 */
-	while ((0 != ClkPtr->Topology.MuxSources[LastParentIdx]) &&
+	while ((0U != ClkPtr->Topology.MuxSources[LastParentIdx]) &&
 	       (MAX_MUX_PARENTS != LastParentIdx)) {
 		LastParentIdx++;
 	}
@@ -349,7 +350,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	}
 
 	/* Assign default parent */
-	if (ClkPtr->ClkNode.NumParents > 1) {
+	if (ClkPtr->ClkNode.NumParents > 1U) {
 		/*
 		 * For mux clocks, parents are initialized when clock
 		 * requested. So assign invalid clock parent by default.
@@ -373,10 +374,10 @@ XPm_ClockNode* XPmClock_GetById(u32 ClockId)
 	u32 ClockIndex = NODEINDEX(ClockId);
 	u32 NodeType = NODETYPE(ClockId);
 	XPm_ClockNode *Clk = NULL;
-	u32 MaskId = (XPM_NODETYPE_CLOCK_SUBNODE == NodeType) ?
+	u32 MaskId = ((u32)XPM_NODETYPE_CLOCK_SUBNODE == NodeType) ?
 		~((u32)(NODE_TYPE_MASK)) : ~((u32)(0x0));
 
-	if ((XPM_NODECLASS_CLOCK != NODECLASS(ClockId)) ||
+	if (((u32)XPM_NODECLASS_CLOCK != NODECLASS(ClockId)) ||
 	    (MaxClkNodes <= ClockIndex)) {
 		goto done;
 	}
@@ -486,7 +487,7 @@ static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 {
 	if (Clk != NULL) {
-		if (0 == Clk->UseCount) {
+		if (0U == Clk->UseCount) {
 			/* Initialize the parent if not done before */
 			if (CLOCK_PARENT_INVALID == Clk->ParentIdx) {
 				XPmClock_InitParent((XPm_OutClockNode *)Clk);
@@ -514,7 +515,7 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 
 XStatus XPmClock_Request(XPm_ClockHandle *ClkHandle)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
 	u32 ClkId;
 
@@ -545,7 +546,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 		/* Decrease the use count of clock */
 		Clk->UseCount--;
 
-		if (0 == Clk->UseCount) {
+		if (0U == Clk->UseCount) {
 			/* Clear the requested bit of clock */
 			Clk->Node.State &= ~(XPM_CLK_STATE_REQUESTED);
 			/* Disable clock */
@@ -565,7 +566,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 
 XStatus XPmClock_Release(XPm_ClockHandle *ClkHandle)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
 	u32 ClkId;
 
@@ -602,7 +603,7 @@ XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 		goto done;
 	}
 
-	if (Enable > 1) {
+	if (Enable > 1U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -636,7 +637,7 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 	}
 
 	if ((ParentIdx > BITMASK(Ptr->Param2.Width)) ||
-	    (ParentIdx > (u32)(Clk->ClkNode.NumParents - 1))) {
+	    (ParentIdx > (u32)(Clk->ClkNode.NumParents - 1U))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -758,7 +759,7 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			goto done;
 		}
 
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i < 3U; i++) {
 			if ((Index + i) == Clk->Topology.NumNodes)
 				break;
 			Resp[i] =  PtrNodes[Index + i].Type;
@@ -766,7 +767,7 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			Resp[i] |= PtrNodes[Index + i].Typeflags <<	CLK_TYPEFLAGS_SHIFT;
 		}
 	} else if (ISPLL(ClockId)) {
-		if (Index != 0) {
+		if (Index != 0U) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -826,7 +827,7 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 	memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
 
 	/* Skip parent till index */
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < 3U; i++) {
 		if (Clk->ClkNode.NumParents == (Index + i)) {
 			Resp[i] = 0xFFFFFFFF;
 			break;
@@ -870,17 +871,17 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 		 * TODO: This code under platform version check needs to be
 		 * removed when CPM registers are accessible.
 		 */
-		if (ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_PRESRC ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_POSTCLK ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL_OUT ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_CORE_REF ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_DBG_REF ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX0_REF ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX1_REF ||
-		    ClockIndex == XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
+		if (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PRESRC ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_POSTCLK ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL_OUT ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_CORE_REF ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_DBG_REF ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX0_REF ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX1_REF ||
+		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
 			//PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
 			Attr = 0;
 		}
@@ -920,7 +921,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
 	XPm_ClockHandle *DevHandle;
-	u32 PermissionMask = 0;
+	u32 PermissionMask = 0U;
 
 	Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
@@ -929,7 +930,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	}
 
 	/* Check for read-only flag */
-	if (0 != (CLK_FLAG_READ_ONLY & Clk->Flags)) {
+	if (0U != (CLK_FLAG_READ_ONLY & Clk->Flags)) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
@@ -960,7 +961,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	}
 
 	/* Check permission for given subsystem */
-	if (0 == (PermissionMask & (1U << SubsystemIdx))) {
+	if (0U == (PermissionMask & ((u32)1U << SubsystemIdx))) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}

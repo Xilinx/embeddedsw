@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -440,7 +440,7 @@ int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId)
 	DevHandle = Rst->RstHandles;
 	while (NULL != DevHandle) {
 		DevId = DevHandle->Device->Node.Id;
-		if (XPM_DEVSTATE_RUNNING == DevHandle->Device->Node.State) {
+		if ((u32)XPM_DEVSTATE_RUNNING == DevHandle->Device->Node.State) {
 			Status = XPmDevice_CheckPermissions(Subsystem, DevId);
 			if (XST_SUCCESS == Status) {
 				goto done;

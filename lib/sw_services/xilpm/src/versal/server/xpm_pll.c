@@ -42,7 +42,7 @@ static struct XPm_PllTopology PllTopologies[] =
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			    u16 *Offsets, u32 PowerDomainId, u8 ClkFlags)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PllClockNode *PllClkPtr;
 
 	if (NULL != XPmClock_GetById(Id)) {
@@ -75,8 +75,8 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 		goto done;
 	}
 
-	if ((XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
-	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PowerDomainId))) {
+	if (((u32)XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
+	    ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PowerDomainId))) {
 		PllClkPtr->ClkNode.PwrDomain = NULL;
 		goto done;
 	}
@@ -100,7 +100,7 @@ XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (PllPtr->ClkNode.NumParents == 1 && NumParents != 1)	{
+	if (PllPtr->ClkNode.NumParents == 1U && NumParents != 1U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
@@ -167,11 +167,11 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	}
 
 	Val = XPm_Read32(Pll->ClkNode.Node.BaseAddress);
-	if (0 != (Val & BIT(Pll->Topology->ResetShift))) {
+	if (0U != (Val & BIT(Pll->Topology->ResetShift))) {
 		*Mode = PM_PLL_MODE_RESET;
 	} else {
 		Val = XPm_Read32(Pll->FracConfigReg);
-		if (0 != (Val & PLL_FRAC_CFG_ENABLED_MASK)) {
+		if (0U != (Val & PLL_FRAC_CFG_ENABLED_MASK)) {
 			*Mode = PM_PLL_MODE_FRACTIONAL;
 		} else {
 			*Mode = PM_PLL_MODE_INTEGER;
@@ -298,7 +298,7 @@ XStatus XPmClockPll_Release(u32 PllId)
 	}
 	Pll->ClkNode.UseCount--;
 
-	if (Pll->ClkNode.UseCount == 0) {
+	if (Pll->ClkNode.UseCount == 0U) {
 		Status = XPmClockPll_Suspend(Pll);
 		goto done;
 	}
@@ -332,7 +332,7 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 			 * to 0x1 while the PLL is in reset for ES2 and forward
 			 */
 			u32 Reg;
-			if (XPM_NODEIDX_CLK_PMC_PLL ==
+			if ((u32)XPM_NODEIDX_CLK_PMC_PLL ==
 			   NODEINDEX(Pll->ClkNode.Node.Id)) {
 			   Reg = ((ControlReg & (0xFFFFFF00)) +
 				  PPLL_REG3_OFFSET);
@@ -439,12 +439,12 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	u32 Shift, Mask, Reg = 0;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
-	if (XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+	if ((u32)XPM_POWER_STATE_ON != PowerDomain->Node.State) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}
 
-	if (Param >= PM_PLL_PARAM_MAX) {
+	if (Param >= (u32)PM_PLL_PARAM_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -498,7 +498,7 @@ int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 
 	memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
 
-	if (Index != 0) {
+	if (Index != 0U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
