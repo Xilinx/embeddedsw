@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 *******************************************************************************/
 /*****************************************************************************/
@@ -74,7 +74,7 @@
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *                     Moved all macro definitions and instance structure to
 *                     xsecure_rsa_core.h
-* 4.2   har  11/07/19 Typo correcton to enable compilation in C++
+* 4.2   har  11/07/19 Typo correction to enable compilation in C++
 * 4.3   kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
 * </pre>
 *

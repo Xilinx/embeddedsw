@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -55,6 +55,8 @@
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   kal  05/20/19 Updated doxygen tags
+* 4.2   kpt  01/07/20 Resolved CR-1049149,1049107,1049116,1049115,1049118
+*                     and Replaced Magic Numbers with Macros
 * </pre>
 *
 * @note

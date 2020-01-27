@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,8 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 4.0   vns  04/24/2019 Initial release
 * 4.1   vns  08/06/2019 Added AES encryption APIs
-*
+* 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
+*                       and added in xsecure_utils.h
 * </pre>
 *
 * @note
@@ -67,9 +68,6 @@ extern "C" {
 						/**< GCM Tag Size in Bytes */
 #define XSECURE_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XSECURE_AES_KEY_SIZE_256BIT_WORDS		(8U)
-
-#define XSECURE_WORD_SIZE				(4U)
-
 #define XSECURE_AES_TIMEOUT_MAX				(0x1FFFFU)
 
 #define XSECURE_AES_INVALID_CFG				(0xFFFFFFFFU)

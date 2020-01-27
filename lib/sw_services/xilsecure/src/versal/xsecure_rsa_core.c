@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -38,7 +38,8 @@
 * 4.0   vns  03/18/19 Initial Release.
 * 4.1   vns  08/23/19 Updated Status variables with XST_FAILURE and added
 *                     to while loops.
-*
+* 4.2   kpt  01/07/20 Resolved CR-1049134 and added Macro's for all the
+*                     Magic Numbers
 * </pre>
 *
 * @note
@@ -125,7 +126,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			(KeySize == XSECURE_RSA_2048_KEY_SIZE));
 
 	InstancePtr->EncDec = EncDecFlag;
-	InstancePtr->SizeInWords = KeySize/4;
+	InstancePtr->SizeInWords = KeySize/XSECURE_WORD_SIZE;
 
 	/* Reset core */
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
@@ -134,7 +135,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	/* Setting Key length */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_KEY_LEN_OFFSET,
-		(InstancePtr->SizeInWords * 32) &
+		(InstancePtr->SizeInWords * XSECURE_WORD_IN_BITS) &
 		XSECURE_ECDSA_RSA_KEY_LEN_MASK);
 
 	/* configuring endianness for data */
@@ -244,7 +245,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		Timeout = Timeout + 1U;
 	}while(Timeout < XSECURE_TIMEOUT_MAX);
 
-	/* Time out occured */
+	/* Time out occurred */
 	if (Timeout == XSECURE_TIMEOUT_MAX) {
 		ErrorCode = XST_FAILURE;
 		goto END;
@@ -260,7 +261,8 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 END:
 	/* Revert configuring endianness for data */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-		XSECURE_ECDSA_RSA_CFG_OFFSET, 0);
+		XSECURE_ECDSA_RSA_CFG_OFFSET,
+		XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK);
 
 	/* Reset core */
 	XSecure_SetReset(InstancePtr->BaseAddress,
@@ -326,17 +328,19 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Each of this loop will write 192 bits of data */
-	for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
+	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
+										DataOffset++) {
 
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
-			(XSECURE_CSU_RSA_RAM_RES_Y * 22U) + DataOffset);
+			(XSECURE_CSU_RSA_RAM_RES_Y * XSECURE_RSA_MAX_RD_WR_CNT)
+											+ DataOffset);
 
-		for (Index = 0; Index < 6U; Index++) {
+		for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
 			TmpIndex = (InstancePtr->SizeInWords - 1U) -
-					((DataOffset*6U) + Index);
+					((DataOffset * XSECURE_RSA_MAX_BUFF) + Index);
 
-			if(TmpIndex < 0) {
+			if(TmpIndex < 0U) {
 				break;
 			}
 			RdData[TmpIndex] =
@@ -376,7 +380,7 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 	ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
 	Inv = (u32)2U - ModVal;
 
-	for (Count = 0U; Count < 4U; ++Count) {
+	for (Count = 0U; Count < XSECURE_WORD_SIZE; ++Count) {
 		Inv = (Inv * (2U - ( ModVal * Inv ) ) );
 	}
 
@@ -414,9 +418,10 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 	Xil_AssertVoid(WrData != NULL);
 
 	/** Each of this loop will write 192 bits of data*/
-	for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
-		for (Index = 0U; Index < 6U; Index++) {
-			TmpIndex = (DataOffset*6U) + Index;
+	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
+										DataOffset++) {
+		for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
+			TmpIndex = (DataOffset * XSECURE_RSA_MAX_BUFF) + Index;
 			/**
 			* Exponent size is only 4 bytes
 			* and rest of the data needs to be 0
@@ -449,7 +454,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
-			((RamOffset * (u8)22) + DataOffset) |
+			((RamOffset * (u8)XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset) |
 			XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK);
 	}
 }

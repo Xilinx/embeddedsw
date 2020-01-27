@@ -39,9 +39,11 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     03/12/19 Initial Release
-* 4.1	kal	05/20/19 Updated doxygen tags
+* 4.1   kal     05/20/19 Updated doxygen tags
 *       psl     08/05/19 Fixed MISRA-C violation
 * 4.2   har     01/06/20 Added macro XSecure_Out32
+*       kpt     01/07/20 Added Macro XSECURE_WORD_SIZE common for
+*                        both AES and RSA
 * </pre>
 * @endcond
 ******************************************************************************/
@@ -86,6 +88,8 @@ extern "C" {
 #endif
 
 #define XSECURE_TIMEOUT_MAX		(0x1FFFFFU)
+#define XSECURE_WORD_SIZE		(4U) /**< WORD size in BYTES */
+#define XSECURE_WORD_IN_BITS	(32U)/**< WORD size in BITS	 */
 
 /***************************** Type Definitions******************************/
 /**

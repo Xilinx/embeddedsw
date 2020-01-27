@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     02/14/19 First Release
+* 4.1   kpt     01/07/20 Added MACRO
+*                        XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK
 * </pre>
 *
 ******************************************************************************/
@@ -175,6 +177,7 @@ extern "C" {
 
 #define XSECURE_ECDSA_RSA_CFG_RD_ENDIANNESS_MASK	(0x00000002U)
 #define XSECURE_ECDSA_RSA_RSA_CFG_WR_ENDIANNESS_MASK	(0x00000001U)
+#define XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK	(0U)
 
 /**
  * Register: XSECURE_ECDSA_RSA_ECO

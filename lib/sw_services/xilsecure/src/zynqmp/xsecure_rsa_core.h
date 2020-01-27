@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 *******************************************************************************/
 /*****************************************************************************/
@@ -35,7 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/09/19 Initial release
-*
+* 4.1   kpt  01/07/20 Added Macros for all the Magic Numbers
+*                     in xsecure_rsa_core.c
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +58,12 @@ extern "C" {
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_HASH_TYPE_SHA2		(32U) /**< SHA-2 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
+#define XSECURE_RSA_MAX_BUFF		(6U)  /**< RSA RAM Write Buffers */
+#define XSECURE_RSA_MAX_RD_WR_CNT	(22U) /**< No of writes or reads to RSA RAM Buffers */
+#define XSECURE_RSA_BYTE_MASK		(0XFFU) /**< RSA BYTE MASK */
+#define XSECURE_RSA_BYTE_SHIFT		(8U)    /**< RSA BYTE */
+#define XSECURE_RSA_HWORD_SHIFT		(16U)   /**< RSA HWORD */
+#define XSECURE_RSA_SWORD_SHIFT		(24U)   /**< RSA SWORD */
 
 /* Key size in bytes */
 #define XSECURE_RSA_512_KEY_SIZE	(512U/8U) /**< RSA 512 key size */

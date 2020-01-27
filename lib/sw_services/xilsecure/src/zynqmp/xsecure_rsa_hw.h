@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 *******************************************************************************/
 /*****************************************************************************/
@@ -34,6 +34,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/09/19 Initial release
+* 4.1   kpt  01/07/20 Added Macro XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK
 *
 * </pre>
 *
@@ -77,8 +78,7 @@ extern "C" {
 						/**< RSA MINV 1 */
 #define XSECURE_CSU_RSA_MINV2_OFFSET		(0x20U) /**< RSA MINV 2 */
 #define XSECURE_CSU_RSA_MINV3_OFFSET		(0x24U) /**< RSA MINV 3 */
-#define XSECURE_CSU_RSA_ZERO_OFFSET		(0x28U) /**< RSA Zero offset */
-
+#define XSECURE_CSU_RSA_ZERO_OFFSET			(0x28U) /**< RSA Zero offset */
 #define XSECURE_CSU_RSA_WR_DATA_0_OFFSET	(0x2cU) /**< Write Data 0 */
 #define XSECURE_CSU_RSA_WR_DATA_1_OFFSET	(0x30U) /**< Write Data 1 */
 #define XSECURE_CSU_RSA_WR_DATA_2_OFFSET	(0x34U) /**< Write Data 2 */
@@ -96,6 +96,7 @@ extern "C" {
 #define XSECURE_CSU_RSA_RD_DATA_5_OFFSET	(0x5cU) /**< Read Data 5 */
 #define XSECURE_CSU_RSA_RD_ADDR_OFFSET		(0x60U)
 						/**< Read address in RSA RAM */
+#define XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK	(1U) /**< RSA BUF Clr value */
 /* @} */
 
 #ifdef __cplusplus

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -42,6 +42,9 @@
 *       mmd  03/15/19 Refactored the code
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   psl  08/05/19 Fixed MISRA-C violation
+* 4.2   kpt  01/07/20 Resolved CR-1049134 and Added Macros for all
+*                     the Magic Numbers
+*
 * </pre>
 *
 * @note
@@ -132,7 +135,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			(Size == XSECURE_RSA_4096_KEY_SIZE));
 
 	InstancePtr->EncDec = EncDecFlag;
-	InstancePtr->SizeInWords = Size/4U;
+	InstancePtr->SizeInWords = Size/XSECURE_WORD_SIZE;
 	/* Put Modulus, exponent, Mod extension in RSA RAM */
 	XSecure_RsaPutData(InstancePtr);
 
@@ -295,16 +298,17 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	 * Each iteration of this loop reads 32 * 6 = 192 bits
 	 * Therefore, for 4096, total iterations required = 4096/192 = 21.33 = 22
 	 */
-	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
+	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++)
 	{
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_RD_ADDR_OFFSET,
-				(XSECURE_CSU_RSA_RAM_RES_Y * 22U) + DataOffset);
+				(XSECURE_CSU_RSA_RAM_RES_Y * XSECURE_RSA_MAX_RD_WR_CNT)
+											+ DataOffset);
 		Index = (DataOffset == 0U) ? 2U: 0U;
-		for (; Index < 6U; Index++)
+		for (; Index < XSECURE_RSA_MAX_BUFF; Index++)
 		{
 			TmpIndex = (InstancePtr->SizeInWords + 1U) -
-					((DataOffset*6U) + Index);
+					((DataOffset * XSECURE_RSA_MAX_BUFF) + Index);
 			if(TmpIndex < 0)
 			{
 				break;
@@ -316,7 +320,8 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 			 */
 			RdData[TmpIndex] = Xil_Htonl(XSecure_ReadReg(
 						InstancePtr->BaseAddress,
-			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+ (Index * 4U))));
+			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+
+					(Index * XSECURE_WORD_SIZE))));
 		}
 	}
 
@@ -346,7 +351,7 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 	u32 ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
 	u32 Inv = (u32)2U - ModVal;
 
-	for (Count = 0U; Count < 4U; ++Count)
+	for (Count = 0U; Count < XSECURE_WORD_SIZE; ++Count)
 	{
 		Inv = (Inv * (2U - ( ModVal * Inv ) ) );
 	}
@@ -355,13 +360,16 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 
 	/* Put the value in MINV registers */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV0_OFFSET,
-						(Inv & 0xFFU ));
+						(Inv & XSECURE_RSA_BYTE_MASK ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV1_OFFSET,
-						((Inv >> 8) & 0xFFU ));
+						((Inv >> XSECURE_RSA_BYTE_SHIFT)
+							& XSECURE_RSA_BYTE_MASK ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV2_OFFSET,
-						((Inv >> 16) & 0xFFU ));
+						((Inv >> XSECURE_RSA_HWORD_SHIFT)
+							& XSECURE_RSA_BYTE_MASK ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV3_OFFSET,
-						((Inv >> 24) & 0xFFU ));
+						((Inv >> XSECURE_RSA_SWORD_SHIFT)
+							& XSECURE_RSA_BYTE_MASK ));
 }
 
 /*****************************************************************************/
@@ -393,11 +401,11 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 	 * Each iteration of this loop writes 32 * 6 = 192 bits
 	 * Therefore, for 4096, total iteration required = 4096/192 = 21.33 = 22
 	 */
-	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
+	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++)
 	{
-		for (Index = 0U; Index < 6U; Index++)
+		for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++)
 		{
-			TmpIndex = (DataOffset*6U) + Index;
+			TmpIndex = (DataOffset * XSECURE_RSA_MAX_BUFF) + Index;
 			/**
 			* Exponent size is only 4 bytes
 			* and rest of the data needs to be 0
@@ -425,12 +433,12 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 				}
 			}
 			XSecure_WriteReg(InstancePtr->BaseAddress,
-			(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * 4U)),
+			(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * XSECURE_WORD_SIZE)),
 							Data);
 		}
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_WR_ADDR_OFFSET,
-				((RamOffset * 22U) + DataOffset));
+				((RamOffset * XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset));
 	}
 }
 
