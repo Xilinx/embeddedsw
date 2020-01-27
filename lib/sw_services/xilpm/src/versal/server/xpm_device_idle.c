@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -228,7 +228,7 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 	/* Make sure MDIO is in IDLE state */
 	do {
 		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWSR_OFFSET);
-	} while ((!(Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && --Timeout);
+	} while ((0 == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && (--Timeout > 0U));
 
 	if (Timeout == 0) {
 		PmWarn("gem not idle\r\n");
@@ -274,7 +274,7 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 		LocalTimeout = XPM_MAX_TIMEOUT;
 		do {
 			RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
-		} while (RegVal && LocalTimeout--);
+		} while ((0U != RegVal) && (LocalTimeout-- > 0U));
 
 		/* Disable and clear all interrupts */
 		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);

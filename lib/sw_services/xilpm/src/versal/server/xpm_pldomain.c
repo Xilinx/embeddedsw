@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -245,12 +245,12 @@ static XStatus GtyHouseClean()
 	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1] = {0};
 
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
-		Device = XPmDevice_GetById(GT_DEVID(XPM_NODEIDX_DEV_GT_MIN + i));
+		Device = XPmDevice_GetById(GT_DEVID((u32)XPM_NODEIDX_DEV_GT_MIN + i));
 		if(NULL != Device)
 			GtyAddresses[i] = Device->Node.BaseAddress;
 	}
 
-	for (i = 0; i < ARRAY_SIZE(GtyAddresses) && GtyAddresses[i]; i++) {
+	for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Deassert INITCTRL */
 		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
@@ -258,7 +258,7 @@ static XStatus GtyHouseClean()
 		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0);
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
-	if(!PlpdHouseCleanBypass) {
+	if (0U == PlpdHouseCleanBypass) {
 		/* Bisr repair - Bisr should be triggered only for Addresses for which repair
 		 * data is found and so not calling in loop. Trigger is handled in below routine
 		 * */
@@ -267,7 +267,7 @@ static XStatus GtyHouseClean()
 			goto done;
 		}
 
-		for (i = 0; i < ARRAY_SIZE(GtyAddresses) && GtyAddresses[i]; i++) {
+		for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
 				PCSR_UNLOCK_VAL);
 			/* Mbist */
@@ -402,7 +402,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	u32 Value = 0;
 
 	/* If Arg0 is set, bypass houseclean */
-	if(NumOfArgs && Args[0] == 1)
+	if ((NumOfArgs > 0U) && (Args[0] == 1))
 		PlpdHouseCleanBypass = 1;
 
 	if (PLATFORM_VERSION_SILICON == Platform) {
@@ -425,8 +425,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	}
 
 //#ifndef PLPD_HOUSECLEAN_BYPASS
-	if(!PlpdHouseCleanBypass)
-	{
+	if (0U == PlpdHouseCleanBypass) {
 		/* Enable ROWON */
 		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
 							XCFRAME_CMD_REG_ROWON);
@@ -473,15 +472,15 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 		 /* Poll for house clean completion */
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiitng for PL HC complete....", __func__);
-		while ((Xil_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
-			CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
-					CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
+		while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
+			(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
+					(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME_BUSY to go low...", __func__);
-		while ((Xil_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
-			CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
-						CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
+		while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
+			(u32)CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
+						(u32)CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 		/* VGG TRIM */
 		PldApplyTrim(XPM_PL_TRIM_VGG);
@@ -535,8 +534,8 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		}
 		/* Check if Scan Clear Passed */
 		if ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
-		     CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
-				CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
+		     (u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
+				(u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: Hard Block Scan Clear / MBIST FAILED\r\n", __func__);
 			/** HACK: Continuing even if CFI SC is not pass */
 			Status = XST_SUCCESS;

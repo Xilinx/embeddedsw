@@ -37,11 +37,13 @@
 extern "C" {
 #endif
 
-#define DDRMC_DEVID(IDX)	NODEID(XPM_NODECLASS_DEVICE, \
-	XPM_NODESUBCL_DEV_MEM_CTRLR, XPM_NODETYPE_DEV_DDR, (IDX))
+#define DDRMC_DEVID(IDX)	NODEID((u32)XPM_NODECLASS_DEVICE, \
+				       (u32)XPM_NODESUBCL_DEV_MEM_CTRLR, \
+				       (u32)XPM_NODETYPE_DEV_DDR, (IDX))
 
-#define GT_DEVID(IDX)	NODEID(XPM_NODECLASS_DEVICE, \
-	XPM_NODESUBCL_DEV_PHY, XPM_NODETYPE_DEV_GT, (IDX))
+#define GT_DEVID(IDX)		NODEID((u32)XPM_NODECLASS_DEVICE, \
+				       (u32)XPM_NODESUBCL_DEV_PHY, \
+				       (u32)XPM_NODETYPE_DEV_GT, (IDX))
 
 #define DEFINE_DEV_STATES(S)	.States = (S), \
 				.StatesCnt = ARRAY_SIZE(S)
@@ -188,7 +190,7 @@ int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_BringUp(XPm_Device *Device);
-int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
+u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
 int XPmDevice_IsClockActive(XPm_Device *Device);
 int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);

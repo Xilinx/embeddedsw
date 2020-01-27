@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -342,7 +342,7 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 			}
 			XPm_RMW32(Reg, BITNMASK(PLL_REG3_CP_RES_H_SHIFT,
 				  PLL_REG3_CP_RES_H_WIDTH),
-				  0x1 << PLL_REG3_CP_RES_H_SHIFT);
+				  0x1U << PLL_REG3_CP_RES_H_SHIFT);
 		}
 	}
 	if (Flags & PLL_RESET_RELEASE) {

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -141,7 +141,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 		}
 	}
 
-	if(SubSysIdx == XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx == XPM_NODEIDX_SUBSYS_MAX) {
 		return INVALID_SUBSYSID;
 	} else {
 		return PmSubsystems[SubSysIdx].Id;
@@ -575,7 +575,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			 */
 			XPm_Device *Device = XPmDevice_GetByIndex(i);
 			if (NULL != Device) {
-				Status = XPmRequirement_Add(Subsystem, Device, ((REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET)|REQ_NO_RESTRICTION), NULL, 0);
+				Status = XPmRequirement_Add(Subsystem, Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
 				if (XST_SUCCESS != Status)
 					goto done;
 			}

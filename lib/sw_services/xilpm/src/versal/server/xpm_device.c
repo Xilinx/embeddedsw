@@ -853,7 +853,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	}
 
 	/* Add requirement by default for PMC subsystem */
-	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex(XPM_NODEIDX_SUBSYS_PMC), Device, ((REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) |REQ_NO_RESTRICTION), NULL, 0);
+	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex(XPM_NODEIDX_SUBSYS_PMC), Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1342,7 +1342,7 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 		if (TRUE == Reqm->Allocated) {
 			for (Idx = 0; Idx < XPM_NODEIDX_SUBSYS_MAX; Idx++) {
 				if (Reqm->Subsystem == XPmSubsystem_GetByIndex(Idx)) {
-					*PermissionMask |= (1 << Idx);
+					*PermissionMask |= (1U << Idx);
 				}
 			}
 		}
@@ -1699,18 +1699,18 @@ done:
  *               using the device
  *
  ****************************************************************************/
-int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device)
+u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device)
 {
-	int UsageStatus = 0;
+	u32 UsageStatus = 0;
 	XPm_Requirement *Reqm = Device->Requirements;
 
 	while (NULL != Reqm) {
 		if (TRUE == Reqm->Allocated) {
 			/* This subsystem is currently using this device */
 			if (Subsystem == Reqm->Subsystem) {
-				UsageStatus |= PM_USAGE_CURRENT_SUBSYSTEM;
+				UsageStatus |= (u32)PM_USAGE_CURRENT_SUBSYSTEM;
 			} else {
-				UsageStatus |= PM_USAGE_OTHER_SUBSYSTEM;
+				UsageStatus |= (u32)PM_USAGE_OTHER_SUBSYSTEM;
 			}
 		}
 		Reqm = Reqm->NextSubsystem;

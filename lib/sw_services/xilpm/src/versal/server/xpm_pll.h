@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,9 +82,9 @@ struct XPm_PllClockNode {
 	PmPllContext Context;
 };
 
-#define ISPLL(id)	(((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \
-			  (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_PLL) && \
-			  (NODEINDEX(id) < (u32)XPM_NODEIDX_CLK_MAX)) ? 1 : 0)
+#define ISPLL(id)	((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_PLL) && \
+			 (NODEINDEX(id) < (u32)XPM_NODEIDX_CLK_MAX))
 
 #define RESET_SHIFT		0U
 #define BYPASS_SHIFT		3U

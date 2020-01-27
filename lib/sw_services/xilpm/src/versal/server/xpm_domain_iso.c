@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -296,7 +296,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				 * init finish for PLD, we decide PLD status based on
 				 * EOS bit */
 				PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
-				if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & CFU_APB_CFU_FGCR_EOS_MASK)) {
+				if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & (u32)CFU_APB_CFU_FGCR_EOS_MASK)) {
 					XPmSubsystem_SetState(PM_SUBSYS_PL, ONLINE);
 					Status = XST_SUCCESS;
 				} else {

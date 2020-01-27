@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -316,7 +316,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	/* Check status */
 	PmIn32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_GO_OFFSET,
 	       RegValue);
-	if (0xFF != (RegValue & 0xFF)) {
+	if (0xFFU != (RegValue & 0xFFU)) {
 		Status = XST_FAILURE;
 		goto done;
 	}

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -269,8 +269,8 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 				SubNodes[i].Param1.Shift = Param1;
 				SubNodes[i].Param2.Width = Param2;
 			}
-			SubNodes[i].Clkflags = Flags & 0xFFFF;
-			SubNodes[i].Typeflags = (Flags >> 16) & 0xFFFF;
+			SubNodes[i].Clkflags = Flags & 0xFFFFU;
+			SubNodes[i].Typeflags = (Flags >> 16) & 0xFFFFU;
 			SubNodes[i].Reg = ControlReg;
 			break;
 		}
@@ -300,7 +300,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	}
 
 	for (Idx = 0; Idx < NumParents; Idx++) {
-		int ParentId = Parents[Idx];
+		u32 ParentId = Parents[Idx];
 
 		/*
 		 * FIXME: For GEM0_RX and GEM1_RX parents are EMIO and MIO
@@ -314,7 +314,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		}
 
 		if (!ISOUTCLK(ParentId) && !ISREFCLK(ParentId) &&
-		    !ISPLL(ParentId) && CLK_DUMMY_PARENT != ParentId) {
+		    !ISPLL(ParentId) && CLK_DUMMY_PARENT != (int)ParentId) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
@@ -680,7 +680,7 @@ XStatus XPmClock_SetDivider(XPm_OutClockNode *Clk, u32 Divider)
 		goto done;
 	}
 
-	Divider1 = Divider & 0xFFFF;
+	Divider1 = Divider & 0xFFFFU;
 	if (Divider1 > BITMASK(Ptr->Param2.Width)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -891,7 +891,7 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	Attr |= InitEnable << CLK_INIT_ENABLE_SHIFT;
 	/* Clock type (Output/External) */
 	if (NODESUBCLASS(ClockId) == XPM_NODESUBCL_CLOCK_REF) {
-		Attr |= 1 << CLK_TYPE_SHIFT;
+		Attr |= 1U << CLK_TYPE_SHIFT;
 	}
 	/* Clock node type PLL, OUT or REF*/
 	Attr |= NODETYPE(ClockId) << CLK_NODETYPE_SHIFT;
@@ -960,7 +960,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	}
 
 	/* Check permission for given subsystem */
-	if (0 == (PermissionMask & (1 << SubsystemIdx))) {
+	if (0 == (PermissionMask & (1U << SubsystemIdx))) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}

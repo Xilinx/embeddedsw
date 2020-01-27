@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -74,9 +74,9 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 	return XST_SUCCESS;
 }
 
-#define BITMASK_LOWER_15_BITS 0x7fff
-#define BITMASK_UPPER_17_BITS 0xffff8000
-#define GET_DELTA_AT_OFFSET(array, x) (0xf & (array[x / 32] >> (x % 32)))
+#define BITMASK_LOWER_15_BITS			(0x7fffU)
+#define BITMASK_UPPER_17_BITS			(0xffff8000U)
+#define GET_DELTA_AT_OFFSET(array, x)		(0xfU & (array[x / 32] >> (x % 32)))
 
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
 {
@@ -731,7 +731,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain, u32 FuncId)
 			       CRP_RESET_REASON_SW_SYS_MASK |
 			       CRP_RESET_REASON_ERR_SYS_MASK |
 			       CRP_RESET_REASON_DAP_SYS_MASK);
-	u32 DomainStatusMask = 1 << (NODEINDEX(PwrDomain->Power.Node.Id) - 1);
+	u32 DomainStatusMask = 1U << (NODEINDEX(PwrDomain->Power.Node.Id) - 1);
 
 	/* Clear System Reset and domain POR reset flags */
 	SystemResetFlag = 0;

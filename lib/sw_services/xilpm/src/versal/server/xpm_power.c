@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -254,7 +254,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
 		    (PLATFORM_VERSION_SILICON == Platform) &&
 		    (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
-		    !(LPD_BISR_DONE & LpDomain->LpdBisrFlags)) {
+		    (0U == (LPD_BISR_DONE & LpDomain->LpdBisrFlags))) {
 			if (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags) {
 				Status = XPmBisr_TriggerLpd();
 			} else {

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -69,11 +69,11 @@ extern "C" {
 
 /* Probe Counter Register related macros */
 #define PROBE_COUNTER_REQ_TYPE_SHIFT		(16U)
-#define PROBE_COUNTER_REQ_TYPE_MASK		(0xFF)
+#define PROBE_COUNTER_REQ_TYPE_MASK		(0xFFU)
 #define PROBE_COUNTER_TYPE_SHIFT		(8U)
-#define PROBE_COUNTER_TYPE_MASK			(0xFF)
+#define PROBE_COUNTER_TYPE_MASK			(0xFFU)
 #define PROBE_COUNTER_IDX_SHIFT			(0U)
-#define PROBE_COUNTER_IDX_MASK			(0xFF)
+#define PROBE_COUNTER_IDX_MASK			(0xFFU)
 
 #define PROBE_COUNTER_CPU_R5_MAX_IDX		(9U)
 #define PROBE_COUNTER_LPD_MAX_IDX		(5U)

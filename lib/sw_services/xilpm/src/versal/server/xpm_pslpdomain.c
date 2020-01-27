@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -404,7 +404,7 @@ static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if(Enable && (NumOfArgs==3))
+	if ((0U != Enable) && (3 == NumOfArgs))
 		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
 	else
 		Status = XPmProt_XppuDisable(XppuNodeId);

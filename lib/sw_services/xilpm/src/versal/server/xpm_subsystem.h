@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,17 +33,17 @@
 extern "C" {
 #endif
 
-#define	INVALID_SUBSYSID	-1U
+#define	INVALID_SUBSYSID			(0xFFFFFFFFU)
 #define SUBSYSTEMCLASS_MASK \
-	((XPM_NODECLASS_SUBSYSTEM & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT)
+	(((u32)XPM_NODECLASS_SUBSYSTEM & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT)
 #define ISVALIDSUBSYSTEM(id) \
-	( (((id & SUBSYSTEMCLASS_MASK) == SUBSYSTEMCLASS_MASK) && \
-	((id & NODE_INDEX_MASK_BITS) < XPM_NODEIDX_SUBSYS_MAX)) ? 1 : 0)
+	(((id & SUBSYSTEMCLASS_MASK) == SUBSYSTEMCLASS_MASK) && \
+	((id & NODE_INDEX_MASK_BITS) < XPM_NODEIDX_SUBSYS_MAX))
 
 /**
  * Subsystem specific flags.
  */
-#define SUBSYSTEM_INIT_FINALIZED		(1 << 0U)
+#define SUBSYSTEM_INIT_FINALIZED		(1U << 0U)
 
 /**
  * Subsystem creation states.

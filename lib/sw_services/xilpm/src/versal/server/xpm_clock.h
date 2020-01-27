@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,12 +35,12 @@
 extern "C" {
 #endif
 
-#define ISOUTCLK(id)	(((NODECLASS(id) == XPM_NODECLASS_CLOCK) && \
-			  (NODESUBCLASS(id) == XPM_NODESUBCL_CLOCK_OUT) && \
-			  (NODEINDEX(id) < XPM_NODEIDX_CLK_MAX)) ? 1 : 0)
-#define ISREFCLK(id)	(((NODECLASS(id) == XPM_NODECLASS_CLOCK) && \
-			  (NODESUBCLASS(id) == XPM_NODESUBCL_CLOCK_REF) && \
-			  (NODEINDEX(id) < XPM_NODEIDX_CLK_MAX)) ? 1 : 0)
+#define ISOUTCLK(id)	((NODECLASS(id) == XPM_NODECLASS_CLOCK) && \
+			 (NODESUBCLASS(id) == XPM_NODESUBCL_CLOCK_OUT) && \
+			 (NODEINDEX(id) < XPM_NODEIDX_CLK_MAX))
+#define ISREFCLK(id)	((NODECLASS(id) == XPM_NODECLASS_CLOCK) && \
+			 (NODESUBCLASS(id) == XPM_NODESUBCL_CLOCK_REF) && \
+			 (NODEINDEX(id) < XPM_NODEIDX_CLK_MAX))
 
 /* Topology types */
 #define	TOPOLOGY_GENERIC_PLL		1

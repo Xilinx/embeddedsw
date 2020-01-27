@@ -45,11 +45,11 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Allocated = 0;
 	Reqm->SetLatReq = 0;
 
-	Reqm->Flags = Flags & 0xF;
+	Reqm->Flags = Flags & 0xFU;
 
-	if ((NULL != Params) && NumParams && NumParams <= MAX_REQ_PARAMS) {
+	if ((NULL != Params) && (0 != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
 		XPlmi_MemCpy(Reqm->Params, Params, NumParams);
-		Reqm->Flags |= ((NumParams & 0xF) << 4);
+		Reqm->Flags |= ((NumParams & 0xFU) << 4);
 	}
 
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;

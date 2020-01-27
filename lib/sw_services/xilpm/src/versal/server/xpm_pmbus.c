@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -83,7 +83,7 @@ static XStatus XPmBus_Write(XIicPs *Iic, u16 SlaveAddr,
 
 	/* Continuously try to send in case of arbitration */
 	do {
-		if (!Iic->IsRepeatedStart) {
+		if (0 != Iic->IsRepeatedStart) {
 			Status = XPmBus_IdleBusWait(Iic);
 			if (XST_SUCCESS != Status) {
 				goto done;
