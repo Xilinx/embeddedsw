@@ -451,16 +451,46 @@ static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
 
 	u32 RamOffset = 0U;
 	u32 DataOffset;
+	u32 Index;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
+
+	/**
+	 * Each iteration of this loop writes Zero
+	 * in to one of the six RSA Write Buffers
+	 */
+
+	for (Index = 0; Index < XSECURE_RSA_MAX_BUFF; Index++) {
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+		(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * XSECURE_WORD_SIZE)),
+							0U);
+	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_RSA_ZERO_OFFSET, 1U);
+			XSECURE_CSU_RSA_ZERO_OFFSET, XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK);
 	do {
-		for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
+
+		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
+											DataOffset++) {
+
 			XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_WR_ADDR_OFFSET,
-				((RamOffset * 22U) + DataOffset));
+				((RamOffset * XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset));
+
 		}
+
 		RamOffset++;
+
 	} while(RamOffset <= XSECURE_CSU_RSA_RAM_RES_Q);
+
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV0_OFFSET,
+						0U);
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV1_OFFSET,
+						0U);
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV2_OFFSET,
+						0U);
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV3_OFFSET,
+						0U);
 
 }

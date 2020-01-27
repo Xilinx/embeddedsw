@@ -479,12 +479,18 @@ static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
 			XSECURE_ECDSA_RSA_CTRL_OFFSET,
 			XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK);
 	do {
-		for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
+
+		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
+											DataOffset++) {
+
 			XSecure_WriteReg(InstancePtr->BaseAddress,
-					XSECURE_ECDSA_RSA_RAM_DATA_OFFSET,
-				((RamOffset * 22) + DataOffset));
+					XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
+				((RamOffset * XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset));
 		}
 		RamOffset++;
 	} while(RamOffset <= XSECURE_CSU_RSA_RAM_RES_Q);
+
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_ECDSA_RSA_MINV_OFFSET, 0U);
 
 }
