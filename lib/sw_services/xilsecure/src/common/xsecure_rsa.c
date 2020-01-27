@@ -161,7 +161,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	u8 * Tpadding = (u8 *)XNULL;
 	u32 PadLength;
 	u8 * PadPtr = (u8 *)XNULL;
-	u32 sign_index;
+	volatile u32 sign_index;
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
@@ -247,7 +247,11 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		}
 		PadPtr++;
 	}
-	Status = (u32)XST_SUCCESS;
+
+	if (sign_index == HashLen)
+	{
+		Status = (u32)XST_SUCCESS;
+	}
 ENDF:
 	return Status;
 }
