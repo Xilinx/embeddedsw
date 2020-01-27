@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 - 2019 Xilinx, Inc.
+# Copyright (C) 2015 - 2020 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -221,7 +221,8 @@ proc generate {os_handle} {
 				file copy -force [file join $arma5364srcdir platform ZynqMP xparameters_ps.h] ./src
                                 set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
 				} else {
-				set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/versal"
+				file copy -force [file join $arma5364srcdir platform versal xparameters_ps.h] ./src
+				set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/versal/gcc"
 				}
 		                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
                                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
