@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -100,8 +100,8 @@ static XStatus XPmBoard_IicInit(XIicPs *Iic)
 	XIicPs_Config *Config;
 
 	/* Request the PMC_I2C device */
-	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, PM_CAP_ACCESS,
-				   XPM_MAX_QOS, 0);
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC,
+				   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
 	if (XST_SUCCESS != Status) {
 		PmErr("Fail to request PMC_I2C device\n\r");
 		goto done;

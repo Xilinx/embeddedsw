@@ -38,59 +38,59 @@ static XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
 {
 	[XPM_NODEIDX_SUBSYS_DEFAULT] = {
 		.Id = PM_SUBSYS_DEFAULT,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.IpiMask = 0x00000000U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_PMC] = {
 		.Id = PM_SUBSYS_PMC,
-		.State = ONLINE,
+		.State = (u8)ONLINE,
 		.IpiMask = 0x00000002U,
 		.Flags = SUBSYSTEM_INIT_FINALIZED,
 	},
 	[XPM_NODEIDX_SUBSYS_PSM] = {
 		.Id = PM_SUBSYS_PSM,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.IpiMask = 0x00000001U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_APU] = {
 		.Id = PM_SUBSYS_APU,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.IpiMask = 0x00000004U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_LOCK] = {
 		.Id = PM_SUBSYS_RPU0_LOCK,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.IpiMask = 0x00000008U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_0] = {
 		.Id = PM_SUBSYS_RPU0_0,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.IpiMask = 0x00000008U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_1] = {
 		.Id = PM_SUBSYS_RPU0_1,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.IpiMask = 0x00000010U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_DDR0] = {
 		.Id = PM_SUBSYS_DDR0,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_ME] = {
 		.Id = PM_SUBSYS_ME,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_PL] = {
 		.Id = PM_SUBSYS_PL,
-		.State = OFFLINE,
+		.State = (u8)OFFLINE,
 		.Flags = 0U,
 	}
 };
@@ -135,9 +135,9 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 		XPm_RpuGetOperMode(PM_DEV_RPU0_0, &RpuBootMode);
 
 		if (XPM_RPU_MODE_SPLIT == RpuBootMode) {
-			SubSysIdx = XPM_NODEIDX_SUBSYS_RPU0_0;
+			SubSysIdx = (u32)XPM_NODEIDX_SUBSYS_RPU0_0;
 		} else {
-			SubSysIdx = XPM_NODEIDX_SUBSYS_RPU0_LOCK;
+			SubSysIdx = (u32)XPM_NODEIDX_SUBSYS_RPU0_LOCK;
 		}
 	}
 
@@ -254,7 +254,7 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			 * clock and power to be powered down.
 			 */
 			Status = XPmDevice_Request(PM_SUBSYS_PMC, Device->Node.Id,
-						   PM_CAP_ACCESS, XPM_MAX_QOS);
+						   (u32)PM_CAP_ACCESS, XPM_MAX_QOS);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -439,7 +439,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	Subsystem = &PmSubsystems[SubSysIdx];
 
 	switch (NODECLASS(NodeId)) {
-	case XPM_NODECLASS_POWER:
+	case (u32)XPM_NODECLASS_POWER:
 		/*
 		Node = (XPm_Node *)XPmPower_GetById(NodeId);
 		if (NULL == Node) {
@@ -447,25 +447,25 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		}
 		*/
 		break;
-	case XPM_NODECLASS_CLOCK:
+	case (u32)XPM_NODECLASS_CLOCK:
 		Status = XPmClock_CheckPermissions(SubSysIdx, NodeId);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case XPM_NODECLASS_RESET:
+	case (u32)XPM_NODECLASS_RESET:
 		Status = XPmReset_CheckPermissions(Subsystem, NodeId);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case XPM_NODECLASS_DEVICE:
+	case (u32)XPM_NODECLASS_DEVICE:
 		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case XPM_NODECLASS_STMIC:
+	case (u32)XPM_NODECLASS_STMIC:
 		Pin = XPmPin_GetById(NodeId);
 		if (NULL == Pin) {
 			goto done;
@@ -515,7 +515,7 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 		goto done;
 	}
 
-	PmSubsystems[SubSysIdx].State = State;
+	PmSubsystems[SubSysIdx].State = (u8)State;
 	Status = XST_SUCCESS;
 
 done:
@@ -582,7 +582,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		}
 	}
 
-	Status = XPmSubsystem_SetState(SubsystemId, ONLINE);
+	Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -653,7 +653,7 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 		Reqm = Reqm->NextDevice;
 	}
 
-	Status = XPmSubsystem_SetState(SubsystemId, OFFLINE);
+	Status = XPmSubsystem_SetState(SubsystemId, (u32)OFFLINE);
 done:
 	return Status;
 }
@@ -686,7 +686,7 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 					goto done;
 				}
 				Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC,
-							     PM_RESET_ACTION_PULSE);
+							     (u32)PM_RESET_ACTION_PULSE);
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}

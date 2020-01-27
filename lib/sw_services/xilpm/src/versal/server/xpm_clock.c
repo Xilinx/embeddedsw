@@ -50,7 +50,7 @@
 
 #define GENERIC_MUX						\
 	{									\
-		.Type = TYPE_MUX,				\
+		.Type = (u8)TYPE_MUX,				\
 		.Param1.Shift = PERIPH_MUX_SHIFT,		\
 		.Param2.Width = PERIPH_MUX_WIDTH,		\
 		.Clkflags = CLK_SET_RATE_NO_REPARENT |	\
@@ -60,7 +60,7 @@
 
 #define GENERIC_DIV						\
 	{									\
-		.Type = TYPE_DIV1,				\
+		.Type = (u8)TYPE_DIV1,				\
 		.Param1.Shift = PERIPH_DIV_SHIFT,		\
 		.Param2.Width = PERIPH_DIV_WIDTH,		\
 		.Clkflags = CLK_SET_RATE_NO_REPARENT |	\
@@ -71,7 +71,7 @@
 
 #define GENERIC_GATE(id)				\
 	{									\
-		.Type = TYPE_GATE,				\
+		.Type = (u8)TYPE_GATE,				\
 		.Param1.Shift = PERIPH_GATE##id##_SHIFT,		\
 		.Param2.Width = PERIPH_GATE_WIDTH,				\
 		.Clkflags = CLK_SET_RATE_PARENT |		\
@@ -113,8 +113,8 @@ static XPm_ClkTopology ClkTopologies[ ] = {
 	 {&GenericMuxDivGate2Nodes, TOPOLOGY_GENERIC_MUX_DIV_GATE_2, ARRAY_SIZE(GenericMuxDivGate2Nodes), {0}},
 };
 
-static XPm_ClockNode *ClkNodeList[XPM_NODEIDX_CLK_MAX];
-static const u32 MaxClkNodes = XPM_NODEIDX_CLK_MAX;
+static XPm_ClockNode *ClkNodeList[(u32)XPM_NODEIDX_CLK_MAX];
+static const u32 MaxClkNodes = (u32)XPM_NODEIDX_CLK_MAX;
 static u32 PmNumClocks;
 
 static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
@@ -261,7 +261,7 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 	SubNodes = *OutClkPtr->Topology.Nodes;
 	for (i=0; i<OutClkPtr->Topology.NumNodes; i++) {
 		if (SubNodes[i].Type == 0U) {
-			SubNodes[i].Type = Type;
+			SubNodes[i].Type = (u8)Type;
 			SubNodes[i].Reg = ControlReg;
 			if (Type == (u32)TYPE_FIXEDFACTOR) {
 				SubNodes[i].Param1.Mult = Param1;
@@ -270,8 +270,8 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 				SubNodes[i].Param1.Shift = Param1;
 				SubNodes[i].Param2.Width = Param2;
 			}
-			SubNodes[i].Clkflags = Flags & 0xFFFFU;
-			SubNodes[i].Typeflags = (Flags >> 16) & 0xFFFFU;
+			SubNodes[i].Clkflags = (u16)(Flags & 0xFFFFU);
+			SubNodes[i].Typeflags = (u16)((Flags >> 16) & 0xFFFFU);
 			SubNodes[i].Reg = ControlReg;
 			break;
 		}
@@ -291,7 +291,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	XStatus Status = XST_FAILURE;
 	u32 Idx = 0;
 	u32 LastParentIdx = 0;
-	u8 ParentIdx = 0;
+	u16 ParentIdx = 0;
 	XPm_ClockNode *ParentClk = NULL;
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 
@@ -342,9 +342,9 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	/* For clocks involving mux */
 	for (Idx = 0; Idx < NumParents; Idx++) {
 		if ((u32)CLK_DUMMY_PARENT == Parents[Idx]) {
-			ParentIdx = CLK_DUMMY_PARENT;
+			ParentIdx = (u16)CLK_DUMMY_PARENT;
 		} else {
-			ParentIdx = NODEINDEX(Parents[Idx]);
+			ParentIdx = (u16)(NODEINDEX(Parents[Idx]));
 		}
 		ClkPtr->Topology.MuxSources[LastParentIdx++] = ParentIdx;
 	}
@@ -355,11 +355,11 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		 * For mux clocks, parents are initialized when clock
 		 * requested. So assign invalid clock parent by default.
 		 */
-		ClkPtr->ClkNode.ParentIdx = CLOCK_PARENT_INVALID;
+		ClkPtr->ClkNode.ParentIdx = (u16)CLOCK_PARENT_INVALID;
 	} else {
 		ParentClk = XPmClock_GetByIdx(ClkPtr->Topology.MuxSources[0]);
 		if (NULL != ParentClk) {
-			ClkPtr->ClkNode.ParentIdx = NODEINDEX(ParentClk->Node.Id);
+			ClkPtr->ClkNode.ParentIdx = (u16)(NODEINDEX(ParentClk->Node.Id));
 		}
 	}
 
@@ -421,7 +421,7 @@ done:
 
 XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 {
-	u32 Status = XST_INVALID_PARAM;
+	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(ClockId);
 
 	/*
@@ -437,7 +437,7 @@ XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 	return Status;
 }
 
-static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Clk, enum XPm_ClockSubnodeType Type)
+static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Clk, u32 Type)
 {
 	struct XPm_ClkTopologyNode *SubNodes;
 	uint8_t NumNodes;
@@ -470,14 +470,14 @@ static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 	struct XPm_ClkTopologyNode *Ptr;
 	XPm_ClockNode *ParentClk = NULL;
 
-	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_MUX);
+	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_MUX);
 	if (NULL != Ptr) {
-		XPmClock_GetClockData(Clk, TYPE_MUX, &ParentIdx);
+		XPmClock_GetClockData(Clk, (u32)TYPE_MUX, &ParentIdx);
 
 		/* Update new parent id */
 		ParentClk = XPmClock_GetByIdx(Clk->Topology.MuxSources[ParentIdx]);
 		if (NULL != ParentClk) {
-			Clk->ClkNode.ParentIdx = NODEINDEX(ParentClk->Node.Id);
+			Clk->ClkNode.ParentIdx = (u16)(NODEINDEX(ParentClk->Node.Id));
 		}
 	}
 
@@ -548,7 +548,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 
 		if (0U == Clk->UseCount) {
 			/* Clear the requested bit of clock */
-			Clk->Node.State &= ~(XPM_CLK_STATE_REQUESTED);
+			Clk->Node.State &= (u8)(~(XPM_CLK_STATE_REQUESTED));
 			/* Disable clock */
 			XPmClock_SetGate((XPm_OutClockNode *)Clk, 0);
 
@@ -594,10 +594,10 @@ done:
 
 XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	struct XPm_ClkTopologyNode *Ptr;
 
-	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_GATE);
+	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_GATE);
 	if (Ptr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -613,7 +613,7 @@ XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 	if (Enable) {
 		Clk->ClkNode.Node.State |= XPM_CLK_STATE_ON;
 	} else {
-		Clk->ClkNode.Node.State &= ~(XPM_CLK_STATE_ON);
+		Clk->ClkNode.Node.State &= (u8)(~(XPM_CLK_STATE_ON));
 	}
 
 	Status = XST_SUCCESS;
@@ -625,12 +625,12 @@ done:
 
 XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	struct XPm_ClkTopologyNode *Ptr;
 	XPm_ClockNode *ParentClk = NULL;
 	XPm_ClockNode *OldParentClk = NULL;
 
-	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_MUX);
+	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_MUX);
 	if (Ptr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -661,7 +661,7 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 	}
 
 	/* Update new parent idx */
-	Clk->ClkNode.ParentIdx = NODEINDEX(ParentClk->Node.Id);
+	Clk->ClkNode.ParentIdx = (u16)(NODEINDEX(ParentClk->Node.Id));
 
 	Status = XST_SUCCESS;
 
@@ -671,11 +671,11 @@ done:
 
 XStatus XPmClock_SetDivider(XPm_OutClockNode *Clk, u32 Divider)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	struct XPm_ClkTopologyNode *Ptr;
 	u32 Divider1;
 
-	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_DIV1);
+	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_DIV1);
 	if (Ptr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -697,7 +697,7 @@ done:
 
 XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Mask;
 	struct XPm_ClkTopologyNode *Ptr;
 	XPm_Power *PowerDomain = Clk->ClkNode.PwrDomain;
@@ -724,7 +724,7 @@ done:
 
 XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
-	u32 RetWord = 0;
+	XStatus RetWord = 0;
 	XPm_ClockNode *Clk;
 	memset(Resp, 0, CLK_QUERY_NAME_LEN);
 
@@ -771,7 +771,7 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			Status = XST_SUCCESS;
 			goto done;
 		}
-		Resp[0] =	TYPE_PLL;
+		Resp[0] = (u32)TYPE_PLL;
 		Resp[0] |=	CLK_SET_RATE_NO_REPARENT << CLK_CLKFLAGS_SHIFT;
 		Resp[0] |=	NA_TYPE_FLAGS <<	CLK_TYPEFLAGS_SHIFT;
 	} else {
@@ -797,7 +797,7 @@ XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp)
 		goto done;
 	}
 
-	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_FIXEDFACTOR);
+	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_FIXEDFACTOR);
 	if (Ptr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -911,7 +911,7 @@ done:
 
 XStatus XPmClock_GetNumClocks(u32 *Resp)
 {
-	*Resp = XPM_NODEIDX_CLK_MAX;
+	*Resp = (u32)XPM_NODEIDX_CLK_MAX;
 
 	return XST_SUCCESS;
 }
@@ -980,7 +980,7 @@ done:
 
 XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	struct XPm_ClkTopologyNode *Ptr;
 	XPm_OutClockNode *Clk;
 

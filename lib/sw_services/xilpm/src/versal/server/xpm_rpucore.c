@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -111,7 +111,7 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
 		XPM_RPU_NCPUHALT_MASK);
 
-	Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;
@@ -146,7 +146,7 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&RpuCore->Core, Id, Power, Clock, Reset, Ipi,
+	Status = XPmCore_Init(&RpuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
 			      &RpuOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -218,7 +218,7 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	if ((XST_SUCCESS == Status) && (ONLINE == DefSubsystem->State)) {
 		if (Mode == XPM_RPU_MODE_SPLIT) {
 			XPmDevice_Request(PM_SUBSYS_DEFAULT, PM_DEV_RPU0_1,
-					  PM_CAP_ACCESS, XPM_MAX_QOS);
+					  (u32)PM_CAP_ACCESS, XPM_MAX_QOS);
 		} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
 			Status = XPmDevice_IsRequested(PM_DEV_RPU0_1,
 						       PM_SUBSYS_DEFAULT);

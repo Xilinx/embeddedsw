@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ static XPlmi_Module XPlmi_Psm =
 	PSM_API_MAX+1,
 };
 
-static u32 ProcDevList[] = {
+static u32 ProcDevList[PROC_DEV_MAX] = {
 	[ACPU_0] = PM_DEV_ACPU_0,
 	[ACPU_1] = PM_DEV_ACPU_1,
 	[RPU0_0] = PM_DEV_RPU0_0,
@@ -59,8 +59,8 @@ volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
 
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
-	u32 Status = XST_FAILURE;
-	u32 Idx, EventStatus;
+	int Status = XST_FAILURE, EventStatus;
+	u32 Idx;
 
 	/* Ack the IPI interrupt first */
 	PmOut32(IPI_PMC_ISR_ADDR, PSM_IPI_BIT);
@@ -101,7 +101,7 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 		}
 	}
 
-	Cmd->Response[0] = Status;
+	Cmd->Response[0] = (u32)Status;
 
 done:
 	if (XST_SUCCESS == Status) {
@@ -241,9 +241,9 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	}
 
 	if (SUSPENDING == Subsystem->State) {
-		Status = XPmRequirement_UpdateScheduled(Subsystem, TRUE);
+		Status = XPmRequirement_UpdateScheduled(Subsystem, 1U);
 
-		XPmSubsystem_SetState(SubsystemId, SUSPENDED);
+		XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
 	} else {
 		Status = XST_SUCCESS;
 	}

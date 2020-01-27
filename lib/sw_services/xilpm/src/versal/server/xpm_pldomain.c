@@ -55,7 +55,7 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
 		/* Remove vccaux-vccram domain isolation */
-		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE_IMMEDIATE);
+		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -64,7 +64,7 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
 		/* Remove vccaux-vccram domain isolation */
-		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE_IMMEDIATE);
+		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -319,8 +319,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Remove POR for PL */
-	Status = XPmReset_AssertbyId(PM_RST_PL_POR,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_RELEASE);
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);;
 	if (NULL == Pmc) {
@@ -333,8 +332,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		/* EDT-995767: Theres a bug with ES1, due to which a small percent (<2%) of device
 		may miss pl_por_b during power, which could result CFRAME wait up in wrong state.
 		The work around requires to toggle PL_POR twice after PL supplies is up. */
-		Status = XPmReset_AssertbyId(PM_RST_PL_POR,
-				     PM_RESET_ACTION_PULSE);
+		Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_PULSE);
 		/*
 		 * Clear sticky ERROR and interrupt status (They are not
 		 * cleared by PL_POR). Otherwise, once ERROR/interrupt is
@@ -364,16 +362,15 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
         }
 
 	/* Remove SRST for PL */
-	Status = XPmReset_AssertbyId(PM_RST_PL_SRST,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PL_SRST, (u32)PM_RESET_ACTION_RELEASE);
 
 	 /* Remove PL-SOC isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 	 /* Remove PMC-SOC isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_IMMEDIATE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -413,7 +410,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_PL_CFRAME, FALSE_IMMEDIATE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -582,30 +579,30 @@ static XStatus (*HandlePowerEvent)(XPm_Node *Node, u32 Event);
 
 static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
 
 	PmDbg("State=%d, Event=%d\n\r", Node->State, Event);
 
 	switch (Node->State)
 	{
-		case XPM_POWER_STATE_ON:
+		case (u8)XPM_POWER_STATE_ON:
 			if (XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount++;
 			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount--;
-				Node->State = XPM_POWER_STATE_OFF;
+				Node->State = (u8)XPM_POWER_STATE_OFF;
 			} else {
 				Status = XST_FAILURE;
 			}
 			break;
-		case XPM_POWER_STATE_OFF:
+		case (u8)XPM_POWER_STATE_OFF:
 			if (XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount++;
-				Node->State = XPM_POWER_STATE_ON;
+				Node->State = (u8)XPM_POWER_STATE_ON;
 			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount--;
@@ -629,7 +626,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 
 	XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
-	PlDomain->Domain.Power.Node.State = XPM_POWER_STATE_OFF;
+	PlDomain->Domain.Power.Node.State = (u8)XPM_POWER_STATE_OFF;
 	PlDomain->Domain.Power.UseCount = 1;
 
 	HandlePowerEvent = PlDomain->Domain.Power.HandleEvent;

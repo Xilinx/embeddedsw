@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -125,7 +125,7 @@ static void XPm_GicProxyDisable(void)
 		}
 	}
 
-	XPm_GicProxy.Flags &= ~XPM_GIC_PROXY_IS_ENABLED;
+	XPm_GicProxy.Flags &= (u8)(~XPM_GIC_PROXY_IS_ENABLED);
 }
 
 /**

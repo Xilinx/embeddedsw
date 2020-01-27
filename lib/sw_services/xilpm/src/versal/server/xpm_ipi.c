@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -95,7 +95,7 @@ XStatus XPm_IpiReadStatus(u32 IpiMask)
 		goto done;
 	}
 
-	Status = Response[0];
+	Status = (XStatus)Response[0];
 
 done:
 	return Status;

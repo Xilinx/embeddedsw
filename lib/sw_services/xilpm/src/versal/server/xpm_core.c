@@ -168,7 +168,7 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 		ENABLE_WAKE(Core->SleepMask);
 	}
 
-	Core->Device.Node.State = XPM_DEVSTATE_UNUSED;
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
 
 done:
 	return Status;

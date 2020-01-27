@@ -66,7 +66,7 @@ typedef struct XPm_Subsystem XPm_Subsystem;
  */
 struct XPm_Subsystem {
 	u32 Id; /**< Subsystem ID */
-	XPm_SubsysState State; /**< Subsystem state */
+	u8 State; /**< Subsystem state */
 	u8 Flags; /**< Subsystem specific flags */
 	u32 IpiMask;
 	XPm_Requirement *Requirements;

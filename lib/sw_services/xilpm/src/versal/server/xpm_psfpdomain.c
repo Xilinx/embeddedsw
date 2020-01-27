@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_INIT_START;
+	Payload[1] = (u32)FUNC_INIT_START;
 
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
@@ -64,8 +64,7 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 	/* Release POR for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD_POR,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD_POR, (u32)PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
 }
@@ -91,11 +90,10 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	/* Release SRST for PS-FPD - in case Bisr and Mbist are skipped */
-	Status = XPmReset_AssertbyId(PM_RST_FPD,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_INIT_FINISH;
+	Payload[1] = (u32)FUNC_INIT_FINISH;
 
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
@@ -107,7 +105,7 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Remove FPD SOC domains isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, FALSE_VALUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -169,12 +167,11 @@ static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Call PSM to execute pre bisr requirements */
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_BISR;
+	Payload[1] = (u32)FUNC_BISR;
 
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
@@ -209,11 +206,10 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
 
         Payload[0] = PSM_API_FPD_HOUSECLEAN;
-        Payload[1] = FUNC_MBIST_CLEAR;
+        Payload[1] = (u32)FUNC_MBIST_CLEAR;
 
         Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
         if (XST_SUCCESS != Status) {
@@ -260,8 +256,8 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 
 	/* EDT-997247: Mem clear introduces apu gic ecc error,
 	so pulse gic reset as a work around to fix it */
-	XPmReset_AssertbyId(PM_RST_ACPU_GIC, PM_RESET_ACTION_ASSERT);
-	XPmReset_AssertbyId(PM_RST_ACPU_GIC, PM_RESET_ACTION_RELEASE);
+	XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_ASSERT);
+	XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_RELEASE);
 
 done:
         return Status;

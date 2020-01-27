@@ -34,11 +34,11 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action);
 static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst);
 static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst);
 
-static XPm_ResetNode *RstNodeList[XPM_NODEIDX_RST_MAX];
-static const u32 MaxRstNodes = XPM_NODEIDX_RST_MAX;
+static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
+static const u32 MaxRstNodes = (u32)XPM_NODEIDX_RST_MAX;
 static u32 PmNumResets;
 
-static XPm_ResetOps ResetOps[] = {
+static XPm_ResetOps ResetOps[XPM_RSTOPS_MAX] = {
 	[XPM_RSTOPS_GENRERIC] = {
 			.SetState = Reset_AssertCommon,
 			.GetState = Reset_GetStatusCommon,
@@ -51,7 +51,7 @@ static XPm_ResetOps ResetOps[] = {
 
 static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 {
-	u32 Status = XST_INVALID_PARAM;
+	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
 
 	/*
@@ -69,7 +69,7 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 
 static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
-	u32 Status = XST_FAILURE, i = 0;
+	XStatus Status = XST_FAILURE, i = 0;
 
 	Status = XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0);
 
@@ -79,7 +79,7 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 	Rst->Ops = &ResetOps[ResetType];
 
 	for (i=0; i<NumParents; i++) {
-		Rst->Parents[i] = NODEINDEX(Parents[i]);
+		Rst->Parents[i] = (u16)(NODEINDEX(Parents[i]));
 	}
 
 	return Status;
@@ -87,7 +87,7 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(Id);
 	XPm_ResetNode *Rst = NULL;
 
@@ -97,10 +97,10 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 	}
 
 	switch (SubClass) {
-	case XPM_NODETYPE_RESET_PERIPHERAL:
-	case XPM_NODETYPE_RESET_POR:
-	case XPM_NODETYPE_RESET_DBG:
-	case XPM_NODETYPE_RESET_SRST:
+	case (u32)XPM_NODETYPE_RESET_PERIPHERAL:
+	case (u32)XPM_NODETYPE_RESET_POR:
+	case (u32)XPM_NODETYPE_RESET_DBG:
+	case (u32)XPM_NODETYPE_RESET_SRST:
 		break;
 
 	default:
@@ -150,7 +150,8 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 
 static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 {
-	u32 i, Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
+	u32 i;
 	const u32 PsDomainIds[] = { PM_POWER_LPD, PM_POWER_FPD };
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
@@ -160,50 +161,46 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 	XPlmi_ResetLpdInitialized();
 
 	/* Block LPD-PL interfaces */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL,
-			TRUE_PENDING_REMOVE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL_TEST,
-			TRUE_PENDING_REMOVE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block LPD-NoC interfaces */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_SOC, TRUE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block LPD-PMC interfaces */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD, TRUE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, TRUE_VALUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD_DFX, TRUE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, TRUE_VALUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block FPD-PL interfaces */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_PL,
-			TRUE_PENDING_REMOVE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_PL_TEST,
-			TRUE_PENDING_REMOVE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block FPD-NoC interfaces */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
@@ -229,10 +226,10 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 
 		Child = ((XPm_PowerDomain *)Power)->Children;
 		while (Child != NULL) {
-			Child->Node.State = XPM_POWER_STATE_OFF;
+			Child->Node.State = (u8)XPM_POWER_STATE_OFF;
 			Child = Child->NextPeer;
 		}
-		Power->Node.State = XPM_POWER_STATE_OFF;
+		Power->Node.State = (u8)XPM_POWER_STATE_OFF;
 	}
 
 	/* Assert PS System Reset */
@@ -254,7 +251,7 @@ static XStatus PsOnlyResetRelease(XPm_ResetNode *Rst)
 
 static XStatus PsOnlyResetPulse(XPm_ResetNode *Rst)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Assert PS System Reset */
 	Status = PsOnlyResetAssert(Rst);
@@ -274,7 +271,7 @@ done:
 
 static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	//u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* This parameter is required as per the prototype */
@@ -294,13 +291,13 @@ static const struct ResetCustomOps {
 	XStatus (*const ActionPulse)(XPm_ResetNode *Rst);
 } Reset_Custom[] = {
 	{
-		.ResetIdx = XPM_NODEIDX_RST_PS_SRST,
+		.ResetIdx = (u32)XPM_NODEIDX_RST_PS_SRST,
 		.ActionAssert = &PsOnlyResetAssert,
 		.ActionRelease = &PsOnlyResetRelease,
 		.ActionPulse = &PsOnlyResetPulse,
 	},
 	{
-		.ResetIdx = XPM_NODEIDX_RST_LPD,
+		.ResetIdx = (u32)XPM_NODEIDX_RST_LPD,
 		.ActionPulse = &ResetPulseLpd,
 	},
 };
@@ -319,13 +316,13 @@ static const struct ResetCustomOps *GetResetCustomOps(u32 ResetId)
 
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
 	const struct ResetCustomOps *Ops = GetResetCustomOps(Rst->Node.Id);
 
 	switch (Action) {
-	case PM_RESET_ACTION_RELEASE:
+	case (u32)PM_RESET_ACTION_RELEASE:
 		if ((NULL != Ops) && (NULL != Ops->ActionRelease)) {
 			Status = Ops->ActionRelease(Rst);
 			if (XST_SUCCESS != Status) {
@@ -337,7 +334,7 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
 		Status = XST_SUCCESS;
 		break;
-	case PM_RESET_ACTION_ASSERT:
+	case (u32)PM_RESET_ACTION_ASSERT:
 		if ((NULL != Ops) && (NULL != Ops->ActionAssert)) {
 			Status = Ops->ActionAssert(Rst);
 			if (XST_SUCCESS != Status) {
@@ -349,7 +346,7 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		Rst->Node.State = XPM_RST_STATE_ASSERTED;
 		Status = XST_SUCCESS;
 		break;
-	case PM_RESET_ACTION_PULSE:
+	case (u32)PM_RESET_ACTION_PULSE:
 		if ((NULL != Ops) && (NULL != Ops->ActionPulse)) {
 			Status = Ops->ActionPulse(Rst);
 			if (XST_SUCCESS != Status) {
@@ -369,22 +366,22 @@ done:
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
 
 	switch (Action) {
-	case PM_RESET_ACTION_RELEASE:
+	case (u32)PM_RESET_ACTION_RELEASE:
 		XPm_RMW32(ControlReg, Mask, 0);
 		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
 		Status = XST_SUCCESS;
 		break;
-	case PM_RESET_ACTION_ASSERT:
+	case (u32)PM_RESET_ACTION_ASSERT:
 		XPm_RMW32(ControlReg, Mask, Mask);
 		Rst->Node.State = XPM_RST_STATE_ASSERTED;
 		Status = XST_SUCCESS;
 		break;
-	case PM_RESET_ACTION_PULSE:
+	case (u32)PM_RESET_ACTION_PULSE:
 		XPm_RMW32(ControlReg, Mask, Mask);
 		//Wait for xms ??
 		XPm_RMW32(ControlReg, Mask, 0);
@@ -459,8 +456,7 @@ int XPmReset_SystemReset()
 
 	/* TODO: Confirm if idling is required here or not */
 
-	Status = XPmReset_AssertbyId(PM_RST_PMC,
-				     PM_RESET_ACTION_ASSERT);
+	Status = XPmReset_AssertbyId(PM_RST_PMC, (u32)PM_RESET_ACTION_ASSERT);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

@@ -55,8 +55,7 @@ XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 		goto done;
 	}
 
-	Status = XPmNode_Init(&ProtNode->Node,
-		Id, XPM_PROT_DISABLED, BaseAddr);
+	Status = XPmNode_Init(&ProtNode->Node, Id, (u8)XPM_PROT_DISABLED, BaseAddr);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -164,7 +163,7 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	/* Enable Xppu */
 	PmRmw32(BaseAddr + XPPU_CTRL_OFFSET, 0x1, 0x1);
 
-	PpuNode->ProtNode.Node.State = XPM_PROT_ENABLED;
+	PpuNode->ProtNode.Node.State = (u8)XPM_PROT_ENABLED;
 
 	Status = XST_SUCCESS;
 
@@ -196,7 +195,7 @@ XStatus XPmProt_XppuDisable(u32 NodeId)
 	/* Disable Xppu */
 	PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET, 0x1, 0x0);
 
-	PpuNode->ProtNode.Node.State = XPM_PROT_DISABLED;
+	PpuNode->ProtNode.Node.State = (u8)XPM_PROT_DISABLED;
 
 	Status = XST_SUCCESS;
 

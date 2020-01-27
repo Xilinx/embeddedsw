@@ -53,13 +53,13 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Release POR for NoC */
-	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, (u32)PM_RESET_ACTION_RELEASE);
 
 done:
 	return Status;
@@ -68,20 +68,15 @@ done:
 static void NpdPreBisrReqs()
 {
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(PM_RST_NPI,
-			PM_RESET_ACTION_RELEASE);
+	XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Release NoC Reset */
-	XPmReset_AssertbyId(PM_RST_NOC,
-			PM_RESET_ACTION_RELEASE);
+	XPmReset_AssertbyId(PM_RST_NOC, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Release Sys Resets */
-	XPmReset_AssertbyId(PM_RST_SYS_RST_1,
-			PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(PM_RST_SYS_RST_2,
-			PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(PM_RST_SYS_RST_3,
-			PM_RESET_ACTION_RELEASE);
+	XPmReset_AssertbyId(PM_RST_SYS_RST_1, (u32)PM_RESET_ACTION_RELEASE);
+	XPmReset_AssertbyId(PM_RST_SYS_RST_2, (u32)PM_RESET_ACTION_RELEASE);
+	XPmReset_AssertbyId(PM_RST_SYS_RST_3, (u32)PM_RESET_ACTION_RELEASE);
 
 	return;
 }
@@ -102,14 +97,14 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
 		/* Remove vccaux-soc domain isolation */
-		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE);
+		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE_VALUE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 	}
 
 	/* Remove PMC-NoC domain isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -133,7 +128,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Deassert UB_INITSTATE for DDR blocks */
-	for (i = XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		if (NULL != Device) {
 			BaseAddress = Device->Node.BaseAddress;
@@ -150,7 +145,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		}
 	}
 	/* When NPD is powered, copy sysmon data */
-	for (i = XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
+	for (i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */
 		if (0 != SysmonAddresses[i]) {
 			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
@@ -219,12 +214,11 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	usleep(400);
 
 	/* Enable NPI Clock */
-	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx(XPM_NODEIDX_CLK_NPI_REF);
+	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx((u32)XPM_NODEIDX_CLK_NPI_REF);
 	XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
 
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(PM_RST_NPI,
-                        PM_RESET_ACTION_RELEASE);
+	XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
 
 	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 	       RegValue);

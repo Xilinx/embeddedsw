@@ -104,7 +104,7 @@ XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
-		PllPtr->ClkNode.ParentIdx = NODEINDEX(Parents[0]);
+		PllPtr->ClkNode.ParentIdx = (u16)(NODEINDEX(Parents[0]));
 		Status = XST_SUCCESS;
 	}
 
@@ -114,12 +114,12 @@ done:
 
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Val = 0;
 
 	if (PM_PLL_MODE_FRACTIONAL == Mode) {
 		/* Check if fractional value has been set */
-		XPmClockPll_GetParam(Pll, PM_PLL_PARAM_ID_DATA, &Val);
+		XPmClockPll_GetParam(Pll, (u32)PM_PLL_PARAM_ID_DATA, &Val);
 		if (0U == Val) {
 			Status = XST_FAILURE;
 			goto done;
@@ -150,7 +150,7 @@ XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 
 done:
 	if (XST_SUCCESS == Status) {
-		Pll->PllMode = Mode;
+		Pll->PllMode = (u8)Mode;
 	}
 	return Status;
 }
@@ -168,17 +168,17 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 
 	Val = XPm_Read32(Pll->ClkNode.Node.BaseAddress);
 	if (0U != (Val & BIT(Pll->Topology->ResetShift))) {
-		*Mode = PM_PLL_MODE_RESET;
+		*Mode = (u32)PM_PLL_MODE_RESET;
 	} else {
 		Val = XPm_Read32(Pll->FracConfigReg);
 		if (0U != (Val & PLL_FRAC_CFG_ENABLED_MASK)) {
-			*Mode = PM_PLL_MODE_FRACTIONAL;
+			*Mode = (u32)PM_PLL_MODE_FRACTIONAL;
 		} else {
-			*Mode = PM_PLL_MODE_INTEGER;
+			*Mode = (u32)PM_PLL_MODE_INTEGER;
 		}
 	}
 
-	Pll->PllMode = *Mode;
+	Pll->PllMode = (u8)(*Mode);
 
 	Status = XST_SUCCESS;
 
@@ -200,12 +200,12 @@ static void XPm_PllRestoreContext(XPm_PllClockNode* Pll)
 	XPm_Write32(Pll->ClkNode.Node.BaseAddress, Pll->Context.Ctrl);
 	XPm_Write32(Pll->ConfigReg, Pll->Context.Cfg);
 	XPm_Write32(Pll->FracConfigReg, Pll->Context.Frac);
-	Pll->Context.Flag &= ~PM_PLL_CONTEXT_SAVED;
+	Pll->Context.Flag &= (u8)(~PM_PLL_CONTEXT_SAVED);
 }
 
 XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
 	XPm_PllSaveContext(Pll);
@@ -236,7 +236,7 @@ done:
 
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
 	if (NULL != PowerDomain) {
@@ -265,7 +265,7 @@ done:
 
 XStatus XPmClockPll_Request(u32 PllId)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(PllId);
 	if (Pll == NULL) {
@@ -290,7 +290,7 @@ done:
 
 XStatus XPmClockPll_Release(u32 PllId)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(PllId);
 	if (Pll == NULL) {
 		Status = XST_INVALID_PARAM;
@@ -312,7 +312,7 @@ done:
 
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 ControlReg = Pll->ClkNode.Node.BaseAddress;
 
 	if (Flags & PLL_RESET_ASSERT) {
@@ -370,7 +370,7 @@ done:
 
 XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PllParam *PtrParam;
 	u32 Mask, ParamValue, Reg = 0;
 
@@ -400,22 +400,22 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	ParamValue = Value << PtrParam->Shift;
 
 	switch (Param) {
-	case PM_PLL_PARAM_ID_DIV2:
-	case PM_PLL_PARAM_ID_FBDIV:
+	case (u32)PM_PLL_PARAM_ID_DIV2:
+	case (u32)PM_PLL_PARAM_ID_FBDIV:
 		Reg = Pll->ClkNode.Node.BaseAddress;
 		Status = XST_SUCCESS;
 		break;
-	case PM_PLL_PARAM_ID_DATA:
+	case (u32)PM_PLL_PARAM_ID_DATA:
 		Reg = Pll->FracConfigReg;
 		Status = XST_SUCCESS;
 		break;
-	case PM_PLL_PARAM_ID_PRE_SRC:
-	case PM_PLL_PARAM_ID_POST_SRC:
-	case PM_PLL_PARAM_ID_LOCK_DLY:
-	case PM_PLL_PARAM_ID_LOCK_CNT:
-	case PM_PLL_PARAM_ID_LFHF:
-	case PM_PLL_PARAM_ID_CP:
-	case PM_PLL_PARAM_ID_RES:
+	case (u32)PM_PLL_PARAM_ID_PRE_SRC:
+	case (u32)PM_PLL_PARAM_ID_POST_SRC:
+	case (u32)PM_PLL_PARAM_ID_LOCK_DLY:
+	case (u32)PM_PLL_PARAM_ID_LOCK_CNT:
+	case (u32)PM_PLL_PARAM_ID_LFHF:
+	case (u32)PM_PLL_PARAM_ID_CP:
+	case (u32)PM_PLL_PARAM_ID_RES:
 		Reg = Pll->ConfigReg;
 		Status = XST_SUCCESS;
 		break;
@@ -434,7 +434,7 @@ done:
 
 XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PllParam *PtrParam;
 	u32 Shift, Mask, Reg = 0;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
@@ -454,22 +454,22 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	Shift = PtrParam->Shift;
 
 	switch (Param) {
-	case PM_PLL_PARAM_ID_DIV2:
-	case PM_PLL_PARAM_ID_FBDIV:
+	case (u32)PM_PLL_PARAM_ID_DIV2:
+	case (u32)PM_PLL_PARAM_ID_FBDIV:
 		Reg = Pll->ClkNode.Node.BaseAddress;
 		Status = XST_SUCCESS;
 		break;
-	case PM_PLL_PARAM_ID_DATA:
+	case (u32)PM_PLL_PARAM_ID_DATA:
 		Reg = Pll->FracConfigReg;
 		Status = XST_SUCCESS;
 		break;
-	case PM_PLL_PARAM_ID_PRE_SRC:
-	case PM_PLL_PARAM_ID_POST_SRC:
-	case PM_PLL_PARAM_ID_LOCK_DLY:
-	case PM_PLL_PARAM_ID_LOCK_CNT:
-	case PM_PLL_PARAM_ID_LFHF:
-	case PM_PLL_PARAM_ID_CP:
-	case PM_PLL_PARAM_ID_RES:
+	case (u32)PM_PLL_PARAM_ID_PRE_SRC:
+	case (u32)PM_PLL_PARAM_ID_POST_SRC:
+	case (u32)PM_PLL_PARAM_ID_LOCK_DLY:
+	case (u32)PM_PLL_PARAM_ID_LOCK_CNT:
+	case (u32)PM_PLL_PARAM_ID_LFHF:
+	case (u32)PM_PLL_PARAM_ID_CP:
+	case (u32)PM_PLL_PARAM_ID_RES:
 		Reg = Pll->ConfigReg;
 		Status = XST_SUCCESS;
 		break;

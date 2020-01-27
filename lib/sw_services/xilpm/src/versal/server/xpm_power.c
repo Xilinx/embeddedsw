@@ -56,7 +56,7 @@ XPm_Power *XPmPower_GetById(u32 Id)
 
 static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 {
-	u32 Status = XST_INVALID_PARAM;
+	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
 
 	/*
@@ -80,7 +80,7 @@ static XStatus PowerUpXram(XPm_Node *Node)
 	u32 XramSlcrAddress, PwrCtlAddress, PwrStatusAddress, RegVal;
 	u32 BitMask;
 
-	Device = XPmDevice_GetByIndex(XPM_NODEIDX_DEV_XRAM_0);
+	Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_XRAM_0);
 	if (NULL == Device) {
 		goto done;
 	}
@@ -88,31 +88,31 @@ static XStatus PowerUpXram(XPm_Node *Node)
 	BitMask = Node->BaseAddress;
 
 	switch (NODEINDEX(Node->Id)) {
-		case XPM_NODEIDX_POWER_XRAM_0:
-		case XPM_NODEIDX_POWER_XRAM_1:
-		case XPM_NODEIDX_POWER_XRAM_2:
-		case XPM_NODEIDX_POWER_XRAM_3:
+		case (u32)XPM_NODEIDX_POWER_XRAM_0:
+		case (u32)XPM_NODEIDX_POWER_XRAM_1:
+		case (u32)XPM_NODEIDX_POWER_XRAM_2:
+		case (u32)XPM_NODEIDX_POWER_XRAM_3:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK0_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
 			break;
-		case XPM_NODEIDX_POWER_XRAM_4:
-		case XPM_NODEIDX_POWER_XRAM_5:
-		case XPM_NODEIDX_POWER_XRAM_6:
-		case XPM_NODEIDX_POWER_XRAM_7:
+		case (u32)XPM_NODEIDX_POWER_XRAM_4:
+		case (u32)XPM_NODEIDX_POWER_XRAM_5:
+		case (u32)XPM_NODEIDX_POWER_XRAM_6:
+		case (u32)XPM_NODEIDX_POWER_XRAM_7:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK1_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
 			break;
-		case XPM_NODEIDX_POWER_XRAM_8:
-		case XPM_NODEIDX_POWER_XRAM_9:
-		case XPM_NODEIDX_POWER_XRAM_10:
-		case XPM_NODEIDX_POWER_XRAM_11:
+		case (u32)XPM_NODEIDX_POWER_XRAM_8:
+		case (u32)XPM_NODEIDX_POWER_XRAM_9:
+		case (u32)XPM_NODEIDX_POWER_XRAM_10:
+		case (u32)XPM_NODEIDX_POWER_XRAM_11:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK2_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
 			break;
-		case XPM_NODEIDX_POWER_XRAM_12:
-		case XPM_NODEIDX_POWER_XRAM_13:
-		case XPM_NODEIDX_POWER_XRAM_14:
-		case XPM_NODEIDX_POWER_XRAM_15:
+		case (u32)XPM_NODEIDX_POWER_XRAM_12:
+		case (u32)XPM_NODEIDX_POWER_XRAM_13:
+		case (u32)XPM_NODEIDX_POWER_XRAM_14:
+		case (u32)XPM_NODEIDX_POWER_XRAM_15:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK3_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
 			break;
@@ -152,7 +152,7 @@ static XStatus PowerDwnXram(XPm_Node *Node)
 	u32 XramSlcrAddress, PwrCtlAddress, PwrStatusAddress, RegVal;
 	u32 BitMask;
 
-	Device = XPmDevice_GetByIndex(XPM_NODEIDX_DEV_XRAM_0);
+	Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_XRAM_0);
 	if (NULL == Device) {
 		goto done;
 	}
@@ -160,31 +160,31 @@ static XStatus PowerDwnXram(XPm_Node *Node)
 	BitMask = Node->BaseAddress;
 
 	switch (NODEINDEX(Node->Id)) {
-		case XPM_NODEIDX_POWER_XRAM_0:
-		case XPM_NODEIDX_POWER_XRAM_1:
-		case XPM_NODEIDX_POWER_XRAM_2:
-		case XPM_NODEIDX_POWER_XRAM_3:
+		case (u32)XPM_NODEIDX_POWER_XRAM_0:
+		case (u32)XPM_NODEIDX_POWER_XRAM_1:
+		case (u32)XPM_NODEIDX_POWER_XRAM_2:
+		case (u32)XPM_NODEIDX_POWER_XRAM_3:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK0_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
 			break;
-		case XPM_NODEIDX_POWER_XRAM_4:
-		case XPM_NODEIDX_POWER_XRAM_5:
-		case XPM_NODEIDX_POWER_XRAM_6:
-		case XPM_NODEIDX_POWER_XRAM_7:
+		case (u32)XPM_NODEIDX_POWER_XRAM_4:
+		case (u32)XPM_NODEIDX_POWER_XRAM_5:
+		case (u32)XPM_NODEIDX_POWER_XRAM_6:
+		case (u32)XPM_NODEIDX_POWER_XRAM_7:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK1_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
 			break;
-		case XPM_NODEIDX_POWER_XRAM_8:
-		case XPM_NODEIDX_POWER_XRAM_9:
-		case XPM_NODEIDX_POWER_XRAM_10:
-		case XPM_NODEIDX_POWER_XRAM_11:
+		case (u32)XPM_NODEIDX_POWER_XRAM_8:
+		case (u32)XPM_NODEIDX_POWER_XRAM_9:
+		case (u32)XPM_NODEIDX_POWER_XRAM_10:
+		case (u32)XPM_NODEIDX_POWER_XRAM_11:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK2_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
 			break;
-		case XPM_NODEIDX_POWER_XRAM_12:
-		case XPM_NODEIDX_POWER_XRAM_13:
-		case XPM_NODEIDX_POWER_XRAM_14:
-		case XPM_NODEIDX_POWER_XRAM_15:
+		case (u32)XPM_NODEIDX_POWER_XRAM_12:
+		case (u32)XPM_NODEIDX_POWER_XRAM_13:
+		case (u32)XPM_NODEIDX_POWER_XRAM_14:
+		case (u32)XPM_NODEIDX_POWER_XRAM_15:
 			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK3_OFFSET;
 			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
 			break;
@@ -218,7 +218,7 @@ done:
 
 static XStatus SendPowerUpReq(XPm_Node *Node)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
@@ -264,22 +264,22 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 	} else {
 		PmDbg("Request to power up domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
-		case XPM_NODEIDX_POWER_LPD:
+		case (u32)XPM_NODEIDX_POWER_LPD:
 			Status = XPm_PowerUpLPD(Node);
 			break;
-		case XPM_NODEIDX_POWER_FPD:
+		case (u32)XPM_NODEIDX_POWER_FPD:
 			Status = XPm_PowerUpFPD(Node);
 			break;
-		case XPM_NODEIDX_POWER_NOC:
+		case (u32)XPM_NODEIDX_POWER_NOC:
 			Status = XPm_PowerUpNoC(Node);
 			break;
-		case XPM_NODEIDX_POWER_ME:
+		case (u32)XPM_NODEIDX_POWER_ME:
 			Status = XPm_PowerUpME(Node);
 			break;
-		case XPM_NODEIDX_POWER_PLD:
+		case (u32)XPM_NODEIDX_POWER_PLD:
 			Status = XPm_PowerUpPLD(Node);
 			break;
-		case XPM_NODEIDX_POWER_CPM:
+		case (u32)XPM_NODEIDX_POWER_CPM:
 			Status = XPm_PowerUpCPM(Node);
 			break;
 		default:
@@ -293,7 +293,7 @@ done:
 
 static XStatus SendPowerDownReq(XPm_Node *Node)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
@@ -315,7 +315,7 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
                 }
 
 		if (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) {
-			LpDomain->LpdBisrFlags &= ~(LPD_BISR_DONE);
+			LpDomain->LpdBisrFlags &= (u8)(~(LPD_BISR_DONE));
 			/*
 			 * Clear and Disable RPU internal reg comparators to prevent
 			 * PSM_GLOBAL_REG.PSM_ERR1_STATUS.rpu_ls from erroring out
@@ -330,22 +330,22 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 	} else {
 		PmDbg("Request to power down domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
-		case XPM_NODEIDX_POWER_LPD:
+		case (u32)XPM_NODEIDX_POWER_LPD:
 			Status = XPm_PowerDwnLPD();
 			break;
-		case XPM_NODEIDX_POWER_FPD:
+		case (u32)XPM_NODEIDX_POWER_FPD:
 			Status = XPm_PowerDwnFPD(Node);
 			break;
-		case XPM_NODEIDX_POWER_NOC:
+		case (u32)XPM_NODEIDX_POWER_NOC:
 			Status = XPm_PowerDwnNoC();
 			break;
-		case XPM_NODEIDX_POWER_ME:
+		case (u32)XPM_NODEIDX_POWER_ME:
 			Status = XPm_PowerDwnME();
 			break;
-		case XPM_NODEIDX_POWER_PLD:
+		case (u32)XPM_NODEIDX_POWER_PLD:
 			Status = XPm_PowerDwnPLD();
 			break;
-		case XPM_NODEIDX_POWER_CPM:
+		case (u32)XPM_NODEIDX_POWER_CPM:
 			Status = XPm_PowerDwnCPM();
 			break;
 		default:
@@ -360,20 +360,20 @@ done:
 
 static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
 
 	PmDbg("State=0x%x, Event=0x%x\n\r",Node->State, Event);
 
 	switch (Node->State)
 	{
-		case XPM_POWER_STATE_STANDBY:
-		case XPM_POWER_STATE_OFF:
+		case (u8)XPM_POWER_STATE_STANDBY:
+		case (u8)XPM_POWER_STATE_OFF:
 			if (XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				if (NULL != Power->Parent) {
-					Node->State = XPM_POWER_STATE_PWR_UP_PARENT;
-					Power->WfParentUseCnt = Power->Parent->UseCount + 1;
+					Node->State = (u8)XPM_POWER_STATE_PWR_UP_PARENT;
+					Power->WfParentUseCnt = Power->Parent->UseCount + 1U;
 					Status = Power->Parent->HandleEvent(
 						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
 					/* Todo: Start timer to poll parent node */
@@ -382,21 +382,21 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				} else {
 					/* Write to PSM power up request register */
 					SendPowerUpReq(Node);
-					Node->State = XPM_POWER_STATE_PWR_UP_SELF;
+					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 				}
 			}
 			break;
-		case XPM_POWER_STATE_PWR_UP_PARENT:
+		case (u8)XPM_POWER_STATE_PWR_UP_PARENT:
 			if (XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
 					Power->WfParentUseCnt = 0;
 					/* Write to PSM power up request register */
 					SendPowerUpReq(Node);
-					Node->State = XPM_POWER_STATE_PWR_UP_SELF;
+					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
@@ -405,19 +405,19 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				}
 			}
 			break;
-		case XPM_POWER_STATE_PWR_UP_SELF:
+		case (u8)XPM_POWER_STATE_PWR_UP_SELF:
 			if (XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Read PSM status register */
 				if (1 /* Hack: Power node is up */) {
-					Node->State = XPM_POWER_STATE_ON;
+					Node->State = (u8)XPM_POWER_STATE_ON;
 					Power->UseCount++;
 				} else {
 					/* Todo: Restart timer to poll PSM */
 				}
 			}
 			break;
-		case XPM_POWER_STATE_ON:
+		case (u8)XPM_POWER_STATE_ON:
 			if (XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				if (NULL != Power->Parent) {
@@ -428,7 +428,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
 				if (1 == Power->UseCount) {
-					Node->State = XPM_POWER_STATE_PWR_DOWN_SELF;
+					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
 					/* Write to PSM power down request register */
 					SendPowerDownReq(Node);
 					/* Todo: Start timer to poll PSM status register */
@@ -445,33 +445,33 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				/* Required by MISRA */
 			}
 			break;
-		case XPM_POWER_STATE_PWR_DOWN_SELF:
+		case (u8)XPM_POWER_STATE_PWR_DOWN_SELF:
 			if (XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Read PSM status register */
 				if (1 /* Hack: Power node is down */) {
 					Power->UseCount--;
 					if (NULL != Power->Parent) {
-						Node->State = XPM_POWER_STATE_PWR_DOWN_PARENT;
-						Power->WfParentUseCnt = Power->Parent->UseCount - 1;
+						Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_PARENT;
+						Power->WfParentUseCnt = Power->Parent->UseCount - 1U;
 						Status = Power->Parent->HandleEvent(
 							 &Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
 						/* Todo: Start timer to poll the parent node */
 						/* Hack */
 						Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 					} else {
-						Node->State = XPM_POWER_STATE_OFF;
+						Node->State = (u8)XPM_POWER_STATE_OFF;
 					}
 				} else {
 					/* Todo: Restart timer to poll PSM */
 				}
 			}
 			break;
-		case XPM_POWER_STATE_PWR_DOWN_PARENT:
+		case (u8)XPM_POWER_STATE_PWR_DOWN_PARENT:
 			if (XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
-					Node->State = XPM_POWER_STATE_OFF;
+					Node->State = (u8)XPM_POWER_STATE_OFF;
 					Power->WfParentUseCnt = 0;
 				} else {
 					/* Todo: Restart timer to poll parent state */
@@ -548,7 +548,7 @@ done:
 
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *Power;
 	XPm_Power *PowerParent;
 	u32 i;

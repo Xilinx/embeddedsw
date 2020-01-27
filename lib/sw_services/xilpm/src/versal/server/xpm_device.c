@@ -61,47 +61,47 @@ const char *PmDevEvents[] = {
 };
 
 static XPm_DeviceOps PmDeviceOps;
-static XPm_Device *PmDevices[XPM_NODEIDX_DEV_MAX];
-static u32 MaxDevices = XPM_NODEIDX_DEV_MAX;
+static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
+static u32 MaxDevices = (u32)XPM_NODEIDX_DEV_MAX;
 static u32 PmNumDevices;
 
 static const XPm_StateCap XPmGenericDeviceStates[] = {
 	{
-		.State = XPM_DEVSTATE_UNUSED,
+		.State = (u8)XPM_DEVSTATE_UNUSED,
 		.Cap = XPM_MIN_CAPABILITY,
 	}, {
-		.State = XPM_DEVSTATE_RUNTIME_SUSPEND,
-		.Cap = PM_CAP_UNUSABLE,
+		.State = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.Cap = (u32)PM_CAP_UNUSABLE,
 	}, {
-		.State = XPM_DEVSTATE_RUNNING,
-		.Cap = XPM_MAX_CAPABILITY | PM_CAP_UNUSABLE,
+		.State = (u8)XPM_DEVSTATE_RUNNING,
+		.Cap = XPM_MAX_CAPABILITY | (u32)PM_CAP_UNUSABLE,
 	},
 };
 
 static const XPm_StateTran XPmGenericDevTransitions[] = {
 	{
-		.FromState = XPM_DEVSTATE_RUNNING,
-		.ToState = XPM_DEVSTATE_UNUSED,
+		.FromState = (u32)XPM_DEVSTATE_RUNNING,
+		.ToState = (u32)XPM_DEVSTATE_UNUSED,
 		.Latency = XPM_DEF_LATENCY,
 	}, {
-		.FromState = XPM_DEVSTATE_UNUSED,
-		.ToState = XPM_DEVSTATE_RUNNING,
+		.FromState = (u32)XPM_DEVSTATE_UNUSED,
+		.ToState = (u32)XPM_DEVSTATE_RUNNING,
 		.Latency = XPM_DEF_LATENCY,
 	}, {
-		.FromState = XPM_DEVSTATE_RUNTIME_SUSPEND,
-		.ToState = XPM_DEVSTATE_UNUSED,
+		.FromState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.ToState = (u32)XPM_DEVSTATE_UNUSED,
 		.Latency = XPM_DEF_LATENCY,
 	}, {
-		.FromState = XPM_DEVSTATE_RUNTIME_SUSPEND,
-		.ToState = XPM_DEVSTATE_RUNNING,
+		.FromState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.ToState = (u32)XPM_DEVSTATE_RUNNING,
 		.Latency = XPM_DEF_LATENCY,
 	}, {
-		.FromState = XPM_DEVSTATE_UNUSED,
-		.ToState = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.FromState = (u32)XPM_DEVSTATE_UNUSED,
+		.ToState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
 		.Latency = XPM_DEF_LATENCY,
 	}, {
-		.FromState = XPM_DEVSTATE_RUNNING,
-		.ToState = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.FromState = (u32)XPM_DEVSTATE_RUNNING,
+		.ToState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
 		.Latency = XPM_DEF_LATENCY,
 	},
 };
@@ -138,7 +138,7 @@ done:
 
 static XStatus SetDeviceNode(u32 Id, XPm_Device *Device)
 {
-	u32 Status = XST_INVALID_PARAM;
+	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
 
 	/*
@@ -231,7 +231,7 @@ static u32 GetMaxCapabilities(const XPm_Device* const Device)
 XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps)
 {
 	u32 Idx;
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	if (NULL == Device->DeviceFsm) {
 		goto done;
@@ -272,7 +272,7 @@ static u32 IsRunning(XPm_Device *Device)
 
 XStatus XPmDevice_BringUp(XPm_Device *Device)
 {
-	u32 Status = XPM_ERR_DEVICE_BRINGUP;
+	XStatus Status = XPM_ERR_DEVICE_BRINGUP;
 
 	if (NULL == Device->Power) {
 		goto done;
@@ -284,11 +284,11 @@ XStatus XPmDevice_BringUp(XPm_Device *Device)
 		goto done;
 	}
 
-	Device->WfPwrUseCnt = Device->Power->UseCount + 1;
+	Device->WfPwrUseCnt = Device->Power->UseCount + 1U;
 	Status = Device->Power->HandleEvent(&Device->Power->Node,
 					    XPM_POWER_EVENT_PWR_UP);
 	if (XST_SUCCESS == Status) {
-		Device->Node.State = XPM_DEVSTATE_PWR_ON;
+		Device->Node.State = (u8)XPM_DEVSTATE_PWR_ON;
 		/* Todo: Start timer to poll the power node */
 		/* Hack */
 		Status = Device->HandleEvent(&Device->Node, XPM_DEVEVENT_TIMER);
@@ -303,7 +303,7 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 
 	/* Enable all the clock gates, skip over others */
-	if (TRUE == Enable) {
+	if (1U == Enable) {
 		XPmClock_Request(ClkHandle);
 	} else {
 		XPmClock_Release(ClkHandle);
@@ -362,33 +362,33 @@ done:
 
 static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = (XPm_Device *)Node;
 
 	PmDbg("State=%s, Event=%s\n\r", PmDevStates[Node->State], PmDevEvents[Event]);
 
 	switch(Node->State)
 	{
-		case XPM_DEVSTATE_UNUSED:
+		case (u8)XPM_DEVSTATE_UNUSED:
 			if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
 				Status = Device->DeviceFsm->EnterState(Device, XPM_DEVSTATE_RUNNING);
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
 				Status = XST_SUCCESS;
 			}
 			break;
-		case XPM_DEVSTATE_PWR_ON:
+		case (u8)XPM_DEVSTATE_PWR_ON:
 			if (XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				if (Device->WfPwrUseCnt == Device->Power->UseCount) {
-					Node->State = XPM_DEVSTATE_CLK_ON;
+					Node->State = (u8)XPM_DEVSTATE_CLK_ON;
 					/* Enable clock */
-					Status = SetClocks(Device, TRUE);
+					Status = SetClocks(Device, 1U);
 					if (XST_SUCCESS != Status) {
 						break;
 					}
 					/* Todo: Start timer to poll the clock node */
 					/* Hack */
-					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll the power node */
 				}
@@ -396,12 +396,12 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = XST_DEVICE_BUSY;
 			}
 			break;
-		case XPM_DEVSTATE_CLK_ON:
+		case (u8)XPM_DEVSTATE_CLK_ON:
 			if (XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if clock is enabled */
 				if (1 /* Hack: Clock enabled */) {
-					Node->State = XPM_DEVSTATE_RST_OFF;
+					Node->State = (u8)XPM_DEVSTATE_RST_OFF;
 
 					XPm_PsLpDomain *PsLpd;
 					PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
@@ -457,7 +457,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					}
 					/* Todo: Start timer to poll the reset node */
 					/* Hack */
-					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll the clock node */
 				}
@@ -465,13 +465,13 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = XST_DEVICE_BUSY;
 			}
 			break;
-		case XPM_DEVSTATE_RST_OFF:
+		case (u8)XPM_DEVSTATE_RST_OFF:
 			if (XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if reset is de-asserted */
 				if (1 /* Hack: Reset de-asserted */) {
 					XPm_RequiremntUpdate(Device->PendingReqm);
-					Node->State = XPM_DEVSTATE_RUNNING;
+					Node->State = (u8)XPM_DEVSTATE_RUNNING;
 					Device->PendingReqm = NULL;
 				} else {
 					/* Todo: Start timer to poll the reset node */
@@ -480,21 +480,21 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = XST_DEVICE_BUSY;
 			}
 			break;
-		case XPM_DEVSTATE_RUNNING:
+		case (u8)XPM_DEVSTATE_RUNNING:
 			if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
 				Status = XPmDevice_BringUp(Device);
 			} else if (XPM_DEVEVENT_BRINGUP_CLKRST == Event) {
-				Node->State = XPM_DEVSTATE_CLK_ON;
+				Node->State = (u8)XPM_DEVSTATE_CLK_ON;
 				/* Enable all clocks */
-				Status = SetClocks(Device, TRUE);
+				Status = SetClocks(Device, 1U);
 				if (XST_SUCCESS != Status) {
 					break;
 				}
 				/* Todo: Start timer to poll the clock node */
 				/* Hack */
-				Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+				Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
-				Node->State = XPM_DEVSTATE_RST_ON;
+				Node->State = (u8)XPM_DEVSTATE_RST_ON;
 				/* Assert reset for peripheral devices */
 				if (XPM_NODESUBCL_DEV_PERIPH ==
 						NODESUBCLASS(Device->Node.Id)) {
@@ -506,11 +506,11 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				}
 				/* Todo: Start timer to poll reset node */
 				/* Hack */
-				Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+				Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_RUNTIME_SUSPEND == Event) {
-				Node->State = XPM_DEVSTATE_RUNTIME_SUSPEND;
+				Node->State = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND;
 				/* Disable all clocks */
-				Status = SetClocks(Device, FALSE);
+				Status = SetClocks(Device, 0U);
 				if (XST_SUCCESS != Status) {
 					break;
 				}
@@ -518,46 +518,46 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Required by MISRA */
 			}
 			break;
-		case XPM_DEVSTATE_RST_ON:
+		case (u8)XPM_DEVSTATE_RST_ON:
 			if (XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if reset is asserted */
 				if (1 /* Hack: asserted */) {
-					Node->State = XPM_DEVSTATE_CLK_OFF;
+					Node->State = (u8)XPM_DEVSTATE_CLK_OFF;
 					/* Disable all clocks */
-					Status = SetClocks(Device, FALSE);
+					Status = SetClocks(Device, 0U);
 					if (XST_SUCCESS != Status) {
 						break;
 					}
 					/* Todo: Start timer to poll clock node */
 					/* Hack */
-					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll reset node */
 				}
 			}
 			break;
-		case XPM_DEVSTATE_CLK_OFF:
+		case (u8)XPM_DEVSTATE_CLK_OFF:
 			if (XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if clock is disabled */
 				if (1 /* Hack: Clock disabled */) {
-					Node->State = XPM_DEVSTATE_PWR_OFF;
+					Node->State = (u8)XPM_DEVSTATE_PWR_OFF;
 					Device->WfPwrUseCnt = Device->Power->UseCount - 1U;
 					Status = Device->Power->HandleEvent(
-						 &Device->Power->Node, XPM_POWER_EVENT_PWR_DOWN);
+						 &Device->Power->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
 					/* Todo: Start timer to poll power node use count */
 					/* Hack */
-					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll clock node */
 				}
 			}
 			break;
-		case XPM_DEVSTATE_PWR_OFF:
+		case (u8)XPM_DEVSTATE_PWR_OFF:
 			if (XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
-				Device->Node.Flags &= ~NODE_IDLE_DONE;
+				Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
 				if (Device->WfPwrUseCnt == Device->Power->UseCount) {
 					if (Device->WfDealloc) {
 						Device->PendingReqm->Allocated = 0;
@@ -568,9 +568,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						Device->PendingReqm = NULL;
 					}
 					if (0 == IsRunning(Device)) {
-						Node->State = XPM_DEVSTATE_UNUSED;
+						Node->State = (u8)XPM_DEVSTATE_UNUSED;
 					} else {
-						Node->State = XPM_DEVSTATE_RUNNING;
+						Node->State = (u8)XPM_DEVSTATE_RUNNING;
 					}
 				} else {
 					/* Todo: Start timer to poll power node use count */
@@ -580,7 +580,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = XST_SUCCESS;
 			}
 			break;
-		case XPM_DEVSTATE_RUNTIME_SUSPEND:
+		case (u8)XPM_DEVSTATE_RUNTIME_SUSPEND:
 			if (XPM_DEVEVENT_SHUTDOWN == Event) {
 				/* Assert reset for peripheral devices */
 				if (XPM_NODESUBCL_DEV_PERIPH ==
@@ -595,15 +595,15 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				 * Change device's state to clock off since all
 				 * clocks are disabled during runtime suspend.
 				 */
-				Node->State = XPM_DEVSTATE_CLK_OFF;
-				Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+				Node->State = (u8)XPM_DEVSTATE_CLK_OFF;
+				Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
 				/* Enable all clocks */
-				Status = SetClocks(Device, TRUE);
+				Status = SetClocks(Device, 1U);
 				if (XST_SUCCESS != Status) {
 					break;
 				}
-				Node->State = XPM_DEVSTATE_RUNNING;
+				Node->State = (u8)XPM_DEVSTATE_RUNNING;
 			} else {
 				/* Required by MISRA */
 			}
@@ -624,31 +624,31 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 	XStatus Status = XST_FAILURE;
 
 	switch (Device->Node.State) {
-	case XPM_DEVSTATE_UNUSED:
+	case (u8)XPM_DEVSTATE_UNUSED:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDevice_BringUp(Device);
 		} else {
 			Status = XST_SUCCESS;
 		}
 		break;
-	case XPM_DEVSTATE_RUNNING:
+	case (u8)XPM_DEVSTATE_RUNNING:
 		if (XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
-						     XPM_DEVEVENT_SHUTDOWN);
+						     (u32)XPM_DEVEVENT_SHUTDOWN);
 		} else if (XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
-						     XPM_DEVEVENT_RUNTIME_SUSPEND);
+						     (u32)XPM_DEVEVENT_RUNTIME_SUSPEND);
 		} else {
 			Status = XST_SUCCESS;
 		}
 		break;
-	case XPM_DEVSTATE_RUNTIME_SUSPEND:
+	case (u8)XPM_DEVSTATE_RUNTIME_SUSPEND:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
-						     XPM_DEVEVENT_BRINGUP_ALL);
+						     (u32)XPM_DEVEVENT_BRINGUP_ALL);
 		} else if (XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
-						     XPM_DEVEVENT_SHUTDOWN);
+						     (u32)XPM_DEVEVENT_SHUTDOWN);
 		} else {
 			Status = XST_SUCCESS;
 		}
@@ -673,7 +673,7 @@ static const XPm_DeviceFsm XPmGenericDeviceFsm = {
 static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, const u32 QoS)
 {
-	u32 Status = XPM_ERR_DEVICE_REQ;
+	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Requirement *Reqm;
 	u32 UsagePolicy = 0;
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
@@ -718,7 +718,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	Status = XPmProt_Configure(Reqm, TRUE);
+	Status = XPmProt_Configure(Reqm, 1U);
 
 done:
 	if(Status != XST_SUCCESS) {
@@ -730,7 +730,7 @@ done:
 static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS)
 {
-	u32 Status = XPM_ERR_SET_REQ;;
+	XStatus Status = XPM_ERR_SET_REQ;;
 	XPm_ReqmInfo TempReqm;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
@@ -790,7 +790,7 @@ done:
 static XStatus Release(XPm_Device *Device,
 		XPm_Subsystem *Subsystem)
 {
-	u32 Status = XPM_ERR_DEVICE_RELEASE;
+	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Requirement *Reqm;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
@@ -825,7 +825,7 @@ static XStatus Release(XPm_Device *Device,
 		Status = XPM_ERR_DEVICE_RELEASE;
 	}
 
-	Status = XPmProt_Configure(Reqm, FALSE);
+	Status = XPmProt_Configure(Reqm, 0U);
 
 done:
 	if(Status != XST_SUCCESS) {
@@ -846,14 +846,13 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		goto done;
 	}
 
-	Status = XPmNode_Init(&Device->Node,
-		Id, XPM_DEVSTATE_UNUSED, BaseAddress);
+	Status = XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Add requirement by default for PMC subsystem */
-	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex(XPM_NODEIDX_SUBSYS_PMC), Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
+	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC), Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -939,7 +938,7 @@ done:
 
 XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
@@ -980,7 +979,7 @@ done:
 
 XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
@@ -1105,7 +1104,7 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 			const u32 Capabilities,
 			const u32 QoS)
 {
-	u32 Status = XPM_ERR_DEVICE_REQ;
+	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
 
@@ -1145,7 +1144,7 @@ done:
 
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 {
-	u32 Status = XPM_ERR_DEVICE_RELEASE;
+	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
 
@@ -1185,7 +1184,7 @@ done:
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS)
 {
-	u32 Status = XPM_ERR_SET_REQ;
+	XStatus Status = XPM_ERR_SET_REQ;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
 
@@ -1446,10 +1445,10 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 	}
 
 	if ((OldState != NextState) && (XST_SUCCESS == Status)) {
-		Device->Node.State = NextState;
+		Device->Node.State = (u8)NextState;
 
 		/* Send notification about device state change */
-		XPmNotifier_Event(Device, EVENT_STATE_CHANGE);
+		XPmNotifier_Event(Device, (u32)EVENT_STATE_CHANGE);
 	}
 
 done:
@@ -1530,7 +1529,7 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
 {
 	u32 Idx;
 	u32 Latency = 0U;
-	u32 HighestState = Device->DeviceFsm->StatesCnt - 1;
+	u32 HighestState = Device->DeviceFsm->StatesCnt - 1U;
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->TransCnt; Idx++) {
 		if ((State == Device->DeviceFsm->Trans[Idx].FromState) &&
@@ -1669,7 +1668,7 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 		WkupLat = GetLatencyFromState(Device, State);
 	}
 
-	Device->Node.LatencyMarg = MinLat - WkupLat;
+	Device->Node.LatencyMarg = (u16)(MinLat - WkupLat);
 
 	if (State != Device->Node.State) {
 		Status = XPmDevice_ChangeState(Device, State);
@@ -1739,7 +1738,7 @@ int XPmDevice_IsClockActive(XPm_Device *Device)
 		if ((NULL != ClkHandle->Clock) &&
 		    (ISOUTCLK(ClkHandle->Clock->Node.Id))) {
 			Clk = (XPm_OutClockNode *)ClkHandle->Clock;
-			Status = XPmClock_GetClockData(Clk, TYPE_GATE, &Enable);
+			Status = XPmClock_GetClockData(Clk, (u32)TYPE_GATE, &Enable);
 			if (XST_SUCCESS == Status) {
 				if (1U == Enable) {
 					Status = XST_SUCCESS;

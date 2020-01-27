@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ XStatus XPmPmc_Init(XPm_Pmc *Pmc, u32 DevcieId, u32 Ipi, u32 *BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&Pmc->Core, DevcieId, Power, Clock, Reset, Ipi,
+	Status = XPmCore_Init(&Pmc->Core, DevcieId, Power, Clock, Reset, (u8)Ipi,
 			      NULL);
 	if (XST_SUCCESS != Status) {
 		goto done;

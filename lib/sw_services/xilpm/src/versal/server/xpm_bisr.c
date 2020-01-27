@@ -274,7 +274,7 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
-	u64 BaseAddr, BisrDataDestAddr;
+	u32 BaseAddr, BisrDataDestAddr;
 
 	BaseAddr = NPI_FIXED_BASEADDR | (TagOptional<<NPI_EFUSE_ENDPOINT_SHIFT);
 	BisrDataDestAddr = BaseAddr | GTY_NPI_CACHE_DATA_REGISTER_OFFSET;
@@ -562,7 +562,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
-	u64 BaseAddr, BisrDataDestAddr;
+	u32 BaseAddr, BisrDataDestAddr;
 	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 
 	if (NULL == NpDomain) {
@@ -621,12 +621,12 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
-	u64 BaseAddr, BisrDataDestAddr;
+	u32 BaseAddr, BisrDataDestAddr;
 
 	/* Compilation warning fix */
 	(void)TagId;
 
-	BaseAddr = VIVADO_ME_BASEADDR | (TagOptional<<ME_BISR_EFUSE_OFFSET_SHIFT);
+	BaseAddr = (u32)VIVADO_ME_BASEADDR | (TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
 	BisrDataDestAddr = BaseAddr | ME_BISR_FIXED_OFFSET;
 
 	/* Copy repair data */
@@ -658,7 +658,7 @@ done:
 	return Status;
 }
 
-static int XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
+static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 {
 	XPm_PlDomain *Pld;
 	u32 TagRow = 0;
@@ -742,7 +742,7 @@ done:
 	return TagDataAddr;
 }
 
-static int XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
+static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 {
 	XPm_PlDomain *Pld;
 	u32 TagRow = 0;
@@ -825,7 +825,7 @@ done:
 	return TagDataAddr;
 }
 
-static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
+static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 {
 	XPm_PlDomain *Pld;
 	u32 TagPairCnt;
@@ -1064,48 +1064,48 @@ static void NidbEfuseGrpInit(XPm_NidbEfuseGrpInfo *EfuseGroup)
 
 	/* Initialize 1st NIDB Group */
 	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_0_OFFSET);
-	EfuseGroup[0].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_MASK)
+	EfuseGroup[0].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_MASK)
 	>> EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_SHIFT);
-	EfuseGroup[0].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_0_MASK) >>
+	EfuseGroup[0].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_0_MASK) >>
 	EFUSE_CACHE_NIDB_0_NPI_BASE_0_SHIFT);
-	EfuseGroup[0].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_MASK) >>
+	EfuseGroup[0].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_MASK) >>
 	EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_SHIFT);
 
 	/* Initialize 2nd NIDB Group */
-	EfuseGroup[1].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_MASK)
+	EfuseGroup[1].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_MASK)
 	>> EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_SHIFT);
-	EfuseGroup[1].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_1_MASK) >>
+	EfuseGroup[1].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_1_MASK) >>
 	EFUSE_CACHE_NIDB_0_NPI_BASE_1_SHIFT);
 	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_1_OFFSET);
-	EfuseGroup[1].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_MASK) >>
+	EfuseGroup[1].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_MASK) >>
 	EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_SHIFT);
 
 	/* Initialize 3rd NIDB Group */
-	EfuseGroup[2].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_MASK)
+	EfuseGroup[2].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_MASK)
 	>> EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_SHIFT);
-	EfuseGroup[2].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_2_MASK) >>
+	EfuseGroup[2].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_2_MASK) >>
 	EFUSE_CACHE_NIDB_1_NPI_BASE_2_SHIFT);
-	EfuseGroup[2].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTL_2_MASK) >>
+	EfuseGroup[2].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTL_2_MASK) >>
 	EFUSE_CACHE_NIDB_1_RDN_CNTL_2_SHIFT);
 
 	/* Initialize 4th NIDB Group */
 	/* Portion of NPI_BASE_3 is stored in NIDB_2 [8:3] and NIDB_1 [2:0] */
-	EfuseGroup[3].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_MASK
+	EfuseGroup[3].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_MASK
 	>> EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_SHIFT));
-	EfuseGroup[3].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_3_MASK) >>
+	EfuseGroup[3].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_3_MASK) >>
 	EFUSE_CACHE_NIDB_1_NPI_BASE_3_SHIFT);
 	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_2_OFFSET);
-	EfuseGroup[3].NpiBase |= ((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_3_MASK) <<
+	EfuseGroup[3].NpiBase |= (u16)((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_3_MASK) <<
 	EFUSE_CACHE_NIDB_1_NPI_BASE_3_WIDTH);
-	EfuseGroup[3].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTL_3_MASK) >>
+	EfuseGroup[3].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTL_3_MASK) >>
 	EFUSE_CACHE_NIDB_2_RDN_CNTL_3_SHIFT);
 
 	/* Initialize 5th Group*/
-	EfuseGroup[4].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_MASK)
+	EfuseGroup[4].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_MASK)
 	>> EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_SHIFT);
-	EfuseGroup[4].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_4_MASK) >>
+	EfuseGroup[4].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_4_MASK) >>
 	EFUSE_CACHE_NIDB_2_NPI_BASE_4_SHIFT);
-	EfuseGroup[4].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_MASK) >>
+	EfuseGroup[4].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_MASK) >>
 	EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_SHIFT);
 
 }

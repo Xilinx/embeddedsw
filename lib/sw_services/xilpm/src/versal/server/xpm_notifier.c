@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -128,7 +128,7 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			PmNotifiers[Idx].EventMask &= ~Event;
 			PmNotifiers[Idx].WakeMask &= ~Event;
 			if (0U == PmNotifiers[Idx].EventMask) {
-				(void)memset(&PmNotifiers[Idx], 0U,
+				(void)memset(&PmNotifiers[Idx], 0,
 					     sizeof(XPmNotifier));
 			}
 			break;
@@ -151,7 +151,7 @@ void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if (Subsystem == PmNotifiers[Idx].Subsystem) {
-			(void)memset(&PmNotifiers[Idx], 0U, sizeof(XPmNotifier));
+			(void)memset(&PmNotifiers[Idx], 0, sizeof(XPmNotifier));
 		}
 	}
 }
@@ -197,7 +197,7 @@ void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event)
 	 */
 	if ((OFFLINE != Notifier->Subsystem->State) ||
 	    (0U != (Event & Notifier->WakeMask))) {
-		Payload[0] = PM_NOTIFY_CB;
+		Payload[0] = (u32)PM_NOTIFY_CB;
 		Payload[1] = Notifier->Device->Node.Id;
 		Payload[2] = Event;
 		Payload[3] = Notifier->Device->Node.State;

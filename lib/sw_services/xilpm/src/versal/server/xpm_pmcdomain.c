@@ -33,14 +33,14 @@ static XStatus (*HandlePowerEvent)(XPm_Node *Node, u32 Event);
 
 static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
 
 	PmDbg("State=%d, Event=%d\n\r", Node->State, Event);
 
 	switch (Node->State)
 	{
-		case XPM_POWER_STATE_ON:
+		case (u8)XPM_POWER_STATE_ON:
 			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount++;
@@ -105,7 +105,7 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
 {
 	XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL, &PmcOps);
 
-	PmcDomain->Domain.Power.Node.State = XPM_POWER_STATE_ON;
+	PmcDomain->Domain.Power.Node.State = (u8)XPM_POWER_STATE_ON;
 	PmcDomain->Domain.Power.UseCount = 1;
 
 	HandlePowerEvent = PmcDomain->Domain.Power.HandleEvent;

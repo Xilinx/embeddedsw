@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,9 +33,9 @@
  */
 static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	[PIN_FUNC_SPI0] = {
-		.Id = PIN_FUNC_SPI0,
+		.Id = (u8)PIN_FUNC_SPI0,
 		.Name = "spi0",
-		.DevIdx = XPM_NODEIDX_DEV_SPI_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_0,
 		.LmioRegMask = 0x80,
 		.PmioRegMask = 0x100,
 		.NumPins = 3,
@@ -50,9 +50,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SPI0_SS] = {
-		.Id = PIN_FUNC_SPI0_SS,
+		.Id = (u8)PIN_FUNC_SPI0_SS,
 		.Name = "spi0_ss",
-		.DevIdx = XPM_NODEIDX_DEV_SPI_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_0,
 		.LmioRegMask = 0x80,
 		.PmioRegMask = 0x100,
 		.NumPins = 1,
@@ -79,9 +79,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SPI1] = {
-		.Id = PIN_FUNC_SPI1,
+		.Id = (u8)PIN_FUNC_SPI1,
 		.Name = "spi1",
-		.DevIdx = XPM_NODEIDX_DEV_SPI_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_1,
 		.LmioRegMask = 0x80,
 		.PmioRegMask = 0x100,
 		.NumPins = 3,
@@ -96,9 +96,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SPI1_SS] = {
-		.Id = PIN_FUNC_SPI1_SS,
+		.Id = (u8)PIN_FUNC_SPI1_SS,
 		.Name = "spi1_ss",
-		.DevIdx = XPM_NODEIDX_DEV_SPI_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_1,
 		.LmioRegMask = 0x80,
 		.PmioRegMask = 0x100,
 		.NumPins = 3,
@@ -125,9 +125,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_CAN0] = {
-		.Id = PIN_FUNC_CAN0,
+		.Id = (u8)PIN_FUNC_CAN0,
 		.Name = "can0",
-		.DevIdx = XPM_NODEIDX_DEV_CAN_FD_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_CAN_FD_0,
 		.LmioRegMask = 0x180,
 		.PmioRegMask = 0x180,
 		.NumPins = 2,
@@ -154,9 +154,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_CAN1] = {
-		.Id = PIN_FUNC_CAN1,
+		.Id = (u8)PIN_FUNC_CAN1,
 		.Name = "can1",
-		.DevIdx = XPM_NODEIDX_DEV_CAN_FD_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_CAN_FD_1,
 		.LmioRegMask = 0x180,
 		.PmioRegMask = 0x180,
 		.NumPins = 2,
@@ -184,9 +184,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_I2C0] = {
-		.Id = PIN_FUNC_I2C0,
+		.Id = (u8)PIN_FUNC_I2C0,
 		.Name = "i2c0",
-		.DevIdx = XPM_NODEIDX_DEV_I2C_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_I2C_0,
 		.LmioRegMask = 0x200,
 		.PmioRegMask = 0x80,
 		.NumPins = 2,
@@ -213,9 +213,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_I2C1] = {
-		.Id = PIN_FUNC_I2C1,
+		.Id = (u8)PIN_FUNC_I2C1,
 		.Name = "i2c1",
-		.DevIdx = XPM_NODEIDX_DEV_I2C_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_I2C_1,
 		.LmioRegMask = 0x200,
 		.PmioRegMask = 0x80,
 		.NumPins = 2,
@@ -243,9 +243,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_I2C_PMC] = {
-		.Id = PIN_FUNC_I2C_PMC,
+		.Id = (u8)PIN_FUNC_I2C_PMC,
 		.Name = "i2c_pmc",
-		.DevIdx = XPM_NODEIDX_DEV_I2C_PMC,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_I2C_PMC,
 		.LmioRegMask = 0xFFF,
 		.PmioRegMask = 0x300,
 		.NumPins = 2,
@@ -267,9 +267,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC0_CLK] = {
-		.Id = PIN_FUNC_TTC0_CLK,
+		.Id = (u8)PIN_FUNC_TTC0_CLK,
 		.Name = "tt0_clk",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_0,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -287,9 +287,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC0_WAV] = {
-		.Id = PIN_FUNC_TTC0_WAV,
+		.Id = (u8)PIN_FUNC_TTC0_WAV,
 		.Name = "ttc0_wav",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_0,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -307,9 +307,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC1_CLK] = {
-		.Id = PIN_FUNC_TTC1_CLK,
+		.Id = (u8)PIN_FUNC_TTC1_CLK,
 		.Name = "ttc1_clk",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_1,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -327,9 +327,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC1_WAV] = {
-		.Id = PIN_FUNC_TTC1_WAV,
+		.Id = (u8)PIN_FUNC_TTC1_WAV,
 		.Name = "ttc1_wav",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_1,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -347,9 +347,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC2_CLK] = {
-		.Id = PIN_FUNC_TTC2_CLK,
+		.Id = (u8)PIN_FUNC_TTC2_CLK,
 		.Name = "ttc2_wav",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_2,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_2,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -367,9 +367,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC2_WAV] = {
-		.Id = PIN_FUNC_TTC2_WAV,
+		.Id = (u8)PIN_FUNC_TTC2_WAV,
 		.Name = "ttc2_wav",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_2,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_2,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -387,9 +387,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC3_CLK] = {
-		.Id = PIN_FUNC_TTC3_CLK,
+		.Id = (u8)PIN_FUNC_TTC3_CLK,
 		.Name = "ttc3_clk",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_3,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_3,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -407,9 +407,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TTC3_WAV] = {
-		.Id = PIN_FUNC_TTC3_WAV,
+		.Id = (u8)PIN_FUNC_TTC3_WAV,
 		.Name = "ttc3_wav",
-		.DevIdx = XPM_NODEIDX_DEV_TTC_3,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_3,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
 		.NumPins = 1,
@@ -427,9 +427,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_WWDT0] = {
-		.Id = PIN_FUNC_WWDT0,
+		.Id = (u8)PIN_FUNC_WWDT0,
 		.Name = "wwdt0",
-		.DevIdx = XPM_NODEIDX_DEV_SWDT_LPD,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SWDT_LPD,
 		.LmioRegMask = 0x300,
 		.PmioRegMask = 0x200,
 		.NumPins = 6,
@@ -444,9 +444,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_WWDT1] = {
-		.Id = PIN_FUNC_WWDT1,
+		.Id = (u8)PIN_FUNC_WWDT1,
 		.Name = "wwdt1",
-		.DevIdx = XPM_NODEIDX_DEV_SWDT_FPD,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SWDT_FPD,
 		.LmioRegMask = 0x300,
 		.PmioRegMask = 0x200,
 		.NumPins = 6,
@@ -461,7 +461,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SYSMON_I2C0] = {
-		.Id = PIN_FUNC_SYSMON_I2C0,
+		.Id = (u8)PIN_FUNC_SYSMON_I2C0,
 		.Name = "sysmon_i2c0",
 		.DevIdx = 0,
 		.LmioRegMask = 0x380,
@@ -490,7 +490,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SYSMON_I2C0_ALERT] = {
-		.Id = PIN_FUNC_SYSMON_I2C0_ALERT,
+		.Id = (u8)PIN_FUNC_SYSMON_I2C0_ALERT,
 		.Name = "sysmon_i2c0_alrt",
 		.DevIdx = 0,
 		.LmioRegMask = 0x380,
@@ -519,9 +519,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_UART0] = {
-		.Id = PIN_FUNC_UART0,
+		.Id = (u8)PIN_FUNC_UART0,
 		.Name = "uart0",
-		.DevIdx = XPM_NODEIDX_DEV_UART_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_0,
 		.LmioRegMask = 0x20,
 		.PmioRegMask = 0x40,
 		.NumPins = 2,
@@ -539,9 +539,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_UART0_CTRL] = {
-		.Id = PIN_FUNC_UART0_CTRL,
+		.Id = (u8)PIN_FUNC_UART0_CTRL,
 		.Name = "uart0_ctrl",
-		.DevIdx = XPM_NODEIDX_DEV_UART_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_0,
 		.LmioRegMask = 0x20,
 		.PmioRegMask = 0x40,
 		.NumPins = 2,
@@ -559,9 +559,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_UART1] = {
-		.Id = PIN_FUNC_UART1,
+		.Id = (u8)PIN_FUNC_UART1,
 		.Name = "uart1",
-		.DevIdx = XPM_NODEIDX_DEV_UART_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_1,
 		.LmioRegMask = 0x20,
 		.PmioRegMask = 0x20,
 		.NumPins = 2,
@@ -579,9 +579,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_UART1_CTRL] = {
-		.Id = PIN_FUNC_UART1_CTRL,
+		.Id = (u8)PIN_FUNC_UART1_CTRL,
 		.Name = "uart1_ctrl",
-		.DevIdx = XPM_NODEIDX_DEV_UART_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_1,
 		.LmioRegMask = 0x20,
 		.PmioRegMask = 0x40,
 		.NumPins = 2,
@@ -599,9 +599,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_GPIO0] = {
-		.Id = PIN_FUNC_GPIO0,
+		.Id = (u8)PIN_FUNC_GPIO0,
 		.Name = "gpio0",
-		.DevIdx = XPM_NODEIDX_DEV_GPIO_PMC,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GPIO_PMC,
 		.LmioRegMask = 0xFFF,
 		.PmioRegMask = 0x60,
 		.NumPins = 1,
@@ -636,9 +636,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_GPIO1] = {
-		.Id = PIN_FUNC_GPIO1,
+		.Id = (u8)PIN_FUNC_GPIO1,
 		.Name = "gpio1",
-		.DevIdx = XPM_NODEIDX_DEV_GPIO_PMC,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GPIO_PMC,
 		.LmioRegMask = 0xFFF,
 		.PmioRegMask = 0x60,
 		.NumPins = 1,
@@ -673,9 +673,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_GPIO2] = {
-		.Id = PIN_FUNC_GPIO2,
+		.Id = (u8)PIN_FUNC_GPIO2,
 		.Name = "gpio2",
-		.DevIdx = XPM_NODEIDX_DEV_GPIO,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GPIO,
 		.LmioRegMask = 0x40,
 		.PmioRegMask = 0xFFF,
 		.NumPins = 1,
@@ -710,7 +710,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_EMIO0] = {
-		.Id = PIN_FUNC_EMIO0,
+		.Id = (u8)PIN_FUNC_EMIO0,
 		.Name = "emio0",
 		.DevIdx = 0,
 		.LmioRegMask = 0x10,
@@ -799,9 +799,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_GEM0] = {
-		.Id = PIN_FUNC_GEM0,
+		.Id = (u8)PIN_FUNC_GEM0,
 		.Name = "gem0",
-		.DevIdx = XPM_NODEIDX_DEV_GEM_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GEM_0,
 		.LmioRegMask = 0x4,
 		.PmioRegMask = 0x6,
 		.NumPins = 12,
@@ -812,9 +812,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_GEM1] = {
-		.Id = PIN_FUNC_GEM1,
+		.Id = (u8)PIN_FUNC_GEM1,
 		.Name = "gem1",
-		.DevIdx = XPM_NODEIDX_DEV_GEM_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GEM_1,
 		.LmioRegMask = 0x4,
 		.PmioRegMask = 0x6,
 		.NumPins = 12,
@@ -825,7 +825,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TRACE0] = {
-		.Id = PIN_FUNC_TRACE0,
+		.Id = (u8)PIN_FUNC_TRACE0,
 		.Name = "trace0",
 		.DevIdx = 0,
 		.LmioRegMask = 0x8,
@@ -839,7 +839,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TRACE0_CLK] = {
-		.Id = PIN_FUNC_TRACE0_CLK,
+		.Id = (u8)PIN_FUNC_TRACE0_CLK,
 		.Name = "trace0_clk",
 		.DevIdx = 0,
 		.LmioRegMask = 0x8,
@@ -853,7 +853,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_MDIO0] = {
-		.Id = PIN_FUNC_MDIO0,
+		.Id = (u8)PIN_FUNC_MDIO0,
 		.Name = "mdio0",
 		.DevIdx = 0,
 		.LmioRegMask = 0x280,
@@ -866,7 +866,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_MDIO1] = {
-		.Id = PIN_FUNC_MDIO1,
+		.Id = (u8)PIN_FUNC_MDIO1,
 		.Name = "mdio1",
 		.DevIdx = 0,
 		.LmioRegMask = 0x300,
@@ -879,7 +879,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_GEM_TSU0] = {
-		.Id = PIN_FUNC_GEM_TSU0,
+		.Id = (u8)PIN_FUNC_GEM_TSU0,
 		.Name = "gem_tsu0",
 		.DevIdx = 0,
 		.LmioRegMask = 0x4,
@@ -894,7 +894,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_PCIE0] = {
-		.Id = PIN_FUNC_PCIE0,
+		.Id = (u8)PIN_FUNC_PCIE0,
 		.Name = "pcie0",
 		.DevIdx = 0,
 		.LmioRegMask = 0x100,
@@ -908,7 +908,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SMAP0] = {
-		.Id = PIN_FUNC_SMAP0,
+		.Id = (u8)PIN_FUNC_SMAP0,
 		.Name = "smap0",
 		.DevIdx = 0,
 		.LmioRegMask = 0xFFF,
@@ -920,9 +920,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_USB0] = {
-		.Id = PIN_FUNC_USB0,
+		.Id = (u8)PIN_FUNC_USB0,
 		.Name = "usb0",
-		.DevIdx = XPM_NODEIDX_DEV_USB_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_USB_0,
 		.LmioRegMask = 0xFFF,
 		.PmioRegMask = 0x6,
 		.NumPins = 13,
@@ -932,9 +932,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD0] = {
-		.Id = PIN_FUNC_SD0,
+		.Id = (u8)PIN_FUNC_SD0,
 		.Name = "sd0",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 10,
@@ -965,9 +965,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD0_PC] = {
-		.Id = PIN_FUNC_SD0_PC,
+		.Id = (u8)PIN_FUNC_SD0_PC,
 		.Name = "sd0_pc",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 1,
@@ -978,9 +978,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD0_CD] = {
-		.Id = PIN_FUNC_SD0_CD,
+		.Id = (u8)PIN_FUNC_SD0_CD,
 		.Name = "sd0_cd",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 1,
@@ -991,9 +991,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD0_WP] = {
-		.Id = PIN_FUNC_SD0_WP,
+		.Id = (u8)PIN_FUNC_SD0_WP,
 		.Name = "sd0_wp",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_0,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 1,
@@ -1004,9 +1004,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD1] = {
-		.Id = PIN_FUNC_SD1,
+		.Id = (u8)PIN_FUNC_SD1,
 		.Name = "sd1",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_1,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 10,
@@ -1037,9 +1037,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD1_PC] = {
-		.Id = PIN_FUNC_SD1_PC,
+		.Id = (u8)PIN_FUNC_SD1_PC,
 		.Name = "sd1_pc",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_1,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 1,
@@ -1050,9 +1050,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD1_CD] = {
-		.Id = PIN_FUNC_SD1_CD,
+		.Id = (u8)PIN_FUNC_SD1_CD,
 		.Name = "sd1_cd",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_1,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 1,
@@ -1063,9 +1063,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_SD1_WP] = {
-		.Id = PIN_FUNC_SD1_WP,
+		.Id = (u8)PIN_FUNC_SD1_WP,
 		.Name = "sd1_wp",
-		.DevIdx = XPM_NODEIDX_DEV_SDIO_1,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_1,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x2,
 		.NumPins = 1,
@@ -1076,9 +1076,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_OSPI0] = {
-		.Id = PIN_FUNC_OSPI0,
+		.Id = (u8)PIN_FUNC_OSPI0,
 		.Name = "ospi0",
-		.DevIdx = XPM_NODEIDX_DEV_OSPI,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_OSPI,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x4,
 		.NumPins = 10,
@@ -1088,9 +1088,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_OSPI0_SS] = {
-		.Id = PIN_FUNC_OSPI0_SS,
+		.Id = (u8)PIN_FUNC_OSPI0_SS,
 		.Name = "ospi0_ss",
-		.DevIdx = XPM_NODEIDX_DEV_OSPI,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_OSPI,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x4,
 		.NumPins = 2,
@@ -1100,9 +1100,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_QSPI0] = {
-		.Id = PIN_FUNC_QSPI0,
+		.Id = (u8)PIN_FUNC_QSPI0,
 		.Name = "qspi0",
-		.DevIdx = XPM_NODEIDX_DEV_QSPI,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_QSPI,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x6,
 		.NumPins = 10,
@@ -1112,9 +1112,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_QSPI0_FBCLK] = {
-		.Id = PIN_FUNC_QSPI0_FBCLK,
+		.Id = (u8)PIN_FUNC_QSPI0_FBCLK,
 		.Name = "qspi0_fbclk",
-		.DevIdx = XPM_NODEIDX_DEV_QSPI,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_QSPI,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x6,
 		.NumPins = 1,
@@ -1124,9 +1124,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_QSPI0_SS] = {
-		.Id = PIN_FUNC_QSPI0_SS,
+		.Id = (u8)PIN_FUNC_QSPI0_SS,
 		.Name = "qspi0_ss",
-		.DevIdx = XPM_NODEIDX_DEV_QSPI,
+		.DevIdx = (u16)XPM_NODEIDX_DEV_QSPI,
 		.LmioRegMask = 0x3FF,
 		.PmioRegMask = 0x6,
 		.NumPins = 2,
@@ -1136,7 +1136,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TEST_CLK] = {
-		.Id = PIN_FUNC_TEST_CLK,
+		.Id = (u8)PIN_FUNC_TEST_CLK,
 		.Name = "test_clk",
 		.DevIdx = 0,
 		.LmioRegMask = 0x3FF,
@@ -1148,7 +1148,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TEST_SCAN] = {
-		.Id = PIN_FUNC_TEST_SCAN,
+		.Id = (u8)PIN_FUNC_TEST_SCAN,
 		.Name = "test_scan",
 		.DevIdx = 0,
 		.LmioRegMask = 0x3FF,
@@ -1160,7 +1160,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 		}),
 	},
 	[PIN_FUNC_TAMPER_TRIGGER] = {
-		.Id = PIN_FUNC_TAMPER_TRIGGER,
+		.Id = (u8)PIN_FUNC_TAMPER_TRIGGER,
 		.Name = "tamper_trigger",
 		.DevIdx = 0,
 		.LmioRegMask = 0x3FF,
@@ -1204,7 +1204,7 @@ XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId)
  ****************************************************************************/
 XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs)
 {
-	*NumFuncs = MAX_FUNCTION;
+	*NumFuncs = (u32)MAX_FUNCTION;
 	return XST_SUCCESS;
 }
 
@@ -1231,7 +1231,7 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 		memcpy(FuncName, &PinFunc->Name[4], FUNC_QUERY_NAME_LEN);
 	}
 
-	return RetWord;
+	return (XStatus)RetWord;
 }
 
 /****************************************************************************/
@@ -1279,7 +1279,7 @@ XStatus XPmPinFunc_GetFuncGroups(u32 FuncId, u32 Index, u16 *Groups)
 	u32 num_read;
 	XPm_PinFunc *PinFunc = NULL;
 
-	memset(Groups, END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
+	memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
 	if ((NULL == PinFunc) || (Index > PinFunc->NumGroups)) {

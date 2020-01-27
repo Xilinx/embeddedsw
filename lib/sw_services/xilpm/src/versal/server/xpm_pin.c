@@ -1952,26 +1952,25 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 		goto done;
 	}
 
-	Status = XPmNode_Init(&Pin->Node,
-				PinId, XPM_PINSTATE_UNUSED, BaseAddress);
+	Status = XPmNode_Init(&Pin->Node, PinId, (u8)XPM_PINSTATE_UNUSED, BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	Pin->Groups = PmPinGroups[PinIdx].GroupList;
-	Pin->NumGroups = PmPinGroups[PinIdx].GroupCount;
+	Pin->NumGroups = (u8)(PmPinGroups[PinIdx].GroupCount);
 	Pin->PinFunc = NULL;
-	Pin->SubsysIdx = XPM_NODEIDX_SUBSYS_MAX;
+	Pin->SubsysIdx = (u16)XPM_NODEIDX_SUBSYS_MAX;
 
 	if (PinIdx <= PINS_PER_BANK) {
 		Pin->Bank = 0;
 	} else {
-		Pin->Bank = (PinIdx - PINS_PER_BANK - 1) / PINS_PER_BANK;
+		Pin->Bank = (u8)((PinIdx - PINS_PER_BANK - 1) / PINS_PER_BANK);
 	}
 
-	Pin->BiasStatus = PINCTRL_BIAS_ENABLE;
-	Pin->PullCtrl = PINCTRL_BIAS_PULL_UP;
-	Pin->TriState = PINCTRL_TRI_STATE_ENABLE;
+	Pin->BiasStatus = (u8)PINCTRL_BIAS_ENABLE;
+	Pin->PullCtrl = (u8)PINCTRL_BIAS_PULL_UP;
+	Pin->TriState = (u8)PINCTRL_TRI_STATE_ENABLE;
 
 	PmMioPins[PinIdx] = Pin;
 	PmNumPins++;
@@ -2050,7 +2049,7 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 		goto done;
 	}
 	Pin->PinFunc = PinFunc;
-	Pin->Node.State = XPM_PINSTATE_ASSIGNED;
+	Pin->Node.State = (u8)XPM_PINSTATE_ASSIGNED;
 
 	Status = XST_SUCCESS;
 
@@ -2121,7 +2120,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
 
 	switch (Param) {
-		case PINCTRL_CONFIG_SLEW_RATE:
+		case (u32)PINCTRL_CONFIG_SLEW_RATE:
 			if (PINCTRL_SLEW_RATE_SLOW == Value) {
 				XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, 0);
 			} else if (PINCTRL_SLEW_RATE_FAST == Value) {
@@ -2131,7 +2130,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 				goto done;
 			}
 			break;
-		case PINCTRL_CONFIG_BIAS_STATUS:
+		case (u32)PINCTRL_CONFIG_BIAS_STATUS:
 			RegPuAddr = BaseAddr + EN_WK_PU;
 			RegPdAddr = BaseAddr + EN_WK_PD;
 
@@ -2155,9 +2154,9 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 			} else {
 				/* Required by MISRA */
 			}
-			Pin->BiasStatus = Value;
+			Pin->BiasStatus = (u8)Value;
 			break;
-		case PINCTRL_CONFIG_PULL_CTRL:
+		case (u32)PINCTRL_CONFIG_PULL_CTRL:
 			RegPuAddr = BaseAddr + EN_WK_PU;
 			RegPdAddr = BaseAddr + EN_WK_PD;
 
@@ -2177,9 +2176,9 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 					goto done;
 				}
 			}
-			Pin->PullCtrl = Value;
+			Pin->PullCtrl = (u8)Value;
 			break;
-		case PINCTRL_CONFIG_SCHMITT_CMOS:
+		case (u32)PINCTRL_CONFIG_SCHMITT_CMOS:
 			if (PINCTRL_INPUT_TYPE_CMOS == Value) {
 				PmRmw32((BaseAddr + EN_RX_SCHMITT_HYST), BitMask, 0);
 			} else if (PINCTRL_INPUT_TYPE_SCHMITT == Value) {
@@ -2189,7 +2188,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 				goto done;
 			}
 			break;
-		case PINCTRL_CONFIG_DRIVE_STRENGTH:
+		case (u32)PINCTRL_CONFIG_DRIVE_STRENGTH:
 			if (Value >= PINCTRL_DRIVE_STRENGTH_MAX) {
 				Status = XST_INVALID_PARAM;
 				goto done;
@@ -2205,7 +2204,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 				PmRmw32((BaseAddr + SEL_DRV1), BitMask, Value);
 			}
 			break;
-		case PINCTRL_CONFIG_TRI_STATE:
+		case (u32)PINCTRL_CONFIG_TRI_STATE:
 			if (XPM_NODETYPE_LPD_MIO == NODETYPE(Pin->Node.Id)) {
 				BaseAddr = Pin->Node.BaseAddress + TRI_STATE + 4;
 			} else {
@@ -2221,7 +2220,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 				Status = XST_INVALID_PARAM;
 				goto done;
 			}
-			Pin->TriState = Value;
+			Pin->TriState = (u8)Value;
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
@@ -2266,29 +2265,29 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
 
 	switch (Param) {
-		case PINCTRL_CONFIG_SLEW_RATE:
+		case (u32)PINCTRL_CONFIG_SLEW_RATE:
 			PmIn32((BaseAddr + SEL_SLEW), Reg);
 			if (BitMask == (Reg & BitMask)) {
-				*Value = PINCTRL_SLEW_RATE_FAST;
+				*Value = (u32)PINCTRL_SLEW_RATE_FAST;
 			} else {
-				*Value = PINCTRL_SLEW_RATE_SLOW;
+				*Value = (u32)PINCTRL_SLEW_RATE_SLOW;
 			}
 			break;
-		case PINCTRL_CONFIG_BIAS_STATUS:
+		case (u32)PINCTRL_CONFIG_BIAS_STATUS:
 			*Value = Pin->BiasStatus;
 			break;
-		case PINCTRL_CONFIG_PULL_CTRL:
+		case (u32)PINCTRL_CONFIG_PULL_CTRL:
 			*Value = Pin->PullCtrl;
 			break;
-		case PINCTRL_CONFIG_SCHMITT_CMOS:
+		case (u32)PINCTRL_CONFIG_SCHMITT_CMOS:
 			PmIn32((BaseAddr + EN_RX_SCHMITT_HYST), Reg);
 			if (0 == (Reg & BitMask)) {
-				*Value = PINCTRL_INPUT_TYPE_CMOS;
+				*Value = (u32)PINCTRL_INPUT_TYPE_CMOS;
 			} else {
-				*Value = PINCTRL_INPUT_TYPE_SCHMITT;
+				*Value = (u32)PINCTRL_INPUT_TYPE_SCHMITT;
 			}
 			break;
-		case PINCTRL_CONFIG_DRIVE_STRENGTH:
+		case (u32)PINCTRL_CONFIG_DRIVE_STRENGTH:
 			if ((PINNUM(Pin->Node.Id) * SEL_DRV_WIDTH) < BITS_IN_REG) {
 				BitMask = SEL_DRV0_MASK(Pin->Node.Id);
 				PmIn32((BaseAddr + SEL_DRV0), *Value);
@@ -2301,11 +2300,11 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 				*Value >>= (PINNUM(Pin->Node.Id) - (BITS_IN_REG / SEL_DRV_WIDTH));
 			}
 			break;
-		case PINCTRL_CONFIG_VOLTAGE_STATUS:
+		case (u32)PINCTRL_CONFIG_VOLTAGE_STATUS:
 			PmIn32((BaseAddr + VMODE), *Value);
 			*Value &= VMODE_MASK;
 			break;
-		case PINCTRL_CONFIG_TRI_STATE:
+		case (u32)PINCTRL_CONFIG_TRI_STATE:
 			*Value = Pin->TriState;
 			break;
 		default:
@@ -2356,7 +2355,7 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 
 	Pin = XPmPin_GetById(PinId);
 
-	memset(Groups, END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
+	memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
 
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;
@@ -2411,7 +2410,7 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	Pin->SubsysIdx = NODEINDEX(SubsystemId);
+	Pin->SubsysIdx = (u16)(NODEINDEX(SubsystemId));
 
 	Status = XST_SUCCESS;
 
@@ -2445,7 +2444,7 @@ XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	Pin->SubsysIdx = XPM_NODEIDX_SUBSYS_MAX;
+	Pin->SubsysIdx = (u16)XPM_NODEIDX_SUBSYS_MAX;
 
 	Status = XST_SUCCESS;
 

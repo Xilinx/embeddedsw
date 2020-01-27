@@ -35,225 +35,225 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 	[XPM_NODEIDX_ISO_FPD_PL_TEST] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_FPD_PL_TEST),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_FPD, PM_SUBSYS_PL },
 	},
 	[XPM_NODEIDX_ISO_FPD_PL] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_FPD_PL),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_FPD, PM_SUBSYS_PL },
 	},
 	[XPM_NODEIDX_ISO_FPD_SOC] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_FPD_SOC),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_SOC_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_FPD, PM_POWER_NOC},
 	},
 	[XPM_NODEIDX_ISO_LPD_CPM_DFX] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM_DFX),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_DFX_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM },
 	},
 	[XPM_NODEIDX_ISO_LPD_CPM] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM },
 	},
 	[XPM_NODEIDX_ISO_LPD_PL_TEST] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_PL_TEST),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_PL_TEST_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_SUBSYS_PL },
 	},
 	[XPM_NODEIDX_ISO_LPD_PL] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_PL),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_PL_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_SUBSYS_PL },
 	},
 	[XPM_NODEIDX_ISO_LPD_SOC] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_SOC),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_SOC_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_NOC },
 	},
 	[XPM_NODEIDX_ISO_PMC_LPD_DFX] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PMC_LPD_DFX),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_LPD_DFX_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_POWER_LPD },
 	},
 	[XPM_NODEIDX_ISO_PMC_LPD] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PMC_LPD),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_LPD_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_POWER_LPD },
 	},
 	[XPM_NODEIDX_ISO_PMC_PL_CFRAME] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PMC_PL_CFRAME),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_SUBSYS_PL },
 	},
 	[XPM_NODEIDX_ISO_PMC_PL_TEST] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PMC_PL_TEST),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_SUBSYS_PL },
 	},
 	[XPM_NODEIDX_ISO_PMC_PL] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PMC_PL),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_SUBSYS_PL },
 	},
 	[XPM_NODEIDX_ISO_PMC_SOC_NPI] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PMC_SOC_NPI),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_NPI_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_POWER_NOC },
 	},
 	[XPM_NODEIDX_ISO_PMC_SOC] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PMC_SOC),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_POWER_NOC },
 	},
 	[XPM_NODEIDX_ISO_PL_SOC] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PL_SOC),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PL_SOC_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_NOC },
 	},
 	[XPM_NODEIDX_ISO_VCCAUX_SOC] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_VCCAUX_SOC),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_SOC_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_PMC, PM_POWER_NOC },
 	},
 	[XPM_NODEIDX_ISO_VCCRAM_SOC] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_VCCRAM_SOC),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCRAM_SOC_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_NOC },
 	},
 	[XPM_NODEIDX_ISO_VCCAUX_VCCRAM] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_VCCAUX_VCCRAM),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_VCCRAM_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_NOC },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR),
 		.Node.BaseAddress = PCIEA_ATTRIB_0_FABRICEN,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PCIEA_ATTRIB_0_FABRICEN_ATTR_SHIFT),
-		.Polarity = PM_ACTIVE_LOW,
+		.Polarity = (u8)PM_ACTIVE_LOW,
 		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_CPM },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR),
 		.Node.BaseAddress = PCIEA_ATTRIB_1_FABRICEN,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PCIEA_ATTRIB_1_FABRICEN_ATTR_SHIFT),
-		.Polarity = PM_ACTIVE_LOW,
+		.Polarity = (u8)PM_ACTIVE_LOW,
 		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_CPM },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_RST_CPI0] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PL_CPM_RST_CPI0),
 		.Node.BaseAddress = CPM_CRCPM_RST_CPI0,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(CPM_CRCPM_RST_CPI0_RESET_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_CPM },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_RST_CPI1] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_PL_CPM_RST_CPI1),
 		.Node.BaseAddress = CPM_CRCPM_RST_CPI1,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(CPM_CRCPM_RST_CPI1_RESET_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_CPM },
 	},
         [XPM_NODEIDX_ISO_GEM_TSU_CLK] = {
                 .Node.Id = ISOID(XPM_NODEIDX_ISO_GEM_TSU_CLK),
                 .Node.BaseAddress = CRL_RCLK_CTRL,
-                .Node.State = PM_ISOLATION_ON,
+                .Node.State = (u8)PM_ISOLATION_ON,
                 .Mask = CRL_RCLK_CTRL_CLKACT_GEM_TSU_MASK,
-                .Polarity = PM_ACTIVE_LOW,
+                .Polarity = (u8)PM_ACTIVE_LOW,
                 .DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_LPD },
         },
         [XPM_NODEIDX_ISO_GEM0_TXRX_CLK] = {
                 .Node.Id = ISOID(XPM_NODEIDX_ISO_GEM0_TXRX_CLK),
                 .Node.BaseAddress = CRL_RCLK_CTRL,
-                .Node.State = PM_ISOLATION_ON,
+                .Node.State = (u8)PM_ISOLATION_ON,
                 .Mask = CRL_RCLK_CTRL_CLKACT_GEM0_TXRX_MASK,
-                .Polarity = PM_ACTIVE_LOW,
+                .Polarity = (u8)PM_ACTIVE_LOW,
                 .DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_LPD },
         },
         [XPM_NODEIDX_ISO_GEM1_TXRX_CLK] = {
                 .Node.Id = ISOID(XPM_NODEIDX_ISO_GEM1_TXRX_CLK),
                 .Node.BaseAddress = CRL_RCLK_CTRL,
-                .Node.State = PM_ISOLATION_ON,
+                .Node.State = (u8)PM_ISOLATION_ON,
                 .Mask = CRL_RCLK_CTRL_CLKACT_GEM1_TXRX_MASK,
-                .Polarity = PM_ACTIVE_LOW,
+                .Polarity = (u8)PM_ACTIVE_LOW,
                 .DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_LPD },
         },
 	[XPM_NODEIDX_ISO_LPD_CPM5_DFX] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM5_DFX),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_DFX_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM5 },
 	},
 	[XPM_NODEIDX_ISO_LPD_CPM5] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM5),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-		.Node.State = PM_ISOLATION_ON,
+		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_SHIFT),
-		.Polarity = PM_ACTIVE_HIGH,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM5 },
 	},
 };
@@ -297,7 +297,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				 * EOS bit */
 				PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
 				if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & (u32)CFU_APB_CFU_FGCR_EOS_MASK)) {
-					XPmSubsystem_SetState(PM_SUBSYS_PL, ONLINE);
+					XPmSubsystem_SetState(PM_SUBSYS_PL, (u32)ONLINE);
 					Status = XST_SUCCESS;
 				} else {
 					Status = XST_FAILURE;
@@ -327,26 +327,26 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 
 	Mask = XPmDomainIso_List[IsoIdx].Mask;
 
-	if ((TRUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
+	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
 		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		else
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		/* Mark node state appropriately */
-		XPmDomainIso_List[IsoIdx].Node.State = (TRUE == Enable) ?
-			PM_ISOLATION_ON : PM_ISOLATION_REMOVE_PENDING;
+		XPmDomainIso_List[IsoIdx].Node.State = (TRUE_VALUE == Enable) ?
+			(u8)PM_ISOLATION_ON : (u8)PM_ISOLATION_REMOVE_PENDING;
 	} else if(Enable == FALSE_IMMEDIATE) {
 		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		else
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
-		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_OFF;
+		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	} else {
 		Status = XPmDomainIso_CheckDependencies(IsoIdx);
 		if(XST_SUCCESS != Status)
 		{
 			/* Mark it pending */
-			XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_REMOVE_PENDING;
+			XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_REMOVE_PENDING;
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -355,7 +355,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		else
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
-		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_OFF;
+		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	}
 
 	Status = XST_SUCCESS;
@@ -375,7 +375,7 @@ XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId)
 	{
 		if(XPmDomainIso_List[i].Node.State == PM_ISOLATION_REMOVE_PENDING)
 		{
-			Status = XPmDomainIso_Control(i, FALSE);
+			Status = XPmDomainIso_Control(i, FALSE_VALUE);
 		} else {
 			Status = XST_SUCCESS;
 		}

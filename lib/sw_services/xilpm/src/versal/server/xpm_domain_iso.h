@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,8 +34,10 @@
 extern "C" {
 #endif
 
-#define FALSE_IMMEDIATE		2	/* Remove isolation immediately */
-#define TRUE_PENDING_REMOVE	3	/* Set isolation, but pending removal */
+#define FALSE_VALUE		(0U)
+#define TRUE_VALUE		(1U)
+#define FALSE_IMMEDIATE		(2U)	/* Remove isolation immediately */
+#define TRUE_PENDING_REMOVE	(3U)	/* Set isolation, but pending removal */
 
 typedef struct XPm_Iso {
 	XPm_Node Node; /**< Node: Node base class */

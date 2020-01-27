@@ -33,6 +33,7 @@
 
 #define XPM_HC_CPM_OPS			0U
 #define XPM_HC_CPM5_OPS			1U
+#define XPM_CPM_OPS_MAX			2U
 
 static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -49,7 +50,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Remove isolation to allow scan_clear on CPM */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -59,7 +60,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	{
 		/* Remove POR for CPM */
 		/*Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
-				     PM_RESET_ACTION_RELEASE);*/
+				     (u32)PM_RESET_ACTION_RELEASE);*/
 
 		/*TODO: Topology is not passing cpm reset register
 		right now, so hard coded for now */
@@ -89,10 +90,10 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 
 	/* Remove POR for CPM5
 	 * Topology is not passing reset register value for CPM5 */
-	/* Status = XPmReset_AssertbyId(PM_RST_CPM_POR, PM_RESET_ACTION_RELEASE); */
+	/* Status = XPmReset_AssertbyId(PM_RST_CPM_POR, (u32)PM_RESET_ACTION_RELEASE); */
 
 	/* Remove isolation between CPM5 and LPD */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM5_DFX, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX, FALSE_VALUE);
 	if (XST_SUCCESS != Status)
 		goto done;
 
@@ -158,7 +159,7 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 
 	/* Pulse CPM POR */
 	Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
-				     PM_RESET_ACTION_PULSE);
+				     (u32)PM_RESET_ACTION_PULSE);
 
 	/* Unwrite trigger bits */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
@@ -391,7 +392,7 @@ done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps CpmOps[] = {
+struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 	[XPM_HC_CPM_OPS] = {
 		.InitStart = CpmInitStart,
 		.InitFinish = CpmInitFinish,

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_pslpdomain.h"
 
-#define MAX_BYTEBUFFER_SIZE	(32 * 1024)
+#define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
 
@@ -43,7 +43,7 @@ u32 SlrType;
 void *XPm_AllocBytes(u32 Size)
 {
 	void *Bytes = NULL;
-	u32 BytesLeft = ByteBuffer + MAX_BYTEBUFFER_SIZE - FreeBytes;
+	u32 BytesLeft = (u32)ByteBuffer + MAX_BYTEBUFFER_SIZE - (u32)FreeBytes;
 	u32 i;
 	u32 NumWords;
 	u32 *Words;

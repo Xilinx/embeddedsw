@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,9 @@ extern "C" {
 #define xSELF_TEST_RESET_API
 #define xSELF_TEST_CLOCK_API
 #define xDEBUG_REG_IO
+
+#define TRUE	1U
+#define FALSE	0U
 
 /**
  * GCC Specific attribute to suppress unused variable/function warning
@@ -112,7 +115,7 @@ extern "C" {
 
 #define BIT(n)		(1U << (n))
 // set the first n bits to 1, rest to 0
-#define BITMASK(n) ((1ULL << (n)) - 1ULL)
+#define BITMASK(n)	(u32)((1ULL << (n)) - 1ULL)
 // set width specified bits at offset to 1, rest to 0
 #define BITNMASK(offset, width) (BITMASK(width) << offset)
 

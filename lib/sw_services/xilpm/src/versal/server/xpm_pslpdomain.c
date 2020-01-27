@@ -48,15 +48,14 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Remove PS_PMC domains isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE_VALUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/*
 	 * Release POR for PS-LPD
 	 */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
 }
@@ -66,13 +65,12 @@ static XStatus LpdPreBisrReqs()
 	XStatus Status = XST_FAILURE;
 
 	/* Remove PMC LPD isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, FALSE_VALUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Release reset for PS SRST */
-	Status = XPmReset_AssertbyId(PM_RST_PS_SRST,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
 }
@@ -102,7 +100,7 @@ static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Remove LPD SoC isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_SOC, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, FALSE_VALUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -166,8 +164,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	/*
 	 * Pulse PS POR
 	 */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
-				     PM_RESET_ACTION_PULSE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
 done:
 	return Status;
 }
@@ -242,8 +239,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	/*
 	 * Pulse PS POR
 	 */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
-				     PM_RESET_ACTION_PULSE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
 done:
 	return Status;
 }
@@ -308,8 +304,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Release USB reset for LPD IOU Mbist to work*/
-	Status = XPmReset_AssertbyId(PM_RST_USB_0,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_USB_0, (u32)PM_RESET_ACTION_RELEASE);
 
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
 		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |

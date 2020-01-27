@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -91,7 +91,7 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		goto done;
 	}
 
-	Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;
@@ -121,7 +121,7 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&ApuCore->Core, Id, Power, Clock, Reset, Ipi,
+	Status = XPmCore_Init(&ApuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
 			      &ApuOps);
 
 	ApuCore->FpdApuBaseAddr = BaseAddress[0];

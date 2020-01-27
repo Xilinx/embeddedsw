@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -80,8 +80,8 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset, Ipi,
-			      &PsmOps);
+	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset,
+			      (u8)Ipi, &PsmOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -189,7 +189,7 @@ done:
 
 u32 XPmPsm_FwIsPresent(void)
 {
-	u32 Reg = FALSE;
+	u32 Reg = 0U;
 	XPm_Psm *Psm;
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
@@ -200,7 +200,7 @@ u32 XPmPsm_FwIsPresent(void)
 	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg)
 	if (PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ==
 		(Reg & PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)) {
-		Reg = TRUE;
+		Reg = 1U;
 	}
 
 done:
