@@ -157,7 +157,7 @@ END:
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 {
 	u8 * Tpadding = (u8 *)XNULL;
-	u32 Pad;
+	u32 PadLength;
 	u8 * PadPtr = (u8 *)XNULL;
 	u32 sign_index;
 	u32 Status = (u32)XST_FAILURE;
@@ -167,7 +167,9 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	Xil_AssertNonvoid(Hash != NULL);
 	Xil_AssertNonvoid(HashLen == XSECURE_HASH_TYPE_SHA3);
 
-	Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
+	PadLength = XSECURE_FSBL_SIG_SIZE - XSECURE_RSA_BYTE_PAD_LENGTH
+				- XSECURE_RSA_T_PAD_LENGTH - HashLen;
+
 	PadPtr = Signature;
 
 #ifdef XSECURE_ZYNQMP
@@ -218,7 +220,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	}
 	PadPtr++;
 
-	for (sign_index = 0U; sign_index < Pad; sign_index++)
+	for (sign_index = 0U; sign_index < PadLength; sign_index++)
 	{
 		if (0xFFU != *PadPtr)
 		{
