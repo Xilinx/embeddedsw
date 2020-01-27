@@ -161,7 +161,7 @@ void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
  * @brief  This function triggers the notification if enabled for current
  *         device and current event.
  *
- * @param  Device  Device for which event is occured
+ * @param  Device  Device for which event is occurred
  * @param  Event   Event type
  *
  * @return None

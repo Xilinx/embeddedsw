@@ -773,7 +773,7 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		Device->PendingReqm->Curr.Capabilities = TempReqm.Capabilities;
 		Device->PendingReqm->Curr.QoS = TempReqm.QoS;
 	} else if ((u32)PM_CAP_UNUSABLE == Capabilities) {
-		/* Schedual next requirement to 0 */
+		/* Schedule next requirement to 0 */
 		Device->PendingReqm->Next.Capabilities = 0U;
 		Device->PendingReqm->Next.QoS = QoS;
 	} else {

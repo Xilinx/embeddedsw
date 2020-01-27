@@ -770,7 +770,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 				ResetId = 0;
 		}
 
-		/* Check for POR reset for a domain is occured or not. */
+		/* Check for POR reset for a domain is occurred or not. */
 		if (0U != ResetId) {
 			Reset = XPmReset_GetById(ResetId);
 			if (XPM_RST_STATE_ASSERTED ==
@@ -780,7 +780,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 			}
 		}
 
-		/* Check for system reset is occured or not. */
+		/* Check for system reset is occurred or not. */
 		if (0U != (ResetReason & PmcSysResetMask)) {
 			SystemResetFlag = 1;
 		}
@@ -837,7 +837,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		/* Skip in case of system reset or POR of a domain */
-		/* HACK: Dont skip scanclear for AIE */
+		/* HACK: Don't skip scanclear for AIE */
 		if (((1U == SystemResetFlag) || (1U == DomainPORFlag)) &&
 		     (PwrDomain->Power.Node.Id != PM_POWER_ME)) {
 			Status = XST_SUCCESS;
