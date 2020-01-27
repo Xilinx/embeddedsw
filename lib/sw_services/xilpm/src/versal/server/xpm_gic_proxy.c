@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpm_gic_proxy.h"
 #include "xpm_pmc.h"
@@ -32,9 +12,8 @@
 
 #define XPM_GIC_PROXY_IS_ENABLED		0x1U
 
-XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
+void XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 {
-	XStatus Status = XST_FAILURE;
 	u32 GicProxyMask = Periph->GicProxyMask;
 	u32 GicProxyGroup = Periph->GicProxyGroup;
 	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
@@ -55,8 +34,6 @@ XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 		/* Remember which interrupt in the group needs to be Enabled */
 		XPm_GicProxy.Groups[GicProxyGroup].SetMask |= GicProxyMask;
 	}
-
-	return Status;
 }
 
 /**
@@ -78,9 +55,9 @@ static void XPmGicProxy_Enable(void)
 		/* Enable interrupts in the group that are set as wake */
 		XPm_Out32(RegAddress, XPm_GicProxy.Groups[g].SetMask);
 
-		if (0 != XPm_GicProxy.Groups[g].SetMask) {
+		if (0U != XPm_GicProxy.Groups[g].SetMask) {
 			XPm_Out32(BaseAddress +
-				  PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET, BIT(g));
+				  PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET, BIT32(g));
 		}
 	}
 
@@ -121,11 +98,11 @@ static void XPm_GicProxyDisable(void)
 
 		if (GIC_PROXY_ALL_MASK == XPm_In32(MaskAddr)) {
 			XPm_Out32(BaseAddress +
-				  PMC_GLOBAL_GICP_IRQ_DISABLE_OFFSET, BIT(g));
+				  PMC_GLOBAL_GICP_IRQ_DISABLE_OFFSET, BIT32(g));
 		}
 	}
 
-	XPm_GicProxy.Flags &= ~XPM_GIC_PROXY_IS_ENABLED;
+	XPm_GicProxy.Flags &= (u8)(~XPM_GIC_PROXY_IS_ENABLED);
 }
 
 /**
