@@ -342,7 +342,8 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 
 	/*
 	 * Input data should always be smaller than modulus
-	 * here we are checking only MSB byte
+	 * One byte is being checked at a time to make sure the input data
+	 * is smaller than the modulus
 	 */
 	for (idx = 0U; idx < Size; idx++) {
 		if ((*(u8 *)(InstancePtr->Mod + idx)) > (*(u8 *)(Input + idx))) {
