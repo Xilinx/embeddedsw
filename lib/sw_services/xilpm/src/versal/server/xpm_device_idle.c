@@ -239,8 +239,8 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 
 	/* Disable the receiver & transmitter */
 	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCTRL_OFFSET);
-	Reg &= (u32)(~XEMACPS_NWCTRL_RXEN_MASK);
-	Reg &= (u32)(~XEMACPS_NWCTRL_TXEN_MASK);
+	Reg &= ~((u32)XEMACPS_NWCTRL_RXEN_MASK);
+	Reg &= ~((u32)XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
 }
 #endif

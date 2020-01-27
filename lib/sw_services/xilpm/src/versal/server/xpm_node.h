@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,10 +63,10 @@ XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
 #define NODE_SUBCLASS_MASK_BITS 0x3FU
 #define NODE_TYPE_MASK_BITS     0x3FU
 #define NODE_INDEX_MASK_BITS    0x3FFFU
-#define NODE_CLASS_MASK         (NODE_CLASS_MASK_BITS << NODE_CLASS_SHIFT)
-#define NODE_SUBCLASS_MASK      (NODE_SUBCLASS_MASK_BITS << NODE_SUBCLASS_SHIFT)
-#define NODE_TYPE_MASK          (NODE_TYPE_MASK_BITS << NODE_TYPE_SHIFT)
-#define NODE_INDEX_MASK         (NODE_INDEX_MASK_BITS << NODE_INDEX_SHIFT)
+#define NODE_CLASS_MASK         ((u32)NODE_CLASS_MASK_BITS << NODE_CLASS_SHIFT)
+#define NODE_SUBCLASS_MASK      ((u32)NODE_SUBCLASS_MASK_BITS << NODE_SUBCLASS_SHIFT)
+#define NODE_TYPE_MASK          ((u32)NODE_TYPE_MASK_BITS << NODE_TYPE_SHIFT)
+#define NODE_INDEX_MASK         ((u32)NODE_INDEX_MASK_BITS << NODE_INDEX_SHIFT)
 
 #define NODEID(CLASS, SUBCLASS, TYPE, INDEX)	\
 	((((CLASS) & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT) | \

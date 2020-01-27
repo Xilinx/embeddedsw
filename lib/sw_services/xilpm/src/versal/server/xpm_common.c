@@ -75,7 +75,7 @@ void XPm_DumpMemUsage(void)
 {
 	xil_printf("Total buffer size = %d bytes\n\r", MAX_BYTEBUFFER_SIZE);
 	xil_printf("Used = %d bytes\n\r", FreeBytes - ByteBuffer);
-	xil_printf("Free = %d bytes\n\r", MAX_BYTEBUFFER_SIZE - (u32)(FreeBytes - ByteBuffer));
+	xil_printf("Free = %d bytes\n\r", MAX_BYTEBUFFER_SIZE - (u32)FreeBytes - (u32)ByteBuffer);
 	xil_printf("\n\r");
 }
 

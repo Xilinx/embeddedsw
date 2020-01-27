@@ -375,7 +375,7 @@ XPm_ClockNode* XPmClock_GetById(u32 ClockId)
 	u32 NodeType = NODETYPE(ClockId);
 	XPm_ClockNode *Clk = NULL;
 	u32 MaskId = ((u32)XPM_NODETYPE_CLOCK_SUBNODE == NodeType) ?
-		~((u32)(NODE_TYPE_MASK)) : ~((u32)(0x0));
+		(~((u32)NODE_TYPE_MASK)) : ((~(u32)0x0));
 
 	if (((u32)XPM_NODECLASS_CLOCK != NODECLASS(ClockId)) ||
 	    (MaxClkNodes <= ClockIndex)) {
@@ -637,7 +637,7 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 	}
 
 	if ((ParentIdx > BITMASK(Ptr->Param2.Width)) ||
-	    (ParentIdx > (u32)(Clk->ClkNode.NumParents - 1U))) {
+	    (ParentIdx > (((u32)Clk->ClkNode.NumParents) - 1U))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
