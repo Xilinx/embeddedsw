@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -75,6 +75,7 @@
 *                     Moved all macro definitions and instance structure to
 *                     xsecure_rsa_core.h
 * 4.2   har  11/07/19 Typo correcton to enable compilation in C++
+* 4.3   kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
 * </pre>
 *
 * @endcond
@@ -92,6 +93,11 @@ extern "C" {
 #include "xsecure_rsa_core.h"
 
 /************************** Constant Definitions ****************************/
+#define XSECURE_RSA_BYTE_PAD_LENGTH	(3U)  /**< PKCS Byte Padding */
+#define XSECURE_RSA_T_PAD_LENGTH	(19U) /**< PKCS T Padding */
+#define XSECURE_RSA_BYTE_PAD1		(0X00U) /**<PKCS T Padding Byte */
+#define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
+#define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
 
 /***************************** Type Definitions ******************************/
 

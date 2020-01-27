@@ -176,27 +176,20 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
 	 * id for padding
 	 */
-	if (XGetPSVersion_Info() != (u32)XPS_VERSION_1)
+	if (XSECURE_HASH_TYPE_SHA3 == HashLen)
 	{
-		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
+		if(XGetPSVersion_Info() != (u32)XPS_VERSION_1)
 		{
 			Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
 		}
 		else
 		{
-			goto ENDF;
+			Tpadding = (u8 *)XSecure_Silicon1_TPadSha3;
 		}
 	}
 	else
 	{
-		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
-		{
-			Tpadding = (u8 *)XSecure_Silicon1_TPadSha3;
-		}
-		else
-		{
-			goto ENDF;
-		}
+		goto ENDF;
 	}
 #else
 	Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
@@ -208,13 +201,13 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	* 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA384 Hash
 	*/
 
-	if (0x00U != *PadPtr)
+	if (XSECURE_RSA_BYTE_PAD1 != *PadPtr)
 	{
 		goto ENDF;
 	}
 	PadPtr++;
 
-	if (0x01U != *PadPtr)
+	if (XSECURE_RSA_BYTE_PAD2 != *PadPtr)
 	{
 		goto ENDF;
 	}
@@ -222,20 +215,20 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 
 	for (sign_index = 0U; sign_index < PadLength; sign_index++)
 	{
-		if (0xFFU != *PadPtr)
+		if (XSECURE_RSA_BYTE_PAD3 != *PadPtr)
 		{
 			goto ENDF;
 		}
 		PadPtr++;
 	}
 
-	if (0x00U != *PadPtr)
+	if (XSECURE_RSA_BYTE_PAD1 != *PadPtr)
 	{
 		goto ENDF;
 	}
 	PadPtr++;
 
-	for (sign_index = 0U; sign_index < 19U; sign_index++)
+	for (sign_index = 0U; sign_index < XSECURE_RSA_T_PAD_LENGTH; sign_index++)
 	{
 		if (*PadPtr != Tpadding[sign_index])
 		{
