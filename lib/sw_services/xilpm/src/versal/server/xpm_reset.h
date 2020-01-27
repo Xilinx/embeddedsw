@@ -34,7 +34,7 @@
 extern "C" {
 #endif
 
-#define MAX_RESET_PARENTS	3
+#define MAX_RESET_PARENTS	(3U)
 
 /* All reset types */
 typedef enum {

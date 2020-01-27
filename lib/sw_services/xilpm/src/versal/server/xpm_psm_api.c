@@ -215,15 +215,15 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	XPm_Subsystem *Subsystem;
 	u32 SubsystemId;
 
-	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
-	    (XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
+	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 
-	if (XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
+	if ((u8)XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -240,7 +240,7 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 		goto done;
 	}
 
-	if (SUSPENDING == Subsystem->State) {
+	if ((u8)SUSPENDING == Subsystem->State) {
 		Status = XPmRequirement_UpdateScheduled(Subsystem, 1U);
 
 		XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);

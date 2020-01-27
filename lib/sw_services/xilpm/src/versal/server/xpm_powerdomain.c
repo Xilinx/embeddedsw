@@ -76,7 +76,7 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 
 #define BITMASK_LOWER_15_BITS			(0x7fffU)
 #define BITMASK_UPPER_17_BITS			(0xffff8000U)
-#define GET_DELTA_AT_OFFSET(array, x)		(0xfU & (array[x / 32] >> (x % 32)))
+#define GET_DELTA_AT_OFFSET(array, x)		(0xfU & (array[x / 32U] >> (x % 32U)))
 
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
 {
@@ -86,7 +86,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	static u32 CacheRead=0;
 	static u32 BipSelVal, TsensSelVal, TsensBiasVal;
 
-	if (0 == DestAddress) {
+	if (0U == DestAddress) {
 		goto done;
 	}
 
@@ -100,7 +100,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	/* Unlock writes */
 	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 
-	if(CacheRead == 0) {
+	if (0U == CacheRead) {
 		/* Read EFUSE_CACHE.TSENS_INT_OFFSET_5_0*/
 		PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_3_OFFSET, RegValue);
 		OffsetVal = (RegValue & EFUSE_CACHE_TRIM_AMS_3_TSENS_INT_OFFSET_5_0_MASK) >> EFUSE_CACHE_TRIM_AMS_3_TSENS_INT_OFFSET_5_0_SHIFT;
@@ -154,20 +154,20 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 		PmRmw32(DestAddress + TSENS_BIAS_CTRL_OFFSET,  TSENS_BIAS_VAL_MASK, (TsensBiasVal << TSENS_BIAS_VAL_SHIFT));
 	}
 
-	if(CacheRead == 0) {
+	if (0U == CacheRead) {
 		/* Copy 256 bits of TSENS_DELTA value to array */
 		PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_3_OFFSET, RegValue);
 		/*Store 17 bits from current register */
 		Arr[0] = (RegValue & EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_MASK) >> EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_SHIFT;
-		for (i=0; i<8; i++) {
-			u32 Address = (EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_4_OFFSET + (i*4));
+		for (i = 0; i < 8U; i++) {
+			u32 Address = (EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_4_OFFSET + (i*4U));
 			PmIn32(Address, RegValue);
 			/* current element already have 17 bits stored from prev register,
 			store 15 bits from current register to current element */
 			Arr[i] |= (RegValue & BITMASK_LOWER_15_BITS) << 17;
 			/* store 17 bits from current register to next element */
-			if (i != 7)
-				Arr[i+1] = (RegValue & BITMASK_UPPER_17_BITS) >> 15;
+			if (i != 7U)
+				Arr[i + 1U] = (RegValue & BITMASK_UPPER_17_BITS) >> 15;
 		}
 
 		/* Set cache read to avoid multiple reads */
@@ -176,24 +176,24 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 
 	switch (NODEINDEX(PowerDomainId)) {
         case (u32)XPM_NODEIDX_POWER_PMC:
-			if (SateliteIdx == 0) {
+			if (0U == SateliteIdx) {
 				/* Copy EFUSE_CACHE.TSENS_DELTA_3_0 to PMC_SYSMON.SAT0_EFUSE_CONFIG0[15:12] */
-				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 0);
-			} else if (SateliteIdx == 1) {
+				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 0U);
+			} else if (1U == SateliteIdx) {
 				/* Copy EFUSE_CACHE.TSENS_DELTA_7_4 to PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12] */
-				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4);
+				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4U);
 			}
 			break;
         case (u32)XPM_NODEIDX_POWER_LPD:
 			/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to LPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
-			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8);
+			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8U);
 			break;
         case (u32)XPM_NODEIDX_POWER_FPD:
 			/* Copy EFUSE_CACHE.TSENS_DELTA_15_12 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
-			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12);
+			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12U);
 			break;
         case (u32)XPM_NODEIDX_POWER_NOC:
-			StartbitOffset = 16+(SateliteIdx*4);
+			StartbitOffset = 16U + (SateliteIdx * 4U);
 			/* Copy EFUSE_CACHE.TSENS_DELTA_STARTBIT_ENDBIT to AMS_SAT_N.EFUSE_CONFIG0[15:12] */
 			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, StartbitOffset);
 			break;
@@ -202,7 +202,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 			goto done;
 	}
 
-	if(DeltaVal != 0)
+	if (0U != DeltaVal)
 		PmRmw32(DestAddress + EFUSE_CONFIG0_OFFSET,  EFUSE_CONFIG0_DELTA_MASK, (DeltaVal << EFUSE_CONFIG0_DELTA_SHIFT));
 
 	/* Lock writes */
@@ -218,7 +218,7 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 
-	if (XPM_POWER_STATE_ON == Node->State) {
+	if ((u8)XPM_POWER_STATE_ON == Node->State) {
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
@@ -341,7 +341,7 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 		goto done;
 	}
 
-	if (XPM_POWER_STATE_ON != Node->State) {
+	if ((u8)XPM_POWER_STATE_ON != Node->State) {
 		PmInfo("Reloading FPD CDO\r\n");
 		Status = XLoader_ReloadImage(Node->Id);
 		if (XST_SUCCESS != Status) {
@@ -421,7 +421,7 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 
-	if (XPM_POWER_STATE_ON == Node->State) {
+	if ((u8)XPM_POWER_STATE_ON == Node->State) {
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
@@ -596,7 +596,7 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 
-        if (XPM_POWER_STATE_ON == Node->State) {
+        if ((u8)XPM_POWER_STATE_ON == Node->State) {
 			Status = XST_SUCCESS;
                 goto done;
         } else {
@@ -724,7 +724,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 			       CRP_RESET_REASON_SW_SYS_MASK |
 			       CRP_RESET_REASON_ERR_SYS_MASK |
 			       CRP_RESET_REASON_DAP_SYS_MASK);
-	u32 DomainStatusMask = 1U << (NODEINDEX(PwrDomain->Power.Node.Id) - 1);
+	u32 DomainStatusMask = 1U << (NODEINDEX(PwrDomain->Power.Node.Id) - 1U);
 
 	/* Clear System Reset and domain POR reset flags */
 	SystemResetFlag = 0;
@@ -748,7 +748,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 		 * power domain bit in XPM_DOMAIN_INIT_STATUS_REG is 0. So
 		 * don't set DomainPORFlag or SystemResetFlag flags.
 		 */
-		if (0 == (XPm_In32(XPM_DOMAIN_INIT_STATUS_REG) &
+		if (0U == (XPm_In32(XPM_DOMAIN_INIT_STATUS_REG) &
 			  DomainStatusMask)) {
 			goto done;
 		}
@@ -771,7 +771,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 		}
 
 		/* Check for POR reset for a domain is occured or not. */
-		if (0 != ResetId) {
+		if (0U != ResetId) {
 			Reset = XPmReset_GetById(ResetId);
 			if (XPM_RST_STATE_ASSERTED ==
 			    Reset->Ops->GetState(Reset)) {
@@ -781,7 +781,7 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 		}
 
 		/* Check for system reset is occured or not. */
-		if (0 != (ResetReason & PmcSysResetMask)) {
+		if (0U != (ResetReason & PmcSysResetMask)) {
 			SystemResetFlag = 1;
 		}
 	} else {
@@ -798,7 +798,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	XStatus Status = XST_FAILURE;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 
-	if ((XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) && (Function != FUNC_XPPU_CTRL)) {
+	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) && (Function != (u32)FUNC_XPPU_CTRL)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -816,7 +816,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_INIT_FINISH:
-		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -832,13 +832,13 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_SCAN_CLEAR:
-		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
 			goto done;
 		}
 		/* Skip in case of system reset or POR of a domain */
 		/* HACK: Dont skip scanclear for AIE */
-		if (((1 == SystemResetFlag) || (1 == DomainPORFlag)) &&
+		if (((1U == SystemResetFlag) || (1U == DomainPORFlag)) &&
 		     (PwrDomain->Power.Node.Id != PM_POWER_ME)) {
 			Status = XST_SUCCESS;
 			goto done;
@@ -853,12 +853,12 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_BISR:
-		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
 			goto done;
 		}
 		/* Skip in case of system reset */
-		if ((1 == SystemResetFlag) &&
+		if ((1U == SystemResetFlag) &&
 		    (PwrDomain->Power.Node.Id != PM_POWER_NOC)) {
 			Status = XST_SUCCESS;
 			goto done;
@@ -873,12 +873,12 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_LBIST:
-		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
 			goto done;
 		}
 		/* Skip in case of system reset or POR of a domain */
-		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
+		if ((1U == SystemResetFlag) || (1U == DomainPORFlag)) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -892,12 +892,12 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_MBIST_CLEAR:
-		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
 			goto done;
 		}
 		/* Skip in case of system reset or POR of a domain */
-		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
+		if ((1U == SystemResetFlag) || (1U == DomainPORFlag)) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -911,7 +911,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_HOUSECLEAN_PL:
-		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -924,7 +924,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_MEM_INIT:
-                if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+                if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
                         Status = XST_FAILURE;
                         goto done;
                 }
@@ -937,7 +937,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				Status = XST_SUCCESS;
                 break;
 	case (u32)FUNC_HOUSECLEAN_COMPLETE:
-                if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+                if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
                         Status = XST_FAILURE;
                         goto done;
                 }
@@ -950,7 +950,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				Status = XST_SUCCESS;
                 break;
 	case (u32)FUNC_XPPU_CTRL:
-                if (XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+                if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
                         Status = XST_FAILURE;
                         goto done;
                 }

@@ -36,16 +36,16 @@ static int XPmApuCore_RestoreResumeAddr(XPm_Core *Core)
 	XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
 
 	/* Check for valid resume address */
-	if (0 == (Core->ResumeAddr & 1ULL)) {
+	if (0U == (Core->ResumeAddr & 1ULL)) {
 		PmErr("Invalid resume address\r\n");
 		goto done;
 	}
 
-	if (XPM_NODEIDX_DEV_ACPU_0 == NODEINDEX(Core->Device.Node.Id)) {
+	if ((u32)XPM_NODEIDX_DEV_ACPU_0 == NODEINDEX(Core->Device.Node.Id)) {
 		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
 		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
 		Status = XST_SUCCESS;
-	} else if (XPM_NODEIDX_DEV_ACPU_1 == NODEINDEX(Core->Device.Node.Id)) {
+	} else if ((u32)XPM_NODEIDX_DEV_ACPU_1 == NODEINDEX(Core->Device.Node.Id)) {
 		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR1L_OFFSET, AddrLow);
 		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR1H_OFFSET, AddrHigh);
 		Status = XST_SUCCESS;
@@ -75,7 +75,7 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XStatus Status = XST_FAILURE;
 
 	/* Set reset address */
-	if (1 == SetAddress) {
+	if (1U == SetAddress) {
 		Core->ResumeAddr = Address | 1U;
 	}
 
@@ -126,10 +126,10 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 
 	ApuCore->FpdApuBaseAddr = BaseAddress[0];
 
-	if(NODEINDEX(Id) == XPM_NODEIDX_DEV_ACPU_0) {
+	if (NODEINDEX(Id) == (u32)XPM_NODEIDX_DEV_ACPU_0) {
 		ApuCore->Core.SleepMask = XPM_ACPU_0_PWR_CTRL_MASK;
 		ApuCore->Core.PwrDwnMask = XPM_ACPU_0_CPUPWRDWNREQ_MASK;
-	} else if(NODEINDEX(Id) == XPM_NODEIDX_DEV_ACPU_1) {
+	} else if (NODEINDEX(Id) == (u32)XPM_NODEIDX_DEV_ACPU_1) {
 		ApuCore->Core.SleepMask = XPM_ACPU_1_PWR_CTRL_MASK;
 		ApuCore->Core.PwrDwnMask = XPM_ACPU_1_CPUPWRDWNREQ_MASK;
 	} else {

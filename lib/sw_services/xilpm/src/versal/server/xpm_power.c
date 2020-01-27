@@ -42,8 +42,8 @@ XPm_Power *XPmPower_GetById(u32 Id)
 	u32 NodeClass = NODECLASS(Id);
 	u32 NodeIndex = NODEINDEX(Id);
 
-	if ((XPM_NODECLASS_POWER == NodeClass) &&
-	    (XPM_NODEIDX_POWER_MAX > NodeIndex)) {
+	if (((u32)XPM_NODECLASS_POWER == NodeClass) &&
+	    ((u32)XPM_NODEIDX_POWER_MAX > NodeIndex)) {
 		Power = PmPowers[NodeIndex];
 		/* Validate power node ID is same as given ID. */
 		if ((NULL != Power) && (Id != Power->Node.Id)) {
@@ -63,7 +63,7 @@ static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 	 * We assume that the Node ID class, subclass and type has _already_
 	 * been validated before, so only check bounds here against index
 	 */
-	if ((NULL != PwrNode) && (XPM_NODEIDX_POWER_MAX > NodeIndex)) {
+	if ((NULL != PwrNode) && ((u32)XPM_NODEIDX_POWER_MAX > NodeIndex)) {
 		PmPowers[NodeIndex] = PwrNode;
 		PmNumPowers++;
 		Status = XST_SUCCESS;
@@ -195,7 +195,7 @@ static XStatus PowerDwnXram(XPm_Node *Node)
 
 	/* Check if already power up */
 	RegVal = XPm_In32(PwrStatusAddress);
-	if ((RegVal & BitMask) == 0) {
+	if ((RegVal & BitMask) == 0U) {
 		goto done;
 	}
 
@@ -226,13 +226,13 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		goto done;
 	}
 
-	if (XPM_POWER_STATE_ON == Node->State) {
+	if ((u8)XPM_POWER_STATE_ON == Node->State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
-		if (XPM_NODETYPE_POWER_ISLAND_XRAM == NODETYPE(Node->Id)) {
+	if ((u32)XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
+		if ((u32)XPM_NODETYPE_POWER_ISLAND_XRAM == NODETYPE(Node->Id)) {
 			Status = PowerUpXram(Node);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -253,7 +253,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		 */
 		if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
 		    (PLATFORM_VERSION_SILICON == Platform) &&
-		    (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
+		    ((u32)XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
 		    (0U == (LPD_BISR_DONE & LpDomain->LpdBisrFlags))) {
 			if (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags) {
 				Status = XPmBisr_TriggerLpd();
@@ -301,8 +301,8 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
-		if (XPM_NODETYPE_POWER_ISLAND_XRAM == NODETYPE(Node->Id)) {
+	if ((u32)XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
+		if ((u32)XPM_NODETYPE_POWER_ISLAND_XRAM == NODETYPE(Node->Id)) {
                         Status = PowerDwnXram(Node);
                         if (XST_SUCCESS != Status) {
                                 goto done;
@@ -314,7 +314,7 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
                         }
                 }
 
-		if (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) {
+		if ((u32)XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) {
 			LpDomain->LpdBisrFlags &= (u8)(~(LPD_BISR_DONE));
 			/*
 			 * Clear and Disable RPU internal reg comparators to prevent
@@ -369,7 +369,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 	{
 		case (u8)XPM_POWER_STATE_STANDBY:
 		case (u8)XPM_POWER_STATE_OFF:
-			if (XPM_POWER_EVENT_PWR_UP == Event) {
+			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				if (NULL != Power->Parent) {
 					Node->State = (u8)XPM_POWER_STATE_PWR_UP_PARENT;
@@ -390,7 +390,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		case (u8)XPM_POWER_STATE_PWR_UP_PARENT:
-			if (XPM_POWER_EVENT_TIMER == Event) {
+			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
 					Power->WfParentUseCnt = 0;
@@ -406,7 +406,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		case (u8)XPM_POWER_STATE_PWR_UP_SELF:
-			if (XPM_POWER_EVENT_TIMER == Event) {
+			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Read PSM status register */
 				if (1 /* Hack: Power node is up */) {
@@ -418,16 +418,16 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		case (u8)XPM_POWER_STATE_ON:
-			if (XPM_POWER_EVENT_PWR_UP == Event) {
+			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				if (NULL != Power->Parent) {
 					Status = Power->Parent->HandleEvent(
 						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
 				}
 				Power->UseCount++;
-			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
+			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
-				if (1 == Power->UseCount) {
+				if (1U == Power->UseCount) {
 					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
 					/* Write to PSM power down request register */
 					SendPowerDownReq(Node);
@@ -446,7 +446,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		case (u8)XPM_POWER_STATE_PWR_DOWN_SELF:
-			if (XPM_POWER_EVENT_TIMER == Event) {
+			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Read PSM status register */
 				if (1 /* Hack: Power node is down */) {
@@ -468,7 +468,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		case (u8)XPM_POWER_STATE_PWR_DOWN_PARENT:
-			if (XPM_POWER_EVENT_TIMER == Event) {
+			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
 					Node->State = (u8)XPM_POWER_STATE_OFF;
@@ -529,7 +529,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	Power->PwrDnLatency = 0;
 	Power->PwrUpLatency = 0;
 
-	if ((NULL != Parent) && (XPM_NODESUBCL_POWER_DOMAIN ==
+	if ((NULL != Parent) && ((u32)XPM_NODESUBCL_POWER_DOMAIN ==
 				 NODESUBCLASS(Parent->Node.Id))) {
 		PowerDomain = (XPm_PowerDomain *)Parent;
 		Power->NextPeer = PowerDomain->Children;
@@ -589,7 +589,7 @@ int XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 		goto done;
 	}
 
-	if (XPM_POWER_STATE_ON == Power->Node.State) {
+	if ((u8)XPM_POWER_STATE_ON == Power->Node.State) {
 		goto done;
 	}
 
@@ -599,7 +599,7 @@ int XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 
 	/* Account latencies of parents if a parent is down */
 	while (NULL != Parent) {
-		if (XPM_POWER_STATE_ON == Parent->Node.State) {
+		if ((u8)XPM_POWER_STATE_ON == Parent->Node.State) {
 			break;
 		}
 

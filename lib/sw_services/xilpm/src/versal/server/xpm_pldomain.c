@@ -132,7 +132,7 @@ static void PldApplyTrim(u32 TrimType)
 			       TrimVal);
 			/* if eFUSE is not programmed,
 			then set rw_read_voltages to 0.61V + 0.625V by writing */
-			if ((TrimVal == 0) && (PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
+			if ((TrimVal == 0U) && (PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
 				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
                         XCframe_CramTrim(&CframeIns, TrimVal);
                 }
@@ -340,7 +340,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		 */
 		XPm_Write32(Pmc->PmcGlobalBaseAddr +
 			    PMC_GLOBAL_GIC_PROXY_BASE_OFFSET +
-			    GIC_PROXY_GROUP_OFFSET(3) +
+			    GIC_PROXY_GROUP_OFFSET(3U) +
 			    GIC_PROXY_IRQ_STATUS_OFFSET,
 			    GICP3_CFRAME_SEU_MASK | GICP3_CFU_MASK);
 		XPm_Write32(Pmc->PmcGlobalBaseAddr +
@@ -399,7 +399,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	u32 Value = 0;
 
 	/* If Arg0 is set, bypass houseclean */
-	if ((NumOfArgs > 0U) && (Args[0] == 1))
+	if ((NumOfArgs > 0U) && (Args[0] == 1U))
 		PlpdHouseCleanBypass = 1;
 
 	if (PLATFORM_VERSION_SILICON == Platform) {
@@ -499,10 +499,10 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		/* Fake read */
 		/* each register is 128 bits long so issue 4 reads */
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME Fake Read...", __func__);
-		PmIn32(Pld->Cframe0RegBaseAddr + 0, Value);
-		PmIn32(Pld->Cframe0RegBaseAddr + 4, Value);
-		PmIn32(Pld->Cframe0RegBaseAddr + 8, Value);
-		PmIn32(Pld->Cframe0RegBaseAddr + 12, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 0U, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 4U, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 8U, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 12U, Value);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
 		/* Unlock CFU writes */
@@ -587,10 +587,10 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 	switch (Node->State)
 	{
 		case (u8)XPM_POWER_STATE_ON:
-			if (XPM_POWER_EVENT_PWR_UP == Event) {
+			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount++;
-			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
+			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount--;
 				Node->State = (u8)XPM_POWER_STATE_OFF;
@@ -599,11 +599,11 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		case (u8)XPM_POWER_STATE_OFF:
-			if (XPM_POWER_EVENT_PWR_UP == Event) {
+			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount++;
 				Node->State = (u8)XPM_POWER_STATE_ON;
-			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
+			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
 				Power->UseCount--;
 			} else {
@@ -633,7 +633,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	PlDomain->Domain.Power.HandleEvent = HandlePlDomainEvent;
 
 	/* Make sure enough base addresses are being passed */
-	if (2 <= OtherBaseAddressCnt) {
+	if (2U <= OtherBaseAddressCnt) {
 		PlDomain->CfuApbBaseAddr = OtherBaseAddresses[0];
 		PlDomain->Cframe0RegBaseAddr = OtherBaseAddresses[1];
 		Status = XST_SUCCESS;

@@ -53,7 +53,7 @@ static XStatus XPmBus_IdleBusWait(XIicPs *Iic)
 		usleep(10);
 		Timeout--;
 
-		if (Timeout == 0) {
+		if (0U == Timeout) {
 			PmErr("ERROR: I2C bus idle wait timeout\r\n");
 			goto done;
 		}

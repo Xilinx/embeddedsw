@@ -114,7 +114,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	 * done by BOOT ROM
 	 */
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
-			if (i == XPM_NODEIDX_MEMIC_NSU_1 &&
+			if (i == (u32)XPM_NODEIDX_MEMIC_NSU_1 &&
 				SlrType < SLR_TYPE_SSIT_DEV_MASTER_SLR)
 				continue;
 
@@ -128,7 +128,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Deassert UB_INITSTATE for DDR blocks */
-	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		if (NULL != Device) {
 			BaseAddress = Device->Node.BaseAddress;
@@ -145,9 +145,9 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		}
 	}
 	/* When NPD is powered, copy sysmon data */
-	for (i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
+	for (i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */
-		if (0 != SysmonAddresses[i]) {
+		if (0U != SysmonAddresses[i]) {
 			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
 		}
 	}
@@ -222,7 +222,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 
 	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 	       RegValue);
-	if (0 != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
+	if (0U != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 			     PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK))) {
 		Status = XST_FAILURE;
 		goto done;
@@ -433,9 +433,9 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	u32 Idx = NODEINDEX(DeviceId);
 	u32 Type = NODETYPE(DeviceId);
 
-	if (((XPM_NODETYPE_MEMIC_SLAVE != Type) &&
-	    (XPM_NODETYPE_MEMIC_MASTER != Type)) ||
-	    (XPM_NODEIDX_MEMIC_MAX <= Idx)) {
+	if ((((u32)XPM_NODETYPE_MEMIC_SLAVE != Type) &&
+	    ((u32)XPM_NODETYPE_MEMIC_MASTER != Type)) ||
+	    ((u32)XPM_NODEIDX_MEMIC_MAX <= Idx)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

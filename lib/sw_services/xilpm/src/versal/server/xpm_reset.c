@@ -58,7 +58,7 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 	 * We assume that the Node ID class, subclass and type has _already_
 	 * been validated before, so only check bounds here against index
 	 */
-	if ((NULL != Rst) && (XPM_NODEIDX_RST_MAX > NodeIndex)) {
+	if ((NULL != Rst) && ((u32)XPM_NODEIDX_RST_MAX > NodeIndex)) {
 		RstNodeList[NodeIndex] = Rst;
 		PmNumResets++;
 		Status = XST_SUCCESS;
@@ -69,7 +69,8 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 
 static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
-	XStatus Status = XST_FAILURE, i = 0;
+	XStatus Status = XST_FAILURE;
+	u32 i = 0;
 
 	Status = XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0);
 
@@ -133,7 +134,7 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 	u32 ResetIndex = NODEINDEX(ResetId);;
 	XPm_ResetNode *Rst = NULL;
 
-	if ((NODECLASS(ResetId) != XPM_NODECLASS_RESET) ||
+	if ((NODECLASS(ResetId) != (u32)XPM_NODECLASS_RESET) ||
 	    (ResetIndex >= MaxRstNodes)) {
 		return NULL;
 	}

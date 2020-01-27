@@ -37,8 +37,8 @@ extern "C" {
 #endif
 
 /* IOU_SLCR register related macros */
-#define BITS_IN_REG			(32)
-#define PINS_PER_BANK			(26)
+#define BITS_IN_REG			(32U)
+#define PINS_PER_BANK			(26U)
 #define BNK_OFFSET			(0x200U)
 #define PINNUM(Id)	   		((NODEINDEX(Id) - (u32)XPM_NODEIDX_STMIC_LMIO_0) % PINS_PER_BANK)
 #define SEL_SLEW			(0x00000120U)

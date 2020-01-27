@@ -708,7 +708,7 @@ XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value)
 		goto done;
 	}
 
-	if (XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+	if ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}
@@ -891,7 +891,7 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	/* TBD -  Decide InitEnable value */
 	Attr |= InitEnable << CLK_INIT_ENABLE_SHIFT;
 	/* Clock type (Output/External) */
-	if (NODESUBCLASS(ClockId) == XPM_NODESUBCL_CLOCK_REF) {
+	if (NODESUBCLASS(ClockId) == (u32)XPM_NODESUBCL_CLOCK_REF) {
 		Attr |= 1U << CLK_TYPE_SHIFT;
 	}
 	/* Clock node type PLL, OUT or REF*/
@@ -937,7 +937,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 
 	/* Check for power domain of clock */
 	if ((NULL != Clk->PwrDomain) &&
-	    (XPM_POWER_STATE_ON != Clk->PwrDomain->Node.State)) {
+	    ((u8)XPM_POWER_STATE_ON != Clk->PwrDomain->Node.State)) {
 		Status = XST_FAILURE;
 		goto done;
 	}

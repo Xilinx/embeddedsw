@@ -195,7 +195,7 @@ void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event)
 	 * If subsystem is OFFLINE then it should be notified about
 	 * the event only if it requested to be woken up.
 	 */
-	if ((OFFLINE != Notifier->Subsystem->State) ||
+	if (((u8)OFFLINE != Notifier->Subsystem->State) ||
 	    (0U != (Event & Notifier->WakeMask))) {
 		Payload[0] = (u32)PM_NOTIFY_CB;
 		Payload[1] = Notifier->Device->Node.Id;

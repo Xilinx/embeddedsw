@@ -60,7 +60,7 @@ void *XPm_AllocBytes(u32 Size)
 	FreeBytes += Size;
 
 	/* Zero the bytes */
-	NumWords = Size / 4;
+	NumWords = Size / 4U;
 	Words = (u32 *)Bytes;
 	for (i = 0; i < NumWords; i++) {
 		Words[i] = 0U;
@@ -75,7 +75,7 @@ void XPm_DumpMemUsage(void)
 {
 	xil_printf("Total buffer size = %d bytes\n\r", MAX_BYTEBUFFER_SIZE);
 	xil_printf("Used = %d bytes\n\r", FreeBytes - ByteBuffer);
-	xil_printf("Free = %d bytes\n\r", MAX_BYTEBUFFER_SIZE - (FreeBytes - ByteBuffer));
+	xil_printf("Free = %d bytes\n\r", MAX_BYTEBUFFER_SIZE - (u32)(FreeBytes - ByteBuffer));
 	xil_printf("\n\r");
 }
 
@@ -167,7 +167,7 @@ XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
         /* Read the Register value       */
         l_RegValue = XPm_In32(RegAddress);
         /* Loop while the MAsk is not set or we timeout */
-        while(((l_RegValue & Mask) != 0) && (TimeOut > 0U))
+        while(((l_RegValue & Mask) != 0U) && (TimeOut > 0U))
         {
                 /* Latch up the Register value again */
                 l_RegValue = XPm_In32(RegAddress);

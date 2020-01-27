@@ -78,7 +78,7 @@ static void XPmGicProxy_Enable(void)
 		/* Enable interrupts in the group that are set as wake */
 		XPm_Out32(RegAddress, XPm_GicProxy.Groups[g].SetMask);
 
-		if (0 != XPm_GicProxy.Groups[g].SetMask) {
+		if (0U != XPm_GicProxy.Groups[g].SetMask) {
 			XPm_Out32(BaseAddress +
 				  PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET, BIT(g));
 		}

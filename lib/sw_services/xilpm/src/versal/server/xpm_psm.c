@@ -47,7 +47,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 	u32 CRLBaseAddress = Psm->CrlBaseAddr;
 
 	/* Set reset address */
-	if (1 == SetAddress) {
+	if (1U == SetAddress) {
 		if(Address)
 			PmWarn("Handoff address is not used for PSM.\r\n");
 		Status = XST_INVALID_PARAM;
@@ -105,7 +105,7 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 		goto done;
 	}
 
-	if (XPmPsm_FwIsPresent() != TRUE) {
+	if (1U != XPmPsm_FwIsPresent()) {
 		Status = XST_NOT_ENABLED;
 		goto done;
 	}
@@ -163,14 +163,14 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 		goto done;
 	}
 
-	if (XPmPsm_FwIsPresent() != TRUE) {
+	if (1U != XPmPsm_FwIsPresent()) {
 		Status = XST_NOT_ENABLED;
 		goto done;
 	}
 
 	/* Check if already powered down */
 	PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
-	if (0 == (Reg & BitMask)) {
+	if (0U == (Reg & BitMask)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -179,7 +179,7 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 	PmOut32(PWR_DN_EN(Psm->PsmGlobalBaseAddr), BitMask);
 	do {
 		PmIn32(PWR_DN_STAT(Psm->PsmGlobalBaseAddr), Reg);
-	} while (0 != (Reg & BitMask));
+	} while (0U != (Reg & BitMask));
 
 	Status = XST_SUCCESS;
 

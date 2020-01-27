@@ -1923,7 +1923,7 @@ static u8 ValidatePinFunc(XPm_PinNode *Pin, XPm_PinFunc *PinFunc)
 				break;
 			}
 		}
-		if (1 == IsValid) {
+		if (1U == IsValid) {
 			break;
 		}
 	}
@@ -1948,7 +1948,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 	u32 PinIdx;
 
 	PinIdx = NODEINDEX(PinId);
-	if (PinIdx >= XPM_NODEIDX_STMIC_MAX) {
+	if (PinIdx >= (u32)XPM_NODEIDX_STMIC_MAX) {
 		goto done;
 	}
 
@@ -1965,7 +1965,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 	if (PinIdx <= PINS_PER_BANK) {
 		Pin->Bank = 0;
 	} else {
-		Pin->Bank = (u8)((PinIdx - PINS_PER_BANK - 1) / PINS_PER_BANK);
+		Pin->Bank = (u8)((PinIdx - PINS_PER_BANK - 1U) / PINS_PER_BANK);
 	}
 
 	Pin->BiasStatus = (u8)PINCTRL_BIAS_ENABLE;
@@ -1993,14 +1993,14 @@ XPm_PinNode *XPmPin_GetById(u32 PinId)
 	XPm_PinNode *PinNode = NULL;
 	u32 PinIndex = NODEINDEX(PinId);
 
-	if (NODECLASS(PinId) != XPM_NODECLASS_STMIC) {
+	if ((u32)XPM_NODECLASS_STMIC != NODECLASS(PinId)) {
 		goto done;
-	} else if (NODESUBCLASS(PinId) != XPM_NODESUBCL_PIN) {
+	} else if ((u32)XPM_NODESUBCL_PIN != NODESUBCLASS(PinId)) {
 		goto done;
-	} else if ((XPM_NODETYPE_LPD_MIO != NODETYPE(PinId)) &&
-		   (XPM_NODETYPE_PMC_MIO != NODETYPE(PinId))) {
+	} else if (((u32)XPM_NODETYPE_LPD_MIO != NODETYPE(PinId)) &&
+		   ((u32)XPM_NODETYPE_PMC_MIO != NODETYPE(PinId))) {
 		goto done;
-	} else if (PinIndex >= XPM_NODEIDX_STMIC_MAX) {
+	} else if (PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) {
 		goto done;
 	} else {
 		/* Required by MISRA */
@@ -2035,15 +2035,15 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 	}
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
-	if ((NULL == PinFunc) || (0 == ValidatePinFunc(Pin, PinFunc))) {
+	if ((NULL == PinFunc) || (0U == ValidatePinFunc(Pin, PinFunc))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (XPM_NODETYPE_LPD_MIO == NODETYPE(PinId)) {
-		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4, PinFunc->LmioRegMask);
-	} else if (XPM_NODETYPE_PMC_MIO == NODETYPE(PinId)) {
-		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4, PinFunc->PmioRegMask);
+	if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(PinId)) {
+		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4U, PinFunc->LmioRegMask);
+	} else if ((u32)XPM_NODETYPE_PMC_MIO == NODETYPE(PinId)) {
+		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4U, PinFunc->PmioRegMask);
 	} else {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
@@ -2121,9 +2121,9 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 
 	switch (Param) {
 		case (u32)PINCTRL_CONFIG_SLEW_RATE:
-			if (PINCTRL_SLEW_RATE_SLOW == Value) {
+			if ((u32)PINCTRL_SLEW_RATE_SLOW == Value) {
 				XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, 0);
-			} else if (PINCTRL_SLEW_RATE_FAST == Value) {
+			} else if ((u32)PINCTRL_SLEW_RATE_FAST == Value) {
 				XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, BitMask);
 			} else {
 				Status = XST_INVALID_PARAM;
@@ -2134,21 +2134,21 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 			RegPuAddr = BaseAddr + EN_WK_PU;
 			RegPdAddr = BaseAddr + EN_WK_PD;
 
-			if ((PINCTRL_BIAS_ENABLE != Value) &&
-				(PINCTRL_BIAS_DISABLE != Value)) {
+			if (((u32)PINCTRL_BIAS_ENABLE != Value) &&
+			    ((u32)PINCTRL_BIAS_DISABLE != Value)) {
 				Status = XST_INVALID_PARAM;
 				goto done;
 			}
 
-			if ((PINCTRL_BIAS_ENABLE == Value) &&
-			    (PINCTRL_BIAS_DISABLE == Pin->BiasStatus)) {
-				if (PINCTRL_BIAS_PULL_UP == Pin->PullCtrl) {
+			if (((u32)PINCTRL_BIAS_ENABLE == Value) &&
+			    ((u32)PINCTRL_BIAS_DISABLE == Pin->BiasStatus)) {
+				if ((u32)PINCTRL_BIAS_PULL_UP == Pin->PullCtrl) {
 					PmRmw32(RegPuAddr, BitMask, BitMask);
 				} else {
 					PmRmw32(RegPdAddr, BitMask, BitMask);
 				}
-			} else if ((PINCTRL_BIAS_DISABLE == Value) &&
-				   (PINCTRL_BIAS_ENABLE == Pin->BiasStatus)) {
+			} else if (((u32)PINCTRL_BIAS_DISABLE == Value) &&
+				   ((u32)PINCTRL_BIAS_ENABLE == Pin->BiasStatus)) {
 				PmRmw32(RegPdAddr, BitMask, 0);
 				PmRmw32(RegPuAddr, BitMask, 0);
 			} else {
@@ -2160,13 +2160,13 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 			RegPuAddr = BaseAddr + EN_WK_PU;
 			RegPdAddr = BaseAddr + EN_WK_PD;
 
-			if (PINCTRL_BIAS_ENABLE == Pin->BiasStatus) {
-				if (PINCTRL_BIAS_PULL_UP == Value) {
+			if ((u32)PINCTRL_BIAS_ENABLE == Pin->BiasStatus) {
+				if ((u32)PINCTRL_BIAS_PULL_UP == Value) {
 					/* Disable weak pull-down */
 					PmRmw32(RegPdAddr, BitMask, 0);
 					/* Enable weak pull-up */
 					PmRmw32(RegPuAddr, BitMask, BitMask);
-				} else if (PINCTRL_BIAS_PULL_DOWN == Value) {
+				} else if ((u32)PINCTRL_BIAS_PULL_DOWN == Value) {
 					/* Disable weak pull-up */
 					PmRmw32(RegPuAddr, BitMask, 0);
 					/* Enable weak pull-down */
@@ -2179,9 +2179,9 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 			Pin->PullCtrl = (u8)Value;
 			break;
 		case (u32)PINCTRL_CONFIG_SCHMITT_CMOS:
-			if (PINCTRL_INPUT_TYPE_CMOS == Value) {
+			if ((u32)PINCTRL_INPUT_TYPE_CMOS == Value) {
 				PmRmw32((BaseAddr + EN_RX_SCHMITT_HYST), BitMask, 0);
-			} else if (PINCTRL_INPUT_TYPE_SCHMITT == Value) {
+			} else if ((u32)PINCTRL_INPUT_TYPE_SCHMITT == Value) {
 				PmRmw32((BaseAddr + EN_RX_SCHMITT_HYST), BitMask, BitMask);
 			} else {
 				Status = XST_INVALID_PARAM;
@@ -2189,7 +2189,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 			}
 			break;
 		case (u32)PINCTRL_CONFIG_DRIVE_STRENGTH:
-			if (Value >= PINCTRL_DRIVE_STRENGTH_MAX) {
+			if (Value >= (u32)PINCTRL_DRIVE_STRENGTH_MAX) {
 				Status = XST_INVALID_PARAM;
 				goto done;
 			}
@@ -2205,15 +2205,15 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 			}
 			break;
 		case (u32)PINCTRL_CONFIG_TRI_STATE:
-			if (XPM_NODETYPE_LPD_MIO == NODETYPE(Pin->Node.Id)) {
-				BaseAddr = Pin->Node.BaseAddress + TRI_STATE + 4;
+			if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(Pin->Node.Id)) {
+				BaseAddr = Pin->Node.BaseAddress + TRI_STATE + 4U;
 			} else {
-				BaseAddr = Pin->Node.BaseAddress + TRI_STATE + ((Pin->Bank) * 4);
+				BaseAddr = Pin->Node.BaseAddress + TRI_STATE + ((Pin->Bank) * 4U);
 			}
 
-			if (Value == PINCTRL_TRI_STATE_ENABLE) {
+			if (Value == (u32)PINCTRL_TRI_STATE_ENABLE) {
 				PmRmw32(BaseAddr, BitMask, BitMask);
-			} else if (Value == PINCTRL_TRI_STATE_DISABLE) {
+			} else if (Value == (u32)PINCTRL_TRI_STATE_DISABLE) {
 				/* Add check to make sure that domain is powered on */
 				PmRmw32(BaseAddr, BitMask, 0);
 			} else {
@@ -2281,7 +2281,7 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 			break;
 		case (u32)PINCTRL_CONFIG_SCHMITT_CMOS:
 			PmIn32((BaseAddr + EN_RX_SCHMITT_HYST), Reg);
-			if (0 == (Reg & BitMask)) {
+			if (0U == (Reg & BitMask)) {
 				*Value = (u32)PINCTRL_INPUT_TYPE_CMOS;
 			} else {
 				*Value = (u32)PINCTRL_INPUT_TYPE_SCHMITT;
@@ -2402,7 +2402,7 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	if (Pin->SubsysIdx != XPM_NODEIDX_SUBSYS_MAX) {
+	if (Pin->SubsysIdx != (u16)XPM_NODEIDX_SUBSYS_MAX) {
 		if (Pin->SubsysIdx == NODEINDEX(SubsystemId)) {
 			goto done;
 		}

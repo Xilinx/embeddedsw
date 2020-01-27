@@ -46,7 +46,7 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if (XPmPsm_FwIsPresent() != TRUE) {
+	if (1U != XPmPsm_FwIsPresent()) {
 		Status = XST_NOT_ENABLED;
 		goto done;
 	}
@@ -281,7 +281,7 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 	XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
 
 	/* Make sure enough base addresses are being passed */
-	if (1 <= OtherBaseAddressCnt) {
+	if (1U <= OtherBaseAddressCnt) {
 		PsFpd->FpdSlcrBaseAddr = OtherBaseAddresses[0];
 		Status = XST_SUCCESS;
 	} else {

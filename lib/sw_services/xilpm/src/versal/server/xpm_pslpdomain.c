@@ -381,7 +381,7 @@ static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	u32 XppuNodeId, Enable;
 
-	if(NumOfArgs < 2) {
+	if (NumOfArgs < 2U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -389,17 +389,17 @@ static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 	XppuNodeId = Args[0];
 	Enable = Args[1];
 
-	if (XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
+	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
+	if ((u32)XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if ((0U != Enable) && (3 == NumOfArgs))
+	if ((0U != Enable) && (3U == NumOfArgs))
 		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
 	else
 		Status = XPmProt_XppuDisable(XppuNodeId);
@@ -430,7 +430,7 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 	PsLpd->LpdBisrFlags = 0;
 
 	/* Make sure enough base addresses are being passed */
-	if (3 <= OtherBaseAddressesCnt) {
+	if (3U <= OtherBaseAddressesCnt) {
 		PsLpd->LpdIouSlcrBaseAddr = OtherBaseAddresses[0];
 		PsLpd->LpdSlcrBaseAddr = OtherBaseAddresses[1];
 		PsLpd->LpdSlcrSecureBaseAddr = OtherBaseAddresses[2];

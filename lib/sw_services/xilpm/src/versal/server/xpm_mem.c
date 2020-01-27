@@ -78,7 +78,7 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 	u32 Reg;
 	u8 i;
 
-	for (i = (u8)XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX;
+	for (i = (u8)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u8)XPM_NODEIDX_DEV_DDRMC_MAX;
 	     i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		BaseAddress = Device->Node.BaseAddress;
@@ -93,7 +93,7 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_ACK_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SPARE_0_MASK,
 					DDRMC_TIMEOUT);
-		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
 			PmErr("Failed to enter self-refresh!\r\n");
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
@@ -104,7 +104,7 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_DONE_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SPARE_0_MASK,
 					DDRMC_TIMEOUT);
-		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
 			PmErr("Failed to enter self-refresh!\r\n");
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
@@ -130,7 +130,7 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 	u32 Reg;
 	u8 i;
 
-	for (i = (u8)XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX;
+	for (i = (u8)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u8)XPM_NODEIDX_DEV_DDRMC_MAX;
 	     i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		BaseAddress = Device->Node.BaseAddress;
@@ -145,7 +145,7 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_ACK_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SR_EXIT_MASK,
 					DDRMC_TIMEOUT);
-		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
 			PmErr("Failed to exit self-refresh!\r\n");
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
@@ -156,7 +156,7 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_DONE_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SR_EXIT_MASK,
 					DDRMC_TIMEOUT);
-		if (XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
+		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
 			PmErr("Failed to exit self-refresh!\r\n");
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
@@ -180,25 +180,25 @@ static XStatus HandleDDRDeviceState(XPm_Device* const Device, const u32 NextStat
 
 	switch (Device->Node.State) {
 	case (u8)XPM_DEVSTATE_UNUSED:
-		if (XPM_DEVSTATE_RUNNING == NextState) {
+		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDevice_BringUp(Device);
 		} else {
 			Status = XST_SUCCESS;
 		}
 		break;
 	case (u8)XPM_DEVSTATE_RUNNING:
-		if (XPM_DEVSTATE_UNUSED == NextState) {
+		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
 		} else {
 			Status = XST_SUCCESS;
 		}
-		if (XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
+		if ((u32)XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
 			Status = XPmDDRDevice_EnterSelfRefresh();
 		}
 		break;
 	case (u8)XPM_DEVSTATE_RUNTIME_SUSPEND:
-		if (XPM_DEVSTATE_RUNNING == NextState) {
+		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDDRDevice_ExitSelfRefresh();
 		}
 		break;
@@ -264,7 +264,7 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 
 	switch (Device->Node.State) {
 	case (u8)XPM_DEVSTATE_UNUSED:
-		if (XPM_DEVSTATE_RUNNING == NextState) {
+		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDevice_BringUp(Device);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -275,7 +275,7 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			if (XPM_RPU_MODE_SPLIT == Mode) {
 				if ((PM_DEV_TCM_0_A == Id ||
 				     PM_DEV_TCM_0_B == Id) &&
-				    (XPM_DEVSTATE_RUNNING !=
+				    ((u8)XPM_DEVSTATE_RUNNING !=
 				     Rpu0Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu0Device);
 					if (XST_SUCCESS != Status) {
@@ -284,7 +284,7 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 				}
 				if ((PM_DEV_TCM_1_A == Id ||
 				     PM_DEV_TCM_1_B == Id) &&
-				    (XPM_DEVSTATE_RUNNING !=
+				    ((u8)XPM_DEVSTATE_RUNNING !=
 				     Rpu1Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu1Device);
 					if (XST_SUCCESS != Status) {
@@ -298,7 +298,7 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 				     PM_DEV_TCM_0_B == Id ||
 				     PM_DEV_TCM_1_A == Id ||
 				     PM_DEV_TCM_1_B == Id) &&
-				     (XPM_DEVSTATE_RUNNING !=
+				     ((u8)XPM_DEVSTATE_RUNNING !=
 				      Rpu0Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu0Device);
 					if (XST_SUCCESS != Status) {
@@ -312,7 +312,7 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 		Status = XST_SUCCESS;
 		break;
 	case (u8)XPM_DEVSTATE_RUNNING:
-		if (XPM_DEVSTATE_UNUSED == NextState) {
+		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
 			if (XST_SUCCESS != Status) {
@@ -342,14 +342,14 @@ static XStatus HandleMemDeviceState(XPm_Device* const Device, const u32 NextStat
 
 	switch (Device->Node.State) {
 	case (u8)XPM_DEVSTATE_UNUSED:
-		if (XPM_DEVSTATE_RUNNING == NextState) {
+		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDevice_BringUp(Device);
 		} else {
 			Status = XST_SUCCESS;
 		}
 		break;
 	case (u8)XPM_DEVSTATE_RUNNING:
-		if (XPM_DEVSTATE_UNUSED == NextState) {
+		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
 		} else {

@@ -1186,7 +1186,7 @@ XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId)
 {
 	XPm_PinFunc *PinFunc = NULL;
 
-	if (MAX_FUNCTION > FuncId) {
+	if ((u32)MAX_FUNCTION > FuncId) {
 		PinFunc = &PmPinFuncs[FuncId];
 	}
 

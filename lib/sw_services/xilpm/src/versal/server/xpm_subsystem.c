@@ -105,7 +105,7 @@ u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 	XPm_Subsystem *Subsystem;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	VERIFY(SubSysIdx < XPM_NODEIDX_SUBSYS_MAX);
+	VERIFY(SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX);
 	Subsystem = &PmSubsystems[SubSysIdx];
 	return Subsystem->IpiMask;
 }
@@ -119,19 +119,19 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 	  as it doesnt have ipi channel mapped to it.*/
 	/* TODO: remove this when ipi channel is requested through CDO
 	and assigned to susbystemid */
-	if (ONLINE == PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State) {
+	if ((u8)ONLINE == PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State) {
 		return PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].Id;
 	}
 
-	for (SubSysIdx = 0; SubSysIdx < XPM_NODEIDX_SUBSYS_MAX; SubSysIdx++)
+	for (SubSysIdx = 0; SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX; SubSysIdx++)
 	{
 		if (PmSubsystems[SubSysIdx].IpiMask == IpiMask) {
 			break;
 		}
 	}
 
-	if ((XPM_NODEIDX_SUBSYS_RPU0_LOCK == SubSysIdx) ||
-	    (XPM_NODEIDX_SUBSYS_RPU0_0 == SubSysIdx)) {
+	if (((u32)XPM_NODEIDX_SUBSYS_RPU0_LOCK == SubSysIdx) ||
+	    ((u32)XPM_NODEIDX_SUBSYS_RPU0_0 == SubSysIdx)) {
 		XPm_RpuGetOperMode(PM_DEV_RPU0_0, &RpuBootMode);
 
 		if (XPM_RPU_MODE_SPLIT == RpuBootMode) {
@@ -141,7 +141,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 		}
 	}
 
-	if (SubSysIdx == XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx == (u32)XPM_NODEIDX_SUBSYS_MAX) {
 		return INVALID_SUBSYSID;
 	} else {
 		return PmSubsystems[SubSysIdx].Id;
@@ -154,7 +154,7 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 	XPm_Subsystem *Subsystem;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	VERIFY(SubSysIdx < XPM_NODEIDX_SUBSYS_MAX);
+	VERIFY(SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX);
 	Subsystem = &PmSubsystems[SubSysIdx];
 
         Status = XPmRequirement_Release(Subsystem->Requirements, RELEASE_ALL);
@@ -197,15 +197,15 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 
 	Subsystem->Flags |= SUBSYSTEM_INIT_FINALIZED;
 
-	for (Idx = 1; Idx < XPM_NODEIDX_DEV_MAX; Idx++) {
+	for (Idx = 1; Idx < (u32)XPM_NODEIDX_DEV_MAX; Idx++) {
 		DeviceInUse = 0;
 
 		Device = XPmDevice_GetByIndex(Idx);
 		if ((NULL == Device) ||
-		    (XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
-		    (XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
-		    (XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
-		    (XPM_NODETYPE_DEV_EFUSE == NODETYPE(Device->Node.Id))) {
+		    ((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
+		    ((u32)XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
+		    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
+		    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(Device->Node.Id))) {
 			continue;
 		}
 
@@ -220,25 +220,25 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		}
 
 		PlSubsystem = XPmSubsystem_GetById(PM_SUBSYS_PL);
-		if (((PM_DEV_PL_0 == Device->Node.Id) ||
-		    (PM_DEV_PL_1 == Device->Node.Id) ||
-		    (PM_DEV_PL_2 == Device->Node.Id) ||
-		    (PM_DEV_PL_3 == Device->Node.Id)) &&
-		    (ONLINE == PlSubsystem->State)) {
+		if ((((u32)PM_DEV_PL_0 == Device->Node.Id) ||
+		    ((u32)PM_DEV_PL_1 == Device->Node.Id) ||
+		    ((u32)PM_DEV_PL_2 == Device->Node.Id) ||
+		    ((u32)PM_DEV_PL_3 == Device->Node.Id)) &&
+		    ((u8)ONLINE == PlSubsystem->State)) {
 			continue;
 		}
 
 		/* Iterate over all subsystems for particular device */
 		Reqm = Device->Requirements;
 		while (NULL != Reqm) {
-			if (OFFLINE == Reqm->Subsystem->State) {
+			if ((u8)OFFLINE == Reqm->Subsystem->State) {
 				Reqm = Reqm->NextSubsystem;
 				continue;
 			}
 
-			if ((TRUE == Reqm->Allocated) ||
-			    ((ONLINE == Reqm->Subsystem->State) &&
-			     (0 == (Reqm->Subsystem->Flags & SUBSYSTEM_INIT_FINALIZED)))) {
+			if ((1U == Reqm->Allocated) ||
+			    (((u8)ONLINE == Reqm->Subsystem->State) &&
+			     (0U == (Reqm->Subsystem->Flags & SUBSYSTEM_INIT_FINALIZED)))) {
 				DeviceInUse = 1;
 				break;
 			}
@@ -291,11 +291,10 @@ int XPmSubsystem_Idle(u32 SubsystemId)
 		u32 Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
 
 		/* Check if device is requested and its clock is active */
-		if ((TRUE == Reqm->Allocated) &&
-		    (0 == (Device->Node.Flags & NODE_IDLE_DONE)) &&
-		    (XPM_DEVSTATE_RUNNING == Device->Node.State) &&
+		if ((1U == Reqm->Allocated) &&
+		    (0U == (Device->Node.Flags & NODE_IDLE_DONE)) &&
 		    (XST_SUCCESS == XPmDevice_IsClockActive(Device)) &&
-		    (PM_USAGE_CURRENT_SUBSYSTEM == Usage)) {
+		    ((u32)PM_USAGE_CURRENT_SUBSYSTEM == Usage)) {
 			XPmDevice_SoftResetIdle(Device, DEVICE_IDLE_REQ);
 			Device->Node.Flags |= NODE_IDLE_DONE;
 		}
@@ -314,7 +313,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 	XStatus Status = XST_FAILURE;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx >= (u32)XPM_NODEIDX_SUBSYS_MAX) {
 		goto done;
 	}
 
@@ -349,14 +348,13 @@ XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId)
 	if(SubsystemId == INVALID_SUBSYSID)
 		goto done;
 
-	for (SubSysIdx = 0; SubSysIdx < XPM_NODEIDX_SUBSYS_MAX; SubSysIdx++)
-	{
+	for (SubSysIdx = 0; SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX; SubSysIdx++) {
 		if (PmSubsystems[SubSysIdx].Id == SubsystemId) {
 			break;
 		}
 	}
 
-	if(SubSysIdx == XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx == (u32)XPM_NODEIDX_SUBSYS_MAX) {
 		SubSystem = NULL;
 	} else {
 		SubSystem = &PmSubsystems[SubSysIdx];
@@ -390,7 +388,7 @@ XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
 	 * We assume that Subsystem class, subclass and type have been
 	 * validated before, so just validate index against bounds here
 	 */
-	if (SubSysIdx < XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX) {
 		Subsystem = &PmSubsystems[SubSysIdx];
 	}
 
@@ -402,11 +400,11 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 	XStatus Status = XST_FAILURE;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx >= (u32)XPM_NODEIDX_SUBSYS_MAX) {
 		goto done;
 	}
-	if(NODECLASS(NodeId) != XPM_NODECLASS_DEVICE || NODESUBCLASS(NodeId) != XPM_NODESUBCL_DEV_CORE)
-	{
+	if ((NODECLASS(NodeId) != (u32)XPM_NODECLASS_DEVICE) ||
+	    (NODESUBCLASS(NodeId) != (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -432,7 +430,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		goto done;
 	}
 
-	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx >= (u32)XPM_NODEIDX_SUBSYS_MAX) {
 		goto done;
 	}
 
@@ -471,7 +469,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 			goto done;
 		}
 
-		if (XPM_PINSTATE_UNUSED == Pin->Node.State) {
+		if ((u8)XPM_PINSTATE_UNUSED == Pin->Node.State) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -488,7 +486,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		}
 
 		DevId = Device->Node.Id;
-		if ((XPM_PINSTATE_UNUSED == Pin->Node.State) || (0 == DevId)) {
+		if (((u8)XPM_PINSTATE_UNUSED == Pin->Node.State) || (0U == DevId)) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -511,7 +509,7 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 	XStatus Status = XST_FAILURE;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	if ((State >= MAX_STATE) || (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX)) {
+	if ((State >= (u32)MAX_STATE) || (SubSysIdx >= (u32)XPM_NODEIDX_SUBSYS_MAX)) {
 		goto done;
 	}
 
@@ -553,13 +551,13 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	u32 i = 0;
 
 	/* If default subsystem is online, no other subsystem is allowed to be created */
-	if (!ISVALIDSUBSYSTEM(SubsystemId) || PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State == ONLINE || SubsystemId == PM_SUBSYS_PMC) {
+	if (!ISVALIDSUBSYSTEM(SubsystemId) || PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State == (u8)ONLINE || SubsystemId == PM_SUBSYS_PMC) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != OFFLINE) {
+	if (Subsystem == NULL || Subsystem->State != (u8)OFFLINE) {
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -567,7 +565,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	/* Add all requirements for default subsystem */
 	if(SubsystemId == PM_SUBSYS_DEFAULT)
 	{
-		for (i = 0; i < XPM_NODEIDX_DEV_MAX; i++) {
+		for (i = 0; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
 			/*
 			 * Note: XPmDevice_GetByIndex() assumes that the caller
 			 * is responsible for validating the Node ID attributes
@@ -600,18 +598,18 @@ XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId)
 	u32 SubClass;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx >= (u32)XPM_NODEIDX_SUBSYS_MAX) {
 		goto done;
 	}
 
 	Subsystem = &PmSubsystems[SubSysIdx];
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		if (TRUE == Reqm->Allocated) {
+		if (1U == Reqm->Allocated) {
 			Device = Reqm->Device;
 			SubClass = NODESUBCLASS(Device->Node.Id);
-			if ((XPM_NODESUBCL_DEV_CORE == SubClass) &&
-			    (XPM_DEVSTATE_RUNNING == Device->Node.State)) {
+			if (((u32)XPM_NODESUBCL_DEV_CORE == SubClass) &&
+			    ((u8)XPM_DEVSTATE_RUNNING == Device->Node.State)) {
 				goto done;
 			}
 		}
@@ -636,14 +634,14 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != ONLINE) {
+	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		if (TRUE == Reqm->Allocated) {
+		if (1U == Reqm->Allocated) {
 			Device = Reqm->Device;
 			Status = Device->DeviceOps->Release(Device, Subsystem);
 			if (XST_FAILURE == Status) {
@@ -678,9 +676,9 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		if (TRUE == Reqm->Allocated) {
+		if (1U == Reqm->Allocated) {
 			Device = Reqm->Device;
-			if (XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Device->Node.Id)) {
+			if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Device->Node.Id)) {
 				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
 				if (XST_SUCCESS != Status) {
 					goto done;
@@ -690,7 +688,7 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
-			} else if (XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Device->Node.Id)) {
+			} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Device->Node.Id)) {
 				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
 				if (XST_SUCCESS != Status) {
 					goto done;
@@ -708,8 +706,8 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				 * to bring it up back again.  TODO - need to understand
 				 * why releasing TCM0_A causes failure.
 				 */
-				if ((XPM_NODETYPE_DEV_DDR != NODETYPE(Device->Node.Id)) &&
-				    (XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Device->Node.Id))) {
+				if (((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Device->Node.Id)) &&
+				    ((u32)XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Device->Node.Id))) {
 					Status = XPmRequirement_Release(Reqm, RELEASE_ONE);
 					if (XST_SUCCESS != Status) {
 						goto done;

@@ -47,7 +47,7 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 
 	Reqm->Flags = (u8)(Flags & 0xFU);
 
-	if ((NULL != Params) && (0 != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
+	if ((NULL != Params) && (0U != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
 		XPlmi_MemCpy(Reqm->Params, Params, NumParams);
 		Reqm->Flags |= (u8)((NumParams & 0xFU) << 4);
 	}
@@ -130,8 +130,8 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 	}
 
 	while (NULL != Reqm) {
-		if (((RELEASE_ALL == Scope) && (1 == Reqm->Allocated)) ||
-		    ((RELEASE_UNREQUESTED == Scope) && (0 == Reqm->Allocated))) {
+		if (((RELEASE_ALL == Scope) && (1U == Reqm->Allocated)) ||
+		    ((RELEASE_UNREQUESTED == Scope) && (0U == Reqm->Allocated))) {
 			Status = XPmDevice_Release(Reqm->Subsystem->Id, Reqm->Device->Node.Id);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -180,7 +180,7 @@ XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 			TempReq.Latency = Reqm->Next.Latency;
 			TempReq.QoS = Reqm->Next.QoS;
 
-			if (TRUE == Swap) {
+			if (1U == Swap) {
 				Reqm->Next.Capabilities = Reqm->Curr.Capabilities;
 				Reqm->Next.Latency = Reqm->Curr.Latency;
 				Reqm->Next.QoS = Reqm->Curr.QoS;
@@ -212,13 +212,13 @@ XStatus XPmRequirement_IsExclusive(XPm_Requirement *Reqm)
 		goto done;
 	}
 
-	if (TRUE != Reqm->Allocated) {
+	if (1U != Reqm->Allocated) {
 		goto done;
 	}
 
 	Next_Reqm = Reqm->NextSubsystem;
 	while (NULL != Next_Reqm) {
-		if (TRUE == Next_Reqm->Allocated) {
+		if (1U == Next_Reqm->Allocated) {
 			goto done;
 		}
 		Next_Reqm = Next_Reqm->NextSubsystem;

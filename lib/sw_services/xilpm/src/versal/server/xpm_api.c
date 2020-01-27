@@ -111,15 +111,15 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		}
 
 		Subsystem = XPmSubsystem_GetById(SubsystemId);
-		if ((NULL == Subsystem) || (Subsystem->State == OFFLINE)) {
+		if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
 			/* Subsystem must not be offline here */
 			PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
 			Status = XPM_INVALID_SUBSYSID;
 			goto done;
 		}
 		/* Set subsystem to online if suspended or powered off */
-		if ((Subsystem->State == SUSPENDED) ||
-		    (Subsystem->State == POWERED_OFF)) {
+		if ((Subsystem->State == (u8)SUSPENDED) ||
+		    (Subsystem->State == (u8)POWERED_OFF)) {
 			Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -316,8 +316,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	 * Consider error only if clock name is not found.
 	 */
 	if ((PM_QUERY_DATA == (Cmd->CmdId & 0xFFU)) &&
-	   ((XPM_QID_CLOCK_GET_NAME == Pload[0]) ||
-	   (XPM_QID_PINCTRL_GET_FUNCTION_NAME == Pload[0]))) {
+	   (((u32)XPM_QID_CLOCK_GET_NAME == Pload[0]) ||
+	   ((u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME == Pload[0]))) {
 		if (0U == Cmd->Response[0]) {
 			Status = XPM_INVALID_NAME;
 		} else {
@@ -890,7 +890,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	(void) (Ack);
 
 	IpiMask = XPmSubsystem_GetIPIMask(TargetSubsystemId);
-	if (0 == IpiMask) {
+	if (0U == IpiMask) {
 		PmErr("Unable to fetch IpiMask for given TargetSubsystem\r\n");
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
@@ -1071,7 +1071,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 
 		Reqm = Core->Device.Requirements;
 		while (NULL != Reqm) {
-			if (TRUE == Reqm->Allocated) {
+			if (1U == Reqm->Allocated) {
 				TargetSubsystemId = Reqm->Subsystem->Id;
 				if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(TargetSubsystemId)) {
 					/* Idle the subsystem */
@@ -1111,7 +1111,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 		/*
 		 * Release devices belonging to the power domain.
 		 */
-		for (i = 1; i < XPM_NODEIDX_DEV_MAX; i++) {
+		for (i = 1; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
 			/*
 			 * Note: XPmDevice_GetByIndex() assumes that the caller
 			 * is responsible for validating the Node ID attributes
@@ -1191,7 +1191,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
 		Reqm = Subsystem->Requirements;
 		while (NULL != Reqm) {
-			if (TRUE == Reqm->Allocated) {
+			if (1U == Reqm->Allocated) {
 				Device = Reqm->Device;
 				if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
 					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
@@ -1670,7 +1670,7 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	}
 
 	/* HACK: Allow enabling of PLLs for now */
-	if ((TRUE == Enable) && (ISPLL(ClockId))) {
+	if ((1U == Enable) && (ISPLL(ClockId))) {
 		goto bypass;
 	}
 
@@ -2663,13 +2663,13 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 	}
 
 	Power = XPmPower_GetById(DeviceId);
-	if ((NULL == Power) || (XPM_POWER_STATE_ON != Power->Node.State)) {
+	if ((NULL == Power) || ((u8)XPM_POWER_STATE_ON != Power->Node.State)) {
 		goto done;
 	}
 
 	switch ((Arg1 >> PROBE_COUNTER_TYPE_SHIFT) & PROBE_COUNTER_TYPE_MASK) {
 	case XPM_PROBE_COUNTER_TYPE_LAR_LSR:
-		if (TRUE == Write) {
+		if (1U == Write) {
 			Reg += PROBE_COUNTER_LAR_OFFSET;
 		} else {
 			Reg += PROBE_COUNTER_LSR_OFFSET;
@@ -2693,7 +2693,7 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 			PROBE_COUNTER_SRC_OFFSET);
 		break;
 	case XPM_PROBE_COUNTER_TYPE_VAL:
-		if (TRUE == Write) {
+		if (1U == Write) {
 			/* This type doesn't support write operation */
 			goto done;
 		}
@@ -2704,7 +2704,7 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		goto done;
 	}
 
-	if (FALSE == Write) {
+	if (0U == Write) {
 		if (NULL == Response) {
 			goto done;
 		}
@@ -4102,7 +4102,7 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 	XPm_Subsystem *Subsystem;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != ONLINE) {
+	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -4259,7 +4259,7 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
 
 	/* Validate other parameters */
 	if ((0U != Wake && 1U != Wake) || (0U != Enable && 1U != Enable) ||
-	    (EVENT_STATE_CHANGE != Event && EVENT_ZERO_USERS != Event)) {
+	    ((u32)EVENT_STATE_CHANGE != Event && (u32)EVENT_ZERO_USERS != Event)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

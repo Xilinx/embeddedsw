@@ -245,7 +245,7 @@ static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestA
 	u32 TagDataAddr;
 
 	//EFUSE Tag Data start pos
-	TagDataAddr = EfuseTagAddr+4;
+	TagDataAddr = EfuseTagAddr + 4U;
 
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
@@ -259,12 +259,12 @@ static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestA
 	while (TagRow<TagSize) {
 		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
 		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
-			TagDataAddr+=4;
+			TagDataAddr += 4U;
 		}
 		TagData = XPm_In32(TagDataAddr);
 		swea(BisrDataDestAddr+(TagRow<<2),TagData);
 		TagRow++;
-		TagDataAddr += 4;
+		TagDataAddr += 4U;
 	}
 done:
 	return TagDataAddr;
@@ -572,7 +572,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	BaseAddr = NPI_FIXED_BASEADDR | (TagOptional<<NPI_EFUSE_ENDPOINT_SHIFT);
 	BisrDataDestAddr = BaseAddr | DDRMC_NPI_CACHE_DATA_REGISTER_OFFSET;
 
-	if (0 == NpDomain->BisrDataCopied) {
+	if (0U == NpDomain->BisrDataCopied) {
 		/* Copy repair data */
 		*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize,
 						    BisrDataDestAddr);
@@ -673,7 +673,7 @@ static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 	u32 BramRepairWord;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
-	TagDataAddr = EfuseTagAddr + 4;
+	TagDataAddr = EfuseTagAddr + 4U;
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
@@ -691,11 +691,11 @@ static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 	while (TagRow < TagSize) {
 		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
 		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
-			TagDataAddr += 4;
+			TagDataAddr += 4U;
 		}
 		TagData = XPm_In32(TagDataAddr);
 		TagRow++;
-		TagDataAddr += 4;
+		TagDataAddr += 4U;
 
 		//break down TAG into components:
 		BramRepairRow = (TagData & CFRM_BRAM_REPAIR_ROW_MASK) >> CFRM_BRAM_REPAIR_ROW_SHIFT;
@@ -705,7 +705,7 @@ static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 
 		//Build address for cfrm registers based on the "row"
 		//CFRM0_REG=0xF12D0000, CFRM1_REG=0xF12D2000, ...
-		CframeRowAddr = Pld->Cframe0RegBaseAddr + (0x2000 * BramRepairRow);
+		CframeRowAddr = Pld->Cframe0RegBaseAddr + (0x2000U * BramRepairRow);
 
 		//construct expanded vector
 		//[31:0] init to 0
@@ -727,14 +727,14 @@ static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 
 		//write to CFRM Reg
 		//address to start at = CFRM_REG + word count
-		for (BramRepairWord=0; BramRepairWord<4; BramRepairWord++) {
-			XPm_Out32((CframeRowAddr+0x250)+(BramRepairWord<<2), BramExtendedRepair[BramRepairWord]);
+		for (BramRepairWord = 0; BramRepairWord < 4U; BramRepairWord++) {
+			XPm_Out32((CframeRowAddr + 0x250U)+(BramRepairWord<<2), BramExtendedRepair[BramRepairWord]);
 		}
 		//Trigger repair command
-		XPm_Out32((CframeRowAddr+0x60), 0xD);
-		XPm_Out32((CframeRowAddr+0x64),0x0);
-                XPm_Out32((CframeRowAddr+0x68),0x0);
-                XPm_Out32((CframeRowAddr+0x6C),0x0);
+		XPm_Out32((CframeRowAddr + 0x60U), 0xD);
+		XPm_Out32((CframeRowAddr + 0x64U), 0x0);
+		XPm_Out32((CframeRowAddr + 0x68U), 0x0);
+		XPm_Out32((CframeRowAddr + 0x6CU), 0x0);
 
 	}
 
@@ -757,7 +757,7 @@ static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 	u32 UramRepairWord;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
-	TagDataAddr = EfuseTagAddr + 4;
+	TagDataAddr = EfuseTagAddr + 4U;
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
@@ -775,11 +775,11 @@ static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 	while (TagRow < TagSize) {
 		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
 		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
-			TagDataAddr += 4;
+			TagDataAddr += 4U;
 		}
 		TagData = XPm_In32(TagDataAddr);
 		TagRow++;
-		TagDataAddr += 4;
+		TagDataAddr += 4U;
 
 		//break down TAG into components:
 		UramRepairRow = (TagData & CFRM_URAM_REPAIR_ROW_MASK) >> CFRM_URAM_REPAIR_ROW_SHIFT;
@@ -789,7 +789,7 @@ static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 
 		//Build address for cfrm registers based on the "row"
 		//CFRM0_REG=0xF12D0000, CFRM1_REG=0xF12D2000, ...
-		CframeRowAddr = Pld->Cframe0RegBaseAddr +  (0x2000 * UramRepairRow);
+		CframeRowAddr = Pld->Cframe0RegBaseAddr + (0x2000U * UramRepairRow);
 
 		//construct expanded vector: BRAM Bottom
 		//[31:0] init to 0
@@ -811,14 +811,14 @@ static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 
 		//write Bottom to CFRM
 		//address to start at = CFRM_REG + word count
-		for (UramRepairWord=0; UramRepairWord<4; UramRepairWord++) {
-			XPm_Out32((CframeRowAddr+0x250)+(UramRepairWord<<2),UramExtendedRepair[UramRepairWord]);
+		for (UramRepairWord = 0; UramRepairWord < 4U; UramRepairWord++) {
+			XPm_Out32((CframeRowAddr + 0x250U)+(UramRepairWord<<2),UramExtendedRepair[UramRepairWord]);
 		}
 		//Trigger repair command
-		XPm_Out32((CframeRowAddr+0x60),0xD);
-		XPm_Out32((CframeRowAddr+0x64),0x0);
-                XPm_Out32((CframeRowAddr+0x68),0x0);
-                XPm_Out32((CframeRowAddr+0x6C),0x0);
+		XPm_Out32((CframeRowAddr + 0x60U), 0xD);
+		XPm_Out32((CframeRowAddr + 0x64U), 0x0);
+		XPm_Out32((CframeRowAddr + 0x68U), 0x0);
+		XPm_Out32((CframeRowAddr + 0x6CU), 0x0);
 	}
 
 done:
@@ -841,7 +841,7 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	u32 HbRepairWord;
 
 	//tag size must be multiple of 2
-	TagDataAddr = EfuseTagAddr + 4;
+	TagDataAddr = EfuseTagAddr + 4U;
 
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
@@ -850,14 +850,14 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		goto done;
 	}
 
-	if ((TagSize%2) != 0) {
+	if ((TagSize % 2U) != 0U) {
 		XPmBisr_SwError(PMC_EFUSE_BISR_CFRM_HB_BAD_SIZE);
 		TagDataAddr += (TagSize << 2);
 		if ((EfuseTagAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) &&
 		    TagDataAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET)) ||
 		    (EfuseTagAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET) &&
 		    TagDataAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET))) {
-			TagDataAddr += 4;
+			TagDataAddr += 4U;
 		}
 		return TagDataAddr;
 	}
@@ -868,22 +868,22 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	}
 
 	TagPairCnt = 0;
-	NumPairs = TagSize/2;
+	NumPairs = TagSize/2U;
 	while (TagPairCnt < NumPairs) {
 		//get first half (row,column,qtile,value)
 		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
 		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
-			TagDataAddr += 4;
+			TagDataAddr += 4U;
 		}
 		TagPair[0] = XPm_In32(TagDataAddr);
-		TagDataAddr += 4;
+		TagDataAddr += 4U;
 		//get second half (value)
 		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
 		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
-			TagDataAddr += 4;
+			TagDataAddr += 4U;
 		}
 		TagPair[1] = XPm_In32(TagDataAddr);
-		TagDataAddr += 4;
+		TagDataAddr += 4U;
 		TagPairCnt++;
 
 		//break down the components
@@ -896,7 +896,7 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 
 		//Build address for cfrm registers based on the "row"
 		//CFRM0_REG=0xF12D0000, CFRM1_REG=0xF12D2000, ...
-		CframeRowAddr = Pld->Cframe0RegBaseAddr + (0x2000 * HbRepairRow);
+		CframeRowAddr = Pld->Cframe0RegBaseAddr + (0x2000U * HbRepairRow);
 
 		//construct expanded vector
 		// REPAIR_VALUE[31:0] = BISR Value[31:0]  (align to LSB)
@@ -916,14 +916,14 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 
 		//write to CFRM Reg
 		//address to start at = CFRM_REG + word count
-		for (HbRepairWord=0; HbRepairWord <4; HbRepairWord++) {
-			XPm_Out32((CframeRowAddr+0x250)+(HbRepairWord<<2),HbExtendedRepair[HbRepairWord]);
+		for (HbRepairWord=0; HbRepairWord < 4U; HbRepairWord++) {
+			XPm_Out32((CframeRowAddr + 0x250U)+(HbRepairWord<<2),HbExtendedRepair[HbRepairWord]);
 		}
 		//Trigger repair command
-		XPm_Out32((CframeRowAddr+0x60),0xD);
-		XPm_Out32((CframeRowAddr+0x64),0x0);
-                XPm_Out32((CframeRowAddr+0x68),0x0);
-                XPm_Out32((CframeRowAddr+0x6C),0x0);
+		XPm_Out32((CframeRowAddr + 0x60U), 0xD);
+		XPm_Out32((CframeRowAddr + 0x64U), 0x0);
+                XPm_Out32((CframeRowAddr + 0x68U), 0x0);
+                XPm_Out32((CframeRowAddr + 0x6CU), 0x0);
 
 	}
 
@@ -956,7 +956,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	XPmBisr_InitTagIdList();
 
 	//check requested ID is a valid ID
-	if (TagId > 255) {
+	if (TagId > 255U) {
 		XPmBisr_SwError(PMC_EFUSE_BISR_UNKN_TAG_ID);
 		Status = XST_FAILURE;
 		goto done;
@@ -975,7 +975,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	EfuseNextAddr = EfuseCache->Node.BaseAddress + EFUSE_CACHE_BISR_RSVD_0_OFFSET;
 	ExitCodeSeen = 0;
 
-	while (ExitCodeSeen == 0) {
+	while (0U == ExitCodeSeen) {
 		//read efuse row
 		EfuseCurrAddr = EfuseNextAddr;
 		EfuseRowTag = XPm_In32(EfuseCurrAddr);
@@ -983,7 +983,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 		if (EfuseRowTag == PMC_EFUSE_BISR_EXIT_CODE) {
 			ExitCodeSeen = 1;
 		} else if(EfuseRowTag==PMC_EFUSE_BISR_SKIP_CODE) { 	//SKIP Code Found
-			EfuseNextAddr += 4;//then increment address and try again
+			EfuseNextAddr += 4U;//then increment address and try again
 		} else {//Within Valid range and not a skip
 			//grab fields from the tag
 			EfuseBisrTagId = (EfuseRowTag & PMC_EFUSE_BISR_TAG_ID_MASK)>>PMC_EFUSE_BISR_TAG_ID_SHIFT;
@@ -1028,14 +1028,14 @@ XStatus XPmBisr_Repair(u32 TagId)
 							goto done;
 					}
 				} else {	//calculate the next efuse address if not matched ID
-					EfuseNextAddr = (EfuseCurrAddr + 4);//move to first data address of this tag
+					EfuseNextAddr = (EfuseCurrAddr + 4U);//move to first data address of this tag
 					EfuseNextAddr += (EfuseBisrSize << 2); //move down number of words from the tag size
 					//did we cross over tbit row in the data size space
 					if ((EfuseCurrAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) &&
 					     EfuseNextAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET)) ||
 					    (EfuseCurrAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET) &&
 					     EfuseNextAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET))) {
-						EfuseNextAddr += 4;
+						EfuseNextAddr += 4U;
 					}
 				}
 			} else { 	//Not supported
@@ -1046,7 +1046,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 		}
 		if (EfuseNextAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
 		    EfuseNextAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
-			EfuseNextAddr += 4;
+			EfuseNextAddr += 4U;
 		}
 	}
 
@@ -1139,7 +1139,7 @@ XStatus XPmBisr_NidbLaneRepair(void)
 
 	/* lane repair logic */
 	for(i=0; i<MAX_NIDB_EFUSE_GROUPS; ++i) {
-		if(NidbEfuseGrpInfo[i].RdnCntl == 0x0)
+		if (0x0U == NidbEfuseGrpInfo[i].RdnCntl)
 			continue;
 
 		/* Skip Lane Repair for left most NIDB for Slave SSIT */

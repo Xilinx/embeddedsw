@@ -228,9 +228,9 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 	/* Make sure MDIO is in IDLE state */
 	do {
 		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWSR_OFFSET);
-	} while ((0 == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && (--Timeout > 0U));
+	} while ((0U == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && (--Timeout > 0U));
 
-	if (Timeout == 0) {
+	if (0U == Timeout) {
 		PmWarn("gem not idle\r\n");
 	}
 
@@ -247,7 +247,7 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 
 #if defined(XPAR_PSV_GDMA_0_DEVICE_ID) || defined(XPAR_PSV_ADMA_0_DEVICE_ID)
 
-#define XZDMA_CH_OFFSET		(0X10000)	/* Channel offset per DMA */
+#define XZDMA_CH_OFFSET		(0x10000U)	/* Channel offset per DMA */
 #define XZDMA_NUM_CHANNEL	(8U)		/* Number of Channels */
 /**
  * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)

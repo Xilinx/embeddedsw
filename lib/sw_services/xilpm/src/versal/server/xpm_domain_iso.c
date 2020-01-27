@@ -266,13 +266,13 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 	XPm_Subsystem *Subsystem;
 	XPm_PlDomain *Pld;
 
-	for( i=0; i<2; i++) {
+	for (i = 0; i < 2U; i++) {
 		NodeId = XPmDomainIso_List[IsoIdx].DependencyNodeHandles[i];
-		if (NODECLASS(NodeId) == XPM_NODECLASS_POWER) {
+		if (NODECLASS(NodeId) == (u32)XPM_NODECLASS_POWER) {
 			PwrDomainNode = (XPm_PowerDomain *) XPmPower_GetById(NodeId);
 			if ((NULL != PwrDomainNode) &&
-			    (PwrDomainNode->Power.Node.State != XPM_POWER_STATE_ON)  &&
-			    (PwrDomainNode->Power.Node.State != XPM_POWER_STATE_INITIALIZING)) {
+			    (PwrDomainNode->Power.Node.State != (u8)XPM_POWER_STATE_ON)  &&
+			    (PwrDomainNode->Power.Node.State != (u8)XPM_POWER_STATE_INITIALIZING)) {
 				Status = XST_FAILURE;
 				goto done;
 			}
@@ -285,7 +285,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				goto done;
 			}
 
-			if(Subsystem->State != ONLINE) {
+			if (Subsystem->State != (u8)ONLINE) {
 				Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 				if (NULL == Pld) {
 					Status = XST_FAILURE;
@@ -296,7 +296,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				 * init finish for PLD, we decide PLD status based on
 				 * EOS bit */
 				PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
-				if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & (u32)CFU_APB_CFU_FGCR_EOS_MASK)) {
+				if ((u32)CFU_APB_CFU_FGCR_EOS_MASK == (Value & (u32)CFU_APB_CFU_FGCR_EOS_MASK)) {
 					XPmSubsystem_SetState(PM_SUBSYS_PL, (u32)ONLINE);
 					Status = XST_SUCCESS;
 				} else {
@@ -319,7 +319,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	XStatus Status = XST_FAILURE;
 	u32 Mask;
 
-	if (IsoIdx >= XPM_NODEIDX_ISO_MAX)
+	if (IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX)
 	{
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -328,7 +328,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	Mask = XPmDomainIso_List[IsoIdx].Mask;
 
 	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
-		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
+		if(XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		else
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
@@ -336,7 +336,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 		XPmDomainIso_List[IsoIdx].Node.State = (TRUE_VALUE == Enable) ?
 			(u8)PM_ISOLATION_ON : (u8)PM_ISOLATION_REMOVE_PENDING;
 	} else if(Enable == FALSE_IMMEDIATE) {
-		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
+		if(XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		else
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
@@ -351,7 +351,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			goto done;
 		}
 
-		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
+		if(XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		else
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
@@ -373,8 +373,7 @@ XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId)
 
 	for(i=0; i< ARRAY_SIZE(XPmDomainIso_List); i++)
 	{
-		if(XPmDomainIso_List[i].Node.State == PM_ISOLATION_REMOVE_PENDING)
-		{
+		if (XPmDomainIso_List[i].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
 			Status = XPmDomainIso_Control(i, FALSE_VALUE);
 		} else {
 			Status = XST_SUCCESS;

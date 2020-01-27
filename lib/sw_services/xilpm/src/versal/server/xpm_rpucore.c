@@ -51,7 +51,7 @@ static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
 	u32 AddrLow = (u32) (Core->ResumeAddr & 0xffff0000ULL);
 
 	/* Check for valid resume address */
-	if (0 == (Core->ResumeAddr & 1ULL)) {
+	if (0U == (Core->ResumeAddr & 1ULL)) {
 		PmErr("Invalid resume address\r\n");
 		Status = XST_FAILURE;
 		goto done;
@@ -91,7 +91,7 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
 	/* Set reset address */
-	if (1 == SetAddress) {
+	if (1U == SetAddress) {
 		Core->ResumeAddr = Address | 1U;
 	}
 
@@ -175,7 +175,7 @@ void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode)
 
 	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	Val &= XPM_RPU_SLSPLIT_MASK;
-	if (0 == Val) {
+	if (0U == Val) {
 		*Mode = XPM_RPU_MODE_LOCKSTEP;
 	} else {
 		*Mode = XPM_RPU_MODE_SPLIT;
@@ -215,7 +215,7 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 
 	/* Add or remove R50_1 core in default subsystem according to its mode */
 	Status = XPmDevice_IsRequested(PM_DEV_RPU0_0, PM_SUBSYS_DEFAULT);
-	if ((XST_SUCCESS == Status) && (ONLINE == DefSubsystem->State)) {
+	if ((XST_SUCCESS == Status) && ((u8)ONLINE == DefSubsystem->State)) {
 		if (Mode == XPM_RPU_MODE_SPLIT) {
 			XPmDevice_Request(PM_SUBSYS_DEFAULT, PM_DEV_RPU0_1,
 					  (u32)PM_CAP_ACCESS, XPM_MAX_QOS);

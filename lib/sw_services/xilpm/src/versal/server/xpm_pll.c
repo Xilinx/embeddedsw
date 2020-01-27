@@ -117,7 +117,7 @@ XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 	XStatus Status = XST_FAILURE;
 	u32 Val = 0;
 
-	if (PM_PLL_MODE_FRACTIONAL == Mode) {
+	if ((u32)PM_PLL_MODE_FRACTIONAL == Mode) {
 		/* Check if fractional value has been set */
 		XPmClockPll_GetParam(Pll, (u32)PM_PLL_PARAM_ID_DATA, &Val);
 		if (0U == Val) {
@@ -131,14 +131,14 @@ XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 		goto done;
 	}
 
-	if (PM_PLL_MODE_RESET == Mode) {
+	if ((u32)PM_PLL_MODE_RESET == Mode) {
 		Status = XST_SUCCESS;
 		goto done;
-	} else if (PM_PLL_MODE_FRACTIONAL == Mode) {
+	} else if ((u32)PM_PLL_MODE_FRACTIONAL == Mode) {
 		/* Enable fractional mode */
 		XPm_RMW32(Pll->FracConfigReg, PLL_FRAC_CFG_ENABLED_MASK,
 			  PLL_FRAC_CFG_ENABLED_MASK);
-	} else if (PM_PLL_MODE_INTEGER == Mode) {
+	} else if ((u32)PM_PLL_MODE_INTEGER == Mode) {
 		/* Disable fractional mode */
 		XPm_RMW32(Pll->FracConfigReg, PLL_FRAC_CFG_ENABLED_MASK, 0);
 	} else {
@@ -161,7 +161,7 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
-	if (XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+	if ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}
@@ -374,7 +374,7 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	XPm_PllParam *PtrParam;
 	u32 Mask, ParamValue, Reg = 0;
 
-	if (Param >= PM_PLL_PARAM_MAX) {
+	if (Param >= (u32)PM_PLL_PARAM_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

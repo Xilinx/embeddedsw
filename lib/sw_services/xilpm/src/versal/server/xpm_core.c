@@ -59,8 +59,8 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 	/*
 	 * If parent is on, then only send sleep request
 	 */
-	if ((Core->Device.Power->Parent->Node.State == XPM_POWER_STATE_ON) &&
-	    (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
+	if ((Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
+	    ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
 		/*
 		 * Power down the core
 		 */

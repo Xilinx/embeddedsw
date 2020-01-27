@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,8 @@
 extern "C" {
 #endif
 
-#define FUNC_NAME_SIZE		(16)		/* Function name string size */
-#define MAX_GROUPS_PER_RES	(6)		/* Max No. of groups per query response */
+#define FUNC_NAME_SIZE		(16U)		/* Function name string size */
+#define MAX_GROUPS_PER_RES	(6U)		/* Max No. of groups per query response */
 #define INVALID_FUNC_ID 	(0xFFFFU)
 #define END_OF_GRP		(0xFFU)		/* -1 */
 #define RESERVED_GRP		(0xFFFEU)	/* -2 */

@@ -429,7 +429,7 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		Ops);
 
 	/* Make sure enough base addresses are being passed */
-	if (4 <= OtherBaseAddressesCnt) {
+	if (4U <= OtherBaseAddressesCnt) {
 		CpmDomain->CpmSlcrBaseAddr = OtherBaseAddresses[0];
 		CpmDomain->CpmSlcrSecureBaseAddr = OtherBaseAddresses[1];
 		CpmDomain->CpmPcsrBaseAddr = OtherBaseAddresses[2];
