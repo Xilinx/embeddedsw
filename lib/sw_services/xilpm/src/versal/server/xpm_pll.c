@@ -167,7 +167,7 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	}
 
 	Val = XPm_Read32(Pll->ClkNode.Node.BaseAddress);
-	if (0U != (Val & BIT(Pll->Topology->ResetShift))) {
+	if (0U != (Val & BIT32(Pll->Topology->ResetShift))) {
 		*Mode = (u32)PM_PLL_MODE_RESET;
 	} else {
 		Val = XPm_Read32(Pll->FracConfigReg);
@@ -252,7 +252,7 @@ XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 	}
 
 	/* By saved configuration PLL is in reset, leave it as is */
-	if (Pll->Context.Ctrl & BIT(Pll->Topology->ResetShift)) {
+	if (Pll->Context.Ctrl & BIT32(Pll->Topology->ResetShift)) {
 		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
 		Status = XST_SUCCESS;
 	} else {

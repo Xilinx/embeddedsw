@@ -76,9 +76,9 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 	XPm_Device *Device;
 	u32 BaseAddress;
 	u32 Reg;
-	u8 i;
+	u32 i;
 
-	for (i = (u8)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u8)XPM_NODEIDX_DEV_DDRMC_MAX;
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX;
 	     i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		BaseAddress = Device->Node.BaseAddress;
@@ -128,9 +128,9 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 	XPm_Device *Device;
 	u32 BaseAddress;
 	u32 Reg;
-	u8 i;
+	u32 i;
 
-	for (i = (u8)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u8)XPM_NODEIDX_DEV_DDRMC_MAX;
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX;
 	     i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		BaseAddress = Device->Node.BaseAddress;

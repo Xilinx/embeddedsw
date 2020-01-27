@@ -231,7 +231,7 @@ static void XPmBisr_SwError(u32 ErrorCode)
 
 	XPm_Out32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PMC_GSW_ERR_OFFSET,
 		  XPm_In32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PMC_GSW_ERR_OFFSET) |
-			   (1U << ErrorCode) |
+			   ((u32)1U << ErrorCode) |
 			   (1U << PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT));
 
 done:
@@ -240,7 +240,7 @@ done:
 
 static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr)
 {
-	u32 TagRow;
+	u64 TagRow;
 	u32 TagData;
 	u32 TagDataAddr;
 
@@ -256,13 +256,13 @@ static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestA
 
 	//Collect Repair data from EFUSE and write to endpoint base + word offset
 	TagRow = 0;
-	while (TagRow<TagSize) {
+	while (TagRow < (u64)TagSize) {
 		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
 		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
 			TagDataAddr += 4U;
 		}
 		TagData = XPm_In32(TagDataAddr);
-		swea(BisrDataDestAddr+(TagRow<<2),TagData);
+		swea(BisrDataDestAddr + (TagRow << 2U), TagData);
 		TagRow++;
 		TagDataAddr += 4U;
 	}

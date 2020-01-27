@@ -1333,7 +1333,7 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 		if (1U == Reqm->Allocated) {
 			for (Idx = 0; Idx < (u32)XPM_NODEIDX_SUBSYS_MAX; Idx++) {
 				if (Reqm->Subsystem == XPmSubsystem_GetByIndex(Idx)) {
-					*PermissionMask |= (1U << Idx);
+					*PermissionMask |= ((u32)1U << Idx);
 				}
 			}
 		}

@@ -139,7 +139,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			SetAddress = Pload[1] & 0x1U;
 			/* addresses are word-aligned, ignore bit 0 */
 			Address = ((u64) Pload[2]) << 32ULL;
-			Address += Pload[1] & ~0x1U;
+			Address += Pload[1] & (~(u64)0x1U);
 			Status = XPm_RequestWakeUp(SubsystemId, Pload[0],
 						   SetAddress, Address,
 						   Pload[3]);

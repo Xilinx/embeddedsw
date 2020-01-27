@@ -2117,7 +2117,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 	}
 
 	BitMask = (u32)1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
-	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
+	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * ((u32)BNK_OFFSET));
 
 	switch (Param) {
 		case (u32)PINCTRL_CONFIG_SLEW_RATE:
@@ -2262,7 +2262,7 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 	}
 
 	BitMask = (u32)1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
-	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
+	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * ((u32)BNK_OFFSET));
 
 	switch (Param) {
 		case (u32)PINCTRL_CONFIG_SLEW_RATE:
