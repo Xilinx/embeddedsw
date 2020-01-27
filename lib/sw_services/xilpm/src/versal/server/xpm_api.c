@@ -83,7 +83,7 @@ static XPlmi_Module XPlmi_Pm =
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0, 0, 0};
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem = NULL;
 	u32 SubsystemId = INVALID_SUBSYSID;
 	u32 *Pload = Cmd->Payload;
@@ -93,7 +93,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 	PmDbg("Processing Cmd %x\r\n", Cmd->CmdId);
 
-	if((Cmd->CmdId & 0xFF) != PM_SET_CURRENT_SUBSYSTEM) {
+	if((Cmd->CmdId & 0xFFU) != PM_SET_CURRENT_SUBSYSTEM) {
 		SubsystemId = XPmSubsystem_GetCurrent();
 		if(SubsystemId != INVALID_SUBSYSID) {
 			PmDbg("Using current subsystemId: 0x%x\n\r", SubsystemId);
@@ -102,7 +102,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			PmDbg("Using subsystemId passed by PLM: 0x%x\n\r", SubsystemId);
 
 			/* Use PMC subsystem ID for power domain CDOs. */
-			if (XPM_NODECLASS_POWER == NODECLASS(SubsystemId)) {
+			if ((u32)XPM_NODECLASS_POWER == NODECLASS(SubsystemId)) {
 				SubsystemId = PM_SUBSYS_PMC;
 			}
 		} else if(Cmd->IpiMask) {
@@ -127,7 +127,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		}
 	}
 
-	switch (Cmd->CmdId & 0xFF) {
+	switch (Cmd->CmdId & 0xFFU) {
 		case PM_GET_CHIPID:
 			Status = XPm_GetChipID(&ApiResponse[0], &ApiResponse[1]);
 			break;
@@ -276,13 +276,13 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_AddNodeName(&Pload[0], Len);
 			break;
 		case PM_ADD_REQUIREMENT:
-			Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], &Pload[3], Len-3);
+			Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], &Pload[3], Len-3U);
 			break;
 		case PM_SET_CURRENT_SUBSYSTEM:
 			Status = XPm_SetCurrentSubsystem(Pload[0]);
 			break;
 		case PM_INIT_NODE:
-			Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2);
+			Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
 			break;
 		case PM_FEATURE_CHECK:
 			Status = XPm_FeatureCheck(Pload[0], ApiResponse);
@@ -315,7 +315,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	 * So this value should not be treated as error code.
 	 * Consider error only if clock name is not found.
 	 */
-	if ((PM_QUERY_DATA == (Cmd->CmdId & 0xFF)) &&
+	if ((PM_QUERY_DATA == (Cmd->CmdId & 0xFFU)) &&
 	   ((XPM_QID_CLOCK_GET_NAME == Pload[0]) ||
 	   (XPM_QID_PINCTRL_GET_FUNCTION_NAME == Pload[0]))) {
 		if (!Cmd->Response[0]) {
@@ -629,9 +629,9 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PwrDomainNode;
 
-	if ((XPM_NODECLASS_POWER != NODECLASS(NodeId)) ||
-	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) ||
-	    (XPM_NODEIDX_POWER_MAX <= NODEINDEX(NodeId))) {
+	if (((u32)XPM_NODECLASS_POWER != NODECLASS(NodeId)) ||
+	    ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) ||
+	    ((u32)XPM_NODEIDX_POWER_MAX <= NODEINDEX(NodeId))) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
@@ -707,8 +707,8 @@ XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 
-	if ((XPM_NODECLASS_ISOLATION != NODECLASS(NodeId)) ||
-	    (XPM_NODEIDX_ISO_MAX <= NODEINDEX(NodeId))) {
+	if (((u32)XPM_NODECLASS_ISOLATION != NODECLASS(NodeId)) ||
+	    ((u32)XPM_NODEIDX_ISO_MAX <= NODEINDEX(NodeId))) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
@@ -1092,17 +1092,17 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			Reqm = Reqm->NextSubsystem;
 		}
 
-	} else if (XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
-		if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(NodeId)) {
+	} else if ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
+		if ((u32)XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(NodeId)) {
 			Status = XPM_PM_INVALID_NODE;
 			goto done;
 		}
-		VERIFY(XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId));
+		VERIFY((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId));
 
 		/*
 		 * PMC power domain can not be powered off.
 		 */
-		if (XPM_NODEIDX_POWER_PMC == NODEINDEX(NodeId)) {
+		if ((u32)XPM_NODEIDX_POWER_PMC == NODEINDEX(NodeId)) {
 			Status = XPM_PM_INVALID_NODE;
 			goto done;
 		}
@@ -1192,7 +1192,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 		while (NULL != Reqm) {
 			if (TRUE == Reqm->Allocated) {
 				Device = Reqm->Device;
-				if (XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
+				if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
 					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
 					if (NULL != Core->CoreOps->PowerDown) {
 						Status = Core->CoreOps->PowerDown(Core);
@@ -2171,13 +2171,13 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
 		 * Only peripheral and debug resets
 		 * are allowed to control externally, on other masters.
 		 */
-		if (XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) {
-			if (XPM_NODETYPE_RESET_PERIPHERAL != SubType) {
+		if ((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) {
+			if ((u32)XPM_NODETYPE_RESET_PERIPHERAL != SubType) {
 				Status = XPM_PM_NO_ACCESS;
 				goto done;
 			}
-		} else if (XPM_NODESUBCL_RESET_DBG == SubClass) {
-			if (XPM_NODETYPE_RESET_DBG != SubType) {
+		} else if ((u32)XPM_NODESUBCL_RESET_DBG == SubClass) {
+			if ((u32)XPM_NODETYPE_RESET_DBG != SubType) {
 				Status = XPM_PM_NO_ACCESS;
 				goto done;
 			}
@@ -3833,12 +3833,12 @@ static XStatus XPm_AddNodeMemIc(u32 *Args, u32 NumArgs)
 	MemIcId = Args[0];
 	BaseAddress = Args[2];
 
-	if (XPM_NODECLASS_MEMIC != NODECLASS(MemIcId)) {
+	if ((u32)XPM_NODECLASS_MEMIC != NODECLASS(MemIcId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_MEMIC_NOC != NODESUBCLASS(MemIcId)) {
+	if ((u32)XPM_NODESUBCL_MEMIC_NOC != NODESUBCLASS(MemIcId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3876,12 +3876,12 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 	NodeId = Args[0];
 	BaseAddress = Args[2];
 
-	if (XPM_NODECLASS_MONITOR != NODECLASS(NodeId)) {
+	if ((u32)XPM_NODECLASS_MONITOR != NODECLASS(NodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_MONITOR_SYSMON != NODESUBCLASS(NodeId)) {
+	if ((u32)XPM_NODESUBCL_MONITOR_SYSMON != NODESUBCLASS(NodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3891,7 +3891,7 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 	if ((((u32)XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
 	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType)
 		&& ((u32)XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
-	    (XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
+	    ((u32)XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3932,12 +3932,12 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 	BaseAddress = Args[2];
 	SubClass = NODESUBCLASS(NodeId);
 
-	if (XPM_NODECLASS_PROTECTION != NODECLASS(NodeId)) {
+	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(NodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if ((XPM_NODESUBCL_PROT_XPPU != SubClass) && (XPM_NODESUBCL_PROT_XMPU != SubClass)) {
+	if (((u32)XPM_NODESUBCL_PROT_XPPU != SubClass) && ((u32)XPM_NODESUBCL_PROT_XMPU != SubClass)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3996,18 +3996,18 @@ static XStatus XPm_AddNodeMio(u32 *Args, u32 NumArgs)
 	MioId = Args[0];
 	BaseAddress = Args[1];
 
-	if (XPM_NODECLASS_STMIC != NODECLASS(MioId)) {
+	if ((u32)XPM_NODECLASS_STMIC != NODECLASS(MioId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_PIN != NODESUBCLASS(MioId)) {
+	if ((u32)XPM_NODESUBCL_PIN != NODESUBCLASS(MioId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if ((XPM_NODETYPE_LPD_MIO != NODETYPE(MioId)) &&
-	    (XPM_NODETYPE_PMC_MIO != NODETYPE(MioId))) {
+	if (((u32)XPM_NODETYPE_LPD_MIO != NODETYPE(MioId)) &&
+	    ((u32)XPM_NODETYPE_PMC_MIO != NODETYPE(MioId))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -4127,7 +4127,7 @@ static int XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 	XSysMonPsv *SysMonInstPtr = &SysMonInst;
 	XSysMonPsv_Config *ConfigPtr;
 
-	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
+	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
 	}
 
@@ -4135,7 +4135,7 @@ static int XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 	 * TODO - need to implement getting temperature, beside the
 	 * temperature of entire SoC.
 	 */
-	if (XPM_NODETYPE_DEV_SOC != NODETYPE(DeviceId)) {
+	if ((u32)XPM_NODETYPE_DEV_SOC != NODETYPE(DeviceId)) {
 		Status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -4162,7 +4162,7 @@ static int XPm_GetLatency(const u32 DeviceId, u32 *Latency)
 
 	switch (NODECLASS(DeviceId)) {
 	case XPM_NODECLASS_DEVICE:
-		if (XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
+		if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
 			Status = XPmCore_GetWakeupLatency(DeviceId, Latency);
 		} else {
 			Status = XPmDevice_GetWakeupLatency(DeviceId, Latency);
@@ -4172,7 +4172,7 @@ static int XPm_GetLatency(const u32 DeviceId, u32 *Latency)
 		Status = XPmPower_GetWakeupLatency(DeviceId, Latency);
 		break;
 	case XPM_NODECLASS_CLOCK:
-		if (XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(DeviceId)) {
+		if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(DeviceId)) {
 			Status = XPmClockPll_GetWakeupLatency(DeviceId, Latency);
 		} else {
 			Status = XST_INVALID_PARAM;
