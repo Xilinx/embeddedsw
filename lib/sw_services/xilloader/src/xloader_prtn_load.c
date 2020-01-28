@@ -665,8 +665,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			{
 				IsNextChunkCopyStarted = FALSE;
 				/** wait for copy to get completed */
-				PdiPtr->DeviceCopy(SrcAddr - Cdo.Cmd.KeyHoleParams.ExtraWords,
-					ChunkAddr, ChunkLen,
+				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen,
 				  XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
 			} else {
 				/** Copy the data to PRAM buffer */
@@ -677,7 +676,6 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			Cdo.BufLen = ChunkLen/XIH_PRTN_WORD_LEN;
 			SrcAddr += ChunkLen;
 			Len -= ChunkLen;
-			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 
 			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
@@ -686,19 +684,13 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI))
 			{
-				/** The below line will be uncommented after
-				 * alignment changes in bootgen get checked in
-				 */
-//				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
 				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
 				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
 			}
 			else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
 			{
-				/** The below line will be uncommented after
-				 * alignment changes in bootgen get checked in
-				 */
-//			 	Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
 				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
 			}
 			else
@@ -762,6 +754,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			Cdo.Cmd.KeyHoleParams.ExtraWords *= 4U;
 			Len = Len - Cdo.Cmd.KeyHoleParams.ExtraWords;
 			SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
+			IsNextChunkCopyStarted = FALSE;
+			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 		}
 	}
 	/** if deferred error, flagging it after CDO process complete */
