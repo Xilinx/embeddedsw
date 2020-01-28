@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,7 +82,8 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags);
 
 static FIL fil;		/* File object */
 static FATFS fatfs;
-
+static u32 XLoader_IsSDRaw;
+static XSdPs SdInstance = {0U,};
 /*****************************************************************************/
 /**
  * This function creates the Boot image name for file system devices based on
@@ -160,12 +161,14 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags)
 	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
 	 */
 #ifdef XPAR_XSDPS_1_DEVICE_ID
-	if (DeviceFlags == XLOADER_PDI_SRC_SD0)
+	if ((DeviceFlags == XLOADER_PDI_SRC_SD0) ||
+			(DeviceFlags == XLOADER_PDI_SRC_SD0_RAW))
 	{
 		DeviceFlags = XLOADER_SD_DRV_NUM_0;
 	} else {
 		/* For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
-			or XLOADER_EMMC_BOOT_MODE */
+			or XLOADER_EMMC_BOOT_MODE or XLOADER_SD1_RAW_BOOT_MODE
+			or XLOADER_SD1_LS_RAW_BOOT_MODE or XLOADER_EMMC_RAW_BOOT_MODE */
 		DeviceFlags = XLOADER_SD_DRV_NUM_1;
 	}
 #else
@@ -191,8 +194,44 @@ int XLoader_SdInit(u32 DeviceFlags)
 	char buffer[32]={0};
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
-	u32 DrvNum;
-	DrvNum = XLoader_GetDrvNumSD(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
+	u32 PdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
+	u32 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
+
+	/**
+	 * Read the Multiboot Register
+	 */
+	if((DeviceFlags & XLOADER_SBD_ADDR_SET_MASK) == XLOADER_SBD_ADDR_SET_MASK)
+	{
+		/** Secondary Boot in FAT filesystem mode */
+			MultiBootOffset = (DeviceFlags >> XLOADER_SBD_ADDR_SHIFT);
+			XLoader_IsSDRaw = FALSE;
+			DrvNum = XLOADER_SD_DRV_NUM_1;
+	}
+	else if((DeviceFlags == XLOADER_PDI_SRC_SD0_RAW) ||
+			(DeviceFlags == XLOADER_PDI_SRC_SD1_RAW) ||
+			(DeviceFlags == XLOADER_PDI_SRC_SD1_LS_RAW) ||
+			(DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW))
+	{
+		XLoader_IsSDRaw = TRUE;
+		Status = XLoader_RawInit(DrvNum);
+		goto END;
+	}
+	else
+	{
+		MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+		if((MultiBootOffset & XLOADER_SD_RAWBOOT_MASK) ==
+										XLOADER_SD_RAWBOOT_VAL)
+		{
+			XLoader_IsSDRaw = TRUE;
+			Status = XLoader_RawInit(DrvNum);
+			goto END;
+		}
+		else
+		{
+			MultiBootOffset &= XLOADER_MULTIBOOT_OFFSET_MASK;
+			XLoader_IsSDRaw = FALSE;
+		}
+	}
 
 	/* Set logical drive number */
 	/* Register volume work area, initialize device */
@@ -209,19 +248,6 @@ int XLoader_SdInit(u32 DeviceFlags)
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_INIT, rc);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_INIT\n\r");
 		goto END;
-	}
-
-	/**
-	 * Read the Multiboot Register
-	 */
-	if((DeviceFlags & XLOADER_SBD_ADDR_SET_MASK) == XLOADER_SBD_ADDR_SET_MASK)
-	{
-		MultiBootOffset = (DeviceFlags >> XLOADER_SBD_ADDR_SHIFT);
-	}
-	else
-	{
-		MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT) &
-							XLOADER_MULTIBOOT_OFFSET_MASK;
 	}
 
 	/**
@@ -270,7 +296,13 @@ int XLoader_SdInit(u32 DeviceFlags)
  *****************************************************************************/
 XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
+
+	if(XLoader_IsSDRaw != FALSE)
+	{
+		Status = XLoader_RawCopy(SrcAddress, DestAddress, Length, Flags);
+		goto END;
+	}
 
 	FRESULT rc;	 /* Result code */
 	(void) Flags;
@@ -316,4 +348,150 @@ int XLoader_SdRelease(void )
 	return XLOADER_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * This function is used to initialize the sd controller and driver. It is only
+ * called in raw boot mode.
+ *
+ * @param	Drive Number
+ *
+ * @return	Success or error code
+ *
+ *****************************************************************************/
+int XLoader_RawInit(u32 DrvNum)
+{
+	int Status = XST_FAILURE;
+	XSdPs_Config *SdConfig;
+	/*
+	 * Initialize the host controller
+	 */
+	SdConfig = XSdPs_LookupConfig(DrvNum);
+	if (NULL == SdConfig)
+	{
+		XLoader_Printf(DEBUG_GENERAL,"RAW Lookup config failed\r\n");
+		Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_SD_LOOKUP);
+		goto END;
+	}
+
+	Status = XSdPs_CfgInitialize(&SdInstance, SdConfig,
+					SdConfig->BaseAddress);
+	if (Status != XST_SUCCESS)
+	{
+		XLoader_Printf(DEBUG_GENERAL,"RAW Config init failed\r\n");
+		Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_SD_CFG);
+		goto END;
+	}
+
+	Status = XSdPs_CardInitialize(&SdInstance);
+	if (Status != XST_SUCCESS)
+	{
+		XLoader_Printf(DEBUG_GENERAL,"RAW SD Card init failed\r\n");
+		Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_SD_CARD_INIT);
+		goto END;
+	}
+
+	XLoader_Printf(DEBUG_INFO,"Raw init completed\n\r");
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to copy the data from SD/eMMC to destination
+ * address in raw boot mode only.
+ *
+ * @param SrcAddress is the address of the SD flash where copy should
+ * start from
+ *
+ * @param DestAddress is the address of the destination where it
+ * should copy to
+ *
+ * @param Length Length of the bytes to be copied
+ *
+ * @return
+ * 		- XLOADER_SUCCESS for successful copy
+ * 		- errors as mentioned in xplmi_status.h
+ *
+ *****************************************************************************/
+XStatus XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BlockNumber;
+	u32 DataOffset;
+	u32 RemainingBytes;
+	u8 ReadBuffer[1024U];
+	u8*  ReadBuffPtr;
+	u32 SectorReadLen;
+	u32 NoOfSectors;
+	u32 Destination = DestAddress;
+
+	(void) Flags;
+	RemainingBytes = Length;
+	BlockNumber = SrcAddress/512U;
+	DataOffset = SrcAddress%512U;
+	/**
+	 * Setting the Read len for the first sector partial read
+	 */
+	SectorReadLen =  512U - DataOffset;
+
+
+	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%08x, Dest 0x%0x%08x, "
+		       "Length 0x%0lx, Flags 0x%0x\r\n",
+			SrcAddress, (u32)(DestAddress>>32U), (u32)DestAddress,
+		       Length, Flags);
+
+	do
+	{
+		/**
+		 * Make sure last sector data is read properly
+		 */
+		if (RemainingBytes < SectorReadLen)
+		{
+			SectorReadLen = RemainingBytes;
+		}
+
+		/**
+		 * Read to temparory PRAM address if the length is not equal to 512 bytes
+		 */
+		if(SectorReadLen != 512U)
+		{
+			ReadBuffPtr = &ReadBuffer[0U];
+			NoOfSectors = 1U;
+		}
+		else
+		{
+			ReadBuffPtr = (u8 *)Destination;
+			NoOfSectors = RemainingBytes/512U;
+			if (NoOfSectors > 128U)
+			{
+				NoOfSectors = 128U;
+			}
+		}
+
+		Status  = (u32)XSdPs_ReadPolled(&SdInstance,
+				(u32)BlockNumber, NoOfSectors, (u8*)ReadBuffPtr);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+
+		/**
+		 * Copy the temporary read data to actual destination
+		 */
+		if (SectorReadLen != 512U)
+		{
+			(void*)XPlmi_MemCpy((void *)Destination,
+						   (ReadBuffPtr + DataOffset),
+						   SectorReadLen);
+		}
+		BlockNumber += NoOfSectors;
+		Destination += (NoOfSectors * SectorReadLen);
+		RemainingBytes -= (NoOfSectors * SectorReadLen);
+		SectorReadLen = 512U;
+		DataOffset = 0U;
+	} while (RemainingBytes > 0U);
+
+END:
+	return Status;
+}
 #endif /* end of XLOADER_SD_0 */

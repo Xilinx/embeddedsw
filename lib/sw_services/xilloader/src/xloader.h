@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -118,9 +118,9 @@ extern "C" {
 /*
  * Secondary boot mode related macros
  */
-#define XLOADER_PDISRC_FLAGS_MASK		(0xFU)
-#define XLOADER_SBD_ADDR_SET_MASK		(0x10U)
-#define XLOADER_SBD_ADDR_SHIFT			(0x5U)
+#define XLOADER_PDISRC_FLAGS_MASK		(0xFFU)
+#define XLOADER_SBD_ADDR_SET_MASK		(0x100U)
+#define XLOADER_SBD_ADDR_SHIFT			(0x9U)
 /*
  * PDI Loading status
  */
@@ -159,12 +159,20 @@ enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_SMAP =   (0xAU),
 	XLOADER_PDI_SRC_SD1_LS = (0xEU),
 	XLOADER_PDI_SRC_DDR =	 (0xFU),
-	XLOADER_PDI_SRC_SBI = (0x10U),
-	XLOADER_PDI_SRC_PCIE = (0x11U)
+	XLOADER_PDI_SRC_SBI = 	(0x10U),
+	XLOADER_PDI_SRC_PCIE = 	(0x11U),
+	XLOADER_PDI_SRC_SD0_RAW =	(0x12U),
+	XLOADER_PDI_SRC_SD1_RAW =	(0x13U),
+	XLOADER_PDI_SRC_EMMC_RAW =	(0x14U),
+	XLOADER_PDI_SRC_SD1_LS_RAW = (0x15U)
 };
 
 /* Multiboot register offset mask */
 #define XLOADER_MULTIBOOT_OFFSET_MASK    	(0x001FFFFF)
+
+/** SD RAW BOOT related macros */
+#define XLOADER_SD_RAWBOOT_MASK				(0xF0000000U)
+#define XLOADER_SD_RAWBOOT_VAL				(0x70000000U)
 
 /* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
 #define XLOADER_ERR_IDCODE		(0x1U) /**< IDCODE mismatch */
@@ -298,6 +306,7 @@ int XLoader_CframeInit();
 int XLoader_StartDdrcpyImage(u32 ImageId);
 int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader);
+int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);

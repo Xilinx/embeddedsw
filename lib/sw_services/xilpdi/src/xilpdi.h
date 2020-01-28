@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 -2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -143,6 +143,10 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_OSPI			(0xCU)
 #define XIH_IHT_ATTR_SBD_SMAP			(0xDU)
 #define XIH_IHT_ATTR_SBD_SBI			(0xEU)
+#define XIH_IHT_ATTR_SBD_SD_0_RAW		(0xFU)
+#define XIH_IHT_ATTR_SBD_SD_1_RAW		(0x10U)
+#define XIH_IHT_ATTR_SBD_SD_LS_RAW		(0x11U)
+#define XIH_IHT_ATTR_SBD_EMMC_RAW		(0x12U)
 
 /* Prtn Attribute fields */
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)

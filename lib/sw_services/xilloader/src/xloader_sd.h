@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,7 @@ extern "C" {
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
+#include "xsdps.h"
 #include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
@@ -63,6 +64,8 @@ extern "C" {
 int XLoader_SdInit(u32 DeviceFlags);
 XStatus XLoader_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_SdRelease(void );
+int XLoader_RawInit(u32 DrvNum);
+XStatus XLoader_RawCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

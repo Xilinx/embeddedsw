@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -260,6 +260,9 @@ enum {
 	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occured while
 					  processing CDO but error is deferred
 					  till whole CDO processing is completed */
+	XLOADER_ERR_SD_LOOKUP,		/**< 0x32C - Error when SD look up fails */
+	XLOADER_ERR_SD_CFG,		/**< 0x32D - Error when SD config fails */
+	XLOADER_ERR_SD_CARD_INIT,	/**< 0x32E - Error when SD card init fails */
 };
 
 /**************************** Type Definitions *******************************/

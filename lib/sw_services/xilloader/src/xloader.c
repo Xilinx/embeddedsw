@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -120,6 +120,27 @@ XLoader_DeviceOps DeviceOps[] =
 	XLOADER_DEVICEOPS_INIT("DDR", XLoader_DdrInit, XLoader_DdrCopy), /* DDR - 0xF */
 #ifdef XLOADER_SBI
 	XLOADER_DEVICEOPS_INIT("SBI", XLoader_SbiInit, XLoader_SbiCopy), /* SBI - 0x10 */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* PCIE - 0x11U */
+#ifdef	XLOADER_SD_0
+	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_SdInit, XLoader_SdCopy), /* SD0_RAW - 0x12U */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+#ifdef	XLOADER_SD_1
+	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_SdInit, XLoader_SdCopy), /* SD1_RAW - 0x13U */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+#ifdef	XLOADER_SD_1
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_SdInit, XLoader_SdCopy), /* EMMC_RAW - 0x14U */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+#ifdef	XLOADER_SD_1
+	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_SdInit, XLoader_SdCopy), /* SD1_LS_RAW - 0x15U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
@@ -258,6 +279,21 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 				/** For MISRA-C compliance */
 			}
 
+		}
+		else if((PdiSrc == XLOADER_PDI_SRC_SD0) ||
+				(PdiSrc == XLOADER_PDI_SRC_SD1) ||
+				(PdiSrc == XLOADER_PDI_SRC_SD1_LS) ||
+				(PdiSrc == XLOADER_PDI_SRC_EMMC))
+		{
+			if((RegVal & XLOADER_SD_RAWBOOT_MASK) == XLOADER_SD_RAWBOOT_VAL)
+			{
+				PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
+						(RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
+			}
+			else
+			{
+				PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
+			}
 		}
 		else
 		{
@@ -417,14 +453,11 @@ END:
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XLOADER_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success and error code on failure
  *****************************************************************************/
 int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
-	u32 SecBootMode;
-	u32 PdiSrc;
-	u64 PdiAddr;
 
 	Status = XLoader_LoadAndStartSubSystemImages(PdiPtr);
 	if(Status != XST_SUCCESS)
@@ -436,118 +469,14 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 		Dic.PdiPtr = PdiPtr;
 	}
 
-	/**
-	 * Set the Secondary Boot Mode settings to enable the
-	 * read from the secondary device
-	 */
-	SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTable));
-	if((SecBootMode == XIH_IHT_ATTR_SBD_SAME) ||
-		((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
-		(PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC)))
+	Status = XLoader_LoadAndStartSecPdi(PdiPtr);
+	if(Status != XST_SUCCESS)
 	{
-		//Do Nothing
-		Status = XST_SUCCESS;
+		goto END;
 	}
-	else
-	{
-		XPlmi_Printf(DEBUG_INFO,
-			  "+++Configuring Secondary Boot Device\n\r");
-		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE)
-		{
-			XLoader_SbiInit(XLOADER_PDI_SRC_PCIE);
-			Status = XST_SUCCESS;
-		}
-		else
-		{
-			switch(SecBootMode)
-			{
-				case XIH_IHT_ATTR_SBD_QSPI32:
-				{
-					PdiSrc = XLOADER_PDI_SRC_QSPI32;
-					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_QSPI24:
-				{
-					PdiSrc = XLOADER_PDI_SRC_QSPI24;
-					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_SD_0:
-				{
-					PdiSrc = XLOADER_PDI_SRC_SD0 | XLOADER_SBD_ADDR_SET_MASK
-							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
-														XLOADER_SBD_ADDR_SHIFT);
-					PdiAddr = 0U;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_SD_1:
-				{
-					PdiSrc = XLOADER_PDI_SRC_SD1 | XLOADER_SBD_ADDR_SET_MASK
-							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
-														XLOADER_SBD_ADDR_SHIFT);
-					PdiAddr = 0U;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_SD_LS:
-				{
-					PdiSrc = XLOADER_PDI_SRC_SD1_LS | XLOADER_SBD_ADDR_SET_MASK
-							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
-														XLOADER_SBD_ADDR_SHIFT);
-					PdiAddr = 0U;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_EMMC:
-				{
-					PdiSrc = XLOADER_PDI_SRC_EMMC | XLOADER_SBD_ADDR_SET_MASK
-							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
-														XLOADER_SBD_ADDR_SHIFT);
-					PdiAddr = 0U;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_OSPI:
-				{
-					PdiSrc = XLOADER_PDI_SRC_OSPI;
-					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_USB:
-				{
-					PdiSrc = XLOADER_PDI_SRC_USB;
-					PdiAddr = 0U;
-				}
-				break;
-				case XIH_IHT_ATTR_SBD_SMAP:
-				{
-					PdiSrc = XLOADER_PDI_SRC_SMAP;
-					PdiAddr = 0U;
-				}
-				break;
-				default:
-				{
-					Status = XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE;
-					goto END;
-				}
-			}
 
-			memset(PdiPtr, 0U, sizeof(XilPdi));
-			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-			Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
-			if(Status != XST_SUCCESS)
-			{
-				goto END;
-			}
-
-			Status = XLoader_LoadAndStartSubSystemImages(PdiPtr);
-			if (Status != XST_SUCCESS)
-			{
-				goto END;
-			}
-		}
-	}
 	/** Mark PDI loading is completed */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
-	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -1250,4 +1179,150 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
 
 		ATFHandoffParams.Entry[LoopCount].PartitionFlags = PartitionFlags;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to load the primary and secondary PDIs.
+ *
+ * @param PdiPtr Pdi instance pointer
+ *
+ * @return	returns XLOADER_SUCCESS on success and error code on failure
+ *****************************************************************************/
+int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
+{
+	int Status = XST_FAILURE;
+	u32 PdiSrc;
+	u32 PdiAddr;
+	u32 SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTable));
+	if((SecBootMode == XIH_IHT_ATTR_SBD_SAME) ||
+		((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
+		(PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC)))
+	{
+		//Do Nothing
+		Status = XST_SUCCESS;
+	}
+	else
+	{
+		XPlmi_Printf(DEBUG_INFO,
+			  "+++Configuring Secondary Boot Device\n\r");
+		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE)
+		{
+			XLoader_SbiInit(XLOADER_PDI_SRC_PCIE);
+			Status = XST_SUCCESS;
+		}
+		else
+		{
+			switch(SecBootMode)
+			{
+				case XIH_IHT_ATTR_SBD_QSPI32:
+				{
+					PdiSrc = XLOADER_PDI_SRC_QSPI32;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_QSPI24:
+				{
+					PdiSrc = XLOADER_PDI_SRC_QSPI24;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_0:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD0 | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_1:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD1 | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_LS:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD1_LS | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_EMMC:
+				{
+					PdiSrc = XLOADER_PDI_SRC_EMMC | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_OSPI:
+				{
+					PdiSrc = XLOADER_PDI_SRC_OSPI;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_USB:
+				{
+					PdiSrc = XLOADER_PDI_SRC_USB;
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SMAP:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SMAP;
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_0_RAW:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_1_RAW:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD1_RAW;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_EMMC_RAW:
+				{
+					PdiSrc = XLOADER_PDI_SRC_EMMC_RAW;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_LS_RAW:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				default:
+				{
+					Status = XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE;
+					goto END;
+				}
+			}
+
+			memset(PdiPtr, 0U, sizeof(XilPdi));
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+			Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
+			if(Status != XST_SUCCESS)
+			{
+				goto END;
+			}
+
+			Status = XLoader_LoadAndStartSubSystemImages(PdiPtr);
+			if (Status != XST_SUCCESS)
+			{
+				goto END;
+			}
+		}
+	}
+END:
+	return Status;
 }
