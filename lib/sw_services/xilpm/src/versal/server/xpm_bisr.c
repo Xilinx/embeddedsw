@@ -579,6 +579,7 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	PmIn32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & CPM5_SLCR_BISR_CACHE_STATUS_PASS_MASK) !=
 		CPM5_SLCR_BISR_CACHE_STATUS_PASS_MASK) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 

@@ -422,15 +422,18 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 
 	/* Poll for done */
 	/* If trigger action is performed in stages, then break down this step */
-	XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_DONE_OFFSET,
-		CPM5_SLCR_SECURE_OD_MBIST_DONE_MASK,
-		XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_DONE_OFFSET,
+				CPM5_SLCR_SECURE_OD_MBIST_DONE_MASK,
+				XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status)
+		goto done;
 
 	/* Check Status */
 	PmIn32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_PASSOUT_OFFSET,
 		RegValue);
 	if ((CPM5_SLCR_SECURE_OD_MBIST_PASSOUT_MASK & RegValue) !=
 		CPM5_SLCR_SECURE_OD_MBIST_PASSOUT_MASK) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
