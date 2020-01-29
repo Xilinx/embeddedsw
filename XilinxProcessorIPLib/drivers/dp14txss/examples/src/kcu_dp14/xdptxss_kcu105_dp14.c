@@ -577,7 +577,6 @@ int main(void)
 		LineRate_init_tx = MAX_RATE;
 		LaneCount_init = MAX_LANE;
 		LaneCount_init_tx = MAX_LANE;
-		initial_value = LineRate_init;
 		DpTxSsInst.DpPtr->Config.MaxLinkRate = MAX_RATE;
 		DpTxSsInst.DpPtr->Config.MaxLaneCount = MAX_LANE;
 #else
@@ -629,6 +628,7 @@ int main(void)
 #endif
 
 	XDpRxSs_SetLinkRate(&DpRxSsInst, LineRate_init);
+	prev_line_rate=LineRate_init;
 	XDpRxSs_SetLaneCount(&DpRxSsInst, LaneCount_init);
 	XDpRxSs_Start(&DpRxSsInst);
 //	/* Programming AUX defer to 6. */
@@ -3308,7 +3308,7 @@ void hpd_con()
 		xil_printf("\r\nCould not read sink capabilities\r\n");
 	}
 
-#if CAP_OVER_RIDE == 1
+#if CAP_OVER_RIDE
 	max_cap_new = MAX_RATE;
 	max_cap_lanes_new = MAX_LANE;
 #endif
@@ -3555,13 +3555,54 @@ void DpPt_HpdPulseHandler(void *InstancePtr)
 
 void DpPt_LinkrateChgHandler(void *InstancePtr)
 {
+	/* If TX is unable to train at what it has been asked then
+	 * necessary down shift handling has to be done here
+	 * eg. reconfigure GT to new rate etc
+	 * This XAPP assumes that RX and TX would run at same rate
+	 * */
+	u8 rate;
+	u32 Status=0;
+
+	xil_printf("In DpPt_LinkrateChgHandler\r\n");
+	rate = get_LineRate();
+	// If the requested rate is same, do not re-program.
+	if (rate != prev_line_rate) {
+		switch (rate) {
+				case XDP_DPCD_LINK_BW_SET_162GBPS:
+					prog_bb(XDP_DPCD_LINK_BW_SET_162GBPS, 1) ;
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[3]);
+					break;
+
+				case XDP_DPCD_LINK_BW_SET_270GBPS :
+					prog_bb(XDP_DPCD_LINK_BW_SET_270GBPS, 1);
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[4]);
+					break;
+
+				case XDP_DPCD_LINK_BW_SET_540GBPS:
+					prog_bb(XDP_DPCD_LINK_BW_SET_540GBPS, 1);
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[5]);
+					break;
+
+				case XDP_DPCD_LINK_BW_SET_810GBPS:
+					prog_bb(XDP_DPCD_LINK_BW_SET_810GBPS, 1);
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[10]);
+					break;
+					}
+
+				if (Status != XST_SUCCESS) {
+					xil_printf("+++++++ TX GT configuration "
+								"encountered a failure +++++++\r\n");
+				}
+
+	}
+	//update the previous link rate info at here
+	prev_line_rate = rate;
 }
 
-/* If TX is unable to train at what it has been asked then
- * necessary down shift handling has to be done here
- * eg. reconfigure GT to new rate etc
- * This XAPP assumes that RX and TX would run at same rate
- * */
 void DpPt_pe_vs_adjustHandler(void *InstancePtr)
 {
 	if (PE_VS_ADJUST == 1) {
@@ -4973,4 +5014,20 @@ void DpRxSs_CRCTestEventHandler(void *InstancePtr)
 		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				XDP_RX_CDR_CONTROL_CONFIG, ReadVal & 0xBFFFFFFF);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns current line rate
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+u8 get_LineRate(void){
+	return DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
 }

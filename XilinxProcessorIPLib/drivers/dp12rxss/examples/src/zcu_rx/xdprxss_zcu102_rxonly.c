@@ -261,6 +261,7 @@ XVphy VPhyInst;    /* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; /* Timer instance.*/
 Video_CRC_Config VidFrameCRC; /* Video Frame CRC instance */
 DP_Rx_Training_Algo_Config RxTrainConfig;
+volatile u8 Vblank_mask_int_flag = 0;
 
 /************************** Function Definitions *****************************/
 
@@ -512,9 +513,11 @@ u32 DpRxSs_Main(u16 DeviceId)
 
             XDp_RxDtgDis(DpRxSsInst.DpPtr);
             XDp_RxDtgEn(DpRxSsInst.DpPtr);
-            XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+            if(!Vblank_mask_int_flag)
+            {
+		XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
                                             XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
-
+            }
             /*
              * Disable & Enable Audio
              */
@@ -818,6 +821,7 @@ void DpRxSs_PowerChangeHandler(void *InstancePtr)
 void DpRxSs_NoVideoHandler(void *InstancePtr)
 {
     DpRxSsInst.VBlankCount = 0;
+    Vblank_mask_int_flag = 1;
     XDp_RxInterruptEnable(DpRxSsInst.DpPtr,XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 
     XDp_RxDtgDis(DpRxSsInst.DpPtr);
@@ -849,6 +853,11 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 {
     DpRxSsInst.VBlankCount++;
+	if(DpRxSsInst.VBlankCount == 1)
+	{
+		Vblank_mask_int_flag = 0;
+	}
+
 }
 
 /*****************************************************************************/
@@ -866,6 +875,7 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
+	Vblank_mask_int_flag = 0;
     XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
     XDpRxSs_AudioDisable(&DpRxSsInst);
 }
@@ -918,6 +928,8 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_UnplugHandler(void *InstancePtr)
 {
+	Vblank_mask_int_flag = 0;
+
     /*Enable Training related interrupts*/
     XDp_RxInterruptDisable(DpRxSsInst.DpPtr,XDP_RX_INTERRUPT_MASK_ALL_MASK);
     XDp_RxInterruptEnable(DpRxSsInst.DpPtr,

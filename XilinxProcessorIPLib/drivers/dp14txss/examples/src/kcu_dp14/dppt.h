@@ -99,6 +99,9 @@ extern user_config_struct user_config;
 u8 support_640_480_60;
 u8 support_800_600_60;
 
+volatile u8 prev_line_rate; 		/* This previous line rate to keep
+				 * previous info to compare
+				 * with new line rate request*/
 
 typedef unsigned int    UINT32;
 
@@ -243,6 +246,7 @@ void Dprx_InterruptHandlerInfoPkt(void *InstancePtr);
 void Dprx_InterruptHandlerExtPkt(void *InstancePtr);
 void Dprx_InterruptHandlerUplug(void *InstancePtr);
 void Dprx_InterruptHandlerPwr(void *InstancePtr);
+u8 get_LineRate(void);
 
 void DpRxSs_AccessLaneSetHandler(void *InstancePtr);
 void DpRxSs_AccessLinkQualHandler(void *InstancePtr);
