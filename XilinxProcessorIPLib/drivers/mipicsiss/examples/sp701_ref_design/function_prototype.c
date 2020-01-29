@@ -45,7 +45,7 @@
 #include "xiic.h"
 #include "xil_exception.h"
 #include "function_prototype.h"
-#include "imx274_cfgs.h"
+#include "pcam_5C_cfgs.h"
 #include "xstatus.h"
 #include "xaxivdma.h"
 #include "xil_printf.h"
