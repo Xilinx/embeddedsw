@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,7 @@
 extern "C" {
 #endif
 
-#define INTLPD_CONFIG_BASE_ADDR					((u32)0xFE600000)
+#define INTLPD_CONFIG_BASE_ADDR					(0xFE600000U)
 
 #define INTLPD_CONFIG_RPU0_LPD_AXI				( ( INTLPD_CONFIG_BASE_ADDR ) + ((u32)0x001C0000) )
 #define INTLPD_CONFIG_RPU0_LPD_AXI_POWER_IDLEREQ_MASK		((u32)0x00000004)

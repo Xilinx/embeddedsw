@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,11 +53,11 @@ extern "C" {
 /*Check if UART is present in design */
 #if defined (STDOUT_BASEADDRESS)
 /*Check if MDM uart or PS Uart */
-#if (STDOUT_BASEADDRESS == 0xF0310000)
+#if (STDOUT_BASEADDRESS == 0xF0310000U)
 #define DEBUG_PMC_UART_MDM
-#elif (STDOUT_BASEADDRESS == 0xFFCF0000)
+#elif (STDOUT_BASEADDRESS == 0xFFCF0000U)
 #define DEBUG_PSM_UART_MDM
-#elif ((STDOUT_BASEADDRESS == 0xFF000000) || (STDOUT_BASEADDRESS == 0xFF010000))
+#elif ((STDOUT_BASEADDRESS == 0xFF000000U) || (STDOUT_BASEADDRESS == 0xFF010000U))
 #define DEBUG_UART_PS
 #endif
 #endif
