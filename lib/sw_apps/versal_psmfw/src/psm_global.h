@@ -43,8 +43,8 @@
 *
 ******************************************************************************/
 
-#ifndef _PSM_GLOBAL_H_
-#define _PSM_GLOBAL_H_
+#ifndef XPSMFW_PSM_GLOBAL_H_
+#define XPSMFW_PSM_GLOBAL_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -1812,4 +1812,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _PSM_GLOBAL_H_ */
+#endif /* XPSMFW_PSM_GLOBAL_H_ */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,8 +43,8 @@
 *
 ******************************************************************************/
 
-#ifndef _PSM_LOCAL_H_
-#define _PSM_LOCAL_H_
+#ifndef XPSMFW_PSM_LOCAL_H_
+#define XPSMFW_PSM_LOCAL_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -318,4 +318,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _PSM_LOCAL_H_ */
+#endif /* XPSMFW_PSM_LOCAL_H_ */

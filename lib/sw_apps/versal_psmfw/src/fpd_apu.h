@@ -43,8 +43,8 @@
 *
 ******************************************************************************/
 
-#ifndef _FPD_APU_H_
-#define _FPD_APU_H_
+#ifndef XPSMFW_FPD_APU_H_
+#define XPSMFW_FPD_APU_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -93,4 +93,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _FPD_APU_H_ */
+#endif /* XPSMFW_FPD_APU_H_ */

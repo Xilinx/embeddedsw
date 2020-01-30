@@ -43,8 +43,8 @@
 *
 ******************************************************************************/
 
-#ifndef _CRL_H_
-#define _CRL_H_
+#ifndef XPSMFW_CRL_H_
+#define XPSMFW_CRL_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -137,4 +137,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _CRL_H_ */
+#endif /* XPSMFW_CRL_H_ */

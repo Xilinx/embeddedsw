@@ -43,8 +43,8 @@
 *
 ******************************************************************************/
 
-#ifndef _RPU_H_
-#define _RPU_H_
+#ifndef XPSMFW_RPU_H_
+#define XPSMFW_RPU_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -144,4 +144,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _RPU_H_ */
+#endif /* XPSMFW_RPU_H_ */
