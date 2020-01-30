@@ -28,6 +28,9 @@
 #include "xpm_device.h"
 #include "xpm_domain_iso.h"
 #include "xpm_powerdomain.h"
+#include "xpm_regs.h"
+#include "xpm_aie.h"
+#include "xpm_common.h"
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action);
@@ -134,7 +137,7 @@ done:
 
 XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 {
-	u32 ResetIndex = NODEINDEX(ResetId);;
+	u32 ResetIndex = NODEINDEX(ResetId);
 	XPm_ResetNode *Rst = NULL;
 
 	if ((NODECLASS(ResetId) != (u32)XPM_NODECLASS_RESET) ||
@@ -288,6 +291,63 @@ static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 	return Status;
 }
 
+static XStatus AieResetAssert(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+
+	/* Unlock the AIE PCSR register to allow register writes */
+	Status = XPmAieDomain_UnlockPcsr();
+
+	/* Set array reset bit in mask register */
+	XPm_RMW32(ME_NPI_REG_PCSR_MASK, Mask, Mask);
+
+	/* Write to control register to assert array reset */
+	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
+
+	/* Re-lock the AIE PCSR registers for protection */
+	Status = XPmAieDomain_LockPcsr();
+
+	return Status;
+}
+
+static XStatus AieResetRelease(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+
+	/* Unlock the AIE PCSR register to allow register writes */
+	Status = XPmAieDomain_UnlockPcsr();
+
+	/* Set array reset bit in mask register */
+	XPm_RMW32(ME_NPI_REG_PCSR_MASK, Mask, Mask);
+
+	/* Write to control register to assert array reset */
+	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0);
+
+	/* Re-lock the AIE PCSR registers for protection */
+	Status = XPmAieDomain_LockPcsr();
+
+	return Status;
+}
+
+static XStatus AieResetPulse(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Assert AIE Array reset */
+	Status = AieResetAssert(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Release AIE Array reset */
+	Status = AieResetRelease(Rst);
+
+done:
+	return Status;
+}
+
 static const struct ResetCustomOps {
 	u32 ResetIdx;
 	XStatus (*const ActionAssert)(XPm_ResetNode *Rst);
@@ -303,6 +363,18 @@ static const struct ResetCustomOps {
 	{
 		.ResetIdx = (u32)XPM_NODEIDX_RST_LPD,
 		.ActionPulse = &ResetPulseLpd,
+	},
+	{
+		.ResetIdx = XPM_NODEIDX_RST_AIE_ARRAY,
+		.ActionAssert = &AieResetAssert,
+		.ActionRelease = &AieResetRelease,
+		.ActionPulse = &AieResetPulse,
+	},
+	{
+		.ResetIdx = XPM_NODEIDX_RST_AIE_SHIM,
+		.ActionAssert = &AieResetAssert,
+		.ActionRelease = &AieResetRelease,
+		.ActionPulse = &AieResetPulse,
 	},
 };
 
