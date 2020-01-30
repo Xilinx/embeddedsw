@@ -76,5 +76,5 @@ int main(void)
 	/* Put Microblaze to Sleep in an infinite loop */
 	do{
 		mb_sleep();
-	} while(1);
+	} while(TRUE);
 }

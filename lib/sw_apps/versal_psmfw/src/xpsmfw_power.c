@@ -437,11 +437,11 @@ int XPsmFw_FpdPostHouseClean()
 	/* Check if FPD is already powered up */
 	if (!CHECK_BIT(LocalPwrState, PSM_LOCAL_PWR_STATE_FP_MASK)) {
 		/* Check the Saved PWR_STATE in Stage 3 and power off any ACPU cores that were off */
-		if ((LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU0_MASK)) {
+		if (0U != (LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU0_MASK)) {
 			XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL,
 				       PSM_LOCAL_ACPU0_PWR_CNTRL_ISOLATION_MASK);
 		}
-		if ((LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU1_MASK)) {
+		if (0U != (LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU1_MASK)) {
 			XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL,
 				       PSM_LOCAL_ACPU1_PWR_CNTRL_ISOLATION_MASK);
 		}
@@ -536,7 +536,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 
 	RegVal = XPsmFw_Read32(CRF_RST_APU);
 	/* Release L2 cache reset if asserted */
-	if (RegVal & CRF_RST_APU_L2_RESET_MASK) {
+	if (0U != (RegVal & CRF_RST_APU_L2_RESET_MASK)) {
 		XPsmFw_RMW32(CRF_RST_APU, CRF_RST_APU_L2_RESET_MASK, 0);
 	}
 
@@ -882,7 +882,7 @@ static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 
 	/* Check for DEBUGNOPWRDWN bit */
 	RegVal = XPsmFw_Read32(RPU_RPU_GLBL_STATUS);
-	if (RegVal & RPU_RPU_GLBL_STATUS_DBGNOPWRDWN_MASK) {
+	if (0U != (RegVal & RPU_RPU_GLBL_STATUS_DBGNOPWRDWN_MASK)) {
 		/* Set Emulation bit in the LOC_AUX_PWR_STATE */
 		XPsmFw_RMW32(PSM_LOCAL_AUX_PWR_STATE,
 				PSM_LOCAL_AUX_PWR_STATE_RPU_EMUL_MASK,
