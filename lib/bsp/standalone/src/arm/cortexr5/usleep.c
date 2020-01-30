@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,12 @@
 * 6.6	srm      10/18/17 Updated sleep routines to support user configurable
 *			  implementation. Now sleep routines will use TTC
 *                         instance specified by user.
+* 7.2   mus      01/29/20 Updated sleep routines to use CortexR5 PMU for delay
+*                         generation, in case TTC3/TTC2 instances are not
+*                         present in HW design. If user dont want to use PMU
+*                         counter for sleep routines, BSP needs to be compiled
+*                         with "DONT_USE_PMU_FOR_SLEEP_ROUTINES" flag. It fixes
+*                         CR#1051591.
 *
 * </pre>
 *
@@ -61,6 +67,7 @@
 #include "xil_types.h"
 #include "xpseudo_asm.h"
 #include "xreg_cortexr5.h"
+#include "xpm_counter.h"
 
 #if defined (SLEEP_TIMER_BASEADDR)
 #include "xil_sleeptimer.h"
@@ -94,6 +101,8 @@ int usleep_R5(unsigned long useconds)
 {
 #if defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(useconds, COUNTS_PER_USECOND);
+#elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
+	Xpm_SleepPerfCounter(useconds, COUNTS_PER_USECOND);
 #else
 #if defined (__GNUC__)
 	__asm__ __volatile__ (

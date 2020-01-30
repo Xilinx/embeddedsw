@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -49,6 +49,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
 * 7.1   aru  04/15/19 Updated the events correctly
+* 7.2   mus  01/29/20 Added new macro Xpm_ReadCycleCounterVal, to
+*                     read PMU cycle counter value
 * </pre>
 *
 ******************************************************************************/
@@ -510,6 +512,7 @@ extern "C" {
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
+#define Xpm_ReadCycleCounterVal()	mfcp(XREG_CP15_PERF_CYCLE_COUNTER)
 
 /************************** Variable Definitions ****************************/
 
@@ -519,6 +522,8 @@ extern "C" {
 void Xpm_SetEvents(s32 PmcrCfg);
 void Xpm_GetEventCounters(u32 *PmCtrValue);
 
+/* This is helper function for sleep/usleep APIs */
+void Xpm_SleepPerfCounter(u32 delay, u64 frequency);
 #ifdef __cplusplus
 }
 #endif

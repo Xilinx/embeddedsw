@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,8 @@
 *						and mask
 * 6.6   srm    10/22/17 Added a warning message for the user configurable sleep
 *                       implementation when default timer is selected by the user
+* 7.2   mus    01/29/20 Updated #defines to support PMU cycle counter for sleep
+*                       routines.
 * </pre>
 *
 ******************************************************************************/
@@ -69,11 +71,25 @@ extern "C" {
 #else
 #define ITERS_PER_SEC  (XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 4)
 #define ITERS_PER_USEC  (XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 4000000)
-#define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
+
+/*
+ * These constants are applicable for the CortexR5 PMU cycle counter.
+ * As boot code is setting up "D" bit in PMCR, cycle counter increments
+ * on every 64th bit of processor cycle
+ */
+
+#define COUNTS_PER_SECOND	(XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 64)
+#define COUNTS_PER_USECOND	(COUNTS_PER_SECOND/1000000)
 #endif
 
-#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
-#pragma message ("For the sleep routines, TTC3 is used if present else the assembly instructions are called")
+#define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
+
+#if defined (SLEEP_TIMER_BASEADDR)
+#pragma message ("For the sleep routines, TTC3/TTC2 is used")
+#elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
+#pragma message ("For the sleep routines, CortexR5 PMU cycle counter is used")
+#else
+#pragma message ("For the sleep routines, machine cycles are used")
 #endif
 
 /*
@@ -83,14 +99,10 @@ extern "C" {
 #define IOU_SLCR_TZ_MASK	0x2U
 /**************************** Type Definitions *******************************/
 
-/* The following definitions are applicable only when TTC3 is present*/
-#ifdef SLEEP_TIMER_BASEADDR
 typedef u32 XTime;
 
 void XTime_SetTime(XTime Xtime_Global);
 void XTime_GetTime(XTime *Xtime_Global);
-#endif
-
 
 #ifdef __cplusplus
 }

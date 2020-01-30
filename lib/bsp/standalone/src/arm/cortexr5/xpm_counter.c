@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,13 @@
 * 5.00  pkp  02/10/14 Initial version
 * 6.2   mus  01/27/17 Updated to support IAR compiler
 * 7.1   aru  04/15/19 Updated the events correctly
+* 7.2   mus  01/29/20 Added helper function Xpm_SleepPerfCounter for sleep
+*                     routines. It would be consumed by sleep routines for
+*                     delay generation through CortexR5 PMU cycle counter,if
+*                     TTC2 as well as TTC3 is not present in HW design. User
+*                     can add compiler flag "DONT_USE_PMU_FOR_SLEEP_ROUTINES"
+*                     in BSP compiler flags to avoid using PMU cycle counter
+*                     for sleep routines.
 * </pre>
 *
 ******************************************************************************/
@@ -47,6 +54,8 @@
 /***************************** Include Files *********************************/
 
 #include "xpm_counter.h"
+#include "xil_sleeptimer.h"
+#include "xtime_l.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -275,4 +284,39 @@ void Xpm_GetEventCounters(u32 *PmCtrValue)
 		  PmCtrValue[Counter] = Cp15Reg; }
 #endif
 	}
+}
+
+/****************************************************************************/
+/**
+*
+* @brief    This is helper function used by sleep/usleep APIs to generate
+*           delay in sec/usec
+*
+* @param    delay - delay time in sec/usec
+* @param    frequency - Number of countes in second/micro second
+*
+* @return       None.
+*
+*****************************************************************************/
+
+void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
+{
+        u64 tEnd = 0U;
+        u64 tCur = 0U;
+        XCntrVal TimeHighVal = 0U;
+        XCntrVal TimeLowVal1 = 0U;
+        XCntrVal TimeLowVal2 = 0U;
+
+        TimeLowVal1 = Xpm_ReadCycleCounterVal();
+        tEnd = (u64)TimeLowVal1 + ((u64)(delay) * frequency);
+        do
+        {
+                TimeLowVal2 = Xpm_ReadCycleCounterVal();
+                if (TimeLowVal2 < TimeLowVal1) {
+                        TimeHighVal++;
+                }
+                TimeLowVal1 = TimeLowVal2;
+                tCur = (((u64) TimeHighVal) << XSLEEP_TIMER_REG_SHIFT) |
+                                                                (u64)TimeLowVal2;
+        }while (tCur < tEnd);
 }
