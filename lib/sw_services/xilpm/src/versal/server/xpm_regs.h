@@ -671,6 +671,17 @@ extern "C" {
  */
 #define NPI_NIR_0_OFFSET					(0x00000000U)
 
+/**
+ * AIE Registers
+ */
+#define ME_PCSR_KEY 0xF9E8D7C6U
+
+#define ME_NPI_BASEADDR      0xF70A0000U
+#define ME_NPI_REG_PCSR_MASK    ( ( ME_NPI_BASEADDR ) + 0x00000000U )
+#define ME_NPI_REG_PCSR_CONTROL    ( ( ME_NPI_BASEADDR ) + 0x00000004U )
+#define ME_NPI_REG_PCSR_STATUS    ( ( ME_NPI_BASEADDR ) + 0x00000008U )
+#define ME_NPI_REG_PCSR_LOCK    ( ( ME_NPI_BASEADDR ) + 0x0000000CU )
+
 #ifdef __cplusplus
 }
 #endif
