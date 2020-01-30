@@ -109,8 +109,8 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 				Status = XPsmFw_ProcessIpi(&Payload[0]);
 
 				Response[0] = (u32)Status;
-				XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
-						       Response);
+				Status = XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
+								Response);
 			}
 		} else {
 			Status = XST_SUCCESS;

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,9 @@ int XPsmFw_Init()
 	int Status = XST_FAILURE;
 	
 #ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
-	XPsmfw_IpiManagerInit();
+	if (XST_SUCCESS != XPsmfw_IpiManagerInit()) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IPI Manager Initialization failed\r\n", __func__);
+	}
 	
 	/* FIXME: Clear IPI0 status and enable IPI interrupts. Do it else where*/
 	XPsmFw_Write32(IPI_PSM_ISR, MASK32_ALL_HIGH);

@@ -63,7 +63,9 @@ int main(void)
 
 	Status = XPsmFw_Init();
 	/* Init IOModule and connect interrupts */
-	XPsmFw_IoModuleInit((u16)XPAR_PSV_PSM_IOMODULE_0_DEVICE_ID);
+	if (XST_SUCCESS != XPsmFw_IoModuleInit((u16)XPAR_PSV_PSM_IOMODULE_0_DEVICE_ID)) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IO Module Initialization failed\r\n", __func__);
+	}
 
 	if (Status != XST_SUCCESS) {
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! PSM Initialization failed\r\n", __func__);

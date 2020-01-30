@@ -220,13 +220,18 @@ int SetUpInterruptSystem(void)
      */
 	for (IntrNumber = 0; IntrNumber < XPAR_IOMODULE_INTC_MAX_INTR_SIZE;
 	     IntrNumber++) {
-		XIOModule_Connect(&IOModule, (u8)IntrNumber,
-		              (XInterruptHandler)XPsmFw_IntrHandler, (void *)IntrNumber);
+		if (XST_SUCCESS != XIOModule_Connect(&IOModule, (u8)IntrNumber,
+						     (XInterruptHandler)XPsmFw_IntrHandler,
+						     (void *)IntrNumber)) {
+			XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IO Module connect failed\r\n", __func__);
+		}
 
 		XIOModule_Enable(&IOModule, (u8)IntrNumber);
 	}
 
-	XIOModule_Start(&IOModule);
+	if (XST_SUCCESS != XIOModule_Start(&IOModule)) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IO Module start failed\r\n", __func__);
+	}
 
 	/*
      * Initialize the exception table.
