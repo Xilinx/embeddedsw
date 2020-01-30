@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -108,7 +108,7 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 			} else {
 				Status = XPsmFw_ProcessIpi(&Payload[0]);
 
-				Response[0] = Status;
+				Response[0] = (u32)Status;
 				XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
 						       Response);
 			}
