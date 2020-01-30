@@ -27,7 +27,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver uartpsv
 
-  OPTION supported_peripherals = (psu_sbsauart psv_sbsauart);
+  OPTION supported_peripherals = (psv_sbsauart);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.2;
