@@ -166,6 +166,8 @@
 #define PM_RST_CPI0				(0xc41005bU)
 #define PM_RST_CPI1				(0xc41005cU)
 #define PM_RST_XRAM_RST			(0xc30c05dU)
+#define PM_RST_AIE_ARRAY		(0xc10405eU)
+#define PM_RST_AIE_SHIM			(0xc10405fU)
 
 /* Clock nodes */
 #define PM_CLK_PMC_PLL				(0x8104001U)
@@ -469,6 +471,7 @@
 #define PM_DEV_GTYP_CPM5_1				(0x1862c06fU)
 #define PM_DEV_GTYP_CPM5_2				(0x1862c070U)
 #define PM_DEV_GTYP_CPM5_3				(0x1862c071U)
+#define PM_DEV_AIE              (0x18224072U)
 
 /* Subsystem Nodes */
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
