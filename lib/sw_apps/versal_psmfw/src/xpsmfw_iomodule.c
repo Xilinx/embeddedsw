@@ -267,7 +267,7 @@ void XPsmFw_IntrHandler(void *IntrNumber)
 	u32 l_IrqReg;
 	u32 l_index;
 	XPsmFw_Printf(DEBUG_DETAILED,
-	              "Interrupt number = 0x%x\r\n", (u32)IntrNumber);
+	              "Interrupt number = 0x%x\r\n", IntrNumber);
 	l_IrqReg = XPsmFw_Read32(PSM_IOMODULE_IRQ_PENDING);
 
 	for(l_index = 0U; l_index < ARRAYSIZE(g_TopLevelInterruptTable);
