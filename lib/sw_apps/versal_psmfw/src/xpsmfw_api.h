@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,10 +38,10 @@ extern "C" {
 #define NODE_SUBCLASS_SHIFT	20U
 #define NODE_TYPE_SHIFT		14U
 #define NODE_INDEX_SHIFT	0U
-#define NODE_CLASS_MASK_BITS    0x3F
-#define NODE_SUBCLASS_MASK_BITS 0x3F
-#define NODE_TYPE_MASK_BITS     0x3F
-#define NODE_INDEX_MASK_BITS    0x3FFF
+#define NODE_CLASS_MASK_BITS    0x3FU
+#define NODE_SUBCLASS_MASK_BITS 0x3FU
+#define NODE_TYPE_MASK_BITS     0x3FU
+#define NODE_INDEX_MASK_BITS    0x3FFFU
 #define NODE_CLASS_MASK         (NODE_CLASS_MASK_BITS << NODE_CLASS_SHIFT)
 #define NODE_SUBCLASS_MASK      (NODE_SUBCLASS_MASK_BITS << NODE_SUBCLASS_SHIFT)
 #define NODE_TYPE_MASK          (NODE_TYPE_MASK_BITS << NODE_TYPE_SHIFT)

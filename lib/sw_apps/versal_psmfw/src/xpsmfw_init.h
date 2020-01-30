@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,10 +55,10 @@ extern "C" {
 #include "xil_io.h"
 #include "xpsmfw_ipi_manager.h"
 
-#define PMC_TAP_BASEADDR      			(0XF11A0000)
-#define PMC_TAP_VERSION    			((PMC_TAP_BASEADDR) + 0X00000004)
+#define PMC_TAP_BASEADDR      			(0XF11A0000U)
+#define PMC_TAP_VERSION    			((PMC_TAP_BASEADDR) + 0X00000004U)
 #define PMC_TAP_VERSION_PLATFORM_SHIFT   	(24)
-#define PMC_TAP_VERSION_PLATFORM_MASK    	(0X0F000000)
+#define PMC_TAP_VERSION_PLATFORM_MASK    	(0X0F000000U)
 
 #define PLATFORM_VERSION_SILICON		(0x0U)
 #define PLATFORM_VERSION_SPP			(0x1U)

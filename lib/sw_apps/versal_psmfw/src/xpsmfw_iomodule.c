@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -161,9 +161,9 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 * @return      None
 *
 ********************************************************************************/
-int XPsmFw_IoModuleInit(u32 DeviceId)
+int XPsmFw_IoModuleInit(u16 DeviceId)
 {
-    u32 Status = XST_FAILURE;
+    int Status = XST_FAILURE;
 
     /*
      * Initialize the IO Module so that it's ready to use, specify the device
@@ -220,10 +220,10 @@ int SetUpInterruptSystem(void)
      */
 	for (IntrNumber = 0; IntrNumber < XPAR_IOMODULE_INTC_MAX_INTR_SIZE;
 	     IntrNumber++) {
-		XIOModule_Connect(&IOModule, IntrNumber,
+		XIOModule_Connect(&IOModule, (u8)IntrNumber,
 		              (XInterruptHandler)XPsmFw_IntrHandler, (void *)IntrNumber);
 
-		XIOModule_Enable(&IOModule, IntrNumber);
+		XIOModule_Enable(&IOModule, (u8)IntrNumber);
 	}
 
 	XIOModule_Start(&IOModule);

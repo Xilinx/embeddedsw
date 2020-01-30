@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +63,7 @@ int main(void)
 
 	Status = XPsmFw_Init();
 	/* Init IOModule and connect interrupts */
-	XPsmFw_IoModuleInit(XPAR_PSV_PSM_IOMODULE_0_DEVICE_ID);
+	XPsmFw_IoModuleInit((u16)XPAR_PSV_PSM_IOMODULE_0_DEVICE_ID);
 
 	if (Status != XST_SUCCESS) {
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! PSM Initialization failed\r\n", __func__);

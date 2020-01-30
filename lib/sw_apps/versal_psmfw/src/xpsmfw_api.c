@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,44 +33,46 @@
 	Payload[1] = (u32)Arg1;         \
 	XPsmFw_Printf(DEBUG_DETAILED, "%s(%x)\r\n", __func__, Arg1);
 
-#define LIBPM_MODULE_ID			(0x06)
-#define HEADER(len, ApiId)		((len << 16) | (LIBPM_MODULE_ID << 8) | (ApiId))
+#define LIBPM_MODULE_ID			(0x06U)
+#define HEADER(len, ApiId)		(u32)(((u32)len << 16) |		\
+					      (LIBPM_MODULE_ID << 8) |	\
+					      (ApiId))
 
 #define PACK_PAYLOAD0(Payload, ApiId)	\
-	PACK_PAYLOAD(Payload, HEADER(0, ApiId), NULL)
+	PACK_PAYLOAD(Payload, HEADER(0U, ApiId), NULL)
 #define PACK_PAYLOAD1(Payload, ApiId, Arg1)	\
-	PACK_PAYLOAD(Payload, HEADER(1, ApiId), Arg1)
+	PACK_PAYLOAD(Payload, HEADER(1U, ApiId), Arg1)
 
 static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 {
 	XStatus Status = XST_FAILURE;
 
 	switch (FunctionId) {
-	case FUNC_INIT_START:
+	case (u32)FUNC_INIT_START:
 		Status = XPsmFw_FpdPreHouseClean();
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case FUNC_INIT_FINISH:
+	case (u32)FUNC_INIT_FINISH:
 		Status = XPsmFw_FpdPostHouseClean();
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case FUNC_SCAN_CLEAR:
+	case (u32)FUNC_SCAN_CLEAR:
 		Status = XPsmFw_FpdScanClear();
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case FUNC_BISR:
+	case (u32)FUNC_BISR:
 		Status = XPsmFw_FpdMbisr();
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case FUNC_MBIST_CLEAR:
+	case (u32)FUNC_MBIST_CLEAR:
 		Status = XPsmFw_FpdMbistClear();
 		if (XST_SUCCESS != Status) {
 			goto done;

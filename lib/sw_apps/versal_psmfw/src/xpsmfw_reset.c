@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -181,8 +181,8 @@ XStatus XPsmFw_DispatchSwRstHandler(u32 SwRstStatus, u32 SwRstIntMask)
 	u32 Idx;
 
 	for (Idx = 0U; Idx < ARRAYSIZE(ResetHandlerTable); Idx++) {
-		if ( (CHECK_BIT(SwRstStatus, ResetHandlerTable[Idx].Mask)) &
-		     (!CHECK_BIT(SwRstIntMask, ResetHandlerTable[Idx].Mask)) ) {
+		if ((CHECK_BIT(SwRstStatus, ResetHandlerTable[Idx].Mask)) &&
+		    !(CHECK_BIT(SwRstIntMask, ResetHandlerTable[Idx].Mask))) {
 			/* Call sw reset handler */
 			Status = ResetHandlerTable[Idx].Handler();
 		} else {
