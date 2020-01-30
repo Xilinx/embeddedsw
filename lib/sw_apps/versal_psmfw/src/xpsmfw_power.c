@@ -1067,14 +1067,15 @@ static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Tcm)
 		OtherTcm = &Tcm1APwrCtrl;
 		break;
 	default:
-		goto done;
+		OtherTcm = NULL;
+		break;
 	}
 
 	/* Set power state to on */
 	Tcm->PowerState = STATE_POWER_ON;
 
 	/* Check state of OtherTcm. If powered off, power it up */
-	if (STATE_POWER_DOWN == OtherTcm->PowerState) {
+	if ((NULL != OtherTcm) && (STATE_POWER_DOWN == OtherTcm->PowerState)) {
 		OtherTcm->PowerState = STATE_POWER_ON;
 		Status = XPsmFwMemPwrUp(&OtherTcm->TcmMemPwrCtrl);
 		if (XST_SUCCESS != Status) {
@@ -1107,7 +1108,8 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Tcm)
 		OtherTcm = &Tcm1APwrCtrl;
 		break;
 	default:
-		goto done;
+		OtherTcm = NULL;
+		break;
 	}
 
 	Tcm->PowerState = STATE_POWER_DOWN;
@@ -1117,7 +1119,7 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Tcm)
 	 * If OtherTcm state is still powered on, do not power down banks and
 	 * return success
 	 */
-	if (STATE_POWER_DOWN == OtherTcm->PowerState) {
+	if ((NULL != OtherTcm) && (STATE_POWER_DOWN == OtherTcm->PowerState)) {
 		Status = XPsmFwMemPwrDown(&Tcm->TcmMemPwrCtrl);
 		if (XST_SUCCESS != Status) {
 			goto done;
