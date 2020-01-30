@@ -46,6 +46,11 @@ Changed the xuartns550_intr_example to get Success/Failure strings.
 uartps_v3_9:
 Changed the XUARTPS_MAX_RATE macro to enable configuration of higher baud rates.
 
+uartpsv_v1_2:
+Modify Interrupt sub routine, add Rx error Interrupt handler
+Add new function to support FIFO configuration
+Add selftest in examples
+
 xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
 
