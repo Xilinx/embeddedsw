@@ -38,6 +38,9 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
+* 1.2  rna  01/20/20  Modify the  Interrupt sub routine
+*		      Add support for Rx errors
+*		      Change the Tx interrupt  path to support > 32 byte transfers
 *
 * </pre>
 *
@@ -55,6 +58,7 @@
 
 /************************** Function Prototypes ******************************/
 
+static void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr);
 static void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr);
 static void XUartPsv_SendDataHandler(XUartPsv *InstancePtr);
 static void XUartPsv_ModemHandler(XUartPsv *InstancePtr);
@@ -181,28 +185,30 @@ void XUartPsv_InterruptHandler(XUartPsv *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
+	 * Read the Mask Set/Clear register to determine which
+	 * interrupts are enabled
+	 */
+
+	Imsc = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XUARTPSV_UARTIMSC_OFFSET);
+	/*
 	 * Read the raw interrupt status register to determine which
 	 * interrupt is active
 	 */
-	Imsc = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				XUARTPSV_UARTIMSC_OFFSET);
 
 	IsrStatus = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XUARTPSV_UARTRIS_OFFSET);
 
 	IsrStatus &= Imsc;
 
+	/* Clear the interrupt status. */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTICR_OFFSET, IsrStatus);
+
 	if (IsrStatus) {
-		do {
-			/* Clear the interrupt status. */
-			XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-					XUARTPSV_UARTICR_OFFSET,
-					IsrStatus & ~(XUARTPSV_UARTRIS_TXRIS |
-					XUARTPSV_UARTRIS_RXRIS |
-					XUARTPSV_UARTRIS_RTRIS));
 
+		/* Dispatch an appropriate handler. */
 
-			/* Dispatch an appropriate handler. */
 			if ((IsrStatus & ((u32)XUARTPSV_UARTRIS_RXRIS |
 					XUARTPSV_UARTRIS_RTRIS)) != (u32)0) {
 				/* Received data interrupt */
@@ -213,22 +219,64 @@ void XUartPsv_InterruptHandler(XUartPsv *InstancePtr)
 				/* Transmit data interrupt */
 				XUartPsv_SendDataHandler(InstancePtr);
 			}
+
 			if ((IsrStatus & ((u32)XUARTPSV_UARTRIS_DSRRMIS |
 					(u32)XUARTPSV_UARTRIS_DCDRMIS	|
 					(u32)XUARTPSV_UARTRIS_CTSRMIS |
 					(u32)XUARTPSV_UARTRIS_RIRMIS)) !=
-					(u32)0) {
+							(u32)0) {
 				/* Modem status interrupt */
 				XUartPsv_ModemHandler(InstancePtr);
 			}
 
-			IsrStatus = XUartPsv_ReadReg(InstancePtr->Config.
-						BaseAddress,
-						XUARTPSV_UARTRIS_OFFSET);
-			IsrStatus &= Imsc;
+			if ((IsrStatus & ((u32)XUARTPSV_UARTRIS_FERIS |
+					(u32)XUARTPSV_UARTRIS_PERIS |
+					(u32)XUARTPSV_UARTRIS_BERIS)) !=
+							(u32)0) {
+				/* Frame/Parity/Break error interrupt*/
+				InstancePtr->Handler(InstancePtr->CallBackRef,
+						XUARTPSV_EVENT_PARE_FRAME_BRKE, IsrStatus);
+			}
 
-		} while (IsrStatus != (u32)0);
+			if ((IsrStatus & ((u32)XUARTPSV_UARTRIS_OERIS)) != (u32)0) {
+				/* Overrun Error Interrupt */
+				XUartPsv_ReceiveErrorHandler(InstancePtr);
+			}
+		}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function handles the interrupt when there is overrun error in Rx path
+*
+* @param	InstancePtr is a pointer to the XUartPsv instance
+*
+* @return	None.
+*
+* @note 	None.
+*
+******************************************************************************/
+void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr)
+{
+	/*
+	 * If there are bytes still to be received in the specified buffer
+	 * go ahead and receive them. Removing bytes from the RX FIFO will
+	 * clear the interrupt.
+	 */
+	if (InstancePtr->ReceiveBuffer.RemainingBytes != (u32)0) {
+		(void)XUartPsv_ReceiveBuffer(InstancePtr);
 	}
+
+	/* Clear the error bit */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTRSR_OFFSET,XUARTPSV_UARTRSR_OE);
+
+	/* Indicate the overrun error to the application */
+	InstancePtr->Handler(InstancePtr->CallBackRef,
+			XUARTPSV_EVENT_RECV_ORERR,
+					(InstancePtr->ReceiveBuffer.RequestedBytes -
+					InstancePtr->ReceiveBuffer.RemainingBytes));
 }
 
 /*****************************************************************************/
@@ -258,7 +306,7 @@ void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr)
 	  * If the last byte of a message was received then call the
 	  * application handler, this code should not use an else from
 	  * the previous check of the number of bytes to receive because
-	  * the call to receive the buffer updates the bytes ramained
+	  * the call to receive the buffer updates the bytes remained
 	  */
 	if (InstancePtr->ReceiveBuffer.RemainingBytes == (u32)0) {
 		InstancePtr->Handler(InstancePtr->CallBackRef,
@@ -284,31 +332,16 @@ void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr)
 ******************************************************************************/
 static void XUartPsv_SendDataHandler(XUartPsv *InstancePtr)
 {
-	u32 IntrMaskRegister;
+	/* Send the data. This function takes care of the remaining bytes
+	 * check.
+	 */
+	(void)XUartPsv_SendBuffer(InstancePtr);
 
 	/*
-	 * If there are no bytes to be sent from the specified buffer then
-	 * disable the transmit interrupt so it will stop interrupting as it
-	 * interrupts any time the FIFO is empty
+	 * If there are no bytes to be sent from the specified buffer,
+	 * inform the application with event.
 	 */
 	if (InstancePtr->SendBuffer.RemainingBytes == (u32)0) {
-		/*
-		 * Clear TX interrupt
-		 */
-		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XUARTPSV_UARTICR_OFFSET,
-				XUARTPSV_UARTIMSC_TXIM);
-
-		/*
-		 * Disable TX interrupt
-		 */
-		IntrMaskRegister = XUartPsv_ReadReg(InstancePtr->Config.
-						BaseAddress,
-						XUARTPSV_UARTIMSC_OFFSET);
-		IntrMaskRegister &= ~XUARTPSV_UARTIMSC_TXIM;
-		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XUARTPSV_UARTIMSC_OFFSET, IntrMaskRegister);
-
 		/*
 		 * Call the application handler to indicate the sending
 		 * is done
@@ -317,17 +350,6 @@ static void XUartPsv_SendDataHandler(XUartPsv *InstancePtr)
 				XUARTPSV_EVENT_SENT_DATA,
 				InstancePtr->SendBuffer.RequestedBytes -
 				InstancePtr->SendBuffer.RemainingBytes);
-	}
-
-	/* If TX FIFO is empty, send more. */
-	else if ((XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				XUARTPSV_UARTFR_OFFSET) &
-				((u32)XUARTPSV_UARTFR_TXFE)) != (u32)0) {
-		(void)XUartPsv_SendBuffer(InstancePtr);
-	}
-	else {
-		/* Else with dummy entry for MISRA-C Compliance.*/
-		;
 	}
 }
 

@@ -38,7 +38,7 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
-*
+* 1.2  rna  01/20/20  Add UARTRSR register bit
 * </pre>
 *
 ******************************************************************************/
@@ -79,6 +79,16 @@ extern "C" {
 #define XUARTPSV_UARTDMACR_OFFSET	0x0048U	/**< DMA Control */
 /* @} */
 
+/** @name Receive status register/error clear register
+ *
+ * The Receive status register/error clear register (UARTRSR) gives the
+ * status of break, frame, parity and overrun.
+ *
+ * Receive status register/error clear register Bit Definition
+ * @{
+ */
+#define XUARTPSV_UARTRSR_OE	0x00000008U
+/* @} */
 
 /** @name Flag Register
  *
