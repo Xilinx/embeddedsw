@@ -124,6 +124,8 @@
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Modify the interrupt path according to the TRM
 *		      Add XUartPsv_ProgramCtrlReg function
+*		      Add XUartPsv_SetTxFifoThreshold function
+*		      Add XUartPsv_SetRxFifoThreshold function
 * </pre>
 *
 ******************************************************************************/
@@ -436,6 +438,10 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options);
 u16 XUartPsv_GetOptions(XUartPsv *InstancePtr);
 
 void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel);
+
+void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel);
+
+void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel);
 
 u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr);
 

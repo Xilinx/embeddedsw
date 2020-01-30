@@ -39,6 +39,7 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Releasee
 * 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to change mode
+*		      Add functions to set Tx and Rx FIFO threshold levels
 * </pre>
 *
 ******************************************************************************/
@@ -198,14 +199,13 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the receive FIFO trigger level. The receive trigger
-* level indicates the number of bytes in the FIFO that cause a receive or
-* transmit data event (interrupt) to be generated.
-*
+* This function gets the Tx and Rx FIFO trigger level. The receive or transmit
+* trigger level specifies the number of bytes in the FIFO that cause a receive
+* or transmit data event (interrupt) to be generated.
 * @param	InstancePtr is a pointer to the XUartPsv instance.
 *
 * @return	The current receive FIFO trigger level. This is a value
-*		from 0-31.
+*		from 0-63.
 *
 * @note 	None.
 *
@@ -227,7 +227,8 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 
 	/* Return only the trigger level from the register value */
 
-	RtrigRegister &= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	RtrigRegister &= ((u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
+			(u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
 	return RtrigRegister;
 }
@@ -235,12 +236,15 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This functions sets the receive FIFO trigger level. The receive or transmit
-* trigger level specifies the number of bytes in the receive FIFO that cause
-* a receive or transmit data event (interrupt) to be generated.
+* This functions sets the Tx and Rx FIFO trigger level to the 'TriggerLevel'
+* argument. The same value is set for Tx and Rx FIFOs.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
 *
 * @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	TriggerLevel contains the trigger level to set.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-7
 *
 * @return	None
 *
@@ -262,7 +266,7 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
 
-	FifoTrigRegister &= (XUARTPSV_UARTIFLS_RXIFLSEL_MASK |
+	FifoTrigRegister &= ~(XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
 					XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
 	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
@@ -277,6 +281,98 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 
 }
 
+/*****************************************************************************/
+/**
+*
+* This functions sets the Tx FIFO trigger level to the 'TriggerLevel'
+* argument. This value is set for Tx FIFO. Rx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
+*
+* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 -
+* 			XUARTPSV_UARTIFLS_TXIFLSEL_7_8)
+*
+* @return	None
+*
+* @note 	None.
+*
+******************************************************************************/
+void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
+{
+	u32 FifoTrigRegister;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	TriggerLevel = ((u32)TriggerLevel) &
+				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+
+	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XUARTPSV_UARTIFLS_OFFSET);
+
+	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+
+	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+
+	/*
+	 * Write the new value for the FIFO control register to it such that
+	 * the threshold is changed
+	 */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTIFLS_OFFSET, FifoTrigRegister);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This functions sets the Rx FIFO trigger level to the 'TriggerLevel'
+* argument. This value is set for Rx FIFO. Tx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
+*
+* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 -
+* 			XUARTPSV_UARTIFLS_RXIFLSEL_7_8)
+*
+* @return	None
+*
+* @note 	None.
+*
+******************************************************************************/
+void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
+{
+	u32 FifoTrigRegister;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	TriggerLevel = ((u32)TriggerLevel) &
+				(u32)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+
+	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XUARTPSV_UARTIFLS_OFFSET);
+
+	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+
+	FifoTrigRegister |= TriggerLevel;
+	/*
+	 * Write the new value for the FIFO control register to it such that
+	 * the threshold is changed
+	 */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTIFLS_OFFSET, FifoTrigRegister);
+
+}
 
 /*****************************************************************************/
 /**
