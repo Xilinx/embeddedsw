@@ -756,7 +756,7 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 	/* Check if RPU Comparators have been turned off */
 	RegVal = XPsmFw_Read32(RPU_RPU_ERR_INJ);
 	if(CHECK_BIT(RegVal, 1U << RPU_RPU_ERR_INJ_DCCMINP_SHIFT) ||
-		CHECK_BIT(RegVal, 1U << RPU_RPU_ERR_INJ_DCCMINP2_SHIFT)) {
+		CHECK_BIT(RegVal, (u32)1U << RPU_RPU_ERR_INJ_DCCMINP2_SHIFT)) {
 		XPsmFw_Printf(DEBUG_DETAILED,
 		"RPU Register Comparator is on. This may trigger lockstep error\r\n");
 	}

@@ -35,7 +35,7 @@
 
 #define LIBPM_MODULE_ID			(0x06U)
 #define HEADER(len, ApiId)		(u32)(((u32)len << 16) |		\
-					      (LIBPM_MODULE_ID << 8) |	\
+					      ((u32)LIBPM_MODULE_ID << 8) |	\
 					      (ApiId))
 
 #define PACK_PAYLOAD0(Payload, ApiId)	\
