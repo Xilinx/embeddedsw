@@ -47,7 +47,7 @@
 #include "crl.h"
 #include "crf.h"
 
-#define CHECK_BIT(reg, mask)	((reg & mask) == mask)
+#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
 
 /**
  * XPsmFw_ResetLsR5() - Reset RPU

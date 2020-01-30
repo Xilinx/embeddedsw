@@ -54,7 +54,7 @@
 #include "crf.h"
 #include "pmc_global.h"
 #include <assert.h>
-#define CHECK_BIT(reg, mask)	((reg & mask) == mask)
+#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
 
 #define PSM_TO_PLM_EVENT_VERSION		(0x1U)
 #define PWR_UP_EVT				(0x1U)
