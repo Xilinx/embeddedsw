@@ -62,6 +62,12 @@
 #                      CR#1038151.
 # 7.2   mus  09/01/20 Updated to add armclang compiler support for Cortexa72.
 #                     It fixes CR#1051552
+# 7.2   mus  01/29/20 Updated xsleep_timer_config proc to use TTC2 for sleep
+#                     routines, if TTC3 is not present in HW design. If TTC2
+#                     also not present, then CortexR5 PMU cycle counter would
+#                     be used in sleep routines. If user dont want to use PMU
+#                     cycle counter, -DDONT_USE_PMU_FOR_SLEEP_ROUTINES flag
+#                     needs to be added in BSP compiler flags.
 #
 ##############################################################################
 
@@ -882,29 +888,44 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 		}
     } elseif { $sleep_timer == "none" } {
 		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
+			set is_ttc_present 0
 			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
-				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
-					if {[is_ttc_accessible_from_processor $periph]} {
-						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
-						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
-						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
-					} else {
-						puts "WARNING: $periph is secure and it is not accessible to the processor, \
-						processor cycles will be used for sleep routines."
-					}
-				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0} {
-					if {[is_ttc_accessible_from_processor $periph]} {
-						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
-						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
-						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
-					} else {
-						puts "WARNING: $periph is secure and it is not accessible to the processor, \
-						processor cycles will be used for sleep routines."
-					}
+				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					break
+				} elseif {[string compare -nocase "psu_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_6_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_6_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					break
+				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph]} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					break
+				} elseif {[string compare -nocase "psv_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+					set is_ttc_present 1
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_6_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_6_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					break
 				}
 			}
+			if { $is_ttc_present == 0 } {
+				puts "WARNING: Either TTC2/TTC3 is not present in the HW design or not accessible to processor, \
+				CortexR5 PMU cycle counter would be used for sleep routines until and unless DONT_USE_PMU_FOR_SLEEP_ROUTINES \
+				flag is used in BSP compiler flags"
+			} else {
+				puts "$periph will be used in sleep routines for delay generation"
+			}
 		}
+
 		puts $file_handle "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
     } elseif {[string match "axi_timer_*" $sleep_timer]} {
 		if { $proctype == "microblaze" } {
