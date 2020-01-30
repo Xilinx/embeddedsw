@@ -123,6 +123,7 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Modify the interrupt path according to the TRM
+*		      Add XUartPsv_ProgramCtrlReg function
 * </pre>
 *
 ******************************************************************************/
@@ -426,6 +427,8 @@ u32 XUartPsv_Recv(XUartPsv *InstancePtr,u8 *BufferPtr,
 			u32 NumBytes);
 
 s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate);
+
+void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister);
 
 /* Options functions in xuartpsv_options.c */
 void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options);

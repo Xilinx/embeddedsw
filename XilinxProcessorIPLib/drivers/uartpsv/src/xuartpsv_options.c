@@ -38,7 +38,7 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Releasee
-*
+* 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to change mode
 * </pre>
 *
 ******************************************************************************/
@@ -187,23 +187,7 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 		 */
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					OptionsTable[Index].RegisterOffset);
-#if 0
-		TBD
-		/*
-		 * If the option is set in the input, then set the
-		 * corresponding bit in the specified register, otherwise
-		 * clear the bit in the register.
-		 */
-		if ((Options & OptionsTable[Index].Option) != (u16)0) {
-			if (OptionsTable[Index].Option ==
-				XUARTPSV_OPTION_SET_BREAK)
-				Register &= ~XUARTPSV_CR_STOPBRK;
-			Register |= OptionsTable[Index].Mask;
-		}
-		else {
-			Register &= ~OptionsTable[Index].Mask;
-		}
-#endif
+
 		/* Write the new value to the register to set the option */
 		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				OptionsTable[Index].RegisterOffset, Register);
@@ -292,6 +276,7 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 			XUARTPSV_UARTIFLS_OFFSET, FifoTrigRegister);
 
 }
+
 
 /*****************************************************************************/
 /**
@@ -464,9 +449,8 @@ void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
 			break;
 	}
 
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
-
+	/* Setup the Control Register with the passed argument.*/
+	XUartPsv_ProgramCtrlReg(InstancePtr, CtrlRegister);
 }
 
 /*****************************************************************************/
