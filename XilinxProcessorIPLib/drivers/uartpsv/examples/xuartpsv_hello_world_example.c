@@ -45,7 +45,7 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
-*
+* 1.2  rna  01/20/20  Add self test
 * </pre>
 ******************************************************************************/
 
@@ -148,6 +148,12 @@ int UartPsvHelloWorldExample(u16 DeviceId)
 
 	Status = XUartPsv_CfgInitialize(&Uart_Psv, Config,
 					Config->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Check hardware build */
+	Status = XUartPsv_SelfTest(&Uart_Psv);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

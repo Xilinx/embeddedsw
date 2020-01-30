@@ -41,7 +41,7 @@
 * Ver   Who   Date     Changes
 * ----- ----- -------- ----------------------------------------------
 * 1.0   sd    05/23/19 First Release
-*
+* 1.2   rna   01/20/20 Add self test
 * </pre>
 ****************************************************************************/
 
@@ -150,7 +150,6 @@ int UartPsvPolledExample(u16 DeviceId)
 	XUartPsv_Config *Config;
 	int Index;
 	int BadByteCount = 0;
-	u8 SentCount;
 	unsigned int ReceivedCount;
 
 	/*
@@ -163,6 +162,12 @@ int UartPsvPolledExample(u16 DeviceId)
 	}
 
 	Status = XUartPsv_CfgInitialize(&UartPsv, Config, Config->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Check hardware build */
+	Status = XUartPsv_SelfTest(&UartPsv);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
