@@ -46,6 +46,8 @@
 #ifndef XPSMFW_RESET_H_
 #define XPSMFW_RESET_H_
 
+#include "xpsmfw_power.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -80,7 +82,6 @@ extern "C" {
 #define XPSMFW_RST_FPD_SEQ_PROP_TIME				(1000U)
 
 /* Software Reset Handler Table Structure */
-typedef XStatus (*HandlerFunction_t)(void);
 struct SwResetHandlerTable_t {
         u32 Mask;
         HandlerFunction_t Handler;
