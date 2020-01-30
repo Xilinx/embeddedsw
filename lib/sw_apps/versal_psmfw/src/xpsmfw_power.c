@@ -325,7 +325,7 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
-int XPsmFw_FpdMbisr()
+int XPsmFw_FpdMbisr(void)
 {
 	int Status = XST_FAILURE;
 
@@ -346,12 +346,12 @@ int XPsmFw_FpdMbisr()
 	return Status;
 }
 
-int XPsmFw_FpdScanClear()
+int XPsmFw_FpdScanClear(void)
 {
 	return XST_SUCCESS;
 }
 
-int XPsmFw_FpdMbistClear()
+int XPsmFw_FpdMbistClear(void)
 {
 	int Status = XST_FAILURE;
 
@@ -369,7 +369,7 @@ int XPsmFw_FpdMbistClear()
 	return Status;
 }
 
-int XPsmFw_FpdPreHouseClean()
+int XPsmFw_FpdPreHouseClean(void)
 {
 	int Status = XST_FAILURE;
 	u32 RegVal;
@@ -425,7 +425,7 @@ done:
 	return Status;
 }
 
-int XPsmFw_FpdPostHouseClean()
+int XPsmFw_FpdPostHouseClean(void)
 {
 	int Status = XST_FAILURE;
 

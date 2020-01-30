@@ -48,7 +48,7 @@
 
 u32 Platform;
 
-int XPsmFw_Init()
+int XPsmFw_Init(void)
 {
 	int Status = XST_FAILURE;
 	

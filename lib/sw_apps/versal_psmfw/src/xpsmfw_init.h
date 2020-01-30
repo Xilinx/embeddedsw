@@ -67,7 +67,7 @@ extern "C" {
 
 extern u32 Platform;
 
-int XPsmFw_Init();
+int XPsmFw_Init(void);
 
 #ifdef __cplusplus
 }
