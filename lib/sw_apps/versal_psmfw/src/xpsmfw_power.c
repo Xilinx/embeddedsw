@@ -61,7 +61,7 @@
 #define PWR_DWN_EVT				(0x100U)
 
 __attribute__((used, section(".reserved_memory")))
-	volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
+	static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 		.Version	= PSM_TO_PLM_EVENT_VERSION,
 		.Event	= {0x0},
 	};

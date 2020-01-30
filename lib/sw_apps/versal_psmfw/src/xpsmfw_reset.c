@@ -54,7 +54,7 @@
  *
  * @return    XST_SUCCESS or error code
  */
-XStatus XPsmFw_ResetLsR5(void)
+static XStatus XPsmFw_ResetLsR5(void)
 {
 	/* Block R5 master interfaces using AIB */
 	XPsmFw_RMW32(INTLPD_CONFIG_RPU0_LPD_AXI,
@@ -124,7 +124,7 @@ XStatus XPsmFw_ResetLsR5(void)
  *
  * @return    XST_SUCCESS or error code
  */
-XStatus XPsmFw_ResetFpd(void)
+static XStatus XPsmFw_ResetFpd(void)
 {
 	/* Block FPD-LPD interfaces */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,

@@ -49,8 +49,8 @@
 
 #ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
 /* Instance of IPI Driver */
-XIpiPsu IpiInst;
-XIpiPsu *IpiInstPtr = &IpiInst;
+static XIpiPsu IpiInst;
+static XIpiPsu *IpiInstPtr = &IpiInst;
 u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT] = {0U};
 
 s32 XPsmfw_IpiManagerInit(void)
