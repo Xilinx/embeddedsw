@@ -48,6 +48,9 @@ extern "C" {
 #define SDFEC_TAG_ID	0x10
 #define BRAM_TAG_ID	0x11
 #define URAM_TAG_ID 	0x12
+#define CPM5_GTYP_TAG_ID	0x17
+#define GTYP_TAG_ID	0x18
+#define GTM_TAG_ID	0x19
 
 #define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
 XStatus XPmBisr_Repair(u32 TagId);
