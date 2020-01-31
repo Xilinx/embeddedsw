@@ -101,7 +101,7 @@
 #define DDRMC_NPI_CLK_GATE_REGISTER_OFFSET		(0x24CU)
 #define DDRMC_NPI_CLK_GATE_BISREN_MASK			(0x00000040U)
 
-#define GTY_NPI_CACHE_DATA_REGISTER_OFFSET		(0x64U)
+#define GTY_CACHE_DATA_REGISTER_OFFSET		(0x64U)
 
 //BRAM Repair
 #define CFRM_BRAM_REPAIR_ROW_MASK			(0x000f0000U)
@@ -172,6 +172,10 @@
 #define CFRM_HB_EXP_REPAIR_VAL_SHIFT			(0U)
 #define CFRM_HB_EXP_REPAIR_VAL1_MASK			(0x001FFFFFU)
 #define CFRM_HB_EXP_REPAIR_VAL1_SHIFT			(0U)
+
+//CPM5_GTYP Repair
+#define CPM5_GTYP_FIXED_BASEADDR		(0xFC000000)
+#define CPM5_GTYP_EFUSE_ENDPOINT_SHIFT		(16U)
 
 //NIDB Lane Repair
 #define MAX_NIDB_EFUSE_GROUPS				(0x5U)
@@ -276,14 +280,34 @@ done:
 	return TagDataAddr;
 }
 
-static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)
+static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr, u32 TagType)
 {
 	XStatus Status = XST_FAILURE;
-	u32 RegValue;
+	u32 RegValue, EfuseEndpointShift;
 	u32 BaseAddr, BisrDataDestAddr;
 
-	BaseAddr = NPI_FIXED_BASEADDR | (TagOptional<<NPI_EFUSE_ENDPOINT_SHIFT);
-	BisrDataDestAddr = BaseAddr | GTY_NPI_CACHE_DATA_REGISTER_OFFSET;
+	/* Modify Base Address based on the Tag type */
+	switch(TagType) {
+		case TAG_ID_TYPE_GTY:
+		case TAG_ID_TYPE_GTYP:
+		case TAG_ID_TYPE_GTM:
+			/* GTY, GTYP and GTM lie in NPI Address space */
+			BaseAddr = NPI_FIXED_BASEADDR;
+			EfuseEndpointShift = NPI_EFUSE_ENDPOINT_SHIFT;
+			break;
+		case TAG_ID_TYPE_CPM5_GTYP:
+			/* CPM5_GTYP lies in CPM5 Address space */
+			BaseAddr = CPM5_GTYP_FIXED_BASEADDR;
+			EfuseEndpointShift = CPM5_GTYP_EFUSE_ENDPOINT_SHIFT;
+			break;
+		default:
+			XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
+			Status = XST_FAILURE;
+			goto done;
+	}
+
+	BaseAddr = BaseAddr | (TagOptional<< EfuseEndpointShift);
+	BisrDataDestAddr = BaseAddr | GTY_CACHE_DATA_REGISTER_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
@@ -1011,7 +1035,10 @@ XStatus XPmBisr_Repair(u32 TagId)
 							Status = XPmBisr_RepairCpm(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
 							break;
 						case TAG_ID_TYPE_GTY:
-							Status = XPmBisr_RepairGty(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+						case TAG_ID_TYPE_GTYP:
+						case TAG_ID_TYPE_GTM:
+						case TAG_ID_TYPE_CPM5_GTYP:
+							Status = XPmBisr_RepairGty(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr, TagType);
 							break;
 						case TAG_ID_TYPE_DDRMC:
 							Status = XPmBisr_RepairDdrMc(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
