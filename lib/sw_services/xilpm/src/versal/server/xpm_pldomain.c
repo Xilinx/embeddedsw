@@ -37,6 +37,10 @@
 
 #define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
 #define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
+#define XPM_NODEIDX_DEV_GTM_MIN		XPM_NODEIDX_DEV_GTM_0
+#define XPM_NODEIDX_DEV_GTM_MAX		XPM_NODEIDX_DEV_GTM_4
+#define XPM_NODEIDX_DEV_GTYP_MIN		XPM_NODEIDX_DEV_GTYP_0
+#define XPM_NODEIDX_DEV_GTYP_MAX		XPM_NODEIDX_DEV_GTYP_2
 
 //If TRIM_CRAM[31:0]=0 (FUSE not programmed). Then set rw_read_voltages to 0.61V + 0.625V
 #define CRAM_TRIM_RW_READ_VOLTAGE	0x0600019FU
@@ -239,15 +243,35 @@ done:
 
 static XStatus GtyHouseClean()
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XPM_ERR_HC_PL;
 	unsigned int i;
 	XPm_Device *Device;
-	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1] = {0};
+	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1 +
+			XPM_NODEIDX_DEV_GTM_MAX - XPM_NODEIDX_DEV_GTM_MIN + 1 +
+			XPM_NODEIDX_DEV_GTYP_MAX - XPM_NODEIDX_DEV_GTYP_MIN + 1] = {0};
+	u32 GtySize = XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1;
+	u32 GtmSize = XPM_NODEIDX_DEV_GTM_MAX - XPM_NODEIDX_DEV_GTM_MIN + 1;
+	u32 GtypSize = XPM_NODEIDX_DEV_GTYP_MAX - XPM_NODEIDX_DEV_GTYP_MIN + 1;
 
-	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
-		Device = XPmDevice_GetById(GT_DEVID((u32)XPM_NODEIDX_DEV_GT_MIN + i));
+	/* Store GTY Addresses */
+	for (i = 0; i < GtySize; i++) {
+		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GT_MIN + i);
 		if(NULL != Device)
 			GtyAddresses[i] = Device->Node.BaseAddress;
+	}
+
+	/* Store GTM Addresses */
+	for (i = 0; i < GtmSize; i++) {
+		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTM_MIN + i);
+		if(NULL != Device)
+			GtyAddresses[i + GtySize] = Device->Node.BaseAddress;
+	}
+
+	/* Store GTYP Addresses */
+	for (i = 0; i <  GtypSize; i++) {
+		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTYP_MIN + i);
+		if(NULL != Device)
+			GtyAddresses[i + GtySize + GtmSize] = Device->Node.BaseAddress;
 	}
 
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
@@ -263,9 +287,16 @@ static XStatus GtyHouseClean()
 		 * data is found and so not calling in loop. Trigger is handled in below routine
 		 * */
 		Status = XPmBisr_Repair(GTY_TAG_ID);
-		if (XST_SUCCESS != Status) {
+		if (XST_SUCCESS != Status)
 			goto done;
-		}
+
+		Status = XPmBisr_Repair(GTM_TAG_ID);
+		if(XST_SUCCESS != Status)
+			goto done;
+
+		Status = XPmBisr_Repair(GTYP_TAG_ID);
+		if (XST_SUCCESS != Status)
+			goto done;
 
 		for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
