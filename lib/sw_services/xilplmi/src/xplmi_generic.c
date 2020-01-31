@@ -79,10 +79,49 @@ static int XPlmi_Reserved(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XPlmi_Nop(XPlmi_Cmd * Cmd)
 {
+	int Status = XST_FAILURE;
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+	return Status;
 }
+/*****************************************************************************/
+/**
+ * @brief This function reads the device ID and fills in the response buffer.
+ *		Command: GetDeviceID
+ *  	Reserved[31:24]=0 Length[23:16]=[0] PLM=1 CMD_DEVID=18
+ *  	Payload = 0
+ *  	The command reads PMC_TAP_IDCODE register and EFUSE_CACHE_IP_DISABLE_0
+ *  	register and fills the command response array with these values.
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns XST_SUCCESS always
+ *****************************************************************************/
+static int XPlmi_GetDeviceID( XPlmi_Cmd * Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 ExtIdCode;
+	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 
+	Cmd->Response[1U] = XPlmi_In32(PMC_TAP_IDCODE);
+	ExtIdCode = XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0)
+			& EFUSE_CACHE_IP_DISABLE_0_EID_MASK;
+	if(ExtIdCode != 0U)
+	{
+		if ((ExtIdCode & EFUSE_CACHE_IP_DISABLE_0_EID_SEL_MASK) == 0U) {
+			ExtIdCode = (ExtIdCode & EFUSE_CACHE_IP_DISABLE_0_EID1_MASK)
+						>> EFUSE_CACHE_IP_DISABLE_0_EID1_SHIFT;
+		}
+		else {
+			ExtIdCode = (ExtIdCode & EFUSE_CACHE_IP_DISABLE_0_EID2_MASK)
+					>> EFUSE_CACHE_IP_DISABLE_0_EID2_SHIFT;
+		}
+	}
+
+	Cmd->Response[2U] = ExtIdCode;
+	Status = XST_SUCCESS;
+	return Status;
+}
 /*****************************************************************************/
 /**
  * @brief This function provides 32 bit mask poll command execution
@@ -933,6 +972,7 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_SsitSyncSlaves),
 	XPLMI_MODULE_COMMAND(XPlmi_SsitWaitSlaves),
 	XPLMI_MODULE_COMMAND(XPlmi_Nop),
+	XPLMI_MODULE_COMMAND(XPlmi_GetDeviceID),
 };
 
 /*****************************************************************************/
