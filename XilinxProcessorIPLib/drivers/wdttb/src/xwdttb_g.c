@@ -26,7 +26,7 @@
 /**
 *
 * @file xwdttb_g.c
-* @addtogroup wdttb_v4_6
+* @addtogroup wdttb_v5_0
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
