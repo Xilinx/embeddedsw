@@ -102,10 +102,13 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 	case (u32)XPM_NODETYPE_RESET_POR:
 	case (u32)XPM_NODETYPE_RESET_DBG:
 	case (u32)XPM_NODETYPE_RESET_SRST:
+		Status = XST_SUCCESS;
 		break;
-
 	default:
 		Status = XST_INVALID_PARAM;
+		break;
+	}
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 

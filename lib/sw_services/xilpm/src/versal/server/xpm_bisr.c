@@ -288,22 +288,27 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 
 	/* Modify Base Address based on the Tag type */
 	switch(TagType) {
-		case TAG_ID_TYPE_GTY:
-		case TAG_ID_TYPE_GTYP:
-		case TAG_ID_TYPE_GTM:
-			/* GTY, GTYP and GTM lie in NPI Address space */
-			BaseAddr = NPI_FIXED_BASEADDR;
-			EfuseEndpointShift = NPI_EFUSE_ENDPOINT_SHIFT;
-			break;
-		case TAG_ID_TYPE_CPM5_GTYP:
-			/* CPM5_GTYP lies in CPM5 Address space */
-			BaseAddr = CPM5_GTYP_FIXED_BASEADDR;
-			EfuseEndpointShift = CPM5_GTYP_EFUSE_ENDPOINT_SHIFT;
-			break;
-		default:
-			XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
-			Status = XST_FAILURE;
-			goto done;
+	case TAG_ID_TYPE_GTY:
+	case TAG_ID_TYPE_GTYP:
+	case TAG_ID_TYPE_GTM:
+		/* GTY, GTYP and GTM lie in NPI Address space */
+		BaseAddr = NPI_FIXED_BASEADDR;
+		EfuseEndpointShift = NPI_EFUSE_ENDPOINT_SHIFT;
+		Status = XST_SUCCESS;
+		break;
+	case TAG_ID_TYPE_CPM5_GTYP:
+		/* CPM5_GTYP lies in CPM5 Address space */
+		BaseAddr = CPM5_GTYP_FIXED_BASEADDR;
+		EfuseEndpointShift = CPM5_GTYP_EFUSE_ENDPOINT_SHIFT;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
+		Status = XST_FAILURE;
+		break;
+	}
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	BaseAddr = BaseAddr | (TagOptional<< EfuseEndpointShift);
@@ -1022,43 +1027,46 @@ XStatus XPmBisr_Repair(u32 TagId)
 			if (XST_SUCCESS == XPmBisr_TagSupportCheck(EfuseBisrTagId)) {//check supported TAG_ID
 				if (EfuseBisrTagId == TagId) {//check if matched TAG_ID
 					switch(TagType) {
-						case TAG_ID_TYPE_ME:
-							Status = XPmBisr_RepairME(EfuseCurrAddr,EfuseBisrTagId,EfuseBisrSize,EfuseBisrOptional, &EfuseNextAddr);
-							break;
-						case TAG_ID_TYPE_LPD:
-							Status = XPmBisr_RepairLpd(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
-							break;
-						case TAG_ID_TYPE_FPD:
-							Status = XPmBisr_RepairFpd(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
-							break;
-						case TAG_ID_TYPE_CPM:
-							Status = XPmBisr_RepairCpm(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
-							break;
-						case TAG_ID_TYPE_GTY:
-						case TAG_ID_TYPE_GTYP:
-						case TAG_ID_TYPE_GTM:
-						case TAG_ID_TYPE_CPM5_GTYP:
-							Status = XPmBisr_RepairGty(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr, TagType);
-							break;
-						case TAG_ID_TYPE_DDRMC:
-							Status = XPmBisr_RepairDdrMc(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
-							break;
-						case TAG_ID_TYPE_CFRM_BR: //BRAM repair function
-							EfuseNextAddr = XPmBisr_RepairBram(EfuseCurrAddr, EfuseBisrSize);
-							break;
-						case TAG_ID_TYPE_CFRM_UR: //URAM Repair function
-							EfuseNextAddr = XPmBisr_RepairUram(EfuseCurrAddr, EfuseBisrSize);
-							break;
-						case TAG_ID_TYPE_CFRM_HB: //HardBlock repair function
-							EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
-							break;
-						case TAG_ID_TYPE_CPM5:
-							Status = XPmBisr_RepairCpm5(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
-							break;
-						default: //block type not recognized, no function to handle it
-							XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
-							Status = XST_FAILURE;
-							goto done;
+					case TAG_ID_TYPE_ME:
+						Status = XPmBisr_RepairME(EfuseCurrAddr,EfuseBisrTagId,EfuseBisrSize,EfuseBisrOptional, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_LPD:
+						Status = XPmBisr_RepairLpd(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_FPD:
+						Status = XPmBisr_RepairFpd(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_CPM:
+						Status = XPmBisr_RepairCpm(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_GTY:
+					case TAG_ID_TYPE_GTYP:
+					case TAG_ID_TYPE_GTM:
+					case TAG_ID_TYPE_CPM5_GTYP:
+						Status = XPmBisr_RepairGty(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr, TagType);
+						break;
+					case TAG_ID_TYPE_DDRMC:
+						Status = XPmBisr_RepairDdrMc(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_CFRM_BR: //BRAM repair function
+						EfuseNextAddr = XPmBisr_RepairBram(EfuseCurrAddr, EfuseBisrSize);
+						break;
+					case TAG_ID_TYPE_CFRM_UR: //URAM Repair function
+						EfuseNextAddr = XPmBisr_RepairUram(EfuseCurrAddr, EfuseBisrSize);
+						break;
+					case TAG_ID_TYPE_CFRM_HB: //HardBlock repair function
+						EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
+						break;
+					case TAG_ID_TYPE_CPM5:
+						Status = XPmBisr_RepairCpm5(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						break;
+					default: //block type not recognized, no function to handle it
+						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
+						Status = XST_FAILURE;
+						break;
+					}
+					if (XST_SUCCESS != Status) {
+						goto done;
 					}
 				} else {	//calculate the next efuse address if not matched ID
 					EfuseNextAddr = (EfuseCurrAddr + 4U);//move to first data address of this tag

@@ -131,181 +131,181 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	}
 
 	switch (Cmd->CmdId & 0xFFU) {
-		case PM_GET_CHIPID:
-			Status = XPm_GetChipID(&ApiResponse[0], &ApiResponse[1]);
-			break;
-		case PM_GET_API_VERSION:
-			Status = XPm_GetApiVersion(ApiResponse);
-			break;
-		case PM_REQUEST_WAKEUP:
-			/* setAddress is encoded in the 1st bit of the low-word address */
-			SetAddress = Pload[1] & 0x1U;
-			/* addresses are word-aligned, ignore bit 0 */
-			Address = ((u64) Pload[2]) << 32ULL;
-			Address += Pload[1] & (~(u64)0x1U);
-			Status = XPm_RequestWakeUp(SubsystemId, Pload[0],
-						   SetAddress, Address,
-						   Pload[3]);
-			break;
-		case PM_FORCE_POWERDOWN:
-			Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_SYSTEM_SHUTDOWN:
-			Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_SELF_SUSPEND:
-			Status = XPm_SelfSuspend(SubsystemId, Pload[0],
-						 Pload[1], (u8)Pload[2],
-						 Pload[3], Pload[4]);
-			break;
-		case PM_REQUEST_SUSPEND:
-			Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
-			break;
-		case PM_ABORT_SUSPEND:
-			Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_SET_WAKEUP_SOURCE:
-			Status = XPm_SetWakeUpSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
-			break;
-		case PM_CLOCK_SETRATE:
-			Status = XPm_SetClockRate(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_CLOCK_GETRATE:
-			Status = XPm_GetClockRate(Pload[0], ApiResponse);
-			break;
-		case PM_CLOCK_SETPARENT:
-			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_CLOCK_GETPARENT:
-			Status = XPm_GetClockParent(Pload[0], ApiResponse);
-			break;
-		case PM_CLOCK_ENABLE:
-			Status = XPm_SetClockState(SubsystemId, Pload[0], 1);
-			break;
-		case PM_CLOCK_DISABLE:
-			Status = XPm_SetClockState(SubsystemId, Pload[0], 0);
-			break;
-		case PM_CLOCK_GETSTATE:
-			Status = XPm_GetClockState(Pload[0], ApiResponse);
-			break;
-		case PM_CLOCK_SETDIVIDER:
-			Status = XPm_SetClockDivider(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_CLOCK_GETDIVIDER:
-			Status = XPm_GetClockDivider(Pload[0], ApiResponse);
-			break;
-		case PM_PLL_SET_PARAMETER:
-			Status = XPm_SetPllParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
-			break;
-		case PM_PLL_GET_PARAMETER:
-			Status = XPm_GetPllParameter(Pload[0], Pload[1], ApiResponse);
-			break;
-		case PM_PLL_SET_MODE:
-			Status = XPm_SetPllMode(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_PLL_GET_MODE:
-			Status = XPm_GetPllMode(Pload[0], ApiResponse);
-			break;
-		case PM_REQUEST_NODE:
-			Status = XPm_RequestDevice(SubsystemId, Pload[0],
-						   Pload[1], Pload[2],
-						   Pload[3]);
-			break;
-		case PM_RELEASE_NODE:
-			Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
-			break;
-		case PM_SET_REQUIREMENT:
-			Status = XPm_SetRequirement(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
-			break;
-		case PM_SET_MAX_LATENCY:
-			Status = XPm_SetMaxLatency(SubsystemId, Pload[0],
-						   Pload[1]);
-			break;
-		case PM_GET_NODE_STATUS:
-			Status = XPm_GetDeviceStatus(SubsystemId, Pload[0], (XPm_DeviceStatus *)ApiResponse);
-			break;
-		case PM_QUERY_DATA:
-			Status = XPm_Query(Pload[0], Pload[1], Pload[2],
-					   Pload[3], ApiResponse);
-			break;
-		case PM_RESET_ASSERT:
-			Status = XPm_SetResetState(SubsystemId, Cmd->IpiMask,
-						   Pload[0], Pload[1]);
-			break;
-		case PM_RESET_GET_STATUS:
-			Status = XPm_GetResetState(Pload[0], ApiResponse);
-			break;
-		case PM_ADD_SUBSYSTEM:
-			Status = XPm_AddSubsystem(Pload[0]);
-			break;
-		case PM_DESTROY_SUBSYSTEM:
-			Status = XPm_DestroySubsystem(Pload[0]);
-			break;
-		case PM_PINCTRL_REQUEST:
-			Status = XPm_PinCtrlRequest(SubsystemId, Pload[0]);
-			break;
-		case PM_PINCTRL_RELEASE:
-			Status = XPm_PinCtrlRelease(SubsystemId, Pload[0]);
-			break;
-		case PM_PINCTRL_GET_FUNCTION:
-			Status = XPm_GetPinFunction(Pload[0], ApiResponse);
-			break;
-		case PM_PINCTRL_SET_FUNCTION:
-			Status = XPm_SetPinFunction(SubsystemId, Pload[0], Pload[1]);
-			break;
-		case PM_PINCTRL_CONFIG_PARAM_GET:
-			Status = XPm_GetPinParameter(Pload[0], Pload[1], ApiResponse);
-			break;
-		case PM_PINCTRL_CONFIG_PARAM_SET:
-			Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
-			break;
-		case PM_IOCTL:
-			Status = XPm_DevIoctl(SubsystemId, Pload[0], Pload[1],
-					      Pload[2], Pload[3], ApiResponse);
-			break;
-		case PM_INIT_FINALIZE:
-			Status = XPm_InitFinalize(SubsystemId);
-			break;
-		case PM_DESCRIBE_NODES:
-			Status = XPm_DescribeNodes(Len);
-			break;
-		case PM_ADD_NODE:
-			Status = XPm_AddNode(&Pload[0], Len);
-			break;
-		case PM_ADD_NODE_PARENT:
-			Status = XPm_AddNodeParent(&Pload[0], Len);
-			break;
-		case PM_ADD_NODE_NAME:
-			Status = XPm_AddNodeName(&Pload[0], Len);
-			break;
-		case PM_ADD_REQUIREMENT:
-			Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], &Pload[3], Len-3U);
-			break;
-		case PM_SET_CURRENT_SUBSYSTEM:
-			Status = XPm_SetCurrentSubsystem(Pload[0]);
-			break;
-		case PM_INIT_NODE:
-			Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
-			break;
-		case PM_FEATURE_CHECK:
-			Status = XPm_FeatureCheck(Pload[0], ApiResponse);
-			break;
-		case PM_ISO_CONTROL:
-			Status = XPm_IsoControl(Pload[0], Pload[1]);
-			break;
-		case PM_GET_OP_CHARACTERISTIC:
-			Status = XPm_GetOpCharacteristic(Pload[0], Pload[1],
-							 ApiResponse);
-			break;
-		case PM_REGISTER_NOTIFIER:
-			Status = XPm_RegisterNotifier(SubsystemId, Pload[0],
-						      Pload[1], Pload[2],
-						      Pload[3], Cmd->IpiMask);
-			break;
-		default:
-			PmErr("CMD: INVALID PARAM\n\r");
-			Status = XST_INVALID_PARAM;
-			break;
+	case PM_GET_CHIPID:
+		Status = XPm_GetChipID(&ApiResponse[0], &ApiResponse[1]);
+		break;
+	case PM_GET_API_VERSION:
+		Status = XPm_GetApiVersion(ApiResponse);
+		break;
+	case PM_REQUEST_WAKEUP:
+		/* setAddress is encoded in the 1st bit of the low-word address */
+		SetAddress = Pload[1] & 0x1U;
+		/* addresses are word-aligned, ignore bit 0 */
+		Address = ((u64) Pload[2]) << 32ULL;
+		Address += Pload[1] & (~(u64)0x1U);
+		Status = XPm_RequestWakeUp(SubsystemId, Pload[0],
+					   SetAddress, Address,
+					   Pload[3]);
+		break;
+	case PM_FORCE_POWERDOWN:
+		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_SYSTEM_SHUTDOWN:
+		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_SELF_SUSPEND:
+		Status = XPm_SelfSuspend(SubsystemId, Pload[0],
+					 Pload[1], (u8)Pload[2],
+					 Pload[3], Pload[4]);
+		break;
+	case PM_REQUEST_SUSPEND:
+		Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
+		break;
+	case PM_ABORT_SUSPEND:
+		Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_SET_WAKEUP_SOURCE:
+		Status = XPm_SetWakeUpSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
+		break;
+	case PM_CLOCK_SETRATE:
+		Status = XPm_SetClockRate(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_CLOCK_GETRATE:
+		Status = XPm_GetClockRate(Pload[0], ApiResponse);
+		break;
+	case PM_CLOCK_SETPARENT:
+		Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_CLOCK_GETPARENT:
+		Status = XPm_GetClockParent(Pload[0], ApiResponse);
+		break;
+	case PM_CLOCK_ENABLE:
+		Status = XPm_SetClockState(SubsystemId, Pload[0], 1);
+		break;
+	case PM_CLOCK_DISABLE:
+		Status = XPm_SetClockState(SubsystemId, Pload[0], 0);
+		break;
+	case PM_CLOCK_GETSTATE:
+		Status = XPm_GetClockState(Pload[0], ApiResponse);
+		break;
+	case PM_CLOCK_SETDIVIDER:
+		Status = XPm_SetClockDivider(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_CLOCK_GETDIVIDER:
+		Status = XPm_GetClockDivider(Pload[0], ApiResponse);
+		break;
+	case PM_PLL_SET_PARAMETER:
+		Status = XPm_SetPllParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
+		break;
+	case PM_PLL_GET_PARAMETER:
+		Status = XPm_GetPllParameter(Pload[0], Pload[1], ApiResponse);
+		break;
+	case PM_PLL_SET_MODE:
+		Status = XPm_SetPllMode(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_PLL_GET_MODE:
+		Status = XPm_GetPllMode(Pload[0], ApiResponse);
+		break;
+	case PM_REQUEST_NODE:
+		Status = XPm_RequestDevice(SubsystemId, Pload[0],
+					   Pload[1], Pload[2],
+					   Pload[3]);
+		break;
+	case PM_RELEASE_NODE:
+		Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
+		break;
+	case PM_SET_REQUIREMENT:
+		Status = XPm_SetRequirement(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
+		break;
+	case PM_SET_MAX_LATENCY:
+		Status = XPm_SetMaxLatency(SubsystemId, Pload[0],
+					   Pload[1]);
+		break;
+	case PM_GET_NODE_STATUS:
+		Status = XPm_GetDeviceStatus(SubsystemId, Pload[0], (XPm_DeviceStatus *)ApiResponse);
+		break;
+	case PM_QUERY_DATA:
+		Status = XPm_Query(Pload[0], Pload[1], Pload[2],
+				   Pload[3], ApiResponse);
+		break;
+	case PM_RESET_ASSERT:
+		Status = XPm_SetResetState(SubsystemId, Cmd->IpiMask,
+					   Pload[0], Pload[1]);
+		break;
+	case PM_RESET_GET_STATUS:
+		Status = XPm_GetResetState(Pload[0], ApiResponse);
+		break;
+	case PM_ADD_SUBSYSTEM:
+		Status = XPm_AddSubsystem(Pload[0]);
+		break;
+	case PM_DESTROY_SUBSYSTEM:
+		Status = XPm_DestroySubsystem(Pload[0]);
+		break;
+	case PM_PINCTRL_REQUEST:
+		Status = XPm_PinCtrlRequest(SubsystemId, Pload[0]);
+		break;
+	case PM_PINCTRL_RELEASE:
+		Status = XPm_PinCtrlRelease(SubsystemId, Pload[0]);
+		break;
+	case PM_PINCTRL_GET_FUNCTION:
+		Status = XPm_GetPinFunction(Pload[0], ApiResponse);
+		break;
+	case PM_PINCTRL_SET_FUNCTION:
+		Status = XPm_SetPinFunction(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_PINCTRL_CONFIG_PARAM_GET:
+		Status = XPm_GetPinParameter(Pload[0], Pload[1], ApiResponse);
+		break;
+	case PM_PINCTRL_CONFIG_PARAM_SET:
+		Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
+		break;
+	case PM_IOCTL:
+		Status = XPm_DevIoctl(SubsystemId, Pload[0], Pload[1],
+				      Pload[2], Pload[3], ApiResponse);
+		break;
+	case PM_INIT_FINALIZE:
+		Status = XPm_InitFinalize(SubsystemId);
+		break;
+	case PM_DESCRIBE_NODES:
+		Status = XPm_DescribeNodes(Len);
+		break;
+	case PM_ADD_NODE:
+		Status = XPm_AddNode(&Pload[0], Len);
+		break;
+	case PM_ADD_NODE_PARENT:
+		Status = XPm_AddNodeParent(&Pload[0], Len);
+		break;
+	case PM_ADD_NODE_NAME:
+		Status = XPm_AddNodeName(&Pload[0], Len);
+		break;
+	case PM_ADD_REQUIREMENT:
+		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], &Pload[3], Len-3U);
+		break;
+	case PM_SET_CURRENT_SUBSYSTEM:
+		Status = XPm_SetCurrentSubsystem(Pload[0]);
+		break;
+	case PM_INIT_NODE:
+		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
+		break;
+	case PM_FEATURE_CHECK:
+		Status = XPm_FeatureCheck(Pload[0], ApiResponse);
+		break;
+	case PM_ISO_CONTROL:
+		Status = XPm_IsoControl(Pload[0], Pload[1]);
+		break;
+	case PM_GET_OP_CHARACTERISTIC:
+		Status = XPm_GetOpCharacteristic(Pload[0], Pload[1],
+						 ApiResponse);
+		break;
+	case PM_REGISTER_NOTIFIER:
+		Status = XPm_RegisterNotifier(SubsystemId, Pload[0],
+					      Pload[1], Pload[2],
+					      Pload[3], Cmd->IpiMask);
+		break;
+	default:
+		PmErr("CMD: INVALID PARAM\n\r");
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 	/* First word of the response is status */
@@ -1247,6 +1247,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 		break;
 	default:
 		Status = XPM_INVALID_TYPEID;
+		break;
 	}
 
 done:
@@ -1559,6 +1560,7 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 	return Status;
@@ -1587,52 +1589,52 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 	(void) (Arg3);
 
 	switch (Qid) {
-		case (u32)XPM_QID_CLOCK_GET_NAME:
-			Status = XPmClock_QueryName(Arg1,Output);
-			break;
-		case (u32)XPM_QID_CLOCK_GET_TOPOLOGY:
-			Status = XPmClock_QueryTopology(Arg1,Arg2,Output);
-			break;
-		case (u32)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS:
-			Status = XPmClock_QueryFFParams(Arg1,Output);
-			break;
-		case (u32)XPM_QID_CLOCK_GET_MUXSOURCES:
-			if (ISPLL(Arg1)) {
-				Status = XPmClockPll_QueryMuxSources(Arg1,Arg2,Output);
-			} else {
-				Status = XPmClock_QueryMuxSources(Arg1,Arg2,Output);
-			}
-			break;
-		case (u32)XPM_QID_CLOCK_GET_ATTRIBUTES:
-			Status = XPmClock_QueryAttributes(Arg1,Output);
-			break;
-		case (u32)XPM_QID_PINCTRL_GET_NUM_PINS:
-			Status = XPmPin_GetNumPins(Output);
-			break;
-		case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
-			Status = XPmPinFunc_GetNumFuncs(Output);
-			break;
-		case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
-			Status = XPmPinFunc_GetNumFuncGroups(Arg1, Output);
-			break;
-		case (u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME:
-			Status = XPmPinFunc_GetFuncName(Arg1, (char *)Output);
-			break;
-		case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
-			Status = XPmPinFunc_GetFuncGroups(Arg1, Arg2, (u16 *)Output);
-			break;
-		case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
-			Status = XPmPin_GetPinGroups(Arg1, Arg2, (u16 *)Output);
-			break;
-		case (u32)XPM_QID_CLOCK_GET_NUM_CLOCKS:
-			Status = XPmClock_GetNumClocks(Output);
-			break;
-		case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
-			Status = XPmClock_GetMaxDivisor(Arg1, Arg2, Output);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	case (u32)XPM_QID_CLOCK_GET_NAME:
+		Status = XPmClock_QueryName(Arg1,Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_TOPOLOGY:
+		Status = XPmClock_QueryTopology(Arg1,Arg2,Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS:
+		Status = XPmClock_QueryFFParams(Arg1,Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_MUXSOURCES:
+		if (ISPLL(Arg1)) {
+			Status = XPmClockPll_QueryMuxSources(Arg1,Arg2,Output);
+		} else {
+			Status = XPmClock_QueryMuxSources(Arg1,Arg2,Output);
+		}
+		break;
+	case (u32)XPM_QID_CLOCK_GET_ATTRIBUTES:
+		Status = XPmClock_QueryAttributes(Arg1,Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_NUM_PINS:
+		Status = XPmPin_GetNumPins(Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
+		Status = XPmPinFunc_GetNumFuncs(Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
+		Status = XPmPinFunc_GetNumFuncGroups(Arg1, Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME:
+		Status = XPmPinFunc_GetFuncName(Arg1, (char *)Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
+		Status = XPmPinFunc_GetFuncGroups(Arg1, Arg2, (u16 *)Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
+		Status = XPmPin_GetPinGroups(Arg1, Arg2, (u16 *)Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_NUM_CLOCKS:
+		Status = XPmClock_GetNumClocks(Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
+		Status = XPmClock_GetMaxDivisor(Arg1, Arg2, Output);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 	return Status;
 }
@@ -2493,23 +2495,24 @@ static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
 	case XPM_DLL_RESET_ASSERT:
 		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
 			XPM_SD_DLL_RST_MASK);
+		Status = XST_SUCCESS;
 		break;
 	case XPM_DLL_RESET_RELEASE:
 		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
 			~XPM_SD_DLL_RST_MASK);
+		Status = XST_SUCCESS;
 		break;
 	case XPM_DLL_RESET_PULSE:
 		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
 			XPM_SD_DLL_RST_MASK);
 		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
 			~XPM_SD_DLL_RST_MASK);
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPM_INVALID_TYPEID;
-		goto done;
+		break;
 	}
-
-	Status = XST_SUCCESS;
 
 done:
 	if(Status != XST_SUCCESS) {
@@ -2653,6 +2656,7 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		}
 		Reg = CORESIGHT_LPD_ATM_BASE;
 		ReqTypeOffset = (ReqType * PROBE_COUNTER_LPD_REQ_TYPE_OFFSET);
+		Status = XST_SUCCESS;
 		break;
 	case (u32)XPM_NODEIDX_POWER_FPD:
 		if (CounterIdx > PROBE_COUNTER_FPD_MAX_IDX) {
@@ -2663,9 +2667,13 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		}
 		Reg = CORESIGHT_FPD_ATM_BASE;
 		ReqTypeOffset = FpdReqTypeOffset[ReqType];
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPM_PM_INVALID_NODE;
+		break;
+	}
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
@@ -2681,23 +2689,29 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		} else {
 			Reg += PROBE_COUNTER_LSR_OFFSET;
 		}
+		Status = XST_SUCCESS;
 		break;
 	case XPM_PROBE_COUNTER_TYPE_MAIN_CTL:
 		Reg += ReqTypeOffset + PROBE_COUNTER_MAIN_CTL_OFFSET;
+		Status = XST_SUCCESS;
 		break;
 	case XPM_PROBE_COUNTER_TYPE_CFG_CTL:
 		Reg += ReqTypeOffset + PROBE_COUNTER_CFG_CTL_OFFSET;
+		Status = XST_SUCCESS;
 		break;
 	case XPM_PROBE_COUNTER_TYPE_STATE_PERIOD:
 		Reg += ReqTypeOffset + PROBE_COUNTER_STATE_PERIOD_OFFSET;
+		Status = XST_SUCCESS;
 		break;
 	case XPM_PROBE_COUNTER_TYPE_PORT_SEL:
 		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
 			PROBE_COUNTER_PORT_SEL_OFFSET);
+		Status = XST_SUCCESS;
 		break;
 	case XPM_PROBE_COUNTER_TYPE_SRC:
 		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
 			PROBE_COUNTER_SRC_OFFSET);
+		Status = XST_SUCCESS;
 		break;
 	case XPM_PROBE_COUNTER_TYPE_VAL:
 		if (1U == Write) {
@@ -2706,20 +2720,25 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		}
 		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
 			PROBE_COUNTER_VAL_OFFSET);
+		Status = XST_SUCCESS;
 		break;
 	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	if (0U == Write) {
 		if (NULL == Response) {
+			Status = XST_FAILURE;
 			goto done;
 		}
 		PmIn32(Reg, *Response);
 	} else {
 		PmOut32(Reg, Value);
 	}
-	Status = XST_SUCCESS;
 
 done:
 	if(Status != XST_SUCCESS) {
@@ -2821,10 +2840,12 @@ static int XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
 	case XPM_OSPI_MUX_SEL_DMA:
 		PmRmw32(BaseAddress + Offset, XPM_OSPI_MUX_SEL_MASK,
 				~XPM_OSPI_MUX_SEL_MASK);
+		Status = XST_SUCCESS;
 		break;
 	case XPM_OSPI_MUX_SEL_LINEAR:
 		PmRmw32(BaseAddress + Offset, XPM_OSPI_MUX_SEL_MASK,
 				XPM_OSPI_MUX_SEL_MASK);
+		Status = XST_SUCCESS;
 		break;
 	case XPM_OSPI_MUX_GET_MODE:
 		if (NULL == Response) {
@@ -2834,13 +2855,12 @@ static int XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
 		PmIn32(BaseAddress + Offset, *Response);
 		*Response = (((*Response) & XPM_OSPI_MUX_SEL_MASK) >>
 			XPM_OSPI_MUX_SEL_SHIFT);
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
-		goto done;
+		break;
 	}
-
-	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -3004,7 +3024,6 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 	default:
 		/* Not supported yet */
 		Status = XPM_ERR_IOCTL;
-		goto done;
 		break;
 	}
 
@@ -3108,31 +3127,31 @@ XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs)
 	Parents = &Args[1];
 
 	switch (NODECLASS(Id)) {
-		case (u32)XPM_NODECLASS_POWER:
-			Status = XPmPower_AddParent(Id, Parents, NumParents);
-			break;
-		case (u32)XPM_NODECLASS_CLOCK:
-			if (ISPLL(Id)) {
-				Status = XPmClockPll_AddParent(Id, Parents, (u8)NumParents);
-			} else {
-				Status = XPmClock_AddParent(Id, Parents, (u8)NumParents);
-			}
-			break;
-		case (u32)XPM_NODECLASS_RESET:
-			Status = XST_SUCCESS;
-			break;
-		case (u32)XPM_NODECLASS_MEMIC:
-			Status = XST_SUCCESS;
-			break;
-		case (u32)XPM_NODECLASS_STMIC:
-			Status = XST_SUCCESS;
-			break;
-		case (u32)XPM_NODECLASS_DEVICE:
-			Status = XPmDevice_AddParent(Id, Parents, NumParents);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	case (u32)XPM_NODECLASS_POWER:
+		Status = XPmPower_AddParent(Id, Parents, NumParents);
+		break;
+	case (u32)XPM_NODECLASS_CLOCK:
+		if (ISPLL(Id)) {
+			Status = XPmClockPll_AddParent(Id, Parents, (u8)NumParents);
+		} else {
+			Status = XPmClock_AddParent(Id, Parents, (u8)NumParents);
+		}
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODECLASS_MEMIC:
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODECLASS_STMIC:
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		Status = XPmDevice_AddParent(Id, Parents, NumParents);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
@@ -3349,85 +3368,84 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	}
 
 	switch (PowerType) {
-		case (u32)XPM_NODETYPE_POWER_ISLAND:
-		case (u32)XPM_NODETYPE_POWER_ISLAND_XRAM:
-			Power = (XPm_Power *)XPm_AllocBytes(sizeof(XPm_Power));
-			if (NULL == Power) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPower_Init(Power, PowerId, BitMask,
-				PowerParent);
-			break;
-		case (u32)XPM_NODETYPE_POWER_DOMAIN_PMC:
-			PmcDomain =
-				(XPm_PmcDomain *)XPm_AllocBytes(sizeof(XPm_PmcDomain));
-			if (NULL == PmcDomain) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPmcDomain_Init((XPm_PmcDomain *)PmcDomain, PowerId);
-			break;
-		case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_FULL:
-			PsFpDomain =
-				(XPm_PsFpDomain *)XPm_AllocBytes(sizeof(XPm_PsFpDomain));
-			if (NULL == PsFpDomain) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPsFpDomain_Init(PsFpDomain, PowerId,
-						    BitMask, PowerParent, &Args[3], (NumArgs - 3U));
-			break;
-		case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
-			PsLpDomain =
-				(XPm_PsLpDomain *)XPm_AllocBytes(sizeof(XPm_PsLpDomain));
-			if (NULL == PsLpDomain) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPsLpDomain_Init(PsLpDomain, PowerId,
-						    BitMask, PowerParent,
-						    &Args[3], (NumArgs - 3U));
-			break;
-		case (u32)XPM_NODETYPE_POWER_DOMAIN_NOC:
-			NpDomain = (XPm_NpDomain *)XPm_AllocBytes(sizeof(XPm_NpDomain));
-			if (NULL == NpDomain) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmNpDomain_Init(NpDomain, PowerId, 0x00000000,
-						  PowerParent);
-			break;
-		case (u32)XPM_NODETYPE_POWER_DOMAIN_PL:
-			PlDomain = (XPm_PlDomain *)XPm_AllocBytes(sizeof(XPm_PlDomain));
-			if (NULL == PlDomain) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPlDomain_Init(PlDomain, PowerId, 0x00000000,
-						  PowerParent, &Args[3], (NumArgs - 3U));
-			break;
-		case (u32)XPM_NODETYPE_POWER_DOMAIN_CPM:
-			CpmDomain = (XPm_CpmDomain *)XPm_AllocBytes(sizeof(XPm_CpmDomain));
-			if (NULL == CpmDomain) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent,
-						   &Args[3], (NumArgs - 3U));
-			break;
-		case (u32)XPM_NODETYPE_POWER_DOMAIN_ME:
-			AieDomain = (XPm_AieDomain *)XPm_AllocBytes(sizeof(XPm_AieDomain));
-			if (NULL == AieDomain) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
+	case (u32)XPM_NODETYPE_POWER_ISLAND:
+	case (u32)XPM_NODETYPE_POWER_ISLAND_XRAM:
+		Power = (XPm_Power *)XPm_AllocBytes(sizeof(XPm_Power));
+		if (NULL == Power) {
+			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
-			break;
+		}
+		Status = XPmPower_Init(Power, PowerId, BitMask,
+			PowerParent);
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PMC:
+		PmcDomain =
+			(XPm_PmcDomain *)XPm_AllocBytes(sizeof(XPm_PmcDomain));
+		if (NULL == PmcDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPmcDomain_Init((XPm_PmcDomain *)PmcDomain, PowerId);
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_FULL:
+		PsFpDomain =
+			(XPm_PsFpDomain *)XPm_AllocBytes(sizeof(XPm_PsFpDomain));
+		if (NULL == PsFpDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPsFpDomain_Init(PsFpDomain, PowerId,
+					    BitMask, PowerParent, &Args[3], (NumArgs - 3U));
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
+		PsLpDomain =
+			(XPm_PsLpDomain *)XPm_AllocBytes(sizeof(XPm_PsLpDomain));
+		if (NULL == PsLpDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPsLpDomain_Init(PsLpDomain, PowerId,
+					    BitMask, PowerParent,
+					    &Args[3], (NumArgs - 3U));
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_NOC:
+		NpDomain = (XPm_NpDomain *)XPm_AllocBytes(sizeof(XPm_NpDomain));
+		if (NULL == NpDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmNpDomain_Init(NpDomain, PowerId, 0x00000000,
+					  PowerParent);
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PL:
+		PlDomain = (XPm_PlDomain *)XPm_AllocBytes(sizeof(XPm_PlDomain));
+		if (NULL == PlDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPlDomain_Init(PlDomain, PowerId, 0x00000000,
+					  PowerParent, &Args[3], (NumArgs - 3U));
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_CPM:
+		CpmDomain = (XPm_CpmDomain *)XPm_AllocBytes(sizeof(XPm_CpmDomain));
+		if (NULL == CpmDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent,
+					   &Args[3], (NumArgs - 3U));
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_ME:
+		AieDomain = (XPm_AieDomain *)XPm_AllocBytes(sizeof(XPm_AieDomain));
+		if (NULL == AieDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
@@ -3514,40 +3532,40 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 	}
 
 	switch (Type) {
-		case (u32)XPM_NODETYPE_DEV_CORE_PSM:
-			Psm = (XPm_Psm *)XPm_AllocBytes(sizeof(XPm_Psm));
-			if (NULL == Psm) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPsm_Init(Psm, Ipi, BaseAddr, Power, NULL, NULL);
-			break;
-		case (u32)XPM_NODETYPE_DEV_CORE_APU:
-			ApuCore = (XPm_ApuCore *)XPm_AllocBytes(sizeof(XPm_ApuCore));
-			if (NULL == ApuCore) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmApuCore_Init(ApuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
-			break;
-		case (u32)XPM_NODETYPE_DEV_CORE_RPU:
-			RpuCore = (XPm_RpuCore *)XPm_AllocBytes(sizeof(XPm_RpuCore));
-			if (NULL == RpuCore) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmRpuCore_Init(RpuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
-			break;
-		case (u32)XPM_NODETYPE_DEV_CORE_PMC:
-			Pmc = (XPm_Pmc *)XPm_AllocBytes(sizeof(XPm_Pmc));
-			if (NULL == Pmc) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, NULL, NULL);
-			break;
-		default:
-			break;
+	case (u32)XPM_NODETYPE_DEV_CORE_PSM:
+		Psm = (XPm_Psm *)XPm_AllocBytes(sizeof(XPm_Psm));
+		if (NULL == Psm) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPsm_Init(Psm, Ipi, BaseAddr, Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_APU:
+		ApuCore = (XPm_ApuCore *)XPm_AllocBytes(sizeof(XPm_ApuCore));
+		if (NULL == ApuCore) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmApuCore_Init(ApuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_RPU:
+		RpuCore = (XPm_RpuCore *)XPm_AllocBytes(sizeof(XPm_RpuCore));
+		if (NULL == RpuCore) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmRpuCore_Init(RpuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_PMC:
+		Pmc = (XPm_Pmc *)XPm_AllocBytes(sizeof(XPm_Pmc));
+		if (NULL == Pmc) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, NULL, NULL);
+		break;
+	default:
+		break;
 	}
 
 done:
@@ -3558,7 +3576,6 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
-	u32 Type;
 	u32 Index;
 	u32 GicProxyMask;
 	u32 GicProxyGroup;
@@ -3572,7 +3589,6 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 	GicProxyMask = Args[3];
 	GicProxyGroup = Args[4];
 
-	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
 
 	Power = XPmPower_GetById(PowerId);
@@ -3591,18 +3607,14 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	switch (Type) {
-		default:
-			Device = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
-			if (NULL == Device) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmPeriph_Init(Device, DeviceId, BaseAddr,
-						Power, NULL, NULL, GicProxyMask,
-						GicProxyGroup);
-			break;
+	Device = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
+	if (NULL == Device) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
 	}
+
+	Status = XPmPeriph_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL,
+				GicProxyMask, GicProxyGroup);
 
 done:
 	return Status;
@@ -3646,21 +3658,21 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	}
 
 	switch (Type) {
-		case (u32)XPM_NODETYPE_DEV_OCM:
-		case (u32)XPM_NODETYPE_DEV_XRAM:
-		case (u32)XPM_NODETYPE_DEV_L2CACHE:
-		case (u32)XPM_NODETYPE_DEV_DDR:
-		case (u32)XPM_NODETYPE_DEV_TCM:
-		case (u32)XPM_NODETYPE_DEV_EFUSE:
-			Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
-			if (NULL == Device) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmMemDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL, StartAddr, EndAddr);
-			break;
-		default:
-			break;
+	case (u32)XPM_NODETYPE_DEV_OCM:
+	case (u32)XPM_NODETYPE_DEV_XRAM:
+	case (u32)XPM_NODETYPE_DEV_L2CACHE:
+	case (u32)XPM_NODETYPE_DEV_DDR:
+	case (u32)XPM_NODETYPE_DEV_TCM:
+	case (u32)XPM_NODETYPE_DEV_EFUSE:
+		Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
+		if (NULL == Device) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmMemDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL, StartAddr, EndAddr);
+		break;
+	default:
+		break;
 	}
 
 done:
@@ -3693,18 +3705,18 @@ static XStatus AddMemCtrlrDevice(u32 *Args, u32 PowerId)
 	}
 
 	switch (Type) {
-		case (u32)XPM_NODETYPE_DEV_DDR:
-			Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
-			if (NULL == Device) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
-						Power, NULL, NULL);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	case (u32)XPM_NODETYPE_DEV_DDR:
+		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+		if (NULL == Device) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
+					Power, NULL, NULL);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
@@ -3737,18 +3749,18 @@ static XStatus AddPhyDevice(u32 *Args, u32 PowerId)
 	}
 
 	switch (Type) {
-		case (u32)XPM_NODETYPE_DEV_GT:
-			Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
-			if (NULL == Device) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
-						Power, NULL, NULL);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	case (u32)XPM_NODETYPE_DEV_GT:
+		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+		if (NULL == Device) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
+					Power, NULL, NULL);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
@@ -3790,24 +3802,24 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 	}
 
 	switch (SubClass) {
-		case (u32)XPM_NODESUBCL_DEV_CORE:
-			Status = AddProcDevice(Args, PowerId);
-			break;
-		case (u32)XPM_NODESUBCL_DEV_PERIPH:
-			Status = AddPeriphDevice(Args, PowerId);
-			break;
-		case (u32)XPM_NODESUBCL_DEV_MEM:
-			Status = AddMemDevice(Args, PowerId);
-			break;
-		case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
-			Status = AddMemCtrlrDevice(Args, PowerId);
-			break;
-		case (u32)XPM_NODESUBCL_DEV_PHY:
-			Status = AddPhyDevice(Args, PowerId);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	case (u32)XPM_NODESUBCL_DEV_CORE:
+		Status = AddProcDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_PERIPH:
+		Status = AddPeriphDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_MEM:
+		Status = AddMemDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
+		Status = AddMemCtrlrDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_PHY:
+		Status = AddPhyDevice(Args, PowerId);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
@@ -3951,25 +3963,25 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 	}
 
 	switch (SubClass) {
-		case (u32)XPM_NODESUBCL_PROT_XPPU:
-			ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtPpu));
-			if (NULL == ProtNode) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
-			break;
-		case (u32)XPM_NODESUBCL_PROT_XMPU:
-			ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtMpu));
-			if (NULL == ProtNode) {
-				Status = XST_BUFFER_TOO_SMALL;
-				goto done;
-			}
-			Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	case (u32)XPM_NODESUBCL_PROT_XPPU:
+		ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtPpu));
+		if (NULL == ProtNode) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
+		break;
+	case (u32)XPM_NODESUBCL_PROT_XMPU:
+		ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtMpu));
+		if (NULL == ProtNode) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
@@ -4051,33 +4063,33 @@ XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
 	u32 Id = Args[0];
 
 	switch (NODECLASS(Id)) {
-		case (u32)XPM_NODECLASS_POWER:
-			Status = XPm_AddNodePower(Args, NumArgs);
-			break;
-		case (u32)XPM_NODECLASS_CLOCK:
-				Status = XPm_AddNodeClock(Args, NumArgs);
-			break;
-		case (u32)XPM_NODECLASS_RESET:
-			Status = XPm_AddNodeReset(Args, NumArgs);
-			break;
-		case (u32)XPM_NODECLASS_MEMIC:
-			Status = XPm_AddNodeMemIc(Args, NumArgs);
-			break;
-		case (u32)XPM_NODECLASS_STMIC:
-			Status = XPm_AddNodeMio(Args, NumArgs);
-			break;
-		case (u32)XPM_NODECLASS_DEVICE:
-			Status = XPm_AddDevice(Args, NumArgs);
-			break;
-		case (u32)XPM_NODECLASS_PROTECTION:
-			Status = XPm_AddNodeProt(Args, NumArgs);
-			break;
-		case (u32)XPM_NODECLASS_MONITOR:
-			Status = XPm_AddNodeMonitor(Args, NumArgs);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	case (u32)XPM_NODECLASS_POWER:
+		Status = XPm_AddNodePower(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_CLOCK:
+			Status = XPm_AddNodeClock(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		Status = XPm_AddNodeReset(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_MEMIC:
+		Status = XPm_AddNodeMemIc(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_STMIC:
+		Status = XPm_AddNodeMio(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		Status = XPm_AddDevice(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_PROTECTION:
+		Status = XPm_AddNodeProt(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_MONITOR:
+		Status = XPm_AddNodeMonitor(Args, NumArgs);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 	return Status;
@@ -4188,6 +4200,7 @@ static int XPm_GetLatency(const u32 DeviceId, u32 *Latency)
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 	return Status;
@@ -4223,6 +4236,7 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
+		break;
 	}
 
 	return Status;
@@ -4359,6 +4373,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	default:
 		*Version = 0U;
 		Status = XPM_NO_FEATURE;
+		break;
 	}
 
 done:

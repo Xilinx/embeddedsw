@@ -172,34 +172,41 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	}
 
 	switch (NODEINDEX(PowerDomainId)) {
-        case (u32)XPM_NODEIDX_POWER_PMC:
-			if (0U == SateliteIdx) {
-				/* Copy EFUSE_CACHE.TSENS_DELTA_3_0 to PMC_SYSMON.SAT0_EFUSE_CONFIG0[15:12] */
-				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 0U);
-			} else if (1U == SateliteIdx) {
-				/* Copy EFUSE_CACHE.TSENS_DELTA_7_4 to PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12] */
-				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4U);
-			} else {
-				/* Required due to MISRA */
-				PmDbg("[%d] Invalid SateliteIdx\r\n", __LINE__);
-			}
-			break;
-        case (u32)XPM_NODEIDX_POWER_LPD:
-			/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to LPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
-			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8U);
-			break;
-        case (u32)XPM_NODEIDX_POWER_FPD:
-			/* Copy EFUSE_CACHE.TSENS_DELTA_15_12 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
-			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12U);
-			break;
-        case (u32)XPM_NODEIDX_POWER_NOC:
-			StartbitOffset = 16U + (SateliteIdx * 4U);
-			/* Copy EFUSE_CACHE.TSENS_DELTA_STARTBIT_ENDBIT to AMS_SAT_N.EFUSE_CONFIG0[15:12] */
-			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, StartbitOffset);
-			break;
-		default:
-			Status = XST_FAILURE;
-			goto done;
+	case (u32)XPM_NODEIDX_POWER_PMC:
+		if (0U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_3_0 to PMC_SYSMON.SAT0_EFUSE_CONFIG0[15:12] */
+			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 0U);
+		} else if (1U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_7_4 to PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12] */
+			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4U);
+		} else {
+			/* Required due to MISRA */
+			PmDbg("[%d] Invalid SateliteIdx\r\n", __LINE__);
+		}
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_LPD:
+		/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to LPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
+		DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8U);
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_FPD:
+		/* Copy EFUSE_CACHE.TSENS_DELTA_15_12 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
+		DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12U);
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_NOC:
+		StartbitOffset = 16U + (SateliteIdx * 4U);
+		/* Copy EFUSE_CACHE.TSENS_DELTA_STARTBIT_ENDBIT to AMS_SAT_N.EFUSE_CONFIG0[15:12] */
+		DeltaVal =  GET_DELTA_AT_OFFSET(Arr, StartbitOffset);
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	if (0U != DeltaVal) {
@@ -208,8 +215,6 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 
 	/* Lock writes */
 	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, 1);
-
-	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -804,20 +809,21 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 		}
 
 		switch (NODEINDEX(PwrDomain->Power.Node.Id)) {
-			case (u32)XPM_NODEIDX_POWER_LPD:
-				ResetId = PM_RST_PS_POR;
-				break;
-			case (u32)XPM_NODEIDX_POWER_FPD:
-				ResetId = PM_RST_FPD_POR;
-				break;
-			case (u32)XPM_NODEIDX_POWER_NOC:
-				ResetId = PM_RST_NOC_POR;
-				break;
-			case (u32)XPM_NODEIDX_POWER_CPM:
-				ResetId = PM_RST_CPM_POR;
-				break;
-			default:
-				ResetId = 0;
+		case (u32)XPM_NODEIDX_POWER_LPD:
+			ResetId = PM_RST_PS_POR;
+			break;
+		case (u32)XPM_NODEIDX_POWER_FPD:
+			ResetId = PM_RST_FPD_POR;
+			break;
+		case (u32)XPM_NODEIDX_POWER_NOC:
+			ResetId = PM_RST_NOC_POR;
+			break;
+		case (u32)XPM_NODEIDX_POWER_CPM:
+			ResetId = PM_RST_CPM_POR;
+			break;
+		default:
+			ResetId = 0;
+			break;
 		}
 
 		/* Check for POR reset for a domain is occurred or not. */

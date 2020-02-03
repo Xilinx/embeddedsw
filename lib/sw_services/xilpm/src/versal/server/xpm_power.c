@@ -88,38 +88,45 @@ static XStatus PowerUpXram(XPm_Node *Node)
 	BitMask = Node->BaseAddress;
 
 	switch (NODEINDEX(Node->Id)) {
-		case (u32)XPM_NODEIDX_POWER_XRAM_0:
-		case (u32)XPM_NODEIDX_POWER_XRAM_1:
-		case (u32)XPM_NODEIDX_POWER_XRAM_2:
-		case (u32)XPM_NODEIDX_POWER_XRAM_3:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK0_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
-			break;
-		case (u32)XPM_NODEIDX_POWER_XRAM_4:
-		case (u32)XPM_NODEIDX_POWER_XRAM_5:
-		case (u32)XPM_NODEIDX_POWER_XRAM_6:
-		case (u32)XPM_NODEIDX_POWER_XRAM_7:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK1_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
-			break;
-		case (u32)XPM_NODEIDX_POWER_XRAM_8:
-		case (u32)XPM_NODEIDX_POWER_XRAM_9:
-		case (u32)XPM_NODEIDX_POWER_XRAM_10:
-		case (u32)XPM_NODEIDX_POWER_XRAM_11:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK2_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
-			break;
-		case (u32)XPM_NODEIDX_POWER_XRAM_12:
-		case (u32)XPM_NODEIDX_POWER_XRAM_13:
-		case (u32)XPM_NODEIDX_POWER_XRAM_14:
-		case (u32)XPM_NODEIDX_POWER_XRAM_15:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK3_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
+	case (u32)XPM_NODEIDX_POWER_XRAM_0:
+	case (u32)XPM_NODEIDX_POWER_XRAM_1:
+	case (u32)XPM_NODEIDX_POWER_XRAM_2:
+	case (u32)XPM_NODEIDX_POWER_XRAM_3:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK0_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_XRAM_4:
+	case (u32)XPM_NODEIDX_POWER_XRAM_5:
+	case (u32)XPM_NODEIDX_POWER_XRAM_6:
+	case (u32)XPM_NODEIDX_POWER_XRAM_7:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK1_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_XRAM_8:
+	case (u32)XPM_NODEIDX_POWER_XRAM_9:
+	case (u32)XPM_NODEIDX_POWER_XRAM_10:
+	case (u32)XPM_NODEIDX_POWER_XRAM_11:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK2_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_XRAM_12:
+	case (u32)XPM_NODEIDX_POWER_XRAM_13:
+	case (u32)XPM_NODEIDX_POWER_XRAM_14:
+	case (u32)XPM_NODEIDX_POWER_XRAM_15:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK3_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Check if already power up */
 	RegVal = XPm_In32(PwrStatusAddress);
@@ -160,38 +167,45 @@ static XStatus PowerDwnXram(XPm_Node *Node)
 	BitMask = Node->BaseAddress;
 
 	switch (NODEINDEX(Node->Id)) {
-		case (u32)XPM_NODEIDX_POWER_XRAM_0:
-		case (u32)XPM_NODEIDX_POWER_XRAM_1:
-		case (u32)XPM_NODEIDX_POWER_XRAM_2:
-		case (u32)XPM_NODEIDX_POWER_XRAM_3:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK0_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
-			break;
-		case (u32)XPM_NODEIDX_POWER_XRAM_4:
-		case (u32)XPM_NODEIDX_POWER_XRAM_5:
-		case (u32)XPM_NODEIDX_POWER_XRAM_6:
-		case (u32)XPM_NODEIDX_POWER_XRAM_7:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK1_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
-			break;
-		case (u32)XPM_NODEIDX_POWER_XRAM_8:
-		case (u32)XPM_NODEIDX_POWER_XRAM_9:
-		case (u32)XPM_NODEIDX_POWER_XRAM_10:
-		case (u32)XPM_NODEIDX_POWER_XRAM_11:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK2_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
-			break;
-		case (u32)XPM_NODEIDX_POWER_XRAM_12:
-		case (u32)XPM_NODEIDX_POWER_XRAM_13:
-		case (u32)XPM_NODEIDX_POWER_XRAM_14:
-		case (u32)XPM_NODEIDX_POWER_XRAM_15:
-			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK3_OFFSET;
-			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
+	case (u32)XPM_NODEIDX_POWER_XRAM_0:
+	case (u32)XPM_NODEIDX_POWER_XRAM_1:
+	case (u32)XPM_NODEIDX_POWER_XRAM_2:
+	case (u32)XPM_NODEIDX_POWER_XRAM_3:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK0_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_XRAM_4:
+	case (u32)XPM_NODEIDX_POWER_XRAM_5:
+	case (u32)XPM_NODEIDX_POWER_XRAM_6:
+	case (u32)XPM_NODEIDX_POWER_XRAM_7:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK1_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_XRAM_8:
+	case (u32)XPM_NODEIDX_POWER_XRAM_9:
+	case (u32)XPM_NODEIDX_POWER_XRAM_10:
+	case (u32)XPM_NODEIDX_POWER_XRAM_11:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK2_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_XRAM_12:
+	case (u32)XPM_NODEIDX_POWER_XRAM_13:
+	case (u32)XPM_NODEIDX_POWER_XRAM_14:
+	case (u32)XPM_NODEIDX_POWER_XRAM_15:
+		PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK3_OFFSET;
+		PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Check if already power up */
 	RegVal = XPm_In32(PwrStatusAddress);
