@@ -228,7 +228,8 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 	/* Make sure MDIO is in IDLE state */
 	do {
 		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWSR_OFFSET);
-	} while ((0U == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && (--Timeout > 0U));
+		Timeout--;
+	} while ((0U == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && (Timeout > 0U));
 
 	if (0U == Timeout) {
 		PmWarn("gem not idle\r\n");
@@ -274,7 +275,8 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 		LocalTimeout = XPM_MAX_TIMEOUT;
 		do {
 			RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
-		} while ((0U != RegVal) && (LocalTimeout-- > 0U));
+			LocalTimeout--;
+		} while ((0U != RegVal) && (LocalTimeout > 0U));
 
 		/* Disable and clear all interrupts */
 		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);

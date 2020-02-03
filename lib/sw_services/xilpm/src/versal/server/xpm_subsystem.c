@@ -306,11 +306,12 @@ int XPmSubsystem_Idle(u32 SubsystemId)
 	while (NULL != Reqm) {
 		Device = Reqm->Device;
 		u32 Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
+		s32 IsClkActive = XPmDevice_IsClockActive(Device);
 
 		/* Check if device is requested and its clock is active */
 		if ((1U == Reqm->Allocated) &&
 		    (0U == (Device->Node.Flags & NODE_IDLE_DONE)) &&
-		    (XST_SUCCESS == XPmDevice_IsClockActive(Device)) &&
+		    (XST_SUCCESS == IsClkActive) &&
 		    ((u32)PM_USAGE_CURRENT_SUBSYSTEM == Usage)) {
 			XPmDevice_SoftResetIdle(Device, DEVICE_IDLE_REQ);
 			Device->Node.Flags |= NODE_IDLE_DONE;
