@@ -50,8 +50,8 @@ extern "C" {
 /**
  * GCC Specific attribute to suppress unused variable/function warning
  */
-#ifndef __maybe_unused
-#define __maybe_unused __attribute__((unused))
+#ifndef maybe_unused
+#define maybe_unused __attribute__((unused))
 #endif
 
 /* Debug logs */

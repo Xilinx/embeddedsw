@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,8 @@
  * This is an automatically generated file from script.
  * Please do not modify this!
  */
-#ifndef _XPM_NODEID_H_
-#define _XPM_NODEID_H_
+#ifndef XPM_NODEID_H_
+#define XPM_NODEID_H_
 
 /* Power Nodes */
 #define PM_POWER_PMC				(0x4208001U)
@@ -482,4 +482,4 @@
 #define PM_SUBSYS_ME				(0x1c000008U)
 #define PM_SUBSYS_PL				(0x1c000009U)
 
-#endif /* _XPM_NODEID_H_ */
+#endif /* XPM_NODEID_H_ */

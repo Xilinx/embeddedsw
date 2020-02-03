@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef _XPM_NOTIFIER_H_
-#define _XPM_NOTIFIER_H_
+#ifndef XPM_NOTIFIER_H_
+#define XPM_NOTIFIER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,4 +50,4 @@ void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event);
 }
 #endif
 
-#endif /* _XPM_NOTIFIER_H_ */
+#endif /* XPM_NOTIFIER_H_ */
