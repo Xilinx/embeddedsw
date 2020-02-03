@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_POWERDOMAIN_H_
 #define XPM_POWERDOMAIN_H_
@@ -37,7 +17,10 @@ extern "C" {
 
 typedef struct XPm_PowerDomain XPm_PowerDomain;
 
+/* Extern Variable and Function */
 extern u32 SysmonAddresses[];
+extern u32 ResetReason;
+extern int XLoader_ReloadImage(u32 ImageId);
 
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
@@ -72,17 +55,17 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops);
 XStatus XPm_PowerUpLPD(XPm_Node *Node);
-XStatus XPm_PowerDwnLPD();
+XStatus XPm_PowerDwnLPD(void);
 XStatus XPm_PowerUpFPD(XPm_Node *Node);
 XStatus XPm_PowerDwnFPD(XPm_Node *Node);
 XStatus XPm_PowerUpPLD(XPm_Node *Node);
-XStatus XPm_PowerDwnPLD();
+XStatus XPm_PowerDwnPLD(void);
 XStatus XPm_PowerUpME(XPm_Node *Node);
-XStatus XPm_PowerDwnME();
+XStatus XPm_PowerDwnME(void);
 XStatus XPm_PowerUpCPM(XPm_Node *Node);
-XStatus XPm_PowerDwnCPM();
+XStatus XPm_PowerDwnCPM(void);
 XStatus XPm_PowerUpNoC(XPm_Node *Node);
-XStatus XPm_PowerDwnNoC();
+XStatus XPm_PowerDwnNoC(void);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(u32 VoltageRailMask);
