@@ -34,7 +34,7 @@ struct PmPinGroup {
 	u16 *GroupList;
 };
 
-struct PmPinGroup PmPinGroups[XPM_NODEIDX_STMIC_MAX] = {
+static struct PmPinGroup PmPinGroups[XPM_NODEIDX_STMIC_MAX] = {
 	[XPM_NODEIDX_STMIC_LMIO_0] = {
 		.GroupCount = 17,
 		.GroupList = ((u16 []) {

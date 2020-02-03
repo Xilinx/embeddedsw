@@ -415,7 +415,7 @@ done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps LpdOps = {
+static struct XPm_PowerDomainOps LpdOps = {
 	.InitStart = LpdInitStart,
 	.InitFinish = LpdInitFinish,
 	.ScanClear = LpdScanClear,

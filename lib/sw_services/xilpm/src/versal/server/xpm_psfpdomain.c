@@ -265,7 +265,7 @@ done:
         return Status;
 }
 
-struct XPm_PowerDomainOps FpdOps = {
+static struct XPm_PowerDomainOps FpdOps = {
 	.InitStart = FpdInitStart,
 	.InitFinish = FpdInitFinish,
 	.ScanClear = FpdScanClear,

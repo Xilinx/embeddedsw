@@ -45,9 +45,9 @@
 //If TRIM_CRAM[31:0]=0 (FUSE not programmed). Then set rw_read_voltages to 0.61V + 0.625V
 #define CRAM_TRIM_RW_READ_VOLTAGE	0x0600019FU
 
-XCframe CframeIns={0}; /* CFRAME Driver Instance */
-XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
-u32 PlpdHouseCleanBypass = 0;
+static XCframe CframeIns={0}; /* CFRAME Driver Instance */
+static XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
+static u32 PlpdHouseCleanBypass = 0;
 
 static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 {
@@ -170,7 +170,7 @@ done:
 	return;
 }
 
-XStatus PldCfuInit(void)
+static XStatus PldCfuInit(void)
 {
 	XStatus Status = XST_FAILURE;
 	XCfupmc_Config *Config;
@@ -609,7 +609,7 @@ done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps PldOps = {
+static struct XPm_PowerDomainOps PldOps = {
 	.InitStart = PldInitStart,
 	.InitFinish = PldInitFinish,
 	.PlHouseclean = PldHouseClean,

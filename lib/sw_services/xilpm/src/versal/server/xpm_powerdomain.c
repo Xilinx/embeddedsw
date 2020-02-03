@@ -37,9 +37,8 @@
 #include "xpm_gic_proxy.h"
 #include "xpm_regs.h"
 #include "xpm_board.h"
+#include "xpm_api.h"
 
-extern u32 ResetReason;
-extern int XLoader_ReloadImage(u32 ImageId);
 static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 

@@ -68,8 +68,6 @@
 u32 ResetReason;
 u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];
 
-extern int XLoader_RestartImage(u32 SubsystemId);
-
 void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
 
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX+1];

@@ -40,7 +40,7 @@
 
 #define SD_DLL_DIV_MAP_RESET_VAL	(0x50505050U)
 
-const char *PmDevStates[] = {
+static const char *PmDevStates[] = {
 	"UNUSED",
 	"RUNNING",
 	"PWR_ON",
@@ -53,7 +53,7 @@ const char *PmDevStates[] = {
 	"RUNTIME_SUSPEND",
 };
 
-const char *PmDevEvents[] = {
+static const char *PmDevEvents[] = {
 	"BRINGUP_ALL",
 	"BRINGUP_CLKRST",
 	"SHUTDOWN",

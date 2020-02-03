@@ -99,7 +99,7 @@ done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps PmcOps = {
+static struct XPm_PowerDomainOps PmcOps = {
 	.XppuCtrl = PmcXppuCtrl,
 };
 

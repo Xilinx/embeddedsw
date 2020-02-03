@@ -39,7 +39,6 @@ typedef struct {
 } XPmNotifier;
 
 static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
-extern void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
 
 /****************************************************************************/
 /**

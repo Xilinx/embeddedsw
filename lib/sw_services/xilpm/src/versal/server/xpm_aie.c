@@ -498,7 +498,7 @@ static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
 	return Status;
 }
 
-struct XPm_PowerDomainOps AieOps = {
+static struct XPm_PowerDomainOps AieOps = {
 	.InitStart = AieInitStart,
 	.InitFinish = AieInitFinish,
 	.ScanClear = AieScanClear,

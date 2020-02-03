@@ -31,7 +31,7 @@
 #include "xpm_pldomain.h"
 
 /*TODO: Below data should come from topology */
-XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
+static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 	[XPM_NODEIDX_ISO_FPD_PL_TEST] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_FPD_PL_TEST),
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,

@@ -40,8 +40,8 @@
 #define XPM_NODEIDX_DEV_GTYP_CPM5_MIN		XPM_NODEIDX_DEV_GTYP_CPM5_0
 #define XPM_NODEIDX_DEV_GTYP_CPM5_MAX		XPM_NODEIDX_DEV_GTYP_CPM5_3
 
-u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
-		XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
+static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
+			XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
 
 static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -455,7 +455,7 @@ done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
+static struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 	[XPM_HC_CPM_OPS] = {
 		.InitStart = CpmInitStart,
 		.InitFinish = CpmInitFinish,

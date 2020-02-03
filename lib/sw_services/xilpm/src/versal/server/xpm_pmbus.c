@@ -33,7 +33,7 @@
 /*************************** Variable Definitions ****************************/
 #define PMBUS_BUFFER_SIZE	3	/**< I2C Buffer size */
 
-u8 SendBuffer[PMBUS_BUFFER_SIZE];	/**< Data Transmitting Buffer */
+static u8 SendBuffer[PMBUS_BUFFER_SIZE];	/**< Data Transmitting Buffer */
 
 /*****************************************************************************/
 /**

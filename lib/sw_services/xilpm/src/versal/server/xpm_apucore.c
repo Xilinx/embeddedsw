@@ -106,7 +106,7 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 	return Status;
 }
 
-struct XPm_CoreOps ApuOps = {
+static struct XPm_CoreOps ApuOps = {
 		.RestoreResumeAddr = XPmApuCore_RestoreResumeAddr,
 		.HasResumeAddr = XPmApuCore_HasResumeAddr,
 		.RequestWakeup = XPmApuCore_WakeUp,

@@ -67,7 +67,7 @@ done:
 	return Status;
 }
 
-struct XPm_CoreOps PsmOps = {
+static struct XPm_CoreOps PsmOps = {
 		.RestoreResumeAddr = NULL,
 		.HasResumeAddr = NULL,
 		.RequestWakeup = XPmPsm_WakeUp,

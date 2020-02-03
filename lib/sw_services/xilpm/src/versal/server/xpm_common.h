@@ -159,6 +159,9 @@ void XPm_Wait(u32 TimeOutCount);
 XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
+/* Dump Memory Related Data like Total Mem, Usaged Mem, Free Mem */
+void XPm_DumpMemUsage(void);
+
 #ifdef __cplusplus
 }
 #endif

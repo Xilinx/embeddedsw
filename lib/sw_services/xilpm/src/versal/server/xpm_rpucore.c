@@ -132,7 +132,7 @@ done:
 	return Status;
 }
 
-struct XPm_CoreOps RpuOps = {
+static struct XPm_CoreOps RpuOps = {
 		.RestoreResumeAddr = XPmRpuCore_RestoreResumeAddr,
 		.HasResumeAddr = XPmRpuCore_HasResumeAddr,
 		.RequestWakeup = XPmRpuCore_WakeUp,

@@ -413,7 +413,7 @@ done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps NpdOps = {
+static struct XPm_PowerDomainOps NpdOps = {
 	.InitStart = NpdInitStart,
 	.InitFinish = NpdInitFinish,
 	.ScanClear = NpdScanClear,

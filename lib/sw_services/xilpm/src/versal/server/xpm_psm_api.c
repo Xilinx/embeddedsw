@@ -54,7 +54,7 @@ static u32 ProcDevList[PROC_DEV_MAX] = {
 };
 
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
-volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
+static volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
 				(struct PsmToPlmEvent_t *)PSM_TO_PLM_EVENT_ADDR;
 
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
