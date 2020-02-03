@@ -58,6 +58,8 @@
 *                     Procedure has more than one exit point.
 * 4.4   sne  03/04/19 Added Support for Versal.
 * 4.5	sne  09/27/19 Updated driver to support WWDT and AXI Timebase WDT.
+* 5.0	sne  01/31/20 Removed compare value registers write while
+*		      configuring Generic Watchdog window.
 *
 * </pre>
 *
@@ -71,8 +73,6 @@
 #define XWT_MAX_SELFTEST_LOOP_COUNT	0x00010000U
 #define XWT_FW_COUNT			0x0U
 #define XWT_SW_COUNT			0x10000U
-#define XWT_GWCVR0_COUNT                0x00001000U
-#define XWT_GWCVR1_COUNT                0x00001000U
 #define XWT_GWOR_COUNT                  0x00001000U
 /**************************** Type Definitions *******************************/
 
@@ -179,10 +179,6 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 	}
 	else {
 		if (!InstancePtr->Config.IsPl) {
-                /*Set Generic Watchdog Compare Value Register 0 */
-                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR0_OFFSET,XWT_GWCVR0_COUNT);
-                /*Set Generic Watchdog Compare Value Register 1 */
-                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR1_OFFSET,XWT_GWCVR1_COUNT);
                 /* Write General Watchdog offset register for Generating interrupt */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,XWT_GWOR_COUNT);
                 /*Enable GWEN bit for starting General Watchdog timer */

@@ -91,6 +91,8 @@
 * 4.5  sne  06/25/19 Fixed Coverity warning in driver file.
 * 4.5  sne   09/27/19 Added common driver support for Window watchdog Timer
 *		      and AXI Timebase watchdog timer.
+* 5.0  sne   01/31/20 Removed compare value registers write in
+*		      XWdtTb_SetGenericWdtWindow function.
 *
 * </pre>
 *
@@ -1101,27 +1103,18 @@ void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
  *
  * @param     InstancePtr is a pointer to the XWdtTb instance to be
  *            worked on.
- * @param     GWCVR0_config  specifies the GWDT_Compare_value_reg0 count value.
- * @param     GWCVR1_config  specifies the GWDT_Compare_value_reg1 count value.
  * @param     GWOR_config    specifies the GWDT_Offset_reg count value.
  * @return    None.
  *
  * @note
  *            This function must be called before Window WDT start/enable
  *            or after Window WDT stop/disable.
- *            - For first window,We are configuring Two registers i.e
- *              GWDT_Compare_value_reg0 &GWDT_Compare_value_reg1.
- *            - For second window, We are configuring the GWDT_Offset Reg
  *
  ******************************************************************************/
-void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr,u32 GWCVR0_config, u32 GWCVR1_config, u32 GWOR_config)
+void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	/* Write GWDT_Compare_value_reg0 count value*/
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR0_OFFSET,GWCVR0_config);
-	/* Write GWDT_Compare_value_reg1 count value*/
-	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR1_OFFSET,GWCVR1_config);
 	/* Write GWDT_Offset_reg count value*/
 	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,GWOR_config);
 }

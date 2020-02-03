@@ -177,7 +177,9 @@
 *		      Updated driver to support for WWDT and AXI Timebase WDT.
 *		      While accessing AXI Timebase WDT appending "C" to base
 *		      address for getting AXI Watchdog offsets.
-* 4.6	sne  12/30/19 Updated example files with "Successfully ran"string.CR#1050724
+* 5.0	sne  12/30/19 Updated example files with "Successfully ran"string.CR#1050724
+* 5.0	sne  01/31/20 Removed compare value registers write while configuring Generic
+*		      watchdog window timer.CR#1052544
 *
 * </pre>
 *
@@ -533,7 +535,7 @@ void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr);
 
 void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount);
-void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr,u32 GWCVR0_config, u32 GWCVR1_config, u32 GWOR_config);
+void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config);
 u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width);
 
 /*
