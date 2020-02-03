@@ -265,7 +265,7 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerDwnLPD()
+XStatus XPm_PowerDwnLPD(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
@@ -465,7 +465,7 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerDwnPLD()
+XStatus XPm_PowerDwnPLD(void)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -567,7 +567,7 @@ XStatus XPm_PowerUpME(XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerDwnME()
+XStatus XPm_PowerDwnME(void)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -594,7 +594,7 @@ XStatus XPm_PowerUpCPM(XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerDwnCPM()
+XStatus XPm_PowerDwnCPM(void)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -669,7 +669,7 @@ done:
         return Status;
 }
 
-XStatus XPm_PowerDwnNoC()
+XStatus XPm_PowerDwnNoC(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);

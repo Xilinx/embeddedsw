@@ -197,7 +197,7 @@ typedef struct XPm_NidbEfuseGrpInfo {
 
 static u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
 
-static void XPmBisr_InitTagIdList()
+static void XPmBisr_InitTagIdList(void)
 {
 	XPmTagIdWhiteList[LPD_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_LPD;
 	XPmTagIdWhiteList[FPD_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_FPD;

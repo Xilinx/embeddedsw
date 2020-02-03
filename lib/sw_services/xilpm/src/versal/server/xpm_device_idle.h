@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,8 +37,8 @@ extern "C" {
 
 typedef struct XPmDevice_SoftResetInfo {
 	u32 DeviceId;
-	void (*SoftRst)(u32);	/**< Individual IP soft reset function */
-	void (*IdleHook)(u16, u32);	/**< Hook function for idling */
+	void (*SoftRst)(u32 BaseAddress);	/**< Individual IP soft reset function */
+	void (*IdleHook)(u16 DeviceId, u32 BaseAddress);	/**< Hook function for idling */
 	u16 IdleHookArgs;
 } XPmDevice_SoftResetInfo;
 

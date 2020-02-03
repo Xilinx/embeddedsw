@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -72,17 +72,17 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops);
 XStatus XPm_PowerUpLPD(XPm_Node *Node);
-XStatus XPm_PowerDwnLPD();
+XStatus XPm_PowerDwnLPD(void);
 XStatus XPm_PowerUpFPD(XPm_Node *Node);
 XStatus XPm_PowerDwnFPD(XPm_Node *Node);
 XStatus XPm_PowerUpPLD(XPm_Node *Node);
-XStatus XPm_PowerDwnPLD();
+XStatus XPm_PowerDwnPLD(void);
 XStatus XPm_PowerUpME(XPm_Node *Node);
-XStatus XPm_PowerDwnME();
+XStatus XPm_PowerDwnME(void);
 XStatus XPm_PowerUpCPM(XPm_Node *Node);
-XStatus XPm_PowerDwnCPM();
+XStatus XPm_PowerDwnCPM(void);
 XStatus XPm_PowerUpNoC(XPm_Node *Node);
-XStatus XPm_PowerDwnNoC();
+XStatus XPm_PowerDwnNoC(void);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(u32 VoltageRailMask);

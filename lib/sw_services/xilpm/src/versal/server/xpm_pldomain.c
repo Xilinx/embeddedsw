@@ -170,7 +170,7 @@ done:
 	return;
 }
 
-XStatus PldCfuInit()
+XStatus PldCfuInit(void)
 {
 	XStatus Status = XST_FAILURE;
 	XCfupmc_Config *Config;
@@ -206,7 +206,7 @@ XStatus PldCfuInit()
 done:
 	return Status;
 }
-static XStatus PldCframeInit()
+static XStatus PldCframeInit(void)
 {
         XStatus Status = XST_FAILURE;
         XCframe_Config *Config;
@@ -243,7 +243,7 @@ done:
         return Status;
 }
 
-static XStatus GtyHouseClean()
+static XStatus GtyHouseClean(void)
 {
 	XStatus Status = XPM_ERR_HC_PL;
 	unsigned int i;

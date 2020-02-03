@@ -454,7 +454,7 @@ done:
 	return Status;
 }
 
-int XPmReset_SystemReset()
+int XPmReset_SystemReset(void)
 {
 	int Status = XST_FAILURE;
 

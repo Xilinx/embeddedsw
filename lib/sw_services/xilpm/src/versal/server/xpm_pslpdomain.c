@@ -61,7 +61,7 @@ done:
 	return Status;
 }
 
-static XStatus LpdPreBisrReqs()
+static XStatus LpdPreBisrReqs(void)
 {
 	XStatus Status = XST_FAILURE;
 

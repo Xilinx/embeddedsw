@@ -65,7 +65,7 @@ done:
 	return Status;
 }
 
-static void NpdPreBisrReqs()
+static void NpdPreBisrReqs(void)
 {
 	/* Release NPI Reset */
 	XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);

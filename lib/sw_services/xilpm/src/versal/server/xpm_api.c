@@ -348,7 +348,7 @@ done:
  * @param none
  * @return none
  ****************************************************************************/
-static void XPm_RegisterWakeUpHandlers()
+static void XPm_RegisterWakeUpHandlers(void)
 {
 	/**
 	 * Register the events for PM
@@ -509,7 +509,7 @@ int XPm_DispatchWakeHandler(void *DeviceIdx)
 	return Status;
 }
 
-XStatus XPm_HookAfterPlmCdo()
+XStatus XPm_HookAfterPlmCdo(void)
 {
 	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
 	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
