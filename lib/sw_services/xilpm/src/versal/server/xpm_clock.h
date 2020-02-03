@@ -174,7 +174,7 @@ XStatus XPmClock_Release(XPm_ClockHandle *ClkHandle);
 XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable);
 XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx);
 XStatus XPmClock_SetDivider(XPm_OutClockNode *Clk, u32 Divider);
-XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 NodeType, u32 *Value);
+XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value);
 XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp);
 XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp);
 XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp);

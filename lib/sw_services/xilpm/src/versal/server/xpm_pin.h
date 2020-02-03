@@ -78,7 +78,7 @@ struct XPm_PinNode {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPin_Init(XPm_PinNode *Pin, u32 Id, u32 BaseAddress);
+XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress);
 XPm_PinNode *XPmPin_GetById(u32 PinId);
 
 XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId);

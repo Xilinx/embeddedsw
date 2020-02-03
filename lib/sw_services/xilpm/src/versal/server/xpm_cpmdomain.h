@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,8 +47,8 @@ typedef struct XPm_CpmDomain {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
-			  XPm_Power *Parent,  u32 *OtherBaseAddresses,
-			  u32 OtherBaseAddressCnt);
+			  XPm_Power *Parent, u32 *OtherBaseAddresses,
+			  u32 OtherBaseAddressesCnt);
 
 #ifdef __cplusplus
 }

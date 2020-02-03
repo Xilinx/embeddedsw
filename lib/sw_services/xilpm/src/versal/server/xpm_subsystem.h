@@ -89,7 +89,7 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
 int XPmSubsystem_InitFinalize(const u32 SubsystemId);
 int XPmSubsystem_Idle(u32 SubsystemId);
 XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId);
-XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubsystemIndex);
+XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx);
 XStatus XPmSubsystem_SetCurrent(u32 SubsystemId);
 u32 XPmSubsystem_GetCurrent(void);
 XStatus XPmSubsystem_Restart(u32 SubsystemId);

@@ -150,7 +150,7 @@ struct XPm_PsLpDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent, u32 *OtherBaseAddresses,
-			   u32 OtherBaseAddressCnt);
+			   u32 OtherBaseAddressesCnt);
 
 #ifdef __cplusplus
 }
