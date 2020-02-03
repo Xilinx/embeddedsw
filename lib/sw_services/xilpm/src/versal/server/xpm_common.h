@@ -78,7 +78,7 @@ extern "C" {
 #ifdef __MICROBLAZE__
 #define VERIFY(X) \
 	if (!(X)) { \
-		PmErr("Assert failed: %s\n\r", #X); \
+		PmErr("Assert failed at line: %d\n\r", __LINE__); \
 		while (1) {}; \
 	}
 #else
