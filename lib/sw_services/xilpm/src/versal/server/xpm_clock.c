@@ -217,9 +217,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	if (XST_SUCCESS == Status) {
 		Status = XPmClock_SetById(Id, Clk);
 	} else {
-		if (NULL != Clk) {
-			/* TODO: Free allocated memory */
-		}
+		/* TODO: Free allocated memory */
 	}
 
 done:
@@ -315,7 +313,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		}
 
 		if (!ISOUTCLK(ParentId) && !ISREFCLK(ParentId) &&
-		    !ISPLL(ParentId) && CLK_DUMMY_PARENT != (int)ParentId) {
+		    !ISPLL(ParentId) && (u32)CLK_DUMMY_PARENT != ParentId) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
@@ -882,28 +880,26 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	}
 
 	//if (PLATFORM_VERSION_SILICON != Platform) {
-	if (TRUE) {
-		/*
-		 * Mark CPM related clock as invalid because their registers
-		 * are not accessible from PS DDR SPP.
-		 * TODO: This code under platform version check needs to be
-		 * removed when CPM registers are accessible.
-		 */
-		if (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PRESRC ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_POSTCLK ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL_OUT ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_CORE_REF ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_DBG_REF ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX0_REF ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX1_REF ||
-		    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
-			//PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
-			Attr = 0;
-		}
+	/*
+	 * Mark CPM related clock as invalid because their registers
+	 * are not accessible from PS DDR SPP.
+	 * TODO: This code under platform version check needs to be
+	 * removed when CPM registers are accessible.
+	 */
+	if (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PRESRC ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_POSTCLK ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL_OUT ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_CORE_REF ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_DBG_REF ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX0_REF ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX1_REF ||
+	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
+		//PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
+		Attr = 0;
 	}
+	//}
 
 	/* If clock needs to be enabled during init */
 	/* TBD -  Decide InitEnable value */
