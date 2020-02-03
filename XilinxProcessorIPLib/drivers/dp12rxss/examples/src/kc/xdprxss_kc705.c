@@ -201,14 +201,14 @@ void test_pattern_gen_help();
 int write_si570();
 int ceil_func(double x);
 
-volatile u8 is_TX_CPLL=1;
+u8 is_TX_CPLL=1;
 u8 hdcp_capable = 0;
 u8 hdcp_capable_org = 0;
 u8 hdcp_repeater_org = 0;
 u8 hdcp_repeater = 0;
-volatile u32 training_done_lane01;
-volatile u32 training_done_lane23;
-volatile u32 training_done_lanecnt;
+u32 training_done_lane01;
+u32 training_done_lane23;
+u32 training_done_lanecnt;
 u32 dp_msa_hres;
 u32 dp_msa_vres;
 u32 rxMsaMVid;
@@ -227,7 +227,7 @@ u8 pixel = 0;
 u32 bpc = 0;
 u8 comp = 0;
 u8 comp_track = 0;
-volatile u8 prog_tx =0;
+u8 prog_tx =0;
 u32 usr_data_cnt_lane = 0;
 u32 words_per_line = 0;
 u32 recv_clk_see = 0;
@@ -236,50 +236,52 @@ float recv_frame_clk_track=0.0;
 u32 recv_frame_clk_int_track =0;
 u32 recv_frame_clk_int =0;
 u8 vdma_start_read = 0;
-volatile u8 tx_pat_source = 0;
+u8 tx_pat_source = 0;
 volatile u32 vblank_done =0;
-volatile u8 rx_ran_once = 0;
+u8 rx_ran_once = 0;
 u32 tx_bw;
 u8 bw_change_flag = 0;
-volatile u8 internal_rx_tx = 0;
+u8 internal_rx_tx = 0;
 u8 manual_sel = 0;
-volatile u32 IsRxTrained = 0;
-volatile u32 training_done = 0;
+u32 IsRxTrained = 0;
+u32 training_done = 0;
 u8 ooo = 0;
-volatile u32 IsResChange = 0;
-volatile u32 vblank_count =0;
+u32 IsResChange = 0;
+u32 vblank_count =0;
 u8 vdma_start_write = 0;
-volatile u8 start_tracking = 0;
-volatile u8 change_detected = 0;
-volatile u32 IsTxEncrypted = 0;
-volatile u32 IsTxAuthenticated = 0;
+u32 training_done_lane01;
+u32 training_done_lane23;
+u8 start_tracking = 0;
+u8 change_detected = 0;
+u32 IsTxEncrypted = 0;
+u32 IsTxAuthenticated = 0;
 u32 bw_tp1;
 u32 lane_tp1;
-volatile u32 initial_value;
-volatile u8 only_tx_active = 0;
+u32 initial_value;
+u8 only_tx_active = 0;
 u8 coming_from_rx = 0;
 u8 coming_from_tx = 0;
 u8 switch_to_rx = 0;
-volatile u8 rx_link_change_requested = 0;
+u8 rx_link_change_requested = 0;
 u8 tp1_received = 0;
 u32 linkrate_set = 0x14;
 u32 linkrate_set2 = 0;
-volatile u8 switch_to_tx = 0;
-volatile u8 switch_to_patgen = 0;
+u8 switch_to_tx = 0;
+u8 switch_to_patgen = 0;
 u8 hpd_issued = 0;
-volatile u8 need_to_retrain_rx = 0;
+u8 need_to_retrain_rx = 0;
 u8 count = 0;
 u8 Edid_org[128];
 u8 Edid1_org[128];
 u8 max_cap_lanes;
 u8 max_cap_org;
 u8 tx_disconnected = 0;
-volatile u8 tx_is_reconnected = 0;
+u8 tx_is_reconnected = 0;
 u32 clk_reg0;
 u32 clk_reg1;
 u32 clk_reg2;
-volatile u32 wait_count = 0;
-volatile u8 enabled = 0;
+u32 wait_count = 0;
+u8 enabled = 0;
 u8 audio_on = 0;
 u8 prog_clk = 0;
 u8 hpd_pulse = 0;
@@ -287,7 +289,7 @@ u8 done = 0;
 u8 pwr_dwn_x = 0;
 u8 pat_update = 1;
 u8 hdcp_on = 0;
-volatile u8 gt_stable = 0;
+u8 gt_stable = 0;
 typedef struct
 {
         u8 type;
@@ -607,6 +609,7 @@ int main(void)
      DPPtIntrInitialize();
 
 #if ENABLE_HDCP_IN_DESIGN
+    volatile u8 TmrCntrRstDone=0;
     u32 TxAuthAttempts = 0;
     u8 auxValues_org[9];
     XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, auxValues_org);
@@ -1651,7 +1654,8 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 			   //Bogus interrupts typically when training is on or
 			   //  when cable is being unplugged
 #if ENABLE_HDCP_IN_DESIGN
-				if (prog_tx == 1 && DpRxSsInst.TmrCtrResetDone == 1 &&
+				TmrCntrRstDone = DpRxSsInst.TmrCtrResetDone;
+				if (prog_tx == 1 && TmrCntrRstDone == 1 &&
 						training_done == 1 && need_to_retrain_rx == 0)
 #else
 				if (prog_tx == 1 && training_done == 1
@@ -1721,7 +1725,7 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 						}
 					} else {
 #if ENABLE_HDCP_IN_DESIGN
-						if(DpRxSsInst.TmrCtrResetDone == 1){
+						if(TmrCntrRstDone == 1){
 							prog_tx =0;
 						}
 #else
