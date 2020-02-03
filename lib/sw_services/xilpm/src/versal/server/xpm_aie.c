@@ -69,8 +69,8 @@
 #define COL_SHIFT 23U
 #define ROW_SHIFT 18U
 #define TILE_BASEADDRESS(col, row) ((u64)0x20000000000U +\
-			((u64)col<<COL_SHIFT)+\
-			((u64)row<<ROW_SHIFT))
+			((u64)(col) << COL_SHIFT)+\
+			((u64)(row) << ROW_SHIFT))
 
 #define AIE_CORE_CONTROL_OFFSET 0x00032000U
 #define AIE_CORE_STATUS_OFFSET 0x00032004U

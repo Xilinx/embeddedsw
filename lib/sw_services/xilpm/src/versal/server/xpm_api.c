@@ -62,8 +62,8 @@
 #endif
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
-	XPlmi_GicRegisterHandler( (GicId<<8U) | (SrcId<<16U), \
-		XPm_DispatchWakeHandler, (void *)NodeId)
+	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
+		XPm_DispatchWakeHandler, (void *)(NodeId))
 
 u32 ResetReason;
 u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];

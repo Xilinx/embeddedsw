@@ -76,7 +76,7 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 
 #define BITMASK_LOWER_15_BITS			(0x7fffU)
 #define BITMASK_UPPER_17_BITS			(0xffff8000U)
-#define GET_DELTA_AT_OFFSET(array, x)		(0xfU & (array[x / 32U] >> (x % 32U)))
+#define GET_DELTA_AT_OFFSET(array, x)		(0xfU & (array[(x) / 32U] >> ((x) % 32U)))
 
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
 {

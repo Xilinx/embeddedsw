@@ -120,7 +120,7 @@ extern "C" {
 // set the first n bits to 1, rest to 0
 #define BITMASK(n)				(u32)((1ULL << (n)) - 1ULL)
 // set width specified bits at offset to 1, rest to 0
-#define BITNMASK(offset, width) 		(BITMASK(width) << offset)
+#define BITNMASK(offset, width) 		(BITMASK(width) << (offset))
 
 #define ARRAY_SIZE(x)				(sizeof(x) / sizeof((x)[0]))
 
