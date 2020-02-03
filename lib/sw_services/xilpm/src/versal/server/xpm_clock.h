@@ -137,18 +137,18 @@ enum XPm_ClockSubnodeType {
 #define PERIPH_GATE_WIDTH			1
 
 /* Common Flags */
-#define NA_TYPE_FLAGS				0U
-#define CLK_SET_RATE_GATE		BIT(0) /* must be gated across rate change */
-#define CLK_SET_PARENT_GATE		BIT(1) /* must be gated across re-parent */
-#define CLK_SET_RATE_PARENT		BIT(2) /* propagate rate change up one level */
-#define CLK_IGNORE_UNUSED		BIT(3) /* do not gate even if unused */
-#define CLK_IS_BASIC			BIT(5) /* Basic clk, can't do a to_clk_foo() */
-#define CLK_GET_RATE_NOCACHE	BIT(6) /* do not use the cached clk rate */
-#define CLK_SET_RATE_NO_REPARENT	BIT(7) /* don't re-parent on rate change */
-#define CLK_GET_ACCURACY_NOCACHE	BIT(8) /* do not use the cached clk accuracy */
-#define CLK_RECALC_NEW_RATES	BIT(9) /* recalc rates after notifications */
-#define CLK_SET_RATE_UNGATE		BIT(10) /* clock needs to run to set rate */
-#define CLK_IS_CRITICAL			BIT(11) /* do not gate, ever */
+#define NA_TYPE_FLAGS			0U
+#define CLK_SET_RATE_GATE		BIT16(0) /* must be gated across rate change */
+#define CLK_SET_PARENT_GATE		BIT16(1) /* must be gated across re-parent */
+#define CLK_SET_RATE_PARENT		BIT16(2) /* propagate rate change up one level */
+#define CLK_IGNORE_UNUSED		BIT16(3) /* do not gate even if unused */
+#define CLK_IS_BASIC			BIT16(5) /* Basic clk, can't do a to_clk_foo() */
+#define CLK_GET_RATE_NOCACHE		BIT16(6) /* do not use the cached clk rate */
+#define CLK_SET_RATE_NO_REPARENT	BIT16(7) /* don't re-parent on rate change */
+#define CLK_GET_ACCURACY_NOCACHE	BIT16(8) /* do not use the cached clk accuracy */
+#define CLK_RECALC_NEW_RATES		BIT16(9) /* recalc rates after notifications */
+#define CLK_SET_RATE_UNGATE		BIT16(10) /* clock needs to run to set rate */
+#define CLK_IS_CRITICAL			BIT16(11) /* do not gate, ever */
 
 /* Type Flags */
 #define CLK_DIVIDER_ONE_BASED		BIT(0)

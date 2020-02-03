@@ -342,7 +342,7 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 			}
 			XPm_RMW32(Reg, BITNMASK(PLL_REG3_CP_RES_H_SHIFT,
 				  PLL_REG3_CP_RES_H_WIDTH),
-				  0x1U << PLL_REG3_CP_RES_H_SHIFT);
+				  0x1UL << PLL_REG3_CP_RES_H_SHIFT);
 		}
 	}
 	if (0U != (Flags & PLL_RESET_RELEASE)) {
