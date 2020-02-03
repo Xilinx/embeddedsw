@@ -374,6 +374,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = Device->DeviceFsm->EnterState(Device, XPM_DEVSTATE_RUNNING);
 			} else if ((u32)XPM_DEVEVENT_SHUTDOWN == Event) {
 				Status = XST_SUCCESS;
+			} else {
+				/* Required due to MISRA */
+				PmDbg("Invalid event type %d\r\n", Event);
 			}
 			break;
 		case (u8)XPM_DEVSTATE_PWR_ON:
@@ -454,6 +457,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					} else if(Node->Id == PM_DEV_PSM_PROC) {
 						/* Ecc initialize PSM RAM*/
 						XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE);
+					} else {
+						/* Required due to MISRA */
+						PmDbg("Invalid node id 0x%x\r\n", Node->Id);
 					}
 					/* Todo: Start timer to poll the reset node */
 					/* Hack */
@@ -578,6 +584,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			} else if ((u32)XPM_DEVEVENT_SHUTDOWN == Event) {
 				/* Device is already in power off state */
 				Status = XST_SUCCESS;
+			} else {
+				/* Required due to MISRA */
+				PmDbg("Invalid event type %d\r\n", Event);
 			}
 			break;
 		case (u8)XPM_DEVSTATE_RUNTIME_SUSPEND:

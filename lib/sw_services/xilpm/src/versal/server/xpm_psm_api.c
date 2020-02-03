@@ -97,7 +97,9 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 				PmErr("Err %d in powerdown of 0x%x\r\n",
 						EventStatus, ProcDevList[Idx]);
 			}
-
+		} else {
+			/* Required due to MISRA */
+			PmDbg("Invalid PSM event %d\r\n", PsmToPlmEvent->Event[Idx]);
 		}
 	}
 

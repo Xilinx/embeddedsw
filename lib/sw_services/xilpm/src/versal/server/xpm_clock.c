@@ -499,6 +499,9 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 				XPmClock_RequestInt(ParentClk);
 			} else if (ISPLL(ParentClk->Node.Id)) {
 				XPmClockPll_Request(ParentClk->Node.Id);
+			} else {
+				/* Required due to MISRA */
+				PmDbg("Invalid clock type of clock 0x%x\r\n", ParentClk->Node.Id);
 			}
 
 			/* Mark it as requested. If clock has a gate, state will be changed to On when enabled */
@@ -530,6 +533,9 @@ XStatus XPmClock_Request(XPm_ClockHandle *ClkHandle)
 			XPmClock_RequestInt(Clk);
 		} else if (ISPLL(ClkId)) {
 			XPmClockPll_Request(ClkId);
+		} else {
+			/* Required due to MISRA */
+			PmDbg("Invalid clock type of clock 0x%x\r\n", ClkId);
 		}
 		ClkHandle = ClkHandle->NextClock;
 	}
@@ -558,6 +564,9 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 				XPmClock_ReleaseInt(ParentClk);
 			} else if (ISPLL(ParentClk->Node.Id)) {
 				XPmClockPll_Release(ParentClk->Node.Id);
+			} else {
+				/* Required due to MISRA */
+				PmDbg("Invalid clock type of clock 0x%x\r\n", ParentClk->Node.Id);
 			}
 		}
 	}
@@ -581,6 +590,8 @@ XStatus XPmClock_Release(XPm_ClockHandle *ClkHandle)
 			XPmClock_ReleaseInt(Clk);
 		} else if (ISPLL(ClkId)) {
 			XPmClockPll_Release(ClkId);
+		} else {
+			/* Required due to MISRA */
 		}
 		ClkHandle = ClkHandle->NextClock;
 	}
@@ -648,6 +659,9 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 		XPmClock_RequestInt(ParentClk);
 	} else if (ISPLL(ParentClk->Node.Id)) {
 		XPmClockPll_Request(ParentClk->Node.Id);
+	} else {
+		/* Required due to MISRA */
+		PmDbg("Invalid clock type of clock 0x%x\r\n", ParentClk->Node.Id);
 	}
 
 	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), ParentIdx << Ptr->Param1.Shift);
@@ -658,6 +672,9 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 		XPmClock_ReleaseInt(OldParentClk);
 	} else if (ISPLL(OldParentClk->Node.Id)) {
 		XPmClockPll_Release(OldParentClk->Node.Id);
+	} else {
+		/* Required due to MISRA */
+		PmDbg("Invalid clock type of clock 0x%x\r\n", OldParentClk->Node.Id);
 	}
 
 	/* Update new parent idx */

@@ -272,6 +272,9 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 			Permissions |= ((Security << XPPU_APERTURE_TRUSTZONE_OFFSET) | (Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK));
 		} else if (UsagePolicy == (u8)REQ_NO_RESTRICTION) {
 			Permissions = (XPPU_APERTURE_PERMISSION_MASK | XPPU_APERTURE_TRUSTZONE_MASK);
+		} else {
+			/* Required due to MISRA */
+			PmDbg("Invalid UsagePolicy %d\r\n", UsagePolicy);
 		}
 	} else {
 		/* Configure XPPU to disable masters belonging to this subsystem */

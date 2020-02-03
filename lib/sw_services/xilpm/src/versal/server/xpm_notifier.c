@@ -89,6 +89,9 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 		/* There is no free entry in PmNotifiers array, report error */
 		Status = XST_FAILURE;
 		goto done;
+	} else {
+		/* Required due to MISRA */
+		PmDbg("[%d] Unknown else case\r\n", __LINE__);
 	}
 
 	/* Update event and wake mask for given entry */

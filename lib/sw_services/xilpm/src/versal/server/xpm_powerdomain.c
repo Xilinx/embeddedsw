@@ -179,6 +179,9 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 			} else if (1U == SateliteIdx) {
 				/* Copy EFUSE_CACHE.TSENS_DELTA_7_4 to PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12] */
 				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4U);
+			} else {
+				/* Required due to MISRA */
+				PmDbg("[%d] Invalid SateliteIdx\r\n", __LINE__);
 			}
 			break;
         case (u32)XPM_NODEIDX_POWER_LPD:

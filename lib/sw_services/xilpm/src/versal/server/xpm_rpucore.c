@@ -226,6 +226,9 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 				XPmDevice_Release(PM_SUBSYS_DEFAULT,
 						  PM_DEV_RPU0_1);
 			}
+		} else {
+			/* Required due to MISRA */
+			PmDbg("Invalid RPU mode %d\r\n", Mode);
 		}
 	}
 }

@@ -108,6 +108,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		} else if(Cmd->IpiMask) {
 			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
 			PmDbg("Using subsystemId mapped to IPI: 0x%x\n\r", SubsystemId);
+		} else {
+			/* Required due to MISRA */
+			PmDbg("[%d] Unknown else case\r\n", __LINE__);
 		}
 
 		Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -2644,6 +2647,9 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		} else if ((ReqType > PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE) &&
 			   (CounterIdx > PROBE_COUNTER_LPD_MAX_IDX)) {
 			goto done;
+		} else {
+			/* Required due to MISRA */
+			PmDbg("[%d] Unknown else case\r\n", __LINE__);
 		}
 		Reg = CORESIGHT_LPD_ATM_BASE;
 		ReqTypeOffset = (ReqType * PROBE_COUNTER_LPD_REQ_TYPE_OFFSET);
