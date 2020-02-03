@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -84,6 +84,15 @@ void XPlmi_ErrMgr(int Status)
 	if (XPlmi_IsLoadBootPdiDone() == FALSE)
 	{
 		XPlmi_DumpRegisters();
+		/** If boot mode is jtag, donot reset. This is to keep
+		 *  the system state intact for further debug.
+		 */
+		if((XPlmi_In32(CRP_BOOT_MODE_USER) &
+			CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
+		{
+			while(1U);
+		}
+
 		/** Update Multiboot register */
 		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, ++RegVal);
