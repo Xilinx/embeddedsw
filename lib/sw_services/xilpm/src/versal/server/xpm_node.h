@@ -86,7 +86,7 @@ XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
 	XPM_NODESUBCL_PIN, XPM_NODETYPE_PMC_MIO, (PINNUM) + XPM_NODEIDX_STMIC_PMIO_0)
 
 /* Node class types */
-enum class {
+typedef enum class {
 	XPM_NODECLASS_MIN,
 
 	XPM_NODECLASS_POWER,
@@ -319,7 +319,7 @@ typedef enum {
 	XPM_NODEIDX_POWER_MAX,
 } XPm_PowerNodeIndex;
 
-enum {
+typedef enum {
 	XPM_NODEIDX_CLK_MIN,
 	XPM_NODEIDX_CLK_PMC_PLL,
 	XPM_NODEIDX_CLK_APU_PLL,
@@ -937,7 +937,7 @@ typedef enum {
 	XPM_NODEIDX_ISO_CPM5_PL_PCIEA0_MPIO,
 	XPM_NODEIDX_ISO_CPM5_PL_PCIEA1_MPIO,
 	XPM_NODEIDX_ISO_CPM5_RAM,
-	/*Remove below ones later if they dont need special handling and
+	/* Remove below ones later if they don't need special handling and
 	same as LPD_CPM and LPD_CPM_DFX */
 	XPM_NODEIDX_ISO_LPD_CPM5,
 	XPM_NODEIDX_ISO_LPD_CPM5_DFX,
