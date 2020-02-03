@@ -334,10 +334,10 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 			u32 Reg;
 			if ((u32)XPM_NODEIDX_CLK_PMC_PLL ==
 			   NODEINDEX(Pll->ClkNode.Node.Id)) {
-			   Reg = ((ControlReg & (0xFFFFFF00)) +
+			   Reg = ((ControlReg & (0xFFFFFF00U)) +
 				  PPLL_REG3_OFFSET);
 			} else {
-			   Reg = ((ControlReg & (0xFFFFFF00)) +
+			   Reg = ((ControlReg & (0xFFFFFF00U)) +
 				  (Pll->Topology->PllReg3Offset));
 			}
 			XPm_RMW32(Reg, BITNMASK(PLL_REG3_CP_RES_H_SHIFT,
@@ -503,7 +503,7 @@ int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 		goto done;
 	}
 	Resp[0] = PllPtr->ClkNode.ParentIdx;
-	Resp[1] = 0xFFFFFFFF;
+	Resp[1] = 0xFFFFFFFFU;
 
 	Status = XST_SUCCESS;
 

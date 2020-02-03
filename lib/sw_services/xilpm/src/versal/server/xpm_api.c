@@ -54,9 +54,9 @@
 #include "xpm_notifier.h"
 
 #ifdef STDOUT_BASEADDRESS
-#if (STDOUT_BASEADDRESS == 0xFF000000)
+#if (STDOUT_BASEADDRESS == 0xFF000000U)
 #define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
-#elif (STDOUT_BASEADDRESS == 0xFF010000)
+#elif (STDOUT_BASEADDRESS == 0xFF010000U)
 #define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
 #endif
 #endif
