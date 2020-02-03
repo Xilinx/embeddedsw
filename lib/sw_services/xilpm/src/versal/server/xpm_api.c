@@ -3283,8 +3283,9 @@ XStatus XPm_AddNodeName(u32 *Args, u32 NumArgs)
 	}
 	NodeId = Args[0];
 	if (ISOUTCLK(NodeId) || ISREFCLK(NodeId) || ISPLL(NodeId)) {
-		for (i = 1U; i < NumArgs; i++,j = j+4U) {
+		for (i = 1U; i < NumArgs; i++) {
 			memcpy(&Name[j], (char *)((UINTPTR)&Args[i]), 4U);
+			j += 4U;
 		}
 		Status = XPmClock_AddClkName(NodeId, Name);
 	} else {
