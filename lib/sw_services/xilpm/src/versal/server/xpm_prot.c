@@ -51,7 +51,7 @@ XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 	u32 NodeIndex = NODEINDEX(Id);
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)ProtNode;
 
-	if ((NULL == ProtNode) || ((u32)XPM_NODEIDX_PROT_MAX < NodeIndex)) {
+	if ((NULL == ProtNode) || ((u32)XPM_NODEIDX_PROT_MAX <= NodeIndex)) {
 		goto done;
 	}
 
