@@ -56,10 +56,11 @@ axicdma_v4_7:
 Support 26bit dma transfer length.
 Fix gcc warning in peripheral test and examples.
 
-wdttb_v4_6:
+wdttb_v5_0:
 -Updated example files with "Successfully ran" string.
 -Removed psu_wwdt from supported peripherals
 -Updated copyright
+-Removed compare value registers write.
 
 Changes for 2019.2
 ===============================
