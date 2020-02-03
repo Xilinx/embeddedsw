@@ -101,13 +101,15 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	}
 
 	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Remove FPD SOC domains isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, FALSE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Copy sysmon data */
 	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], PM_POWER_FPD, 0);

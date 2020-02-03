@@ -104,14 +104,16 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 
 	/* Remove isolation between CPM5 and LPD */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX, FALSE_VALUE);
-	if (XST_SUCCESS != Status)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Initialize Array with GTYP Base Addresses*/
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses); ++i) {
 		Device = XPmDevice_GetById((u32)GT_DEVID(XPM_NODEIDX_DEV_GTYP_CPM5_MIN + i));
-		if(NULL != Device)
+		if (NULL != Device) {
 			GtyAddresses[i] = Device->Node.BaseAddress;
+		}
 	}
 
 done:
@@ -281,13 +283,15 @@ static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 
 	/* Bisr on CPM5 PD*/
 	Status = XPmBisr_Repair(CPM5_TAG_ID);
-	if (XST_SUCCESS != Status)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Bisr on GTYP_CPM5 */
 	Status = XPmBisr_Repair(CPM5_GTYP_TAG_ID);
-	if (XST_SUCCESS != Status)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 done:
 	return Status;
@@ -365,13 +369,15 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
 	GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
 	GTY_PCSR_STATUS_MEM_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Unwrite Trigger bits */
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);

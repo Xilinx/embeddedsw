@@ -49,8 +49,9 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 
 	/* Remove PS_PMC domains isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/*
 	 * Release POR for PS-LPD
@@ -66,8 +67,9 @@ static XStatus LpdPreBisrReqs()
 
 	/* Remove PMC LPD isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, FALSE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Release reset for PS SRST */
 	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
@@ -96,13 +98,15 @@ static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 
 	/* In case bisr and mbist are skipped */
 	Status = LpdPreBisrReqs();
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Remove LPD SoC isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, FALSE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Copy sysmon data */
 	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
@@ -265,8 +269,9 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 
 	/* Pre bisr requirements */
 	Status = LpdPreBisrReqs();
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmBisr_Repair(LPD_TAG_ID);
 	if (XST_SUCCESS == Status) {
@@ -300,8 +305,9 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 
 	/* Pre bisr requirements - In case if Bisr is skipped */
 	Status = LpdPreBisrReqs();
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Release USB reset for LPD IOU Mbist to work*/
 	Status = XPmReset_AssertbyId(PM_RST_USB_0, (u32)PM_RESET_ACTION_RELEASE);
@@ -399,10 +405,11 @@ static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if ((0U != Enable) && (3U == NumOfArgs))
+	if ((0U != Enable) && (3U == NumOfArgs)) {
 		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
-	else
+	} else {
 		Status = XPmProt_XppuDisable(XppuNodeId);
+	}
 
 done:
 	return Status;

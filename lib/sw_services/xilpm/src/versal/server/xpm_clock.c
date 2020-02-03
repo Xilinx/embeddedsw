@@ -760,8 +760,9 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 		}
 
 		for (i = 0; i < 3U; i++) {
-			if ((Index + i) == Clk->Topology.NumNodes)
+			if ((Index + i) == Clk->Topology.NumNodes) {
 				break;
+			}
 			Resp[i] =  PtrNodes[Index + i].Type;
 			Resp[i] |= ((u32)(PtrNodes[Index + i].Clkflags) << CLK_CLKFLAGS_SHIFT);
 			Resp[i] |= ((u32)(PtrNodes[Index + i].Typeflags) << CLK_TYPEFLAGS_SHIFT);

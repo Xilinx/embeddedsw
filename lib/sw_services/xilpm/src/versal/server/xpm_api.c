@@ -443,8 +443,9 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	PmRequestCb = RequestCb;
 
 	/* Register command handlers with eFSBL */
-	for(i=1; i<XPlmi_Pm.CmdCnt; i++)
+	for (i = 1; i < XPlmi_Pm.CmdCnt; i++) {
 		XPlmi_PmCmds[i].Handler = XPm_ProcessCmd;
+	}
 	XPlmi_ModuleRegister(&XPlmi_Pm);
 
 	XPm_PsmModuleInit();

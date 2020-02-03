@@ -245,8 +245,9 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 	u32 Base = Tcm->StartAddress;
 
 	if (PM_DEV_TCM_1_A == Id || PM_DEV_TCM_1_B == Id) {
-		if (XPM_RPU_MODE_LOCKSTEP == Mode)
+		if (XPM_RPU_MODE_LOCKSTEP == Mode) {
 			Base -= XPM_TCM_BASEADDRESS_MODE_OFFSET;
+		}
 	}
 	if (Size) {
 		XPlmi_EccInit(Base, Size);

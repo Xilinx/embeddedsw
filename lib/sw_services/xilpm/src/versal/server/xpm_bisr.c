@@ -1172,13 +1172,15 @@ XStatus XPmBisr_NidbLaneRepair(void)
 
 	/* lane repair logic */
 	for(i=0; i<MAX_NIDB_EFUSE_GROUPS; ++i) {
-		if (0x0U == NidbEfuseGrpInfo[i].RdnCntl)
+		if (0x0U == NidbEfuseGrpInfo[i].RdnCntl) {
 			continue;
+		}
 
 		/* Skip Lane Repair for left most NIDB for Slave SSIT */
-		if(SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR &&
-			NidbEfuseGrpInfo[i].NpiBase == SlvSkipAddr)
+		if (SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR &&
+			NidbEfuseGrpInfo[i].NpiBase == SlvSkipAddr) {
 			continue;
+		}
 
 		/* Calculate Absolute Base Address */
 		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;

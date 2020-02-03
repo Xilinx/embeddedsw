@@ -162,8 +162,9 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 			store 15 bits from current register to current element */
 			Arr[i] |= (RegValue & BITMASK_LOWER_15_BITS) << 17;
 			/* store 17 bits from current register to next element */
-			if (i != 7U)
+			if (i != 7U) {
 				Arr[i + 1U] = (RegValue & BITMASK_UPPER_17_BITS) >> 15;
+			}
 		}
 
 		/* Set cache read to avoid multiple reads */
@@ -198,8 +199,9 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 			goto done;
 	}
 
-	if (0U != DeltaVal)
+	if (0U != DeltaVal) {
 		PmRmw32(DestAddress + EFUSE_CONFIG0_OFFSET,  EFUSE_CONFIG0_DELTA_MASK, (DeltaVal << EFUSE_CONFIG0_DELTA_SHIFT));
+	}
 
 	/* Lock writes */
 	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, 1);
@@ -222,14 +224,17 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		 * CDO so calling house cleaning commands here
 		 */
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
-		if (Status != XST_SUCCESS)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_SCAN_CLEAR, NULL, 0);
-		if (Status != XST_SUCCESS)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_LBIST, NULL, 0);
-		if (Status != XST_SUCCESS)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 
 		/*
 		 * Release SRST for PS-LPD
@@ -237,11 +242,13 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
-		if (Status != XST_SUCCESS)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_MBIST_CLEAR, NULL, 0);
-		if (Status != XST_SUCCESS)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
 	}
@@ -279,35 +286,42 @@ XStatus XPm_PowerDwnLPD()
 
 	/* Isolate PS_PL */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PS_CPM domains */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM_DFX, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate LP-SoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PS_PMC domains */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Assert reset for PS SRST */
 	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_ASSERT);
@@ -374,16 +388,19 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate FPD-PL */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
 
@@ -425,12 +442,14 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		 * CDO so calling house cleaning commands here
 		 */
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
-		if (Status != XST_SUCCESS)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_HOUSECLEAN_PL, NULL, 0);
-		if (Status != XST_SUCCESS)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
 	}
@@ -444,66 +463,81 @@ XStatus XPm_PowerDwnPLD()
 
 	/* Isolate PL-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate FPD-PL */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate LPD-PL */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PL-PMC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_TEST, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate VCCINT_RAM from VCCINT */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PL_CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI0, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI1, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Assert POR PL */
 	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_ASSERT);
@@ -558,26 +592,32 @@ XStatus XPm_PowerDwnCPM()
 
 	/* Isolate LPD-CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM_DFX, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PL_CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI0, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI1, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Assert POR for CPM */
 	Status = XPmReset_AssertbyId(PM_RST_CPM_POR, (u32)PM_RESET_ACTION_ASSERT);
@@ -597,18 +637,22 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node)
                 goto done;
         } else {
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
-                if (Status != XST_SUCCESS)
-                        goto done;
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_SCAN_CLEAR, NULL, 0);
-                if (Status != XST_SUCCESS)
-                        goto done;
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
-                if (Status != XST_SUCCESS)
-                        goto done;
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_MBIST_CLEAR, NULL, 0);
-                if (Status != XST_SUCCESS)
-                        goto done;
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
         }
@@ -643,38 +687,45 @@ XStatus XPm_PowerDwnNoC()
 
 	/* Isolate FPD-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate LPD-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PL-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate VCCAUX-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate VCCRAM-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PMC-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Isolate PMC-NoC NPI domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, TRUE_VALUE);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Assert POR for NoC */
 	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, (u32)PM_RESET_ACTION_ASSERT);

@@ -136,8 +136,9 @@ static void PldApplyTrim(u32 TrimType)
 			       TrimVal);
 			/* if eFUSE is not programmed,
 			then set rw_read_voltages to 0.61V + 0.625V by writing */
-			if ((TrimVal == 0U) && (PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
+			if ((TrimVal == 0U) && (PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
+			}
                         XCframe_CramTrim(&CframeIns, TrimVal);
                 }
                 break;
@@ -256,22 +257,25 @@ static XStatus GtyHouseClean()
 	/* Store GTY Addresses */
 	for (i = 0; i < GtySize; i++) {
 		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GT_MIN + i);
-		if(NULL != Device)
+		if (NULL != Device) {
 			GtyAddresses[i] = Device->Node.BaseAddress;
+		}
 	}
 
 	/* Store GTM Addresses */
 	for (i = 0; i < GtmSize; i++) {
 		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTM_MIN + i);
-		if(NULL != Device)
+		if (NULL != Device) {
 			GtyAddresses[i + GtySize] = Device->Node.BaseAddress;
+		}
 	}
 
 	/* Store GTYP Addresses */
 	for (i = 0; i <  GtypSize; i++) {
 		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTYP_MIN + i);
-		if(NULL != Device)
+		if (NULL != Device) {
 			GtyAddresses[i + GtySize + GtmSize] = Device->Node.BaseAddress;
+		}
 	}
 
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
@@ -287,16 +291,19 @@ static XStatus GtyHouseClean()
 		 * data is found and so not calling in loop. Trigger is handled in below routine
 		 * */
 		Status = XPmBisr_Repair(GTY_TAG_ID);
-		if (XST_SUCCESS != Status)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 
 		Status = XPmBisr_Repair(GTM_TAG_ID);
-		if(XST_SUCCESS != Status)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 
 		Status = XPmBisr_Repair(GTYP_TAG_ID);
-		if (XST_SUCCESS != Status)
+		if (XST_SUCCESS != Status) {
 			goto done;
+		}
 
 		for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
@@ -430,8 +437,9 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	u32 Value = 0;
 
 	/* If Arg0 is set, bypass houseclean */
-	if ((NumOfArgs > 0U) && (Args[0] == 1U))
+	if ((NumOfArgs > 0U) && (Args[0] == 1U)) {
 		PlpdHouseCleanBypass = 1;
+	}
 
 	if (PLATFORM_VERSION_SILICON == Platform) {
 		/*House clean GTY*/
@@ -502,13 +510,13 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiitng for PL HC complete....", __func__);
 		while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
 			(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
-					(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
+					(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) {};
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME_BUSY to go low...", __func__);
 		while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
 			(u32)CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
-						(u32)CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
+						(u32)CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) {};
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 		/* VGG TRIM */
 		PldApplyTrim(XPM_PL_TRIM_VGG);

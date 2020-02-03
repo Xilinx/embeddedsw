@@ -352,8 +352,9 @@ XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId)
 	XPm_Subsystem *SubSystem = NULL;
 	u32 SubSysIdx;
 
-	if(SubsystemId == INVALID_SUBSYSID)
+	if (SubsystemId == INVALID_SUBSYSID) {
 		goto done;
+	}
 
 	for (SubSysIdx = 0; SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX; SubSysIdx++) {
 		if (PmSubsystems[SubSysIdx].Id == SubsystemId) {
@@ -581,8 +582,9 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			XPm_Device *Device = XPmDevice_GetByIndex(i);
 			if (NULL != Device) {
 				Status = XPmRequirement_Add(Subsystem, Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
-				if (XST_SUCCESS != Status)
+				if (XST_SUCCESS != Status) {
 					goto done;
+				}
 			}
 		}
 	}

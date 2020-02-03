@@ -878,8 +878,9 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	PmDeviceOps.SetRequirement = SetRequirement;
 	PmDeviceOps.Release = Release;
 	Device->DeviceOps = &PmDeviceOps;
-	if (NULL == Device->DeviceFsm)
+	if (NULL == Device->DeviceFsm) {
 		Device->DeviceFsm = &XPmGenericDeviceFsm;
+	}
 
 	Status = SetDeviceNode(Id, Device);
 	if (XST_SUCCESS != Status) {

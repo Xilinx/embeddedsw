@@ -328,18 +328,20 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	Mask = XPmDomainIso_List[IsoIdx].Mask;
 
 	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
-		if(XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH)
+		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
-		else
+		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+		}
 		/* Mark node state appropriately */
 		XPmDomainIso_List[IsoIdx].Node.State = (TRUE_VALUE == Enable) ?
 			(u8)PM_ISOLATION_ON : (u8)PM_ISOLATION_REMOVE_PENDING;
 	} else if(Enable == FALSE_IMMEDIATE) {
-		if(XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH)
+		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
-		else
+		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	} else {
 		Status = XPmDomainIso_CheckDependencies(IsoIdx);
@@ -351,10 +353,11 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			goto done;
 		}
 
-		if(XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH)
+		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
-		else
+		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	}
 

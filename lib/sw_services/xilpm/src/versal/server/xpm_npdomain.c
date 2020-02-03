@@ -115,8 +115,9 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	 */
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
 			if (i == (u32)XPM_NODEIDX_MEMIC_NSU_1 &&
-				SlrType < SLR_TYPE_SSIT_DEV_MASTER_SLR)
+				SlrType < SLR_TYPE_SSIT_DEV_MASTER_SLR) {
 				continue;
+			}
 
 			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET,
 				PCSR_UNLOCK_VAL);
@@ -247,8 +248,9 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN + i));
-		if (NULL != Device)
+		if (NULL != Device) {
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
+		}
 	}
 
 	/* NPD pre bisr requirements - in case if bisr was skipped */
@@ -367,8 +369,9 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN + i));
-		if(NULL != Device)
+		if (NULL != Device) {
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
+		}
 	}
 
 	/* NPD pre bisr requirements */
@@ -391,8 +394,9 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 
 	/* Run BISR */
 	Status = XPmBisr_Repair(DDRMC_TAG_ID);
-	if (Status != XST_SUCCESS)
+	if (Status != XST_SUCCESS) {
 		goto done;
+	}
 
 	/* Disable Bisr clock */
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {

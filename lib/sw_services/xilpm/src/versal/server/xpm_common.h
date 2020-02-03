@@ -79,7 +79,7 @@ extern "C" {
 #define VERIFY(X) \
 	if (!(X)) { \
 		PmErr("Assert failed: %s\n\r", #X); \
-		while (1); \
+		while (1) {}; \
 	}
 #else
 #define VERIFY(X)	assert(X)

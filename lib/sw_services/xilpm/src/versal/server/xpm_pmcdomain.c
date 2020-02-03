@@ -88,10 +88,11 @@ static XStatus PmcXppuCtrl(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if ((1U == Enable) && (3U == NumOfArgs))
+	if ((1U == Enable) && (3U == NumOfArgs)) {
 		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
-	else
+	} else {
 		Status = XPmProt_XppuDisable(XppuNodeId);
+	}
 
 done:
 	return Status;
