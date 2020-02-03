@@ -1227,7 +1227,7 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
 	if (NULL != PinFunc) {
-		memcpy(&RetWord, PinFunc->Name, 4);
+		memcpy((char *)((UINTPTR)&RetWord), &PinFunc->Name[0], 4);
 		memcpy(FuncName, &PinFunc->Name[4], FUNC_QUERY_NAME_LEN);
 	}
 

@@ -750,8 +750,8 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 		goto done;
 	}
 
-	memcpy(&RetWord, Clk->Name, 4);
-	memcpy(Resp, &Clk->Name[4], CLK_QUERY_NAME_LEN);
+	memcpy((char *)((UINTPTR)&RetWord), &Clk->Name, 4);
+	memcpy((char *)((UINTPTR)Resp), &Clk->Name[4], CLK_QUERY_NAME_LEN);
 
 done:
 	return RetWord;
