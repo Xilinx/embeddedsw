@@ -52,6 +52,7 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 

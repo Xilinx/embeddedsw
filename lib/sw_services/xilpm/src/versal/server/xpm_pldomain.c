@@ -160,6 +160,8 @@ static void PldApplyTrim(u32 TrimType)
                 break;
                 default:
                 {
+			/* Added due to MISRA */
+			PmDbg("[%d] Default case in switch\r\n", __LINE__);
                         break;
                 }
         }

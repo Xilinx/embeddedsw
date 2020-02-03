@@ -3565,6 +3565,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 		Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, NULL, NULL);
 		break;
 	default:
+		Status = XST_INVALID_PARAM;
 		break;
 	}
 
@@ -3672,6 +3673,7 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 		Status = XPmMemDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL, StartAddr, EndAddr);
 		break;
 	default:
+		Status = XST_INVALID_PARAM;
 		break;
 	}
 
