@@ -49,7 +49,7 @@ static XStatus XPmBus_IdleBusWait(XIicPs *Iic)
 	u32 Timeout;
 
 	Timeout = 100000;
-	while (XIicPs_BusIsBusy(Iic)) {
+	while (0 != XIicPs_BusIsBusy(Iic)) {
 		usleep(10);
 		Timeout--;
 
@@ -216,7 +216,7 @@ XStatus XPmBus_ReadData(XIicPs *Iic, u8 *Buffer, u16 SlaveAddr,
 	}
 
 	/* Clear repeated start condition to reset hold bit */
-	if (Iic->IsRepeatedStart) {
+	if (0 != Iic->IsRepeatedStart) {
 		XIicPs_ClearOptions(Iic, XIICPS_REP_START_OPTION);
 	}
 

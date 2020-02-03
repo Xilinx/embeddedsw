@@ -403,7 +403,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			if ((u32)XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if clock is enabled */
-				if (1 /* Hack: Clock enabled */) {
+				if (TRUE /* Hack: Clock enabled */) {
 					Node->State = (u8)XPM_DEVSTATE_RST_OFF;
 
 					XPm_PsLpDomain *PsLpd;
@@ -475,7 +475,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			if ((u32)XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if reset is de-asserted */
-				if (1 /* Hack: Reset de-asserted */) {
+				if (TRUE /* Hack: Reset de-asserted */) {
 					XPm_RequiremntUpdate(Device->PendingReqm);
 					Node->State = (u8)XPM_DEVSTATE_RUNNING;
 					Device->PendingReqm = NULL;
@@ -528,7 +528,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			if ((u32)XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if reset is asserted */
-				if (1 /* Hack: asserted */) {
+				if (TRUE /* Hack: asserted */) {
 					Node->State = (u8)XPM_DEVSTATE_CLK_OFF;
 					/* Disable all clocks */
 					Status = SetClocks(Device, 0U);
@@ -547,7 +547,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			if ((u32)XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Check if clock is disabled */
-				if (1 /* Hack: Clock disabled */) {
+				if (TRUE /* Hack: Clock disabled */) {
 					Node->State = (u8)XPM_DEVSTATE_PWR_OFF;
 					Device->WfPwrUseCnt = Device->Power->UseCount - 1U;
 					Status = Device->Power->HandleEvent(
@@ -565,7 +565,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = XST_SUCCESS;
 				Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
 				if (Device->WfPwrUseCnt == Device->Power->UseCount) {
-					if (Device->WfDealloc) {
+					if (1U == Device->WfDealloc) {
 						Device->PendingReqm->Allocated = 0;
 						Device->WfDealloc = 0;
 					}

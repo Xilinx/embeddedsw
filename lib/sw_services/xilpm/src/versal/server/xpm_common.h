@@ -75,16 +75,6 @@ extern "C" {
 	XPlmi_Printf(DEBUG_DETAILED, "[DEBUG] %s: ", __func__); \
 	XPlmi_Printf(DEBUG_DETAILED, __VA_ARGS__)
 
-#ifdef __MICROBLAZE__
-#define VERIFY(X) \
-	if (!(X)) { \
-		PmErr("Assert failed at line: %d\n\r", __LINE__); \
-		while (1) {}; \
-	}
-#else
-#define VERIFY(X)	assert(X)
-#endif
-
 #ifdef DEBUG_REG_IO
 
 #define PmIn32(ADDR, VAL) \

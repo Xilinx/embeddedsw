@@ -313,7 +313,7 @@ void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 	u32 DevRstDataSize = ARRAY_SIZE(DeviceRstData);
 	XPmDevice_SoftResetInfo *RstInfo = NULL;
 
-	if (DevRstDataSize) {
+	if (0U != DevRstDataSize) {
 		for (Idx = 0; Idx < DevRstDataSize; Idx++) {
 			if (Device->Node.Id == DeviceRstData[Idx].DeviceId) {
 				RstInfo = &DeviceRstData[Idx];

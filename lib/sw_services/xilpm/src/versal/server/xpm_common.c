@@ -67,7 +67,6 @@ void *XPm_AllocBytes(u32 Size)
 	}
 
 done:
-	VERIFY(Bytes != NULL);
 	return Bytes;
 }
 

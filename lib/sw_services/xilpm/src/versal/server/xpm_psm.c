@@ -48,7 +48,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 
 	/* Set reset address */
 	if (1U == SetAddress) {
-		if (Address) {
+		if (0U != Address) {
 			PmWarn("Handoff address is not used for PSM.\r\n");
 		}
 		Status = XST_INVALID_PARAM;

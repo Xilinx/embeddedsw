@@ -103,11 +103,18 @@ static u32 CurrentSubsystemId = INVALID_SUBSYSID;
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 {
 	XPm_Subsystem *Subsystem;
+	u32 IpiMaskVal = 0;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	VERIFY(SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX);
+	if (SubSysIdx >= (u32)XPM_NODEIDX_SUBSYS_MAX) {
+		goto done;
+	}
+
 	Subsystem = &PmSubsystems[SubSysIdx];
-	return Subsystem->IpiMask;
+	IpiMaskVal = Subsystem->IpiMask;
+
+done:
+	return IpiMaskVal;
 }
 
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
@@ -154,7 +161,9 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 	XPm_Subsystem *Subsystem;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	VERIFY(SubSysIdx < (u32)XPM_NODEIDX_SUBSYS_MAX);
+	if (SubSysIdx >= (u32)XPM_NODEIDX_SUBSYS_MAX) {
+		goto done;
+	}
 	Subsystem = &PmSubsystems[SubSysIdx];
 
         Status = XPmRequirement_Release(Subsystem->Requirements, RELEASE_ALL);
@@ -165,6 +174,7 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
         /* Unregister all notifiers for this subsystem */
 	XPmNotifier_UnregisterAll(Subsystem);
 
+done:
         return Status;
 }
 

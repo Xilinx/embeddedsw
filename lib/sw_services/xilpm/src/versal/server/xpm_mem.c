@@ -249,7 +249,7 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 			Base -= XPM_TCM_BASEADDRESS_MODE_OFFSET;
 		}
 	}
-	if (Size) {
+	if (0U != Size) {
 		XPlmi_EccInit(Base, Size);
 	}
 	return;

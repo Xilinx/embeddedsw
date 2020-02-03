@@ -163,7 +163,7 @@ static XStatus XPmBoard_MuxConfigure(XIicPs *Iic, u16 MuxAddr, u8 Channel)
 	 * Wait for idle bus and check for arbitration
 	 */
 	do {
-		while (XIicPs_BusIsBusy(Iic)) {};
+		while (0 != XIicPs_BusIsBusy(Iic)) {};
 
 		Status = XIicPs_MasterSendPolled(Iic, WriteBuffer, 1, MuxAddr);
 

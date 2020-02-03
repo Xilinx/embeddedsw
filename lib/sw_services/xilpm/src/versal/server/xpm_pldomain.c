@@ -175,8 +175,7 @@ XStatus PldCfuInit()
 	XStatus Status = XST_FAILURE;
 	XCfupmc_Config *Config;
 
-	if(CfupmcIns.IsReady)
-	{
+	if (0U != CfupmcIns.IsReady) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -212,7 +211,7 @@ static XStatus PldCframeInit()
         XStatus Status = XST_FAILURE;
         XCframe_Config *Config;
 
-        if(CframeIns.IsReady) {
+        if (0U != CframeIns.IsReady) {
                 Status = XST_SUCCESS;
 		goto done;
         }

@@ -105,7 +105,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			if ((u32)XPM_NODECLASS_POWER == NODECLASS(SubsystemId)) {
 				SubsystemId = PM_SUBSYS_PMC;
 			}
-		} else if(Cmd->IpiMask) {
+		} else if (0U != Cmd->IpiMask) {
 			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
 			PmDbg("Using subsystemId mapped to IPI: 0x%x\n\r", SubsystemId);
 		} else {
@@ -481,7 +481,7 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	 * Clear DomainInitStatusReg in case of internal PMC_POR. Since PGGS0
 	 * value is not cleared in case of internal POR.
 	 */
-	if (ResetReason & PmcIPORMask) {
+	if (0U != (ResetReason & PmcIPORMask)) {
 		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0);
 	}
 
@@ -1102,7 +1102,11 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			Status = XPM_PM_INVALID_NODE;
 			goto done;
 		}
-		VERIFY((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId));
+
+		if ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) {
+			Status = XPM_PM_INVALID_NODE;
+			goto done;
+		}
 
 		/*
 		 * PMC power domain can not be powered off.
@@ -1224,8 +1228,6 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 		XPmSubsystem_SetState(SubsystemId, (u32)POWERED_OFF);
 		goto done;
 	}
-
-	VERIFY(PM_SHUTDOWN_TYPE_RESET == Type);
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:

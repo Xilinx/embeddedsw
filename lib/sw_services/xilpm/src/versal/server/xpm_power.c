@@ -269,7 +269,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		    (PLATFORM_VERSION_SILICON == Platform) &&
 		    ((u32)XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
 		    (0U == (LPD_BISR_DONE & LpDomain->LpdBisrFlags))) {
-			if (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags) {
+			if (0U != (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags)) {
 				Status = XPmBisr_TriggerLpd();
 			} else {
 				Status = XPmBisr_Repair(LPD_TAG_ID);
@@ -423,7 +423,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Read PSM status register */
-				if (1 /* Hack: Power node is up */) {
+				if (TRUE /* Hack: Power node is up */) {
 					Node->State = (u8)XPM_POWER_STATE_ON;
 					Power->UseCount++;
 				} else {
@@ -463,7 +463,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
 				/* Todo: Read PSM status register */
-				if (1 /* Hack: Power node is down */) {
+				if (TRUE /* Hack: Power node is down */) {
 					Power->UseCount--;
 					if (NULL != Power->Parent) {
 						Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_PARENT;

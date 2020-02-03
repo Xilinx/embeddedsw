@@ -247,12 +247,12 @@ XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 		}
 	}
 
-	if (Pll->Context.Flag & PM_PLL_CONTEXT_SAVED) {
+	if (0U != (Pll->Context.Flag & PM_PLL_CONTEXT_SAVED)) {
 		XPm_PllRestoreContext(Pll);
 	}
 
 	/* By saved configuration PLL is in reset, leave it as is */
-	if (Pll->Context.Ctrl & BIT32(Pll->Topology->ResetShift)) {
+	if (0U != (Pll->Context.Ctrl & BIT32(Pll->Topology->ResetShift))) {
 		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
 		Status = XST_SUCCESS;
 	} else {
@@ -315,7 +315,7 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 	XStatus Status = XST_FAILURE;
 	u32 ControlReg = Pll->ClkNode.Node.BaseAddress;
 
-	if (Flags & PLL_RESET_ASSERT) {
+	if (0U != (Flags & PLL_RESET_ASSERT)) {
 		/* Bypass PLL before putting it into the reset */
 		XPm_RMW32(ControlReg, BIT32(Pll->Topology->BypassShift),
 			   BIT32(Pll->Topology->BypassShift));
@@ -345,7 +345,7 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 				  0x1U << PLL_REG3_CP_RES_H_SHIFT);
 		}
 	}
-	if (Flags & PLL_RESET_RELEASE) {
+	if (0U != (Flags & PLL_RESET_RELEASE)) {
 		/* Deassert the reset */
 		XPm_RMW32(ControlReg, BIT32(Pll->Topology->ResetShift),
 			   ~BIT32(Pll->Topology->ResetShift));

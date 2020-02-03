@@ -621,7 +621,7 @@ XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 
 	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Enable << Ptr->Param1.Shift);
 
-	if (Enable) {
+	if (1U == Enable) {
 		Clk->ClkNode.Node.State |= XPM_CLK_STATE_ON;
 	} else {
 		Clk->ClkNode.Node.State &= (u8)(~(XPM_CLK_STATE_ON));
@@ -882,7 +882,7 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	}
 
 	//if (PLATFORM_VERSION_SILICON != Platform) {
-	if (1) {
+	if (TRUE) {
 		/*
 		 * Mark CPM related clock as invalid because their registers
 		 * are not accessible from PS DDR SPP.
