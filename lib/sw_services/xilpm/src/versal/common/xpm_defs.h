@@ -399,6 +399,8 @@ enum XPmNotifyEvent {
 /* PM API versions */
 #define XST_API_BASE_VERSION		(1U)
 
+#define XST_API_QUERY_DATA_VERSION	(2U)
+
 /* PM API ids */
 #define PM_GET_API_VERSION              1U
 #define PM_SET_CONFIGURATION            2U

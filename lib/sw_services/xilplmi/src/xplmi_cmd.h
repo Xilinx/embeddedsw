@@ -57,7 +57,7 @@ extern "C" {
 #define XPLMI_CMD_API_ID_MASK			(0xFFU)
 #define XPLMI_CMD_MODULE_ID_MASK		(0xFF00U)
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
-#define XPLMI_CMD_RESP_SIZE			(4U)
+#define XPLMI_CMD_RESP_SIZE			(8U)
 #define XPLMI_CMD_RESUME_DATALEN			(8U)
 
 /**************************** Type Definitions *******************************/

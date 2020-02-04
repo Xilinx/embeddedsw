@@ -80,7 +80,7 @@ static XPlmi_Module XPlmi_Pm =
 
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
-	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0, 0, 0};
+	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
 	int Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem = NULL;
 	u32 SubsystemId = INVALID_SUBSYSID;
@@ -309,22 +309,6 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	/* First word of the response is status */
 	Cmd->Response[0] = (u32)Status;
 	XPlmi_MemCpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
-
-	/*
-	 * XPM_QID_CLOCK_GET_NAME and XPM_QID_PINCTRL_GET_FUNCTION_NAME store part
-	 * of their clock names in Status variable which is stored in response.
-	 * So this value should not be treated as error code.
-	 * Consider error only if clock name is not found.
-	 */
-	if ((PM_QUERY_DATA == (Cmd->CmdId & 0xFFU)) &&
-	   (((u32)XPM_QID_CLOCK_GET_NAME == Pload[0]) ||
-	   ((u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME == Pload[0]))) {
-		if (0U == Cmd->Response[0]) {
-			Status = XPM_INVALID_NAME;
-		} else {
-			Status = XST_SUCCESS;
-		}
-	}
 
 	if (Status == XST_SUCCESS) {
 		Cmd->ResumeHandler = NULL;
@@ -4400,7 +4384,6 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_PINCTRL_CONFIG_PARAM_GET:
 	case PM_PINCTRL_CONFIG_PARAM_SET:
 	case PM_IOCTL:
-	case PM_QUERY_DATA:
 	case PM_CLOCK_ENABLE:
 	case PM_CLOCK_DISABLE:
 	case PM_CLOCK_GETSTATE:
@@ -4423,6 +4406,10 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_INIT_NODE:
 	case PM_FEATURE_CHECK:
 		*Version = XST_API_BASE_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_QUERY_DATA:
+		*Version = XST_API_QUERY_DATA_VERSION;
 		Status = XST_SUCCESS;
 		break;
 	default:

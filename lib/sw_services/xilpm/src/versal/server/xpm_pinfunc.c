@@ -26,7 +26,7 @@
 
 #include "xpm_pinfunc.h"
 
-#define FUNC_QUERY_NAME_LEN	(FUNC_NAME_SIZE - 4U)
+#define FUNC_QUERY_NAME_LEN	(FUNC_NAME_SIZE)
 
 /* TODO: Each function can not be mapped with their corresponding
  *       device. Keeping those devIdx as 0.
@@ -1220,18 +1220,21 @@ XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs)
  ****************************************************************************/
 XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 {
-	u32 RetWord = 0;
+	XStatus Status = XST_FAILURE;
 	XPm_PinFunc *PinFunc = NULL;
 
 	memset(FuncName, 0, FUNC_QUERY_NAME_LEN);
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
-	if (NULL != PinFunc) {
-		memcpy((char *)((UINTPTR)&RetWord), &PinFunc->Name[0], 4);
-		memcpy(FuncName, &PinFunc->Name[4], FUNC_QUERY_NAME_LEN);
+	if (NULL == PinFunc) {
+		goto done;
 	}
 
-	return (XStatus)RetWord;
+	memcpy(FuncName, &PinFunc->Name[0], FUNC_QUERY_NAME_LEN);
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
 }
 
 /****************************************************************************/

@@ -30,7 +30,7 @@
 #include "xpm_device.h"
 
 /* Query related defines */
-#define CLK_QUERY_NAME_LEN		(MAX_NAME_BYTES - 4U)
+#define CLK_QUERY_NAME_LEN		(MAX_NAME_BYTES)
 #define CLK_INIT_ENABLE_SHIFT		1U
 #define CLK_TYPE_SHIFT			2U
 #define CLK_NODETYPE_SHIFT		14U
@@ -739,7 +739,7 @@ done:
 
 XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
-	XStatus RetWord = 0;
+	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
 	memset(Resp, 0, CLK_QUERY_NAME_LEN);
 
@@ -748,11 +748,11 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 		goto done;
 	}
 
-	memcpy((char *)((UINTPTR)&RetWord), &Clk->Name, 4);
-	memcpy((char *)((UINTPTR)Resp), &Clk->Name[4], CLK_QUERY_NAME_LEN);
+	memcpy(Resp, &Clk->Name[0], CLK_QUERY_NAME_LEN);
 
+	Status = XST_SUCCESS;
 done:
-	return RetWord;
+	return Status;
 }
 
 XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
