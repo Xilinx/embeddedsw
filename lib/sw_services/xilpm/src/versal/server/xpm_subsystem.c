@@ -335,9 +335,18 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 		goto done;
 	}
 
-	/*Warning Fix*/
-	(void) (NodeId);
-
+	if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
+		if ((u32)XPM_NODEIDX_SUBSYS_MAX <= NODEINDEX(NodeId)) {
+			goto done;
+		}
+		/* Check that force powerdown is not for self */
+		if (SubSysIdx == NODEINDEX(NodeId)) {
+			goto done;
+		}
+		if ((PM_SUBSYS_PMC == NodeId)) {
+			goto done;
+		}
+	}
 	/*TODO: Add validation based on permissions defined by user*/
 	/* No permission should return XPM_PM_NO_ACCESS */
 

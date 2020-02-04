@@ -1042,12 +1042,13 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 	XPm_Core *Core;
 	XPm_Device *Device;
 	XPm_Power *Power;
-	u32 TargetSubsystemId;
 	XPm_Requirement *Reqm;
 	u32 i;
 	XPm_Power *Acpu0PwrNode = XPmPower_GetById(PM_POWER_ACPU_0);
 	XPm_Power *Acpu1PwrNode = XPmPower_GetById(PM_POWER_ACPU_1);
 	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
+	XPm_Subsystem *TargetSubsystem = NULL;
+	u32 DeviceId = 0U;
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -1072,30 +1073,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 		} else {
 			Status = XST_FAILURE;
 			goto done;
-		}
-
-		Reqm = Core->Device.Requirements;
-		while (NULL != Reqm) {
-			if (1U == Reqm->Allocated) {
-				TargetSubsystemId = Reqm->Subsystem->Id;
-				if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(TargetSubsystemId)) {
-					/* Idle the subsystem */
-					Status = XPmSubsystem_Idle(TargetSubsystemId);
-					if(XST_SUCCESS != Status) {
-						Status = XPM_ERR_SUBSYS_IDLE;
-						goto done;
-					}
-
-					Status = XPmSubsystem_ForceDownCleanup(TargetSubsystemId);
-					if(XST_SUCCESS != Status) {
-						Status = XPM_ERR_CLEANUP;
-						goto done;
-					}
-
-					XPmSubsystem_SetState(TargetSubsystemId, (u32)POWERED_OFF);
-				}
-			}
-			Reqm = Reqm->NextSubsystem;
 		}
 
 		/* Do APU GIC pulse reset if All the cores are in Power OFF
@@ -1166,6 +1143,39 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 				Power = Power->Parent;
 			}
 		}
+	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
+		TargetSubsystem = XPmSubsystem_GetById(NodeId);
+		if (NULL == TargetSubsystem) {
+			Status = XPM_INVALID_SUBSYSID;
+			goto done;
+		}
+		Reqm = TargetSubsystem->Requirements;
+		while (NULL != Reqm) {
+			if ((1U == Reqm->Allocated) &&
+			    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id))) {
+				DeviceId = Reqm->Device->Node.Id;
+				Status = XPm_ForcePowerdown(SubsystemId, DeviceId, 0U);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
+			Reqm = Reqm->NextDevice;
+		}
+		/* Idle the subsystem */
+		Status = XPmSubsystem_Idle(TargetSubsystem->Id);
+		if(XST_SUCCESS != Status) {
+			Status = XPM_ERR_SUBSYS_IDLE;
+			goto done;
+		}
+
+		Status = XPmSubsystem_ForceDownCleanup(TargetSubsystem->Id);
+		if(XST_SUCCESS != Status) {
+			Status = XPM_ERR_CLEANUP;
+			goto done;
+		}
+
+		XPmSubsystem_SetState(TargetSubsystem->Id, (u32)POWERED_OFF);
+
 	} else {
 		Status = XPM_PM_INVALID_NODE;
 	}
