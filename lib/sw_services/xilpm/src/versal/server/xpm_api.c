@@ -1045,6 +1045,9 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 	u32 TargetSubsystemId;
 	XPm_Requirement *Reqm;
 	u32 i;
+	XPm_Power *Acpu0PwrNode = XPmPower_GetById(PM_POWER_ACPU_0);
+	XPm_Power *Acpu1PwrNode = XPmPower_GetById(PM_POWER_ACPU_1);
+	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -1093,6 +1096,23 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 				}
 			}
 			Reqm = Reqm->NextSubsystem;
+		}
+
+		/* Do APU GIC pulse reset if All the cores are in Power OFF
+		 * state and FPD in Power ON state.
+		 * Now APU has two core as ACPU0 and ACPU1.
+		 */
+		if (((PM_DEV_ACPU_0 == NodeId) || (PM_DEV_ACPU_1 == NodeId)) &&
+		    (NULL != Acpu0PwrNode) && (NULL != Acpu1PwrNode) &&
+		    (NULL != FpdPwrNode)) {
+			if (((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State) &&
+			    ((u8)XPM_POWER_STATE_OFF == Acpu0PwrNode->Node.State) &&
+			    ((u8)XPM_POWER_STATE_OFF == Acpu1PwrNode->Node.State)) {
+				Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, PM_RESET_ACTION_PULSE);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
 		}
 
 	} else if ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
