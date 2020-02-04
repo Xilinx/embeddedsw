@@ -130,8 +130,9 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 	}
 
 	while (NULL != Reqm) {
-		if (((RELEASE_ALL == Scope) && (1U == Reqm->Allocated)) ||
-		    ((RELEASE_UNREQUESTED == Scope) && (0U == Reqm->Allocated))) {
+		if ((((RELEASE_ALL == Scope) && (1U == Reqm->Allocated)) ||
+		     ((RELEASE_UNREQUESTED == Scope) && (0U == Reqm->Allocated))) &&
+		     ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Reqm->Device->Node.Id))) {
 			Status = XPmDevice_Release(Reqm->Subsystem->Id, Reqm->Device->Node.Id);
 			if (XST_SUCCESS != Status) {
 				goto done;
