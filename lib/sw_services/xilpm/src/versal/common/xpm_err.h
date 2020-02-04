@@ -133,6 +133,8 @@ extern "C" {
 							   passed to func */
 #define XPM_ERR_SUBSYS_IDLE                      0x2037 /* Unable to idle subs-
 							   ystem */
+#define XPM_ERR_SUBSYS_NOTFOUND			 0x2038 /* Unable to Find subs-
+							   ystem */
 
 /******************************* Device Errors **************************/
 /****************************** 0x2046 - 0x2055 *************************/

@@ -976,7 +976,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
-	u32 CoreSubsystemId;
+	u32 CoreSubsystemId, CoreDeviceId;
 	XPm_Requirement *Reqm;
 
 	/* Warning Fix */
@@ -989,19 +989,41 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-	if (NULL == Core->CoreOps->RequestWakeup) {
-		Status = XPM_ERR_WAKEUP;
-		goto done;
+	/* TODO: Add Support of request wakeup subsystem by subsystemId
+	 * for FPD OFF case, currently subsystem wakeup is support only
+	 * for FPD ON case.
+	 */
+	switch (NODECLASS(DeviceId))
+	{
+		case (u32)XPM_NODECLASS_SUBSYSTEM:
+			CoreSubsystemId = DeviceId;
+			Status = XLoader_RestartImage(CoreSubsystemId);
+			break;
+		case (u32)XPM_NODECLASS_DEVICE:
+			CoreDeviceId = DeviceId;
+			Core = (XPm_Core *)XPmDevice_GetById(CoreDeviceId);
+			if ((NULL == Core) ||
+			    (NULL == Core->CoreOps->RequestWakeup)) {
+				Status = XPM_ERR_WAKEUP;
+				break;
+			}
+			CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+			if (INVALID_SUBSYSID == CoreSubsystemId) {
+				Status = XPM_ERR_SUBSYS_NOTFOUND;
+				break;
+			}
+			Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
+			if (XST_SUCCESS == Status) {
+				XPmSubsystem_SetState(CoreSubsystemId, ONLINE);
+			}
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
 	}
-
-	Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
-	CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
-	XPmSubsystem_SetState(CoreSubsystemId, (u32)ONLINE);
 
 	/* If subsystem is using DDR, disable self-refresh */
 	Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, CoreSubsystemId);
