@@ -98,9 +98,12 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 		goto done;
 	}
 
-	/* Remove POR for CPM5
-	 * Topology is not passing reset register value for CPM5 */
-	/* Status = XPmReset_AssertbyId(PM_RST_CPM_POR, (u32)PM_RESET_ACTION_RELEASE); */
+	/* Remove POR for CPM5 */
+	/* lpd_cpm5_por_n reset maps to PM_RST_OCM2_POR */
+	Status = XPmReset_AssertbyId(PM_RST_OCM2_POR, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Remove isolation between CPM5 and LPD */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX, FALSE_VALUE);
