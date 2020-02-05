@@ -238,15 +238,11 @@ static u32 PmFpdPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
-	status = XPfw_UtilPollForMask((u32)&var, ~var,
-				      PM_FPD_POWER_SUPPLYCHECK_TIMEOUT);
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
+	(void)XPfw_UtilPollForMask((u32)&var, ~var,
+				   PM_FPD_POWER_SUPPLYCHECK_TIMEOUT);
 
 	status = RomHandler();
 
-done:
 	return status;
 }
 
@@ -266,15 +262,11 @@ static u32 PmPldPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
-	status = XPfw_UtilPollForMask((u32)&var, ~var,
-				      PM_PLD_POWER_SUPPLYCHECK_TIMEOUT);
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
+	(void)XPfw_UtilPollForMask((u32)&var, ~var,
+				   PM_PLD_POWER_SUPPLYCHECK_TIMEOUT);
 
 	status = RomHandler();
 
-done:
 	return status;
 }
 
