@@ -151,8 +151,6 @@ END:
 void XPlm_PrintPlmBanner(void )
 {
 	u32 Version;
-	u32 PlatformVersion;
-	u32 Platform;
 	u32 PsVersion;
 	u32 PmcVersion;
 	static u8 IsBannerPrinted = FALSE;
@@ -169,33 +167,13 @@ void XPlm_PrintPlmBanner(void )
 
 		/* Read the Version */
 		Version = XPlmi_In32(PMC_TAP_VERSION);
-		PlatformVersion = ((Version & 
-				PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-				PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
-		Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
-				PMC_TAP_VERSION_PLATFORM_SHIFT);
 		PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
 				PMC_TAP_VERSION_PS_VERSION_SHIFT);
 		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
 				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-		switch (Platform) {
-			case PMC_TAP_VERSION_SILICON:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Silicon: ");
-				break;
-			case PMC_TAP_VERSION_SPP:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "SPP: ");
-				break;
-			case PMC_TAP_VERSION_EMU:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "EMU: ");
-				break;
-			case PMC_TAP_VERSION_QEMU:
-				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "QEMU: ");
-				break;
-			default:
-				break;
-		}
 
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "v%d, ", PlatformVersion);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%d.%d ",
+					(PmcVersion/16), (PmcVersion%16));
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC: v%d.%d, ",
 					(PmcVersion/16), PmcVersion%16);
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PS: v%d.%d",

@@ -808,12 +808,6 @@ void XPlmi_DumpRegisters()
 		      XPlmi_In32(PMC_GLOBAL_GICP3_IRQ_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICP4 IRQ Status: 0x%08x\n\r",
 		      XPlmi_In32(PMC_GLOBAL_GICP4_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP5 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP5_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP6 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP6_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP7 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP7_IRQ_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICPPMC IRQ Status: 0x%08x\n\r",
 		      XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS));
 
