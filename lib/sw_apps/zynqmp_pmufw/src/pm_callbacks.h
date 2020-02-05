@@ -44,7 +44,7 @@ extern "C" {
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
-		PmWarn("Error in IPI write message\r\n")			\
+		PmWarn("Error in IPI write message\r\n");			\
 	}									\
 }
 
@@ -54,7 +54,7 @@ extern "C" {
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
-		PmWarn("Error in IPI write message\r\n")			\
+		PmWarn("Error in IPI write message\r\n");			\
 	}									\
 }
 
@@ -64,7 +64,7 @@ extern "C" {
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
-		PmWarn("Error in IPI write message\r\n")			\
+		PmWarn("Error in IPI write message\r\n");			\
 	}									\
 }
 
@@ -74,7 +74,7 @@ extern "C" {
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
-		PmWarn("Error in IPI write message\r\n")			\
+		PmWarn("Error in IPI write message\r\n");			\
 	}									\
 }
 
@@ -84,7 +84,7 @@ extern "C" {
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
-		PmWarn("Error in IPI write message\r\n")			\
+		PmWarn("Error in IPI write message\r\n");			\
 	}									\
 }
 
