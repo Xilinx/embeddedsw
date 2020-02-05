@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -733,7 +733,8 @@ u32 XFsbl_ComputeLpDdrParams(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 }
 
 #if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-		|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216))
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208))
 /*****************************************************************************/
 /**
  * This function computes DIMM parameters based upon the SPD information.
@@ -1909,7 +1910,8 @@ static u32 XFsbl_DdrcCalcDdr4RegVal(XFsbl_DimmParams *PDimmPtr, u32 *DdrCfg)
 }
 
 #if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-		|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216))
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208))
 /*****************************************************************************/
 /**
  * This function calculates the DDRC register values for DDR3
@@ -2980,7 +2982,8 @@ static void XFsbl_DdrcRegsWrite(XFsbl_DimmParams *PDimmPtr, u32 *DdrCfg)
 }
 
 #if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-		|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216))
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208))
 /*****************************************************************************/
 /**
  * This function calculates and writes DDR controller registers
@@ -3450,7 +3453,8 @@ static u32 XFsbl_PhyCalcDdr4RegVal(XFsbl_DimmParams *PDimmPtr, u32 *PhyCfg)
 }
 
 #if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216))
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208))
 /*****************************************************************************/
 /**
  * This function calculates the PHY register values for DDR3
@@ -5209,7 +5213,8 @@ static void XFsbl_PhyRegsWrite(XFsbl_DimmParams *PDimmPtr, u32 *PhyCfg)
 }
 
 #if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-		|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216))
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208))
 /*****************************************************************************/
 /**
  * This function calculates and writes the DDR-PHY registers
@@ -6532,7 +6537,8 @@ static void XFsbl_InitilizeDdrParams(struct DdrcInitData *DdrDataPtr)
 }
 
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-		|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216)
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208)
 /*****************************************************************************/
 /**
  * This function calculates and writes DDR controller registers
@@ -6846,8 +6852,8 @@ u32 XFsbl_DdrInit(void)
 	u32 Status;
 	u8 SpdData[512U];
 #if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216)) \
-	|| defined(XFSBL_ENABLE_DDR_SR)
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208)) || defined(XFSBL_ENABLE_DDR_SR)
 	u32 RegVal;
 #endif
 
@@ -6865,9 +6871,10 @@ u32 XFsbl_DdrInit(void)
 	}
 
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-		|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216)
-	/* ZCU102, ZCU106 and ZCU111 Boards have support only for DDR4
-	 * DIMMs. Skip checking for DDR type for these boards.
+	|| defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU216) \
+	|| defined(XPS_BOARD_ZCU208)
+	/* ZCU102, ZCU106 and ZCU111, ZCU216 and ZCU208 Boards have support
+	 * only for DDR4 DIMMs. Skip checking for DDR type for these boards.
 	 */
 	Status = XFsbl_Ddr4Init(SpdData, &DdrData);
 	if (XFSBL_SUCCESS != Status) {
