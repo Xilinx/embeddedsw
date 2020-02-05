@@ -37,6 +37,7 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  mg   10/08/2018 Initial release
+* 1.01  mg   04/02/2020 Remove defines which are already part of pmc_global.h
 *
 * </pre>
 *
@@ -155,7 +156,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 
 	(void )CallbackRef;
 
-	GicPIntrStatus = XPlmi_In32(XPLMI_GICP_IRQ_STATUS);
+	GicPIntrStatus = XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS);
 	XPlmi_Printf(DEBUG_DETAILED,
 		     "GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
 
@@ -163,9 +164,9 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 
 		if (GicPIntrStatus & (1U << GicIndex)) {
 			GicPNIntrStatus =
-			  XPlmi_In32(XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14));
+			  XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicIndex*0x14));
 			GicPNIntrMask =
-			  XPlmi_In32(XPLMI_GICP0_IRQ_MASK + (GicIndex*0x14));
+			  XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_MASK + (GicIndex*0x14));
 			XPlmi_Printf(DEBUG_DETAILED,
 				     "GicP%d Intr Status: 0x%x\r\n",
 				     GicIndex, GicPNIntrStatus);
@@ -184,13 +185,13 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 						XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled GIC interrupt received\n\r", __func__);
 					}
 
-					XPlmi_Out32((XPLMI_GICP0_IRQ_STATUS +
+					XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_STATUS +
 						    (GicIndex*0x14U)),
 						    (1U<<GicPIndex));
 
 				}
 			}
-			XPlmi_Out32(XPLMI_GICP_IRQ_STATUS, (1U << GicIndex));
+			XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, (1U << GicIndex));
 		}
 	}
 

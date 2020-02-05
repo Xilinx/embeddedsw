@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  mg   10/08/2018 Initial release
+* 1.01  mg   04/02/2020 Remove defines which are already part of pmc_global.h
 *
 * </pre>
 *
@@ -55,9 +56,6 @@ extern "C" {
 #include "xplmi_ipi.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_GICP_IRQ_STATUS				0xF11400A0
-#define XPLMI_GICP0_IRQ_STATUS				0xF1140000
-#define XPLMI_GICP0_IRQ_MASK				0xF1140004
 #define XPLMI_GICP_SOURCE_COUNT				0x5
 #define XPLMI_NO_OF_BITS_IN_REG				32U
 
