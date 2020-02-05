@@ -49,6 +49,7 @@
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 *       sk   08/08/19 Added flash device reset support.
 *       sk   08/16/19 Set Read Delay Fld to 0x1 for Non-Phy mode.
+* 1.2   sk   02/03/20 Added APIs for non-blocking transfer support.
 *
 * </pre>
 *
@@ -239,7 +240,7 @@ typedef struct {
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
 u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, const XOspiPsv_Config *ConfigPtr);
-void XOspiPsv_Reset(const XOspiPsv *InstancePtr);
+void XOspiPsv_Reset(XOspiPsv *InstancePtr);
 /* Configuration functions */
 u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler);
 u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select);
@@ -254,6 +255,8 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
 void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode);
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_DeviceReset(u8 Type);
+u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

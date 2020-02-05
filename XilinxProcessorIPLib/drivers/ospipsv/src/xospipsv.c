@@ -48,6 +48,7 @@
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 * 1.1   mus  07/31/19 Added CCI support at EL1 NS
 *       sk   08/08/19 Added flash device reset support.
+* 1.2   sk   02/03/20 Added APIs for non-blocking transfer support.
 *
 * </pre>
 *
@@ -63,6 +64,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define MAX_DELAY_CNT	10000U
 
 /************************** Function Prototypes ******************************/
 static inline u32 XOspiPsv_Process_Read_Write(XOspiPsv *InstancePtr,
@@ -96,6 +98,7 @@ static inline void XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr);
 static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr);
 static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr);
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent);
+static u32 XOspiPsv_CheckOspiIdle(XOspiPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -192,10 +195,11 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-void XOspiPsv_Reset(const XOspiPsv *InstancePtr)
+void XOspiPsv_Reset(XOspiPsv *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	InstancePtr->IsBusy = FALSE;
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 			XOSPIPSV_CONFIG_INIT_VALUE);
 
@@ -425,6 +429,171 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 	InstancePtr->IsBusy = FALSE;
 
+ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function start a DMA transfer.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if transfer fails.
+*		- XST_DEVICE_BUSY if a transfer is already in progress.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+{
+	u32 Status;
+	u32 ReadReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Msg != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Check whether there is another transfer in progress */
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = (u32)XST_DEVICE_BUSY;
+		goto ERROR_PATH;
+	}
+
+	if ((Msg->Flags != XOSPIPSV_MSG_FLAG_RX) ||
+			(InstancePtr->OpMode != XOSPIPSV_IDAC_MODE)) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
+	}
+
+	/*
+	 * Set the busy flag, which will be cleared when the transfer is
+	 * entirely done.
+	 */
+	InstancePtr->IsBusy = TRUE;
+	InstancePtr->Msg = Msg;
+
+	XOspiPsv_Enable(InstancePtr);
+	XOspiPsv_AssertCS(InstancePtr);
+
+	Status = XOspiPsv_CheckOspiIdle(InstancePtr);
+	if (Status != (u32)XST_SUCCESS) {
+		XOspiPsv_DeAssertCS(InstancePtr);
+		XOspiPsv_Disable(InstancePtr);
+		goto ERROR_PATH;
+	}
+
+	XOspiPsv_Setup_Devsize(InstancePtr, Msg);
+	XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
+
+	InstancePtr->RxBytes = Msg->ByteCount;
+	InstancePtr->SendBufferPtr = NULL;
+	InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
+
+	XOspiPsv_Config_Dma(InstancePtr,Msg);
+	XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
+
+	/* Start the transfer */
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG);
+	ReadReg |= (XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_START_FLD_MASK);
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG, (ReadReg));
+
+	Status = (u32)XST_SUCCESS;
+ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function check for DMA transfer complete.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+*
+* @return
+*		- XST_SUCCESS if DMA transfer complete.
+*		- XST_FAILURE if DMA transfer is not completed.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
+{
+	u32 Status;
+	u32 ReadReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_I_STS);
+	if ((ReadReg & XOSPIPSV_OSPIDMA_DST_I_STS_DONE_MASK) == 0U) {
+		Status = (u32)XST_FAILURE;
+		goto ERROR_PATH;
+	}
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_OSPIDMA_DST_I_STS,
+		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_OSPIDMA_DST_I_STS));
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
+		(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
+
+	Status = XOspiPsv_CheckOspiIdle(InstancePtr);
+
+	XOspiPsv_DeAssertCS(InstancePtr);
+	XOspiPsv_Disable(InstancePtr);
+
+	InstancePtr->IsBusy = FALSE;
+
+ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Check for OSPI idle which means Serial interface and low level SPI pipeline
+* is IDLE.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fails.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32 XOspiPsv_CheckOspiIdle(XOspiPsv *InstancePtr)
+{
+	u32 ReadReg;
+	u32 Status;
+	u32 DelayCount;
+
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_CONFIG_REG);
+	DelayCount = 0U;
+	while ((ReadReg & XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK) == 0U) {
+		if (DelayCount == MAX_DELAY_CNT) {
+			Status = XST_FAILURE;
+			goto ERROR_PATH;
+		} else {
+			/* Wait for 1 usec */
+			usleep(1);
+			DelayCount++;
+			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_CONFIG_REG);
+		}
+	}
+
+	Status = (u32)XST_SUCCESS;
 ERROR_PATH:
 	return Status;
 }
