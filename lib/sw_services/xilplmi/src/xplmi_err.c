@@ -35,6 +35,8 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  kc   02/12/2019 Initial release
+* 1.01  ma   05/02/2020 Remove SRST error action for PSM errors as it is
+*                       de-featured
 *
 * </pre>
 *
@@ -377,7 +379,6 @@ int XPlmi_EmDisable(u32 ErrorId)
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_DIS, RegMask);
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_SRST1_DIS, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	case XPM_NODETYPE_EVENT_PSM_ERR2:
@@ -385,7 +386,6 @@ int XPlmi_EmDisable(u32 ErrorId)
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ2_DIS, RegMask);
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_SRST2_DIS, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -463,14 +463,6 @@ static int XPlmi_EmEnableSRST(u32 ErrorId)
 		break;
 	case XPM_NODETYPE_EVENT_PMC_ERR2:
 		XPlmi_Out32(PMC_GLOBAL_PMC_SRST2_EN, RegMask);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR1:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_SRST1_EN, RegMask);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR2:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_SRST2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -726,7 +718,6 @@ int XPlmi_PsEmInit(void)
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_DIS, MASK32_ALL_HIGH);
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_DIS, MASK32_ALL_HIGH);
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_DIS, MASK32_ALL_HIGH);
-	XPlmi_Out32(PSM_GLOBAL_REG_PSM_SRST1_DIS, MASK32_ALL_HIGH);
 
 	/* Clear the error status registers */
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, MASK32_ALL_HIGH);
