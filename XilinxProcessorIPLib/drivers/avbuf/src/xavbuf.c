@@ -318,7 +318,6 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
 			break;
 
 		case XAVBUF_VIDSTREAM1_NONLIVE:
-			RegConfig = XAVBUF_BUF_LIVE_GFX_CFG;
 			ScalingOffset = XAVBUF_BUF_VID_COMP0_SCALE_FACTOR;
 			LayerOffset = XAVBUF_V_BLEND_LAYER0_CONTROL;
 			CSCOffset = XAVBUF_V_BLEND_IN1CSC_COEFF0;
@@ -331,7 +330,6 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
 			break;
 
 		case XAVBUF_VIDSTREAM2_NONLIVE_GFX:
-			RegConfig = XAVBUF_BUF_LIVE_GFX_CFG;
 			ScalingOffset = XAVBUF_BUF_GRAPHICS_COMP0_SCALE_FACTOR;
 			LayerOffset = XAVBUF_V_BLEND_LAYER1_CONTROL;
 			CSCOffset = XAVBUF_V_BLEND_IN2CSC_COEFF0;
