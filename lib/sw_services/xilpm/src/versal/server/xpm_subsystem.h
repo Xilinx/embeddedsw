@@ -27,7 +27,8 @@
 #ifndef XPM_SUBSYSTEM_H_
 #define XPM_SUBSYSTEM_H_
 
-#include "xpm_requirement.h"
+#include "xpm_defs.h"
+#include "xstatus.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,7 +59,6 @@ typedef enum {
 	MAX_STATE
 } XPm_SubsysState;
 
-typedef struct XPm_Requirement XPm_Requirement;
 typedef struct XPm_Subsystem XPm_Subsystem;
 
 /**
@@ -69,7 +69,7 @@ struct XPm_Subsystem {
 	u8 State; /**< Subsystem state */
 	u8 Flags; /**< Subsystem specific flags */
 	u32 IpiMask;
-	XPm_Requirement *Requirements;
+	struct XPm_Requirement *Requirements;
 		/**< Head of the requirement list for all devices. */
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
 };

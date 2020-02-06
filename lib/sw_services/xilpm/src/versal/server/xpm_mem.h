@@ -31,8 +31,6 @@
 extern "C" {
 #endif
 
-typedef struct XPm_MemDevice XPm_MemDevice;
-
 typedef struct XPm_MemDevice {
 	XPm_Device Device; /**< Device: Base class */
 	u32 StartAddress;

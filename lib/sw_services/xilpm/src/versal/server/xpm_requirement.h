@@ -35,6 +35,7 @@ extern "C" {
 #endif
 
 typedef struct XPm_ReqmInfo XPm_ReqmInfo;
+typedef struct XPm_Requirement XPm_Requirement;
 
 /**
  * Specific requirement information.
@@ -45,8 +46,6 @@ struct XPm_ReqmInfo {
 	u32 QoS:7; /**< QoS requirement */
 };
 
-typedef struct XPm_Device XPm_Device;
-typedef struct XPm_Requirement XPm_Requirement;
 typedef enum {
         RELEASE_ONE,
         RELEASE_ALL,
@@ -75,8 +74,8 @@ enum XPm_ReqSecurityFlags{
  * The requirement class.
  */
 struct XPm_Requirement {
-	XPm_Subsystem *Subsystem; /**< Subsystem imposing this requirement on the device */
-	XPm_Device *Device; /**< Device used by the subsystem */
+	struct XPm_Subsystem *Subsystem; /**< Subsystem imposing this requirement on the device */
+	struct XPm_Device *Device; /**< Device used by the subsystem */
 	XPm_Requirement *NextDevice; /**< Requirement on the next device from this subsystem */
 	XPm_Requirement *NextSubsystem; /**< Requirement from the next subsystem on this device */
 	u8 Allocated; /**< Device has been allocated to the subsystem */

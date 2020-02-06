@@ -33,6 +33,7 @@
 #include "xpm_pin.h"
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
+#include "xpm_requirement.h"
 
 static XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
 {

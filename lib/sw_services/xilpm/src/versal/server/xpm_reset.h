@@ -29,6 +29,7 @@
 
 #include "xpm_node.h"
 #include "xpm_common.h"
+#include "xpm_subsystem.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -54,7 +55,7 @@ typedef enum {
 
 typedef enum XPmResetActions XPm_ResetActions;
 typedef struct XPm_ResetNode XPm_ResetNode;
-typedef struct XPm_Subsystem XPm_Subsystem;
+typedef struct XPm_ResetHandle XPm_ResetHandle;
 
 /**
  * xPmResetOps - Reset operations
@@ -66,7 +67,6 @@ typedef struct XPmResetOps {
 	u32 (*const GetState)(XPm_ResetNode *Rst);
 } XPm_ResetOps;
 
-typedef struct XPm_ResetHandle XPm_ResetHandle;
 
 /**
  * XPm_ResetHandle - This models reset/device pair.

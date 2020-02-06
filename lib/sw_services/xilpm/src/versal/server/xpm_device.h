@@ -31,7 +31,6 @@
 #include "xpm_power.h"
 #include "xpm_clock.h"
 #include "xpm_reset.h"
-#include "xpm_requirement.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,11 +76,8 @@ typedef enum {
 	XPM_DEVEVENT_RUNTIME_SUSPEND,
 } XPm_DeviceEvent;
 
-typedef struct XPm_Subsystem XPm_Subsystem;
-typedef struct XPm_Requirement XPm_Requirement;
 typedef struct XPm_Device XPm_Device;
 typedef struct XPm_DeviceOps XPm_DeviceOps;
-typedef struct XPm_DeviceStatus XPm_DeviceStatus;
 
 /* Device Operations */
 struct XPm_DeviceOps {
@@ -132,10 +128,10 @@ struct XPm_Device {
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
 	XPm_ResetHandle *RstHandles; /**< Head of the list device resets */
-	XPm_Requirement *Requirements;
+	struct XPm_Requirement *Requirements;
 		/**< Head of the list of requirements for all subsystems */
 
-	XPm_Requirement *PendingReqm; /**< Requirement being updated */
+	struct XPm_Requirement *PendingReqm; /**< Requirement being updated */
 	u8 WfDealloc; /**< Deallocation is pending */
 	u8 WfPwrUseCnt; /**< Pending power use count */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
@@ -172,7 +168,7 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId);
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS);
 
-XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId,
+struct XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId,
 					   const u32 SubsystemId);
 
 XStatus XPmDevice_GetStatus(const u32 SubsystemId,

@@ -28,6 +28,7 @@
 #include "xpm_rpucore.h"
 #include "xpm_regs.h"
 #include "xpm_api.h"
+#include "xpm_subsystem.h"
 
 XStatus XPmRpuCore_Halt(XPm_Device *Device)
 {

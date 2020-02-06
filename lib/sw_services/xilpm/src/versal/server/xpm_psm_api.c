@@ -32,6 +32,8 @@
 #include "xpm_device.h"
 #include "xpm_ipi.h"
 #include "xpm_regs.h"
+#include "xpm_subsystem.h"
+#include "xpm_requirement.h"
 
 #define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
 #define PSM_TO_PLM_EVENT_VERSION		(0x1U)

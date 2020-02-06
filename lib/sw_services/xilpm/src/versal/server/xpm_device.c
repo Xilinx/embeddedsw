@@ -33,6 +33,7 @@
 #include "xpm_api.h"
 #include "xpm_pmc.h"
 #include "xpm_pslpdomain.h"
+#include "xpm_requirement.h"
 
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
@@ -121,7 +122,7 @@ static XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	return Reqm;
 }
 
-XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId, const u32 SubsystemId)
+struct XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId, const u32 SubsystemId)
 {
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
