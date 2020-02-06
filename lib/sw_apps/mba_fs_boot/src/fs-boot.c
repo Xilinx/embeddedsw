@@ -392,6 +392,10 @@ int main()
 	unsigned long image_start = 0;    /* The address of the final boot image in memory */
 	int failed_reason;
 
+#ifdef __MICROBLAZE__
+	int cpu;
+#endif
+
 	XCACHE_DISABLE_CACHE();
 
 	/* Call any early platform init handler provided by the user.
@@ -401,6 +405,21 @@ int main()
 
 	/* UART Initialisation - no printing before this */
 	uart_init();
+
+#ifdef __MICROBLAZE__
+	cpu = mfpvr(0) & 0xff;
+	if (cpu > 0) {
+		/* Sleep until IPI #0 issued by CPU 0 */
+		mb_sleep();
+
+		/* Jump to kernel */
+		GO(XPAR_MICROBLAZE_ICACHE_BASEADDR);
+
+		/* Shouldn't return */
+		while(1)
+		  ;
+	}
+#endif
 
 	fsprint("FS-BOOT First Stage Bootloader (c) 2013-2014 Xilinx Inc.\r\n" \
 	"Build date: "__DATE__" "__TIME__ "  "
