@@ -191,7 +191,7 @@ proc swapp_generate {} {
 	 # if psv_cortexr5 then update IPI values for versal
 	if { $proc_type == "psv_cortexr5" } {
 		set IPI_MASK_zynqmp "0x1000000"
-		set IPI_MASK_versal "0x0x0000020"
+		set IPI_MASK_versal "0x0000020"
 		set IPI_IRQ_VECT_ID_zynqmp "65"
 		set IPI_IRQ_VECT_ID_versal "63"
 		set IPI_BASE_ADDR_zynqmp "0xFF310000"
