@@ -588,7 +588,8 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		/* Lock CFU writes */
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
 	}
-//#endif /* PLPD_HOUSECLEAN_BYPASS */
+//#endif
+/* PLPD_HOUSECLEAN_BYPASS */
 
 	/* Unlock CFU writes */
 	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
