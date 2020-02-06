@@ -38,22 +38,30 @@ extern "C" {
 /* Interrupt vectors */
 #ifdef versal
 #define IPI_IRQ_VECT_ID     63
-#define IPI_BASE_ADDR       0xFF340000 /* IPI base address*/
+#define POLL_BASE_ADDR       0xFF340000 /* IPI base address*/
 #define IPI_CHN_BITMASK     0x0000020 /* IPI channel bit mask for IPI from/to
 					   APU */
 #else
 #define IPI_IRQ_VECT_ID     XPAR_XIPIPSU_0_INT_ID
-#define IPI_BASE_ADDR       XPAR_XIPIPSU_0_BASE_ADDRESS
+#define POLL_BASE_ADDR      XPAR_XIPIPSU_0_BASE_ADDRESS
 #define IPI_CHN_BITMASK     0x01000000
 #endif /* versal */
 
+#ifdef RPMSG_NO_IPI
+#undef POLL_BASE_ADDR
+#define POLL_BASE_ADDR 0x3EE40000
+#define POLL_STOP 0x1U
+#endif /* RPMSG_NO_IPI */
+
 struct remoteproc_priv {
-	const char *ipi_name; /**< IPI device name */
-	const char *ipi_bus_name; /**< IPI bus name */
-	struct metal_device *ipi_dev; /**< pointer to IPI device */
-	struct metal_io_region *ipi_io; /**< pointer to IPI i/o region */
+	const char *poll_dev_name;
+	const char *poll_dev_bus_name;
+	struct metal_device *poll_dev;
+	struct metal_io_region *poll_io;
+#ifndef RPMSG_NO_IPI
 	unsigned int ipi_chn_mask; /**< IPI channel mask */
 	atomic_int ipi_nokick;
+#endif /* !RPMSG_NO_IPI */
 };
 
 /**
