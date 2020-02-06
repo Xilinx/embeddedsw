@@ -438,7 +438,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_WPROTS_OFFSET,
 		0x1);
 
-	for (i = 0; (0 != ARRAY_SIZE(GtyAddresses)) && (0 != GtyAddresses[i]); ++i) {
+	for (i = 0; 0U != GtyAddresses[i]; ++i) {
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Mbist */
 		Status = Cpm5GtypMbist(GtyAddresses[i]);
