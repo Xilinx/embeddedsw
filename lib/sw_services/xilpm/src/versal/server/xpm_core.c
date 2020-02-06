@@ -164,10 +164,6 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 		}
 	}
 
-	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
-		ENABLE_WAKE(Core->SleepMask);
-	}
-
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
 
 done:
