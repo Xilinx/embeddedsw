@@ -46,19 +46,21 @@
 #define SHARED_MEM_SIZE 0x100000UL
 #define SHARED_BUF_OFFSET 0x8000UL
 
+#ifndef RPMSG_NO_IPI
 #define _rproc_wait() asm volatile("wfi")
+#endif /* !RPMSG_NO_IPI */
 
-/* IPI information used by remoteproc operations.
+/* Polling information used by remoteproc operations.
  */
-static metal_phys_addr_t ipi_phys_addr = IPI_BASE_ADDR;
-struct metal_device ipi_device = {
-	.name = "ipi_dev",
+static metal_phys_addr_t poll_phys_addr = POLL_BASE_ADDR;
+struct metal_device kick_device = {
+	.name = "poll_dev",
 	.bus = NULL,
 	.num_regions = 1,
 	.regions = {
 		{
-			.virt = (void*)IPI_BASE_ADDR,
-			.physmap = &ipi_phys_addr,
+			.virt = (void *)POLL_BASE_ADDR,
+			.physmap = &poll_phys_addr,
 			.size = 0x1000,
 			.page_shift = -1UL,
 			.page_mask = -1UL,
@@ -67,14 +69,18 @@ struct metal_device ipi_device = {
 		}
 	},
 	.node = {NULL},
+#ifndef RPMSG_NO_IPI
 	.irq_num = 1,
 	.irq_info = (void *)IPI_IRQ_VECT_ID,
+#endif /* !RPMSG_NO_IPI */
 };
 
 static struct remoteproc_priv rproc_priv = {
-	.ipi_name = IPI_DEV_NAME,
-	.ipi_bus_name = IPI_BUS_NAME,
+	.poll_dev_name = IPI_DEV_NAME,
+	.poll_dev_bus_name = IPI_BUS_NAME,
+#ifndef RPMSG_NO_IPI
 	.ipi_chn_mask = IPI_CHN_BITMASK,
+#endif /* !RPMSG_NO_IPI */
 };
 
 static struct remoteproc rproc_inst;
@@ -102,16 +108,21 @@ platform_create_proc(int proc_index, int rsc_index)
 	rsc_table = get_resource_table(rsc_index, &rsc_size);
 	ML_INFO("rsc_table, rsc_size = %#x, %#x\r\n", rsc_table, rsc_size);
 
+#ifndef RPMSG_NO_IPI
 	/* Register IPI device */
-	(void)metal_register_generic_device(&ipi_device);
+	ret = metal_register_generic_device(&ipi_device);
+	if (ret)
+		return ret;
+#endif /* !RPMSG_NO_IPI */
+
 	/* Initialize remoteproc instance */
 	if (!remoteproc_init(&rproc_inst, &zynqmp_r5_a53_proc_ops, &rproc_priv))
 		return NULL;
 
-	ML_DBG("ipi_{name,bus,chn_mask} = %s,%s,%#x\r\n",
-		rproc_priv.ipi_name,
-		rproc_priv.ipi_bus_name,
-		rproc_priv.ipi_chn_mask);
+	ML_DBG("poll{name,bus,chn_mask} = %s,%s,%#x\r\n",
+		rproc_priv.poll_dev_name,
+		rproc_priv.poll_dev_bus_name,
+		IPI_CHN_BITMASK);
 	/*
 	 * Mmap shared memories
 	 * Or shall we constraint that they will be set as carved out
@@ -232,17 +243,32 @@ int platform_poll(void *priv)
 	struct remoteproc *rproc = priv;
 	struct remoteproc_priv *prproc;
 	unsigned int flags;
+	int ret;
 
 	prproc = rproc->priv;
 	while(1) {
+#ifdef RPMSG_NO_IPI
+		if (metal_io_read32(prproc->kick_io, 0)) {
+			ret = remoteproc_get_notification(rproc,
+							  RSC_NOTIFY_ID_ANY);
+			if (ret)
+				return ret;
+			break;
+		}
+		(void)flags;
+#else /* !RPMSG_NO_IPI */
 		flags = metal_irq_save_disable();
 		if (!(atomic_flag_test_and_set(&prproc->ipi_nokick))) {
 			metal_irq_restore_enable(flags);
-			remoteproc_get_notification(rproc, RSC_NOTIFY_ID_ANY);
+			ret = remoteproc_get_notification(rproc,
+							  RSC_NOTIFY_ID_ANY);
+			if (ret)
+				return ret;
 			break;
 		}
 		_rproc_wait();
 		metal_irq_restore_enable(flags);
+#endif /* RPMSG_NO_IPI */
 	}
 	return 0;
 }
