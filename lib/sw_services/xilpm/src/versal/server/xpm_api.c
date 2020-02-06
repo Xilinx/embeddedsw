@@ -760,7 +760,6 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 		Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
-		Status = XPM_PM_ABORT_SUSPEND;
 	} else {
 		PmErr("Invalid Device Id\n\r");
 		Status = XPM_PM_INVALID_NODE;

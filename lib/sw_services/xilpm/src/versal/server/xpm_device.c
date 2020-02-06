@@ -827,13 +827,13 @@ static XStatus Release(XPm_Device *Device,
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem, 0,
 						   XPM_DEF_QOS);
 
-	if (XST_SUCCESS == Status) {
-		XPmRequirement_Clear(Reqm);
-		Device->WfDealloc = 0;
-	}
-	else {
+	if (XST_SUCCESS != Status) {
 		Status = XPM_ERR_DEVICE_RELEASE;
+		goto done;
 	}
+
+	XPmRequirement_Clear(Reqm);
+	Device->WfDealloc = 0;
 
 	Status = XPmProt_Configure(Reqm, 0U);
 
