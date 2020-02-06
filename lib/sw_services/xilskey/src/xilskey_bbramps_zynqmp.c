@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,7 @@
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
 * 6.8   psl     08/13/19 Fixed MISRA-C violation.
 *       vns     08/29/19 Initialized Status variables
+* 6.9   kal     01/31/20 Disable BBRAM programming after AES key programming.
 * </pre>
 *
 ******************************************************************************/
@@ -71,6 +72,7 @@
 
 static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
 static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
+static inline void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
 extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /************************** Variable Definitions *****************************/
@@ -151,8 +153,9 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 		goto END;
 	}
 END:
-	return Status;
+	XilSKey_ZynqMp_Bbram_PrgrmDisable();
 
+	return Status;
 }
 
 /*****************************************************************************/
@@ -281,7 +284,19 @@ END:
 	return Status;
 
 }
+/*****************************************************************************/
+/**
+*
+* This function disables bbram programming.
+*
+******************************************************************************/
+static inline void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
+{
+	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
+			 XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET,
+			 XSK_ZYNQMP_BBRAM_PGM_MODE_RSTVAL);
 
+}
 /*****************************************************************************/
 /**
 *
