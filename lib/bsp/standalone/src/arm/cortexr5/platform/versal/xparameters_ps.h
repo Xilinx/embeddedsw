@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * 7.00  mus  	01/25/18 Initial version
 *       mn      03/26/18 Change Interrupt IDs for versal
 *       mn      03/26/18 Update SLCR base address
+*       pm	02/04/20 Add Interrupt IDs for usb-versal
 * </pre>
 *
 ******************************************************************************/
@@ -194,6 +195,7 @@ extern "C" {
 #define XPS_UART1_INT_ID		(19U + 32U)
 #define XPS_CAN0_INT_ID			(20U + 32U)
 #define XPS_CAN1_INT_ID			(21U + 32U)
+#define XPS_USB3_0_ENDPT_INT_ID		(22U + 32U)
 #define XPS_RTC_ALARM_INT_ID 		(142U + 32U)
 #define XPS_RTC_SEC_INT_ID	 	(143U + 32U)
 #define XPS_TTC0_0_INT_ID		(37U + 32U)
