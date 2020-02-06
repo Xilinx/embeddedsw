@@ -122,7 +122,7 @@ static XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	return Reqm;
 }
 
-struct XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId, const u32 SubsystemId)
+struct XPm_Reqm *XPmDevice_FindRequirement(const u32 DeviceId, const u32 SubsystemId)
 {
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);

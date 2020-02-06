@@ -76,7 +76,7 @@ typedef enum {
 	XPM_DEVEVENT_RUNTIME_SUSPEND,
 } XPm_DeviceEvent;
 
-typedef struct XPm_Device XPm_Device;
+typedef struct XPm_DeviceNode XPm_Device;
 typedef struct XPm_DeviceOps XPm_DeviceOps;
 
 /* Device Operations */
@@ -123,15 +123,15 @@ typedef struct {
  * The device class.  This is the base class for all the processor core,
  * memory bank and peripheral classes.
  */
-struct XPm_Device {
+struct XPm_DeviceNode {
 	XPm_Node Node; /**< Node: Base class */
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
 	XPm_ResetHandle *RstHandles; /**< Head of the list device resets */
-	struct XPm_Requirement *Requirements;
+	struct XPm_Reqm *Requirements;
 		/**< Head of the list of requirements for all subsystems */
 
-	struct XPm_Requirement *PendingReqm; /**< Requirement being updated */
+	struct XPm_Reqm *PendingReqm; /**< Requirement being updated */
 	u8 WfDealloc; /**< Deallocation is pending */
 	u8 WfPwrUseCnt; /**< Pending power use count */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
@@ -168,7 +168,7 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId);
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS);
 
-struct XPm_Requirement *XPmDevice_FindRequirement(const u32 DeviceId,
+struct XPm_Reqm *XPmDevice_FindRequirement(const u32 DeviceId,
 					   const u32 SubsystemId);
 
 XStatus XPmDevice_GetStatus(const u32 SubsystemId,

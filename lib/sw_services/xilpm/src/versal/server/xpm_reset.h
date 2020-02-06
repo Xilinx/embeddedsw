@@ -73,7 +73,7 @@ typedef struct XPmResetOps {
  */
 struct XPm_ResetHandle {
 	XPm_ResetNode *Reset; /**< Reset used by device */
-	struct XPm_Device *Device; /**< Device which uses the reset */
+	struct XPm_DeviceNode *Device; /**< Device which uses the reset */
 	XPm_ResetHandle *NextReset; /**< Next handle of same device */
 	XPm_ResetHandle *NextDevice; /**< Next handle of same reset */
 };

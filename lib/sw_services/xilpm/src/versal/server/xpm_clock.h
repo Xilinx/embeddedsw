@@ -99,7 +99,7 @@ struct XPm_ClockNode {
  */
 struct XPm_ClockHandle {
 	XPm_ClockNode *Clock; /**< Clock used by device */
-	struct XPm_Device *Device; /**< Device which uses the clock */
+	struct XPm_DeviceNode *Device; /**< Device which uses the clock */
 	XPm_ClockHandle *NextClock; /**< Next handle of same device */
 	XPm_ClockHandle *NextDevice; /**< Next handle of same clock */
 };

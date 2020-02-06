@@ -69,7 +69,7 @@ struct XPm_Subsystem {
 	u8 State; /**< Subsystem state */
 	u8 Flags; /**< Subsystem specific flags */
 	u32 IpiMask;
-	struct XPm_Requirement *Requirements;
+	struct XPm_Reqm *Requirements;
 		/**< Head of the requirement list for all devices. */
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
 };
