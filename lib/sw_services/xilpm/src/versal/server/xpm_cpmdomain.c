@@ -110,7 +110,7 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 
 	/* Initialize Array with GTYP Base Addresses*/
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses); ++i) {
-		Device = XPmDevice_GetById((u32)GT_DEVID(XPM_NODEIDX_DEV_GTYP_CPM5_MIN + i));
+		Device = XPmDevice_GetById(GT_DEVID((u32)XPM_NODEIDX_DEV_GTYP_CPM5_MIN + i));
 		if (NULL != Device) {
 			GtyAddresses[i] = Device->Node.BaseAddress;
 		}
@@ -438,7 +438,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_WPROTS_OFFSET,
 		0x1);
 
-	for (i = 0; ARRAY_SIZE(GtyAddresses) && (0 != GtyAddresses[i]); ++i) {
+	for (i = 0; (0 != ARRAY_SIZE(GtyAddresses)) && (0 != GtyAddresses[i]); ++i) {
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Mbist */
 		Status = Cpm5GtypMbist(GtyAddresses[i]);
