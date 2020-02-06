@@ -439,27 +439,28 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 			/* Check that request wakeup is not for self */
 			if (SubSysIdx == NODEINDEX(NodeId)) {
 				Status = XST_INVALID_PARAM;
-				goto done;
+				break;
 			}
 			SubSysIdx = NODEINDEX(NodeId);
 			if ((u32)XPM_NODEIDX_SUBSYS_MAX <= SubSysIdx) {
 				Status = XPM_INVALID_SUBSYSID;
-				goto done;
+				break;
 			}
+			Status = XST_SUCCESS;
 			break;
 		case (u32)XPM_NODECLASS_DEVICE:
 			if ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(NodeId))
 			{
 				Status = XST_INVALID_PARAM;
-				goto done;
+				break;
 			}
+			Status = XST_SUCCESS;
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
-			goto done;
+			break;
 	}
 	/*TODO: Add validation based on permissions defined by user*/
-	Status = XST_SUCCESS;
 
 done:
 	return Status;
