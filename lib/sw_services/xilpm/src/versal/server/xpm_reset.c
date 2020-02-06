@@ -365,13 +365,13 @@ static const struct ResetCustomOps {
 		.ActionPulse = &ResetPulseLpd,
 	},
 	{
-		.ResetIdx = XPM_NODEIDX_RST_AIE_ARRAY,
+		.ResetIdx = (u32)XPM_NODEIDX_RST_AIE_ARRAY,
 		.ActionAssert = &AieResetAssert,
 		.ActionRelease = &AieResetRelease,
 		.ActionPulse = &AieResetPulse,
 	},
 	{
-		.ResetIdx = XPM_NODEIDX_RST_AIE_SHIM,
+		.ResetIdx = (u32)XPM_NODEIDX_RST_AIE_SHIM,
 		.ActionAssert = &AieResetAssert,
 		.ActionRelease = &AieResetRelease,
 		.ActionPulse = &AieResetPulse,

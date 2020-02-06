@@ -997,7 +997,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			}
 			Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
 			if (XST_SUCCESS == Status) {
-				XPmSubsystem_SetState(CoreSubsystemId, ONLINE);
+				XPmSubsystem_SetState(CoreSubsystemId, (u32)ONLINE);
 			}
 			break;
 		default:
@@ -1090,7 +1090,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			if (((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State) &&
 			    ((u8)XPM_POWER_STATE_OFF == Acpu0PwrNode->Node.State) &&
 			    ((u8)XPM_POWER_STATE_OFF == Acpu1PwrNode->Node.State)) {
-				Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, PM_RESET_ACTION_PULSE);
+				Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_PULSE);
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
