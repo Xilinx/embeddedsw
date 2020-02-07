@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -472,7 +472,6 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 * Processes events in an Event Buffer.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @bus		Event buffer number.
 *
 * @return	None.
 *
@@ -522,6 +521,8 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * Main Interrupt Handler.
+*
+* @param	XUsbPsuInstancePtr is a pointer of driver Instance.
 *
 * @return	None.
 *

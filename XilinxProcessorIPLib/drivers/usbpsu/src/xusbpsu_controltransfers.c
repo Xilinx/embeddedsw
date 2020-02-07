@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -417,7 +417,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 * Ends Data Phase - used in case of error.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Dep is a pointer to the Endpoint structure.
+* @param	Ept is a pointer to the Endpoint structure.
 *
 * @return	None
 *

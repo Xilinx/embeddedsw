@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -360,7 +360,7 @@ extern "C" {
 * register access to all registers using the register offsets defined above.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	RegOffset is the offset of the register to write.
+* @param	Offset is the offset of the register to write.
 * @param	Data is the value to write to the register.
 *
 * @return	None.
@@ -394,7 +394,7 @@ extern "C" {
 *
 * Write a Vendor register of the USBPS8 device.
 *
-* @param       RegOffset is the offset of the register to write.
+* @param       Offset is the offset of the register to write.
 * @param       Data is the value to write to the register.
 *
 * @return      None.
@@ -412,7 +412,7 @@ extern "C" {
 *
 * Read a LPD register of the USBPS8 device.
 *
-* @param       InstancePtr is a pointer to the XUsbPsu instance.
+*
 * @param       Offset is the offset of the register to read.
 *
 * @return      The contents of the register.
@@ -429,8 +429,7 @@ extern "C" {
 *
 * Write a LPD register of the USBPS8 device.
 *
-* @param       InstancePtr is a pointer to the XUsbPsu instance.
-* @param       RegOffset is the offset of the register to write.
+* @param       Offset is the offset of the register to write.
 * @param       Data is the value to write to the register.
 *
 * @return      None.

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -232,6 +232,10 @@ extern "C" {
  */
 #define		XUSBPSU_LINK_STATE_MASK			0x0FU
 
+/**
+ * @param XusbPsuLinkState This typedef defines link state.
+ *
+ */
 typedef enum {
 	XUSBPSU_LINK_STATE_U0 = 0x00U, /**< in HS - ON */
 	XUSBPSU_LINK_STATE_U1 =	0x01U,
@@ -249,6 +253,10 @@ typedef enum {
 	XUSBPSU_LINK_STATE_RESUME =	0x0FU,
 }XusbPsuLinkState;
 
+/**
+ * @param XusbPsuLinkStateChange This typedef defines link state change.
+ *
+ */
 typedef enum {
 	XUSBPSU_LINK_STATE_CHANGE_U0 = 0x00U, /**< in HS - ON */
 	XUSBPSU_LINK_STATE_CHANGE_SS_DIS =	0x04U,
@@ -462,9 +470,9 @@ struct XUsbPsu_Event_Type {
 #endif
 /**
  * struct XUsbPsu_event_depvt - Device Endpoint Events
- * @Is_EpEvt: indicates this is an endpoint event
- * @endpoint_number: number of the endpoint
- * @endpoint_event: The event we have:
+ * @param Is_EpEvt: indicates this is an endpoint event
+ * @param endpoint_number: number of the endpoint
+ * @param endpoint_event: The event we have:
  *	0x00	- Reserved
  *	0x01	- XferComplete
  *	0x02	- XferInProgress
@@ -473,10 +481,10 @@ struct XUsbPsu_Event_Type {
  *	0x05	- Reserved
  *	0x06	- StreamEvt
  *	0x07	- EPCmdCmplt
- * @Reserved11_10: Reserved, don't use.
- * @Status: Indicates the status of the event. Refer to databook for
+ * @param Reserved11_10: Reserved, don't use.
+ * @param Status: Indicates the status of the event. Refer to databook for
  *	more information.
- * @Parameters: Parameters of the current event. Refer to databook for
+ * @param Parameters: Parameters of the current event. Refer to databook for
  *	more information.
  */
 #if defined (__ICCARM__)
@@ -497,9 +505,9 @@ struct XUsbPsu_Event_Epevt {
 #endif
 /**
  * struct XUsbPsu_event_devt - Device Events
- * @Is_DevEvt: indicates this is a non-endpoint event
- * @Device_Event: indicates it's a device event. Should read as 0x00
- * @Type: indicates the type of device event.
+ * @param Is_DevEvt: indicates this is a non-endpoint event
+ * @param Device_Event: indicates it's a device event. Should read as 0x00
+ * @param Type: indicates the type of device event.
  *	0	- DisconnEvt
  *	1	- USBRst
  *	2	- ConnectDone
@@ -513,9 +521,9 @@ struct XUsbPsu_Event_Epevt {
  *	10	- CmdCmplt
  *	11	- EvntOverflow
  *	12	- VndrDevTstRcved
- * @Reserved15_12: Reserved, not used
- * @Event_Info: Information about this event
- * @Reserved31_25: Reserved, not used
+ * @param Reserved15_12: Reserved, not used
+ * @param Event_Info: Information about this event
+ * @param Reserved31_25: Reserved, not used
  */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -535,10 +543,10 @@ struct XUsbPsu_Event_Devt {
 #endif
 /**
  * struct XUsbPsu_event_gevt - Other Core Events
- * @one_bit: indicates this is a non-endpoint event (not used)
- * @device_event: indicates it's (0x03) Carkit or (0x04) I2C event.
- * @phy_port_number: self-explanatory
- * @reserved31_12: Reserved, not used.
+ * @param one_bit: indicates this is a non-endpoint event (not used)
+ * @param device_event: indicates it's (0x03) Carkit or (0x04) I2C event.
+ * @param phy_port_number: self-explanatory
+ * @param reserved31_12: Reserved, not used.
  */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -556,11 +564,11 @@ struct XUsbPsu_Event_Gevt {
 #endif
 /**
  * union XUsbPsu_event - representation of Event Buffer contents
- * @raw: raw 32-bit event
- * @type: the type of the event
- * @depevt: Device Endpoint Event
- * @devt: Device Event
- * @gevt: Global Event
+ * @param raw: raw 32-bit event
+ * @param type: the type of the event
+ * @param depevt: Device Endpoint Event
+ * @param devt: Device Event
+ * @param gevt: Global Event
  */
 union XUsbPsu_Event {
 	u32				Raw;

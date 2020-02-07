@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -551,7 +551,7 @@ void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	UsbEpNum is USB endpoint number.
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
-* @Force	Force flag to stop/pause transfer.
+* @param	Force flag to stop/pause transfer.
 *
 * @return	None.
 *
@@ -1018,7 +1018,7 @@ void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 * Clears Stall on an Endpoint.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	EpNum is USB endpoint number.
+* @param	Epnum is USB endpoint number.
 * @param	Dir	is direction.
 *
 * @return	None.
@@ -1054,7 +1054,7 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 * Sets an user handler to be called after data is sent/received by an Endpoint
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	EpNum is USB endpoint number.
+* @param	Epnum is USB endpoint number.
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 * @param	Handler is user handler to be called.
 *
@@ -1084,7 +1084,7 @@ void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 * Returns status of endpoint - Stalled or not
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	EpNum is USB endpoint number.
+* @param	Epnum is USB endpoint number.
 * @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 *
 * @return
