@@ -62,7 +62,7 @@ struct Usb_DevData UsbInstance;
 XScuGic	InterruptController;	/* Interrupt controller instance */
 
 /* Supported AUDIO sampling frequencies */
-u8 audio_freq[MAX_AUDIO_FREQ][3] ={
+u8 audio_freq[MAX_AUDIO_FREQ][3] = {
 	{ 0x40, 0x1F, 0x00 },	/* sample frequency 8000  */
 	{ 0x44, 0xAC, 0x00 },	/* sample frequency 44100 */
 	{ 0x80, 0xBB, 0x00 },	/* sample frequency 48000 */
@@ -222,7 +222,7 @@ static void Usb_StorageOutHandler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 	BaseType_t xHigherPriorityTaskWoken;
 
 	xSemaphoreGiveFromISR(f->xSemaphore, &xHigherPriorityTaskWoken);
-	portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 /****************************************************************************/
@@ -249,7 +249,7 @@ static void Usb_StorageInHandler(void *CallBackRef, u32 RequestedBytes, u32 Byte
 	BaseType_t xHigherPriorityTaskWoken;
 
 	xSemaphoreGiveFromISR(f->xSemaphore, &xHigherPriorityTaskWoken);
-	portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 /****************************************************************************/
@@ -271,7 +271,7 @@ static void Usb_KeyboardInHabdler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 	struct Usb_DevData *InstancePtr = CallBackRef;
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
-	struct composite_dev *dev= (struct composite_dev *)(ch9_ptr->data_ptr);
+	struct composite_dev *dev = (struct composite_dev *)(ch9_ptr->data_ptr);
 	struct keyboard_if *f = &(dev->f_keyboard);
 	BaseType_t xHigherPriorityTaskWoken;
 
@@ -386,7 +386,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 *
 *****************************************************************************/
 static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrInstPtr,
-		struct composite_dev* dev, u16 DeviceId, u16 IntcDeviceID, u16 UsbIntrId)
+		struct composite_dev *dev, u16 DeviceId, u16 IntcDeviceID, u16 UsbIntrId)
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -554,7 +554,7 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 * @note		None.
 *
 *****************************************************************************/
-static void prvMainTask( void *pvParameters)
+static void prvMainTask(void *pvParameters)
 {
 	s32 Status;
 	struct composite_dev *dev = pvParameters;
@@ -582,7 +582,7 @@ static void prvMainTask( void *pvParameters)
 int main(void)
 {
 
-	xTaskCreate( 	prvMainTask,	 		/* The function that implements the task. */
+	xTaskCreate(prvMainTask,	 		/* The function that implements the task. */
 			(const char *) "Mass Storage",	/* Text name for the task, provided to assist debugging only. */
 			configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
 			&comp_dev, 			/* The task parameter is not used, so set to NULL. */
