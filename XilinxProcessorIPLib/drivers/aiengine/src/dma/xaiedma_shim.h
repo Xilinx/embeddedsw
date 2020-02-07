@@ -41,6 +41,7 @@
 * 1.2  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.3  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
 * 1.4  Hyun    06/20/2019  Add XAieDma_ShimSoftInitialize()
+* 1.5  Dishita 02/07/2020  Resolved macro compilation error
 * </pre>
 *
 ******************************************************************************/
@@ -157,7 +158,7 @@ typedef struct
 *
 *******************************************************************************/
 #define XAieDma_ShimChControl(DmaInstPtr, ChNum, PauseStrm, PauseMm, Enable)	\
-                        XAieGbl_Write32((DmaInstPtr->BaseAddress +	        \
+                        XAieGbl_Write32(((DmaInstPtr)->BaseAddress +	        \
                         ShimDmaCh[ChNum].CtrlOff),                              \
                         (XAie_SetField(PauseStrm, ShimDmaCh[ChNum].PzStr.Lsb,    \
                         ShimDmaCh[ChNum].PzStr.Mask) |                          \
@@ -181,11 +182,11 @@ typedef struct
 *
 *******************************************************************************/
 #define XAieDma_ShimSetStartBd(DmaInstPtr, ChNum, StartBd)			\
-                        XAieGbl_Write32((DmaInstPtr->BaseAddress +	        \
+                        XAieGbl_Write32(((DmaInstPtr)->BaseAddress +	        \
                         ShimDmaCh[ChNum].StatQOff),                             \
                         XAie_SetField(StartBd, ShimDmaCh[ChNum].StatQ.Lsb,       \
                         ShimDmaCh[ChNum].StatQ.Mask));                          \
-                        DmaInstPtr->BdStart[ChNum] = StartBd
+                        (DmaInstPtr)->BdStart[ChNum] = StartBd
 
 /************************** Function Prototypes  *****************************/
 u32 XAieDma_ShimSoftInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Shim *DmaInstPtr);
