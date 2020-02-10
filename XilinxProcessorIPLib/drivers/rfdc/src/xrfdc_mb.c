@@ -42,6 +42,7 @@
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    08/02/19 Formatting changes.
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
+*       cog    01/29/20	Fixed metal log typos.
 *
 * </pre>
 *
@@ -613,7 +614,7 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 	}
 
 	if (BlockIndex[0] != DataPathIndex[0]) {
-		metal_log(METAL_LOG_ERROR, "\n Not a valid MB/SB combination for %s %u in %s\r\n",
+		metal_log(METAL_LOG_ERROR, "\n Not a valid MB/SB combination for %s %u block %u in %s\r\n",
 			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;

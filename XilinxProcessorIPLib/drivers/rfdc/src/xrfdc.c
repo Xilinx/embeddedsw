@@ -191,6 +191,7 @@
 *       cog    01/08/20	Added programmable hysteresis for counters ADC signal detector.
 *       cog    01/23/20	Calibration modes for Gen 3 were inverted.
 *       cog    01/23/20	Fixed offset and bit for GCB calibration override operations in Gen 3 Devices.
+*       cog    01/29/20	Fixed metal log typos.
 *
 * </pre>
 *
@@ -3477,7 +3478,7 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 		FabricRate = XRFDC_FAB_RATE_16;
 		break;
 	default:
-		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in (%u)%s for DAC %u block %u in \r\n", Mode, Tile_Id,
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in (%u) for DAC %u block %u in %s\r\n", Mode, Tile_Id,
 			  Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
@@ -5521,13 +5522,13 @@ u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Attenuation > XRFDC_MAX_ATTEN) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid attenuation selection (too high - %f) in %s\r\n",
+		metal_log(METAL_LOG_ERROR, "\n Invalid attenuation selection (too high - %f) in ADC %u block %u %s\r\n",
 			  SettingsPtr->Attenuation, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Attenuation < XRFDC_MIN_ATTEN) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low - %f) in %s\r\n",
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low - %f) in ADC %u block %u %s\r\n",
 			  SettingsPtr->Attenuation, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;

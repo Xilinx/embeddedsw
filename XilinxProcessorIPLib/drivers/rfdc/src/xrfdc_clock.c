@@ -60,6 +60,7 @@
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
 *       cog    01/08/20 Changed clocking checks to allow ADC distribution to all
 *                       ADC tiles.
+*       cog    01/29/20	Fixed metal log typos.
 * </pre>
 *
 ******************************************************************************/
@@ -1737,7 +1738,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		goto RETURN_PATH;
 	}
 	if ((SamplingRate < MinSampleRate) || (SamplingRate > MaxSampleRate)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid sampling rate value (%f) for %s %u in %s\r\n", Source,
+		metal_log(METAL_LOG_ERROR, "\n Invalid sampling rate value (%lf) for %s %u in %s\r\n", SamplingRate,
 			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
@@ -1749,7 +1750,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		if ((RefClkFreq < XRFDC_REFFREQ_MIN) || (RefClkFreq > XRFDC_REFFREQ_MAX)) {
 			metal_log(
 				METAL_LOG_ERROR,
-				"\n Input reference clock frequency (%f MHz) does not respect the specifications for internal PLL usage. Please use a different frequency (%f - %f MHz) or bypass the internal PLL for %s %u in %s\r\n",
+				"\n Input reference clock frequency (%lf MHz) does not respect the specifications for internal PLL usage. Please use a different frequency (%lf - %lf MHz) or bypass the internal PLL for %s %u in %s\r\n",
 				RefClkFreq, XRFDC_REFFREQ_MIN, XRFDC_REFFREQ_MAX,
 				(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			Status = XRFDC_FAILURE;

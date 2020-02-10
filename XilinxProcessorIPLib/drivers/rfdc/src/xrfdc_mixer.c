@@ -61,6 +61,7 @@
 *       cog    12/20/19 Metal log messages are now more descriptive.
 *              12/23/19 Fabric rate is now auto-corrected when changing a miixer from IQ
 *                       to real (and vice versa).
+*       cog    01/29/20	Fixed metal log typos.
 * </pre>
 *
 ******************************************************************************/
@@ -187,7 +188,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 				  SamplingRate, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			goto RETURN_PATH;
 		} else {
-			metal_log(METAL_LOG_DEBUG, "\n Sampling rate is %2.4f GHz for in %s\r\n", SamplingRate,
+			metal_log(METAL_LOG_DEBUG, "\n Sampling rate is %2.4f GHz for %s %u in %s\r\n", SamplingRate,
 				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		}
 
@@ -404,7 +405,7 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 
 	if ((MixerSettingsPtr->PhaseOffset >= XRFDC_MIXER_PHASE_OFFSET_UP_LIMIT) ||
 	    (MixerSettingsPtr->PhaseOffset <= XRFDC_MIXER_PHASE_OFFSET_LOW_LIMIT)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid phase offset value (%u) for %s %u block %u in %s\r\n",
+		metal_log(METAL_LOG_ERROR, "\n Invalid phase offset value (%lf) for %s %u block %u in %s\r\n",
 			  MixerSettingsPtr->PhaseOffset, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
 			  __func__);
 		Status = XRFDC_FAILURE;

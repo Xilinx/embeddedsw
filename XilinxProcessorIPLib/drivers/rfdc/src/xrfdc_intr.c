@@ -62,6 +62,7 @@
 *       cog    08/02/19 Formatting changes.
 * 7.1   aad    12/01/19 Fixed static analysis errors.
 *              12/20/19 Metal log messages are now more descriptive.
+*       cog    01/29/20	Fixed metal log typos.
 *
 * </pre>
 *
@@ -380,7 +381,7 @@ u32 XRFdc_GetEnabledInterrupts(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Bl
 	TileIdMask = XRFDC_ENABLED << XRFDC_TILE_GLBL_ADDR(Type, Tile_Id);
 	if ((ReadReg & TileIdMask) == XRFDC_DISABLED) {
 		metal_log(METAL_LOG_DEBUG, "\n Tile interrupt bit not set for %s %u in %s\r\n",
-			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	}

@@ -55,6 +55,7 @@
 *       cog    08/02/19 Formatting changes.
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
 *       cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
+*       cog    01/29/20	Fixed metal log typos.
 *
 * </pre>
 *
@@ -780,7 +781,7 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 						metal_log(
 							METAL_LOG_ERROR,
 							"SysRef capture mismatch on %s tile %d, PL SysRef may not have been captured synchronously\n",
-							(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Block_Id);
+							(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id);
 						Status |= XRFDC_MTS_MARKER_MISM;
 					}
 				}
@@ -946,7 +947,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 				metal_log(
 					METAL_LOG_ERROR,
 					"Alignment correction delay %d required exceeds maximum (%u) for %s Tile %d\n",
-					Offset, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", XRFDC_MTS_DELAY_MAX, Index);
+					Offset, XRFDC_MTS_DELAY_MAX, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index);
 				Status |= XRFDC_MTS_DELAY_OVER;
 			}
 
