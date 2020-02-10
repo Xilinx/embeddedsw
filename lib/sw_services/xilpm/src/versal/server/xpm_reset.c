@@ -294,40 +294,58 @@ static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 static XStatus AieResetAssert(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
+
+	XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		goto done;
+	}
+
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Unlock the AIE PCSR register to allow register writes */
-	Status = XPmAieDomain_UnlockPcsr();
+	XPmAieDomain_UnlockPcsr(AieDev->Node.BaseAddress);
 
-	/* Set array reset bit in mask register */
-	XPm_RMW32(ME_NPI_REG_PCSR_MASK, Mask, Mask);
+	/* Set array or shim reset bit in mask register */
+	XPm_RMW32((AieDev->Node.BaseAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
 
-	/* Write to control register to assert array reset */
+	/* Write to control register to assert reset */
 	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	Status = XPmAieDomain_LockPcsr();
+	XPmAieDomain_LockPcsr(AieDev->Node.BaseAddress);
 
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 
 static XStatus AieResetRelease(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
+
+	XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		goto done;
+	}
+
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Unlock the AIE PCSR register to allow register writes */
-	Status = XPmAieDomain_UnlockPcsr();
+	XPmAieDomain_UnlockPcsr(AieDev->Node.BaseAddress);
 
-	/* Set array reset bit in mask register */
-	XPm_RMW32(ME_NPI_REG_PCSR_MASK, Mask, Mask);
+	/* Set array or shim reset bit in mask register */
+	XPm_RMW32((AieDev->Node.BaseAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
 
-	/* Write to control register to assert array reset */
-	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0);
+	/* Write to control register to release reset */
+	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0U);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	Status = XPmAieDomain_LockPcsr();
+	XPmAieDomain_LockPcsr(AieDev->Node.BaseAddress);
 
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 
@@ -335,13 +353,13 @@ static XStatus AieResetPulse(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Assert AIE Array reset */
+	/* Assert AIE reset */
 	Status = AieResetAssert(Rst);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	/* Release AIE Array reset */
+	/* Release AIE reset */
 	Status = AieResetRelease(Rst);
 
 done:
