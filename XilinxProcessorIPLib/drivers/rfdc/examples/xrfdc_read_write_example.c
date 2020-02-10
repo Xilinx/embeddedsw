@@ -72,6 +72,7 @@
 *                       correction factor range in driver
 * 5.1   cog    01/29/19 Fixed some comments.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
+* 7.1   cog    07/25/19 Updated example for Gen 3 compatibility.
 *
 * </pre>
 *
@@ -254,7 +255,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u16 SetFabClkDiv;
 	u16 GetFabClkDiv;
 	XRFdc_PLL_Settings PLLSettings;
-	int ret = 0;
+
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -301,6 +302,13 @@ printf("\n Configuring the Clock \r\n");
 		for (Block = 0; Block <4; Block++) {
 			/* Check for DAC block Enable */
 			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+				/* Check datapath mode is not bypass*/
+				if(RFdcInstPtr->RFdc_Config.IPType == XRFDC_GEN3){
+					Status = XRFdc_SetDataPathMode(RFdcInstPtr, Tile, Block, XRFDC_DATAPATH_MODE_DUC_0_FSDIVTWO);
+					if (Status != XRFDC_SUCCESS) {
+						return XRFDC_FAILURE;
+					}
+				}
 				/* Set DAC fabric rate */
 				Status = XRFdc_SetFabWrVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
 				if (Status != XRFDC_SUCCESS) {
@@ -940,7 +948,7 @@ printf("\n Configuring the Clock \r\n");
 				SetMixerSettings.CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
 				SetMixerSettings.MixerType = XRFDC_MIXER_TYPE_COARSE;
 				SetMixerSettings.MixerMode = XRFDC_MIXER_MODE_R2C;
-				SetMixerSettings.Freq = 4500;
+				SetMixerSettings.Freq = 1250;
 				SetMixerSettings.PhaseOffset = -9.0565;
 				SetMixerSettings.FineMixerScale = XRFDC_MIXER_SCALE_AUTO;
 				SetMixerSettings.EventSource =
