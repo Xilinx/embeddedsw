@@ -70,6 +70,7 @@
 *                       set clock to incompatible rate
 *       cog    06/08/19 Linux platform compatibility fixes.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
+* 7.1   cog    01/24/20 Updated example for Gen3 and libmetal 2.0.
 *
 * </pre>
 *
@@ -108,8 +109,8 @@
 #define I2CBUS	12
 #endif
 
-#define STIM_DEV_NAME    "a8000000.stimulus_gen_axi_s"
-#define CAP_DEV_NAME    "a4000000.data_capture_axi_s"
+#define STIM_DEV_NAME    "a0000000.exdes_rfdac_data_bram_stim"
+#define CAP_DEV_NAME    "a0400000.exdes_rfadc_data_bram_capture"
 
 /**************************** Type Definitions ******************************/
 
@@ -363,6 +364,20 @@ printf("\n Configuring the Clock \r\n");
 	if (ret) {
 		printf("\n failed to initialise interrupt handler \r\n");
 	}
+
+   ret = metal_register_generic_device(&metal_dev_stim);
+   if (ret) {
+      printf("\n failed to register stim block \r\n");
+   } else {
+      printf("registered stim block.\r\n");
+   }
+
+   ret = metal_register_generic_device(&metal_dev_cap);
+   if (ret) {
+      printf("\n failed to register cap block \r\n");
+   } else {
+      printf("registered cap block.\r\n");
+   }
 #endif
 	ret =  metal_irq_register(irq,
 				(metal_irq_handler)XRFdc_IntrHandler,
@@ -373,12 +388,7 @@ printf("\n Configuring the Clock \r\n");
 		printf("registered IPI interrupt.\r\n");
 	}
 
-	ret = metal_register_generic_device(&metal_dev_stim);
-	if (ret) {
-		printf("\n failed to register stim block \r\n");
-	} else {
-		printf("registered stim block.\r\n");
-	}
+	metal_irq_enable(irq);
 
 	device_stim = &metal_dev_stim;
 	ret = metal_device_open(BUS_NAME, STIM_DEV_NAME, &device_stim);
@@ -393,13 +403,6 @@ printf("\n Configuring the Clock \r\n");
 		printf("ERROR: Failed to map Stimulus regio for %s.\r\n",
 			  device_stim->name);
 		return XRFDC_FAILURE;
-	}
-
-	ret = metal_register_generic_device(&metal_dev_cap);
-	if (ret) {
-		printf("\n failed to register cap block \r\n");
-	} else {
-		printf("registered cap block.\r\n");
 	}
 
 	device_cap = &metal_dev_cap;
@@ -435,11 +438,6 @@ printf("\n Configuring the Clock \r\n");
 	}
 #endif
 
-	if (XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, Tile,
-					XRFDC_EXTERNAL_CLK,250,2000) != XRFDC_SUCCESS) {
-		printf("Could not set PLL");
-		return XRFDC_FAILURE;
-	}
 	printf("Waiting for Interrupt\r\n");
 	/* Wait till interrupt occurs */
 	while (InterruptOccured == 0);
