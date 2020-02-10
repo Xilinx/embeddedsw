@@ -267,6 +267,9 @@ extern "C" {
 #define XRFDC_MTS_DAC_MARKER_CTRL 0x0048U
 #define XRFDC_MTS_DAC_MARKER_CNT (0x92U << 2U)
 #define XRFDC_MTS_DAC_MARKER_LOC (0x93U << 2U)
+#define XRFDC_MTS_DAC_FIFO_MARKER_CTRL (0x94U << 2U)
+#define XRFDC_MTS_DAC_FABRIC_OFFSET 0x0C
+
 
 #define XRFDC_RESET_OFFSET 0x00U /**< Tile reset register */
 #define XRFDC_RESTART_OFFSET 0x04U /**< Tile restart register */

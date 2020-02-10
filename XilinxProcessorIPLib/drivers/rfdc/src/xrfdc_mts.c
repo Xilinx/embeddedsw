@@ -54,6 +54,7 @@
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    08/02/19 Formatting changes.
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
+*       cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
 *
 * </pre>
 *
@@ -192,7 +193,7 @@ static u32 XRFdc_MTS_Sysref_Dist(XRFdc *InstancePtr, int Num_DAC)
 {
 	if (Num_DAC < 0) {
 		/* Auto-detect. Only 2 types Supported - 2GSPS ADCs, 4GSPS ADCs */
-		if (XRFdc_IsHighSpeedADC(InstancePtr, 0) != 0U) {
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3 && XRFdc_IsHighSpeedADC(InstancePtr, 0) != 0U) {
 			Num_DAC = 2;
 		} else {
 			Num_DAC = 4;
@@ -659,15 +660,15 @@ static void XRFdc_MTS_Marker_Read(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32
 	u32 RegData = 0x0;
 
 	if (Type == XRFDC_ADC_TILE) {
-		BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) - 0x2000;
+		BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
 		RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_ADC_MARKER_CNT + (FIFO_Id << 2));
 		*CountPtr = XRFDC_MTS_FIELD(RegData, XRFDC_MTS_AMARK_CNT_M, 0);
 		*LocPtr = XRFDC_MTS_FIELD(RegData, XRFDC_MTS_AMARK_LOC_M, XRFDC_MTS_AMARK_LOC_S);
 		*DonePtr = XRFDC_MTS_FIELD(RegData, XRFDC_MTS_AMARK_DONE_M, XRFDC_MTS_AMARK_DONE_S);
 	} else {
-		BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(FIFO_Id);
+		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, FIFO_Id);
 		*CountPtr = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_CNT);
-		*LocPtr = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_LOC);
+		*LocPtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_LOC, XRFDC_MTS_DAC_MARKER_LOC_MASK(InstancePtr->RFdc_Config.IPType));
 		*DonePtr = 1;
 	}
 	metal_log(METAL_LOG_DEBUG, "Marker Read Tile %d, FIFO %d - %08X = %04X: count=%d, loc=%d, done=%d\n", Tile_Id,
@@ -704,6 +705,7 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 	u32 Tile_Id;
 	u32 Block_Id;
 	u32 Status;
+	u32 BaseAddr;
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
@@ -711,18 +713,30 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_ADC_MARKER, 1);
 		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_ADC_MARKER, 0);
 	} else {
+
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		/*
 		 * SysRef Capture should be still active from the DTC Scan
 		 * but set it anyway to be sure
 		 */
 		for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
-			if (((1U << Tile_Id) & Tiles) != 0U) {
+			   if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
 				XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile_Id, 0, 1, 0);
 			}
 		}
 
 		/* Set marker delay */
-		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_DAC_MARKER_CTRL, Marker_Delay);
+		   XRFdc_WriteReg(InstancePtr, XRFDC_IP_BASE, XRFDC_MTS_DAC_MARKER_CTRL, Marker_Delay);
+		} else {
+			for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
+		       if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
+			      for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
+			         BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Block_Id);
+			         XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FIFO_MARKER_CTRL, 0x1, 0x1);
+			      }
+		       }
+			}
+		}
 	}
 
 	/* Allow the marker counter to run */
@@ -802,7 +816,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 			     XRFdc_MTS_Marker *MarkersPtr)
 {
 	u32 Status, Fifo, Index, BaseAddr, RegAddr;
-	int Count_W, Loc_W, Latency, Offset, Max_Latency, Target, Delta;
+	int Count_W, Loc_W, Latency, Offset, OffsetReg, Max_Latency, Target, Delta;
 	int I_Part, F_Part, SysRefT1Period, LatencyDiff, LatencyOffset;
 	u32 RegData, SysRefFreqCntrDone;
 	int Target_Latency = -1;
@@ -810,6 +824,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	u32 Factor = 1U;
 	u32 Write_Words = 0U;
 	u32 Read_Words = 1U;
+	u32 Block_Id;
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
@@ -935,13 +950,26 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 				Status |= XRFDC_MTS_DELAY_OVER;
 			}
 
-			/* Adjust the latency, write the same value to each FIFO */
-			BaseAddr = XRFDC_DRP_BASE(Type, Index) - 0x2000;
+
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			   // Adjust the latency, write the same value to each FIFO
+			   BaseAddr = XRFDC_CTRL_STS_BASE(Type, Index);;
 			for (Fifo = XRFDC_BLK_ID0; Fifo < XRFDC_BLK_ID4; Fifo++) {
 				RegAddr = XRFDC_MTS_DELAY_CTRL + (Fifo << 2);
 				RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, RegAddr);
 				RegData = XRFDC_MTS_RMW(RegData, XRFDC_MTS_DELAY_VAL_M, Offset);
 				XRFdc_WriteReg(InstancePtr, BaseAddr, RegAddr, RegData);
+			}
+			} else {
+				for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
+				   BaseAddr = XRFDC_BLOCK_BASE(Type, Index, Block_Id);
+				   if (Offset > 0) {
+					  OffsetReg = Offset | XRFDC_MTS_DIR_FIFO_PTR;
+				   } else {
+					   OffsetReg = Offset;
+				   }
+				   XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FABRIC_OFFSET, 0x7F, OffsetReg);
+				}
 			}
 
 			/* Report the total latency for this tile */
@@ -1100,7 +1128,7 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 				Status |= XRFDC_MTS_IP_NOT_READY;
 			}
 			BaseAddr = XRFDC_DRP_BASE(Type, Index) - XRFDC_TILE_DRP_OFFSET;
-			RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER);
+			RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER0);
 			if (RegData == 0U) {
 				metal_log(METAL_LOG_ERROR,
 					  "%s tile %d is not enabled for MTS, check IP configuration\n",
@@ -1135,14 +1163,26 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 		if ((ConfigPtr->Tiles & (1U << Index)) != 0U) {
 			/* Run DTC Scan for T1/PLL */
 			BaseAddr = XRFDC_DRP_BASE(Type, Index) + XRFDC_HSCOM_ADDR;
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 			RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_CLKSTAT);
-			if ((RegData & XRFDC_MTS_PLLEN_M) != 0U) {
+				if ((RegData & XRFDC_MTS_PLLEN_M) != XRFDC_DISABLED) {
 				/* DTC Scan PLL */
-				if (Index == 0U) {
-					metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n", 0);
+					if (Index == XRFDC_BLK_ID0) {
+					metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
 				}
 				ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
 				Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
+			}
+			} else {
+				RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0);
+				if(((RegData & XRFDC_PLL_DIVIDER0_BYP_PLL_MASK)== XRFDC_DISABLED) && ((RegData & XRFDC_PLL_DIVIDER0_MODE_MASK) != XRFDC_DISABLED)){
+					/* DTC Scan PLL */
+					if (Index == XRFDC_BLK_ID0) {
+						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
+					}
+					ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
+					Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
+				}
 			}
 		}
 	}
@@ -1203,8 +1243,8 @@ u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *EnablePtr
 		goto RETURN_PATH;
 	}
 
-	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) - XRFDC_TILE_DRP_OFFSET;
-	RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER);
+	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+	RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER0);
 	if (RegData == 0) {
 		*EnablePtr = 0;
 	} else {

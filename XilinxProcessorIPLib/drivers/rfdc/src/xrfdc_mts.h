@@ -50,6 +50,7 @@
 *                       optimization.
 * 6.0   cog    02/17/19 Added XRFdc_GetMTSEnable API.
 * 7.0   cog    05/13/19 Formatting changes.
+* 7.1   cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
 *
 * </pre>
 *
@@ -129,7 +130,12 @@ typedef struct {
 #define XRFDC_MTS_FIFO_DISABLE 0x0002U
 #define XRFDC_MTS_AMARK_LOC_S 0x10U
 #define XRFDC_MTS_AMARK_DONE_S 0x14U
-#define XRFDC_MTS_DLY_ALIGNER 0x28U
+#define XRFDC_MTS_DLY_ALIGNER0 0x28U
+#define XRFDC_MTS_DLY_ALIGNER1 0x2CU
+#define XRFDC_MTS_DLY_ALIGNER2 0x30U
+#define XRFDC_MTS_DLY_ALIGNER3 0x34U
+#define XRFDC_MTS_DIR_FIFO_PTR 0x40U
+#define XRFDC_MTS_DAC_MARKER_LOC_MASK(X) ((X < XRFDC_GEN3)?0x7U:0xFU)
 
 /* Error Codes */
 #define XRFDC_MTS_OK 0U
