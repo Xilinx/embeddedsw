@@ -62,6 +62,7 @@
 *                   XDpRxSs_CfgInitialize function
 * 5.0  yas 01/28/18 Added support for DP 1.4.
 * 5.0  jb  02/19/19 Added support for HDCP22
+* 6.0  rg  11/19/19 Added support to use PS I2C instance too.
 * </pre>
 *
 ******************************************************************************/
@@ -195,6 +196,7 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	XIic_Config IicConfig;
 #endif
 	XDp_Config DpConfig;
+	u32 Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);

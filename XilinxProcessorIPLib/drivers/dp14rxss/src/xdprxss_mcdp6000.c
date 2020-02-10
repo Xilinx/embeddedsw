@@ -38,6 +38,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- ----------------------------------------------------------
 * 1.00 Kei 01/23/18 Initial release.
+* 6.0  rg  11/19/19 Modified MCDP6000 APIs to support both PS I2C and
+* 		    PL I2C .
 * </pre>
 *
 ******************************************************************************/
@@ -90,6 +92,9 @@ u32 XDpRxSs_MCDP6000_GetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 	u32 Data = 0;
 	int i = 0;
 	int Status;
+	u32 I2CBaseAddress;
+	u32 ByteCount = 0;
+	u32 Retry = 0;
 
 	/* Verify argument.*/
 	Xil_AssertNonvoid(DpRxSsPtr != NULL);
@@ -185,6 +190,10 @@ int XDpRxSs_MCDP6000_SetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 {
 	u8 Buffer[6];
 	int Status;
+	u32 I2CBaseAddress;
+	u32 ByteCount = 0;
+	u32 Retry = 0;
+
 	/* Verify argument.*/
 	Xil_AssertNonvoid(DpRxSsPtr != NULL);
 
