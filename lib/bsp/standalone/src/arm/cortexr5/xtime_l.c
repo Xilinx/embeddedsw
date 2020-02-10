@@ -119,6 +119,10 @@ void XTime_GetTime(XTime *Xtime_Global)
 	*Xtime_Global = Xil_In32(SLEEP_TIMER_BASEADDR +
 				      XSLEEP_TIMER_TTC_COUNT_VALUE_OFFSET);
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
+	#if defined (__GNUC__)
 	*Xtime_Global = Xpm_ReadCycleCounterVal();
+	#elif defined (__ICCARM__)
+	Xpm_ReadCycleCounterVal(*Xtime_Global);
+	#endif
 #endif
 }

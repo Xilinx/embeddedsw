@@ -512,8 +512,11 @@ extern "C" {
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
+#if defined(__GNUC__)
 #define Xpm_ReadCycleCounterVal()	mfcp(XREG_CP15_PERF_CYCLE_COUNTER)
-
+#elif defined (__ICCARM__)
+#define Xpm_ReadCycleCounterVal(val)       mfcp(XREG_CP15_PERF_CYCLE_COUNTER,val)
+#endif
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/

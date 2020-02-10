@@ -307,11 +307,21 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
         XCntrVal TimeLowVal1 = 0U;
         XCntrVal TimeLowVal2 = 0U;
 
+	#if defined (__GNUC__)
         TimeLowVal1 = Xpm_ReadCycleCounterVal();
+	#elif defined (__ICCARM__)
+        Xpm_ReadCycleCounterVal(TimeLowVal1);
+	#endif
+
         tEnd = (u64)TimeLowVal1 + ((u64)(delay) * frequency);
         do
         {
+		#if defined (__GNUC__)
                 TimeLowVal2 = Xpm_ReadCycleCounterVal();
+		#elif defined (__ICCARM__)
+		Xpm_ReadCycleCounterVal(TimeLowVal2);
+		#endif
+
                 if (TimeLowVal2 < TimeLowVal1) {
                         TimeHighVal++;
                 }
