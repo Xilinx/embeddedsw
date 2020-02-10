@@ -89,6 +89,8 @@
 *                       Gen 3 devices.
 *       cog    11/28/19 Added offset & shift for datapath modes.
 *       cog    01/03/19 Change shift and mask for alternate bondout devices.
+*       cog    01/23/20	Fixed shift and mask for GCB calibration override operations
+*                       in Gen 3 Devices.
 *
 *</pre>
 *
@@ -376,11 +378,11 @@ extern "C" {
 #define XRFDC_CAL_GCB_ENFL_MASK 0x1800U /**< GCB accumulator enable mask*/
 
 #define XRFDC_CAL_OCB_EN_MASK 0x0001U /**< offsets coeff override enable mask*/
-#define XRFDC_CAL_GCB_EN_MASK 0x0080U /**< gain coeff override enable mask*/
+#define XRFDC_CAL_GCB_EN_MASK 0x2000U /**< gain coeff override enable mask*/
 #define XRFDC_CAL_TSCB_EN_MASK 0x8000U /**< time skew coeff override enable mask*/
 
 #define XRFDC_CAL_OCB_EN_SHIFT 0U /**< offsets coeff shift*/
-#define XRFDC_CAL_GCB_EN_SHIFT 7U /**< gain coeff shift*/
+#define XRFDC_CAL_GCB_EN_SHIFT 13U /**< gain coeff shift*/
 #define XRFDC_CAL_TSCB_EN_SHIFT 15U /**< time skew coeff shift*/
 #define XRFDC_CAL_GCB_FLSH_SHIFT 12U /**< GCB accumulator flush shift*/
 #define XRFDC_CAL_GCB_ACEN_SHIFT 11U /**< GCB accumulator enable shift*/

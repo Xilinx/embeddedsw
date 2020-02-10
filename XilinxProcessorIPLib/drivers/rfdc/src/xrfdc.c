@@ -190,6 +190,7 @@
 *       cog    12/20/19 Metal log messages are now more descriptive.
 *       cog    01/08/20	Added programmable hysteresis for counters ADC signal detector.
 *       cog    01/23/20	Calibration modes for Gen 3 were inverted.
+*       cog    01/23/20	Fixed offset and bit for GCB calibration override operations in Gen 3 Devices.
 *
 * </pre>
 *
@@ -4632,7 +4633,7 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
 						XRFDC_CAL_GCB_COEFF3_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
 			} else {
-				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET,
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
 						XRFDC_CAL_GCB_EN_MASK, XRFDC_DISABLED);
 			}
 			break;
@@ -4815,7 +4816,7 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 						XRFDC_CAL_GCB_COEFF3_FAB(Index), XRFDC_CAL_GCB_MASK,
 						CoeffPtr->Coeff3 >> Shift);
 			} else {
-				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET,
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
 						XRFDC_CAL_GCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_GCB_EN_SHIFT);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0, XRFDC_CAL_GCB_MASK,
 						CoeffPtr->Coeff0 >> Shift);
