@@ -257,6 +257,7 @@
 *       cog    11/15/19 Added macros for calibration mode support for Gen 3 devices.
 *       cog    11/28/19 Datapath mode macros have been changed to reflect the new functionality.
 *       cog    01/08/20	Added programmable hysteresis counters for ADC signal detector.
+*       cog    01/23/20	Calibration modes for Gen 3 were inverted.
 *
 * </pre>
 *
@@ -873,8 +874,7 @@ typedef struct {
 #define XRFDC_CALIB_MODE1 0x1U
 #define XRFDC_CALIB_MODE2 0x2U
 #define XRFDC_CALIB_MODE_ABS_DIFF 0x1U
-#define XRFDC_CALIB_MODE_NEG_ABS_DIFF 0x2U
-#define XRFDC_CALIB_MODE_MIXED 0x3U
+#define XRFDC_CALIB_MODE_NEG_ABS_SUM 0x2U
 #define XRFDC_TI_DCB_MODE1_4GSPS 0x00007800U
 #define XRFDC_TI_DCB_MODE1_2GSPS 0x00005000U
 
