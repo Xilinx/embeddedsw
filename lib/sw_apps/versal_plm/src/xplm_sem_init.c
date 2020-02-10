@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -73,11 +73,17 @@
  *****************************************************************************/
 int XSem_Init()
 {
-	int Status;
+	int Status = XST_FAILURE;
+
+#if !defined(XSEM_CFRSCAN_EN) && !defined(XSEM_NPISCAN_EN)
 	Status = XST_SUCCESS;
+#endif
 
 #ifdef XSEM_CFRSCAN_EN
 	Status = XSem_CfrInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 #endif
 
 #ifdef XSEM_NPISCAN_EN
@@ -85,7 +91,7 @@ int XSem_Init()
 	if (Status != XST_SUCCESS) {
 		goto END;
 	} else {
-		Status = XPlmi_SchedulerAddTask(XSem_NpiRunScan, 100U);
+		Status = XPlmi_SchedulerAddTask(0x0U, XSem_NpiRunScan, 100U);
 	}
 END:
 

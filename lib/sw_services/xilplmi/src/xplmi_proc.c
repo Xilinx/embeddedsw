@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -285,15 +285,8 @@ int XPlmi_StartTimer()
 	}
 
 	XPlmi_SetPmcIroFreq();
-	if (PmcIroFreq == 320 * 1000 * 1000)
-		{
-			Pit3ResetValue = 32000000U;
-		}
-	else
-		{
-			Pit3ResetValue = 13000000U;
-		}
-     XPlmi_SchedulerInit();
+	Pit3ResetValue = PmcIroFreq / 100U;
+	XPlmi_SchedulerInit();
 	/** Initialize and start the timer
 	 *  Use PIT1 and PIT2 in prescalor mode
 	 */

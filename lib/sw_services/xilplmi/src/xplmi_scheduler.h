@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,15 +63,16 @@ typedef struct {
 	int Enabled;
 } XPlmi_Scheduler_t ;
 
-u32 XPlmi_SchedulerInit(void);
-u32 XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
-u32 XPlmiSchedulerStop(XPlmi_Scheduler_t *SchedPtr);
-void XPlmi_SchedulerHandler(void *data);
-int XPlmi_SchedulerAddTask( XPlmi_Callback_t UserFunc, u32 MilliSeconds);
-u32 XPLmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, u32 CustId,
-	u32 MilliSeconds,XPlmi_Callback_t UserFunc);
-int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
-int XPlmi_IsTask_NonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
+int XPlmi_SchedulerInit(void);
+int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
+int XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr);
+void XPlmi_SchedulerHandler(void *Data);
+int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
+			   u32 MilliSeconds);
+int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
+			      u32 MilliSeconds);
+int XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
+int XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
 
 #ifdef __cplusplus
 }
