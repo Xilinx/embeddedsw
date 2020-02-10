@@ -44,8 +44,8 @@ typedef struct XPm_AieDomain {
 } XPm_AieDomain;
 
 /************************** Function Prototypes ******************************/
-XStatus XPmAieDomain_UnlockPcsr(void);
-XStatus XPmAieDomain_LockPcsr(void);
+void XPmAieDomain_UnlockPcsr(u32 BaseAddress);
+void XPmAieDomain_LockPcsr(u32 BaseAddress);
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent);
 

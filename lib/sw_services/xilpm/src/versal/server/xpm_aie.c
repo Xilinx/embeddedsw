@@ -34,6 +34,12 @@
 #define ME_PCSR_KEY 0xF9E8D7C6U
 #define AIE_POLL_TIMEOUT 0X1000000U
 
+#define ME_NPI_BASEADDR			0xF70A0000U
+#define ME_NPI_REG_PCSR_MASK	( ( ME_NPI_BASEADDR ) + 0x00000000U )
+#define ME_NPI_REG_PCSR_CONTROL	( ( ME_NPI_BASEADDR ) + 0x00000004U )
+#define ME_NPI_REG_PCSR_STATUS	( ( ME_NPI_BASEADDR ) + 0x00000008U )
+#define ME_NPI_REG_PCSR_LOCK	( ( ME_NPI_BASEADDR ) + 0x0000000CU )
+
 #define ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK    0x00008000U
 #define ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_DONE_MASK    0x00000002U
 #define ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_PASS_MASK    0x00000004U
@@ -505,28 +511,22 @@ static struct XPm_PowerDomainOps AieOps = {
 /**
  * @brief This funcction unlocks the AIE PCSR registers.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE
- *
  *****************************************************************************/
-XStatus XPmAieDomain_UnlockPcsr(void)
+inline void XPmAieDomain_UnlockPcsr(u32 BaseAddress)
 {
-	PmOut32(ME_NPI_REG_PCSR_LOCK, ME_PCSR_KEY);
-
-	return XST_SUCCESS;
+	u32 NpiPcsrLockReg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+	PmOut32(NpiPcsrLockReg, NPI_PCSR_UNLOCK_VAL);
 }
 
 /*****************************************************************************/
 /**
  * @brief This funcction locks the AIE PCSR registers.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE
- *
  *****************************************************************************/
-XStatus XPmAieDomain_LockPcsr(void)
+inline void XPmAieDomain_LockPcsr(u32 BaseAddress)
 {
-	PmOut32(ME_NPI_REG_PCSR_LOCK, 0x00000000);
-
-	return XST_SUCCESS;
+	u32 NpiPcsrLockReg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+	PmOut32(NpiPcsrLockReg, 0x00000000U);
 }
 
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
