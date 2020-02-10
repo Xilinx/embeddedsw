@@ -52,6 +52,7 @@
 *       mus    08/18/18 Updated to remove xparameters.h dependency for linux
 *                       platform.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
+* 7.1   cog    12/09/19 Added routing of clocks for ZCU216.
 *
 *
 * </pre>
@@ -204,6 +205,7 @@ int SelfTestExample(u16 RFdcDeviceId)
 	u32 DACSetFabricRate[4];
 	u32 GetFabricRate;
 	int ret = 0;
+	XRFdc_Distribution_Settings Distribution_Settings;
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -245,7 +247,6 @@ printf("\n Configuring the Clock \r\n");
 	LMK04208ClockConfig(I2CBUS, LMK04208_CKin);
 	LMX2594ClockConfig(I2CBUS, 3932160);
 #endif
-
 	Tile = 0x0;
 	for (Block = 0; Block <4; Block++) {
 		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
@@ -299,14 +300,47 @@ printf("\n Configuring the Clock \r\n");
 			}
 		}
 	}
+	if(RFdcInstPtr->RFdc_Config.IPType == XRFDC_GEN3){
+		/*Reset IP - the clock distribution will bring the tiles up again*/
+		XRFdc_WriteReg16(RFdcInstPtr, 0x0, 0x4, 1);
 
-	Status = XRFdc_Reset(RFdcInstPtr, XRFDC_ADC_TILE, Tile);
-	if (Status != XRFDC_SUCCESS) {
-		return XRFDC_FAILURE;
-	}
-	Status = XRFdc_Reset(RFdcInstPtr, XRFDC_DAC_TILE, Tile);
-	if (Status != XRFDC_SUCCESS) {
-		return XRFDC_FAILURE;
+		printf("\n Configuring the Clock \r\n");
+		/* This takes a reference clock of 500 MHz into ADC1/DAC1 uses PLL to increase to 2/6 GHz
+		   and distrubutes the 2/6 GHz to all other ADC/DAC tiles.*/
+		for (int i =0;i<4;i++) {
+			Distribution_Settings.DAC[i].SourceTile                   = XRFDC_CLK_DST_TILE_229;
+			Distribution_Settings.ADC[i].SourceTile                   = XRFDC_CLK_DST_TILE_225;
+			Distribution_Settings.DAC[i].PLLSettings.SampleRate       = 7864.32;
+			Distribution_Settings.ADC[i].PLLSettings.SampleRate       = 2211.84;
+			if(i == XRFDC_TILE_ID1){
+				Distribution_Settings.DAC[i].PLLEnable                    = 1;
+				Distribution_Settings.DAC[i].PLLSettings.RefClkFreq       = 500;
+				Distribution_Settings.DAC[i].DistributedClock             = XRFDC_DIST_OUT_OUTDIV;
+				Distribution_Settings.ADC[i].PLLEnable                    = 1;
+				Distribution_Settings.ADC[i].PLLSettings.RefClkFreq       = 500;
+				Distribution_Settings.ADC[i].DistributedClock             = XRFDC_DIST_OUT_OUTDIV;
+			} else {
+				Distribution_Settings.DAC[i].PLLEnable                    = 0;
+				Distribution_Settings.DAC[i].PLLSettings.RefClkFreq       = 7864.32;
+				Distribution_Settings.DAC[i].DistributedClock             = XRFDC_DIST_OUT_NONE;
+				Distribution_Settings.ADC[i].PLLEnable                    = 0;
+				Distribution_Settings.ADC[i].PLLSettings.RefClkFreq       = 2211.84;
+				Distribution_Settings.ADC[i].DistributedClock             = XRFDC_DIST_OUT_NONE;
+			}
+		}
+		Status = XRFdc_SetClkDistribution(RFdcInstPtr, &Distribution_Settings);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+	} else {
+		Status = XRFdc_Reset(RFdcInstPtr, XRFDC_ADC_TILE, Tile);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+		Status = XRFdc_Reset(RFdcInstPtr, XRFDC_DAC_TILE, Tile);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
 	}
 
 	for (Block = 0; Block <4; Block++) {
