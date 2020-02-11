@@ -626,10 +626,6 @@ void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 #endif
   /* Drive HDMI RX HPD High */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, TRUE);
-
-  /* Disable Audio Peripheral */
-  XV_HdmiRx_AudioDisable(InstancePtr->HdmiRxPtr);
-  XV_HdmiRx_AudioIntrDisable(InstancePtr->HdmiRxPtr);
 }
 
 /*****************************************************************************/
