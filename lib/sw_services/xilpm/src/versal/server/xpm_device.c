@@ -991,7 +991,8 @@ done:
 XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ResetHandle *RstHandle;
+	XPm_ResetHandle *RstHandle, *DeviceHandle;
+	XPm_ResetNode *Reset;
 
 	if (NULL == Device) {
 		Status = XPM_ERR_DEVICE;
@@ -999,9 +1000,29 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 	}
 
 	RstHandle = Device->RstHandles;
-	while (NULL != RstHandle) {
-		RstHandle->Reset->Ops->SetState(RstHandle->Reset, Action);
-		RstHandle = RstHandle->NextReset;
+	if (PM_RESET_ACTION_RELEASE != Action) {
+		while (NULL != RstHandle) {
+			Reset = RstHandle->Reset;
+			DeviceHandle = Reset->RstHandles;
+			while (NULL != DeviceHandle) {
+				if ((Device->Node.Id !=
+				    DeviceHandle->Device->Node.Id) &&
+				    ((u32)XPM_DEVSTATE_RUNNING ==
+				    DeviceHandle->Device->Node.State)) {
+					break;
+				}
+				DeviceHandle = DeviceHandle->NextDevice;
+			}
+			if (NULL == DeviceHandle) {
+				Reset->Ops->SetState(Reset, Action);
+			}
+			RstHandle = RstHandle->NextReset;
+		}
+	} else {
+		while (NULL != RstHandle) {
+			RstHandle->Reset->Ops->SetState(RstHandle->Reset, Action);
+			RstHandle = RstHandle->NextReset;
+		}
 	}
 
 	Status = XST_SUCCESS;
