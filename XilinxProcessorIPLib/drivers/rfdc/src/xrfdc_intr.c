@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc_intr.c
-* @addtogroup rfdc_v7_1
+* @addtogroup rfdc_v8_0
 * @{
 *
 * This file contains functions related to RFdc interrupt handling.
@@ -62,7 +62,8 @@
 *       cog    08/02/19 Formatting changes.
 * 7.1   aad    12/01/19 Fixed static analysis errors.
 *              12/20/19 Metal log messages are now more descriptive.
-*       cog    01/29/20	Fixed metal log typos.
+*       cog    01/29/20 Fixed metal log typos.
+* 8.0   cog    02/10/20 Updated addtogroup.
 *
 * </pre>
 *

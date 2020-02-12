@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup rfdc_v7_1
+* @addtogroup rfdc_v8_0
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
@@ -55,7 +55,8 @@
 *       cog    08/02/19 Formatting changes.
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
 *       cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
-*       cog    01/29/20	Fixed metal log typos.
+*       cog    01/29/20 Fixed metal log typos.
+* 8.0   cog    02/10/20 Updated addtogroup.
 *
 * </pre>
 *

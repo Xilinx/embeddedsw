@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v7_1
+* @addtogroup rfdc_v8_0
 * @{
 * @details
 *
@@ -256,8 +256,9 @@
 * 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
 *       cog    11/15/19 Added macros for calibration mode support for Gen 3 devices.
 *       cog    11/28/19 Datapath mode macros have been changed to reflect the new functionality.
-*       cog    01/08/20	Added programmable hysteresis counters for ADC signal detector.
-*       cog    01/23/20	Calibration modes for Gen 3 were inverted.
+*       cog    01/08/20 Added programmable hysteresis counters for ADC signal detector.
+*       cog    01/23/20 Calibration modes for Gen 3 were inverted.
+* 8.0   cog    02/10/20 Updated addtogroup and added s16 typedef.
 *
 * </pre>
 *
@@ -297,6 +298,7 @@ typedef __u32 u32;
 typedef __u16 u16;
 typedef __u8 u8;
 typedef __s32 s32;
+typedef __s16 s16;
 typedef __u64 u64;
 typedef __s64 s64;
 typedef __s8 s8;
@@ -2014,7 +2016,7 @@ RETURN_PATH:
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion(void)
 {
-	return 7.1;
+	return 8.0;
 }
 
 /************************** Function Prototypes ******************************/

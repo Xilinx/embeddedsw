@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ BEGIN driver rfdc
   OPTION supported_peripherals = (usp_rf_data_converter);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 7.1;
+  OPTION VERSION = 8.0;
   OPTION NAME = rfdc;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";

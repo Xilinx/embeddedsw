@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v7_1
+* @addtogroup rfdc_v8_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -89,8 +89,9 @@
 *                       Gen 3 devices.
 *       cog    11/28/19 Added offset & shift for datapath modes.
 *       cog    01/03/19 Change shift and mask for alternate bondout devices.
-*       cog    01/23/20	Fixed shift and mask for GCB calibration override operations
+*       cog    01/23/20 Fixed shift and mask for GCB calibration override operations
 *                       in Gen 3 Devices.
+* 8.0   cog    02/10/20 Updated addtogroup.
 *
 *</pre>
 *
