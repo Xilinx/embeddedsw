@@ -35,6 +35,7 @@
 extern "C" {
 #endif
 
+extern u32 HcleanDone;
 /**
  * The PL power domain node class.
  */
@@ -51,6 +52,7 @@ typedef struct XPm_PlDomain {
 #define XPM_PL_TRIM_URAM         (0x4U)
 
 /************************** Function Prototypes ******************************/
+XStatus XPmPlDomain_InitandHouseclean();
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent, u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt);

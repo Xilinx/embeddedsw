@@ -32,6 +32,7 @@
 #include "xpm_pmc.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
+#include "xpm_pldomain.h"
 #include "xpm_bisr.h"
 #include "xpm_device.h"
 #include "xpm_gic_proxy.h"
@@ -545,6 +546,8 @@ XStatus XPm_PowerDwnPLD(void)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+	/* Reset Houseclean flag for PL */
+	HcleanDone = 0U;
 
 	/* Assert POR PL */
 	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_ASSERT);
@@ -857,6 +860,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	/* Check PL power up at every init node command to see if we can run Pl houseclean*/
+	XPmPlDomain_InitandHouseclean();
 
 	switch (Function) {
 	case (u32)FUNC_INIT_START:

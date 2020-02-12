@@ -46,6 +46,7 @@
 #include "xplm_main.h"
 #include "xplmi_debug.h"
 #include "xpm_api.h"
+#include "xpm_pldomain.h"
 #include "xpm_subsystem.h"
 
 /************************** Constant Definitions *****************************/
@@ -119,6 +120,16 @@ int XPlm_Init()
 	 */
 	XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
 	 PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK, 0U);
+
+	/*
+	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
+	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
+	 * The problem is eliminated when PL Vgg frame housecleaning is run
+	 * so we need to do that ASAP after PLM is loaded.
+	 * Otherwise also, PL housecleaning needs to be trigerred asap to reduce
+	 * boot time.
+	 */
+	XPmPlDomain_InitandHouseclean();
 
 	/**
 	 * Reset the wakeup signal set by ROM
