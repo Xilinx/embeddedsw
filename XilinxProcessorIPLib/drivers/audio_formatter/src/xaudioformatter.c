@@ -343,6 +343,7 @@ void XAudioFormatterSetHwParams(XAudioFormatter *InstancePtr,
 
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_CTRL + offset);
+	val &= ~(XAUD_CTRL_DATA_WIDTH_MASK << XAUD_CTRL_DATA_WIDTH_SHIFT);
 	switch (hw_params->bits_per_sample) {
 		case BIT_DEPTH_8:
 			val |= (BIT_DEPTH_8 << XAUD_CTRL_DATA_WIDTH_SHIFT);

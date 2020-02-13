@@ -183,6 +183,7 @@ extern "C" {
 #define XAUD_CTRL_TIMEOUT_IRQ_MASK   BIT(14)
 #define XAUD_CTRL_ERR_IRQ_MASK       BIT(12)
 #define XAUD_CTRL_DMA_EN_MASK        BIT(0)
+#define XAUD_CTRL_DATA_WIDTH_MASK    0x07
 
 #define XAUD_CTRL_DATA_WIDTH_SHIFT       16
 #define XAUD_CTRL_ACTIVE_CH_SHIFT        19
