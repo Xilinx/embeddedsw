@@ -206,7 +206,6 @@ static void XPm_PllRestoreContext(XPm_PllClockNode* Pll)
 XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
 	XPm_PllSaveContext(Pll);
 
@@ -218,16 +217,7 @@ XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 		}
 	}
 
-	if (NULL != PowerDomain) {
-		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
-						  XPM_POWER_EVENT_PWR_DOWN);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
 	Pll->ClkNode.Node.State = PM_PLL_STATE_SUSPENDED;
-
 	Status = XST_SUCCESS;
 
 done:
@@ -298,9 +288,19 @@ XStatus XPmClockPll_Release(u32 PllId)
 	}
 	Pll->ClkNode.UseCount--;
 
-	if (Pll->ClkNode.UseCount == 0U) {
-		Status = XPmClockPll_Suspend(Pll);
-		goto done;
+	/**
+	 * Do not suspend the PLL if its use count goes to 0 because it may
+	 * possible that IOU_SWITCH of other domain is using this PLL.
+	 * Just decrement its parent use count and PLL will be suspended
+	 * when its power domain goes off.
+	 */
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+	if ((0U == Pll->ClkNode.UseCount) && (NULL != PowerDomain)) {
+		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
+						  XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	Status = XST_SUCCESS;

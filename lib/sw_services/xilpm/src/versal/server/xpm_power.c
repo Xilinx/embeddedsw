@@ -32,6 +32,7 @@
 #include "xpm_psm.h"
 #include "sleep.h"
 #include "xpm_rpucore.h"
+#include "xpm_pll.h"
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 static u32 PmNumPowers;
@@ -307,6 +308,8 @@ done:
 static XStatus SendPowerDownReq(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_ClockNode *Clk;
+	u32 Idx;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
@@ -341,6 +344,18 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 			 }
 		}
 	} else {
+		/* Put the PLL in suspended mode */
+		for (Idx = (u32)XPM_NODEIDX_CLK_MIN; Idx < (u32)XPM_NODEIDX_CLK_MAX; Idx++) {
+			Clk = XPmClock_GetByIdx(Idx);
+			if ((NULL != Clk) && (ISPLL(Clk->Node.Id)) &&
+			    (Node->Id == Clk->PwrDomain->Node.Id)) {
+				Status = XPmClockPll_Suspend((XPm_PllClockNode *)Clk);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
+		}
+
 		PmDbg("Request to power down domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
 		case (u32)XPM_NODEIDX_POWER_LPD:
