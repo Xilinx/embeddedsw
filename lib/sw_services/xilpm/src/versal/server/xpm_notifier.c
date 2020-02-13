@@ -32,7 +32,7 @@
 
 typedef struct {
 	const XPm_Subsystem* Subsystem;
-	const XPm_Device* Device;
+	u32 NodeId;
 	u32 EventMask;
 	u32 WakeMask;
 	u32 IpiMask;  /* TODO: Remove this when IPI mask support in CDO is available*/
@@ -42,10 +42,10 @@ static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
 
 /****************************************************************************/
 /**
- * @brief  Register the notifier for given subsystem, device and event
+ * @brief  Register the notifier for given subsystem, NodeId and event
  *
  * @param  Subsystem  Subsystem to be notified
- * @param  Device     Device related to event
+ * @param  NodeId     NodeId related to event
  * @param  Event      Event to be notified about
  * @param  Wake       Flag specifying whether the subsystem should be woken
  *                    upon event notification
@@ -54,7 +54,7 @@ static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
  *
  ****************************************************************************/
 int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
-			 const XPm_Device* const Device,
+			 const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 IpiMask)
 {
 	int Status = XST_FAILURE;
@@ -71,7 +71,7 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 		}
 
 		if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
-		    (Device == PmNotifiers[Idx].Device)) {
+		    (NodeId == PmNotifiers[Idx].NodeId)) {
 			/* Drop empty index - existing entry found */
 			EmptyIdx = ARRAY_SIZE(PmNotifiers);
 			break;
@@ -81,7 +81,7 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 	if (EmptyIdx != ARRAY_SIZE(PmNotifiers)) {
 		/* Add new entry in empty place if no notifier found for given pair */
 		PmNotifiers[EmptyIdx].Subsystem = Subsystem;
-		PmNotifiers[EmptyIdx].Device = Device;
+		PmNotifiers[EmptyIdx].NodeId = NodeId;
 		PmNotifiers[EmptyIdx].IpiMask = IpiMask;
 		Idx = EmptyIdx;
 	} else if (Idx >= ARRAY_SIZE(PmNotifiers)) {
@@ -99,6 +99,10 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 		/* Wake subsystem for this event */
 		PmNotifiers[Idx].WakeMask |= Event;
 	}
+	/*
+	 * TODO: Check if Node Class is EVENT and call XPlmi_EMEnable
+	 * once that API is available
+	 */
 
 	Status = XST_SUCCESS;
 
@@ -108,31 +112,35 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Unregister the notifier for given subsystem, device and event
+ * @brief  Unregister the notifier for given subsystem, NodeId and event
  *
  * @param  Subsystem  Subsystem which was registered for notification
- * @param  Device     Device related to event
+ * @param  NodeId     NodeId related to event
  * @param  Event      Notification event
  *
  * @return None
  *
  ****************************************************************************/
 void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
-			    const XPm_Device* const Device,
+			    const u32 NodeId,
 			    const u32 Event)
 {
 	u32 Idx;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
-		    (Device == PmNotifiers[Idx].Device)) {
-			/* Entry for subsystem/device pair found */
+		    (NodeId == PmNotifiers[Idx].NodeId)) {
+			/* Entry for subsystem/NodeId pair found */
 			PmNotifiers[Idx].EventMask &= ~Event;
 			PmNotifiers[Idx].WakeMask &= ~Event;
 			if (0U == PmNotifiers[Idx].EventMask) {
 				(void)memset(&PmNotifiers[Idx], 0,
 					     sizeof(XPmNotifier));
 			}
+			/*
+			 * TODO: Check if Node Class is EVENT and call XPlmi_EMDisable
+			 * once that API is available
+			 */
 			break;
 		}
 	}
@@ -161,26 +169,27 @@ void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
 /****************************************************************************/
 /**
  * @brief  This function triggers the notification if enabled for current
- *         device and current event.
+ *         NodeId and current event.
  *
- * @param  Device  Device for which event is occurred
+ * @param  NodeId  NodeId for which event is occurred
  * @param  Event   Event type
  *
  * @return None
  *
  ****************************************************************************/
-void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event)
+void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 {
 	u32 Idx;
 	XPmNotifier* Notifier = NULL;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+	XPm_Device* Device;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
-		/* Search for the given device */
-		if (Device != PmNotifiers[Idx].Device) {
+		/* Search for the given NodeId */
+		if (NodeId != PmNotifiers[Idx].NodeId) {
 			continue;
 		}
-		/* Device is matching, check for event */
+		/* NodeId is matching, check for event */
 		if (0U == (Event & PmNotifiers[Idx].EventMask)) {
 			continue;
 		}
@@ -190,7 +199,28 @@ void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event)
 	}
 
 	if ((NULL == Notifier) || (NULL == PmRequestCb)) {
-		return;
+		goto done;
+	}
+
+	/* Populate the PayLoad */
+	Payload[0] = (u32)PM_NOTIFY_CB;
+	Payload[1] = Notifier->NodeId;
+	Payload[2] = Event;
+
+	switch (NODECLASS(NodeId)) {
+		case XPM_NODECLASS_EVENT:
+			Payload[3] = 0U;
+			break;
+		case XPM_NODECLASS_DEVICE:
+			Device = XPmDevice_GetById(NodeId);
+			if (NULL == Device) {
+				goto done;
+			}
+			Payload[3] = Device->Node.State;
+			break;
+		default:
+			PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
+			goto done;
 	}
 
 	/*
@@ -199,10 +229,9 @@ void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event)
 	 */
 	if (((u8)OFFLINE != Notifier->Subsystem->State) ||
 	    (0U != (Event & Notifier->WakeMask))) {
-		Payload[0] = (u32)PM_NOTIFY_CB;
-		Payload[1] = Notifier->Device->Node.Id;
-		Payload[2] = Event;
-		Payload[3] = Notifier->Device->Node.State;
 		(*PmRequestCb)(Notifier->IpiMask, PM_NOTIFY_CB, Payload);
 	}
+
+ done:
+	return;
 }

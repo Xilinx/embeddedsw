@@ -1450,7 +1450,7 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId)
 
 	Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
 	if (0U == Usage) {
-		XPmNotifier_Event(Device, (u32)EVENT_ZERO_USERS);
+		XPmNotifier_Event(Device->Node.Id, (u32)EVENT_ZERO_USERS);
 	}
 
 done:
@@ -4286,7 +4286,7 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
  *
  * @param  IpiMask      IPI mask of current subsystem
  * @param  SubsystemId  Subsystem to be notified
- * @param  DeviceId     Device to which the event is related
+ * @param  NodeId     Node to which the event is related
  * @param  Event        Event in question
  * @param  Wake         Wake subsystem upon capturing the event if value 1
  * @param  Enable       Enable the registration for value 1, disable for value 0
@@ -4296,13 +4296,13 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
  *
  * @note   None
  ****************************************************************************/
-int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
+int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask)
 {
 	int Status = XST_FAILURE;
 	XPm_Subsystem* Subsystem = NULL;
-	XPm_Device* Device = NULL;
+
 
 	/* Validate SubsystemId */
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -4310,13 +4310,14 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	/* Validate DeviceId */
-	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
+	/* Only Event and Device Nodes are supported */
+	if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
+		((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId))) {
 		goto done;
 	}
 
 	/* Validate other parameters */
+	/* TODO: Add check for EM events once Error Event Types are finalized */
 	if ((0U != Wake && 1U != Wake) || (0U != Enable && 1U != Enable) ||
 	    ((u32)EVENT_STATE_CHANGE != Event && (u32)EVENT_ZERO_USERS != Event)) {
 		Status = XST_INVALID_PARAM;
@@ -4324,10 +4325,10 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 	if (0U == Enable) {
-		XPmNotifier_Unregister(Subsystem, Device, Event);
+		XPmNotifier_Unregister(Subsystem, NodeId, Event);
 		Status = XST_SUCCESS;
 	} else {
-		Status = XPmNotifier_Register(Subsystem, Device, Event, Wake,
+		Status = XPmNotifier_Register(Subsystem, NodeId, Event, Wake,
 					      IpiMask);
 	}
 

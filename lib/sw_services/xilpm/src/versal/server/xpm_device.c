@@ -1472,7 +1472,7 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 		Device->Node.State = (u8)NextState;
 
 		/* Send notification about device state change */
-		XPmNotifier_Event(Device, (u32)EVENT_STATE_CHANGE);
+		XPmNotifier_Event(Device->Node.Id, (u32)EVENT_STATE_CHANGE);
 	}
 
 done:

@@ -37,16 +37,16 @@ extern "C" {
 extern void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
 
 int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
-			 const XPm_Device* const Device,
+			 const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 IpiMask);
 
 void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
-			    const XPm_Device* const Device,
+			    const u32 NodeId,
 			    const u32 Event);
 
 void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem);
 
-void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event);
+void XPmNotifier_Event(const u32 NodeId, const u32 Event);
 
 #ifdef __cplusplus
 }
