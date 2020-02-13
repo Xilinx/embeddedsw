@@ -242,10 +242,6 @@ Add CCI support
 Restructured usbpsu driver for more modularity and readability.
 Add clock support.
 
-usbpsu_v1_7:
-Update optimal number of TRB to improve performance.
-Fixed doxygen warnings.
-
 axicdma_v4_7:
 Support 26bit dma transfer length.
 Fix gcc warning in peripheral test and examples.
