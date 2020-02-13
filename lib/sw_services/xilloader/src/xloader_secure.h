@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -159,6 +159,9 @@ extern "C" {
 #define XLOADER_EFUSE_SPKID_7_OFFSET		0xF12500CCU
 
 #define XLOADER_EFUSE_SEC_MISC0_OFFSET		0xF12500E4U
+#define XLOADER_EFUSE_SEC_MISC1_OFFSET		0xF12500E8U
+
+#define XLOADER_EFUSE_SEC_DPA_DIS_MASK		0xFFFF0000U
 #define XLOADER_EFUSE_SEC_DEC_MASK		0x0000FFFFU
 
 #define XLOADER_SPKID_MAX			0xFFU

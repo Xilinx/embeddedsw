@@ -149,6 +149,7 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_EMMC_RAW		(0x12U)
 
 /* Prtn Attribute fields */
+#define XIH_PH_ATTRB_DPA_CM_EN_MASK		(0x18000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
 #define XIH_PH_ATTRB_HIVEC_MASK			(0x800000U)
 #define XIH_PH_ATTRB_CHUNKSIZE_MASK		(0x700000U)
@@ -423,6 +424,7 @@ u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_IsEnc(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr);
+u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl);
 u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr);
 u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr);

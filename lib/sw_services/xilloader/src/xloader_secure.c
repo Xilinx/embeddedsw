@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -88,7 +88,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 				XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 				XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
-
+static u32 XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg);
 /************************** Variable Definitions *****************************/
 
 XLoader_AuthCertificate AuthCert;
@@ -1695,6 +1695,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 	u8 Index;
 	XSecure_AesKeySrc KeySrc;
 	u32 ChunkSize = Size;
+	u32 DpaCmCfg;
 
 	/* Initialize AES driver */
 	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
@@ -1707,6 +1708,13 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 	if (SecurePtr->BlockNum == 0x0) {
 		XSecure_ReleaseReset(AesInstance.BaseAddress,
 					XSECURE_AES_SOFT_RST_OFFSET);
+
+		/* Configure DPA counter measure */
+		DpaCmCfg = XilPdi_IsDpaCmEnable(SecurePtr->PrtnHdr);
+		Status = XLoader_SetAesDpaCm(&AesInstance, DpaCmCfg);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		/* Clear all key zeroization register */
 		XPlmi_Out32((AesInstance.BaseAddress +
 			XSECURE_AES_KEY_CLEAR_OFFSET), 0x00000000U);
@@ -2232,5 +2240,37 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function enables or disables DPA counter measures.
+ *
+ * @param	AesInstPtr	Pointer to the XSecure_Aes instance.
+ * @param	DpaCmCfg
+ *				- TRUE - to enable AES DPA counter measure
+ *				- FALSE -to disable AES DPA counter measure
+ *
+ * @return
+ *			- XST_SUCCESS if enable/disable of DPA was successful.
+ *			- Error if device doesn't support DPA CM or configuration is
+ *			not successful
+ *
+ ******************************************************************************/
+static u32 XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	/* Configure AES DPA CM */
+	Status = XSecure_AesSetDpaCm(AesInstPtr, DpaCmCfg);
+
+	/* If DPA CM request is to disable and device also not supports DPA CM */
+	if ((Status == XSECURE_AES_DPA_CM_NOT_SUPPORTED) &&
+			(DpaCmCfg == FALSE)) {
+		Status = (u32)XST_SUCCESS;
+	}
+
 	return Status;
 }

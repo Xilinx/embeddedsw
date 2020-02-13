@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -99,6 +99,17 @@ u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr)
 u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
 {
         return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_HIVEC_MASK;
+}
+
+u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
+{
+	u32 PrtnDpaState;
+
+	PrtnDpaState = PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DPA_CM_EN_MASK;
+	PrtnDpaState = (PrtnDpaState != 0x0U) ? TRUE : FALSE;
+
+	return PrtnDpaState;
+
 }
 
 u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr)
