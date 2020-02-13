@@ -138,6 +138,8 @@ enum {
 	XPLMI_ERR_SSIT_SLAVE_SYNC,	/**< 0x111 - Error when SSIT master
 					 times out waiting for slaves sync
 					 point */
+	XPLMI_ERR_IPI_CMD, /**< 0x115 - Error when command execution through
+							IPI is not supported */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

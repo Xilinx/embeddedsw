@@ -59,7 +59,8 @@ extern "C" {
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
 #define XPLMI_CMD_RESP_SIZE			(8U)
 #define XPLMI_CMD_RESUME_DATALEN			(8U)
-
+#define XPLMI_CMD_HNDLR_MASK				(0xFF00U)
+#define XPLMI_CMD_HNDLR_PLM_VAL				(0x100U)
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
 typedef struct XPlmi_KeyHoleParams XPlmi_KeyHoleParams;

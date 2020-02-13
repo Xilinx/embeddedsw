@@ -112,6 +112,8 @@ enum {
 #define XPLMI_MASKPOLL_FLAGS_ERR		(0x0U)
 #define XPLMI_MASKPOLL_FLAGS_SUCCESS		(0x1U)
 #define XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR	(0x2U)
+#define XPLMI_PLM_GENERIC_CMD_ID_MASK		(0xFFU)
+#define XPLMI_PLM_GENERIC_DEVICE_ID_VAL		(0x12U)
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_CfiRead(XPlmi_Cmd * Cmd);

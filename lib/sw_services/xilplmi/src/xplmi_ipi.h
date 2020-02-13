@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -81,6 +81,7 @@ int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type);
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
+int XPlmi_ValidateIpiCmd(u32 CmdId);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/

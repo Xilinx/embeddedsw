@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_ipi.h"
 #include "xplmi_proc.h"
+#include "xplmi_generic.h"
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /************************** Constant Definitions *****************************/
 
@@ -143,6 +144,17 @@ int XPlmi_IpiDispatchHandler(void *Data)
 			}
 			Cmd.CmdId = Payload[0U];
 			Cmd.IpiMask = IpiMaskList[MaskIndex];
+			Status = XPlmi_ValidateIpiCmd(Cmd.CmdId);
+			if(Status != XST_SUCCESS)
+			{
+				Status = XPLMI_UPDATE_STATUS( XPLMI_ERR_IPI_CMD, 0U);
+				Cmd.Response[0U] = (u32)Status;
+				/* Send response to caller */
+				XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
+							XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
+				continue;
+			}
+
 			Cmd.Len = (Cmd.CmdId >> 16) & 255;
 			if (Cmd.Len > 6U) {
 				Cmd.Len = Payload[1U];
@@ -264,5 +276,35 @@ inline int XPlmi_IpiTrigger(u32 DestCpuMask)
 inline int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 {
 	return XIpiPsu_PollForAck(IpiInstPtr, DestCpuMask, TimeOutCount);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function checks whether the CmdID passsed is supported
+ * 			via IPI mechanism or not.
+ * @param	Command ID
+ *
+ * @return	Success if the command is supported, failure otherwise
+ *
+ *****************************************************************************/
+int XPlmi_ValidateIpiCmd(u32 CmdId)
+{
+	int Status = XST_FAILURE;
+	if((CmdId & XPLMI_CMD_HNDLR_MASK) == XPLMI_CMD_HNDLR_PLM_VAL)
+	{
+		/** Only DEVICE ID CDO command is allowed through IPI.
+		 *  All other commands are allowed only from CDO file.
+		 */
+		if((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) ==
+					XPLMI_PLM_GENERIC_DEVICE_ID_VAL)
+		{
+			Status = XST_SUCCESS;
+		}
+	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
