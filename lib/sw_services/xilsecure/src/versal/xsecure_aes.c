@@ -39,6 +39,7 @@
 *       har  08/21/2019 Fixed MISRA C violations
 *       vns  08/23/2019 Initialized status variables
 * 4.2   har  01/03/2020 Added checks for return value of XSecure_SssAes
+*       vns  02/10/2020 Added DPA CM enable/disable function
 * </pre>
 *
 * @note
@@ -336,6 +337,56 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief
+ * This function enables or disable DPA counter measures in AES engine.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	DpaCmCfg
+ *				- TRUE - to enable AES DPA counter measure (Default setting)
+ *				- FALSE -to disable AES DPA counter measure
+ *
+ * @return
+ *			- XST_FAILURE if DPA CM is disbaled on chip.
+ *			  (Enabling/Disabling does not impact functionality)
+ *			- XST_SUCCESS if configuration is success.
+ *
+ * @note	By default AES engine is enabled with
+ *
+ ******************************************************************************/
+u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
+{
+	u32 Status = (u32)XST_FAILURE;
+	u32 ReadReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((DpaCmCfg == TRUE) ||
+					(DpaCmCfg == FALSE));
+
+	/* Chip has DPA CM support */
+	if ((XSecure_In32(XSECURE_EFUSE_SECURITY_MISC1) &
+		XSECURE_EFUSE_DPA_CM_DIS_MASK) == 0x00U) {
+
+		/* Disable/enable DPA CM inside AES engine */
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+						XSECURE_AES_CM_EN_OFFSET, DpaCmCfg);
+
+		/* Verify status of CM */
+		ReadReg = XSecure_ReadReg(InstancePtr->BaseAddress,
+				XSECURE_AES_STATUS_OFFSET);
+		ReadReg = (ReadReg & XSECURE_AES_STATUS_CM_ENABLED_MASK) >>
+					XSECURE_AES_STATUS_CM_ENABLED_SHIFT;
+		if (ReadReg == DpaCmCfg) {
+			Status = (u32)XST_SUCCESS;
+		}
+	}
+	else {
+		Status = (u32)XSECURE_AES_DPA_CM_NOT_SUPPORTED;
+	}
+
+	return Status;
+}
 /*****************************************************************************/
 /**
  *

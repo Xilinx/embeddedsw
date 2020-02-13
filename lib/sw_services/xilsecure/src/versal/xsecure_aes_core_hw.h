@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/21/19 Initial release
+* 4.2   vns  02/10/20 Added efuse cache DPA mask register address and mask
 *
 * </pre>
 *
@@ -433,6 +434,9 @@ extern "C" {
  */
 #define XSECURE_AES_ECO_OFFSET    (0x00000230 )
 
+/* Efuse Cache Register : SECURITY_MISC_1 */
+#define XSECURE_EFUSE_SECURITY_MISC1			(0xF12500E8U)
+#define XSECURE_EFUSE_DPA_CM_DIS_MASK			(0xFFFF0000U)
 
 #ifdef __cplusplus
 }

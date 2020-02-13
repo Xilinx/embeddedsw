@@ -38,6 +38,7 @@
 * 4.1   vns  08/06/2019 Added AES encryption APIs
 * 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
 *                       and added in xsecure_utils.h
+*       vns  02/10/2020 Added DPA CM enable/disable function
 * </pre>
 *
 * @note
@@ -169,10 +170,14 @@ typedef enum {
 						not match calculated tag */
 	XSECURE_AES_KEY_CLEAR_ERROR,
 					/**< AES key clear error */
+	XSECURE_AES_DPA_CM_NOT_SUPPORTED,
+					/**< AES DPA CM is not supported on device */
 } XSecure_AesErrorCodes;
 
 /************************** Function Prototypes ******************************/
 u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr);
+
+u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 Configuration);
 
 u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc);
 
