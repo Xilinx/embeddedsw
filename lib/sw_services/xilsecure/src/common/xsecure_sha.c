@@ -61,7 +61,9 @@
 *       psl  07/31/19 Fixed MISRA-C violation
 * 4.2   har  01/06/20 Removed asserts to validate zero size of data as per
 *                     CR-1049217 since hashing of zero size data is valid
-* </pre>
+* 4.3   mmd  02/03/20 optimized XSecure_Sha3DataUpdate function
+*       kpt  02/03/20 Enhanced the Code for non-aligned data and
+*                     aligned address i.e CR-1052152
 *
 * @note
 *
@@ -353,56 +355,37 @@ END:
  *****************************************************************************/
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 {
-	u32 PartialLen;
+	u32 PadLen;
 	u32 Status = (u32)XST_FAILURE;
+	u32 Size;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Hash != NULL);
 	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
-	PartialLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
+	PadLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
 
-	PartialLen = (PartialLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
-		(XSECURE_SHA3_BLOCK_LEN - PartialLen);
+	PadLen = (PadLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
+		(XSECURE_SHA3_BLOCK_LEN - PadLen);
 
 	if (InstancePtr->Sha3PadType == XSECURE_CSU_NIST_SHA3) {
 		XSecure_Sha3NistPadd(InstancePtr,
 			&InstancePtr->PartialData[InstancePtr->PartialLen],
-								PartialLen);
-	}
-	else if (InstancePtr->Sha3PadType == XSECURE_CSU_KECCAK_SHA3) {
-		 XSecure_Sha3KeccakPadd(InstancePtr,
-			&InstancePtr->PartialData[InstancePtr->PartialLen],
-								PartialLen);
+								PadLen);
 	}
 	else {
-		Status = XST_FAILURE;
-		goto END;
+		 XSecure_Sha3KeccakPadd(InstancePtr,
+			&InstancePtr->PartialData[InstancePtr->PartialLen],
+								PadLen);
 	}
 
-	/* Configure the SSS for SHA3 hashing. */
-	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
-			InstancePtr->CsuDmaPtr->Config.DeviceId);
+	Size = PadLen + InstancePtr->PartialLen;
+	Status = XSecure_Sha3DmaTransfer(InstancePtr, (u8*)InstancePtr->PartialData,
+						   Size, 1U);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				(UINTPTR)InstancePtr->PartialData,
-				(PartialLen + (InstancePtr->PartialLen))/4U, 1);
-
-	/* Check for CSU DMA done bit */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
-						XCSUDMA_SRC_CHANNEL);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						XCSUDMA_IXR_DONE_MASK);
-
 	/* Check the SHA3 DONE bit. */
 	Status = XSecure_Sha3WaitForDone(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
@@ -415,6 +398,7 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 		XSecure_Sha3_ReadHash(InstancePtr, Hash);
 	}
 END:
+	(void)memset((void*)InstancePtr->PartialData, 0, Size);
 	/* Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET);
@@ -547,114 +531,66 @@ ENDF:
  *
  ******************************************************************************/
 static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
-								const u32 Size, u8 IsLastUpdate)
+		const u32 Size, u8 IsLastUpdate)
 {
-	u32 CurrentPartialLen;
-	u32 PrevPartialLen;
-	u32 TotalLen ;
-	u32 TransferredBytes ;
-	u32 DataSize;
+	u32 RemainingDataLen;
+	u32 DmableDataLen;
+	const u8 *DmableData;
 	u8 IsLast;
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
+	u32 PrevPartialLen = InstancePtr->PartialLen;
+	u8 *PartialData = InstancePtr->PartialData;
 
-	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	CurrentPartialLen = (Size % 4U);
-	PrevPartialLen = InstancePtr->PartialLen;
-	TotalLen = Size + PrevPartialLen;
-	TransferredBytes = 0U;
-
-	/* If always Word Aligned Data and Word aligned address */
-	if ((CurrentPartialLen == 0U) && (PrevPartialLen == 0U) &&
-			(((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) == 0U)) {
-		Status = XSecure_Sha3DmaTransfer(InstancePtr, Data, Size, IsLastUpdate);
-		if (Status != (u32)XST_SUCCESS){
-			goto END;
-		}
-	}
-	/* For Non-Word Aligned Data and for Non-Word aligned Address*/
-	else {
-		if (TotalLen < XSECURE_SHA3_BLOCK_LEN) {
-
-			/*
-  			 * Copy the data to buffer when combined length
-			 * does not exceed SHA3_BLOCK_LEN
-			 */
-
-			(void)XSecure_MemCpy((void *)&InstancePtr->PartialData[PrevPartialLen],
-					(void *)(UINTPTR)Data, Size);
-			InstancePtr->PartialLen = TotalLen;
-
-			Status = (u32)XST_SUCCESS;
-		}
-		else if (TotalLen == XSECURE_SHA3_BLOCK_LEN) {
-
-			/*
- 			 * Copy and transfer the data when combined length
-			 * is equal to SHA3_BLOCK_LEN
-			 */
-
-			(void)XSecure_MemCpy((void *)&InstancePtr->PartialData[PrevPartialLen],
-					(void *)(UINTPTR)Data, Size);
-			Status = XSecure_Sha3DmaTransfer(InstancePtr,
-						InstancePtr->PartialData,
-						XSECURE_SHA3_BLOCK_LEN, IsLastUpdate);
-			if (Status != (u32)XST_SUCCESS){
-				goto END;
-			}
-			InstancePtr->PartialLen = 0U ;
-			(void)memset(&InstancePtr->PartialData, 0,
-				sizeof(InstancePtr->PartialData));
+	RemainingDataLen = Size + PrevPartialLen;
+	IsLast = FALSE;
+	while(RemainingDataLen >= XSECURE_SHA3_BLOCK_LEN)
+	{
+		/* Handle Partial data and non dword aligned data address */
+		if ((PrevPartialLen != 0U) ||
+		    (((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) != 0U)) {
+			(void)XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
+				(void *)Data,
+				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
+			DmableData = PartialData;
+			DmableDataLen = XSECURE_SHA3_BLOCK_LEN;
+			Data += XSECURE_SHA3_BLOCK_LEN - PrevPartialLen;
+			RemainingDataLen = RemainingDataLen - DmableDataLen;
 		}
 		else {
-			DataSize = Size;
-
-			/*
- 			 * Perform Multiple Dma transfers until
-			 * Data Size < SHA3_BLOCK_LEN
-			 */
-			IsLast = FALSE;
-			while (DataSize > XSECURE_SHA3_BLOCK_LEN) {
-				(void)XSecure_MemCpy((void *)&InstancePtr->PartialData[PrevPartialLen],
-						(void *)(UINTPTR)(Data + TransferredBytes),
-						(XSECURE_SHA3_BLOCK_LEN -
-						PrevPartialLen ));
-				DataSize = DataSize - (XSECURE_SHA3_BLOCK_LEN -
-								PrevPartialLen);
-				if ((DataSize == 0U) && (IsLastUpdate == TRUE)) {
-					IsLast = TRUE;
-				}
-				Status = XSecure_Sha3DmaTransfer(InstancePtr,
-						InstancePtr->PartialData,
-						XSECURE_SHA3_BLOCK_LEN, IsLast);
-				if (Status != (u32)XST_SUCCESS){
-					goto END;
-				}
-				(void)memset(&InstancePtr->PartialData, 0,
-					sizeof(InstancePtr->PartialData));
-				TransferredBytes = TransferredBytes +
-							XSECURE_SHA3_BLOCK_LEN -
-							PrevPartialLen;
-				PrevPartialLen = 0U;
-			}
-			/*
- 			 * Update PartialData and PartialLen based on
-			 * size of the data remaining
-			 */
-			if (DataSize == 0U) {
-				InstancePtr->PartialLen = 0U;
-				(void)memset(&InstancePtr->PartialData, 0,
-						sizeof(InstancePtr->PartialData));
-			}
-			else {
-				(void)XSecure_MemCpy(InstancePtr->PartialData,
-					Data + TransferredBytes,
-							DataSize);
-				InstancePtr->PartialLen = DataSize;
-			}
+			/* Process data of size in multiple of dwords */
+			DmableData = Data;
+			DmableDataLen = RemainingDataLen -
+				(RemainingDataLen % sizeof(u32));
+			Data += DmableDataLen;
+			RemainingDataLen -= DmableDataLen;
 		}
+
+		if ((RemainingDataLen == 0U) && (IsLastUpdate == TRUE)) {
+			IsLast = TRUE;
+		}
+
+		Status = XSecure_Sha3DmaTransfer(InstancePtr, DmableData,
+						DmableDataLen, IsLast);
+		if (Status != (u32)XST_SUCCESS){
+			(void)memset(&InstancePtr->PartialData, 0,
+			            sizeof(InstancePtr->PartialData));
+			goto END;
+		}
+		PrevPartialLen = 0U;
 	}
+
+	/* Handle remaining data during processing of next data chunk or during
+	   data padding */
+	if(RemainingDataLen > 0U) {
+		(void)XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)Data,
+		                     (RemainingDataLen - PrevPartialLen));
+	}
+	InstancePtr->PartialLen = RemainingDataLen;
+	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,
+		    sizeof(InstancePtr->PartialData) - RemainingDataLen);
+	Status = (u32) XST_SUCCESS;
 END:
 	return Status;
 }
