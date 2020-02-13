@@ -152,10 +152,10 @@ void XAudioFormatter_InterruptClear(XAudioFormatter *InstancePtr, u32 mask)
 		offset = XAUD_FORMATTER_MM2S_OFFSET;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
-		XAUD_FORMATTER_CTRL + offset);
+		XAUD_FORMATTER_STS + offset);
 	val |= mask;
 	XAudioFormatter_WriteReg(InstancePtr->BaseAddress,
-		XAUD_FORMATTER_CTRL + offset, val);
+		XAUD_FORMATTER_STS + offset, val);
 }
 
 /*****************************************************************************/
