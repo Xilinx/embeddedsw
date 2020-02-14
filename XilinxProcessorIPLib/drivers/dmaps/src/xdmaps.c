@@ -65,6 +65,8 @@
 *                         since it is being defined in xil_io.h
 * 2.3 kpc     14/10/16   Fixed the compiler error when optimization O0 is used.
 * 2.5 hk      08/16/19   Add a memory barrier before DMASEV as per specification.
+* 2.6 hk      02/14/20   Correct boundary check for Channel.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -1535,8 +1537,8 @@ int XDmaPs_IsActive(XDmaPs *InstPtr, unsigned int Channel)
 	Xil_AssertNonvoid(InstPtr != NULL);
 
 	/* Need to assert Channel is in range */
-	if (Channel > XDMAPS_CHANNELS_PER_DEV)
-		return  0;
+	if (Channel >= XDMAPS_CHANNELS_PER_DEV)
+		return XST_FAILURE;
 
 	return InstPtr->Chans[Channel].DmaCmdToHw != NULL;
 }
