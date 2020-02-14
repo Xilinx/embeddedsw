@@ -51,7 +51,9 @@
 #ifdef XPAR_XIIC_NUM_INSTANCES
 #include "xiic.h"
 #endif
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 #include "xiicps.h"
+#endif
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -141,6 +143,7 @@ u32 XDpRxSs_MCDP6000_GetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 	else
 #endif
 	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 		Status = XIicPs_MasterSendPolled(DpRxSsPtr->IicPsPtr, Buffer,
 							2, I2CSlaveAddress);
 		if (Status != XST_SUCCESS) {
@@ -164,6 +167,7 @@ u32 XDpRxSs_MCDP6000_GetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 		for (i = 0; i < 4; i++) {
 			Data |= (Buffer[i] << (i*8));
 		}
+#endif
 	}
 	return Data;
 }
@@ -229,6 +233,7 @@ int XDpRxSs_MCDP6000_SetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 	else
 #endif
 	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 		Status = XIicPs_MasterSendPolled(DpRxSsPtr->IicPsPtr, Buffer,
 						6, I2CSlaveAddress);
 		if (Status != XST_SUCCESS) {
@@ -240,6 +245,7 @@ int XDpRxSs_MCDP6000_SetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 		while (XIicPs_BusIsBusy(DpRxSsPtr->IicPsPtr)) {
 			/* NOP */
 		}
+#endif
 	}
 	return XST_SUCCESS;
 }

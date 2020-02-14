@@ -55,7 +55,9 @@ extern "C" {
 #include "xparameters.h"
 #include "xil_types.h"
 #include "xdprxss.h"
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 #include "xiicps.h"
+#endif /* End of XPAR_XIICPS_NUM_INSTANCES */
 #ifdef XPAR_XIIC_NUM_INSTANCES
 #include "xiic.h"
 #endif /* End of XPAR_XIIC_NUM_INSTANCES */

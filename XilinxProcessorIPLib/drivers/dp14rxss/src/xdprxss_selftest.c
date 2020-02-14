@@ -136,6 +136,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	else
 #endif
 	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 		if (InstancePtr->IicPsPtr) {
 			Status = (u32)XIicPs_SelfTest(InstancePtr->IicPsPtr);
 			if (Status != XST_SUCCESS) {
@@ -144,6 +145,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 				return XST_FAILURE;
 			}
 		}
+#endif
 	}
 	return XST_SUCCESS;
 }

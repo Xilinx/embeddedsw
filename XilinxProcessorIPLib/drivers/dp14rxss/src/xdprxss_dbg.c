@@ -112,11 +112,12 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	else
 #endif
 	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 		if (InstancePtr->IicPsPtr) {
 			xil_printf("PS IIC:Yes\n\r");
 		}
+#endif
 	}
-
 	xil_printf("Audio enabled:%s\n\r",
 			InstancePtr->Config.SecondaryChEn? "Yes": "No");
 	xil_printf("Max supported audio channels:%d\n\r",

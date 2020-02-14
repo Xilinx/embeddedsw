@@ -390,7 +390,9 @@ typedef struct {
 #ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic *IicPtr;			/**< IIC sub-core instance */
 #endif
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 	XIicPs *IicPsPtr;		/**< PS i2c core instance */
+#endif
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
 #endif

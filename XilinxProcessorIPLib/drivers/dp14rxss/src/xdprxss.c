@@ -533,10 +533,12 @@ void XDpRxSs_Reset(XDpRxSs *InstancePtr)
 	else
 #endif
 	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 		if (InstancePtr->IicPsPtr) {
 			/* Reset the IIC core */
 			XIicPs_Reset(InstancePtr->IicPsPtr);
 		}
+#endif
 	}
 }
 
