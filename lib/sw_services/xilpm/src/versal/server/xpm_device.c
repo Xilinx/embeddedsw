@@ -64,7 +64,9 @@ static const char *PmDevEvents[] = {
 static XPm_DeviceOps PmDeviceOps;
 static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
 static u32 MaxDevices = (u32)XPM_NODEIDX_DEV_MAX;
+static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
 static u32 PmNumDevices;
+static u32 PmNumPlDevices;
 
 static const XPm_StateCap XPmGenericDeviceStates[] = {
 	{
@@ -149,6 +151,24 @@ static XStatus SetDeviceNode(u32 Id, XPm_Device *Device)
 	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_MAX > NodeIndex)) {
 		PmDevices[NodeIndex] = Device;
 		PmNumDevices++;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+static int SetPlDeviceNode(u32 Id, XPm_Device *Device)
+{
+	int Status = XST_INVALID_PARAM;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	/*
+	 * Node ID class, subclass and type should _already_ been validated
+	 * before, so only check bounds here against index.
+	 */
+	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_PLD_MAX > NodeIndex)) {
+		PmPlDevices[NodeIndex] = Device;
+		PmNumPlDevices++;
 		Status = XST_SUCCESS;
 	}
 
@@ -892,11 +912,17 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Device->DeviceFsm = &XPmGenericDeviceFsm;
 	}
 
-	Status = SetDeviceNode(Id, Device);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id)) {
+		Status = SetPlDeviceNode(Id, Device);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	} else {
+		Status = SetDeviceNode(Id, Device);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
-	Status = XST_SUCCESS;
 
 done:
 	if(Status != XST_SUCCESS) {
@@ -1078,15 +1104,30 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
 
-	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
-	    ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId))) {
+	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
 	}
 
-	Device = PmDevices[NODEINDEX(DeviceId)];
-	/* Check that Device's ID is same as given ID or not. */
-	if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
-		Device = NULL;
+	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(DeviceId)) {
+		if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= NODEINDEX(DeviceId)) {
+			goto done;
+		}
+
+		Device = PmPlDevices[NODEINDEX(DeviceId)];
+		/* Check that Device's ID is same as given ID or not. */
+		if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
+			Device = NULL;
+		}
+	} else {
+		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
+			goto done;
+		}
+
+		Device = PmDevices[NODEINDEX(DeviceId)];
+		/* Check that Device's ID is same as given ID or not. */
+		if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
+			Device = NULL;
+		}
 	}
 
 done:
@@ -1129,7 +1170,6 @@ XPm_Device *XPmDevice_GetByIndex(const u32 DeviceIndex)
 done:
 	return Device;
 }
-
 
 XStatus XPmDevice_Request(const u32 SubsystemId,
 			const u32 DeviceId,

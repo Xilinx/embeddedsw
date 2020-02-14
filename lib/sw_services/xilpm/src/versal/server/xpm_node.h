@@ -144,6 +144,7 @@ typedef enum {
 	XPM_NODESUBCL_DEV_SOC,
 	XPM_NODESUBCL_DEV_MEM_CTRLR,
 	XPM_NODESUBCL_DEV_PHY,
+	XPM_NODESUBCL_DEV_PL,
 } XPm_DeviceNodeSubclass;
 
 typedef enum {
@@ -885,6 +886,11 @@ typedef enum {
 	XPM_NODEIDX_DEV_MAX
 } XPm_DeviceNodeIndex;
 
+typedef enum {
+	/* PL Device nodes */
+	XPM_NODEIDX_DEV_PLD_0,
+	XPM_NODEIDX_DEV_PLD_MAX = 32,
+} XPm_PlDeviceNodeIndex;
 
 /**
  * Subsystem IDs
