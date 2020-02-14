@@ -63,7 +63,6 @@ static const char *PmDevEvents[] = {
 
 static XPm_DeviceOps PmDeviceOps;
 static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
-static u32 MaxDevices = (u32)XPM_NODEIDX_DEV_MAX;
 static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
 static u32 PmNumDevices;
 static u32 PmNumPlDevices;
@@ -1336,10 +1335,9 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i = 0;
-	u32 DeviceIndex = NODEINDEX(Id);
 	XPm_Device *DevPtr = XPmDevice_GetById(Id);
 
-	if (DevPtr == NULL || DeviceIndex > MaxDevices || NumParents == 0U) {
+	if (DevPtr == NULL || NumParents == 0U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
