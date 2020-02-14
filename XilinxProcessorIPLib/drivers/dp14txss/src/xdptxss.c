@@ -59,8 +59,12 @@
 * 5.0  tu  09/06/17 Set timer callback after HDCP initialization
 * 5.0  tu  09/06/17 Added Set UserPixelWidth support on tx side
 * 5.0  tu  09/08/17 Set HPD callbacks for HPD event and HPD pulse
-* 5.0  jb  02/21/19 Added HDCP22 support.
-* 					Made the Timer counter available for both HDCP1x and 22.
+* 5.0  jb  02/21/19 Added HDCP22 support. Made the Timer counter available for
+* 		    both HDCP1x and 22.
+* 6.2  jb  02/14/20 The DP Tx subsystems assumes that the HDCP configuration is
+* 		    same for all the instances in multiple subsystems in the
+* 		    design. This driver wont support for different configuration
+* 		    of the subsystems.
 * </pre>
 *
 ******************************************************************************/
