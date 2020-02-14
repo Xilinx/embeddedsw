@@ -16,6 +16,9 @@ Added assert check XCsuDma_WaitForDoneTimeout().
 Modified usleep(100) to usleep(1) and XCSUDMA_DONE_TIMEOUT_VAL increased by 100 times.
 Correct interrupt ID definition for Versal in example.
 
+dmaps_v2_6:
+Fix boundary check on channel.
+
 gpio_v4_6:
 Fixed compilation error of armcc compiler.
 
