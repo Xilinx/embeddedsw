@@ -63,6 +63,10 @@
 * 5.0  yas 01/28/18 Added support for DP 1.4.
 * 5.0  jb  02/19/19 Added support for HDCP22
 * 6.0  rg  11/19/19 Added support to use PS I2C instance too.
+* 6.0  jb  02/14/20 The DP Rx subsystems assumes that the HDCP configuration is
+* 		    same for all the instances in multiple subsystems in the
+* 		    design. This driver wont support for different configuration
+* 		    of the subsystems.
 * </pre>
 *
 ******************************************************************************/
