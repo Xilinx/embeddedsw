@@ -9,6 +9,8 @@
 #ifndef VIRTIO_RING_H
 #define	VIRTIO_RING_H
 
+#include <metal/compiler.h>
+
 #if defined __cplusplus
 extern "C" {
 #endif
@@ -34,6 +36,7 @@ extern "C" {
 /* VirtIO ring descriptors: 16 bytes.
  * These can chain together via "next".
  */
+METAL_PACKED_BEGIN
 struct vring_desc {
 	/* Address (guest-physical). */
 	uint64_t addr;
@@ -43,15 +46,17 @@ struct vring_desc {
 	uint16_t flags;
 	/* We chain unused descriptors via this, too. */
 	uint16_t next;
-};
+}METAL_PACKED_END;
 
+METAL_PACKED_BEGIN
 struct vring_avail {
 	uint16_t flags;
 	uint16_t idx;
 	uint16_t ring[0];
-};
+}METAL_PACKED_END;
 
 /* uint32_t is used here for ids for padding reasons. */
+METAL_PACKED_BEGIN
 struct vring_used_elem {
 	union {
 		uint16_t event;
@@ -60,13 +65,14 @@ struct vring_used_elem {
 	};
 	/* Total length of the descriptor chain which was written to. */
 	uint32_t len;
-};
+}METAL_PACKED_END;
 
+METAL_PACKED_BEGIN
 struct vring_used {
 	uint16_t flags;
 	uint16_t idx;
 	struct vring_used_elem ring[0];
-};
+}METAL_PACKED_END;
 
 struct vring {
 	unsigned int num;
