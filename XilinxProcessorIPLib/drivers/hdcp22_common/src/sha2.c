@@ -35,6 +35,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   10/30/15 First Release
+* 1.10  GM   10/14/19 Added "volatile" attribute to all "i" variables
 *</pre>
 *
 *****************************************************************************/
@@ -124,7 +125,8 @@ void XHdcp22Cmn_Sha256Hash(const u8 *Data, u32 DataSize, u8 *HashedData)
 ******************************************************************************/
 static void Sha256Transform(Sha256Type *Ctx, u8 *Data)
 {
-   u32 a,b,c,d,e,f,g,h,i,j,t1,t2,m[64];
+  volatile u32 i;
+  u32 a,b,c,d,e,f,g,h,j,t1,t2,m[64];
 
    for (i=0,j=0; i < 16; ++i, j += 4)
       m[i] = (Data[j] << 24) | (Data[j+1] << 16) | (Data[j+2] << 8) | (Data[j+3]);
@@ -205,7 +207,7 @@ static void Sha256Init(Sha256Type *Ctx)
 ******************************************************************************/
 static void Sha256Update(Sha256Type *Ctx, const u8 *Data, u32 Len)
 {
-   u32 i;
+   volatile u32 i;
 
    for (i=0; i < Len; ++i) {
       Ctx->data[Ctx->datalen] = Data[i];
@@ -233,7 +235,7 @@ static void Sha256Update(Sha256Type *Ctx, const u8 *Data, u32 Len)
 ******************************************************************************/
 static void Sha256Final(Sha256Type *Ctx, u8 *Hash)
 {
-   u32 i;
+   volatile u32 i;
 
    i = Ctx->datalen;
 
