@@ -123,6 +123,8 @@ u16 XHdmiphy1_GetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Set);
+u8 XHdmiphy1_GetGpo(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_GtMstReset(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Reset);
 u8 XHdmiphy1_CheckLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,

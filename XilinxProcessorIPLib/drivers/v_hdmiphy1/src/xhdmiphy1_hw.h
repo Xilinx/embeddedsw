@@ -423,8 +423,14 @@ extern "C" {
 /* 0x06C: GPO */
 #define XHDMIPHY1_TX_GPO_MASK(Ch) \
         (0x01 << (Ch - 1))
+#define XHDMIPHY1_TX_GPO_MASK_ALL(NCh) \
+		((NCh == 3) ? 0x7 : 0xF)
+#define XHDMIPHY1_TX_GPO_SHIFT 0
 #define XHDMIPHY1_RX_GPO_MASK(Ch) \
         (0x10 << (Ch - 1))
+#define XHDMIPHY1_RX_GPO_MASK_ALL(NCh) \
+		((NCh == 3) ? 0x70 : 0xF0)
+#define XHDMIPHY1_RX_GPO_SHIFT 4
 /* 0x070: TX_CONTROL */
 #define XHDMIPHY1_TX_CONTROL_TX8B10BEN_MASK(Ch) \
         (0x01 << (8 * (Ch - 1)))

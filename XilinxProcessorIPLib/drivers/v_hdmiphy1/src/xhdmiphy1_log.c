@@ -434,10 +434,20 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 			}
 			break;
 		case (XHDMIPHY1_LOG_EVT_TXGPO_RE):
-			xil_printf("TX GPO Rising Edge Detected\r\n");
+			if (Data == 1) {
+				xil_printf("TX GPO Rising Edge Detected\r\n");
+			}
+			else {
+				xil_printf("TX MSTRESET Toggled\r\n");
+			}
 			break;
 		case (XHDMIPHY1_LOG_EVT_RXGPO_RE):
-			xil_printf("RX GPO Rising Edge Detected\r\n");
+			if (Data == 1) {
+				xil_printf("RX GPO Rising Edge Detected\r\n");
+			}
+			else {
+				xil_printf("RX MSTRESET Toggled\r\n");
+			}
 			break;
 		case (XHDMIPHY1_LOG_EVT_FRL_RECONFIG):
 			xil_printf(ANSI_COLOR_GREEN);

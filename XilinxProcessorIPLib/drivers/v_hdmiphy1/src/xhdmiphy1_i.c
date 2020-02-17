@@ -814,6 +814,45 @@ void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
+* This function will get the GPI ports value from the GT Wizard
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return	Value.
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XHdmiphy1_GetGpo(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
+{
+	u32 RegVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	ChId = ChId;
+
+    /* Read GPI Register*/
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				XHDMIPHY1_GT_DBG_GPO_REG);
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		return ((RegVal &
+					XHDMIPHY1_TX_GPO_MASK_ALL(InstancePtr->Config.TxChannels))
+						>> XHDMIPHY1_TX_GPO_SHIFT);
+	}
+	else {
+		return ((RegVal &
+					XHDMIPHY1_RX_GPO_MASK_ALL(InstancePtr->Config.RxChannels))
+						>> XHDMIPHY1_RX_GPO_SHIFT);
+	}
+}
+
+/*****************************************************************************/
+/**
 * This function will set the (TX|RX) MSTRESET port of the GT
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
@@ -1603,7 +1642,7 @@ u8 XHdmiphy1_GetRefClkSourcesCount(XHdmiphy1 *InstancePtr)
                             InstancePtr->Config.RxFrlRefClkSel : 99;
 
 	/* Initialize Unique RefClk holder */
-	for (u8 i=0; i<RefClkNumMax; i++) {
+	for (i=0; i<RefClkNumMax; i++) {
 		RefClkSelTemp[i] = 99;
 	}
 
