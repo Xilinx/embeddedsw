@@ -8,7 +8,7 @@
 /**
 *
 * @file xusb.h
-* @addtogroup usb_v5_4
+* @addtogroup usb_v5_5
 * @{
 * @details
 *
