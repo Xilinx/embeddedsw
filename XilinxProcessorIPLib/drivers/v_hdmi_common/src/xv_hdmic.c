@@ -73,6 +73,15 @@ const XHdmiC_VicTable VicTable[VICTABLE_SIZE] = {
     {XVIDC_VM_1440x480_60_I, 6},     /* Vic 6 */
     {XVIDC_VM_1440x480_60_I, 7},     /* Vic 7 */
 
+    {XVIDC_VM_1440x240_60_P, 8},     /* Vic 8 */
+    {XVIDC_VM_1440x240_60_P, 9},     /* Vic 9 */
+    {XVIDC_VM_2880x480_60_I, 10},    /* Vic 10 */
+    {XVIDC_VM_2880x480_60_I, 11},    /* Vic 11 */
+    {XVIDC_VM_2880x240_60_P, 12},    /* Vic 12 */
+    {XVIDC_VM_2880x240_60_P, 13},    /* Vic 13 */
+    {XVIDC_VM_1440x480_60_P, 14},    /* Vic 14 */
+    {XVIDC_VM_1440x480_60_P, 15},    /* Vic 15 */
+
     {XVIDC_VM_1920x1080_60_P, 16},   /* Vic 16 */
     {XVIDC_VM_720x576_50_P, 17},     /* Vic 17 */
     {XVIDC_VM_720x576_50_P, 18},     /* Vic 18 */
@@ -80,6 +89,48 @@ const XHdmiC_VicTable VicTable[VICTABLE_SIZE] = {
     {XVIDC_VM_1920x1080_50_I, 20},   /* Vic 20 */
     {XVIDC_VM_1440x576_50_I, 21},    /* Vic 21 */
     {XVIDC_VM_1440x576_50_I, 22},    /* Vic 22 */
+
+    {XVIDC_VM_1440x288_50_P, 23},    /* Vic 23 */
+    {XVIDC_VM_1440x288_50_P, 24},    /* Vic 24 */
+    {XVIDC_VM_2880x576_50_I, 25},    /* Vic 25 */
+    {XVIDC_VM_2880x576_50_I, 26},    /* Vic 26 */
+    {XVIDC_VM_2880x288_50_P, 27},    /* Vic 27 */
+    {XVIDC_VM_2880x288_50_P, 28},    /* Vic 28 */
+    {XVIDC_VM_1440x576_50_P, 29},    /* Vic 29 */
+    {XVIDC_VM_1440x576_50_P, 30},    /* Vic 30 */
+    {XVIDC_VM_1920x1080_50_P, 31},   /* Vic 31 */
+    {XVIDC_VM_1920x1080_24_P, 32},   /* Vic 32 */
+    {XVIDC_VM_1920x1080_25_P, 33},   /* Vic 33 */
+    {XVIDC_VM_1920x1080_30_P, 34},   /* Vic 34 */
+    {XVIDC_VM_2880x480_60_P, 35},    /* Vic 35 */
+    {XVIDC_VM_2880x480_60_P, 36},    /* Vic 36 */
+    {XVIDC_VM_2880x576_50_P, 37},    /* Vic 37 */
+    {XVIDC_VM_2880x576_50_P, 38},    /* Vic 38 */
+    {XVIDC_VM_1920x1080_100_I, 40},  /* Vic 40 */
+    {XVIDC_VM_1280x720_100_P, 41},   /* Vic 41 */
+    {XVIDC_VM_720x576_100_P, 42},    /* Vic 42 */
+    {XVIDC_VM_720x576_100_P, 43},    /* Vic 43 */
+    {XVIDC_VM_1440x576_100_I, 44},   /* Vic 44 */
+    {XVIDC_VM_1440x576_100_I, 45},   /* Vic 45 */
+    {XVIDC_VM_1920x1080_120_I, 46},  /* Vic 46 */
+    {XVIDC_VM_1280x720_120_P, 47},   /* Vic 47 */
+    {XVIDC_VM_720x480_120_P, 48},    /* Vic 48 */
+    {XVIDC_VM_720x480_120_P, 49},    /* Vic 49 */
+    {XVIDC_VM_1440x480_120_I, 50},   /* Vic 50 */
+    {XVIDC_VM_1440x480_120_I, 51},   /* Vic 51 */
+    {XVIDC_VM_720x576_200_P, 52},    /* Vic 52 */
+    {XVIDC_VM_720x576_200_P, 53},    /* Vic 53 */
+    {XVIDC_VM_1440x576_200_I, 54},   /* Vic 54 */
+    {XVIDC_VM_1440x576_200_I, 55},   /* Vic 55 */
+    {XVIDC_VM_720x480_240_P, 56},    /* Vic 56 */
+    {XVIDC_VM_720x480_240_P, 57},    /* Vic 57 */
+    {XVIDC_VM_1440x480_240_I, 58},   /* Vic 58 */
+    {XVIDC_VM_1440x480_240_I, 59},   /* Vic 59 */
+    {XVIDC_VM_1280x720_24_P, 60},    /* Vic 60 */
+    {XVIDC_VM_1280x720_25_P, 61},    /* Vic 61 */
+    {XVIDC_VM_1280x720_30_P, 62},    /* Vic 62 */
+    {XVIDC_VM_1920x1080_120_P, 63},  /* Vic 63 */
+    {XVIDC_VM_1920x1080_100_P, 64},  /* Vic 64 */
 
     /* 1280 x 720 */
     {XVIDC_VM_1280x720_24_P, 65},    /* Vic 65 */
@@ -91,18 +142,22 @@ const XHdmiC_VicTable VicTable[VICTABLE_SIZE] = {
     {XVIDC_VM_1280x720_120_P, 71},   /* Vic 71 */
 
     /* 1680 x 720 */
+    {XVIDC_VM_1680x720_24_P, 79},    /* Vic 82 */
+    {XVIDC_VM_1680x720_25_P, 80},    /* Vic 82 */
+    {XVIDC_VM_1680x720_30_P, 81},    /* Vic 82 */
     {XVIDC_VM_1680x720_50_P, 82},    /* Vic 82 */
     {XVIDC_VM_1680x720_60_P, 83},    /* Vic 83 */
     {XVIDC_VM_1680x720_100_P, 84},   /* Vic 84 */
     {XVIDC_VM_1680x720_120_P, 85},   /* Vic 85 */
 
     /* 1920 x 1080 */
-    {XVIDC_VM_1920x1080_24_P, 32},   /* Vic 32 */
-    {XVIDC_VM_1920x1080_25_P, 33},   /* Vic 33 */
-    {XVIDC_VM_1920x1080_30_P, 34},   /* Vic 34 */
-    {XVIDC_VM_1920x1080_50_P, 31},   /* Vic 31 */
-    {XVIDC_VM_1920x1080_100_P, 64},  /* Vic 64 */
-    {XVIDC_VM_1920x1080_120_P, 63},  /* Vic 63 */
+    {XVIDC_VM_1920x1080_24_P, 72},   /* Vic 32 */
+    {XVIDC_VM_1920x1080_25_P, 73},   /* Vic 33 */
+    {XVIDC_VM_1920x1080_30_P, 74},   /* Vic 34 */
+    {XVIDC_VM_1920x1080_50_P, 75},   /* Vic 75 */
+    {XVIDC_VM_1920x1080_60_P, 76},   /* Vic 76 */
+    {XVIDC_VM_1920x1080_100_P, 77},  /* Vic 77 */
+    {XVIDC_VM_1920x1080_120_P, 78},  /* Vic 78 */
 
     /* 2560 x 1080 */
     {XVIDC_VM_2560x1080_24_P, 86},   /* Vic 86 */

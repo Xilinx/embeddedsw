@@ -66,7 +66,7 @@ extern "C" {
 #include "xil_assert.h"
 
 /************************** Constant Definitions ******************************/
-#define VICTABLE_SIZE 73
+#define VICTABLE_SIZE 126
 #define AUX_VSIF_TYPE 0x81
 #define AUX_AVI_INFOFRAME_TYPE 0x82
 #define AUX_GENERAL_CONTROL_PACKET_TYPE 0x3
