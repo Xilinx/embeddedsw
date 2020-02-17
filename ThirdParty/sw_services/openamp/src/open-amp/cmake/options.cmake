@@ -74,5 +74,9 @@ endif (WITH_ZEPHYR)
 
 option (WITH_LIBMETAL_FIND "Check Libmetal library can be found" ON)
 
+if (DEFINED RPMSG_BUFFER_SIZE)
+  add_definitions( -DRPMSG_BUFFER_SIZE=${RPMSG_BUFFER_SIZE} )
+endif (DEFINED RPMSG_BUFFER_SIZE)
+
 message ("-- C_FLAGS : ${CMAKE_C_FLAGS}")
 # vim: expandtab:ts=2:sw=2:smartindent
