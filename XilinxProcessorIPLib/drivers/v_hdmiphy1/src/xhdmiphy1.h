@@ -288,8 +288,8 @@ typedef enum {
 /* This typedef enumerates the possible states a transceiver can be in. */
 typedef enum {
     XHDMIPHY1_GT_STATE_IDLE,     /**< Idle state. */
-    XHDMIPHY1_GT_STATE_LOCK,     /**< Lock state. */
 	XHDMIPHY1_GT_STATE_GPO_RE,   /**< GPO RE state. */
+    XHDMIPHY1_GT_STATE_LOCK,     /**< Lock state. */
     XHDMIPHY1_GT_STATE_RESET,    /**< Reset state. */
     XHDMIPHY1_GT_STATE_ALIGN,    /**< Align state. */
     XHDMIPHY1_GT_STATE_READY,    /**< Ready state. */
