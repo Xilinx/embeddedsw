@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -169,7 +169,7 @@ void XPlmi_TaskInit(void )
 void XPlmi_TaskDispatchLoop(void )
 {
 	int Status = XST_FAILURE;
-	struct metal_list *Node;
+	struct metal_list *Node[XPLMI_TASK_PRIORITIES];
 	XPlmi_TaskNode *Task;
 	u32 Index;
 #ifdef PLM_DEBUG_INFO
@@ -177,6 +177,10 @@ void XPlmi_TaskDispatchLoop(void )
 #endif
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
+	for (Index=0U; Index<XPLMI_TASK_PRIORITIES; Index++)
+	{
+		Node[Index] = &TaskQueue[Index];
+	}
 
 	while (1)
 	{
@@ -192,10 +196,15 @@ void XPlmi_TaskDispatchLoop(void )
 				     Index);
 				continue;
 			} else {
-				/** Get the task */
-				Node = TaskQueue[Index].next;
-				Task = metal_container_of(Node,
+				/** Skip the first element as it
+				 * is not proper task */
+				if ((Node[Index] == &TaskQueue[Index])) {
+					Node[Index] = (TaskQueue[Index].next);
+				}
+				/* Get the next task in round robin */
+				Task = metal_container_of(Node[Index],
 					XPlmi_TaskNode, TaskNode);
+				Node[Index] = Node[Index]->next;
 				break;
 			}
 		}
