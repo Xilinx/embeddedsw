@@ -205,7 +205,7 @@ void XPlmi_SchedulerHandler(void *Data)
 		/* Check if the task is triggered and has a valid Callback */
 		if (XPlmi_IsTaskActive(&Sched, Idx) == TRUE) {
 			/* Add the Task to the PLM Task Queue */
-			Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1,
+			Task = XPlmi_TaskCreate(Sched.TaskList[Idx].Priority,
 					Sched.TaskList[Idx].CustomerFunc, 0U);
 			if (Task == NULL) {
 				Status = XPLMI_UPDATE_STATUS(XPLM_ERR_TASK_CREATE, 0x0);
@@ -237,7 +237,7 @@ void XPlmi_SchedulerHandler(void *Data)
 * @return	XST_SUCCESS if scheduler task is registered properly
 ****************************************************************************/
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-			   u32 MilliSeconds)
+			   u32 MilliSeconds, u32 Priority)
 {
 	u32 Idx;
 	int Status = XST_FAILURE;
@@ -258,6 +258,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	Sched.TaskList[Idx].Interval = MilliSeconds/XPLMI_SCHED_TICK;
 	Sched.TaskList[Idx].OwnerId = OwnerId;
 	Sched.TaskList[Idx].CustomerFunc = CallbackFn;
+	Sched.TaskList[Idx].Priority = Priority;
 	Status = XST_SUCCESS;
 
 END:

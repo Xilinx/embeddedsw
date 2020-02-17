@@ -91,7 +91,8 @@ int XSem_Init()
 	if (Status != XST_SUCCESS) {
 		goto END;
 	} else {
-		Status = XPlmi_SchedulerAddTask(0x0U, XSem_NpiRunScan, 100U);
+		Status = XPlmi_SchedulerAddTask(0x0U, XSem_NpiRunScan, 100U,
+						XPLM_TASK_PRIORITY_0);
 	}
 END:
 

@@ -53,6 +53,7 @@ struct XPlmi_Task_t{
 	u32 OwnerId;
 	int Status;
 	XPlmi_Callback_t CustomerFunc;
+	u32 Priority;
 };
 
 typedef struct {
@@ -68,7 +69,7 @@ int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
 int XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr);
 void XPlmi_SchedulerHandler(void *Data);
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-			   u32 MilliSeconds);
+			   u32 MilliSeconds, u32 Priority);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			      u32 MilliSeconds);
 int XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
