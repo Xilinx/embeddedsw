@@ -1075,7 +1075,7 @@ void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl);
 
-	if (Sel == MMCM_CLKINSEL_CLKIN2) {
+	if (Sel == XHDMIPHY1_MMCM_CLKINSEL_CLKIN2) {
 		RegVal &= ~XHDMIPHY1_MMCM_USRCLK_CTRL_CLKINSEL_MASK;
 	}
 	else {

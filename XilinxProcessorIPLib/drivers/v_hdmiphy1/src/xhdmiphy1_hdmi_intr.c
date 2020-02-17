@@ -992,7 +992,7 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
 				InstancePtr->Config.RxFrlRefClkSel) {
 			/* Set MMCM CLKINSEL to CLK1 */
 			XHdmiphy1_MmcmSetClkinsel(InstancePtr, 0, XHDMIPHY1_DIR_RX,
-					MMCM_CLKINSEL_CLKIN1);
+					XHDMIPHY1_MMCM_CLKINSEL_CLKIN1);
 
 			/* Start RX MMCM. */
 			XHdmiphy1_MmcmStart(InstancePtr, 0, XHDMIPHY1_DIR_RX);

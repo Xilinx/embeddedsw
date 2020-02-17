@@ -370,15 +370,15 @@ typedef enum {
 
 /* This typedef enumerates the different MMCM Dividers */
 typedef enum {
-  MMCM_CLKFBOUT_MULT_F, /* M */
-  MMCM_DIVCLK_DIVIDE,   /* D */
-  MMCM_CLKOUT_DIVIDE    /* On */
+    XHDMIPHY1_MMCM_CLKFBOUT_MULT_F, /* M */
+    XHDMIPHY1_MMCM_DIVCLK_DIVIDE,   /* D */
+    XHDMIPHY1_MMCM_CLKOUT_DIVIDE    /* On */
 } XHdmiphy1_MmcmDivType;
 
 /* This typedef enumerates the different MMCM CLKINSEL */
 typedef enum {
-    MMCM_CLKINSEL_CLKIN1 = 1,
-    MMCM_CLKINSEL_CLKIN2 = 0,
+	XHDMIPHY1_MMCM_CLKINSEL_CLKIN1 = 1,
+	XHDMIPHY1_MMCM_CLKINSEL_CLKIN2 = 0,
 } XHdmiphy1_MmcmClkinsel;
 
 /* This typedef enumerates the Linerate to TMDS Clock ratio

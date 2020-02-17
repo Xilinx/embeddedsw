@@ -2226,7 +2226,8 @@ u32 XHdmiphy1_Hdmi20Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 		InstancePtr->RxHdmi21Cfg.IsEnabled = FALSE;
 	}
 
-	XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir, MMCM_CLKINSEL_CLKIN1);
+	XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
+			XHDMIPHY1_MMCM_CLKINSEL_CLKIN1);
 
 	/* Disable Clock Detector Interrupts */
 	if (Dir == XHDMIPHY1_DIR_TX) {
@@ -2352,10 +2353,10 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 		if (InstancePtr->Config.TxRefClkSel ==
 				InstancePtr->Config.TxFrlRefClkSel) {
 			XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
-					MMCM_CLKINSEL_CLKIN1);
+					XHDMIPHY1_MMCM_CLKINSEL_CLKIN1);
 		} else {
 			XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
-					MMCM_CLKINSEL_CLKIN2);
+					XHDMIPHY1_MMCM_CLKINSEL_CLKIN2);
 		}
 		if (InstancePtr->Config.TxRefClkSel !=
 				InstancePtr->Config.TxFrlRefClkSel) {
@@ -2386,7 +2387,7 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 				InstancePtr->Config.RxFrlRefClkSel) {
 			/* Set MMCM CLKINSEL to CLK2 */
 			XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
-					MMCM_CLKINSEL_CLKIN2);
+					XHDMIPHY1_MMCM_CLKINSEL_CLKIN2);
 
 			/* Start RX MMCM. */
 			XHdmiphy1_MmcmStart(InstancePtr, 0, XHDMIPHY1_DIR_RX);

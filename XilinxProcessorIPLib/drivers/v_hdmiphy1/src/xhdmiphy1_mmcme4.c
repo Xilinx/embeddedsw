@@ -98,7 +98,7 @@ u32 XHdmiphy1_Mmcme4DividerEncoding(XHdmiphy1_MmcmDivType DivType, u8 Div)
 
         ClkReg1 = LoTime & 0x3F;
         ClkReg1 |= (HiTime & 0x3F) << 6;
-        ClkReg1 |= (DivType == MMCM_DIVCLK_DIVIDE) ? 0x0000 : 0x1000;
+        ClkReg1 |= (DivType == XHDMIPHY1_MMCM_DIVCLK_DIVIDE) ? 0x0000 : 0x1000;
 
         ClkReg2 = (Div % 2) ? 0x00800000 : 0x00000000;
     }
@@ -486,7 +486,7 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
 
 	/* Write CLKFBOUT Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(MMCM_CLKFBOUT_MULT_F,
+	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKFBOUT_MULT_F,
 						MmcmParams->ClkFbOutMult);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x14,
 						(u16)(DrpVal32 & 0xFFFF));
@@ -494,13 +494,13 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
 	/* Write DIVCLK_DIVIDE Value */
-	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(MMCM_DIVCLK_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_DIVCLK_DIVIDE,
 						MmcmParams->DivClkDivide) ;
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x16,
 						(u16)(DrpVal32 & 0xFFFF));
 
 	/* Write CLKOUT0 Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut0Div);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x08,
 						(u16)(DrpVal32 & 0xFFFF));
@@ -508,7 +508,7 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
 	/* Write CLKOUT1 Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut1Div);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0A,
 						(u16)(DrpVal32 & 0xFFFF));
@@ -516,7 +516,7 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
 	/* Write CLKOUT2 Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(MMCM_CLKOUT_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut2Div);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0C,
 						(u16)(DrpVal32 & 0xFFFF));
