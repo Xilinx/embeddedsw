@@ -33,7 +33,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   KI   12/09/17 Initial release.
- *
+ * 1.1	 ND   2/14/19  mcdp related function call now need dprxss instance address
+ *                     instead of base address  as first parameter
 *******************************************************************************/
 
 #include "dppt.h"
@@ -495,7 +496,7 @@ int main(void)
 #if XPAR_XDPRXSS_NUM_INSTANCES
 	DPRxInitialize();
 	/* DPRxSs uses its own I2C driver */
-	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
+	XDpRxSs_McDp6000_init(&DpRxSsInst);
 #endif
 
 	clk_reg0 = Xil_In32 (CLK_WIZ_BASE+0x200);
@@ -1626,31 +1627,31 @@ int main(void)
 							   "===========\r\n");
 
 						xil_printf("0x0700: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0700));
 						xil_printf("0x0704: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0704));
 						xil_printf("0x0754: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0754));
 						xil_printf("0x0B20: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B20));
 						xil_printf("0x0B24: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B24));
 						xil_printf("0x0B28: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B28));
 						xil_printf("0x0B2C: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B2C));
 
@@ -1764,16 +1765,16 @@ int main(void)
 
 					case '7':
 						if(mcdp6000_reset == 0){
-							XDpRxSs_MCDP6000_SetRegister(XPAR_IIC_0_BASEADDR,
+							XDpRxSs_MCDP6000_SetRegister(&DpRxSsInst,
 									I2C_MCDP6000_ADDR, 0x0504, 0x700E);
 
 							mcdp6000_reset = 1;
 							training_done = 0;
 							start_tracking = 0;
 						} else {
-							XDpRxSs_MCDP6000_DpInit(XPAR_IIC_0_BASEADDR,
+							XDpRxSs_MCDP6000_DpInit(&DpRxSsInst,
 									I2C_MCDP6000_ADDR);
-							XDpRxSs_MCDP6000_ResetDpPath(XPAR_IIC_0_BASEADDR,
+							XDpRxSs_MCDP6000_ResetDpPath(&DpRxSsInst,
 									I2C_MCDP6000_ADDR);
 							mcdp6000_reset = 0;
 						}
@@ -1949,54 +1950,54 @@ int main(void)
 					case 'm':
 						xil_printf("========MCDP6000 Debug Data=========\r\n");
 						xil_printf("0x0700: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0700));
 						xil_printf("0x0704: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0704));
 						xil_printf("0x0754: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0754));
 						xil_printf("0x0B20: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B20));
 						xil_printf("0x0B24: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B24));
 						xil_printf("0x0B28: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B28));
 						xil_printf("0x0B2C: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B2C));
 
 						xil_printf("0x1294: %08x  0x12BC: %08x  0x12E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1294),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x12BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x12E4));
 						xil_printf("0x1394: %08x  0x13BC: %08x  0x13E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1394),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x13BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x13E4));
 						xil_printf("0x1494: %08x  0x14BC: %08x  0x14E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1494),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x14BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x14E4));
 						xil_printf("0x1594: %08x  0x15BC: %08x  0x15E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1594),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x15BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x15E4));
 						break;
 
@@ -2006,7 +2007,7 @@ int main(void)
 						aux_reg_address = xil_gethex(4);
 						xil_printf("\r\n");
 						xil_printf("0x%x: %08x\n\r", aux_reg_address,
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											aux_reg_address));
 						break;
@@ -2020,7 +2021,7 @@ int main(void)
 							   "value of write data 0x");
 						data = xil_gethex(8);
 						XDpRxSs_MCDP6000_SetRegister(
-							XPAR_IIC_0_BASEADDR,
+								&DpRxSsInst,
 							I2C_MCDP6000_ADDR,
 							aux_reg_address,
 							data);
@@ -4880,8 +4881,8 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 				DrpVal);
 
 		/*Set PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+		XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst, I2C_MCDP6000_ADDR);
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst, I2C_MCDP6000_ADDR);
 //    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	} else {
 		/*Disable PRBS Mode in Video PHY*/
@@ -4892,9 +4893,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 				DrpVal);
 
 		/*Disable PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
 				I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst, I2C_MCDP6000_ADDR);
 //		MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	}
 }

@@ -34,7 +34,8 @@
 * ---- --- -------- --------------------------------------------------
 * 1.00 KU  02/05/19 Initial release.
 * 1.01 KU  09/09/19 Added support for unplug, enhanced audio check
-*
+* 1.02 ND  02/14/19 mcdp related function call now need dprxss instance address
+*                   instead of base address  as first parameter
 * </pre>
 *
 ******************************************************************************/
@@ -464,7 +465,7 @@ u32 DpMST_PlatformInit(void)
 			return XST_FAILURE;
 	}
 
-	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
+	XDpRxSs_McDp6000_init(&DpRxSsInst);
 
 	/* issue HPD at here to inform DP source */
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
@@ -1033,9 +1034,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
                                XVPHY_RX_CONTROL_REG, DrpVal);
 
                 /*Set PRBS mode in Retimer*/
-                XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+                XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst,
                                         I2C_MCDP6000_ADDR);
-                XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+                XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
                                       I2C_MCDP6000_ADDR);
         //      MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
         } else {
@@ -1047,9 +1048,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
                            XVPHY_RX_CONTROL_REG, DrpVal);
 
             /*Disable PRBS mode in Retimer*/
-            XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+            XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
                                                                                     I2C_MCDP6000_ADDR);
-            XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+            XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
                                   I2C_MCDP6000_ADDR);
     //      MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
     }

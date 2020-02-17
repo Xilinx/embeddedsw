@@ -777,9 +777,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Set PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst,
 					I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	} else {
@@ -791,9 +791,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Disable PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
 											I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	}
@@ -864,18 +864,18 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 		     (0x8000 | DrpVal_lower_lane2) |
 		     ((0x8000 | DrpVal_lower_lane3) << 16));
 
-	XDpRxSs_MCDP6000_Read_ErrorCounters(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+	XDpRxSs_MCDP6000_Read_ErrorCounters(&DpRxSsInst, I2C_MCDP6000_ADDR);
 
 	xil_printf("0x061C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x061C));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x061C));
 	xil_printf("0x0504: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0504));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0504));
 	xil_printf("0x0604: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0604));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0604));
 	xil_printf("0x12BC: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x12BC));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x12BC));
 	xil_printf("0x12E4: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x12E4));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x12E4));
 
 	/* Reset PRBS7 Counters */
 	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,

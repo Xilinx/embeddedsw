@@ -695,9 +695,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Set PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst,
 					I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	} else {
@@ -709,9 +709,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Disable PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
 											I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	}

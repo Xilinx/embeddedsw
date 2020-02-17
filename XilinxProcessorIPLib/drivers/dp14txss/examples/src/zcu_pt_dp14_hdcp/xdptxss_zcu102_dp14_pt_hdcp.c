@@ -38,6 +38,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 KI 04/01/18 Initial release.
+* 1.01 ND 02/14/19 mcdp related function call now need dprxss instance address
+*                  instead of base address  as first parameter
 * </pre>
 *
 ******************************************************************************/
@@ -552,7 +554,7 @@ u32 DpSs_Main(void)
 	}
 
 	/*Megachips Retimer Initialization*/
-	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
+	XDpRxSs_McDp6000_init(&DpRxSsInst);
 
 	/* issue HPD at here to inform DP source */
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
