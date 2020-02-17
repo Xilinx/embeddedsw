@@ -1366,11 +1366,11 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 	}
 
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	MaxDrpAddr = 0x015F;
+	MaxDrpAddr = 0x00CF;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
-	MaxDrpAddr = 0x025F;
+	MaxDrpAddr = 0x0125;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	MaxDrpAddr = 0x028C;
+	MaxDrpAddr = 0x0135;
 #endif
 	/* Get Max number of channels in HDMIPHY */
 	MaxChannels = (InstancePtr->Config.RxChannels >
