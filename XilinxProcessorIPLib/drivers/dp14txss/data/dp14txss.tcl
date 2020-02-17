@@ -32,9 +32,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpTxSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpTxSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE" "LINK_RATE"
 	hier_ip_define_config_file $drv_handle "xdptxss_g.c" "XDpTxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpTxSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpTxSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE" "LINK_RATE"
 }
 
 # This procedure creates parameters XPAR_* of each sub-cores in xdptxss_g.c file.
