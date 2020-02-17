@@ -135,7 +135,6 @@ xvidc_disp_edid1(const struct edid * const edid,
 
     u8 i;
 #if XVIDC_EDID_VERBOSITY > 0
-    //add by mmo
     XV_VidC_TimingParam timing_params;
 #endif
 
