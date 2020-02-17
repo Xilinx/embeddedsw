@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -144,6 +144,7 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
  * @param Value is value to be updated
  */
 void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
+int XPlmi_UtilSafetyRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
 
 /**
  * Wait for a period represented by TimeOut

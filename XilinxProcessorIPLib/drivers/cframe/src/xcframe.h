@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
 * 1.01  bsv  06/11/2019 Added XCframe_ClearCframeErr API
+* 1.02  bsv  17/02/2020 XCframe_SafetyWriteReg API added
 * </pre>
 *
 * @note
@@ -157,6 +158,8 @@ void XCframe_SetReadParam(XCframe *InstancePtr,
 void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
 			XCframe_FrameNo FrameNo, u32* ValPtr);
 void XCframe_ClearCframeErr(XCframe *InstancePtr);
+int XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
+		XCframe_FrameNo FrameNo, Xuint128 *Val);
 #ifdef __cplusplus
 }
 #endif

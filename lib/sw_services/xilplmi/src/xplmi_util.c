@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,21 +60,21 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
 {
 	u32 l_Val;
 
-	l_Val = Xil_In32(RegAddr);
+	l_Val = XPlmi_In32(RegAddr);
 	l_Val = (l_Val & (~Mask)) | (Mask & Value);
 
-	Xil_Out32(RegAddr, l_Val);
+	XPlmi_Out32(RegAddr, l_Val);
 }
 
 int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value)
 {
 	u32 l_Val;
 
-	l_Val = Xil_In32(RegAddr);
+	l_Val = XPlmi_In32(RegAddr);
 	l_Val = (l_Val & (~Mask)) | (Mask & Value);
 
-	Xil_Out32(RegAddr, l_Val);
-	return ((Xil_In32(RegAddr) == l_Val) ? XST_SUCCESS : XST_FAILURE);
+	XPlmi_Out32(RegAddr, l_Val);
+	return ((XPlmi_In32(RegAddr) == l_Val) ? XST_SUCCESS : XST_FAILURE);
 }
 
 
@@ -85,7 +85,7 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
 	/**
 	 * Read the Register value
 	 */
-	l_RegValue = Xil_In32(RegAddr);
+	l_RegValue = XPlmi_In32(RegAddr);
 	/**
 	 * Loop while the MAsk is not set or we timeout
 	 */
@@ -93,7 +93,7 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
 		/**
 		 * Latch up the Register value again
 		 */
-		l_RegValue = Xil_In32(RegAddr);
+		l_RegValue = XPlmi_In32(RegAddr);
 		/**
 		 * Decrement the TimeOut Count
 		 */
@@ -108,7 +108,7 @@ int XPlmi_UtilPollForZero(u32 RegAddr, u32 Mask, u32 TimeOutCount)
 	u32 l_RegValue;
 	u32 TimeOut = TimeOutCount;
 
-	l_RegValue = Xil_In32(RegAddr);
+	l_RegValue = XPlmi_In32(RegAddr);
 	/**
 	 * Loop until all bits defined by mask are cleared
 	 * or we time out
@@ -117,7 +117,7 @@ int XPlmi_UtilPollForZero(u32 RegAddr, u32 Mask, u32 TimeOutCount)
 		/**
 		 * Latch up the reg value again
 		 */
-		l_RegValue = Xil_In32(RegAddr);
+		l_RegValue = XPlmi_In32(RegAddr);
 		/**
 		 * Decrement the timeout count
 		 */
@@ -161,7 +161,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	/**
 	 * Read the Register value
 	 */
-	l_RegValue = Xil_In32(RegAddr);
+	l_RegValue = XPlmi_In32(RegAddr);
 
 	/**
 	 * Loop while the MAsk is not set or we timeout
@@ -173,7 +173,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 		/**
 		 * Latch up the Register value again
 		 */
-		l_RegValue = Xil_In32(RegAddr);
+		l_RegValue = XPlmi_In32(RegAddr);
 
 		/**
 		 * Decrement the TimeOut Count
@@ -297,6 +297,35 @@ void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
     ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
 
     swea(Addr, ReadVal);
+}
+
+/*****************************************************************************/
+/**
+ * @brief  The function writes data to 64 bit address and validates the
+ *         operation by reading back the contents of the address.
+ *
+ * @param       HighAddr is higher 32-bits of 64-bit address
+ * @param	LowAaddr is lower 32-bits of 64-bit address
+ * @param       Mask is the bit field to be updated
+ * @param       Value is value to be updated
+ *
+ * @return      Success or Failure
+ *
+ ******************************************************************************/
+int XPlmi_UtilSafetyRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
+{
+	int Status = XST_FAILURE;
+	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
+    u32 ReadVal;
+
+    ReadVal = XPlmi_In64(Addr);
+    ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
+
+    XPlmi_Out64(Addr, ReadVal);
+	if (XPlmi_In64(Addr) == ReadVal) {
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 /*****************************************************************************/
