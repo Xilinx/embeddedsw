@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,8 @@
  * @addtogroup xpm_versal_apis XilPM Versal APIs
  * @{
  *****************************************************************************/
-#ifndef _PM_API_SYS_H_
-#define _PM_API_SYS_H_
+#ifndef PM_API_SYS_H_
+#define PM_API_SYS_H_
 
 #include "pm_client.h"
 #include "xpm_defs.h"
@@ -45,7 +45,7 @@ extern "C" {
  * pm_init_suspend - Init suspend callback arguments (save for custom handling)
  */
 struct pm_init_suspend {
-	volatile bool received;		/**< Has init suspend callback been received/handled */
+	volatile u8 received;		/**< Has init suspend callback been received/handled */
 	enum XPmSuspendReason reason;	/**< Reason of initializing suspend */
 	u32 latency;			/**< Maximum allowed latency */
 	u32 state;			/**< Targeted sleep/suspend state */
@@ -56,7 +56,7 @@ struct pm_init_suspend {
  * pm_acknowledge - Acknowledge callback arguments (save for custom handling)
  */
 struct pm_acknowledge {
-	volatile bool received;		/**< Has acknowledge argument been received? */
+	volatile u8 received;		/**< Has acknowledge argument been received? */
 	u32 node;			/**< Node argument about which the acknowledge is */
 	XStatus status;			/**< Acknowledged status */
 	u32 opp;			/**< Operating point of node in question */
@@ -147,7 +147,7 @@ XStatus XPm_PllSetMode(const u32 ClockId, const u32 Value);
 XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value);
 XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency, const u8 State,
 			const u64 Address);
-XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
+XStatus XPm_RequestWakeUp(const u32 TargetDevId, const u8 SetAddress,
 			  const u64 Address, const u32 Ack);
 void XPm_SuspendFinalize(void);
 XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
@@ -182,5 +182,5 @@ int XPm_MmioRead(const u32 Address, u32 *const Value);
 }
 #endif
 
-#endif /* _PM_API_SYS_H_ */
+#endif /* PM_API_SYS_H_ */
  /** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef _PM_DEFS_H_
-#define _PM_DEFS_H_
+#ifndef PM_DEFS_H_
+#define PM_DEFS_H_
 
 #include "xpm_nodeid.h"
 #include "xpm_defs.h"
@@ -228,4 +228,4 @@ enum XPmRequestAck {
 }
 #endif
 
-#endif /* _PM_DEFS_H_ */
+#endif /* PM_DEFS_H_ */

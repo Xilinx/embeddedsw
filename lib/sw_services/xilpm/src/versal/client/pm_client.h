@@ -45,12 +45,6 @@ extern "C" {
 #define PM_IPI_TIMEOUT			(~0U)
 #define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 
-#ifndef bool
-	#define bool	u8
-	#define true	1U
-	#define false	0U
-#endif
-
 /**
  * XPm_Proc - Processor structure
  */

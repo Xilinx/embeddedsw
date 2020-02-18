@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef _PM_CALLBACKS_H_
-#define _PM_CALLBACKS_H_
+#ifndef PM_CALLBACKS_H_
+#define PM_CALLBACKS_H_
 
 #include "pm_api_sys.h"
 
@@ -44,4 +44,4 @@ void XPm_NotifierProcessEvent(const u32 Node, const enum XPmNotifyEvent Event,
 }
 #endif
 
-#endif /* _PM_CALLBACKS_H_ */
+#endif /* PM_CALLBACKS_H_ */

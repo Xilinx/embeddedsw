@@ -1309,7 +1309,7 @@ done:
  *
  *
  ****************************************************************************/
-XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
+XStatus XPm_RequestWakeUp(const u32 TargetDevId, const u8 SetAddress,
 			  const u64 Address, const u32 Ack)
 {
 	XStatus Status = (s32)XST_FAILURE;
@@ -1855,12 +1855,12 @@ done:
 
 /* Callback API functions */
 struct pm_init_suspend pm_susp = {
-	.received = false,
+	.received = 0U,
 /* initialization of other fields is irrelevant while 'received' is false */
 };
 
 struct pm_acknowledge pm_ack = {
-	.received = false,
+	.received = 0U,
 /* initialization of other fields is irrelevant while 'received' is false */
 };
 
