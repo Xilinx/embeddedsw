@@ -96,7 +96,6 @@
 *       aru    03/12/19 Modified the code according to MISRAC-2012.
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
-* 3.9   mn     01/02/20 Added support for UHS mode by default for ZynqMP
 * </pre>
 *
 ******************************************************************************/
@@ -367,7 +366,7 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-#ifdef UHS_MODE_DISABLE
+#ifndef UHS_MODE_ENABLE
 	InstancePtr->Config.BusWidth = XSDPS_WIDTH_4;
 #endif
 
