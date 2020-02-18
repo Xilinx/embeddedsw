@@ -41,9 +41,6 @@ Add fix for clock detection in hier designs.
 freertos10_xilinx_v1_6:
 Upgraded kernel version to 10.3.0.
 
-dmaps_v2_6:
-Fix boundary check on channel.
-
 gpio_v4_6:
 Fixed compilation error of armcc compiler.
 

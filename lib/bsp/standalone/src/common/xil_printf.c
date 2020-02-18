@@ -48,7 +48,7 @@ static void padding( const s32 l_flag, const struct params_s *par)
     if ((par->do_padding != 0) && (l_flag != 0) && (par->len < par->num1)) {
 		i=(par->len);
         for (; i<(par->num1); i++) {
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
             outbyte( par->pad_character);
 #endif
 		}
@@ -71,7 +71,7 @@ static void outs(const charptr lp, struct params_s *par)
 		/* Move string to the buffer                     */
 		while (((*LocalPtr) != (char8)0) && ((par->num2) != 0)) {
 			(par->num2)--;
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
 			outbyte(*LocalPtr);
 #endif
 			LocalPtr += 1;
@@ -132,7 +132,7 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
     par->len = (s32)strlen(outbuf);
     padding( !(par->left_flag), par);
     while (&outbuf[i] >= outbuf) {
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
 	outbyte( outbuf[i] );
 #endif
 		i--;
@@ -199,28 +199,22 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
 /* This routine gets a number from the format        */
 /* string.                                           */
 /*                                                   */
-static s32 getnum( charptr* linep)
+static s32 getnum(charptr* linep)
 {
-    s32 n;
-    s32 ResultIsDigit = 0;
-    charptr cptr;
-    n = 0;
-    cptr = *linep;
-	if(cptr != NULL){
+	s32 n = 0;
+	s32 ResultIsDigit = 0;
+	charptr cptr = *linep;
+
+	while (cptr != NULL) {
 		ResultIsDigit = isdigit(((s32)*cptr));
+		if (ResultIsDigit == 0)
+			break;
+		n = ((n*10) + (((s32)*cptr) - (s32)'0'));
+		cptr += 1;
 	}
-    while (ResultIsDigit != 0) {
-		if(cptr != NULL){
-			n = ((n*10) + (((s32)*cptr) - (s32)'0'));
-			cptr += 1;
-			if(cptr != NULL){
-				ResultIsDigit = isdigit(((s32)*cptr));
-			}
-		}
-		ResultIsDigit = isdigit(((s32)*cptr));
-	}
-    *linep = ((charptr )(cptr));
-    return(n);
+
+	*linep = ((charptr)(cptr));
+	return(n);
 }
 
 /*---------------------------------------------------*/
@@ -264,7 +258,7 @@ void xil_printf( const char8 *ctrl1, ...)
         /* move format string chars to buffer until a  */
         /* format control is found.                    */
         if (*ctrl != '%') {
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
             outbyte(*ctrl);
 #endif
 			ctrl += 1;
@@ -315,7 +309,7 @@ void xil_printf( const char8 *ctrl1, ...)
 
         switch (tolower((s32)ch)) {
             case '%':
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                 outbyte( '%');
 #endif
                 Check = 1;
@@ -384,7 +378,7 @@ void xil_printf( const char8 *ctrl1, ...)
                 break;
 
             case 'c':
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                 outbyte( va_arg( argp, s32));
 #endif
                 Check = 1;
@@ -393,28 +387,28 @@ void xil_printf( const char8 *ctrl1, ...)
             case '\\':
                 switch (*ctrl) {
                     case 'a':
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                         outbyte( ((char8)0x07));
 #endif
                         break;
                     case 'h':
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                         outbyte( ((char8)0x08));
 #endif
                         break;
                     case 'r':
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                         outbyte( ((char8)0x0D));
 #endif
                         break;
                     case 'n':
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                         outbyte( ((char8)0x0D));
                         outbyte( ((char8)0x0A));
 #endif
                         break;
                     default:
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                         outbyte( *ctrl);
 #endif
                         break;
