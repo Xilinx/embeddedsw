@@ -108,13 +108,13 @@ void XPm_SetPrimaryProc(void)
 	if (0U == (XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
 	    RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
-		memcpy(ProcName, "RPU", sizeof("RPU"));
+		(void)memcpy(ProcName, "RPU", sizeof("RPU"));
 		XPm_Dbg("Running in lock-step mode\r\n");
 	} else {
 		if (0U == ProcId) {
-			memcpy(ProcName, "RPU0", sizeof("RPU0"));
+			(void)memcpy(ProcName, "RPU0", sizeof("RPU0"));
 		} else {
-			memcpy(ProcName, "RPU1", sizeof("RPU1"));
+			(void)memcpy(ProcName, "RPU1", sizeof("RPU1"));
 		}
 		XPm_Dbg("Running in split mode\r\n");
 	}
