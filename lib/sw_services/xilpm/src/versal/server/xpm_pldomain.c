@@ -318,8 +318,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 
 	/* If PL power is still not up, return error as PLD cant
 	   be initialized */
-	if(HcleanDone != 1)
-	{
+	if (1U != HcleanDone) {
 		/* Check if vccint, vccaux, vccint_ram is 1 */
 		while (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
