@@ -577,20 +577,6 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 				}
 			}
 		}
-
-		for (i = 0; i < (u32)XPM_NODEIDX_DEV_PLD_MAX; i++) {
-			XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
-			if (NULL != Device) {
-				Status = XPmRequirement_Add(Subsystem, Device,
-							    (((u32)REQ_ACCESS_SECURE_NONSECURE <<
-							    REG_FLAGS_SECURITY_OFFSET) |
-							    (u32)REQ_NO_RESTRICTION),
-							    NULL, 0U);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
-			}
-		}
 	}
 
 	Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
