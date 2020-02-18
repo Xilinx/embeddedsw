@@ -330,35 +330,3 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief
- * This function copies data from the specified source to destination.
- *
- *
- * @param	DestPtr		Pointer to the destination address.
- * @param	SrcPtr		Pointer to the source address.
- * @param	Size 		Data size to be copied.
- *
- * @return	Returns Status
- * 		- XST_SUCCESS on success
- * 		- XST_FAILURE on failure
- *
- *****************************************************************************/
-void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
-{
-	u8 *Dst = (u8 *)(UINTPTR)DestPtr;
-	const u8 *Src = (const u8 *)SrcPtr;
-	u32 Length = Len;
-
-	/* Loop and copy.  */
-	while (Length != 0U)
-	{
-		*Dst = *Src;
-		Dst++;
-		Src++;
-		Length--;
-	}
-
-	return DestPtr;
-}

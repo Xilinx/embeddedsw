@@ -123,6 +123,9 @@ typedef enum{
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/* Backward compatibility */
+#define XSecure_MemCpy		Xil_MemCpy
+
 /*****************************************************************************/
 /**
 * Read from the register.

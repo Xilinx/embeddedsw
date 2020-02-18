@@ -550,7 +550,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 		/* Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
 		    (((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) != 0U)) {
-			(void)XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
+			XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
 				(void *)Data,
 				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
 			DmableData = PartialData;
@@ -584,7 +584,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Handle remaining data during processing of next data chunk or during
 	   data padding */
 	if(RemainingDataLen > 0U) {
-		(void)XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)Data,
+		XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)Data,
 		                     (RemainingDataLen - PrevPartialLen));
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
