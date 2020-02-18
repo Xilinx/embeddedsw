@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/13/2018 Initial release
+* 1.01  ma   03/02/2020 Implement PLMI own outbyte to support logging as well
 *
 * </pre>
 *
@@ -51,6 +52,9 @@
 #include "xstatus.h"
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
+
+/* PLM specific outbyte function */
+void outbyte(char c);
 
 /************************** Constant Definitions *****************************/
 
@@ -124,4 +128,33 @@ int XPlmi_InitUart(void )
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function prints and logs the terminal prints to debug log buffer
+ *
+ * @param c	character to be printed and logged
+ *
+ * @return	none
+ *
+ *****************************************************************************/
+void outbyte(char c)
+{
+#ifdef STDOUT_BASEADDRESS
+	if(((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED) {
+		XUartPsv_SendByte(STDOUT_BASEADDRESS, c);
+	}
+#endif
+
+	if (DebugLog.LogBuffer.CurrentAddr >=
+			(DebugLog.LogBuffer.StartAddr + DebugLog.LogBuffer.Len)) {
+		DebugLog.LogBuffer.CurrentAddr = DebugLog.LogBuffer.StartAddr;
+		DebugLog.LogBuffer.RemLen = DebugLog.LogBuffer.Len;
+		DebugLog.LogBuffer.IsBufferFull = TRUE;
+	}
+
+	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, c);
+	++DebugLog.LogBuffer.CurrentAddr;
+	--DebugLog.LogBuffer.RemLen;
 }

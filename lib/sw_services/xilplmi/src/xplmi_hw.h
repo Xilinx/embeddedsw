@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
+* 1.01  ma   02/03/2020 Add support for writing a byte to 64 bit address
 *
 * </pre>
 *
@@ -105,6 +106,7 @@ extern "C" {
 #define XPlmi_Out32(Addr, Data)		Xil_Out32(Addr, Data)
 
 #define XPlmi_Out64(Addr, Data)		swea(Addr, Data)
+#define XPlmi_OutByte64(Addr, Data)	sbea(Addr, Data)
 
 
 /**
