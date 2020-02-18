@@ -183,6 +183,7 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 	XPmNotifier* Notifier = NULL;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XPm_Device* Device;
+	int Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		/* Search for the given NodeId */
@@ -208,19 +209,24 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 	Payload[2] = Event;
 
 	switch (NODECLASS(NodeId)) {
-		case (u32)XPM_NODECLASS_EVENT:
-			Payload[3] = 0U;
-			break;
-		case (u32)XPM_NODECLASS_DEVICE:
-			Device = XPmDevice_GetById(NodeId);
-			if (NULL == Device) {
-				goto done;
-			}
-			Payload[3] = Device->Node.State;
-			break;
-		default:
-			PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
+	case (u32)XPM_NODECLASS_EVENT:
+		Payload[3] = 0U;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		Device = XPmDevice_GetById(NodeId);
+		if (NULL == Device) {
 			goto done;
+		}
+		Payload[3] = Device->Node.State;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
+		break;
+	}
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/*
