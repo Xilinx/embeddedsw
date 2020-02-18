@@ -43,22 +43,22 @@
 	Payload[5] = (u32)Arg5;						\
 	XPm_Dbg("%s(%x, %x, %x, %x, %x)\r\n", __func__, Arg1, Arg2, Arg3, Arg4, Arg5);
 
-#define LIBPM_MODULE_ID			(0x02U)
+#define LIBPM_MODULE_ID			(0x02UL)
 
 #define HEADER(len, ApiId)		((len << 16U) | (LIBPM_MODULE_ID << 8U) | ((u32)ApiId))
 
 #define PACK_PAYLOAD0(Payload, ApiId) \
-	PACK_PAYLOAD(Payload, HEADER(0U, ApiId), 0, 0, 0, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(0UL, ApiId), 0, 0, 0, 0, 0)
 #define PACK_PAYLOAD1(Payload, ApiId, Arg1) \
-	PACK_PAYLOAD(Payload, HEADER(1U, ApiId), Arg1, 0, 0, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(1UL, ApiId), Arg1, 0, 0, 0, 0)
 #define PACK_PAYLOAD2(Payload, ApiId, Arg1, Arg2) \
-	PACK_PAYLOAD(Payload, HEADER(2U, ApiId), Arg1, Arg2, 0, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(2UL, ApiId), Arg1, Arg2, 0, 0, 0)
 #define PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2, Arg3) \
-	PACK_PAYLOAD(Payload, HEADER(3U, ApiId), Arg1, Arg2, Arg3, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(3UL, ApiId), Arg1, Arg2, Arg3, 0, 0)
 #define PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3, Arg4) \
-	PACK_PAYLOAD(Payload, HEADER(4U, ApiId), Arg1, Arg2, Arg3, Arg4, 0)
+	PACK_PAYLOAD(Payload, HEADER(4UL, ApiId), Arg1, Arg2, Arg3, Arg4, 0)
 #define PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
-	PACK_PAYLOAD(Payload, HEADER(5U, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)
+	PACK_PAYLOAD(Payload, HEADER(5UL, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)
 
 /****************************************************************************/
 /**
