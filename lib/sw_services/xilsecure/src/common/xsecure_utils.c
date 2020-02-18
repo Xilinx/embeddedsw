@@ -41,6 +41,7 @@
 *       psl     04/05/19 Fixed IAR warnings.
 * 4.1   psl     07/31/19 Fixed MISRA-C violation
 * 4.2   har     01/03/20 Added blind write check for SssCfg
+*       vns     01/24/20 Added assert statements to input arguments
 * </pre>
 *
 ******************************************************************************/
@@ -86,7 +87,7 @@ static const u8 XSecure_SssLookupTable
 #endif
 /************************** Function Prototypes ******************************/
 
-static void XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
+static u32 XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
 static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 			XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc);
 
@@ -105,6 +106,9 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
  *****************************************************************************/
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 {
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(BaseAddress != 0x00);
+
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_UNSET);
 }
@@ -122,6 +126,9 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
  *****************************************************************************/
 void XSecure_SetReset(u32 BaseAddress, u32 Offset)
 {
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(BaseAddress != 0x00);
+
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 }
 
@@ -135,6 +142,9 @@ void XSecure_SetReset(u32 BaseAddress, u32 Offset)
  *****************************************************************************/
 void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 {
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	InstancePtr->Address = XSECURE_SSS_ADDRESS;
 
 }
@@ -149,6 +159,7 @@ void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
  * @param	OutputSrc	Output DMA to be selected for AES engine.
  *
  * @return	- XST_SUCCESS - on successful configuration of the switch
+ *			- XST_FAILURE - on failure to configure switch
  *
  * @note	InputSrc, OutputSrc are of type XSecure_SssSrc.
  *
@@ -156,6 +167,11 @@ void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 		XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InputSrc <= XSECURE_SSS_INVALID);
+	Xil_AssertNonvoid(OutputSrc <= XSECURE_SSS_INVALID);
+
 	return XSecure_SssCfg(InstancePtr, XSECURE_SSS_AES,
 			InputSrc, OutputSrc);
 }
@@ -170,16 +186,26 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
  *				input to the SHA engine.
  *
  * @return	- XST_SUCCESS - on successful configuration of the switch.
+ *			- XST_FAILURE - on failure to configure switch
  *
  *****************************************************************************/
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 {
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
+	u32 Status = (u32)XST_FAILURE;
 
-	XSecure_SssDmaSrc(DmaId, &InputSrc);
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return XSecure_SssCfg(InstancePtr, XSECURE_SSS_SHA, InputSrc,
+	Status = XSecure_SssDmaSrc(DmaId, &InputSrc);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_SHA, InputSrc,
 			XSECURE_SSS_INVALID);
+END:
+	return Status;
 
 }
 
@@ -192,16 +218,26 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
  * @param	DmaId		Device ID of DMA.
  *
  * @return	- XST_SUCCESS - on successful configuration of the switch.
+ *			- XST_FAILURE - on failure to configure switch
  *
  *****************************************************************************/
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 {
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
+	u32 Status = (u32)XST_FAILURE;
 
-	XSecure_SssDmaSrc(DmaId, &Resource);
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return XSecure_SssCfg(InstancePtr, Resource, Resource,
+	Status = XSecure_SssDmaSrc(DmaId, &Resource);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_SssCfg(InstancePtr, Resource, Resource,
 				XSECURE_SSS_INVALID);
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -214,19 +250,30 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
  * @param	DmaId		Device ID of DMA.
  * @param	Resource	DMA source is updated into the pointer.
  *
- * @return	None.
+ * @return
+ *			- XST_SUCCESS if DMA ID is correct
+ *			- XST_FAILURE on wrong DMA ID
  *
  *****************************************************************************/
-static void XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
+static u32 XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 {
+	u32 Status = (u32)XST_FAILURE;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Resource != NULL);
+
 	if (DmaId == 0U) {
 		*Resource = XSECURE_SSS_DMA0;
+		Status = (u32)XST_SUCCESS;
 	}
-	else {
 #ifdef XSECURE_VERSAL
+	else {
 		*Resource = XSECURE_SSS_DMA1;
-#endif
+		Status = (u32)XST_SUCCESS;
 	}
+#endif
+
+	return Status;
 
 }
 
@@ -254,6 +301,12 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	u32 OutputSrcCfg = 0x00;
 	u32 SssCfg = 0x00;
 	u32 Status = (u32)XST_FAILURE;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Resource != XSECURE_SSS_INVALID);
+	Xil_AssertNonvoid(InputSrc <= XSECURE_SSS_INVALID);
+	Xil_AssertNonvoid(OutputSrc <= XSECURE_SSS_INVALID);
 
 	/*
 	 * Configure source of the input for given resource
