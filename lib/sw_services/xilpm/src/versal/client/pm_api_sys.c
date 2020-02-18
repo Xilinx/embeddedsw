@@ -73,7 +73,7 @@
  *
  *
  ****************************************************************************/
-XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload)
+static XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload)
 {
 	XStatus Status = (s32)XST_FAILURE;
 
@@ -112,8 +112,8 @@ done:
  *
  *
  ****************************************************************************/
-XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
-			  u32 *Val2, u32 *Val3)
+static XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
+				 u32 *Val2, u32 *Val3)
 {
 	u32 Response[RESPONSE_ARG_CNT];
 	XStatus Status = (s32)XST_FAILURE;
