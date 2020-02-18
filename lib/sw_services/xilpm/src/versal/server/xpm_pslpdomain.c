@@ -137,7 +137,7 @@ static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Copy sysmon data */
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
+	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
 done:
 	return Status;
 }
@@ -540,7 +540,10 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
+	Status = XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PsLpd->LpdBisrFlags = 0;
 
@@ -554,5 +557,6 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 		Status = XST_FAILURE;
 	}
 
+done:
 	return Status;
 }

@@ -111,7 +111,10 @@ XStatus XPmCore_WakeUp(XPm_Core *Core)
 
 	if ((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
 		if (NULL != Core->Device.ClkHandles) {
-			XPmClock_Request(Core->Device.ClkHandles);
+			Status = XPmClock_Request(Core->Device.ClkHandles);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 		Status = XPm_DirectPwrUp(Core->Device.Node.Id);
 	}

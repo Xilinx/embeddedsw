@@ -269,17 +269,24 @@ static XStatus MemInit(void)
 {
 	u32 row = AieInst.StartRow;
 	u32 col = AieInst.StartCol;
+	int Status;
 
 	for (col = AieInst.StartCol; col < (AieInst.StartCol + AieInst.NumCols); col++) {
 		for (row = AieInst.StartRow; row < (AieInst.StartRow + AieInst.NumRows); row++) {
 			PmDbg("---------- (%d, %d)----------\r\n", col, row);
-			ProgramCore(col, row, &ProgramMem[0], ARRAY_SIZE(ProgramMem));
+			Status = ProgramCore(col, row, &ProgramMem[0], ARRAY_SIZE(ProgramMem));
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
 			AieCoreEnable(col, row);
 		}
 	}
 
-	return AieWaitForCoreDone(col-1U, row-1U);
+	Status = AieWaitForCoreDone(col-1U, row-1U);
 
+done:
+	return Status;
 }
 
 
@@ -532,6 +539,8 @@ inline void XPmAieDomain_LockPcsr(u32 BaseAddress)
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent)
 {
+	XStatus Status = XST_FAILURE;
+
 	/* Skip AIE Init for base QEMU without COSIM */
 	if (Platform == PLATFORM_VERSION_QEMU) {
 		AieOps.InitStart = NULL;
@@ -548,6 +557,8 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		AieInst.StartCol = 6U;
 		AieInst.StartRow = 1U;
 	}
-	XPmPowerDomain_Init(&AieDomain->Domain, Id, BaseAddress, Parent, &AieOps);
-	return XST_SUCCESS;
+
+	Status = XPmPowerDomain_Init(&AieDomain->Domain, Id, BaseAddress, Parent, &AieOps);
+
+	return Status;
 }

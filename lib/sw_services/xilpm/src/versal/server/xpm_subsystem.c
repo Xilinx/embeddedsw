@@ -762,7 +762,10 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				 * Put the RPU to halt state so that TCM init
 				 * can be done during loading of RPU CDO.
 				 */
-				XPmRpuCore_Halt(Device);
+				Status = XPmRpuCore_Halt(Device);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			} else {
 				/*
 				 * In case the application has not released its

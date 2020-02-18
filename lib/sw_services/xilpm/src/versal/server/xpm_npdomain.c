@@ -68,15 +68,15 @@ done:
 static void NpdPreBisrReqs(void)
 {
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Release NoC Reset */
-	XPmReset_AssertbyId(PM_RST_NOC, (u32)PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_NOC, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Release Sys Resets */
-	XPmReset_AssertbyId(PM_RST_SYS_RST_1, (u32)PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(PM_RST_SYS_RST_2, (u32)PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(PM_RST_SYS_RST_3, (u32)PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_SYS_RST_1, (u32)PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_SYS_RST_2, (u32)PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_SYS_RST_3, (u32)PM_RESET_ACTION_RELEASE);
 
 	return;
 }
@@ -149,7 +149,10 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	for (i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */
 		if (0U != SysmonAddresses[i]) {
-			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
+			Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 	}
 
@@ -216,10 +219,16 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 
 	/* Enable NPI Clock */
 	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx((u32)XPM_NODEIDX_CLK_NPI_REF);
-	XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
+	Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 	       RegValue);
@@ -424,11 +433,14 @@ static struct XPm_PowerDomainOps NpdOps = {
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent)
 {
-	XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
+	XStatus Status = XST_FAILURE;
 
-	Npd->BisrDataCopied = 0;
+	Status = XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
+	if (XST_SUCCESS == Status) {
+		Npd->BisrDataCopied = 0;
+	}
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)

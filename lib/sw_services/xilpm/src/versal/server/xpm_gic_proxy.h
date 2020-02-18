@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -65,7 +65,7 @@ typedef struct {
 
 extern XPm_GicProxy_t XPm_GicProxy;
 
-XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable);
+void XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable);
 
 #ifdef __cplusplus
 }

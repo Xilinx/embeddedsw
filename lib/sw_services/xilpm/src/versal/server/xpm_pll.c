@@ -119,8 +119,8 @@ XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 
 	if ((u32)PM_PLL_MODE_FRACTIONAL == Mode) {
 		/* Check if fractional value has been set */
-		XPmClockPll_GetParam(Pll, (u32)PM_PLL_PARAM_ID_DATA, &Val);
-		if (0U == Val) {
+		Status = XPmClockPll_GetParam(Pll, (u32)PM_PLL_PARAM_ID_DATA, &Val);
+		if ((XST_SUCCESS != Status) || (0U == Val)) {
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -496,7 +496,7 @@ int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 		goto done;
 	}
 
-	memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
+	(void)memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
 
 	if (Index != 0U) {
 		Status = XST_INVALID_PARAM;

@@ -47,8 +47,13 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops)
 {
+	XStatus Status = XST_FAILURE;
+
 	u16 InitMask = 0;
-	XPmPower_Init(&PowerDomain->Power, Id, BaseAddress, Parent);
+	Status = XPmPower_Init(&PowerDomain->Power, Id, BaseAddress, Parent);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PowerDomain->Children = NULL;
 	PowerDomain->DomainOps = Ops;
@@ -70,8 +75,10 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 	}
 
 	PowerDomain->InitMask = InitMask;
+	Status = XST_SUCCESS;
 
-	return XST_SUCCESS;
+done:
+	return Status;
 }
 
 #define BITMASK_LOWER_15_BITS			(0x7fffU)
@@ -862,7 +869,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	}
 
 	/* Check PL power up at every init node command to see if we can run Pl houseclean*/
-	XPmPlDomain_InitandHouseclean();
+	(void)XPmPlDomain_InitandHouseclean();
 
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
@@ -888,7 +895,11 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 		}
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
-		XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
+		Status = XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_FINISH);
 		Status = XST_SUCCESS;
 		break;

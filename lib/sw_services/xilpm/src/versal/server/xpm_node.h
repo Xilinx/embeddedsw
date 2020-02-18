@@ -52,7 +52,7 @@ struct XPm_Node {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
+void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
 
 
 #define NODE_CLASS_SHIFT	26U

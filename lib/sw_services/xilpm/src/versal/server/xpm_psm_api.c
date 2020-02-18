@@ -246,8 +246,11 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 	if ((u8)SUSPENDING == Subsystem->State) {
 		Status = XPmRequirement_UpdateScheduled(Subsystem, 1U);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
-		XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
 	} else {
 		Status = XST_SUCCESS;
 	}

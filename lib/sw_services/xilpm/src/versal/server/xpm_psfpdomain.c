@@ -112,7 +112,7 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Copy sysmon data */
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], PM_POWER_FPD, 0);
+	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], PM_POWER_FPD, 0);
 done:
 	return Status;
 }
@@ -256,10 +256,20 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
         PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
 		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, 0);
 
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	/* EDT-997247: Mem clear introduces apu gic ecc error,
 	so pulse gic reset as a work around to fix it */
-	XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_ASSERT);
-	XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 done:
         return Status;
@@ -280,7 +290,10 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
+	Status = XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Make sure enough base addresses are being passed */
 	if (1U <= OtherBaseAddressCnt) {
@@ -290,5 +303,6 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 		Status = XST_FAILURE;
 	}
 
+done:
 	return Status;
 }

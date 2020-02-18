@@ -105,7 +105,12 @@ static struct XPm_PowerDomainOps PmcOps = {
 
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
 {
-	XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL, &PmcOps);
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL, &PmcOps);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PmcDomain->Domain.Power.Node.State = (u8)XPM_POWER_STATE_ON;
 	PmcDomain->Domain.Power.UseCount = 1;
@@ -113,5 +118,6 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
 	HandlePowerEvent = PmcDomain->Domain.Power.HandleEvent;
 	PmcDomain->Domain.Power.HandleEvent = HandlePmcDomainEvent;
 
-	return XST_SUCCESS;
+done:
+	return Status;
 }

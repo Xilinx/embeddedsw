@@ -1952,10 +1952,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 		goto done;
 	}
 
-	Status = XPmNode_Init(&Pin->Node, PinId, (u8)XPM_PINSTATE_UNUSED, BaseAddress);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XPmNode_Init(&Pin->Node, PinId, (u8)XPM_PINSTATE_UNUSED, BaseAddress);
 
 	Pin->Groups = PmPinGroups[PinIdx].GroupList;
 	Pin->NumGroups = (u8)(PmPinGroups[PinIdx].GroupCount);
@@ -1974,6 +1971,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 
 	PmMioPins[PinIdx] = Pin;
 	PmNumPins++;
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -2364,7 +2362,7 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 
 	Pin = XPmPin_GetById(PinId);
 
-	memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
+	(void)memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
 
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;

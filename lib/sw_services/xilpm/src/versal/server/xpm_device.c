@@ -320,16 +320,18 @@ done:
 
 static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 {
+	XStatus Status = XST_FAILURE;
+
 	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 
 	/* Enable all the clock gates, skip over others */
 	if (1U == Enable) {
-		XPmClock_Request(ClkHandle);
+		Status = XPmClock_Request(ClkHandle);
 	} else {
-		XPmClock_Release(ClkHandle);
+		Status = XPmClock_Release(ClkHandle);
 	}
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 static XStatus ResetSdDllRegs(XPm_Device *Device)
@@ -473,10 +475,16 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						}
 					} else if(Node->Id == PM_DEV_RPU0_0 || Node->Id == PM_DEV_RPU0_1) {
 						/*RPU has a special handling */
-						XPmRpuCore_Halt(Device);
+						Status = XPmRpuCore_Halt(Device);
+						if (XST_SUCCESS != Status) {
+							break;
+						}
 					} else if(Node->Id == PM_DEV_PSM_PROC) {
 						/* Ecc initialize PSM RAM*/
-						XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE);
+						Status = XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE);
+						if (XST_SUCCESS != Status) {
+							break;
+						}
 					} else {
 						/* Required due to MISRA */
 						PmDbg("Invalid node id 0x%x\r\n", Node->Id);
@@ -875,10 +883,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		goto done;
 	}
 
-	Status = XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
 
 	/* Add requirement by default for PMC subsystem */
 	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC), Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
@@ -1039,13 +1044,19 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 				DeviceHandle = DeviceHandle->NextDevice;
 			}
 			if (NULL == DeviceHandle) {
-				Reset->Ops->SetState(Reset, Action);
+				Status = Reset->Ops->SetState(Reset, Action);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			}
 			RstHandle = RstHandle->NextReset;
 		}
 	} else {
 		while (NULL != RstHandle) {
-			RstHandle->Reset->Ops->SetState(RstHandle->Reset, Action);
+			Status = RstHandle->Reset->Ops->SetState(RstHandle->Reset, Action);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 			RstHandle = RstHandle->NextReset;
 		}
 	}

@@ -590,7 +590,10 @@ XStatus XPmPlDomain_InitandHouseclean()
 	}
 
 	/* Remove POR for PL */
-	XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);;
 	if (NULL == Pmc) {
@@ -619,7 +622,10 @@ XStatus XPmPlDomain_InitandHouseclean()
 		 * up.
 		 */
 		/* Toggle PL POR */
-		XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_PULSE);
+		Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_PULSE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
 		/*
 		 * Clear sticky ERROR and interrupt status (They are not
@@ -652,7 +658,10 @@ XStatus XPmPlDomain_InitandHouseclean()
 	}
 
 	/* Remove SRST for PL */
-	XPmReset_AssertbyId(PM_RST_PL_SRST, (u32)PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PL_SRST, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Status = PldCframeInit();
 	if (XST_SUCCESS != Status) {
@@ -735,7 +744,11 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
+	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	PlDomain->Domain.Power.Node.State = (u8)XPM_POWER_STATE_OFF;
 	PlDomain->Domain.Power.UseCount = 1;
 
@@ -751,5 +764,6 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 		Status = XST_FAILURE;
 	}
 
+done:
 	return Status;
 }

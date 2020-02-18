@@ -423,10 +423,11 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	/* Poll for done */
 	/* If trigger action is performed in stages, then break down this step */
 	Status = XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_DONE_OFFSET,
-				CPM5_SLCR_SECURE_OD_MBIST_DONE_MASK,
-				XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status)
+				 CPM5_SLCR_SECURE_OD_MBIST_DONE_MASK,
+				 XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Check Status */
 	PmIn32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_PASSOUT_OFFSET,
@@ -493,8 +494,10 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		goto done;
 	}
 
-	XPmPowerDomain_Init(&CpmDomain->Domain, Id, BaseAddress, Parent,
-		Ops);
+	Status = XPmPowerDomain_Init(&CpmDomain->Domain, Id, BaseAddress, Parent, Ops);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Make sure enough base addresses are being passed */
 	if (4U <= OtherBaseAddressesCnt) {

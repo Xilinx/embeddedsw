@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 #include "xpm_common.h"
 #include "xpm_node.h"
 
-XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
+void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 {
 	PmDbg("Node Init: Type=%d, Id=%d, State=%d, BaseAddress=0x%08X\n\r",
 		NODETYPE(Id), Id, State, BaseAddress);
@@ -38,6 +38,4 @@ XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 	Node->BaseAddress = BaseAddress;
 	Node->Flags = 0;
 	Node->LatencyMarg = XPM_MAX_LATENCY;
-
-	return XST_SUCCESS;
 }

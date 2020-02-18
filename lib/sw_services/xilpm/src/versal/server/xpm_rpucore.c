@@ -218,14 +218,20 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	Status = XPmDevice_IsRequested(PM_DEV_RPU0_0, PM_SUBSYS_DEFAULT);
 	if ((XST_SUCCESS == Status) && ((u8)ONLINE == DefSubsystem->State)) {
 		if (Mode == XPM_RPU_MODE_SPLIT) {
-			XPmDevice_Request(PM_SUBSYS_DEFAULT, PM_DEV_RPU0_1,
-					  (u32)PM_CAP_ACCESS, XPM_MAX_QOS);
+			Status = XPmDevice_Request(PM_SUBSYS_DEFAULT, PM_DEV_RPU0_1,
+						   (u32)PM_CAP_ACCESS, XPM_MAX_QOS);
+			if (XST_SUCCESS != Status) {
+				PmWarn("Error %d in RPU0_1 request\r\n", Status);
+			}
 		} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
 			Status = XPmDevice_IsRequested(PM_DEV_RPU0_1,
 						       PM_SUBSYS_DEFAULT);
 			if (XST_SUCCESS == Status) {
-				XPmDevice_Release(PM_SUBSYS_DEFAULT,
-						  PM_DEV_RPU0_1);
+				Status = XPmDevice_Release(PM_SUBSYS_DEFAULT,
+							   PM_DEV_RPU0_1);
+				if (XST_SUCCESS != Status) {
+					PmWarn("Error %d in RPU0_1 release\r\n", Status);
+				}
 			}
 		} else {
 			/* Required due to MISRA */

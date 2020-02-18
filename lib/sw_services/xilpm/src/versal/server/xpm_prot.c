@@ -55,10 +55,7 @@ XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 		goto done;
 	}
 
-	Status = XPmNode_Init(&ProtNode->Node, Id, (u8)XPM_PROT_DISABLED, BaseAddr);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XPmNode_Init(&ProtNode->Node, Id, (u8)XPM_PROT_DISABLED, BaseAddr);
 
 	PmProtNodes[NodeIndex] = ProtNode;
 
@@ -69,6 +66,7 @@ XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 	PpuNode->Aperture_1m.EndAddress = 0;
 	PpuNode->Aperture_512m.StartAddress = 0;
 	PpuNode->Aperture_512m.EndAddress = 0;
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

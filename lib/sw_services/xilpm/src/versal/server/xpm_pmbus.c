@@ -217,7 +217,10 @@ XStatus XPmBus_ReadData(XIicPs *Iic, u8 *Buffer, u16 SlaveAddr,
 
 	/* Clear repeated start condition to reset hold bit */
 	if (0 != Iic->IsRepeatedStart) {
-		XIicPs_ClearOptions(Iic, XIICPS_REP_START_OPTION);
+		Status = XIicPs_ClearOptions(Iic, XIICPS_REP_START_OPTION);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	Status = XPmBus_Read(Iic, SlaveAddr, Buffer, ByteCount);

@@ -409,7 +409,10 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 				} else {
 					/* Write to PSM power up request register */
-					SendPowerUpReq(Node);
+					Status = SendPowerUpReq(Node);
+					if (XST_SUCCESS != Status) {
+						break;
+					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
@@ -423,7 +426,10 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
 					Power->WfParentUseCnt = 0;
 					/* Write to PSM power up request register */
-					SendPowerUpReq(Node);
+					Status = SendPowerUpReq(Node);
+					if (XST_SUCCESS != Status) {
+						break;
+					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
@@ -458,7 +464,10 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				if (1U == Power->UseCount) {
 					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
 					/* Write to PSM power down request register */
-					SendPowerDownReq(Node);
+					Status = SendPowerDownReq(Node);
+					if (XST_SUCCESS != Status) {
+						break;
+					}
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);

@@ -297,8 +297,10 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				 * EOS bit */
 				PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
 				if ((u32)CFU_APB_CFU_FGCR_EOS_MASK == (Value & (u32)CFU_APB_CFU_FGCR_EOS_MASK)) {
-					XPmSubsystem_SetState(PM_SUBSYS_PL, (u32)ONLINE);
-					Status = XST_SUCCESS;
+					Status = XPmSubsystem_SetState(PM_SUBSYS_PL, (u32)ONLINE);
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
 				} else {
 					Status = XST_FAILURE;
 					goto done;

@@ -308,7 +308,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 	/* First word of the response is status */
 	Cmd->Response[0] = (u32)Status;
-	XPlmi_MemCpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
+	(void)XPlmi_MemCpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
 
 	if (Status == XST_SUCCESS) {
 		Cmd->ResumeHandler = NULL;
@@ -494,8 +494,8 @@ int XPm_DispatchWakeHandler(void *DeviceIdx)
 XStatus XPm_HookAfterPlmCdo(void)
 {
 	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PM_POWER_PMC, 1);
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PM_POWER_PMC, 1);
 
 	return XST_SUCCESS;
 }
@@ -1006,7 +1006,10 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			}
 			Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
 			if (XST_SUCCESS == Status) {
-				XPmSubsystem_SetState(CoreSubsystemId, (u32)ONLINE);
+				Status = XPmSubsystem_SetState(CoreSubsystemId, (u32)ONLINE);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			}
 			break;
 		default:
@@ -1188,7 +1191,10 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			goto done;
 		}
 
-		XPmSubsystem_SetState(TargetSubsystem->Id, (u32)POWERED_OFF);
+		Status = XPmSubsystem_SetState(TargetSubsystem->Id, (u32)POWERED_OFF);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
 	} else {
 		Status = XPM_PM_INVALID_NODE;
@@ -1267,7 +1273,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 			goto done;
 		}
 
-		XPmSubsystem_SetState(SubsystemId, (u32)POWERED_OFF);
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)POWERED_OFF);
 		goto done;
 	}
 
@@ -3326,7 +3332,7 @@ XStatus XPm_AddNodeName(u32 *Args, u32 NumArgs)
 	NodeId = Args[0];
 	if (ISOUTCLK(NodeId) || ISREFCLK(NodeId) || ISPLL(NodeId)) {
 		for (i = 1U; i < NumArgs; i++) {
-			memcpy(&Name[j], (char *)((UINTPTR)&Args[i]), 4U);
+			(void)memcpy(&Name[j], (char *)((UINTPTR)&Args[i]), 4U);
 			j += 4U;
 		}
 		Status = XPmClock_AddClkName(NodeId, Name);
@@ -4260,7 +4266,10 @@ static int XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 		goto done;
 	}
 
-	XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+	Status = XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	*Result = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr,
 					    XSYSMONPSV_VAL_VREF_MAX);

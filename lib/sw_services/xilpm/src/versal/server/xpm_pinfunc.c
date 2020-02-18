@@ -1223,14 +1223,14 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 	XStatus Status = XST_FAILURE;
 	XPm_PinFunc *PinFunc = NULL;
 
-	memset(FuncName, 0, FUNC_QUERY_NAME_LEN);
+	(void)memset(FuncName, 0, FUNC_QUERY_NAME_LEN);
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
 	if (NULL == PinFunc) {
 		goto done;
 	}
 
-	memcpy(FuncName, &PinFunc->Name[0], FUNC_QUERY_NAME_LEN);
+	(void)memcpy(FuncName, &PinFunc->Name[0], FUNC_QUERY_NAME_LEN);
 
 	Status = XST_SUCCESS;
 done:
@@ -1282,7 +1282,7 @@ XStatus XPmPinFunc_GetFuncGroups(u32 FuncId, u32 Index, u16 *Groups)
 	u32 num_read;
 	XPm_PinFunc *PinFunc = NULL;
 
-	memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
+	(void)memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
 	if ((NULL == PinFunc) || (Index > PinFunc->NumGroups)) {

@@ -32,9 +32,8 @@
 
 #define XPM_GIC_PROXY_IS_ENABLED		0x1U
 
-XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
+void XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 {
-	XStatus Status = XST_FAILURE;
 	u32 GicProxyMask = Periph->GicProxyMask;
 	u32 GicProxyGroup = Periph->GicProxyGroup;
 	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
@@ -55,8 +54,6 @@ XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 		/* Remember which interrupt in the group needs to be Enabled */
 		XPm_GicProxy.Groups[GicProxyGroup].SetMask |= GicProxyMask;
 	}
-
-	return Status;
 }
 
 /**

@@ -70,12 +70,11 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 	return Status;
 }
 
-static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
+static void XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
-	XStatus Status = XST_FAILURE;
 	u32 i = 0;
 
-	Status = XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0);
+	XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0);
 
 	Rst->Node.BaseAddress = ControlReg;
 	Rst->Shift = Shift;
@@ -85,8 +84,6 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 	for (i=0; i<NumParents; i++) {
 		Rst->Parents[i] = (u16)(NODEINDEX(Parents[i]));
 	}
-
-	return Status;
 }
 
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
@@ -121,10 +118,7 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 		goto done;
 	}
 
-	Status = XPmReset_Init(Rst, Id, ControlReg, Shift, Width, ResetType, NumParents, Parents);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XPmReset_Init(Rst, Id, ControlReg, Shift, Width, ResetType, NumParents, Parents);
 
 	Status = SetResetNode(Id, Rst);
 	if (XST_SUCCESS != Status) {

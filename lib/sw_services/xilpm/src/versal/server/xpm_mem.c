@@ -250,7 +250,10 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 		}
 	}
 	if (0U != Size) {
-		XPlmi_EccInit(Base, Size);
+		s32 Status = XPlmi_EccInit(Base, Size);
+		if (XST_SUCCESS != Status) {
+			PmWarn("Error %d in EccInit of 0x%x\r\n", Status, Tcm->Device.Node.Id);
+		}
 	}
 	return;
 }
