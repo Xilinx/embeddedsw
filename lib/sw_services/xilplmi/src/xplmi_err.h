@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,9 +62,10 @@ extern "C" {
 #define XPLMI_EM_ACTION_ERROUT		4U
 #define XPLMI_EM_ACTION_SUBSYS_SHUTDN	5U
 #define XPLMI_EM_ACTION_SUBSYS_RESTART	6U
-#define XPLMI_EM_ACTION_NOTIFY_AGENT	7U
-#define XPLMI_EM_ACTION_NONE		8U
-#define XPLMI_EM_ACTION_MAX		9U
+#define XPLMI_EM_ACTION_PSM_CR		7U
+#define XPLMI_EM_ACTION_PSM_NCR		8U
+#define XPLMI_EM_ACTION_NONE		9U
+#define XPLMI_EM_ACTION_MAX		10U
 
 /* PLMI ERROR Management error codes */
 #define XPLMI_INVALID_ERROR_ID		(1U)

@@ -566,6 +566,84 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief This function enables the PSM CR response for the given Error ID.
+ * @param ErrorId is the error identifier
+ * @return Success / failure
+ *****************************************************************************/
+static int XPlmi_EmEnablePsmCr(u32 ErrorId)
+{
+	int Status;
+	u32 RegMask;
+
+	if ((NODEINDEX(ErrorId) < XPM_NODEIDX_ERROR_PS_SW_CR) ||
+			(NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX)) {
+		Status = XPLMI_INVALID_ERROR_ID;
+		goto END;
+	}
+
+	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+
+	switch (NODETYPE(ErrorId)) {
+	case XPM_NODETYPE_EVENT_PSM_ERR1:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPM_NODETYPE_EVENT_PSM_ERR2:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XPLMI_INVALID_ERROR_TYPE;
+		XPlmi_Printf(DEBUG_GENERAL,
+			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+		break;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function enables the PSM NCR response for the given Error ID.
+ * @param ErrorId is the error identifier
+ * @return Success / failure
+ *****************************************************************************/
+static int XPlmi_EmEnablePsmNcr(u32 ErrorId)
+{
+	int Status;
+	u32 RegMask;
+
+	if ((NODEINDEX(ErrorId) < XPM_NODEIDX_ERROR_PS_SW_CR) ||
+			(NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX)) {
+		Status = XPLMI_INVALID_ERROR_ID;
+		goto END;
+	}
+
+	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+
+	switch (NODETYPE(ErrorId)) {
+	case XPM_NODETYPE_EVENT_PSM_ERR1:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPM_NODETYPE_EVENT_PSM_ERR2:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XPLMI_INVALID_ERROR_TYPE;
+		XPlmi_Printf(DEBUG_GENERAL,
+			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+		break;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief This function sets the Action specified for a given Error ID.
  * @param ErrorId is the error identifier
  * @param ActionId is the action that need to be set for ErrorID. Action
@@ -636,6 +714,18 @@ int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
 		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
 		/* Set error action ERROUT signal for the errorId */
 		Status = XPlmi_EmEnablePSError(ErrorId);
+		break;
+
+	case XPLMI_EM_ACTION_PSM_CR:
+		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
+		/* Set error action PSM_CR for the errorId */
+		Status = XPlmi_EmEnablePsmCr(ErrorId);
+		break;
+
+	case XPLMI_EM_ACTION_PSM_NCR:
+		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
+		/* Set error action PSM_NCR for the errorId */
+		Status = XPlmi_EmEnablePsmNcr(ErrorId);
 		break;
 
 	default:
