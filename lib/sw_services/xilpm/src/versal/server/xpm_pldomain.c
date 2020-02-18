@@ -577,7 +577,7 @@ XStatus XPmPlDomain_InitandHouseclean()
 			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
 
 	/* Skip if already done */
-	if (HcleanDone) {
+	if (0U != HcleanDone) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
