@@ -411,7 +411,7 @@ static int XPlmi_EmEnablePOR(u32 ErrorId)
 	int Status;
 	u32 RegMask;
 
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PMCERR2_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
@@ -449,7 +449,7 @@ static int XPlmi_EmEnableSRST(u32 ErrorId)
 	int Status;
 	u32 RegMask;
 
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PMCERR2_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
@@ -488,7 +488,7 @@ static int XPlmi_EmEnablePSError(u32 ErrorId)
 	u32 RegMask;
 
 	/* If Error ID is not in range, fail */
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PMCERR2_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
