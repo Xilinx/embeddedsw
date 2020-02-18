@@ -102,7 +102,7 @@ void XPm_SetPrimaryProc(void)
 	u32 ProcId;
 
 #if defined (__aarch64__)
-	ProcId = (mfcp(MPIDR_EL1) & PM_AFL0_MASK);
+	ProcId = ((u32)mfcp(MPIDR_EL1) & PM_AFL0_MASK);
 #elif defined (__arm__)
 	ProcId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_AFL0_MASK);
 	if (0U == (XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
@@ -169,7 +169,7 @@ void XPm_ClientSuspendFinalize(void)
 
 	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
-	CtrlReg = mfcp(SCTLR_EL3);
+	CtrlReg = (u32)mfcp(SCTLR_EL3);
 	if (XREG_CONTROL_DCACHE_BIT & CtrlReg) {
 		Xil_DCacheFlush();
 	}

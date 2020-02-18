@@ -75,7 +75,7 @@
  ****************************************************************************/
 XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 
 	Status = XIpiPsu_PollForAck(Proc->Ipi, TARGET_IPI_INT_MASK,
 				    PM_IPI_TIMEOUT);
@@ -116,7 +116,7 @@ XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 			  u32 *Val2, u32 *Val3)
 {
 	u32 Response[RESPONSE_ARG_CNT];
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 
 	/* Wait until current IPI interrupt is handled by target module */
 	Status = XIpiPsu_PollForAck(Proc->Ipi, TARGET_IPI_INT_MASK,
@@ -147,7 +147,7 @@ XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 	if (NULL != Val3)
 		*Val3 = Response[3];
 
-	Status = Response[0];
+	Status = (s32)Response[0];
 
 done:
 	return Status;
@@ -165,11 +165,11 @@ done:
  ****************************************************************************/
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 
 	if (NULL == IpiInst) {
 		XPm_Dbg("ERROR passing NULL pointer to %s\r\n", __func__);
-		Status = XST_INVALID_PARAM;
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -177,7 +177,7 @@ XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 
 	PrimaryProc->Ipi = IpiInst;
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 
 done:
 	return Status;
@@ -239,7 +239,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD0(Payload, PM_GET_CHIPID);
@@ -272,7 +272,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetApiVersion(u32 *Version)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD0(Payload, PM_GET_API_VERSION);
@@ -311,7 +311,7 @@ done:
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 			const u32 QoS, const u32 Ack)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD4(Payload, PM_REQUEST_NODE, DeviceId, Capabilities,
@@ -344,7 +344,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ReleaseNode(const u32 DeviceId)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_RELEASE_NODE, DeviceId);
@@ -383,7 +383,7 @@ done:
 XStatus XPm_SetRequirement(const u32 DeviceId, const u32 Capabilities,
 				 const u32 QoS, const u32 Ack)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD4(Payload, PM_SET_REQUIREMENT, DeviceId, Capabilities, QoS, Ack);
@@ -436,12 +436,11 @@ done:
  ****************************************************************************/
 XStatus XPm_GetNodeStatus(const u32 DeviceId, XPm_NodeStatus *const NodeStatus)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == NodeStatus) {
 		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -481,7 +480,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_RESET_ASSERT, ResetId, Action);
@@ -516,12 +515,11 @@ done:
  ****************************************************************************/
 XStatus XPm_ResetGetStatus(const u32 ResetId, u32 *const State)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == State) {
 		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -554,7 +552,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PinCtrlRequest(const u32 PinId)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_PINCTRL_REQUEST, PinId);
@@ -586,7 +584,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PinCtrlRelease(const u32 PinId)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_PINCTRL_RELEASE, PinId);
@@ -619,7 +617,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PinCtrlSetFunction(const u32 PinId, const u32 FunctionId)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_PINCTRL_SET_FUNCTION, PinId, FunctionId);
@@ -652,12 +650,11 @@ done:
  ****************************************************************************/
 XStatus XPm_PinCtrlGetFunction(const u32 PinId, u32 *const FunctionId)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == FunctionId) {
 		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -705,7 +702,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PinCtrlSetParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD3(Payload, PM_PINCTRL_CONFIG_PARAM_SET, PinId, ParamId, ParamVal);
@@ -753,7 +750,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PinCtrlGetParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == ParamVal) {
@@ -796,7 +793,7 @@ done:
 XStatus XPm_DevIoctl(const u32 DeviceId, const u32 IoctlId, const u32 Arg1,
 		     const u32 Arg2, u32 *const Response)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Response) {
@@ -834,7 +831,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockEnable(const u32 ClockId)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_CLOCK_ENABLE, ClockId);
@@ -866,7 +863,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockDisable(const u32 ClockId)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_CLOCK_DISABLE, ClockId);
@@ -900,7 +897,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == State) {
@@ -938,7 +935,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockSetDivider(const u32 ClockId, const u32 Divider)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_CLOCK_SETDIVIDER, ClockId, Divider);
@@ -971,12 +968,11 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Divider) {
 		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -1010,7 +1006,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentIdx)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_CLOCK_SETPARENT, ClockId, ParentIdx);
@@ -1043,7 +1039,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentIdx)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == ParentIdx) {
@@ -1095,7 +1091,7 @@ XStatus XPm_PllSetParameter(const u32 ClockId,
 			    const enum XPm_PllConfigParams ParamId,
 			    const u32 Value)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD3(Payload, PM_PLL_SET_PARAMETER, ClockId, ParamId, Value);
@@ -1142,7 +1138,7 @@ XStatus XPm_PllGetParameter(const u32 ClockId,
 			    const enum XPm_PllConfigParams ParamId,
 			    u32 *const Value)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Value) {
@@ -1183,7 +1179,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PllSetMode(const u32 ClockId, const u32 Value)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_PLL_SET_MODE, ClockId, Value);
@@ -1219,12 +1215,11 @@ done:
  ****************************************************************************/
 XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Value) {
 		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -1263,14 +1258,14 @@ done:
 XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency,
 			const u8 State, const u64 Address)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	struct XPm_Proc *Proc;
 
 	Proc = XPm_GetProcByDeviceId(DeviceId);
 	if (NULL == Proc) {
 		XPm_Dbg("ERROR: Invalid Device ID\r\n");
-		Status = XST_INVALID_PARAM;
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1314,7 +1309,7 @@ done:
 XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
 			  const u64 Address, const u32 Ack)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 EncodedAddr;
 	struct XPm_Proc *Proc;
@@ -1354,7 +1349,7 @@ done:
  ****************************************************************************/
 void XPm_SuspendFinalize(void)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 
 	/*
 	 * Wait until previous IPI request is handled by the PMU.
@@ -1391,7 +1386,7 @@ void XPm_SuspendFinalize(void)
 XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
 			   const u32 Latency, const u32 State)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD4(Payload, PM_REQUEST_SUSPEND, TargetSubsystemId, Ack, Latency, State);
@@ -1432,7 +1427,7 @@ done:
  ****************************************************************************/
 XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_ABORT_SUSPEND, Reason, PrimaryProc->DevId);
@@ -1477,7 +1472,7 @@ done:
  ****************************************************************************/
 XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_FORCE_POWERDOWN, TargetDevId, Ack);
@@ -1511,7 +1506,7 @@ done:
  ****************************************************************************/
 XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_SYSTEM_SHUTDOWN, Type, SubType);
@@ -1546,7 +1541,7 @@ done:
 XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId, const u32 DeviceID,
 			    const u32 Enable)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD3(Payload, PM_SET_WAKEUP_SOURCE, TargetDeviceId, DeviceID, Enable);
@@ -1585,7 +1580,7 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data)
 {
 
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Data) {
@@ -1602,8 +1597,8 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 	}
 
 	switch (QueryId) {
-	case XPM_QID_CLOCK_GET_NAME:
-	case XPM_QID_PINCTRL_GET_FUNCTION_NAME:
+	case (u32)XPM_QID_CLOCK_GET_NAME:
+	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME:
 		/*
 		 * XPM_QID_CLOCK_GET_NAME and XPM_QID_PINCTRL_GET_FUNCTION_NAME store
 		 * part of their clock names in Status variable which is stored
@@ -1612,35 +1607,35 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		 */
 		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[1], &Data[2], &Data[3]);
 		if (XST_SUCCESS != Status) {
-			Data[0] = '\0';
-			Status = XST_FAILURE;
+			Data[0] = (u32)('\0');
+			Status = (s32)XST_FAILURE;
 		} else {
-			Data[0] = Status;
+			Data[0] = (u32)Status;
 		}
 		break;
 
-	case XPM_QID_CLOCK_GET_TOPOLOGY:
-	case XPM_QID_CLOCK_GET_MUXSOURCES:
-	case XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
-	case XPM_QID_PINCTRL_GET_PIN_GROUPS:
+	case (u32)XPM_QID_CLOCK_GET_TOPOLOGY:
+	case (u32)XPM_QID_CLOCK_GET_MUXSOURCES:
+	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
+	case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
 		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], &Data[1], &Data[2]);
 		break;
 
-	case XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS:
+	case (u32)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS:
 		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], &Data[1], NULL);
 		break;
 
-	case XPM_QID_CLOCK_GET_ATTRIBUTES:
-	case XPM_QID_PINCTRL_GET_NUM_PINS:
-	case XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
-	case XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
-	case XPM_QID_CLOCK_GET_NUM_CLOCKS:
-	case XPM_QID_CLOCK_GET_MAX_DIVISOR:
+	case (u32)XPM_QID_CLOCK_GET_ATTRIBUTES:
+	case (u32)XPM_QID_PINCTRL_GET_NUM_PINS:
+	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
+	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
+	case (u32)XPM_QID_CLOCK_GET_NUM_CLOCKS:
+	case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
 		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], NULL, NULL);
 		break;
 
 	default:
-		Status = XST_INVALID_PARAM;
+		Status = (s32)XST_INVALID_PARAM;
 		break;
 	}
 
@@ -1666,7 +1661,7 @@ done:
  ****************************************************************************/
 int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency)
 {
-	int Status = XST_FAILURE;
+	int Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_SET_MAX_LATENCY, DeviceId, Latency);
@@ -1707,7 +1702,7 @@ XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
                                 const enum XPmOpCharType Type,
                                 u32 *const Result)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the target module */
@@ -1734,7 +1729,7 @@ done:
  ****************************************************************************/
 int XPm_InitFinalize(void)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD0(Payload, PM_INIT_FINALIZE);
@@ -1772,12 +1767,12 @@ done:
  ****************************************************************************/
 int XPm_RegisterNotifier(XPm_Notifier* const Notifier)
 {
-	int Status = XST_FAILURE;
+	int Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Notifier) {
 		XPm_Dbg("%s ERROR: NULL notifier pointer\n", __func__);
-		Status = XST_INVALID_PARAM;
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1818,12 +1813,12 @@ done:
  ****************************************************************************/
 int XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
 {
-	int Status = XST_FAILURE;
+	int Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Notifier) {
 		XPm_Dbg("%s ERROR: NULL notifier pointer\n", __func__);
-		Status = XST_INVALID_PARAM;
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1904,7 +1899,7 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
 	pm_susp.latency = Latency;
 	pm_susp.state = State;
 	pm_susp.timeout = Timeout;
-	pm_susp.received = true;
+	pm_susp.received = 1U;
 }
 
 /****************************************************************************/
@@ -1936,7 +1931,7 @@ void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
 	pm_ack.node = Node;
 	pm_ack.status = Status;
 	pm_ack.opp = Oppoint;
-	pm_ack.received = true;
+	pm_ack.received = 1U;
 }
 
 /****************************************************************************/
@@ -1967,7 +1962,7 @@ int XPm_SetConfiguration(const u32 Address)
 	(void)Address;
 
 	XPm_Dbg("WARNING: %s() API is not supported\r\n", __func__);
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 int XPm_ClockSetRate(const u32 ClockId, const u32 Rate)
@@ -1976,7 +1971,7 @@ int XPm_ClockSetRate(const u32 ClockId, const u32 Rate)
 	(void)ClockId, (void)Rate;
 
 	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
-	return XST_FAILURE;
+	return (s32)XST_FAILURE;
 }
 
 int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate)
@@ -1985,7 +1980,7 @@ int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate)
 	(void)ClockId, (void)Rate;
 
 	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
-	return XST_FAILURE;
+	return (s32)XST_FAILURE;
 }
 
 int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
@@ -1994,7 +1989,7 @@ int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
 	(void)Address, (void)Mask, (void)Value;
 
 	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
-	return XST_FAILURE;
+	return (s32)XST_FAILURE;
 }
 
 int XPm_MmioRead(const u32 Address, u32 *const Value)
@@ -2003,6 +1998,6 @@ int XPm_MmioRead(const u32 Address, u32 *const Value)
 	(void)Address, (void)Value;
 
 	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
-	return XST_FAILURE;
+	return (s32)XST_FAILURE;
 }
  /** @} */
