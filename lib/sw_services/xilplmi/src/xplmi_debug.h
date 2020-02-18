@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a kc   07/13/2018 Initial release
+* 1.01  ma   03/02/2020 Add timestamp for each PLM print
 *
 * </pre>
 *
@@ -53,6 +54,8 @@ extern "C" {
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xplmi_config.h"
+#include "xplmi_event_logging.h"
+#include "xplmi_proc.h"
 
 /************************** Constant Definitions *****************************/
 /**
@@ -72,9 +75,7 @@ extern "C" {
 #define DEBUG_PRINT_PERF	(0)
 #endif
 
-#if !defined (STDOUT_BASEADDRESS)
-#define XPlmiDbgCurrentTypes (0U)
-#elif defined (PLM_DEBUG_DETAILED)
+#if defined (PLM_DEBUG_DETAILED)
 #define XPlmiDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \
 			       (DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (PLM_DEBUG_INFO)
@@ -111,9 +112,10 @@ extern u32 LpdInitialized;
 	LpdInitialized = 0U;
 
 #define XPlmi_Printf(DebugType, ...) \
-	if((((DebugType) & XPlmiDbgCurrentTypes) != 0x0U) && \
-	   (((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED)) \
-	{xil_printf (__VA_ARGS__); }
+	if(((DebugType) & XPlmiDbgCurrentTypes & DebugLog.LogLevel) != 0x0U) { \
+		XPlmi_PrintPlmTimeStamp(); \
+		xil_printf (__VA_ARGS__); \
+	}
 
 #ifdef __cplusplus
 }
