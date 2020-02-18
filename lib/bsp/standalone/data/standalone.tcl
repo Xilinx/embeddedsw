@@ -69,6 +69,10 @@
 #                     cycle counter, -DDONT_USE_PMU_FOR_SLEEP_ROUTINES flag
 #                     needs to be added in BSP compiler flags.
 #
+# 7.2   ma   02/10/20 Add VERSAL_PLM macro in xparameters.h file for psv_pmc
+#                     processor. Also make outbyte function weak for PLM so
+#                     that PLM specific outbyte function can be called
+#                     instead of this.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -626,8 +630,10 @@ proc generate {os_handle} {
 
     # Handle stdout
     set stdout [common::get_property CONFIG.stdout $os_handle]
-    if { $proctype == "psv_pmc" && $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
-                common::set_property CONFIG.stdout "none" $os_handle
+    if { $proctype == "psv_pmc" } {
+		if { $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
+			common::set_property CONFIG.stdout "none" $os_handle
+		}
                 handle_stdout_parameter $os_handle
     } elseif { $stdout == "" || $stdout == "none" } {
                 handle_stdout_parameter $os_handle
@@ -740,6 +746,10 @@ proc generate {os_handle} {
     }
     if { $proctype == "microblaze"} {
 	puts $file_handle "#define PLATFORM_MB"
+    }
+
+    if { $proctype == "psv_pmc"} {
+	puts $file_handle "#define VERSAL_PLM"
     }
 
     if {[llength $cortexa72proc] > 0} {
@@ -1520,7 +1530,12 @@ proc handle_stdout_parameter {drv_handle} {
        puts $config_file "\#ifdef __cplusplus"
        puts $config_file "}"
        puts $config_file "\#endif \n"
-       puts $config_file "void outbyte(char c) {"
+       puts $config_file "\#ifdef VERSAL_PLM"
+       puts $config_file "void __attribute__((weak)) outbyte(char c)"
+       puts $config_file "\#else"
+       puts $config_file "void outbyte(char c)"
+       puts $config_file "\#endif"
+       puts $config_file "{"
        puts $config_file [format "\t %s(STDOUT_BASEADDRESS, c);" $outbyte_name]
        puts $config_file "}"
        close $config_file
@@ -1547,7 +1562,12 @@ proc handle_stdout_parameter {drv_handle} {
 		    puts $config_file "\#ifdef __cplusplus"
 		    puts $config_file "}"
 		    puts $config_file "\#endif \n"
-		    puts $config_file "void outbyte(char c) {"
+		    puts $config_file "\#ifdef VERSAL_PLM"
+		    puts $config_file "void __attribute__((weak)) outbyte(char c)"
+		    puts $config_file "\#else"
+		    puts $config_file "void outbyte(char c)"
+		    puts $config_file "\#endif"
+		    puts $config_file "{"
 		    puts $config_file "    (void) c;"
 		    puts $config_file "}"
                     close $config_file
