@@ -146,6 +146,7 @@
 *       YB     15/08/18	Added new callbacks for HDCP 1.4 & 2.2 protocol events.
 *                       Enumerated new entries for HDCP 1.4 & 2.2 protocol
 *                           events in XV_HdmiRx_HandlerType enum.
+* 2.50  EB     02/12/18 Added 3D Audio Support
 * </pre>
 *
 ******************************************************************************/
@@ -224,8 +225,9 @@ typedef enum {
 */
 typedef enum {
 	XV_HDMIRX_AUDFMT_UNKNOWN = 0,
-    XV_HDMIRX_AUDFMT_LPCM,     // L-PCM
-    XV_HDMIRX_AUDFMT_HBR       // HBR
+	XV_HDMIRX_AUDFMT_LPCM,	// L-PCM
+	XV_HDMIRX_AUDFMT_HBR,	// HBR
+	XV_HDMIRX_AUDFMT_3D	// 3D Audio
 } XV_HdmiRx_AudioFormatType;
 
 

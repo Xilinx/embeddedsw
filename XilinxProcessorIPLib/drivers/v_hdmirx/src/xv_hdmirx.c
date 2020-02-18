@@ -67,6 +67,7 @@
 *                       Updated XV_HdmiRx_GetVideoTiming to fix an issue where
 *                          video timing values may be incorrect
 *              06/08/19 Added Vic and Video Timing mismatch callback support
+* 2.50  EB     02/12/18 Added 3D Audio Support
 * </pre>
 *
 ******************************************************************************/

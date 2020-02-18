@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -297,10 +297,10 @@ extern "C" {
 #define XV_HDMIRX_AUD_STA_ACT_EVT_MASK              (1<<1)  /**< AUD Status Event mask */
 #define XV_HDMIRX_AUD_STA_CH_EVT_MASK               (1<<2)  /**< AUD Status Event mask */
 #define XV_HDMIRX_AUD_STA_ACT_MASK                  (1<<3)  /**< AUD Status Active mask */
-#define XV_HDMIRX_AUD_STA_AUD_CH_MASK               0x03    /**< AUD Status Audio channel mask */
-#define XV_HDMIRX_AUD_STA_AUD_CH_SHIFT              4       /**< AUD Status Audio channel Shift */
+#define XV_HDMIRX_AUD_STA_AUD_CH_MASK               0x1F    /**< AUD Status Audio channel mask */
+#define XV_HDMIRX_AUD_STA_AUD_CH_SHIFT              8       /**< AUD Status Audio channel Shift */
 #define XV_HDMIRX_AUD_STA_AUD_FMT_MASK              0x07    /**< AUD Status Audio Format mask */
-#define XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT             6       /**< AUD Status Audio Format Shift */
+#define XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT             13      /**< AUD Status Audio Format Shift */
 
 
 // Link Status (LNKSTA) peripheral register offsets.

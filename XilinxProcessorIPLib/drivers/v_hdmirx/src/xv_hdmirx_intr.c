@@ -997,28 +997,43 @@ static void HdmiRx_AudIntrHandler(XV_HdmiRx *InstancePtr)
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUD_STA_OFFSET), (XV_HDMIRX_AUD_STA_CH_EVT_MASK));
 
         // Active channels
-        switch ((Status >> XV_HDMIRX_AUD_STA_AUD_CH_SHIFT) & XV_HDMIRX_AUD_STA_AUD_CH_MASK) {
+	switch ((Status >> XV_HDMIRX_AUD_STA_AUD_CH_SHIFT) &
+			XV_HDMIRX_AUD_STA_AUD_CH_MASK) {
+            // 32 channels
+	case 6 :
+		InstancePtr->Stream.Audio.Channels = 32;
+		break;
 
-            // 8 channels
-            case 3 :
-                InstancePtr->Stream.Audio.Channels = 8;
-                break;
+	// 24 channels
+	case 5 :
+		InstancePtr->Stream.Audio.Channels = 24;
+		break;
 
-            // 6 channels
-            case 2 :
-                InstancePtr->Stream.Audio.Channels = 6;
-                break;
+	// 12 channels
+	case 4 :
+		InstancePtr->Stream.Audio.Channels = 12;
+		break;
 
-            // 4 channels
-            case 1 :
-                InstancePtr->Stream.Audio.Channels = 4;
-                break;
+	// 8 channels
+	case 3 :
+		InstancePtr->Stream.Audio.Channels = 8;
+		break;
 
-            // 2 channels
-            default :
-                InstancePtr->Stream.Audio.Channels = 2;
-                break;
-        }
+	// 6 channels
+	case 2 :
+		InstancePtr->Stream.Audio.Channels = 6;
+		break;
+
+	// 4 channels
+	case 1 :
+		InstancePtr->Stream.Audio.Channels = 4;
+		break;
+
+	// 2 channels
+	default :
+		InstancePtr->Stream.Audio.Channels = 2;
+		break;
+	}
 
         // Audio Format
         InstancePtr->AudFormat = (XV_HdmiRx_AudioFormatType)((Status >> XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT) & XV_HDMIRX_AUD_STA_AUD_FMT_MASK);
