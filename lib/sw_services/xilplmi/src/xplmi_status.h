@@ -36,6 +36,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/13/2018 Initial release
+* 1.01  ma   02/03/2020 Add event logging related error codes
 *
 * </pre>
 *
@@ -138,6 +139,12 @@ enum {
 	XPLMI_ERR_SSIT_SLAVE_SYNC,	/**< 0x111 - Error when SSIT master
 					 times out waiting for slaves sync
 					 point */
+	XPLMI_ERR_INVALID_LOG_LEVEL, /**< 0x112 - Error when invalid log level
+					 is received in Logging command. */
+	XPLMI_ERR_INVALID_LOG_BUF_ADDR, /**< 0x113 - Error when invalid log buffer
+					 address is received in Logging command. */
+	XPLMI_ERR_INVALID_LOG_BUF_LEN, /**< 0x114 - Error when invalid log buffer
+						 length is received in Logging command. */
 	XPLMI_ERR_IPI_CMD, /**< 0x115 - Error when command execution through
 							IPI is not supported */
 

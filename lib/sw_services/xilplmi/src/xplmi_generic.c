@@ -51,6 +51,7 @@
 #include "xcfupmc.h"
 #include "sleep.h"
 #include "xplmi_ssit.h"
+#include "xplmi_event_logging.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -973,6 +974,7 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_SsitWaitSlaves),
 	XPLMI_MODULE_COMMAND(XPlmi_Nop),
 	XPLMI_MODULE_COMMAND(XPlmi_GetDeviceID),
+	XPLMI_MODULE_COMMAND(XPlmi_EventLogging),
 };
 
 /*****************************************************************************/

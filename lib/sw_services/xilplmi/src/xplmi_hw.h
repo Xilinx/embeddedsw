@@ -82,6 +82,7 @@ extern "C" {
 #define XPlmi_In32(Addr)		Xil_In32(Addr)
 
 #define XPlmi_In64(Addr)		lwea(Addr)
+#define XPlmi_InByte64(Addr)	lbuea(Addr)
 
 /****************************************************************************/
 /**
