@@ -79,6 +79,9 @@ wdttb_v5_0:
 -Updated copyright
 -Removed compare value registers write.
 
+axiethernet_v5_11:
+In driver tcl use hier "::hsi::utils::get_connected_intf" API.
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
