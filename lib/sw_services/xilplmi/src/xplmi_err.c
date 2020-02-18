@@ -135,7 +135,7 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPM_NODEIDX_ERROR_PMC_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
 	[XPM_NODEIDX_ERROR_PMC_PSM_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, },
 	[XPM_NODEIDX_ERROR_DDRMB_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
 	[XPM_NODEIDX_ERROR_DDRMB_NCR] =
@@ -249,7 +249,7 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPM_NODEIDX_ERROR_PSM_B_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
 	[XPM_NODEIDX_ERROR_MB_FATAL] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_PSM_NCR, },
 	[XPM_NODEIDX_ERROR_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
 	[XPM_NODEIDX_ERROR_PSM_NCR] =
