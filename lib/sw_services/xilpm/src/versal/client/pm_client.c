@@ -92,6 +92,9 @@ static struct XPm_Proc *const ProcList[] = {
 
 struct XPm_Proc *PrimaryProc = &Proc_RPU0;
 char ProcName[5] = "RPU";
+static char RPU_LS[] = "RPU";
+static char RPU0[] = "RPU0";
+static char RPU1[] = "RPU1";
 #endif
 
 /**
@@ -108,13 +111,13 @@ void XPm_SetPrimaryProc(void)
 	if (0U == (XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
 	    RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
-		(void)memcpy(ProcName, "RPU", sizeof("RPU"));
+		(void)memcpy(ProcName, RPU_LS, sizeof(RPU_LS));
 		XPm_Dbg("Running in lock-step mode\r\n");
 	} else {
 		if (0U == ProcId) {
-			(void)memcpy(ProcName, "RPU0", sizeof("RPU0"));
+			(void)memcpy(ProcName, RPU0, sizeof(RPU0));
 		} else {
-			(void)memcpy(ProcName, "RPU1", sizeof("RPU1"));
+			(void)memcpy(ProcName, RPU1, sizeof(RPU1));
 		}
 		XPm_Dbg("Running in split mode\r\n");
 	}
