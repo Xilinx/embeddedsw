@@ -297,11 +297,11 @@ extern "C" {
 #define XV_HDMITX_AUD_CTRL_RUN_MASK     (1<<0)  /**< AUD Control Run mask */
 #define XV_HDMITX_AUD_CTRL_IE_MASK      (1<<1)  /**< AUD Control Interrupt
                                                 * Enable mask */
-#define XV_HDMITX_AUD_CTRL_CH_MASK      0x03 /**< AUD Control channels mask */
-#define XV_HDMITX_AUD_CTRL_CH_SHIFT     2   /**< AUD Control channels mask */
-#define XV_HDMITX_AUD_CTRL_AUDFMT_MASK  (1<<4) /**< AUD Control AUD Format
+#define XV_HDMITX_AUD_CTRL_CH_MASK      0x1F /**< AUD Control channels mask */
+#define XV_HDMITX_AUD_CTRL_CH_SHIFT     4    /**< AUD Control channels shift */
+#define XV_HDMITX_AUD_CTRL_AUDFMT_MASK  0x7 /**< AUD Control AUD Format
                                                 * mask */
-#define XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT 4   /**< AUD Control AUD Format
+#define XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT 9   /**< AUD Control AUD Format
                                               * shift */
 
 // Audio peripheral Status register masks

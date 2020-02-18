@@ -148,6 +148,7 @@
 * 2.2   EB     03/08/18 Marked XV_HdmiTx_AudioMute and XV_HdmiTx_AudioUnmute
 *                           as deprecated
 *       MMO    11/08/18 Added Bridge Overflow and Bridge Underflow (PIO IN)
+* 2.5   EB     02/12/18 Added 3D Audio Support
 * </pre>
 *
 ******************************************************************************/
@@ -206,7 +207,8 @@ typedef enum {
 */
 typedef enum {
     XV_HDMITX_AUDFMT_LPCM = 0,    // L-PCM
-    XV_HDMITX_AUDFMT_HBR          // HBR
+    XV_HDMITX_AUDFMT_HBR,         // HBR
+    XV_HDMITX_AUDFMT_3D           // 3D Audio
 } XV_HdmiTx_AudioFormatType;
 
 /**
