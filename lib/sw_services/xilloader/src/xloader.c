@@ -34,6 +34,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/25/2018 Initial release
+* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
 *
 * </pre>
 *
@@ -188,6 +190,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	int Status;
 	XLoader_SecureParms SecureParam = {0U};
 	u64 PdiInitTime = XPlmi_GetTimerValue();
+	XPlmi_PerfTime tPerfTime = {0U};
 
 	/**
 	 * Update PDI Ptr with source, addr, meta header
@@ -395,9 +398,10 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	}
 
 END:
-	XPlmi_MeasurePerfTime(PdiInitTime);
+	XPlmi_MeasurePerfTime(PdiInitTime, &tPerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		"PDI initialization time\n\r");
+		"%u.%u ms: PDI initialization time\n\r",
+		(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac);
 	return Status;
 }
 

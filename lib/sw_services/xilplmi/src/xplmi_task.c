@@ -37,6 +37,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/06/2019 Initial release
+* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
 *
 * </pre>
 *
@@ -174,6 +176,7 @@ void XPlmi_TaskDispatchLoop(void )
 	u32 Index;
 #ifdef PLM_DEBUG_INFO
 	u64 TaskStartTime;
+	XPlmi_PerfTime tPerfTime = {0U};
 #endif
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
@@ -218,8 +221,9 @@ void XPlmi_TaskDispatchLoop(void )
 			Xil_AssertVoid(Task->Handler != NULL);
 			Status = Task->Handler(Task->PrivData);
 #ifdef PLM_DEBUG_INFO
-			XPlmi_MeasurePerfTime(TaskStartTime);
-			XPlmi_Printf(DEBUG_PRINT_PERF, "Task Time \n\r");
+			XPlmi_MeasurePerfTime(TaskStartTime, &tPerfTime);
+			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%u ms: Task Time\n\r",
+					(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac);
 #endif
 			if (Status != XPLMI_TASK_INPROGRESS)
 			{

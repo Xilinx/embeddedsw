@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bsv   08/23/2018 Initial release
 * 1.01  bsv   09/10/2019 Added support to set OSPI to DDR mode
+* 1.02  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
 * </pre>
 *
 * @note
@@ -276,6 +278,7 @@ XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	XStatus Status = XST_FAILURE;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 OspiCopyTime = XPlmi_GetTimerValue();
+	XPlmi_PerfTime tPerfTime = {0U};
 #endif
 
 	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
@@ -310,10 +313,11 @@ XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	}
 
 #ifdef	PLM_PRINT_PERF_DMA
-	XPlmi_MeasurePerfTime(OspiCopyTime);
+	XPlmi_MeasurePerfTime(OspiCopyTime, &tPerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-	     " OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
+	     " %u.%u ms OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
 	     "%d Bytes, Flags: 0x%0x\n\r",
+		 (u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac,
 	     SrcAddr, (u32)(DestAddr>>32), (u32)DestAddr, Length, Flags);
 #endif
 END:

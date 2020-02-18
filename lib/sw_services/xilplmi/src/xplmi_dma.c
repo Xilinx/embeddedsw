@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2018 Initial release
+* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
 *
 * </pre>
 *
@@ -429,6 +431,7 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	XCsuDma *DmaPtr;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 XfrTime = XPlmi_GetTimerValue();
+	XPlmi_PerfTime tPerfTime = {0U};
 #endif
 	Status = XPlmi_StartDma(SrcAddr, DestAddr, Len, Flags, &DmaPtr);
 
@@ -477,10 +480,11 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	Status = XST_SUCCESS;
 END:
 #ifdef PLM_PRINT_PERF_DMA
-	XPlmi_MeasurePerfTime(XfrTime);
+	XPlmi_MeasurePerfTime(XfrTime, &tPerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		     " DMA Xfr time: SrcAddr: 0x%0x%08x, DestAddr: 0x%0x%08x,"
+		     " %u.%u ms DMA Xfr time: SrcAddr: 0x%0x%08x, DestAddr: 0x%0x%08x,"
 		     "%d Bytes, Flags: 0x%0x\n\r",
+			 (u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac,
 		     (u32)(SrcAddr>>32), (u32)SrcAddr, (u32)(DestAddr>>32),
 		     (u32)DestAddr, Len*4, Flags);
 #endif

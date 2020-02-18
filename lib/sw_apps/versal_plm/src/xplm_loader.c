@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -86,7 +86,6 @@ int XPlm_LoadBootPdi(void *arg)
 	int Status;
 	u32 BootMode;
 
-	XPlmi_PrintPlmTimeStamp();
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
 
 	/**
@@ -128,8 +127,7 @@ int XPlm_LoadBootPdi(void *arg)
 
 	/** Print ROM time and PLM time stamp */
 	XPlmi_PrintRomTime();
-	XPlmi_PrintPlmTimeStamp();
-	XPlmi_Printf(DEBUG_PRINT_PERF, "Total PLM Boot Time \n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Total PLM Boot Time \n\r");
 END:
 	/**
 	 * This is used to identify PLM has completed boot PDI

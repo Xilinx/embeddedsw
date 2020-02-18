@@ -35,6 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
 *
 * </pre>
 *
@@ -386,6 +388,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 BufLen = CdoPtr->BufLen;
 #ifdef	PLM_PRINT_PERF_CDO_PROCESS
 	u64 ProcessTime = XPlmi_GetTimerValue();
+	XPlmi_PerfTime tPerfTime = {0U};
 #endif
 
 	/** verify the header for the first chunk of CDO */
@@ -480,9 +483,10 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->ProcessedCdoLen += CdoPtr->BufLen;
 END:
 #ifdef	PLM_PRINT_PERF_CDO_PROCESS
-	XPlmi_MeasurePerfTime(ProcessTime);
+	XPlmi_MeasurePerfTime(ProcessTime, &tPerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-	     " Cdo Processing time \n\r");
+	     "%u.%u ms Cdo Processing time\n\r",
+		 (u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac);
 #endif
 	return Status;
 }

@@ -35,6 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
 *
 * </pre>
 *
@@ -150,6 +152,7 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 	int Status;
 #ifdef PLM_PRINT_PERF_POLL
 	u64 PollTime = XPlmi_GetTimerValue();
+	XPlmi_PerfTime tPerfTime = {0U};
 #endif
 	/** HACK  **/
 	TimeOutInUs = 1000000;
@@ -169,10 +172,12 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 		Addr, Mask, ExpectedValue, TimeOutInUs);
 	}
 #ifdef PLM_PRINT_PERF_POLL
-	XPlmi_MeasurePerfTime(PollTime);
+	XPlmi_MeasurePerfTime(PollTime, &tPerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-	" Poll Time: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
-	"Timeout: %d \r\n", Addr, Mask, ExpectedValue, TimeOutInUs);
+	" %u.%u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
+	"Timeout: %d \r\n",
+	(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac,
+	Addr, Mask, ExpectedValue, TimeOutInUs);
 #endif
 
 	/** if command length is 5, flags are included */

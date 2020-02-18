@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -169,7 +169,7 @@ void XPlm_PrintPlmBanner(void )
 	if (FALSE == IsBannerPrinted) {
 		/* Print the PLM Banner */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "\n\r****************************************\n\r");
+                 "****************************************\n\r");
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "Xilinx Versal Platform Loader and Manager \n\r");
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,

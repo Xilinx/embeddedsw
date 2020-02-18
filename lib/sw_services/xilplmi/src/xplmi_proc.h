@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/07/2019 Initial release
+* 1.01  ma   02/03/2020 Change Performance measurement functions generic to be
+*                       used for logging
 *
 * </pre>
 *
@@ -99,6 +101,14 @@ enum {
 	XPLMI_SBI_DATA_RDY,
 };
 
+/**
+ * Performance measurement structure
+ */
+typedef struct XPlmi_PerfTime {
+	u64 tPerfMs;
+	u64 tPerfMsFrac;
+}XPlmi_PerfTime;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
@@ -108,12 +118,13 @@ int XPlmi_InitIOModule();
 void XPlmi_IntrHandler(void *CallbackRef);
 u64 XPlmi_GetTimerValue(void );
 int XPlmi_SetUpInterruptSystem();
-void XPlmi_MeasurePerfTime(u64 tCur);
+void XPlmi_MeasurePerfTime(u64 tCur, XPlmi_PerfTime * tPerfTime);
 void XPlmi_PlmIntrEnable(u32 IntrId);
 void XPlmi_PlmIntrDisable(u32 IntrId);
 void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data);
 void XPlmi_PrintRomTime();
 void XPlmi_PrintPlmTimeStamp();
+void XPlmi_GetPerfTime(u64 tCur, u64 tEnd, XPlmi_PerfTime * tPerfTime);
 
 /* Handler Table Structure */
 struct HandlerTable {

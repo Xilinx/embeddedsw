@@ -35,6 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/07/2019 Initial release
+* 1.01  ma   02/03/2020 Change performance measurement functions generic to be
+*                       used for logging
 *
 * </pre>
 *
@@ -153,24 +155,18 @@ u64 XPlmi_GetTimerValue(void )
  *
  * @return none
  *****************************************************************************/
-void XPlmi_PrintTime(u64 tCur, u64 tEnd)
+void XPlmi_GetPerfTime(u64 tCur, u64 tEnd, XPlmi_PerfTime * tPerfTime)
 {
 	u64 tDiff = 0;
 	u64 tPerfNs;
-	u64 tPerfMs = 0;
-	u64 tPerfMsFrac = 0;
 
 	tDiff = tCur - tEnd;
 
 	/* Convert tPerf into nanoseconds */
 	tPerfNs = ((double)tDiff / (double)PmcIroFreq) * 1e9;
 
-	tPerfMs = tPerfNs / 1e6;
-	tPerfMsFrac = tPerfNs % (u64)1e6;
-
-	/* Print the whole (in ms.) and fractional part */
-	XPlmi_Printf(DEBUG_PRINT_PERF, "%d.%06d ms.",
-			(u32)tPerfMs, (u32)tPerfMsFrac);
+	tPerfTime->tPerfMs = tPerfNs / 1e6;
+	tPerfTime->tPerfMsFrac = tPerfNs % (u64)1e6;
 }
 
 /*****************************************************************************/
@@ -182,12 +178,12 @@ void XPlmi_PrintTime(u64 tCur, u64 tEnd)
  *
  * @return none
  *****************************************************************************/
-void XPlmi_MeasurePerfTime(u64 tCur)
+void XPlmi_MeasurePerfTime(u64 tCur, XPlmi_PerfTime * tPerfTime)
 {
 	u64 tEnd = 0;
 
 	tEnd = XPlmi_GetTimerValue();
-	XPlmi_PrintTime(tCur, tEnd);
+	XPlmi_GetPerfTime(tCur, tEnd, tPerfTime);
 }
 
 /*****************************************************************************/
@@ -201,15 +197,18 @@ void XPlmi_MeasurePerfTime(u64 tCur)
 void XPlmi_PrintRomTime()
 {
 	u64 PmcRomTime;
+	XPlmi_PerfTime tPerfTime = {0U};
 
 	/** Get PMC ROM time */
 	PmcRomTime = (u64)((XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0)) |
 		   (((u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1)) << 32U));
 
 	/* Print time stamp of PLM */
-	XPlmi_PrintTime((u64) ((((u64)XPLMI_PIT1_RESET_VALUE) << 32U) |
-			       XPLMI_PIT2_RESET_VALUE), PmcRomTime);
-	XPlmi_Printf(DEBUG_PRINT_PERF, ": ROM Time\n\r");
+	XPlmi_GetPerfTime((u64) ((((u64)XPLMI_PIT1_RESET_VALUE) << 32U) |
+			XPLMI_PIT2_RESET_VALUE), PmcRomTime, &tPerfTime);
+
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%u ms: ROM Time\r\n",
+			(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac);
 }
 
 /*****************************************************************************/
@@ -222,11 +221,12 @@ void XPlmi_PrintRomTime()
  *****************************************************************************/
 void XPlmi_PrintPlmTimeStamp()
 {
+	XPlmi_PerfTime tPerfTime = {0U};
+
 	/* Print time stamp of PLM */
-	XPlmi_Printf(DEBUG_PRINT_PERF, "[");
 	XPlmi_MeasurePerfTime((u64) (((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
-				    XPLMI_PIT2_RESET_VALUE));
-	XPlmi_Printf(DEBUG_PRINT_PERF, "] ");
+				    XPLMI_PIT2_RESET_VALUE), &tPerfTime);
+	xil_printf("[%u.%u]", (u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac);
 }
 
 /*****************************************************************************/

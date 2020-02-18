@@ -35,6 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
+* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
 *
 * </pre>
 *
@@ -179,6 +181,8 @@ int XLoader_LoadDdrCpyImgPrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 	u32 PrtnIndex;
 	u64 PrtnLoadTime;
 	Status = XST_FAILURE;
+	XPlmi_PerfTime tPerfTime = {0U};
+
 	/* Validate and load the image partitions */
 	XPlmi_Printf(DEBUG_GENERAL, "XLoader_LoadDdrCpyImgPrtns\r\n");
 	for (PrtnIndex = 0; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
@@ -209,9 +213,10 @@ int XLoader_LoadDdrCpyImgPrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		{
 			goto END;
 		}
-		XPlmi_MeasurePerfTime(PrtnLoadTime);
+		XPlmi_MeasurePerfTime(PrtnLoadTime, &tPerfTime);
 		XPlmi_Printf(DEBUG_PRINT_PERF,
-			" for PrtnNum: %d, Size: %d Bytes\n\r", PrtnNum,
+			" %u.%u ms for PrtnNum: %d, Size: %d Bytes\n\r",
+			(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac, PrtnNum,
 			(PdiPtr->MetaHdr.PrtnHdr[PrtnNum].TotalDataWordLen)*4U);
 		PrtnNum++;
 	}
@@ -237,6 +242,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 	int Status;
 	u32 PrtnIndex;
 	u64 PrtnLoadTime;
+	XPlmi_PerfTime tPerfTime = {0U};
 
 	/* Validate and load the image partitions */
 
@@ -268,9 +274,10 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		{
 			goto END;
 		}
-		XPlmi_MeasurePerfTime(PrtnLoadTime);
+		XPlmi_MeasurePerfTime(PrtnLoadTime, &tPerfTime);
 		XPlmi_Printf(DEBUG_PRINT_PERF,
-			" for PrtnNum: %d, Size: %d Bytes\n\r", PrtnNum,
+			" %u.%u ms for PrtnNum: %d, Size: %d Bytes\n\r",
+			(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac, PrtnNum,
 			(PdiPtr->MetaHdr.PrtnHdr[PrtnNum].TotalDataWordLen)*4U);
 		PrtnNum++;
 	}
