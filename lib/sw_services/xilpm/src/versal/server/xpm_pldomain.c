@@ -425,7 +425,7 @@ done:
 	return Status;
 }
 
-static XStatus PlHouseClean()
+static XStatus PlHouseClean(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PlDomain *Pld;
@@ -567,7 +567,7 @@ done:
 *
 *****************************************************************************/
 
-XStatus XPmPlDomain_InitandHouseclean()
+XStatus XPmPlDomain_InitandHouseclean(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Version;
