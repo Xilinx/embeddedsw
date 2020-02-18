@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,8 @@
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
 
 #define PM_AFL0_MASK			(0xFF)
+
+#define WFI				__asm__ ("wfi")
 
 #if defined (__aarch64__)
 #define APU_PWRCTRL_OFFSET		(0x90)
@@ -179,7 +181,7 @@ void XPm_ClientSuspendFinalize(void)
 #endif
 
 	XPm_Dbg("Going to WFI...\n");
-	__asm__("wfi");
+	WFI;
 	XPm_Dbg("WFI exit...\n");
 }
 
