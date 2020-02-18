@@ -47,6 +47,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_scheduler.h"
 #include "xplmi_task.h"
+#include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/

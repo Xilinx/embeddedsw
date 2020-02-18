@@ -46,6 +46,7 @@
 #include "xplmi_proc.h"
 #include "xplmi_hw.h"
 #include "xplmi_scheduler.h"
+#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)

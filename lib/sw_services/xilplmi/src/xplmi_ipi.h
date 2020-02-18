@@ -52,8 +52,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_debug.h"
-
+#include "xparameters.h"
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 #include "xplmi_modules.h"
 #include "xplmi_cmd.h"

@@ -50,6 +50,7 @@
 #include "xplmi_hw.h"
 #include "xplmi_util.h"
 #include "xplmi_task.h"
+#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 
