@@ -777,7 +777,7 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 		goto done;
 	}
 
-	(void)memcpy(Resp, &Clk->Name[0], CLK_QUERY_NAME_LEN);
+	(void)memcpy((char *)Resp, &Clk->Name[0], CLK_QUERY_NAME_LEN);
 
 	Status = XST_SUCCESS;
 done:
