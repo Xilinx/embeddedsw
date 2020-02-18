@@ -112,7 +112,7 @@ extern struct pm_acknowledge pm_ack;
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 enum XPmBootStatus XPm_GetBootStatus(void);
 XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
-XStatus XPm_GetApiVersion(u32 *version);
+XStatus XPm_GetApiVersion(u32 *Version);
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 			const u32 QoS, const u32 Ack);
 XStatus XPm_ReleaseNode(const u32 DeviceId);
@@ -135,8 +135,8 @@ XStatus XPm_ClockDisable(const u32 ClockId);
 XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State);
 XStatus XPm_ClockSetDivider(const u32 ClockId, const u32 Divider);
 XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider);
-XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentId);
-XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentId);
+XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentIdx);
+XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentIdx);
 XStatus XPm_PllSetParameter(const u32 ClockId,
 			    const enum XPm_PllConfigParams ParamId,
 			    const u32 Value);

@@ -1532,7 +1532,7 @@ done:
  * @brief  This function is used by a CPU to set wakeup source
  *
  * @param  TargetDeviceId	Device ID of the target
- * @param  DeviceID		Device ID used as wakeup source
+ * @param  DeviceId		Device ID used as wakeup source
  * @param  Enable		1 - Enable, 0 - Disable
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
@@ -1541,13 +1541,13 @@ done:
  *
  *
  ****************************************************************************/
-XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId, const u32 DeviceID,
+XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId, const u32 DeviceId,
 			    const u32 Enable)
 {
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD3(Payload, PM_SET_WAKEUP_SOURCE, TargetDeviceId, DeviceID, Enable);
+	PACK_PAYLOAD3(Payload, PM_SET_WAKEUP_SOURCE, TargetDeviceId, DeviceId, Enable);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);
