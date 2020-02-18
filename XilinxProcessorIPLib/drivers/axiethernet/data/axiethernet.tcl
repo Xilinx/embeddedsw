@@ -50,6 +50,7 @@
 #              to non-supported IP.
 # 09/01/18 rsp Fixed interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
+# 02/18/20 rsp Switch to ::hsi::utils::get_connected_intf API.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -1090,7 +1091,8 @@ proc get_connected_ip {periph} {
     }
 
     if { [llength $intf] } {
-        set connected_ip [get_connected_intf $intf]
+        set connectd_intf_handle [::hsi::utils::get_connected_intf $periph $intf]
+        set connected_ip [get_cells -of_objects $connectd_intf_handle ]
         set target_ip [is_ethsupported_target $connected_ip]
         if { $target_ip == "true"} {
 	      return $connected_ip
