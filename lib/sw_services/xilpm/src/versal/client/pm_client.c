@@ -170,12 +170,12 @@ void XPm_ClientSuspendFinalize(void)
 	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
 	CtrlReg = (u32)mfcp(SCTLR_EL3);
-	if (XREG_CONTROL_DCACHE_BIT & CtrlReg) {
+	if (0U != (XREG_CONTROL_DCACHE_BIT & CtrlReg)) {
 		Xil_DCacheFlush();
 	}
 #else
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	if (XREG_CP15_CONTROL_C_BIT & CtrlReg) {
+	if (0U != (XREG_CP15_CONTROL_C_BIT & CtrlReg)) {
 		Xil_DCacheFlush();
 	}
 #endif
