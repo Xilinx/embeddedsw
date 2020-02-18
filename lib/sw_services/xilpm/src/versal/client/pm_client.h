@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ extern "C" {
 
 #define PAYLOAD_ARG_CNT			(6U)	/* 1 for API ID + 5 for API arguments */
 #define RESPONSE_ARG_CNT		(4U)	/* 1 for status + 3 for values */
-#define PM_IPI_TIMEOUT			(~0)
+#define PM_IPI_TIMEOUT			(~0U)
 #define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 
 #ifndef bool

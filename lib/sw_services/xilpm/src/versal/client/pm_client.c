@@ -35,14 +35,14 @@
 
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
 
-#define PM_AFL0_MASK			(0xFF)
+#define PM_AFL0_MASK			(0xFFU)
 
 #define WFI				__asm__ ("wfi")
 
 #if defined (__aarch64__)
-#define APU_PWRCTRL_OFFSET		(0x90)
-#define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000001)
-#define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000002)
+#define APU_PWRCTRL_OFFSET		(0x90U)
+#define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000001U)
+#define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000002U)
 
 static struct XPm_Proc Proc_APU0 = {
 	.DevId = PM_DEV_ACPU_0,
@@ -65,11 +65,11 @@ static struct XPm_Proc *const ProcList[] = {
 
 struct XPm_Proc *PrimaryProc = &Proc_APU0;
 #elif defined (__arm__)
-#define RPU_0_PWRDWN_OFFSET		(0x108)
-#define RPU_1_PWRDWN_OFFSET		(0x208)
-#define RPU_PWRDWN_EN_MASK		(0x1)
-#define RPU_GLBL_CTRL_OFFSET		(0x00)
-#define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x00000008)
+#define RPU_0_PWRDWN_OFFSET		(0x108U)
+#define RPU_1_PWRDWN_OFFSET		(0x208U)
+#define RPU_PWRDWN_EN_MASK		(0x1U)
+#define RPU_GLBL_CTRL_OFFSET		(0x00U)
+#define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x00000008U)
 
 static struct XPm_Proc Proc_RPU0 = {
 	.DevId = PM_DEV_RPU0_0,
@@ -105,8 +105,8 @@ void XPm_SetPrimaryProc(void)
 	ProcId = (mfcp(MPIDR_EL1) & PM_AFL0_MASK);
 #elif defined (__arm__)
 	ProcId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_AFL0_MASK);
-	if (!(XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
-	      RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+	if (0U == (XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
+	    RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
 		memcpy(ProcName, "RPU", sizeof("RPU"));
 		XPm_Dbg("Running in lock-step mode\r\n");

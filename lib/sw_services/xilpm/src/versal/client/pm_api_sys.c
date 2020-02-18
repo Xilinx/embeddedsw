@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,22 +43,22 @@
 	Payload[5] = (u32)Arg5;						\
 	XPm_Dbg("%s(%x, %x, %x, %x, %x)\r\n", __func__, Arg1, Arg2, Arg3, Arg4, Arg5);
 
-#define LIBPM_MODULE_ID			(0x02)
+#define LIBPM_MODULE_ID			(0x02U)
 
-#define HEADER(len, ApiId)		((len << 16) | (LIBPM_MODULE_ID << 8) | (ApiId))
+#define HEADER(len, ApiId)		((len << 16U) | (LIBPM_MODULE_ID << 8U) | (ApiId))
 
 #define PACK_PAYLOAD0(Payload, ApiId) \
-	PACK_PAYLOAD(Payload, HEADER(0, ApiId), 0, 0, 0, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(0U, ApiId), 0, 0, 0, 0, 0)
 #define PACK_PAYLOAD1(Payload, ApiId, Arg1) \
-	PACK_PAYLOAD(Payload, HEADER(1, ApiId), Arg1, 0, 0, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(1U, ApiId), Arg1, 0, 0, 0, 0)
 #define PACK_PAYLOAD2(Payload, ApiId, Arg1, Arg2) \
-	PACK_PAYLOAD(Payload, HEADER(2, ApiId), Arg1, Arg2, 0, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(2U, ApiId), Arg1, Arg2, 0, 0, 0)
 #define PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2, Arg3) \
-	PACK_PAYLOAD(Payload, HEADER(3, ApiId), Arg1, Arg2, Arg3, 0, 0)
+	PACK_PAYLOAD(Payload, HEADER(3U, ApiId), Arg1, Arg2, Arg3, 0, 0)
 #define PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3, Arg4) \
-	PACK_PAYLOAD(Payload, HEADER(4, ApiId), Arg1, Arg2, Arg3, Arg4, 0)
+	PACK_PAYLOAD(Payload, HEADER(4U, ApiId), Arg1, Arg2, Arg3, Arg4, 0)
 #define PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
-	PACK_PAYLOAD(Payload, HEADER(5, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)
+	PACK_PAYLOAD(Payload, HEADER(5U, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)
 
 /****************************************************************************/
 /**
@@ -1324,7 +1324,7 @@ XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
 	XPm_ClientWakeUp(Proc);
 
 	/* encode set Address into 1st bit of address */
-	EncodedAddr = Address | !!SetAddress;
+	EncodedAddr = Address | ((TRUE == SetAddress) ? 1U : 0U);
 
 	PACK_PAYLOAD4(Payload, PM_REQUEST_WAKEUP, TargetDevId, (u32)EncodedAddr,
 			(u32)(EncodedAddr >> 32), Ack);
@@ -1611,12 +1611,11 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		 * Consider error only if clock name is not found.
 		 */
 		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[1], &Data[2], &Data[3]);
-		if (!Status) {
+		if (XST_SUCCESS != Status) {
 			Data[0] = '\0';
 			Status = XST_FAILURE;
 		} else {
 			Data[0] = Status;
-			Status = XST_SUCCESS;
 		}
 		break;
 
