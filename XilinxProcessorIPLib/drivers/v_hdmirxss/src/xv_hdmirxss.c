@@ -2003,15 +2003,19 @@ static void XV_HdmiRxSs_ReportAudio(XV_HdmiRxSs *InstancePtr)
   xil_printf("Format   : ");
   switch (XV_HdmiRxSs_GetAudioFormat(InstancePtr)) {
 	  case 0:
-		  xil_printf("Unknown\r\n");
-		  break;
+		xil_printf("Unknown\r\n");
+		break;
 	  case 1:
-		  xil_printf("L-PCM\r\n");
-		  break;
+		xil_printf("L-PCM\r\n");
+		break;
 	  case 2:
-		  xil_printf("HBR\r\n");
+		xil_printf("HBR\r\n");
+		break;
+	  case 3:
+		xil_printf("3D\r\n");
+		break;
 	  default:
-		  break;
+		break;
   }
   xil_printf("Channels : %d\r\n",
   XV_HdmiRx_GetAudioChannels(InstancePtr->HdmiRxPtr));
