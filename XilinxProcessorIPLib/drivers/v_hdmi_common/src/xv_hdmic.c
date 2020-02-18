@@ -47,6 +47,7 @@
  *                     Added Audio ACR CTS/N Enumeration and Library
  * 1.3   EB  29/10/19 Fixed a bug where XV_HdmiC_AVIIF_GeneratePacket and
  *                        XV_HdmiC_AudioIF_GeneratePacket return incorrect Aux
+ *           02/12/19 Added 3D Audio Enumerations and APIs
  * </pre>
  *
 *******************************************************************************/
@@ -531,7 +532,6 @@ XHdmiC_SamplingFrequencyVal
 }
 
 /*************************** Function Definitions *****************************/
-
 /**
 *
 * This function retrieves the Auxiliary Video Information Info Frame.
@@ -631,7 +631,8 @@ void XV_HdmiC_ParseGCP(XHdmiC_Aux *AuxPtr, XHdmiC_GeneralControlPacket *GcpPtr)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AudioInfoFrame *AudIFPtr)
+void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr,
+		XHdmiC_AudioInfoFrame *AudIFPtr)
 {
 	if (AuxPtr->Header.Byte[0] == AUX_AUDIO_INFOFRAME_TYPE) {
 
@@ -653,6 +654,94 @@ void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AudioInfoFrame *Aud
 		AudIFPtr->Downmix_Inhibit = (AuxPtr->Data.Byte[5] >> 7) & 0x1;
 		AudIFPtr->LevelShiftVal = (AuxPtr->Data.Byte[5] >> 4) & 0xf;
 		AudIFPtr->LFE_Playback_Level = AuxPtr->Data.Byte[5] & 0x3;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the Audio Metadata.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiC_ParseAudioMetadata(XHdmiC_Aux *AuxPtr,
+		XHdmiC_AudioMetadata *AudMetadata)
+{
+	if (AuxPtr->Header.Byte[0] == AUX_AUDIO_METADATA_PACKET_TYPE) {
+		/* 3D Audio */
+		AudMetadata->Audio3D = AuxPtr->Header.Byte[1] & 0x1;
+
+		/* HB2 */
+		AudMetadata->Num_Audio_Str =
+				(AuxPtr->Header.Byte[2] >> 2) & 0x3;
+		AudMetadata->Num_Views = AuxPtr->Header.Byte[2] & 0x3;
+
+		/* PB0 */
+		AudMetadata->Audio3D_ChannelCount =
+				AuxPtr->Data.Byte[0] & 0x1F;
+
+		/* PB1 */
+		AudMetadata->ACAT = AuxPtr->Data.Byte[1] & 0x0F;
+
+		/* PB2 */
+		AudMetadata->Audio3D_ChannelAllocation =
+				AuxPtr->Data.Byte[2] & 0xFF;
+	}
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function retrieves the SPD Infoframes.
+ *
+ * @param  None.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+******************************************************************************/
+void XV_HdmiC_ParseSPDIF(XHdmiC_Aux *AuxPtr, XHdmiC_SPDInfoFrame *SPDInfoFrame)
+{
+	if (AuxPtr->Header.Byte[0] == AUX_SPD_INFOFRAME_TYPE) {
+		/* 3D Audio */
+		SPDInfoFrame->Version = AuxPtr->Header.Byte[1];
+
+		/* Vendor Name Characters */
+		SPDInfoFrame->VN1 = AuxPtr->Data.Byte[1];
+		SPDInfoFrame->VN2 = AuxPtr->Data.Byte[2];
+		SPDInfoFrame->VN3 = AuxPtr->Data.Byte[3];
+		SPDInfoFrame->VN4 = AuxPtr->Data.Byte[4];
+		SPDInfoFrame->VN5 = AuxPtr->Data.Byte[5];
+		SPDInfoFrame->VN6 = AuxPtr->Data.Byte[6];
+		SPDInfoFrame->VN7 = AuxPtr->Data.Byte[8];
+		SPDInfoFrame->VN8 = AuxPtr->Data.Byte[9];
+
+		/* Product Description Character */
+		SPDInfoFrame->PD1 = AuxPtr->Data.Byte[10];
+		SPDInfoFrame->PD2 = AuxPtr->Data.Byte[11];
+		SPDInfoFrame->PD3 = AuxPtr->Data.Byte[12];
+		SPDInfoFrame->PD4 = AuxPtr->Data.Byte[13];
+		SPDInfoFrame->PD5 = AuxPtr->Data.Byte[14];
+		SPDInfoFrame->PD6 = AuxPtr->Data.Byte[16];
+		SPDInfoFrame->PD7 = AuxPtr->Data.Byte[17];
+		SPDInfoFrame->PD8 = AuxPtr->Data.Byte[18];
+		SPDInfoFrame->PD9 = AuxPtr->Data.Byte[19];
+		SPDInfoFrame->PD10 = AuxPtr->Data.Byte[20];
+		SPDInfoFrame->PD11 = AuxPtr->Data.Byte[21];
+		SPDInfoFrame->PD12 = AuxPtr->Data.Byte[22];
+		SPDInfoFrame->PD13 = AuxPtr->Data.Byte[24];
+		SPDInfoFrame->PD14 = AuxPtr->Data.Byte[25];
+		SPDInfoFrame->PD15 = AuxPtr->Data.Byte[26];
+		SPDInfoFrame->PD16 = AuxPtr->Data.Byte[27];
+
+		/* Source Information */
+		SPDInfoFrame->SourceInfo = AuxPtr->Data.Byte[28];
 	}
 }
 
@@ -691,81 +780,78 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 	aux.Header.Byte[3] = 0;
 
 	/* PB1 */
-   aux.Data.Byte[1] = (infoFramePtr->ColorSpace & 0x7) << 5 |
-		   ((infoFramePtr->ActiveFormatDataPresent << 4) & 0x10) |
-		   ((infoFramePtr->BarInfo << 2) & 0xc) |
-		   (infoFramePtr->ScanInfo & 0x3);
+	aux.Data.Byte[1] = (infoFramePtr->ColorSpace & 0x7) << 5 |
+		((infoFramePtr->ActiveFormatDataPresent << 4) & 0x10) |
+		((infoFramePtr->BarInfo << 2) & 0xc) |
+		(infoFramePtr->ScanInfo & 0x3);
 
-   /* PB2 */
-   aux.Data.Byte[2] = ((infoFramePtr->Colorimetry & 0x3) << 6  |
-		   ((infoFramePtr->PicAspectRatio << 4) & 0x30) |
-		   (infoFramePtr->ActiveAspectRatio & 0xf));
+	/* PB2 */
+	aux.Data.Byte[2] = ((infoFramePtr->Colorimetry & 0x3) << 6  |
+		((infoFramePtr->PicAspectRatio << 4) & 0x30) |
+		(infoFramePtr->ActiveAspectRatio & 0xf));
 
-   /* PB3 */
-   aux.Data.Byte[3] = (infoFramePtr->Itc & 0x1) << 7 |
-		   ((infoFramePtr->ExtendedColorimetry << 4) & 0x70) |
-		   ((infoFramePtr->QuantizationRange << 2) & 0xc) |
-		   (infoFramePtr->NonUniformPictureScaling & 0x3);
+	/* PB3 */
+	aux.Data.Byte[3] = (infoFramePtr->Itc & 0x1) << 7 |
+		((infoFramePtr->ExtendedColorimetry << 4) & 0x70) |
+		((infoFramePtr->QuantizationRange << 2) & 0xc) |
+		(infoFramePtr->NonUniformPictureScaling & 0x3);
 
-   /* PB4 */
-   aux.Data.Byte[4] = infoFramePtr->VIC;
+	/* PB4 */
+	aux.Data.Byte[4] = infoFramePtr->VIC;
 
-   /* PB5 */
-   aux.Data.Byte[5] = (infoFramePtr->YccQuantizationRange & 0x3) << 6 |
-		   ((infoFramePtr->ContentType << 4) & 0x30) |
-		   (infoFramePtr->PixelRepetition & 0xf);
+	/* PB5 */
+	aux.Data.Byte[5] = (infoFramePtr->YccQuantizationRange & 0x3) << 6 |
+		((infoFramePtr->ContentType << 4) & 0x30) |
+		(infoFramePtr->PixelRepetition & 0xf);
 
-   /* PB6 */
-   aux.Data.Byte[6] = infoFramePtr->TopBar & 0xff;
+	/* PB6 */
+	aux.Data.Byte[6] = infoFramePtr->TopBar & 0xff;
 
-   aux.Data.Byte[7] = 0;
+	aux.Data.Byte[7] = 0;
 
-   /* PB8 */
-   aux.Data.Byte[8] = (infoFramePtr->TopBar & 0xff00) >> 8;
+	/* PB8 */
+	aux.Data.Byte[8] = (infoFramePtr->TopBar & 0xff00) >> 8;
 
-   /* PB9 */
-   aux.Data.Byte[9] = infoFramePtr->BottomBar & 0xff;
+	/* PB9 */
+	aux.Data.Byte[9] = infoFramePtr->BottomBar & 0xff;
 
-   /* PB10 */
-   aux.Data.Byte[10] = (infoFramePtr->BottomBar & 0xff00) >> 8;
+	/* PB10 */
+	aux.Data.Byte[10] = (infoFramePtr->BottomBar & 0xff00) >> 8;
 
-   /* PB11 */
-   aux.Data.Byte[11] = infoFramePtr->LeftBar & 0xff;
+	/* PB11 */
+	aux.Data.Byte[11] = infoFramePtr->LeftBar & 0xff;
 
-   /* PB12 */
-   aux.Data.Byte[12] = (infoFramePtr->LeftBar & 0xff00) >> 8;
+	/* PB12 */
+	aux.Data.Byte[12] = (infoFramePtr->LeftBar & 0xff00) >> 8;
 
-   /* PB13 */
-   aux.Data.Byte[13] = infoFramePtr->RightBar & 0xff;
+	/* PB13 */
+	aux.Data.Byte[13] = infoFramePtr->RightBar & 0xff;
 
-   /* PB14 */
-   aux.Data.Byte[14] = (infoFramePtr->RightBar & 0xff00) >> 8;
+	/* PB14 */
+	aux.Data.Byte[14] = (infoFramePtr->RightBar & 0xff00) >> 8;
 
-   /* Index references the length to calculate start of loop from where values
-    * are reserved */
-   for (Index = aux.Header.Byte[2] + 2; Index < 32; Index++) {
-	   aux.Data.Byte[Index] = 0;
-   }
+	/* Index references the length to calculate start of loop from
+	 * where values are reserved */
+	for (Index = aux.Header.Byte[2] + 2; Index < 32; Index++)
+		aux.Data.Byte[Index] = 0;
 
-   /* Calculate AVI infoframe checksum */
-   Crc = 0;
+	/* Calculate AVI infoframe checksum */
+	Crc = 0;
 
-   /* Header */
-   for (Index = 0; Index < 3; Index++) {
-     Crc += aux.Header.Byte[Index];
-   }
+	/* Header */
+	for (Index = 0; Index < 3; Index++)
+		Crc += aux.Header.Byte[Index];
 
-   /* Data */
-   for (Index = 1; Index < (aux.Header.Byte[2] + 2); Index++) {
-     Crc += aux.Data.Byte[Index];
-   }
+	/* Data */
+	for (Index = 1; Index < (aux.Header.Byte[2] + 2); Index++)
+		Crc += aux.Data.Byte[Index];
 
-   Crc = 256 - Crc;
+	Crc = 256 - Crc;
 
-   /* PB0 */
-   aux.Data.Byte[0] = Crc;
+	/* PB0 */
+	aux.Data.Byte[0] = Crc;
 
-   return aux;
+	return aux;
 }
 
 /*****************************************************************************/
@@ -844,6 +930,142 @@ XHdmiC_Aux XV_HdmiC_AudioIF_GeneratePacket(XHdmiC_AudioInfoFrame *AudioInfoFrame
 	  aux.Data.Byte[0] = Crc;
 
 	  return aux;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function generates and sends Audio Metadata Packet
+*
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_Aux XV_HdmiC_AudioMetadata_GeneratePacket(XHdmiC_AudioMetadata
+		*AudMetadata)
+{
+	u8 Index;
+	XHdmiC_Aux aux;
+
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
+
+	/* Header, Packet Type */
+	aux.Header.Byte[0] = AUX_AUDIO_METADATA_PACKET_TYPE;
+
+	/* 3D Audio */
+	aux.Header.Byte[1] = AudMetadata->Audio3D & 0x1;
+
+	/* HB2 */
+	aux.Header.Byte[2] = ((AudMetadata->Num_Audio_Str & 0x3) << 2) |
+			(AudMetadata->Num_Views & 0x3);
+
+	/* HB3 */
+	aux.Header.Byte[3] = 0;
+
+	/* PB0 */
+	aux.Data.Byte[0] = AudMetadata->Audio3D_ChannelCount & 0x1F;
+
+	/* PB1 */
+	aux.Data.Byte[1] = AudMetadata->ACAT & 0x0F;
+
+	/* PB2 */
+	aux.Data.Byte[2] = AudMetadata->Audio3D_ChannelAllocation & 0xFF;
+
+	for (Index = 3; Index < 32; Index++)
+		aux.Data.Byte[Index] = 0;
+
+	return aux;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function generates and sends SPD Infoframes
+ *
+ * @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+******************************************************************************/
+XHdmiC_Aux XV_HdmiC_SPDIF_GeneratePacket(XHdmiC_SPDInfoFrame *SPDInfoFrame)
+{
+	u8 Index;
+	u8 Crc;
+	XHdmiC_Aux aux;
+
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
+
+	/* Header, Packet Type */
+	aux.Header.Byte[0] = AUX_SPD_INFOFRAME_TYPE;
+
+	/* 3D Audio */
+	aux.Header.Byte[1] = SPDInfoFrame->Version;
+
+	/* Length of SPD InfoFrame */
+	aux.Header.Byte[2] = 25;
+
+	/* HB3 */
+	aux.Header.Byte[3] = 0; /* CRC */
+
+	/* Vendor Name Characters */
+	aux.Data.Byte[0] = 0; /* CRC */
+	aux.Data.Byte[1] = SPDInfoFrame->VN1;
+	aux.Data.Byte[2] = SPDInfoFrame->VN2;
+	aux.Data.Byte[3] = SPDInfoFrame->VN3;
+	aux.Data.Byte[4] = SPDInfoFrame->VN4;
+	aux.Data.Byte[5] = SPDInfoFrame->VN5;
+	aux.Data.Byte[6] = SPDInfoFrame->VN6;
+	aux.Data.Byte[7] = 0; /* ECC */
+	aux.Data.Byte[8] = SPDInfoFrame->VN7;
+	aux.Data.Byte[9] = SPDInfoFrame->VN8;
+
+	/* Product Description Character */
+	aux.Data.Byte[10] = SPDInfoFrame->PD1;
+	aux.Data.Byte[11] = SPDInfoFrame->PD2;
+	aux.Data.Byte[12] = SPDInfoFrame->PD3;
+	aux.Data.Byte[13] = SPDInfoFrame->PD4;
+	aux.Data.Byte[14] = SPDInfoFrame->PD5;
+	aux.Data.Byte[15] = 0; /* ECC */
+	aux.Data.Byte[16] = SPDInfoFrame->PD6;
+	aux.Data.Byte[17] = SPDInfoFrame->PD7;
+	aux.Data.Byte[18] = SPDInfoFrame->PD8;
+	aux.Data.Byte[19] = SPDInfoFrame->PD9;
+	aux.Data.Byte[20] = SPDInfoFrame->PD10;
+	aux.Data.Byte[21] = SPDInfoFrame->PD11;
+	aux.Data.Byte[22] = SPDInfoFrame->PD12;
+	aux.Data.Byte[23] = 0; /* ECC */
+	aux.Data.Byte[24] = SPDInfoFrame->PD13;
+	aux.Data.Byte[25] = SPDInfoFrame->PD14;
+	aux.Data.Byte[26] = SPDInfoFrame->PD15;
+	aux.Data.Byte[27] = SPDInfoFrame->PD16;
+
+	/* Source Information */
+	aux.Data.Byte[28] = SPDInfoFrame->SourceInfo;
+	aux.Data.Byte[29] = 0;
+	aux.Data.Byte[30] = 0;
+	aux.Data.Byte[31] = 0; /* ECC */
+
+	/* Calculate SPD infoframe checksum */
+	Crc = 0;
+
+	/* Header */
+	for (Index = 0; Index < 3; Index++)
+		Crc += aux.Header.Byte[Index];
+
+	/* Data */
+	for (Index = 1; Index < aux.Header.Byte[2] + 1; Index++)
+		Crc += aux.Data.Byte[Index];
+
+	Crc = 256 - Crc;
+
+	aux.Data.Byte[0] = Crc;
+
+	return aux;
 }
 
 /*****************************************************************************/

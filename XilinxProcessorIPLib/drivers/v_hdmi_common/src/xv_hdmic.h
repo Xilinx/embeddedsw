@@ -45,6 +45,7 @@
  * 1.2   EB   15/08/19 Added enumeration for HDMI 2.1 Support
  *       mmo  15/08/19 Updated the VIC table to support HDMI 2.1 Resolution
  *                     Added Audio ACR CTS/N Enumeration and Library
+ * 1.3   EB   02/12/19 Added 3D Audio Enumerations and APIs
  * </pre>
  *
 *******************************************************************************/
@@ -70,6 +71,8 @@ extern "C" {
 #define AUX_AVI_INFOFRAME_TYPE 0x82
 #define AUX_GENERAL_CONTROL_PACKET_TYPE 0x3
 #define AUX_AUDIO_INFOFRAME_TYPE 0x84
+#define AUX_AUDIO_METADATA_PACKET_TYPE 0x0D
+#define AUX_SPD_INFOFRAME_TYPE 0x83
 
 /****************************** Type Definitions ******************************/
 
@@ -359,6 +362,23 @@ typedef struct {
 	u8 LineRate;		/**< Line Rate */
 } XHdmiC_FrlRate;
 
+typedef enum {
+	XHDMIC_SPD_UNKNOWN = 0x0,
+	XHDMIC_SPD_DIGITAL_STB,
+	XHDMIC_SPD_DVD_PLAYER,
+	XHDMIC_SPD_DVHS,
+	XHDMIC_SPD_HDD_VIDEORECORDER,
+	XHDMIC_SPD_DVC,
+	XHDMIC_SPD_DSC,
+	XHDMIC_SPD_VIDEOCD,
+	XHDMIC_SPD_GAME,
+	XHDMIC_SPD_PC_GENERAL,
+	XHDMIC_SPD_BLURAY_DISC,
+	XHDMIC_SPD_SUPER_AUDIO_CD,
+	XHDMIC_SPD_HD_DVD,
+	XHDMIC_SPD_PMP
+} XHdmiC_SPD_SourceInfo;
+
 /**
  * This typedef contains the data structure for
  * Auxiliary Video Information Info frame
@@ -413,6 +433,51 @@ typedef struct XHdmiC_Audio_InfoFrame {
 	unsigned char Downmix_Inhibit;
 } XHdmiC_AudioInfoFrame;
 
+/**
+ * This typedef contains the data structure for Audio Metadata Infoframe
+ */
+typedef struct XHdmiC_Audio_Metadata_Packet {
+	u8 Audio3D;
+	u8 Num_Audio_Str;
+	u8 Num_Views;
+	u8 Audio3D_ChannelCount; /* 5 bits */
+	u8 ACAT; /* 4 bits - Audio Channel Allication Standard */
+	u8 Audio3D_ChannelAllocation; /* 8 bits */
+} XHdmiC_AudioMetadata;
+
+/**
+ * This typedef contains the data structure for Source Product Descriptor
+ * Infoframe
+ */
+typedef struct XHdmiC_SPD_InfoFrame {
+	unsigned char Version;
+	unsigned char VN1;
+	unsigned char VN2;
+	unsigned char VN3;
+	unsigned char VN4;
+	unsigned char VN5;
+	unsigned char VN6;
+	unsigned char VN7;
+	unsigned char VN8;
+	unsigned char PD1;
+	unsigned char PD2;
+	unsigned char PD3;
+	unsigned char PD4;
+	unsigned char PD5;
+	unsigned char PD6;
+	unsigned char PD7;
+	unsigned char PD8;
+	unsigned char PD9;
+	unsigned char PD10;
+	unsigned char PD11;
+	unsigned char PD12;
+	unsigned char PD13;
+	unsigned char PD14;
+	unsigned char PD15;
+	unsigned char PD16;
+	XHdmiC_SPD_SourceInfo SourceInfo;
+} XHdmiC_SPDInfoFrame;
+
 /*************************** Variable Declarations ****************************/
 extern const XHdmiC_VicTable VicTable[VICTABLE_SIZE];
 extern const XHdmiC_FrlRate FrlRateTable[];
@@ -430,6 +495,9 @@ XHdmiC_Aux
 	XV_HdmiC_AudioIF_GeneratePacket(XHdmiC_AudioInfoFrame *AudioInfoFrame);
 XHdmiC_Colorspace
 		XV_HdmiC_XVidC_To_IfColorformat(XVidC_ColorFormat ColorFormat);
+XHdmiC_Aux XV_HdmiC_AudioMetadata_GeneratePacket(XHdmiC_AudioMetadata
+		*AudMetadata);
+XHdmiC_Aux XV_HdmiC_SPDIF_GeneratePacket(XHdmiC_SPDInfoFrame *SPDInfoFrame);
 XVidC_AspectRatio XV_HdmiC_IFAspectRatio_To_XVidC(XHdmiC_PicAspectRatio AR);
 
 u32 XHdmiC_FRL_GetNVal(XHdmiC_FRLCharRate FRLCharRate,
