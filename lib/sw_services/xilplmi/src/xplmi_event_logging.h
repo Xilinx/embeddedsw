@@ -16,7 +16,13 @@
 *
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a ma   13/01/2020 Initial release
+* 1.00  ma   02/18/2020 Initial release
+* 1.01  ma   02/21/2020 Added support for retrieve buffer information
+* 						event logging command through IPI
+*       ma   03/02/2020 Added support for logging trace events
+*       bsv  04/04/2020 Code clean up
+* 1.02  kc   06/18/2020 Made static functions inline
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -51,6 +57,7 @@ typedef struct XPlmi_LogInfo {
 	u8 LogLevel;
 }XPlmi_LogInfo;
 
+
 /************************** Function Prototypes ******************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
 void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
@@ -82,14 +89,14 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
  */
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param	Header
+ * @param	Header of the Trace log
  * *
  * @return	None
  * *
  ******************************************************************************/
-inline void XPlmi_TraceLog2(u32 Header)
+static inline void XPlmi_TraceLog2(u32 Header)
 {
         u32 TraceBuffer[] = {Header, 0U, 0U};
         XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
@@ -97,15 +104,15 @@ inline void XPlmi_TraceLog2(u32 Header)
 
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param 	Header
- * @param	Arg1
+ * @param 	Header of the Trace log
+ * @param	Arg1 of the Trace log
  *
  * @return	None
  *
  *****************************************************************************/
-inline void XPlmi_TraceLog3(u32 Header, u32 Arg1)
+static inline void XPlmi_TraceLog3(u32 Header, u32 Arg1)
 {
 	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1};
 	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
@@ -113,16 +120,16 @@ inline void XPlmi_TraceLog3(u32 Header, u32 Arg1)
 
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param 	Header
- * @param	Arg1
- * @param	Arg2
+ * @param 	Header of the Trace log
+ * @param	Arg1 of the Trace log
+ * @param	Arg2 of the Trace log
  *
  * @return	None
  *
  *****************************************************************************/
-inline void XPlmi_TraceLog4(u32 Header, u32 Arg1, u32 Arg2)
+static inline void XPlmi_TraceLog4(u32 Header, u32 Arg1, u32 Arg2)
 {
 	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2};
 	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
@@ -130,17 +137,17 @@ inline void XPlmi_TraceLog4(u32 Header, u32 Arg1, u32 Arg2)
 
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param 	Header
- * @param	Arg1
- * @param	Arg2
- * @param	Arg3
+ * @param 	Header of the Trace log
+ * @param	Arg1 of the Trace log
+ * @param	Arg2 of the Trace log
+ * @param	Arg3 of the Trace log
  *
  * @return	None
  *
  *****************************************************************************/
-inline void XPlmi_TraceLog5(u32 Header, u32 Arg1, u32 Arg2, u32 Arg3)
+static inline void XPlmi_TraceLog5(u32 Header, u32 Arg1, u32 Arg2, u32 Arg3)
 {
 	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2, Arg3};
 	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
