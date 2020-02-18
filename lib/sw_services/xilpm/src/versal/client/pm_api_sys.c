@@ -210,7 +210,7 @@ enum XPmBootStatus XPm_GetBootStatus(void)
 	}
 
 	PwrDwnReq = XPm_Read(PrimaryProc->PwrCtrl);
-	if (0 != (PwrDwnReq & PrimaryProc->PwrDwnMask)) {
+	if (0U != (PwrDwnReq & PrimaryProc->PwrDwnMask)) {
 		PwrDwnReq &= ~PrimaryProc->PwrDwnMask;
 		XPm_Write(PrimaryProc->PwrCtrl, PwrDwnReq);
 		Ret = PM_RESUME;
@@ -1319,7 +1319,7 @@ XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
 	XPm_ClientWakeUp(Proc);
 
 	/* encode set Address into 1st bit of address */
-	EncodedAddr = Address | ((TRUE == SetAddress) ? 1U : 0U);
+	EncodedAddr = Address | ((1U == SetAddress) ? 1U : 0U);
 
 	PACK_PAYLOAD4(Payload, PM_REQUEST_WAKEUP, TargetDevId, (u32)EncodedAddr,
 			(u32)(EncodedAddr >> 32), Ack);
@@ -1888,7 +1888,7 @@ struct pm_acknowledge pm_ack = {
 void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
 		       const u32 Latency, const u32 State, const u32 Timeout)
 {
-	if (true == pm_susp.received) {
+	if (1U == pm_susp.received) {
 		XPm_Dbg("%s: WARNING: dropping unhandled init suspend request!\n", __func__);
 		XPm_Dbg("Dropped %s (%d, %d, %d, %d)\n", __func__, pm_susp.reason,
 			pm_susp.latency, pm_susp.state, pm_susp.timeout);
@@ -1921,7 +1921,7 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
  ****************************************************************************/
 void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
 {
-	if (true == pm_ack.received) {
+	if (1U == pm_ack.received) {
 		XPm_Dbg("%s: WARNING: dropping unhandled acknowledge!\n", __func__);
 		XPm_Dbg("Dropped %s (%d, %d, %d)\n", __func__, pm_ack.node,
 			pm_ack.status, pm_ack.opp);

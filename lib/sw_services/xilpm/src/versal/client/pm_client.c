@@ -111,7 +111,7 @@ void XPm_SetPrimaryProc(void)
 		memcpy(ProcName, "RPU", sizeof("RPU"));
 		XPm_Dbg("Running in lock-step mode\r\n");
 	} else {
-		if (0 == ProcId) {
+		if (0U == ProcId) {
 			memcpy(ProcName, "RPU0", sizeof("RPU0"));
 		} else {
 			memcpy(ProcName, "RPU1", sizeof("RPU1"));
