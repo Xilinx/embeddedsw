@@ -95,6 +95,7 @@ extern "C" {
 #define XHDCP22_TX_REPEATAUTH_STREAM_MANAGE_SIZE 8  /**< RepeaterAuth stream manage message size in bytes. */
 #define XHDCP22_TX_REPEATAUTH_STREAM_READY      17  /**< RepeaterAuth stream ready message. */
 #define XHDCP22_TX_REPEATAUTH_STREAM_READY_SIZE 33  /**< RepeaterAuth stream ready message size in bytes. */
+#define XHDCP22_TX_TYPE_VALUE			18  /**< ContenType message. */
 
 /** Reason why the timer was started: Undefined. */
 #define XHDCP22_TX_TS_UNDEFINED                 XHDCP22_TX_MSG_UNDEFINED
@@ -257,6 +258,7 @@ typedef enum
 	XHDCP22_TX_LOG_DBG_COMPUTE_L_DONE,
 	XHDCP22_TX_LOG_DBG_COMPARE_L_FAIL,
 	XHDCP22_TX_LOG_DBG_TX_EKS,
+	XHDCP22_TX_LOG_DBG_TX_TYPE_VALUE,
 	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS,
 	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS_DONE,
 	XHDCP22_TX_LOG_DBG_RX_RCVIDLIST,

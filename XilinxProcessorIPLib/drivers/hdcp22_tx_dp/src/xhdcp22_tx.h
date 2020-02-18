@@ -158,6 +158,8 @@ extern "C" {
 #define XHDCP22_TX_DP_HDCPPORT_R_IV_SIZE			8
 #define XHDCP22_TX_DP_HDCPPORT_RX_STATUS_OFFSET			0x493
 #define XHDCP22_TX_DP_HDCPPORT_RX_STATUS_SIZE			1
+#define XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_OFFSET		0x494
+#define XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_SIZE			1
 
 /**************************** Type Definitions *******************************/
 
