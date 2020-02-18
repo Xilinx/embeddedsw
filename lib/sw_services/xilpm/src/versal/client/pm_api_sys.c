@@ -140,12 +140,15 @@ XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 	 * buf-2: Val2
 	 * buf-3: Val3
 	 */
-	if (NULL != Val1)
+	if (NULL != Val1) {
 		*Val1 = Response[1];
-	if (NULL != Val2)
+	}
+	if (NULL != Val2) {
 		*Val2 = Response[2];
-	if (NULL != Val3)
+	}
+	if (NULL != Val3) {
 		*Val3 = Response[3];
+	}
 
 	Status = (s32)Response[0];
 
