@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef PM_CLIENT_H_
 #define PM_CLIENT_H_
@@ -38,13 +18,13 @@
 extern "C" {
 #endif
 
-#define DEBUG_MODE
+/* User needs to enable this macro to enable prints of client library */
+/* #define DEBUG_MODE */
 
-#ifndef bool
-	#define bool	u8
-	#define true	1U
-	#define false	0U
-#endif
+#define PAYLOAD_ARG_CNT			(6U)	/* 1 for API ID + 5 for API arguments */
+#define RESPONSE_ARG_CNT		(4U)	/* 1 for status + 3 for values */
+#define PM_IPI_TIMEOUT			(~0U)
+#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 
 /**
  * XPm_Proc - Processor structure
@@ -72,10 +52,22 @@ extern char ProcName[5];
 
 /* Conditional debugging prints */
 #ifdef DEBUG_MODE
-	#define XPm_Dbg(MSG, ...) 	XPm_Print(MSG, ##__VA_ARGS__);
+	#define XPm_Dbg(MSG, ...) 	do { XPm_Print(MSG, ##__VA_ARGS__); } while (0)
 #else
-	#define XPm_Dbg(MSG, ...)	{}
+	#define XPm_Dbg(MSG, ...)	do {} while (0)
 #endif
+
+/* Define below macro to disable error prints for memory constrained applications */
+#ifndef DISABLE_ERROR_PRINTS
+	#define XPm_Err(MSG, ...) 	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (0)
+#else
+	#define XPm_Err(MSG, ...)	do {} while (0)
+#endif
+
+#define pm_print		XPm_Dbg
+#define pm_dbg			XPm_Dbg
+#define pm_read			XPm_Read
+#define pm_write		XPm_Write
 
 void XPm_SetPrimaryProc(void);
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId);
