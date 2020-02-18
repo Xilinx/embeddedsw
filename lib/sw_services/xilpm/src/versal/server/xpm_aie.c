@@ -519,7 +519,7 @@ static struct XPm_PowerDomainOps AieOps = {
  * @brief This funcction unlocks the AIE PCSR registers.
  *
  *****************************************************************************/
-inline void XPmAieDomain_UnlockPcsr(u32 BaseAddress)
+void XPmAieDomain_UnlockPcsr(u32 BaseAddress)
 {
 	u32 NpiPcsrLockReg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 	PmOut32(NpiPcsrLockReg, NPI_PCSR_UNLOCK_VAL);
@@ -530,7 +530,7 @@ inline void XPmAieDomain_UnlockPcsr(u32 BaseAddress)
  * @brief This funcction locks the AIE PCSR registers.
  *
  *****************************************************************************/
-inline void XPmAieDomain_LockPcsr(u32 BaseAddress)
+void XPmAieDomain_LockPcsr(u32 BaseAddress)
 {
 	u32 NpiPcsrLockReg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 	PmOut32(NpiPcsrLockReg, 0x00000000U);
