@@ -208,10 +208,10 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 	Payload[2] = Event;
 
 	switch (NODECLASS(NodeId)) {
-		case XPM_NODECLASS_EVENT:
+		case (u32)XPM_NODECLASS_EVENT:
 			Payload[3] = 0U;
 			break;
-		case XPM_NODECLASS_DEVICE:
+		case (u32)XPM_NODECLASS_DEVICE:
 			Device = XPmDevice_GetById(NodeId);
 			if (NULL == Device) {
 				goto done;
