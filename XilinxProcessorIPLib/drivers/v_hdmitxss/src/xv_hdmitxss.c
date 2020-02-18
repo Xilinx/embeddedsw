@@ -2540,12 +2540,20 @@ void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 static void XV_HdmiTxSs_ReportAudio(XV_HdmiTxSs *InstancePtr)
 {
-  xil_printf("Format   : ");
-  if (XV_HdmiTxSs_GetAudioFormat(InstancePtr) == 1) {
-	  xil_printf("HBR\r\n");
-  }
-  else {
-	  xil_printf("L-PCM\r\n");
+	xil_printf("Format   : ");
+	switch (XV_HdmiTxSs_GetAudioFormat(InstancePtr)) {
+	case 0:
+		xil_printf("L-PCM\r\n");
+		break;
+	case 1:
+		xil_printf("HBR\r\n");
+		break;
+	case 2:
+		xil_printf("3D\r\n");
+		break;
+	default:
+		xil_printf("Invalid\r\n");
+		break;
   }
   xil_printf("Channels : %d\r\n",
   XV_HdmiTx_GetAudioChannels(InstancePtr->HdmiTxPtr));
