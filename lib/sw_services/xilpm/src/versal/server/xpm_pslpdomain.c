@@ -295,6 +295,72 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function executes MBIST sequence for XRAM
+ *
+ * @return XST_SUCCESS if successful else XPM_ERR_MBIST_CLR
+ *
+ ****************************************************************************/
+static XStatus XramMbist(void)
+{
+
+	/* XRAM MBIST Sequence */
+	/* There are 2 modes of memclear: (1) Unison Mode (2) Per Island Mode */
+	/* Using Unison Mode */
+
+	XStatus Status = XPM_ERR_MBIST_CLR;
+	XPm_Device *Device = NULL;
+	u32 BaseAddr, RegValue;
+
+	Device = XPmDevice_GetById(PM_DEV_XRAM_0);
+	if (NULL == Device) {
+		/* device might not have XRAM IP, hence return success*/
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	BaseAddr = Device->Node.BaseAddress;
+
+	/* Unlock PCSR */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+
+	/* Write to Memclear Trigger */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+
+	/* Poll for Memclear done */
+	Status = XPm_PollForMask(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET,
+			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_0_MASK |
+			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_3_TO_1_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Check Memclear pass/fail status */
+	PmIn32(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET, RegValue);
+	if ((RegValue &
+		(XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_0_MASK |
+		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK)) !=
+		((XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_0_MASK |
+		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK))) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unwrite the trigger bits */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, 0x0);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, 0x0);
+
+	/* Lock PCSR */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, 0x0);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function executes MBIST sequence for LPD
  *
  * @return XST_SUCCESS if successful else XST_FAILURE
@@ -380,6 +446,9 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
                 (PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
+
+
+	Status = XramMbist();
 
 done:
 	return Status;
