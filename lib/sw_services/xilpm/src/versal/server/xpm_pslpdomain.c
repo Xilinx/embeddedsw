@@ -258,6 +258,7 @@ done:
 static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
@@ -274,11 +275,21 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 	}
 
 	Status = XPmBisr_Repair(LPD_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (NULL == XramDevice) {
+		goto done;
+	}
+
+	Status = XPmBisr_Repair(XRAM_TAG_ID);
+
+done:
 	if (XST_SUCCESS == Status) {
 		LpDomain->LpdBisrFlags |= LPD_BISR_DONE;
 	}
 
-done:
 	return Status;
 }
 

@@ -63,6 +63,7 @@
 #define TAG_ID_TYPE_CPM5_GTYP			(11U)
 #define TAG_ID_TYPE_GTYP				(12U)
 #define TAG_ID_TYPE_GTM					(13U)
+#define TAG_ID_TYPE_XRAM				(14U)
 #define TAG_ID_ARRAY_SIZE				(256U)
 
 #define PMC_EFUSE_BISR_UNKN_TAG_ID			(0x1U)
@@ -189,6 +190,12 @@
 #define NIDB_LANE_REPAIR_UNLOCK_VAL			(0xE6172839U)
 #define NIDB_REPAIR_OFFSET				(0x00000010U)
 
+//XRAM Repair
+#define XRAM_SLCR_PCSR_BISR_TRIGGER_MASK		(0x08000000U)
+#define XRAM_SLCR_PCSR_BISR_CLR_MASK			(0x10000000U)
+#define XRAM_SLCR_PCSR_PSR_BISR_DONE_MASK		(0x00004000U)
+#define XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK		(0x00008000U)
+
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;
 	u16 NpiBase;
@@ -217,6 +224,7 @@ static void XPmBisr_InitTagIdList(void)
 	XPmTagIdWhiteList[CPM5_GTYP_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_CPM5_GTYP;
 	XPmTagIdWhiteList[GTYP_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_GTYP;
 	XPmTagIdWhiteList[GTM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_GTM;
+	XPmTagIdWhiteList[XRAM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_XRAM;
 
 	return;
 }
@@ -967,6 +975,72 @@ done:
 	return TagDataAddr;
 }
 
+static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
+{
+	XStatus Status = XPM_ERR_BISR;
+	XPm_Device *Device = NULL;
+	u32 RegValue, BaseAddr;
+	u64 BisrDataDestAddr;
+
+	/* Not possible to reach here if Device doesn't exist hence no */
+	/* check for existence of Device */
+	Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_XRAM_0);
+
+	/* Calculate Destination address */
+	/* Dest. Addr = slcr_address + cache_data_offset */
+	BaseAddr = Device->Node.BaseAddress;
+	BisrDataDestAddr = BaseAddr + (u64)XRAM_SLCR_BISR_CACHE_DATA_0_OFFSET;
+
+	/* Write unlock code to PCSR_LOCK register */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+
+	/* Clear the BISR Test Data */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET,
+			XRAM_SLCR_PCSR_BISR_CLR_MASK);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET,
+			XRAM_SLCR_PCSR_BISR_CLR_MASK);
+
+	/* Exit the BISR Test Data Clear Mode*/
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET,  0x0);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, 0x0);
+
+	/* Copy Data from EFUSE to BISR Cache of XRAM */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+	/* BISR Trigger */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET,
+		XRAM_SLCR_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET,
+		XRAM_SLCR_PCSR_BISR_TRIGGER_MASK);
+
+	/* Poll for BISR_DONE */
+	Status = XPm_PollForMask(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET,
+		XRAM_SLCR_PCSR_PSR_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Check BISR Pass/Fail */
+	PmIn32(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET, RegValue);
+	if (XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK != (RegValue &
+		XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK)) {
+		Status = XPM_ERR_BISR;
+		goto done;
+	}
+
+	/*  Exit the memory repair operation */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, 0x0);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, 0x0);
+
+	/* Write unlock code to PCSR_LOCK register */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, 0x0);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus XPmBisr_Repair(u32 TagId)
 {
 	XStatus Status = XST_FAILURE;
@@ -1060,6 +1134,9 @@ XStatus XPmBisr_Repair(u32 TagId)
 						break;
 					case TAG_ID_TYPE_CPM5:
 						Status = XPmBisr_RepairCpm5(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_XRAM:
+						Status = XPmBisr_RepairXram(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
 						break;
 					default: //block type not recognized, no function to handle it
 						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
