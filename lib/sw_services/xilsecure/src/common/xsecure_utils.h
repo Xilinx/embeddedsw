@@ -62,6 +62,7 @@ extern "C" {
 #include "sleep.h"
 #include "xstatus.h"
 #include "xil_assert.h"
+#include "xil_mem.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal */
@@ -182,9 +183,7 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
 		XSecure_SssSrc OutputSrc);
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
-/** @cond xsecure_internal */
-void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
-/**  @endcond */
+
 #ifdef __cplusplus
 }
 #endif
