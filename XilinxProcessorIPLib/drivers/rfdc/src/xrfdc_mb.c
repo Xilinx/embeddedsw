@@ -42,7 +42,7 @@
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    08/02/19 Formatting changes.
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
-*       cog    01/29/20	Fixed metal log typos.
+*       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
 *
 * </pre>
