@@ -308,7 +308,7 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 		/* Lock the device to enable exclusive access to virtqueues */
 		metal_mutex_acquire(&rdev->lock);
 		avail_size = _rpmsg_virtio_get_buffer_size(rvdev);
-		if (size > avail_size) {
+		if (avail_size && size > avail_size) {
 			metal_mutex_release(&rdev->lock);
 			return RPMSG_ERR_BUFF_SIZE;
 		}
