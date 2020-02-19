@@ -73,6 +73,7 @@ extern "C" {
 #define AUX_AUDIO_INFOFRAME_TYPE 0x84
 #define AUX_AUDIO_METADATA_PACKET_TYPE 0x0D
 #define AUX_SPD_INFOFRAME_TYPE 0x83
+#define AUX_DRM_INFOFRAME_TYPE 0x87
 
 /****************************** Type Definitions ******************************/
 
@@ -379,6 +380,17 @@ typedef enum {
 	XHDMIC_SPD_PMP
 } XHdmiC_SPD_SourceInfo;
 
+typedef enum {
+	XHDMIC_DRM_TRADITIONAL_GAMMA_SDR = 0x0,
+	XHDMIC_DRM_TRADITIONAL_GAMMA_HDR,
+	XHDMIC_DRM_SMPTE_ST_2084,
+	XHDMIC_DRM_HLG
+} XHdmiC_DRM_EOTF;
+
+typedef enum {
+	XHDMIC_DRM_STATIC_METADATA_TYPE1 = 0
+} XHdmiC_DRM_Static_Metadata_Descp_Id;
+
 /**
  * This typedef contains the data structure for
  * Auxiliary Video Information Info frame
@@ -478,6 +490,25 @@ typedef struct XHdmiC_SPD_InfoFrame {
 	XHdmiC_SPD_SourceInfo SourceInfo;
 } XHdmiC_SPDInfoFrame;
 
+/**
+ * This typedef contains the data structure for Dynamic Range and Mastering
+ * Infoframe
+ */
+typedef struct XHdmiC_DRM_InfoFrame {
+	XHdmiC_DRM_EOTF EOTF;
+	XHdmiC_DRM_Static_Metadata_Descp_Id Static_Metadata_Descriptor_ID;
+	struct {
+		u16 x,y;
+	} disp_primaries[3];
+	struct {
+		u16 x,y;
+	} white_point;
+	u16 Max_Disp_Mastering_Luminance;
+	u16 Min_Disp_Mastering_Luminance;
+	u16 Max_Content_Light_Level;
+	u16 Max_Frame_Average_Light_Level;
+} XHdmiC_DRMInfoFrame;
+
 /*************************** Variable Declarations ****************************/
 extern const XHdmiC_VicTable VicTable[VICTABLE_SIZE];
 extern const XHdmiC_FrlRate FrlRateTable[];
@@ -490,6 +521,8 @@ void XV_HdmiC_ParseGCP(XHdmiC_Aux *AuxPtr,
 			XHdmiC_GeneralControlPacket *GcpPtr);
 void XV_HdmiC_ParseAudioInfoFrame(XHdmiC_Aux *AuxPtr,
 			XHdmiC_AudioInfoFrame *AudIFPtr);
+void XV_HdmiC_ParseDRMIF(XHdmiC_Aux *AuxPtr,
+			XHdmiC_DRMInfoFrame *DRMInfoFrame);
 XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr);
 XHdmiC_Aux
 	XV_HdmiC_AudioIF_GeneratePacket(XHdmiC_AudioInfoFrame *AudioInfoFrame);
@@ -498,6 +531,8 @@ XHdmiC_Colorspace
 XHdmiC_Aux XV_HdmiC_AudioMetadata_GeneratePacket(XHdmiC_AudioMetadata
 		*AudMetadata);
 XHdmiC_Aux XV_HdmiC_SPDIF_GeneratePacket(XHdmiC_SPDInfoFrame *SPDInfoFrame);
+void XV_HdmiC_DRMIF_GeneratePacket(XHdmiC_DRMInfoFrame *DRMInfoFrame,
+					XHdmiC_Aux *aux);
 XVidC_AspectRatio XV_HdmiC_IFAspectRatio_To_XVidC(XHdmiC_PicAspectRatio AR);
 
 u32 XHdmiC_FRL_GetNVal(XHdmiC_FRLCharRate FRLCharRate,
