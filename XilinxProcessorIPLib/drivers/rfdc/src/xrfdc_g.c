@@ -43,6 +43,7 @@
 * 5.1   cog    01/29/19 Added FSMax, NumSlice & IP_Type.
 * 7.0   cog    05/13/19 Formatting changes.
 * 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    02/10/20 Added Silicon_Revision.
 *
 * </pre>
 *
@@ -71,6 +72,7 @@ XRFdc_Config XRFdc_ConfigTable[XPAR_XRFDC_NUM_INSTANCES] = {
 	  XPAR_USP_RF_DATA_CONVERTER_0_SYSREF_SOURCE,
 	  XPAR_USP_RF_DATA_CONVERTER_0_SYSREF_SOURCE,
 	  XPAR_USP_RF_DATA_CONVERTER_0_IP_TYPE,
+	  XPAR_USP_RF_DATA_CONVERTER_0_SILICON_REVISION,
 	  {
 		  {
 			  XPAR_USP_RF_DATA_CONVERTER_0_DAC0_ENABLE,

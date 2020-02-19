@@ -259,6 +259,8 @@
 *       cog    01/08/20 Added programmable hysteresis counters for ADC signal detector.
 *       cog    01/23/20 Calibration modes for Gen 3 were inverted.
 * 8.0   cog    02/10/20 Updated addtogroup and added s16 typedef.
+*       cog    02/10/20 Added Silicon revison to dirver structures to allow discrimation
+*                       between engineering sample & production silicon.
 *
 * </pre>
 *
@@ -591,6 +593,7 @@ typedef struct {
 	u32 ADCSysRefSource;
 	u32 DACSysRefSource;
 	u32 IPType;
+	u32 SiRevision;
 	XRFdc_DACTile_Config DACTile_Config[4];
 	XRFdc_ADCTile_Config ADCTile_Config[4];
 } XRFdc_Config;
@@ -1159,6 +1162,10 @@ typedef struct {
 #define XRFDC_CLK_DIV_DP_OTHER_MODES 0x20U
 
 #define XRFDC_TILE_STARTED XRFDC_SM_STATE15
+
+#define XRFDC_SI_REV_ES 0U
+#define XRFDC_SI_REV_PROD 1U
+
 /*****************************************************************************/
 /**
 *
