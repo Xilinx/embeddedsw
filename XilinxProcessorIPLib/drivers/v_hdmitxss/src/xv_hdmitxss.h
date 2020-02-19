@@ -431,6 +431,7 @@ typedef struct
 	XHdmiC_AVI_InfoFrame AVIInfoframe;		/**< AVI InfoFrame */
 	XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
 	XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
+	XHdmiC_DRMInfoFrame DrmInfoframe;	/**< DRM Infoframe */
 
     XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protocol selected */
 #ifdef USE_HDCP_TX
