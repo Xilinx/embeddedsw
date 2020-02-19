@@ -127,22 +127,32 @@ XLoader_DeviceOps DeviceOps[] =
 #endif
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* PCIE - 0x11U */
 #ifdef	XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_SdInit, XLoader_SdCopy), /* SD0_RAW - 0x12U */
+	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD0_RAW - 0x12U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
 #ifdef	XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_SdInit, XLoader_SdCopy), /* SD1_RAW - 0x13U */
+	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD1_RAW - 0x13U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
 #ifdef	XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_SdInit, XLoader_SdCopy), /* EMMC_RAW - 0x14U */
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x14U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
 #ifdef	XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_SdInit, XLoader_SdCopy), /* SD1_LS_RAW - 0x15U */
+	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD1_LS_RAW - 0x15U */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+#ifdef  XLOADER_SD_1
+        XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP1", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x16U */
+#else
+        XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+#ifdef  XLOADER_SD_1
+        XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP2", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x17U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
@@ -186,7 +196,7 @@ int XLoader_Init()
  *****************************************************************************/
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 {
-	u32 RegVal;
+	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 	int Status;
 	XLoader_SecureParms SecureParam = {0U};
 	u64 PdiInitTime = XPlmi_GetTimerValue();
@@ -208,6 +218,57 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	 */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE4,
 			(u32)((UINTPTR) &ATFHandoffParams));
+
+	if(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL)
+	{
+		if(((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) ==
+							XLOADER_PDI_SRC_SD0)
+		|| ((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) ==
+							XLOADER_PDI_SRC_SD1)
+		|| ((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) ==
+						XLOADER_PDI_SRC_SD1_LS)
+		|| ((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) ==
+						XLOADER_PDI_SRC_EMMC))
+        {
+		if((RegVal & XLOADER_SD_RAWBOOT_MASK) == XLOADER_SD_RAWBOOT_VAL)
+            {
+                if((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) == XLOADER_PDI_SRC_SD0)
+                {
+			PdiPtr->PdiSrc = PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
+                }
+		else if((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) ==
+												XLOADER_PDI_SRC_SD1)
+		{
+			PdiPtr->PdiSrc = PdiSrc = XLOADER_PDI_SRC_SD1_RAW;
+                }
+                else if((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) ==
+													 XLOADER_PDI_SRC_SD1_LS)
+                {
+			PdiPtr->PdiSrc = PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
+                }
+                else
+                {
+			PdiPtr->PdiSrc = PdiSrc = XLOADER_PDI_SRC_EMMC_RAW;
+                }
+            }
+			else if((RegVal & XLOADER_SD_RAWBOOT_MASK) ==
+							XLOADER_EMMC_BP1_RAW_VAL)
+			{
+				RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
+				PdiPtr->PdiSrc = PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP1;
+			}
+			else if((RegVal & XLOADER_SD_RAWBOOT_MASK) ==
+							XLOADER_EMMC_BP2_RAW_VAL)
+			{
+				RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
+				PdiPtr->PdiSrc = PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP2;
+			}
+			else
+			{
+				/** For MISRA-C compliance */
+			}
+        }
+	}
 
 	if(DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Init==NULL)
 	{
@@ -248,10 +309,15 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
-		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 		if((PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
-                        (PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
-                        (PdiSrc == XLOADER_PDI_SRC_OSPI))
+            (PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
+            (PdiSrc == XLOADER_PDI_SRC_OSPI) ||
+			(PdiSrc == XLOADER_PDI_SRC_SD0_RAW) ||
+			(PdiSrc == XLOADER_PDI_SRC_SD1_RAW) ||
+			(PdiSrc == XLOADER_PDI_SRC_SD1_LS_RAW) ||
+			(PdiSrc == XLOADER_PDI_SRC_EMMC_RAW) ||
+			(PdiSrc == XLOADER_PDI_SRC_EMMC_RAW_BP1) ||
+			(PdiSrc == XLOADER_PDI_SRC_EMMC_RAW_BP2))
 		{
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
 				(RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
@@ -282,21 +348,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 				/** For MISRA-C compliance */
 			}
 
-		}
-		else if((PdiSrc == XLOADER_PDI_SRC_SD0) ||
-				(PdiSrc == XLOADER_PDI_SRC_SD1) ||
-				(PdiSrc == XLOADER_PDI_SRC_SD1_LS) ||
-				(PdiSrc == XLOADER_PDI_SRC_EMMC))
-		{
-			if((RegVal & XLOADER_SD_RAWBOOT_MASK) == XLOADER_SD_RAWBOOT_VAL)
-			{
-				PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
-						(RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
-			}
-			else
-			{
-				PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
-			}
 		}
 		else
 		{
@@ -507,7 +558,7 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	{
 		goto END;
 	}
-
+	PdiSrc = PdiPtr->PdiSrc;
 	Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
 	if (Status != XST_SUCCESS)
 	{

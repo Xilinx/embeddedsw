@@ -263,7 +263,8 @@ enum {
 	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error caused due to
 						mismatch in IDCODEs */
 	XLOADER_ERR_USB_LOOKUP,		/**< 0x327 - Error when USB lookup fails*/
-	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
+	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize
+																	fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
 	XLOADER_ERR_DFU_DWNLD,		/**< 0x32A - Error when pdi fails to download */
 	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occured while
@@ -272,6 +273,8 @@ enum {
 	XLOADER_ERR_SD_LOOKUP,		/**< 0x32C - Error when SD look up fails */
 	XLOADER_ERR_SD_CFG,		/**< 0x32D - Error when SD config fails */
 	XLOADER_ERR_SD_CARD_INIT,	/**< 0x32E - Error when SD card init fails */
+	XLOADER_ERR_MMC_PART_CONFIG, /**< 0x32F - Error when MMC switch to user
+									area in raw boot mode fails */
 };
 
 /**************************** Type Definitions *******************************/

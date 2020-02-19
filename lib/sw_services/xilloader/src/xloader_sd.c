@@ -57,6 +57,9 @@
 #define XLOADER_NUM_DIGITS_IN_FILE_NAME 	4
 #define XLOADER_SD_DRV_NUM_0				0
 #define XLOADER_SD_DRV_NUM_1				1
+#define XLOADER_SD_DRV_NUM_4				(4U)
+#define XLOADER_LOGICAL_DRV_MASK			(0xF0000000U)
+#define XLOADER_LOGICAL_DRV_SHIFT			(28U)
 
 /**
  * PMC_GLOBAL Base Address
@@ -75,7 +78,7 @@
 
 /************************** Function Prototypes ******************************/
 static void XLoader_MakeSdFileName(char *SdEmmcFileName,
-		u32 MultibootReg, u32 DrvNum);
+		u32 MultibootReg);
 static u32 XLoader_GetDrvNumSD(u32 DeviceFlags);
 
 /************************** Variable Definitions *****************************/
@@ -95,7 +98,7 @@ static XSdPs SdInstance = {0U,};
  *
  ******************************************************************************/
 static void XLoader_MakeSdFileName(char *SdEmmcFileName,
-		u32 MultibootReg, u32 DrvNum)
+		u32 MultibootReg)
 {
 
 	u32 Index;
@@ -105,27 +108,12 @@ static void XLoader_MakeSdFileName(char *SdEmmcFileName,
 
 	if (0x0U == MultiBootNum)
 	{
-		/* SD file name is BOOT.BIN when Multiboot register value is 0 */
-		if (DrvNum == XLOADER_SD_DRV_NUM_0) {
-			(void)XPlmi_Strcpy(SdEmmcFileName, "BOOT.BIN");
-		}
-		else {
-			/* For second SD instance, include drive number 1 as well */
-			(void)XPlmi_Strcpy(SdEmmcFileName, "1:/BOOT.BIN");
-		}
+		(void)XPlmi_Strcat(SdEmmcFileName, "BOOT.BIN");
 	}
 	else
 	{
-		/* set default SD file name as BOOT0000.BIN */
-		if (DrvNum == XLOADER_SD_DRV_NUM_0) {
-			(void)XPlmi_Strcpy(SdEmmcFileName, "BOOT0000.BIN");
-			FileNameLen = XLOADER_BASE_FILE_NAME_LEN_SD_0;
-		}
-		else {
-			/* For second SD instance, include drive number 1 as well */
-			(void)XPlmi_Strcpy(SdEmmcFileName, "1:/BOOT0000.BIN");
+			(void)XPlmi_Strcat(SdEmmcFileName, "BOOT0000.BIN");
 			FileNameLen = XLOADER_BASE_FILE_NAME_LEN_SD_1;
-		}
 
 		/* Update file name (to BOOTXXXX.BIN) based on Multiboot register value */
 		for(Index = FileNameLen - 1U;
@@ -169,7 +157,16 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags)
 		/* For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
 			or XLOADER_EMMC_BOOT_MODE or XLOADER_SD1_RAW_BOOT_MODE
 			or XLOADER_SD1_LS_RAW_BOOT_MODE or XLOADER_EMMC_RAW_BOOT_MODE */
-		DeviceFlags = XLOADER_SD_DRV_NUM_1;
+		if((DeviceFlags == XLOADER_PDI_SRC_SD1)
+		|| (DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
+		|| (DeviceFlags == XLOADER_PDI_SRC_EMMC))
+		{
+			DeviceFlags = XLOADER_SD_DRV_NUM_4;
+		}
+		else
+		{
+			DeviceFlags = XLOADER_SD_DRV_NUM_1;
+		}
 	}
 #else
 	DeviceFlags = XLOADER_SD_DRV_NUM_0;
@@ -196,51 +193,30 @@ int XLoader_SdInit(u32 DeviceFlags)
 	u32 MultiBootOffset;
 	u32 PdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
 	u32 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
+	XLoader_IsSDRaw = FALSE;
 
-	/**
-	 * Read the Multiboot Register
-	 */
 	if((DeviceFlags & XLOADER_SBD_ADDR_SET_MASK) == XLOADER_SBD_ADDR_SET_MASK)
 	{
 		/** Secondary Boot in FAT filesystem mode */
-			MultiBootOffset = (DeviceFlags >> XLOADER_SBD_ADDR_SHIFT);
-			XLoader_IsSDRaw = FALSE;
-			DrvNum = XLOADER_SD_DRV_NUM_1;
-	}
-	else if((DeviceFlags == XLOADER_PDI_SRC_SD0_RAW) ||
-			(DeviceFlags == XLOADER_PDI_SRC_SD1_RAW) ||
-			(DeviceFlags == XLOADER_PDI_SRC_SD1_LS_RAW) ||
-			(DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW))
-	{
-		XLoader_IsSDRaw = TRUE;
-		Status = XLoader_RawInit(DrvNum);
-		goto END;
+		MultiBootOffset = (DeviceFlags >> XLOADER_SBD_ADDR_SHIFT);
+		DrvNum += (MultiBootOffset & XLOADER_LOGICAL_DRV_MASK)
+					>>XLOADER_LOGICAL_DRV_SHIFT;
+		MultiBootOffset &= ~(XLOADER_LOGICAL_DRV_MASK);
 	}
 	else
 	{
-		MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
-		if((MultiBootOffset & XLOADER_SD_RAWBOOT_MASK) ==
-										XLOADER_SD_RAWBOOT_VAL)
-		{
-			XLoader_IsSDRaw = TRUE;
-			Status = XLoader_RawInit(DrvNum);
-			goto END;
-		}
-		else
-		{
-			MultiBootOffset &= XLOADER_MULTIBOOT_OFFSET_MASK;
-			XLoader_IsSDRaw = FALSE;
-		}
+		/** Primary Boot in FAT filesystem mode */
+		MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT) &
+							XLOADER_MULTIBOOT_OFFSET_MASK;
+		MultiBootOffset &= XLOADER_MULTIBOOT_OFFSET_MASK;
 	}
 
 	/* Set logical drive number */
 	/* Register volume work area, initialize device */
-	if (DrvNum == XLOADER_SD_DRV_NUM_0) {
-		rc=f_mount(&fatfs, "0:/", 0);
-	}
-	else {
-		rc=f_mount(&fatfs, "1:/", 0);
-	}
+	boot_file[0U] = DrvNum + 48U;
+	boot_file[1U] = ':';
+	boot_file[2U] = '/';
+	rc=f_mount(&fatfs, boot_file, 0U);
 
 	XLoader_Printf(DEBUG_INFO,"SD: rc= %.8x\n\r", rc);
 
@@ -253,7 +229,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	/**
 	 * Create boot image name
 	 */
-	XLoader_MakeSdFileName(boot_file, MultiBootOffset, DrvNum);
+	XLoader_MakeSdFileName(boot_file, MultiBootOffset);
 
 	if(boot_file[0]!=0) {
 		rc = f_open(&fil, boot_file, (BYTE)FA_READ);
@@ -297,13 +273,6 @@ int XLoader_SdInit(u32 DeviceFlags)
 XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	XStatus Status = XST_FAILURE;
-
-	if(XLoader_IsSDRaw != FALSE)
-	{
-		Status = XLoader_RawCopy(SrcAddress, DestAddress, Length, Flags);
-		goto END;
-	}
-
 	FRESULT rc;	 /* Result code */
 	(void) Flags;
 	UINT br=0U;
@@ -358,9 +327,12 @@ int XLoader_SdRelease(void )
  * @return	Success or error code
  *
  *****************************************************************************/
-int XLoader_RawInit(u32 DrvNum)
+int XLoader_RawInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
+	u32 PdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
+	u32 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
+	XLoader_IsSDRaw = TRUE;
 	XSdPs_Config *SdConfig;
 	/*
 	 * Initialize the host controller
@@ -388,6 +360,28 @@ int XLoader_RawInit(u32 DrvNum)
 		XLoader_Printf(DEBUG_GENERAL,"RAW SD Card init failed\r\n");
 		Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_SD_CARD_INIT);
 		goto END;
+	}
+
+	if(DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW)
+	{
+		Status = XSdPs_Set_Mmc_ExtCsd(&SdInstance, XSDPS_MMC_PART_CFG_0_ARG);
+	}
+	else if(DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP1)
+	{
+		Status = XSdPs_Set_Mmc_ExtCsd(&SdInstance, XSDPS_MMC_PART_CFG_1_ARG);
+	}
+	else if(DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP2)
+	{
+		Status = XSdPs_Set_Mmc_ExtCsd(&SdInstance, XSDPS_MMC_PART_CFG_2_ARG);
+	}
+	else
+	{
+		/** MISRA-C compliance */
+	}
+	if (Status != XST_SUCCESS)
+	{
+	Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_MMC_PART_CONFIG);
+        goto END;
 	}
 
 	XLoader_Printf(DEBUG_INFO,"Raw init completed\n\r");
@@ -436,7 +430,7 @@ XStatus XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 
 
 	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%08x, Dest 0x%0x%08x, "
-		       "Length 0x%0lx, Flags 0x%0x\r\n",
+		       "Length 0x%0x, Flags 0x%0x\r\n",
 			SrcAddress, (u32)(DestAddress>>32U), (u32)DestAddress,
 		       Length, Flags);
 
