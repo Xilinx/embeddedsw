@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,9 @@ extern "C" {
 #include "xplmi_task.h"
 
 /************************** Constant Definitions *****************************/
+/* SDK release version */
+#define SDK_RELEASE_YEAR	"2020"
+#define SDK_RELEASE_QUARTER	"1"
 
 /**************************** Type Definitions *******************************/
 
@@ -79,6 +82,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void );
 void XPlmi_LpdInit(void);
+void XPlm_PrintPlmBanner(void );
 
 #ifdef __cplusplus
 }

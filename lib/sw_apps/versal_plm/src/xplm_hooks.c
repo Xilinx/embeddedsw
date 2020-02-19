@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -85,22 +85,6 @@ int XPlm_HookAfterPlmCdo()
 {
 	/* Call LibPM hook */
 	XPm_HookAfterPlmCdo();
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-* @brief This function will be called after processing the LPD CDO. All the
-* LPD configuration will be completed by this time.
-*
-* @param	None
-* @return	XST_SUCCESS on success, any other value for error
-*
-*****************************************************************************/
-int XPlm_HookAfterLpdInit()
-{
-	/** Print PLM banner  */
-	XPlm_PrintPlmBanner();
 	return XST_SUCCESS;
 }
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -120,5 +120,56 @@ void XPlmi_LpdInit(void)
 	
 	if (XST_SUCCESS == Status) {
 		LpdInitialized |= LPD_INITIALIZED;
+	}
+	XPlm_PrintPlmBanner();
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function prints PLM banner
+ *
+ * @param none
+ *
+ * @return	none
+ *
+ *****************************************************************************/
+void XPlm_PrintPlmBanner(void )
+{
+	u32 Version;
+	u32 PsVersion;
+	u32 PmcVersion;
+	static u8 IsBannerPrinted = FALSE;
+
+	if (FALSE == IsBannerPrinted) {
+		/* Print the PLM Banner */
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+                 "****************************************\n\r");
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+                 "Xilinx Versal Platform Loader and Manager \n\r");
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+                 "Release %s.%s   %s  -  %s\n\r",
+                 SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
+
+		/* Read the Version */
+		Version = XPlmi_In32(PMC_TAP_VERSION);
+		PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
+				PMC_TAP_VERSION_PS_VERSION_SHIFT);
+		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
+
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%d.%d "
+					 "PMC: v%d.%d, PS: v%d.%d\n\r",
+					(PmcVersion/16), (PmcVersion%16),
+					(PmcVersion/16), (PmcVersion%16),
+					(PsVersion/16), (PsVersion%16));
+#ifdef DEBUG_UART_MDM
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: MDM UART\n\r");
+#else
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: PS UART\n\r");
+#endif
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+                 "****************************************\n\r");
+
+		IsBannerPrinted = TRUE;
 	}
 }
