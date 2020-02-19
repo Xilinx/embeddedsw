@@ -821,51 +821,22 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 
   VideoTiming.Interlaced = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.IsInterlaced;
 
-    /* 4 pixels per clock */
-    if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
-    	/* If the parameters below are not divisible by the current PPC setting,
-    	 * log an error as VTC does not support such video timing
-    	 */
-		if (VideoTiming.HActiveVideo & 0x3 || VideoTiming.HFrontPorch & 0x3 ||
-				VideoTiming.HBackPorch & 0x3 || VideoTiming.HSyncWidth & 0x3) {
+  /* 4 pixels per clock */
+  /*
+   * If the parameters below are not divisible by the current PPC setting,
+   * log an error as VTC does not support such video timing
+   */
+  if (VideoTiming.HActiveVideo & 0x3 || VideoTiming.HFrontPorch & 0x3 ||
+		VideoTiming.HBackPorch & 0x3 || VideoTiming.HSyncWidth & 0x3) {
 #ifdef XV_HDMITXSS1_LOG_ENABLE
-				XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr,
-						XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR, 0);
+	XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR, 0);
 #endif
-				XV_HdmiTxSs1_ErrorCallback(HdmiTxSs1Ptr);
-		}
-		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
-		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
-		VideoTiming.HBackPorch = VideoTiming.HBackPorch/4;
-		VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/4;
-    }
-
-    /* 2 pixels per clock */
-    else if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
-    	/* If the parameters below are not divisible by the current PPC setting,
-    	 * log an error as VTC does not support such video timing
-    	 */
-		if (VideoTiming.HActiveVideo & 0x1 || VideoTiming.HFrontPorch & 0x1 ||
-				VideoTiming.HBackPorch & 0x1 || VideoTiming.HSyncWidth & 0x1) {
-#ifdef XV_HDMITXSS1_LOG_ENABLE
-			XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr,
-					XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR, 0);
-#endif
-			XV_HdmiTxSs1_ErrorCallback(HdmiTxSs1Ptr);
-		}
-		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
-		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
-		VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
-		VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
-    }
-
-    /* 1 pixels per clock */
-    else {
-		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo;
-		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch;
-		VideoTiming.HBackPorch = VideoTiming.HBackPorch;
-		VideoTiming.HSyncWidth = VideoTiming.HSyncWidth;
-    }
+	XV_HdmiTxSs1_ErrorCallback(HdmiTxSs1Ptr);
+  }
+  VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
+  VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
+  VideoTiming.HBackPorch = VideoTiming.HBackPorch/4;
+  VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/4;
 
     /* For YUV420 the line width is double there for double the blanking */
     if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
@@ -907,19 +878,7 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
         VideoTiming.HSyncWidth;
 
     /* Quad pixel mode*/
-    if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
       Vtc_Hblank *= 4;
-    }
-
-    /* Dual pixel mode*/
-    else if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
-      Vtc_Hblank *= 2;
-    }
-
-    /* Single pixel mode*/
-    else {
-      /*Vtc_Hblank *= 1;*/
-    }
 
     /* For YUV420 the line width is double there for double the blanking */
     if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
@@ -2567,7 +2526,13 @@ void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr)
 	  xil_printf("HDMI Video Mask is Enabled\r\n\r\n");
       }
 
-      XV_HdmiTx1_DebugInfo(InstancePtr->HdmiTx1Ptr);
+      /* Print stream information */
+      XVidC_ReportStreamInfo(&InstancePtr->HdmiTx1Ptr->Stream.Video);
+
+      /* Print timing information */
+      XVidC_ReportTiming(&InstancePtr->HdmiTx1Ptr->Stream.Video.Timing,
+                InstancePtr->HdmiTx1Ptr->Stream.Video.IsInterlaced);
+
       xil_printf("VIC: %0d\r\n", InstancePtr->HdmiTx1Ptr->Stream.Vic);
       xil_printf("Scrambled: %0d\r\n",
         (XV_HdmiTx1_IsStreamScrambled(InstancePtr->HdmiTx1Ptr)));
@@ -2592,12 +2557,22 @@ void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr)
 void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr)
 {
   xil_printf("Format   : ");
-  if (XV_HdmiTxSs1_GetAudioFormat(InstancePtr) == 1) {
-	  xil_printf("HBR\r\n");
+
+  switch (XV_HdmiTxSs1_GetAudioFormat(InstancePtr)) {
+  case XV_HDMITX1_AUDFMT_3D:
+	xil_printf("3D\r\n");
+	break;
+  case XV_HDMITX1_AUDFMT_HBR:
+	xil_printf("HBR\r\n");
+	break;
+  case XV_HDMITX1_AUDFMT_LPCM:
+	xil_printf("L-PCM\r\n");
+	break;
+  default:
+	xil_printf("Invalid\r\n");
+	break;
   }
-  else {
-	  xil_printf("L-PCM\r\n");
-  }
+
   xil_printf("Channels : %d\r\n",
   XV_HdmiTx1_GetAudioChannels(InstancePtr->HdmiTx1Ptr));
   xil_printf("ACR CTS  : %d\r\n",
@@ -3136,6 +3111,22 @@ void XV_HdmiTxSS1_SetAppVersion(XV_HdmiTxSs1 *InstancePtr, u8 maj, u8 min)
 	InstancePtr->AppMinVer = min;
 }
 
+/*****************************************************************************/
+/**
+* This function will set the major and minor application version in TXSs struct
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+*
+* @return   Core pixel per clock value
+*
+* @note     None.
+*
+*
+******************************************************************************/
+XVidC_PixelsPerClock XV_HdmiTxSS1_GetCorePpc(XV_HdmiTxSs1 *InstancePtr)
+{
+	return InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
+}
 
 /*****************************************************************************/
 /**

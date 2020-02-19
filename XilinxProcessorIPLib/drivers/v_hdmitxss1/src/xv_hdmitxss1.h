@@ -207,7 +207,7 @@ typedef enum {
     XV_HDMITXSS1_HDCP_TOPOLOGY_DEVICECNT,
     XV_HDMITXSS1_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
     XV_HDMITXSS1_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
-    XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+    XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
     XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
     XV_HDMITXSS1_HDCP_TOPOLOGY_INVALID
 } XV_HdmiTxSs1_HdcpTopologyField;
@@ -302,6 +302,7 @@ typedef struct
     u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
 	u8 LowResolutionSupp;
 	u8 YUV420Supp;
+	u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
     u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
     XV_HdmiTxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
     XV_HdmiTxSs1_SubCore Hdcp14;       /**< Sub-core instance configuration */
@@ -546,6 +547,7 @@ u8 XV_HdmiTxSs1_IsSinkHdcp22Capable(XV_HdmiTxSs1 *InstancePtr);
 
 void XV_HdmiTxSs1_SetDefaultPpc(XV_HdmiTxSs1 *InstancePtr, u8 Id);
 void XV_HdmiTxSs1_SetPpc(XV_HdmiTxSs1 *InstancePtr, u8 Id, u8 Ppc);
+XVidC_PixelsPerClock XV_HdmiTxSS1_GetCorePpc(XV_HdmiTxSs1 *InstancePtr);
 
 #ifdef XV_HDMITXSS1_LOG_ENABLE
 void XV_HdmiTxSs1_LogReset(XV_HdmiTxSs1 *InstancePtr);
