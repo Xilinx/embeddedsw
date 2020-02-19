@@ -92,6 +92,7 @@
 *       cog    01/23/20 Fixed shift and mask for GCB calibration override operations
 *                       in Gen 3 Devices.
 * 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    02/17/20 Added masks and shifts for tile/path enables.
 *
 *</pre>
 *
@@ -352,6 +353,19 @@ extern "C" {
 #define XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT 0x17C /**< Background time skew correction block (below Gen 3) */
 #define XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT 0x180 /**< Background time skew correction block (below Gen 3) */
 #define XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT 0x184 /**< Background time skew correction block (below Gen 3) */
+
+/* @} */
+
+/** @name IP Register Map
+ *
+ * Register offsets from the base address of the IP.
+ * @{
+ */
+
+#define XRFDC_TILES_ENABLED_OFFSET 0x00A0U /**< The tiles enabled in the design */
+#define XRFDC_ADC_PATHS_ENABLED_OFFSET 0x00A4U /**< The ADC analogue/digital paths enabled in the design */
+#define XRFDC_DAC_PATHS_ENABLED_OFFSET 0x00A8U /**< The DAC analogue/digital paths enabled in the design */
+#define XRFDC_PATH_ENABLED_TILE_SHIFT 4U /**< A shift to get to the correct tile for the path */
 
 /* @} */
 
@@ -1699,6 +1713,28 @@ extern "C" {
 #define XRFDC_INTERP_MODE_MASK_EXT 0x00003F3FU /**< Interp filter mask */
 #define XRFDC_INTERP_MODE_I_MASK_EXT 0x0000003FU /**< Interp filter I */
 #define XRFDC_INTERP_MODE_Q_SHIFT_EXT 8U /**< Interp mode Q shift */
+
+/* @} */
+
+/** @name Tile enables register
+ *
+ * This register contains the bits that indicate
+ * whether or not a tile is enabled (Read Only).
+ * @{
+ */
+
+#define XRFDC_DAC_TILES_ENABLED_SHIFT 4U /**< Shift to the DAC tile bits */
+
+/* @} */
+
+/** @name Path enables register
+ *
+ * This register contains the bits that indicate
+ * whether or not an analogue/digital is enabled (Read Only).
+ * @{
+ */
+
+#define XRFDC_DIGITAL_PATH_ENABLED_SHIFT 16U /**< Shift to the digital path bits */
 
 /* @} */
 

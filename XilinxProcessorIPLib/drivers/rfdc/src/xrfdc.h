@@ -261,6 +261,7 @@
 * 8.0   cog    02/10/20 Updated addtogroup and added s16 typedef.
 *       cog    02/10/20 Added Silicon revison to dirver structures to allow discrimation
 *                       between engineering sample & production silicon.
+*       cog    02/17/20 Driver now gets tile/path enables from the bitfile.
 *
 * </pre>
 *
@@ -1274,7 +1275,15 @@ static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 ******************************************************************************/
 static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	return InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].BlockAvailable;
+	u32 IsBlockAvail;
+	u32 BlockShift;
+	u32 BlockEnableReg;
+
+	BlockShift = Block_Id + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	BlockEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_DAC_PATHS_ENABLED_OFFSET);
+	BlockEnableReg &= (XRFDC_ENABLED << BlockShift);
+	IsBlockAvail = BlockEnableReg >> BlockShift;
+	return IsBlockAvail;
 }
 
 /*****************************************************************************/
@@ -1294,6 +1303,8 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 B
 static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
 	u32 IsBlockAvail;
+	u32 BlockShift;
+	u32 BlockEnableReg;
 
 	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
 		if ((Block_Id == 2U) || (Block_Id == 3U)) {
@@ -1304,7 +1315,12 @@ static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 B
 			Block_Id = 2U;
 		}
 	}
-	IsBlockAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].ADCBlock_Analog_Config[Block_Id].BlockAvailable;
+
+	BlockShift = Block_Id + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	BlockEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_ADC_PATHS_ENABLED_OFFSET);
+	BlockEnableReg &= (XRFDC_ENABLED << BlockShift);
+	IsBlockAvail = BlockEnableReg >> BlockShift;
+
 RETURN_PATH:
 	return IsBlockAvail;
 }
@@ -1325,16 +1341,15 @@ RETURN_PATH:
 ******************************************************************************/
 static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	u32 Status;
+	u32 IsDigitalPathAvail;
+	u32 DigitalPathShift;
+	u32 DigitalPathEnableReg;
 
-	if (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType ==
-	    XRFDC_MIXER_TYPE_DISABLED) {
-		Status = 0U;
-	} else {
-		Status = 1U;
-	}
-
-	return Status;
+	DigitalPathShift = Block_Id + XRFDC_DIGITAL_PATH_ENABLED_SHIFT + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	DigitalPathEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_DAC_PATHS_ENABLED_OFFSET);
+	DigitalPathEnableReg &= (XRFDC_ENABLED << DigitalPathShift);
+	IsDigitalPathAvail = DigitalPathEnableReg >> DigitalPathShift;
+	return IsDigitalPathAvail;
 }
 
 /*****************************************************************************/
@@ -1353,11 +1368,13 @@ static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 ******************************************************************************/
 static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	u32 IsBlockAvail;
+	u32 IsDigitalPathAvail;
+	u32 DigitalPathShift;
+	u32 DigitalPathEnableReg;
 
 	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
 		if ((Block_Id == 2U) || (Block_Id == 3U)) {
-			IsBlockAvail = 0;
+			IsDigitalPathAvail = 0;
 			goto RETURN_PATH;
 		}
 		if (Block_Id == 1U) {
@@ -1365,15 +1382,13 @@ static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 		}
 	}
 
-	if (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType ==
-	    XRFDC_MIXER_TYPE_DISABLED) {
-		IsBlockAvail = 0;
-	} else {
-		IsBlockAvail = 1;
-	}
+	DigitalPathShift = Block_Id + XRFDC_DIGITAL_PATH_ENABLED_SHIFT + (XRFDC_PATH_ENABLED_TILE_SHIFT * Tile_Id);
+	DigitalPathEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_ADC_PATHS_ENABLED_OFFSET);
+	DigitalPathEnableReg &= (XRFDC_ENABLED << DigitalPathShift);
+	IsDigitalPathAvail = DigitalPathEnableReg >> DigitalPathShift;
 
 RETURN_PATH:
-	return IsBlockAvail;
+	return IsDigitalPathAvail;
 }
 
 /*****************************************************************************/
@@ -1901,8 +1916,9 @@ RETURN_PATH:
 ******************************************************************************/
 static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
-	u32 IsTileAvail;
 	u32 Status;
+	u32 TileMask;
+	u32 TileEnableReg;
 
 	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		Status = XRFDC_FAILURE;
@@ -1912,12 +1928,15 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (Type == XRFDC_ADC_TILE) {
-		IsTileAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].Enable;
-	} else {
-		IsTileAvail = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].Enable;
+
+	TileEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_TILES_ENABLED_OFFSET);
+
+	TileMask = XRFDC_ENABLED << Tile_Id;
+	if (Type == XRFDC_DAC_TILE) {
+		TileMask <<= XRFDC_DAC_TILES_ENABLED_SHIFT;
 	}
-	if (IsTileAvail == 0U) {
+
+	if ((TileEnableReg & TileMask) == 0U) {
 		Status = XRFDC_FAILURE;
 	} else {
 		Status = XRFDC_SUCCESS;
