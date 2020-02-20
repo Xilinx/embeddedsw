@@ -51,6 +51,7 @@
 /************************** Constant Definitions *****************************/
 #define MAX_STIG_DELAY_CNT		50U
 #define MAX_DMA_DELAY_CNT		10000U
+#define LOCK_MAX_DELAY_CNT	10000000U
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -605,6 +606,49 @@ u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr)
 
 	Status = (u32)XST_SUCCESS;
 
+ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Wait for bit to be set. This API polls for the required bit for 10sec, if
+* not set then timeout occurs.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Mask is a bit mask to check for lock.
+*
+* @return
+*		- XST_SUCCESS if lock bit is set.
+*		- XST_FAILURE if fails.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_WaitForLock(XOspiPsv *InstancePtr, u32 Mask)
+{
+	u32 ReadReg;
+	u32 Status;
+	u32 DelayCount;
+
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_DLL_OBSERVABLE_LOWER_REG);
+	DelayCount = 0U;
+	while ((ReadReg & Mask) == 0U) {
+		if (DelayCount == LOCK_MAX_DELAY_CNT) {
+			Status = XST_FAILURE;
+			goto ERROR_PATH;
+		} else {
+			/* Wait for 1 usec */
+			usleep(1);
+			DelayCount++;
+			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_DLL_OBSERVABLE_LOWER_REG);
+		}
+	}
+
+	Status = (u32)XST_SUCCESS;
 ERROR_PATH:
 	return Status;
 }

@@ -131,6 +131,7 @@ void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr,
 u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_CheckOspiIdle(XOspiPsv *InstancePtr);
+u32 XOspiPsv_WaitForLock(XOspiPsv *InstancePtr, u32 Mask);
 u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg,
 								u32 TXTap);
 

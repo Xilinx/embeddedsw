@@ -317,6 +317,9 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 	u8 Count;
 
 	MaxTap = ((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
+	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+		MaxTap = (u32)XOSPIPSV_DLL_MAX_TAPS;
+	}
 	for (Dummy_Incr = 0U; Dummy_Incr <= 1U; Dummy_Incr++) {
 		if (Dummy_Incr != 0U) {
 			if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
@@ -333,6 +336,13 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 				XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Index |
 					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
 					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+			if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+				Status = XOspiPsv_WaitForLock(InstancePtr,
+						XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
+				if (Status != (u32)XST_SUCCESS) {
+					goto RETURN_PATH;
+				}
+			}
 
 			Count = (u8)0U;
 			do {
@@ -386,8 +396,12 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Avg_RXTap |
 		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
 		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
-
+	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+		Status = XOspiPsv_WaitForLock(InstancePtr,
+				XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
+	} else {
 		Status = (u32)XST_SUCCESS;
+	}
 
 RETURN_PATH:
 	return Status;

@@ -53,6 +53,7 @@
 *                     by default and updated XOspiPsv_DeviceReset() API with
 *                     masked data writes.
 *       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
+*       sk   02/20/20 Added support for DLL Master mode.
 *
 * </pre>
 *
@@ -63,8 +64,11 @@
 #include "xospipsv.h"
 #include "xospipsv_control.h"
 #include "sleep.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
+#define SILICON_VERSION_1	0x10
+#define XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ	120000000U
 #define READ_ID		0x9FU
 
 /**************************** Type Definitions *******************************/
@@ -133,6 +137,16 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->SdrDdrMode = XOSPIPSV_EDGE_MODE_SDR_NON_PHY;
 		InstancePtr->DeviceIdData = 0U;
 		InstancePtr->Extra_DummyCycle = 0U;
+		InstancePtr->DllMode = XOSPIPSV_DLL_BYPASS_MODE;
+
+		if (XGetPSVersion_Info() != SILICON_VERSION_1) {
+			InstancePtr->DllMode = XOSPIPSV_DLL_MASTER_MODE;
+			if (InstancePtr->Config.InputClockHz >=
+							XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ) {
+				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+						XOSPIPSV_ECO_REG, 0x1);
+			}
+		}
 
 		/*
 		 * Reset the OSPIPSV device to get it into its initial state. It is
@@ -837,6 +851,9 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 		goto RETURN_PATH;
 	} else if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			TXTap = (u32)XOSPIPSV_DDR_TX_VAL;
+			if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+				TXTap = (u32)XOSPIPSV_DDR_TX_VAL_MASTER;
+			}
 	} else {
 		TXTap = XOSPIPSV_SDR_TX_VAL;
 		if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
@@ -859,6 +876,28 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Dummy = 8U;
 		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+	}
+
+	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_PHY_CONFIGURATION_REG, 0x0);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_PHY_MASTER_CONTROL_REG, 0x4);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG,
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK);
+		Status = XOspiPsv_WaitForLock(InstancePtr,
+				XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_LOOPBACK_LOCK_FLD_MASK);
+		if (Status != (u32)XST_SUCCESS) {
+			goto RETURN_PATH;
+		}
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG,
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG,
+				(XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
 	}
 
 	Status = XOspiPsv_ExecuteRxTuning(InstancePtr, &FlashMsg, TXTap);

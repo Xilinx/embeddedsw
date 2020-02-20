@@ -54,6 +54,7 @@
 *                     by default and updated XOspiPsv_DeviceReset() API with
 *                     masked data writes.
 *       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
+*       sk   02/20/20 Added support for DLL Master mode.
 *
 * </pre>
 *
@@ -142,6 +143,7 @@ typedef struct {
 	u8 IsUnaligned;		/* Flag used to indicate bytecnt is aligned or not */
 	u32 DeviceIdData;	/* Contains Device Id Data information */
 	u8 Extra_DummyCycle;
+	u8 DllMode;
 #ifdef __ICCARM__
 #pragma pack(push, 8)
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
@@ -235,11 +237,18 @@ typedef struct {
 #define XOSPIPSV_REMAP_ADDR_VAL		0x40000000U
 #define XOSPIPSV_SDR_TX_VAL			0x5U
 #define XOSPIPSV_DDR_TX_VAL			0x0U
+#define XOSPIPSV_DDR_TX_VAL_MASTER		0x19U
+#define XOSPIPSV_SDR_TX_VAL_MASTER		0x39U
 
 #define XOSPIPSV_HWPIN_RESET	0x0U
 #define XOSPIPSV_INBAND_RESET	0x1U
 
 #define XOSPIPSV_NON_PHY_RD_DLY		0x1U
+
+#define XOSPIPSV_DLL_MAX_TAPS		0x80U
+
+#define XOSPIPSV_DLL_BYPASS_MODE	0x0U
+#define XOSPIPSV_DLL_MASTER_MODE	0x1U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
