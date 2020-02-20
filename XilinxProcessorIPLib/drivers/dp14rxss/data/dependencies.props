@@ -1,3 +1,2 @@
 xdprxss_selftest_example.c=,
-/src/zcu_rx_dp14/xdprxss_zcu102_dp14_rxonly.c=/src/zcu_rx_dp14/idt_8t49n24x.c,/src/zcu_rx_dp14/ti_lmk03318.h,/src/zcu_rx_dp14/xvidframe_crc.h,/src/zcu_rx_dp14/idt_8t49n24x.h,/src/zcu_rx_dp14/ti_lmk03318.c,/src/zcu_rx_dp14/videofmc_defs.h,/src/zcu_rx_dp14/xvidframe_crc.c,/src/zcu_rx_dp14/lscript.ld
-src/vcu118_dp14_rx/xdprxss_vcu118_dp14_rx.c=/src/vcu118_dp14_rx/idt_8t49n24x.c,/src/vcu118_dp14_rx/idt_8t49n24x.h,/src/vcu118_dp14_rx/ti_lmk03318.c,/src/vcu118_dp14_rx/ti_lmk03318.h,/src/vcu118_dp14_rx/videofmc_defs.h,/src/vcu118_dp14_rx/xvidframe_crc.c,/src/vcu118_dp14_rx/xvidframe_crc.h,/src/vcu118_dp14_rx/xlib_string.c,/src/vcu118_dp14_rx/xlib_string.h
+/src/rx_only/xdprxss_dp14_rx.c=/src/rx_only/idt_8t49n24x.c,/src/rx_only/idt_8t49n24x.h,/src/rx_only/ti_lmk03318.c,/src/rx_only/ti_lmk03318.h,/src/rx_only/videofmc_defs.h,/src/rx_only/xvidframe_crc.c,/src/rx_only/xvidframe_crc.h
