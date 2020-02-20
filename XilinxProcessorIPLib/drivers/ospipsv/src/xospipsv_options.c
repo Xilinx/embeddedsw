@@ -52,6 +52,7 @@
 /***************************** Include Files *********************************/
 
 #include "xospipsv.h"
+#include "xospipsv_control.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -127,6 +128,7 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 	if (InstancePtr->IsBusy == TRUE) {
 		Status = XST_DEVICE_BUSY;
 	} else {
+		XOspiPsv_Disable(InstancePtr);
 		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_CONFIG_REG);
 		for (Index = 0U; Index < XOSPIPSV_NUM_OPTIONS; Index++) {
@@ -195,6 +197,7 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 		}
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 					ConfigReg);
+		XOspiPsv_Enable(InstancePtr);
 		Status = (u32)XST_SUCCESS;
 	}
 
@@ -253,6 +256,7 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 *
 * @return
 *		- XST_SUCCESS if successful.
+*       - XST_FAILURE if failed to set prescaler.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		It must be stopped to re-initialize.
@@ -276,6 +280,13 @@ u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 	if (InstancePtr->IsBusy == TRUE) {
 		Status = (u32)XST_DEVICE_BUSY;
 	} else {
+		if ((InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) &&
+			(Prescaler == XOSPIPSV_CLK_PRESCALE_2)) {
+			Status = XST_FAILURE;
+			goto ERROR_PATH;
+		}
+		XOspiPsv_Disable(InstancePtr);
+
 		/*
 		 * Read the configuration register, mask out the relevant bits, and set
 		 * them with the shifted Value passed into the function. Write the
@@ -289,9 +300,11 @@ u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 						ConfigReg);
 
+		XOspiPsv_Enable(InstancePtr);
 		Status = XOspiPsv_SetDllDelay(InstancePtr);
 	}
 
+ERROR_PATH:
 	return Status;
 }
 
@@ -463,6 +476,7 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 	}
 	InstancePtr->SdrDdrMode = Mode;
 
+	XOspiPsv_Disable(InstancePtr);
 	ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 							XOSPIPSV_CONFIG_REG);
 	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
@@ -495,6 +509,7 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 	}
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_RD_DATA_CAPTURE_REG, ReadReg);
+	XOspiPsv_Enable(InstancePtr);
 	Status = XOspiPsv_SetDllDelay(InstancePtr);
 
 ERROR_PATH:
@@ -510,7 +525,7 @@ ERROR_PATH:
 * between communicating to different flash devices/using different configs.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Chip_Cs - Flash Chip Select.
+* @param	chip_select - Flash Chip Select.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -525,6 +540,8 @@ ERROR_PATH:
 u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select)
 {
 	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if(chip_select >= 2U) {
 		Status = (u32)XST_FAILURE;
@@ -546,7 +563,7 @@ ERROR_PATH:
 *
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Mode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
+* @param	FlashMode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
 *
 * @return
 *		- XST_SUCCESS
@@ -562,6 +579,7 @@ void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	XOspiPsv_Disable(InstancePtr);
 	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_POLLING_FLASH_STATUS_REG);
 	ReadReg &= ~XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK;
@@ -573,6 +591,7 @@ void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode)
 		XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 					XOSPIPSV_POLLING_FLASH_STATUS_REG, ReadReg);
+	XOspiPsv_Enable(InstancePtr);
 }
 
 /** @} */

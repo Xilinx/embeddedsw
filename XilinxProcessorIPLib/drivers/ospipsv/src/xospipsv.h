@@ -50,6 +50,9 @@
 *       sk   08/08/19 Added flash device reset support.
 *       sk   08/16/19 Set Read Delay Fld to 0x1 for Non-Phy mode.
 * 1.2   sk   02/03/20 Added APIs for non-blocking transfer support.
+*       sk   02/20/20 Reorganize the source code, enable the interrupts
+*                     by default and updated XOspiPsv_DeviceReset() API with
+*                     masked data writes.
 *
 * </pre>
 *
@@ -235,7 +238,7 @@ typedef struct {
 #define XOSPIPSV_HWPIN_RESET	0x0U
 #define XOSPIPSV_INBAND_RESET	0x1U
 
-#define XOSPIPSV_NON_PHY_RD_DLY		0x1
+#define XOSPIPSV_NON_PHY_RD_DLY		0x1U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
