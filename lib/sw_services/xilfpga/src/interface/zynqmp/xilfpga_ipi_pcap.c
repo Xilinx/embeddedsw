@@ -15,7 +15,11 @@
  *
  * Ver   Who  Date        Changes
  * ---- ----- --------  -------------------------------------------------------
- * 5.2  Nava  14/02/20  Added Bitstream loading support by using IPI services.
+ * 5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services.
+ * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3  Nava  06/29/20  Added asserts to validate input params.
+ * 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
+ *                      API's.
  * </pre>
  *
  * @note
@@ -64,6 +68,12 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_FAILURE;
 
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
+
 	(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
 	InstancePtr->XFpga_WriteToPl = XFpga_IPI_WriteToPl;
 	InstancePtr->XFpga_GetConfigData = XFpga_IPI_GetPLConfigDataPcap;
@@ -71,7 +81,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_IPI_PcapStatus;
 
 	Status = XMailbox_Initialize(&XMboxInstance, 0U);
-
+END:
 	return Status;
 }
 
@@ -112,8 +122,8 @@ static u32 XFpga_IPI_WriteToPl(XFpga *InstancePtr)
 	}
 
 	Status =  ReqBuffer[0U];
-END:
 
+END:
 	return Status;
 }
 
