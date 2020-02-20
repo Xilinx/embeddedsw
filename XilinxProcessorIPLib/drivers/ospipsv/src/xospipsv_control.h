@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_control.h
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This is the header file for the low-level functions of OSPIPSV driver.

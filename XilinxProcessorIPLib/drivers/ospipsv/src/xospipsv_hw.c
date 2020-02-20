@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_hw.c
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This file implements the hardware functions used by the functions in
@@ -19,6 +19,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.2   sk  02/20/20 First release
+* 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
+*       sk  08/19/20 Reduced the usleep delay while checking transfer done.
 *
 * </pre>
 *
@@ -29,8 +31,8 @@
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
-#define MAX_STIG_DELAY_CNT		50U
-#define MAX_DMA_DELAY_CNT		10000U
+#define MAX_STIG_DELAY_CNT		50000U
+#define MAX_DMA_DELAY_CNT		10000000U
 #define LOCK_MAX_DELAY_CNT	10000000U
 /**************************** Type Definitions *******************************/
 
@@ -137,8 +139,8 @@ u32 XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr)
 			Status = (u32)XST_FAILURE;
 			goto ERROR_PATH;
 		} else {
-			/* Wait for 1 msec */
-			usleep(1000);
+			/* Wait for 1 usec */
+			usleep(1);
 			DelayCount++;
 			Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 						XOSPIPSV_FLASH_CMD_CTRL_REG);
@@ -266,6 +268,11 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 			Instxfer_Type = DQ0_7;
 			Dataxfer_Type = DQ0;
 			break;
+		case XOSPIPSV_WRITE_8_0_0:
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0_7;
+			Dataxfer_Type = DQ0;
+			break;
 		default :
 			Dataxfer_Type = DQ0;
 			Addrxfer_Type = DQ0;
@@ -291,6 +298,7 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 
 	Regval = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XOSPIPSV_DEV_INSTR_RD_CONFIG_REG);
+	Regval &= ~XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK;
 	Regval |= ((Instxfer_Type <<
 		(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_SHIFT)
 		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK);
@@ -488,27 +496,39 @@ void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 {
 	UINTPTR AddrTemp;
 
-	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
-			XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
-
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_DMA_PERIPH_CONFIG_REG, XOSPIPSV_DMA_PERIPH_CONFIG_VAL);
 
-	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
-	}
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
+	if ((Msg->RxAddr64bit >= XOSPIPSV_RXADDR_OVER_32BIT) &&
+			(Msg->Xfer64bit != (u8)0U)) {
+		AddrTemp = (Msg->RxAddr64bit &
+				XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
+		AddrTemp = Msg->RxAddr64bit >> 32;
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_ADDR_MSB, (u32)AddrTemp &
+				XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK);
+	} else {
+		AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
+				XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
+
+		if (InstancePtr->Config.IsCacheCoherent == 0U) {
+			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		}
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
 
 #if defined(__aarch64__) || defined(__arch64__)
-	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) >> 32);
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_OSPIDMA_DST_ADDR_MSB, (u32)AddrTemp &
-		XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK);
+		AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) >> 32);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_OSPIDMA_DST_ADDR_MSB, (u32)AddrTemp &
+			XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK);
 #else
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_OSPIDMA_DST_ADDR_MSB, 0x0);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_OSPIDMA_DST_ADDR_MSB, 0x0);
 #endif
+	}
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_SRAM_PARTITION_CFG_REG, XOSPIPSV_SRAM_PARTITION_CFG_VAL);
 
@@ -557,8 +577,8 @@ u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr)
 			Status = (u32)XST_FAILURE;
 			goto ERROR_PATH;
 		} else {
-			/* Wait for 1 msec */
-			usleep(1000);
+			/* Wait for 1 usec */
+			usleep(1);
 			DelayCount++;
 			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 								XOSPIPSV_OSPIDMA_DST_I_STS);

@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_control.c
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This file implements the low level functions used by the functions in
@@ -19,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.2   sk  02/20/20 First release
+* 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
 *
 * </pre>
 *
@@ -165,8 +166,10 @@ u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		if (Status != (u32)XST_SUCCESS) {
 			goto ERROR_PATH;
 		}
-		if (InstancePtr->Config.IsCacheCoherent == 0U) {
-			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		if (Msg->Xfer64bit != (u8)1U) {
+			if (InstancePtr->Config.IsCacheCoherent == 0U) {
+				Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			}
 		}
 		if (InstancePtr->IsUnaligned != 0U) {
 			InstancePtr->RecvBufferPtr += Msg->ByteCount;
@@ -214,7 +217,7 @@ ERROR_PATH:
 u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
 	u32 Status;
-	u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
+	const u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
 
 	if (Addr >= (u32 *)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
 		Status = XST_FAILURE;
@@ -282,7 +285,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 	u8 RXMin_Tap = 0;
 	u8 Avg_RXTap = 0;
 	u8 Index;
-	u32 *DeviceIdInfo;
+	const u32 *DeviceIdInfo;
 	u8 RXTapFound = 0;
 	u32 Status;
 	u8 MaxTap;
@@ -314,7 +317,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
 			if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
 				Status = XOspiPsv_WaitForLock(InstancePtr,
-						XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
+						XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
 				if (Status != (u32)XST_SUCCESS) {
 					goto RETURN_PATH;
 				}
@@ -347,7 +350,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 						Avg_RXTap = (RXMin_Tap + RXMax_Tap) / 2U;
 					}
 					RXTapFound = 0U;
-					Index = MaxTap;
+					break;
 				}
 			}
 		}
@@ -374,7 +377,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
 	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
 		Status = XOspiPsv_WaitForLock(InstancePtr,
-				XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
+				XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
 	} else {
 		Status = (u32)XST_SUCCESS;
 	}
