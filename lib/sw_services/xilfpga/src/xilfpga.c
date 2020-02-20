@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -58,13 +58,14 @@
  * 5.1 Nava  16/07/19  Initialize empty status (or) status success to status failure
  *                     to avoid security violations.
  * 5.2 Nava  05/12/19  Added Versal platform support.
+ * 5.2 Nava  14/02/20  Added Bitstream loading support by using IPI services
+ *                     for ZynqMP platform.
  *
  *</pre>
  *
  *@note
  *****************************************************************************/
 /***************************** Include Files *********************************/
-#include "xfpga_config.h"
 #include "xilfpga.h"
 
 /************************** Variable Definitions *****************************/
@@ -143,11 +144,9 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 	/* set FPGA to operating state after writing */
 	Status = XFpga_PL_PostConfig(InstancePtr);
-#ifdef versal
 	if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
 		Status = XFPGA_SUCCESS;
 	}
-#endif
 
 END:
 	return Status;
@@ -404,23 +403,22 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
  *
  * @param InstancePtr Pointer to the XFgpa structure
  *
- * @return Status of the PL programming interface.
+ * @return Status of the PL programming interface
  *
  *****************************************************************************/
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	u32 RegVal = XFPGA_INVALID_INTERFACE_STATUS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if (InstancePtr->XFpga_GetInterfaceStatus == NULL) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
 	} else {
-		Status = InstancePtr->XFpga_GetInterfaceStatus();
+		RegVal = InstancePtr->XFpga_GetInterfaceStatus();
 	}
 
-	return Status;
+	return RegVal;
 }
 #endif
