@@ -52,6 +52,7 @@
 *       sk   02/20/20 Reorganize the source code, enable the interrupts
 *                     by default and updated XOspiPsv_DeviceReset() API with
 *                     masked data writes.
+*       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
 *
 * </pre>
 *
@@ -64,6 +65,7 @@
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
+#define READ_ID		0x9FU
 
 /**************************** Type Definitions *******************************/
 
@@ -790,6 +792,79 @@ void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_OSPIDMA_DST_CTRL, DmaStatus);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Configure TX and RX DLL Delay. Based on the mode and reference clock
+* this API calculate the RX delay and configure them in PHY configuration
+* register.
+*
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fails.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
+{
+
+	XOspiPsv_Msg FlashMsg = {0};
+	u32 Status;
+	u32 TXTap;
+	u8 ByteCnt = 4;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 ReadBfrPtr[8];
+#else
+	u8 ReadBfrPtr[8]__attribute__ ((aligned(4))) = {0};
+#endif
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, 0x0U);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_PHY_CONFIGURATION_REG,
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK);
+		Status = (u32)XST_SUCCESS;
+		goto RETURN_PATH;
+	} else if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			TXTap = (u32)XOSPIPSV_DDR_TX_VAL;
+	} else {
+		TXTap = XOSPIPSV_SDR_TX_VAL;
+		if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+			TXTap = (u32)XOSPIPSV_SDR_TX_VAL_MASTER;
+		}
+	}
+	TXTap = TXTap <<
+			XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_TX_DLL_DELAY_FLD_SHIFT;
+	FlashMsg.Opcode = READ_ID;
+	FlashMsg.Addrsize = 0U;
+	FlashMsg.Addrvalid = 0U;
+	FlashMsg.TxBfrPtr = ReadBfrPtr;
+	FlashMsg.RxBfrPtr = ReadBfrPtr;
+	FlashMsg.ByteCount = ByteCnt;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = 0U;
+	FlashMsg.Addr = 0U;
+	FlashMsg.Proto = 0U;
+	FlashMsg.IsDDROpCode = 0U;
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Dummy = 8U;
+		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+	}
+
+	Status = XOspiPsv_ExecuteRxTuning(InstancePtr, &FlashMsg, TXTap);
+
+RETURN_PATH:
+	return Status;
 }
 
 /*****************************************************************************/

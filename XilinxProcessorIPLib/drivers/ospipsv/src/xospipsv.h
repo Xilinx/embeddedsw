@@ -53,6 +53,7 @@
 *       sk   02/20/20 Reorganize the source code, enable the interrupts
 *                     by default and updated XOspiPsv_DeviceReset() API with
 *                     masked data writes.
+*       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
 *
 * </pre>
 *
@@ -260,6 +261,7 @@ void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_DeviceReset(u8 Type);
 u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr);
+u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

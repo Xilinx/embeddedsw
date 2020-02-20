@@ -50,6 +50,7 @@
 
 /************************** Constant Definitions *****************************/
 #define MAX_DELAY_CNT	10000U
+#define TERA_MACRO	1000000000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -278,6 +279,117 @@ u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 
 	Status = (u32)XST_SUCCESS;
 ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API perform RX Tuning for SDR/DDR mode to calculate RX DLL Delay.
+*
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	FlashMsg is a pointer to the XOspiPsv_Msg structure.
+* @param	TXTap is TX DLL Delay value.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fails.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
+								u32 TXTap)
+{
+	u8 RXMax_Tap = 0;
+	u8 RXMin_Tap = 0;
+	u8 Avg_RXTap = 0;
+	u8 Index;
+	u32 *DeviceIdInfo;
+	u8 RXTapFound = 0;
+	u32 Status;
+	u32 MaxTap;
+	u8 WindowSize;
+	u8 Max_WindowSize = 0;
+	u8 Dummy_Incr;
+	u8 Dummy_Flag = 0;
+	u8 Count;
+
+	MaxTap = ((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
+	for (Dummy_Incr = 0U; Dummy_Incr <= 1U; Dummy_Incr++) {
+		if (Dummy_Incr != 0U) {
+			if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg->Dummy = 9U;
+			} else {
+				FlashMsg->Dummy = 1U;
+			}
+		}
+		for (Index = 0U; Index <= MaxTap; Index++) {
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Index |
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK));
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Index |
+					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
+					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+
+			Count = (u8)0U;
+			do {
+				Count += (u8)1U;
+				Status = XOspiPsv_PollTransfer(InstancePtr, FlashMsg);
+				if (Status != (u32)XST_SUCCESS) {
+					goto RETURN_PATH;
+				}
+				DeviceIdInfo = (u32 *)(void *)&(FlashMsg->RxBfrPtr[0]);
+			} while((InstancePtr->DeviceIdData == *DeviceIdInfo) && (Count <= (u8)10U));
+			if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
+				if (RXTapFound == 0U) {
+					RXMin_Tap = Index;
+					RXMax_Tap = Index;
+					RXTapFound = 1;
+				} else {
+					RXMax_Tap = Index;
+				}
+			}
+			if ((InstancePtr->DeviceIdData != *DeviceIdInfo) || (Index == MaxTap)) {
+				if (RXTapFound != 0U) {
+					WindowSize = RXMax_Tap - RXMin_Tap + 1U;
+					if (WindowSize > Max_WindowSize) {
+						Dummy_Flag = Dummy_Incr;
+						Max_WindowSize = WindowSize;
+						Avg_RXTap = (RXMin_Tap + RXMax_Tap) / 2U;
+					}
+					RXTapFound = 0U;
+					Index = MaxTap;
+				}
+			}
+		}
+		if (Dummy_Incr == 0U) {
+			RXMin_Tap = 0U;
+			RXMax_Tap = 0U;
+			RXTapFound = 0U;
+			WindowSize = 0U;
+		}
+	}
+	InstancePtr->Extra_DummyCycle = Dummy_Flag;
+
+	if (Max_WindowSize < 3U) {
+		Status = (u32)XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Avg_RXTap |
+		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK));
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Avg_RXTap |
+		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
+		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+
+		Status = (u32)XST_SUCCESS;
+
+RETURN_PATH:
 	return Status;
 }
 
