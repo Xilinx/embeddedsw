@@ -617,12 +617,13 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 	DataWidth = InstancePtr->DataWidth;
 
-	/* Inhibit the transmitter while the transmit register/FIFO is
+	/*
+	 * Inhibit the transmitter while the transmit register/FIFO is
 	 * being filled.
 	 */
 	ControlReg = XSpi_GetControlReg(InstancePtr);
-	XSpi_SetControlReg(InstancePtr, ControlReg |
-			   XSP_CR_TRANS_INHIBIT_MASK);
+	XSpi_SetControlReg(InstancePtr,
+			   ControlReg | XSP_CR_TRANS_INHIBIT_MASK);
 	/*
 	 * Fill the DTR/FIFO with as many bytes as it will take (or as many as
 	 * we have to send). We use the tx full status bit to know if the device
@@ -762,6 +763,14 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 				StatusReg = XSpi_GetStatusReg(InstancePtr);
 			}
 
+			/*
+			 * Inhibit the transmitter while the transmit register/FIFO is
+			 * being filled.
+			 */
+			ControlReg = XSpi_GetControlReg(InstancePtr);
+			XSpi_SetControlReg(InstancePtr,
+					   ControlReg | XSP_CR_TRANS_INHIBIT_MASK);
+			
 			if (InstancePtr->RemainingBytes > 0) {
 
 				/*
@@ -814,7 +823,14 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 					StatusReg = XSpi_GetStatusReg(
 							InstancePtr);
 				}
-
+				
+				/*
+				 * Start the transfer by no longer inhibiting the transmitter and
+				 * enabling the device.
+				 */
+				ControlReg = XSpi_GetControlReg(InstancePtr);
+				ControlReg &= ~XSP_CR_TRANS_INHIBIT_MASK;
+				XSpi_SetControlReg(InstancePtr, ControlReg);
 			}
 		}
 
