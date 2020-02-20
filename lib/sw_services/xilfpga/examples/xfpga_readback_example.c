@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,12 +45,11 @@
  * 5.0   Nava 06/02/19 Updated the example to sync with 5.0 version API's
  *       rama 03/04/19 Fixed IAR compiler warning
  * 5.2   Nava 18/12/19 Fix for security violation in the readback path.
+ * 5.2   Nava 14/02/20 Removed unwanted header file inclusion.
  *</pre>
  ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xil_printf.h"
-#include "xfpga_config.h"
 #include "xilfpga.h"
 
 /************************** Constant Definitions *****************************/

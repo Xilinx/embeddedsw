@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,13 +46,12 @@
  * 4.2   adk     03/08/18  Initial Release.
  * 4.2	 adk	 23/08/18  Added bitstream size define.
  * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
+ * 5.2   Nava    14/02/20  Removed unwanted header file inclusion.
  * </pre>
  *
  ******************************************************************************/
 
-#include "xil_printf.h"
 #include "xilfpga.h"
-#include "xfpga_config.h"
 
 /**************************** Type Definitions *******************************/
 /* Xilfpga library supports vivado generated Partial Bitstream(*.bit) and
