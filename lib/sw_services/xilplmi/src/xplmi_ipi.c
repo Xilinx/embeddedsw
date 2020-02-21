@@ -280,7 +280,7 @@ inline int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 
 /*****************************************************************************/
 /**
- * @brief This function checks whether the CmdID passsed is supported
+ * @brief This function checks whether the CmdID passed is supported
  * 			via IPI mechanism or not.
  * @param	Command ID
  *
@@ -292,11 +292,13 @@ int XPlmi_ValidateIpiCmd(u32 CmdId)
 	int Status = XST_FAILURE;
 	if((CmdId & XPLMI_CMD_HNDLR_MASK) == XPLMI_CMD_HNDLR_PLM_VAL)
 	{
-		/** Only DEVICE ID CDO command is allowed through IPI.
+		/* Only DEVICE ID and Event Logging commands are allowed through IPI.
 		 *  All other commands are allowed only from CDO file.
 		 */
-		if((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) ==
-					XPLMI_PLM_GENERIC_DEVICE_ID_VAL)
+		if(((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) >=
+				XPLMI_PLM_GENERIC_DEVICE_ID_VAL) &&
+				((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) <=
+				XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL))
 		{
 			Status = XST_SUCCESS;
 		}
