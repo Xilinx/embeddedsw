@@ -76,6 +76,7 @@ typedef struct XPlmi_LogInfo {
 #define XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL		(0x1U)
 #define XPLMI_LOGGING_CMD_CONFIG_LOG_MEM			(0x2U)
 #define XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA		(0x3U)
+#define XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO	(0x4U)
 /************************** Function Prototypes ******************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
 /************************** Variable Definitions *****************************/

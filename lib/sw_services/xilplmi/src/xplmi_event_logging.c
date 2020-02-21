@@ -127,15 +127,16 @@ static void XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr
  * @brief This function provides Event Logging command execution
  *  Command payload parameters are
  *	* Sub command
- *	*	0 - Configure print log level
+ *	*	1 - Configure print log level
  *	*		@Arg1 - Log Level
- *	*	1 - Configure Debug Log buffer memory
+ *	*	2 - Configure Debug Log buffer memory
  *	*		@Arg1 - High Address
  *	*		@Arg2 - Low Address
  *	*		@Arg3 - Length
- *	*	2 - Retrieve Debug Log buffer
+ *	*	3 - Retrieve Debug Log buffer
  *	*		@Arg1 - High Address
  *	*		@Arg2 - Low Address
+ *	*	4 - Retrieve Debug Log buffer information
  *
  * @param Pointer to the command structure
  *
@@ -185,6 +186,17 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
 		{
 			XPlmi_RetrieveBufferData(&DebugLog.LogBuffer, (((u64)Arg1 << 32U) | Arg2));
+			Status = XST_SUCCESS;
+			break;
+		}
+		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
+		{
+			Cmd->Response[1U] = DebugLog.LogBuffer.StartAddr >> 32U;
+			Cmd->Response[2U] = DebugLog.LogBuffer.StartAddr & 0xFFFFFFFFU;
+			Cmd->Response[3U] = (DebugLog.LogBuffer.CurrentAddr -
+					DebugLog.LogBuffer.StartAddr);
+			Cmd->Response[4U] = DebugLog.LogBuffer.Len;
+			Cmd->Response[5U] = DebugLog.LogBuffer.IsBufferFull;
 			Status = XST_SUCCESS;
 			break;
 		}
