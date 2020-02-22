@@ -41,6 +41,7 @@ Added APIs (XOspiPsv_StartDmaTransfer and XOspiPsv_CheckDmaDone) for non-blockin
 
 qspipsu_v1_11:
 Removed LQSPI register access in Versal.
+Added APIs to support non-blocking DMA transfer.
 
 sdps_v3_9:
 Resolved coverity warnings
