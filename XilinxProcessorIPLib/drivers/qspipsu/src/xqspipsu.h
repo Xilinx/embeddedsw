@@ -169,6 +169,8 @@
  * 1.11 akm 11/07/19 Removed LQSPI register access in Versal.
  * 1.11	akm 11/15/19 Fixed Coverity deadcode warning in
  * 				XQspipsu_Calculate_Tapdelay().
+ * 1.11 akm 02/19/20 Added XQspiPsu_StartDmaTransfer() and XQspiPsu_CheckDmaDone()
+ * 		     APIs for non-blocking transfer.
  *
  * </pre>
  *
@@ -398,6 +400,11 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr);
 void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 				XQspiPsu_StatusHandler FuncPointer);
+
+/* Non blocking Transfer functions */
+s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+				u32 NumMsg);
+s32 XQspiPsu_CheckDmaDone(XQspiPsu *InstancePtr);
 
 /* Configuration functions */
 s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler);

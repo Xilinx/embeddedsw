@@ -82,6 +82,8 @@
  *					  expression is not a boolean
  * 1.9  nsk 03/27/19 Update 64bit dma support
  * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
+ * 1.11 akm 02/19/20 Added XQspiPsu_StartDmaTransfer() and XQspiPsu_CheckDmaDone()
+ * 		     APIs for non-blocking transfer.
  * </pre>
  *
  ******************************************************************************/
@@ -1762,5 +1764,153 @@ void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle)
 		xil_printf("is not supported by this API\r\n");
 #endif
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function start a DMA transfer.
+*
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	NumMsg is the number of messages to be transferred.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if ByteCount is greater than
+ *		  XQSPIPSU_DMA_BYTES_MAX.
+ *		- XST_DEVICE_BUSY if a transfer is already in progress.
+ *
+ * @note	None.
+ *
+*
+******************************************************************************/
+s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+				u32 NumMsg)
+{
+	s32 Index;
+	u32 QspiPsuStatusReg = 0;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Msg != NULL);
+	Xil_AssertNonvoid(NumMsg > 0);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	for (Index = 0; Index < (s32)NumMsg; Index++) {
+		Xil_AssertNonvoid(Msg[Index].ByteCount > 0U);
+	}
+
+	/*
+	 * Check whether there is another transfer in progress.
+	 * Not thread-safe
+	 */
+	if (InstancePtr->IsBusy == TRUE) {
+		return (s32)XST_DEVICE_BUSY;
+	}
+
+	/* Check for ByteCount upper limit - 2^28 for DMA */
+	for (Index = 0; Index < (s32)NumMsg; Index++) {
+		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
+		    ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE))
+			return (s32)XST_FAILURE;
+	}
+
+	/*
+	 * Set the busy flag, which will be cleared when the transfer is
+	 * entirely done.
+	 */
+	InstancePtr->IsBusy = TRUE;
+
+	/* Enable */
+	XQspiPsu_Enable(InstancePtr);
+
+	/* Select slave */
+	XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
+	/* list */
+	Index = 0;
+	while (Index < (s32)NumMsg) {
+		XQspiPsu_GenFifoEntryData(InstancePtr, Msg, Index);
+		if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+			xil_printf("\nManual Start\r\n");
+#endif
+			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+				XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+					XQSPIPSU_CFG_OFFSET) |
+					XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+		}
+		do {
+			if((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
+			   ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE))
+				break;
+
+			QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
+
+		}while (((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == FALSE) ||
+			(InstancePtr->TxBytes != 0) ||
+			((QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) == FALSE));
+
+		if(InstancePtr->ReadMode == XQSPIPSU_READMODE_IO) {
+			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+					  XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
+							  InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) |
+							  XQSPIPSU_CFG_MODE_EN_DMA_MASK));
+			InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
+		}
+		Index++;
+	}
+	return (s32)XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function check for DMA transfer complete.
+*
+* @param	InstancePtr is a pointer to the XQspiPsu instance.
+*
+* @return
+*		- XST_SUCCESS if DMA transfer complete.
+*		- XST_FAILURE if DMA transfer is not completed.
+*
+* @note		None.
+*
+******************************************************************************/
+s32 XQspiPsu_CheckDmaDone(XQspiPsu *InstancePtr)
+{
+	u32 QspiPsuStatusReg;
+	u32 DmaIntrSts;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	DmaIntrSts = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
+	if ((DmaIntrSts & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)	!= FALSE) {
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
+		/* De-select slave */
+		XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
+		if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+			xil_printf("\nManual Start\r\n");
+#endif
+			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+				XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) |
+					XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+		}
+		do
+			QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
+		while ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == FALSE);
+
+		/* Clear the busy flag. */
+		InstancePtr->IsBusy = FALSE;
+
+		/* Disable the device. */
+		XQspiPsu_Disable(InstancePtr);
+
+		return (s32)XST_SUCCESS;
+	}
+	else {
+		return (s32)XST_FAILURE;
+	}
+
 }
 /** @} */
