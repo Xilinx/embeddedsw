@@ -46,4 +46,16 @@ GQSPI controller to send status command to know the flash status,
 instead of sending status command from the application.
 
 For details, see xqspipsu_polldata_polltimeout_interrupt_example.c.
+
+@section ex5 xqspipsu_generic_flash_non_blocking_read_example.c
+Contains an example on how to use the XQspipsu driver directly
+with a serial Flash device greater than or equal to 128Mb.
+The example writes to flash in IO mode and reads it back using
+non-blocking APIs in DMA mode.
+This examples runs with GENFIFO Manual start. It runs in polled mode.
+This example illustrates single, parallel and stacked modes.
+The hardware which this example runs on, must have a serial Flash(Micron
+N25Q or Spansion S25FL) for it to run.
+
+For details, see xqspipsu_generic_flash_non_blocking_read_example.c.
 */
