@@ -910,6 +910,7 @@ xdbg_stmnt(extern int indent_on);
 	u32 value; 							\
 	value = Xil_In32(((BaseAddress) + (RegOffset))); 		\
 	XAxiEthernet_print_reg_i((BaseAddress), (RegOffset), value);	\
+	value;								\
 })
 #else
 #define XAxiEthernet_ReadReg(BaseAddress, RegOffset) 			\
