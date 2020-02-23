@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -82,8 +82,6 @@
  *                      images. So there is no need of xilfpga API's for versal
  *                      platform to configure the PL.
  * 5.2 Nava  05/12/19   Added Versal platform support.
- * 5.2 Nava  14/02/20   Added Bitstream loading support by using IPI services
- *                      for ZynqMP platform.
  *
  * </pre>
  *
@@ -104,6 +102,12 @@ extern "C" {
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xfpga_config.h"
+#ifndef versal
+#include "xsecure.h"
+#include "xilfpga_pcap.h"
+#else
+#include "xilfpga_versal.h"
+#endif
 /**************************** Type Definitions *******************************/
 /**
  * @XFpga_ValidateBitstream:	validate the Bitstream header before
@@ -132,9 +136,7 @@ typedef struct XFpgatag{
 	u32 (*XFpga_GetInterfaceStatus)(void);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
-#ifndef XFPGA_SECURE_IPI_MODE_EN
 	XFpga_Info	PLInfo;
-#endif
 	XFpga_Read	ReadInfo;
 #endif
 	XFpga_Write	WriteInfo;
@@ -157,9 +159,6 @@ typedef struct XFpgatag{
 #define XFPGA_ENCRYPTION_USERKEY_EN		(0x00000008U)
 #define XFPGA_ENCRYPTION_DEVKEY_EN		(0x00000010U)
 #define XFPGA_ONLY_BIN_EN			(0x00000020U)
-
-/* FPGA invalid interface status */
-#define XFPGA_INVALID_INTERFACE_STATUS		(0xFFFFFFFFU)
 
 #ifndef versal
 #define XFPGA_SECURE_FLAGS	(				\
