@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,7 @@
 *       psl  07/23/19 Fixed input validation.
 *       psl  07/29/19 Fixed MISRA-C violation
 *       vns  08/29/19 Initialized Status variables
+* 6.9   kpt  02/16/20 Fixed Coverity warnings
 * </pre>
 *
 *****************************************************************************/
@@ -639,7 +640,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	u32 PufStatus = 0U;
 	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
-	u32 MaxSyndromeSizeInWords = (u32)XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES;
+	u32 MaxSyndromeSizeInWords;
 	XilsKey_PufRegistrationState RegistrationStatus;
 
 	/* Assert validates the input arguments */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -76,6 +76,7 @@
 *       psl     07/29/19 Fixed MISRA-C violation.
 *       vns     08/29/19 Initialized Status variables
 *       mmd     07/31/19 Avoided reconfiguration of sysmon, if it is in use
+* 6.9   kpt     02/16/20 Fixed coverity warnings
 *
  *****************************************************************************/
 
@@ -1039,21 +1040,6 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 			  (Len == XSK_STRING_SIZE_96));
 
 	/**
-	* Make sure passed key is not NULL
-	*/
-	if(Key == NULL) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
-			(u32)XSK_EFUSEPL_ERROR_NULL_KEY);
-		goto END;
-	}
-
-	if(Len == 0U) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
-			(u32)XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
-		goto END;
-	}
-
-	/**
 	 * Make sure the key has valid length
 	 */
 	if (strlen(Key) != Len) {
@@ -1623,7 +1609,7 @@ END:
 *
 * @note	If master SLR of target device is SLR0 then both config order index
 * 		and SLR number are same in order.
-* 		If master SLR of target device is SLR1 then config oder and SLR
+* 		If master SLR of target device is SLR1 then config order and SLR
 * 		numbers are as below.
 * 		SLR 1 = config order index 0
 * 		SLR 0 = config order index 1

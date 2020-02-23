@@ -156,5 +156,6 @@
 *                      under BSP settings.
 *                      Modified Microblaze SSIT devices based on CONFIG ORDER
 *                      INDEX.
+* 6.9    kpt  02/16/20 Fixed Coverity warnings
 *
  ********************************************************************************/

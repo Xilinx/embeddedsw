@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -78,6 +78,7 @@
 *       vns   08/29/19 Initialized Status variables
 *       vns   09/17/19 Removed Tbits programming from library as they are to be
 *                      programmed under manufacturing list.
+* 6.9   kpt   02/16/20 Fixed coverity warnings
 * </pre>
 *
 *****************************************************************************/
@@ -1293,7 +1294,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	u32 Status = (u32)XST_FAILURE;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row;
-	u32 RowDataVal;
+	u32 RowDataVal = 0U;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
 
 	/* Assert validates the input arguments */
@@ -1576,7 +1577,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u8 Row = XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
-	u32 RowDataVal;
+	u32 RowDataVal = 0U;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
