@@ -874,9 +874,6 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 	}
 
 	Value = XFpga_InterfaceStatus(&XFpgaInstance);
-	if (Value == XFPGA_INVALID_INTERFACE_STATUS) {
-		Status = XST_FAILURE;
-	}
 
  done:
 	IPI_RESPONSE2(master->ipiMask, Status, Value);
