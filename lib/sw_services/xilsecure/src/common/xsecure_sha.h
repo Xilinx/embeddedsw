@@ -183,7 +183,7 @@ s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
 s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /** XSECURE_SHA_H */

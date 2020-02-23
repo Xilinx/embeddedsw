@@ -96,7 +96,7 @@ int P384_ecdsaverify(unsigned char *z, unsigned char *Qx,
 		unsigned char *Qy, unsigned char *r, unsigned char *s);
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif
