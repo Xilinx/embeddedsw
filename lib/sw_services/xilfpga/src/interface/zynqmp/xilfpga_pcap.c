@@ -84,9 +84,6 @@
  * 5.2 Nava 18/12/19   Fix for security violation in the readback path.
  * 5.2 Nava 02/01/20  Added conditional compilation support for readback feature.
  * 5.2 Nava 21/01/20  Replace event poll logic with Xil_WaitForEvent() API.
- * 5.2 Nava 20/02/20  Updated SECURE_MODE check handling logic by using conditional
- *                    compilation macro to Optimize XFpga_Validate BitstreamImage
- *                    function
  * </pre>
  *
  * @note
@@ -158,6 +155,12 @@ typedef u32 (*XpbrServHndlr_t) (void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define ARRAY_LENGTH(array) (sizeof((array))/sizeof((array)[0]))
+#ifdef XFPGA_SECURE_MODE
+#define XFPGA_SECURE_MODE_EN    1U
+#else
+#define XFPGA_SECURE_MODE_EN    0U
+#endif
+
 #ifdef XFPGA_SECURE_READBACK_MODE
 #define XFPGA_SECURE_READBACK_MODE_EN	1U
 #else
@@ -286,20 +289,19 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	u32 BitstreamPos = 0U;
 	u32 PartHeaderOffset = 0U;
 
-#ifndef XFPGA_SECURE_MODE
-	if (InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS != 0U) {
-		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_SECURE_MODE_EN,
-				(u32)0U);
-		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
-			"and try Error Code: 0x%08x\r\n", Status);
-		goto END;
-	}
-#endif
-
 	if ((InstancePtr->WriteInfo.BitstreamAddr &
 		XFPGA_ADDR_WORD_ALIGN_MASK) != 0U) {
 		/* If the Address is not Word aligned return failure */
 		Status = XFPGA_ERROR_UNALIGN_ADDR;
+		goto END;
+	}
+
+	if ((XFPGA_SECURE_MODE_EN == 0U) &&
+		((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)) {
+		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_SECURE_MODE_EN,
+				(u32)0U);
+		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
+			"and try Error Code: 0x%08x\r\n", Status);
 		goto END;
 	}
 
