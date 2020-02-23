@@ -73,6 +73,8 @@
 #                     processor. Also make outbyte function weak for PLM so
 #                     that PLM specific outbyte function can be called
 #                     instead of this.
+# 7.2   mus  02/23/20 Added workaround to handle_stdout_parameter to fix PLM
+#                     BSP creation CR#1055177
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -1545,7 +1547,7 @@ proc handle_stdout_parameter {drv_handle} {
            set stdout_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdout&& (BASE_NAME==C_BASEADDR||BASE_NAME==C_S_AXI_BASEADDR)"]
        }
        set base_name [common::get_property BASE_NAME $stdout_mem_range]
-       set base_value [common::get_property BASE_VALUE $stdout_mem_range]
+       set base_value [lindex [common::get_property BASE_VALUE $stdout_mem_range] 0]
        puts $config_file "\#define STDOUT_BASEADDRESS [::hsi::utils::format_addr_string $base_value $base_name]"
        close $config_file
    } else {
