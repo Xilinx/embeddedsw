@@ -122,7 +122,7 @@ u32 XFsbl_CheckTempDfuMemory(u32 Offset);
 
 #endif/*XFSBL_USB*/
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /* XFSBL_USB_H */

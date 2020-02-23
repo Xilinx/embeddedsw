@@ -143,7 +143,7 @@ u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
 extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /** XFSBL_AUTHENTICATION_H */

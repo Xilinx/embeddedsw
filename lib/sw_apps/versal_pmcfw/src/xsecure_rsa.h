@@ -185,7 +185,7 @@ u32 XSecure_RsaPssSignatureverification(XSecure_Rsa *RsaInstancePtr,
 u64 XPmcr_GetTimerValue(void);
 void *XPmcr_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /* XSECURE_RSA_H_ */

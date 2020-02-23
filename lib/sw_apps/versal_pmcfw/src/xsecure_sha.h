@@ -133,7 +133,7 @@ u32 XSecure_Sha3FinishPad(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /** XSECURE_SHA_H */

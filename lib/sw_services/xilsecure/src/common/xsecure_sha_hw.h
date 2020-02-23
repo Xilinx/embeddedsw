@@ -79,7 +79,7 @@ extern "C" {
 /* @} */
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /* XSECURE_SHA_HW_H */

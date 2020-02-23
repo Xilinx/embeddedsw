@@ -111,7 +111,7 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 								u8 *Result);
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /* XSECURE_RSA_H_ */
