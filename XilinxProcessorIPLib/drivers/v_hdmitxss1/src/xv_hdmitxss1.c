@@ -104,6 +104,7 @@ static void XV_HdmiTxSs1_BrdgUnderflowCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_VsCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_StreamDownCallback(void *CallbackRef);
+static void XV_HdmiTxSs1_ErrorCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_FrlLtsLCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_FrlLts1Callback(void *CallbackRef);
 static void XV_HdmiTxSs1_FrlLts2Callback(void *CallbackRef);
@@ -849,6 +850,7 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 				XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr,
 						XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR, 0);
 #endif
+				XV_HdmiTxSs1_ErrorCallback(HdmiTxSs1Ptr);
 		}
 		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
 		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
@@ -867,6 +869,7 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 			XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr,
 					XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR, 0);
 #endif
+			XV_HdmiTxSs1_ErrorCallback(HdmiTxSs1Ptr);
 		}
 		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
 		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
@@ -893,6 +896,7 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 			XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr,
 					XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR, 0);
 #endif
+			XV_HdmiTxSs1_ErrorCallback(HdmiTxSs1Ptr);
 		}
 		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
 		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
@@ -1352,6 +1356,27 @@ static void XV_HdmiTxSs1_StreamDownCallback(void *CallbackRef)
   if (HdmiTxSs1Ptr->StreamDownCallback) {
       HdmiTxSs1Ptr->StreamDownCallback(HdmiTxSs1Ptr->StreamDownRef);
   }
+}
+
+/*****************************************************************************/
+/**
+* This function is called whenever user needs to be informed of an error
+* condition.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs1_ErrorCallback(void *CallbackRef)
+{
+	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
+
+	if (HdmiTxSs1Ptr->ErrorCallback != NULL) {
+		HdmiTxSs1Ptr->ErrorCallback(HdmiTxSs1Ptr->ErrorRef);
+	}
 }
 
 /*****************************************************************************/
@@ -2175,6 +2200,7 @@ void XV_HdmiTxSs1_SetSampleFrequency(XV_HdmiTxSs1 *InstancePtr,
 			XV_HdmiTxSs1_LogWrite(InstancePtr,
 				XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE, 0);
 #endif
+			XV_HdmiTxSs1_ErrorCallback(InstancePtr);
 		break;
 	}
 }
@@ -2686,6 +2712,66 @@ void XV_HdmiTxSs1_ReportInfo(XV_HdmiTxSs1 *InstancePtr)
     xil_printf("---------\r\n");
     XV_HdmiTxSs1_ReportAudio(InstancePtr);
 }
+
+/******************************************************************************/
+/**
+*
+* This function prints debug information on STDIO/UART console.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_DebugInfo(XV_HdmiTxSs1 *InstancePtr)
+{
+	XV_HdmiTx1_DebugInfo(InstancePtr->HdmiTx1Ptr);
+}
+
+/*****************************************************************************/
+/**
+* This function prints out the sub-core register dump
+*
+* @param	InstancePtr  Instance Pointer to the main data structure
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_RegisterDebug(XV_HdmiTxSs1 *InstancePtr)
+{
+	u32 RegOffset;
+
+	/* HDMI TX Core */
+	XV_HdmiTx1_RegisterDebug(InstancePtr->HdmiTx1Ptr);
+
+	/* VTC Core */
+	if (InstancePtr->VtcPtr){
+		xil_printf("-------------------------------------\r\n");
+		xil_printf("        VTC Register Dump \r\n");
+		xil_printf("-------------------------------------\r\n");
+		if (InstancePtr->IsStreamUp == TRUE){
+			if (XV_HdmiTx1_ReadReg(
+				InstancePtr->HdmiTx1Ptr->Config.BaseAddress,
+					(XV_HDMITX1_PIO_IN_OFFSET)) &
+					XV_HDMITX1_PIO_IN_VID_RDY_MASK) {
+				for (RegOffset = 0;
+					RegOffset <= XVTC_GGD_OFFSET;) {
+					xil_printf("0x%04x      0x%08x\r\n",
+							RegOffset,
+					XV_HdmiTx1_ReadReg(
+						InstancePtr->Config.Vtc.AbsAddr,
+						RegOffset));
+					RegOffset += 4;
+				}
+			}
+		}
+	}
+}
+
 /*****************************************************************************/
 /**
 *
