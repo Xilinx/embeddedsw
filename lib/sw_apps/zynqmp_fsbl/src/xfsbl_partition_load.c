@@ -1641,7 +1641,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 	}
 
-	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
