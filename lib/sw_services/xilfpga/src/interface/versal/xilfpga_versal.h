@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@
  * Ver   Who  Date        Changes
  * ---- ---- --------  --------------------------------------------------------
  * 5.2  Nava 05/12/19  Added Versal platform support.
+ * 5.2  Nava 14/02/20  Removed unwanted header file inclusion.
  * </pre>
  *
  * @note
@@ -74,9 +75,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
-#include "xilfpga.h"
-#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
