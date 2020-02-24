@@ -50,6 +50,14 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xil_types.h"
+#include "sleep.h"
+#if defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_ZCU104) || \
+	defined (XPS_BOARD_ZCU106)
+#include "xiicps.h"
+#else
+#include "xiic.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

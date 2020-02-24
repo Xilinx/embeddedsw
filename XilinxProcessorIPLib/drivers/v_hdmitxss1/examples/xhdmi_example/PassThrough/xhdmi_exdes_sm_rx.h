@@ -93,6 +93,7 @@ typedef enum {
         XV_RX_HDMI_EVENT_STREAMUP,
         XV_RX_HDMI_EVENT_STREAMDOWN,
         XV_RX_HDMI_EVENT_POLL,
+	XV_RX_HDMI_EVENT_PHYRESET,
         XV_RX_HDMI_EVENT_FRLCONFIG,
         XV_RX_HDMI_EVENT_FRLSTART,
         XV_RX_HDMI_EVENT_TMDSCONFIG,
@@ -109,6 +110,7 @@ typedef enum {
         XV_RX_HDMI_STATE_STREAMINITIALIZED,
         XV_RX_HDMI_STATE_STREAMON,
         XV_RX_HDMI_STATE_STREAMOFF,
+	XV_RX_HDMI_STATE_PHYRESET,
         XV_RX_HDMI_STATE_FRLCONFIG,
         XV_RX_HDMI_STATE_FRLSTART,
         XV_RX_HDMI_STATE_TMDSCONFIG,
@@ -261,6 +263,10 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
+/* VPhy structure */
+extern XHdmiphy1 Hdmiphy1;
+/* HDMI RX SS structure */
+extern XV_HdmiRxSs1 HdmiRxSs;
 
 /************************** Function Prototypes *****************************/
 

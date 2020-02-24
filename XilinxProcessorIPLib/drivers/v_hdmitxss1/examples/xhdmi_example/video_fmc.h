@@ -49,19 +49,24 @@
 #define VIDEO_FMC_H_
 
 #include "xparameters.h"
+#include "xil_types.h"
+#if defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_ZCU104) || \
+	defined (XPS_BOARD_ZCU106)
+#include "xiicps.h"
+#else
+#include "xiic.h"
+#endif
 #include "sleep.h"
 #include "xgpio.h"
 #include "idt_8t49n24x.h"
 #include "ti_lmk03318.h"
 #include "onsemi_nb7nq621m.h"
+#include "si5344drv.h"
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
 #define XPS_BOARD_VCU118
-#include "si5344drv.h"
 #else
 /* Place-holder for other boards in future */
-#endif
-# if defined XPS_BOARD_VCU118
-#include "si5344drv.h"
 #endif
 #define VFMC_GPIO_TX_CH4_DATASRC_SEL_MASK	0x00000004
 
@@ -74,9 +79,10 @@ typedef enum {
 } XVfmc_Location;
 
 typedef enum {
-	VFMC_MEZZ_HDMI_PASSIVE  = 0xF0000001,
-	VFMC_MEZZ_HDMI_ACTIVE   = 0xF0000002,
-	VFMC_MEZZ_INVALID 	    = 0xF0000099,
+	VFMC_MEZZ_HDMI_PASSIVE     = 0x70000001,
+	VFMC_MEZZ_HDMI_ONSEMI_R0   = 0x70000100,	/* ONSEMI Revision 0 */
+	VFMC_MEZZ_HDMI_ONSEMI_R1   = 0x70000101,	/* ONSEMI Revision 1 */
+	VFMC_MEZZ_INVALID          = 0x70000999,
 } XVfmc_MezzType;
 
 typedef enum {
@@ -125,6 +131,8 @@ void Vfmc_Gpio_Ch4_DataClock_Sel(XVfmc *VfmcPtr,
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(XVfmc *VfmcPtr, u8 Enable);
 void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable);
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
+		u64 LineRate);
+void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 		u64 LineRate);
 u32 Vfmc_Mezz_HdmiRxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_RxRefClkSel Sel);
 u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel);

@@ -50,6 +50,15 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xil_types.h"
+#include "sleep.h"
+#if defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_ZCU104) || \
+	defined (XPS_BOARD_ZCU106)
+#include "xiicps.h"
+#else
+#include "xiic.h"
+#endif
+
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
 #define XPS_BOARD_VCU118
 #else
@@ -71,18 +80,49 @@ extern "C" {
 #define REG04_BIT53_MODE_FRL_AC			6
 #define REG04_BIT53_MODE_ML				7
 
-
- 
 /**************************** Type Definitions *******************************/
+/**
+* FRL Character Rate Enumeration
+*/
+typedef enum {
+	TX_R0_TMDS = 0,
+	TX_R0_TMDS_14_L = 21,
+	TX_R0_TMDS_14_H = 33,
+	TX_R0_TMDS_20 = 45,
+	TX_R0_FRL = 57,
+	RX_R0 = 69,
+	TX_R1_TMDS_14_LL = 90,
+	TX_R1_TMDS_14_L = 99,
+	TX_R1_TMDS_14 = 108,	/* HDMI 1.4 */
+	TX_R1_TMDS_20 = 117,	/* HDMI 2.0 */
+	TX_R1_FRL = 126,
+	TX_R1_FRL_10G = 135,
+	TX_R1_FRL_12G = 144,
+	RX_R1_TMDS_14 = 153,
+	RX_R1_TMDS_20 = 162,
+	RX_R1_FRL = 171,
+} Onsemi_DeviceType;
+
+/**
+* This typedef contains translations of FRL_Rate to Lanes and Line Rates.
+*/
+typedef struct {
+	u8 DeviceType;		/**< Device Type */
+	u8 Address;		/**< Line Rate */
+	u8 Values;
+} Onsemi_RegisterField;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress, u8 IsTx);
+int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress,
+		u8 Revision, u8 IsTx);
 int ONSEMI_NB7NQ621M_CheckDeviceID(void *IicPtr, u8 I2CSlaveAddress);
+u8 ONSEMI_NB7NQ621M_CheckDeviceVersion(void *IicPtr, u8 I2CSlaveAddress);
 int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
-		u8 IsFRL, u64 LineRate);
+		u8 Revision, u8 IsFRL, u64 LineRate, u8 IsTx);
 void ONSEMI_NB7NQ621M_RegisterDump(void *IicPtr, u8 I2CSlaveAddress);
+void ONSEMI_NB7NQ621M_RegisterLibraryDump(void);
 
 /************************** Variable Declarations ****************************/
 

@@ -45,15 +45,7 @@
 *
 ****************************************************************************/
 
-#include "xil_types.h"
 #include "video_fmc.h"
-#if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
-#include "xiicps.h"
-#else
-#include "xiic.h"
-#endif
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -100,7 +92,7 @@ static int  Vfmc_ModifyRegister(void *IicPtr, u8 SlaveAddr, u8 Value, u8 Mask);
 *
 ******************************************************************************/
 static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
-							unsigned ByteCount, u8 Option)
+		unsigned ByteCount, u8 Option)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -116,7 +108,8 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 		XIicPs_ClearOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
 	}
 
-	Status = XIicPs_MasterSendPolled(Iic_Ptr, MsgPtr, ByteCount, SlaveAddr);
+	Status = XIicPs_MasterSendPolled(Iic_Ptr, MsgPtr, ByteCount,
+			SlaveAddr);
 
 	/*
 	 * Wait until bus is idle to start another transfer.
@@ -160,7 +153,7 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 *
 ******************************************************************************/
 static unsigned Vfmc_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
-							unsigned ByteCount, u8 Option)
+		unsigned ByteCount, u8 Option)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -176,7 +169,8 @@ static unsigned Vfmc_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 		XIicPs_ClearOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
 	}
 
-	Status = XIicPs_MasterRecvPolled(Iic_Ptr, BufPtr, ByteCount, SlaveAddr);
+	Status = XIicPs_MasterRecvPolled(Iic_Ptr, BufPtr, ByteCount,
+			SlaveAddr);
 
 	/*
 	 * Wait until bus is idle to start another transfer.
@@ -255,12 +249,12 @@ int Vfmc_I2cMuxSelect(XVfmc *VfmcPtr)
 	void *IicPtr = VfmcPtr->IicPtr;
 	XVfmc_Location Loc = VfmcPtr->Loc;
 
-#if defined (XPS_BOARD_VCU118)
+#if (defined (XPS_BOARD_VCU118)) && (!defined (XPS_BOARD_ZCU106))
 	Loc = Loc;
 
 	/* Reset I2C controller before issuing new transaction. This is
-	 * required to recover the IIC controller in case a previous transaction
-	 * is pending.
+	 * required to recover the IIC controller in case a previous
+	 * transaction is pending.
 	 */
 	/*XIic_WriteReg(XPAR_IIC_0_BASEADDR, XIIC_RESETR_OFFSET,
 				  XIIC_RESET_MASK);*/
@@ -277,8 +271,8 @@ int Vfmc_I2cMuxSelect(XVfmc *VfmcPtr)
 
 #elif defined (XPS_BOARD_KCU105)
 	/* Reset I2C controller before issuing new transaction. This is
-	 * required to recover the IIC controller in case a previous transaction
-	 * is pending.
+	 * required to recover the IIC controller in case a previous
+	 * transaction is pending.
 	 */
 	/*XIic_WriteReg(XPAR_IIC_0_BASEADDR, XIIC_RESETR_OFFSET,
 				  XIIC_RESET_MASK);*/
@@ -358,13 +352,14 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	int Status;
 	u8 Buffer[2];
 	int ByteCount;
+	u8 RevisionNumber;
 	XGpio_Config *Gpio_Vfmc_ConfigPtr;
 
 
 	/* Check if VFMC was already Initialized */
 	if (VfmcPtr->IsReady == XIL_COMPONENT_IS_READY) {
 		xil_printf("VFMC has already been initialized. "
-							"Exiting Vfmc_HdmiInit\r\n");
+				"Exiting Vfmc_HdmiInit\r\n");
 		return (XST_FAILURE);
 	} else {
 		VfmcPtr->IicPtr = IicPtr;
@@ -394,8 +389,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	}
 
 	Status = XGpio_CfgInitialize(&VfmcPtr->Gpio,
-								 Gpio_Vfmc_ConfigPtr,
-								 Gpio_Vfmc_ConfigPtr->BaseAddress);
+			Gpio_Vfmc_ConfigPtr,
+			Gpio_Vfmc_ConfigPtr->BaseAddress);
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERR:: GPIO for VFMC ");
 		xil_printf("Initialization failed %d\r\n", Status);
@@ -409,12 +404,16 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	 * Set primary clock source for LMK03318 to IOCLKp(0)
 	 * Set secondary clock source for LMK03318 to IOCLKp(1)
 	 * Disable LMK61E2*/
-#if defined (XPS_BOARD_VCU118)
-	    Buffer[0] = 0x41;
+#if (defined XPS_BOARD_ZCU102)
+		Buffer[0] = 0x41;
+#elif (defined XPS_BOARD_ZCU106)
+		Buffer[0] = 0x41;
+#elif (defined XPS_BOARD_VCU118)
+		Buffer[0] = 0x41;
+#else /* Place Holder for other board */
+		Buffer[0] = 0x41;
 #endif
-#if defined (XPS_BOARD_ZCU106)
-		Buffer[0] = 0x52;
-#endif
+
 	ByteCount = Vfmc_I2cSend(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
 			(u8*)Buffer, 1, I2C_STOP);
 	if (ByteCount != 1) {
@@ -423,7 +422,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	}
 
 	/* Configure VFMC IO Expander 1:
-	 * Enable LMK03318 -> In a power-down state the I2C bus becomes unusable.
+	 * Enable LMK03318 -> In a power-down state the I2C bus becomes
+	 * unusable.
 	 * Select LMK03318 clock as source for FMC_GT_CLKp(0)
 	 * Select IDT8T49N241 clock as source for FMC_GT_CLKp(1)
 	 * Enable IDT8T49N241 */
@@ -462,37 +462,28 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		return XST_FAILURE;
 	}
 
-	/* Used for the RX GT ref clock */
-	Status = TI_LMK03318_EnableBypass(Iic_Ptr,
-					VFMC_I2C_LMK03318_ADDR, 0, 4);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Failed to enable bypass for port 4.\r\n");
-		return XST_FAILURE;
-	}
-
-	/* Used for the TX GT ref clock */
-	Status = TI_LMK03318_EnableBypass(Iic_Ptr,
-					VFMC_I2C_LMK03318_ADDR, 0, 6);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Failed to enable bypass for port 6.\r\n");
-		return XST_FAILURE;
-	}
-
-#if defined (XPS_BOARD_VCU118)
-	/*SI 5344 Initialization */
+	/*SI5344 Initialization */
 	Status = SI5344_Init(Iic_Ptr, VFMC_I2C_SI5344_ADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failed to initialize SI 5344.\r\n");
+		xil_printf("Failed to initialize SI5344.\r\n");
 		return XST_FAILURE;
 	}
-#endif
+
 	/* Check if mezzanine card is with an active device */
 	if (ONSEMI_NB7NQ621M_CheckDeviceID(Iic_Ptr,
 			VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR) == XST_SUCCESS) {
-		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR, 1);
+		RevisionNumber = ONSEMI_NB7NQ621M_CheckDeviceVersion(Iic_Ptr,
+				VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR);
+		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR,
+				RevisionNumber, 1);
 		Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(VfmcPtr, TRUE);
-		VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_ACTIVE;
-		xil_printf("VFMC Active HDMI TX Mezz Detected\r\n");
+		if (RevisionNumber == 0x00) {
+			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R0;
+		} else if (RevisionNumber == 0x01) {
+			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R1;
+		}
+		xil_printf("VFMC Active HDMI TX Mezz (R%d) Detected\r\n",
+				RevisionNumber);
 	} else {
 		VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_PASSIVE;
 		xil_printf("VFMC Passive HDMI TX Mezz Detected\r\n");
@@ -503,10 +494,18 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	/* Check if mezzanine card is with an active device */
 	if (ONSEMI_NB7NQ621M_CheckDeviceID(Iic_Ptr,
 			VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR) == XST_SUCCESS) {
-		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR, 0);
+		RevisionNumber = ONSEMI_NB7NQ621M_CheckDeviceVersion(Iic_Ptr,
+				VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR);
+		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR,
+				0, RevisionNumber);
 		Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(VfmcPtr, TRUE);
-		VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_ACTIVE;
-		xil_printf("VFMC Active HDMI RX Mezz Detected\r\n");
+		if (RevisionNumber == 0x00) {
+			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R0;
+		} else if (RevisionNumber == 0x01) {
+			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R1;
+		}
+		xil_printf("VFMC Active HDMI RX Mezz (R%d) Detected\r\n",
+				RevisionNumber);
 	} else {
 		VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_PASSIVE;
 		xil_printf("VFMC Passive HDMI RX Mezz Detected\r\n");
@@ -617,7 +616,8 @@ void Vfmc_Gpio_Ch4_DataClock_Sel(XVfmc *VfmcPtr,
 	 */
 	if (((DataClkSel == VFMC_GPIO_TX_CH4_As_DataAndClock) ||
 		 (DataClkSel == VFMC_GPIO_TX_CH4_As_ClockOut)) &&
-		(VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ACTIVE)) {
+		(VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0 ||
+		 VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1)) {
 		return;
 	}
 
@@ -706,10 +706,36 @@ void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable)
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 		u64 LineRate)
 {
-	if (VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ACTIVE) {
+	if (VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0 ||
+			VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
 		ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
 				VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR,
-				IsFRL, LineRate);
+				(VfmcPtr->TxMezzType -
+						VFMC_MEZZ_HDMI_ONSEMI_R0),
+				IsFRL, LineRate, 1);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Enables or Disables the ONSEMI NB7NQ621M on the RX MEZZ slot
+*
+* @param  Enable - TRUE / FALSE
+*
+* @return None.
+
+*
+******************************************************************************/
+void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
+		u64 LineRate)
+{
+	if (VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
+		ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
+				VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR,
+				(VfmcPtr->RxMezzType -
+						VFMC_MEZZ_HDMI_ONSEMI_R0),
+				IsFRL, LineRate, 0);
 	}
 }
 

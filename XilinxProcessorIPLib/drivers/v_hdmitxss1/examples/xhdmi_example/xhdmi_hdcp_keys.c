@@ -45,7 +45,6 @@
 
 /***************************** Include Files *********************************/
 #include "xhdmi_hdcp_keys.h"
-#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)

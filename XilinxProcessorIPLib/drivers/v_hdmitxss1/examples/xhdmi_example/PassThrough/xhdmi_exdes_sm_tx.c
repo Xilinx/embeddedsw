@@ -257,11 +257,6 @@ void XV_Tx_Hdcp_Poll(XV_Tx *InstancePtr)
 	if (XV_HdmiTxSs1_HdcpIsReady(InstancePtr->HdmiTxSs)) {
 		XV_HdmiTxSs1_HdcpPoll(InstancePtr->HdmiTxSs);
 	}
-	if (XV_HdmiTxSs1_HdcpIsReady(InstancePtr->HdmiTxSs)) {
-		if (XV_HdmiTxSs1_HdcpIsEncrypted(InstancePtr->HdmiTxSs)) {
-			XV_HdmiTxSS1_MaskDisable(InstancePtr->HdmiTxSs);
-		}
-	}
 #endif
 }
 
@@ -410,7 +405,7 @@ void XV_Tx_SetAudSamplingFreq (XV_Tx *InstancePtr,
 
 void XV_Tx_SetVic(XV_Tx *InstancePtr, u8 Vic)
 {
-	InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Vic = Vic;
+	XV_HdmiTxSs1_SetVideoIDCode(InstancePtr->HdmiTxSs, Vic);
 }
 
 void XV_Tx_SetHdmiFrlMode(XV_Tx *InstancePtr)
@@ -2460,14 +2455,6 @@ void XV_Tx_HdmiTx_EnterStateStreamOn(XV_Tx *InstancePtr)
 	XV_HdmiTxSs1_SetAudioChannels(HdmiTxSs1Ptr,
 				      InstancePtr->ConfigInfo.AudioChannels);
 
-#if defined(USE_HDCP_HDMI_TX)
-	if (XV_HdmiTxSs1_HdcpIsReady(InstancePtr->HdmiTxSs)) {
-		XV_HdmiTxSS1_SetBackgroundColor(InstancePtr->HdmiTxSs,
-							XV_BKGND_BLUE);
-		xdbg_xv_tx_print("Enable Video Masking"
-			" - Waiting for HDCP to Pass\r\n");
-	}
-#endif
 	XV_HdmiTxSs1_StreamStart(InstancePtr->HdmiTxSs);
 
 	/* Stream is on. */
