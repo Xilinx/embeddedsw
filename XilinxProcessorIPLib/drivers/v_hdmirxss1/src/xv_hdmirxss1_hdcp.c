@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-# Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-# IN THE SOFTWARE.
-*
+# Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -511,34 +493,6 @@ static int XV_HdmiRxSs1_HdcpProcessEvents(XV_HdmiRxSs1 *InstancePtr)
       }
 #endif
       break;
-
-#ifdef USE_HDCP_14_PROT_EVT_ENUM
-    /* HDCP 1.4 protocol event*/
-    /* Enable HDCP 1.4*/
-    case XV_HDMIRXSS1_HDCP_1_PROT_EVT :
-#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
-      if (InstancePtr->Hdcp14Ptr && InstancePtr->Hdcp22Ptr) {
-        if (XV_HdmiRxSs1_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS1_HDCP_14) != XST_SUCCESS) {
-          XV_HdmiRxSs1_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS1_HDCP_22);
-        }
-      }
-#endif
-      break;
-#endif
-
-#ifdef USE_HDCP_22_PROT_EVT_ENUM
-    /* HDCP 2.2 protocol event*/
-    /* Enable HDCP 2.2*/
-    case XV_HDMIRXSS1_HDCP_2_PROT_EVT :
-#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
-      if (InstancePtr->Hdcp14Ptr && InstancePtr->Hdcp22Ptr) {
-        if (XV_HdmiRxSs1_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS1_HDCP_22) != XST_SUCCESS) {
-          XV_HdmiRxSs1_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS1_HDCP_14);
-        }
-      }
-#endif
-      break;
-#endif
 
     /* DVI mode event*/
     case XV_HDMIRXSS1_HDCP_DVI_MODE_EVT:
@@ -1264,6 +1218,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
   switch (InstancePtr->HdcpProtocol) {
     case XV_HDMIRXSS1_HDCP_NONE :
       xil_printf("\r\nHDCP RX is disabled\r\n");
+      xil_printf("---------\r\n");
       break;
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -1272,6 +1227,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
       if (InstancePtr->Hdcp14Ptr) {
         if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
           xil_printf("\r\nHDCP 1.4 RX Info\r\n");
+          xil_printf("---------\r\n");
 
           xil_printf("Encryption : ");
           if (XHdcp1x_IsEncrypted(InstancePtr->Hdcp14Ptr)) {
@@ -1288,6 +1244,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
         }
         else {
           xil_printf("\r\nHDCP 1.4 RX is disabled\r\n");
+          xil_printf("---------\r\n");
         }
       }
       break;
@@ -1298,13 +1255,17 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
     case XV_HDMIRXSS1_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         if (XHdcp22Rx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
-          XHdcp22Rx_LogDisplay(InstancePtr->Hdcp22Ptr);
+            if (InstancePtr->EnableHDCPLogging == TRUE) {
+              XHdcp22Rx_LogDisplay(InstancePtr->Hdcp22Ptr);
+            }
 
-          xil_printf("HDCP 2.2 RX Info\r\n");
+          xil_printf("\r\nHDCP 2.2 RX Info\r\n");
+          xil_printf("---------\r\n");
           XHdcp22Rx_Info(InstancePtr->Hdcp22Ptr);
         }
         else {
           xil_printf("\r\nHDCP 2.2 RX is disabled\r\n");
+          xil_printf("---------\r\n");
         }
       }
       break;
@@ -1312,6 +1273,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
 
     default:
       xil_printf("\r\nHDCP info unknown?\r\n");
+      xil_printf("---------\r\n");
   }
 }
 #endif

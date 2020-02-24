@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -631,28 +613,6 @@ static void XV_HdmiRxSs1_DdcHdcpCallback(void *RefPtr, int Type)
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (HdmiRxSs1Ptr->Hdcp14Ptr) {
         XHdcp1x_ProcessAKsv(HdmiRxSs1Ptr->Hdcp14Ptr);
-      }
-#endif
-      break;
-
-    /* HDCP 1.4 protocol event*/
-    case XV_HDMIRX1_DDC_STA_HDCP_1_PROT_EVT_MASK:
-#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
-      if (HdmiRxSs1Ptr->Hdcp14Ptr && HdmiRxSs1Ptr->Hdcp22Ptr) {
-#ifdef USE_HDCP_14_PROT_EVT_ENUM
-        XV_HdmiRxSs1_HdcpPushEvent(HdmiRxSs1Ptr, XV_HDMIRXSS1_HDCP_1_PROT_EVT);
-#endif
-      }
-#endif
-      break;
-
-    /* HDCP 2.2 protocol event*/
-    case XV_HDMIRX1_DDC_STA_HDCP_2_PROT_EVT_MASK:
-#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
-      if (HdmiRxSs1Ptr->Hdcp14Ptr && HdmiRxSs1Ptr->Hdcp22Ptr) {
-#ifdef USE_HDCP_22_PROT_EVT_ENUM
-        XV_HdmiRxSs1_HdcpPushEvent(HdmiRxSs1Ptr, XV_HDMIRXSS1_HDCP_2_PROT_EVT);
-#endif
       }
 #endif
       break;
