@@ -74,9 +74,9 @@ proc Check_ttc_ip {instance_name} {
 
 proc generate_license {fd} {
 	puts $fd " /*"
-	puts $fd " * FreeRTOS Kernel V10.0.0"
-	puts $fd " * Copyright (C) 2010-2018 Xilinx, Inc. All Rights Reserved."
-	puts $fd " * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved."
+	puts $fd " * FreeRTOS Kernel V10.3.0"
+	puts $fd " * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved."
+	puts $fd " * Copyright (C) 2010-2020 Xilinx, Inc. All Rights Reserved."
 	puts $fd " *"
 	puts $fd " * Permission is hereby granted, free of charge, to any person obtaining a copy of"
 	puts $fd " * this software and associated documentation files (the \"Software\"), to deal in"

@@ -1,8 +1,7 @@
 /*
- * FreeRTOS Kernel V10.1.1
- * Copyright (C) 2018-2019 Amazon.com, Inc. or its affiliates.
- * Copyright (C) 2019 Xilinx, Inc.
- * All Rights Reserved.
+ * FreeRTOS Kernel V10.3.0
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
