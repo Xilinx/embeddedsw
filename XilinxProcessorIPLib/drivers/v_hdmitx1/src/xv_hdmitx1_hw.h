@@ -93,6 +93,41 @@ extern "C" {
                                     * VER Identification *  Register offset */
 #define XV_HDMITX1_VER_VERSION_OFFSET    ((XV_HDMITX1_VER_BASE)+(1*4))/**<
                                     * VER Version Register *  offset */
+#define XV_HDMITX1_BRDG_FIFO_LVL_OFFSET  ((XV_HDMITX1_VER_BASE)+(2*4))/**<
+                                    * Bridge FIFO Level Register offset */
+#define XV_HDMITX1_VCKE_SYS_CNT_OFFSET   ((XV_HDMITX1_VER_BASE)+(3*4))/**<
+                                    * VCKE System Count Register offset */
+#define XV_HDMITX1_DBG_STS_OFFSET        ((XV_HDMITX1_VER_BASE)+(4*4))/**<
+                                    * Debug Status Register offset */
+#define XV_HDMITX1_ANLZ_HBP_HS_OFFSET    ((XV_HDMITX1_VER_BASE)+(5*4))/**<
+                                    * Analyzer HPB HS Register offset */
+#define XV_HDMITX1_ANLZ_LN_ACT_OFFSET    ((XV_HDMITX1_VER_BASE)+(6*4))/**<
+                                    * Analyzer LN ACT Register offset */
+
+#define XV_HDMITX1_BRDG_FIFO_LVL_MIN_MASK       0xFFFF     /**< FRL Control Lane 0
+                                                  * LTP mask */
+#define XV_HDMITX1_BRDG_FIFO_LVL_MIN_SHIFT      0       /**< FRL Control Lane 0
+                                                  * LTP shift */
+#define XV_HDMITX1_BRDG_FIFO_LVL_MAX_MASK       0xFFFF     /**< FRL Control Lane 0
+                                                  * LTP mask */
+#define XV_HDMITX1_BRDG_FIFO_LVL_MAX_SHIFT      16       /**< FRL Control Lane 0
+                                                  * LTP shift */
+
+#define XV_HDMITX1_DBG_STS_FRL_ANLZ_VID_TIM_CHG_MASK   (1<<0)
+#define XV_HDMITX1_DBG_STS_TRIB_ANLZ_VID_TIM_CHG_MASK  (1<<1)
+#define XV_HDMITX1_DBG_STS_NTV_ANLZ_VID_TIM_CHG_MASK   (1<<2)
+
+/* Analyzer register masks*/
+#define XV_HDMITX1_ANLZ_HBP_HS_HS_SZ_SHIFT      0       /**< Analyzer hsync size shift */
+#define XV_HDMITX1_ANLZ_HBP_HS_HS_SZ_MASK       0xFFFF  /**< Analyzer hsync size mask */
+#define XV_HDMITX1_ANLZ_HBP_HS_HPB_SZ_SHIFT     16      /**< Analyzer hbp size shift */
+#define XV_HDMITX1_ANLZ_HBP_HS_HPB_SZ_MASK      0xFFFF  /**< Analyzer hbp size mask */
+
+/* Analyzer register masks*/
+#define XV_HDMITX1_ANLZ_LN_ACT_ACT_SZ_SHIFT     0       /**< Analyzer analyzer act size shift */
+#define XV_HDMITX1_ANLZ_LN_ACT_ACT_SZ_MASK      0xFFFF  /**< Analyzer analyzer act size mask */
+#define XV_HDMITX1_ANLZ_LN_ACT_LN_SZ_SHIFT      16      /**< Analyzer analyzer line act shift */
+#define XV_HDMITX1_ANLZ_LN_ACT_LN_SZ_MASK       0xFFFF  /**< Analyzer analyzer line act mask */
 
 /**< PIO (Parallel Interface) peripheral register offsets */
 /**< The PIO is the first peripheral on the local bus */

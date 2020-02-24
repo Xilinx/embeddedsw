@@ -1168,7 +1168,9 @@ int XV_HdmiTx1_Scrambler(XV_HdmiTx1 *InstancePtr);
 int XV_HdmiTx1_ClockRatio(XV_HdmiTx1 *InstancePtr);
 int XV_HdmiTx1_DetectHdmi20(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_ShowSCDC(XV_HdmiTx1 *InstancePtr);
+void XV_HdmiTx1_Info(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_DebugInfo(XV_HdmiTx1 *InstancePtr);
+void XV_HdmiTx1_RegisterDebug(XV_HdmiTx1 *InstancePtr);
 int XV_HdmiTx1_SetAudioChannels(XV_HdmiTx1 *InstancePtr, u8 Value);
 int XV_HdmiTx1_SetAudioFormat(XV_HdmiTx1 *InstancePtr,
 			      XV_HdmiTx1_AudioFormatType Value);

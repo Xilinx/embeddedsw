@@ -2168,7 +2168,7 @@ u32 XV_HdmiTx1_AuxSend(XV_HdmiTx1 *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-void XV_HdmiTx1_DebugInfo(XV_HdmiTx1 *InstancePtr)
+void XV_HdmiTx1_Info(XV_HdmiTx1 *InstancePtr)
 {
 
 	/* Verify argument. */
@@ -2180,6 +2180,140 @@ void XV_HdmiTx1_DebugInfo(XV_HdmiTx1 *InstancePtr)
 	/* Print timing information */
 	XVidC_ReportTiming(&InstancePtr->Stream.Video.Timing,
 		           InstancePtr->Stream.Video.IsInterlaced);
+}
+
+/******************************************************************************/
+/**
+*
+* This function prints debug information on STDIO/UART console.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTx1_DebugInfo(XV_HdmiTx1 *InstancePtr)
+{
+	u32 Data;
+	u32 Data1;
+	u32 FrlCtrl;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Version */
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMITX1_VER_ID_OFFSET));
+
+	xil_printf("CORE_VER_PUB, INT: 0x%X, 0x%X\r\n",
+			XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+					(XV_HDMITX1_VER_VERSION_OFFSET)),
+			Data & 0xFFFF);
+	xil_printf("ADD_CORE_DBG: 0x%X\r\n", (Data >> 16) & 0xFFFF0000);
+
+
+	FrlCtrl = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_FRL_CTRL_OFFSET));
+	xil_printf("FRL_MODE, LANES: %d, %d\r\n",
+			(FrlCtrl & XV_HDMITX1_FRL_CTRL_OP_MODE_MASK) &&
+			XV_HDMITX1_FRL_CTRL_OP_MODE_MASK,
+			(FrlCtrl & XV_HDMITX1_FRL_CTRL_LN_OP_MASK) &&
+			XV_HDMITX1_FRL_CTRL_LN_OP_MASK);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_PIO_OUT_OFFSET));
+	xil_printf("HDMI/DVI MODE: %d\r\n",
+			(Data & XV_HDMITX1_PIO_OUT_MODE_MASK) &&
+			XV_HDMITX1_PIO_OUT_MODE_MASK);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_FRL_STA_OFFSET));
+	xil_printf("FRL_LCKE_OOS: %d\r\n",
+			(Data & XV_HDMITX1_FRL_STA_LNK_CLK_OOS_MASK) &&
+			XV_HDMITX1_FRL_STA_LNK_CLK_OOS_MASK);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_FRL_LNK_CLK_OFFSET));
+	xil_printf("FRL_LCKE_FREQ(Khz): %d\r\n", Data);
+
+	xil_printf("FRL_EXT_VCKE: %d\r\n",
+			(FrlCtrl & XV_HDMITX1_FRL_VCKE_EXT_MASK) &&
+			XV_HDMITX1_FRL_VCKE_EXT_MASK);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_FRL_VID_CLK_OFFSET));
+	xil_printf("FRL_VCKE_FREQ(Khz): %d\r\n", Data);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_VCKE_SYS_CNT_OFFSET));
+	xil_printf("FRL_VCKE_FREQ(Measured Khz): %d\r\n", (5000*400000)/Data);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_PIO_IN_OFFSET));
+	xil_printf("TX Bridge Locked: %d\r\n",
+			(Data & XV_HDMITX1_PIO_IN_BRDG_LOCKED_MASK) &&
+			XV_HDMITX1_PIO_IN_BRDG_LOCKED_MASK);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX1_DBG_STS_OFFSET));
+	xil_printf("NTV_ANLZ_TIM_CHG (add_core_dbg=1): %d\r\n",
+			(Data & XV_HDMITX1_DBG_STS_NTV_ANLZ_VID_TIM_CHG_MASK) &&
+			XV_HDMITX1_DBG_STS_NTV_ANLZ_VID_TIM_CHG_MASK);
+	xil_printf("TRIB_ANLZ_TIM_CHG (add_core_dbg=2): %d\r\n",
+			(Data & XV_HDMITX1_DBG_STS_TRIB_ANLZ_VID_TIM_CHG_MASK) &&
+			XV_HDMITX1_DBG_STS_TRIB_ANLZ_VID_TIM_CHG_MASK);
+
+
+	/* FRL Tribyte Analyzer timing changed counter Status */
+	xil_printf("FRL_ANLZ Video Timing (add_core_dbg=3)\r\n"
+			"  TIM_CHG: %d\r\n",
+			(Data & XV_HDMITX1_DBG_STS_FRL_ANLZ_VID_TIM_CHG_MASK) &&
+			XV_HDMITX1_DBG_STS_FRL_ANLZ_VID_TIM_CHG_MASK);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMITX1_ANLZ_HBP_HS_OFFSET));
+	Data1 = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMITX1_ANLZ_LN_ACT_OFFSET));
+	xil_printf("  HS, HBP, ACT, LN: %d, %d, %d, %d\r\n",
+			(Data & XV_HDMITX1_ANLZ_HBP_HS_HS_SZ_MASK),
+			(Data >> XV_HDMITX1_ANLZ_HBP_HS_HPB_SZ_SHIFT) &
+			XV_HDMITX1_ANLZ_HBP_HS_HPB_SZ_MASK,
+			(Data1 & XV_HDMITX1_ANLZ_LN_ACT_ACT_SZ_MASK),
+			(Data1 >> XV_HDMITX1_ANLZ_LN_ACT_LN_SZ_SHIFT) &
+			XV_HDMITX1_ANLZ_LN_ACT_LN_SZ_MASK);
+}
+
+/*****************************************************************************/
+/**
+* This function prints out HDMI TX register
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_HdmiTx1_RegisterDebug(XV_HdmiTx1 *InstancePtr)
+{
+	u32 RegOffset;
+
+	xil_printf("-------------------------------------\r\n");
+	xil_printf("       HDMI TX Register Dump \r\n");
+	xil_printf("-------------------------------------\r\n");
+	for (RegOffset = 0;
+		RegOffset <= XV_HDMITX1_FRL_FEC_ERR_INJ_OFFSET; ) {
+		xil_printf("0x%04x      0x%08x\r\n",RegOffset,
+		XV_HdmiTx1_ReadReg(
+		InstancePtr->Config.BaseAddress, RegOffset));
+		RegOffset += 4;
+		/* Ignore the DDC Space Register */
+		if (RegOffset == 0x94) {
+			RegOffset = 0xC0;
+		}
+	}
 }
 
 /*****************************************************************************/
