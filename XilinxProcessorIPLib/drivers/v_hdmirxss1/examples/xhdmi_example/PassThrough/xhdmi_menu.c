@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -43,15 +25,7 @@
 
 /***************************** Include Files *********************************/
 #include "xhdmi_menu.h"
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
-#include "xv_hdmitxss1.h"
-#endif
-#include "xvidc_edid_ext.h"
-#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
-		      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
-#include "xv_frmbufwr_l2.h"
-#include "xv_frmbufrd_l2.h"
-#endif
+
 /************************** Constant Definitions *****************************/
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
@@ -87,16 +61,18 @@ typedef XHdmi_MenuType XHdmi_MenuFuncType(XHdmi_Menu *InstancePtr, u8 Input);
 
 /************************** Function Prototypes ******************************/
 static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input);
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_FrameRateMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#ifdef USE_HDMI_AUDGEN
 static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType
 	XHdmi_AudioSampFreqMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#endif
 static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
 #if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
@@ -113,15 +89,17 @@ static XHdmi_MenuType XHdmi_Hdmiphy1DebugMenu(XHdmi_Menu *InstancePtr,
 static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input);
 
 static void XHdmi_DisplayMainMenu(void);
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 static void XHdmi_DisplayEdidMenu(void);
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 static void XHdmi_DisplayResolutionMenu(void);
 static void XHdmi_DisplayFrameRateMenu(void);
 static void XHdmi_DisplayColorDepthMenu(void);
 static void XHdmi_DisplayColorSpaceMenu(void);
+#ifdef USE_HDMI_AUDGEN
 static void XHdmi_DisplayAudioMenu(void);
 static void XHdmi_DisplayAudioChannelMenu(void);
 static void XHdmi_DisplayAudioSampFreqMenu(void);
+#endif
 static void XHdmi_DisplayVideoMenu(void);
 #endif
 #if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
@@ -138,6 +116,7 @@ static void XHdmi_DisplayOnSemiDebugMenu(void);
 static u8 XHdmi_OneSemiMenuProcess(u8 Hex);
 
 extern void Info(void);
+extern void DetailedInfo(void);
 extern void TxFrlStartDebug(void);
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 extern void UpdateColorFormat(XHdmiphy1 *Hdmiphy1Ptr,
@@ -162,6 +141,8 @@ extern void HDCPXILCMD_ProcessKey(char theCmdKey);
 #endif
 
 /************************* Variable Definitions *****************************/
+/*HDMI Menu Variable */
+XHdmi_Menu       HdmiMenu;
 
 /**
 * This table contains the function pointers for all possible states.
@@ -169,15 +150,17 @@ extern void HDCPXILCMD_ProcessKey(char theCmdKey);
 */
 static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
     XHdmi_MainMenu,
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     XHdmi_EdidMenu,
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     XHdmi_ResolutionMenu,
     XHdmi_FrameRateMenu,
     XHdmi_ColorDepthMenu,
     XHdmi_ColorSpaceMenu,
+#ifdef USE_HDMI_AUDGEN
     XHdmi_AudioMenu,
     XHdmi_AudioChannelMenu,
     XHdmi_AudioSampFreqMenu,
+#endif
     XHdmi_VideoMenu,
 #endif
 #if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
@@ -197,18 +180,24 @@ extern XVfmc Vfmc[1];
 extern XHdmiphy1 Hdmiphy1;               /* VPhy structure */
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 extern XV_HdmiTxSs1 HdmiTxSs;       /* HDMI TX SS structure */
+#ifdef USE_HDMI_AUDGEN
 extern XhdmiAudioGen_t AudioGen;
-extern XV_Rx xhdmi_example_rx_controller;
+#endif
 #endif
 
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+extern XV_Rx xhdmi_example_rx_controller;
 extern XV_HdmiRxSs1 HdmiRxSs;       /* HDMI RX SS structure */
+#endif
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 extern XV_Tx xhdmi_example_tx_controller;
 #endif
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
 extern XV_tpg Tpg;              /* TPG structure */
 extern XTpg_PatternId Pattern;
+#endif
 #endif
 
 /*HDMI EDID*/
@@ -216,8 +205,6 @@ extern XTpg_PatternId Pattern;
 extern EdidHdmi EdidHdmi_t;
 #endif
 extern u8 Buffer[];
-
-extern XHdmi_Exdes xhdmi_exdes_ctrlr;
 
 #if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
 		      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
@@ -242,7 +229,10 @@ extern XV_FrmbufRd_l2        FrameBufRd;
 *
 *
 ******************************************************************************/
-void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
+void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress,
+		u8 *ForceIndependentPtr, u8 *SystemEventPtr, u8 *IsTxPresentPtr,
+		u8 *IsRxPresentPtr, void *ChangeColorbarOutputCB,
+		void *ConfigureTpgEnableInputCB, void *ToggleHdmiRxHpdCB)
 {
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
@@ -258,6 +248,21 @@ void XHdmi_MenuInitialize(XHdmi_Menu *InstancePtr, u32 UartBaseAddress)
     InstancePtr->WaitForColorbar = (FALSE);
     InstancePtr->AdvColorDepth = XVIDC_BPC_8;
     InstancePtr->AdvColorSpace = XVIDC_CSF_RGB;
+
+    InstancePtr->ExDesCtrlr.ForceIndependentPtr = ForceIndependentPtr;
+    InstancePtr->ExDesCtrlr.SystemEventPtr = SystemEventPtr;
+    InstancePtr->ExDesCtrlr.IsTxPresentPtr = IsTxPresentPtr;
+    InstancePtr->ExDesCtrlr.IsRxPresentPtr = IsRxPresentPtr;
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+    InstancePtr->ExDesCtrlr.ChangeColorbarOutputCB =
+		ChangeColorbarOutputCB;
+    InstancePtr->ExDesCtrlr.ConfigureTpgEnableInputCB=
+		ConfigureTpgEnableInputCB;
+#endif
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB =
+		ToggleHdmiRxHpdCB;
+#endif
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
@@ -314,6 +319,8 @@ void XHdmi_DisplayMainMenu(void)
     xil_printf("i - Info\r\n");
     xil_printf("       => Shows information about the HDMI RX stream, \r\n"
 	  "          HDMI TX stream, GT transceivers and PLL settings.\r\n");
+    xil_printf("l - Detailed Info\r\n");
+    xil_printf("       => Additional/Detail Info of the system\r\n");
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     xil_printf("c - Change Mode\r\n");
     xil_printf("       => Change the mode of the application between \r\n"
@@ -333,11 +340,13 @@ void XHdmi_DisplayMainMenu(void)
 #endif
     xil_printf("z - GT & HDMI TX/RX log\r\n");
     xil_printf("       => Shows log information for GT & HDMI TX/RX.\r\n");
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     xil_printf("e - Edid\r\n");
     xil_printf("       => Display and set edid.\r\n");
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+#ifdef USE_HDMI_AUDGEN
     xil_printf("a - Audio\r\n");
     xil_printf("       => Audio options.\r\n");
+#endif
     xil_printf("v - Video\r\n");
     xil_printf("       => Video pattern options.\r\n");
 #endif
@@ -394,15 +403,22 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    Menu = XHDMI_MAIN_MENU;
 	    break;
 
+	    /* Detailed/Additional Info */
+	case ('l') :
+	case ('L') :
+		DetailedInfo();
+	    Menu = XHDMI_MAIN_MENU;
+	    break;
+
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	    /* Sending HPD */
 	case ('p') :
 	case ('P') :
 	    if (HdmiRxSs.IsStreamConnected == (TRUE)) {
-		XV_Rx_SetHpd(xhdmi_exdes_ctrlr.hdmi_rx_ctlr, FALSE);
+		XV_Rx_SetHpd(&xhdmi_example_rx_controller, FALSE);
 		/* Wait 500 ms */
 		usleep(500000);
-		XV_Rx_SetHpd(xhdmi_exdes_ctrlr.hdmi_rx_ctlr, TRUE);
+		XV_Rx_SetHpd(&xhdmi_example_rx_controller, TRUE);
 	    }
 	    Menu = XHDMI_MAIN_MENU;
 	    break;
@@ -412,12 +428,12 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    /* Changing Operating Mode */
 	case ('c') :
 	case ('C') :
-	    if (xhdmi_exdes_ctrlr.ForceIndependent == TRUE) {
-		xhdmi_exdes_ctrlr.ForceIndependent = FALSE;
-	    } else if (xhdmi_exdes_ctrlr.ForceIndependent == FALSE) {
-		xhdmi_exdes_ctrlr.ForceIndependent = TRUE;
+	    if (*InstancePtr->ExDesCtrlr.ForceIndependentPtr == TRUE) {
+		*InstancePtr->ExDesCtrlr.ForceIndependentPtr = FALSE;
+	    } else if (*InstancePtr->ExDesCtrlr.ForceIndependentPtr == FALSE) {
+		*InstancePtr->ExDesCtrlr.ForceIndependentPtr = TRUE;
 	    }
-	    xhdmi_exdes_ctrlr.SystemEvent = TRUE;
+		*InstancePtr->ExDesCtrlr.SystemEventPtr = TRUE;
 	    Menu = XHDMI_MAIN_MENU;
 	    break;
 
@@ -429,9 +445,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    Menu = XHDMI_MAIN_MENU;
 
 	    /* Check if the TX only is active or tx and rx are independent */
-	    if ((!xhdmi_exdes_ctrlr.IsRxPresent &&
-		 xhdmi_exdes_ctrlr.IsTxPresent) ||
-		(xhdmi_exdes_ctrlr.ForceIndependent == TRUE)) {
+	    if ((!(*InstancePtr->ExDesCtrlr.IsRxPresentPtr) &&
+			*InstancePtr->ExDesCtrlr.IsTxPresentPtr) ||
+		(*InstancePtr->ExDesCtrlr.ForceIndependentPtr == TRUE)) {
 		Menu = XHDMI_RESOLUTION_MENU;
 		xil_printf("---------------------------\r\n");
 		xil_printf("---   RESOLUTION MENU   ---\r\n");
@@ -461,9 +477,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    Menu = XHDMI_MAIN_MENU;
 
 	    /* Check if the TX only is active or tx and rx are independent */
-	    if ((!xhdmi_exdes_ctrlr.IsRxPresent &&
-		 xhdmi_exdes_ctrlr.IsTxPresent) ||
-		(xhdmi_exdes_ctrlr.ForceIndependent == TRUE)) {
+	    if ((!(*InstancePtr->ExDesCtrlr.IsRxPresentPtr) &&
+		*InstancePtr->ExDesCtrlr.IsTxPresentPtr) ||
+		(*InstancePtr->ExDesCtrlr.ForceIndependentPtr == TRUE)) {
 
 		XHdmi_DisplayFrameRateMenu();
 		Menu = XHDMI_FRAMERATE_MENU;
@@ -486,9 +502,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    Menu = XHDMI_MAIN_MENU;
 
 	    /* Check if the TX only is active or tx and rx are independent */
-	    if ((!xhdmi_exdes_ctrlr.IsRxPresent &&
-		 xhdmi_exdes_ctrlr.IsTxPresent) ||
-		(xhdmi_exdes_ctrlr.ForceIndependent == TRUE)) {
+	    if ((!(*InstancePtr->ExDesCtrlr.IsRxPresentPtr) &&
+		*InstancePtr->ExDesCtrlr.IsTxPresentPtr) ||
+		(*InstancePtr->ExDesCtrlr.ForceIndependentPtr == TRUE)) {
 
 		XHdmi_DisplayColorDepthMenu();
 		Menu = XHDMI_COLORDEPTH_MENU;
@@ -510,9 +526,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    Menu = XHDMI_MAIN_MENU;
 
 	    /* Check if the TX only is active or tx and rx are independent */
-	    if ((!xhdmi_exdes_ctrlr.IsRxPresent &&
-		 xhdmi_exdes_ctrlr.IsTxPresent) ||
-		(xhdmi_exdes_ctrlr.ForceIndependent == TRUE)) {
+		if ((!(*InstancePtr->ExDesCtrlr.IsRxPresentPtr) &&
+		*InstancePtr->ExDesCtrlr.IsTxPresentPtr) ||
+		(*InstancePtr->ExDesCtrlr.ForceIndependentPtr == TRUE)) {
 
 		XHdmi_DisplayColorSpaceMenu();
 		Menu = XHDMI_COLORSPACE_MENU;
@@ -531,7 +547,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    /* GT & HDMI TX/RX log */
 	case ('z') :
 	case ('Z') :
-	    Counter = 0;
 	    XHdmiphy1_LogDisplay(&Hdmiphy1);
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	    XV_HdmiTxSs1_LogDisplay(&HdmiTxSs);
@@ -542,21 +557,22 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    Menu = XHDMI_MAIN_MENU;
 	    break;
 
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+
 	    /* Edid */
 	case ('e') :
 	case ('E') :
 	    XHdmi_DisplayEdidMenu();
 	    Menu = XHDMI_EDID_MENU;
 	    break;
-
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+#ifdef USE_HDMI_AUDGEN
 	    /* Audio */
 	case ('a') :
 	case ('A') :
 	    XHdmi_DisplayAudioMenu();
 	    Menu = XHDMI_AUDIO_MENU;
 	    break;
-
+#endif
 	    /* Video */
 	case ('v') :
 	case ('V') :
@@ -865,13 +881,13 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input) {
     if (VideoMode != XVIDC_VM_NO_INPUT) {
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	if (InstancePtr->AdvColorSpace == XVIDC_CSF_YCRCB_422) {
-	    Exdes_ChangeColorbarOutput(VideoMode,
+		InstancePtr->ExDesCtrlr.ChangeColorbarOutputCB(VideoMode,
 					InstancePtr->AdvColorSpace, 12);
 	} else {
-	    Exdes_ChangeColorbarOutput(VideoMode,
+		InstancePtr->ExDesCtrlr.ChangeColorbarOutputCB(VideoMode,
 			InstancePtr->AdvColorSpace, InstancePtr->AdvColorDepth);
 	}
-	xhdmi_exdes_ctrlr.SystemEvent = TRUE;
+	*InstancePtr->ExDesCtrlr.SystemEventPtr = TRUE;
 #endif
 	InstancePtr->WaitForColorbar = (TRUE);
     }
@@ -1113,9 +1129,7 @@ void XHdmi_DisplayColorSpaceMenu(void) {
     xil_printf("  1 - RGB\r\n");
     xil_printf("  2 - YUV444\r\n");
     xil_printf("  3 - YUV422\r\n");
-#if (XPAR_XV_HDMITXSS1_0_INCLUDE_YUV420_SUP == 1)
     xil_printf("  4 - YUV420\r\n");
-#endif
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
 }
@@ -1154,12 +1168,10 @@ static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	case 3 :
 	    ColorFormat = XVIDC_CSF_YCRCB_422;
 	    break;
-#if (XPAR_XV_HDMITXSS1_0_INCLUDE_YUV420_SUP == 1)
 	    /* YUV420 */
 	case 4 :
 	    ColorFormat = XVIDC_CSF_YCRCB_420;
 	    break;
-#endif
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
@@ -1182,7 +1194,7 @@ static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 }
 #endif
 
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+
 /*****************************************************************************/
 /**
 *
@@ -1196,17 +1208,21 @@ static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 ******************************************************************************/
 void XHdmi_DisplayEdidMenu(void) {
     xil_printf("\r\n");
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     SinkCapabilityCheck(&EdidHdmi_t);
     SinkCapWarningMsg(&EdidHdmi_t);
+#endif
     xil_printf("---------------------\r\n");
     xil_printf("---   EDID MENU   ---\r\n");
     xil_printf("---------------------\r\n");
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     xil_printf("  1 - Display the EDID of the connected sink device.\r\n");
-#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+
     xil_printf("  2 - Clone the EDID of the connected sink to "
 						"HDMI Rx EDID.\r\n");
-    xil_printf("  3 - Load default EDID to HDMI Rx.\r\n");
 #endif
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+    xil_printf("  3 - Load default EDID to HDMI Rx.\r\n");
     xil_printf("\r\n");
     xil_printf("---------------------\r\n");
     xil_printf("  Load HDMI Rx EDID :\r\n");
@@ -1218,6 +1234,7 @@ void XHdmi_DisplayEdidMenu(void) {
     xil_printf("  14 - RX FRL 4 Lanes 6G.\r\n");
     xil_printf("  15 - RX FRL 3 Lanes 6G.\r\n");
     xil_printf("  16 - RX FRL 3 Lanes 3G.\r\n");
+#endif
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
 }
@@ -1235,13 +1252,14 @@ void XHdmi_DisplayEdidMenu(void) {
 static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
     /* Variables */
     XHdmi_MenuType  Menu;
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     u8 Buffer[256];
     int Status = XST_FAILURE;
-
+#endif
     /* Default */
     Menu = XHDMI_EDID_MENU;
     switch (Input) {
-
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	    /* Show source edid */
 	case 1 :
 	    XV_HdmiTxSs1_ShowEdid(&HdmiTxSs);
@@ -1262,76 +1280,77 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("Enter Selection -> ");
 	    break;
 
-#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+
 	    /* Clone edid */
 	case 2 :
 	    CloneTxEdid();
 	    break;
-
+#endif
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	    /* Load edid */
 	case 3 :
 	    XV_HdmiRxSs1_LoadDefaultEdid(&HdmiRxSs);
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
-#endif
+
 
 	case 10 :
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[187] = 0x03;
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[255] = 0xF4;
+	    xhdmi_example_rx_controller.Edid[187] = 0x03;
+	    xhdmi_example_rx_controller.Edid[255] = 0xF4;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-	    		(u8*)&(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid), 256);
-	    ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
+			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
 	    break;
 
 	case 11 :
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[187] = 0x63;
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[255] = 0x94;
+	    xhdmi_example_rx_controller.Edid[187] = 0x63;
+	    xhdmi_example_rx_controller.Edid[255] = 0x94;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-	    		(u8*)&(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid), 256);
-	    ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
+			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
 	    break;
 
 	case 12 :
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[187] = 0x53;
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[255] = 0xA4;
+	    xhdmi_example_rx_controller.Edid[187] = 0x53;
+	    xhdmi_example_rx_controller.Edid[255] = 0xA4;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-	    		(u8*)&(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid), 256);
-	    ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
+			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
 	    break;
 
 	case 13 :
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[187] = 0x43;
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[255] = 0xB4;
+	    xhdmi_example_rx_controller.Edid[187] = 0x43;
+	    xhdmi_example_rx_controller.Edid[255] = 0xB4;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-	    		(u8*)&(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid), 256);
-	    ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
+			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
 	    break;
 
 	case 14 :
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[187] = 0x33;
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[255] = 0xC4;
+	    xhdmi_example_rx_controller.Edid[187] = 0x33;
+	    xhdmi_example_rx_controller.Edid[255] = 0xC4;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-	    		(u8*)&(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid), 256);
-	    ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
+			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
 	    break;
 
 	case 15 :
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[187] = 0x23;
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[255] = 0xD4;
+	    xhdmi_example_rx_controller.Edid[187] = 0x23;
+	    xhdmi_example_rx_controller.Edid[255] = 0xD4;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-	    		(u8*)&(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid), 256);
-	    ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
+			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
 	    break;
 
 	case 16 :
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[187] = 0x13;
-	    xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid[255] = 0xE4;
+	    xhdmi_example_rx_controller.Edid[187] = 0x13;
+	    xhdmi_example_rx_controller.Edid[255] = 0xE4;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-	    		(u8*)&(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->Edid), 256);
-	    ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
+			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
 	    break;
-
+#endif
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
@@ -1347,7 +1366,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
     return Menu;
 }
-
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 /*****************************************************************************/
 /**
 *
@@ -1364,6 +1383,7 @@ void XHdmi_DisplayVideoMenu(void) {
     xil_printf("----------------------\r\n");
     xil_printf("---   VIDEO MENU   ---\r\n");
     xil_printf("----------------------\r\n");
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
 #if (XPAR_XV_TPG_0_COLOR_BAR == 1)
     xil_printf("  1 - Color bars\r\n");
 #endif
@@ -1385,6 +1405,7 @@ void XHdmi_DisplayVideoMenu(void) {
     xil_printf(" 11 - Cross hatch\r\n");
     xil_printf(" 12 - Noise\r\n");
     xil_printf(" 13 - Tartan Color Bar\r\n");
+#endif
 #if (VIDEO_MASKING_MENU_EN == 1)
     xil_printf(" 20 - Black (Video Mask)\r\n");
     xil_printf(" 21 - White (Video Mask)\r\n");
@@ -1420,6 +1441,7 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
     xil_printf("\r\n");
 
     switch (Input) {
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
 	case 1 :
 	    NewPattern = XTPG_BKGND_COLOR_BARS;
 	    xil_printf("Colorbars\r\n");
@@ -1484,7 +1506,7 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    NewPattern = XTPG_BKGND_TARTAN_COLOR_BARS;
 	    xil_printf("Tartan Color Bar\r\n");
 	    break;
-
+#endif
 #if (VIDEO_MASKING_MENU_EN == 1)
 	case 20:
 	    xil_printf("Set Video to Static Black (Video Mask).\r\n");
@@ -1529,20 +1551,21 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
     }
 
-
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
     if (NewPattern != XTPG_BKGND_LAST) {
 	/* Set video pattern */
 	Pattern = NewPattern;
 	/* Start TPG */
 	xil_printf("new pattern\r\n");
-	Exdes_ConfigureTpgEnableInput(FALSE);
+	InstancePtr->ExDesCtrlr.ConfigureTpgEnableInputCB(FALSE);
 	XV_HdmiTxSS1_MaskDisable(&HdmiTxSs);
 	xil_printf("Enter Selection -> ");
     }
-
+#endif
     return Menu;
 }
 
+#ifdef USE_HDMI_AUDGEN
 /*****************************************************************************/
 /**
 *
@@ -1724,7 +1747,6 @@ static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr,
 
     return Menu;
 }
-
 
 /*****************************************************************************/
 /**
@@ -1911,6 +1933,7 @@ static XHdmi_MenuType XHdmi_AudioSampFreqMenu(XHdmi_Menu *InstancePtr,
     return Menu;
 }
 #endif
+#endif
 
 
 #if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
@@ -2001,9 +2024,11 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #endif
 	    xil_printf("Display log.\r\n");
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	    HdmiRxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiRxSs1_HdcpInfo(&HdmiRxSs);
 #endif
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+	    HdmiTxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiTxSs1_HdcpInfo(&HdmiTxSs);
 #endif
 	    break;
@@ -2175,64 +2200,64 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("Forcing HDCP 2.2 authentication\r\n");
 	    /* Set desired downstream capability */
 	    XV_HdmiTxSs1_HdcpSetCapability(
-				xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs,
+			xhdmi_example_tx_controller.HdmiTxSs,
 				XV_HDMITXSS1_HDCP_22);
 
 	    /* Enable and authenticate */
 	    XHdcp22Tx_Enable(
-			xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
-	    XHdcp22Tx_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
+			xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
+	    XHdcp22Tx_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
 	    XHdcp22Tx_Authenticate(
-			xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
-	    XHdcp22Tx_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
+			xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
+	    XHdcp22Tx_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
 	    XHdcp22Tx_EnableEncryption(
-			xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
-	    XHdcp22Tx_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
+			xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
+	    XHdcp22Tx_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
 	    break;
 
 	case 8:
 	    xil_printf("Disabling HDCP 2.2 cipher encryption \r\n");
 	    XHdcp22Tx_DisableEncryption(
-			xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
-	    XHdcp22Tx_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
+			xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
+	    XHdcp22Tx_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
 	    break;
 
 	case 9:
 	    xil_printf("Enabling HDCP 2.2 cipher encryption \r\n");
 	    XHdcp22Tx_EnableEncryption(
-			xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
-	    XHdcp22Tx_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr);
+			xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
+	    XHdcp22Tx_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr);
 	    break;
 
 	case 10:
 	    xil_printf("Forcing HDCP 1.4 authentication \r\n");
 	    /* Set desired downstream capability */
 	    XV_HdmiTxSs1_HdcpSetCapability(
-			xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs,
+			xhdmi_example_tx_controller.HdmiTxSs,
 			XV_HDMITXSS1_HDCP_14);
 
 	    /* Set physical state */
 	    XHdcp1x_SetPhysicalState(
-		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr, TRUE);
+		xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr, TRUE);
 	    /* This is needed to ensure that the previous command is executed.*/
-	    XHdcp1x_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr);
 	    /* Enable and authenticate */
-	    XHdcp1x_TxEnable(
-		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxAuthenticate(
-		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxEnableEncryption(
-		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr, 0x1);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Enable(
+		xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Authenticate(
+		xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_EnableEncryption(
+		xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr, 0x1);
+	    XHdcp1x_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr);
 	    break;
 
 	case 11:
 	    xil_printf("Disabling HDCP 1.4 cipher \r\n");
-	    XHdcp1x_TxDisableEncryption(
-		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr, 0x1);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_DisableEncryption(
+		xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr, 0x1);
+	    XHdcp1x_Poll(xhdmi_example_tx_controller.HdmiTxSs->Hdcp14Ptr);
 	    break;
 
 #if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES) ||\
@@ -2242,9 +2267,11 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #endif
 	    xil_printf("Display log.\r\n");
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	    HdmiRxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiRxSs1_HdcpInfo(&HdmiRxSs);
 #endif
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+	    HdmiTxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiTxSs1_HdcpInfo(&HdmiTxSs);
 #endif
 	    break;
@@ -2254,7 +2281,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    /* HDCP 2.2 Cipher status */
 	    xil_printf(" Offset |     Register      |"
 		" MSB(31).................LSB(0) |       Value    \r\n");
-	    u32 Hdcp22_TxCipherBaseAddr = xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp22Ptr->Cipher.Config.BaseAddress;
+	    u32 Hdcp22_TxCipherBaseAddr = xhdmi_example_tx_controller.HdmiTxSs->Hdcp22Ptr->Cipher.Config.BaseAddress;
 
 	    xil_printf("   0    | Version ID        | .............................. | %x\r\n",
 		    XHdcp22Cipher_ReadReg(Hdcp22_TxCipherBaseAddr,XHDCP22_CIPHER_VER_ID_OFFSET));
@@ -2328,8 +2355,10 @@ static void XHdmi_DisplayDebugMainMenu(void) {
     xil_printf("  11 - RX sets FltNoTimeout.\r\n");
     xil_printf("  12 - RX clears FltNoTimeout.\r\n");
     xil_printf("  13 - RX requests for FRL LT (during LTS:P).\r\n");
+    xil_printf("  14 - RX PHY Reset.\r\n");
     xil_printf("\r\n");
     xil_printf("  20 - Register Dump (Debug). \r\n");
+    xil_printf("  21 - SCDC Register Dump (Debug). \r\n");
     xil_printf("  99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
 }
@@ -2347,13 +2376,15 @@ static void XHdmi_DisplayDebugMainMenu(void) {
 static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
     /* Variables */
     XHdmi_MenuType  Menu;
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
     XV_HdmiRx1_FrlLtp Temp;
+#endif
     u32 RegOffset;
     /* Default */
     Menu = XHDMI_DEBUG_MAIN_MENU;
 
     switch (Input) {
-
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	case 1 :
 	    XV_HdmiTxSs1_StartTmdsMode(&HdmiTxSs);
 	    /* Display the prompt for the next input */
@@ -2401,7 +2432,8 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
-
+#endif
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	case 10 :
 	    Temp.Byte[0] = 0x5;
 	    Temp.Byte[1] = 0x6;
@@ -2425,53 +2457,34 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    XV_HdmiRx1_RestartFrlLt(HdmiRxSs.HdmiRx1Ptr);
 	    break;
 
+	case 14:
+	    XHdmiphy1_ResetGtTxRx(&Hdmiphy1,
+			    0,
+			    XHDMIPHY1_CHANNEL_ID_CHA,
+			    XHDMIPHY1_DIR_RX,
+			    FALSE);
+	    break;
+#endif
 	case 20:
-	    xil_printf("-------------------------------------\r\n");
-	    xil_printf("      VHDMI TX Register Dump \r\n");
-	    xil_printf("-------------------------------------\r\n");
-	    for (RegOffset = 0; RegOffset <= XV_HDMITX1_FRL_FEC_ERR_INJ_OFFSET; ) {
-		xil_printf("0x%04x      0x%08x\r\n",RegOffset,
-			XV_HdmiTx1_ReadReg(
-			HdmiTxSs.HdmiTx1Ptr->Config.BaseAddress, RegOffset));
-		RegOffset += 4;
-	    }
-
-	    xil_printf("-------------------------------------\r\n");
-	    xil_printf("      VHDMI RX Register Dump \r\n");
-	    xil_printf("-------------------------------------\r\n");
-	    for (RegOffset = 0;
-			RegOffset <= XV_HDMIRX1_FRL_VID_LOCK_CNT_OFFSET; ) {
-		xil_printf("0x%04x      0x%08x\r\n",RegOffset,
-			XV_HdmiTx1_ReadReg(
-			HdmiRxSs.HdmiRx1Ptr->Config.BaseAddress, RegOffset));
-		RegOffset += 4;
-	    }
-
-	    xil_printf("-------------------------------------\r\n");
-	    xil_printf("        VTC Register Dump \r\n");
-	    xil_printf("-------------------------------------\r\n");
-	    if (HdmiTxSs.VtcPtr) {
-		if (XV_HdmiTx1_ReadReg(HdmiTxSs.Config.BaseAddress,
-					(XV_HDMITX1_PIO_IN_OFFSET)) &
-					XV_HDMITX1_PIO_IN_VID_RDY_MASK) {
-		    for (RegOffset = 0; RegOffset <= XVTC_GGD_OFFSET; ) {
-			xil_printf("0x%04x      0x%08x\r\n",RegOffset,
-			XV_HdmiTx1_ReadReg(HdmiTxSs.Config.Vtc.AbsAddr,
-					RegOffset));
-			RegOffset += 4;
-		    }
-		}
-	    }
-
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
+	    XV_HdmiTxSs1_RegisterDebug(&HdmiTxSs);
+#endif
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
+	    XV_HdmiRxSs1_RegisterDebug(&HdmiRxSs);
+#endif
+#if defined (XPAR_XV_TPG_NUM_INSTANCES)
 	    xil_printf("-------------------------------------\r\n");
 	    xil_printf("         V TPG Register Dump\r\n");
 	    xil_printf("-------------------------------------\r\n");
+	    if (xhdmi_example_tx_controller.XV_Tx_StreamState ==
+			XV_TX_HDMITXSS_STREAM_UP) {
 	    for (RegOffset = 0; RegOffset <= XV_TPG_CTRL_ADDR_FIELDID_DATA; ) {
-		xil_printf("0x%04x      0x%08x\r\n",RegOffset,
-			XV_HdmiTx1_ReadReg(Tpg.Config.BaseAddress, RegOffset));
-		RegOffset += 4;
+	    xil_printf("0x%04x      0x%08x\r\n",RegOffset,
+		XV_HdmiTx1_ReadReg(Tpg.Config.BaseAddress, RegOffset));
+	    RegOffset += 4;
 	    }
-
+	    }
+#endif
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
 		      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
 	    xil_printf("-------------------------------------\r\n");
@@ -2484,8 +2497,12 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			FrameBufRd.FrmbufRd.Config.BaseAddress, RegOffset));
 		RegOffset += 4;
 	    }
-	    break;
 #endif
+	    break;
+
+	case 21:
+	    XV_HdmiRxSs1_DdcRegDump(&HdmiRxSs);
+	    break;
 
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
@@ -2532,12 +2549,21 @@ static void XHdmi_DisplayHdmiphy1DebugMenu(void) {
     xil_printf("  9 - Toggle PRBS Force Error\r\n");
     xil_printf("---------------------------\r\n");
     xil_printf(" TX VSWING (TXDIFFCTRL)\r\n");
+#if defined (XPS_BOARD_ZCU106)
     xil_printf("  10- 765 mV\r\n");
     xil_printf("  11- 822 mV\r\n");
     xil_printf("  12- 873 mV\r\n");
     xil_printf("  13- 921 mV (default)\r\n");
     xil_printf("  14- 963 mV\r\n");
     xil_printf("  15- 1000 mV\r\n");
+#elif defined (XPS_BOARD_VCU118)
+    xil_printf("  10- 840 mV (0x12)\r\n");
+    xil_printf("  11- 870 mV (0x14)\r\n");
+    xil_printf("  12- 920 mV (0x16)\r\n");
+    xil_printf("  13- 950 mV (0x18)\r\n");
+    xil_printf("  14- Increment by 2\r\n");
+    xil_printf("  15- Decrement by 2\r\n");
+#endif
     xil_printf("---------------------------\r\n");
     xil_printf(" TX POST CURSOR (32 steps)\r\n");
     xil_printf("  16- Increment\r\n");
@@ -2658,6 +2684,7 @@ static XHdmi_MenuType XHdmi_Hdmiphy1DebugMenu(XHdmi_Menu *InstancePtr,
 				XHDMIPHY1_CHANNEL_ID_CHA, 0);
 		break;
 
+#if defined (XPS_BOARD_ZCU106)
 	case 10:
 	    xil_printf("TX Diff Swing 765 mV\r\n");
 		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
@@ -2729,6 +2756,87 @@ static XHdmi_MenuType XHdmi_Hdmiphy1DebugMenu(XHdmi_Menu *InstancePtr,
 		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
 				XHDMIPHY1_CHANNEL_ID_CH4, 0xF);
 		break;
+#elif defined (XPS_BOARD_VCU118)
+	case 10:
+	    xil_printf("TX Diff Swing 840 mV (0x12)\r\n");
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH1, 0x12);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH2, 0x12);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH3, 0x12);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH4, 0x12);
+		break;
+
+	case 11 :
+	    xil_printf("TX Diff Swing 870 mV (0x14)\r\n");
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH1, 0x14);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH2, 0x14);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH3, 0x14);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH4, 0x14);
+		break;
+
+	case 12 :
+	    xil_printf("TX Diff Swing 920 mV (0x16)\r\n");
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH1, 0x16);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH2, 0x16);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH3, 0x16);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH4, 0x16);
+		break;
+
+	case 13:
+	    xil_printf("TX Diff Swing 950 mV (0x18)\r\n");
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH1, 0x18);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH2, 0x18);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH3, 0x18);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH4, 0x18);
+		break;
+
+	case 14:
+		RegVal = (XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr,
+					XHDMIPHY1_TX_DRIVER_CH12_REG) & 0x1F);
+		RegVal = RegVal+1;
+		xil_printf("TX Diff Swing Increment Enc: 0x%02x RegVal: 0x%02x \r\n",
+				    RegVal << 1, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH1, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH2, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH3, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH4, RegVal);
+		break;
+
+	case 15:
+		RegVal = (XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr,
+					XHDMIPHY1_TX_DRIVER_CH12_REG) & 0x1F);
+		RegVal = RegVal-1;
+		xil_printf("TX Diff Swing Decrement Enc: 0x%02x RegVal: 0x%02x \r\n",
+				    RegVal << 1, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH1, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH2, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH3, RegVal);
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CH4, RegVal);
+		break;
+#endif
 
 	case 16:
 		RegVal = (XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr,
@@ -3027,6 +3135,8 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr,
     }
 #else
     XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(350);
     return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 		    ByteCount, Option);
 #endif
@@ -3369,7 +3479,7 @@ u8 XHdmi_OneSemiMenuProcess(u8 Hex) {
 * @return None
 *
 ******************************************************************************/
-void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
+void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr, u8 TxBusy) {
     u8 Data;
 
     /* Verify argument. */

@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file
@@ -40,7 +22,6 @@
 *****************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xhdmi_example.h"
 #include "xhdmi_exdes_sm_rx.h"
 
 /************************** Constant Definitions ****************************/
@@ -84,6 +65,7 @@ static void XV_Rx_HdmiRx_Ddc_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_StreamDown_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_StreamInit_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_StreamUp_Cb(void *CallbackRef);
+static void XV_Rx_HdmiRx_PhyReset_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_FrlConfig_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_FrlStart_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_TmdsConfig_Cb(void *CallbackRef);
@@ -106,6 +88,9 @@ static void XV_Rx_HdmiRx_StateStreamOn(XV_Rx *InstancePtr,
 static void XV_Rx_HdmiRx_StateStreamOff(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
 					XV_Rx_Hdmi_State *NextStatePtr);
+static void XV_Rx_HdmiRx_StatePhyReset(XV_Rx *InstancePtr,
+					XV_Rx_Hdmi_Events Event,
+					XV_Rx_Hdmi_State *NextStatePtr);
 static void XV_Rx_HdmiRx_StateFrlConfig(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
 					XV_Rx_Hdmi_State *NextStatePtr);
@@ -123,6 +108,7 @@ static void XV_Rx_HdmiRx_EnterStateNoStream(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateStreamInitialized(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateStreamOn(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateStreamOff(XV_Rx *InstancePtr);
+static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateFrlStart(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr);
@@ -427,7 +413,7 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetFrlAudSampFreq (XV_Rx *InstancePtr)
 
 	if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl == TRUE) {
 
-	    switch (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.Frl.Rate) {
+	    switch (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.Frl.LineRate) {
 	    	case 3:
 	    		FRLCharRate = R_166_667;
 	    		break;
@@ -662,6 +648,11 @@ u32 XV_Rx_HdmiRxSs_Setup_Callbacks(XV_Rx *InstancePtr)
 	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
 					XV_HDMIRXSS1_HANDLER_STREAM_UP,
 					(void *)XV_Rx_HdmiRx_StreamUp_Cb,
+					(void *)InstancePtr);
+
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+					XV_HDMIRXSS1_HANDLER_PHY_RESET,
+					(void *)XV_Rx_HdmiRx_PhyReset_Cb,
 					(void *)InstancePtr);
 
 	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
@@ -1367,6 +1358,31 @@ static void XV_Rx_HdmiRx_StreamUp_Cb(void *CallbackRef)
 	 */
 }
 
+/*****************************************************************************/
+/**
+* This function implements the callback for the HDMI RX Phy Reset event.
+*
+* @param    InstancePtr is the callback reference to the HDMI RX SS instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XV_Rx_HdmiRx_PhyReset_Cb(void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+
+	xdbg_xv_rx_print(ANSI_COLOR_WHITE" "ANSI_COLOR_BG_HIGH_CYAN"%s, %d "
+		"Rx Phy Reset, State: %s"ANSI_COLOR_RESET"\r\n",
+		__func__, __LINE__,
+		XV_Rx_Hdmi_Rx_StatetoString(recvInst->StateInfo.CurrentState));
+
+	XV_Rx_HdmiRx_SendEvent(recvInst, XV_RX_HDMI_EVENT_PHYRESET);
+}
+
 static void XV_Rx_HdmiRx_FrlConfig_Cb(void *CallbackRef)
 {
 	Xil_AssertVoid(CallbackRef);
@@ -1540,6 +1556,10 @@ static void XV_Rx_HdmiRx_ProcessEvents(XV_Rx *InstancePtr,
 		XV_Rx_HdmiRx_StateStreamOff(InstancePtr, Event, &NextState);
 		break;
 
+	case XV_RX_HDMI_STATE_PHYRESET:
+		XV_Rx_HdmiRx_StatePhyReset(InstancePtr, Event, &NextState);
+		break;
+
 	case XV_RX_HDMI_STATE_FRLCONFIG:
 		XV_Rx_HdmiRx_StateFrlConfig(InstancePtr, Event, &NextState);
 		break;
@@ -1607,6 +1627,10 @@ static void XV_Rx_HdmiRx_StateEnter(XV_Rx *InstancePtr, XV_Rx_Hdmi_State State)
 		XV_Rx_HdmiRx_EnterStateStreamOff(InstancePtr);
 		break;
 
+	case XV_RX_HDMI_STATE_PHYRESET:
+		XV_Rx_HdmiRx_EnterStatePhyReset(InstancePtr);
+		break;
+
 	case XV_RX_HDMI_STATE_FRLCONFIG:
 		XV_Rx_HdmiRx_EnterStateFrlConfig(InstancePtr);
 		break;
@@ -1654,6 +1678,9 @@ static void XV_Rx_HdmiRx_StateDisconnected(XV_Rx *InstancePtr,
 		break;
 
 	case XV_RX_HDMI_EVENT_STREAMDOWN:
+		break;
+
+	case XV_RX_HDMI_EVENT_PHYRESET:
 		break;
 
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
@@ -1718,6 +1745,10 @@ static void XV_Rx_HdmiRx_StateConnected(XV_Rx *InstancePtr,
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
 		break;
 
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
+		break;
+
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
 		*NextStatePtr = XV_RX_HDMI_STATE_FRLCONFIG;
 		break;
@@ -1780,6 +1811,10 @@ static void XV_Rx_HdmiRx_StateNoStream(XV_Rx *InstancePtr,
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
 		break;
 
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
+		break;
+
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
 		*NextStatePtr = XV_RX_HDMI_STATE_FRLCONFIG;
 		break;
@@ -1829,6 +1864,10 @@ static void XV_Rx_HdmiRx_StateStreamInitialized(XV_Rx *InstancePtr,
 
 	case XV_RX_HDMI_EVENT_STREAMDOWN:
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
+		break;
+
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
 		break;
 
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
@@ -1893,6 +1932,10 @@ static void XV_Rx_HdmiRx_StateStreamOn(XV_Rx *InstancePtr,
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
 		break;
 
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
+		break;
+
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
 		*NextStatePtr = XV_RX_HDMI_STATE_FRLCONFIG;
 		break;
@@ -1954,6 +1997,10 @@ static void XV_Rx_HdmiRx_StateStreamOff(XV_Rx *InstancePtr,
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
 		break;
 
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
+		break;
+
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
 		*NextStatePtr = XV_RX_HDMI_STATE_FRLCONFIG;
 		break;
@@ -2001,6 +2048,67 @@ static void XV_Rx_HdmiRx_EnterStateStreamOff(XV_Rx *InstancePtr)
 #endif
 }
 
+static void XV_Rx_HdmiRx_StatePhyReset(XV_Rx *InstancePtr,
+					XV_Rx_Hdmi_Events Event,
+					XV_Rx_Hdmi_State *NextStatePtr)
+{
+	Xil_AssertVoid(InstancePtr);
+
+	switch (Event) {
+	case XV_RX_HDMI_EVENT_DISCONNECTED:
+		*NextStatePtr = XV_RX_HDMI_STATE_DISCONNECTED;
+		break;
+
+	case XV_RX_HDMI_EVENT_CONNECTED:
+		break;
+
+	case XV_RX_HDMI_EVENT_STREAMINIT:
+		*NextStatePtr = XV_RX_HDMI_STATE_STREAMINITIALIZED;
+		break;
+
+	case XV_RX_HDMI_EVENT_STREAMUP:
+		*NextStatePtr = XV_RX_HDMI_STATE_STREAMON;
+		break;
+
+	case XV_RX_HDMI_EVENT_STREAMDOWN:
+		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
+		break;
+
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		XV_Rx_HdmiRx_EnterStatePhyReset(InstancePtr);
+		break;
+
+	case XV_RX_HDMI_EVENT_FRLCONFIG:
+		*NextStatePtr = XV_RX_HDMI_STATE_FRLCONFIG;
+		break;
+
+	case XV_RX_HDMI_EVENT_FRLSTART:
+		*NextStatePtr = XV_RX_HDMI_STATE_FRLSTART;
+		break;
+
+	case XV_RX_HDMI_EVENT_TMDSCONFIG:
+		*NextStatePtr = XV_RX_HDMI_STATE_TMDSCONFIG;
+		break;
+
+	default:
+		break;
+	}
+}
+
+static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr);
+
+	xdbg_xv_rx_print("%s: Hdmi Rx : PhyReset ...\r\n", __func__);
+
+	XHdmiphy1_ResetGtTxRx (InstancePtr->VidPhy,
+			0,
+			XHDMIPHY1_CHANNEL_ID_CHA,
+			XHDMIPHY1_DIR_RX,
+			FALSE);
+
+}
+
 static void XV_Rx_HdmiRx_StateFrlConfig(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
 					XV_Rx_Hdmi_State *NextStatePtr)
@@ -2028,6 +2136,10 @@ static void XV_Rx_HdmiRx_StateFrlConfig(XV_Rx *InstancePtr,
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
 		break;
 
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
+		break;
+
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
 		XV_Rx_HdmiRx_EnterStateFrlConfig(InstancePtr);
 		break;
@@ -2050,21 +2162,21 @@ static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr)
 	Xil_AssertVoid(InstancePtr);
 
 	xdbg_xv_rx_print("%s: Hdmi Rx : FrlConfig ...\r\n", __func__);
-	u64 LineRate = (u64)(HdmiRxSs.HdmiRx1Ptr->Stream.Frl.Rate) * (u64)(1e9);
+	u64 LineRate = (u64)(HdmiRxSs.HdmiRx1Ptr->Stream.Frl.LineRate) * (u64)(1e9);
 	u8 NChannels = HdmiRxSs.HdmiRx1Ptr->Stream.Frl.Lanes;
 
 	InstancePtr->RxClkSrcConfig(InstancePtr->RxClkSrcConfigCallbackRef);
 
-	XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (TRUE));
+	if (InstancePtr->VidPhy->Config.RxRefClkSel !=
+			InstancePtr->VidPhy->Config.RxFrlRefClkSel){
+		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (TRUE));
+	}
+
 	XHdmiphy1_Hdmi21Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX,
 			       LineRate, NChannels);
 
-	if (InstancePtr->VidPhy->Config.RxRefClkSel ==
-			InstancePtr->VidPhy->Config.RxFrlRefClkSel){
-		if (InstancePtr->RxClkSrcSelCb != NULL) {
-			InstancePtr->RxClkSrcSelCb(
-					InstancePtr->RxClkSrcSelCallbackRef);
-		}
+	if (InstancePtr->RxClkSrcSelCb != NULL) {
+		InstancePtr->RxClkSrcSelCb(InstancePtr->RxClkSrcSelCallbackRef);
 	}
 }
 
@@ -2093,6 +2205,10 @@ static void XV_Rx_HdmiRx_StateFrlStart(XV_Rx *InstancePtr,
 
 	case XV_RX_HDMI_EVENT_STREAMDOWN:
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
+		break;
+
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
 		break;
 
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
@@ -2145,6 +2261,10 @@ static void XV_Rx_HdmiRx_StateTmdsConfig(XV_Rx *InstancePtr,
 		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
 		break;
 
+	case XV_RX_HDMI_EVENT_PHYRESET:
+		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
+		break;
+
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
 		*NextStatePtr = XV_RX_HDMI_STATE_FRLCONFIG;
 		break;
@@ -2170,12 +2290,8 @@ static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr)
 
 	XHdmiphy1_Hdmi20Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
 
-	if (InstancePtr->VidPhy->Config.RxRefClkSel ==
-			InstancePtr->VidPhy->Config.RxFrlRefClkSel){
-		if (InstancePtr->RxClkSrcSelCb != NULL) {
-			InstancePtr->RxClkSrcSelCb(
-					InstancePtr->RxClkSrcSelCallbackRef);
-		}
+	if (InstancePtr->RxClkSrcSelCb != NULL) {
+		InstancePtr->RxClkSrcSelCb(InstancePtr->RxClkSrcSelCallbackRef);
 	}
 
 	XV_HdmiRx1_SetFrlVClkVckeRatio(HdmiRxSs.HdmiRx1Ptr, 0);

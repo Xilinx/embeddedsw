@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file
@@ -93,6 +75,7 @@ typedef enum {
         XV_RX_HDMI_EVENT_STREAMUP,
         XV_RX_HDMI_EVENT_STREAMDOWN,
         XV_RX_HDMI_EVENT_POLL,
+	XV_RX_HDMI_EVENT_PHYRESET,
         XV_RX_HDMI_EVENT_FRLCONFIG,
         XV_RX_HDMI_EVENT_FRLSTART,
         XV_RX_HDMI_EVENT_TMDSCONFIG,
@@ -109,6 +92,7 @@ typedef enum {
         XV_RX_HDMI_STATE_STREAMINITIALIZED,
         XV_RX_HDMI_STATE_STREAMON,
         XV_RX_HDMI_STATE_STREAMOFF,
+	XV_RX_HDMI_STATE_PHYRESET,
         XV_RX_HDMI_STATE_FRLCONFIG,
         XV_RX_HDMI_STATE_FRLSTART,
         XV_RX_HDMI_STATE_TMDSCONFIG,
@@ -261,6 +245,10 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
+/* VPhy structure */
+extern XHdmiphy1 Hdmiphy1;
+/* HDMI RX SS structure */
+extern XV_HdmiRxSs1 HdmiRxSs;
 
 /************************** Function Prototypes *****************************/
 
