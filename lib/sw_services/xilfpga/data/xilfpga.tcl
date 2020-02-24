@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,8 @@
 # 5.2   Nava  05/12/19  Added Versal platform support.
 # 5.2   Nava  02/01/20  Added XFPGA_SECURE_READBACK_MODE flag to support secure
 #                       PL configuration data readback.
+# 5.2   Nava  14/02/20  Added Bitstream loading support by using IPI services
+#                       for ZynqMP platform.
 #
 ##############################################################################
 
@@ -90,6 +92,10 @@ proc generate {lib_handle} {
     set zynqmp "src/interface/zynqmp/"
     set versal "src/interface/versal/"
     set interface "src/interface/"
+    # check processor type
+    set proc_instance [hsi::get_sw_processor];
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
     set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
     set cortexa72proc [hsi::get_cells -hier -filter "IP_NAME==psv_cortexa72"]
     set cortexr5proc  [hsi::get_cells -hier -filter "IP_NAME==psv_cortexr5"]
@@ -104,17 +110,31 @@ proc generate {lib_handle} {
     }
 
     if { $iszynqmp == 1} {
-	set librarylist [hsi::get_libs -filter "NAME==xilsecure"];
-	if { [llength $librarylist] == 0 } {
-	    error "This library requires xilsecure library in the Board Support Package.";
+	set value  [common::get_property CONFIG.secure_environment $lib_handle]
+	if {$proc_type != "psu_pmu" && $value == true} {
+		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
+		if { [llength $librarylist] == 0 } {
+			error "This library requires xilmailbox library in the Board Support Package.";
+		}
+		set def_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
+		set new_flags "-Wl,--start-group,-lxilfpga,-lxil,-lxilmailbox,-lgcc,-lc,--end-group $def_flags"
+		set_property -name APP_LINKER_FLAGS -value $new_flags -objects [current_sw_design]
+		file copy -force ./src/interface/zynqmp/xilfpga_ipi_pcap.c ./src/xilfpga_ipi_pcap.c
+	} else {
+		if {$proc_type != "psu_pmu"} {
+			puts "\nTo support secure environment bitstream loading, you must enable secure_environment in xilfpga."
+		}
+		set librarylist [hsi::get_libs -filter "NAME==xilsecure"];
+		if { [llength $librarylist] == 0 } {
+			error "This library requires xilsecure library in the Board Support Package.";
+		}
+		set def_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
+		set new_flags "-Wl,--start-group,-lxilfpga,-lxil,-lxilsecure,-lgcc,-lc,--end-group $def_flags"
+		set_property -name APP_LINKER_FLAGS -value $new_flags -objects [current_sw_design]
+		file copy -force ./src/interface/zynqmp/xilfpga_pcap.c ./src/xilfpga_pcap.c
+		file copy -force ./src/interface/zynqmp/xilfpga_pcap.h ./src/xilfpga_pcap.h
 	}
-	set def_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
-	set new_flags "-Wl,--start-group,-lxilfpga,-lxil,-lxilsecure,-lgcc,-lc,--end-group $def_flags"
-	set_property -name APP_LINKER_FLAGS -value $new_flags -objects [current_sw_design]
-
-	foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
-            file copy -force $entry "./src"
-        }
+	file copy -force ./src/interface/zynqmp/xilfpga_pcap_common.h ./src/xilfpga_pcap_common.h
     } elseif {$isversal == 1} {
 	set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
 	if { [llength $librarylist] == 0 } {
@@ -133,7 +153,20 @@ proc generate {lib_handle} {
 
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
     puts $conffile "#define _XFPGA_CONFIG_H"
-    puts $conffile "#include <xilfpga.h>"
+
+    if { $iszynqmp == 1} {
+	set value  [common::get_property CONFIG.secure_environment $lib_handle]
+	if {$proc_type != "psu_pmu" && $value == true} {
+		puts $conffile "#include <xilfpga_pcap_common.h>"
+		puts $conffile "#define XFPGA_SECURE_IPI_MODE_EN"
+	} else {
+		puts $conffile "#include <xilfpga_pcap_common.h>"
+		puts $conffile "#include <xilfpga_pcap.h>"
+	}
+    } else {
+	puts $conffile "#include <xilfpga_versal.h>"
+    }
+
     set value  [common::get_property CONFIG.ocm_address $lib_handle]
     puts  $conffile "#define XFPGA_OCM_ADDRESS ${value}U"
     set value  [common::get_property CONFIG.base_address $lib_handle]
