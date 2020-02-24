@@ -82,6 +82,7 @@ static void XV_HdmiRxSs1_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_SyncLossCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_ModeCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_TmdsClkRatioCallback(void *CallbackRef);
+static void XV_HdmiRxSs1_PhyResetCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_VicErrorCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_LnkRdyErrorCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_VidRdyErrorCallback(void *CallbackRef);
@@ -144,6 +145,23 @@ void XV_HdmiRxSs1_ReportInfo(XV_HdmiRxSs1 *InstancePtr)
     xil_printf("---------\r\n");
     XV_HdmiRxSs1_ReportInfoFrame(InstancePtr);
     xil_printf("\r\n");
+}
+
+/*****************************************************************************/
+/**
+* This function prints out the sub-core register dump
+*
+* @param	InstancePtr  Instance Pointer to the main data structure
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_RegisterDebug(XV_HdmiRxSs1 *InstancePtr)
+{
+	/* HDMI RX Core */
+	XV_HdmiRx1_RegisterDebug(InstancePtr->HdmiRx1Ptr);
 }
 
 /*****************************************************************************/
@@ -350,6 +368,11 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
                           (void *)InstancePtr);
 
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+                          XV_HDMIRX1_HANDLER_PHY_RESET,
+                          (void *)XV_HdmiRxSs1_PhyResetCallback,
+                          (void *)InstancePtr);
+
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
                           XV_HDMIRX1_HANDLER_LNK_RDY_ERR,
                           (void *)XV_HdmiRxSs1_LnkRdyErrorCallback,
                           (void *)InstancePtr);
@@ -425,7 +448,8 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-static void XV_HdmiRxSs1_GetIncludedSubcores(XV_HdmiRxSs1 *HdmiRxSs1Ptr, u16 DevId)
+static void XV_HdmiRxSs1_GetIncludedSubcores(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
+		u16 DevId)
 {
   HdmiRxSs1Ptr->HdmiRx1Ptr   =((HdmiRxSs1Ptr->Config.HdmiRx1.IsPresent) ?
                             (&XV_HdmiRxSs1_SubCoreRepo[DevId].HdmiRx1) : NULL);
@@ -899,7 +923,7 @@ static void XV_HdmiRxSs1_SyncLossCallback(void *CallbackRef)
   XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
 
   if (HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.SyncStatus ==
-		  	  	  	  	  	  	  	  	  	  	XV_HDMIRX1_SYNCSTAT_SYNC_LOSS) {
+		  XV_HDMIRX1_SYNCSTAT_SYNC_LOSS) {
   /* Push sync loss event to HDCP event queue*/
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
   XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_SYNCLOSS, 0);
@@ -911,14 +935,15 @@ static void XV_HdmiRxSs1_SyncLossCallback(void *CallbackRef)
   }
   /* Sync is recovered/establish*/
   else if (HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.SyncStatus ==
-		  	  	  	  	  	  	  	  	  	  	 XV_HDMIRX1_SYNCSTAT_SYNC_EST) {
+		  XV_HDMIRX1_SYNCSTAT_SYNC_EST) {
 	  /* Push sync loss event to HDCP event queue*/
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
 	  XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_SYNCEST, 0);
 #endif
 
 #ifdef USE_HDCP_RX
-	  XV_HdmiRxSs1_HdcpPushEvent(HdmiRxSs1Ptr, XV_HDMIRXSS1_HDCP_SYNC_EST_EVT);
+	  XV_HdmiRxSs1_HdcpPushEvent(HdmiRxSs1Ptr,
+			  XV_HDMIRXSS1_HDCP_SYNC_EST_EVT);
 #endif
   }
 }
@@ -1079,6 +1104,28 @@ static void XV_HdmiRxSs1_SkewLockErrorCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when the RX Phy needs to be reset.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiRxSs1_PhyResetCallback(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+
+	/* Check if user callback has been registered*/
+	if (HdmiRxSs1Ptr->PhyResetCallback) {
+		      HdmiRxSs1Ptr->PhyResetCallback(HdmiRxSs1Ptr->PhyResetRef);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This function retrieves the Vendor Specific Info Frame.
 *
 * @param  None.
@@ -1106,7 +1153,8 @@ static void XV_HdmiRxSs1_RetrieveVSInfoframe(XV_HdmiRxSs1 *HdmiRxSs1)
 
       if (VSIFPtr->Format == XHDMIC_VSIF_VF_3D) {
           HdmiRxSs1->HdmiRx1Ptr->Stream.Video.Is3D = TRUE;
-          HdmiRxSs1->HdmiRx1Ptr->Stream.Video.Info_3D = VSIFPtr->Info_3D.Stream;
+          HdmiRxSs1->HdmiRx1Ptr->Stream.Video.Info_3D =
+			  VSIFPtr->Info_3D.Stream;
       } else if (VSIFPtr->Format == XHDMIC_VSIF_VF_EXTRES) {
           switch(VSIFPtr->HDMI_VIC) {
               case 1 :
@@ -1327,7 +1375,7 @@ static void XV_HdmiRxSs1_StreamUpCallback(void *CallbackRef)
 *
 * <pre>
 * HandlerType                     Callback Function Type
-* -----------------------         --------------------------------------------------
+* -----------------------         ---------------------------------------------
 * (XV_HDMIRXSS1_HANDLER_CONNECT)             HpdCallback
 * (XV_HDMIRXSS1_HANDLER_VS)                  VsCallback
 * (XV_HDMIRXSS1_HANDLER_STREAM_DOWN)         StreamDownCallback
@@ -1376,7 +1424,8 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
             break;
 
         case (XV_HDMIRXSS1_HANDLER_BRDGOVERFLOW):
-            InstancePtr->BrdgOverflowCallback = (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->BrdgOverflowCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->BrdgOverflowRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
@@ -1408,22 +1457,33 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
 
         /* Stream down */
         case (XV_HDMIRXSS1_HANDLER_STREAM_DOWN):
-            InstancePtr->StreamDownCallback =(XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->StreamDownCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->StreamDownRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
         /* Stream Init */
         case (XV_HDMIRXSS1_HANDLER_STREAM_INIT):
-            InstancePtr->StreamInitCallback =(XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->StreamInitCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->StreamInitRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
         /* Stream up */
         case (XV_HDMIRXSS1_HANDLER_STREAM_UP):
-            InstancePtr->StreamUpCallback = (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->StreamUpCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->StreamUpRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
+
+        /* Phy reset */
+        case (XV_HDMIRXSS1_HANDLER_PHY_RESET):
+            InstancePtr->PhyResetCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->PhyResetRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
@@ -1437,28 +1497,32 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
 
         /* VIC_ERROR */
         case (XV_HDMIRXSS1_HANDLER_VIC_ERROR):
-            InstancePtr->VicErrorCallback = (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->VicErrorCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->VicErrorRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
 	/* FRL Config */
 	case (XV_HDMIRXSS1_HANDLER_FRL_CONFIG):
-            InstancePtr->FrlConfigCallback = (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->FrlConfigCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->FrlConfigRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
 	/* FRL Start */
 	case (XV_HDMIRXSS1_HANDLER_FRL_START):
-            InstancePtr->FrlStartCallback = (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->FrlStartCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->FrlStartRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
 	/* TMDS Config */
 	case (XV_HDMIRXSS1_HANDLER_TMDS_CONFIG):
-            InstancePtr->TmdsConfigCallback = (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->TmdsConfigCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
             InstancePtr->TmdsConfigRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
@@ -1693,12 +1757,13 @@ void XV_HdmiRxSs1_LoadDefaultEdid(XV_HdmiRxSs1 *InstancePtr)
 *
 ******************************************************************************/
 void XV_HdmiRxSs1_LoadEdid(XV_HdmiRxSs1 *InstancePtr, u8 *EdidDataPtr,
-                                                                u16 Length)
+		u16 Length)
 {
     u32 Status;
 
     /* Load new EDID*/
-    Status = XV_HdmiRx1_DdcLoadEdid(InstancePtr->HdmiRx1Ptr, EdidDataPtr, Length);
+    Status = XV_HdmiRx1_DdcLoadEdid(InstancePtr->HdmiRx1Ptr, EdidDataPtr,
+		    Length);
 
     if (Status == XST_SUCCESS) {
         xil_printf("\r\nSuccessfully loaded edid.\r\n");
@@ -1875,7 +1940,8 @@ u32 XV_HdmiRxSs1_SetStream(XV_HdmiRxSs1 *InstancePtr,
   XV_HdmiRxSs1_LogWrite(InstancePtr, XV_HDMIRXSS1_LOG_EVT_SETSTREAM, 0);
 #endif
   /* Set stream */
-  XV_HdmiRx1_SetStream(InstancePtr->HdmiRx1Ptr, InstancePtr->Config.Ppc, Clock);
+  XV_HdmiRx1_SetStream(InstancePtr->HdmiRx1Ptr,
+		  InstancePtr->Config.Ppc, Clock);
 
   /* In case the TMDS clock ratio is 1/40 */
   /* The reference clock must be compensated */
@@ -2062,6 +2128,41 @@ void XV_HdmiRxSs1_RefClockChangeInit(XV_HdmiRxSs1 *InstancePtr)
 #endif
 }
 
+/******************************************************************************/
+/**
+*
+* This function prints debug information on STDIO/UART console.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRxSs1 instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_DebugInfo(XV_HdmiRxSs1 *InstancePtr)
+{
+	XV_HdmiRx1_DebugInfo(InstancePtr->HdmiRx1Ptr);
+}
+
+/******************************************************************************/
+/**
+*
+* This function prints out RX's SCDC registers and values on STDIO/UART
+* console.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRxSs1 instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_DdcRegDump(XV_HdmiRxSs1 *InstancePtr)
+{
+	XV_HdmiRx1_DdcRegDump(InstancePtr->HdmiRx1Ptr);
+}
+
 /*****************************************************************************/
 /**
 *
@@ -2085,7 +2186,7 @@ void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr)
 		} else {
 			xil_printf("FRL (%d lanes @ %d Gbps)",
 					InstancePtr->HdmiRx1Ptr->Stream.Frl.Lanes,
-					InstancePtr->HdmiRx1Ptr->Stream.Frl.Rate);
+					InstancePtr->HdmiRx1Ptr->Stream.Frl.LineRate);
 		}
 	}
 
@@ -2093,7 +2194,7 @@ void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr)
 
     /* Check is the RX stream is up*/
     if (XV_HdmiRx1_IsStreamUp(InstancePtr->HdmiRx1Ptr)) {
-        XV_HdmiRx1_DebugInfo(InstancePtr->HdmiRx1Ptr);
+        XV_HdmiRx1_Info(InstancePtr->HdmiRx1Ptr);
         xil_printf("VIC: %0d\r\n", InstancePtr->HdmiRx1Ptr->Stream.Vic);
         xil_printf("Scrambled: %0d\r\n",
             (XV_HdmiRx1_IsStreamScrambled(InstancePtr->HdmiRx1Ptr)));
@@ -2126,7 +2227,8 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 	if (InstancePtr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
 		for (Channel = 0; Channel < 3; Channel++)
 		{
-			Errors = XV_HdmiRx1_GetLinkStatus(InstancePtr->HdmiRx1Ptr, Channel);
+			Errors = XV_HdmiRx1_GetLinkStatus(InstancePtr->HdmiRx1Ptr,
+					Channel);
 
 			xil_printf("Link quality channel %0d : ", Channel);
 
@@ -2155,7 +2257,8 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 		/* Valid only when the valid bit (0x80) is set */
 		if (Data & 0x80) {
 			Data &= 0x7F;
-			Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
+			Data = (Data << 8) |
+					XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
 					(XV_HDMIRX1_SCDCFIELD_CH0_ERRCNT_LSB));
 			xil_printf("%d\r\n", Data);
 		} else {
@@ -2168,7 +2271,8 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 		/* Valid only when the valid bit (0x80) is set */
 		if (Data & 0x80) {
 			Data &= 0x7F;
-			Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
+			Data = (Data << 8) |
+					XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
 					(XV_HDMIRX1_SCDCFIELD_CH1_ERRCNT_LSB));
 			xil_printf("%d\r\n", Data);
 		} else {
@@ -2181,7 +2285,8 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 		/* Valid only when the valid bit (0x80) is set */
 		if (Data & 0x80) {
 			Data &= 0x7F;
-			Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
+			Data = (Data << 8) |
+					XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
 					(XV_HDMIRX1_SCDCFIELD_CH2_ERRCNT_LSB));
 			xil_printf("%d\r\n", Data);
 		} else {
@@ -2194,7 +2299,8 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 		/* Valid only when the valid bit (0x80) is set */
 		if (Data & 0x80) {
 			Data &= 0x7F;
-			Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
+			Data = (Data << 8) |
+					XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
 					(XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_LSB));
 			xil_printf("%d\r\n", Data);
 		} else {
@@ -2207,7 +2313,8 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 		/* Valid only when the valid bit (0x80) is set */
 		if (Data & 0x80) {
 			Data &= 0x7F;
-			Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
+			Data = (Data << 8) |
+					XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
 					(XV_HDMIRX1_SCDCFIELD_RSCCNT_LSB));
 			xil_printf("%d\r\n", Data);
 		} else {
@@ -2250,8 +2357,10 @@ void XV_HdmiRxSs1_ReportAudio(XV_HdmiRxSs1 *InstancePtr)
   }
   xil_printf("Channels : %d\r\n",
   XV_HdmiRx1_GetAudioChannels(InstancePtr->HdmiRx1Ptr));
-  xil_printf("ACR CTS  : %d\r\n", XV_HdmiRx1_GetAcrCts(InstancePtr->HdmiRx1Ptr));
-  xil_printf("ACR N    : %d\r\n", XV_HdmiRx1_GetAcrN(InstancePtr->HdmiRx1Ptr));
+  xil_printf("ACR CTS  : %d\r\n",
+		  XV_HdmiRx1_GetAcrCts(InstancePtr->HdmiRx1Ptr));
+  xil_printf("ACR N    : %d\r\n",
+		  XV_HdmiRx1_GetAcrN(InstancePtr->HdmiRx1Ptr));
 }
 
 /*****************************************************************************/
@@ -2508,7 +2617,7 @@ static void XV_HdmiRxSs1_FrlLts3Callback(void *CallbackRef)
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
 	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_FRL_LTS3,
 			(HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Frl.FfeLevels << 4) |
-			HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Frl.Rate);
+			HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Frl.LineRate);
 #endif
 }
 

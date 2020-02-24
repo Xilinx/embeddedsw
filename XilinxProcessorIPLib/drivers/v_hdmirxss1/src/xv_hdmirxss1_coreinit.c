@@ -635,28 +635,6 @@ static void XV_HdmiRxSs1_DdcHdcpCallback(void *RefPtr, int Type)
 #endif
       break;
 
-    /* HDCP 1.4 protocol event*/
-    case XV_HDMIRX1_DDC_STA_HDCP_1_PROT_EVT_MASK:
-#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
-      if (HdmiRxSs1Ptr->Hdcp14Ptr && HdmiRxSs1Ptr->Hdcp22Ptr) {
-#ifdef USE_HDCP_14_PROT_EVT_ENUM
-        XV_HdmiRxSs1_HdcpPushEvent(HdmiRxSs1Ptr, XV_HDMIRXSS1_HDCP_1_PROT_EVT);
-#endif
-      }
-#endif
-      break;
-
-    /* HDCP 2.2 protocol event*/
-    case XV_HDMIRX1_DDC_STA_HDCP_2_PROT_EVT_MASK:
-#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
-      if (HdmiRxSs1Ptr->Hdcp14Ptr && HdmiRxSs1Ptr->Hdcp22Ptr) {
-#ifdef USE_HDCP_22_PROT_EVT_ENUM
-        XV_HdmiRxSs1_HdcpPushEvent(HdmiRxSs1Ptr, XV_HDMIRXSS1_HDCP_2_PROT_EVT);
-#endif
-      }
-#endif
-      break;
-
     default:
       break;
   }

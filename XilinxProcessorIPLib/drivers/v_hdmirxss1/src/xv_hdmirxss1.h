@@ -74,10 +74,6 @@ extern "C" {
 
 #if defined(XPAR_XHDCP_NUM_INSTANCES) || defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
 #define USE_HDCP_RX
-#define USE_HDCP_14_PROT_EVT_ENUM
-#pragma message ("'XV_HDMIRXSS1_HDCP_1_PROT_EVT' event is deprecated")
-#define USE_HDCP_22_PROT_EVT_ENUM
-#pragma message ("'XV_HDMIRXSS1_HDCP_2_PROT_EVT' event is deprecated")
 #define XV_HDMIRXSS1_HDCP_KEYSEL 0x00u
 #define XV_HDMIRXSS1_HDCP_MAX_QUEUE_SIZE 16
 #endif
@@ -177,12 +173,6 @@ typedef enum
   XV_HDMIRXSS1_HDCP_STREAMDOWN_EVT,
   XV_HDMIRXSS1_HDCP_CONNECT_EVT,
   XV_HDMIRXSS1_HDCP_DISCONNECT_EVT,
-#ifdef USE_HDCP_14_PROT_EVT_ENUM
-  XV_HDMIRXSS1_HDCP_1_PROT_EVT,
-#endif
-#ifdef USE_HDCP_22_PROT_EVT_ENUM
-  XV_HDMIRXSS1_HDCP_2_PROT_EVT,
-#endif
   XV_HDMIRXSS1_HDCP_DVI_MODE_EVT,
   XV_HDMIRXSS1_HDCP_HDMI_MODE_EVT,
   XV_HDMIRXSS1_HDCP_SYNC_LOSS_EVT,
@@ -252,6 +242,8 @@ typedef enum {
                                                          init event */
   XV_HDMIRXSS1_HANDLER_STREAM_UP,                    /**< Handler for stream up
                                                          event */
+  XV_HDMIRXSS1_HANDLER_PHY_RESET,                   /**< Handler for Phy
+                                                         Reset */
   XV_HDMIRXSS1_HANDLER_FRL_CONFIG,                   /**< Handler for FRL
                                                          Config */
   XV_HDMIRXSS1_HANDLER_FRL_START,                    /**< Handler for FRL
@@ -414,6 +406,9 @@ typedef struct
   XV_HdmiRxSs1_LogCallback LogWriteCallback; /**< Callback for log write */
   u8 *LogWriteRef;  /**< To be passed to the log write callback */
 
+  XV_HdmiRxSs1_Callback PhyResetCallback; /**< Callback for config retry */
+  void *PhyResetRef;  /**< To be passed to the log write callback */
+
   XV_HdmiRxSs1_Callback FrlConfigCallback; /**< Callback for stream up */
   void *FrlConfigRef;  /**< To be passed to the stream up callback */
 
@@ -535,6 +530,7 @@ u32 XV_HdmiRxSs1_GetAudioAcrCtsVal(XV_HdmiRxSs1 *InstancePtr);
 u32 XV_HdmiRxSs1_GetAudioAcrNVal(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_RefClockChangeInit(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportInfo(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_RegisterDebug(XV_HdmiRxSs1 *InstancePtr);
 int  XV_HdmiRxSs1_IsStreamUp(XV_HdmiRxSs1 *InstancePtr);
 int  XV_HdmiRxSs1_IsStreamConnected(XV_HdmiRxSs1 *InstancePtr);
 
@@ -543,6 +539,8 @@ void XV_HdmiRxSs1_SetPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id, u8 Ppc);
 void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable);
 
 void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_DebugInfo(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_DdcRegDump(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportAudio(XV_HdmiRxSs1 *InstancePtr);
