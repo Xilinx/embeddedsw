@@ -87,7 +87,7 @@ int XPlmi_ValidateIpiCmd(u32 CmdId);
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 #ifdef __cplusplus
-extern "C" {
+}
 #endif
 
 #endif /* XPLMI_IPI_H */
