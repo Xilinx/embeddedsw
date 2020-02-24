@@ -138,7 +138,7 @@ extern "C" {
 #if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
 /* Define Maximum Supported Memory Color Format */
-#define NUM_MEMORY_COLOR_FORMATS 16
+#define NUM_MEMORY_COLOR_FORMATS 17
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -261,6 +261,8 @@ typedef struct {
 			       * This flag is used by the menu to check if TX operations
 			       * are ongoing and block the menu prints from disrupting
 			       * the time-sensitive operations of the TX. */
+	u8 crop;       /* indicates if TX video needs to be scaled down to 4K
+	               * this is a flag */
 } XHdmi_Exdes;
 
 /**

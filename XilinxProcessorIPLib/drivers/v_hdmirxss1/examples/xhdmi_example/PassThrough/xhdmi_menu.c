@@ -18,6 +18,8 @@
 * ----- ---- ---------- --------------------------------------------------
 * X.X   ..   DD-MM-YYYY ..
 * 1.0   mmo  30-04-2019 Initial version
+* 1.1   ku   14-07-2020 Menu option for 4K Quad selection
+*                       Menu option for 16 BPC
 *
 * </pre>
 *
@@ -87,7 +89,10 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_Hdmiphy1DebugMenu(XHdmi_Menu *InstancePtr,
 					u8 Input);
 static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input);
-
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+static XHdmi_MenuType XHdmi_8kQuadMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#endif
 static void XHdmi_DisplayMainMenu(void);
 static void XHdmi_DisplayEdidMenu(void);
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
@@ -113,6 +118,10 @@ static void XHdmi_DisplayDebugMainMenu(void);
 #endif
 static void XHdmi_DisplayHdmiphy1DebugMenu(void);
 static void XHdmi_DisplayOnSemiDebugMenu(void);
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+static void XHdmi_Display8kQuadMenu(void);
+#endif
 static u8 XHdmi_OneSemiMenuProcess(u8 Hex);
 
 extern void Info(void);
@@ -174,6 +183,10 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 #endif
     XHdmi_Hdmiphy1DebugMenu,
     XHdmi_OnSemiDebugMenu,
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+               (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+	XHdmi_8kQuadMenu,
+#endif
 };
 
 extern XVfmc Vfmc[1];
@@ -214,6 +227,7 @@ extern void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
 			  XV_FrmbufRd_l2 *FrmBufRdPtr);
 extern XV_FrmbufWr_l2       FrameBufWr;
 extern XV_FrmbufRd_l2        FrameBufRd;
+extern u32 offset;
 #endif
 
 /************************** Function Definitions *****************************/
@@ -333,6 +347,12 @@ void XHdmi_DisplayMainMenu(void)
     xil_printf("       => Change the color depth of the colorbar.\r\n");
     xil_printf("s - Color space\r\n");
     xil_printf("       => Change the color space of the colorbar.\r\n");
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+    xil_printf("q - View 4K Quad Video\r\n");
+    xil_printf("       => Select to display a part 4K Video on TX (TMDS) when \r\n"
+		"              RX (FRL) receives 8K Video\r\n");
+#endif
 #endif
 #if defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
     xil_printf("p - Toggle HPD\r\n");
@@ -619,6 +639,14 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    XHdmi_DisplayOnSemiDebugMenu();
 	    Menu = XHDMI_ONSEMI_DEBUG_MENU;
 	    break;
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+	case ('q') :
+	case ('Q') :
+	    XHdmi_Display8kQuadMenu();
+	    Menu = XHDMI_8KQUAD_MENU;
+	    break;
+#endif
 
 	default :
 	    XHdmi_DisplayMainMenu();
@@ -1034,6 +1062,7 @@ void XHdmi_DisplayColorDepthMenu(void) {
     xil_printf("  1 - 24 bpp\r\n");
     xil_printf("  2 - 30 bpp\r\n");
     xil_printf("  3 - 36 bpp\r\n");
+    xil_printf("  4 - 48 bpp\r\n");
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
 }
@@ -1089,6 +1118,10 @@ static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    ColorDepth = XVIDC_BPC_12;
 	    break;
 
+	    /* 48 bpp */
+	case 4 :
+	    ColorDepth = XVIDC_BPC_16;
+	    break;
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
@@ -1228,12 +1261,18 @@ void XHdmi_DisplayEdidMenu(void) {
     xil_printf("  Load HDMI Rx EDID :\r\n");
     xil_printf("---------------------\r\n");
     xil_printf("  10 - TMDS.\r\n");
-    xil_printf("  11 - RX FRL 4 Lanes 12G.\r\n");
-    xil_printf("  12 - RX FRL 4 Lanes 10G.\r\n");
-    xil_printf("  13 - RX FRL 4 Lanes 8G.\r\n");
-    xil_printf("  14 - RX FRL 4 Lanes 6G.\r\n");
-    xil_printf("  15 - RX FRL 3 Lanes 6G.\r\n");
-    xil_printf("  16 - RX FRL 3 Lanes 3G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate == 6)
+	xil_printf("  11 - RX FRL 4 Lanes 12G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 5)
+	xil_printf("  12 - RX FRL 4 Lanes 10G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 4)
+	xil_printf("  13 - RX FRL 4 Lanes 8G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 3)
+	xil_printf("  14 - RX FRL 4 Lanes 6G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 2)
+	xil_printf("  15 - RX FRL 3 Lanes 6G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 1)
+	xil_printf("  16 - RX FRL 3 Lanes 3G.\r\n");
 #endif
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
@@ -1294,7 +1333,6 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("Enter Selection -> ");
 	    break;
 
-
 	case 10 :
 	    xhdmi_example_rx_controller.Edid[187] = 0x03;
 	    xhdmi_example_rx_controller.Edid[255] = 0xF4;
@@ -1304,51 +1342,75 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 
 	case 11 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x63;
-	    xhdmi_example_rx_controller.Edid[255] = 0x94;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate == 6) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x63;
+	        xhdmi_example_rx_controller.Edid[255] = 0x94;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			     (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 12Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 12 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x53;
-	    xhdmi_example_rx_controller.Edid[255] = 0xA4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 5) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x53;
+	        xhdmi_example_rx_controller.Edid[255] = 0xA4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			    (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	         InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 10Gbps @ 4 Gbps is not supported.\r\n");
+		}
 	    break;
 
 	case 13 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x43;
-	    xhdmi_example_rx_controller.Edid[255] = 0xB4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 4) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x43;
+	        xhdmi_example_rx_controller.Edid[255] = 0xB4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			   (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 8Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 14 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x33;
-	    xhdmi_example_rx_controller.Edid[255] = 0xC4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 3) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x33;
+	        xhdmi_example_rx_controller.Edid[255] = 0xC4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			    (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 15 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x23;
-	    xhdmi_example_rx_controller.Edid[255] = 0xD4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 2) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x23;
+	        xhdmi_example_rx_controller.Edid[255] = 0xD4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			   (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 16 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x13;
-	    xhdmi_example_rx_controller.Edid[255] = 0xE4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 1) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x13;
+	        xhdmi_example_rx_controller.Edid[255] = 0xE4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			     (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 3Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    break;
 #endif
 	    /* Exit */
@@ -2277,6 +2339,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 #endif
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	case 13:
 	    /* HDCP 2.2 Cipher status */
 	    xil_printf(" Offset |     Register      |"
@@ -2308,7 +2371,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("                                     Irq -----------------| \r\n");
 	    xil_printf("\r\n");
 	    break;
-
+#endif
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
@@ -2344,12 +2407,18 @@ static void XHdmi_DisplayDebugMainMenu(void) {
     xil_printf("----------------------\r\n");
     xil_printf("Force TX to perform :\r\n");
     xil_printf("  1  - TX TMDS.\r\n");
-    xil_printf("  2  - TX FRL 4 Lanes 12G.\r\n");
-    xil_printf("  3  - TX FRL 4 Lanes 10G.\r\n");
-    xil_printf("  4  - TX FRL 4 Lanes 8G.\r\n");
-    xil_printf("  5  - TX FRL 4 Lanes 6G.\r\n");
-    xil_printf("  6  - TX FRL 3 Lanes 6G.\r\n");
-    xil_printf("  7  - TX FRL 3 Lanes 3G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate == 6)
+       xil_printf("  2  - TX FRL 4 Lanes 12G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 5)
+       xil_printf("  3  - TX FRL 4 Lanes 10G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 4)
+       xil_printf("  4  - TX FRL 4 Lanes 8G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 3)
+       xil_printf("  5  - TX FRL 4 Lanes 6G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 2)
+       xil_printf("  6  - TX FRL 3 Lanes 6G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 1)
+       xil_printf("  7  - TX FRL 3 Lanes 3G.\r\n");
     xil_printf("\r\n");
     xil_printf("  10 - RX Request Rate Drop.\r\n");
     xil_printf("  11 - RX sets FltNoTimeout.\r\n");
@@ -2392,43 +2461,67 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 
 	case 2 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X12GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate == 6) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X12GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 12Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 3 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X10GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 5) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X10GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 10Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 4 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X8GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 4) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X8GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 8Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 5 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X6GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 3) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X6GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 6 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_3X6GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 2) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_3X6GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 7 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_3X3GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 1) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_3X3GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 3Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
@@ -2499,11 +2592,11 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    }
 #endif
 	    break;
-
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	case 21:
 	    XV_HdmiRxSs1_DdcRegDump(&HdmiRxSs);
 	    break;
-
+#endif
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
 	    Menu = XHDMI_MAIN_MENU;
@@ -3263,7 +3356,101 @@ static u8 ONSEMI_NB7NQ621M_GetRegister(void *IicPtr, u8 I2CSlaveAddress,
     return Buffer[0];
 }
 
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
 
+/*****************************************************************************/
+/**
+*
+* This function displays the debug menu.
+*
+* @param None
+*
+* @return None
+*
+*
+******************************************************************************/
+static void XHdmi_Display8kQuadMenu(void) {
+    xil_printf("\r\n");
+    xil_printf("---------------------------\r\n");
+    xil_printf("---   4K Quad Selection ---\r\n");
+    xil_printf("---------------------------\r\n");
+    xil_printf("  1 - Quad 1\r\n");
+    xil_printf("  2 - Quad 2\r\n");
+    xil_printf("  3 - Quad 3\r\n");
+    xil_printf("  4 - Quad 4\r\n");
+    xil_printf("  99- Exit\r\n");
+    xil_printf("Enter Selection -> ");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function implements the HDMI resolution menu state.
+*
+* @param input is the value used for the next menu state decoder.
+*
+* @return The next menu state.
+*
+******************************************************************************/
+static XHdmi_MenuType XHdmi_8kQuadMenu(XHdmi_Menu *InstancePtr, u8 Input) {
+    /* Variables */
+    XHdmi_MenuType  Menu;
+
+    /* Default */
+    Menu = XHDMI_8KQUAD_MENU;
+    u32 stride = 0;
+    stride = XV_frmbufwr_Get_HwReg_stride (&FrameBufWr.FrmbufWr);
+
+    /*
+     * Quad selection is done by adjusting the buffer address
+     * of FrameBuffer Read
+     *
+     * +---------+---------+   ^
+       |         |         |   |
+       |  Quad 1 |  Quad 2 |   |
+       |     +-------+     |   +
+       |     |   |   |     |  4320
+       +-------Quad 5+-----+
+       |     |   |   |     |   +
+       |     +-------+     |   |
+       | Quad 3  |  Quad 4 |   |
+       |         |         |   |
+       +---------+---------+   v
+
+       <----+ 7680   +----->
+    *
+    */
+
+    switch (Input) {
+		case 1 :
+			offset = 0;
+			break;
+		case 2 :
+			offset = 3840 * 3;
+			break;
+		case 3 :
+			offset = stride * 2160;
+			break;
+		case 4 :
+			offset = (stride *2160)+ (3840 * 3);
+			break;
+		case 5 :
+			offset = (stride *1080)+ (1920 * 3);
+			break;
+
+		case 99 :
+			xil_printf("Returning to main menu.\r\n");
+			Menu = XHDMI_MAIN_MENU;
+			break;
+
+		default:
+			XHdmi_Display8kQuadMenu();
+			break;
+    }
+    return Menu;
+}
+#endif
 /*****************************************************************************/
 /**
 *

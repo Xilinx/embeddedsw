@@ -24,8 +24,9 @@
 #define _XHDMI_EXDES_SM_RX_H_
 
 /***************************** Include Files *********************************/
-#include <string.h>
 #include "xparameters.h"
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+#include <string.h>
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -278,4 +279,5 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetFrlAudSampFreq(XV_Rx *InstancePtr);
 XHdmiC_SamplingFrequencyVal XV_Rx_GetTmdsAudSampFreq(XV_Rx *InstancePtr);
 u32 XV_Rx_AcrNValDiffCheck(XV_Rx *InstancePtr);
 
+#endif
 #endif /* _XHDMI_EXDES_SM_RX_H_ */

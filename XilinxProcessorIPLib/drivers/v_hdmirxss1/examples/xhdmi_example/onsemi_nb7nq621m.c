@@ -247,6 +247,293 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{RX_R1_FRL, 0x10, 0x01},
 	{RX_R1_FRL, 0x11, 0x0F},
 	{RX_R1_FRL, 0x12, 0xAA},
+
+	{TX_R2_TMDS_14_L, 0x09, 0x7C},
+	{TX_R2_TMDS_14_L, 0x0A, 0x00},
+	{TX_R2_TMDS_14_L, 0x0B, 0x0F},
+	{TX_R2_TMDS_14_L, 0x0C, 0x00},
+	{TX_R2_TMDS_14_L, 0x0D, 0x20},
+	{TX_R2_TMDS_14_L, 0x0E, 0x43},
+	{TX_R2_TMDS_14_L, 0x0F, 0x20},
+	{TX_R2_TMDS_14_L, 0x10, 0x43},
+	{TX_R2_TMDS_14_L, 0x11, 0x0F},
+	{TX_R2_TMDS_14_L, 0x12, 0xAA},
+	{TX_R2_TMDS_14_L, 0x13, 0x02},
+	{TX_R2_TMDS_14_L, 0x14, 0x0F},
+	{TX_R2_TMDS_14_L, 0x15, 0x00},
+	{TX_R2_TMDS_14_L, 0x16, 0x02},
+	{TX_R2_TMDS_14_L, 0x17, 0x63},
+	{TX_R2_TMDS_14_L, 0x18, 0x0B},
+
+	{TX_R2_TMDS_14_H, 0x09, 0x7C},
+	{TX_R2_TMDS_14_H, 0x0A, 0x18},
+	{TX_R2_TMDS_14_H, 0x0B, 0x0F},
+	{TX_R2_TMDS_14_H, 0x0D, 0x00},
+	{TX_R2_TMDS_14_H, 0x0E, 0x43},
+	{TX_R2_TMDS_14_H, 0x0F, 0x00},
+	{TX_R2_TMDS_14_H, 0x10, 0x47},
+	{TX_R2_TMDS_14_H, 0x13, 0x30},
+	{TX_R2_TMDS_14_H, 0x14, 0x0F},
+	{TX_R2_TMDS_14_H, 0x16, 0x02},
+	{TX_R2_TMDS_14_H, 0x17, 0x63},
+	{TX_R2_TMDS_14_H, 0x18, 0x0B},
+
+	{TX_R2_TMDS_20, 0x09, 0x7C},
+	{TX_R2_TMDS_20, 0x0A, 0x18},
+	{TX_R2_TMDS_20, 0x0B, 0x0F},
+	{TX_R2_TMDS_20, 0x0D, 0x00},
+	{TX_R2_TMDS_20, 0x0E, 0x43},
+	{TX_R2_TMDS_20, 0x0F, 0x11},
+	{TX_R2_TMDS_20, 0x10, 0x28},
+	{TX_R2_TMDS_20, 0x13, 0x30},
+	{TX_R2_TMDS_20, 0x14, 0x0F},
+	{TX_R2_TMDS_20, 0x16, 0x02},
+	{TX_R2_TMDS_20, 0x17, 0x63},
+	{TX_R2_TMDS_20, 0x18, 0x0B},
+
+	{TX_R2_FRL, 0x09, 0x7C},
+	{TX_R2_FRL, 0x0A, 0x20},
+	{TX_R2_FRL, 0x0B, 0x0F},
+#ifdef XPS_BOARD_ZCU106
+	{TX_R2_FRL, 0x0D, 0x00}, /* Onsemi 0x10}, */
+	{TX_R2_FRL, 0x0E, 0x0A}, /* Onsemi 0x2A}, */
+	{TX_R2_FRL, 0x0F, 0x31}, /* Onsemi 0x02}, */
+	{TX_R2_FRL, 0x10, 0x05},
+#elif defined XPS_BOARD_VCK190_ES
+	{TX_R2_FRL, 0x0D, 0x00}, /* Onsemi 0x10}, */
+	{TX_R2_FRL, 0x0E, 0x0A}, /* Onsemi 0x2A}, */
+	{TX_R2_FRL, 0x0F, 0x31}, /* Onsemi 0x02}, */
+	{TX_R2_FRL, 0x10, 0x00},
+#else
+	{TX_R2_FRL, 0x0D, 0x33}, /* Onsemi 0x10}, */
+	{TX_R2_FRL, 0x0E, 0x0A}, /* Onsemi 0x2A}, */
+	{TX_R2_FRL, 0x0F, 0x33}, /* Onsemi 0x02}, */
+	{TX_R2_FRL, 0x10, 0x05},
+#endif
+	{TX_R2_FRL, 0x13, 0x00},
+	{TX_R2_FRL, 0x14, 0x03},
+	{TX_R2_FRL, 0x16, 0x00},
+	{TX_R2_FRL, 0x17, 0x03},
+	{TX_R2_FRL, 0x18, 0x00},
+
+	{RX_R2_TMDS_14, 0x0A, 0x20},
+	{RX_R2_TMDS_14, 0x0B, 0x0F},
+	{RX_R2_TMDS_14, 0x0C, 0x00},
+	{RX_R2_TMDS_14, 0x0D, 0x00},
+	{RX_R2_TMDS_14, 0x0E, 0x03},
+	{RX_R2_TMDS_14, 0x0F, 0x21},
+	{RX_R2_TMDS_14, 0x10, 0x2A},
+	{RX_R2_TMDS_14, 0x11, 0x0F},
+	{RX_R2_TMDS_14, 0x12, 0xAA},
+
+	{RX_R2_TMDS_20, 0x0A, 0x20},
+	{RX_R2_TMDS_20, 0x0B, 0x0F},
+	{RX_R2_TMDS_20, 0x0C, 0x00},
+	{RX_R2_TMDS_20, 0x0D, 0x00},
+	{RX_R2_TMDS_20, 0x0E, 0x03},
+	{RX_R2_TMDS_20, 0x0F, 0x00},
+	{RX_R2_TMDS_20, 0x10, 0x00},
+	{RX_R2_TMDS_20, 0x11, 0x0F},
+	{RX_R2_TMDS_20, 0x12, 0xAA},
+
+	{RX_R2_FRL, 0x0A, 0xA0},
+	{RX_R2_FRL, 0x0B, 0x0F},
+	{RX_R2_FRL, 0x0C, 0x00},
+	{RX_R2_FRL, 0x0D, 0x20},
+	{RX_R2_FRL, 0x0E, 0x07},
+	{RX_R2_FRL, 0x0F, 0x20},
+	{RX_R2_FRL, 0x10, 0x00},
+	{RX_R2_FRL, 0x11, 0x0F},
+	{RX_R2_FRL, 0x12, 0xAA},
+	{RX_R2_FRL, 0x13, 0x20},
+	{RX_R2_FRL, 0x14, 0x00},
+	{RX_R2_FRL, 0x15, 0x00},
+	{RX_R2_FRL, 0x16, 0x21},
+	{RX_R2_FRL, 0x17, 0x00},
+	{RX_R2_FRL, 0x18, 0x00},
+	{RX_R2_FRL, 0x19, 0x20},
+	{RX_R2_FRL, 0x1A, 0x00},
+	{RX_R2_FRL, 0x1B, 0x00},
+#ifdef XPS_BOARD_ZCU106
+	{RX_R2_FRL, 0x1C, 0x03},
+	{RX_R2_FRL, 0x1D, 0x00},
+#else
+	{RX_R2_FRL, 0x1C, 0x20},
+	{RX_R2_FRL, 0x1D, 0x07},
+#endif
+	{RX_R2_FRL, 0x1E, 0x00},
+
+	{TX_R3_TMDS_14_L, 0x0A, 0x18},
+	{TX_R3_TMDS_14_L, 0x0B, 0x0F},
+	{TX_R3_TMDS_14_L, 0x0C, 0x0B},
+	{TX_R3_TMDS_14_L, 0x0D, 0x30},
+	{TX_R3_TMDS_14_L, 0x0E, 0x4A},
+	{TX_R3_TMDS_14_L, 0x0F, 0x30},
+	{TX_R3_TMDS_14_L, 0x10, 0x4A},
+	{TX_R3_TMDS_14_L, 0x11, 0x0F},
+	{TX_R3_TMDS_14_L, 0x12, 0xAA},
+	{TX_R3_TMDS_14_L, 0x13, 0x30},
+	{TX_R3_TMDS_14_L, 0x14, 0x0F},
+	{TX_R3_TMDS_14_L, 0x15, 0x00},
+	{TX_R3_TMDS_14_L, 0x16, 0x02},
+	{TX_R3_TMDS_14_L, 0x17, 0x63},
+	{TX_R3_TMDS_14_L, 0x18, 0x0B},
+	{TX_R3_TMDS_14_L, 0x19, 0x00},
+	{TX_R3_TMDS_14_L, 0x1A, 0x03},
+	{TX_R3_TMDS_14_L, 0x1B, 0x00},
+	{TX_R3_TMDS_14_L, 0x1C, 0x00},
+	{TX_R3_TMDS_14_L, 0x1D, 0x03},
+	{TX_R3_TMDS_14_L, 0x1E, 0x00},
+
+	{TX_R3_TMDS_14_H, 0x0A, 0x18},
+	{TX_R3_TMDS_14_H, 0x0B, 0x0F},
+	{TX_R3_TMDS_14_H, 0x0C, 0x0B},
+	{TX_R3_TMDS_14_H, 0x0D, 0x30},
+	{TX_R3_TMDS_14_H, 0x0E, 0x4A},
+	{TX_R3_TMDS_14_H, 0x0F, 0x30},
+	{TX_R3_TMDS_14_H, 0x10, 0x4A},
+	{TX_R3_TMDS_14_H, 0x11, 0x0F},
+	{TX_R3_TMDS_14_H, 0x12, 0xAA},
+	{TX_R3_TMDS_14_H, 0x13, 0x30},
+	{TX_R3_TMDS_14_H, 0x14, 0x0F},
+	{TX_R3_TMDS_14_H, 0x15, 0x00},
+	{TX_R3_TMDS_14_H, 0x16, 0x02},
+	{TX_R3_TMDS_14_H, 0x17, 0x63},
+	{TX_R3_TMDS_14_H, 0x18, 0x0B},
+	{TX_R3_TMDS_14_H, 0x19, 0x00},
+	{TX_R3_TMDS_14_H, 0x1A, 0x03},
+	{TX_R3_TMDS_14_H, 0x1B, 0x00},
+	{TX_R3_TMDS_14_H, 0x1C, 0x00},
+	{TX_R3_TMDS_14_H, 0x1D, 0x03},
+	{TX_R3_TMDS_14_H, 0x1E, 0x00},
+
+	{TX_R3_TMDS_20, 0x0A, 0x08},
+	{TX_R3_TMDS_20, 0x0B, 0x0F},
+	{TX_R3_TMDS_20, 0x0C, 0x09},
+	{TX_R3_TMDS_20, 0x0D, 0x20},
+	{TX_R3_TMDS_20, 0x0E, 0x43},
+	{TX_R3_TMDS_20, 0x0F, 0x33},
+	{TX_R3_TMDS_20, 0x10, 0x43},
+	{TX_R3_TMDS_20, 0x11, 0x0F},
+	{TX_R3_TMDS_20, 0x12, 0xAA},
+	{TX_R3_TMDS_20, 0x13, 0x02},
+	{TX_R3_TMDS_20, 0x14, 0x0F},
+	{TX_R3_TMDS_20, 0x15, 0x00},
+	{TX_R3_TMDS_20, 0x16, 0x02},
+	{TX_R3_TMDS_20, 0x17, 0x63},
+	{TX_R3_TMDS_20, 0x18, 0x0B},
+	{TX_R3_TMDS_20, 0x19, 0x00},
+	{TX_R3_TMDS_20, 0x1A, 0x03},
+	{TX_R3_TMDS_20, 0x1B, 0x00},
+	{TX_R3_TMDS_20, 0x1C, 0x00},
+	{TX_R3_TMDS_20, 0x1D, 0x03},
+	{TX_R3_TMDS_20, 0x1E, 0x00},
+
+	{TX_R3_FRL, 0x0A, 0x24},
+	{TX_R3_FRL, 0x0B, 0x0D},
+	{TX_R3_FRL, 0x0C, 0x00},
+#ifdef XPS_BOARD_ZCU106
+	{TX_R3_FRL, 0x0D, 0x31}, /*Onsemi 0x10},*/
+	{TX_R3_FRL, 0x0E, 0x0A}, /*Onsemi 0x2A},*/
+	{TX_R3_FRL, 0x0F, 0x31}, /*Onsemi 0x02},*/
+	{TX_R3_FRL, 0x10, 0x05},
+#elif defined (XPS_BOARD_ZCU102)
+	{TX_R3_FRL, 0x0D, 0x10}, /*Onsemi 0x10},*/
+	{TX_R3_FRL, 0x0E, 0x2A}, /*Onsemi 0x2A},*/
+	{TX_R3_FRL, 0x0F, 0x31}, /*Onsemi 0x02},*/
+	{TX_R3_FRL, 0x10, 0x05},
+#elif defined (XPS_BOARD_VCU118)
+	{TX_R3_FRL, 0x0D, 0x30}, /*Onsemi 0x10},*/
+	{TX_R3_FRL, 0x0E, 0x00}, /*Onsemi 0x2A},*/
+	{TX_R3_FRL, 0x0F, 0x30}, /*Onsemi 0x02},*/
+	{TX_R3_FRL, 0x10, 0x00},
+#endif
+	{TX_R3_FRL, 0x11, 0x0F},
+	{TX_R3_FRL, 0x12, 0xAA},
+	{TX_R3_FRL, 0x13, 0x00},
+	{TX_R3_FRL, 0x14, 0x03},
+	{TX_R3_FRL, 0x15, 0x00},
+	{TX_R3_FRL, 0x16, 0x00},
+	{TX_R3_FRL, 0x17, 0x03},
+	{TX_R3_FRL, 0x18, 0x00},
+	{TX_R3_FRL, 0x19, 0x00},
+	{TX_R3_FRL, 0x1A, 0x03},
+	{TX_R3_FRL, 0x1B, 0x00},
+	{TX_R3_FRL, 0x1C, 0x00},
+	{TX_R3_FRL, 0x1D, 0x03},
+	{TX_R3_FRL, 0x1E, 0x00},
+
+	{RX_R3_TMDS_14, 0x0A, 0x34},
+	{RX_R3_TMDS_14, 0x0B, 0x0D},
+	{RX_R3_TMDS_14, 0x0C, 0x00},
+	{RX_R3_TMDS_14, 0x0D, 0x00},
+	{RX_R3_TMDS_14, 0x0E, 0x03},
+	{RX_R3_TMDS_14, 0x0F, 0x21},
+	{RX_R3_TMDS_14, 0x10, 0x2A},
+	{RX_R3_TMDS_14, 0x11, 0x0F},
+	{RX_R3_TMDS_14, 0x12, 0x00},
+	{RX_R3_TMDS_14, 0x13, 0x00},
+	{RX_R3_TMDS_14, 0x14, 0x03},
+	{RX_R3_TMDS_14, 0x15, 0x00},
+	{RX_R3_TMDS_14, 0x16, 0x00},
+	{RX_R3_TMDS_14, 0x17, 0x03},
+	{RX_R3_TMDS_14, 0x18, 0x00},
+	{RX_R3_TMDS_14, 0x19, 0x00},
+	{RX_R3_TMDS_14, 0x1A, 0x03},
+	{RX_R3_TMDS_14, 0x1B, 0x00},
+	{RX_R3_TMDS_14, 0x1C, 0x00},
+	{RX_R3_TMDS_14, 0x1D, 0x03},
+	{RX_R3_TMDS_14, 0x1E, 0x00},
+
+	{RX_R3_TMDS_20, 0x0A, 0x34},
+	{RX_R3_TMDS_20, 0x0B, 0x0D},
+	{RX_R3_TMDS_20, 0x0C, 0x00},
+	{RX_R3_TMDS_20, 0x0D, 0x00},
+	{RX_R3_TMDS_20, 0x0E, 0x03},
+	{RX_R3_TMDS_20, 0x0F, 0x00},
+	{RX_R3_TMDS_20, 0x10, 0x00},
+	{RX_R3_TMDS_20, 0x11, 0x0F},
+	{RX_R3_TMDS_20, 0x12, 0x00},
+	{RX_R3_TMDS_20, 0x13, 0x00},
+	{RX_R3_TMDS_20, 0x14, 0x03},
+	{RX_R3_TMDS_20, 0x15, 0x00},
+	{RX_R3_TMDS_20, 0x16, 0x00},
+	{RX_R3_TMDS_20, 0x17, 0x03},
+	{RX_R3_TMDS_20, 0x18, 0x00},
+	{RX_R3_TMDS_20, 0x19, 0x00},
+	{RX_R3_TMDS_20, 0x1A, 0x03},
+	{RX_R3_TMDS_20, 0x1B, 0x00},
+	{RX_R3_TMDS_20, 0x1C, 0x00},
+	{RX_R3_TMDS_20, 0x1D, 0x03},
+	{RX_R3_TMDS_20, 0x1E, 0x00},
+
+	{RX_R3_FRL, 0x0A, 0x24},
+	{RX_R3_FRL, 0x0B, 0x0D},
+	{RX_R3_FRL, 0x0C, 0x00},
+	{RX_R3_FRL, 0x0D, 0x20},
+	{RX_R3_FRL, 0x0E, 0x07},
+	{RX_R3_FRL, 0x0F, 0x20},
+	{RX_R3_FRL, 0x10, 0x00},
+	{RX_R3_FRL, 0x11, 0x0F},
+	{RX_R3_FRL, 0x12, 0xAA},
+	{RX_R3_FRL, 0x13, 0x21},
+	{RX_R3_FRL, 0x14, 0x00},
+	{RX_R3_FRL, 0x15, 0x00},
+	{RX_R3_FRL, 0x16, 0x21},
+	{RX_R3_FRL, 0x17, 0x00},
+	{RX_R3_FRL, 0x18, 0x00},
+	{RX_R3_FRL, 0x19, 0x21},
+	{RX_R3_FRL, 0x1A, 0x00},
+	{RX_R3_FRL, 0x1B, 0x00},
+#ifdef XPS_BOARD_ZCU106
+	{RX_R3_FRL, 0x1C, 0x21},
+	{RX_R3_FRL, 0x1D, 0x00},
+#else
+	{RX_R3_FRL, 0x1C, 0x20},
+	{RX_R3_FRL, 0x1D, 0x07},
+#endif
+	{RX_R3_FRL, 0x1E, 0x00},
+
 };
 
 /************************** Function Prototypes ******************************/
@@ -542,7 +829,7 @@ int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress,
 		u8 Revision, u8 IsTx)
 {
 	int Result = XST_FAILURE;
-	u8 DeviceType = 0xFF;
+	u16 DeviceType = 0xFFFF;
 	u32 i = 0;
 
 	if (IsTx == 1) {
@@ -553,6 +840,13 @@ int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress,
 		case 1:
 			DeviceType = TX_R1_TMDS_14;
 			break;
+		case 2:
+			DeviceType = TX_R2_TMDS_14_L;
+			break;
+		case 3:
+			DeviceType = TX_R3_TMDS_14_L;
+			break;
+
 		default:
 			break;
 		}
@@ -564,6 +858,13 @@ int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress,
 		case 1:
 			DeviceType = RX_R1_TMDS_14;
 			break;
+		case 2:
+			DeviceType = RX_R2_TMDS_14;
+			break;
+		case 3:
+			DeviceType = RX_R3_TMDS_14;
+			break;
+
 		default:
 			break;
 		}
@@ -619,6 +920,13 @@ int ONSEMI_NB7NQ621M_CheckDeviceID(void *IicPtr, u8 I2CSlaveAddress)
 
 	/* Copy */
 	DeviceId |= Data;
+
+	Data = ONSEMI_NB7NQ621M_GetRegister(IicPtr, I2CSlaveAddress, 0x0002);
+	Data = ONSEMI_NB7NQ621M_GetRegister(IicPtr, I2CSlaveAddress, 0x0003);
+	Data = ONSEMI_NB7NQ621M_GetRegister(IicPtr, I2CSlaveAddress, 0x0004);
+	Data = ONSEMI_NB7NQ621M_GetRegister(IicPtr, I2CSlaveAddress, 0x0005);
+	Data = ONSEMI_NB7NQ621M_GetRegister(IicPtr, I2CSlaveAddress, 0x0006);
+	Data = ONSEMI_NB7NQ621M_GetRegister(IicPtr, I2CSlaveAddress, 0x0007);
 
 	/* Check */
 	if (DeviceId == 0x4E4F)
@@ -686,7 +994,7 @@ int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
 		u8 Revision, u8 IsFRL, u64 LineRate, u8 IsTx)
 {
 	int Result = XST_FAILURE;
-	u8 DeviceType = 0xFF;
+	u16 DeviceType = 0xFFFF;
 	u32 LineRateMbps;
 	u32 i = 0;
 
@@ -742,6 +1050,47 @@ int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
 				}
 			}
 			break;
+		case 2:
+			if (IsFRL == 1) {
+				DeviceType = TX_R2_FRL;
+			} else {
+				/* HDMI 2.0 */
+				if ((LineRateMbps > 3400) &&
+						(LineRateMbps <= 6000)) {
+					DeviceType = TX_R2_TMDS_20;
+				}
+				/* HDMI 1.4 1.65-3.4 Gbps */
+				else if ((LineRateMbps > 1650) &&
+						(LineRateMbps <= 3400)) {
+					DeviceType = TX_R2_TMDS_14_H;
+				}
+				/* HDMI 1.4 0.25-1.65 Gbps */
+				else {
+					DeviceType = TX_R2_TMDS_14_L;
+				}
+			}
+			break;
+		case 3:
+			if (IsFRL == 1) {
+				DeviceType = TX_R3_FRL;
+			} else {
+				/* HDMI 2.0 */
+				if ((LineRateMbps > 3400) &&
+						(LineRateMbps <= 6000)) {
+					DeviceType = TX_R3_TMDS_20;
+				}
+				/* HDMI 1.4 1.65-3.4 Gbps */
+				else if ((LineRateMbps > 1650) &&
+						(LineRateMbps <= 3400)) {
+					DeviceType = TX_R3_TMDS_14_H;
+				}
+				/* HDMI 1.4 0.25-1.65 Gbps */
+				else {
+					DeviceType = TX_R3_TMDS_14_L;
+				}
+			}
+			break;
+
 		default:
 			break;
 		}
@@ -763,6 +1112,31 @@ int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
 				}
 			}
 			break;
+		case 2:
+			if (IsFRL == 1) {
+				DeviceType = RX_R2_FRL;
+			} else {
+
+				if (LineRateMbps > 3400) {
+					DeviceType = RX_R2_TMDS_20;
+				} else {
+					DeviceType = RX_R2_TMDS_14;
+				}
+			}
+			break;
+		case 3:
+			if (IsFRL == 1) {
+				DeviceType = RX_R3_FRL;
+			} else {
+
+				if (LineRateMbps > 3400) {
+					DeviceType = RX_R3_TMDS_20;
+				} else {
+					DeviceType = RX_R3_TMDS_14;
+				}
+			}
+			break;
+
 		default:
 
 			break;
