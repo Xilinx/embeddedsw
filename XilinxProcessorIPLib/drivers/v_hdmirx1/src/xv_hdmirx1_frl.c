@@ -84,38 +84,36 @@ const u16 FrlTimeoutLts3[4] = {
 * 3) Bits Shift
 */
 const XV_HdmiRx1_FrlScdcField FrlScdcField[XV_HDMIRX1_SCDCFIELD_SIZE] = {
-	{0x01, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_SINK_VER*/
-	{0x02, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_SOURCE_VER*/
+	{0x01, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_SINK_VER */
+	{0x02, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_SOURCE_VER */
 	{0x10, 0x01, 1},	/* XV_HDMIRX1_SCDCFIELD_CED_UPDATE*/
-	{0x10, 0x01, 3},	/* XV_HDMIRX1_SCDCFIELD_SOURCE_TEST_UPDATE*/
-	{0x10, 0x01, 4},	/* XV_HDMIRX1_SCDCFIELD_FRL_START*/
-	{0x10, 0x01, 5},	/* XV_HDMIRX1_SCDCFIELD_FLT_UPDATE*/
-	{0x10, 0x01, 6},	/* XV_HDMIRX1_SCDCFIELD_RSED_UPDATE*/
-	/* Note : This SCDC field can be renamed to include
-	 * writing of TMDS Clock Ratio*/
-	{0x20, 0x03, 0},	/* XV_HDMIRX1_SCDCFIELD_SCRAMBLER_EN*/
-	{0x21, 0x01, 0},	/* XV_HDMIRX1_SCDCFIELD_SCRAMBLER_STAT*/
-	{0x30, 0x01, 1},	/* XV_HDMIRX1_SCDCFIELD_FLT_NO_RETRAIN*/
-	{0x31, 0x0F, 0},	/* XV_HDMIRX1_SCDCFIELD_FRL_RATE*/
-	{0x31, 0x0F, 4},	/* XV_HDMIRX1_SCDCFIELD_FFE_LEVELS*/
-	{0x35, 0x01, 5},	/* XV_HDMIRX1_SCDCFIELD_FLT_NO_TIMEOUT*/
-	{0x40, 0x0F, 1},	/* XV_HDMIRX1_SCDCFIELD_LNS_LOCK*/
-	{0x40, 0x01, 6},	/* XV_HDMIRX1_SCDCFIELD_FLT_READY*/
-	{0x41, 0x0F, 0},	/* XV_HDMIRX1_SCDCFIELD_LN0_LTP_REQ*/
-	{0x41, 0x0F, 4},	/* XV_HDMIRX1_SCDCFIELD_LN1_LTP_REQ*/
-	{0x42, 0x0F, 0},	/* XV_HDMIRX1_SCDCFIELD_LN2_LTP_REQ*/
-	{0x42, 0x0F, 4},	/* XV_HDMIRX1_SCDCFIELD_LN3_LTP_REQ*/
-	{0x50, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH0_ERRCNT_LSB*/
-	{0x51, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH0_ERRCNT_MSB*/
-	{0x52, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH1_ERRCNT_LSB*/
-	{0x53, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH1_ERRCNT_MSB*/
-	{0x54, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH2_ERRCNT_LSB*/
-	{0x55, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH2_ERRCNT_MSB*/
-	{0x56, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CED_CHECKSUM*/
-	{0x57, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_LSB*/
-	{0x58, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_MSB*/
-	{0x59, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_RSCCNT_LSB*/
-	{0x5A, 0xFF, 0}		/* XV_HDMIRX1_SCDCFIELD_RSCCNT_MSB*/
+	{0x10, 0x01, 3},	/* XV_HDMIRX1_SCDCFIELD_SOURCE_TEST_UPDATE */
+	{0x10, 0x01, 4},	/* XV_HDMIRX1_SCDCFIELD_FRL_START */
+	{0x10, 0x01, 5},	/* XV_HDMIRX1_SCDCFIELD_FLT_UPDATE */
+	{0x10, 0x01, 6},	/* XV_HDMIRX1_SCDCFIELD_RSED_UPDATE */
+	{0x20, 0x03, 0},	/* XV_HDMIRX1_SCDCFIELD_SCRAMBLER_EN */
+	{0x21, 0x01, 0},	/* XV_HDMIRX1_SCDCFIELD_SCRAMBLER_STAT */
+	{0x30, 0x01, 1},	/* XV_HDMIRX1_SCDCFIELD_FLT_NO_RETRAIN */
+	{0x31, 0x0F, 0},	/* XV_HDMIRX1_SCDCFIELD_FRL_RATE */
+	{0x31, 0x0F, 4},	/* XV_HDMIRX1_SCDCFIELD_FFE_LEVELS */
+	{0x35, 0x01, 5},	/* XV_HDMIRX1_SCDCFIELD_FLT_NO_TIMEOUT */
+	{0x40, 0x0F, 1},	/* XV_HDMIRX1_SCDCFIELD_LNS_LOCK */
+	{0x40, 0x01, 6},	/* XV_HDMIRX1_SCDCFIELD_FLT_READY */
+	{0x41, 0x0F, 0},	/* XV_HDMIRX1_SCDCFIELD_LN0_LTP_REQ */
+	{0x41, 0x0F, 4},	/* XV_HDMIRX1_SCDCFIELD_LN1_LTP_REQ */
+	{0x42, 0x0F, 0},	/* XV_HDMIRX1_SCDCFIELD_LN2_LTP_REQ */
+	{0x42, 0x0F, 4},	/* XV_HDMIRX1_SCDCFIELD_LN3_LTP_REQ */
+	{0x50, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH0_ERRCNT_LSB */
+	{0x51, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH0_ERRCNT_MSB */
+	{0x52, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH1_ERRCNT_LSB */
+	{0x53, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH1_ERRCNT_MSB */
+	{0x54, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH2_ERRCNT_LSB */
+	{0x55, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH2_ERRCNT_MSB */
+	{0x56, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CED_CHECKSUM */
+	{0x57, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_LSB */
+	{0x58, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_MSB */
+	{0x59, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_RSCCNT_LSB */
+	{0x5A, 0xFF, 0}		/* XV_HDMIRX1_SCDCFIELD_RSCCNT_MSB */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -129,12 +127,10 @@ static int XV_HdmiRx1_ExecFrlState_Lts3(XV_HdmiRx1 *InstancePtr);
 static int XV_HdmiRx1_ExecFrlState_Lts3_RateChange(XV_HdmiRx1 *InstancePtr);
 static int XV_HdmiRx1_ExecFrlState_Lts3_LtpDetected(XV_HdmiRx1 *InstancePtr);
 static int XV_HdmiRx1_ExecFrlState_Lts3_Timer(XV_HdmiRx1 *InstancePtr);
-/*static int XV_HdmiRx1_ExecFrlState_LtsP_Arm(XV_HdmiRx1 *InstancePtr);*/
 static int XV_HdmiRx1_ExecFrlState_LtsP(XV_HdmiRx1 *InstancePtr);
 static int XV_HdmiRx1_ExecFrlState_LtsP_Timeout(XV_HdmiRx1 *InstancePtr);
 static void XV_HdmiRx1_ClearFrlLtp(XV_HdmiRx1 *InstancePtr);
 static void XV_HdmiRx1_SetFrlTimer(XV_HdmiRx1 *InstancePtr, u32 Milliseconds);
-/*static void XV_HdmiRx1_SetFrl10MicroSecondsTimer(XV_HdmiRx1 *InstancePtr);*/
 
 /************************** Variable Definitions *****************************/
 
@@ -149,8 +145,8 @@ static void XV_HdmiRx1_SetFrlTimer(XV_HdmiRx1 *InstancePtr, u32 Milliseconds);
 * @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
 * @param    LtpThreshold specifies the number of times the LTP matching module
-* 			must match against the incoming link training pattern before a
-* 			match is indicated
+*           must match against the incoming link training pattern before a
+*           match is indicated
 *
 * @param    DefaultLtp specify the link training pattern which will be used
 * 			for link training purposes
@@ -290,7 +286,8 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_RateChange(XV_HdmiRx1 *InstancePtr)
 	}
 
 #ifdef DEBUG_RX_FRL_VERBOSITY
-	xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 Rate Change\r\n" ANSI_COLOR_RESET);
+	xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 Rate Change\r\n"
+			ANSI_COLOR_RESET);
 #endif
 
 	/* Check if user callback has been registered*/
@@ -300,7 +297,7 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_RateChange(XV_HdmiRx1 *InstancePtr)
 
 	XV_HdmiRx1_FrlFltUpdate(InstancePtr, FALSE);
 
-	if (Status == XST_SUCCESS && InstancePtr->Stream.Frl.Rate > 0) {
+	if (Status == XST_SUCCESS && InstancePtr->Stream.Frl.LineRate > 0) {
 		InstancePtr->Stream.Frl.TrainingState =
 				XV_HDMIRX1_FRLSTATE_LTS_3_RATE_CH;
 
@@ -312,8 +309,10 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_RateChange(XV_HdmiRx1 *InstancePtr)
 #ifdef DEBUG_RX_FRL_VERBOSITY
 		xil_printf(ANSI_COLOR_MAGENTA "*********************\r\n"
 				ANSI_COLOR_RESET);
-		xil_printf(ANSI_COLOR_MAGENTA "RX: Rate: %d Lanes: %d Ffe_Lvl: %d\r\n"
-				ANSI_COLOR_RESET, InstancePtr->Stream.Frl.Rate,
+		xil_printf(ANSI_COLOR_MAGENTA "RX: Rate: %d Lanes: %d"
+				" Ffe_Lvl: %d\r\n"
+				ANSI_COLOR_RESET,
+				InstancePtr->Stream.Frl.LineRate,
 				InstancePtr->Stream.Frl.Lanes,
 				InstancePtr->Stream.Frl.FfeLevels);
 		xil_printf(ANSI_COLOR_MAGENTA "*********************\r\n"
@@ -345,10 +344,19 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_RateChange(XV_HdmiRx1 *InstancePtr)
 		InstancePtr->Stream.Frl.Ltp.Byte[3] =
 				InstancePtr->Stream.Frl.DefaultLtp.Byte[3];
 
+		InstancePtr->Stream.Frl.LtpMatchedCounts = 0;
+		InstancePtr->Stream.Frl.LtpMatchWaitCounts = 0;
+		InstancePtr->Stream.Frl.LtpMatchPollCounts = 0;
+
 		/* Check if user callback has been registered*/
 		if (InstancePtr->FrlConfigCallback) {
 			InstancePtr->FrlConfigCallback(InstancePtr->FrlConfigRef);
 		}
+
+		/* Set 4ms on timer 3 for PhyReset callback */
+		XV_HdmiRx1_Tmr3Enable(InstancePtr);
+		XV_HdmiRx1_TmrStartMs(InstancePtr, 4, 3);
+
 #ifdef DEBUG_RX_FRL_VERBOSITY
 		xil_printf(ANSI_COLOR_GREEN "After FrlConfigCallback\r\n"
 				ANSI_COLOR_RESET);
@@ -357,8 +365,9 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_RateChange(XV_HdmiRx1 *InstancePtr)
 #ifdef DEBUG_RX_FRL_VERBOSITY
 		xil_printf(ANSI_COLOR_YELLOW "---111 " ANSI_COLOR_RESET);
 #endif
-		InstancePtr->Stream.Frl.TrainingState = XV_HDMIRX1_FRLSTATE_LTS_L;
-/*		XV_HdmiRx1_SetFrl10MicroSecondsTimer(InstancePtr);*/
+		InstancePtr->Stream.Frl.TrainingState =
+				XV_HDMIRX1_FRLSTATE_LTS_L;
+
 		XV_HdmiRx1_ExecFrlState(InstancePtr);
 		InstancePtr->Stream.State = XV_HDMIRX1_STATE_STREAM_DOWN;
 	}
@@ -386,10 +395,29 @@ xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 LTP Detected (%d)\r\n"
 #endif
 	int Status = XST_FAILURE;
 
+	/* Make sure Phy is reset at least once after the patterns have
+	 * matched */
+	if (InstancePtr->Stream.Frl.LtpMatchedCounts < 1) {
+		InstancePtr->Stream.Frl.LtpMatchedCounts++;
+		InstancePtr->Stream.Frl.LtpMatchPollCounts = 0;
+		InstancePtr->Stream.Frl.LtpMatchWaitCounts = 0;
+		if (InstancePtr->PhyResetCallback) {
+			InstancePtr->PhyResetCallback(InstancePtr->PhyResetRef);
+		}
+
+		InstancePtr->Stream.Frl.TrainingState =
+				XV_HDMIRX1_FRLSTATE_LTS_3;
+		return Status;
+	}
+
 	u8 Data = XV_HdmiRx1_GetPatternsMatchStatus(InstancePtr);
 
 	/* If LTPs are detected on all active lanes */
 	if ((InstancePtr->Stream.Frl.Lanes == 3 ? 0x7 : 0xF) == Data) {
+		/* Disable Timer 3 which triggers Phy Reset */
+		XV_HdmiRx1_TmrStartMs(InstancePtr, 0, 3);
+		XV_HdmiRx1_Tmr3Disable(InstancePtr);
+
 		/* 0x0 = Link Training Passing */
 		InstancePtr->Stream.Frl.Ltp.Data = 0x00000000;
 
@@ -404,7 +432,8 @@ xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 LTP Detected (%d)\r\n"
 		xil_printf("LTP_DET:MATCH\r\n");
 #endif
 	} else {
-		InstancePtr->Stream.Frl.TrainingState = XV_HDMIRX1_FRLSTATE_LTS_3;
+		InstancePtr->Stream.Frl.TrainingState =
+				XV_HDMIRX1_FRLSTATE_LTS_3;
 #ifdef DEBUG_RX_FRL_VERBOSITY
 		xil_printf("LTP_DET:FALSE:%X\r\n", Data);
 #endif
@@ -431,13 +460,19 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_Timer(XV_HdmiRx1 *InstancePtr)
 
 	u8 Data = XV_HdmiRx1_GetPatternsMatchStatus(InstancePtr);
 
+	InstancePtr->Stream.Frl.FltNoRetrain =
+			XV_HdmiRx1_FrlDdcReadField(InstancePtr,
+					XV_HDMIRX1_SCDCFIELD_FLT_NO_RETRAIN);
+
 	InstancePtr->Stream.Frl.TimerCnt +=
 			FrlTimeoutLts3[InstancePtr->Stream.Frl.FfeLevels];
 
-	if (InstancePtr->Stream.Frl.TrainingState == XV_HDMIRX1_FRLSTATE_LTS_P) {
+	if (InstancePtr->Stream.Frl.TrainingState ==
+			XV_HDMIRX1_FRLSTATE_LTS_P) {
 #ifdef DEBUG_RX_FRL_VERBOSITY
-		xil_printf(ANSI_COLOR_RED "RX: LTS:P Lts3_Timer OUT, FFE_LVL: %d\r\n"
-			   ANSI_COLOR_RESET, InstancePtr->Stream.Frl.FfeLevels);
+		xil_printf(ANSI_COLOR_RED "RX: LTS:P Lts3_Timer OUT,"
+				" FFE_LVL: %d\r\n" ANSI_COLOR_RESET,
+				InstancePtr->Stream.Frl.FfeLevels);
 #endif
 	}
 
@@ -449,14 +484,21 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_Timer(XV_HdmiRx1 *InstancePtr)
 	     XV_HDMIRX1_FRLSTATE_LTS_3_RATE_CH) ||
 	    (InstancePtr->Stream.Frl.TrainingState ==
 	     XV_HDMIRX1_FRLSTATE_LTS_3_RDY)) {
-		if (InstancePtr->Stream.Frl.FltNoTimeout == FALSE) {
+		if (InstancePtr->Stream.Frl.FltNoTimeout == FALSE &&
+				InstancePtr->Stream.Frl.FltNoRetrain == FALSE) {
 			if (InstancePtr->Stream.Frl.TimerCnt >
 			    (FrlTimeoutLts3[InstancePtr->Stream.Frl.FfeLevels] *
 			     InstancePtr->Stream.Frl.FfeLevels)) {
-				/* If LTPs are not detected on all active lanes */
+				/* If LTPs are not detected on all active
+				 * lanes */
 				if ((InstancePtr->Stream.Frl.Lanes == 3 ?
 				     0x7 : 0xF) !=
 				    Data) {
+					/* Stop the timer which will initiate
+					 * Phy reset */
+					XV_HdmiRx1_TmrStartMs(InstancePtr,
+							0, 3);
+
 #ifdef DEBUG_RX_FRL_VERBOSITY
 					xil_printf("T:0xF\r\n");
 #endif
@@ -466,7 +508,8 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_Timer(XV_HdmiRx1 *InstancePtr)
 					InstancePtr->Stream.Frl.Ltp.Byte[2] = 0xF;
 					InstancePtr->Stream.Frl.Ltp.Byte[3] = 0xF;
 
-					/* Check if user callback has been registered*/
+					/* Check if user callback has been
+					 * registered */
 					if (InstancePtr->FrlLts4Callback) {
 						InstancePtr->FrlLts4Callback(
 							InstancePtr->FrlLts4Ref);
@@ -499,8 +542,10 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_Timer(XV_HdmiRx1 *InstancePtr)
 		}
 	}
 
-	if (InstancePtr->Stream.Frl.TrainingState != XV_HDMIRX1_FRLSTATE_LTS_3_RDY) {
-		InstancePtr->Stream.Frl.TrainingState = XV_HDMIRX1_FRLSTATE_LTS_3;
+	if (InstancePtr->Stream.Frl.TrainingState !=
+			XV_HDMIRX1_FRLSTATE_LTS_3_RDY) {
+		InstancePtr->Stream.Frl.TrainingState =
+				XV_HDMIRX1_FRLSTATE_LTS_3;
 	}
 
 	return Status;
@@ -600,7 +645,8 @@ static int XV_HdmiRx1_ExecFrlState_LtsP(XV_HdmiRx1 *InstancePtr)
 					    XV_HDMIRX1_SCDCFIELD_FRL_START,
 					    1);
 #ifdef DEBUG_RX_FRL_VERBOSITY
-		xil_printf(ANSI_COLOR_GREEN "RX: FRL_START\r\n" ANSI_COLOR_RESET);
+		xil_printf(ANSI_COLOR_GREEN "RX: FRL_START\r\n"
+				ANSI_COLOR_RESET);
 #endif
 
 		if (InstancePtr->FrlStartCallback) {
@@ -628,7 +674,8 @@ static int XV_HdmiRx1_ExecFrlState_LtsP(XV_HdmiRx1 *InstancePtr)
 static int XV_HdmiRx1_ExecFrlState_LtsP_Timeout(XV_HdmiRx1 *InstancePtr)
 {
 #ifdef DEBUG_RX_FRL_VERBOSITY
-	xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:P Timeout\r\n" ANSI_COLOR_RESET);
+	xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:P Timeout\r\n"
+			ANSI_COLOR_RESET);
 #endif
 	/* Check if user callback has been registered*/
 	if (InstancePtr->TmdsConfigCallback) {
@@ -774,6 +821,54 @@ u32 XV_HdmiRx1_GetPatternsMatchStatus(XV_HdmiRx1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function polls the pattern matching status and decide if the Phy needs
+* to be reset or not.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiRx1_PhyResetPoll(XV_HdmiRx1 *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	u8 Data = XV_HdmiRx1_GetPatternsMatchStatus(InstancePtr);
+
+	/* Polls every 4ms */
+	XV_HdmiRx1_TmrStartMs(InstancePtr, 4, 3);
+
+	/* One or more lanes are patterns matched but the remaining
+	 * lanes failed to patterns matched within 4ms or no patterns
+	 * have been matched for up to 12ms, proceed to reset Phy */
+	if (InstancePtr->Stream.Frl.LtpMatchWaitCounts >= 1 ||
+			InstancePtr->Stream.Frl.LtpMatchPollCounts >= 3) {
+		InstancePtr->Stream.Frl.LtpMatchPollCounts = 0;
+		InstancePtr->Stream.Frl.LtpMatchWaitCounts = 0;
+
+		/* Check if user callback has been registered*/
+		if (InstancePtr->PhyResetCallback) {
+			InstancePtr->PhyResetCallback(InstancePtr->PhyResetRef);
+		}
+
+		return;
+	}
+
+	/* Increments the wait counter */
+	InstancePtr->Stream.Frl.LtpMatchPollCounts++;
+
+	/* If LTP on some of the lanes are successfully matched */
+	if (Data != 0 && Data !=
+			(InstancePtr->Stream.Frl.Lanes == 3 ? 0x7 : 0xF)) {
+		InstancePtr->Stream.Frl.LtpMatchWaitCounts ++;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This function sets the link training pattern to be detected for the selected
 * lane.
 *
@@ -797,14 +892,13 @@ void XV_HdmiRx1_SetFrlLtpDetection(XV_HdmiRx1 *InstancePtr, u8 Lane,
 					XV_HdmiRx1_FrlLtpType Ltp)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-/*	Xil_AssertVoid(Ltp >= 5 && Ltp <= 8);*/
 
 	u32 value = Ltp;
 
 	if (Lane <= 3) {
 		XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
-					(XV_HDMIRX1_SCDCFIELD_LN0_LTP_REQ + Lane),
-					value);
+				(XV_HDMIRX1_SCDCFIELD_LN0_LTP_REQ + Lane),
+				value);
 	} else {
 		xil_printf("RX:ERROR, Wrong lane is selected!\r\n");
 	}
@@ -1061,7 +1155,8 @@ int XV_HdmiRx1_ConfigFrlLtpDetection(XV_HdmiRx1 *InstancePtr)
 		if (Data == TRUE) {
 #ifdef DEBUG_RX_FRL_VERBOSITY
 			xil_printf(ANSI_COLOR_MAGENTA
-					"RX: LTPREQ: %X %X %X %X\r\n" ANSI_COLOR_RESET
+					"RX: LTPREQ: %X %X %X %X\r\n"
+					ANSI_COLOR_RESET
 					, InstancePtr->Stream.Frl.Ltp.Byte[0],
 					InstancePtr->Stream.Frl.Ltp.Byte[1],
 					InstancePtr->Stream.Frl.Ltp.Byte[2],
@@ -1109,43 +1204,43 @@ int XV_HdmiRx1_RetrieveFrlRateLanes(XV_HdmiRx1 *InstancePtr)
 
 	switch (Data) {
 	case 6:
-		InstancePtr->Stream.Frl.Rate = 12;
+		InstancePtr->Stream.Frl.LineRate = 12;
 		InstancePtr->Stream.Frl.Lanes = 4;
 		Status = XST_SUCCESS;
 		break;
 
 	case 5:
-		InstancePtr->Stream.Frl.Rate = 10;
+		InstancePtr->Stream.Frl.LineRate = 10;
 		InstancePtr->Stream.Frl.Lanes = 4;
 		Status = XST_SUCCESS;
 		break;
 
 	case 4:
-		InstancePtr->Stream.Frl.Rate = 8;
+		InstancePtr->Stream.Frl.LineRate = 8;
 		InstancePtr->Stream.Frl.Lanes = 4;
 		Status = XST_SUCCESS;
 		break;
 
 	case 3:
-		InstancePtr->Stream.Frl.Rate = 6;
+		InstancePtr->Stream.Frl.LineRate = 6;
 		InstancePtr->Stream.Frl.Lanes = 4;
 		Status = XST_SUCCESS;
 		break;
 
 	case 2:
-		InstancePtr->Stream.Frl.Rate = 6;
+		InstancePtr->Stream.Frl.LineRate = 6;
 		InstancePtr->Stream.Frl.Lanes = 3;
 		Status = XST_SUCCESS;
 		break;
 
 	case 1:
-		InstancePtr->Stream.Frl.Rate = 3;
+		InstancePtr->Stream.Frl.LineRate = 3;
 		InstancePtr->Stream.Frl.Lanes = 3;
 		Status = XST_SUCCESS;
 		break;
 
 	default:
-		InstancePtr->Stream.Frl.Rate = 0 ;
+		InstancePtr->Stream.Frl.LineRate = 0 ;
 		InstancePtr->Stream.Frl.Lanes = 0;
 		break;
 	}
@@ -1161,8 +1256,8 @@ int XV_HdmiRx1_RetrieveFrlRateLanes(XV_HdmiRx1 *InstancePtr)
 * @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
 * @param    LtpThreshold specifies the number of times the LTP matching module
-* 			must match against the incoming link training pattern before a
-* 			match is indicated
+*           must match against the incoming link training pattern before a
+*           match is indicated
 *
 * @param    DefaultLtp specify the link training pattern which will be used
 * 			for link training purposes
@@ -1266,11 +1361,13 @@ u32 XV_HdmiRx1_FrlDdcReadField(XV_HdmiRx1 *InstancePtr,
 
 		if (Data & XV_HDMIRX1_FRL_SCDC_RDY_MASK) {
 			Data = Data >> XV_HDMIRX1_FRL_SCDC_DAT_SHIFT;
-			return ((Data >> FrlScdcField[Field].Shift) & FrlScdcField[Field].Mask);
+			return ((Data >> FrlScdcField[Field].Shift) &
+					FrlScdcField[Field].Mask);
 		}
 	}
 
-	xil_printf(ANSI_COLOR_RED "XV_HdmiRx1_FrlDdcReadField F2\r\n" ANSI_COLOR_RESET);
+	xil_printf(ANSI_COLOR_RED "XV_HdmiRx1_FrlDdcReadField F2\r\n"
+			ANSI_COLOR_RESET);
 	return 0xFFFFFFFF;
 }
 
@@ -1466,8 +1563,8 @@ void XV_HdmiRx1_SetFrlFltNoTimeout(XV_HdmiRx1 *InstancePtr)
 {
 	if (InstancePtr->Stream.Frl.FltNoTimeout == TRUE) {
 		XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
-					    XV_HDMIRX1_SCDCFIELD_FLT_NO_TIMEOUT,
-					    1);
+				XV_HDMIRX1_SCDCFIELD_FLT_NO_TIMEOUT,
+				1);
 		xil_printf(ANSI_COLOR_MAGENTA "FLT_NO_TIMEOUT, "
 			   "with SCDC" ANSI_COLOR_RESET);
 	} else {
@@ -1502,7 +1599,8 @@ void XV_HdmiRx1_RestartFrlLt(XV_HdmiRx1 *InstancePtr)
 		InstancePtr->Stream.Frl.Ltp.Byte[3] =
 				InstancePtr->Stream.Frl.DefaultLtp.Byte[3];
 
-		InstancePtr->Stream.Frl.TrainingState = XV_HDMIRX1_FRLSTATE_LTS_3;
+		InstancePtr->Stream.Frl.TrainingState =
+				XV_HDMIRX1_FRLSTATE_LTS_3;
 
 		XV_HdmiRx1_ExecFrlState(InstancePtr);
 

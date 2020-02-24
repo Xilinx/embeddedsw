@@ -159,7 +159,7 @@ typedef struct {
 	XV_HdmiRx1_FrlTrainingState TrainingState;	/**< Fixed Rate Link
 							  *  State */
 	u32                         TimerCnt;		/**< FRL Timer */
-	u8                          Rate;		/**< Current FRL Rate */
+	u8                          LineRate;		/**< Current FRL Rate */
 	u8                          Lanes;		/**< Current number of
 							  *  lanes used */
 	u8                          FfeLevels;		/**< Number of Supported
@@ -178,6 +178,9 @@ typedef struct {
 							  *  of the lanes */
 	u8                          FltNoTimeout;
 	u8                          FltNoRetrain;
+	u8                          LtpMatchWaitCounts;
+	u8                          LtpMatchedCounts;
+	u8                          LtpMatchPollCounts;
 } XV_HdmiRx1_Frl;
 
 /*****************************************************************************/
