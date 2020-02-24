@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,8 @@
 extern "C" {
 #endif
 
-#include <xilfpga.h>
+#include <xilfpga_pcap_common.h>
+#include <xilfpga_pcap.h>
 
 #define XFPGA_OCM_ADDRESS 0xfffc0000U
 #define XFPGA_BASE_ADDRESS 0x80000U
