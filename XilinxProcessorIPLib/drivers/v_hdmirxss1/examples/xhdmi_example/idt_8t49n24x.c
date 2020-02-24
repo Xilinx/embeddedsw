@@ -29,18 +29,6 @@
 
 /***************************** Include Files *********************************/
 #include "idt_8t49n24x.h"
-#if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
-#include "xiicps.h"
-#else
-#include "xiic.h"
-#endif
-#include "xil_types.h"
-#include "xil_assert.h"
-#include "xstatus.h"
-#include "sleep.h"
-#include <stdlib.h>
 
 /************************** Constant Definitions *****************************/
 #define IDT_8T49N24X_ADV_FUNC_EN 0 /* Enable unused APIs */

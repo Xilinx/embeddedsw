@@ -50,7 +50,6 @@
 
 #include "xv_hdmitxss1.h"
 #include "xhdmiphy1.h"
-#include "xhdmiphy1_i.h"
 #include "xvidc.h"
 #include "xvidc_edid_ext.h"
 #if defined (ARMR5) || (__aarch64__) || (__arm__)

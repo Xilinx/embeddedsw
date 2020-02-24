@@ -47,6 +47,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "xvidc_edid_ext.h"
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 #include "xv_hdmirxss1.h"

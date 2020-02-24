@@ -27,7 +27,7 @@
 * @file ti_lmk03318.c
 * @addtogroup TI_LMK03318
 * @{
-* 
+*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -35,20 +35,13 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * X.XX  XX     YY/MM/DD
-* 1.00  RHe    16/06/20 Initial release. 
+* 1.00  RHe    16/06/20 Initial release.
+* 1.01  EB     19/10/23 Updated TI_LMK03318_Init API
 * </pre>
 *
 ******************************************************************************/
 
 #include "ti_lmk03318.h"
-#include "sleep.h"
-#if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
-#include "xiicps.h"
-#else
-#include "xiic.h"
-#endif
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -62,9 +55,9 @@
 
 static void TI_LMK03318_I2cReset(void *IicPtr);
 static unsigned TI_LMK03318_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
-							unsigned ByteCount, u8 Option);
+				unsigned ByteCount, u8 Option);
 static unsigned TI_LMK03318_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
-							unsigned ByteCount, u8 Option);
+				unsigned ByteCount, u8 Option);
 
 /*****************************************************************************/
 /**
@@ -115,7 +108,7 @@ static void TI_LMK03318_I2cReset(void *IicPtr)
 *
 ******************************************************************************/
 static unsigned TI_LMK03318_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
-							unsigned ByteCount, u8 Option)
+				unsigned ByteCount, u8 Option)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -178,7 +171,7 @@ static unsigned TI_LMK03318_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 *
 ******************************************************************************/
 static unsigned TI_LMK03318_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
-							unsigned ByteCount, u8 Option)
+				unsigned ByteCount, u8 Option)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -218,7 +211,7 @@ static unsigned TI_LMK03318_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 /*****************************************************************************/
 /**
 *
-* This function send a single byte to the TI LMK03318  
+* This function send a single byte to the TI LMK03318
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -235,11 +228,11 @@ static int TI_LMK03318_SetRegister(void *IicPtr, u8 I2CSlaveAddress,
 {
 	u32 ByteCount = 0;
 	u8 Buffer[2];
-	
-	Buffer[0] = RegisterAddress; 
-	Buffer[1] = Value; 
+
+	Buffer[0] = RegisterAddress;
+	Buffer[1] = Value;
 	ByteCount = TI_LMK03318_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								2, I2C_STOP);
+					2, I2C_STOP);
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
@@ -250,7 +243,7 @@ static int TI_LMK03318_SetRegister(void *IicPtr, u8 I2CSlaveAddress,
 /*****************************************************************************/
 /**
 *
-* This function send a single byte to the TI LMK03318  
+* This function send a single byte to the TI LMK03318
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -266,19 +259,19 @@ static u8 TI_LMK03318_GetRegister(void *IicPtr, u8 I2CSlaveAddress,
 				u8 RegisterAddress)
 {
 	u8 Buffer[2];
-	
-	Buffer[0] = RegisterAddress; 
+
+	Buffer[0] = RegisterAddress;
 	TI_LMK03318_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								1, I2C_REPEATED_START);
+				1, I2C_REPEATED_START);
 	TI_LMK03318_I2cRecv(IicPtr, I2CSlaveAddress,
-					(u8*)Buffer, 1, I2C_STOP);
+			(u8*)Buffer, 1, I2C_STOP);
 	return Buffer[0];
 }
 
 /*****************************************************************************/
 /**
 *
-* This function modifies a single byte to the TI LMK03318  
+* This function modifies a single byte to the TI LMK03318
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -301,7 +294,7 @@ static int TI_LMK03318_ModifyRegister(void *IicPtr, u8 I2CSlaveAddress,
 				       RegisterAddress);
 
 	/* Clear masked bits */
-	Data &= ~Mask; 
+	Data &= ~Mask;
 
 	/* Update */
 	Data |= (Value & Mask);
@@ -334,7 +327,7 @@ int TI_LMK03318_SetClock(void *IicPtr, u8 I2CSlaveAddress,
 *    - XST_SUCCESS Initialization was successful.
 *    - XST_FAILURE I2C write error or incorrect parameters detected.
 *
-* @note 
+* @note
 *
 ******************************************************************************/
 int TI_LMK03318_EnableBypass(void *IicPtr, u8 I2CSlaveAddress,
@@ -344,20 +337,20 @@ int TI_LMK03318_EnableBypass(void *IicPtr, u8 I2CSlaveAddress,
 		xil_printf("Invalid input port ID\r\n");
 		return XST_FAILURE;
 	}
-	
+
 	if (OutPortID < 4 || OutPortID > 7) {
 		xil_printf("Invalid output port ID\r\n");
 		return XST_FAILURE;
 	}
-	
+
 	u32 ByteCount = 0;
 	u8 Data = 0;
 	u8 Buffer[32];
 	u8 RegisterAddress = 37 + (OutPortID - 4) * 2; // OUTCTL_x register address
-	
-	Buffer[0] = RegisterAddress; 
+
+	Buffer[0] = RegisterAddress;
 	ByteCount = TI_LMK03318_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								1, I2C_REPEATED_START);
+					1, I2C_REPEATED_START);
 	if (ByteCount != 1) {
 		xil_printf("I2C write error: %d\r\n", ByteCount);
 		return XST_FAILURE;
@@ -371,19 +364,19 @@ int TI_LMK03318_EnableBypass(void *IicPtr, u8 I2CSlaveAddress,
 	Data = Buffer[0];
 	/* Clear the Clock Source Mux Control field */
 	Data &= ~(0x3<<6);
-	
+
 	/* Set the Clock Source Mux Control field */
 	Data |= ((InPortID+2)<<6);
-	
-	Buffer[0] = RegisterAddress; 
-	Buffer[1] = Data; 
+
+	Buffer[0] = RegisterAddress;
+	Buffer[1] = Data;
 	ByteCount = TI_LMK03318_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								2, I2C_STOP);
+					2, I2C_STOP);
 	if (ByteCount != 2) {
 		xil_printf("I2C write error: %d\r\n", ByteCount);
 		return XST_FAILURE;
 	}
-	
+
 	return XST_SUCCESS;
 }
 
@@ -419,17 +412,42 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 	/* Register 29 */
 	/* Set input reference clock features */
 	Result = TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
-					 29, 0x0f);
+					 29, 0x8F);
 
 	/* Register 50 */
 	/* Set input buffer */
 	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
 					 50, 0x50);
 
+	/* Register 56 */
+	/* PLL_CTRL0 - PLL_PDN = 1 */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 56, 0x01);
+
 	/* Register 30 */
-	/* Power down register */
-	Result |= TI_LMK03318_ModifyRegister(IicPtr, I2CSlaveAddress,
-					    30, 0x00, 0x5C);
+	/* Power down register - Power down channel 0, 1, 2, 3, 7 outputs */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 30, 0x23);
+
+	/* Register 31 START*/
+	/* Disables Q0 output */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 31, 0x00);
+
+	/* Register 32 */
+	/* Disables Q1 output */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 32, 0x00);
+
+	/* Register 34 */
+	/* Disables Q2 output */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 34, 0x00);
+
+	/* Register 35 */
+	/* Disables Q3 output */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 35, 0x00);
 
 	/* Register 37 */
 	/* Set Q4 output */
@@ -446,7 +464,10 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
 					 41, 0x92);
 
-
+	/* Register 43 */
+	/* Disables Q7 output */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 43, 0x00);
 
 /*
 	// Issue a Software Reset.
@@ -457,7 +478,7 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-	
+
 	// Release Software Reset.
 	Buffer[0] = 12; // DEV_CTL register address
 	Buffer[1] = 0xD9; // R12 -> RESETN_SW = 1, the rest is default.
@@ -466,7 +487,7 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-	
+
 	// Set the default output modes
 	// CK_OUT0/1 are not connected on the VFMC, so disable these outputs.
 	// CK_OUT2/3 are configured as AC LVDS.
@@ -500,7 +521,7 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-	
+
 	// PRIREF and SECREF are configured as differential input.
 	Buffer[0] = 50; // IPCLKSEL register address
 	Buffer[1] = 0x50; // R50 -> PRIREF/SECREF Dif input, input mode -> automatic
@@ -509,7 +530,7 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
-	
+
 	// Disable the Secondary Reference Doubler
 	Buffer[0] = 72; // SEC_CTRL register address
 	Buffer[1] = 0x08; // R72 -> Secondary Reference Doubler disabled.
@@ -529,7 +550,7 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 /*****************************************************************************/
 /**
 *
-* This function puts the TI LMK03318 into sleep 
+* This function puts the TI LMK03318 into sleep
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -608,7 +629,7 @@ void TI_LMK03318_RegisterDump(void *IicPtr, u8 I2CSlaveAddress)
 	xil_printf("-----------------------\r\n");
 	Buffer[0] = 0;
 	ByteCount = TI_LMK03318_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								1, I2C_REPEATED_START);
+					1, I2C_REPEATED_START);
 	if (ByteCount != 1) {
 		xil_printf("I2C write error: %d\r\n", ByteCount);
 	}
@@ -625,13 +646,13 @@ void TI_LMK03318_RegisterDump(void *IicPtr, u8 I2CSlaveAddress)
 	xil_printf("\r\n      ");
 	for (i = 0 ; i < 10 ; i++)
 		xil_printf("---");
-	
+
 	for (i = 0 ; i < ByteCount ; i++) {
 		if ((i % 10) == 0) {
 			xil_printf("\r\n%02d : ", i);
 		}
 		xil_printf("%02x ", Buffer[i]);
 	}
-	
+
 	xil_printf("\r\n");
 }
