@@ -961,6 +961,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	XPm_Core *Core;
 	u32 CoreSubsystemId, CoreDeviceId;
 	XPm_Requirement *Reqm;
+	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -972,13 +973,21 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	/* TODO: Add Support of request wakeup subsystem by subsystemId
-	 * for FPD OFF case, currently subsystem wakeup is support only
-	 * for FPD ON case.
-	 */
 	switch (NODECLASS(DeviceId))
 	{
 		case (u32)XPM_NODECLASS_SUBSYSTEM:
+			/* Add a workaround to power on FPD before
+			 * subsystem wakeup if FPD is off.
+			 * TODO: This workaround will be reverted,
+			 * once recursive CDO loading support is available.
+			 */
+			if ((NULL != FpdPwrNode) &&
+			    ((u8)XPM_POWER_STATE_OFF == FpdPwrNode->Node.State)) {
+				Status = XPm_PowerUpFPD(&FpdPwrNode->Node);
+				if (XST_SUCCESS != Status) {
+					break;
+				}
+			}
 			CoreSubsystemId = DeviceId;
 			Status = XLoader_RestartImage(CoreSubsystemId);
 			break;
