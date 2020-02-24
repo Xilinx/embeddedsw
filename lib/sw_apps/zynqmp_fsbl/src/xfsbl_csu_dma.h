@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -66,5 +66,9 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 u32 XFsbl_CsuDmaInit(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XFSBL_CSU_DMA_H*/
