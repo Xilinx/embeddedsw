@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -41,13 +23,6 @@
 ******************************************************************************/
 
 #include "onsemi_nb7nq621m.h"
-#if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
-#include "xiicps.h"
-#else
-#include "xiic.h"
-#endif
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -59,21 +34,240 @@
 #define I2C_STOP XIIC_STOP
 #endif
 
+/************************** Constant Definitions ******************************/
+
+/**
+* This table contains the values to be programmed to ONSEMI device.
+* Each entry is of the format:
+* 1) Device Type
+* 2) Register Address
+* 3) Values
+*/
+const Onsemi_RegisterField OnsemiRegisterFields[] = {
+	{TX_R0_TMDS, 0x04, 0x18},
+	{TX_R0_TMDS, 0x05, 0x0B},
+	{TX_R0_TMDS, 0x06, 0x00},
+	{TX_R0_TMDS, 0x07, 0x00},
+	{TX_R0_TMDS, 0x08, 0x03},
+	{TX_R0_TMDS, 0x09, 0x20},
+	{TX_R0_TMDS, 0x0A, 0x05},
+	{TX_R0_TMDS, 0x0B, 0x0F},
+	{TX_R0_TMDS, 0x0C, 0xAA},
+	{TX_R0_TMDS, 0x0D, 0x00},
+	{TX_R0_TMDS, 0x0E, 0x03},
+	{TX_R0_TMDS, 0x0F, 0x00},
+	{TX_R0_TMDS, 0x10, 0x00},
+	{TX_R0_TMDS, 0x11, 0x03},
+	{TX_R0_TMDS, 0x12, 0x00},
+	{TX_R0_TMDS, 0x13, 0x00},
+	{TX_R0_TMDS, 0x14, 0x03},
+	{TX_R0_TMDS, 0x15, 0x00},
+	{TX_R0_TMDS, 0x16, 0x00},
+	{TX_R0_TMDS, 0x17, 0x03},
+	{TX_R0_TMDS, 0x18, 0x00},
+
+	{TX_R0_TMDS_14_L, 0x04, 0xB0},
+	{TX_R0_TMDS_14_L, 0x09, 0x00},
+	{TX_R0_TMDS_14_L, 0x0A, 0x03},
+	{TX_R0_TMDS_14_L, 0x0D, 0x02},
+	{TX_R0_TMDS_14_L, 0x0E, 0x0F},
+	{TX_R0_TMDS_14_L, 0x10, 0x02},
+	{TX_R0_TMDS_14_L, 0x11, 0x0F},
+	{TX_R0_TMDS_14_L, 0x13, 0x02},
+	{TX_R0_TMDS_14_L, 0x14, 0x0F},
+	{TX_R0_TMDS_14_L, 0x16, 0x02},
+	{TX_R0_TMDS_14_L, 0x17, 0x63},
+	{TX_R0_TMDS_14_L, 0x18, 0x0B},
+
+	{TX_R0_TMDS_14_H, 0x04, 0xA0},
+	{TX_R0_TMDS_14_H, 0x09, 0x00},
+	{TX_R0_TMDS_14_H, 0x0A, 0x03},
+	{TX_R0_TMDS_14_H, 0x0D, 0x30},
+	{TX_R0_TMDS_14_H, 0x0E, 0x0F},
+	{TX_R0_TMDS_14_H, 0x10, 0x30},
+	{TX_R0_TMDS_14_H, 0x11, 0x0F},
+	{TX_R0_TMDS_14_H, 0x13, 0x30},
+	{TX_R0_TMDS_14_H, 0x14, 0x0F},
+	{TX_R0_TMDS_14_H, 0x16, 0x02},
+	{TX_R0_TMDS_14_H, 0x17, 0x63},
+	{TX_R0_TMDS_14_H, 0x18, 0x0B},
+
+	{TX_R0_TMDS_20, 0x04, 0xA0},
+	{TX_R0_TMDS_20, 0x09, 0x00},
+	{TX_R0_TMDS_20, 0x0A, 0x03},
+	{TX_R0_TMDS_20, 0x0D, 0x31},
+	{TX_R0_TMDS_20, 0x0E, 0x0F},
+	{TX_R0_TMDS_20, 0x10, 0x31},
+	{TX_R0_TMDS_20, 0x11, 0x0F},
+	{TX_R0_TMDS_20, 0x13, 0x31},
+	{TX_R0_TMDS_20, 0x14, 0x0F},
+	{TX_R0_TMDS_20, 0x16, 0x02},
+	{TX_R0_TMDS_20, 0x17, 0x63},
+	{TX_R0_TMDS_20, 0x18, 0x0B},
+
+	{TX_R0_FRL, 0x04, 0x18},
+	{TX_R0_FRL, 0x09, 0x20},
+	{TX_R0_FRL, 0x0A, 0x05},
+	{TX_R0_FRL, 0x0D, 0x00},
+	{TX_R0_FRL, 0x0E, 0x03},
+	{TX_R0_FRL, 0x10, 0x00},
+	{TX_R0_FRL, 0x11, 0x03},
+	{TX_R0_FRL, 0x13, 0x00},
+	{TX_R0_FRL, 0x14, 0x03},
+	{TX_R0_FRL, 0x16, 0x00},
+	{TX_R0_FRL, 0x17, 0x03},
+	{TX_R0_FRL, 0x18, 0x00},
+
+	{RX_R0, 0x04, 0xB0},
+	{RX_R0, 0x05, 0x0D},
+	{RX_R0, 0x06, 0x00},
+	{RX_R0, 0x07, 0x32},
+	{RX_R0, 0x08, 0x0B},
+	{RX_R0, 0x09, 0x32},
+	{RX_R0, 0x0A, 0x0B},
+	{RX_R0, 0x0B, 0x0F},
+	{RX_R0, 0x0C, 0xAA},
+	{RX_R0, 0x0D, 0x00},
+	{RX_R0, 0x0E, 0x03},
+	{RX_R0, 0x0F, 0x00},
+	{RX_R0, 0x10, 0x00},
+	{RX_R0, 0x11, 0x03},
+	{RX_R0, 0x12, 0x00},
+	{RX_R0, 0x13, 0x00},
+	{RX_R0, 0x14, 0x03},
+	{RX_R0, 0x15, 0x00},
+	{RX_R0, 0x16, 0x00},
+	{RX_R0, 0x17, 0x03},
+	{RX_R0, 0x18, 0x00},
+
+	/* <= 74.25Mbps */
+	{TX_R1_TMDS_14_LL, 0x0A, 0x18},
+	{TX_R1_TMDS_14_LL, 0x0B, 0x1F},
+	{TX_R1_TMDS_14_LL, 0x0C, 0x00},
+	{TX_R1_TMDS_14_LL, 0x0D, 0x30},
+	{TX_R1_TMDS_14_LL, 0x0E, 0x05},
+	{TX_R1_TMDS_14_LL, 0x0F, 0x20},
+	{TX_R1_TMDS_14_LL, 0x10, 0x43},
+	{TX_R1_TMDS_14_LL, 0x11, 0x0F},
+	{TX_R1_TMDS_14_LL, 0x12, 0xAA},
+
+	/* <= 99Mbps */
+	{TX_R1_TMDS_14_L, 0x0A, 0x00},
+	{TX_R1_TMDS_14_L, 0x0B, 0x1F},
+	{TX_R1_TMDS_14_L, 0x0C, 0x00},
+	{TX_R1_TMDS_14_L, 0x0D, 0x10},
+	{TX_R1_TMDS_14_L, 0x0E, 0x2A},
+	{TX_R1_TMDS_14_L, 0x0F, 0x11},
+	{TX_R1_TMDS_14_L, 0x10, 0x43},
+	{TX_R1_TMDS_14_L, 0x11, 0x0F},
+	{TX_R1_TMDS_14_L, 0x12, 0xAA},
+
+	/* <= 1.48Gbps */
+	{TX_R1_TMDS_14, 0x0A, 0x18},
+	{TX_R1_TMDS_14, 0x0B, 0x1F},
+	{TX_R1_TMDS_14, 0x0C, 0x0D},
+	{TX_R1_TMDS_14, 0x0D, 0x10},
+	{TX_R1_TMDS_14, 0x0E, 0x2A},
+	{TX_R1_TMDS_14, 0x0F, 0x11},
+	{TX_R1_TMDS_14, 0x10, 0x43},
+	{TX_R1_TMDS_14, 0x11, 0x0F},
+	{TX_R1_TMDS_14, 0x12, 0xAA},
+
+	/* <= 5.94 */
+	{TX_R1_TMDS_20, 0x0A, 0x18},
+	{TX_R1_TMDS_20, 0x0B, 0x0F},
+	{TX_R1_TMDS_20, 0x0C, 0x00},
+	{TX_R1_TMDS_20, 0x0D, 0x10},
+	{TX_R1_TMDS_20, 0x0E, 0x2A},
+	{TX_R1_TMDS_20, 0x0F, 0x33},
+	{TX_R1_TMDS_20, 0x10, 0x0A},
+	{TX_R1_TMDS_20, 0x11, 0x0F},
+	{TX_R1_TMDS_20, 0x12, 0xAA},
+
+	{TX_R1_FRL, 0x0A, 0x20},
+	{TX_R1_FRL, 0x0B, 0x0F},
+	{TX_R1_FRL, 0x0C, 0x00},
+	{TX_R1_FRL, 0x0D, 0x10},
+	{TX_R1_FRL, 0x0E, 0x2A},
+	{TX_R1_FRL, 0x0F, 0x11},
+	{TX_R1_FRL, 0x10, 0x0A},
+	{TX_R1_FRL, 0x11, 0x0F},
+	{TX_R1_FRL, 0x12, 0xAA},
+
+	{TX_R1_FRL_10G, 0x0A, 0x20},
+	{TX_R1_FRL_10G, 0x0B, 0x0F},
+	{TX_R1_FRL_10G, 0x0C, 0x00},
+	{TX_R1_FRL_10G, 0x0D, 0x00},
+	{TX_R1_FRL_10G, 0x0E, 0x03},
+	{TX_R1_FRL_10G, 0x0F, 0x21},
+	{TX_R1_FRL_10G, 0x10, 0x0A},
+	{TX_R1_FRL_10G, 0x11, 0x0F},
+	{TX_R1_FRL_10G, 0x12, 0xAA},
+
+	{TX_R1_FRL_12G, 0x0A, 0x20},
+	{TX_R1_FRL_12G, 0x0B, 0x0F},
+	{TX_R1_FRL_12G, 0x0C, 0x00},
+	{TX_R1_FRL_12G, 0x0D, 0x00},
+	{TX_R1_FRL_12G, 0x0E, 0x03},
+#ifdef zcu106
+	{TX_R1_FRL_12G, 0x0F, 0x21},
+#else
+	{TX_R1_FRL_12G, 0x0F, 0x31},
+#endif
+	{TX_R1_FRL_12G, 0x10, 0x0A},
+	{TX_R1_FRL_12G, 0x11, 0x0F},
+	{TX_R1_FRL_12G, 0x12, 0xAA},
+
+	{RX_R1_TMDS_14, 0x0A, 0x20},
+	{RX_R1_TMDS_14, 0x0B, 0x0F},
+	{RX_R1_TMDS_14, 0x0C, 0x00},
+	{RX_R1_TMDS_14, 0x0D, 0x00},
+	{RX_R1_TMDS_14, 0x0E, 0x03},
+	{RX_R1_TMDS_14, 0x0F, 0x21},
+	{RX_R1_TMDS_14, 0x10, 0x2A},
+	{RX_R1_TMDS_14, 0x11, 0x0F},
+	{RX_R1_TMDS_14, 0x12, 0xAA},
+
+	{RX_R1_TMDS_20, 0x0A, 0x20},
+	{RX_R1_TMDS_20, 0x0B, 0x0F},
+	{RX_R1_TMDS_20, 0x0C, 0x00},
+	{RX_R1_TMDS_20, 0x0D, 0x00},
+	{RX_R1_TMDS_20, 0x0E, 0x03},
+	{RX_R1_TMDS_20, 0x0F, 0x00},
+	{RX_R1_TMDS_20, 0x10, 0x00},
+	{RX_R1_TMDS_20, 0x11, 0x0F},
+	{RX_R1_TMDS_20, 0x12, 0xAA},
+
+	{RX_R1_FRL, 0x0A, 0x20},
+	{RX_R1_FRL, 0x0B, 0x0F},
+	{RX_R1_FRL, 0x0C, 0x00},
+	{RX_R1_FRL, 0x0D, 0x00},
+	{RX_R1_FRL, 0x0E, 0x07},
+	{RX_R1_FRL, 0x0F, 0x20},
+	{RX_R1_FRL, 0x10, 0x01},
+	{RX_R1_FRL, 0x11, 0x0F},
+	{RX_R1_FRL, 0x12, 0xAA},
+};
+
+/************************** Function Prototypes ******************************/
+
 #if 0
 static void ONSEMI_NB7NQ621M_I2cReset(void *IicPtr);
 #endif
-static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
-							unsigned ByteCount, u8 Option);
-static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
-							unsigned ByteCount, u8 Option);
+static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr,
+		u8 *MsgPtr, unsigned ByteCount, u8 Option);
+static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr, u16 SlaveAddr,
+		u8 *BufPtr, unsigned ByteCount, u8 Option);
 static u8 ONSEMI_NB7NQ621M_GetRegister(void *IicPtr, u8 I2CSlaveAddress,
-			u8 RegisterAddress);
+		u8 RegisterAddress);
 static int ONSEMI_NB7NQ621M_SetRegister(void *IicPtr, u8 I2CSlaveAddress,
-				u8 RegisterAddress, u8 Value);
+		u8 RegisterAddress, u8 Value);
 #if 0
 static int ONSEMI_NB7NQ621M_ModifyRegister(void *IicPtr, u8 I2CSlaveAddress,
-							u16 RegisterAddress, u8 Value, u8 Mask);
+		u16 RegisterAddress, u8 Value, u8 Mask);
 #endif
+
+/************************** Function Definitions *****************************/
 
 #if 0
 /*****************************************************************************/
@@ -125,8 +319,8 @@ static void ONSEMI_NB7NQ621M_I2cReset(void *IicPtr)
 * @note   None.
 *
 ******************************************************************************/
-static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
-							unsigned ByteCount, u8 Option)
+static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr,
+		u8 *MsgPtr, unsigned ByteCount, u8 Option)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -161,6 +355,8 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(1000);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 #endif
@@ -186,8 +382,8 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr
 * @note   None.
 *
 ******************************************************************************/
-static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
-							unsigned ByteCount, u8 Option)
+static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr, u16 SlaveAddr,
+		u8 *BufPtr, unsigned ByteCount, u8 Option)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
@@ -240,15 +436,15 @@ static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr
 *
 ******************************************************************************/
 static int ONSEMI_NB7NQ621M_SetRegister(void *IicPtr, u8 I2CSlaveAddress,
-				u8 RegisterAddress, u8 Value)
+		u8 RegisterAddress, u8 Value)
 {
 	u32 ByteCount = 0;
 	u8 Buffer[2];
 
 	Buffer[0] = RegisterAddress;
 	Buffer[1] = Value;
-	ByteCount = ONSEMI_NB7NQ621M_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								2, I2C_STOP);
+	ByteCount = ONSEMI_NB7NQ621M_I2cSend(IicPtr, I2CSlaveAddress,
+			(u8*)Buffer, 2, I2C_STOP);
 	if (ByteCount != 2) {
 		return XST_FAILURE;
 	}
@@ -278,7 +474,7 @@ static u8 ONSEMI_NB7NQ621M_GetRegister(void *IicPtr, u8 I2CSlaveAddress,
 
 	Buffer[0] = RegisterAddress;
 	ONSEMI_NB7NQ621M_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								1, I2C_REPEATED_START);
+			1, I2C_REPEATED_START);
 	ONSEMI_NB7NQ621M_I2cRecv(IicPtr, I2CSlaveAddress,
 					(u8*)Buffer, 1, I2C_STOP);
 	return Buffer[0];
@@ -332,6 +528,8 @@ static int ONSEMI_NB7NQ621M_ModifyRegister(void *IicPtr, u8 I2CSlaveAddress,
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
+* @param Revision is the revision number of the ONSEMI device.
+* @param IsTx specifies if the configuration is for TX or RX.
 *
 * @return
 *    - XST_SUCCESS Initialization was successful.
@@ -340,66 +538,50 @@ static int ONSEMI_NB7NQ621M_ModifyRegister(void *IicPtr, u8 I2CSlaveAddress,
 * @note None.
 *
 ******************************************************************************/
-int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress, u8 IsTx)
+int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress,
+		u8 Revision, u8 IsTx)
 {
-	int Result = XST_SUCCESS;
-	u8 Data;
+	int Result = XST_FAILURE;
+	u8 DeviceType = 0xFF;
+	u32 i = 0;
 
-	/* Register 04 */
-	/* Set Functional Control 0 to Global */
+	if (IsTx == 1) {
+		switch (Revision) {
+		case 0:
+			DeviceType = TX_R0_TMDS;
+			break;
+		case 1:
+			DeviceType = TX_R1_TMDS_14;
+			break;
+		default:
+			break;
+		}
+	} else {
+		switch (Revision) {
+		case 0:
+			DeviceType = RX_R0;
+			break;
+		case 1:
+			DeviceType = RX_R1_TMDS_14;
+			break;
+		default:
+			break;
+		}
+	}
 
-	/* Step 1 */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x04, 0x00);
+	i = DeviceType;
 
-	/* Lane swap - Enabled */
-	Data = 	(REG04_BIT7_LANE_CTRL_GLOBAL << 7) |
-			(REG04_BIT6_LANE_SWAP_DISABLE << 6 ) |
-			(IsTx ? (REG04_BIT53_MODE_TMDS_HIZ << 3) :
-					(REG04_BIT53_MODE_FRL_AC  << 3));
+	while (DeviceType == OnsemiRegisterFields[i].DeviceType) {
+		Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr,
+				I2CSlaveAddress,
+				OnsemiRegisterFields[i].Address,
+				OnsemiRegisterFields[i].Values);
 
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x04, Data);
+		if (Result != XST_SUCCESS) {
+			return Result;
+		}
 
-	/* Register 05 */
-	/* Disable AUX Monitor - Due to ONSEMI BUG */
-	/* TX - Disable Sig Detect*/
-	/* RX - Disable HPD Auto Power Down */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x05, (IsTx ? 0x0B : 0x0D));
-
-	/* Register 06 */
-	/* Termination Controls */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x06, 0x00);
-
-	/* Register 07 */
-	/* CLK Control 0 */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x07, (IsTx ? 0x00 : 0x32));
-
-	/* Register 08 */
-	/* CLK Control 1 */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x08, (IsTx ? 0x03 : 0x0B));
-
-	/* Register 09 */
-	/* Data Control 0 */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x09, (IsTx ? 0x00 : 0x32));
-
-	/* Register 0A */
-	/* Data Control 1 */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x0A, (IsTx ? 0x03 : 0x0B));
-
-	/* Register 0B */
-	/* Channel Enable/Disable */
-	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-					 0x0B, 0x0F);
-
-	if (Result != XST_SUCCESS) {
-		return XST_FAILURE;
+		i++;
 	}
 
 	return Result;
@@ -448,8 +630,7 @@ int ONSEMI_NB7NQ621M_CheckDeviceID(void *IicPtr, u8 I2CSlaveAddress)
 /*****************************************************************************/
 /**
 *
-* This function reconfigures the ONSEMI NB7NQ621M cable redriver based on the
-* HDMI mode and line rate.
+* This function checks the ONSEMI NB7NQ621M Device Revision Number
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
@@ -461,188 +642,176 @@ int ONSEMI_NB7NQ621M_CheckDeviceID(void *IicPtr, u8 I2CSlaveAddress)
 * @note None.
 *
 ******************************************************************************/
-int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
-		u8 IsFRL, u64 LineRate)
+u8 ONSEMI_NB7NQ621M_CheckDeviceVersion(void *IicPtr, u8 I2CSlaveAddress)
 {
-	int Result = XST_SUCCESS;
+	u8 RevisionVersion;
+	u8 Data;
+
+	/* Register 0x02 of pass 0 active card (Revision) = 0,
+	 * Register 0x02 of pass 1 active card (Byte 2 of Device ID) = 0x20 */
+	Data = ONSEMI_NB7NQ621M_GetRegister(IicPtr, I2CSlaveAddress, 0x0002);
+
+	if (Data == 0x00) {
+		RevisionVersion = 0x00;
+	} else {
+		/* Register 0x08 of pass 1 and subsequent active cards =
+		 * Device Revision Number */
+		RevisionVersion = ONSEMI_NB7NQ621M_GetRegister(IicPtr,
+				I2CSlaveAddress, 0x0008);
+	}
+
+	return RevisionVersion;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function reconfigures the ONSEMI NB7NQ621M cable redriver.
+*
+* @param I2CBaseAddress is the baseaddress of the I2C core.
+* @param I2CSlaveAddress is the 7-bit I2C slave address.
+* @param Revision is the revision number of the ONSEMI device.
+* @param IsFRL specifies if the mode is FRL or TMDS.
+* @param LineRate specifies the linerate.
+* @param IsTx specifies if the configuration is for TX or RX.
+*
+* @return
+*    - XST_SUCCESS Initialization was successful.
+*    - XST_FAILURE I2C write error.
+*
+* @note None.
+*
+******************************************************************************/
+int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
+		u8 Revision, u8 IsFRL, u64 LineRate, u8 IsTx)
+{
+	int Result = XST_FAILURE;
+	u8 DeviceType = 0xFF;
 	u32 LineRateMbps;
+	u32 i = 0;
 
 	LineRateMbps = (u32)((u64) LineRate / 1000000);
 
-	if (IsFRL) { /* FRL */
-		/* Mode Control: 100 Ohm */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x04, 0x18);
-		/* Data Controls 0: Flat Gain = 1.5 dB & Compression=1000mV */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x09, 0x20);
-		/* Data Controls 1: Slew Rate = 30 ps & Equalization = 5 */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x0A, 0x05);
-		/* Ch A Controls 0: Flat Gain = 0 dB & Compression=1000mV */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x0D, 0x00);
-		/* Ch A Controls 1: Slew Rate = 30 ps & Equalization = 3 */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x0E, 0x03);
-		/* Ch B Controls 0: Flat Gain = 0 dB & Compression=1000mV */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x10, 0x00);
-		/* Ch B Controls 1: Slew Rate = 30 ps & Equalization = 3 */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x11, 0x03);
-		/* Ch C Controls 0: Flat Gain = 0 dB & Compression=1000mV */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x13, 0x00);
-		/* Ch C Controls 1: Slew Rate = 30 ps & Equalization = 3 */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x14, 0x03);
-		/* Ch D Controls 0: Flat Gain = 0 dB & Compression=1000mV */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x16, 0x00);
-		/* Ch D Controls 1: Slew Rate = 240 ps & Equalization = 3 */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x17, 0x03);
-		/* Channel D Termination to 100 Ohms */
-		Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-						 0x18, 0x00);
-	} else { /* TMDS / DVI */
-
-		/* HDMI 2.0 */
-		if ((LineRateMbps >= 3400) && (LineRateMbps < 6000)) {
-
-				/*FnCtrlData |= REG04_BIT53_MODE_TMDS_100 << 3;*/
-				/*Functional Controls 0: Lane Control = Individual */
-				/*                       Mode Control = FRL DC coupled */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x04, 0xA0);
-				/* Data Controls 0: Flat Gain = 0 dB & Compression=1000mV */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x09, 0x00);
-				/* Data Controls 1: Slew Rate = 30 ps & Equalization = 3 */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x0A, 0x03);
-				/* Ch A Controls 0: Flat Gain = 4.5 dB & Compression=1200mV */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x0D, 0x31);
-				/* Ch A Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x0E, 0x0F);
-				/* Ch B Controls 0: Flat Gain = 4.5 dB & Compression=1200mV */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x10, 0x31);
-				/* Ch B Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x11, 0x0F);
-				/* Ch C Controls 0: Flat Gain = 4.5 dB & Compression=1200mV */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x13, 0x31);
-				/* Ch C Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x14, 0x0F);
-				/* Ch D Controls 0: Flat Gain = 0 dB & Compression=800mV */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x16, 0x02);
-				/* Ch D Controls 1: Slew Rate = 240 ps & Equalization = 3 */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x17, 0x63);
-				/* Channel D Termination to 100 Ohms */
-				Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-								 0x18, 0x0B);
+	/* TX */
+	if (IsTx == 1) {
+		switch (Revision) {
+		case 0:
+			if (IsFRL == 1) {
+				DeviceType = TX_R0_FRL;
+			} else {
+				/* HDMI 2.0 */
+				if ((LineRateMbps > 3400) &&
+						(LineRateMbps <= 6000)) {
+					DeviceType = TX_R0_TMDS_20;
+				}
+				/* HDMI 1.4 1.65-3.4 Gbps */
+				else if ((LineRateMbps > 1650) &&
+						(LineRateMbps <= 3400)) {
+					DeviceType = TX_R0_TMDS_14_H;
+				}
+				/* HDMI 1.4 0.25-1.65 Gbps */
+				else {
+					DeviceType = TX_R0_TMDS_14_L;
+				}
+			}
+			break;
+		case 1:
+			if (IsFRL == 1) {
+				if (LineRateMbps >= 12000) {
+					DeviceType = TX_R1_FRL_12G;
+				} else if (LineRateMbps >= 10000) {
+					DeviceType = TX_R1_FRL_10G;
+				} else {
+					DeviceType = TX_R1_FRL;
+				}
+			} else {
+				/* HDMI 2.0 */
+				if (LineRateMbps > 3400) {
+					DeviceType = TX_R1_TMDS_20;
+				}
+				/* HDMI 1.4 */
+				else if ((LineRateMbps > 99) &&
+						(LineRateMbps <= 3400)) {
+					DeviceType = TX_R1_TMDS_14;
+				}
+				else if ((LineRateMbps > 74.25) &&
+						(LineRateMbps <= 99)) {
+					DeviceType = TX_R1_TMDS_14_L;
+				} else {
+					DeviceType = TX_R1_TMDS_14_LL;
+				}
+			}
+			break;
+		default:
+			break;
 		}
-		/* HDMI 1.4 1.65-3.4 Gbps */
-		else if ((LineRateMbps >= 1650) && (LineRateMbps < 3400)) {
+	}
+	/* RX */
+	else {
+		switch (Revision) {
+		case 0:
+			/* DeviceType = RX_R0; */
+			break;
+		case 1:
+			if (IsFRL == 1) {
+				DeviceType = RX_R1_FRL;
+			} else {
+				if (LineRateMbps > 3400) {
+					DeviceType = RX_R1_TMDS_20;
+				} else {
+					DeviceType = RX_R1_TMDS_14;
+				}
+			}
+			break;
+		default:
 
-			/*FnCtrlData |= REG04_BIT53_MODE_TMDS_200 << 3;*/
-			/*Functional Controls 0: Lane Control = Individual */
-			/*                       Mode Control = FRL AC coupled */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x04, 0xA0);
-			/* Data Controls 0: Flat Gain = 0 dB & Compression=1000mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x09, 0x00);
-			/* Data Controls 1: Slew Rate = 30 ps & Equalization = 3 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x0A, 0x03);
-			/* Ch A Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x0D, 0x30);
-			/* Ch A Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x0E, 0x0F);
-			/* Ch B Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x10, 0x30);
-			/* Ch B Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x11, 0x0F);
-			/* Ch C Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x13, 0x30);
-			/* Ch C Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x14, 0x0F);
-			/* Ch D Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x16, 0x02);
-			/* Ch D Controls 1: Slew Rate = 240 ps & Equalization = 3 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x17, 0x63);
-			/* Channel D Termination to 100 Ohms */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x18, 0x0B);
+			break;
 		}
-		/* HDMI 1.4 0.25-1.65 Gbps */
-		else {
-
-			/*FnCtrlData |= REG04_BIT53_MODE_TMDS_HIZ << 3;*/
-			/*Functional Controls 0: Lane Control = Individual */
-			/*                       Mode Control = FRL AC coupled */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x04, 0xB0);
-			/* Data Controls 0: Flat Gain = 0 dB & Compression=1000mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x09, 0x00);
-			/* Data Controls 1: Slew Rate = 30 ps & Equalization = 3 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x0A, 0x03);
-			/* Ch A Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x0D, 0x02);
-			/* Ch A Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x0E, 0x0F);
-			/* Ch B Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x10, 0x02);
-			/* Ch B Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x11, 0x0F);
-			/* Ch C Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x13, 0x02);
-			/* Ch C Controls 1: Slew Rate = 30 ps & Equalization = 15 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x14, 0x0F);
-			/* Ch D Controls 0: Flat Gain = 0 dB & Compression=800mV */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x16, 0x02);
-			/* Ch D Controls 1: Slew Rate = 240 ps & Equalization = 3 */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x17, 0x63);
-			/* Channel D Termination to 100 Ohms */
-			Result |= ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
-							 0x18, 0x0B);
-		}
-
 	}
 
+	i = DeviceType;
 
-	if (Result != XST_SUCCESS) {
-		return XST_FAILURE;
+	while (DeviceType == OnsemiRegisterFields[i].DeviceType) {
+		Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr,
+				I2CSlaveAddress,
+				OnsemiRegisterFields[i].Address,
+				OnsemiRegisterFields[i].Values);
+
+		if (Result != XST_SUCCESS) {
+			return Result;
+		}
+
+		i++;
 	}
 
 	return Result;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints out all the contents from OnsemiRegisterFields array.
+*
+* @param None
+*
+* @return None
+*
+* @note None.
+*
+******************************************************************************/
+void ONSEMI_NB7NQ621M_RegisterLibraryDump(void)
+{
+	u32 Index;
+
+	Index = sizeof(OnsemiRegisterFields) / sizeof(Onsemi_RegisterField);
+
+	for (u32 i = 0; i < Index; i++) {
+		xil_printf(">Device: %d, i:%i, A:0x%X, V:0x%X\r\n",
+				OnsemiRegisterFields[i].DeviceType,
+				i,
+				OnsemiRegisterFields[i].Address,
+				OnsemiRegisterFields[i].Values);
+	}
 }
 
 /*****************************************************************************/
@@ -679,7 +848,7 @@ void ONSEMI_NB7NQ621M_RegisterDump(void *IicPtr, u8 I2CSlaveAddress)
 		for (i=0; i<8; i++)
 			xil_printf("---");
 
-		for (i=0; i<25; i++) {
+		for (i=0; i<31; i++) {
 			if ((i % 8) == 0) {
 				xil_printf("\r\n%02x : ", i);
 			}

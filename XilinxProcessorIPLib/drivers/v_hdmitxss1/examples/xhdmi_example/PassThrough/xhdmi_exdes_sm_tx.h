@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file
@@ -50,7 +32,6 @@
 
 #include "xv_hdmitxss1.h"
 #include "xhdmiphy1.h"
-#include "xhdmiphy1_i.h"
 #include "xvidc.h"
 #include "xvidc_edid_ext.h"
 #if defined (ARMR5) || (__aarch64__) || (__arm__)
@@ -269,7 +250,10 @@ typedef struct {
 	XV_Tx_Hdcp_Config HdcpConfig;
 #endif
 	XHdmiphy1      *VidPhy;	/**< Video Phy reference. */
-
+	u8 ExclHdcpAuthReqFlag; /**< Flag for exclusion of HDCP
+			       *  authentication requests to hdcp drivers,
+			       *  in order to keep the processor from
+			       *  being over-used by constant polling. */
 #if defined (ARMR5) || (__aarch64__) || (__arm__)
 	XScuGic   *Intc; /**< Interrupt Controller reference */
 #else
@@ -328,6 +312,8 @@ u32 XV_Tx_SetTriggerCallbacks(XV_Tx *InstancePtr,
 		void *Callback, void *CallbackRef);
 
 void XV_Tx_Hdcp_Poll(XV_Tx *InstancePtr);
+void XV_Tx_SetHdcpAuthReqExclusion(XV_Tx *InstancePtr, u8 Set);
+u8 XV_Tx_GetHdcpAuthReqExclusion(XV_Tx *InstancePtr);
 #ifdef USE_HDCP_HDMI_TX
 void XV_Tx_Hdcp_Authenticate(XV_Tx *InstancePtr);
 void XV_Tx_Hdcp_SetCapability(XV_Tx *InstancePtr, int Protocol);
@@ -349,8 +335,8 @@ u32 XV_Tx_StartFrlTraining(XV_Tx *InstancePtr,
 			   u8 MaxFrlRate);
 void XV_Tx_SetFrlEdidInfo(XV_Tx *InstancePtr, XV_VidC_Supp IsSCDCPresent,
 			  u8 MaxFrlRateSupp);
-void XV_Tx_SetFRLIntVidCkeGen(XV_Tx *InstancePtr);
-void XV_Tx_SetFRLExtVidCkeGen(XV_Tx *InstancePtr);
+void XV_Tx_SetFrlIntVidCkeGen(XV_Tx *InstancePtr);
+void XV_Tx_SetFrlExtVidCkeGen(XV_Tx *InstancePtr);
 void XV_Tx_SetUseInternalACR(XV_Tx *InstancePtr);
 void XV_Tx_SetUseExternalACR(XV_Tx *InstancePtr);
 void XV_Tx_SetAudSamplingFreq(XV_Tx *InstancePtr,

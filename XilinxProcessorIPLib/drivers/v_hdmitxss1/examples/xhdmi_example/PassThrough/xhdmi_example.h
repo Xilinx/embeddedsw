@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -47,10 +29,10 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "platform.h"
-#include "xparameters.h"
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106)
@@ -74,24 +56,28 @@ extern "C" {
 
 #if (defined XPS_BOARD_ZCU102)
 #include "si570drv.h"
-#include "si5324drv.h"
-#else /* VCU118 */
+#elif (defined XPS_BOARD_ZCU106)
+#include "si570drv.h"
+#elif (defined XPS_BOARD_VCU118)
+#else /* Place Holder for other board */
 #endif
 
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+#include "xhdmi_exdes_sm_rx.h"
+#endif
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+#include "xhdmi_exdes_sm_tx.h"
+#endif
+
+#include "xhdmi_menu.h"
 #include "video_fmc.h"
 #include "xvidc.h"
 #include "xv_hdmic.h"
 #include "xv_hdmic_vsif.h"
 #include "sleep.h"
 #include "xhdmi_edid.h"
-#include "xhdmi_menu.h"
-
-#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
-#include "xv_hdmirxss1.h"
-#endif
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
-#include "xv_hdmitxss1.h"
 #include "audiogen_drv.h"
 #ifdef XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR
 /* This is only required for the audio over HDMI */
@@ -104,6 +90,10 @@ extern "C" {
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 #include "xv_tpg.h"
 #endif
+#endif
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+#include "xv_axi4s_remap.h"
 #endif
 
 #ifdef XPAR_XGPIO_NUM_INSTANCES
@@ -121,9 +111,8 @@ extern "C" {
 #endif
 
 #include "xhdmi_hdcp_keys.h"
+#include "xhdmi_hdcp_keys_table.h"
 
-#include "xhdmi_exdes_sm_rx.h"
-#include "xhdmi_exdes_sm_tx.h"
 #include "xtmrctr.h"
 
 #if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
@@ -139,6 +128,17 @@ extern "C" {
 #define UART_BASEADDR XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
 #else
 #define UART_BASEADDR XPAR_XUARTPS_0_BASEADDR
+#endif
+
+/******************************** OPTIONS ************************************/
+/* These macro values need to changed whenever there is a change in version */
+#define APP_MAJ_VERSION 1
+#define APP_MIN_VERSION 0
+
+#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+/* Define Maximum Supported Memory Color Format */
+#define NUM_MEMORY_COLOR_FORMATS 16
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -228,10 +228,21 @@ extern Exdes_Debug_Printf exdes_hdcp_debug_print;
  * example design that handles the state of the pass-through design.
  */
 typedef struct {
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	XV_Tx *hdmi_tx_ctlr; /**< Reference to the hdmi
 	                       *  tx state machine controller. */
+#endif
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	XV_Rx *hdmi_rx_ctlr; /**< Reference to the hdmi
 	                       *  rx state machine controller. */
+#endif
+	XTmrCtr SysTmrInst;  /**< Generic timer instance for control
+	                       *  and exception handlers. */
+	u32 SysTmrPulseIntervalinMs; /**< User specified pulse interval
+	                       *  for system timer. */
+
+	u32 HdcpPulseCounter;
+	u32 TmrPulseCnt1second;
 
 	u8 IsTxPresent;	     /**< Flag to track the presence of TX. */
 	u8 IsRxPresent;      /**< Flag to track the presence of RX. */
@@ -246,6 +257,10 @@ typedef struct {
 	u8 TxStartTransmit;  /**< This flag allows the example design to
 			       *  hold/allow the tranmission of a new
 			       *  stream on the transmitter. */
+	u8 TxBusy;           /**< This flag is set while the TX is initialized.
+			       * This flag is used by the menu to check if TX operations
+			       * are ongoing and block the menu prints from disrupting
+			       * the time-sensitive operations of the TX. */
 } XHdmi_Exdes;
 
 /**
@@ -259,30 +274,6 @@ typedef enum {
 	EXDES_TX_INPUT_TPG,
 	EXDES_TX_INPUT_RX,
 } TxInputSourceType;
-
-/******************************** OPTIONS ************************************/
-/* These macro values need to changed whenever there is a change in version */
-#define APP_MAJ_VERSION 1
-#define APP_MIN_VERSION 0
-
-/* Enabling this will enable a debug UART menu */
-#define HDMI_DEBUG_TOOLS 1
-
-/* Enabling this will register a custom resolution to the video timing table
- */
-#define CUSTOM_RESOLUTION_ENABLE 1
-
-/* Enabling this will enable HDCP Debug menu */
-#define HDCP_DEBUG_MENU_EN 1
-
-/* Enabling this will enable Video Masking menu */
-#define VIDEO_MASKING_MENU_EN 1
-
-#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
-/* Define Maximum Supported Memory Color Format */
-#define NUM_MEMORY_COLOR_FORMATS 16
-#endif
 
 /************************** Variable Definitions *****************************/
 /* VPhy structure */
@@ -310,9 +301,6 @@ extern XTpg_PatternId Pattern;
 extern XV_HdmiRxSs1 HdmiRxSs;
 #endif /* XPAR_XV_HDMIRXSS1_NUM_INSTANCES */
 
-/* TX busy flag. This flag is set while the TX is initialized */
-extern u8 TxBusy;
-
 extern u8 AuxFifoStartFlag;
 
 #if defined (XPS_BOARD_ZCU102) || \
@@ -330,7 +318,8 @@ extern XHdmi_Exdes xhdmi_exdes_ctrlr;
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 void ToggleHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs1 *HdmiRxSs1Ptr);
 void SetHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs1 *HdmiRxSs1Ptr, u8 Hpd);
-
+#endif
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 void SendVSInfoframe(XV_HdmiTxSs1 *HdmiTxSs1Ptr);
 
 void Exdes_ConfigureTpgEnableInput(u32 EnableExtSrcInput);

@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -104,10 +86,10 @@ const ACR_N_Table_t ACR_N_Table[] =
 	{148500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{185625000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{222750000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
-	{297000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
-	{371250000, { 6144, 4704,  5120,  9408, 10240, 18816, 20480}},
-	{445500000, { 4096, 4704,  5120,  9408, 10240, 18816, 20480}},
-	{594000000, { 3072, 4704,  5120,  9408, 10240, 18816, 20480}}
+	{297000000, { 3072, 4704,  5120,  9408, 10240, 18816, 20480}},
+	{371250000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{445500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{594000000, { 3072, 9408,  6144, 18816, 12288, 37632, 24576}}
 };
 
 

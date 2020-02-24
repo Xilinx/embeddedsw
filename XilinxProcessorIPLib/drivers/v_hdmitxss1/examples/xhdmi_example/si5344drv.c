@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -43,18 +25,6 @@
 
 /***************************** Include Files *********************************/
 #include "si5344drv.h"
-#if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
-#include "xiicps.h"
-#else
-#include "xiic.h"
-#endif
-#include "xil_types.h"
-#include "xil_assert.h"
-#include "xstatus.h"
-#include "sleep.h"
-#include <stdlib.h>
 
 /************************** Constant Definitions *****************************/
 #define IDT_8T49N24X_ADV_FUNC_EN 0 /* Enable unused APIs */
@@ -138,6 +108,8 @@ static unsigned SI5344_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(350);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 

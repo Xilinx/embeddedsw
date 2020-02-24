@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -48,6 +30,17 @@
 #define SI5344_H
 #include "xparameters.h"
 #include "xil_types.h"
+#include "xil_assert.h"
+#include "xstatus.h"
+#include "sleep.h"
+#include <stdlib.h>
+#if defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_ZCU104) || \
+	defined (XPS_BOARD_ZCU106)
+#include "xiicps.h"
+#else
+#include "xiic.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define SI5344_REVD_CONFIG_NUM_REGS				462
@@ -169,17 +162,17 @@ si5344_revd static const si5344_revd_registers[SI5344_REVD_CONFIG_NUM_REGS] =
 		{ 0x0102, 0x01 },
 		{ 0x0112, 0x06 },
 		{ 0x0113, 0x09 },
-		{ 0x0114, 0x33 },
-		{ 0x0115, 0x08 },
-		{ 0x0117, 0x01 },
+		{ 0x0114, 0x3B },
+		{ 0x0115, 0x28 },
+		{ 0x0117, 0x06 },
 		{ 0x0118, 0x09 },
 		{ 0x0119, 0x3B },
 		{ 0x011A, 0x28 },
-		{ 0x0126, 0x01 },
+		{ 0x0126, 0x06 },
 		{ 0x0127, 0x09 },
 		{ 0x0128, 0x3B },
 		{ 0x0129, 0x28 },
-		{ 0x012B, 0x01 },
+		{ 0x012B, 0x06 },
 		{ 0x012C, 0x09 },
 		{ 0x012D, 0x3B },
 		{ 0x012E, 0x28 },
