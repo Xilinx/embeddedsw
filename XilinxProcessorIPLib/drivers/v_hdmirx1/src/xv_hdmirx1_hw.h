@@ -57,8 +57,44 @@ extern "C" {
 
 /* VER (Version Interface) peripheral register offsets*/
 #define XV_HDMIRX1_VER_BASE                          (0*64)
-#define XV_HDMIRX1_VER_ID_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(0*4))    /**< VER Identification *  Register offset */
-#define XV_HDMIRX1_VER_VERSION_OFFSET                ((XV_HDMIRX1_VER_BASE)+(1*4))    /**< VER Version Register *  offset */
+#define XV_HDMIRX1_VER_ID_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(0*4))    /**< VER Identification Register offset */
+#define XV_HDMIRX1_VER_VERSION_OFFSET                ((XV_HDMIRX1_VER_BASE)+(1*4))    /**< VER Version Register offset */
+#define XV_HDMIRX1_VCKE_SYS_CNT_OFFSET               ((XV_HDMIRX1_VER_BASE)+(2*4))    /**< VCKE System Counts Register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT0_OFFSET            ((XV_HDMIRX1_VER_BASE)+(3*4))    /**< SR/SSB period error 0 counter register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT1_OFFSET            ((XV_HDMIRX1_VER_BASE)+(4*4))    /**< SR/SSB period error 1 counter register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT2_OFFSET            ((XV_HDMIRX1_VER_BASE)+(5*4))    /**< SR/SSB period error 2 counter register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT3_OFFSET            ((XV_HDMIRX1_VER_BASE)+(6*4))    /**< SR/SSB period error 3 counter register offset */
+#define XV_HDMIRX1_DBG_STA_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(7*4))    /**< FRL word aligner tap select changed register offset */
+
+#define XV_HDMIRX1_SR_SSB_ERR1_SHIFT                 0         /**< FRL SR/SSB period error during training period shift */
+#define XV_HDMIRX1_SR_SSB_ERR1_MASK                  0xFFFF    /**< FRL SR/SSB period error during training period mask */
+#define XV_HDMIRX1_SR_SSB_ERR2_SHIFT                 16        /**< FRL SR/SSB period error during NON-training period shift */
+#define XV_HDMIRX1_SR_SSB_ERR2_MASK                  0xFFFF    /**< FRL SR/SSB period error during NON-training period mask */
+
+#define XV_HDMIRX1_DBG_STA_WA_TAP_CHGALL_MASK        0xF       /**< FRL Word aligner tap select changed all lanes mask */
+#define XV_HDMIRX1_DBG_STA_WA_TAP_CHG0_MASK          (1<<0)    /**< Word aligner tap select changed lane 0 mask */
+#define XV_HDMIRX1_DBG_STA_WA_TAP_CHG1_MASK          (1<<1)    /**< Word aligner tap select changed lane 1 mask */
+#define XV_HDMIRX1_DBG_STA_WA_TAP_CHG2_MASK          (1<<2)    /**< Word aligner tap select changed lane 2 mask */
+#define XV_HDMIRX1_DBG_STA_WA_TAP_CHG3_MASK          (1<<3)    /**< FRL Word aligner tap select changed lane 3 mask */
+#define XV_HDMIRX1_DBG_STA_WA_LOCK_CHGALL_MASK       0xF       /**< FRL Word aligner tap select changed all lanes mask */
+#define XV_HDMIRX1_DBG_STA_WA_LOCK_CHGALL_SHIFT      4         /**< FRL Word aligner tap select changed all lanes mask */
+#define XV_HDMIRX1_DBG_STA_WA_LOCK_CHG0_MASK         (1<<4)    /**< Word aligner tap select changed lane 0 mask */
+#define XV_HDMIRX1_DBG_STA_WA_LOCK_CHG1_MASK         (1<<5)    /**< Word aligner tap select changed lane 1 mask */
+#define XV_HDMIRX1_DBG_STA_WA_LOCK_CHG2_MASK         (1<<6)    /**< Word aligner tap select changed lane 2 mask */
+#define XV_HDMIRX1_DBG_STA_WA_LOCK_CHG3_MASK         (1<<7)    /**< FRL Word aligner tap select changed lane 3 mask */
+#define XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHGALL_MASK     0xF       /**< FRL Word aligner tap select changed all lanes mask */
+#define XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHGALL_SHIFT    8         /**< FRL Word aligner tap select changed all lanes mask */
+#define XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHG0_MASK       (1<<8)    /**< Word aligner tap select changed lane 0 mask */
+#define XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHG1_MASK       (1<<9)    /**< Word aligner tap select changed lane 1 mask */
+#define XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHG2_MASK       (1<<10)    /**< Word aligner tap select changed lane 2 mask */
+#define XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHG3_MASK       (1<<11)    /**< FRL Word aligner tap select changed lane 3 mask */
+#define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHGALL_MASK     0xF       /**< FRL Word aligner tap select changed all lanes mask */
+#define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHGALL_SHIFT    12         /**< FRL Word aligner tap select changed all lanes mask */
+#define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHG0_MASK       (1<<12)    /**< Word aligner tap select changed lane 0 mask */
+#define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHG1_MASK       (1<<13)    /**< Word aligner tap select changed lane 1 mask */
+#define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHG2_MASK       (1<<14)    /**< Word aligner tap select changed lane 2 mask */
+#define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHG3_MASK       (1<<15)    /**< FRL Word aligner tap select changed lane 3 mask */
+#define XV_HDMIRX1_DBG_STA_SKEW_LOCK_CHG_MASK        (1<<16)    /**< Word aligner tap select changed lane 0 mask */
 
 /* PIO (Parallel Interface) peripheral register offsets*/
 #define XV_HDMIRX1_PIO_BASE                          (1*64)
@@ -118,6 +154,8 @@ extern "C" {
 #define XV_HDMIRX1_PIO_IN_LNK_RDY_MASK               (1<<1) /**< PIO In link ready mask */
 #define XV_HDMIRX1_PIO_IN_VID_RDY_MASK               (1<<2) /**< PIO In video ready mask */
 #define XV_HDMIRX1_PIO_IN_MODE_MASK                  (1<<3) /**< PIO In Mode mask */
+#define XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCKALLL_MASK    0xF    /**< PIO In Scrambler lock all lanes mask */
+#define XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCKALLL_SHIFT   4      /**< PIO In Scrambler lock all lanes shift */
 #define XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCK0_MASK       (1<<4) /**< PIO In Scrambler lock 0 mask */
 #define XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCK1_MASK       (1<<5) /**< PIO In Scrambler lock 1 mask */
 #define XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCK2_MASK       (1<<6) /**< PIO In Scrambler lock 2 mask */
@@ -135,17 +173,25 @@ extern "C" {
 #define XV_HDMIRX1_TMR_STA_OFFSET                    ((XV_HDMIRX1_TMR_BASE)+(4*4))    /**< TMR Status Register offset */
 #define XV_HDMIRX1_TMR1_CNT_OFFSET                   ((XV_HDMIRX1_TMR_BASE)+(5*4))    /**< TMR Counter Register offset */
 #define XV_HDMIRX1_TMR2_CNT_OFFSET                   ((XV_HDMIRX1_TMR_BASE)+(6*4))    /**< TMR Counter Register offset */
+#define XV_HDMIRX1_TMR3_CNT_OFFSET                   ((XV_HDMIRX1_TMR_BASE)+(7*4))    /**< TMR Counter Register offset */
+#define XV_HDMIRX1_TMR4_CNT_OFFSET                   ((XV_HDMIRX1_TMR_BASE)+(8*4))    /**< TMR Counter Register offset */
 
 /* Timer peripheral Control register masks*/
 #define XV_HDMIRX1_TMR1_CTRL_RUN_MASK                 (1<<0)  /**< TMR Control Run mask */
 #define XV_HDMIRX1_TMR1_CTRL_IE_MASK                  (1<<1)  /**< TMR Control Interrupt Enable mask */
 #define XV_HDMIRX1_TMR2_CTRL_RUN_MASK                 (1<<2)  /**< TMR Control Run mask */
 #define XV_HDMIRX1_TMR2_CTRL_IE_MASK                  (1<<3)  /**< TMR Control Interrupt Enable mask */
+#define XV_HDMIRX1_TMR3_CTRL_RUN_MASK                 (1<<4)  /**< TMR Control Run mask */
+#define XV_HDMIRX1_TMR3_CTRL_IE_MASK                  (1<<5)  /**< TMR Control Interrupt Enable mask */
+#define XV_HDMIRX1_TMR4_CTRL_RUN_MASK                 (1<<6)  /**< TMR Control Run mask */
+#define XV_HDMIRX1_TMR4_CTRL_IE_MASK                  (1<<7)  /**< TMR Control Interrupt Enable mask */
 
 /* Timer peripheral Status register masks*/
 #define XV_HDMIRX1_TMR_STA_IRQ_MASK                   (1<<0)  /**< TMR Status Interrupt mask */
 #define XV_HDMIRX1_TMR1_STA_CNT_EVT_MASK              (1<<1)  /**< TMR Status counter Event mask */
 #define XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK              (1<<3)  /**< TMR Status counter Event mask */
+#define XV_HDMIRX1_TMR3_STA_CNT_EVT_MASK              (1<<5)  /**< TMR Status counter Event mask */
+#define XV_HDMIRX1_TMR4_STA_CNT_EVT_MASK              (1<<7)  /**< TMR Status counter Event mask */
 
 /* Video Timing Detector (VTD) peripheral register offsets.*/
 #define XV_HDMIRX1_VTD_BASE                          (3*64)
@@ -249,21 +295,19 @@ extern "C" {
 /* AUX peripheral Status register masks and shifts*/
 #define XV_HDMIRX1_AUX_STA_IRQ_MASK                  (1<<0)  /**< AUX Status Interrupt mask */
 #define XV_HDMIRX1_AUX_STA_NEW_MASK                  (1<<1)  /**< AUX Status New Packet mask */
-#define XV_HDMIRX1_AUX_STA_ERR_MASK                  (1<<2)	/**< AUX Status New Packet mask */
-#define XV_HDMIRX1_AUX_STA_AVI_MASK                  (1<<3)	/**< AUX Status AVI infoframe mask */
-#define XV_HDMIRX1_AUX_STA_GCP_MASK                  (1<<4)	/**< AUX Status General control packet mask */
+#define XV_HDMIRX1_AUX_STA_ERR_MASK                  (1<<2)  /**< AUX Status New Packet mask */
+#define XV_HDMIRX1_AUX_STA_AVI_MASK                  (1<<3)  /**< AUX Status AVI infoframe mask */
+#define XV_HDMIRX1_AUX_STA_GCP_MASK                  (1<<4)  /**< AUX Status General control packet mask */
 #define XV_HDMIRX1_AUX_STA_FIFO_EP_MASK              (1<<5)  /**< AUX Status FIFO Empty mask */
 #define XV_HDMIRX1_AUX_STA_FIFO_FL_MASK              (1<<6)  /**< AUX Status FIFO Full mask */
 #define XV_HDMIRX1_AUX_STA_GCP_CD_EVT_MASK           (1<<25) /**< AUX Status GCP ColorDepth mask */
 #define XV_HDMIRX1_AUX_STA_GCP_AVMUTE_MASK           (1<<31) /**< AUX Status GCP avmute mask */
-#define XV_HDMIRX1_AUX_STA_NEW_PKTS_MASK             0x1F    /**< AUX Status New Packets mask */
+#define XV_HDMIRX1_AUX_STA_AVI_VIC_MASK              0xFF    /**< AUX Status AVI VIC mask */
 #define XV_HDMIRX1_AUX_STA_AVI_CS_MASK               0x03    /**< AUX Status AVI colorspace mask */
-#define XV_HDMIRX1_AUX_STA_AVI_VIC_MASK              0x7F    /**< AUX Status AVI VIC mask */
 #define XV_HDMIRX1_AUX_STA_GCP_CD_MASK               0x03    /**< AUX Status GCP colordepth mask */
 #define XV_HDMIRX1_AUX_STA_GCP_PP_MASK               0x07    /**< AUX Status GCP pixel phase mask */
-#define XV_HDMIRX1_AUX_STA_NEW_PKTS_SHIFT            8       /**< AUX Status New Packets Shift */
+#define XV_HDMIRX1_AUX_STA_AVI_VIC_SHIFT             8       /**< AUX Status AVI VIC Shift */
 #define XV_HDMIRX1_AUX_STA_AVI_CS_SHIFT              16      /**< AUX Status AVI colorspace Shift */
-#define XV_HDMIRX1_AUX_STA_AVI_VIC_SHIFT             18      /**< AUX Status AVI VIC Shift */
 #define XV_HDMIRX1_AUX_STA_GCP_CD_SHIFT              26      /**< AUX Status GCP colordepth Shift */
 #define XV_HDMIRX1_AUX_STA_GCP_PP_SHIFT              28      /**< AUX Status GCP pixel phase Shift */
 
@@ -281,6 +325,7 @@ extern "C" {
 /* Audio peripheral Control register masks*/
 #define XV_HDMIRX1_AUD_CTRL_RUN_MASK                 (1<<0)  /**< AUD Control Run mask */
 #define XV_HDMIRX1_AUD_CTRL_IE_MASK                  (1<<1)  /**< AUD Control Interrupt Enable mask */
+#define XV_HDMIRX1_AUD_CTRL_ACR_UPD_EVT_EN_MASK      (1<<2)  /**< AUD Control ACR Update Event Enable mask */
 
 /* AUD peripheral Status register masks and shift*/
 #define XV_HDMIRX1_AUD_STA_IRQ_MASK                  (1<<0)  /**< AUD Status Interrupt mask */
@@ -303,6 +348,10 @@ extern "C" {
 #define XV_HDMIRX1_LNKSTA_LNK_ERR0_OFFSET            ((XV_HDMIRX1_LNKSTA_BASE)+(5*4)) /**< LNKSTA Link Error Counter Channel 0 Register offset */
 #define XV_HDMIRX1_LNKSTA_LNK_ERR1_OFFSET            ((XV_HDMIRX1_LNKSTA_BASE)+(6*4)) /**< LNKSTA Link Error Counter Channel 1 Register offset */
 #define XV_HDMIRX1_LNKSTA_LNK_ERR2_OFFSET            ((XV_HDMIRX1_LNKSTA_BASE)+(7*4)) /**< LNKSTA Link Error Counter Channel 2 Register offset */
+#define XV_HDMIRX1_PKT_ECC_ERR_OFFSET                ((XV_HDMIRX1_LNKSTA_BASE)+(8*4)) /**< Packet ECC Error Register offset */
+#define XV_HDMIRX1_TRIB_ANLZ_TIM_OFFSET              ((XV_HDMIRX1_LNKSTA_BASE)+(9*4)) /**< Tri-byte Analyzer Timing Register offset */
+#define XV_HDMIRX1_TRIB_HBP_HS_OFFSET                ((XV_HDMIRX1_LNKSTA_BASE)+(10*4)) /**< Tri-byte HBP_HS Register offset */
+#define XV_HDMIRX1_TRIB_ANLZ_LN_ACT_OFFSET           ((XV_HDMIRX1_LNKSTA_BASE)+(11*4)) /**< Tri-byte Analyzer Line Size Register offset */
 
 /* Link Status (LNKSTA) peripheral Control register masks*/
 #define XV_HDMIRX1_LNKSTA_CTRL_RUN_MASK              (1<<0)  /**< LNKSTA Control Run mask */
@@ -312,6 +361,26 @@ extern "C" {
 /* Link Status (LNKSTA) peripheral Status register masks*/
 #define XV_HDMIRX1_LNKSTA_STA_IRQ_MASK               (1<<0)  /**< LNKSTA Status Interrupt mask */
 #define XV_HDMIRX1_LNKSTA_STA_ERR_MAX_MASK           (1<<1)  /**< LNKSTA Status Maximum Errors mask */
+#define XV_HDMIRX1_LNKSTA_STA_DCS_8CD_LOCK_MASK      (1<<2)
+#define XV_HDMIRX1_LNKSTA_STA_DCS_DEEP_LOCK_MASK     (1<<3)
+
+/* Tri-byte Analyzer register masks*/
+#define XV_HDMIRX1_TRIB_ANLZ_TIM_CHGD_CNT_MASK       0xFFFF  /**< Tri-byte analyzer timing changed count mask */
+#define XV_HDMIRX1_TRIB_ANLZ_TIM_CHGD_CNT_SHIFT      0       /**< Tri-byte analyzer timing changed count shift */
+#define XV_HDMIRX1_TRIB_ANLZ_TIM_VS_POL_MASK         (1<<16) /**< Tri-byte analyzer timing vsync polarity mask */
+#define XV_HDMIRX1_TRIB_ANLZ_TIM_HS_POL_MASK         (1<<17) /**< Tri-byte analyzer timing hsync polarity mask */
+
+/* Tri-byte Analyzer register masks*/
+#define XV_HDMIRX1_TRIB_HBP_HS_HS_SZ_SHIFT           0       /**< Tri-byte hsync size shift */
+#define XV_HDMIRX1_TRIB_HBP_HS_HS_SZ_MASK            0xFFFF  /**< Tri-byte hsync size mask */
+#define XV_HDMIRX1_TRIB_HBP_HS_HBP_SZ_SHIFT          16      /**< Tri-byte hbp size shift */
+#define XV_HDMIRX1_TRIB_HBP_HS_HBP_SZ_MASK           0xFFFF  /**< Tri-byte hbp size mask */
+
+/* Tri-byte Analyzer register masks*/
+#define XV_HDMIRX1_TRIB_ANLZ_LN_ACT_ACT_SZ_SHIFT     0       /**< Tri-byte analyzer act size shift */
+#define XV_HDMIRX1_TRIB_ANLZ_LN_ACT_ACT_SZ_MASK      0xFFFF  /**< Tri-byte analyzer act size mask */
+#define XV_HDMIRX1_TRIB_ANLZ_LN_ACT_LN_SZ_SHIFT      16      /**< Tri-byte analyzer line act shift */
+#define XV_HDMIRX1_TRIB_ANLZ_LN_ACT_LN_SZ_MASK       0xFFFF  /**< Tri-byte analyzer line act mask */
 
 /* Fixed Rate Link (FRL) peripheral register offsets*/
 #define XV_HDMIRX1_FRL_BASE              (8*64)
@@ -335,8 +404,8 @@ extern "C" {
                                 * FRL Total Active Data Register offset */
 #define XV_HDMIRX1_FRL_RSFC_CNT_OFFSET      ((XV_HDMIRX1_FRL_BASE)+(11*4)) /**<
                                 * Reed-Solomon FEC Counter Data Register offset */
-#define XV_HDMIRX1_FRL_DPACK_ERR_CNT_OFFSET ((XV_HDMIRX1_FRL_BASE)+(12*4)) /**<
-                                * DPACK Error Count Data Register offset */
+#define XV_HDMIRX1_FRL_ERR_CNT1_OFFSET      ((XV_HDMIRX1_FRL_BASE)+(12*4)) /**<
+                                * FRL Error Count Data Register offset */
 #define XV_HDMIRX1_FRL_VID_LOCK_CNT_OFFSET  ((XV_HDMIRX1_FRL_BASE)+(13*4)) /**<
                                 * Video Lock Count Data Register offset */
 
@@ -383,7 +452,7 @@ extern "C" {
                                                                * All Lanes mask */
 #define XV_HDMIRX1_FRL_STA_FLT_PM_ALLL_SHIFT        3        /**< FRL Status FLT
                                                                * Pattern Match
-                                                               * All Lanes mask */
+                                                               * All Lanes shift */
 #define XV_HDMIRX1_FRL_STA_FLT_PM_L0_MASK           (1<<3)   /**< FRL Status FLT
                                                                * Pattern Match
                                                                * Lane 0 mask */
@@ -408,14 +477,38 @@ extern "C" {
                                                                * mask */
 #define XV_HDMIRX1_FRL_STA_SKEW_LOCK_EVT_MASK       (1<<11)  /**< FRL Status Skew
                                                                * Lock event mask */
-#define XV_HDMIRX1_FRL_STA_ALN_LOCK_L0_MASK         (1<<16)  /**< FRL Status Aligner
+#define XV_HDMIRX1_FRL_STA_LANE_LOCK_ALLL_MASK      0xF      /**< FRL Status Lane
+                                                               * Lock All Lanes
+                                                               * mask */
+#define XV_HDMIRX1_FRL_STA_LANE_LOCK_ALLL_SHIFT     12        /**< FRL Status Lane
+                                                               * Lock All Lanes
+                                                               * shift */
+#define XV_HDMIRX1_FRL_STA_LANE_LOCK_L0_MASK        (1<<12)  /**< FRL Status Lane
                                                                * Lock L0 mask */
-#define XV_HDMIRX1_FRL_STA_ALN_LOCK_L1_MASK         (1<<17)  /**< FRL Status Aligner
+#define XV_HDMIRX1_FRL_STA_LANE_LOCK_L1_MASK        (1<<13)  /**< FRL Status Lane
                                                                * Lock L1 mask */
-#define XV_HDMIRX1_FRL_STA_ALN_LOCK_L2_MASK         (1<<18)  /**< FRL Status Aligner
+#define XV_HDMIRX1_FRL_STA_LANE_LOCK_L2_MASK        (1<<14)  /**< FRL Status Lane
                                                                * Lock L2 mask */
-#define XV_HDMIRX1_FRL_STA_ALN_LOCK_L3_MASK         (1<<19)  /**< FRL Status Aligner
+#define XV_HDMIRX1_FRL_STA_LANE_LOCK_L3_MASK        (1<<15)  /**< FRL Status Lane
                                                                * Lock L3 mask */
+#define XV_HDMIRX1_FRL_STA_WA_LOCK_ALLL_MASK       0xF      /**< FRL Status Aligner
+                                                               * Lock All Lanes
+                                                               * mask */
+#define XV_HDMIRX1_FRL_STA_WA_LOCK_ALLL_SHIFT      16        /**< FRL Status Aligner
+                                                               * Lock All Lanes
+                                                               * shift */
+#define XV_HDMIRX1_FRL_STA_WA_LOCK_L0_MASK         (1<<16)  /**< FRL Status Aligner
+                                                               * Lock L0 mask */
+#define XV_HDMIRX1_FRL_STA_WA_LOCK_L1_MASK         (1<<17)  /**< FRL Status Aligner
+                                                               * Lock L1 mask */
+#define XV_HDMIRX1_FRL_STA_WA_LOCK_L2_MASK         (1<<18)  /**< FRL Status Aligner
+                                                               * Lock L2 mask */
+#define XV_HDMIRX1_FRL_STA_WA_LOCK_L3_MASK         (1<<19)  /**< FRL Status Aligner
+                                                               * Lock L3 mask */
+#define XV_HDMIRX1_FRL_STA_SCRM_LOCK_ALLL_MASK      0xF      /**< FRL Status Scrambler
+                                                               * All Lanes mask */
+#define XV_HDMIRX1_FRL_STA_SCRM_LOCK_ALLL_SHIFT     20        /**< FRL Status Scrambler
+                                                               * All Lanes shift */
 #define XV_HDMIRX1_FRL_STA_SCRM_LOCK_L0_MASK        (1<<20)  /**< FRL Status Scrambler
                                                                * Lock L0 mask */
 #define XV_HDMIRX1_FRL_STA_SCRM_LOCK_L1_MASK        (1<<21)  /**< FRL Status Scrambler
@@ -426,9 +519,18 @@ extern "C" {
                                                                * Lock L3 mask */
 #define XV_HDMIRX1_FRL_STA_SKEW_LOCK_MASK           (1<<24)  /**< FRL Status Skew
                                                               * Lock mask */
-#define XV_HDMIRX1_FRL_STA_VID_OOS_MASK             (1<<25)  /**< FRL Status Video
-                                                              * Out-of-Sync mask */
-
+#define XV_HDMIRX1_FRL_STA_STR_MASK                 (1<<25)  /**< FRL Status Video
+                                                              * STR mask */
+#define XV_HDMIRX1_FRL_STA_VID_LOCK_MASK            (1<<26)  /**< FRL Status Video
+                                                              * Lock mask */
+#define XV_HDMIRX1_FRL_STA_FRL_MODE_MASK            (1<<27)  /**< FRL Status Mode
+                                                              * mask */
+#define XV_HDMIRX1_FRL_STA_FRL_LANES_MASK           (1<<28)  /**< FRL Status Lanes
+                                                              * mask */
+#define XV_HDMIRX1_FRL_STA_FRL_RATE_MASK            0x7      /**< FRL Status Rate
+                                                              * mask */
+#define XV_HDMIRX1_FRL_STA_FRL_RATE_SHIFT           29       /**< FRL Status Rate
+                                                              * shift */
 /* FRL Link Clock register masks*/
 #define XV_HDMIRX1_FRL_LNK_CLK_MASK       0xFFFFF /**< FRL Link Clock mask */
 #define XV_HDMIRX1_FRL_VID_CLK_MASK       0xFFFFF /**< FRL Video Clock mask */
@@ -448,6 +550,14 @@ extern "C" {
                                                        * mask */
 #define XV_HDMIRX1_FRL_SCDC_RDY_MASK            (1<<18) /**< FRL SCDC Ready
                                                        * mask */
+
+#define XV_HDMIRX1_FRL_RATIO_TOT_MASK           0xFFFFFF
+#define XV_HDMIRX1_FRL_RATIO_ACT_MASK           0xFFFFFF
+
+#define XV_HDMIRX1_FRL_ERR_CNT1_DPACK_ERR_CNT_MASK  0xFFFF
+#define XV_HDMIRX1_FRL_ERR_CNT1_DPACK_ERR_CNT_SHIFT 16
+#define XV_HDMIRX1_FRL_ERR_CNT1_RSCC_ERR_CNT_MASK   0xFFFF
+#define XV_HDMIRX1_FRL_ERR_CNT1_RSCC_ERR_CNT_SHIFT  0
 
 /* Peripheral ID and General shift values.*/
 #define XV_HDMIRX1_SHIFT_16      16  /**< 16 shift value */

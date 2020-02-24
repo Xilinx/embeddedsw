@@ -358,6 +358,14 @@ int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr,
 		Status = (XST_SUCCESS);
 		break;
 
+	/* Phy Reset */
+	case (XV_HDMIRX1_HANDLER_PHY_RESET):
+		InstancePtr->PhyResetCallback =
+			  (XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->PhyResetRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
 	/* Link Ready Error */
 	case (XV_HDMIRX1_HANDLER_LNK_RDY_ERR):
 		InstancePtr->LnkRdyErrorCallback =
@@ -1275,10 +1283,10 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 					XV_HdmiRx1_GetTime200Ms(InstancePtr));
 		}
 
-		/* Init state*/
+		/* Init state */
 		else if (InstancePtr->Stream.State == XV_HDMIRX1_STATE_STREAM_INIT) {
 
-			/* Read video properties*/
+			/* Read video properties */
 			if (XV_HdmiRx1_GetVideoProperties(InstancePtr) == XST_SUCCESS) {
 
 				XV_HdmiRx1_SetPixelClk(InstancePtr);
@@ -1298,12 +1306,12 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 					XV_HdmiRx1_EXT_VRST(InstancePtr, FALSE);
 					XV_HdmiRx1_EXT_SYSRST(InstancePtr, FALSE);
 
-					/* Set stream status to arm*/
+					/* Set stream status to arm */
 					InstancePtr->Stream.State =
 						XV_HDMIRX1_STATE_STREAM_ARM;
 
 					/* Load timer - 200 ms (one UHD frame
-					 * is 40 ms, 5 frames)*/
+					 * is 40 ms, 5 frames) */
 					XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime200Ms(InstancePtr));
 				} else if (InstancePtr->StreamInitCallback) {
@@ -1314,14 +1322,16 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 			}
 
 			else {
-		/* Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)*/
+				/* Load timer - 200 ms (one UHD frame is 40 ms,
+				 * 5 frames) */
 				XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime200Ms(InstancePtr));
 			}
 		}
 
 		/* Armed state*/
-		else if (InstancePtr->Stream.State == XV_HDMIRX1_STATE_STREAM_ARM) {
+		else if (InstancePtr->Stream.State ==
+				XV_HDMIRX1_STATE_STREAM_ARM) {
 #ifdef DEBUG_RX_FRL_VERBOSITY
 			xil_printf("TMR: XV_HDMIRX1_STATE_STREAM_ARM\r\n");
 #endif
@@ -1331,25 +1341,35 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 			/* Enable interrupt */
 			XV_HdmiRx1_VtdIntrEnable(InstancePtr);
 
-			/* Set stream status to lock*/
-			InstancePtr->Stream.State = XV_HDMIRX1_STATE_STREAM_LOCK;
+			/* Set stream status to lock */
+			InstancePtr->Stream.State =
+					XV_HDMIRX1_STATE_STREAM_LOCK;
 		}
 	}
 
 	if ((Status) & (XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK)) {
+		/* Clear counter event */
+		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMIRX1_TMR_STA_OFFSET),
+				(XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK));
+	}
 
-			/* Clear counter event*/
-			XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
-					    (XV_HDMIRX1_TMR_STA_OFFSET),
-			/* Temporarily clear both bit 3 and bit 4 during transition period
-			 * TODO: Revert back the change once the bitstream is used widely
-			 * (XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK)); */
-					    (0x18));
+	if ((Status) & (XV_HDMIRX1_TMR3_STA_CNT_EVT_MASK)) {
+		/* Clear counter event */
+		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMIRX1_TMR_STA_OFFSET),
+				(XV_HDMIRX1_TMR3_STA_CNT_EVT_MASK));
 
-			XV_HdmiRx1_Tmr2Start(InstancePtr,
-					XV_HdmiRx1_GetTime1S(InstancePtr));
+		XV_HdmiRx1_PhyResetPoll(InstancePtr);
+	}
 
-			XV_HdmiRx1_UpdateEdFlags(InstancePtr);
+	if ((Status) & (XV_HDMIRX1_TMR4_STA_CNT_EVT_MASK)) {
+		/* Clear counter event*/
+		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMIRX1_TMR_STA_OFFSET),
+				(XV_HDMIRX1_TMR4_STA_CNT_EVT_MASK));
+
+		/* Currently unused. */
 	}
 }
 
@@ -1552,12 +1572,7 @@ static void HdmiRx1_AudIntrHandler(XV_HdmiRx1 *InstancePtr)
 				    (XV_HDMIRX1_AUD_STA_OFFSET),
 				    (XV_HDMIRX1_AUD_STA_ACR_UPD_MASK));
 
-		if (InstancePtr->Stream.State ==
-		    XV_HDMIRX1_STATE_FRL_LINK_TRAINING) {
-			return;
-		}
-
-		/* Add ACR Callback */
+		/* Placeholder: Add ACR Callback handlings */
 	}
 }
 

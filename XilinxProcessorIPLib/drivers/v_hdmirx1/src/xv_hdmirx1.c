@@ -139,12 +139,16 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	InstancePtr->SyncLossCallback = NULL;
 	InstancePtr->ModeCallback = NULL;
 	InstancePtr->TmdsClkRatioCallback = NULL;
+	InstancePtr->Stream.Frl.LtpMatchedCounts = 0;
 
 	/* Clear HDMI variables */
 	XV_HdmiRx1_Clear(InstancePtr);
 
 	/* Clear connected flag*/
 	InstancePtr->Stream.IsConnected = (FALSE);
+
+	InstancePtr->Stream.Frl.FltNoRetrain = (FALSE);
+	InstancePtr->Stream.Frl.FltNoTimeout = (FALSE);
 
 	XV_HdmiRx1_FrlIntrDisable(InstancePtr);
 	XV_HdmiRx1_FrlReset(InstancePtr, TRUE);
@@ -161,6 +165,8 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	XV_HdmiRx1_PioDisable(InstancePtr);
 	XV_HdmiRx1_Tmr1Disable(InstancePtr);
 	XV_HdmiRx1_Tmr2Disable(InstancePtr);
+	XV_HdmiRx1_Tmr3Disable(InstancePtr);
+	XV_HdmiRx1_Tmr4Disable(InstancePtr);
 	XV_HdmiRx1_VtdDisable(InstancePtr);
 	XV_HdmiRx1_DdcDisable(InstancePtr);
 	XV_HdmiRx1_AuxDisable(InstancePtr);
@@ -169,6 +175,8 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	XV_HdmiRx1_PioIntrDisable(InstancePtr);
 	XV_HdmiRx1_Tmr1IntrDisable(InstancePtr);
 	XV_HdmiRx1_Tmr2IntrDisable(InstancePtr);
+	XV_HdmiRx1_Tmr3IntrDisable(InstancePtr);
+	XV_HdmiRx1_Tmr4IntrDisable(InstancePtr);
 	XV_HdmiRx1_VtdIntrDisable(InstancePtr);
 	XV_HdmiRx1_DdcScdcClear(InstancePtr);
 	XV_HdmiRx1_SetHpd(InstancePtr,FALSE);
@@ -215,6 +223,12 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	/* Enable interrupt */
 	XV_HdmiRx1_Tmr2IntrEnable(InstancePtr);
 
+	/* Set run flag */
+	XV_HdmiRx1_Tmr3Enable(InstancePtr);
+
+	/* Enable interrupt */
+	XV_HdmiRx1_Tmr3IntrEnable(InstancePtr);
+
 	/* Enable Skew Lock Event */
 	XV_HdmiRx1_SkewLockEvtEnable(InstancePtr);
 
@@ -255,11 +269,14 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	Audio peripheral
 	*/
 
-	/* The audio peripheral willl be enabled in the RX init done callback*/
-	/*XV_HdmiRx1_AudioEnable(InstancePtr);*/
+	/* The audio peripheral willl be enabled in the RX init done callback */
+	/* XV_HdmiRx1_AudioEnable(InstancePtr); */
 
 	/* Enable AUD peripheral interrupt */
 	XV_HdmiRx1_AudioIntrEnable(InstancePtr);
+
+	/* Enable Audio ACR Update Event */
+	/* XV_HdmiRx1_SetAudioAcrUpdateEventEn(InstancePtr); */
 
 	/* Enable Link Status */
 	XV_HdmiRx1_LnkstaEnable(InstancePtr);
@@ -288,7 +305,7 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	XV_HdmiRx1_SetFrlRateWrEvent_En(InstancePtr);
 
 	/* Enable Link Status peripheral interrupt */
-	/*XV_HdmiRx1_LinkIntrEnable(InstancePtr);*/
+	/* XV_HdmiRx1_LinkIntrEnable(InstancePtr); */
 
 	/* Reset the hardware and set the flag to indicate the driver is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
@@ -410,10 +427,6 @@ void XV_HdmiRx1_Start(XV_HdmiRx1 *InstancePtr) {
 
 	/* Enable interrupt */
 	XV_HdmiRx1_PioIntrEnable(InstancePtr);
-
-	/* Start a 1s timer */
-	XV_HdmiRx1_Tmr2Start(InstancePtr,
-				XV_HdmiRx1_GetTime1S(InstancePtr));
 }
 
 /*****************************************************************************/
@@ -1195,7 +1208,7 @@ int XV_HdmiRx1_DdcIsHdcpReadMessageBufferEmpty(XV_HdmiRx1 *InstancePtr)
 /******************************************************************************/
 /**
 *
-* This function prints stream and timing information on STDIO/Uart console.
+* This function prints stream and timing information on STDIO/UART console.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
@@ -1204,7 +1217,7 @@ int XV_HdmiRx1_DdcIsHdcpReadMessageBufferEmpty(XV_HdmiRx1 *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr)
+void XV_HdmiRx1_Info(XV_HdmiRx1 *InstancePtr)
 {
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1215,6 +1228,303 @@ void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr)
 	/* Print timing information */
 	XVidC_ReportTiming(&InstancePtr->Stream.Video.Timing,
 			   InstancePtr->Stream.Video.IsInterlaced);
+}
+
+/******************************************************************************/
+/**
+*
+* This function prints debug information on STDIO/UART console.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr)
+{
+	u32 FrlStatus;
+	u32 Data;
+	u32 Data1;
+	u32 PioIn;
+	u32 DbgSta;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Version */
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_VER_ID_OFFSET));
+
+	xil_printf("CORE_VER_PUB, INT: 0x%X, 0x%X\r\n",
+			XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					(XV_HDMIRX1_VER_VERSION_OFFSET)),
+			Data & 0xFFFF);
+	xil_printf("ADD_CORE_DBG: 0x%X\r\n", (Data >> 16) & 0xFFFF0000);
+
+
+	FrlStatus = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					  (XV_HDMIRX1_FRL_STA_OFFSET));
+	xil_printf("FRL_MODE, LANES, STR, RATE: %d, %d, %d, %d\r\n",
+			(FrlStatus & XV_HDMIRX1_FRL_STA_FRL_MODE_MASK) &&
+			XV_HDMIRX1_FRL_STA_FRL_MODE_MASK,
+			(FrlStatus & XV_HDMIRX1_FRL_STA_FRL_LANES_MASK) &&
+			XV_HDMIRX1_FRL_STA_FRL_LANES_MASK,
+			(FrlStatus & XV_HDMIRX1_FRL_STA_STR_MASK) &&
+			XV_HDMIRX1_FRL_STA_STR_MASK,
+			(FrlStatus >> XV_HDMIRX1_FRL_STA_FRL_RATE_SHIFT) &
+			XV_HDMIRX1_FRL_STA_FRL_RATE_MASK);
+
+	/* HDMI/DVI Mode */
+	PioIn = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				  (XV_HDMIRX1_PIO_IN_OFFSET));
+	xil_printf("HDMI/DVI Mode: %d\r\n",
+			(PioIn & XV_HDMIRX1_PIO_IN_MODE_MASK) &&
+			XV_HDMIRX1_PIO_IN_MODE_MASK);
+
+	/* FRL word aligner tap select changed Status */
+	DbgSta = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			  (XV_HDMIRX1_DBG_STA_OFFSET));
+	xil_printf("WA_TAP Changed[3:0]: 0x%X\r\n",
+			DbgSta & XV_HDMIRX1_DBG_STA_WA_TAP_CHGALL_MASK);
+
+	xil_printf("FRL_WA_Lock[3:0]/Toggle[3:0]: 0x%X/0x%X\r\n",
+			(FrlStatus >> XV_HDMIRX1_FRL_STA_WA_LOCK_ALLL_SHIFT) &
+			XV_HDMIRX1_FRL_STA_WA_LOCK_ALLL_MASK,
+			(FrlStatus >> XV_HDMIRX1_DBG_STA_WA_LOCK_CHGALL_SHIFT) &
+			XV_HDMIRX1_DBG_STA_WA_LOCK_CHGALL_MASK);
+
+	xil_printf("TMDS_ALN_LOCK: %d\r\n",
+			(PioIn & XV_HDMIRX1_PIO_IN_ALIGNER_LOCK_MASK) &&
+			XV_HDMIRX1_PIO_IN_ALIGNER_LOCK_MASK);
+
+	xil_printf("TMDS_SCRM_LOCK[2:0]: 0x%X\r\n",
+			(PioIn >> XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCKALLL_SHIFT) &
+			XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCKALLL_MASK);
+
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				  (XV_HDMIRX1_SR_SSB_ERR_CNT0_OFFSET));
+	xil_printf("FRL SR/SSB Period Errors (add_core_dbg=51)\r\n  Lane0 "
+			"(Non-Training/Training): %d/%d\r\n",
+			Data & XV_HDMIRX1_SR_SSB_ERR1_MASK,
+			(Data >> XV_HDMIRX1_SR_SSB_ERR2_SHIFT) &
+			XV_HDMIRX1_SR_SSB_ERR2_MASK);
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				  (XV_HDMIRX1_SR_SSB_ERR_CNT1_OFFSET));
+	xil_printf("  Lane1 (Non-Training/Training): %d/%d\r\n",
+			Data & XV_HDMIRX1_SR_SSB_ERR1_MASK,
+			(Data >> XV_HDMIRX1_SR_SSB_ERR2_SHIFT) &
+			XV_HDMIRX1_SR_SSB_ERR2_MASK);
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				  (XV_HDMIRX1_SR_SSB_ERR_CNT2_OFFSET));
+	xil_printf("  Lane2 (Non-Training/Training): %d/%d\r\n",
+			Data & XV_HDMIRX1_SR_SSB_ERR1_MASK,
+			(Data >> XV_HDMIRX1_SR_SSB_ERR2_SHIFT) &
+			XV_HDMIRX1_SR_SSB_ERR2_MASK);
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				  (XV_HDMIRX1_SR_SSB_ERR_CNT3_OFFSET));
+	xil_printf("  Lane3 (Non-Training/Training): %d/%d\r\n",
+			Data & XV_HDMIRX1_SR_SSB_ERR1_MASK,
+			(Data >> XV_HDMIRX1_SR_SSB_ERR2_SHIFT) &
+			XV_HDMIRX1_SR_SSB_ERR2_MASK);
+
+	/* FRL Scrambler Lock Status */
+	xil_printf("FRL_SCRM_Lock[3:0]/Toggle[3:0]: 0x%X/0x%X\r\n",
+			(FrlStatus >> XV_HDMIRX1_FRL_STA_SCRM_LOCK_ALLL_SHIFT) &
+			XV_HDMIRX1_FRL_STA_SCRM_LOCK_ALLL_MASK,
+			(DbgSta >> XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHGALL_SHIFT) &
+			XV_HDMIRX1_DBG_STA_SCRM_LOCK_CHGALL_MASK);
+
+	/* FRL Aligner Lock Status */
+	xil_printf("FRL_LANE_Lock[3:0]/Toggle[3:0]: 0x%X/0x%X\r\n",
+			(FrlStatus >> XV_HDMIRX1_FRL_STA_LANE_LOCK_ALLL_SHIFT) &
+			XV_HDMIRX1_FRL_STA_LANE_LOCK_ALLL_MASK,
+			(DbgSta >> XV_HDMIRX1_DBG_STA_LANE_LOCK_CHGALL_SHIFT) &
+			XV_HDMIRX1_DBG_STA_LANE_LOCK_CHGALL_MASK);
+
+	/* Skew Lock Status */
+	xil_printf("FRL_SKEW_Lock/Toggle: %d/%d\r\n",
+			(FrlStatus & XV_HDMIRX1_FRL_STA_SKEW_LOCK_MASK) &&
+			XV_HDMIRX1_FRL_STA_SKEW_LOCK_MASK,
+			(DbgSta & XV_HDMIRX1_DBG_STA_SKEW_LOCK_CHG_MASK) &&
+			XV_HDMIRX1_DBG_STA_SKEW_LOCK_CHG_MASK);
+
+	/* FEC_DPACK_ERR, RSCC, RSFC_CNT Status */
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_FRL_ERR_CNT1_OFFSET));
+	Data1 = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_FRL_RSFC_CNT_OFFSET));
+	xil_printf("FEC_DPACK_ERR, RSCC, RSFC_CNT: %d, %d, %d\r\n",
+			(Data >> XV_HDMIRX1_FRL_ERR_CNT1_DPACK_ERR_CNT_SHIFT) &&
+			XV_HDMIRX1_FRL_ERR_CNT1_DPACK_ERR_CNT_MASK,
+			(Data & XV_HDMIRX1_FRL_ERR_CNT1_RSCC_ERR_CNT_SHIFT) &&
+			XV_HDMIRX1_FRL_ERR_CNT1_RSCC_ERR_CNT_MASK,
+			Data1);
+
+	/* FRL VID Lock Status and counter */
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_FRL_VID_LOCK_CNT_OFFSET));
+	xil_printf("FRL_Anlz[Dpack In] Vid Timing\r\n"
+			"  FRL_VID_Lock/Toggle_Cnt: %d/%d\r\n",
+			(FrlStatus & XV_HDMIRX1_FRL_STA_VID_LOCK_MASK) &&
+			XV_HDMIRX1_FRL_STA_VID_LOCK_MASK, Data);
+
+	/* FRL Tribyte Analyzer timing changed counter Status */
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_TRIB_ANLZ_TIM_OFFSET));
+	xil_printf("Trib_Anlz[Dpack Out] Vid Timing\r\n"
+			"  Tim_Toggle_Cnt: %d\r\n",
+			Data & XV_HDMIRX1_TRIB_ANLZ_TIM_CHGD_CNT_MASK);
+	xil_printf("  Trib_HS_Pol/VS_Pol: %d/%d\r\n",
+			(Data & XV_HDMIRX1_TRIB_ANLZ_TIM_HS_POL_MASK) &&
+			XV_HDMIRX1_TRIB_ANLZ_TIM_HS_POL_MASK,
+			(Data & XV_HDMIRX1_TRIB_ANLZ_TIM_VS_POL_MASK) &&
+			XV_HDMIRX1_TRIB_ANLZ_TIM_VS_POL_MASK);
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_TRIB_HBP_HS_OFFSET));
+	xil_printf("  Trib_HS_SZ: %d\r\n",
+			Data & XV_HDMIRX1_TRIB_HBP_HS_HS_SZ_MASK);
+	xil_printf("  Trib_HBP_SZ: %d\r\n",
+			(Data >> XV_HDMIRX1_TRIB_HBP_HS_HBP_SZ_SHIFT) &
+			XV_HDMIRX1_TRIB_HBP_HS_HBP_SZ_MASK);
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_TRIB_ANLZ_LN_ACT_OFFSET));
+	xil_printf("  Trib_ACT_SZ: %d\r\n",
+			Data & XV_HDMIRX1_TRIB_ANLZ_LN_ACT_ACT_SZ_MASK);
+	xil_printf("  Trib_LN_SZ: %d\r\n",
+			(Data >> XV_HDMIRX1_TRIB_ANLZ_LN_ACT_LN_SZ_SHIFT) &
+			XV_HDMIRX1_TRIB_ANLZ_LN_ACT_LN_SZ_MASK);
+
+	xil_printf("FRL_TOT/ACT_RATIO: %d/%d\r\n",
+			XV_HdmiRx1_GetFrlTotalPixRatio(InstancePtr),
+			XV_HdmiRx1_GetFrlActivePixRatio(InstancePtr));
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_FRL_RATIO_TOT_OFFSET));
+	Data1 = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_FRL_RATIO_ACT_OFFSET));
+	xil_printf("FRL_VCKE_FREQ: %d\r\n",
+			(Data1*(XPAR_XV_HDMIRX1_0_VID_REF_CLK/1000))/(Data*4));
+
+	/* FRL Packets ECC Error Status */
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_PKT_ECC_ERR_OFFSET));
+	xil_printf("PKT_ECC_ERR: %d\r\n", Data);
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_LNKSTA_STA_OFFSET));
+	xil_printf("DCS_DEEP_LOCK/8CD_LOCK: %d/%d\r\n",
+			(Data & XV_HDMIRX1_LNKSTA_STA_DCS_DEEP_LOCK_MASK) &&
+			XV_HDMIRX1_LNKSTA_STA_DCS_DEEP_LOCK_MASK,
+			(Data & XV_HDMIRX1_LNKSTA_STA_DCS_8CD_LOCK_MASK) &&
+			XV_HDMIRX1_LNKSTA_STA_DCS_8CD_LOCK_MASK);
+
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+			(XV_HDMIRX1_VCKE_SYS_CNT_OFFSET));
+	xil_printf("FRL_VCKE_FREQ(Measured): %d\r\n",
+			(5000*(XPAR_XV_HDMIRX1_0_VID_REF_CLK/1000))/Data);
+}
+
+/******************************************************************************/
+/**
+*
+* This function prints out RX's SCDC registers and values on STDIO/UART
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiRx1_DdcRegDump(XV_HdmiRx1 *InstancePtr)
+{
+	u32 Data;
+
+	Data = 0xFFFFFFFF;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	xil_printf("Addr  Data\r\n");
+	xil_printf("----  ----\r\n");
+
+	for (u32 Offset = 0; Offset <= 0x5A; Offset++) {
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				  XV_HDMIRX1_FRL_SCDC_OFFSET);
+
+	for (u16 i = 0; i < 100; i++) {
+		Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					  XV_HDMIRX1_FRL_SCDC_OFFSET);
+
+		if (Data & XV_HDMIRX1_FRL_SCDC_RDY_MASK) {
+			break;
+		}
+	}
+
+	if ((Data & XV_HDMIRX1_FRL_SCDC_RDY_MASK) == 0) {
+		xil_printf("XV_HdmiRx1_FrlDdcReadField F1\r\n");
+	}
+
+
+		Data = (XV_HDMIRX1_FRL_SCDC_ADDR_MASK & Offset) |
+				XV_HDMIRX1_FRL_SCDC_RD_MASK;
+
+
+		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
+					XV_HDMIRX1_FRL_SCDC_OFFSET, Data);
+
+		for (u16 i = 0; i < 100; i++) {
+			Data =
+			XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						  XV_HDMIRX1_FRL_SCDC_OFFSET);
+
+			if (Data & XV_HDMIRX1_FRL_SCDC_RDY_MASK) {
+				Data = (Data >> XV_HDMIRX1_FRL_SCDC_DAT_SHIFT) &
+						0xFF;
+				xil_printf("0x%02X: 0x%02X\r\n", Offset, Data);
+				break;
+			}
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function prints out HDMI RX register
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_HdmiRx1_RegisterDebug(XV_HdmiRx1 *InstancePtr)
+{
+	u32 RegOffset;
+
+	xil_printf("-------------------------------------\r\n");
+	xil_printf("       HDMI RX Register Dump \r\n");
+	xil_printf("-------------------------------------\r\n");
+	for (RegOffset = 0;
+			RegOffset <= XV_HDMIRX1_FRL_VID_LOCK_CNT_OFFSET; ) {
+			xil_printf("0x%04x      0x%08x\r\n",RegOffset,
+			XV_HdmiRx1_ReadReg(
+			InstancePtr->Config.BaseAddress, RegOffset));
+		RegOffset += 4;
+		/* Ignore the DDC Space Register */
+		if (RegOffset == 0x114) {
+			RegOffset = 0x140;
+		}
+	}
 }
 
 /*****************************************************************************/
@@ -1784,10 +2094,15 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 		Match = FALSE;
 	}
 
-	if ((IsInterlaced == 1) &&
-	    (F1VTotal != (VActive + F1VFrontPorch +
-	                  F1VSyncWidth + F1VBackPorch))) {
-		Match = FALSE;
+	if (IsInterlaced == 1) {
+		if (F1VTotal != (VActive + F1VFrontPorch +
+				F1VSyncWidth + F1VBackPorch)) {
+			Match = FALSE;
+		}
+	} else {
+		if (F1VFrontPorch | F1VSyncWidth | F1VBackPorch) {
+			Match = FALSE;
+		}
 	}
 
 	/* Then we store the timing parameters regardless if there was a match*/
@@ -2090,6 +2405,10 @@ void XV_HdmiRx1_TmrStartMs(XV_HdmiRx1 *InstancePtr, u32 Milliseconds,
 		XV_HdmiRx1_Tmr1Start(InstancePtr, ClockCycles);
 	} else if (TimerSelect == 2) {
 		XV_HdmiRx1_Tmr2Start(InstancePtr, ClockCycles);
+	} else if (TimerSelect == 3) {
+		XV_HdmiRx1_Tmr3Start(InstancePtr, ClockCycles);
+	} else if (TimerSelect == 4) {
+		XV_HdmiRx1_Tmr4Start(InstancePtr, ClockCycles);
 	}
 }
 
