@@ -1,26 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-* IN THE SOFTWARE.
-*
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -136,13 +118,15 @@ typedef enum {
 	XV_HDMITXSS1_LOG_EVT_SETAUDIOCHANNELS, /**< Log event Set Audio Channels. */
 	XV_HDMITXSS1_LOG_EVT_AUDIOMUTE,		/**< Log event Audio Mute */
 	XV_HDMITXSS1_LOG_EVT_AUDIOUNMUTE,	/**< Log event Audio Unmute. */
+	XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE, /**< Log event Audio Invalid
+							Audio Sampling Rate. */
 	XV_HDMITXSS1_LOG_EVT_SETSTREAM,   /**< Log event HDMITXSS1 Setstream. */
 	XV_HDMITXSS1_LOG_EVT_HDCP14_AUTHREQ,   /**< Log event HDCP 1.4 AuthReq. */
 	XV_HDMITXSS1_LOG_EVT_HDCP22_AUTHREQ,   /**< Log event HDCP 2.2 AuthReq. */
 	XV_HDMITXSS1_LOG_EVT_PIX_REPEAT_ERR,	/**< Log event Unsupported Pixel
-											 Repetition. */
+						     Repetition. */
 	XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR,	/**< Log event Resolution Unsupported
-											 by VTC. */
+						     by VTC. */
 	XV_HDMITXSS1_LOG_EVT_BRDG_LOCKED,	/**< VID-OUT bridge locked. */
 	XV_HDMITXSS1_LOG_EVT_BRDG_UNLOCKED,	/**< VID-OUT bridge unlocked. */
 	XV_HDMITXSS1_LOG_EVT_FRL_START,	/**< Log event HDMITXSS1 FRL Start. */
@@ -263,16 +247,18 @@ typedef enum {
                                                             stream down event */
     XV_HDMITXSS1_HANDLER_STREAM_UP,                         /**< Handler for
                                                             stream up event */
-	XV_HDMITXSS1_HANDLER_FRL_CONFIG,                        /**< Handler for FRL
-	                                                        Config */
-	XV_HDMITXSS1_HANDLER_FRL_FFE,                           /**< Handler for FRL
-	                                                        FFE */
-	XV_HDMITXSS1_HANDLER_FRL_START,                         /**< Handler for FRL
-	                                                        Start */
-	XV_HDMITXSS1_HANDLER_FRL_STOP,                          /**< Handler for FRL
-	                                                        Stop */
-	XV_HDMITXSS1_HANDLER_TMDS_CONFIG,                       /**< Handler for TMDS
-	                                                        Config */
+    XV_HDMITXSS1_HANDLER_ERROR,                             /**< Handler for
+                                                            error event */
+    XV_HDMITXSS1_HANDLER_FRL_CONFIG,                        /**< Handler for FRL
+                                                            Config */
+    XV_HDMITXSS1_HANDLER_FRL_FFE,                           /**< Handler for FRL
+                                                            FFE */
+    XV_HDMITXSS1_HANDLER_FRL_START,                         /**< Handler for FRL
+                                                            Start */
+    XV_HDMITXSS1_HANDLER_FRL_STOP,                          /**< Handler for FRL
+                                                            Stop */
+    XV_HDMITXSS1_HANDLER_TMDS_CONFIG,                       /**< Handler for TMDS
+                                                            Config */
     XV_HDMITXSS1_HANDLER_HDCP_AUTHENTICATED,                /**< Handler for
                                                             HDCP authenticated
                                                             event */
@@ -415,8 +401,11 @@ typedef struct
     XV_HdmiTxSs1_Callback StreamUpCallback; /**< Callback for stream up */
     void *StreamUpRef;  /**< To be passed to the stream up callback */
 
+    XV_HdmiTxSs1_Callback ErrorCallback; /**< Callback for stream up */
+    void *ErrorRef;  /**< To be passed to the stream up callback */
+
     XV_HdmiTxSs1_LogCallback LogWriteCallback; /**< Callback for log write */
-	u32 *LogWriteRef;  /**< To be passed to the log write callback */
+    u32 *LogWriteRef;  /**< To be passed to the log write callback */
 
     XV_HdmiTxSs1_Callback FrlConfigCallback; /**< Callback for stream up */
     void *FrlConfigRef;  /**< To be passed to the stream up callback */
@@ -444,6 +433,9 @@ typedef struct
     u8 AudioEnabled;              /**< HDMI TX Audio Enabled */
     u8 AudioMute;                 /**< HDMI TX Audio Mute */
     u8 AudioChannels;             /**< Number of Audio Channels */
+
+    u8 EnableHDCPLogging;         /**< HDCP Logging Enabling */
+    u8 EnableHDMILogging;         /**< HDMI Logging Enabling */
 
 	XHdmiC_AVI_InfoFrame AVIInfoframe;		/**< AVI InfoFrame */
 	XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
@@ -496,7 +488,7 @@ void XV_HdmiTxSs1_SetGcpClearAvmuteBit(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ClearGcpClearAvmuteBit(XV_HdmiTxSs1 *InstancePtr);
 
 int XV_HdmiTxSs1_SetCallback(XV_HdmiTxSs1 *InstancePtr,
-	u32 HandlerType,
+	XV_HdmiTxSs1_HandlerType HandlerType,
 	void *CallbackFuncPtr,
 	void *CallbackRef);
 int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
@@ -523,10 +515,11 @@ XHdmiC_AVI_InfoFrame *XV_HdmiTxSs1_GetAviInfoframe(XV_HdmiTxSs1 *InstancePtr);
 XHdmiC_AudioInfoFrame *XV_HdmiTxSs1_GetAudioInfoframe(XV_HdmiTxSs1 *InstancePtr);
 XHdmiC_VSIF *XV_HdmiTxSs1_GetVSIF(XV_HdmiTxSs1 *InstancePtr);
 u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
-	XVidC_VideoMode VideoMode,
-	XVidC_ColorFormat ColorFormat,
-	XVidC_ColorDepth Bpc,
-	XVidC_3DInfo *Info3D);
+		XVidC_VideoTiming VideoTiming,
+		XVidC_FrameRate FrameRate,
+		XVidC_ColorFormat ColorFormat,
+		XVidC_ColorDepth Bpc,
+		XVidC_3DInfo *Info3D);
 XVidC_VideoStream *XV_HdmiTxSs1_GetVideoStream(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SetVideoStream(XV_HdmiTxSs1 *InstancePtr,
 				XVidC_VideoStream VidStream);
@@ -543,6 +536,8 @@ u32 XV_HdmiTxSs1_GetTmdsClockFreqHz(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_DetectHdmi20(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_RefClockChangeInit(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ReportInfo(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_DebugInfo(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_RegisterDebug(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_IsStreamUp(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_IsStreamConnected(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_IsStreamToggled(XV_HdmiTxSs1 *InstancePtr);
@@ -558,6 +553,11 @@ void XV_HdmiTxSs1_LogWrite(XV_HdmiTxSs1 *InstancePtr, XV_HdmiTxSs1_LogEvent Evt,
 u16 XV_HdmiTxSs1_LogRead(XV_HdmiTxSs1 *InstancePtr);
 #endif
 void XV_HdmiTxSs1_LogDisplay(XV_HdmiTxSs1 *InstancePtr);
+
+void XV_HdmiTxSs1_ReportCoreInfo(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ReportSubcoreVersion(XV_HdmiTxSs1 *InstancePtr);
 
 
 #ifdef USE_HDCP_TX
