@@ -18,6 +18,14 @@
 *              dd/mm/yy
 * ----- ------ -------- --------------------------------------------------
 * 1.00  YB     11/05/19 Initial release.
+* 1.01  KU     07/07/20 Support for FrameBuffer
+*                       Can use FRL on RX and TMDS on TX
+*                       Video will be clipped if RX resolution in more than
+*                       4K
+*                       Support Revision 2 (Pass 4) of OnSemi retimer
+*                       Menu option updated for EDID and Training based on
+*                       MaxRate configuration
+*                       Added support for 16 BPC
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +124,8 @@ void Hdmiphy1ProcessError(void);
                  defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 void Exdes_CopyRxVidParamstoTx(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
 			       XV_HdmiTxSs1 *HdmiTxSs1Ptr);
+void Exdes_UpdateVidParamstoTx(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
+	       XV_HdmiTxSs1 *HdmiTxSs1Ptr);
 
 #if defined(USE_HDCP_HDMI_RX) || \
 	defined(USE_HDCP_HDMI_TX)
@@ -129,18 +139,12 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 		       XV_FrmbufRd_l2 *RdInstancePtr,
 		       XGpioPs *rstInstancePtr);
 void VidFrameBufRdDone(void *CallbackRef);
-void VidFrameBufRdReady(void *CallbackRef);
 void VidFrameBufWrDone(void *CallbackRef);
-void VidFrameBufWrReady(void *CallbackRef);
+void ResetFrameBuf(u8 fb_reset);
 
-void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
-                          XV_FrmbufRd_l2 *FrmBufRdPtr);
-#ifdef XPAR_XGPIOPS_NUM_INSTANCES
-void ResetVidFrameBufWr(void);
-void ResetVidFrameBufRd(void);
-void EnableScaler(u8 mult);
-void DisableScaler(void);
-#endif
+void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr);
+void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr);
+
 #endif
 
 u32 Exdes_LoadHdcpKeys(void *IicPtr);
@@ -163,6 +167,7 @@ XVfmc           Vfmc[1];
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 /* HDMI TX SS structure */
 XV_HdmiTxSs1    HdmiTxSs;
+u8 HdmiTxErrorFlag = 0;
 
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 /* Test Pattern Generator Structure */
@@ -206,7 +211,7 @@ u8 AuxFifoStartFlag = (FALSE);
 u32 FrWrDoneCounter = 0;
 u32 FrRdDoneCounter = 0;
 
-u8 HdmiTxErrorFlag = 0;
+
 #endif
 
 #ifdef XPAR_XGPIO_NUM_INSTANCES
@@ -257,11 +262,15 @@ Exdes_Debug_Printf exdes_hdcp_debug_print = NULL;
                       (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
 /* Scratch pad for HDMI + Frame Buffer ExDes */
 u8  StartStream = (FALSE);
-u8  CurrWrPage = 0;
-u8  startToRead = FALSE;
-u8  CurrRdPage = 0;
+u8  StartToRead = (FALSE);
 u32 FrameWrCompCnt = 0;
 u32 FrameRdCompCnt = 0;
+u8 fb_cap = 0;
+u8 wr = 1; // start write buffer id
+u8 rd = 3; // start read buffer id
+u32 offset = 0;
+u32 Wr_stride = 0;
+
 
 /* mapping between memory and streaming video formats */
 typedef struct {
@@ -319,7 +328,8 @@ VideoFormats ColorFormats[NUM_MEMORY_COLOR_FORMATS] =
 	{XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YCRCB_444, 10},
 	{XVIDC_CSF_MEM_BGRX8,      XVIDC_CSF_RGB,       8},
 	{XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8},
-	{XVIDC_CSF_MEM_BGR8,       XVIDC_CSF_RGB,       8}
+	{XVIDC_CSF_MEM_BGR8,       XVIDC_CSF_RGB,       8},
+	{XVIDC_CSF_MEM_Y_UV12,     XVIDC_CSF_YCRCB_422, 12}
 };
 #endif
 /************************** Function Definitions *****************************/
@@ -612,6 +622,29 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 
 	memcpy(&(InstancePtr->Edid), &SampleEdid,
 		       sizeof(InstancePtr->Edid));
+
+#if XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 6
+	InstancePtr->Edid[187] = 0x63;
+	InstancePtr->Edid[255] = 0x94;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 5
+	InstancePtr->Edid[187] = 0x53;
+	InstancePtr->Edid[255] = 0xA4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 4
+	InstancePtr->Edid[187] = 0x43;
+	InstancePtr->Edid[255] = 0xB4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 3
+	InstancePtr->Edid[187] = 0x33;
+	InstancePtr->Edid[255] = 0xC4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 2
+	InstancePtr->Edid[187] = 0x23;
+	InstancePtr->Edid[255] = 0xD4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 1
+	InstancePtr->Edid[187] = 0x13;
+	InstancePtr->Edid[255] = 0xE4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 0
+	InstancePtr->Edid[187] = 0x03;
+	InstancePtr->Edid[255] = 0xF4;
+#endif
 
 	/* Get User Edid Info */
 	XV_HdmiRxSs1_SetEdidParam(&HdmiRxSs, (u8*)&(InstancePtr->Edid),
@@ -1023,11 +1056,6 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 			       (void *)VidFrameBufRdDone,
 			       (void *)RdInstancePtr);
 
-	XVFrmbufRd_SetCallback(RdInstancePtr,
-			       XVFRMBUFRD_HANDLER_READY,
-        		       (void *)VidFrameBufRdReady,
-        		       (void *)RdInstancePtr);
-
 	xil_printf("Video Frame Buffer Read Initialization Complete\r\n");
 
 	/* Initialize Video Frame Buffer Write */
@@ -1085,11 +1113,6 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 			       (void *)VidFrameBufWrDone,
 			       (void *)WrInstancePtr);
 
-	XVFrmbufWr_SetCallback(WrInstancePtr,
-			       XVFRMBUFWR_HANDLER_READY,
-			       (void *)VidFrameBufWrReady,
-			       (void *)WrInstancePtr);
-
 	xil_printf("Video Frame Buffer Write Initialization Complete\r\n");
 
 #ifdef XPAR_XGPIOPS_NUM_INSTANCES
@@ -1118,125 +1141,6 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
 	    (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
-#ifdef XPAR_XGPIOPS_NUM_INSTANCES
-/*****************************************************************************/
-/**
-*
-* This function resets the Write Frame Buffer.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note
-*
-******************************************************************************/
-void ResetVidFrameBufWr(void)
-{
-	xil_printf(ANSI_COLOR_RED "Reset HDMI FBWr"ANSI_COLOR_RESET"\r\n");
-	/* reset hdmi frmbuf_wr - change from 80 */
-	XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 78, 0x1);
-	XGpioPs_WritePin(&Gpio_VFRB_resetn, 78, 0);
-	usleep(1000);
-	XGpioPs_WritePin(&Gpio_VFRB_resetn, 78, 1);
-	usleep(1000);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function resets the Read Frame Buffer.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note
-*
-******************************************************************************/
-void ResetVidFrameBufRd(void)
-{
-	xil_printf(ANSI_COLOR_RED "Reset HDMI FBRd"ANSI_COLOR_RESET"\r\n");
-	/* reset frmbuf_rd - change from 81 */
-	XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 79, 0x1);
-	XGpioPs_WritePin(&Gpio_VFRB_resetn, 79, 0);
-	usleep(1000);
-	XGpioPs_WritePin(&Gpio_VFRB_resetn, 79, 1);
-	usleep(1000);
-}
-#endif
-
-#ifdef XPAR_XGPIOPS_NUM_INSTANCES
-/*****************************************************************************/
-/**
-*
-* This function enables the scaler.
-*
-* @param  mult is the scaling multipler.
-*
-* @return None.
-*
-* @note
-*
-******************************************************************************/
-void EnableScaler(u8 mult)
-{
-	switch (mult) {
-	case 4:
-		xil_printf(ANSI_COLOR_RED"Enable 4x Down "
-					 "Scaling"ANSI_COLOR_RESET"\r\n");
-		/* reset frmbuf_rd - change from 81 */
-		XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 80, 0x1);
-		XGpioPs_WritePin(&Gpio_VFRB_resetn, 80, 1);
-		XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 81, 0x1);
-		XGpioPs_WritePin(&Gpio_VFRB_resetn, 81, 1);
-		break;
-
-	case 2:
-		xil_printf(ANSI_COLOR_RED"Enable 2x Down "
-					 "Scaling"ANSI_COLOR_RESET"\r\n");
-		/* reset frmbuf_rd - change from 81 */
-		XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 80, 0x1);
-		XGpioPs_WritePin(&Gpio_VFRB_resetn, 80, 1);
-		XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 81, 0x1);
-		XGpioPs_WritePin(&Gpio_VFRB_resetn, 81, 0);
-		break;
-
-	default:
-		xil_printf(ANSI_COLOR_RED"Disable All Down "
-					 "Scaling"ANSI_COLOR_RESET"\r\n");
-		/* reset frmbuf_rd - change from 81 */
-		XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 80, 0x1);
-		XGpioPs_WritePin(&Gpio_VFRB_resetn, 80, 0);
-		XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 81, 0x1);
-		XGpioPs_WritePin(&Gpio_VFRB_resetn, 81, 0);
-		break;
-	}
-}
-
-/*****************************************************************************/
-/**
-*
-* This function disables the scaler.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note
-*
-******************************************************************************/
-void DisableScaler(void)
-{
-	xil_printf(ANSI_COLOR_RED "Disable All Down "
-				  "Scaling"ANSI_COLOR_RESET"\r\n");
-	/* reset frmbuf_rd - change from 81 */
-	XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 80, 0x1);
-	XGpioPs_WritePin(&Gpio_VFRB_resetn, 80, 0);
-	XGpioPs_SetDirectionPin(&Gpio_VFRB_resetn, 81, 0x1);
-	XGpioPs_WritePin(&Gpio_VFRB_resetn, 81, 0);
-}
-#endif
 
 /*****************************************************************************/
 /**
@@ -1279,13 +1183,25 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
 		/* 3 bytes per pixel (RGB8, YUV8, BGR8) */
 		stride = (((width * 3) + MMWidthBytes - 1) / MMWidthBytes) *
 		         MMWidthBytes;
-	} else {
+	} else if ((Cfmt == XVIDC_CSF_MEM_RGBX10) ||
+	           (Cfmt == XVIDC_CSF_MEM_YUVX10)) {
 		/* 4 bytes per pixel */
 		stride = (((width * 4) + MMWidthBytes - 1) / MMWidthBytes) *
 		         MMWidthBytes;
+	} else if ((Cfmt == XVIDC_CSF_MEM_Y_UV12) ||
+			   (Cfmt == XVIDC_CSF_MEM_Y_UV12_420)) {
+		/* 4 bytes per pixel */
+		stride = ((((width * 3) / 2) + MMWidthBytes - 1) / MMWidthBytes) *
+		         MMWidthBytes;
+	} else if ((Cfmt == XVIDC_CSF_MEM_RGBX12) ||
+			   (Cfmt == XVIDC_CSF_MEM_YUVX12)) {
+		/* 4 bytes per pixel */
+		stride = (((width * 5) + MMWidthBytes - 1) / MMWidthBytes) *
+				 MMWidthBytes;
+	} else {
+		xil_printf ("Unsupported format passed to stride???\r\n");
 	}
 
-	xil_printf ("Stride2: %d\r\n",stride);
 	return(stride);
 }
 
@@ -1302,27 +1218,28 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
 * @note
 *
 ******************************************************************************/
-void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
-                          XV_FrmbufRd_l2 *FrmBufRdPtr)
+void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 {
 
-	xil_printf(ANSI_COLOR_GREEN"XV_ConfigVidFrameBuf "
-				   "Start!"ANSI_COLOR_RESET"\r\n");
-
-	XV_FrmbufWr_l2        *pFrameBufWr = FrmBufWrPtr;
 	XV_FrmbufRd_l2        *pFrameBufRd = FrmBufRdPtr;
-
 	u32                   Status, width, height, stride;
 	XVidC_VideoStream     *HdmiTxSsVidStreamPtr;
 	XVidC_VideoMode       VideoMode;
 	XVidC_ColorFormat     MemColorFmt;
 
+	offset = 0;
+	StartToRead = FALSE;
+
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
 #endif
 
+	xil_printf(ANSI_COLOR_GREEN"XV_ConfigVidFrameBuf_rd "
+				   "Start!"ANSI_COLOR_RESET"\r\n");
+
 	/* Set Value */
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs1_GetVideoStream(&HdmiTxSs);
+
 	VideoMode = HdmiTxSsVidStreamPtr->VmId;
 
 	/* If Color bar, the 480i/576i HActive need to be divided by 2 */
@@ -1344,10 +1261,11 @@ void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
 		}
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	} else {
-		/* Get the Current HDMI RX AVI Info Frame
-		* As this design is pass-through, is save to read the incoming
-		* stream Info frame
-		*/
+		/*
+		 * Get the Current HDMI RX AVI Info Frame
+		 * As this design is pass-through, is save to read the incoming
+		 * stream Info frame
+		 */
 		AVIInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(&HdmiRxSs);
 
 		/* If the incoming (HDMI RX) info frame (pixel repetition) = 2
@@ -1367,105 +1285,290 @@ void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
 #endif
 
 	/* Set Start Address of the Buffer */
-	/* FrameWrAddr = DDR_BASE_ADDRESS;
-	 * FrameRdAddr = DDR_BASE_ADDRESS;
-	 */
-	StartStream = (FALSE);
-	FrameWrCompCnt = 0;
 	FrameRdCompCnt = 0;
-	CurrRdPage = 0;
-	CurrWrPage = 0;
-
-	/* Initialize Buffer */
-	for (u8 i = 0; i < 5; i++) {
-		/* VidBuff[i].PageStat = EMPTY; */
-		VidBuff[i].BaseAddr = DDR_BASE_ADDRESS + ((0x10000000) * (i + 1));
-		VidBuff[i].ChromaBaseAddr = VidBuff[i].BaseAddr + (0x05000000U);
-		/* VidBuff[i].State = XV_FBSTATE_UNINITIALIZED;
-		 * VidBuff[i].wr_done = (FALSE);
-		 * VidBuff[i].rd_done = (TRUE);
-		 */
-	}
 
 	/* Update the width and height */
 	HdmiTxSsVidStreamPtr->Timing.HActive = width;
 	HdmiTxSsVidStreamPtr->Timing.VActive = height;
 
 	/* Map Stream Color Format with Memory Color Format */
-	/* if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10) {
-	 *	switch(HdmiTxSsVidStreamPtr->ColorFormatId) {
-	 *	case XVIDC_CSF_RGB:
-	 *		MemColorFmt = XVIDC_CSF_MEM_RGBX10;
-	 *		break;
-	 *	case XVIDC_CSF_YCRCB_444:
-	 *		MemColorFmt = XVIDC_CSF_MEM_YUVX10;
-	 *		break;
-	 *	case XVIDC_CSF_YCRCB_422:
-	 *		MemColorFmt = XVIDC_CSF_MEM_Y_UV10;
-	 *		break;
-	 *	case XVIDC_CSF_YCRCB_420:
-	 *		MemColorFmt = XVIDC_CSF_MEM_Y_UV10_420;
-	 *		break;
-	 *	/\* Default always RGB *\/
-	 *	default:
-	 *		MemColorFmt = XVIDC_CSF_MEM_RGBX10;
-	 *		break;
-	 *	}
-	 * } else {
-	 */
-	/* } */
 	switch (HdmiTxSsVidStreamPtr->ColorFormatId) {
 		case XVIDC_CSF_RGB:
-			MemColorFmt = XVIDC_CSF_MEM_RGB8;
+			if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) {
+				MemColorFmt = XVIDC_CSF_MEM_RGB8;
+			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10) {
+				MemColorFmt = XVIDC_CSF_MEM_RGBX10;
+			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+				MemColorFmt = XVIDC_CSF_MEM_RGBX12;
+			}
 			break;
 		case XVIDC_CSF_YCRCB_444:
-			MemColorFmt = XVIDC_CSF_MEM_YUV8;
+			if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) {
+				MemColorFmt = XVIDC_CSF_MEM_YUV8;
+			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10) {
+				MemColorFmt = XVIDC_CSF_MEM_YUVX10;
+			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+				MemColorFmt = XVIDC_CSF_MEM_YUVX12;
+			}
 			break;
 		case XVIDC_CSF_YCRCB_422:
-			MemColorFmt = XVIDC_CSF_MEM_Y_UV8;
+			//always 12bpc
+			MemColorFmt = XVIDC_CSF_MEM_Y_UV12; //XVIDC_CSF_MEM_Y_UV8;
 			break;
 		case XVIDC_CSF_YCRCB_420:
-			MemColorFmt = XVIDC_CSF_MEM_Y_UV8_420;
+			if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) {
+				MemColorFmt = XVIDC_CSF_MEM_Y_UV8_420;
+			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10) {
+				MemColorFmt = XVIDC_CSF_MEM_Y_UV10_420;
+			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+				MemColorFmt = XVIDC_CSF_MEM_Y_UV12_420;
+			}
 			break;
 		default:
 			MemColorFmt = XVIDC_CSF_MEM_RGB8;
 			break;
 	}
 
-	xil_printf("MemColorFrmt: %d\r\n", MemColorFmt);
-	xil_printf("StreamColorFrmt: %d\r\n",
-				HdmiTxSsVidStreamPtr->ColorFormatId);
-	xil_printf("ColorDepth: %d\r\n", HdmiTxSsVidStreamPtr->ColorDepth);
-
-	/* Calculate the Stride */
-	stride = CalcStride(MemColorFmt,
-			    pFrameBufWr->FrmbufWr.Config.AXIMMDataWidth,
-			    HdmiTxSsVidStreamPtr);
-
 	XVFrmbufRd_Stop(pFrameBufRd);
-	XVFrmbufWr_Stop(pFrameBufWr);
-	/* Reset Frame Buffer Write */
-	ResetVidFrameBufWr();
-	/* Reset Frame Buffer Read */
-	ResetVidFrameBufRd();
-
-	Status = XVFrmbufWr_WaitForIdle(pFrameBufWr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Frame Buffer Write not Idle\r\n");
-	}
+	ResetFrameBuf(0x1);
 
 	Status = XVFrmbufRd_WaitForIdle(pFrameBufRd);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Frame Buffer Read not Idle\r\n");
 	}
 
+	/* Initialize Frame Buffer Read on Pass-through */
+	/* Calculate the Stride */
+	stride = CalcStride(MemColorFmt,
+			    pFrameBufRd->FrmbufRd.Config.AXIMMDataWidth,
+			    HdmiTxSsVidStreamPtr);
+
+	/* When crop to TMDS use the stride of Wr FB */
+	if (xhdmi_exdes_ctrlr.crop &&
+			HdmiTxSs.HdmiTx1Ptr->Stream.IsFrl != TRUE) {
+		stride = Wr_stride;
+	}
+
+	/* Configure Frame Buffer Read */
+	Status = XVFrmbufRd_SetMemFormat(pFrameBufRd,
+					 stride,
+					 MemColorFmt,
+					 HdmiTxSsVidStreamPtr);
+
+	if (Status != XST_SUCCESS) {
+		xil_printf ("XVFrmbufRd_SetMemFormat Failed: %d\r\n", Status);
+		return;
+	}
+
+	/* Set Buffer Base Address */
+	XVFrmbufRd_SetBufferAddr(pFrameBufRd, VidBuff[rd].BaseAddr);
+
+	/* Set Chroma Buffer Base Address */
+	if (HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422 ||
+	    HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
+		XVFrmbufRd_SetChromaBufferAddr(pFrameBufRd,
+					       VidBuff[rd].ChromaBaseAddr);
+	}
+
+	/* Enable Frame Buffer Read Interrupt */
+	XVFrmbufRd_InterruptEnable(pFrameBufRd,
+				   (XVFRMBUFRD_IRQ_DONE_MASK |
+				    XVFRMBUFRD_IRQ_READY_MASK));
+
+	XV_frmbufrd_EnableAutoRestart(&FrameBufRd.FrmbufRd);
+	XVFrmbufRd_Start(pFrameBufRd);
+
+	StartToRead = TRUE;
+
+	xil_printf(ANSI_COLOR_GREEN"XV_ConfigVidFrameBuf "
+				   "End!"ANSI_COLOR_RESET"\r\n");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures the frames buffer(s).
+*
+* @param  FrmBufWrPtr is the write frame buffer.
+* @param  FrmBufRdPtr is the read frame buffer.
+*
+* @return None.
+*
+* @note
+*
+******************************************************************************/
+void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
+{
+
+	XV_FrmbufWr_l2        *pFrameBufWr = FrmBufWrPtr;
+
+	u32                   Status, width, height, stride;
+	XVidC_VideoStream     *HdmiRxSsVidStreamPtr;
+	XVidC_VideoMode       VideoMode;
+	XVidC_ColorFormat     MemColorFmt;
+
+	u32 hdmi20_limit = 0;
+	u8 bits_per_comp = 0;
+	u8 bits_per_comp_div = 0;
+
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
+#endif
+
+	xil_printf(ANSI_COLOR_GREEN"XV_ConfigVidFrameBuf_wr "
+				   "Start!"ANSI_COLOR_RESET"\r\n");
+
+	/* Set Value */
+	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
+	VideoMode = HdmiRxSsVidStreamPtr->VmId;
+
+	/* If Color bar, the 480i/576i HActive need to be divided by 2 */
+	/* 1440x480i/1440x576i --> 720x480i/720x576i */
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	if (xhdmi_exdes_ctrlr.ForceIndependent == TRUE) {
+#endif
+		/* NTSC/PAL Support */
+		if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
+		    (VideoMode == XVIDC_VM_1440x576_50_I) ) {
+			width  = HdmiRxSsVidStreamPtr->Timing.HActive/2;
+			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+		} else {
+			/* If not NTSC/PAL, the HActive,
+			* and VActive remain as it is
+			*/
+			width  = HdmiRxSsVidStreamPtr->Timing.HActive;
+			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+		}
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	} else {
+		/* Get the Current HDMI RX AVI Info Frame
+		* As this design is pass-through, is save to read the incoming
+		* stream Info frame
+		*/
+		AVIInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(&HdmiRxSs);
+
+		/* If the incoming (HDMI RX) info frame (pixel repetition) = 2
+		* The 480i/576i HActive need to be divided by 2
+		*/
+		if (AVIInfoFramePtr->PixelRepetition ==
+		    XHDMIC_PIXEL_REPETITION_FACTOR_2) {
+			width  = HdmiRxSsVidStreamPtr->Timing.HActive/2;
+			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+		} else {
+			/* If Pixel Repetition != 2, the HActive, and VActive
+			* remain as it is */
+			width  = HdmiRxSsVidStreamPtr->Timing.HActive;
+			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+		}
+	}
+#endif
+
+	/* Set Start Address of the Buffer */
+	StartStream = (FALSE);
+	FrameWrCompCnt = 0;
+
+	/* Initialize Buffer */
+	for (u8 i = 0; i < 5; i++) {
+		VidBuff[i].BaseAddr = DDR_BASE_ADDRESS + ((0x10000000) * (i + 1));
+		VidBuff[i].ChromaBaseAddr = VidBuff[i].BaseAddr + (0x05000000U);
+	}
+
+	/* Update the width and height */
+	HdmiRxSsVidStreamPtr->Timing.HActive = width;
+	HdmiRxSsVidStreamPtr->Timing.VActive = height;
+
+	/* Map Stream Color Format with Memory Color Format */
+	switch (HdmiRxSsVidStreamPtr->ColorFormatId) {
+		case XVIDC_CSF_RGB:
+			bits_per_comp = 3;
+			bits_per_comp_div = 1;
+			if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) {
+				MemColorFmt = XVIDC_CSF_MEM_RGB8;
+			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10) {
+				MemColorFmt = XVIDC_CSF_MEM_RGBX10;
+			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+				MemColorFmt = XVIDC_CSF_MEM_RGBX12;
+			}
+			break;
+		case XVIDC_CSF_YCRCB_444:
+			bits_per_comp = 3;
+			bits_per_comp_div = 1;
+
+			if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) {
+				MemColorFmt = XVIDC_CSF_MEM_YUV8;
+			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10) {
+				MemColorFmt = XVIDC_CSF_MEM_YUVX10;
+			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+				MemColorFmt = XVIDC_CSF_MEM_YUVX12;
+			}
+			break;
+		case XVIDC_CSF_YCRCB_422:
+			bits_per_comp = 2;
+			bits_per_comp_div = 1;
+			/* always 12bpc */
+			MemColorFmt = XVIDC_CSF_MEM_Y_UV12;
+			break;
+		case XVIDC_CSF_YCRCB_420:
+			bits_per_comp = 3;
+			bits_per_comp_div = 2;
+
+			if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) {
+				MemColorFmt = XVIDC_CSF_MEM_Y_UV8_420;
+			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10) {
+				MemColorFmt = XVIDC_CSF_MEM_Y_UV10_420;
+			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+				MemColorFmt = XVIDC_CSF_MEM_Y_UV12_420;
+			}
+			break;
+		default:
+			MemColorFmt = XVIDC_CSF_MEM_RGB8;
+			break;
+	}
+
+	hdmi20_limit = (HdmiRxSsVidStreamPtr->Timing.HTotal * HdmiRxSsVidStreamPtr->Timing.F0PVTotal *
+			HdmiRxSsVidStreamPtr->FrameRate) / 1000;
+	hdmi20_limit = (hdmi20_limit * HdmiRxSsVidStreamPtr->ColorDepth);
+	hdmi20_limit = (hdmi20_limit * bits_per_comp) / bits_per_comp_div;
+	hdmi20_limit = hdmi20_limit * 10 /8;
+
+    /* Bandwidth of the incoming video is calculated above
+     * If this BW exceeds 18G and the TX is non FRL then the
+     * flag crop is set.
+     * The TX TMDS will only display 4K video
+     */
+
+	if ((hdmi20_limit < 18000000) ||
+			(xhdmi_exdes_ctrlr.IsTxPresent && HdmiTxSs.HdmiTx1Ptr->Stream.IsFrl)){
+		/* Video possible to be sent over TMDS */
+		xhdmi_exdes_ctrlr.crop = FALSE;
+	} else {
+		/* Video not possible to be sent over TMDS */
+		xhdmi_exdes_ctrlr.crop = TRUE;
+	}
+
+	XVFrmbufWr_Stop(pFrameBufWr);
+	ResetFrameBuf(0x0);
+	HdmiRxSsVidStreamPtr->Timing.HActive = width;
+	HdmiRxSsVidStreamPtr->Timing.VActive = height;
+
+	/* Reset Frame Buffer Write */
+	Status = XVFrmbufWr_WaitForIdle(pFrameBufWr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Frame Buffer Write not Idle\r\n");
+	}
+
 	/* Initialize Frame Buffer Write only on Pass-through */
+	/* Calculate the Stride */
+	stride = CalcStride(MemColorFmt,
+			    pFrameBufWr->FrmbufWr.Config.AXIMMDataWidth,
+			    HdmiRxSsVidStreamPtr);
+	Wr_stride = stride;
 
 	/* Configure Frame Buffer Write */
 	Status = XVFrmbufWr_SetMemFormat(pFrameBufWr,
 					 stride,
 					 MemColorFmt,
-					 HdmiTxSsVidStreamPtr);
+					 HdmiRxSsVidStreamPtr);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf ("XVFrmbufWr_SetMemFormat Failed: %d\r\n", Status);
@@ -1476,12 +1579,10 @@ void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
 	XVFrmbufWr_SetBufferAddr(pFrameBufWr, VidBuff[0].BaseAddr);
 
 	/* Set Chroma Buffer Base Address */
-	if (HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422 ||
-	    HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422 ||
+	    HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
 		XVFrmbufWr_SetChromaBufferAddr(pFrameBufWr,
 					       VidBuff[0].ChromaBaseAddr);
-	} else {
-		/* XVFrmbufWr_SetChromaBufferAddr(pFrameBufWr, 0x0); */
 	}
 
 	/* Enable Frame Buffer Write Interrupt */
@@ -1489,33 +1590,11 @@ void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
 				   (XVFRMBUFWR_IRQ_DONE_MASK |
 				    XVFRMBUFWR_IRQ_READY_MASK));
 
-	VidBuff[0].State = XV_FBSTATE_FRESH_F1_WRITE;
-	VidBuff[1].State = XV_FBSTATE_UNINITIALIZED;
-	VidBuff[2].State = XV_FBSTATE_UNINITIALIZED;
+	/* Start Frame Buffer Write */
+	XV_frmbufwr_EnableAutoRestart(&FrameBufWr.FrmbufWr);
+	XVFrmbufWr_Start(pFrameBufWr);
 
-	if (stopFBWrFlag != TRUE) {
-		/* Start Frame Buffer Write */
-		XVFrmbufWr_Start(pFrameBufWr);
-	}
-
-	/* Configure Frame Buffer Read */
-	Status = XVFrmbufRd_SetMemFormat(pFrameBufRd,
-					 stride,
-					 MemColorFmt,
-					 HdmiTxSsVidStreamPtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf ("XVFrmbufRd_SetMemFormat Failed: %d\r\n", Status);
-		return;
-	}
-
-	StartStream = (FALSE);
-
-	/* Enable Frame Buffer Read Interrupt */
-	XVFrmbufRd_InterruptEnable(pFrameBufRd,
-				   (XVFRMBUFRD_IRQ_DONE_MASK |
-				    XVFRMBUFRD_IRQ_READY_MASK));
-
-	xil_printf(ANSI_COLOR_GREEN"XV_ConfigVidFrameBuf "
+	xil_printf(ANSI_COLOR_GREEN"XV_ConfigVidFrameBuf Wr "
 				   "End!"ANSI_COLOR_RESET"\r\n");
 }
 
@@ -1533,32 +1612,8 @@ void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
 ******************************************************************************/
 void VidFrameBufRdDone(void *CallbackRef)
 {
-	FrRdDoneCounter++;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the Video Frame Buffer Read Ready
-*
-* @param  CallbackRef is the reference passes to this function.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void VidFrameBufRdReady(void *CallbackRef)
-{
-	CurrRdPage = 0;
-
-	/* Set Buffer Base Address */
-	XVFrmbufRd_SetBufferAddr(&FrameBufRd, VidBuff[CurrRdPage].BaseAddr);
-
-	/* Set Chroma Buffer Base Address */
-	XVFrmbufRd_SetChromaBufferAddr(&FrameBufRd,
-				       VidBuff[CurrRdPage].ChromaBaseAddr);
-
+		/* Read Buffer Address is decided in Wr interrupt for simplicity */
+		FrRdDoneCounter++;
 }
 
 /*****************************************************************************/
@@ -1577,59 +1632,36 @@ void VidFrameBufRdReady(void *CallbackRef)
 ******************************************************************************/
 void VidFrameBufWrDone(void *CallbackRef)
 {
-	CurrRdPage = 0;
+		u8 CurrWrPage = wr;
+		u8 CurrRdPage = rd;
 
-	/* One time process @ After 2nd Frame Complete */
-	if (StartStream != (TRUE)) {
-		StartStream = (TRUE);
+		if (CurrWrPage == 3) {
+			wr = 0;
+		} else {
+			wr++;
+		}
 
-		VidBuff[0].State = XV_FBSTATE_FRESH_F0_READ;
+		if (CurrRdPage == 3) {
+			rd = 0;
+		} else {
+			rd++;
+		}
 
-		/* Set Buffer Base Address */
-		XVFrmbufRd_SetBufferAddr(&FrameBufRd, VidBuff[0].BaseAddr);
+		/* Writing the Buf Addr for FB Write */
+		XVFrmbufWr_SetBufferAddr(&FrameBufWr, VidBuff[wr].BaseAddr);
+		XVFrmbufWr_SetChromaBufferAddr(&FrameBufWr,
+						   VidBuff[wr].ChromaBaseAddr);
 
-		/* Set Chroma Buffer Base Address */
-		XVFrmbufRd_SetChromaBufferAddr(&FrameBufRd,
-					       VidBuff[0].ChromaBaseAddr);
-
-		/* Start Frame Buffer Read */
-		XVFrmbufRd_Start(&FrameBufRd);
-
-		XVFrmbufRd_InterruptDisable(&FrameBufRd,
-					    (XVFRMBUFRD_IRQ_DONE_MASK |
-					     XVFRMBUFRD_IRQ_READY_MASK));
-		XVFrmbufWr_InterruptDisable(&FrameBufWr,
-					    (XVFRMBUFWR_IRQ_DONE_MASK |
-					     XVFRMBUFWR_IRQ_READY_MASK));
-	}
-
-	FrWrDoneCounter++;
+		/* Writing the Buf Addr for FB Read */
+		if (StartToRead) {
+			XVFrmbufRd_SetBufferAddr(&FrameBufRd,
+							(VidBuff[rd].BaseAddr + offset));
+			XVFrmbufRd_SetChromaBufferAddr(&FrameBufRd,
+						   (VidBuff[rd].ChromaBaseAddr + offset));
+		}
+		FrWrDoneCounter++;
 }
 
-/*****************************************************************************/
-/**
-*
-* This function is called when the Video Frame Buffer Write
-* "ap_ready" is triggered after the core is ready to start processing the next
-*
-* @param  CallbackRef is the reference passes to this function.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void VidFrameBufWrReady(void *CallbackRef)
-{
-	CurrWrPage = 0;
-
-	XVFrmbufWr_SetBufferAddr(&FrameBufWr,
-					  VidBuff[CurrWrPage].BaseAddr);
-
-	XVFrmbufWr_SetChromaBufferAddr(&FrameBufWr,
-					VidBuff[CurrWrPage].ChromaBaseAddr);
-
-}
 #endif
 #endif
 
@@ -1743,6 +1775,53 @@ void Exdes_CopyRxVidParamstoTx(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
 	/* Copy video parameters */
 	*HdmiTxSsVidStreamPtr = *HdmiRxSsVidStreamPtr;
 }
+
+
+/*****************************************************************************/
+/**
+*
+* This function updates the TX with new stream values. When RX is in FRL mode
+* and TX is in TMDS Mode. TMDS is fixed at 4K@30 so that a portion of
+* RX video can be displayed.
+*
+* @param  XV_HdmiRxSs1 is the instance of the HDMI 2.1 RX controller.
+* @param  XV_HdmiTxSs1 is the instance of the HDMI 2.1 TX controller.
+*
+* @return None.
+*
+* @note   This API can alternatively be implemented as a generic API in the
+*         HDMI 2.1 TX interrupt controlling layer.
+*         An example of such an API maybe,
+*         XV_Tx_SetVidStream(XV_Tx *InstancePtr,
+*                            XVidC_VideoStream *VidStreamPtr)
+*
+******************************************************************************/
+
+
+void Exdes_UpdateVidParamstoTx(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
+		XV_HdmiTxSs1 *HdmiTxSs1Ptr)
+{
+
+	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
+	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
+	const XVidC_VideoTimingMode *VidStreamPtr;
+
+
+	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(HdmiRxSs1Ptr);
+	HdmiTxSsVidStreamPtr = XV_HdmiTxSs1_GetVideoStream(HdmiTxSs1Ptr);
+
+	/* Copy video parameters */
+	*HdmiTxSsVidStreamPtr = *HdmiRxSsVidStreamPtr;
+	HdmiTxSsVidStreamPtr->VmId = XVIDC_VM_3840x2160_30_P;
+
+	VidStreamPtr = XVidC_GetVideoModeData(HdmiTxSsVidStreamPtr->VmId);
+
+	/* Set the new parameters in the video stream. */
+	HdmiTxSsVidStreamPtr->Timing = VidStreamPtr->Timing;
+	HdmiTxSsVidStreamPtr->FrameRate = VidStreamPtr->FrameRate;
+
+}
+
 #endif
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 /*****************************************************************************/
@@ -2620,6 +2699,11 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs1_GetVideoStream(&HdmiTxSs);
 	XVidC_VideoMode	CurrentVmId = HdmiTxSsVidStreamPtr->VmId;
 
+	/* There is no need to crop when TX is FRL */
+	if (xhdmi_exdes_ctrlr.IsTxPresent && HdmiTxSs.HdmiTx1Ptr->Stream.IsFrl) {
+		xhdmi_exdes_ctrlr.crop = FALSE;
+	}
+
 	EXDES_AUXFIFO_DBG_PRINT("%s,%d: Aux Fifo Reset \r\n",
 				__func__, __LINE__);
 	ResetAuxFifo();
@@ -2627,7 +2711,11 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 	/* Mute any RX stream.
 	 * Important to do this here - without this, we will get
 	 * overwhelmed with RX Bridge Overflow interrupts. */
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+#else
 	XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
+#endif
 	EXDES_DBG_PRINT("%s,%d: Rx VRST - true \r\n", __func__, __LINE__);
 #endif
 	switch (TxInputSrc) {
@@ -2689,15 +2777,27 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 		 */
 
 		/* Copy the RX video parameters to TX. */
-		Exdes_CopyRxVidParamstoTx(&HdmiRxSs, &HdmiTxSs);
+		if (xhdmi_exdes_ctrlr.crop) {
+			/* this means RX is FRL with larger video than TMDS can support
+			 * TX video set to 4K@30
+			 */
+			Exdes_UpdateVidParamstoTx(&HdmiRxSs, &HdmiTxSs);
+		} else {
+			Exdes_CopyRxVidParamstoTx(&HdmiRxSs, &HdmiTxSs);
+			XV_Tx_SetVic(&xhdmi_example_tx_controller,
+					XV_HdmiRxSs1_GetVideoIDCode(&HdmiRxSs));
+			xil_printf(ANSI_COLOR_YELLOW "Entering pass-thru. Setting"
+					" TX stream to RX stream. Rx.IsFrl = %d\r\n"
+					ANSI_COLOR_RESET "\r\n",
+					XV_HdmiRxSs1_GetTransportMode(&HdmiRxSs));
 
-		XV_Tx_SetVic(&xhdmi_example_tx_controller,
-				XV_HdmiRxSs1_GetVideoIDCode(&HdmiRxSs));
-		xil_printf(ANSI_COLOR_YELLOW "Entering pass-thru. Setting"
-				" TX stream to RX stream. Rx.IsFrl = %d\r\n"
-				ANSI_COLOR_RESET "\r\n",
-				XV_HdmiRxSs1_GetTransportMode(&HdmiRxSs));
-		LineRate = XV_Rx_GetLineRate(&xhdmi_example_rx_controller);
+		}
+
+		if (xhdmi_exdes_ctrlr.crop)
+			LineRate = 0;
+		else
+			LineRate = XV_Rx_GetLineRate(&xhdmi_example_rx_controller);
+
 		/* Check GT line rate
 		 * For 4k60pm Tmds clock ratio should be set to 1 and
 		 * scrambler should be enabled.
@@ -2706,8 +2806,15 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 		 */
 		XV_Tx_SetLineRate(&xhdmi_example_tx_controller, LineRate);
 
+		/* Set the FRL Cke source to Internal as this has FB. */
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+		/* Set the FRL Cke source to Internal as this has FB. */
+		XV_Tx_SetFRLCkeSrcToExternal(xhdmi_exdes_ctrlr.hdmi_tx_ctlr, FALSE);
+#else
 		/* Set the FRL Cke source to external. */
 		XV_Tx_SetFRLCkeSrcToExternal(xhdmi_exdes_ctrlr.hdmi_tx_ctlr, TRUE);
+#endif
 
 		break;
 #endif
@@ -2803,11 +2910,20 @@ TxInputSourceType Exdes_DetermineTxSrc()
 			if (XV_HdmiRxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->HdmiRxSs) ==
 					XV_HdmiTxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs)) {
 			} else {
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+				xil_printf(ANSI_COLOR_YELLOW "RX and TX"
+						" transport mode (FRL or TMDS)"
+						" mismatch. Video may be cropped to match"
+						" TMDS bandwidth\r\n."
+						ANSI_COLOR_RESET);
+#else
 				xil_printf(ANSI_COLOR_YELLOW "RX and TX"
 						" transport mode (FRL or TMDS)"
 						" mismatch. Please set them"
 						" to the same transport mode."
 						ANSI_COLOR_RESET);
+#endif
 			}
 			TxInputSrc = EXDES_TX_INPUT_RX;
 		}
@@ -2857,6 +2973,53 @@ void CloneTxEdid(void)
 }
 
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
+/*****************************************************************************/
+/**
+*
+* This function resets the TPG.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void ResetFrameBuf(u8 fb_reset)
+{
+	u32 RegValue;
+	/*
+	 * fb_reset 0 or 2 resets wr fb
+	 * fb_reset 1 or 2 resets rd fb
+	 */
+
+	if (fb_reset == 0 || fb_reset == 2) {
+		RegValue = XGpio_DiscreteRead(&Gpio_Tpg_resetn, 2);
+
+		XGpio_SetDataDirection(&Gpio_Tpg_resetn, 2, 0);
+		XGpio_DiscreteWrite(&Gpio_Tpg_resetn, 2, RegValue&0xE);
+		usleep(1000);
+
+		XGpio_DiscreteWrite(&Gpio_Tpg_resetn, 2, RegValue|0x1);
+		usleep(1000);
+	}
+
+	if (fb_reset == 1 || fb_reset == 2) {
+		RegValue = XGpio_DiscreteRead(&Gpio_Tpg_resetn, 2);
+
+		XGpio_SetDataDirection(&Gpio_Tpg_resetn, 2, 0);
+		XGpio_DiscreteWrite(&Gpio_Tpg_resetn, 2, RegValue&0xD);
+		usleep(1000);
+
+		XGpio_DiscreteWrite(&Gpio_Tpg_resetn, 2, RegValue|0x2);
+		usleep(1000);
+	}
+
+}
+
+
+
+
 /*****************************************************************************/
 /**
 *
@@ -3564,11 +3727,11 @@ static void XHdcp_EnforceBlanking(XV_Rx *UpstreamInstancePtr,
 			 * Allow content under the following conditions:
 			 * - Stream type is 0
 			 * - Stream type is 1, and no HDCP 1.x devices are downstream,
-			 *   and no HDCP 2.0 repeaters are downstream. */
+			 *   and no HDCP2 legacy devices are downstream. */
 			case XV_HDMITXSS1_HDCP_22:
 				Status = XV_HdmiTxSs1_HdcpGetTopologyField(
 						DownstreamInstancePtr->HdmiTxSs,
-						XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+						XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
 				Status |= XV_HdmiTxSs1_HdcpGetTopologyField(
 						DownstreamInstancePtr->HdmiTxSs,
 						XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);
@@ -3838,9 +4001,26 @@ void XV_Tx_HdmiTrigCb_SetupTxTmdsRefClk(void *InstancePtr)
 		 * Hdmi Rx Reference clock and a multiplying factor
 		 * of the Tx oversampling rate.
 		 */
+
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+		if (XV_HdmiRxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->HdmiRxSs) ==
+				XV_HdmiTxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs)) {
+			Status = I2cClk(0,
+					(XV_TxInst->VidPhy->HdmiRxRefClkHz *
+					 XV_TxInst->VidPhy->HdmiTxSampleRate));
+		} else if (xhdmi_exdes_ctrlr.crop &&
+				XV_HdmiRxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->HdmiRxSs)) {
+				Status = I2cClk(0,XV_TxInst->VidPhy->HdmiTxRefClkHz);
+
+		} else {
+			Status = I2cClk(0,XV_TxInst->VidPhy->HdmiTxRefClkHz);
+		}
+#else
 		Status = I2cClk(XV_TxInst->VidPhy->HdmiRxRefClkHz,
 				(XV_TxInst->VidPhy->HdmiRxRefClkHz *
 				 XV_TxInst->VidPhy->HdmiTxSampleRate));
+#endif
 	} else if ((xhdmi_exdes_ctrlr.ForceIndependent == FALSE) && !IsRx && IsTx) {
 		EXDES_DBG_PRINT("%s : triggering tx reference "
 				"clock in colorbar \r\n", __func__);
@@ -3958,7 +4138,12 @@ void XV_Tx_HdmiTrigCb_SetupAudioVideo(void *InstancePtr)
 #if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	} else {
 		if (IsRx && IsTx) {
-			Exdes_CopyRxAVIInfoFrameToTx();
+			if (xhdmi_exdes_ctrlr.crop &&
+					!XV_HdmiTxSs1_GetTransportMode(&HdmiTxSs)) {
+				Exdes_UpdateAviInfoFrame(HdmiTxSsVidStreamPtr);
+			} else {
+				Exdes_CopyRxAVIInfoFrameToTx();
+			}
 			Exdes_ConfigureTpgEnableInput(TRUE);
 			Exdes_AudioConfig_Passthru();
 		} else if (!IsRx && IsTx) {
@@ -3995,8 +4180,11 @@ void XV_Tx_HdmiTrigCb_StreamOn(void *InstancePtr)
 		 * from the TPG as RX data is not forwarded to TX. */
 		EXDES_DBG_PRINT("%s,%d: Rx VRST - true \r\n",
 				__func__, __LINE__);
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+#else
 		XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
-
+#endif
 		xil_printf("Tx stream is up independently from Rx \r\n");
 		xil_printf("--------\r\nIndependent TX :\r\n");
 	} else {
@@ -4010,7 +4198,7 @@ void XV_Tx_HdmiTrigCb_StreamOn(void *InstancePtr)
 			xil_printf("%s,%d: Config Video Frame Buffer - "
 				   "True \r\n", __func__, __LINE__);
 			/* Config and Run the Video Frame Buffer */
-			XV_ConfigVidFrameBuf(&FrameBufWr, &FrameBufRd);
+			XV_ConfigVidFrameBuf_rd(&FrameBufRd);
 #endif
 			XV_HdmiRxSs1_VRST(&HdmiRxSs, FALSE);
 
@@ -4128,10 +4316,12 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 							     FALSE,
 							     TxLineRate);
 
+#if defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCU118) || \
+	defined (XPS_BOARD_ZCU102)
 			/* Adjust GT TX Diff Swing based on Line rate */
-			if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0 ||
-				Vfmc[0].TxMezzType ==
-						VFMC_MEZZ_HDMI_ONSEMI_R1) {
+			if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R0 &&
+				Vfmc[0].TxMezzType <  VFMC_MEZZ_INVALID) {
 				/*Convert Line Rate to Mbps */
 				TxLineRate = (u32)((u64) TxLineRate / 1000000);
 
@@ -4144,7 +4334,7 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 						 * 963 mV */
 						TxDiffSwingVal = 0xE;
 					}
-					else if (Vfmc[0].TxMezzType ==
+					else if (Vfmc[0].TxMezzType >=
 						VFMC_MEZZ_HDMI_ONSEMI_R1) {
 						/* Set Tx Diff Swing to
 						 * 1000 mV */
@@ -4170,6 +4360,7 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 								TxDiffSwingVal);
 				}
 			}
+#endif
 		}
 	}
 }
@@ -4241,38 +4432,41 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 					     LineRate);
 
 	/* Adjust GT TX Diff Swing based on Mode */
-	if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0) {
-		/* Set TxDiffSwing to 921 mV for all channels */
-		for (int ChId=1; ChId <= 4; ChId++) {
+	for (int ChId=1; ChId <= 4; ChId++) {
+		if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0) {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xD);
+			Data = 0xD;
 #elif defined (XPS_BOARD_VCU118)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1,
-				0, ChId, ChId==4 ? 0x1C : 0x1A);
+			Data = ChId==4 ? 0x1C : 0x1A;
 #endif
-		}
-	} else if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
-#if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
-		if (LineRate >= (u64)5940000000) {
-			/* Set TxDiffSwing to 1000 mV for all channels */
-			Data = 0xF;
-		} else {
-			/* Set TxDiffSwing to 1000 mV for all channels */
-			Data = 0xF;
-		}
-#endif
-		for (int ChId=1; ChId <= 4; ChId++) {
+		} else if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
 #if defined (XPS_BOARD_ZCU106)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, Data);
+			/* Set TxDiffSwing to 1000 mV for all channels */
+			Data = 0xF;
 #elif defined (XPS_BOARD_VCU118)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1,
-				0, ChId, ChId==4 ? 0x1C : 0x1A);
+			Data = ChId==4 ? 0x1C : 0x1A;
 #elif defined (XPS_BOARD_ZCU102)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xD);
+			Data = 0xD;
+#endif
+		} else if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R2) {
+#if defined (XPS_BOARD_ZCU106)
+//			if ((ChId == 2) || (ChId == 3)) {
+				Data = 0xD;
+//			} else {
+//				Data = 0xA;
+//			}
+#elif defined (XPS_BOARD_VCU118)
+			Data = 0xD; //0x1F;
+#elif defined (XPS_BOARD_ZCU102)
+			Data = 0xD;
 #endif
 		}
+#if defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCU118) || \
+	defined (XPS_BOARD_ZCU102)
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, Data);
+#endif
 	}
 }
 
@@ -4383,6 +4577,7 @@ void XV_Rx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 
 	/* RX cable is disconnected */
 	if (HdmiRxSs1Ptr->IsStreamConnected == (FALSE)) {
+		xhdmi_exdes_ctrlr.crop = FALSE;
 		/* Push Rx Connect to the state machine. */
 		/* Check if the system might be in pass-through or loopback
 		 * mode, i.e. there is a downstream connection present. */
@@ -4398,6 +4593,7 @@ void XV_Rx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 		xil_printf("XV_Rx_HdmiTrigCb_CableConnectionChange - "
 			   "Disonnected\r\n");
 	} else {
+		xhdmi_exdes_ctrlr.crop = FALSE;
 
 		/* Reset the menu to main */
 		XHdmi_MenuReset(&HdmiMenu);
@@ -4515,6 +4711,8 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 {
 	xhdmi_exdes_ctrlr.IsRxPresent = TRUE;
 	u8 PrintRxInfo = FALSE;
+	xhdmi_exdes_ctrlr.crop = FALSE;
+
 	/* If the system is in independent mode, then stream up on
 	 * the RX should not affect the restart of the TX at all.
 	 * In loop back mode the RX programming ends here.
@@ -4570,6 +4768,25 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 		xil_printf("--------\r\n");
 	}
 
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+	//Start FB write and consume
+	XV_ConfigVidFrameBuf_wr(&FrameBufWr);
+	XV_HdmiRxSs1_VRST(&HdmiRxSs, FALSE);
+
+	//Determined that xhdmi_exdes_ctrlr.crop is enabled
+	//update the timing params into TX only if
+	// TX is non FRL
+	if (xhdmi_exdes_ctrlr.crop && IsTx && HdmiTxSs.HdmiTx1Ptr->Stream.IsFrl != TRUE) {
+		if (xhdmi_exdes_ctrlr.ForceIndependent != TRUE) {
+			Exdes_UpdateVidParamstoTx(
+					xhdmi_exdes_ctrlr.hdmi_rx_ctlr->HdmiRxSs,
+					xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs);
+		}
+	}
+#else
+	xhdmi_exdes_ctrlr.crop = FALSE;
+#endif
 	EXDES_DBG_PRINT("sysEventDebug:%s:%d:::%d\r\n", __func__,
 		 	__LINE__, xhdmi_exdes_ctrlr.SystemEvent);
 }
@@ -4646,6 +4863,8 @@ void XV_Rx_HdmiTrigCb_StreamOff(void *InstancePtr)
 #endif
 	xil_printf("RX Stream is down.\r\n");
 	xhdmi_exdes_ctrlr.IsRxPresent = FALSE;
+	xhdmi_exdes_ctrlr.crop = FALSE;
+
 	/* If the system is in independent mode, then stream down on
 	 * the RX should not affect the restart of the TX at all.
 	 */
@@ -4767,6 +4986,7 @@ void Hdmiphy1ProcessError(void)
 
 }
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 /*****************************************************************************/
 /**
 *
@@ -4811,7 +5031,6 @@ void HdmiTxProcessError(void)
 	HdmiTxErrorFlag = FALSE;
 }
 
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 /*****************************************************************************/
 /**
 *
@@ -5054,10 +5273,12 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 #endif
 
 #if (!defined XPS_BOARD_VCU118)
-	/* Set FRL and DRU MGT REFCLK Frequency */
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	/* Set DRU MGT REFCLK Frequency */
 	Si570_SetFreq(&Iic, 0x5D, 400.00);
 	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
+#endif
 #endif
 
 	return Status;
@@ -5409,11 +5630,12 @@ int main()
 	xil_printf("------------------------------------------\r\n");
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	xhdmi_exdes_ctrlr.TxBusy            = (TRUE);
+	HdmiTxErrorFlag = FALSE;
 #endif
 	Hdmiphy1ErrorFlag = FALSE;
 	Hdmiphy1PllLayoutErrorFlag = FALSE;
 
-	HdmiTxErrorFlag = FALSE;
+
 
 	/* Initialize platform */
 	xil_printf("Initializing platform. \r\n");
@@ -5527,10 +5749,12 @@ int main()
 				(void *)Hdmiphy1ErrorCallback,
 				(void *)&Hdmiphy1);
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	Status |= XV_HdmiTxSs1_SetCallback(&HdmiTxSs,
 			XV_HDMITXSS1_HANDLER_ERROR,
 			(void *)HdmiTxErrorCallback,
 			(void *)&HdmiTxSs);
+#endif
 
 	/* Initialize Video FMC and GT TX output*/
 	Status = Vfmc_HdmiInit(&Vfmc[0], XPAR_VFMC_CTLR_SS_0_VFMC_GPIO_DEVICE_ID,
@@ -5540,6 +5764,7 @@ int main()
 		return 0;
 	} else {
 		for (int ChId=1; ChId <= 4; ChId++) {
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 #if defined (XPS_BOARD_ZCU102)
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : 0xD);/*0xc 0xb */
@@ -5556,11 +5781,12 @@ int main()
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);/*1, B */
 #elif defined (XPS_BOARD_VCU118)
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : ChId==4 ? 0x1C : 0x1A);
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : 0xD);/*0xc 0xb */
 			XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : ChId==1 ? 0x4 : 0x6);/*C */
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, A */
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : ChId==1 ? 0x4 : 0x6);/*C */
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, B */
+
 #else
 /* Place holder for future board support, Below Value just a random value */
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xB);
@@ -5568,6 +5794,7 @@ int main()
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x9);
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x9);
+#endif
 #endif
 		}
 	}
@@ -5671,8 +5898,7 @@ int main()
 #endif
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
-	ResetVidFrameBufWr();
-	ResetVidFrameBufRd();
+	ResetFrameBuf(0x2);
 #endif
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	/* Enable Scrambling Override
@@ -5685,8 +5911,18 @@ int main()
 
 	u8 SinkReady = FALSE;
 #endif
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	/* Start the system in pass-through mode. */
 	xhdmi_exdes_ctrlr.ForceIndependent = FALSE;
+#else
+	xhdmi_exdes_ctrlr.ForceIndependent = TRUE;
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
+	xhdmi_exdes_ctrlr.IsTxPresent = 0;
+#endif
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
+	xhdmi_exdes_ctrlr.IsRxPresent = 0;
+#endif
+#endif
 #if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	/* Set the default Link Training Patterns to be requested by RX
 	 * during FRL Link Training
@@ -5824,8 +6060,10 @@ int main()
 		/* VPHY error */
 		Hdmiphy1ProcessError();
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 		/* HDMI TX error */
 		HdmiTxProcessError();
+#endif
 
 	} while (1);
 

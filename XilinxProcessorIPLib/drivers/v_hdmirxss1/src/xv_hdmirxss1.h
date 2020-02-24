@@ -140,7 +140,7 @@ typedef enum {
   XV_HDMIRXSS1_HDCP_TOPOLOGY_DEVICECNT,
   XV_HDMIRXSS1_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
   XV_HDMIRXSS1_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
-  XV_HDMIRXSS1_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+  XV_HDMIRXSS1_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
   XV_HDMIRXSS1_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
   XV_HDMIRXSS1_HDCP_TOPOLOGY_INVALID
 } XV_HdmiRxSs1_HdcpTopologyField;
@@ -281,6 +281,7 @@ typedef struct
                         subsystem address range */
   XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
+  u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
   u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
   XV_HdmiRxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
   XV_HdmiRxSs1_SubCore Hdcp14;       /**< Sub-core instance configuration */
@@ -518,6 +519,7 @@ int  XV_HdmiRxSs1_IsStreamConnected(XV_HdmiRxSs1 *InstancePtr);
 
 void XV_HdmiRxSs1_SetDefaultPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id);
 void XV_HdmiRxSs1_SetPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id, u8 Ppc);
+XVidC_PixelsPerClock XV_HdmiRxSs1_GetCorePpc(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable);
 
 void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr);

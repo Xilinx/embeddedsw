@@ -83,13 +83,31 @@ typedef enum {
 	RX_R1_TMDS_14 = 153,
 	RX_R1_TMDS_20 = 162,
 	RX_R1_FRL = 171,
+	TX_R2_TMDS_14_L = 180,
+	TX_R2_TMDS_14_H = 196,
+	TX_R2_TMDS_20 = 208,
+	TX_R2_FRL = 220,
+	RX_R2_TMDS_14 = 232,
+	RX_R2_TMDS_20 = 241,
+	RX_R2_FRL = 250,
+	/* Above these were all early versions of
+	 * OnSemi re-driver
+	 * All the 21 write registers are added for flexibility
+	 */
+	TX_R3_TMDS_14_L = 271,
+	TX_R3_TMDS_14_H = TX_R3_TMDS_14_L + 21,
+	TX_R3_TMDS_20 = TX_R3_TMDS_14_H + 21,
+	TX_R3_FRL = TX_R3_TMDS_20 + 21,
+	RX_R3_TMDS_14 = TX_R3_FRL + 21,
+	RX_R3_TMDS_20 = RX_R3_TMDS_14 + 21,
+	RX_R3_FRL = RX_R3_TMDS_20 + 21,
 } Onsemi_DeviceType;
 
 /**
 * This typedef contains translations of FRL_Rate to Lanes and Line Rates.
 */
 typedef struct {
-	u8 DeviceType;		/**< Device Type */
+	u16 DeviceType;		/**< Device Type */
 	u8 Address;		/**< Line Rate */
 	u8 Values;
 } Onsemi_RegisterField;

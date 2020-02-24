@@ -23,6 +23,14 @@
 
 /***************************** Include Files *********************************/
 #include "xhdmi_exdes_sm_rx.h"
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
+#define XPS_BOARD_VCU118
+#else
+/* Place-holder for other boards in future */
+#endif
+
 
 /************************** Constant Definitions ****************************/
 
@@ -446,13 +454,19 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetTmdsAudSampFreq (XV_Rx *InstancePtr)
 	XHdmiC_SamplingFrequency SampFreq = XHDMIC_SAMPLING_FREQ;
 	XHdmiC_SamplingFrequencyVal SampFreqVal = XHDMIC_SAMPLING_FREQUENCY;
 	u32 NVal;
+	u32 CTSVal;
 
 	NVal = XV_HdmiRxSs1_GetAudioAcrNVal(InstancePtr->HdmiRxSs);
-	RefClk = InstancePtr->VidPhy->HdmiRxRefClkHz;
+	CTSVal =  XV_HdmiRxSs1_GetAudioAcrCtsVal(InstancePtr->HdmiRxSs);
+	if (InstancePtr->HdmiRxSs->TMDSClockRatio)
+		RefClk = InstancePtr->VidPhy->HdmiRxRefClkHz * 4;
+	else
+		RefClk = InstancePtr->VidPhy->HdmiRxRefClkHz ;
 	InstancePtr->AcrNVal = NVal;
+	InstancePtr->AcrCtsVal = CTSVal;
 
 	if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
-		SampFreq = XHdmiC_TMDS_GetAudSampFreq(RefClk, NVal);
+		SampFreq = XHdmiC_TMDS_GetAudSampFreq(RefClk, NVal, CTSVal);
 		SampFreqVal = XHdmiC_GetAudSampFreqVal(SampFreq);
 	}
 	return SampFreqVal;
@@ -477,7 +491,7 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 
 	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
 	u32 Status = XST_SUCCESS;
-
+	XVidC_PixelsPerClock Ppc_core;
 	/* Calculate RX MMCM parameters
 	 * In the application the YUV422 colordepth is 12 bits
 	 * However the HDMI transports YUV422 in 8 bits.
@@ -490,13 +504,13 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 	/* An additonal check can be added here, to ensure that the input
 	 * for mmcm params are valid here.
 	 */
-
+	Ppc_core = XV_HdmiRxSs1_GetCorePpc(InstancePtr->HdmiRxSs);
 	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
 		Status = XHdmiphy1_HdmiCfgCalcMmcmParam(&Hdmiphy1,
 	                                        0,
 	                                        XHDMIPHY1_CHANNEL_ID_CH1,
 	                                        XHDMIPHY1_DIR_RX,
-	                                        HdmiRxSsVidStreamPtr->PixPerClk,
+	                                        Ppc_core,
 	                                        XVIDC_BPC_8);
 	}
 	/* Other colorspaces */
@@ -505,7 +519,7 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 	                                        0,
 	                                        XHDMIPHY1_CHANNEL_ID_CH1,
 	                                        XHDMIPHY1_DIR_RX,
-	                                        HdmiRxSsVidStreamPtr->PixPerClk,
+	                                        Ppc_core,
 	                                        HdmiRxSsVidStreamPtr->ColorDepth);
 	}
 
@@ -2171,7 +2185,21 @@ static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr)
 			InstancePtr->VidPhy->Config.RxFrlRefClkSel){
 		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (TRUE));
 	}
+#ifdef XPS_BOARD_VCU118
+	u8 rate = HdmiRxSs.HdmiRx1Ptr->Stream.Frl.LineRate;
 
+	if (rate != 12) {
+		//LPM
+		XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);
+
+	} else {
+		//DFE
+		XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 0);
+
+	}
+#endif
 	XHdmiphy1_Hdmi21Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX,
 			       LineRate, NChannels);
 
@@ -2394,3 +2422,4 @@ const char *XV_Rx_Hdmi_Rx_EventtoString(XV_Rx_Hdmi_Events Event)
 
 	return eventNameString;
 }
+#endif

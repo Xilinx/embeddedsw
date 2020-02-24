@@ -168,6 +168,10 @@ typedef enum {
 #endif
 	XHDMI_VPHY_DEBUG_MENU,
 	XHDMI_ONSEMI_DEBUG_MENU,
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+               (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+	XHDMI_8KQUAD_MENU,
+#endif
 	XHDMI_NUM_MENUS
     } XHdmi_MenuType;
 

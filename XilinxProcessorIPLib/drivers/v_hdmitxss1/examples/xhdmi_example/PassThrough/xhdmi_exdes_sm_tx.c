@@ -17,16 +17,14 @@
 *              dd/mm/yy
 * ----- ------ -------- --------------------------------------------------
 * 1.00  YB     11/05/19 Initial release.
+* 1.10  KU     24/08/20 Clean up. Removed DEBUG definitions
 *</pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xhdmi_exdes_sm_tx.h"
-
-#define DEBUG_VCKE
-#define DEBUG_DC
-#define DEBUG_422
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 
 /************************** Constant Definitions ****************************/
 
@@ -486,13 +484,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 	u64 TmdsClock = 0;
 	u64 LnkClock;
 	u64 VidClock;
-
-#ifndef DEBUG_VCKE
-	XHdmiphy1_PllType PllType;
-	u64 TxFrlLineRate;
-	u64 TxTmdsLineRate;
-	XHdmiphy1_ChannelId ChId;
-#endif
+	XVidC_PixelsPerClock Ppc_core;
 
 	XHdmiphy1_ChannelId Hdmiphy1ChannelId = XHDMIPHY1_CHANNEL_ID_CHA;
 	XHdmiphy1 *VPhyInst = (XHdmiphy1 *)InstancePtr->VidPhy;
@@ -529,7 +521,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 					InstancePtr->HdmiTxSs, FALSE);
 		}
 	}
-
+	Ppc_core = XV_HdmiTxSS1_GetCorePpc(InstancePtr->HdmiTxSs);
 	xdbg_xv_tx_print("%s,%d : VmId = %d, ColorDepth = %d,"
 			"ColorFormat = %d\r\n", __func__, __LINE__,
 			HdmiTxSsVidStreamPtr->VmId,
@@ -547,7 +539,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 			"\tNew Hdmi Tx Stream Params : PPC %d, "
 			"ColorDepth %d, ColorFrmtId %d. \r\n",
 			__func__, __LINE__, TmdsClock,
-			HdmiTxSsVidStreamPtr->PixPerClk,
+			Ppc_core,
 			HdmiTxSsVidStreamPtr->ColorDepth,
 			HdmiTxSsVidStreamPtr->ColorFormatId);
 
@@ -569,7 +561,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 		Status = XHdmiphy1_SetHdmiTxParam(VPhyInst,
 						  VPhyGTQuadId,
 						  Hdmiphy1ChannelId,
-						  HdmiTxSsVidStreamPtr->PixPerClk,
+						  Ppc_core,
 						  HdmiTxSsVidStreamPtr->ColorDepth,
 						  HdmiTxSsVidStreamPtr->ColorFormatId);
 
@@ -593,56 +585,6 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 		/* Execute FRL register update */
 		XV_HdmiTx1_FrlExecute(InstancePtr->HdmiTxSs->HdmiTx1Ptr);
 
-
-#ifndef DEBUG_VCKE
-		/* Determine PLL type. */
-		PllType = XHdmiphy1_GetPllType(VPhyInst, 0, XHDMIPHY1_DIR_TX,
-				XHDMIPHY1_CHANNEL_ID_CH1);
-
-		/* Determine which channel(s) to operate on. */
-		ChId = XHdmiphy1_GetRcfgChId(VPhyInst, 0,
-					     XHDMIPHY1_DIR_TX, PllType);
-
-		/* Correct TMDS Clock according to TMDS ratio */
-		TmdsClock = (InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.TMDSClockRatio ?
-						TmdsClock / 4 : TmdsClock);
-
-
-		/* Set TX reference clock */
-		VPhyInst->HdmiTxRefClkHz = TmdsClock;
-
-		if (InstancePtr->SetupTxRefClkCb != NULL) {
-			InstancePtr->SetupTxRefClkCb(
-					InstancePtr->SetupTxRefClkCbRef);
-		}
-		TmdsClock = VPhyInst->HdmiTxRefClkHz;
-
-		usleep(1000000);
-
-		/* Store FRL Line rate */
-		TxFrlLineRate = XHdmiphy1_GetLineRateHz(VPhyInst, 0, ChId);
-
-		/* Use TMDS Line Rate */
-		TxTmdsLineRate = (u64) (InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.TMDSClockRatio ?
-					TmdsClock*40 : TmdsClock*10);
-		XHdmiphy1_CfgLineRate(VPhyInst, 0, ChId, TxTmdsLineRate);
-
-		XHdmiphy1_HdmiCfgCalcMmcmParam(VPhyInst, 0,
-				XHDMIPHY1_CHANNEL_ID_CHA,
-				XHDMIPHY1_DIR_TX,
-				InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Video.PixPerClk,
-				InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Video.ColorDepth);
-
-		XHdmiphy1_MmcmSetClkinsel(VPhyInst, 0,
-					  XHDMIPHY1_DIR_TX,
-					  MMCM_CLKINSEL_CLKIN1);
-		XHdmiphy1_MmcmStart(VPhyInst, 0, XHDMIPHY1_DIR_TX);
-
-		/* Restore FRL Line rate */
-		XHdmiphy1_CfgLineRate(VPhyInst, 0, ChId, TxFrlLineRate);
-#endif
-
-#ifdef DEBUG_VCKE
 		/* Calculate Link and Video Clocks */
 		u32 PixelRate;
 
@@ -654,18 +596,13 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 			PixelRate = PixelRate / 2;
 		}
 
-		VidClock = PixelRate/(InstancePtr->HdmiTxSs->Config.Ppc);
+		VidClock = PixelRate/Ppc_core;
 
 		if (HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
 			LnkClock = VidClock;
 		} else {
 			LnkClock = (VidClock * (HdmiTxSsVidStreamPtr->ColorDepth)) / 8;
 		}
-
-#else
-		VidClock = ((TxTmdsLineRate / 1000) / 10) / (InstancePtr->HdmiTxSs->Config.Ppc);
-		LnkClock = (VidClock * (HdmiTxSsVidStreamPtr->ColorDepth)) / 8;
-#endif
 
 		xil_printf("XV_Tx_VideoSetupAndStart - TX CFG: "
 			   "LCLK %d VCLK %d\r\n",
@@ -679,7 +616,6 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 		XV_HdmiTx1_SetFrlLinkClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr,
 					   (u32)LnkClock);
 
-#ifdef DEBUG_VCKE
 		if (InstancePtr->ConfigInfo.FrlCkeSrc ==
 		    XV_TX_HDMI_FRL_CKE_SRC_INTERNAL) {
 			xdbg_xv_tx_print("%s,%d, Colorbar / Independent TX "
@@ -695,9 +631,6 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 
 		XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr,
 				(u32)VidClock);
-#else
-		XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr, 0);
-#endif
 
 		/* Execute FRL register update */
 		XV_HdmiTx1_FrlExecute(InstancePtr->HdmiTxSs->HdmiTx1Ptr);
@@ -3096,3 +3029,4 @@ const char *XV_Tx_Hdmi_Tx_EventtoString(XV_Tx_Hdmi_Events Event)
 
 	return eventNameString;
 }
+#endif

@@ -1257,6 +1257,7 @@ static void XV_HdmiRxSs1_DdcCallback(void *CallbackRef)
 static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
 {
   XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+  XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
 
   if (HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
 	  /* Assert HDMI RX core resets */
@@ -1269,6 +1270,10 @@ static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiRxSs1Ptr->IsStreamUp = (FALSE);
+
+  AviInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(HdmiRxSs1Ptr);
+  memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
+
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
   XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_STREAMDOWN, 0);
 #endif
@@ -2334,6 +2339,9 @@ void XV_HdmiRxSs1_ReportAudio(XV_HdmiRxSs1 *InstancePtr)
 		  break;
 	  case 2:
 		  xil_printf("HBR\r\n");
+		  break;
+	  case 3:
+		  xil_printf("3D\r\n");
 	  default:
 		  break;
   }
@@ -2454,6 +2462,18 @@ static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr) {
     XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
     AviInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(InstancePtr);
 
+    if ((!InstancePtr->HdmiRx1Ptr->Stream.IsHdmi) &&
+		    HdmiRxSs1VidStreamPtr->IsInterlaced) {
+	if ((HdmiRxSs1VidStreamPtr->Timing.HActive == 1440) &&
+			((HdmiRxSs1VidStreamPtr->Timing.VActive == 288) ||
+			 (HdmiRxSs1VidStreamPtr->Timing.VActive == 240))) {
+             XV_HdmiRxSs1_BridgeYuv420(InstancePtr, FALSE);
+             XV_HdmiRxSs1_BridgePixelDrop(InstancePtr, TRUE);
+
+	     return;
+	}
+    }
+
     /* Pixel Repetition factor of 3 and above are not supported by the bridge*/
     if (AviInfoFramePtr->PixelRepetition > XHDMIC_PIXEL_REPETITION_FACTOR_2) {
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
@@ -2563,6 +2583,23 @@ void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable)
   else{
 	XV_HdmiRx1_AudioEnable(InstancePtr->HdmiRx1Ptr);
   }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns core ppc value
+*
+* @param  InstancePtr pointer to XV_HdmiRXSs instance
+*
+* @return Core pixel per clock value
+*
+* @note   None.
+*
+******************************************************************************/
+XVidC_PixelsPerClock XV_HdmiRxSs1_GetCorePpc(XV_HdmiRxSs1 *InstancePtr)
+{
+	return InstancePtr->HdmiRx1Ptr->Stream.CorePixPerClk;
 }
 
 static void XV_HdmiRxSs1_FrlLtsLCallback(void *CallbackRef)
