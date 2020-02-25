@@ -47,6 +47,7 @@
 * 1.7  Hyun    09/13/2019  Used global IO accessors and added more __AIESIM__
 * 1.8  Hyun    09/13/2019  Added XAieSim_LoadElfMem()
 * 1.9  Tejus   12/04/2019  Support for new .bss/.data section prefixes in elf
+* 2.0  Nishad  02/03/2020  Added support for non-standard ELF sections
 * </pre>
 *
 ******************************************************************************/
@@ -94,7 +95,12 @@ static void XAieSim_WriteSectionMem(XAieSim_Tile *TileInstPtr, uint8 *SectName,
 	uint64_t DmbAddr;
 	uint64_t TgtTileAddr;
 
-	if(strstr(SectName, "data.DM") != NULL) {
+	if(SectPtr->sh_flags == SHF_ALLOC ||
+			SectPtr->sh_flags == (SHF_ALLOC | SHF_WRITE)) {
+
+		XAieSim_print("Loading %s program section with flag value of 0x%x in data memory at 0x%x address\n",
+				SectName, SectPtr->sh_flags, SectPtr->sh_addr);
+
 		TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
 				SectPtr->sh_addr);
 
@@ -131,13 +137,20 @@ static void XAieSim_WriteSectionMem(XAieSim_Tile *TileInstPtr, uint8 *SectName,
 			XAieGbl_Write32(DmbAddr, *ElfPtr++);
 			DoneSize += 4U;
 		}
-	} else {
-		TgtTileAddr = TileInstPtr->TileAddr+XAIESIM_ELF_TILECORE_PRGMEM +
-			SectPtr->sh_addr;
+	} else if(SectPtr->sh_flags == (SHF_ALLOC | SHF_EXECINSTR)) {
+
+		XAieSim_print("Loading %s program section with flag value of 0x%x in program memory at 0x%x address\n",
+				SectName, SectPtr->sh_flags, SectPtr->sh_addr);
+
+		TgtTileAddr = TileInstPtr->TileAddr +
+				XAIESIM_ELF_TILECORE_PRGMEM + SectPtr->sh_addr;
 
 		for(Idx = 0U; Idx < SectPtr->sh_size; Idx += 4U) {
 			XAieGbl_Write32((TgtTileAddr + Idx), *ElfPtr++);
 		}
+	} else {
+		XAieSim_print("ERROR: Invalid %s program section with flag value of 0x%x at %p ELF offset\n",
+				SectName, SectPtr->sh_flags, SectPtr->sh_offset);
 	}
 }
 
@@ -220,11 +233,8 @@ uint32 XAieSim_LoadElfMem(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr,
 	Count = 0U;
 	while(Count < ElfHdr->e_shnum) {
 		/* Copy the program data sections to memory */
-		if((SectHdr[Count].sh_type == SHT_PROGBITS) &&
-				((SectHdr[Count].sh_flags &
-				  (SHF_ALLOC | SHF_EXECINSTR)) ||
-				 (SectHdr[Count].sh_flags &
-				  (SHF_ALLOC | SHF_WRITE)))) {
+		if(SectHdr[Count].sh_type == SHT_PROGBITS &&
+				SectHdr[Count].sh_flags) {
 
 			XAieSim_WriteSectionMem(TileInstPtr,
 					DataPtr + SectHdr[Count].sh_name,
@@ -233,10 +243,11 @@ uint32 XAieSim_LoadElfMem(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr,
 		}
 
 		/* Zero out the bss sections */
-		if((SectHdr[Count].sh_type == SHT_NOBITS) &&
-				(strstr(DataPtr + SectHdr[Count].sh_name,
-					"bss.DM") != NULL)) {
-			XAieSim_print("Zeroing out the bss sections\n");
+		if(SectHdr[Count].sh_type == SHT_NOBITS &&
+				SectHdr[Count].sh_addr > 0x1FFFFU) {
+
+			XAieSim_print("Zeroing out the %s sections\n",
+					DataPtr + SectHdr[Count].sh_name);
 
 			TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
 					SectHdr[Count].sh_addr);
@@ -467,20 +478,18 @@ uint32 XAieSim_LoadElf(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym)
 	Count = 0U;
 	while(Count < ElfHdr.e_shnum) {
 		/* Copy the program data sections to memory */
-		if((SectHdr[Count].sh_type == SHT_PROGBITS) &&
-			((SectHdr[Count].sh_flags &
-				(SHF_ALLOC | SHF_EXECINSTR)) ||
-			(SectHdr[Count].sh_flags &
-				(SHF_ALLOC | SHF_WRITE)))) {
-			
+		if(SectHdr[Count].sh_type == SHT_PROGBITS &&
+				SectHdr[Count].sh_flags) {
 			XAieSim_WriteSection(TileInstPtr, ShName[Count],
 							&SectHdr[Count], Fd);
 		}
 
 		/* Zero out the bss sections */
-		if((SectHdr[Count].sh_type == SHT_NOBITS) &&
-				(strstr(ShName[Count], "bss.DM") != NULL)) {
-			XAieSim_print("Zeroing out the bss sections\n");
+		if(SectHdr[Count].sh_type == SHT_NOBITS &&
+				SectHdr[Count].sh_addr > 0x1FFFFU) {
+
+			XAieSim_print("Zeroing out the %s sections\n",
+								ShName[Count]);
 
 			TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
 						SectHdr[Count].sh_addr);
@@ -668,9 +677,14 @@ void XAieSim_WriteSection(XAieSim_Tile *TileInstPtr, uint8 *SectName,
 
 	CurrPtr = DataPtr;
 
-	if(strstr(SectName, "data.DM") != NULL) {
-                TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr, 
-                					SectPtr->sh_addr);
+	if(SectPtr->sh_flags == SHF_ALLOC ||
+			SectPtr->sh_flags == (SHF_ALLOC | SHF_WRITE)) {
+
+                XAieSim_print("Loading %s program section with flag value of 0x%x in data memory at 0x%x address\n",
+				SectName, SectPtr->sh_flags, SectPtr->sh_addr);
+
+		TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
+							SectPtr->sh_addr);
 
                 SectAddr = SectPtr->sh_addr;
                 RemSize = SectPtr->sh_size;
@@ -705,14 +719,21 @@ void XAieSim_WriteSection(XAieSim_Tile *TileInstPtr, uint8 *SectName,
 			XAieGbl_Write32(DmbAddr, *CurrPtr++);
                         DoneSize += 4U;
 		}
-        } else {
-                TgtTileAddr = TileInstPtr->TileAddr+XAIESIM_ELF_TILECORE_PRGMEM +
-                                                        SectPtr->sh_addr;
+	} else if(SectPtr->sh_flags == (SHF_ALLOC | SHF_EXECINSTR)) {
 
-                for(Idx = 0U; Idx < SectPtr->sh_size; Idx += 4U) {
+		XAieSim_print("Loading %s program section with flag value of 0x%x in program memory at 0x%x address\n",
+				SectName, SectPtr->sh_flags, SectPtr->sh_addr);
+
+		TgtTileAddr = TileInstPtr->TileAddr +
+				XAIESIM_ELF_TILECORE_PRGMEM + SectPtr->sh_addr;
+
+		for(Idx = 0U; Idx < SectPtr->sh_size; Idx += 4U) {
 			XAieGbl_Write32((TgtTileAddr + Idx), *CurrPtr++);
-        	}
-        }
+		}
+	} else {
+		XAieSim_print("ERROR: Invalid %s program section with flag value of 0x%x at %p ELF offset\n",
+				SectName, SectPtr->sh_flags, SectPtr->sh_offset);
+	}
 
 	/* Free the allocated memory */
 	free(DataPtr);
