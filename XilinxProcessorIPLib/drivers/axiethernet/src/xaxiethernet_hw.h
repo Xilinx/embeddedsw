@@ -47,6 +47,7 @@
 *		     Frame and Tx Max Frame registers.
 *		     Changed define for TEMAC RGMII/SGMII Config (PHYC) Reg.
 * 5.70  srm  01/16/18 Added a new macro to support poll timeout implementation
+* 5.11  rsp  02/25/20 In debug mode fix return value of XAxiEthernet_ReadReg.
 * </pre>
 
 ******************************************************************************/
@@ -910,6 +911,7 @@ xdbg_stmnt(extern int indent_on);
 	u32 value; 							\
 	value = Xil_In32(((BaseAddress) + (RegOffset))); 		\
 	XAxiEthernet_print_reg_i((BaseAddress), (RegOffset), value);	\
+	value;								\
 })
 #else
 #define XAxiEthernet_ReadReg(BaseAddress, RegOffset) 			\
