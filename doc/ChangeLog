@@ -81,6 +81,7 @@ wdttb_v5_0:
 
 axiethernet_v5_11:
 In driver tcl use hier "::hsi::utils::get_connected_intf" API.
+In debug mode fix return value of XAxiEthernet_ReadReg.
 
 Changes for 2019.2
 ===============================
