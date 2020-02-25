@@ -65,7 +65,8 @@ extern "C" {
 #include "xcframe.h"
 #include "xplmi_proc.h"
 /************************** Constant Definitions *****************************/
-#define XLOADER_SUCCESS		XST_SUCCESS
+#define XLOADER_SUCCESS		(u32)XST_SUCCESS
+#define XLOADER_FAILURE		(u32)XST_FAILURE
 #define XLoader_Printf		XPlmi_Printf
 #define XLOADER_32BIT_MASK	(0xFFFFFFFFU)
 #define PMC_LOCAL_BASEADDR	(0xF0000000U)

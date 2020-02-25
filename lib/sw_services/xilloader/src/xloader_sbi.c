@@ -109,7 +109,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
 		     SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
 
-	return XLOADER_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -151,7 +151,7 @@ int XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
 				SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
 				XLOADER_SBI_CTRL_ENABLE);
 
-	return XLOADER_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -167,7 +167,7 @@ int XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
  * @param Length Length of the bytes to be copied
  *
  * @return
- *		- XLOADER_SUCCESS for successful copy
+ *		- XST_SUCCESS for successful copy
  *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
@@ -199,7 +199,7 @@ XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 int XLoader_SbiRelease(void )
 {
 
-	return XLOADER_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/

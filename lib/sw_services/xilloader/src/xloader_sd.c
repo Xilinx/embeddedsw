@@ -247,7 +247,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	Status = XLOADER_SUCCESS;
+	Status = XST_SUCCESS;
 	END:
 	return Status;
 }
@@ -266,7 +266,7 @@ int XLoader_SdInit(u32 DeviceFlags)
  * @param Length Length of the bytes to be copied
  *
  * @return
- * 		- XLOADER_SUCCESS for successful copy
+ * 		- XST_SUCCESS for successful copy
  * 		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
@@ -296,7 +296,7 @@ XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 		goto END;
 	}
 
-	Status = XLOADER_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -314,7 +314,7 @@ int XLoader_SdRelease(void )
 {
 	(void )f_close(&fil);
 
-	return XLOADER_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -403,7 +403,7 @@ END:
  * @param Length Length of the bytes to be copied
  *
  * @return
- * 		- XLOADER_SUCCESS for successful copy
+ * 		- XST_SUCCESS for successful copy
  * 		- errors as mentioned in xplmi_status.h
  *
  *****************************************************************************/

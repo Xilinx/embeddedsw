@@ -88,8 +88,8 @@ XLoader_UsbCh9_Data dfu_data = {
 * @param	Device Flags
 *
 * @return
-*		- XLOADER_SUCCESS if successful,
-*		- XLOADER_FAILURE if unsuccessful.
+*		- XST_SUCCESS if successful,
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -169,8 +169,8 @@ END:
 * @param	Number of Bytes to be copied
 *
 * @return
-*		- XLOADER_SUCCESS if successful,
-*		- XLOADER_FAILURE if unsuccessful.
+*		- XST_SUCCESS if successful,
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -193,7 +193,7 @@ XStatus XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 * @param	None
 *
 * @return
-*		- XLOADER_SUCCESS
+*		- XST_SUCCESS
 *
 * @note		None.
 *

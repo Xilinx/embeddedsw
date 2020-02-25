@@ -188,7 +188,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	}
 
 	Status =  XOspiPsv_CfgInitialize(OspiPsvInstancePtr, OspiConfig);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_CFG, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_CFG\r\n");
 		goto END;
@@ -268,7 +268,7 @@ END:
  * @param Length Length of the bytes to be copied
  *
  * @return
- *		- XLOADER_SUCCESS for successful copy
+ *		- XST_SUCCESS for successful copy
  *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/

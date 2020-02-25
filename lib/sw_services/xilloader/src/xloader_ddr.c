@@ -74,7 +74,7 @@ int XLoader_DdrInit(u32 DeviceFlags)
 {
 	(void)DeviceFlags;
 
-	return XLOADER_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -90,7 +90,7 @@ int XLoader_DdrInit(u32 DeviceFlags)
  * @param Length Length of the bytes to be copied
  *
  * @return
- *		- XLOADER_SUCCESS for successful copy
+ *		- XST_SUCCESS for successful copy
  *		- errors as mentioned in xplmi_status.h
  *
  *****************************************************************************/
@@ -132,5 +132,5 @@ END:
 int XLoader_DdrRelease(void )
 {
 
-	return XLOADER_SUCCESS;
+	return XST_SUCCESS;
 }

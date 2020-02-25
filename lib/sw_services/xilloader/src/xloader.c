@@ -191,7 +191,7 @@ int XLoader_Init()
  * @param PdiAddr is the address at PDI is located in the PDI source
  *        mentioned
  *
- * @return	returns XLOADER_SUCCESS on success
+ * @return	returns XST_SUCCESS on success
  *
  *****************************************************************************/
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
@@ -464,7 +464,7 @@ END:
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XLOADER_SUCCESS on success and error on failure
+ * @return	returns XST_SUCCESS on success and error on failure
  *****************************************************************************/
 int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 {
@@ -508,7 +508,7 @@ END:
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XLOADER_SUCCESS on success and error code on failure
+ * @return	returns XST_SUCCESS on success and error code on failure
  *****************************************************************************/
 int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 {
@@ -580,7 +580,7 @@ END:
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XLOADER_SUCCESS on success
+ * @return	returns XST_SUCCESS on success
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
 {
@@ -706,7 +706,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	 * Make Number of handoff CPUs to zero
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
-	Status = XLOADER_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -779,7 +779,7 @@ void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
  * @param PdiPtr Pdi instance pointer
  * @param ImageId Id of the image present in PDI
  *
- * @return	returns XLOADER_SUCCESS on success
+ * @return	returns XST_SUCCESS on success
  *****************************************************************************/
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 {
@@ -912,7 +912,7 @@ END:
  *
  * @param ImageId Id of the image present in PDI
  *
- * @return	returns XLOADER_SUCCESS on success
+ * @return	returns XST_SUCCESS on success
  *****************************************************************************/
 int XLoader_RestartImage(u32 ImageId)
 {
@@ -940,7 +940,7 @@ END:
  *
  * @param ImageId Id of the image present in PDI
  *
- * @return      returns XLOADER_SUCCESS on success
+ * @return      returns XST_SUCCESS on success
  *****************************************************************************/
 int XLoader_ReloadImage(u32 ImageId)
 {
@@ -1242,7 +1242,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XLOADER_SUCCESS on success and error code on failure
+ * @return	returns XST_SUCCESS on success and error code on failure
  *****************************************************************************/
 int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 {

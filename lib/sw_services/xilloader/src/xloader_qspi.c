@@ -114,7 +114,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0], 2);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -183,7 +183,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	{
 		IssiIdFlag=1;
 	}
-	Status = XLOADER_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -220,7 +220,7 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 
 	Status =  XQspiPsu_CfgInitialize(&QspiPsuInstance, QspiConfig,
 			QspiConfig->BaseAddress);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_INIT, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_INIT\r\n");
 		goto END;
@@ -231,7 +231,7 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 	 */
 	Status = XQspiPsu_SetOptions(&QspiPsuInstance, XQSPIPSU_MANUAL_START_OPTION);
 
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_MANUAL_START, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_MANUAL_START\r\n");
 		goto END;
@@ -241,7 +241,7 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 	 */
 	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance, XQSPIPSU_CLK_PRESCALE_8);
 
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_PRESCALER_CLK, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_PRESCALER_CLK\r\n");
 		goto END;
@@ -310,7 +310,7 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 
 	/* Read Flash ID and extract Manufacture and Size information */
 	Status = FlashReadID(&QspiPsuInstance);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -342,7 +342,7 @@ int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress)
 	Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 		(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
 
-	if((Status == XLOADER_SUCCESS) &&
+	if((Status == XST_SUCCESS) &&
 		(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 			XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 24BIT QUAD\n\r");
 	}else
@@ -350,7 +350,7 @@ int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress)
 		ReadCommand = DUAL_READ_CMD_24BIT;
 		Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 			(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
-		if((Status == XLOADER_SUCCESS) &&
+		if((Status == XST_SUCCESS) &&
 			(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 				XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 24BIT DUAL\n\r");
 		}else
@@ -358,7 +358,7 @@ int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress)
 			ReadCommand = FAST_READ_CMD_24BIT;
 			Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 				(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
-			if((Status == XLOADER_SUCCESS) &&
+			if((Status == XST_SUCCESS) &&
 				(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 					XLoader_Printf(DEBUG_INFO,
 						"\n\rConnectionType: 24BIT SINGLE\n\r");
@@ -488,7 +488,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_QSPI_READ, Status);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
@@ -509,7 +509,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_QSPI_READ, Status);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
@@ -532,7 +532,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_QSPI_READ, Status);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
@@ -562,7 +562,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 2);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_QSPI_READ, Status);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
@@ -588,7 +588,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 2);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_QSPI_READ, Status);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
@@ -606,7 +606,7 @@ static int SendBankSelect(u32 BankSel)
 	}
 
 	/* Winbond can be added here */
-	Status = XLOADER_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -625,7 +625,7 @@ END:
  * @param Length Length of the bytes to be copied
  *
  * @return
- *		- XLOADER_SUCCESS for successful copy
+ *		- XST_SUCCESS for successful copy
  *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
@@ -709,7 +709,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		if(QspiFlashSize > BankSize) {
 			BankSel = QspiAddr/BANKSIZE;
 			Status = SendBankSelect(BankSel);
-			if (Status != XLOADER_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XPLMI_UPDATE_STATUS(
 					XLOADER_ERR_QSPI_READ, Status);
 				XLoader_Printf(DEBUG_GENERAL,
@@ -809,7 +809,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * receive the specified number of bytes of data in the data buffer
 		 */
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 3);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_QSPI_READ, Status);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
@@ -830,7 +830,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * Reset Bank selection to zero
 		 */
 		Status = SendBankSelect(0);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_QSPI_READ, Status);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
@@ -839,7 +839,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	}
 	else
 	{
-		Status = XLOADER_SUCCESS;
+		Status = XST_SUCCESS;
 	}
 
 END:
@@ -857,7 +857,7 @@ END:
  *****************************************************************************/
 int XLoader_Qspi24Release(void)
 {
-	int Status = XLOADER_SUCCESS;
+	int Status = XST_SUCCESS;
 
 	return Status;
 }
@@ -895,7 +895,7 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 
 	Status =  XQspiPsu_CfgInitialize(&QspiPsuInstance, QspiConfig,
 			QspiConfig->BaseAddress);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_INIT, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_INIT\r\n");
 		goto END;
@@ -906,7 +906,7 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 	 */
 	Status = XQspiPsu_SetOptions(&QspiPsuInstance,
 				     XQSPIPSU_MANUAL_START_OPTION);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_MANUAL_START, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_MANUAL_START\r\n");
 		goto END;
@@ -916,7 +916,7 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 	 */
 	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance,
 					  XQSPIPSU_CLK_PRESCALE_8);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_PRESCALER_CLK, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_PRESCALER_CLK\r\n");
 		goto END;
@@ -989,7 +989,7 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 
 	/* Read Flash ID and extract Manufacture and Size information */
 	Status = FlashReadID(&QspiPsuInstance);
-	if (Status != XLOADER_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1022,7 +1022,7 @@ int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress)
 	Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 		(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
 
-	if((Status == XLOADER_SUCCESS) &&
+	if((Status == XST_SUCCESS) &&
 		(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 			XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT QUAD\n\r");
 	}else
@@ -1031,7 +1031,7 @@ int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress)
 		Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 			(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
 
-		if((Status == XLOADER_SUCCESS) &&
+		if((Status == XST_SUCCESS) &&
 			(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 				XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT DUAL\n\r");
 		}else
@@ -1040,7 +1040,7 @@ int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress)
 			Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 				(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
 
-			if((Status == XLOADER_SUCCESS) &&
+			if((Status == XST_SUCCESS) &&
 				(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 					XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT SINGLE\n\r");
 			}else
@@ -1073,7 +1073,7 @@ END:
  * @param Length Length of the bytes to be copied
  *
  * @return
- * 		- XLOADER_SUCCESS for successful copy
+ * 		- XST_SUCCESS for successful copy
  * 		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
@@ -1212,7 +1212,7 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * receive the specified number of bytes of data in the data buffer
 		 */
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 3);
-		if (Status != XLOADER_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_READ, 0x0);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_READ\r\n");
 			goto END;
@@ -1226,7 +1226,7 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		SrcAddr += TransferBytes;
 
 	}
-	Status = XLOADER_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 #ifdef	PLM_PRINT_PERF_DMA
 	XPlmi_MeasurePerfTime(QspiCopyTime, &tPerfTime);
@@ -1250,7 +1250,7 @@ END:
  *****************************************************************************/
 int XLoader_Qspi32Release(void)
 {
-	int Status = XLOADER_SUCCESS;
+	int Status = XST_SUCCESS;
 
 	return Status;
 }
