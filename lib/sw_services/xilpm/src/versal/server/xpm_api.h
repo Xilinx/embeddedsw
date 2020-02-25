@@ -202,8 +202,6 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
 int XPm_DispatchWakeHandler(void *DeviceIdx);
 XStatus XPm_HookAfterPlmCdo(void);
-int XPm_SetClockRate(const u32 SubsystemId, const u32 ClockId, const u32 ClkRate);
-int XPm_GetClockRate(const u32 ClockId, u32 *ClkRate);
 
 #ifdef __cplusplus
 }
