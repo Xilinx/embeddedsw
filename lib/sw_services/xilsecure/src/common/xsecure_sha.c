@@ -562,7 +562,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			/* Process data of size in multiple of dwords */
 			DmableData = Data;
 			DmableDataLen = RemainingDataLen -
-				(RemainingDataLen % sizeof(u32));
+				(RemainingDataLen % XSECURE_SHA3_BLOCK_LEN);
 			Data += DmableDataLen;
 			RemainingDataLen -= DmableDataLen;
 		}
