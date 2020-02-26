@@ -498,7 +498,16 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 			goto END;
 		}
 		else {
-			XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r")
+			XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
+			/*
+			 * When DEC only is set, meta header should be decrypted
+			 * with only efuse black key
+			 */
+			if (SecurePtr->PdiPtr->MetaHdr.ImgHdrTable.EncKeySrc !=
+						XLOADER_EFUSE_BLK_KEY) {
+				Status = XLOADER_FAILURE;
+				goto END;
+			}
 			Status = XLOADER_SUCCESS;
 		}
 	}
