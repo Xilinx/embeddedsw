@@ -47,6 +47,8 @@
 * 1.6	pm    22/07/19 Removed coverity warnings
 *	pm    08/08/19 Added support to set AXI-Cache bits when CCI is enable
 *	pm    28/08/19 Removed 80-character warnings
+* 1.7	pm    02/20/20 Add support to set CCI bit in Coherency Mode Register
+*			when CCI is eanble
 *
 * </pre>
 *
@@ -534,6 +536,9 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSBUSCFG0);
 		RegVal |= XUSBPSU_GSBUSCFG0_BITMASK;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GSBUSCFG0, RegVal);
+
+		XUsbPsu_WriteVendorReg(XUSBPSU_COHERENCY,
+					XUSBPSU_COHERENCY_MODE_ENABLE);
 	}
 
 	return XST_SUCCESS;

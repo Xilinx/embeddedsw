@@ -39,6 +39,7 @@
 * 1.0   sg    06/06/16 First release
 * 1.4   myk   12/01/18 Added support of hibernation
 * 1.6	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
+* 1.7	pm    02/20/20 Added Coherency Mode Register for CCI feature is enable
 *
 * </pre>
 *
@@ -300,6 +301,10 @@ extern "C" {
 
 /* AXI-cache bits offset DATRDREQINFO */
 #define XUSBPSU_GSBUSCFG0_BITMASK		0xFFFF0000U
+
+/* Coherency Mode Register Offset */
+#define XUSBPSU_COHERENCY			0x005CU
+#define XUSBPSU_COHERENCY_MODE_ENABLE		0x01U
 
 /*Portpmsc 3.0 bit field*/
 #define XUSBPSU_PORTMSC_30_FLA_MASK				(1U << 16U)
