@@ -87,6 +87,9 @@ axiethernet_v5_11:
 In driver tcl use hier "::hsi::utils::get_connected_intf" API.
 In debug mode fix return value of XAxiEthernet_ReadReg.
 
+zynqmp_fsbl:
+Added code changes to update the PMU GLOBAL register to indicate PL configuration
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
