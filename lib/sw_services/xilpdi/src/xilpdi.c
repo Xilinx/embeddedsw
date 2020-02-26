@@ -102,6 +102,17 @@ u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
 
 }
 
+u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTable * IHdrTable)
+{
+	u32 DpaState;
+
+	DpaState = IHdrTable->Attr & XIH_IHT_ATTR_DPA_CM_MASK;
+	DpaState = (DpaState != 0x0U) ? TRUE : FALSE;
+
+	return DpaState;
+
+}
+
 u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr)
 {
 	return (((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_LOAD_MASK) >>

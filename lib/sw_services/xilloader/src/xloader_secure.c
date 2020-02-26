@@ -2181,6 +2181,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	XSecure_AesKeySrc KeySrc = 0;
 	u32 TotalSize = MetaHdr->ImgHdrTable.TotalHdrLen * XIH_PRTN_WORD_LEN;
 	u32 SrcAddr = BufferAddr;
+	u32 DpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTable);
 
 	if (SecurePtr->IsAuthenticated == TRUE) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
@@ -2212,6 +2213,12 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	/* Clear all key zeroization register */
 	XPlmi_Out32((AesInstance.BaseAddress +
 		XSECURE_AES_KEY_CLEAR_OFFSET), 0x00000000U);
+
+	/* Configure DPA CM */
+	Status = XLoader_SetAesDpaCm(&AesInstance, DpaCmCfg);
+	if (Status != XLOADER_SUCCESS) {
+		goto END;
+	}
 
 	/*
 	 * Key source selection

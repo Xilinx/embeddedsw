@@ -122,6 +122,7 @@ extern "C" {
 #define XIH_PH_CHECKSUM				(0x3CU)
 
 /* IHT attributes */
+#define XIH_IHT_ATTR_DPA_CM_MASK		(0x3000U)
 #define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
 
 #define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
@@ -433,6 +434,8 @@ XStatus XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
 XStatus XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);
+
+u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTable * IHdrTable);
 
 #ifdef __cplusplus
 }
