@@ -736,9 +736,6 @@ Metal log now more descriptive
 Updated examples
 Added Gen 1/2 compatibility support for Gen 3 devices
 
-zynqmp_fsbl:
-Added code changes to update the PMU GLOBAL register to indicate PL configuration
-
 Changes for 2019.2
 ===============================
 canfd_v2_2:
