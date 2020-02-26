@@ -45,8 +45,8 @@
 /***************************** Include Files *********************************/
 #include "xplm_sem_init.h"
 #include "xplmi_scheduler.h"
+#ifdef XPLM_SEM
 #include "xilsem.h"
-#include "xplm_default.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -94,9 +94,11 @@ int XSem_Init()
 		Status = XPlmi_SchedulerAddTask(0x0U, XSem_NpiRunScan, 100U,
 						XPLM_TASK_PRIORITY_0);
 	}
-END:
+#endif
 
+#if defined(XSEM_CFRSCAN_EN) || defined(XSEM_NPISCAN_EN)
+END:
 #endif
 	return Status;
 }
-
+#endif

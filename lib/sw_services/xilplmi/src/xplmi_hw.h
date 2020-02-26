@@ -184,6 +184,14 @@ extern "C" {
 #endif
 
 /**
+ * Definition for SEM to be included
+ */
+#if !defined(PLM_SEM_EXCLUDE) && (defined(XSEM_CFRSCAN_EN) ||\
+		defined(XSEM_NPISCAN_EN))
+#define XPLM_SEM
+#endif
+
+/**
  * Definitions required from crp.h
  */
 #define CRP_BASEADDR      0XF1260000

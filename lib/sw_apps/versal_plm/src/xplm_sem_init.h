@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,8 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
+#include "xplm_default.h"
+#ifdef XPLM_SEM
 
 /************************** Constant Definitions *****************************/
 
@@ -63,6 +64,8 @@ int XSem_Init();
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
+#endif
 
 #ifdef __cplusplus
 }

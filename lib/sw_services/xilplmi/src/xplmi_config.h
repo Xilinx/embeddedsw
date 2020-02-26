@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -107,11 +107,13 @@ extern "C" {
  *  Below blocks can be excluded from the code.
  *     - PLM_QSPI_EXCLUDE QSPI code will be excluded
  *     - PLM_SD_EXCLUDE SD code will be excluded
+ *     - PLM_SEM_EXCLUDE SEM code will be excluded
  */
 //#define PLM_QSPI_EXCLUDE
 //#define PLM_SD_EXCLUDE
 //#define PLM_OSPI_EXCLUDE
 //#define PLM_USB_EXCLUDE
+//#define PLM_SEM_EXCLUDE
 /**
  * @name PLM Error management options
  *
