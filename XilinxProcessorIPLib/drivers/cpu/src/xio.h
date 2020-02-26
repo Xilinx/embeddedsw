@@ -62,6 +62,7 @@
 * 2.4   nsk  11/05/15 Updated generate and post_generate procs in driver tcl
 *                     not to generate cpu macros, when microblaze is connected
 *                     as one of the streaming slaves to itself. CR#876604
+* 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
 *
 * </pre>
 *

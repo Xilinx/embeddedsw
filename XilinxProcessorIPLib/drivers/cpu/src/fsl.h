@@ -26,7 +26,7 @@
 /*****************************************************************************/
 /**
 * @file fsl.h
-* @addtogroup cpu_v2_9
+* @addtogroup cpu_v2_11
 * @{
 *
 * This file contains macros for interfacing to the Fast Simplex Link (FSL)

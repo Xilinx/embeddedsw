@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,8 @@
 # 2.10  mus  04/16/19 Replace XILINX_SDK env variable with RDI_APPROOT. Fix for
 #                     CR#1028460.
 #       aru  04/18/19 Updated to add Assembler support
+# 2.11  mus  02/26/20 Updated tcl,as per 2020.1 Vitis toolchain directory
+#                     structure
 #
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -50,7 +52,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.10;
+OPTION VERSION = 2.11;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
