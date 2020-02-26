@@ -256,6 +256,46 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM5 },
 	},
+	[XPM_NODEIDX_ISO_XRAM_PL_AXI0] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_XRAM_PL_AXI0),
+		.Node.BaseAddress = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_PCR_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = XRAM_SLCR_PCSR_ODISABLE_PL_AXI0_MASK,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_LPD },
+	},
+	[XPM_NODEIDX_ISO_XRAM_PL_AXI1] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_XRAM_PL_AXI1),
+		.Node.BaseAddress = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_PCR_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = XRAM_SLCR_PCSR_ODISABLE_PL_AXI1_MASK,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles  = { PM_SUBSYS_PL, PM_POWER_LPD },
+	},
+	[XPM_NODEIDX_ISO_XRAM_PL_AXI2] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_XRAM_PL_AXI2),
+		.Node.BaseAddress = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_PCR_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = XRAM_SLCR_PCSR_ODISABLE_PL_AXI2_MASK,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles  = { PM_SUBSYS_PL, PM_POWER_LPD },
+	},
+	[XPM_NODEIDX_ISO_XRAM_PL_AXILITE] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_XRAM_PL_AXILITE),
+		.Node.BaseAddress = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_PCR_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = XRAM_SLCR_PCSR_ODISABLE_PL_AXILITE_MASK,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles  = { PM_SUBSYS_PL, PM_POWER_LPD },
+	},
+	[XPM_NODEIDX_ISO_XRAM_PL_FABRIC] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_XRAM_PL_FABRIC),
+		.Node.BaseAddress = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_PCR_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = XRAM_SLCR_PCSR_FABRICEN_MASK,
+		.Polarity = (u8)PM_ACTIVE_LOW,
+		.DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_LPD },
+	},
 };
 
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
@@ -316,6 +356,60 @@ done:
 	return Status;
 }
 
+static inline void XramIsoUnmask(u32 IsoIdx)
+{
+	u32 BaseAddr = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_MASK_OFFSET;
+	u32 Mask = XPmDomainIso_List[IsoIdx].Mask;
+	XPm_RMW32(BaseAddr, Mask, Mask);
+}
+
+static inline void XramIsoMask(u32 IsoIdx)
+{
+	u32 BaseAddr = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_MASK_OFFSET;
+	u32 Mask = XPmDomainIso_List[IsoIdx].Mask;
+	XPm_RMW32(BaseAddr, Mask, ~Mask);
+}
+
+static void EnablePlXramIso(void)
+{
+	u32 i;
+	u32 IsoIdx = (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC;
+	u32 Mask = XPmDomainIso_List[IsoIdx].Mask;
+
+	for (i = (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0;
+		 i <= (u32)(XPM_NODEIDX_ISO_XRAM_PL_AXILITE);
+		 ++i) {
+		if ((u8)PM_ISOLATION_OFF == XPmDomainIso_List[i].Node.State) {
+			goto done;
+		}
+	}
+
+	if ((u8)PM_ISOLATION_ON != XPmDomainIso_List[IsoIdx].Node.State) {
+		XramIsoUnmask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
+		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_ON;
+		XramIsoMask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
+	}
+
+done:
+		return;
+}
+
+static void DisablePlXramIso(void)
+{
+	u32 IsoIdx = (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC;
+	u32 Mask = XPmDomainIso_List[IsoIdx].Mask;
+
+	if ((u8)PM_ISOLATION_OFF != XPmDomainIso_List[IsoIdx].Node.State) {
+		XramIsoUnmask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
+		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
+		XramIsoMask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
+	}
+
+	return;
+}
+
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
@@ -328,6 +422,10 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	}
 
 	Mask = XPmDomainIso_List[IsoIdx].Mask;
+	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE) &&
+		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
+		XramIsoUnmask(IsoIdx);
+	}
 
 	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
@@ -338,6 +436,10 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 		/* Mark node state appropriately */
 		XPmDomainIso_List[IsoIdx].Node.State = (TRUE_VALUE == Enable) ?
 			(u8)PM_ISOLATION_ON : (u8)PM_ISOLATION_REMOVE_PENDING;
+		if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE) &&
+			(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
+			 EnablePlXramIso();
+		}
 	} else if(Enable == FALSE_IMMEDIATE) {
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
@@ -354,7 +456,10 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			Status = XST_SUCCESS;
 			goto done;
 		}
-
+		if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE) &&
+			(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
+			DisablePlXramIso();
+		}
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		} else {
@@ -366,6 +471,11 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	Status = XST_SUCCESS;
 
 done:
+	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE) &&
+		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
+		XramIsoMask(IsoIdx);
+	}
+
 	return Status;
 }
 
