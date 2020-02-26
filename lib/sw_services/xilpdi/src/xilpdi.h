@@ -336,7 +336,7 @@ typedef struct {
 typedef struct {
 	u32 FirstPrtnHdr; /**< First partition header in the image */
 	u32 NoOfPrtns; /**< Number of partitions in the image */
-	u32 Rsvd1; /**< Reserved */
+	u32 EncRevokeID; /**< Revocation ID of meta header */
 	u32 ImgAttr; /**< Image Attributes */
 	u32 ImgName[4]; /**< Image Name */
 	u32 ImgID; /**< Image ID */
@@ -367,7 +367,8 @@ typedef struct {
 	u32 PrtnIv[3]; /**< IV of the partition's SH */
 	u32 EncStatus; /**< Encryption Status/Key Selection */
 	u32 KekIv[3]; /**< KEK IV for partition decryption */
-	u32 Reserved[10]; /**< Reserved */
+	u32 EncRevokeID; /**< Revocation ID of partition for encrypted partition */
+	u32 Reserved[9U]; /**< Reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16)));
 

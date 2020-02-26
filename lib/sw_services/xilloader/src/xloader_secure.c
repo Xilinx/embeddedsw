@@ -309,6 +309,12 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 		if (SecurePtr->IsEncrypted == TRUE) {
 			SecurePtr->RemainingEncLen =
 				(SecurePtr->PrtnHdr->EncDataWordLen) * XIH_PRTN_WORD_LEN;
+			/* Verify encrypted partition is revoked or not */
+			Status = XLoader_VerifySpkId(SecurePtr->PrtnHdr->EncRevokeID);
+			if (Status != XLOADER_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
+				goto END;
+			}
 		}
 	}
 	else {
@@ -605,6 +611,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	u32 Status = XLOADER_FAILURE;
 	u32 ClearIHs;
 	u32 ClearPHs;
+	u32 Ihs;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"Loading secure image headers and partition headers\n\r");
@@ -651,6 +658,15 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		if (Status != XLOADER_SUCCESS) {
 			Status = XLOADER_FAILURE;
 			goto END;
+		}
+
+		/* Verify Meta header is revoked or not */
+		for (Ihs = 0U; Ihs < MetaHdr->ImgHdrTable.NoOfImgs; Ihs++) {
+			Status = XLoader_VerifySpkId(MetaHdr->ImgHdr[Ihs].EncRevokeID);
+			if (Status != XLOADER_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "Meta header is revoked\n\r");
+				goto END;
+			}
 		}
 
 		/* Update buffer address to point to PHs */
