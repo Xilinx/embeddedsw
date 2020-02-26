@@ -265,16 +265,18 @@ typedef enum {
                                                             stream down event */
     XV_HDMITXSS1_HANDLER_STREAM_UP,                         /**< Handler for
                                                             stream up event */
-	XV_HDMITXSS1_HANDLER_FRL_CONFIG,                        /**< Handler for FRL
-	                                                        Config */
-	XV_HDMITXSS1_HANDLER_FRL_FFE,                           /**< Handler for FRL
-	                                                        FFE */
-	XV_HDMITXSS1_HANDLER_FRL_START,                         /**< Handler for FRL
-	                                                        Start */
-	XV_HDMITXSS1_HANDLER_FRL_STOP,                          /**< Handler for FRL
-	                                                        Stop */
-	XV_HDMITXSS1_HANDLER_TMDS_CONFIG,                       /**< Handler for TMDS
-	                                                        Config */
+    XV_HDMITXSS1_HANDLER_ERROR,                             /**< Handler for
+                                                            error event */
+    XV_HDMITXSS1_HANDLER_FRL_CONFIG,                        /**< Handler for FRL
+                                                            Config */
+    XV_HDMITXSS1_HANDLER_FRL_FFE,                           /**< Handler for FRL
+                                                            FFE */
+    XV_HDMITXSS1_HANDLER_FRL_START,                         /**< Handler for FRL
+                                                            Start */
+    XV_HDMITXSS1_HANDLER_FRL_STOP,                          /**< Handler for FRL
+                                                            Stop */
+    XV_HDMITXSS1_HANDLER_TMDS_CONFIG,                       /**< Handler for TMDS
+                                                            Config */
     XV_HDMITXSS1_HANDLER_HDCP_AUTHENTICATED,                /**< Handler for
                                                             HDCP authenticated
                                                             event */
@@ -417,8 +419,11 @@ typedef struct
     XV_HdmiTxSs1_Callback StreamUpCallback; /**< Callback for stream up */
     void *StreamUpRef;  /**< To be passed to the stream up callback */
 
+    XV_HdmiTxSs1_Callback ErrorCallback; /**< Callback for stream up */
+    void *ErrorRef;  /**< To be passed to the stream up callback */
+
     XV_HdmiTxSs1_LogCallback LogWriteCallback; /**< Callback for log write */
-	u32 *LogWriteRef;  /**< To be passed to the log write callback */
+    u32 *LogWriteRef;  /**< To be passed to the log write callback */
 
     XV_HdmiTxSs1_Callback FrlConfigCallback; /**< Callback for stream up */
     void *FrlConfigRef;  /**< To be passed to the stream up callback */
@@ -549,6 +554,8 @@ u32 XV_HdmiTxSs1_GetTmdsClockFreqHz(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_DetectHdmi20(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_RefClockChangeInit(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ReportInfo(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_DebugInfo(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_RegisterDebug(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_IsStreamUp(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_IsStreamConnected(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_IsStreamToggled(XV_HdmiTxSs1 *InstancePtr);
