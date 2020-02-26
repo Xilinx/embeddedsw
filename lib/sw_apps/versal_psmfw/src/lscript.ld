@@ -32,8 +32,9 @@ _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 MEMORY
 {
    instruction_Mem : ORIGIN = 0xFFC00050, LENGTH = 0x1FFB0
-   data_Mem : ORIGIN = 0xFFC20000, LENGTH = 0x1B000
-   sem_reserved_Mem : ORIGIN = 0xFFC3B000, LENGTH = 0x4F00
+   data_Mem : ORIGIN = 0xFFC20000, LENGTH = 0x1A000
+   dvsec_reserved_Mem : ORIGIN = 0xFFC3A000, LENGTH = 0x1000
+   sem_reserved_Mem : ORIGIN = 0xFFC3B000, LENGTH = 0x4000
    tmr_ram_reserved_Mem : ORIGIN = 0xFFC3FF00, LENGTH = 0x100
 }
 
@@ -229,8 +230,11 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 } > tmr_ram_reserved_Mem
 
 .sem_reserved_memory : {
-	KEEP (*(.reserved_memory))
+	KEEP (*(.sem_reserved_memory))
 } > sem_reserved_Mem
 
+.dvsec_reserved_memory : {
+	KEEP (*(.dvsec_reserved_memory))
+} > dvsec_reserved_Mem
 _end = .;
 }
