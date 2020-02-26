@@ -56,6 +56,7 @@
 *                     internal memory), using same way for non authenticated
 *                     case as well.
 *       mus  02/26/19 Added support for armclang compiler.
+*       skd  02/2/20  Added register writes to PMU GLOBAL to indicate PL configuration
 *
 * </pre>
 *
