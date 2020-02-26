@@ -357,6 +357,10 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
+		/* Read Boot header */
+		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		memset(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst), 0U,
+					sizeof(XilPdi_BootHdrFwRsvd));
 	}
 	/* Read image header */
 	Status = XilPdi_ReadImgHdrTbl(&PdiPtr->MetaHdr);
@@ -368,14 +372,12 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	}
 	SecureParam.PdiPtr = PdiPtr;
 	/* Is Authentication enabled */
-	if (((PdiPtr->MetaHdr.ImgHdrTable.Attr) &
-			XIH_IHT_ATTR_RSA_SIGNATURE_MASK) != 0x0U) {
+	if (PdiPtr->MetaHdr.ImgHdrTable.AcOffset != 0x0U) {
 		SecureParam.IsAuthenticated = TRUE;
 		SecureParam.SecureEn = TRUE;
 	}
 	/* Is Encryption enabled */
-	if (((PdiPtr->MetaHdr.ImgHdrTable.Attr) &
-			XIH_IHT_ATTR_ENCRYPTION_MASK) != 0x0U) {
+	if (PdiPtr->MetaHdr.ImgHdrTable.EncKeySrc != 0x0U) {
 		SecureParam.IsEncrypted = TRUE;
 		SecureParam.SecureEn = TRUE;
 	}

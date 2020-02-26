@@ -66,11 +66,6 @@ u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr * PrtnHdr)
         return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_OWNER_MASK;
 }
 
-u32 XilPdi_IsRsaSignaturePresent(const XilPdi_PrtnHdr * PrtnHdr)
-{
-        return  PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_RSA_SIGNATURE_MASK;
-}
-
 u32 XilPdi_GetChecksumType(XilPdi_PrtnHdr * PrtnHdr)
 {
         return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK;
@@ -84,11 +79,6 @@ u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr * PrtnHdr)
 u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr)
 {
         return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_TYPE_MASK;
-}
-
-u32 XilPdi_IsEnc(const XilPdi_PrtnHdr * PrtnHdr)
-{
-        return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_ENCRYPTION_MASK;
 }
 
 u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr)
@@ -362,10 +352,6 @@ void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		MetaHdrPtr->BootHdr.ImgAttrb);
 	XilPdi_Printf("Meta Header Offset: 0x%0lx \n\r",
 		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst);
-	XilPdi_Printf("Meta Header Len: 0x%0lx \n\r",
-		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrLen);
-	XilPdi_Printf("Meta Header AC Offset: 0x%0lx \n\r",
-		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrAcOfst);
 }
 
 /****************************************************************************/

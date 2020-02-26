@@ -161,7 +161,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 						XLOADER_SHA3_LEN, 0U);
 	}
 	/* check if authentication is enabled */
-	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_RSA_SIGNATURE_MASK) != 0x00) {
+	if (PrtnHdr->AuthCertificateOfst != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO,
                          "Authenticating the partition\n\r");
 
@@ -178,7 +178,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 						0U);
 	}
 	/* Check if encryption is enabled */
-	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_ENCRYPTION_MASK) != 0x00) {
+	if (PrtnHdr->EncStatus != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO,
                          "Partition is in encrypted format\n\r");
 
@@ -562,8 +562,8 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 
 	/* Copy Authentication certificate */
 	AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-		SecurePtr->PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst +
-					XIH_IHT_LEN;
+			(ImgHdrTbl->AcOffset * XIH_PRTN_WORD_LEN);
+
 	SecurePtr->AcPtr = &AuthCert;
 	SecurePtr->PdiPtr->DeviceCopy(AcOffset,	(UINTPTR)SecurePtr->AcPtr,
 			XLOADER_AUTH_CERT_MIN_SIZE, 0U);

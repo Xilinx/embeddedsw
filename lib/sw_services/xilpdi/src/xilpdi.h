@@ -122,8 +122,6 @@ extern "C" {
 #define XIH_PH_CHECKSUM				(0x3CU)
 
 /* IHT attributes */
-#define XIH_IHT_ATTR_RSA_SIGNATURE_MASK		(0x1000U)
-#define XIH_IHT_ATTR_ENCRYPTION_MASK		(0x2000U)
 #define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
 
 #define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
@@ -155,11 +153,8 @@ extern "C" {
 #define XIH_PH_ATTRB_CHUNKSIZE_MASK		(0x700000U)
 #define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
 #define XIH_PH_ATTRB_PRTN_OWNER_MASK	(0x30000U)
-#define XIH_PH_ATTRB_RSA_SIGNATURE_MASK	(0x8000U)
-#define XIH_PH_ATTRB_CHECKSUM_MASK		(0x7000U)
+#define XIH_PH_ATTRB_CHECKSUM_MASK		(0x3000U)
 #define XIH_PH_ATTRB_DSTN_CPU_MASK		(0x0F00U)
-#define XIH_PH_ATTRB_ENCRYPTION_MASK	(0x0080U)
-#define XIH_PH_ATTRB_SLR_MASK			(0x0070U)
 #define XIH_PH_ATTRB_A72_EXEC_ST_MASK	(0x0008U)
 #define XIH_PH_ATTRB_TARGET_EL_MASK		(0x0006U)
 #define XIH_PH_ATTRB_TZ_SECURE_MASK		(0x0001U)
@@ -278,9 +273,7 @@ extern "C" {
  */
 typedef struct {
 	u32 MetaHdrOfst; /**< Offset to the start of meta header */
-	u32 MetaHdrLen; /**< Length of the meta header */
-	u32 MetaHdrAcOfst; /**< Offset to the meta header AC */
-	u32 FwRsvd[22]; /**< FW Reserved fields */
+	u32 FwRsvd[24U]; /**< FW Reserved fields */
 } XilPdi_BootHdrFwRsvd;
 
 /**
@@ -325,7 +318,8 @@ typedef struct {
 	u32 IvMetaHdr[3]; /**< Iv for decrypting SH of meta header */
 	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
 	u32 ExtIdCode;  /**< Extended ID Code */
-	u32 Rsvd[13]; /**< Reserved */
+	u32 AcOffset; /**< AC offset of Meta header */
+	u32 Rsvd[12U]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTable __attribute__ ((aligned(16)));
 
@@ -418,11 +412,9 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_IsRsaSignaturePresent(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetChecksumType(XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr);
-u32 XilPdi_IsEnc(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr);
