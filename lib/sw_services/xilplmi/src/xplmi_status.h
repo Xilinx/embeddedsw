@@ -274,7 +274,11 @@ enum {
 	XLOADER_ERR_SD_CFG,		/**< 0x32D - Error when SD config fails */
 	XLOADER_ERR_SD_CARD_INIT,	/**< 0x32E - Error when SD card init fails */
 	XLOADER_ERR_MMC_PART_CONFIG, /**< 0x32F - Error when MMC switch to user
-									area in raw boot mode fails */
+						area in raw boot mode fails */
+	XLOADER_ERR_SEM_STOP_SCAN,	/**< 0x330 - Error while stoping the
+					  SEM Scan */
+	XLOADER_ERR_SEM_CFR_INIT,	/**< 0x331 - Error while starting the
+					  SEM Scan */
 };
 
 /**************************** Type Definitions *******************************/

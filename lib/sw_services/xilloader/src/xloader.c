@@ -48,6 +48,9 @@
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
 #include "xloader_secure.h"
+#ifdef XPLM_SEM
+#include "xilsem.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -555,6 +558,16 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+#if 0 /* Disabling it as SemStop is not yet implemented */
+	/** Stop the SEM scan before PDI load */
+	Status = XSem_CfrStopScan();
+	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_STOP_SCAN, Status);
+		goto END;
+	}
+#endif
+#endif
 	Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS)
 	{
@@ -573,6 +586,15 @@ END:
 	{
 		XLoader_SbiRecovery();
 	}
+
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/** ReStart the SEM SCAN */
+	Status = XSem_CfrInit();
+	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_CFR_INIT, Status);
+		goto END;
+	}
+#endif
 	return Status;
 }
 
@@ -920,6 +942,16 @@ int XLoader_RestartImage(u32 ImageId)
 {
 	int Status = XST_FAILURE;
 
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+#if 0 /* Disabling it as SemStop is not yet implemented */
+	/** Stop the SEM scan before PDI load */
+	Status = XSem_CfrStopScan();
+	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_STOP_SCAN, Status);
+		goto END;
+	}
+#endif
+#endif
 	Status = XLoader_ReloadImage(ImageId);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -929,6 +961,15 @@ int XLoader_RestartImage(u32 ImageId)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/** ReStart the SEM SCAN */
+	Status = XSem_CfrInit();
+	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_CFR_INIT, Status);
+		goto END;
+	}
+#endif
 
 END:
 	return Status;
