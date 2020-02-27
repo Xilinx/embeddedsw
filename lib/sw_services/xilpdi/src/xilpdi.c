@@ -113,27 +113,25 @@ u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTable * IHdrTable)
 
 }
 
+u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr)
+{
+	return ((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_COPY_MEMORY_MASK) >>
+					XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT);
+}
+
 u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr)
 {
-	return (((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_LOAD_MASK) >>
-		XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT) & 0x1);
+	return ((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_LOAD_MASK) >>
+					XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT);
 }
 
 u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr)
 {
-	return (((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK) >>
-		XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT) & 0x1);
+	return ((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK) >>
+					XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT);
 }
 
-void XilPdi_ResetDelayLoad(XilPdi_ImgHdr *ImgHdr)
-{
-	ImgHdr->ImgAttr = ((ImgHdr->ImgAttr) & (~XILPDI_IH_ATTRIB_DELAY_LOAD_MASK));
-}
 
-void XilPdi_ResetDelayHandoff(XilPdi_ImgHdr *ImgHdr)
-{
-	ImgHdr->ImgAttr = ((ImgHdr->ImgAttr) & (~XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK));
-}
 /****************************************************************************/
 /**
 * @brief This function will return the Secondary boot device

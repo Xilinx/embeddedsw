@@ -50,7 +50,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+extern XilPdi* BootPdiPtr;
+extern XLoader_DeviceOps DeviceOps[];
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -76,26 +77,36 @@ static int XLoader_Reserved(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 {
-	int Status;
-	u32 imgId;
-	XilPdi* PdiPtr = Dic.PdiPtr;
-	Status = XST_FAILURE;
-	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
+	int Status = XST_FAILURE;
 
-	/** store the command fields in resume data */
-	imgId = Cmd->Payload[0];
-	XPlmi_Printf(DEBUG_GENERAL, "Ddr image copy Load: Started\n\r");
+	u32 ImgId;
+	XilPdi* PdiPtr = BootPdiPtr;
+	PdiPtr->ImageNum = 1U;
+	PdiPtr->PrtnNum = 1U;
+	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
 
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-	Status = XLoader_StartDdrcpyImage(imgId);
-	if (Status != XST_SUCCESS)
-	{
+	/*
+	 * Store the command fields in resume data
+	 */
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
+	PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
+	PdiPtr->DeviceCopy = DeviceOps[XLOADER_PDI_SRC_DDR].Copy;
+	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
+	ImgId = Cmd->Payload[0U];
+	PdiPtr->PdiAddr = PdiPtr->MetaHdr.FlashOfstAddr =
+						XLOADER_DDR_COPYIMAGE_BASEADDR;
+	PdiPtr->CopyToMem = FALSE;
+	PdiPtr->DelayHandoff = FALSE;
+
+	Status = XLoader_LoadImage(PdiPtr, ImgId);
+	if (Status == XST_SUCCESS) {
+		Status = XLoader_StartImage(PdiPtr);
+	}
+	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
 		goto END;
 	}
-
-	XPlmi_Printf(DEBUG_GENERAL, "Ddr image copy Load: Done\n\r");
 END:
 	Cmd->Response[0] = Status;
 	return Status;

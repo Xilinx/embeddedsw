@@ -70,7 +70,7 @@ extern "C" {
 #define XLoader_Printf		XPlmi_Printf
 #define XLOADER_32BIT_MASK	(0xFFFFFFFFU)
 #define PMC_LOCAL_BASEADDR	(0xF0000000U)
-#define DDR_COPYIMAGE_BASEADDR	(0x40000000U)
+#define XLOADER_DDR_COPYIMAGE_BASEADDR	(0x40000000U)
 #define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0x50000000U)
 #define XLOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
 #define XLOADER_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
@@ -116,6 +116,7 @@ extern "C" {
  */
 #define XLOADER_PDI_TYPE_FULL			0x1U
 #define XLOADER_PDI_TYPE_PARTIAL		0x2U
+#define XLOADER_PDI_TYPE_RESTORE		0x3U
 /*
  * Secondary boot mode related macros
  */
@@ -217,12 +218,14 @@ typedef struct {
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
 	XStatus (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
-    XLoader_HandoffParam HandoffParam[10];
+    XLoader_HandoffParam HandoffParam[10U];
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
 	u32 ImageNum; /**< Image number in the PDI */
 	u32 PrtnNum; /**< Partition number in the PDI */
 	u32 SlrType; /**< SLR Type */
+	u32 CopyToMem;
+	u32 DelayHandoff;
 } XilPdi;
 
 /**
@@ -244,27 +247,6 @@ typedef struct {
 	XilPdi *PdiPtr; /**< PDI source for that Subsystem */
 	u32 Count; /**< Subsystem count */
 } XilSubsystem;
-
-/**
- * This contains all the information required for DIC(Ddr image copy)
- */
-typedef struct {
-	u64 DicAddr; /**< Corresponding Image copy ddr address */
-	u32 DicSize; /**< Image size */
-	u32 DicId; /**< Image size */
-	u32 DicPrtsnNum;
-	u32 DicNum; /**< Image Number */
-} XilDicData;
-
-/**
- * This is a Ddr image copy container This stores all the information
- * required for Ddr image copy along with its count
- */
-typedef struct {
-	XilPdi *PdiPtr; /**< PDI source for that image */
-	XilDicData DicData[XLOADER_MAX_DDRCOPYIMGS];
-	u32 DicCnt; /**< Image count */
-} XilDic;
 
 /* Structure to store various attributes required for IDCODEs checks */
 
@@ -289,11 +271,6 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 extern XilPdi SubsystemPdiIns;
-extern XilDic Dic;
-
-#if 0
-int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen);
-#endif
 
 int XLoader_Init();
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
@@ -308,14 +285,12 @@ void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 void XLoader_ClearIntrSbiDataRdy();
 void XLoader_CfiErrorHandler(void);
 int XLoader_CframeInit();
-int XLoader_StartDdrcpyImage(u32 ImageId);
 int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader);
 int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
-int XLoader_LoadDdrCpyImgPrtns(XilPdi *PdiPtr, u32 ImgNum, u32 PrtnNum);
 
 /** Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);

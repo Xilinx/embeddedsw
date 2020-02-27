@@ -341,7 +341,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (NULL == SdConfig)
 	{
 		XLoader_Printf(DEBUG_GENERAL,"RAW Lookup config failed\r\n");
-		Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_SD_LOOKUP);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_LOOKUP, Status);
 		goto END;
 	}
 
@@ -350,7 +350,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS)
 	{
 		XLoader_Printf(DEBUG_GENERAL,"RAW Config init failed\r\n");
-		Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_SD_CFG);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_CFG, Status);
 		goto END;
 	}
 
@@ -358,7 +358,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS)
 	{
 		XLoader_Printf(DEBUG_GENERAL,"RAW SD Card init failed\r\n");
-		Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_SD_CARD_INIT);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_CARD_INIT, Status);
 		goto END;
 	}
 
@@ -380,7 +380,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	}
 	if (Status != XST_SUCCESS)
 	{
-	Status = XPLMI_UPDATE_STATUS(Status, XLOADER_ERR_MMC_PART_CONFIG);
+	Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_MMC_PART_CONFIG, Status);
         goto END;
 	}
 

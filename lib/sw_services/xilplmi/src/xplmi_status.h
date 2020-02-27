@@ -279,6 +279,8 @@ enum {
 					  SEM Scan */
 	XLOADER_ERR_SEM_CFR_INIT,	/**< 0x331 - Error while starting the
 					  SEM Scan */
+	XLOADER_ERR_DELAY_ATTRB,	/**< 0x332 - Error when both delay handoff and copy to image
+									attributes are set for an image */
 };
 
 /**************************** Type Definitions *******************************/

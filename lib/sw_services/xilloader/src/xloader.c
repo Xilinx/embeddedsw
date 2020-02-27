@@ -58,11 +58,10 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XilSubsystem SubSystemInfo = {0};
-XilPdi SubsystemPdiIns;
-XilDic Dic;
+XilSubsystem SubSystemInfo = {0U};
+XilPdi SubsystemPdiIns = {0U};
 XilPdi_ATFHandoffParams ATFHandoffParams = {0U};
-
+XilPdi* BootPdiPtr = NULL;
 /*****************************************************************************/
 #define XLOADER_DEVICEOPS_INIT(DevSrc, DevInit, DevCopy)	\
 	{ \
@@ -410,7 +409,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	Status = XilPdi_ValidateImgHdrTable(&(PdiPtr->MetaHdr.ImgHdrTable));
 	if (Status != XST_SUCCESS)
 	{
-		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
+		XPlmi_Printf(DEBUG_GENERAL, "Img Hdr Table Validation failed \n\r");
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
 						Status);
 		goto END;
@@ -454,6 +453,9 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	}
 
 END:
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
+		BootPdiPtr = PdiPtr;
+	}
 	XPlmi_MeasurePerfTime(PdiInitTime, &tPerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
 		"%u.%u ms: PDI initialization time\n\r",
@@ -489,6 +491,15 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs;
 			++PdiPtr->ImageNum)
 	{
+		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
+			PdiPtr->CopyToMem = XilPdi_GetCopyToMemory
+							(&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]);
+		}
+		else
+		{
+			PdiPtr->CopyToMem = FALSE;
+		}
+		PdiPtr->DelayHandoff = FALSE;
 		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
 		/** Check for Cfi errors */
 		XLoader_CfiErrorHandler();
@@ -496,10 +507,45 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			goto END;
 		}
 
-		Status = XLoader_StartImage(PdiPtr);
-		if (Status != XST_SUCCESS)
+		if (PdiPtr->CopyToMem == TRUE) {
+			if (PdiPtr->DelayHandoff == TRUE) {
+				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_DELAY_ATTRB, 0U);
+				goto END;
+			}
+				continue;
+		}
+		else
 		{
-			goto END;
+			if (PdiPtr->DelayHandoff == TRUE) {
+				continue;
+			}
+		}
+
+		Status = XLoader_StartImage(PdiPtr);
+		if (Status != XST_SUCCESS) {
+				goto END;
+		}
+	}
+
+	for (PdiPtr->ImageNum = 1U; PdiPtr->ImageNum <
+				PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs; ++PdiPtr->ImageNum)
+	{
+		PdiPtr->DelayHandoff = XilPdi_GetDelayHandoff(&PdiPtr->MetaHdr.ImgHdr
+									[PdiPtr->ImageNum]);
+		if (PdiPtr->DelayHandoff == TRUE) {
+			XPlmi_Printf(DEBUG_INFO, "Delayed handoff of Image Id "
+						"%0x\n\r", PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]
+															.ImgID);
+			Status = XLoader_LoadImage(PdiPtr, PdiPtr->MetaHdr.ImgHdr
+						[PdiPtr->ImageNum].ImgID);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
+			Status = XLoader_StartImage(PdiPtr);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 		}
     }
 	Status = XST_SUCCESS;
@@ -526,7 +572,6 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	}
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		SubSystemInfo.PdiPtr = PdiPtr;
-		Dic.PdiPtr = PdiPtr;
 	}
 
 	Status = XLoader_LoadAndStartSecPdi(PdiPtr);
@@ -809,7 +854,6 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 {
 	u32 Index;
 	int Status = XST_FAILURE;
-	static u32 DicCount = 0;
 
 	if (0xFFFFFFFFU != ImageId)
 	{
@@ -833,7 +877,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 		 * Update subsystem info only for FULL PDI type and subsystem count is
 		 * less than max subsystems supported.
 		 */
-		if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) &&
+		if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) &&
 				(SubSystemInfo.Count < XLOADER_MAX_SUBSYSTEMS)) {
 			SubSystemInfo.SubsystemLut[SubSystemInfo.Count].SubsystemId =
 					PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
@@ -841,6 +885,23 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 					PdiPtr->ImageNum;
 			SubSystemInfo.SubsystemLut[SubSystemInfo.Count++].PrtnNum =
 					PdiPtr->PrtnNum;
+		}
+	}
+	if(PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE)
+	{
+		for (Index = 0U; Index <
+				PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs; ++Index)
+		{
+			if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId)
+			{
+				PdiPtr->ImageNum = Index;
+				break;
+			}
+		}
+
+		if (PdiPtr->ImageNum == PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs)
+		{
+			goto END;
 		}
 	}
 
@@ -853,76 +914,11 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 		  PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
-	if(XilPdi_GetDelayLoad(&(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum])) == 0x1)
-	{
-		XPlmi_Printf(DEBUG_GENERAL, "XilPdi_GetDelayLoad\r\n");
-		Status = XLoader_LoadDdrCpyImgPrtns(PdiPtr,PdiPtr->ImageNum,PdiPtr->PrtnNum);
-		Dic.DicData[DicCount].DicId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
-		Dic.DicData[DicCount].DicAddr = DDR_COPYIMAGE_BASEADDR;
-		Dic.DicData[DicCount].DicNum = PdiPtr->ImageNum;
-		Dic.DicData[DicCount].DicPrtsnNum = PdiPtr->PrtnNum;
-		DicCount ++;
-		Dic.DicCnt= DicCount;
-		XilPdi_ResetDelayLoad(&(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]));
-
-	}
-	else
-	{
-		Status = XLoader_LoadImagePrtns(PdiPtr, PdiPtr->ImageNum, PdiPtr->PrtnNum);
+	Status = XLoader_LoadImagePrtns(PdiPtr, PdiPtr->ImageNum, PdiPtr->PrtnNum);
+	if (Status != XST_SUCCESS) {
+			goto END;
 	}
 	PdiPtr->PrtnNum += PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * This function is used to load/restart the image in DDR. This function will take
- * ImageId as an input and based on the DIC info available, it will read
- * the image partitions, loads them and hand-off to the required CPUs as part
- * of the image load.
- *
- * @param ImageId Id of the image present in PDI
- *
- * @return	returns XLOADER_SUCCESS on success
- *****************************************************************************/
-int XLoader_StartDdrcpyImage(u32 ImageId)
-{
-	u32 Status;
-	u32 Index;
-	Status = XST_FAILURE;
-	XPlmi_Printf(DEBUG_GENERAL, "XLoader_StartDdrcpyImage\n\r");
-	for (Index = 0U; Index < Dic.DicCnt; Index ++) {
-		if (ImageId == Dic.DicData[Index].DicId) {
-			Dic.PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
-			Status = DeviceOps[(Dic.PdiPtr->PdiSrc) &
-			XLOADER_PDISRC_FLAGS_MASK].Init(Dic.PdiPtr->PdiSrc &
-			XLOADER_PDISRC_FLAGS_MASK);
-			if(Status != XST_SUCCESS)
-		{
-                goto END;
-		}
-		Dic.PdiPtr->DeviceCopy =  DeviceOps[(Dic.PdiPtr->PdiSrc) &
-			XLOADER_PDISRC_FLAGS_MASK].Copy;
-		Dic.PdiPtr->MetaHdr.DeviceCopy = Dic.PdiPtr->DeviceCopy;
-		Dic.PdiPtr->MetaHdr.FlashOfstAddr = DDR_COPYIMAGE_BASEADDR;
-		Dic.PdiPtr->ImageNum = Dic.DicData[Index].DicNum;
-		Dic.PdiPtr->PrtnNum = Dic.DicData[Index].DicPrtsnNum;
-		XPlmi_Printf(DEBUG_GENERAL,
-		  "Image No: 0x%0x, PrtnNo: %s, Id: 0x%08x\n\r",Dic.PdiPtr->ImageNum,
-		  Dic.PdiPtr->PrtnNum, Dic.DicData[Index].DicId);
-		Status = XLoader_LoadImagePrtns(Dic.PdiPtr, Dic.PdiPtr->ImageNum, Dic.PdiPtr->PrtnNum);
-		if (Status != XST_SUCCESS) {
-		goto END;
-		}
-		Status = XLoader_StartImage(Dic.PdiPtr);
-		if (Status != XST_SUCCESS) {
-		goto END;
-		}
-			break;
-		}
-	}
 
 END:
 	return Status;

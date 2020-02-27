@@ -72,161 +72,6 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 
 /*****************************************************************************/
 /**
- * This function copies the partition to specified ddr destination
- *
- * @param	PdiPtr is pointer to the XLoader Instance
- *
- * @param	PrtnNum is the partition number in the image to be loaded
- *
- * @return	returns the error codes
- *****************************************************************************/
-static int XLoader_DdrCpyPrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
-{
-	int Status;
-	u32 SrcAddr;
-	u64 DestAddr;
-	u32 Len;
-	XilPdi_PrtnHdr * PrtnHdr;
-	XLoader_SecureParms SecureParams = {0U};
-	Status = XST_FAILURE;
-    XPlmi_Printf(DEBUG_GENERAL, "XLoader_DdrCpyPrtnCopy \n\r");
-	/* Secure init */
-	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Assign the partition header to local variable */
-	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-	SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr + ((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
-	DestAddr = DDR_COPYIMAGE_BASEADDR + ((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
-	/* For Non-secure image */
-	Len = (PrtnHdr->UnEncDataWordLen) * XIH_PRTN_WORD_LEN;
-	/* Make Length 16byte aligned
-	 * TODO remove this after partition len is made
-	 * 16byte aligned by bootgen*/
-	if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
-		Len = Len + XLOADER_DMA_LEN_ALIGN - (Len%XLOADER_DMA_LEN_ALIGN);
-	}
-		if (SecureParams.SecureEn != TRUE) {
-		Status = PdiPtr->MetaHdr.DeviceCopy(SrcAddr, DestAddr, Len, 0x0U);
-		if (XST_SUCCESS != Status)
-		{
-			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
-			goto END;
-		}
-	}
-	else {
-		Status = XLoader_SecureCopy(&SecureParams, DestAddr, Len);
-		if (XST_SUCCESS != Status) {
-			goto END;
-		}
-	}
-	XPlmi_Printf(DEBUG_GENERAL, "DestAddr:0x%08x\n\r",DestAddr);
-END:
-	return Status;
-}
-
-
-/****************************************************************************/
-/**
- * This function is used to process the partition. It copies and validates if
- * security is enabled.
- *
- * @param	PdiPtr is pointer to the Plm Instance
- *
- * @param	PrtnNum is the partition number in the image to be loaded
- *
- * @return
- *		- XST_SUCCESS on Success
- *
- * @note
- *
- *****************************************************************************/
-static int XLoader_DdrCpyProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
-{
-	int Status;
-	XilPdi_PrtnHdr * PrtnHdr;
-	Status = XST_FAILURE;
-
-	/* Assign the partition header to local variable */
-	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-
-	/* Update current Processing partition ID */
-	PdiPtr->CurPrtnId = PrtnHdr->PrtnId;
-	Status = XLoader_DdrCpyPrtnCopy(PdiPtr, PrtnNum);
-	if (XST_SUCCESS != Status)
-	{
-		goto END;
-	}
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * This function loads the partition
- *
- * @param	PdiPtr is pointer to the XLoader Instance
- *
- * @param	PrtnNum is the partition number in the image to be loaded
- *
- * @return	returns the error codes on any error
- *			returns XST_SUCCESS on success
- *
- *****************************************************************************/
-int XLoader_LoadDdrCpyImgPrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
-{
-	int Status;
-	u32 PrtnIndex;
-	u64 PrtnLoadTime;
-	Status = XST_FAILURE;
-	XPlmi_PerfTime tPerfTime = {0U};
-
-	/* Validate and load the image partitions */
-	XPlmi_Printf(DEBUG_GENERAL, "XLoader_LoadDdrCpyImgPrtns\r\n");
-	for (PrtnIndex = 0; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
-	{
-		XPlmi_Printf(DEBUG_GENERAL, "+++++++Loading Prtn No: 0x%0x\r\n",
-			     PrtnNum);
-		PrtnLoadTime = XPlmi_GetTimerValue();
-
-		/* Prtn Hdr Validation */
-		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
-
-		/* PLM is not partition owner and skip this partition */
-		if (Status == XLOADER_SUCCESS_NOT_PRTN_OWNER)
-		{
-			Status = XST_SUCCESS;
-			goto END;
-		} else if (XST_SUCCESS != Status)
-		{
-			goto END;
-		} else
-		{
-			/* For MISRA C compliance */
-		}
-
-		/* Process Partition */
-		Status = XLoader_DdrCpyProcessPrtn(PdiPtr, PrtnNum);
-		if (XST_SUCCESS != Status)
-		{
-			goto END;
-		}
-		XPlmi_MeasurePerfTime(PrtnLoadTime, &tPerfTime);
-		XPlmi_Printf(DEBUG_PRINT_PERF,
-			" %u.%u ms for PrtnNum: %d, Size: %d Bytes\n\r",
-			(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac, PrtnNum,
-			(PdiPtr->MetaHdr.PrtnHdr[PrtnNum].TotalDataWordLen)*4U);
-		PrtnNum++;
-	}
-	Status = XST_SUCCESS;
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * This function loads the partition
  *
  * @param	PdiPtr is pointer to the XLoader Instance
@@ -239,19 +84,28 @@ END:
  *****************************************************************************/
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 PrtnIndex;
 	u64 PrtnLoadTime;
 	XPlmi_PerfTime tPerfTime = {0U};
 
 	/* Validate and load the image partitions */
-
-	for (PrtnIndex = 0; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
+	for (PrtnIndex = 0U; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
 	{
-		XPlmi_Printf(DEBUG_GENERAL, "+++++++Loading Prtn No: 0x%0x\r\n",
-			     PrtnNum);
 		PrtnLoadTime = XPlmi_GetTimerValue();
 
+		if(PdiPtr->DelayHandoff == TRUE)
+		{
+			Status = XLoader_PrtnValidation(PdiPtr, PrtnNum);
+			if (XST_SUCCESS != Status)
+			{
+				goto END;
+			}
+			PrtnNum++;
+			continue;
+		}
+		XPlmi_Printf(DEBUG_GENERAL, "+++++++Loading Prtn No: 0x%0x\r\n",
+			     PrtnNum);
 		/* Prtn Hdr Validation */
 		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
 
@@ -371,6 +225,11 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		Len = Len + XLOADER_DMA_LEN_ALIGN - (Len%XLOADER_DMA_LEN_ALIGN);
 	}
 
+	if (PdiPtr->CopyToMem == TRUE) {
+		Status = PdiPtr->DeviceCopy(SrcAddr, SrcAddr +
+					XLOADER_DDR_COPYIMAGE_BASEADDR, Len, 0U);
+		goto END;
+	}
 	/**
 	 * Requirements:
 	 *
@@ -487,7 +346,7 @@ END:
  *****************************************************************************/
 static int XLoader_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	/* Validate the partition */
 
 	/* Update the handoff values */
@@ -603,7 +462,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	u32 SrcAddr;
 	u32 Len;
 	u32 ChunkLen;
-	XPlmiCdo Cdo = {0};
+	XPlmiCdo Cdo = {0U};
 	XilPdi_PrtnHdr * PrtnHdr;
 	u32 LastChunk = FALSE;
 	u32 ChunkAddr = XLOADER_CHUNK_MEMORY;
@@ -637,6 +496,11 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
                         XLOADER_DMA_LEN_ALIGN;
         }
 
+	if (PdiPtr->CopyToMem == TRUE) {
+		Status = PdiPtr->DeviceCopy(SrcAddr, SrcAddr +
+					XLOADER_DDR_COPYIMAGE_BASEADDR, Len, 0U);
+		goto END;
+	}
 	/**
 	 * Initialize the Cdo Pointer and
 	 * check CDO header contents
@@ -787,7 +651,7 @@ END:
  * @param	PrtnNum is the partition number in the image to be loaded
  *
  * @return
- *		- XST_SUCCESS on Success
+ *		- XST_SUCCESS on Success, error code on failure
  *
  * @note
  *
@@ -821,11 +685,13 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 		goto END;
 	}
 
-	/* Partition Validation */
-	Status = XLoader_PrtnValidation(PdiPtr, PrtnNum);
-	if (XST_SUCCESS != Status)
-	{
-		goto END;
+	if (PdiPtr->CopyToMem == FALSE) {
+		/* Partition Validation */
+		Status = XLoader_PrtnValidation(PdiPtr, PrtnNum);
+		if (XST_SUCCESS != Status)
+		{
+			goto END;
+		}
 	}
 
 END:

@@ -89,6 +89,8 @@ int XLoader_DdrInit(u32 DeviceFlags)
  *
  * @param Length Length of the bytes to be copied
  *
+ * @param Flags that denote blocking / non-blocking dma
+ *
  * @return
  *		- XST_SUCCESS for successful copy
  *		- errors as mentioned in xplmi_status.h
