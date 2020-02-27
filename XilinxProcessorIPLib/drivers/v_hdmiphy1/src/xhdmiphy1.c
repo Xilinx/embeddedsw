@@ -743,16 +743,14 @@ void XHdmiphy1_SetTxVoltageSwing(XHdmiphy1 *InstancePtr, u8 QuadId,
 	RegVal |= ((Vs & 0xF) << XHDMIPHY1_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 
-	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
-		RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
-					XHDMIPHY1_TX_DRIVER_EXT_REG);
-		MaskVal = XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_MASK(ChId);
-		RegVal &= ~MaskVal;
-		RegVal |= ((Vs && 0x10) <<
-					XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(ChId));
-		XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
-				XHDMIPHY1_TX_DRIVER_EXT_REG, RegVal);
-	}
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				XHDMIPHY1_TX_DRIVER_EXT_REG);
+	MaskVal = XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= ((Vs && 0x10) <<
+			XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(ChId));
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
+			XHDMIPHY1_TX_DRIVER_EXT_REG, RegVal);
 }
 
 /*****************************************************************************/

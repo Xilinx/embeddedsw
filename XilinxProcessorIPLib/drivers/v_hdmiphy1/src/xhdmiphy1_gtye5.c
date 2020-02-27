@@ -221,7 +221,8 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 1;
 			}
 			else if ((204687500 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 297010000)) {
+						/* 297 MHz + 0.5% + 10 KHz error */
+						((*RefClkPtr) <= 298500000)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 2;
 			}
 			else{
@@ -230,12 +231,12 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		}
 		/* HDMI 2.0 */
 		else {
-			if ((84990000 <= (*RefClkPtr)) &&
+			if ((84570000 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 102343750)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 3;
 			}
 			else if ((102343750 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 148510000)) {
+						((*RefClkPtr) <= 149500000)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 4;
 			}
 			else{
@@ -404,7 +405,8 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 1;
 			}
 			else if ((200000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 297010000)) {
+						/* 297 MHz + 0.5% + 10 KHz error */
+						((*RefClkPtr) <= 298500000)) {
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 2;
 			}
 			else{
@@ -413,12 +415,12 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		}
 		/* HDMI 2.0 */
 		else {
-			if ((84990000 <= (*RefClkPtr)) &&
+			if ((84570000 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 100000000)) {
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 3;
 			}
 			else if ((100000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 148510000)) {
+						((*RefClkPtr) <= 149500000)) {
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 4;
 			}
 			else{

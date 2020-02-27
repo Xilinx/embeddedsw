@@ -243,7 +243,11 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		XHdmiphy1_SetTxVoltageSwing(InstancePtr, QuadId,
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 			(XHdmiphy1_ChannelId)Id, 0xB);
+#else
+			(XHdmiphy1_ChannelId)Id, 0x1F);
+#endif
 		XHdmiphy1_SetTxPreEmphasis(InstancePtr, QuadId,
             (XHdmiphy1_ChannelId)Id, 0x4);
 		XHdmiphy1_SetTxPostCursor(InstancePtr, QuadId,
