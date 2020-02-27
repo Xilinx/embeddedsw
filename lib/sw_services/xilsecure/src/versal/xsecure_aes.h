@@ -39,6 +39,8 @@
 * 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
 *                       and added in xsecure_utils.h
 *       vns  02/10/2020 Added DPA CM enable/disable function
+*       rpo  02/27/2020 Added function prototype of XSecure_AesKeyLoad
+*                       XSecure_AesWaitForDone functions
 * </pre>
 *
 * @note
@@ -210,6 +212,11 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+
+u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
+
+u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+					   XSecure_AesKeySize KeySize);
 
 #ifdef __cplusplus
 }

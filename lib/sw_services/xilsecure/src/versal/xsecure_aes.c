@@ -40,6 +40,8 @@
 *       vns  08/23/2019 Initialized status variables
 * 4.2   har  01/03/2020 Added checks for return value of XSecure_SssAes
 *       vns  02/10/2020 Added DPA CM enable/disable function
+*	rpo  02/27/2020 Removed function prototype and static keyword of XSecure_AesKeyLoad
+*			XSecure_AesWaitForDone functions
 * </pre>
 *
 * @note
@@ -60,9 +62,6 @@
 
 /************************** Function Prototypes ******************************/
 
-static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-					   XSecure_AesKeySize KeySize);
-static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
 static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
 		XCsuDma_Channel Channel, u8 EndianType);
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
@@ -1323,7 +1322,7 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
  *
  *
  ******************************************************************************/
-static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 					   XSecure_AesKeySize KeySize)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -1363,7 +1362,7 @@ static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc
  * @return	None
  *
  ******************************************************************************/
-static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
+u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
 {
 	volatile u32 RegStatus;
 	u32 Status = (u32)XST_FAILURE;
