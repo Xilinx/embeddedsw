@@ -400,7 +400,8 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
 
-	PmDbg("State=0x%x, Event=0x%x\n\r",Node->State, Event);
+	PmDbg("Id:0x%x, UseCount:%d, State=%x, Event=%x\n\r",
+				Node->Id, Power->UseCount, Node->State, Event);
 
 	switch (Node->State)
 	{
