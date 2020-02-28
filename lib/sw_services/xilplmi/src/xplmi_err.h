@@ -57,6 +57,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* Action to be taken when an error occurs */
+#define XPLMI_EM_ACTION_INVALID	0U
 #define XPLMI_EM_ACTION_POR		1U
 #define XPLMI_EM_ACTION_SRST		2U
 #define XPLMI_EM_ACTION_CUSTOM		3U
@@ -67,6 +68,11 @@ extern "C" {
 #define XPLMI_EM_ACTION_PSM_NCR		8U
 #define XPLMI_EM_ACTION_NONE		9U
 #define XPLMI_EM_ACTION_MAX		10U
+
+/* Subsystem shutdown/restart related macros */
+#define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		0U
+#define XPLMI_SUBSYS_SHUTDN_TYPE_RESTART	1U
+#define XPLMI_RESTART_SUBTYPE_SUBSYS		0U
 
 /* PLMI ERROR Management error codes */
 #define XPLMI_INVALID_ERROR_ID		(1U)
@@ -85,6 +91,7 @@ extern s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type,
 struct XPlmi_Error_t {
 	XPlmi_ErrorHandler_t Handler;
 	u8 Action;
+	u32 SubsystemId;
 };
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -94,12 +101,13 @@ void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
+void XPlmi_ErrIntrHandler(void *CallbackRef);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);
 
 /************************** Variable Definitions *****************************/
-
+extern u32 EmSubsystemId;
 /*****************************************************************************/
 
 #ifdef __cplusplus

@@ -52,6 +52,7 @@
 #ifdef XPLM_SEM
 #include "xilsem.h"
 #endif
+#include "xplmi_err.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -911,6 +912,8 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 		  PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+	/* Update current subsystem ID for EM */
+	EmSubsystemId = PdiPtr->CurImgId;
 	Status = XLoader_LoadImagePrtns(PdiPtr, PdiPtr->ImageNum, PdiPtr->PrtnNum);
 	if (Status != XST_SUCCESS) {
 			goto END;

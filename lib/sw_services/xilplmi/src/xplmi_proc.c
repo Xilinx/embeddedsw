@@ -49,6 +49,7 @@
 #include "xplmi_hw.h"
 #include "xplmi_scheduler.h"
 #include "xplmi_debug.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
@@ -320,7 +321,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{XPlmi_IntrHandler},
 	{XPlmi_GicIntrHandler},
 	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
+	{XPlmi_ErrIntrHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
