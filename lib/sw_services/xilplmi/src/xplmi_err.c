@@ -448,6 +448,49 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 
 /*****************************************************************************/
 /**
+ * @brief This function clears any previous errors before enabling them.
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error to be cleared
+ * @return None
+ *****************************************************************************/
+void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
+{
+	u32 RegMask;
+
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
+
+	switch (EVENT_TYPE(ErrorNodeId)) {
+
+	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
+		/* Clear previous errors */
+		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, RegMask);
+		break;
+
+	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
+		/* Clear previous errors */
+		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, RegMask);
+		break;
+
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		/* Clear previous errors */
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS, RegMask);
+		break;
+
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		/* Clear previous errors */
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, RegMask);
+		break;
+
+	default:
+		/* Invalid Error Type */
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
+		break;
+	}
+}
+
+/*****************************************************************************/
+/**
  * @brief This function disables the responses for the given error.
  * @param    ErrorNodeId is the node ID for the error event
  * @param    ErrorMask is the error to be disabled
@@ -798,6 +841,8 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 			/* Error action disabling failure */
 			goto END;
 		}
+		/* Clear any previous errors */
+		XPlmi_EmClearError(ErrorNodeId, ErrorMask);
 	}
 
 	switch (ActionId) {
