@@ -15,7 +15,10 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ma   02/26/2020 Initial release
+* 1.00  kc   02/12/2019 Initial release
+* 1.01  ma   02/28/2020 Error actions related changes
+*       bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -40,6 +43,11 @@ extern "C" {
 
 #define XPLMI_NODE_TYPE_MASK		(0xFC000U)
 #define XPLMI_NODE_TYPE_SHIFT		(0xEU)
+
+#define XPLMI_NODEIDX_ERROR_PMCERR1_MAX	(0x20U)
+#define XPLMI_NODEIDX_ERROR_PMCERR2_MAX	(0x40U)
+#define XPLMI_NODEIDX_ERROR_PSMERR1_MAX	(0x60U)
+#define XPLMI_NODEIDX_ERROR_PSMERR2_MAX	(0x75U)
 
 typedef enum {
 	/* Event subclasses */
@@ -76,8 +84,8 @@ typedef enum {
 	XPLMI_NODEIDX_ERROR_NOCTYPE1_NCR, /**< 0xDU */
 	XPLMI_NODEIDX_ERROR_NOCUSER, /**< 0xEU */
 	XPLMI_NODEIDX_ERROR_MMCM, /**< 0xFU */
-	XPLMI_NODEIDX_ERROR_ME_CR, /**< 0x10U */
-	XPLMI_NODEIDX_ERROR_ME_NCR, /**< 0x11U */
+	XPLMI_NODEIDX_ERROR_AIE_CR, /**< 0x10U */
+	XPLMI_NODEIDX_ERROR_AIE_NCR, /**< 0x11U */
 	XPLMI_NODEIDX_ERROR_DDRMC_CR, /**< 0x12U */
 	XPLMI_NODEIDX_ERROR_DDRMC_NCR, /**< 0x13U */
 	XPLMI_NODEIDX_ERROR_GT_CR, /**< 0x14U */
@@ -92,7 +100,6 @@ typedef enum {
 	XPLMI_NODEIDX_ERROR_SSIT3, /**< 0x1DU */
 	XPLMI_NODEIDX_ERROR_SSIT4, /**< 0x1EU */
 	XPLMI_NODEIDX_ERROR_SSIT5, /**< 0x1FU */
-	XPLMI_NODEIDX_ERROR_PMCERR1_MAX, /**< 0x20U */
 	/* PMC ERR2 errors */
 	XPLMI_NODEIDX_ERROR_PMCAPB = 32U, /**< 0x20U */
 	XPLMI_NODEIDX_ERROR_PMCROM, /**< 0x21U */
@@ -126,7 +133,6 @@ typedef enum {
 	XPLMI_NODEIDX_ERROR_SSIT0, /**< 0x3DU */
 	XPLMI_NODEIDX_ERROR_SSIT1, /**< 0x3EU */
 	XPLMI_NODEIDX_ERROR_SSIT2, /**< 0x3FU */
-	XPLMI_NODEIDX_ERROR_PMCERR2_MAX, /**< 0x40U */
 	/* PSM ERR1 errors */
 	XPLMI_NODEIDX_ERROR_PS_SW_CR = 64U, /**< 0x40U */
 	XPLMI_NODEIDX_ERROR_PS_SW_NCR, /**< 0x41U */
@@ -160,7 +166,6 @@ typedef enum {
 	XPLMI_NODEIDX_ERROR_PSM_RSRV1, /**< 0x5DU */
 	XPLMI_NODEIDX_ERROR_PSM_RSRV2, /**< 0x5EU */
 	XPLMI_NODEIDX_ERROR_PSM_RSRV3, /**< 0x5FU */
-	XPLMI_NODEIDX_ERROR_PSMERR1_MAX, /**< 0x60U */
 	/* PSM ERR2 errors */
 	XPLMI_NODEIDX_ERROR_LPD_SWDT = 96U, /**< 0x60U */
 	XPLMI_NODEIDX_ERROR_FPD_SWDT, /**< 0x61U */
@@ -183,7 +188,6 @@ typedef enum {
 	XPLMI_NODEIDX_ERROR_LPD_XMPU, /**< 0x72U */
 	XPLMI_NODEIDX_ERROR_LPD_XPPU, /**< 0x73U */
 	XPLMI_NODEIDX_ERROR_FPD_XMPU, /**< 0x74U */
-	XPLMI_NODEIDX_ERROR_PSMERR2_MAX, /**< 0x75U */
 } XPlmi_ErrorId;
 
 /**************************** Type Definitions *******************************/
