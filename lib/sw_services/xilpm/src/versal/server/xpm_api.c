@@ -52,6 +52,7 @@
 #include "xpm_ipi.h"
 #include "xsysmonpsv.h"
 #include "xpm_notifier.h"
+#include "xplmi_error_node.h"
 
 #ifdef STDOUT_BASEADDRESS
 #if (STDOUT_BASEADDRESS == 0xFF000000U)
@@ -4388,9 +4389,13 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 	}
 
 	/* Validate other parameters */
-	/* TODO: Add check for EM events once Error Event Types are finalized */
-	if ((0U != Wake && 1U != Wake) || (0U != Enable && 1U != Enable) ||
-	    ((u32)EVENT_STATE_CHANGE != Event && (u32)EVENT_ZERO_USERS != Event)) {
+	if ((((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) &&
+			(Event >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) ||
+		(((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+			(((0U != Wake) && (1U != Wake)) ||
+			((0U != Enable) && (1U != Enable)) ||
+			(((u32)EVENT_STATE_CHANGE != Event) &&
+			((u32)EVENT_ZERO_USERS != Event))))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

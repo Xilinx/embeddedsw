@@ -101,6 +101,7 @@ void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
+int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
 
 /* Functions defined in xplmi_err_cmd.c */
