@@ -47,12 +47,12 @@
  * 4.2	 adk	 23/08/18  Added bitstream size define.
  * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
  * 5.2   Nava    14/02/20  Removed unwanted header file inclusion.
+ * 5.2   Nava    27/02/20  Added support for Versal Platform.
  * </pre>
  *
  ******************************************************************************/
 
 #include "xilfpga.h"
-
 /**************************** Type Definitions *******************************/
 /* Xilfpga library supports vivado generated Partial Bitstream(*.bit) and
  * bootgen generated Partial Bitstream(*.bin), Passing below definition is
@@ -63,9 +63,14 @@
  * User should replace the below definition value with the actual
  * Partial Bitstream size.
  *
- * @note: This example supports only Zynq UltraScale+ MPSoC platform.
+ * @note: This example supports only Zynq UltraScale+ MPSoC and Versal platform.
  */
-#define BITSTREAM_SIZE	0x1000000
+
+/* For Versal platform Passing the below definition is Optional */
+#define BITSTREAM_SIZE	0x1000000U /* Bin or bit or PDI image size */
+#ifdef versal
+#define PDI_LOAD        0U
+#endif
 /*****************************************************************************/
 int main(void)
 {
@@ -81,9 +86,13 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
-
+#ifdef versal
+	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
+					 BITSTREAM_SIZE, PDI_LOAD);
+#else
 	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
 					 BITSTREAM_SIZE, XFPGA_PARTIAL_EN);
+#endif
 
  done:
 	if (Status == XFPGA_SUCCESS)
