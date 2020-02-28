@@ -43,6 +43,7 @@ extern "C" {
 #define PMC_I2C_ADDR			0xF1000000U
 #define I2C0_MUX_ADDR			0x74
 #define PSFP_REGULATOR_ADDR		0x0A
+#define PSLP_REGULATOR_ADDR		0x09
 
 /************************ MUX Channel Definitions ****************************/
 /***************** Channels 5-7 are currently not configured *****************/

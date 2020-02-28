@@ -268,7 +268,12 @@ XStatus XPmBoard_ControlRail(const enum power_rail_function Function,
 		MuxChannel = MUX_SEL_CHANNEL_0;
 		PmcPowerSupplyMask = PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK;
 		break;
-	/*TODO: Add cases for other power rails i.e. LPD */
+	case POWER_RAIL_LPD:
+		RegulatorAddress = PSLP_REGULATOR_ADDR;
+		MuxChannel = MUX_SEL_CHANNEL_0;
+		PmcPowerSupplyMask = PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK;
+		break;
+	/*TODO: Add cases for other power rails */
 	default:
 		PmErr("Invalid Regulator Id\n\r");
 		goto done;
@@ -286,7 +291,7 @@ XStatus XPmBoard_ControlRail(const enum power_rail_function Function,
 		/* Send PMBus commands to Power up rail */
 		Status = XPmBoard_PowerUpRail(RegulatorAddress, PmcPowerSupplyMask);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failure powering up FPD power rail\n\r");
+			PmErr("Failure powering up power rail\n\r");
 			goto done;
 		}
 		break;
@@ -294,7 +299,7 @@ XStatus XPmBoard_ControlRail(const enum power_rail_function Function,
 		/* Send PMC_I2C command to turn off power rail */
 		Status = XPmBoard_PowerDownRail(RegulatorAddress);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failure turning off FPD power rail\n\r");
+			PmErr("Failure turning off power rail\n\r");
 			goto done;
 		}
 		break;
