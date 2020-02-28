@@ -50,10 +50,10 @@
 #include "xilmailbox.h"
 
 /************************** Constant Definitions *****************************/
-#define PDI_LOAD		0x30701
-#define DELAYED_PDI_LOAD	0x30702
-#define LOAD_PDI_MSG_LEN	0x4
-#define FPGA_IPI_RESP1		0x1
+#define PDI_LOAD		0x30701U
+#define DELAYED_PDI_LOAD	0x30702U
+#define LOAD_PDI_MSG_LEN	0x4U
+#define FPGA_IPI_RESP1		0x1U
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -78,7 +78,7 @@ static u32 ReqBuffer[LOAD_PDI_MSG_LEN];
  ******************************************************************************/
 u32 XFpga_Initialize(XFpga *InstancePtr) {
 
-	(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
+	(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
 
 	return XFPGA_SUCCESS;
@@ -99,18 +99,18 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	u32 Status = XFPGA_FAILURE;
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
-	Status = XMailbox_Initialize(&XMboxInstance, 0);
+	Status = XMailbox_Initialize(&XMboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	if (InstancePtr->WriteInfo.Flags & BIT(0)) {
-		ReqBuffer[0] = DELAYED_PDI_LOAD;
-		ReqBuffer[1] = (u32)BitstreamAddr; /* Image ID */
+	if (InstancePtr->WriteInfo.Flags & BIT(0U)) {
+		ReqBuffer[0U] = DELAYED_PDI_LOAD;
+		ReqBuffer[1U] = (u32)BitstreamAddr; /* Image ID */
 	} else {
-		ReqBuffer[0] = PDI_LOAD;
-		ReqBuffer[1] = 0xF; /* DDR */
-		ReqBuffer[2] = UPPER_32_BITS(BitstreamAddr);
-		ReqBuffer[3] = (u32)BitstreamAddr;
+		ReqBuffer[0U] = PDI_LOAD;
+		ReqBuffer[1U] = 0xFU; /* DDR */
+		ReqBuffer[2U] = UPPER_32_BITS(BitstreamAddr);
+		ReqBuffer[3U] = (u32)BitstreamAddr;
 	}
 	/* Send an IPI Req Message */
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPIPMC, ReqBuffer,
