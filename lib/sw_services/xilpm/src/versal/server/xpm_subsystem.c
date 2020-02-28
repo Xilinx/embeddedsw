@@ -127,7 +127,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 	  as it does not have ipi channel mapped to it.*/
 	/* TODO: remove this when ipi channel is requested through CDO
 	and assigned to susbystemid */
-	if ((u8)ONLINE == PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State) {
+	if ((u8)OFFLINE != PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State) {
 		return PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].Id;
 	}
 

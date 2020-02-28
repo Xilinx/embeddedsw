@@ -1286,7 +1286,7 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
+	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -1326,7 +1326,7 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
+	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
