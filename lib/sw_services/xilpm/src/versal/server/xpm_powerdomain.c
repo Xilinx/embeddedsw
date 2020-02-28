@@ -42,6 +42,7 @@
 
 static u8 SystemResetFlag;
 static u8 DomainPORFlag;
+static u32 PsmApuPwrState;
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
@@ -358,6 +359,7 @@ done:
 XStatus XPm_PowerUpFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Psm *Psm;
 
 	/*
 	 *  Power up FPD power rail
@@ -369,7 +371,16 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 		goto done;
 	}
 
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL == Psm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	if ((u8)XPM_POWER_STATE_ON != Node->State) {
+		/* Restore the PSM APU power state register */
+		PmOut32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
+
 		PmInfo("Reloading FPD CDO\r\n");
 		Status = XLoader_ReloadImage(Node->Id);
 		if (XST_SUCCESS != Status) {
@@ -386,6 +397,7 @@ done:
 XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Psm *Psm;
 	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0);
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
@@ -438,10 +450,19 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 		goto done;
 	}
 
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL == Psm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	/* Enable GIC proxy only if resume path is set */
 	if ((NULL != ApuCore) &&
 	    (XST_SUCCESS == ApuCore->CoreOps->HasResumeAddr(ApuCore))) {
 		XPm_GicProxy.Enable();
+
+		/* Store the PSM APU power state register */
+		PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
 	}
 
 done:
