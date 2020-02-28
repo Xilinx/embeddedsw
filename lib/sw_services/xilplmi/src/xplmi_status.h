@@ -37,7 +37,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/13/2018 Initial release
 * 1.01  ma   02/03/2020 Add event logging related error codes
-*
+*       har  02/18/2020 Added major error code for Security
 * </pre>
 *
 * @note
@@ -266,7 +266,7 @@ enum {
 	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize
 																	fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
-	XLOADER_ERR_DFU_DWNLD,		/**< 0x32A - Error when pdi fails to download */
+	XLOADER_ERR_DFU_DWNLD,	/**< 0x32A - Error when pdi fails to download */
 	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occured while
 					  processing CDO but error is deferred
 					  till whole CDO processing is completed */
@@ -274,13 +274,86 @@ enum {
 	XLOADER_ERR_SD_CFG,		/**< 0x32D - Error when SD config fails */
 	XLOADER_ERR_SD_CARD_INIT,	/**< 0x32E - Error when SD card init fails */
 	XLOADER_ERR_MMC_PART_CONFIG, /**< 0x32F - Error when MMC switch to user
-						area in raw boot mode fails */
+									area in raw boot mode fails */
 	XLOADER_ERR_SEM_STOP_SCAN,	/**< 0x330 - Error while stoping the
 					  SEM Scan */
 	XLOADER_ERR_SEM_CFR_INIT,	/**< 0x331 - Error while starting the
 					  SEM Scan */
-	XLOADER_ERR_DELAY_ATTRB,	/**< 0x332 - Error when both delay handoff and copy to image
-									attributes are set for an image */
+	XLOADER_ERR_DELAY_ATTRB,	/**< 0x332 - Error when both delay handoff
+					  and copy to image */
+
+	/**< Security Major error codes */
+	XLOADER_ERR_INIT_GET_DMA = 0x600U,
+		/**< 0x600 Failed to get DMA instance at time of initialization */
+	XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE,
+		/**< 0x601 only SHA3 checksum is supported */
+	XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL,
+		/**< 0x602 Failed when copying Checksum from flash device */
+	XLOADER_ERR_INIT_AC_COPY_FAIL,
+		/**< 0x603 Failed when copying AC from flash device */
+	XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC,
+		/**< 0x604 Failed as checksum was enabled with authentication
+				 and encryption enabled */
+
+	XLOADER_ERR_DMA_TRANSFER,
+		/**< 0x605 DMA Transfer failed while copying */
+
+	XLOADER_ERR_IHT_AUTH_DISABLED,
+		/**< 0x606 Authentication is not enabled for Image Header table */
+	XLOADER_ERR_IHT_GET_DMA,
+		/**< 0x607 Failed to get DMA instance for IHT authentication */
+	XLOADER_ERR_IHT_COPY_FAIL,
+		/**< 0x608 Failed when copying IHT AC from flash device */
+	XLOADER_ERR_IHT_HASH_CALC_FAIL,
+		/**< 0x609 Failed to calculate hash for IHT authentication */
+	XLOADER_ERR_IHT_AUTH_FAIL,
+		/**< 0x60A Failed to authenticate IHT */
+
+	XLOADER_ERR_HDR_COPY_FAIL,
+		/**< 0x60B Failed when copying IH/PH from flash device */
+	XLOADER_ERR_HDR_AES_OP_FAIL,
+		/**< 0x60C Failed due to AES init or Decrypt init or key selection
+		failure */
+	XLOADER_ERR_HDR_DEC_FAIL,
+		/**< 0x60D Failed to decrypt IH/PH */
+	XLOADER_ERR_HDR_AUTH_FAIL,
+		/**< 0x60E Failed to authenticate IH/PH */
+	XLOADER_ERR_HDR_NOT_SECURE,
+		/**< 0x60F Neither authentication nor encryption enabled for IH/PH */
+	XLOADER_ERR_HDR_GET_DMA,
+		/**< 0x610 Failed to get DMA instance for IH/PH
+		authentication/decryption */
+	XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		/**< 0x611 Failed to calculate hash for IH/PH authentication */
+	XLOADER_ERR_HDR_NOT_ENCRYPTED,
+		/**< 0x612 IH/PH is not encrypted */
+	XLOADER_ERR_HDR_AUTH_DISABLED,
+		/**< 0x613 Authentication disabled for IH/PH */
+
+	XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL,
+		/**< 0x614 Failed to read IH and verify checksum */
+	XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL,
+		/**< 0x615 Failed to read PH and verify checksum */
+
+	XLOADER_ERR_PRTN_HASH_CALC_FAIL,
+		/**< 0x616 Hash calculation failed for partition authentication */
+	XLOADER_ERR_PRTN_AUTH_FAIL,
+		/**< 0x617 Partition authentication failed */
+	XLOADER_ERR_PRTN_HASH_COMPARE_FAIL,
+		/**< 0x618 Partition hash comparison failed */
+	XLOADER_ERR_PRTN_DECRYPT_FAIL,
+		/**< 0x619 Partition decryption failed */
+
+	XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY,
+		/**< 0x61A PPK Programmed but eFuse authentication is disabled */
+	XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED,
+		/**< 0x61B PPK Programmed and BH authentication is enabled */
+	XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO,
+		/**< 0x61C PPK not programmed and authentication is enabled */
+	XLOADER_ERR_ENCONLY_ENC_COMPULSORY,
+		/**< 0x61D Encryption is disabled */
+	XLOADER_ERR_KAT_FAILED,
+		/**< 0x61E KAT failed */
 };
 
 /**************************** Type Definitions *******************************/
