@@ -58,7 +58,6 @@
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
-*       mn     05/21/19 Enable SD UHS Mode support by default for Versal
 *       mn     07/03/19 Update Input Tap Delays for Versal
 *
 * </pre>
@@ -81,10 +80,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/* Enable UHS Mode support by default for Versal */
-#ifdef versal
-#define UHS_MODE_ENABLE
-#endif
 /** @name Register Map
  *
  * Register offsets from the base address of an SD device.
