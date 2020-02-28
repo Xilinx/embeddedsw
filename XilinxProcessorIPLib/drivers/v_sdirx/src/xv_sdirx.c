@@ -1002,6 +1002,27 @@ void XV_SdiRx_DisableMode(XV_SdiRx *InstancePtr,
 /*****************************************************************************/
 /**
 *
+* This function sets the BitDepth configured for the SDI RXSS into SDI RX core.
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+* @param	BitDepth specifies which BitDepth to be set
+*
+* @return	None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XV_SdiRx_SetBitDepth(XV_SdiRx *InstancePtr, XVidC_ColorDepth BitDepth)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->BitDepth = BitDepth;
+}
+
+
+/*****************************************************************************/
+/**
+*
 * This function is a stub for the asynchronous callback. The stub is here in
 * case the upper layer forgot to set the handlers. On initialization, all
 * handlers are set to this callback. It is considered an error for this
