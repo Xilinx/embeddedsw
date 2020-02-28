@@ -77,6 +77,8 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
 typedef void (*XPlmi_ErrorHandler_t) (u8 ErrorId);
+extern s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type,
+		const u32 SubType);
 
 /* Data Structure to hold Error Info */
 struct XPlmi_Error_t {
@@ -86,7 +88,8 @@ struct XPlmi_Error_t {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_EmInit(void);
+void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
+		const u32 Type, const u32 SubType));
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);

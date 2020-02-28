@@ -57,7 +57,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define	XPLMI_ERR_REG_MASK(ErrorId)	(0x1U << (NODEINDEX(ErrorId)%32))
 /************************** Function Prototypes ******************************/
-
+s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -743,10 +743,12 @@ END:
 /**
  * @brief This function initializes the error module. Disables all the
  * error actions and registers default action
- * @param None
+ * @param SystemShutdown is the pointer to the PM system shutdown
+ * callback handler for action subtype system shutdown/restart
  * @return None
  *****************************************************************************/
-void XPlmi_EmInit(void)
+void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
+		const u32 Type, const u32 SubType))
 {
 	u32 Index;
 
@@ -765,6 +767,8 @@ void XPlmi_EmInit(void)
 
 	/* Detect if we are in over-temperature condition */
 	XPlmi_SysMonOTDetect();
+
+	PmSystemShutdown = SystemShutdown;
 
 	/* Set the default actions as defined in the Error table */
 	for (Index = XPM_NODEIDX_ERROR_BOOT_CR;

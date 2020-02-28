@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 #include "xplm_module.h"
 #include "xplm_main.h"
 #include "xplmi_sysmon.h"
+#include "xpm_api.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -83,7 +84,7 @@ static ModuleInit ModuleList[] =
  *****************************************************************************/
 int XPlm_ErrInit(void )
 {
-	XPlmi_EmInit();
+	XPlmi_EmInit(XPm_SystemShutdown);
 	return XST_SUCCESS;
 }
 
