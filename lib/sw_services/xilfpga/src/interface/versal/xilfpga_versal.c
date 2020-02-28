@@ -54,6 +54,10 @@
 #define DELAYED_PDI_LOAD	0x30702U
 #define LOAD_PDI_MSG_LEN	0x4U
 #define FPGA_IPI_RESP1		0x1U
+#define XMAILBOX_DEVICE_ID	0x0U
+#define FPGA_PDI_SRC_DDR	0xFU
+#define FPGA_IPI_TYPE_BLOCKING	0x1U
+#define PDI_LOAD_TYPE_MASK	BIT(0)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -99,22 +103,23 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	u32 Status = XFPGA_FAILURE;
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
-	Status = XMailbox_Initialize(&XMboxInstance, 0U);
+	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	if (InstancePtr->WriteInfo.Flags & BIT(0U)) {
+	if (InstancePtr->WriteInfo.Flags & PDI_LOAD_TYPE_MASK) {
 		ReqBuffer[0U] = DELAYED_PDI_LOAD;
 		ReqBuffer[1U] = (u32)BitstreamAddr; /* Image ID */
 	} else {
 		ReqBuffer[0U] = PDI_LOAD;
-		ReqBuffer[1U] = 0xFU; /* DDR */
+		ReqBuffer[1U] = FPGA_PDI_SRC_DDR;
 		ReqBuffer[2U] = UPPER_32_BITS(BitstreamAddr);
-		ReqBuffer[3U] = (u32)BitstreamAddr;
+		ReqBuffer[3U] = LOWER_32_BITS(BitstreamAddr);
 	}
 	/* Send an IPI Req Message */
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPIPMC, ReqBuffer,
-				   LOAD_PDI_MSG_LEN, XILMBOX_MSG_TYPE_REQ, 1);
+				   LOAD_PDI_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
+				   FPGA_IPI_TYPE_BLOCKING);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sending Req Message Failed\n\r");
 		goto END;
