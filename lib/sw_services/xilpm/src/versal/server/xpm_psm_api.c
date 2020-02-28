@@ -34,12 +34,20 @@
 #include "xpm_regs.h"
 #include "xpm_subsystem.h"
 #include "xpm_requirement.h"
+#include "sleep.h"
 
 #define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
 #define PSM_TO_PLM_EVENT_VERSION		(0x1U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
 
+#ifdef STDOUT_BASEADDRESS
+#if (STDOUT_BASEADDRESS == 0xFF000000U)
+#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
+#elif (STDOUT_BASEADDRESS == 0xFF010000U)
+#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
+#endif
+#endif
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
 {
@@ -224,6 +232,7 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	XPm_Core *Core;
 	XPm_Subsystem *Subsystem;
 	u32 SubsystemId;
+	XPm_Power *Lpd;
 
 	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
 	    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
@@ -256,6 +265,27 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 			goto done;
 		}
 
+		/* Release devices requested by PLM to turn of LPD domain */
+		Lpd = XPmPower_GetById(PM_POWER_LPD);
+		if (((Lpd->UseCount > 0U) && (Lpd->UseCount <= 2U)) &&
+		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
+		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC);
+			if (XST_SUCCESS != Status) {
+				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
+				goto done;
+			}
+#ifdef DEBUG_UART_PS
+			XPlmi_ResetLpdInitialized();
+			/* Wait for UART buffer to flush */
+			usleep(1000);
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, NODE_UART);
+			if (XST_SUCCESS != Status) {
+				PmErr("PMC Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_UART_0)\r\n");
+				goto done;
+			}
+#endif
+		}
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
 	} else {
 		Status = XST_SUCCESS;
