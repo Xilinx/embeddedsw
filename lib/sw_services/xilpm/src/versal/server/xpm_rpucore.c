@@ -29,6 +29,7 @@
 #include "xpm_regs.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
+#include "xpm_psm.h"
 
 XStatus XPmRpuCore_Halt(XPm_Device *Device)
 {
@@ -128,6 +129,14 @@ static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
 	}
 
 	Status = XPmCore_PwrDwn(Core);
+
+	/**
+	 * Since RPU direct power down is skipped in case of power-down,
+	 * wakeup interrupt needs to be enabled here.
+	 */
+	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+		ENABLE_WAKE(Core->SleepMask);
+	}
 
 done:
 	return Status;
