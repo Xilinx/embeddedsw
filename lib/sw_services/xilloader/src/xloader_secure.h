@@ -36,6 +36,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   vns  04/23/19 First release
+*       har  02/18/20 Added minor error codes for security
 * </pre>
 *
 * @note
@@ -60,6 +61,27 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/*****************************************************************************/
+/**
+* @brief
+* This macro updates security related minor error codes for Xilloader
+*
+* @param	Minor1	To specify the cause of failure of
+*					security operation
+* @param	Minor2	Libraries / Drivers error code as defined in respective
+*					modules
+* @note		If MSB of Minor1 is set then error in clearing of security
+* 		 buffer	(16th bit)
+*		If bit next to MSB is set then security buffer was successfully
+*		cleared (15th bit)
+* 		For eg: 0x02 : Incorrect authentication type selected
+*			0x42 : Incorrect authentication type selected and
+*				buffer was successfully cleared
+*			0x82 : Incorrect authentication type selected and
+*	 			error in clearing buffer
+******************************************************************************/
+#define XLOADER_UPDATE_MIN_ERR(Minor1, Minor2)		\
+						((Minor1<<8U) | (Minor2))
 /************************** Constant Definitions *****************************/
 #define XLOADER_SHA3_LEN		(48U)
 #define XLOADER_RSA_SIG_EXP_BYTE	(0xBCU)
@@ -119,14 +141,16 @@ extern "C" {
 #define XLOADER_BH_BLK_KEY		0xA35C7C53 /*Boot Header Black Key */
 #define XLOADER_BH_OBFUS_KEY	0xA35C7CA5  /* Boot Header Obfuscated Key */
 
-#define XLOADER_EFUSE_USR_KEY0			0x5C3CA5A3 /* eFuse User Key 0 */
-#define XLOADER_EFUSE_USR_BLK_KEY0		0x5C3CA5A5 /* eFUSE User key 0 Black */
-#define XLOADER_EFUSE_USR_OBFUS_KEY0	0x5C3CA5A7 /* eFuse User key 0 Obfuscated */
-
-#define XLOADER_EFUSE_USR_KEY1			0xC3A5C5A3 /* eFuse User Key 1 */
+#define XLOADER_EFUSE_USR_KEY0			0x5C3CA5A3
+					 /* eFuse User Key 0 */
+#define XLOADER_EFUSE_USR_BLK_KEY0		0x5C3CA5A5
+					 /* eFUSE User key 0 Black */
+#define XLOADER_EFUSE_USR_OBFUS_KEY0	0x5C3CA5A7
+					/* eFuse User key 0 Obfuscated */
+#define XLOADER_EFUSE_USR_KEY1		0xC3A5C5A3 /* eFuse User Key 1 */
 #define XLOADER_EFUSE_USR_BLK_KEY1	0xC3A5C5A5 /* eFUSE User key 1 Black */
-#define XLOADER_EFUSE_USR_OBFUS_KEY1	0xC3A5C5A7 /* eFuse User key 1 Obfuscated */
-
+#define XLOADER_EFUSE_USR_OBFUS_KEY1	0xC3A5C5A7
+					/* eFuse User key 1 Obfuscated */
 #define XLOADER_USR_KEY0	0xC5C3A5A3 /* User Key 0 */
 #define XLOADER_USR_KEY1	0xC3A5C5B3 /* User Key 1 */
 #define XLOADER_USR_KEY2	0xC5C3A5C3 /* User Key 2 */
@@ -167,6 +191,10 @@ extern "C" {
 #define XLOADER_SPKID_MAX			0xFFU
 
 #define XLOADER_WORD_IN_BITS			32U
+
+#define XLOADER_SEC_BUF_CLEAR_ERR	(XLOADER_SEC_ERR_BUF_CLR_FAILED << 8U)
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS  (XLOADER_SEC_ERR_BUF_CLR_SUCCESS << 8U)
+
 /**************************** Type Definitions *******************************/
 
 typedef struct {
@@ -234,21 +262,76 @@ typedef struct {
 }XLoader_SecureParms;
 
 typedef enum {
-	XLOADER_SEC_BUF_CLEAR_ERR = 0x100,
-	XLOADER_SEC_BUF_CLEAR_SUCCESS = 0x200,
+	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02U,
+			/**< 0x02 Incorrect Authentication type selected */
+	XLOADER_SEC_PPK_HASH_CALCULATION_FAIL,
+			/**< 0x03 PPK Hash calculation failed */
+	XLOADER_SEC_ALL_PPK_REVOKED_ERR,
+			/**< 0x04 All PPKs are revoked */
+	XLOADER_SEC_PPK_INVALID_BIT_ERR,
+			/**< 0x05 PPK Invalid bit is set */
+	XLOADER_SEC_PPK_HASH_ALLZERO_INVLD,
+			/**< 0x06 PPK HAsh is all zero hence inavalid */
+	XLOADER_SEC_PPK_HASH_COMPARE_FAIL,
+			/**< 0x07 HAsh comparison failed */
+	XLOADER_SEC_ALL_PPK_INVALID_ERR,
+			/**< 0x08 All PPKs are invalid */
+	XLOADER_SEC_SPK_HASH_CALCULATION_FAIL,
+			/**< 0x09 SPK HAsh calculation failed */
+	XLOADER_SEC_RSA_AUTH_FAIL,
+			/**< 0x0A RSA signature is not verified */
+	XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
+			/**< 0x0B RSA Pss signature verification failed */
+	XLOADER_SEC_ECDSA_AUTH_FAIL,
+			/**< 0x0C ECDSA signature is not verified */
+	XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES,
+			/**< 0x0D ECDSA invalid key coordinates */
+	XLOADER_SEC_INVALID_AUTH,
+			/**< 0x0E Only RSA and ECDSA are supported */
+	XLOADER_SEC_ALL_SPKID_REVOKED_ERR,
+			/**< 0x0F All SPK IDs are invalid */
+	XLOADER_SEC_SPKID_OUTOFRANGE_ERR,
+			/**< 0x10 SPK ID out of range */
+	XLOADER_SEC_SPKID_REVOKED,
+			/**< 0x11 SPK ID range not verified */
+	XLOADER_SEC_BLACK_KEY_DEC_ERR,
+			/**< 0x12 Black key decryption error */
+	XLOADER_SEC_OBFUS_KEY_DEC_ERR,
+			/**< 0x13 Obfuscated key decryption error */
+	XLOADER_SEC_DEC_INVALID_KEYSRC_SEL,
+			/**< 0x14 Invalid key source selected for decryption */
+	XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR,
+			/**< 0x15 Data still remaining for decryption */
+	XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH,
+			/**< 0x16 Size mismatch for data remaining for
+				 decryption */
+	XLOADER_SEC_AES_OPERATION_FAILED,
+			/**< 0x17 AES Operation failed */
+	XLOADER_SEC_DPA_CM_ERR,
+			/**< 0x18 DPA CM Cfg Error */
 
-	XLOADER_SEC_AUTH_ERR = 0x1000U,
-	XLOADER_SEC_DEC_ERR = 0x2000U,
+	/* In case of failure of any security operation, the buffer must be
+	 * cleared.In case of success/failure in clearing the buffer,
+	 * the following error codes shall be updated in the status
+	 */
+	XLOADER_SEC_ERR_BUF_CLR_SUCCESS = 0x40U,
+                        /* Buffer is successfully cleared */
+	XLOADER_SEC_ERR_BUF_CLR_FAILED = 0x80U,
+                        /* Error in clearing buffer */
+
 }XLoader_SecErrCodes;
 
 /***************************** Function Prototypes ***************************/
 
-u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr, u32 PrtnNum);
-u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr, u32 Size, u8 Last);
+u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
+						u32 PrtnNum);
+u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr, u32 Size,
+						u8 Last);
 u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size);
 u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 				XilPdi_ImgHdrTable *ImgHdrTbl);
-u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr, XilPdi_MetaHdr *ImgHdrTbl);
+u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
+				XilPdi_MetaHdr *ImgHdrTbl);
 u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr);
 
 #ifdef __cplusplus
