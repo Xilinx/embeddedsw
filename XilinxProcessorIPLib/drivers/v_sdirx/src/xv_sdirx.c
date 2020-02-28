@@ -284,7 +284,10 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 			break;
 
 		case 2:
-			xil_printf("3GA");
+			if (!InstancePtr->Transport.IsLevelB3G)
+				xil_printf("3GA");
+			else
+				xil_printf("3GB");
 			break;
 
 		case 3:
