@@ -349,6 +349,9 @@ XStatus XPm_PowerDwnLPD(void)
 	LpDomain->LpdBisrFlags &= (u8)(~(LPD_BISR_DATA_COPIED | LPD_BISR_DONE));
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Returned %d\r\n", Status);
+	}
 	return Status;
 }
 
