@@ -36,9 +36,10 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
-    foreach periph $periphs {
-        if {[string compare -nocase "xdma_0" $periph] == 0} {
+    set ips [hsi::get_cells -hier "*"]
+    foreach ip $ips {
+	set periph [common::get_property IP_NAME $ip]
+        if {[string compare -nocase "xdma" $periph] == 0} {
             xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
                 "NUM_INSTANCES" \
                 "DEVICE_ID" \
@@ -75,7 +76,7 @@ proc generate {drv_handle} {
                 "device_port_type"
         }
 
-        if {[string compare -nocase "psv_pciea_attrib_0" $periph] == 0} {
+        if {[string compare -nocase "psv_pciea_attrib" $periph] == 0} {
             xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
                 "NUM_INSTANCES" \
                 "DEVICE_ID" \
