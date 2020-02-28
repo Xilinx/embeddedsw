@@ -53,11 +53,6 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 	}
 	Status = XST_SUCCESS;
 
-	Lpd = XPmPower_GetById(PM_POWER_LPD);
-	if (NULL == Lpd) {
-		goto done;
-	}
-
 	/* Check for the power up/down event register */
 	for (Idx = 0; ((u8)XPM_POWER_STATE_OFF != Lpd->Node.State) && Idx < ARRAY_SIZE(ProcDevList); Idx++) {
 		if (PsmToPlmEvent->Event[Idx] == PWR_UP_EVT) {
