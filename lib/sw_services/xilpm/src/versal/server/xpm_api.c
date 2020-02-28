@@ -1230,6 +1230,28 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			Power = Device->Power;
 			while (NULL != Power) {
 				if (NodeId == Power->Node.Id) {
+					if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
+						Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
+						if ((NULL != Core) &&
+						    (NULL != Core->CoreOps) &&
+						    (NULL != Core->CoreOps->PowerDown)) {
+							PmDbg("Powering down core 0x%x\r\n", Device->Node.Id);
+							Status = Core->CoreOps->PowerDown(Core);
+							if (XST_SUCCESS != Status) {
+								goto done;
+							}
+							/*
+							 * Disable the direct
+							 * wake in case of force
+							 * power down
+							 */
+							DISABLE_WAKE(Core->SleepMask);
+						} else {
+							Status = XST_FAILURE;
+							goto done;
+						}
+					}
+
 					Status = XPmRequirement_Release(
 					    Device->Requirements, RELEASE_DEVICE);
 					if (XST_SUCCESS != Status) {
