@@ -1042,6 +1042,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	u32 CoreSubsystemId, CoreDeviceId;
 	XPm_Requirement *Reqm;
 	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
+	XPm_Power *Power;
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -1078,6 +1079,18 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			    (NULL == Core->CoreOps->RequestWakeup)) {
 				Status = XPM_ERR_WAKEUP;
 				break;
+			}
+			if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(CoreDeviceId)) ||
+			    ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(CoreDeviceId)) ||
+			    ((u32)XPM_NODETYPE_DEV_CORE_PSM == NODETYPE(CoreDeviceId))) {
+				/* Power up LPD if not powered up */
+				Power = XPmPower_GetById(PM_POWER_LPD);
+				if ((NULL != Power) && ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
+					Status = XLoader_RestartImage(Power->Node.Id);
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
+				}
 			}
 			CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
 			if (INVALID_SUBSYSID == CoreSubsystemId) {
