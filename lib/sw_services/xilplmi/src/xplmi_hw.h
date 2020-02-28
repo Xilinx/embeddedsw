@@ -108,6 +108,10 @@ extern "C" {
 #define XPlmi_Out64(Addr, Data)		swea(Addr, Data)
 #define XPlmi_OutByte64(Addr, Data)	sbea(Addr, Data)
 
+/**
+ * Register: PMC Global PLM Error
+ */
+#define PMC_GLOBAL_PLM_ERR    ( ( PMC_GLOBAL_BASEADDR ) + 0X00010100U )
 
 /**
  * Definitions required from pmc_tap.h
@@ -265,6 +269,8 @@ extern "C" {
 #define PSM_GLOBAL_REG_PSM_CR_ERR2_EN		( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001034 )
 #define PSM_GLOBAL_REG_PSM_NCR_ERR1_EN		( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001044 )
 #define PSM_GLOBAL_REG_PSM_NCR_ERR2_EN		( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001054 )
+#define PSM_GLOBAL_REG_PSM_ERR1_STATUS		( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001000U )
+#define PSM_GLOBAL_REG_PSM_ERR2_STATUS		( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001004U )
 
 /**
  * Definitions required for PMC_TAP

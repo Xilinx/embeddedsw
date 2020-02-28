@@ -985,8 +985,8 @@ int XPlmi_PsEmInit(void)
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_DIS, MASK32_ALL_HIGH);
 
 	/* Clear the error status registers */
-	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, MASK32_ALL_HIGH);
-	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, MASK32_ALL_HIGH);
+	XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS, MASK32_ALL_HIGH);
+	XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, MASK32_ALL_HIGH);
 
 	/* Set the default actions as defined in the Error table */
 	for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
@@ -1048,8 +1048,8 @@ void XPlmi_DumpRegisters()
 		      XPlmi_In32(PMC_GLOBAL_PWR_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "PMC GSW Err: 0x%08x\n\r",
 		      XPlmi_In32(PMC_GLOBAL_PMC_GSW_ERR));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC FW Error: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_PMC_FW_ERR));
+	XPlmi_Printf(DEBUG_GENERAL, "PLM Error: 0x%08x\n\r",
+		      XPlmi_In32(PMC_GLOBAL_PLM_ERR));
 	XPlmi_Printf(DEBUG_GENERAL, "PMC ERR OUT1 Status: 0x%08x\n\r",
 		      XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "PMC ERR OUT2 Status: 0x%08x\n\r",
