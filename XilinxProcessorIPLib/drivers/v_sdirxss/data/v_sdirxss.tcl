@@ -43,14 +43,16 @@ proc generate {drv_handle} {
 	"C_LINE_RATE" \
 	"C_INCLUDE_EDH" \
 	"C_INCLUDE_AXILITE" \
-	"C_VIDEO_INTF"
+	"C_VIDEO_INTF" \
+	"C_BPP"
 
     hier_ip_define_config_file $drv_handle "xv_sdirxss_g.c" \
     "XV_SdiRxSs" \
     "DEVICE_ID" \
     "C_BASEADDR" \
 	"C_PIXELS_PER_CLOCK" \
-	"C_LINE_RATE"
+	"C_LINE_RATE" \
+	"C_BPP"
 
     hier_ip_define_canonical_xpars $drv_handle "xparameters.h" "XV_SdiRxSs" \
     "DEVICE_ID" \
@@ -60,7 +62,8 @@ proc generate {drv_handle} {
 	"C_LINE_RATE" \
 	"C_INCLUDE_EDH" \
 	"C_INCLUDE_AXILITE" \
-	"C_VIDEO_INTF"
+	"C_VIDEO_INTF" \
+	"C_BPP"
 }
 
 

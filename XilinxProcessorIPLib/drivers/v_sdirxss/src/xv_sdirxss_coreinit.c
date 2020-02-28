@@ -92,6 +92,10 @@ int XV_SdiRxSs_SubcoreInitSdiRx(XV_SdiRxSs *SdiRxSsPtr)
 				"SDIRXSS ERR:: SDI RX Initialization failed\r\n");
 			return XST_FAILURE;
 		}
+
+		/* Set bit depth into sdirx core*/
+		XV_SdiRx_SetBitDepth(SdiRxSsPtr->SdiRxPtr,
+				SdiRxSsPtr->Config.bitdepth);
 	}
 
 	return XST_SUCCESS;

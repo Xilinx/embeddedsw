@@ -146,6 +146,7 @@ typedef struct {
 				    subsystem address range */
 	XVidC_PixelsPerClock Ppc;
 	u8 MaxRateSupported;
+	XVidC_ColorDepth bitdepth;
 	XV_SdiRxSs_SubCore SdiRx;       /**< Sub-core instance configuration */
 } XV_SdiRxSs_Config;
 
