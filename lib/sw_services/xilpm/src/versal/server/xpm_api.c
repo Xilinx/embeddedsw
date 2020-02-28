@@ -898,7 +898,16 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	/* If subsystem is using DDR, enable self-refresh */
+	ENABLE_WFI(Core->SleepMask);
+
+	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDING);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* If subsystem is using DDR, enable self-refresh as post suspend requirement*/
 	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
 		Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, SubsystemId);
 		if (XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) {
@@ -908,13 +917,6 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 				goto done;
 			}
 		}
-	}
-
-	ENABLE_WFI(Core->SleepMask);
-
-	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
-		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDING);
-		goto done;
 	}
 
 	Status = XST_SUCCESS;
