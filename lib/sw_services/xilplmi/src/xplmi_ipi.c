@@ -302,10 +302,10 @@ int XPlmi_ValidateIpiCmd(u32 CmdId)
 		{
 			Status = XST_SUCCESS;
 		}
-	}
-	else
-	{
+	} else if ((CmdId & XPLMI_CMD_HNDLR_MASK) != XPLMI_CMD_HNDLR_EM_VAL) {
 		Status = XST_SUCCESS;
+	} else {
+		/* Added for MISRA C */
 	}
 	return Status;
 }
