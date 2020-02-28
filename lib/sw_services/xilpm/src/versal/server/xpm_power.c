@@ -472,12 +472,12 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
 				if (1U == Power->UseCount) {
-					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
 					/* Write to PSM power down request register */
 					Status = SendPowerDownReq(Node);
 					if (XST_SUCCESS != Status) {
 						break;
 					}
+					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
