@@ -291,6 +291,7 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 	XPm_ClockNode *Clk;
 	u32 Idx;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	XPm_Power *Power;
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
@@ -325,8 +326,16 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 		}
 	} else {
 		/* Put the PLL in suspended mode */
+		Power = XPmPower_GetById(PM_POWER_CPM);
 		for (Idx = (u32)XPM_NODEIDX_CLK_MIN; Idx < (u32)XPM_NODEIDX_CLK_MAX; Idx++) {
 			Clk = XPmClock_GetByIdx(Idx);
+			/* Skip CPM_PLL if CPM domain is off */
+			if ((NULL != Clk) && (NULL != Power) &&
+			    (PM_CLK_CPM_PLL == Clk->Node.Id) &&
+			    ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
+				Status = XST_SUCCESS;
+				continue;
+			}
 			if ((NULL != Clk) && (ISPLL(Clk->Node.Id)) &&
 			    (Node->Id == Clk->PwrDomain->Node.Id)) {
 				Status = XPmClockPll_Suspend((XPm_PllClockNode *)Clk);
