@@ -114,6 +114,16 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
+	/* PMC's PSM CR and NCR error actions must not be changed */
+	if ((ErrorMask == XPLMI_NODEIDX_ERROR_PMC_PSM_CR) ||
+		(ErrorMask == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Error: XPlmi_CmdEmSetAction: Error Action "
+				"cannot be changed for error 0x%x\r\n", ErrorMask);
+		Status = XPLMI_CANNOT_CHANGE_ACTION;
+		goto END;
+	}
+
 	/*
 	 * Allow error action setting for PSM errors only if LPD is initialized
 	 */

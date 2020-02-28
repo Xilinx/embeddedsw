@@ -211,6 +211,7 @@ extern "C" {
  */
 #define CRP_RST_PS    ( ( CRP_BASEADDR ) + 0x0000031CU )
 #define CRP_RST_PS_PMC_SRST_MASK    (0x00000008U)
+#define CRP_RST_PS_PMC_POR_MASK		0X00000080U
 
 /**
  * PMC_ANALOG Base Address

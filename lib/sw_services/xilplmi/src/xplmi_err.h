@@ -64,10 +64,8 @@ extern "C" {
 #define XPLMI_EM_ACTION_ERROUT		4U
 #define XPLMI_EM_ACTION_SUBSYS_SHUTDN	5U
 #define XPLMI_EM_ACTION_SUBSYS_RESTART	6U
-#define XPLMI_EM_ACTION_PSM_CR		7U
-#define XPLMI_EM_ACTION_PSM_NCR		8U
-#define XPLMI_EM_ACTION_NONE		9U
-#define XPLMI_EM_ACTION_MAX		10U
+#define XPLMI_EM_ACTION_NONE		7U
+#define XPLMI_EM_ACTION_MAX		8U
 
 /* Subsystem shutdown/restart related macros */
 #define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		0U
@@ -80,6 +78,7 @@ extern "C" {
 #define XPLMI_INVALID_ERROR_HANDLER	(3U)
 #define XPLMI_INVALID_ERROR_ACTION	(4U)
 #define XPLMI_LPD_UNINITIALIZED		(5U)
+#define XPLMI_CANNOT_CHANGE_ACTION	(6U)
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
@@ -103,6 +102,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
+void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);

@@ -133,9 +133,10 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_CFRAME] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_PSM_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_PSM_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPSMIntrHandler,
+			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_DDRMB_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_DDRMB_NCR] =
@@ -253,7 +254,7 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_PSM_B_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_MB_FATAL] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_PSM_NCR, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PSM_NCR] =
@@ -351,6 +352,97 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_FPD_XMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
+
+/****************************************************************************/
+/**
+* @brief    This function handles the PSM error routed to PLM.
+* @param    ErrorNodeId is the node ID for the error event
+* @param    ErrorMask is the error received
+* @return   None.
+****************************************************************************/
+void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
+{
+	u32 RegVal;
+
+	switch (ErrorTable[ErrorIndex].Action) {
+	case XPLMI_EM_ACTION_POR:
+		RegVal = XPlmi_In32(CRP_RST_PS);
+		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
+		while(1U);
+		break;
+	case XPLMI_EM_ACTION_SRST:
+		RegVal = XPlmi_In32(CRP_RST_PS);
+		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_SRST_MASK);
+		while(1U);
+		break;
+	case XPLMI_EM_ACTION_CUSTOM:
+	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
+	case XPLMI_EM_ACTION_SUBSYS_RESTART:
+		if (ErrorTable[ErrorIndex].Handler != NULL) {
+			ErrorTable[ErrorIndex].Handler(ErrorNodeId, ErrorIndex);
+		}
+		break;
+	default:
+		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
+				"for PSM errors\r\n");
+		break;
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is the interrupt handler for PSM Errors.
+* @param    ErrorNodeId is the node ID for the error event
+* @param    ErrorMask is the error received
+* @return   None.
+****************************************************************************/
+void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
+{
+	u32 Err1Status;
+	u32 Err2Status;
+	u32 Index;
+
+	(void)ErrorNodeId;
+	(void)ErrorMask;
+
+	Err1Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR1_STATUS);
+	Err2Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR2_STATUS);
+
+	if (Err1Status != 0U) {
+		for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
+				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
+			if ((Err1Status & (1 << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR))) &&
+				(ErrorTable[Index].Handler != NULL)) {
+				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR1, Index);
+
+				/* Do not clear error status for register notifier
+				 * error action */
+				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
+					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS,
+							(1 << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)));
+				}
+			}
+		}
+	}
+
+	if (Err2Status != 0U) {
+		for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
+				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
+			if ((Err2Status & (1 << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT))) &&
+				(ErrorTable[Index].Handler != NULL)) {
+				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR2, Index);
+
+				/* Do not clear error status for register notifier
+				 * error action */
+				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
+					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS,
+							(1 << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)));
+				}
+			}
+		}
+	}
+}
+
 /****************************************************************************/
 /**
 * @brief    This function is the interrupt handler for Error subtype
@@ -580,6 +672,14 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeId, u32 ErrorMask)
 		XPlmi_Out32(PMC_GLOBAL_PMC_POR2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
@@ -617,6 +717,14 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeId, u32 ErrorMask)
 		break;
 	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		XPlmi_Out32(PMC_GLOBAL_PMC_SRST2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -660,6 +768,14 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeId, u32 ErrorMask)
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
@@ -700,87 +816,6 @@ static int XPlmi_EmEnableInt(u32 ErrorNodeId, u32 ErrorMask)
 		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_EN, RegMask);
-		Status = XST_SUCCESS;
-		break;
-	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ2_EN, RegMask);
-		Status = XST_SUCCESS;
-		break;
-	default:
-		/* Invalid Err Type */
-		Status = XPLMI_INVALID_ERROR_TYPE;
-		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
-		break;
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief This function enables the PSM CR response for the given Error ID.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error received
- * @return Success / failure
- *****************************************************************************/
-static int XPlmi_EmEnablePsmCr(u32 ErrorNodeId, u32 ErrorMask)
-{
-	int Status;
-	u32 RegMask;
-
-	if ((ErrorMask < XPLMI_NODEIDX_ERROR_PS_SW_CR) ||
-			(ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) {
-		Status = XPLMI_INVALID_ERROR_ID;
-		goto END;
-	}
-
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
-
-	switch (EVENT_TYPE(ErrorNodeId)) {
-	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
-		Status = XST_SUCCESS;
-		break;
-	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
-		Status = XST_SUCCESS;
-		break;
-	default:
-		Status = XPLMI_INVALID_ERROR_TYPE;
-		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
-		break;
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief This function enables the PSM NCR response for the given Error ID.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error received
- * @return Success / failure
- *****************************************************************************/
-static int XPlmi_EmEnablePsmNcr(u32 ErrorNodeId, u32 ErrorMask)
-{
-	int Status;
-	u32 RegMask;
-
-	if ((ErrorMask < XPLMI_NODEIDX_ERROR_PS_SW_CR) ||
-			(ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) {
-		Status = XPLMI_INVALID_ERROR_ID;
-		goto END;
-	}
-
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
-
-	switch (EVENT_TYPE(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
 		Status = XST_SUCCESS;
@@ -885,18 +920,6 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		ErrorTable[ErrorMask].Handler = XPlmi_ErrIntrSubTypeHandler;
 		ErrorTable[ErrorMask].SubsystemId = EmSubsystemId;
 		Status = XPlmi_EmEnableInt(ErrorNodeId, ErrorMask);
-		break;
-
-	case XPLMI_EM_ACTION_PSM_CR:
-		ErrorTable[ErrorMask].Action = ActionId;
-		/* Set error action PSM_CR for the errorId */
-		Status = XPlmi_EmEnablePsmCr(ErrorNodeId, ErrorMask);
-		break;
-
-	case XPLMI_EM_ACTION_PSM_NCR:
-		ErrorTable[ErrorMask].Action = ActionId;
-		/* Set error action PSM_NCR for the errorId */
-		Status = XPlmi_EmEnablePsmNcr(ErrorNodeId, ErrorMask);
 		break;
 
 	default:
