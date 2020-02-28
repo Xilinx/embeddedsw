@@ -63,6 +63,7 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE, EventStatus;
 	u32 Idx;
+	XPm_Power *Lpd;
 
 	/* Ack the IPI interrupt first */
 	PmOut32(IPI_PMC_ISR_ADDR, PSM_IPI_BIT);
@@ -77,8 +78,13 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 		Status = XST_SUCCESS;
 	}
 
+	Lpd = XPmPower_GetById(PM_POWER_LPD);
+	if (NULL == Lpd) {
+		goto done;
+	}
+
 	/* Check for the power up/down event register */
-	for (Idx = 0; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+	for (Idx = 0; ((u8)XPM_POWER_STATE_OFF != Lpd->Node.State) && Idx < ARRAY_SIZE(ProcDevList); Idx++) {
 		if (PsmToPlmEvent->Event[Idx] == PWR_UP_EVT) {
 			/* Clear power up event register bit */
 			PsmToPlmEvent->Event[Idx] = 0;
