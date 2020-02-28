@@ -103,7 +103,33 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	    "%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMask: 0x%0x\n\r",
 		 __func__, NodeId, ErrorAction, ErrorMask);
 
+	/* Do not allow CUSTOM error action as it is not supported */
+	if ((XPLMI_EM_ACTION_CUSTOM == ErrorAction) ||
+		(ErrorAction >= XPLMI_EM_ACTION_MAX) ||
+		(XPLMI_EM_ACTION_INVALID == ErrorAction)) {
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
+				"action %d received for error 0x%x", ErrorAction, ErrorMask);
+		Status = XPLMI_INVALID_ERROR_ACTION;
+		goto END;
+	}
+
+	/*
+	 * Allow error action setting for PSM errors only if LPD is initialized
+	 */
+	if ((ErrorMask >= XPLMI_NODEIDX_ERROR_PS_SW_CR) &&
+		(ErrorMask < XPLMI_NODEIDX_ERROR_PSMERR2_MAX) &&
+		((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED)) {
+		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized to configure "
+				"PSM errors and actions\n\r");
+		Status = XPLMI_LPD_UNINITIALIZED;
+		goto END;
+
+	}
+
 	Status = XPlmi_EmSetAction(NodeId, ErrorMask, (u8)ErrorAction, NULL);
+
+END:
 	return Status;
 }
 

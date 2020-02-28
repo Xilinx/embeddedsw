@@ -79,7 +79,7 @@ extern "C" {
 #define XPLMI_INVALID_ERROR_TYPE	(2U)
 #define XPLMI_INVALID_ERROR_HANDLER	(3U)
 #define XPLMI_INVALID_ERROR_ACTION	(4U)
-#define XPLMI_INVALID_NODEID		(5U)
+#define XPLMI_LPD_UNINITIALIZED		(5U)
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
