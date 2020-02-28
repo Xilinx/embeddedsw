@@ -36,7 +36,8 @@
 * 1.00  kc   07/25/2018 Initial release
 * 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
-*
+*       har  02/18/2020 Removed code to return error codes for security related
+*                       errors
 * </pre>
 *
 * @note
@@ -388,8 +389,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	Status = XLoader_SecureValidations(&SecureParam);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at secure validations\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
-							Status);
 		goto END;
 	}
 
@@ -398,8 +397,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		Status = XLoader_ImgHdrTblAuth(&SecureParam,
 				&(PdiPtr->MetaHdr.ImgHdrTable));
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
-							Status);
 			goto END;
 		}
 	}
