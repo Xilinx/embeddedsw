@@ -67,9 +67,6 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-	} else {
-		Status = XST_SUCCESS;
-		goto done;
 	}
 
 	if (NULL != Core->Device.ClkHandles) {
