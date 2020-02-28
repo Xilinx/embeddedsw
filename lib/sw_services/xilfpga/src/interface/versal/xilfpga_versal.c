@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,9 @@
  * Ver   Who  Date        Changes
  * ---- ----- --------  -------------------------------------------------------
  * 5.2  Nava  05/12/19  Added Versal platform support.
+ * 5.2  Nava  27/02/20  Updated the write path to read the pdi/bin image ipi
+ *                      load response to handle the pdi/bin image load
+ *                      errors properly.
  * </pre>
  *
  * @note
@@ -50,6 +53,7 @@
 #define PDI_LOAD		0x30701
 #define DELAYED_PDI_LOAD	0x30702
 #define LOAD_PDI_MSG_LEN	0x4
+#define FPGA_IPI_RESP1		0x1
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -114,6 +118,12 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sending Req Message Failed\n\r");
 		goto END;
+	}
+
+	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPIPMC, ReqBuffer,
+				FPGA_IPI_RESP1, XILMBOX_MSG_TYPE_RESP);
+	if (Status == XST_SUCCESS) {
+		Status = ReqBuffer[0U];
 	}
 
 END:
