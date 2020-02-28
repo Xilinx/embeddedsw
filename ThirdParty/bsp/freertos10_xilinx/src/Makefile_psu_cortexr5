@@ -84,7 +84,7 @@ OUTS = *.o
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
-STANDALONE_VERSION = $(wildcard ../../standalone_*)
+STANDALONE_VERSION = $(wildcard ../../standalone*)
 
 libs:	$(KERNEL_AR_OBJS)
 	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src libs
