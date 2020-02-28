@@ -93,6 +93,7 @@
 *                       in Gen 3 Devices.
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    02/17/20 Added masks and shifts for tile/path enables.
+*       cog    02/20/20 Added offsets, masks and shifts for FIFO delays.
 *
 *</pre>
 *
@@ -125,6 +126,7 @@ extern "C" {
 #define XRFDC_DAC_FABRIC_RATE_OFFSET 0x008U /**< DAC Fabric Rate Register */
 #define XRFDC_ADC_FABRIC_OFFSET 0x00CU /**< ADC Fabric Register */
 #define XRFDC_ADC_FABRIC_ISR_OFFSET 0x010U /**< ADC Fabric ISR Register */
+#define XRFDC_DAC_FIFO_START_OFFSET 0x010U /**< DAC FIFO Start Register */
 #define XRFDC_DAC_FABRIC_ISR_OFFSET 0x014U /**< DAC Fabric ISR Register */
 #define XRFDC_ADC_FABRIC_IMR_OFFSET 0x014U /**< ADC Fabric IMR Register */
 #define XRFDC_DAC_FABRIC_IMR_OFFSET 0x018U /**< DAC Fabric IMR Register */
@@ -272,7 +274,6 @@ extern "C" {
 #define XRFDC_MTS_DAC_FIFO_MARKER_CTRL (0x94U << 2U)
 #define XRFDC_MTS_DAC_FABRIC_OFFSET 0x0C
 
-
 #define XRFDC_RESET_OFFSET 0x00U /**< Tile reset register */
 #define XRFDC_RESTART_OFFSET 0x04U /**< Tile restart register */
 #define XRFDC_RESTART_STATE_OFFSET 0x08U /**< Tile restart state register */
@@ -353,6 +354,8 @@ extern "C" {
 #define XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT 0x17C /**< Background time skew correction block (below Gen 3) */
 #define XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT 0x180 /**< Background time skew correction block (below Gen 3) */
 #define XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT 0x184 /**< Background time skew correction block (below Gen 3) */
+
+#define XRFDC_HSCOM_FIFO_START_OFFSET 0x0C0U /**< FIFO Start register tommon along tile */
 
 /* @} */
 
@@ -1958,6 +1961,18 @@ extern "C" {
 #define XRFDC_DIGI_ANALOG_SHIFT4 4U
 #define XRFDC_DIGI_ANALOG_SHIFT8 8U
 #define XRFDC_DIGI_ANALOG_SHIFT12 12U
+
+/* @} */
+
+/** @name FIFO Delays
+ *
+ * This register contains bits for delaying the FIFOs.,
+ * @{
+ */
+
+#define XRFDC_DAC_FIFO_DELAY_MASK 0x000000FFFU /**< DAC FIFO ReadPtr Delay */
+#define XRFDC_ADC_FIFO_DELAY_MASK 0x0000001C0U /**< ADC FIFO ReadPtr Delay */
+#define XRFDC_ADC_FIFO_DELAY_SHIFT 6U /**< ADC FIFO ReadPtr Shift */
 
 /* @} */
 

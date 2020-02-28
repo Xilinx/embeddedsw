@@ -262,6 +262,7 @@
 *       cog    02/10/20 Added Silicon revison to dirver structures to allow discrimation
 *                       between engineering sample & production silicon.
 *       cog    02/17/20 Driver now gets tile/path enables from the bitfile.
+*       cog    02/20/20 Added macros for Clock Gater handling.
 *
 * </pre>
 *
@@ -1166,6 +1167,26 @@ typedef struct {
 
 #define XRFDC_SI_REV_ES 0U
 #define XRFDC_SI_REV_PROD 1U
+
+#define XRFDC_CG_WAIT_CYCLES 3U
+#define XRFDC_ADC_CG_WAIT_CYCLES 1U
+
+#define XRFDC_CG_CYCLES_TOTAL_X1_X2_X4_X8 0U
+#define XRFDC_CG_CYCLES_KEPT_X1_X2_X4_X8 1U
+#define XRFDC_CG_CYCLES_TOTAL_X3_X6_X12 3U
+#define XRFDC_CG_CYCLES_KEPT_X3_X6_X12 2U
+#define XRFDC_CG_CYCLES_TOTAL_X5_X10 5U
+#define XRFDC_CG_CYCLES_KEPT_X5_X10 4U
+#define XRFDC_CG_CYCLES_TOTAL_X16 2U
+#define XRFDC_CG_CYCLES_KEPT_X16 1U
+#define XRFDC_CG_CYCLES_TOTAL_X20 5U
+#define XRFDC_CG_CYCLES_KEPT_X20 2U
+#define XRFDC_CG_CYCLES_TOTAL_X24 3U
+#define XRFDC_CG_CYCLES_KEPT_X24 1U
+#define XRFDC_CG_CYCLES_TOTAL_X40 5U
+#define XRFDC_CG_CYCLES_KEPT_X40 1U
+
+#define XRFDC_CG_FIXED_OFS 2U
 
 /*****************************************************************************/
 /**

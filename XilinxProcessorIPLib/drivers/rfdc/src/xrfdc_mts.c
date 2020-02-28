@@ -57,6 +57,8 @@
 *       cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    02/20/20 Apply applicable clock gated offets to marker counter.
+*       cog    02/20/20 Double sysref frequency if in IQ mode.
 *
 * </pre>
 *
@@ -660,6 +662,10 @@ static void XRFdc_MTS_Marker_Read(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32
 {
 	u32 BaseAddr;
 	u32 RegData = 0x0;
+	u32 RateFactor;
+	u32 Group;
+	u32 GStart;
+	u32 GOffset = XRFDC_CG_FIXED_OFS;
 
 	if (Type == XRFDC_ADC_TILE) {
 		BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
@@ -670,8 +676,58 @@ static void XRFdc_MTS_Marker_Read(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32
 	} else {
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, FIFO_Id);
 		*CountPtr = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_CNT);
-		*LocPtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_LOC, XRFDC_MTS_DAC_MARKER_LOC_MASK(InstancePtr->RFdc_Config.IPType));
+		*LocPtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_MARKER_LOC,
+				      XRFDC_MTS_DAC_MARKER_LOC_MASK(InstancePtr->RFdc_Config.IPType));
 		*DonePtr = 1;
+		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+			RateFactor = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET,
+						 XRFDC_INTERP_MODE_I_MASK_EXT);
+			switch (RateFactor) {
+			case XRFDC_INTERP_DECIM_1X:
+			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_4X:
+			case XRFDC_INTERP_DECIM_8X:
+				break;
+			case XRFDC_INTERP_DECIM_3X:
+			case XRFDC_INTERP_DECIM_6X:
+			case XRFDC_INTERP_DECIM_12X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X3_X6_X12;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X3_X6_X12;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X3_X6_X12) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_5X:
+			case XRFDC_INTERP_DECIM_10X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X5_X10;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X5_X10;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X5_X10) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_16X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X16;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X16;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X16) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_20X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X20;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X20;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X20) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_24X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X24;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X24;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X24) + *CountPtr - GStart;
+				break;
+			case XRFDC_INTERP_DECIM_40X:
+				Group = (*CountPtr - GOffset) / XRFDC_CG_CYCLES_TOTAL_X40;
+				GStart = Group * XRFDC_CG_CYCLES_TOTAL_X40;
+				*CountPtr = (Group * XRFDC_CG_CYCLES_KEPT_X40) + *CountPtr - GStart;
+				break;
+			default:
+				metal_log(METAL_LOG_DEBUG,
+					  "\n Interpolation block is OFF for DAC %u block %u in %s\r\n", Tile_Id,
+					  FIFO_Id, __func__);
+				break;
+			}
+		}
 	}
 	metal_log(METAL_LOG_DEBUG, "Marker Read Tile %d, FIFO %d - %08X = %04X: count=%d, loc=%d, done=%d\n", Tile_Id,
 		  FIFO_Id, BaseAddr, RegData, *CountPtr, *LocPtr, *DonePtr);
@@ -715,28 +771,28 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_ADC_MARKER, 1);
 		XRFdc_WriteReg(InstancePtr, 0, XRFDC_MTS_ADC_MARKER, 0);
 	} else {
-
 		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-		/*
+			/*
 		 * SysRef Capture should be still active from the DTC Scan
 		 * but set it anyway to be sure
 		 */
-		for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
-			   if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
-				XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile_Id, 0, 1, 0);
+			for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
+				if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
+					XRFdc_MTS_Sysref_Ctrl(InstancePtr, XRFDC_DAC_TILE, Tile_Id, 0, 1, 0);
+				}
 			}
-		}
 
-		/* Set marker delay */
-		   XRFdc_WriteReg(InstancePtr, XRFDC_IP_BASE, XRFDC_MTS_DAC_MARKER_CTRL, Marker_Delay);
+			/* Set marker delay */
+			XRFdc_WriteReg(InstancePtr, XRFDC_IP_BASE, XRFDC_MTS_DAC_MARKER_CTRL, Marker_Delay);
 		} else {
 			for (Tile_Id = XRFDC_TILE_ID0; Tile_Id < XRFDC_TILE_ID4; Tile_Id++) {
-		       if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
-			      for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
-			         BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Block_Id);
-			         XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FIFO_MARKER_CTRL, 0x1, 0x1);
-			      }
-		       }
+				if (((XRFDC_ENABLED << Tile_Id) & Tiles) != 0U) {
+					for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
+						BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Block_Id);
+						XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FIFO_MARKER_CTRL,
+								0x1, 0x1);
+					}
+				}
 			}
 		}
 	}
@@ -827,6 +883,8 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	u32 Write_Words = 0U;
 	u32 Read_Words = 1U;
 	u32 Block_Id;
+	XRFdc_Mixer_Settings Mixer_Settings;
+	u32 IQFactor = 1U;
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
@@ -834,6 +892,12 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	} else {
 		(void)XRFdc_GetInterpolationFactor(InstancePtr, ConfigPtr->RefTile, 0, &Factor);
 		(void)XRFdc_GetFabWrVldWords(InstancePtr, Type, ConfigPtr->RefTile, 0, &Write_Words);
+		XRFdc_GetMixerSettings(InstancePtr, Type, ConfigPtr->RefTile, 0, &Mixer_Settings);
+		if (Mixer_Settings.MixerMode == (XRFDC_MIXER_MODE_C2R)) {
+			IQFactor = 2U;
+		} else {
+			IQFactor = 1U;
+		}
 	}
 	(void)XRFdc_GetFabRdVldWords(InstancePtr, Type, ConfigPtr->RefTile, 0, &Read_Words);
 	Count_W = Read_Words * Factor;
@@ -873,7 +937,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 			 * DAC marker counter is on the tile clock domain so need
 			 * to update SysRef period accordingly
 			 */
-			SysRefT1Period = (SysRefT1Period * Write_Words) / Read_Words;
+			SysRefT1Period = ((SysRefT1Period * Write_Words) / Read_Words) / IQFactor;
 		}
 		metal_log(METAL_LOG_INFO, "SysRef period in terms of %s T1s = %d\n",
 			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", SysRefT1Period);
@@ -952,25 +1016,26 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 				Status |= XRFDC_MTS_DELAY_OVER;
 			}
 
-
 			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-			   // Adjust the latency, write the same value to each FIFO
-			   BaseAddr = XRFDC_CTRL_STS_BASE(Type, Index);;
-			for (Fifo = XRFDC_BLK_ID0; Fifo < XRFDC_BLK_ID4; Fifo++) {
-				RegAddr = XRFDC_MTS_DELAY_CTRL + (Fifo << 2);
-				RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, RegAddr);
-				RegData = XRFDC_MTS_RMW(RegData, XRFDC_MTS_DELAY_VAL_M, Offset);
-				XRFdc_WriteReg(InstancePtr, BaseAddr, RegAddr, RegData);
-			}
+				// Adjust the latency, write the same value to each FIFO
+				BaseAddr = XRFDC_CTRL_STS_BASE(Type, Index);
+				;
+				for (Fifo = XRFDC_BLK_ID0; Fifo < XRFDC_BLK_ID4; Fifo++) {
+					RegAddr = XRFDC_MTS_DELAY_CTRL + (Fifo << 2);
+					RegData = XRFdc_ReadReg(InstancePtr, BaseAddr, RegAddr);
+					RegData = XRFDC_MTS_RMW(RegData, XRFDC_MTS_DELAY_VAL_M, Offset);
+					XRFdc_WriteReg(InstancePtr, BaseAddr, RegAddr, RegData);
+				}
 			} else {
 				for (Block_Id = XRFDC_BLK_ID0; Block_Id < XRFDC_BLK_ID4; Block_Id++) {
-				   BaseAddr = XRFDC_BLOCK_BASE(Type, Index, Block_Id);
-				   if (Offset > 0) {
-					  OffsetReg = Offset | XRFDC_MTS_DIR_FIFO_PTR;
-				   } else {
-					   OffsetReg = Offset;
-				   }
-				   XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FABRIC_OFFSET, 0x7F, OffsetReg);
+					BaseAddr = XRFDC_BLOCK_BASE(Type, Index, Block_Id);
+					if (Offset > 0) {
+						OffsetReg = Offset | XRFDC_MTS_DIR_FIFO_PTR;
+					} else {
+						OffsetReg = Offset;
+					}
+					XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_MTS_DAC_FABRIC_OFFSET, 0x7F,
+							OffsetReg);
 				}
 			}
 
@@ -1166,18 +1231,20 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 			/* Run DTC Scan for T1/PLL */
 			BaseAddr = XRFDC_DRP_BASE(Type, Index) + XRFDC_HSCOM_ADDR;
 			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-			RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_CLKSTAT);
+				RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_CLKSTAT);
 				if ((RegData & XRFDC_MTS_PLLEN_M) != XRFDC_DISABLED) {
-				/* DTC Scan PLL */
+					/* DTC Scan PLL */
 					if (Index == XRFDC_BLK_ID0) {
-					metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
+						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
+					}
+					ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
+					Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
 				}
-				ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
-				Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
-			}
 			} else {
 				RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0);
-				if(((RegData & XRFDC_PLL_DIVIDER0_BYP_PLL_MASK)== XRFDC_DISABLED) && ((RegData & XRFDC_PLL_DIVIDER0_MODE_MASK) != XRFDC_DISABLED)){
+				if ((((RegData & XRFDC_PLL_DIVIDER0_BYP_PLL_MASK) == XRFDC_DISABLED) ||
+				     ((RegData & XRFDC_PLL_DIVIDER0_BYP_OPDIV_MASK) == XRFDC_DISABLED)) &&
+				    ((RegData & XRFDC_PLL_DIVIDER0_MODE_MASK) != XRFDC_DISABLED)) {
 					/* DTC Scan PLL */
 					if (Index == XRFDC_BLK_ID0) {
 						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");

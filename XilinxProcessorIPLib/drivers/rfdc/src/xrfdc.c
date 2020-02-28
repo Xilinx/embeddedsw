@@ -193,6 +193,7 @@
 *       cog    01/23/20 Fixed offset and bit for GCB calibration override operations in Gen 3 Devices.
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    02/20/20 Adjust FIFO delays for clock gated interpolation/decimation rates.
 *
 * </pre>
 *
@@ -1851,6 +1852,34 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 				FabricRate);
 	}
 
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		switch (DecimationFactor) {
+		case XRFDC_INTERP_DECIM_1X:
+		case XRFDC_INTERP_DECIM_2X:
+		case XRFDC_INTERP_DECIM_4X:
+		case XRFDC_INTERP_DECIM_8X:
+			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR),
+					XRFDC_HSCOM_FIFO_START_OFFSET, XRFDC_ADC_FIFO_DELAY_MASK, 0);
+			break;
+		case XRFDC_INTERP_DECIM_3X:
+		case XRFDC_INTERP_DECIM_6X:
+		case XRFDC_INTERP_DECIM_12X:
+		case XRFDC_INTERP_DECIM_5X:
+		case XRFDC_INTERP_DECIM_10X:
+		case XRFDC_INTERP_DECIM_16X:
+		case XRFDC_INTERP_DECIM_20X:
+		case XRFDC_INTERP_DECIM_24X:
+		case XRFDC_INTERP_DECIM_40X:
+			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR),
+					XRFDC_HSCOM_FIFO_START_OFFSET, XRFDC_ADC_FIFO_DELAY_MASK,
+					XRFDC_ADC_CG_WAIT_CYCLES << XRFDC_ADC_FIFO_DELAY_SHIFT);
+			break;
+		default:
+			metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF for DAC %u block %u in %s\r\n", Tile_Id,
+				  Block_Id, __func__);
+			break;
+		}
+	}
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
@@ -1989,6 +2018,9 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 	u8 DataType;
 	u32 Factor;
 	u32 DatapathMode;
+	u32 ReadPtrDelay;
+	u32 CGNumerator;
+	u32 CGDenominator;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -2117,6 +2149,54 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 				  Tile_Id, Block_Id, __func__);
 			break;
 		}
+	}
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		switch (InterpolationFactor) {
+		case XRFDC_INTERP_DECIM_1X:
+		case XRFDC_INTERP_DECIM_2X:
+		case XRFDC_INTERP_DECIM_4X:
+		case XRFDC_INTERP_DECIM_8X:
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X1_X2_X4_X8;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X1_X2_X4_X8;
+			break;
+		case XRFDC_INTERP_DECIM_3X:
+		case XRFDC_INTERP_DECIM_6X:
+		case XRFDC_INTERP_DECIM_12X:
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X3_X6_X12;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X3_X6_X12;
+			break;
+		case XRFDC_INTERP_DECIM_5X:
+		case XRFDC_INTERP_DECIM_10X:
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X5_X10;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X5_X10;
+			break;
+		case XRFDC_INTERP_DECIM_16X:
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X16;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X16;
+			break;
+		case XRFDC_INTERP_DECIM_20X:
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X20;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X20;
+			break;
+		case XRFDC_INTERP_DECIM_24X:
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X24;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X24;
+			break;
+		case XRFDC_INTERP_DECIM_40X:
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X40;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X40;
+			break;
+		default:
+			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF for DAC %u block %u in %s\r\n",
+				  Tile_Id, Block_Id, __func__);
+			CGNumerator = XRFDC_CG_CYCLES_TOTAL_X1_X2_X4_X8;
+			CGDenominator = XRFDC_CG_CYCLES_KEPT_X1_X2_X4_X8;
+			break;
+		}
+		ReadPtrDelay = ((XRFDC_CG_WAIT_CYCLES * CGNumerator) / CGDenominator) +
+			       (((XRFDC_CG_WAIT_CYCLES * CGNumerator) % CGDenominator) ? 1 : 0);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FIFO_START_OFFSET, XRFDC_DAC_FIFO_DELAY_MASK,
+				ReadPtrDelay);
 	}
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
 			(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
@@ -3763,13 +3843,11 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 		NoOfBlocks = Block_Id + 1U;
 	}
 	if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Calibration mode value (%u) for ADC %u block %u in %s\r\n",
+		metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value (%u) for ADC %u block %u in %s\r\n",
 			  CalibrationMode, Tile_Id, Block_Id, __func__);
 		return XRFDC_FAILURE;
 	}
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-
 		/* Get Mixer Configurations */
 		Status = XRFdc_GetMixerSettings(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &Mixer_Settings);
 		if (Status != XRFDC_SUCCESS) {
@@ -3814,7 +3892,9 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	} else {
 		for (; Index < NoOfBlocks; Index++) {
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK,((CalibrationMode == XRFDC_CALIB_MODE1)?XRFDC_CALIB_MODE_NEG_ABS_SUM:XRFDC_CALIB_MODE_ABS_DIFF));
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK,
+					((CalibrationMode == XRFDC_CALIB_MODE1) ? XRFDC_CALIB_MODE_NEG_ABS_SUM :
+										  XRFDC_CALIB_MODE_ABS_DIFF));
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].CalibrationMode =
 				CalibrationMode;
 		}
@@ -3881,11 +3961,13 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, XRFDC_TI_DCB_MODE_MASK);
-		*CalibrationModePtr = (ReadReg != 0U)?XRFDC_CALIB_MODE1:XRFDC_CALIB_MODE2;
+		*CalibrationModePtr = (ReadReg != 0U) ? XRFDC_CALIB_MODE1 : XRFDC_CALIB_MODE2;
 	} else {
 		*CalibrationModePtr =
 			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK);
-			*CalibrationModePtr = (*CalibrationModePtr == XRFDC_CALIB_MODE_NEG_ABS_SUM)?XRFDC_CALIB_MODE1:XRFDC_CALIB_MODE2; /*mode 0 same as XRFDC_CALIB_MODE_MIXER*/
+		*CalibrationModePtr = (*CalibrationModePtr == XRFDC_CALIB_MODE_NEG_ABS_SUM) ?
+					      XRFDC_CALIB_MODE1 :
+					      XRFDC_CALIB_MODE2; /*mode 0 same as XRFDC_CALIB_MODE_MIXER*/
 	}
 
 	Status = XRFDC_SUCCESS;
