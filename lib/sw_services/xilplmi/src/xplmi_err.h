@@ -53,6 +53,7 @@ extern "C" {
 #include "xplmi_status.h"
 #include "xplmi_debug.h"
 #include "xplmi_hw.h"
+#include "xplmi_error_node.h"
 
 /************************** Constant Definitions *****************************/
 /* Action to be taken when an error occurs */
@@ -76,7 +77,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
-typedef void (*XPlmi_ErrorHandler_t) (u8 ErrorId);
+typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorId, u32 ErrorMask);
 extern s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type,
 		const u32 SubType);
 
@@ -91,7 +92,7 @@ struct XPlmi_Error_t {
 void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 		const u32 Type, const u32 SubType));
 int XPlmi_PsEmInit(void);
-int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
+int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
 
 /* Functions defined in xplmi_err_cmd.c */

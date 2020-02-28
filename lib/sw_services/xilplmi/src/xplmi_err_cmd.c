@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,6 @@
 #include "xplmi_modules.h"
 #include "xplmi.h"
 #include "xplmi_debug.h"
-#include "xpm_node.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -74,22 +73,21 @@ static int XPlmi_CmdEmReserved(XPlmi_Cmd * Cmd)
 
 /*****************************************************************************/
 /**
- * @brief This function sets the command action as pescribed by the command.
- * command payload paramters are
- *		* Error ID
+ * @brief This function sets the error action as prescribed by the command.
+ * command payload parameters are
+ *		* Error Node ID
  *		* Error Action
+ *			0 - Invalid
  *			1 - POR
  *			2 - SRST
- *			3 - Not supported
+ *			3 - Custom(Not supported)
  *			4 - ErrOut
  *			5 - Subsystem Shutdown
- *			6 -  Subsystem Restart
- *			7 - Notify Agent
+ *			6 - Subsystem Restart
+ *			7 - PSM correctable
+ *			8 - PSM non-correctable
+ *			9 - None
  *		* Error ID Mask
- *	Optional Params
- *		* Subsystem Shutdown: Subsystem Node ID
- *		* Subsystem Restart: Subsystem Node ID
- *		* Notify Agent: Channel Node ID
  * @param Pointer to the command structure
  *
  * @return Returns XST_SUCCESS on successful execution
@@ -98,13 +96,14 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 {
 	u32 NodeId = Cmd->Payload[0];
 	u32 ErrorAction = Cmd->Payload[1];
+	u32 ErrorMask = Cmd->Payload[2];
 	int Status;
 
 	XPlmi_Printf(DEBUG_DETAILED,
-	    "%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, \n\r",
-		 __func__, NodeId, ErrorAction);
+	    "%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMask: 0x%0x\n\r",
+		 __func__, NodeId, ErrorAction, ErrorMask);
 
-	Status = XPlmi_EmSetAction(NodeId, (u8)ErrorAction, NULL);
+	Status = XPlmi_EmSetAction(NodeId, ErrorMask, (u8)ErrorAction, NULL);
 	return Status;
 }
 

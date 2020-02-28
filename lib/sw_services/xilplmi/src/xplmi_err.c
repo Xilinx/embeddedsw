@@ -47,7 +47,6 @@
 /***************************** Include Files *********************************/
 #include "xplmi_err.h"
 #include "xplmi.h"
-#include "xpm_node.h"
 #include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
@@ -55,7 +54,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define	XPLMI_ERR_REG_MASK(ErrorId)	(0x1U << (NODEINDEX(ErrorId)%32))
+#define	XPLMI_ERR_REG_MASK(ErrorMask)	(0x1U << (ErrorMask & 0x1FU))
+#define EVENT_TYPE(Id)	(((Id) & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT)
 /************************** Function Prototypes ******************************/
 s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
 /************************** Variable Definitions *****************************/
@@ -112,253 +112,268 @@ void XPlmi_ErrMgr(int Status)
 }
 
 /*
- * Structure to define error action type and handler if action type
- * is XPLMI_EM_ACTION_CUSTOM for each error.
+ * Structure to define error action type and handler if error to be handled
+ * by PLM
  */
 struct XPlmi_Error_t ErrorTable[] = {
-	[XPM_NODEIDX_ERROR_BOOT_CR] =
+	[XPLMI_NODEIDX_ERROR_BOOT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_BOOT_NCR] =
+	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, },
-	[XPM_NODEIDX_ERROR_FW_CR] =
+	[XPLMI_NODEIDX_ERROR_FW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FW_NCR] =
+	[XPLMI_NODEIDX_ERROR_FW_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, },
-	[XPM_NODEIDX_ERROR_GSW_CR] =
+	[XPLMI_NODEIDX_ERROR_GSW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_GSW_NCR] =
+	[XPLMI_NODEIDX_ERROR_GSW_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_CFU] =
+	[XPLMI_NODEIDX_ERROR_CFU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_CFRAME] =
+	[XPLMI_NODEIDX_ERROR_CFRAME] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMC_PSM_CR] =
+	[XPLMI_NODEIDX_ERROR_PMC_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMC_PSM_NCR] =
+	[XPLMI_NODEIDX_ERROR_PMC_PSM_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, },
-	[XPM_NODEIDX_ERROR_DDRMB_CR] =
+	[XPLMI_NODEIDX_ERROR_DDRMB_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_DDRMB_NCR] =
+	[XPLMI_NODEIDX_ERROR_DDRMB_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_NOCTYPE1_CR] =
+	[XPLMI_NODEIDX_ERROR_NOCTYPE1_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_NOCTYPE1_NCR] =
+	[XPLMI_NODEIDX_ERROR_NOCTYPE1_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_NOCUSER] =
+	[XPLMI_NODEIDX_ERROR_NOCUSER] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_MMCM] =
+	[XPLMI_NODEIDX_ERROR_MMCM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_ME_CR] =
+	[XPLMI_NODEIDX_ERROR_ME_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_ME_NCR] =
+	[XPLMI_NODEIDX_ERROR_ME_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_DDRMC_CR] =
+	[XPLMI_NODEIDX_ERROR_DDRMC_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_DDRMC_NCR] =
+	[XPLMI_NODEIDX_ERROR_DDRMC_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_GT_CR] =
+	[XPLMI_NODEIDX_ERROR_GT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_GT_NCR] =
+	[XPLMI_NODEIDX_ERROR_GT_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PLSMON_CR] =
+	[XPLMI_NODEIDX_ERROR_PLSMON_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PLSMON_NCR] =
+	[XPLMI_NODEIDX_ERROR_PLSMON_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PL0] =
+	[XPLMI_NODEIDX_ERROR_PL0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PL1] =
+	[XPLMI_NODEIDX_ERROR_PL1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PL2] =
+	[XPLMI_NODEIDX_ERROR_PL2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PL3] =
+	[XPLMI_NODEIDX_ERROR_PL3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_NPIROOT] =
+	[XPLMI_NODEIDX_ERROR_NPIROOT] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SSIT3] =
+	[XPLMI_NODEIDX_ERROR_SSIT3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SSIT4] =
+	[XPLMI_NODEIDX_ERROR_SSIT4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SSIT5] =
+	[XPLMI_NODEIDX_ERROR_SSIT5] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCAPB] =
+	[XPLMI_NODEIDX_ERROR_PMCAPB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCROM] =
+	[XPLMI_NODEIDX_ERROR_PMCROM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, },
-	[XPM_NODEIDX_ERROR_MB_FATAL0] =
+	[XPLMI_NODEIDX_ERROR_MB_FATAL0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, },
-	[XPM_NODEIDX_ERROR_MB_FATAL1] =
+	[XPLMI_NODEIDX_ERROR_MB_FATAL1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, },
-	[XPM_NODEIDX_ERROR_PMCPAR] =
+	[XPLMI_NODEIDX_ERROR_PMCPAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMC_CR] =
+	[XPLMI_NODEIDX_ERROR_PMC_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMC_NCR] =
+	[XPLMI_NODEIDX_ERROR_PMC_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, },
-	[XPM_NODEIDX_ERROR_PMCSMON0] =
+	[XPLMI_NODEIDX_ERROR_PMCSMON0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON1] =
+	[XPLMI_NODEIDX_ERROR_PMCSMON1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON2] =
+	[XPLMI_NODEIDX_ERROR_PMCSMON2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON3] =
+	[XPLMI_NODEIDX_ERROR_PMCSMON3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON4] =
+	[XPLMI_NODEIDX_ERROR_PMCSMON4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON5] =
+	[XPLMI_NODEIDX_ERROR_PMC_RSRV1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON6] =
+	[XPLMI_NODEIDX_ERROR_PMC_RSRV2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON7] =
+	[XPLMI_NODEIDX_ERROR_PMC_RSRV3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCSMON8] =
+	[XPLMI_NODEIDX_ERROR_PMCSMON8] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, },
-	[XPM_NODEIDX_ERROR_PMCSMON9] =
+	[XPLMI_NODEIDX_ERROR_PMCSMON9] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_CFI] =
+	[XPLMI_NODEIDX_ERROR_CFI] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SEUCRC] =
+	[XPLMI_NODEIDX_ERROR_SEUCRC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SEUECC] =
+	[XPLMI_NODEIDX_ERROR_SEUECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_RTCALARM] =
+	[XPLMI_NODEIDX_ERROR_PMC_RSRV4] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PMC_RSRV5] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_RTCALARM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, },
-	[XPM_NODEIDX_ERROR_NPLL] =
+	[XPLMI_NODEIDX_ERROR_NPLL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PPLL] =
+	[XPLMI_NODEIDX_ERROR_PPLL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_CLKMON] =
+	[XPLMI_NODEIDX_ERROR_CLKMON] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCTO] =
+	[XPLMI_NODEIDX_ERROR_PMCTO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCXMPU] =
+	[XPLMI_NODEIDX_ERROR_PMCXMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PMCXPPU] =
+	[XPLMI_NODEIDX_ERROR_PMCXPPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SSIT0] =
+	[XPLMI_NODEIDX_ERROR_SSIT0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SSIT1] =
+	[XPLMI_NODEIDX_ERROR_SSIT1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_SSIT2] =
+	[XPLMI_NODEIDX_ERROR_SSIT2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PS_SW_CR] =
+	[XPLMI_NODEIDX_ERROR_PS_SW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PS_SW_NCR] =
+	[XPLMI_NODEIDX_ERROR_PS_SW_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PSM_B_CR] =
+	[XPLMI_NODEIDX_ERROR_PSM_B_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PSM_B_NCR] =
+	[XPLMI_NODEIDX_ERROR_PSM_B_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_MB_FATAL] =
+	[XPLMI_NODEIDX_ERROR_MB_FATAL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_PSM_NCR, },
-	[XPM_NODEIDX_ERROR_PSM_CR] =
+	[XPLMI_NODEIDX_ERROR_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PSM_NCR] =
+	[XPLMI_NODEIDX_ERROR_PSM_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_OCM_ECC] =
+	[XPLMI_NODEIDX_ERROR_OCM_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_L2_ECC] =
+	[XPLMI_NODEIDX_ERROR_L2_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_RPU_ECC] =
+	[XPLMI_NODEIDX_ERROR_RPU_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_RPU_LS] =
+	[XPLMI_NODEIDX_ERROR_RPU_LS] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_RPU_CCF] =
+	[XPLMI_NODEIDX_ERROR_RPU_CCF] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_GIC_AXI] =
+	[XPLMI_NODEIDX_ERROR_GIC_AXI] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_GIC_ECC] =
+	[XPLMI_NODEIDX_ERROR_GIC_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_APLL_LOCK] =
+	[XPLMI_NODEIDX_ERROR_APLL_LOCK] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_RPLL_LOCK] =
+	[XPLMI_NODEIDX_ERROR_RPLL_LOCK] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_CPM_CR] =
+	[XPLMI_NODEIDX_ERROR_CPM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_CPM_NCR] =
+	[XPLMI_NODEIDX_ERROR_CPM_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_APB] =
+	[XPLMI_NODEIDX_ERROR_LPD_APB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_APB] =
+	[XPLMI_NODEIDX_ERROR_FPD_APB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_PAR] =
+	[XPLMI_NODEIDX_ERROR_LPD_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_PAR] =
+	[XPLMI_NODEIDX_ERROR_FPD_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_IOU_PAR] =
+	[XPLMI_NODEIDX_ERROR_IOU_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PSM_PAR] =
+	[XPLMI_NODEIDX_ERROR_PSM_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_TO] =
+	[XPLMI_NODEIDX_ERROR_LPD_TO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_TO] =
+	[XPLMI_NODEIDX_ERROR_FPD_TO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_PSM_TO] =
+	[XPLMI_NODEIDX_ERROR_PSM_TO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SWDT] =
+	[XPLMI_NODEIDX_ERROR_XRAM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SWDT] =
+	[XPLMI_NODEIDX_ERROR_XRAM_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON0] =
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV1] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV2] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV3] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_LPD_SWDT] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON1] =
+	[XPLMI_NODEIDX_ERROR_FPD_SWDT] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON2] =
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV4] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV5] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV6] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV7] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV8] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV9] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV10] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV11] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV12] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV13] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV14] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV15] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV16] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV17] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV18] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_PSM_RSRV19] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, },
+	[XPLMI_NODEIDX_ERROR_LPD_XMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON3] =
+	[XPLMI_NODEIDX_ERROR_LPD_XPPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON4] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON5] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON6] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_SMON7] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON0] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON1] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON2] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON3] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON4] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON5] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON6] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_SMON7] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_XMPU] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_LPD_XPPU] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
-	[XPM_NODEIDX_ERROR_FPD_XMPU] =
+	[XPLMI_NODEIDX_ERROR_FPD_XMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, },
 };
 
 /*****************************************************************************/
 /**
- * @brief This function disables the responses for the given error ID.
- * @param ErrorId is the error identifier
+ * @brief This function disables the responses for the given error.
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error to be disabled
  * @return Success / failure
  *****************************************************************************/
-int XPlmi_EmDisable(u32 ErrorId)
+int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status;
 	u32 RegMask;
 
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
 		/* Invalid Error ID */
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
 
-	switch (NODETYPE(ErrorId)) {
-	case XPM_NODETYPE_EVENT_PMC_ERR1:
+	switch (EVENT_TYPE(ErrorNodeId)) {
+	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		/* Disable POR, SRST, Interrupt and PS Error Out */
 		XPlmi_Out32(PMC_GLOBAL_PMC_POR1_DIS, RegMask);
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT1_DIS, RegMask);
@@ -366,7 +381,7 @@ int XPlmi_EmDisable(u32 ErrorId)
 		XPlmi_Out32(PMC_GLOBAL_PMC_SRST1_DIS, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PMC_ERR2:
+	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		/* Disable POR, SRST, Interrupt and PS Error Out */
 		XPlmi_Out32(PMC_GLOBAL_PMC_POR2_DIS, RegMask);
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT2_DIS, RegMask);
@@ -374,15 +389,15 @@ int XPlmi_EmDisable(u32 ErrorId)
 		XPlmi_Out32(PMC_GLOBAL_PMC_SRST2_DIS, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR1:
-		/* Disable CR / NCR to PMC,  SRST, Interrupt */
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		/* Disable CR / NCR to PMC, Interrupt */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_DIS, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR2:
-		/* Disable CR / NCR to PMC,  SRST, Interrupt */
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		/* Disable CR / NCR to PMC, Interrupt */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_DIS, RegMask);
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ2_DIS, RegMask);
@@ -392,7 +407,7 @@ int XPlmi_EmDisable(u32 ErrorId)
 		/* Invalid Error Type */
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -402,35 +417,36 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function enables the POR response for the given Error ID.
- * @param ErrorId is the error identifier
+ * @brief This function enables the POR response for the given Error.
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error received
  * @return Success / failure
  *****************************************************************************/
-static int XPlmi_EmEnablePOR(u32 ErrorId)
+static int XPlmi_EmEnablePOR(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status;
 	u32 RegMask;
 
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PMCERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
 
-	switch (NODETYPE(ErrorId)) {
-	case XPM_NODETYPE_EVENT_PMC_ERR1:
+	switch (EVENT_TYPE(ErrorNodeId)) {
+	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_POR1_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PMC_ERR2:
+	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		XPlmi_Out32(PMC_GLOBAL_PMC_POR2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -441,34 +457,35 @@ END:
 /*****************************************************************************/
 /**
  * @brief This function enables the SRST response for the given Error ID.
- * @param ErrorId is the error identifier
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error received
  * @return Success / failure
  *****************************************************************************/
-static int XPlmi_EmEnableSRST(u32 ErrorId)
+static int XPlmi_EmEnableSRST(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status;
 	u32 RegMask;
 
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PMCERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
 
-	switch (NODETYPE(ErrorId)) {
-	case XPM_NODETYPE_EVENT_PMC_ERR1:
+	switch (EVENT_TYPE(ErrorNodeId)) {
+	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_SRST1_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PMC_ERR2:
+	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		XPlmi_Out32(PMC_GLOBAL_PMC_SRST2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -479,36 +496,37 @@ END:
 /*****************************************************************************/
 /**
  * @brief This function enables the ERR OUT response for the given Error ID.
- * @param ErrorId is the error identifier
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error received
  * @return Success / failure
  *****************************************************************************/
-static int XPlmi_EmEnablePSError(u32 ErrorId)
+static int XPlmi_EmEnablePSError(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status;
 	u32 RegMask;
 
 	/* If Error ID is not in range, fail */
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PMCERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
 
 	/* Enable the specified Error to propagate to ERROUT pin	*/
-	switch (NODETYPE(ErrorId)) {
-	case XPM_NODETYPE_EVENT_PMC_ERR1:
+	switch (EVENT_TYPE(ErrorNodeId)) {
+	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT1_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PMC_ERR2:
+	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -519,36 +537,37 @@ END:
 /*****************************************************************************/
 /**
  * @brief This function enables the interrupt to PMC for the given Error ID.
- * @param ErrorId is the error identifier
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error received
  * @return Success / failure
  *****************************************************************************/
-static int XPlmi_EmEnableInt(u32 ErrorId)
+static int XPlmi_EmEnableInt(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status;
 	u32 RegMask;
 
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
 		/* Invalid Error Id */
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
 
-	switch (NODETYPE(ErrorId)) {
-	case XPM_NODETYPE_EVENT_PMC_ERR1:
+	switch (EVENT_TYPE(ErrorNodeId)) {
+	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ1_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PMC_ERR2:
+	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR1:
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR2:
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
@@ -556,7 +575,7 @@ static int XPlmi_EmEnableInt(u32 ErrorId)
 		/* Invalid Err Type */
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -567,35 +586,36 @@ END:
 /*****************************************************************************/
 /**
  * @brief This function enables the PSM CR response for the given Error ID.
- * @param ErrorId is the error identifier
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error received
  * @return Success / failure
  *****************************************************************************/
-static int XPlmi_EmEnablePsmCr(u32 ErrorId)
+static int XPlmi_EmEnablePsmCr(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status;
 	u32 RegMask;
 
-	if ((NODEINDEX(ErrorId) < XPM_NODEIDX_ERROR_PS_SW_CR) ||
-			(NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX)) {
+	if ((ErrorMask < XPLMI_NODEIDX_ERROR_PS_SW_CR) ||
+			(ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
 
-	switch (NODETYPE(ErrorId)) {
-	case XPM_NODETYPE_EVENT_PSM_ERR1:
+	switch (EVENT_TYPE(ErrorNodeId)) {
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR2:
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -606,35 +626,36 @@ END:
 /*****************************************************************************/
 /**
  * @brief This function enables the PSM NCR response for the given Error ID.
- * @param ErrorId is the error identifier
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    ErrorMask is the error received
  * @return Success / failure
  *****************************************************************************/
-static int XPlmi_EmEnablePsmNcr(u32 ErrorId)
+static int XPlmi_EmEnablePsmNcr(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status;
 	u32 RegMask;
 
-	if ((NODEINDEX(ErrorId) < XPM_NODEIDX_ERROR_PS_SW_CR) ||
-			(NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX)) {
+	if ((ErrorMask < XPLMI_NODEIDX_ERROR_PS_SW_CR) ||
+			(ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorId);
+	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
 
-	switch (NODETYPE(ErrorId)) {
-	case XPM_NODETYPE_EVENT_PSM_ERR1:
+	switch (EVENT_TYPE(ErrorNodeId)) {
+	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
-	case XPM_NODETYPE_EVENT_PSM_ERR2:
+	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
 		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid ErrType for ErrId: 0x%0x\n\r", ErrorId);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -645,24 +666,26 @@ END:
 /*****************************************************************************/
 /**
  * @brief This function sets the Action specified for a given Error ID.
- * @param ErrorId is the error identifier
- * @param ActionId is the action that need to be set for ErrorID. Action
+ * @param ErrorNodeId is the node ID for the error event
+ * @param ErrorMask is the error to which specified action to be set
+ * @param ActionId is the action that need to be set for ErrorMask. Action
  * can be SRST/POR/ERR OUT/INT
  * @param ErrorHandler If INT is defined as response, handler should be
  * defined.
  * @return Success / failure
  *****************************************************************************/
-int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
+int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler)
 {
 	int Status;
 
 	/* Check for Valid Error ID */
-	if (NODEINDEX(ErrorId) >= XPM_NODEIDX_ERROR_PSMERR2_MAX) {
+	if ((ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) ||
+		(ErrorTable[ErrorMask].Action == XPLMI_EM_ACTION_INVALID)) {
 		/* Invalid Error Id */
 		Status = XPLMI_INVALID_ERROR_ID;
 		XPlmi_Printf(DEBUG_GENERAL,
-			"Invalid Error Id:0x%0x\n\r", ErrorId);
+			"Invalid Error:0x%0x\n\r", ErrorMask);
 		goto END;
 	}
 
@@ -676,7 +699,7 @@ int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
 	if((ActionId > XPLMI_EM_ACTION_NONE) && (ActionId < XPLMI_EM_ACTION_MAX)) {
 		/* Disable the error actions for Error ID for configuring
 		 * the requested error action */
-		Status = XPlmi_EmDisable(ErrorId);
+		Status = XPlmi_EmDisable(ErrorNodeId, ErrorMask);
 		if (XST_SUCCESS != Status) {
 			/* Error action disabling failure */
 			goto END;
@@ -687,52 +710,52 @@ int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
 
 	case XPLMI_EM_ACTION_NONE:
 		/* No Action */
-		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
+		ErrorTable[ErrorMask].Action = ActionId;
 		Status = XST_SUCCESS;
 		break;
 
 	case XPLMI_EM_ACTION_POR:
 		/* Set the error action and enable it */
-		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
-		Status = XPlmi_EmEnablePOR(ErrorId);
+		ErrorTable[ErrorMask].Action = ActionId;
+		Status = XPlmi_EmEnablePOR(ErrorNodeId, ErrorMask);
 		break;
 
 	case XPLMI_EM_ACTION_SRST:
 		/* Set error action SRST for the errorId */
-		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
-		Status = XPlmi_EmEnableSRST(ErrorId);
+		ErrorTable[ErrorMask].Action = ActionId;
+		Status = XPlmi_EmEnableSRST(ErrorNodeId, ErrorMask);
 		break;
 
 	case XPLMI_EM_ACTION_CUSTOM:
 		/* Set custom handler as error action for the errorId */
-		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
-		ErrorTable[NODEINDEX(ErrorId)].Handler = ErrorHandler;
-		Status = XPlmi_EmEnableInt(ErrorId);
+		ErrorTable[ErrorMask].Action = ActionId;
+		ErrorTable[ErrorMask].Handler = ErrorHandler;
+		Status = XPlmi_EmEnableInt(ErrorNodeId, ErrorMask);
 		break;
 
 	case XPLMI_EM_ACTION_ERROUT:
-		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
+		ErrorTable[ErrorMask].Action = ActionId;
 		/* Set error action ERROUT signal for the errorId */
-		Status = XPlmi_EmEnablePSError(ErrorId);
+		Status = XPlmi_EmEnablePSError(ErrorNodeId, ErrorMask);
 		break;
 
 	case XPLMI_EM_ACTION_PSM_CR:
-		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
+		ErrorTable[ErrorMask].Action = ActionId;
 		/* Set error action PSM_CR for the errorId */
-		Status = XPlmi_EmEnablePsmCr(ErrorId);
+		Status = XPlmi_EmEnablePsmCr(ErrorNodeId, ErrorMask);
 		break;
 
 	case XPLMI_EM_ACTION_PSM_NCR:
-		ErrorTable[NODEINDEX(ErrorId)].Action = ActionId;
+		ErrorTable[ErrorMask].Action = ActionId;
 		/* Set error action PSM_NCR for the errorId */
-		Status = XPlmi_EmEnablePsmNcr(ErrorId);
+		Status = XPlmi_EmEnablePsmNcr(ErrorNodeId, ErrorMask);
 		break;
 
 	default:
 		/* Invalid Action Id */
 		Status = XPLMI_INVALID_ERROR_ACTION;
 		XPlmi_Printf(DEBUG_GENERAL,
-		"Invalid ActionId for ErrId: 0x%0x\n\r", ErrorId);
+		"Invalid ActionId for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 END:
@@ -771,24 +794,22 @@ void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 	PmSystemShutdown = SystemShutdown;
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPM_NODEIDX_ERROR_BOOT_CR;
-	       Index < XPM_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
-		if (XPlmi_EmSetAction(NODEID(XPM_NODECLASS_EVENT,
-		     XPM_NODESUBCL_EVENT_ERROR, XPM_NODETYPE_EVENT_PMC_ERR1,
-		     Index), ErrorTable[Index].Action,
-		      ErrorTable[Index].Handler) != XST_SUCCESS) {
+	for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
+	       Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
+		if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, Index,
+			ErrorTable[Index].Action,
+			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
 			     "Warning: XPlmi_EmInit: Failed to "
 			     "set action for PMC ERR1: %d\r\n", Index)
 		}
 	}
 
-	for (Index = XPM_NODEIDX_ERROR_PMCAPB;
-	          Index < XPM_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
-		if (XPlmi_EmSetAction(NODEID(XPM_NODECLASS_EVENT,
-		     XPM_NODESUBCL_EVENT_ERROR, XPM_NODETYPE_EVENT_PMC_ERR2,
-		     Index), ErrorTable[Index].Action,
-		      ErrorTable[Index].Handler) != XST_SUCCESS) {
+	for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
+	          Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
+		if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, Index,
+			ErrorTable[Index].Action,
+			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
 			     "Warning: XPlmi_EmInit: Failed to "
 			     "set action for PMC ERR2: %d\r\n", Index)
@@ -818,24 +839,22 @@ int XPlmi_PsEmInit(void)
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, MASK32_ALL_HIGH);
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPM_NODEIDX_ERROR_PS_SW_CR;
-	           Index < XPM_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
-		if (XPlmi_EmSetAction(NODEID(XPM_NODECLASS_EVENT,
-		     XPM_NODESUBCL_EVENT_ERROR, XPM_NODETYPE_EVENT_PSM_ERR1,
-		     Index), ErrorTable[Index].Action,
-		      ErrorTable[Index].Handler) != XST_SUCCESS) {
+	for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
+	           Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
+		if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, Index,
+			ErrorTable[Index].Action,
+			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
 			     "Warning: XPlmi_PsEmInit: Failed to "
 			     "set action for PSM ERR1: %d\r\n", Index)
 		}
 	}
 
-	for (Index = XPM_NODEIDX_ERROR_LPD_SWDT;
-	          Index < XPM_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
-		if (XPlmi_EmSetAction(NODEID(XPM_NODECLASS_EVENT,
-		     XPM_NODESUBCL_EVENT_ERROR, XPM_NODETYPE_EVENT_PSM_ERR2,
-		     Index), ErrorTable[Index].Action,
-		      ErrorTable[Index].Handler) != XST_SUCCESS) {
+	for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
+	          Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
+		if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, Index,
+			ErrorTable[Index].Action,
+			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
 			     "Warning: XPlmi_PsEmInit: Failed to "
 			     "set action for PSM ERR2: %d\r\n", Index)
