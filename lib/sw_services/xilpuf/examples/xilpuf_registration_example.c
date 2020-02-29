@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,7 @@
 
 #define XPUF_4K_SYNDROME_MODE			(0U)
 #define XPUF_12K_SYNDROME_MODE			(1U)
-#define XPUF_DEBUG_INFO					(1U)
+#define XPUF_DEBUG_INFO				(1U)
 
 static XPuf_Data PufData;
 
@@ -76,6 +76,7 @@ int main()
 
 	PufData.RegMode = XPUF_4K_SYNDROME_MODE;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
+	PufData.PufOperation = XPUF_REGISTRATION;
 	Status = XPuf_Registration(&PufData);
 
 	if (Status == XPUF_ERROR_SYNDROME_DATA_OVERFLOW) {
@@ -104,8 +105,8 @@ int main()
 	}
 	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF Syndrome data End!!!\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO, "AUX-%08x\r\n", PufData.Aux);
-	xPuf_printf(XPUF_DEBUG_INFO, "CHASH -%08x\r\n", PufData.Chash);
+	xPuf_printf(XPUF_DEBUG_INFO, "AUX : %08x\r\n", PufData.Aux);
+	xPuf_printf(XPUF_DEBUG_INFO, "CHASH : %08x\r\n", PufData.Chash);
 
 	xPuf_printf(XPUF_DEBUG_INFO,"PUF ID : ");
 	for (Idx = 0; Idx < 8; Idx++) {
