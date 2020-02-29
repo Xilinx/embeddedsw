@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,26 +43,24 @@
  *
  * User configurable parameters for PUF
  *------------------------------------------------------------------------------
- *	#define 	XPUF_READ_OPTION		(XPUF_READ_FROM_RAM)
- *								(or)
- *							(XPUF_READ_FROM_CACHE)
- *								(or)
- *							(XPUF_READ_FROM_EFUSE)
- *	XPUF_READ_OPTION can be any value among above three options
- *	based on where syndrome data is stored.
+ *	#define XPUF_READ_OPTION	(XPUF_READ_FROM_RAM)
+ *						(or)
+ *					(XPUF_READ_FROM_EFUSE_CACHE)
+ *	This selects the location from where the helper data must be read by the
+ *	application. This option must be configured if XPUF_KEK_GENERATE_OPTION
+ *	is configured as XPUF_REGEN_ON_DEMAND.
  *
- *	#define 	XPUF_RAM_CHASH			(0x00000000)
- *	In case of external memory PUF regeneration, CHASH value should be
- *	supplied along with the SYN_DATA_ADDRESS.
+ *	#define XPUF_RAM_CHASH		(0x00000000)
+ *	CHASH value should be supplied if XPUF_READ_OPTION is configured as
+ *	XPUF_READ_FROM_RAM
  *
- *	#define 	XPUF_RAM_AUX			(0x00000000)
- *	In case of external memory PUF regeneration, AUX value should be
- *	supplied along with the SYN_DATA_ADDRESS.
+ *	#define XPUF_RAM_AUX		(0x00000000)
+ *	AUX value should be supplied if XPUF_READ_OPTION is configured as
+ *	XPUF_READ_FROM_RAM
  *
- *	#define 	XPUF_SYN_DATA_ADDRESS		(0x00000000)
- *	This is the address from where ROM will take the syndrome data
- *	to regenerate the PUF.
- *
+ *	#define XPUF_SYN_DATA_ADDRES	(0x00000000)
+ *	Address of syndrome data should be supplied if XPUF_READ_OPTION is
+ *	configured as XPUF_READ_FROM_RAM.
  ******************************************************************************/
 /***************************** Include Files *********************************/
 
@@ -70,6 +68,7 @@
 
 
 /* Configurable parameters */
+#define XPUF_REGEN_OPTION			(XPUF_REGEN_ON_DEMAND)
 #define XPUF_READ_OPTION			(XPUF_READ_FROM_RAM)
 #define XPUF_RAM_CHASH				(0x00000000)
 #define XPUF_RAM_AUX				(0x00000000)
@@ -84,11 +83,13 @@ static XPuf_Data PufData;
 
 int main()
 {
+	int Idx;
 	u32 Status = XST_FAILURE;
 
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.ReadOption = XPUF_READ_OPTION;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
+	PufData.PufOperation = XPUF_REGEN_OPTION;
 
 	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
 		PufData.Chash = XPUF_RAM_CHASH;
@@ -104,9 +105,22 @@ int main()
 			 Status);
 		goto END;
 	}
+
+	if (PufData.PufOperation == XPUF_REGEN_ID_ONLY) {
+		xPuf_printf(XPUF_DEBUG_INFO,
+		"PUF ID only regeneration is done!!\r\n");
+		xPuf_printf(XPUF_DEBUG_INFO,"PUF ID : ");
+		for (Idx = 0; Idx < XPUF_ID_LENGTH; Idx++) {
+			xPuf_printf(XPUF_DEBUG_INFO, "%02x", PufData.PufID[Idx]);
+		}
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
+	}
+	else {
+		xPuf_printf(XPUF_DEBUG_INFO,
+			"PUF On Demand regeneration is done!!\r\n");
+	}
 	xPuf_printf(XPUF_DEBUG_INFO,
 		"Successfully ran Puf Regeneration example!!\r\n");
-
 END:
 	return Status;
 }
