@@ -226,6 +226,7 @@ typedef struct {
 	u32 SlrType; /**< SLR Type */
 	u32 CopyToMem;
 	u32 DelayHandoff;
+	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
 } XilPdi;
 
 /**

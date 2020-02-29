@@ -55,7 +55,9 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#define XLOADER_KAT_DONE        0x000001F0U
+#define EFUSE_CACHE_MISC_CTRL   0xF12500A0U
+#define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK        0X00008000U
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/

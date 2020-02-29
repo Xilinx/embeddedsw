@@ -38,6 +38,7 @@
 * 1.0   vns  04/23/19 First release
 *       har  08/22/19 Fixed MISRA C violations
 *       har  02/13/20 Added code to return error codes
+* 		rpo  02/25/20 Added SHA, RSA, ECDSA, AES KAT support
 * </pre>
 *
 * @note
@@ -49,6 +50,8 @@
 #include "xilpdi.h"
 #include "xplmi_dma.h"
 #include "xsecure_ecdsa_rsa_hw.h"
+#include "xloader_secure_kat.h"
+
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions *******************************/
@@ -603,6 +606,20 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
+	/*
+	 * Skip running the KAT for SHA3 if it is already run by ROM
+	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
+	 */
+	if(((SecurePtr->PdiPtr->PlmKatStatus) & (XLOADER_SHA3_KAT_MASK)) == 0U)
+	{
+		Status = XLoader_Sha3Kat();
+		if(Status != XLOADER_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT Failed\n");
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+			goto END;
+		}
+		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
+	}
 	/* calculate hash of the image header table */
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
@@ -668,6 +685,8 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	u32 ClearIHs;
 	u32 ClearPHs;
 	u32 Ihs;
+	u32 DpacmEfuseStatus;
+	u32 PlmDpacmKatStatus;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"Loading secure image headers and partition headers\n\r");
@@ -679,6 +698,33 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	 * either authentication is enabled or not
 	 */
 	if (SecurePtr->IsEncrypted == TRUE) {
+		/*
+		 * Skip running the KAT for AES DPACM or AES if it is already run by ROM
+		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
+		 */
+		DpacmEfuseStatus = (XPlmi_In32(XLOADER_EFUSE_SEC_MISC1_OFFSET) &
+						 XLOADER_EFUSE_SEC_DPA_DIS_MASK);
+		PlmDpacmKatStatus = ((SecurePtr->PdiPtr->PlmKatStatus) &
+						 (XLOADER_DPACM_KAT_MASK));
+
+		if((DpacmEfuseStatus == 0U) && (PlmDpacmKatStatus == 0U)) {
+			Status = XLoader_AesCmKat();
+			if(Status != XLOADER_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT Failed\n");
+				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+				goto END;
+			}
+			SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_DPACM_KAT_MASK;
+		}
+		if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_AES_KAT_MASK) == 0U) {
+			Status = XLoader_AesKat();
+			if(Status != XLOADER_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "AES KAT Failed\n");
+				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+				goto END;
+			}
+			SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_AES_KAT_MASK;
+		}
 		XPlmi_Printf(DEBUG_INFO, "Headers are in encrypted format\n\r");
 		SecurePtr->ChunkAddr = XLOADER_CHUNK_MEMORY;
 
@@ -907,7 +953,33 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash)
 	XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
 	u32 IsEfuseAuth = TRUE;
-
+	/* Skip running the KAT for ECDSA or RSA if it is already run by ROM
+	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
+	 */
+	if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_RSA_KAT_MASK) == 0U) {
+		if((SecurePtr->AcPtr->AuthHeader & XLOADER_AC_AH_PUB_ALG_MASK) ==
+				XLOADER_AC_AH_PUB_ALG_RSA) {
+			Status = XLoader_RsaKat();
+			if(Status != XLOADER_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "RSA KAT Failed\n");
+				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+				goto END;
+			}
+			SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_RSA_KAT_MASK;
+		}
+	}
+	if(((SecurePtr->PdiPtr->PlmKatStatus) & (XLOADER_ECDSA_KAT_MASK)) == 0U) {
+		if((SecurePtr->AcPtr->AuthHeader & XLOADER_AC_AH_PUB_ALG_MASK) ==
+				XLOADER_AC_AH_PUB_ALG_ECDSA) {
+			Status = XLoader_EcdsaKat();
+			if(Status != XLOADER_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n");
+				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+				goto END;
+			}
+			SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECDSA_KAT_MASK;
+		}
+	}
 	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
 	Status = XLoader_CheckNonZeroPpk();
 	/*
@@ -1243,7 +1315,7 @@ static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash)
 				break;
 			}
 			Status = XLoader_PpkCompare(
-				XLOADER_EFUSE_PPK0_START_OFFSET,PpkHash);
+				XLOADER_EFUSE_PPK0_START_OFFSET, PpkHash);
 			break;
 		case XLOADER_PPK_SEL_1:
 			if ((ReadReg & XLOADER_EFUSE_MISC_CTRL_PPK1_INVLD) !=
@@ -1443,7 +1515,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			goto END;
 		}
 		Status = XSecure_Sha3Update(Sha3InstancePtr,
-			Xsecure_Varsocm.Convert, 4);
+			Xsecure_Varsocm.Convert, 4U);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -2065,7 +2137,7 @@ static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
 			XSECURE_AES_KEY_SIZE_256);
 		if (Status != XLOADER_SUCCESS){
 			Status = XLOADER_UPDATE_MIN_ERR(
-					XLOADER_SEC_BLACK_KEY_DEC_ERR,Status);
+					XLOADER_SEC_BLACK_KEY_DEC_ERR, Status);
 			break;
 		}
 		*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
@@ -2115,7 +2187,7 @@ static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
 		Status = XLOADER_SUCCESS;
 		break;
 	default: Status = XLOADER_UPDATE_MIN_ERR(
-				XLOADER_SEC_DEC_INVALID_KEYSRC_SEL,0x0U);
+				XLOADER_SEC_DEC_INVALID_KEYSRC_SEL, 0x0U);
 			break;
 
 	}
@@ -2155,7 +2227,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	MetaHdr->Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
 	/* Read IHT and PHT to structures and verify checksum */
 	SStatus = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
-	if (SStatus != XLOADER_SUCCESS)
+	if (SStatus != XST_SUCCESS)
 	{
 		Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL, SStatus);
@@ -2163,7 +2235,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 	SStatus = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
-	if(SStatus != XLOADER_SUCCESS)
+	if(SStatus != XST_SUCCESS)
 	{
 		Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL, SStatus);

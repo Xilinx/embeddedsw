@@ -85,6 +85,7 @@ int XPlm_LoadBootPdi(void *arg)
 {
 	int Status;
 	u32 BootMode;
+	u32 CryptoKat;
 
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
 
@@ -112,6 +113,15 @@ int XPlm_LoadBootPdi(void *arg)
 	{
 		Status = XST_SUCCESS;
 		goto END;
+	}
+
+	CryptoKat = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
+			EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK;
+
+	if(CryptoKat != 0U) {
+		PdiPtr->PlmKatStatus = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
+	} else {
+		PdiPtr->PlmKatStatus = XLOADER_KAT_DONE;
 	}
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
