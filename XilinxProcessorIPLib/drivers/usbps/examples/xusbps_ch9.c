@@ -55,8 +55,6 @@
 #include "xil_printf.h"
 #include "xil_cache.h"
 
-/*default class is storage class */
-#include "xusbps_class_storage.h"
 #include "sleep.h"
 
 /* #define CH9_DEBUG */
@@ -78,6 +76,16 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 
 static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 					XUsbPs_SetupData *SetupData);
+extern void XUsbPs_ClassReq(XUsbPs *InstancePtr,
+		XUsbPs_SetupData *SetupData);
+extern u32 XUsbPs_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen);
+extern u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen);
+extern u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index);
+extern void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx);
+extern void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
+				XUsbPs_SetupData *SetupData);
+extern void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
+				XUsbPs_SetupData *SetupData);
 
 /************************** Variable Definitions *****************************/
 
@@ -159,16 +167,22 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 {
 	int Status;
 	int Error = 0;
-
+	u32 Handler;
+	u32 TmpBufferLen = 6;
+	u8 *TempPtr;
 	XUsbPs_Local	*UsbLocalPtr;
 
 	int ReplyLen;
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
+	static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
+	static u8 TmpBuffer[10];
 #else
 	static u8  	Reply[XUSBPS_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
+	static u8 TmpBuffer[10] ALIGNMENT_CACHELINE;
 #endif
+
+	TempPtr = (u8 *)&TmpBuffer;
 
 	/* Check that the requested reply length is not bigger than our reply
 	 * buffer. This should never happen...
@@ -418,6 +432,9 @@ static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
 		XUsbPs_SetConfiguration(InstancePtr,
 						UsbLocalPtr->CurrentConfig);
 
+		if(InstancePtr->AppData != NULL)
+			XUsbPs_SetConfigurationApp(InstancePtr, SetupData);
+
 		/* There is no data phase so ack the transaction by sending a
 		 * zero length packet.
 		 */
@@ -426,9 +443,23 @@ static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
 
 
 	case XUSBPS_REQ_GET_CONFIGURATION:
+
+		if (InstancePtr->AppData !=NULL)
+		{
+
+			/* When we run CV test suite application in Windows, need to
+			 * add GET_CONFIGURATION command to pass test suite
+			 */
+			*((u8 *) &Reply[0]) = XUsbPs_GetConfigDone((XUsbPs *)InstancePtr);
+			Status = XUsbPs_EpBufferSend((XUsbPs *)InstancePtr, 0, Reply,
+					SetupData->wLength);
+		}
+		else
+		{
 		Response = (u8)InstancePtr->CurrentAltSetting;
 		XUsbPs_EpBufferSend(InstancePtr, 0,
 					&Response, 1);
+		}
 		break;
 
 
@@ -520,8 +551,10 @@ static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
 #ifdef CH9_DEBUG
 		printf("set interface %d/%d\n", SetupData->wValue, SetupData->wIndex);
 #endif
-		/* Not supported */
-		/* XUsbPs_SetInterface(InstancePtr, SetupData->wValue, SetupData->wIndex); */
+		/* Only ISO supported */
+		if(InstancePtr->AppData !=NULL)
+			XUsbPs_SetInterfaceHandler(
+					(XUsbPs *)InstancePtr, SetupData);
 
 		/* Ack the host after device finishes the operation */
 		Error = XUsbPs_EpBufferSend(InstancePtr, 0, NULL, 0);
@@ -531,6 +564,26 @@ static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
 #endif
 		}
         break;
+		case XUSBPS_REQ_SET_SEL:
+#ifdef CH9_DEBUG
+			printf("SET SEL \r\n\r");
+#endif
+
+			Status = XUsbPs_EpBufferReceive((XUsbPs *)InstancePtr,
+				0, &TempPtr, &TmpBufferLen, &Handler);
+			if (XST_SUCCESS == Status) {
+				/* Return the buffer. */
+				XUsbPs_EpBufferRelease(Handler);
+			}
+
+			break;
+
+		case XUSBPS_REQ_SET_ISOCH_DELAY:
+#ifdef CH9_DEBUG
+			printf("SET ISOCH DELAY \r\n\r");
+#endif
+			break;
+
 
 	default:
 		Error = 1;
@@ -648,4 +701,37 @@ const static u8	Reply[8] = {0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
 		}
 	}
 	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * Set the Config state
+ *
+ * @param	InstancePtr is a private member of Usb_DevData instance.
+ * @param	Flag is the config value.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ *****************************************************************************/
+void XUsbPs_SetConfigDone(void *InstancePtr, u8 Flag)
+{
+	((XUsbPs *)InstancePtr)->IsConfigDone = Flag;
+}
+
+/****************************************************************************/
+/**
+ * Get the Config state
+ *
+ * @param	InstancePtr is a private member of Usb_DevData instance.
+ *
+ * @return	Current configuration value
+ *
+ * @note		None.
+ *
+ *****************************************************************************/
+u8 XUsbPs_GetConfigDone(void *InstancePtr)
+{
+	return (((XUsbPs *)InstancePtr)->IsConfigDone);
 }

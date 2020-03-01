@@ -36,6 +36,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
+ * 2.5	 pm   02/20/20 Added SetConfigurationApp and SetInterfaceHandler API to
+ *			make ch9 common framework to all example.
  *</pre>
  ******************************************************************************/
 
@@ -407,4 +409,47 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
 
 	/* Prime the OUT endpoint. */
 	XUsbPs_EpPrime(InstancePtr, 1, XUSBPS_EP_DIRECTION_OUT);
+}
+
+/****************************************************************************/
+/**
+ * This function is called by Chapter9 handler when SET_CONFIGURATION command
+ * is received from Host.
+ *
+ * @param	InstancePtr is pointer to XUsbPs instance of the controller.
+ * @param	SetupData is the setup packet received from Host.
+ *
+ * @return
+ *		- XST_SUCCESS if successful,
+ *		- XST_FAILURE if unsuccessful.
+ *
+ * @note
+ *		Non control endpoints must be enabled after SET_CONFIGURATION
+ *		command since hardware clears all previously enabled endpoints
+ *		except control endpoints when this command is received.
+ *
+ *****************************************************************************/
+void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
+					XUsbPs_SetupData *SetupData)
+{
+	(void)InstancePtr;
+	(void)SetupData;
+}
+
+/****************************************************************************/
+/**
+ * This function is called by Chapter9 handler when SET_CONFIGURATION command
+ * or SET_INTERFACE command is received from Host.
+ *
+ * @param	InstancePtr is pointer to XUsbPs instance of the controller.
+ * @param	SetupData is the setup packet received from Host.
+ *
+ * @note
+ *
+ *****************************************************************************/
+void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
+					XUsbPs_SetupData *SetupData)
+{
+	(void)InstancePtr;
+	(void)SetupData;
 }
