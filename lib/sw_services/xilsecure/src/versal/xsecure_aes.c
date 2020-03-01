@@ -42,6 +42,7 @@
 *       vns  02/10/2020 Added DPA CM enable/disable function
 *	rpo  02/27/2020 Removed function prototype and static keyword of XSecure_AesKeyLoad
 *			XSecure_AesWaitForDone functions
+*       har  03/01/2020 Added code to soft reset once key decryption is done
 * </pre>
 *
 * @note
@@ -497,6 +498,9 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 		goto END;
 	}
 
+	XSecure_ReleaseReset(InstancePtr->BaseAddress,
+		XSECURE_AES_SOFT_RST_OFFSET);
+
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
@@ -579,6 +583,9 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 	}
 
 END:
+	XSecure_SetReset(InstancePtr->BaseAddress,
+		XSECURE_AES_SOFT_RST_OFFSET);
+
 	/* Select key decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_KEY_DEC_OFFSET, 0U);
