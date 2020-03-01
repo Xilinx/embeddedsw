@@ -65,6 +65,9 @@ Add support for Multi Partitions
 
 usbps_v2_5:
 Added dependencies.props file to support automation testing.
+Update ch9 framework
+Added ISO endpoint support in driver
+Added audio example for ISO endpoint support
 
 usbpsu_v1_7:
 Update optimal number of TRB to improve performance.
