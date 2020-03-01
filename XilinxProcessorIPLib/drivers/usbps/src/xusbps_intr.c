@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -26,7 +26,7 @@
 /******************************************************************************/
 /**
  * @file xusbps_intr.c
-* @addtogroup usbps_v2_4
+* @addtogroup usbps_v2_5
 * @{
  *
  * This file contains the functions that are related to interrupt processing
