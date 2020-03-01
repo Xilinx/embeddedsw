@@ -548,32 +548,34 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			SrcAddr += ChunkLen;
 			Len -= ChunkLen;
 
-			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SMAP) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI))
-			{
-				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
-				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
-				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
-			}
-			else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
-			{
-				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
-				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
-			}
-			else
-			{
-				/** MISRA-C compliance */
-			}
+			if (PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC) {
+				if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+					(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
+					(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
+					(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SMAP) ||
+					(PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
+					(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI))
+				{
+					Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+					Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
+					Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
+				}
+				else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
+				{
+					Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+					Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
+				}
+				else
+				{
+					/** MISRA-C compliance */
+				}
 
-			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI))
-			{
-				Cdo.Cmd.KeyHoleParams.InChunkCopy = TRUE;
+				if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+					(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
+					(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI))
+				{
+					Cdo.Cmd.KeyHoleParams.InChunkCopy = TRUE;
+				}
 			}
 			/** For DDR case, start the copy of the
 			 * next chunk for increasing performance */
