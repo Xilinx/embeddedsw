@@ -91,6 +91,16 @@ u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
         return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_HIVEC_MASK;
 }
 
+u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr)
+{
+	u32 PufHd;
+
+	PufHd = PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PUFHD_MASK;
+	PufHd = PufHd >> XIH_PH_ATTRB_PUFHD_SHIFT;
+
+	return PufHd;
+}
+
 u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
 {
 	u32 PrtnDpaState;
@@ -111,6 +121,16 @@ u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTable * IHdrTable)
 
 	return DpaState;
 
+}
+
+u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTable * IHdrTable)
+{
+	u32 PufHd;
+
+	PufHd = IHdrTable->Attr & XIH_IHT_ATTR_PUFHD_MASK;
+	PufHd = PufHd >> XIH_IHT_ATTR_PUFHD_SHIFT;
+
+	return PufHd;
 }
 
 u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr)

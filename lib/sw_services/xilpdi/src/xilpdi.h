@@ -76,6 +76,11 @@ extern "C" {
 #define XIH_BH_MH_LEN_OFST		(0xC8U)
 #define XIH_BH_MH_AC_START_OFST		(0xCCU)
 
+/* Boot header PUF fields */
+#define XIH_BH_PUF_HD_OFFSET		(0x918U)
+#define XIH_BH_PUF_CHASH_OFFSET		(0xF18U)
+#define XIH_BH_PUF_AUX_OFFSET		(0xF1CU)
+
 /* Defines for length of the headers */
 #define XIH_BH_LEN			(0x128U)
 #define XIH_FIELD_LEN			(4U)
@@ -122,6 +127,8 @@ extern "C" {
 #define XIH_PH_CHECKSUM				(0x3CU)
 
 /* IHT attributes */
+#define XIH_IHT_ATTR_PUFHD_MASK		(0xC000U)
+#define XIH_IHT_ATTR_PUFHD_SHIFT		(14U)
 #define XIH_IHT_ATTR_DPA_CM_MASK		(0x3000U)
 #define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
 
@@ -154,11 +161,14 @@ extern "C" {
 #define XIH_PH_ATTRB_CHUNKSIZE_MASK		(0x700000U)
 #define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
 #define XIH_PH_ATTRB_PRTN_OWNER_MASK	(0x30000U)
+#define XIH_PH_ATTRB_PUFHD_MASK			(0xC000U)
 #define XIH_PH_ATTRB_CHECKSUM_MASK		(0x3000U)
 #define XIH_PH_ATTRB_DSTN_CPU_MASK		(0x0F00U)
 #define XIH_PH_ATTRB_A72_EXEC_ST_MASK	(0x0008U)
 #define XIH_PH_ATTRB_TARGET_EL_MASK		(0x0006U)
 #define XIH_PH_ATTRB_TZ_SECURE_MASK		(0x0001U)
+
+#define XIH_PH_ATTRB_PUFHD_SHIFT		(14U)
 
 /* Prtn Attribute Values */
 #define XIH_PH_ATTRB_PRTN_TYPE_RSVD		(0x0000000U)
@@ -435,6 +445,8 @@ XStatus XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);
 
 u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTable * IHdrTable);
+u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTable * IHdrTable);
+u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr);
 
 #ifdef __cplusplus
 }
