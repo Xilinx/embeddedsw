@@ -40,6 +40,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- --------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
+ * 2.5   pm   02/20/20 Added multiplier bit for ISO frame handling.
  * </pre>
  *
  ******************************************************************************/
@@ -298,6 +299,23 @@ extern "C" {
 		XUsbPs_WritedTD(dTDPtr, XUSBPS_dTDTOKEN, 		\
 			XUsbPs_ReaddTD(dTDPtr, XUSBPS_dTDTOKEN) |	\
 						XUSBPS_dTDTOKEN_ACTIVE_MASK)
+
+/*****************************************************************************/
+/**
+ *
+ * This macro sets the multiplier bit for the Transfer Descriptor.
+ *
+ * @param	dTDPtr is a pointer to the dTD element.
+ * @param	val is the multiplier value.
+ *
+ * @note	C-style signature:
+ *		void XUsbPs_dTDSetMultO(u32 dTDPtr, u32 val)
+ *
+ ******************************************************************************/
+#define XUsbPs_dTDSetMultO(dTDPtr, val)					\
+		XUsbPs_WritedTD(dTDPtr, XUSBPS_dTDTOKEN, 		\
+			(XUsbPs_ReaddTD(dTDPtr, XUSBPS_dTDTOKEN) &	\
+			(~XUSBPS_dTDTOKEN_MULTO_MASK)) | val)
 
 
 /*****************************************************************************/

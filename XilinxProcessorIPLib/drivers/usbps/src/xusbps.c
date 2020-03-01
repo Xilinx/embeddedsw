@@ -42,6 +42,7 @@
  * ----- ---- -------- --------------------------------------------------------
  * 1.00a jz  10/10/10 First release
  * 2.1   kpc 04/28/14 Removed unused functions
+ * 2.5   pm  02/20/20 02/22/20 Added usb state interface.
  * </pre>
  ******************************************************************************/
 
@@ -338,6 +339,12 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	if ((InstancePtr->AppData != NULL) &&
+			(InstancePtr->AppData->State ==
+					XUSBPS_STATE_CONFIGURED)) {
+		return XST_FAILURE;
+	}
+
 	/* Check address range validity. */
 	if (Address > XUSBPS_DEVICEADDR_MAX) {
 		return XST_INVALID_PARAM;
@@ -352,6 +359,12 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 			 	(Address << XUSBPS_DEVICEADDR_ADDR_SHIFT) |
 			 	XUSBPS_DEVICEADDR_DEVICEAADV_MASK);
 
+	if (InstancePtr->AppData != NULL) {
+		if (Address)
+			InstancePtr->AppData->State = XUSBPS_STATE_ADDRESS;
+		else
+			InstancePtr->AppData->State = XUSBPS_STATE_DEFAULT;
+	}
 	return XST_SUCCESS;
 }
 

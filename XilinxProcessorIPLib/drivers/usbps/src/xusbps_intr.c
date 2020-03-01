@@ -42,6 +42,7 @@
  *                    handling.
  * 2.3   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
  *            (moving of dTD Head/Tail Pointers properly).
+ * 2.5   pm  02/20/20 Added ISO endpoint support.
  * </pre>
  ******************************************************************************/
 
@@ -273,7 +274,16 @@ static void XUsbPs_IntrHandleTX(XUsbPs *InstancePtr, u32 EpCompl)
 				break;
 			}
 
-			if (Ep->HandlerFunc) {
+
+			if (InstancePtr->DeviceConfig.EpCfg[Index].In.Type ==
+						XUSBPS_EP_TYPE_ISOCHRONOUS) {
+				if (Ep->HandlerIsoFunc) {
+					Ep->HandlerIsoFunc(Ep->HandlerRef,
+							Ep->RequestedBytes,
+							Ep->BytesTxed);
+				}
+			} else {
+				if (Ep->HandlerFunc) {
 				void *BufPtr;
 
 				BufPtr = (void *) XUsbPs_ReaddTD(Ep->dTDTail,
@@ -282,6 +292,7 @@ static void XUsbPs_IntrHandleTX(XUsbPs *InstancePtr, u32 EpCompl)
 				Ep->HandlerFunc(Ep->HandlerRef, Index,
 						XUSBPS_EP_EVENT_DATA_TX,
 								BufPtr);
+				}
 			}
 
 			Ep->dTDTail = XUsbPs_dTDGetNLP(Ep->dTDTail);
@@ -332,13 +343,36 @@ static void XUsbPs_IntrHandleRX(XUsbPs *InstancePtr, u32 EpCompl)
 		/* Handle all finished dTDs */
 		while (!XUsbPs_dTDIsActive(Ep->dTDCurr)) {
 			numP += 1;
-			if (Ep->HandlerFunc) {
+			/* We get data RX events for 0 length packets on
+			 * endpoint 0. We receive and immediately release
+			 * them again here, but there's no action to be
+			 * taken.
+			 */
+			if (InstancePtr->DeviceConfig.EpCfg[Index].Out.Type ==
+						XUSBPS_EP_TYPE_ISOCHRONOUS){
+				if (Index == 0) {
+					u8	BufferPtr[64] = {0};
+
+					/* Get the data buffer. */
+					XUsbPs_EpDataBufferReceive(InstancePtr,
+							0, &BufferPtr[0], 64);
+					Ep->MemAlloted = 0;
+				}
+
+				if (Ep->MemAlloted == 1) {
+					XUsbPs_EpGetData(InstancePtr, Index,
+							Ep->RequestedBytes);
+				} else
+					break;
+			} else {
+				if (Ep->HandlerFunc) {
 				Ep->HandlerFunc(Ep->HandlerRef, Index,
 						XUSBPS_EP_EVENT_DATA_RX, NULL);
-			}
+				}
 
-			Ep->dTDCurr = XUsbPs_dTDGetNLP(Ep->dTDCurr);
-			XUsbPs_dTDInvalidateCache(Ep->dTDCurr);
+				Ep->dTDCurr = XUsbPs_dTDGetNLP(Ep->dTDCurr);
+				XUsbPs_dTDInvalidateCache(Ep->dTDCurr);
+			}
 		}
 		/* Re-Prime the endpoint.*/
 		XUsbPs_EpPrime(InstancePtr, Index, XUSBPS_EP_DIRECTION_OUT);
@@ -362,7 +396,22 @@ static void XUsbPs_IntrHandleRX(XUsbPs *InstancePtr, u32 EpCompl)
 ******************************************************************************/
 static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 {
-	int Timeout;
+	u32 Timeout;
+	u8 Index;
+
+	if (InstancePtr->AppData != NULL)
+		InstancePtr->AppData->State = XUSBPS_STATE_DEFAULT;
+
+	for (Index = 0; Index < InstancePtr->DeviceConfig.NumEndpoints;
+					Index++) {
+		InstancePtr->DeviceConfig.Ep[Index].Out.MemAlloted = 0;
+		InstancePtr->DeviceConfig.Ep[Index].Out.BufferPtr = NULL;
+		InstancePtr->DeviceConfig.Ep[Index].Out.BytesTxed = 0;
+		InstancePtr->DeviceConfig.Ep[Index].Out.RequestedBytes = 0;
+		InstancePtr->DeviceConfig.Ep[Index].In.BufferPtr = NULL;
+		InstancePtr->DeviceConfig.Ep[Index].In.BytesTxed = 0;
+		InstancePtr->DeviceConfig.Ep[Index].In.RequestedBytes = 0;
+	}
 
 	/* Clear all setup token semaphores by reading the
 	 * XUSBPS_EPSTAT_OFFSET register and writing its value back to

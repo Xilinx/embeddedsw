@@ -43,6 +43,7 @@
  * 1.04a nm   10/23/12 Fixed CR# 679106.
  * 1.05a kpc  07/03/13 Added XUsbPs_ResetHw function prototype
  * 2.00a kpc  04/03/14 Fixed CR#777764. Corrected max endpoint vale and masks 
+ * 2.5   pm   02/20/20 Added Endpoint Control Register bit positions for Rx & Tx
  * </pre>
  *
  ******************************************************************************/
@@ -166,6 +167,8 @@ extern "C" {
  */
 
 /* Definitions for TX Endpoint bits */
+#define XUSBPS_EPCR_TXT_TYPE_SHIFT	18	/* < Endpoint Type - TX bit shift*/
+#define XUSBPS_EPCR_TXT_TYPE_MASK	0x000C0000	/* < Endpoint Type - TX read only*/
 #define XUSBPS_EPCR_TXT_CONTROL_MASK	0x00000000 /**< Control Endpoint - TX */
 #define XUSBPS_EPCR_TXT_ISO_MASK	0x00040000 /**< Isochronous. Endpoint */
 #define XUSBPS_EPCR_TXT_BULK_MASK	0x00080000 /**< Bulk Endpoint - TX */
@@ -176,6 +179,8 @@ extern "C" {
 
 
 /* Definitions for RX Endpoint bits */
+#define XUSBPS_EPCR_RXT_TYPE_SHIFT	2	/* < Endpoint Type - RX bit shift*/
+#define XUSBPS_EPCR_RXT_TYPE_MASK	0x0000000C	/**< Endpoint Type - RX read only*/
 #define XUSBPS_EPCR_RXT_CONTROL_MASK	0x00000000 /**< Control Endpoint - RX */
 #define XUSBPS_EPCR_RXT_ISO_MASK	0x00000004 /**< Isochronous Endpoint */
 #define XUSBPS_EPCR_RXT_BULK_MASK	0x00000008 /**< Bulk Endpoint - RX */
