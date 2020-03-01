@@ -357,6 +357,10 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		{
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		}
+
+		/* Update KEK red key availablity status */
+		XLoader_UpdateKekRdKeyStatus(PdiPtr);
+
 	} else {
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;

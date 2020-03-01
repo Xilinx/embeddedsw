@@ -58,6 +58,7 @@ extern "C" {
 #include "xsecure_aes.h"
 #include "xloader.h"
 #include "xplmi_util.h"
+#include "xpuf.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -192,8 +193,17 @@ extern "C" {
 
 #define XLOADER_WORD_IN_BITS			32U
 
+#define XLOADER_PUF_HD_BHDR				(0x3U)
+
 #define XLOADER_SEC_BUF_CLEAR_ERR	(XLOADER_SEC_ERR_BUF_CLR_FAILED << 8U)
 #define XLOADER_SEC_BUF_CLEAR_SUCCESS  (XLOADER_SEC_ERR_BUF_CLR_SUCCESS << 8U)
+
+/* KEK key decryption status */
+#define XLOADER_BBRAM_RED_KEY			(0x00000001U)
+#define XLOADER_BHDR_RED_KEY			(0x00000002U)
+#define XLOADER_EFUSE_RED_KEY			(0x00000004U)
+#define XLOADER_EFUSE_USR0_RED_KEY		(0x00000008U)
+#define XLOADER_EFUSE_USR1_RED_KEY		(0x00000010U)
 
 /**************************** Type Definitions *******************************/
 
@@ -237,6 +247,15 @@ typedef struct
 	u8 Convert[4];
 	u8 Padding1[8];
 }XLoader_Vars;
+
+typedef struct {
+	u32 PdiKeySrc;
+	u64 KekIvAddr;
+	u32 PufHdLocation;
+	XSecure_AesKekType KekType;
+	XSecure_AesKeySrc KeySrc;
+	XSecure_AesKeySrc KeyDst;
+}XLoader_AesKekKey;
 
 typedef struct {
 	u32 SecureEn;
@@ -309,6 +328,10 @@ typedef enum {
 			/**< 0x17 AES Operation failed */
 	XLOADER_SEC_DPA_CM_ERR,
 			/**< 0x18 DPA CM Cfg Error */
+	XLOADER_SEC_PUF_REGN_ERRR,
+			/**< 0x19 PUF regeneration error */
+	XLOADER_SEC_AES_KEK_DEC,
+			/**< 0x20 AES KEK decryption */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,
@@ -333,6 +356,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 				XilPdi_MetaHdr *ImgHdrTbl);
 u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr);
+void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
 
 #ifdef __cplusplus
 }

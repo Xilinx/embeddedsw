@@ -227,6 +227,7 @@ typedef struct {
 	u32 CopyToMem;
 	u32 DelayHandoff;
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
+	u32 KekStatus; /**< KEK status flag */
 } XilPdi;
 
 /**
