@@ -50,6 +50,7 @@
 * 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XUartNs550_SendByte,
 *                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
+* 3.6   sd   03/02/20 Updated the register macros for DRL and DRM registers.
 * </pre>
 *
 ******************************************************************************/
@@ -181,9 +182,9 @@ void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)
 	 * keep the divisor from being 0 which is not recommended as per the
 	 * NS16550D spec sheet
 	 */
-	XUartNs550_WriteReg(BaseAddress, XUN_DRLS_OFFSET, 0xFF);
-	XUartNs550_WriteReg(BaseAddress, XUN_DRLM_OFFSET, BaudMSB);
-	XUartNs550_WriteReg(BaseAddress, XUN_DRLS_OFFSET, BaudLSB);
+	XUartNs550_WriteReg(BaseAddress, XUN_DLL_OFFSET, 0xFF);
+	XUartNs550_WriteReg(BaseAddress, XUN_DLM_OFFSET, BaudMSB);
+	XUartNs550_WriteReg(BaseAddress, XUN_DLL_OFFSET, BaudLSB);
 
 	/*
 	 * Clear the Divisor latch access bit, DLAB to allow nornal

@@ -62,6 +62,7 @@
 *		      (CR 857013)
 * 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XUartNs550_CfgInitialize API.
+* 3.7   sd   03/02/20 Update the macro names.
 * </pre>
 *
 *****************************************************************************/
@@ -698,10 +699,10 @@ int XUartNs550_SetBaudRate(XUartNs550 *InstancePtr, u32 BaudRate)
 	 * to keep the divisor from being 0 which is not recommended as per
 	 * the NS16550D spec sheet
 	 */
-	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DRLS_OFFSET, 0xFF);
-	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DRLM_OFFSET,
+	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DLL_OFFSET, 0xFF);
+	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DLM_OFFSET,
 				BaudMSB);
-	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DRLS_OFFSET,
+	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DLL_OFFSET,
 				BaudLSB);
 
 	/*

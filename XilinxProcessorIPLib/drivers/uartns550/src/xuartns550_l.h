@@ -49,6 +49,7 @@
 * 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XUartNs550_SendByte,
 *                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
+* 3.6   sd   02/03/20 Updated the register macros for DRL and DRM registers.
 * </pre>
 *
 ******************************************************************************/
@@ -87,6 +88,8 @@ extern "C" {
 #define XUN_MCR_OFFSET	(XUN_REG_OFFSET + 0x10) /**< Modem Control Register */
 #define XUN_LSR_OFFSET	(XUN_REG_OFFSET + 0x14) /**< Line Status Register */
 #define XUN_MSR_OFFSET	(XUN_REG_OFFSET + 0x18) /**< Modem Status Register */
+#define XUN_DLL_OFFSET	(XUN_REG_OFFSET + 0x00) /**< Divisor Register LSB */
+#define XUN_DLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
 #define XUN_DRLS_OFFSET	(XUN_REG_OFFSET + 0x00) /**< Divisor Register LSB */
 #define XUN_DRLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
 /* @} */
