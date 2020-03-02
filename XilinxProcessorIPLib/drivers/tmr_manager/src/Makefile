@@ -17,13 +17,17 @@ OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 
-libs:
-	echo "Compiling tmr_manager"
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS) $(ASSEMBLY_OBJECTS)
-	make clean
+libs: xtmr_manager_libs clean
 
-include:
+xtmr_manager_libs: $(LIBSOURCES)
+	echo "Compiling tmr_manager"
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $^
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS) $(ASSEMBLY_OBJECTS)
+
+.PHONY: include
+include: xtmr_manager_includes
+
+xtmr_manager_includes:
 	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
 
 clean:
