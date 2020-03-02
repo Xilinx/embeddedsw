@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.5  Jubaer  05/24/2019  Add PL type on TileType attribute
 * 1.6  Nishad  07/31/2019  Add support for RPU baremetal
+* 1.7  Wendy   01/20/2020  Add tiles pointer to AIE instance
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +117,7 @@ void XAieGbl_CfgInitialize(XAieGbl *InstancePtr, XAieGbl_Tile *TileInstPtr,
 		InstancePtr->Config = ConfigPtr;
 		InstancePtr->IsReady = XAIE_COMPONENT_IS_READY;
 		XAieLib_InitDev();
+		InstancePtr->Tiles = TileInstPtr;
 
 #ifdef XAIE_BASE_ARRAY_ADDR_OFFSET
 ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
