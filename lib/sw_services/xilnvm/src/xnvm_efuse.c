@@ -112,7 +112,7 @@ static u32 XNvm_EfuseReadMiscCtrlBitsRegs(
 		Xnvm_MiscCtrlBits *ReadMiscCtrlBits, u8 ReadOption);
 static u32 XNvm_EfuseWriteSecCtrl(Xnvm_EfuseWriteData *WriteNvm);
 static u32 Xnvm_PrgmIvRow(u32 EfuseData, u32 IvRow);
-
+static u32 Xnvm_PrgmProtectionEfuse(void);
 /*************************** Variable Definitions *****************************/
 
 /*************************** Function Definitions *****************************/
@@ -279,6 +279,11 @@ u32 XNvm_EfuseWrite(Xnvm_EfuseWriteData *WriteNvm)
 	}
 
 	Status = XNvm_EfuseCacheLoad();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xnvm_PrgmProtectionEfuse();
 END:
 	XNvm_EfuseDisableProgramming();
 
@@ -340,11 +345,11 @@ static u32 XNvm_EfuseWriteSecCtrl(Xnvm_EfuseWriteData *WriteNvm)
 		XNvm_ConvertBitsToBytes((u8 *) &RowDataVal,
 			DataInBits, XNVM_EFUSE_MAX_BITS_IN_ROW);
 	}
-	/*Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		goto END;
-	}*/
+	}
 	if ((WriteNvm->PrgmSecCtrlFlags.AesDis != 0x00U) &&
 		(DataInBits[XNVM_EFUSE_SEC_AES_DIS] == 0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
@@ -887,6 +892,13 @@ u32 XNvm_EfuseWritePufHelperData(Xnvm_PufHelperData *PrgmPufHelperData)
 				XNVM_EFUSE_ERR_WRITE_PUF_AUX);
 		}
 	}
+
+	Status = XNvm_EfuseCacheLoad();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xnvm_PrgmProtectionEfuse();
 END :
 	XNvm_EfuseDisableProgramming();
 
@@ -1031,6 +1043,11 @@ u32 XNvm_EfuseWriteIv(Xnvm_Iv *EfuseIv, XNvm_IvType IvType)
 
 	}
 	Status = XNvm_EfuseCacheLoad();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xnvm_PrgmProtectionEfuse();
 
 END :
 	XNvm_EfuseDisableProgramming();
@@ -1436,6 +1453,11 @@ u32 Xnvm_EfuseRevokePpk(Xnvm_RevokePpkFlags *PpkRevoke)
 		}
 	}
 	Status = XNvm_EfuseCacheLoad();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xnvm_PrgmProtectionEfuse();
 END:
 	XNvm_EfuseDisableProgramming();
 	LockStatus = XNvm_EfuseLockController();
@@ -1717,12 +1739,17 @@ static u32 XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd,
 	u32 RowDataVal = 0U;
 
 	for (Row = RowStart; Row < RowEnd; Row++) {
-		Status = XNvm_EfuseReadRow(EfuseType, Row, &RowDataVal);
-		if ((Status != (u32)XST_SUCCESS) ||
-			(RowDataVal != 0x00U)) {
+		Status  = XNvm_EfuseReadCache(Row, &RowDataVal);
+		if (Status != (u32)XST_SUCCESS) {
+			break;
+		}
+
+		if (RowDataVal != 0x00U) {
+			Status = XST_FAILURE;
 			break;
 		}
 	}
+
 	return Status;
 }
 
@@ -2282,6 +2309,179 @@ END :
 	return Status;
 }
 
+static u32 Xnvm_PrgmProtectionEfuse(void)
+{
+	u32 Status = XST_FAILURE;
+	u32 ProtRowData;
+	u32 SecurityCtrlData;
+	u32 SecurityMisc0Data;
+	u32 SecurityMisc1Data;
+	u32 MiscCtrlData;
+	u32 BootEnvCtrlRow;
+	u32 PufChashData;
+
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
+					XNVM_EFUSE_MARGIN_RD);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	SecurityCtrlData  = XNvm_Efuse_ReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
+
+	if (SecurityCtrlData != 0x00U) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_43_0_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT);
+			goto END;
+		}
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_43_1_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT);
+			goto END;
+		}
+	}
+	SecurityMisc0Data = XNvm_Efuse_ReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
+	if ((SecurityMisc0Data &
+		XNVM_EFUSE_CACHE_SECURITY_MISC_0_DEC_EFUSE_ONLY_MASK) !=
+			0x00U) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_57_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT);
+			goto END;
+		}
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_57_1_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT);
+			goto END;
+		}
+	}
+
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_0_HASH_START_ROW,
+			(XNVM_EFUSE_PPK_0_HASH_START_ROW +
+			 (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3)),
+			XNVM_EFUSE_PAGE_0);
+	if (Status != XST_SUCCESS) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW64_87_0_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT);
+			goto END;
+		}
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW64_87_1_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT);
+			goto END;
+		}
+	}
+	Status = XNvm_EfuseCheckZeros(
+			XNVM_EFUSE_META_HEADER_IV_START_ROW,
+			(XNVM_EFUSE_META_HEADER_IV_START_ROW +
+			 XNVM_EFUSE_IV_NUM_OF_ROWS),
+			XNVM_EFUSE_PAGE_0);
+	if (Status != XST_SUCCESS) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW96_99_0_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT);
+			goto END;
+		}
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW96_99_1_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT);
+			goto END;
+		}
+	}
+
+	BootEnvCtrlRow = XNvm_Efuse_ReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
+	if (BootEnvCtrlRow != 0x00U) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_37_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_37_PROT);
+			goto END;
+		}
+	}
+	MiscCtrlData = XNvm_Efuse_ReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET);
+	if ((MiscCtrlData &
+		(XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_MASK |
+		XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_MASK |
+		XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_MASK |
+		XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK |
+		XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_MASK)) != 0x00U)
+	{
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_40_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_40_PROT);
+			goto END;
+		}
+	}
+
+	PufChashData = XNvm_Efuse_ReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+					XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET);
+	if (PufChashData != 0x00U) {
+
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_42_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_42_PROT);
+			goto END;
+		}
+	}
+
+	SecurityMisc1Data = XNvm_Efuse_ReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
+	if ((SecurityMisc1Data &
+		XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK) != 0x00U) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+				XNVM_EFUSE_ROW_58_PROT_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_ROW_58_PROT);
+			goto END;
+		}
+	}
+	Status = XNvm_EfuseCacheLoad();
+END:
+	return Status;
+}
 /******************************************************************************/
 /**
  * @brief
@@ -2947,7 +3147,7 @@ static u32 XNvm_EfusePgmTBits(void)
 			(TbitsPrgrmReg & (~XNVM_EFUSE_TBITS_PRGRMG_EN_MASK)));
 
 	Status = XNvm_EfuseReadRow(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_ROW,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				&RowDataVal);
 	if (Status != (u32)XST_SUCCESS) {
 		 goto END;
@@ -2959,7 +3159,7 @@ static u32 XNvm_EfusePgmTBits(void)
 	}
 
 	Status = XNvm_EfuseReadRow(XNVM_EFUSE_PAGE_1,
-				XNVM_EFUSE_TBITS_ROW,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				&RowDataVal);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -2971,7 +3171,7 @@ static u32 XNvm_EfusePgmTBits(void)
 	}
 
 	Status = XNvm_EfuseReadRow(XNVM_EFUSE_PAGE_2,
-				XNVM_EFUSE_TBITS_ROW,
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				&RowDataVal);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -2990,17 +3190,17 @@ static u32 XNvm_EfusePgmTBits(void)
 			continue;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_ROW, Column);
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW, Column);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_1,
-				XNVM_EFUSE_TBITS_ROW, Column);
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW, Column);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_2,
-				XNVM_EFUSE_TBITS_ROW, Column);
+				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW, Column);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
