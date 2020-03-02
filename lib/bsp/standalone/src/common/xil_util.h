@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020  Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 6.4   mmd      04/21/19 First release.
-*
+* 6.5   kal      02/29/20 Added Xil_ConvertStringToHexBE API
 * </pre>
 *
 *****************************************************************************/
@@ -104,6 +104,9 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len);
 
 /* Returns length of the input string */
 u32 Xil_Strnlen(const char *Str, u32 MaxLen);
+
+/* Convert string to hex numbers in big endian format */
+u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 
 #ifdef __cplusplus
 }

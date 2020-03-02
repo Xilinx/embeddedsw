@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -280,6 +280,83 @@ u32 Xil_ValidateHexStr(const char *HexStr)
 		}
 	}
 
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * Converts the string into the equivalent Hex buffer.
+ *	Ex: "abc123" -> {0xab, 0xc1, 0x23}
+ *
+ * @param	Str is a Input String. Will support the lower and upper case values.
+ * 		Value should be between 0-9, a-f and A-F
+ *
+ * @param	Buf is Output buffer.
+ * @param	Len of the input string. Should have even values
+ * @return
+ * 		- XST_SUCCESS no errors occurred.
+ *		- XST_FAILURE an error when input parameters are not valid
+ *		- an error when input buffer has invalid values
+ *
+ *	TDD Test Cases:
+ *	---Initialization---
+ *	Len is odd
+ *	Len is zero
+ *	Str is NULL
+ *	Buf is NULL
+ *	---Functionality---
+ *	Str input with only numbers
+ *	Str input with All values in A-F
+ *	Str input with All values in a-f
+ *	Str input with values in a-f, 0-9, A-F
+ *	Str input with values in a-z, 0-9, A-Z
+ *	Boundary Cases
+ *	Memory Bounds of buffer checking
+ * ****************************************************************************/
+u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
+{
+	u32 ConvertedLen;
+	u8 LowerNibble = 0U, UpperNibble = 0U;
+	u32 Status = (u32)XST_FAILURE;
+
+	if ((Str == NULL) || (Buf == NULL)) {
+		Status = (u32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((Len == 0U) || ((Len % XIL_SIZE_OF_BYTE_IN_BITS) != 0U)) {
+		Status = (u32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if(Len != (strlen(Str) * XIL_SIZE_OF_NIBBLE_IN_BITS)) {
+		Status = (u32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	ConvertedLen = 0U;
+	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
+		if (Xil_ConvertCharToNibble(Str[ConvertedLen],&UpperNibble)
+				== (u32)XST_SUCCESS) {
+			if (Xil_ConvertCharToNibble(Str[ConvertedLen+1],
+					&LowerNibble) == (u32)XST_SUCCESS) {
+				Buf[ConvertedLen/2] =
+				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
+								LowerNibble;
+			}
+			else {
+				Status = (u32)XST_INVALID_PARAM;
+				goto END;
+			}
+		}
+		else {
+			Status = (u32)XST_INVALID_PARAM;
+			goto END;
+		}
+		ConvertedLen += 2U;
+	}
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
