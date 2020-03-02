@@ -430,7 +430,13 @@ int Si5324_DoSettings(u32 IICBaseAddress, u8 IICAddress,
         result = XIic_Send(IICBaseAddress, IICAddress,
                            BufPtr + (i << 1), 2,
                            XIIC_STOP);
-        if (result != 2) {
+
+#ifdef versal
+		/* This delay prevents IIC access from hanging */
+		usleep(500);
+#endif
+
+	if (result != 2) {
             if (SI5324_DEBUG) {
                 xil_printf("Si5324: ERROR: IIC write request error.");
             }

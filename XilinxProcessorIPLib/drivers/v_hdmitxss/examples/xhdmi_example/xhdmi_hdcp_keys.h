@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,16 +52,22 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xstatus.h"
 #include "xil_printf.h"
+#include "sleep.h"
 #include "xiic.h"
 #include "aes256.h"
 #include "sha256.h"
 #include "xparameters.h"
 #include <string.h>
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTLITE_NUM_INSTANCES) && (!defined (versal))
 #include "xuartlite_l.h"
+#elif defined versal
+#include "xuartpsv.h"
 #else
 #include "xuartps.h"
 #endif
+
+#define XHdcp_KeyMgmtBlk_In32  Xil_In32    /**< Input Operations */
+#define XHdcp_KeyMgmtBlk_Out32 Xil_Out32   /**< Output Operations */
 
 /************************** Function Prototypes ******************************/
 int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize,

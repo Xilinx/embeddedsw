@@ -1597,14 +1597,26 @@ void RxAudCallback(void *CallbackRef) {
 		XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs,
 				XV_HdmiRxSs_GetAudioChannels(HdmiRxSsPtr));
 
-		/* HBR audio */
+		/* 3D audio */
 		if (XV_HdmiRxSs_GetAudioFormat(HdmiRxSsPtr) ==
+						XV_HDMIRX_AUDFMT_3D) {
+			XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs,
+						   XV_HDMITX_AUDFMT_3D);
+		}
+		/* HBR audio */
+		else if (XV_HdmiRxSs_GetAudioFormat(HdmiRxSsPtr) ==
 						XV_HDMIRX_AUDFMT_HBR) {
 			XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs,
 						   XV_HDMITX_AUDFMT_HBR);
 		}
-		/* L-PCM */
+		/* L-PCM audio */
 		else {
+			if (XV_HdmiRxSs_GetAudioFormat(HdmiRxSsPtr) !=
+					XV_HDMIRX_AUDFMT_LPCM) {
+				xil_printf(ANSI_COLOR_YELLOW "Undefined audio "
+						"format detected\r\n"
+						ANSI_COLOR_RESET);
+			}
 			XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs,
 						   XV_HDMITX_AUDFMT_LPCM);
 		}

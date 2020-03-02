@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -49,7 +49,7 @@
 *                            a non-supportedvideo resolution is set
 *                            during enable colorbar API
 * 2.14  GM     23/01/17 Replace the Extraction Value of VPhy line rate with,
-*                            XVphy_GetLineRateHz Rate API return value.
+*                            XHdmiphy1_GetLineRateHz Rate API return value.
 * 2.15  ms     04/10/17 Modified filename tag to include the file in doxygen
 *                            examples.
 * 2.16  mmo    05/05/17 Replace pre-processed interrupt vector ID with the
@@ -61,15 +61,15 @@
 *                       Changed printf usage to xil_printf
 *                       Changed "\n\r" in xil_printf calls to "\r\n"
 * 2.18  mmo    21/07/17 Remove the i2c_dp159 API Call and
-*                            XVphy_Clkout1OBufTdsEnable API Call from the
+*                            XHdmiphy1_Clkout1OBufTdsEnable API Call from the
 *                            TxStreamCallback API to avoid the race condition,
 *                            and replace to be call at the global while loop.
 *       MH     26/07/17 Set TMDS SCDC register after TX HPD toggle event
 *       GM     18/08/17 Added SI Initialization after the SI Reset in
 *                            StartTxAfterRx API
 *       YH     18/08/17 Add HDCP Ready checking before set down streams
-*       GM     28/08/17 Replace XVphy_HdmiInitialize API Call during
-*                            Initialization with XVphy_Hdmi_CfgInitialize API
+*       GM     28/08/17 Replace XHdmiphy1_HdmiInitialize API Call during
+*                            Initialization with XHdmiphy1_Hdmi_CfgInitialize API
 *                            Call
 *       mmo    04/10/17 Updated function TxStreamUpCallback to include
 *                            XhdmiACRCtrl_TMDSClkRatio API Call
@@ -107,17 +107,6 @@
 *                       Added TX Bridge Overflow and TX Bridge Underflow
 * 3.03  YB     08/14/18 Clubbing Repeater specific code under the
 *                       'ENABLE_HDCP_REPEATER' macro.
-*                       Initial release of Repeater ExDes.
-*                       Updated TxToggleCallback.
-*                       Added check for a valid stream before calling
-*                       XHdcp_StreamUpCallback.
-*                       Updated XHdcp_SetRepeater function to init to TRUE.
-*                       Added update to block the colorbar mode from starting
-*                       when system is repeater. Update added under the
-*                       'ENABLE_REPEATER_COLORBARSTOP' macro and can be
-*                       optionally selected to increase performance of
-*                       Repeater in meeting timing requirements ; disabled
-*                       by default.
 *       EB     09/21/18 Added new API ToggleHdmiRxHpd and SetHdmiRxHpd
 *                       Updated CloneTxEdid API
 * 3.04  EB     03/01/19 Fixed an issue where TX's color space is not up-to-date
@@ -145,7 +134,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 5
-#define APP_MIN_VERSION 4
+#define APP_MIN_VERSION 3
 
 /**************************** Type Definitions *******************************/
 
@@ -160,15 +149,15 @@ int OnBoardSi5324Init(void);
 void Info(void);
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
+void EnableColorBar(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiTxSs *HdmiTxSsPtr,
 					XVidC_VideoMode VideoMode,
 					XVidC_ColorFormat ColorFormat,
 					XVidC_ColorDepth Bpc);
-void UpdateFrameRate(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
+void UpdateFrameRate(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiTxSs *HdmiTxSsPtr,
 					 XVidC_FrameRate FrameRate);
-void UpdateColorFormat(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
+void UpdateColorFormat(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiTxSs *HdmiTxSsPtr,
 					   XVidC_ColorFormat ColorFormat);
-void UpdateColorDepth(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
+void UpdateColorDepth(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiTxSs *HdmiTxSsPtr,
 					  XVidC_ColorDepth ColorDepth);
 void CloneTxEdid(void);
 #endif
@@ -187,8 +176,8 @@ void TxVsCallback(void *CallbackRef);
 void TxBrdgUnlockedCallback(void *CallbackRef);
 void TxStreamUpCallback(void *CallbackRef);
 void TxStreamDownCallback(void *CallbackRef);
-void VphyHdmiTxInitCallback(void *CallbackRef);
-void VphyHdmiTxReadyCallback(void *CallbackRef);
+void Hdmiphy1HdmiTxInitCallback(void *CallbackRef);
+void Hdmiphy1HdmiTxReadyCallback(void *CallbackRef);
 void TxInfoFrameReset(void);
 #endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
@@ -196,14 +185,11 @@ void RxConnectCallback(void *CallbackRef);
 void RxBrdgOverflowCallback(void *CallbackRef);
 void RxStreamUpCallback(void *CallbackRef);
 void RxStreamDownCallback(void *CallbackRef);
-void VphyHdmiRxInitCallback(void *CallbackRef);
-void VphyHdmiRxReadyCallback(void *CallbackRef);
+void Hdmiphy1HdmiRxInitCallback(void *CallbackRef);
+void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef);
 #endif
-void VphyErrorCallback(void *CallbackRef);
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-void VphyPllLayoutErrorCallback(void *CallbackRef);
-#endif
-void VphyProcessError(void);
+void Hdmiphy1ErrorCallback(void *CallbackRef);
+void Hdmiphy1ProcessError(void);
 
 /* Needed for ZCU106 RevB */
 #if defined (ARMR5) || (__aarch64__)
@@ -213,9 +199,9 @@ void Disable_TMDS181_HPD_passthrough();
 
 /************************* Variable Definitions *****************************/
 /* VPHY structure */
-XVphy              Vphy;
-u8                 VphyErrorFlag;
-u8                 VphyPllLayoutErrorFlag;
+XHdmiphy1              Hdmiphy1;
+u8                 Hdmiphy1ErrorFlag;
+u8                 Hdmiphy1PllLayoutErrorFlag;
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /* HDMI TX SS structure */
@@ -304,29 +290,6 @@ u8                 StartTxAfterRxFlag = (FALSE);
 
 /************************** Function Definitions *****************************/
 
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-/*****************************************************************************/
-/**
-*
-* This function checks the system PLL, whether it's bonded or non-bonded
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-u8 PLLBondedCheck(void)
-{
-	/* The colorbar can only be displayed when the GT is not bonded. */
-	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		xil_printf("\r\nThe GT TX and RX are bonded and clocked by "
-				   "the RX clock.\r\n");
-		xil_printf("Please select independent PLL layout to enable "
-				   "TX only mode.\r\n");
-	}
-	return (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1));
-}
-#endif
-
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /*****************************************************************************/
 /**
@@ -352,7 +315,7 @@ void CloneTxEdid(void)
         XV_HdmiRxSs_LoadEdid(&HdmiRxSs, (u8*)&Buffer, sizeof(Buffer));
 
         /* Toggle HPD after loading new HPD */
-        ToggleHdmiRxHpd(&Vphy, &HdmiRxSs);
+        ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
 
         xil_printf("\r\n");
         xil_printf("Successfully cloned EDID and toggled HPD.\r\n");
@@ -805,7 +768,7 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 {
 	int Status;
 
-#if (!defined XPS_BOARD_ZCU104)
+#if ((!defined XPS_BOARD_ZCU104) && (!defined versal))
 	/* Free running mode */
 	if (InFreq == 0) {
 
@@ -872,23 +835,38 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 	return 1;
 }
 
-#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104) && (defined versal)
 
 int I2cMux_Ps(void)
 {
 	u8 Buffer;
 	int Status;
 
+#ifndef versal
 	/* Select SI5324 clock generator */
 	Buffer = 0x10;
 	Status = XIicPs_MasterSendPolled(&Ps_Iic1,
 	                                 (u8 *)&Buffer,
 					 1,
 					 I2C_MUX_ADDR);
+#else
+	/* Select DDR4_DIM2_IIC Si570 clock generator*/
+	/*Buffer = 0x10;*/
+	///* for TENZING Select LPDDR4_SI570_IIC Si570 clock generator*/
+	//Buffer = 0x20;
+	/* For VKC190 Select HSDP_SI570_IIC Si570 clock generator*/
+	Buffer = 0x40;
+	Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+	                                 (u8 *)&Buffer,
+					 1,
+					 I2C_MUX_ADDR);
+#endif
 
 	return Status;
 }
+#endif
 
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104) && (!defined versal)
 int I2cClk_Ps(u32 InFreq, u32 OutFreq)
 {
 	int Status;
@@ -1044,7 +1022,7 @@ void Info(void)
 	xil_printf("------------\r\n");
 	xil_printf("HDMI PHY\r\n");
 	xil_printf("------------\r\n");
-	Data = XVphy_GetVersion(&Vphy);
+	Data = XHdmiphy1_GetVersion(&Hdmiphy1);
 	xil_printf("  VPhy version : %02d.%02d (%04x)\r\n",
 			   ((Data >> 24) & 0xFF),
 			   ((Data >> 16) & 0xFF),
@@ -1054,17 +1032,36 @@ void Info(void)
 	xil_printf("---------\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	xil_printf("TX reference clock frequency: %0d Hz\r\n",
-			   XVphy_ClkDetGetRefClkFreqHz(&Vphy, XVPHY_DIR_TX));
+			   XHdmiphy1_ClkDetGetRefClkFreqHz(&Hdmiphy1, XHDMIPHY1_DIR_TX));
 #endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 	xil_printf("RX reference clock frequency: %0d Hz\r\n",
-			   XVphy_ClkDetGetRefClkFreqHz(&Vphy, XVPHY_DIR_RX));
-	if(Vphy.Config.DruIsPresent == (TRUE)) {
+			   XHdmiphy1_ClkDetGetRefClkFreqHz(&Hdmiphy1, XHDMIPHY1_DIR_RX));
+	if(Hdmiphy1.Config.DruIsPresent == (TRUE)) {
 		xil_printf("DRU reference clock frequency: %0d Hz\r\n",
-				   XVphy_DruGetRefClkFreqHz(&Vphy));
+				   (XHdmiphy1_DruGetRefClkFreqHz(&Hdmiphy1) == XST_FAILURE) ?
+					   XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr,
+							XHDMIPHY1_CLKDET_FREQ_DRU_REG) :
+						XHdmiphy1_DruGetRefClkFreqHz(&Hdmiphy1));
 	}
 #endif
-	XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+	xil_printf("TX Link clock frequency: %0d Hz\r\n",
+			XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr, 0x220));
+#endif
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+	xil_printf("RX Link clock frequency: %0d Hz\r\n",
+			XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr, 0x224));
+#endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+	xil_printf("TX Video clock frequency: %0d Hz\r\n",
+			XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr, 0x228));
+#endif
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+	xil_printf("RX Video clock frequency: %0d Hz\r\n",
+			XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr, 0x22C));
+#endif
+	XHdmiphy1_HdmiDebugInfo(&Hdmiphy1, 0, XHDMIPHY1_CHANNEL_ID_CH1);
 
 #if(defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES))
 	xil_printf("------------\r\n");
@@ -1116,7 +1113,7 @@ void TxConnectCallback(void *CallbackRef) {
 		/* Cable is disconnected, don't allow any TX operation */
 		TxBusy = (TRUE);
 
-		XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_TX, (FALSE));
+		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_TX, (FALSE));
 
 #ifdef USE_HDCP
 		/* Call HDCP disconnect callback */
@@ -1141,46 +1138,24 @@ void TxConnectCallback(void *CallbackRef) {
 				* the system is in loopback mode or when RX
 				* is not connected during PassThrough mode
 				*/
-#if ENABLE_HDCP_REPEATER && \
-    (ENABLE_REPEATER_COLORBARSTOP == 1)
-			if (XV_HdmiTxSs_HdcpIsRepeater(HdmiTxSsPtr)) {
-				/* No stable rx-stream; don't start tc operations
-				 * if the system is a repeater.
-				 */
-				TxRestartColorbar = (FALSE);
-				TxBusy = (TRUE);
-			} else
-#endif /* ENABLE_HDCP_REPEATER */
-			{
-				TxRestartColorbar = (TRUE);
-				TxBusy = (FALSE);
-			}
+			TxRestartColorbar = (TRUE);
+			TxBusy = (FALSE);
 		}
 
-		XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_TX, (TRUE));
+		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_TX, (TRUE));
 
 		/* Initialize EDID App during cable connect */
 		EDIDConnectInit(&EdidHdmi20_t);
 		/* Read the EDID and the SCDC */
 		EdidScdcCheck(HdmiTxSsPtr, &EdidHdmi20_t);
 
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-		/* When the GT TX and RX are coupled, then start the TXPLL */
-		if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-			/* Start TX MMCM */
-			XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_TX);
-			usleep(10000);
-			/* GT TX reset. */
-			XVphy_ResetGtTxRx(&Vphy, 0, XVPHY_CHANNEL_ID_CHA,
-							  XVPHY_DIR_TX, FALSE);
-		}
-#endif
-
 #ifdef USE_HDCP
 		/* Call HDCP connect callback */
 		XHdcp_StreamConnectCallback(&HdcpRepeater);
 #endif
 	}
+
+//	HdmiTxSsPtr->HdmiTxPtr->Stream.IsHdmi20 = (TRUE); //TODO ADD for STG
 }
 
 /*****************************************************************************/
@@ -1196,76 +1171,11 @@ void TxConnectCallback(void *CallbackRef) {
 *
 ******************************************************************************/
 void TxToggleCallback(void *CallbackRef) {
-
-	int IsRepeater;
-	XHdcp_Repeater *InstancePtr =  (XHdcp_Repeater *)&HdcpRepeater;
-
-	/* Check if upstream interface is a repeater */
-	IsRepeater = XV_HdmiRxSs_HdcpIsRepeater(InstancePtr->UpstreamInstancePtr);
-
-	if (!IsRepeater) {
-		XV_HdmiTxSs_StreamStart(&HdmiTxSs);
-	}
-
-	xil_printf(ANSI_COLOR_WHITE ANSI_COLOR_BG_RED
-			"TX Hpd is toggled." ANSI_COLOR_RESET "\r\n");
+	XV_HdmiTxSs_StreamStart(&HdmiTxSs);
 
 #ifdef USE_HDCP
-#if ENABLE_HDCP_REPEATER
-
-	u32 DownstreamInstanceConnected = 0;
-
-	if (IsRepeater) {
-
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		/* Check if downstream interface is connected */
-		for (int i = 0;
-		     i < InstancePtr->DownstreamInstanceBinded;
-		     i++) {
-			if (XV_HdmiTxSs_IsStreamConnected(
-			    InstancePtr->DownstreamInstancePtr[i])) {
-				if (!(InstancePtr->DownstreamInstanceConnected &
-				      (0x1 << i))) {
-					InstancePtr->DownstreamInstanceStreamUp
-						&= ~(0x1 << i);
-				}
-				DownstreamInstanceConnected |= (0x1 << i);
-			}
-		}
-#endif
-
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) &&\
-	defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-		/* Set HPD high in repeater mode and downstream
-		 * issues a Hpd toggle event */
-		/* Check if the downstream instance is stored
-		 * in the connected list of downstream instances. */
-		if (DownstreamInstanceConnected &&
-		    (InstancePtr->DownstreamInstanceConnected)) {
-			/* Check if RX stream is connected */
-			if (XV_HdmiRxSs_IsStreamConnected(
-			    InstancePtr->UpstreamInstancePtr)) {
-
-				/* Disable Encryption. */
-				XHdcp_EnableEncryption(InstancePtr, FALSE);
-
-				/* Toggle Hpd. */
-				/* Drive HDMI RX HPD Low */
-				XV_HdmiRxSs_SetHpd(InstancePtr->UpstreamInstancePtr, (FALSE));
-				/* Wait 99 ms */
-				usleep(99000);
-				/* Drive HDMI RX HPD High */
-				XV_HdmiRxSs_SetHpd(InstancePtr->UpstreamInstancePtr, (TRUE));
-			}
-		}
-
-#endif
-	} else
-#endif	/* end of #if ENABLE_HDCP_REPEATER */
-	{
-		/* Call HDCP authenticate on downstream, if not a Repeater. */
-		XHdcp_Authenticate(&HdcpRepeater);
-	}
+	/* Call HDCP connect callback */
+	XHdcp_Authenticate(&HdcpRepeater);
 #endif
 }
 
@@ -1281,7 +1191,7 @@ void TxToggleCallback(void *CallbackRef) {
 * @note   None.
 *
 ******************************************************************************/
-void VphyHdmiTxInitCallback(void *CallbackRef) {
+void Hdmiphy1HdmiTxInitCallback(void *CallbackRef) {
 	XV_HdmiTxSs_RefClockChangeInit(&HdmiTxSs);
 }
 
@@ -1297,7 +1207,7 @@ void VphyHdmiTxInitCallback(void *CallbackRef) {
 * @note   None.
 *
 ******************************************************************************/
-void VphyHdmiTxReadyCallback(void *CallbackRef) {
+void Hdmiphy1HdmiTxReadyCallback(void *CallbackRef) {
 }
 #endif
 
@@ -1307,7 +1217,7 @@ void VphyHdmiTxReadyCallback(void *CallbackRef) {
 *
 * This function is used to toggle RX's HPD Line
 *
-* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  Hdmiphy1Ptr is a pointer to the VPHY instance.
 * @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
 *
 * @return None.
@@ -1315,11 +1225,11 @@ void VphyHdmiTxReadyCallback(void *CallbackRef) {
 * @note   None.
 *
 ******************************************************************************/
-void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
-	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, FALSE);
+void ToggleHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr) {
+	SetHdmiRxHpd(Hdmiphy1Ptr, HdmiRxSsPtr, FALSE);
 	/* Wait 500 ms */
 	usleep(500000);
-	SetHdmiRxHpd(VphyPtr, HdmiRxSsPtr, TRUE);
+	SetHdmiRxHpd(Hdmiphy1Ptr, HdmiRxSsPtr, TRUE);
 }
 
 /*****************************************************************************/
@@ -1327,7 +1237,7 @@ void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
 *
 * This function sets the HPD on the HDMI RXSS.
 *
-* @param  VphyPtr is a pointer to the VPHY instance.
+* @param  Hdmiphy1Ptr is a pointer to the VPHY instance.
 * @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
 * @param  Hpd is a flag used to set the HPD.
 *   - TRUE drives HPD high
@@ -1338,14 +1248,14 @@ void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
 * @note   None.
 *
 ******************************************************************************/
-void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
+void SetHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
 	if (Hpd == TRUE) {
 		XV_HdmiRxSs_Start(HdmiRxSsPtr);
-		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (TRUE));
+		XHdmiphy1_IBufDsEnable(Hdmiphy1Ptr, 0, XHDMIPHY1_DIR_RX, (TRUE));
 	} else {
-		XVphy_MmcmPowerDown(VphyPtr, 0, XVPHY_DIR_RX, FALSE);
-		XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_RX, (FALSE));
-		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (FALSE));
+		XHdmiphy1_MmcmPowerDown(Hdmiphy1Ptr, 0, XHDMIPHY1_DIR_RX, FALSE);
+		XHdmiphy1_Clkout1OBufTdsEnable(Hdmiphy1Ptr, XHDMIPHY1_DIR_RX, (FALSE));
+		XHdmiphy1_IBufDsEnable(Hdmiphy1Ptr, 0, XHDMIPHY1_DIR_RX, (FALSE));
 		XV_HdmiRxSs_Stop(HdmiRxSsPtr);
 	}
 }
@@ -1368,7 +1278,7 @@ void RxConnectCallback(void *CallbackRef) {
 	/* RX cable is disconnected */
 	if(HdmiRxSsPtr->IsStreamConnected == (FALSE)) {
 		/* Clear GT RX TMDS clock ratio */
-		Vphy.HdmiRxTmdsClockRatio = 0;
+		Hdmiphy1.HdmiRxTmdsClockRatio = 0;
 
 #if(LOOPBACK_MODE_EN != 1)
 		/* Check for Pass-through:
@@ -1386,17 +1296,8 @@ void RxConnectCallback(void *CallbackRef) {
 			 * video parameters
 			 */
 			if (TxCableConnect) {
-#if ENABLE_HDCP_REPEATER && \
-    (ENABLE_REPEATER_COLORBARSTOP == 1)
-				if (XV_HdmiRxSs_HdcpIsRepeater(HdmiRxSsPtr)) {
-					TxRestartColorbar = (FALSE);
-					TxBusy = (TRUE);
-				} else
-#endif /* ENABLE_HDCP_REPEATER */
-				{
-					TxRestartColorbar = (TRUE);
-					TxBusy = (FALSE);
-				}
+				TxRestartColorbar = (TRUE);
+				TxBusy = (FALSE);
 			} else {
 				TxRestartColorbar = (FALSE);
 				TxBusy = (TRUE);
@@ -1405,14 +1306,14 @@ void RxConnectCallback(void *CallbackRef) {
 		}
 #endif
 
-		XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
+		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (FALSE));
 
 #ifdef USE_HDCP
 		/* Call HDCP disconnect callback */
 		XHdcp_StreamDisconnectCallback(&HdcpRepeater);
 #endif
 	} else {
-		XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
+		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (TRUE));
 
 #ifdef USE_HDCP
 		/* Call HDCP connect callback */
@@ -1434,11 +1335,11 @@ void RxConnectCallback(void *CallbackRef) {
 * @note   None.
 *
 ******************************************************************************/
-void VphyHdmiRxInitCallback(void *CallbackRef) {
-	XVphy *VphyPtr = (XVphy *)CallbackRef;
+void Hdmiphy1HdmiRxInitCallback(void *CallbackRef) {
+	XHdmiphy1 *Hdmiphy1Ptr = (XHdmiphy1 *)CallbackRef;
 
 	XV_HdmiRxSs_RefClockChangeInit(&HdmiRxSs);
-	VphyPtr->HdmiRxTmdsClockRatio = HdmiRxSs.TMDSClockRatio;
+	Hdmiphy1Ptr->HdmiRxTmdsClockRatio = HdmiRxSs.TMDSClockRatio;
 }
 
 /*****************************************************************************/
@@ -1453,30 +1354,30 @@ void VphyHdmiRxInitCallback(void *CallbackRef) {
 * @note   None.
 *
 ******************************************************************************/
-void VphyHdmiRxReadyCallback(void *CallbackRef) {
-	XVphy *VphyPtr = (XVphy *)CallbackRef;
-	XVphy_PllType RxPllType;
+void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef) {
+	XHdmiphy1 *Hdmiphy1Ptr = (XHdmiphy1 *)CallbackRef;
+	XHdmiphy1_PllType RxPllType;
 
 	/* Reset the menu to main */
 	XHdmi_MenuReset(&HdmiMenu);
 
-	RxPllType = XVphy_GetPllType(VphyPtr,
+	RxPllType = XHdmiphy1_GetPllType(Hdmiphy1Ptr,
 	                             0,
-				     XVPHY_DIR_RX,
-				     XVPHY_CHANNEL_ID_CH1);
+				     XHDMIPHY1_DIR_RX,
+				     XHDMIPHY1_CHANNEL_ID_CH1);
 
-	if (!(RxPllType == XVPHY_PLL_TYPE_CPLL)) {
+	if (!(RxPllType == XHDMIPHY1_PLL_TYPE_CPLL)) {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs,
-		        VphyPtr->HdmiRxRefClkHz,
-			(XVphy_GetLineRateHz(&Vphy,
+		        Hdmiphy1Ptr->HdmiRxRefClkHz,
+			(XHdmiphy1_GetLineRateHz(&Hdmiphy1,
 				             0,
-					     XVPHY_CHANNEL_ID_CMN0)/1000000));
+					     XHDMIPHY1_CHANNEL_ID_CMN0)/1000000));
 
 	} else {
-		XV_HdmiRxSs_SetStream(&HdmiRxSs, VphyPtr->HdmiRxRefClkHz,
-			 (XVphy_GetLineRateHz(&Vphy,
+		XV_HdmiRxSs_SetStream(&HdmiRxSs, Hdmiphy1Ptr->HdmiRxRefClkHz,
+			 (XHdmiphy1_GetLineRateHz(&Hdmiphy1,
 			                      0,
-					      XVPHY_CHANNEL_ID_CH1)/1000000));
+					      XHDMIPHY1_CHANNEL_ID_CH1)/1000000));
 	}
 }
 #endif
@@ -1496,29 +1397,9 @@ void VphyHdmiRxReadyCallback(void *CallbackRef) {
 * @note   None.
 *
 ******************************************************************************/
-void VphyErrorCallback(void *CallbackRef) {
-	VphyErrorFlag = TRUE;
+void Hdmiphy1ErrorCallback(void *CallbackRef) {
+	Hdmiphy1ErrorFlag = TRUE;
 }
-
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-/*****************************************************************************/
-/**
-*
-* This function is called whenever a GTXE2 PLL layout error condition in VPHY
-* occurs. This function can be used automatically switch the PLL layout.
-* This will set the VPHY PLL Layout error flag to TRUE.
-*
-* @param  CallbackRef is the VPHY instance pointer
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void VphyPllLayoutErrorCallback(void *CallbackRef) {
-	VphyPllLayoutErrorFlag = TRUE;
-}
-#endif
 
 /*****************************************************************************/
 /**
@@ -1531,27 +1412,18 @@ void VphyPllLayoutErrorCallback(void *CallbackRef) {
 * @return None.
 *
 * @note   This function can be expanded to perform necessary actions depending
-*		on the error type. For example, XVPHY_ERR_PLL_LAYOUT can be
+*		on the error type. For example, XHDMIPHY1_ERR_PLL_LAYOUT can be
 *		used to automatically switch in and out of bonded mode for
 *               GTXE2 devices
 *
 ******************************************************************************/
-void VphyProcessError(void) {
-	if (VphyErrorFlag == TRUE) {
+void Hdmiphy1ProcessError(void) {
+	if (Hdmiphy1ErrorFlag == TRUE) {
 		xil_printf(ANSI_COLOR_RED "VPHY Error: See log for details"
 				   ANSI_COLOR_RESET "\r\n");
 	}
 	/* Clear Flag */
-	VphyErrorFlag = FALSE;
-
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-	if (VphyPllLayoutErrorFlag == TRUE) {
-		xil_printf(ANSI_COLOR_RED "VPHY Error: Try changing to "
-				 "another PLL Layout" ANSI_COLOR_RESET "\r\n");
-	}
-	/* Clear Flag */
-	VphyPllLayoutErrorFlag = FALSE;
-#endif
+	Hdmiphy1ErrorFlag = FALSE;
 }
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -1571,22 +1443,8 @@ void VphyProcessError(void) {
 void TxVsCallback(void *CallbackRef) {
 #ifdef USE_HDCP
 	if (IsStreamUpHDCP == TRUE) {
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-		/* During Bonded Mode, push for authentication during
-		 * StartAfterTX API
-		 */
-		if ((!(XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)))
-				|| !StartTxAfterRxFlag) {
-#endif
-#endif
-			/* Call HDCP stream-up callback */
-			XHdcp_StreamUpCallback(&HdcpRepeater);
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-	}
-#endif
-#endif
+		/* Call HDCP stream-up callback */
+		XHdcp_StreamUpCallback(&HdcpRepeater);
 		IsStreamUpHDCP = FALSE;
 	}
 #endif
@@ -1740,11 +1598,11 @@ void RxLnkStaCallback(void *CallbackRef) {
 	if (IsPassThrough) {
 		/* Reset RX when the link error has reached its maximum */
 		if ((HdmiRxSsPtr->IsLinkStatusErrMax) &&
-				(Vphy.Quads[0].Plls[0].RxState ==
-						XVPHY_GT_STATE_READY)) {
+				(Hdmiphy1.Quads[0].Plls[0].RxState ==
+						XHDMIPHY1_GT_STATE_READY)) {
 
 			/* Pulse RX PLL reset */
-			XVphy_ClkDetFreqReset(&Vphy, 0, XVPHY_DIR_RX);
+			XHdmiphy1_ClkDetFreqReset(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
 		}
 	}
 }
@@ -1854,20 +1712,20 @@ void RxStreamInitCallback(void *CallbackRef) {
 
 	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
 		Status =
-			XVphy_HdmiCfgCalcMmcmParam(&Vphy,
+			XHdmiphy1_HdmiCfgCalcMmcmParam(&Hdmiphy1,
 					       0,
-					       XVPHY_CHANNEL_ID_CH1,
-					       XVPHY_DIR_RX,
+					       XHDMIPHY1_CHANNEL_ID_CH1,
+					       XHDMIPHY1_DIR_RX,
 					       HdmiRxSsVidStreamPtr->PixPerClk,
 					       XVIDC_BPC_8);
 	}
 
 	/* Other colorspaces */
 	else {
-		Status = XVphy_HdmiCfgCalcMmcmParam(&Vphy,
+		Status = XHdmiphy1_HdmiCfgCalcMmcmParam(&Hdmiphy1,
 					     0,
-					     XVPHY_CHANNEL_ID_CH1,
-					     XVPHY_DIR_RX,
+					     XHDMIPHY1_CHANNEL_ID_CH1,
+					     XHDMIPHY1_DIR_RX,
 					     HdmiRxSsVidStreamPtr->PixPerClk,
 					     HdmiRxSsVidStreamPtr->ColorDepth);
 	}
@@ -1877,7 +1735,7 @@ void RxStreamInitCallback(void *CallbackRef) {
 	}
 
 	/* Enable and configure RX MMCM */
-	XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_RX);
+	XHdmiphy1_MmcmStart(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
 
 	usleep(10000);
 }
@@ -1900,7 +1758,7 @@ void RxStreamUpCallback(void *CallbackRef) {
 #if(LOOPBACK_MODE_EN != 1 && XPAR_XV_HDMITXSS_NUM_INSTANCES > 0)
 	u32 Status;
 	u64 LineRate;
-	XVphy_PllType RxPllType;
+	XHdmiphy1_PllType RxPllType;
 	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 
@@ -1914,26 +1772,17 @@ void RxStreamUpCallback(void *CallbackRef) {
 	XV_HdmiTxSs_SetVideoStreamType(&HdmiTxSs,
 				XV_HdmiRxSs_GetVideoStreamType(HdmiRxSsPtr));
 
-	RxPllType = XVphy_GetPllType(&Vphy,
+	RxPllType = XHdmiphy1_GetPllType(&Hdmiphy1,
 				     0,
-				     XVPHY_DIR_RX,
-				     XVPHY_CHANNEL_ID_CH1);
+				     XHDMIPHY1_DIR_RX,
+				     XHDMIPHY1_CHANNEL_ID_CH1);
 
-	if (Vphy.Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
-		if (!(RxPllType == XVPHY_PLL_TYPE_CPLL)) {
-			LineRate = Vphy.Quads[0].Plls[XVPHY_CHANNEL_ID_CMN0 -
-				XVPHY_CHANNEL_ID_CH1].LineRateHz;
-		} else {
-			LineRate = Vphy.Quads[0].Plls[0].LineRateHz;
-		}
-	} else { /* GTP */
-		if (RxPllType == XVPHY_PLL_TYPE_PLL0) {
-			LineRate = Vphy.Quads[0].Plls[XVPHY_CHANNEL_ID_CMN0 -
-				XVPHY_CHANNEL_ID_CH1].LineRateHz;
-		} else {
-			LineRate = Vphy.Quads[0].Plls[XVPHY_CHANNEL_ID_CMN1 -
-				XVPHY_CHANNEL_ID_CH1].LineRateHz;
-		}
+	if (RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
+		LineRate = Hdmiphy1.Quads[0].Plls[XHDMIPHY1_CHANNEL_ID_CMN0 -
+			XHDMIPHY1_CHANNEL_ID_CH1].LineRateHz;
+	} else {
+		LineRate = Hdmiphy1.Quads[0].Plls[XHDMIPHY1_CHANNEL_ID_CMN1 -
+			XHDMIPHY1_CHANNEL_ID_CH1].LineRateHz;
 	}
 
 
@@ -1942,7 +1791,7 @@ void RxStreamUpCallback(void *CallbackRef) {
 	 */
 	if ((LineRate / 1000000) > 3400) {
 		/* TX reference clock */
-		Vphy.HdmiTxRefClkHz = Vphy.HdmiRxRefClkHz * 4;
+		Hdmiphy1.HdmiTxRefClkHz = Hdmiphy1.HdmiRxRefClkHz * 4;
 		XV_HdmiTxSs_SetTmdsClockRatio(&HdmiTxSs, 1);
 
 		XV_HdmiTxSs_SetVideoStreamScramblingFlag(&HdmiTxSs, (TRUE));
@@ -1950,16 +1799,16 @@ void RxStreamUpCallback(void *CallbackRef) {
 
 	/* Other resolutions */
 	else {
-		Vphy.HdmiTxRefClkHz = Vphy.HdmiRxRefClkHz;
+		Hdmiphy1.HdmiTxRefClkHz = Hdmiphy1.HdmiRxRefClkHz;
 		XV_HdmiTxSs_SetTmdsClockRatio(&HdmiTxSs, 0);
 
 		XV_HdmiTxSs_SetVideoStreamScramblingFlag(&HdmiTxSs, (FALSE));
 	}
 
 	/* Set GT TX parameters */
-	Status = XVphy_SetHdmiTxParam(&Vphy,
+	Status = XHdmiphy1_SetHdmiTxParam(&Hdmiphy1,
 	                              0,
-				      XVPHY_CHANNEL_ID_CHA,
+				      XHDMIPHY1_CHANNEL_ID_CHA,
 				      HdmiTxSsVidStreamPtr->PixPerClk,
 				      HdmiTxSsVidStreamPtr->ColorDepth,
 				      HdmiTxSsVidStreamPtr->ColorFormatId);
@@ -1990,17 +1839,8 @@ void RxStreamUpCallback(void *CallbackRef) {
 #endif
 
 #ifdef USE_HDCP
-#if ENABLE_HDCP_REPEATER
-	if (HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_NO_INPUT ||
-		HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_NOT_SUPPORTED ||
-		HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_CUSTOM) {
-		/* Do nothing with HDCP */
-	} else
-#endif
-	{
-		/* Call HDCP stream-up callback */
-		XHdcp_StreamUpCallback(&HdcpRepeater);
-	}
+	/* Call HDCP stream-up callback */
+	XHdcp_StreamUpCallback(&HdcpRepeater);
 #endif
 
 #ifdef VIDEO_FRAME_CRC_EN
@@ -2054,7 +1894,7 @@ void TxStreamUpCallback(void *CallbackRef) {
 #endif
 
 	XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
-	XVphy_PllType TxPllType;
+	XHdmiphy1_PllType TxPllType;
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
@@ -2068,13 +1908,7 @@ void TxStreamUpCallback(void *CallbackRef) {
 		 * no need to set thethe TX, let the StartTxAfterRX API
 		 * executed which will trigger TX Stream up eventually
 		 */
-		if (StartTxAfterRxFlag
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-			&& !(XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1))
-#endif
-#endif
-		) {
+		if (StartTxAfterRxFlag) {
 			return;
 		}
 	}
@@ -2094,7 +1928,7 @@ void TxStreamUpCallback(void *CallbackRef) {
 		if (HdmiTxSsVidStreamPtr->ColorDepth != XVIDC_BPC_8 ||
 			HdmiTxSsVidStreamPtr->ColorFormatId != XVIDC_CSF_RGB) {
 			xil_printf(ANSI_COLOR_YELLOW "Un-able to set TX "
-						"stream, sink is DVI"
+						"stream, sink is DVI\r\n"
 						ANSI_COLOR_RESET "\r\n");
 			/* Clear TX busy flag */
 			TxBusy = (FALSE);
@@ -2106,9 +1940,9 @@ void TxStreamUpCallback(void *CallbackRef) {
 			return;
 		} else {
 			xil_printf(ANSI_COLOR_YELLOW "Set TX stream to DVI,"
-				" sink is DVI" ANSI_COLOR_RESET "\r\n");
-				XV_HdmiTxSs_AudioMute(HdmiTxSsPtr, TRUE);
-				XV_HdmiTxSS_SetDviMode(HdmiTxSsPtr);
+				" sink is DVI\r\n" ANSI_COLOR_RESET "\r\n");
+			XV_HdmiTxSs_AudioMute(HdmiTxSsPtr, TRUE);
+			XV_HdmiTxSS_SetDviMode(HdmiTxSsPtr);
 		}
 	} else {
 		XV_HdmiTxSS_SetHdmiMode(HdmiTxSsPtr);
@@ -2146,28 +1980,23 @@ void TxStreamUpCallback(void *CallbackRef) {
 				sizeof(XHdmiC_AVI_InfoFrame));
 	}
 #endif
-	TxPllType = XVphy_GetPllType(&Vphy,
+	TxPllType = XHdmiphy1_GetPllType(&Hdmiphy1,
 	                             0,
-				     XVPHY_DIR_TX,
-				     XVPHY_CHANNEL_ID_CH1);
+				     XHDMIPHY1_DIR_TX,
+				     XHDMIPHY1_CHANNEL_ID_CH1);
 
-	if ((TxPllType == XVPHY_PLL_TYPE_CPLL)) {
-		TxLineRate = XVphy_GetLineRateHz(&Vphy,
-		                                 0,
-						 XVPHY_CHANNEL_ID_CH1);
-
-	} else if((TxPllType == XVPHY_PLL_TYPE_QPLL) ||
-			  (TxPllType == XVPHY_PLL_TYPE_QPLL0) ||
-			  (TxPllType == XVPHY_PLL_TYPE_PLL0)) {
+	if (TxPllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
 		TxLineRate =
-			XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN0);
+			XHdmiphy1_GetLineRateHz(&Hdmiphy1, 0, XHDMIPHY1_CHANNEL_ID_CMN0);
+	} else if (TxPllType == XHDMIPHY1_PLL_TYPE_RPLL) {
+		TxLineRate =
+			XHdmiphy1_GetLineRateHz(&Hdmiphy1, 0, XHDMIPHY1_CHANNEL_ID_CMN1);
 	} else {
-		TxLineRate =
-			XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN1);
+		xil_printf("Error! Invalid TxPllType in TxStreamUpCallback.\r\n");
 	}
 
 	/* Copy Sampling Rate */
-	XV_HdmiTxSs_SetSamplingRate(HdmiTxSsPtr, Vphy.HdmiTxSampleRate);
+	XV_HdmiTxSs_SetSamplingRate(HdmiTxSsPtr, Hdmiphy1.HdmiTxSampleRate);
 
 	/* Set colorbar pattern */
 	Pattern = XTPG_BKGND_COLOR_BARS;
@@ -2341,53 +2170,16 @@ void StartTxAfterRx(void) {
 	ResetTpg();
 
 	/* Disable TX TDMS clock */
-	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (FALSE));
+	XHdmiphy1_Clkout1OBufTdsEnable(&Hdmiphy1, XHDMIPHY1_DIR_TX, (FALSE));
 
 	XV_HdmiTxSs_StreamStart(&HdmiTxSs);
 
 	/* Enable RX clock forwarding */
-	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (TRUE));
+	XHdmiphy1_Clkout1OBufTdsEnable(&Hdmiphy1, XHDMIPHY1_DIR_RX, (TRUE));
 
-	/* Program external clock generator in locked mode
-	 * Only when the GT TX and RX are not coupled
-	 */
-	if (!XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		I2cClk(Vphy.HdmiRxRefClkHz,Vphy.HdmiTxRefClkHz);
-	} else {
-#if (!defined XPS_BOARD_ZCU104)
-		Si5324_Reset(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
-		Si5324_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
-#else
-		IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
-#endif
-	}
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-	/* When the GT TX and RX are coupled, then start the TXPLL */
-	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		/* Config and Run the TPG */
-		XV_ConfigTpg(&Tpg);
-		/* Start TX MMCM */
-		XVphy_MmcmStart(&Vphy, 0, XVPHY_DIR_TX);
-		usleep(10000);
-	}
+	/* Program external clock generator in locked mode */
+	I2cClk(Hdmiphy1.HdmiRxRefClkHz,Hdmiphy1.HdmiTxRefClkHz);
 
-	/* Enable TX TMDS Clock in bonded mode */
-	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (TRUE));
-	}
-
-#ifdef USE_HDCP
-	/* Trigger authentication after there are stable stream
-	 * in bonded mode
-	 */
-	if (XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)) {
-		/* Call HDCP stream-up callback */
-		XHdcp_StreamUpCallback(&HdcpRepeater);
-	}
-#endif
-#endif
-#endif
 }
 #endif
 /*****************************************************************************/
@@ -2477,7 +2269,7 @@ int SetupInterruptSystem(void) {
 *
 * This function updates the ColorFormat for the current video stream
 *
-* @param VphyPtr is a pointer to the VPHY core instance.
+* @param Hdmiphy1Ptr is a pointer to the VPHY core instance.
 * @param HdmiTxSsPtr is a pointer to the XV_HdmiTxSs instance.
 * @param Requested ColorFormat
 *
@@ -2486,7 +2278,7 @@ int SetupInterruptSystem(void) {
 * @note   None.
 *
 ******************************************************************************/
-void UpdateColorFormat(XVphy             *VphyPtr,
+void UpdateColorFormat(XHdmiphy1             *Hdmiphy1Ptr,
 		       XV_HdmiTxSs       *HdmiTxSsPtr,
 		       XVidC_ColorFormat ColorFormat) {
 
@@ -2512,7 +2304,7 @@ void UpdateColorFormat(XVphy             *VphyPtr,
 
 		}
 
-		EnableColorBar(VphyPtr,
+		EnableColorBar(Hdmiphy1Ptr,
 			HdmiTxSsPtr,
 			HdmiTxSsVidStreamPtr->VmId,
 			ColorFormat,
@@ -2525,7 +2317,7 @@ void UpdateColorFormat(XVphy             *VphyPtr,
 *
 * This function updates the ColorDepth for the current video stream
 *
-* @param VphyPtr is a pointer to the VPHY core instance.
+* @param Hdmiphy1Ptr is a pointer to the VPHY core instance.
 * @param HdmiTxSsPtr is a pointer to the XV_HdmiTxSs instance.
 * @param Requested ColorFormat
 *
@@ -2534,7 +2326,7 @@ void UpdateColorFormat(XVphy             *VphyPtr,
 * @note   None.
 *
 ******************************************************************************/
-void UpdateColorDepth(XVphy             *VphyPtr,
+void UpdateColorDepth(XHdmiphy1             *Hdmiphy1Ptr,
 		      XV_HdmiTxSs       *HdmiTxSsPtr,
 		      XVidC_ColorDepth  ColorDepth) {
 
@@ -2576,7 +2368,7 @@ void UpdateColorDepth(XVphy             *VphyPtr,
 			return;
 		}
 
-		EnableColorBar(VphyPtr,
+		EnableColorBar(Hdmiphy1Ptr,
 			HdmiTxSsPtr,
 			HdmiTxSsVidStreamPtr->VmId,
 			HdmiTxSsVidStreamPtr->ColorFormatId,
@@ -2589,7 +2381,7 @@ void UpdateColorDepth(XVphy             *VphyPtr,
 *
 * This function updates the FrameRate for the current video stream
 *
-* @param VphyPtr is a pointer to the VPHY core instance.
+* @param Hdmiphy1Ptr is a pointer to the VPHY core instance.
 * @param HdmiTxSsPtr is a pointer to the XV_HdmiTxSs instance.
 * @param Requested FrameRate
 *
@@ -2598,7 +2390,7 @@ void UpdateColorDepth(XVphy             *VphyPtr,
 * @note   None.
 *
 ******************************************************************************/
-void UpdateFrameRate(XVphy           *VphyPtr,
+void UpdateFrameRate(XHdmiphy1           *Hdmiphy1Ptr,
 		     XV_HdmiTxSs     *HdmiTxSsPtr,
 		     XVidC_FrameRate FrameRate) {
 
@@ -2627,7 +2419,7 @@ void UpdateFrameRate(XVphy           *VphyPtr,
 
 			HdmiTxSsVidStreamPtr->VmId = VmId;
 
-			EnableColorBar(VphyPtr,
+			EnableColorBar(Hdmiphy1Ptr,
 				HdmiTxSsPtr,
 				HdmiTxSsVidStreamPtr->VmId,
 				HdmiTxSsVidStreamPtr->ColorFormatId,
@@ -2645,7 +2437,7 @@ void UpdateFrameRate(XVphy           *VphyPtr,
 *
 * This function enables the ColorBar
 *
-* @param VphyPtr is a pointer to the VPHY core instance.
+* @param Hdmiphy1Ptr is a pointer to the VPHY core instance.
 * @param HdmiTxSsPtr is a pointer to the XV_HdmiTxSs instance.
 * @param Requested Video mode
 * @param Requested ColorFormat
@@ -2657,7 +2449,7 @@ void UpdateFrameRate(XVphy           *VphyPtr,
 * @note   None.
 *
 ******************************************************************************/
-void EnableColorBar(XVphy                *VphyPtr,
+void EnableColorBar(XHdmiphy1                *Hdmiphy1Ptr,
 		    XV_HdmiTxSs          *HdmiTxSsPtr,
 		    XVidC_VideoMode      VideoMode,
 		    XVidC_ColorFormat    ColorFormat,
@@ -2697,8 +2489,8 @@ void EnableColorBar(XVphy                *VphyPtr,
 			xil_printf("Starting colorbar\r\n");
 
 			/* Disable TX TDMS clock */
-			XVphy_Clkout1OBufTdsEnable(VphyPtr,
-						XVPHY_DIR_TX,
+			XHdmiphy1_Clkout1OBufTdsEnable(Hdmiphy1Ptr,
+						XHDMIPHY1_DIR_TX,
 						(FALSE));
 
 		} else {
@@ -2728,12 +2520,12 @@ void EnableColorBar(XVphy                *VphyPtr,
 				HdmiTxSsPtr->HdmiTxPtr->Stream.Vic;
 
 		/* Set TX reference clock */
-		VphyPtr->HdmiTxRefClkHz = TmdsClock;
+		Hdmiphy1Ptr->HdmiTxRefClkHz = TmdsClock;
 
 		/* Set GT TX parameters */
-		Result = XVphy_SetHdmiTxParam(VphyPtr,
+		Result = XHdmiphy1_SetHdmiTxParam(Hdmiphy1Ptr,
 					0,
-					XVPHY_CHANNEL_ID_CHA,
+					XHDMIPHY1_CHANNEL_ID_CHA,
 					HdmiTxSsVidStreamPtr->PixPerClk,
 					HdmiTxSsVidStreamPtr->ColorDepth,
 					HdmiTxSsVidStreamPtr->ColorFormatId);
@@ -2748,10 +2540,15 @@ void EnableColorBar(XVphy                *VphyPtr,
 		}
 
 		/* Disable RX clock forwarding */
-		XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_RX, (FALSE));
+		XHdmiphy1_Clkout1OBufTdsEnable(Hdmiphy1Ptr, XHDMIPHY1_DIR_RX, (FALSE));
+
+#ifdef versal
+	    /* Mask the MMCM Lock */
+	    XHdmiphy1_MmcmLockedMaskEnable(Hdmiphy1Ptr, 0, XHDMIPHY1_DIR_TX, TRUE);
+#endif
 
 		/* Program external clock generator in free running mode */
-		I2cClk(0, VphyPtr->HdmiTxRefClkHz);
+		I2cClk(0, Hdmiphy1Ptr->HdmiTxRefClkHz);
 	}
 }
 #endif
@@ -2776,7 +2573,7 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line) {
 ******************************************************************************/
 int main() {
 	u32 Status = XST_FAILURE;
-	XVphy_Config *XVphyCfgPtr;
+	XHdmiphy1_Config *XHdmiphy1CfgPtr;
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 
@@ -2809,8 +2606,8 @@ int main() {
 	TxRestartColorbar = (TRUE);
 #endif
 #endif
-	VphyErrorFlag = FALSE;
-	VphyPllLayoutErrorFlag = FALSE;
+	Hdmiphy1ErrorFlag = FALSE;
+	Hdmiphy1PllLayoutErrorFlag = FALSE;
 
 	/* Start in color bar */
 	IsPassThrough = (FALSE);
@@ -2838,6 +2635,7 @@ int main() {
 	 */
 	XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
 
+#ifndef versal
 	/* Initialize PS IIC1 */
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
 	if (NULL == XIic1Ps_ConfigPtr) {
@@ -2866,19 +2664,95 @@ int main() {
 
 	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
+#else
+
+	/* Set for HSDP Si570 IIC Slave */
+	I2cMux_Ps();
+	/* Set FRL and DRU MGT REFCLK Frequency */
+	Si570_SetFreq(&Ps_Iic0, 0x5D, 400.00);
+	/* Delay 50ms to allow SI chip to lock */
+	usleep (50000);
+
+	//IPS Workaround TODO
+	//Unlock the IPS registers
+	XHdmiphy1_Out32(0xF70E000C, 0xF9E8D7C6);
+
+	// GTY SLAVE_7 Correct the HS1 MUX Selection
+#if (XPAR_HDMIPHY1_0_TX_PLL_SELECTION == 7) || (XPAR_HDMIPHY1_0_RX_PLL_SELECTION == 8)
+#if defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+        xil_printf("RX:HS0 RPLL IPS  0x%08x\r\n",    XHdmiphy1_In32(0xF70E304C));
+        xil_printf("RX:HS1 RPLL IPS  From: 0x%08x ", XHdmiphy1_In32(0xF70E3C4C));
+        XHdmiphy1_Out32(0xF70E3C4C, 0x03000810);
+    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C4C));
+#endif
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
+        xil_printf("TX:HS0 LCPLL IPS  0x%08x\r\n",   XHdmiphy1_In32(0xF70E3048));
+    xil_printf("TX:HS1 LCPLL IPS From: 0x%08x ", XHdmiphy1_In32(0xF70E3C48));
+//      XHdmiphy1_Out32(0xF70E3C48, 0x03E00840);
+    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C48));
+#endif
+#else
+#if defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+        xil_printf("TX:HS0 RPLL IPS  0x%08x\r\n",    XHdmiphy1_In32(0xF70E304C));
+        xil_printf("TX:HS1 RPLL IPS  From: 0x%08x ", XHdmiphy1_In32(0xF70E3C4C));
+//        XHdmiphy1_Out32(0xF70E3C4C, 0x02E00040);
+    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C48));
+#endif
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
+        xil_printf("RX:HS0 LCPLL IPS  0x%08x\r\n",   XHdmiphy1_In32(0xF70E3048));
+    xil_printf("RX:HS1 LCPLL IPS From: 0x%08x ", XHdmiphy1_In32(0xF70E3C48));
+        XHdmiphy1_Out32(0xF70E3C48, 0x03E00810);
+    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C48));
+#endif
+#endif
+
+
+//    xil_printf("TX POR Workaround From: 0x%08x ", XHdmiphy1_In32(0xf70e3448));
+//	XHdmiphy1_Out32(0xf70e3448, 0x0ad6b50f);
+//    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xf70e3448));
+
+	/* Deassert the GTWiz_RESET_ALL for RX */
+//	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
+//			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) & ~0x3));
+//	usleep (50000);
+//	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x24,
+//			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) | 0x20));
+//	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x24,
+//			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) & ~0x20));
+
+
+	XIic_Config *ConfigPtr;	/* Pointer to configuration data */
+
+	/*
+	 * Initialize the IIC driver so that it is ready to use.
+	 */
+	ConfigPtr = XIic_LookupConfig(XPAR_CIPS_SS_0_FMCH_AXI_IIC_DEVICE_ID);
+	if (ConfigPtr == NULL) {
+		return XST_FAILURE;
+	}
+
+	Status = XIic_CfgInitialize(&Iic0, ConfigPtr,
+			ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
 
 #endif
 
 	/* Initialize external clock generator */
-#if (!defined XPS_BOARD_ZCU104)
+#if ((!defined XPS_BOARD_ZCU104) && (!defined versal))
 	Si5324_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
 #else
 	usleep(200000);
-	IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
+	Status = IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
+	if (Status == XST_FAILURE) {
+		xil_printf("IDT_8T49N24x Initialization Error Addr: 0x%08x! \r\n", I2C_CLK_ADDR);
+	}
 #endif
 #if !defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
 		defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4
+#if XPAR_VPHY_0_TRANSCEIVER == XHDMIPHY1_GTYE4
 	/* Initialize DRU Clock Source */
 	I2cClk(0, 156250000);
 	/* Delay 50ms to allow SI chip to lock */
@@ -3011,7 +2885,7 @@ int main() {
 	XhdmiAudGen_Init(&AudioGen,
 			XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR,
 			XPAR_AUDIO_SS_0_HDMI_ACR_CTRL_BASEADDR,
-			XPAR_AUDIO_SS_0_CLK_WIZ_BASEADDR);
+			XPAR_AUDIO_SS_0_CLK_WIZARD_BASEADDR);
 #endif
 #endif
 
@@ -3447,8 +3321,8 @@ int main() {
 	 *  calls the RX stream down callback.
 	 *
          */
-	XVphyCfgPtr = XVphy_LookupConfig(XPAR_VPHY_0_DEVICE_ID);
-	if (XVphyCfgPtr == NULL) {
+	XHdmiphy1CfgPtr = XHdmiphy1_LookupConfig(XPAR_HDMIPHY1_0_DEVICE_ID);
+	if (XHdmiphy1CfgPtr == NULL) {
 		xil_printf("Video PHY device not found\r\n\r\n");
 		return XST_FAILURE;
 	}
@@ -3456,14 +3330,14 @@ int main() {
 	/* Register VPHY Interrupt Handler */
 #if defined(__arm__) || (__aarch64__)
 	Status = XScuGic_Connect(&Intc,
-				XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR,
-				(XInterruptHandler)XVphy_InterruptHandler,
-				(void *)&Vphy);
+				XPAR_FABRIC_V_HDMIPHY1_0_VEC_ID,
+				(XInterruptHandler)XHdmiphy1_InterruptHandler,
+				(void *)&Hdmiphy1);
 #else
 	Status = XIntc_Connect(&Intc,
-				XPAR_INTC_0_VPHY_0_VEC_ID,
-				(XInterruptHandler)XVphy_InterruptHandler,
-				(void *)&Vphy);
+				XPAR_INTC_0_V_HDMIPHY1_0_VEC_ID,
+				(XInterruptHandler)XHdmiphy1_InterruptHandler,
+				(void *)&Hdmiphy1);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("HDMI VPHY Interrupt Vec ID not found!\r\n");
@@ -3471,7 +3345,7 @@ int main() {
 	}
 
 	/* Initialize HDMI VPHY */
-	Status = XVphy_Hdmi_CfgInitialize(&Vphy, 0, XVphyCfgPtr);
+	Status = XHdmiphy1_Hdmi_CfgInitialize(&Hdmiphy1, 0, XHdmiphy1CfgPtr);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("HDMI VPHY initialization error\r\n");
@@ -3481,43 +3355,37 @@ int main() {
 	/* Enable VPHY Interrupt */
 #if defined(__arm__) || (__aarch64__)
 	XScuGic_Enable(&Intc,
-			XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR);
+			XPAR_FABRIC_V_HDMIPHY1_0_VEC_ID);
 #else
 	XIntc_Enable(&Intc,
-			XPAR_INTC_0_VPHY_0_VEC_ID);
+			XPAR_INTC_0_V_HDMIPHY1_0_VEC_ID);
 #endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	/* VPHY callback setup */
-	XVphy_SetHdmiCallback(&Vphy,
-				XVPHY_HDMI_HANDLER_TXINIT,
-				(void *)VphyHdmiTxInitCallback,
-				(void *)&Vphy);
-	XVphy_SetHdmiCallback(&Vphy,
-				XVPHY_HDMI_HANDLER_TXREADY,
-				(void *)VphyHdmiTxReadyCallback,
-				(void *)&Vphy);
+	XHdmiphy1_SetHdmiCallback(&Hdmiphy1,
+				XHDMIPHY1_HDMI_HANDLER_TXINIT,
+				(void *)Hdmiphy1HdmiTxInitCallback,
+				(void *)&Hdmiphy1);
+	XHdmiphy1_SetHdmiCallback(&Hdmiphy1,
+				XHDMIPHY1_HDMI_HANDLER_TXREADY,
+				(void *)Hdmiphy1HdmiTxReadyCallback,
+				(void *)&Hdmiphy1);
 #endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	XVphy_SetHdmiCallback(&Vphy,
-				XVPHY_HDMI_HANDLER_RXINIT,
-				(void *)VphyHdmiRxInitCallback,
-				(void *)&Vphy);
-	XVphy_SetHdmiCallback(&Vphy,
-				XVPHY_HDMI_HANDLER_RXREADY,
-				(void *)VphyHdmiRxReadyCallback,
-				(void *)&Vphy);
+	XHdmiphy1_SetHdmiCallback(&Hdmiphy1,
+				XHDMIPHY1_HDMI_HANDLER_RXINIT,
+				(void *)Hdmiphy1HdmiRxInitCallback,
+				(void *)&Hdmiphy1);
+	XHdmiphy1_SetHdmiCallback(&Hdmiphy1,
+				XHDMIPHY1_HDMI_HANDLER_RXREADY,
+				(void *)Hdmiphy1HdmiRxReadyCallback,
+				(void *)&Hdmiphy1);
 #endif
 
-	XVphy_SetErrorCallback(&Vphy,
-				(void *)VphyErrorCallback,
-				(void *)&Vphy);
-
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-	XVphy_SetPllLayoutErrorCallback(&Vphy,
-					(void *)VphyPllLayoutErrorCallback,
-					(void *)&Vphy);
-#endif
+	XHdmiphy1_SetErrorCallback(&Hdmiphy1,
+				(void *)Hdmiphy1ErrorCallback,
+				(void *)&Hdmiphy1);
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
@@ -3570,6 +3438,7 @@ int main() {
 	TxInfoFrameReset();
 	XV_HdmiTxSs_SetStream(
 		&HdmiTxSs,
+		//XVIDC_VM_3840x2160_60_P,
 		XVIDC_VM_1920x1080_60_P,
 		XVIDC_CSF_RGB,
 		XVIDC_BPC_8,
@@ -3581,10 +3450,7 @@ int main() {
 	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
 					XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 		/* Set HDCP upstream interface */
-		XHdcp_SetRepeater(&HdcpRepeater, TRUE);
-#if ENABLE_HDCP_PRO
-		XHdcp_SetProRepeater(&HdcpRepeater, TRUE);
-#endif
+		XHdcp_SetRepeater(&HdcpRepeater, FALSE);
 	}
 #endif
 #endif
@@ -3622,32 +3488,23 @@ int main() {
 		}
 
 		else if (TxRestartColorbar && SinkReady) {
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-			if (!PLLBondedCheck()) {
-#endif
-				/* Clear TxRestartColorbar Flag */
-				TxRestartColorbar = (FALSE);
-				HdmiTxSsVidStreamPtr =
-					XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
-				EnableColorBar(&Vphy,
-					&HdmiTxSs,
-					HdmiTxSsVidStreamPtr->VmId,
-					HdmiTxSsVidStreamPtr->ColorFormatId,
-					HdmiTxSsVidStreamPtr->ColorDepth);
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-			} else {
-				/* Clear TxRestartColorbar Flag */
-				TxRestartColorbar = (FALSE);
-			}
-#endif
+            /* Clear TxRestartColorbar Flag */
+            TxRestartColorbar = (FALSE);
+            HdmiTxSsVidStreamPtr =
+                XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
+            EnableColorBar(&Hdmiphy1,
+                &HdmiTxSs,
+                HdmiTxSsVidStreamPtr->VmId,
+                HdmiTxSsVidStreamPtr->ColorFormatId,
+                HdmiTxSsVidStreamPtr->ColorDepth);
 		}
 
 		if (IsStreamUp && SinkReady) {
 			IsStreamUp = FALSE;
 
-			i2c_dp159(&Vphy, 0, TxLineRate);
-			XVphy_Clkout1OBufTdsEnable
-				(&Vphy, XVPHY_DIR_TX, (TRUE));
+			i2c_dp159(&Hdmiphy1, 0, TxLineRate);
+			XHdmiphy1_Clkout1OBufTdsEnable
+				(&Hdmiphy1, XHDMIPHY1_DIR_TX, (TRUE));
 		}
 #endif
 
@@ -3655,7 +3512,7 @@ int main() {
 		XHdmi_MenuProcess(&HdmiMenu);
 
 		/* VPHY error */
-		VphyProcessError();
+		Hdmiphy1ProcessError();
 
 	}
 	while (1);

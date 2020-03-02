@@ -120,6 +120,11 @@ static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer,
 							2, XIIC_REPEATED_START);
 
+#ifdef versal
+		/* This delay prevents IIC access from hanging */
+		usleep(500);
+#endif
+
 		if (ByteCount != 2) {
 			Retry++;
 
@@ -178,6 +183,11 @@ static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	while (1) {
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer,
 							3, XIIC_STOP);
+#ifdef versal
+		/* This delay prevents IIC access from hanging */
+		usleep(500);
+#endif
+
 		if (ByteCount != 3) {
 			Retry++;
 
@@ -627,7 +637,7 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
 							int FOut, u8 FreeRun)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 
 	if ((FIn < IDT_8T49N24X_FIN_MIN) &&
 	   (FIn > IDT_8T49N24X_FIN_MAX)) {
@@ -645,85 +655,85 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
 	IDT_8T49N24x_CalculateSettings(FIn, FOut, &RegSettings);
 
 	/* Disable DPLL and APLL calibration */
-	Result = IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, FALSE);
+	Result |= IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, FALSE);
 
 	/* Mode */
 	if (FreeRun == TRUE) {
 		/* Disable reference clock input 0 */
-		Result = IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
+		Result |= IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
 							0, FALSE);
 
 		/* Disable reference clock input 1 */
-		Result = IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
+		Result |= IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
 							1, FALSE);
 
 		/* Set synthesizer mode */
-		Result = IDT_8T49N24x_Mode(I2CBaseAddress, I2CSlaveAddress, TRUE);
+		Result |= IDT_8T49N24x_Mode(I2CBaseAddress, I2CSlaveAddress, TRUE);
 	}
 
 	else {
 		/* Enable reference clock input 0 */
-		Result = IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
+		Result |= IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
 							0, TRUE);
 
 		/* Disable reference clock input 1 */
-		Result = IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
+		Result |= IDT_8T49N24x_ReferenceInput(I2CBaseAddress, I2CSlaveAddress,
 							1, FALSE);
 
 		/* Set jitter attentuator mode */
-		Result = IDT_8T49N24x_Mode(I2CBaseAddress, I2CSlaveAddress, FALSE);
+		Result |= IDT_8T49N24x_Mode(I2CBaseAddress, I2CSlaveAddress, FALSE);
 	}
 
 	/* Pre-divider Input 0 */
-	Result = IDT_8T49N24x_PreDivider(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_PreDivider(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.PRE_x, 0);
 
 	/* Pre-divider Input 1 */
-	Result = IDT_8T49N24x_PreDivider(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_PreDivider(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.PRE_x, 1);
 
 	/* M1 feedback Input 0 */
-	Result = IDT_8T49N24x_M1Feedback(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_M1Feedback(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.M1_x, 0);
 
 	/* M1 feedback Input 1 */
-	Result = IDT_8T49N24x_M1Feedback(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_M1Feedback(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.M1_x, 1);
 
 	/* DSM integer */
-	Result = IDT_8T49N24x_DSMInteger(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_DSMInteger(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.DSM_INT);
 
 	/* DSM fractional */
-	Result = IDT_8T49N24x_DSMFractional(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_DSMFractional(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.DSM_FRAC);
 
 	/* Output divider integer output 2 */
-	Result = IDT_8T49N24x_OutputDividerInteger(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_OutputDividerInteger(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.N_Qx, 2);
 
 	/* Output divider integer output 3 */
-	Result = IDT_8T49N24x_OutputDividerInteger(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_OutputDividerInteger(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.N_Qx, 3);
 
 	/* Output divider fractional output 2 */
-	Result = IDT_8T49N24x_OutputDividerFractional(I2CBaseAddress,
+	Result |= IDT_8T49N24x_OutputDividerFractional(I2CBaseAddress,
 							I2CSlaveAddress, RegSettings.NFRAC_Qx, 2);
 
 	/* Output divider fractional output 3 */
-	Result = IDT_8T49N24x_OutputDividerFractional(I2CBaseAddress,
+	Result |= IDT_8T49N24x_OutputDividerFractional(I2CBaseAddress,
 							I2CSlaveAddress, RegSettings.NFRAC_Qx, 3);
 
 	/* Input monitor control 0 */
-	Result = IDT_8T49N24x_InputMonitorControl(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_InputMonitorControl(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.LOS_x, 0);
 
 	/* Input monitor control 1 */
-	Result = IDT_8T49N24x_InputMonitorControl(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_InputMonitorControl(I2CBaseAddress, I2CSlaveAddress,
 							RegSettings.LOS_x, 1);
 
 	/* Enable DPLL and APLL calibration */
-	Result = IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, TRUE);
+	Result |= IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, TRUE);
 
 	return Result;
 }
@@ -746,7 +756,7 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
 static int IDT_8T49N24x_InputMonitorControl(u32 I2CBaseAddress,
 							u8 I2CSlaveAddress, u32 Value, u8 Input)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 	u16 Address;
 
@@ -757,17 +767,17 @@ static int IDT_8T49N24x_InputMonitorControl(u32 I2CBaseAddress,
 
 	/* LOSx[16] */
 	Data = (Value >> 16) & 0x1;
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* LOSx[15:8] */
 	Data = (Value >> 8);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* LOSx[7:0] */
 	Data = (Value & 0xff);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
 	return Result;
@@ -791,7 +801,7 @@ static int IDT_8T49N24x_InputMonitorControl(u32 I2CBaseAddress,
 static int IDT_8T49N24x_PreDivider(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							u32 Value, u8 Input)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 	u16 Address;
 
@@ -802,17 +812,17 @@ static int IDT_8T49N24x_PreDivider(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	/* PREx[20:16] */
 	Data = (Value >> 16) & 0x1f;
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* PREx[15:8] */
 	Data = (Value >> 8);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* PREx[7:0] */
 	Data = (Value & 0xff);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
 	return Result;
@@ -836,7 +846,7 @@ static int IDT_8T49N24x_PreDivider(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static int IDT_8T49N24x_M1Feedback(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							u32 Value, u8 Input)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 	u16 Address;
 
@@ -847,17 +857,17 @@ static int IDT_8T49N24x_M1Feedback(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	/* M1x[23:16] */
 	Data = (Value >> 16);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* M1x[15:8] */
 	Data = (Value >> 8);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* M1x[7:0] */
 	Data = (Value & 0xff);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
 	return Result;
@@ -881,17 +891,17 @@ static int IDT_8T49N24x_M1Feedback(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static int IDT_8T49N24x_DSMInteger(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							u16 Value)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 
 	/* DSM_INT[8] */
 	Data = (Value >> 8) & 0x01;
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0025, Data);
 
 	/* DSM_INT[7:0] */
 	Data = (Value & 0xff);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0026, Data);
 
 	return Result;
@@ -915,22 +925,22 @@ static int IDT_8T49N24x_DSMInteger(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static int IDT_8T49N24x_DSMFractional(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							u32 Value)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 
 	/* DSM_FRAC[20:16] */
 	Data = (Value >> 16) & 0x1f;
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0028, Data);
 
 	/* DSM_FRAC[15:8] */
 	Data = (Value >> 8);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0029, Data);
 
 	/* DSM_FRAC[7:0] */
 	Data = (Value & 0xff);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x002a, Data);
 
 	return Result;
@@ -954,7 +964,7 @@ static int IDT_8T49N24x_DSMFractional(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static int IDT_8T49N24x_OutputDividerInteger(u32 I2CBaseAddress,
 							u8 I2CSlaveAddress, u32 Value, u8 Output)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 	u16 Address;
 
@@ -971,17 +981,17 @@ static int IDT_8T49N24x_OutputDividerInteger(u32 I2CBaseAddress,
 
 	/* N_Qm[17:16] */
 	Data = (Value >> 16) & 0x03;
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* N_Qm[15:8] */
 	Data = (Value >> 8);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* N_Qm[7:0] */
 	Data = (Value & 0xff);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
 	return Result;
@@ -1005,7 +1015,7 @@ static int IDT_8T49N24x_OutputDividerInteger(u32 I2CBaseAddress,
 static int IDT_8T49N24x_OutputDividerFractional(u32 I2CBaseAddress,
 							u8 I2CSlaveAddress, u32 Value, u8 Output)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 	u16 Address;
 
@@ -1022,22 +1032,22 @@ static int IDT_8T49N24x_OutputDividerFractional(u32 I2CBaseAddress,
 
 	/* NFRAC_Qm[27:24] */
 	Data = (Value >> 24) & 0x0f;
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address, Data);
 
 	/* NFRAC_Qm[23:16] */
 	Data = (Value >> 16);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+1, Data);
 
 	/* NFRAC_Qm[15:8] */
 	Data = (Value >> 8);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+2, Data);
 
 	/* NFRAC_Qm[7:0] */
 	Data = (Value & 0xff);
-	Result = IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_SetRegister(I2CBaseAddress, I2CSlaveAddress,
 							Address+3, Data);
 
 	return Result;
@@ -1061,7 +1071,7 @@ static int IDT_8T49N24x_OutputDividerFractional(u32 I2CBaseAddress,
 static int IDT_8T49N24x_Mode(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							u8 Synthesizer)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Value;
 	u8 Mask;
 
@@ -1078,7 +1088,7 @@ static int IDT_8T49N24x_Mode(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		Value |= (1<<5);	/* Disable reference input 1 */
 	}
 	Mask = 0x33;
-	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x000a, Value, Mask);
 
 	/* Analog PLL */
@@ -1091,7 +1101,7 @@ static int IDT_8T49N24x_Mode(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		Value = 0x00;		/* Jitter attenuator mode */
 	}
 	Mask = (1<<3);
-	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0069, Value, Mask);
 
 	return Result;
@@ -1114,7 +1124,7 @@ static int IDT_8T49N24x_Mode(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static int IDT_8T49N24x_ReferenceInput(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							u8 Input, u8 Enable)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Value;
 	u8 Mask;
 	u8 Shift;
@@ -1137,7 +1147,7 @@ static int IDT_8T49N24x_ReferenceInput(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		Value = (1<<Shift);	/* Disable reference input  */
 	}
 	Mask = (1<<Shift);
-	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x000a, Value, Mask);
 
 	return Result;
@@ -1161,7 +1171,7 @@ static int IDT_8T49N24x_ReferenceInput(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 static int IDT_8T49N24x_Enable(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 							u8 Enable)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Value;
 	u8 Mask;
 
@@ -1175,7 +1185,7 @@ static int IDT_8T49N24x_Enable(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		Value = 0x05;
 	}
 	Mask = 0x05;
-	Result = IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
+	Result |= IDT_8T49N24x_ModifyRegister(I2CBaseAddress, I2CSlaveAddress,
 							0x0070, Value, Mask);
 
 	return Result;
@@ -1212,13 +1222,13 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 		 * To prevent this, the DPLL and APLL calibration are disabled during
 		 * the i2c transactions
 		 */
-		Result = IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, FALSE);
+		Result |= IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, FALSE);
 
 		/* Configure device */
-		Result = IDT_8T49N24x_Configure_JA(I2CBaseAddress, I2CSlaveAddress);
+		Result |= IDT_8T49N24x_Configure_JA(I2CBaseAddress, I2CSlaveAddress);
 
 		/* Enable DPLL and APLL calibration */
-		Result = IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, TRUE);
+		Result |= IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, TRUE);
 
 		return Result;
 	}

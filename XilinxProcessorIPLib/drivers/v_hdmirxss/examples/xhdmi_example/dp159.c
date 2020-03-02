@@ -143,7 +143,11 @@ void i2c_dp159_dump(void)
  }
 
 // DP159
+#ifndef versal
 u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
+#else
+u32 i2c_dp159(XHdmiphy1 *Hdmiphy1Ptr, u8 QuadId, u64 TxLineRate)
+#endif
 {
   u32 r;
   u8 mode;
@@ -447,24 +451,49 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 				  xil_printf("DP159 HDMI 2.0\r\n");
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x9a);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 11
+#ifndef versal
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x49);    // VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
 			                                                // PRE_SEL = Reg0Ch[1:0] = 01 (labeled HDMI_TWPST)
+
+#else
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x1C); //44);    // VSWING_DATA to +14% & VSWING_CLK to +7% = Reg0Ch[7:2] = 010001
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#endif
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x36);	// Automatic retimer for HDMI 2.0
 		  }
 
-		  // HDMI 1.4
-		  else {
+		  // HDMI 1.4 (> 2 Gbps)
+		  else if ((TxLineRate / (1000000)) > 2000) {
 			  if (DP159_VERBOSE)
-				  xil_printf("DP159 HDMI 1.4\r\n");
-			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);    // SLEW_CTL = Reg0Bh[7:6] = 10
-			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 00
-			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
+				  xil_printf("DP159 HDMI 1.4 (> 2 Gbps)\r\n");
+			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x88);    // SLEW_CTL = Reg0Bh[7:6] = 10
+			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 01
+#ifndef versal
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 010010
 			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#else
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x00);	// VSWING_DATA & VSWING_CLK to +00% = Reg0Ch[7:2] = 000000
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#endif
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x35);	// Automatic redriver to retimer crossover at 1.0 Gbps
-			  //r = i2c_dp159_write(DP159_ES, 0x0A, 0x34);	// The redriver mode must be selected to support low video rates
-
+		  }
+		  // HDMI 1.4 (< 2 Gbps)
+		  else {
+			  if (DP159_VERBOSE)
+				  xil_printf("DP159 HDMI 1.4 (< 2 Gbps)\r\n");
+			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);    // SLEW_CTL = Reg0Bh[7:6] = 10
+			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 00
+#ifndef versal
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 010010
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#else
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x00);	// VSWING_DATA & VSWING_CLK to +00% = Reg0Ch[7:2] = 000000
+			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
+#endif
+			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
+			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x35);	// Automatic redriver to retimer crossover at 1.0 Gbps
 		}
 		return XST_SUCCESS;
 	  }

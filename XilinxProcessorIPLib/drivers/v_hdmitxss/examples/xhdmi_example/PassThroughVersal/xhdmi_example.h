@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -36,7 +36,6 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         12/02/18 Initial release.
-* 3.03  YB     08/14/18 Initial release of Repeater ExDes.
 * 3.03  YB     08/14/18 Adding macro 'ENABLE_HDCP_REPEATER' to allow application
 *                       to select/deselect the Repeater specific code.
 *       EB     09/21/18 Added new API ToggleHdmiRxHpd
@@ -62,16 +61,19 @@ extern "C" {
 #include "xiic.h"
 
 #include "xil_io.h"
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTLITE_NUM_INSTANCES) && (!defined (versal))
 #include "xuartlite_l.h"
+#elif defined versal
+#include "xuartpsv.h"
 #else
 #include "xuartps.h"
 #endif
 #include "xil_types.h"
 #include "xil_exception.h"
 #include "string.h"
-#if (defined XPS_BOARD_ZCU104)
+#if ((defined XPS_BOARD_ZCU104) || (defined versal))
 #include "idt_8t49n24x.h"
+#include "si570drv.h"
 #else
 #include "si5324drv.h"
 #endif
@@ -93,7 +95,7 @@ extern "C" {
 #define USE_HDMI_AUDGEN
 #endif
 #endif
-#include "xvphy.h"
+#include "xhdmiphy1.h"
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 #include "xv_tpg.h"
@@ -115,14 +117,14 @@ extern "C" {
 #define AUXFIFOSIZE 10
 
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-#define UART_BASEADDR XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
+#define UART_BASEADDR XPAR_XUARTPSV_0_BASEADDR
 #else
 #define UART_BASEADDR XPAR_XUARTPS_0_BASEADDR
 #endif
 
 /************************** Constant Definitions *****************************/
 #define I2C_MUX_ADDR    0x74  /**< I2C Mux Address */
-#if (defined XPS_BOARD_ZCU104)
+#if ((defined XPS_BOARD_ZCU104) || (defined versal))
 #define I2C_CLK_ADDR    0x6C  /**< I2C Clk Address IDT_8T49N241*/
 #else
 #define I2C_CLK_ADDR    0x68  /**< I2C Clk Address */
@@ -130,13 +132,8 @@ extern "C" {
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_WHITE   "\x1b[37m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-#define ANSI_COLOR_BG_MAGENTA   "\x1b[45m"
-#define ANSI_COLOR_BG_HIGH_CYAN "\x1b[46;1m"
-#define ANSI_COLOR_BG_RED       "\x1b[41m"
-#define ANSI_COLOR_BG_RESET     "\x1b[0m"
 
 /************************** Constant Definitions *****************************/
 
@@ -165,9 +162,7 @@ extern "C" {
 	defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
 /* Option to enable or disable HDCP Repeater , if
  * HDCP 1.4 or HDCP 2.2 is in the system */
-#define ENABLE_HDCP_REPEATER            1
-#define ENABLE_REPEATER_COLORBARSTOP    0
-#define ENABLE_HDCP_PRO                 1
+#define ENABLE_HDCP_REPEATER		0
 #endif
 
 #endif
@@ -179,8 +174,8 @@ extern "C" {
 #define VIDEO_MASKING_MENU_EN 0
 
 /************************** Variable Definitions *****************************/
-/* VPhy structure */
-extern XVphy     Vphy;
+/* VHdmiphy structure */
+extern XHdmiphy1     Hdmiphy1;
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /* HDMI TX SS structure */
@@ -205,7 +200,7 @@ extern XV_HdmiRxSs HdmiRxSs;
 #endif
 
 #ifdef USE_HDCP
-//extern XHdcp_Repeater HdcpRepeater;
+extern XHdcp_Repeater HdcpRepeater;
 #endif
 
 /* TX busy flag. This flag is set while the TX is initialized*/
@@ -216,11 +211,14 @@ extern u8 IsPassThrough;
 XIicPs Ps_Iic0, Ps_Iic1;
 #define PS_IIC_CLK 100000
 #endif
+#ifdef versal
+XIic Iic0;
+#endif
 
 /************************** Function Prototypes ******************************/
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-void ToggleHdmiRxHpd (XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr);
-void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd);
+void ToggleHdmiRxHpd (XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr);
+void SetHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd);
 #endif
 
 #ifdef __cplusplus

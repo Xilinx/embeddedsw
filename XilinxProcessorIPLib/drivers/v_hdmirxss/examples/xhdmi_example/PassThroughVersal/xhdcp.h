@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,12 +15,14 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 *
-* 
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -36,10 +38,6 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   05/24/16 First Release
 * 1.01  MH   06/16/17 Removed authentication request flag.
-* 3.03  YB   08/14/18 Initial release of Repeater ExDes.
-*                     Added macro 'XHDCP_MAX_DEVICE_CNT_CTS_HDCP14',
-*                     for maximum devices supported for HDCP1.4 CTS.
-*                     Added flag 'UpstreamAuthRequestCount'.
 *</pre>
 *
 *****************************************************************************/
@@ -63,13 +61,11 @@ extern "C" {
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
 #endif
-#include "xhdmi_example.h"
 
 /************************** Constant Definitions ****************************/
 #define XHDCP_DEVICE_ID_SIZE               5    /*< Size in bytes of ReceiverID for HDCP 2.2 or KSV for HDCP 1.4 */
 #define XHDCP_MAX_DOWNSTREAM_INTERFACES    32   /*< Maximum number of HDCP downstream interfaces allowed */
 #define XHDCP_MAX_DEVICE_CNT_HDCP14        127  /*< Maximum repeater topology device count for HDCP 1.4 */
-#define XHDCP_MAX_DEVICE_CNT_CTS_HDCP14    32   /*< Maximum repeater topology device count for HDCP 1.4 CTS tests */
 #define XHDCP_MAX_DEPTH_HDCP14             7    /*< Maximum repeater topology depth for HDCP 1.4 */
 #define XHDCP_MAX_DEVICE_CNT_HDCP22        31   /*< Maximum repeater topology device count for HDCP 2.2 */
 #define XHDCP_MAX_DEPTH_HDCP22             4    /*< Maximum repeater topology depth for HDCP 2.2 */
@@ -88,20 +84,6 @@ typedef struct
   u8  Hdcp1DeviceDownstream;
 } XHdcp_Topology;
 
-#if ENABLE_HDCP_PRO
-typedef struct {
-  u16 Year;
-  u8  Month;
-  u8  Day;
-} XHdcpPro_DateTime;
-
-typedef struct {
-  u8 hdcp_2_srm_ver[2];
-  XHdcpPro_DateTime DateTime;
-  u8 DcpLlcSign[384];
-} XHdcpPro_Timestamp;
-#endif
-
 typedef struct
 {
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
@@ -113,8 +95,6 @@ typedef struct
   u8 UpstreamInstanceConnected;
   /** Flag indicates upstream interface stream is up */
   u8 UpstreamInstanceStreamUp;
-  /** Authentication Request count on the upstream interface */
-  u32 UpstreamAuthRequestCount;
 #endif
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /** Array of pointers to each HDMI repeater downstream interface */
@@ -130,12 +110,6 @@ typedef struct
   /** HDCP topology */
   XHdcp_Topology Topology;
   /** Content stream type */
-#if ENABLE_HDCP_PRO
-  /** Flag to track if the system is a HDCP Professional Repeater. */
-  u8 IsHdcpProRepeater;
-  /** HDCP Professional Repeater variables. */
-  XHdcpPro_Timestamp HdcpProTimestamp;
-#endif
 #endif
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /** Enforce content blocking */
@@ -162,9 +136,6 @@ int  XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
 #endif
 #if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
 void XHdcp_SetRepeater(XHdcp_Repeater *InstancePtr, u8 Set);
-#if ENABLE_HDCP_PRO
-void XHdcp_SetProRepeater(XHdcp_Repeater *InstancePtr, u8 Set);
-#endif
 #endif
 
 // Functions used to process callback events

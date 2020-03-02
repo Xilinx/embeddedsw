@@ -15,34 +15,27 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 *
-* 
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
 
-#ifndef DP159_H		 /* prevent circular inclusions */
-#define DP159_H		 /* by using protection macros */
+#ifndef TMDS181_H		 /* prevent circular inclusions */
+#define TMDS181_H		 /* by using protection macros */
 
 #include "xil_types.h"
 #include "xparameters.h"
-#ifndef versal
-#include "xvphy.h"
-#else
 #include "xhdmiphy1.h"
-#endif
 
 // Function prototypes
-#ifndef versal
-u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate);
-#else
-u32 i2c_dp159(XHdmiphy1 *Hdmiphy1Ptr, u8 QuadId, u64 TxLineRate);
-#endif
-u32 i2c_dp159_write(u8 dev, u8 addr, u8 dat);
-u8 i2c_dp159_read(u8 dev, u8 addr);
-void i2c_dp159_dump(void);
+u8 i2c_tmds181_read(u8 dev, u8 addr);
+u32 i2c_tmds181_write(u8 dev, u8 addr, u8 dat);
+void i2c_tmds181_dump(void);
 
 #endif
