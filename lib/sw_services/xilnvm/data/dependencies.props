@@ -1,0 +1,2 @@
+xilnvm_bbram_versal_example.c = NULL
+xilnvm_efuse_versal_example.c = xilnvm_efuse_versal_input.h
