@@ -50,6 +50,7 @@ Added support for UHS mode by default for ZynqMP
 
 uartns550_v3_6:
 Changed the xuartns550_intr_example to get Success/Failure strings.
+Changed the macro names.
 
 uartps_v3_9:
 Changed the XUARTPS_MAX_RATE macro to enable configuration of higher baud rates.
