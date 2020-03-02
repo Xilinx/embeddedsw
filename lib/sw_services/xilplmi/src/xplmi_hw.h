@@ -133,8 +133,28 @@ extern "C" {
 #define XPLMI_PLATFORM		((Xil_In32(PMC_TAP_VERSION) & \
 					XPLMI_PLATFORM_MASK) >> \
 					PMC_TAP_VERSION_PLATFORM_SHIFT)
+
+/**
+ * PMC RAM Memory usage:
+ * 0xF2000000U to 0xF2019000U - Used by XilLoader to process CDO
+ * 0xF2019000U to 0xF201D000U - Used by XilPlmi to store PLM prints
+ * 0xF201D000U to 0xF201E000U - Used by XilPlmi to store PLM Trace Events
+ * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
+ */
 #define XPLMI_PMCRAM_BASEADDR			(0xF2000000U)
 #define XPLMI_PMCRAM_LEN			(0x20000U)
+
+/* Loader chunk memory */
+#define XPLMI_LOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
+#define XPLMI_LOADER_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
+
+/* Log Buffer default address and length */
+#define XPLMI_DEBUG_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x19000U)
+#define XPLMI_DEBUG_LOG_BUFFER_LEN	0x4000U /* 16KB */
+
+/* Trace Buffer default address and length */
+#define XPLMI_TRACE_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1D000U)
+#define XPLMI_TRACE_LOG_BUFFER_LEN	0x1000U	/* 4KB */
 
 /**
  * Definitions required from Efuse

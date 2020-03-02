@@ -60,9 +60,16 @@ XPlmi_LogInfo DebugLog = {
 	.LogBuffer.StartAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
 	.LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN,
 	.LogBuffer.CurrentAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
-	.LogBuffer.RemLen = XPLMI_DEBUG_LOG_BUFFER_LEN,
 	.LogBuffer.IsBufferFull = FALSE,
 	.LogLevel = XPlmiDbgCurrentTypes,
+};
+
+/* Trace log buffer */
+XPlmi_CircularBuffer TraceLog = {
+	.StartAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
+	.Len = XPLMI_TRACE_LOG_BUFFER_LEN,
+	.CurrentAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
+	.IsBufferFull = FALSE,
 };
 
 /*****************************************************************************/
@@ -137,6 +144,14 @@ static void XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr
  *	*		@Arg1 - High Address
  *	*		@Arg2 - Low Address
  *	*	4 - Retrieve Debug Log buffer information
+ *	*	5 - Configure Trace Log buffer memory
+ *	*		@Arg1 - High Address
+ *	*		@Arg2 - Low Address
+ *	*		@Arg3 - Length
+ *	*	6 - Retrieve Trace Log buffer
+ *	*		@Arg1 - High Address
+ *	*		@Arg2 - Low Address
+ *	*	7 - Retrieve Trace Log buffer information
  *
  * @param Pointer to the command structure
  *
@@ -200,6 +215,44 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			Status = XST_SUCCESS;
 			break;
 		}
+		case XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM:
+		{
+			if (Arg3 != 0U) {
+				Addr = (((u64)Arg1 << 32U) | Arg2);
+				if (((Addr >= XPLMI_PMCRAM_BASEADDR) &&
+					(Addr < XPLMI_TRACE_LOG_BUFFER_ADDR)) ||
+					((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
+					(Addr <= XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR))) {
+					Status = XPLMI_ERR_INVALID_LOG_BUF_ADDR;
+				} else {
+					TraceLog.StartAddr = Addr;
+					TraceLog.CurrentAddr = Addr;
+					TraceLog.Len = Arg3;
+					TraceLog.IsBufferFull = FALSE;
+					Status = XST_SUCCESS;
+				}
+			} else {
+				Status = XPLMI_ERR_INVALID_LOG_BUF_LEN;
+			}
+			break;
+		}
+		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
+		{
+			XPlmi_RetrieveBufferData(&TraceLog, (((u64)Arg1 << 32U) | Arg2));
+			Status = XST_SUCCESS;
+			break;
+		}
+		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
+		{
+			Cmd->Response[1U] = TraceLog.StartAddr >> 32U;
+			Cmd->Response[2U] = TraceLog.StartAddr & 0xFFFFFFFFU;
+			Cmd->Response[3U] = (u32)(TraceLog.CurrentAddr -
+					TraceLog.StartAddr);
+			Cmd->Response[4U] = TraceLog.Len;
+			Cmd->Response[5U] = TraceLog.IsBufferFull;
+			Status = XST_SUCCESS;
+			break;
+		}
 		default:
 		{
 			XPlmi_Printf(DEBUG_GENERAL, "Received invalid event logging command\n\r");
@@ -208,4 +261,39 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 		}
 	}
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function stores the trace events to the Trace Log buffer
+ *
+ * @param TraceData	Trace data to be stored to buffer
+ * @param Len	Number of words in TraceData
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
+{
+	u32 Index;
+	XPlmi_PerfTime tPerfTime = {0U};
+
+	/* Get time stamp of PLM */
+	XPlmi_MeasurePerfTime((((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
+			XPLMI_PIT2_RESET_VALUE), &tPerfTime);
+
+	TraceData[0U] = TraceData[0U] | (Len << XPLMI_TRACE_LOG_LEN_SHIFT);
+	TraceData[1U] = (u32)tPerfTime.tPerfMs;
+	TraceData[2U] = (u32)tPerfTime.tPerfMsFrac;
+
+	for (Index = 0U; Index < Len; Index++) {
+		if (TraceLog.CurrentAddr >=
+				(TraceLog.StartAddr + TraceLog.Len)) {
+			TraceLog.CurrentAddr = TraceLog.StartAddr;
+			TraceLog.IsBufferFull = TRUE;
+		}
+
+		XPlmi_Out64(TraceLog.CurrentAddr, TraceData[Index]);
+		TraceLog.CurrentAddr += 4U;
+	}
 }

@@ -924,6 +924,9 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 	}
 	PdiPtr->PrtnNum += PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 
+	/* Log the image load to the Trace Log buffer */
+	XPLMI_TRACE_LOG3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
+
 END:
 	return Status;
 }

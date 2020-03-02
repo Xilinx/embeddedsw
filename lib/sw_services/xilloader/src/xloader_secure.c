@@ -129,7 +129,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 
 	SecurePtr->PdiPtr = PdiPtr;
-	SecurePtr->ChunkAddr = XLOADER_CHUNK_MEMORY;
+	SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
 
@@ -728,7 +728,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 			SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_AES_KAT_MASK;
 		}
 		XPlmi_Printf(DEBUG_INFO, "Headers are in encrypted format\n\r");
-		SecurePtr->ChunkAddr = XLOADER_CHUNK_MEMORY;
+		SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 
 		/* Read headers to a buffer */
 		Status = XLoader_ReadHdrs(SecurePtr, MetaHdr,

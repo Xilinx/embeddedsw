@@ -150,11 +150,9 @@ void outbyte(char c)
 	if (DebugLog.LogBuffer.CurrentAddr >=
 			(DebugLog.LogBuffer.StartAddr + DebugLog.LogBuffer.Len)) {
 		DebugLog.LogBuffer.CurrentAddr = DebugLog.LogBuffer.StartAddr;
-		DebugLog.LogBuffer.RemLen = DebugLog.LogBuffer.Len;
 		DebugLog.LogBuffer.IsBufferFull = TRUE;
 	}
 
 	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, c);
 	++DebugLog.LogBuffer.CurrentAddr;
-	--DebugLog.LogBuffer.RemLen;
 }

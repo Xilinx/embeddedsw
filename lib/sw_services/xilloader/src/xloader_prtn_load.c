@@ -465,7 +465,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	XPlmiCdo Cdo = {0U};
 	XilPdi_PrtnHdr * PrtnHdr;
 	u32 LastChunk = FALSE;
-	u32 ChunkAddr = XLOADER_CHUNK_MEMORY;
+	u32 ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 	u32 IsNextChunkCopyStarted = FALSE;
 	XLoader_SecureParms SecureParams = {0U};
 
@@ -583,10 +583,10 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			    && (LastChunk != TRUE))
 			{
 				/** Update the next chunk address to other part */
-				if (ChunkAddr == XLOADER_CHUNK_MEMORY) {
-					ChunkAddr = XLOADER_CHUNK_MEMORY_1;
+				if (ChunkAddr == XPLMI_LOADER_CHUNK_MEMORY) {
+					ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY_1;
 				} else {
-					ChunkAddr = XLOADER_CHUNK_MEMORY;
+					ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 				}
 
 				/** Update the len for last chunk */

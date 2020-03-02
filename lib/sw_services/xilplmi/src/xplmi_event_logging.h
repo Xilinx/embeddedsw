@@ -59,7 +59,6 @@ typedef struct XPlmi_CircularBuffer {
 	u64 StartAddr;
 	u64 CurrentAddr;
 	u32 Len;
-	u32 RemLen;
 	u32 IsBufferFull;
 }XPlmi_CircularBuffer;
 
@@ -68,17 +67,56 @@ typedef struct XPlmi_LogInfo {
 	u32 LogLevel;
 }XPlmi_LogInfo;
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Log Buffer default address and length */
-#define XPLMI_DEBUG_LOG_BUFFER_ADDR	0xF2019000U
-#define XPLMI_DEBUG_LOG_BUFFER_LEN	0x4000U /* 16KB */
-
 /** Event Logging sub command IDs */
 #define XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL		(0x1U)
 #define XPLMI_LOGGING_CMD_CONFIG_LOG_MEM			(0x2U)
 #define XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA		(0x3U)
 #define XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO	(0x4U)
+#define XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM		(0x5U)
+#define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA	(0x6U)
+#define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO	(0x7U)
+
+/* Trace log buffer length shift */
+#define XPLMI_TRACE_LOG_LEN_SHIFT		(16U)
+
+/* Trace event IDs */
+#define XPLMI_TRACE_LOG_LOAD_IMAGE		(0x1U)
+
+/*
+ * Trace log macros
+ * TraceBuffer structure
+ * 		0U - Header
+ * 		1U - Time stamp in ms
+ * 		2U - Time stamp fraction
+ * 		3U - Payload
+ * 		...
+ */
+#define XPLMI_TRACE_LOG2(Header)	\
+{	\
+	u32 TraceBuffer[] = {Header, 0U, 0U};	\
+	XPlmi_StoreTraceLog(&TraceBuffer[0U], 3U);	\
+}
+
+#define XPLMI_TRACE_LOG3(Header, Arg1)	\
+{	\
+	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1};	\
+	XPlmi_StoreTraceLog(&TraceBuffer[0U], 4U);	\
+}
+
+#define XPLMI_TRACE_LOG4(Header, Arg1, Arg2)	\
+{	\
+	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2};	\
+	XPlmi_StoreTraceLog(&TraceBuffer[0U], 5U);	\
+}
+
+#define XPLMI_TRACE_LOG5(Header, Arg1, Arg2, Arg3)	\
+{	\
+	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2, Arg3};	\
+	XPlmi_StoreTraceLog(&TraceBuffer[0U], 6U);	\
+}
 /************************** Function Prototypes ******************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
+void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
 /************************** Variable Definitions *****************************/
 extern XPlmi_LogInfo DebugLog;
 #ifdef __cplusplus
