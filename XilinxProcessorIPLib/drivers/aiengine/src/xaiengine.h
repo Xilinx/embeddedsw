@@ -1,3 +1,8 @@
+/******************************************************************************
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -11,7 +16,9 @@ extern "C" {
 #include <xaiengine/xaiegbl_reginit.h>
 #include <xaiengine/xaielib.h>
 #include <xaiengine/xaielib_npi.h>
+#include <xaiengine/xaiepm_clock.h>
 #include <xaiengine/xaietile_core.h>
+#include <xaiengine/xaietile_error.h>
 #include <xaiengine/xaietile_event.h>
 #include <xaiengine/xaietile_lock.h>
 #include <xaiengine/xaietile_mem.h>
