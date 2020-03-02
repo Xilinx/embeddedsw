@@ -108,6 +108,7 @@
 * 1.5  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.6  Wendy   01/10/2020  Add tile location type
 * 1.7  Wendy   01/20/2020  Add events handlers for each events
+* 1.7  Wendy   02/24/2020  Add errors handlers for each error
 * </pre>
 *
 ******************************************************************************/
@@ -158,6 +159,9 @@
 						 XAIEGBL_MODULE_MEM)
 
 #define XAIEGBL_MODULE_EVENTS_NUM		128U
+#define XAIEGBL_CORE_ERROR_NUM			22U
+#define XAIEGBL_MEM_ERROR_NUM			14U
+#define XAIEGBL_PL_ERROR_NUM			11U
 
 #define XAIEGBL_HWCFG_SET_CONFIG(cfgptr, rows, cols, arrayoff)  cfgptr->NumRows = rows;\
                                                                 cfgptr->NumCols = cols;\
@@ -241,6 +245,54 @@ typedef struct XAieGbl_EventHandlerSt {
 } XAieGbl_EventHandler;
 
 /**
+ * enum XAieGbl_ErrorHandleStatus - error handled status
+ *
+ * @XAIETILE_ERROR_HANDLED: error has handled
+ * @XAIETILE_ERROR_NOTHANDLED: error has not handled completely, expect driver
+ *				default action.
+ */
+typedef enum {
+	XAIETILE_ERROR_HANDLED		= 0U,
+	XAIETILE_ERROR_NOTHANDLED
+} XAieGbl_ErrorHandleStatus;
+
+/**
+ * This function type defines the error callback.
+ *
+ * @param	AieInst - pointer to the AIE instance which the error is from.
+ * @param	Loc - Tile location. Indicates which tile the error is from.
+ * @param	Module - Module type
+ *			XAIEGBL_MODULE_CORE, XAIEGBL_MODULE_PL, XAIEGBL_MODULE_MEM
+ * @param	Error - Error event id
+ *			48 - 69 for Core module
+ *			87 - 100 for Memory module
+ *			62 - 72 for SHIM PL module
+ * @param	Priv - Argument of the callback which has been registered by
+ *			applicaiton.
+ * @return	Indicate if the error has been handled or not.
+ *		XAIETILE_ERROR_HANDLED, XAIETILE_ERROR_NOTHANDLED
+ *		If it returns XAIETILE_ERROR_HANDLED, AIE driver will not take
+ *		further action, otherwise, AIE driver will trap the application.
+ */
+typedef XAieGbl_ErrorHandleStatus (*XAieTile_ErrorCallBack)(XAieGbl *AieInst, XAie_LocType Loc, u8 Module, u8 Error, void *Priv);
+
+/**
+ * struct XAieGbl_ErrorHandler - AIE error handler
+ *
+ * @Pid: Linux only, pthread ID of the user thread which registers
+ *       for the callback.
+ * @Cb: Error event user callback
+ * @Arg: User registered argument which will be passed to the callback
+ */
+typedef struct XAieGbl_ErrorHandlerSt {
+#ifdef __linux__
+	int Pid;
+#endif
+	XAieTile_ErrorCallBack Cb;
+	void *Arg;
+} XAieGbl_ErrorHandler;
+
+/**
  * The XAie driver instance data. The user is required to allocate a
  * variable of this type for the AIE instance.
  */
@@ -252,6 +304,15 @@ typedef struct XAieGbl
 	XAieGbl_EventHandler CoreEvtHandlers[XAIEGBL_MODULE_EVENTS_NUM]; /**< Core module events handler array */
 	XAieGbl_EventHandler MemEvtHandlers[XAIEGBL_MODULE_EVENTS_NUM]; /**< Memory modle events handler array */
 	XAieGbl_EventHandler ShimEvtHandlers[XAIEGBL_MODULE_EVENTS_NUM]; /**< Shim module events handler array */
+	XAieGbl_ErrorHandler CoreErrHandlers[XAIEGBL_CORE_ERROR_NUM]; /**< Core module error handler array */
+	XAieGbl_ErrorHandler MemErrHandlers[XAIEGBL_MEM_ERROR_NUM]; /**< Memory module error handler array */
+	XAieGbl_ErrorHandler ShimErrHandlers[XAIEGBL_PL_ERROR_NUM]; /**< PL module error handler array */
+	u32 CoreErrsDefaultTrap; /**< Core errors need to trap application */
+	u32 MemErrsDefaultTrap; /**< Memory errors need to trap application */
+	u32 ShimErrsDefaultTrap; /**< Shim errors need to trap application */
+	u32 CoreErrsPollOnly; /**< Core errors polled only, no interrupt */
+	u32 MemErrsPollOnly; /**< Memory errors polled only, no interrupt */
+	u32 ShimErrsPollOnly; /**< Shim errors polled only, no interrupt */
 	uint32_t BroadCastBitmap; /**< Broadcast Signal usage bitmap */
 } XAieGbl;
 

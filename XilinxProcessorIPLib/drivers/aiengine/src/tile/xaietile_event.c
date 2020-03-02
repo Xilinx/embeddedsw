@@ -57,6 +57,7 @@
 #include "xaiegbl_defs.h"
 #include "xaiegbl_reginit.h"
 #include "xaielib.h"
+#include "xaietile_error.h"
 #include "xaietile_event.h"
 #include "xaietile_noc.h"
 #include "xaietile_pl.h"
@@ -3734,6 +3735,8 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 			XAieTileMem_EventBroadcastBlockSet(TilePtr,
 							   XAIETILE_EVENT_BLOCK_NORTH,
 							   XAIETILE_BCEVENTS_NOTIFY_MASK);
+			TilePtr->MemBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
+			TilePtr->CoreBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
 		} else {
 			/* SHIM Tile */
 			u8 Irq1stBc;
@@ -3841,6 +3844,10 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 	memset(AieInst->CoreEvtHandlers, 0, sizeof(AieInst->CoreEvtHandlers));
 	memset(AieInst->MemEvtHandlers, 0, sizeof(AieInst->MemEvtHandlers));
 	memset(AieInst->ShimEvtHandlers, 0, sizeof(AieInst->ShimEvtHandlers));
+	/* Initialize errors handling. Setup the errors broadcasting event.
+	 * Install the errors default handler. */
+	XAie_print("%s: Initialize errors handling.\n", __func__);
+	XAieTile_ErrorsHandlingInitialize(AieInst);
 	/* Register for NPI interrupt handler */
 	/* For Baremetal, user will need to register interrupt handler
 	 * in the application. */
