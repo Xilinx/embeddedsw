@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xclockps_sinit.c
-* @addtogroup xclockps_v1_0
+* @addtogroup xclockps_v1_2
 * @{
 *
 * This file contains method for static initialization (compile-time) of the
