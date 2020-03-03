@@ -61,6 +61,8 @@ extern "C" {
 int XSem_CfrInit(void);
 int XSem_NpiInit(void);
 int XSem_NpiRunScan();
+int XSem_CfrStopScan(void);
+int XSem_CfrStartScan(void);
 
 
 #ifdef __cplusplus
