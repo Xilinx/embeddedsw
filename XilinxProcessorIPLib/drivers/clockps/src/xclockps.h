@@ -554,7 +554,7 @@ typedef enum {
 * @return       XST_SUCCESS if successful
 * 		XST_FAILURE if unsuccessful
 *
-* @note         Read from  register may fail in case driver doesnot have proper
+* @note         Read from  register may fail in case driver doesn't have proper
 * 		access at EL1 NONSECURE
 *
 ******************************************************************************/
@@ -587,7 +587,7 @@ static inline XStatus XClock_ReadReg(u32 RegAddr, u32 *Value)
 * @return       XST_SUCCESS if successful
 * 		XST_FAILURE if unsuccessful
 *
-* @note         Write to register may fail in case driver doesnot have proper
+* @note         Write to register may fail in case driver doesn't have proper
 * 		access at EL1 NONSECURE.
 *
 ******************************************************************************/
