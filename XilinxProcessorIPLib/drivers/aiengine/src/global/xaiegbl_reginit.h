@@ -499,6 +499,27 @@ typedef struct {
 	XAieGbl_RegFldAttr PortMode[8U];	/**< Port type */
 } XAieGbl_RegStrmSwEventPortSelect;
 
+/**
+ * This typedef contains the attributes for 1st level interrupt controller
+ * set irq event register.
+ */
+typedef struct {
+	u32 SwitchOff;					/**< Switch offset */
+	u32 MaskOff;					/**< Mask register offset */
+	u32 EnableOff;					/**< Enable register offset */
+	u32 DisableOff;					/**< Disable register offset */
+	u32 StatusOff;					/**< Status register offset */
+	u32 IrqNoOff;					/**< Irq number register offset */
+	u32 IrqEventOff;				/**< Irq event register offset */
+	u32 BlockNorthSetOff;				/**< Block north set register offset */
+	u32 BlockNorthClearOff;				/**< Block north clear register offset */
+	u32 BlockNorthValueOff;				/**< Block north value register offset */
+	XAieGbl_RegFldAttr IrqsMask;			/**< Irqs mask enable/disable/mask register field */
+	XAieGbl_RegFldAttr IrqNoFld;			/**< Irq No. register field */
+	XAieGbl_RegFldAttr BcEvents;			/**< Broadcast events field */
+	XAieGbl_RegFldAttr IrqEventRegFld[4U];	/**< Irq event register field */
+} XAieGbl_1stIrqCntr;
+
 /**************************** Macro Definitions *****************************/
 
 /**************************** Function prototypes ***************************/
