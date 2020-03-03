@@ -978,7 +978,7 @@ static XStatus XClock_MuxFetchIdx(XClock_OutputClks ClockId, u8 *MuxIndex)
 	XCLOCK_VALIDATE_INDEX(OP, ClockId);
 	XCLOCK_VALIDATE_PTR(MuxIndex);
 
-	for (Idx = 0; Idx < ARRAY_SIZE(MuxMap); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(MuxMap); Idx++) {
 		if (MuxMap[Idx].ClockId == ClockId) {
 			*MuxIndex = MuxMap[Idx].MuxIndex;
 			return XST_SUCCESS;
@@ -1127,7 +1127,7 @@ void XClock_MuxBeginInit(void)
 	/* Allocate mux parents */
 	XClock_AllocMuxParents();
 
-	for (Idx = 0; Idx < ARRAY_SIZE(Muxes); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(Muxes); Idx++) {
 		XClock_MuxInit(Idx);
 	}
 }

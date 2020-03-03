@@ -841,7 +841,7 @@ void XClock_PllBeginInit(void)
 {
 	u8 Idx;
 
-	for (Idx = 0; Idx < ARRAY_SIZE(Plls); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(Plls); Idx++) {
 		XClock_PllInit(Idx);
 	}
 }

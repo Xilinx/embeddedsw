@@ -507,7 +507,7 @@ static XStatus XClock_GateFetchIdx(XClock_OutputClks ClockId, u8 *GateIndex)
 	XCLOCK_VALIDATE_INDEX(OP, ClockId);
 	XCLOCK_VALIDATE_PTR(GateIndex);
 
-	for (Idx = 0; Idx < ARRAY_SIZE(GateMap); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(GateMap); Idx++) {
 		if (GateMap[Idx].ClockId == ClockId) {
 			*GateIndex = GateMap[Idx].GateIndex;
 			return XST_SUCCESS;
@@ -639,7 +639,7 @@ void XClock_GateBeginInit(void)
 {
 	u8 Idx;
 
-	for (Idx = 0; Idx < ARRAY_SIZE(Gates); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(Gates); Idx++) {
 		XClock_GateInit(Idx);
 	}
 }

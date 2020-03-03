@@ -107,7 +107,7 @@ extern "C" {
 #define BIT(n)		             (1 << (n))
 
 /* Calculates array size */
-#define ARRAY_SIZE(x)	             (sizeof(x) / sizeof((x)[0]))
+#define CLK_ARRAY_SIZE(x)	             (sizeof(x) / sizeof((x)[0]))
 
 /* Division rounded to closest integer */
 #define XCLOCK_ROUND_DIV(a, b)       ((a + (b / 2)) / b)

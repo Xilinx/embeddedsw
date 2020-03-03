@@ -376,7 +376,7 @@ void XClock_FixedFactorBeginInit(void)
 {
 	u8 Idx;
 
-	for (Idx = 0; Idx < ARRAY_SIZE(FixedFactors); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(FixedFactors); Idx++) {
 		XClock_FixedFactorInit(Idx);
 	}
 }

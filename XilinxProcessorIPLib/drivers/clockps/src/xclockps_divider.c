@@ -464,7 +464,7 @@ static XStatus XClock_DivFetchIdx(XClock_OutputClks ClockId, u8 *DivIndex)
 	XCLOCK_VALIDATE_INDEX(OP, ClockId);
 	XCLOCK_VALIDATE_PTR(DivIndex);
 
-	for (Idx = 0; Idx < ARRAY_SIZE(DivMap); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(DivMap); Idx++) {
 		if (DivMap[Idx].ClockId == ClockId) {
 			*DivIndex = DivMap[Idx].DivIndex;
 			return XST_SUCCESS;
@@ -664,7 +664,7 @@ void XClock_DivBeginInit(void)
 {
 	u8 Idx;
 
-	for (Idx = 0; Idx < ARRAY_SIZE(Dividers); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(Dividers); Idx++) {
 		XClock_DivInit(Idx);
 	}
 }

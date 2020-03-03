@@ -177,7 +177,7 @@ static void XClock_EnableInitClocks(void)
 	u8                Idx;
 	XClock_OutputClks InitClks[] = {ACPU, DDR_REF};
 
-	for (Idx = 0; Idx < ARRAY_SIZE(InitClks); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(InitClks); Idx++) {
 		if (XST_SUCCESS != XClock_EnableClock(InitClks[Idx])) {
 			xil_printf("Warning: Failed to enable clock at "
 							"index %d\n\r", Idx);
