@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# 
+#
 #
 # MODIFICATION HISTORY:
 #
@@ -35,11 +35,11 @@ OPTION psf_version = 2.1;
 BEGIN driver osd
 
   OPTION supported_peripherals = (v_osd_v[6-9]_[0-9]);
-  OPTION driver_state = ACTIVE;
+  OPTION driver_state = DEPRECATED;
   OPTION copyfiles = all;
   OPTION VERSION = 4.0;
   OPTION NAME = osd;
-    
+
 END driver
 
 
