@@ -48,6 +48,7 @@
 #include "xpsmfw_power.h"
 #include "xpsmfw_reset.h"
 #include "xpsmfw_ipi_manager.h"
+#include "xpsmfw_gic.h"
 #include "psm_global.h"
 
 #define XPSMFW_MB_MSR_BIP_MASK		(0x8U)
@@ -253,6 +254,8 @@ int SetUpInterruptSystem(void)
 	microblaze_enable_exceptions();
 
 	microblaze_enable_interrupts();
+
+	XPsmFw_GicP2IrqEnable();
 
 	/*
 	 * Clear Break in progress to get interrupts
