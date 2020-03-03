@@ -37,7 +37,6 @@
 
 extern XAieGbl_RegShimReset ShimReset;
 extern XAieGbl_RegTimer TimerReg[];
-extern XAieGbl_1stIrqCntr Shim_1stIrqCntr;
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -59,19 +58,22 @@ extern XAieGbl_1stIrqCntr Shim_1stIrqCntr;
 u32 XAieTile_PlIntcL1Mask(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 {
 	u32 RegVal;
-	u64 RegAddr;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.MaskOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	RegVal = XAieGbl_Read32(RegAddr);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVMSKA);
+	} else {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVMSKB);
+	}
 
-	return XAie_GetField(RegVal, Shim_1stIrqCntr.IrqsMask.Lsb,
-			     Shim_1stIrqCntr.IrqsMask.Mask);
+	return XAie_GetField(RegVal, XAIEGBL_PL_INTCON1STLEVMSKA_IRQMSKA_LSB,
+			     XAIEGBL_PL_INTCON1STLEVMSKAMSK);
 }
 
 /*****************************************************************************/
@@ -91,16 +93,18 @@ u32 XAieTile_PlIntcL1Mask(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 *******************************************************************************/
 void XAieTile_PlIntcL1Enable(XAieGbl_Tile *TileInstPtr, u32 Mask, u8 SwitchAB)
 {
-	u64 RegAddr;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.EnableOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	XAieGbl_MaskWrite32(RegAddr, Shim_1stIrqCntr.IrqsMask.Mask, Mask);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVENAA, Mask);
+	} else {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVENAB, Mask);
+	}
 }
 
 /*****************************************************************************/
@@ -121,16 +125,18 @@ void XAieTile_PlIntcL1Enable(XAieGbl_Tile *TileInstPtr, u32 Mask, u8 SwitchAB)
 void XAieTile_PlIntcL1Disable(XAieGbl_Tile *TileInstPtr, u32 Mask,
 			      u8 SwitchAB)
 {
-	u64 RegAddr;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.DisableOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	XAieGbl_MaskWrite32(RegAddr, Shim_1stIrqCntr.IrqsMask.Mask, Mask);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVDISA, Mask);
+	} else {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVDISB, Mask);
+	}
 }
 
 /*****************************************************************************/
@@ -150,7 +156,6 @@ void XAieTile_PlIntcL1Disable(XAieGbl_Tile *TileInstPtr, u32 Mask,
 *******************************************************************************/
 u32 XAieTile_PlIntcL1StatusGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 {
-	u64 RegAddr;
 	u32 RegVal;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
@@ -158,11 +163,16 @@ u32 XAieTile_PlIntcL1StatusGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.StatusOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	RegVal = XAieGbl_Read32(RegAddr);
-	return XAie_GetField(RegVal, Shim_1stIrqCntr.IrqsMask.Lsb,
-			     Shim_1stIrqCntr.IrqsMask.Mask);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVSTAA);
+	} else {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVSTAB);
+	}
+
+	return XAie_GetField(RegVal, XAIEGBL_PL_INTCON1STLEVMSKA_IRQMSKA_LSB,
+			     XAIEGBL_PL_INTCON1STLEVSTAAMSK);
 }
 
 /*****************************************************************************/
@@ -182,16 +192,18 @@ u32 XAieTile_PlIntcL1StatusGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 void XAieTile_PlIntcL1StatusClr(XAieGbl_Tile *TileInstPtr, u32 Status,
 				u8 SwitchAB)
 {
-	u64 RegAddr;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.StatusOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	XAieGbl_MaskWrite32(RegAddr, Shim_1stIrqCntr.IrqsMask.Mask, Status);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVSTAA, Status);
+	} else {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVSTAB, Status);
+	}
 }
 
 /*****************************************************************************/
@@ -209,7 +221,6 @@ void XAieTile_PlIntcL1StatusClr(XAieGbl_Tile *TileInstPtr, u32 Status,
 *******************************************************************************/
 u32 XAieTile_PlIntcL1IrqNoGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 {
-	u64 RegAddr;
 	u32 RegVal;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
@@ -217,11 +228,16 @@ u32 XAieTile_PlIntcL1IrqNoGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.IrqNoOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	RegVal = XAieGbl_Read32(RegAddr);
-	return XAie_GetField(RegVal, Shim_1stIrqCntr.IrqNoFld.Lsb,
-			     Shim_1stIrqCntr.IrqNoFld.Mask);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVIRQNOA);
+	} else {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVIRQNOB);
+	}
+
+	return XAie_GetField(RegVal, XAIEGBL_PL_INTCON1STLEVIRQNOA_STAA_LSB,
+			     XAIEGBL_PL_INTCON1STLEVIRQNOAMSK);
 }
 
 /*****************************************************************************/
@@ -231,7 +247,7 @@ u32 XAieTile_PlIntcL1IrqNoGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 * driven to.
 *
 * @param	TileInstPtr - Pointer to the Tile instance.
-* @param	irqNum - Irq number to set
+* @param	irqNum - Mask with bits to set
 * @param	SwitchAB - Flag to indicate if it's the A or B block.
 *
 * @return	None.
@@ -242,17 +258,18 @@ u32 XAieTile_PlIntcL1IrqNoGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 void XAieTile_PlIntcL1IrqNoSet(XAieGbl_Tile *TileInstPtr, u32 irqNum,
 			       u8 SwitchAB)
 {
-	u64 RegAddr;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
-	XAie_AssertNonvoid(irqNum <= 15);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.IrqNoOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	XAieGbl_MaskWrite32(RegAddr, Shim_1stIrqCntr.IrqNoFld.Mask, irqNum);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVIRQNOA, irqNum);
+	} else {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVIRQNOB, irqNum);
+	}
 }
 
 /*****************************************************************************/
@@ -270,7 +287,6 @@ void XAieTile_PlIntcL1IrqNoSet(XAieGbl_Tile *TileInstPtr, u32 irqNum,
 *******************************************************************************/
 u32 XAieTile_PlIntcL1BlockNorthVal(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 {
-	u64 RegAddr;
 	u32 RegVal;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
@@ -278,12 +294,17 @@ u32 XAieTile_PlIntcL1BlockNorthVal(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.BlockNorthValueOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	RegVal = XAieGbl_Read32(RegAddr);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVBLKNORINAVAL);
+	} else {
+		RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+					XAIEGBL_PL_INTCON1STLEVBLKNORINBVAL);
+	}
+
 	return XAie_GetField(RegVal,
-			     Shim_1stIrqCntr.BcEvents.Lsb,
-			     Shim_1stIrqCntr.BcEvents.Mask);
+			     XAIEGBL_PL_INTCON1STLEVBLKNORINAVAL_VAL_LSB,
+			     XAIEGBL_PL_INTCON1STLEVBLKNORINAVALMSK);
 }
 
 /*****************************************************************************/
@@ -303,16 +324,18 @@ u32 XAieTile_PlIntcL1BlockNorthVal(XAieGbl_Tile *TileInstPtr, u8 SwitchAB)
 void XAieTile_PlIntcL1BlockNorthSet(XAieGbl_Tile *TileInstPtr, u32 Mask,
 				  u8 SwitchAB)
 {
-	u64 RegAddr;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.BlockNorthSetOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	XAieGbl_MaskWrite32(RegAddr, Shim_1stIrqCntr.BcEvents.Mask, Mask);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVBLKNORINASET, Mask);
+	} else {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVBLKNORINBSET, Mask);
+	}
 }
 
 /*****************************************************************************/
@@ -332,16 +355,18 @@ void XAieTile_PlIntcL1BlockNorthSet(XAieGbl_Tile *TileInstPtr, u32 Mask,
 void XAieTile_PlIntcL1BlockNorthClr(XAieGbl_Tile *TileInstPtr, u32 Mask,
 				  u8 SwitchAB)
 {
-	u64 RegAddr;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
 			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
 
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.BlockNorthClearOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	XAieGbl_MaskWrite32(RegAddr, Shim_1stIrqCntr.BcEvents.Mask, Mask);
+	if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVBLKNORINACLR, Mask);
+	} else {
+		XAieGbl_Write32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_INTCON1STLEVBLKNORINBCLR, Mask);
+	}
 }
 
 /*****************************************************************************/
