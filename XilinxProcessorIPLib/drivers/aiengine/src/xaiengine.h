@@ -12,7 +12,6 @@ extern "C" {
 #include <xaiengine/xaielib.h>
 #include <xaiengine/xaielib_npi.h>
 #include <xaiengine/xaietile_core.h>
-#include <xaiengine/xaietile_error.h>
 #include <xaiengine/xaietile_event.h>
 #include <xaiengine/xaietile_lock.h>
 #include <xaiengine/xaietile_mem.h>
