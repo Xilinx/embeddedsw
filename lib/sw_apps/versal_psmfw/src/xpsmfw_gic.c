@@ -30,27 +30,30 @@
 static struct GicP2HandlerTable_t GicHandlerTable[] = {
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, XPsmFw_DvsecWrite},
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, XPsmFw_DvsecRead},
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, XPsmFw_DvsecATSHandler},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, XPsmFw_DvsecPLHandler},
 };
 
+/******************************************************************************/
 /**
- * XPsmFw_DispatchGicP2Handler() - GIC Proxy 2 interrupt handler
+ * @brief	Dispatche handler for GICProxy2 interrupts.
  *
- * @GICP2Status   GICP2 status register value
- * @GICP2IntMask  GICP2 interrupt mask register value
+ * @param GICP2Status	GICP2 status register value
+ * @param GICP2IntMask	GICP2 interrupt mask register value
  *
- * @return         XST_SUCCESS or error code
- */
-XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 {
-	XStatus Status = XST_SUCCESS;
 	u32 Idx;
 
 	for (Idx = 0U; Idx < ARRAYSIZE(GicHandlerTable); Idx++) {
-		if ((CHECK_BIT(GicP2Status, GicHandlerTable[Idx].Mask) != 0) &&
-		     (CHECK_BIT(GicP2IntMask, GicHandlerTable[Idx].Mask) == 0)) {
+		if (CHECK_BIT(GicP2Status, GicHandlerTable[Idx].Mask) &&
+		    !CHECK_BIT(GicP2IntMask, GicHandlerTable[Idx].Mask)) {
 			/* Call gic handler */
-			Status = GicHandlerTable[Idx].Handler();
+			GicHandlerTable[Idx].Handler();
 		}
 
 		/* Ack the service */
@@ -59,13 +62,42 @@ XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 		XPsmFw_Write32(PSM_GLOBAL_GICP_PSM_IRQ_STATUS,
 			       PSM_GLOBAL_GICP_GICP2_MASK);
 	}
-
-	return Status;
 }
 
+/******************************************************************************/
 /**
- * XPsmFw_GicIrqEnable() - Enables GICP2 PSM Irq's
- */
+ * @brief	Disables GICProxy2 interrupts.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+void XPsmFw_GicP2IrqDisable(void)
+{
+	u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |
+		      PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK     |
+		      PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK;
+
+	XPsmFw_Write32(PSM_GLOBAL_GICP2_INT_DIS, IntMask);
+
+	/* Disable GIC PSM irq */
+	XPsmFw_Write32(PSM_GLOBAL_GICP_PSM_IRQ_DIS, PSM_GLOBAL_GICP_GICP2_MASK);
+}
+
+/******************************************************************************/
+/**
+ * @brief	Enables GICProxy2 interrupts.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
 void XPsmFw_GicP2IrqEnable(void)
 {
 	u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |
