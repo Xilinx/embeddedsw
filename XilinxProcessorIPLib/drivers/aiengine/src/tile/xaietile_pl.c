@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,6 @@
 * 1.0  Jubaer  01/29/2019  Initial creation
 * 1.1  Jubaer  03/07/2019  Add Shim Reset Enable
 * 1.2  Hyun    06/27/2019  Add XAieTile_PlReadTimer()
-* 1.3  Wendy   02/25/2020  Add get/set 1st level irq event
 * </pre>
 *
 ******************************************************************************/
@@ -362,80 +361,6 @@ void XAieTile_PlIntcL1BlockNorthClr(XAieGbl_Tile *TileInstPtr, u32 Mask,
 	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.BlockNorthClearOff;
 	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
 	XAieGbl_MaskWrite32(RegAddr, Shim_1stIrqCntr.BcEvents.Mask, Mask);
-}
-
-/*****************************************************************************/
-/**
-*
-* This gets 1st level interrupt event
-*
-* @param	TileInstPtr - Pointer to the Shim tile instance.
-* @param	IrqEvent - Irq event (16, 17, 18, 19)
-* @param	SwitchAB - Flag to indicate if it's the A or B block.
-*
-* @return	Event set to generate the specified Irq event.
-*
-* @note		None.
-*
-*******************************************************************************/
-u32 XAieTile_PlIntcL1IrqEventGet(XAieGbl_Tile *TileInstPtr, u8 IrqEvent,
-				 u8 SwitchAB)
-{
-	u64 RegAddr;
-	u32 RegVal;
-	u8 IrqEventOff;
-
-	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
-	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
-			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
-	XAie_AssertNonvoid(IrqEvent >= XAIETILE_PL_INTERN_EVENT16 &&
-			   IrqEvent <= XAIETILE_PL_INTERN_EVENT19);
-
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.IrqEventOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	RegVal = XAieGbl_Read32(RegAddr);
-	IrqEventOff = IrqEvent - XAIETILE_PL_INTERN_EVENT16;
-	return XAie_GetField(RegVal,
-			     Shim_1stIrqCntr.IrqEventRegFld[IrqEventOff].Lsb,
-			     Shim_1stIrqCntr.IrqEventRegFld[IrqEventOff].Mask);
-}
-
-/*****************************************************************************/
-/**
-*
-* This sets 1st level interrupt event
-*
-* @param	TileInstPtr - Pointer to the Shim tile instance.
-* @param	SwitchAB - Flag to indicate if it's the A or B block.
-* @param	IrqEvent - Irq event (16, 17, 18, 19)
-* @param	Event - Event to generate the specified Irq event
-*
-* @return	Success.
-*
-* @note		None.
-*
-*******************************************************************************/
-u32 XAieTile_PlIntcL1IrqEventSet(XAieGbl_Tile *TileInstPtr, u8 IrqEvent,
-				  u8 Event, u8 SwitchAB)
-{
-	u64 RegAddr;
-	u8 IrqEventOff;
-
-	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
-	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(SwitchAB == XAIETILE_PL_BLOCK_SWITCHA ||
-			   SwitchAB == XAIETILE_PL_BLOCK_SWITCHB);
-	XAie_AssertNonvoid(IrqEvent >= XAIETILE_PL_INTERN_EVENT16 &&
-			   IrqEvent <= XAIETILE_PL_INTERN_EVENT19);
-
-	RegAddr = TileInstPtr->TileAddr + Shim_1stIrqCntr.IrqEventOff;
-	RegAddr += SwitchAB * Shim_1stIrqCntr.SwitchOff;
-	IrqEventOff = IrqEvent - XAIETILE_PL_INTERN_EVENT16;
-	XAieGbl_MaskWrite32(RegAddr,
-			    Shim_1stIrqCntr.IrqEventRegFld[IrqEventOff].Mask,
-			    Event);
-	return XAIE_SUCCESS;
 }
 
 /*****************************************************************************/
