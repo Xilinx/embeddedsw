@@ -52,6 +52,8 @@
 *       psl  07/29/19 Fixed MISRA-C violation
 *       vns  08/29/19 Initialized Status variables
 * 6.9   kpt  02/16/20 Fixed Coverity warnings
+*       kpt  02/27/20 Removed XilSKey_Puf_Debug2
+*                      which is used only for debug purpose
 * </pre>
 *
 *****************************************************************************/
@@ -800,65 +802,6 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 	}
 END:
 	return Status;
-}
-/*****************************************************************************/
-/**
- * This function Outputs distance metric that may be useful for software to
- * determine impending key generation failures. Distance metric also is useful
- * to obtain a more stable provisioning syndrome value.
- *
- * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
- *
- *
- * @return
- *		- XST_SUCCESS if debug 2 mode was successful.
- *		- ERROR if registration was unsuccessful.
- *
- *
- ******************************************************************************/
-u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
-{
-	u32 PufStatus = (u32)XST_FAILURE;
-	u32 Index;
-	u32 Debug = XSK_PUF_DEBUG_GENERAL;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	xPuf_printf(Debug,"API: PUF Debug 2\r\n");
-
-	/**
-	 * Request PUF for Debug 2.
-	 * This will trigger an interrupt to CSUROM
-	 */
-	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
-				XSK_ZYNQMP_CSU_PUF_CMD, 5);
-
-	/**
-	 * Wait till the PUF word ready &
-	 * capture the test mode 2 result
-	 * Repeat procedure for 160 times.
-	 *
-	 * ERROR:if timeout happens before word ready
-	 * Timeout value??? - TBD
-	 */
-	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-					XSK_ZYNQMP_CSU_PUF_STATUS);
-	for(Index = 0U; Index < 36U; Index++) {
-		do {
-			PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-						XSK_ZYNQMP_CSU_PUF_STATUS);
-		}while ((PufStatus &
-			XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) !=
-			XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK);
-
-		InstancePtr->Debug2Data[Index] =
-			XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-				XSK_ZYNQMP_CSU_PUF_WORD);
-	}
-	xPuf_printf(Debug,"API: PUF Debug 2 completed\r\n");
-
-	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/

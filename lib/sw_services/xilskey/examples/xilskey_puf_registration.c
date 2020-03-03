@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2016 - 19 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,8 @@
  *            03/10/17 Added Support for programming and reading PUF reserved
  *                     bit
  * 6.7   mmd  03/17/19 Ignored PUF data on overflow
+ * 6.9   kpt  02/27/20 Removed XilSKey_Puf_Fetch_Dbg_Mode2_result
+ *                     which is used only for debug purpose
  * </pre>
  *
  * @note
@@ -98,9 +100,6 @@ static u32 XilSkey_Program_Black_Key();
 static u32 XilSKey_Puf_ConvertStringToHexBE(const char * Str,
 					u8 * Buf, u32 Len);
 static u32 XilSKey_Puf_Encrypt_Key();
-#if defined XPUF_INFO_ON_UART
-static u32 XilSKey_Puf_Fetch_Dbg_Mode2_result(XilSKey_Puf *InstancePtr);
-#endif
 
 /************************** Function Definitions *****************************/
 
@@ -179,10 +178,6 @@ int main() {
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: AUX-%08x\r\n", PufInstance.Aux);
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: CHASH -%08x\r\n",
 					PufInstance.Chash);
-
-	if (SiliconVer > XPS_VERSION_1) {
-		XilSKey_Puf_Fetch_Dbg_Mode2_result(&PufInstance);
-	}
 
 #endif /*XPUF_INFO_ON_UART*/
 
@@ -906,44 +901,3 @@ ENDENCRYPT:
 
 }
 
-#if defined XPUF_INFO_ON_UART
-/*****************************************************************************/
-/**
- * Fetches the debug mode 2 result after generation.
- *
- * @param	InstancePtr is an PUF instance
- *
- * @return
- *		- XST_SUCCESS if debug 2 mode was successful.
- *		- ERROR if registration was unsuccessful.
- *
- * @note	Debug Mode results on serial port (if enabled)
- *
- ******************************************************************************/
-static u32 XilSKey_Puf_Fetch_Dbg_Mode2_result(XilSKey_Puf *InstancePtr)
-{
-
-	u32 Status;
-	u32 Index;
-
-	Status = XilSKey_Puf_Debug2(&PufInstance);
-	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_GENERAL,
-			"App: Debug 2 failed:%08x\r\n",Status);
-	}
-	else {
-		xPuf_printf(XPUF_DEBUG_GENERAL,
-					"App: Debug 2 result start!!\r\n");
-		for(Index = 0; Index < XSK_ZYNQMP_PUF_DBG2_DATA_LEN_IN_BYTES;
-								Index++) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-			"App: Raw Data[%d]:%08x\r\n",
-			Index, PufInstance.Debug2Data[Index]);
-		}
-		xPuf_printf(XPUF_DEBUG_GENERAL,
-			"App: Debug 2 result end!!\r\n");
-	}
-
-	return Status;
-}
-#endif
