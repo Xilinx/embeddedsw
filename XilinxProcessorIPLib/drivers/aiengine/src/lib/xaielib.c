@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +56,6 @@
 * 2.4  Hyun    09/13/2019  Use the simulation elf loader function
 * 2.5  Hyun    09/13/2019  Use XAieSim_LoadElfMem()
 * 2.6  Tejus   10/14/2019  Enable assertion for linux and simulation
-* 2.7  Wendy   02/25/2020  Add logging API
 * </pre>
 *
 ******************************************************************************/
@@ -78,17 +77,12 @@
 #include "sleep.h"
 
 #include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
 
 #else /* Non-baremetal application, ex Linux */
 
 #include <assert.h>
-#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <string.h>
 #include <unistd.h>
 
 #include "xaieio.h"
@@ -121,10 +115,6 @@ typedef struct XAieLib_MemInst
 	u64 Paddr;	/**< Device / physical address */
 	void *Platform;	/**< Platform specific data */
 } XAieLib_MemInst;
-
-#ifdef __linux__
-static FILE *XAieLib_LogFPtr; /**< Pointer to Log file pointer. */
-#endif
 
 /************************** Function Definitions *****************************/
 
@@ -373,115 +363,6 @@ void XAieLib_IntPrint(const char *Format, ...)
 	va_start(argptr, Format);
 	vprintf(Format, argptr);
 	va_end(argptr);
-#endif
-}
-
-/*****************************************************************************/
-/**
-*
-* This API set the log file
-*
-* @param	File - path of the file for logging.
-*
-* @return	XAIE_SUCCESS for success or XAIE_FAILURE for failure.
-*
-* @note		If will be fail if the file is failed to open, or if there is
-*		already logging file opened.
-*
-*******************************************************************************/
-u32 XAieLib_OpenLogFile(const char *File)
-{
-#ifdef __linux__
-	if (XAieLib_LogFPtr != XAIE_NULL) {
-		return XAIELIB_FAILURE;
-	}
-	if (File == XAIE_NULL) {
-		return XAIELIB_FAILURE;
-	}
-	XAieLib_LogFPtr = fopen(File, "a");
-	if (XAieLib_LogFPtr == XAIE_NULL) {
-		XAieLib_IntPrint("Failed to open log file %s, %s.\n",
-				 File, strerror(errno));
-		return XAIE_FAILURE;
-	}
-	return XAIELIB_SUCCESS;
-#else
-	(void)File;
-	return XAIELIB_FAILURE;
-#endif
-}
-
-/*****************************************************************************/
-/**
-*
-* This API close the log file
-*
-* @return	None.
-*
-* @note		None.
-*
-*******************************************************************************/
-void XAieLib_CloseLogFile(void)
-{
-#ifdef __linux__
-	if (XAieLib_LogFPtr != XAIE_NULL) {
-		fclose(XAieLib_LogFPtr);
-		XAieLib_LogFPtr = XAIE_NULL;
-	}
-#else
-#endif
-}
-
-/*****************************************************************************/
-/**
-*
-* This API implements AIE logging
-*
-* @param	Level - Log level
-* @param	Format - format string
-*
-* @return	None.
-*
-* @note		None.
-*
-*******************************************************************************/
-void XAieLib_log(XAieLib_LogLevel Level, const char *Format, ...)
-{
-	static const char *Level_Str[] = {
-		"XAIE: INFO: ",
-		"XAIE: ERROR: ",
-	};
-
-#ifdef __AIESIM__
-	printf("%s", Level_Str[Level]);
-	printf(Format);
-#elif defined __AIEBAREMTL__
-	va_list args;
-
-	va_start(args, Format);
-	printf("%s", Level_Str[Level]);
-	vprintf(Format, args);
-	va_end(args);
-#else /* __linux__ */
-	va_list args;
-	FILE *FPtr;
-
-	va_start(args, Format);
-	if (XAieLib_LogFPtr == NULL) {
-		if (Level == XAIELIB_LOGERROR) {
-			FPtr = stderr;
-		} else {
-			FPtr = stdout;
-		}
-	} else {
-		FPtr = XAieLib_LogFPtr;
-	}
-	fprintf(FPtr,"%s", Level_Str[Level]);
-	vfprintf(FPtr, Format, args);
-	va_end(args);
-	if (XAieLib_LogFPtr != NULL) {
-		fflush(FPtr);
-	}
 #endif
 }
 

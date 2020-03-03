@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,6 @@
 * 1.6  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.7  Hyun    01/08/2019  Add XAieLib_MaskPoll()
 * 1.8  Tejus   10/14/2019  Enable assertion for linux and simulation
-* 1.9  Wendy   02/25/2020  Add Logging API
 * </pre>
 *
 ******************************************************************************/
@@ -73,11 +72,6 @@ typedef uint64_t		u64;
 
 /* Enable cache for memory mapping */
 #define XAIELIB_MEM_ATTR_CACHE		0x1U
-
-typedef enum {
-	XAIELIB_LOGINFO,
-	XAIELIB_LOGERROR
-} XAieLib_LogLevel;
 
 /************************** Variable Definitions *****************************/
 
@@ -117,10 +111,6 @@ void XAieLib_IntPrint(const char *Format, ...);
 #else
 #define XAieLib_print(...)	{}
 #endif
-
-void XAieLib_log(XAieLib_LogLevel Level, const char *Format, ...);
-u32 XAieLib_OpenLogFile(const char *File);
-void XAieLib_CloseLogFile(void);
 
 struct XAieLib_MemInst;
 typedef struct XAieLib_MemInst XAieLib_MemInst;
