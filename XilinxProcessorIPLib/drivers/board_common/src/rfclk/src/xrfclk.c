@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -71,6 +71,8 @@ XIicPs Iic0;
 #define FD_I2C0 (&Iic0) /* I2C0 driver descriptor address */
 #endif
 
+#define I2C_SLEEP_US 1000U /* I2C sleep period */
+
 #else /* LINUX build */
 
 /* User Headers */
@@ -109,7 +111,6 @@ char GPIO_MUX_SEL1[12]; /* gpio MUX_SEL_1 */
 #define LOG                                                                    \
 	PRINTF("error: %s, line %d\n", __FILE__, __LINE__) /* Logging macro */
 
-#define I2C_SLEEP_US 1000 /* I2C sleep period */
 #define SELECT_SPI_SDO(X) (1 << (3 - X)) /* Value which routs MUX */
 #define RF_DATA_READ_BIT 0X80 /* Bit which indicates read */
 #define LMX_RESET_VAL 2 /* Reset value for LMX */
@@ -141,6 +142,8 @@ char GPIO_MUX_SEL1[12]; /* gpio MUX_SEL_1 */
 #define I2C_SWITCH_SELECT_I2C2SPI_BRIDGE (1 << 5) /* Switch value for bridge */
 #define I2C_MUX_SEL_0 (1 << 1) /* MUX_SEL0 GPIO bit */
 #define I2C_MUX_SEL_1 (1 << 2) /* MUX_SEL1 GPIO bit */
+#define NUM_IIC_RETRIES (5) /* Number of IIC retries */
+#define DELAY_100uS (100) /* Number for 1ms delay */
 
 #define LMX_MUXOUT_REG_ADDR 0 /* LMX MUXOUT reg. address */
 #define LMX_MUXOUT_REG_VAL 0 /* LMX MUXOUT reg. value */
@@ -442,7 +445,7 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 * @note		None
 *
 ****************************************************************************/
-static int XRFClk_I2CRdData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
+static int XRFClk_I2CRdData_sub(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 {
 	int Status;
 	Status = XIicPs_MasterRecvPolled(Iic, Val, Len, Addr);
@@ -473,7 +476,7 @@ static int XRFClk_I2CRdData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 * @note		None
 *
 ****************************************************************************/
-static int XRFClk_I2CWrData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
+static int XRFClk_I2CWrData_sub(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 {
 	int Status;
 	Status = XIicPs_MasterSendPolled(Iic, Val, Len, Addr);
@@ -504,7 +507,7 @@ static int XRFClk_I2CWrData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 * @note		None
 *
 ****************************************************************************/
-static int XRFClk_I2CRdData(int File, u8 Addr, u8 *Val, u8 Len)
+static int XRFClk_I2CRdData_sub(int File, u8 Addr, u8 *Val, u8 Len)
 {
 	int ret = XST_SUCCESS;
 	struct i2c_rdwr_ioctl_data packets;
@@ -519,7 +522,6 @@ static int XRFClk_I2CRdData(int File, u8 Addr, u8 *Val, u8 Len)
 		LOG;
 		ret = XST_FAILURE;
 	}
-	usleep(I2C_SLEEP_US);
 	return ret;
 }
 
@@ -540,7 +542,7 @@ static int XRFClk_I2CRdData(int File, u8 Addr, u8 *Val, u8 Len)
 * @note		None
 *
 ****************************************************************************/
-static int XRFClk_I2CWrData(int File, u8 Addr, u8 *Val, u8 Len)
+static int XRFClk_I2CWrData_sub(int File, u8 Addr, u8 *Val, u8 Len)
 {
 	int ret = XST_SUCCESS;
 	struct i2c_rdwr_ioctl_data packets;
@@ -555,10 +557,180 @@ static int XRFClk_I2CWrData(int File, u8 Addr, u8 *Val, u8 Len)
 		LOG;
 		ret = XST_FAILURE;
 	}
-	usleep(I2C_SLEEP_US);
 	return ret;
 }
 #endif
+
+/****************************************************************************/
+/**
+*
+* This function is used to enable clk104 buses on I2C1 bus switch.
+*
+* @param	ChipId indicates the RF clock chip Id.
+*
+* @return
+*	- XST_SUCCESS if successful.
+*	- XST_FAILURE if failed.
+*
+* @note		None
+*
+****************************************************************************/
+static int XRFClk_GetBusSwitchI2C1(u8 *val)
+{
+	s32 ret;
+
+	/* Read I2C bus switch configuration */
+	ret = XRFClk_I2CRdData_sub(FD_I2C1, I2C_ADDR_BUS_SWITCH, val, 1);
+	if (ret == XST_FAILURE) {
+		LOG;
+		return XST_FAILURE;
+	}
+	return XST_SUCCESS;
+}
+
+static int XRFClk_SetBusSwitchI2C1()
+{
+	u8 val;
+	s32 ret;
+
+	/* Enable i2c2spi bridge */
+	val = I2C_SWITCH_SELECT_I2C2SPI_BRIDGE;
+	/* Write new I2C bus switch configuration */
+	ret = XRFClk_I2CWrData_sub(FD_I2C1, I2C_ADDR_BUS_SWITCH, &val, 1);
+	if (ret == XST_FAILURE) {
+		LOG;
+		return XST_FAILURE;
+	}
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* This function is HAL API for I2c read. If attempt failes function will
+* repeate IIC write protocol again for DELAY_100uS microseconds multiplied by
+* a loop index number. The procedure will be repeated NUM_IIC_RETRIES times.
+*
+* @param	File descriptor for the i2c driver.
+* @param	Addr address to be read.
+* @param	Val read value.
+* @param	Len data length.
+*
+* @return
+*	- XST_SUCCESS if successful.
+*	- XST_FAILURE if failed.
+*
+* @note		None
+*
+****************************************************************************/
+#ifdef __BAREMETAL__
+static int XRFClk_I2CRdData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
+#else
+static int XRFClk_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len)
+#endif
+{
+	u8 mux=0;
+	u32 i;
+
+	for(i=0; i < NUM_IIC_RETRIES; i++) {
+		/* Set MUX */
+		if (XST_FAILURE == XRFClk_SetBusSwitchI2C1()) {
+			LOG;
+			continue;
+		}
+
+		/* Read Register */
+		if (XST_FAILURE == XRFClk_I2CRdData_sub(Iic, Addr, Val, Len)) {
+			LOG;
+			continue;
+		}
+
+		/* Read MUX status */
+		if (XST_FAILURE == XRFClk_GetBusSwitchI2C1(&mux)) {
+			LOG;
+			continue;
+		}
+
+		/* Check is MUX as expected */
+		if(mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
+			break;
+		} else {
+			PRINTF("warrning: i2c1 MUX status change");
+			/* Add delay before the next attempt */
+			usleep(DELAY_100uS*(i+1));
+		}
+	}
+	if(i < NUM_IIC_RETRIES) {
+		return XST_SUCCESS;
+	} else {
+		LOG;
+		return XST_FAILURE;
+	}
+}
+
+/****************************************************************************/
+/**
+*
+* This function is HAL API for I2c write. If attempt failes function will
+* repeate IIC write protocol again for DELAY_100uS microseconds multiplied by
+* a loop index number. The procedure will be repeated NUM_IIC_RETRIES times.
+*
+* @param	Descriptor for the i2c driver.
+* @param	Addr address to be written to.
+* @param	Val value to write.
+* @param	Len data length.
+*
+* @return
+*	- XST_SUCCESS if successful.
+*	- XST_FAILURE if failed.
+*
+* @note		None
+*
+****************************************************************************/
+#ifdef __BAREMETAL__
+static int XRFClk_I2CWrData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
+#else
+static int XRFClk_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len)
+#endif
+{
+	u8 mux=0;
+	u32 i;
+
+	for(i=0; i < NUM_IIC_RETRIES; i++) {
+		/* Set MUX */
+		if (XST_FAILURE == XRFClk_SetBusSwitchI2C1()) {
+			LOG;
+			continue;
+		}
+
+		/* Read Register */
+		if (XST_FAILURE == XRFClk_I2CWrData_sub(Iic, Addr, Val, Len)) {
+			LOG;
+			continue;
+		}
+
+		/* Read MUX status */
+		if (XST_FAILURE == XRFClk_GetBusSwitchI2C1(&mux)) {
+			LOG;
+			continue;
+		}
+
+		/* Check is MUX as expected */
+		if(mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
+			break;
+		} else {
+			PRINTF("warrning: i2c1 MUX status change");
+			/* Add delay before the next attempt */
+			usleep(DELAY_100uS*(i+1));
+		}
+	}
+	if(i < NUM_IIC_RETRIES) {
+		return XST_SUCCESS;
+	} else {
+		LOG;
+		return XST_FAILURE;
+	}
+}
 
 /****************************************************************************/
 /**
@@ -646,43 +818,6 @@ static u32 XRFClk_MuxSPISDORevert(u32 ChipId)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
-/**
-*
-* This function is used to enable clk104 buses on I2C1 bus switch.
-*
-* @param	ChipId indicates the RF clock chip Id.
-*
-* @return
-*	- XST_SUCCESS if successful.
-*	- XST_FAILURE if failed.
-*
-* @note		None
-*
-****************************************************************************/
-static int XRFClk_ConfigureBusSwitchI2C1()
-{
-	u8 val = 0;
-	s32 ret;
-
-	/* Read I2C bus switch configuration */
-	ret = XRFClk_I2CRdData(FD_I2C1, I2C_ADDR_BUS_SWITCH, &val, 1);
-	if (ret == XST_FAILURE) {
-		LOG;
-		return XST_FAILURE;
-	}
-
-	/* Enable i2c2spi bridge */
-	val |= I2C_SWITCH_SELECT_I2C2SPI_BRIDGE;
-	/* Write new I2C bus switch configuration */
-	ret = XRFClk_I2CWrData(FD_I2C1, I2C_ADDR_BUS_SWITCH, &val, 1);
-	if (ret == XST_FAILURE) {
-		LOG;
-		return XST_FAILURE;
-	}
-	return XST_SUCCESS;
-}
-
 #ifdef XPS_BOARD_ZCU111
 /****************************************************************************/
 /**
@@ -704,12 +839,6 @@ static int XRFClk_I2cIoExpanderConfig()
 	u8 rx;
 	int ret;
 
-	/* Read I2C IO expander configuration */
-	ret = XRFClk_I2CWrData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, tx, 1);
-	if (ret == XST_FAILURE) {
-		LOG;
-		return XST_FAILURE;
-	}
 	ret = XRFClk_I2CRdData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, &rx, 1);
 	if (ret == XST_FAILURE) {
 		LOG;
@@ -901,10 +1030,6 @@ u32 XRFClk_Init(int GpioId)
 
 #endif
 	if (XST_FAILURE == XRFClk_InitI2C()) {
-		LOG;
-		return XST_FAILURE;
-	}
-	if (XST_FAILURE == XRFClk_ConfigureBusSwitchI2C1()) {
 		LOG;
 		return XST_FAILURE;
 	}
