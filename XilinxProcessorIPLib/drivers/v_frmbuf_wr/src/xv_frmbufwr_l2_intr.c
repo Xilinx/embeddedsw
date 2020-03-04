@@ -40,6 +40,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 3.00  vyc   04/04/18   Add interrupt handler for ap_ready
+* 4.20  pg    01/31/20   Removed Frmbufwr_start function from Interrupt handler
 * </pre>
 *
 ******************************************************************************/
@@ -146,7 +147,6 @@ void XVFrmbufWr_InterruptHandler(void *InstancePtr)
     if(FrmbufWrPtr->FrameDoneCallback) {
           FrmbufWrPtr->FrameDoneCallback(FrmbufWrPtr->CallbackDoneRef);
     }
-    XV_frmbufwr_Start(&FrmbufWrPtr->FrmbufWr);
   }
 
   /* Check for Ready Signal */
@@ -157,7 +157,6 @@ void XVFrmbufWr_InterruptHandler(void *InstancePtr)
     if(FrmbufWrPtr->FrameReadyCallback) {
           FrmbufWrPtr->FrameReadyCallback(FrmbufWrPtr->CallbackReadyRef);
     }
-    XV_frmbufwr_Start(&FrmbufWrPtr->FrmbufWr);
   }
 }
 /** @} */
