@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# 
+#
 #
 ###############################################################################
 ###############################################################################
@@ -32,15 +32,16 @@ proc generate {drv_handle} {
 	"C_HIGHADDR" \
 	"C_DWIDTH" \
 	"C_IS_MASTER" \
-	"C_NUM_CHANNELS"
+	"C_NUM_CHANNELS" \
+	"C_32BIT_LR"
 
 	::hsi::utils::define_config_file $drv_handle "xi2srx_g.c" "XI2srx" \
 	"DEVICE_ID" \
 	"C_BASEADDR" \
 	"C_DWIDTH" \
 	"C_IS_MASTER" \
-	"C_NUM_CHANNELS"
-
+	"C_NUM_CHANNELS" \
+	"C_32BIT_LR"
 
 	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "XI2SRX" \
 	"DEVICE_ID" \
@@ -48,6 +49,6 @@ proc generate {drv_handle} {
 	"C_HIGHADDR" \
 	"C_DWIDTH" \
 	"C_IS_MASTER" \
-	"C_NUM_CHANNELS"
-
+	"C_NUM_CHANNELS" \
+	"C_32BIT_LR"
 }

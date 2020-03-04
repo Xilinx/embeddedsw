@@ -40,6 +40,9 @@
  * 1.1   kar    04/02/18  Added debug log function prototypes.
  * 2.0   kar    09/28/18  Added new API to enable justification.
  *                        Added new API to select left/right justification.
+ * 2.1   pg     01/30/20  Added 32bit_LR support is added to calculate i2s clock
+ *                        for 32bit mode. Added variable Is32bitLR to
+ *                        XI2srx_Config structure and updated xi2srx.c file
  * </pre>
  *
  *****************************************************************************/
@@ -123,6 +126,7 @@ typedef enum {
 		u8 MaxNumChannels; /* Indicates the maximum number of channels
 				    * supported by the core
 				    */
+		u8 Is32BitLR; /* Indicates if the core is 32bitwidth or not */
 	} XI2srx_Config;
 
 /**

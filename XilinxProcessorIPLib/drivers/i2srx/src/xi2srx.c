@@ -39,6 +39,8 @@
  * 1.1   kar    04/02/18  Changed Channel Status clear API to clear all regs.
  * 2.0   kar    09/28/18  Added new API to enable justification.
  *                        Added new API to select left/right justification.
+ * 2.1   pg     01/30/20  Added 32bit_LR support is added to calculate i2s clock
+ *                        for 32bit mode.
  * </pre>
  *
  *****************************************************************************/
@@ -296,8 +298,16 @@ u32 XI2s_Rx_SetSclkOutDiv(XI2s_Rx *InstancePtr, u32 MClk, u32 Fs)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((MClk > 0) && (MClk > Fs));
 	Xil_AssertNonvoid((Fs > 0) && (Fs < MClk));
-	u32 SClk = (2 * InstancePtr->Config.DWidth) * Fs;
+	u32 SClk;
 	u8 SClkOut_Div;
+
+	/* Sclk should be multiplied by 32, when 32BitLR parameter is enabled */
+	if (InstancePtr->Config.Is32BitLR)
+	{
+		SClk = (2 * Fs * 32);
+	} else {
+		SClk = (2 * Fs * InstancePtr->Config.DWidth);
+	}
 
 	SClkOut_Div = (MClk/SClk);
 	SClkOut_Div /= 2;
