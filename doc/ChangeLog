@@ -26,6 +26,14 @@ Fixed compilation error of armcc compiler.
 gpiops_v3_7:
 Reverted versal support.
 
+i2stx_v2_1:
+This patch has 1 new variable Is32bitLR in XI2stx_Config structure that is
+used to calculate Sclk for 32bit mode
+
+i2srx_v2_1:
+This patch has 1 new variable Is32bitLR in XI2srx_Config structure that is
+used to calculate Sclk for 32bit mode
+
 iicps_v3_11:
 Added 10-bit address support for I2C Master/Slave, Slave monitor.
 Correct the stale interrupt triggering by clearing the ISR before enabling interrupts.
@@ -60,6 +68,18 @@ uartpsv_v1_2:
 Modify Interrupt sub routine, add Rx error Interrupt handler
 Add new function to support FIFO configuration
 Add selftest in examples
+
+v_frmbuf_wr_v4_2:
+Removed FrmbufWr start function from its interrupt handler as it should be
+restarted from application itself.
+Removed one API from driver, as it is programming register that doesn't exist.
+
+v_frmbuf_rd_v4_2:
+Removed FrmbufRd start function from its interrupt handler as it should be
+restarted from application itself.
+
+v_mix_v6_0:
+Add Colorimetry Support
 
 xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
@@ -705,11 +725,11 @@ Added new API, This API is used to wait for IP to enter into idle state.
 Modified existing Stop API to support Flushing feature.
 
 i2stx_v2_0:
-This patch has 2 new APIs, one API is to enable the justification and 
+This patch has 2 new APIs, one API is to enable the justification and
 the other one is to set Left or Right justification.
 
 i2srx_v2_0:
-This patch has 2 new APIs, one API is to enable the justification and 
+This patch has 2 new APIs, one API is to enable the justification and
 the other one is to set Left or Right justification.
 
 
@@ -910,7 +930,7 @@ Updated get_psu_interrupt_id to generate correct
 interrupt id's, when output of utility reduced logic
 is connected to pl-ps interrupt as well as ILA probe.
 Fix for CR#999732.
-Updated source files to fix warings reported by 
+Updated source files to fix warings reported by
 coverity, checkpatch and doxygen. It fixes
 CR#1006344.
 Resolves MISRA-C:2012 mandatory violations.
@@ -1274,19 +1294,19 @@ xilfpga_v4_1
 Added partial bitstream loading support.
 
 xilsecure_v3_1
-Added support for 512, 576, 704, 768, 992, 1024, 1152, 1408, 1536, 
-1984, 3072 key sizes, where previous version has support only 2048 and 
+Added support for 512, 576, 704, 768, 992, 1024, 1152, 1408, 1536,
+1984, 3072 key sizes, where previous version has support only 2048 and
 4096 key sizes.
 On GCM tag failure, wrongly decrypted data will be zeroized.
 Added support of user fuses revocation for single partition image.
-Modified xilsecure_aes_example,input data will be over written with 
+Modified xilsecure_aes_example,input data will be over written with
 decrypted data
-Added compilation flag for opting secure/non-secure environment, by 
-deault it is non -secure, mainly it is taken into account while 
+Added compilation flag for opting secure/non-secure environment, by
+deault it is non -secure, mainly it is taken into account while
 building PMUFW
 
 xilskey_v6_5
-Fixed hanging issue for BBRAM ZynqMP when program/zeroise is requested 
+Fixed hanging issue for BBRAM ZynqMP when program/zeroise is requested
 while programming mode is in enabled state.
 
 zynqmp_fsbl
