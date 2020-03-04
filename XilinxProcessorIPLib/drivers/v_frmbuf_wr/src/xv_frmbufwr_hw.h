@@ -61,9 +61,7 @@ extern "C" {
 // 0x48 : Data signal of HwReg_field_id
 //        bit 0  - HwReg_field_id[0] (Read)
 //        others - reserved
-// 0x4c : Control signal of HwReg_field_id
-//        bit 0  - HwReg_field_id_ap_vld (Read/COR)
-//        others - reserved
+// 0x4c : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_FRMBUFWR_CTRL_ADDR_AP_CTRL                  0x00
@@ -88,8 +86,6 @@ extern "C" {
 #define XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER2_V_DATA 64
 #define XV_FRMBUFWR_CTRL_ADDR_HWREG_FIELD_ID_DATA      0x48
 #define XV_FRMBUFWR_CTRL_BITS_HWREG_FIELD_ID_DATA      1
-#define XV_FRMBUFWR_CTRL_ADDR_HWREG_FIELD_ID_CTRL      0x4c
-#define XV_FRMBUFWR_CTRL_BITS_HWREG_FIELD_ID_CTRL       1
 
 #ifdef __cplusplus
 }

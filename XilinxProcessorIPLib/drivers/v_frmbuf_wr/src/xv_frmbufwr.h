@@ -144,7 +144,6 @@ u64 XV_frmbufwr_Get_HwReg_frm_buffer_V(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_Set_HwReg_frm_buffer2_V(XV_frmbufwr *InstancePtr, u64 Data);
 u64 XV_frmbufwr_Get_HwReg_frm_buffer2_V(XV_frmbufwr *InstancePtr);
 u32 XV_frmbufwr_Get_HwReg_field_id(XV_frmbufwr *InstancePtr);
-u32 XV_frmbufwr_Get_HwReg_field_id_vld(XV_frmbufwr *InstancePtr);
 
 void XV_frmbufwr_InterruptGlobalEnable(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_InterruptGlobalDisable(XV_frmbufwr *InstancePtr);
