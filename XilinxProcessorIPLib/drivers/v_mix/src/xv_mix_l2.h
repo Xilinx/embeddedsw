@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 1986-2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 1986 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xv_mix_l2.h
-* @addtogroup v_mix_v3_0
+* @addtogroup v_mix_v6_0
 * @{
 * @details
 *
