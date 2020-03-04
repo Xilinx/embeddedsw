@@ -127,7 +127,16 @@ extern "C" {
  *
  *  Post Boot:
  */
-
+/**
+ * @name PLM DEBUG MODE options
+ *
+ * By default, PLM would get built in release mode, which implies any
+ * error during boot pdi load would result in SRST. User has the options
+ * to enable the below macro to enable debug mode, which would make the system hang
+ * in case of any error for the user to debug further.
+ *
+ */
+//#define PLM_DEBUG_MODE
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/

@@ -89,8 +89,10 @@ void XPlmi_ErrMgr(int Status)
 		/** If boot mode is jtag, donot reset. This is to keep
 		 *  the system state intact for further debug.
 		 */
+#ifndef PLM_DEBUG_MODE
 		if((XPlmi_In32(CRP_BOOT_MODE_USER) &
 			CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
+#endif
 		{
 			while(1U);
 		}
