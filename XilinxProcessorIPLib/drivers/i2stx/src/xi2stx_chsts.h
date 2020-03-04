@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
  *
  * @file xi2stx_chsts.h
- * @addtogroup i2stx_1_0
+ * @addtogroup i2stx_v2_1
  * @{
  *
  * Format status related offsets & masks definitions related to the

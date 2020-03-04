@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
  *
  * @file xi2stx_intr.c
- * @addtogroup i2stx_v1_1
+ * @addtogroup i2stx_v2_1
  * @{
  *
  * This file contains functions related to i2s_transmitter interrupt handling.
