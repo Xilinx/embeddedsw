@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,7 @@ u32 PmHookGetBootType(void);
 s32 PmHookRestoreDdrContext(void);
 void PmHookPowerOffSuspendDdrReady(void);
 #ifdef ENABLE_DDR_SR_WR
-void PmHookSystemStart(void);
+s32 PmHookSystemStart(void);
 #endif
 
 #ifdef __cplusplus
