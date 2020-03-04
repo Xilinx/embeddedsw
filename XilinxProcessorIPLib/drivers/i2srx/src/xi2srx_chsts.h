@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2017 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -20,7 +20,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /*****************************************************************************/
 /*
  * @file xi2srx_chsts.h
- * @addtogroup i2srx_v1_0
+ * @addtogroup i2srx_v2_1
  * @{
  * Format status related offsets & masks definitions related to the channel
  * status format.For formats/line protocols check the AES standard
