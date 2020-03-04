@@ -49,6 +49,9 @@
  * 1.1   kar    04/02/18 Added debug log function prototypes.
  * 2.0   kar    09/28/18 Added new API to enable justification.
  *                       Added new API to select left/right justification.
+ * 2.1   pg     01/30/20 Added 32bit_LR support is added to calculate i2s clock
+ *                       for 32bit mode and added variable Is32BitLR in
+ *                       XI2stx_Config structure to use it in xi2stx.c file.
  * </pre>
  *
  *****************************************************************************/
@@ -135,6 +138,7 @@ typedef struct {
 	u8  DWidth;	    /**< Data Width (16/24bit) of I2s Tx core */
 	u8  IsMaster;	    /**< IsMaster(TRUE/FALSE) for I2s Tx core */
 	u8  MaxNumChannels; /**< Max channels supported by I2s Tx core */
+	u8 Is32BitLR; /* Indicates if the core is 32bitwidth or not */
 } XI2stx_Config;
 /**
  * This typedef implements the I2s Transmitter driver instance data.
