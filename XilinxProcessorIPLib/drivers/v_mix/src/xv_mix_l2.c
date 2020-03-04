@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 1986-2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 1986-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,6 +65,9 @@
 *                        software to flush pending transactions.IP is expecting
 *                        a hard reset, when flushing is done.(There is a flush
 *                        status bit and is asserted when the flush is done).
+* 6.00  pg    01/10/20   Add Colorimetry feature.
+*                        Program Mixer CSC registers to do color conversion
+*                        from YUV to RGB and RGB to YUV.
 * </pre>
 *
 ******************************************************************************/
@@ -1665,5 +1668,128 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
         } //Layer State
         break;
   }
+}
+
+/*****************************************************************************/
+/**
+* This function sets up the Mixer coefficient values for YUV to RGB
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  ColorStd is used to calculate coefficients
+* @param  colorRange is used to calculate coefficients
+* @param  colorDepth is width of colour component
+*
+* @return none
+*
+* @note   Applicable for all 16 Layers
+*
+******************************************************************************/
+static void XVMix_SetCoeffForYuvToRgb(XV_Mix_l2 *InstancePtr,
+		XVidC_ColorStd ColorStd,
+		XVidC_ColorRange colorRange,
+		u8 colorDepth)
+{
+	XV_mix *MixPtr;
+	u32 scale_factor = 1 << XVMIX_CSC_COEFF_FRACTIONAL_BITS;
+	u32 bpcScale = 1 << (colorDepth-8);
+	u32 i;
+
+	MixPtr = &InstancePtr->Mix;
+
+	for (i = 0; i < XVMIX_CSC_MATRIX_SIZE; i++)
+		XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+				XV_MIX_CTRL_ADDR_HWREG_K11_DATA + i * 8,
+				xv_mix_yuv2rgb_coeffs[ColorStd][colorRange][i] \
+				* scale_factor / XVMIX_CSC_COEFF_DIVISOR);
+
+	for (i = XVMIX_CSC_MATRIX_SIZE; i < XVMIX_CSC_COEFF_SIZE; i++)
+		XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+				XV_MIX_CTRL_ADDR_HWREG_K11_DATA + i * 8,
+				xv_mix_yuv2rgb_coeffs[ColorStd][colorRange][i] * bpcScale);
+
+}
+
+/*****************************************************************************/
+/**
+ * This function sets up the Mixer coefficient values for RGB to YUV
+ *
+ * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param  ColorStd is used to calculate coefficients
+ * @param  colorRange is used to calculate coefficients
+ * @param  colorDepth is width of colour component
+ *
+ * @return none
+ *
+ * @note   Applicable for all 16 Layers
+ *
+ ******************************************************************************/
+static void XVMix_SetCoeffForRgbToYuv(XV_Mix_l2 *InstancePtr,
+		XVidC_ColorStd ColorStd,
+		XVidC_ColorRange colorRange,
+		u8 colorDepth)
+{
+	XV_mix *MixPtr;
+	u32 scale_factor = 1 << XVMIX_CSC_COEFF_FRACTIONAL_BITS;
+	u32 bpcScale = 1 << (colorDepth-8);
+	u32 i;
+
+	MixPtr = &InstancePtr->Mix;
+
+	for (i = 0; i < XVMIX_CSC_MATRIX_SIZE; i++)
+		XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+				XV_MIX_CTRL_ADDR_HWREG_K11_2_DATA + i * 8,
+				xv_mix_rgb2yuv_coeffs[ColorStd][colorRange][i] \
+				* scale_factor / XVMIX_CSC_COEFF_DIVISOR);
+
+	for (i = XVMIX_CSC_MATRIX_SIZE; i < XVMIX_CSC_COEFF_SIZE; i++)
+		XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+				XV_MIX_CTRL_ADDR_HWREG_K11_2_DATA + i * 8,
+				xv_mix_rgb2yuv_coeffs[ColorStd][colorRange][i] * bpcScale);
+
+}
+
+/*****************************************************************************/
+/*
+ * This function calls Mixer coefficient programming functions
+ *
+ * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param  colorStandard is used to calculate coefficients
+ * @param  colorRange is used to calculate coefficients
+ * @param  colorDepth is width of colour component
+ *
+ * @return XST_SUCCESS if command is successful else error code with reason
+ *
+ * @note   none
+ *
+ ******************************************************************************/
+u32 XVMix_SetCscCoeffs(XV_Mix_l2 *InstancePtr,
+		XVidC_ColorStd colorStandard,
+		XVidC_ColorRange colorRange,
+		u8 colorDepth)
+{
+	Status = 0;
+
+	if ((colorStandard >= XVIDC_BT_NUM_SUPPORTED) ||
+			(colorRange >= XVIDC_CR_NUM_SUPPORTED))
+	{
+		xil_printf("\n\rERROR: UnKnown colorStandard: %d\t colorRange: %d\n\r",
+				colorStandard, colorRange);
+		return XST_FAILURE;
+	}
+
+	if (XVMix_IsCscCoeffsRegsEnabled(InstancePtr)) {
+		XVMix_SetCoeffForYuvToRgb(InstancePtr, colorStandard,
+				colorRange, colorDepth);
+
+		XVMix_SetCoeffForRgbToYuv(InstancePtr, colorStandard,
+				colorRange, colorDepth);
+	} else {
+		xil_printf("\n\r ***ALERT: CSC Coefficient Registers Parameter "\
+				"is Disabled in IP*** \n\r");
+		return XST_NO_FEATURE;
+	}
+
+	return XST_SUCCESS;
+
 }
 /** @} */

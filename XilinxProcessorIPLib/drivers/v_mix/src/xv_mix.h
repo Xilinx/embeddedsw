@@ -40,6 +40,7 @@ typedef uint32_t u32;
 #else
 
 #define XV_MIX_MAX_MEMORY_LAYERS    (16)
+
 /**
 * This typedef contains Alpha feature enable flag per memory layer
 */
@@ -168,6 +169,7 @@ typedef struct {
   u16 MaxLogoHeight;     /**< Maximum rows supported by log layer */
   u16 LogoColorKeyEn;    /**< Logo layer color key feature indicator flag */
   u16 LogoPixAlphaEn;    /**< Logo layer per pixel alpha feature indicator flag */
+  u16 CscCoeffsRegsEn;    /**< Logo layer per pixel alpha feature indicator flag */
   union {                /**< Alpha feature enable flag per memory layer */
 	  XVMix_AlphaFlag AlphaFlag;
 	  u8 AlphaEn[XV_MIX_MAX_MEMORY_LAYERS];
