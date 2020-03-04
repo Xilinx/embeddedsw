@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xv_frmbufrd_l2.c
-* @addtogroup v_frmbuf_rd_v2_0
+* @addtogroup v_frmbuf_rd_v4_2
 * @{
 *
 * Frame Buffer Read Layer-2 Driver. The functions in this file provides an
