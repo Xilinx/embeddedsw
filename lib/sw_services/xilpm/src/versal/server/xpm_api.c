@@ -4115,11 +4115,6 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	if (((u32)XPM_NODESUBCL_PROT_XPPU != SubClass) && ((u32)XPM_NODESUBCL_PROT_XMPU != SubClass)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	switch (SubClass) {
 	case (u32)XPM_NODESUBCL_PROT_XPPU:
 		PpuNode = XPm_AllocBytes(sizeof(XPm_ProtPpu));
