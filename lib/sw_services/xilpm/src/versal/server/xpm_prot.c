@@ -145,7 +145,7 @@ done:
 	return ProtNode;
 }
 
-static void XPmProt_XppuSetAperture(XPm_ProtPpu *PpuNode, u32 AperAddr, u32 AperVal)
+static void XPmProt_XppuSetAperture(const XPm_ProtPpu *PpuNode, u32 AperAddr, u32 AperVal)
 {
 	u32 i, RegVal, Field, FieldParity, Tz;
 	u32 Parity = 0;
@@ -153,12 +153,12 @@ static void XPmProt_XppuSetAperture(XPm_ProtPpu *PpuNode, u32 AperAddr, u32 Aper
 	/* Clear parity bits */
 	RegVal = AperVal & ~XPPU_APERTURE_PARITY_MASK;
 
-	if (0 == PpuNode->AperParityEn) {
+	if (0x0U == PpuNode->AperParityEn) {
 		goto done;
 	}
 
 	/* Extract TrustZone bit */
-	Tz = (RegVal >> XPPU_APERTURE_TRUSTZONE_OFFSET) & 0x1;
+	Tz = (RegVal >> XPPU_APERTURE_TRUSTZONE_OFFSET) & 0x1U;
 
 	/**
 	 * Enabling aperture parity provides a benefit that in terms of
@@ -177,7 +177,7 @@ static void XPmProt_XppuSetAperture(XPm_ProtPpu *PpuNode, u32 AperAddr, u32 Aper
 	{
 		Field = (RegVal >> (i * APER_PARITY_FIELD_WIDTH));
 		FieldParity = XPm_ComputeParity(Field & APER_PARITY_FIELD_MASK);
-		if (i == MAX_APER_PARITY_FIELDS - 1) {
+		if (i == MAX_APER_PARITY_FIELDS - 1U) {
 			FieldParity ^= Tz;
 		}
 		Parity |= (FieldParity << i);
@@ -209,7 +209,7 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		Address = BaseAddr + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
 		for (i = 0; i < MAX_PERM_REGS; i++)
 		{
-			PmOut32(Address, 0x0);
+			PmOut32(Address, 0x0U);
 			Address = Address + 0x4U;
 		}
 	}
@@ -217,20 +217,20 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	/* Get Number of Apertures supported */
 	PmIn32(BaseAddr + XPPU_M_APERTURE_64KB_OFFSET, RegVal);
 	PpuNode->Aperture_64k.NumSupported = RegVal;
-	Xil_AssertNonvoid((APER_64K_END - APER_64K_START + 1) == PpuNode->Aperture_64k.NumSupported);
+	Xil_AssertNonvoid((APER_64K_END - APER_64K_START + 1U) == PpuNode->Aperture_64k.NumSupported);
 
 	PmIn32(BaseAddr + XPPU_M_APERTURE_1MB_OFFSET, RegVal);
 	PpuNode->Aperture_1m.NumSupported = RegVal;
-	Xil_AssertNonvoid((APER_1M_END - APER_1M_START + 1) == PpuNode->Aperture_1m.NumSupported);
+	Xil_AssertNonvoid((APER_1M_END - APER_1M_START + 1U) == PpuNode->Aperture_1m.NumSupported);
 
 	PmIn32(BaseAddr + XPPU_M_APERTURE_512MB_OFFSET, RegVal);
 	PpuNode->Aperture_512m.NumSupported = RegVal;
-	Xil_AssertNonvoid((APER_512M_END - APER_512M_START + 1) == PpuNode->Aperture_512m.NumSupported);
+	Xil_AssertNonvoid((APER_512M_END - APER_512M_START + 1U) == PpuNode->Aperture_512m.NumSupported);
 
 	/* Store parity bits settings */
 	PmIn32(BaseAddr + XPPU_CTRL_OFFSET, RegVal);
-	PpuNode->MIDParityEn = (RegVal >> XPPU_CTRL_MID_PARITY_EN_SHIFT) & 0x1;
-	PpuNode->AperParityEn = (RegVal >> XPPU_CTRL_APER_PARITY_EN_SHIFT) & 0x1;
+	PpuNode->MIDParityEn = (u8)((RegVal >> XPPU_CTRL_MID_PARITY_EN_SHIFT) & 0x1U);
+	PpuNode->AperParityEn = (u8)((RegVal >> XPPU_CTRL_APER_PARITY_EN_SHIFT) & 0x1U);
 
 	/* Initialize all apertures for default value */
 	Address = BaseAddr + XPPU_APERTURE_0_OFFSET;
@@ -242,8 +242,8 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		 *
 		 * Refer "XPPU protection for IPI" from XPPU Spec
 		 */
-		if ((XPM_NODEIDX_PROT_XPPU_LPD == NODEINDEX(NodeId))
-			&& (i >= APER_IPI_MIN && i <= APER_IPI_MAX)) {
+		if (((u32)XPM_NODEIDX_PROT_XPPU_LPD == NODEINDEX(NodeId))
+			&& ((i >= APER_IPI_MIN) && (i <= APER_IPI_MAX))) {
 			XPmProt_XppuSetAperture(PpuNode, Address, (ApertureInitVal | XPPU_APERTURE_PERMISSION_MASK));
 		} else {
 			XPmProt_XppuSetAperture(PpuNode, Address, ApertureInitVal);
@@ -266,7 +266,7 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		Address = BaseAddr + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
 		for (i = 0; i < MAX_PERM_REGS; i++)
 		{
-			PmOut32(Address, 0xFFFFFFFF);
+			PmOut32(Address, 0xFFFFFFFFU);
 			Address = Address + 0x4U;
 		}
 	}
@@ -346,7 +346,8 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 	/* Find XPPU */
 	for (i = 0; i < (u32)XPM_NODEIDX_PROT_MAX; i++)
 	{
-		if (PmProtNodes[i] != NULL && ((u32)XPM_NODESUBCL_PROT_XPPU == NODESUBCLASS(PmProtNodes[i]->Node.Id))) {
+		if ((PmProtNodes[i] != NULL)
+		&& ((u32)XPM_NODESUBCL_PROT_XPPU == NODESUBCLASS(PmProtNodes[i]->Node.Id))) {
 			PpuNode = (XPm_ProtPpu *)PmProtNodes[i];
 			if ((DeviceBaseAddr >= PpuNode->Aperture_64k.StartAddress) && (DeviceBaseAddr <= PpuNode->Aperture_64k.EndAddress)) {
 				ApertureOffset =  (DeviceBaseAddr - PpuNode->Aperture_64k.StartAddress) / SIZE_64K;

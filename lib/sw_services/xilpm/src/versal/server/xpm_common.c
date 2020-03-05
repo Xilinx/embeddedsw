@@ -179,11 +179,11 @@ XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 
 u32 XPm_ComputeParity(u32 Value)
 {
-	Value ^= (Value >> 16);
-	Value ^= (Value >> 8);
-	Value ^= (Value >> 4);
-	Value ^= (Value >> 2);
-	Value ^= (Value >> 1);
+	Value ^= (Value >> 16U);
+	Value ^= (Value >> 8U);
+	Value ^= (Value >> 4U);
+	Value ^= (Value >> 2U);
+	Value ^= (Value >> 1U);
 
-	return (Value & 1);
+	return (Value & 1U);
 }
