@@ -45,6 +45,10 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 #define APER_512M_END				(400U)
 #define MAX_PERM_REGS				(13U)
 
+/** Refer: Section "XPPU protection for IPI" from XPPU Spec */
+#define APER_IPI_MIN				(49U)
+#define APER_IPI_MAX				(63U)
+
 static XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
@@ -165,18 +169,30 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	/* Initialize all apertures for default value */
 	Address = BaseAddr + XPPU_APERTURE_0_OFFSET;
 	for (i = APER_64K_START; i <= APER_64K_END; i++) {
+		/**
+		 * In Versal, message buffer protection is moved out of XPPU, to IPI.
+		 * Therefore, XPPU permissions for IPI specific apertures (aperture 49 to aperture 63)
+		 * should be configured to allow all. This is applicable to LPD XPPU only.
+		 *
+		 * Refer "XPPU protection for IPI" from XPPU Spec
+		 */
+		if ((XPM_NODEIDX_PROT_XPPU_LPD == NODEINDEX(NodeId))
+			&& (i >= APER_IPI_MIN && i <= APER_IPI_MAX)) {
+			PmRmw32(Address, 0xF80FFFFFU, (ApertureInitVal | XPPU_APERTURE_PERMISSION_MASK));
+		} else {
 			PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
-			Address = Address + 0x4U;
+		}
+		Address = Address + 0x4U;
 	}
 	Address = BaseAddr + XPPU_APERTURE_384_OFFSET;
 	for (i = APER_1M_START; i <= APER_1M_END; i++) {
-			PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
-			Address = Address + 0x4U;
+		PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
+		Address = Address + 0x4U;
 	}
 	Address = BaseAddr + XPPU_APERTURE_400_OFFSET;
 	for (i = APER_512M_START; i <= APER_512M_END; i++) {
-			PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
-			Address = Address + 0x4U;
+		PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
+		Address = Address + 0x4U;
 	}
 
 	if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
