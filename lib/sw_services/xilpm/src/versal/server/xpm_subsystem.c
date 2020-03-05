@@ -212,11 +212,19 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		DeviceInUse = 0;
 
 		Device = XPmDevice_GetByIndex(Idx);
+		/* Exclude devices which are expected not to be requested by anyone
+		but should be kept on for basic functionalities to work
+		Soc, PMC, Efuse are required for basic boot
+		Ams root is root device for all sysmons and required for
+		any sysmon activities
+		Usage of GTs is board dependednt and used by multiple devices
+		so should be kept on*/
 		if ((NULL == Device) ||
 		    ((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
-		    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(Device->Node.Id))) {
+		    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(Device->Node.Id)) ||
+		    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(Device->Node.Id))) {
 			continue;
 		}
 
