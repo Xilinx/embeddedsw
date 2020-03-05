@@ -736,6 +736,9 @@ Metal log now more descriptive
 Updated examples
 Added Gen 1/2 compatibility support for Gen 3 devices
 
+xxvethernet_v1_4:
+Added dependencies.props for xxvethernet in data folder.
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
