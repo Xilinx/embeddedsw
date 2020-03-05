@@ -51,15 +51,16 @@ struct XPm_Prot {
 };
 
 typedef struct Aperture {
-	u32 StartAddress;
-	u32 EndAddress;
+	u32 NumSupported;	/**< Number of Supported Apertures */
+	u32 StartAddress;	/**< Aperture Base Address */
+	u32 EndAddress;		/**< Aperture End Address */
 }Aperture;
 
 struct XPm_ProtPpu {
-	XPm_Prot ProtNode;
-	Aperture Aperture_64k;
-	Aperture Aperture_1m;
-	Aperture Aperture_512m;
+	XPm_Prot ProtNode;	/**< Node: Base Class */
+	Aperture Aperture_64k;	/**< Aperture 64k */
+	Aperture Aperture_1m;	/**< Aperture 1m */
+	Aperture Aperture_512m;	/**< Aperture 512m */
 };
 
 struct XPm_ProtMpu {

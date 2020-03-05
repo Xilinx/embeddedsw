@@ -72,11 +72,18 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 		goto done;
 	}
 
-	/* Init addresses */
+	/* Init addresses - 64k */
+	PpuNode->Aperture_64k.NumSupported = 0;
 	PpuNode->Aperture_64k.StartAddress = 0;
 	PpuNode->Aperture_64k.EndAddress = 0;
+
+	/* Init addresses - 1m */
+	PpuNode->Aperture_1m.NumSupported = 0;
 	PpuNode->Aperture_1m.StartAddress = 0;
 	PpuNode->Aperture_1m.EndAddress = 0;
+
+	/* Init addresses - 512mb */
+	PpuNode->Aperture_512m.NumSupported = 0;
 	PpuNode->Aperture_512m.StartAddress = 0;
 	PpuNode->Aperture_512m.EndAddress = 0;
 
@@ -129,6 +136,7 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		goto done;
 	}
 
+	/* XPPU Base Address */
 	BaseAddr = PpuNode->ProtNode.Node.BaseAddress;
 
 	if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
@@ -141,7 +149,20 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		}
 	}
 
-	/* Initialize all aperture for default value */
+	/* Get Number of Apertures supported */
+	PmIn32(BaseAddr + XPPU_M_APERTURE_64KB_OFFSET, RegVal);
+	PpuNode->Aperture_64k.NumSupported = RegVal;
+	Xil_AssertNonvoid((APER_64K_END - APER_64K_START + 1) == PpuNode->Aperture_64k.NumSupported);
+
+	PmIn32(BaseAddr + XPPU_M_APERTURE_1MB_OFFSET, RegVal);
+	PpuNode->Aperture_1m.NumSupported = RegVal;
+	Xil_AssertNonvoid((APER_1M_END - APER_1M_START + 1) == PpuNode->Aperture_1m.NumSupported);
+
+	PmIn32(BaseAddr + XPPU_M_APERTURE_512MB_OFFSET, RegVal);
+	PpuNode->Aperture_512m.NumSupported = RegVal;
+	Xil_AssertNonvoid((APER_512M_END - APER_512M_START + 1) == PpuNode->Aperture_512m.NumSupported);
+
+	/* Initialize all apertures for default value */
 	Address = BaseAddr + XPPU_APERTURE_0_OFFSET;
 	for (i = APER_64K_START; i <= APER_64K_END; i++) {
 			PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
@@ -169,21 +190,20 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	}
 
 	/* Get Aperture start and end addresses */
-	PmIn32(BaseAddr + XPPU_BASE_64KB_OFFSET,RegVal);
+	PmIn32(BaseAddr + XPPU_BASE_64KB_OFFSET, RegVal);
 	PpuNode->Aperture_64k.StartAddress = RegVal;
-	PmIn32(BaseAddr + XPPU_M_APERTURE_64KB_OFFSET,RegVal);
-	PpuNode->Aperture_64k.EndAddress = (PpuNode->Aperture_64k.StartAddress + (RegVal * SIZE_64K) - 1U) ;
+	PpuNode->Aperture_64k.EndAddress =
+		(PpuNode->Aperture_64k.StartAddress + (PpuNode->Aperture_64k.NumSupported * SIZE_64K) - 1U);
 
-	PmIn32(BaseAddr + XPPU_BASE_1MB_OFFSET,RegVal);
+	PmIn32(BaseAddr + XPPU_BASE_1MB_OFFSET, RegVal);
 	PpuNode->Aperture_1m.StartAddress = RegVal;
-	PmIn32(BaseAddr + XPPU_M_APERTURE_1MB_OFFSET,RegVal);
-	PpuNode->Aperture_1m.EndAddress = (PpuNode->Aperture_1m.StartAddress + (RegVal * SIZE_1M) - 1U) ;
+	PpuNode->Aperture_1m.EndAddress =
+		(PpuNode->Aperture_1m.StartAddress + (PpuNode->Aperture_1m.NumSupported * SIZE_1M) - 1U);
 
-	PmIn32(BaseAddr + XPPU_BASE_512MB_OFFSET,RegVal);
+	PmIn32(BaseAddr + XPPU_BASE_512MB_OFFSET, RegVal);
 	PpuNode->Aperture_512m.StartAddress = RegVal;
-	PmIn32(BaseAddr + XPPU_M_APERTURE_512MB_OFFSET,RegVal);
-	PpuNode->Aperture_512m.EndAddress = (PpuNode->Aperture_512m.StartAddress + (RegVal * SIZE_512M) - 1U) ;
-
+	PpuNode->Aperture_512m.EndAddress =
+		(PpuNode->Aperture_512m.StartAddress + (PpuNode->Aperture_512m.NumSupported * SIZE_512M) - 1U);
 
 	/* Enable Xppu */
 	PmRmw32(BaseAddr + XPPU_CTRL_OFFSET, 0x1, 0x1);
