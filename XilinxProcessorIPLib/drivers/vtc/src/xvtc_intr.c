@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -113,6 +113,7 @@
 *                       "XTEST_FAILED" -> "XST_FAILURE"
 *                       "XTEST_PASSED" -> "XST_SUCCESS"
 * 6.1   adk    08/23/14 Alligned doxygen tags.
+* 8.1   pg     04/03/20  Fixed interrupt handler issue
 * </pre>
 *
 ******************************************************************************/
@@ -177,7 +178,7 @@ void XVtc_IntrHandler(void *InstancePtr)
 	XVtc_IntrClear(XVtcPtr, PendingIntr);
 
 	/* Spurious interrupt has happened */
-	if (PendingIntr | XVTC_IXR_SPURIOUS_INTR_MASK) {
+	if (PendingIntr & XVTC_IXR_SPURIOUS_INTR_MASK) {
 		ErrorStatus = 0;
 		XVtcPtr->ErrCallBack(XVtcPtr->ErrRef, ErrorStatus);
 		return;
