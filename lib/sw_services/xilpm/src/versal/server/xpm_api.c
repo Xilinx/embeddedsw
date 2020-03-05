@@ -4098,7 +4098,8 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 	u32 NodeId;
 	u32 BaseAddress;
 	u32 SubClass;
-	XPm_Prot *ProtNode;
+	XPm_ProtPpu *PpuNode;
+	XPm_ProtMpu *MpuNode;
 
 	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
@@ -4121,20 +4122,20 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 
 	switch (SubClass) {
 	case (u32)XPM_NODESUBCL_PROT_XPPU:
-		ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtPpu));
-		if (NULL == ProtNode) {
+		PpuNode = XPm_AllocBytes(sizeof(XPm_ProtPpu));
+		if (NULL == PpuNode) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
+		Status = XPmProtPpu_Init(PpuNode, NodeId, BaseAddress);
 		break;
 	case (u32)XPM_NODESUBCL_PROT_XMPU:
-		ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtMpu));
-		if (NULL == ProtNode) {
+		MpuNode = XPm_AllocBytes(sizeof(XPm_ProtMpu));
+		if (NULL == MpuNode) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
+		Status = XPmProtMpu_Init(MpuNode, NodeId, BaseAddress);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

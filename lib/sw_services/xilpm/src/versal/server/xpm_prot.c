@@ -45,19 +45,32 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 #define APER_512M_END				(400U)
 #define MAX_PERM_REGS				(13U)
 
-XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
+static XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeIndex = NODEINDEX(Id);
-	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)ProtNode;
 
-	if ((NULL == ProtNode) || ((u32)XPM_NODEIDX_PROT_MAX <= NodeIndex)) {
+	if ((u32)XPM_NODEIDX_PROT_MAX <= NodeIndex) {
 		goto done;
 	}
 
 	XPmNode_Init(&ProtNode->Node, Id, (u8)XPM_PROT_DISABLED, BaseAddr);
 
 	PmProtNodes[NodeIndex] = ProtNode;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmProt_Init((XPm_Prot *)PpuNode, Id, BaseAddr);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Init addresses */
 	PpuNode->Aperture_64k.StartAddress = 0;
@@ -66,7 +79,21 @@ XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 	PpuNode->Aperture_1m.EndAddress = 0;
 	PpuNode->Aperture_512m.StartAddress = 0;
 	PpuNode->Aperture_512m.EndAddress = 0;
-	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmProt_Init((XPm_Prot *)MpuNode, Id, BaseAddr);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* TODO: XMPU Init adddresses */
 
 done:
 	return Status;
