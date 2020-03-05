@@ -227,15 +227,6 @@ done:
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
-
-	if (NULL != PowerDomain) {
-		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
-						  XPM_POWER_EVENT_PWR_UP);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
 
 	if (0U != (Pll->Context.Flag & PM_PLL_CONTEXT_SAVED)) {
 		XPm_PllRestoreContext(Pll);
@@ -249,7 +240,6 @@ XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 		Status = XPmClockPll_Reset(Pll, PLL_RESET_RELEASE);
 	}
 
-done:
 	return Status;
 }
 
@@ -262,6 +252,16 @@ XStatus XPmClockPll_Request(u32 PllId)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+	if ((0U == Pll->ClkNode.UseCount) && (NULL != PowerDomain)) {
+		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
+						  XPM_POWER_EVENT_PWR_UP);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	Pll->ClkNode.UseCount++;
 
 	/* If the PLL is suspended it needs to be resumed first */
