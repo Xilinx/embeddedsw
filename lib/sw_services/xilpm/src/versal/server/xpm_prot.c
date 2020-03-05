@@ -40,7 +40,7 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 #define APER_64K_START				(0U)
 #define APER_64K_END				(255U)
 #define APER_1M_START				(384U)
-#define APER_1M_END				(389U)
+#define APER_1M_END				(399U)
 #define APER_512M_START				(400U)
 #define APER_512M_END				(400U)
 #define MAX_PERM_REGS				(13U)
