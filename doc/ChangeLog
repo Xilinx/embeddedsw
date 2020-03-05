@@ -117,6 +117,9 @@ In debug mode fix return value of XAxiEthernet_ReadReg.
 zynqmp_fsbl:
 Added code changes to update the PMU GLOBAL register to indicate PL configuration
 
+xxvethernet_v1_4:
+Added dependencies.props for xxvethernet in data folder.
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
