@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -111,6 +111,7 @@ extern u8 R5LovecBuffer[32];
 extern u32 TcmSkipLength;
 extern PTRSIZE TcmSkipAddress;
 #endif
+extern u32 SdCdnRegVal;
 
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings)
 {
@@ -738,7 +739,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	static u32 CpuIndexEarlyHandoff = 0;
 
 	/* Restoring the SD card detection signal */
-	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
+	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, SdCdnRegVal);
 	PartitionHeader =
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 

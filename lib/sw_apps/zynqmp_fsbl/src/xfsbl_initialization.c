@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -144,7 +144,7 @@ u8 *ImageHdr = ReadBuffer;
 extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
 extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 #endif
-
+u32 SdCdnRegVal;
 /****************************************************************************/
 /**
  * This function is used to save the data section into duplicate data section
@@ -805,6 +805,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	 * This will ensure that SD controller doesn't end up waiting for long,
 	 * fixed durations for card to be stable.
 	 */
+	SdCdnRegVal = XFsbl_In32(IOU_SLCR_SD_CDN_CTRL);
 	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL,
 			(IOU_SLCR_SD_CDN_CTRL_SD1_CDN_CTRL_MASK |
 					IOU_SLCR_SD_CDN_CTRL_SD0_CDN_CTRL_MASK));
