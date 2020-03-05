@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
  *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
  *			 example.
  *  1.5  vak	02/06/19 Add UsbPollHandler and UsbEnableEvent API's
+ *  1.7  pm	02/03/20 Add closure bracket for "extern c" c++ compilation
  *
  * </pre>
  *
@@ -181,6 +182,10 @@ void SetEpInterval(void *InstancePtr, u8 UsbEpNum, u8 Dir, u32 Interval);
 void StopTransfer(void *InstancePtr, u8 EpNum, u8 Dir);
 s32 StreamOn(void *InstancePtr, u8 EpNum, u8 Dir, u8 *BufferPtr);
 void StreamOff(void *InstancePtr, u8 EpNum, u8 Dir);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* End of protection macro. */
 /** @} */
