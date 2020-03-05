@@ -61,6 +61,8 @@ struct XPm_ProtPpu {
 	Aperture Aperture_64k;	/**< Aperture 64k */
 	Aperture Aperture_1m;	/**< Aperture 1m */
 	Aperture Aperture_512m;	/**< Aperture 512m */
+	u8 MIDParityEn;		/**< Parity error checking status for Master IDs */
+	u8 AperParityEn;	/**< Parity error checking status for Aperture entries */
 };
 
 struct XPm_ProtMpu {

@@ -88,6 +88,10 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 		goto done;
 	}
 
+	/* Parity status bits */
+	PpuNode->MIDParityEn = 0;
+	PpuNode->AperParityEn = 0;
+
 	/* Init addresses - 64k */
 	PpuNode->Aperture_64k.NumSupported = 0;
 	PpuNode->Aperture_64k.StartAddress = 0;
@@ -141,13 +145,17 @@ done:
 	return ProtNode;
 }
 
-static void XPmProt_XppuSetAperture(u32 ApertureAddress, u32 ApertureVal)
+static void XPmProt_XppuSetAperture(XPm_ProtPpu *PpuNode, u32 AperAddr, u32 AperVal)
 {
 	u32 i, RegVal, Field, FieldParity, Tz;
 	u32 Parity = 0;
 
 	/* Clear parity bits */
-	RegVal = ApertureVal & ~XPPU_APERTURE_PARITY_MASK;
+	RegVal = AperVal & ~XPPU_APERTURE_PARITY_MASK;
+
+	if (0 == PpuNode->AperParityEn) {
+		goto done;
+	}
 
 	/* Extract TrustZone bit */
 	Tz = (RegVal >> XPPU_APERTURE_TRUSTZONE_OFFSET) & 0x1;
@@ -178,7 +186,8 @@ static void XPmProt_XppuSetAperture(u32 ApertureAddress, u32 ApertureVal)
 	/* Set parity bits */
 	RegVal |= (Parity << XPPU_APERTURE_PARITY_SHIFT);
 
-	PmOut32(ApertureAddress, RegVal);
+done:
+	PmOut32(AperAddr, RegVal);
 }
 
 XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
@@ -218,6 +227,11 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	PpuNode->Aperture_512m.NumSupported = RegVal;
 	Xil_AssertNonvoid((APER_512M_END - APER_512M_START + 1) == PpuNode->Aperture_512m.NumSupported);
 
+	/* Store parity bits settings */
+	PmIn32(BaseAddr + XPPU_CTRL_OFFSET, RegVal);
+	PpuNode->MIDParityEn = (RegVal >> XPPU_CTRL_MID_PARITY_EN_SHIFT) & 0x1;
+	PpuNode->AperParityEn = (RegVal >> XPPU_CTRL_APER_PARITY_EN_SHIFT) & 0x1;
+
 	/* Initialize all apertures for default value */
 	Address = BaseAddr + XPPU_APERTURE_0_OFFSET;
 	for (i = APER_64K_START; i <= APER_64K_END; i++) {
@@ -230,20 +244,20 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		 */
 		if ((XPM_NODEIDX_PROT_XPPU_LPD == NODEINDEX(NodeId))
 			&& (i >= APER_IPI_MIN && i <= APER_IPI_MAX)) {
-			XPmProt_XppuSetAperture(Address, (ApertureInitVal | XPPU_APERTURE_PERMISSION_MASK));
+			XPmProt_XppuSetAperture(PpuNode, Address, (ApertureInitVal | XPPU_APERTURE_PERMISSION_MASK));
 		} else {
-			XPmProt_XppuSetAperture(Address, ApertureInitVal);
+			XPmProt_XppuSetAperture(PpuNode, Address, ApertureInitVal);
 		}
 		Address = Address + 0x4U;
 	}
 	Address = BaseAddr + XPPU_APERTURE_384_OFFSET;
 	for (i = APER_1M_START; i <= APER_1M_END; i++) {
-		XPmProt_XppuSetAperture(Address, ApertureInitVal);
+		XPmProt_XppuSetAperture(PpuNode, Address, ApertureInitVal);
 		Address = Address + 0x4U;
 	}
 	Address = BaseAddr + XPPU_APERTURE_400_OFFSET;
 	for (i = APER_512M_START; i <= APER_512M_END; i++) {
-		XPmProt_XppuSetAperture(Address, ApertureInitVal);
+		XPmProt_XppuSetAperture(PpuNode, Address, ApertureInitVal);
 		Address = Address + 0x4U;
 	}
 
@@ -274,7 +288,7 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		(PpuNode->Aperture_512m.StartAddress + (PpuNode->Aperture_512m.NumSupported * SIZE_512M) - 1U);
 
 	/* Enable Xppu */
-	PmRmw32(BaseAddr + XPPU_CTRL_OFFSET, 0x1, 0x1);
+	PmRmw32(BaseAddr + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, XPPU_CTRL_ENABLE_MASK);
 
 	PpuNode->ProtNode.Node.State = (u8)XPM_PROT_ENABLED;
 
@@ -306,7 +320,8 @@ XStatus XPmProt_XppuDisable(u32 NodeId)
 	}
 
 	/* Disable Xppu */
-	PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET, 0x1, 0x0);
+	PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET,
+			XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
 
 	PpuNode->ProtNode.Node.State = (u8)XPM_PROT_DISABLED;
 
@@ -399,19 +414,21 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 
 	if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/* Set XPPU control to 0 */
-		PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET, 0x1, 0x0);
+		PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET,
+				XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
 
 		/* Set Enable Permission check of the required apertures to 0 */
 		PmRmw32(PermissionRegAddress, PermissionRegMask, 0);
 
 		/* Program permissions of the apertures that need to be �reconfigured� */
-		XPmProt_XppuSetAperture(ApertureAddress, Permissions);
+		XPmProt_XppuSetAperture(PpuNode, ApertureAddress, Permissions);
 
 		/* Enable back permission check of the apertures */
 		PmRmw32(PermissionRegAddress, PermissionRegMask, PermissionRegMask);
 
 		/* Set XPPU control to 1 */
-		PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET, 0x1, 0x1);
+		PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET,
+				XPPU_CTRL_ENABLE_MASK, XPPU_CTRL_ENABLE_MASK);
 
 	} else {
 		/* Configure Dynamic reconfig enable registers before changing XPPU config */
@@ -420,7 +437,7 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 		PmOut32(PpuNode->ProtNode.Node.BaseAddress + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 1);
 
 		/* Write values to Aperture */
-		XPmProt_XppuSetAperture(ApertureAddress, Permissions);
+		XPmProt_XppuSetAperture(PpuNode, ApertureAddress, Permissions);
 
 		/* Disable dynamic reconfig enable once done */
 		PmOut32(PpuNode->ProtNode.Node.BaseAddress + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 0);
