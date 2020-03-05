@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,14 +20,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xvtc_sinit.c
-* @addtogroup vtc_v7_2
+* @addtogroup vtc_v8_1
 * @{
 *
 * This file contains static initialization methods for Xilinx VTC core.

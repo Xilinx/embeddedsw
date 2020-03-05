@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xvtc_intr.c
-* @addtogroup vtc_v7_2
+* @addtogroup vtc_v8_1
 * @{
 *
 * This file contains interrupt related functions of Xilinx VTC core.
