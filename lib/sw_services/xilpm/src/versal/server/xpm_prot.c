@@ -37,13 +37,25 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 #define SIZE_64K				(0x10000U)
 #define SIZE_1M					(0x100000U)
 #define SIZE_512M				(0x20000000U)
+
+/**
+ * Following macros represent staring and ending aperture offsets
+ * as defined in the XPPU HW Spec.
+ * 	64k Apertures: 0-255
+ * 	1m Apertures: 384-399
+ * 	512m Aperture: 400
+ */
 #define APER_64K_START				(0U)
 #define APER_64K_END				(255U)
 #define APER_1M_START				(384U)
 #define APER_1M_END				(399U)
 #define APER_512M_START				(400U)
 #define APER_512M_END				(400U)
+
 #define MAX_PERM_REGS				(13U)
+#define MAX_APER_PARITY_FIELDS			(4U)
+#define APER_PARITY_FIELD_WIDTH			(5U)
+#define APER_PARITY_FIELD_MASK			(0x1FU)
 
 /** Refer: Section "XPPU protection for IPI" from XPPU Spec */
 #define APER_IPI_MIN				(49U)
@@ -104,7 +116,7 @@ XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr)
 		goto done;
 	}
 
-	/* TODO: XMPU Init adddresses */
+	/* TODO: XMPU Init addresses */
 
 done:
 	return Status;
@@ -127,6 +139,46 @@ static XPm_Prot *XPmProt_GetById(const u32 Id)
 
 done:
 	return ProtNode;
+}
+
+static void XPmProt_XppuSetAperture(u32 ApertureAddress, u32 ApertureVal)
+{
+	u32 i, RegVal, Field, FieldParity, Tz;
+	u32 Parity = 0;
+
+	/* Clear parity bits */
+	RegVal = ApertureVal & ~XPPU_APERTURE_PARITY_MASK;
+
+	/* Extract TrustZone bit */
+	Tz = (RegVal >> XPPU_APERTURE_TRUSTZONE_OFFSET) & 0x1;
+
+	/**
+	 * Enabling aperture parity provides a benefit that in terms of
+	 * security of the XPPU module itself. Anytime an aperture entry
+	 * is fetched from the local RAM, HW and SW computed parities are
+	 * compared; if they mismatch then transaction fails and parity error
+	 * is flagged.
+	 *
+	 * Parity for bits in this register.
+	 * bit 28: [4:0].
+	 * bit 29: [9:5].
+	 * bit 30: [14:10].
+	 * bit 31: [27],[19:15].
+	 */
+	for (i = 0; i < MAX_APER_PARITY_FIELDS; i++)
+	{
+		Field = (RegVal >> (i * APER_PARITY_FIELD_WIDTH));
+		FieldParity = XPm_ComputeParity(Field & APER_PARITY_FIELD_MASK);
+		if (i == MAX_APER_PARITY_FIELDS - 1) {
+			FieldParity ^= Tz;
+		}
+		Parity |= (FieldParity << i);
+	}
+
+	/* Set parity bits */
+	RegVal |= (Parity << XPPU_APERTURE_PARITY_SHIFT);
+
+	PmOut32(ApertureAddress, RegVal);
 }
 
 XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
@@ -178,20 +230,20 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		 */
 		if ((XPM_NODEIDX_PROT_XPPU_LPD == NODEINDEX(NodeId))
 			&& (i >= APER_IPI_MIN && i <= APER_IPI_MAX)) {
-			PmRmw32(Address, 0xF80FFFFFU, (ApertureInitVal | XPPU_APERTURE_PERMISSION_MASK));
+			XPmProt_XppuSetAperture(Address, (ApertureInitVal | XPPU_APERTURE_PERMISSION_MASK));
 		} else {
-			PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
+			XPmProt_XppuSetAperture(Address, ApertureInitVal);
 		}
 		Address = Address + 0x4U;
 	}
 	Address = BaseAddr + XPPU_APERTURE_384_OFFSET;
 	for (i = APER_1M_START; i <= APER_1M_END; i++) {
-		PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
+		XPmProt_XppuSetAperture(Address, ApertureInitVal);
 		Address = Address + 0x4U;
 	}
 	Address = BaseAddr + XPPU_APERTURE_400_OFFSET;
 	for (i = APER_512M_START; i <= APER_512M_END; i++) {
-		PmRmw32(Address, 0xF80FFFFFU, ApertureInitVal);
+		XPmProt_XppuSetAperture(Address, ApertureInitVal);
 		Address = Address + 0x4U;
 	}
 
@@ -353,7 +405,7 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 		PmRmw32(PermissionRegAddress, PermissionRegMask, 0);
 
 		/* Program permissions of the apertures that need to be �reconfigured� */
-		PmOut32(ApertureAddress, Permissions);
+		XPmProt_XppuSetAperture(ApertureAddress, Permissions);
 
 		/* Enable back permission check of the apertures */
 		PmRmw32(PermissionRegAddress, PermissionRegMask, PermissionRegMask);
@@ -368,7 +420,7 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 		PmOut32(PpuNode->ProtNode.Node.BaseAddress + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 1);
 
 		/* Write values to Aperture */
-		PmOut32(ApertureAddress, Permissions);
+		XPmProt_XppuSetAperture(ApertureAddress, Permissions);
 
 		/* Disable dynamic reconfig enable once done */
 		PmOut32(PpuNode->ProtNode.Node.BaseAddress + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 0);

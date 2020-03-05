@@ -176,3 +176,14 @@ XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 
         return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
 }
+
+u32 XPm_ComputeParity(u32 Value)
+{
+	Value ^= (Value >> 16);
+	Value ^= (Value >> 8);
+	Value ^= (Value >> 4);
+	Value ^= (Value >> 2);
+	Value ^= (Value >> 1);
+
+	return (Value & 1);
+}
