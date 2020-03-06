@@ -178,8 +178,10 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 	u64 PollTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime tPerfTime = {0U};
 #endif
-	/** HACK  **/
-	TimeOutInUs = 1000000;
+	/** HACK - waiting for min of 1s **/
+	if (TimeOutInUs < 1000000U) {
+		TimeOutInUs = 1000000U;
+	}
 
 	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS)
