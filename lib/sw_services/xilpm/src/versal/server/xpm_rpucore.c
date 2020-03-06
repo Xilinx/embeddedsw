@@ -36,6 +36,9 @@ XStatus XPmRpuCore_Halt(XPm_Device *Device)
 	XStatus Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Device;
 
+	/* RPU should be in reset state before putting it into halt state */
+	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_ASSERT);
+
 	/* Put RPU in  halt state */
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
 		~XPM_RPU_NCPUHALT_MASK);
