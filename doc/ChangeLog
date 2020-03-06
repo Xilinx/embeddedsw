@@ -92,12 +92,6 @@ Update pr_decoupler IP drivers to dfx_decoupler nomenclature
 qspips_v3_7:
 Fixed unused value coverity warning.
 
-prc_v2_0:
-Updated prc IP drivers to dfx_controller nomenclature.
-
-prd_v2_0:
-Update pr_decoupler IP drivers to dfx_decoupler nomenclature
-
 qspipsu_v1_11:
 Removed LQSPI register access in Versal.
 Added APIs to support non-blocking DMA transfer.
