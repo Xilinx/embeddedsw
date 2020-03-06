@@ -10,9 +10,9 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-INCLUDEFILES=*.h
+INCLUDEFILES=$(wildcard *.h)
 
-LIBSOURCES=*.c
+LIBSOURCES=$(wildcard *.c)
 OUTS = *.o
 
 
