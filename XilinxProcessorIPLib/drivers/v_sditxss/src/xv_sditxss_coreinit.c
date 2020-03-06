@@ -93,6 +93,8 @@ int XV_SdiTxSs_SubcoreInitSdiTx(XV_SdiTxSs *SdiTxSsPtr)
 				"SDITXSS ERR:: SDI TX Initialization failed\r\n");
 			return XST_FAILURE;
 		}
+
+		XV_SdiTx_Set_Bpc(SdiTxSsPtr->SdiTxPtr, SdiTxSsPtr->Config.bitdepth);
 	}
 	return XST_SUCCESS;
 }

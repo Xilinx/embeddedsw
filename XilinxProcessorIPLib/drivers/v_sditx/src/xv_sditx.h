@@ -60,7 +60,8 @@ extern "C" {
 
 #define XV_SDITX_MAX_DATASTREAM 8
 #define XV_SDITX_COLORFORMAT	(0x0 << 16)
-#define XV_SDITX_COLORDEPTH	(0x1 << 24)
+#define XV_SDITX_COLORDEPTH_10	(0x1 << 24)
+#define XV_SDITX_COLORDEPTH_12	(0x2 << 24)
 /**************************** Type Definitions *******************************/
 
 /** @name Handler Types
@@ -135,8 +136,8 @@ typedef enum {
 	XV_SDITX_MUX_SD_HD_3GA = 0,
 	XV_SDITX_MUX_3GB = 1,
 	XV_SDITX_MUX_8STREAM_6G_12G = 2,
-	XV_SDITX_MUX_4STREAM_6G = 1,
-	XV_SDITX_MUX_16STREAM_12G = 1
+	XV_SDITX_MUX_4STREAM_6G = 3,
+	XV_SDITX_MUX_16STREAM_12G = 4
 } XV_SdiTx_MuxPattern;
 
 /** @name Default Payload Id Line 1 Number
@@ -222,6 +223,7 @@ typedef struct {
   XSdiVid_Transport	Transport;	/**< SDI TX Transport information */
   XV_SdiTx_State	State;		/**< State */
   u8			IsStreamUp;
+  XVidC_ColorDepth	bitdepth;	/**< bit depth */
 } XV_SdiTx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -314,6 +316,8 @@ void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask);
 void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Mask);
 void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
+void XV_SdiTx_Set_Bpc(XV_SdiTx *InstancePtr,
+		XVidC_ColorDepth bitdepth);
 
 /************************** Variable Declarations ****************************/
 

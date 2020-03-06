@@ -155,6 +155,7 @@ typedef struct {
     XVidC_PixelsPerClock Ppc;	/**< Supported Pixel per Clock */
     u8 MaxRateSupported;
     u8 InsertCSTRST352;         /**< Insert ST352 in C stream */
+	XVidC_ColorDepth bitdepth;
     XV_SdiTxSs_SubCore SdiTx;	/**< Sub-core instance configuration */
 	XV_SdiTxSs_SubCore Vtc;	/**< Sub-core instance configuration */
 } XV_SdiTxSs_Config;
@@ -200,6 +201,7 @@ typedef struct {
 	void *Axi4sVidLockRef;  /**< To be passed to the Axi4s video lock callback */
 
 	u8 IsStreamUp;                /**< SDI TX Stream Up */
+	u8 MaxDataStreams;	/**< Maximum number of data streams*/
 } XV_SdiTxSs;
 
 /** @name SDITxSs Core Configurable Settings

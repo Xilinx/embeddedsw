@@ -318,7 +318,7 @@ u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 
 	case XV_SDITX_STREAMSELID_COLORFORMAT:
 		Xil_AssertNonvoid( ((u32)Data == XVIDC_CSF_YCBCR_422) || ((u32)Data == XVIDC_CSF_YCBCR_420)
-					|| ((u32)Data == XVIDC_CSF_YCBCR_444));
+					|| ((u32)Data == XVIDC_CSF_YCBCR_444) || ((u32)Data == XVIDC_CSF_RGB));
 
 		InstancePtr->Stream[StreamId].Video.ColorFormatId = (u32)Data;
 		break;
@@ -684,6 +684,8 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 				Data = 0x0;
 		else if (ColorFormatId == XVIDC_CSF_YCBCR_444 && (SdiMode == XSDIVID_MODE_3GA))
 				Data = 0x1;
+		else if (ColorFormatId == XVIDC_CSF_RGB)
+				Data = 0x2;
 		else {
 				xil_printf("Error: Invalid ColorFomat input. Defaulting to YCBCR_422\n\r");
 				Data = 0x0;
@@ -743,7 +745,12 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 
 	Data = Byte1;
 	Data |=	XV_SDITX_COLORFORMAT;
-	Data |=	XV_SDITX_COLORDEPTH;
+
+	if (InstancePtr->bitdepth == 12)
+		Data |=	XV_SDITX_COLORDEPTH_12;
+	else
+		Data |=	XV_SDITX_COLORDEPTH_10;
+
 	Data |=	(XV_SdiTx_GetPayloadFrameRate(FrameRateValid, InstancePtr->Transport.IsFractional) << 8);
 
 	/* Bit 6 and Bit 7 of st352 byte 2 tells about progressive or interlaced
@@ -911,7 +918,14 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		break;
 
 	case XSDIVID_MODE_6G:
-		MuxPattern = XV_SDITX_MUX_8STREAM_6G_12G;
+		if ((InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_444) ||
+		(InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_RGB)) {
+			MuxPattern = XV_SDITX_MUX_4STREAM_6G;
+		} else if (InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
+			MuxPattern = (InstancePtr->bitdepth == 10) ? XV_SDITX_MUX_8STREAM_6G_12G : XV_SDITX_MUX_4STREAM_6G;
+		} else {
+			MuxPattern = XV_SDITX_MUX_8STREAM_6G_12G;
+		}
 		break;
 
 	case XSDIVID_MODE_12G:
@@ -1140,6 +1154,10 @@ int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat
 	case XVIDC_CSF_YCBCR_444:
 		Data |= 0x1 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
 		break;
+
+	case XVIDC_CSF_RGB:
+			Data |= 0x2 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
+			break;
 
 	default:
 		Data |= 0x0 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
@@ -1552,4 +1570,22 @@ void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
 
 	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,
 			  XV_SDITX_MDL_CTRL_OFFSET, Data);
+}
+/*****************************************************************************/
+/**
+*
+* This function sets the video bit depth of SDI-TX
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiTx_Set_Bpc(XV_SdiTx *InstancePtr, XVidC_ColorDepth bitdepth)
+{
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->bitdepth = bitdepth;
 }
