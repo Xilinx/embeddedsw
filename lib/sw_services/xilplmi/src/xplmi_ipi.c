@@ -182,6 +182,10 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		}
 	}
 END:
+	/** Clear and enable the GIC IPI interrupt */
+	XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
+	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
+
 	return Status;
 }
 

@@ -93,6 +93,33 @@ void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data)
 
 /*****************************************************************************/
 /**
+ * @brief This will clear the GIC interrupt
+ *
+ * @param	PlmIntrId PLM interrupt ID
+ * @return	None
+ *****************************************************************************/
+void XPlmi_GicIntrClearStatus(u32 PlmIntrId)
+{
+	u32 GicPVal;
+	u32 GicPxVal;
+
+	/** Get the GicP mask */
+	GicPVal = (PlmIntrId & XPLMI_GICP_MASK)>>8U;
+	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
+
+	/* Enable interrupt */
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_STATUS,
+		1U<<GicPVal,
+		1U<<GicPVal);
+
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicPVal*XPLMI_GICPX_LEN),
+		1U<<GicPxVal,
+		1U<<GicPxVal);
+}
+
+
+/*****************************************************************************/
+/**
  * @brief This will enable the GIC interrupt
  *
  * @param	None
@@ -112,7 +139,7 @@ void XPlmi_GicIntrEnable(u32 PlmIntrId)
 		1U<<GicPVal,
 		1U<<GicPVal);
 
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal*0x14),
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal*XPLMI_GICPX_LEN),
 		1U<<GicPxVal,
 		1U<<GicPxVal);
 }
@@ -134,7 +161,7 @@ void XPlmi_GicIntrDisable(u32 PlmIntrId)
 	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
 
 	/* Disable interrupt */
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal*0x14),
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal*XPLMI_GICPX_LEN),
 		1U<<GicPxVal,
 		1U<<GicPxVal);
 }
@@ -166,9 +193,11 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 
 		if (GicPIntrStatus & (1U << GicIndex)) {
 			GicPNIntrStatus =
-			  XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicIndex*0x14));
+			  XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS +
+				     (GicIndex*XPLMI_GICPX_LEN));
 			GicPNIntrMask =
-			  XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_MASK + (GicIndex*0x14));
+			  XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_MASK +
+				     (GicIndex*XPLMI_GICPX_LEN));
 			XPlmi_Printf(DEBUG_DETAILED,
 				     "GicP%d Intr Status: 0x%x\r\n",
 				     GicIndex, GicPNIntrStatus);
@@ -181,7 +210,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 					if(g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler != NULL) {
 						XPlmi_GicIntrAddTask((GicIndex<<8U) | (GicPIndex<<16U));
 						XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_DISABLE +
-						    (GicIndex*0x14U)),
+						    (GicIndex*XPLMI_GICPX_LEN)),
 						    (1U<<GicPIndex));
 					}
 					else {
@@ -189,7 +218,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 					}
 
 					XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_STATUS +
-						    (GicIndex*0x14U)),
+						    (GicIndex*XPLMI_GICPX_LEN)),
 						    (1U<<GicPIndex));
 				}
 			}
@@ -243,19 +272,10 @@ int XPlmi_GicTaskHandler(void *Arg)
 	 * Call Gic interrupt handler
 	 * GIC interrupt handlers should follow the return values
 	 * as followed by task handler.
-	 * GIC interrupt will be unmasked only if the handler return value
-	 * is not XPLMI_TASK_INPROGRESS.
-	 * In case any error or success, interrupt will be unmasked.
+	 * Interrupt clear and enable should be done by Handler only
 	 */
 	Status = g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler(
 		      g_GicPInterruptTable[GicIndex][GicPIndex].Data);
 
-	if (Status != XPLMI_TASK_INPROGRESS) {
-		XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_STATUS + (GicIndex*0x14U)),
-			    (1U<<GicPIndex));
-
-		XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicIndex*0x14U)),
-			    (1U<<GicPIndex));
-	}
 	return Status;
 }
