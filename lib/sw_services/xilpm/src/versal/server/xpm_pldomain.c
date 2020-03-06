@@ -56,7 +56,8 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	Status = XST_SUCCESS;
+	/*Set subsystem state to online once PL is housecleaned*/
+	Status = XPmSubsystem_SetState(PM_SUBSYS_PL, (u32)ONLINE);
 	return Status;
 }
 

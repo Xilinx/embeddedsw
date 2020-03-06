@@ -301,10 +301,9 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 {
 	XStatus Status = XST_FAILURE;
-	u32 i=0, NodeId, Value;
+	u32 i=0, NodeId;
 	XPm_PowerDomain *PwrDomainNode;
 	XPm_Subsystem *Subsystem;
-	XPm_PlDomain *Pld;
 
 	for (i = 0; i < 2U; i++) {
 		NodeId = XPmDomainIso_List[IsoIdx].DependencyNodeHandles[i];
@@ -319,32 +318,13 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 			Status = XST_SUCCESS;
 		} else if (NodeId == PM_SUBSYS_PL) {
 			Subsystem = XPmSubsystem_GetById(NodeId);
-
 			if(NULL == Subsystem) {
 				Status = XPM_INVALID_SUBSYSID;
 				goto done;
 			}
-
 			if (Subsystem->State != (u8)ONLINE) {
-				Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
-				if (NULL == Pld) {
-					Status = XST_FAILURE;
-					goto done;
-				}
-
-				/* Right now as we don't have
-				 * init finish for PLD, we decide PLD status based on
-				 * EOS bit */
-				PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
-				if ((u32)CFU_APB_CFU_FGCR_EOS_MASK == (Value & (u32)CFU_APB_CFU_FGCR_EOS_MASK)) {
-					Status = XPmSubsystem_SetState(PM_SUBSYS_PL, (u32)ONLINE);
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-				} else {
-					Status = XST_FAILURE;
-					goto done;
-				}
+				Status = XST_FAILURE;
+				goto done;
 			}
 			Status = XST_SUCCESS;
 		} else {
