@@ -14,8 +14,8 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o
 
-LIBSOURCES:=*.c
-INCLUDEFILES:=*.h
+LIBSOURCES:=$(wildcard *.c)
+INCLUDEFILES:=$(wildcard *.h)
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 

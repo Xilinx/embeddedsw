@@ -14,8 +14,8 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o
 
-INCLUDEFILES=*.h ./vtc/*.h ./dualsplitter/*.h ./dp/*.h ./hdcp1x/*.h
-LIBSOURCES=*.c ./vtc/*.c ./dualsplitter/*.c ./dp/*.c ./hdcp1x/*.c
+INCLUDEFILES=$(wildcard *.h) ./vtc/*.h ./dualsplitter/*.h ./dp/*.h ./hdcp1x/*.h
+LIBSOURCES=$(wildcard *.c) ./vtc/*.c ./dualsplitter/*.c ./dp/*.c ./hdcp1x/*.c
 
 OBJECTS = $(addsuffix .o, $(basename ./vtc/xdptxss_vtc.c ./dualsplitter/xdptxss_dualsplitter.c ./dp/xdptxss_dptx.c ./hdcp1x/xdptxss_hdcp1x.c $(wildcard *.c)))
 

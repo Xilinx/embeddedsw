@@ -9,16 +9,16 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-INCLUDEFILES=*.h
+INCLUDEFILES=$(wildcard *.h)
 
-LIBSOURCES=*.c
+LIBSOURCES=$(wildcard *.c)
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling hdcp22_tx"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OUTS)
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS))
 	make clean
 
 include:
