@@ -1,40 +1,39 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=-ffunction-sections -fdata-sections
-EXTRA_COMPILER_FLAGS=-Wall -Wextra
+COMPILER_FLAGS=
+EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-OUTS = *.o
+SRCFILES:=$(wildcard *.c)
 
-INCLUDEFILES=$(wildcard *.h)
-LIBSOURCES=$(wildcard *.c)
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))
+libs: $(OBJECTS)
 
-libs: banner xvhdmitxss_libs clean
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+include $(wildcard $(DEPFILES))
 
-banner:
-	echo "Compiling HDMI TX Subsystem"
+include $(wildcard ../../../../dep.mk)
 
-xvhdmitxss_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
 
 .PHONY: include
-include: xvhdmitxss_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
-xvhdmitxss_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)

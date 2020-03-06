@@ -1,40 +1,39 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=-ffunction-sections -fdata-sections
-EXTRA_COMPILER_FLAGS=-Wall -Wextra
+COMPILER_FLAGS=
+EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-OUTS = *.o
+SRCFILES:=$(wildcard *.c)
 
-LIBSOURCES:=$(wildcard *.c)
-INCLUDEFILES:=$(wildcard *.h)
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+libs: $(OBJECTS)
 
-libs: banner hdmi_common_libs clean
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+include $(wildcard $(DEPFILES))
 
-banner:
-	echo "Compiling hdmi_common"
+include $(wildcard ../../../../dep.mk)
 
-hdmi_common_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
 
 .PHONY: include
-include: hdmi_common_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
-hdmi_common_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)

@@ -1,27 +1,39 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
-EXTRA_COMPILER_FLAGS=-Wall -Wextra
+EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I${INCLUDEDIR}
+CC_FLAGS = $(COMPILER_FLAGS)
+ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-LIBSOURCES=$(wildcard *.c)
-INCLUDEFILES=$(wildcard *.h)
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-libs:
-	echo "Compiling MIPI CSI2 TX Subsystem"
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
-	make clean
+SRCFILES:=$(wildcard *.c)
 
-include:
-	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
+
+libs: $(OBJECTS)
+
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
+
+.PHONY: include
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
+
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
-	rm -rf $(OBJECTS)
+	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
