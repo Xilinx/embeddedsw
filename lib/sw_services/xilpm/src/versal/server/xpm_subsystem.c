@@ -745,14 +745,11 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 	 * Also all the cores from subsystem are gets released.
 	 * Don't release DDR as there is no DDR CDO
 	 * to bring it up back again.
-	 * TODO - need to understand that why releasing TCM0_A causes
-	 * failure.
 	 */
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
 		if ((1U == Reqm->Allocated) &&
-		    ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Reqm->Device->Node.Id)) &&
-		    ((u32)XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Reqm->Device->Node.Id))) {
+		    ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Reqm->Device->Node.Id))) {
 			Status = XPmRequirement_Release(Reqm, RELEASE_ONE);
 			if (XST_SUCCESS != Status) {
 				goto done;
