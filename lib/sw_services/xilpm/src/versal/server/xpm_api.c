@@ -1013,6 +1013,31 @@ done:
 	return Status;
 }
 
+
+int XPm_SubsystemPwrUp(const u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Add a workaround to power on FPD before
+	 * subsystem wakeup if FPD is off.
+	 * TODO: This workaround will be reverted,
+	 * once recursive CDO loading support is available.
+	 */
+
+	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
+	if ((NULL != FpdPwrNode) &&
+	    ((u8)XPM_POWER_STATE_OFF == FpdPwrNode->Node.State)) {
+		Status = XPm_PowerUpFPD(&FpdPwrNode->Node);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+	Status = XLoader_RestartImage(SubsystemId);
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to start-up and wake-up
@@ -1043,7 +1068,6 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	XPm_Core *Core;
 	u32 CoreSubsystemId, CoreDeviceId;
 	XPm_Requirement *Reqm;
-	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
 	XPm_Power *Power;
 
 	/* Warning Fix */
@@ -1059,20 +1083,8 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	switch (NODECLASS(DeviceId))
 	{
 		case (u32)XPM_NODECLASS_SUBSYSTEM:
-			/* Add a workaround to power on FPD before
-			 * subsystem wakeup if FPD is off.
-			 * TODO: This workaround will be reverted,
-			 * once recursive CDO loading support is available.
-			 */
-			if ((NULL != FpdPwrNode) &&
-			    ((u8)XPM_POWER_STATE_OFF == FpdPwrNode->Node.State)) {
-				Status = XPm_PowerUpFPD(&FpdPwrNode->Node);
-				if (XST_SUCCESS != Status) {
-					break;
-				}
-			}
 			CoreSubsystemId = DeviceId;
-			Status = XLoader_RestartImage(CoreSubsystemId);
+			Status = XPm_SubsystemPwrUp(CoreSubsystemId);
 			break;
 		case (u32)XPM_NODECLASS_DEVICE:
 			CoreDeviceId = DeviceId;
@@ -1396,12 +1408,13 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+
 		Status = XPmSubsystem_Restart(SubsystemId);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 
-		Status = XLoader_RestartImage(SubsystemId);
+		Status = XPm_SubsystemPwrUp(SubsystemId);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
