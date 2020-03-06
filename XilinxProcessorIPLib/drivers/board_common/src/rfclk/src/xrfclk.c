@@ -108,8 +108,8 @@ char GPIO_MUX_SEL1[12]; /* gpio MUX_SEL_1 */
 #endif
 
 /* logging macro */
-#define LOG                                                                    \
-	PRINTF("error: %s, line %d\n", __FILE__, __LINE__) /* Logging macro */
+#define LOG(str)                                                               \
+	PRINTF("RFCLK error in %s: %s", __func__, str) /* Logging macro */
 
 #define SELECT_SPI_SDO(X) (1 << (3 - X)) /* Value which routs MUX */
 #define RF_DATA_READ_BIT 0X80 /* Bit which indicates read */
@@ -242,7 +242,7 @@ static int XRFClk_InitI2C(void)
 	/* i2c0 */
 	fd_i2c0 = open(RFCLK_I2C0_DEVICE_PATH, O_RDWR);
 	if (fd_i2c0 < 0) {
-		LOG;
+		LOG("i2c0 open");
 		return XST_FAILURE;
 	}
 #endif
@@ -250,12 +250,12 @@ static int XRFClk_InitI2C(void)
 	/* i2c1 */
 	fd_i2c1 = open(RFCLK_I2C1_DEVICE_PATH, O_RDWR);
 	if (fd_i2c1 < 0) {
-		LOG;
+		LOG("i2c1 open");
 		return XST_FAILURE;
 	}
 	fd_bridge = open(RFCLK_I2C_I2C2SPI_BRIDGE_DEVICE_PATH, O_RDWR);
 	if (fd_bridge < 0) {
-		LOG;
+		LOG("i2c2spi bridge open");
 		return XST_FAILURE;
 	}
 #endif
@@ -280,7 +280,7 @@ static u32 XRFClk_InitGPIO(void)
 {
 #ifdef XPS_BOARD_ZCU111
 	if (XST_FAILURE == XRFClk_I2cIoExpanderConfig()) {
-		LOG;
+		LOG("config gpio expander");
 		return XST_FAILURE;
 	}
 #elif defined __BAREMETAL__
@@ -293,7 +293,7 @@ static u32 XRFClk_InitGPIO(void)
 
 	expfd = open("/sys/class/gpio/export", O_WRONLY);
 	if (expfd < 0) {
-		LOG;
+		LOG("gpio open");
 		return XST_FAILURE;
 	}
 	unused = write(expfd, GPIO_MUX_SEL0, 4);
@@ -305,7 +305,7 @@ static u32 XRFClk_InitGPIO(void)
 	dirfd = open(gpio_dirpath, O_RDWR);
 	if (dirfd < 0) {
 		close(expfd);
-		LOG;
+		LOG("gpio set direction");
 		return XST_FAILURE;
 	}
 	unused = write(dirfd, "out", 4);
@@ -315,7 +315,7 @@ static u32 XRFClk_InitGPIO(void)
 	dirfd = open(gpio_dirpath, O_RDWR);
 	if (dirfd < 0) {
 		close(expfd);
-		LOG;
+		LOG("gpio write direction");
 		return XST_FAILURE;
 	}
 	unused = write(dirfd, "out", 4);
@@ -375,13 +375,13 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 	/* Select who to connect to */
 	ret = XRFClk_I2CWrData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, tx, 1);
 	if (ret == XST_FAILURE) {
-		LOG;
+		LOG("set gpio expander");
 		return XST_FAILURE;
 	}
 
 	ret = XRFClk_I2CRdData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, rx, 1);
 	if (ret == XST_FAILURE) {
-		LOG;
+		LOG("read gpio expandor status";
 		return XST_FAILURE;
 	}
 
@@ -389,7 +389,7 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 	tx[1] = (rx[0] & ~0x6) | (ChipId << 1);
 	ret = XRFClk_I2CWrData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, tx, 2);
 	if (ret == XST_FAILURE) {
-		LOG;
+		LOG("set new gpio expander state");
 		return XST_FAILURE;
 	}
 #elif defined(__BAREMETAL__)
@@ -403,7 +403,7 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 	sprintf(gpio_valpath, "/sys/class/gpio/gpio%s/value", GPIO_MUX_SEL0);
 	valfd = open(gpio_valpath, O_RDWR);
 	if (valfd < 0) {
-		LOG;
+		LOG("open MUX_SEL0 gpio");
 		return XST_FAILURE;
 	}
 	if (ChipId & 1)
@@ -415,7 +415,7 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 	sprintf(gpio_valpath, "/sys/class/gpio/gpio%s/value", GPIO_MUX_SEL1);
 	valfd = open(gpio_valpath, O_RDWR);
 	if (valfd < 0) {
-		LOG;
+		LOG("open MUX_SEL1 gpio");
 		return XST_FAILURE;
 	}
 	if (ChipId & 2)
@@ -450,7 +450,6 @@ static int XRFClk_I2CRdData_sub(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 	int Status;
 	Status = XIicPs_MasterRecvPolled(Iic, Val, Len, Addr);
 	if (Status != XST_SUCCESS) {
-		LOG;
 		return XST_FAILURE;
 	}
 	while (XIicPs_BusIsBusy(Iic))
@@ -481,7 +480,6 @@ static int XRFClk_I2CWrData_sub(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 	int Status;
 	Status = XIicPs_MasterSendPolled(Iic, Val, Len, Addr);
 	if (Status != XST_SUCCESS) {
-		LOG;
 		return XST_FAILURE;
 	}
 	while (XIicPs_BusIsBusy(Iic))
@@ -519,7 +517,6 @@ static int XRFClk_I2CRdData_sub(int File, u8 Addr, u8 *Val, u8 Len)
 	packets.msgs = &messages;
 	packets.nmsgs = 1;
 	if (ioctl(File, I2C_RDWR, &packets) < 0) {
-		LOG;
 		ret = XST_FAILURE;
 	}
 	return ret;
@@ -554,7 +551,6 @@ static int XRFClk_I2CWrData_sub(int File, u8 Addr, u8 *Val, u8 Len)
 	packets.msgs = &messages;
 	packets.nmsgs = 1;
 	if (ioctl(File, I2C_RDWR, &packets) < 0) {
-		LOG;
 		ret = XST_FAILURE;
 	}
 	return ret;
@@ -582,7 +578,6 @@ static int XRFClk_GetBusSwitchI2C1(u8 *val)
 	/* Read I2C bus switch configuration */
 	ret = XRFClk_I2CRdData_sub(FD_I2C1, I2C_ADDR_BUS_SWITCH, val, 1);
 	if (ret == XST_FAILURE) {
-		LOG;
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -598,7 +593,6 @@ static int XRFClk_SetBusSwitchI2C1()
 	/* Write new I2C bus switch configuration */
 	ret = XRFClk_I2CWrData_sub(FD_I2C1, I2C_ADDR_BUS_SWITCH, &val, 1);
 	if (ret == XST_FAILURE) {
-		LOG;
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -635,19 +629,16 @@ static int XRFClk_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len)
 	for(i=0; i < NUM_IIC_RETRIES; i++) {
 		/* Set MUX */
 		if (XST_FAILURE == XRFClk_SetBusSwitchI2C1()) {
-			LOG;
 			continue;
 		}
 
 		/* Read Register */
 		if (XST_FAILURE == XRFClk_I2CRdData_sub(Iic, Addr, Val, Len)) {
-			LOG;
 			continue;
 		}
 
 		/* Read MUX status */
 		if (XST_FAILURE == XRFClk_GetBusSwitchI2C1(&mux)) {
-			LOG;
 			continue;
 		}
 
@@ -663,7 +654,6 @@ static int XRFClk_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len)
 	if(i < NUM_IIC_RETRIES) {
 		return XST_SUCCESS;
 	} else {
-		LOG;
 		return XST_FAILURE;
 	}
 }
@@ -699,19 +689,16 @@ static int XRFClk_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len)
 	for(i=0; i < NUM_IIC_RETRIES; i++) {
 		/* Set MUX */
 		if (XST_FAILURE == XRFClk_SetBusSwitchI2C1()) {
-			LOG;
 			continue;
 		}
 
 		/* Read Register */
 		if (XST_FAILURE == XRFClk_I2CWrData_sub(Iic, Addr, Val, Len)) {
-			LOG;
 			continue;
 		}
 
 		/* Read MUX status */
 		if (XST_FAILURE == XRFClk_GetBusSwitchI2C1(&mux)) {
-			LOG;
 			continue;
 		}
 
@@ -727,7 +714,6 @@ static int XRFClk_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len)
 	if(i < NUM_IIC_RETRIES) {
 		return XST_SUCCESS;
 	} else {
-		LOG;
 		return XST_FAILURE;
 	}
 }
@@ -769,13 +755,13 @@ static int XRFClk_MuxSPISDO(u8 ChipId)
 
 	ret = XRFClk_I2CWrData(FD_BRIDGE, I2C_ADDR_I2C2SPI_BRIDGE, tx, 4);
 	if (XST_FAILURE == ret) {
-		LOG;
+		LOG("write I2C2SPI bridge");
 		return XST_FAILURE;
 	}
 
 	/* Set the MUX_SEL GPIOs to connect appropriate SPI SDO */
 	if (XST_FAILURE == XRFClk_MUX_SPI_SDO_GPIOPin(ChipId)) {
-		LOG;
+		LOG("write gpio to MUX to clk104 chip");
 		return XST_FAILURE;
 	}
 
@@ -812,7 +798,7 @@ static u32 XRFClk_MuxSPISDORevert(u32 ChipId)
 
 	ret = XRFClk_I2CWrData(FD_BRIDGE, I2C_ADDR_I2C2SPI_BRIDGE, tx, 4);
 	if (XST_FAILURE == ret) {
-		LOG;
+		LOG("revert back a bridge MUX");
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -841,7 +827,7 @@ static int XRFClk_I2cIoExpanderConfig()
 
 	ret = XRFClk_I2CRdData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, &rx, 1);
 	if (ret == XST_FAILURE) {
-		LOG;
+		LOG("read expander data");
 		return XST_FAILURE;
 	}
 
@@ -849,7 +835,7 @@ static int XRFClk_I2cIoExpanderConfig()
 	tx[1] = rx & ~(I2C_MUX_SEL_0 | I2C_MUX_SEL_1);
 	ret = XRFClk_I2CWrData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, tx, 2);
 	if (ret == XST_FAILURE) {
-		LOG;
+		LOG("write expander data")
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -879,7 +865,7 @@ static u32 XRFClk_WriteRegToLMK04208(u32 ChipId, u32 d)
 	/* Write register */
 	ret = XRFClk_I2CWrData(FD_BRIDGE, I2C_ADDR_I2C2SPI_BRIDGE, tx, 5);
 	if (ret == XST_FAILURE) {
-		LOG;
+		LOG("write to LMK");
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -975,31 +961,31 @@ u32 XRFClk_ReadReg(u32 ChipId, u32 *d)
 
 #ifdef XPS_BOARD_ZCU111
 	if (ChipId == RFCLK_LMK) {
-		LOG;
+		LOG("read LMK not supported");
 		return XST_FAILURE;
 	}
 #endif
 
 	/* Setup environment for read */
 	if (XRFClk_MuxSPISDO(ChipId) == XST_FAILURE) {
-		LOG;
+		LOG("Setup SPISDO for read");
 		return XST_FAILURE;
 	}
 	/* Read register */
 	tx[1] = data[0] | RF_DATA_READ_BIT;
 	if (XST_FAILURE ==
 	    XRFClk_I2CWrData(FD_BRIDGE, I2C_ADDR_I2C2SPI_BRIDGE, tx, 4)) {
-		LOG;
+		LOG("set bridge for read");
 		return XST_FAILURE;
 	}
 	if (XST_FAILURE ==
 	    XRFClk_I2CRdData(FD_BRIDGE, I2C_ADDR_I2C2SPI_BRIDGE, data, 3)) {
-		LOG;
+		LOG("read register");
 		return XST_FAILURE;
 	}
 	/* Revert the environment */
 	if (XRFClk_MuxSPISDORevert(ChipId) == XST_FAILURE) {
-		LOG;
+		LOG("revert the environment");
 		return XST_FAILURE;
 	}
 	*d = (data[0] << 16) + (data[1] << 8) + data[2];
@@ -1030,15 +1016,15 @@ u32 XRFClk_Init(int GpioId)
 
 #endif
 	if (XST_FAILURE == XRFClk_InitI2C()) {
-		LOG;
+		LOG("i2c init");
 		return XST_FAILURE;
 	}
 	if (XST_FAILURE == XRFClk_InitGPIO()) {
-		LOG;
+		LOG("gpio init");
 		return XST_FAILURE;
 	}
 	if (XST_FAILURE == XRFClk_InitSPI()) {
-		LOG;
+		LOG("spi init");
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -1091,11 +1077,11 @@ u32 XRFClk_ResetChip(u32 ChipId)
 		val = LMK_RESET_VAL;
 
 	if (XST_SUCCESS != XRFClk_WriteReg(ChipId, val)) {
-		LOG;
+		LOG("reset chip");
 		return XST_FAILURE;
 	}
 	if (XST_SUCCESS != XRFClk_WriteReg(ChipId, 0)) {
-		LOG;
+		LOG("undo reset");
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -1120,7 +1106,7 @@ static u32 XRFClk_SetConfigLMK(u32 ConfigId)
 	for (int i = 0; i < LMK_COUNT; i++) {
 		if (XST_SUCCESS !=
 		    XRFClk_WriteReg(RFCLK_LMK, LMK_CKin[ConfigId][i])) {
-			LOG;
+			LOG("write reg in LMK");
 			return XST_FAILURE;
 		}
 	}
@@ -1147,7 +1133,7 @@ static u32 XRFClk_SetConfigLMX(u32 ChipID, u32 ConfigId)
 	for (int i = 0; i < LMX2594_COUNT; i++) {
 		if (XST_SUCCESS !=
 		    XRFClk_WriteReg(ChipID, LMX2594[ConfigId][i])) {
-			LOG;
+			LOG("write reg in LMX");
 			return XST_FAILURE;
 		}
 	}
@@ -1211,7 +1197,7 @@ u32 XRFClk_SetConfigOnOneChip(u32 ChipId, u32 *CfgData, u32 Len)
 	u32 *d = CfgData;
 	for (u32 i = 0; i < Len; i++, d++) {
 		if (XST_SUCCESS != XRFClk_WriteReg(ChipId, *d)) {
-			LOG;
+			LOG("write reg");
 			return XST_FAILURE;
 		}
 	}
@@ -1250,24 +1236,24 @@ u32 XRFClk_SetConfigOnAllChipsFromConfigId(u32 ConfigId_LMK, u32 ConfigId_1,
 
 	if (XST_SUCCESS !=
 	    XRFClk_SetConfigOnOneChipFromConfigId(RFCLK_LMK, ConfigId_LMK)) {
-		LOG;
+		LOG("set config to LMK");
 		return XST_FAILURE;
 	}
 	if (XST_SUCCESS != XRFClk_SetConfigOnOneChipFromConfigId(
 				   RFCLK_LMX2594_1, ConfigId_1)) {
-		LOG;
+		LOG("set config to LMX1");
 		return XST_FAILURE;
 	}
 	if (XST_SUCCESS != XRFClk_SetConfigOnOneChipFromConfigId(
 				   RFCLK_LMX2594_2, ConfigId_2)) {
-		LOG;
+		LOG("set config to LMX2");
 		return XST_FAILURE;
 	}
 #ifdef XPS_BOARD_ZCU111
 	Xil_AssertNonvoid(ConfigId_3 < sizeof(LMX2594) / sizeof(LMX2594[0]));
 	if (XST_SUCCESS != XRFClk_SetConfigOnOneChipFromConfigId(
 				   RFCLK_LMX2594_3, ConfigId_3)) {
-		LOG;
+		LOG("set config to LMX3");
 		return XST_FAILURE;
 	}
 #endif
@@ -1296,7 +1282,7 @@ static u32 XRFClk_getConfig_fromLMK(u32 ChipId, u32 *in, u32 *out)
 	(void)ChipId;
 	(void)in;
 	(void)out;
-	LOG;
+	LOG("not supported");
 	return XST_FAILURE;
 #else
 	u8 data[3];
@@ -1319,13 +1305,13 @@ static u32 XRFClk_getConfig_fromLMK(u32 ChipId, u32 *in, u32 *out)
 		if (XST_FAILURE == XRFClk_I2CWrData(FD_BRIDGE,
 						    I2C_ADDR_I2C2SPI_BRIDGE, tx,
 						    4)) {
-			LOG;
+			LOG("write reg");
 			return XST_FAILURE;
 		}
 		if (XST_FAILURE == XRFClk_I2CRdData(FD_BRIDGE,
 						    I2C_ADDR_I2C2SPI_BRIDGE,
 						    data, 3)) {
-			LOG;
+			LOG("read reg");
 			return XST_FAILURE;
 		}
 
@@ -1367,13 +1353,13 @@ static u32 XRFClk_getConfig_fromLMX(u32 ChipId, u32 *d)
 		if (XST_FAILURE == XRFClk_I2CWrData(FD_BRIDGE,
 						    I2C_ADDR_I2C2SPI_BRIDGE, tx,
 						    4)) {
-			LOG;
+			LOG("write reg");
 			return XST_FAILURE;
 		}
 		if (XST_FAILURE == XRFClk_I2CRdData(FD_BRIDGE,
 						    I2C_ADDR_I2C2SPI_BRIDGE,
 						    data, 3)) {
-			LOG;
+			LOG("read reg");
 			return XST_FAILURE;
 		}
 
@@ -1411,7 +1397,7 @@ u32 XRFClk_GetConfigFromOneChip(u32 ChipId, u32 *CfgData)
 
 	/* Setup environment for read */
 	if (XRFClk_MuxSPISDO(ChipId) == XST_FAILURE) {
-		LOG;
+		LOG("mux SPISDO");
 		return XST_FAILURE;
 	}
 
@@ -1422,7 +1408,7 @@ u32 XRFClk_GetConfigFromOneChip(u32 ChipId, u32 *CfgData)
 
 	/* Revert the environment */
 	if (XRFClk_MuxSPISDORevert(ChipId) == XST_FAILURE) {
-		LOG;
+		LOG("revert SPISDO");
 		ret = XST_FAILURE;
 	}
 
@@ -1455,7 +1441,7 @@ u32 XRFClk_ControlOutputPortLMK(u32 PortId, u32 State)
 #ifdef XPS_BOARD_ZCU111
 	(void)PortId;
 	(void)State;
-	LOG;
+	LOG("not supported");
 	ret = XST_FAILURE;
 #else
 
@@ -1463,7 +1449,7 @@ u32 XRFClk_ControlOutputPortLMK(u32 PortId, u32 State)
 		   << LMK_ADDRESS_SHIFT;
 	u8 data = State;
 	if (XST_SUCCESS != XRFClk_WriteReg(RFCLK_LMK, Addr + data)) {
-		LOG;
+		LOG("write reg");
 		ret = XST_FAILURE;
 	}
 #endif
@@ -1502,7 +1488,7 @@ u32 XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV,
 	(void)DCLKoutX_MUX;
 	(void)SDCLKoutY_MUX;
 	(void)SYSREF_DIV;
-	LOG;
+	LOG("not supported");
 	ret = XST_FAILURE;
 #else
 	Xil_AssertNonvoid((PortId <= LMK_PORT_ID_MAX) && (PortId > 0));
@@ -1520,7 +1506,7 @@ u32 XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV,
 	    (SDCLKoutY_MUX > LMK_SDCLKOUTY_MUX_MAX) ||
 	    (SYSREF_DIV < LMK_SYSREF_DIV_MIN) ||
 	    (SYSREF_DIV > LMK_SYSREF_DIV_MAX)) {
-		LOG;
+		LOG("wrong LMK settings");
 		return XST_FAILURE;
 	}
 
@@ -1529,7 +1515,7 @@ u32 XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV,
 	       << LMK_ADDRESS_SHIFT;
 	data = DCLKoutX_DIV;
 	if (XST_SUCCESS != XRFClk_WriteReg(RFCLK_LMK, Addr + data)) {
-		LOG;
+		LOG("Set DCLKoutX_DIV");
 		return XST_FAILURE;
 	}
 
@@ -1538,7 +1524,7 @@ u32 XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV,
 	       << LMK_ADDRESS_SHIFT;
 	data = DCLKoutX_MUX;
 	if (XST_SUCCESS != XRFClk_WriteReg(RFCLK_LMK, Addr + data)) {
-		LOG;
+		LOG("Set DCLKoutX_MUX");
 		return XST_FAILURE;
 	}
 
@@ -1547,7 +1533,7 @@ u32 XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV,
 	       << LMK_ADDRESS_SHIFT;
 	data = DCLKoutX_MUX;
 	if (XST_SUCCESS != XRFClk_WriteReg(RFCLK_LMK, Addr + data)) {
-		LOG;
+		LOG("Set DCLKoutY_DIV");
 		return XST_FAILURE;
 	}
 
@@ -1555,13 +1541,13 @@ u32 XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV,
 	Addr = LMK_SYSREF_DIV_MSB_PORT0_ADDR << LMK_ADDRESS_SHIFT;
 	data = (SYSREF_DIV >> 8) & 0xff;
 	if (XST_SUCCESS != XRFClk_WriteReg(RFCLK_LMK, Addr + data)) {
-		LOG;
+		LOG("Set SYSREF_DIV");
 		return XST_FAILURE;
 	}
 	Addr = LMK_SYSREF_DIV_LSB_PORT0_ADDR << LMK_ADDRESS_SHIFT;
 	data = SYSREF_DIV & 0xff;
 	if (XST_SUCCESS != XRFClk_WriteReg(RFCLK_LMK, Addr + data)) {
-		LOG;
+		LOG("update SYSREF_DIV");
 		return XST_FAILURE;
 	}
 #endif
