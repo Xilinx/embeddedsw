@@ -726,7 +726,6 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_Requirement *Reqm;
-	XPm_Device *Device;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
@@ -739,48 +738,24 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 		goto done;
 	}
 
+	/*
+	 * In case the application has not released its
+	 * devices prior to restart request, it is
+	 * released here.
+	 * Also all the cores from subsystem are gets released.
+	 * Don't release DDR as there is no DDR CDO
+	 * to bring it up back again.
+	 * TODO - need to understand that why releasing TCM0_A causes
+	 * failure.
+	 */
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		if (1U == Reqm->Allocated) {
-			Device = Reqm->Device;
-			if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Device->Node.Id)) {
-				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
-				Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC,
-							     (u32)PM_RESET_ACTION_PULSE);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
-			} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Device->Node.Id)) {
-				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
-				/*
-				 * Put the RPU to halt state so that TCM init
-				 * can be done during loading of RPU CDO.
-				 */
-				Status = XPmRpuCore_Halt(Device);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
-			} else {
-				/*
-				 * In case the application has not released its
-				 * devices prior to restart request, it is
-				 * released here.  Don't release DDR as there is no DDR CDO
-				 * to bring it up back again.  TODO - need to understand
-				 * why releasing TCM0_A causes failure.
-				 */
-				if (((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Device->Node.Id)) &&
-				    ((u32)XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Device->Node.Id))) {
-					Status = XPmRequirement_Release(Reqm, RELEASE_ONE);
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-				}
+		if ((1U == Reqm->Allocated) &&
+		    ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Reqm->Device->Node.Id)) &&
+		    ((u32)XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Reqm->Device->Node.Id))) {
+			Status = XPmRequirement_Release(Reqm, RELEASE_ONE);
+			if (XST_SUCCESS != Status) {
+				goto done;
 			}
 		}
 		Reqm = Reqm->NextDevice;

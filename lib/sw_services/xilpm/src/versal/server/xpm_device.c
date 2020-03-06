@@ -386,6 +386,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = (XPm_Device *)Node;
+	XPm_Core *Core;
 
 	PmDbg("State=%s, Event=%s\n\r", PmDevStates[Node->State], PmDevEvents[Event]);
 
@@ -528,6 +529,15 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Hack */
 				Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 			} else if ((u32)XPM_DEVEVENT_SHUTDOWN == Event) {
+				if ((u32)XPM_NODECLASS_DEVICE == (NODECLASS(Device->Node.Id)) &&
+				    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
+					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
+					if ((NULL != Core) && (NULL != Core->CoreOps)
+					    && (NULL != Core->CoreOps->PowerDown)) {
+						Status = Core->CoreOps->PowerDown(Core);
+						break;
+					}
+				}
 				Node->State = (u8)XPM_DEVSTATE_RST_ON;
 				/* Assert reset for peripheral devices */
 				if ((u32)XPM_NODESUBCL_DEV_PERIPH ==
