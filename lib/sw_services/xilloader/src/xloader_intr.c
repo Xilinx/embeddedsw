@@ -159,5 +159,8 @@ void XLoader_ClearIntrSbiDataRdy()
 		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
 		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
+	/** Clear and Enable GIC interrupt */
+	XPlmi_PlmIntrClear(XPLMI_SBI_DATA_RDY);
+	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
 }
 

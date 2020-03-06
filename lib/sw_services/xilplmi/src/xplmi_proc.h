@@ -121,6 +121,7 @@ int XPlmi_SetUpInterruptSystem();
 void XPlmi_MeasurePerfTime(u64 tCur, XPlmi_PerfTime * tPerfTime);
 void XPlmi_PlmIntrEnable(u32 IntrId);
 void XPlmi_PlmIntrDisable(u32 IntrId);
+void XPlmi_PlmIntrClear(u32 IntrId);
 void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data);
 void XPlmi_PrintRomTime();
 void XPlmi_PrintPlmTimeStamp();

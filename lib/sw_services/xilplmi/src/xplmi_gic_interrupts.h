@@ -61,6 +61,7 @@ extern "C" {
 
 #define XPLMI_GICP_MASK			(0xFF00U)
 #define XPLMI_GICPX_MASK		(0xFF0000U)
+#define XPLMI_GICPX_LEN			(0x14U)
 
 /**
  * PMC GIC interrupts
@@ -165,6 +166,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef);
 void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data);
 void XPlmi_GicIntrEnable(u32 PlmIntrId);
 void XPlmi_GicIntrDisable(u32 PlmIntrId);
+void XPlmi_GicIntrClearStatus(u32 PlmIntrId);
 int XPlmi_DispatchWakeHandler(void *DeviceIdx);
 void XPlmi_GicIntrAddTask(u32 Index);
 int XPlmi_GicTaskHandler(void *Arg);

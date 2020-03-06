@@ -485,6 +485,31 @@ void XPlmi_PlmIntrDisable(u32 IntrId)
 
 /****************************************************************************/
 /**
+* @brief    This function will clear the interrupt.
+* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @return   None.
+****************************************************************************/
+void XPlmi_PlmIntrClear(u32 IntrId)
+{
+	u32 PlmIntrId;
+	u32 IoModIntrNum;
+
+	PlmIntrId = PlmIntrMap[IntrId];
+	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
+
+	switch (IoModIntrNum)
+	{
+		case XPLMI_IOMODULE_PMC_GIC_IRQ:
+			XPlmi_GicIntrClearStatus(PlmIntrId);
+			break;
+
+		default:
+			break;
+	}
+}
+
+/****************************************************************************/
+/**
 * @brief    This function will register the handler and enable the interrupt.
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 * @param    Handler Handler to the registered for the interrupt
