@@ -32,6 +32,7 @@
 # 1.00a nm   05/06/14 Created
 # 1.2   ms   02/12/17 Fix for compilation warning.
 # 1.3	nsk  14/08/17 Added CCI support
+# 1.6	sd   26/02/20 Added Clock support
 #
 ##############################################################################
 
@@ -40,7 +41,7 @@
 proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XNandPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
     generate_cci_params $drv_handle "xparameters.h"
-    ::hsi::utils::define_zynq_config_file $drv_handle "xnandpsu_g.c" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xnandpsu_g.c" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT" "REF_CLK"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
 }
@@ -56,13 +57,16 @@ proc generate_cci_params {drv_handle file_name} {
 
 	foreach ip $ips {
 		set cci_enble 0
+		set ref_tag 0xff
 		if {$processor_type == "psu_cortexa53"} {
 			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
+			set ref_tag  "NAND_REF"
 			if {[string match -nocase $hypervisor "true"]} {
 				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
 		}
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $cci_enble"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
 	}
 	close $file_handle
 }

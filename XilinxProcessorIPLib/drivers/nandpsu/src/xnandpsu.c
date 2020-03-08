@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xnandpsu.c
-* @addtogroup nandpsu_v1_3
+* @addtogroup nandpsu_v1_6
 * @{
 *
 * This file contains the implementation of the interface functions for
@@ -101,6 +101,7 @@
 * 1.5   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 1.5   mus    11/05/18 Updated XNandPsu_ChangeClockFreq to fix compilation
 *                       warnings.
+# 1.6	sd     06/02/20    Added Clock support
 *
 * </pre>
 *
@@ -242,6 +243,7 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
+	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
 	/* Operate in Polling Mode */
 	InstancePtr->Mode = XNANDPSU_POLLING;
 	/* Enable MDMA mode by default */
@@ -282,7 +284,6 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 #endif
 		goto Out;
 	}
-
 Out:
 	return Status;
 }
@@ -1012,6 +1013,7 @@ static void XNandPsu_SetEccSpareCmd(XNandPsu *InstancePtr, u16 SpareCmd,
 ******************************************************************************/
 static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target)
 {
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 	/* Update Memory Address2 register with chip select */
 	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_MEM_ADDR2_OFFSET,
 			XNANDPSU_MEM_ADDR2_CHIP_SEL_MASK,
@@ -2849,6 +2851,7 @@ s32 Status = XST_FAILURE;
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_INTR_STS_OFFSET,
 			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
 Out:
 	return Status;
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xnandpsu.h
-* @addtogroup nandpsu_v1_3
+* @addtogroup nandpsu_v1_6
 * @{
 * @details
 *
@@ -165,6 +165,7 @@
 * 1.5   mus    11/08/18    Updated BBT signature array size  in
 *                          XNandPsu_BbtDesc structure to fix the compilation
 *                          warnings.
+# 1.6	sd     06/02/20    Added Clock support
 *
 * </pre>
 *
@@ -185,6 +186,7 @@ extern "C" {
 #include "xnandpsu_hw.h"
 #include "xnandpsu_onfi.h"
 #include "xil_cache.h"
+#include "xil_clocking.h"
 /************************** Constant Definitions *****************************/
 
 #define XNANDPSU_DEBUG
@@ -226,6 +228,7 @@ typedef struct {
 	u16 DeviceId;		/**< Instance ID of NAND flash controller */
 	u32 BaseAddress;	/**< Base address of NAND flash controller */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+	u32 RefClk;		/**< Input clocks */
 } XNandPsu_Config;
 
 /**
