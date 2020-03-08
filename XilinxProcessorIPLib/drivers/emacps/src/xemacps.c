@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,7 @@
 * 3.8  hk   09/17/18 Cleanup stale comments.
 * 3.8  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 3.10 hk   05/16/19 Clear status registers properly in reset
+* 3.11 sd   02/14/20 Add clock support
 *
 * </pre>
 ******************************************************************************/

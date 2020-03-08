@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 # 3.6   hk   09/14/17 Export PL PCS PMA information for ETH1/2/3 as well.
 # 3.7   hk   12/01/17 Export TSU clock frequency to xparameters.h
 # 3.8   hk   07/19/18 Added canonical property is cache coherency.
+# 3.11  sd   02/14/20 Add clock support.
 #
 ##############################################################################
 

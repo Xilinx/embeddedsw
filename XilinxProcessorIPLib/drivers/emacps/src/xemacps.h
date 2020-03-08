@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -327,6 +327,7 @@
  * 3.8   hk   07/19/18 Fixed CPP, GCC and doxygen warnings - CR-1006327
  *	 hk   09/17/18 Fix PTP interrupt masks and cleanup comments.
  * 3.9   hk   01/23/19 Add RX watermark support
+ * 3.11  sd   02/14/20 Add clock support
  *
  * </pre>
  *
