@@ -39,8 +39,41 @@
 proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XIicPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_I2C_CLK_FREQ_HZ"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xiicps_g.c" "XIicPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_I2C_CLK_FREQ_HZ"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xiicps_g.c" "XIicPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_I2C_CLK_FREQ_HZ" "REF_CLK"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XIicPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_I2C_CLK_FREQ_HZ"
 
+    generate_ref_params $drv_handle "xparameters.h"
+}
+
+proc check_platform { } {
+	set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+	if {[llength $cortexa53proc] > 0} {
+		set iszynqmp 1
+	} else {
+		set iszynqmp 0
+	}
+	return $iszynqmp
+}
+
+proc generate_ref_params {drv_handle file_name} {
+	set device_id 0
+	set file_handle [::hsi::utils::open_include_file $file_name]
+	set iszynqmp [check_platform]
+	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
+	puts $ips
+	foreach ip $ips {
+		set ref_tag 0xff
+		puts $file_handle "/* Definition for input Clock */"
+		if { $iszynqmp == 1 } {
+			set ipname [common::get_property NAME $ip]
+			set pos [string length $ipname]
+			set num [ expr {$pos -1} ]
+			set index [string index $ipname $num]
+			set ref_tag [string toupper [format "I2C%d_REF" $index ]]
+		}
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
+		incr device_id
+	}
+	close $file_handle
 }

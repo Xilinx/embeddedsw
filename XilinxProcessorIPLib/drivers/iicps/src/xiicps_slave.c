@@ -43,6 +43,7 @@
 * 3.10 sg   06/24/19 Fix for Slave send polled and interruput transfers.
 * 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
 *           12/23/19 Add 10 bit address support for Master/Slave
+* 3.11  sd  06/02/20 Added clocking support.
 * </pre>
 *
 ******************************************************************************/
@@ -88,6 +89,11 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XIICPS_ADDR_MASK >= SlaveAddr);
+
+	if (InstancePtr->IsClkEnabled == 0) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 1;
+	}
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 

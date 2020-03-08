@@ -65,6 +65,7 @@
 *           12/23/19 Add 10 bit address support for Master/Slave
 *           12/24/19 Disable slave monitor with XIICPS_CR_NEA_MASK for 10 bit
 *                    addresses according to the IP spec.
+* 3.11  sd  06/02/20 Added clocking support.
 * </pre>
 *
 ******************************************************************************/
@@ -125,6 +126,10 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	InstancePtr->RecvBufferPtr = NULL;
 	InstancePtr->IsSend = 1;
 
+	if (InstancePtr->IsClkEnabled == 0) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 1;
+	}
 	/*
 	 * Set repeated start if sending more than FIFO of data.
 	 */
@@ -204,6 +209,11 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	InstancePtr->RecvByteCount = ByteCount;
 	InstancePtr->SendBufferPtr = NULL;
 	InstancePtr->IsSend = 0;
+
+	if (InstancePtr->IsClkEnabled == 0) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 1;
+	}
 
 	if ((ByteCount > XIICPS_FIFO_DEPTH) ||
 		((InstancePtr->IsRepeatedStart) !=0))
@@ -289,6 +299,11 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	Xil_AssertNonvoid(MsgPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
+
+	if (InstancePtr->IsClkEnabled == 0) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 1;
+	}
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->SendBufferPtr = MsgPtr;
@@ -431,6 +446,11 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
 	InstancePtr->RecvByteCount = ByteCountVar;
+
+	if (InstancePtr->IsClkEnabled == 0) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 1;
+	}
 
 	Platform = XGetPlatform_Info();
 
@@ -608,6 +628,11 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
+	if (InstancePtr->IsClkEnabled == 0) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 1;
+	}
+
 	/* Clear transfer size register */
 	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_TRANS_SIZE_OFFSET, 0x0U);
 
@@ -708,6 +733,10 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 	 * Clear interrupt flag for slave monitor interrupt.
 	 */
 	XIicPs_DisableInterrupts(BaseAddr, XIICPS_IXR_SLV_RDY_MASK);
+	if (InstancePtr->IsClkEnabled == 1) {
+		Xil_ClockDisable(InstancePtr->Config.RefClk);
+		InstancePtr->IsClkEnabled = 0;
+	}
 
 	return;
 }

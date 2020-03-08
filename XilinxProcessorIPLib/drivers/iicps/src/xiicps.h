@@ -186,6 +186,7 @@
 * 3.8   sd 09/06/18  Enable the Timeout interrupt
 * 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
 * 3.11  rna  12/23/19 Added 10 bit address support for Master/Slave
+* 3.11  sd   06/02/20 Added clocking support.
 * </pre>
 *
 ******************************************************************************/
@@ -201,6 +202,7 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xil_assert.h"
+#include "xil_clocking.h"
 #include "xstatus.h"
 #include "xiicps_hw.h"
 #include "xplatform_info.h"
@@ -219,6 +221,8 @@ extern "C" {
 #define XIICPS_10_BIT_ADDR_OPTION	0x02U  /**< 10-bit address mode */
 #define XIICPS_SLAVE_MON_OPTION		0x04U  /**< Slave monitor mode */
 #define XIICPS_REP_START_OPTION		0x08U  /**< Repeated Start */
+
+
 /*@}*/
 
 /** @name Callback events
@@ -274,6 +278,7 @@ typedef struct {
 	u16 DeviceId;     /**< Unique ID  of device */
 	u32 BaseAddress;  /**< Base address of the device */
 	u32 InputClockHz; /**< Input clock frequency */
+	u32 RefClk;	  /**< Input clocks */
 } XIicPs_Config;
 
 /**
@@ -298,6 +303,7 @@ typedef struct {
 	s32 Is10BitAddr;	/* Indicates if user set 10 bit address */
 
 	XIicPs_IntrHandler StatusHandler;  /* Event handler function */
+	u32 IsClkEnabled;	/**< Input clock enabled */
 	void *CallBackRef;	/* Callback reference for event handler */
 } XIicPs;
 

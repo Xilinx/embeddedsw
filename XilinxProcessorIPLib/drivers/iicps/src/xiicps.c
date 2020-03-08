@@ -49,6 +49,7 @@
 *				12/06/14 Implemented Repeated start feature.
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.3   kvn		05/05/16 Modified latest code for MISRA-C:2012 Compliance.
+* 3.11  sd	06/02/20 Added clocking support.
 *
 * </pre>
 *
@@ -114,6 +115,9 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
+	InstancePtr->IsClkEnabled = 0;
+
 	InstancePtr->StatusHandler = StubHandler;
 	InstancePtr->CallBackRef = NULL;
 
@@ -160,6 +164,10 @@ s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 	if ((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) {
 		Status = (s32)TRUE;
 	}else {
+		if (InstancePtr->IsClkEnabled == 1) {
+			Xil_ClockDisable(InstancePtr->Config.RefClk);
+			InstancePtr->IsClkEnabled = 0;
+		}
 		Status = (s32)FALSE;
 	}
 	return Status;
