@@ -84,6 +84,7 @@
  * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
  * 1.11 akm 02/19/20 Added XQspiPsu_StartDmaTransfer() and XQspiPsu_CheckDmaDone()
  * 		     APIs for non-blocking transfer.
+ * 1.11 sd  01/02/20 Added clocking support
  * </pre>
  *
  ******************************************************************************/
@@ -175,6 +176,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, const XQspiPsu_Config *ConfigP
 		InstancePtr->StatusHandler = StubStatusHandler;
 		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+		InstancePtr->Config.RefClk = ConfigPtr->RefClk;
 		InstancePtr->Config.IsCacheCoherent =
 			ConfigPtr->IsCacheCoherent;
 		/* Other instance variable initializations */
@@ -244,6 +246,7 @@ void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
 				XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET,
 				DmaStatus);
 	}
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
 }
 
 /*****************************************************************************/
@@ -462,6 +465,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
 
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 	/* Enable */
 	XQspiPsu_Enable(InstancePtr);
 
@@ -615,6 +619,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	Status = XST_SUCCESS;
 
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
 	END:
 	return Status;
 }
@@ -660,6 +665,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		Status = (s32)XST_DEVICE_BUSY;
 		goto END;
 	}
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 
 	if ((Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
 		InstancePtr->IsBusy = TRUE;
@@ -954,6 +960,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			/* Disable the device. */
 			XQspiPsu_Disable(InstancePtr);
 
+			Xil_ClockDisable(InstancePtr->Config.RefClk);
 			/* Call status handler to indicate completion */
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 						XST_SPI_TRANSFER_DONE, 0);

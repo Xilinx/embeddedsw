@@ -42,7 +42,7 @@ proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XQspiPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH"
     generate_cci_params $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xqspipsu_g.c" "XQspiPsu"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xqspipsu_g.c" "XQspiPsu"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH" "IS_CACHE_COHERENT" "REF_CLK"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XQspiPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH" "IS_CACHE_COHERENT"
 
@@ -59,8 +59,10 @@ proc generate_cci_params {drv_handle file_name} {
 
 	foreach ip $ips {
 		set cci_enble 0
+		set ref_tag 0xff
 		if {$processor_type == "psu_cortexa53"} {
 			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
+			set ref_tag  "QSPI_REF"
 			if {[string match -nocase $hypervisor "true"]} {
 				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
@@ -72,6 +74,7 @@ proc generate_cci_params {drv_handle file_name} {
 			}
 		}
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $cci_enble"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
 	}
 	close $file_handle
 }

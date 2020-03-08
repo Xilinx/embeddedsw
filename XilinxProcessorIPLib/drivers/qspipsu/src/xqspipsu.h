@@ -171,6 +171,7 @@
  * 				XQspipsu_Calculate_Tapdelay().
  * 1.11 akm 02/19/20 Added XQspiPsu_StartDmaTransfer() and XQspiPsu_CheckDmaDone()
  * 		     APIs for non-blocking transfer.
+ * 1.11 sd  01/02/20 Added clocking support
  *
  * </pre>
  *
@@ -189,6 +190,7 @@ extern "C" {
 #include "xqspipsu_hw.h"
 #include "xil_cache.h"
 #include "xil_mem.h"
+#include "xil_clocking.h"
 
 /**************************** Type Definitions *******************************/
 /**
@@ -239,6 +241,7 @@ typedef struct {
 	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
 	u8  BusWidth;		/**< Bus width available on board */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+	u32 RefClk;		/**< Input clocks */
 } XQspiPsu_Config;
 
 /**
