@@ -141,6 +141,9 @@ test_boot_status:
 	mov	r0, #0
 	mov	r1, #0
 
+#ifdef PLATFORM_ZYNQMP
+	bl	Xil_ClockInit
+#endif
 	bl	main			/* Jump to main C code */
 
 	/* Cleanup global constructors */

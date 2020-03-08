@@ -129,8 +129,13 @@ proc generate {os_handle} {
 	set arma9iarccdir "../${standalone_version}/src/arm/cortexa9/iarcc"
 	set armcommonsrcdir "../${standalone_version}/src/arm/common"
 	set armsrcdir "../${standalone_version}/src/arm"
+	set clksrcdir "../${standalone_version}/src/common/clocking"
 
 	foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
+		file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	}
+
+	foreach entry [glob -nocomplain [file join $clksrcdir *]] {
 		file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	}
 
@@ -401,6 +406,12 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define EL3 1"
 			puts $bspcfg_fh "#define EL1_NONSECURE 0"
 			puts $bspcfg_fh "#define HYP_GUEST 0"
+		}
+	}
+	set clocking_supported [common::get_property CONFIG.clocking $os_handle]
+	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
+		if {$clocking_supported == "true" } {
+			puts $bspcfg_fh "#define XCLOCKING"
 		}
 	}
 	puts $bspcfg_fh ""
