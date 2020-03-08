@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 * 3.5	NK     09/26/17 Fix the RX Buffer Overflow issue.
 * 3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
+* 3.9   sd     02/06/20 Added clock support
 * </pre>
 *
 *****************************************************************************/
@@ -54,6 +55,7 @@
 #include "xstatus.h"
 #include "xuartps.h"
 #include "xil_io.h"
+#include "xil_clocking.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -137,6 +139,7 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	/* Setup the driver instance using passed in parameters */
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = Config->InputClockHz;
+	InstancePtr->Config.RefClk = Config->RefClk;
 	InstancePtr->Config.ModemPinsConnected = Config->ModemPinsConnected;
 
 	/* Initialize other instance data to default values */
@@ -250,6 +253,7 @@ u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 	/*
 	 * Disable the UART transmit interrupts to allow this call to stop a
 	 * previous operation that may be interrupt driven.
@@ -313,6 +317,7 @@ u32 XUartPs_Recv(XUartPs *InstancePtr,
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 	/*
 	 * Disable all the interrupts.
 	 * This stops a previous operation that may be interrupt driven

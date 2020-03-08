@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,16 +30,50 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00a sdm  11/22/11 Created
+# 3.9   sd   02/22/20 Added clock support
 #
 ##############################################################################
 
 #uses "xillib.tcl"
 
+proc check_platform { } {
+	set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+	if {[llength $cortexa53proc] > 0} {
+		set iszynqmp 1
+	} else {
+		set iszynqmp 0
+	}
+	return $iszynqmp
+}
+proc generate_ref_params {drv_handle file_name} {
+	set device_id 0
+	set file_handle [::hsi::utils::open_include_file $file_name]
+	set iszynqmp [check_platform]
+	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
+	puts $ips
+	foreach ip $ips {
+		set ref_tag 0xff
+		puts $file_handle "/* Definition for input Clock */"
+		#set canonical_name_ref [format "XPAR_%s_REF_CLK" $canonical_tag]
+		if { $iszynqmp == 1 } {
+			set ipname [common::get_property NAME $ip]
+			set pos [string length $ipname]
+			set num [ expr {$pos -1} ]
+			set index [string index $ipname $num]
+			set ref_tag [string toupper [format "UART%d_REF" $index ]]
+		}
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
+		#puts $file_handle "\#define $canonical_name_ref  $ref_tag"
+		incr device_id
+	}
+	close $file_handle
+}
 proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XUartPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_UART_CLK_FREQ_HZ" "C_HAS_MODEM"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xuartps_g.c" "XUartPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_UART_CLK_FREQ_HZ" "C_HAS_MODEM"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xuartps_g.c" "XUartPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_UART_CLK_FREQ_HZ" "C_HAS_MODEM" "REF_CLK"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XUartPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_UART_CLK_FREQ_HZ" "C_HAS_MODEM"
 
+    generate_ref_params $drv_handle "xparameters.h"
 }

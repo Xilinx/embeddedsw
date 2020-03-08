@@ -39,6 +39,7 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00	drg/jz 01/13/10 First Release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.9   sd     02/06/20 Added clock support
 * </pre>
 *
 ******************************************************************************/
@@ -99,6 +100,7 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 
 	/* Disable all interrupts in the interrupt disable register */
 	IntrRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
@@ -155,6 +157,7 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr)
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
 			   ModeRegister);
 
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
 	return Status;
 }
 /** @} */

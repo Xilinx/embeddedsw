@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -166,6 +166,7 @@
 *                       control register.
 * 3.7   aru    08/17/18 Resolved MISRA-C:2012 compliance mandatory violations.
 * 3.9   rna    12/03/19 Modified the XUARTPS_MAX_RATE macro.
+* 3.9   sd     02/06/20 Added clock support
 *
 * </pre>
 *
@@ -185,6 +186,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xuartps_hw.h"
 #include "xplatform_info.h"
+#include "xil_clocking.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -274,6 +276,7 @@ extern "C" {
 #define XUARTPS_EVENT_PARE_FRAME_BRKE	6U /**< A receive parity, frame, break
 											 *	error detected */
 #define XUARTPS_EVENT_RECV_ORERR		7U /**< A receive overrun error detected */
+
 /*@}*/
 
 
@@ -288,6 +291,7 @@ typedef struct {
 	u32 InputClockHz;/**< Input clock frequency */
 	s32 ModemPinsConnected; /** Specifies whether modem pins are connected
 				 *  to MIO or FMIO */
+	u32 RefClk;		/**< Input clock frequency */
 } XUartPs_Config;
 
 /* Keep track of state information about a data buffer in the interrupt mode. */
