@@ -46,7 +46,7 @@ proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XSdPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO"
 	generate_cci_params $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT" "REF_CLK"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XSdPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT"
 
@@ -62,12 +62,18 @@ proc generate_cci_params {drv_handle file_name} {
 	set processor_type [common::get_property IP_NAME $processor]
 
 	foreach ip $ips {
+		set ref_tag 0xff
 		set cci_enble 0
 		if {$processor_type == "psu_cortexa53"} {
 			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {[string match -nocase $hypervisor "true"]} {
 				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
+			set ipname [common::get_property NAME $ip]
+			set pos [string length $ipname]
+			set num [ expr {$pos -1} ]
+			set index [string index $ipname $num]
+			set ref_tag [string toupper [format "SDIO%d_REF" $index ]]
 		} elseif {$processor_type == "psv_cortexa72"} {
 			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
 			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
@@ -76,6 +82,7 @@ proc generate_cci_params {drv_handle file_name} {
 			}
 		}
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $cci_enble"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
        }
        close $file_handle
 }

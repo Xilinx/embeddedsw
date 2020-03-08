@@ -96,6 +96,7 @@
 *       aru    03/12/19 Modified the code according to MISRAC-2012.
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
+* 3.9   sd     02/07/20 Added clock support
 * </pre>
 *
 ******************************************************************************/
@@ -203,7 +204,9 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->OTapDelay = 0U;
 	InstancePtr->ITapDelay = 0U;
 	InstancePtr->Dma64BitAddr = 0U;
+	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
 
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 	/* Disable bus power and issue emmc hw reset */
 	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK) ==
@@ -324,6 +327,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	Status = XST_SUCCESS;
 
 RETURN_PATH:
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
 	return Status;
 
 }
@@ -597,6 +601,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 	InstancePtr->Switch1v8 = 0U;
 	InstancePtr->BusSpeed = XSDPS_CLK_400_KHZ;
 
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 	if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
 			((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
 			== XSDPS_CAPS_EMB_SLOT)) {
@@ -947,6 +952,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 	}
 
 RETURN_PATH:
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
 	return Status;
 }
 
@@ -1354,6 +1360,7 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	u32 PresentStateReg;
 	u32 StatusReg;
 
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 	if ((InstancePtr->HC_Version != XSDPS_HC_SPEC_V3) ||
 				((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
 				!= XSDPS_CAPS_EMB_SLOT)) {
@@ -1438,6 +1445,7 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	Status = XST_SUCCESS;
 
 RETURN_PATH:
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
 	return Status;
 }
 
@@ -1462,6 +1470,7 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	s32 Status;
 	u32 PresentStateReg;
 	u32 StatusReg;
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
 
 	if ((InstancePtr->HC_Version != XSDPS_HC_SPEC_V3) ||
 				((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
@@ -1545,6 +1554,7 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	Status = XST_SUCCESS;
 
 	RETURN_PATH:
+		Xil_ClockDisable(InstancePtr->Config.RefClk);
 		return Status;
 }
 
