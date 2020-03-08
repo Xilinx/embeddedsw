@@ -69,6 +69,7 @@
 ;* ----- ------- -------- ---------------------------------------------------
 ;* 7.0   mus     02/26/19 First release
 ;* 7.2   mus     01/08/19 Added support for versal
+;*       sd      02/23/20 Clock Init is called
 ;*
 ;******************************************************************************/
 
@@ -83,6 +84,7 @@
 	IMPORT |Image$$ARM_LIB_STACK$$ZI$$Base|
 	IMPORT _vector_table
 	IMPORT __main
+	IMPORT Xil_ClockInit
 
 #ifndef FREERTOS_BSP
 	IMPORT FPUStatus
@@ -264,6 +266,7 @@ InitEL3
    dsb	sy
    isb
 
+   b	Xil_Clockinit
    b	__main					; Jump to start
 
 #else

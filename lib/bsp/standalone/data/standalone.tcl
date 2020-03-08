@@ -283,10 +283,15 @@ proc generate {os_handle} {
     set commonsrcdir "./src/common"
     set armcommonsrcdir "./src/arm/common"
     set armsrcdir "./src/arm"
+    set clksrcdir "./src/common/clocking"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
     }
+    foreach entry [glob -nocomplain [file join $clksrcdir *]] {
+        file copy -force $entry "./src"
+    }
+
     if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
         set compiler [common::get_property CONFIG.compiler $procdrv]
         foreach entry [glob -nocomplain -types f [file join $armcommonsrcdir *]] {
@@ -671,6 +676,14 @@ proc generate {os_handle} {
     puts $bspcfg_fh "#ifndef BSPCONFIG_H  /* prevent circular inclusions */"
     puts $bspcfg_fh "#define BSPCONFIG_H  /* by using protection macros */"
     puts $bspcfg_fh ""
+
+    set clocking_supported [common::get_property CONFIG.clocking $os_handle ]
+    set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
+    set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53"}]
+    #Currently clocking is supported for zynqmp only
+    if {$is_zynqmp_fsbl_bsp != true &&  $clocking_supported == true  &&  [llength $cortexa53proc] > 0} {
+        puts $bspcfg_fh "#define XCLOCKING"
+    }
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 

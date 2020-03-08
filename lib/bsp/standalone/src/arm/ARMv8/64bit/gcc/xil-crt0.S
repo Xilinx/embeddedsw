@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 *	              started.
 * 6.6   mus  01/29/18 Initialized the xen PV console for Cortexa53 64 bit
 *                     EL1 NS BSP.
+* 7.2   sd   02/23/20 Clock Init is called
 * </pre>
 *
 * @note
@@ -124,6 +125,7 @@ _startup:
 	mov	x0, #0
 	mov	x1, #0
 
+	bl	Xil_ClockInit
 	bl	main			/* Jump to main C code */
 
 	/* Cleanup global constructors */
