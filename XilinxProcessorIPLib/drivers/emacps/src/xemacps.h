@@ -347,6 +347,7 @@ extern "C" {
 #include "xemacps_hw.h"
 #include "xemacps_bd.h"
 #include "xemacps_bdring.h"
+#include "xil_clocking.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -527,6 +528,7 @@ typedef struct {
 	UINTPTR BaseAddress;/**< Physical base address of IPIF registers */
 	u8 IsCacheCoherent; /**< Applicable only to A53 in EL1 mode;
 				* describes whether Cache Coherent or not */
+	u32 RefClk;	/**< Input clock */
 } XEmacPs_Config;
 
 

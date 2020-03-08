@@ -55,7 +55,7 @@ proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XEmacPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_ENET_CLK_FREQ_HZ" "C_ENET_SLCR_1000Mbps_DIV0" "C_ENET_SLCR_1000Mbps_DIV1" "C_ENET_SLCR_100Mbps_DIV0" "C_ENET_SLCR_100Mbps_DIV1" "C_ENET_SLCR_10Mbps_DIV0" "C_ENET_SLCR_10Mbps_DIV1" "C_ENET_TSU_CLK_FREQ_HZ"
     generate_cci_params $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xemacps_g.c" "XEmacPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xemacps_g.c" "XEmacPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT" "REF_CLK"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XEmacPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_ENET_CLK_FREQ_HZ" "C_ENET_SLCR_1000Mbps_DIV0" "C_ENET_SLCR_1000Mbps_DIV1" "C_ENET_SLCR_100Mbps_DIV0" "C_ENET_SLCR_100Mbps_DIV1" "C_ENET_SLCR_10Mbps_DIV0" "C_ENET_SLCR_10Mbps_DIV1" "C_ENET_TSU_CLK_FREQ_HZ"
 
@@ -246,11 +246,17 @@ proc generate_cci_params {drv_handle file_name} {
 
 	foreach ip $ips {
 		set is_cc 0
+		set ref_tag 0xff
 		if {$processor_type == "psu_cortexa53"} {
 			set is_xen [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {$is_xen == "true"} {
 				set is_cc [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
+			set ipname [common::get_property NAME $ip]
+			set pos [string length $ipname]
+			set num [ expr {$pos -1} ]
+			set index [string index $ipname $num]
+			set ref_tag [string toupper [format "GEM%d_REF" $index ]]
 		} elseif {$processor_type == "psv_cortexa72"} {
 			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
 			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
@@ -262,6 +268,7 @@ proc generate_cci_params {drv_handle file_name} {
 		set canonical_tag [string toupper [format "XEMACPS_%d" $device_id ]]
 		set canonical_name [format "XPAR_%s_IS_CACHE_COHERENT" $canonical_tag]
 		puts $file_handle "\#define $canonical_name $is_cc"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
 		incr device_id
 	}
 	close $file_handle
