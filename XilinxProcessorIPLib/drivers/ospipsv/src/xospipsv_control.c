@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv_control.c
-* @addtogroup xospipsv_v1_2
+* @addtogroup ospipsv_v1_2
 * @{
 *
 * This file implements the low level functions used by the functions in
@@ -62,7 +62,7 @@
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Flash command based data reading using flash command control registers.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -72,7 +72,7 @@
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if transfer fails.
 *
-* @note		This operation is IO mode of reading.
+* @note		This operation is in IO mode of reading.
 *
 ******************************************************************************/
 u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -111,16 +111,17 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Flash command based data write using flash command control registers.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+* 		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fails.
 *
-* @note		This operation is IO mode of writing.
+* @note		This operation is in IO mode of writing.
 *
 ******************************************************************************/
 u32 XOspiPsv_Stig_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -157,16 +158,15 @@ u32 XOspiPsv_Stig_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function Read the data using DMA
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+* 		- XST_SUCCESS if successful.
 *		- XST_FAILURE if transfer fails.
-*
-* @note		None
 *
 ******************************************************************************/
 u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -220,16 +220,15 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function reads the data using Linear controller
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+* 		- XST_SUCCESS if successful.
 *		- XST_FAILURE for invalid address.
-*
-* @note		None
 *
 ******************************************************************************/
 u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -252,16 +251,15 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function writes the data Using Linear controller
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+* 		- XST_SUCCESS if successful.
 *		- XST_FAILURE for invalid address.
-*
-* @note		None
 *
 ******************************************************************************/
 u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
@@ -284,7 +282,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API perform RX Tuning for SDR/DDR mode to calculate RX DLL Delay.
 *
 *
@@ -295,8 +293,6 @@ ERROR_PATH:
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fails.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
@@ -409,7 +405,7 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Check for OSPI idle which means Serial interface and low level SPI pipeline
 * is IDLE.
 *
@@ -419,7 +415,6 @@ RETURN_PATH:
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_CheckOspiIdle(const XOspiPsv *InstancePtr)

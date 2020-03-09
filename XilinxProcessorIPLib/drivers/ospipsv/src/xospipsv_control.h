@@ -29,7 +29,6 @@
 * @file xospipsv_control.h
 * @addtogroup ospipsv_v1_2
 * @{
-* @details
 *
 * This is the header file for the low-level functions of OSPIPSV driver.
 * These functions will be used internally by the user API's.
@@ -60,14 +59,12 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Disable the OSPIPSV device.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static inline void XOspiPsv_Disable(const XOspiPsv *InstancePtr)
@@ -84,14 +81,12 @@ static inline void XOspiPsv_Disable(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Enable the OSPIPSV device.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static inline void XOspiPsv_Enable(const XOspiPsv *InstancePtr)
