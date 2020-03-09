@@ -422,7 +422,7 @@ RETURN_PATH:
 * @note		None.
 *
 ******************************************************************************/
-u32 XOspiPsv_CheckOspiIdle(XOspiPsv *InstancePtr)
+u32 XOspiPsv_CheckOspiIdle(const XOspiPsv *InstancePtr)
 {
 	u32 ReadReg;
 	u32 Status;
