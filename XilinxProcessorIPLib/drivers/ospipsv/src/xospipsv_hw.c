@@ -197,7 +197,7 @@ void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		Xil_MemCpy(Msg->RxBfrPtr, &Lower, 4);
 		Upper = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_FLASH_RD_DATA_UPPER_REG);
-		Xil_MemCpy(&Msg->RxBfrPtr[4], &Upper, InstancePtr->RxBytes - 4);
+		Xil_MemCpy(&Msg->RxBfrPtr[4], &Upper, InstancePtr->RxBytes - (u32)4);
 	}
 	InstancePtr->RxBytes = 0U;
 }
@@ -230,7 +230,7 @@ void XOspiPsv_FifoWrite(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		Xil_MemCpy(&Lower, Msg->TxBfrPtr, 4);
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_FLASH_WR_DATA_LOWER_REG, Lower);
-		Xil_MemCpy(&Upper, &Msg->TxBfrPtr[4],InstancePtr->TxBytes - 4);
+		Xil_MemCpy(&Upper, &Msg->TxBfrPtr[4],InstancePtr->TxBytes - (u32)4);
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_FLASH_WR_DATA_UPPER_REG, Upper);
 	}
@@ -435,7 +435,7 @@ void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
 			XOSPIPSV_DEV_SIZE_CONFIG_REG);
 	Reg &= ~(XOSPIPSV_DEV_SIZE_CONFIG_REG_NUM_ADDR_BYTES_FLD_MASK);
 	if (Msg->Addrsize != 0U) {
-		Reg |= ((u32)Msg->Addrsize - 1);
+		Reg |= ((u32)Msg->Addrsize - (u32)1);
 	}
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,

@@ -295,7 +295,7 @@ static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr)
 			XOSPIPSV_CONFIG_REG);
 	Cfg &= ~(XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_MASK);
 	/* Set Peripheral select lines */
-	Cs = (~(1U << InstancePtr->ChipSelect)) & 0xFU;
+	Cs = (~((u32)1U << (u32)InstancePtr->ChipSelect)) & (u32)0xFU;
 	Cfg |= ((Cs) << XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_SHIFT);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_CONFIG_REG, Cfg);
@@ -612,8 +612,8 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		InstancePtr->SendBufferPtr = NULL;
 		if (Msg->Addrvalid == 0U) {
 			XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-				1, (u32)InstancePtr->RxBytes - 1, Msg->Addrvalid, 0,
-				(u32)Msg->Addrsize - 1, 0, 0, (u32)Msg->Dummy, 0);
+				1, (u32)InstancePtr->RxBytes - (u32)1, Msg->Addrvalid, 0,
+				(u32)Msg->Addrsize - (u32)1, 0, 0, (u32)Msg->Dummy, 0);
 			/* Execute the command */
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_FLASH_CMD_CTRL_REG,
@@ -657,8 +657,8 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 			ByteCount = 1;
 		}
 		XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-			0, 0, Reqaddr, 0, (u32)Msg->Addrsize - 1,
-			WriteDataEn, (u32)ByteCount - 1, 0, 0);
+			0, 0, Reqaddr, 0, (u32)Msg->Addrsize - (u32)1,
+			WriteDataEn, (u32)ByteCount - (u32)1, 0, 0);
 
 		/* Execute the command */
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
