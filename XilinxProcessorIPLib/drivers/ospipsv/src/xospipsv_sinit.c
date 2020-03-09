@@ -63,7 +63,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[XPAR_XOSPIPSV_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
@@ -71,11 +71,8 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[XPAR_XOSPIPSV_NUM_INSTANCES];
 *		configuration for.
 *
 * @return
-*
-* A pointer to the configuration found or NULL if the specified device ID was
-* not found. See XOspiPsv.h for the definition of XOspiPsv_Config.
-*
-* @note		None.
+*		A pointer to the configuration found or NULL if the specified device ID
+* 		was not found. See XOspiPsv.h for the definition of XOspiPsv_Config.
 *
 ******************************************************************************/
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId)

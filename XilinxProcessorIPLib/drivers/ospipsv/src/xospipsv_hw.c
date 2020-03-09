@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv_hw.c
-* @addtogroup xospipsv_v1_2
+* @addtogroup ospipsv_v1_2
 * @{
 *
 * This file implements the hardware functions used by the functions in
@@ -62,7 +62,7 @@
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function configures the STIG control register (Flash cmd register)
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -78,8 +78,6 @@
 * @param	Membank_en is used to enable STIG memory bank.
 *
 * @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XOspiPsv_Setup_Stig_Ctrl(const XOspiPsv *InstancePtr,
@@ -125,16 +123,17 @@ void XOspiPsv_Setup_Stig_Ctrl(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function executes the Flash command configured using Flash Command
 * control register
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
-* @return	- XST_SUCCESS if successful.
-*			- XST_FAILURE if transfer fails.
+* @return
+* 		- XST_SUCCESS if successful.
+*		- XST_FAILURE if transfer fails.
 *
-* @note		Wait till the command executed.
+* @note		Wait till the command is executed.
 *
 ******************************************************************************/
 u32 XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr)
@@ -173,7 +172,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Read the data from RX FIFO
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -181,7 +180,7 @@ ERROR_PATH:
 *
 * @return	None
 *
-* @note		This operation is IO mode of reading.
+* @note		This operation is in IO mode of reading.
 *
 ******************************************************************************/
 void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -204,7 +203,7 @@ void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Write data to TX FIFO
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -214,7 +213,7 @@ void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if transfer fails.
 *
-* @note		This operation is IO mode of writing.
+* @note		This operation is in IO mode of writing.
 *
 ******************************************************************************/
 void XOspiPsv_FifoWrite(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -239,7 +238,7 @@ void XOspiPsv_FifoWrite(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function configures the below info to write instruction register
 * DataXfertype - SPI/Dual/Quad/Octal
 * AddrXfertype - 3 or 4B
@@ -321,7 +320,7 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function configures the below info to read instruction register
 * DataXfertype - SPI/Dual/Quad/Octal
 * AddrXfertype - 3 or 4B
@@ -415,15 +414,13 @@ void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function sets the device size config register
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
 * @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
@@ -444,14 +441,12 @@ void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function initiates the indirect read transfer
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr)
@@ -468,15 +463,13 @@ void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function configures the Indirect controller
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
 * @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
@@ -502,15 +495,13 @@ void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function setup the Dma configuration
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
 * @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
@@ -553,15 +544,14 @@ void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function Initiates the DMA transfer
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
-* @return	- XST_SUCCESS if successful.
-*			- XST_FAILURE if transfer fails.
-*
-* @note		None
+* @return
+* 		- XST_SUCCESS if successful.
+*		- XST_FAILURE if transfer fails.
 *
 ******************************************************************************/
 u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr)
@@ -612,7 +602,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Wait for bit to be set. This API polls for the required bit for 10sec, if
 * not set then timeout occurs.
 *
@@ -622,8 +612,6 @@ ERROR_PATH:
 * @return
 *		- XST_SUCCESS if lock bit is set.
 *		- XST_FAILURE if fails.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_WaitForLock(const XOspiPsv *InstancePtr, u32 Mask)

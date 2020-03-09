@@ -29,7 +29,6 @@
 * @file xospipsv_g.c
 * @addtogroup ospipsv_v1_2
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * OSPI devices in the system.

@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv.c
-* @addtogroup xospipsv_v1_2
+* @addtogroup ospipsv_v1_2
 * @{
 *
 * This file implements the functions required to use the OSPIPSV hardware to
@@ -85,9 +85,8 @@ static inline void StubStatusHandler(void *CallBackRef, u32 StatusEvent);
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Initializes a specific XOspiPsv instance such that the driver is ready to use.
-*
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	ConfigPtr is a reference to a structure containing information
@@ -99,8 +98,6 @@ static inline void StubStatusHandler(void *CallBackRef, u32 StatusEvent);
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		It must be stopped to re-initialize.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
@@ -185,7 +182,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function reset the configuration register.
 *
 * The Upper layer software is responsible for re-configuring (if necessary)
@@ -194,8 +191,6 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XOspiPsv_Reset(XOspiPsv *InstancePtr)
@@ -212,16 +207,14 @@ void XOspiPsv_Reset(XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function reset the OSPI flash device.
-*
 *
 * @param	Type is Reset type.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+* 		- XST_SUCCESS if successful.
 *		- XST_FAILURE for invalid Reset Type.
-*
-* @note		None
 *
 ******************************************************************************/
 u32 XOspiPsv_DeviceReset(u8 Type)
@@ -276,14 +269,12 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function asserts the chip select line.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return	None
-*
-* @note		None.
 *
 ******************************************************************************/
 static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr)
@@ -303,14 +294,12 @@ static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function De-asserts the chip select line.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return	None
-*
-* @note		None.
 *
 ******************************************************************************/
 static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr)
@@ -332,7 +321,7 @@ static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function performs a transfer on the bus in polled mode. The messages
 * passed are all transferred on the bus between one CS assert and de-assert.
 *
@@ -343,8 +332,6 @@ static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr)
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if transfer fails.
 *		- XST_DEVICE_BUSY if a transfer is already in progress.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -427,7 +414,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function start a DMA transfer.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -437,8 +424,6 @@ ERROR_PATH:
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if transfer fails.
 *		- XST_DEVICE_BUSY if a transfer is already in progress.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -501,7 +486,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function check for DMA transfer complete.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -509,8 +494,6 @@ ERROR_PATH:
 * @return
 *		- XST_SUCCESS if DMA transfer complete.
 *		- XST_FAILURE if DMA transfer is not completed.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
@@ -547,7 +530,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function performs a transfer on the bus in interrupt mode.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -556,8 +539,6 @@ ERROR_PATH:
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_BUSY if a transfer is already in progress.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -675,7 +656,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function handles interrupt based transfers.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -683,8 +664,6 @@ ERROR_PATH:
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_BUSY if a transfer is already in progress.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
@@ -774,7 +753,7 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
- *
+ * @brief
  * Stops the transfer of data to internal DST FIFO from stream interface and
  * also stops the issuing of new write commands to memory.
  *
@@ -784,8 +763,6 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
  * @param	InstancePtr is a pointer to the XOspiPsv instance.
  *
  * @return	None.
- *
- * @note	None.
  *
  *****************************************************************************/
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
@@ -810,7 +787,7 @@ void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Configure TX and RX DLL Delay. Based on the mode and reference clock
 * this API calculate the RX delay and configure them in PHY configuration
 * register.
@@ -821,8 +798,6 @@ void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fails.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
@@ -913,7 +888,7 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
- *
+ * @brief
  * Sets the status callback function, the status handler, which the driver
  * calls when it encounters conditions that should be reported to upper
  * layer software. The handler executes in an interrupt context, so it must
@@ -951,7 +926,7 @@ void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 
 /*****************************************************************************/
 /**
- *
+ * @brief
  * This is a stub for the status callback. The stub is here in case the upper
  * layers forget to set the handler.
  *
@@ -961,8 +936,6 @@ void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
  *		occurred.
  *
  * @return	None.
- *
- * @note	None.
  *
  ******************************************************************************/
 static inline void StubStatusHandler(void *CallBackRef, u32 StatusEvent)

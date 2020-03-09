@@ -88,7 +88,7 @@ static OptionsMap OptionsTable[] = {
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function sets the options for the OSPIPSV device driver.The options
 * control how the device behaves relative to the OSPIPSV bus. The device must be
 * idle rather than busy transferring data before setting these device options.
@@ -106,7 +106,7 @@ static OptionsMap OptionsTable[] = {
 *		The transfer must complete or be aborted before setting options.
 *
 * @note
-* This function is not thread-safe.
+* 		This function is not thread-safe.
 *
 ******************************************************************************/
 u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
@@ -203,19 +203,16 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function gets the options for the OSPIPSV device. The options control how
 * the device behaves relative to the OSPIPSV bus.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return
-*
-* Options contains the specified options currently set. This is a bit Value
-* where a 1 means the option is on, and a 0 means the option is off.
-* See the bit definitions named XOSPIPSV_*_OPTIONS in file xospipsv.h.
-*
-* @note		None.
+* 		Options contains the specified options currently set. This is a bit Value
+* 		where a 1 means the option is on, and a 0 means the option is off.
+* 		See the bit definitions named XOSPIPSV_*_OPTIONS in file xospipsv.h.
 *
 ******************************************************************************/
 u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
@@ -244,9 +241,8 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Configures the clock according to the prescaler passed.
-*
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Prescaler - clock prescaler to be set.
@@ -257,8 +253,6 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		It must be stopped to re-initialize.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
@@ -307,18 +301,15 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Configures the edge mode (SDR or DDR)
-*
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Mode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
 *
 * @return
-*		- XST_SUCCESS
-*		- XST_FAILURE
-*
-* @note		None.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fail to set.
 *
 ******************************************************************************/
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
@@ -379,7 +370,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function should be used to tell the OSPIPSV driver the HW flash
 * configuration being used. This API should be called at least once in the
 * application. If desired, it can be called multiple times when switching
@@ -393,7 +384,8 @@ ERROR_PATH:
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		It must be stopped to re-initialize.
 *
-* @note		If this function is not called at least once in the application,
+* @note
+* 		If this function is not called at least once in the application,
 *		the driver assumes there is a single flash connected to the
 *		lower bus and CS line.
 *
@@ -418,7 +410,7 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Configures how the controller will poll the device following a write
 * transfer in DAC mode.
 *
@@ -427,10 +419,8 @@ ERROR_PATH:
 * @param	FlashMode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
 *
 * @return
-*		- XST_SUCCESS
-*		- XST_FAILURE
-*
-* @note		None.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fail to set.
 *
 ******************************************************************************/
 void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode)
