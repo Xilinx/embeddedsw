@@ -78,6 +78,8 @@
 * 2.3	sne  11/29/19 Fix for missing TX canfd packet while sending multiple packets
 *		      by using multi buffer in loopback mode, CR# 1048366.
 * 2.3  sne  12/18/19 Added Protocol Exception Event and BusOff event support.
+* 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
+*
 *
 * </pre>
 ******************************************************************************/
@@ -1553,7 +1555,6 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TRR_OFFSET, TrrVal);
 	}
-	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET, TrrVal);
 	InstancePtr->GlobalTrrValue = TRR_INIT_VAL;
 	InstancePtr->GlobalTrrMask  = TRR_MASK_INIT_VAL;
 
