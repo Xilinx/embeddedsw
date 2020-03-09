@@ -45,6 +45,9 @@
 #include "xloader.h"
 #include "xplmi_cmd.h"
 #include "xplmi_modules.h"
+#ifdef XPLM_SEM
+#include "xilsem.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -85,6 +88,14 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 	PdiPtr->PrtnNum = 1U;
 	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
 
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/** Stop the SEM scan before Image load */
+	Status = XSem_CfrStopScan();
+	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_STOP_SCAN, Status);
+		goto END;
+	}
+#endif
 	/*
 	 * Store the command fields in resume data
 	 */
@@ -108,6 +119,14 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 END:
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/** ReStart the SEM SCAN */
+	Status = XSem_CfrInit();
+	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_CFR_INIT, Status);
+		goto END;
+	}
+#endif
 	Cmd->Response[0] = Status;
 	return Status;
 }
