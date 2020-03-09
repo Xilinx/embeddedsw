@@ -271,6 +271,7 @@ exclusion
 * 2.3	sne  12/18/19 Added Protocol Exception Event and BusOff event support
 *		      CR#1048363 & CR#1046723.
 * 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
+* 2.3	sne  03/09/20 Initialize IsPl of config structure.
 *
 * </pre>
 *

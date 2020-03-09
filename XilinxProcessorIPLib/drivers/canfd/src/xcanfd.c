@@ -79,6 +79,7 @@
 *		      by using multi buffer in loopback mode, CR# 1048366.
 * 2.3  sne  12/18/19 Added Protocol Exception Event and BusOff event support.
 * 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
+* 2.3	se   03/09/20 Initialize IsPl of config structure.
 *
 *
 * </pre>
@@ -156,6 +157,7 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 	InstancePtr->CanFdConfig.Rx_Mode = ConfigPtr->Rx_Mode;
 	InstancePtr->CanFdConfig.NumofRxMbBuf = ConfigPtr->NumofRxMbBuf;
 	InstancePtr->CanFdConfig.NumofTxBuf = ConfigPtr->NumofTxBuf;
+	InstancePtr->CanFdConfig.IsPl = ConfigPtr->IsPl;
 
 	/*
 	 * Set all handlers to stub values, let user configure this data later.
