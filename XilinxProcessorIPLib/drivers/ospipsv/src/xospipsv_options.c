@@ -433,7 +433,7 @@ ERROR_PATH:
 * @note		None.
 *
 ******************************************************************************/
-void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode)
+void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode)
 {
 	u32 ReadReg;
 	u8 Dummy;

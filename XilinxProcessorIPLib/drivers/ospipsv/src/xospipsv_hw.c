@@ -626,7 +626,7 @@ ERROR_PATH:
 * @note		None.
 *
 ******************************************************************************/
-u32 XOspiPsv_WaitForLock(XOspiPsv *InstancePtr, u32 Mask)
+u32 XOspiPsv_WaitForLock(const XOspiPsv *InstancePtr, u32 Mask)
 {
 	u32 ReadReg;
 	u32 Status;

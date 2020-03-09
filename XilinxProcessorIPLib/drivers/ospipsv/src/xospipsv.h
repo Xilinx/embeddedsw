@@ -265,7 +265,7 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr);
 void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 				XOspiPsv_StatusHandler FuncPointer);
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
-void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode);
+void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode);
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_DeviceReset(u8 Type);
 u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
