@@ -113,6 +113,7 @@ enum {
 #define XPLMI_MASKPOLL_FLAGS_SUCCESS		(0x1U)
 #define XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR	(0x2U)
 #define XPLMI_PLM_GENERIC_CMD_ID_MASK		(0xFFU)
+#define XPLMI_PLM_GENERIC_FEATURES_VAL		(0x00U)
 #define XPLMI_PLM_GENERIC_DEVICE_ID_VAL		(0x12U)
 #define XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL	(0x13U)
 /************************** Function Prototypes ******************************/

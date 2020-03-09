@@ -63,13 +63,37 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/*****************************************************************************/
+/**
+ * @brief Contains the module ID and PLM generic commands array
+ *
+ *****************************************************************************/
+static XPlmi_Module XPlmi_Generic;
 
 /*****************************************************************************/
-
-static int XPlmi_Reserved(XPlmi_Cmd * Cmd)
+/*****************************************************************************/
+/**
+ * @brief This function checks if a particular PLM Command ID is supported
+ * or not. Command ID is the only payload parameter.
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns XST_SUCCESS
+ *****************************************************************************/
+int XPlmi_Features(XPlmi_Cmd * Cmd)
 {
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
-	return XST_SUCCESS;
+	int Status = XST_FAILURE;
+
+	if (Cmd->Payload[0U] < XPlmi_Generic.CmdCnt) {
+		Cmd->Response[1U] = (u32)XST_SUCCESS;
+	}
+	else
+	{
+		Cmd->Response[1U] = (u32)XST_FAILURE;
+	}
+	Status = XST_SUCCESS;
+	Cmd->Response[0U] = Status;
+	return Status;
 }
 /*****************************************************************************/
 /**
@@ -960,7 +984,7 @@ END:
  *****************************************************************************/
 static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 {
-	XPLMI_MODULE_COMMAND(XPlmi_Reserved),
+	XPLMI_MODULE_COMMAND(XPlmi_Features),
 	XPLMI_MODULE_COMMAND(XPlmi_MaskPoll),
 	XPLMI_MODULE_COMMAND(XPlmi_MaskWrite),
 	XPLMI_MODULE_COMMAND(XPlmi_Write),
@@ -981,13 +1005,6 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_GetDeviceID),
 	XPLMI_MODULE_COMMAND(XPlmi_EventLogging),
 };
-
-/*****************************************************************************/
-/**
- * @brief Contains the module ID and PLM generic commands array
- *
- *****************************************************************************/
-static XPlmi_Module XPlmi_Generic;
 
 /*****************************************************************************/
 /**

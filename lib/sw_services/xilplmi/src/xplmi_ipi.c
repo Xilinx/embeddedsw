@@ -295,10 +295,12 @@ int XPlmi_ValidateIpiCmd(u32 CmdId)
 		/* Only DEVICE ID and Event Logging commands are allowed through IPI.
 		 *  All other commands are allowed only from CDO file.
 		 */
-		if(((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) >=
+		if((((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) >=
 				XPLMI_PLM_GENERIC_DEVICE_ID_VAL) &&
 				((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) <=
-				XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL))
+					XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL)) ||
+					((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) ==
+						XPLMI_PLM_GENERIC_FEATURES_VAL))
 		{
 			Status = XST_SUCCESS;
 		}

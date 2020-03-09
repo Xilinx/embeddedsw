@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,16 +55,35 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 extern XilPdi* BootPdiPtr;
 extern XLoader_DeviceOps DeviceOps[];
+static XPlmi_Module XPlmi_Loader;
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-
-static int XLoader_Reserved(XPlmi_Cmd * Cmd)
+/*****************************************************************************/
+/**
+ * @brief This function checks if a particular Loader Command ID is supported
+ * or not. Command ID is the only payload parameter.
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns XST_SUCCESS
+ *****************************************************************************/
+static int XLoader_Features(XPlmi_Cmd * Cmd)
 {
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
-	return XST_SUCCESS;
+	int Status = XST_FAILURE;
+
+	if (Cmd->Payload[0U] < XPlmi_Loader.CmdCnt) {
+		Cmd->Response[1U] = XLOADER_SUCCESS;
+	}
+	else
+	{
+		Cmd->Response[1U] = XLOADER_FAILURE;
+	}
+	Status = XST_SUCCESS;
+	Cmd->Response[0U] = Status;
+	return Status;
 }
 
 
@@ -127,7 +146,7 @@ END:
 		goto END;
 	}
 #endif
-	Cmd->Response[0] = Status;
+	Cmd->Response[0U] = Status;
 	return Status;
 }
 
@@ -153,10 +172,10 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
 	/** store the command fields in resume data */
-	PdiSrc = Cmd->Payload[0];
-	PdiAddr = (u64 )Cmd->Payload[1];
-	PdiAddr = ((u64 )Cmd->Payload[2] |
-		   (PdiAddr << 32));
+	PdiSrc = Cmd->Payload[0U];
+	PdiAddr = (u64 )Cmd->Payload[1U];
+	PdiAddr = ((u64 )Cmd->Payload[2U] |
+		   (PdiAddr << 32U));
 
 	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Started\n\r");
 
@@ -171,7 +190,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 
 	XPlmi_Printf(DEBUG_GENERAL, "Subsystem PDI Load: Done\n\r");
 END:
-	Cmd->Response[0] = Status;
+	Cmd->Response[0U] = Status;
 	return Status;
 }
 
@@ -182,7 +201,7 @@ END:
  *****************************************************************************/
 static XPlmi_ModuleCmd XLoader_Cmds[] =
 {
-	XPLMI_MODULE_COMMAND(XLoader_Reserved),
+	XPLMI_MODULE_COMMAND(XLoader_Features),
 	XPLMI_MODULE_COMMAND(XLoader_LoadSubsystemPdi),
 	XPLMI_MODULE_COMMAND(XLoader_LoadDdrCpyImg)
 };
@@ -196,7 +215,7 @@ static XPlmi_Module XPlmi_Loader =
 {
 	XPLMI_MODULE_LOADER_ID,
 	XLoader_Cmds,
-	*(&XLoader_Cmds + 1) - XLoader_Cmds,
+	*(&XLoader_Cmds + 1U) - XLoader_Cmds,
 };
 
 /*****************************************************************************/
