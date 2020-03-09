@@ -841,6 +841,11 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	Status = XOspiPsv_CheckOspiIdle(InstancePtr);
+	if (Status != (u32)XST_SUCCESS) {
+		goto RETURN_PATH;
+	}
+
 	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_PHY_CONFIGURATION_REG, 0x0U);
