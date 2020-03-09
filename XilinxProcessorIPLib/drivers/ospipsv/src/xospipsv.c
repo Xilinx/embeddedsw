@@ -67,7 +67,7 @@
 #include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
-#define SILICON_VERSION_1	0x10
+#define SILICON_VERSION_1	0x10U
 #define XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ	120000000U
 #define READ_ID		0x9FU
 

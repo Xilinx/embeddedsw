@@ -309,16 +309,16 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 	u32 *DeviceIdInfo;
 	u8 RXTapFound = 0;
 	u32 Status;
-	u32 MaxTap;
+	u8 MaxTap;
 	u8 WindowSize;
 	u8 Max_WindowSize = 0;
 	u8 Dummy_Incr;
 	u8 Dummy_Flag = 0;
 	u8 Count;
 
-	MaxTap = ((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
+	MaxTap = (u8)((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
 	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-		MaxTap = (u32)XOSPIPSV_DLL_MAX_TAPS;
+		MaxTap = (u8)XOSPIPSV_DLL_MAX_TAPS;
 	}
 	for (Dummy_Incr = 0U; Dummy_Incr <= 1U; Dummy_Incr++) {
 		if (Dummy_Incr != 0U) {
@@ -351,7 +351,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 				if (Status != (u32)XST_SUCCESS) {
 					goto RETURN_PATH;
 				}
-				DeviceIdInfo = (u32 *)(void *)&(FlashMsg->RxBfrPtr[0]);
+				DeviceIdInfo = (u32 *)&(FlashMsg->RxBfrPtr[0]);
 			} while((InstancePtr->DeviceIdData == *DeviceIdInfo) && (Count <= (u8)10U));
 			if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
 				if (RXTapFound == 0U) {

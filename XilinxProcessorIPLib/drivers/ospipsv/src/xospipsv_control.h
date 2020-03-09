@@ -132,7 +132,7 @@ u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_CheckOspiIdle(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_WaitForLock(const XOspiPsv *InstancePtr, u32 Mask);
-u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg,
+u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 								u32 TXTap);
 
 #ifdef __cplusplus
