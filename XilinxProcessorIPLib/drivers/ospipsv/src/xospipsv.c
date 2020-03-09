@@ -117,12 +117,12 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 	 * device and re-initialize, but prevents a user from inadvertently
 	 * initializing. This assumes the busy flag is cleared at startup.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (u32)XST_DEVICE_IS_STARTED;
 	} else {
 
 		/* Set some default values. */
-		InstancePtr->IsBusy = FALSE;
+		InstancePtr->IsBusy = (u32)FALSE;
 		InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
@@ -202,7 +202,7 @@ void XOspiPsv_Reset(XOspiPsv *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	InstancePtr->IsBusy = FALSE;
+	InstancePtr->IsBusy = (u32)FALSE;
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 			XOSPIPSV_CONFIG_INIT_VALUE);
 
@@ -356,7 +356,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Check whether there is another transfer in progress. Not thread-safe */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (u32)XST_DEVICE_BUSY;
 		goto ERROR_PATH;
 	}
@@ -371,7 +371,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	 * Set the busy flag, which will be cleared when the transfer is
 	 * entirely done.
 	 */
-	InstancePtr->IsBusy = TRUE;
+	InstancePtr->IsBusy = (u32)TRUE;
 	InstancePtr->Msg = Msg;
 
 	XOspiPsv_AssertCS(InstancePtr);
@@ -383,7 +383,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	}
 
 	XOspiPsv_Setup_Devsize(InstancePtr, Msg);
-	if ((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != FALSE) {
+	if ((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != (u32)FALSE) {
 		XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
 		InstancePtr->RxBytes = Msg->ByteCount;
 		InstancePtr->SendBufferPtr = NULL;
@@ -419,7 +419,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 	XOspiPsv_DeAssertCS(InstancePtr);
 
-	InstancePtr->IsBusy = FALSE;
+	InstancePtr->IsBusy = (u32)FALSE;
 
 ERROR_PATH:
 	return Status;
@@ -451,7 +451,7 @@ u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Check whether there is another transfer in progress */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (u32)XST_DEVICE_BUSY;
 		goto ERROR_PATH;
 	}
@@ -466,7 +466,7 @@ u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	 * Set the busy flag, which will be cleared when the transfer is
 	 * entirely done.
 	 */
-	InstancePtr->IsBusy = TRUE;
+	InstancePtr->IsBusy = (u32)TRUE;
 	InstancePtr->Msg = Msg;
 
 	XOspiPsv_AssertCS(InstancePtr);
@@ -539,7 +539,7 @@ u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
 
 	XOspiPsv_DeAssertCS(InstancePtr);
 
-	InstancePtr->IsBusy = FALSE;
+	InstancePtr->IsBusy = (u32)FALSE;
 
 ERROR_PATH:
 	return Status;
@@ -572,7 +572,7 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Check whether there is another transfer in progress. Not thread-safe */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = XST_DEVICE_BUSY;
 		goto ERROR_PATH;
 	}
@@ -593,7 +593,7 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	 * Set the busy flag, which will be cleared when the transfer is
 	 * entirely done.
 	 */
-	InstancePtr->IsBusy = TRUE;
+	InstancePtr->IsBusy = (u32)TRUE;
 	InstancePtr->Msg = Msg;
 
 	XOspiPsv_AssertCS(InstancePtr);
@@ -766,7 +766,7 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 
 		InstancePtr->StatusHandler(InstancePtr->StatusRef, StatusReg);
 		XOspiPsv_DeAssertCS(InstancePtr);
-		InstancePtr->IsBusy = FALSE;
+		InstancePtr->IsBusy = (u32)FALSE;
 	}
 
 	return XST_SUCCESS;

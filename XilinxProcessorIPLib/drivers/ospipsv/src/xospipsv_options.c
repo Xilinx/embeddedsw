@@ -122,14 +122,14 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 	 * Do not allow to modify the Control Register while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = XST_DEVICE_BUSY;
 	} else {
 		XOspiPsv_Disable(InstancePtr);
 		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_CONFIG_REG);
 		for (Index = 0U; Index < XOSPIPSV_NUM_OPTIONS; Index++) {
-			if ((Options & OptionsTable[Index].Option) != FALSE) {
+			if ((Options & OptionsTable[Index].Option) != (u32)FALSE) {
 				ConfigReg |= OptionsTable[Index].Mask;
 				if((OptionsTable[Index].Mask &
 						XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) != 0U) {
@@ -274,7 +274,7 @@ u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 	 * Do not allow the slave select to change while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (u32)XST_DEVICE_BUSY;
 	} else {
 		if ((InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) &&
