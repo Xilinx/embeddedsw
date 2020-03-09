@@ -63,6 +63,7 @@
 *                       to real (and vice versa).
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
 * </pre>
 *
 ******************************************************************************/
@@ -129,6 +130,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	u32 Offset;
 	u32 DatapathMode;
 	u32 FabricRate;
+	u32 BWDiv = XRFDC_FULL_BW_DIVISOR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MixerSettingsPtr != NULL);
@@ -142,12 +144,20 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		if (Type == XRFDC_DAC_TILE) {
 			DatapathMode = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
 						   XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
-			if (DatapathMode == XRFDC_DAC_INT_MODE_FULL_BW_BYPASS) {
+			switch (DatapathMode) {
+			case XRFDC_DAC_INT_MODE_FULL_BW_BYPASS:
 				Status = XRFDC_FAILURE;
 				metal_log(METAL_LOG_ERROR,
 					  "\n Can't set mixer as DAC %u DUC %u is in bypass mode in %s\r\n", Tile_Id,
 					  Block_Id, __func__);
 				goto RETURN_PATH;
+			case XRFDC_DAC_INT_MODE_HALF_BW_IMR:
+				BWDiv = XRFDC_HALF_BW_DIVISOR;
+				break;
+			case XRFDC_DAC_INT_MODE_FULL_BW:
+			default:
+				BWDiv = XRFDC_FULL_BW_DIVISOR;
+				break;
 			}
 		}
 	}
@@ -178,7 +188,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			/* DAC */
 			MixerConfigPtr =
 				&InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].Mixer_Settings;
-			SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate;
+			SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate / BWDiv;
 		}
 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
@@ -789,6 +799,8 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	double NCOFreq;
 	u32 FineMixerMode;
 	u32 CoarseMixerMode = 0x0;
+	u32 BWDiv = XRFDC_FULL_BW_DIVISOR;
+	u32 DatapathMode;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MixerSettingsPtr != NULL);
@@ -808,14 +820,34 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			Block_Id = XRFDC_BLK_ID1;
 		}
 	}
-
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		if (Type == XRFDC_DAC_TILE) {
+			DatapathMode = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
+						   XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+			switch (DatapathMode) {
+			case XRFDC_DAC_INT_MODE_FULL_BW_BYPASS:
+				Status = XRFDC_FAILURE;
+				metal_log(METAL_LOG_ERROR,
+					  "\n Can't set mixer as DAC %u DUC %u is in bypass mode in %s\r\n", Tile_Id,
+					  Block_Id, __func__);
+				goto RETURN_PATH;
+			case XRFDC_DAC_INT_MODE_HALF_BW_IMR:
+				BWDiv = XRFDC_HALF_BW_DIVISOR;
+				break;
+			case XRFDC_DAC_INT_MODE_FULL_BW:
+			default:
+				BWDiv = XRFDC_FULL_BW_DIVISOR;
+				break;
+			}
+		}
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
 		SamplingRate = InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate;
 		MixerConfigPtr = &InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].Mixer_Settings;
 	} else {
 		/* DAC */
-		SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate;
+		SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate / BWDiv;
 		MixerConfigPtr = &InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].Mixer_Settings;
 	}
 

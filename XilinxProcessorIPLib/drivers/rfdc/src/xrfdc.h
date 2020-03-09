@@ -263,6 +263,7 @@
 *                       between engineering sample & production silicon.
 *       cog    02/17/20 Driver now gets tile/path enables from the bitfile.
 *       cog    02/20/20 Added macros for Clock Gater handling.
+*       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
 *
 * </pre>
 *
@@ -1126,6 +1127,9 @@ typedef struct {
 #define XRFDC_DAC_INT_MODE_HALF_BW_IMR 2U
 #define XRFDC_DAC_INT_MODE_FULL_BW_BYPASS 3U
 #define XRFDC_DAC_MODE_MAX XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO
+
+#define XRFDC_FULL_BW_DIVISOR 1U
+#define XRFDC_HALF_BW_DIVISOR 2U
 
 #define XRFDC_DAC_IMR_MODE_LOWPASS 0U
 #define XRFDC_DAC_IMR_MODE_HIGHPASS 1U
