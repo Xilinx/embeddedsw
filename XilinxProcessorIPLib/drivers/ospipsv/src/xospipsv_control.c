@@ -94,7 +94,7 @@ u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	}
 
 	XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-		1, (u32)InstancePtr->RxBytes - 1, Reqaddr, 0, (u32)Msg->Addrsize - 1,
+		1, (u32)InstancePtr->RxBytes - (u32)1, Reqaddr, 0, (u32)Msg->Addrsize - (u32)1,
 		0, 0, (u32)Msg->Dummy, 0);
 
 	/* Execute command */
@@ -146,8 +146,8 @@ u32 XOspiPsv_Stig_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		ByteCount = 1;
 	}
 	XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-		0, 0, Reqaddr, 0, (u32)Msg->Addrsize - 1,
-		Reqwridataen, (u32)ByteCount - 1, 0, 0);
+		0, 0, Reqaddr, 0, (u32)Msg->Addrsize - (u32)1,
+		Reqwridataen, (u32)ByteCount - (u32)1, 0, 0);
 
 	/* Exec cmd */
 	Status = XOspiPsv_Exec_Flash_Cmd(InstancePtr);
