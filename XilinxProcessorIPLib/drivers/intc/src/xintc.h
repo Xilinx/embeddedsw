@@ -217,6 +217,8 @@
 *                     of intc in xparameters.h
 * 3.9   adk  19/12/18 If design contains unconnected interrupt pins
 *		      return proper error message(CR#1018878).
+* 3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
+*                      connected to cascade slices.
 * </pre>
 *
 ******************************************************************************/

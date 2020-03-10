@@ -763,7 +763,11 @@ proc intc_update_source_array {periph} {
                 set width [expr [common::get_property LEFT $source_pin] + 1]
             }
             for {set count 0} {$count != $width} {incr count} {
-                set source_port_name($intr_cnt)         "${t_source_port_name}"
+                if { ${count} > 0 } {
+                    set source_port_name($intr_cnt)         "${t_source_port_name}_${count}"
+                } else {
+                    set source_port_name($intr_cnt)         "${t_source_port_name}"
+                }
                 set source_name($intr_cnt)              $t_source_name
                 set source_port_type($intr_cnt)          $t_port_type
                 set source_driver($intr_cnt)            $t_source_driver
