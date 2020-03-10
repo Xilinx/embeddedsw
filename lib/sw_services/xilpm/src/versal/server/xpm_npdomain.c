@@ -43,14 +43,27 @@ static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u32 NpdPowerUpTime = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Check vccint_soc first to make sure power is on */
-	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
-		/* TODO: Request PMC to power up VCCINT_SOC rail and wait for the acknowledgement.*/
-		goto done;
+	while (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
+		/* Wait for VCCINT_SOC power up */
+		usleep(10);
+		NpdPowerUpTime++;
+		if (NpdPowerUpTime > XPM_POLL_TIMEOUT) {
+			/* TODO: Request PMC to power up VCCINT_SOC rail and wait for the acknowledgement.*/
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+	if (PLATFORM_VERSION_SILICON == Platform) {
+		/* TODO: This is a temporary fix for MGT boards;
+		 * Remove the delay once AMS solution to read rail voltages is finalized.
+		 */
+		usleep(1000);
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_VALUE);
