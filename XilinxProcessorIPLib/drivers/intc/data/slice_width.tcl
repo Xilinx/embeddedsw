@@ -30,6 +30,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 3.10   adk  13/09/19 First release
+# 3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
+#                      connected to cascade slices.
 #
 ##############################################################################
 
@@ -111,7 +113,7 @@ proc ::hsi::__internal::get_slice_interrupt_sources_for_slice { slice_ip_obj int
             set ip_name [common::get_property IP_NAME $source_cell]
             #Cascading case of xlslice IP
             if { [string match -nocase $ip_name "xlslice"] } {
-                set source_pins [::hsi::__internal::get_slice_interrupt_sources_for_slice $source_cell $intr_src_pin]
+                set slice_width [ common::get_property CONFIG.DOUT_WIDTH $slice_ip_obj ]
             } elseif { [string match -nocase $ip_name "xlconcat"] } {
                 set from [::common::get_property CONFIG.DIN_FROM $slice_ip_obj]
                 set to [::common::get_property CONFIG.DIN_TO $slice_ip_obj]
