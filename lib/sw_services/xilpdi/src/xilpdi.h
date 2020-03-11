@@ -330,7 +330,8 @@ typedef struct {
 	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
 	u32 ExtIdCode;  /**< Extended ID Code */
 	u32 AcOffset; /**< AC offset of Meta header */
-	u32 Rsvd[12U]; /**< Reserved */
+	u32 KekIv[3]; /**< Kek IV for meta header decryption */
+	u32 Rsvd[9U]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTable __attribute__ ((aligned(16)));
 
