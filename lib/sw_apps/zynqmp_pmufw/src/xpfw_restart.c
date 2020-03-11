@@ -34,9 +34,11 @@
 #include "xpfw_restart.h"
 #include "pm_csudma.h"
 #include "xpfw_aib.h"
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 #include "xsecure_sha.h"
 
 static XSecure_Sha3 Sha3Instance;
+#endif
 
 #ifdef ENABLE_RECOVERY
 
@@ -637,6 +639,7 @@ void XPfw_RecoveryStop(PmMaster *Master) { }
 void XPfw_RecoveryRestart(PmMaster *Master) { }
 #endif /* ENABLE_RECOVERY */
 
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 /**
  *
  * This function is used to store the FSBL image from OCM to
@@ -723,3 +726,4 @@ s32 XPfw_RestoreFsblToOCM(void)
 
 	return Status;
 }
+#endif

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -104,6 +104,9 @@ extern "C" {
  *			to ever disable clock permission checking). Do this at
  *			your own responsibility.
  *	- ENABLE_EFUSE_ACCESS : Enables efuse access feature
+ *  - USE_DDR_FOR_APU_RESTART : If this macro is enabled, PMU writes FSBL image
+ *              to DDR from OCM if FSBL is running on APU. This is to free-up
+ *              OCM memory for other uses.
  *
  * 	These macros are specific to ZCU100 design where it uses GPO1[2] as a
  * 	board power line and
@@ -154,6 +157,8 @@ extern "C" {
 #define CONNECT_PMU_GPO_5_VAL			(1U)
 
 #define SECURE_ACCESS_VAL		(0U)
+
+#define USE_DDR_FOR_APU_RESTART_VAL		(1U)
 
 /*
  * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
@@ -352,6 +357,10 @@ extern "C" {
 
 #if CONNECT_PMU_GPO_5_VAL
 #define CONNECT_PMU_GPO_5
+#endif
+
+#if USE_DDR_FOR_APU_RESTART_VAL
+#define USE_DDR_FOR_APU_RESTART
 #endif
 
 #ifdef __cplusplus

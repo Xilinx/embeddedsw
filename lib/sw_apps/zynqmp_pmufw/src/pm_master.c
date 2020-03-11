@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -980,7 +980,7 @@ s32 PmMasterRestart(PmMaster* const master)
 							FSBL_STATE_PROC_INFO_MASK;
 
 	if ((FSBL_RUNNING_ON_A53 == FsblProcInfo) && master == &pmMasterApu_g) {
-#ifdef ENABLE_SECURE
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 		status = XPfw_RestoreFsblToOCM();
 		if (XST_SUCCESS != status) {
 			goto done;
