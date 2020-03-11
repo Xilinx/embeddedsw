@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,8 +49,10 @@ s32 XPfw_RecoveryInit(void);
 void XPfw_RecoveryHandler(u8 ErrorId);
 void XPfw_RecoveryAck(PmMaster *Master);
 
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 s32 XPfw_StoreFsblToDDR(void);
 s32 XPfw_RestoreFsblToOCM(void);
+#endif
 
 #ifdef __cplusplus
 }

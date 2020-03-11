@@ -107,6 +107,8 @@ static void CheckFsblCompletion(void)
 			*/
 		}
 #endif
+
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 		/*
 		 * Store FSBL to reserved DDR memory location.
 		 */
@@ -116,6 +118,7 @@ static void CheckFsblCompletion(void)
 					"APU-only restart failed. APU-only warm-restart "
 					"may not work\r\n", __func__);
 		}
+#endif
 
 #ifdef ENABLE_WDT
 		/*
