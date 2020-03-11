@@ -2029,7 +2029,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 
 		KeyDetails.PufHdLocation = XilPdi_GetPufHdPh(SecurePtr->PrtnHdr);
 		KeyDetails.PdiKeySrc = SecurePtr->PrtnHdr->EncStatus;
-		KeyDetails.KekIvAddr = (UINTPTR)SecurePtr->PdiPtr->MetaHdr.BootHdr.KekIv;
+		KeyDetails.KekIvAddr = (UINTPTR)SecurePtr->PrtnHdr->KekIv;
 		Status = XLoader_AesKeySelect(SecurePtr, &AesInstance,
 					&KeyDetails, &KeySrc);
 		if (Status != XLOADER_SUCCESS) {
@@ -2760,7 +2760,8 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 
 	KeyDetails.PufHdLocation = XilPdi_GetPufHdMetaHdr(&MetaHdr->ImgHdrTable);
 	KeyDetails.PdiKeySrc = MetaHdr->ImgHdrTable.EncKeySrc;
-	KeyDetails.KekIvAddr = (UINTPTR)SecurePtr->PdiPtr->MetaHdr.BootHdr.KekIv;
+	KeyDetails.KekIvAddr =
+		(UINTPTR)SecurePtr->PdiPtr->MetaHdr.ImgHdrTable.KekIv;
 	/*
 	 * Key source selection
 	 */
