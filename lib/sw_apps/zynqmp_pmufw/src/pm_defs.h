@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -691,6 +691,7 @@ extern "C" {
 #define PINCTRL_FUNC_TRACE0		54U
 #define PINCTRL_FUNC_TRACE0_CLK		55U
 #define PINCTRL_FUNC_TESTSCAN0		56U
+#define MAX_FUNCTION			57U
 
 #define PINCTRL_CONFIG_SLEW_RATE	0U
 #define PINCTRL_CONFIG_BIAS_STATUS	1U
