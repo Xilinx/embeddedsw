@@ -42,6 +42,9 @@
 #define XPM_NODEIDX_DEV_GTYP_MIN		XPM_NODEIDX_DEV_GTYP_0
 #define XPM_NODEIDX_DEV_GTYP_MAX		XPM_NODEIDX_DEV_GTYP_2
 
+#define PLHCLEAN_EARLY_BOOT 0U
+#define PLHCLEAN_INIT_NODE  1U
+
 //If TRIM_CRAM[31:0]=0 (FUSE not programmed). Then set rw_read_voltages to 0.61V + 0.625V
 #define CRAM_TRIM_RW_READ_VOLTAGE	0x0600019FU
 static XCframe CframeIns={0}; /* CFRAME Driver Instance */
@@ -306,6 +309,151 @@ done:
 	return Status;
 }
 
+static XStatus PlHouseClean(u32 TriggerTime)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PlDomain *Pld;
+	u32 Value;
+
+	if (PLHCLEAN_EARLY_BOOT == TriggerTime) {
+		/* Enable ROWON */
+		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
+							XCFRAME_CMD_REG_ROWON);
+
+		/* HCLEANR type 3,4,5,6 */
+		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
+							XCFRAME_CMD_REG_HCLEANR);
+
+		/* HB BISR REPAIR */
+		Status = XPmBisr_Repair(DCMAC_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPmBisr_Repair(ILKN_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPmBisr_Repair(MRMAC_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPmBisr_Repair(SDFEC_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* BRAM/URAM repair */
+		Status = XPmBisr_Repair(BRAM_TAG_ID);
+		if (XST_SUCCESS != Status) {
+					goto done;
+			}
+		Status = XPmBisr_Repair(URAM_TAG_ID);
+		if (XST_SUCCESS != Status) {
+					goto done;
+			}
+
+		/* HCLEAN type 0,1,2 */
+		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
+								XCFRAME_CMD_REG_HCLEAN);
+	} else {
+
+		Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
+		if (NULL == Pld) {
+			goto done;
+		}
+
+		/* Poll for house clean completion */
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiitng for PL HC complete....", __func__);
+		while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
+			(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
+					(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) {};
+		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
+
+		/* VGG TRIM */
+		PldApplyTrim(XPM_PL_TRIM_VGG);
+
+		/* CRAM TRIM */
+		PldApplyTrim(XPM_PL_TRIM_CRAM);
+
+		/* BRAM/URAM TRIM */
+		PldApplyTrim(XPM_PL_TRIM_BRAM);
+		PldApplyTrim(XPM_PL_TRIM_URAM);
+
+		if (PLATFORM_VERSION_SILICON != Platform) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+
+		/* LAGUNA REPAIR - not needed for now */
+
+		/* There is no status for Bisr done in hard ip. But we must ensure
+		 * BISR is complete before scan clear */
+		 /*TBD - Wait for how long?? Wei to confirm with DFT guys */
+
+		/* Fake read */
+		/* each register is 128 bits long so issue 4 reads */
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME Fake Read...", __func__);
+		PmIn32(Pld->Cframe0RegBaseAddr + 0U, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 4U, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 8U, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 12U, Value);
+		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
+
+		/* Unlock CFU writes */
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
+
+		/* PL scan clear / MBIST */
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
+			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
+			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+
+		/* Poll for status */
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
+		Status = XPm_PollForMask(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET,
+				 CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK,
+				 XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
+			/** HACK: Continuing even if CFI SC is not completed for ES1 */
+			if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+				Status = XST_SUCCESS;
+			} else {
+				goto done;
+			}
+		}
+		else {
+			XPlmi_Printf(DEBUG_INFO, "Done\r\n");
+		}
+		/* Check if Scan Clear Passed */
+		if ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
+			(u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
+			(u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: Hard Block Scan Clear / MBIST FAILED\r\n", __func__);
+			/** HACK: Continuing even if CFI SC is not pass for ES1 */
+			if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+				Status = XST_SUCCESS;
+			} else {
+				goto done;
+			}
+		}
+
+		/* Unwrite trigger bits for PL scan clear / MBIST */
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
+			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, 0);
+
+		/* Lock CFU writes */
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
+	}
+
+	/* Compilation warning fix */
+	(void)Value;
+
+done:
+	return Status;
+}
+
 static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -344,16 +492,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if(0U == PlpdHouseCleanBypass) {
-		/* Poll for house clean completion */
-		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiitng for PL HC complete....", __func__);
-		while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
-			(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
-					(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) {};
-		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
-	}
-
-	 /* Remove PL-SOC isolation */
+	/* Remove PL-SOC isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -364,11 +503,20 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	/* Unlock CFU writes */
+	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
+
+	if(0U == PlpdHouseCleanBypass) {
+		Status = PlHouseClean(PLHCLEAN_INIT_NODE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	Status = PldCfuInit();
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
 
 	if (PLATFORM_VERSION_SILICON == Platform) {
 		/*House clean GTY*/
@@ -384,18 +532,15 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	/* Unlock CFU writes */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
-
 	/* Set init_complete */
 	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
 		CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
 		CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 
+
 	/* Lock CFU writes */
 	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
-
 
 	/* Enable the global signals */
 	XCfupmc_SetGlblSigEn(&CfupmcIns, (u8 )TRUE);
@@ -420,138 +565,6 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 
 	XCfupmc_GlblSeqInit(&CfupmcIns);
 
-done:
-	return Status;
-}
-
-static XStatus PlHouseClean(void)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_PlDomain *Pld;
-	u32 Value;
-
-	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
-	if (NULL == Pld) {
-		goto done;
-	}
-
-	/* Enable ROWON */
-	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
-						XCFRAME_CMD_REG_ROWON);
-
-	/* HCLEANR type 3,4,5,6 */
-	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
-						XCFRAME_CMD_REG_HCLEANR);
-
-	/* HB BISR REPAIR */
-	Status = XPmBisr_Repair(DCMAC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = XPmBisr_Repair(ILKN_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = XPmBisr_Repair(MRMAC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = XPmBisr_Repair(SDFEC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* BRAM/URAM TRIM */
-	PldApplyTrim(XPM_PL_TRIM_BRAM);
-	PldApplyTrim(XPM_PL_TRIM_URAM);
-
-	/* BRAM/URAM repair */
-	Status = XPmBisr_Repair(BRAM_TAG_ID);
-	if (XST_SUCCESS != Status) {
-				goto done;
-		}
-	Status = XPmBisr_Repair(URAM_TAG_ID);
-	if (XST_SUCCESS != Status) {
-				goto done;
-		}
-
-	/* HCLEAN type 0,1,2 */
-	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
-							XCFRAME_CMD_REG_HCLEAN);
-
-
-	XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME_BUSY to go low...", __func__);
-	while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
-		(u32)CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
-					(u32)CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) {};
-	XPlmi_Printf(DEBUG_INFO, "Done\r\n");
-	/* VGG TRIM */
-	PldApplyTrim(XPM_PL_TRIM_VGG);
-
-	/* CRAM TRIM */
-	PldApplyTrim(XPM_PL_TRIM_CRAM);
-
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* LAGUNA REPAIR - not needed for now */
-
-	/* There is no status for Bisr done in hard ip. But we must ensure
-	 * BISR is complete before scan clear */
-	 /*TBD - Wait for how long?? Wei to confirm with DFT guys */
-
-	/* Fake read */
-	/* each register is 128 bits long so issue 4 reads */
-	XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME Fake Read...", __func__);
-	PmIn32(Pld->Cframe0RegBaseAddr + 0U, Value);
-	PmIn32(Pld->Cframe0RegBaseAddr + 4U, Value);
-	PmIn32(Pld->Cframe0RegBaseAddr + 8U, Value);
-	PmIn32(Pld->Cframe0RegBaseAddr + 12U, Value);
-	XPlmi_Printf(DEBUG_INFO, "Done\r\n");
-
-	/* Unlock CFU writes */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
-
-	/* PL scan clear / MBIST */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
-		CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
-		CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-
-	/* Poll for status */
-	XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
-	Status = XPm_PollForMask(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET,
-				 CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
-		/** HACK: Continuing even if CFI SC is not completed */
-		Status = XST_SUCCESS;
-	}
-	else {
-		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
-	}
-	/* Check if Scan Clear Passed */
-	if ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
-		 (u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
-			(u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
-		XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: Hard Block Scan Clear / MBIST FAILED\r\n", __func__);
-		/** HACK: Continuing even if CFI SC is not pass */
-		Status = XST_SUCCESS;
-	}
-
-	/* Unwrite trigger bits for PL scan clear / MBIST */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
-		CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, 0);
-
-	/* Lock CFU writes */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
-
-	/* Compilation warning fix */
-	(void)Value;
 done:
 	return Status;
 }
@@ -593,7 +606,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		goto done;
 	}
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);;
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		Status = XST_FAILURE;
 		goto done;
@@ -673,7 +686,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	}
 
 	if(0U == PlpdHouseCleanBypass) {
-		Status = PlHouseClean();
+		Status = PlHouseClean(PLHCLEAN_EARLY_BOOT);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
