@@ -485,14 +485,6 @@
 /* Subsystem Nodes */
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
 #define PM_SUBSYS_PMC				(0x1c000001U)
-#define PM_SUBSYS_PSM				(0x1c000002U)
-#define PM_SUBSYS_APU				(0x1c000003U)
-#define PM_SUBSYS_RPU0_LOCK			(0x1c000004U)
-#define PM_SUBSYS_RPU0_0			(0x1c000005U)
-#define PM_SUBSYS_RPU0_1			(0x1c000006U)
-#define PM_SUBSYS_DDR0				(0x1c000007U)
-#define PM_SUBSYS_ME				(0x1c000008U)
-#define PM_SUBSYS_PL				(0x1c000009U)
 
 /* Isolation Nodes */
 #define PM_ISO_FPD_PL_TEST			(0x20000000U)
