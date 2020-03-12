@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,8 +49,11 @@
 * 4.0   arc  18/12/18 Fixed MISRA-C violation.
 *       arc  12/02/19 Added support for validate image format.
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
-*       psl  03/26/19 FIxed MISRA_C violation
+*       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   psl  07/31/19 Fixed MISRA-C violation.
+* 4.2   kal  03/12/20 Authenticate SizeofImgHdr before use, incase of failure
+*                     return XSECURE_IMAGE_HEADER_SIZE_ERR.
+*
 * </pre>
 *
 * @note
@@ -136,6 +139,7 @@ extern "C" {
 #define XSECURE_OUT_OF_RANGE_USER_EFUSE_ERROR	0x18U
 #define XSECURE_INVALID_IMAGE_ERROR    0x19U
 #define XSECURE_SHA3_UPDATE_FAIL        0x20U
+#define XSECURE_IMAGE_HEADER_SIZE_ERR	0x21U
 
 #define XSECURE_AES_ERROR		0x80U
 #define XSECURE_AUTH_NOT_ENABLED 	0xFFU

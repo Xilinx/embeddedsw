@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -68,6 +68,10 @@
 * 4.1   psl 07/02/19 Fixed Coverity warning.
 *       mmd 07/05/19 Optimized the code
 *       psl 07/31/19 Fixed MISRA-C violations.
+* 4.2   kal 03/12/20 Authenticate SizeofImgHdr before use, incase of failure
+*                    return XSECURE_IMAGE_HEADER_SIZE_ERR.
+*                    Added support to hold Aes engine in reset after secure
+*                    image processing.
 *
 * </pre>
 *
@@ -850,6 +854,11 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 
 	/* Copy image header to internal memory */
 	SizeofImgHdr = AuthCertOffset - ImgHdrToffset;
+
+	if (SizeofImgHdr > sizeof(Buffer)) {
+		Status = XSECURE_IMAGE_HEADER_SIZE_ERR;
+		goto END;
+	}
 	(void)XSecure_MemCopy((void *)(UINTPTR)Buffer, (u8 *)(StartAddr + ImgHdrToffset),
 					SizeofImgHdr/XSECURE_WORD_LEN);
 
@@ -1600,6 +1609,8 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 		Addr->AddrHigh = (u32)((u64)(UINTPTR)(DecDst) >> 32);
 		Addr->AddrLow = (u32)(UINTPTR)(DecDst);
 	}
+
+	XSecure_SetReset(SecureAes.BaseAddress, XSECURE_CSU_AES_RESET_OFFSET);
 
 END:
 	return Status;
