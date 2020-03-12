@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -145,7 +145,7 @@ static PmWakeEventExtern pmExternWake = {
 	.enabled = 0U,
 };
 
-static const u32 pmExternDeviceFsmStates[] = {
+static const u8 pmExternDeviceFsmStates[] = {
 	PM_CAP_WAKEUP,
 };
 

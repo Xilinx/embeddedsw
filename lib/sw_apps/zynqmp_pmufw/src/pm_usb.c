@@ -51,7 +51,7 @@
 #define PM_USB_OFF_TO_ON_LATENCY	152U
 
 /* USB states */
-static const u32 pmUsbStates[] = {
+static const u8 pmUsbStates[] = {
 	[PM_USB_STATE_UNUSED] = 0U,
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP | PM_CAP_POWER,
 	[PM_USB_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT |

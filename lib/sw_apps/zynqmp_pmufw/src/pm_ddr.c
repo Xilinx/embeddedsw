@@ -369,7 +369,7 @@
 #define ADDR_LO(ADDR)	((u32)((u64)(ADDR) & 0x00000000FFFFFFFFULL))
 
 /* DDR states */
-static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
+static const u8 pmDdrStates[PM_DDR_STATE_MAX] = {
 	[PM_DDR_STATE_OFF] = 0U,
 	[PM_DDR_STATE_SR] = PM_CAP_CONTEXT,
 	[PM_DDR_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER |
