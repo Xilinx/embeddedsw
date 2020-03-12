@@ -64,6 +64,7 @@ extern XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES];
 /*****************************************************************************/
 /**
 *
+* @brief
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
