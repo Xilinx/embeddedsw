@@ -61,6 +61,16 @@ static const char *PmDevEvents[] = {
 	"TIMER",
 };
 
+static u32 IpiMasks[][2] = {
+	{ PM_DEV_IPI_0, IPI_0_MASK },
+	{ PM_DEV_IPI_1, IPI_1_MASK },
+	{ PM_DEV_IPI_2, IPI_2_MASK },
+	{ PM_DEV_IPI_3, IPI_3_MASK },
+	{ PM_DEV_IPI_4, IPI_4_MASK },
+	{ PM_DEV_IPI_5, IPI_5_MASK },
+	{ PM_DEV_IPI_6, IPI_6_MASK },
+};
+
 static XPm_DeviceOps PmDeviceOps;
 static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
 static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
@@ -1239,6 +1249,7 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
+	u32 Idx;
 
 	/* Todo: Check if policy allows this request */
 	/* If not allowed XPM_PM_NO_ACCESS error should be returned */
@@ -1267,6 +1278,16 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 
 	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities,
 					    QoS);
+	if (XST_SUCCESS == Status) {
+		/* Assign IPI mask to subsystem if IPI devices are requested. */
+		for (Idx = 0; Idx < ARRAY_SIZE(IpiMasks); Idx++) {
+			if (IpiMasks[Idx][0] == Device->Node.Id) {
+				Subsystem->IpiMask = IpiMasks[Idx][1];
+				break;
+			}
+		}
+	}
+
 done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
