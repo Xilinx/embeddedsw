@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -257,7 +257,7 @@ static const PmSlaveFsm pmSlaveTcmFsm = {
 	.enterState = PmTcmFsmHandler,
 };
 
-static u32 PmSramPowers[] = {
+static u8 PmSramPowers[] = {
 	DEFAULT_SRAM_POWER_OFF,
 	DEFAULT_SRAM_POWER_RETENTION,
 	DEFAULT_SRAM_POWER_ON,

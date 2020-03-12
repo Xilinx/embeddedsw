@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -158,7 +158,7 @@ static PmWakeEventGicProxy pmUsb0Wake = {
 	.group = 2U,
 };
 
-static u32 PmUsbPowers[] = {
+static u8 PmUsbPowers[] = {
 	[PM_USB_STATE_UNUSED] = DEFAULT_USB_POWER_OFF,
 	[PM_USB_STATE_OFF] = DEFAULT_USB_POWER_OFF,
 	[PM_USB_STATE_ON] = DEFAULT_USB_POWER_ON,

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -110,10 +110,10 @@ typedef struct PmNode {
 	PmNodeClass* const class;
 	PmPower* const parent;
 	PmClockHandle* clocks;
-	const u32 *const powerInfo;
-	const u32 powerInfoCnt;
 	u32 latencyMarg;
 	const char* const name;
+	const u8 *const powerInfo;
+	const u8 powerInfoCnt;
 	const PmNodeId nodeId;
 	PmStateId currState;
 	u8 flags;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -2040,7 +2040,7 @@ static const PmSlaveFsm pmSlaveDdrFsm = {
 #endif
 };
 
-static u32 PmDdrPowerConsumptions[] = {
+static u8 PmDdrPowerConsumptions[] = {
 	DEFAULT_DDR_POWER_OFF,
 	DEFAULT_DDR_POWER_SR,
 	DEFAULT_DDR_POWER_ON,

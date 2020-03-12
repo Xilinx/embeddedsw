@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -101,7 +101,7 @@ static const PmSlaveFsm pmSlaveGppFsm = {
 	.enterState = PmGppFsmHandler,
 };
 
-static u32 pmGppSlavePowers[] = {
+static u8 pmGppSlavePowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ static const PmSlaveFsm pmSlaveAonFsm = {
 	.enterState = NULL,
 };
 
-static u32 pmSlaveAonPowers[] = {
+static u8 pmSlaveAonPowers[] = {
 	DEFAULT_POWER_ON,
 };
 
@@ -76,7 +76,7 @@ static const PmStateTran pmGenericSlaveTransitions[] = {
 	},
 };
 
-static u32 pmGenericSlavePowers[] = {
+static u8 pmGenericSlavePowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };
