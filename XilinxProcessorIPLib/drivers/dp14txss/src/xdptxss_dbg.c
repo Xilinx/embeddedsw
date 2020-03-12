@@ -79,6 +79,8 @@
 ******************************************************************************/
 void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 {
+	u8 NumAudioEps;
+
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -135,9 +137,9 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 	u8 TraingAuxReadInt = Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL];
 	u8 AdapterForceLoadSenseCap = Dpcd[XDP_DPCD_ADAPTER_CAP] & (0x01);
 	u8 AdapterAltI2CPatternCap = Dpcd[XDP_DPCD_ADAPTER_CAP] & (0x02);
-	u8 FauxCap = Dpcd[XDP_DPCD_FAUX_CAP] & XDP_DPCD_FAUX_CAP_MASK;
-	u8 MstmCap = Dpcd[XDP_DPCD_MSTM_CAP] & XDP_DPCD_MST_CAP_MASK;
-	u8 NumAudioEps = Dpcd[XDP_DPCD_NUM_AUDIO_EPS];
+	u8 MstmCap = XDp_TxMstCapable(InstancePtr->DpPtr);
+	XDp_TxAuxRead(InstancePtr->DpPtr,
+				XDP_DPCD_NUM_AUDIO_EPS, 1, &NumAudioEps);
 
 	xil_printf("RX capabilities:\n\r"
 		"\tDPCD rev major (0x00000): %d\n\r"
@@ -175,7 +177,6 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 		"\tTraining AUX read interval (0x0000E): %s\n\r"
 		"\tAdapter force load sense cap? (0x0000F) %s\n\r"
 		"\tAdapter alt i2c pattern cap? (0x0000F) %s\n\r"
-		"\tFaux cap?  (0x00020) %s\n\r"
 		"\tMSTM cap? (0x00021) %s\n\r"
 		"\t# of audio eps (0x00022) : %d\n\r",
 		DpcdRevMajor,
@@ -234,7 +235,6 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 				"Unknown AUX read interval",
 		AdapterForceLoadSenseCap ? "Y" : "N",
 		AdapterAltI2CPatternCap ? "Y" : "N",
-		FauxCap ? "Y" : "N",
 		MstmCap ? "Y" : "N",
 		NumAudioEps
 	);
