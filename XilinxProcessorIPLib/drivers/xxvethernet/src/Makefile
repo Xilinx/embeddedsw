@@ -33,7 +33,7 @@ xxvethernet_libs: ${OBJECTS}
 .PHONY: include
 include: xxvethernet_includes
 
-xcanfd_includes:
+xxvethernet_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
