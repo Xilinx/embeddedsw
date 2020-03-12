@@ -58,6 +58,7 @@
 *       mn   07/06/18 Fix Cppcheck and Doxygen warnings
 * 4.2   mn   08/16/19 Initialize Status variables with failure values
 *       mn   09/25/19 Check if the SD is powered on or not in disk_status()
+* 4.3   mn   02/24/20 Remove unused macro defines
 *
 * </pre>
 *
@@ -74,15 +75,6 @@
 #include "sleep.h"
 #include "xil_printf.h"
 
-#define HIGH_SPEED_SUPPORT	0x01U
-#define WIDTH_4_BIT_SUPPORT	0x4U
-#define SD_CLK_25_MHZ		25000000U
-#define SD_CLK_26_MHZ		26000000U
-#define SD_CLK_52_MHZ		52000000U
-#define EXT_CSD_DEVICE_TYPE_BYTE	196
-#define EXT_CSD_4_BIT_WIDTH_BYTE	183
-#define EXT_CSD_HIGH_SPEED_BYTE		185
-#define EXT_CSD_DEVICE_TYPE_HIGH_SPEED	0x3
 #define SD_CD_DELAY		10000U
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
