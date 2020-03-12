@@ -839,6 +839,10 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 	if((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
 	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+		if (NULL == Core) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
 		Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 	} else {
 		PmErr("Invalid Device Id\n\r");
@@ -891,6 +895,10 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	if ((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
 	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+		if (NULL == Core) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
 		Core->ResumeAddr = Address | 1U;
 		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
 	} else {
@@ -1906,7 +1914,13 @@ done:
 XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	XPm_ClockNode *Clk;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	if (ISOUTCLK(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
