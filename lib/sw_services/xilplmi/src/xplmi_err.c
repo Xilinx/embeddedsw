@@ -121,11 +121,11 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_BOOT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_FW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_FW_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_GSW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_GSW_NCR] =
@@ -186,17 +186,17 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_PMCAPB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMCROM] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_MB_FATAL0] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_MB_FATAL1] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMCPAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMCSMON0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMCSMON1] =
@@ -214,7 +214,7 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_PMC_RSRV3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMCSMON8] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMCSMON9] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_CFI] =
@@ -228,7 +228,7 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_PMC_RSRV5] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_RTCALARM] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_NPLL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PPLL] =
@@ -256,7 +256,7 @@ struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_PSM_B_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_MB_FATAL] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PSM_NCR] =
