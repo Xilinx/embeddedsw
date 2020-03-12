@@ -658,6 +658,13 @@ extern "C" {
 #define IPI_PMC_ISR_ADDR					(0xFF320010U)
 #define PSM_IPI_BIT						(0x1U)
 #define PMC_IPI_MASK						(0x00000002U)
+#define IPI_0_MASK						(0x00000004U)
+#define IPI_1_MASK						(0x00000008U)
+#define IPI_2_MASK						(0x00000010U)
+#define IPI_3_MASK						(0x00000020U)
+#define IPI_4_MASK						(0x00000040U)
+#define IPI_5_MASK						(0x00000080U)
+#define IPI_6_MASK						(0x00000200U)
 
 /**
  * XRAM registers
