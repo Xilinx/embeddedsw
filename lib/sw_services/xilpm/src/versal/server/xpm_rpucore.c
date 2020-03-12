@@ -201,10 +201,6 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	int Status;
 	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
-	if (NULL == DefSubsystem) {
-		PmErr("Unable to get Subsystem for Id:0x%x\n\r", PM_SUBSYS_DEFAULT);
-		return;
-	}
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	if (NULL == RpuCore)  {
@@ -227,27 +223,33 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	PmOut32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 
 	/* Add or remove R50_1 core in default subsystem according to its mode */
-	Status = XPmDevice_IsRequested(PM_DEV_RPU0_0, PM_SUBSYS_DEFAULT);
-	if ((XST_SUCCESS == Status) && ((u8)ONLINE == DefSubsystem->State)) {
-		if (Mode == XPM_RPU_MODE_SPLIT) {
-			Status = XPmDevice_Request(PM_SUBSYS_DEFAULT, PM_DEV_RPU0_1,
-						   (u32)PM_CAP_ACCESS, XPM_MAX_QOS);
-			if (XST_SUCCESS != Status) {
-				PmWarn("Error %d in RPU0_1 request\r\n", Status);
-			}
-		} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
-			Status = XPmDevice_IsRequested(PM_DEV_RPU0_1,
-						       PM_SUBSYS_DEFAULT);
-			if (XST_SUCCESS == Status) {
-				Status = XPmDevice_Release(PM_SUBSYS_DEFAULT,
-							   PM_DEV_RPU0_1);
+	if (NULL != DefSubsystem) {
+		Status = XPmDevice_IsRequested(PM_DEV_RPU0_0,
+					       PM_SUBSYS_DEFAULT);
+		if ((XST_SUCCESS == Status) &&
+		    ((u8)ONLINE == DefSubsystem->State)) {
+			if (Mode == XPM_RPU_MODE_SPLIT) {
+				Status = XPmDevice_Request(PM_SUBSYS_DEFAULT,
+							   PM_DEV_RPU0_1,
+							   (u32)PM_CAP_ACCESS,
+							   XPM_MAX_QOS);
 				if (XST_SUCCESS != Status) {
-					PmWarn("Error %d in RPU0_1 release\r\n", Status);
+					PmErr("Unable to request RPU 1 Core\n\r");
 				}
+			} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
+				Status = XPmDevice_IsRequested(PM_DEV_RPU0_1,
+						PM_SUBSYS_DEFAULT);
+				if (XST_SUCCESS == Status) {
+					Status = XPmDevice_Release(PM_SUBSYS_DEFAULT,
+								PM_DEV_RPU0_1);
+					if (XST_SUCCESS != Status) {
+						PmErr("Unable to release RPU 1 Core\n\r");
+					}
+				}
+			} else {
+				/* Required due to MISRA */
+				PmDbg("Invalid RPU mode %d\r\n", Mode);
 			}
-		} else {
-			/* Required due to MISRA */
-			PmDbg("Invalid RPU mode %d\r\n", Mode);
 		}
 	}
 }
