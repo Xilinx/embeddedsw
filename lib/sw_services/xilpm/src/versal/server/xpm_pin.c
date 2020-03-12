@@ -1957,7 +1957,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 	Pin->Groups = PmPinGroups[PinIdx].GroupList;
 	Pin->NumGroups = (u8)(PmPinGroups[PinIdx].GroupCount);
 	Pin->PinFunc = NULL;
-	Pin->SubsysIdx = (u16)XPM_NODEIDX_SUBSYS_MAX;
+	Pin->SubsysIdx = (u16)NODEINDEX(INVALID_SUBSYSID);
 
 	if (PinIdx <= PINS_PER_BANK) {
 		Pin->Bank = 0;
@@ -2409,7 +2409,7 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	if (Pin->SubsysIdx != (u16)XPM_NODEIDX_SUBSYS_MAX) {
+	if (Pin->SubsysIdx != (u16)NODEINDEX(INVALID_SUBSYSID)) {
 		if (Pin->SubsysIdx == NODEINDEX(SubsystemId)) {
 			goto done;
 		}
@@ -2451,7 +2451,7 @@ XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	Pin->SubsysIdx = (u16)XPM_NODEIDX_SUBSYS_MAX;
+	Pin->SubsysIdx = (u16)NODEINDEX(INVALID_SUBSYSID);
 
 	Status = XST_SUCCESS;
 
