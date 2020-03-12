@@ -37,6 +37,7 @@
 #include "xpm_requirement.h"
 
 static XPm_Subsystem *PmSubsystems;
+static u32 MaxSubsysIdx;
 
 /*
  * Global SubsystemId which is set and is valid during XPm_CreateSubsystem()
@@ -562,6 +563,10 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	}
 	PmSubsystems = Subsystem;
 
+	if (NODEINDEX(SubsystemId) > MaxSubsysIdx) {
+		MaxSubsysIdx = NODEINDEX(SubsystemId);
+	}
+
 	/* Add all requirements for default subsystem */
 	if(SubsystemId == PM_SUBSYS_DEFAULT)
 	{
@@ -738,4 +743,9 @@ done:
 	}
 
 	return Status;
+}
+
+u32 XPmSubsystem_GetMaxSubsysIdx(void)
+{
+	return MaxSubsysIdx;
 }
