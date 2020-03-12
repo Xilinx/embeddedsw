@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -437,7 +437,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.getPerms = PmPllGetPerms,
 };
 
-static u32 PmStdPllPowers[] = {
+static u8 PmStdPllPowers[] = {
 	DEFAULT_PLL_POWER_RESET,
 	DEFAULT_PLL_POWER_LOCKED,
 };

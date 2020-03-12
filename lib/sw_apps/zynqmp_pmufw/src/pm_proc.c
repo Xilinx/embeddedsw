@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -900,7 +900,7 @@ static u32 PmProcGetPerms(const PmNode* const node)
 }
 
 /* Power consumptions for the APU for specific states */
-static u32 PmProcPowerAPU_X[] = {
+static u8 PmProcPowerAPU_X[] = {
 	DEFAULT_APU_POWER_OFF,
 	DEFAULT_APU_POWER_ACTIVE,
 	DEFAULT_APU_POWER_SLEEP,
@@ -908,7 +908,7 @@ static u32 PmProcPowerAPU_X[] = {
 };
 
 /* Power consumptions for the RPU for specific states */
-static u32 PmProcPowerRPU_X[] = {
+static u8 PmProcPowerRPU_X[] = {
 	DEFAULT_RPU_POWER_OFF,
 	DEFAULT_RPU_POWER_ACTIVE,
 	DEFAULT_RPU_POWER_SLEEP,

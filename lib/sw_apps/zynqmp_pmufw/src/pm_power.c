@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -726,12 +726,12 @@ static PmNode* pmPldChildren[] = {
 };
 
 /* Dummy consumption for the power domains/islands */
-static u32 PmDomainPowers[] = {
+static u8 PmDomainPowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };
 
-static u32 PmApuDomainPowers[] = {
+static u8 PmApuDomainPowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_OFF,
 };
