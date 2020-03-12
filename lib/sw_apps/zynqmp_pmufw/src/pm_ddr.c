@@ -712,6 +712,7 @@ static void ddr_disable_wr_drift(void)
 static void ddr_disable_rd_drift(void)
 {
 	u32 r;
+	u32 i;
 
 	r = Xil_In32(DDRPHY_DQSDR(0U));
 	r &= ~DDRPHY_DQSDR0_DFTDTEN;
@@ -737,41 +738,11 @@ static void ddr_disable_rd_drift(void)
 	r &= ~DDRPHY_DQSDR0_DFTDLY;
 	Xil_Out32(DDRPHY_DQSDR(0U), r);
 
-	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(4U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(4U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(5U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(5U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(6U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(6U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(7U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(7U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
-	r |= DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+	for (i = 0U; i < 9U; i++) {
+		r = Xil_In32(DDRPHY_DXGCR(i, 3U));
+		r |= DDRPHY_DXGCR3_RGLVT;
+		Xil_Out32(DDRPHY_DXGCR(i, 3U), r);
+	}
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
@@ -820,6 +791,7 @@ static void ddr_enable_wr_drift(void)
 static void ddr_enable_rd_drift(void)
 {
 	u32 r;
+	u32 i;
 
 	r = Xil_In32(DDRPHY_DQSDR(0U));
 	r &= ~DDRPHY_DQSDR0_DFTDTMODE;
@@ -844,41 +816,11 @@ static void ddr_enable_rd_drift(void)
 	r |= (2U << DDRPHY_DQSDR0_DFTDLY_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(0U), r);
 
-	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(4U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(4U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(5U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(5U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(6U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(6U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(7U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(7U, 3U), r);
-
-	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
-	r &= ~DDRPHY_DXGCR3_RGLVT;
-	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+	for (i = 0U; i < 9U; i++) {
+		r = Xil_In32(DDRPHY_DXGCR(i, 3U));
+		r &= ~DDRPHY_DXGCR3_RGLVT;
+		Xil_Out32(DDRPHY_DXGCR(i, 3U), r);
+	}
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
