@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -120,7 +120,7 @@ typedef struct PmResetGpioBankIOs {
 	const u32 rstDirectionReg;
 	const u32 rstReadDataReg;
 	const bool isMaskDataLsw;
-	const u32 rstLine;
+	const u8 rstLine;
 } PmResetGpioBankIOs;
 
 bool PmResetMasterHasAccess(const PmMaster* const m, const PmReset* const r)

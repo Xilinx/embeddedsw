@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -102,7 +102,7 @@ typedef struct {
  * @statesCnt   Number of states in state array
  */
 typedef struct {
-	const u32* const states;
+	const u8* const states;
 	s32 (*const enterState)(PmSlave* const slave, const PmStateId nextState);
 	const PmStateTran* const trans;
 	const u8 statesCnt;

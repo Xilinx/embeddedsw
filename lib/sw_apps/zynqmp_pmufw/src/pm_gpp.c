@@ -37,7 +37,7 @@
 #define PM_GPP_SLAVE_STATE_OFF	0U
 #define PM_GPP_SLAVE_STATE_ON	1U
 
-static const u32 pmGppStates[] = {
+static const u8 pmGppStates[] = {
 	[PM_GPP_SLAVE_STATE_OFF] = 0U,
 	[PM_GPP_SLAVE_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
