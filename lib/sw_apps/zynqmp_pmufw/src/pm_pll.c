@@ -126,6 +126,8 @@ static PmPllParam pllParams[] = {
  */
 static void PmPllBypassAndReset(PmPll* const pll)
 {
+	u32 pllCtrl = pll->addr + PM_PLL_CTRL_OFFSET;
+	u32 r;
 #ifdef ENABLE_EM
 	u32 pllErrMask = 1 << pll->errShift;
 	pll->errValue = 0;
@@ -152,12 +154,14 @@ static void PmPllBypassAndReset(PmPll* const pll)
 #endif
 
 	/* Bypass PLL before putting it into the reset */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_BYPASS_MASK,
-		   PM_PLL_CTRL_BYPASS_MASK);
+	r = Xil_In32(pllCtrl);
+	r |= PM_PLL_CTRL_BYPASS_MASK;
+	Xil_Out32(pllCtrl, r);
 
 	/* Power down PLL (= reset PLL) */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
-		   PM_PLL_CTRL_RESET_MASK);
+	r = Xil_In32(pllCtrl);
+	r |= PM_PLL_CTRL_RESET_MASK;
+	Xil_Out32(pllCtrl, r);
 }
 
 /**
