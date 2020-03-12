@@ -366,6 +366,7 @@
 #define PM_STMIC_PMIO_51			(0x1410804eU)
 
 /* Device Nodes */
+#define PM_DEV_PLD_0				(0x18700000U)
 #define PM_DEV_PMC_PROC				(0x18104001U)
 #define PM_DEV_PSM_PROC				(0x18108002U)
 #define PM_DEV_ACPU_0				(0x1810c003U)
