@@ -919,12 +919,23 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 		}
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+		if (PM_POWER_PLD == PwrDomain->Power.Node.Id) {
+			/* Request PLD0 device once PL is housecleaned. */
+			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_PLD_0,
+						   XPM_MAX_CAPABILITY,
+						   XPM_MAX_QOS);
+			if (XST_SUCCESS != Status) {
+				break;
+			}
+		}
+
 		Status = XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 
 		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_FINISH);
+
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_SCAN_CLEAR:

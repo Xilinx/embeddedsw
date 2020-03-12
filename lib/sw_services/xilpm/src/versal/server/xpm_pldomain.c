@@ -51,13 +51,11 @@ u32 HcleanDone = 0;
 
 static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XST_SUCCESS;
 
 	(void)Args;
 	(void)NumOfArgs;
 
-	/*Set subsystem state to online once PL is housecleaned*/
-	Status = XPmSubsystem_SetState(PM_SUBSYS_PL, (u32)ONLINE);
 	return Status;
 }
 

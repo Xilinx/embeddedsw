@@ -116,7 +116,6 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	XPm_Device *Device;
 	XPm_Requirement *Reqm;
 	int DeviceInUse = 0;
-	XPm_Subsystem *PlSubsystem;
 	u32 Idx, Idx2;
 	/* TODO: Remove this device list when CDO change is available */
 	u32 ExcludeDevList[] = {
@@ -165,15 +164,6 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			}
 		}
 		if (Idx2 < ARRAY_SIZE(ExcludeDevList)) {
-			continue;
-		}
-
-		PlSubsystem = XPmSubsystem_GetById(PM_SUBSYS_PL);
-		if ((((u32)PM_DEV_PL_0 == Device->Node.Id) ||
-		    ((u32)PM_DEV_PL_1 == Device->Node.Id) ||
-		    ((u32)PM_DEV_PL_2 == Device->Node.Id) ||
-		    ((u32)PM_DEV_PL_3 == Device->Node.Id)) &&
-		    ((u8)ONLINE == PlSubsystem->State)) {
 			continue;
 		}
 
