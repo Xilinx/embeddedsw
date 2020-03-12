@@ -615,6 +615,16 @@ static void PostTopologyHook(void)
 
 XStatus XPm_HookAfterPlmCdo(void)
 {
+	/*
+	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
+	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
+	 * The problem is eliminated when PL Vgg frame housecleaning is run
+	 * so we need to do that ASAP after PLM is loaded.
+	 * Otherwise also, PL housecleaning needs to be trigerred asap to reduce
+	 * boot time.
+	 */
+	XPmPlDomain_InitandHouseclean();
+
 	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
 	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
 	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PM_POWER_PMC, 1);
