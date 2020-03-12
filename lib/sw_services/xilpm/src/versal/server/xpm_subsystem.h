@@ -35,11 +35,6 @@ extern "C" {
 #endif
 
 #define	INVALID_SUBSYSID			(0xFFFFFFFFU)
-#define SUBSYSTEMCLASS_MASK \
-	(((u32)XPM_NODECLASS_SUBSYSTEM & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT)
-#define ISVALIDSUBSYSTEM(id) \
-	((((id) & SUBSYSTEMCLASS_MASK) == SUBSYSTEMCLASS_MASK) && \
-	(((id) & NODE_INDEX_MASK_BITS) < (u32)XPM_NODEIDX_SUBSYS_MAX))
 
 /**
  * Subsystem specific flags.
@@ -72,6 +67,7 @@ struct XPm_Subsystem {
 	struct XPm_Reqm *Requirements;
 		/**< Head of the requirement list for all devices. */
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
+	XPm_Subsystem *NextSubsystem;
 };
 
 /************************** Function Prototypes ******************************/
