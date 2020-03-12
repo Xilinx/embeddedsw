@@ -59,6 +59,7 @@
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
 *       mn     07/03/19 Update Input Tap Delays for Versal
+* 3.9   mn     03/03/20 Modified code for safety applications
 *
 * </pre>
 *
@@ -221,8 +222,8 @@ extern "C" {
 #define XSDPS_CC_INT_CLK_STABLE_MASK	0x00000002U
 #define XSDPS_CC_SD_CLK_EN_MASK			0x00000004U
 #define XSDPS_CC_SD_CLK_GEN_SEL_MASK		0x00000020U
-#define XSDPS_CC_SDCLK_FREQ_SEL_EXT_MASK	0x000000C0U
-#define XSDPS_CC_SDCLK_FREQ_SEL_MASK		0x0000FF00U
+#define XSDPS_CC_SDCLK_FREQ_SEL_EXT_MASK	0x00000003U
+#define XSDPS_CC_SDCLK_FREQ_SEL_MASK		0x000000FFU
 #define XSDPS_CC_SDCLK_FREQ_D256_MASK		0x00008000U
 #define XSDPS_CC_SDCLK_FREQ_D128_MASK		0x00004000U
 #define XSDPS_CC_SDCLK_FREQ_D64_MASK		0x00002000U
@@ -984,6 +985,8 @@ extern "C" {
 #define XSDPS_EXT_CSD_CMD_BLKSIZE	512U
 #define XSDPS_TUNING_CMD_BLKCNT		1U
 #define XSDPS_TUNING_CMD_BLKSIZE	64U
+#define XSDPS_SD_STATUS_BLKCNT		1U
+#define XSDPS_SD_STATUS_BLKSIZE		64U
 
 #define XSDPS_HIGH_SPEED_MAX_CLK	50000000U
 #define XSDPS_UHS_SDR104_MAX_CLK	208000000U
@@ -1041,12 +1044,14 @@ extern "C" {
 #define XSDPS_WIDTH_4		4U
 
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 #ifdef versal
 #define SD_ITAPDLY_SEL_MASK			0x000000FFU
 #define SD_OTAPDLY_SEL_MASK			0x0000003FU
 #define SD_ITAPDLY					0x0000F0F8U
 #define SD_OTAPDLY					0x0000F0FCU
+#define SD0_DLL_CTRL 				0x00000448U
+#define SD1_DLL_CTRL 				0x000004C8U
+#define SD_DLL_RST					0x00000004U
 #define SD_ITAPCHGWIN				0x00000200U
 #define SD_ITAPDLYENA				0x00000100U
 #define SD_OTAPDLYENA				0x00000040U
@@ -1088,8 +1093,6 @@ extern "C" {
 #define SD_ITAPDLYSEL_HSD			0x00000015U
 #define SD_OTAPDLYSEL_SD_HSD		0x00000005U
 #define SD_OTAPDLYSEL_EMMC_HSD		0x00000006U
-#endif
-
 #endif
 
 #ifdef __MICROBLAZE__
