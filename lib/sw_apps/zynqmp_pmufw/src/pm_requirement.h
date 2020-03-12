@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -100,10 +100,10 @@ typedef struct PmRequirement {
 	PmMaster* master;
 	PmRequirement* nextSlave;
 	PmRequirement* nextMaster;
-	u16 preReq;
-	u16 defaultReq;
-	u16 currReq;
-	u16 nextReq;
+	u8 preReq;
+	u8 defaultReq;
+	u8 currReq;
+	u8 nextReq;
 	u32 latencyReq;
 	u8 info;
 } PmRequirement;
