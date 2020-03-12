@@ -548,7 +548,9 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	}
 
 	XPm_RegisterWakeUpHandlers();
-	Status = XST_SUCCESS;
+
+	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
+
 done:
 	return Status;
 }
