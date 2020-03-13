@@ -48,6 +48,7 @@
 * 4.4   sne  02/12/19 Added support for Versal
 * 4.5	sne  09/27/19 Updated example file to support AXI Timebase WDT and
 *		      WWDT.
+* 5.0	sne  03/11/20 Added XWdtTb_ConfigureWDTMode api to configure mode.
 *
 * </pre>
 *
@@ -167,7 +168,7 @@ int WdtTbSelfTestExample(u16 DeviceId)
 
 	/*Enable Window Watchdog Feature in WWDT*/
 	if(!WatchdogTimebase.Config.IsPl) {
-		WatchdogTimebase.EnableWinMode=1;
+		XWdtTb_ConfigureWDTMode(&WatchdogTimebase, XWT_WWDT);
 	}
 
 	/*
