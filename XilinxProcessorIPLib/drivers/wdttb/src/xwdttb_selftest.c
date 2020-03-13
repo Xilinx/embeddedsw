@@ -61,6 +61,7 @@
 * 5.0	sne  01/31/20 Removed compare value registers write while
 *		      configuring Generic Watchdog window.
 * 5.0	sne  02/27/20 Reorganize the driver source.
+* 5.0	sne  03/09/20 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -179,7 +180,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 
 	}
 	else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
                 /* Write General Watchdog offset register for Generating interrupt */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,XWT_GWOR_COUNT);
                 /*Enable GWEN bit for starting General Watchdog timer */

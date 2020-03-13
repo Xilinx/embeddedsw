@@ -94,6 +94,7 @@
 * 5.0  sne   01/31/20 Removed compare value registers write in
 *		      XWdtTb_SetGenericWdtWindow function.
 * 5.0  sne   02/27/20 Reorganize the driver source and Fixed doxygen warnings.
+* 5.0  sne   03/09/20 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -254,7 +255,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 	}
 	InstancePtr->IsStarted = (u32)0;
 	InstancePtr->EnableFailCounter = (u32)0;
-	if (!InstancePtr->Config.IsPl) {
+	if (InstancePtr->Config.IsPl == (u32)0) {
 		InstancePtr->EnableWinMode = (u32)0U;
 		/* Reset all the Generic WDT Registers */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GW_WR_OFFSET,XWT_GW_WR_MASK);
@@ -355,7 +356,7 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
                 /* Enable Window WDT */
                 XWdtTb_EnableWinWdt(InstancePtr);
         } else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
                 /* WWDT supports Generic watchdog timer & Window WDT features*/
                 /* Enable Generic Watchdog Timer */
                 XWdtTb_EnableGenericWdt(InstancePtr);
@@ -406,7 +407,7 @@ s32 XWdtTb_Stop(XWdtTb *InstancePtr)
                 Status = XWdtTb_DisableWinWdt(InstancePtr);
         }
         else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
                 /* Disable Generic Watchdog Timer */
                 Status = XWdtTb_DisableGenericWdt(InstancePtr);
 		} else {
@@ -456,7 +457,7 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 		Status = !ControlStatusRegister0;
         }
         else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
                /* Read the current contents */
                 ControlStatusRegister0 =XWdtTb_ReadReg (InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET);
                 /* Check whether state and reset status */
@@ -559,7 +560,7 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 			ControlStatusRegister0);
 	}
         else {
-		if (!InstancePtr->Config.IsPl) {
+		if (InstancePtr->Config.IsPl == (u32)0) {
 		/*  Read enable status register and update Refresh Register  bit */
 		ControlStatusRegister0 =
 				XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
