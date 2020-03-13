@@ -196,7 +196,8 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
                 /* Write General WDT Refresh register to restart the timer */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWRR_OFFSET,1U);
                 /* Disable GWEN Register */
-                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET,(~XWT_GWCSR_GWEN_MASK));
+		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
+				XWT_GWCSR_OFFSET, (~(u32)XWT_GWCSR_GWEN_MASK));
 		Status = (s32)XST_SUCCESS;
 		} else {
 
