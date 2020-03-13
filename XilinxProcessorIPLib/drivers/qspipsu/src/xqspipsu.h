@@ -172,6 +172,8 @@
  * 1.11 akm 02/19/20 Added XQspiPsu_StartDmaTransfer() and XQspiPsu_CheckDmaDone()
  * 		     APIs for non-blocking transfer.
  * 1.11 sd  01/02/20 Added clocking support
+ * 1.11 akm 03/09/20 Reorganize the source code, enable qspi controller and
+ *		     interrupts in XQspiPsu_CfgInitialize() API.
  *
  * </pre>
  *
@@ -386,6 +388,124 @@ typedef struct {
 			XQSPIPSU_LQSPI_CR_OFFSET)
 #endif
 
+/*****************************************************************************/
+/**
+ *
+ * This function enables the manual start option
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void XQspiPsu_ManualStartEnable(XQspiPsu *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_ManualStartEnable\r\n");
+#endif
+
+	if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+		xil_printf("\nManual Start\r\n");
+#endif
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+		XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) |
+			XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+	}
+}
+/*****************************************************************************/
+/**
+ *
+ * This function writes the GENFIFO entry to assert CS.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr)
+{
+	u32 GenFifoEntry;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_GenFifoEntryCSAssert\r\n");
+#endif
+
+	GenFifoEntry = 0x0U;
+	GenFifoEntry |= (XQSPIPSU_GENFIFO_MODE_SPI | InstancePtr->GenFifoCS |
+					 InstancePtr->GenFifoBus | XQSPIPSU_GENFIFO_CS_SETUP);
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
+#endif
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function writes the GENFIFO entry to de-assert CS.
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
+{
+	u32 GenFifoEntry;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_GenFifoEntryCSDeAssert\r\n");
+#endif
+
+	GenFifoEntry = 0x0U;
+	GenFifoEntry |= (XQSPIPSU_GENFIFO_MODE_SPI | InstancePtr->GenFifoBus |
+					XQSPIPSU_GENFIFO_CS_HOLD);
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
+#endif
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is a stub for the status callback. The stub is here in case the upper
+ * layers forget to set the handler.
+ *
+ * @param	CallBackRef is a pointer to the upper layer callback reference
+ * @param	StatusEvent is the event that just occurred.
+ * @param	ByteCount is the number of bytes transferred up until the event
+ *		occurred.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static inline void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
+				u32 ByteCount)
+{
+	(const void) CallBackRef;
+	(void) StatusEvent;
+	(void) ByteCount;
+
+	Xil_AssertVoidAlways();
+}
 /************************** Function Prototypes ******************************/
 
 /* Initialization and reset */
