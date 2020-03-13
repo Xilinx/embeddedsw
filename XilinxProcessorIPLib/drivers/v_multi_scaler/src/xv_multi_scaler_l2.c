@@ -388,17 +388,54 @@ static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
 	float scale;
 
 	scale = (float)MS_cfg->HeightIn / MS_cfg->HeightOut;
-
 	if ((scale >= 2) && (scale < 2.5))
-		coeff = &XV_multiscaler_fixedcoeff_taps8[0][0];
-	else if ((scale >= 2.5) && (scale < 3))
-		coeff = &XV_multiscaler_fixedcoeff_taps10[0][0];
-	else if ((scale >= 3) && (scale < 3.5))
-		coeff = &XV_multiscaler_fixedcoeff_taps12[0][0];
-	else
-		coeff = &XV_multiscaler_fixedcoeff_taps6[0][0];
+	{
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+			coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+		else
+			coeff = &XV_multiscaler_fixedcoeff_taps8_12C[0][0];
+	}
+	if ((scale >= 2.5) && (scale < 3))
+	{
+	  if(XPAR_V_MULTI_SCALER_0_TAPS >= 10)
+		coeff = &XV_multiscaler_fixedcoeff_taps10_12C[0][0];
+	  else
+		{
+	   if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+		 coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+	   else
+		coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+		}
+	}
 
-	vfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE +
+	if ((scale >= 3) && (scale < 3.5))
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 12)
+		coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
+		else
+		  {
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+		  coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 8)
+		  coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 10)
+		  coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+		}
+
+	if ((scale >= 3.5) || (scale < 2 && scale >= 1))
+	{
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+		  coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 8)
+		  coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 10)
+		  coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+		if(XPAR_V_MULTI_SCALER_0_TAPS == 12)
+		  coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
+   }
+	if(scale < 1)
+		 coeff = &XV_multiscaler_fixedcoeff_taps6_12C[0][0];
+
+   vfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE +
 		MS_cfg->ChannelId *
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET;
 
@@ -413,15 +450,52 @@ static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
 	}
 
 	scale = (float)MS_cfg->WidthIn / MS_cfg->WidthOut;
-
 	if ((scale >= 2) && (scale < 2.5))
-		coeff = &XV_multiscaler_fixedcoeff_taps8[0][0];
-	else if ((scale >= 2.5) && (scale < 3))
-		coeff = &XV_multiscaler_fixedcoeff_taps10[0][0];
-	else if ((scale >= 3) && (scale < 3.5))
-		coeff = &XV_multiscaler_fixedcoeff_taps12[0][0];
-	else
-		coeff = &XV_multiscaler_fixedcoeff_taps6[0][0];
+		{
+			if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+				coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+			else
+				coeff = &XV_multiscaler_fixedcoeff_taps8_12C[0][0];
+		}
+	if ((scale >= 2.5) && (scale < 3))
+		{
+		  if(XPAR_V_MULTI_SCALER_0_TAPS >= 10)
+			coeff = &XV_multiscaler_fixedcoeff_taps10_12C[0][0];
+		  else
+			{
+		   if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+			 coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+		   else
+			coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+			}
+		}
+
+	if ((scale >= 3) && (scale < 3.5))
+			if(XPAR_V_MULTI_SCALER_0_TAPS == 12)
+			coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
+			else
+			  {
+			if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+			  coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+			if(XPAR_V_MULTI_SCALER_0_TAPS == 8)
+			  coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+			if(XPAR_V_MULTI_SCALER_0_TAPS == 10)
+			  coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+			}
+
+	if ((scale >= 3.5) || (scale < 2 && scale >= 1))
+			{
+				if(XPAR_V_MULTI_SCALER_0_TAPS == 6)
+				  coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+				if(XPAR_V_MULTI_SCALER_0_TAPS == 8)
+				  coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				if(XPAR_V_MULTI_SCALER_0_TAPS == 10)
+				  coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+				if(XPAR_V_MULTI_SCALER_0_TAPS == 12)
+				  coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
+		   }
+	if(scale < 1)
+				 coeff = &XV_multiscaler_fixedcoeff_taps6_12C[0][0];
 
 	hfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE +
 		MS_cfg->ChannelId *
