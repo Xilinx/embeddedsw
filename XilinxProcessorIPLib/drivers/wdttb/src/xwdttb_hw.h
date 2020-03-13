@@ -79,6 +79,7 @@
 *		    Added following macros for WWDT
 *		    XWT_TSR0_WWDT_OFFSET,XWT_TSR1_WWDT_OFFSET,
 *		    XWT_STR_WWDT_OFFSET.
+* 5.0 sne  03/11/20 Added XWT_GWDT and XWT_WWDT macros.
 *
 * </pre>
 *
@@ -250,6 +251,8 @@ extern "C" {
 #define XWT_ZERO                0U                  /* Flag for 0 value*/
 #define XWT_ONE                 1U                  /* Flag for 1 value */
 #define XWT_MAX_BYTE_SEGMENT    4U                  /* Max Byte segment value */
+#define XWT_GWDT		0U		    /* Flag for GWDT */
+#define XWT_WWDT		1U		    /* Flag for WWDT */
 /**************************** Type Definitions *******************************/
 
 

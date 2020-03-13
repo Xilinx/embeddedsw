@@ -70,6 +70,7 @@
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function returns a reference to an XWdtTb_Config structure based on the
 * core id, <i>DeviceId</i>. The return value will refer to an entry in the
