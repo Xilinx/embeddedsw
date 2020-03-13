@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -333,7 +333,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2020
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 
