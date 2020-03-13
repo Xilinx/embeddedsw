@@ -60,6 +60,7 @@
 * 4.5	sne  09/27/19 Updated driver to support WWDT and AXI Timebase WDT.
 * 5.0	sne  01/31/20 Removed compare value registers write while
 *		      configuring Generic Watchdog window.
+* 5.0	sne  02/27/20 Reorganize the driver source.
 *
 * </pre>
 *
@@ -88,6 +89,7 @@
 
 /*****************************************************************************/
 /**
+* @brief
 *
 * This function runs a self-test on the timebase or window if enabled. Timebase
 * test verifies that the timebase is incrementing. The watchdog timer is not
@@ -137,14 +139,14 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		/* Enable Window WDT */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
 			XWT_ESR_WEN_MASK);
-                TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_ESR_OFFSET)& XWT_ESR_WEN_MASK);
-                if (TbrValue2 == (u32)1U) {
-                        Status = XST_SUCCESS;
-                }
-                else {
-                        Status = XST_FAILURE;
-                        goto End;
-                }
+		TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+			     XWT_ESR_OFFSET) & XWT_ESR_WEN_MASK);
+		if (TbrValue2 == (u32)1U) {
+			Status = (s32)XST_SUCCESS;
+		} else {
+			Status = (s32)XST_FAILURE;
+			goto End;
+		}
 
 		/* Set writable mode */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_MWR_OFFSET,
@@ -163,19 +165,18 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		/* Disable Window WDT feature */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
 			TbrValue1);
-
 		/* Read enable status register and get last bad events */
 		TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-				XWT_ESR_OFFSET) & XWT_ESR_LBE_MASK) >>
-				XWT_ESR_LBE_SHIFT;
+			     XWT_ESR_OFFSET) & XWT_ESR_LBE_MASK) >>
+			     XWT_ESR_LBE_SHIFT;
 
 		/* Compare last bad event */
 		if (TbrValue2 == (u32)0) {
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
+		} else {
+			Status = (s32)XST_FAILURE;
 		}
-		else {
-			Status = XST_FAILURE;
-		}
+
 	}
 	else {
 		if (!InstancePtr->Config.IsPl) {
@@ -183,26 +184,19 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,XWT_GWOR_COUNT);
                 /*Enable GWEN bit for starting General Watchdog timer */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET,XWT_GWCSR_GWEN_MASK);
-                TbrValue1 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET)& XWT_GWCSR_GWEN_MASK);
-                if (TbrValue1 == (u32)1) {
-                        Status =XST_SUCCESS;
-                }
-                else
-                {
-                        Status = XST_FAILURE;
-                        goto End;
-                }
+		TbrValue1 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+					    XWT_GWCSR_OFFSET) & XWT_GWCSR_GWEN_MASK);
+		if (TbrValue1 == (u32)1) {
+			Status = (s32)XST_SUCCESS;
+		} else {
+			Status = (s32)XST_FAILURE;
+			goto End;
+		}
                 /* Write General WDT Refresh register to restart the timer */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWRR_OFFSET,1U);
                 /* Disable GWEN Register */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET,(~XWT_GWCSR_GWEN_MASK));
-                TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET)& XWT_GWCSR_GWEN_MASK);
-                if (TbrValue2 == (u32)0U) {
-                        Status =XST_SUCCESS;
-                }
-                else {
-                        Status = XST_FAILURE;
-                }
+		Status = (s32)XST_SUCCESS;
 		} else {
 
 		/*
