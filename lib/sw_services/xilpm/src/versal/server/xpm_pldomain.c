@@ -150,6 +150,22 @@ done:
 	return;
 }
 
+static void PldCfuLock(XPm_PlDomain *Pld, u32 Enable)
+{
+	static u32 PrevLockState=1U;
+
+	if (1U == Enable) {
+		/* Lock CFU writes */
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, PrevLockState);
+	} else {
+		PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, PrevLockState);
+		/* Unlock CFU writes */
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
+	}
+
+	return;
+}
+
 static XStatus PldCfuInit(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -399,9 +415,6 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		PmIn32(Pld->Cframe0RegBaseAddr + 12U, Value);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
-		/* Unlock CFU writes */
-		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
-
 		/* PL scan clear / MBIST */
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
 			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
@@ -442,9 +455,6 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
 			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, 0);
-
-		/* Lock CFU writes */
-		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
 	}
 
 	/* Compilation warning fix */
@@ -504,7 +514,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Unlock CFU writes */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
+	PldCfuLock(Pld, 0U);
 
 	if(0U == PlpdHouseCleanBypass) {
 		Status = PlHouseClean(PLHCLEAN_INIT_NODE);
@@ -538,10 +548,6 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
 		CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 
-
-	/* Lock CFU writes */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
-
 	/* Enable the global signals */
 	XCfupmc_SetGlblSigEn(&CfupmcIns, (u8 )TRUE);
 
@@ -564,6 +570,9 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	XCfupmc_GlblSeqInit(&CfupmcIns);
+
+	/* Lock CFU writes */
+	PldCfuLock(Pld, 1U);
 
 done:
 	return Status;
