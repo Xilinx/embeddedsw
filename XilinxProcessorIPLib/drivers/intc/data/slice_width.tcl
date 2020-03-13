@@ -32,10 +32,31 @@
 # 3.10   adk  13/09/19 First release
 # 3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
 #                      connected to cascade slices.
+#        adk  13/03/20 Add new proc is_slice_exists_in_path to know slice exist
+#		       in between the source pin and the interrupt
+#		       controller interrupt pin.
 #
 ##############################################################################
 
 #uses "xillib.tcl"
+#
+# Check whether a slice exists b/w the interrupt source pin and interrupt controller
+#
+proc ::hsi::utils::is_slice_exists_in_path {periph_handle intr_src_pin} {
+   set slice_exist 0
+   lappend interrupt_pins
+   set interrupt_pins [::hsi::get_pins -of_objects $periph_handle -filter {TYPE==INTERRUPT && DIRECTION==I}]
+   foreach interrupt_pin $interrupt_pins {
+       set slice_exist [::hsi::utils::get_intr_src_pins_for_slice $interrupt_pin $intr_src_pin]
+   }
+
+   if {$slice_exist == 0 || $slice_exist == ""} {
+       return 0
+   } else {
+       return 1
+   }
+}
+
 #
 # Get handles for all ports driving the interrupt pin of a peripheral
 #
