@@ -58,6 +58,7 @@ Update pr_decoupler IP drivers to dfx_decoupler nomenclature
 qspipsu_v1_11:
 Removed LQSPI register access in Versal.
 Added APIs to support non-blocking DMA transfer.
+Reorganize the source code.
 
 sdps_v3_9:
 Resolved coverity warnings
