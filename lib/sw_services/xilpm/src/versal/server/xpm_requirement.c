@@ -48,8 +48,11 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Flags = (u8)(Flags & 0xFU);
 
 	if ((NULL != Params) && (0U != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
-		(void)XPlmi_MemCpy(Reqm->Params, Params, NumParams);
-		Reqm->Flags |= (u8)((NumParams & 0xFU) << 4);
+		(void)XPlmi_MemCpy(Reqm->Params, Params, NumParams * sizeof(*Params));
+		Reqm->NumParams = NumParams;
+	} else {
+		(void)memset(Reqm->Params, 0, sizeof(Reqm->Params));
+		Reqm->NumParams = 0;
 	}
 
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;

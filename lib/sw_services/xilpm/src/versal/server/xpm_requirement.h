@@ -62,7 +62,7 @@ enum XPm_ReqUsageFlags{
 
 enum XPm_ReqSecurityFlags{
         REQ_ACCESS_SECURE,
-		REQ_ACCESS_SECURE_NONSECURE,
+	REQ_ACCESS_SECURE_NONSECURE,
 };
 
 #define MAX_REQ_PARAMS 		1U
@@ -81,7 +81,8 @@ struct XPm_Reqm {
 	u8 Allocated; /**< Device has been allocated to the subsystem */
 	u8 SetLatReq; /**< Latency has been set from the subsystem */
 	u8 Flags;	  /** Flags */
-	u32 Params[MAX_REQ_PARAMS];
+	u8 NumParams; /**< Params count */
+	u32 Params[MAX_REQ_PARAMS]; /**< Params */
 	XPm_ReqmInfo Curr; /**< Current requirements */
 	XPm_ReqmInfo Next; /**< Pending requirements */
 };
