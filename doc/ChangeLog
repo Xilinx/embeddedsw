@@ -739,6 +739,29 @@ Added Gen 1/2 compatibility support for Gen 3 devices
 xxvethernet_v1_4:
 Added dependencies.props for xxvethernet in data folder.
 
+rfdc_v8_0:
+Fixed issue where IMR datapath modes frequency was halved
+Driver Gets tile and path enables from the bitfile
+MTS now supported for Gen 3 modes
+Bug fixes for new Interpolation/decimation rates
+Bug fix for threshold over flag assertion directly after applying settings
+
+Changes for 2019.2.2
+===============================
+rfdc_v7_1:
+Increased ADC FIFO width
+Added calibration support for Gen3 devices
+Aligned datapath modes & added protectios(see documentation AR)
+Fixed higher rate interpolation/decimation mode fabric widths
+Now the mixer auto-updates the fabric width
+Fixed bug in clock distribution
+Fixed bug in GCB override for Gen 3 devices
+Fixed alternate bondout issue for Gen3 DACs
+Added hysterisis counters for signal detector
+Metal log now more descriptive
+Updated examples
+Added Gen 1/2 compatibility support for Gen 3 devices
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
