@@ -744,7 +744,9 @@ proc intc_update_source_array {periph} {
             set t_source_driver [hsi::get_drivers -filter "HW_INSTANCE==$t_source_name"]
         }
         set port_intr_id [::hsi::utils::get_interrupt_id $t_ip_name $source_pin]
-        if { [llength $port_intr_id ] > 1 } {
+        set isslice_exist [::hsi::utils::is_slice_exists_in_path $periph $source_pin]
+        if { [llength $port_intr_id ] > 1  &&
+             $isslice_exist == 0} {
             #this is the case of vector interrupt port
             set j 0
             foreach pin_id $port_intr_id {
@@ -761,6 +763,8 @@ proc intc_update_source_array {periph} {
             set width [::hsi::utils::get_intr_connected_slice_width $periph $source_pin]
             if {$width == 0 || $width == ""} {
                 set width [expr [common::get_property LEFT $source_pin] + 1]
+            } else {
+                set port_intr_id 0
             }
             for {set count 0} {$count != $width} {incr count} {
                 if { ${count} > 0 } {
