@@ -293,7 +293,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 ******************************************************************************/
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
 {
-	XWdtTb_Config *ConfigPtr;
+	const XWdtTb_Config *ConfigPtr;
 	s32 Status;
 
 	/* Verify argument. */
