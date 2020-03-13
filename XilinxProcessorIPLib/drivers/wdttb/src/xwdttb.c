@@ -240,7 +240,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 	 * initializing.
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		Status = XST_DEVICE_IS_STARTED;
+		Status = (s32)XST_DEVICE_IS_STARTED;
 	}
         else {
        InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
@@ -263,7 +263,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 		InstancePtr->EnableWinMode = CfgPtr->EnableWinWdt;
 	}
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
         }
 	return Status;
 }
@@ -306,13 +306,13 @@ s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
 	 * initializing.
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		Status = XST_DEVICE_IS_STARTED;
+		Status = (s32)XST_DEVICE_IS_STARTED;
 		goto End;
 	}
 
 	ConfigPtr = XWdtTb_LookupConfig(DeviceId);
 	if (ConfigPtr == NULL) {
-		Status = XST_DEVICE_NOT_FOUND;
+		Status = (s32)XST_DEVICE_NOT_FOUND;
 		goto End;
 	}
 
@@ -321,7 +321,7 @@ s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
 	InstancePtr->EnableFailCounter = (u32)0;
         InstancePtr->EnableWinMode = (u32)0U;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 End:
 	return Status;
 }

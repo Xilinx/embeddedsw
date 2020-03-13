@@ -225,10 +225,10 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		 * otherwise it failed
 		 */
 		if (TbrValue2 != TbrValue1) {
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 		}
 		else {
-			Status = XST_WDTTB_TIMER_FAILED;
+			Status = (s32)XST_WDTTB_TIMER_FAILED;
 		}
 		}
 	}
