@@ -907,8 +907,10 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 			}
 		}
 
-		if (PdiPtr->ImageNum == PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs)
+		if (Index == PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs)
 		{
+			Status = XPLMI_UPDATE_STATUS
+					(XLOADER_ERR_IMG_ID_NOT_FOUND, 0U);
 			goto END;
 		}
 	}
