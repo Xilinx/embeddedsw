@@ -109,6 +109,8 @@ wdttb_v5_0:
 -Removed psu_wwdt from supported peripherals
 -Updated copyright
 -Removed compare value registers write.
+-Reorganized wdttb driver for safety compliance.
+-Fixed MISRAC violations
 
 axiethernet_v5_11:
 In driver tcl use hier "::hsi::utils::get_connected_intf" API.
