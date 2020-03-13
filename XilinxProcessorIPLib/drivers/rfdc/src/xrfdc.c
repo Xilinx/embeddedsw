@@ -194,6 +194,8 @@
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    02/20/20 Adjust FIFO delays for clock gated interpolation/decimation rates.
+*       cog    03/13/20 Fixed issue where over threshold flag was asserting as soon as the threshold
+*                       settings are applied.
 *
 * </pre>
 *
@@ -2851,8 +2853,6 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		/* Update for Threshold0 */
 		if ((ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_0) ||
 		    (ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_BOTH)) {
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD0_CFG_OFFSET, XRFDC_TRSHD0_EN_MOD_MASK,
-					ThresholdSettingsPtr->ThresholdMode[0]);
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD0_AVG_LO_OFFSET,
 					 (u16)ThresholdSettingsPtr->ThresholdAvgVal[0]);
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD0_AVG_UP_OFFSET,
@@ -2861,6 +2861,8 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 					ThresholdSettingsPtr->ThresholdUnderVal[0]);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD0_OVER_OFFSET, XRFDC_TRSHD0_OVER_MASK,
 					ThresholdSettingsPtr->ThresholdOverVal[0]);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD0_CFG_OFFSET, XRFDC_TRSHD0_EN_MOD_MASK,
+					ThresholdSettingsPtr->ThresholdMode[0]);
 
 			ThresholdConfigPtr->ThresholdMode[0] = ThresholdSettingsPtr->ThresholdMode[0];
 			ThresholdConfigPtr->ThresholdAvgVal[0] = ThresholdSettingsPtr->ThresholdAvgVal[0];
@@ -2871,8 +2873,6 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		/* Update for Threshold1 */
 		if ((ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_1) ||
 		    (ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_BOTH)) {
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD1_CFG_OFFSET, XRFDC_TRSHD1_EN_MOD_MASK,
-					ThresholdSettingsPtr->ThresholdMode[1]);
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD1_AVG_LO_OFFSET,
 					 (u16)ThresholdSettingsPtr->ThresholdAvgVal[1]);
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD1_AVG_UP_OFFSET,
@@ -2881,6 +2881,8 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 					ThresholdSettingsPtr->ThresholdUnderVal[1]);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD1_OVER_OFFSET, XRFDC_TRSHD1_OVER_MASK,
 					ThresholdSettingsPtr->ThresholdOverVal[1]);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TRSHD1_CFG_OFFSET, XRFDC_TRSHD1_EN_MOD_MASK,
+					ThresholdSettingsPtr->ThresholdMode[1]);
 
 			ThresholdConfigPtr->ThresholdMode[1] = ThresholdSettingsPtr->ThresholdMode[1];
 			ThresholdConfigPtr->ThresholdAvgVal[1] = ThresholdSettingsPtr->ThresholdAvgVal[1];
