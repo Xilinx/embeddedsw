@@ -153,6 +153,8 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_SD_1_RAW		(0x10U)
 #define XIH_IHT_ATTR_SBD_SD_LS_RAW		(0x11U)
 #define XIH_IHT_ATTR_SBD_EMMC_RAW		(0x12U)
+#define XIH_IHT_ATTR_SBD_EMMC_0			(0x13U)
+#define XIH_IHT_ATTR_SBD_EMMC_0_RAW		(0x14U)
 
 /* Prtn Attribute fields */
 #define XIH_PH_ATTRB_DPA_CM_EN_MASK		(0x18000000U)

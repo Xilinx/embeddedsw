@@ -160,6 +160,17 @@ XLoader_DeviceOps DeviceOps[] =
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
+#ifdef  XLOADER_SD_0
+        XLOADER_DEVICEOPS_INIT("EMMC0", XLoader_SdInit, XLoader_SdCopy), /* EMMC0 - 0x18U */
+#else
+        XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+#ifdef  XLOADER_SD_0
+        XLOADER_DEVICEOPS_INIT("EMMC0_RAW", XLoader_RawInit, XLoader_RawCopy), /* EMMC0_RAW - 0x19U */
+#else
+        XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
+
 };
 
 /*****************************************************************************/
@@ -1407,6 +1418,20 @@ int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
 				}
+				break;
+				case XIH_IHT_ATTR_SBD_EMMC_0:
+				{
+					PdiSrc = XLOADER_PDI_SRC_EMMC0 | XLOADER_SBD_ADDR_SET_MASK
+						 | (PdiPtr->MetaHdr.ImgHdrTable.SBDAddr
+						 << XLOADER_SBD_ADDR_SHIFT);
+                    PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_EMMC_0_RAW:
+                {
+			PdiSrc = XLOADER_PDI_SRC_EMMC0_RAW;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+                }
 				break;
 				default:
 				{
