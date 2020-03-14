@@ -121,6 +121,10 @@
 #define PHY_DETECT_MASK 						0x1808
 #define PHY_MARVELL_IDENTIFIER					0x0141
 #define PHY_TI_IDENTIFIER					    0x2000
+#define PHY_REALTEK_IDENTIFIER					0x001c
+
+/* Realtek PHY flags */
+#define REALTEK_PHY_IDENTIFIER 					0x001c
 
 /* Marvel PHY flags */
 #define MARVEL_PHY_IDENTIFIER 					0x141
@@ -200,6 +204,7 @@ static int detect_phy(XAxiEthernet *xaxiemacp)
 			LWIP_DEBUGF(NETIF_DEBUG, ("XAxiEthernet detect_phy: PHY detected.\r\n"));
 			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG,
 										&phy_reg);
+			if ( phy_reg == PHY_REALTEK_IDENTIFIER ) phy_reg = PHY_MARVELL_IDENTIFIER;
 			if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
                 (phy_reg != TI_PHY_IDENTIFIER)){
 				xil_printf("WARNING: Not a Marvell or TI Ethernet PHY. Please verify the initialization sequence\r\n");
@@ -623,7 +628,7 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 	/* Get the PHY Identifier and Model number */
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG, &phy_identifier);
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_2_REG, &phy_model);
-
+	if ( phy_reg == PHY_REALTEK_IDENTIFIER ) phy_reg = PHY_MARVELL_IDENTIFIER;
 /* Depending upon what manufacturer PHY is connected, a different mask is
  * needed to determine the specific model number of the PHY. */
 	if (phy_identifier == MARVEL_PHY_IDENTIFIER) {

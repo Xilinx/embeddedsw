@@ -155,6 +155,7 @@
 #define PHY_IDENTIFIER_2_REG					3
 #define PHY_DETECT_MASK 					0x1808
 #define PHY_MARVELL_IDENTIFIER				0x0141
+#define PHY_REALTEK_IDENTIFIER				0x001c
 #define PHY_TI_IDENTIFIER					0x2000
 #define PHY_XILINX_PCS_PMA_ID1			0x0174
 #define PHY_XILINX_PCS_PMA_ID2			0x0C00
@@ -337,6 +338,7 @@ void detect_phy(XEmacPs *xemacpsp)
 
 			XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
 							&phy_reg);
+			if ( phy_reg == PHY_REALTEK_IDENTIFIER ) phy_reg = PHY_MARVELL_IDENTIFIER;
 			if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
 				(phy_reg != PHY_TI_IDENTIFIER)) {
 				xil_printf("WARNING: Not a Marvell or TI Ethernet PHY. Please verify the initialization sequence\r\n");
@@ -644,6 +646,7 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 
 	XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
 					&phy_identity);
+	if ( phy_reg == PHY_REALTEK_IDENTIFIER ) phy_reg = PHY_MARVELL_IDENTIFIER;
 	if (phy_identity == PHY_TI_IDENTIFIER) {
 		RetStatus = get_TI_phy_speed(xemacpsp, phy_addr);
 	} else {
