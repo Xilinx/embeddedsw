@@ -150,7 +150,9 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags)
 	 */
 #ifdef XPAR_XSDPS_1_DEVICE_ID
 	if ((DeviceFlags == XLOADER_PDI_SRC_SD0) ||
-			(DeviceFlags == XLOADER_PDI_SRC_SD0_RAW))
+			(DeviceFlags == XLOADER_PDI_SRC_SD0_RAW) ||
+			(DeviceFlags == XLOADER_PDI_SRC_EMMC0) ||
+			(DeviceFlags == XLOADER_PDI_SRC_EMMC0_RAW))
 	{
 		DeviceFlags = XLOADER_SD_DRV_NUM_0;
 	} else {
