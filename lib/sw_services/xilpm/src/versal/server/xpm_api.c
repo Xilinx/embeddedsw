@@ -599,6 +599,29 @@ static void AddPld0Device(void)
 	}
 }
 
+static void AddIPIPmcDevice(void)
+{
+	XPm_Device *Device = XPmDevice_GetById(PM_DEV_IPI_PMC);
+	int Status;
+
+	if (NULL == Device) {
+		u32 Args[3] = {PM_DEV_IPI_PMC, PM_POWER_LPD};
+		u32 Parents[] = {PM_RST_IPI};
+
+		Status = XPm_AddNode(Args, (u32)ARRAY_SIZE(Args));
+		if (XST_SUCCESS != Status) {
+			PmWarn("Error %d in adding PLD0 device\r\n", Status);
+		}
+
+		Status = XPmDevice_AddParent(PM_DEV_IPI_PMC, Parents,
+					     (u32)ARRAY_SIZE(Parents));
+		if (XST_SUCCESS != Status) {
+			PmWarn("Error %d in add patent for PLD0 device\r\n",
+				Status);
+		}
+	}
+}
+
 static void PostTopologyHook(void)
 {
 
@@ -611,6 +634,12 @@ static void PostTopologyHook(void)
 	 *	 will available in tools.
 	 */
 	AddPld0Device();
+
+	/**
+	 * TODO: Remove this workaround when CDO changes to add PMC IPI device
+	 *	 will available in tools.
+	 */
+	AddIPIPmcDevice();
 }
 
 XStatus XPm_HookAfterPlmCdo(void)
@@ -799,6 +828,16 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 			goto done;
 		}
 #endif
+		/**
+		 * PLM needs to request PMC IPI, else LibPM will reset IPI
+		 * when it is not used by other processor. Because of that PLM
+		 * hangs when it tires to communicate through IPI.
+		 */
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_IPI_PMC,
+				(u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error %d in request IPI PMC\r\n", Status);
+		}
 		XPlmi_LpdInit();
 	}
 

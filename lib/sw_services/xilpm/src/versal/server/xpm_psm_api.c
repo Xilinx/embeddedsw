@@ -267,12 +267,17 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 		/* Release devices requested by PLM to turn of LPD domain */
 		Lpd = XPmPower_GetById(PM_POWER_LPD);
-		if (((Lpd->UseCount > 0U) && (Lpd->UseCount <= 2U)) &&
+		if (((Lpd->UseCount > 0U) && (Lpd->UseCount <= 3U)) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
 		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
 			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC);
 			if (XST_SUCCESS != Status) {
 				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
+				goto done;
+			}
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC);
+			if (XST_SUCCESS != Status) {
+				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC)\r\n");
 				goto done;
 			}
 #ifdef DEBUG_UART_PS
