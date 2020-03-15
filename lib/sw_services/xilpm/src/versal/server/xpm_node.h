@@ -869,6 +869,8 @@ typedef enum {
 
 	XPM_NODEIDX_DEV_AIE,
 
+	XPM_NODEIDX_DEV_IPI_PMC,
+
 	XPM_NODEIDX_DEV_MAX
 } XPm_DeviceNodeIndex;
 

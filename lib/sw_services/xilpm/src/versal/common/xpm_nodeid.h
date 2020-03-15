@@ -481,6 +481,7 @@
 #define PM_DEV_GTYP_CPM5_2			(0x1862c070U)
 #define PM_DEV_GTYP_CPM5_3			(0x1862c071U)
 #define PM_DEV_AIE				(0x18224072U)
+#define PM_DEV_IPI_PMC				(0x18224073U)
 
 /* Subsystem Nodes */
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
