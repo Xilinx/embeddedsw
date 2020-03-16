@@ -1113,8 +1113,6 @@ void TxConnectCallback(void *CallbackRef) {
 		/* Cable is disconnected, don't allow any TX operation */
 		TxBusy = (TRUE);
 
-		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_TX, (FALSE));
-
 #ifdef USE_HDCP
 		/* Call HDCP disconnect callback */
 		XHdcp_StreamDisconnectCallback(&HdcpRepeater);
@@ -1366,7 +1364,7 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef) {
 				     XHDMIPHY1_DIR_RX,
 				     XHDMIPHY1_CHANNEL_ID_CH1);
 
-	if (!(RxPllType == XHDMIPHY1_PLL_TYPE_CPLL)) {
+	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs,
 		        Hdmiphy1Ptr->HdmiRxRefClkHz,
 			(XHdmiphy1_GetLineRateHz(&Hdmiphy1,
@@ -1377,7 +1375,7 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef) {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs, Hdmiphy1Ptr->HdmiRxRefClkHz,
 			 (XHdmiphy1_GetLineRateHz(&Hdmiphy1,
 			                      0,
-					      XHDMIPHY1_CHANNEL_ID_CH1)/1000000));
+					      XHDMIPHY1_CHANNEL_ID_CMN1)/1000000));
 	}
 }
 #endif
