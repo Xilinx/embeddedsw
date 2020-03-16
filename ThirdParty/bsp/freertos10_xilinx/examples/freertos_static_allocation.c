@@ -35,13 +35,14 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 
-#define TIMER_ID	1
-#define DELAY_10_SECONDS	10000UL
-#define DELAY_1_SECOND		1000UL
+#define TIMER_ID				1
+#define DELAY_10_SECONDS		10000UL
+#define DELAY_1_SECOND			1000UL
 #define TIMER_CHECK_THRESHOLD	9
-#define QUEUE_LENGTH	sizeof( uint8_t )
-#define STACK_SIZE      100
-#define NUM_TIMERS 1
+#define QUEUE_LENGTH			1
+#define STACK_SIZE      		100
+#define QUEUE_BUFFER_SIZE		100
+#define NUM_TIMERS 				1
 /*-----------------------------------------------------------*/
 static void prvTxTask( void *pvParameters );
 static void prvRxTask( void *pvParameters );
@@ -55,7 +56,7 @@ char HWstring[15] = "Hello World";
 long RxtaskCntr = 0;
 
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
-uint8_t ucQueueStorageArea[ QUEUE_LENGTH ];
+uint8_t ucQueueStorageArea[ QUEUE_BUFFER_SIZE ];
 StackType_t xStack1[ STACK_SIZE ];
 StackType_t xStack2[ STACK_SIZE ];
 StaticTask_t xTxBuffer,xRxBuffer;
