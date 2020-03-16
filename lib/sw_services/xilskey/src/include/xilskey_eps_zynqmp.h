@@ -139,6 +139,11 @@ extern "C" {
 
 #define XSK_ZYNQMP_EFUSEPS_CRC_AES_ZEROS		(0x6858A3D5U)
 
+/* eFuse Offset = efuse row number * 4(that is sizeof(row))
+ */
+#define XSK_ZYNQMP_EFUSEPS_AES_KEY_OFFSET 	\
+			(XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW << 2U)
+
 /* User fuses*/
 #define XSK_ZYNQMP_EFUSEPS_USR0_FUSE	(0U)
 #define XSK_ZYNQMP_EFUSEPS_USR1_FUSE	(1U)

@@ -2916,7 +2916,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
-		case (XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW << 2U):
+		case (XSK_ZYNQMP_EFUSEPS_AES_KEY_OFFSET &
+				XSK_EFUSEPS_OFFSET_MASK):
 			if (EfuseAccess->Size !=
 			    (XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES >> 2U)) {
 				Status = (u32)XSK_EFUSEPS_ERROR_BYTES_REQUEST;
