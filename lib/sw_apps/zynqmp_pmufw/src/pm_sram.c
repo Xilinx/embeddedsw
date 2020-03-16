@@ -164,12 +164,28 @@ done:
 }
 
 /**
+ * PmMemSet() - Fill memory with a constant double word
+ * @baseaddr	Start address of memory area
+ * @value	Value to be fill in memory area
+ * @len		Size of memory area to be filled.
+ *		It is assumed that size will be in multiple of 4.
+ */
+static inline void PmMemSet(u32 baseaddr, u32 value, u32 len)
+{
+        int i;
+
+        for (i = 0; i < len; i += 4) {
+                Xil_Out32(baseaddr + i, value);
+        }
+}
+
+/**
  * PmTcm0EccInit() - ECC initialization for TCM bank 0
  * @tcm		TCM slave node to initialize
  */
 static void PmTcm0EccInit(const PmSlaveTcm* const tcm)
 {
-	(void)memset((u32 *)tcm->base, 0U, tcm->size);
+	PmMemSet(tcm->base, 0U, tcm->size);
 }
 
 /**
@@ -184,7 +200,7 @@ static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
 	if (0U != (ctrl & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK)) {
 		base -= 0x80000U;
 	}
-	(void)memset((u32 *)base, 0U, tcm->size);
+	PmMemSet(base, 0U, tcm->size);
 }
 
 /**
