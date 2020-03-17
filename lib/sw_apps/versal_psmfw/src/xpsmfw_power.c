@@ -538,6 +538,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
+	u32 HighAddress, LowAddress;
 
 	/* Power up ACPUx only if powered down */
 	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
@@ -546,6 +547,15 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+	}
+
+	/* Set the start address */
+	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xfffffffeULL);
+	HighAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] >> 32ULL);
+	if (0U != (PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL)) {
+		XPsmFw_Write32(Args->ResetCfgAddr, LowAddress);
+		XPsmFw_Write32((Args->ResetCfgAddr + 0x4U), HighAddress);
+		PsmToPlmEvent.ResumeAddress[Args->Id] = 0U;
 	}
 
 	RegVal = XPsmFw_Read32(CRF_RST_APU);
@@ -800,6 +810,7 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XStatus Status = XST_FAILURE;
 	u32 PwrStateMask;
 	u32 RegVal;
+	u32 LowAddress;
 
 	/* Assert reset to RPU cores */
 	XPsmFw_RMW32(CRL_RST_CPU_R5, Args->RstCtrlMask, Args->RstCtrlMask);
@@ -826,6 +837,18 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSM_LOCAL_AUX_PWR_STATE,
 			PSM_LOCAL_AUX_PWR_STATE_RPU_EMUL_MASK,
 			~PSM_LOCAL_AUX_PWR_STATE_RPU_EMUL_MASK);
+
+	/* Set the start address */
+	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xfffffffeULL);
+	if (0U != (PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL)) {
+		if (RPU_HIVEC_ADDR == (LowAddress & RPU_HIVEC_ADDR)) {
+			XPsmFw_RMW32(Args->ResetCfgAddr, RPU_VINITHI_MASK,
+				     RPU_VINITHI_MASK);
+		} else {
+			XPsmFw_RMW32(Args->ResetCfgAddr, RPU_VINITHI_MASK, 0U);
+		}
+		PsmToPlmEvent.ResumeAddress[Args->Id] = 0U;
+	}
 
 	/* Release RPU_LS_RESET in the PSM LOCAL_RESET register */
 	/* As per EDT-978644, this is already handled in below 2 steps */

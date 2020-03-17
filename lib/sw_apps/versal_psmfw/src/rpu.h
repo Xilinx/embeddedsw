@@ -144,6 +144,9 @@ extern "C" {
 #define RPU_RPU_0_CFG		( ( RPU_BASEADDR ) + 0x00000100U )
 #define RPU_RPU_1_CFG		( ( RPU_BASEADDR ) + 0x00000200U )
 
+#define RPU_HIVEC_ADDR		(0xFFFC0000U)
+#define RPU_VINITHI_MASK	(0x4U)
+
 #ifdef __cplusplus
 }
 #endif
