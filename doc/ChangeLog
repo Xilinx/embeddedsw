@@ -113,6 +113,7 @@ Update copyright license for usb driver and examples.
 axicdma_v4_7:
 Support 26bit dma transfer length.
 Fix gcc warning in peripheral test and examples.
+Clean up old versions in axicdma.mdd.
 
 wdttb_v5_0:
 -Updated example files with "Successfully ran" string.
