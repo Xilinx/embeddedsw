@@ -68,9 +68,8 @@ done:
 }
 
 static struct XPm_CoreOps PsmOps = {
-		.RestoreResumeAddr = NULL,
-		.RequestWakeup = XPmPsm_WakeUp,
-		.PowerDown = NULL,
+	.RequestWakeup = XPmPsm_WakeUp,
+	.PowerDown = NULL,
 };
 
 XStatus XPmPsm_Init(XPm_Psm *Psm,

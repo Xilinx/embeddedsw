@@ -176,25 +176,16 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		}
 	}
 
-	if (NULL != Core->CoreOps && NULL != Core->CoreOps->RestoreResumeAddr) {
-		Status = Core->CoreOps->RestoreResumeAddr(Core);
+	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State)
+	    && (NULL != Core->Device.ClkHandles)) {
+		Status = XPmClock_Request(Core->Device.ClkHandles);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 	}
 
-	if ((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
-		if (NULL != Core->Device.ClkHandles) {
-			Status = XPmClock_Request(Core->Device.ClkHandles);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
-		Status = XPm_DirectPwrUp(Core->Device.Node.Id);
-	}
-
-	/* Release reset for all resets attached to this core */
-	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
+	/* Reset will be released at a part of direct power up sequence */
+	Status = XPm_DirectPwrUp(Core->Device.Node.Id);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
