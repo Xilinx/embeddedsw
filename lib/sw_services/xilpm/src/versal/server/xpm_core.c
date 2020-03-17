@@ -61,12 +61,6 @@ int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 		goto done;
 	}
 
-	/* Check for the version of the PsmToPlmEvent structure */
-	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
-		PmErr("PSM-PLM are out of sync. Can't set resume address.\n\r");
-		goto done;
-	}
-
 	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
 		/* Store the resume address to PSM reserved RAM location */
 		if (ProcDevList[Idx] == Core->Device.Node.Id) {
@@ -87,12 +81,6 @@ int XPmCore_HasResumeAddr(XPm_Core *Core)
 	XStatus Status = XST_FAILURE;
 	u32 Idx;
 	u64 ResumeAddr;
-
-	/* Check for the version of the PsmToPlmEvent structure */
-	if (PsmToPlmEvent->Version != PWR_CFG_STRUCTURE_VERSION) {
-		PmErr("PSM-PLM are out of sync. Can't set resume address.\n\r");
-		goto done;
-	}
 
 	for (Idx = 0; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
 		/* Store the resume address to PSM reserved RAM location */
@@ -115,8 +103,6 @@ int XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
 	int Status = XST_FAILURE;
 	u32 Idx;
 
-	/* PsmToPlmEvent version is already checked in StoreResumeAddr function */
-
 	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
 		/* Store the CPU idle flag to PSM reserved RAM location */
 		if (ProcDevList[Idx] == Core->Device.Node.Id) {
@@ -135,8 +121,6 @@ int XPmCore_GetCPUIdleFlag(XPm_Core *Core, u32 *CpuIdleFlag)
 {
 	int Status = XST_FAILURE;
 	u32 Idx;
-
-	/* PsmToPlmEvent version is already checked in StoreResumeAddr function */
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
 		/* Store the CPU idle flag to PSM reserved RAM location */

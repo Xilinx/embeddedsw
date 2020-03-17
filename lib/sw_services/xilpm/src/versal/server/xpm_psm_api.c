@@ -73,18 +73,11 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 
 	PmDbg("Processing Psm Event\n\r");
 
-	/* Check for the version of the PsmToPlmEvent structure */
-	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
-		PmErr("PSM-PLM are out of sync. Can't process PSM event\n\r");
-		goto done;
-	} else {
-		Status = XST_SUCCESS;
-	}
-
 	Lpd = XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == Lpd) {
 		goto done;
 	}
+	Status = XST_SUCCESS;
 
 	/* Check for the power up/down event register */
 	for (Idx = 0; ((u8)XPM_POWER_STATE_OFF != Lpd->Node.State) && Idx < ARRAY_SIZE(ProcDevList); Idx++) {

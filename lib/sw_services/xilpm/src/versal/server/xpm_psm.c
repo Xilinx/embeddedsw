@@ -27,6 +27,7 @@
 #include "xil_io.h"
 #include "xpm_regs.h"
 #include "xpm_psm.h"
+#include "xpm_psm_api.h"
 
 #define GLOBAL_CNTRL(BASE)	((BASE) + PSM_GLOBAL_CNTRL)
 #define PWR_UP_EN(BASE)		((BASE) + PSM_GLOBAL_REQ_PWRUP_EN)
@@ -62,6 +63,14 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 	Status = XPm_PollForMask(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr),
 				 PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 				 XPM_MAX_POLL_TIMEOUT);
+
+	/* Check for the version of the PsmToPlmEvent structure */
+	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
+		PmErr("PSM-PLM are out of sync. Can't process PSM event\n\r");
+		goto done;
+	} else {
+		Status = XST_SUCCESS;
+	}
 
 done:
 	return Status;
