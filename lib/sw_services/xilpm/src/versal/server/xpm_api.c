@@ -980,40 +980,37 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	XPm_Core *Core;
 	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
 	XPm_Requirement *Reqm;
+	u32 CpuIdleFlag;
 
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
 
-	if ((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
-	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
-		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-		if (NULL == Core) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
-
-		Status = XPmCore_StoreResumeAddr(Core, (Address | 1U));
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
-	} else {
+	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	if ((NULL == Core) ||
+	    (NODESUBCLASS(DeviceId) != (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
-	ENABLE_WFI(Core->SleepMask);
+	if ((PM_SUSPEND_STATE_SUSPEND_TO_RAM != State) &&
+	    (PM_SUSPEND_STATE_CPU_IDLE != State)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	CpuIdleFlag = (State == PM_SUSPEND_STATE_CPU_IDLE) ? (1U) : (0U);
+
+	Status = XPmCore_StoreResumeAddr(Core, (Address | 1U));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDING);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-	}
 
-	/* If subsystem is using DDR, enable self-refresh as post suspend requirement*/
-	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
+		/* If subsystem is using DDR, enable self-refresh as post suspend requirement*/
 		Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, SubsystemId);
 		if (XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) {
 			Status = XPmDevice_SetRequirement(SubsystemId, PM_DEV_DDR_0,
@@ -1024,7 +1021,13 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 		}
 	}
 
-	Status = XST_SUCCESS;
+	Status = XPmCore_SetCPUIdleFlag(Core, CpuIdleFlag);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	ENABLE_WFI(Core->SleepMask);
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
 
 done:
 	if (XST_SUCCESS != Status) {

@@ -82,6 +82,27 @@ done:
 	return Status;
 }
 
+int XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
+{
+	int Status = XST_FAILURE;
+	u32 Idx;
+
+	/* PsmToPlmEvent version is already checked in StoreResumeAddr function */
+
+	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+		/* Store the CPU idle flag to PSM reserved RAM location */
+		if (ProcDevList[Idx] == Core->Device.Node.Id) {
+			PsmToPlmEvent->CpuIdleFlag[Idx] = CpuIdleFlag;
+			break;
+		}
+	}
+	if (Idx < ARRAY_SIZE(ProcDevList)) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
 XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
