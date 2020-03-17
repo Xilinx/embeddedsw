@@ -100,6 +100,38 @@ done:
 	return Status;
 }
 
+int XPmCore_AfterDirectWakeUp(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *PwrNode;
+
+	if ((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if (NULL != Core->Device.Power) {
+		PwrNode = Core->Device.Power;
+		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_UP);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	if (NULL != Core->Device.ClkHandles) {
+		Status = XPmClock_Request(Core->Device.ClkHandles);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus XPmCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
