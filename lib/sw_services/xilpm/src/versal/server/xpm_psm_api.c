@@ -228,6 +228,7 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	XPm_Subsystem *Subsystem;
 	u32 SubsystemId;
 	XPm_Power *Lpd;
+	u32 CpuIdleFlag = 0;
 
 	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
 	    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
@@ -239,6 +240,17 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 	if ((u8)XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
 		Status = XST_FAILURE;
+		goto done;
+	}
+
+	Status = XPmCore_GetCPUIdleFlag(Core, &CpuIdleFlag);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Update the state and its parent use counts in case of CPU idle */
+	if (1U == CpuIdleFlag) {
+		Status = XPmCore_AfterDirectPwrDwn(Core);
 		goto done;
 	}
 
@@ -308,5 +320,22 @@ done:
  ****************************************************************************/
 XStatus XPm_WakeUpEvent(const u32 DeviceId)
 {
-	return XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0);
+	int Status = XST_FAILURE;
+	u32 CpuIdleFlag = 0;
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+
+	Status = XPmCore_GetCPUIdleFlag(Core, &CpuIdleFlag);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (1U == CpuIdleFlag) {
+		/* Update the state and its parent use counts in case of CPU idle */
+		Status = XPmCore_AfterDirectWakeUp(Core);
+	} else {
+		Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0);
+	}
+
+done:
+	return Status;
 }
