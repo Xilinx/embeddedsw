@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,11 @@ extern "C" {
 #define PSM_API_DIRECT_PWR_UP			(2U)
 #define PSM_API_FPD_HOUSECLEAN			(3U)
 
+#define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
+#define PSM_TO_PLM_EVENT_VERSION		(0x2U)
+#define PWR_UP_EVT				(0x1U)
+#define PWR_DWN_EVT				(0x100U)
+
 enum ProcDeviceId {
 	ACPU_0,
 	ACPU_1,
@@ -53,6 +58,8 @@ enum ProcDeviceId {
 struct PsmToPlmEvent_t {
 	u32 Version;	/* Version of the event structure */
 	u32 Event[PROC_DEV_MAX];
+	u32 CpuIdleFlag[PROC_DEV_MAX];
+	u64 ResumeAddress[PROC_DEV_MAX];
 };
 
 void XPm_PsmModuleInit(void);

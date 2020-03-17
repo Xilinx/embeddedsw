@@ -50,6 +50,38 @@ done:
 	return Status;
 }
 
+int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
+{
+	int Status = XST_FAILURE;
+	u32 Idx;
+
+	/* Check for valid resume address */
+	if (0U == (Address & 1ULL)) {
+		PmErr("Invalid resume address\r\n");
+		goto done;
+	}
+
+	/* Check for the version of the PsmToPlmEvent structure */
+	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
+		PmErr("PSM-PLM are out of sync. Can't set resume address.\n\r");
+		goto done;
+	}
+
+	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+		/* Store the resume address to PSM reserved RAM location */
+		if (ProcDevList[Idx] == Core->Device.Node.Id) {
+			PsmToPlmEvent->ResumeAddress[Idx] = Address;
+			break;
+		}
+	}
+	if (Idx < ARRAY_SIZE(ProcDevList)) {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}
+
 XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
@@ -68,7 +100,10 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	/* Set reset address */
 	if (1U == SetAddress) {
-		Core->ResumeAddr = Address | 1U;
+		Status = XPmCore_StoreResumeAddr(Core, (Address | 1U));
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	if (NULL != Core->CoreOps && NULL != Core->CoreOps->RestoreResumeAddr) {

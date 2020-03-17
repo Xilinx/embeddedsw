@@ -991,7 +991,12 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			Status = XST_DEVICE_NOT_FOUND;
 			goto done;
 		}
-		Core->ResumeAddr = Address | 1U;
+
+		Status = XPmCore_StoreResumeAddr(Core, (Address | 1U));
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
 	} else {
 		Status = XPM_INVALID_DEVICEID;

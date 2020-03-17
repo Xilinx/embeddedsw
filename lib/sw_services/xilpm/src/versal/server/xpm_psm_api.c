@@ -36,11 +36,6 @@
 #include "xpm_requirement.h"
 #include "sleep.h"
 
-#define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
-#define PSM_TO_PLM_EVENT_VERSION		(0x1U)
-#define PWR_UP_EVT				(0x1U)
-#define PWR_DWN_EVT				(0x100U)
-
 #ifdef STDOUT_BASEADDRESS
 #if (STDOUT_BASEADDRESS == 0xFF000000U)
 #define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
@@ -56,7 +51,7 @@ static XPlmi_Module XPlmi_Psm =
 	PSM_API_MAX+1,
 };
 
-static u32 ProcDevList[PROC_DEV_MAX] = {
+u32 ProcDevList[PROC_DEV_MAX] = {
 	[ACPU_0] = PM_DEV_ACPU_0,
 	[ACPU_1] = PM_DEV_ACPU_1,
 	[RPU0_0] = PM_DEV_RPU0_0,
@@ -64,7 +59,7 @@ static u32 ProcDevList[PROC_DEV_MAX] = {
 };
 
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
-static volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
+volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
 				(struct PsmToPlmEvent_t *)PSM_TO_PLM_EVENT_ADDR;
 
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)

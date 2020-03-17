@@ -28,6 +28,7 @@
 #define XPM_CORE_H_
 
 #include "xpm_api.h"
+#include "xpm_psm_api.h"
 #include "xpm_device.h"
 
 #ifdef __cplusplus
@@ -37,6 +38,8 @@ extern "C" {
 #define MAX_CORE_REGS 3
 
 typedef struct XPm_Core XPm_Core;
+extern volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
+extern u32 ProcDevList[PROC_DEV_MAX];
 
 /* Core Operations */
 struct XPm_CoreOps {
@@ -66,6 +69,7 @@ struct XPm_Core {
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
 		     struct XPm_CoreOps *Ops);
+int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address);
 XStatus XPmCore_PwrDwn(XPm_Core *Core);
 XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
 int XPmCore_AfterDirectWakeUp(XPm_Core *Core);
