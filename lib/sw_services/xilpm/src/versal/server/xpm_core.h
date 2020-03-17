@@ -67,7 +67,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
 		     struct XPm_CoreOps *Ops);
 XStatus XPmCore_PwrDwn(XPm_Core *Core);
-XStatus XPmCore_WakeUp(XPm_Core *Core);
+XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
 int XPmCore_AfterDirectPwrDwn(XPm_Core *Core);
 int XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 

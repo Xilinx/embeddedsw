@@ -50,7 +50,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_WakeUp(XPm_Core *Core)
+XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
@@ -64,6 +64,11 @@ XStatus XPmCore_WakeUp(XPm_Core *Core)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+	}
+
+	/* Set reset address */
+	if (1U == SetAddress) {
+		Core->ResumeAddr = Address | 1U;
 	}
 
 	if (NULL != Core->CoreOps && NULL != Core->CoreOps->RestoreResumeAddr) {
@@ -82,6 +87,14 @@ XStatus XPmCore_WakeUp(XPm_Core *Core)
 		}
 		Status = XPm_DirectPwrUp(Core->Device.Node.Id);
 	}
+
+	/* Release reset for all resets attached to this core */
+	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;

@@ -74,24 +74,11 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Set reset address */
-	if (1U == SetAddress) {
-		Core->ResumeAddr = Address | 1U;
-	}
-
-	Status = XPmCore_WakeUp(Core);
+	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
 		PmErr("Core Wake Up failed, Status = %x\r\n", Status);
 		goto done;
 	}
-
-	/* Release reset for all resets attached to this core */
-	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;

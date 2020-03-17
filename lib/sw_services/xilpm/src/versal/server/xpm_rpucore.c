@@ -95,28 +95,15 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XStatus Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
-	/* Set reset address */
-	if (1U == SetAddress) {
-		Core->ResumeAddr = Address | 1U;
-	}
-
-	Status = XPmCore_WakeUp(Core);
+	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
 		PmErr("Core Wake Up failed, Status = %x\r\n", Status);
-		goto done;
-	}
-
-	/* Release reset for all resets attached to this core */
-	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Put RPU in running state from halt state */
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
 		XPM_RPU_NCPUHALT_MASK);
-
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;
