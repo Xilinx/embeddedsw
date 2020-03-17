@@ -90,7 +90,6 @@ done:
 XStatus XPmCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Power *PwrNode;
 
 	if ((u32)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
 		Status = XST_SUCCESS;
@@ -110,6 +109,17 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 			goto done;
 		}
 	}
+
+	Status = XPmCore_AfterDirectPwrDwn(Core);
+
+done:
+	return Status;
+}
+
+int XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
+{
+	int Status = XST_FAILURE;
+	XPm_Power *PwrNode;
 
 	if (NULL != Core->Device.ClkHandles) {
 		Status = XPmClock_Release(Core->Device.ClkHandles);

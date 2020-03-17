@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -68,6 +68,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     struct XPm_CoreOps *Ops);
 XStatus XPmCore_PwrDwn(XPm_Core *Core);
 XStatus XPmCore_WakeUp(XPm_Core *Core);
+int XPmCore_AfterDirectPwrDwn(XPm_Core *Core);
 int XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 
 #ifdef __cplusplus
