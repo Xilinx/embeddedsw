@@ -720,6 +720,9 @@ Added support for loading partial secure PDI
 Enabled direct DMA from SBI, SMAP, DDR, QSPI and OSPI boot modes to CFI for
 performance improvement (non secure boot only)
 
+axivdma_v6_7:
+Clean up old versions in axivdma.mdd.
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
