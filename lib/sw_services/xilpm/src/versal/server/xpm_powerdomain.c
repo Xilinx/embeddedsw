@@ -398,7 +398,8 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm;
-	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0);
+	XPm_Core *ApuCore;
+	int HasResumeAddrStatus = XST_FAILURE;
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
 		goto done;
@@ -456,13 +457,16 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 		goto done;
 	}
 
-	/* Enable GIC proxy only if resume path is set */
-	if ((NULL != ApuCore) &&
-	    (XST_SUCCESS == ApuCore->CoreOps->HasResumeAddr(ApuCore))) {
-		XPm_GicProxy.Enable();
+	ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0);
+	if (NULL != ApuCore) {
+		HasResumeAddrStatus = XPmCore_HasResumeAddr(ApuCore);
+		if (XST_SUCCESS == HasResumeAddrStatus) {
+			/* Enable GIC proxy only if resume path is set */
+			XPm_GicProxy.Enable();
 
-		/* Store the PSM APU power state register */
-		PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
+			/* Store the PSM APU power state register */
+			PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
+		}
 	}
 
 done:

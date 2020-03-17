@@ -82,6 +82,34 @@ done:
 	return Status;
 }
 
+int XPmCore_HasResumeAddr(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Idx;
+	u64 ResumeAddr;
+
+	/* Check for the version of the PsmToPlmEvent structure */
+	if (PsmToPlmEvent->Version != PWR_CFG_STRUCTURE_VERSION) {
+		PmErr("PSM-PLM are out of sync. Can't set resume address.\n\r");
+		goto done;
+	}
+
+	for (Idx = 0; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+		/* Store the resume address to PSM reserved RAM location */
+		if (ProcDevList[Idx] == Core->Device.Node.Id) {
+			ResumeAddr = PsmToPlmEvent->ResumeAddress[Idx];
+			break;
+		}
+	}
+
+	if ((Idx < ARRAY_SIZE(ProcDevList)) && (0U != (ResumeAddr & 1ULL))) {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}
+
 int XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
 {
 	int Status = XST_FAILURE;
