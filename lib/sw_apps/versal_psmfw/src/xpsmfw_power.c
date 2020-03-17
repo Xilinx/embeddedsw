@@ -590,7 +590,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask);
 
 	/* Enable Direct Power-down Request of ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask);
+	/* This is already handled in PLM during self-suspend */
 
 	/*
 	 * Unmask interrupt for all Power-up Requests and Reset Requests that
@@ -715,7 +715,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask);
 
 	/* Enable wake interrupt by GIC for ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask);
+	/* This is already handled in post processing of PLM */
 
 	/*
 	 * If FPD bit is set in the REQ_PWRDWN_STATUS register unmask the FPD
@@ -1646,6 +1646,9 @@ static XStatus ACPU0Wakeup(void)
 {
 	int Status = XST_FAILURE;
 
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
+
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu0PwrCtrl);
 		if (XST_SUCCESS != Status) {
@@ -1669,6 +1672,9 @@ done:
 static XStatus ACPU0Sleep(void)
 {
 	int Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0PwrCtrl);
@@ -1694,6 +1700,9 @@ static XStatus ACPU1Wakeup(void)
 {
 	int Status = XST_FAILURE;
 
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
+
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu1PwrCtrl);
 		if (XST_SUCCESS != Status) {
@@ -1717,6 +1726,9 @@ done:
 static XStatus ACPU1Sleep(void)
 {
 	int Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1PwrCtrl);
@@ -1742,6 +1754,9 @@ static XStatus R50Wakeup(void)
 {
 	int Status = XST_FAILURE;
 
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
+
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu0PwrCtrl);
 		if (XST_SUCCESS != Status) {
@@ -1765,6 +1780,9 @@ done:
 static XStatus R50Sleep(void)
 {
 	int Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu0PwrCtrl);
@@ -1790,6 +1808,9 @@ static XStatus R51Wakeup(void)
 {
 	int Status = XST_FAILURE;
 
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu1PwrCtrl);
 		if (XST_SUCCESS != Status) {
@@ -1813,6 +1834,9 @@ done:
 static XStatus R51Sleep(void)
 {
 	int Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu1PwrCtrl);

@@ -268,6 +268,14 @@ int XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 		}
 	}
 
+	/**
+	 * Enabling of wake interrupt is removed from PSM direct power down
+	 * sequence so enable wakeup interrupt here.
+	 */
+	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+		ENABLE_WAKE(Core->SleepMask);
+	}
+
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
 
 done:
