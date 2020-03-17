@@ -276,11 +276,6 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 		if (((Lpd->UseCount > 0U) && (Lpd->UseCount <= 3U)) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
 		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC);
-			if (XST_SUCCESS != Status) {
-				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
-				goto done;
-			}
 			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC);
 			if (XST_SUCCESS != Status) {
 				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC)\r\n");
@@ -296,6 +291,21 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 				goto done;
 			}
 #endif
+			/* Power down PSM core */
+			Core = (XPm_Core *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+			if (NULL != Core->CoreOps->PowerDown) {
+				Status = Core->CoreOps->PowerDown(Core);
+				if (XST_SUCCESS != Status) {
+					PmErr("Error %d in PSM core PowerDown\r\n");
+					goto done;
+				}
+			}
+
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC);
+			if (XST_SUCCESS != Status) {
+				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
+				goto done;
+			}
 		}
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
 	} else {

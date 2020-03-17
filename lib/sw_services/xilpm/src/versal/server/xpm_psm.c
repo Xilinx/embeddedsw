@@ -40,8 +40,10 @@
 #define SLEEP_TRIG(BASE)	((BASE) + PSM_GLOBAL_PWR_CTRL_TRIG)
 #define PWR_STAT(BASE)		((BASE) + PSM_GLOBAL_PWR_STATE)
 
-static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
-			  u64 Address)
+static struct PsmToPlmEvent_t PsmToPlmEvent_bkp = {0};
+static u32 Is_PsmPoweredDown = 0U;
+
+static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm = (XPm_Psm *)Core;
@@ -64,6 +66,11 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 				 PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 				 XPM_MAX_POLL_TIMEOUT);
 
+	if (1U == Is_PsmPoweredDown) {
+		/* Restore the context of reserved PSM RAM memory */
+		(void)XPlmi_MemCpy((void *)PsmToPlmEvent, &PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp));
+	}
+
 	/* Check for the version of the PsmToPlmEvent structure */
 	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
 		PmErr("PSM-PLM are out of sync. Can't process PSM event\n\r");
@@ -76,9 +83,23 @@ done:
 	return Status;
 }
 
+static XStatus XPmPsm_PowerDown(XPm_Core *Core)
+{
+	(void)Core;
+
+	/* Store the context of reserved PSM RAM memory */
+	(void)XPlmi_MemCpy(&PsmToPlmEvent_bkp, (void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp));
+
+	/* Add PSM specific power down sequence if any */
+
+	Is_PsmPoweredDown = 1U;
+
+	return XST_SUCCESS;
+}
+
 static struct XPm_CoreOps PsmOps = {
 	.RequestWakeup = XPmPsm_WakeUp,
-	.PowerDown = NULL,
+	.PowerDown = XPmPsm_PowerDown,
 };
 
 XStatus XPmPsm_Init(XPm_Psm *Psm,
