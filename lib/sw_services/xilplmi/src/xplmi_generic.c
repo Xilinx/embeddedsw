@@ -920,7 +920,7 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	else
 	{
 		DestAddr = ((Cmd->ProcessedLen-Cmd->ResumeData[3U]-DestOffset)*4U)%Keyholesize + BaseAddr;
-		/** Set DMA flags to DMA0 and FIXED */
+		/** Set DMA flags to DMA0 */
 		Flags = XPLMI_PMCDMA_0;
 		if(Cmd->ProcessedLen != 0U)
 		{
@@ -1044,10 +1044,9 @@ int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 														XPlmi_Cmd* Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 Flags = XPLMI_PMCDMA_0 | XPLMI_DST_CH_AXI_FIXED;
 	u64 BaseAddr;
 
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, XPLMI_PMCDMA_0);
 	if(Status != XST_SUCCESS)
 	{
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
