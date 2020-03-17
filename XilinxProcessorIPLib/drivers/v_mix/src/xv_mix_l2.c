@@ -1767,8 +1767,6 @@ u32 XVMix_SetCscCoeffs(XV_Mix_l2 *InstancePtr,
 		XVidC_ColorRange colorRange,
 		u8 colorDepth)
 {
-	Status = 0;
-
 	if ((colorStandard >= XVIDC_BT_NUM_SUPPORTED) ||
 			(colorRange >= XVIDC_CR_NUM_SUPPORTED))
 	{
