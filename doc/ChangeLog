@@ -145,6 +145,9 @@ axidma_v9_11:
 Removed xaxidma_example_multichan_sg_intr.c example from axidma driver.
 Clean up old versions in axidma.mdd.
 
+axivdma_v6_7:
+Clean up old versions in axivdma.mdd.
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
