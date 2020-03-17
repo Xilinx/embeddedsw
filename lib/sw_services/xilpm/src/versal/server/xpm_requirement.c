@@ -197,11 +197,12 @@ XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 			Status = XPmDevice_UpdateStatus(Reqm->Device);
 			if (XST_SUCCESS != Status) {
 				PmErr("Updating %x\r\n", Reqm->Device->Node.Id);
-				break;
+				goto done;
 			}
 		}
 		Reqm = Reqm->NextDevice;
 	}
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
