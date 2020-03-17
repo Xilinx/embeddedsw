@@ -231,6 +231,12 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 
+	/* Do not process anything if proc is already down */
+	if ((u8)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	if ((u8)XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
 		Status = XST_FAILURE;
 		goto done;
@@ -316,6 +322,12 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId)
 	int Status = XST_FAILURE;
 	u32 CpuIdleFlag = 0;
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+
+	/* Do not process anything if proc is already running */
+	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	Status = XPmCore_GetCPUIdleFlag(Core, &CpuIdleFlag);
 	if (XST_SUCCESS != Status) {
