@@ -56,19 +56,27 @@
 #include <assert.h>
 #define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
 
-#define PSM_TO_PLM_EVENT_VERSION		(0x1U)
+/**
+ * NOTE: Older PsmToPlmEvent version (0x1U) only consists Event array
+ *       while new version (0x2U) adds CpuIdleFlag and ResumeAddress in it.
+ */
+#define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
 
 __attribute__((used, section(".reserved_memory")))
 	static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 		.Version	= PSM_TO_PLM_EVENT_VERSION,
-		.Event	= {0x0},
+		.Event		= {0x0},
+		.CpuIdleFlag 	= {0x0},
+		.ResumeAddress 	= {0x0},
 	};
 
 static u32 LocalPwrState;
 
 static struct XPsmFwPwrCtrl_t Acpu0PwrCtrl = {
+	.Id = ACPU_0,
+	.ResetCfgAddr = FPD_APU_RVBARADDR0L,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_ACPU0_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_ACPU0_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_ACPU0_PWR_STATUS,
@@ -91,6 +99,8 @@ static struct XPsmFwPwrCtrl_t Acpu0PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1PwrCtrl = {
+	.Id = ACPU_1,
+	.ResetCfgAddr = FPD_APU_RVBARADDR1L,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_ACPU1_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_ACPU1_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_ACPU1_PWR_STATUS,
@@ -113,6 +123,8 @@ static struct XPsmFwPwrCtrl_t Acpu1PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Rpu0PwrCtrl = {
+	.Id = RPU0_0,
+	.ResetCfgAddr = RPU_RPU_0_CFG,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_R5_0_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_RPU_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_RPU_PWR_STATUS,
@@ -135,6 +147,8 @@ static struct XPsmFwPwrCtrl_t Rpu0PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Rpu1PwrCtrl = {
+	.Id = RPU0_1,
+	.ResetCfgAddr = RPU_RPU_1_CFG,
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_R5_1_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_RPU_PWR_CNTRL,
 	.PwrStatusAddr = PSM_LOCAL_RPU_PWR_STATUS,

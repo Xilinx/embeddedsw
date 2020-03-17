@@ -190,6 +190,11 @@ struct PwrHandlerTable_t {
 };
 
 struct XPsmFwPwrCtrl_t {
+	enum ProcDeviceId Id;
+
+	/* Reset vector address register */
+	u32 ResetCfgAddr;
+
 	/* Bit number in the Power State (LOCAL and GLOBAL) Register */
 	u32 PwrStateMask;
 
@@ -288,6 +293,8 @@ struct XPsmFwGemPwrCtrl_t {
 struct PsmToPlmEvent_t {
 	u32 Version;	/* Version of the event structure */
 	u32 Event[PROC_DEV_MAX];
+	u32 CpuIdleFlag[PROC_DEV_MAX];
+	u64 ResumeAddress[PROC_DEV_MAX];
 };
 
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);

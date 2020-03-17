@@ -140,6 +140,10 @@ extern "C" {
 #define RPU_RPU_ERR_INJ_DCCMINP2_WIDTH   8U
 #define RPU_RPU_ERR_INJ_DCCMINP2_MASK    0X0000FF00U
 
+/* RPU config register */
+#define RPU_RPU_0_CFG		( ( RPU_BASEADDR ) + 0x00000100U )
+#define RPU_RPU_1_CFG		( ( RPU_BASEADDR ) + 0x00000200U )
+
 #ifdef __cplusplus
 }
 #endif
