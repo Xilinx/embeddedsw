@@ -33,6 +33,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     struct XPm_CoreOps *Ops)
 {
 	XStatus Status = XST_FAILURE;
+	u32 Idx;
 
 	Status = XPmDevice_Init(&Core->Device, Id, 0, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
@@ -45,6 +46,21 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 	Core->CoreOps = Ops;
 	Core->PwrUpLatency = 0;
 	Core->PwrDwnLatency = 0;
+	Core->PsmToPlmEvent_ProcIdx = PROC_DEV_MAX;
+
+	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Id)) ||
+	    ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Id))) {
+		/* Find and store PsmToPlmEvent_ProcIdx in Core structure */
+		for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+			if (ProcDevList[Idx] == Id) {
+				Core->PsmToPlmEvent_ProcIdx = Idx;
+				break;
+			}
+		}
+		if (Idx >= ARRAY_SIZE(ProcDevList)) {
+			Status = XST_FAILURE;
+		}
+	}
 
 done:
 	return Status;
@@ -53,7 +69,6 @@ done:
 int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 {
 	int Status = XST_FAILURE;
-	u32 Idx;
 
 	/* Check for valid resume address */
 	if (0U == (Address & 1ULL)) {
@@ -61,16 +76,13 @@ int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 		goto done;
 	}
 
-	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
-		/* Store the resume address to PSM reserved RAM location */
-		if (ProcDevList[Idx] == Core->Device.Node.Id) {
-			PsmToPlmEvent->ResumeAddress[Idx] = Address;
-			break;
-		}
+	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
 	}
-	if (Idx < ARRAY_SIZE(ProcDevList)) {
-		Status = XST_SUCCESS;
-	}
+
+	/* Store the resume address to PSM reserved RAM location */
+	PsmToPlmEvent->ResumeAddress[Core->PsmToPlmEvent_ProcIdx] = Address;
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -79,18 +91,14 @@ done:
 int XPmCore_HasResumeAddr(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Idx;
 	u64 ResumeAddr;
 
-	for (Idx = 0; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
-		/* Store the resume address to PSM reserved RAM location */
-		if (ProcDevList[Idx] == Core->Device.Node.Id) {
-			ResumeAddr = PsmToPlmEvent->ResumeAddress[Idx];
-			break;
-		}
+	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
 	}
 
-	if ((Idx < ARRAY_SIZE(ProcDevList)) && (0U != (ResumeAddr & 1ULL))) {
+	ResumeAddr = PsmToPlmEvent->ResumeAddress[Core->PsmToPlmEvent_ProcIdx];
+	if (0U != (ResumeAddr & 1ULL)) {
 		Status = XST_SUCCESS;
 	}
 
@@ -101,38 +109,32 @@ done:
 int XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
 {
 	int Status = XST_FAILURE;
-	u32 Idx;
 
-	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
-		/* Store the CPU idle flag to PSM reserved RAM location */
-		if (ProcDevList[Idx] == Core->Device.Node.Id) {
-			PsmToPlmEvent->CpuIdleFlag[Idx] = CpuIdleFlag;
-			break;
-		}
-	}
-	if (Idx < ARRAY_SIZE(ProcDevList)) {
-		Status = XST_SUCCESS;
+	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
 	}
 
+	/* Store the CPU idle flag to PSM reserved RAM location */
+	PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx] = CpuIdleFlag;
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 
 int XPmCore_GetCPUIdleFlag(XPm_Core *Core, u32 *CpuIdleFlag)
 {
 	int Status = XST_FAILURE;
-	u32 Idx;
 
-	for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
-		/* Store the CPU idle flag to PSM reserved RAM location */
-		if (ProcDevList[Idx] == Core->Device.Node.Id) {
-			*CpuIdleFlag = PsmToPlmEvent->CpuIdleFlag[Idx];
-			break;
-		}
-	}
-	if (Idx < ARRAY_SIZE(ProcDevList)) {
-		Status = XST_SUCCESS;
+	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
 	}
 
+	/* Get the CPU idle flag from PSM reserved RAM location */
+	*CpuIdleFlag = PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx];
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 
