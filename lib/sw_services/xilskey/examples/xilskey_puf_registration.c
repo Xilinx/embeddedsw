@@ -488,9 +488,10 @@ static void XilSKey_Generate_FuseFormat(XilSKey_Puf *InstancePtr)
 					((SynData[SIndex] << 24) |
 					(SynData[SIndex+1] &
 						XSK_PUF_EFUSE_TRIM_MASK) >> 8);
-				InstancePtr->EfuseSynData[DIndex] |=
+				if (DIndex < (XSK_PUF_FORMATTED_SYN_SIZE_WORDS - 1)) {
+					InstancePtr->EfuseSynData[DIndex] |=
 						(SynData[SIndex+2] >> 28);
-
+				}
 			}
 			else {
 				InstancePtr->EfuseSynData[DIndex]=
