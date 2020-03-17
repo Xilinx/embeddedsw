@@ -44,7 +44,8 @@ proc generate {drv_handle} {
 	"C_INCLUDE_EDH" \
 	"C_VIDEO_INTF" \
 	"C_INCLUDE_AXILITE" \
-	"C_TX_INSERT_C_STR_ST352"
+	"C_TX_INSERT_C_STR_ST352" \
+	"C_BPP"
 
     hier_ip_define_config_file $drv_handle "xv_sditxss_g.c" \
     "XV_SdiTxSs" \
@@ -52,7 +53,8 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
 	"C_INCLUDE_ADV_FEATURES" \
 	"C_LINE_RATE" \
-	"C_TX_INSERT_C_STR_ST352"
+	"C_TX_INSERT_C_STR_ST352" \
+	"C_BPP"
 
 	hier_ip_define_canonical_xpars $drv_handle "xparameters.h" "XV_SdiTxSs" \
 	"DEVICE_ID" \
@@ -63,7 +65,8 @@ proc generate {drv_handle} {
 	"C_INCLUDE_EDH" \
 	"C_VIDEO_INTF" \
 	"C_INCLUDE_AXILITE" \
-	"C_TX_INSERT_C_STR_ST352"
+	"C_TX_INSERT_C_STR_ST352" \
+	"C_BPP"
 }
 
 #
