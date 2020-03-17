@@ -58,8 +58,6 @@
 #define XLOADER_SD_DRV_NUM_0				0
 #define XLOADER_SD_DRV_NUM_1				1
 #define XLOADER_SD_DRV_NUM_4				(4U)
-#define XLOADER_LOGICAL_DRV_MASK			(0xF0000000U)
-#define XLOADER_LOGICAL_DRV_SHIFT			(28U)
 
 /**
  * PMC_GLOBAL Base Address
@@ -190,7 +188,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	FRESULT rc;
-	char buffer[32]={0};
+	char buffer[32U]={0U};
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 PdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
@@ -199,11 +197,25 @@ int XLoader_SdInit(u32 DeviceFlags)
 
 	if((DeviceFlags & XLOADER_SBD_ADDR_SET_MASK) == XLOADER_SBD_ADDR_SET_MASK)
 	{
+		/**
+		 * Filesystem boot modes require the filename extension as well as
+		 * the logical drive in which the secondary pdi file is present.
+		 * To meet these requirements and to reuse the same code for primary
+		 * and secondary boot modes, bits 0 to 7 in DeviceFlags denote the
+		 * PdiSrc. Bit 8, if set, denotes that filesystem boot is secondary.
+		 * Bits 9 to 29 denote the file name extension. Example if the offset
+		 * is 4, file name should be BOOT0004.BIN, these bits are analogous to
+		 * multiboot offset in case of primary boot mode. Bits 30 and 31 denote
+		 * the logical drive number of the secondary device. Please note that bits 30
+		 * and 31 in device flags actually map to bits 20 and 21 in secondary device
+		 * address specified in bif file.
+		 */
+		DeviceFlags = DeviceFlags >> XLOADER_SBD_ADDR_SHIFT;
 		/** Secondary Boot in FAT filesystem mode */
-		MultiBootOffset = (DeviceFlags >> XLOADER_SBD_ADDR_SHIFT);
-		DrvNum += (MultiBootOffset & XLOADER_LOGICAL_DRV_MASK)
-					>>XLOADER_LOGICAL_DRV_SHIFT;
-		MultiBootOffset &= ~(XLOADER_LOGICAL_DRV_MASK);
+		MultiBootOffset = (DeviceFlags & XLOADER_MULTIBOOT_OFFSET_MASK);
+
+		DrvNum += ((DeviceFlags & XLOADER_LOGICAL_DRV_MASK)
+					>> XLOADER_LOGICAL_DRV_SHIFT);
 	}
 	else
 	{
