@@ -126,6 +126,7 @@ wdttb_v5_0:
 axiethernet_v5_11:
 In driver tcl use hier "::hsi::utils::get_connected_intf" API.
 In debug mode fix return value of XAxiEthernet_ReadReg.
+Clean up old versions in axiethernet.mdd.
 
 zynqmp_fsbl:
 Added code changes to update the PMU GLOBAL register to indicate PL configuration
