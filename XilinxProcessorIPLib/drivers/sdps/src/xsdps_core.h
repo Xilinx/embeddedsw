@@ -39,7 +39,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
-* 3.9   mn     03/03/20 Modified code for safety applications
+* 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 *
 * </pre>

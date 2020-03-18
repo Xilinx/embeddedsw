@@ -97,14 +97,14 @@
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 * 3.9   sd     02/07/20 Added clock support
-*       mn     03/03/20 Modified code for safety applications
+*       mn     03/03/20 Restructured the code for more readability and modularity
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xsdps_include.h"
+#include "xsdps_core.h"
 
 /************************** Constant Definitions *****************************/
 

@@ -76,7 +76,7 @@
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
 *       mn     08/29/19 Add call to Cache Invalidation API in XSdPs_Get_BusWidth
-* 3.9   mn     03/03/20 Modified code for safety applications
+* 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 *
 * </pre>
@@ -84,7 +84,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xsdps_include.h"
+#include "xsdps_core.h"
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
 
