@@ -1,8 +1,8 @@
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=
-EXTRA_COMPILER_FLAGS=
+COMPILER_FLAGS=-ffunction-sections -fdata-sections
+EXTRA_COMPILER_FLAGS=-Wall -Wextra
 LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
@@ -14,12 +14,12 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o
 
-LIBSOURCES:=$(wildcard *.c)
-INCLUDEFILES:=$(wildcard *.h)
+INCLUDEFILES=$(wildcard *.h) $(wildcard ./vdma/*.h)
+LIBSOURCES=$(wildcard *.c) $(wildcard ./vdma/*.c)
 
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+OBJECTS = $(addsuffix .o, $(basename ./vdma/xvprocss_vdma.c $(wildcard *.c)))
 
-libs: banner driver_libs clean
+libs: banner xvprocss_libs clean
 
 %.o: %.c
 	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
@@ -27,16 +27,14 @@ libs: banner driver_libs clean
 banner:
 	echo "Compiling Video Processing Subsystem"
 
-driver_libs: ${OBJECTS}
+xvprocss_libs: ${OBJECTS}
 	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 
 .PHONY: include
-include: driver_includes
+include: xvprocss_includes
 
-driver_includes:
+xvprocss_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
 	rm -rf ${OBJECTS}
-
-

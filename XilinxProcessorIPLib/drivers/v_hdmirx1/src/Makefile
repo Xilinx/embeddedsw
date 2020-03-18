@@ -13,16 +13,16 @@ INCLUDEFILES=$(wildcard *.h)
 
 LIBSOURCES=$(wildcard *.c)
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling v_hdmirx1"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS))
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
 	make clean
 
 include:
 	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}

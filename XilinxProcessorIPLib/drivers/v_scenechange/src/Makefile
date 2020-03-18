@@ -32,4 +32,4 @@ include:
 	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
