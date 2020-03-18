@@ -77,6 +77,7 @@
 *       vns     08/29/19 Initialized Status variables
 *       mmd     07/31/19 Avoided reconfiguration of sysmon, if it is in use
 * 6.9   kpt     02/16/20 Fixed coverity warnings
+*               02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID
 *
  *****************************************************************************/
 
@@ -138,6 +139,7 @@ static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr);
 u32 XilSKey_EfusePs_XAdcInit (void)
 {
 	u32 Status = (u32)XST_FAILURE;
+
 #if defined(XSK_ZYNQ_PLATFORM)
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
@@ -180,8 +182,6 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 
 	Status = (u32)XST_SUCCESS;
 
-
-
 #elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
 	XSysMonPsu_Config *ConfigPtr;
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
@@ -190,7 +190,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
+	XSysmonDevId = (u16)XSYSMON_PSU_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
@@ -1508,7 +1508,7 @@ u32 XilSKey_EfusePs_XAdcCfgValidate (void)
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
+	XSysmonDevId = (u16)XSYSMON_PSU_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
