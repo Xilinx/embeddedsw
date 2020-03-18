@@ -39,6 +39,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 3.9   mn     03/03/20 Modified code for safety applications
+*       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 *
 * </pre>
 *
@@ -223,39 +224,6 @@ s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
 
 RETURN_PATH:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* @brief
-* Selects card and sets default block size
-*
-*
-* @param	InstancePtr is a pointer to the XSdPs instance.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None.
-*
-******************************************************************************/
-s32 XSdPs_Select_Card (XSdPs *InstancePtr)
-{
-	s32 Status;
-
-	/* Send CMD7 - Select card */
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD7,
-			InstancePtr->RelCardAddr, 0U);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
-	}
-
-RETURN_PATH:
-		return Status;
-
 }
 
 /*****************************************************************************/
