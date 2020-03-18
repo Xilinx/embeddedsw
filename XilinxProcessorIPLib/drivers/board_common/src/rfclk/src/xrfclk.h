@@ -42,7 +42,8 @@
 *       dc     11/25/19 update LMX and LMK configs
 *       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
 * 1.2   dc     22/01/20 add version and list of LMK frequencies
-*
+*       dc     03/05/20 add protection for shared i2c1 MUX
+* 1.3   dc     03/10/20 update LMK/LMX config for MTS
 * </pre>
 *
 ******************************************************************************/
@@ -53,7 +54,7 @@
 extern "C" {
 #endif
 
-#define RFCLK_VERSION "1.2"
+#define RFCLK_VERSION "1.3"
 
 #if !defined(XPS_BOARD_ZCU111) && !defined(XPS_BOARD_ZCU216)
 #define XPS_BOARD_ZCU216
@@ -82,13 +83,13 @@ typedef int s32;
 #else
 #define RFCLK_CHIP_NUM 3
 #define LMK_COUNT 128
-#define LMK_FREQ_NUM 6 /* Number of LMK freq. configs */
-#define LMX_ADC_NUM 9 /* Number of LMX ADC configs */
-#define LMX_DAC_NUM 25 /* Number of LMX DAC configs */
+#define LMK_FREQ_NUM 2 /* Number of LMK freq. configs */
+#define LMX_ADC_NUM 8 /* Number of LMX ADC configs */
+#define LMX_DAC_NUM 24 /* Number of LMX DAC configs */
 #endif
 
 #define LMX2594_COUNT 116
-#define FREQ_LIST_STR_SIZE 16 /* Frequency string size */
+#define FREQ_LIST_STR_SIZE 50 /* Frequency string size */
 
 u32 XRFClk_WriteReg(u32 ChipId, u32 Data);
 u32 XRFClk_ReadReg(u32 ChipId, u32 *Data);
