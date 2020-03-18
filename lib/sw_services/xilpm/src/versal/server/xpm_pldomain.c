@@ -530,7 +530,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if (PLATFORM_VERSION_SILICON == Platform) {
+	if ((PLATFORM_VERSION_SILICON == Platform) || (PLATFORM_VERSION_FCV == Platform)) {
 		/*House clean GTY*/
 		Status = GtyHouseClean();
 		if (XST_SUCCESS != Status) {
