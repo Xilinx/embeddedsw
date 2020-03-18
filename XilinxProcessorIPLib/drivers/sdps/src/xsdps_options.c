@@ -77,6 +77,7 @@
 *       mn     05/21/19 Disable DLL Reset code for Versal
 *       mn     08/29/19 Add call to Cache Invalidation API in XSdPs_Get_BusWidth
 * 3.9   mn     03/03/20 Modified code for safety applications
+*       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 *
 * </pre>
 *
@@ -681,6 +682,37 @@ s32 XSdPs_Pullup(XSdPs *InstancePtr)
 	RETURN_PATH:
 		return Status;
 
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Selects card and sets default block size
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fail.
+*		- XSDPS_CT_ERROR if Command Transfer fail.
+*
+* @note		None.
+*
+******************************************************************************/
+s32 XSdPs_Select_Card (XSdPs *InstancePtr)
+{
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Send CMD7 - Select card */
+	Status = XSdPs_CmdTransfer(InstancePtr, CMD7,
+			InstancePtr->RelCardAddr, 0U);
+
+	return Status;
 }
 
 /** @} */

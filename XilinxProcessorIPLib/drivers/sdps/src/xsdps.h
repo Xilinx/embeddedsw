@@ -148,6 +148,7 @@
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 * 3.9   mn     03/03/20 Modified code for safety applications
+*       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 *
 * </pre>
 *
@@ -300,6 +301,7 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
 s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize);
 s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg);
+s32 XSdPs_Select_Card(XSdPs *InstancePtr);
 
 #ifdef __cplusplus
 }
