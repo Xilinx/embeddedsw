@@ -39,6 +39,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 3.9   mn     03/03/20 Modified code for safety applications
+*       mn     03/16/20 Add code to get card ID for MMC/eMMC
 *
 * </pre>
 *
@@ -633,6 +634,13 @@ s32 XSdPs_MmcCardEnum(XSdPs *InstancePtr)
 
 	/* Get the card operating condition */
 	Status = XSdPs_CardOpCond(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/* Get the card ID */
+	Status = XSdPs_GetCardId(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
