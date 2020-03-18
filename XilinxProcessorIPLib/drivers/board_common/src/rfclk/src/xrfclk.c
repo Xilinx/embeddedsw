@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfclk.c
-* @addtogroup xrfclk_v1_1
+* @addtogroup xrfclk_v1_3
 * @{
 *
 * Contains the API of the XRFclk middleware.
@@ -40,7 +40,11 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/21/19 Initial version
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
+*       dc     11/25/19 update LMX and LMK configs
 *       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
+* 1.2   dc     22/01/20 add version and list of LMK frequencies
+*       dc     03/05/20 add protection for shared i2c1 MUX
+* 1.3   dc     03/10/20 update LMK/LMX config for MTS
 * </pre>
 *
 ******************************************************************************/
@@ -381,7 +385,7 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 
 	ret = XRFClk_I2CRdData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, rx, 1);
 	if (ret == XST_FAILURE) {
-		LOG("read gpio expandor status";
+		LOG("read gpio expandor status");
 		return XST_FAILURE;
 	}
 
@@ -623,10 +627,10 @@ static int XRFClk_I2CRdData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 static int XRFClk_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len)
 #endif
 {
-	u8 mux=0;
+	u8 mux = 0;
 	u32 i;
 
-	for(i=0; i < NUM_IIC_RETRIES; i++) {
+	for (i = 0; i < NUM_IIC_RETRIES; i++) {
 		/* Set MUX */
 		if (XST_FAILURE == XRFClk_SetBusSwitchI2C1()) {
 			continue;
@@ -643,15 +647,15 @@ static int XRFClk_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len)
 		}
 
 		/* Check is MUX as expected */
-		if(mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
+		if (mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
 			break;
 		} else {
 			PRINTF("warrning: i2c1 MUX status change");
 			/* Add delay before the next attempt */
-			usleep(DELAY_100uS*(i+1));
+			usleep(DELAY_100uS * (i + 1));
 		}
 	}
-	if(i < NUM_IIC_RETRIES) {
+	if (i < NUM_IIC_RETRIES) {
 		return XST_SUCCESS;
 	} else {
 		return XST_FAILURE;
@@ -683,10 +687,10 @@ static int XRFClk_I2CWrData(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 static int XRFClk_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len)
 #endif
 {
-	u8 mux=0;
+	u8 mux = 0;
 	u32 i;
 
-	for(i=0; i < NUM_IIC_RETRIES; i++) {
+	for (i = 0; i < NUM_IIC_RETRIES; i++) {
 		/* Set MUX */
 		if (XST_FAILURE == XRFClk_SetBusSwitchI2C1()) {
 			continue;
@@ -703,15 +707,15 @@ static int XRFClk_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len)
 		}
 
 		/* Check is MUX as expected */
-		if(mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
+		if (mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
 			break;
 		} else {
 			PRINTF("warrning: i2c1 MUX status change");
 			/* Add delay before the next attempt */
-			usleep(DELAY_100uS*(i+1));
+			usleep(DELAY_100uS * (i + 1));
 		}
 	}
-	if(i < NUM_IIC_RETRIES) {
+	if (i < NUM_IIC_RETRIES) {
 		return XST_SUCCESS;
 	} else {
 		return XST_FAILURE;
@@ -835,7 +839,7 @@ static int XRFClk_I2cIoExpanderConfig()
 	tx[1] = rx & ~(I2C_MUX_SEL_0 | I2C_MUX_SEL_1);
 	ret = XRFClk_I2CWrData(FD_I2C0, I2C_ADDR_I2C_IO_EXPANDER, tx, 2);
 	if (ret == XST_FAILURE) {
-		LOG("write expander data")
+		LOG("write expander data");
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
