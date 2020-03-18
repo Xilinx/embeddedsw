@@ -59,7 +59,7 @@
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
 *       mn     07/03/19 Update Input Tap Delays for Versal
-* 3.9   mn     03/03/20 Modified code for safety applications
+* 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *
 * </pre>
 *

@@ -147,7 +147,7 @@
 * 3.7   mn     02/01/19 Add support for idling of SDIO
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
-* 3.9   mn     03/03/20 Modified code for safety applications
+* 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 *
 * </pre>
