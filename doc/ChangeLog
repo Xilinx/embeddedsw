@@ -64,6 +64,8 @@ sdps_v3_9:
 Resolved coverity warnings
 Added SD/eMMC Raw Read/Write example
 Added support for UHS mode by default for ZynqMP
+Restructured SDPS driver for more modularity and readability.
+Fix eMMC issue where it fails due to no card ID
 
 uartns550_v3_6:
 Changed the xuartns550_intr_example to get Success/Failure strings.
