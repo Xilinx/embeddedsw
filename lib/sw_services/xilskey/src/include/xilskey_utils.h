@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -80,7 +80,9 @@
 * 6.8   psl     06/07/19 Added doxygen tags
 *       psl     08/12/19 Fixed MISRA-C violation
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
-* 6.9   kpt     02/27/20 Added Error code XSK_EFUSEPS_ERROR_PGM_NOT_DONE
+* 6.9   kpt     02/27/20 Added Error code XSK_EFUSEPS_ERROR_PGM_NOT_DONE.
+*               02/27/20 Replaced XSYSMON_DEVICE_ID with
+*                        XSYSMON_PSU_DEVICE_ID.
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -148,7 +150,7 @@ extern "C" {
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-#define XSYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#define XSYSMON_PSU_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
 
 /* ZynqMp efusePs ps Ref Clk frequency */
 #define XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ	XPAR_PSU_PSS_REF_CLK_FREQ_HZ
