@@ -81,6 +81,11 @@
 * 6.9   kpt   02/16/20 Fixed coverity warnings
 *             02/27/20 Added Error codes in
 *                      XilSKey_ZynqMp_EfusePs_WriteBit
+*             02/27/20 Removed extra ppk hash zeroes checking in
+*                      XilSKey_ZynqMp_EfusePs_Write
+*             03/18/20 Replaced while loop with Xil_WaitForEvents in
+*                      XilSKey_ZynqMp_EfusePs_WriteBit,
+*                      XilSKey_ZynqMp_EfusePs_ReadRow.
 * </pre>
 *
 *****************************************************************************/
@@ -698,7 +703,6 @@ END:
 static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 					XilSKey_ZynqMpEPs *InstancePtr)
 {
-	u32 RowOffset;
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
@@ -792,17 +796,6 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 					(u32)XSK_EFUSEPS_ERROR_WRITE_PPK0_HASH);
 			goto END;
 		}
-		/* Check for Zeros */
-		for (RowOffset = XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET;
-				RowOffset < XSK_ZYNQMP_EFUSEPS_PPK0_11_OFFSET;
-				RowOffset = RowOffset + 4U) {
-			if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-					RowOffset) != 0x00U) {
-				Status = (u32)(
-						XSK_EFUSEPS_ERROR_PPK0_HASH_ALREADY_PROGRAMMED);
-				goto END;
-			}
-		}
 	}
 	if (InstancePtr->PrgrmPpk1Hash == TRUE) {
 		if (InstancePtr->ReadBackSecCtrlBits.PPK1WrLock ==
@@ -810,17 +803,6 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
 					(u32)XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH);
 			goto END;
-		}
-		/* Check for Zeros */
-		for (RowOffset = XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET;
-				RowOffset < XSK_ZYNQMP_EFUSEPS_PPK1_11_OFFSET;
-				RowOffset = RowOffset + 4U) {
-			if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-					RowOffset) != 0x00U) {
-				Status = (u32)(
-						XSK_EFUSEPS_ERROR_PPK1_HASH_ALREADY_PROGRAMMED);
-				goto END;
-			}
 		}
 	}
 END:
