@@ -198,10 +198,11 @@ static int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 	Value = 0;
 	Offset = 0;
 	/* First clear all the HDCP 1.4 registers from the BKSV (0x0 - 0x4,
-	 * 5 bytes)to and including the KSV FIFO (0x2C - 0x3A,
-	 * 15 bytes). Not clearing the reserved and debug registera. */
-	NumLeft = 59;
-	while (NumLeft-- > 0) {
+	 * 5 bytes)to 0x13. Not clearing the KSV FIFO, V' registers
+	 * reserved and debug registers.
+	 */
+	NumLeft = 0x13;
+	while (NumLeft-- >= 0) {
 		XHdcp1x_PortDpRxWrite(InstancePtr, Offset++, &Value,
 			sizeof(Value));
 	}
@@ -383,25 +384,33 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		}
 		/* Otherwise - must read and modify existing memory */
 		else {
-			u32 Mask = 0;
-			u32 Temp = 0;
+			if (Offset == XHDCP1X_PORT_OFFSET_KSVFIFO) {
+				for (Idx = (NumThisTime - 1); Idx >= 0; Idx--)
+				{
+					Value <<= 8;
+					Value |= WriteBuf[Idx];
+				}
+			} else {
+				u32 Mask = 0;
+				u32 Temp = 0;
 
-			/* Determine Mask */
-			Mask = 0xFFu;
-			if (Alignment) {
-				Mask <<= (8 * Alignment);
-			}
+				/* Determine Mask */
+				Mask = 0xFFu;
+				if (Alignment) {
+					Mask <<= (8 * Alignment);
+				}
 
-			/* Initialize Value */
-			Value = XDprx_ReadReg(Base, (RegOffset & ~0x03ul));
+				/* Initialize Value */
+				Value = XDprx_ReadReg(Base, (RegOffset & ~0x03ul));
 
-			/* Update theValue */
-			for (Idx = 0; Idx < NumThisTime; Idx++) {
-				Temp = WriteBuf[Idx];
-				Temp <<= (8 * (Alignment + Idx));
-				Value &= ~Mask;
-				Value |= Temp;
-				Mask <<= 8;
+				/* Update theValue */
+				for (Idx = 0; Idx < NumThisTime; Idx++) {
+					Temp = WriteBuf[Idx];
+					Temp <<= (8 * (Alignment + Idx));
+					Value &= ~Mask;
+					Value |= Temp;
+					Mask <<= 8;
+				}
 			}
 		}
 
@@ -411,7 +420,9 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		/* Update for loop */
 		WriteBuf += NumThisTime;
 		BufSize -= NumThisTime;
-		RegOffset += NumThisTime;
+		if (Offset != XHDCP1X_PORT_OFFSET_KSVFIFO) {
+			RegOffset += NumThisTime;
+		}
 		NumWritten += NumThisTime;
 	} while (BufSize > 0);
 
