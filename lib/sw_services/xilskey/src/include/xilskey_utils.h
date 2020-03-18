@@ -80,6 +80,7 @@
 * 6.8   psl     06/07/19 Added doxygen tags
 *       psl     08/12/19 Fixed MISRA-C violation
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
+* 6.9   kpt     02/27/20 Added Error code XSK_EFUSEPS_ERROR_PGM_NOT_DONE
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -757,6 +758,7 @@ typedef enum {
 
 	XSK_EFUSEPS_ERROR_PROGRAMMING = 0x00A0U,/**< 0x00A0<br>Error in
 						 *  programming eFUSE.*/
+	XSK_EFUSEPS_ERROR_PGM_NOT_DONE = 0X00A1,/**< 0x00A1<br>Program not done */
 	XSK_EFUSEPS_ERROR_READ = 0x00B0U,/**< 0x00B0<br>Error in reading. */
 	XSK_EFUSEPS_ERROR_BYTES_REQUEST = 0x00C0U, /**< 0x00C0<br>Error in
 						* requested byte count. */
