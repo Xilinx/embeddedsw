@@ -19,7 +19,7 @@ OUTS = *.o
 libs:
 	echo "Compiling I2S Transmitter"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS))
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
 	make clean
 
 include:
