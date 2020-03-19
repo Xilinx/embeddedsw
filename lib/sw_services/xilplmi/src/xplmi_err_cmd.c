@@ -103,9 +103,7 @@ static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
  *			4 - ErrOut
  *			5 - Subsystem Shutdown
  *			6 - Subsystem Restart
- *			7 - PSM correctable
- *			8 - PSM non-correctable
- *			9 - None
+ *			7 - None
  *		* Error ID Mask
  * @param Pointer to the command structure
  *
@@ -113,10 +111,10 @@ static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 {
-	u32 NodeId = Cmd->Payload[0];
-	u32 ErrorAction = Cmd->Payload[1];
-	u32 ErrorMask = Cmd->Payload[2];
-	int Status;
+	int Status = XST_FAILURE;
+	u32 NodeId = Cmd->Payload[0U];
+	u32 ErrorAction = Cmd->Payload[1U];
+	u32 ErrorMask = Cmd->Payload[2U];
 
 	XPlmi_Printf(DEBUG_DETAILED,
 	    "%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMask: 0x%0x\n\r",
