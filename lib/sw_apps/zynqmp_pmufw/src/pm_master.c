@@ -976,18 +976,38 @@ s32 PmMasterRestart(PmMaster* const master)
 	s32 status;
 	u64 address = 0xFFFC0000ULL;
 
-	u32 FsblProcInfo = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5) &
-							FSBL_STATE_PROC_INFO_MASK;
+	u32 FsblProcInfo = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	if ((FSBL_RUNNING_ON_A53 == FsblProcInfo) && master == &pmMasterApu_g) {
+	if ((FSBL_RUNNING_ON_A53 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+			(master == &pmMasterApu_g)) {
 #if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
-		status = XPfw_RestoreFsblToOCM();
-		if (XST_SUCCESS != status) {
+		if (0x0U != (FsblProcInfo & FSBL_ENCRYPTION_STS_MASK)) {
+			if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
+				/* If FSBL is encrypted, it is not copied to DDR */
+				PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
+				status = XST_FAILURE;
+				goto done;
+			} else {
+				/* Do nothing */
+			}
+		} else {
+			status = XPfw_RestoreFsblToOCM();
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		}
+#else
+		if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
+			/* If OCM is used by XilFPGA, APU restart will not work */
+			PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
+			status = XST_FAILURE;
 			goto done;
 		}
 #endif
-	} else if (((FSBL_RUNNING_ON_R5_0 == FsblProcInfo) && (master == &pmMasterRpu0_g)) ||
-			((FSBL_RUNNING_ON_R5_L == FsblProcInfo) && (master == &pmMasterRpu_g))) {
+	} else if (((FSBL_RUNNING_ON_R5_0 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+					(master == &pmMasterRpu0_g)) ||
+			((FSBL_RUNNING_ON_R5_L == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+					(master == &pmMasterRpu_g))) {
 		/* Do nothing */
 	} else {
 		status = XST_NO_FEATURE;

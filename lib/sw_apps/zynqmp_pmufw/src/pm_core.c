@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,7 @@
 #endif
 #include "pmu_iomodule.h"
 #include "xpfw_ipi_manager.h"
+#include "xpfw_restart.h"
 
 #ifdef ENABLE_WDT
 #include "xpfw_mod_wdt.h"
@@ -843,7 +844,7 @@ static void PmNotifyR5AndModifyWdtTimeout(u32 Timeout,
  */
 static void PmFpgaLoad(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow,
-			const u32 KeyAddr, const u32 flags)
+			const u32 KeyAddr, const u32 Flags)
 {
 	u32 Status;
 	XFpga XFpgaInstance = {0U};
@@ -860,7 +861,12 @@ static void PmFpgaLoad(const PmMaster *const master,
 		goto done;
 	}
     Status = XFpga_PL_BitStream_Load(&XFpgaInstance, BitStreamAddr,
-				     KeyAddr, flags);
+				     KeyAddr, Flags);
+
+    if ((XST_SUCCESS == Status) && ((Flags & XFPGA_AUTHENTICATION_OCM_EN) ==
+		XFPGA_AUTHENTICATION_OCM_EN)) {
+	FSBL_Store_Restore_Info.IsOCM_Used = TRUE;
+    }
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
 	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,

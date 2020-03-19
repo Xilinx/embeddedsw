@@ -39,6 +39,7 @@
 
 static XSecure_Sha3 Sha3Instance;
 #endif
+FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info = {0U};
 
 #ifdef ENABLE_RECOVERY
 
@@ -667,15 +668,20 @@ s32 XPfw_StoreFsblToDDR(void)
 
 	FsblStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	/* Check if FSBL is running on A53 and store it to DDR */
+	/* Check if FSBL is running on A53 and not encrypted, store it to DDR */
 	if (FSBL_RUNNING_ON_A53 == (FsblStatus & FSBL_STATE_PROC_INFO_MASK)) {
-		(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
-				FSBL_IMAGE_SIZE);
+		if (0x0U == (FsblStatus & FSBL_ENCRYPTION_STS_MASK)) {
+			(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
+					FSBL_IMAGE_SIZE);
 
-		XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
-				FSBL_IMAGE_SIZE, (u8 *)FSBL_IMAGE_HASH_ADDR);
-		XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR and "
-				"image hash checksum calculation successful\r\n");
+			XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
+					FSBL_IMAGE_SIZE, (u8 *)FSBL_Store_Restore_Info.FSBLImageHash);
+			XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR\r\n");
+		} else {
+			XPfw_Printf(DEBUG_DETAILED, "FSBL copy to DDR is skipped.\r\n"
+					"Note: APU-only restart will not work if XilFPGA uses OCM "
+					"for secure bit-stream loading.\r\n");
+		}
 	} else {
 		XPfw_Printf(DEBUG_PRINT_ALWAYS, "FSBL is running on RPU. \r\n"
 				"Warning: APU-only restart is not supported "
@@ -698,15 +704,15 @@ END:
 s32 XPfw_RestoreFsblToOCM(void)
 {
 	u32 Index;
-	u32 *HashExpected = (u32 *)FSBL_IMAGE_HASH_ADDR;
-	u32 *HashCalculated = (u32 *)FSBL_IMAGE_HASH_VERIFY_ADDR;
+	u32 HashCalculated[SHA3_HASH_LENGTH_IN_WORDS] = {0U};
 	u32 Status = XST_SUCCESS;
 
 	XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
-				FSBL_IMAGE_SIZE, (u8 *)FSBL_IMAGE_HASH_VERIFY_ADDR);
+				FSBL_IMAGE_SIZE, (u8 *)HashCalculated);
 
-	for (Index = 0U; Index < 12U; Index++) {
-		if (HashExpected[Index] != HashCalculated[Index]) {
+	for (Index = 0U; Index < SHA3_HASH_LENGTH_IN_WORDS; Index++) {
+		if (FSBL_Store_Restore_Info.FSBLImageHash[Index] !=
+				HashCalculated[Index]) {
 			Status = XST_FAILURE;
 			break;
 		} else {
