@@ -32,10 +32,9 @@ extern "C" {
 #include "pm_master.h"
 
 #define FSBL_STORE_ADDR					(XPAR_MICROBLAZE_DDR_RESERVE_SA + 0x80000U)
-#define FSBL_IMAGE_HASH_ADDR			(XPAR_MICROBLAZE_DDR_RESERVE_SA + 0xC0000U)
-#define FSBL_IMAGE_HASH_VERIFY_ADDR		(XPAR_MICROBLAZE_DDR_RESERVE_SA + 0xD0000U)
 #define FSBL_LOAD_ADDR					0xFFFC0000U
 #define FSBL_IMAGE_SIZE					(170U*1024U)
+#define SHA3_HASH_LENGTH_IN_WORDS		12U
 
 #define FSBL_STATE_PROC_SHIFT			(0x1U)
 
@@ -44,6 +43,15 @@ extern "C" {
 #define FSBL_RUNNING_ON_R5_L			(0x3U << FSBL_STATE_PROC_SHIFT)
 
 #define FSBL_STATE_PROC_INFO_MASK		(0x3U << FSBL_STATE_PROC_SHIFT)
+#define FSBL_ENCRYPTION_STS_MASK		(0x8U)
+
+/* Structure for FSBL copy and APU restart */
+typedef struct FSBL_Store_Restore_Info_Struct {
+	u32 FSBLImageHash[SHA3_HASH_LENGTH_IN_WORDS];
+	u8 IsOCM_Used;
+}FSBL_Store_Restore_Info_Struct;
+
+extern FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info;
 
 s32 XPfw_RecoveryInit(void);
 void XPfw_RecoveryHandler(u8 ErrorId);
