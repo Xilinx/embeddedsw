@@ -61,10 +61,10 @@ u8 i2c_dp159_chk(u8 dev) {
 
 	// DP159 ES
 	if (dev == DP159_ES) {
-		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XIIC_STOP);
 	}
 	else
-		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+		r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 1, XIIC_STOP);
 
 	// When a device is found, it returns one byte
 	if (r == 1)
@@ -84,12 +84,12 @@ u32 i2c_dp159_write(u8 dev, u8 addr, u8 dat)
 
   // DP159 ES
   if (dev == DP159_ES) {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 2, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 2, XIIC_STOP);
   }
 
   // Zombie
   else {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 2, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 2, XIIC_STOP);
   }
 
   if (r == 2)
@@ -108,14 +108,14 @@ u8 i2c_dp159_read(u8 dev, u8 addr)
 
   // DP159 ES
   if (dev == DP159_ES) {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
-	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XII_REPEATED_START_OPTION);
+	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XIIC_STOP);
   }
 
   // Zombie
   else {
-	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
-	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)&buf, 1, XIIC_STOP);
+	  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 1, XII_REPEATED_START_OPTION);
+	  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ZOMBIE_ADDR, (u8 *)buf, 1, XIIC_STOP);
   }
 
   if (r == 1)
@@ -134,9 +134,9 @@ void i2c_dp159_dump(void)
 
   buf[0] = 0x0;
   xil_printf("DP159 register dump\r\n");
-  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
+  r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 1, XII_REPEATED_START_OPTION);
 
-  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 32, XIIC_STOP);
+  r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)buf, 32, XIIC_STOP);
   for (i = 0; i< 0x20; i++) {
 	  xil_printf("(%d) ADDR: %0x DATA: %0x\r\n", r, i, buf[i]);
   }
