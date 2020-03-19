@@ -244,7 +244,6 @@ typedef struct
 {
 	u8 EmHash[48];
 	u8 Salt[48];
-	u8 Convert[4];
 	u8 Padding1[8];
 }XLoader_Vars;
 
