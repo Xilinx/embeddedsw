@@ -70,9 +70,8 @@ INCLUDES = -I$(INCLUDEDIR) \
 
 KERNEL_AR_OBJS = *.c *.S
 
-OUTS = *.o
-
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 
 STANDALONE_VERSION = $(wildcard ../../standalone*)
 
@@ -80,7 +79,8 @@ libs:	$(KERNEL_AR_OBJS)
 	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src libs
 	@echo "Compiling FreeRTOS"
 	@$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $^
-	@$(ARCHIVER) -r ${LIBFREERTOS} ${OUTS}
+	@$(ARCHIVER) -r ${LIBFREERTOS} ${OBJECTS}
+	@$(ARCHIVER) -r ${LIBFREERTOS} ${ASSEMBLY_OBJECTS}
 	@$(ARCHIVER) -d ${LIBXIL} asm_vectors.o
 	@$(ARCHIVER) -s ${LIBXIL}
 
