@@ -327,28 +327,26 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	TmpIndex = InstancePtr->SizeInWords - 1;
 	/* Each of this loop will write 192 bits of data */
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
-										DataOffset++) {
-
+							DataOffset++) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
 			(XSECURE_CSU_RSA_RAM_RES_Y * XSECURE_RSA_MAX_RD_WR_CNT)
-											+ DataOffset);
+							+ DataOffset);
 
 		for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
-			TmpIndex = (InstancePtr->SizeInWords - 1U) -
-					((DataOffset * XSECURE_RSA_MAX_BUFF) + Index);
-
-			if(TmpIndex < 0U) {
-				break;
+			if(TmpIndex < 0) {
+				goto END;
 			}
 			RdData[TmpIndex] =
 				XSecure_ReadReg(InstancePtr->BaseAddress,
 				XSECURE_ECDSA_RSA_RAM_DATA_OFFSET);
+			TmpIndex --;
 		}
 	}
-
+END: ;
 }
 
 /*****************************************************************************/
