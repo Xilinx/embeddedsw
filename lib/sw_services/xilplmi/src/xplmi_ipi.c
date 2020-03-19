@@ -304,11 +304,22 @@ int XPlmi_ValidateIpiCmd(u32 CmdId)
 				((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) <=
 					XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL)) ||
 					((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) ==
-						XPLMI_PLM_GENERIC_FEATURES_VAL))
+						XPLMI_PLM_MODULES_FEATURES_VAL))
 		{
 			Status = XST_SUCCESS;
 		}
+	} else if (((CmdId & XPLMI_CMD_HNDLR_MASK) == XPLMI_CMD_HNDLR_EM_VAL) &&
+				((CmdId & XPLMI_CMD_API_ID_MASK) ==
+					XPLMI_PLM_MODULES_FEATURES_VAL)) {
+		/**
+		 * Only features command is allowed in EM module through IPI.
+		 * Other EM commands are allowed only from CDO file.
+		 */
+		Status = XST_SUCCESS;
 	} else if ((CmdId & XPLMI_CMD_HNDLR_MASK) != XPLMI_CMD_HNDLR_EM_VAL) {
+		/**
+		 * Other module's commands are allowed through IPI.
+		 */
 		Status = XST_SUCCESS;
 	} else {
 		/* Added for MISRA C */
