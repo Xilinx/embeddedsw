@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -183,6 +183,7 @@ typedef struct {
 #define XFSBL_STATE_PROC_SHIFT			(0x1U)
 
 #define XFSBL_STATE_PROC_INFO_MASK		(0x3U << XFSBL_STATE_PROC_SHIFT)
+#define XFSBL_FSBL_ENCRYPTED_MASK		(0x8U)
 
 
 /************************** Function Prototypes ******************************/
