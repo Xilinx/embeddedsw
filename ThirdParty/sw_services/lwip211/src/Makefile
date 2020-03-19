@@ -22,7 +22,6 @@ CC_FLAGS += $(ENDIAN_FLAGS)
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I${INCLUDEDIR} -I$(LWIP_DIR)/src/include/ -I$(LWIP_DIR)/src/include/lwip -I$(PORT)/include
-OUTS = ./*.o
 OBJ_DIR = .
 LWIP_OBJ1 = $(LWIP_OBJS) $(ADAPTER_OBJS)
 VPATH = $(LWIP_DIR)/src/core/ $(LWIP_DIR)/src/core/ipv4/ $(LWIP_DIR)/src/core/ipv6 \
@@ -32,7 +31,7 @@ INCLUDEFILES = $(ADAPTER_INCLUDES)
 libs: liblwip4.a
 
 liblwip4.a: print_msg_lwip $(LWIP_OBJ1)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} $(OUTS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} $(LWIP_OBJ1)
 
 print_msg_lwip:
 	@echo "Compiling lwip src and adapter files"
@@ -49,7 +48,7 @@ liblwip4_includes:
 	${CP} -r contrib/ports/xilinx/include/xlwipconfig.h ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${LWIP_OBJ1}
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(OBJ_DIR)/%.o: $(OBJ_DIR)/%.c $(INCLUDEFILES)
