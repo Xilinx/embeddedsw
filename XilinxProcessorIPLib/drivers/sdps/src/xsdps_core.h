@@ -124,7 +124,7 @@ void XSdPs_ConfigDma(XSdPs *InstancePtr);
 void XSdPs_ConfigInterrupt(XSdPs *InstancePtr);
 
 #if EL1_NONSECURE && defined (__aarch64__)
-void XSdps_Smc(u32 RegOffset, u32 Mask, u32 Val);
+void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val);
 #endif
 /** @endcond */
 
