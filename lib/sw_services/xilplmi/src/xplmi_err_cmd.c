@@ -56,19 +56,38 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/*****************************************************************************/
+/**
+ * @brief Contains the module ID and PLM error commands array
+ *
+ *****************************************************************************/
+static XPlmi_Module XPlmi_ErrModule;
 
 /*****************************************************************************/
 /**
- * @brief This function is reserved to get the supported features for this
- * module.
+ * @brief This function checks if a particular EM Command ID is supported
+ * or not. Command ID is the only payload parameter.
+ *
  * @param Pointer to the command structure
  *
- * @return Returns XST_SUCCESS always for now
+ * @return Returns XST_SUCCESS
  *****************************************************************************/
-static int XPlmi_CmdEmReserved(XPlmi_Cmd * Cmd)
+static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
 {
+	int Status = XST_FAILURE;
+
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
-	return XST_SUCCESS;
+
+	if (Cmd->Payload[0U] < XPlmi_ErrModule.CmdCnt) {
+		Cmd->Response[1U] = (u32)XST_SUCCESS;
+	}
+	else
+	{
+		Cmd->Response[1U] = (u32)XST_FAILURE;
+	}
+	Status = XST_SUCCESS;
+	Cmd->Response[0U] = Status;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -150,7 +169,7 @@ END:
  *****************************************************************************/
 static XPlmi_ModuleCmd XPlmi_ErrCmds[] =
 {
-	XPLMI_MODULE_COMMAND(XPlmi_CmdEmReserved),
+	XPLMI_MODULE_COMMAND(XPlmi_CmdEmFeatures),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmSetAction),
 };
 
@@ -159,7 +178,12 @@ static XPlmi_ModuleCmd XPlmi_ErrCmds[] =
  * @brief Contains the module ID and PLM error commands array
  *
  *****************************************************************************/
-static XPlmi_Module XPlmi_ErrModule;
+static XPlmi_Module XPlmi_ErrModule =
+{
+	XPLMI_MODULE_ERROR_ID,
+	XPlmi_ErrCmds,
+	*(&XPlmi_ErrCmds + 1U) - XPlmi_ErrCmds,
+};
 
 /*****************************************************************************/
 /**
@@ -172,10 +196,5 @@ static XPlmi_Module XPlmi_ErrModule;
  *****************************************************************************/
 void XPlmi_ErrModuleInit(void)
 {
-
-	XPlmi_ErrModule.Id = XPLMI_MODULE_ERROR_ID;
-	XPlmi_ErrModule.CmdAry = XPlmi_ErrCmds;
-	XPlmi_ErrModule.CmdCnt = sizeof XPlmi_ErrCmds / sizeof *XPlmi_ErrCmds;
-
 	XPlmi_ModuleRegister(&XPlmi_ErrModule);
 }
