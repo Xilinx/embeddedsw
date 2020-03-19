@@ -137,7 +137,7 @@ extern "C" {
 
 /**
  * PMC RAM Memory usage:
- * 0xF2000000U to 0xF2019000U - Used by XilLoader to process CDO
+ * 0xF2000000U to 0xF2010100U - Used by XilLoader to process CDO
  * 0xF2019000U to 0xF201D000U - Used by XilPlmi to store PLM prints
  * 0xF201D000U to 0xF201E000U - Used by XilPlmi to store PLM Trace Events
  * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
