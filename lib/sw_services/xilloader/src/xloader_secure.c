@@ -98,7 +98,6 @@ static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 /************************** Variable Definitions *****************************/
 
 XLoader_AuthCertificate AuthCert;
-XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32)));
 
 /************************** Function Definitions *****************************/
 
@@ -1544,19 +1543,20 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u32 Counter = 0U;
 	u32 HashLen = 48U;
 	u8 Hashstore[48U]= {0U};
+	u8 Convert[4U] = {0U};
 	u32 Index1 = 0U;
 	u32 Size = 48U;
 	u32 Status = XLOADER_FAILURE;
 
 	while (Counter <= (OutLen/HashLen)) {
-		XLoader_I2Osp(Counter, 4, Xsecure_Varsocm.Convert);
+		XLoader_I2Osp(Counter, 4U, Convert);
 		XSecure_Sha3Start(Sha3InstancePtr);
 		Status = XSecure_Sha3Update(Sha3InstancePtr, Input, HashLen);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
 		Status = XSecure_Sha3Update(Sha3InstancePtr,
-			Xsecure_Varsocm.Convert, 4U);
+			Convert, 4U);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -1615,10 +1615,11 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 {
 
 	u32 Status = XLOADER_FAILURE;
-	u8 MPrimeHash[48] = {0};
+	u8 MPrimeHash[48U] = {0U};
 	u8 XSecure_RsaSha3Array[XLOADER_RSA_SIZE];
-	u8 HashMgf[480]__attribute__ ((aligned(32))) = {0};
-	u8 Db[463]__attribute__ ((aligned(32))); // make use of HashMgf only
+	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32)));
+	/* Buffer variable used to store HashMgf and DB */
+	u8 Buffer[480U]__attribute__ ((aligned(32))) = {0U};
 	u32 Index;
 	XSecure_Sha3 Sha3Instance;
 	u8 *DataHash = (u8 *)MsgHash;
@@ -1642,12 +1643,12 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* As CSUDMA can't accept unaligned addresses */
-	(void)memcpy(Xsecure_Varsocm.EmHash, XSecure_RsaSha3Array + 463, 48);
+	(void)memcpy(Xsecure_Varsocm.EmHash, XSecure_RsaSha3Array + 463U, 48U);
 	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
 
 			/* Salt extraction */
 	/* Generate DB from masked DB and Hash */
-	Status = XLoader_MaskGenFunc(&Sha3Instance, HashMgf, 463,
+	Status = XLoader_MaskGenFunc(&Sha3Instance, Buffer, 463U,
 		Xsecure_Varsocm.EmHash);
 	if (Status != XLOADER_SUCCESS) {
 			goto END;
@@ -1655,11 +1656,11 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 
 	/* XOR MGF output with masked DB from EM to get DB */
 	for (Index = 0U; Index < 463U; Index++) {
-		Db[Index] = HashMgf[Index] ^ XSecure_RsaSha3Array[Index];
+		Buffer[Index] = Buffer[Index] ^ XSecure_RsaSha3Array[Index];
 	}
 
 	/* As CSUDMA can't accept unaligned addresses */
-	(void)memcpy(Xsecure_Varsocm.Salt, Db+415, 48);
+	(void)memcpy(Xsecure_Varsocm.Salt, Buffer + 415U, 48U);
 
 	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
 	/* Hash on M prime */
