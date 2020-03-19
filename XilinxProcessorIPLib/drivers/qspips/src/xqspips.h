@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -286,6 +286,9 @@
 *                    parellel connection.
 * 3.7	akm 11/19/19 Fixed Coverity unused value warning in XQspiPs_PolledTransfer()
 * 			and XQspiPs_Transfer() APIs.
+* 3.7	akm 03/19/20 Modified XQspiPs_PolledTransfer(), XQspiPs_Transfer() and
+*			XQspiPs_InterruptHandler() APIs to fill TX FIFO with valid
+*			data when RX buffer is not NULL.
 *
 * </pre>
 *
