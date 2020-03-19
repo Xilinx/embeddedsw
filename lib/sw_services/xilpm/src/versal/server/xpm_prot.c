@@ -336,9 +336,11 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 	XStatus Status = XST_FAILURE;
 	u32 DeviceBaseAddr = Reqm->Device->Node.BaseAddress;
 	XPm_ProtPpu *PpuNode = NULL;
-	u32 ApertureOffset, ApertureAddress = 0;
+	u32 ApertureOffset = 0, ApertureAddress = 0;
 	u32 Permissions = 0, i;
-	u32 DynamicReconfigAddrOffset, PermissionRegAddress, PermissionRegMask;
+	u32 DynamicReconfigAddrOffset = 0;
+	u32	PermissionRegAddress = 0;
+	u32	PermissionRegMask = 0;
 
         PmDbg("Xppu configure %x\r\n", Enable);
 	PmDbg("Device base %x\r\n", DeviceBaseAddr);
