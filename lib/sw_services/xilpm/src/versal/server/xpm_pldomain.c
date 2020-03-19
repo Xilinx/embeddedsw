@@ -491,6 +491,8 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 				goto done;
 			}
 		}
+		/* Add delay to stabilize the voltage rails. Need to check exact amount of time. */
+		usleep(250);
 		Status = XPmPlDomain_InitandHouseclean();
 		if (XST_SUCCESS != Status) {
 			goto done;
