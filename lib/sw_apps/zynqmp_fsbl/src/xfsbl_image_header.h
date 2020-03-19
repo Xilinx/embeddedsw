@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -79,6 +79,7 @@ extern "C" {
 /**
  * Boot header field offset
  */
+#define XIH_BH_ENC_STS_OFFSET	(0x28U)
 #define XIH_BH_IH_OFFSET		(0x3CU)
 #define XIH_BH_TOTAL_PFW_LENGTH_OFFSET		(0x38U)
 #define XIH_BH_IMAGE_ATTRB_OFFSET	(0x44U)
@@ -88,6 +89,7 @@ extern "C" {
 #define XIH_BH_IMAGE_ATTRB_RSA_MASK	(0xC000U)
 #define XIH_BH_IMAGE_ATTRB_PUF_BH_MASK	(0x00C0U)
 #define XIH_BH_IMAGE_ATTRB_SHA2_MASK	(0x3000U)
+#define XIH_BH_IMAGE_ATTRB_AUTH_ONLY_MASK	(0x0030U)
 #define XIH_BH_IV_OFFSET       		(0xA0U)
 #define XIH_BH_IV_LENGTH   			(0x10U)
 

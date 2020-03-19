@@ -183,6 +183,7 @@ typedef struct {
 #define XFSBL_STATE_PROC_SHIFT			(0x1U)
 
 #define XFSBL_STATE_PROC_INFO_MASK		(0x3U << XFSBL_STATE_PROC_SHIFT)
+#define XFSBL_FSBL_ENCRYPTED_MASK		(0x8U)
 
 
 /************************** Function Prototypes ******************************/

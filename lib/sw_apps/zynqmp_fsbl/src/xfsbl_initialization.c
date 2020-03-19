@@ -1127,6 +1127,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	u32 FlashImageOffsetAddress;
 	u32 EfuseCtrl;
 	u32 ImageHeaderTableAddressOffset=0U;
+	u32 FsblEncSts = 0U;
 #ifdef XFSBL_SECURE
 	u32 Size;
 	u32 AcOffset=0U;
@@ -1182,6 +1183,27 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	BootHdrAttrb = Xil_In32((UINTPTR)ReadBuffer +
 					XIH_BH_IMAGE_ATTRB_OFFSET);
 	FsblInstancePtr->BootHdrAttributes = BootHdrAttrb;
+
+	/*
+	 * Update PMU Global general storage register5 bit 3 with FSBL encryption
+	 * status if either FSBL encryption status in boot header is true or
+	 * ENC_ONLY eFuse bit is programmed.
+	 *
+	 * FSBL encryption information in boot header:
+	 * If authenticate only bits 5:4 are set, boot image is only RSA signed
+	 * though encryption status in BH is non-zero.
+	 * Boot image is decrypted only when BH encryption status is not 0x0 and
+	 * authenticate only bits value is other than 0x3
+	 */
+	if (((Xil_In32((UINTPTR)ReadBuffer + XIH_BH_ENC_STS_OFFSET) != 0x0U) &&
+			((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_AUTH_ONLY_MASK) !=
+					XIH_BH_IMAGE_ATTRB_AUTH_ONLY_MASK)) ||
+			((XFsbl_In32(EFUSE_SEC_CTRL) & EFUSE_SEC_CTRL_ENC_ONLY_MASK) !=
+					0x0U)) {
+		FsblEncSts = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) |
+				XFSBL_FSBL_ENCRYPTED_MASK;
+		XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblEncSts);
+	}
 
 	/**
 	 * Read the Image Header Table offset from
