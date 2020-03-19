@@ -298,20 +298,19 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	 * Each iteration of this loop reads 32 * 6 = 192 bits
 	 * Therefore, for 4096, total iterations required = 4096/192 = 21.33 = 22
 	 */
+	TmpIndex = InstancePtr->SizeInWords - 1;
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++)
 	{
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_RD_ADDR_OFFSET,
 				(XSECURE_CSU_RSA_RAM_RES_Y * XSECURE_RSA_MAX_RD_WR_CNT)
-											+ DataOffset);
+								+ DataOffset);
 		Index = (DataOffset == 0U) ? 2U: 0U;
 		for (; Index < XSECURE_RSA_MAX_BUFF; Index++)
 		{
-			TmpIndex = (InstancePtr->SizeInWords + 1U) -
-					((DataOffset * XSECURE_RSA_MAX_BUFF) + Index);
 			if(TmpIndex < 0)
 			{
-				break;
+				goto END;
 			}
 			/*
 			 * The Signature digest is compared in Big endian.
@@ -322,9 +321,11 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 						InstancePtr->BaseAddress,
 			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+
 					(Index * XSECURE_WORD_SIZE))));
+			TmpIndex--;
+
 		}
 	}
-
+END: ;
 }
 
 /*****************************************************************************/
