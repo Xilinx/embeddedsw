@@ -1136,7 +1136,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
-		XSdps_Smc(SD0_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD0_DLL_RST : 0U);
+		XSdps_Smc(InstancePtr, SD0_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD0_DLL_RST : 0U);
 #else /* EL1_NONSECURE && defined (__aarch64__) */
 		DllCtrl = XSdPs_ReadReg(InstancePtr->SlcrBaseAddr, SD0_DLL_CTRL);
 		if (EnRst == 1U) {
@@ -1152,7 +1152,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
-		XSdps_Smc(SD1_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD_DLL_RST : 0U);
+		XSdps_Smc(InstancePtr, SD1_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD_DLL_RST : 0U);
 #else
 		DllCtrl = XSdPs_ReadReg(InstancePtr->SlcrBaseAddr, SD1_DLL_CTRL);
 		if (EnRst == 1U) {
@@ -1172,7 +1172,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
-		XSdps_Smc(SD_DLL_CTRL, SD0_DLL_RST, (EnRst == 1U) ? SD0_DLL_RST : 0U);
+		XSdps_Smc(InstancePtr, SD_DLL_CTRL, SD0_DLL_RST, (EnRst == 1U) ? SD0_DLL_RST : 0U);
 #else
 		DllCtrl = XSdPs_ReadReg(InstancePtr->SlcrBaseAddr, SD_DLL_CTRL);
 		if (EnRst == 1U) {
@@ -1188,7 +1188,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
-		XSdps_Smc(SD_DLL_CTRL, SD1_DLL_RST, (EnRst == 1U) ? SD1_DLL_RST : 0U);
+		XSdps_Smc(InstancePtr, SD_DLL_CTRL, SD1_DLL_RST, (EnRst == 1U) ? SD1_DLL_RST : 0U);
 #else
 		DllCtrl = XSdPs_ReadReg(InstancePtr->SlcrBaseAddr, SD_DLL_CTRL);
 		if (EnRst == 1U) {
