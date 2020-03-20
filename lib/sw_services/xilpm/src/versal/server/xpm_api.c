@@ -652,7 +652,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 * Otherwise also, PL housecleaning needs to be trigerred asap to reduce
 	 * boot time.
 	 */
-	XPmPlDomain_InitandHouseclean();
+	(void)XPmPlDomain_InitandHouseclean();
 
 	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
 	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
