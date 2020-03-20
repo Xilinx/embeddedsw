@@ -579,7 +579,7 @@ static void AddPld0Device(void)
 	int Status;
 
 	if (NULL == Device) {
-		u32 Args[3] = {PM_DEV_PLD_0, PM_POWER_PLD};
+		u32 Args[3] = {PM_DEV_PLD_0, PM_POWER_PLD, 0U};
 		u32 Parents[] = {PM_CLK_PMC_PL0_REF, PM_CLK_PMC_PL1_REF,
 				 PM_CLK_PMC_PL2_REF, PM_CLK_PMC_PL3_REF,
 				 PM_RST_PL0, PM_RST_PL1, PM_RST_PL2,
@@ -605,7 +605,7 @@ static void AddIPIPmcDevice(void)
 	int Status;
 
 	if (NULL == Device) {
-		u32 Args[3] = {PM_DEV_IPI_PMC, PM_POWER_LPD};
+		u32 Args[3] = {PM_DEV_IPI_PMC, PM_POWER_LPD, 0U};
 		u32 Parents[] = {PM_RST_IPI};
 
 		Status = XPm_AddNode(Args, (u32)ARRAY_SIZE(Args));
