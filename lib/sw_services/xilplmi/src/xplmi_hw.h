@@ -128,6 +128,7 @@ extern "C" {
 
 #define PMC_TAP_VERSION_SILICON			(0x0U)
 #define PMC_TAP_VERSION_SPP			(0x1U)
+#define PMC_TAP_VERSION_QEMU			(0x3U)
 #define XPLMI_PLATFORM_MASK			(0x03000000U)
 
 #define XPLMI_PLATFORM		((Xil_In32(PMC_TAP_VERSION) & \

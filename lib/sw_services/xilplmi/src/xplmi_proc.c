@@ -287,7 +287,16 @@ int XPlmi_StartTimer()
 	}
 
 	XPlmi_SetPmcIroFreq();
-	Pit3ResetValue = PmcIroFreq / 100U;
+	/**
+	 * PLM scheduler is running too fast for QEMU, so increasing the
+	 * scheduler's poling time to 100ms for QEMU instead of 10ms
+	 */
+	if (XPLMI_PLATFORM == PMC_TAP_VERSION_QEMU)
+	{
+		Pit3ResetValue = PmcIroFreq / 10U;
+	} else {
+		Pit3ResetValue = PmcIroFreq / 100U;
+	}
 	XPlmi_SchedulerInit();
 	/** Initialize and start the timer
 	 *  Use PIT1 and PIT2 in prescalor mode
