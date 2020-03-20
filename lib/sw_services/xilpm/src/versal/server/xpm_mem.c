@@ -27,6 +27,7 @@
 #include "xplmi_dma.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
+#include "xpm_powerdomain.h"
 #include "xpm_mem.h"
 #include "xpm_rpucore.h"
 
@@ -34,8 +35,6 @@
 
 #define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
-#define DDRMC_TIMEOUT			300U
-
 
 static const XPm_StateCap XPmDDRDeviceStates[] = {
 	{
@@ -75,13 +74,20 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device;
 	u32 BaseAddress;
-	u32 Reg;
+	u32 Reg, IsActive;
 	u32 i;
 
 	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX;
 	     i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
+		if (NULL == Device) {
+			continue;
+		}
 		BaseAddress = Device->Node.BaseAddress;
+		PmIn32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, IsActive);
+		if (DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK != (IsActive & DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK)) {
+			continue;
+		}
 
 		/* Unlock DDRMC UB */
 		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
@@ -92,9 +98,9 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 		XPm_Out32(Reg, DDRMC_UB_PMC2UB_INTERRUPT_SPARE_0_MASK);
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_ACK_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SPARE_0_MASK,
-					DDRMC_TIMEOUT);
-		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
-			PmErr("Failed to enter self-refresh!\r\n");
+					XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to enter self-refresh controller %x!\r\n",i);
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
 			goto done;
@@ -103,9 +109,9 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_DONE_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SPARE_0_MASK,
-					DDRMC_TIMEOUT);
-		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
-			PmErr("Failed to enter self-refresh!\r\n");
+					XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to enter self-refresh controller %x!\r\n",i);
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
 			goto done;
@@ -127,13 +133,20 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device;
 	u32 BaseAddress;
-	u32 Reg;
+	u32 Reg, IsActive;
 	u32 i;
 
 	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX;
 	     i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
+		if (NULL == Device) {
+			continue;
+		}
 		BaseAddress = Device->Node.BaseAddress;
+		PmIn32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, IsActive);
+		if (DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK != (IsActive & DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK)) {
+			continue;
+		}
 
 		/* Unlock DDRMC UB */
 		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
@@ -144,9 +157,9 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 		XPm_Out32(Reg, DDRMC_UB_PMC2UB_INTERRUPT_SR_EXIT_MASK);
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_ACK_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SR_EXIT_MASK,
-					DDRMC_TIMEOUT);
-		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
-			PmErr("Failed to exit self-refresh!\r\n");
+					XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to exit self-refresh controller %x!\r\n",i);
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
 			goto done;
@@ -155,9 +168,9 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 
 		Reg = BaseAddress + DDRMC_UB_UB2PMC_DONE_OFFSET;
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SR_EXIT_MASK,
-					DDRMC_TIMEOUT);
-		if ((u8)XPM_NODEIDX_DEV_DDRMC_MIN == i && XST_SUCCESS != Status) {
-			PmErr("Failed to exit self-refresh!\r\n");
+					XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to exit self-refresh controller %x!\r\n",i);
 			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
 			XPm_Out32(Reg, 0);
 			goto done;
