@@ -49,7 +49,7 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 
 	if ((NULL != Params) && (0U != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
 		(void)XPlmi_MemCpy(Reqm->Params, Params, NumParams * sizeof(*Params));
-		Reqm->NumParams = NumParams;
+		Reqm->NumParams = (u8)NumParams;
 	} else {
 		(void)memset(Reqm->Params, 0, sizeof(Reqm->Params));
 		Reqm->NumParams = 0;
