@@ -63,11 +63,6 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		}
 	}
 
-	if (1U == Is_PsmPoweredDown) {
-		/* Restore the context of reserved PSM RAM memory */
-		(void)XPlmi_MemCpy((void *)PsmToPlmEvent, &PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp));
-	}
-
 	/* Check for the version of the PsmToPlmEvent structure */
 	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
 		PmErr("PSM-PLM are out of sync. Can't process PSM event\n\r");
@@ -117,20 +112,6 @@ static XStatus XPmPsm_PowerDown(XPm_Core *Core)
 
 done:
 	return Status;
-}
-
-static XStatus XPmPsm_PowerDown(XPm_Core *Core)
-{
-	(void)Core;
-
-	/* Store the context of reserved PSM RAM memory */
-	(void)XPlmi_MemCpy(&PsmToPlmEvent_bkp, (void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp));
-
-	/* Add PSM specific power down sequence if any */
-
-	Is_PsmPoweredDown = 1U;
-
-	return XST_SUCCESS;
 }
 
 static struct XPm_CoreOps PsmOps = {
