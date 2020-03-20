@@ -42,7 +42,8 @@
  *
  * Ver   Who    Date     Changes
  * ----- -----  -------- -----------------------------------------------------
- * 1.1   add    7/2/19 First release
+ * 1.1   aad    2/7/19   First release
+ * 1.2   aad    3/19/20  Fixed the interrupt disable flag
  * </pre>
  *
  *****************************************************************************/
@@ -233,7 +234,7 @@ static void SysMonPsv_InterruptHandler(void *CallBackRef) {
     OT_ALARM++;
 
   /* Interrupt disable */
-  XSysMonPsv_IntrDisable(SysMonPtr, XSYSMONPSV_IDR0_NEW_DATA0_MASK, INTR_0);
+  XSysMonPsv_IntrDisable(SysMonPtr, IntrStatus, INTR_0);
 }
 
 /*****************************************************************************/
