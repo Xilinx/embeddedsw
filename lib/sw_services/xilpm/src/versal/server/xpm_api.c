@@ -1122,7 +1122,7 @@ done:
 }
 
 
-int XPm_SubsystemPwrUp(const u32 SubsystemId)
+static int XPm_SubsystemPwrUp(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 
