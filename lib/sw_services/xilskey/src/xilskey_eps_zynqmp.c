@@ -488,11 +488,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		if (Status != (u32)XST_SUCCESS) {
 			goto LOCK;
 		}
-		/* Vol and temperature checks */
-		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-		if (Status != (u32)XST_SUCCESS) {
-			 goto LOCK;
-		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 					ReadBackSecCtrlBits,ReadOption);
 LOCK:
@@ -1849,11 +1844,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 		if (Status != (u32)XST_SUCCESS) {
 			goto UNLOCK;
 		}
-		/* Vol and temperature checks */
-		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-		if (Status != (u32)XST_SUCCESS) {
-			goto UNLOCK;
-		}
 
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 			XSK_ZYNQMP_EFUSEPS_USR0_FUSE_ROW + UserFuse_Num,
@@ -1921,11 +1911,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 			goto UNLOCK;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
-		if (Status != (u32)XST_SUCCESS) {
-			goto UNLOCK;
-		}
-		/* Vol and temperature checks */
-		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 		if (Status != (u32)XST_SUCCESS) {
 			goto UNLOCK;
 		}
@@ -2003,11 +1988,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 		if (Status != (u32)XST_SUCCESS) {
 			goto UNLOCK;
 		}
-		/* Vol and temperature checks */
-		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-		if (Status != (u32)XST_SUCCESS) {
-			goto UNLOCK;
-		}
 
 		for (Row = XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW;
 		Row >= XSK_ZYNQMP_EFUSEPS_PPK1_START_ROW; Row--) {
@@ -2068,11 +2048,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
 			goto UNLOCK;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
-		if (Status != (u32)XST_SUCCESS) {
-			goto UNLOCK;
-		}
-		/* Vol and temperature checks */
-		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 		if (Status != (u32)XST_SUCCESS) {
 			goto UNLOCK;
 		}
