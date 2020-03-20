@@ -103,7 +103,7 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 	/*
 	 * Check if Node Class is EVENT and enable error action.
 	 */
-	if (XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
+	if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 		Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
 				XPmNotifier_Event);
 	}
@@ -144,7 +144,7 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			/*
 			 * Check if Node Class is EVENT and disable error action.
 			 */
-			if (XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
+			if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 				(void)XPlmi_EmDisable(NodeId, Event);
 			}
 			break;
@@ -200,7 +200,7 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		 * NodeId is matching, check for event
 		 * Event 0 is valid for Node Class EVENT.
 		 */
-		if ((XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
+		if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
 			(0U == (Event & PmNotifiers[Idx].EventMask))) {
 			continue;
 		}

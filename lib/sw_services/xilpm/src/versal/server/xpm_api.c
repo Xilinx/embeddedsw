@@ -4550,7 +4550,7 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 
 	/* Validate other parameters */
 	if ((((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) &&
-			(Event >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) ||
+			(Event >= (u32)XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) ||
 		(((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
 			(((0U != Wake) && (1U != Wake)) ||
 			((0U != Enable) && (1U != Enable)) ||
