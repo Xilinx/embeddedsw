@@ -409,9 +409,14 @@ proc generate {os_handle} {
 		}
 	}
 	set clocking_supported [common::get_property CONFIG.clocking $os_handle]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
 	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
 		if {$clocking_supported == "true" } {
-			puts $bspcfg_fh "#define XCLOCKING"
+			foreach slave $slaves {
+				if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
+					puts $bspcfg_fh "#define XCLOCKING"
+				}
+			}
 		}
 	}
 	puts $bspcfg_fh ""
