@@ -67,6 +67,7 @@
 *                    addresses according to the IP spec.
 * 3.11  sd  02/06/20 Added clocking support.
 * 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
+*	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
 * </pre>
 *
 ******************************************************************************/
@@ -83,7 +84,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-s32 TransmitFifoFill(XIicPs *InstancePtr);
 
 /************************* Variable Definitions *****************************/
 
@@ -116,8 +116,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsgPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(XIICPS_ADDR_MASK >= SlaveAddr);
-
+	Xil_AssertVoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->SendBufferPtr = MsgPtr;
@@ -133,7 +132,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	 * Set repeated start if sending more than FIFO of data.
 	 */
 	if (((InstancePtr->IsRepeatedStart) != 0)||
-		((ByteCount > XIICPS_FIFO_DEPTH) != 0U)) {
+		(ByteCount > XIICPS_FIFO_DEPTH)) {
 		XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET,
 			XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
 				(u32)XIICPS_CR_HOLD_MASK);
@@ -201,7 +200,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsgPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(XIICPS_ADDR_MASK >= SlaveAddr);
+	Xil_AssertVoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
@@ -309,7 +308,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	InstancePtr->SendByteCount = ByteCount;
 
 	if (((InstancePtr->IsRepeatedStart) != 0) ||
-		((ByteCount > XIICPS_FIFO_DEPTH) != 0U)) {
+		(ByteCount > XIICPS_FIFO_DEPTH)) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
 						(u32)XIICPS_CR_HOLD_MASK);
@@ -380,7 +379,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		}
 	}
 
-	if ((!(InstancePtr->IsRepeatedStart)) != 0) {
+	if (!(InstancePtr->IsRepeatedStart)) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
@@ -504,11 +503,10 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 			((IntrStatusReg & Intrs) == 0U)) {
 
 		while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
-
-		    if (((InstancePtr->RecvByteCount <
-			    XIICPS_DATA_INTR_DEPTH) != 0U) && (IsHold != 0) &&
-			    ((!InstancePtr->IsRepeatedStart) != 0) &&
-			    (UpdateTxSize == 0)) {
+			if ((InstancePtr->RecvByteCount <
+				XIICPS_DATA_INTR_DEPTH) && (IsHold != 0) &&
+				(!(InstancePtr->IsRepeatedStart)) &&
+				(UpdateTxSize == 0)) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
@@ -579,7 +577,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 	}
 
-	if ((!(InstancePtr->IsRepeatedStart)) != 0) {
+	if (!(InstancePtr->IsRepeatedStart)) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
@@ -840,14 +838,14 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	/*
 	 * Receive
 	 */
-	if (((!(InstancePtr->IsSend))!= 0) &&
-		((0 != (IntrStatusReg & (u32)XIICPS_IXR_DATA_MASK)) ||
-		(0 != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK)))){
+	if ((!(InstancePtr->IsSend)) &&
+		((0U != (IntrStatusReg & (u32)XIICPS_IXR_DATA_MASK)) ||
+		 (0U != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK)))){
 
 		while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
-			if (((InstancePtr->RecvByteCount <
-				XIICPS_DATA_INTR_DEPTH)!= 0U)  && (IsHold != 0)  &&
-				((!InstancePtr->IsRepeatedStart)!= 0) &&
+			if ((InstancePtr->RecvByteCount <
+				XIICPS_DATA_INTR_DEPTH)  && (IsHold != 0)  &&
+				(!(InstancePtr->IsRepeatedStart)) &&
 				(InstancePtr->UpdateTxSize == 0)) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
@@ -926,13 +924,13 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		InstancePtr->CurrByteCount = ByteCnt;
 	}
 
-	if (((!(InstancePtr->IsSend)) != 0) &&
+	if ((!(InstancePtr->IsSend)) &&
 		(0U != (IntrStatusReg & XIICPS_IXR_COMP_MASK))) {
 		/*
 		 * If all done, tell the application.
 		 */
 		if (InstancePtr->RecvByteCount == 0){
-			if ((!(InstancePtr->IsRepeatedStart)) != 0) {
+			if (!(InstancePtr->IsRepeatedStart)) {
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
 						XIICPS_CR_OFFSET) &
@@ -951,7 +949,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	}
 
 	if (0U != (IntrStatusReg & XIICPS_IXR_NACK_MASK)) {
-		if ((!(InstancePtr->IsRepeatedStart)) != 0 ) {
+		if (!(InstancePtr->IsRepeatedStart)) {
 			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr,
 					XIICPS_CR_OFFSET) &
@@ -977,7 +975,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	if (0U != (IntrStatusReg & (XIICPS_IXR_NACK_MASK |
 			XIICPS_IXR_RX_UNF_MASK | XIICPS_IXR_TX_OVR_MASK |
 			XIICPS_IXR_RX_OVR_MASK))) {
-		if ((!(InstancePtr->IsRepeatedStart)) != 0) {
+		if (!(InstancePtr->IsRepeatedStart)) {
 			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr,
 					XIICPS_CR_OFFSET) &

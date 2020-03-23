@@ -45,6 +45,7 @@
 *           12/23/19 Add 10 bit address support for Master/Slave
 * 3.11  sd  02/06/20 Added clocking support.
 * 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
+*	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
 * </pre>
 *
 ******************************************************************************/
@@ -61,7 +62,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-extern s32 TransmitFifoFill(XIicPs *InstancePtr);
 
 /************************* Variable Definitions *****************************/
 
@@ -88,7 +88,7 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(XIICPS_ADDR_MASK >= SlaveAddr);
+	Xil_AssertVoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
 
 	if (InstancePtr->IsClkEnabled == 0) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
@@ -421,7 +421,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 			if (((IntrStatusReg & (XIICPS_IXR_DATA_MASK |
 					XIICPS_IXR_COMP_MASK))!=0x0U) &&
 				((StatusReg & XIICPS_SR_RXDV_MASK) == 0U) &&
-				((InstancePtr->RecvByteCount > 0) != 0x0U)) {
+				(InstancePtr->RecvByteCount > 0)) {
 
 				return (s32)XST_FAILURE;
 			}
@@ -437,7 +437,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 		 * Read all data from FIFO.
 		 */
 		while (((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) &&
-			 ((InstancePtr->RecvByteCount > 0) != 0x0U)){
+			 (InstancePtr->RecvByteCount > 0)){
 
 			XIicPs_RecvByte(InstancePtr);
 
@@ -539,7 +539,7 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	 */
 	if ((u32)0U != (IntrStatusReg & XIICPS_IXR_DATA_MASK)) {
 		if (IsSend != 0x0U) {
-			TransmitFifoFill(InstancePtr);
+			(void)TransmitFifoFill(InstancePtr);
 		} else {
 			LeftOver = SlaveRecvData(InstancePtr);
 
