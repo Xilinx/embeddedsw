@@ -49,7 +49,8 @@
 *				12/06/14 Implemented Repeated start feature.
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.3   kvn		05/05/16 Modified latest code for MISRA-C:2012 Compliance.
-* 3.11  sd	06/02/20 Added clocking support.
+* 3.11  sd	02/06/20 Added clocking support.
+* 3.11  rna	02/11/20 Moved XIicPs_Reset to xiicps_hw.c
 *
 * </pre>
 *
@@ -58,6 +59,7 @@
 /***************************** Include Files *********************************/
 
 #include "xiicps.h"
+#include "xiicps_xfer.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -67,7 +69,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static void StubHandler(void *CallBackRef, u32 StatusEvent);
+static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent);
 
 /************************** Variable Definitions *****************************/
 
@@ -157,7 +159,12 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 {
 	u32 StatusReg;
-	s32	Status;
+	s32 Status;
+
+        /*
+         * Assert validates the input arguments.
+         */
+        Xil_AssertNonvoid(InstancePtr != NULL);
 
 	StatusReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 					   XIICPS_SR_OFFSET);
@@ -189,13 +196,12 @@ s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void StubHandler(void *CallBackRef, u32 StatusEvent)
+static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent)
 {
-	(void) ((void *)CallBackRef);
-	(void) StatusEvent;
-	Xil_AssertVoidAlways();
+        (void) ((void *)CallBackRef);
+        (void) StatusEvent;
+        Xil_AssertVoidAlways();
 }
-
 
 /*****************************************************************************/
 /**
@@ -251,46 +257,6 @@ void XIicPs_Abort(XIicPs *InstancePtr)
 
 }
 
-/*****************************************************************************/
-/**
-*
-* Resets the IIC device. Reset must only be called after the driver has been
-* initialized. The configuration of the device after reset is the same as its
-* configuration after initialization.  Any data transfer that is in progress is
-* aborted.
-*
-* The upper layer software is responsible for re-configuring (if necessary)
-* and reenabling interrupts for the IIC device after the reset.
-*
-* @param	InstancePtr is a pointer to the XIicPs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XIicPs_Reset(XIicPs *InstancePtr)
-{
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-
-	/*
-	 * Abort any transfer that is in progress.
-	 */
-	XIicPs_Abort(InstancePtr);
-
-	/*
-	 * Reset any values so the software state matches the hardware device.
-	 */
-	XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_CR_OFFSET,
-			  XIICPS_CR_RESET_VALUE);
-	XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XIICPS_TIME_OUT_OFFSET, XIICPS_TO_RESET_VALUE);
-	XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_IDR_OFFSET,
-			  XIICPS_IXR_ALL_INTR_MASK);
-
-}
 /*****************************************************************************/
 /**
 * Put more data into the transmit FIFO, number of bytes is ether expected

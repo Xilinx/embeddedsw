@@ -186,7 +186,10 @@
 * 3.8   sd 09/06/18  Enable the Timeout interrupt
 * 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
 * 3.11  rna  12/23/19 Added 10 bit address support for Master/Slave
-* 3.11  sd   06/02/20 Added clocking support.
+* 3.11  sd   02/06/20 Added clocking support.
+* 3.11  rna  02/20/20 Reorganization of driver for modularity.
+*		      Added new files xiicps_xfer.c and xiicps_xfer.h.
+*		      Moved internal data transfer APIs to xiicps_xfer.
 * </pre>
 *
 ******************************************************************************/

@@ -264,14 +264,14 @@ s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 * This function gets the options for the IIC device. The options control how
 * the device behaves relative to the IIC bus.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
+* @param        InstancePtr is a pointer to the XIicPs instance.
 *
-* @return	32 bit mask of the options, where a 1 means the option is on,
-*		and a 0 means to the option is off. One or more bit values may
-*		be contained in the mask. See the bit definitions named
-* 		XIICPS_*_OPTION in the file xiicps.h.
+* @return       32 bit mask of the options, where a 1 means the option is on,
+*               and a 0 means to the option is off. One or more bit values may
+*               be contained in the mask. See the bit definitions named
+*               XIICPS_*_OPTION in the file xiicps.h.
 *
-* @note		None.
+* @note         None.
 *
 ******************************************************************************/
 u32 XIicPs_GetOptions(XIicPs *InstancePtr)
@@ -287,7 +287,7 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 	 * Read control register to find which options are currently set.
 	 */
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-				      XIICPS_CR_OFFSET);
+					XIICPS_CR_OFFSET);
 
 	/*
 	 * Loop through the options table to determine which options are set.
