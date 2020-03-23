@@ -54,6 +54,8 @@
 * 6.8   psl     08/13/19 Fixed MISRA-C violation.
 *       vns     08/29/19 Initialized Status variables
 * 6.9   kal     01/31/20 Disable BBRAM programming after AES key programming.
+*       vns     03/18/20 Fixed Armcc compilation errors
+*
 * </pre>
 *
 ******************************************************************************/
@@ -70,9 +72,9 @@
 
 /************************** Function Prototypes ******************************/
 
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
-static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
-static inline void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
+static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
+static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
 extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /************************** Variable Definitions *****************************/
@@ -231,7 +233,7 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
+static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 StatusRead = 0U;
@@ -290,7 +292,7 @@ END:
 * This function disables bbram programming.
 *
 ******************************************************************************/
-static inline void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
+static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
 {
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 			 XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET,
@@ -310,7 +312,7 @@ static inline void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
 {
 	u32 Crc = 0U;
 	u32 Index;
