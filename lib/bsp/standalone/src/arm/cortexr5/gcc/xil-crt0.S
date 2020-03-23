@@ -43,6 +43,7 @@
 *                     Now the timer instance as specified by the user will be
 *		      started.
 * 7.2   mus  10/22/19 Defined RPU_TZ_MASK as #define instead of variable.
+* 7.2   sd   03/20/20 Add clocking support.
 * </pre>
 *
 * @note
@@ -51,6 +52,7 @@
 *
 ******************************************************************************/
 #include "xparameters.h"
+#include "bspconfig.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
@@ -141,7 +143,7 @@ test_boot_status:
 	mov	r0, #0
 	mov	r1, #0
 
-#ifdef PLATFORM_ZYNQMP
+#ifdef XCLOCKING
 	bl	Xil_ClockInit
 #endif
 	bl	main			/* Jump to main C code */

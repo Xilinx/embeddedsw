@@ -35,6 +35,7 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 7.2 sd  02/06/20 First release of clocking
+* 7.2 sd  03/20/20 Added checking for isolation case
 * </pre>
 *
 ******************************************************************************/
@@ -42,7 +43,7 @@
 #include "xil_clocking.h"
 /************************** Variable Definitions *****************************/
 
-#ifdef XCLOCKING
+#if defined  (XPAR_XCRPSU_0_DEVICE_ID) && defined (XCLOCKING)
 
 XClock ClockInstance;		/* Instance of clock Controller */
 XClockPs_Config *ConfigPtr;

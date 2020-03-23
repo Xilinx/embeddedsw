@@ -43,6 +43,7 @@
 * 6.6   mus  01/29/18 Initialized the xen PV console for Cortexa53 64 bit
 *                     EL1 NS BSP.
 * 7.2   sd   02/23/20 Clock Init is called
+* 7.2   sd   02/23/20 Clock code added under XCLOCKING flag
 * </pre>
 *
 * @note
@@ -125,7 +126,9 @@ _startup:
 	mov	x0, #0
 	mov	x1, #0
 
+#ifdef XCLOCKING
 	bl	Xil_ClockInit
+#endif
 	bl	main			/* Jump to main C code */
 
 	/* Cleanup global constructors */

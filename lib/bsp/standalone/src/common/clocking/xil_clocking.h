@@ -36,7 +36,8 @@
 *
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a sd  12/11/19 First release
+* 7.2 sd  12/11/19 First release
+* 7.2 sd  03/20/20 Added checking for isolation case
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +55,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#if	defined	(PLATFORM_ZYNQMP) || defined (PSU_PMU)
+#if defined  (XPAR_XCRPSU_0_DEVICE_ID)
 #include "xclockps.h"
 #else
 typedef u32 XClock_OutputClks;
