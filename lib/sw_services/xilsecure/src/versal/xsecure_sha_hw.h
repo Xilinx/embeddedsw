@@ -14,7 +14,10 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 4.2   har  03/20/20 Initial release
+* 1.0   har  03/20/20 Initial release
+* 4.2   har  03/20/20 Updated file version to sync with library version
+* 4.3   am   09/24/20 Resolved MISRA C violations
+*       har  10/12/20 Addressed security review comments
 *
 * </pre>
 *
@@ -34,7 +37,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 /**< SHA3 base address */
-#define XSECURE_SHA3_BASE	(0xF1210000U)
+#define XSECURE_SHA3_BASE		(0xF1210000U)
 
 /** @name Register Map
  *
@@ -44,11 +47,7 @@ extern "C" {
 #define XSECURE_SHA3_START_OFFSET	(0x00U) /**< SHA start message */
 #define XSECURE_SHA3_RESET_OFFSET	(0x04U) /**< Reset Register */
 #define XSECURE_SHA3_DONE_OFFSET	(0x08U) /**< SHA Done Register */
-
-#define XSECURE_SHA3_DIGEST_0_OFFSET (0x10U)
-					/**< SHA3 Digest: Reg 0 */
-#define XSECURE_SHA3_DIGEST_11_OFFSET (0x3CU)
-					/**< SHA3 Digest: Last Register */
+#define XSECURE_SHA3_DIGEST_0_OFFSET	(0x10U)	/**< SHA3 Digest: Reg 0 */
 /* @} */
 
 #ifdef __cplusplus
