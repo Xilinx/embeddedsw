@@ -256,7 +256,7 @@ s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 	 */
 	InstancePtr->Options = XIicPs_GetOptions(InstancePtr);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
