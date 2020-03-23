@@ -76,7 +76,7 @@ int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 		goto done;
 	}
 
-	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
 		goto done;
 	}
 
@@ -93,7 +93,7 @@ int XPmCore_HasResumeAddr(XPm_Core *Core)
 	XStatus Status = XST_FAILURE;
 	u64 ResumeAddr;
 
-	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
 		goto done;
 	}
 
@@ -110,7 +110,7 @@ int XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
 {
 	int Status = XST_FAILURE;
 
-	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
 		goto done;
 	}
 
@@ -126,7 +126,7 @@ int XPmCore_GetCPUIdleFlag(XPm_Core *Core, u32 *CpuIdleFlag)
 {
 	int Status = XST_FAILURE;
 
-	if ((NULL == Core) || (PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
 		goto done;
 	}
 
