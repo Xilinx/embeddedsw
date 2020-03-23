@@ -66,7 +66,7 @@
  * @param	None
  *
  * @return	Ideally should not return, in case if it reaches end,
- *          error is returned
+ *		error is returned
  *
  *****************************************************************************/
 int main(void )
@@ -104,11 +104,11 @@ int main(void )
 
 /*****************************************************************************/
 /**
- * @brief This function processor and task structures
+ * @brief This function initializes the processor and task list structures
  *
  * @param	None
  *
- * @return	XST_SUCCESS
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_Init()
@@ -121,7 +121,7 @@ int XPlm_Init()
 	XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
 	 PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK, 0U);
 
-	/*
+	/**
 	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
 	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
 	 * The problem is eliminated when PL Vgg frame housecleaning is run
@@ -137,17 +137,16 @@ int XPlm_Init()
 	 */
 	XPlmi_PpuWakeUpDis();
 
-	/* Initialize the processor, enable exceptions */
+	/** Initialize the processor, enable exceptions */
 	Status = XPlm_InitProc();
 	if (Status != XST_SUCCESS)
 	{
 		goto END;
 	}
 
-	/* Initialize the tasks lists */
+	/** Initialize the tasks lists */
 	XPlmi_TaskInit();
+
 END:
 	return Status;
 }
-
-

@@ -96,7 +96,7 @@ struct XPlmi_TaskNode StartUpTaskList[] =
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_AddStartUpTasks(void)
@@ -120,6 +120,7 @@ int XPlm_AddStartUpTasks(void)
 		XPlmi_TaskTriggerNow(Task);
 	}
 	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
