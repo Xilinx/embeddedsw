@@ -1198,7 +1198,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 	}
 
 	XSecure_Sha3WaitForDone(&Sha3Instance);
-	XSecure_Sha3_ReadHash(&Sha3Instance, (u8 *)SpkHash);
+	XSecure_Sha3ReadHash(&Sha3Instance, (u8 *)SpkHash);
 
 	Status = XLoader_VerifySignature(SecurePtr, SpkHash, &AcPtr->Ppk,
 					(u8 *)&AcPtr->SPKSignature);
@@ -1466,7 +1466,7 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 	}
 
 	XSecure_Sha3WaitForDone(&Sha3Instance);
-	XSecure_Sha3_ReadHash(&Sha3Instance, (u8 *)Hash);
+	XSecure_Sha3ReadHash(&Sha3Instance, (u8 *)Hash);
 
 	Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_0, Hash);
 	if(Status != XLOADER_SUCCESS)
@@ -1579,7 +1579,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 		Index1 = Index1 + 48U;
 		Counter = Counter + 1U;
 		Status = XSecure_Sha3Initialize(Sha3InstancePtr,
-			Sha3InstancePtr->CsuDmaPtr);
+			Sha3InstancePtr->DmaPtr);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
