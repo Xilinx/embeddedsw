@@ -55,7 +55,6 @@
 #include "xstatus.h"
 #include "xuartps.h"
 #include "xil_io.h"
-#include "xil_clocking.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -139,7 +138,9 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	/* Setup the driver instance using passed in parameters */
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = Config->InputClockHz;
+#if defined  (XCLOCKING)
 	InstancePtr->Config.RefClk = Config->RefClk;
+#endif
 	InstancePtr->Config.ModemPinsConnected = Config->ModemPinsConnected;
 
 	/* Initialize other instance data to default values */
@@ -253,7 +254,9 @@ u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/*
 	 * Disable the UART transmit interrupts to allow this call to stop a
 	 * previous operation that may be interrupt driven.
@@ -317,7 +320,9 @@ u32 XUartPs_Recv(XUartPs *InstancePtr,
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/*
 	 * Disable all the interrupts.
 	 * This stops a previous operation that may be interrupt driven
