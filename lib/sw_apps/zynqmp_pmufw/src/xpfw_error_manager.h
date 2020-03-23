@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -143,7 +143,7 @@ struct XPfw_Error_t {
 	XPfw_ErrorHandler_t Handler;
 	const u8 Type;
 	u8 Action;
-	u32 ChngPerm;
+	u16 ChngPerm;
 };
 
 extern struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX];

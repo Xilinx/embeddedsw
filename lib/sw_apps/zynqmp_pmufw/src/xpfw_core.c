@@ -39,8 +39,8 @@
 #include "pm_csudma.h"
 #include "pm_qspi.h"
 
-#define CORE_IS_READY	((u32)0x5AFEC0DEU)
-#define CORE_IS_DEAD	((u32)0xDEADBEAFU)
+#define CORE_IS_READY	((u16)0x5AFEU)
+#define CORE_IS_DEAD	((u16)0xDEADU)
 
 static XPfw_Core_t XPfwCore = { .IsReady = CORE_IS_DEAD };
 
@@ -503,8 +503,9 @@ XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t 
 
 void XPfw_Exception_Handler(void)
 {
-	XPfw_Printf(DEBUG_PRINT_ALWAYS,"%s: Error! Exception has occurred\r\n",
-				__func__);
+	XPfw_Printf(DEBUG_PRINT_ALWAYS, "Received exception\r\n"
+				"MSR: 0x%x, EAR: 0x%x, EDR: 0x%x, ESR: 0x%x\r\n",
+				mfmsr(), mfear(), mfedr(), mfesr());
 	/* Write error occurrence to PERS register and trigger FW Error1 */
 	XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, HW_EXCEPTION_RECEIVED,
 			HW_EXCEPTION_RECEIVED);

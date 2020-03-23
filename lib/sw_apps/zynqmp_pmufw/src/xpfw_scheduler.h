@@ -48,7 +48,6 @@ struct XPfw_Task_t{
 
 typedef struct {
 	struct XPfw_Task_t TaskList[XPFW_SCHED_MAX_TASK];
-	u32 TaskCount;
 	u32 PitBaseAddr;
 	u32 Tick;
 	u32 Enabled;

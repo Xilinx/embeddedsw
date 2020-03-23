@@ -41,8 +41,8 @@ extern "C" {
 typedef struct {
 	XPfw_Module_t ModList[XPFW_MAX_MOD_COUNT];
 	XPfw_Scheduler_t Scheduler;
+	u16 IsReady;
 	u8 ModCount;
-	u32 IsReady;
 	u8 Mode;	/**< Mode - Safety Diagnostics Mode / Normal Mode */
 } XPfw_Core_t;
 
