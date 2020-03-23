@@ -43,8 +43,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_main.h"
-#include "xplmi_debug.h"
+#include "xplm_default.h"
+#include "xplm_proc.h"
+#include "xplm_startup.h"
 #include "xpm_api.h"
 #include "xpm_pldomain.h"
 #include "xpm_subsystem.h"
@@ -56,6 +57,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlm_Init();
 
 /************************** Variable Definitions *****************************/
 
@@ -69,9 +71,9 @@
  *		error is returned
  *
  *****************************************************************************/
-int main(void )
+int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */
@@ -98,8 +100,8 @@ int main(void )
 	XPlmi_TaskDispatchLoop();
 
 	/** should never reach here */
-	while(1);
-	return XPLM_FAILURE;
+	while(1U);
+	return XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -111,9 +113,9 @@ int main(void )
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_Init()
+static int XPlm_Init()
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/**
 	 * Disable CFRAME isolation for VCCRAM
@@ -139,8 +141,7 @@ int XPlm_Init()
 
 	/** Initialize the processor, enable exceptions */
 	Status = XPlm_InitProc();
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 

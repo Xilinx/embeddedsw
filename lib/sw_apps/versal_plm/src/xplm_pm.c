@@ -44,7 +44,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
-#include "xplm_main.h"
+#include "xplm_default.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 /************************** Constant Definitions *****************************/
@@ -72,7 +72,7 @@
 void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	if ((PM_INIT_SUSPEND_CB == EventId) || (PM_NOTIFY_CB == EventId)) {
 		Status = XPlmi_IpiWrite(IpiMask, Payload, XPLMI_CMD_RESP_SIZE,
@@ -133,12 +133,13 @@ END:
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
-int XPlm_ProcessPlmCdo(void *arg)
+int XPlm_ProcessPlmCdo(void *Arg)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XPlmiCdo Cdo;
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
+	(void )Arg;
 	/**
 	 *  Pass the PLM CDO to CDO parser, PLM CDO contains
 	 *  - Device topology

@@ -59,7 +59,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XSem_Init();
+int XPlm_SemInit(void);
 
 /************************** Variable Definitions *****************************/
 

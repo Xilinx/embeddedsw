@@ -44,7 +44,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"
-#include "xplm_main.h"
+#include "xplm_default.h"
 #include "xpm_api.h"
 /************************** Constant Definitions *****************************/
 
