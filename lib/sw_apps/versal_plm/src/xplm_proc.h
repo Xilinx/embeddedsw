@@ -60,6 +60,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
 /************************** Function Prototypes ******************************/
 int XPlm_InitProc();
 void XPlm_ExceptionInit(void);

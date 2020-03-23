@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@
 #include "xplm_main.h"
 
 /************************** Constant Definitions *****************************/
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -59,14 +60,13 @@ extern u32 _stack_end;
 
 /*****************************************************************************/
 /**
- * This function enables the exceptions and interrupts
+ * @brief This function enables the exceptions and interrupts
  * Enable interrupts from the hardware
  *
- * @param
+ * @param	None
  *
- * @return none
+ * @return	None
  *
- * @note none
  *****************************************************************************/
 void XPlm_ExceptionInit(void )
 {
@@ -87,19 +87,19 @@ void XPlm_ExceptionInit(void )
 	/** Write stack high and low register for stack protection */
 	mtslr(&_stack_end);
 	mtshr(&_stack);
-
 	microblaze_enable_exceptions();
 }
 
 /*****************************************************************************/
 /**
- * This is a function handler for exceptions
+ * @brief This is a function handler for all exceptions
  *
- * @param
+ * @param	Status Error Status that needs to be updated in Error Register.
+ * Status is initialized during exception initialization having Index and
+ * exception error code.
  *
- * @return none
+ * @return	None
  *
- * @note none
  *****************************************************************************/
 void XPlm_ExceptionHandler(u32 Status)
 {
@@ -117,14 +117,12 @@ void XPlm_ExceptionHandler(u32 Status)
 
 /*****************************************************************************/
 /**
- * This function initializes the processor, enables exceptions and start
+ * @brief This function initializes the processor, enables exceptions and start
  * timer
  *
- * @param none
+ * @param	None
+ * @return	Status as defined in xplmi_status.h
  *
- * @return none
- *
- * @note none
  *****************************************************************************/
 int XPlm_InitProc(void )
 {

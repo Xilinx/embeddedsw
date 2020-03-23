@@ -47,9 +47,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
 #include "xloader.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -62,9 +64,11 @@ extern "C" {
 
 /************************** Variable Definitions *****************************/
 
+/************************** Function Prototypes ******************************/
 int XPlm_LoaderInit();
 int XPlm_LoadBootPdi(void *arg);
 
+/************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus
 }

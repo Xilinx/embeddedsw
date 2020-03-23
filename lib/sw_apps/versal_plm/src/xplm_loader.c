@@ -44,6 +44,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_loader.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -57,10 +58,11 @@ XilPdi PdiInstance;
 
 /*****************************************************************************/
 /**
-* It initializes the loader structures and registers  the CDO loader
-* commands
+* @brief It initializes the loader structures and registers CDO loader
+* commands and interrupts
 *
 * @param	None
+*
 * @return	None
 *
 *****************************************************************************/
@@ -69,16 +71,16 @@ int XPlm_LoaderInit()
 	int Status;
 
 	Status = XLoader_Init();
-
 	return Status;
 }
 
 /*****************************************************************************/
 /**
-* It loads the boot PDI
+* @brief It loads the boot PDI
 *
-* @param	None
-* @return	None
+* @param	Arg Not used in the function currently.
+*
+* @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 int XPlm_LoadBootPdi(void *arg)
@@ -96,7 +98,6 @@ int XPlm_LoadBootPdi(void *arg)
 	XilPdi* PdiPtr = &PdiInstance;
 	PdiPtr->SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
 					PMC_TAP_SLR_TYPE_VAL_MASK;
-
 	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
 		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
 		BootMode = XLoader_GetBootMode();
@@ -106,7 +107,7 @@ int XPlm_LoadBootPdi(void *arg)
 
 	/**
 	 * In case of JTAG boot mode and jtag mode is not SBI,
-	 * no PDI loading is present
+	 * no PDI gets loaded
 	 */
 	if ((BootMode == XLOADER_PDI_SRC_JTAG) &&
 	    (!XLoader_IsJtagSbiMode()))
@@ -117,7 +118,6 @@ int XPlm_LoadBootPdi(void *arg)
 
 	CryptoKat = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
 			EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK;
-
 	if(CryptoKat != 0U) {
 		PdiPtr->PlmKatStatus = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
 	} else {
@@ -143,7 +143,6 @@ END:
 	 * This is used to identify PLM has completed boot PDI
 	 */
 	XPlmi_SetBootPdiDone();
-
 	XLoader_ClearIntrSbiDataRdy();
 	/**
 	 * Enable the SBI RDY interrupt to get the next PDI

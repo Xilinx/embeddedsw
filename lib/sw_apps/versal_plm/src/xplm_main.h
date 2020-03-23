@@ -69,7 +69,6 @@ int XPlm_Init();
 
 /************************** Variable Definitions *****************************/
 
-
 #ifdef __cplusplus
 }
 #endif

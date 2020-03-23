@@ -62,13 +62,13 @@
 
 /*****************************************************************************/
 /**
- * @brief This function call all the init functions of all xilsem 
- * modules. As a part of init functions, modules can initiate scan on both cfi 
+ * @brief This function call all the init functions of all xilsem
+ * modules. As a part of init functions, modules can initiate scan on both cfi
  * npi, scan will be decided based on the CIPS params in xparameters.h.
  *
  * @param	None
  *
- * @return	Status as SUCCESS or FAILURE
+ * @return	Status as defined in XilSem library
  *
  *****************************************************************************/
 int XSem_Init()

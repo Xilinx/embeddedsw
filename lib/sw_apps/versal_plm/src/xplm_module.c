@@ -79,7 +79,7 @@ static ModuleInit ModuleList[] =
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_ErrInit(void )
@@ -95,7 +95,7 @@ int XPlm_ErrInit(void )
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_PlmiInit(void )
@@ -113,7 +113,7 @@ int XPlm_PlmiInit(void )
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_ModuleInit(void *arg)
@@ -129,8 +129,8 @@ int XPlm_ModuleInit(void *arg)
 			goto END;
 		}
 	}
-	Status = XPLM_SUCCESS;
+	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
-

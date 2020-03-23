@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,18 @@
 
 /************************** Variable Definitions *****************************/
 
+/*****************************************************************************/
+/**
+* @brief This function is registered with XilPm to send any data to IPI master
+* when a event comes.
+*
+* @param	IpiMask IPI master ID
+* @param	EventId Id of the event as defined in XilPm
+* @param	Payload Data that needs to be sent to the IPI master
+*
+* @return	None
+*
+*****************************************************************************/
 void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
@@ -82,10 +94,11 @@ void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 
 /*****************************************************************************/
 /**
-* It initializes libPM
+* @brief It calls the XilPm initialization API to initialize its structures.
 *
 * @param	None
-* @return	None
+*
+* @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 int XPlm_PmInit()
@@ -93,7 +106,7 @@ int XPlm_PmInit()
 	int Status;
 
 	/**
-	 * Initialize the libPM component. It registers the callback handlers,
+	 * Initialize the XilPm component. It registers the callback handlers,
 	 * variables, events
 	 */
 	Status = XPm_Init(XPlm_PmRequestCb);
@@ -107,13 +120,13 @@ END:
 	return Status;
 }
 
-
 /*****************************************************************************/
 /**
-* It initializes PM with
+* @brief This function executes the PLM CDO present in PMC RAM.
 *
-* @param	None
-* @return	None
+* @param	Arg Not used in the function
+*
+* @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 int XPlm_ProcessPlmCdo(void *arg)
@@ -123,17 +136,9 @@ int XPlm_ProcessPlmCdo(void *arg)
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
 	/**
-	 * Pass the device topology and policies sections to PM
-	 *  - Pass the PLM CDO to CDO parser
-	 *  - PM sets device topology
-	 *  - PM sets the polices
-	 *
-	 * Use XPm_CreateSubsystem() to create the PLM subsystem.
-	 *  - PM sets the PLM requirements
-	 *  - Subsystem handle is updated by PM
-	 *
-	 * Register the PM callback for PLM subsystem
-	 *	- TODO what can we have in this?
+	 *  Pass the PLM CDO to CDO parser, PLM CDO contains
+	 *  - Device topology
+	 *  - PMC block configuration
 	 */
 
 	/** Process the PLM CDO */
