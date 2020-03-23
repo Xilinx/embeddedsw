@@ -138,7 +138,7 @@ void MasterSendData(XIicPs *InstancePtr)
 		 * If user has enabled repeated start as an option,
 		 * do not disable it.
 		 */
-		if (!(InstancePtr->IsRepeatedStart)) {
+		if (InstancePtr->IsRepeatedStart == 0) {
 
 			XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
 					(u32)XIICPS_CR_OFFSET,

@@ -379,7 +379,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		}
 	}
 
-	if (!(InstancePtr->IsRepeatedStart)) {
+	if (InstancePtr->IsRepeatedStart == 0) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
@@ -505,7 +505,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
 			if ((InstancePtr->RecvByteCount <
 				XIICPS_DATA_INTR_DEPTH) && (IsHold != 0) &&
-				(!(InstancePtr->IsRepeatedStart)) &&
+				(InstancePtr->IsRepeatedStart == 0) &&
 				(UpdateTxSize == 0)) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
@@ -577,7 +577,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 	}
 
-	if (!(InstancePtr->IsRepeatedStart)) {
+	if (InstancePtr->IsRepeatedStart == 0) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
@@ -695,7 +695,7 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 	 * mode into normal mode according to the IP document.
 	 */
 	ControlReg = XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET);
-	if (!(ControlReg & (XIICPS_CR_NEA_MASK))) {
+	if (((ControlReg) & (XIICPS_CR_NEA_MASK)) == 0U) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				ControlReg | (XIICPS_CR_NEA_MASK));
 	}
@@ -717,7 +717,7 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 	 * Write back the previous value of NEA bit in control register,
 	 * in case it is modified above.
 	 */
-	if (!(ControlReg & (XIICPS_CR_NEA_MASK))) {
+	if (((ControlReg) & (XIICPS_CR_NEA_MASK)) == 0U) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
 						& (~XIICPS_CR_NEA_MASK));
@@ -838,14 +838,14 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	/*
 	 * Receive
 	 */
-	if ((!(InstancePtr->IsSend)) &&
+	if ((InstancePtr->IsSend == 0) &&
 		((0U != (IntrStatusReg & (u32)XIICPS_IXR_DATA_MASK)) ||
 		 (0U != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK)))){
 
 		while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
 			if ((InstancePtr->RecvByteCount <
 				XIICPS_DATA_INTR_DEPTH)  && (IsHold != 0)  &&
-				(!(InstancePtr->IsRepeatedStart)) &&
+				(InstancePtr->IsRepeatedStart == 0) &&
 				(InstancePtr->UpdateTxSize == 0)) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
@@ -924,13 +924,13 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		InstancePtr->CurrByteCount = ByteCnt;
 	}
 
-	if ((!(InstancePtr->IsSend)) &&
+	if ((InstancePtr->IsSend == 0) &&
 		(0U != (IntrStatusReg & XIICPS_IXR_COMP_MASK))) {
 		/*
 		 * If all done, tell the application.
 		 */
 		if (InstancePtr->RecvByteCount == 0){
-			if (!(InstancePtr->IsRepeatedStart)) {
+			if (InstancePtr->IsRepeatedStart == 0) {
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
 						XIICPS_CR_OFFSET) &
@@ -949,7 +949,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	}
 
 	if (0U != (IntrStatusReg & XIICPS_IXR_NACK_MASK)) {
-		if (!(InstancePtr->IsRepeatedStart)) {
+		 if (InstancePtr->IsRepeatedStart == 0) {
 			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr,
 					XIICPS_CR_OFFSET) &
@@ -975,7 +975,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	if (0U != (IntrStatusReg & (XIICPS_IXR_NACK_MASK |
 			XIICPS_IXR_RX_UNF_MASK | XIICPS_IXR_TX_OVR_MASK |
 			XIICPS_IXR_RX_OVR_MASK))) {
-		if (!(InstancePtr->IsRepeatedStart)) {
+		if (InstancePtr->IsRepeatedStart == 0) {
 			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr,
 					XIICPS_CR_OFFSET) &
