@@ -38,6 +38,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- --------------------------------------------
 * 3.11  rna     12/10/19 First release
+*		02/18/20 Modified latest code for MISRA-C:2012 Compliance.
 * </pre>
 *
 ******************************************************************************/
@@ -137,7 +138,7 @@ void MasterSendData(XIicPs *InstancePtr)
 		 * If user has enabled repeated start as an option,
 		 * do not disable it.
 		 */
-		if ((!(InstancePtr->IsRepeatedStart)) != 0) {
+		if (!(InstancePtr->IsRepeatedStart)) {
 
 			XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
 					(u32)XIICPS_CR_OFFSET,
@@ -174,7 +175,7 @@ s32 SlaveRecvData(XIicPs *InstancePtr)
 	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 
 	while (((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) &&
-			((InstancePtr->RecvByteCount > 0) != 0x0U)) {
+			(InstancePtr->RecvByteCount > 0)) {
 		XIicPs_RecvByte(InstancePtr);
 		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 	}
