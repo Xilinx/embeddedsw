@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 *******************************************************************************/
 /*****************************************************************************/
@@ -42,9 +42,9 @@
 * The SHA-3 driver instance can be initialized
 * in the following way:
 *
-*   - XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr)
+*   - XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *DmaPtr)
 *
-* A pointer to CsuDma instance has to be passed in initialization as CSU
+* A pointer to XCsuDma instance has to be passed in initialization as PMC
 * DMA will be used for data transfers to SHA module.
 *
 *
@@ -55,17 +55,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ba   11/05/14 Initial release
-* 2.0   vns  01/28/17 Added API to read SHA3 hash.
-* 2.2   vns  07/06/17 Added doxygen tags
-* 3.0   vns  01/23/18 Added NIST SHA3 support.
-* 4.0   arc  18/12/18 Fixed MISRA-C violations.
-*       vns  03/12/19 Modified as part of XilSecure code re-arch.
-        arc  03/20/19 Changed prototype of the functions return type
-                      as void to u32.
-*       psl  03/26/19 Fixed MISRA-C violation
-* 4.1   mmd  07/05/19 Optimized the code
-* 4.2   har  11/07/19 Typo correction to enable compilation in C++
+* 4.2   har  03/20/20 Initial release
 *
 * </pre>
 *
@@ -92,29 +82,26 @@ extern "C" {
 */
 
 /**
-* CSU SHA3 Memory Map
+* SHA3 Memory Map
 */
-#define XSECURE_CSU_SHA3_START_START	(1U << 0) /**< SHA Start Message */
+#define XSECURE_SHA3_START_START	(1U << 0) /**< SHA Start Message */
 
-#define XSECURE_CSU_SHA3_RESET_RESET	(1U << 0) /**< SHA Reset Value */
+#define XSECURE_SHA3_RESET_RESET	(1U << 0) /**< SHA Reset Value */
 
-#define XSECURE_CSU_SHA3_DONE_DONE	(1U << 0) /**< SHA Done */
+#define XSECURE_SHA3_DONE_DONE	(1U << 0) /**< SHA Done */
 
 #define XSECURE_SHA3_BLOCK_LEN		(104U) /**< SHA min block length */
 
 #define XSECURE_SHA3_LAST_PACKET	(0x1U) /**< Last Data Packet */
 
-#define XSECURE_CSU_DMA_MAX_TRANSFER	(0x1ffffffcU) /** < CSU DMA Max Transfer
+#define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1ffffffcU) /** < PMC DMA Max Transfer
 							rate in bytes*/
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
+/**
+* SHA3 padding type
+*/
 /***************************** Type Definitions******************************/
-
-/* SHA3 type selection */
-typedef enum {
-	XSECURE_CSU_NIST_SHA3, /**< NIST sha3 */
-	XSECURE_CSU_KECCAK_SHA3 /**< Keccak sha3 */
-}XSecure_Sha3PadType;
 
 /* Sha3 driver states */
 typedef enum {
@@ -130,9 +117,8 @@ typedef enum {
  */
 typedef struct {
 	u32 BaseAddress;  /**< Device Base Address */
-	XCsuDma *CsuDmaPtr; /**< Pointer to CSU DMA Instance */
+	XCsuDma *DmaPtr; /**< Pointer to PMC DMA Instance */
 	u32 Sha3Len; /**< SHA3 Input Length */
-	XSecure_Sha3PadType Sha3PadType; /** Selection for Sha3 */
 	u32 PartialLen;
 	u32 IsLastUpdate;
 	u8 PartialData[XSECURE_SHA3_BLOCK_LEN];
@@ -143,27 +129,9 @@ typedef struct {
 @}
 @endcond */
 
-/*****************************************************************************/
-/**
- * @brief
- * This macro waits till SHA3 completes its operation.
- *
- * @param	InstancePtr Pointer to the XSecure_Sha3 instance.
- *
- * @return	XST_SUCCESS if the SHA3 completes its operation.
- * 		XST_FAILURE if a timeout has occurred.
- *
- ******************************************************************************/
-#define XSecure_Sha3WaitForDone(InstancePtr)	\
-	Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_CSU_SHA3_DONE_OFFSET,\
-	                XSECURE_CSU_SHA3_DONE_DONE,	\
-	                XSECURE_CSU_SHA3_DONE_DONE,	\
-	                XSECURE_SHA_TIMEOUT_MAX)
-
-
 /***************************** Function Prototypes ***************************/
 /* Initialization */
-s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr);
+u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *DmaPtr);
 
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 
@@ -176,12 +144,11 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
 						const u32 Size, u8 *Out);
 
-void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
+void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
-s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
-		XSecure_Sha3PadType Sha3PadType);
+u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
-s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
+u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 
 #ifdef __cplusplus
 }
