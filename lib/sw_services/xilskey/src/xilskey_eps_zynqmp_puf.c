@@ -54,6 +54,7 @@
 * 6.9   kpt  02/16/20 Fixed Coverity warnings
 *       kpt  02/27/20 Removed XilSKey_Puf_Debug2
 *                      which is used only for debug purpose
+*       vns  03/18/20 Fixed Armcc compilation errors
 * </pre>
 *
 *****************************************************************************/
@@ -89,12 +90,12 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 							u32 *RowData);
 u32 XilSKey_ZynqMp_EfusePs_Init(void);
-static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType);
-static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void);
+static INLINE u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType);
+static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void);
 
-static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row, u8 *Data,
+static INLINE u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row, u8 *Data,
 						XskEfusePs_Type EfuseType);
-static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
+static INLINE u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 		XilSKey_Puf_Secure *SecureBits, u8 ReadOption);
 static u32  XilSKey_WaitForPufStatus(u32 *PufStatus);
 /************************** Function Definitions *****************************/
@@ -990,7 +991,7 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
+static INLINE u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 		XilSKey_Puf_Secure *SecureBits, u8 ReadOption)
 {
 
@@ -1044,7 +1045,7 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
+static INLINE u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 				u8 *Data, XskEfusePs_Type EfuseType)
 {
 
@@ -1080,7 +1081,7 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
+static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 {
 	u32 RowDataVal = 0U;
 	u32 Status = (u32)XST_FAILURE;
@@ -1148,7 +1149,7 @@ END:
  * @note	None
  *
  ******************************************************************************/
-static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
+static INLINE u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 {
 	u32 PufChash = 0U;
 	u32 PufAux = 0U;

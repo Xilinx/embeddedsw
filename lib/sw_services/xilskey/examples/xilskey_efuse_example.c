@@ -495,7 +495,7 @@ FINAL_EFUSE_ERROR:
 		*/
 		Xil_Out32(REBOOT_STATUS_REG_ADDR,Status);
 #endif
-    while(1);
+
     return 0;
 }
 

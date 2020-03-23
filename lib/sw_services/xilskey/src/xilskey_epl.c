@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,7 @@
 * 6.8   psl     05/21/19 Added else case to clear UserFuses_TobePrgrmd
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
 *       vns     08/29/19 Initialized Status variables
+* 6.9   vns     03/18/20 Fixed Armcc compilation errors
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -371,55 +372,55 @@ static u8 XilSKey_EfusePl_IsVectorAllZeros(u8 *RowDataPtr);
 
 static void XilSKey_EfusePl_CalculateEcc(u8 *RowData, u8 *ECCData);
 
-static inline u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue);
+static INLINE u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue);
 
 static u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr);
 
-static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr);
+static INLINE u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr);
 
-static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void);
+static INLINE u32 XilSKey_EfusePl_Program_AesKey_ultra(void);
 
-static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
+static INLINE u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 				u8 *DataPrgrmg, u8 Page);
 
-static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page);
+static INLINE u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page);
 
-static inline u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
+static INLINE u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
 				u8 *KeyRead, u8 Page);
 
-static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr);
+static INLINE u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr);
 
-static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr);
+static INLINE u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr);
 
-static inline u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr);
+static INLINE u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr);
 
-static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr);
+static INLINE u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr);
 
-static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
+static INLINE u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 								u8 Page);
 
-static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData, u8 Redundant,
+static INLINE u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData, u8 Redundant,
 								u8 Page);
-static inline u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData);
+static INLINE u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData);
 
-static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData);
+static INLINE u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData);
 
-static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
+static INLINE u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 					u8 *BitData, u8 Redundant, u8 Page);
 
-static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
+static INLINE u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 					u8 *RowDataBytes, u8 Redundant, u8 Page);
 
-static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData);
+static INLINE u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData);
 
-static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
+static INLINE u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 								u8 Page);
-static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(u8 *UserFuses_Write,
+static INLINE u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(u8 *UserFuses_Write,
 					u8 *UserFuses_TobePrgrmd, u8 Size);
-static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra_Plus(u8 *CtrlData);
-static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
+static INLINE u8 XilSKey_EfusePl_ProgramControlReg_Ultra_Plus(u8 *CtrlData);
+static INLINE u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
 		u8 Bit, u8 Redundant, u8 Page);
-static inline u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
+static INLINE u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
 						u8 *RowData, u8 Page);
 /**
  * 	JTAG Server Initialization routine
@@ -688,6 +689,9 @@ u8 XilSKey_EfusePl_IsVectorAllZeros(u8 *RowDataPtr)
 *****************************************************************************/
 u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 {
+#ifdef XSK_ZYNQ_PLATFORM
+	XSKEfusePs_XAdc PL_XAdc;
+#endif
 
 	/**
 	 *Check if the row position is valid.
@@ -742,7 +746,6 @@ u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 	 * unique error.
 	 */
 #ifdef XSK_ZYNQ_PLATFORM
-	XSKEfusePs_XAdc PL_XAdc;
 
 	PL_XAdc.VType = XSK_EFUSEPS_VAUX;
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
@@ -1041,6 +1044,9 @@ u8 XilSKey_EfusePl_ReadBit(u8 Row, u8 Bit, u8 MarginOption, u8 *BitData)
 
 u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes)
 {
+#ifdef XSK_ZYNQ_PLATFORM
+	XSKEfusePs_XAdc PL_XAdc;
+#endif
 	u32 RowDataBits=0;
 
 	/**
@@ -1079,7 +1085,6 @@ u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes)
 	 * unique error.
 	 */
 #ifdef XSK_ZYNQ_PLATFORM
-	XSKEfusePs_XAdc PL_XAdc;
 	PL_XAdc.VType = XSK_EFUSEPS_VAUX;
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
 	if((PL_XAdc.Temp < XSK_EFUSEPL_READ_TEMP_MIN_RAW) ||
@@ -1535,15 +1540,17 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
+static INLINE u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 {
+#ifdef XSK_ZYNQ_PLATFORM
+	XSKEfusePs_XAdc PL_XAdc = {0};
+#endif
 	u32 KeyCnt;
 	u32 RowCount;
 	unsigned int RowData;
 	XilSKeyJtag.CurSlr = 0;
 
 #ifdef XSK_ZYNQ_PLATFORM
-	XSKEfusePs_XAdc PL_XAdc = {0};
 	/**
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
@@ -1637,7 +1644,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
+static INLINE u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 {
 
 	u32 Index;
@@ -1763,7 +1770,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
+static INLINE u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
 {
 
 	if(XilSKey_EfusePl_ReadControlRegister(CtrlBitsUltra) != XST_SUCCESS) {
@@ -1816,7 +1823,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
 *	directly.
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
+static INLINE u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 				u8 *RowDataBytes, u8 Redundant, u8 Page)
 {
 
@@ -1964,7 +1971,7 @@ static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 *	read directly.
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
+static INLINE u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 				u8 *BitData, u8 Redundant, u8 Page)
 {
 	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
@@ -2055,7 +2062,7 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, u8 Page)
+static INLINE u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, u8 Page)
 {
 
 	u8 Status = (u32)XST_FAILURE;
@@ -2112,7 +2119,7 @@ static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, 
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
+static INLINE u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 						u8 Redundant, u8 Page)
 {
 	u32 Bit = 0;
@@ -2195,7 +2202,7 @@ static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 * @note		None.
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue)
+static INLINE u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue)
 {
 
 	/* For Margin read 0 */
@@ -2234,7 +2241,7 @@ static inline u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue)
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
+static INLINE u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
 {
 	u8 TempSecData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA] = {0};
 	u32 Index = 0;
@@ -2333,7 +2340,7 @@ static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData)
+static INLINE u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u32 SecDataUltra;
@@ -2595,7 +2602,7 @@ u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr)
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
+static INLINE u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 {
 	u8 CtrlData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
 	u8 SecData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
@@ -2818,7 +2825,7 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
+static INLINE u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 {
 #ifdef XSK_MICROBLAZE_ULTRA
 	u32 StatusValues = 0;
@@ -2918,7 +2925,7 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
+static INLINE u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 						u8 *DataPrgrmg, u8 Page)
 {
 	u32 Row;
@@ -3039,7 +3046,7 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
+static INLINE u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 {
 
 	u32 Row;
@@ -3121,7 +3128,7 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
+static INLINE u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
 						u8 *RowData, u8 Page)
 {
 	u32 Column;
@@ -3182,7 +3189,7 @@ static inline u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
+static INLINE u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 {
 	u32 ErrorCode = (u32)XST_FAILURE;
 
@@ -3244,7 +3251,7 @@ static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 *	Reads all the margin options.
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
+static INLINE u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
 						u8 *KeyRead, u8 Page)
 {
 	u8 RowData[4] = {0};
@@ -3299,7 +3306,7 @@ static inline u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
 * @note		Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData)
+static INLINE u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData)
 {
 	u32 Index;
 
@@ -3382,7 +3389,7 @@ static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData)
 * @note		None.
 *
 *****************************************************************************/
-static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
+static INLINE u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 								u8 Page)
 {
 	u8 BitData = 0;
@@ -3439,7 +3446,7 @@ static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 *		error which is not possible.
 *
 ******************************************************************************/
-static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
+static INLINE u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 		u8 *UserFuses_Write, u8 *UserFuses_TobePrgrmd, u8 Size)
 {
 	u32 UserFuseColumn;
@@ -3536,7 +3543,7 @@ static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
+static INLINE u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
 		u8 Bit, u8 Redundant, u8 Page)
 {
 	if (Redundant > XSK_EFUSEPL_REDUNDANT_ULTRA) {
@@ -3679,7 +3686,7 @@ static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
 * @note		Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra_Plus(u8 *CtrlData)
+static INLINE u8 XilSKey_EfusePl_ProgramControlReg_Ultra_Plus(u8 *CtrlData)
 {
 	u32 Index;
 	u32 BitPos;

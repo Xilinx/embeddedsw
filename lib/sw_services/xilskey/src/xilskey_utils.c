@@ -78,6 +78,7 @@
 *       mmd     07/31/19 Avoided reconfiguration of sysmon, if it is in use
 * 6.9   kpt     02/16/20 Fixed coverity warnings
 *               02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID
+*       vns     03/18/20 Fixed Armcc compilation errors
 *
  *****************************************************************************/
 
@@ -114,9 +115,9 @@ extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
 #endif
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
 #ifndef XSK_OVERRIDE_SYSMON_CFG
 static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr);
@@ -246,7 +247,7 @@ END:
 *
 ****************************************************************************/
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
@@ -285,7 +286,7 @@ END:
 *		voltage
 *
 ****************************************************************************/
-static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
+static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 				XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
@@ -342,6 +343,12 @@ END:
 
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+
+#ifdef XSK_ZYNQ_PLATFORM
+	XAdcPs *XAdcInstPtr = &XAdcInst;
+	u8 V, VMin, VMax;
+#endif
+
 	if (NULL == XAdcInstancePtr) {
 		goto END;
 	}
@@ -354,10 +361,6 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 	Jtag_Read_Sysmon(XSK_SYSMON_VOL_ROW, &(XAdcInstancePtr->V));
 #endif
 #ifdef XSK_ZYNQ_PLATFORM
-	XAdcPs *XAdcInstPtr = &XAdcInst;
-	u8 V, VMin, VMax;
-
-
 
 	/**
 	 * Read the on-chip Temperature Data (Current/Maximum/Minimum)
@@ -1106,13 +1109,12 @@ END:
  ****************************************************************************/
 u32 XilSKey_Timer_Intialise(void)
 {
-
 	u32 RefClk;
 
 #if defined(XSK_ZYNQ_PLATFORM)
-	TimerTicksfor100ns = 0U;
 	u32 ArmPllFdiv;
 	u32 ArmClkDivisor;
+	TimerTicksfor100ns = 0U;
 		/**
 		 *  Extract PLL FDIV value from ARM PLL Control Register
 		 */
@@ -1437,6 +1439,7 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 #else
 	/* Not supported for other than above platforms */
 	MaxIndex = 0U;
+	(void) Key;
 #endif
 
 	for (Index = 0U; Index < MaxIndex; Index++) {
@@ -1457,12 +1460,10 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
 	Key_32 = ((u32)Key[Index1 + 3U] << 24U) | ((u32)Key[Index1 + 2U] << 16U) |
 			((u32)Key[Index1 + 1U] << 8U) | ((u32)Key[Index1 + 0U]);
-#elif defined(XSK_MICROBLAZE_ULTRA_PLUS)
-	Key_32 = ((u32)Key[Index1 + 1U] << 8U) | (u32)Key[Index1];
-#else
-	Crc = Index1;
-	break;
+#endif
 
+#if defined(XSK_MICROBLAZE_ULTRA_PLUS)
+	Key_32 = ((u32)Key[Index1 + 1U] << 8U) | (u32)Key[Index1];
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -1471,11 +1472,6 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)8U - Index);
-#endif
-
-#ifdef XSK_ZYNQ_PLATFORM
-		(void) Key;
-		break;
 #endif
 	}
 

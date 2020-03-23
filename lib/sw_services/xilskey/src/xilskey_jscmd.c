@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -81,6 +81,7 @@
 * 6.8   psl     06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
 *                        device series for different devices.
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
+* 6.9   vns     03/18/20 Fixed Armcc compilation errors
 * </pre>
 *
 *
@@ -147,9 +148,9 @@ extern u32 TimerTicksfor1000ns;
 u32 GpoOutValue = 0;
 extern XSKEfusePl_Fpga PlFpgaFlag;
 #ifndef XSK_ARM_PLATFORM
-static inline int JtagValidateMioPins_Efuse_Ultra(void);
-static inline int JtagValidateMioPins_Bbram_Ultra(void);
-static inline u32 JtagGetZuPlusPlIdcode(void);
+static INLINE int JtagValidateMioPins_Efuse_Ultra(void);
+static INLINE int JtagValidateMioPins_Bbram_Ultra(void);
+static INLINE u32 JtagGetZuPlusPlIdcode(void);
 #endif
 void dummy_printf(const char *ctrl1, ...)
 {
@@ -217,15 +218,15 @@ int readPin (int pin);
 u32 Bbram_ReadKey[8];
 
 const id_codes_t IDcodeArray [] = {
-  {.flag=XSK_FPGA_SERIES_ZYNQ,       .id = ZYNQ_DAP_ID, 					.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< Zynq TAP ID */
-  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = KINTEX_ULTRA_MB_DAP_ID, 			.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< Kintex Ultrascale microblaze TAP ID */
-  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX110_ULTRA_MB_DAP_ID, 		.irLen = 18, .numSlr = 3, .masterSlr = 1},  /**< VCU110 xcvu190 VIRTEX Ultrascale microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX108_ULTRA_MB_DAP_ID, 		.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< VCU108 VIRTEX Ultrascale microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = KINTEX_ULTRAPLUS_DAP_ID, 		.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< Kintex Ultrascale plus microblaze TAP ID */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_DAP_ID, 		.irLen = 18, .numSlr = 3, .masterSlr = 1},  /**< VCU140 VIRTEX Ultrascale Plus microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	.irLen = 24, .numSlr = 4, .masterSlr = 1},  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = ZYNQ_ULTRAPLUS_PL_DAP_ID,		.irLen = 6,  .numSlr = 1, .masterSlr = 0},  /**< Zynq Ultrascale plus TAP ID */
-  {.flag=XSK_USER_DEVICE_SERIES,     .id = XSK_USER_DEVICE_ID,     .irLen = XSK_USER_DEVICE_IRLEN, .numSlr = XSK_USER_DEVICE_NUMSLR, .masterSlr = XSK_USER_DEVICE_MASTER_SLR}   /**< USER_ENTRY */
+  {XSK_FPGA_SERIES_ZYNQ,        ZYNQ_DAP_ID, 					 6,  1,  0},  /**< Zynq TAP ID */
+  {XSK_FPGA_SERIES_ULTRA,       KINTEX_ULTRA_MB_DAP_ID, 		 6,  1,  0},  /**< Kintex Ultrascale microblaze TAP ID */
+  {XSK_FPGA_SERIES_ULTRA,       VIRTEX110_ULTRA_MB_DAP_ID, 		18,  3,  1},  /**< VCU110 xcvu190 VIRTEX Ultrascale microblaze TAP id */
+  {XSK_FPGA_SERIES_ULTRA,       VIRTEX108_ULTRA_MB_DAP_ID, 		 6,  1,  0},  /**< VCU108 VIRTEX Ultrascale microblaze TAP id */
+  {XSK_FPGA_SERIES_ULTRA_PLUS,  KINTEX_ULTRAPLUS_DAP_ID, 		 6,  1,  0},  /**< Kintex Ultrascale plus microblaze TAP ID */
+  {XSK_FPGA_SERIES_ULTRA_PLUS,  VIRTEX_ULTRAPLUS_DAP_ID, 		18,  3,  1},  /**< VCU140 VIRTEX Ultrascale Plus microblaze TAP id */
+  {XSK_FPGA_SERIES_ULTRA_PLUS,  VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	24,  4,  1},  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
+  {XSK_FPGA_SERIES_ULTRA_PLUS,  ZYNQ_ULTRAPLUS_PL_DAP_ID,		6,   1,  0},  /**< Zynq Ultrascale plus TAP ID */
+  {XSK_USER_DEVICE_SERIES, XSK_USER_DEVICE_ID, XSK_USER_DEVICE_IRLEN, XSK_USER_DEVICE_NUMSLR, XSK_USER_DEVICE_MASTER_SLR}   /**< USER_ENTRY */
 };
 
 void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
@@ -237,9 +238,11 @@ void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
 void JtagInitGpio (XilSKey_ModuleSelection Module)
 {
 #ifdef XSK_ARM_PLATFORM
+	XGpioPs_Config *ptrConfigPtrPs;
+
 	(void) Module;
 	js_printf("===== Initializing PS GPIO pins...\n\r");
-	XGpioPs_Config *ptrConfigPtrPs = XGpioPs_LookupConfig(0);
+	ptrConfigPtrPs = XGpioPs_LookupConfig(0);
 	XGpioPs_CfgInitialize(&structXGpioPs,ptrConfigPtrPs,ptrConfigPtrPs->BaseAddr);
 
 	/* Unlock the SLCR block */
@@ -833,12 +836,13 @@ int jtag_setPreAndPostPads (js_port_t *port_arg, int irPrePadBits, int irPostPad
 int jtag_navigate (js_port_t *port, js_state_t state)
 {
 	int status = 0;
+	js_command_sequence_t *cmds;
 
 	if (port == NULL) {
 		return -1;
 	}
 
-	js_command_sequence_t *cmds = js_create_command_sequence(port->root_node);
+	cmds = js_create_command_sequence(port->root_node);
 	if (cmds == NULL)
 	{
 		return -1;
@@ -857,14 +861,16 @@ int jtag_shift (js_port_t *port_arg, unsigned char mode, int bits, unsigned char
 	int status = 0;
 	unsigned char* rdPtr;
 	unsigned char* wrPtr;
+	js_command_sequence_t *cmds;
+	js_port_impl_t *port;
 
-	js_command_sequence_t *cmds = js_create_command_sequence(port_arg->root_node);
+	cmds = js_create_command_sequence(port_arg->root_node);
 	if (cmds == NULL)
 	{
 		return -1;
 	}
 
-	js_port_impl_t *port = (js_port_impl_t *)port_arg;
+	port = (js_port_impl_t *)port_arg;
 
 	if (mode == ATOMIC_IR_SCAN)
 	{
@@ -928,9 +934,11 @@ static int get_property(
     js_property_kind_t kind,
     js_property_value_t *valuep)
 {
+	js_port_impl_t *port;
 	(void) kind;
 	(void) valuep;
-    js_port_impl_t *port = (js_port_impl_t *)port_arg;
+
+	port = (js_port_impl_t *)port_arg;
 
     js_set_last_error(port->lib.base.server, "unsupported property");
     return -1;
@@ -942,9 +950,11 @@ static int set_property(
     js_property_kind_t kind,
     js_property_value_t value)
 {
+	js_port_impl_t *port;
+
 	(void) kind;
 	(void) value;
-    js_port_impl_t *port = (js_port_impl_t *)port_arg;
+	port = (js_port_impl_t *)port_arg;
 
     js_set_last_error(port->lib.base.server, "unsupported property");
     return -1;
@@ -956,6 +966,8 @@ static int run_command_sequence(
     js_port_impl_t *port = (js_port_impl_t *)cmds->base.node->port;
     js_command_impl_t *cmd_start;
     js_command_impl_t *cmd_end;
+    js_command_impl_t *cmd;
+    js_state_t state;
 
     if (js_clear_command_sequence(&port->cmdseq->base) < 0 ||
         js_lib_normalize_command_sequence(port->cmdseq, cmds) < 0)
@@ -964,8 +976,8 @@ static int run_command_sequence(
     cmd_start = (js_command_impl_t *)port->cmdseq->cmd_list;
     cmd_end = cmd_start + port->cmdseq->cmd_count;
 
-    js_command_impl_t *cmd = cmd_start;
-    js_state_t state = port->state;
+	cmd = cmd_start;
+	state = port->state;
 
     while (cmd < cmd_end)
     {
@@ -1038,11 +1050,12 @@ int open_port(
     js_port_descr_t *port_descr,
     js_lib_port_t **result)
 {
-	(void) port_descr;
 	struct js_zynq *js = (struct js_zynq *)server;
 
 	js_port_impl_t *port;
 	js_node_t *node;
+
+	(void) port_descr;
 
 	port = (js_port_impl_t *)malloc(sizeof *port);
 	if (port == NULL) {
@@ -1097,10 +1110,10 @@ int open_port(
 static int close_port(
     js_lib_port_t *port_arg)
 {
-
-	js_printf ("\n\nClosing Port.\n\n");
 	js_port_impl_t *port = (js_port_impl_t *)port_arg;
 	int ret = 0;
+
+	js_printf ("\n\nClosing Port.\n\n");
 
 	setPin (MIO_TDI, 0);
 	setPin (MIO_TMS, 0);
@@ -2883,7 +2896,7 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 *
 *****************************************************************************/
 #ifndef XSK_ARM_PLATFORM
-static inline int JtagValidateMioPins_Efuse_Ultra(void)
+static INLINE int JtagValidateMioPins_Efuse_Ultra(void)
 {
 
 	/*
@@ -3005,7 +3018,7 @@ static inline int JtagValidateMioPins_Efuse_Ultra(void)
 * @note		Hardware module is not required over here.
 *
 *****************************************************************************/
-static inline int JtagValidateMioPins_Bbram_Ultra(void)
+static INLINE int JtagValidateMioPins_Bbram_Ultra(void)
 {
 	/*
 	 * Make sure that each every AXI GPIO pin defined is valid
@@ -3079,7 +3092,7 @@ static inline int JtagValidateMioPins_Bbram_Ultra(void)
 * @note		None.
 *
 *****************************************************************************/
-static inline u32 JtagGetZuPlusPlIdcode(void)
+static INLINE u32 JtagGetZuPlusPlIdcode(void)
 {
 	u8 WriteBuf[4];
 	u8 ReadBuf[4];
