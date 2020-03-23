@@ -89,6 +89,7 @@
 
 /*****************************************************************************/
 /**
+* @brief
 * This function initiates an interrupt-driven send in master mode.
 *
 * It tries to send the first FIFO-full of data, then lets the interrupt
@@ -174,6 +175,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 
 /*****************************************************************************/
 /**
+* @brief
 * This function initiates an interrupt-driven receive in master mode.
 *
 * It sets the transfer size register so the slave can send data to us.
@@ -259,6 +261,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 
 /*****************************************************************************/
 /**
+* @brief
 * This function initiates a polled mode send in master mode.
 *
 * It sends data to the FIFO and waits for the slave to pick them up.
@@ -400,6 +403,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 
 /*****************************************************************************/
 /**
+* @brief
 * This function initiates a polled mode receive in master mode.
 *
 * It repeatedly sets the transfer size register so the slave can
@@ -598,6 +602,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 
 /*****************************************************************************/
 /**
+* @brief
 * This function enables the slave monitor mode.
 *
 * It enables slave monitor in the control register and enables
@@ -670,6 +675,7 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 
 /*****************************************************************************/
 /**
+* @brief
 * This function disables slave monitor mode.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.

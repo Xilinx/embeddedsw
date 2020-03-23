@@ -66,6 +66,7 @@ extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
 /*****************************************************************************/
 /**
 *
+* @brief
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *

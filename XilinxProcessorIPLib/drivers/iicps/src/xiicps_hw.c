@@ -60,6 +60,7 @@
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
 /**
+* @brief
 * This function perform the reset sequence to the given I2c interface by
 * configuring the appropriate control bits in the I2c specific registers
 * the i2cps reset sequence involves the following steps
@@ -106,6 +107,7 @@ void XIicPs_ResetHw(u32 BaseAddress)
 /*****************************************************************************/
 /**
 *
+* @brief
 * Resets the IIC device. Reset must only be called after the driver has been
 * initialized. The configuration of the device after reset is the same as its
 * configuration after initialization.  Any data transfer that is in progress is

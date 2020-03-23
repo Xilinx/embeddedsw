@@ -69,6 +69,7 @@
 /*****************************************************************************/
 /**
 *
+* @brief
 * Runs a self-test on the driver/device. The self-test is destructive in that
 * a reset of the device is performed in order to check the reset values of
 * the registers and to get the device into a known state.
