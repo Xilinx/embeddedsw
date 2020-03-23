@@ -56,7 +56,17 @@ proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XEmacPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_ENET_CLK_FREQ_HZ" "C_ENET_SLCR_1000Mbps_DIV0" "C_ENET_SLCR_1000Mbps_DIV1" "C_ENET_SLCR_100Mbps_DIV0" "C_ENET_SLCR_100Mbps_DIV1" "C_ENET_SLCR_10Mbps_DIV0" "C_ENET_SLCR_10Mbps_DIV1" "C_ENET_TSU_CLK_FREQ_HZ"
     generate_cci_params $drv_handle "xparameters.h"
 
+	set clocking [common::get_property CONFIG.clocking [hsi::get_os]]
+	set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
+	set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53"}]
+	set isclocking [check_clocking]
+
+	if { $isclocking == 1 &&  $is_zynqmp_fsbl_bsp != true   &&  [llength $cortexa53proc] > 0 && [string match -nocase $clocking "true"] > 0} {
+
     ::hsi::utils::define_zynq_config_file $drv_handle "xemacps_g.c" "XEmacPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT" "REF_CLK"
+	} else {
+    ::hsi::utils::define_zynq_config_file $drv_handle "xemacps_g.c" "XEmacPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT"
+	}
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XEmacPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_ENET_CLK_FREQ_HZ" "C_ENET_SLCR_1000Mbps_DIV0" "C_ENET_SLCR_1000Mbps_DIV1" "C_ENET_SLCR_100Mbps_DIV0" "C_ENET_SLCR_100Mbps_DIV1" "C_ENET_SLCR_10Mbps_DIV0" "C_ENET_SLCR_10Mbps_DIV1" "C_ENET_TSU_CLK_FREQ_HZ"
 
@@ -64,6 +74,17 @@ proc generate {drv_handle} {
 
     generate_sgmii_params $drv_handle "xparameters.h"
 
+}
+
+proc check_clocking { } {
+	set sw_proc_handle [hsi::get_sw_processor]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+	foreach slave $slaves {
+		if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
+			return 1
+		}
+	}
+	return 0
 }
 
 proc generate_gmii2rgmii_params {drv_handle file_name} {
@@ -244,6 +265,7 @@ proc generate_cci_params {drv_handle file_name} {
 	set sw_processor [hsi::get_sw_processor]
 	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
+	set isclocking [check_clocking]
 
 	foreach ip $ips {
 		set is_cc 0
@@ -269,7 +291,9 @@ proc generate_cci_params {drv_handle file_name} {
 		set canonical_tag [string toupper [format "XEMACPS_%d" $device_id ]]
 		set canonical_name [format "XPAR_%s_IS_CACHE_COHERENT" $canonical_tag]
 		puts $file_handle "\#define $canonical_name $is_cc"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
+		if { $isclocking == 1 } {
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
+		}
 		incr device_id
 	}
 	close $file_handle
