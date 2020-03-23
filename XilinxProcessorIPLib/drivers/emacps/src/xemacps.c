@@ -108,7 +108,9 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 	InstancePtr->Config.IsCacheCoherent = CfgPtr->IsCacheCoherent;
+#if defined  (XCLOCKING)
 	InstancePtr->Config.RefClk = CfgPtr->RefClk;
+#endif
 
 	/* Set callbacks to an initial stub routine */
 	InstancePtr->SendHandler = ((XEmacPs_Handler)((void*)XEmacPs_StubHandler));
@@ -158,9 +160,12 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsStarted != (u32)XIL_COMPONENT_IS_STARTED) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
 	}
+#endif
+
 	/* Start DMA */
 	/* When starting the DMA channels, both transmit and receive sides
 	 * need an initialized BD list.
@@ -265,7 +270,9 @@ void XEmacPs_Stop(XEmacPs *InstancePtr)
 
 	/* Mark as stopped */
 	InstancePtr->IsStarted = 0U;
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 }
 
 
