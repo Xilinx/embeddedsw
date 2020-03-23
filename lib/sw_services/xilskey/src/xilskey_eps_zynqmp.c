@@ -978,11 +978,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 				(u32)XSK_ZYNQMP_EFUSEPS_ISR_OFFSET),
 				EventsMask, EventsMask, (u32)XSK_POLL_TIMEOUT, &Events);
 
-	if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK) == 0U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_READ_NOT_DONE;
-	}
-	else if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK) != 0U) {
+	if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK) != 0U) {
 		Status = (u32)XSK_EFUSEPS_ERROR_READ;
+	}
+	else if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK) == 0U) {
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_NOT_DONE;
 	}
 	else {
 	*RowData =
