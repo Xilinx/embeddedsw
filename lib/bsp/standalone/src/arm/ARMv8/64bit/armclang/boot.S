@@ -70,6 +70,7 @@
 ;* 7.0   mus     02/26/19 First release
 ;* 7.2   mus     01/08/19 Added support for versal
 ;*       sd      02/23/20 Clock Init is called
+;*       sd      03/21/20 Added XCLOCKING flag
 ;*
 ;******************************************************************************/
 
@@ -84,7 +85,9 @@
 	IMPORT |Image$$ARM_LIB_STACK$$ZI$$Base|
 	IMPORT _vector_table
 	IMPORT __main
+#ifdef XCLOCKING
 	IMPORT Xil_ClockInit
+#endif
 
 #ifndef FREERTOS_BSP
 	IMPORT FPUStatus
@@ -266,7 +269,9 @@ InitEL3
    dsb	sy
    isb
 
+#ifdef XCLOCKING
    b	Xil_Clockinit
+#endif
    b	__main					; Jump to start
 
 #else
