@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 *******************************************************************************/
 /*****************************************************************************/
@@ -35,35 +35,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ba   08/10/14 Initial release
-* 2.0   vns  01/28/17 Added API to read SHA3 hash.
-* 2.2   vns  07/06/17 Added doxygen tags
-* 3.0   vns  01/23/18 Added NIST SHA3 support.
-*                     Added SSS configuration before every CSU DMA transfer
-* 3.2   ka   04/30/18 Modified SHa3 hash calculation fuctionality to
-* 		      support the following features:
-*                     - To support byte aligned data,
-*                     - To support non-word aligned address
-*                     - And also fixed limitation of input data,
-*                     	now size of input can be of any size.
-*                     	not limitted to 512MB.
-* 4.0	arc  12/18/18 Fixed MISRA-C violations.
-*       arc  03/06/19 Added asserts to validate input params.
-*       vns  03/12/19 Modified as part of XilSecure code re-arch.
-*       arc  03/20/19 Added time outs and status info for API's.
-*       mmd  03/15/19 Refactored the code.
-*       psl  03/26/19 Fixed MISRA-C violation
-*       vns  03/30/19 Added error condition in XSecure_Sha3Finish for
-*                     for wrong pad selection
-* 4.1   kal  05/20/19 Updated doxygen tags
-*       psl  07/02/19 Fixed Coverity warnings.
-*       mmd  07/05/19 Optimized the code
-*       psl  07/31/19 Fixed MISRA-C violation
-* 4.2   har  01/06/20 Removed asserts to validate zero size of data as per
-*                     CR-1049217 since hashing of zero size data is valid
-* 4.3   mmd  02/03/20 optimized XSecure_Sha3DataUpdate function
-*       kpt  02/03/20 Enhanced the Code for non-aligned data and
-*                     aligned address i.e CR-1052152
+* 4.2   har  03/20/20 Initial release
 *
 * @note
 *
@@ -71,20 +43,37 @@
 
 /***************************** Include Files *********************************/
 #include "xsecure_sha.h"
-/************************** Constant Definitions *****************************/
-#define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U)
-#define XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS	\
-									(XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS / 32U)
 
-/* Keccak and Nist padding masks */
-#define XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK    (0x01U)
-#define XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK      (0x80U)
-#define XSECURE_CSU_SHA3_START_NIST_PADDING_MASK      (0x06U)
-#define XSECURE_CSU_SHA3_END_NIST_PADDING_MASK        (0x80U)
+/************************** Constant Definitions *****************************/
+#define XSECURE_SHA3_HASH_LENGTH_IN_BITS	(384U)
+#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS	\
+				(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
+
+/* Nist padding masks */
+#define XSECURE_SHA3_START_NIST_PADDING_MASK      (0x06U)
+#define XSECURE_SHA3_END_NIST_PADDING_MASK        (0x80U)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ * @brief
+ * This inline function waits till SHA3 completes its operation.
+ *
+ * @param	InstancePtr Pointer to the XSecure_Sha3 instance.
+ *
+ * @return	XST_SUCCESS if the SHA3 completes its operation.
+ * 		XST_FAILURE if a timeout has occurred.
+ *
+ ******************************************************************************/
+inline u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
+{
+	return Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_SHA3_DONE_OFFSET,
+	                XSECURE_SHA3_DONE_DONE,
+	                XSECURE_SHA3_DONE_DONE,
+	                XSECURE_SHA_TIMEOUT_MAX);
+}
 
 /************************** Function Prototypes ******************************/
 
@@ -92,8 +81,6 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size, u8 IsLast);
 static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 					const u32 Size, u8 IsLastUpdate);
-static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
-					u32 MsgLen);
 static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 					u32 MsgLen);
 
@@ -108,28 +95,23 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 * required for operating the SHA3 cryptographic engine.
 *
 * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
-* @param	CsuDmaPtr 	Pointer to the XCsuDma instance.
+* @param	DmaPtr 	Pointer to the XCsuDma instance.
 *
 * @return	XST_SUCCESS if initialization was successful
 *
 * @note		The base address is initialized directly with value from
 * 		xsecure_hw.h
-*		The default is NIST SHA3 padding, to change to KECCAK
-*		padding call XSecure_Sha3PadSelection() after
-*		XSecure_Sha3Initialize().
 *
 *****************************************************************************/
-
-s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
+u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* DmaPtr)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CsuDmaPtr != NULL);
+	Xil_AssertNonvoid(DmaPtr != NULL);
 
-	InstancePtr->BaseAddress = XSECURE_CSU_SHA3_BASE;
+	InstancePtr->BaseAddress = XSECURE_SHA3_BASE;
 	InstancePtr->Sha3Len = 0U;
-	InstancePtr->CsuDmaPtr = CsuDmaPtr;
-	InstancePtr->Sha3PadType = XSECURE_CSU_NIST_SHA3;
+	InstancePtr->DmaPtr = DmaPtr;
 	InstancePtr->IsLastUpdate = FALSE;
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
@@ -137,48 +119,6 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function provides an option to select the SHA-3 padding type to be used
- * while calculating the hash.
- *
- * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Sha3Type 	Type of SHA3 padding to be used.
- * 			 - For NIST SHA-3 padding - XSECURE_CSU_NIST_SHA3
- * 			 - For KECCAK SHA-3 padding - XSECURE_CSU_KECCAK_SHA3
- *
- * @return	XST_SUCCESS if pad selection is successful.
- * 		XST_FAILURE if pad selecction is failed.
- *
- * @note	The default provides support for NIST SHA-3. If a user wants
- * 			to change the padding to Keccak SHA-3, this function
- * 			should be called after XSecure_Sha3Initialize()
- *
- ******************************************************************************/
- s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
-		 XSecure_Sha3PadType Sha3PadType)
-{
-	s32 Status;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Sha3PadType == XSECURE_CSU_NIST_SHA3)
-			|| (Sha3PadType == XSECURE_CSU_KECCAK_SHA3));
-	Xil_AssertNonvoid((InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED) ||
-					(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED));
-
-	/* If operation is in between can't be modified */
-	if (InstancePtr->Sha3Len != 0x00U) {
-		Status = (s32)XST_FAILURE;
-		goto END;
-	}
-	InstancePtr->Sha3PadType = Sha3PadType;
-	Status = XST_SUCCESS;
-END:
-	return Status;
 }
 
  /****************************************************************************/
@@ -193,39 +133,14 @@ END:
  *
  *
  *****************************************************************************/
-s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
+u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 {
-
-	 /* Assert validates the input arguments */
-	 Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->IsLastUpdate = TRUE;
 
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function generates padding for the SHA-3 engine.
- *
- * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Dst 	Pointer to location where padding is to be applied.
- * @param	MsgLen	Length of padding in bytes.
- *
- * @return	None
- *
- ******************************************************************************/
-static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
-		u32 MsgLen)
-{
-	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(MsgLen != 0U);
-
-	(void)memset(Dst, 0, MsgLen);
-	Dst[0] = XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK;
-	Dst[MsgLen -1U] |= XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK;
 }
 
 /*****************************************************************************/
@@ -248,9 +163,10 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 	Xil_AssertVoid(MsgLen != 0U);
 
 	(void)memset(Dst, 0, MsgLen);
-	Dst[0] =  XSECURE_CSU_SHA3_START_NIST_PADDING_MASK;
-	Dst[MsgLen -1U] |= XSECURE_CSU_SHA3_END_NIST_PADDING_MASK;
+	Dst[0] =  XSECURE_SHA3_START_NIST_PADDING_MASK;
+	Dst[MsgLen -1U] |= XSECURE_SHA3_END_NIST_PADDING_MASK;
 }
+
 /*****************************************************************************/
 /**
  * @brief
@@ -274,12 +190,12 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 
 	/* Reset SHA3 engine. */
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
-			XSECURE_CSU_SHA3_RESET_OFFSET);
+			XSECURE_SHA3_RESET_OFFSET);
 
 	/* Start SHA3 engine. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_SHA3_START_OFFSET,
-			XSECURE_CSU_SHA3_START_START);
+			XSECURE_SHA3_START_OFFSET,
+			XSECURE_SHA3_START_START);
 	InstancePtr->Sha3State = XSECURE_SHA3_ENGINE_STARTED;
 }
 
@@ -311,20 +227,20 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	DataSize = Size;
 	TransferredBytes = 0U;
 	/*
- 	 * CSU DMA can transfer Max 0x7FFFFFF no of words(0x1FFFFFFC bytes)
+	 * PMC DMA can transfer Max 0x7FFFFFF no of words(0x1FFFFFFC bytes)
 	 * at a time .So if the data sent more than that will be handled
 	 * in the next update internally
 	 */
-	while (DataSize > XSECURE_CSU_DMA_MAX_TRANSFER) {
+	while (DataSize > XSECURE_PMC_DMA_MAX_TRANSFER) {
 		Status = XSecure_Sha3DataUpdate(InstancePtr,
 				(Data + TransferredBytes),
-				XSECURE_CSU_DMA_MAX_TRANSFER, 0);
+				XSECURE_PMC_DMA_MAX_TRANSFER, 0);
 		if (Status != (u32)XST_SUCCESS){
 			goto END;
 		}
-		DataSize = DataSize - XSECURE_CSU_DMA_MAX_TRANSFER;
+		DataSize = DataSize - XSECURE_PMC_DMA_MAX_TRANSFER;
 		TransferredBytes = TransferredBytes +
-			XSECURE_CSU_DMA_MAX_TRANSFER;
+			XSECURE_PMC_DMA_MAX_TRANSFER;
 	}
 	Status = XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
 				DataSize, (u8)InstancePtr->IsLastUpdate);
@@ -332,12 +248,11 @@ END:
 	if (Status != XST_SUCCESS) {
 		/* Set SHA under reset on failure condition */
 		XSecure_SetReset(InstancePtr->BaseAddress,
-					XSECURE_CSU_SHA3_RESET_OFFSET);
+					XSECURE_SHA3_RESET_OFFSET);
 	}
 
 	return Status;
 }
-
 
 /*****************************************************************************/
 /**
@@ -369,16 +284,9 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	PadLen = (PadLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
 		(XSECURE_SHA3_BLOCK_LEN - PadLen);
 
-	if (InstancePtr->Sha3PadType == XSECURE_CSU_NIST_SHA3) {
-		XSecure_Sha3NistPadd(InstancePtr,
-			&InstancePtr->PartialData[InstancePtr->PartialLen],
-								PadLen);
-	}
-	else {
-		 XSecure_Sha3KeccakPadd(InstancePtr,
-			&InstancePtr->PartialData[InstancePtr->PartialLen],
-								PadLen);
-	}
+	XSecure_Sha3NistPadd(InstancePtr,
+				&InstancePtr->PartialData[InstancePtr->PartialLen],
+												PadLen);
 
 	Size = PadLen + InstancePtr->PartialLen;
 	Status = XSecure_Sha3DmaTransfer(InstancePtr, (u8*)InstancePtr->PartialData,
@@ -395,13 +303,14 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	/* If requested, read out the Hash in reverse order.  */
 	if (Hash != NULL)
 	{
-		XSecure_Sha3_ReadHash(InstancePtr, Hash);
+		XSecure_Sha3ReadHash(InstancePtr, Hash);
 	}
+
 END:
 	(void)memset((void*)InstancePtr->PartialData, 0, Size);
 	/* Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
-					XSECURE_CSU_SHA3_RESET_OFFSET);
+					XSECURE_SHA3_RESET_OFFSET);
 
 	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 	return Status;
@@ -458,7 +367,7 @@ END:
  * @return	None
  *
  ******************************************************************************/
-void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
+void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
 {
 	u32 Index;
 	u32 RegVal;
@@ -467,13 +376,14 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Hash != NULL);
 
-	for (Index = 0U; Index < XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS; Index++)
+	for (Index = 0U; Index < XSECURE_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_SHA3_DIGEST_0_OFFSET + (Index * 4U));
-		HashPtr[XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS - Index - 1] = RegVal;
+			XSECURE_SHA3_DIGEST_0_OFFSET + (Index * 4U));
+		HashPtr[XSECURE_SHA3_HASH_LENGTH_IN_WORDS - Index - 1] = RegVal;
 	}
 }
+
 /*****************************************************************************/
 /**
  * @brief
@@ -497,21 +407,21 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 
 	/* Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
-				InstancePtr->CsuDmaPtr->Config.DeviceId);
+				InstancePtr->DmaPtr->Config.DeviceId);
 	if (Status != (u32)XST_SUCCESS){
 		goto ENDF;
 	}
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+	XCsuDma_Transfer(InstancePtr->DmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)Data, (u32)Size/4U, IsLast);
 
 	/* Checking the CSU DMA done bit should be enough. */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->DmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (Status != (u32)XST_SUCCESS) {
 		goto ENDF;
 	}
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+	XCsuDma_IntrClear(InstancePtr->DmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 ENDF:
 	return Status;
@@ -538,10 +448,13 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	const u8 *DmableData;
 	u8 IsLast;
 	u32 Status = (u32)XST_FAILURE;
-	u32 PrevPartialLen = InstancePtr->PartialLen;
-	u8 *PartialData = InstancePtr->PartialData;
+	u32 PrevPartialLen;
+	u8 *PartialData;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	PrevPartialLen = InstancePtr->PartialLen;
+        PartialData = InstancePtr->PartialData;
 
 	RemainingDataLen = Size + PrevPartialLen;
 	IsLast = FALSE;

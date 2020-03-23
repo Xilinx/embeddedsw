@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,8 @@
 * 4.0   vns  03/09/19 Initial release
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
 *                     Typo correction in comments
+*       har  03/20/20 Moved the file to zynqmp directory and removed versal
+*                     related code
 * </pre>
 *
 * @endcond
@@ -55,14 +57,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 /**< SHA3 base address */
-#ifndef XSECURE_VERSAL
 #define XSECURE_CSU_SHA3_BASE	(XSECURE_CSU_REG_BASE_ADDR + 0x2000U)
-				/**< ZynqMP base address */
-#else
-#define XSECURE_CSU_SHA3_BASE	(0xF1210000U)
-				/**< Versal base address */
-#endif
-
 
 /** @name Register Map
  *
