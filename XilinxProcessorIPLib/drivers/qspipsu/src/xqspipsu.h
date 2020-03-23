@@ -192,7 +192,9 @@ extern "C" {
 #include "xqspipsu_hw.h"
 #include "xil_cache.h"
 #include "xil_mem.h"
+#if defined  (XCLOCKING)
 #include "xil_clocking.h"
+#endif
 
 /**************************** Type Definitions *******************************/
 /**
@@ -243,7 +245,9 @@ typedef struct {
 	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
 	u8  BusWidth;		/**< Bus width available on board */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+#if defined  (XCLOCKING)
 	u32 RefClk;		/**< Input clocks */
+#endif
 } XQspiPsu_Config;
 
 /**

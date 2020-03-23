@@ -158,7 +158,9 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 		InstancePtr->StatusHandler = StubStatusHandler;
 		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+#if defined  (XCLOCKING)
 		InstancePtr->Config.RefClk = ConfigPtr->RefClk;
+#endif
 		InstancePtr->Config.IsCacheCoherent =
 			ConfigPtr->IsCacheCoherent;
 		/* Other instance variable initializations */
@@ -229,7 +231,9 @@ void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET, DmaStatus);
 	}
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 }
 
 /*****************************************************************************/
@@ -449,7 +453,9 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	 */
 	InstancePtr->IsBusy = TRUE;
 
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/* Select slave */
 	XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
 
@@ -517,7 +523,9 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	Status = XST_SUCCESS;
 
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	END:
 	return Status;
 }
@@ -560,7 +568,9 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			Status = (s32)XST_DEVICE_BUSY;
 			goto END;
 	}
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 
 	if ((Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
 		InstancePtr->IsBusy = TRUE;
@@ -752,7 +762,9 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 
 			/* Clear the busy flag. */
 			InstancePtr->IsBusy = FALSE;
+#if defined  (XCLOCKING)
 			Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 			/* Call status handler to indicate completion */
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 						XST_SPI_TRANSFER_DONE, 0);
