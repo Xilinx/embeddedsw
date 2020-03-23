@@ -2532,7 +2532,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 			DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr, XDP_RX_MSA_VTOTAL));
 		GetResCount++;
 	}
-	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
+
 	Msa[0].Vtm.Timing.HTotal = DpHres_total;
 	Msa[0].Vtm.Timing.F0PVTotal = DpVres_total;
 	GetResCount = 0;
@@ -2598,6 +2598,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		Msa[0].UserPixelWidth = 0x1;
 	}
 
+	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
 	rxMsamisc0 = ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 							XDP_RX_MSA_MISC0) >> 5) & 0x00000007);
 
