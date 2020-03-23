@@ -46,14 +46,14 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 	Core->CoreOps = Ops;
 	Core->PwrUpLatency = 0;
 	Core->PwrDwnLatency = 0;
-	Core->PsmToPlmEvent_ProcIdx = PROC_DEV_MAX;
+	Core->PsmToPlmEvent_ProcIdx = (u8)PROC_DEV_MAX;
 
 	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Id)) ||
 	    ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Id))) {
 		/* Find and store PsmToPlmEvent_ProcIdx in Core structure */
 		for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
 			if (ProcDevList[Idx] == Id) {
-				Core->PsmToPlmEvent_ProcIdx = Idx;
+				Core->PsmToPlmEvent_ProcIdx = (u8)Idx;
 				break;
 			}
 		}
