@@ -71,13 +71,9 @@
  * @return	Status as defined in XilSem library
  *
  *****************************************************************************/
-int XSem_Init()
+int XPlm_SemInit(void)
 {
 	int Status = XST_FAILURE;
-
-#if !defined(XSEM_CFRSCAN_EN) && !defined(XSEM_NPISCAN_EN)
-	Status = XST_SUCCESS;
-#endif
 
 #ifdef XSEM_CFRSCAN_EN
 	Status = XSem_CfrInit();
@@ -93,8 +89,12 @@ int XSem_Init()
 	} else {
 		Status = XPlmi_SchedulerAddTask(0x0U, XSem_NpiRunScan, 100U,
 						XPLM_TASK_PRIORITY_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 #endif
+	Status = XST_SUCCESS;
 
 #if defined(XSEM_CFRSCAN_EN) || defined(XSEM_NPISCAN_EN)
 END:

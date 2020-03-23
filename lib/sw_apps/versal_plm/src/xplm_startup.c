@@ -82,7 +82,7 @@ struct XPlmi_TaskNode StartUpTaskList[] =
 	XPLM_TASK_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_TASK_DEFINE(XPlm_HookAfterBootPdi, 0U, XPLM_TASK_PRIORITY_0),
 #ifdef XPLM_SEM
-	XPLM_TASK_DEFINE(XSem_Init, 0U, XPLM_TASK_PRIORITY_0)
+	XPLM_TASK_DEFINE(XPlm_SemInit, 0U, XPLM_TASK_PRIORITY_0)
 #endif
 };
 
@@ -103,18 +103,16 @@ int XPlm_AddStartUpTasks(void)
 {
 	u32 Index;
 	XPlmi_TaskNode *Task;
-	int Status;
+	int Status = XST_FAILURE;
 
-	for (Index = 0;
-	     Index < sizeof StartUpTaskList / sizeof *StartUpTaskList;
-		Index++)
+	for (Index = 0U; Index < ARRAY_SIZE(StartUpTaskList); Index++)
 	{
 		Task = XPlmi_TaskCreate(StartUpTaskList[Index].Priority,
 					StartUpTaskList[Index].Handler,
 					StartUpTaskList[Index].PrivData);
 		if (Task == NULL)
 		{
-			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_TASK_CREATE, 0x0);
+			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_TASK_CREATE, 0x0U);
 			goto END;
 		}
 		XPlmi_TaskTriggerNow(Task);

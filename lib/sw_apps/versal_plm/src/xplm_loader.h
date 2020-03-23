@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,8 +41,8 @@
 * @note
 *
 ******************************************************************************/
-#ifndef XPLM_PLI_H
-#define XPLM_PLI_H
+#ifndef XPLM_LOADER_H
+#define XPLM_LOADER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,12 +57,9 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_KAT_DONE        0x000001F0U
-#define EFUSE_CACHE_MISC_CTRL   0xF12500A0U
-#define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK        0X00008000U
-/************************** Function Prototypes ******************************/
-
-/************************** Variable Definitions *****************************/
+#define XLOADER_KAT_DONE        (0x000001F0U)
+#define EFUSE_CACHE_MISC_CTRL   (0xF12500A0U)
+#define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK        (0X00008000U)
 
 /************************** Function Prototypes ******************************/
 int XPlm_LoaderInit();
@@ -74,4 +71,4 @@ int XPlm_LoadBootPdi(void *arg);
 }
 #endif
 
-#endif  /* XPLM_PLI_H */
+#endif  /* XPLM_LOADER_H */

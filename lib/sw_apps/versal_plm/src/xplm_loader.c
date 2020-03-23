@@ -68,7 +68,7 @@ XilPdi PdiInstance;
 *****************************************************************************/
 int XPlm_LoaderInit()
 {
-	int Status;
+	int Status =  XST_FAILURE;
 
 	Status = XLoader_Init();
 	return Status;
@@ -83,19 +83,21 @@ int XPlm_LoaderInit()
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
-int XPlm_LoadBootPdi(void *arg)
+int XPlm_LoadBootPdi(void *Arg)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 BootMode;
 	u32 CryptoKat;
+	XilPdi* PdiPtr;
 
+	(void )Arg;
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
 
 	/**
 	 * 1. Read Boot mode register and multiboot offset register
 	 * 2. Load subsystem present in PDI
 	 */
-	XilPdi* PdiPtr = &PdiInstance;
+	PdiPtr = &PdiInstance;
 	PdiPtr->SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
 					PMC_TAP_SLR_TYPE_VAL_MASK;
 	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
@@ -128,8 +130,7 @@ int XPlm_LoadBootPdi(void *arg)
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
 

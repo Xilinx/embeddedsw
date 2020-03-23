@@ -44,7 +44,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_module.h"
-#include "xplm_main.h"
+#include "xplm_default.h"
 #include "xplmi_sysmon.h"
 #include "xpm_api.h"
 
@@ -56,6 +56,8 @@ typedef int (*ModuleInit)(void);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlm_PlmiInit(void);
+static int XPlm_ErrInit(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -64,7 +66,7 @@ typedef int (*ModuleInit)(void);
  * It contains the all the init functions to be run for every module that
  * is present as a part of PLM.
  */
-static ModuleInit ModuleList[] =
+static const ModuleInit ModuleList[] =
 {
 	XPlm_PlmiInit,
 	XPlm_ErrInit,
@@ -82,10 +84,14 @@ static ModuleInit ModuleList[] =
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_ErrInit(void )
+static int XPlm_ErrInit(void)
 {
+	int Status = XST_FAILURE;
+
 	XPlmi_EmInit(XPm_SystemShutdown);
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -98,9 +104,9 @@ int XPlm_ErrInit(void )
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_PlmiInit(void )
+static int XPlm_PlmiInit(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	Status = XPlmi_Init();
 	return Status;
 }
@@ -116,15 +122,16 @@ int XPlm_PlmiInit(void )
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_ModuleInit(void *arg)
+int XPlm_ModuleInit(void *Arg)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
-	int Status;
 
+	(void )Arg;
 	for (Index = 0; Index < sizeof ModuleList / sizeof *ModuleList; Index++)
 	{
 		Status = ModuleList[Index]();
-		if (Status != XPLM_SUCCESS)
+		if (Status != XST_SUCCESS)
 		{
 			goto END;
 		}
