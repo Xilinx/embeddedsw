@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,16 @@ proc rsa_drc {libhandle} {
     if { $proc_type != "ps7_cortexa9" } {
                 error "ERROR: This library is supported only for CortexA9 processors.";
                 return;
-    }    
+    }
+
+    set procdrv [hsi::get_sw_processor]
+    set compiler [common::get_property CONFIG.compiler $procdrv]
+        if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+		file delete -force ./src/librsa_armcc.a
+        } elseif {[string compare -nocase $compiler "armcc"] == 0} {
+		file delete -force ./src/librsa.a
+		file rename -force ./src/librsa_armcc.a ./src/librsa.a
+    }
 
 }
 
