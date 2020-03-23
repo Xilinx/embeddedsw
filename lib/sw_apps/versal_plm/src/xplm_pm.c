@@ -75,20 +75,24 @@ void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 	XStatus Status;
 
 	if ((PM_INIT_SUSPEND_CB == EventId) || (PM_NOTIFY_CB == EventId)) {
-		Status = XPlmi_IpiWrite(IpiMask, Payload, XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_MSG);
+		Status = XPlmi_IpiWrite(IpiMask, Payload, XPLMI_CMD_RESP_SIZE,
+					XIPIPSU_BUF_TYPE_MSG);
 		if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error in IPI write: %d\r\n", __func__, Status);
-		}
-
-		Status = XPlmi_IpiTrigger(IpiMask);
-		if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error in IPI trigger: %d\r\n", __func__, Status);
+			XPlmi_Printf(DEBUG_GENERAL,
+			 "%s Error in IPI write: %d\r\n", __func__, Status);
+		} else {
+			Status = XPlmi_IpiTrigger(IpiMask);
+			if (XST_SUCCESS != Status) {
+				XPlmi_Printf(DEBUG_GENERAL,
+				"%s Error in IPI trigger: %d\r\n", __func__, Status);
+			}
 		}
 	} else {
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error: Unsupported EventId: %d\r\n", __func__, EventId);
+		XPlmi_Printf(DEBUG_GENERAL,
+		 "%s Error: Unsupported EventId: %d\r\n", __func__, EventId);
 	}
 #else
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error: IPI is not defined\r\n", __func__);
+	XPlmi_Printf(DEBUG_GENERAL, "%s Error: IPI is not defined\r\n", __func__);
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 }
 
