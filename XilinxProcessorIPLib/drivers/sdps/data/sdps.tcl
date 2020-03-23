@@ -37,6 +37,7 @@
 #                     information.
 # 3.6   mn   07/06/18 Generate canonical entry for IS_CACHE_COHERENT
 # 3.8   mus  07/30/19 Added CCI support for Versal at EL1 NS
+# 3.9   sd   03/20/20 Added clock support
 #
 ##############################################################################
 
@@ -46,10 +47,30 @@ proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XSdPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO"
 	generate_cci_params $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT" "REF_CLK"
+	set clocking [common::get_property CONFIG.clocking [hsi::get_os]]
+	set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
+	set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53"}]
+	set isclocking [check_clocking]
 
+		if { $isclocking == 1 && $is_zynqmp_fsbl_bsp != true   &&  [llength $cortexa53proc] > 0 && [string match -nocase $clocking "true"] > 0} {
+
+    ::hsi::utils::define_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT" "REF_CLK"
+	} else {
+    ::hsi::utils::define_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT"
+	}
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XSdPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP" "C_BUS_WIDTH" "C_MIO_BANK" "C_HAS_EMIO" "IS_CACHE_COHERENT"
 
+}
+
+proc check_clocking { } {
+	set sw_proc_handle [hsi::get_sw_processor]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+	foreach slave $slaves {
+		if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
+			return 1
+		}
+	}
+	return 0
 }
 
 proc generate_cci_params {drv_handle file_name} {
@@ -57,6 +78,7 @@ proc generate_cci_params {drv_handle file_name} {
 	# Get all peripherals connected to this driver
 	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
 
+	set isclocking [check_clocking]
 	set sw_processor [hsi::get_sw_processor]
 	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
@@ -82,7 +104,9 @@ proc generate_cci_params {drv_handle file_name} {
 			}
 		}
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $cci_enble"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
+		if { $isclocking == 1 } {
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
+		}
        }
        close $file_handle
 }

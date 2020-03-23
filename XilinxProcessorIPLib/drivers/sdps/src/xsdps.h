@@ -169,7 +169,9 @@ extern "C" {
 #include "xplatform_info.h"
 #include "sleep.h"
 #include <string.h>
+#if defined  (XCLOCKING)
 #include "xil_clocking.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -223,7 +225,9 @@ typedef struct {
 	u32 BankNumber;			/**< MIO Bank selection for SD */
 	u32 HasEMIO;			/**< If SD is connected to EMIO */
 	u8 IsCacheCoherent; 		/**< If SD is Cache Coherent or not */
+#if defined  (XCLOCKING)
 	u32 RefClk;			/**< Input clocks */
+#endif
 } XSdPs_Config;
 
 /* ADMA2 32-Bit descriptor table */

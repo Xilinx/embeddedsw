@@ -176,10 +176,11 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->ITapDelay = 0U;
 	InstancePtr->Dma64BitAddr = 0U;
 	InstancePtr->SlcrBaseAddr = XPS_SYS_CTRL_BASEADDR;
+
+#if defined  (XCLOCKING)
 	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
-
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
-
+#endif
 	/* Host Controller version is read. */
 	InstancePtr->HC_Version =
 			(u8)(XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
@@ -205,7 +206,9 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 RETURN_PATH:
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	return Status;
 
 }
@@ -242,7 +245,9 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 	InstancePtr->Switch1v8 = 0U;
 	InstancePtr->BusSpeed = XSDPS_CLK_400_KHZ;
 
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 
 	/* Change the clock frequency to 400 KHz */
 	Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
@@ -274,7 +279,9 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 	}
 
 RETURN_PATH:
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	return Status;
 }
 
@@ -302,7 +309,9 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 
 	/* Setup the Read Transfer */
 	Status = XSdPs_SetupTransfer(InstancePtr);
@@ -319,7 +328,9 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	}
 
 RETURN_PATH:
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	return Status;
 }
 
@@ -347,7 +358,9 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 
 	/* Setup the Write Transfer */
 	Status = XSdPs_SetupTransfer(InstancePtr);
@@ -364,7 +377,9 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	}
 
 RETURN_PATH:
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	return Status;
 }
 
@@ -389,7 +404,9 @@ s32 XSdPs_Idle(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 
 	/* Check if the bus is idle */
 	Status = XSdPs_CheckBusIdle(InstancePtr, XSDPS_PSR_INHIBIT_CMD_MASK
@@ -413,7 +430,9 @@ s32 XSdPs_Idle(XSdPs *InstancePtr)
 	Status = XST_SUCCESS;
 
 RETURN_PATH:
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	return Status;
 }
 /** @} */
