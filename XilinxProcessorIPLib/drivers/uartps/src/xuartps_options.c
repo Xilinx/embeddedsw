@@ -359,8 +359,10 @@ u32 XUartPs_IsSending(XUartPs *InstancePtr)
 	EmptyResult = ChanStatRegister & ((u32)XUARTPS_SR_TXEMPTY);
 	ChanTmpSRegister = (((u32)XUARTPS_SR_TACTIVE) == ActiveResult) ||
 		(((u32)XUARTPS_SR_TXEMPTY) != EmptyResult);
+#if defined  (XCLOCKING)
 	if (!ChanTmpSRegister)
 		Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	return ChanTmpSRegister;
 }
 

@@ -186,7 +186,9 @@ extern "C" {
 #include "xstatus.h"
 #include "xuartps_hw.h"
 #include "xplatform_info.h"
+#if defined  (XCLOCKING)
 #include "xil_clocking.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -291,7 +293,9 @@ typedef struct {
 	u32 InputClockHz;/**< Input clock frequency */
 	s32 ModemPinsConnected; /** Specifies whether modem pins are connected
 				 *  to MIO or FMIO */
+#if defined  (XCLOCKING)
 	u32 RefClk;		/**< Input clock frequency */
+#endif
 } XUartPs_Config;
 
 /* Keep track of state information about a data buffer in the interrupt mode. */

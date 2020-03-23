@@ -100,7 +100,9 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 
 	/* Disable all interrupts in the interrupt disable register */
 	IntrRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
@@ -157,7 +159,9 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr)
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
 			   ModeRegister);
 
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 	return Status;
 }
 /** @} */
