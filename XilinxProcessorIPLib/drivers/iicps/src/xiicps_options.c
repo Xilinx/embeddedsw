@@ -52,6 +52,7 @@
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 * 3.11  rna 12/23/19 Add 10 bit address support for Master/Slave
 *	    02/02/20 Correct return value of XIicPs_GetOptions function
+*	    02/04/20 Modified latest code for MISRA-C:2012 Compliance
 * </pre>
 *
 ******************************************************************************/
@@ -403,7 +404,7 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	 */
 	TempLimit = (((InstancePtr->Config.InputClockHz) %
 			((u32)22 * FsclHzVar)) != 	(u32)0x0U) ?
-						Temp + (u32)1U : Temp;
+						 (Temp + (u32)1U) : Temp;
 	BestError = FsclHzVar;
 
 	BestDivA = 0U;
