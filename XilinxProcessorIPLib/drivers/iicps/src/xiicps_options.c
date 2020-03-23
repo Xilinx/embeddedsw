@@ -51,6 +51,7 @@
 *			01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 * 3.11  rna 12/23/19 Add 10 bit address support for Master/Slave
+*	    02/02/20 Correct return value of XIicPs_GetOptions function
 * </pre>
 *
 ******************************************************************************/
@@ -296,9 +297,19 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 		if ((ControlReg & OptionsTable[Index].Mask) != (u32)0x0U) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
-		if ((ControlReg & XIICPS_CR_NEA_MASK) == (u32)0x0U) {
-			OptionsFlag |= XIICPS_10_BIT_ADDR_OPTION;
-		}
+	}
+
+	/*
+	 * Handle NEA separately, as 10-bit option and 7-bit option are
+	 * using the same mask.
+	 */
+	if ((ControlReg & XIICPS_CR_NEA_MASK) == (u32)0x0U) {
+		OptionsFlag |= XIICPS_10_BIT_ADDR_OPTION;
+		OptionsFlag &= ~(XIICPS_7_BIT_ADDR_OPTION);
+	}
+	else {
+		OptionsFlag |= XIICPS_7_BIT_ADDR_OPTION;
+		OptionsFlag &= ~(XIICPS_10_BIT_ADDR_OPTION);
 	}
 
 	if (InstancePtr->IsRepeatedStart != 0 ) {
