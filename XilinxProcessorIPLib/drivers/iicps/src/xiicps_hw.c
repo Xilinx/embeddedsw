@@ -40,14 +40,14 @@
 * 1.04a kpc     11/07/13 First release
 * 3.0	sk		11/03/14 Modified TimeOut Register value to 0xFF
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
-*
+* 3.11  rna	02/11/20 Moved XIicPs_Reset function from xiicps.c
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xiicps_hw.h"
+#include "xiicps.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -102,4 +102,46 @@ void XIicPs_ResetHw(u32 BaseAddress)
 	/* Update the configuraqtion register with reset value */
 	XIicPs_WriteReg(BaseAddress, XIICPS_CR_OFFSET, 0x0U);
 }
+
+/*****************************************************************************/
+/**
+*
+* Resets the IIC device. Reset must only be called after the driver has been
+* initialized. The configuration of the device after reset is the same as its
+* configuration after initialization.  Any data transfer that is in progress is
+* aborted.
+*
+* The upper layer software is responsible for re-configuring (if necessary)
+* and reenabling interrupts for the IIC device after the reset.
+*
+* @param        InstancePtr is a pointer to the XIicPs instance.
+*
+* @return       None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XIicPs_Reset(XIicPs *InstancePtr)
+{
+
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+        /*
+         * Abort any transfer that is in progress.
+         */
+        XIicPs_Abort(InstancePtr);
+
+        /*
+         * Reset any values so the software state matches the hardware device.
+         */
+        XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_CR_OFFSET,
+                          XIICPS_CR_RESET_VALUE);
+        XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
+                          XIICPS_TIME_OUT_OFFSET, XIICPS_TO_RESET_VALUE);
+        XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_IDR_OFFSET,
+                          XIICPS_IXR_ALL_INTR_MASK);
+
+}
+
 /** @} */

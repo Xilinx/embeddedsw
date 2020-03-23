@@ -65,7 +65,8 @@
 *           12/23/19 Add 10 bit address support for Master/Slave
 *           12/24/19 Disable slave monitor with XIICPS_CR_NEA_MASK for 10 bit
 *                    addresses according to the IP spec.
-* 3.11  sd  06/02/20 Added clocking support.
+* 3.11  sd  02/06/20 Added clocking support.
+* 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
 * </pre>
 *
 ******************************************************************************/
@@ -73,6 +74,7 @@
 /***************************** Include Files *********************************/
 
 #include "xiicps.h"
+#include "xiicps_xfer.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -82,9 +84,6 @@
 
 /************************** Function Prototypes ******************************/
 s32 TransmitFifoFill(XIicPs *InstancePtr);
-
-static s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role);
-static void MasterSendData(XIicPs *InstancePtr);
 
 /************************* Variable Definitions *****************************/
 
@@ -327,7 +326,8 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	/*
 	 * Clear the interrupt status register before use it to monitor.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
 
 	/*
 	 * Transmit first FIFO full of data.
@@ -427,7 +427,6 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 {
 	u32 IntrStatusReg;
 	u32 Intrs;
-	u32 StatusReg;
 	u32 BaseAddr;
 	s32 Result;
 	s32 IsHold;
@@ -470,7 +469,8 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	/*
 	 * Clear the interrupt status register before use it to monitor.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
 
 
 	/*
@@ -499,11 +499,12 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	 * Poll the interrupt status register to find the errors.
 	 */
 	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+
 	while ((InstancePtr->RecvByteCount > 0) &&
 			((IntrStatusReg & Intrs) == 0U)) {
-		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 
-	    while ((StatusReg & XIICPS_SR_RXDV_MASK) != 0U) {
+		while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
+
 		    if (((InstancePtr->RecvByteCount <
 			    XIICPS_DATA_INTR_DEPTH) != 0U) && (IsHold != 0) &&
 			    ((!InstancePtr->IsRepeatedStart) != 0) &&
@@ -523,18 +524,13 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 				    break;
 				}
 			}
-
-			StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 		}
 		if (Platform == (u32)XPLAT_ZYNQ) {
 			if ((UpdateTxSize != 0) &&
 				(ByteCountVar == (XIICPS_FIFO_DEPTH + 1))) {
 			    /*  wait while fifo is full */
-			    while (XIicPs_ReadReg(BaseAddr,
-				    XIICPS_TRANS_SIZE_OFFSET) !=
-				    (u32)(ByteCountVar - XIICPS_FIFO_DEPTH)) { ;
+			while (XIicPs_RxFIFOFull(InstancePtr, ByteCountVar)) { ;
 				}
-
 				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
 					(s32)XIICPS_MAX_TRANSFER_SIZE) {
 
@@ -848,8 +844,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		((0 != (IntrStatusReg & (u32)XIICPS_IXR_DATA_MASK)) ||
 		(0 != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK)))){
 
-		while ((XIicPs_ReadReg(BaseAddr, (u32)XIICPS_SR_OFFSET) &
-				XIICPS_SR_RXDV_MASK) != 0U) {
+		while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
 			if (((InstancePtr->RecvByteCount <
 				XIICPS_DATA_INTR_DEPTH)!= 0U)  && (IsHold != 0)  &&
 				((!InstancePtr->IsRepeatedStart)!= 0) &&
@@ -874,10 +869,9 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		if (Platform == (u32)XPLAT_ZYNQ) {
 			if ((InstancePtr->UpdateTxSize != 0) &&
 				(ByteCnt == (XIICPS_FIFO_DEPTH + 1))) {
+
 				/* wait while fifo is full */
-				while (XIicPs_ReadReg(BaseAddr,
-					XIICPS_TRANS_SIZE_OFFSET) !=
-					(u32)(ByteCnt - XIICPS_FIFO_DEPTH)) {
+				while (XIicPs_RxFIFOFull(InstancePtr, ByteCnt)) { ;
 				}
 
 				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
@@ -1000,106 +994,5 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 					   StatusEvent);
 	}
 
-}
-
-/*****************************************************************************/
-/*
-* This function prepares a device to transfers as a master.
-*
-* @param	InstancePtr is a pointer to the XIicPs instance.
-*
-* @param	Role specifies whether the device is sending or receiving.
-*
-* @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if bus is busy.
-*
-* @note		Interrupts are always disabled, device which needs to use
-*		interrupts needs to setup interrupts after this call.
-*
-****************************************************************************/
-static s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
-{
-	u32 ControlReg;
-	u32 BaseAddr;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	BaseAddr = InstancePtr->Config.BaseAddress;
-	ControlReg = XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET);
-
-
-	/*
-	 * Only check if bus is busy when repeated start option is not set.
-	 */
-	if ((ControlReg & XIICPS_CR_HOLD_MASK) == 0U) {
-		if (XIicPs_BusIsBusy(InstancePtr) == (s32)1) {
-			return (s32)XST_FAILURE;
-		}
-	}
-
-	/*
-	 * Set up master, AckEn, and also clear fifo.
-	 */
-	ControlReg |= (u32)XIICPS_CR_ACKEN_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK |
-			(u32)XIICPS_CR_MS_MASK;
-
-	/*
-	 * Check if 10 bit address option is set. Clear/Set NEA accordingly.
-	 */
-	if (InstancePtr->Is10BitAddr == 1) {
-		ControlReg &= (u32)(~XIICPS_CR_NEA_MASK);
-	} else {
-		ControlReg |= (u32)(XIICPS_CR_NEA_MASK);
-	}
-
-	if (Role == RECVING_ROLE) {
-		ControlReg |= (u32)XIICPS_CR_RD_WR_MASK;
-	}else {
-		ControlReg &= (u32)(~XIICPS_CR_RD_WR_MASK);
-	}
-
-	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, ControlReg);
-
-	XIicPs_DisableAllInterrupts(BaseAddr);
-
-	return (s32)XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/*
-* This function handles continuation of sending data. It is invoked
-* from interrupt handler.
-*
-* @param	InstancePtr is a pointer to the XIicPs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-****************************************************************************/
-static void MasterSendData(XIicPs *InstancePtr)
-{
-	(void)TransmitFifoFill(InstancePtr);
-
-	/*
-	 * Clear hold bit if done, so stop can be sent out.
-	 */
-	if (InstancePtr->SendByteCount == 0) {
-
-		/*
-		 * If user has enabled repeated start as an option,
-		 * do not disable it.
-		 */
-		if ((!(InstancePtr->IsRepeatedStart)) != 0) {
-
-			XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
-			(u32)XIICPS_CR_OFFSET,
-			XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-			(u32)XIICPS_CR_OFFSET) & (u32)(~ XIICPS_CR_HOLD_MASK));
-		}
-	}
-
-	return;
 }
 /** @} */

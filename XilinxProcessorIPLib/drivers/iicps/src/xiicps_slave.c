@@ -43,7 +43,8 @@
 * 3.10 sg   06/24/19 Fix for Slave send polled and interruput transfers.
 * 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
 *           12/23/19 Add 10 bit address support for Master/Slave
-* 3.11  sd  06/02/20 Added clocking support.
+* 3.11  sd  02/06/20 Added clocking support.
+* 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
 * </pre>
 *
 ******************************************************************************/
@@ -51,6 +52,7 @@
 /***************************** Include Files *********************************/
 #include "xiicps.h"
 #include "sleep.h"
+#include "xiicps_xfer.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -60,8 +62,6 @@
 
 /************************** Function Prototypes ******************************/
 extern s32 TransmitFifoFill(XIicPs *InstancePtr);
-
-static s32 SlaveRecvData(XIicPs *InstancePtr);
 
 /************************* Variable Definitions *****************************/
 
@@ -256,8 +256,8 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	 * Use RXRW bit in status register to wait master to start a read.
 	 */
 	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-	Result = (((u32)(StatusReg & XIICPS_SR_RXRW_MASK) == (u32)0x0U) &&
-			(Error == 0));
+	Result = (((u32)(StatusReg & XIICPS_SR_RXRW_MASK) == (u32)0x0U));
+
 	while (Result != FALSE) {
 
 		/*
@@ -279,7 +279,8 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 		/*
 		 * Clear the interrupt status register.
 		 */
-		XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+		IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+		XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
 
 		/*
 		 * Send data as long as there is more data to send and
@@ -393,7 +394,8 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	/*
 	 * Clear the interrupt status register.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
 
 	/*
 	 * Clear the status register.
@@ -596,36 +598,5 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 		InstancePtr->StatusHandler(InstancePtr->CallBackRef,
 					   StatusEvent);
 	}
-}
-
-/*****************************************************************************/
-/*
-*
-* This function handles continuation of receiving data. It is invoked
-* from interrupt handler.
-*
-* @param	InstancePtr is a pointer to the XIicPs instance.
-*
-* @return	Number of bytes still expected by the instance.
-*
-* @note		None.
-*
-****************************************************************************/
-static s32 SlaveRecvData(XIicPs *InstancePtr)
-{
-	u32 StatusReg;
-	u32 BaseAddr;
-
-	BaseAddr = InstancePtr->Config.BaseAddress;
-
-	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-
-	while (((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) &&
-			((InstancePtr->RecvByteCount > 0) != 0x0U)) {
-		XIicPs_RecvByte(InstancePtr);
-		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-	}
-
-	return InstancePtr->RecvByteCount;
 }
 /** @} */
