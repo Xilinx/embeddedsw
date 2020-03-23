@@ -114,7 +114,7 @@ u32 XLoader_Sha3Kat(void)
 	}
 	XSecure_Sha3WaitForDone(&SecureSha3);
 
-	XSecure_Sha3_ReadHash(&SecureSha3, (u8 *)OutVal);
+	XSecure_Sha3ReadHash(&SecureSha3, (u8 *)OutVal);
 
 	for(Index = 0U; Index <XLOADER_HASH_SIZE_IN_BYTES; Index++) {
 		if (OutVal[Index] != ExpectedHash[Index]) {
@@ -129,7 +129,7 @@ u32 XLoader_Sha3Kat(void)
 
 END:
 	XSecure_SetReset(SecureSha3.BaseAddress,
-				XSECURE_CSU_SHA3_RESET_OFFSET);
+				XSECURE_SHA3_RESET_OFFSET);
 	return Status;
 }
 
