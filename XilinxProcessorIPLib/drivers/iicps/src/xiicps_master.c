@@ -386,7 +386,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	}
 
 	if ((IntrStatusReg & Intrs) != 0U) {
-		if (IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) {
+		if ((IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) != 0U) {
 			Status = (s32) XST_IIC_ARB_LOST;
 		} else {
 			Status = (s32)XST_FAILURE;
@@ -527,7 +527,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 			if ((UpdateTxSize != 0) &&
 				(ByteCountVar == (XIICPS_FIFO_DEPTH + 1))) {
 			    /*  wait while fifo is full */
-			while (XIicPs_RxFIFOFull(InstancePtr, ByteCountVar)) { ;
+			while (XIicPs_RxFIFOFull(InstancePtr, ByteCountVar) != 0U) { ;
 				}
 				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
 					(s32)XIICPS_MAX_TRANSFER_SIZE) {
@@ -584,7 +584,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	}
 
 	if ((IntrStatusReg & Intrs) != 0U) {
-		if (IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) {
+		if ((IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) != 0U) {
 			Result = (s32) XST_IIC_ARB_LOST;
 		} else {
 			Result = (s32)XST_FAILURE;
@@ -710,8 +710,10 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 	/*
 	 * wait for slv monitor control bit to be clear
 	 */
-	while (XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
-				& XIICPS_CR_SLVMON_MASK);
+	while ((XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
+				& XIICPS_CR_SLVMON_MASK) != 0U) {
+		;
+	}
 
 	/*
 	 * Write back the previous value of NEA bit in control register,
@@ -869,7 +871,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 				(ByteCnt == (XIICPS_FIFO_DEPTH + 1))) {
 
 				/* wait while fifo is full */
-				while (XIicPs_RxFIFOFull(InstancePtr, ByteCnt)) { ;
+				while (XIicPs_RxFIFOFull(InstancePtr, ByteCnt) != 0U) { ;
 				}
 
 				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
