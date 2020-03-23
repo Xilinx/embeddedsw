@@ -67,6 +67,7 @@
 
 /*****************************************************************************/
 /**
+* @brief
 * This function sets up the device to be a slave.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -127,6 +128,7 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 
 /*****************************************************************************/
 /**
+* @brief
 * This function setup a slave interrupt-driven send. It set the repeated
 * start for the device is the transfer size is larger than FIFO depth.
 * Data processing for the send is initiated by the interrupt handler.
@@ -170,6 +172,7 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief
 * This function setup a slave interrupt-driven receive.
 * Data processing for the receive is handled by the interrupt handler.
 *
@@ -213,6 +216,7 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief
 * This function sends  a buffer in polled mode as a slave.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -360,6 +364,7 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 }
 /*****************************************************************************/
 /**
+* @brief
 * This function receives a buffer in polled mode as a slave.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.

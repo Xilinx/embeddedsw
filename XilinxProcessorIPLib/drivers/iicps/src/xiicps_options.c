@@ -96,6 +96,7 @@ static OptionsMap OptionsTable[] = {
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function sets the options for the IIC device driver. The options control
 * how the device behaves relative to the IIC bus. The device must be idle
 * rather than busy transferring data before setting these device options.
@@ -178,6 +179,7 @@ s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function clears the options for the IIC device driver. The options
 * control how the device behaves relative to the IIC bus. The device must be
 * idle rather than busy transferring data before setting these device options.
@@ -262,7 +264,7 @@ s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function gets the options for the IIC device. The options control how
 * the device behaves relative to the IIC bus.
 *
@@ -322,6 +324,7 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function sets the serial clock rate for the IIC device. The device
 * must be idle rather than busy transferring data before setting these device
 * options.
@@ -469,6 +472,7 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function gets the serial clock rate for the IIC device. The device
 * must be idle rather than busy transferring data before setting these device
 * options.

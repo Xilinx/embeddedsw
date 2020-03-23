@@ -77,6 +77,7 @@ static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent);
 /*****************************************************************************/
 /**
 *
+* @brief
 * Initializes a specific XIicPs instance such that the driver is ready to use.
 *
 * The state of the device after initialization is:
@@ -145,6 +146,7 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
+* @brief
 * Check whether the I2C bus is busy
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -206,6 +208,7 @@ static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent)
 /*****************************************************************************/
 /**
 *
+* @brief
 * Aborts a transfer in progress by resetting the FIFOs. The byte counts are
 * cleared.
 *

@@ -61,6 +61,7 @@
 /*****************************************************************************/
 /**
 *
+* @brief
 * This function sets the status callback function, the status handler, which the
 * driver calls when it encounters conditions that should be reported to the
 * higher layer software. The handler executes in an interrupt context, so
