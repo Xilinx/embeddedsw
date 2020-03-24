@@ -149,6 +149,22 @@ Clean up old versions in axidma.mdd.
 axivdma_v6_7:
 Clean up old versions in axivdma.mdd.
 
+xilpm_v3_1:
+Add LPD off and FPD off use-case support
+Updates to PL house cleaning sequences for improving boot performance and address HW issues
+DRAM self-refresh support updates
+Fixes for MISRA violations
+XPPU bug fixes and support for aperture parity
+Add AIE Array and Shim reset support
+Add support for error event notifications
+Add support of SET_RATE/GET_RATE for Ref clock
+Add support for force power down and request wakeup using subsystem ID
+Remove hard-coded subsystem IDs
+Add support for dynamic subsystem
+Add support for PL devices
+Add support for new devices in versal family
+zynqmp: Add ADMA in pre-alloc section of RPU
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
