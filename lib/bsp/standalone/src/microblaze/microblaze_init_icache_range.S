@@ -54,7 +54,7 @@
 microblaze_init_icache_range:
 #if (XPAR_MICROBLAZE_USE_ICACHE==1) && (XPAR_MICROBLAZE_ALLOW_ICACHE_WR==1)
 	mfs	r9, rmsr                                        /* Disable Icache and interrupts before invalidating */
-	andi	r10, r9, ~(MICROBLAZE_MSR_ICACHE_ENABLE | MICROBLAZE_MSR_INTR_ENABLE)
+	andi	r10, r9, (~(MICROBLAZE_MSR_ICACHE_ENABLE | MICROBLAZE_MSR_INTR_ENABLE))
 	mts	rmsr, r10
 
         andi    r5, r5, -(4 * XPAR_MICROBLAZE_ICACHE_LINE_LEN)  /* Align to cache line */

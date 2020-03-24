@@ -90,7 +90,6 @@ static void sleep_common(u32 n, u32 iters)
 			"or  r0, r0, r0   \n\t"
 			:
 			: "r"(iters), "r"(n)
-			: "r0", "r7"
 	);
 }
 #endif

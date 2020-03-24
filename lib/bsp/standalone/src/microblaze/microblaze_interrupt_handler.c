@@ -56,8 +56,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifdef __clang__
+void _interrupt_handler (void) __attribute__ ((interrupt_handler));
+#else
 void __interrupt_handler (void) __attribute__ ((interrupt_handler));
+#endif
 void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr);
 
 /************************** Variable Definitions *****************************/
@@ -83,7 +86,11 @@ extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_
 * None.
 *
 ******************************************************************************/
+#ifdef __clang__
+void _interrupt_handler(void)
+#else
 void __interrupt_handler(void)
+#endif
 {
 	/* The compiler saves all volatiles and the MSR */
 	(void)MB_InterruptVectorTable[0].Handler(MB_InterruptVectorTable[0].CallBackRef);
