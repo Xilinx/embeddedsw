@@ -590,4 +590,8 @@
  * 7.0 mus    04/08/19  Fix microblaze_disable_dcache for 64 bit microblaze
  * 7.0 mus    04/26/19  Added frequently used functions in common area in xil_utils.c,
  *                      so that other modules can make use of it.
+ * 7.2 asa    03/18/20  Added a new examples folder for standalone BSP.
+ *                      Added a new example inside it to show usage of R5 PMU event
+ *                      counters and APIs provided to configure and read PMU events.
+ *                      Added new APIs for better R5 PMU events handling.
  *****************************************************************************************/
