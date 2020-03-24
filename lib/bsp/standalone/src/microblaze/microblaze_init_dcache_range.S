@@ -53,7 +53,7 @@
 microblaze_init_dcache_range:
 #if (XPAR_MICROBLAZE_USE_DCACHE==1) && (XPAR_MICROBLAZE_ALLOW_DCACHE_WR==1)
 	mfs	r9, rmsr                                        /* Disable Dcache and interrupts before invalidating */
-	andi	r10, r9, ~(MICROBLAZE_MSR_DCACHE_ENABLE | MICROBLAZE_MSR_INTR_ENABLE)
+	andi	r10, r9, (~(MICROBLAZE_MSR_DCACHE_ENABLE | MICROBLAZE_MSR_INTR_ENABLE))
 	mts	rmsr, r10
 
         andi    r5, r5, -(4 * XPAR_MICROBLAZE_DCACHE_LINE_LEN)  /* Align to cache line */
