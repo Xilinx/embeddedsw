@@ -64,6 +64,8 @@
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
+*       cog    03/23/20 Relegate the datapath being in bypass mode to a warning when
+*                       getting mixer parameters.
 * </pre>
 *
 ******************************************************************************/
@@ -826,11 +828,10 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 						   XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
 			switch (DatapathMode) {
 			case XRFDC_DAC_INT_MODE_FULL_BW_BYPASS:
-				Status = XRFDC_FAILURE;
-				metal_log(METAL_LOG_ERROR,
-					  "\n Can't set mixer as DAC %u DUC %u is in bypass mode in %s\r\n", Tile_Id,
+				metal_log(METAL_LOG_WARNING, "\n DAC %u DUC %u is in bypass mode in %s\r\n", Tile_Id,
 					  Block_Id, __func__);
-				goto RETURN_PATH;
+				BWDiv = XRFDC_FULL_BW_DIVISOR;
+				break;
 			case XRFDC_DAC_INT_MODE_HALF_BW_IMR:
 				BWDiv = XRFDC_HALF_BW_DIVISOR;
 				break;
