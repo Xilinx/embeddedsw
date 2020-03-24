@@ -799,6 +799,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	u8 IsEncrypted = 0U;
 	u8 EncOnly = 0U;
 	XSecure_PartitionHeader *Ph;
+	u8 *IvPtr = (u8 *)(ImageInfo->Iv + (XSECURE_IV_LEN - 1));
 	u8 BootgenBinFormat[] = {0x66, 0x55, 0x99, 0xAA,
 				 0x58, 0x4E, 0x4C, 0x58};/* Sync Word */
 
@@ -943,8 +944,8 @@ UPDATE:
 
 	/* Add partition header IV to boot header IV */
 	 if (ImageInfo->KeySrc != 0x00U) {
-		 *(ImageInfo->Iv + (XSECURE_IV_LEN - 1U)) =
-			 (*(ImageInfo->Iv + (XSECURE_IV_LEN - 1U))) +
+		 *(IvPtr + XSECURE_IV_LEN) =
+			 (*(IvPtr + XSECURE_IV_LEN)) +
 			 (ImageInfo->PartitionHdr->Iv & XSECURE_PH_IV_MASK);
 	}
 
@@ -985,7 +986,7 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	u8 NoAuth = 0;
 	u32 EncOnly;
 	u8 IsEncrypted;
-	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
+	u8 *IvPtr = (u8 *)(UINTPTR)&XsecureIv[XSECURE_IV_LEN - 1];
 	u32 Offset;
 
 	/* Address provided is null */
@@ -1084,8 +1085,8 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 			(void)XSecure_MemCopy(ImageHdrInfo.Iv,
 				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_LEN);
 			/* Add partition header IV to boot header IV */
-			*(IvPtr + (XSECURE_IV_LEN - 1U)) =
-				(*(IvPtr + (XSECURE_IV_LEN - 1U))) +
+			*(IvPtr + XSECURE_IV_LEN) =
+				(*(IvPtr + XSECURE_IV_LEN)) +
 				(ImageHdrInfo.PartitionHdr->Iv & XSECURE_PH_IV_MASK);
 		}
 		/*
