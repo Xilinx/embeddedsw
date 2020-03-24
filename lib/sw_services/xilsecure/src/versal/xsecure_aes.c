@@ -700,7 +700,8 @@ END:
  *		decrypted.
  * @param	OutDataAddr	Address of output buffer where the decrypted
  *		to be updated.
- * @param	Size		Size of data to be decrypted in bytes.
+ * @param	Size		Size of data to be decrypted in bytes,
+ *			whereas number of bytes provided should be multiples of 4.
  * @param	EnLast		If this is the last update of data to be
  *		decrypted, this parameter should be set to TRUE otherwise FALSE.
  *
@@ -876,7 +877,8 @@ END:
  *		decrypted.
  * @param	OutDataAddr	Address of output buffer where the decrypted
  *		to be updated.
- * @param	Size		Size of data to be decrypted in bytes.
+ * @param	Size		Size of data to be decrypted in bytes,
+ *			whereas number of bytes provided should be multiples of 4.
  * @param	GcmTagAddr	Address of a buffer which should contain
  *		GCM Tag.
  *
@@ -1017,7 +1019,8 @@ END:
  *		encrypted.
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *		to be updated.
- * @param	Size		Size of data to be encrypted in bytes.
+ * @param	Size		Size of data to be encrypted in bytes,
+ *			whereas number of bytes provided should be multiples of 4.
  * @param	EnLast		If this is the last update of data to be
  *		encrypted, this parameter should be set to TRUE otherwise FALSE.
  *
@@ -1185,7 +1188,8 @@ END:
  *		encrypted.
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *		to be updated.
- * @param	Size		Size of data to be encrypted in bytes.
+ * @param	Size		Size of data to be encrypted in bytes,
+			whereas number of bytes provided should be multiples of 4.
  *
  * @return	- XST_SUCCESS on successful encryption.
  *		- Error code on failure

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 *******************************************************************************/
 
@@ -174,7 +174,8 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
  *		along with GCM TAG will be stored. Buffer size should be
  *		Size of data plus 16 bytes.
  * @param	Size		A 32 bit variable, which holds the size of
- *		the input data to be encrypted.
+ *		the input data to be encrypted in bytes, whereas number of
+ *		bytes provided should be multiples of 4.
  *
  * @return	None
  *
@@ -275,7 +276,8 @@ END:
  * @param	Data	Pointer to the data for which encryption should be
  * 		performed.
  * @param	Size	A 32 bit variable, which holds the size of the input
- *		data in bytes.
+ *		data in bytes, whereas the number of bytes provided should be
+ *		multiples of 4.
  *
  * @return	None
  *
@@ -355,7 +357,8 @@ END:
  *		GCM tag will be stored. The Size of buffer provided should be
  *		Size of the data plus 16 bytes
  * @param	Src	A pointer to input data for encryption.
- * @param	Len	Size of input data in bytes
+ * @param	Len	Size of input data in bytes, whereas the number of bytes
+ *			provided should be multiples of 4.
  *
  * @return	None
  *
@@ -391,7 +394,9 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	DecData		Pointer in which decrypted data will be stored.
- * @param	Size		Expected size of the data in bytes.
+ * @param	Size		Expected size of the data in bytes whereas
+ *			the number of bytes provided should be multiples of 4.
+ *
  * @param	GcmTagAddr	Pointer to the GCM tag which needs to be
  *		verified during decryption of the data.
  *
@@ -509,7 +514,9 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	EncData		Pointer to the encrypted data which needs to be
  *		decrypted.
- * @param	Size		Expected size of data to be decrypted in bytes.
+ * @param	Size		Expected size of data to be decrypted in bytes, whereas
+ *			the number of bytes should be multiples of 4.
+ *
  *
  * @return	Final call of this API returns the status of GCM tag matching.
  *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag is mismatched
@@ -669,7 +676,8 @@ END:
  *		be stored.
  * @param	EncData		Pointer to the encrypted data which needs to be
  *		decrypted.
- * @param	Size		Size of data to be	decrypted in bytes.
+ * @param	Size		Size of data to be	decrypted in bytes, whereas
+ *			the number of bytes should be multiples of 4.
  *
  * @return	This API returns the status of GCM tag matching.
  *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag was mismatched
@@ -888,7 +896,8 @@ u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
  *
  * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
  * @param	Src 	Pointer to the encrypted bitstream block start.
- * @param	Len 	Length of bitstream data block in bytes.
+ * @param	Len 	Length of bitstream data block in bytes, whereas
+ *			the number of bytes should be multiples of 4.
  *
  * @return	returns XST_SUCCESS if bitstream block is decrypted by AES.
  *
@@ -989,7 +998,8 @@ END:
  * @param	Dst 	Pointer to location where decrypted data will be written
  * @param	Src 	Pointer to encrypted input data
  * @param	Tag 	Pointer to the GCM tag used for authentication
- * @param	Len 	Length of the output data expected after decryption.
+ * @param	Len 	Length of the output data (in bytes)expected after
+ * 			decryption, whereas the number of bytes should be multiple of 4.
  * @param	Flag 	Denotes whether the block is Secure header or data block
  *					0 : Secure Header
  *					1 : Data Block / image
