@@ -94,6 +94,7 @@
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    02/17/20 Added masks and shifts for tile/path enables.
 *       cog    02/20/20 Added offsets, masks and shifts for FIFO delays.
+*       cog    03/20/20 Added masks and shifts for power state mask.
 *
 *</pre>
 *
@@ -1940,6 +1941,8 @@ extern "C" {
  * @{
  */
 #define XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK 0x1U /**< PLL clock mask */
+#define XRFDC_CLK_NETWORK_CTRL1_USE_RX_MASK 0x2U /**< PLL clock mask */
+#define XRFDC_CLK_NETWORK_CTRL1_REGS_MASK 0x3U /**< PLL clock mask */
 
 /* @} */
 

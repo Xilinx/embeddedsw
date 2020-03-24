@@ -60,8 +60,9 @@
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
 *       cog    01/08/20 Changed clocking checks to allow ADC distribution to all
 *                       ADC tiles.
-*       cog    01/29/20	Fixed metal log typos.
+*       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    03/20/20 Updated PowerState masks for Gen3.
 * </pre>
 *
 ******************************************************************************/
@@ -113,6 +114,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 	u16 DistCtrlReg;
 	u16 PLLRefDivReg;
 	u32 TileIndex;
+	u32 PowerStateMaskReg;
 
 	TileIndex = (Type == XRFDC_DAC_TILE) ? (XRFDC_CLK_DST_TILE_228 - Tile_Id) : (XRFDC_CLK_DST_TILE_224 - Tile_Id);
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
@@ -183,6 +185,15 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					*/
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_LOCAL;
 					DistCtrlReg |= XRFDC_DIST_CTRL_CLK_T1_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC;
+				} else {
+					/*
+					T1 from Self
+					No PLL
+					Use PLL Output Divider
+					Do Not Distribute
+					*/
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC;
 				}
 			} else {
 				/*
@@ -192,6 +203,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 				Do Not Distribute
 				*/
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_PLL;
+				PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_RX_PLL;
 			}
 		} else {
 			if (SettingsPtr->PLLEnable == XRFDC_DISABLED) {
@@ -208,6 +220,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC;
 				} else if (SettingsPtr->DistributedClock == XRFDC_DIST_OUT_RX) {
 					/*
 					RX Back From Distribution
@@ -218,6 +231,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC;
 				} else {
 					/*
 					PLL Output Divider Back From Distribution
@@ -230,6 +244,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_PLL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC;
 				}
 
 			} else {
@@ -244,12 +259,14 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_RX_PLL;
 				} else {
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_PLL;
 					PLLRefDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_PLL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_RX_PLL;
 				}
 			}
 		}
@@ -265,6 +282,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 				*/
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
 				DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
+				PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV;
 			} else {
 				/*
 				Source From Distribution
@@ -274,6 +292,8 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 				*/
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
 				DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
+				PowerStateMaskReg = ((Type == XRFDC_ADC_TILE) ? XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV :
+										XRFDC_HSCOM_PWR_STATS_DIST_EXT);
 			}
 		} else {
 			/*
@@ -284,6 +304,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 			*/
 			PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_DIST;
 			DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
+			PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_PLL;
 		}
 	}
 
@@ -297,6 +318,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK_ALT, DistCtrlReg);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_HSCOM_NETWORK_CTRL1_MASK, NetworkCtrlReg);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_REFDIV, XRFDC_PLL_REFDIV_MASK, PLLRefDivReg);
+	XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, PowerStateMaskReg);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
@@ -501,8 +523,8 @@ static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 	/*DAC0 Must reach state 4 in Startup FSM*/
 	for (i = 0; i < 4; i++) {
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 8, 0x1f, 0xFF);
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 8, 0x1f, 0xFF);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 8, 0x10f, 0x10F);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 8, 0x10f, 0x10F);
 		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 4, 0x1, 1);
 		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 4, 0x1, 1);
 	}
@@ -1704,6 +1726,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 PLLFS;
 	u32 DivideMode;
 	u32 DivideValue;
+	u32 NetCtrlReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -1801,6 +1824,11 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 			goto RETURN_PATH;
 		}
 	}
+
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		NetCtrlReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1);
+	}
+
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		PLLEnable = 0x1;
 		/*
@@ -1813,10 +1841,19 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_BYP_PLL_MASK,
 					XRFDC_DISABLED);
+			if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+						 XRFDC_HSCOM_PWR_STATS_RX_PLL);
+			} else {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+						 XRFDC_HSCOM_PWR_STATS_DIST_PLL);
+			}
+		} else {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
+					XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+					 XRFDC_HSCOM_PWR_STATS_PLL);
 		}
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
-				XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, XRFDC_HSCOM_PWR_STATS_PLL);
 	} else {
 		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 			OpDiv = PLLFreq / PLLFS;
@@ -1840,18 +1877,36 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 				DivideMode = XRFDC_PLL_OUTDIV_MODE_N;
 				DivideValue = ((OpDiv - 4U) >> 1);
 			}
+			if (OpDiv == 1) {
+				if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC);
+				} else {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT);
+				}
 
+			} else {
+				if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC);
+				} else {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV);
+				}
+			}
 			XRFdc_ClrSetReg(InstancePtr, XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR,
 					XRFDC_PLL_DIVIDER0, (XRFDC_PLL_DIVIDER0_ALT_MASK | XRFDC_PLL_DIVIDER0_MASK),
 					((DivideMode << XRFDC_PLL_DIVIDER0_SHIFT) | DivideValue |
 					 XRFDC_PLL_DIVIDER0_BYP_PLL_MASK));
 		} else {
 			OpDiv = 0; /*keep backwards compatibility */
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+					 XRFDC_HSCOM_PWR_STATS_EXTERNAL);
 		}
 
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
-				0x0);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, XRFDC_HSCOM_PWR_STATS_EXTERNAL);
+				XRFDC_DISABLED);
 		SamplingRate /= XRFDC_MILLI;
 
 		if (Type == XRFDC_ADC_TILE) {

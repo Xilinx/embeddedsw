@@ -264,6 +264,7 @@
 *       cog    02/17/20 Driver now gets tile/path enables from the bitfile.
 *       cog    02/20/20 Added macros for Clock Gater handling.
 *       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
+*       cog    03/20/20 Updated PowerState masks for Gen 3 Devices.
 *
 * </pre>
 *
@@ -948,7 +949,7 @@ typedef struct {
 #define XRFDC_ADC_2G_SAMPLING_MIN 500
 #define XRFDC_ADC_2G_SAMPLING_MAX 2058
 #define XRFDC_REFFREQ_MIN 102.40625
-#define XRFDC_REFFREQ_MAX 614
+#define XRFDC_REFFREQ_MAX 614.0
 
 #define XRFDC_DIGITALPATH_ENABLE 0x1U
 #define XRFDC_ANALOGPATH_ENABLE 0x1U
@@ -1004,6 +1005,14 @@ typedef struct {
 
 #define XRFDC_HSCOM_PWR_STATS_PLL 0xFFC0U
 #define XRFDC_HSCOM_PWR_STATS_EXTERNAL 0xF240U
+#define XRFDC_HSCOM_PWR_STATS_RX_EXT 0xF2FCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT 0xF0FEU
+#define XRFDC_HSCOM_PWR_STATS_RX_PLL 0xFFFCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_PLL 0xFDFEU
+#define XRFDC_HSCOM_PWR_STATS_RX_EXT_DIV 0xF2FCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV 0xF0FE
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC 0xF2FCU
+#define XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC 0xF2FCU
 
 #define XRFDC_CLK_DST_TILE_231 0
 #define XRFDC_CLK_DST_TILE_230 1
