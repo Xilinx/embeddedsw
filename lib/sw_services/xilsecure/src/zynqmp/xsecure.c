@@ -512,6 +512,11 @@ u32 XSecure_AesOperation(u32 AddrHigh, u32 AddrLow)
 			break;
 	}
 END:
+	/* Clear local KUP key */
+	if (AesParams->KeySrc == XSECURE_AES_KUP_KEY) {
+		(void)memset(XsecureKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
+	}
+
 	return Status;
 }
 
@@ -1117,8 +1122,8 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 
 END:
 	if (KupKey != 0x00) {
-		/* Clear the user key */
-		(void)memset(KupKey, 0, XSECURE_KEY_STR_LEN);
+		/* Clear local user key */
+		(void)memset(XsecureKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
 	}
 	/* Clear internal buffers */
 	(void)memset(Buffer, 0, XSECURE_BUFFER_SIZE);
