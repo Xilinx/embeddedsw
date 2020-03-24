@@ -585,6 +585,18 @@ static int CheckVidoutLock(void)
   return(Status);
 }
 
+void *XVFrameBufferRdCallback(void *data)
+{
+	//xil_printf("\nFrame Buffer Read interrupt received.\r\n");
+	  XVFrmbufRd_Start(&frmbufrd);
+}
+
+void *XVFrameBufferWrCallback(void *data)
+{
+	//xil_printf("\nFrame Buffer Read interrupt received.\r\n");
+	  XVFrmbufWr_Start(&frmbufwr);
+}
+
 /*****************************************************************************/
 /**
  * This function checks Video In overflow status
@@ -686,6 +698,12 @@ int main(void)
 
   /* Enable exceptions. */
   Xil_ExceptionEnable();
+
+  XVFrmbufRd_SetCallback(&frmbufrd, XVFRMBUFRD_HANDLER_DONE, XVFrameBufferRdCallback,
+		(void *)&frmbufrd);
+
+  XVFrmbufWr_SetCallback(&frmbufwr, XVFRMBUFWR_HANDLER_DONE, XVFrameBufferWrCallback,
+		(void *)&frmbufwr);
 
   /* Setup a default stream */
   VidStream.PixPerClk  = frmbufwr.FrmbufWr.Config.PixPerClk;

@@ -522,6 +522,12 @@ static int CheckVidoutLock(void)
   return(Status);
 }
 
+void *XVFrameBufferCallback(void *data)
+{
+	//xil_printf("\nFrame Buffer Read interrupt received.\r\n");
+	  XVFrmbufRd_Start(&frmbufrd);
+}
+
 /*****************************************************************************/
 /**
  * This function toggles HW reset line for all IP's
@@ -589,6 +595,9 @@ int main(void)
 
   /* Enable exceptions. */
   Xil_ExceptionEnable();
+
+  XVFrmbufRd_SetCallback(&frmbufrd, XVFRMBUFRD_HANDLER_DONE, XVFrameBufferCallback,
+		(void *)&frmbufrd);
 
   /* Setup a default stream */
   VidStream.PixPerClk     = frmbufrd.FrmbufRd.Config.PixPerClk;
