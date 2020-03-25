@@ -95,6 +95,7 @@
 *       cog    02/17/20 Added masks and shifts for tile/path enables.
 *       cog    02/20/20 Added offsets, masks and shifts for FIFO delays.
 *       cog    03/20/20 Added masks and shifts for power state mask.
+*       cog    03/20/20 Added masks and shifts for datapath clock enables.
 *
 *</pre>
 *
@@ -1841,6 +1842,8 @@ extern "C" {
 #define XRFDC_EN_MB_SHIFT 3U /** <Enable Multiband shift */
 #define XRFDC_ALT_BOND_MASK 0x0200 /** <Alt bondout mask */
 #define XRFDC_ALT_BOND_SHIFT 9U /** <Alt bondout shift */
+#define XRFDC_ALT_BOND_CLKDP_MASK 0x4U /** <Alt bondout shift */
+#define XRFDC_ALT_BOND_CLKDP_SHIFT 2U /** <Alt bondout shift */
 
 /* @} */
 
