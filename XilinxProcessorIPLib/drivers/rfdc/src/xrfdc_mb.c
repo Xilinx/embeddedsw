@@ -44,6 +44,7 @@
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    03/20/20 Clock enables for new bondout.
 *
 * </pre>
 *
@@ -612,6 +613,9 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 				XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK, XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
 		XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
 				XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK, XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+				XRFDC_CLK_EN_OFFSET, XRFDC_ALT_BOND_CLKDP_MASK,
+				XRFDC_ENABLED << XRFDC_ALT_BOND_CLKDP_SHIFT);
 	}
 
 	if (BlockIndex[0] != DataPathIndex[0]) {
