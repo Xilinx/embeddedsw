@@ -573,32 +573,6 @@ int XPm_DispatchWakeHandler(void *DeviceIdx)
 	return Status;
 }
 
-static void AddPld0Device(void)
-{
-	XPm_Device *Device = XPmDevice_GetById(PM_DEV_PLD_0);
-	int Status;
-
-	if (NULL == Device) {
-		u32 Args[3] = {PM_DEV_PLD_0, PM_POWER_PLD, 0U};
-		u32 Parents[] = {PM_CLK_PMC_PL0_REF, PM_CLK_PMC_PL1_REF,
-				 PM_CLK_PMC_PL2_REF, PM_CLK_PMC_PL3_REF,
-				 PM_RST_PL0, PM_RST_PL1, PM_RST_PL2,
-				 PM_RST_PL3};
-
-		Status = XPm_AddNode(Args, (u32)ARRAY_SIZE(Args));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in adding PLD0 device\r\n", Status);
-		}
-
-		Status = XPmDevice_AddParent(PM_DEV_PLD_0, Parents,
-					     (u32)ARRAY_SIZE(Parents));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in add patent for PLD0 device\r\n",
-				Status);
-		}
-	}
-}
-
 static void AddIPIPmcDevice(void)
 {
 	XPm_Device *Device = XPmDevice_GetById(PM_DEV_IPI_PMC);
@@ -624,17 +598,6 @@ static void AddIPIPmcDevice(void)
 
 static void PostTopologyHook(void)
 {
-
-	/**
-	 * Currently PLD0 device is not added through CDO. This will create
-	 * issues when dynamic subsystems are supported. So add workaround for
-	 * adding PLD0 device from XilPM until CDO changes to add PLD0 device
-	 * from topology are there.
-	 * TODO: Remove this workaround when CDO changes to add PLD0 device
-	 *	 will available in tools.
-	 */
-	AddPld0Device();
-
 	/**
 	 * TODO: Remove this workaround when CDO changes to add PMC IPI device
 	 *	 will available in tools.
