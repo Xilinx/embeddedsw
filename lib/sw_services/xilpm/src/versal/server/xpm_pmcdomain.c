@@ -68,35 +68,7 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
  ****************************************************************************/
 static XStatus PmcXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
-	u32 XppuNodeId, Enable;
-
-	if(NumOfArgs < 2U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	XppuNodeId = Args[0];
-	Enable = Args[1];
-
-	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if ((u32)XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if ((1U == Enable) && (3U == NumOfArgs)) {
-		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
-	} else {
-		Status = XPmProt_XppuDisable(XppuNodeId);
-	}
-
-done:
-	return Status;
+	return XPmProt_CommonXppuCtrl(Args, NumOfArgs);
 }
 
 static struct XPm_PowerDomainOps PmcOps = {
