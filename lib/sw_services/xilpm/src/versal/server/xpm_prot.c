@@ -151,6 +151,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Initialize and add a XPPU instance to database
+ *
+ * @param  PpuNode: Pointer to an uninitialized XPPU data structure
+ * @param  Id: Node Id assigned to a XPPU node
+ * @param  BaseAddr: Base address of the given XPPU
+ *
+ * @return XST_SUCCESS if successful; appropriate failure code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
@@ -265,6 +276,20 @@ done:
 	return ProtNode;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Write to a XPPU Aperture with given value (with or without parity)
+ *
+ * @param  PpuNode: Handle to a XPPU instance
+ * @param  AperAddr: Aperture address
+ * @param  AperVal: Aperture Value to be written
+ *
+ * @return N/A
+ *
+ * @note   This function computes or skips computing the parity bits
+ *         for Aperture depending on the parity enable flag
+ *
+ ****************************************************************************/
 static void XPmProt_XppuSetAperture(const XPm_ProtPpu *PpuNode, u32 AperAddr, u32 AperVal)
 {
 	u32 i, RegVal, Field, FieldParity, Tz;
@@ -310,6 +335,15 @@ done:
 	PmOut32(AperAddr, RegVal);
 }
 
+/****************************************************************************/
+/**
+ * @brief  Enable XPPU with given NodeId
+ *
+ * @param  NodeId: Node Id assigned to a XPPU node
+ *
+ * @return XST_SUCCESS if successful else appropriate failure code
+ *
+ ****************************************************************************/
 static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 {
 	XStatus Status = XST_FAILURE;
@@ -418,6 +452,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Disable XPPU with given NodeId
+ *
+ * @param  NodeId: Node Id assigned to a XPPU node
+ *
+ * @return XST_SUCCESS if successful else appropriate failure code
+ *
+ ****************************************************************************/
 static XStatus XPmProt_XppuDisable(u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
@@ -451,6 +494,22 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Configure XPPU according to access control policies from
+ *         given subsystem requirement for the peripheral device
+ *
+ * @param  Reqm: peripheral device requirement
+ *               imposed by caller subsystem
+ * @param  Enable: enable(1)/disable(0) masters in permission ram
+ *
+ * @return XST_SUCCESS if successful else appropriate failure code
+ *
+ * @note  This function is called from device request-release infrastructure;
+ *        with the requirement specified from the subsystem requesting
+ *        the device.
+ *
+ ****************************************************************************/
 static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
