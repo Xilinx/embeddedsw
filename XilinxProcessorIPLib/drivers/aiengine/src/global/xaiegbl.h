@@ -184,6 +184,7 @@ typedef struct XAieGbl_Tile
 	u64 LockAddr;		/**< 48-bit Lock config base address */
 	u64 StrmSwAddr;		/**< 48-bit Stream switch config base address */
 	u8 IsReady;		/**< Tile is initialized and ready */
+	u8 IsUsed;		/**< Tile is in use(not gated) */
 	u32 MemBCUsedMask;	/**< Memory module used broadcast event mask */
 	u32 CoreBCUsedMask;	/**< Core module used broadcast event mask */
 	u32 PlIntEvtUsedMask;	/**< PL module used internal event mask */
