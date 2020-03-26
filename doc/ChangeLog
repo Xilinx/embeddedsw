@@ -165,6 +165,9 @@ Add support for PL devices
 Add support for new devices in versal family
 zynqmp: Add ADMA in pre-alloc section of RPU
 
+xilmailbox_v1_2:
+Updated the library example RemoteId variable to use IPIPSU driver canonical define.
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
