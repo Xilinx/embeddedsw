@@ -452,6 +452,22 @@ done:
 	return Status;
 }
 
+static XStatus XPmProt_XmpuEnable(u32 NodeId)
+{
+	/* TODO: Implementation */
+	(void)NodeId;
+
+	return XST_FAILURE;
+}
+
+static XStatus XPmProt_XmpuDisable(u32 NodeId)
+{
+	/* TODO: Implementation */
+	(void)NodeId;
+
+	return XST_FAILURE;
+}
+
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
@@ -515,6 +531,51 @@ XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs)
 		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
 	} else {
 		Status = XPmProt_XppuDisable(XppuNodeId);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Common handler for XMPU enable/disable control
+ *
+ * @param  Args: Args list
+ *		Arg0 - Xmpu NodeId
+ *		Arg1 - Enable(1)/Disable(0) bit
+ * @param  NumOfArgs - total number of args present in Args list
+ *
+ * @return XST_SUCCESS if successful else appropriate failure code
+ *
+ * @note  This function is common handler for enabling or disabling
+ * an instance of XMPU. This will be called as a part of respective
+ * power domain's INIT NODE handling routine sequences.
+ *
+ ****************************************************************************/
+XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 XmpuNodeId, Enable;
+
+	if ((NULL == Args) || (2U != NumOfArgs)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	XmpuNodeId = Args[0];
+	Enable = Args[1];
+
+	if (((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XmpuNodeId))
+	||  ((u32)XPM_NODESUBCL_PROT_XMPU != NODESUBCLASS(XmpuNodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (1U == Enable) {
+		Status = XPmProt_XmpuEnable(XmpuNodeId);
+	} else {
+		Status = XPmProt_XmpuDisable(XmpuNodeId);
 	}
 
 done:

@@ -31,6 +31,7 @@
 #include "xpm_regs.h"
 #include "xpm_psm.h"
 #include "xpm_device.h"
+#include "xpm_prot.h"
 
 static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -278,6 +279,18 @@ done:
         return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function configures xmpu for FPD_SLAVES
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+static XStatus FpdXmpuCtrl(u32 *Args, u32 NumOfArgs)
+{
+	return XPmProt_CommonXmpuCtrl(Args, NumOfArgs);
+}
+
 static struct XPm_PowerDomainOps FpdOps = {
 	.InitStart = FpdInitStart,
 	.InitFinish = FpdInitFinish,
@@ -285,6 +298,7 @@ static struct XPm_PowerDomainOps FpdOps = {
 	.Bisr = FpdBisr,
 	.Mbist = FpdMbistClear,
 	.HcComplete = FpdHcComplete,
+	.XmpuCtrl = FpdXmpuCtrl,
 };
 
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,

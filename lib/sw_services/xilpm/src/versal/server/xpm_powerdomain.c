@@ -891,7 +891,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	XStatus Status = XST_FAILURE;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 
-	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) && (Function != (u32)FUNC_XPPU_CTRL)) {
+	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State)
+	&&  ((u32)FUNC_XPPU_CTRL != Function)
+	&&  ((u32)FUNC_XMPU_CTRL != Function)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1045,7 +1047,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                                 goto done;
                         }
                 }
-				Status = XST_SUCCESS;
+		Status = XST_SUCCESS;
                 break;
 	case (u32)FUNC_HOUSECLEAN_COMPLETE:
                 if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -1058,21 +1060,34 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                                 goto done;
                         }
                 }
-				Status = XST_SUCCESS;
+		Status = XST_SUCCESS;
                 break;
 	case (u32)FUNC_XPPU_CTRL:
-                if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
-                        Status = XST_FAILURE;
-                        goto done;
-                }
-                if ((NULL != Ops) && (NULL != Ops->XppuCtrl)) {
-                        Status = Ops->XppuCtrl(Args, NumArgs);
-                        if (XST_SUCCESS != Status) {
-                                goto done;
-                        }
-                }
-				Status = XST_SUCCESS;
-                break;
+		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if ((NULL != Ops) && (NULL != Ops->XppuCtrl)) {
+			Status = Ops->XppuCtrl(Args, NumArgs);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		Status = XST_SUCCESS;
+		break;
+	case (u32)FUNC_XMPU_CTRL:
+		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if ((NULL != Ops) && (NULL != Ops->XmpuCtrl)) {
+			Status = Ops->XmpuCtrl(Args, NumArgs);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		Status = XST_SUCCESS;
+		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;

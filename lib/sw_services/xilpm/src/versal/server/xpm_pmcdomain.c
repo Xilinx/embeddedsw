@@ -71,8 +71,21 @@ static XStatus PmcXppuCtrl(u32 *Args, u32 NumOfArgs)
 	return XPmProt_CommonXppuCtrl(Args, NumOfArgs);
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function configures xmpu for PMC (used for DDR memory)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+static XStatus PmcXmpuCtrl(u32 *Args, u32 NumOfArgs)
+{
+	return XPmProt_CommonXmpuCtrl(Args, NumOfArgs);
+}
+
 static struct XPm_PowerDomainOps PmcOps = {
 	.XppuCtrl = PmcXppuCtrl,
+	.XmpuCtrl = PmcXmpuCtrl,
 };
 
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
