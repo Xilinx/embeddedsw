@@ -11,6 +11,7 @@ extern "C" {
 #include <xaiengine/xaiegbl_reginit.h>
 #include <xaiengine/xaielib.h>
 #include <xaiengine/xaielib_npi.h>
+#include <xaiengine/xaiepm_clock.h>
 #include <xaiengine/xaietile_core.h>
 #include <xaiengine/xaietile_error.h>
 #include <xaiengine/xaietile_event.h>
