@@ -62,6 +62,7 @@
 ******************************************************************************/
 #include "xaiegbl_defs.h"
 #include "xaielib.h"
+#include "xaielib_npi.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
@@ -1079,6 +1080,38 @@ u32 XAieLib_NPIRead32(u64 Addr)
 /*****************************************************************************/
 /**
 *
+* This is the internal NPI function to set the lock of AIE NPI space
+*
+* @param	Lock: non 0 for lock, 0 for unlock
+*
+* @note		Used only in this file.
+*		This only work if NPI is accessble.
+*
+*******************************************************************************/
+static void XAieLib_NPISetLock(u8 Lock)
+{
+	u32 RegAddr, RegVal;
+
+	RegAddr = XAIE_NPI_PCSR_LOCK;
+	if (Lock == 0) {
+		RegVal = XAIE_NPI_PCSR_LOCK_STATE_UNLOCK_CODE <<
+			 XAIE_NPI_PCSR_LOCK_STATE_LSB;
+	} else {
+		RegVal = XAIE_NPI_PCSR_LOCK_STATE_LOCK_CODE <<
+			 XAIE_NPI_PCSR_LOCK_STATE_LSB;
+	}
+#ifdef __AIESIM__
+	XAieSim_NPIWrite32(RegAddr, RegVal);
+#elif defined __AIEBAREMTL__
+        Xil_Out32(RegAddr, RegVal);
+#else
+	XAieIO_NPIWrite32(RegAddr, RegVal);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the NPI IO function to write 32bit data to the specified address.
 *
 * @param	Addr: Address to write to.
@@ -1091,6 +1124,7 @@ u32 XAieLib_NPIRead32(u64 Addr)
 *******************************************************************************/
 void XAieLib_NPIWrite32(u64 Addr, u32 Data)
 {
+	XAieLib_NPISetLock(0);
 #ifdef __AIESIM__
 	XAieSim_NPIWrite32(Addr, Data);
 #elif defined __AIEBAREMTL__
@@ -1098,6 +1132,7 @@ void XAieLib_NPIWrite32(u64 Addr, u32 Data)
 #else
 	XAieIO_NPIWrite32(Addr, Data);
 #endif
+	XAieLib_NPISetLock(1);
 }
 
 /*****************************************************************************/
@@ -1119,6 +1154,7 @@ void XAieLib_NPIMaskWrite32(u64 Addr, u32 Mask, u32 Data)
 {
 	u32 RegVal;
 
+	XAieLib_NPISetLock(0);
 #ifdef __AIESIM__
 	XAieSim_NPIMaskWrite32(Addr, Mask, Data);
 #elif defined __AIEBAREMTL__
@@ -1132,6 +1168,7 @@ void XAieLib_NPIMaskWrite32(u64 Addr, u32 Mask, u32 Data)
 	RegVal |= Data;
 	XAieIO_NPIWrite32(Addr, RegVal);
 #endif
+	XAieLib_NPISetLock(1);
 }
 /*****************************************************************************/
 /**
