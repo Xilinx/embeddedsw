@@ -3833,9 +3833,20 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
 
-	if (Index >= (u32)XPM_NODEIDX_DEV_MAX) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
+	switch (Type) {
+	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
+	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
+		if ((u32)MEM_REGN_DEV_NODE_MAX <= Index) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		break;
+	default:
+		if ((u32)XPM_NODEIDX_DEV_MAX <= Index) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		break;
 	}
 
 	if (NULL != XPmDevice_GetById(DeviceId)) {
@@ -3850,6 +3861,8 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	case (u32)XPM_NODETYPE_DEV_DDR:
 	case (u32)XPM_NODETYPE_DEV_TCM:
 	case (u32)XPM_NODETYPE_DEV_EFUSE:
+	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
+	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
 		Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;

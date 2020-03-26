@@ -387,11 +387,54 @@ static const XPm_DeviceFsm XPmMemDeviceFsm = {
 	.EnterState = HandleMemDeviceState,
 };
 
+static XStatus HandleMemRegnDeviceState(XPm_Device * const Device, const u32 NextState)
+{
+	XStatus Status = XST_FAILURE;
+
+	/**
+	 * FIXME:
+	 *   1. This handler is a temporary solution to manage FSM
+	 *      for memory region nodes. Since, memory nodes are abstract
+	 *      devices, their parent dependency to physical memory device
+	 *      nodes should either come from CDOs or internally be resolved
+	 *      using comparisons from memory address ranges.
+	 *   2. FSM to handle power up/down routines for these abstract
+	 *      devices.
+	 */
+	switch (Device->Node.State) {
+	case (u8)XPM_DEVSTATE_UNUSED:
+		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
+			/** HACK **/
+			Device->Node.State = (u8)XPM_DEVSTATE_RUNNING;
+			Status = XST_SUCCESS;
+		}
+		break;
+	case (u8)XPM_DEVSTATE_RUNNING:
+		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
+			/** HACK */
+			Device->Node.State = (u8)XPM_DEVSTATE_UNUSED;
+			Status = XST_SUCCESS;
+		}
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}
+
+static const XPm_DeviceFsm XPmMemRegnDeviceFsm = {
+	DEFINE_DEV_STATES(XPmMemDeviceStates),
+	DEFINE_DEV_TRANS(XPmMemDevTransitions),
+	.EnterState = HandleMemRegnDeviceState,
+};
+
 XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 Id,
 		u32 BaseAddress,
-		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u32 MemStartAddress,
-		u32 MemEndAddress)
+		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset,
+		u32 MemStartAddress, u32 MemEndAddress)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Type = NODETYPE(Id);
@@ -411,6 +454,18 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		break;
 	case (u32)XPM_NODETYPE_DEV_TCM:
 		MemDevice->Device.DeviceFsm = &XPmTcmDeviceFsm;
+		break;
+	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
+	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
+		/**
+		 * TODO: Device FSM handler for memory regions.
+		 *
+		 * Implement a device FSM handler for memory regions
+		 * with device parent dependency resolved.
+		 * For now, assume all the parents are on
+		 * and will never be turned off.
+		 */
+		MemDevice->Device.DeviceFsm = &XPmMemRegnDeviceFsm;
 		break;
 	default:
 		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;

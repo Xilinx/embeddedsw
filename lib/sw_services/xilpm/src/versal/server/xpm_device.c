@@ -32,6 +32,7 @@
 #include "xpm_notifier.h"
 #include "xpm_api.h"
 #include "xpm_pmc.h"
+#include "xpm_mem.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_requirement.h"
 
@@ -74,8 +75,12 @@ static u32 IpiMasks[][2] = {
 static XPm_DeviceOps PmDeviceOps;
 static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
 static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
+static XPm_Device *PmOcmMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
+static XPm_Device *PmDdrMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
 static u32 PmNumDevices;
 static u32 PmNumPlDevices;
+static u32 PmNumOcmMemRegnDevices;
+static u32 PmNumDdrMemRegnDevices;
 
 static const XPm_StateCap XPmGenericDeviceStates[] = {
 	{
@@ -181,6 +186,42 @@ static int SetPlDeviceNode(u32 Id, XPm_Device *Device)
 		Status = XST_SUCCESS;
 	}
 
+	return Status;
+}
+
+static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
+{
+	XStatus Status = XST_INVALID_PARAM;
+	u32 NodeType = NODETYPE(Id);
+	u32 NodeIndex = NODEINDEX(Id);
+	XPm_Device **MemRegDevices = NULL;
+	u32 *NumMemRegDevices = NULL;
+
+	switch (NodeType) {
+	case XPM_NODETYPE_DEV_OCM_REGN:
+		MemRegDevices = PmOcmMemRegnDevices;
+		NumMemRegDevices = &PmNumOcmMemRegnDevices;
+		break;
+	case XPM_NODETYPE_DEV_DDR_REGN:
+		MemRegDevices = PmDdrMemRegnDevices;
+		NumMemRegDevices = &PmNumDdrMemRegnDevices;
+		break;
+	default:
+		goto done;
+	}
+
+	/*
+	 * We assume that the Node ID class, subclass and type has _already_
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((NULL != Device) && ((u32)MEM_REGN_DEV_NODE_MAX > NodeIndex)) {
+
+		MemRegDevices[NodeIndex] = Device;
+		(*NumMemRegDevices)++;
+		Status = XST_SUCCESS;
+	}
+
+done:
 	return Status;
 }
 
@@ -908,16 +949,21 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
 
-	/* Add requirement by default for PMC subsystem */
-	Status = XPmRequirement_Add(
-			XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
-			Device,
-			REQUIREMENT_FLAGS(0, 0, 0,
-				(u32)REQ_ACCESS_SECURE_NONSECURE,
-				(u32)REQ_NO_RESTRICTION),
-			NULL, 0);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/**
+	 * Add requirement by default for PMC subsystem;
+	 * for all the devices except memory region devices.
+	 */
+	if (0U == IS_MEM_REGN(Id)) {
+		Status = XPmRequirement_Add(
+				XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
+				Device,
+				REQUIREMENT_FLAGS(0, 0, 0,
+					(u32)REQ_ACCESS_SECURE_NONSECURE,
+					(u32)REQ_NO_RESTRICTION),
+				NULL, 0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	Device->Power = Power;
@@ -947,6 +993,11 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id)) {
 		Status = SetPlDeviceNode(Id, Device);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}  else if (IS_MEM_REGN(Id)) {
+		Status = SetMemRegnDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -1142,6 +1193,7 @@ done:
 XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
+	XPm_Device **DevicesHandle = NULL;
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
@@ -1151,22 +1203,41 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 		if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= NODEINDEX(DeviceId)) {
 			goto done;
 		}
+		DevicesHandle = PmPlDevices;
 
-		Device = PmPlDevices[NODEINDEX(DeviceId)];
-		/* Check that Device's ID is same as given ID or not. */
-		if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
-			Device = NULL;
+	} else if (((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(DeviceId))
+		&& (IS_MEM_REGN_TYPE(DeviceId))) {
+		if ((u32)MEM_REGN_DEV_NODE_MAX <= NODEINDEX(DeviceId)) {
+			goto done;
+		}
+
+		switch (NODETYPE(DeviceId)) {
+		case XPM_NODETYPE_DEV_OCM_REGN:
+			DevicesHandle = PmOcmMemRegnDevices;
+			break;
+		case XPM_NODETYPE_DEV_DDR_REGN:
+			DevicesHandle = PmDdrMemRegnDevices;
+			break;
+		default:
+			/* Should never reach here */
+			goto done;
 		}
 	} else {
 		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
 			goto done;
 		}
+		DevicesHandle = PmDevices;
+	}
 
-		Device = PmDevices[NODEINDEX(DeviceId)];
-		/* Check that Device's ID is same as given ID or not. */
-		if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
-			Device = NULL;
-		}
+	if (NULL == DevicesHandle) {
+		goto done;
+	}
+
+	/* Retrieve the device */
+	Device = DevicesHandle[NODEINDEX(DeviceId)];
+	/* Check that Device's ID is same as given ID or not. */
+	if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
+		Device = NULL;
 	}
 
 done:
