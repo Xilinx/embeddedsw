@@ -41,6 +41,9 @@
 *	jsr    10/05/18 Moved 3GB specific video modes timing
 *			parameters from video common library
 *			to SDI common driver
+* 1.4	jb     03/26/20 Added HFR support.
+* 			96Hz and 96/1.001 Hz resolution is not supported.
+* 			12G 12bit and 6G 10bit is not supported for HFR
 *
 * </pre>
 *
@@ -529,6 +532,12 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			case XV_SDIRX_FR_59_94HZ:
 				FrameRate = XVIDC_FR_60HZ;
 				break;
+			case XV_SDIRX_FR_96_F_HZ:
+				FrameRate = XVIDC_FR_96HZ;
+				break;
+			case XV_SDIRX_FR_120_F_HZ:
+				FrameRate = XVIDC_FR_120HZ;
+				break;
 			default:
 				FrameRate = XVIDC_FR_60HZ;
 				break;
@@ -552,6 +561,15 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				break;
 			case XV_SDIRX_FR_60HZ:
 				FrameRate = XVIDC_FR_60HZ;
+				break;
+			case XV_SDIRX_FR_96HZ:
+				FrameRate = XVIDC_FR_96HZ;
+				break;
+			case XV_SDIRX_FR_100HZ:
+				FrameRate = XVIDC_FR_100HZ;
+				break;
+			case XV_SDIRX_FR_120HZ:
+				FrameRate = XVIDC_FR_120HZ;
 				break;
 			default:
 				FrameRate = XVIDC_FR_60HZ;
@@ -1049,6 +1067,28 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 							XVIDC_VM_2048x1080_50_P :
 							XVIDC_VM_1920x1080_50_P);
 					break;
+				case XVIDC_FR_96HZ:
+					if ((bitdepth == XST352_BYTE4_BIT_DEPTH_10) &&
+							(color_format == XST352_BYTE3_COLOR_FORMAT_422)) {
+						SdiStream->VmId = XVIDC_VM_2048x1080_96_I;
+					}
+					break;
+				case XVIDC_FR_100HZ:
+					if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_420))
+							&& (bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_100_P : XVIDC_VM_1920x1080_100_P;
+					}
+					break;
+				case XVIDC_FR_120HZ:
+					if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_420))
+							&& (bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_120_P : XVIDC_VM_1920x1080_120_P;
+					}
+					break;
 				default:
 					SdiStream->VmId = ((active_luma== 1) ?
 							XVIDC_VM_2048x1080_60_P :
@@ -1183,6 +1223,39 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 							xil_printf("Unsupported format detected\n\r");
 							return;
 						}
+						break;
+					case XVIDC_FR_96HZ:
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_420) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_422)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+							xil_printf(" Error::: Unknown Format detected\n\r");
+							return;
+						}
+						SdiStream->VmId = XVIDC_VM_2048x1080_96_I;
+						break;
+					case XVIDC_FR_100HZ:
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_420) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_422)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+							xil_printf(" Error::: Unknown Format detected\n\r");
+							return;
+						}
+
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_100_P : XVIDC_VM_1920x1080_100_P;
+
+						break;
+					case XVIDC_FR_120HZ:
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_420) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_422)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+							xil_printf(" Error::: Unknown Format detected\n\r");
+							return;
+						}
+
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_120_P : XVIDC_VM_1920x1080_120_P;
+
 						break;
 
 					default:
