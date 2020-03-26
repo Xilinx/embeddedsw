@@ -285,7 +285,10 @@ static XStatus GtyHouseClean(void)
 		}
 	}
 
-	for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
+	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
+		if (0U == GtyAddresses[i]) {
+			continue;
+		}
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Deassert INITCTRL */
 		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
@@ -312,7 +315,10 @@ static XStatus GtyHouseClean(void)
 			goto done;
 		}
 
-		for (i = 0; i < ARRAY_SIZE(GtyAddresses) && (0U != GtyAddresses[i]); i++) {
+		for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
+			if (0U == GtyAddresses[i]) {
+				continue;
+			}
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
 				PCSR_UNLOCK_VAL);
 			/* Mbist */
