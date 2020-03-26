@@ -544,11 +544,48 @@ int XPmReset_SystemReset(void)
 
 	/* TODO: Confirm if idling is required here or not */
 
-	Status = XPmReset_AssertbyId(PM_RST_PMC, (u32)PM_RESET_ACTION_ASSERT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	/*
+	 * For, ES1, When NPI_REF clock is used a source for SYSMON, SRST hangs
+	 * at ROM stage (EDT-994792). So, switch to IRO CLK as source of
+	 * SYSMON_REF_CLK before issuing SRST.
+	 *
+	 * There is no need to set original parent of SYSMON_REF_CLK explicitly,
+	 * as after SRST, CDO will set it to default value.
+	 */
+	if ((PLATFORM_VERSION_SILICON == Platform) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+		u16 i;
+		XPm_OutClockNode *Clk;
+		Clk = (XPm_OutClockNode *)XPmClock_GetById(PM_CLK_SYSMON_REF);
+		if (NULL == Clk) {
+			PmWarn("SYSMON_REF_CLK not found\r\n");
+			goto assert_reset;
+		}
 
-done:
+		/* Find parent index of IRO_DIV2 for SYSMON_REF_CLK */
+		for (i = 0; i < Clk->ClkNode.NumParents; i++) {
+			if (NODEINDEX(PM_CLK_MUXED_IRO_DIV2)
+			    == Clk->Topology.MuxSources[i]) {
+				break;
+			}
+		}
+
+		if (i == Clk->ClkNode.NumParents) {
+			PmWarn("IRO_DIV2 not found as source of SYSMON_REF_CLK\r\n");
+			goto assert_reset;
+		}
+
+		/* Disable clock before changing parent */
+		(void)XPmClock_SetGate(Clk, 0);
+		Status = XPmClock_SetParent(Clk, i);
+		if (XST_SUCCESS == Status) {
+			PmWarn("Failed to change parent of SYSMON_REF_CLK\r\n");
+		}
+		(void)XPmClock_SetGate(Clk, 1);
+
+	}
+assert_reset:
+	Status = XPmReset_AssertbyId(PM_RST_PMC, (u32)PM_RESET_ACTION_ASSERT);
+
 	return Status;
 }
