@@ -174,6 +174,9 @@
  * 1.11 sd  01/02/20 Added clocking support
  * 1.11 akm 03/09/20 Reorganize the source code, enable qspi controller and
  *		     interrupts in XQspiPsu_CfgInitialize() API.
+ * 1.11 akm 03/26/20 Fixed issue by updating XQspiPsu_CfgInitialize to return
+ *		     XST_DEVICE_IS_STARTED instead of asserting, when the
+ *		     instance is already configured(CR#1058525).
  *
  * </pre>
  *
