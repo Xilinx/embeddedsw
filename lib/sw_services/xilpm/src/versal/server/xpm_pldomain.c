@@ -37,8 +37,10 @@
 
 #define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
 #define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
-#define XPM_NODEIDX_DEV_GTM_MIN		XPM_NODEIDX_DEV_GTM_0
-#define XPM_NODEIDX_DEV_GTM_MAX		XPM_NODEIDX_DEV_GTM_4
+#define XPM_NODEIDX_DEV_GTM_0_4_MIN		XPM_NODEIDX_DEV_GTM_0
+#define XPM_NODEIDX_DEV_GTM_0_4_MAX		XPM_NODEIDX_DEV_GTM_4
+#define XPM_NODEIDX_DEV_GTM_5_9_MIN		XPM_NODEIDX_DEV_GTM_5
+#define XPM_NODEIDX_DEV_GTM_5_9_MAX		XPM_NODEIDX_DEV_GTM_9
 #define XPM_NODEIDX_DEV_GTYP_MIN		XPM_NODEIDX_DEV_GTYP_0
 #define XPM_NODEIDX_DEV_GTYP_MAX		XPM_NODEIDX_DEV_GTYP_2
 
@@ -245,11 +247,13 @@ static XStatus GtyHouseClean(void)
 	unsigned int i;
 	XPm_Device *Device;
 	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1 +
-			XPM_NODEIDX_DEV_GTM_MAX - XPM_NODEIDX_DEV_GTM_MIN + 1 +
-			XPM_NODEIDX_DEV_GTYP_MAX - XPM_NODEIDX_DEV_GTYP_MIN + 1] = {0};
+			XPM_NODEIDX_DEV_GTM_0_4_MAX - XPM_NODEIDX_DEV_GTM_0_4_MIN + 1 +
+			XPM_NODEIDX_DEV_GTYP_MAX - XPM_NODEIDX_DEV_GTYP_MIN + 1 +
+			XPM_NODEIDX_DEV_GTM_5_9_MAX - XPM_NODEIDX_DEV_GTM_5_9_MIN + 1] = {0};
 	u32 GtySize = (u32)XPM_NODEIDX_DEV_GT_MAX - (u32)XPM_NODEIDX_DEV_GT_MIN + 1U;
-	u32 GtmSize = (u32)XPM_NODEIDX_DEV_GTM_MAX - (u32)XPM_NODEIDX_DEV_GTM_MIN + 1U;
+	u32 GtmSize = (u32)XPM_NODEIDX_DEV_GTM_0_4_MAX - (u32)XPM_NODEIDX_DEV_GTM_0_4_MIN + 1U;
 	u32 GtypSize = (u32)XPM_NODEIDX_DEV_GTYP_MAX - (u32)XPM_NODEIDX_DEV_GTYP_MIN + 1U;
+	u32 GtmSize2 = (u32)XPM_NODEIDX_DEV_GTM_5_9_MAX - (u32)XPM_NODEIDX_DEV_GTM_5_9_MIN + 1U;
 
 	/* Store GTY Addresses */
 	for (i = 0; i < GtySize; i++) {
@@ -261,9 +265,15 @@ static XStatus GtyHouseClean(void)
 
 	/* Store GTM Addresses */
 	for (i = 0; i < GtmSize; i++) {
-		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTM_MIN + i);
+		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTM_0_4_MIN + i);
 		if (NULL != Device) {
 			GtyAddresses[i + GtySize] = Device->Node.BaseAddress;
+		}
+	}
+	for (i = 0; i < GtmSize2; i++) {
+		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTM_5_9_MIN + i);
+		if (NULL != Device) {
+			GtyAddresses[i + GtySize + GtmSize + GtypSize] = Device->Node.BaseAddress;
 		}
 	}
 
