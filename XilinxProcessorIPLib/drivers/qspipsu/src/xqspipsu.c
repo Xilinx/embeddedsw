@@ -87,6 +87,9 @@
  * 1.11 sd  01/02/20 Added clocking support
  * 1.11 akm 03/09/20 Reorganize the source code, enable qspi controller and
  *		     interrupts in XQspiPsu_CfgInitialize() API.
+ * 1.11 akm 03/26/20 Fixed issue by updating XQspiPsu_CfgInitialize to return
+ *		     XST_DEVICE_IS_STARTED instead of asserting, when the
+ *		     instance is already configured.
  * </pre>
  *
  ******************************************************************************/
@@ -138,7 +141,6 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady != XIL_COMPONENT_IS_READY);
 	s32 Status;
 
 	/*
@@ -147,7 +149,8 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 	 * device and re-initialize, but prevents a user from inadvertently
 	 * initializing. This assumes the busy flag is cleared at startup.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == TRUE ||
+	    InstancePtr->IsReady == XIL_COMPONENT_IS_READY) {
 		Status = (s32)XST_DEVICE_IS_STARTED;
 	} else {
 		/* Set some default values. */
