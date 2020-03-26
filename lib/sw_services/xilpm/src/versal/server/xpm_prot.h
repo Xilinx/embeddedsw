@@ -66,7 +66,8 @@ struct XPm_ProtPpu {
 };
 
 struct XPm_ProtMpu {
-	XPm_Prot ProtNode;
+	XPm_Prot ProtNode;	/**< Node: Base Class */
+	u8 AlignCfg;		/**< Region alignment: 4k or 1m aligned */
 };
 
 /************************** Function Prototypes ******************************/
