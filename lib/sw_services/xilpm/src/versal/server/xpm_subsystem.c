@@ -578,7 +578,11 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			 */
 			XPm_Device *Device = XPmDevice_GetByIndex(i);
 			if (NULL != Device) {
-				Status = XPmRequirement_Add(Subsystem, Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
+				Status = XPmRequirement_Add(Subsystem, Device,
+						REQUIREMENT_FLAGS(0, 0, 0,
+							(u32)REQ_ACCESS_SECURE_NONSECURE,
+							(u32)REQ_NO_RESTRICTION),
+						NULL, 0);
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
@@ -589,10 +593,10 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
 			if (NULL != Device) {
 				Status = XPmRequirement_Add(Subsystem, Device,
-							    (((u32)REQ_ACCESS_SECURE_NONSECURE <<
-							    REG_FLAGS_SECURITY_OFFSET) |
-							    (u32)REQ_NO_RESTRICTION),
-							    NULL, 0U);
+						REQUIREMENT_FLAGS(0, 0, 0,
+							(u32)REQ_ACCESS_SECURE_NONSECURE,
+							(u32)REQ_NO_RESTRICTION),
+						NULL, 0);
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}

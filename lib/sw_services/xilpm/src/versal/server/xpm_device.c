@@ -755,7 +755,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/* Check whether this device is shareable */
-	UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
+	UsagePolicy = USAGE_POLICY(Reqm->Flags);
 	if ((UsagePolicy == (u8)REQ_TIME_SHARED) || (UsagePolicy == (u8)REQ_NONSHARED)) {
 			//Check if it already requested by other subsystem. If yes, return
 			XPm_Requirement *NextReqm = Reqm->NextSubsystem;
@@ -909,7 +909,13 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
 
 	/* Add requirement by default for PMC subsystem */
-	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC), Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
+	Status = XPmRequirement_Add(
+			XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
+			Device,
+			REQUIREMENT_FLAGS(0, 0, 0,
+				(u32)REQ_ACCESS_SECURE_NONSECURE,
+				(u32)REQ_NO_RESTRICTION),
+			NULL, 0);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

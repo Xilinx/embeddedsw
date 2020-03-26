@@ -390,8 +390,8 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 	PmDbg("Aperoffset %x AperAddress %x DynamicReconfigAddrOffset %x\r\n",ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
 
 	if (0U != Enable) {
-		u8 UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
-		u32 Security = (Reqm->Flags & (u32)REG_FLAGS_SECURITY_MASK) >> REG_FLAGS_SECURITY_OFFSET;
+		u8 UsagePolicy = USAGE_POLICY(Reqm->Flags);
+		u32 Security = SECURITY_POLICY(Reqm->Flags);
 
 		PmIn32(ApertureAddress, Permissions);
 
