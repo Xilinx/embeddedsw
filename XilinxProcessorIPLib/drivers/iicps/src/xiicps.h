@@ -205,7 +205,9 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xil_assert.h"
+#if defined  (XCLOCKING)
 #include "xil_clocking.h"
+#endif
 #include "xstatus.h"
 #include "xiicps_hw.h"
 #include "xplatform_info.h"
@@ -281,7 +283,9 @@ typedef struct {
 	u16 DeviceId;     /**< Unique ID  of device */
 	u32 BaseAddress;  /**< Base address of the device */
 	u32 InputClockHz; /**< Input clock frequency */
+#if defined  (XCLOCKING)
 	u32 RefClk;	  /**< Input clocks */
+#endif
 } XIicPs_Config;
 
 /**
@@ -306,7 +310,9 @@ typedef struct {
 	s32 Is10BitAddr;	/* Indicates if user set 10 bit address */
 
 	XIicPs_IntrHandler StatusHandler;  /* Event handler function */
+#if defined  (XCLOCKING)
 	u32 IsClkEnabled;	/**< Input clock enabled */
+#endif
 	void *CallBackRef;	/* Callback reference for event handler */
 } XIicPs;
 

@@ -125,10 +125,12 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	InstancePtr->RecvBufferPtr = NULL;
 	InstancePtr->IsSend = 1;
 
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsClkEnabled == 0) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
 		InstancePtr->IsClkEnabled = 1;
 	}
+#endif
 	/*
 	 * Set repeated start if sending more than FIFO of data.
 	 */
@@ -210,10 +212,12 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	InstancePtr->SendBufferPtr = NULL;
 	InstancePtr->IsSend = 0;
 
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsClkEnabled == 0) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
 		InstancePtr->IsClkEnabled = 1;
 	}
+#endif
 
 	if ((ByteCount > XIICPS_FIFO_DEPTH) ||
 		((InstancePtr->IsRepeatedStart) !=0))
@@ -301,10 +305,12 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
 
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsClkEnabled == 0) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
 		InstancePtr->IsClkEnabled = 1;
 	}
+#endif
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->SendBufferPtr = MsgPtr;
@@ -449,10 +455,12 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	InstancePtr->RecvBufferPtr = MsgPtr;
 	InstancePtr->RecvByteCount = ByteCountVar;
 
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsClkEnabled == 0) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
 		InstancePtr->IsClkEnabled = 1;
 	}
+#endif
 
 	Platform = XGetPlatform_Info();
 
@@ -627,10 +635,12 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsClkEnabled == 0) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
 		InstancePtr->IsClkEnabled = 1;
 	}
+#endif
 
 	/* Clear transfer size register */
 	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_TRANS_SIZE_OFFSET, 0x0U);
@@ -735,10 +745,12 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 	 * Clear interrupt flag for slave monitor interrupt.
 	 */
 	XIicPs_DisableInterrupts(BaseAddr, XIICPS_IXR_SLV_RDY_MASK);
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsClkEnabled == 1) {
 		Xil_ClockDisable(InstancePtr->Config.RefClk);
 		InstancePtr->IsClkEnabled = 0;
 	}
+#endif
 
 	return;
 }

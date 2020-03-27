@@ -118,8 +118,10 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+#if defined  (XCLOCKING)
 	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
 	InstancePtr->IsClkEnabled = 0;
+#endif
 
 	InstancePtr->StatusHandler = StubHandler;
 	InstancePtr->CallBackRef = NULL;
@@ -173,10 +175,12 @@ s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 	if ((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) {
 		Status = (s32)TRUE;
 	}else {
+#if defined  (XCLOCKING)
 		if (InstancePtr->IsClkEnabled == 1) {
 			Xil_ClockDisable(InstancePtr->Config.RefClk);
 			InstancePtr->IsClkEnabled = 0;
 		}
+#endif
 		Status = (s32)FALSE;
 	}
 	return Status;
