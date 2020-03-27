@@ -25,6 +25,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 5.0	sne  03/26/20 First release
+* 5.1   sne  06/01/20 Configured Generic watchdog offset value.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -69,6 +71,7 @@ XWdtTb GWdtInstance;		/* Instance of Generic WatchDog Timer */
 INTC IntcInstance;		/* Instance of the Interrupt Controller */
 #endif
 static volatile int GWdtExpired;
+#define WDTPSV_GWOR_COUNT     0x00110000U  /*Generic Watchdog offset value*/
 /*****************************************************************************/
 /**
 * Main function to call the Generic Wdt interrupt example.
@@ -187,6 +190,9 @@ int GWdtIntrExample(XScuGic *IntcInstancePtr, XWdtTb *GWdtInstancePtr,
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	/* Update GWOR Register */
+	XWdtTb_SetGenericWdtWindow(GWdtInstancePtr, WDTPSV_GWOR_COUNT);
 
 	/*
 	 * Start the WdtTb device
