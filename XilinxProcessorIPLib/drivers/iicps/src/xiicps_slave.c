@@ -91,10 +91,12 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
 
+#if defined  (XCLOCKING)
 	if (InstancePtr->IsClkEnabled == 0) {
 		Xil_ClockEnable(InstancePtr->Config.RefClk);
 		InstancePtr->IsClkEnabled = 1;
 	}
+#endif
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
