@@ -44,6 +44,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 4.0   sha  02/04/16 First release
+* 5.0	sne  03/26/20 Updated example to support versal platform.
 * </pre>
 *
 ******************************************************************************/
@@ -70,14 +71,19 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
-#define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
-#define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_VEC_ID
+#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+ #define INTC_DEVICE_ID         XPAR_INTC_0_DEVICE_ID
+ #define WDTTB_IRPT_INTR         XPAR_INTC_0_WDTTB_0_VEC_ID
 #else
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #define INTC_DEVICE_ID         XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #ifdef versal
+  #define WDTTB_IRPT_INTR       XPAR_XWWDT_0_INTR
+ #else
+  #define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
+ #endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #define WIN_WDT_SW_COUNT	0xF00000	/**< Number of clock cycles for
@@ -196,13 +202,30 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 			u16 WdtTbIntrId)
 {
 	int Status;
+	XWdtTb_Config *Config;
 
 	/*
-	 * Initialize the WdtTb driver
+	 * Initialize the WDTTB driver so that it's ready to use look up
+	 * configuration in the config table, then initialize it.
 	 */
-	Status = XWdtTb_Initialize(WdtTbInstancePtr, WdtTbDeviceId);
+	Config = XWdtTb_LookupConfig(WdtTbDeviceId);
+	if (NULL == Config) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Initialize the watchdog timer and timebase driver so that
+	 * it is ready to use.
+	 */
+	Status = XWdtTb_CfgInitialize(WdtTbInstancePtr, Config,
+				      Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
+
+	if(!WdtTbInstancePtr->Config.IsPl) {
+		/*Enable Window Watchdog Feature in WWDT */
+		XWdtTb_ConfigureWDTMode(WdtTbInstancePtr, XWT_WWDT);
 	}
 
 	/*
@@ -249,13 +272,14 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	XWdtTb_Start(WdtTbInstancePtr);
 	WdtExpired = FALSE;
 
+	/* Set register space to writable */
+	XWdtTb_SetRegSpaceAccessMode(WdtTbInstancePtr, 1);
+
 	/*
 	 * Wait for the first occurrence of interrupt programmed point.
 	 */
 	while (WdtExpired != TRUE);
 
-	/* Set register space to writable */
-	XWdtTb_SetRegSpaceAccessMode(WdtTbInstancePtr, 1);
 
 	/* Clear interrupt point */
 	XWdtTb_IntrClear(WdtTbInstancePtr);

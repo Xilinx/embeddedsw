@@ -57,6 +57,7 @@
 *                     Calling XWdtTb_LookupConfig and XWdtTb_CfgInitialize
 *                     functions instead of XWdtTb_Initialize for
 *                     initialization.
+* 5.0	sne  03/26/20 Updated example with interrupt id's.
 * </pre>
 *
 ******************************************************************************/
@@ -84,12 +85,13 @@
  */
 #ifndef TESTAPP_GEN
 #define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
-#define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_WDT_INTERRUPT_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_WDT_INTERRUPT_VEC_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define WDTTB_IRPT_INTR		XPAR_FABRIC_WDTTB_0_WDT_INTERRUPT_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #endif
