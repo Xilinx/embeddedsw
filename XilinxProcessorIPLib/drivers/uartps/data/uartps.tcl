@@ -31,6 +31,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00a sdm  11/22/11 Created
 # 3.9   sd   02/22/20 Added clock support
+# 3.9   sd   03/27/20 Added fix for hierarchial designs
 #
 ##############################################################################
 
@@ -38,7 +39,7 @@
 
 proc check_clocking { } {
 	set sw_proc_handle [hsi::get_sw_processor]
-	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
 	foreach slave $slaves {
 		if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
 			return 1
