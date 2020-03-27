@@ -47,6 +47,7 @@
 # 3.7   hk   12/01/17 Export TSU clock frequency to xparameters.h
 # 3.8   hk   07/19/18 Added canonical property is cache coherency.
 # 3.11  sd   02/14/20 Add clock support.
+# 3.11	sd   27/03/20 Added hier design fix
 #
 ##############################################################################
 
@@ -78,7 +79,7 @@ proc generate {drv_handle} {
 
 proc check_clocking { } {
 	set sw_proc_handle [hsi::get_sw_processor]
-	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
 	foreach slave $slaves {
 		if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
 			return 1
