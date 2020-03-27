@@ -33,6 +33,7 @@
 #       sk  05/06/15 Imported Bus Width Parameter.
 # 1.5	nsk 08/14/17 Added CCI support
 # 1.9   mus 07/30/19 Added CCI support for Versal at EL1 NS
+# 1.11	sd  27/03/20 Added Clock support
 #
 ##############################################################################
 
@@ -58,7 +59,7 @@ proc generate {drv_handle} {
 
 proc check_clocking { } {
 	set sw_proc_handle [hsi::get_sw_processor]
-	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
 	foreach slave $slaves {
 		if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
 			return 1
