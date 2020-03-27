@@ -124,6 +124,8 @@ wdttb_v5_0:
 -Removed compare value registers write.
 -Reorganized wdttb driver for safety compliance.
 -Fixed MISRAC violations
+-Added GWDT interrupt example.
+-Updated interrupt examples to support versal platform.
 
 axiethernet_v5_11:
 In driver tcl use hier "::hsi::utils::get_connected_intf" API.
