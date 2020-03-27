@@ -884,6 +884,7 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	u32* CfiDataPtr;
 	u64 BaseAddr;
 	u32 DestOffset;
+	u32 ChunkLenTemp = 0U;
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
 	if (Cmd->ProcessedLen == 0U)
@@ -933,10 +934,11 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 					--Len;
 					++Count;
 				}
-				XPlmi_Out64(DestAddr, Xil_In32((u32)&Cmd->ResumeData[4U]));
-				XPlmi_Out64(DestAddr+4U, Xil_In32((u32)&Cmd->ResumeData[5U]));
-				XPlmi_Out64(DestAddr+8U, Xil_In32((u32)&Cmd->ResumeData[6U]));
-				XPlmi_Out64(DestAddr+12U, Xil_In32((u32)&Cmd->ResumeData[7U]));
+				Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr, 4U, Flags);
+				if(Status != XST_SUCCESS) {
+					XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+					goto END;
+				}
 				DestAddr = ((Cmd->ProcessedLen-Cmd->ResumeData[3U]-DestOffset+Count)*4U)%Keyholesize + BaseAddr;
 			}
 			Cmd->ResumeData[3U] = 0U;
@@ -944,12 +946,23 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 
 	ChunkLen = Len - (Len % 4U);
 
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ChunkLen, Flags);
-	if(Status != XST_SUCCESS)
-	{
+	if ((DestAddr + (ChunkLen * 4U)) > (BaseAddr + Keyholesize)) {
+		ChunkLenTemp = ((BaseAddr + Keyholesize) - DestAddr) / 4U;
+		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ChunkLenTemp, Flags);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+			goto END;
+		}
+		DestAddr = BaseAddr;
+	}
+
+	Status = XPlmi_DmaXfr(SrcAddr + (ChunkLenTemp * 4U), DestAddr,
+				(ChunkLen - ChunkLenTemp), Flags);
+	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
+
 	Cmd->ResumeData[3U]= Len%4U;
 	CfiDataPtr = (u32*)(SrcAddr + ChunkLen*4U);
 	Count=0;
