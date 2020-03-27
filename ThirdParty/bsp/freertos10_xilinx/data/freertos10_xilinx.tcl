@@ -409,7 +409,7 @@ proc generate {os_handle} {
 		}
 	}
 	set clocking_supported [common::get_property CONFIG.clocking $os_handle]
-	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
 	if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5"} {
 		if {$clocking_supported == "true" } {
 			foreach slave $slaves {
