@@ -76,6 +76,7 @@
 # 7.2   mus  02/23/20 Added workaround to handle_stdout_parameter to fix PLM
 #                     BSP creation CR#1055177
 # 7.2   sd   03/20/20 Added clocking support
+# 7.2   sd   03/27/20 Fix the hierarchcal design case
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -678,7 +679,7 @@ proc generate {os_handle} {
     puts $bspcfg_fh "#define BSPCONFIG_H  /* by using protection macros */"
     puts $bspcfg_fh ""
 
-    set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+    set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
 
     set clocking_supported [common::get_property CONFIG.clocking $os_handle ]
     set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
