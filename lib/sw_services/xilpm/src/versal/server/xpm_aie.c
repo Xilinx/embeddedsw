@@ -319,10 +319,18 @@ done:
 static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u32 BaseAddress;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
+
+	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		goto done;
+	}
+
+	BaseAddress = AieDev->Node.BaseAddress;
 
 	/* Set PCOMPLETE bit */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK,
@@ -330,7 +338,9 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	/* TODO: Check if we can lock PCSR registers here */
+
+	/* Lock PCSR registers */
+	XPmAieDomain_LockPcsr(BaseAddress);
 
 	Status = XST_SUCCESS;
 
