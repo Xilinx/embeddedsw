@@ -48,6 +48,9 @@ Avoid using *.o in Makefile.
 mcdma_v1_4:
 Prefer using dmb in XMcdma_UpdateChanTDesc().
 
+mipicsiss_v1_3:
+Updated the SP701 example
+
 ospipsv_v1_2:
 Removed psu_ospi entry in supported peripherals in mdd file.
 Added APIs (XOspiPsv_StartDmaTransfer and XOspiPsv_CheckDmaDone) for non-blocking DMA transfer support.
