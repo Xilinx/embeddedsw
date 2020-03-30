@@ -30,6 +30,6 @@ BEGIN driver dp12txss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
-	OPTION VERSION = 5.1;
+	OPTION VERSION = 5.2;
 	OPTION NAME = dp12txss;
 END driver
