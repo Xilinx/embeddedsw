@@ -99,6 +99,7 @@
 * 3.9   sd     02/07/20 Added clock support
 *       mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/30/20 Return XST_DEVICE_IS_STARTED when host is already started
+*       mn     03/30/20 Move Clock enabling before checking for Host already started
 *
 * </pre>
 *
@@ -155,6 +156,10 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
+#if defined  (XCLOCKING)
+	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/* If this API is getting called twice, return value accordingly */
 	if (InstancePtr->IsReady == XIL_COMPONENT_IS_READY) {
 		Status = (s32)XST_DEVICE_IS_STARTED;
@@ -178,10 +183,6 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Dma64BitAddr = 0U;
 	InstancePtr->SlcrBaseAddr = XPS_SYS_CTRL_BASEADDR;
 
-#if defined  (XCLOCKING)
-	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
-	Xil_ClockEnable(InstancePtr->Config.RefClk);
-#endif
 	/* Host Controller version is read. */
 	InstancePtr->HC_Version =
 			(u8)(XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
