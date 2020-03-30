@@ -169,6 +169,12 @@ zynqmp: Add ADMA in pre-alloc section of RPU
 xilmailbox_v1_2:
 Updated the library example RemoteId variable to use IPIPSU driver canonical define.
 
+v_sditx_v3_0:
+Added new api to support 10/12 bpc
+
+v_sditxss_v4_0:
+Added 12-bit video depth support
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
