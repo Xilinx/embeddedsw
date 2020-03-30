@@ -44,6 +44,7 @@
 * 1.2   dc     22/01/20 add version and list of LMK frequencies
 *       dc     03/05/20 add protection for shared i2c1 MUX
 * 1.3   dc     03/10/20 update LMK/LMX config for MTS
+* 1.4   dc     03/30/20 new LMX config suppressing RF noise on dual output
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +55,7 @@
 extern "C" {
 #endif
 
-#define RFCLK_VERSION "1.3"
+#define RFCLK_VERSION "1.4"
 
 #if !defined(XPS_BOARD_ZCU111) && !defined(XPS_BOARD_ZCU216)
 #define XPS_BOARD_ZCU216
