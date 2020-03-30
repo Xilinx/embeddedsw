@@ -27,7 +27,7 @@
 /**
 *
 * @file xhdcp1x_port_dp.h
-* @addtogroup hdcp1x_v4_3
+* @addtogroup hdcp1x_v4_4
 * @{
 *
 * This file contains the definitions for the hdcp port registers/offsets for
