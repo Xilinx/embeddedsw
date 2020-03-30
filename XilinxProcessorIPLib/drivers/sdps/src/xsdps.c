@@ -98,6 +98,7 @@
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 * 3.9   sd     02/07/20 Added clock support
 *       mn     03/03/20 Restructured the code for more readability and modularity
+*       mn     03/30/20 Return XST_DEVICE_IS_STARTED when host is already started
 *
 * </pre>
 *
@@ -154,9 +155,9 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
-	/* If this API is getting called twice, return Error */
+	/* If this API is getting called twice, return value accordingly */
 	if (InstancePtr->IsReady == XIL_COMPONENT_IS_READY) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_DEVICE_IS_STARTED;
 		goto RETURN_PATH ;
 	}
 
