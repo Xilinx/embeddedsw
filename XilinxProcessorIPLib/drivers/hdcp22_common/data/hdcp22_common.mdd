@@ -31,7 +31,7 @@ BEGIN driver hdcp22_common
   OPTION supported_peripherals = ();
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.0;
+  OPTION VERSION = 2.1;
   OPTION NAME = hdcp22_common;
 
 END driver
