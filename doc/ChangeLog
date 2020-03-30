@@ -105,6 +105,12 @@ restarted from application itself.
 v_mix_v6_0:
 Add Colorimetry Support
 
+v_multi_scaler_v1_1:
+Updated API to use config structure parameters.
+
+vtc_v8_1:
+Fix handling of spurious interrupt
+
 xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
 Add support for Multi Partitions
