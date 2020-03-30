@@ -98,7 +98,14 @@ void Xpm_DisableEventCounters(void)
 {
     u32 RegVal;
     /* Disable the event counters */
+#ifdef __GNUC__
     RegVal = mfcp(XREG_CP15_COUNT_ENABLE_CLR);
+#elif defined (__ICCARM__)
+    mfcp(XREG_CP15_COUNT_ENABLE_CLR, RegVal);
+#else
+    { register u32 C15Reg __asm(XREG_CP15_COUNT_ENABLE_CLR);
+      RegVal = C15Reg; }
+#endif
     RegVal |= XPM_EVENT_CNTRS_MASK;
     mtcp(XREG_CP15_COUNT_ENABLE_CLR, RegVal);
 }
@@ -117,7 +124,14 @@ void Xpm_EnableEventCounters(void)
 {
     u32 RegVal;
     /* Enable the event counters */
+#ifdef __GNUC__
     RegVal = mfcp(XREG_CP15_COUNT_ENABLE_SET);
+#elif defined (__ICCARM__)
+    mfcp(XREG_CP15_COUNT_ENABLE_SET, RegVal);
+#else
+    { register u32 C15Reg __asm(XREG_CP15_COUNT_ENABLE_SET);
+      RegVal = C15Reg; }
+#endif
     RegVal |= XPM_EVENT_CNTRS_MASK;
 	mtcp(XREG_CP15_COUNT_ENABLE_SET, RegVal);
 }
