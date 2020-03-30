@@ -27,7 +27,7 @@
 /**
 *
 * @file xhdcp1x_platform.h
-* @addtogroup hdcp1x_v4_3
+* @addtogroup hdcp1x_v4_4
 * @{
 *
 * This file provides the interface for the hdcp platform integration module

@@ -27,7 +27,7 @@
 /**
 *
 * @file xhdcp1x_sinit.c
-* @addtogroup hdcp1x_v4_3
+* @addtogroup hdcp1x_v4_4
 * @{
 *
 * This file contains static initialization method for Xilinx HDCP driver
