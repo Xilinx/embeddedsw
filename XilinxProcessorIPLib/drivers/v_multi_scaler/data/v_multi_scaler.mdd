@@ -13,7 +13,7 @@ BEGIN driver v_multi_scaler
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = v_multi_scaler;
- OPTION version = 1.0;
+ OPTION version = 1.1;
 
 END driver
 
