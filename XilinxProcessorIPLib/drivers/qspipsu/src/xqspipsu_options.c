@@ -72,9 +72,6 @@
 /***************************** Include Files *********************************/
 
 #include "xqspipsu_control.h"
-#if defined (__aarch64__)
-#include "xil_smc.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
