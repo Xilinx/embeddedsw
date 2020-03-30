@@ -38,6 +38,7 @@
 # 3.6   mn   07/06/18 Generate canonical entry for IS_CACHE_COHERENT
 # 3.8   mus  07/30/19 Added CCI support for Versal at EL1 NS
 # 3.9   sd   03/20/20 Added clock support
+# 3.9	sd   27/03/20 Added hier design fix
 #
 ##############################################################################
 
@@ -64,7 +65,7 @@ proc generate {drv_handle} {
 
 proc check_clocking { } {
 	set sw_proc_handle [hsi::get_sw_processor]
-	set slaves [common::get_property   SLAVES [  hsi::get_cells $sw_proc_handle]]
+	set slaves [common::get_property   SLAVES [  hsi::get_cells -hier $sw_proc_handle]]
 	foreach slave $slaves {
 		if {[string compare -nocase "psu_crf_apb" $slave] == 0 } {
 			return 1
