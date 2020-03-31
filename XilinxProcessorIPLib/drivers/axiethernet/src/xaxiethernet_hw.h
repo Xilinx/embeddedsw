@@ -6,7 +6,7 @@
 /**
 *
 * @file xaxiethernet_hw.h
-* @addtogroup axiethernet_v5_10
+* @addtogroup axiethernet_v5_11
 * @{
 *
 * This header file contains identifiers and macros that can be used to access

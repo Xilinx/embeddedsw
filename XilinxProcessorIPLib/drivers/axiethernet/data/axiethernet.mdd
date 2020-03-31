@@ -16,7 +16,7 @@ BEGIN driver axiethernet
   OPTION supported_peripherals = axi_ethernet_v[3-9]_[0-9];
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.10;
+  OPTION VERSION = 5.11;
   OPTION NAME = axiethernet;
 
 END driver

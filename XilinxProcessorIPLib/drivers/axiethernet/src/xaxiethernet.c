@@ -6,7 +6,7 @@
 /**
 *
 * @file xaxiethernet.c
-* @addtogroup axiethernet_v5_10
+* @addtogroup axiethernet_v5_11
 * @{
 *
 * The APIs in this file takes care of the primary functionalities of the driver.
