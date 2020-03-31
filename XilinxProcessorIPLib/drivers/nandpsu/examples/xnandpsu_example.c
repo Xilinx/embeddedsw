@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018  Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2020  Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * 1.0  nm   05/06/2014  First release.
 *      ms   04/10/17    Modified Comment lines to follow doxygen rules.
 * 1.4  nsk  10/04/2018  Added support for ICCARM Compiler.
+* 1.6  sd   31/03/2020  Fixed a gcc warning.
 *</pre>
 *
 ******************************************************************************/
@@ -111,9 +112,9 @@ u8 WriteBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));	/**< Block sized wr
 * @note		None.
 *
 *****************************************************************************/
-s32 main(void)
+int main(void)
 {
-	s32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	xil_printf("Nand Flash Read Write Example Test\r\n");
 	/*
