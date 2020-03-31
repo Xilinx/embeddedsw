@@ -87,6 +87,8 @@
 *                      XilSKey_ZynqMp_EfusePs_WriteBit,
 *                      XilSKey_ZynqMp_EfusePs_ReadRow.
 *       vns   03/18/20 Fixed Armcc compilation errors
+*       kal   03/18/20 Removed Temp and Voltage check while checking AES key
+*                      CRC.
 * </pre>
 *
 *****************************************************************************/
@@ -1759,11 +1761,6 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 	Status = XilSKey_ZynqMp_EfusePs_Init();
 	if (Status != (u32)XST_SUCCESS) {
 		 goto END;
-	}
-	/* Vol and temperature checks */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
 	}
 
 	/* writing CRC value to check AES key's CRC */
