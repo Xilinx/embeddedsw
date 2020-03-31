@@ -55,6 +55,8 @@
 *       kpt  02/27/20 Removed XilSKey_Puf_Debug2
 *                      which is used only for debug purpose
 *       vns  03/18/20 Fixed Armcc compilation errors
+*       kal  03/18/20 Added Temp and Voltage checks before writing Puf Helper
+*                     data, Puf Chash and Puf Aux.
 * </pre>
 *
 *****************************************************************************/
@@ -143,6 +145,13 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Vol and temperature checks */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 	/* Check for zeros */
 	Status = XilSKey_ZynqMp_EfusePs_CheckZeros_Puf();
 	if (Status != (u32)XST_SUCCESS) {
@@ -337,6 +346,12 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 		goto END;
 	}
 
+	/* Vol and temperature checks */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	/* Check for Zeros */
 	if (XilSKey_ZynqMp_EfusePs_CheckForZeros(
@@ -474,6 +489,12 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Vol and temperature checks */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
