@@ -247,6 +247,10 @@ int XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 {
 	int Status = XST_FAILURE;
 	XPm_Power *PwrNode;
+	XPm_Device *DevTcm0A = XPmDevice_GetById(PM_DEV_TCM_0_A);
+	XPm_Device *DevTcm0B = XPmDevice_GetById(PM_DEV_TCM_0_B);
+	XPm_Device *DevTcm1A = XPmDevice_GetById(PM_DEV_TCM_1_A);
+	XPm_Device *DevTcm1B = XPmDevice_GetById(PM_DEV_TCM_1_B);
 
 	if (NULL != Core->Device.ClkHandles) {
 		Status = XPmClock_Release(Core->Device.ClkHandles);
@@ -255,9 +259,16 @@ int XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 		}
 	}
 
-	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_ASSERT);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/* Skip reset for RPU cores if any of the TCM is ON */
+	if (!(((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) &&
+	      (((u8)XPM_DEVSTATE_RUNNING == DevTcm0A->Node.State) ||
+	       ((u8)XPM_DEVSTATE_RUNNING == DevTcm0B->Node.State) ||
+	       ((u8)XPM_DEVSTATE_RUNNING == DevTcm1A->Node.State) ||
+	       ((u8)XPM_DEVSTATE_RUNNING == DevTcm1B->Node.State)))) {
+		Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_ASSERT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	if (NULL != Core->Device.Power) {
@@ -277,6 +288,7 @@ int XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 	}
 
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
