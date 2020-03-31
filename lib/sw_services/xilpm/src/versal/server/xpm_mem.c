@@ -286,6 +286,13 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+
+			/* Request the RPU clocks. Here both core having same RPU clock */
+			Status = XPmClock_Request(Rpu0Device->ClkHandles);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
 			/* TCM is only accessible when the RPU is powered on and out of reset and is in halted state
 			 * so bring up RPU too when TCM is requested*/
 			XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
@@ -332,6 +339,12 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			/* Release the RPU clocks. Here both core having same RPU clock */
+			Status = XPmClock_Release(Rpu0Device->ClkHandles);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
