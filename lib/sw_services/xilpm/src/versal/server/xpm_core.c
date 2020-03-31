@@ -54,6 +54,10 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device;
+	XPm_Device *DevTcm0A = XPmDevice_GetById(PM_DEV_TCM_0_A);
+	XPm_Device *DevTcm0B = XPmDevice_GetById(PM_DEV_TCM_0_B);
+	XPm_Device *DevTcm1A = XPmDevice_GetById(PM_DEV_TCM_1_A);
+	XPm_Device *DevTcm1B = XPmDevice_GetById(PM_DEV_TCM_1_B);
 
 	/*
 	 * If parent is on, then only send sleep request
@@ -76,8 +80,17 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 		}
 	}
 
-	Device = &Core->Device;
-	Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
+	/* Skip reset for RPU cores if any of the TCM is ON */
+	if (!(((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) &&
+	      (((u8)XPM_DEVSTATE_RUNNING == DevTcm0A->Node.State) ||
+	       ((u8)XPM_DEVSTATE_RUNNING == DevTcm0B->Node.State) ||
+	       ((u8)XPM_DEVSTATE_RUNNING == DevTcm1A->Node.State) ||
+	       ((u8)XPM_DEVSTATE_RUNNING == DevTcm1B->Node.State)))) {
+		Device = &Core->Device;
+		Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
+	} else {
+		Status = XST_SUCCESS;
+	}
 
 done:
 	return Status;
