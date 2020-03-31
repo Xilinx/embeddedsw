@@ -64,7 +64,7 @@
 #else
 #define I2C_REPEATED_START XIIC_REPEATED_START
 #define I2C_STOP XIIC_STOP
-#define XPS_BOARD_KCU105
+#define XPS_BOARD_VCU118
 #endif
 
 #define VFMC_I2C_IDT8N49_ADDR   0x7C /**< I2C IDT 8N49N241 Address */
@@ -130,6 +130,7 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	usleep(1000);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 #endif
@@ -210,28 +211,16 @@ int Vfmc_I2cMuxSelect(void *IicPtr)
 	u8 Buffer;
 	int Status;
 
-#if defined (XPS_BOARD_KCU105)
-	/* Reset I2C controller before issuing new transaction. This is
-	 * required to recover the IIC controller in case a previous transaction
-	 * is pending.
-	 */
-	/*XIic_WriteReg(XPAR_IIC_0_BASEADDR, XIIC_RESETR_OFFSET,
-				  XIIC_RESET_MASK);*/
+#if defined (XPS_BOARD_VCU118)
+	Buffer = 0x02;
+	Status = Vfmc_I2cSend(IicPtr, 0x75,
+					   (u8 *)&Buffer, 1, (I2C_STOP));
 
-	/* Set TCA9548 MUX1 to select port 7 (No connection)*/
-	Buffer = 0x80;
+	/* Set TCA9548 MUX1 to select port 1 (No connection)*/
+	Buffer = 0x02;
 	Status = Vfmc_I2cSend(IicPtr, 0x74,
 					   (u8 *)&Buffer, 1, (I2C_STOP));
 
-	/* Set PCA9544 MUX2 to select channel 1 (HPC) */
-	/* 0x0 - no channel selected
-	 * 0x4 - channel 0
-	 * 0x5 - channel 1
-	 * 0x6 - channel 2
-	 * 0x7 - channel 3 */
-	Buffer = 0x05;
-	Status = Vfmc_I2cSend(IicPtr, 0x75,
-					   (u8 *)&Buffer, 1, (I2C_STOP));
 
 #elif defined (XPS_BOARD_ZCU102)
 	/* Set TCA9548 U34 to select port 7 (No connection)*/
@@ -239,8 +228,8 @@ int Vfmc_I2cMuxSelect(void *IicPtr)
 	Status = Vfmc_I2cSend(IicPtr, 0x74,
 					   (u8 *)&Buffer, 1, (I2C_STOP));
 
-	/* Set TCA9548 U135 to select port 1 (HPC1)*/
-	Buffer = 0x02;
+	/* Set TCA9548 U135 to select port 0 (HPC0)*/
+	Buffer = 0x01;
 	Status = Vfmc_I2cSend(IicPtr, 0x75,
 					   (u8 *)&Buffer, 1, (I2C_STOP));
 
