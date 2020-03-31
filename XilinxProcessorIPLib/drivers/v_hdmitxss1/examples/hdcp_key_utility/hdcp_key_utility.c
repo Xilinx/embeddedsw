@@ -245,6 +245,8 @@ int main()
 #if defined(__arm__) || (__aarch64__)
 	XIicPs_Config *XIic0Ps_ConfigPtr;
 	XIicPs_Config *XIic1Ps_ConfigPtr;
+#else
+	XIic_Config *XIic_ConfigPtr;
 #endif
 	u32 Status;
 
@@ -284,6 +286,15 @@ int main()
 	 * Set the IIC serial clock rate.
 	 */
 	XIicPs_SetSClk(&Iic, PS_IIC_CLK);
+#else
+	XIic_ConfigPtr = XIic_LookupConfig(XPAR_MB_SS_0_FMCH_AXI_IIC_DEVICE_ID);
+	if (!XIic_ConfigPtr)
+		return XST_FAILURE;
+
+	Status = XIic_CfgInitialize(&Iic, XIic_ConfigPtr, XIic_ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
 #endif
 	Vfmc_I2cMuxSelect(&Iic);
 
@@ -448,6 +459,7 @@ static unsigned XHdcp_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	usleep(1000);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 #endif
@@ -504,6 +516,7 @@ static unsigned XHdcp_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	usleep(1000);
 	return XIic_Recv(Iic_Ptr->BaseAddress, SlaveAddr, BufPtr,
 					ByteCount, Option);
 #endif
@@ -865,6 +878,10 @@ unsigned EepromWriteByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount
 ****************************************************************************/
 unsigned EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 {
+#if !(defined(__arm__) || (__aarch64__))
+	XIic *Iic_Ptr = IicPtr;
+#endif
+
 	volatile unsigned ReceivedByteCount;
 	u16 StatusReg;
 	u8 WriteBuffer[sizeof(Address)];
@@ -882,7 +899,7 @@ unsigned EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 #if defined(__arm__) || (__aarch64__)
 		if(!(XIicPs_BusIsBusy(IicPtr))) {
 #else
-		StatusReg = XIic_ReadReg(XHDCP_IIC_BASEADDR, XIIC_SR_REG_OFFSET);
+		StatusReg = XIic_ReadReg(Iic_Ptr->BaseAddress, XIIC_SR_REG_OFFSET);
 		if(!(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {
 #endif
 			ReceivedByteCount = XHdcp_I2cSend(IicPtr, EEPROM_ADDRESS,
