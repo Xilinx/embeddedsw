@@ -101,7 +101,8 @@
 * 1.5   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 1.5   mus    11/05/18 Updated XNandPsu_ChangeClockFreq to fix compilation
 *                       warnings.
-# 1.6	sd     06/02/20    Added Clock support
+* 1.6	sd     06/02/20    Added Clock support
+* 1.6	sd     20/03/20    Added compilation flag
 *
 * </pre>
 *
@@ -243,7 +244,9 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
+#if defined  (XCLOCKING)
 	InstancePtr->Config.RefClk = ConfigPtr->RefClk;
+#endif
 	/* Operate in Polling Mode */
 	InstancePtr->Mode = XNANDPSU_POLLING;
 	/* Enable MDMA mode by default */
@@ -1013,7 +1016,9 @@ static void XNandPsu_SetEccSpareCmd(XNandPsu *InstancePtr, u16 SpareCmd,
 ******************************************************************************/
 static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target)
 {
+#if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
 	/* Update Memory Address2 register with chip select */
 	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_MEM_ADDR2_OFFSET,
 			XNANDPSU_MEM_ADDR2_CHIP_SEL_MASK,
@@ -2851,7 +2856,9 @@ s32 Status = XST_FAILURE;
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_INTR_STS_OFFSET,
 			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+#if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 Out:
 	return Status;
 }

@@ -166,6 +166,7 @@
 *                          XNandPsu_BbtDesc structure to fix the compilation
 *                          warnings.
 # 1.6	sd     06/02/20    Added Clock support
+* 1.6	sd     20/03/20    Added compilation flag
 *
 * </pre>
 *
@@ -186,7 +187,9 @@ extern "C" {
 #include "xnandpsu_hw.h"
 #include "xnandpsu_onfi.h"
 #include "xil_cache.h"
+#if defined  (XCLOCKING)
 #include "xil_clocking.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 #define XNANDPSU_DEBUG
@@ -228,7 +231,9 @@ typedef struct {
 	u16 DeviceId;		/**< Instance ID of NAND flash controller */
 	u32 BaseAddress;	/**< Base address of NAND flash controller */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+#if defined  (XCLOCKING)
 	u32 RefClk;		/**< Input clocks */
+#endif
 } XNandPsu_Config;
 
 /**
