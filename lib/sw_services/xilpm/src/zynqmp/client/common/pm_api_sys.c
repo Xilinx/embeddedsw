@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -1912,6 +1912,7 @@ XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
 {
 	XStatus status = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
+	u32 mode_val = 0U;
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
@@ -1923,7 +1924,8 @@ XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
 		}
 
 		/* Return result from IPI return buffer */
-		status = pm_ipi_buff_read32(primary_master, (void*)mode, NULL, NULL);
+		status = pm_ipi_buff_read32(primary_master, &mode_val, NULL, NULL);
+		*mode = (enum XPmPllMode)mode_val;
 	}
 
 done:
@@ -2038,6 +2040,7 @@ XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn)
 {
 	XStatus status = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
+	u32 fn_val = 0U;
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
@@ -2049,7 +2052,8 @@ XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn)
 		}
 
 		/* Return result from IPI return buffer */
-		status = pm_ipi_buff_read32(primary_master, (void*)fn, NULL, NULL);
+		status = pm_ipi_buff_read32(primary_master, &fn_val, NULL, NULL);
+		*fn = (enum XPmPinFn)fn_val;
 	}
 
 done:
