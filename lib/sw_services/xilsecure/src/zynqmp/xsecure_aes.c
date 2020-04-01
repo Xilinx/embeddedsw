@@ -608,11 +608,14 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 					XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
 		if (GcmStatus == 0U) {
-			/* Zeroize the decrypted data*/
-			GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
+			if (InstancePtr->Destination !=
+					(u8 *)XSECURE_DESTINATION_PCAP_ADDR) {
+				/* Zeroize the decrypted data*/
+				GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
 							InstancePtr->TotalSizeOfData);
-			if (GcmStatus != (u32)XST_SUCCESS) {
-				goto END;
+				if (GcmStatus != (u32)XST_SUCCESS) {
+					goto END;
+				}
 			}
 			GcmStatus = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 			goto END;
