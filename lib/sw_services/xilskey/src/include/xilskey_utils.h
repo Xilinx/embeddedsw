@@ -83,6 +83,11 @@
 * 6.9   kpt     02/27/20 Added Error code XSK_EFUSEPS_ERROR_PGM_NOT_DONE.
 *               02/27/20 Replaced XSYSMON_DEVICE_ID with
 *                        XSYSMON_PSU_DEVICE_ID.
+*       kpt     03/31/20 Added Error Codes
+*                        XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED
+*                        XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED
+*                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
+*
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -962,12 +967,21 @@ typedef enum {
 					*  when an PUF generation timedout. */
 	XSK_EFUSEPS_ERROR_PUF_ACCESS = 0xE900,/**< 0xE900<br>Error
 					*  when an PUF Access violation. */
+	XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED = 0XEA00,/** 0xEA00<br>Error
+					*  When PUF Chash already programmed
+					*  in eFuse. */
+	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/** 0xEB00<br>Error
+					*  When PUF AUX already programmed
+					* in eFuse. */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
 
 	XSK_EFUSEPS_ERROR_CACHE_LOAD = 0x20000U,/**< 0x20000U<br>Error in
 						*  re-loading CACHE. */
+	XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED = 0x30000U,/**< 0x30000U<br>Read
+								* from eFuse is
+								* not allowed. */
 	/* If requested FUSE is write protected */
 	XSK_EFUSEPS_ERROR_FUSE_PROTECTED = 0x00080000U,/**< 0x00080000
 					*  <br>Requested eFUSE is write
@@ -979,7 +993,6 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING = 0x08000000U,/**< 0x08000000U<br>Error
 								*  occurred before
 								*  programming. */
-
 }XSKEfusePs_ErrorCodes;
  /** @} */
 
