@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2007 - 2019 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ BEGIN LIBRARY xilflash
   OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
   OPTION APP_LINKER_FLAGS = "-lxilflash";
   OPTION desc = "Xilinx Flash library for Intel/AMD CFI compliant parallel flash";
-  OPTION VERSION = 4.7;
+  OPTION VERSION = 4.8;
   OPTION NAME = xilflash;
   PARAM name = enable_intel, desc = "Enables support for Intel family devices", type = bool, default = true;
   PARAM name = enable_amd, desc = "Enables support for AMD family devices", type = bool, default = false;
