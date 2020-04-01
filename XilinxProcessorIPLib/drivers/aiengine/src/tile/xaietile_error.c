@@ -47,6 +47,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   Wendy   01/02/2020  Initial creation
+* 1.1   Dishita 03/29/2020  Add support for clock gating
 * </pre>
 *
 ******************************************************************************/
@@ -490,32 +491,47 @@ static int _XAieTile_ErrorRegisterNotification(XAieGbl *AieInst, u8 Module,
 	/* Enable notification if the error was polled only before */
 	if ((*ErrsPollOnly & (1 << ErrOff)) != 0) {
 		*ErrsPollOnly &= ~(1 << ErrOff);
-		u32 NumCols, NumRows, NumTiles;
+		u32 NumCols, NumRows, ClockCntrlRegVal;
 		XAieGbl_Tile *TilePtr;
+		u64 RegAddr;
 
 		NumCols = AieInst->Config->NumCols;
 		NumRows = AieInst->Config->NumRows;
-		NumTiles = NumCols * (NumRows + 1);
-		TilePtr = AieInst->Tiles;
 		/* Enable notification for the error */
-		for (u32 i = 0; i < NumTiles; i++, TilePtr++) {
-			if (TilePtr->TileType == XAIEGBL_TILE_TYPE_AIETILE) {
-				if (Module == XAIEGBL_MODULE_CORE) {
-					XAieTile_CoreGroupEventSet(TilePtr,
-						   XAIETILE_GROUP_EVENT_CORE_ERROR0,
-						   (~(*ErrsPollOnly)));
-				} else if (Module == XAIEGBL_MODULE_MEM) {
-					XAieTile_MemGroupEventSet(TilePtr,
-						  XAIETILE_GROUP_EVENT_MEM_ERROR,
-						   (~(*ErrsPollOnly)));
-				} else {
-					continue;
-				}
-			} else {
-				if (Module == XAIEGBL_MODULE_PL) {
-					XAieTile_PlGroupEventSet(TilePtr,
-						 XAIETILE_GROUP_EVENT_PL_ERRORS,
-						   (~(*ErrsPollOnly)));
+		for(u32 col = 0; col < NumCols; col++){
+			TilePtr = AieInst->Tiles;
+			TilePtr += col * (NumRows + 1);
+			if(Module == XAIEGBL_MODULE_PL){
+			   XAieTile_PlGroupEventSet(TilePtr,
+			   XAIETILE_GROUP_EVENT_PL_ERRORS,(~(*ErrsPollOnly)));
+			}
+			RegAddr = TilePtr->TileAddr;
+			ClockCntrlRegVal = XAieGbl_Read32(RegAddr +
+							XAIEGBL_PL_TILCLOCTRL);
+
+			/* check if any tile in this col is used */
+			if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+				for(u32 row = 1; row <= NumRows; row++){
+					TilePtr = AieInst->Tiles;
+					TilePtr += col * (NumRows + 1) + row;
+
+					if (Module == XAIEGBL_MODULE_CORE) {
+					    XAieTile_CoreGroupEventSet(TilePtr,
+					    XAIETILE_GROUP_EVENT_CORE_ERROR0,
+							   (~(*ErrsPollOnly)));
+					}
+					else if (Module == XAIEGBL_MODULE_MEM) {
+					        XAieTile_MemGroupEventSet(TilePtr,
+						XAIETILE_GROUP_EVENT_MEM_ERROR,
+							   (~(*ErrsPollOnly)));
+					}
+					RegAddr = TilePtr->TileAddr;
+					ClockCntrlRegVal = XAieGbl_Read32(
+					     RegAddr + XAIEGBL_CORE_TILCLOCTRL);
+					/* check if the tile above is gated */
+					if(!(ClockCntrlRegVal &
+					     XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+						break;
 				}
 			}
 		}
@@ -670,8 +686,9 @@ void XAieTile_ErrorUnregisterNotification(XAieGbl *AieInst, u8 Module,
 					  u8 Error, u8 Logging)
 {
 	XAieGbl_ErrorHandler *Handler;
-	u32 *ErrsDefaultTrap, *ErrsPollOnly;
+	u32 *ErrsDefaultTrap, *ErrsPollOnly, ClockCntrlRegVal;
 	u8 ErrOff, ErrorGroupUpdate;
+	u64 RegAddr;
 
 	XAie_AssertVoid(AieInst != XAIE_NULL);
 	XAie_AssertVoid(AieInst->Config != XAIE_NULL);
@@ -718,36 +735,54 @@ void XAieTile_ErrorUnregisterNotification(XAieGbl *AieInst, u8 Module,
 		}
 	}
 	if (ErrorGroupUpdate == 1) {
-		u32 NumCols, NumRows, NumTiles;
+		u32 NumCols, NumRows;
 		XAieGbl_Tile *TilePtr;
 
 		NumCols = AieInst->Config->NumCols;
 		NumRows = AieInst->Config->NumRows;
-		NumTiles = NumCols * (NumRows + 1);
-		TilePtr = AieInst->Tiles;
+
 		/* Enable notification for the error */
-		for (u32 i = 0; i < NumTiles; i++, TilePtr++) {
-			if (TilePtr->TileType == XAIEGBL_TILE_TYPE_AIETILE) {
-				if (Module == XAIEGBL_MODULE_CORE) {
-					XAieTile_CoreGroupEventSet(TilePtr,
-							XAIETILE_GROUP_EVENT_CORE_ERROR0,
+		for(u32 col = 0; col < NumCols; col++){
+			TilePtr = AieInst->Tiles;
+			TilePtr += col * (NumRows + 1);
+
+			if (Module == XAIEGBL_MODULE_PL) {
+				XAieTile_PlGroupEventSet(TilePtr,
+					 XAIETILE_GROUP_EVENT_PL_ERRORS,
+					   (~(*ErrsPollOnly)));
+			}
+			RegAddr = TilePtr->TileAddr;
+			ClockCntrlRegVal = XAieGbl_Read32(RegAddr +
+							XAIEGBL_PL_TILCLOCTRL);
+
+			/* check if any tile in this col is used */
+			if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+				for(u32 row = 1; row <= NumRows; row++){
+					TilePtr = AieInst->Tiles;
+					TilePtr += col * (NumRows + 1) + row;
+
+					if (Module == XAIEGBL_MODULE_CORE) {
+					    XAieTile_CoreGroupEventSet(TilePtr,
+					    XAIETILE_GROUP_EVENT_CORE_ERROR0,
 							(~(*ErrsPollOnly)));
-				} else if (Module == XAIEGBL_MODULE_MEM) {
-						XAieTile_MemGroupEventSet(TilePtr,
-						  XAIETILE_GROUP_EVENT_MEM_ERROR,
-						  (~(*ErrsPollOnly)));
-				} else {
-					continue;
-				}
-			} else {
-				if (Module == XAIEGBL_MODULE_PL) {
-					XAieTile_PlGroupEventSet(TilePtr,
-						 XAIETILE_GROUP_EVENT_PL_ERRORS,
-						   (~(*ErrsPollOnly)));
+					}
+					else if (Module == XAIEGBL_MODULE_MEM) {
+					         XAieTile_MemGroupEventSet(TilePtr,
+						 XAIETILE_GROUP_EVENT_MEM_ERROR,
+							  (~(*ErrsPollOnly)));
+					}
+					RegAddr = TilePtr->TileAddr;
+					ClockCntrlRegVal = XAieGbl_Read32(
+					     RegAddr + XAIEGBL_CORE_TILCLOCTRL);
+					/* check if the tile above is gated */
+					if(!(ClockCntrlRegVal &
+					     XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+						break;
 				}
 			}
 		}
 	}
+	return XAIE_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -766,9 +801,10 @@ void XAieTile_ErrorUnregisterNotification(XAieGbl *AieInst, u8 Module,
  *****************************************************************************/
 int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
 {
-	u32 NumTiles, NumCols, NumRows;
+	u32 NumCols, NumRows, ClockCntrlRegVal;
 	XAieGbl_Tile *TilePtr;
 	u8 Err;
+	u64 RegAddr;
 
 	XAie_AssertNonvoid(AieInst != XAIE_NULL);
 	XAie_AssertNonvoid(AieInst->Config != XAIE_NULL);
@@ -851,35 +887,49 @@ int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
 	/* Setup error broadcast network */
 	NumCols = AieInst->Config->NumCols;
 	NumRows = AieInst->Config->NumRows;
-	NumTiles = NumCols * (NumRows + 1);
-	TilePtr = AieInst->Tiles;
-	for (u32 i = 0; i < NumTiles; i++, TilePtr++) {
-		if (TilePtr->TileType == XAIEGBL_TILE_TYPE_AIETILE) {
-			/* Compute tile has core and memory module */
-			/* Setup the error group event to broadcast errors. */
-			XAieTile_CoreGroupEventSet(TilePtr,
-						   XAIETILE_GROUP_EVENT_CORE_ERROR0,
-						   XAIETILE_CORE_ERROR_BCGROUP_MASK);
-			XAieTile_MemGroupEventSet(TilePtr,
-						  XAIETILE_GROUP_EVENT_MEM_ERROR,
-						  XAIETILE_SHIM_ERROR_BCGROUP_MASK);
-			XAieTileCore_EventBroadcast(TilePtr,
-						    XAIETILE_ERROR_BROADCAST,
-						    XAIETILE_EVENT_CORE_GROUP_ERRORS0);
-			XAieTileMem_EventBroadcast(TilePtr,
-						   XAIETILE_ERROR_BROADCAST,
-						   XAIETILE_EVENT_MEM_GROUP_ERRORS);
-		} else {
-			/* Shim tile only need to setup error notification with
-			 * 1st level interrupt controller.
-			 */
-			XAieTile_PlGroupEventSet(TilePtr,
-						 XAIETILE_GROUP_EVENT_PL_ERRORS,
-						 XAIETILE_SHIM_ERROR_BCGROUP_MASK);
-			XAieTile_PlIntcL1IrqEventSet(TilePtr,
-						     XAIETILE_ERROR_SHIM_INTEVENT,
-						     XAIETILE_EVENT_SHIM_GROUP_ERRORS_,
-						     XAIETILE_PL_BLOCK_SWITCHA);
+
+	for(u32 col = 0; col < NumCols; col++){
+		TilePtr = AieInst->Tiles;
+		TilePtr += col * (NumRows + 1);
+		/* Shim tile only need to setup error notification with
+		 * 1st level interrupt controller.
+		 */
+		XAieTile_PlGroupEventSet(TilePtr,
+					 XAIETILE_GROUP_EVENT_PL_ERRORS,
+					 XAIETILE_SHIM_ERROR_BCGROUP_MASK);
+		XAieTile_PlIntcL1IrqEventSet(TilePtr,
+					     XAIETILE_ERROR_SHIM_INTEVENT,
+					     XAIETILE_EVENT_SHIM_GROUP_ERRORS_,
+					     XAIETILE_PL_BLOCK_SWITCHA);
+		/* check if any tile in this col is used */
+		RegAddr = TilePtr->TileAddr;
+		ClockCntrlRegVal = XAieGbl_Read32(RegAddr + XAIEGBL_PL_TILCLOCTRL);
+		if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+			for(u32 row = 1; row <= NumRows; row++){
+				TilePtr = AieInst->Tiles;
+				TilePtr += col * (NumRows + 1) + row;
+				/* Compute tile has core and memory module */
+				/* Setup error group event to broadcast error */
+				XAieTile_CoreGroupEventSet(TilePtr,
+					XAIETILE_GROUP_EVENT_CORE_ERROR0,
+					XAIETILE_CORE_ERROR_BCGROUP_MASK);
+				XAieTile_MemGroupEventSet(TilePtr,
+					XAIETILE_GROUP_EVENT_MEM_ERROR,
+					XAIETILE_SHIM_ERROR_BCGROUP_MASK);
+				XAieTileCore_EventBroadcast(TilePtr,
+					XAIETILE_ERROR_BROADCAST,
+					XAIETILE_EVENT_CORE_GROUP_ERRORS0);
+				XAieTileMem_EventBroadcast(TilePtr,
+					XAIETILE_ERROR_BROADCAST,
+					XAIETILE_EVENT_MEM_GROUP_ERRORS);
+
+				RegAddr = TilePtr->TileAddr;
+				ClockCntrlRegVal = XAieGbl_Read32(
+					RegAddr + XAIEGBL_CORE_TILCLOCTRL);
+				/* check if the tile above this tile is gated */
+				if(!(ClockCntrlRegVal & XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+					break;
+			}
 		}
 	}
 	return XAIE_SUCCESS;
