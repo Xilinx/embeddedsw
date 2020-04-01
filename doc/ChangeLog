@@ -1744,16 +1744,6 @@ Added support for loading partial secure PDI
 Enabled direct DMA from SBI, SMAP, DDR, QSPI and OSPI boot modes to CFI for
 performance improvement (non secure boot only)
 
-hdcp1x_v4_4:
-Added repeater support fixes for DP
-
-v_sdirx_v2_0:
-Added 10/12 bpc and HFR support.
-
-v_sdirxss_v3_0:
-Added 10/12 bpc support.
-
-
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
