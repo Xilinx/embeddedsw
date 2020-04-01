@@ -47,6 +47,7 @@
 * 1.8   Tejus   09/05/2019  Fix compiler warnings
 * 1.9   Dishita 11/1/2019   Fix coverity warnings
 * 1.9   Wendy   02/24/2020  Add events notification
+* 2.0   Dishita 03/29/2020  Add support for clock gating
 * </pre>
 *
 ******************************************************************************/
@@ -2899,8 +2900,11 @@ static void XAieTile_CheckColEvents(XAieGbl *AieInst, u8 Col, u8 SwitchAB)
 		/* No events generated for the column */
 		return;
 	}
+
 	for (i = 0; i < NumRows; i++) {
 		u8 Module, NeedToCheckAbove;
+		u32 ClockCntrlRegVal;
+		u64 RegAddr;
 
 		if (SwitchAB == XAIETILE_PL_BLOCK_SWITCHA) {
 			Module = XAIEGBL_MODULE_CORE;
@@ -2917,6 +2921,13 @@ static void XAieTile_CheckColEvents(XAieGbl *AieInst, u8 Col, u8 SwitchAB)
 			 * stop scanning from this column.*/
 			break;
 		}
+		TilePtr = AieInst->Tiles;
+		TilePtr += Col * (NumRows + 1) + i;
+		RegAddr = TilePtr->TileAddr;
+		ClockCntrlRegVal = XAieGbl_Read32(RegAddr + XAIEGBL_CORE_TILCLOCTRL);
+		/* check if the tile above is gated */
+		if(!(ClockCntrlRegVal & XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+			break;
 	}
 }
 
@@ -3433,7 +3444,9 @@ int XAieTile_EventRegisterNotification(XAieGbl *AieInst, XAie_LocType *Loc,
 				       XAieTile_EventCallBack Cb, void *Arg)
 {
 	XAieGbl_EventHandler *Handler;
-	u32 NumCols, NumRows, NumTotalTiles;
+	XAieGbl_Tile *TilePtr;
+	u32 NumCols, NumRows, NumTotalTiles, ClockCntrlRegVal;
+	u64 RegAddr;
 	int ret;
 
 	XAie_AssertNonvoid(AieInst != XAIE_NULL);
@@ -3503,18 +3516,48 @@ int XAieTile_EventRegisterNotification(XAieGbl *AieInst, XAie_LocType *Loc,
 		}
 	} else {
 		for (u32 c = 0; c < NumCols; c++) {
-			for (u32 r = 0; r < NumRows; r++) {
-				XAie_LocType TmpLoc;
-
-				TmpLoc.Col = c;
-				TmpLoc.Row = r;
-				ret = _XAieTile_EventBroadcastCheckAvail(AieInst, TmpLoc,
-									 Module);
-				if (ret != XAIE_SUCCESS) {
-					XAieLib_IntPrint("%s: failed, event(%u,%u): "
-							 "check notification failed.\n",
-							 __func__, Module, Event);
-					return XAIE_FAILURE;
+			XAie_LocType TmpLoc;
+			TmpLoc.Col = c;
+			TmpLoc.Row = 0;
+			ret = _XAieTile_EventBroadcastCheckAvail(AieInst, TmpLoc,
+								 Module);
+			if (ret != XAIE_SUCCESS) {
+				XAieLib_IntPrint("%s: failed, event(%u,%u): "
+						 "check notification failed.\n",
+						 __func__, Module, Event);
+				return XAIE_FAILURE;
+			}
+			/*
+			 * check if any tile in this col is used by checking IsUsed
+			 * field of shim TilePtr of this col.
+			 */
+			TilePtr = AieInst->Tiles;
+			TilePtr += c * (NumRows + 1);
+			RegAddr = TilePtr->TileAddr;
+			ClockCntrlRegVal = XAieGbl_Read32(RegAddr +
+							XAIEGBL_PL_TILCLOCTRL);
+			if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+				for (u32 r = 1; r < NumRows; r++) {
+					XAie_LocType TmpLoc;
+					TmpLoc.Col = c;
+					TmpLoc.Row = r;
+					ret = _XAieTile_EventBroadcastCheckAvail
+						(AieInst, TmpLoc, Module);
+					if (ret != XAIE_SUCCESS) {
+						XAieLib_IntPrint("%s: failed, event(%u,%u): "
+								 "check notification failed.\n",
+								 __func__, Module, Event);
+						return XAIE_FAILURE;
+					}
+					/* check if the tile above is gated */
+					TilePtr = AieInst->Tiles;
+					TilePtr += c * (NumRows + 1) + r;
+					RegAddr = TilePtr->TileAddr;
+					ClockCntrlRegVal = XAieGbl_Read32(
+					     RegAddr + XAIEGBL_CORE_TILCLOCTRL);
+					if(!(ClockCntrlRegVal &
+					     XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+						break;
 				}
 			}
 		}
@@ -3539,18 +3582,47 @@ int XAieTile_EventRegisterNotification(XAieGbl *AieInst, XAie_LocType *Loc,
 		}
 	} else {
 		for (u32 c = 0; c < NumCols; c++) {
-			for (u32 r = 0; r < NumRows; r++) {
-				XAie_LocType TmpLoc;
-
-				TmpLoc.Col = c;
-				TmpLoc.Row = r;
-				ret = _XAieTile_EventSetNotification(AieInst, TmpLoc,
-								     Module, Event);
-				if (ret != XAIE_SUCCESS) {
-					XAieLib_IntPrint("%s: failed, event(%u,%u): "
-							 "set notification failed.\n",
-							 __func__, Module, Event);
-					return XAIE_FAILURE;
+			XAie_LocType TmpLoc;
+			TmpLoc.Col = c;
+			TmpLoc.Row = 0;
+			ret = _XAieTile_EventSetNotification(AieInst, TmpLoc,
+								 Module,Event);
+			if (ret != XAIE_SUCCESS) {
+				XAieLib_IntPrint("%s: failed, event(%u,%u): "
+						 "set notification failed.\n",
+						 __func__, Module, Event);
+				return XAIE_FAILURE;
+			}
+			/*
+			 * check if any tile in this col is used by checking IsUsed
+			 * field of shim TilePtr of this col.
+			 */
+			TilePtr = AieInst->Tiles;
+			TilePtr += c * (NumRows + 1);
+			RegAddr = TilePtr->TileAddr;
+			ClockCntrlRegVal = XAieGbl_Read32(RegAddr + XAIEGBL_PL_TILCLOCTRL);
+			if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+				for (u32 r = 1; r < NumRows; r++) {
+					XAie_LocType TmpLoc;
+					TmpLoc.Col = c;
+					TmpLoc.Row = r;
+					ret = _XAieTile_EventSetNotification
+						(AieInst, TmpLoc,Module, Event);
+					if (ret != XAIE_SUCCESS) {
+						XAieLib_IntPrint("%s: failed, event(%u,%u): "
+								 "set notification failed.\n",
+								 __func__, Module, Event);
+						return XAIE_FAILURE;
+					}
+					TilePtr = AieInst->Tiles;
+					TilePtr += c * (NumRows + 1) + r;
+					RegAddr = TilePtr->TileAddr;
+					ClockCntrlRegVal = XAieGbl_Read32(
+					     RegAddr + XAIEGBL_CORE_TILCLOCTRL);
+					/* check if the tile above is gated */
+					if(!(ClockCntrlRegVal &
+						XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+						break;
 				}
 			}
 			Handler[Event].Refs++;
@@ -3628,15 +3700,39 @@ int XAieTile_EventUnregisterNotification(XAieGbl *AieInst,
 			(void)_XAieTile_EventUnregisterNotification(AieInst, Loc[i],
 								    Module, Event);
 		}
-	} else {
+	}
+	else {
 		for (u32 c = 0; c < NumCols; c++) {
-			for (u32 r = 0; r < NumRows; r++) {
-				XAie_LocType TmpLoc;
-
-				TmpLoc.Col = c;
-				TmpLoc.Row = r;
-				(void)_XAieTile_EventUnregisterNotification(AieInst, TmpLoc,
-									    Module, Event);
+			XAie_LocType TmpLoc;
+			XAieGbl_Tile *TilePtr;
+			u32 ClockCntrlRegVal;
+			u64 RegAddr;
+			TmpLoc.Col = c;
+			TmpLoc.Row = 0;
+			(void)_XAieTile_EventUnregisterNotification(AieInst,
+					TmpLoc, Module, Event);
+			/* check if any tile in this col is used */
+			TilePtr = AieInst->Tiles;
+			TilePtr += c * (NumRows + 1);
+			RegAddr = TilePtr->TileAddr;
+			ClockCntrlRegVal = XAieGbl_Read32(RegAddr + XAIEGBL_PL_TILCLOCTRL);
+			if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+				for (u32 r = 1; r < NumRows; r++) {
+					XAie_LocType TmpLoc;
+					TmpLoc.Col = c;
+					TmpLoc.Row = r;
+					(void)_XAieTile_EventUnregisterNotification(
+						AieInst, TmpLoc, Module, Event);
+					/* check if the tile above is gated */
+					TilePtr = AieInst->Tiles;
+					TilePtr += c * (NumRows + 1) + r;
+					RegAddr = TilePtr->TileAddr;
+					ClockCntrlRegVal = XAieGbl_Read32(
+						RegAddr + XAIEGBL_CORE_TILCLOCTRL);
+					if(!(ClockCntrlRegVal &
+						XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+						break;
+				}
 			}
 		}
 	}
@@ -3710,137 +3806,154 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 	/* Setup events broadcast network */
 	NumCols = AieInst->Config->NumCols;
 	NumRows = AieInst->Config->NumRows;
-	NumTiles = NumCols * (NumRows + 1);
-	TilePtr = AieInst->Tiles;
 	XAie_print("%s: Setup broadcast network.\n", __func__);
-	for (i = 0; i < NumTiles; i++, TilePtr++) {
-		if (TilePtr->TileType == XAIEGBL_TILE_TYPE_AIETILE) {
-			/* Non SHIM tile, block broadcast events from west
-			 * and east */
-			XAieTileCore_EventBroadcastBlockSet(TilePtr,
-							    XAIETILE_EVENT_BLOCK_WEST,
-							    XAIETILE_BCEVENTS_NOTIFY_MASK);
-			XAieTileCore_EventBroadcastBlockSet(TilePtr,
-							    XAIETILE_EVENT_BLOCK_EAST,
-							    XAIETILE_BCEVENTS_NOTIFY_MASK);
-			XAieTileCore_EventBroadcastBlockSet(TilePtr,
-							    XAIETILE_EVENT_BLOCK_NORTH,
-							    XAIETILE_BCEVENTS_NOTIFY_MASK);
-			XAieTileMem_EventBroadcastBlockSet(TilePtr,
-							   XAIETILE_EVENT_BLOCK_WEST,
-							   XAIETILE_BCEVENTS_NOTIFY_MASK);
-			XAieTileMem_EventBroadcastBlockSet(TilePtr,
-							   XAIETILE_EVENT_BLOCK_EAST,
-							   XAIETILE_BCEVENTS_NOTIFY_MASK);
-			XAieTileMem_EventBroadcastBlockSet(TilePtr,
-							   XAIETILE_EVENT_BLOCK_NORTH,
-							   XAIETILE_BCEVENTS_NOTIFY_MASK);
-			TilePtr->MemBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
-			TilePtr->CoreBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
-		} else {
-			/* SHIM Tile */
-			u8 Irq1stBc;
-			XAie_LocType Loc;
 
-			Loc.Col = TilePtr->ColId;
-			Loc.Row = 0;
+	for(u32 col = 0; col < NumCols; col++){
+		/* SHIM Tile */
+		TilePtr = AieInst->Tiles;
+		TilePtr += col * (NumRows + 1);
+		u8 Irq1stBc;
+		XAie_LocType Loc;
+		u32 ClockCntrlRegVal;
+		u64 RegAddr;
 
-			/* Setup 1st level interrup controller to capture
-			 * events from the tiles above and local shim.
-			 */
-			Irq1stBc = XAieTile_Cal1stIrqNo(AieInst, Loc,
-							XAIETILE_PL_BLOCK_SWITCHA);
-			XAie_print("%s: (%u,%u),Switch %u, BC %u.\n",
-				   __func__, Loc.Col, Loc.Row, XAIETILE_PL_BLOCK_SWITCHA, Irq1stBc);
-			XAieTile_PlIntcL1IrqNoSet(TilePtr, Irq1stBc,
-						  XAIETILE_PL_BLOCK_SWITCHA);
-			XAieTile_PlIntcL1IrqNoSet(TilePtr, Irq1stBc + 1,
-						  XAIETILE_PL_BLOCK_SWITCHB);
-			/* Enable 1st level interrupt controller */
-			RegVal = XAIETILE_EVENTS_BROADCAST_MASK;
-			XAieTile_PlIntcL1Enable(TilePtr, RegVal,
-						XAIETILE_PL_BLOCK_SWITCHB);
-			RegVal |= XAIETILE_EVENTS_SHIM_INTEVENT_MASK;
-			XAieTile_PlIntcL1Enable(TilePtr, RegVal,
+		Loc.Col = TilePtr->ColId;
+		Loc.Row = 0;
+
+		/* Setup 1st level interrup controller to capture
+		 * events from the tiles above and local shim.
+		 */
+		Irq1stBc = XAieTile_Cal1stIrqNo(AieInst, Loc,
 						XAIETILE_PL_BLOCK_SWITCHA);
-			TilePtr->PlIntEvtUsedMask = 1;
-			/* Block broacast event to the north */
+		XAie_print("%s: (%u,%u),Switch %u, BC %u.\n",
+			   __func__, Loc.Col, Loc.Row, XAIETILE_PL_BLOCK_SWITCHA, Irq1stBc);
+		XAieTile_PlIntcL1IrqNoSet(TilePtr, Irq1stBc,
+					  XAIETILE_PL_BLOCK_SWITCHA);
+		XAieTile_PlIntcL1IrqNoSet(TilePtr, Irq1stBc + 1,
+					  XAIETILE_PL_BLOCK_SWITCHB);
+		/* Enable 1st level interrupt controller */
+		RegVal = XAIETILE_EVENTS_BROADCAST_MASK;
+		XAieTile_PlIntcL1Enable(TilePtr, RegVal,
+					XAIETILE_PL_BLOCK_SWITCHB);
+		RegVal |= XAIETILE_EVENTS_SHIM_INTEVENT_MASK;
+		XAieTile_PlIntcL1Enable(TilePtr, RegVal,
+					XAIETILE_PL_BLOCK_SWITCHA);
+		TilePtr->PlIntEvtUsedMask = 1;
+		/* Block broacast event to the north */
+		XAieTilePl_EventBroadcastBlockSet(TilePtr,
+				XAIETILE_EVENT_BLOCK_NORTH,
+				XAIETILE_PL_BLOCK_SWITCHA,
+				XAIETILE_BCEVENTS_NOTIFY_MASK);
+		XAieTilePl_EventBroadcastBlockSet(TilePtr,
+				XAIETILE_EVENT_BLOCK_NORTH,
+				XAIETILE_PL_BLOCK_SWITCHB,
+				XAIETILE_BCEVENTS_NOTIFY_MASK);
+		if (TilePtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC) {
+			/* SHIM NoC, block events from west/east */
 			XAieTilePl_EventBroadcastBlockSet(TilePtr,
-					XAIETILE_EVENT_BLOCK_NORTH,
+					XAIETILE_EVENT_BLOCK_WEST,
 					XAIETILE_PL_BLOCK_SWITCHA,
 					XAIETILE_BCEVENTS_NOTIFY_MASK);
 			XAieTilePl_EventBroadcastBlockSet(TilePtr,
-					XAIETILE_EVENT_BLOCK_NORTH,
+					XAIETILE_EVENT_BLOCK_WEST,
 					XAIETILE_PL_BLOCK_SWITCHB,
 					XAIETILE_BCEVENTS_NOTIFY_MASK);
-			if (TilePtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC) {
-				/* SHIM NoC, block events from west/east */
+			XAieTilePl_EventBroadcastBlockSet(TilePtr,
+					XAIETILE_EVENT_BLOCK_EAST,
+					XAIETILE_PL_BLOCK_SWITCHB,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+			/* Enable 2nd level interrupt controller */
+			RegVal = XAIETILE_EVENT_1ST_IRQ_IDS_MASK;
+			XAieTile_NoCIntcL2IntrSet(TilePtr,
+						  XAIETILE_EVENT_NPI_INTERRUPT);
+			XAieTile_NoCIntcL2Enable(TilePtr, RegVal);
+		}
+		else {
+			/* SHIM PL */
+			if (Irq1stBc == 0) {
+				/* Block to left */
 				XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_WEST,
-						XAIETILE_PL_BLOCK_SWITCHA,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
+					XAIETILE_EVENT_BLOCK_WEST,
+					XAIETILE_PL_BLOCK_SWITCHA,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
 				XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_WEST,
-						XAIETILE_PL_BLOCK_SWITCHB,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
+					XAIETILE_EVENT_BLOCK_WEST,
+					XAIETILE_PL_BLOCK_SWITCHB,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+			} else if (Irq1stBc == 4) {
+				/* Block to right */
 				XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_EAST,
-						XAIETILE_PL_BLOCK_SWITCHB,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-				/* Enable 2nd level interrupt controller */
-				RegVal = XAIETILE_EVENT_1ST_IRQ_IDS_MASK;
-				XAieTile_NoCIntcL2IntrSet(TilePtr,
-							  XAIETILE_EVENT_NPI_INTERRUPT);
-				XAieTile_NoCIntcL2Enable(TilePtr, RegVal);
-			} else {
-				/* SHIM PL */
-				if (Irq1stBc == 0) {
-					/* Block to left */
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_WEST,
-						XAIETILE_PL_BLOCK_SWITCHA,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_WEST,
-						XAIETILE_PL_BLOCK_SWITCHB,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-				} else if (Irq1stBc == 4) {
-					/* Block to right */
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_EAST,
-						XAIETILE_PL_BLOCK_SWITCHA,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_EAST,
-						XAIETILE_PL_BLOCK_SWITCHB,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-				} else if ((TilePtr->ColId % 4) == 0) {
-					/* SHIM PL needs to broadast to the
-					 * SHIM NOC on the left */
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_EAST,
-						XAIETILE_PL_BLOCK_SWITCHA,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_EAST,
-						XAIETILE_PL_BLOCK_SWITCHB,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-				} else {
-					/* SHIM PL needs to broadcast to
-					 * the SHIM NOC in the right */
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_WEST,
-						XAIETILE_PL_BLOCK_SWITCHA,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-					XAieTilePl_EventBroadcastBlockSet(TilePtr,
-						XAIETILE_EVENT_BLOCK_WEST,
-						XAIETILE_PL_BLOCK_SWITCHB,
-						XAIETILE_BCEVENTS_NOTIFY_MASK);
-				}
+					XAIETILE_EVENT_BLOCK_EAST,
+					XAIETILE_PL_BLOCK_SWITCHA,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTilePl_EventBroadcastBlockSet(TilePtr,
+					XAIETILE_EVENT_BLOCK_EAST,
+					XAIETILE_PL_BLOCK_SWITCHB,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+			} else if ((TilePtr->ColId % 4) == 0) {
+				/* SHIM PL needs to broadast to the
+				 * SHIM NOC on the left */
+				XAieTilePl_EventBroadcastBlockSet(TilePtr,
+					XAIETILE_EVENT_BLOCK_EAST,
+					XAIETILE_PL_BLOCK_SWITCHA,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTilePl_EventBroadcastBlockSet(TilePtr,
+					XAIETILE_EVENT_BLOCK_EAST,
+					XAIETILE_PL_BLOCK_SWITCHB,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+			}
+			else {
+				/* SHIM PL needs to broadcast to
+				 * the SHIM NOC in the right */
+				XAieTilePl_EventBroadcastBlockSet(TilePtr,
+					XAIETILE_EVENT_BLOCK_WEST,
+					XAIETILE_PL_BLOCK_SWITCHA,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTilePl_EventBroadcastBlockSet(TilePtr,
+					XAIETILE_EVENT_BLOCK_WEST,
+					XAIETILE_PL_BLOCK_SWITCHB,
+					XAIETILE_BCEVENTS_NOTIFY_MASK);
+			}
+		}
+		RegAddr = TilePtr->TileAddr;
+		ClockCntrlRegVal = XAieGbl_Read32(RegAddr + XAIEGBL_PL_TILCLOCTRL);
+		if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+			for(u32 row = 1; row <= NumRows; row++){
+				TilePtr = AieInst->Tiles;
+				TilePtr += col * (NumRows + 1) + row;
+				/* Non SHIM tile, block broadcast events from west
+				 * and east */
+				XAieTileCore_EventBroadcastBlockSet(TilePtr,
+									XAIETILE_EVENT_BLOCK_WEST,
+									XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTileCore_EventBroadcastBlockSet(TilePtr,
+									XAIETILE_EVENT_BLOCK_EAST,
+									XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTileCore_EventBroadcastBlockSet(TilePtr,
+									XAIETILE_EVENT_BLOCK_NORTH,
+									XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTileMem_EventBroadcastBlockSet(TilePtr,
+								   XAIETILE_EVENT_BLOCK_WEST,
+								   XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTileMem_EventBroadcastBlockSet(TilePtr,
+								   XAIETILE_EVENT_BLOCK_EAST,
+								   XAIETILE_BCEVENTS_NOTIFY_MASK);
+				XAieTileMem_EventBroadcastBlockSet(TilePtr,
+								   XAIETILE_EVENT_BLOCK_NORTH,
+								   XAIETILE_BCEVENTS_NOTIFY_MASK);
+				TilePtr->MemBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
+				TilePtr->CoreBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
 
+				RegAddr = TilePtr->TileAddr;
+				ClockCntrlRegVal = XAieGbl_Read32(RegAddr +
+					XAIEGBL_CORE_TILCLOCTRL);
+				/* check if the tile above this tile is gated */
+				if(!(ClockCntrlRegVal & XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
+					break;
 			}
 		}
 	}
+
 	memset(AieInst->CoreEvtHandlers, 0, sizeof(AieInst->CoreEvtHandlers));
 	memset(AieInst->MemEvtHandlers, 0, sizeof(AieInst->MemEvtHandlers));
 	memset(AieInst->ShimEvtHandlers, 0, sizeof(AieInst->ShimEvtHandlers));
