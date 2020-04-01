@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xpmonpsv_g.c
-* @addtogroup pmonpsv_v1_2
+* @addtogroup pmonpsv_v1_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration
