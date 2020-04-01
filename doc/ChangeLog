@@ -138,7 +138,8 @@ wdttb_v5_0:
 -Added GWDT interrupt example.
 -Updated interrupt examples to support versal platform.
 
-axiethernet_v5_11:
+axiethernet_v5_10:
+Remove assert condition in XAxiEthernet_SetOperatingSpeed.
 In driver tcl use hier "::hsi::utils::get_connected_intf" API.
 In debug mode fix return value of XAxiEthernet_ReadReg.
 Clean up old versions in axiethernet.mdd.
