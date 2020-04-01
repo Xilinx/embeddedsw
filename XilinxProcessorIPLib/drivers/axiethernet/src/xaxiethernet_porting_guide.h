@@ -27,7 +27,7 @@
 /**
 *
 * @file xaxiethernet_porting_guide.h
-* @addtogroup axiethernet_v5_11
+* @addtogroup axiethernet_v5_10
 * @{
 *
 * This is a guide on how to move from using the ll temac driver to use the
