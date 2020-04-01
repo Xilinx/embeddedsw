@@ -747,6 +747,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 			GeomPtr->EraseRegion[Bank].AbsoluteBlock =
 				CurrentAbsoluteBlock;
 		}
+		Status = (int)XST_SUCCESS;
 	}
 
 	switch (InstancePtr->Geometry.MemoryLayout) {
