@@ -133,6 +133,14 @@ extern "C" {
 #define SLR_TYPE_SSIT_DEV_SLAVE_3_SLR_TOP	(0x1U)
 #define SLR_TYPE_INVALID			(0x0U)
 
+#ifdef STDOUT_BASEADDRESS
+#if (STDOUT_BASEADDRESS == 0xFF000000U)
+#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
+#elif (STDOUT_BASEADDRESS == 0xFF010000U)
+#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
+#endif
+#endif
+
 extern u32 Platform;
 extern u32 PlatformVersion;
 extern u32 SlrType;

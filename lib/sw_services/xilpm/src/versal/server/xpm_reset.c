@@ -30,6 +30,7 @@
 #include "xpm_powerdomain.h"
 #include "xpm_regs.h"
 #include "xpm_aie.h"
+#include "xpm_api.h"
 #include "xpm_common.h"
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
@@ -40,6 +41,8 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst);
 static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
 static const u32 MaxRstNodes = (u32)XPM_NODEIDX_RST_MAX;
 static u32 PmNumResets;
+
+u32 UserAssertPsSrst = 0U;
 
 static XPm_ResetOps ResetOps[XPM_RSTOPS_MAX] = {
 	[XPM_RSTOPS_GENRERIC] = {
@@ -152,89 +155,40 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
-	u32 i;
-	const u32 PsDomainIds[] = { PM_POWER_LPD, PM_POWER_FPD };
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
-	/*
-	 * Prevent LPD access
-	 */
-	XPlmi_ResetLpdInitialized();
-
-	/* Block LPD-PL interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
+	XPm_Power *LpdPower = XPmPower_GetById(PM_POWER_LPD);
+	if (NULL == LpdPower) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block LPD-NoC interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block LPD-PMC interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block FPD-PL interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block FPD-NoC interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/*
-	 * TODO: Use XPm_ForcePowerdown() API here to force LPD and FPD
-	 * power and device nodes to power down, this will handle the
-	 * use count and release of device requirements, gracefully.
-	 *
-	 * At present, Debugging is in progress for the issue where
-	 * JTAG link is lost between XSDB and target device if this API is used.
-	 *
-	 * Therefore, following workaround is needed until debugging is done.
-	 */
-	for (i = 0; i < ARRAY_SIZE(PsDomainIds); i++) {
-		XPm_Power *Power = NULL, *Child = NULL;
-
-		Power = XPmPower_GetById(PsDomainIds[i]);
-		if (NULL == Power) {
-			Status = XST_FAILURE;
+	if (LpdPower->UseCount > 1U) {
+		/**
+		 * LPD UseCount more then 1 indicates that PS only reset is
+		 * not called from LPD power down routine. So power down the
+		 * LPD gracefully which in turn performs PS only reset.
+		 * Also set UserAssertPsSrst flag to skip PS-POR and LPD rail
+		 * handling in LPD power down.
+		 */
+		UserAssertPsSrst = 1U;
+		Status = XPm_ForcePowerdown(PM_SUBSYS_PMC, PM_POWER_LPD, 0U);
+		UserAssertPsSrst = 0U;
+		if (Status != XST_SUCCESS) {
+			PmErr("Error %d in Powerdown of LPD %d\r\n", Status);
 			goto done;
 		}
-
-		Child = ((XPm_PowerDomain *)Power)->Children;
-		while (Child != NULL) {
-			Child->Node.State = (u8)XPM_POWER_STATE_OFF;
-			Child = Child->NextPeer;
-		}
-		Power->Node.State = (u8)XPM_POWER_STATE_OFF;
+	} else {
+		/**
+		 * LPD UseCount value 1 or less indicates that PS only reset
+		 * is called from LPD power down routine which means that all
+		 * isolation dependency is taken care in FPD and LPD power down
+		 * itself and no need to take care in this routine.
+		 */
+		/* Assert PS System Reset */
+		XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
+		Status = XST_SUCCESS;
 	}
-
-	/* Assert PS System Reset */
-	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
 
 done:
 	return Status;

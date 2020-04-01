@@ -54,14 +54,6 @@
 #include "xpm_notifier.h"
 #include "xplmi_error_node.h"
 
-#ifdef STDOUT_BASEADDRESS
-#if (STDOUT_BASEADDRESS == 0xFF000000U)
-#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
-#elif (STDOUT_BASEADDRESS == 0xFF010000U)
-#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
-#endif
-#endif
-
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
 		XPm_DispatchWakeHandler, (void *)(NodeId))
@@ -1344,9 +1336,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 							 * power down
 							 */
 							DISABLE_WAKE(Core->SleepMask);
-						} else {
-							Status = XST_FAILURE;
-							goto done;
 						}
 					}
 

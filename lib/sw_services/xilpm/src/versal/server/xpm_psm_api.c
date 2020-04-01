@@ -36,13 +36,6 @@
 #include "xpm_requirement.h"
 #include "sleep.h"
 
-#ifdef STDOUT_BASEADDRESS
-#if (STDOUT_BASEADDRESS == 0xFF000000U)
-#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
-#elif (STDOUT_BASEADDRESS == 0xFF010000U)
-#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
-#endif
-#endif
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
 {
@@ -282,9 +275,6 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 				goto done;
 			}
 #ifdef DEBUG_UART_PS
-			XPlmi_ResetLpdInitialized();
-			/* Wait for UART buffer to flush */
-			usleep(1000);
 			Status = XPmDevice_Release(PM_SUBSYS_PMC, NODE_UART);
 			if (XST_SUCCESS != Status) {
 				PmErr("PMC Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_UART_0)\r\n");

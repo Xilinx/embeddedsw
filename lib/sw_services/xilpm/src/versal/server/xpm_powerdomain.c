@@ -342,10 +342,13 @@ XStatus XPm_PowerDwnLPD(void)
 	/* Assert reset for PS SRST */
 	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_ASSERT);
 
-	/* Assert POR for PS-LPD */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_ASSERT);
+	/* Skip PS-POR and LPD power rail handling in case of user PS-SRST */
+	if (0U == UserAssertPsSrst) {
+		/* Assert POR for PS-LPD */
+		Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_ASSERT);
 
-	/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
+		/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
+	}
 
 	LpDomain->LpdBisrFlags &= (u8)(~(LPD_BISR_DATA_COPIED | LPD_BISR_DONE));
 
