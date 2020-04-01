@@ -177,6 +177,8 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	}
 
 
+	 memset(&OspiPsvInstance, 0U, sizeof(OspiPsvInstance));
+
 	/**
 	 * Initialize the OSPI driver so that it's ready to use
 	 */
@@ -291,7 +293,7 @@ XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg.Addrsize = 4U;
 	FlashMsg.Addrvalid = 1U;
 	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = (u8*)DestAddr;
+	FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
 	FlashMsg.ByteCount = Length;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = SrcAddr;
