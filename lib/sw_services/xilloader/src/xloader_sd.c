@@ -300,7 +300,7 @@ XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 		goto END;
 	}
 
-	rc = f_read(&fil, (void*)DestAddress, Length, &br);
+	rc = f_read(&fil, (void*)(UINTPTR)DestAddress, Length, &br);
 
 	if (rc != FR_OK) {
 		XLoader_Printf(DEBUG_GENERAL,
@@ -348,6 +348,9 @@ int XLoader_RawInit(u32 DeviceFlags)
 	u32 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	XLoader_IsSDRaw = TRUE;
 	XSdPs_Config *SdConfig;
+
+	 memset(&SdInstance, 0U, sizeof(SdInstance));
+
 	/*
 	 * Initialize the host controller
 	 */
@@ -395,7 +398,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS)
 	{
 	Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_MMC_PART_CONFIG, Status);
-        goto END;
+	goto END;
 	}
 
 	XLoader_Printf(DEBUG_INFO,"Raw init completed\n\r");

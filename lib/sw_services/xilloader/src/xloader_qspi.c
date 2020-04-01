@@ -207,6 +207,7 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 	 * This parameter is required as per the prototype
 	 */
 	(void) (DeviceFlags);
+	memset(&QspiPsuInstance, 0U, sizeof(QspiPsuInstance));
 
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
@@ -882,6 +883,7 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 	 * This parameter is required as per the prototype
 	 */
 	(void) (DeviceFlags);
+	 memset(&QspiPsuInstance, 0U, sizeof(QspiPsuInstance));
 
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
