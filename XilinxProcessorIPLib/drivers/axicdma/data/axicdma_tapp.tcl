@@ -28,6 +28,9 @@
 #  3.0     adk    12/10/13 Updated as per the New Tcl API's
 #  4.5     rsp    07/06/18 Remove space b/w backslash and newline
 #  4.5     rsp    10/03/18 Fix typos
+#  4.7     adk    01/04/20 Updated the API check_if_ddr_is_present() to check
+#			   ddr is present or not for the current processor
+#                          instance instead of entire design configuration.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I_SP1
@@ -351,15 +354,16 @@ proc gen_testfunc_call {swproj mhsinst} {
 }
 
 proc check_if_ddr_is_present {mhsinst} {
-     set ips [hsi::get_cells -hier $mhsinst "*"]
+     set ips [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier [hsi::get_sw_processor]]]
      set ddrpresent -1
      set migddrpresent -1
 
      foreach ip $ips {
-	set periph [get_property IP_NAME $ip]
+	set periph [get_property IP_NAME [hsi::get_cells -hier $ip]]
 	set ddrpresent [string first "ddr" $periph]
 	set migddrpresent [string first "mig" $periph]
-	if {$ddrpresent >=0 || $migddrpresent >=0} {
+	set nocpresent [string first "noc" $periph]
+	if {$ddrpresent >=0 || $migddrpresent >=0 || $nocpresent >= 0} {
 		return 1
 	}
      }
