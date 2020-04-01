@@ -125,6 +125,8 @@ axicdma_v4_7:
 Support 26bit dma transfer length.
 Fix gcc warning in peripheral test and examples.
 Clean up old versions in axicdma.mdd.
+Fixed the driver examples pulling in the peripheral test when ddr is not mapped
+to the selected processor.
 
 wdttb_v5_0:
 -Updated example files with "Successfully ran" string.
