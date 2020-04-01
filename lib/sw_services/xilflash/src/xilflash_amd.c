@@ -1691,6 +1691,9 @@ static int WriteBufferSpansion(XFlash * InstancePtr, void *DestPtr,
 			return Status;
 		}
 	}
+
+	Status = (int)XST_SUCCESS;
+
 	return Status;
 }
 
