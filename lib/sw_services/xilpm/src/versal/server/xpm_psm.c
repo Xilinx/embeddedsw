@@ -65,6 +65,9 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	Status = XPm_PollForMask(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr),
 				 PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 				 XPM_MAX_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if (1U == Is_PsmPoweredDown) {
 		/* Restore the context of reserved PSM RAM memory */
@@ -85,16 +88,35 @@ done:
 
 static XStatus XPmPsm_PowerDown(XPm_Core *Core)
 {
+	int Status = XST_FAILURE;
+	XPm_Power *PwrNode;
 	(void)Core;
+
+	if ((u8)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/* Store the context of reserved PSM RAM memory */
 	(void)XPlmi_MemCpy(&PsmToPlmEvent_bkp, (void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp));
 
 	/* Add PSM specific power down sequence if any */
 
+	if (NULL != Core->Device.Power) {
+		PwrNode = Core->Device.Power;
+		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	Is_PsmPoweredDown = 1U;
 
-	return XST_SUCCESS;
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 static struct XPm_CoreOps PsmOps = {
