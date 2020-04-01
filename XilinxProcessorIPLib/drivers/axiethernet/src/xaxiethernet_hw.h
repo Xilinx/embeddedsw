@@ -26,7 +26,7 @@
 /**
 *
 * @file xaxiethernet_hw.h
-* @addtogroup axiethernet_v5_11
+* @addtogroup axiethernet_v5_10
 * @{
 *
 * This header file contains identifiers and macros that can be used to access
@@ -47,7 +47,7 @@
 *		     Frame and Tx Max Frame registers.
 *		     Changed define for TEMAC RGMII/SGMII Config (PHYC) Reg.
 * 5.70  srm  01/16/18 Added a new macro to support poll timeout implementation
-* 5.11  rsp  02/25/20 In debug mode fix return value of XAxiEthernet_ReadReg.
+* 5.10  rsp  02/25/20 In debug mode fix return value of XAxiEthernet_ReadReg.
 * </pre>
 
 ******************************************************************************/
