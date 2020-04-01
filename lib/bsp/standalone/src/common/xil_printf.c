@@ -199,28 +199,22 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
 /* This routine gets a number from the format        */
 /* string.                                           */
 /*                                                   */
-static s32 getnum( charptr* linep)
+static s32 getnum(charptr* linep)
 {
-    s32 n;
-    s32 ResultIsDigit = 0;
-    charptr cptr;
-    n = 0;
-    cptr = *linep;
-	if(cptr != NULL){
+	s32 n = 0;
+	s32 ResultIsDigit = 0;
+	charptr cptr = *linep;
+
+	while (cptr != NULL) {
 		ResultIsDigit = isdigit(((s32)*cptr));
+		if (ResultIsDigit == 0)
+			break;
+		n = ((n*10) + (((s32)*cptr) - (s32)'0'));
+		cptr += 1;
 	}
-    while (ResultIsDigit != 0) {
-		if(cptr != NULL){
-			n = ((n*10) + (((s32)*cptr) - (s32)'0'));
-			cptr += 1;
-			if(cptr != NULL){
-				ResultIsDigit = isdigit(((s32)*cptr));
-			}
-		}
-		ResultIsDigit = isdigit(((s32)*cptr));
-	}
-    *linep = ((charptr )(cptr));
-    return(n);
+
+	*linep = ((charptr)(cptr));
+	return(n);
 }
 
 /*---------------------------------------------------*/
