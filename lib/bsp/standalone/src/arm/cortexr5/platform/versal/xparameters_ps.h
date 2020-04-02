@@ -45,6 +45,7 @@
 *       mn      03/26/18 Update SLCR base address
 *       pm	02/04/20 Add Interrupt IDs for usb-versal
 *	sne	03/26/20 Add Interrupt ID's for WWDT
+*       pm	03/24/20 Add wakeup Interrupt IDs for usb-versal
 * </pre>
 *
 ******************************************************************************/
@@ -145,6 +146,7 @@ extern "C" {
 #define XPAR_XSMMU_FPD_INTR 		XPS_FPD_SMMU_INT_ID
 #define XPAR_XUSBPS_0_INTR		XPS_USB3_0_ENDPT_INT_ID
 #define XPAR_XUSBPS_1_INTR		XPS_USB3_1_ENDPT_INT_ID
+#define XPAR_XUSBPS_0_WAKE_INTR		XPS_USB3_0_WAKE_INT_ID
 #define	XPAR_XRTCPSU_ALARM_INTR 	XPS_RTC_ALARM_INT_ID
 #define	XPAR_XRTCPSU_SECONDS_INTR	XPS_RTC_SEC_INT_ID
 #define XPAR_XSYSMONPSU_INTR		XPS_AMS_INT_ID
@@ -243,6 +245,7 @@ extern "C" {
 #define XPS_ADMA_CH6_INT_ID		(66U + 32U)
 #define XPS_ADMA_CH7_INT_ID		(67U + 32U)
 #define XPS_XMPU_LPD_INT_ID		(68U + 32U)
+#define XPS_USB3_0_WAKE_INT_ID		(74U + 32U)
 #define XPS_XMPU_FPD_INT_ID		(102U + 32U)
 #define XPS_FPD_CCI_INT_ID		(106U + 32U)
 #define XPS_FPD_SMMU_INT_ID		(107U + 32U)
