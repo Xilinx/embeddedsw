@@ -84,6 +84,8 @@ extern "C" {
 /**
 * SHA3 Memory Map
 */
+#define XSECURE_CSU_DMA0_ID             (0U)
+
 #define XSECURE_SHA3_START_START	(1U << 0) /**< SHA Start Message */
 
 #define XSECURE_SHA3_RESET_RESET	(1U << 0) /**< SHA Reset Value */
@@ -98,6 +100,7 @@ extern "C" {
 							rate in bytes*/
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
+#define XSECURE_HASH_SIZE_IN_BYTES      (48U)
 /**
 * SHA3 padding type
 */
@@ -149,6 +152,8 @@ void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
 u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
 u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
+
+u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 
 #ifdef __cplusplus
 }

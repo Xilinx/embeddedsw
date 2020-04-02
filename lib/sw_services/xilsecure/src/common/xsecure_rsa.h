@@ -91,6 +91,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xsecure_rsa_core.h"
+#include "xsecure_ecdsa_rsa_hw.h"
+#include "xsecure_ecdsa.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_RSA_BYTE_PAD_LENGTH	(3U)  /**< PKCS Byte Padding */
@@ -98,7 +100,7 @@ extern "C" {
 #define XSECURE_RSA_BYTE_PAD1		(0X00U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
-
+#define XSECURE_ECC_DATA_SIZE_WORDS	(12U)
 /***************************** Type Definitions ******************************/
 
 /***************************** Function Prototypes ***************************/
@@ -117,6 +119,9 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 								u8 *Result);
 
+u32 XSecure_RsaPublicEncryptKat(void);
+
+u32 XSecure_EcdsaKat(void);
 #ifdef __cplusplus
 }
 #endif

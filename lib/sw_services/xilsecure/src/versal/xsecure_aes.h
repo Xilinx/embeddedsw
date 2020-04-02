@@ -60,7 +60,8 @@ extern "C" {
 
 
 /************************** Constant Definitions *****************************/
-
+#define XSECURE_AES_BUFFER_SIZE                         (4U)
+#define XSECURE_CSU_DMA_ID 				(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
@@ -77,6 +78,10 @@ extern "C" {
 
 #define XSECURE_AES_NO_CFG_DST_DMA			(0xFFFFFFFFU)
 
+#define XSECURE_AES_KEY_MASK_INDEX			(0xA0U)
+#define XSECURE_AES_DMA_SIZE				(16U)
+#define XSECURE_AES_DMA_LAST_WORD_ENABLE		(0x1U)
+#define XSECURE_AES_DMA_LAST_WORD_DISABLE		(0x0U)
 /* Key select values */
 #define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600)
 #define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200)
@@ -166,16 +171,6 @@ typedef struct {
 	XSecure_AesKeySrc KeySrc;
 } XSecure_Aes;
 
-typedef enum {
-	XSECURE_AES_GCM_TAG_MISMATCH = (0x2U),
-					/**< user provided GCM tag does
-						not match calculated tag */
-	XSECURE_AES_KEY_CLEAR_ERROR,
-					/**< AES key clear error */
-	XSECURE_AES_DPA_CM_NOT_SUPPORTED,
-					/**< AES DPA CM is not supported on device */
-} XSecure_AesErrorCodes;
-
 /************************** Function Prototypes ******************************/
 u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr);
 
@@ -191,6 +186,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			u64 IvAddr, u32 KeySize);
 
 u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg);
+
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size);
 
 u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
@@ -216,7 +212,11 @@ u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
 
 u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-					   XSecure_AesKeySize KeySize);
+	XSecure_AesKeySize KeySize);
+
+u32 XSecure_AesDecryptKat(XSecure_Aes *InstancePtr);
+
+u32 XSecure_AesDecryptCmKat(XSecure_Aes *InstancePtr);
 
 #ifdef __cplusplus
 }
