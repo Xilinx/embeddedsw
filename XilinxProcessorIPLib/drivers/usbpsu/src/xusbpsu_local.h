@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_local.h
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 * @details
 *
@@ -47,7 +47,6 @@ extern "C" {
  * Functions in xusbpsu.c
  */
 /** @cond INTERNAL */
-s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode);
 u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 		XusbPsuLinkStateChange State);
@@ -64,6 +63,7 @@ s32 XUsbPsu_WaitSetTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex);
 s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr);
 void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode);
 /** @endcond */
 
 /*
@@ -100,6 +100,8 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum,
 s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 				u16 Size, u8 Type, u8 Restore);
 s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
+void XUsbPsu_ClearStallAllEp(struct XUsbPsu *InstancePtr);
+void XUsbPsu_StopActiveTransfers(struct XUsbPsu *InstancePtr);
 /** @endcond */
 
 /*
@@ -114,8 +116,6 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 				const struct XUsbPsu_Event_Epevt *Event);
 void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
 					struct XUsbPsu_Ep *Ept);
-void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event);
 /** @endcond */
 
 /*
@@ -143,10 +143,12 @@ void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr,
 				u32 EvtInfo);
 void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 			const union XUsbPsu_Event *Event);
+void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
+		const struct XUsbPsu_Event_Epevt *Event);
 /** @endcond */
 
 /*
- * Functions in xusbpsu_intr.c
+ * Functions in xusbpsu_event.c
  */
 /** @cond INTERNAL */
 void XUsbPsu_EpEvent(struct XUsbPsu *InstancePtr,
@@ -154,8 +156,6 @@ void XUsbPsu_EpEvent(struct XUsbPsu *InstancePtr,
 void XUsbPsu_DeviceEvent(struct XUsbPsu *InstancePtr,
 		const struct XUsbPsu_Event_Devt *Event);
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr);
-void XUsbPsu_ClearStallAllEp(struct XUsbPsu *InstancePtr);
-void XUsbPsu_StopActiveTransfers(struct XUsbPsu *InstancePtr);
 /** @endcond */
 
 /*
@@ -163,15 +163,15 @@ void XUsbPsu_StopActiveTransfers(struct XUsbPsu *InstancePtr);
  */
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 /** @cond INTERNAL */
-void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
-void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr, u8 *ScratchBuf);
 s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum);
 s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 							u32 param);
-void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr);
 /** @endcond */
 #endif /* XUSBPSU_HIBERNATION_ENABLE */

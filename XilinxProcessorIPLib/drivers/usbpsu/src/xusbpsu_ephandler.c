@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_ephandler.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 *
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/23/20 First release
+* 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -80,12 +81,12 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	 * - Wait 100us
 	 */
 	Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
-	Cmd |= (Force == TRUE) ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0U;
+	Cmd |= (Force == (u8)TRUE) ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0U;
 	Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							Cmd, Params);
-	if (Force == TRUE) {
+	if (Force == (u8)TRUE) {
 		Ept->ResourceIndex = 0U;
 	}
 
@@ -123,7 +124,7 @@ void XUsbPsu_EpTransferDeactive(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-	RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
+	RegVal &= ~((u32)XUSBPSU_DALEPENA_EP(PhyEpNum));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
 
 	Ept = &InstancePtr->eps[PhyEpNum];
@@ -157,8 +158,9 @@ void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
 	struct XUsbPsu_EpParams *Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
-	XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
-					XUSBPSU_DEPCMD_GETEPSTATE, Params);
+	if (XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
+			XUSBPSU_DEPCMD_GETEPSTATE, Params) == XST_FAILURE) {
+	}
 	Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr,
 				 XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
 }
@@ -335,7 +337,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
 								cmd, Params);
-	if (RetVal & (s32)XST_FAILURE) {
+	if (RetVal != (s32)XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
 
@@ -347,7 +349,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -403,7 +405,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	 * fixed non-multiple of MaxPacketSize transfer from the Host.
 	 */
 	if (!IS_ALIGNED(Length, Ept->MaxSize)) {
-		Size = (u32)roundup(Length, (u16)Ept->MaxSize);
+		Size = (u32)roundup(Length, (u32)Ept->MaxSize);
 		Ept->UnalignedTx = 1U;
 	}
 
@@ -704,7 +706,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 			if (Ept->UnalignedTx == 1U) {
 				Ept->BytesTxed = (u32)roundup(
 							Ept->RequestedBytes,
-							(u16)Ept->MaxSize);
+							(u32)Ept->MaxSize);
 				Ept->BytesTxed -= Length;
 				Ept->UnalignedTx = 0U;
 			} else {
@@ -725,7 +727,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 		}
 	}
 
-	if (Ept->Handler) {
+	if (Ept->Handler != NULL) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes,
 							 Ept->BytesTxed);
 	}
@@ -762,7 +764,7 @@ void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
 		Mask = ~(u32)((u32)1U << (Ept->Interval - 1U));
 		CurUf = Event->Parameters & Mask;
 		Ept->CurUf = (u16)(CurUf + (Ept->Interval * 4U));
-		if (Ept->Handler) {
+		if (Ept->Handler != NULL) {
 			Ept->Handler(InstancePtr->AppData, 0U, 0U);
 		}
 	}
@@ -800,7 +802,7 @@ s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 
 	/* check if we need to restart transfer */
 	if ((Ept->ResourceIndex == (u32)0U) && (Ept->PhyEpNum != (u32)0U)) {
-		return XST_SUCCESS;
+		return (s32)XST_SUCCESS;
 	}
 
 	if (Ept->UsbEpNum != (u32)0U) {

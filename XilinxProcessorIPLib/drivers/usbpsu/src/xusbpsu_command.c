@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_command.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 *
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/03/20 First release
+* 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * </pre>
 *
 *****************************************************************************/
@@ -83,6 +84,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 {
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_Trb *TrbStHw, *TrbLink;
+	void *RetPtr;
 	u32 RegVal;
 	u32 PhyEpNum;
 
@@ -101,35 +103,35 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->MaxSize	= Maxsize;
 	Ept->PhyEpNum	= (u8)PhyEpNum;
 	Ept->CurUf	= 0U;
-	if (InstancePtr->IsHibernated == FALSE) {
+	if (InstancePtr->IsHibernated == (u8)FALSE) {
 		Ept->TrbEnqueue	= 0U;
 		Ept->TrbDequeue	= 0U;
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
-			|| (InstancePtr->IsHibernated == TRUE)) {
+			|| (InstancePtr->IsHibernated == (u8)TRUE)) {
 		if (XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum,
 						Dir)	== XST_FAILURE) {
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 	}
 
 	if (XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize,
 					Type, Restore) == XST_FAILURE) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
-			|| (InstancePtr->IsHibernated == TRUE)) {
+			|| (InstancePtr->IsHibernated == (u8)TRUE)) {
 		if (XUsbPsu_SetXferResource(InstancePtr, UsbEpNum,
 						Dir)	== XST_FAILURE) {
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 
 		Ept->EpStatus |= XUSBPSU_EP_ENABLED;
 
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-		RegVal |= XUSBPSU_DALEPENA_EP(Ept->PhyEpNum);
+		RegVal |= (u32)(XUSBPSU_DALEPENA_EP(Ept->PhyEpNum));
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
 
 		/* Following code is only applicable for ISO XFER */
@@ -138,7 +140,10 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		/* Link TRB. The HWO bit is never reset */
 		TrbLink = &Ept->EpTrb[NO_OF_TRB_PER_EP];
 
-		memset(TrbLink, 0x00U, sizeof(struct XUsbPsu_Trb));
+		RetPtr = memset(TrbLink, 0x0, sizeof(struct XUsbPsu_Trb));
+		if (RetPtr == NULL) {
+			return (s32)XST_FAILURE;
+		}
 
 		TrbLink->BufferPtrLow = (UINTPTR)TrbStHw;
 		TrbLink->BufferPtrHigh = ((UINTPTR)TrbStHw >> 16U) >> 16U;
@@ -152,7 +157,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		}
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -191,7 +196,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	}
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-	RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
+	RegVal &= ~((u32)XUSBPSU_DALEPENA_EP(PhyEpNum));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
 
 	Ept->Type = 0U;
@@ -200,7 +205,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Ept->TrbEnqueue	= 0U;
 	Ept->TrbDequeue	= 0U;
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/

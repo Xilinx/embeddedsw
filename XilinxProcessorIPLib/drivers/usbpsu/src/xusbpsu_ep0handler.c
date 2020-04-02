@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_ep0handler.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 * <pre>
@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/03/20 First release
+* 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * </pre>
 *
 *****************************************************************************/
@@ -99,7 +100,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 								Ept->UsbEpNum,
 								Ept->Direction);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -277,7 +278,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 								Ept->UsbEpNum,
 								Ept->Direction);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -321,7 +322,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	 */
 	if (!IS_ALIGNED(Length, Ept->MaxSize)) {
 		u16 TmpSize = Ept->MaxSize;
-		Size = (u32)roundup(Length, TmpSize);
+		Size = (u32)roundup(Length, (u32)TmpSize);
 		Ept->UnalignedTx = 1U;
 	}
 
@@ -358,7 +359,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
 						Ept->UsbEpNum, Ept->Direction);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
@@ -389,7 +390,7 @@ s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
 		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
-			Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
+			Ept->Direction, Ept->MaxSize, Ept->Type, (u8)TRUE);
 		if (Ret == XST_FAILURE) {
 			return (s32)XST_FAILURE;
 		}
