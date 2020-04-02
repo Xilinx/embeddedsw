@@ -66,6 +66,7 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[];
 
 /*****************************************************************************/
 /**
+* @brief
 * Lookup the device configuration based on the unique device ID.  The table
 * contains the configuration info for each device in the system.
 *
@@ -74,6 +75,8 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[];
 * @return
 * A pointer to the configuration table entry corresponding to the given
 * device ID, or NULL if no match is found.
+*
+* @note none
 *
 ******************************************************************************/
 XUsbPsu_Config *XUsbPsu_LookupConfig(u16 DeviceId)

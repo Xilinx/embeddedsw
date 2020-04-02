@@ -45,6 +45,7 @@
 *	vak 13/03/18 Moved the setup interrupt system calls from driver to
 *		     example.
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
+* 1.7	pm  23/03/20 Restructured the code for more readability and modularity
 *
 * </pre>
 *
@@ -52,7 +53,7 @@
 
 /***************************** Include Files ********************************/
 
-#include "xusbpsu.h"
+#include "xusbpsu_local.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,53 +64,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-
-/****************************************************************************/
-/**
-* Endpoint interrupt handler.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is endpoint Event occurred in the core.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-void XUsbPsu_EpInterrupt(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event)
-{
-	struct XUsbPsu_Ep *Ept;
-	u32 Epnum;
-
-	Epnum = Event->Epnumber;
-	Ept = &InstancePtr->eps[Epnum];
-
-	if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
-		return;
-	}
-
-	if ((Epnum == (u32)0U) || (Epnum == (u32)1U)) {
-		XUsbPsu_Ep0Intr(InstancePtr, Event);
-		return;
-	}
-
-	/* Handle other end point events */
-	switch (Event->Endpoint_Event) {
-		case XUSBPSU_DEPEVT_XFERCOMPLETE:
-		case XUSBPSU_DEPEVT_XFERINPROGRESS:
-			XUsbPsu_EpXferComplete(InstancePtr, Event);
-			break;
-
-		case XUSBPSU_DEPEVT_XFERNOTREADY:
-			XUsbPsu_EpXferNotReady(InstancePtr, Event);
-			break;
-
-		default:
-			/* Made for Misra-C Compliance. */
-			break;
-	}
-}
 
 /****************************************************************************/
 /**
@@ -157,73 +111,6 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
-* Stops any active transfer.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
-{
-	u32 Epnum;
-
-	for (Epnum = 2U; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
-		struct XUsbPsu_Ep *Ept;
-
-		Ept = &InstancePtr->eps[Epnum];
-		if (Ept == NULL) {
-			continue;
-		}
-
-		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
-			continue;
-		}
-
-		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
-				Ept->Direction, TRUE);
-	}
-}
-
-/****************************************************************************/
-/**
-* Clears stall on all stalled Eps.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
-{
-	u32 Epnum;
-
-	for (Epnum = 1U; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
-		struct XUsbPsu_Ep *Ept;
-
-		Ept = &InstancePtr->eps[Epnum];
-		if (Ept == NULL) {
-			continue;
-		}
-
-		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
-			continue;
-		}
-
-		if ((Ept->EpStatus & XUSBPSU_EP_STALL) == (u32)0U) {
-			continue;
-		}
-
-		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
-	}
-}
-
-/****************************************************************************/
-/**
 * Reset Interrupt handler.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -245,10 +132,11 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 	InstancePtr->TestMode = 0U;
 
-	XUsbPsu_stop_active_transfers(InstancePtr);
-	XUsbPsu_clear_stall_all_ep(InstancePtr);
+	XUsbPsu_StopActiveTransfers(InstancePtr);
+	XUsbPsu_ClearStallAllEp(InstancePtr);
 
-	for (Index = 0U; Index < (InstancePtr->NumInEps + InstancePtr->NumOutEps);
+	for (Index = 0U; Index <
+			(InstancePtr->NumInEps + InstancePtr->NumOutEps);
 			Index++)
 	{
 		InstancePtr->eps[Index].EpStatus = 0U;
@@ -264,6 +152,45 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	/* Call the handler if necessary */
 	if (InstancePtr->ResetIntrHandler != NULL) {
 		InstancePtr->ResetIntrHandler(InstancePtr->AppData);
+	}
+}
+
+/****************************************************************************/
+/**
+* Handles Interrupts of Control Endpoints EP0 OUT and EP0 IN.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	Event is a pointer to the Endpoint event occurred in core.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
+		const struct XUsbPsu_Event_Epevt *Event)
+{
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Event != NULL);
+
+	switch (Event->Endpoint_Event) {
+	case XUSBPSU_DEPEVT_XFERCOMPLETE:
+		XUsbPsu_Ep0XferComplete(InstancePtr, Event);
+		break;
+
+	case XUSBPSU_DEPEVT_XFERNOTREADY:
+		XUsbPsu_Ep0XferNotReady(InstancePtr, Event);
+		break;
+
+	case XUSBPSU_DEPEVT_XFERINPROGRESS:
+	case XUSBPSU_DEPEVT_STREAMEVT:
+	case XUSBPSU_DEPEVT_EPCMDCMPLT:
+		break;
+
+	default:
+		/* Default case is a required MIRSA-C guideline. */
+		break;
 	}
 }
 
@@ -369,72 +296,6 @@ void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr, u32 EvtInfo)
 
 /****************************************************************************/
 /**
-* Interrupt handler for device specific events.
-*
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is the Device Event occurred in core.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-void XUsbPsu_DevInterrupt(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Devt *Event)
-{
-
-	switch (Event->Type) {
-		case XUSBPSU_DEVICE_EVENT_DISCONNECT:
-			XUsbPsu_DisconnectIntr(InstancePtr);
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_RESET:
-			XUsbPsu_ResetIntr(InstancePtr);
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_CONNECT_DONE:
-			XUsbPsu_ConnDoneIntr(InstancePtr);
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_WAKEUP:
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
-#ifdef XUSBPSU_HIBERNATION_ENABLE
-			if (InstancePtr->HasHibernation == TRUE) {
-				Xusbpsu_HibernationIntr(InstancePtr);
-			}
-#endif
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_LINK_STATUS_CHANGE:
-			XUsbPsu_LinkStsChangeIntr(InstancePtr,
-					Event->Event_Info);
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_EOPF:
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_SOF:
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_ERRATIC_ERROR:
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_CMD_CMPL:
-			break;
-
-		case XUSBPSU_DEVICE_EVENT_OVERFLOW:
-			break;
-
-		default:
-			/* Made for Misra-C Compliance. */
-			break;
-	}
-}
-
-/****************************************************************************/
-/**
 * Processes an Event entry in Event Buffer.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
@@ -451,14 +312,14 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 
 	if (Event->Type.Is_DevEvt == 0U) {
 		/* End point Specific Event */
-		XUsbPsu_EpInterrupt(InstancePtr, &Event->Epevt);
+		XUsbPsu_EpEvent(InstancePtr, &Event->Epevt);
 		return;
 	}
 
 	switch (Event->Type.Type) {
 	case XUSBPSU_EVENT_TYPE_DEV:
 		/* Device Specific Event */
-		XUsbPsu_DevInterrupt(InstancePtr, &Event->Devt);
+		XUsbPsu_DeviceEvent(InstancePtr, &Event->Devt);
 		break;
 	/* Carkit and I2C events not supported now */
 	default:
@@ -467,62 +328,87 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 	}
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Processes events in an Event Buffer.
+* @brief
+* Enables an interrupt in Event Enable RegValister.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on
+* @param  Mask is the OR of any Interrupt Enable Masks:
+*		- XUSBPSU_DEVTEN_VNDRDEVTSTRCVEDEN
+*		- XUSBPSU_DEVTEN_EVNTOVERFLOWEN
+*		- XUSBPSU_DEVTEN_CMDCMPLTEN
+*		- XUSBPSU_DEVTEN_ERRTICERREN
+*		- XUSBPSU_DEVTEN_SOFEN
+*		- XUSBPSU_DEVTEN_EOPFEN
+*		- XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN
+*		- XUSBPSU_DEVTEN_WKUPEVTEN
+*		- XUSBPSU_DEVTEN_ULSTCNGEN
+*		- XUSBPSU_DEVTEN_CONNECTDONEEN
+*		- XUSBPSU_DEVTEN_USBRSTEN
+*		- XUSBPSU_DEVTEN_DISCONNEVTEN
 *
-* @return	None.
+* @return  None
 *
 * @note		None.
 *
-*****************************************************************************/
-void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
+******************************************************************************/
+void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 {
-	struct XUsbPsu_EvtBuffer *Evt;
-	union XUsbPsu_Event Event = {0U};
+	u32	RegVal;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEVTEN);
+	RegVal |= Mask;
+
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEVTEN, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Disables an interrupt in Event Enable RegValister.
+*
+* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+* @param  Mask is the OR of Interrupt Enable Masks
+*		- XUSBPSU_DEVTEN_VNDRDEVTSTRCVEDEN
+*		- XUSBPSU_DEVTEN_EVNTOVERFLOWEN
+*		- XUSBPSU_DEVTEN_CMDCMPLTEN
+*		- XUSBPSU_DEVTEN_ERRTICERREN
+*		- XUSBPSU_DEVTEN_SOFEN
+*		- XUSBPSU_DEVTEN_EOPFEN
+*		- XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN
+*		- XUSBPSU_DEVTEN_WKUPEVTEN
+*		- XUSBPSU_DEVTEN_ULSTCNGEN
+*		- XUSBPSU_DEVTEN_CONNECTDONEEN
+*		- XUSBPSU_DEVTEN_USBRSTEN
+*		- XUSBPSU_DEVTEN_DISCONNEVTEN
+*
+* @return  None
+*
+* @note		None.
+*
+******************************************************************************/
+void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
+{
 	u32 RegVal;
 
-	Evt = &InstancePtr->Evt;
+	Xil_AssertVoid(InstancePtr != NULL);
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
-                              (u32)XUSBPSU_EVENT_BUFFERS_SIZE);
-	}
-
-	while (Evt->Count > 0U) {
-		Event.Raw = *(UINTPTR *)((UINTPTR)Evt->BuffAddr + Evt->Offset);
-
-		/*
-		 * Process the event received
-		 */
-		XUsbPsu_EventHandler(InstancePtr, &Event);
-
-		/* don't process anymore events if core is hibernated */
-		if (InstancePtr->IsHibernated == TRUE) {
-			return;
-		}
-
-		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
-		Evt->Count -= 4U;
-		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 4U);
-	}
-
-	Evt->Count = 0U;
-	Evt->Flags &= ~XUSBPSU_EVENT_PENDING;
-
-	/* Unmask event interrupt */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U));
-	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U), RegVal);
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEVTEN);
+	RegVal &= ~Mask;
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEVTEN, RegVal);
 }
+
+
 
 /****************************************************************************/
 /**
+* @brief
 * Main Interrupt Handler.
 *
-* @param	XUsbPsuInstancePtr is a pointer of driver Instance.
+* @param	XUsbPsuInstancePtr is a void pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
@@ -540,7 +426,6 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Evt = &InstancePtr->Evt;
-	Xil_AssertVoid(Evt != NULL);
 
 	Count = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U));
 	Count &= XUSBPSU_GEVNTCOUNT_MASK;
@@ -565,9 +450,13 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 }
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
+
 /****************************************************************************/
 /**
-* Wakeup Interrupt Handler.
+* @brief
+* Wakeup Interrupt Event Handler.
+*
+* @param	XUsbPsuInstancePtr is a pointer of driver Instance.
 *
 * @return	None.
 *
@@ -576,10 +465,71 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 *****************************************************************************/
 void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 {
+	u32 RegVal;
+	u32 retries;
+
 	struct XUsbPsu  *InstancePtr = (struct XUsbPsu *)XUsbPsuInstancePtr;
 
-	XUsbPsu_WakeupIntr(InstancePtr);
-}
-#endif
 
+
+	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
+	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP,
+				(u32)(RegVal & ~(u32)USB0_CORE_RST));
+	}
+
+	/* change power state to D0 */
+	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
+
+	/* wait till current state is changed to D0 */
+	retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
+
+	while (retries > 0U) {
+		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
+		if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) ==
+					XIL_CUR_PWR_STATE_D0) {
+			break;
+		}
+
+		XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
+		retries = retries - 1U;
+	}
+
+	if (retries == 0U) {
+		xil_printf("Failed to change power state to D0\r\n");
+		return;
+	}
+
+	/* ask core to restore non-sticky registers */
+	if (XUsbPsu_CoreRegRestore(InstancePtr) == XST_FAILURE) {
+		return;
+	}
+
+	/* start controller */
+	if (XUsbPsu_Start(InstancePtr) == XST_FAILURE) {
+		xil_printf("Failed to start core on wakeup\r\n");
+		return;
+	}
+
+	/* Wait until device controller is ready */
+	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
+		XUSBPSU_DSTS_DCNRD, XUSBPSU_CTRL_RDY_RETRIES) == XST_FAILURE) {
+		xil_printf("Failed to ready device controller\r\n");
+		return;
+	}
+
+	/*
+	 * there can be spurious wakeup events , so wait for some time and check
+	 * the link state
+	 */
+	XUsbPsu_Sleep(XUSBPSU_TIMEOUT * 10U);
+
+	/* Processes link state events for hibernation */
+	XUsbPsu_HibernationStateIntr(InstancePtr);
+
+	xil_printf("We are back from hibernation!\r\n");
+
+}
+
+#endif
 /** @} */
