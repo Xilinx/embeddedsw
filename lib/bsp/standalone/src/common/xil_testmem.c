@@ -95,7 +95,6 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= (u8)XIL_TESTMEM_MAXTEST);
-	Xil_AssertNonvoid(Addr != NULL);
 
 	/*
 	 * variable initialization
@@ -343,7 +342,6 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
-	Xil_AssertNonvoid(Addr != NULL);
 
 	/*
 	 * variable initialization
@@ -575,7 +573,6 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
-	Xil_AssertNonvoid(Addr != NULL);
 
 	/*
 	 * variable initialization
