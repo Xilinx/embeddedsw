@@ -63,6 +63,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+
+static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
+static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
+		XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize);
 static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
 		XCsuDma_Channel Channel, u8 EndianType);
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
@@ -1335,7 +1339,7 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
  *
  *
  ******************************************************************************/
-u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -1375,7 +1379,7 @@ u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
  * @return	None
  *
  ******************************************************************************/
-u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
+static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
 {
 	volatile u32 RegStatus;
 	u32 Status = (u32)XST_FAILURE;
