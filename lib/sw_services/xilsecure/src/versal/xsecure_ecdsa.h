@@ -52,11 +52,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
 #include "xsecure_utils.h"
-
 /************************** Constant Definitions ****************************/
-
+#define XSECURE_ECC_DATA_SIZE_WORDS (12U)
 /***************************** Type Definitions ******************************/
 
 /***************************** Function Prototypes ***************************/
@@ -95,6 +93,8 @@ int P384_validatekey(unsigned char *Qx, unsigned char *Qy);
 
 int P384_ecdsaverify(unsigned char *z, unsigned char *Qx,
 		unsigned char *Qy, unsigned char *r, unsigned char *s);
+
+u32 XSecure_EcdsaKat(void);
 
 #ifdef __cplusplus
 }

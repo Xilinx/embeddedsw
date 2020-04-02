@@ -49,15 +49,15 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
 typedef enum {
-	XSECURE_SHA3_INIT_ERROR = 0x00U,      /**< 0x00 - Error when SHA3
+	XSECURE_SHA3_INIT_ERROR = 0x02U,      /**< 0x02 - Error when SHA3
                                             init fails. */
-	XSECURE_SHA3_LAST_UPDATE_ERROR,    /**< 0x01 - Error when SHA3
+	XSECURE_SHA3_LAST_UPDATE_ERROR,    /**< 0x03 - Error when SHA3
                                             last update fails. */
-	XSECURE_SHA3_PMC_DMA_UPDATE_ERROR, /**< 0x02 - Error when DMA driver
+	XSECURE_SHA3_PMC_DMA_UPDATE_ERROR, /**< 0x04 - Error when DMA driver
                                             fails to update the data to SHA3 */
-	XSECURE_SHA3_TIMEOUT_ERROR, /**< 0x03 - Error when timeout */
+	XSECURE_SHA3_TIMEOUT_ERROR, /**< 0x05 - Error when timeout */
 
-	XSECURE_SHA3_KAT_FAILED_ERROR,  /**< 0x04 - Error when SHA3 hash
+	XSECURE_SHA3_KAT_FAILED_ERROR,  /**< 0x06 - Error when SHA3 hash
                                          not matched with expected hash */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40U,
@@ -109,7 +109,7 @@ typedef enum {
 						       expected data  */
 	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0U, /**< 0xC0 -ECC key is not valid */
 
-	XSECURE_ECC_KAT_FAILED_ERROR   /**< 0xC1 - ECC KAT Failes */
+	XSECURE_ECC_KAT_FAILED_ERROR,   /**< 0xC1 - ECC KAT Failes */
 
 
 } XSecure_ErrorCodes;

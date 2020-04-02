@@ -79,9 +79,6 @@ extern "C" {
 #define XSECURE_CSU_RSA_RAM_RES_Y	(4U) /**< bit for RSA RAM Result(Y) */
 #define XSECURE_CSU_RSA_RAM_RES_Q	(5U) /**< bit for RSA RAM Result(Q) */
 
-#define XSECURE_RSA_SIGN_ENC		0U /**< RSA encryption flag */
-#define XSECURE_RSA_SIGN_DEC		1U /**< RSA decryption flag */
-
 /** @name Control Register
  *
  * Control Register opcode definitions
@@ -127,9 +124,13 @@ extern "C" {
 
 typedef enum {
 	XSECURE_RSA_UNINITIALIZED = 0,
-	XSECURE_RSA_INITIALIZED
+	XSECURE_RSA_INITIALIZED			/**< 0x1 */
 } XSecure_RsaState;
 
+typedef enum {
+	XSECURE_RSA_SIGN_ENC = 0x0U,
+	XSECURE_RSA_SIGN_DEC			/**< 0x1 */
+}XSecure_RsaOps;
 /***************************** Type Definitions ******************************/
 /**
  * The RSA driver instance data structure. A pointer to an instance data
@@ -154,8 +155,9 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 
 /* ZynqMP specific RSA core encryption/decryption function */
 u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
-			u8 *Result, u8 EncDecFlag, u32 Size);
+			u8 *Result, u8 RsaOp, u32 Size);
 
+u32 XSecure_RsaPublicEncryptKat(void);
 #ifdef __cplusplus
 }
 #endif

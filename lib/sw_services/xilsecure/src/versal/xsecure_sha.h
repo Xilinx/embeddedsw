@@ -71,11 +71,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xsecure_sha_hw.h"
-#include "xcsudma.h"
-#include "xil_assert.h"
 #include "xil_util.h"
-
+#include "xcsudma.h"
+#include "xsecure_utils.h"
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
 @{
@@ -84,7 +82,6 @@ extern "C" {
 /**
 * SHA3 Memory Map
 */
-#define XSECURE_CSU_DMA0_ID             (0U)
 
 #define XSECURE_SHA3_START_START	(1U << 0) /**< SHA Start Message */
 
@@ -96,7 +93,7 @@ extern "C" {
 
 #define XSECURE_SHA3_LAST_PACKET	(0x1U) /**< Last Data Packet */
 
-#define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1ffffffcU) /** < PMC DMA Max Transfer
+#define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU) /** < PMC DMA Max Transfer
 							rate in bytes*/
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 

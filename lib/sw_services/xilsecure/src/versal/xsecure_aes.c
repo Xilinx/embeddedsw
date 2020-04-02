@@ -40,9 +40,10 @@
 *       vns  08/23/2019 Initialized status variables
 * 4.2   har  01/03/2020 Added checks for return value of XSecure_SssAes
 *       vns  02/10/2020 Added DPA CM enable/disable function
-*	rpo  02/27/2020 Removed function prototype and static keyword of XSecure_AesKeyLoad
+*		rpo  02/27/2020 Removed function prototype and static keyword of XSecure_AesKeyLoad
 *			XSecure_AesWaitForDone functions
 *       har  03/01/2020 Added code to soft reset once key decryption is done
+*       rpo	 03/23/2020 Replaced timeouts with WaitForEvent and code clean up
 * </pre>
 *
 * @note
@@ -50,32 +51,43 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#include "xsecure_utils.h"
 #include "xsecure_aes.h"
+#include "xsecure_aes_core_hw.h"
+#include "xil_util.h"
 #include "xsecure_error.h"
-
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_MAX_KEY_SOURCES		XSECURE_AES_EXPANDED_KEYS
+#define XSECURE_MAX_KEY_SOURCES				XSECURE_AES_EXPANDED_KEYS
+#define XSECURE_AES_DISABLE_KUP_IV_UPDATE	(0x0U)
+#define XSECURE_ENABLE_BYTE_SWAP			(0x1U)
+#define XSECURE_DISABLE_BYTE_SWAP			(0x0U)
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u32 RegOffset;
+	u32 KeySrcSelVal;
+	u8  UsrWrAllowed;
+	u8  DecAllowed;
+	u8  EncAllowed;
+	u8  KeyDecSrcAllowed;
+	u32 KeyDecSrcSelVal;
+	u32 KeyClearVal;
+} XSecure_AesKeyLookup;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
 /************************** Function Prototypes ******************************/
 
 static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
 static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
 		XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize);
-static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
+static void XSecure_AesCsuDmaCfgEndianness(XCsuDma *InstancePtr,
 		XCsuDma_Channel Channel, u8 EndianType);
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
 static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
 		u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr);
-
 /************************** Variable Definitions *****************************/
-
-static XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
+static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 {
 	/* BBRAM_KEY */
 	{ XSECURE_AES_INVALID_CFG,
@@ -443,6 +455,13 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 	Key = (u32 *)(INTPTR)KeyAddr;
 
+
+	if ((XSECURE_AES_BH_KEY == KeySrc) &&
+			(XSECURE_AES_KEY_SIZE_128 == KeySize)) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
 	if (XSECURE_AES_KEY_SIZE_128 == KeySize) {
 		KeySizeInWords = XSECURE_AES_KEY_SIZE_128BIT_WORDS;
 	}
@@ -546,8 +565,8 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			XSECURE_AES_START_MSG_VAL_MASK);
 
 	/* Enable CSU DMA Src channel for byte swapping.*/
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, 1);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+			XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_DATA_SWAP_OFFSET, 0x1U);
@@ -665,8 +684,8 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_AES_DATA_SWAP_VAL_MASK);
 
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, 1U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+			XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -685,8 +704,8 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, 0U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	/* Update the state */
 	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
@@ -694,7 +713,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	Status = XST_SUCCESS;
 
 END:
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -714,33 +733,33 @@ END:
  *		decrypted.
  * @param	OutDataAddr	Address of output buffer where the decrypted
  *		to be updated.
- * @param	Size		Size of data to be decrypted in bytes.
+ * @param	Size		Size of data to be decrypted in bytes,
  *			whereas number of bytes provided should be multiples of 4.
- * @param	EnLast		If this is the last update of data to be
+ * @param	IsLastChunk	If this is the last update of data to be
  *		decrypted, this parameter should be set to TRUE otherwise FALSE.
  *
  * @return	XST_SUCCESS on successful decryption of the data.
  *
  ******************************************************************************/
 u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-		u64 OutDataAddr, u32 Size, u8 EnLast)
+		u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
-	Xil_AssertNonvoid((EnLast == TRUE) || (EnLast == FALSE));
+	Xil_AssertNonvoid((IsLastChunk == TRUE) || (IsLastChunk == FALSE));
 	Xil_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_DECRYPT_INITIALIZED);
 
 	/* Enable CSU DMA Src and Dst channels for byte swapping.*/
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, 1U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
-		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL, 1U);
+		XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 	}
 
 	/* Configure the SSS for AES. */
@@ -766,7 +785,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
 				XCSUDMA_SRC_CHANNEL,
 				InDataAddr, InDataAddr >> 32,
-				Size/XSECURE_WORD_SIZE, EnLast);
+				Size/XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
@@ -785,14 +804,14 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 
 	/* Clear endianness */
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, 0U);
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, 0U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+					XCSUDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	Status = (u32)XST_SUCCESS;
 
 END:
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -830,8 +849,8 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x1U);
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-					XCSUDMA_SRC_CHANNEL, 1U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+					XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
@@ -864,8 +883,8 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-					XCSUDMA_SRC_CHANNEL, 0U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+					XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	/* Get the AES status to know if GCM check passed. */
 	Status = XSecure_ReadReg(InstancePtr->BaseAddress,
@@ -884,7 +903,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	}
 END:
 
-	if ((NextBlkLen == 0U) || (Status != XST_SUCCESS)) {
+	if ((NextBlkLen == 0U) || (Status != (u32)XST_SUCCESS)) {
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -907,7 +926,7 @@ END:
  *		decrypted.
  * @param	OutDataAddr	Address of output buffer where the decrypted
  *		to be updated.
- * @param	Size		Size of data to be decrypted in bytes.
+ * @param	Size		Size of data to be decrypted in bytes,
  *			whereas number of bytes provided should be multiples of 4.
  * @param	GcmTagAddr	Address of a buffer which should contain
  *		GCM Tag.
@@ -1008,8 +1027,8 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_AES_DATA_SWAP_VAL_MASK);
 
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, 1U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+			XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -1028,14 +1047,14 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, 0U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	/* Update the state */
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 
 END:
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -1054,33 +1073,33 @@ END:
  *		encrypted.
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *		to be updated.
- * @param	Size		Size of data to be encrypted in bytes.
+ * @param	Size		Size of data to be encrypted in bytes,
  *			whereas number of bytes provided should be multiples of 4.
- * @param	EnLast		If this is the last update of data to be
+ * @param	IsLastChunk		If this is the last update of data to be
  *		encrypted, this parameter should be set to TRUE otherwise FALSE.
  *
  * @return	XST_SUCCESS on successful encryption of the data.
  *
  ******************************************************************************/
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 EnLast)
+			u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
-	Xil_AssertNonvoid((EnLast == TRUE) || (EnLast == FALSE));
+	Xil_AssertNonvoid((IsLastChunk == TRUE) || (IsLastChunk == FALSE));
 	Xil_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_ENCRYPT_INITIALIZED);
 
 	/* Enable CSU DMA Src and Dst channels for byte swapping.*/
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, TRUE);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
-		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL, TRUE);
+		XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 	}
 
 	/* Configure the SSS for AES. */
@@ -1099,14 +1118,14 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
 		XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
 						XCSUDMA_DST_CHANNEL,
-						OutDataAddr, OutDataAddr >> 32,
+						OutDataAddr, OutDataAddr >> 32U,
 						Size/XSECURE_WORD_SIZE, FALSE);
 	}
 
 	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
 				XCSUDMA_SRC_CHANNEL,
-				InDataAddr, InDataAddr >> 32,
-				Size/XSECURE_WORD_SIZE, EnLast);
+				InDataAddr, InDataAddr >> 32U,
+				Size/XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
@@ -1127,15 +1146,15 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 
 	/* Clear endianness */
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, FALSE);
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, FALSE);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+					XCSUDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	Status = (u32)XST_SUCCESS;
 
 END:
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -1173,8 +1192,8 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 			XSECURE_AES_DATA_SWAP_OFFSET,
 			XSECURE_AES_DATA_SWAP_VAL_MASK);
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, 1U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+					XCSUDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
@@ -1206,8 +1225,8 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, 0U);
+	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
+					XCSUDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 END:
 	XSecure_SetReset(InstancePtr->BaseAddress,
@@ -1230,7 +1249,7 @@ END:
  *		encrypted.
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *		to be updated.
- * @param	Size		Size of data to be encrypted in bytes.
+ * @param	Size		Size of data to be encrypted in bytes,
  *			whereas number of bytes provided should be multiples of 4.
  *
  * @return	- XST_SUCCESS on successful encryption.
@@ -1268,35 +1287,25 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function waits for AES completion for keyload.
+ * This function waits for AES engine completes key loading.
  *
- * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
+ * @param	InstancePtr Pointer to the XSecure_Aes instance.
  *
- * @return	None
- *
+ * @return	XST_SUCCESS if the AES engine completes key loading.
+ * 		XST_FAILURE if a timeout has occurred.
  *
  ******************************************************************************/
 static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u32 ReadReg;
-	u32 Timeout = XSECURE_AES_TIMEOUT_MAX;
-
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+					XSECURE_AES_STATUS_OFFSET),
+	                XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
+	                XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
+	                XSECURE_AES_TIMEOUT_MAX);
 
-	while(Timeout != 0x00U) {
-		ReadReg = XSecure_ReadReg(InstancePtr->BaseAddress,
-			XSECURE_AES_STATUS_OFFSET) &
-			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK;
-		if (ReadReg == XSECURE_AES_STATUS_KEY_INIT_DONE_MASK) {
-			Status = XST_SUCCESS;
-			goto END;
-		}
-		Timeout = Timeout - 1U;
-	};
-
-END:
 	return Status;
 
 }
@@ -1307,7 +1316,7 @@ END:
  * This function sets AES engine to update key and IV
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
- * @param	EnableCfg
+ * @param	Config
  * 				- TRUE - to enable KUP and IV update
  * 				- FALSE -to disable KUP and IV update
  *
@@ -1315,17 +1324,17 @@ END:
  *
  *
  ******************************************************************************/
-u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg)
+u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config)
 {
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((EnableCfg == FALSE) ||
-					(EnableCfg == TRUE));
-	if (EnableCfg == 0x0U) {
+	Xil_AssertNonvoid((Config == FALSE) ||
+					(Config == TRUE));
+	if (Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_AES_KUP_WR_OFFSET, EnableCfg);
+				XSECURE_AES_KUP_WR_OFFSET, XSECURE_AES_DISABLE_KUP_IV_UPDATE);
 	}
 	else {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -1375,8 +1384,8 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
  *
  *
  ******************************************************************************/
-static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-	XSecure_AesKeySize KeySize)
+u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+					   XSecure_AesKeySize KeySize)
 {
 	u32 Status = (u32)XST_FAILURE;
 
@@ -1415,26 +1424,17 @@ static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc
  * @return	None
  *
  ******************************************************************************/
-static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
+u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
 {
-	volatile u32 RegStatus;
 	u32 Status = (u32)XST_FAILURE;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
-
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	while (TimeOut != 0U) {
-		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_AES_STATUS_OFFSET);
-		if (((u32)RegStatus & XSECURE_AES_STATUS_DONE_MASK) != 0U) {
-			Status = (u32)XST_SUCCESS;
-			break;
-		}
-
-		TimeOut = TimeOut -1U;
-	}
-
+	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+								XSECURE_AES_STATUS_OFFSET),
+								XSECURE_AES_STATUS_DONE_MASK,
+								XSECURE_AES_STATUS_DONE_MASK,
+								XSECURE_AES_TIMEOUT_MAX);
 	return Status;
 }
 
@@ -1450,25 +1450,16 @@ static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
  ******************************************************************************/
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr)
 {
-	u32 RegStatus;
-	u32 Status = (u32)XST_FAILURE;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
 
+	u32 Status = (u32)XST_FAILURE;
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	while (TimeOut != 0U) {
-		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_AES_STATUS_OFFSET);
-		if (((u32)RegStatus &
-			XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK) != 0U) {
-			Status = (u32)XST_SUCCESS;
-			break;
-		}
-
-		TimeOut = TimeOut -1U;
-	}
-
+	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+								XSECURE_AES_STATUS_OFFSET),
+								XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
+								XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
+								XSECURE_AES_TIMEOUT_MAX);
 	return Status;
 }
 
@@ -1485,9 +1476,7 @@ static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr)
  ******************************************************************************/
 u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 {
-	volatile u32 KeyClearStatus;
 	u32 KeyClearVal;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
 	u32 Status = (u32)XST_FAILURE;
 	u32 Mask;
 
@@ -1512,22 +1501,16 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 					 (KeyClearVal | Mask));
 
-	while (TimeOut != 0U) {
-		KeyClearStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-				XSECURE_AES_KEY_ZEROED_STATUS_OFFSET);
-		KeyClearStatus &= Mask;
-		if (KeyClearStatus != 0x00) {
-			Status = (u32)XST_SUCCESS;
-			break;
-		}
-
-		TimeOut = TimeOut - 1U;
-	}
+	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+				XSECURE_AES_KEY_ZEROED_STATUS_OFFSET),
+				Mask,
+				Mask,
+				XSECURE_AES_TIMEOUT_MAX);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 					 KeyClearVal);
 
-	if (TimeOut == 0U) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KEY_CLEAR_ERROR;
 	}
 
@@ -1551,7 +1534,7 @@ END:
  * @return	None
  *
  ******************************************************************************/
-static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
+static void XSecure_AesCsuDmaCfgEndianness(XCsuDma *InstancePtr,
 		XCsuDma_Channel Channel,
 		u8 EndianType)
 {
@@ -1569,7 +1552,7 @@ static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
 /**
  * @brief	This function performs KAT on AES (NIST).
  *
- * @param	None
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
  *
  * @return	- XST_SUCCESS when KAT Pass
  *		- Error code on failure
@@ -1591,21 +1574,21 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_0,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Key);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END;
 	}
 
 	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_0,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR;
 		goto END;
 	}
 
 	Status =  XSecure_AesDecryptData(AesInstance, (UINTPTR)Message,
 			(UINTPTR)DstVal, XSECURE_SECURE_GCM_TAG_SIZE, (UINTPTR)GcmTag);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR;
 		goto END;
 	}
@@ -1619,11 +1602,9 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		}
 	}
 
-	Status = XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
 
 END:
-	XSecure_SetReset(AesInstance->BaseAddress,
-		XSECURE_AES_SOFT_RST_OFFSET);
 	return Status;
 }
 
@@ -1631,7 +1612,13 @@ END:
 /**
  * @brief	This function performs KAT on AES core with DPACM enabled
  *
- * @param 	None
+ * @param 	AesInstance	InstancePtr	Pointer to the XSecure_Aes instance
+ *
+ * @param 	KeyPtr	Key Pointer
+ *
+ * @param 	DataPtr	Data Pointer
+ *
+ * @param 	OutputPtr	Output where the decrypted data to be stored
  *
  * @return	Returns the error codes
  *		Returns XST_SUCCESS on success
@@ -1639,7 +1626,7 @@ END:
  *****************************************************************************/
 static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 
 	/* Configure AES for Encryption */
@@ -1654,7 +1641,8 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 	/* Write Key mask value */
 	for (Index = 0U; Index < XSECURE_AES_KEY_SIZE_256BIT_WORDS; Index++) {
 		XSecure_WriteReg(AesInstance->BaseAddress,
-			XSECURE_AES_KEY_MASK_INDEX + (u8)(Index * (u8)4U), 0x0U);
+			XSECURE_AES_KEY_MASK_INDEX + (u8)(Index * (u8)XSECURE_WORD_SIZE),
+			0x0U);
 	}
 
 	/* Write AES key */
@@ -1667,14 +1655,14 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 
 	Status = XSecure_AesKeyLoad(AesInstance, XSECURE_AES_USER_KEY_0,
 			XSECURE_AES_KEY_SIZE_256);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR;
 		goto END;
 	}
 
 	Status = XSecure_SssAes(&AesInstance->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
-	if(Status != XST_SUCCESS) {
+	if(Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR;
 		goto END;
 	}
@@ -1687,10 +1675,10 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 		XSECURE_AES_DATA_SWAP_VAL_MASK);
 
 	/* Enable CSU DMA Src channel for byte swapping.*/
-	XSecure_AesCsuDmaConfigureEndiannes(AesInstance->CsuDmaPtr,
+	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
 		XCSUDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
 	/* Enable CSU DMA Dst channel for byte swapping.*/
-	XSecure_AesCsuDmaConfigureEndiannes(AesInstance->CsuDmaPtr,
+	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
 		XCSUDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
 
 	/* Configure the CSU DMA Tx/Rx for the incoming Block. */
@@ -1703,17 +1691,16 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 	XCsuDma_WaitForDone(AesInstance->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 
 	Status = XSecure_AesWaitForDone(AesInstance);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AESDPACM_KAT_FAILED_ERROR;
 		goto END;
 	}
 
-	/* Disable CSU DMA Src channel for byte swapping. */
-	XSecure_AesCsuDmaConfigureEndiannes(AesInstance->CsuDmaPtr,
+	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
 		XCSUDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 
 	/* Disable CSU DMA Dst channel for byte swapping. */
-	XSecure_AesCsuDmaConfigureEndiannes(AesInstance->CsuDmaPtr,
+	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
 		XCSUDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
@@ -1727,7 +1714,7 @@ END:
 		XCSUDMA_IXR_DONE_MASK);
 	/* Configure AES in split mode */
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
-		XSECURE_AES_SPLIT_CFG_DATA_KEY_DIABLE);
+		XSECURE_AES_SPLIT_CFG_DATA_KEY_DISABLE);
 	/* AES reset */
 	XSecure_SetReset(AesInstance->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
 
@@ -1738,7 +1725,7 @@ END:
 /**
  * @brief	Wrapper function for DAPCM KAT
  *
- * @param 	None
+ * @param 	AesInstance	InstancePtr	Pointer to the XSecure_Aes instance
  *
  * @return	Returns the error code
  *		returns XST_SUCCESS on success
@@ -1859,62 +1846,62 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if (((*(RM0) == 0U) && (*(RM0+1) == 0U) && (*(RM0+2) == 0U) &&
-				(*(RM0+3) == 0U)) ||
-			((RM0[0] == RM1[0]) && (RM0[1] == RM1[1]) &&
-				(RM0[2] == RM1[2]) && (RM0[3] == RM1[3])) ||
-			((RM0[0] == Mm0[0]) && (RM0[1] == Mm0[1]) &&
-				(RM0[2] == Mm0[2]) && (RM0[3] == Mm0[3])) ||
-			((RM0[0] == Mm1[0]) && (RM0[1] == Mm1[1]) &&
-				(RM0[2] == Mm1[2]) && (RM0[3] == Mm1[3]))) {
+	if (((*(RM0) == 0U) && (*(RM0 + 1U) == 0U) && (*(RM0 + 2U) == 0U) &&
+				(*(RM0 + 3U) == 0U)) ||
+			((RM0[0U] == RM1[0U]) && (RM0[1U] == RM1[1U]) &&
+				(RM0[2U] == RM1[2U]) && (RM0[3U] == RM1[3U])) ||
+			((RM0[0U] == Mm0[0U]) && (RM0[1U] == Mm0[1U]) &&
+				(RM0[2U] == Mm0[2U]) && (RM0[3U] == Mm0[3U])) ||
+			((RM0[0U] == Mm1[0U]) && (RM0[1U] == Mm1[1U]) &&
+				(RM0[2U] == Mm1[2U]) && (RM0[3U] == Mm1[3U]))) {
 		Status = XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR;
 		goto END;
 	}
 
-	if (((*(RM1) == 0U) && (*(RM1+1) == 0U) && (*(RM1+2) == 0U) &&
-				(*(RM1+3) == 0U)) ||
-			((RM1[0] == RM0[0]) && (RM1[1] == RM0[1]) &&
-				(RM1[2] == RM0[2]) && (RM1[3] == RM0[3])) ||
-			((RM1[0] == Mm0[0]) && (RM1[1] == Mm0[1]) &&
-				(RM1[2] == Mm0[2]) && (RM1[3] == Mm0[3])) ||
-			((RM1[0] == Mm1[0]) && (RM1[1] == Mm1[1]) &&
-				(RM1[2] == Mm1[2]) && (RM1[3] == Mm1[3]))) {
+	if (((*(RM1) == 0U) && (*(RM1 + 1U) == 0U) && (*(RM1 + 2U) == 0U) &&
+				(*(RM1 + 3U) == 0U)) ||
+			((RM1[0U] == RM0[0U]) && (RM1[1U] == RM0[1U]) &&
+				(RM1[2U] == RM0[2U]) && (RM1[3U] == RM0[3U])) ||
+			((RM1[0U] == Mm0[0U]) && (RM1[1U] == Mm0[1U]) &&
+				(RM1[2U] == Mm0[2U]) && (RM1[3U] == Mm0[3U])) ||
+			((RM1[0U] == Mm1[0U]) && (RM1[1U] == Mm1[1]) &&
+				(RM1[2U] == Mm1[2U]) && (RM1[3U] == Mm1[3U]))) {
 		Status = XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR;
 		goto END;
 	}
 
-	if (((*(Mm0) == 0U) && (*(Mm0+1) == 0U) && (*(Mm0+2) == 0U) &&
-				(*(Mm0+3) == 0U)) ||
-			((Mm0[0] == RM0[0]) && (Mm0[1] == RM0[1]) &&
-				(Mm0[2] == RM0[2]) && (Mm0[3] == RM0[3])) ||
-			((Mm0[0] == RM1[0]) && (Mm0[1] == RM1[1]) &&
-				(Mm0[2] == RM1[2]) && (Mm0[3] == RM1[3])) ||
-			((Mm0[0] == Mm1[0]) && (Mm0[1] == Mm1[1]) &&
-				(Mm0[2] == Mm1[2]) && (Mm0[3] == Mm1[3]))) {
+	if (((*(Mm0) == 0U) && (*(Mm0 + 1U) == 0U) && (*(Mm0 + 2U) == 0U) &&
+				(*(Mm0 + 3U) == 0U)) ||
+			((Mm0[0U] == RM0[0U]) && (Mm0[1U] == RM0[1U]) &&
+				(Mm0[2U] == RM0[2U]) && (Mm0[3U] == RM0[3U])) ||
+			((Mm0[0U] == RM1[0U]) && (Mm0[1U] == RM1[1U]) &&
+				(Mm0[2U] == RM1[2U]) && (Mm0[3U] == RM1[3U])) ||
+			((Mm0[0U] == Mm1[0U]) && (Mm0[1U] == Mm1[1U]) &&
+				(Mm0[2U] == Mm1[2U]) && (Mm0[3U] == Mm1[3U]))) {
 		Status = XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR;
 		goto END;
 	}
 
-	if (((*(Mm1) == 0U) && (*(Mm1+1) == 0U) && (*(Mm1+2) == 0U) &&
-				(*(Mm1+3) == 0U)) ||
-			((Mm1[0] == RM0[0]) && (Mm1[1] == RM0[1]) &&
-				(Mm1[2] == RM0[2]) && (Mm1[3] == RM0[3])) ||
-			((Mm1[0] == RM1[0]) && (Mm1[1] == RM1[1]) &&
-				(Mm1[2] == RM1[2]) && (Mm1[3] == RM1[3])) ||
-			((Mm1[0] == Mm0[0]) && (Mm1[1] == Mm0[1]) &&
-				(Mm1[2] == Mm0[2]) && (Mm1[3] == Mm0[3]))) {
+	if (((*(Mm1) == 0U) && (*(Mm1 + 1U) == 0U) && (*(Mm1 + 2U) == 0U) &&
+				(*(Mm1 + 3U) == 0U)) ||
+			((Mm1[0U] == RM0[0U]) && (Mm1[1U] == RM0[1U]) &&
+				(Mm1[2U] == RM0[2U]) && (Mm1[3U] == RM0[3U])) ||
+			((Mm1[0U] == RM1[0U]) && (Mm1[1U] == RM1[1U]) &&
+				(Mm1[2U] == RM1[2U]) && (Mm1[3U] == RM1[3U])) ||
+			((Mm1[0U] == Mm0[0U]) && (Mm1[1U] == Mm0[1U]) &&
+				(Mm1[2U] == Mm0[2U]) && (Mm1[3U] == Mm0[3U]))) {
 		Status = XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR;
 		goto END;
 	}
 
-	if ((((R0[0] ^ RM0[0]) != Ct0[0])  || ((R0[1] ^ RM0[1]) != Ct0[1])  ||
-			 ((R0[2] ^ RM0[2]) != Ct0[2])  || ((R0[3] ^ RM0[3]) != Ct0[3]))  ||
-			(((M0[0] ^ Mm0[0]) != MiC0[0]) || ((M0[1] ^ Mm0[1]) != MiC0[1]) ||
-			 ((M0[2] ^ Mm0[2]) != MiC0[2]) || ((M0[3] ^ Mm0[3]) != MiC0[3])) ||
-			(((R1[0] ^ RM1[0]) != Ct1[0])  || ((R1[1] ^ RM1[1]) != Ct1[1])  ||
-			((R1[2] ^ RM1[2]) != Ct1[2])  || ((R1[3] ^ RM1[3]) != Ct1[3]))  ||
-			(((M1[0] ^ Mm1[0]) != MiC1[0]) || ((M1[1] ^ Mm1[1]) != MiC1[1]) ||
-			 ((M1[2] ^ Mm1[2]) != MiC1[2]) || ((M1[3] ^ Mm1[3]) != MiC1[3]))) {
+	if ((((R0[0U] ^ RM0[0U]) != Ct0[0U])  || ((R0[1U] ^ RM0[1U]) != Ct0[1U])  ||
+			 ((R0[2U] ^ RM0[2U]) != Ct0[2U])  || ((R0[3U] ^ RM0[3U]) != Ct0[3U]))  ||
+			(((M0[0U] ^ Mm0[0U]) != MiC0[0U]) || ((M0[1U] ^ Mm0[1U]) != MiC0[1U]) ||
+			 ((M0[2U] ^ Mm0[2U]) != MiC0[2U]) || ((M0[3U] ^ Mm0[3U]) != MiC0[3U])) ||
+			(((R1[0U] ^ RM1[0U]) != Ct1[0U])  || ((R1[1U] ^ RM1[1U]) != Ct1[1U])  ||
+			((R1[2U] ^ RM1[2U]) != Ct1[2U])  || ((R1[3U] ^ RM1[3U]) != Ct1[3U]))  ||
+			(((M1[0U] ^ Mm1[0U]) != MiC1[0U]) || ((M1[1U] ^ Mm1[1U]) != MiC1[1U]) ||
+			 ((M1[2U] ^ Mm1[2U]) != MiC1[2U]) || ((M1[3U] ^ Mm1[3U]) != MiC1[3U]))) {
 		Status = XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR;
 		goto END;
 	}
