@@ -338,6 +338,9 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr)
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
 
+	XSecure_ReleaseReset(InstancePtr->BaseAddress,
+		XSECURE_AES_SOFT_RST_OFFSET);
+
 	Status = XST_SUCCESS;
 
 	return Status;
@@ -691,6 +694,11 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	Status = XST_SUCCESS;
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+
 	return Status;
 
 }
@@ -784,6 +792,11 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	Status = (u32)XST_SUCCESS;
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+
 	return Status;
 
 }
@@ -806,6 +819,7 @@ END:
 u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	u32 Status = (u32)XST_FAILURE;
+	u32 NextBlkLen = 0U;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -863,7 +877,17 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	else {
 		Status = XST_SUCCESS;
 	}
+
+	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &NextBlkLen);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 END:
+
+	if ((NextBlkLen == 0U) || (Status != XST_SUCCESS)) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
@@ -1011,6 +1035,11 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+
 	return Status;
 }
 
@@ -1106,6 +1135,11 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	Status = (u32)XST_SUCCESS;
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+
 	return Status;
 
 }
@@ -1176,6 +1210,8 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 					XCSUDMA_DST_CHANNEL, 0U);
 
 END:
+	XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
 

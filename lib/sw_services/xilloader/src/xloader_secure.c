@@ -2069,8 +2069,6 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
-		XSecure_ReleaseReset(AesInstance.BaseAddress,
-					XSECURE_AES_SOFT_RST_OFFSET);
 
 		/* Configure DPA counter measure */
 		DpaCmCfg = XilPdi_IsDpaCmEnable(SecurePtr->PrtnHdr);
@@ -2807,8 +2805,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 							 Status);
 		goto END;
 	}
-	XSecure_ReleaseReset(AesInstance.BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
+
 	/* Configure DPA CM */
 	Status = XLoader_SetAesDpaCm(&AesInstance, DpaCmCfg);
 	if (Status != XLOADER_SUCCESS) {

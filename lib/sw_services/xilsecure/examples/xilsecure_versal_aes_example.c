@@ -188,10 +188,6 @@ static s32 SecureAesExample(void)
 	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&Secure_Aes, &CsuDmaInstance);
 
-	/* Take core out of reset */
-	XSecure_ReleaseReset(Secure_Aes.BaseAddress,
-				XSECURE_AES_SOFT_RST_OFFSET);
-
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(&Secure_Aes, XSECURE_AES_USER_KEY_0,
 				XSECURE_AES_KEY_SIZE_256, (u64)Key);
@@ -244,6 +240,9 @@ static s32 SecureAesExample(void)
 	}
 	xil_printf( "\r\n\n");
 
+	/* Initialize the Aes driver so that it's ready to use */
+	XSecure_AesInitialize(&Secure_Aes, &CsuDmaInstance);
+
 	/* Decrypt's the encrypted data */
 	/*
 	 * If data to be decrypted is contiguous one can also call
@@ -263,9 +262,6 @@ static s32 SecureAesExample(void)
 		xil_printf("Decryption failure- GCM tag was not matched\n\r");
 		goto END;
 	}
-	/* Set AES engine into reset */
-	XSecure_SetReset(Secure_Aes.BaseAddress,
-				XSECURE_AES_SOFT_RST_OFFSET);
 
 	xil_printf("Decrypted data %x \n\r", DecData);
 	for (Index = 0; Index < XSECURE_DATA_SIZE; Index++) {
