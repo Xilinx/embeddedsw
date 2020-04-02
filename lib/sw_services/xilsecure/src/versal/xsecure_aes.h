@@ -39,8 +39,6 @@
 * 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
 *                       and added in xsecure_utils.h
 *       vns  02/10/2020 Added DPA CM enable/disable function
-*       rpo  02/27/2020 Added function prototype of XSecure_AesKeyLoad
-*                       XSecure_AesWaitForDone functions
 * </pre>
 *
 * @note
@@ -54,14 +52,11 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xcsudma.h"
 #include "xsecure_aes_core_hw.h"
 #include "xsecure_utils.h"
-#include "xcsudma.h"
-
-
 /************************** Constant Definitions *****************************/
 #define XSECURE_AES_BUFFER_SIZE                         (4U)
-#define XSECURE_CSU_DMA_ID 				(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
@@ -106,18 +101,6 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280)
 
 /**************************** Type Definitions *******************************/
-
-typedef struct {
-	u32 RegOffset;
-	u32 KeySrcSelVal;
-	u8  UsrWrAllowed;
-	u8  DecAllowed;
-	u8  EncAllowed;
-	u8  KeyDecSrcAllowed;
-	u32 KeyDecSrcSelVal;
-	u32 KeyClearVal;
-} XSecure_AesKeyLookup;
-
 typedef enum {
 	XSECURE_BLACK_KEY,
 	XSECURE_OBFUSCATED_KEY
@@ -185,7 +168,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			XSecure_AesKeySrc DecKeySrc, XSecure_AesKeySrc DstKeySrc,
 			u64 IvAddr, u32 KeySize);
 
-u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg);
+u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config);
 
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size);
 
@@ -193,7 +176,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSecure_AesKeySize KeySize, u64 IvAddr);
 
 u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 EnLast);
+			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
@@ -203,7 +186,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSecure_AesKeySize KeySize, u64 IvAddr);
 
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 EnLast);
+			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,

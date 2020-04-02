@@ -141,9 +141,12 @@ typedef enum{
 *		u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
 *
 ******************************************************************************/
-#define XSecure_ReadReg(BaseAddress, RegOffset) \
-				Xil_In32((BaseAddress) + (RegOffset))
-
+static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
+{
+	u32 Status;
+	Status = Xil_In32(BaseAddress + RegOffset);
+	return Status;
+}
 /***************************************************************************/
 /**
 * Write to the register.
@@ -160,19 +163,22 @@ typedef enum{
 *			u16 RegisterValue)
 *
 ******************************************************************************/
-#define XSecure_WriteReg(BaseAddress, RegOffset, RegisterValue) \
-			Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))
+static inline void XSecure_WriteReg(u32 BaseAddress,
+									u32 RegOffset, u32 RegisterValue)
+{
+	Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue));
+}
 
-#define XSecure_In32(Addr)			Xil_In32((Addr))
+#define XSecure_In32			Xil_In32
 
-#define XSecure_In64(Addr)			Xil_In64((Addr))
+#define XSecure_In64			Xil_In64
 
-#define XSecure_Out32(Addr, Data)		Xil_Out32((Addr), (Data))
+#define XSecure_Out32			Xil_Out32
 
-#define XSecure_Out64(Addr, Data)		Xil_Out64((Addr), (Data))
+#define XSecure_Out64			Xil_Out64
 
-#define XSecure_SecureOut32(Addr, Data)		Xil_SecureOut32((Addr),(Data))
-/**  @endcond */
+#define XSecure_SecureOut32		Xil_SecureOut32
+
 /************************** Function Prototypes ******************************/
 
 void XSecure_SetReset(u32 BaseAddress, u32 Offset);

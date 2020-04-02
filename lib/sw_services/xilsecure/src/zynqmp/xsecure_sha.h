@@ -104,7 +104,7 @@ extern "C" {
 
 #define XSECURE_SHA3_LAST_PACKET	(0x1U) /**< Last Data Packet */
 
-#define XSECURE_CSU_DMA_MAX_TRANSFER	(0x1ffffffcU) /** < CSU DMA Max Transfer
+#define XSECURE_CSU_DMA_MAX_TRANSFER	(0x1FFFFFFCU) /** < CSU DMA Max Transfer
 							rate in bytes*/
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
