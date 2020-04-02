@@ -50,7 +50,7 @@
 #include "xilpdi.h"
 #include "xplmi_dma.h"
 #include "xsecure_ecdsa_rsa_hw.h"
-#include "xloader_secure_kat.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -611,9 +611,17 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 	 * Skip running the KAT for SHA3 if it is already run by ROM
 	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
 	 */
+
+	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
+						 Status);
+		goto END;
+	}
+
 	if(((SecurePtr->PdiPtr->PlmKatStatus) & (XLOADER_SHA3_KAT_MASK)) == 0U)
 	{
-		Status = XLoader_Sha3Kat();
+		Status = XSecure_Sha3Kat(&Sha3Instance);
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT Failed\n");
 			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -621,6 +629,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
 	}
+
 	/* calculate hash of the image header table */
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
@@ -688,6 +697,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	u32 Ihs;
 	u32 DpacmEfuseStatus;
 	u32 PlmDpacmKatStatus;
+	XSecure_Aes AesInstance;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"Loading secure image headers and partition headers\n\r");
@@ -699,6 +709,20 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	 * either authentication is enabled or not
 	 */
 	if (SecurePtr->IsEncrypted == TRUE) {
+		/* Get DMA instance */
+		SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(CSUDMA_0_DEVICE_ID);
+		if (SecurePtr->CsuDmaInstPtr == NULL) {
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_GET_DMA, 0x0U);
+			goto END;
+		}
+		/* Initialize AES driver */
+		Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
+		if (Status != XLOADER_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, " Failed at XSecure_AesInitialize \n\r");
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
+			goto END;
+		}
+
 		/*
 		 * Skip running the KAT for AES DPACM or AES if it is already run by ROM
 		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -709,7 +733,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 						 (XLOADER_DPACM_KAT_MASK));
 
 		if((DpacmEfuseStatus == 0U) && (PlmDpacmKatStatus == 0U)) {
-			Status = XLoader_AesCmKat();
+			Status = XSecure_AesDecryptCmKat(&AesInstance);
 			if(Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT Failed\n");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -717,8 +741,17 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 			}
 			SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_DPACM_KAT_MASK;
 		}
+
+		/* Initialize AES driver */
+		Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
+		if (Status != XLOADER_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, " Failed at XSecure_AesInitialize \n\r");
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
+			goto END;
+		}
+
 		if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_AES_KAT_MASK) == 0U) {
-			Status = XLoader_AesKat();
+			Status = XSecure_AesDecryptKat(&AesInstance);
 			if(Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "AES KAT Failed\n");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -999,7 +1032,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash)
 	if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_RSA_KAT_MASK) == 0U) {
 		if((SecurePtr->AcPtr->AuthHeader & XLOADER_AC_AH_PUB_ALG_MASK) ==
 				XLOADER_AC_AH_PUB_ALG_RSA) {
-			Status = XLoader_RsaKat();
+			Status = XSecure_RsaPublicEncryptKat();
 			if(Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "RSA KAT Failed\n");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -1011,7 +1044,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash)
 	if(((SecurePtr->PdiPtr->PlmKatStatus) & (XLOADER_ECDSA_KAT_MASK)) == 0U) {
 		if((SecurePtr->AcPtr->AuthHeader & XLOADER_AC_AH_PUB_ALG_MASK) ==
 				XLOADER_AC_AH_PUB_ALG_ECDSA) {
-			Status = XLoader_EcdsaKat();
+			Status = XSecure_EcdsaKat();
 			if(Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
