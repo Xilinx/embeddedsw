@@ -37,6 +37,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   pm    03/03/20 First release
+* 1.7 	pm    25/03/20 Add clocking support
 *
 * </pre>
 *
@@ -487,6 +488,10 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 		break;
 
 	case XUSBPSU_GHWPARAMS1_EN_PWROPT_HIB:
+		/* enable ref clocks */
+#if defined (XCLOCKING)
+		Xil_ClockEnable(InstancePtr->ConfigPtr->RefClk);
+#endif
 		/* enable hibernation here */
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 		RegVal |= XUSBPSU_GCTL_GBLHIBERNATIONEN;

@@ -63,6 +63,7 @@
 * 1.6	pm    22/07/19 Removed coverity warnings
 * 1.7	pm    14/11/19 Updated number of TRB to improve performance
 * 	pm    03/23/20 Restructured the code for more readability and modularity
+*	pm    03/14/20 Added clocking support
 *
 * </pre>
 *
@@ -86,6 +87,9 @@ extern "C" {
 #include "xusbpsu_hw.h"
 #include "xusbpsu_endpoint.h"
 #include "xil_io.h"
+#if defined (XCLOCKING)
+#include "xil_clocking.h"
+#endif
 
 /*
  * The header sleep.h and API usleep() can only be used with an arm design.
@@ -395,6 +399,9 @@ typedef struct {
         u32 BaseAddress;	/**< Core register base address */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
+#if defined (XCLOCKING)
+	u32 RefClk;		/**< Input clocks */
+#endif
 } XUsbPsu_Config;
 
 typedef XUsbPsu_Config Usb_Config;

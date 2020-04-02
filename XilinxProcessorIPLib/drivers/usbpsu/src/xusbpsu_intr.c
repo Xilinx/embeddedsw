@@ -46,6 +46,7 @@
 *		     example.
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
 * 1.7	pm  23/03/20 Restructured the code for more readability and modularity
+* 	pm  25/03/20 Add clocking support
 *
 * </pre>
 *
@@ -470,7 +471,12 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 
 	struct XUsbPsu  *InstancePtr = (struct XUsbPsu *)XUsbPsuInstancePtr;
 
-
+#if defined  (XCLOCKING)
+	/* enable ref clocks */
+	if (InstancePtr->IsHibernated) {
+		Xil_ClockEnable(InstancePtr->ConfigPtr->RefClk);
+	}
+#endif
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {

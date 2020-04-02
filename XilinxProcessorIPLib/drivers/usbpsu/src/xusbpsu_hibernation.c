@@ -41,6 +41,7 @@
 * 1.5   VAK    14/03/19 Enable hibernation related functions only when
 *                       XUSBPSU_HIBERNATION_ENABLE is defined
 * 1.7	pm     23/03/20 Restructured the code for more readability and modularity
+* 	pm     25/03/20 Add clocking support
 *
 * </pre>
 *
@@ -308,6 +309,13 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | (u32)USB0_CORE_RST);
 	}
+
+#if defined (XCLOCKING)
+		/* disable ref clocks */
+	if (InstancePtr->IsHibernated == 0) {
+		Xil_ClockDisable(InstancePtr->ConfigPtr->RefClk);
+	}
+#endif
 
 	InstancePtr->IsHibernated = 1U;
 	xil_printf("Hibernated!\r\n");
