@@ -927,6 +927,16 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			if (XST_SUCCESS != Status) {
 				break;
 			}
+		} else if (PM_POWER_ME == PwrDomain->Power.Node.Id) {
+			/* Request AIE device once AIE intialization is done. */
+			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_AIE,
+						   XPM_MAX_CAPABILITY,
+						   XPM_MAX_QOS);
+			if (XST_SUCCESS != Status) {
+				break;
+			}
+		} else {
+			/* Required for MISRA */
 		}
 
 		Status = XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
