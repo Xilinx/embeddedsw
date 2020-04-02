@@ -64,8 +64,8 @@ extern "C" {
  */
 
 /**/
-#define XUSBPSU_PORTSC_30						0x430U
-#define XUSBPSU_PORTMSC_30						0x434U
+#define XUSBPSU_PORTSC_30			0x430U
+#define XUSBPSU_PORTMSC_30			0x434U
 
 /* XUSBPSU registers memory space boundaries */
 #define XUSBPSU_GLOBALS_REGS_START              0xC100U
@@ -148,7 +148,7 @@ extern "C" {
 /* Global Configuration Register */
 #define XUSBPSU_GCTL_PWRDNSCALE(n)              ((n) << 19U)
 #define XUSBPSU_GCTL_U2RSTECN                   (1U << 16U)
-#define XUSBPSU_GCTL_RAMCLKSEL(x)       (((x) & XUSBPSU_GCTL_CLK_MASK) << 6U)
+#define XUSBPSU_GCTL_RAMCLKSEL(x)       	(((x) & XUSBPSU_GCTL_CLK_MASK) << 6U)
 #define XUSBPSU_GCTL_CLK_BUS                    (0U)
 #define XUSBPSU_GCTL_CLK_PIPE                   (1U)
 #define XUSBPSU_GCTL_CLK_PIPEHALF               (2U)
@@ -307,14 +307,14 @@ extern "C" {
 #define XUSBPSU_COHERENCY_MODE_ENABLE		0x01U
 
 /*Portpmsc 3.0 bit field*/
-#define XUSBPSU_PORTMSC_30_FLA_MASK				(1U << 16U)
-#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK		(0xFFU << 8U)
-#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT		(8U)
-#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK		(0xFFU << 0U)
-#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT		(0U)
+#define XUSBPSU_PORTMSC_30_FLA_MASK		(1U << 16U)
+#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK	(0xFFU << 8U)
+#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT	(8U)
+#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK	(0xFFU << 0U)
+#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT	(0U)
 
 /* Register for LPD block */
-#define RST_LPD_TOP					0x23CU
+#define RST_LPD_TOP				0x23CU
 #define USB0_CORE_RST				(1U << 6U)
 #define USB1_CORE_RST				(1U << 7U)
 
@@ -406,7 +406,7 @@ extern "C" {
 *
 * @note        C-style Signature:
 *              void XUsbPsu_WriteVendorReg(struct XUsbPsu *InstancePtr,
-*                                                              u32 Offset,u32 Data)
+*                                                         u32 Offset,u32 Data);
 *
 ******************************************************************************/
 #define XUsbPsu_WriteVendorReg(Offset, Data) \
@@ -441,7 +441,7 @@ extern "C" {
 *
 * @note        C-style Signature:
 *              void XUsbPsu_WriteLpdReg(struct XUsbPsu *InstancePtr,
-*                                                              u32 Offset,u32 Data)
+*                                                         u32 Offset,u32 Data);
 *
 ******************************************************************************/
 #define XUsbPsu_WriteLpdReg(Offset, Data) \

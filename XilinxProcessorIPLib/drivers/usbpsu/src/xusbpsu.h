@@ -62,6 +62,7 @@
 * 1.5	vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
 * 1.6	pm    22/07/19 Removed coverity warnings
 * 1.7	pm    14/11/19 Updated number of TRB to improve performance
+* 	pm    03/23/20 Restructured the code for more readability and modularity
 *
 * </pre>
 *
@@ -111,11 +112,11 @@ extern "C" {
 
 #define	XUSBPSU_PHY_TIMEOUT		5000U /* in micro seconds */
 
-#define XUSBPSU_EP_DIR_IN				1U
-#define XUSBPSU_EP_DIR_OUT				0U
+#define XUSBPSU_EP_DIR_IN		1U
+#define XUSBPSU_EP_DIR_OUT		0U
 
-#define XUSBPSU_USB_DIR_OUT				0U		/* to device */
-#define XUSBPSU_USB_DIR_IN				0x80U	/* to host */
+#define XUSBPSU_USB_DIR_OUT		0U	/* to device */
+#define XUSBPSU_USB_DIR_IN		0x80U	/* to host */
 
 #define XUSBPSU_ENDPOINT_XFERTYPE_MASK      0x03    /* in bmAttributes */
 #define XUSBPSU_ENDPOINT_XFER_CONTROL       0U
@@ -124,81 +125,81 @@ extern "C" {
 #define XUSBPSU_ENDPOINT_XFER_INT           3U
 #define XUSBPSU_ENDPOINT_MAX_ADJUSTABLE     0x80
 
-#define	XUSBPSU_TEST_J							1U
-#define	XUSBPSU_TEST_K							2U
-#define	XUSBPSU_TEST_SE0_NAK					3U
-#define	XUSBPSU_TEST_PACKET						4U
-#define	XUSBPSU_TEST_FORCE_ENABLE				5U
+#define	XUSBPSU_TEST_J			1U
+#define	XUSBPSU_TEST_K			2U
+#define	XUSBPSU_TEST_SE0_NAK		3U
+#define	XUSBPSU_TEST_PACKET		4U
+#define	XUSBPSU_TEST_FORCE_ENABLE	5U
 
-#define XUSBPSU_NUM_TRBS				8U
+#define XUSBPSU_NUM_TRBS		8U
 
 #define XUSBPSU_EVENT_PENDING		(0x00000001U << 0U)
 
-#define XUSBPSU_EP_ENABLED			(0x00000001U << 0U)
-#define XUSBPSU_EP_STALL			(0x00000001U << 1U)
-#define XUSBPSU_EP_WEDGE			(0x00000001U << 2U)
-#define XUSBPSU_EP_BUSY				((u32)0x00000001U << 4U)
+#define XUSBPSU_EP_ENABLED		(0x00000001U << 0U)
+#define XUSBPSU_EP_STALL		(0x00000001U << 1U)
+#define XUSBPSU_EP_WEDGE		(0x00000001U << 2U)
+#define XUSBPSU_EP_BUSY			((u32)0x00000001U << 4U)
 #define XUSBPSU_EP_PENDING_REQUEST	(0x00000001U << 5U)
 #define XUSBPSU_EP_MISSED_ISOC		(0x00000001U << 6U)
 
-#define	XUSBPSU_GHWPARAMS0				0U
-#define	XUSBPSU_GHWPARAMS1				1U
-#define	XUSBPSU_GHWPARAMS2				2U
-#define	XUSBPSU_GHWPARAMS3				3U
-#define	XUSBPSU_GHWPARAMS4				4U
-#define	XUSBPSU_GHWPARAMS5				5U
-#define	XUSBPSU_GHWPARAMS6				6U
-#define	XUSBPSU_GHWPARAMS7				7U
+#define	XUSBPSU_GHWPARAMS0		0U
+#define	XUSBPSU_GHWPARAMS1		1U
+#define	XUSBPSU_GHWPARAMS2		2U
+#define	XUSBPSU_GHWPARAMS3		3U
+#define	XUSBPSU_GHWPARAMS4		4U
+#define	XUSBPSU_GHWPARAMS5		5U
+#define	XUSBPSU_GHWPARAMS6		6U
+#define	XUSBPSU_GHWPARAMS7		7U
 
 /* HWPARAMS0 */
-#define XUSBPSU_MODE(n)					((n) & 0x7U)
-#define XUSBPSU_MDWIDTH(n)				(((n) & 0xFF00) >> 8U)
+#define XUSBPSU_MODE(n)			((n) & 0x7U)
+#define XUSBPSU_MDWIDTH(n)		(((n) & 0xFF00) >> 8U)
 
 /* HWPARAMS1 */
-#define XUSBPSU_NUM_INT(n)				(((n) & (0x3F << 15U)) >> 15U)
+#define XUSBPSU_NUM_INT(n)		(((n) & (0x3F << 15U)) >> 15U)
 
 /* HWPARAMS3 */
 #define XUSBPSU_NUM_IN_EPS_MASK		((u32)0x0000001FU << (u32)18U)
 #define XUSBPSU_NUM_EPS_MASK		((u32)0x0000003FU << (u32)12U)
-#define XUSBPSU_NUM_EPS(p)			(((u32)(p) &		\
-									(XUSBPSU_NUM_EPS_MASK)) >> (u32)12)
+#define XUSBPSU_NUM_EPS(p)		(((u32)(p) &		\
+					(XUSBPSU_NUM_EPS_MASK)) >> (u32)12)
 #define XUSBPSU_NUM_IN_EPS(p)		(((u32)(p) &		\
-									(XUSBPSU_NUM_IN_EPS_MASK)) >> (u32)18)
+					(XUSBPSU_NUM_IN_EPS_MASK)) >> (u32)18)
 
 /* HWPARAMS7 */
-#define XUSBPSU_RAM1_DEPTH(n)			((n) & 0xFFFFU)
+#define XUSBPSU_RAM1_DEPTH(n)		((n) & 0xFFFFU)
 
-#define XUSBPSU_DEPEVT_XFERCOMPLETE		0x01U
+#define XUSBPSU_DEPEVT_XFERCOMPLETE	0x01U
 #define XUSBPSU_DEPEVT_XFERINPROGRESS	0x02U
-#define XUSBPSU_DEPEVT_XFERNOTREADY		0x03U
-#define XUSBPSU_DEPEVT_STREAMEVT		0x06U
-#define XUSBPSU_DEPEVT_EPCMDCMPLT		0x07U
+#define XUSBPSU_DEPEVT_XFERNOTREADY	0x03U
+#define XUSBPSU_DEPEVT_STREAMEVT	0x06U
+#define XUSBPSU_DEPEVT_EPCMDCMPLT	0x07U
 
 /* Within XferNotReady */
 #define DEPEVT_STATUS_TRANSFER_ACTIVE	(1U << 3U)
 
 /* Within XferComplete */
-#define DEPEVT_STATUS_BUSERR			(1U << 0U)
-#define DEPEVT_STATUS_SHORT				(1U << 1U)
-#define DEPEVT_STATUS_IOC				(1U << 2U)
-#define DEPEVT_STATUS_LST				(1U << 3U)
+#define DEPEVT_STATUS_BUSERR		(1U << 0U)
+#define DEPEVT_STATUS_SHORT		(1U << 1U)
+#define DEPEVT_STATUS_IOC		(1U << 2U)
+#define DEPEVT_STATUS_LST		(1U << 3U)
 
 /* Stream event only */
 #define DEPEVT_STREAMEVT_FOUND		1U
 #define DEPEVT_STREAMEVT_NOTFOUND	2U
 
 /* Control-only Status */
-#define DEPEVT_STATUS_CONTROL_DATA				1U
-#define DEPEVT_STATUS_CONTROL_STATUS			2U
-#define DEPEVT_STATUS_CONTROL_DATA_INVALTRB		9U
+#define DEPEVT_STATUS_CONTROL_DATA		1U
+#define DEPEVT_STATUS_CONTROL_STATUS		2U
+#define DEPEVT_STATUS_CONTROL_DATA_INVALTRB	9U
 #define DEPEVT_STATUS_CONTROL_STATUS_INVALTRB	0xAU
 
 #define XUSBPSU_ENDPOINTS_NUM			12U
 
-#define XUSBPSU_EVENT_SIZE				4U       /* bytes */
+#define XUSBPSU_EVENT_SIZE			4U       /* bytes */
 #define XUSBPSU_EVENT_MAX_NUM			64U      /* 2 events/endpoint */
 #define XUSBPSU_EVENT_BUFFERS_SIZE		(XUSBPSU_EVENT_SIZE * \
-										XUSBPSU_EVENT_MAX_NUM)
+							XUSBPSU_EVENT_MAX_NUM)
 
 #define XUSBPSU_EVENT_TYPE_MASK                 0x000000feU
 
@@ -223,14 +224,14 @@ extern "C" {
 /*
  * Control Endpoint state
  */
-#define	XUSBPSU_EP0_SETUP_PHASE				1U	/**< Setup Phase */
-#define	XUSBPSU_EP0_DATA_PHASE				2U	/**< Data Phase */
-#define	XUSBPSU_EP0_STATUS_PHASE			3U	/**< Status Pahse */
+#define	XUSBPSU_EP0_SETUP_PHASE			1U	/**< Setup Phase */
+#define	XUSBPSU_EP0_DATA_PHASE			2U	/**< Data Phase */
+#define	XUSBPSU_EP0_STATUS_PHASE		3U	/**< Status Pahse */
 
 /*
  * Link State
  */
-#define		XUSBPSU_LINK_STATE_MASK			0x0FU
+#define XUSBPSU_LINK_STATE_MASK			0x0FU
 
 /**
  * @param XusbPsuLinkState This typedef defines link state.
@@ -280,10 +281,10 @@ typedef enum {
  * Device Speeds
  */
 #define		XUSBPSU_SPEED_UNKNOWN			0U
-#define		XUSBPSU_SPEED_LOW				1U
-#define		XUSBPSU_SPEED_FULL				2U
-#define		XUSBPSU_SPEED_HIGH				3U
-#define		XUSBPSU_SPEED_SUPER				4U
+#define		XUSBPSU_SPEED_LOW			1U
+#define		XUSBPSU_SPEED_FULL			2U
+#define		XUSBPSU_SPEED_HIGH			3U
+#define		XUSBPSU_SPEED_SUPER			4U
 
 /*
  * return Physical EP number as dwc3 mapping
@@ -359,29 +360,29 @@ struct XUsbPsu_Ep {
 						 */
 #if defined (__ICCARM__)
     #pragma data_alignment = 64
-	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1U]; /**< One extra Trb is for Link Trb */
+	struct XUsbPsu_Trb EpTrb[NO_OF_TRB_PER_EP + 1U]; /**< One extra Trb is for Link Trb */
 #else
-	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1U] ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
+	struct XUsbPsu_Trb EpTrb[NO_OF_TRB_PER_EP + 1U] ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
 #endif
-	u32	EpStatus;		/**< Flags to represent Endpoint status */
+	u32	EpStatus;	/**< Flags to represent Endpoint status */
 	u32	EpSavedState;	/**< Endpoint status saved at the time of hibernation */
 	u32	RequestedBytes;	/**< RequestedBytes for transfer */
-	u32	BytesTxed;		/**< Actual Bytes transferred */
-	u32	Interval;		/**< Data transfer service interval */
+	u32	BytesTxed;	/**< Actual Bytes transferred */
+	u32	Interval;	/**< Data transfer service interval */
 	u32	TrbEnqueue;
 	u32	TrbDequeue;
-	u16	MaxSize;		/**< Size of endpoint */
-	u16	CurUf;			/**< current microframe */
-	u8	*BufferPtr;		/**< Buffer location */
+	u16	MaxSize;	/**< Size of endpoint */
+	u16	CurUf;		/**< current microframe */
+	u8	*BufferPtr;	/**< Buffer location */
 	u8	ResourceIndex;	/**< Resource Index assigned to
-						 *  Endpoint by core
-						 */
-	u8	PhyEpNum;		/**< Physical Endpoint Number in core */
-	u8	UsbEpNum;		/**< USB Endpoint Number */
-	u8	Type;			/**< Type of Endpoint -
-						 *	 Control/BULK/INTERRUPT/ISOC
-						 */
-	u8	Direction;		/**< Direction - EP_DIR_OUT/EP_DIR_IN */
+				 *  Endpoint by core
+				 */
+	u8	PhyEpNum;	/**< Physical Endpoint Number in core */
+	u8	UsbEpNum;	/**< USB Endpoint Number */
+	u8	Type;		/**< Type of Endpoint -
+				 *	 Control/BULK/INTERRUPT/ISOC
+				 */
+	u8	Direction;	/**< Direction - EP_DIR_OUT/EP_DIR_IN */
 	u8	UnalignedTx;
 };
 
@@ -392,7 +393,7 @@ struct XUsbPsu_Ep {
 typedef struct {
         u16 DeviceId;		/**< Unique ID of controller */
         u32 BaseAddress;	/**< Core register base address */
-		u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
 } XUsbPsu_Config;
 
@@ -438,7 +439,7 @@ struct XUsbPsu {
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE];
 #else
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]
-						__attribute__((aligned(XUSBPSU_EVENT_BUFFERS_SIZE)));
+			__attribute__((aligned(XUSBPSU_EVENT_BUFFERS_SIZE)));
 #endif
 	u8 NumOutEps;
 	u8 NumInEps;
@@ -607,7 +608,8 @@ static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr) {
 	return InstancePtr->data_ptr;
 }
 
-static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr, void *data) {
+static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
+		void *data) {
 	InstancePtr->data_ptr = data;
 }
 
@@ -634,32 +636,10 @@ static inline void XUsbPsu_set_disconnect(
 /*
  * Functions in xusbpsu.c
  */
-s32 XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
-								u32 BitMask, u32 Timeout);
-s32 XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
-								u32 BitMask, u32 Timeout);
-void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode);
-void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr);
-void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr);
-void XUsbPsu_EventBuffersReset(struct XUsbPsu *InstancePtr);
-void XUsbPsu_CoreNumEps(struct XUsbPsu *InstancePtr);
-void XUsbPsu_cache_hwparams(struct XUsbPsu *InstancePtr);
-u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex);
-s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr);
-void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
-void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
 s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 			XUsbPsu_Config *ConfigPtr, u32 BaseAddress);
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr);
-s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode);
-u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr);
-s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
-		XusbPsuLinkStateChange State);
-s32 XUsbPsu_SendGenericCmd(struct XUsbPsu *InstancePtr,
-					s32 Cmd, u32 Param);
-void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed);
-s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr);
 s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
 s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
 s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr);
@@ -670,27 +650,15 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr);
 
 /*
- * Functions in xusbpsu_endpoint.c
+ * Functions in xusbpsu_command.c
  */
-struct XUsbPsu_EpParams *XUsbPsu_GetEpParams(struct XUsbPsu *InstancePtr);
-u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
-				u8 Dir);
-s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-			u32 Cmd, struct XUsbPsu_EpParams *Params);
-s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum,
-				u8 Dir);
-s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-				u16 Size, u8 Type, u8 Restore);
-s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 				u16 Maxsize, u8 Type, u8 Restore);
 s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
-s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size);
-void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr);
-void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
-				u8 Dir, u8 Force);
-void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
-				struct XUsbPsu_Ep *Ept);
+
+/*
+ * Functions in xusbpsu_endpoint.c
+ */
 void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 				u8 *BufferPtr, u32 BufferLen);
@@ -701,60 +669,29 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir);
 void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 			u8 Dir, void (*Handler)(void *, u32, u32));
 s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir);
-void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
-							const struct XUsbPsu_Event_Epevt *Event);
-void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
-							const struct XUsbPsu_Event_Epevt *Event);
-
-/*
- * Functions in xusbpsu_controltransfers.c
- */
-s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr);
-void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr);
-void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event);
-void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event);
-void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
-			const struct XUsbPsu_Event_Epevt *Event);
-s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
-				const struct XUsbPsu_Event_Epevt *Event);
-void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
-					struct XUsbPsu_Ep *Ept);
-void XUsbPsu_Ep0XferNotReady(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event);
-void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event);
-s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr,
-			u32 BufferLen);
-s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length);
-void XUsbSleep(u32 USeconds);
+void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
+				u8 Dir, u8 Force);
 
 /*
  * Functions in xusbpsu_intr.c
  */
-void XUsbPsu_EpInterrupt(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event);
-void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr);
-void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr);
-void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr);
-void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr,
-				u32 EvtInfo);
-void XUsbPsu_DevInterrupt(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Devt *Event);
-void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
-                const union XUsbPsu_Event *Event);
-void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr);
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr);
-void XUsbPsu_Idle(struct XUsbPsu *InstancePtr);
-
-#ifdef XUSBPSU_HIBERNATION_ENABLE
-void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
-void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr);
+void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
+void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
 void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr);
-void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr);
-s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr);
-#endif
+
+/*
+ * Functions in xusbpsu_device.c
+ */
+s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr);
+void XUsbPsu_Idle(struct XUsbPsu *InstancePtr);
+void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed);
+void XUsbPsu_Sleep(u32 USeconds);
+
+/*
+ * Functions in xusbpsu_controltransfer.c
+ */
+void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr);
 
 /*
  * Functions in xusbpsu_sinit.c
