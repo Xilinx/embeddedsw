@@ -209,11 +209,6 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
-u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
-
-u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-	XSecure_AesKeySize KeySize);
-
 u32 XSecure_AesDecryptKat(XSecure_Aes *InstancePtr);
 
 u32 XSecure_AesDecryptCmKat(XSecure_Aes *InstancePtr);
