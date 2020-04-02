@@ -107,6 +107,7 @@ extern "C" {
  *  - USE_DDR_FOR_APU_RESTART : If this macro is enabled, PMU writes FSBL image
  *              to DDR from OCM if FSBL is running on APU. This is to free-up
  *              OCM memory for other uses.
+ *  - ENABLE_RPU_RUN_MODE: Enables RPU monitoring module
  *
  * 	These macros are specific to ZCU100 design where it uses GPO1[2] as a
  * 	board power line and
@@ -159,6 +160,7 @@ extern "C" {
 #define SECURE_ACCESS_VAL		(0U)
 
 #define USE_DDR_FOR_APU_RESTART_VAL		(1U)
+#define ENABLE_RPU_RUN_MODE_VAL (0U)
 
 /*
  * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
@@ -243,6 +245,10 @@ extern "C" {
 
 #if ENABLE_RTC_TEST_VAL
 #define ENABLE_RTC_TEST
+#endif
+
+#if ENABLE_RPU_RUN_MODE_VAL
+#define ENABLE_RPU_RUN_MODE
 #endif
 
 #if ENABLE_FPGA_LOAD_VAL

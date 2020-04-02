@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
 #include "xpfw_mod_common.h"
 
 #include "xpfw_mod_ultra96.h"
+#include "xpfw_mod_rpu.h"
 
 #if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
 /*****************************************************************************
@@ -78,6 +79,7 @@ void XPfw_UserStartUp(void)
 	ModDapInit();
 	ModLegacyInit();
 	ModWdtInit();
+	ModRpuInit();
 #ifdef ENABLE_CUSTOM_MOD
 	/*
 	 * This ModCustomInit function is a placeholder to the user

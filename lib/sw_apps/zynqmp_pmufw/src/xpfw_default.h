@@ -115,6 +115,9 @@ extern "C" {
 #define IPI_CRC_ERROR_OCCURRED	0x1U
 #define HW_EXCEPTION_RECEIVED	0x2U
 
+/* Error code to be written for RPU_run mode error */
+#define RPU_RUN_MODE_ERROR 		0x04U
+
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);
 struct HandlerTable{
