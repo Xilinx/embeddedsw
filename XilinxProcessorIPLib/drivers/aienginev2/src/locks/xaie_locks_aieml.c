@@ -35,6 +35,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   Tejus   03/17/2020  Initial creation
+* 1.1   Tejus   03/23/2020  fix check of return value from mask poll for acquire
+*			    api
 * </pre>
 *
 ******************************************************************************/
@@ -136,7 +138,7 @@ AieRC _XAieMl_LockAcquire(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
 	RegAddr = DevInst->BaseAddr +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOff;
 
-	if(!XAieGbl_MaskPoll(RegAddr, XAIEML_LOCK_RESULT_MASK,
+	if(XAieGbl_MaskPoll(RegAddr, XAIEML_LOCK_RESULT_MASK,
 				(XAIEML_LOCK_RESULT_SUCCESS <<
 				 XAIEML_LOCK_RESULT_LSB), TimeOut)) {
 
