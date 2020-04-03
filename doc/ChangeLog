@@ -108,7 +108,7 @@ Add Colorimetry Support
 v_multi_scaler_v1_1:
 Updated API to use config structure parameters.
 
-vtc_v8_1:
+vtc_v8_2:
 Fix handling of spurious interrupt
 
 xilffs_v4_3:
