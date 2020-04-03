@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# 
+#
 # MODIFICATION HISTORY:
 #
 # Ver      Who    Date     Changes
@@ -38,7 +38,7 @@ BEGIN driver vtc
   OPTION supported_peripherals = (v_tc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 8.1;
+  OPTION VERSION = 8.2;
   OPTION NAME = vtc;
 
 END driver
