@@ -23,7 +23,7 @@ static int rpmsg_rpc_ept_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	(void)priv;
 	(void)src;
 
-	if (data != NULL && ept != NULL) {
+	if (data && ept) {
 		syscall = data;
 		if (syscall->id == TERM_SYSCALL_ID) {
 			rpmsg_destroy_ept(ept);
@@ -34,7 +34,7 @@ static int rpmsg_rpc_ept_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 						 struct rpmsg_rpc_data,
 						 ept);
 			metal_spinlock_acquire(&rpc->buflock);
-			if (rpc->respbuf != NULL && rpc->respbuf_len != 0) {
+			if (rpc->respbuf && rpc->respbuf_len != 0) {
 				if (len > rpc->respbuf_len)
 					len = rpc->respbuf_len;
 				memcpy(rpc->respbuf, data, len);
@@ -68,7 +68,7 @@ int rpmsg_rpc_init(struct rpmsg_rpc_data *rpc,
 {
 	int ret;
 
-	if (rpc == NULL || rdev == NULL)
+	if (!rpc || !rdev)
 		return -EINVAL;
 	metal_spinlock_init(&rpc->buflock);
 	metal_mutex_init(&rpc->lock);
@@ -95,7 +95,7 @@ int rpmsg_rpc_init(struct rpmsg_rpc_data *rpc,
 
 void rpmsg_rpc_release(struct rpmsg_rpc_data *rpc)
 {
-	if (rpc == NULL)
+	if (!rpc)
 		return;
 	if (rpc->ept_destroyed == 0)
 		rpmsg_destroy_ept(&rpc->ept);
@@ -114,7 +114,7 @@ int rpmsg_rpc_send(struct rpmsg_rpc_data *rpc,
 {
 	int ret;
 
-	if (rpc == NULL)
+	if (!rpc)
 		return -EINVAL;
 	metal_spinlock_acquire(&rpc->buflock);
 	rpc->respbuf = resp;
@@ -135,7 +135,7 @@ int rpmsg_rpc_send(struct rpmsg_rpc_data *rpc,
 
 void rpmsg_set_default_rpc(struct rpmsg_rpc_data *rpc)
 {
-	if (rpc == NULL)
+	if (!rpc)
 		return;
 	rpmsg_default_rpc = rpc;
 }
@@ -163,11 +163,11 @@ int _open(const char *filename, int flags, int mode)
 	unsigned char tmpbuf[MAX_BUF_LEN];
 	int ret;
 
-	if (filename == NULL || payload_size > (int)MAX_BUF_LEN) {
+	if (!filename || payload_size > (int)MAX_BUF_LEN) {
 		return -EINVAL;
 	}
 
-	if (rpc == NULL)
+	if (!rpc)
 		return -EINVAL;
 
 	/* Construct rpc payload */
@@ -212,7 +212,7 @@ int _read(int fd, char *buffer, int buflen)
 	unsigned char tmpbuf[MAX_BUF_LEN];
 	int ret;
 
-	if (rpc == NULL || buffer == NULL || buflen == 0)
+	if (!rpc || !buffer || buflen == 0)
 		return -EINVAL;
 
 	/* Construct rpc payload */
@@ -269,7 +269,7 @@ int _write(int fd, const char *ptr, int len)
 	unsigned char *tmpptr;
 	int null_term = 0;
 
-	if (rpc == NULL)
+	if (!rpc)
 		return -EINVAL;
 	if (fd == 1)
 		null_term = 1;
@@ -319,7 +319,7 @@ int _close(int fd)
 	int payload_size = sizeof(syscall);
 	struct rpmsg_rpc_data *rpc = rpmsg_default_rpc;
 
-	if (rpc == NULL)
+	if (!rpc)
 		return -EINVAL;
 	syscall.id = CLOSE_SYSCALL_ID;
 	syscall.args.int_field1 = fd;

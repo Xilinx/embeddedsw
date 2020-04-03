@@ -143,7 +143,7 @@ static void *rpmsg_virtio_get_tx_buffer(struct rpmsg_virtio_device *rvdev,
 #ifndef VIRTIO_SLAVE_ONLY
 	if (role == RPMSG_MASTER) {
 		data = virtqueue_get_buffer(rvdev->svq, len, idx);
-		if (data == NULL) {
+		if (!data) {
 			data = rpmsg_virtio_shm_pool_get_buffer(rvdev->shpool,
 							RPMSG_BUFFER_SIZE);
 			*len = RPMSG_BUFFER_SIZE;
@@ -422,7 +422,7 @@ static void rpmsg_virtio_rx_callback(struct virtqueue *vq)
 		rpmsg_virtio_return_buffer(rvdev, rp_hdr, len, idx);
 
 		rp_hdr = rpmsg_virtio_get_rx_buffer(rvdev, &len, &idx);
-		if (rp_hdr == NULL) {
+		if (!rp_hdr) {
 			/* tell peer we return some rx buffer */
 			virtqueue_kick(rvdev->rvq);
 		}
