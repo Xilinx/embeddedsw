@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -85,8 +85,6 @@ void XPlmi_ModuleRegister(XPlmi_Module * Module);
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_Module * Modules[XPLMI_MAX_MODULES];
-
-/*****************************************************************************/
 
 #ifdef __cplusplus
 }

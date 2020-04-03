@@ -58,14 +58,21 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_BASE_FILE_NAME_LEN_SD_1 	(11U)
+#define XLOADER_NUM_DIGITS_IN_FILE_NAME 	(4U)
+#define XLOADER_SD_DRV_NUM_0			(0U)
+#define XLOADER_SD_DRV_NUM_1			(1U)
+#define XLOADER_SD_DRV_NUM_4			(4U)
+#define XLOADER_SD_RAW_BLK_SIZE			(512U)
+#define XLOADER_SD_RAW_NUM_SECTORS		(128U)
 
 /************************** Function Prototypes ******************************/
 
 int XLoader_SdInit(u32 DeviceFlags);
-XStatus XLoader_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_SdRelease(void );
 int XLoader_RawInit(u32 DrvNum);
-XStatus XLoader_RawCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_RawCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

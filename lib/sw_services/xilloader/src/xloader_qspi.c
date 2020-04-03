@@ -316,11 +316,11 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 	}
 
 	/* TODO add code: For a Stacked connection, read second Flash ID */
-        QspiMode=(XPAR_XQSPIPSU_0_QSPI_MODE);
-        if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
-                (QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
-                QspiFlashSize = 2 * QspiFlashSize;
-        }
+	QspiMode=(XPAR_XQSPIPSU_0_QSPI_MODE);
+	if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+		(QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
+		QspiFlashSize = 2 * QspiFlashSize;
+	}
 END:
 	return Status;
 }
@@ -630,7 +630,7 @@ END:
  *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	u32 QspiAddr, OrigAddr;
 	u32 BankSel;
@@ -996,11 +996,11 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 	}
 
 	/* add code: For a Stacked connection, read second Flash ID */
-        QspiMode = XPAR_XQSPIPSU_0_QSPI_MODE;
-        if ((QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
-            (QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_STACKED)) ) {
-                QspiFlashSize = 2 * QspiFlashSize;
-        }
+	QspiMode = XPAR_XQSPIPSU_0_QSPI_MODE;
+	if ((QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+	    (QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_STACKED)) ) {
+		QspiFlashSize = 2 * QspiFlashSize;
+	}
 END:
 	return Status;
 }
@@ -1079,7 +1079,7 @@ END:
  * 		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status;
 	u32 QspiAddr;
@@ -1088,7 +1088,7 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 DiscardByteCnt;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 QspiCopyTime = XPlmi_GetTimerValue();
-	XPlmi_PerfTime tPerfTime = {0U};
+	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
 	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
@@ -1231,11 +1231,11 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	Status = XST_SUCCESS;
 END:
 #ifdef	PLM_PRINT_PERF_DMA
-	XPlmi_MeasurePerfTime(QspiCopyTime, &tPerfTime);
+	XPlmi_MeasurePerfTime(QspiCopyTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
 	     " %u.%u ms QSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
-	     "%d Bytes, Flags: 0x%0x\n\r",
-		 (u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac,
+	     "%u Bytes, Flags: 0x%0x\n\r",
+		 (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 	     SrcAddr, (u32)(DestAddr>>32), (u32)DestAddr, Length, Flags);
 #endif
 	return Status;

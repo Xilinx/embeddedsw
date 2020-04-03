@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,45 +59,14 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 enum {
-	XPLMI_ERR_MASKPOLL = 0x10,
-	XPLMI_ERR_MASKPOLL64,
-	XPLMI_ERR_CMD_NOT_SUPPORTED,
+	XPLMI_ERR_MASKPOLL = 0x10U,
+	XPLMI_ERR_MASKPOLL64, /**< 0x11U */
+	XPLMI_ERR_CMD_NOT_SUPPORTED, /**< 0x12U */
 };
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define LL_HEADER(LENGTH, COMMAND)                              \
-    (((LENGTH) << 16) | (LL_MODULE_ID << 8) | (COMMAND))
-#define LL_ADDR32(ADDR) ((uint32_t)(ADDR))
-#define LL_ADDR64(ADDR) ((uint32_t)(ADDR)), ((uint32_t)((ptrdiff_t)(ADDR) >> 32))
-
-#define LL_MASK_POLL(ADDR, MASK, VALUE, TIME)                   \
-    LL_HEADER(4*4, 1), LL_ADDR32(ADDR), (MASK), (VALUE), (TIME)
-
-#define LL_MASK_WRITE(ADDR, MASK, VALUE)                \
-    LL_HEADER(3*4, 2), LL_ADDR32(ADDR), (MASK), (VALUE)
-
-#define LL_WRITE(ADDR, MASK, VALUE)             \
-    LL_HEADER(2*4, 3), LL_ADDR32(ADDR), (VALUE)
-
-#define LL_DELAY(TIME)                          \
-    LL_HEADER(1*4, 4), (TIME)
-
-#define LL_DMA_WRITE(ADDR, LEN, ...)                            \
-    LL_HEADER((2 + (LEN))*4, 5), LL_ADDR32(ADDR), __VA_ARGS__
-
-#define LL_MASK_POLL64(ADDR, MASK, VALUE, TIME)                 \
-    LL_HEADER(5*4, 6), LL_ADDR64(ADDR), (MASK), (VALUE), (TIME)
-
-#define LL_MASK_WRITE64(ADDR, MASK, VALUE)              \
-    LL_HEADER(4*4, 7), LL_ADDR64(ADDR), (MASK), (VALUE)
-
-#define LL_WRITE64(ADDR, MASK, VALUE)           \
-    LL_HEADER(3*4, 8), LL_ADDR64(ADDR), (VALUE)
-
-#define LL_DMA_XFER(SRC, DST, LEN, PARAM)                      \
-    LL_HEADER(6*4, 9), LL_ADDR64(SRC), LL_ADDR64(DST), (LEN), (PARAM)
 
 #define XPLMI_SBI_DEST_ADDR				(0xFFFFFFFFFFFFFFFFL)
 #define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
@@ -105,7 +74,7 @@ enum {
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 #define XPLMI_SET_CHUNK_SIZE			(128U)
 
-/** Mask poll command flag descriptions */
+/* Mask poll command flag descriptions */
 #define XPLMI_MASKPOLL_LEN_EXT			(5U)
 #define XPLMI_MASKPOLL64_LEN_EXT		(6U)
 #define XPLMI_MASKPOLL_FLAGS_MASK		(0x3U)
@@ -116,6 +85,7 @@ enum {
 #define XPLMI_PLM_MODULES_FEATURES_VAL		(0x00U)
 #define XPLMI_PLM_GENERIC_DEVICE_ID_VAL		(0x12U)
 #define XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL	(0x13U)
+
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_CfiRead(XPlmi_Cmd * Cmd);
@@ -126,9 +96,6 @@ int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-
-
-
 
 #ifdef __cplusplus
 }

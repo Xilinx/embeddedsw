@@ -221,7 +221,7 @@ typedef struct {
 }XLoader_RsaKey;
 
 typedef struct {
-	u32 AuthHeader;
+	u32 AuthHdr;
 	u32 SpkId;
 	u32 UserData[14];
 	XLoader_RsaKey Ppk;
@@ -231,7 +231,7 @@ typedef struct {
 	u32 Alignment1[2];
 	u32 SPKSignature[128];
 	u32 BHSignature[128];
-	u32 ImageSignature[128];
+	u32 ImgSignature[128];
 }XLoader_AuthCertificate;
 
 
@@ -343,9 +343,9 @@ typedef enum {
 	 * the following error codes shall be updated in the status
 	 */
 	XLOADER_SEC_ERR_BUF_CLR_SUCCESS = 0x40U,
-                        /* Buffer is successfully cleared */
+			/* Buffer is successfully cleared */
 	XLOADER_SEC_ERR_BUF_CLR_FAILED = 0x80U,
-                        /* Error in clearing buffer */
+			/* Error in clearing buffer */
 
 }XLoader_SecErrCodes;
 
@@ -357,7 +357,7 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr, u32 Size,
 						u8 Last);
 u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size);
 u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
-				XilPdi_ImgHdrTable *ImgHdrTbl);
+				XilPdi_ImgHdrTbl *ImgHdrTbl);
 u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 				XilPdi_MetaHdr *ImgHdrTbl);
 u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr);

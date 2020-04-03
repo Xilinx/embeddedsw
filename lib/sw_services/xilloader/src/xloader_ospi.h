@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -96,8 +96,8 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XLoader_OspiInit(u32 DeviceFlags);
-XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_OspiRelease(void );
+int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_OspiRelease(void);
 int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
 int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
 /************************** Variable Definitions *****************************/

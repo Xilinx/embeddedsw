@@ -215,7 +215,7 @@ static XPlmi_Module XPlmi_Loader =
 {
 	XPLMI_MODULE_LOADER_ID,
 	XLoader_Cmds,
-	*(&XLoader_Cmds + 1U) - XLoader_Cmds,
+	XPLMI_ARRAY_SIZE(XLoader_Cmds),
 };
 
 /*****************************************************************************/

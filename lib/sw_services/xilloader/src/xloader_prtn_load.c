@@ -87,7 +87,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 	int Status = XST_FAILURE;
 	u32 PrtnIndex;
 	u64 PrtnLoadTime;
-	XPlmi_PerfTime tPerfTime = {0U};
+	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Validate and load the image partitions */
 	for (PrtnIndex = 0U; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
@@ -128,11 +128,12 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		{
 			goto END;
 		}
-		XPlmi_MeasurePerfTime(PrtnLoadTime, &tPerfTime);
+		XPlmi_MeasurePerfTime(PrtnLoadTime, &PerfTime);
 		XPlmi_Printf(DEBUG_PRINT_PERF,
-			" %u.%u ms for PrtnNum: %d, Size: %d Bytes\n\r",
-			(u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac, PrtnNum,
-			(PdiPtr->MetaHdr.PrtnHdr[PrtnNum].TotalDataWordLen)*4U);
+			" %u.%u ms for PrtnNum: %u, Size: %u Bytes\n\r",
+			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, PrtnNum,
+			(PdiPtr->MetaHdr.PrtnHdr[PrtnNum].TotalDataWordLen) *
+			XPLMI_WORD_LEN);
 		PrtnNum++;
 	}
 	Status = XST_SUCCESS;
@@ -491,10 +492,10 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * TODO remove this after partition len is made
 	 * 16byte aligned by bootgen
 	 */
-        if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
-                Len = Len - (Len%XLOADER_DMA_LEN_ALIGN) +
-                        XLOADER_DMA_LEN_ALIGN;
-        }
+	if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
+		Len = Len - (Len%XLOADER_DMA_LEN_ALIGN) +
+			XLOADER_DMA_LEN_ALIGN;
+	}
 
 	if (PdiPtr->CopyToMem == TRUE) {
 		Status = PdiPtr->DeviceCopy(SrcAddr, SrcAddr +

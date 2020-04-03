@@ -51,6 +51,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_cmd.h"
+#include "xplmi_util.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -59,13 +61,18 @@ typedef struct XPlmi_CircularBuffer {
 	u64 StartAddr;
 	u64 CurrentAddr;
 	u32 Len;
-	u32 IsBufferFull;
+	u8 IsBufferFull;
 }XPlmi_CircularBuffer;
 
 typedef struct XPlmi_LogInfo {
 	XPlmi_CircularBuffer LogBuffer;
-	u32 LogLevel;
+	u8 LogLevel;
 }XPlmi_LogInfo;
+
+/************************** Function Prototypes ******************************/
+int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
+void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /** Event Logging sub command IDs */
 #define XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL		(0x1U)
@@ -83,7 +90,7 @@ typedef struct XPlmi_LogInfo {
 #define XPLMI_TRACE_LOG_LOAD_IMAGE		(0x1U)
 
 /*
- * Trace log macros
+ * Trace log functions
  * TraceBuffer structure
  * 		0U - Header
  * 		1U - Time stamp in ms
@@ -91,34 +98,75 @@ typedef struct XPlmi_LogInfo {
  * 		3U - Payload
  * 		...
  */
-#define XPLMI_TRACE_LOG2(Header)	\
-{	\
-	u32 TraceBuffer[] = {Header, 0U, 0U};	\
-	XPlmi_StoreTraceLog(&TraceBuffer[0U], 3U);	\
+/*****************************************************************************/
+/**
+ * @brief	This function writes to trace buffer.
+ *
+ * @param	Header
+ * *
+ * @return	None
+ * *
+ ******************************************************************************/
+inline void XPlmi_TraceLog2(u32 Header)
+{
+        u32 TraceBuffer[] = {Header, 0U, 0U};
+        XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
 }
 
-#define XPLMI_TRACE_LOG3(Header, Arg1)	\
-{	\
-	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1};	\
-	XPlmi_StoreTraceLog(&TraceBuffer[0U], 4U);	\
+/*****************************************************************************/
+/**
+ * @brief	This function writes to trace buffer.
+ *
+ * @param 	Header
+ * @param	Arg1
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+inline void XPlmi_TraceLog3(u32 Header, u32 Arg1)
+{
+	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1};
+	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
 }
 
-#define XPLMI_TRACE_LOG4(Header, Arg1, Arg2)	\
-{	\
-	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2};	\
-	XPlmi_StoreTraceLog(&TraceBuffer[0U], 5U);	\
+/*****************************************************************************/
+/**
+ * @brief	This function writes to trace buffer.
+ *
+ * @param 	Header
+ * @param	Arg1
+ * @param	Arg2
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+inline void XPlmi_TraceLog4(u32 Header, u32 Arg1, u32 Arg2)
+{
+	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2};
+	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
 }
 
-#define XPLMI_TRACE_LOG5(Header, Arg1, Arg2, Arg3)	\
-{	\
-	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2, Arg3};	\
-	XPlmi_StoreTraceLog(&TraceBuffer[0U], 6U);	\
+/*****************************************************************************/
+/**
+ * @brief	This function writes to trace buffer.
+ *
+ * @param 	Header
+ * @param	Arg1
+ * @param	Arg2
+ * @param	Arg3
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+inline void XPlmi_TraceLog5(u32 Header, u32 Arg1, u32 Arg2, u32 Arg3)
+{
+	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2, Arg3};
+	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
 }
-/************************** Function Prototypes ******************************/
-int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
-void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
+
 /************************** Variable Definitions *****************************/
 extern XPlmi_LogInfo DebugLog;
+
 #ifdef __cplusplus
 }
 #endif

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,7 +62,7 @@ extern "C" {
 
 enum PRIORITY {
         XPLM_TASK_PRIORITY_0 = 0U,
-        XPLM_TASK_PRIORITY_1,
+        XPLM_TASK_PRIORITY_1, /**< 1U */
 };
 
 /**************************** Type Definitions *******************************/
@@ -77,11 +77,11 @@ struct XPlmi_TaskNode {
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/** Compute offset of a field within a structure. */
+/* Compute offset of a field within a structure. */
 #define metal_offset_of(structure, member)		\
-	((uintptr_t) &(((structure *) 0)->member))
+	((uintptr_t) &(((structure *) 0U)->member))
 
-/** Compute pointer to a structure given a pointer to one of its fields. */
+/* Compute pointer to a structure given a pointer to one of its fields. */
 #define metal_container_of(ptr, structure, member)	\
 	(void *)((uintptr_t)(ptr) - metal_offset_of(structure, member))
 
@@ -90,8 +90,9 @@ XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
 	int (*Handler)(void * PrivData), void * PrivData);
 void XPlmi_TaskDelete(XPlmi_TaskNode * Task);
 void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task);
-void XPlmi_TaskInit(void );
-void XPlmi_TaskDispatchLoop(void );
+void XPlmi_TaskInit(void);
+void XPlmi_TaskDispatchLoop(void);
+
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/

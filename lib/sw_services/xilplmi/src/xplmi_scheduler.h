@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,17 +34,17 @@ extern "C" {
 
 #include "xil_types.h"
 
-
-#define XPLMI_SCHED_MAX_TASK	10U
+/************************** Constant Definitions *****************************/
+#define XPLMI_SCHED_MAX_TASK		(10U)
 
 /* Values for TaskPtr->Status */
-#define XPLMI_TASK_STATUS_TRIGGERED	0x5AFEC0C0U
-#define XPLMI_TASK_STATUS_DISABLED	0x00000000U
+#define XPLMI_TASK_STATUS_TRIGGERED	(0x5AFEC0C0U)
+#define XPLMI_TASK_STATUS_DISABLED	(0x00000000U)
 
 #define PMC_PMC_MB_IO_IRQ_ACK			(0xF028003CU)
-#define PMC_PMC_MB_IO_IRQ_ACK_SHIFT   (0x5U)
-#define PMC_PMC_MB_IO_IRQ_ACK_WIDTH   (0x1U)
-#define PMC_PMC_MB_IO_IRQ_ACK_MASK    (0X0000020U)
+#define PMC_PMC_MB_IO_IRQ_ACK_SHIFT		(0x5U)
+#define PMC_PMC_MB_IO_IRQ_ACK_WIDTH		(0x1U)
+#define PMC_PMC_MB_IO_IRQ_ACK_MASK		(0X0000020U)
 
 typedef int (*XPlmi_Callback_t)(void *);
 
@@ -58,10 +58,10 @@ struct XPlmi_Task_t{
 
 typedef struct {
 	struct XPlmi_Task_t TaskList[XPLMI_SCHED_MAX_TASK];
-	int TaskCount;
-	int PitBaseAddr;
-	int Tick;
-	int Enabled;
+	u32 TaskCount;
+	u32 PitBaseAddr;
+	u32 Tick;
+	u32 Enabled;
 } XPlmi_Scheduler_t ;
 
 int XPlmi_SchedulerInit(void);
@@ -69,11 +69,9 @@ int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
 int XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr);
 void XPlmi_SchedulerHandler(void *Data);
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-			   u32 MilliSeconds, u32 Priority);
+		u32 MilliSeconds, u32 Priority);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-			      u32 MilliSeconds);
-int XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
-int XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
+		u32 MilliSeconds);
 
 #ifdef __cplusplus
 }
