@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sdm  11/18/09 First Release
+* 7.2   asa  04/04/20 Renamed the str macro to strw.
 * </pre>
 *
 ******************************************************************************/
@@ -115,7 +116,7 @@ __asm u32 ldrb(u32 adr)
 	bx	lr
 }
 
-__asm void str(u32 adr, u32 val)
+__asm void strw(u32 adr, u32 val)
 {
 	str	r1, [r0]
 	bx	lr

@@ -594,4 +594,5 @@
  *                      Added a new example inside it to show usage of R5 PMU event
  *                      counters and APIs provided to configure and read PMU events.
  *                      Added new APIs for better R5 PMU events handling.
+ * 7.2 asa    04/03/20  Renamed the str macro to strw.
  *****************************************************************************************/

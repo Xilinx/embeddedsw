@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * 5.4	pkp		 03/02/16 Included header file intrinsic.h for assembly
 *						  instructions definitions
 * 6.2   kvn      03/03/17 Added support thumb mode
+* 7.2   asa              04/03/20 Renamed the str macro to strw.
 * </pre>
 *
 ******************************************************************************/
@@ -124,7 +125,7 @@ extern "C" {
 			  rval;\
 			 })
 
-#define str(adr, val)	__asm volatile(\
+#define strw(adr, val)	__asm volatile(\
 			  "str	%0,[%1]\n"\
 			  : : "r" (val), "r" (adr)\
 			)
