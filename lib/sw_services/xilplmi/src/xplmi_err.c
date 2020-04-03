@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,40 +54,39 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define	XPLMI_ERR_REG_MASK(ErrorMask)	(0x1U << (ErrorMask & 0x1FU))
-#define EVENT_TYPE(Id)	(((Id) & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT)
+
 /************************** Function Prototypes ******************************/
 s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
+
 /************************** Variable Definitions *****************************/
 u32 EmSubsystemId = 0U;
+
 /*****************************************************************************/
 /**
- * This function is called in PLM error cases.
+ * @brief	This function is called in PLM error cases.
  *
- * @param ErrorStatus is the error code which is written to the
- *		  error status register
+ * @param	ErrorStatus is the error code written to the error status register
  *
- * @return none
+ * @return	None
  *
  *****************************************************************************/
 void XPlmi_ErrMgr(int Status)
 {
 	u32 RegVal;
 
-	/* Print the PMCFW error */
-	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r",
-			Status);
+	/* Print the PLM error */
+	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", Status);
 	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, Status);
 
-	/**
+	/*
 	 * Fallback if boot PDI is not done
 	 * else just return, so that we receive next requests
 	 */
-	if (XPlmi_IsLoadBootPdiDone() == FALSE)
-	{
+	if (XPlmi_IsLoadBootPdiDone() == FALSE) {
 		XPlmi_DumpRegisters();
-		/** If boot mode is jtag, donot reset. This is to keep
-		 *  the system state intact for further debug.
+		/*
+		 * If boot mode is jtag, donot reset. This is to keep
+		 * the system state intact for further debug.
 		 */
 #ifndef PLM_DEBUG_MODE
 		if((XPlmi_In32(CRP_BOOT_MODE_USER) &
@@ -97,19 +96,19 @@ void XPlmi_ErrMgr(int Status)
 			while(1U);
 		}
 
-		/** Update Multiboot register */
+		/* Update Multiboot register */
 		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, ++RegVal);
 
-		/* make sure every thing completes */
-        DATA_SYNC;
-        INST_SYNC;
+		/* Make sure every thing completes */
+		DATA_SYNC;
+		INST_SYNC;
 
 		RegVal = XPlmi_In32(CRP_RST_PS);
 		XPlmi_Out32(CRP_RST_PS, RegVal |
 			CRP_RST_PS_PMC_SRST_MASK);
 
-		while(1);
+		while(1U);
 	}
 }
 
@@ -358,9 +357,12 @@ struct XPlmi_Error_t ErrorTable[] = {
 /****************************************************************************/
 /**
 * @brief    This function handles the PSM error routed to PLM.
+*
 * @param    ErrorNodeId is the node ID for the error event
 * @param    ErrorMask is the error received
-* @return   None.
+*
+* @return   None
+*
 ****************************************************************************/
 void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 {
@@ -394,9 +396,12 @@ void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 /****************************************************************************/
 /**
 * @brief    This function is the interrupt handler for PSM Errors.
+*
 * @param    ErrorNodeId is the node ID for the error event
 * @param    ErrorMask is the error received
-* @return   None.
+*
+* @return   None
+*
 ****************************************************************************/
 void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 {
@@ -413,32 +418,33 @@ void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 	if (Err1Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
-			if ((Err1Status & (1 << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR))) &&
-				(ErrorTable[Index].Handler != NULL)) {
+			if ((Err1Status & (1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)))
+				&& (ErrorTable[Index].Handler != NULL)) {
 				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR1, Index);
 
 				/* Do not clear error status for register notifier
-				 * error action */
+				 * error action
+				 */
 				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
 					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS,
-							(1 << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)));
+						(1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)));
 				}
 			}
 		}
 	}
-
 	if (Err2Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
-			if ((Err2Status & (1 << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT))) &&
-				(ErrorTable[Index].Handler != NULL)) {
+			if ((Err2Status & (1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)))
+				&& (ErrorTable[Index].Handler != NULL)) {
 				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR2, Index);
 
 				/* Do not clear error status for register notifier
-				 * error action */
+				 * error action
+				 */
 				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
 					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS,
-							(1 << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)));
+					(1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)));
 				}
 			}
 		}
@@ -447,16 +453,19 @@ void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 
 /****************************************************************************/
 /**
-* @brief    This function is the interrupt handler for Error subtype
-*           subsystem shutdown and subsystem restart.
+* @brief    This function is the interrupt handler for Error subtype subsystem
+* shutdown and subsystem restart.
+*
 * @param    ErrorNodeId is the node ID for the error event
 * @param    ErrorMask is the error received
-* @return   None.
+*
+* @return   None
+*
 ****************************************************************************/
 void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask)
 {
+	int Status = XST_FAILURE;
 	u32 ActionId;
-	int Status;
 
 	(void)ErrorNodeId;
 
@@ -488,8 +497,11 @@ void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask)
 /****************************************************************************/
 /**
 * @brief    This function is default interrupt handler for the device.
+*
 * @param    CallbackRef is presently the interrupt number that is received
-* @return   None.
+*
+* @return   None
+*
 ****************************************************************************/
 void XPlmi_ErrIntrHandler(void *CallbackRef)
 {
@@ -506,16 +518,17 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	if (Err1Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
-			if ((Err1Status & (1 << Index)) &&
+			if ((Err1Status & (1U << Index)) &&
 				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR1, Index);
 
 				/* Do not clear error status for register notifier
-				 * error action */
+				* error action
+				*/
 				if ((XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) ||
 					(Index == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
-					XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, (1 << Index));
+					XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, (1U << Index));
 				}
 			}
 		}
@@ -524,16 +537,18 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	if (Err2Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
-			if ((Err2Status & (1 << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)))
+			if ((Err2Status &
+				(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)))
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR2, Index);
 
 				/* Do not clear error status for register notifier
-				 * error action */
+				 * error action
+				 */
 				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
 					XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
-							(1 << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)));
+						(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)));
 				}
 			}
 		}
@@ -542,39 +557,35 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 
 /*****************************************************************************/
 /**
- * @brief This function clears any previous errors before enabling them.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error to be cleared
- * @return None
+ * @brief	This function clears any previous errors before enabling them.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMask is the error to be cleared
+ *
+ * @return	None
+ *
  *****************************************************************************/
 void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 {
-	u32 RegMask;
+	u32 RegMask = XPlmi_ErrRegMask(ErrorMask);
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
-
-	switch (EVENT_TYPE(ErrorNodeId)) {
-
+	switch (XPlmi_EventNodeType(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		/* Clear previous errors */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, RegMask);
 		break;
-
 	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		/* Clear previous errors */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, RegMask);
 		break;
-
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS, RegMask);
 		break;
-
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, RegMask);
 		break;
-
 	default:
 		/* Invalid Error Type */
 		XPlmi_Printf(DEBUG_GENERAL,
@@ -585,14 +596,17 @@ void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 
 /*****************************************************************************/
 /**
- * @brief This function disables the responses for the given error.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error to be disabled
- * @return Success / failure
+ * @brief	This function disables the responses for the given error.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMask is the error to be disabled
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 RegMask;
 
 	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
@@ -601,9 +615,9 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask)
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
+	RegMask = XPlmi_ErrRegMask(ErrorMask);
 
-	switch (EVENT_TYPE(ErrorNodeId)) {
+	switch (XPlmi_EventNodeType(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		/* Disable POR, SRST, Interrupt and PS Error Out */
 		XPlmi_Out32(PMC_GLOBAL_PMC_POR1_DIS, RegMask);
@@ -648,14 +662,17 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function enables the POR response for the given Error.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error received
- * @return Success / failure
+ * @brief	This function enables the POR response for the given Error.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMask is the error received
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 static int XPlmi_EmEnablePOR(u32 ErrorNodeId, u32 ErrorMask)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 RegMask;
 
 	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
@@ -663,9 +680,9 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeId, u32 ErrorMask)
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
+	RegMask = XPlmi_ErrRegMask(ErrorMask);
 
-	switch (EVENT_TYPE(ErrorNodeId)) {
+	switch (XPlmi_EventNodeType(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_POR1_EN, RegMask);
 		Status = XST_SUCCESS;
@@ -695,14 +712,17 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function enables the SRST response for the given Error ID.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error received
- * @return Success / failure
+ * @brief	This function enables the SRST response for the given Error ID.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMask is the error received
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 static int XPlmi_EmEnableSRST(u32 ErrorNodeId, u32 ErrorMask)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 RegMask;
 
 	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
@@ -710,9 +730,9 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeId, u32 ErrorMask)
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
+	RegMask = XPlmi_ErrRegMask(ErrorMask);
 
-	switch (EVENT_TYPE(ErrorNodeId)) {
+	switch (XPlmi_EventNodeType(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_SRST1_EN, RegMask);
 		Status = XST_SUCCESS;
@@ -742,14 +762,17 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function enables the ERR OUT response for the given Error ID.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error received
- * @return Success / failure
+ * @brief	This function enables the ERR OUT response for the given Error ID.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMask is the error received
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 static int XPlmi_EmEnablePSError(u32 ErrorNodeId, u32 ErrorMask)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 RegMask;
 
 	/* If Error ID is not in range, fail */
@@ -758,10 +781,10 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeId, u32 ErrorMask)
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
+	RegMask = XPlmi_ErrRegMask(ErrorMask);
 
 	/* Enable the specified Error to propagate to ERROUT pin	*/
-	switch (EVENT_TYPE(ErrorNodeId)) {
+	switch (XPlmi_EventNodeType(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT1_EN, RegMask);
 		Status = XST_SUCCESS;
@@ -791,14 +814,17 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function enables the interrupt to PMC for the given Error ID.
- * @param    ErrorNodeId is the node ID for the error event
- * @param    ErrorMask is the error received
- * @return Success / failure
+ * @brief	This function enables the interrupt to PMC for the given Error ID.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMask is the error received
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 static int XPlmi_EmEnableInt(u32 ErrorNodeId, u32 ErrorMask)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 RegMask;
 
 	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
@@ -807,9 +833,9 @@ static int XPlmi_EmEnableInt(u32 ErrorNodeId, u32 ErrorMask)
 		goto END;
 	}
 
-	RegMask = XPLMI_ERR_REG_MASK(ErrorMask);
+	RegMask = XPlmi_ErrRegMask(ErrorMask);
 
-	switch (EVENT_TYPE(ErrorNodeId)) {
+	switch (XPlmi_EventNodeType(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ1_EN, RegMask);
 		Status = XST_SUCCESS;
@@ -839,19 +865,22 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function sets the Action specified for a given Error ID.
- * @param ErrorNodeId is the node ID for the error event
- * @param ErrorMask is the error to which specified action to be set
- * @param ActionId is the action that need to be set for ErrorMask. Action
- * can be SRST/POR/ERR OUT/INT
- * @param ErrorHandler If INT is defined as response, handler should be
- * defined.
- * @return Success / failure
+ * @brief	This function sets the Action specified for a given Error ID.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMask is the error to which specified action to be set
+ * @param	ActionId is the action that need to be set for ErrorMask. Action
+ * 		  	can be SRST/POR/ERR OUT/INT
+ * @param	ErrorHandler If INT is defined as response, handler should be
+ * 		  	defined.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/* Check for Valid Error ID */
 	if ((ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) ||
@@ -870,9 +899,11 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		goto END;
 	}
 
-	if((ActionId > XPLMI_EM_ACTION_INVALID) && (ActionId < XPLMI_EM_ACTION_MAX)) {
+	if((ActionId > XPLMI_EM_ACTION_INVALID) &&
+		(ActionId < XPLMI_EM_ACTION_MAX)) {
 		/* Disable the error actions for Error ID for configuring
-		 * the requested error action */
+		 * the requested error action
+		 */
 		Status = XPlmi_EmDisable(ErrorNodeId, ErrorMask);
 		if (XST_SUCCESS != Status) {
 			/* Error action disabling failure */
@@ -883,38 +914,32 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 	}
 
 	switch (ActionId) {
-
 	case XPLMI_EM_ACTION_NONE:
 		/* No Action */
 		ErrorTable[ErrorMask].Action = ActionId;
 		Status = XST_SUCCESS;
 		break;
-
 	case XPLMI_EM_ACTION_POR:
 		/* Set the error action and enable it */
 		ErrorTable[ErrorMask].Action = ActionId;
 		Status = XPlmi_EmEnablePOR(ErrorNodeId, ErrorMask);
 		break;
-
 	case XPLMI_EM_ACTION_SRST:
 		/* Set error action SRST for the errorId */
 		ErrorTable[ErrorMask].Action = ActionId;
 		Status = XPlmi_EmEnableSRST(ErrorNodeId, ErrorMask);
 		break;
-
 	case XPLMI_EM_ACTION_CUSTOM:
 		/* Set custom handler as error action for the errorId */
 		ErrorTable[ErrorMask].Action = ActionId;
 		ErrorTable[ErrorMask].Handler = ErrorHandler;
 		Status = XPlmi_EmEnableInt(ErrorNodeId, ErrorMask);
 		break;
-
 	case XPLMI_EM_ACTION_ERROUT:
 		ErrorTable[ErrorMask].Action = ActionId;
 		/* Set error action ERROUT signal for the errorId */
 		Status = XPlmi_EmEnablePSError(ErrorNodeId, ErrorMask);
 		break;
-
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
 		/* Set handler and error action for the errorId */
@@ -923,7 +948,6 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		ErrorTable[ErrorMask].SubsystemId = EmSubsystemId;
 		Status = XPlmi_EmEnableInt(ErrorNodeId, ErrorMask);
 		break;
-
 	default:
 		/* Invalid Action Id */
 		Status = XPLMI_INVALID_ERROR_ACTION;
@@ -931,17 +955,21 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		"Invalid ActionId for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
+
 END:
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief This function initializes the error module. Disables all the
- * error actions and registers default action
- * @param SystemShutdown is the pointer to the PM system shutdown
- * callback handler for action subtype system shutdown/restart
- * @return None
+ * @brief	This function initializes the error module. Disables all the error
+ * actions and registers default action.
+ *
+ * @param	SystemShutdown is the pointer to the PM system shutdown
+ * 			callback handler for action subtype system shutdown/restart
+ *
+ * @return	None
+ *
  *****************************************************************************/
 void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 		const u32 Type, const u32 SubType))
@@ -968,40 +996,43 @@ void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 
 	/* Set the default actions as defined in the Error table */
 	for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
-	       Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
+		Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, Index,
 			ErrorTable[Index].Action,
 			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
-			     "Warning: XPlmi_EmInit: Failed to "
-			     "set action for PMC ERR1: %d\r\n", Index)
+				"Warning: XPlmi_EmInit: Failed to "
+				"set action for PMC ERR1: %u\r\n", Index)
 		}
 	}
 
 	for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
-	          Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
+		Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, Index,
 			ErrorTable[Index].Action,
 			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
-			     "Warning: XPlmi_EmInit: Failed to "
-			     "set action for PMC ERR2: %d\r\n", Index)
+				"Warning: XPlmi_EmInit: Failed to "
+				"set action for PMC ERR2: %u\r\n", Index)
 		}
 	}
-
 }
 
 /*****************************************************************************/
 /**
- * @brief This function initializes the PSM error actions. Disables all the
- * PSM error actions and registers default action
- * @param None
- * @return None
+ * @brief	This function initializes the PSM error actions. Disables all the
+ * PSM error actions and registers default action.
+ *
+ * @param	None
+ *
+ * @return	XST_SUCCESS
+ *
 *****************************************************************************/
 int XPlmi_PsEmInit(void)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
 
 	/* Disable all the Error Actions */
@@ -1015,82 +1046,82 @@ int XPlmi_PsEmInit(void)
 
 	/* Set the default actions as defined in the Error table */
 	for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
-	           Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
+		Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, Index,
 			ErrorTable[Index].Action,
 			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
-			     "Warning: XPlmi_PsEmInit: Failed to "
-			     "set action for PSM ERR1: %d\r\n", Index)
+				"Warning: XPlmi_PsEmInit: Failed to "
+				"set action for PSM ERR1: %u\r\n", Index)
 		}
 	}
 
 	for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
-	          Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
+		Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, Index,
 			ErrorTable[Index].Action,
 			ErrorTable[Index].Handler) != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_GENERAL,
-			     "Warning: XPlmi_PsEmInit: Failed to "
-			     "set action for PSM ERR2: %d\r\n", Index)
+				"Warning: XPlmi_PsEmInit: Failed to "
+				"set action for PSM ERR2: %u\r\n", Index)
 		}
 	}
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 /*****************************************************************************/
 /**
- * This function dumps the registers which can help debugging
+ * @brief	This function dumps the registers which can help debugging.
  *
- * @param
+ * @param	None
  *
- * @return none
+ * @return	None
  *
- * @note none
  *****************************************************************************/
 void XPlmi_DumpRegisters()
 {
-
 	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
 
 	XPlmi_Printf(DEBUG_GENERAL, "IDCODE: 0x%08x\n\r",
-		      XPlmi_In32(PMC_TAP_IDCODE));
+		XPlmi_In32(PMC_TAP_IDCODE));
 	XPlmi_Printf(DEBUG_GENERAL, "EXTENDED IDCODE: 0x%08x\n\r",
-		      XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0));
+		XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0));
 	XPlmi_Printf(DEBUG_GENERAL, "Version: 0x%08x\n\r",
-		      XPlmi_In32(PMC_TAP_VERSION));
+		XPlmi_In32(PMC_TAP_VERSION));
 	XPlmi_Printf(DEBUG_GENERAL, "Bootmode User: 0x%08x\n\r",
-		      XPlmi_In32(CRP_BOOT_MODE_USER));
+		XPlmi_In32(CRP_BOOT_MODE_USER));
 	XPlmi_Printf(DEBUG_GENERAL, "Bootmode POR: 0x%08x\n\r",
-		      XPlmi_In32(CRP_BOOT_MODE_POR));
+		XPlmi_In32(CRP_BOOT_MODE_POR));
 	XPlmi_Printf(DEBUG_GENERAL, "Reset Reason: 0x%08x\n\r",
-		      XPlmi_In32(CRP_RESET_REASON));
+		XPlmi_In32(CRP_RESET_REASON));
 	XPlmi_Printf(DEBUG_GENERAL, "Multiboot: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT));
+		XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT));
 	XPlmi_Printf(DEBUG_GENERAL, "PMC PWR Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_PWR_STATUS));
+		XPlmi_In32(PMC_GLOBAL_PWR_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "PMC GSW Err: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_PMC_GSW_ERR));
+		XPlmi_In32(PMC_GLOBAL_PMC_GSW_ERR));
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_PLM_ERR));
+		XPlmi_In32(PMC_GLOBAL_PLM_ERR));
 	XPlmi_Printf(DEBUG_GENERAL, "PMC ERR OUT1 Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
+		XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "PMC ERR OUT2 Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS));
+		XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICP0 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS));
+		XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICP1 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP1_IRQ_STATUS));
+		XPlmi_In32(PMC_GLOBAL_GICP1_IRQ_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICP2 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP2_IRQ_STATUS));
+		XPlmi_In32(PMC_GLOBAL_GICP2_IRQ_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICP3 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP3_IRQ_STATUS));
+		XPlmi_In32(PMC_GLOBAL_GICP3_IRQ_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICP4 IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP4_IRQ_STATUS));
+		XPlmi_In32(PMC_GLOBAL_GICP4_IRQ_STATUS));
 	XPlmi_Printf(DEBUG_GENERAL, "GICPPMC IRQ Status: 0x%08x\n\r",
-		      XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS));
+		XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS));
 
 	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
 }

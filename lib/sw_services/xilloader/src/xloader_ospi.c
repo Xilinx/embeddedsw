@@ -112,16 +112,16 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	}
 
 	XLoader_Printf(DEBUG_GENERAL, "FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[0],
-                                        ReadBuffer[1], ReadBuffer[2]);
+					ReadBuffer[1], ReadBuffer[2]);
 
-        /*
-         * Deduce flash make
-         */
-       	if (ReadBuffer[0] != MICRON_OCTAL_ID_BYTE0) {
-                Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_UNSUPPORTED_OSPI, 0x0);
-                XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
-                goto END;
-        }
+	/*
+	 * Deduce flash make
+	 */
+	if (ReadBuffer[0] != MICRON_OCTAL_ID_BYTE0) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_UNSUPPORTED_OSPI, 0x0);
+		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
+		goto END;
+	}
 	else
 	{
 		OspiFlashMake = MICRON_OCTAL_ID_BYTE0;
@@ -144,10 +144,10 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		OspiFlashSize = FLASH_SIZE_2G;
 	}
 	else {
-            Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, 0x0);
-            XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
-            goto END;
-        }
+	    Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, 0x0);
+	    XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
+	    goto END;
+	}
 
 END:
 	return Status;
@@ -274,13 +274,13 @@ END:
  *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	
-	XStatus Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 OspiCopyTime = XPlmi_GetTimerValue();
-	XPlmi_PerfTime tPerfTime = {0U};
+	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
 	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
@@ -315,12 +315,12 @@ XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	}
 
 #ifdef	PLM_PRINT_PERF_DMA
-	XPlmi_MeasurePerfTime(OspiCopyTime, &tPerfTime);
+	XPlmi_MeasurePerfTime(OspiCopyTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-	     " %u.%u ms OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
-	     "%d Bytes, Flags: 0x%0x\n\r",
-		 (u32)tPerfTime.tPerfMs, (u32)tPerfTime.tPerfMsFrac,
-	     SrcAddr, (u32)(DestAddr>>32), (u32)DestAddr, Length, Flags);
+	" %u.%u ms OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
+	"%u Bytes, Flags: 0x%0x\n\r",
+	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
+	SrcAddr, (u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 #endif
 END:
 	return Status;
@@ -380,35 +380,35 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 		FlashMsg.Proto = XOSPIPSV_WRITE_1_1_1;
 	}
     switch (OspiFlashMake) {
-        case MICRON_OCTAL_ID_BYTE0:
+	case MICRON_OCTAL_ID_BYTE0:
 		{
-                        FlashMsg.Opcode = OSPI_WRITE_ENABLE_CMD;
-                        FlashMsg.Addrsize = 0;
-                        FlashMsg.Addrvalid = 0;
-                        FlashMsg.TxBfrPtr = NULL;
-                        FlashMsg.RxBfrPtr = NULL;
-                        FlashMsg.ByteCount = 0;
-                        FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+			FlashMsg.Opcode = OSPI_WRITE_ENABLE_CMD;
+			FlashMsg.Addrsize = 0;
+			FlashMsg.Addrvalid = 0;
+			FlashMsg.TxBfrPtr = NULL;
+			FlashMsg.RxBfrPtr = NULL;
+			FlashMsg.ByteCount = 0;
+			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 			FlashMsg.IsDDROpCode = 0U;
-                        Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-                        if (Status != XST_SUCCESS) {
+			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+			if (Status != XST_SUCCESS) {
 				Status = XPLMI_UPDATE_STATUS(
 					XLOADER_ERR_OSPI_4BMODE, Status);
 					goto END;
 			}
 		}
-                        break;
+			break;
 
-                default:
-                        break;
-        }
-        FlashMsg.Opcode = Command;
-        FlashMsg.Addrvalid = 0;
-        FlashMsg.TxBfrPtr = NULL;
-        FlashMsg.RxBfrPtr = NULL;
-        FlashMsg.ByteCount = 0;
-        FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-        FlashMsg.Addrsize = 3;
+		default:
+			break;
+	}
+	FlashMsg.Opcode = Command;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.Addrsize = 3;
 	FlashMsg.IsDDROpCode = 0;
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
@@ -444,20 +444,20 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 			goto END;
 		}
 
-                if ((FlashStatus & 0x80) != 0)
-                        break;
+		if ((FlashStatus & 0x80) != 0)
+			break;
 
-        }
+	}
      switch (OspiFlashMake) {
-        case MICRON_OCTAL_ID_BYTE0:
+	case MICRON_OCTAL_ID_BYTE0:
 		{
-                FlashMsg.Opcode = WRITE_DISABLE_CMD;
-                FlashMsg.Addrsize = 0;
-                FlashMsg.Addrvalid = 0;
-                FlashMsg.TxBfrPtr = NULL;
-                FlashMsg.RxBfrPtr = NULL;
-                FlashMsg.ByteCount = 0;
-                FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.Opcode = WRITE_DISABLE_CMD;
+		FlashMsg.Addrsize = 0;
+		FlashMsg.Addrvalid = 0;
+		FlashMsg.TxBfrPtr = NULL;
+		FlashMsg.RxBfrPtr = NULL;
+		FlashMsg.ByteCount = 0;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 		FlashMsg.IsDDROpCode = 0;
 
 				if(OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY)
@@ -469,19 +469,19 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 			FlashMsg.Proto = XOSPIPSV_WRITE_1_1_1;
 			}
 
-                Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 			if (Status != XST_SUCCESS) {
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_4BMODE, Status);
 				goto END;
 			}
 		}
-                break;
+		break;
 
-                default:
-                        break;
-        }
+		default:
+			break;
+	}
 END:
-        return Status;
+	return Status;
 
 }
 
@@ -522,7 +522,7 @@ int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 	FlashMsg.Addrvalid = 1U;
 	FlashMsg.Addr = 0x0U;
 	FlashMsg.Addrsize = 0x3U;
-        FlashMsg.ByteCount = 0x1U;
+	FlashMsg.ByteCount = 0x1U;
 	FlashMsg.TxBfrPtr = Data;
 	FlashMsg.RxBfrPtr = NULL;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;

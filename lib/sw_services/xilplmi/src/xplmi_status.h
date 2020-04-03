@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,6 @@
 extern "C" {
 #endif
 
-
 /***************************** Include Files *********************************/
 #include "xstatus.h"
 
@@ -65,28 +64,27 @@ extern "C" {
  * YYYY - Minor error code - Libraries / Drivers error code
  *		as defined in respective modules
  */
-#define XPLMI_SUCCESS					(XST_SUCCESS)
-#define XPLMI_CORRECTABLE_ERROR_MASK			(1U<<31U)
-#define XPLMI_UNCORRECTABLE_ERROR_MASK			(1U<<30U)
+#define XPLMI_CORRECTABLE_ERROR_MASK			(1U << 31U)
+#define XPLMI_UNCORRECTABLE_ERROR_MASK			(1U << 30U)
 
 #define XPLMI_STATUS_MASK				(0xFFFF0000U)
 #define XPLMI_STATUS_MODULE_MASK			(0xFFFFU)
 #define XPLMI_UPDATE_STATUS(PlmiStatus, ModuleStatus)		\
-		(((PlmiStatus<<16U) & XPLMI_STATUS_MASK) + \
-		 (ModuleStatus & XPLMI_STATUS_MODULE_MASK))
+		(((PlmiStatus << 16U) & XPLMI_STATUS_MASK) + \
+		(ModuleStatus & XPLMI_STATUS_MODULE_MASK))
 
 /**
  * Status for PLM functions
  */
 enum {
 	/** Status codes used in PLMI */
-	XPLM_SUCCESS = 0x0,		/**< 0x0 - Success */
+	XPLM_SUCCESS = 0x0U,		/**< 0x0 - Success */
 	XPLM_FAILURE,			/**< 0x1 - Used internally
 					  for small functions */
 	XPLMI_TASK_INPROGRESS,		/**< 0x2 - Used internally
 					  to indicate task is in progress */
 
-	XPLMI_ERR_DMA_LOOKUP = 0x100,	/**< 0x100 - Error when DMA driver
+	XPLMI_ERR_DMA_LOOKUP = 0x100U,	/**< 0x100 - Error when DMA driver
 					  lookup fails. */
 	XPLMI_ERR_DMA_CFG,		/**< 0x101 - Error when DMA driver
 					  config fails. */
@@ -149,7 +147,7 @@ enum {
 							IPI is not supported */
 
 	/** Status codes used in PLM */
-	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
+	XPLM_ERR_TASK_CREATE = 0x200U,	/**< 0x200 - Error when task create
 					  fails. This can happen when max
 					  tasks are created */
 	XPLM_ERR_PM_MOD,		/**< 0x201 - Error initializing
@@ -162,12 +160,12 @@ enum {
 					  if enabled */
 
 	/** Status codes used in XLOADER */
-	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
+	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300U, /**< 0x300 - Error for
 					 unsupported bootmode. It occurs if
 					 invalid boot mode is selected or
 					 selected boot mode peripheral is
 					 not selected in CIPS */
-	XLOADER_ERR_IMGHDR_TBL = 0x302,	/**< 0x302 - Multiple conditions can
+	XLOADER_ERR_IMGHDR_TBL = 0x302U,	/**< 0x302 - Multiple conditions can
 					  give this error.
 					  -If Image header table has wrong
 					  checksum or invalid IDCODE
@@ -182,7 +180,7 @@ enum {
 	XLOADER_ERR_WAKEUP_A72_0,	/**< 0x305 - Error waking up the A72-0
 					  during handoff. Check the PLM minor
 					  code for PM error code. */
-	XLOADER_ERR_WAKEUP_A72_1,	/**< 0x306 - Error waking up the A72-0
+	XLOADER_ERR_WAKEUP_A72_1,	/**< 0x306 - Error waking up the A72-1
 					  during handoff. Check the PLM minor
 					  code for PM error code. */
 	XLOADER_ERR_WAKEUP_R5_0,	/**< 0x307 - Error waking up the R5-0
@@ -263,8 +261,7 @@ enum {
 	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error caused due to
 						mismatch in IDCODEs */
 	XLOADER_ERR_USB_LOOKUP,		/**< 0x327 - Error when USB lookup fails*/
-	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize
-																	fails */
+	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
 	XLOADER_ERR_DFU_DWNLD,	/**< 0x32A - Error when pdi fails to download */
 	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occured while
@@ -362,7 +359,7 @@ enum {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_ErrMgr(int Status);
-void XPlmi_DumpRegisters();
+void XPlmi_DumpRegisters(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,18 +52,19 @@ extern "C" {
 #include "xplmi_modules.h"
 #include "xplmi.h"
 #include "xplmi_debug.h"
-/************************** Constant Definitions *****************************/
 
+/************************** Constant Definitions *****************************/
 /**
  * SSIT defines
  */
-#define PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK	1U
-#define PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK	4U
-#define PMC_GLOBAL_SSIT_ERR_MASK			0xE0000000U
+#define PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK	(1U)
+#define PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK	(4U)
+#define PMC_GLOBAL_SSIT_ERR_MASK			(0xE0000000U)
 
-#define SSIT_SLAVE_0_MASK	1U
-#define SSIT_SLAVE_1_MASK	2U
-#define SSIT_SLAVE_2_MASK	4U
+#define SSIT_SLAVE_0_MASK					(1U)
+#define SSIT_SLAVE_1_MASK					(2U)
+#define SSIT_SLAVE_2_MASK					(4U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

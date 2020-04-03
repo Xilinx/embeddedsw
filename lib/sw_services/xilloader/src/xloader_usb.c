@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -177,9 +177,9 @@ END:
 *
 *****************************************************************************/
 
-XStatus XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	XStatus Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	(void) Flags;
 
 	SrcAddress += XLOADER_DDR_TEMP_BUFFER_ADDRESS;

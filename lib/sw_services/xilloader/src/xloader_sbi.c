@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -171,7 +171,7 @@ int XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
  *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 ReadFlags;

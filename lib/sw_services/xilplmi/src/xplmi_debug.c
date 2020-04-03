@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,36 +59,40 @@ void outbyte(char c);
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/***************** Macros (Inline Functions) Definitions *********************/
 
-#if ((XPAR_XUARTPSV_NUM_INSTANCES == 2U) && (STDOUT_BASEADDRESS == 0xFF010000))
-#define XPLMI_UART_INDEX 1U
+/***************** Macros (Inline Functions) Definitions *********************/
+/* SPP Input Clk Freq should be 25 MHz */
+#define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U)
+#define XPLMI_UART_BAUD_RATE		(115200U)
+
+#if ((XPAR_XUARTPSV_NUM_INSTANCES == 2U) && \
+			(STDOUT_BASEADDRESS == 0xFF010000U))
+#define XPLMI_UART_INDEX	(1U)
 #else
-#define XPLMI_UART_INDEX 0U
+#define XPLMI_UART_INDEX	(0U)
 #endif
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 #ifdef DEBUG_UART_PS
-XUartPsv UartPsvIns;          /* The instance of the UART Driver */
+XUartPsv UartPsvIns;	/* The instance of the UART Driver */
 #endif
-u32 LpdInitialized = FALSE;
+u8 LpdInitialized = FALSE;
+
 /*****************************************************************************/
-
-
 /*****************************************************************************/
 /**
- * This function initializes the PS UART
+ * @brief	This function initializes the PS UART
  *
- * @param none
+ * @param	None
  *
- * @return	returns XPLM_SUCCESS on success
+ * @return	Returns XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_InitUart(void )
+int XPlmi_InitUart(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/* Initialize UART */
 	/* If UART is already initialized, just return success */
@@ -107,7 +111,7 @@ int XPlmi_InitUart(void )
 	}
 
 	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
-		Config->InputClockHz = 25*1000*1000; //25MHz, SPP
+		Config->InputClockHz = XPLMI_SPP_INPUT_CLK_FREQ;
 	}
 
 	Status = XUartPsv_CfgInitialize(&UartPsvIns, Config, Config->BaseAddress);
@@ -115,16 +119,15 @@ int XPlmi_InitUart(void )
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_CFG, Status);
 		goto END;
 	}
-
-	XUartPsv_SetBaudRate(&UartPsvIns, 115200); // SPP
-
+	XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);
 	LpdInitialized |= UART_INITIALIZED;
 #endif
 
 #ifdef DEBUG_UART_MDM
 	LpdInitialized |= UART_INITIALIZED;
-	Status = XST_SUCCESS;
 #endif
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -132,11 +135,11 @@ END:
 
 /*****************************************************************************/
 /**
- * This function prints and logs the terminal prints to debug log buffer
+ * @brief	This function prints and logs the terminal prints to debug log buffer
  *
- * @param c	character to be printed and logged
+ * @param	c is the character to be printed and logged
  *
- * @return	none
+ * @return	None
  *
  *****************************************************************************/
 void outbyte(char c)

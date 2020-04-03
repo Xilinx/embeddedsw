@@ -52,23 +52,6 @@
 #include "xloader.h"
 #include "xplmi_generic.h"
 /************************** Constant Definitions *****************************/
-#define XLOADER_BASE_FILE_NAME_LEN_SD_0 	8
-#define XLOADER_BASE_FILE_NAME_LEN_SD_1 	11
-#define XLOADER_NUM_DIGITS_IN_FILE_NAME 	4
-#define XLOADER_SD_DRV_NUM_0				0
-#define XLOADER_SD_DRV_NUM_1				1
-#define XLOADER_SD_DRV_NUM_4				(4U)
-
-/**
- * PMC_GLOBAL Base Address
- */
-#define PMC_GLOBAL_BASEADDR      0XF1110000
-
-#define PMC_GLOBAL_PMC_MULTI_BOOT    ( ( PMC_GLOBAL_BASEADDR ) + 0X00000004 )
-
-#define PMC_GLOBAL_PMC_MULTI_BOOT_VALUE_SHIFT   0
-#define PMC_GLOBAL_PMC_MULTI_BOOT_VALUE_WIDTH   32
-#define PMC_GLOBAL_PMC_MULTI_BOOT_VALUE_MASK    0XFFFFFFFF
 
 /**************************** Type Definitions *******************************/
 
@@ -284,9 +267,9 @@ int XLoader_SdInit(u32 DeviceFlags)
  * 		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	XStatus Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	FRESULT rc;	 /* Result code */
 	(void) Flags;
 	UINT br=0U;
@@ -424,9 +407,9 @@ END:
  * 		- errors as mentioned in xplmi_status.h
  *
  *****************************************************************************/
-XStatus XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	XStatus Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 BlockNumber;
 	u32 DataOffset;
 	u32 RemainingBytes;

@@ -136,7 +136,7 @@ void XLoader_DfuSetState(struct Usb_DevData* XLoader_UsbInstancePtr, u32 DfuStat
 void XLoader_StdDevReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData);
 void XLoader_Ch9Handler(struct Usb_DevData *InstancePtr, SetupPacket *SetupData);
 int XLoader_UsbInit(u32 DeviceFlags);
-XStatus XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_UsbRelease(void);
 #endif/*XLOADER_USB*/
 #ifdef __cplusplus

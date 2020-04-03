@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,16 +58,15 @@ extern "C" {
 #include "xil_assert.h"
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 #include "xipipsu.h"
+
 /************************** Constant Definitions *****************************/
 #define XPLMI_IPI_MASK_COUNT		XIPIPSU_MAX_TARGETS
 #define XPLMI_IPI_MAX_MSG_LEN		XIPIPSU_MAX_MSG_LEN
 
 /* IPI defines */
-#define IPI_BASEADDR				0xFF300000
-
-#define IPI_PMC_ISR					( IPI_BASEADDR + 0x20010)
-#define IPI_PMC_ISR_PSM_BIT_MASK			(0x1)
-/* Error codes */
+#define IPI_BASEADDR				(0xFF300000U)
+#define IPI_PMC_ISR					(IPI_BASEADDR + 0x20010U)
+#define IPI_PMC_ISR_PSM_BIT_MASK	(0x1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -81,6 +80,7 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
 int XPlmi_ValidateIpiCmd(u32 CmdId);
+
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/

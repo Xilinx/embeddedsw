@@ -194,8 +194,8 @@ enum XLOADER_PDI_SRC {
  * This stores the handoff Address of the different cpu's
  */
 typedef struct {
-        u32 CpuSettings;
-        u64 HandoffAddr;
+	u32 CpuSettings;
+	u64 HandoffAddr;
 } XLoader_HandoffParam;
 
 typedef struct {
@@ -203,7 +203,7 @@ typedef struct {
 	u32 DeviceBaseAddr; /**< Flash device base address */
 	int (*Init) (u32 DeviceFlags);
 		/**< Function pointer for Device initialization code */
-	XStatus (*Copy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+	int (*Copy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 		/**< Function pointer for device copy */
 } XLoader_DeviceOps;
 
@@ -218,7 +218,7 @@ typedef struct {
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
-	XStatus (*DeviceCopy) (u32, u64, u32, u32);
+	int (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
     XLoader_HandoffParam HandoffParam[10U];
 	u32 CurImgId; /**< Current Processing image ID */
@@ -284,7 +284,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId);
 int XLoader_ReloadImage(u32 ImageId);
-XStatus XLoader_IdCodeCheck(XilPdi_ImgHdrTable * ImgHdrTable);
+int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl);
 void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 void XLoader_ClearIntrSbiDataRdy();
 void XLoader_CfiErrorHandler(void);

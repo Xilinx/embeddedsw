@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,16 +62,17 @@ XPlmi_Module * Modules[XPLMI_MAX_MODULES];
 
 /*****************************************************************************/
 /**
- * @brief
+ * @brief	This function registers the module passed to Modules variable.
  *
- * @param
+ * @param	Module is pointer to XPlmi Module
  *
- * @return
+ * @return	None
  *
  *****************************************************************************/
 void XPlmi_ModuleRegister(XPlmi_Module * Module)
 {
 	u32 ModuleId = Module->Id;
+
 	Xil_AssertVoid(ModuleId < XPLMI_MAX_MODULES);
 	Xil_AssertVoid(Modules[ModuleId] == NULL);
 	Modules[ModuleId] = Module;

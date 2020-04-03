@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -196,10 +196,10 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XLoader_Qspi24Init(u32 DeviceFlags);
-XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_Qspi24Release(void );
 int XLoader_Qspi32Init(u32 DeviceFlags);
-XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_Qspi32Release(void );
 int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress);
 int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress);

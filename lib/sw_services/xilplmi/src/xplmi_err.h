@@ -57,20 +57,20 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* Action to be taken when an error occurs */
-#define XPLMI_EM_ACTION_INVALID	0U
-#define XPLMI_EM_ACTION_POR		1U
-#define XPLMI_EM_ACTION_SRST		2U
-#define XPLMI_EM_ACTION_CUSTOM		3U
-#define XPLMI_EM_ACTION_ERROUT		4U
-#define XPLMI_EM_ACTION_SUBSYS_SHUTDN	5U
-#define XPLMI_EM_ACTION_SUBSYS_RESTART	6U
-#define XPLMI_EM_ACTION_NONE		7U
-#define XPLMI_EM_ACTION_MAX		8U
+#define XPLMI_EM_ACTION_INVALID			(0U)
+#define XPLMI_EM_ACTION_POR				(1U)
+#define XPLMI_EM_ACTION_SRST			(2U)
+#define XPLMI_EM_ACTION_CUSTOM			(3U)
+#define XPLMI_EM_ACTION_ERROUT			(4U)
+#define XPLMI_EM_ACTION_SUBSYS_SHUTDN	(5U)
+#define XPLMI_EM_ACTION_SUBSYS_RESTART	(6U)
+#define XPLMI_EM_ACTION_NONE			(7U)
+#define XPLMI_EM_ACTION_MAX				(8U)
 
 /* Subsystem shutdown/restart related macros */
-#define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		0U
-#define XPLMI_SUBSYS_SHUTDN_TYPE_RESTART	1U
-#define XPLMI_RESTART_SUBTYPE_SUBSYS		0U
+#define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)
+#define XPLMI_SUBSYS_SHUTDN_TYPE_RESTART	(1U)
+#define XPLMI_RESTART_SUBTYPE_SUBSYS		(0U)
 
 /* PLMI ERROR Management error codes */
 #define XPLMI_INVALID_ERROR_ID		(1U)
@@ -92,7 +92,37 @@ struct XPlmi_Error_t {
 	u8 Action;
 	u32 SubsystemId;
 };
+
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns register mask value for the error id mask
+ * given.
+ *
+ * @param	ErrorMask  is the input.
+ *
+ * @return	Register mask value
+ *
+ *****************************************************************************/
+inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
+{
+	return (0x1U << (ErrorMask & 0x1FU));
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns Error event ID for the given error node ID.
+ *
+ * @param	Id is the event ID.
+ *
+ * @return	Error event ID
+ *
+ *****************************************************************************/
+inline u32 XPlmi_EventNodeType(u32 Id)
+{
+	return ((Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT);
+}
 
 /************************** Function Prototypes ******************************/
 void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,

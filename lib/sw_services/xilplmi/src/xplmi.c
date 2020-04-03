@@ -59,30 +59,32 @@ typedef int (*XPlmiInit)(void);
 
 /******************************************************************************/
 /**
-* @brief This function  will initialize the PLMI module.
+* @brief	This function  will initialize the PLMI module.
+*
 * @param    None
+*
 * @return   None.
+*
 ****************************************************************************/
 int XPlmi_Init(void )
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Status = XPlmi_SetUpInterruptSystem();
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
 	XPlmi_GenericInit();
+
 END:
 	return Status;
 }
 
-/**
+/*
  * It contains all the PS LPD init functions to be run for every module that
  * is present as a part of PLM.
  */
-XPlmiInit LpdInitList[] = {
+static const XPlmiInit LpdInitList[] = {
 #ifdef DEBUG_UART_PS
 	XPlmi_InitUart,
 #endif
@@ -95,29 +97,27 @@ XPlmiInit LpdInitList[] = {
 
 /*****************************************************************************/
 /**
- * @brief This function calls all the PS LPD init functions of all the different
+ * @brief	This function calls all the PS LPD init functions of all the different
  * modules. As a part of init functions, modules can register the
  * command handlers, interrupt handlers with the interface layer.
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	None
  *
  *****************************************************************************/
 void XPlmi_LpdInit(void)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
-	int Status;
 
-	for (Index = 0; Index <
-	     sizeof(LpdInitList) / sizeof(*LpdInitList); Index++) {
+	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(LpdInitList); Index++) {
 		Status = LpdInitList[Index]();
 		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_LPD_MOD, Status);
 			break;
 		}
 	}
-	
 	if (XST_SUCCESS == Status) {
 		LpdInitialized |= LPD_INITIALIZED;
 	}
@@ -126,14 +126,14 @@ void XPlmi_LpdInit(void)
 
 /*****************************************************************************/
 /**
- * @brief This function prints PLM banner
+ * @brief	This function prints PLM banner
  *
- * @param none
+ * @param	None
  *
- * @return	none
+ * @return	None
  *
  *****************************************************************************/
-void XPlm_PrintPlmBanner(void )
+void XPlm_PrintPlmBanner(void)
 {
 	u32 Version;
 	u32 PsVersion;
@@ -156,12 +156,11 @@ void XPlm_PrintPlmBanner(void )
 				PMC_TAP_VERSION_PS_VERSION_SHIFT);
 		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
 				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%d.%d "
-					 "PMC: v%d.%d, PS: v%d.%d\n\r",
-					(PmcVersion/16), (PmcVersion%16),
-					(PmcVersion/16), (PmcVersion%16),
-					(PsVersion/16), (PsVersion%16));
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
+					 "PMC: v%u.%u, PS: v%u.%u\n\r",
+					(PmcVersion / 16U), (PmcVersion % 16U),
+					(PmcVersion / 16U), (PmcVersion % 16U),
+					(PsVersion / 16U), (PsVersion % 16U));
 #ifdef DEBUG_UART_MDM
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: MDM UART\n\r");
 #else
@@ -169,7 +168,6 @@ void XPlm_PrintPlmBanner(void )
 #endif
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "****************************************\n\r");
-
 		IsBannerPrinted = TRUE;
 	}
 }

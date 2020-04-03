@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,19 +50,20 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xcsudma.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 /** DMA XFER flags */
 #define XPLMI_SRC_CH_AXI_FIXED		(0x1U)
-#define XPLMI_DMA_SRC_NONBLK		(0x1U<<1U)
-#define XPLMI_DST_CH_AXI_FIXED		(0x1U<<16U)
-#define XPLMI_DMA_DST_NONBLK		(0x1U<<17U)
+#define XPLMI_DMA_SRC_NONBLK		(0x1U << 1U)
+#define XPLMI_DST_CH_AXI_FIXED		(0x1U << 16U)
+#define XPLMI_DMA_DST_NONBLK		(0x1U << 17U)
 #define XPLMI_PMCDMA_0				(0x100U)
 #define XPLMI_PMCDMA_1				(0x200U)
 #define XPLMI_DMA_SRC_NPI			(0x4U)
 #define XPLMI_DMA_DST_TYPE_SHIFT	(18U)
-#define XPLMI_DMA_DST_TYPE_MASK		(0x3U<<18U)
+#define XPLMI_DMA_DST_TYPE_MASK		(0x3U << 18U)
 #define XPLMI_READ_AXI_FIXED		(0x1U)
 
 /*
@@ -70,9 +71,9 @@ extern "C" {
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define CSUDMA_0_DEVICE_ID	XPAR_XCSUDMA_0_DEVICE_ID /* CSUDMA device Id */
-#define CSUDMA_1_DEVICE_ID	XPAR_XCSUDMA_1_DEVICE_ID /* CSUDMA device Id */
-#define CSUDMA_LOOPBACK_CFG	0x0000000F	/**< LOOP BACK configuration */
+#define PMCDMA_0_DEVICE_ID	XPAR_XCSUDMA_0_DEVICE_ID /* PMCDMA device Id */
+#define PMCDMA_1_DEVICE_ID	XPAR_XCSUDMA_1_DEVICE_ID /* PMCDMA device Id */
+#define PMCDMA_LOOPBACK_CFG	(0x0000000FU)	/**< LOOP BACK configuration */
 
 /* SSS configurations and masks */
 #define XPLMI_SSSCFG_DMA0_MASK		(0x0000000FU)
@@ -105,6 +106,7 @@ extern "C" {
 #define XPLMI_SSS_DMA0_PZM			(0x00000003U)
 
 #define XPLMI_DATA_INIT_PZM			(0xDEADBEEFU)
+#define XPLMI_PZM_WORD_LEN			(16U)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -121,6 +123,7 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 void XPlmi_WaitForNonBlkSrcDma(void);
 void XPlmi_WaitForNonBlkDma(void);
 void XPlmi_SetMaxOutCmds(u32 Val);
+
 #ifdef __cplusplus
 }
 #endif
