@@ -331,8 +331,6 @@ extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
 extern u8 Buffer[XSECURE_BUFFER_SIZE];
 			/**< Buffer to store */
 #endif
-extern u32 XsecureIv[XSECURE_IV_LEN];
-extern u32 XsecureKey[XSECURE_KEY_LEN];
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
