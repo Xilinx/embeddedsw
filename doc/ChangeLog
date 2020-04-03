@@ -25,6 +25,11 @@ Correct interrupt ID definition for Versal in example.
 dmaps_v2_6:
 Fix boundary check on channel.
 
+emacps_v3_11:
+Add baremetal clock support.
+Add XCLOCKING flag support.
+Add fix for clock detection in hier designs.
+
 gpio_v4_6:
 Fixed compilation error of armcc compiler.
 
