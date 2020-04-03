@@ -261,6 +261,10 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	InstancePtr->SizeofData = Size;
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 END:
+	if (Status != (u32)XST_SUCCESS) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return Status;
 }
 
@@ -342,6 +346,10 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
 	Status = (u32)XST_SUCCESS;
 END:
+	if ((IsFinal == TRUE) || (Status != (u32)XST_SUCCESS)) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return Status;
 }
 
@@ -499,6 +507,10 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	InstancePtr->Destination = DecData;
 	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
 END:
+	if (Status != (u32)XST_SUCCESS) {
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return Status;
 }
 
@@ -535,6 +547,7 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 {
 	u32 GcmStatus = (u32)XST_FAILURE;
 	u8 IsFinalUpdate = FALSE;
+	u32 NextBlkLen = 0U;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -620,12 +633,22 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 			GcmStatus = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 			goto END;
 		}
+		NextBlkLen = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
+								XSECURE_CSU_AES_IV_3_OFFSET)) * 4U;
 	}
 
 	/* Update the size of data */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
 	GcmStatus = (u32)XST_SUCCESS;
 END:
+	/* Aes engine is set under reset when GCM tag is failed or
+	 * when the next block length of decryption is zero
+	 */
+	if(((IsFinalUpdate == TRUE) && (NextBlkLen == 0U)) ||
+						(GcmStatus != (u32)XST_SUCCESS)) {
+			XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return (s32)GcmStatus;
 
 }
@@ -1462,6 +1485,9 @@ ENDF:
 	if (KeyClearStatus != (u32)XST_SUCCESS) {
 		Status = Status | KeyClearStatus;
 	}
+
+	XSecure_SetReset(InstancePtr->BaseAddress,
+		XSECURE_CSU_AES_RESET_OFFSET);
 
 	return (s32)Status;
 }
