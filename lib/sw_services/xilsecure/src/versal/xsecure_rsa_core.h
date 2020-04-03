@@ -37,6 +37,9 @@
 * 4.0   vns  03/09/19 Initial release
 * 4.1   kpt  01/07/20 Added Macro's for Magic Numbers in
 *                     xsecure_rsa_core.c
+* 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
+*       kpt  03/30/20 Removed CSU from all Macros
+*
 * </pre>
 *
 ******************************************************************************/
@@ -55,6 +58,7 @@ extern "C" {
 #define XSECURE_RSA_DATA_VALUE_ERROR	0x2U /**< for RSA private decryption
 						* data should be lesser than
 						* modulus */
+#define XSECURE_RSA_ZEROIZE_ERROR		0x80U /**< for RSA zeroization Error*/
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_HASH_TYPE_SHA2		(32U) /**< SHA-2 hash size */
@@ -72,21 +76,21 @@ extern "C" {
 #define XSECURE_RSA_3072_SIZE_WORDS	(96)	/**< RSA 3072 Size in words */
 #define XSECURE_RSA_4096_SIZE_WORDS	(128U)	/**< RSA 4096 Size in words */
 
-#define XSECURE_CSU_RSA_RAM_EXPO	(0U) /**< bit for RSA RAM Exponent */
-#define XSECURE_CSU_RSA_RAM_MOD		(1U) /**< bit for RSA RAM modulus */
-#define XSECURE_CSU_RSA_RAM_DIGEST	(2U) /**< bit for RSA RAM Digest */
-#define XSECURE_CSU_RSA_RAM_SPAD	(3U) /**< bit for RSA RAM SPAD */
-#define XSECURE_CSU_RSA_RAM_RES_Y	(4U) /**< bit for RSA RAM Result(Y) */
-#define XSECURE_CSU_RSA_RAM_RES_Q	(5U) /**< bit for RSA RAM Result(Q) */
+#define XSECURE_RSA_RAM_EXPO	(0U) /**< bit for RSA RAM Exponent */
+#define XSECURE_RSA_RAM_MOD		(1U) /**< bit for RSA RAM modulus */
+#define XSECURE_RSA_RAM_DIGEST	(2U) /**< bit for RSA RAM Digest */
+#define XSECURE_RSA_RAM_SPAD	(3U) /**< bit for RSA RAM SPAD */
+#define XSECURE_RSA_RAM_RES_Y	(4U) /**< bit for RSA RAM Result(Y) */
+#define XSECURE_RSA_RAM_RES_Q	(5U) /**< bit for RSA RAM Result(Q) */
 
 /** @name Control Register
  *
  * Control Register opcode definitions
  */
-#define XSECURE_CSU_RSA_CONTROL_DCA	(0x08U) /**< Abort Operation */
-#define XSECURE_CSU_RSA_CONTROL_NOP	(0x00U) /**< No Operation */
-#define XSECURE_CSU_RSA_CONTROL_EXP	(0x01U) /**< Exponentiation Opcode */
-#define XSECURE_CSU_RSA_CONTROL_EXP_PRE	(0x05U) /**< Expo. using R*R mod M */
+#define XSECURE_RSA_CONTROL_DCA	(0x08U) /**< Abort Operation */
+#define XSECURE_RSA_CONTROL_NOP	(0x00U) /**< No Operation */
+#define XSECURE_RSA_CONTROL_EXP	(0x01U) /**< Exponentiation Opcode */
+#define XSECURE_RSA_CONTROL_EXP_PRE	(0x05U) /**< Expo. using R*R mod M */
 
 /**
  * Config registers values
@@ -116,10 +120,10 @@ extern "C" {
  *
  * Status Register Bit Definition
  */
-#define XSECURE_CSU_RSA_STATUS_DONE	(0x1U) /**< Operation Done */
-#define XSECURE_CSU_RSA_STATUS_BUSY	(0x2U) /**< RSA busy */
-#define XSECURE_CSU_RSA_STATUS_ERROR	(0x4U) /**< Error */
-#define XSECURE_CSU_RSA_STATUS_PROG_CNT	(0xF8U) /**< Progress Counter */
+#define XSECURE_RSA_STATUS_DONE	(0x1U) /**< Operation Done */
+#define XSECURE_RSA_STATUS_BUSY	(0x2U) /**< RSA busy */
+#define XSECURE_RSA_STATUS_ERROR	(0x4U) /**< Error */
+#define XSECURE_RSA_STATUS_PROG_CNT	(0xF8U) /**< Progress Counter */
 /* @}*/
 
 typedef enum {
@@ -131,6 +135,7 @@ typedef enum {
 	XSECURE_RSA_SIGN_ENC = 0x0U,
 	XSECURE_RSA_SIGN_DEC			/**< 0x1 */
 }XSecure_RsaOps;
+
 /***************************** Type Definitions ******************************/
 /**
  * The RSA driver instance data structure. A pointer to an instance data
@@ -158,6 +163,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			u8 *Result, u8 RsaOp, u32 Size);
 
 u32 XSecure_RsaPublicEncryptKat(void);
+
 #ifdef __cplusplus
 }
 #endif
