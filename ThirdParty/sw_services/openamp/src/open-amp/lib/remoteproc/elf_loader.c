@@ -23,7 +23,7 @@ static int elf_is_64(const void *elf_info)
 
 static size_t elf_ehdr_size(const void *elf_info)
 {
-	if (elf_info == NULL)
+	if (!elf_info)
 		return sizeof(Elf64_Ehdr);
 	else if (elf_is_64(elf_info) != 0)
 		return sizeof(Elf64_Ehdr);
@@ -183,32 +183,32 @@ static void elf_parse_segment(void *elf_info, const void *elf_phdr,
 	if (elf_is_64(elf_info) == 0) {
 		const Elf32_Phdr *phdr = elf_phdr;
 
-		if (p_type != NULL)
+		if (p_type)
 			*p_type = (unsigned int)phdr->p_type;
-		if (p_offset != NULL)
+		if (p_offset)
 			*p_offset = (size_t)phdr->p_offset;
-		if (p_vaddr != NULL)
+		if (p_vaddr)
 			*p_vaddr = (metal_phys_addr_t)phdr->p_vaddr;
-		if (p_paddr != NULL)
+		if (p_paddr)
 			*p_paddr = (metal_phys_addr_t)phdr->p_paddr;
-		if (p_filesz != NULL)
+		if (p_filesz)
 			*p_filesz = (size_t)phdr->p_filesz;
-		if (p_memsz != NULL)
+		if (p_memsz)
 			*p_memsz = (size_t)phdr->p_memsz;
 	} else {
 		const Elf64_Phdr *phdr = elf_phdr;
 
-		if (p_type != NULL)
+		if (p_type)
 			*p_type = (unsigned int)phdr->p_type;
-		if (p_offset != NULL)
+		if (p_offset)
 			*p_offset = (size_t)phdr->p_offset;
-		if (p_vaddr != NULL)
+		if (p_vaddr)
 			*p_vaddr = (metal_phys_addr_t)phdr->p_vaddr;
-		if (p_paddr != NULL)
+		if (p_paddr)
 			*p_paddr = (metal_phys_addr_t)phdr->p_paddr;
-		if (p_filesz != NULL)
+		if (p_filesz)
 			*p_filesz = (size_t)phdr->p_filesz;
-		if (p_memsz != NULL)
+		if (p_memsz)
 			*p_memsz = (size_t)phdr->p_memsz;
 	}
 }
@@ -220,7 +220,7 @@ static const void *elf_get_segment_from_index(void *elf_info, int index)
 		const Elf32_Ehdr *ehdr = &einfo->ehdr;
 		const Elf32_Phdr *phdrs = einfo->phdrs;
 
-		if (phdrs == NULL)
+		if (!phdrs)
 			return NULL;
 		if (index < 0 || index >= ehdr->e_phnum)
 			return NULL;
@@ -230,7 +230,7 @@ static const void *elf_get_segment_from_index(void *elf_info, int index)
 		const Elf64_Ehdr *ehdr = &einfo->ehdr;
 		const Elf64_Phdr *phdrs = einfo->phdrs;
 
-		if (phdrs == NULL)
+		if (!phdrs)
 			return NULL;
 		if (index < 0 || index >= ehdr->e_phnum)
 			return NULL;
@@ -249,7 +249,7 @@ static void *elf_get_section_from_name(void *elf_info, const char *name)
 		Elf32_Shdr *shdr = einfo->shdrs;
 
 		name_table = einfo->shstrtab;
-		if (shdr == NULL || name_table == NULL)
+		if (!shdr || !name_table)
 			return NULL;
 		for (i = 0; i < ehdr->e_shnum; i++, shdr++) {
 			if (strcmp(name, name_table + shdr->sh_name))
@@ -263,7 +263,7 @@ static void *elf_get_section_from_name(void *elf_info, const char *name)
 		Elf64_Shdr *shdr = einfo->shdrs;
 
 		name_table = einfo->shstrtab;
-		if (shdr == NULL || name_table == NULL)
+		if (!shdr || !name_table)
 			return NULL;
 		for (i = 0; i < ehdr->e_shnum; i++, shdr++) {
 			if (strcmp(name, name_table + shdr->sh_name))
@@ -282,7 +282,7 @@ static void *elf_get_section_from_index(void *elf_info, int index)
 		Elf32_Ehdr *ehdr = &einfo->ehdr;
 		Elf32_Shdr *shdr = einfo->shdrs;
 
-		if (shdr == NULL)
+		if (!shdr)
 			return NULL;
 		if (index < 0 || index >= ehdr->e_shnum)
 			return NULL;
@@ -292,7 +292,7 @@ static void *elf_get_section_from_index(void *elf_info, int index)
 		Elf64_Ehdr *ehdr = &einfo->ehdr;
 		Elf64_Shdr *shdr = einfo->shdrs;
 
-		if (shdr == NULL)
+		if (!shdr)
 			return NULL;
 		if (index < 0 || index >= ehdr->e_shnum)
 			return NULL;
@@ -311,44 +311,44 @@ static void elf_parse_section(void *elf_info, void *elf_shdr,
 	if (elf_is_64(elf_info) == 0) {
 		Elf32_Shdr *shdr = elf_shdr;
 
-		if (sh_type != NULL)
+		if (sh_type)
 			*sh_type = shdr->sh_type;
-		if (sh_flags != NULL)
+		if (sh_flags)
 			*sh_flags = shdr->sh_flags;
-		if (sh_addr != NULL)
+		if (sh_addr)
 			*sh_addr = (metal_phys_addr_t)shdr->sh_addr;
-		if (sh_offset != NULL)
+		if (sh_offset)
 			*sh_offset = shdr->sh_offset;
-		if (sh_size != NULL)
+		if (sh_size)
 			*sh_size = shdr->sh_size;
-		if (sh_link != NULL)
+		if (sh_link)
 			*sh_link = shdr->sh_link;
-		if (sh_info != NULL)
+		if (sh_info)
 			*sh_info = shdr->sh_info;
-		if (sh_addralign != NULL)
+		if (sh_addralign)
 			*sh_addralign = shdr->sh_addralign;
-		if (sh_entsize != NULL)
+		if (sh_entsize)
 			*sh_entsize = shdr->sh_entsize;
 	} else {
 		Elf64_Shdr *shdr = elf_shdr;
 
-		if (sh_type != NULL)
+		if (sh_type)
 			*sh_type = shdr->sh_type;
-		if (sh_flags != NULL)
+		if (sh_flags)
 			*sh_flags = shdr->sh_flags;
-		if (sh_addr != NULL)
+		if (sh_addr)
 			*sh_addr = (metal_phys_addr_t)shdr->sh_addr;
-		if (sh_offset != NULL)
+		if (sh_offset)
 			*sh_offset = shdr->sh_offset;
-		if (sh_size != NULL)
+		if (sh_size)
 			*sh_size = shdr->sh_size;
-		if (sh_link != NULL)
+		if (sh_link)
 			*sh_link = shdr->sh_link;
-		if (sh_info != NULL)
+		if (sh_info)
 			*sh_info = shdr->sh_info;
-		if (sh_addralign != NULL)
+		if (sh_addralign)
 			*sh_addralign = shdr->sh_addralign;
-		if (sh_entsize != NULL)
+		if (sh_entsize)
 			*sh_entsize = shdr->sh_entsize;
 	}
 }
@@ -361,11 +361,11 @@ static const void *elf_next_load_segment(void *elf_info, int *nseg,
 	const void *phdr = PT_NULL;
 	unsigned int p_type = PT_NULL;
 
-	if (elf_info == NULL || nseg == NULL)
+	if (!elf_info || !nseg)
 		return NULL;
 	while (p_type != PT_LOAD) {
 		phdr = elf_get_segment_from_index(elf_info, *nseg);
-		if (phdr == NULL)
+		if (!phdr)
 			return NULL;
 		elf_parse_segment(elf_info, phdr, &p_type, noffset,
 				  da, NULL, nfsize, nmsize);
@@ -384,7 +384,7 @@ static size_t elf_info_size(const void *img_data)
 
 int elf_identify(const void *img_data, size_t len)
 {
-	if (len < SELFMAG || img_data == NULL)
+	if (len < SELFMAG || !img_data)
 		return -RPROC_EINVAL;
 	if (memcmp(img_data, ELFMAG, SELFMAG) != 0)
 		return -RPROC_EINVAL;
@@ -398,8 +398,8 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 {
 	int *load_state;
 
-	metal_assert(noffset != NULL);
-	metal_assert(nlen != NULL);
+	metal_assert(noffset);
+	metal_assert(nlen);
 	/* Get ELF header */
 	if (last_load_state == ELF_STATE_INIT) {
 		size_t tmpsize;
@@ -413,9 +413,9 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		} else {
 			size_t infosize = elf_info_size(img_data);
 
-			if (*img_info == NULL) {
+			if (!*img_info) {
 				*img_info = metal_allocate_memory(infosize);
-				if (*img_info == NULL)
+				if (!*img_info)
 					return -RPROC_ENOMEM;
 				memset(*img_info, 0, infosize);
 			}
@@ -425,7 +425,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 			last_load_state = ELF_STATE_WAIT_FOR_PHDRS;
 		}
 	}
-	metal_assert(*img_info != NULL);
+	metal_assert(*img_info);
 	load_state = elf_load_state(*img_info);
 	if (last_load_state != *load_state)
 		return -RPROC_EINVAL;
@@ -450,7 +450,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		img_phdrs = (const char *)img_data + phdrs_offset;
 		phdrs = elf_phtable_ptr(*img_info);
 		*phdrs = metal_allocate_memory(phdrs_size);
-		if (*phdrs == NULL)
+		if (!*phdrs)
 			return -RPROC_ENOMEM;
 		memcpy(*phdrs, img_phdrs, phdrs_size);
 		*load_state = ELF_STATE_WAIT_FOR_SHDRS |
@@ -483,7 +483,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		img_shdrs = (const char *)img_data + shdrs_offset;
 		shdrs = elf_shtable_ptr(*img_info);
 		*shdrs = metal_allocate_memory(shdrs_size);
-		if (*shdrs == NULL)
+		if (!*shdrs)
 			return -RPROC_ENOMEM;
 		memcpy(*shdrs, img_shdrs, shdrs_size);
 		*load_state = (*load_state & (~ELF_STATE_MASK)) |
@@ -502,7 +502,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		metal_log(METAL_LOG_DEBUG, "Loading ELF shstrtab.\r\n");
 		shstrndx = elf_shstrndx(*img_info);
 		shdr = elf_get_section_from_index(*img_info, shstrndx);
-		if (shdr == NULL)
+		if (!shdr)
 			return -RPROC_EINVAL;
 		elf_parse_section(*img_info, shdr, NULL, NULL,
 				  NULL, &shstrtab_offset,
@@ -518,7 +518,7 @@ int elf_load_header(const void *img_data, size_t offset, size_t len,
 		shstrtab_offset -= offset;
 		shstrtab = elf_shstrtab_ptr(*img_info);
 		*shstrtab = metal_allocate_memory(shstrtab_size);
-		if (*shstrtab == NULL)
+		if (!*shstrtab)
 			return -RPROC_ENOMEM;
 		memcpy(*shstrtab,
 		       (const char *)img_data + shstrtab_offset,
@@ -542,9 +542,9 @@ int elf_load(struct remoteproc *rproc,
 	const void *phdr;
 
 	(void)rproc;
-	metal_assert(da != NULL);
-	metal_assert(noffset != NULL);
-	metal_assert(nlen != NULL);
+	metal_assert(da);
+	metal_assert(noffset);
+	metal_assert(nlen);
 	if ((last_load_state & RPROC_LOADER_MASK) == RPROC_LOADER_NOT_READY) {
 		metal_log(METAL_LOG_DEBUG,
 			  "needs to load header first\r\n");
@@ -557,10 +557,10 @@ int elf_load(struct remoteproc *rproc,
 			return last_load_state;
 		}
 	}
-	metal_assert(img_info != NULL && *img_info != NULL);
+	metal_assert(img_info && *img_info);
 	load_state = elf_load_state(*img_info);
 	/* For ELF, segment padding value is 0 */
-	if (padding != NULL)
+	if (padding)
 		*padding = 0;
 	if ((*load_state & RPROC_LOADER_READY_TO_LOAD) != 0) {
 		int nsegment;
@@ -571,7 +571,7 @@ int elf_load(struct remoteproc *rproc,
 		nsegment = *load_state & ELF_NEXT_SEGMENT_MASK;
 		phdr = elf_next_load_segment(*img_info, &nsegment, da,
 					     noffset, &nsize, &nsegmsize);
-		if (phdr == NULL) {
+		if (!phdr) {
 			metal_log(METAL_LOG_DEBUG, "cannot find more segment\r\n");
 			*load_state = (*load_state & (~ELF_NEXT_SEGMENT_MASK)) |
 				      (nsegment & ELF_NEXT_SEGMENT_MASK);
@@ -616,27 +616,27 @@ int elf_load(struct remoteproc *rproc,
 
 void elf_release(void *img_info)
 {
-	if (img_info == NULL)
+	if (!img_info)
 		return;
 	if (elf_is_64(img_info) == 0) {
 		struct elf32_info *elf_info = img_info;
 
-		if (elf_info->phdrs != NULL)
+		if (elf_info->phdrs)
 			metal_free_memory(elf_info->phdrs);
-		if (elf_info->shdrs != NULL)
+		if (elf_info->shdrs)
 			metal_free_memory(elf_info->shdrs);
-		if (elf_info->shstrtab != NULL)
+		if (elf_info->shstrtab)
 			metal_free_memory(elf_info->shstrtab);
 		metal_free_memory(img_info);
 
 	} else {
 		struct elf64_info *elf_info = img_info;
 
-		if (elf_info->phdrs != NULL)
+		if (elf_info->phdrs)
 			metal_free_memory(elf_info->phdrs);
-		if (elf_info->shdrs != NULL)
+		if (elf_info->shdrs)
 			metal_free_memory(elf_info->shdrs);
-		if (elf_info->shstrtab != NULL)
+		if (elf_info->shstrtab)
 			metal_free_memory(elf_info->shstrtab);
 		metal_free_memory(img_info);
 	}
@@ -669,15 +669,15 @@ int elf_locate_rsc_table(void *elf_info, metal_phys_addr_t *da,
 	void *shdr;
 	int *load_state;
 
-	if (elf_info == NULL)
+	if (!elf_info)
 		return -RPROC_EINVAL;
 
 	load_state = elf_load_state(elf_info);
 	if ((*load_state & ELF_STATE_HDRS_COMPLETE) == 0)
 		return -RPROC_ERR_LOADER_STATE;
 	shdr = elf_get_section_from_name(elf_info, sect_name);
-	if (shdr == NULL) {
-		metal_assert(size != NULL);
+	if (!shdr) {
+		metal_assert(size);
 		*size = 0;
 		return 0;
 	}
@@ -691,7 +691,7 @@ int elf_get_load_state(void *img_info)
 {
 	int *load_state;
 
-	if (img_info == NULL)
+	if (!img_info)
 		return -RPROC_EINVAL;
 	load_state = elf_load_state(img_info);
 	return *load_state;

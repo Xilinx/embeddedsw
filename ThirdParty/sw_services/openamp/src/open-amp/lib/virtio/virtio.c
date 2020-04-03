@@ -43,7 +43,7 @@ const char *virtio_dev_name(unsigned short devid)
 {
 	const struct virtio_ident *ident;
 
-	for (ident = virtio_ident_table; ident->name != NULL; ident++) {
+	for (ident = virtio_ident_table; ident->name; ident++) {
 		if (ident->devid == devid)
 			return ident->name;
 	}
