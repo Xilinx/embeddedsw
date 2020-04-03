@@ -202,6 +202,17 @@ Added 10/12 bpc and HFR support.
 v_sdirxss_v3_0:
 Added 10/12 bpc support.
 
+dp12_v7_1 :
+Added a new API call XDp_RxSetAuxClkFilterValue
+
+dp12rxss_v4_3:
+Updated Zcu102,KC705 example applications
+ 
+dp12txss_v5_2:
+Updated KC705 example applications
+
+dp14_v7_3:
+Added FAUX related changes 
 
 Changes for 2019.2.2
 ===============================
