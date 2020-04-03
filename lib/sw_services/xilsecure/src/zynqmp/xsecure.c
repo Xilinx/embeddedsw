@@ -109,7 +109,6 @@ u8 Buffer[XSECURE_BUFFER_SIZE];
 			/**< Buffer to store */
 #endif
 u32 XsecureIv[XSECURE_IV_LEN];
-u32 XsecureKey[XSECURE_KEY_LEN];
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -354,13 +353,9 @@ static u32 XSecure_InitAes(u32 AddrHigh, u32 AddrLow)
 	}
 	/* Initialize the Aes driver so that it's ready to use */
 	if (AesParams->KeySrc == XSECURE_AES_KUP_KEY) {
-		for (Index = 0U; Index < XSECURE_KEY_LEN; Index++) {
-			XsecureKey[Index] = *KeyPtr;
-			KeyPtr++;
-		}
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
-				XsecureIv, XsecureKey);
+				XsecureIv, KeyPtr);
 	}
 	else {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
@@ -512,11 +507,6 @@ u32 XSecure_AesOperation(u32 AddrHigh, u32 AddrLow)
 			break;
 	}
 END:
-	/* Clear local KUP key */
-	if (AesParams->KeySrc == XSECURE_AES_KUP_KEY) {
-		(void)memset(XsecureKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
-	}
-
 	return Status;
 }
 
@@ -1122,10 +1112,6 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	Status = XSecure_DecryptPartition(&ImageHdrInfo, SrcAddr, KupKey, Addr);
 
 END:
-	if (KupKey != 0x00) {
-		/* Clear local user key */
-		(void)memset(XsecureKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
-	}
 	/* Clear internal buffers */
 	(void)memset(Buffer, 0, XSECURE_BUFFER_SIZE);
 	(void)memset(AcBuf, 0, XSECURE_AUTH_CERT_MIN_SIZE);
@@ -1541,6 +1527,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	u32 Index;
 	u8 *EncSrc;
 	u8 *DecDst;
+	u32 AesKupKey[XSECURE_KEY_LEN];
 
 	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
 		if (KupKey != 0x00) {
@@ -1548,15 +1535,15 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 			 * So this conversion is required here.
 			 */
 			Status = Xil_ConvertStringToHex((char *)(UINTPTR)KupKey,
-			                                   XsecureKey, XSECURE_KEY_STR_LEN);
+			                                   AesKupKey, XSECURE_KEY_STR_LEN);
 			if (Status != (u32)XST_SUCCESS) {
 				goto END;
 			}
 
 			/* XilSecure expects Key in big endian form */
-			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureKey);
+			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(AesKupKey);
 							Index++) {
-				XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
+				AesKupKey[Index] = Xil_Htonl(AesKupKey[Index]);
 			}
 		}
 		else {
@@ -1575,7 +1562,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
-				(u32 *)ImageHdrInfo->Iv, XsecureKey);
+				(u32 *)ImageHdrInfo->Iv, AesKupKey);
 	}
 	else {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
@@ -1619,6 +1606,10 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	XSecure_SetReset(SecureAes.BaseAddress, XSECURE_CSU_AES_RESET_OFFSET);
 
 END:
+	if (KupKey != 0x00) {
+		/* Clear local user key */
+		(void)memset(AesKupKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
+	}
 	return Status;
 }
 

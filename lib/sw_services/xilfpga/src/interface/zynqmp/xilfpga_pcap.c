@@ -225,7 +225,7 @@ static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src,
 static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 				u64 ChunkAdrs, u32 ChunkSize);
 static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr);
-static u32 XFpga_AesInit(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
+static u32 XFpga_AesInit(XSecure_Aes *InstancePtr, u32 *AesKupKey,
 			 u32* IvPtr, char *KeyPtr, u32 Flags);
 #endif
 #ifdef __MICROBLAZE__
@@ -804,12 +804,6 @@ static u32 XFpga_SecureLoadToPl(XFpga *InstancePtr)
         break;
 
 	}
-	if ((InstancePtr->WriteInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)
-	{
-		/* Clear the key info from internal memory */
-		(void)memset((u8 *)XsecureKey, 0U, (sizeof(XsecureKey[0]) * ARRAY_LENGTH(XsecureKey)));
-	}
-
 
 return Status;
 }
@@ -834,6 +828,7 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 	u32 PartationLen;
 	u32 PartationOffset;
 	u32 PartationAcOffset;
+	u32 AesKupKey[XSECURE_KEY_LEN];
 
 	/* Authenticate the PL Partation's */
 	if ( InstancePtr->PLInfo.SecureOcmState == 0U) {
@@ -865,7 +860,7 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 						&InstancePtr->PLInfo.Secure_Aes;
 			Status = XFpga_AesInit(
 					PlAesInfoPtr->PlEncrypt.SecureAes,
-					CsuDmaPtr, ImageInfo->Iv,
+					AesKupKey, ImageInfo->Iv,
 					(char *)(InstancePtr->WriteInfo.AddrPtr_Size),
 					InstancePtr->WriteInfo.Flags);
 			if (Status != XFPGA_SUCCESS) {
@@ -899,6 +894,8 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 	}
 
 END:
+	/* Clear local user key */
+	(void)memset(AesKupKey, 0U, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
 	/* Zeroize the Secure data*/
 	(void)memset(&InstancePtr->PLInfo.SecureImageInfo, 0,
 			sizeof(InstancePtr->PLInfo.SecureImageInfo));
@@ -1224,8 +1221,9 @@ static u32 XFpga_WriteEncryptToPcap(XFpga *InstancePtr)
 	XSecure_ImageInfo *ImageHdrInfo = &InstancePtr->PLInfo.SecureImageInfo;
 	XSecure_Aes Secure_Aes = {0};
 	u8 *EncSrc;
+	u32 AesKupKey[XSECURE_KEY_LEN];
 
-	Status = XFpga_AesInit(&Secure_Aes, CsuDmaPtr, ImageHdrInfo->Iv,
+	Status = XFpga_AesInit(&Secure_Aes, AesKupKey, ImageHdrInfo->Iv,
 				(char *)InstancePtr->WriteInfo.AddrPtr_Size,
 				InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
@@ -1252,6 +1250,9 @@ static u32 XFpga_WriteEncryptToPcap(XFpga *InstancePtr)
 		Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
 	}
 END:
+	/* Clear local user key */
+	(void)memset(AesKupKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
+
 	return Status;
 }
 
@@ -1747,14 +1748,14 @@ END:
  *****************************************************************************/
 
 static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
-			 XCsuDma *CsuDmaPtr, u32* IvPtr,
+			 u32 *AesKupKey, u32* IvPtr,
 			 char *KeyPtr, u32 Flags)
 {
 	u32 Status = XFPGA_FAILURE;
 
 	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) {
 		Status = Xil_ConvertStringToHex(KeyPtr,
-						    XsecureKey, KEY_LEN);
+						    AesKupKey, KEY_LEN);
 		/* Clear the key info from DDR or Physical memory */
 		(void)memset(KeyPtr, 0U, KEY_LEN);
 		if (Status != XFPGA_SUCCESS) {
@@ -1762,14 +1763,14 @@ static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
 		}
 
 		/* Xilsecure expects Key in big endian form */
-		for (u8 Index = 0U; Index < ARRAY_LENGTH(XsecureKey); Index++) {
-			XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
+		for (u8 Index = 0U; Index < XSECURE_KEY_LEN; Index++) {
+			AesKupKey[Index] = Xil_Htonl(AesKupKey[Index]);
 		}
 
 		/* Initialize the Aes driver so that it's ready to use */
 		Status = XSecure_AesInitialize(InstancePtr, CsuDmaPtr,
 						XSECURE_CSU_AES_KEY_SRC_KUP,
-						IvPtr, XsecureKey);
+						IvPtr, AesKupKey);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
