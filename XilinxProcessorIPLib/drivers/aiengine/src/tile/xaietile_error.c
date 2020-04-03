@@ -203,7 +203,7 @@ const char *XAie_ShimErrorStr[] = {
  *			87 - 100 for Memory module
  *			62 - 72 for SHIM PL module
  *
- * @return	0 for logging required by default, 0 for no action required
+ * @return	1 for logging required by default, 0 for no action required
  *		by default.
  * @note	As the function is called internally, it will not validate
  *		the module nor the errors assuming the caller will do the
@@ -217,6 +217,7 @@ static u32 XAieTile_ErrorsDefaultLog(u8 Module, u8 Error)
 		switch (Error) {
 		case XAIETILE_EVENT_CORE_SRS_SATURATE:
 		case XAIETILE_EVENT_CORE_UPS_SATURATE:
+		case XAIETILE_EVENT_CORE_FP_OVERFLOW:
 		case XAIETILE_EVENT_CORE_FP_UNDERFLOW:
 		case XAIETILE_EVENT_CORE_FP_INVALID:
 		case XAIETILE_EVENT_CORE_FP_DIV_BY_ZERO:
@@ -255,7 +256,7 @@ static u32 XAieTile_ErrorsDefaultLog(u8 Module, u8 Error)
  *			87 - 100 for Memory module
  *			62 - 72 for SHIM PL module
  *
- * @return	0 to trap application by default, 1 not to trap application
+ * @return	1 to trap application by default, 0 not to trap application
  *		by default.
  * @note	As the function is called internally, it will not validate
  *		the module nor the errors assuming the caller will do the
@@ -265,21 +266,10 @@ static u32 XAieTile_ErrorsDefaultLog(u8 Module, u8 Error)
  *****************************************************************************/
 static u32 XAieTile_ErrorsDefaultTrap(u8 Module, u8 Error)
 {
-	if (Module == XAIEGBL_MODULE_CORE) {
-		switch (Error) {
-		case XAIETILE_EVENT_CORE_SRS_SATURATE:
-		case XAIETILE_EVENT_CORE_UPS_SATURATE:
-		case XAIETILE_EVENT_CORE_FP_UNDERFLOW:
-		case XAIETILE_EVENT_CORE_FP_INVALID:
-		case XAIETILE_EVENT_CORE_FP_DIV_BY_ZERO:
-		case XAIETILE_EVENT_CORE_PM_ECC_ERROR_SCRUB_CORRECTED:
-			return 0;
-		default:
-			return 1;
-		}
+	if (XAieTile_ErrorsDefaultLog(Module, Error) == 0) {
+		return 0;
 	} else if (Module == XAIEGBL_MODULE_MEM) {
 		switch (Error) {
-		case XAIETILE_EVENT_MEM_DM_ECC_ERROR_SCRUB_CORRECTED:
 		case XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_2:
 		case XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_3:
 		case XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_4:
