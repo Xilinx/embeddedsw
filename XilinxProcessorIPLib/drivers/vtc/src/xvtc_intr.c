@@ -27,7 +27,7 @@
 /**
 *
 * @file xvtc_intr.c
-* @addtogroup vtc_v8_1
+* @addtogroup vtc_v8_2
 * @{
 *
 * This file contains interrupt related functions of Xilinx VTC core.
@@ -113,7 +113,7 @@
 *                       "XTEST_FAILED" -> "XST_FAILURE"
 *                       "XTEST_PASSED" -> "XST_SUCCESS"
 * 6.1   adk    08/23/14 Alligned doxygen tags.
-* 8.1   pg     04/03/20  Fixed interrupt handler issue
+* 8.2   pg     04/03/20  Fixed Interrupt handler issue
 * </pre>
 *
 ******************************************************************************/

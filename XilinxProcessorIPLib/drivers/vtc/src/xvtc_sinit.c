@@ -27,7 +27,7 @@
 /**
 *
 * @file xvtc_sinit.c
-* @addtogroup vtc_v8_1
+* @addtogroup vtc_v8_2
 * @{
 *
 * This file contains static initialization methods for Xilinx VTC core.
