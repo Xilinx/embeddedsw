@@ -37,6 +37,8 @@
 * 4.0   vns  03/09/19 Initial release
 * 4.1   kpt  01/07/20 Added Macros for all the Magic Numbers
 *                     in xsecure_rsa_core.c
+* 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
+*
 * </pre>
 *
 ******************************************************************************/
@@ -54,6 +56,7 @@ extern "C" {
 #define XSECURE_RSA_DATA_VALUE_ERROR	0x2U /**< for RSA private decryption
 						* data should be lesser than
 						* modulus */
+#define XSECURE_RSA_ZEROIZE_ERROR		0x80U /**< for RSA zeroization Error*/
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_HASH_TYPE_SHA2		(32U) /**< SHA-2 hash size */
