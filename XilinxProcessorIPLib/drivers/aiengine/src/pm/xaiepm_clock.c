@@ -121,7 +121,6 @@ u8 XAiePm_RequestTiles(XAieGbl *AieInst, u32 NumTiles, XAie_LocType *Loc)
 {
 	XAieGbl_Tile *TilePtr;
 	u32 NumCols, NumRows;
-	u64 RegAddr;
 	u8 status = XAIE_SUCCESS;
 
 	XAie_AssertVoid(AieInst != XAIE_NULL);
