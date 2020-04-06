@@ -179,6 +179,9 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		u8 *Result, u8 EncDecFlag, u32 Size);
 
+/* ZynqMP specific function for selection of PKCS padding */
+u8* XSecure_RsaGetTPadding();
+
 #ifdef __cplusplus
 }
 #endif
