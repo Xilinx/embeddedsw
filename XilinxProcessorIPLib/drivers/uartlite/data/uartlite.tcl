@@ -31,6 +31,9 @@
 # 2.00a sdm  06/18/10 Updated to not generate duplicate canonical definitions
 #                     when canonical names are same as instance specific names
 # 3.0   adk  12/10/13 Updated as per the New Tcl API's
+# 3.4   adk  06/04/20 Updated the tcl to not to generate defines for instance
+#		      where IP is not configured for uart functionality(i.e
+#		      base address is not configured for IP)
 #
 ##############################################################################
 #uses "xillib.tcl"
@@ -65,7 +68,20 @@ proc xdefine_uartlite_include_file {drv_handle file_name drv_string} {
 
         # Get all peripherals connected to this driver
         set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+        set tmp_periphs ""
+        foreach periph $periphs {
+            set is_pl [common::get_property IS_PL $periph]
+            if {$is_pl == 1} {
+                set isaddr_exist [common::get_property CONFIG.C_BASEADDR $periph]
+            } else {
+                set isaddr_exist 1
+            }
+            if {${isaddr_exist} != ""} {
+                lappend tmp_periphs $periph
+            }
+        }
 
+        set periphs $tmp_periphs
         set uSuffix "U"
         # Handle NUM_INSTANCES
         set periph_ninstances 0
