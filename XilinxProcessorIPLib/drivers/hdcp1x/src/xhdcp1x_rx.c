@@ -1692,6 +1692,7 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 
 		u32 BStatus;
 		u8 Buf[5];
+		u8 Buf_full[XHDCP1X_PORT_SIZE_BKSV * XHDCP1X_RPTR_MAX_DEVS_COUNT];
 		u32 sha1value;
 		u32 ksvCount, ksvsToWrite;
 		u16 RepeaterInfo = 0;
@@ -1762,10 +1763,16 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 					Buf, XHDCP1X_PORT_SIZE_BKSV);
 
 #else
-			XHdcp1x_PortWrite(InstancePtr,
-					( XHDCP1X_PORT_OFFSET_KSVFIFO +
-					(ksvCount * XHDCP1X_PORT_SIZE_BKSV) ),
+			memcpy((Buf_full + (ksvCount * XHDCP1X_PORT_SIZE_BKSV)),
 					Buf, XHDCP1X_PORT_SIZE_BKSV);
+
+			if (ksvsToWrite == 1) {
+				XHdcp1x_PortWrite(InstancePtr,
+					XHDCP1X_PORT_OFFSET_KSVFIFO,
+					Buf_full,
+					(InstancePtr->RepeaterValues.DeviceCount *
+					 XHDCP1X_PORT_SIZE_BKSV));
+			}
 #endif
 			ksvCount++;
 			ksvsToWrite -= 1;
