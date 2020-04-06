@@ -56,7 +56,18 @@
 /***************************** Include Files *********************************/
 #include "xsecure_rsa_core.h"
 #include "xsecure_rsa_hw.h"
+#include "xplatform_info.h"
+
 /************************** Constant Definitions *****************************/
+/* PKCS padding for SHA-3 in 1.0 Silicon */
+static const u8 XSecure_Silicon1_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
+
+/* PKCS padding for SHA-3 in 2.0 Silicon and onwards */
+static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
 
 /**************************** Type Definitions *******************************/
 
@@ -566,4 +577,32 @@ static u32 XSecure_RsaZeroizeVerify(XSecure_Rsa *InstancePtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function returns PKCS padding as per the silicon version
+ *
+ * @param       None
+ *
+ * @return      XSecure_Silicon2_TPadSha3 if Silicon version is not 1.0
+ *              XSecure_Silicon1_TPadSha3 if Silicon version is 1.0
+ *
+ *****************************************************************************/
+u8* XSecure_RsaGetTPadding()
+{
+	u8* Tpadding = (u8 *)XNULL ;
+
+	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
+	 * id for padding
+	 */
+	if(XGetPSVersion_Info() != (u32)XPS_VERSION_1) {
+		Tpadding = (u8*)XSecure_Silicon2_TPadSha3;
+	}
+	else {
+		Tpadding = (u8*)XSecure_Silicon1_TPadSha3;
+	}
+
+	return Tpadding;
 }

@@ -155,14 +155,17 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 
-/* ZynqMP specific RSA core initialization function */
+/* Versal specific RSA core initialization function */
 u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 
-/* ZynqMP specific RSA core encryption/decryption function */
+/* Versal specific RSA core encryption/decryption function */
 u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			u8 *Result, u8 RsaOp, u32 Size);
 
 u32 XSecure_RsaPublicEncryptKat(void);
+
+/* Versal specific function for selection of PKCS padding */
+u8* XSecure_RsaGetTPadding();
 
 #ifdef __cplusplus
 }
