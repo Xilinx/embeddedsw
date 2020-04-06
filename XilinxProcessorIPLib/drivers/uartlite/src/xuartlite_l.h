@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xuartlite_l.h
-* @addtogroup uartlite_v3_3
+* @addtogroup uartlite_v3_4
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
