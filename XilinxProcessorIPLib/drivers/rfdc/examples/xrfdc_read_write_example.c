@@ -73,6 +73,7 @@
 * 5.1   cog    01/29/19 Fixed some comments.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
 * 7.1   cog    07/25/19 Updated example for Gen 3 compatibility.
+* 8.0   cog    04/03/20 Updated example for 48dr compatibility.
 *
 * </pre>
 *
@@ -105,6 +106,8 @@
 #define RFDC_DEVICE_ID 	0
 #define I2CBUS	12
 #endif
+
+#define REG_BOND_NSLICES 4U
 
 /**************************** Type Definitions ******************************/
 
@@ -1246,7 +1249,7 @@ printf("\n Configuring the Clock \r\n");
 
 	if (RFdcInstPtr->DAC_Tile[Tile].NumOfDACBlocks >= 2U) {
 		/* DAC Singleband C2C */
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, 0x3);
+		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, ((RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES)?0x3:0x5));
 		if (Status != XRFDC_SUCCESS) {
 			return XRFDC_FAILURE;
 		}
@@ -1270,30 +1273,32 @@ printf("\n Configuring the Clock \r\n");
 		printf("\n DAC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 		printf("\n ============================================\r\n");
 
-		/* DAC Multiband 2x C2C */
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, 0x3);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
+		if (XRFdc_IsDACDigitalPathEnabled(RFdcInstPtr, Tile, XRFDC_BLK_ID1) == XRFDC_ENABLED) {
+			/* DAC Multiband 2x C2C */
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, ((RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES)?0x3:0x5));
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
 
-		printf("=======DAC0,1 MB 2X Configuration C2C=======\r\n");
-		for (Block = 0; Block <4; Block++) {
-			/* Check for DAC block Enable */
-			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
-				printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
-						Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
-				printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
-						Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+			printf("=======DAC0,1 MB 2X Configuration C2C=======\r\n");
+			for (Block = 0; Block <4; Block++) {
+				/* Check for DAC block Enable */
+				if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+					printf("\n DAC DigitalDataPath%d-> Connected I data = %d",
+							Block, XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+					printf("\n DAC DigitalDataPath%d-> Connected Q data = %d",
+							Block, XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block));
+				}
+				if ((Block == 0) || (Block == 1)) {
+					if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
+						return XRFDC_FAILURE;
+					if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
+						return XRFDC_FAILURE;
+				}
 			}
-			if ((Block == 0) || (Block == 1)) {
-				if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
-					return XRFDC_FAILURE;
-				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
-					return XRFDC_FAILURE;
-			}
+			printf("\n DAC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
+			printf("\n ============================================\r\n");
 		}
-		printf("\n DAC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
-		printf("\n ============================================\r\n");
 	}
 
 	if (RFdcInstPtr->DAC_Tile[Tile].NumOfDACBlocks == 4U) {
