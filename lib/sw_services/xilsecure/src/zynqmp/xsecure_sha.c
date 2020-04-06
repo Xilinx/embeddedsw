@@ -216,6 +216,7 @@ s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 
 	 /* Assert validates the input arguments */
 	 Xil_AssertNonvoid(InstancePtr != NULL);
+	 Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	InstancePtr->IsLastUpdate = TRUE;
 
@@ -287,6 +288,7 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED);
 
 	InstancePtr->Sha3Len = 0U;
+	InstancePtr->IsLastUpdate = FALSE;
 	InstancePtr->PartialLen = 0U;
 	(void)memset(InstancePtr->PartialData, 0, XSECURE_SHA3_BLOCK_LEN);
 
@@ -351,6 +353,7 @@ END:
 		/* Set SHA under reset on failure condition */
 		XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET);
+		InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 	}
 
 	return Status;
@@ -484,6 +487,7 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Hash != NULL);
+	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	for (Index = 0U; Index < XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
@@ -560,6 +564,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	u8 *PartialData;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	PrevPartialLen = InstancePtr->PartialLen;
         PartialData = InstancePtr->PartialData;
