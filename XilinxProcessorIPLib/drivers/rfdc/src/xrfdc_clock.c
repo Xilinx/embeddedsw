@@ -63,6 +63,7 @@
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    03/20/20 Updated PowerState masks for Gen3.
+*       cog    04/06/20 Fix GCC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -1717,7 +1718,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 ClkSrc = 0U;
 	u32 Status;
 	u32 BaseAddr;
-	u32 PLLEnable = 0x0;
+	u32 PLLEnable = 0x0U;
 	u32 InitialPowerUpState;
 	double MaxSampleRate;
 	double MinSampleRate;
@@ -1726,7 +1727,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 PLLFS;
 	u32 DivideMode;
 	u32 DivideValue;
-	u32 NetCtrlReg;
+	u32 NetCtrlReg = 0x0U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
