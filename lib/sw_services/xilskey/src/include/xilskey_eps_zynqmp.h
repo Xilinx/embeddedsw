@@ -346,9 +346,6 @@ typedef struct {
 	u8 PrgrmUser6Fuse;
 	u8 PrgrmUser7Fuse;
 
-	u8 IsPpk0Sha3Hash;
-	u8 IsPpk1Sha3Hash;
-
 	u8 AESKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES];
 
 	u8 User0Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
