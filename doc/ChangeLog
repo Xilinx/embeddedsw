@@ -209,6 +209,31 @@ Updated KC705 example applications
 dp14_v7_3:
 Added FAUX related changes 
 
+hdcp22_common_v2_1:
+Add volatile attributes to variable i.
+
+v_hdmi_common_v1_3:
+3D Audio, HDR support added. More VIC entries added.
+
+v_hdmiphy1_v2_0:
+Updates in header file to rename of enum fields and enum value changed.
+
+v_hdmirx_v2_5:
+3D Audio support added.
+
+v_hdmirxss_v5_5:
+3D Audio, HDR and Versal support added.
+
+v_hdmitx_v2_5:
+3D Audio support added.
+
+v_hdmitxss_v5_5:
+3D Audio, HDR and Versal support added.
+
+video_common_v4_9:
+Some more video timing entries added.
+
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
