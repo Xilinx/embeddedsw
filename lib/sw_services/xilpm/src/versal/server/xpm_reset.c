@@ -532,7 +532,7 @@ int XPmReset_SystemReset(void)
 		/* Disable clock before changing parent */
 		(void)XPmClock_SetGate(Clk, 0);
 		Status = XPmClock_SetParent(Clk, i);
-		if (XST_SUCCESS == Status) {
+		if (XST_SUCCESS != Status) {
 			PmWarn("Failed to change parent of SYSMON_REF_CLK\r\n");
 		}
 		(void)XPmClock_SetGate(Clk, 1);
