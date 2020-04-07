@@ -1721,6 +1721,8 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 
 	if (GcmStatus == 0U) {
 		Xfpga_Printf(XFPGA_DEBUG, "GCM TAG NOT Matched\r\n");
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				 XSECURE_CSU_AES_RESET_OFFSET);
 		Status = XFPGA_FAILURE;
 	} else {
 		Status = XFPGA_SUCCESS;
