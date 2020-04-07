@@ -61,9 +61,9 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static XCsuDma PmcDma0;		/**<Instance of the Csu_Dma Device */
-static XCsuDma PmcDma1;		/**<Instance of the Csu_Dma Device */
-static XCsuDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
+static XPmcDma PmcDma0;		/**<Instance of the Pmc_Dma Device */
+static XPmcDma PmcDma1;		/**<Instance of the Pmc_Dma Device */
+static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
 			0U, 0U, 0U, 0xFFFU, 0x8U};  /* Default values of CTRL */
 
 /*****************************************************************************/
@@ -76,23 +76,23 @@ static XCsuDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
  * @return	XST_SUCCESS on success and error code on failure
  *
 *****************************************************************************/
-int XPlmi_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
+int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 {
 	int Status = XST_FAILURE;
-	XCsuDma_Config *Config;
+	XPmcDma_Config *Config;
 
 	/*
-	 * Initialize the CsuDma driver so that it's ready to use
+	 * Initialize the PmcDma driver so that it's ready to use
 	 * look up the configuration in the config table,
 	 * then initialize it.
 	 */
-	Config = XCsuDma_LookupConfig((u16)DeviceId);
+	Config = XPmcDma_LookupConfig((u16)DeviceId);
 	if (NULL == Config) {
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_LOOKUP, 0x0U);
 		goto END;
 	}
 
-	Status = XCsuDma_CfgInitialize(DmaPtr, Config, Config->BaseAddress);
+	Status = XPmcDma_CfgInitialize(DmaPtr, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_CFG, Status);
 		goto END;
@@ -101,7 +101,7 @@ int XPlmi_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
 	/*
 	 * Performs the self-test to check hardware build.
 	 */
-	Status = XCsuDma_SelfTest(DmaPtr);
+	Status = XPmcDma_SelfTest(DmaPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_SELFTEST, Status);
 		goto END;
@@ -147,9 +147,9 @@ END:
  * @return	PMC DMA instance pointer.
  *
  *****************************************************************************/
-XCsuDma *XPlmi_GetDmaInstance(u32 DeviceId)
+XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 {
-	XCsuDma *PmcDmaPtr = NULL;
+	XPmcDma *PmcDmaPtr = NULL;
 
 	if (DeviceId == PMCDMA_0_DEVICE_ID) {
 		if (PmcDma0.IsReady != FALSE) {
@@ -297,10 +297,10 @@ void XPlmi_SSSCfgDmaSbi(u32 Flags)
  * @return	XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
-int XPlmi_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
+int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
 {
 	int Status = XST_FAILURE;
-	XCsuDma *DmaPtr;
+	XPmcDma *DmaPtr;
 
 	/* Select DMA pointer */
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
@@ -312,15 +312,15 @@ int XPlmi_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 	}
 
 	/* Setting PMC_DMA in AXI FIXED mode */
-	if (((Channel == XCSUDMA_DST_CHANNEL) &&
+	if (((Channel == XPMCDMA_DST_CHANNEL) &&
 		((Flags & XPLMI_DST_CH_AXI_FIXED) == XPLMI_DST_CH_AXI_FIXED)) ||
-		((Channel == XCSUDMA_SRC_CHANNEL) &&
+		((Channel == XPMCDMA_SRC_CHANNEL) &&
 		((Flags & XPLMI_SRC_CH_AXI_FIXED) == XPLMI_SRC_CH_AXI_FIXED))) {
 		DmaCtrl.AxiBurstType = 1U;
-		XCsuDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
+		XPmcDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
 	}
 
-	XCsuDma_64BitTransfer(DmaPtr, Channel , Addr & 0xFFFFFFFFU,
+	XPmcDma_64BitTransfer(DmaPtr, Channel , Addr & 0xFFFFFFFFU,
 		(Addr >> 32U), Len, 0U);
 
 	if ((Flags & XPLMI_DMA_SRC_NONBLK) != 0U) {
@@ -328,18 +328,18 @@ int XPlmi_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 		goto END;
 	}
 
-	XCsuDma_WaitForDone(DmaPtr, Channel);
+	XPmcDma_WaitForDone(DmaPtr, Channel);
 
 	/* To acknowledge the transfer has completed */
-	XCsuDma_IntrClear(DmaPtr, Channel, XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(DmaPtr, Channel, XPMCDMA_IXR_DONE_MASK);
 
 	/* Revert the setting of PMC_DMA in AXI FIXED mode */
-	if (((Channel == XCSUDMA_DST_CHANNEL) &&
+	if (((Channel == XPMCDMA_DST_CHANNEL) &&
 		((Flags & XPLMI_DST_CH_AXI_FIXED) == XPLMI_DST_CH_AXI_FIXED)) ||
-		((Channel == XCSUDMA_SRC_CHANNEL) &&
+		((Channel == XPMCDMA_SRC_CHANNEL) &&
 		((Flags & XPLMI_SRC_CH_AXI_FIXED) == XPLMI_SRC_CH_AXI_FIXED))) {
 		DmaCtrl.AxiBurstType = 0U;
-		XCsuDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
+		XPmcDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
 	}
 
 	Status = XST_SUCCESS;
@@ -358,19 +358,19 @@ END:
  *****************************************************************************/
 void XPlmi_WaitForNonBlkDma(void)
 {
-	XCsuDma_SetConfig(&PmcDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
-	XCsuDma_WaitForDone(&PmcDma1, XCSUDMA_DST_CHANNEL);
-	XCsuDma_WaitForDone(&PmcDma1, XCSUDMA_SRC_CHANNEL);
+	XPmcDma_SetConfig(&PmcDma1, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
+	XPmcDma_WaitForDone(&PmcDma1, XPMCDMA_DST_CHANNEL);
+	XPmcDma_WaitForDone(&PmcDma1, XPMCDMA_SRC_CHANNEL);
 
 	/* To acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&PmcDma1, XCSUDMA_SRC_CHANNEL,
-					XCSUDMA_IXR_DONE_MASK);
-	XCsuDma_IntrClear(&PmcDma1, XCSUDMA_DST_CHANNEL,
-					XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(&PmcDma1, XPMCDMA_SRC_CHANNEL,
+					XPMCDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(&PmcDma1, XPMCDMA_DST_CHANNEL,
+					XPMCDMA_IXR_DONE_MASK);
 
 	DmaCtrl.AxiBurstType = 0U;
-	XCsuDma_SetConfig(&PmcDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
-	XCsuDma_SetConfig(&PmcDma1, XCSUDMA_DST_CHANNEL, &DmaCtrl);
+	XPmcDma_SetConfig(&PmcDma1, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
+	XPmcDma_SetConfig(&PmcDma1, XPMCDMA_DST_CHANNEL, &DmaCtrl);
 }
 
 /*****************************************************************************/
@@ -385,14 +385,14 @@ void XPlmi_WaitForNonBlkDma(void)
  *****************************************************************************/
 void XPlmi_WaitForNonBlkSrcDma(void)
 {
-	XCsuDma_SetConfig(&PmcDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
-	XCsuDma_WaitForDone(&PmcDma1, XCSUDMA_SRC_CHANNEL);
+	XPmcDma_SetConfig(&PmcDma1, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
+	XPmcDma_WaitForDone(&PmcDma1, XPMCDMA_SRC_CHANNEL);
 
 	/* To acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&PmcDma1, XCSUDMA_SRC_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(&PmcDma1, XPMCDMA_SRC_CHANNEL,
+				XPMCDMA_IXR_DONE_MASK);
 	DmaCtrl.AxiBurstType = 0U;
-	XCsuDma_SetConfig(&PmcDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+	XPmcDma_SetConfig(&PmcDma1, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 }
 
 /*****************************************************************************/
@@ -417,7 +417,7 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
 	XPlmi_SSSCfgSbiDma(Flags);
 
 	/* Receive the data from destination channel */
-	Status = XPlmi_DmaChXfer(DestAddr, Len, XCSUDMA_DST_CHANNEL, Flags);
+	Status = XPlmi_DmaChXfer(DestAddr, Len, XPMCDMA_DST_CHANNEL, Flags);
 
 	return Status;
 }
@@ -444,7 +444,7 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 	XPlmi_SSSCfgDmaSbi(Flags);
 
 	/* Receive the data from destination channel */
-	Status = XPlmi_DmaChXfer(SrcAddr, Len, XCSUDMA_SRC_CHANNEL, Flags);
+	Status = XPlmi_DmaChXfer(SrcAddr, Len, XPMCDMA_SRC_CHANNEL, Flags);
 
 	return Status;
 }
@@ -464,7 +464,7 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 {
 	int Status = XST_FAILURE;
-	XCsuDma *DmaPtr;
+	XPmcDma *DmaPtr;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 XfrTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
@@ -477,32 +477,32 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 
 	/* Polling for transfer to be done */
 	if ((Flags & XPLMI_DMA_SRC_NONBLK) == FALSE) {
-		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_SRC_CHANNEL);
+		XPmcDma_WaitForDone(DmaPtr, XPMCDMA_SRC_CHANNEL);
 	} else {
 		goto END;
 	}
 
 	if ((Flags & XPLMI_DMA_DST_NONBLK) == FALSE) {
-		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_DST_CHANNEL);
+		XPmcDma_WaitForDone(DmaPtr, XPMCDMA_DST_CHANNEL);
 	}
 	/* To acknowledge the transfer has completed */
 	if ((Flags & XPLMI_DMA_SRC_NONBLK) == FALSE) {
-		XCsuDma_IntrClear(DmaPtr, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+		XPmcDma_IntrClear(DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	}
 	if ((Flags & XPLMI_DMA_DST_NONBLK) == FALSE) {
-		XCsuDma_IntrClear(DmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+		XPmcDma_IntrClear(DmaPtr, XPMCDMA_DST_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	}
 
-	/* Reverting the AXI Burst setting of CSU_DMA */
+	/* Reverting the AXI Burst setting of PMC_DMA */
 	if (((Flags & XPLMI_DMA_SRC_NONBLK) == FALSE) &&
 		((Flags & XPLMI_SRC_CH_AXI_FIXED) == XPLMI_SRC_CH_AXI_FIXED)) {
 		DmaCtrl.AxiBurstType = 0U;
-		XCsuDma_SetConfig(DmaPtr, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+		XPmcDma_SetConfig(DmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 	}
 	if (((Flags & XPLMI_DMA_DST_NONBLK) == FALSE) &&
 		((Flags & XPLMI_DST_CH_AXI_FIXED) == XPLMI_DST_CH_AXI_FIXED)) {
 		DmaCtrl.AxiBurstType = 0U;
-		XCsuDma_SetConfig(DmaPtr, XCSUDMA_DST_CHANNEL, &DmaCtrl);
+		XPmcDma_SetConfig(DmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
 	}
 
 	if ((Flags & (XPLMI_DMA_SRC_NONBLK | XPLMI_DMA_DST_NONBLK)) == FALSE) {
@@ -530,17 +530,17 @@ END:
  * @param	DestAddr is address for DST channel to store the data
  * @param	Len is length of the data in bytes
  * @param	Flags to select PMC DMA and DMA Burst type
- * @param	DmaPtrAddr is to store address to CsuDmaInstance
+ * @param	DmaPtrAddr is to store address to PmcDmaInstance
  *
  * @return	XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
 int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
-		XCsuDma** DmaPtrAddr)
+		XPmcDma** DmaPtrAddr)
 {
 	int Status = XST_FAILURE;
 	u8 EnLast = 0U;
-	XCsuDma *DmaPtr;
+	XPmcDma *DmaPtr;
 
 	XPlmi_Printf(DEBUG_INFO, "DMA Xfer Src 0x%0x%08x, Dest 0x%0x%08x, "
 		"Len 0x%0x, Flags 0x%0x: ",
@@ -561,21 +561,21 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 	/* Configure the secure stream switch */
 	XPlmi_SSSCfgDmaDma(Flags);
 
-	/* Setting CSU_DMA in AXI Burst mode */
+	/* Setting PMC_DMA in AXI Burst mode */
 	if ((Flags & XPLMI_SRC_CH_AXI_FIXED) == XPLMI_SRC_CH_AXI_FIXED) {
 		DmaCtrl.AxiBurstType = 1U;
-		XCsuDma_SetConfig(DmaPtr, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+		XPmcDma_SetConfig(DmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 	}
-	/* Setting CSU_DMA in AXI Burst mode */
+	/* Setting PMC_DMA in AXI Burst mode */
 	if ((Flags & XPLMI_DST_CH_AXI_FIXED) == XPLMI_DST_CH_AXI_FIXED) {
 		DmaCtrl.AxiBurstType = 1U;
-		XCsuDma_SetConfig(DmaPtr, XCSUDMA_DST_CHANNEL, &DmaCtrl);
+		XPmcDma_SetConfig(DmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
 	}
 
 	/* Data transfer in loop back mode */
-	XCsuDma_64BitTransfer(DmaPtr, XCSUDMA_DST_CHANNEL,
+	XPmcDma_64BitTransfer(DmaPtr, XPMCDMA_DST_CHANNEL,
 		(u32)(DestAddr & 0xFFFFFFFFU), (u32)(DestAddr >> 32U), Len, EnLast);
-	XCsuDma_64BitTransfer(DmaPtr, XCSUDMA_SRC_CHANNEL,
+	XPmcDma_64BitTransfer(DmaPtr, XPMCDMA_SRC_CHANNEL,
 		(u32)(SrcAddr & 0xFFFFFFFFU), (u32)(SrcAddr >> 32U), Len, EnLast);
 	*DmaPtrAddr = DmaPtr;
 	Status = XST_SUCCESS;
@@ -604,7 +604,7 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 	XPlmi_Out32(PMC_GLOBAL_PRAM_ZEROIZE_SIZE, Len / XPLMI_PZM_WORD_LEN);
 
 	/* Receive the data from destination channel */
-	return XPlmi_DmaChXfer(Addr, Len / XPLMI_WORD_LEN, XCSUDMA_DST_CHANNEL,
+	return XPlmi_DmaChXfer(Addr, Len / XPLMI_WORD_LEN, XPMCDMA_DST_CHANNEL,
 		XPLMI_PMCDMA_0);
 }
 

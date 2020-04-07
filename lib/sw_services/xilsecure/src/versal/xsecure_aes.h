@@ -52,7 +52,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xcsudma.h"
+#include "xpmcdma.h"
 #include "xsecure_aes_core_hw.h"
 #include "xsecure_utils.h"
 /************************** Constant Definitions *****************************/
@@ -148,14 +148,14 @@ typedef enum {
 
 typedef struct {
 	u32 BaseAddress;
-	XCsuDma *CsuDmaPtr; /**< CSUDMA Instance Pointer */
+	XPmcDma *PmcDmaPtr; /**< PMCDMA Instance Pointer */
 	XSecure_Sss SssInstance;
 	XSecure_AesState AesState; /**< Current Aes State  */
 	XSecure_AesKeySrc KeySrc;
 } XSecure_Aes;
 
 /************************** Function Prototypes ******************************/
-u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr);
+u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
 
 u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 Configuration);
 

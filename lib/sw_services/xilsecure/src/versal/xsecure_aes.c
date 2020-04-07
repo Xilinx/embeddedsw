@@ -81,8 +81,8 @@ typedef struct {
 static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
 static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
 		XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize);
-static void XSecure_AesCsuDmaCfgEndianness(XCsuDma *InstancePtr,
-		XCsuDma_Channel Channel, u8 EndianType);
+static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
+		XPmcDma_Channel Channel, u8 EndianType);
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
 static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
 		u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr);
@@ -327,7 +327,7 @@ static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
  * This function initializes the instance pointer.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
- * @param	CsuDmaPtr	Pointer to the XCsuDma instance.
+ * @param	PmcDmaPtr	Pointer to the XPmcDma instance.
  *
  * @return	XST_SUCCESS if initialization was successful.
  *
@@ -336,16 +336,16 @@ static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
  *		care while passing data to AES engine.
  *
  ******************************************************************************/
-u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr)
+u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CsuDmaPtr != NULL);
+	Xil_AssertNonvoid(PmcDmaPtr != NULL);
 
 	/* Initialize the instance */
 	InstancePtr->BaseAddress = XSECURE_AES_BASEADDR;
-	InstancePtr->CsuDmaPtr = CsuDmaPtr;
+	InstancePtr->PmcDmaPtr = PmcDmaPtr;
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
@@ -530,7 +530,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 		XSECURE_AES_SOFT_RST_OFFSET);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -564,26 +564,26 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			XSECURE_AES_START_MSG_OFFSET,
 			XSECURE_AES_START_MSG_VAL_MASK);
 
-	/* Enable CSU DMA Src channel for byte swapping.*/
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	/* Enable PMC DMA Src channel for byte swapping.*/
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_DATA_SWAP_OFFSET, 0x1U);
 
 	/* Push IV into the AES engine. */
-	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		IvAddr, IvAddr >> 32, XSECURE_SECURE_GCM_TAG_SIZE/4U, (u8)1);
 
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+				XPMCDMA_IXR_DONE_MASK);
 
 	/* Select key decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -661,7 +661,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		XSECURE_AES_MODE_OFFSET, 0x0);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -684,8 +684,8 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_AES_DATA_SWAP_VAL_MASK);
 
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -693,19 +693,19 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSECURE_AES_START_MSG_VAL_MASK);
 
 	/* Push IV */
-	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		IvAddr, IvAddr >> 32,
 		XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
 
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL);
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+				XPMCDMA_IXR_DONE_MASK);
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	/* Update the state */
 	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
@@ -753,17 +753,17 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	Xil_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_DECRYPT_INITIALIZED);
 
-	/* Enable CSU DMA Src and Dst channels for byte swapping.*/
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
-		XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 	}
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -776,38 +776,38 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 	/* Configure destination */
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
-		XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL,
+		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
+				XPMCDMA_DST_CHANNEL,
 				OutDataAddr, OutDataAddr >> 32,
 				Size/XSECURE_WORD_SIZE, 0);
 	}
 
-	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL,
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL,
 				InDataAddr, InDataAddr >> 32,
 				Size/XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+					XPMCDMA_IXR_DONE_MASK);
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
 		/* Wait for the DST DMA completion. */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+		XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 
 		/* Acknowledge the transfer has completed */
-		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-						XCSUDMA_IXR_DONE_MASK);
+		XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
+						XPMCDMA_IXR_DONE_MASK);
 	}
 
 	/* Clear endianness */
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+					XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	Status = (u32)XST_SUCCESS;
 
 END:
@@ -849,11 +849,11 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x1U);
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-					XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+					XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -865,17 +865,17 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
-		XCSUDMA_SRC_CHANNEL, GcmTagAddr, GcmTagAddr >> 32,
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
+		XPMCDMA_SRC_CHANNEL, GcmTagAddr, GcmTagAddr >> 32,
 		XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0);
 
 	/* Wait for the Src DMA completion. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL,
-			XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL,
+			XPMCDMA_IXR_DONE_MASK);
 
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
@@ -883,8 +883,8 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-					XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+					XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	/* Get the AES status to know if GCM check passed. */
 	Status = XSecure_ReadReg(InstancePtr->BaseAddress,
@@ -1005,7 +1005,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC_DEC_N_MASK);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1027,8 +1027,8 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_AES_DATA_SWAP_VAL_MASK);
 
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -1036,19 +1036,19 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSECURE_AES_START_MSG_VAL_MASK);
 
 	/* Push IV */
-	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		IvAddr, IvAddr >> 32,
 		XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
 
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL);
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+				XPMCDMA_IXR_DONE_MASK);
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	/* Update the state */
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
@@ -1093,17 +1093,17 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	Xil_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_ENCRYPT_INITIALIZED);
 
-	/* Enable CSU DMA Src and Dst channels for byte swapping.*/
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
-		XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 	}
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1116,40 +1116,40 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 	/* Configure destination */
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
-		XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
-						XCSUDMA_DST_CHANNEL,
+		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
+						XPMCDMA_DST_CHANNEL,
 						OutDataAddr, OutDataAddr >> 32U,
 						Size/XSECURE_WORD_SIZE, FALSE);
 	}
 
-	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL,
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL,
 				InDataAddr, InDataAddr >> 32U,
 				Size/XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+					XPMCDMA_IXR_DONE_MASK);
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
 		/* Wait for the DST DMA completion. */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL);
+		XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
+				XPMCDMA_DST_CHANNEL);
 
 		/* Acknowledge the transfer has completed */
-		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+		XPmcDma_IntrClear(InstancePtr->PmcDmaPtr,
+				XPMCDMA_DST_CHANNEL,
+				XPMCDMA_IXR_DONE_MASK);
 	}
 
 	/* Clear endianness */
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+					XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	Status = (u32)XST_SUCCESS;
 
@@ -1192,11 +1192,11 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 			XSECURE_AES_DATA_SWAP_OFFSET,
 			XSECURE_AES_DATA_SWAP_VAL_MASK);
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+					XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->CsuDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1208,16 +1208,16 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 			goto END;
 	}
 
-	XCsuDma_64BitTransfer(InstancePtr->CsuDmaPtr,
-			XCSUDMA_DST_CHANNEL,
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
+			XPMCDMA_DST_CHANNEL,
 			GcmTagAddr, GcmTagAddr >> 32,
 			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0);
 	/* Wait for the DST DMA completion. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-					XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
+					XPMCDMA_IXR_DONE_MASK);
 
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
@@ -1225,8 +1225,8 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	XSecure_AesCsuDmaCfgEndianness(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+					XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 END:
 	XSecure_SetReset(InstancePtr->BaseAddress,
@@ -1302,9 +1302,9 @@ static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 					XSECURE_AES_STATUS_OFFSET),
-	                XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
-	                XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
-	                XSECURE_AES_TIMEOUT_MAX);
+			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
+			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
+			XSECURE_AES_TIMEOUT_MAX);
 
 	return Status;
 
@@ -1393,7 +1393,7 @@ u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(KeySrc < XSECURE_MAX_KEY_SOURCES);
 	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
-	                  (KeySize == XSECURE_AES_KEY_SIZE_256));
+			  (KeySize == XSECURE_AES_KEY_SIZE_256));
 
 	/* Load Key Size */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_SIZE_OFFSET, KeySize);
@@ -1523,29 +1523,29 @@ END:
 /**
  *
  * @brief
- * This is a helper function to enable/disable byte swapping feature of CSU DMA
+ * This is a helper function to enable/disable byte swapping feature of PMC DMA
  *
- * @param	InstancePtr 	Pointer to the XCsuDma instance.
- * @param	Channel 	Channel Type - XCSUDMA_SRC_CHANNEL
- *				XCSUDMA_DST_CHANNEL
+ * @param	InstancePtr 	Pointer to the XPmcDma instance.
+ * @param	Channel 	Channel Type - XPMCDMA_SRC_CHANNEL
+ *				XPMCDMA_DST_CHANNEL
  * @param	EndianType 	1 : Enable Byte Swapping
  *				0 : Disable Byte Swapping
  *
  * @return	None
  *
  ******************************************************************************/
-static void XSecure_AesCsuDmaCfgEndianness(XCsuDma *InstancePtr,
-		XCsuDma_Channel Channel,
+static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
+		XPmcDma_Channel Channel,
 		u8 EndianType)
 {
-	XCsuDma_Configure ConfigValues = {0};
+	XPmcDma_Configure ConfigValues = {0};
 
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XCsuDma_GetConfig(InstancePtr, Channel, &ConfigValues);
+	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
 	ConfigValues.EndianType = EndianType;
-	XCsuDma_SetConfig(InstancePtr, Channel, &ConfigValues);
+	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
 
 /*****************************************************************************/
@@ -1564,7 +1564,7 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	u32 Index;
 
 	u32 Key[8U] = {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
-                       0x4D3B0A53U, 0xF3C6E1AEU, 0xAFC2447AU, 0x7B534D99U};
+		       0x4D3B0A53U, 0xF3C6E1AEU, 0xAFC2447AU, 0x7B534D99U};
 	u32 Iv[4U] = {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
 	u32 Message[4U] = {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
 	u32 GcmTag[4U] = {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
@@ -1674,21 +1674,21 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
 		XSECURE_AES_DATA_SWAP_VAL_MASK);
 
-	/* Enable CSU DMA Src channel for byte swapping.*/
-	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
-		XCSUDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
-	/* Enable CSU DMA Dst channel for byte swapping.*/
-	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
-		XCSUDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
+	/* Enable PMC DMA Src channel for byte swapping.*/
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
+	/* Enable PMC DMA Dst channel for byte swapping.*/
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
 
-	/* Configure the CSU DMA Tx/Rx for the incoming Block. */
-	XCsuDma_Transfer(AesInstance->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+	/* Configure the PMC DMA Tx/Rx for the incoming Block. */
+	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 		(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_DISABLE);
 
-	XCsuDma_Transfer(AesInstance->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
 
-	XCsuDma_WaitForDone(AesInstance->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+	XPmcDma_WaitForDone(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 
 	Status = XSecure_AesWaitForDone(AesInstance);
 	if (Status != (u32)XST_SUCCESS) {
@@ -1696,22 +1696,22 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 		goto END;
 	}
 
-	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
-		XCSUDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 
-	/* Disable CSU DMA Dst channel for byte swapping. */
-	XSecure_AesCsuDmaCfgEndianness(AesInstance->CsuDmaPtr,
-		XCSUDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
+	/* Disable PMC DMA Dst channel for byte swapping. */
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
 		XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 
 END:
-	XCsuDma_IntrClear(AesInstance->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-		XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
+		XPMCDMA_IXR_DONE_MASK);
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(AesInstance->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-		XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+		XPMCDMA_IXR_DONE_MASK);
 	/* Configure AES in split mode */
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
 		XSECURE_AES_SPLIT_CFG_DATA_KEY_DISABLE);
@@ -1836,7 +1836,7 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 	}
 
 	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(AesInstance, AesInstance->CsuDmaPtr);
+	Status = XSecure_AesInitialize(AesInstance, AesInstance->PmcDmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

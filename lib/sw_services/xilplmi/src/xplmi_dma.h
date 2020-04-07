@@ -49,7 +49,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xcsudma.h"
+#include "xpmcdma.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -65,15 +65,6 @@ extern "C" {
 #define XPLMI_DMA_DST_TYPE_SHIFT	(18U)
 #define XPLMI_DMA_DST_TYPE_MASK		(0x3U << 18U)
 #define XPLMI_READ_AXI_FIXED		(0x1U)
-
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#define PMCDMA_0_DEVICE_ID	XPAR_XCSUDMA_0_DEVICE_ID /* PMCDMA device Id */
-#define PMCDMA_1_DEVICE_ID	XPAR_XCSUDMA_1_DEVICE_ID /* PMCDMA device Id */
-#define PMCDMA_LOOPBACK_CFG	(0x0000000FU)	/**< LOOP BACK configuration */
 
 /* SSS configurations and masks */
 #define XPLMI_SSSCFG_DMA0_MASK		(0x0000000FU)
@@ -112,14 +103,14 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_DmaInit();
-XCsuDma *XPlmi_GetDmaInstance(u32 DeviceId);
+XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId);
 int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 int XPlmi_EccInit(u64 Addr, u32 Len);
 int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
 int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
-		XCsuDma** DmaPtrAddr);
+		XPmcDma** DmaPtrAddr);
 void XPlmi_WaitForNonBlkSrcDma(void);
 void XPlmi_WaitForNonBlkDma(void);
 void XPlmi_SetMaxOutCmds(u32 Val);

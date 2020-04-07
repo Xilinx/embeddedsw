@@ -38,7 +38,6 @@
 * 4.1   kpt  01/07/20 Added Macro's for Magic Numbers in
 *                     xsecure_rsa_core.c
 * 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
-*       kpt  03/30/20 Removed CSU from all Macros
 *
 * </pre>
 *
