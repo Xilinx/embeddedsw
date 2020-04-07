@@ -27,7 +27,7 @@
 /**
 *
 * @file xv_vscaler_l2.c
-* @addtogroup v_vscaler_v3_0
+* @addtogroup v_vscaler_v3_1
 * @{
 * @details
 *
@@ -46,6 +46,8 @@
 * 3.0   mpe   04/28/16   Added optional color format conversion handling
 *       rco   02/09/17   Fix c++ compilation warnings
 *	jsr   09/07/18 Fix for 64-bit driver support
+* 3.1   vsa   04/07/20   Improve quality with new coefficients
+*
 * </pre>
 *
 ******************************************************************************/
@@ -64,10 +66,17 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
-extern const short XV_vscaler_fixedcoeff_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
-extern const short XV_vscaler_fixedcoeff_taps8[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8];
-extern const short XV_vscaler_fixedcoeff_taps10[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10];
-extern const short XV_vscaler_fixedcoeff_taps12[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12];
+extern const short XV_vscaler_Lanczos2_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
+extern const short XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
+extern const short XV_vscaler_fixedcoeff_taps6_ScalingRatio2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
+extern const short XV_vscaler_fixedcoeff_taps6_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
+extern const short XV_vscaler_fixedcoeff_taps6_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
+extern const short XV_vscaler_fixedcoeff_taps8_ScalingRatio2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8];
+extern const short XV_vscaler_fixedcoeff_taps8_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8];
+extern const short XV_vscaler_fixedcoeff_taps8_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8];
+extern const short XV_vscaler_fixedcoeff_taps10_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10];
+extern const short XV_vscaler_fixedcoeff_taps10_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10];
+extern const short XV_vscaler_fixedcoeff_taps12_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/
 static void XV_VScalerSelectCoeff(XV_Vscaler_l2 *InstancePtr,
@@ -170,58 +179,78 @@ static void XV_VScalerSelectCoeff(XV_Vscaler_l2 *InstancePtr,
 
     switch(InstancePtr->Vsc.Config.NumTaps)
     {
-      case XV_VSCALER_TAPS_6:
-	       coeff = &XV_vscaler_fixedcoeff_taps6[0][0];
-           numTaps = XV_VSCALER_TAPS_6;
-		   break;
+	case XV_VSCALER_TAPS_6:
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps6_ScalingRatio4[0][0];
+			numTaps = XV_VSCALER_TAPS_6;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps6_ScalingRatio3[0][0];
+			numTaps = XV_VSCALER_TAPS_6;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_vscaler_fixedcoeff_taps6_ScalingRatio2[0][0];
+			numTaps = XV_VSCALER_TAPS_6;
+		} else {// <= 1.5
+			coeff = &XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_VSCALER_TAPS_6;
+		}
+	break;
 
-      case XV_VSCALER_TAPS_8:
-	       if(ScalingRatio > 15) {
-		     coeff = &XV_vscaler_fixedcoeff_taps8[0][0];
-	         numTaps = XV_VSCALER_TAPS_8;
-	       } else {// <= 1.5
-	         coeff = &XV_vscaler_fixedcoeff_taps6[0][0];
-	         numTaps = XV_VSCALER_TAPS_6;
-	       }
-		   break;
+	case XV_VSCALER_TAPS_8:
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps8_ScalingRatio4[0][0];
+			numTaps = XV_VSCALER_TAPS_8;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps8_ScalingRatio3[0][0];
+			numTaps = XV_VSCALER_TAPS_8;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_vscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_VSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_VSCALER_TAPS_6;
+		}
+	break;
 
-      case XV_VSCALER_TAPS_10:
-	       if(ScalingRatio > 25) {// >2.5
-		     coeff = &XV_vscaler_fixedcoeff_taps10[0][0];
-	         numTaps = XV_VSCALER_TAPS_10;
-	       } else if(ScalingRatio > 15) {// 1.6 < ratio <= 2.5
-	         coeff = &XV_vscaler_fixedcoeff_taps8[0][0];
-	         numTaps = XV_VSCALER_TAPS_8;
-	       } else {// <= 1.5
-	         coeff = &XV_vscaler_fixedcoeff_taps6[0][0];
-	         numTaps = XV_VSCALER_TAPS_6;
-	       }
-           break;
+	case XV_VSCALER_TAPS_10:
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps10_ScalingRatio4[0][0];
+			numTaps = XV_VSCALER_TAPS_10;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps10_ScalingRatio3[0][0];
+			numTaps = XV_VSCALER_TAPS_10;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_vscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_VSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_VSCALER_TAPS_6;
+		}
+	break;
 
-    case XV_VSCALER_TAPS_12:
-	       if(ScalingRatio > 35) {// > 3.5
-		     coeff = &XV_vscaler_fixedcoeff_taps12[0][0];
-	         numTaps = XV_VSCALER_TAPS_12;
-	       } else if(ScalingRatio > 25) {//2.6 < Ratio <= 3.5
-	         coeff = &XV_vscaler_fixedcoeff_taps10[0][0];
-	         numTaps = XV_VSCALER_TAPS_10;
-	       } else if(ScalingRatio > 15) {//1.6 < Ratio <= 2.5
-	         coeff = &XV_vscaler_fixedcoeff_taps8[0][0];
-	         numTaps = XV_VSCALER_TAPS_8;
-	       } else {// <= 1.5
-	         coeff = &XV_vscaler_fixedcoeff_taps6[0][0];
-	         numTaps = XV_VSCALER_TAPS_6;
-	       }
-		   break;
+	case XV_VSCALER_TAPS_12:
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps12_ScalingRatio4[0][0];
+			numTaps = XV_VSCALER_TAPS_12;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_vscaler_fixedcoeff_taps10_ScalingRatio3[0][0];
+			numTaps = XV_VSCALER_TAPS_10;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_vscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_VSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_VSCALER_TAPS_6;
+		}
+	break;
 
-	  default:
-		  return;
+	default:
+		return;
 	}
   }
   else //Scale Up
   {
-    coeff = &XV_vscaler_fixedcoeff_taps6[0][0];
-    numTaps = XV_VSCALER_TAPS_6;
+	coeff = &XV_vscaler_Lanczos2_taps6[0][0];
+	numTaps = XV_VSCALER_TAPS_6;
   }
 
   XV_VScalerLoadExtCoeff(InstancePtr,
