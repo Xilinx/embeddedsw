@@ -65,6 +65,7 @@
 #include "xv_hdmitxss.h"
 #endif
 #include "xvidc_edid_ext.h"
+#include "xhdmi_example.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -297,7 +298,7 @@ void XHdmi_DisplayMainMenu(void)
 	xil_printf("---   MAIN MENU   ---\r\n");
 	xil_printf("---------------------\r\n");
 	xil_printf("i - Info\r\n");
-	xil_printf("       => Shows information about the HDMI \\
+	xil_printf("       => Shows information about the HDMI \
                                            RX stream, HDMI TX stream, \r\n");
 	xil_printf("          GT transceivers and PLL settings.\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -373,8 +374,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 #endif
-	u8 drpaddr = 0;
-	u16 DrpRdVal = 0;
 	// Default
 	Menu = XHDMI_MAIN_MENU;
 
@@ -440,9 +439,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Pass-through
 			else {
-			xil_printf("The example design is in \\
+			xil_printf("The example design is in \
                                              pass-through mode.\r\n");
-			xil_printf("In this mode the video parameters \\
+			xil_printf("In this mode the video parameters \
                                                   can't be changed.\r\n");
 			}
 			break;
@@ -482,9 +481,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Pass-through
 			else {
-			 xil_printf("The example design is in \\
+			 xil_printf("The example design is in \
                                                 pass-through mode.\r\n");
-		         xil_printf("In this mode the video\\
+		         xil_printf("In this mode the video \
                                       parameters can't be changed.\r\n");
 			}
 			break;
@@ -503,9 +502,9 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 			// Pass-through
 			else {
-			xil_printf("The example design is in \\
+			xil_printf("The example design is in \
                                                  pass-through mode.\r\n");
-			xil_printf("In this mode the video \\
+			xil_printf("In this mode the video \
                                        parameters can't be changed.\r\n");
 			}
 			break;
@@ -595,7 +594,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			Menu = XHDMI_DEBUG_MAIN_MENU;
 			break;
 #endif
-u32 RegVal;
 		case ('o') :
 		case ('O') :
 			/* Toggle GTWiz_RESET_ALL */
@@ -2017,7 +2015,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 #endif
 			// Alpha numeric data
 			if (isalpha(Data)) {
-				xil_printf("Invalid input. \\
+				xil_printf("Invalid input. \
                           Valid entry is only digits 0-9. Try again\r\n\r\n");
 				xil_printf("Enter Selection -> ");
 				InstancePtr->Value = 0;

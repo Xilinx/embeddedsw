@@ -659,7 +659,6 @@ void TxInfoFrameReset(void)
 	AviInfoFramePtr->ColorSpace = XHDMIC_COLORSPACE_RGB;
 	AviInfoFramePtr->VIC = 16;
 	AviInfoFramePtr->PicAspectRatio = XHDMIC_PIC_ASPECT_RATIO_16_9;
-    /* AudioInfoFramePtr->ChannelCount = XHDMIC_AUDIO_CHANNEL_COUNT_3; */
 }
 #endif
 #if (!defined XPS_BOARD_ZCU104)
@@ -1804,7 +1803,6 @@ void RxBrdgOverflowCallback(void *CallbackRef) {
 void TxStreamUpCallback(void *CallbackRef) {
 
 #if defined(XPAR_XV_HDMITXSS_NUM_INSTANCES)
-	XHdmiC_AudioInfoFrame *AudioInfoFramePtr;
 	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
 #endif
 	IsStreamUp = TRUE;
@@ -2320,7 +2318,7 @@ void EnableColorBar(XHdmiphy1                *Hdmiphy1Ptr,
 #else
 		if (VideoMode < XVIDC_VM_NUM_SUPPORTED) {
 #endif
-			xil_printf("Starting colorbar\r\n");
+			xil_printf("\r\nStarting colorbar\r\n");
 
 			/* Disable TX TDMS clock */
 			XHdmiphy1_Clkout1OBufTdsEnable(Hdmiphy1Ptr,
@@ -2381,11 +2379,7 @@ void EnableColorBar(XHdmiphy1                *Hdmiphy1Ptr,
 	}
 }
 #endif
-/*
-void Xil_AssertCallbackRoutine(u8 *File, s32 Line) {
-	xil_printf("Assertion in File %s, on line %0d\r\n", File, Line);
-}
-*/
+
 /*****************************************************************************/
 /**
 *
@@ -2413,7 +2407,6 @@ int config_hdmi() {
 #endif
 #if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 	XIicPs_Config *XIic0Ps_ConfigPtr;
-	XIicPs_Config *XIic1Ps_ConfigPtr;
 #endif
 
 
@@ -2495,9 +2488,7 @@ int config_hdmi() {
 	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
 
-//	/* Deassert the PCIERSTB */
-//	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
-//			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) | 0x2));
+
 	/* Deassert the GTWiz_RESET_ALL */
 	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
 			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) & ~0x1));
@@ -2511,7 +2502,7 @@ int config_hdmi() {
 	//Unlock the IPS registers
 	XHdmiphy1_Out32(0xF70E000C, 0xF9E8D7C6);
 
-	xil_printf("RX IPS From: 0x%08x ", XHdmiphy1_In32(0xF70E3C4C));
+	xil_printf("\nRX IPS From: 0x%08x ", XHdmiphy1_In32(0xF70E3C4C));
 	XHdmiphy1_Out32(0xF70E3C4C, 0x03E00C10);
     xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C4C));
 
@@ -3100,12 +3091,6 @@ int config_hdmi() {
 				XV_HDMIRXSS_HANDLER_LNKSTA,
 				(void *)RxLnkStaCallback,
 				(void *)&HdmiRxSs);
-	/*
-	 *  XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-	 *	  	  	    XV_HDMIRXSS_HANDLER_DDC,
-	 *	  	  	    RxDdcCallback,
-	 *	  	  	    (void *)&HdmiRxSs);
-	 */
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 				XV_HDMIRXSS_HANDLER_STREAM_DOWN,
 				(void *)RxStreamDownCallback,
@@ -3205,25 +3190,20 @@ int config_hdmi() {
 
 	xil_printf("---------------------------------\r\n");
 
-	/* Enable exceptions. */
-//	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
-//	Xil_ExceptionEnable();
     return 0 ;
 }
-void start_hdmi(XVidC_VideoMode VideoMode)
+
+int start_hdmi(XVidC_VideoMode VideoMode)
 {
+
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 
-	/* Initialize menu */
-//	XHdmi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	/* Start with 1080p stream */
 	TxInfoFrameReset();
 	XV_HdmiTxSs_SetStream(
 		&HdmiTxSs,
-		//XVIDC_VM_3840x2160_60_P,
-		//XVIDC_VM_1920x1080_60_P,
 		VideoMode ,
 		XVIDC_CSF_RGB,
 		XVIDC_BPC_8,
@@ -3254,7 +3234,6 @@ void start_hdmi(XVidC_VideoMode VideoMode)
 
 
 	/* Main loop */
-//	do
 	{
 
 #ifdef USE_HDCP
@@ -3300,14 +3279,11 @@ void start_hdmi(XVidC_VideoMode VideoMode)
 		}
 #endif
 
-		/* HDMI Menu */
-//		XHdmi_MenuProcess(&HdmiMenu);
 
 		/* VPHY error */
 		Hdmiphy1ProcessError();
 
 	}
-//	while (1);
 
     // Config MIPI Pipe
 

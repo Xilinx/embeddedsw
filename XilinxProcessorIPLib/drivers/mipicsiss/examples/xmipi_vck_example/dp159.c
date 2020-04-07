@@ -8,6 +8,7 @@
 	DP159
 
 	Written by Marco Groeneveld
+	Copyright (c) 2014 -2016 Xilinx, Inc. All rights reserved.
 
 	History
 	-------
@@ -430,18 +431,13 @@ u32 i2c_dp159(XHdmiphy1 *Hdmiphy1Ptr, u8 QuadId, u64 TxLineRate)
 	  r = i2c_dp159_chk(DP159_ES);
 
 	  if (r == XST_SUCCESS) {
-		  //xil_printf("Program DP159 ES... \r\n");
 		  r = i2c_dp159_write(DP159_ES, 0x09, 0x06);
 
 		  // HDMI 2.0
 		  if ((TxLineRate / (1000000)) > 3400) {
 			  if (DP159_VERBOSE)
 				  xil_printf("DP159 HDMI 2.0\r\n");
-// SLEW_CTL = Reg0Bh[7:6] = 10
-// TX_TERM_CTL = Reg0Bh[4:3] = 11
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x9a);
-// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
-// PRE_SEL = Reg0Ch[1:0] = 01 (labeled HDMI_TWPST)
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x49);
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 // Automatic retimer for HDMI 2.0
@@ -452,11 +448,7 @@ u32 i2c_dp159(XHdmiphy1 *Hdmiphy1Ptr, u8 QuadId, u64 TxLineRate)
 		  else {
 			  if (DP159_VERBOSE)
 				  xil_printf("DP159 HDMI 1.4\r\n");
-// SLEW_CTL = Reg0Bh[7:6] = 10
-// TX_TERM_CTL = Reg0Bh[4:3] = 00
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);
-// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
-// PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 // Automatic redriver to retimer crossover at 1.0 Gbps

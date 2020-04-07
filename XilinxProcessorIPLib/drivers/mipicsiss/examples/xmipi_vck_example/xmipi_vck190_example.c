@@ -1,4 +1,4 @@
-/******************************************************************************
+ /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -26,13 +26,279 @@
 #include "xscugic.h"
 #include "xuartpsv.h"
 #include "xvidc.h"
+#include "platform.h"
+#include "xgpio.h"
+#include "xdsitxss.h"
+#include "sensor_cfgs.h"
+#include "xv_hdmitxss.h"
 
 int config_hdmi();
-void start_hdmi(XVidC_VideoMode VideoMode);
+
 int config_csi_cap_path();
 int start_csi_cap_pipe(XVidC_VideoMode VideoMode);
 
+XPipeline_Cfg Pipeline_Cfg;
+XPipeline_Cfg New_Cfg;
+
+XVidC_VideoMode VideoMode_CSI;
+XVidC_VideoMode VideoMode_HDMI;
+
+extern int StartSensor(void);
+extern int SetupCameraSensor(void);
+extern void Reset_IP_Pipe(void);
+extern void InitVprocSs_Scaler(int count,int width,int height);
+extern void DisableScaler(void);
+extern void ConfigGammaLut(u32 width , u32 height);
+extern void ConfigDemosaic(u32 width , u32 height);
+extern void ConfigCSC(u32 width , u32 height);
+extern void CamReset(void);
+extern void EnableCSI(void);
+extern void DisableCSI(void);
 XScuGic     Intc;
+
+#define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
+#define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
+#define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
+
+#define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
+#define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
+#define DSI_BYTES_PER_PIXEL	(3)
+#define DSI_H_RES		(1920)
+#define DSI_V_RES		(1200)
+#define DSI_DISPLAY_HORI_VAL	(DSI_H_RES * DSI_BYTES_PER_PIXEL)
+#define DSI_DISPLAY_VERT_VAL	(DSI_V_RES)
+#define DSI_HBACK_PORCH			(0x39D)
+#define DSI_HFRONT_PORCH		(0x00B9)
+#define DSI_VSYNC_WIDTH			(0x05)
+#define DSI_VBACK_PORCH			(0x04)
+#define DSI_VFRONT_PORCH		(0x03)
+
+#define ACTIVE_LANES_1	1
+#define ACTIVE_LANES_2	2
+#define ACTIVE_LANES_3	3
+#define ACTIVE_LANES_4	4
+
+XDsiTxSs DsiTxSs;
+
+#define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_2_DEVICE_ID
+XGpio Gpio_Tready;
+
+extern	XV_HdmiTxSs  HdmiTxSs;
+
+/*****************************************************************************/
+/**
+ * This function disables Demosaic, GammaLut and VProcSS IPs
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void DisableImageProcessingPipe(void)
+{
+	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x0   );
+	Xil_Out32((VGAMMALUT_BASE + 0x00), 0x0   );
+	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
+
+}
+
+
+/*****************************************************************************/
+/**
+ * This function Initializes Image Processing blocks wrt to selected resolution
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void InitImageProcessingPipe(u32 width, u32 height)
+{
+	ConfigCSC(width, height);
+	ConfigGammaLut(width, height);
+	ConfigDemosaic(width, height);
+
+}
+
+/*****************************************************************************/
+/**
+ * This function programs MIPI DSI SS with the required timing paramters.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void InitDSI(void)
+{
+	u32 Status;
+	XDsi_VideoTiming Timing = { 0 };
+
+	/* Disable DSI core only. So removed DPHY register interface in design*/
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+
+
+	XDsiTxSs_Reset(&DsiTxSs);
+
+	usleep(100000);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+
+	do {
+		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
+	} while (!Status);
+
+	/* Set the DSI Timing registers */
+	Timing.HActive = DSI_DISPLAY_HORI_VAL;
+	Timing.VActive = DSI_DISPLAY_VERT_VAL;
+	Timing.HBackPorch = DSI_HBACK_PORCH;
+	Timing.HFrontPorch = DSI_HFRONT_PORCH;
+
+	Timing.VSyncWidth = DSI_VSYNC_WIDTH;
+	Timing.VBackPorch = DSI_VBACK_PORCH;
+	Timing.VFrontPorch = DSI_VFRONT_PORCH;
+
+	XDsiTxSs_SetCustomVideoInterfaceTiming(&DsiTxSs,
+						XDSI_VM_NON_BURST_SYNC_EVENT,
+						&Timing);
+
+	usleep(1000000);
+}
+
+
+/*****************************************************************************/
+/**
+ * This function disables MIPI DSI SS.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void DisableDSI(void)
+{
+
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+	usleep(100000);
+}
+
+void Shutdown_DSI(void) {
+	DisableDSI();
+	usleep(20000);
+	InitDSI();
+	usleep(20000);
+	xil_printf("DSI Turned Off...!!\r\n");
+}
+
+
+/*****************************************************************************/
+/**
+ * This function enables MIPI DSI SS.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void EnableDSI(void)
+{
+
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+}
+
+
+
+
+/*****************************************************************************/
+/**
+ * This function initializes MIPI DSI SS and gets config parameters.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+u32 SetupDSI(void)
+{
+	XDsiTxSs_Config *DsiTxSsCfgPtr = NULL;
+	u32 Status;
+	u32 PixelFmt;
+
+	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_DEVICE_ID);
+
+	if (!DsiTxSsCfgPtr) {
+		xil_printf("DSI Tx SS Device Id not found\r\n");
+		return XST_FAILURE;
+	}
+
+	Status = XDsiTxSs_CfgInitialize(&DsiTxSs, DsiTxSsCfgPtr,
+			DsiTxSsCfgPtr->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("DSI Tx Ss Cfg Init failed status = %d \
+				\r\n",Status);
+		return Status;
+	}
+
+	PixelFmt = XDsiTxSs_GetPixelFormat(&DsiTxSs);
+
+	if (PixelFmt != 0x3E) {
+		xil_printf("DSI Pixel format is not correct ");
+		switch (PixelFmt) {
+			case 0x0E:
+				xil_printf("Packed RGB565");
+				break;
+			case 0x1E:
+				xil_printf("Packed RGB666");
+				break;
+			case 0x2E:
+				xil_printf("Loosely packed RGB666");
+				break;
+			case 0x3E:
+				xil_printf("Packed RGB888");
+				break;
+			case 0x0B:
+				xil_printf("Compressed Pixel Stream");
+				break;
+			default:
+				xil_printf("Invalid data type");
+		}
+		xil_printf("\r\n");
+		xil_printf("Expected is 0x3E for RGB888\r\n");
+		return XST_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function programs GPIO to '0' to select tready from DSI.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void SelectDSIOutput(void) {
+	XGpio_DiscreteWrite(&Gpio_Tready, 1, 1);
+}
+
+/*****************************************************************************/
+/**
+ * This function programs GPIO to '0' to select tready from HDMI.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+
+void SelectHDMIOutput(void) {
+	XGpio_DiscreteWrite(&Gpio_Tready, 1, 0);
+}
+
 
 /*****************************************************************************/
 /**
@@ -318,52 +584,96 @@ void Enable_mmcmfabric_control()
 int XMipi_DisplayMainMenu(void)
 {
 	int VideoMode_Select;
+
 	xil_printf("\r\n");
 	xil_printf("---------------------\r\n");
 	xil_printf("---   MAIN MENU   ---\r\n");
 	xil_printf("---------------------\r\n");
-	xil_printf("0 - 1920x1080p60\r\n");
-xil_printf(" => Configures Sensor for 1920x1080 60fps.\r\n");
-	xil_printf("1 - 3840x2160p60\r\n");
-xil_printf(" => Configures Sensor for 3840x2160 60fps.\r\n");
 
-
-	xil_printf("\r\n\r\n");
-	xil_printf("Enter Selection -> ");
-
+	xil_printf("h - Select Display Device : HDMI\n\r");
+	xil_printf("d - Select Display Device : DSI\n\r");
+	xil_printf("r - Change the video resolution 2K/4K.\n\r");
 do {
+
 			u8 Response;
+
 
 			Response = XUartPsv_RecvByte(XPAR_XUARTPSV_0_BASEADDR);
 
 			XUartPsv_SendByte(XPAR_XUARTPSV_0_BASEADDR, Response);
 
+			if ((Response == 'r')||(Response == 'R')){
+					VideoMode_Select = 0 ;
+					xil_printf("\r\n0 - 1920x1080p60\r\n");
+					xil_printf("\r\n => Configures Sensor for 1920x1080 60fps.\r\n");
+					xil_printf("\r\n1 - 3840x2160p60\r\n");
+					xil_printf("\r\n => Configures Sensor for 3840x2160 60fps.\r\n");
+					xil_printf("\r\n\r\n");
+					xil_printf("\r\nEnter Selection ->\r\n ");
+					Response = XUartPsv_RecvByte(XPAR_XUARTPSV_0_BASEADDR);
+					XUartPsv_SendByte(XPAR_XUARTPSV_0_BASEADDR, Response);
+					if ((Response == 0)) {
+						xil_printf("\r\n\r\n 1920x1080p60 is Selected.\r\n");
+						VideoMode_Select = 0 ;
+						break;
+					} else if ((Response == '1')) {
+						VideoMode_Select = 1 ;
+						xil_printf("\r\n\r\n 3840x2160p60 is Selected.\r\n");
+						break;
+					} else {
+						VideoMode_Select = 0 ;
+xil_printf("\r\n Wrong Input Selection, Default(1920x1080p60) is Selected\r\n");
+						break;
+					}
 
-				if ((Response == '0')) {
+				} else if ((Response == 'h') ||(Response =='H')){
+					xil_printf("\r\n\r\n HDMI Display is Selected.\r\n");
+					Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
+					break;
+
+				} else if((Response == 'd') || (Response == 'D')){
+					xil_printf("\r\n\r\n DSI Display is Selected.\r\n");
+					Pipeline_Cfg.VideoDestn = XVIDDES_DSI;
+					break;
+
+				}else{
 					VideoMode_Select = 0 ;
-					xil_printf("\r\n\r\n 1920x1080p60 is Selected.\r\n");
-					break;
-				} else if ((Response == '1')) {
-                    VideoMode_Select = 1 ;
-					xil_printf("\r\n\r\n 3840x2160p60 is Selected.\r\n");
-					break;
-				} else if ((Response != 0)) {
-					VideoMode_Select = 0 ;
-					xil_printf("\r\n\r\n Wrong Input \\
-                        Selection,Default (1080p60) Output is Selected.\r\n");
-					break;
+					Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
+      xil_printf("\r\n\r\n Wrong Input Selection, Default is Selected.\r\n");
+                                        break;
 				}
 			} while (1);
-
 	return (VideoMode_Select) ;
 
 }
+
+
+
 int main() {
 
 	u32 Status = XST_FAILURE;
-	XVidC_VideoMode VideoMode_CSI;
-	XVidC_VideoMode VideoMode_HDMI;
+
+
+	Pipeline_Cfg.ActiveLanes = 4;
+	Pipeline_Cfg.VideoSrc = XVIDSRC_SENSOR;
+
+	/* Default DSI */
+	Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
+
+	Pipeline_Cfg.Live = TRUE;
+
+	/* Vertical and Horizontal flip don't work */
+	Pipeline_Cfg.Vflip = FALSE;
+	Pipeline_Cfg.Hflip = FALSE;
+
+	/* Video pipeline configuration from user */
+	Pipeline_Cfg.CameraPresent = TRUE;
+	Pipeline_Cfg.DSIDisplayPresent = TRUE;
+
+	/* Default Resolution that to be displayed */
+	Pipeline_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
 	int val = 0;
+
 	xil_printf("\r\n\r\n");
 	xil_printf("------------------------------------------\r\n");
 	xil_printf("---  Versal MIPI CSI RX Design Example ---\r\n") ;
@@ -372,63 +682,122 @@ int main() {
 	xil_printf("Build %s - %s\r\n", __DATE__, __TIME__);
 	xil_printf("------------------------------------------\r\n");
 
+	xil_printf("Please answer the following questions about the hardware setup.");
+	xil_printf("\r\n");
+
+
 	/* Initialize platform */
 	init_platform();
 	/*  XPIO DCI Enable */
 	xpio_dci_fix();
 
-	/*  XPIO equalization_fix */
-//	xpio_equalization_fix();
-
 	/* Enable MMCME5 Fabric Control in
  *                 PCSR - Work around for HDMI ( SIEA Build Only) */
 	Enable_mmcmfabric_control();
 
+
+	val = XMipi_DisplayMainMenu();
+
+	if(val == 0) {
+	  VideoMode_CSI =  XVIDC_VM_1920x1080_60_P ;
+	  VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
+	  Pipeline_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P ;
+	}
+	else {
+	VideoMode_CSI =  XVIDC_VM_3840x2160_60_P ;
+	VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
+	Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P ;
+	}
+
+	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
+	SelectHDMIOutput();
+
+	Reset_IP_Pipe();
+	Status = SetupDSI();
+		if (Status != XST_SUCCESS) {
+		  xil_printf("SetupDSI failed status = %x.\r\n", Status);
+		  return XST_FAILURE;
+		}
 	/* Initialize IRQ */
 	Status = SetupInterruptSystem();
 	if (Status == XST_FAILURE) {
 		xil_printf("\r\n\r\n IRQ Configuration failed.\r\n\r\n");
 		return XST_FAILURE;
 	}
-
-
-	val = XMipi_DisplayMainMenu();
-
-	if(val == 0){
-		 VideoMode_CSI =  XVIDC_VM_1920x1080_60_P ;
-		 VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
-	}
-	else{
-		 VideoMode_CSI =  XVIDC_VM_3840x2160_60_P ;
-		 VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
-	}
-
-	Status = config_hdmi();
-	if (Status == XST_FAILURE) {
-		xil_printf("\r\n\r\n HDMI  TX Configuration failed.\r\n\r\n");
-		return XST_FAILURE;
-	}
-
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
-		xil_printf("\r\n\r\n CSI Cature Pipe \\
-                                      Configuration failed.\r\n\r\n");
+		xil_printf("\r\n\r\n CSI Cature Pipe Configuration failed.\r\n\r\n");
 		return XST_FAILURE;
 	}
+	InitDSI();
+	xil_printf("\r\nInitDSI Done \n\r");
+	Status = config_hdmi();
+		if (Status == XST_FAILURE) {
+			xil_printf("\r\n\r\n HDMI  TX Configuration failed.\r\n\r\n");
+			return XST_FAILURE;
+		}
+		xil_printf("\r\n\r\n HDMI  TX Configuration Done.\r\n\r\n");
+		if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
+			SelectDSIOutput();
+		}else {
+			SelectHDMIOutput();
+		}
 
 	/* Enable exceptions. */
 	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
 	Xil_ExceptionEnable();
 
-	/* Start HDMI */
-    start_hdmi(VideoMode_HDMI);
+
 
 	/* Start CSI PIPE */
-
-	Status = start_csi_cap_pipe(VideoMode_CSI);
+	Status = start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 	if (Status == XST_FAILURE) {
 		xil_printf("\r\n\r\n CSI Cature Pipe Start failed.\r\n\r\n");
 		return XST_FAILURE;
 	}
-	return 0;
+
+	EnableDSI();
+
+
+		/* Main loop */
+			do {
+
+				val = XMipi_DisplayMainMenu();
+					if(val == 0) {
+					  VideoMode_CSI =  XVIDC_VM_1920x1080_60_P ;
+					  VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
+					  Pipeline_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P ;
+					  }
+					  else {
+					  VideoMode_CSI =  XVIDC_VM_3840x2160_60_P ;
+					  VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
+					  Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P ;
+					  }
+
+				if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI) {
+					xil_printf("Set HDMI as destination \r\n");
+					config_csi_cap_path( );
+					SelectHDMIOutput();
+					start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
+				}
+
+				if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
+					xil_printf("Set DSI as destination \r\n");
+
+					XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
+					Reset_IP_Pipe();
+					SetupDSI();
+
+					config_csi_cap_path();
+					SelectDSIOutput();
+					InitDSI();
+
+					start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
+
+					EnableDSI();
+				}
+
+            } while (1);
+
+  return 0;
 }
