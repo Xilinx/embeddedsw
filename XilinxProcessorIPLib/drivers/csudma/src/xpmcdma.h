@@ -76,6 +76,10 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   mmd     01/04/20 First release
+* 1.7	am 		09/24/20 Changed return type of XPmcDma_WaitForDoneTimeout
+*						 function from u32 to int
+*
+* </pre>
 *
 ******************************************************************************/
 
@@ -760,23 +764,23 @@ static INLINE void XPmcDma_GetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Chann
 
 /*****************************************************************************/
 /**
-* This function will poll for completion of data transfer periodically until
-* DMA done bit set or till the timeout occurs.
+* @brief	This function will poll for completion of data transfer until
+* 			 DMA done bit set or till the timeout occurs
 *
-* @param	InstancePtr is a pointer to XPmcDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-*		Destination.
-*		Source channel      - XPMCDMA_SRC_CHANNEL
-*		Destination Channel - XPMCDMA_DST_CHANNEL
+* @param	InstancePtr - Is a pointer to XPmcDma instance to be worked on
+* @param	Channel     - Represents the type of channel either it is Source or
+*						  Destination
+*							Source channel      - XPMCDMA_SRC_CHANNEL
+*							Destination Channel - XPMCDMA_DST_CHANNEL
 *
-* @return	XST_SUCCESS - Incase of Success
-*		XST_FAILURE - Incase of Timeout.
+* @return	XST_SUCCESS - In case of Success
+*			XST_FAILURE - In case of Timeout
 *
 ******************************************************************************/
-static INLINE u32 XPmcDma_WaitForDoneTimeout(XPmcDma *InstancePtr,
+static INLINE int XPmcDma_WaitForDoneTimeout(XPmcDma *InstancePtr,
 	XPmcDma_Channel Channel)
 {
-	return XCsuDma_WaitForDoneTimeout(InstancePtr, Channel);
+	return (int)XCsuDma_WaitForDoneTimeout(InstancePtr, Channel);
 }
 
 /* Interrupt related APIs */
