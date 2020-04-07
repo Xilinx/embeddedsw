@@ -133,7 +133,6 @@ extern "C" {
 #define CMN_SN0_PCMO_PROP_MASK		0x4U
 #define CMN_APER_SIZE0_EN_MASK		0x1U
 #define CMN_CLEAR_MASK			0x0U
-#define DVSEC_PRIM_PRT_CTRL_SAM_MASK	0x000000E0U
 #define DVSEC_RSAM_VALID_MASK		0x00000040U
 #define DVSEC_SAM_PID_MASK		0xF0U
 #define DVSEC_IDM_VALID_MASK		0x00000020U
@@ -255,7 +254,7 @@ extern "C" {
 	Val = Dvsec_Rd32((PCIEA_DVSEC_0), (Reg)) & (DvsecStruct[Index].Mask);
 
 #define CMN_MEMORY_LEN(EndAddr, StartAddr) \
-	log2((((EndAddr) - (StartAddr)) * (4 * 1024))/64);
+	log2((((EndAddr) - (StartAddr)) * ((u32)4U * (u32)1024U)) / (u32)64U);
 
 typedef struct{
 	u32 DvsecOff;
