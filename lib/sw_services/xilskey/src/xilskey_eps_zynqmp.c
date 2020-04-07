@@ -386,37 +386,33 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	}
 	if (InstancePtr->PrgrmPpk0Hash == TRUE) {
 		/* Programming SHA3 hash(384 bit) into Efuse PPK0 */
-		if (InstancePtr->IsPpk0Sha3Hash == TRUE) {
-			XilSKey_Efuse_ConvertBitsToBytes(
-				InstancePtr->Ppk0Hash, Ppk0InBits,
-				XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
-			Status =
-				XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
-				Ppk0InBits, XSK_ZYNQMP_EFUSEPS_PPK0_START_ROW,
-				XSK_ZYNQMP_EFUSEPS_PPK0_SHA3_HASH_END_ROW,
-						XSK_ZYNQMP_EFUSEPS_EFUSE_0);
-			if (Status != (u32)XST_SUCCESS) {
-				Status = (Status |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_PPK0_HASH);
-				goto END;
-			}
+		XilSKey_Efuse_ConvertBitsToBytes(
+			InstancePtr->Ppk0Hash, Ppk0InBits,
+			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
+		Status =
+			XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
+			Ppk0InBits, XSK_ZYNQMP_EFUSEPS_PPK0_START_ROW,
+			XSK_ZYNQMP_EFUSEPS_PPK0_SHA3_HASH_END_ROW,
+					XSK_ZYNQMP_EFUSEPS_EFUSE_0);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (Status |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PPK0_HASH);
+			goto END;
 		}
 	}
 	if (InstancePtr->PrgrmPpk1Hash == TRUE) {
-	/* Programming SHA3 hash(384 bit) into Efuse PPK1 */
-		if (InstancePtr->IsPpk1Sha3Hash == TRUE) {
-			XilSKey_Efuse_ConvertBitsToBytes(
-				InstancePtr->Ppk1Hash, Ppk1InBits,
-				XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
-			Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
-				Ppk1InBits, XSK_ZYNQMP_EFUSEPS_PPK1_START_ROW,
-				XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW,
-						XSK_ZYNQMP_EFUSEPS_EFUSE_0);
-			if (Status != (u32)XST_SUCCESS) {
-				Status = (Status |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH);
-				goto END;
-			}
+		/* Programming SHA3 hash(384 bit) into Efuse PPK1 */
+		XilSKey_Efuse_ConvertBitsToBytes(
+			InstancePtr->Ppk1Hash, Ppk1InBits,
+			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
+		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
+			Ppk1InBits, XSK_ZYNQMP_EFUSEPS_PPK1_START_ROW,
+			XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW,
+					XSK_ZYNQMP_EFUSEPS_EFUSE_0);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (Status |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH);
+			goto END;
 		}
 	}
 
@@ -2019,7 +2015,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
 		}
 	}
 
-	/* Check Zeros for PPK0 hash */
+	/* Check Zeros for PPK1 hash */
 	if (InstancePtr->PrgrmPpk1Hash == TRUE) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(PpkHashVal,
 					XSK_EFUSEPS_READ_FROM_CACHE);
@@ -2761,7 +2757,6 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 				goto END;
 			}
 			EfuseInstance.PrgrmPpk0Hash = TRUE;
-			EfuseInstance.IsPpk0Sha3Hash = TRUE;
 			for (Index = 0U;
 			     Index < XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES;
 			     Index++) {
@@ -2778,7 +2773,6 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 				goto END;
 			}
 			EfuseInstance.PrgrmPpk1Hash = TRUE;
-			EfuseInstance.IsPpk0Sha3Hash = TRUE;
 			for (Index = 0U;
 			     Index < XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES;
 			     Index++) {

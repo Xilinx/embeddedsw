@@ -295,10 +295,6 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	/* Variable for Timer Initialization */
 	PsInstancePtr->IntialisedTimer = 0;
 
-	/* Copying PPK hash types */
-	PsInstancePtr->IsPpk0Sha3Hash = XSK_EFUSEPS_PPK0_IS_SHA3;
-	PsInstancePtr->IsPpk1Sha3Hash = XSK_EFUSEPS_PPK1_IS_SHA3;
-
 	/* Copy the fuses to be programmed */
 
 	/* Copy all the user fuses to be programmed */
@@ -433,40 +429,34 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 
 	/* Is PPK0 hash programming is enabled */
 	if (PsInstancePtr->PrgrmPpk0Hash == TRUE) {
-		/* If Sha3 hash is programming into Efuse PPK0 */
-		if (PsInstancePtr->IsPpk0Sha3Hash == TRUE) {
-			/* Validation of PPK0 sha3 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK0 sha3 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				&PsInstancePtr->Ppk0Hash[0],
-				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+		/* Validation of PPK0 sha3 hash */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+			(char *)XSK_EFUSEPS_PPK0_HASH,
+			XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
 		}
+		/* Assign the PPK0 sha3 hash */
+		XilSKey_Efuse_ConvertStringToHexBE(
+			(char *)XSK_EFUSEPS_PPK0_HASH,
+			&PsInstancePtr->Ppk0Hash[0],
+			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
 	}
 
 	/* Is PPK1 hash programming is enabled */
 	if (PsInstancePtr->PrgrmPpk1Hash == TRUE) {
-		/* If Sha3 hash is programming into Efuse PPK1 */
-		if (PsInstancePtr->IsPpk1Sha3Hash == TRUE) {
-			/* Validation of PPK1 sha3 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK1 sha3 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				&PsInstancePtr->Ppk1Hash[0],
-				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+		/* Validation of PPK1 sha3 hash */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+			(char *)XSK_EFUSEPS_PPK1_HASH,
+			XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
 		}
+		/* Assign the PPK1 sha3 hash */
+		XilSKey_Efuse_ConvertStringToHexBE(
+			(char *)XSK_EFUSEPS_PPK1_HASH,
+			&PsInstancePtr->Ppk1Hash[0],
+			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
 	}
 
 	if (PsInstancePtr->PrgrmSpkID == TRUE) {
