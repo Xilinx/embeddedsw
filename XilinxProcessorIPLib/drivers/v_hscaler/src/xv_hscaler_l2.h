@@ -27,7 +27,7 @@
 /**
 *
 * @file xv_hscaler_l2.h
-* @addtogroup v_hscaler_v3_1
+* @addtogroup v_hscaler_v3_3
 * @{
 * @details
 *
