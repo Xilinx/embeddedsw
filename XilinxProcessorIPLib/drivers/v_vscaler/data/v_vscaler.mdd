@@ -31,6 +31,6 @@ BEGIN driver v_vscaler
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = v_vscaler;
- OPTION version = 3.0;
+ OPTION version = 3.1;
 
 END driver

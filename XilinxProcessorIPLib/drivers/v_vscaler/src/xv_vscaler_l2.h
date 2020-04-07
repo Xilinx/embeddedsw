@@ -27,7 +27,7 @@
 /**
 *
 * @file xv_vscaler_l2.h
-* @addtogroup v_vscaler_v3_0
+* @addtogroup v_vscaler_v3_1
 * @{
 * @details
 *
@@ -88,6 +88,7 @@
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 * 3.0   mpe   04/28/16   Added optional color format conversion handling
+* 3.1   vsa   04/07/20   Improve quality with new coefficients
 *
 * </pre>
 *
@@ -158,7 +159,6 @@ typedef struct
  *****************************************************************************/
 #define XV_VscalerIs420Enabled(InstancePtr) \
    ((InstancePtr)->Vsc.Config.Is420Enabled)
-
 
 /************************** Function Prototypes ******************************/
 int XV_VScalerInitialize(XV_Vscaler_l2 *InstancePtr, u16 DeviceId);
