@@ -132,6 +132,14 @@ done:
 	return Status;
 }
 
+void XPmReset_ChangePsPorResetType(void)
+{
+	XPm_ResetNode* Rst = XPmReset_GetById(PM_RST_PS_POR);
+	if (NULL != Rst) {
+		Rst->Ops = &ResetOps[XPM_RSTOPS_CUSTOM];
+	}
+}
+
 XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 {
 	u32 ResetIndex = NODEINDEX(ResetId);
@@ -168,10 +176,11 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 		 * LPD UseCount more then 1 indicates that PS only reset is
 		 * not called from LPD power down routine. So power down the
 		 * LPD gracefully which in turn performs PS only reset.
-		 * Also set UserAssertPsSrst flag to skip PS-POR and LPD rail
-		 * handling in LPD power down.
 		 */
-		UserAssertPsSrst = 1U;
+		if (PM_RST_PS_SRST == Rst->Node.Id) {
+			/* Set UserAssertPsSrst flag to skip PS-POR and LPD rail handling for PS-SRST */
+			UserAssertPsSrst = 1U;
+		}
 		Status = XPm_ForcePowerdown(PM_SUBSYS_PMC, PM_POWER_LPD, 0U);
 		UserAssertPsSrst = 0U;
 		if (Status != XST_SUCCESS) {
@@ -322,6 +331,12 @@ static const struct ResetCustomOps {
 } Reset_Custom[] = {
 	{
 		.ResetIdx = (u32)XPM_NODEIDX_RST_PS_SRST,
+		.ActionAssert = &PsOnlyResetAssert,
+		.ActionRelease = &PsOnlyResetRelease,
+		.ActionPulse = &PsOnlyResetPulse,
+	},
+	{
+		.ResetIdx = (u32)XPM_NODEIDX_RST_PS_POR,
 		.ActionAssert = &PsOnlyResetAssert,
 		.ActionRelease = &PsOnlyResetRelease,
 		.ActionPulse = &PsOnlyResetPulse,

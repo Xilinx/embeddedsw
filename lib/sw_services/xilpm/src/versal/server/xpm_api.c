@@ -595,6 +595,9 @@ static void PostTopologyHook(void)
 	 *	 will available in tools.
 	 */
 	AddIPIPmcDevice();
+
+	/* TODO: Remove this hack once PS_POR reset type is changed in topology CDO */
+	XPmReset_ChangePsPorResetType();
 }
 
 XStatus XPm_HookAfterPlmCdo(void)
