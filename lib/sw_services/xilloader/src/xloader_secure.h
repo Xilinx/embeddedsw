@@ -282,7 +282,7 @@ typedef struct {
 	u32 Sha3Hash[XLOADER_SHA3_LEN/4];
 	u32 EncNextBlkSize;
 	XLoader_AuthCertificate *AcPtr;
-	XCsuDma *CsuDmaInstPtr;
+	XPmcDma *PmcDmaInstPtr;
 }XLoader_SecureParms;
 
 typedef enum {

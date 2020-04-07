@@ -42,9 +42,9 @@
 * The SHA-3 driver instance can be initialized
 * in the following way:
 *
-*   - XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *DmaPtr)
+*   - XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma *DmaPtr)
 *
-* A pointer to XCsuDma instance has to be passed in initialization as PMC
+* A pointer to XPmcDma instance has to be passed in initialization as PMC
 * DMA will be used for data transfers to SHA module.
 *
 *
@@ -72,7 +72,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_util.h"
-#include "xcsudma.h"
+#include "xpmcdma.h"
 #include "xsecure_utils.h"
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
@@ -117,7 +117,7 @@ typedef enum {
  */
 typedef struct {
 	u32 BaseAddress;  /**< Device Base Address */
-	XCsuDma *DmaPtr; /**< Pointer to PMC DMA Instance */
+	XPmcDma *DmaPtr; /**< Pointer to PMC DMA Instance */
 	u32 Sha3Len; /**< SHA3 Input Length */
 	u32 PartialLen;
 	u32 IsLastUpdate;
@@ -131,7 +131,7 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 /* Initialization */
-u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *DmaPtr);
+u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma *DmaPtr);
 
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 

@@ -73,9 +73,9 @@
 inline u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
 {
 	return Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_SHA3_DONE_OFFSET,
-	                XSECURE_SHA3_DONE_DONE,
-	                XSECURE_SHA3_DONE_DONE,
-	                XSECURE_SHA_TIMEOUT_MAX);
+			XSECURE_SHA3_DONE_DONE,
+			XSECURE_SHA3_DONE_DONE,
+			XSECURE_SHA_TIMEOUT_MAX);
 }
 
 /************************** Function Prototypes ******************************/
@@ -98,7 +98,7 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 * required for operating the SHA3 cryptographic engine.
 *
 * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
-* @param	DmaPtr 	Pointer to the XCsuDma instance.
+* @param	DmaPtr 	Pointer to the XPmcDma instance.
 *
 * @return	XST_SUCCESS if initialization was successful
 *
@@ -106,7 +106,7 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 * 		xsecure_hw.h
 *
 *****************************************************************************/
-u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* DmaPtr)
+u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -414,18 +414,18 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	if (Status != (u32)XST_SUCCESS){
 		goto ENDF;
 	}
-	XCsuDma_Transfer(InstancePtr->DmaPtr, XCSUDMA_SRC_CHANNEL,
+	XPmcDma_Transfer(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
 				(UINTPTR)Data, (u32)Size/4U, IsLast);
 
-	/* Checking the CSU DMA done bit should be enough. */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->DmaPtr,
-						XCSUDMA_SRC_CHANNEL);
+	/* Checking the PMC DMA done bit should be enough. */
+	Status = XPmcDma_WaitForDoneTimeout(InstancePtr->DmaPtr,
+						XPMCDMA_SRC_CHANNEL);
 	if (Status != (u32)XST_SUCCESS) {
 		goto ENDF;
 	}
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->DmaPtr, XCSUDMA_SRC_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
+				XPMCDMA_IXR_DONE_MASK);
 ENDF:
 	return Status;
 }
@@ -465,7 +465,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	{
 		/* Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
-		    (((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) != 0U)) {
+		    (((UINTPTR)Data & XPMCDMA_ADDR_LSB_MASK) != 0U)) {
 			XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
 				(void *)Data,
 				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
@@ -491,7 +491,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						DmableDataLen, IsLast);
 		if (Status != (u32)XST_SUCCESS){
 			(void)memset(&InstancePtr->PartialData, 0,
-			            sizeof(InstancePtr->PartialData));
+				    sizeof(InstancePtr->PartialData));
 			goto END;
 		}
 		PrevPartialLen = 0U;
@@ -501,7 +501,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	   data padding */
 	if(RemainingDataLen > 0U) {
 		XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)Data,
-		                     (RemainingDataLen - PrevPartialLen));
+				     (RemainingDataLen - PrevPartialLen));
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
 	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,

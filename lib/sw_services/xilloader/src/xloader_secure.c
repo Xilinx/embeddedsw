@@ -118,7 +118,7 @@ XLoader_AuthCertificate AuthCert;
 u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 						u32 PrtnNum)
 {
-	XCsuDma *CsuDmaPtr;
+	XPmcDma *PmcDmaPtr;
 	u32 Status = XLOADER_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
 	u32 ChecksumOffset;
@@ -135,12 +135,12 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	SecurePtr->PrtnHdr = PrtnHdr;
 
 	/* Get DMA instance */
-	CsuDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
-	if (CsuDmaPtr == NULL) {
+	PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	if (PmcDmaPtr == NULL) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_INIT_GET_DMA, 0x0U);
 		goto END;
 	}
-	SecurePtr->CsuDmaInstPtr = CsuDmaPtr;
+	SecurePtr->PmcDmaInstPtr = PmcDmaPtr;
 
 	/* Check if checksum is enabled */
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK) != 0x00) {
@@ -590,8 +590,8 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 	/* Get DMA instance */
-	SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
-	if (SecurePtr->CsuDmaInstPtr == NULL) {
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_GET_DMA, 0x0U);
 		goto END;
 	}
@@ -615,7 +615,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 		 * Skip running the KAT for SHA3 if it is already run by ROM
 		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
 		 */
-		Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+		Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED,
 							 Status);
@@ -632,7 +632,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* calculate hash of the image header table */
-	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
 						 Status);
@@ -712,8 +712,8 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	if (SecurePtr->IsEncrypted == TRUE) {
 
 		/* Get DMA instance */
-		SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
-		if (SecurePtr->CsuDmaInstPtr == NULL) {
+		SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+		if (SecurePtr->PmcDmaInstPtr == NULL) {
 			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_GET_DMA, 0x0U);
 			goto END;
 		}
@@ -731,7 +731,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		if((DpacmEfuseStatus == 0U) && (PlmDpacmKatStatus == 0U)) {
 
 			/* Initialize AES driver */
-			Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
+			Status = XSecure_AesInitialize(&AesInstance, SecurePtr->PmcDmaInstPtr);
 			if (Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, " Failed at XSecure_AesInitialize \n\r");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -749,7 +749,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_AES_KAT_MASK) == 0U) {
 
 			/* Initialize AES driver */
-			Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
+			Status = XSecure_AesInitialize(&AesInstance, SecurePtr->PmcDmaInstPtr);
 			if (Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, " Failed at XSecure_AesInitialize \n\r");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -924,15 +924,15 @@ static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
 	u8 CalHash[XLOADER_SHA3_LEN] = {0};
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
-	XCsuDma *CsuDmaPtr = SecurePtr->CsuDmaInstPtr;
+	XPmcDma *PmcDmaPtr = SecurePtr->PmcDmaInstPtr;
 	XLoader_AuthCertificate *AcPtr=
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
-	if (CsuDmaPtr == NULL) {
+	if (PmcDmaPtr == NULL) {
 		Status = XLOADER_FAILURE;
 		goto END;
 	}
 
-	RetStatus = XSecure_Sha3Initialize(&Sha3Instance, CsuDmaPtr);
+	RetStatus = XSecure_Sha3Initialize(&Sha3Instance, PmcDmaPtr);
 	if (RetStatus != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 									RetStatus);
@@ -1201,7 +1201,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 
 	XPlmi_Printf(DEBUG_DETAILED, "Performing SPK verification \n\r");
 	/* Initialize sha3 */
-	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(
 			XLOADER_SEC_SPK_HASH_CALCULATION_FAIL, Status);
@@ -1480,7 +1480,7 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 		goto END;
 	}
 		/* Calculate PPK hash */
-	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_PPK_HASH_CALCULATION_FAIL, Status);
@@ -1682,7 +1682,7 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 
 	/* As PMCDMA can't accept unaligned addresses */
 	(void)memcpy(Xsecure_Varsocm.EmHash, XSecure_RsaSha3Array + 463U, 48U);
-	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 
 			/* Salt extraction */
 	/* Generate DB from masked DB and Hash */
@@ -1700,7 +1700,7 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 	/* As PMCDMA can't accept unaligned addresses */
 	(void)memcpy(Xsecure_Varsocm.Salt, Buffer + 415U, 48U);
 
-	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	/* Hash on M prime */
 	XSecure_Sha3Start(&Sha3Instance);
 
@@ -2052,7 +2052,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 	XLoader_AesKekKey KeyDetails;
 
 	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
+	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
@@ -2486,8 +2486,8 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	XSecure_Sha3 Sha3Instance;
 
 	/* Get DMA instance */
-	SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
-	if (SecurePtr->CsuDmaInstPtr == NULL) {
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_GET_DMA, 0x0U);
 		goto END;
 	}
@@ -2516,7 +2516,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	 */
 	/* calculate hash on the data */
 	Status = XSecure_Sha3Initialize(&Sha3Instance,
-			SecurePtr->CsuDmaInstPtr);
+			SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
@@ -2673,7 +2673,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 
 	/* Authenticate the headers */
 	Status = XSecure_Sha3Initialize(&Sha3Instance,
-				SecurePtr->CsuDmaInstPtr);
+				SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 							 Status);
@@ -2776,14 +2776,14 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* Get DMA instance */
-	SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
-	if (SecurePtr->CsuDmaInstPtr == NULL) {
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_GET_DMA, 0x0U);
 		goto END;
 	}
 
 	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
+	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,
 			" Failed at XSecure_AesInitialize \n\r");

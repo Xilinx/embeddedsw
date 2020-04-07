@@ -43,7 +43,6 @@
 *            03/24/20 Added XSecure_RsaZeroizeVerify for
 *                     RSA Zeroization Verification and modified Code for
 *                     Zeroization
-*       kpt  03/30/20 Removed CSU from all Macros
 *
 * </pre>
 *
@@ -60,8 +59,8 @@
 /************************** Constant Definitions ****************************/
 /* PKCS padding for SHA-3 in Versal */
 static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
-                        0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
-                        0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
 
 /**************************** Type Definitions *******************************/
 
