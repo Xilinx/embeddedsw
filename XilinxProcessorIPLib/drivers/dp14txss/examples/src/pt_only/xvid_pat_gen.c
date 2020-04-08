@@ -27,14 +27,11 @@
 #include "xparameters.h"
 #include "xdptxss.h"
 
-#include "xclk_wiz.h"
 
-#ifdef versal
-extern XClk_Wiz ClkWiz_Dynamic;
-extern XClk_Wiz_Config *CfgPtr_Dynamic;
-#endif
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 #define XILINX_DISPLAYPORT_VID_BASE_ADDRESS		\
 	XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
+#endif
 #define XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET	0x10000
 #define XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET	0x20000
 #define XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET	0x30000
@@ -45,27 +42,12 @@ u32 StreamOffset[4] = {0, XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET,
 
 u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 
-#ifndef versal
-#define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
-#endif
-#define CLK_LOCK                        1
 
-//Following limits are for ZCU102 US+ device
-//User to refer to DS and Switching char and update for
-//their design
-#define VCO_MAX 1600000
-#define VCO_MIN 800000
+#define NEW_PAT_GEN 1
 
-#define M_MAX 128
-#define M_MIN 2
-
-#define D_MAX 106
-#define D_MIN 1
-
-#define DIV_MAX 128
-#define DIV_MIN 1
 
 /************************** Constant Definitions *****************************/
+
 
 #define	PatternGeneratorEnable 0x0 //0 - Pattern Generator Enable
 #define	VsyncPolarity 0x4 //0 Vsync Polarity 
@@ -173,8 +155,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 				u8 Stream, u8 VSplitMode, u8 first_time);
 static void VidgenWriteConfig(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig, u8 Stream);
-extern void ComputeMandD(u32 VidFreq);
-
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream);
 
 void Vpg_Audio_start(void);
@@ -183,7 +163,7 @@ void Vpg_Audio_stop(void);
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 /*****************************************************************************/
 /**
 *
@@ -235,7 +215,8 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 							0x1);
 			}
 		}
-	} else {
+	}
+	else {
 		/* Calculate VPG parameters */
 		VidgenSetConfig(InstancePtr, &VidgenConfig,
 					(XDP_TX_STREAM_ID1), 0, first_time);
@@ -243,15 +224,17 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 		/* Update VPG with parameter */
 		VidgenWriteConfig(InstancePtr, &VidgenConfig,
 					(XDP_TX_STREAM_ID1));
-
+#if !NEW_PAT_GEN
 		/* Enable VPG for only one stream */
 		XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
 				PatternGeneratorEnable, 0x1);
-
+#endif
 	}
 
 	return (XST_SUCCESS);
 }
+
+
 
 /*****************************************************************************/
 /**
@@ -268,8 +251,9 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 ******************************************************************************/
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 {
+#if !NEW_PAT_GEN
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
-			(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
+				(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			     StreamOffset[Stream - 1],
 			     TestPatternControl,
@@ -286,6 +270,16 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 			     TestPatternControl,
 			     StreamPattern_vpg[Stream - 1]);
 	}
+#else
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[Stream - 1], TestPatternControl,
+			(QuadPixelMode | StreamPattern_vpg[Stream - 1]));
+	usleep(MicrosecToWait);
+	/* Enable VPG for only one stream */
+	XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
+			PatternGeneratorEnable, 0x1);
+
+#endif
 }
 
 /*****************************************************************************/
@@ -303,6 +297,7 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 ******************************************************************************/
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 {
+#if !NEW_PAT_GEN
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
 			(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
@@ -320,6 +315,16 @@ void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 			     StreamOffset[0],
 			     TestPatternControl, Pattern);
 	}
+#else
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], TestPatternControl,
+			(QuadPixelMode | Pattern));
+	usleep(MicrosecToWait);
+	/* Enable VPG for only one stream */
+	XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
+			PatternGeneratorEnable, 0x1);
+
+#endif
 }
 
 /*****************************************************************************/
@@ -411,31 +416,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
     u32 Count = 0;
 	VmId = MsaConfig->Vtm.VmId;
 
-//	xil_printf ("MSA pixel width is %d\r\n",MsaConfig->UserPixelWidth);
-//	xil_printf ("MSA pixel clock is %d\r\n",MsaConfig->PixelClockHz);
-#ifndef versal
-	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
-#else
-	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x3F0) = 0;
-	//WA: updating right value
-    ClkWiz_Dynamic.Config.RefClkFreq = 150;
-	XClk_Wiz_SetRate(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz/1000000)/MsaConfig->UserPixelWidth));
-
-	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x14) = 0x3;
-
-	while(!(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK)) {
-	                if(Count == 10000) {
-	                        break;
-	                }
-	                usleep(100);
-	                Count++;
-    }
-
-	if (Count == 10000) {
-		xil_printf ("Clk_wizard failed to lock\r\n");
-	}
-
-#endif
 	/* Configure MSA values from the Display Monitor Timing (DMT) table.
 	 * Will provide a way to optionally acquire these values from the EDID
 	 * of the sink.
@@ -447,7 +427,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	UserPixelWidth = MsaConfig->UserPixelWidth;
 	VidgenConfig->Misc0 = MsaConfig->Misc0;
 	VidgenConfig->Misc1 = MsaConfig->Misc1;
-
+#if !NEW_PAT_GEN
 	VidgenConfig->DePolarity = 0x0;
 	VidgenConfig->FrameLock0 = 0;
 	VidgenConfig->FrameLock1 = 0;
@@ -524,6 +504,13 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 					 VidgenConfig->Timing.F0PVFrontPorch +
 					 VidgenConfig->Timing.F0PVSyncWidth +
 					 VidgenConfig->Timing.F0PVBackPorch - 1;
+#else
+
+	VidgenConfig->Timing.VActive = MsaConfig->Vtm.Timing.VActive;
+	VidgenConfig->Timing.HActive =
+		MsaConfig->Vtm.Timing.HActive / 4;
+
+#endif
 }
 
 /*****************************************************************************/
@@ -546,6 +533,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 static void VidgenWriteConfig(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig, u8 Stream)
 {
+#if !NEW_PAT_GEN
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VsyncPolarity,
 				VidgenConfig->Timing.VSyncPolarity | 1);
@@ -636,8 +624,19 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VEBLNK,
 				VidgenConfig->Timing.F0PVTotal);
-
 	usleep(MicrosecToWait);
+#else
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+			StreamOffset[Stream - 1], VerticalResolution,
+				VidgenConfig->Timing.VActive);
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+			StreamOffset[Stream - 1], HorizontalResolution,
+				VidgenConfig->Timing.HActive);
+	usleep(MicrosecToWait);
+#endif
+
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC0,
 				InstancePtr->TxInstance.MsaConfig[0].Misc0);
@@ -645,155 +644,5 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC1,
 				InstancePtr->TxInstance.MsaConfig[0].Misc1);
-}
-
-
-#ifndef versal
-
-/*****************************************************************************/
-/**
-*
-* This function waits for PLL lock
-*
-* @return	pass/fail result. If there is error, none-zero value will return
-*
-* @note		None.
-*
-******************************************************************************/
-int wait_for_lock(void)
-{
-	u32 count, error;
-	count = error = 0;
-	volatile u32 rdata=0;
-	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & 1;
-
-	while(!rdata){
-		if(count == 10000){
-			error++;
-			break;
-		}
-		count++;
-		rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & 1;
-	}
-	return error;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function computes M and D value
-*
-* @param	Video frequency
-*
-* @note		None.
-*
-******************************************************************************/
-void ComputeMandD(u32 VidFreq){
-
-	u32 RefFreq;
-	u32 m, d, Div, Freq, Diff, Fvco;
-	u32 Minerr = 10000;
-	u32 MVal = 0;
-	u32 DVal = 0;
-	u32 DivVal = 0;
-	u32 rdata=0;
-
-	RefFreq = 100000;
-
-	for (m = M_MIN; m <= M_MAX; m++) {
-		for (d = D_MIN; d <= D_MAX; d++) {
-			Fvco = RefFreq * m / d;
-
-			if ( Fvco >= VCO_MIN && Fvco <= VCO_MAX ) {
-				for (Div = DIV_MIN; Div <= DIV_MAX; Div++ ) {
-					Freq = Fvco/Div;
-
-					if (Freq >= VidFreq) {
-						Diff = Freq - VidFreq;
-					}
-					else {
-						Diff = VidFreq - Freq;
-					}
-
-					if (Diff == 0) {
-						MVal = m;
-						DVal = d;
-						DivVal = Div;
-						m = 257;
-						d = 257;
-						Div = 257;
-						Minerr = 0;
-					}
-					else if (Diff < Minerr) {
-						Minerr = Diff;
-						MVal = m;
-						DVal = d;
-						DivVal = Div;
-
-						if (Minerr < 100) {
-							m = 257;
-							d = 257;
-							Div = 257;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	/* Progamming the clocking wizard */
-	u32 fail,error,count;
-	fail = error = count = 0;
-
-	fail = wait_for_lock();
-	if(fail)
-	{
-		error++;
-
-		xil_printf(
-			"\n ERROR: Clock is not locked for default frequency : 0x%x\r\n",
-			XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-
-
-/* SW reset applied */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x0, 0xA);
-
-	for(count=0; count<2000; count++);      /* Wait cycles after SW reset */
-	fail = wait_for_lock();
-	if(fail)
-	{
-		error++;
-	xil_printf(
-			"\n ERROR: Clock is not locked after SW reset : 0x%x \t Expected : 0x1\r\n",
-			XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-
-	/* Configuring Multiply and Divide values */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x200, (MVal<<8)|DVal);
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x204, 0);
-
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x208, DivVal);
-
-	/* Load Clock Configuration Register values */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x07);
-
-	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
-
-	if(rdata){
-		error++;
-		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-	/* Clock Configuration Registers are used for dynamic reconfiguration */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x02);
-
-	fail = wait_for_lock();
-	if(fail)
-	{
-		error++;
-				xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected : 0x1\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
 }
 #endif
