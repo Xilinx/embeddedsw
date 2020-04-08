@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
  *
  * @file xvidc_edid.c
- * @addtogroup video_common_v4_2
+ * @addtogroup video_common_v4_9
  * @{
  *
  * Contains function definitions related to the Extended Display Identification
