@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
 * 6.2   mus  01/27/17 Updated to support IAR compiler
 * 7.1   mus  09/11/19 Added warning message if DDR size is not in power of 2.
 *                     Fix for CR#1038577.
+* 7.2   asa  04/08/20 Fix warning in the function Init_MPU.
 * </pre>
 *
 * @note
@@ -149,9 +150,9 @@ void Init_MPU(void)
 				if (region_size[i].size > (size + Offset + 1)) {
 					xil_printf ("WARNING: DDR size mapped to Cortexr5 processor is not \
 								in power of 2. As processor allocates MPU regions size \
-								in power of 2, address range %x to %x has been \
+								in power of 2, address range %llx to %x has been \
 								incorrectly mapped as normal memory \n", \
-								region_size[i].size - 1, XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR + 1);
+								region_size[i].size - 1, ((u32)XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR + 1));
 				}
 				break;
 			}
