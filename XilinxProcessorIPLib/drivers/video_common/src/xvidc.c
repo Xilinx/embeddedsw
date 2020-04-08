@@ -280,38 +280,41 @@ u8 XVidC_IsInterlaced(XVidC_VideoMode VmId)
  *
 *******************************************************************************/
 XVidC_VideoMode XVidC_GetVideoModeIdWBlanking(const XVidC_VideoTiming *Timing,
-		                                      u32 FrameRate, u8 IsInterlaced)
+		u32 FrameRate, u8 IsInterlaced)
 {
-  XVidC_VideoMode VmId;
-  XVidC_VideoTiming const *StdTiming = NULL;
+	XVidC_VideoMode VmId;
+	XVidC_VideoTiming const *StdTiming = NULL;
 
-  /* First search for ID with matching Width & Height */
-  VmId = XVidC_GetVideoModeId(Timing->HActive, Timing->VActive, FrameRate,
-		                      IsInterlaced);
+	/* First search for ID with matching Width & Height */
+	VmId = XVidC_GetVideoModeId(Timing->HActive, Timing->VActive, FrameRate,
+			IsInterlaced);
 
-  if(VmId == XVIDC_VM_NOT_SUPPORTED) {
-	return(VmId);
-  } else {
+	if (VmId == XVIDC_VM_NOT_SUPPORTED) {
+		return(VmId);
+	} else {
 
-	/* Get standard timing info from default timing table */
-	StdTiming = XVidC_GetTimingInfo(VmId);
+		/* Get standard timing info from default timing table */
+		StdTiming = XVidC_GetTimingInfo(VmId);
+		if (!StdTiming) {
+			return(XVIDC_VM_NOT_SUPPORTED);
+		}
 
-	/* Match against detected timing parameters */
-	if((Timing->HActive        == StdTiming->HActive) &&
-	   (Timing->VActive        == StdTiming->VActive) &&
-	   (Timing->HTotal         == StdTiming->HTotal) &&
-	   (Timing->F0PVTotal      == StdTiming->F0PVTotal) &&
-	   (Timing->HFrontPorch    == StdTiming->HFrontPorch) &&
-	   (Timing->HSyncWidth     == StdTiming->HSyncWidth) &&
-	   (Timing->HBackPorch     == StdTiming->HBackPorch) &&
-	   (Timing->F0PVFrontPorch == StdTiming->F0PVFrontPorch) &&
-	   (Timing->F0PVSyncWidth  == StdTiming->F0PVSyncWidth) &&
-	   (Timing->F0PVBackPorch  == StdTiming->F0PVBackPorch)) {
-       return(VmId);
-	 } else {
-	   return(XVIDC_VM_NOT_SUPPORTED);
-	 }
-  }
+		/* Match against detected timing parameters */
+		if ((Timing->HActive        == StdTiming->HActive) &&
+				(Timing->VActive        == StdTiming->VActive) &&
+				(Timing->HTotal         == StdTiming->HTotal) &&
+				(Timing->F0PVTotal      == StdTiming->F0PVTotal) &&
+				(Timing->HFrontPorch    == StdTiming->HFrontPorch) &&
+				(Timing->HSyncWidth     == StdTiming->HSyncWidth) &&
+				(Timing->HBackPorch     == StdTiming->HBackPorch) &&
+				(Timing->F0PVFrontPorch == StdTiming->F0PVFrontPorch) &&
+				(Timing->F0PVSyncWidth  == StdTiming->F0PVSyncWidth) &&
+				(Timing->F0PVBackPorch  == StdTiming->F0PVBackPorch)) {
+			return(VmId);
+		} else {
+			return(XVIDC_VM_NOT_SUPPORTED);
+		}
+	}
 }
 
 /******************************************************************************/
