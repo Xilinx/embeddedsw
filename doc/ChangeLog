@@ -239,6 +239,11 @@ v_hdmitxss_v5_5:
 video_common_v4_9:
 Some more video timing entries added.
 
+v_vscaler_v3_1:
+Improve quality with new coefficients
+
+v_hscaler_v3_3:
+Improve quality with new coefficients
 
 Changes for 2019.2.2
 ===============================
