@@ -1009,7 +1009,6 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 							XCSUDMA_IXR_DONE_MASK);
 		XSecure_PcapWaitForDone();
 
-		StartAddrByte += RemainingBytes;
 	}
 END:
 	return Status;

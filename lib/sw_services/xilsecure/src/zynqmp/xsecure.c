@@ -305,18 +305,13 @@ u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize,
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	switch (Flags & XSECURE_RSA_CORE_OPERATION) {
-	case XSECURE_DEC:
+	if ((Flags & XSECURE_RSA_CORE_OPERATION) == (u32)XSECURE_DEC) {
 		Status = (u32)XSecure_RsaPrivateDecrypt(&Secure_Rsa,
 			(u8 *)(UINTPTR)WrAddr, SrcSize, (u8 *)(UINTPTR)WrAddr);
-		break;
-	case XSECURE_ENC:
+	}
+	else {
 		Status = (u32)XSecure_RsaPublicEncrypt(&Secure_Rsa,
 			(u8 *)(UINTPTR)WrAddr, SrcSize, (u8 *)(UINTPTR)WrAddr);
-		break;
-	default:
-		Status = XSECURE_INVALID_FLAG;
-		break;
 	}
 
 END:
