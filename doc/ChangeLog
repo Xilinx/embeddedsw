@@ -110,6 +110,9 @@ Add Colorimetry Support
 v_multi_scaler_v1_1:
 Updated API to use config structure parameters.
 
+v_gamma_lut_v1_1:
+Fix added to correct example application wrt IP GUI configuration.
+
 vtc_v8_2:
 Fix handling of spurious interrupt
 
