@@ -529,6 +529,13 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 				goto done;
 			}
 		}
+
+		/* For some boards, vccaux workaround is implemented using gpio to control vccram supply.
+		During system reset, when gpio goes low, delay is required for system controller to process
+		vccram rail off, before pdi load is started */
+		if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+			usleep(300000);
+		}
 	}
 
 	/*
