@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -446,10 +426,7 @@ void DpPt_Main(void){
 					XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
 #endif
 					// This configures the vid_phy for line rate to start with
-					//Even though CPLL can be used in limited case,
-					//using QPLL is recommended for more coverage.
-					config_phy(LineRate_init_tx, LaneCount_init_tx);
-
+					config_phy(LineRate_init_tx);
 					LaneCount_init_tx = LaneCount_init_tx & 0x7;
 					tx_after_rx = 1;
 					DpTxSsInst.no_video_trigger = 1;
@@ -1149,32 +1126,8 @@ void start_tx_after_rx (void) {
 	//This is needed especially on multiple unplug/plug
 	XDpTxSs_SetLinkRate(&DpTxSsInst, XDP_TX_LINK_BW_SET_162GBPS);
 
-	config_phy(LineRate_init_tx, LaneCount_init_tx);
+	config_phy(LineRate_init_tx);
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
-//    XDp_WriteReg(DPTX_CTRL, 0x0, LaneCount_init_tx);
-#ifdef versal
-    GtCtrl (GT_LANE_MASK, LaneCount_init_tx << 4, 1); //lane
-
-    if (LineRate_init_tx == 0x1E) {
-//        XDp_WriteReg(DPTX_CTRL, 0x0, 0x3);
-        GtCtrl (GT_RATE_MASK, 0x3 << 1, 1); //rate
-    } else if (LineRate_init_tx == 0x14) {
-//        XDp_WriteReg(DPTX_CTRL, 0x0, 0x2);
-        GtCtrl (GT_RATE_MASK, 0x2 << 1, 1); //rate
-    } else if (LineRate_init_tx == 0xA) {
-//        XDp_WriteReg(DPTX_CTRL, 0x0, 0x1);
-        GtCtrl (GT_RATE_MASK, 0x1 << 1, 1); //rate
-    } else {
-//        XDp_WriteReg(DPTX_CTRL, 0x0, 0x0);
-        GtCtrl (GT_RATE_MASK, 0x0 << 1, 1); //rate
-    }
-
-	while (dptx_sts != 0x00000011) {
-		 dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-		 dptx_sts &= 0x00000011;
-	//        xil_printf ("tmp is %d\r\n", tmp);
-	}
-#endif
 
 	if(downshift4K == 0){
 		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, Msa);

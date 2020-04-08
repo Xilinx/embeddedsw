@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2098 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMANGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2098 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -48,11 +28,12 @@
 #include "xparameters.h"
 #include "xdptxss.h"
 
-#ifndef versal
 #include "xclk_wiz.h"
-#endif
+
 
 #ifdef versal
+extern XClk_Wiz ClkWiz_Dynamic;
+extern XClk_Wiz_Config *CfgPtr_Dynamic;
 #define XILINX_DISPLAYPORT_VID_BASE_ADDRESS		\
 	XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR
 #else
@@ -203,10 +184,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 				u8 Stream, u8 VSplitMode, u8 first_time);
 static void VidgenWriteConfig(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig, u8 Stream);
-//static void WaitTxVsyncs(XDp *InstancePtr, u32 LoopCount, u8 Stream);
-static void VidgenComputeMVid(XDp *InstancePtr,
-				Vpg_VidgenConfig *VidgenConfig);
-
 extern void ComputeMandD(u32 VidFreq);
 
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream);
@@ -442,11 +419,32 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	u32 UserPixelWidth;
 	u8 DSBypass;
 	XVidC_VideoMode VmId;
-
+//	u32 Status;
+    u32 Count = 0;
 	VmId = MsaConfig->Vtm.VmId;
 
 #ifndef versal
 	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
+#else
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x3F0) = 0;
+	//WA: updating right value
+    ClkWiz_Dynamic.Config.RefClkFreq = 150;
+	XClk_Wiz_SetRate(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz/1000000)/MsaConfig->UserPixelWidth));
+
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x14) = 0x3;
+
+	while(!(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK)) {
+	                if(Count == 10000) {
+	                        break;
+	                }
+	                usleep(100);
+	                Count++;
+    }
+
+	if (Count == 10000) {
+		xil_printf ("Clk_wizard failed to lock\r\n");
+	}
+
 #endif
 	/* Configure MSA values from the Display Monitor Timing (DMT) table.
 	 * Will provide a way to optionally acquire these values from the EDID
@@ -509,12 +507,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 		VidgenConfig->MVid /= UserPixelWidth;
 		DSBypass = 1;
 	}
-
-	/* Calculate MVid */
-	/* Take the MVid to local Variable */
-
-	/* Compute M and D values */
-	VidgenComputeMVid(InstancePtr, VidgenConfig);
 
 	if (DSBypass == 1) {
 		VidgenConfig->DSMode = 0;
@@ -668,90 +660,8 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 				InstancePtr->TxInstance.MsaConfig[0].Misc1);
 }
 
-/*****************************************************************************/
-/**
-*
-* This function calculates the M-VID if synchronous mode is used.
-*
-* @param	InstancePtr is a pointer to the XDp instance.
-* @param	VidgenConfig is a pointer to Vpg_VidgenConfig used to update
-*		calculated M-VID value.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void VidgenComputeMVid(XDp *InstancePtr,
-				Vpg_VidgenConfig *VidgenConfig)
-{
-	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
-	u32 RefFreq;
-	u32 VidFreq = VidgenConfig->MVid;
-	u32 MIndex;
-	u32 DIndex;
-	u32 Div;
-	u32 Freq;
-	u32 Diff;
-	u32 Fvco;
-	u32 Minerr = 10000;
-	u32 MVal = 0;
-	u32 DVal = 0;
-	u32 DivVal = 0;
-
-	RefFreq = (LinkConfig->LinkRate == (XDP_TX_LINK_BW_SET_540GBPS)) ?
-			270000/2 : (LinkConfig->LinkRate ==
-				(XDP_TX_LINK_BW_SET_270GBPS)) ? 135000/2 : 81000/2;
-
-	if (InstancePtr->Config.PayloadDataWidth == 4) {
-		RefFreq /= 2;
-	}
-
-	for (MIndex = 20; MIndex <= 64; MIndex++) {
-		for (DIndex = 1; DIndex <= 80; DIndex++) {
-			Fvco = RefFreq * MIndex / DIndex;
-
-			if (Fvco >= 600000 && Fvco <= 900000) {
-				for (Div = 1; Div <= 128; Div++) {
-					Freq = Fvco/Div;
-
-					if (Freq >= VidFreq) {
-						Diff = Freq - VidFreq;
-					}
-					else {
-						Diff = VidFreq - Freq;
-					}
-
-					if (Diff == 0) {
-						MVal = MIndex;
-						DVal = DIndex;
-						DivVal = Div;
-						MIndex = 257;
-						DIndex = 257;
-						Div = 257;
-						Minerr = 0;
-					}
-					else if (Diff < Minerr) {
-						Minerr = Diff;
-						MVal = MIndex;
-						DVal = DIndex;
-						DivVal = Div;
-
-						if (Minerr < 100) {
-							MIndex = 257;
-							DIndex = 257;
-							Div = 257;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	VidgenConfig->MVid = MVal;
-	VidgenConfig->VidClkD = (DivVal & 0xff) | ((DVal & 0xff) << 8);
-}
+#ifndef versal
 
 /*****************************************************************************/
 /**
@@ -768,22 +678,15 @@ int wait_for_lock(void)
 	u32 count, error;
 	count = error = 0;
 	volatile u32 rdata=0;
-#ifdef versal
-//	rdata = Xil_In32(CLK_WIZ_BASE+ 0x04) & 1;
-#else
 	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & 1;
-#endif
+
 	while(!rdata){
 		if(count == 10000){
 			error++;
 			break;
 		}
 		count++;
-#ifdef versal
-//		rdata = Xil_In32(CLK_WIZ_BASE+ 0x04);
-#else
-		rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04);
-#endif
+		rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & 1;
 	}
 	return error;
 }
@@ -860,113 +763,50 @@ void ComputeMandD(u32 VidFreq){
 	{
 		error++;
 
-#ifdef versal
-//			xil_printf(
-//				"\n ERROR: Clock is not locked for default frequency : 0x%x\r\n",
-//				Xil_In32(CLK_WIZ_BASE+ 0x04) & CLK_LOCK);
-#else
 		xil_printf(
 			"\n ERROR: Clock is not locked for default frequency : 0x%x\r\n",
 			XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-#endif
 	}
 
 
 /* SW reset applied */
-#ifdef versal
-//	Xil_Out32(CLK_WIZ_BASE+ 0x0, 0xA);
-#else
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x0, 0xA);
-#endif
-
-#ifdef versal
-//	rdata = Xil_In32(CLK_WIZ_BASE+ 0x04) & CLK_LOCK;
-#else
-	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
-#endif
-	if(rdata) {
-		error++;
-
-#ifdef versal
-//		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
-//				Xil_In32(CLK_WIZ_BASE+ 0x04) & CLK_LOCK);
-#else
-		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-#endif
-	}
 
 	for(count=0; count<2000; count++);      /* Wait cycles after SW reset */
 	fail = wait_for_lock();
 	if(fail)
 	{
 		error++;
-#ifdef versal
-//		xil_printf(
-//	"\n ERROR: Clock is not locked after SW reset : 0x%x \t Expected : 0x1\r\n",
-//			Xil_In32(CLK_WIZ_BASE+ 0x04) & CLK_LOCK);
-#else
 	xil_printf(
 			"\n ERROR: Clock is not locked after SW reset : 0x%x \t Expected : 0x1\r\n",
 			XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-#endif
 	}
 
 	/* Configuring Multiply and Divide values */
-#ifdef versal
-//	Xil_Out32(CLK_WIZ_BASE+ 0x200, (MVal<<8)|DVal);
-//	Xil_Out32(CLK_WIZ_BASE+ 0x204, 0);
-#else
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x200, (MVal<<8)|DVal);
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x204, 0);
-#endif
 
-#ifdef versal
-//	Xil_Out32(CLK_WIZ_BASE+ 0x208, DivVal);
-#else
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x208, DivVal);
-#endif
 
 	/* Load Clock Configuration Register values */
-#ifdef versal
-//	Xil_Out32(CLK_WIZ_BASE+ 0x25C, 0x07);
-#else
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x07);
-#endif
 
-#ifdef versal
-//	rdata = Xil_In32(CLK_WIZ_BASE+ 0x04) & CLK_LOCK;
-#else
 	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
-#endif
+
 	if(rdata){
 		error++;
-#ifdef versal
-//		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
-//				Xil_In32(CLK_WIZ_BASE+ 0x04) & CLK_LOCK);
-#else
 		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
 				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-#endif
 	}
 	/* Clock Configuration Registers are used for dynamic reconfiguration */
-#ifdef versal
-//	Xil_Out32(CLK_WIZ_BASE+ 0x25C, 0x02);
-#else
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x02);
-#endif
 
 	fail = wait_for_lock();
 	if(fail)
 	{
 		error++;
-#ifdef versal
-//				xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected : 0x1\r\n",
-//				Xil_In32(CLK_WIZ_BASE+ 0x04) & CLK_LOCK);
-#else
 				xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected : 0x1\r\n",
 				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-#endif
 	}
-
 }
+#endif

@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -68,6 +48,10 @@
 XIicPs Ps_Iic0, Ps_Iic1;
 //
 
+#ifdef versal
+XClk_Wiz_Config *CfgPtr_Dynamic;
+XClk_Wiz ClkWiz_Dynamic;
+#endif
 
 #ifdef Tx
 #include "tx.h"
@@ -541,11 +525,6 @@ u32 DpSs_Main(void)
 	}
 	xil_printf("Platform initialization done.\n\r");
 
-	/* Setup Video Phy, left to the user for implementation */
-
-	DpSs_PhyInit(XVPHY_DEVICE_ID);
-	config_phy(0x14,0x4);
-
 #ifdef Rx
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
@@ -570,27 +549,80 @@ u32 DpSs_Main(void)
 		xil_printf("INFO:DPRXSS is SST enabled. DPRXSS works "
 			"only in SST mode.\n\r");
 	}
+#endif
+
+#ifdef Tx
+	/* Obtain the device configuration for the DisplayPort TX Subsystem */
+		ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_DEVICE_ID);
+		if (!ConfigPtr_tx) {
+			return XST_FAILURE;
+		}
+		/* Copy the device configuration into
+		 * the DpTxSsInst's Config structure. */
+		Status = XDpTxSs_CfgInitialize(&DpTxSsInst, ConfigPtr_tx,
+				ConfigPtr_tx->BaseAddress);
+		if (Status != XST_SUCCESS) {
+			xil_printf("DPTXSS config initialization failed.\r\n");
+			return XST_FAILURE;
+		}
+
+		/* Check for SST/MST support */
+		if (DpTxSsInst.UsrOpt.MstSupport) {
+			xil_printf("INFO:DPTXSS is MST enabled. DPTXSS can be "
+				"switched to SST/MST\r\n");
+		} else {
+			xil_printf("INFO:DPTXSS is SST enabled. DPTXSS works "
+				"only in SST mode.\r\n");
+		}
+#endif
+	/* Setup Video Phy, left to the user for implementation */
+
+	DpSs_PhyInit(XVPHY_DEVICE_ID);
+    u32 loop = 0;
+    u32 good;
+
+#ifdef Tx
 
 #ifdef versal
-    //Init dp bridge
-      //release reset
-    u16 loop = 0;
-    GtCtrl (GT_LANE_MASK, 0x00000040, 0);
-//    GtCtrl (GT_RATE_MASK, 2 << 1, 0);
-    GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 0);
+    //de-asserting TX reset to GT
+    GtCtrl (GT_RST_MASK, 0x00000000, 1);
+    good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
+        good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+        good &= ALL_LANE;
+        loop++;
+    }
+    if (loop == 10000) {
+	xil_printf("+\r\n");
+    }
+
+#endif
+
+	/* Set DP141 Tx driver here. */
+    //Keeping 0db gain on RX
+    //Adding 6db gain on TX
+	//Adding some Eq gain
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x02, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x05, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x3C);
+    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x3C);
+
+#endif
+
+	config_phy(0x14);
+
+#ifdef Rx
+#ifdef versal
+
+      //release reset to RX GT
     GtCtrl (GT_RST_MASK, 0x00000000, 0);
-
-//    xil_printf ("releasing RX reset\r\n");
-//    xil_printf ("waiting for RX sts..\r\n");
-
-    u32 good, good1;
+    loop = 0;
     good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-    good1 = good;
-    good &= 0x00000011;
-    while ((good != 0x00000011) && loop < 10000) {
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
         good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-        good1 = good;
-        good &= 0x00000011;
+        good &= ALL_LANE;
         loop++;
     }
     if (loop == 10000) {
@@ -601,47 +633,6 @@ u32 DpSs_Main(void)
     }
     loop = 0;
 
-#if 1
-    loop = 0;
-    GtCtrl (GT_RST_MASK, 0x00000001, 0);
-    GtCtrl (GT_RST_MASK, 0x00000000, 0);
-//    xil_printf ("one more rst on rx\r\n");
-    good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-    good1 = good;
-    good &= 0x00000011;
-    while ((good != 0x00000011) && loop < 10000) {
-        good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-        good1 = good;
-        good &= 0x00000011;
-        loop++;
-    }
-    if (loop == 10000) {
-//        xil_printf ("RX second timeout %x %x!!\r\n",good, good1);
-    } else {
-//        xil_printf ("RX out of reset %x %x!!\r\n",good, good1);
-    }
-
-    loop = 0;
-    GtCtrl (GT_RST_MASK, 0x00000001, 0);
-    GtCtrl (GT_RST_MASK, 0x00000000, 0);
-//    xil_printf ("one more rst on rx\r\n");
-    good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-    good1 = good;
-    good &= 0x00000011;
-    while ((good != 0x00000011) && loop < 10000) {
-        good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-        good1 = good;
-        good &= 0x00000011;
-        loop++;
-    }
-    if (loop == 10000) {
-//        xil_printf ("RX second timeout %x %x!!\r\n",good, good1);
-    } else {
-//        xil_printf ("RX out of reset %x %x!!\r\n",good, good1);
-    }
-
-    loop = 0;
-#endif
 #endif
 
 	/*Megachips Retimer Initialization*/
@@ -657,107 +648,6 @@ u32 DpSs_Main(void)
 
 #endif
 
-#ifdef Tx
-/* Obtain the device configuration for the DisplayPort TX Subsystem */
-	ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_DEVICE_ID);
-	if (!ConfigPtr_tx) {
-		return XST_FAILURE;
-	}
-	/* Copy the device configuration into
-	 * the DpTxSsInst's Config structure. */
-	Status = XDpTxSs_CfgInitialize(&DpTxSsInst, ConfigPtr_tx,
-			ConfigPtr_tx->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		xil_printf("DPTXSS config initialization failed.\r\n");
-		return XST_FAILURE;
-	}
-
-	/* Check for SST/MST support */
-	if (DpTxSsInst.UsrOpt.MstSupport) {
-		xil_printf("INFO:DPTXSS is MST enabled. DPTXSS can be "
-			"switched to SST/MST\r\n");
-	} else {
-		xil_printf("INFO:DPTXSS is SST enabled. DPTXSS works "
-			"only in SST mode.\r\n");
-	}
-
-#ifdef versal
-//    xil_printf ("releasing TX reset\r\n");
-    GtCtrl (GT_LANE_MASK, 0x00000040, 1);
-    GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 1);
-    GtCtrl (GT_RST_MASK, 0x00000000, 1);
-
-//    xil_printf ("waiting for TX sts..\r\n");
-
-    good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-    good1 = good;
-    good &= 0x00000011;
-    while ((good != 0x00000011) && loop < 10000) {
-        good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-        good1 = good;
-        good &= 0x00000011;
-        loop++;
-    }
-    if (loop == 10000) {
-	xil_printf("GT TX reset failure\r\n");
-//        xil_printf ("TX first timeout %x %x!!\r\n",good, good1);
-    } else {
-//        xil_printf ("TX out of reset %x %x!!\r\n",good, good1);
-    }
-    loop = 0;
-
-#if 1
-    GtCtrl (GT_RST_MASK, 0x00000001, 1);
-    GtCtrl (GT_RST_MASK, 0x00000000, 1);
-
-//    xil_printf ("one more rst on rx\r\n");
-    good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-    good1 = good;
-    good &= 0x00000011;
-    while ((good != 0x00000011) && loop < 10000) {
-        good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-        good1 = good;
-        good &= 0x00000011;
-        loop++;
-    }
-    if (loop == 10000) {
-//        xil_printf ("TX second timeout %x %x!!\r\n",good, good1);
-    } else {
-//        xil_printf ("TX out of reset %x %x!!\r\n",good, good1);
-    }
-    loop = 0;
-    GtCtrl (GT_RST_MASK, 0x00000001, 1);
-    GtCtrl (GT_RST_MASK, 0x00000000, 1);
-
-//    xil_printf ("one more rst on rx\r\n");
-    good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-    good1 = good;
-    good &= 0x00000011;
-    while ((good != 0x00000011) && loop < 10000) {
-        good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-        good1 = good;
-        good &= 0x00000011;
-        loop++;
-    }
-    if (loop == 10000) {
-//        xil_printf ("TX second timeout %x %x!!\r\n",good, good1);
-    } else {
-//        xil_printf ("TX out of reset %x %x!!\r\n",good, good1);
-    }
-    loop = 0;
-#endif
-#endif
-
-	/* Set DP141 Tx driver here. */
-    //Keeping 0db gain on RX
-    //Adding 6db gain on TX
-	//Adding some Eq gain
-    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x02, 0x3C);
-    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x05, 0x3C);
-    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x3C);
-    i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x3C);
-
-#endif
 
 	/* FrameBuffer initialization. */
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
@@ -1372,6 +1262,25 @@ u32 DpSs_PlatformInit(void)
 	{
 		xil_printf("IDT_8T49N24x_Init failed\r\n");
 	}
+
+
+   /*
+	  * Get the CLK_WIZ Dynamic reconfiguration driver instance
+	  */
+	 CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_0_DEVICE_ID);
+	 if (!CfgPtr_Dynamic) {
+			 return XST_FAILURE;
+	 }
+
+	 /*
+	  * Initialize the CLK_WIZ Dynamic reconfiguration driver
+	  */
+	 Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic, CfgPtr_Dynamic,
+			  CfgPtr_Dynamic->BaseAddr);
+	 if (Status != XST_SUCCESS) {
+			 return XST_FAILURE;
+	 }
+
 #endif
 
 	/* Initialize CRC & Set default Pixel Mode to 1. */
@@ -1880,67 +1789,13 @@ u32 DpSs_PhyInit(u16 DeviceId)
 
      u32 good,good1,loop;
 
-//     xil_printf ("releasing TX reset\r\n");
-     GtCtrl(GT_LANE_MASK, 0x00000040, 1);
+     //Setting the bridge for 4 lanes
+     //deasserting the Reset Hold Mask
+     GtCtrl (GT_LANE_MASK, (XPAR_DPTXSS_0_LANE_COUNT << 4), 1);
+     GtCtrl (GT_LANE_MASK, (XPAR_DPTXSS_0_LANE_COUNT << 4), 0);
      GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 1);
-     GtCtrl (GT_RST_MASK, 0x00000000, 1);
-//     xil_printf ("waiting for TX sts..\r\n");
+     GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 0);
 
-     good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-     good1 = good;
-     good &= 0x00000011;
-     while ((good != 0x00000011) && loop < 10000) {
-         good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         good1 = good;
-         good &= 0x00000011;
-         loop++;
-     }
-     if (loop == 10000) {
-	 xil_printf("GT Tx reset failure\r\n");
-//         xil_printf ("TX first timeout %x %x!!\r\n",good, good1);
-     } else {
-//         xil_printf ("TX out of reset %x %x!!\r\n",good, good1);
-     }
-     loop = 0;
-#if 1
-     GtCtrl (GT_RST_MASK, 0x00000001, 1);
-     GtCtrl (GT_RST_MASK, 0x00000000, 1);
-//     xil_printf ("one more rst on tx\r\n");
-     good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-     good1 = good;
-     good &= 0x00000011;
-     while ((good != 0x00000011) && loop < 10000) {
-         good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         good1 = good;
-         good &= 0x00000011;
-         loop++;
-     }
-     if (loop == 10000) {
-//         xil_printf ("TX second timeout %x %x!!\r\n",good, good1);
-     } else {
-//         xil_printf ("TX out of reset %x %x!!\r\n",good, good1);
-     }
-     loop = 0;
-     GtCtrl (GT_RST_MASK, 0x00000001, 1);
-     GtCtrl (GT_RST_MASK, 0x00000000, 1);
-
-//     xil_printf ("one more rst on tx\r\n");
-     good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-     good1 = good;
-     good &= 0x00000011;
-     while ((good != 0x00000011) && loop < 10000) {
-         good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         good1 = good;
-         good &= 0x00000011;
-         loop++;
-     }
-     if (loop == 10000) {
-//         xil_printf ("TX second timeout %x %x!!\r\n",good, good1);
-     } else {
-//         xil_printf ("TX out of reset %x %x!!\r\n",good, good1);
-     }
-     loop = 0;
-#endif
 #endif
 
 	return XST_SUCCESS;

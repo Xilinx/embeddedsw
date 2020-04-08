@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMANGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -723,7 +703,7 @@ void main_loop(){
 						LineRate_init_tx = user_tx_LineRate;
 						prev_line_rate = user_tx_LineRate;
 						LaneCount_init_tx = user_tx_LaneCount;
-						Status = config_phy(LineRate_init_tx, LaneCount_init_tx);
+						Status = config_phy(LineRate_init_tx);
 						XDpTxSs_Stop(&DpTxSsInst);
 						audio_on = 0;
 						xil_printf(
@@ -734,7 +714,7 @@ void main_loop(){
 						XDpTxSs_Reset(&DpTxSsInst);
 						user_config.user_bpc=8;
 						user_config.VideoMode_local
-										=XVIDC_VM_1920x1080_60_P; //XVIDC_VM_800x600_60_P;
+										=XVIDC_VM_800x600_60_P;
 						user_config.user_pattern=1;
 						user_config.user_format = XVIDC_CSF_RGB;
 						start_tx (user_tx_LineRate, user_tx_LaneCount,
@@ -802,6 +782,7 @@ void main_loop(){
 		case '5' :
 			//MSA;
 			XDpTxSs_ReportMsaInfo(&DpTxSsInst);
+
 			break;
 
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
@@ -1388,9 +1369,9 @@ void ReadModifyWrite(u32 MaskValue, u32 data)
 {
 	u32 retval=0;
 	MaskValue=~MaskValue;
-	retval=XDp_ReadReg(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_BASEADDR,0x4C);
+	retval=XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x4C);
 	retval= retval & MaskValue;
 	retval= retval | data;
-	XDp_WriteReg(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_BASEADDR,0x4C,retval);
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x4C,retval);
 }
 #endif

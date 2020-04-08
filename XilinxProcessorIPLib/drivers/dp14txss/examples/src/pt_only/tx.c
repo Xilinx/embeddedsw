@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -198,45 +178,13 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 	// eg. reconfigure GT to new rate etc
 
     u8 rate;
-     u8 bridge = 0;
-     u8 lanes = 0;
-     u32 dptx_sts = 0;
 
 	rate = get_LineRate();
- lanes = get_Lanecounts();
 	// If the requested rate is same, do not re-program.
-#ifndef versal
+
 	if (rate != prev_line_rate) {
-		config_phy(rate,lanes);
+		config_phy(rate);
 	}
-#else
-    if (rate == 0x1E) {
-             bridge = 3;
-
-     } else if (rate == 0x14) {
-             bridge = 2;
-     } else if (rate == 0xA) {
-             bridge = 1;
-     } else {
-             bridge = 0;
-     }
-//     xil_printf ("TX Line rate %x %x\r\n",rate,lanes);
-
-//     if (lanes != 0) {
-    GtCtrl (GT_LANE_MASK, lanes << 4, 1); //lane
-//     }
-    GtCtrl (GT_RATE_MASK, bridge << 1, 1); //rate
-
-//            XDp_WriteReg(DPTX_CTRL, 0x0, lanes);
-//             XDp_WriteReg(DPTX_CTRL, 0x0, bridge);
-//              XDp_WriteReg(XPAR_DP_TX_HIER_0_V_VID_GT_BRIDGE_1_BASEADDR, 0x04, 0x1);
-//              XDp_WriteReg(XPAR_DP_TX_HIER_0_V_VID_GT_BRIDGE_1_BASEADDR, 0x04, 0x0);
-     while (dptx_sts != 0x00000011) {
-	 dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-	 dptx_sts &= 0x00000011;
-    //        xil_printf ("tmp is %d\r\n", tmp);
-      }
-#endif
 	//update the previous link rate info at here
 	prev_line_rate = rate;
 }
@@ -318,14 +266,8 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 				}
 
 #ifdef versal
-        vswing = (diff_swing << 16) | diff_swing;
-        postcursor = (preemp << 26) | (preemp << 10);
-        value = vswing | postcursor;
-        direct = (preemp << 10) | diff_swing;
-        GtCtrl (GT_VSWING_MASK, direct << 8, 1);
-//        XDp_WriteReg(DPTX_CTRL, 0x0, value);
-//              xil_printf ("vswing, postcursor = %x, %x\r\n",vswing,postcursor);
-//        XDp_WriteReg(XPAR_DP_TX_HIER_0_V_VID_GT_BRIDGE_1_BASEADDR, 0x20, value); //0x42194219);
+        GtCtrl(GT_VSWING_MASK ,(diff_swing << 8), 1);
+        GtCtrl(GT_POSTCUR_MASK,(preemp << 18), 1);
 #else
 				//setting vswing
 				XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
@@ -1329,7 +1271,7 @@ u8 get_Lanecounts(void){
 * @note		None.
 *
 ******************************************************************************/
-u32 config_phy(int LineRate_init_tx, int LaneCount_init_tx){
+u32 config_phy(int LineRate_init_tx){
 	u32 Status=0;
 	u8 linerate;
 	u32 dptx_sts = 0;
@@ -1425,19 +1367,19 @@ u32 config_phy(int LineRate_init_tx, int LaneCount_init_tx){
 	}
 
 #ifdef versal
-	GtCtrl(GT_LANE_MASK,(LaneCount_init_tx << 4),1);
+
 	GtCtrl(GT_RATE_MASK,(linerate << 1),1);
-u8 retry=0;
+    u8 retry=0;
     while ((dptx_sts != ALL_LANE) && retry < 255) {
          dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
          dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 10000);
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
          retry++;
     //        xil_printf ("tmp is %d\r\n", tmp);
       }
     if(retry==255)
     {
-	Status = XST_FAILURE;
+		Status = XST_FAILURE;
     }
 #endif
 

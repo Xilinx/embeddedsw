@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -497,7 +477,7 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 #else
 
 	u8 bridge;
-	u32 tmp = 0;
+	u32 retry = 0;
 	u32 dprx_sts=0;
 	u32 lanes=0,rate=0;
 
@@ -511,27 +491,19 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
                     bridge = 0;
     }
 
-	//Masking RX reset
-//	XDp_WriteReg(XPAR_DP_RX_HIER_0_V_VID_GT_BRIDGE_0_BASEADDR, 0x50, 0x0FFF0FFF);
-//	XDp_WriteReg(XPAR_DP_RX_HIER_0_V_VID_GT_BRIDGE_0_BASEADDR, 0x54, 0x0FFF0FFF);
-
-
-    lanes = DpRxSsInst.UsrOpt.LaneCount << 4;
     rate = bridge << 1;
-    GtCtrl (GT_LANE_MASK, lanes, 0); //DpRxSsInst.UsrOpt.LaneCount << 4); //lane
     GtCtrl (GT_RATE_MASK, rate, 0); //bridge << 1); //rate
-
-//    XDp_WriteReg(DPRX_CTRL, 0x0, DpRxSsInst.UsrOpt.LaneCount);
-//    XDp_WriteReg(DPRX_CTRL, 0x0, bridge);
-
     dprx_sts = 0;
-	   while (dprx_sts != 0x00000011) {
-	         dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-	         dprx_sts &= 0x00000011;
-	    //        xil_printf ("tmp is %d\r\n", tmp);
-	   }
+	while (dprx_sts != 0x00000011 && retry < 10000) {
+		 dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+		 dprx_sts &= 0x00000011;
+		 retry++;
+	//        xil_printf ("tmp is %d\r\n", tmp);
+	}
+	if (retry == 10000) {
+		xil_printf ("+++ RX GT Configuration failure ++++\r\n");
+	}
 
-//      xil_printf ("rst done %x %x\r\n",DpRxSsInst.UsrOpt.LinkRate, DpRxSsInst.UsrOpt.LaneCount);
 #endif
 
 	DpRxSsInst.link_up_trigger = 0;
