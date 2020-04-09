@@ -91,13 +91,24 @@ static XSecure_Sha3 Sha3Instance;
 
 static XCsuDma CsuDma = {0U};
 #if defined (__GNUC__)
+#if defined (PSU_PMU)
 u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
 			/**< eFUSE verified PPK */
 u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
 			/**< Buffer to store authentication certificate */
 u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (64)));
+			/**< eFUSE verified PPK */
+u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (64)));
+			/**< Buffer to store authentication certificate */
+u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (64)));
+			/**< Buffer to store */
+#endif
+
 #elif defined (__ICCARM__)
+#if defined (PSU_PMU)
 #pragma data_alignment = 32
 u8 EfusePpk[XSECURE_PPK_SIZE];
 			/**< eFUSE verified PPK */
@@ -107,6 +118,17 @@ u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
 #pragma data_alignment = 32
 u8 Buffer[XSECURE_BUFFER_SIZE];
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+#pragma data_alignment = 64
+u8 EfusePpk[XSECURE_PPK_SIZE];
+			/**< eFUSE verified PPK */
+#pragma data_alignment = 64
+u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
+			/**< Buffer to store authentication certificate */
+#pragma data_alignment = 64
+u8 Buffer[XSECURE_BUFFER_SIZE];
+			/**< Buffer to store */
+#endif
 #endif
 u32 XsecureIv[XSECURE_IV_LEN];
 

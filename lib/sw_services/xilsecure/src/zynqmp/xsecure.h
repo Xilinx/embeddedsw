@@ -314,13 +314,23 @@ typedef struct {
 
 /************************** Variable Definitions *****************************/
 #if defined (__GNUC__)
+#if defined (PSU_PMU)
 extern u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
 			/**< eFUSE verified PPK */
 extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
 			/**< Buffer to store authentication certificate */
 extern u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+extern u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (64)));
+			/**< eFUSE verified PPK */
+extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (64)));
+			/**< Buffer to store authentication certificate */
+extern u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (64)));
+			/**< Buffer to store */
+#endif
 #elif defined (__ICCARM__)
+#if defined (PSU_PMU)
 #pragma data_alignment = 32
 extern u8 EfusePpk[XSECURE_PPK_SIZE];
 			/**< eFUSE verified PPK */
@@ -330,6 +340,17 @@ extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
 #pragma data_alignment = 32
 extern u8 Buffer[XSECURE_BUFFER_SIZE];
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+#pragma data_alignment = 64
+extern u8 EfusePpk[XSECURE_PPK_SIZE];
+			/**< eFUSE verified PPK */
+#pragma data_alignment = 64
+extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
+			/**< Buffer to store authentication certificate */
+#pragma data_alignment = 64
+extern u8 Buffer[XSECURE_BUFFER_SIZE];
+			/**< Buffer to store */
+#endif
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
