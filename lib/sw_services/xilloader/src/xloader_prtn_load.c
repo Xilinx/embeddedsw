@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,17 +53,18 @@
 #include "xpm_api.h"
 #include "xplmi_util.h"
 #include "xloader_secure.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
+
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum);
-static int XLoader_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu);
 static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
@@ -72,14 +73,13 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 
 /*****************************************************************************/
 /**
- * This function loads the partition
+ * @brief	This function loads the partition.
  *
- * @param	PdiPtr is pointer to the XLoader Instance
- *
+ * @param	PdiPtr is pointer to XilPdi Instance
+ * @param	ImgNum is the image number to be loaded
  * @param	PrtnNum is the partition number in the image to be loaded
  *
- * @return	returns the error codes on any error
- *			returns XST_SUCCESS on success
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
@@ -90,17 +90,13 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Validate and load the image partitions */
-	for (PrtnIndex = 0U; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
-	{
+	for (PrtnIndex = 0U; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns;
+		PrtnIndex++) {
 		PrtnLoadTime = XPlmi_GetTimerValue();
 
-		if(PdiPtr->DelayHandoff == TRUE)
-		{
-			Status = XLoader_PrtnValidation(PdiPtr, PrtnNum);
-			if (XST_SUCCESS != Status)
-			{
-				goto END;
-			}
+		if (PdiPtr->DelayHandoff == TRUE) {
+			/* Update the handoff values */
+			XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
 			PrtnNum++;
 			continue;
 		}
@@ -110,22 +106,20 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
 
 		/* PLM is not partition owner and skip this partition */
-		if (Status == XLOADER_SUCCESS_NOT_PRTN_OWNER)
-		{
+		if (Status == XLOADER_SUCCESS_NOT_PRTN_OWNER) {
 			Status = XST_SUCCESS;
 			goto END;
-		} else if (XST_SUCCESS != Status)
-		{
+		}
+		else if (XST_SUCCESS != Status) {
 			goto END;
-		} else
-		{
+		}
+		else {
 			/* For MISRA C compliance */
 		}
 
 		/* Process Partition */
 		Status = XLoader_ProcessPrtn(PdiPtr, PrtnNum);
-		if (XST_SUCCESS != Status)
-		{
+		if (XST_SUCCESS != Status) {
 			goto END;
 		}
 		XPlmi_MeasurePerfTime(PrtnLoadTime, &PerfTime);
@@ -137,44 +131,41 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		PrtnNum++;
 	}
 	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * This function validates the partition header
+ * @brief	This function validates the partition header.
  *
- * @param	PdiPtr is pointer to the XLoader Instance
- *
+ * @param	PdiPtr is pointer to XilPdi Instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
- * @return	returns the error codes 
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
-static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr,
-		u32 PrtnNum)
+static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XilPdi_PrtnHdr * PrtnHdr;
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 
 	/* Check if partition belongs to PLM */
-	if (XilPdi_GetPrtnOwner(PrtnHdr) !=
-			XIH_PH_ATTRB_PRTN_OWNER_PLM)
-	{
+	if (XilPdi_GetPrtnOwner(PrtnHdr) != XIH_PH_ATTRB_PRTN_OWNER_PLM) {
 		/* If the partition doesn't belong to PLM, skip the partition */
 		XPlmi_Printf(DEBUG_GENERAL, "Skipping the Prtn 0x%08x\n\r",
-				PrtnNum);
+			PrtnNum);
 		Status = XLOADER_SUCCESS_NOT_PRTN_OWNER;
 		goto END;
 	}
 
 	/* Validate the fields of partition */
 	Status = XilPdi_ValidatePrtnHdr(PrtnHdr);
-	if (XST_SUCCESS != Status)
-	{
+	if (XST_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -184,27 +175,27 @@ END:
 
 /*****************************************************************************/
 /**
- * This function copies the partition to specified destination
+ * @brief	This function copies the partition to specified destination.
  *
- * @param	PdiPtr is pointer to the XLoader Instance
- *
+ * @param	PdiPtr is pointer to XilPdi Instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
- * @return	returns the error codes 
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 SrcAddr;
 	u64 DestAddr;
 	u32 DstnCpu;
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
 	XLoader_SecureParms SecureParams = {0U};
-	u32 Mode=0;
+	u32 Mode = 0U;
 	u32 PrtnType;
+	u32 TempVal;
 
-	/* Secure init */
 	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -212,7 +203,6 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-
 	SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +
 		((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
 	DestAddr = PrtnHdr->DstnLoadAddr;
@@ -222,8 +212,9 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	/* Make Length 16byte aligned
 	 * TODO remove this after partition len is made
 	 * 16byte aligned by bootgen*/
-	if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
-		Len = Len + XLOADER_DMA_LEN_ALIGN - (Len%XLOADER_DMA_LEN_ALIGN);
+	TempVal = Len % XLOADER_DMA_LEN_ALIGN;
+	if (TempVal != 0U) {
+		Len = Len + XLOADER_DMA_LEN_ALIGN - TempVal;
 	}
 
 	if (PdiPtr->CopyToMem == TRUE) {
@@ -231,7 +222,8 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 					XLOADER_DDR_COPYIMAGE_BASEADDR, Len, 0U);
 		goto END;
 	}
-	/**
+
+	/*
 	 * Requirements:
 	 *
 	 * PSM:
@@ -245,52 +237,57 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	 * R5 should be taken out of reset before loading
 	 * R5 TCM should be ECC initialized
 	 */
-
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
-	if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM)
-	{
-		XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC, PM_CAP_ACCESS, XPM_DEF_QOS, 0);
+	if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
+		XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
+			PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
 	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
-	if ( (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
-			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
-			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) )
-	{
-
+	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
+		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
+		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
 		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
-								IOCTL_SET_RPU_OPER_MODE,
-								XPM_RPU_MODE_SPLIT, 0, &Mode);
+					IOCTL_SET_RPU_OPER_MODE,
+					XPM_RPU_MODE_SPLIT, 0U, &Mode);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
-				PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS,0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
-				PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
-		} else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0){
-			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
-									IOCTL_SET_RPU_OPER_MODE,
-									XPM_RPU_MODE_SPLIT, 0, &Mode);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS, 0U);
 		}
-		else
-		{
+		else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
-									IOCTL_SET_RPU_OPER_MODE,
-								XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
-			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
-										IOCTL_SET_RPU_OPER_MODE,
-									XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
+				IOCTL_SET_RPU_OPER_MODE,
+				XPM_RPU_MODE_SPLIT, 0U, &Mode);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS, 0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS, 0U);
+		}
+		else {
+			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
+				IOCTL_SET_RPU_OPER_MODE,
+				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode);
+			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
+				IOCTL_SET_RPU_OPER_MODE,
+				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode);
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS, 0U);
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS, 0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS, 0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					XPM_DEF_QOS, 0U);
 		}
 
 		Status = XLoader_GetLoadAddr(DstnCpu, &DestAddr, Len);
@@ -301,8 +298,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 
 	if (SecureParams.SecureEn != TRUE) {
 		Status = PdiPtr->MetaHdr.DeviceCopy(SrcAddr, DestAddr, Len, 0x0U);
-		if (XST_SUCCESS != Status)
-		{
+		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
 			goto END;
 		}
@@ -319,9 +315,8 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	if ((PrtnType == XIH_PH_ATTRB_PRTN_TYPE_ELF) &&
 		(((DstnCpu >= XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
 		(DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_A72_1))||
-		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_NONE)))
-	{
-		/**
+		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_NONE))) {
+		/*
 		 *  Populate handoff parameters to ATF
 		 *  These correspond to the partition of application
 		 *  which ATF will be loading
@@ -333,41 +328,14 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * This function validates the partition
- *
- * @param	PdiPtr is pointer to the XLoader Instance
- *
- * @param	PrtnNum is the partition number in the image to be loaded
- *
- * @return	returns the error codes on any error
- *			returns XST_SUCCESS on success
- *
- *****************************************************************************/
-static int XLoader_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum)
-{
-	int Status = XST_FAILURE;
-	/* Validate the partition */
-
-	/* Update the handoff values */
-	XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
-
-	Status = XST_SUCCESS;
-	return Status;
-}
-
 /****************************************************************************/
 /**
- * This function is used to update the handoff parameters
+ * @brief	This function is used to update the handoff parameters.
  *
- * @param	PdiPtr is pointer to the Plm Instance
- *
+ * @param	PdiPtr is pointer to XilPdi Instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
  * @return	None
- *
- * @note
  *
  *****************************************************************************/
 static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
@@ -381,85 +349,65 @@ static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	if ((DstnCpu > XIH_PH_ATTRB_DSTN_CPU_NONE) &&
-	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM))
-	{
+	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM)) {
 		CpuNo = PdiPtr->NoOfHandoffCpus;
-		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS)
-		{
+		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
 			/* Update the CPU settings */
 			PdiPtr->HandoffParam[CpuNo].CpuSettings =
-					XilPdi_GetDstnCpu(PrtnHdr) |
-					XilPdi_GetA72ExecState(PrtnHdr) |
-					XilPdi_GetVecLocation(PrtnHdr);
+				XilPdi_GetDstnCpu(PrtnHdr) |
+				XilPdi_GetA72ExecState(PrtnHdr) |
+				XilPdi_GetVecLocation(PrtnHdr);
 			PdiPtr->HandoffParam[CpuNo].HandoffAddr =
-					PrtnHdr->DstnExecutionAddr;
+				PrtnHdr->DstnExecutionAddr;
 			PdiPtr->NoOfHandoffCpus += 1U;
 		}
 	}
-
 }
 
 /****************************************************************************/
 /**
- * This function is used to check whether cpu has handoff address stored
- * in the handoff structure
+ * @brief	This function is used to check whether cpu has handoff address
+ * stored in the handoff structure.
  *
- * @param PdiPtr is pointer to the Plm Instance
+ * @param	PdiPtr is pointer to XilPdi Instance
+ * @param	DstnCpu is the cpu which needs to be checked
  *
- * @param DstnCpu is the cpu which needs to be checked
- *
- * @return
- *		- XST_SUCCESS if cpu handoff address is not present
- *		- XST_FAILURE if cpu handoff address is present
- *
- * @note
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu)
 {
-	u32 ValidHandoffCpuNo;
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 CpuId;
 
-
-	ValidHandoffCpuNo = PdiPtr->NoOfHandoffCpus;
-
-	for (Index=0U;Index<ValidHandoffCpuNo;Index++)
-	{
+	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings &
 			XIH_PH_ATTRB_DSTN_CPU_MASK;
-		if (CpuId == DstnCpu)
-		{
-			Status = XST_FAILURE;
+		if (CpuId == DstnCpu) {
 			goto END;
 		}
 	}
-
 	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
- * This function is used to process the CDO partition. It copies and
+ * @brief	This function is used to process the CDO partition. It copies and
  * validates if security is enabled.
  *
- * @param	PdiPtr is pointer to the Plm Instance
- *
+ * @param	PdiPtr is pointer to XilPdi Instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
- * @return
- *		- XST_SUCCESS on Success
- *		- ErrorCode 
- *
- * @note
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 SrcAddr;
 	u32 Len;
 	u32 ChunkLen;
@@ -469,9 +417,10 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	u32 ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 	u32 IsNextChunkCopyStarted = FALSE;
 	XLoader_SecureParms SecureParams = {0U};
+	u32 TempVal;
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
-	/* Secure init */
+
 	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -479,10 +428,6 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-
-	/**
-	 * Call process CDO in xilplmi
-	 */
 	SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +
 			((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
 	Len = (PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN);
@@ -492,9 +437,9 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * TODO remove this after partition len is made
 	 * 16byte aligned by bootgen
 	 */
-	if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
-		Len = Len - (Len%XLOADER_DMA_LEN_ALIGN) +
-			XLOADER_DMA_LEN_ALIGN;
+	TempVal = Len % XLOADER_DMA_LEN_ALIGN;
+	if (TempVal != 0U) {
+		Len = Len - TempVal + XLOADER_DMA_LEN_ALIGN;
 	}
 
 	if (PdiPtr->CopyToMem == TRUE) {
@@ -502,7 +447,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 					XLOADER_DDR_COPYIMAGE_BASEADDR, Len, 0U);
 		goto END;
 	}
-	/**
+
+	/*
 	 * Initialize the Cdo Pointer and
 	 * check CDO header contents
 	 */
@@ -510,158 +456,145 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	Cdo.ImgId = PdiPtr->CurImgId;
 	Cdo.PrtnId = PdiPtr->CurPrtnId;
 
-	/**
+	/*
 	 * Process CDO in chunks.
 	 * Chunk size is based on the available PRAM size.
 	 */
 	if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) &&
-		(SecureParams.SecureEn != TRUE))
-	{
-		ChunkLen = XLOADER_CHUNK_SIZE/2;
-	} else {
+		(SecureParams.SecureEn != TRUE)) {
+		ChunkLen = XLOADER_CHUNK_SIZE / 2U;
+	}
+	else {
 		ChunkLen = XLOADER_CHUNK_SIZE;
 	}
 
 	SecureParams.IsCdo = TRUE;
-	while (Len > 0U)
-	{
-		/** Update the len for last chunk */
-		if ((Len <= ChunkLen) && (LastChunk != TRUE))
-		{
+	while (Len > 0U) {
+		/* Update the len for last chunk */
+		if ((Len <= ChunkLen) && (LastChunk != TRUE)) {
 			LastChunk = TRUE;
 			ChunkLen = Len;
 		}
 
 		if (SecureParams.SecureEn != TRUE) {
-			if (IsNextChunkCopyStarted == TRUE)
-			{
+			if (IsNextChunkCopyStarted == TRUE) {
 				IsNextChunkCopyStarted = FALSE;
-				/** wait for copy to get completed */
+				/* Wait for copy to get completed */
 				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen,
-				  XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
-			} else {
-				/** Copy the data to PRAM buffer */
-				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen, 0U);
+					XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
 			}
-			/** Update variables for next chunk */
+			else {
+				/* Copy the data to PRAM buffer */
+				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen,
+					XLOADER_DEVICE_COPY_STATE_BLK);
+			}
+			/* Update variables for next chunk */
 			Cdo.BufPtr = (u32 *)ChunkAddr;
 			Cdo.BufLen = ChunkLen/XIH_PRTN_WORD_LEN;
 			SrcAddr += ChunkLen;
 			Len -= ChunkLen;
 
-			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SMAP) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI))
-			{
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI)) {
 				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
 				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
 				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
 			}
-			else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
-			{
+			else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) {
 				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
 				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
 			}
-			else
-			{
+			else {
 				/** MISRA-C compliance */
 			}
 
 			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
-				(PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR))
-			{
+				(PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR)) {
 				Cdo.Cmd.KeyHoleParams.InChunkCopy = TRUE;
 			}
-
-			/** For DDR case, start the copy of the
-			 * next chunk for increasing performance */
+			/*
+			 * For DDR case, start the copy of the
+			 * next chunk for increasing performance
+			 */
 			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
-			    && (LastChunk != TRUE))
-			{
-				/** Update the next chunk address to other part */
+			    && (LastChunk != TRUE)) {
+				/* Update the next chunk address to other part */
 				if (ChunkAddr == XPLMI_LOADER_CHUNK_MEMORY) {
 					ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY_1;
-				} else {
+				}
+				else {
 					ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 				}
 
-				/** Update the len for last chunk */
-				if (Len <= ChunkLen)
-				{
+				/* Update the len for last chunk */
+				if (Len <= ChunkLen) {
 					LastChunk = TRUE;
 					ChunkLen = Len;
 				}
 				IsNextChunkCopyStarted = TRUE;
 
-				/** Initiate the data copy */
-				PdiPtr->DeviceCopy(SrcAddr,
-					   ChunkAddr, ChunkLen,
-					   XLOADER_DEVICE_COPY_STATE_INITIATE);
+				/* Initiate the data copy */
+				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen,
+					XLOADER_DEVICE_COPY_STATE_INITIATE);
 			}
-		} else {
-			/* Call security function */
+		}
+		else {
 			Status = XLoader_SecurePrtn(&SecureParams,
 				SecureParams.SecureData, ChunkLen, LastChunk);
-			if(Status != XST_SUCCESS)
-			{
+			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			Cdo.BufPtr = (u32 *)SecureParams.SecureData;
-			Cdo.BufLen = SecureParams.SecureDataLen/XIH_PRTN_WORD_LEN;
+			Cdo.BufLen = SecureParams.SecureDataLen / XIH_PRTN_WORD_LEN;
 			SrcAddr += ChunkLen;
 			Len -= ChunkLen;
 		}
 
-		/** Process the chunk */
+		/* Process the chunk */
 		Status = XPlmi_ProcessCdo(&Cdo);
-		if(Status != XST_SUCCESS)
-		{
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		if(Cdo.Cmd.KeyHoleParams.ExtraWords != 0x0U)
-		{
-			Cdo.Cmd.KeyHoleParams.ExtraWords *= 4U;
+		if (Cdo.Cmd.KeyHoleParams.ExtraWords != 0x0U) {
+			Cdo.Cmd.KeyHoleParams.ExtraWords *= XPLMI_WORD_LEN;
 			Len = Len - Cdo.Cmd.KeyHoleParams.ExtraWords;
 			SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
 			IsNextChunkCopyStarted = FALSE;
 			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 		}
 	}
-	/** if deferred error, flagging it after CDO process complete */
-	if (Cdo.DeferredError == TRUE)
-	{
+	/* If deferred error, flagging it after CDO process complete */
+	if (Cdo.DeferredError == TRUE) {
 		Status = XPLMI_UPDATE_STATUS(
 				XLOADER_ERR_DEFERRED_CDO_PROCESS, 0x0U);
 		goto END;
 	}
 	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
- * This function is used to process the partition. It copies and validates if
+ * @brief	This function is used to process the partition. It copies and validates if
  * security is enabled.
  *
- * @param	PdiPtr is pointer to the Plm Instance
- *
+ * @param	PdiPtr is pointer to XilPdi Instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
- * @return
- *		- XST_SUCCESS on Success, error code on failure
- *
- * @note
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XilPdi_PrtnHdr * PrtnHdr;
 	u32 PrtnType;
 
@@ -673,28 +606,22 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 
 	/* Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
-	if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
-	{
+	if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO) {
 		Status = XLoader_ProcessCdo(PdiPtr, PrtnNum);
-	} else {
-
+	}
+	else {
 		XPlmi_Printf(DEBUG_INFO, "Copying elf/data partition \n\r");
 		/* Partition Copy */
 		Status = XLoader_PrtnCopy(PdiPtr, PrtnNum);
 	}
 
-	if (XST_SUCCESS != Status)
-	{
+	if (XST_SUCCESS != Status) {
 		goto END;
 	}
 
 	if (PdiPtr->CopyToMem == FALSE) {
-		/* Partition Validation */
-		Status = XLoader_PrtnValidation(PdiPtr, PrtnNum);
-		if (XST_SUCCESS != Status)
-		{
-			goto END;
-		}
+		/* Update the handoff values */
+		XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
 	}
 
 END:
@@ -703,62 +630,63 @@ END:
 
 /*****************************************************************************/
 /**
- * This function updates the load address based on the destination CPU
+ * @brief	This function updates the load address based on the
+ * destination CPU.
  *
  * @param	DstnCpu is destination CPU
- *
  * @param	LoadAddrPtr is the destination load address pointer
- *
  * @param	Len is the length of the partition
  *
- * @return	returns XST_FAILURE on any error
- *			returns XST_SUCCESS on success
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u64 Address;
 
 	Address = *LoadAddrPtr;
 
 	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) &&
-			((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH)) ||
+			((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS +
+					XLOADER_R5_TCM_BANK_LENGTH)) ||
 			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
-			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH))))) {
+			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
+					XLOADER_R5_TCM_BANK_LENGTH))))) {
 		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XLOADER_ERR_TCM_ADDR_OUTOF_RANGE;
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, Status);
+			Status = XPLMI_UPDATE_STATUS(
+					XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0U);
 			goto END;
 		}
 
 		Address += XLOADER_R5_0_TCMA_BASE_ADDR;
-	} else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
+	}
+	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
 			((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS +
 						XLOADER_R5_TCM_BANK_LENGTH)) ||
 			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
 			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
-						XLOADER_R5_TCM_BANK_LENGTH))))) {
+					XLOADER_R5_TCM_BANK_LENGTH))))) {
 		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XLOADER_ERR_TCM_ADDR_OUTOF_RANGE;
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE,
-																	Status);
+			Status = XPLMI_UPDATE_STATUS(
+					XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0U);
 			goto END;
 		}
 
 		Address += XLOADER_R5_1_TCMA_BASE_ADDR;
-	} else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
-			(Address < (XLOADER_R5_TCM_BANK_LENGTH * 4))) {
-		if (Len > (XLOADER_R5_TCM_BANK_LENGTH * 4)) {
-			Status = XLOADER_ERR_TCM_ADDR_OUTOF_RANGE;
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE,
-																	Status);
+	}
+	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
+			(Address < (XLOADER_R5_TCM_BANK_LENGTH * 4U))) {
+		if (Len > (XLOADER_R5_TCM_BANK_LENGTH * 4U)) {
+			Status = XPLMI_UPDATE_STATUS(
+					XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0U);
 			goto END;
 		}
 
 		Address += XLOADER_R5_0_TCMA_BASE_ADDR;
-	} else {
-		Status = XST_SUCCESS;
+	}
+	else {
+		/* Do nothing */
 	}
 
 	/*

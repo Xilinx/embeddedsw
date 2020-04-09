@@ -50,50 +50,46 @@
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 /**
- * This function is used to initialize for DDR init. Nothing is required in
- * this. DDR must be already initialized by this time.
+ * @brief	This function is used to initialize for DDR init. Nothing is
+ * required in this. DDR must be already initialized by this time.
  *
- * @param	DeviceFlags Loader init prototype requires flags.
+ * @param	DeviceFlags Loader init prototype requires flags
  *
- * @return	SUCCESS
+ * @return	XST_SUCCESS
  *
  *****************************************************************************/
 int XLoader_DdrInit(u32 DeviceFlags)
 {
-	(void)DeviceFlags;
+	int Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	(void)DeviceFlags;
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 /*****************************************************************************/
 /**
- * This function is used to copy the data from DDR to destination
- * address
+ * @brief	This function is used to copy the data from DDR to destination
+ * address.
  *
- * @param SrcAddress
+ * @param	SrcAddress of DDR
+ * @param	DestAddress is the address of the destination where the data needs
+ *		to be copied.
+ * @param	Length of the bytes to be copied
+ * @param	Flags that denote blocking / non-blocking dma
  *
- * @param DestAddress is the address of the destination where it
- * should copy to
- *
- * @param Length Length of the bytes to be copied
- *
- * @param Flags that denote blocking / non-blocking dma
- *
- * @return
- *		- XST_SUCCESS for successful copy
- *		- errors as mentioned in xplmi_status.h
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_DdrCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
@@ -104,35 +100,20 @@ int XLoader_DdrCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	DmaFlags = XPLMI_PMCDMA_1;
 	Flags = Flags & XLOADER_DEVICE_COPY_STATE_MASK;
 
-	/** Just wait for the Data to be copied */
-	if (Flags == XLOADER_DEVICE_COPY_STATE_WAIT_DONE)
-	{
+	/* Just wait for the Data to be copied */
+	if (Flags == XLOADER_DEVICE_COPY_STATE_WAIT_DONE) {
 		XPlmi_WaitForNonBlkDma();
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
-	/** Update the flags for NON blocking DMA call */
-	if (Flags == XLOADER_DEVICE_COPY_STATE_INITIATE)
-	{
+	/* Update the flags for NON blocking DMA call */
+	if (Flags == XLOADER_DEVICE_COPY_STATE_INITIATE) {
 		DmaFlags |= XPLMI_DMA_SRC_NONBLK;
 	}
-	Status = XPlmi_DmaXfr((u64)SrcAddress, DestAddress, Length/4, DmaFlags);
+	Status = XPlmi_DmaXfr((u64)SrcAddress, DestAddress,
+			Length / XPLMI_WORD_LEN, DmaFlags);
+
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * This function is used to release the sd settings
- *
- * @param	None
- *
- * @return	None
- *
- *****************************************************************************/
-int XLoader_DdrRelease(void )
-{
-
-	return XST_SUCCESS;
 }

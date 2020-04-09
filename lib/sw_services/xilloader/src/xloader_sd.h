@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,14 +47,16 @@
 extern "C" {
 #endif
 
-
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
+
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
 #include "xsdps.h"
 #include "xplmi_debug.h"
+
 /************************** Constant Definitions *****************************/
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -64,18 +66,15 @@ extern "C" {
 #define XLOADER_SD_DRV_NUM_1			(1U)
 #define XLOADER_SD_DRV_NUM_4			(4U)
 #define XLOADER_SD_RAW_BLK_SIZE			(512U)
-#define XLOADER_SD_RAW_NUM_SECTORS		(128U)
+#define XLOADER_SD_RAW_NUM_SECTORS		(4096U)
 
 /************************** Function Prototypes ******************************/
-
 int XLoader_SdInit(u32 DeviceFlags);
 int XLoader_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_SdRelease(void );
 int XLoader_RawInit(u32 DrvNum);
 int XLoader_RawCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
-
 
 #endif /* end of XLOADER_SD */
 

@@ -48,6 +48,7 @@
 #ifdef XPLM_SEM
 #include "xilsem.h"
 #endif
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -56,6 +57,7 @@
 extern XilPdi* BootPdiPtr;
 extern XLoader_DeviceOps DeviceOps[];
 static XPlmi_Module XPlmi_Loader;
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -69,6 +71,7 @@ static XPlmi_Module XPlmi_Loader;
  * @param Pointer to the command structure
  *
  * @return Returns XST_SUCCESS
+ *
  *****************************************************************************/
 static int XLoader_Features(XPlmi_Cmd * Cmd)
 {
@@ -77,8 +80,7 @@ static int XLoader_Features(XPlmi_Cmd * Cmd)
 	if (Cmd->Payload[0U] < XPlmi_Loader.CmdCnt) {
 		Cmd->Response[1U] = XLOADER_SUCCESS;
 	}
-	else
-	{
+	else {
 		Cmd->Response[1U] = XLOADER_FAILURE;
 	}
 	Status = XST_SUCCESS;
@@ -86,35 +88,36 @@ static int XLoader_Features(XPlmi_Cmd * Cmd)
 	return Status;
 }
 
-
 /*****************************************************************************/
 /**
- * @brief This function provides load ddr copy image execution
+ * @brief	This function provides load DDR copy image execution.
  * Command payload parameters are
- *	* imgid - of ddr copied image
+ *	* Img ID - of ddr copied image
  *
- * @param Pointer to the command structure
+ * @param	Pointer to the command structure
  *
- * @return Returns the Load PDI command
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  *****************************************************************************/
 static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-
 	u32 ImgId;
 	XilPdi* PdiPtr = BootPdiPtr;
+
 	PdiPtr->ImageNum = 1U;
 	PdiPtr->PrtnNum = 1U;
 	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
 
 #if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/** Stop the SEM scan before Image load */
+	/* Stop the SEM scan before Image load */
 	Status = XSem_CfrStopScan();
 	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_STOP_SCAN, Status);
 		goto END;
 	}
 #endif
+
 	/*
 	 * Store the command fields in resume data
 	 */
@@ -124,43 +127,49 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
 	ImgId = Cmd->Payload[0U];
 	PdiPtr->PdiAddr = PdiPtr->MetaHdr.FlashOfstAddr =
-						XLOADER_DDR_COPYIMAGE_BASEADDR;
+		XLOADER_DDR_COPYIMAGE_BASEADDR;
 	PdiPtr->CopyToMem = FALSE;
 	PdiPtr->DelayHandoff = FALSE;
 
 	Status = XLoader_LoadImage(PdiPtr, ImgId);
-	if (Status == XST_SUCCESS) {
-		Status = XLoader_StartImage(PdiPtr);
-	}
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
 		goto END;
 	}
+	Status = XLoader_StartImage(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		/* Update the error code */
+		XPlmi_ErrMgr(Status);
+		goto END;
+	}
+
 END:
 #if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/** ReStart the SEM SCAN */
+	/* Restart the SEM SCAN */
 	Status = XSem_CfrInit();
 	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_CFR_INIT, Status);
-		goto END;
+		goto END1;
 	}
+END1:
 #endif
-	Cmd->Response[0U] = Status;
+	Cmd->Response[0U] = (u32)Status;
 	return Status;
 }
 
 
 /*****************************************************************************/
 /**
- * @brief This function provides load subsystem PDI command execution
+ * @brief	This function provides PDI execution from DDR.
  *  Command payload parameters are
  *	* PdiSrc - Boot Mode values, DDR, PCIe
  *	* PdiAddr - 64bit PDI address located in the Source
  *
- * @param Pointer to the command structure
+ * @param	Pointer to the command structure
  *
- * @return Returns the Load PDI command
+ * @return	Returns the Load PDI command
+ *
  *****************************************************************************/
 static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 {
@@ -171,32 +180,31 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-	/** store the command fields in resume data */
+	/* Store the command fields in resume data */
 	PdiSrc = Cmd->Payload[0U];
-	PdiAddr = (u64 )Cmd->Payload[1U];
-	PdiAddr = ((u64 )Cmd->Payload[2U] |
-		   (PdiAddr << 32U));
+	PdiAddr = (u64)Cmd->Payload[1U];
+	PdiAddr = (u64)(Cmd->Payload[2U] | (PdiAddr << 32U));
 
 	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Started\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
 		goto END;
 	}
 
 	XPlmi_Printf(DEBUG_GENERAL, "Subsystem PDI Load: Done\n\r");
+
 END:
-	Cmd->Response[0U] = Status;
+	Cmd->Response[0U] = (u32)Status;
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief contains the array of PLM loader commands
+ * @brief	Contains the array of PLM loader commands
  *
  *****************************************************************************/
 static XPlmi_ModuleCmd XLoader_Cmds[] =
@@ -208,7 +216,7 @@ static XPlmi_ModuleCmd XLoader_Cmds[] =
 
 /*****************************************************************************/
 /**
- * @brief Contains the module ID and loader commands array
+ * @brief	Contains the module ID and loader commands array
  *
  *****************************************************************************/
 static XPlmi_Module XPlmi_Loader =
@@ -220,11 +228,11 @@ static XPlmi_Module XPlmi_Loader =
 
 /*****************************************************************************/
 /**
- * @brief This function registers the PLM Loader commands to the PLMI
+ * @brief	This function registers the PLM Loader commands to the PLMI.
  *
- * @param none
+ * @param	None
  *
- * @return none
+ * @return	None
  *
  *****************************************************************************/
 void XLoader_CmdsInit(void)
