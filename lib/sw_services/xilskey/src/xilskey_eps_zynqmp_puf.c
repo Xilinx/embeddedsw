@@ -96,6 +96,7 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 							u32 *RowData);
 u32 XilSKey_ZynqMp_EfusePs_Init(void);
+void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
 static INLINE u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void);
 
@@ -133,6 +134,17 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	/* Initialize the ADC */
+	Status = XilSKey_ZynqMp_EfusePs_Init();
+	if (Status != (u32)XST_SUCCESS) {
+                goto END;
+        }
+	/* Vol and temperature checks */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 	DataPtr = InstancePtr->EfuseSynData;
 	TempPtr = InstancePtr->EfuseSynData;
 
@@ -146,12 +158,6 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Vol and temperature checks */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -252,11 +258,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		goto END;
 	}
-	/* Init timer and AMS */
-	Status = XilSKey_ZynqMp_EfusePs_Init();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
+
+	/* Setting the timing Constraints */
+        XilSKey_ZynqMp_EfusePs_SetTimerValues();
 
 	for (Row = 0U; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row,
@@ -336,10 +340,22 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	/* Initialize the ADC */
+	Status = XilSKey_ZynqMp_EfusePs_Init();
+	if (Status != (u32)XST_SUCCESS) {
+                goto END;
+        }
+	/* Vol and temperature checks */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 	PufChash = (u8 *)&(InstancePtr->Chash);
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
+
 	/* Check the unlock status */
 	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
@@ -347,12 +363,6 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Vol and temperature checks */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -459,6 +469,17 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	/* Initialize the ADC */
+	Status = XilSKey_ZynqMp_EfusePs_Init();
+	if (Status != (u32)XST_SUCCESS) {
+                goto END;
+        }
+	/* Vol and temperature checks */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 	AuxValue = (u8 *)&(InstancePtr->Aux);
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -470,12 +491,6 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Vol and temperature checks */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
