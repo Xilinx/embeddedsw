@@ -685,8 +685,10 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 				(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
-			if (InstancePtr->Config.IsCacheCoherent == 0U) {
-				Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			if (Msg->Xfer64bit != (u8)1U) {
+				if (InstancePtr->Config.IsCacheCoherent == 0U) {
+					Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+				}
 			}
 			/* Clear the ISR */
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,

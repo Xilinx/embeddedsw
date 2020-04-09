@@ -39,6 +39,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.2   sk  02/20/20 First release
+* 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
 *
 * </pre>
 *
@@ -185,8 +186,10 @@ u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		if (Status != (u32)XST_SUCCESS) {
 			goto ERROR_PATH;
 		}
-		if (InstancePtr->Config.IsCacheCoherent == 0U) {
-			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		if (Msg->Xfer64bit != (u8)1U) {
+			if (InstancePtr->Config.IsCacheCoherent == 0U) {
+				Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			}
 		}
 		if (InstancePtr->IsUnaligned != 0U) {
 			InstancePtr->RecvBufferPtr += Msg->ByteCount;

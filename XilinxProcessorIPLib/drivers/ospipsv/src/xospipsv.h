@@ -55,6 +55,7 @@
 *                     masked data writes.
 *       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
 *       sk   02/20/20 Added support for DLL Master mode.
+* 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
 *
 * </pre>
 *
@@ -109,6 +110,8 @@ typedef struct {
 	u8 Dummy;		/**< Number of dummy cycles for opcode */
 	u8 Proto;		/**< Indicate number of Cmd-Addr-Data lines */
 	u8 IsDDROpCode;	/**< 1 if opcode is DDR command, 0 otherwise */
+	u64 RxAddr64bit; /**< Provide 64-bit read address for 32-bit platform */
+	u8 Xfer64bit; /**< Set to 1 when reading from 64-bit addr otherwise 0 */
 } XOspiPsv_Msg;
 
 /**
@@ -249,6 +252,8 @@ typedef struct {
 
 #define XOSPIPSV_DLL_BYPASS_MODE	0x0U
 #define XOSPIPSV_DLL_MASTER_MODE	0x1U
+
+#define XOSPIPSV_RXADDR_OVER_32BIT		0x100000000U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);

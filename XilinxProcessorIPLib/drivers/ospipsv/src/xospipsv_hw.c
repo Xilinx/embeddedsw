@@ -39,6 +39,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.2   sk  02/20/20 First release
+* 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
 *
 * </pre>
 *
@@ -508,27 +509,39 @@ void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 {
 	UINTPTR AddrTemp;
 
-	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
-			XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
-
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_DMA_PERIPH_CONFIG_REG, XOSPIPSV_DMA_PERIPH_CONFIG_VAL);
 
-	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
-	}
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
+	if ((Msg->RxAddr64bit >= XOSPIPSV_RXADDR_OVER_32BIT) &&
+			(Msg->Xfer64bit != (u8)0U)) {
+		AddrTemp = (Msg->RxAddr64bit &
+				XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
+		AddrTemp = Msg->RxAddr64bit >> 32;
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_ADDR_MSB, (u32)AddrTemp &
+				XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK);
+	} else {
+		AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
+				XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
+
+		if (InstancePtr->Config.IsCacheCoherent == 0U) {
+			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		}
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
 
 #if defined(__aarch64__) || defined(__arch64__)
-	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) >> 32);
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_OSPIDMA_DST_ADDR_MSB, (u32)AddrTemp &
-		XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK);
+		AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) >> 32);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_OSPIDMA_DST_ADDR_MSB, (u32)AddrTemp &
+			XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK);
 #else
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_OSPIDMA_DST_ADDR_MSB, 0x0);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_OSPIDMA_DST_ADDR_MSB, 0x0);
 #endif
+	}
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_SRAM_PARTITION_CFG_REG, XOSPIPSV_SRAM_PARTITION_CFG_VAL);
 
