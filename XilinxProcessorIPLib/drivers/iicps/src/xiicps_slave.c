@@ -46,6 +46,7 @@
 * 3.11  sd  02/06/20 Added clocking support.
 * 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
 *	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
+*       rna 04/09/20 Added timeout as event in slave interrupt handler.
 * </pre>
 *
 ******************************************************************************/
@@ -588,10 +589,17 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	}
 
 	/*
+	 * Timeout interrupt, pass this information to application.
+	 */
+	if (0U != (IntrStatusReg & XIICPS_IXR_TO_MASK)) {
+		XIicPs_DisableInterrupts(BaseAddr, XIICPS_IXR_TO_MASK);
+		StatusEvent |= XIICPS_EVENT_TIME_OUT;
+	}
+
+	/*
 	 * All other interrupts are treated as error.
 	 */
-	if (0U != (IntrStatusReg & (XIICPS_IXR_TO_MASK |
-				XIICPS_IXR_RX_UNF_MASK |
+	if (0U != (IntrStatusReg & (XIICPS_IXR_RX_UNF_MASK |
 				XIICPS_IXR_TX_OVR_MASK |
 				XIICPS_IXR_RX_OVR_MASK))){
 
