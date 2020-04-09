@@ -129,7 +129,6 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 		u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
-static INLINE void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
 				XilSKey_ZynqMpEPs *InstancePtr);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
@@ -145,6 +144,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			u8 *UserFuses_Write, u8 *UserFuses_Read,
 			XilSKey_UsrFuses *UserFuses_ToBePrgrmd);
+void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
 u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 							u32 *RowData);
@@ -192,6 +192,19 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	/* Initialize the ADC */
+	Status = XilSKey_ZynqMp_EfusePs_Init();
+	if (Status != (u32)XST_SUCCESS) {
+                goto UNLOCK;
+        }
+	/**
+	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
+	 */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
@@ -201,10 +214,6 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 		goto UNLOCK;
 	}
 
-	Status = XilSKey_ZynqMp_EfusePs_Init();
-	if (Status != (u32)XST_SUCCESS) {
-		goto UNLOCK;
-	}
 	/* Conditions to check programming is possible or not */
 	Status = XilSKey_ZynqMp_EfusePsWrite_Checks(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
@@ -460,7 +469,9 @@ UNLOCK:
 * 		- XST_SUCCESS if reads successfully
 * 		- XST_FAILURE if reading is failed
 *
-* @note		Cache reload is required for obtaining updated values for
+* @note		It is highly recommended to read from eFuse cache.
+*		Because reading from efuse may reduce the life of the efuse.
+*		And Cache reload is required for obtaining updated values for
 *		ReadOption 0.
 *
 ******************************************************************************/
@@ -500,7 +511,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 * 		- XST_SUCCESS if reads successfully
 * 		- XST_FAILURE if reading is failed
 *
-* @note		None.
+* @note		It is highly recommended to read from eFuse cache.
+*		Because reading from efuse may reduce the life of the efuse.
+*		And Cache reload is required for obtaining updated values for
+*		ReadOption 0.
 *
 ******************************************************************************/
 static INLINE void XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
@@ -646,15 +660,6 @@ static INLINE u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	/**
-	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
-	 */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
 
 	/* Read secure and control bits */
 	Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
@@ -1081,11 +1086,8 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
 	/* Enable Program enable bit */
 	XilSKey_ZynqMp_EfusePS_PrgrmEn();
 
-	/* Setting the timing Constraints and initializing the sysmon */
-	Status = XilSKey_ZynqMp_EfusePs_Init();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
+	/* Setting the timing Constraints */
+	XilSKey_ZynqMp_EfusePs_SetTimerValues();
 
 	/* Read status and verify Tbits are read properly or not */
 	ReadReg = XilSKey_ZynqMp_EfusePs_Status();
@@ -1101,7 +1103,7 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
 	else {
 		Status = (u32)XST_SUCCESS;
 	}
-END:
+
 	return Status;
 
 }
@@ -1117,7 +1119,7 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static INLINE void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
+void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
 {
 	u32 ReadReg;
 
@@ -1690,10 +1692,8 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	}
-	Status = XilSKey_ZynqMp_EfusePs_Init();
-	if (Status != (u32)XST_SUCCESS) {
-		 goto END;
-	}
+	/* Set the timing constraints */
+	XilSKey_ZynqMp_EfusePs_SetTimerValues();
 
 	/* writing CRC value to check AES key's CRC */
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -1740,6 +1740,10 @@ END:
 * @return
 *		- XST_SUCCESS on successful read
 *		- ErrorCode on failure
+* @note		It is highly recommended to read from eFuse cache.
+*		Because reading from efuse may reduce the life of the efuse.
+*		And Cache reload is required for obtaining updated values for
+*		ReadOption 0.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
@@ -1781,6 +1785,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 * @return
 *		- XST_SUCCESS on successful read
 *		- ErrorCode on failure
+* @note		It is highly recommended to read from eFuse cache.
+*		Because reading from efuse may reduce the life of the efuse.
+*		And Cache reload is required for obtaining updated values for
+*		ReadOption 0.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
@@ -1828,6 +1836,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 *		- XST_SUCCESS on successful read
 *		- ErrorCode on failure
 *
+* @note		It is highly recommended to read from eFuse cache.
+*		Because reading from efuse may reduce the life of the efuse.
+*		And Cache reload is required for obtaining updated values for
+*		ReadOption 0.
+*
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 {
@@ -1873,6 +1886,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 * @return
 *		- XST_SUCCESS on successful read
 *		- ErrorCode on failure
+* @note		It is highly recommended to read from eFuse cache.
+*		Because reading from efuse may reduce the life of the efuse.
+*		And Cache reload is required for obtaining updated values for
+*		ReadOption 0.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
@@ -2342,15 +2359,11 @@ END:
 
 /*****************************************************************************/
 /*
-* This function initializes sysmonpsu driver and set all timing parameters.
-*
-* @param	None
+* This function initializes sysmonpsu driver.
 *
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Init(void)
@@ -2364,21 +2377,14 @@ u32 XilSKey_ZynqMp_EfusePs_Init(void)
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
-		/* Set the timing constraints */
-		XilSKey_ZynqMp_EfusePs_SetTimerValues();
 		Init_Done = TRUE;
 	}
 	Status = (u32)XST_SUCCESS;
 #else
-	Status = XilSKey_EfusePs_XAdcCfgValidate();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-	if (Init_Done != TRUE) {
-		/* Set the timing constraints */
-		XilSKey_ZynqMp_EfusePs_SetTimerValues();
-		Init_Done = TRUE;
-	}
+	 Status = XilSKey_EfusePs_XAdcCfgValidate();
+        if (Status != (u32)XST_SUCCESS) {
+                goto END;
+        }
 #endif
 
 END:
