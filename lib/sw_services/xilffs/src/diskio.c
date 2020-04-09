@@ -59,6 +59,7 @@
 * 4.2   mn   08/16/19 Initialize Status variables with failure values
 *       mn   09/25/19 Check if the SD is powered on or not in disk_status()
 * 4.3   mn   02/24/20 Remove unused macro defines
+*       mn   04/08/20 Set IsReady to '0' before calling XSdPs_CfgInitialize
 *
 * </pre>
 *
@@ -267,6 +268,8 @@ DSTATUS disk_initialize (
 		s |= STA_NOINIT;
 		return s;
 	}
+
+	SdInstance[pdrv].IsReady = 0U;
 
 	Status = XSdPs_CfgInitialize(&SdInstance[pdrv], SdConfig,
 					SdConfig->BaseAddress);
