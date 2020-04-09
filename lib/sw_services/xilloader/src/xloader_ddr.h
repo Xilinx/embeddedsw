@@ -53,16 +53,16 @@ extern "C" {
 #include "xplmi_dma.h"
 #include "xplmi_status.h"
 #include "xplmi_debug.h"
+
 /************************** Constant Definitions *****************************/
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
 int XLoader_DdrInit(u32 DeviceFlags);
 int XLoader_DdrCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_DdrRelease(void );
 
 /************************** Variable Definitions *****************************/
 

@@ -53,19 +53,18 @@ extern "C" {
 #include "xplmi_status.h"
 #ifdef XLOADER_SBI
 #include "xplmi_debug.h"
+
 /************************** Constant Definitions *****************************/
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
 int XLoader_SbiInit(u32 DeviceFlags);
 int XLoader_SbiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_SbiRelease(void );
 
 /************************** Variable Definitions *****************************/
-
 
 #endif /* end of XLOADER_SBI */
 
