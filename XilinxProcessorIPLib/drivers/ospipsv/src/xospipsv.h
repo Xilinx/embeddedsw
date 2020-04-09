@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv.h
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 * @details
 *

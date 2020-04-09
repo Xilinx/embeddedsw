@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv_hw.c
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This file implements the hardware functions used by the functions in

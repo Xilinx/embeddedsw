@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv_hw.h
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This file contains low level access functions using the base address

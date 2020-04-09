@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv_sinit.c
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * The implementation of the XOspiPsv component's static initialization

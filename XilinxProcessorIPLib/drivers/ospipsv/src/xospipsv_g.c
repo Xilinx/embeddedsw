@@ -27,7 +27,7 @@
 /**
 *
 * @file xospipsv_g.c
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
