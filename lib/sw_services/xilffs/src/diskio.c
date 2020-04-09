@@ -367,6 +367,11 @@ DRESULT disk_read (
 	memcpy(buff, dataramfs + (sector * SECTORSIZE), count * SECTORSIZE);
 #endif
 
+#if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
+	(void)buff;
+	(void)sector;
+#endif
+
     return RES_OK;
 }
 
@@ -430,6 +435,12 @@ DRESULT disk_ioctl (
 		res = RES_PARERR;
 		break;
 	}
+#endif
+
+#if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
+	(void)pdrv;
+	(void)cmd;
+	(void)buff;
 #endif
 
 	return res;
@@ -511,6 +522,11 @@ DRESULT disk_write (
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 	memcpy(dataramfs + (sector * SECTORSIZE), buff, count * SECTORSIZE);
+#endif
+
+#if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
+	(void)buff;
+	(void)sector;
 #endif
 
 	return RES_OK;
