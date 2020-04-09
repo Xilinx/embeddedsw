@@ -71,6 +71,7 @@
 *       cog    06/08/19 Linux platform compatibility fixes.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
 * 7.1   cog    01/24/20 Updated example for Gen3 and libmetal 2.0.
+* 8.0   cog    04/09/20 Fixed baremetal compilation bug.
 *
 * </pre>
 *
@@ -152,6 +153,12 @@ struct metal_io_region *io_cap;
 
 #ifdef __BAREMETAL__
 XScuGic InterruptController;
+
+const metal_phys_addr_t metal_phys[] = {
+		XRFDC_BASE_ADDR,
+		STIM_BASE_ADDR,
+		CAP_BASE_ADDR
+};
 
 static struct metal_device metal_dev_rfdc = {
 	/* RFdc device */
@@ -332,8 +339,12 @@ printf("\n Configuring the Clock \r\n");
 	XRFdc_SetStatusHandler(RFdcInstPtr, RFdcInstPtr,
 				 (XRFdc_StatusHandler) RFdcHandler);
 
-	XRFdc_IntrEnable(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block,
+	Status = XRFdc_IntrEnable(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block,
 						XRFDC_IXR_FIFOUSRDAT_MASK);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
 	GetFabricRate = 0;
 	SetFabricRate = 0x1;
 	Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block,
