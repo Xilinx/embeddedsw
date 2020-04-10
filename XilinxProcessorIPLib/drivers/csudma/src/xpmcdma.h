@@ -334,7 +334,7 @@ static INLINE u32 XPmcDma_IsBusy(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 *		NULL if no match is found.
 *
 ******************************************************************************/
-INLINE XPmcDma_Config * XPmcDma_LookupConfig(u16 DeviceId)
+static INLINE XPmcDma_Config * XPmcDma_LookupConfig(u16 DeviceId)
 {
 	return XCsuDma_LookupConfig(DeviceId);
 }
@@ -361,7 +361,7 @@ INLINE XPmcDma_Config * XPmcDma_LookupConfig(u16 DeviceId)
 *		- XST_SUCCESS if initialization was successful.
 *
 ******************************************************************************/
-INLINE s32 XPmcDma_CfgInitialize(XPmcDma *InstancePtr, XPmcDma_Config *CfgPtr,
+static INLINE s32 XPmcDma_CfgInitialize(XPmcDma *InstancePtr, XPmcDma_Config *CfgPtr,
 	u32 EffectiveAddr)
 {
 	return XCsuDma_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr);
@@ -397,7 +397,7 @@ INLINE s32 XPmcDma_CfgInitialize(XPmcDma *InstancePtr, XPmcDma_Config *CfgPtr,
 *		transfer.
 *
 ******************************************************************************/
-INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	UINTPTR Addr, u32 Size, u8 EnDataLast)
 {
 	XCsuDma_Transfer(InstancePtr, Channel, Addr, Size, EnDataLast);
@@ -440,7 +440,7 @@ INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 *		It is recommened to call this API only through PMU processor.
 *
 ******************************************************************************/
-INLINE void XPmcDma_64BitTransfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_64BitTransfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast)
 {
 	XCsuDma_64BitTransfer(InstancePtr, Channel, AddrLow, AddrHigh,
@@ -465,7 +465,7 @@ INLINE void XPmcDma_64BitTransfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 *		- At this location data has to be written(DST)
 *
 ******************************************************************************/
-INLINE u64 XPmcDma_GetAddr(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
+static INLINE u64 XPmcDma_GetAddr(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 {
 	return XCsuDma_GetAddr(InstancePtr, Channel);
 }
@@ -485,7 +485,7 @@ INLINE u64 XPmcDma_GetAddr(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 * @return	Size is amount of data yet to be transfered.
 *
 ******************************************************************************/
-INLINE u32 XPmcDma_GetSize(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
+static INLINE u32 XPmcDma_GetSize(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 {
 	return XCsuDma_GetSize(InstancePtr, Channel);
 }
@@ -512,7 +512,7 @@ INLINE u32 XPmcDma_GetSize(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 * @return	None.
 *
 ******************************************************************************/
-INLINE void XPmcDma_Pause(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_Pause(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	XPmcDma_PauseType Type)
 {
 	XCsuDma_Pause(InstancePtr, Channel,Type);
@@ -542,7 +542,7 @@ INLINE void XPmcDma_Pause(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 *		- FALSE if it is not in pause state.
 *
 ******************************************************************************/
-INLINE s32 XPmcDma_IsPaused(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE s32 XPmcDma_IsPaused(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	XPmcDma_PauseType Type)
 {
 	return XCsuDma_IsPaused(InstancePtr, Channel, Type);
@@ -572,7 +572,7 @@ INLINE s32 XPmcDma_IsPaused(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 * @return	None.
 *
 ******************************************************************************/
-INLINE void XPmcDma_Resume(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_Resume(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	XPmcDma_PauseType Type)
 {
 	XCsuDma_Resume(InstancePtr, Channel, Type);
@@ -594,7 +594,7 @@ INLINE void XPmcDma_Resume(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 *		Valid only for source channel
 *
 ******************************************************************************/
-INLINE u32 XPmcDma_GetCheckSum(XPmcDma *InstancePtr)
+static INLINE u32 XPmcDma_GetCheckSum(XPmcDma *InstancePtr)
 {
 	return XCsuDma_GetCheckSum(InstancePtr);
 }
@@ -614,7 +614,7 @@ INLINE u32 XPmcDma_GetCheckSum(XPmcDma *InstancePtr)
 *		to wrong output.
 *
 ******************************************************************************/
-INLINE void XPmcDma_ClearCheckSum(XPmcDma *InstancePtr)
+static INLINE void XPmcDma_ClearCheckSum(XPmcDma *InstancePtr)
 {
 	XCsuDma_ClearCheckSum(InstancePtr);
 }
@@ -694,7 +694,7 @@ INLINE void XPmcDma_ClearCheckSum(XPmcDma *InstancePtr)
 *		enabled.
 *
 ******************************************************************************/
-INLINE void XPmcDma_SetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_SetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	XPmcDma_Configure *ConfigurValues)
 {
 	XCsuDma_SetConfig(InstancePtr, Channel, ConfigurValues);
@@ -773,7 +773,7 @@ INLINE void XPmcDma_SetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 * @return	None.
 *
 ******************************************************************************/
-INLINE void XPmcDma_GetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_GetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	XPmcDma_Configure *ConfigurValues)
 {
 	XCsuDma_GetConfig(InstancePtr, Channel,ConfigurValues);
@@ -794,7 +794,7 @@ INLINE void XPmcDma_GetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 *		XST_FAILURE - Incase of Timeout.
 *
 ******************************************************************************/
-INLINE u32 XPmcDma_WaitForDoneTimeout(XPmcDma *InstancePtr,
+static INLINE u32 XPmcDma_WaitForDoneTimeout(XPmcDma *InstancePtr,
 	XPmcDma_Channel Channel)
 {
 	return XCsuDma_WaitForDoneTimeout(InstancePtr, Channel);
@@ -821,7 +821,7 @@ INLINE u32 XPmcDma_WaitForDoneTimeout(XPmcDma *InstancePtr,
 *		XPMCDMA_IXR_DST_MASK   - For Destination channel
 *
 ******************************************************************************/
-INLINE u32 XPmcDma_IntrGetStatus(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
+static INLINE u32 XPmcDma_IntrGetStatus(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 {
 	return XCsuDma_IntrGetStatus(InstancePtr, Channel);
 }
@@ -845,7 +845,7 @@ INLINE u32 XPmcDma_IntrGetStatus(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 *		XPMCDMA_IXR_DST_MASK   - For Destination channel
 *
 ******************************************************************************/
-INLINE void XPmcDma_IntrClear(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_IntrClear(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	u32 Mask)
 {
 	XCsuDma_IntrClear(InstancePtr, Channel, Mask);
@@ -870,7 +870,7 @@ INLINE void XPmcDma_IntrClear(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 * @return	None.
 *
 ******************************************************************************/
-INLINE void XPmcDma_EnableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_EnableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	u32 Mask)
 {
 	XCsuDma_EnableIntr(InstancePtr, Channel, Mask);
@@ -895,7 +895,7 @@ INLINE void XPmcDma_EnableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 * @return	None.
 *
 ******************************************************************************/
-INLINE void XPmcDma_DisableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
+static INLINE void XPmcDma_DisableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 	u32 Mask)
 {
 	XCsuDma_DisableIntr(InstancePtr, Channel, Mask);
@@ -922,7 +922,7 @@ INLINE void XPmcDma_DisableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 *		XPMCDMA_IXR_DST_MASK........For destination channel
 *
 ******************************************************************************/
-INLINE u32 XPmcDma_GetIntrMask(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
+static INLINE u32 XPmcDma_GetIntrMask(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 {
 	return XCsuDma_GetIntrMask(InstancePtr, Channel);
 }
@@ -941,7 +941,7 @@ INLINE u32 XPmcDma_GetIntrMask(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 * 		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
-INLINE s32 XPmcDma_SelfTest(XPmcDma *InstancePtr)
+static INLINE s32 XPmcDma_SelfTest(XPmcDma *InstancePtr)
 {
 	return XCsuDma_SelfTest(InstancePtr);
 }

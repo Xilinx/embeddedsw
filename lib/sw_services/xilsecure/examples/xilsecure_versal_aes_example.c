@@ -48,6 +48,8 @@
 #include "xparameters.h"
 #include "xsecure_aes.h"
 #include "xil_util.h"
+#include "xpmcdma.h"
+
 /************************** Constant Definitions *****************************/
 
 /* Harcoded KUP key for encryption of data */
@@ -65,7 +67,7 @@
 #define XSECURE_IV_SIZE		(12)
 #define XSECURE_KEY_SIZE	(32)
 
-#define XSECURE_CSUDMA_DEVICEID	XPAR_XCSUDMA_0_DEVICE_ID
+#define XSECURE_PMCDMA_DEVICEID	PMCDMA_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
@@ -167,26 +169,26 @@ END:
 /** //! [Generic AES example] */
 static s32 SecureAesExample(void)
 {
-	XCsuDma_Config *Config;
+	XPmcDma_Config *Config;
 	s32 Status = XST_FAILURE;
 	u32 Index;
-	XCsuDma CsuDmaInstance;
+	XPmcDma PmcDmaInstance;
 	XSecure_Aes Secure_Aes;
 
-	/* Initialize CSU DMA driver */
-	Config = XCsuDma_LookupConfig(XSECURE_CSUDMA_DEVICEID);
+	/* Initialize PMC DMA driver */
+	Config = XPmcDma_LookupConfig(XSECURE_PMCDMA_DEVICEID);
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
 
-	Status = XCsuDma_CfgInitialize(&CsuDmaInstance, Config,
+	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
 					Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&Secure_Aes, &CsuDmaInstance);
+	XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
 
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(&Secure_Aes, XSECURE_AES_USER_KEY_0,
@@ -241,7 +243,7 @@ static s32 SecureAesExample(void)
 	xil_printf( "\r\n\n");
 
 	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&Secure_Aes, &CsuDmaInstance);
+	XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
 
 	/* Decrypt's the encrypted data */
 	/*
