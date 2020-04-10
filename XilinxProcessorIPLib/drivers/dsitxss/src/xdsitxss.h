@@ -27,7 +27,7 @@
 /**
 *
 * @file xdsitxss.h
-* @addtogroup dsitxss_v1_1
+* @addtogroup dsitxss_v2_0
 * @{
 * @details
 *
@@ -175,6 +175,14 @@ typedef enum {
 } XDsiSS_Selection;
 
 /**
+ * Sub-Core Enable/Disable
+ */
+typedef enum {
+	XDSITXSS_DSI,	/* DSI Core */
+	XDSITXSS_PHY	/* DPHY */
+} XDsiSS_Subcore;
+
+/**
  * MIPI DSI Tx Subsystem configuration structure.
  * Each subsystem device should have a configuration structure associated
  * that defines the MAX supported sub-cores within subsystem
@@ -251,7 +259,7 @@ XDsiTxSs_Config* XDsiTxSs_LookupConfig(u32 DeviceId);
 s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr);
 u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr);
-void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag);
+int XDsiTxSs_Activate(XDsiTxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag);
 void XDsiTxSs_Reset(XDsiTxSs *InstancePtr);
 void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
