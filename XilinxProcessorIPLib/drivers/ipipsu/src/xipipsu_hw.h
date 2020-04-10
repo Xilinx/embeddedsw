@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 /**
 *
 * @file xipipsu_hw.h
-* @addtogroup ipipsu_v2_5
+* @addtogroup ipipsu_v2_6
 * @{
 *
 * This file contains macro definitions for low level HW related params

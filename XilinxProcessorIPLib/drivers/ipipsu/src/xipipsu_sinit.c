@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 /**
 *
 * @file xipipsu_sinit.c
-* @addtogroup ipipsu_v2_5
+* @addtogroup ipipsu_v2_6
 * @{
 *
 * The implementation of the XIpiPsu component's static initialization
@@ -80,6 +80,6 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 		}
 	}
 
-	return CfgPtr;
+	return (XIpiPsu_Config *) CfgPtr;
 }
 /** @} */
