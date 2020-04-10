@@ -27,7 +27,7 @@
 /**
 *
 * @file xdsitxss_selftest.c
-* @addtogroup dsitxss_v1_1
+* @addtogroup dsitxss_v2_0
 * @{
 *
 * This file contains self test function for the MIPI DSI Tx Subsystem
