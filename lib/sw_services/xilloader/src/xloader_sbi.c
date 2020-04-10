@@ -98,6 +98,9 @@ int XLoader_SbiInit(u32 DeviceFlags)
 			       XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
 			Status = XST_SUCCESS;
 			break;
+		case XLOADER_PDI_SRC_SBI:
+			Status = XST_SUCCESS;
+			break;
 		default:
 			break;
 	}

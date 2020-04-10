@@ -439,7 +439,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 */
 	TempVal = Len % XLOADER_DMA_LEN_ALIGN;
 	if (TempVal != 0U) {
-		Len = Len - TempVal + XLOADER_DMA_LEN_ALIGN;
+		Len = Len + XLOADER_DMA_LEN_ALIGN - TempVal;
 	}
 
 	if (PdiPtr->CopyToMem == TRUE) {
