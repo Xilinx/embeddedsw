@@ -914,7 +914,7 @@ void InitVprocSs_Scaler(int count)
 					FALSE);
 
 	if (resIdOut != XVIDC_VM_1920x1200_60_P) {
-		xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1200_60_P \r\n", resIdOut);
+	xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1200_60_P \r\n", resIdOut);
 	}
 
 	StreamOut.VmId = resIdOut;
@@ -965,7 +965,10 @@ void ResetVprocSs_Scaler(void)
  *****************************************************************************/
 void EnableDSI(void)
 {
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
+	int Status;
+//	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
 }
 
 /*****************************************************************************/
@@ -980,12 +983,11 @@ void EnableDSI(void)
 void DisableDSI(void)
 {
 	u32 Status;
-
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
-	do {
-		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
-	} while (!Status);
-
+	u8 Flag = 1;
+//	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+	usleep(100000);
 }
 
 /*****************************************************************************/
@@ -999,17 +1001,27 @@ void DisableDSI(void)
  *****************************************************************************/
 void InitDSI(void)
 {
+	u32 Status;
 	XDsi_VideoTiming Timing = { 0 };
 
 	/* Disable DSI core only. So removed DPHY register interface in design*/
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+
 
 	XDsiTxSs_Reset(&DsiTxSs);
 
-	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
+usleep(100000);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+//	XDphy_Activate(DsiTxSs.DphyPtr, XDSITXSS_ENABLE);
+
+/*	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
 		xil_printf("DSI Controller NOT Ready!!!!\r\n");
 		return;
-	}
+	}*/
+	do {
+		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
+	} while (!Status);
 
 	/* Set the DSI Timing registers */
 	Timing.HActive = DSI_DISPLAY_HORI_VAL;
