@@ -27,7 +27,7 @@
 /**
 *
 * @file xdsitxss.c
-* @addtogroup dsitxss_v1_1
+* @addtogroup dsitxss_v2_0
 * @{
 *
 * This is main code of Xilinx MIPI DSI Tx Subsystem device driver.
@@ -185,29 +185,33 @@ u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr)
 * the DPHY and DSI. Enable/Disable IP core to start processing
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
-* @param	Flag is used to denote whether to enable or disable the subsystem
+* @param	core is used to denote the subcore of subsystem
+* @param        Flag is used to denote whether to enable or disable the subsystem
 *
-* @return	None
+* @return	XST_SUCCESS is returned if subcore(DSI/DPHY) was
+*			successfully enabled or disabled
+*		XST_INVALID_PARAM is returned if subsystem core is not found
 *
 * @note		None.
 *
 ******************************************************************************/
-void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag)
+int XDsiTxSs_Activate(XDsiTxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flag <= XDSITXSS_ENABLE);
 	Xil_AssertVoid(InstancePtr->DsiPtr != NULL);
+	Xil_AssertVoid(InstancePtr->DphyPtr != NULL);
 
-	XDsi_Activate(InstancePtr->DsiPtr, Flag);
-
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
+	if (core == XDSITXSS_DSI)
+		XDsi_Activate(InstancePtr->DsiPtr, Flag);
+	else if (core == XDSITXSS_PHY)
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
-	}
-#endif
-}
+	else
+		return XST_INVALID_PARAM;
 
+	return XST_SUCCESS;
+}
 /*****************************************************************************/
 /**
 * This function is used to reset the DSI Subsystem. Internally it resets
