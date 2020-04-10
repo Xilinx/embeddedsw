@@ -471,7 +471,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	SecureParams.IsCdo = TRUE;
 	while (Len > 0U) {
 		/* Update the len for last chunk */
-		if ((Len <= ChunkLen) && (LastChunk != TRUE)) {
+		if (Len <= ChunkLen) {
 			LastChunk = TRUE;
 			ChunkLen = Len;
 		}
