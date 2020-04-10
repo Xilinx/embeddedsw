@@ -66,7 +66,7 @@ extern "C" {
 #define XLOADER_SD_DRV_NUM_1			(1U)
 #define XLOADER_SD_DRV_NUM_4			(4U)
 #define XLOADER_SD_RAW_BLK_SIZE			(512U)
-#define XLOADER_SD_RAW_NUM_SECTORS		(4096U)
+#define XLOADER_SD_RAW_NUM_SECTORS		(128U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_SdInit(u32 DeviceFlags);

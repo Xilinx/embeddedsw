@@ -183,7 +183,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 	/* Store the command fields in resume data */
 	PdiSrc = Cmd->Payload[0U];
 	PdiAddr = (u64)Cmd->Payload[1U];
-	PdiAddr = (u64)(Cmd->Payload[2U] | (PdiAddr << 32U));
+	PdiAddr = ((u64)(Cmd->Payload[2U]) | (PdiAddr << 32U));
 
 	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Started\n\r");
 

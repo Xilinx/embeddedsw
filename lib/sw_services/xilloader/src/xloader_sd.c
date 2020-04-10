@@ -369,7 +369,7 @@ int XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	u32 BlockNumber;
 	u32 DataOffset;
 	u32 RemainingBytes;
-	u8 ReadBuffer[XLOADER_SD_RAW_BLK_SIZE];
+	u8 ReadBuffer[1024U];
 	u8* ReadBuffPtr;
 	u32 SectorReadLen;
 	u32 NoOfSectors;
