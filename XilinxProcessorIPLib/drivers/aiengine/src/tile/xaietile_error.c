@@ -678,7 +678,7 @@ int XAieTile_ErrorRegisterNotification(XAieGbl *AieInst, u8 Module, u8 Error,
  *			  XAIE_ENABLE - need to log,
  *			  XAIE_DISABLE - no need to log
  *
- * @return	XAIE_SUCCESS if successful, else XAIE_FAILURE
+ * @return	None.
  *
  * @note	None.
  *****************************************************************************/
@@ -782,7 +782,6 @@ void XAieTile_ErrorUnregisterNotification(XAieGbl *AieInst, u8 Module,
 			}
 		}
 	}
-	return XAIE_SUCCESS;
 }
 
 /*****************************************************************************/
