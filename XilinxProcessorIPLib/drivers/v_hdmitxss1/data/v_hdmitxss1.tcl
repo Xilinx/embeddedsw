@@ -1,40 +1,11 @@
 ################################################################################
+# Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
-# Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-# IN THE SOFTWARE.
-#
-################################################################################
-##
-## MODIFICATION HISTORY:
+# MODIFICATION HISTORY:
 ##  Ver      Who    Date       Changes
 ## -------- ------ -------- ----------------------------------------------------
-##  1.0     gmagnay 08/14/15 Initial version of subsystem tcl
-##  1.1     MG      03/03/16 Added HDCP 2.2
-##  1.2     YH      30/07/16 No HDCP22_SS sub-cores included in _g.c generation
-##  1.3     YH      16/11/16 Remove Remapper & axi_gpio
-##  1.4     MMO     03/01/16 Added sub-core base address computation in TCL
-##  1.5     MMO      3/01/17 Fix the TCL to support multiple instance and sync
-##                           with XV_HdmiTxSs1_Config Data Structure
-##  1.6     MM0     13/02/17 Fix by adding typecasting for C++ Fix
-##  1.7     MMO     08/02/18 Adding YUV420 Support and Low Resolution
-##                           (NTSC/PAL) Support capability
+##  1.0     MMO    22/05/18 Initial version of subsystem tcl
 #
 ################################################################################
 
