@@ -3986,6 +3986,7 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 	 * Install the errors default handler. */
 	XAie_print("%s: Initialize errors handling.\n", __func__);
 	XAieTile_ErrorsHandlingInitialize(AieInst);
+	XAieGbl_NPIWrite32(XAIE_NPI_IER1, (1 << XAIETILE_EVENT_NPI_INTERRUPT));
 	/* Register for NPI interrupt handler */
 	/* For Baremetal, user will need to register interrupt handler
 	 * in the application. */
