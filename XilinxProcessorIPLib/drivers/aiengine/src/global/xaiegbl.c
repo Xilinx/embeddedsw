@@ -52,6 +52,7 @@
 /***************************** Include Files *********************************/
 #include "xaiegbl_defs.h"
 #include "xaiegbl.h"
+#include "xaietile_event.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -128,7 +129,7 @@ ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
 
 			for(ColIdx=0; ColIdx < ConfigPtr->NumCols; ColIdx++) {
 
-				TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+				TilePtr = (XAieGbl_Tile *)((char *)TileInstPtr +
                                         ((ColIdx * (ConfigPtr->NumRows + 1)) *
                                         sizeof(XAieGbl_Tile)) +
                                         (RowIdx * sizeof(XAieGbl_Tile)));
@@ -187,7 +188,7 @@ ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
 		/* Initialize the Shim tiles here */
 		for(ColIdx=0; ColIdx < ConfigPtr->NumCols; ColIdx++) {
 
-                        TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+                        TilePtr = (XAieGbl_Tile *)((char *)TileInstPtr +
                                         ((ColIdx * (ConfigPtr->NumRows + 1)) *
                                         sizeof(XAieGbl_Tile)));
 
@@ -234,6 +235,8 @@ ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
 				TileAddr, 0U, ColIdx, TilePtr->NocModAddr,
 				TilePtr->PlModAddr);
 		}
+		XAie_print("Initialize events handlers.\n");
+		XAieTile_EventsSetupDefaultHandlers(InstancePtr);
 	}
 }
 

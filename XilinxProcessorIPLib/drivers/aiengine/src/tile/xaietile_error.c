@@ -786,29 +786,24 @@ void XAieTile_ErrorUnregisterNotification(XAieGbl *AieInst, u8 Module,
 
 /*****************************************************************************/
 /**
- * This API initialize error handling. It will setup the error broadcast network
- * so that if error is raised, interrupt will be raised, and the interrupt
- * will be captured by the AIE driver. When errors happens, the AIE driver will
- * either take default action which will trap the application or call the user
- * registered callback.
+ * This API initialize error default handlers.
+ * When errors happens, the AIE driver will either take default action which
+ * will trap the application or call the user registered callback.
  *
  * @param	AieInst - Pointer to the AIE device instance
  *
- * @return	XAIE_SUCCESS if successful, else XAIE_FAILURE
+ * @return	None.
  *
  * @note	None.
  *****************************************************************************/
-int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
+void XAieTile_ErrorsSetupDefaultHandler(XAieGbl *AieInst)
 {
-	u32 NumCols, NumRows, ClockCntrlRegVal;
-	XAieGbl_Tile *TilePtr;
 	u8 Err;
-	u64 RegAddr;
 
-	XAie_AssertNonvoid(AieInst != XAIE_NULL);
-	XAie_AssertNonvoid(AieInst->Config != XAIE_NULL);
-	XAie_AssertNonvoid(AieInst->Tiles != XAIE_NULL);
-	XAie_AssertNonvoid(AieInst->IsReady == XAIE_COMPONENT_IS_READY);
+	XAie_AssertVoid(AieInst != XAIE_NULL);
+	XAie_AssertVoid(AieInst->Config != XAIE_NULL);
+	XAie_AssertVoid(AieInst->Tiles != XAIE_NULL);
+	XAie_AssertVoid(AieInst->IsReady == XAIE_COMPONENT_IS_READY);
 
 	memset(AieInst->CoreErrHandlers, 0, sizeof(AieInst->CoreErrHandlers));
 	memset(AieInst->MemErrHandlers, 0, sizeof(AieInst->MemErrHandlers));
@@ -882,6 +877,32 @@ int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
 				1 << (Err - XAIETILE_EVENT_SHIM_AXI_MM_SLAVE_TILE_ERROR);
 		}
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This API initialize error handling. It will setup the error broadcast network
+ * so that if error is raised, interrupt will be raised, and the interrupt
+ * will be captured by the AIE driver. When errors happens, the AIE driver will
+ * either take default action which will trap the application or call the user
+ * registered callback.
+ *
+ * @param	AieInst - Pointer to the AIE device instance
+ *
+ * @return	XAIE_SUCCESS if successful, else XAIE_FAILURE
+ *
+ * @note	None.
+ *****************************************************************************/
+int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
+{
+	u32 NumCols, NumRows, ClockCntrlRegVal;
+	XAieGbl_Tile *TilePtr;
+	u64 RegAddr;
+
+	XAie_AssertNonvoid(AieInst != XAIE_NULL);
+	XAie_AssertNonvoid(AieInst->Config != XAIE_NULL);
+	XAie_AssertNonvoid(AieInst->Tiles != XAIE_NULL);
+	XAie_AssertNonvoid(AieInst->IsReady == XAIE_COMPONENT_IS_READY);
 
 	/* Setup error broadcast network */
 	NumCols = AieInst->Config->NumCols;

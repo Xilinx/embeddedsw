@@ -3775,6 +3775,34 @@ int XAieTile_EventsDisableInterrupt(XAieGbl *AieInst)
 
 /*****************************************************************************/
 /**
+ * This API initialize events default handlers.
+ * By default, the events handlers do nothing except for errors.
+ *
+ * @param	AieInst - Pointer to the AIE device instance
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *****************************************************************************/
+void XAieTile_EventsSetupDefaultHandlers(XAieGbl *AieInst)
+{
+	memset(AieInst->CoreEvtHandlers, 0, sizeof(AieInst->CoreEvtHandlers));
+	memset(AieInst->MemEvtHandlers, 0, sizeof(AieInst->MemEvtHandlers));
+	memset(AieInst->ShimEvtHandlers, 0, sizeof(AieInst->ShimEvtHandlers));
+	XAieTile_ErrorsSetupDefaultHandler(AieInst);
+#if defined __linux__
+	/* Register for libmetal interrupt handler for Linux.
+	 * For baremetal the XAieTile_EventsIsr() will need to be registered
+	 * with AieInst to the Xilinx interrupt controller
+	 */
+	XAieGbl_IntrRegisterIsr(XAIETILE_EVENT_NPI_INTERRUPT,
+				XAieTile_EventsMetalIsr,
+				AieInst);
+#endif
+}
+
+/*****************************************************************************/
+/**
  * This API enable events handling. It will setup the events broadcast network
  * so that if events is raised, interrupt will be raised, and the interrupt
  * will be captured by the AIE driver. When event happens, the AIE driver
@@ -3954,9 +3982,6 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 		}
 	}
 
-	memset(AieInst->CoreEvtHandlers, 0, sizeof(AieInst->CoreEvtHandlers));
-	memset(AieInst->MemEvtHandlers, 0, sizeof(AieInst->MemEvtHandlers));
-	memset(AieInst->ShimEvtHandlers, 0, sizeof(AieInst->ShimEvtHandlers));
 	/* Initialize errors handling. Setup the errors broadcasting event.
 	 * Install the errors default handler. */
 	XAie_print("%s: Initialize errors handling.\n", __func__);
@@ -3964,11 +3989,6 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 	/* Register for NPI interrupt handler */
 	/* For Baremetal, user will need to register interrupt handler
 	 * in the application. */
-#if defined __linux__
-	XAieGbl_IntrRegisterIsr(XAIETILE_EVENT_NPI_INTERRUPT,
-				XAieTile_EventsMetalIsr,
-				AieInst);
-#endif
 	return XAIE_SUCCESS;
 }
 
