@@ -89,6 +89,8 @@ u32 XAieLib_InitTile(XAieGbl_Tile *TileInstPtr);
 
 void XAieLib_InterruptUnregisterIsr(int Offset);
 int XAieLib_InterruptRegisterIsr(int Offset, int (*Handler) (void *Data), void *Data);
+void XAieLib_InterruptEnable(void);
+void XAieLib_InterruptDisable(void);
 
 void XAieLib_IntPrint(const char *Format, ...);
 
