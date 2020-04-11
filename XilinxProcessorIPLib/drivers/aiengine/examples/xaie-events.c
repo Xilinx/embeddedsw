@@ -80,7 +80,7 @@ _XAie_ParityErrorCallback(struct XAieGbl *AieInst, XAie_LocType Loc,
 	XAieGbl_Tile *TilePtr;
 
 	(void)Arg;
-	printf("%s, (%u,%u), module=%u, Error=%u\n", __func__,
+	printf("%s, (%u,%u), module=%u, Error=%u\r\n", __func__,
 		Loc.Col, Loc.Row, Module, Error);
 	TilePtr = AieInst->Tiles;
 	TilePtr += Loc.Col * (AieInst->Config->NumRows + 1) + Loc.Row;
@@ -110,7 +110,7 @@ _XAie_SRSEventCallback(struct XAieGbl *AieInst, XAie_LocType Loc, u8 Module,
 	XAieGbl_Tile *TilePtr;
 
 	(void)Arg;
-	printf("%s, (%u,%u), module=%u, Event=%u\n", __func__,
+	printf("%s, (%u,%u), module=%u, Event=%u\r\n", __func__,
 		Loc.Col, Loc.Row, Module, Event);
 	/* Update coefficient */
 	TilePtr = AieInst->Tiles;
@@ -127,13 +127,13 @@ _XAie_ECC2BitErrorCallback(struct XAieGbl *AieInst, XAie_LocType Loc,
 	XAieGbl_Tile *TilePtr;
 
 	(void)Arg;
-	printf("%s, (%u,%u), module=%u, Error=%u\n", __func__,
+	printf("%s, (%u,%u), module=%u, Error=%u\r\n", __func__,
 		Loc.Col, Loc.Row, Module, Error);
 	TilePtr = AieInst->Tiles;
 	TilePtr += Loc.Col * (AieInst->Config->NumRows + 1) + Loc.Row;
 	RegVal = XAieGbl_Read32(TilePtr->TileAddr + 0x32120);
 	if ((RegVal & (1 << 15)) == 0) {
-		printf("No ECC error has occurred .\n");
+		printf("No ECC error has occurred.\r\n");
 	} else {
 		u32 ErrorAddr;
 
@@ -151,7 +151,7 @@ _XAie_InstrErrorCallback(struct XAieGbl *AieInst, XAie_LocType Loc,
 {
 	(void)AieInst;
 	(void)Arg;
-	printf("%s, (%u,%u), module=%u, Error=%u\n", __func__,
+	printf("%s, (%u,%u), module=%u, Error=%u\r\n", __func__,
 		Loc.Col, Loc.Row, Module, Error);
 	return XAIETILE_ERROR_HANDLED;
 }
@@ -163,7 +163,7 @@ _XAie_DecodeErrorCallback(struct XAieGbl *AieInst, XAie_LocType Loc,
 {
 	(void)AieInst;
 	(void)Arg;
-	printf("%s, (%u,%u), module=%u, Error=%u\n", __func__,
+	printf("%s, (%u,%u), module=%u, Error=%u\r\n", __func__,
 		Loc.Col, Loc.Row, Module, Error);
 	return XAIETILE_ERROR_NOTHANDLED;
 }
@@ -193,40 +193,23 @@ _XAie_ErrorCallback(struct XAieGbl *AieInst, XAie_LocType Loc,
 /*****************************************************************************/
 /**
 *
-* This is the main entry point for the AIE RTS driver test.
+* This is the test error to kill the application.
 *
 * @param	None.
 *
-* @return	None.
+* @return	0 for success, and negative value for failure.
 
 * @note		None.
 *
 *******************************************************************************/
-int main(void)
+static int test_kill_error(void)
 {
-	int ret;
-	u32 RegVal;
-	XAie_LocType Loc[2];
 	const char *LogFile = "xaie.log";
+	int ret;
 
-	printf("*************************************\n"
-	       " XAIE Events Testing.\n"
-	       "*************************************\n");
-        /* Initialize AIE Instance */
-	XAIEGBL_HWCFG_SET_CONFIG((&AieConfig), XAIE_NUM_ROWS, XAIE_NUM_COLS, XAIE_ADDR_ARRAY_OFF);
-        XAieGbl_HwInit(&AieConfig);
-
-	AieConfigPtr = XAieGbl_LookupConfig(XPAR_AIE_DEVICE_ID);
-	(void)XAieGbl_CfgInitialize(&AieInst, &TileInst[0][0], AieConfigPtr);
-
-	for(int c = 0; c < XAIE_NUM_COLS; c++) {
-		XAieTile_ShimColumnReset(&(TileInst[c][0]), XAIE_RESETENABLE);
-		XAieTile_ShimColumnReset(&(TileInst[c][0]), XAIE_RESETDISABLE);
-	}
-	RegVal = XAieGbl_NPIRead32(XAIE_NPI_ISR);
-	XAieGbl_NPIWrite32(XAIE_NPI_ISR, RegVal);
-
-	/* Initialize the boardcasting events */
+	printf("***********************\r\n");
+	printf("* Test error to kill application\r\n");
+	printf("***********************\r\n");
 	/* Enable AXI Default NPI interrupt routing */
 	printf("Set logging file.\n");
 	ret = (int)XAieLib_OpenLogFile(LogFile);
@@ -234,22 +217,144 @@ int main(void)
 		fprintf(stderr, "Failed to ope log file.\n");
 	}
 
-	printf("Initialize events routing\n");
-	ret = XAieTile_EventsHandlingInitialize(&AieInst);
-	if (ret != XAIE_SUCCESS) {
-		fprintf(stderr, "ERROR: failed to initialize Events Handling.\n");
-		XAieLib_CloseLogFile();
-		return -1;
+	/* Wait for pending errors to finish */
+	XAieTile_EventsWaitForPending(&AieInst);
+	/* Unregister the error handler first before registering for another handler */
+	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_PL,
+					     XAIETILE_EVENT_SHIM_AXI_MM_DECODE_NSU_ERROR_NOC, XAIE_ENABLE);
+	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_PL,
+					   XAIETILE_EVENT_SHIM_AXI_MM_DECODE_NSU_ERROR_NOC,
+					   _XAie_DecodeErrorCallback, NULL);
+	XAieTile_EventsEnableInterrupt(&AieInst);
+	XAieTilePl_EventGenerate(&TileInst[47][0], XAIETILE_EVENT_SHIM_AXI_MM_DECODE_NSU_ERROR_NOC);
+}
+
+static int test_all_error(void)
+{
+	printf("***********************\r\n");
+	printf("* Test errors for all cores\r\n");
+	printf("***********************\r\n");
+	/* Wait for pending errors to finish */
+	XAieTile_EventsWaitForPending(&AieInst);
+	XAieTile_EventsDisableInterrupt(&AieInst);
+	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_ALL,
+					   XAIETILE_ERROR_ALL,
+					   _XAie_ErrorCallback, NULL);
+	XAieTile_EventsEnableInterrupt(&AieInst);
+	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
+		for (u32 r = 1; r <= XAIE_NUM_ROWS; r++) {
+			XAieTileMem_EventGenerate(&TileInst[c][r],
+						  XAIETILE_EVENT_MEM_DMA_S2MM_0_ERROR);
+			XAieTileCore_EventGenerate(&TileInst[c][r],
+						   XAIETILE_EVENT_CORE_DM_ACCESS_TO_UNAVAILABLE);
+		}
 	}
+	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
+		XAieTilePl_EventGenerate(&TileInst[c][0], XAIETILE_EVENT_SHIM_CONTROL_PKT_ERROR);
+	}
+	/* Wait untile all the errors have been handled */
+	sleep(1);
+	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
+		for (u32 r = 1; r <= XAIE_NUM_ROWS; r++) {
+			if (MemDmaS2MM0Errors[c][r-1] != 1) {
+				fprintf(stderr,
+					"Mem (%u,%u) error is not captured.\n",
+					c, r);
+			}
+			if (CoreDMUnavailErrors[c][r-1] != 1) {
+				fprintf(stderr,
+					"Core (%u,%u) error is not captured.\n",
+					c, r);
+			}
+		}
+	}
+	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
+		if (ShimCntrPktErrors[c] != 1) {
+			fprintf(stderr,
+				"Shim (%u,0) error is not captured.\n", c);
+		}
+	}
+	return 0;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the test to register for event handlers.
+*
+* @param	None.
+*
+* @return	0 for success, and negative value for failure.
+
+* @note		None.
+*
+*******************************************************************************/
+static int test_custom_event_handlers(void)
+{
+	XAie_LocType Loc[2];
+
+	printf("***********************\r\n");
+	printf("* Test customised events handling\r\n");
+	printf("***********************\r\n");
 	/* Register events */
 	printf("Register events\n");
 	Loc[0].Col = 6;
 	Loc[0].Row = 1;
 	Loc[1].Col = 7;
 	Loc[1].Row = 2;
+	/* Wait for pending errors to finish */
+	XAieTile_EventsWaitForPending(&AieInst);
+	XAieTile_EventsDisableInterrupt(&AieInst);
 	XAieTile_EventRegisterNotification(&AieInst, Loc, 2, XAIEGBL_MODULE_CORE,
 					   XAIETILE_EVENT_CORE_PERF_CNT0,
 					   _XAie_SRSEventCallback, NULL);
+	XAieTile_EventsEnableInterrupt(&AieInst);
+	/* Enable AIE interrupts */
+	printf("Enaling interrupts.\n");
+	XAieTile_EventsEnableInterrupt(&AieInst);
+	/* Generate events */
+	printf("Generate events\n");
+	/* Configure counter to count the SRS errors */
+	XAieTileCore_PerfCounterSet(&TileInst[6][1], 0, 0);
+	XAieTileCore_PerfCounterControl(&TileInst[6][1], 0, XAIETILE_EVENT_CORE_SRS_SATURATE,
+					XAIETILE_EVENT_CORE_SRS_SATURATE, 0);
+	XAieTileCore_PerfCounterEventValue(&TileInst[6][1], 0, 8);
+	XAieTileCore_PerfCounterSet(&TileInst[7][2], 0, 0);
+	XAieTileCore_PerfCounterControl(&TileInst[7][2], 0, XAIETILE_EVENT_CORE_SRS_SATURATE,
+					XAIETILE_EVENT_CORE_SRS_SATURATE, 0);
+	XAieTileCore_PerfCounterEventValue(&TileInst[7][2], 0, 8);
+
+	for (u32 i = 0; i < 10; i++) {
+		XAieTileCore_EventGenerate(&TileInst[6][1], XAIETILE_EVENT_CORE_SRS_SATURATE);
+		XAieTileCore_EventGenerate(&TileInst[7][2], XAIETILE_EVENT_CORE_SRS_SATURATE);
+	}
+	sleep(1);
+	/* Unregister handlers */
+	XAieTile_EventUnregisterNotification(&AieInst, Loc, 2, XAIEGBL_MODULE_CORE,
+					     XAIETILE_EVENTS_ALL);
+	return 0;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the test to register for customised error handlers.
+*
+* @param	None.
+*
+* @return	0 for success, and negative value for failure.
+
+* @note		None.
+*
+*******************************************************************************/
+static int test_custom_error_handlers(void)
+{
+	int ret;
+
+	printf("***********************\r\n");
+	printf("* Test customised errors handling\r\n");
+	printf("***********************\r\n");
+	/* Register for error handlers */
 	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_MEM,
 					   XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_2,
 					   _XAie_ParityErrorCallback, NULL);
@@ -274,28 +379,17 @@ int main(void)
 	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_CORE,
 					   XAIETILE_EVENT_CORE_INSTR_ERROR,
 					   _XAie_InstrErrorCallback, NULL);
-
-	/* Enable AIE interrupts */
-	printf("Enaling interrupts.\n");
-	XAieTile_EventsEnableInterrupt(&AieInst);
-
-	/* Generate events */
-	printf("Generate events\n");
-	/* Configure counter to count the SRS errors */
-	XAieTileCore_PerfCounterSet(&TileInst[6][1], 0, 0);
-	XAieTileCore_PerfCounterControl(&TileInst[6][1], 0, XAIETILE_EVENT_CORE_SRS_SATURATE,
-					XAIETILE_EVENT_CORE_SRS_SATURATE, 0);
-	XAieTileCore_PerfCounterEventValue(&TileInst[6][1], 0, 8);
-	XAieTileCore_PerfCounterSet(&TileInst[7][2], 0, 0);
-	XAieTileCore_PerfCounterControl(&TileInst[7][2], 0, XAIETILE_EVENT_CORE_SRS_SATURATE,
-					XAIETILE_EVENT_CORE_SRS_SATURATE, 0);
-	XAieTileCore_PerfCounterEventValue(&TileInst[7][2], 0, 8);
-
-	for (u32 i = 0; i < 10; i++) {
-		XAieTileCore_EventGenerate(&TileInst[6][1], XAIETILE_EVENT_CORE_SRS_SATURATE);
-		XAieTileCore_EventGenerate(&TileInst[7][2], XAIETILE_EVENT_CORE_SRS_SATURATE);
+	/* Setup routing */
+	printf("Initialize events routingi\r\n");
+	ret = XAieTile_EventsHandlingInitialize(&AieInst);
+	if (ret != XAIE_SUCCESS) {
+		fprintf(stderr, "ERROR: failed to initialize Events Handling.\n");
+		XAieLib_CloseLogFile();
+		return -1;
 	}
-	XAieTile_EventsWaitForPending(&AieInst);
+
+	/* Generate errors */
+	printf("Generating errors\r\n");
 	XAieTileMem_EventGenerate(&TileInst[4][3], XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_3);
 	XAieTileMem_EventGenerate(&TileInst[5][2], XAIETILE_EVENT_MEM_DM_ECC_ERROR_2BIT);
 	XAieTileCore_EventGenerate(&TileInst[7][3], XAIETILE_EVENT_CORE_INSTR_ERROR);
@@ -303,12 +397,7 @@ int main(void)
 	XAieTileCore_EventGenerate(&TileInst[8][8], XAIETILE_EVENT_CORE_INSTR_ERROR);
 	XAieTileCore_EventGenerate(&TileInst[48][8], XAIETILE_EVENT_CORE_INSTR_ERROR);
 	XAieTileCore_EventGenerate(&TileInst[49][8], XAIETILE_EVENT_CORE_INSTR_ERROR);
-	/* Wait untile all the errors have been handled */
-	XAieTile_EventsWaitForPending(&AieInst);
-
-	/* Unregister handlers */
-	XAieTile_EventUnregisterNotification(&AieInst, Loc, 2, XAIEGBL_MODULE_CORE,
-					     XAIETILE_EVENTS_ALL);
+	sleep(1);
 	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_MEM,
 					     XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_2, XAIE_ENABLE);
 	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_MEM,
@@ -325,63 +414,59 @@ int main(void)
 					     XAIETILE_EVENT_MEM_DM_ECC_ERROR_2BIT, XAIE_ENABLE);
 	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_CORE,
 					     XAIETILE_EVENT_CORE_INSTR_ERROR, XAIE_ENABLE);
-	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_CORE,
-					     XAIETILE_EVENT_CORE_DM_ACCESS_TO_UNAVAILABLE, XAIE_ENABLE);
-	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_MEM,
-					     XAIETILE_EVENT_MEM_DMA_S2MM_0_ERROR, XAIE_ENABLE);
-	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_PL,
-					     XAIETILE_EVENT_SHIM_CONTROL_PKT_ERROR, XAIE_ENABLE);
+	return 0;
+}
 
-	printf("Test All Cores Errors.\n");
-	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_ALL,
-					   XAIETILE_ERROR_ALL,
-					   _XAie_ErrorCallback, NULL);
-	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
-		for (u32 r = 1; r <= XAIE_NUM_ROWS; r++) {
-			XAieTileMem_EventGenerate(&TileInst[c][r],
-						  XAIETILE_EVENT_MEM_DMA_S2MM_0_ERROR);
-			XAieTileCore_EventGenerate(&TileInst[c][r],
-						   XAIETILE_EVENT_CORE_DM_ACCESS_TO_UNAVAILABLE);
-		}
-	}
-	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
-		XAieTilePl_EventGenerate(&TileInst[c][0], XAIETILE_EVENT_SHIM_CONTROL_PKT_ERROR);
-	}
-	/* Wait untile all the errors have been handled */
-	XAieTile_EventsWaitForPending(&AieInst);
-	XAieTile_EventsDisableInterrupt(&AieInst);
-	/* Unregister events */
+/*****************************************************************************/
+/**
+*
+* This is the main entry point for the AIE RTS driver test.
+*
+* @param	None.
+*
+* @return	None.
 
-	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
-		for (u32 r = 1; r <= XAIE_NUM_ROWS; r++) {
-			if (MemDmaS2MM0Errors[c][r-1] != 1) {
-				fprintf(stderr,
-					"Mem (%u,%u) error is not captured.\n",
-					c, r);
-			}
-			if (CoreDMUnavailErrors[c][r-1] != 1) {
-				fprintf(stderr,
-					"Core (%u,%u) error is not captured.\n",
-					c, r);
-			}
-		}
+* @note		None.
+*
+*******************************************************************************/
+int main(void)
+{
+	int ret;
+
+	printf("*************************************\n"
+	       " XAIE Events Testing.\n"
+	       "*************************************\n");
+        /* Initialize AIE Instance */
+	XAIEGBL_HWCFG_SET_CONFIG((&AieConfig), XAIE_NUM_ROWS, XAIE_NUM_COLS, XAIE_ADDR_ARRAY_OFF);
+        XAieGbl_HwInit(&AieConfig);
+
+	AieConfigPtr = XAieGbl_LookupConfig(XPAR_AIE_DEVICE_ID);
+	(void)XAieGbl_CfgInitialize(&AieInst, &TileInst[0][0], AieConfigPtr);
+
+	XAieLib_NpiAieArrayReset(XAIE_RESETENABLE);
+	usleep(500);
+	XAieLib_NpiAieArrayReset(XAIE_RESETDISABLE);
+	for(int c = 0; c < XAIE_NUM_COLS; c++) {
+		XAieTile_ShimColumnReset(&(TileInst[c][0]), XAIE_RESETENABLE);
+		XAieTile_ShimColumnReset(&(TileInst[c][0]), XAIE_RESETDISABLE);
 	}
-	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
-		if (ShimCntrPktErrors[c] != 1) {
-			fprintf(stderr,
-				"Shim (%u,0) error is not captured.\n", c);
-		}
+
+	ret = test_custom_error_handlers();
+	if (ret < 0) {
+		return ret;
 	}
-	printf("Test Kill app.\n");
-	/* Unregister the error handler first before registering for another handler */
-	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_PL,
-					     XAIETILE_EVENT_SHIM_AXI_MM_DECODE_NSU_ERROR_NOC, XAIE_ENABLE);
-	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_PL,
-					   XAIETILE_EVENT_SHIM_AXI_MM_DECODE_NSU_ERROR_NOC,
-					   _XAie_DecodeErrorCallback, NULL);
-	XAieTile_EventsEnableInterrupt(&AieInst);
-	XAieTilePl_EventGenerate(&TileInst[47][0], XAIETILE_EVENT_SHIM_AXI_MM_DECODE_NSU_ERROR_NOC);
-	XAieTile_EventsWaitForPending(&AieInst);
+	ret = test_custom_event_handlers();
+	if (ret < 0) {
+		return ret;
+	}
+	ret = test_all_error();
+	if (ret < 0) {
+		return ret;
+	}
+	ret = test_kill_error();
+	if (ret < 0) {
+		return ret;
+	}
 	return 0;
 }
 #endif /* not __AIEBAREMTL__ */
