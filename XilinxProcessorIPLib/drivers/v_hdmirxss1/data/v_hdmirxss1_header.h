@@ -3,13 +3,13 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef V_HDMIRXSS_EXAMPLE_H		/* prevent circular inclusions */
+#define V_HDMIRXSS_EXAMPLE_H		/* by using protection macros */
 
-#ifndef __PLATFORM_H_
-#define __PLATFORM_H_
 
-#include "platform_config.h"
+#include "xil_types.h"
+#include "xil_assert.h"
+#include "xstatus.h"
 
-void init_platform();
-void cleanup_platform();
 
 #endif

@@ -1,26 +1,8 @@
 /*******************************************************************************
- *
-# Copyright (C) 2018 – 2019 Xilinx, Inc.  All rights reserved.
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-# IN THE SOFTWARE.
- *
+# Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -288,34 +270,50 @@ void XV_HdmiRxSs1_LogDisplay(XV_HdmiRxSs1 *InstancePtr)
             xil_printf("Sync Loss detected");
             break;
         case (XV_HDMIRXSS1_LOG_EVT_PIX_REPEAT_ERR):
-			xil_printf(ANSI_COLOR_RED "Unsupported Pixel Repetition: %d"
-					ANSI_COLOR_RESET, Data);
-			break;
-		case (XV_HDMIRXSS1_LOG_EVT_SYNCEST):
-            xil_printf("Sync Loss recovered");
-            break;
-		case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS1):
-			xil_printf("FRL LTS:1");
-			break;
-		case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS2):
-			xil_printf("FRL LTS:2");
-			break;
-		case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS3):
-			xil_printf("FRL LTS:3 (FRL_Rate: %d FFE_Levels: %d)",
-					(Data & 0xF), (Data >> 4));
-			break;
-		case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS4):
-			xil_printf("FRL LTS:3 (Rate Drop Request)");
-			break;
-		case (XV_HDMIRXSS1_LOG_EVT_FRL_LTSP):
-			xil_printf("FRL LTS:3 (LTP Detected)");
-			break;
-		case (XV_HDMIRXSS1_LOG_EVT_FRL_LTSL):
-			xil_printf("FRL LTS:L");
-			break;
-		case (XV_HDMIRXSS1_LOG_EVT_FRL_START):
-			xil_printf("FRL LTS:P (FRL Start)");
-			break;
+		xil_printf(ANSI_COLOR_RED "Unsupported Pixel Repetition: %d"
+				ANSI_COLOR_RESET, Data);
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_SYNCEST):
+		xil_printf("Sync Loss recovered");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_VICERROR):
+		xil_printf(ANSI_COLOR_YELLOW "Vic and video timing mismatch"
+				ANSI_COLOR_RESET);
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_LNKRDYERROR):
+		xil_printf(ANSI_COLOR_YELLOW "Link Clk Error [DBG Code: %d]"
+				ANSI_COLOR_RESET, Data);
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_VIDRDYERROR):
+		xil_printf(ANSI_COLOR_YELLOW "Video Clk Error [DBG Code: %d]"
+				ANSI_COLOR_RESET, Data);
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_SKEWLOCKERROR):
+		xil_printf(ANSI_COLOR_YELLOW "Skew Lock Error [DBG Code: %d]"
+				ANSI_COLOR_RESET, Data);
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS1):
+		xil_printf("FRL LTS:1");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS2):
+		xil_printf("FRL LTS:2");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS3):
+		xil_printf("FRL LTS:3 (FRL_Rate: %d FFE_Levels: %d)",
+				(Data & 0xF), (Data >> 4));
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_FRL_LTS4):
+		xil_printf("FRL LTS:3 (Rate Drop Request)");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_FRL_LTSP):
+		xil_printf("FRL LTS:3 (LTP Detected)");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_FRL_LTSL):
+		xil_printf("FRL LTS:L");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_FRL_START):
+		xil_printf("FRL LTS:P (FRL Start)");
+		break;
         default:
             xil_printf("Unknown event");
             break;
