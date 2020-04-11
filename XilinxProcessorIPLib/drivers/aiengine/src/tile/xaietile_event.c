@@ -3768,7 +3768,7 @@ int XAieTile_EventsDisableInterrupt(XAieGbl *AieInst)
  *****************************************************************************/
 int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 {
-	u32 NumTiles, NumCols, NumRows, i;
+	u32 NumCols, NumRows;
 	XAieGbl_Tile *TilePtr;
 	u32 RegVal;
 
