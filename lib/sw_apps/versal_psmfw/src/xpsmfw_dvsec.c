@@ -973,6 +973,53 @@ done:
 	return XST_SUCCESS;
 }
 
+XStatus XPsmFw_DvsecATSHandler(void)
+{
+	static u8 ATSInit = 0U;
+	u32 IntrStatus;
+	u32 ATSStatus;
+	u32 PRIStatus;
+	u32 ATSBaseReg;
+	u32 SCBaseReg;
+	u32 PASIDStatus;
+
+	SCBaseReg = Dvsec_Rd32(PSM_DVSEC_RAM, PSM_DVSEC_SC_BASE_ADDR_OFF);
+	ATSBaseReg = SCBaseReg - ATS_BASE_OFF;
+
+	if (ATSInit  == 0U) {
+		Dvsec_Wr32(ATSBaseReg, ATS_SC1_TAG_OFF, ATS_SC1_TAG_VAL);
+		Dvsec_Wr32(ATSBaseReg, ATS_SC1_AXI0_BDF_OFF, ATS_SC1_AXI0_BDF_VAL);
+		Dvsec_Wr32(ATSBaseReg, ATS_AXI_PCI_BDF_OFF, ATS_AXI_PCI_BDF_VAL);
+		Dvsec_Wr32(ATSBaseReg, ATS_AXI_PCI_TAG_OFF, ATS_AXI_PCI_TAG_VAL);
+		Dvsec_Wr32(ATSBaseReg, ATS_CTRL_REG_OFF, ATS_CTRL_REG_VAL);
+
+		Dvsec_Wr32(SCBaseReg, SC_ATS_PCIE_CTRL_OFF, SC_ATS_PCIE_CTRL_VAL);
+		Dvsec_Wr32(SCBaseReg, SC_ATS_PCIE_CTRL1_OFF, SC_ATS_PCIE_CTRL1_VAL);
+		Dvsec_Wr32(SCBaseReg, SC_PASID_CAP_REG_OFF, SC_PASID_CAP_REG_VAL);
+
+		ATSInit = 1U;
+	}
+
+	IntrStatus = Dvsec_Rd32(PL_INTR_STATUS_REG, 0U);
+	ATSStatus = IntrStatus & PL_ATS_INTR_STATUS_MASK;
+	PRIStatus = (IntrStatus & PL_PRI_INTR_STATUS_MASK)
+		    >> PL_PRI_INTR_STATUS_SHIFT;
+	PASIDStatus = (IntrStatus & PL_PASID_INTR_STATUS_MASK)
+		    >> PL_PASID_INTR_STATUS_SHIFT;
+
+	Dvsec_Wr_M32(SCBaseReg, SC_ATS_PRI_CTRL_OFF,
+		     ~((u32)1U << SC_ATS_STATUS_SHIFT),
+		     ATSStatus << SC_ATS_STATUS_SHIFT);
+	Dvsec_Wr_M32(SCBaseReg, SC_PRI_CTRL_OFF,
+		     ~((u32)1U << SC_PRI_STATUS_SHIFT),
+		     PRIStatus << SC_PRI_STATUS_SHIFT);
+	Dvsec_Wr32(SCBaseReg, SC_PASID_CTRL_OFF,
+		   PASIDStatus << SC_PASID_STATUS_SHIFT);
+	Dvsec_Wr32(SCBaseReg, SC_PASID_CTRL1_OFF, SC_PASID_CTRL1_VAL);
+
+	return XST_SUCCESS;
+}
+
 void XPsmFw_DvsecInit(void)
 {
 	u32 Value;
