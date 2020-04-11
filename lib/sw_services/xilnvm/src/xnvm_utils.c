@@ -18,7 +18,17 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
 *	har  09/24/2019 Fixed MISRA-C violations
-* 2.0	kal  03/08/2020 Added Utility APIs
+* 2.0	kal  02/28/2020 Added utility APIs XNvm_ValidateHash, XNvm_AesCrcCalc
+*                       XNvm_ConvertBytesToBits and XNvm_ConvertBitsToBytes
+*       kal  04/11/2020 Renamed conversion APIs to XNvm_ConvertHexToByteArray
+*       		and XNvm_ConvertByteArrayToHex
+*       kal  05/04/2020 Moved few utility functions to application and removed
+*       		usage of conversion APIs as the same functionality is
+*       		achieved by bit-wise operators.
+* 2.1	am   08/19/2020 Resolved MISRA C violations.
+* 	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
+*
 * </pre>
 *
 * @note
@@ -27,6 +37,7 @@
 
 /***************************** Include Files **********************************/
 #include "xnvm_utils.h"
+#include "xstatus.h"
 #include "xil_util.h"
 
 /*************************** Constant Definitions *****************************/
@@ -48,19 +59,18 @@
 
 /******************************************************************************/
 /**
- * Validate the input string contains valid AES key
+ * @brief	Validate the input string contains valid AES key.
  *
- * @param   Key - Pointer to AES key
+ * @param   Key - Pointer to AES key.
  *
- * @return
- *	- XST_SUCCESS	- On valid input AES key sring
- *	- XST_INVALID_PARAM - On invalid length of the input string
- *	- XST_FAILURE	- On non hexadecimal character in string
+ * @return - XST_SUCCESS - On valid input AES key string.
+ *		   - XST_INVALID_PARAM - On invalid length of the input string.
+ *		   - XST_FAILURE	- On non hexadecimal character in string
  *
  ******************************************************************************/
-u32 XNvm_ValidateAesKey(const char *Key)
+int XNvm_ValidateAesKey(const char *Key)
 {
-	u32 Status = XST_INVALID_PARAM;
+	int Status = XST_INVALID_PARAM;
 	u32 Len;
 
 	if(NULL == Key) {
@@ -74,73 +84,58 @@ u32 XNvm_ValidateAesKey(const char *Key)
 		goto END;
 	}
 
-	Status = Xil_ValidateHexStr(Key);
+	Status = (int)Xil_ValidateHexStr(Key);
 END:
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * Calculates CRC value for each row of AES key.
+ * @brief	This function calculates CRC of AES key.
  *
- * @param	PrevCRC	Holds the prev row's CRC
- * @param	Data	Holds the present row's key
- * @param	Addr	 Stores the current row number
+ * @param	Key - Pointer to the key for which CRC has to be calculated.
  *
- * @return	Crc of current row
+ * @return	CRC of AES key.
  *
  ******************************************************************************/
-static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, u32 *Data, u32 Addr)
-{
-	u32 Crc = PrevCRC;
-	u32 Value = *(u32 *)Data;
-	u32 Row = Addr;
-	u32 Idx;
-
-	/* Process each bits of 32-bit Value */
-	for (Idx = 0U; Idx < 32U; Idx++) {
-		if ((((Value & 0x1U) ^ Crc) & 0x1U) != 0U) {
-			Crc = ((Crc >> 1U) ^ REVERSE_POLYNOMIAL);
-		}
-		else {
-			Crc = Crc >> 1U;
-		}
-		Value = Value >> 1U;
-	}
-
-	/* Get 5-bit from Address */
-	for (Idx = 0U; Idx < 5U; Idx++) {
-		if ((((Row & 0x1U) ^ Crc) & 0x1U) != 0U) {
-			Crc = ((Crc >> 1U) ^ REVERSE_POLYNOMIAL);
-		}
-		else {
-			Crc = Crc >> 1U;
-		}
-		Row = Row >> 1U;
-	}
-
-	return Crc;
-}
-/******************************************************************************/
-/**
- * This function calculates CRC of AES key
- *
- * @param	Key	Pointer to the key for which CRC has to be calculated
- *
- * @return	CRC of AES key
- *
- ******************************************************************************/
-u32 XNvm_AesCrcCalc(u32 *Key)
+u32 XNvm_AesCrcCalc(const u32 *Key)
 {
 	u32 Crc = 0U;
+	u32 Value;
 	u8 Idx;
+	u8 BitNo;
+	volatile u32 Temp1Crc;
+	volatile u32 Temp2Crc;
 
-	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS ; Idx++) {
-		Crc = XNvm_RowAesCrcCalc(Crc,
-				&Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U],
-				XNVM_AES_KEY_SIZE_IN_WORDS - Idx);
+	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS; Idx++) {
+		/* Process each bits of 32-bit Value */
+		Value = Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U];
+		for (BitNo = 0U; BitNo < 32U; BitNo++) {
+			Temp1Crc = Crc >> 1U;
+			Temp2Crc = Temp1Crc ^ REVERSE_POLYNOMIAL;
+			if (((Value ^ Crc) & 0x1U) != 0U) {
+				Crc = Temp2Crc;
+			}
+			else {
+				Crc = Temp1Crc;
+			}
+			Value = Value >> 1U;
+		}
+
+		/* Get 5-bit from Address */
+		Value = XNVM_AES_KEY_SIZE_IN_WORDS - (u32)Idx;
+		for (BitNo = 0U; BitNo < 5U; BitNo++) {
+			Temp1Crc = Crc >> 1U;
+			Temp2Crc = Temp1Crc ^ REVERSE_POLYNOMIAL;
+			if (((Value ^ Crc) & 0x1U) != 0U) {
+				Crc = Temp2Crc;
+			}
+			else {
+				Crc = Temp1Crc;
+			}
+			Value = Value >> 1U;
+		}
 	}
 
 	return Crc;
 }
-
