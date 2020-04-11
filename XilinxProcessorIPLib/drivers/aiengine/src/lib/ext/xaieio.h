@@ -81,6 +81,8 @@ void XAieIO_Init(void);
 
 void XAieIO_IntrUnregisterIsr(int Offset);
 int XAieIO_IntrRegisterIsr(int Offset, int (*Handler) (void *Data), void *Data);
+void XAieIO_IntrEnable(void);
+void XAieIO_IntrDisable(void);
 
 void *_XAieIO_GetIO(void);
 
