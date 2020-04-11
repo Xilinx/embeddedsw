@@ -316,6 +316,36 @@ int XAieIO_IntrRegisterIsr(int Offset, int (*Handler) (void *Data), void *Data)
 /*****************************************************************************/
 /**
 *
+* This function enable interrupt handler
+*
+* @return	None
+*
+* @note		None
+*
+*******************************************************************************/
+void XAieIO_IntrEnable(void)
+{
+	metal_irq_enable((int)(uintptr_t)IOInst.device->irq_info);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disable interrupt handler
+*
+* @return	None
+*
+* @note		None
+*
+*******************************************************************************/
+void XAieIO_IntrDisable(void)
+{
+	metal_irq_disable((int)(uintptr_t)IOInst.device->irq_info);
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the memory IO function to read 32bit data from the specified address.
 *
 * @param	Addr: Address to read from.

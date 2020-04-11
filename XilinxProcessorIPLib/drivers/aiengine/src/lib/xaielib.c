@@ -78,6 +78,7 @@
 #include "xil_types.h"
 #include "xil_io.h"
 #include "xil_assert.h"
+#include "xil_exception.h"
 #include "xil_printf.h"
 #include "xil_cache.h"
 #include "xstatus.h"
@@ -344,6 +345,60 @@ int XAieLib_InterruptRegisterIsr(int Offset, int (*Handler) (void *Data), void *
 #else
 	return XAieIO_IntrRegisterIsr(Offset, Handler, Data);
 #endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This API enables AIE interrupt
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_InterruptEnable(void)
+{
+#ifdef __AIESIM__
+	return;
+#elif defined __AIEBAREMTL__
+	/* Enable exception for baremetal,
+	 * Once baremetal has interrupt abstration
+	 * layer to enable/disable particular interrupt.
+	 * driver can enable/disable AIE interrupt.
+	 */
+	Xil_ExceptionEnable();
+#else
+	XAieIO_IntrEnable();
+#endif
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This API disables AIE interrupt
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_InterruptDisable(void)
+{
+#ifdef __AIESIM__
+	return;
+#elif defined __AIEBAREMTL__
+	/* Disable exception for baremetal,
+	 * Once baremetal has interrupt abstration
+	 * layer to enable/disable particular interrupt.
+	 * driver can enable/disable AIE interrupt.
+	 */
+	Xil_ExceptionDisable();
+#else
+	XAieIO_IntrDisable();
+#endif
+
 }
 
 /*****************************************************************************/

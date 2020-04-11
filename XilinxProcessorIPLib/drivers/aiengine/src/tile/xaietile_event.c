@@ -2965,7 +2965,7 @@ void XAieTile_EventsIsr(void *Data)
 	/* Scan 2nd level interrupt controller */
 	XAie_print("%s.\n", __func__);
 	/* Disable NPI Interrupts first */
-	XAieTile_EventsDisableInterrupt(AieInst);
+	XAieGbl_NPIWrite32(XAIE_NPI_IDR1, (1 << XAIETILE_EVENT_NPI_INTERRUPT));
 	/* Scan through 2nd interrup level controller */
 	for (u32 c = 0; c < NumCols; c++, TilePtr += NumRows + 1) {
 		if (TilePtr->TileType != XAIEGBL_TILE_TYPE_SHIMNOC) {
@@ -3028,7 +3028,7 @@ void XAieTile_EventsIsr(void *Data)
 	}
 	XAieGbl_NPIWrite32(XAIE_NPI_ISR, (1 << XAIETILE_EVENT_NPI_INTERRUPT));
 	/* Renable NPI Interrupt */
-	XAieTile_EventsEnableInterrupt(AieInst);
+	XAieGbl_NPIWrite32(XAIE_NPI_IER1, (1 << XAIETILE_EVENT_NPI_INTERRUPT));
 }
 
 #ifdef __linux__
@@ -3752,7 +3752,7 @@ int XAieTile_EventUnregisterNotification(XAieGbl *AieInst,
 int XAieTile_EventsEnableInterrupt(XAieGbl *AieInst)
 {
 	(void)AieInst;
-	XAieGbl_NPIWrite32(XAIE_NPI_IER1, (1 << XAIETILE_EVENT_NPI_INTERRUPT));
+	XAieLib_InterruptEnable();
 	return XAIE_SUCCESS;
 }
 
@@ -3769,7 +3769,7 @@ int XAieTile_EventsEnableInterrupt(XAieGbl *AieInst)
 int XAieTile_EventsDisableInterrupt(XAieGbl *AieInst)
 {
 	(void)AieInst;
-	XAieGbl_NPIWrite32(XAIE_NPI_IDR1, (1 << XAIETILE_EVENT_NPI_INTERRUPT));
+	XAieLib_InterruptDisable();
 	return XAIE_SUCCESS;
 }
 
