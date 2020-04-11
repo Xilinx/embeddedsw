@@ -35,7 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
-		har  09/24/2019 Fixed MISRA-C violations
+*	har  09/24/2019 Fixed MISRA-C violations
+* 2.0	kal  03/08/2020 Added Utility APIs
 * </pre>
 *
 * @note
@@ -89,7 +90,7 @@ u32 XNvm_ValidateAesKey(const char *Key)
 	Len = Xil_Strnlen(Key, XNVM_MAX_AES_KEY_LEN_IN_CHARS + 1U);
 
 	if ((Len != XNVM_256_BITS_AES_KEY_LEN_IN_CHARS) &&
-	    (Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
+		(Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
 		goto END;
 	}
 
@@ -102,16 +103,14 @@ END:
 /**
  * Validate the input string contains valid PPK hash
  *
- * @param   Hash - Pointer to PPK hash
+ * @param	Hash - Pointer to PPK hash
  *
- * @param   Len  - Length of the input string
+ * @param	Len  - Length of the input string
  *
  * @return
- *          XST_SUCCESS	- On valid input Ppk Hash sring
- *          XST_INVALID_PARAM - On invalid length of the input string
- *          XST_FAILURE	- On non hexadecimal character in string
- *
- * @note    None
+ *	- XST_SUCCESS	- On valid input Ppk Hash sring
+ *	- XST_INVALID_PARAM - On invalid length of the input string
+ *	- XST_FAILURE	- On non hexadecimal character in string
  *
  ******************************************************************************/
 u32 XNvm_ValidateHash(const char *Hash, u32 Len)
@@ -145,23 +144,26 @@ END :
 
 /****************************************************************************/
 /**
- * Convert the Bits to Bytes in Little Endian format
+ * Convert the Bits to Bytes in Little Endian format.
  *	Ex: 0x5C -> {0, 0, 1, 1, 1, 0, 1, 0}
  *
- * @param	Bits Input Buffer.
- * @param	Bytes is Output buffer.
- * @param	Len of the input buffer in bits
+ * @param	Bits 	Input Buffer in Hex.
+ * @param	Bytes	Output buffer where each bit of given Hex is converted
+ * 			to equivalent byte.
+ * @param	Len 	Output number of Byte arrays
  * @return
- *          XST_SUCCESS	- On successfull conversion from bits to byte array
- *          XST_INVALID_PARAM - On invalid params.
+ *	- XST_SUCCESS - On successfull conversion from bits to byte array
+ *	- XST_INVALID_PARAM - On invalid params.
  *
  ****************************************************************************/
-u32 XNvm_ConvertBitsToBytes(const u8 *Bits, u8 *Bytes, u32 Len)
+u32 XNvm_ConvertHexToByteArray(const u8 *Bits, u8 *Bytes, u32 Len)
 {
 	u32 Status = XST_INVALID_PARAM;
 	u8 Data;
-	u32 Index, BitIndex = 0U, ByteIndex = 0U;
-	u32 BytLen = Len;
+	u32 Index;
+	u32 BitIndex = 0U;
+	u32 ByteIndex = 0U;
+	u32 BytLen;
 
 	if (Bits == NULL) {
 		goto END;
@@ -169,6 +171,11 @@ u32 XNvm_ConvertBitsToBytes(const u8 *Bits, u8 *Bytes, u32 Len)
 	if (Bytes == NULL) {
 		goto END;
 	}
+	if ((Len % 8) != 0U) {
+		goto END;
+	}
+
+	BytLen = Len;
 	/**
 	* Make sure the bytes array is 0'ed first.
 	*/
@@ -188,12 +195,6 @@ u32 XNvm_ConvertBitsToBytes(const u8 *Bits, u8 *Bytes, u32 Len)
 			Bytes[ByteIndex] = Data;
 			ByteIndex++;
 			BytLen--;
-			/**
-			 * If len is not Byte aligned
-			 */
-			if(BytLen == 0U) {
-				goto END;
-			}
 		}
 		BitIndex++;
 	}
@@ -206,24 +207,32 @@ END:
 
 /****************************************************************************/
 /**
- * Convert the Bytes to Bits in little endian format
+ * Convert the Bytes Array to Hex value in little endian format
  * 0th byte is LSB, 7th byte is MSB
  *	Ex: {0, 0, 1, 1, 1, 0, 1, 0} -> 0x5C
  *
- * @param	Bytes Input Buffer.
- * @param	Bits is Output buffer.
- * @param	Len of the input buffer.
- * @return	None
+ * @param	Bytes	Input Buffer.
+ * @param	Bits	Output buffer.
+ * @param	Len	Output buffer Len in bits.
+ *
+ * @return	XST_SUCCESS - On successfull conversion from byte array to Hex
+ *		XST_INVALID_PARAM - On invalid params.
  ****************************************************************************/
-void XNvm_ConvertBytesToBits(const u8 *Bytes, u8 *Bits , u32 Len)
+u32 XNvm_ConvertByteArrayToHex(const u8 *Bytes, u8 *Bits , u32 Len)
 {
+	u32 Status = XST_INVALID_PARAM;
 	u8 Tmp;
-	u32 Index, BitIndex = 0U, ByteIndex = 0U;
+	u32 Index;
+	u32 BitIndex = 0U;
+	u32 ByteIndex = 0U;
 	u32 BytLen = Len;
 
-	/* Assert validates the input arguments */
-	Xil_AssertVoid(Bytes != NULL);
-	Xil_AssertVoid(Bits != NULL);
+	if (Bits == NULL) {
+		goto END;
+	}
+	if (Bytes == NULL) {
+		goto END;
+	}
 
 	/*
 	 * Make sure the bits array is 0 first.
@@ -246,29 +255,24 @@ void XNvm_ConvertBytesToBits(const u8 *Bytes, u8 *Bits , u32 Len)
 			Bits[BitIndex] |= (Tmp << Index);
 			ByteIndex++;
 			BytLen--;
-			/**
-			 * If Len is not Byte aligned
-			 */
-			if(BytLen == 0U) {
-				goto END;
-			}
 		}
 		BitIndex++;
 	}
+
+	Status = XST_SUCCESS;
 END:
-	return;
+	return Status;
 }
+
 /******************************************************************************/
 /**
  * Calculates CRC value for each row of AES key.
  *
- * @param   PrevCRC - Holds the prev row's CRC
- * @param   Data    - Holds the present row's key
- * @param   Addr    - Stores the current row number
+ * @param	PrevCRC	Holds the prev row's CRC
+ * @param	Data	Holds the present row's key
+ * @param	Addr	 Stores the current row number
  *
- * @return  Crc of current row
- *
- * @note    None.
+ * @return	Crc of current row
  *
  ******************************************************************************/
 static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, u32 *Data, u32 Addr)
@@ -306,11 +310,9 @@ static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, u32 *Data, u32 Addr)
 /**
  * This function calculates CRC of AES key
  *
- * @param   Key - Pointer to the key for which CRC has to be calculated
+ * @param	Key	Pointer to the key for which CRC has to be calculated
  *
- * @return  CRC of AES key
- *
- * @note    None
+ * @return	CRC of AES key
  *
  ******************************************************************************/
 u32 XNvm_AesCrcCalc(u32 *Key)
@@ -320,9 +322,66 @@ u32 XNvm_AesCrcCalc(u32 *Key)
 
 	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS ; Idx++) {
 		Crc = XNvm_RowAesCrcCalc(Crc,
-		               &Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U],
-		               XNVM_AES_KEY_SIZE_IN_WORDS - Idx);
+				&Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U],
+				XNVM_AES_KEY_SIZE_IN_WORDS - Idx);
 	}
 
 	return Crc;
+}
+
+/******************************************************************************/
+/**
+ * Validate the input string contains valid User Fuse String
+ *
+ * @param   UserFuseStr - Pointer to User Fuse String
+ *
+ * @return
+ *          XST_SUCCESS	- On valid input UserFuse string
+ *          XST_INVALID_PARAM - On invalid length of the input string
+ *
+ ******************************************************************************/
+u32 XNvm_ValidateUserFuseStr(const char *UserFuseStr)
+{
+	u32 Status = XST_INVALID_PARAM;
+
+	if(NULL == UserFuseStr) {
+		goto END;
+	}
+
+	if (strlen(UserFuseStr) % 8 != 0x00U) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * Validate the input string contains valid IV String
+ *
+ * @param   IvStr - Pointer to Iv String
+ *
+ * @return
+ *          XST_SUCCESS	- On valid input IV string
+ *          XST_INVALID_PARAM - On invalid length of the input string
+ *
+ ******************************************************************************/
+u32 XNvm_ValidateIvString(const char *IvStr)
+{
+	u32 Status = XST_INVALID_PARAM;
+
+        if(NULL == IvStr) {
+                goto END;
+        }
+
+        if (strlen(IvStr) != 24U) {
+                goto END;
+        }
+
+        Status = XST_SUCCESS;
+END:
+        return Status;
+
 }
