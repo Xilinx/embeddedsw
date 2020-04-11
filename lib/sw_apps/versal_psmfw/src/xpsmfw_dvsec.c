@@ -108,6 +108,22 @@ DvsecPcrHa0[DVSEC_PCR_HA_LEN] = {
 	{0x978U, 0x0U, 0xFFFFFFFFU},
 
 },
+DvsecPcrSa0[DVSEC_PCR_SA_LEN] = {
+	{0x940U, 0x00000006U, 0xFFF0FFFFU},
+	{0x944U, 0x0U, 0xFFFFFFFFU},
+	{0x948U, 0x0U, 0xFFFFFFFFU},
+	{0x94CU, 0x0U, 0xFFFFFFFFU},
+	{0x950U, 0x0U, 0xFFFFFFFFU},
+	{0x954U, 0x0U, 0x7U},
+	{0x958U, 0x0U, 0xFFFFFFFFU},
+	{0x95CU, 0x0U, 0x7U},
+	{0x960U, 0x0U, 0xFFFFFFFFU},
+	{0x964U, 0x0U, 0x7U},
+	{0x968U, 0x0U, 0xFFFFFFFFU},
+	{0x96CU, 0x0U, 0x7U},
+	{0x970U, 0x0U, 0xFFFFFFFFU},
+
+},
 DvsecIdm[DVSEC_NUM_IDM_ENTRIES] = {
 	{0xC00U, 0x0U, 0x1FBCF3U},
 	{0xC04U, 0x0U, 0x1FBCF3U},
@@ -312,6 +328,8 @@ XStatus XPsmFw_DvsecRead(void)
 		    (RegNum <= DvsecPcrRa0[DVSEC_PCR_RA_LEN - 1].DvsecOff)) ||
 		   ((RegNum >= DvsecPcrHa0[1].DvsecOff) &&
 		    (RegNum <= DvsecPcrHa0[DVSEC_PCR_HA_LEN - 1].DvsecOff)) ||
+		   ((RegNum >= DvsecPcrSa0[1].DvsecOff) &&
+		    (RegNum <= DvsecPcrSa0[DVSEC_PCR_SA_LEN - 1].DvsecOff)) ||
 		   ((RegNum >= DvsecSamEntry[DVSEC_SAM_0_IDX].DvsecPcrSam[0].DvsecOff) &&
 		    (RegNum <= DvsecSamEntry[DVSEC_SAM_0_IDX].DvsecPcrSam[DVSEC_SAM_LEN - 1].DvsecOff)) ||
 		   ((RegNum >= DvsecSamEntry[DVSEC_SAM_1_IDX].DvsecPcrSam[0].DvsecOff) &&
@@ -341,6 +359,7 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 	u32 EndAddr;
 	u32 IdmPid;
 	u32 SamVal;
+	u32 SamPid;
 	u32 IdmVal;
 	u32 TgtId;
 	u32 Len;
@@ -373,15 +392,20 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 		    DVSEC_ADDR_WIDTH_EN_MASK) << CMN_ADDR_WIDTH_EN_SHIFT);
 
 		Dvsec_Wr_M32(CMN_N72_LA_BASE_REG, CMN_LA_CCIX_PROP_OFF,
-			     ~CMN_PARTIAL_CACHE_ADDR_MASK,
-			     (RegVal | CMN_NOMSGPACK_MASK));
+			     ~CMN_PARTIAL_CACHE_ADDR_MASK, RegVal);
 	}
 
 	if (Off == DvsecPcrPrimary[DVSEC_PCR_PRIM_COMMON_CTL1_IDX].DvsecOff) {
-		Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_RNSAM_STATUS_OFF,
-			     ~CMN_RSAM_STATUS_MASK, CMN_RSAM_UNSTALL_MASK);
-		Dvsec_Wr_M32(CMN_N76_BASE_REG, CMN_RNSAM_STATUS_OFF,
-			     ~CMN_RSAM_STATUS_MASK, CMN_RSAM_UNSTALL_MASK);
+		if ((SingleHA == 1) || (SingleSA == 1) || (HARA == 1)) {
+			Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_RNSAM_STATUS_OFF,
+				     ~CMN_RSAM_STATUS_MASK,
+				     CMN_RSAM_UNSTALL_MASK);
+		}
+		if ((SingleRA == 1) || (HARA == 1)) {
+			Dvsec_Wr_M32(CMN_N76_BASE_REG, CMN_RNSAM_STATUS_OFF,
+				     ~CMN_RSAM_STATUS_MASK,
+				     CMN_RSAM_UNSTALL_MASK);
+		}
 	}
 
 	if (((Val & DVSEC_IDM_VALID_MASK) == 0U) ||
@@ -396,13 +420,13 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 		if ((SamVal & DVSEC_SAM_IDM_EN_MASK) == 0U) {
 			continue;
 		}
-		SamVal = (SamVal & DVSEC_SAM_PID_MASK) >> DVSEC_SAM_PID_SHIFT;
+		SamPid = (SamVal & DVSEC_SAM_PID_MASK) >> DVSEC_SAM_PID_SHIFT;
 		for (j = 0U; j < DVSEC_NUM_IDM_ENTRIES; j++) {
 			IdmVal = Dvsec_Rd32(PCIEA_DVSEC_0,
 					    DvsecIdm[j].DvsecOff);
 			IdmPid = (IdmVal & DVSEC_SAM_PID_MASK) >>
 				  DVSEC_SAM_PID_SHIFT;
-			if ((IdmPid != SamVal) ||
+			if ((IdmPid != SamPid) ||
 			    ((IdmVal & DVSEC_SAM_IDM_EN_MASK) == 0U)) {
 				continue;
 			}
@@ -416,8 +440,13 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 
 			Len = CMN_MEMORY_LEN(EndAddr, StartAddr);
 
-			/* Assigning IDM entry num as a target ID */
-			TgtId = j;
+			if (((IdmVal & DVSEC_SAM_DEST_MASK) == 0U) &&
+			    ((SamVal & DVSEC_SAM_DEST_MASK) == DVSEC_SAM_DEST_MASK)) {
+				TgtId = CMN_TGT_HAID_0;
+			 } else {
+				/* Assigning IDM entry num as a target ID */
+				TgtId = j;
+			}
 			Reg1Val = ((StartAddr & DVSEC_LOW_16B_MASK)
 				  << DVSEC_SHIFT_16BIT) | Len;
 			Reg2Val = (StartAddr >> DVSEC_SHIFT_16BIT)	|
@@ -432,6 +461,109 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 			   Reg2Val);
 		}
 	}
+}
+
+static u32 XPsmFW_DvsecCalcAperH(u32 Addr, u32 Size)
+{
+	u32 AperMask = 0U;
+	u32 Pos = 0U;
+	u32 i = 0U;
+
+	/* Calculate position of MSB, set all 1's till MSB */
+	while (Addr != 0U) {
+		Addr >>= 1U;
+		Pos++;
+	}
+
+	while (i < Pos) {
+		AperMask |= (u32)1U << i;
+		i++;
+	}
+
+	return ((~Size) & AperMask);
+}
+
+static void XPsmFW_DvsecPgmMP(u32 SrcAddr, u32 ARSrcHOff, u32 MPBaseHOff,
+			      u32 MPBaseLOff, u32 MPSizeOff)
+{
+	u32 MPSizeH = 0U;
+	u32 MPSizeL = 0U;
+	u32 AperH = 0U;
+	u32 AperL = 0U;
+	u32 Len;
+
+	Dvsec_Wr32(CPM_ADDR_REMAP, ARSrcHOff, SrcAddr);
+	Dvsec_Wr32(CPM_ADDR_REMAP, ARSrcHOff + CPM_AR_DST_ADDR_H_OFF,
+		   Dvsec_Rd32(PSM_DVSEC_RAM, MPBaseHOff));
+	Dvsec_Wr32(CPM_ADDR_REMAP, ARSrcHOff + CPM_AR_DST_ADDR_L_OFF,
+		   Dvsec_Rd32(PSM_DVSEC_RAM, MPBaseLOff));
+
+	MPSizeH = (Dvsec_Rd32(PSM_DVSEC_RAM, MPSizeOff) & DVSEC_UP_16B_MASK)
+		   >> DVSEC_SHIFT_16BIT;
+	MPSizeL = ((Dvsec_Rd32(PSM_DVSEC_RAM, MPSizeOff) & DVSEC_LOW_16B_MASK)
+		   << DVSEC_SHIFT_16BIT) | DVSEC_LOW_16B_MASK;
+
+	AperH = XPsmFW_DvsecCalcAperH((SrcAddr + MPSizeH), MPSizeH);
+	AperL = ~MPSizeL;
+
+	Dvsec_Wr32(CPM_ADDR_REMAP, ARSrcHOff + CPM_AR_APER_SIZE_H_OFF, AperH);
+	Dvsec_Wr32(CPM_ADDR_REMAP, ARSrcHOff + CPM_AR_APER_SIZE_L_OFF, AperL);
+
+	Len = CMN_MEMORY_LEN((SrcAddr + MPSizeH + 1U), SrcAddr);
+	Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_NH_MEM_REGION1_OFF,
+		     ~(CMN_NH_MEM_REGION_MASK),
+		     (SrcAddr << CMN_NH_MEM_BASE_ADDR_SHIFT) |
+		     CMN_NODE_TYPE_HNF_MASK		     |
+		     (Len << CMN_NH_MEM_LEN_SHIFT)	     |
+		     CMN_REG_VALID_MASK);
+}
+
+static void XPsmFw_DvsecSetupMem(u32 SrcAddr)
+{
+	u32 mem_en;
+
+	mem_en = Dvsec_Rd32(PSM_DVSEC_RAM, PSM_DVSEC_MP_PROP0_OFF) &
+		 PSM_DVSEC_MEM_REG_EN_MASK;
+	if ((mem_en & PSM_DVSEC_MPSEL_0_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR0_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR0_H_OFF, PSM_DVSEC_MP_BASE_ADDR0_L_OFF,
+		  PSM_DVSEC_MP_SIZE0_OFF);
+	} else if ((mem_en & PSM_DVSEC_MPSEL_1_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR1_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR1_H_OFF, PSM_DVSEC_MP_BASE_ADDR1_L_OFF,
+		  PSM_DVSEC_MP_SIZE1_OFF);
+	} else if ((mem_en & PSM_DVSEC_MPSEL_2_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR2_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR2_H_OFF, PSM_DVSEC_MP_BASE_ADDR2_L_OFF,
+		  PSM_DVSEC_MP_SIZE2_OFF);
+	} else if ((mem_en & PSM_DVSEC_MPSEL_3_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR3_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR3_H_OFF, PSM_DVSEC_MP_BASE_ADDR3_L_OFF,
+		  PSM_DVSEC_MP_SIZE3_OFF);
+	} else if ((mem_en & PSM_DVSEC_MPSEL_4_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR4_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR4_H_OFF, PSM_DVSEC_MP_BASE_ADDR4_L_OFF,
+		  PSM_DVSEC_MP_SIZE4_OFF);
+	} else if ((mem_en & PSM_DVSEC_MPSEL_5_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR5_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR5_H_OFF, PSM_DVSEC_MP_BASE_ADDR5_L_OFF,
+		  PSM_DVSEC_MP_SIZE5_OFF);
+	} else if ((mem_en & PSM_DVSEC_MPSEL_6_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR6_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR6_H_OFF, PSM_DVSEC_MP_BASE_ADDR6_L_OFF,
+		  PSM_DVSEC_MP_SIZE6_OFF);
+	} else if ((mem_en & PSM_DVSEC_MPSEL_7_MASK) != 0U) {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR7_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR7_H_OFF, PSM_DVSEC_MP_BASE_ADDR7_L_OFF,
+		  PSM_DVSEC_MP_SIZE7_OFF);
+	} else {
+		XPsmFW_DvsecPgmMP(SrcAddr, CPM_AR_SRC_ADDR0_H_OFF,
+		  PSM_DVSEC_MP_BASE_ADDR0_H_OFF, PSM_DVSEC_MP_BASE_ADDR0_L_OFF,
+		  PSM_DVSEC_MP_SIZE0_OFF);
+	}
+
+	Dvsec_Wr32(CPM_ADDR_REMAP, CPM_AR_ADDRREMAP_CTL_OFF,
+		   CMN_APER_SIZE0_EN_MASK);
 }
 
 XStatus XPsmFw_DvsecWrite(void)
@@ -473,14 +605,16 @@ XStatus XPsmFw_DvsecWrite(void)
 		}
 
 		/*Loading from source BDF into Link0_BDF*/
-		if (Index == DVSEC_PCR_PORT_BDF_IDX) {
+		if (Index != DVSEC_PCR_PORT_BDF_IDX)
+			goto done;
+		if ((SingleHA == 1) || (SingleSA == 1) || (HARA == 1)) {
 			Dvsec_Wr32(CMN_N72_LA_BASE_REG,
-				   CMN_LINKID_PCIE_BUSNUM_OFF,
-				   Val >> CMN_LA_LINK0_BUS_SHIFT);
+				     CMN_LINKID_PCIE_BUSNUM_OFF,
+				     Val >> CMN_LA_LINK0_BUS_SHIFT);
 			Dvsec_Wr32(CPM_SLCR_BASE, CMN_PORT_SRCID_CTRL_OFF,
-				   Val >> CPM_SLCR_LINK0_BDF_SHIFT);
-			Dvsec_Wr32(CPM_SLCR_BASE, CMN_PORT_SRCID_CTRL_OFF, Val);
+				     Val >> CPM_SLCR_LINK0_BDF_SHIFT);
 		}
+		Dvsec_Wr32(CPM_SLCR_BASE, CMN_PORT_SRCID_CTRL_OFF, Val);
 	} else if ((RegNum >= DvsecPcrLink[0].DvsecOff) &&
 		   (RegNum <= DvsecPcrLink[DVSEC_PCR_LINK_LEN - 1].DvsecOff)) {
 		Check = 1U;
@@ -491,32 +625,43 @@ XStatus XPsmFw_DvsecWrite(void)
 			goto done;
 		}
 
+		if ((Val & DVSEC_MSGPACK_EN_MASK) == 0U) {
+			Dvsec_Wr_M32(CMN_N72_LA_BASE_REG, CMN_LA_CCIX_PROP_OFF,
+				     ~CMN_NOMSGPACK_MASK, CMN_NOMSGPACK_MASK);
+		} else {
+			/* Clear the nomsgpack bit */
+			Dvsec_Wr_M32(CMN_N72_LA_BASE_REG, CMN_LA_CCIX_PROP_OFF,
+				     ~CMN_NOMSGPACK_MASK, CMN_CLEAR_MASK);
+		}
 		/* Link-Up Sequence
 		 * Enabling Snoop Response for RA
 		 */
-		Dvsec_Wr_M32(CMN_N72_RA_BASE_REG, CMN_LINK0_CTL_1_OFF,
-			   ~(CMN_LINK0_EN_REQ_VAL_OFF),
-			    CMN_LINK0_EN_REQ_VAL_OFF);
-		if (((Dvsec_Rd32(CMN_N72_RA_BASE_REG, CMN_LINK0_CTL_1_OFF))
-		    & CMN_LINK_EN_VAL_MASK) != 0U) {
+		if ((SingleRA == 1) || (HARA == 1)) {
 			Dvsec_Wr_M32(CMN_N72_RA_BASE_REG, CMN_LINK0_CTL_1_OFF,
-				     ~CMN_CXPRTCTL_VAL_MASK,
-				     CMN_CXPRTCTL_VAL_MASK);
+				     ~(CMN_LINK0_EN_REQ_VAL_OFF),
+				     CMN_LINK0_EN_REQ_VAL_OFF);
+			if (((Dvsec_Rd32(CMN_N72_RA_BASE_REG,
+			    CMN_LINK0_CTL_1_OFF)) & CMN_LINK_EN_VAL_MASK) != 0U) {
+				Dvsec_Wr_M32(CMN_N72_RA_BASE_REG,
+				 CMN_LINK0_CTL_1_OFF,
+				 ~CMN_CXPRTCTL_VAL_MASK, CMN_CXPRTCTL_VAL_MASK);
+			}
 		}
 
 		/* Link-Up Sequence
 		 * Enabling Snoop Response for HA
 		 */
-		Dvsec_Wr_M32(CMN_N72_HA_BASE_REG, CMN_LINK0_CTL_1_OFF,
-			     ~(CMN_LINK0_EN_REQ_VAL_OFF),
-			     CMN_LINK0_EN_REQ_VAL_OFF);
-		if (((Dvsec_Rd32(CMN_N72_HA_BASE_REG, CMN_LINK0_CTL_1_OFF))
-				& CMN_LINK_EN_VAL_MASK) != 0U) {
+		if ((SingleHA == 1) || (SingleSA == 1) || (HARA == 1)) {
 			Dvsec_Wr_M32(CMN_N72_HA_BASE_REG, CMN_LINK0_CTL_1_OFF,
-				     ~(CMN_CXPRTCTL_VAL_MASK),
-				     CMN_CXPRTCTL_VAL_MASK);
+				     ~(CMN_LINK0_EN_REQ_VAL_OFF),
+				     CMN_LINK0_EN_REQ_VAL_OFF);
+			if (((Dvsec_Rd32(CMN_N72_HA_BASE_REG,
+			    CMN_LINK0_CTL_1_OFF)) & CMN_LINK_EN_VAL_MASK) != 0U) {
+				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
+				 CMN_LINK0_CTL_1_OFF,
+				 ~CMN_CXPRTCTL_VAL_MASK, CMN_CXPRTCTL_VAL_MASK);
+			}
 		}
-
 	} else if ((RegNum >= DvsecSamEntry[DVSEC_SAM_0_IDX].DvsecPcrSam[0].DvsecOff) &&
 		   (RegNum <= DvsecSamEntry[DVSEC_SAM_0_IDX].DvsecPcrSam[DVSEC_SAM_LEN - 1].DvsecOff)) {
 		u32 StartAddr;
@@ -551,6 +696,12 @@ XStatus XPsmFw_DvsecWrite(void)
 		~(CMN_NH_MEM_REGION_MASK),
 		(StartAddr << CMN_NH_MEM_BASE_ADDR_SHIFT)		       |
 		(Remote ? ((u32)CMN_NODE_TYPE_CXRA_MASK) : (u32)CMN_NODE_TYPE_HNF_MASK)  |
+		(Len << CMN_NH_MEM_LEN_SHIFT) | CMN_REG_VALID_MASK);
+
+		Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_NH_MEM_REGION0_OFF,
+		~(CMN_NH_MEM_REGION_MASK),
+		(StartAddr << CMN_NH_MEM_BASE_ADDR_SHIFT)		      |
+		(Remote ? ((u32)CMN_NODE_TYPE_CXRA_MASK) : ((u32)CMN_NODE_TYPE_HNF_MASK)) |
 		(Len << CMN_NH_MEM_LEN_SHIFT) | CMN_REG_VALID_MASK);
 	} else if ((RegNum >= DvsecSamEntry[DVSEC_SAM_1_IDX].DvsecPcrSam[0].DvsecOff) &&
 		   (RegNum <= DvsecSamEntry[DVSEC_SAM_1_IDX].DvsecPcrSam[DVSEC_SAM_LEN - 1].DvsecOff)) {
@@ -592,8 +743,8 @@ XStatus XPsmFw_DvsecWrite(void)
 		u32 Reg;
 
 		Check = 1U;
-		AgentId = Index;
 		DVSEC_CALC_IDX_VAL(Index, Val, RegNum, DvsecIdm);
+		AgentId = Index;
 		if ((Val & DVSEC_SAM_IDM_EN_MASK) == 0U) {
 			goto done;
 		}
@@ -601,10 +752,29 @@ XStatus XPsmFw_DvsecWrite(void)
 		Reg = ((AgentId / DVSEC_REG_SIZE) * DVSEC_REG_SIZE);
 		RegShift = (AgentId % DVSEC_REG_SIZE) * DVSEC_BYTE_SIZE;
 		LinkId   = (Val >> DVSEC_LINK_ID_SHIFT) & DVSEC_LINK_ID_MASK;
-		/* Updating Link ID Value in agent id to link id reg. */
-		Dvsec_Wr_M32(CMN_N72_RA_BASE_REG,
-			     CMN_RA_AGENTID_LINKID_REG0_OFF + Reg,
-			     ~((u32)1U << RegShift), (LinkId << RegShift));
+		if ((SingleRA == 1) || (HARA == 1)) {
+			/* Updating Link ID Value in agent id to link id reg. */
+			Dvsec_Wr_M32(CMN_N72_RA_BASE_REG,
+				     CMN_RA_AGENTID_LINKID_REG0_OFF + Reg,
+				     ~((u32)1U << RegShift), (LinkId << RegShift));
+			Dvsec_Wr32(CMN_N72_RA_BASE_REG,
+				   CMN_RA_AGENTID_LINKID_VAL_OFF, (u32)0x1U);
+		}
+		if (SingleRA == 1) {
+			Dvsec_Wr_M32(CMN_N72_LA_BASE_REG,
+				     CMN_LA_AGENTID_LINKID_VAL_OFF, ~((u32)0x0U), (u32)0x1U);
+		}
+		if (HARA == 1) {
+			if ((Val & DVSEC_SAM_DEST_MASK) == 0U) {
+				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
+				  CMN_HA_RAID_LDID_REG_OFF + ((AgentId / DVSEC_REG_SIZE) * DVSEC_REG_SIZE),
+				  ~(CMN_RAID_MASK),
+				  CMN_LOC_RNF0_LDID | ((u32)0x1U << CMN_RAID_IS_RNF_SHIFT));
+				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
+				  CMN_HA_RAID_LDID_VAL_OFF,
+				  (~((u32)0x1U << CMN_LOC_RNF0_LDID)), ((u32)0x1U << CMN_LOC_RNF0_LDID));
+				}
+		}
 	} else if ((RegNum >= DvsecCcid[0].DvsecOff) &&
 		   (RegNum <= DvsecCcid[DVSEC_CCID_LEN - 1].DvsecOff)) {
 		Check = 1U;
@@ -635,9 +805,6 @@ XStatus XPsmFw_DvsecWrite(void)
 	} else if ((RegNum >= DvsecPcrHa0[0].DvsecOff) &&
 		 (RegNum <= DvsecPcrHa0[DVSEC_PCR_HA_LEN - 1].DvsecOff)) {
 		static u32 RegCount;
-		u32 BitShift;
-		u32 RegVal;
-		u32 i;
 
 		Check = 1U;
 		DVSEC_CALC_IDX_VAL(Index, Val, RegNum, DvsecPcrHa0);
@@ -647,12 +814,12 @@ XStatus XPsmFw_DvsecWrite(void)
 				   (Val & CMN_HAID_MASK));
 		} else if (Index == DVSEC_PCR_HBAT1_IDX) {
 			u32 SrcAddr = 0U;
-			u32 BatValid;
+			u32 BATValid;
 
-			BatValid  = Dvsec_Rd32(PCIEA_DVSEC_0,
+			BATValid  = Dvsec_Rd32(PCIEA_DVSEC_0,
 				    DvsecPcrHa0[DVSEC_PCR_HBAT0_IDX].DvsecOff) &
 				    DvsecPcrHa0[DVSEC_PCR_HBAT0_IDX].Mask;
-			if ((BatValid & DVSEC_HBAT_VALID_MASK) == 0U) {
+			if ((BATValid & DVSEC_HBAT_VALID_MASK) == 0U) {
 				goto done;
 			}
 
@@ -660,81 +827,132 @@ XStatus XPsmFw_DvsecWrite(void)
 				   DvsecPcrHa0[DVSEC_PCR_HBAT1_IDX].DvsecOff) &
 				   DvsecPcrHa0[DVSEC_PCR_HBAT1_IDX].Mask;
 
-			Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_NH_MEM_REGION0_OFF,
-				     ~(CMN_NH_MEM_REGION_MASK),
-				     (SrcAddr << CMN_NH_MEM_BASE_ADDR_SHIFT) |
-				     CMN_NODE_TYPE_HNF_MASK		     |
-				     CMN_NH_MEM_SIZE_8G_MASK		     |
-				     CMN_REG_VALID_MASK);
-			Dvsec_Wr32(CPM_ADDR_REMAP, CPM_AR_SRC_ADDR0_H_OFF, SrcAddr);
-			Dvsec_Wr32(CPM_ADDR_REMAP, CPM_AR_ADDRREMAP_CTL_OFF,
-				   CMN_APER_SIZE0_EN_MASK);
-			Dvsec_Wr32(CPM_ADDR_REMAP, CPM_AR_APER_SIZE0_H_OFF,
-				   CPM_AR_APER_SIZE_H);
-			Dvsec_Wr32(CPM_ADDR_REMAP, CPM_AR_DST_ADDR0_H_OFF,
-				   CPM_AR_DST_ADDR_H);
+			XPsmFw_DvsecSetupMem(SrcAddr);
+
 		} else if (Index == DVSEC_PCR_HA_PRSNT_RAID0_IDX) {
+			u32 BitShift;
+			u32 LDIDInc;
+			u32 LDIDVal;
+			u32 RegVal;
+			u32 i;
+
 			/*  i  is bit position in the Present RAID Vector. */
 			for (i = 0U; i < DVSEC_PRSNT_RAID_LEN; i++) {
-				if (((Val >> i) & DVSEC_PRSNT_RAID_VAL_MASK) == 0U) {
+				if ((((Val >> i) & DVSEC_PRSNT_RAID_VAL_MASK) == 0U) ||
+				    ((Dvsec_Rd32(PCIEA_DVSEC_0,
+					DvsecIdm[i].DvsecOff) & DVSEC_SAM_DEST_MASK) == 0U)) {
 					RegCount++;
 					continue;
 				}
+
 				BitShift = ((RegCount) % DVSEC_REG_SIZE) *
 					    CMN_NUM_RA_RLID_REG;
 				RegVal = (RegCount / DVSEC_REG_SIZE) *
 					  DVSEC_REG_SIZE;
+				LDIDInc = (RegCount / DVSEC_PRSNT_RAID_LEN) *
+					  DVSEC_REG_SIZE;
+				LDIDVal = (i + 2U) % DVSEC_PRSNT_RAID_LEN;
 
 				Dvsec_Wr32(CMN_N40_BASE_REG,
-					   CMN_HNF_RA_PHY_ID1_OFF,
-					   (CMN_CML0_NID | CMN_REMOTE_RN_MASK |
-					    CMN_HNF_RN_PHY_ID_VAL_MASK));
+				 (CMN_HNF_RA_PHY_ID1_OFF + (RegCount * DVSEC_REG_SIZE)),
+				 (CMN_CML0_NID | CMN_REMOTE_RN_MASK |
+				  CMN_HNF_RN_PHY_ID_VAL_MASK));
 
 				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
 				  CMN_HA_RAID_LDID_REG_OFF + RegVal,
 				  ~((u32)CMN_RAID_MASK << BitShift),
-				  (i << BitShift) |
+				  (LDIDVal << BitShift) |
 				  ((u32)0x1U << (BitShift + CMN_RAID_IS_RNF_SHIFT)));
 
 				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
-					     CMN_HA_RAID_LDID_VAL_OFF,
-					     (~((u32)0x1U << i)), ((u32)0x1U << i));
+				  CMN_HA_RAID_LDID_VAL_OFF + LDIDInc,
+				  (~((u32)0x1U << LDIDVal)), ((u32)0x1U << LDIDVal));
+
 				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
 					     CMN_HA_AGENTID_LINKID_VAL_OFF,
 					     (~((u32)0x1U << i)), ((u32)0x1U << i));
 				Dvsec_Wr_M32(CMN_N72_LA_BASE_REG,
 					     CMN_LA_AGENTID_LINKID_VAL_OFF,
 					     (~((u32)0x1U << i)), ((u32)0x1U << i));
-				Dvsec_Wr_M32(CMN_N72_RA_BASE_REG,
-					     CMN_RA_AGENTID_LINKID_VAL_OFF,
-					     (~((u32)0x1U << i)), ((u32)0x1U << i));
 				RegCount++;
 			}
 		} else if (Index == DVSEC_PCR_HA_PRSNT_RAID1_IDX) {
+			u32 BitShift;
+			u32 LDIDInc;
+			u32 LDIDVal;
+			u32 RegVal;
+			u32 i;
+
 			for (i = 0U; i < DVSEC_PRSNT_RAID_LEN; i++) {
-				if (((Val >> i) & DVSEC_PRSNT_RAID_VAL_MASK) == 0U) {
+				if ((((Val >> i) & DVSEC_PRSNT_RAID_VAL_MASK) == 0U) ||
+				    ((Dvsec_Rd32(PCIEA_DVSEC_0,
+					DvsecIdm[i].DvsecOff) & DVSEC_SAM_DEST_MASK) == 0U)) {
 					RegCount++;
 					continue;
 				}
+
 				BitShift = ((RegCount) % DVSEC_REG_SIZE) *
 					    CMN_NUM_RA_RLID_REG;
 				RegVal = (RegCount / DVSEC_REG_SIZE) *
 					  DVSEC_REG_SIZE;
+				LDIDInc = (RegCount / DVSEC_PRSNT_RAID_LEN) *
+					  DVSEC_REG_SIZE;
+				LDIDVal = (i + 2U) % DVSEC_PRSNT_RAID_LEN;
 
 				Dvsec_Wr32(CMN_N40_BASE_REG,
-					   CMN_HNF_RA_PHY_ID16_OFF,
-					  (CMN_CML0_NID | CMN_REMOTE_RN_MASK |
-					   CMN_HNF_RN_PHY_ID_VAL_MASK));
+				 (CMN_HNF_RA_PHY_ID16_OFF + (RegCount * DVSEC_REG_SIZE)),
+				 (CMN_CML0_NID | CMN_REMOTE_RN_MASK |
+				 CMN_HNF_RN_PHY_ID_VAL_MASK));
 
 				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
 				  (CMN_HA_RAID_LDID_REG_OFF + RegVal),
 				  ~((u32)CMN_RAID_MASK << BitShift),
-				  ((i + ((u32)DVSEC_REG_SIZE * (u32)DVSEC_BYTE_SIZE))
-				   << BitShift |
+				  ((LDIDVal << BitShift) |
 				  ((u32)0x1U << (BitShift + CMN_RAID_IS_RNF_SHIFT))));
+
+				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
+				  CMN_HA_RAID_LDID_VAL_OFF + LDIDInc,
+				  (~((u32)0x1U << LDIDVal)), ((u32)0x1U << LDIDVal));
+
+				Dvsec_Wr_M32(CMN_N72_HA_BASE_REG,
+					     CMN_HA_AGENTID_LINKID_VAL_OFF + DVSEC_REG_SIZE,
+					     ~((u32)0x1U << i), ((u32)0x1U << i));
+
+				Dvsec_Wr_M32(CMN_N72_LA_BASE_REG,
+					     CMN_LA_AGENTID_LINKID_VAL_OFF + DVSEC_REG_SIZE,
+					     ~((u32)0x1U << i), ((u32)0x1U << i));
 
 				RegCount++;
 			}
+		} else {
+			goto done;
+		}
+	} else if ((RegNum >= DvsecPcrSa0[0].DvsecOff) &&
+		 (RegNum <= DvsecPcrSa0[DVSEC_PCR_SA_LEN - 1].DvsecOff)) {
+
+		Check = 1U;
+		DVSEC_CALC_IDX_VAL(Index, Val, RegNum, DvsecPcrSa0);
+		if (Index == DVSEC_PCR_SA_CTL_IDX) {
+			/* Storing the SAID Value for Node 72 */
+			Dvsec_Wr32(CMN_N72_HA_BASE_REG, CMN_HAID_OFF,
+				    (Val & CMN_SAID_MASK) >> CMN_SAID_SHIFT);
+		} else if (Index == DVSEC_PCR_SBAT1_IDX) {
+			u32 SrcAddr = 0U;
+			u32 BATValid;
+
+			BATValid  = Dvsec_Rd32(PCIEA_DVSEC_0,
+				    DvsecPcrHa0[DVSEC_PCR_SBAT0_IDX].DvsecOff) &
+				    DvsecPcrHa0[DVSEC_PCR_SBAT0_IDX].Mask;
+			if ((BATValid & DVSEC_HBAT_VALID_MASK) == 0U) {
+				goto done;
+			}
+
+			SrcAddr = Dvsec_Rd32(PCIEA_DVSEC_0,
+				   DvsecPcrHa0[DVSEC_PCR_SBAT1_IDX].DvsecOff) &
+				   DvsecPcrHa0[DVSEC_PCR_SBAT1_IDX].Mask;
+
+			XPsmFw_DvsecSetupMem(SrcAddr);
+
 		} else {
 			goto done;
 		}
@@ -759,28 +977,100 @@ void XPsmFw_DvsecInit(void)
 {
 	u32 Value;
 
-	/* RA only NODEID = 72*/
-	Dvsec_Wr_M32(CMN_N76_BASE_REG, CMN_NH_TGT_NID0_OFF, DVSEC_32B_MASK,
-		     (u32)(CMN_CML0_NID << CMN_NH_TGT_NID0_SHIFT));
-	/* HA+RA NODEID 1 = HNF 0 = 40 */
-	Dvsec_Wr_M32(CMN_N76_BASE_REG, CMN_NH_TGT_NID0_OFF, DVSEC_32B_MASK,
-		     (u32)(CMN_NH_TGT_NID0 << CMN_NH_TGT_NID1_SHIFT));
+	Value = Dvsec_Rd32(PSM_DVSEC_RAM, PSM_DVSEC_DYN_CONTROL_OFF);
+	if ((Value & PSM_DVSEC_RA0_EN_MASK) != 0U) {
+		SingleRA = 1U;
+	}
 
-	Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_NH_TGT_NID0_OFF, DVSEC_32B_MASK,
-		  (CMN_NH_TGT_NID0 << CMN_NH_TGT_NID0_SHIFT) |
-		  (CMN_NH_TGT_NID1 << CMN_NH_TGT_NID1_SHIFT) |
-		  (CMN_NH_TGT_NID2 << CMN_NH_TGT_NID2_SHIFT));
-	Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_NH_TGT_NID1_OFF, DVSEC_32B_MASK,
-		     (u32)(CMN_NH_TGT_NID3 << CMN_NH_TGT_NID3_SHIFT));
+	if ((Value & PSM_DVSEC_AGENT_SEL_HA_MASK) != 0U) {
+		Value = Dvsec_Rd32(PSM_DVSEC_RAM, PSM_DVSEC_MP_PROP0_OFF);
+		/* Atleast one pool should be enabled for HA */
+		if ((Value & PSM_DVSEC_MEM_REG_EN_MASK) != 0U) {
+			SingleHA = 1U;
+		}
+	}
+	if ((Value & PSM_DVSEC_AGENT_SEL_SA_MASK) != 0U) {
+		Value = Dvsec_Rd32(PSM_DVSEC_RAM, PSM_DVSEC_MP_PROP0_OFF);
+		/* Atleast one pool should be enabled for SA */
+		if ((Value & PSM_DVSEC_MEM_REG_EN_MASK) != 0U) {
+			SingleSA = 1U;
+		}
+	}
+
+	if ((SingleHA == 1) && (SingleRA == 1)) {
+		HARA = 1U;
+		SingleHA = 0U;
+		SingleRA = 0U;
+	}
+
+	if (SingleSA == 1) {
+		HARA = 0U;
+		SingleHA = 0U;
+		SingleRA = 0U;
+	}
+
+	if ((SingleHA == 1) || (SingleSA == 1)) {
+		DvsecPcrLink[0].Val = DVSEC_PCR_LINK_START_HA_VAL;
+		DvsecPcsrLink[0].Val = DVSEC_PCSR_LINK_START_HA_VAL;
+		DvsecPcsrPrimary[DVSEC_PCSR_RSAM_OFF_IDX].Val = 0x0U;
+		DvsecPcsrPrimary[DVSEC_PCSR_HSAM_OFF_IDX].Val =
+							DVSEC_PCSR_HSAM_OFF_VAL;
+	 }
+
+	if ((SingleRA == 1)) {
+		DvsecPcsrRa0[0].Val = DVSEC_PCSR_RA0_START_RA_VAL;
+		DvsecPcsrPrimary[DVSEC_PCSR_RSAM_OFF_IDX].Val =
+							DVSEC_PCSR_RSAM_OFF_VAL;
+		DvsecPcsrPrimary[DVSEC_PCSR_HSAM_OFF_IDX].Val = 0x0U;
+		/* RA only NODEID = 72*/
+		Dvsec_Wr_M32(CMN_N76_BASE_REG, CMN_NH_TGT_NID0_OFF,
+			     DVSEC_32B_MASK,
+			     (u32)(CMN_CML0_NID << CMN_NH_TGT_NID0_SHIFT));
+		Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_NH_TGT_NID0_OFF,
+			     DVSEC_32B_MASK,
+			     (u32)(CMN_NH_TGT_NID0 << CMN_NH_TGT_NID0_SHIFT));
+	}
+
+	if ((HARA == 1)) {
+		Dvsec_Wr_M32(CMN_N76_BASE_REG, CMN_NH_TGT_NID0_OFF,
+			     DVSEC_32B_MASK,
+			     (u32)((CMN_CML0_NID << CMN_NH_TGT_NID0_SHIFT) |
+			     (CMN_NH_TGT_NID1 << CMN_NH_TGT_NID1_SHIFT)));
+	}
+
+	if ((SingleHA == 1) || (HARA == 1) || (SingleSA == 1)) {
+		DVSEC_SET_MEM_CAP_L(DVSEC_PCSR_MP0_CAP0_IDX,
+				    PSM_DVSEC_MP_SIZE0_OFF);
+		DVSEC_SET_MEM_CAP_H(DVSEC_PCSR_MP0_CAP1_IDX,
+				    PSM_DVSEC_MP_SIZE0_OFF);
+		DVSEC_SET_MEM_CAP_L(DVSEC_PCSR_MP1_CAP0_IDX,
+				    PSM_DVSEC_MP_SIZE1_OFF);
+		DVSEC_SET_MEM_CAP_H(DVSEC_PCSR_MP1_CAP1_IDX,
+				    PSM_DVSEC_MP_SIZE1_OFF);
+		DVSEC_SET_MEM_CAP_L(DVSEC_PCSR_MP2_CAP0_IDX,
+				    PSM_DVSEC_MP_SIZE2_OFF);
+		DVSEC_SET_MEM_CAP_H(DVSEC_PCSR_MP2_CAP1_IDX,
+				    PSM_DVSEC_MP_SIZE2_OFF);
+		DVSEC_SET_MEM_CAP_L(DVSEC_PCSR_MP3_CAP0_IDX,
+				    PSM_DVSEC_MP_SIZE3_OFF);
+		DVSEC_SET_MEM_CAP_H(DVSEC_PCSR_MP3_CAP1_IDX,
+				    PSM_DVSEC_MP_SIZE3_OFF);
+
+		Dvsec_Wr_M32(CMN_N72_BASE_REG, CMN_NH_TGT_NID0_OFF,
+			     DVSEC_32B_MASK,
+			     (u32)((CMN_NH_TGT_NID0 << CMN_NH_TGT_NID0_SHIFT) |
+				  (CMN_NH_TGT_NID1 << CMN_NH_TGT_NID1_SHIFT)));
+		Dvsec_Wr32(CMN_N40_BASE_REG, CMN_HNF_SAM_CONTROL_OFF,
+			   CMN_SN0_NID);
+		Dvsec_Wr32(CMN_N40_BASE_REG, CMN_HNF_SAM_PROP_OFF,
+			   (u32)(CMN_SN0_128B_WIDTH_MASK | CMN_SN0_PCMO_PROP_MASK  |
+				 CMN_SN1_128B_WIDTH_MASK | CMN_SN1_PCMO_PROP_MASK));
+		Dvsec_Wr_M32(CMN_N40_BASE_REG, CMN_HNF_AUX_CTL_OFF,
+			     ~CMN_HNF_STASH_DIS_MASK, CMN_HNF_STASH_DIS_MASK);
+	}
 	/* Updating Traffic Class & TLP */
 	Dvsec_Wr_M32(CMN_N72_LA_BASE_REG, CMN_LA_TLP_HDR_1_OFF,
 		   ~(CMN_TC_TLP_MASK), CMN_TRAFFIC_CLASS);
-
-	Dvsec_Wr32(CMN_N40_BASE_REG, CMN_HNF_SAM_CONTROL_OFF,
-		   CMN_SN0_NID);
-	Dvsec_Wr32(CMN_N40_BASE_REG, CMN_HNF_SAM_PROP_OFF,
-		   (u32)(CMN_SN0_128B_WIDTH_MASK | CMN_SN0_PCMO_PROP_MASK  |
-			 CMN_SN1_128B_WIDTH_MASK | CMN_SN1_PCMO_PROP_MASK));
 
 	Value = Dvsec_Rd32(PCIEA_ATTRIB_0, PCIE_PF0_PDVSEC_VID_OFF);
 	DvsecPcsrProtocol[DVSEC_PCSR_PROT_DVSEC_HDR_IDX].Val =
