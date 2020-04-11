@@ -35,6 +35,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
+* 2.0	kal  03/08/2020 Added Utility APIs
 *
 * </pre>
 *
@@ -66,11 +67,12 @@ extern "C" {
 
 /*************************** Function Prototypes ******************************/
 u32 XNvm_ValidateAesKey(const char *Key);
-u32 XNvm_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len);
+u32 XNvm_ConvertHexToByteArray(const u8 * Bits, u8 * Bytes, u32 Len);
 u32 XNvm_AesCrcCalc(u32 *Key);
 u32 XNvm_ValidateHash(const char *Hash, u32 Len);
-void XNvm_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len);
-
+u32 XNvm_ConvertByteArrayToHex(const u8 * Bytes, u8 * Bits , u32 Len);
+u32 XNvm_ValidateUserFuseStr(const char *UserFuseStr);
+u32 XNvm_ValidateIvString(const char *IvStr);
 #ifdef __cplusplus
 }
 #endif
