@@ -636,6 +636,7 @@ u8 XAieGbl_Column_EventBroadcastBlockAll(XAieGbl_Tile *TileInstPtr);
  */
 int XAieTile_EventRegisterNotification(XAieGbl *AieInst, XAie_LocType *Loc, u32 NumTiles, u8 Module, u8 Event, XAieTile_EventCallBack Cb, void *Arg);
 int XAieTile_EventUnregisterNotification(XAieGbl *AieInst, XAie_LocType *Loc, u32 NumTiles, u8 Module, u8 Event);
+void XAieTile_EventsSetupDefaultHandlers(XAieGbl *AieInst);
 int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst);
 int XAieTile_EventsEnableInterrupt(XAieGbl *AieInst);
 int XAieTile_EventsDisableInterrupt(XAieGbl *AieInst);

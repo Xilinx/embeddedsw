@@ -37,6 +37,7 @@
 /************************** Function Prototypes  *****************************/
 int XAieTile_ErrorRegisterNotification(XAieGbl *AieInst, u8 Module, u8 Error, XAieTile_ErrorCallBack Cb, void *Arg);
 void XAieTile_ErrorUnregisterNotification(XAieGbl *AieInst, u8 Module, u8 Error, u8 Logging);
+void XAieTile_ErrorsSetupDefaultHandler(XAieGbl *AieInst);
 int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst);
 #endif		/* end of protection macro */
 
