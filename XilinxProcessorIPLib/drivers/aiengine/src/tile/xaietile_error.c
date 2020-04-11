@@ -705,11 +705,11 @@ void XAieTile_ErrorUnregisterNotification(XAieGbl *AieInst, u8 Module,
 		ErrOff = Error - XAIETILE_EVENT_CORE_SRS_SATURATE;
 		Handler = &AieInst->CoreErrHandlers[ErrOff];
 	} else if (Module == XAIEGBL_MODULE_MEM) {
-		XAie_AssertVoid(Error >= XAIETILE_EVENT_MEM_DM_ECC_ERROR_SCRUB_2BIT &&
+		XAie_AssertVoid(Error >= XAIETILE_EVENT_MEM_DM_ECC_ERROR_SCRUB_CORRECTED &&
 				Error <= XAIETILE_EVENT_MEM_DMA_MM2S_1_ERROR);
 		ErrsDefaultTrap = &(AieInst->MemErrsDefaultTrap);
 		ErrsPollOnly = &(AieInst->MemErrsPollOnly);
-		ErrOff = Error - XAIETILE_EVENT_MEM_DM_ECC_ERROR_SCRUB_2BIT;
+		ErrOff = Error - XAIETILE_EVENT_MEM_DM_ECC_ERROR_SCRUB_CORRECTED;
 		Handler = &AieInst->MemErrHandlers[ErrOff];
 	} else {
 		XAie_AssertVoid(Error >= XAIETILE_EVENT_SHIM_AXI_MM_SLAVE_TILE_ERROR &&
