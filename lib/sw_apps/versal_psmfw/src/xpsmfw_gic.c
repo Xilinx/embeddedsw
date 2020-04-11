@@ -50,6 +50,7 @@
 static struct GicP2HandlerTable_t GicHandlerTable[] = {
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, XPsmFw_DvsecWrite},
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, XPsmFw_DvsecRead},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, XPsmFw_DvsecATSHandler},
 };
 
 /**
@@ -88,7 +89,8 @@ XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 void XPsmFw_GicP2IrqEnable(void)
 {
 	u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |
-		      PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK;
+		      PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK     |
+		      PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK;
 
 	XPsmFw_Write32(PSM_GLOBAL_GICP2_INT_EN, IntMask);
 
