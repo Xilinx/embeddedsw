@@ -291,9 +291,9 @@ END:
  *
  * @param	Str is a Input String. Will support the lower and upper case values.
  * 		Value should be between 0-9, a-f and A-F
- *
  * @param	Buf is Output buffer.
  * @param	Len of the input string. Should have even values
+ *
  * @return
  * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
@@ -314,10 +314,11 @@ END:
  *	Boundary Cases
  *	Memory Bounds of buffer checking
  * ****************************************************************************/
-u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
+u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 {
 	u32 ConvertedLen;
-	u8 LowerNibble = 0U, UpperNibble = 0U;
+	u8 LowerNibble = 0U;
+	u8 UpperNibble = 0U;
 	u32 Status = (u32)XST_FAILURE;
 
 	if ((Str == NULL) || (Buf == NULL)) {

@@ -150,7 +150,7 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_IPDIS_WR_LK_MASK	(0x00000020U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_MASK	(0x00000008U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK		(0x00000004U)
-#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_ERROR_OUT_DIS_MASK	(0x00000002U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_ERR_OUT_DIS_MASK	(0x00000002U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK		(0x00000001U)
 
 /* access_type: ro  */
@@ -185,10 +185,10 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_OFFSET		(0x000000A4U)
 
 /* access_type: ro */
-#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGEN_DIS_MASK	(0x80000000U)
-#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_HD_INVLD_MASK	(0x40000000U)
+#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGEN_DIS_MASK	(0x80000000U)
+#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_HD_INVLD_MASK		(0x40000000U)
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_UNUSED_29_24_MASK	(0x3f000000U)
-#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_ECC_23_0_MASK	(0x00ffffffU)
+#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK		(0x00ffffffU)
 
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGEN_DIS_SHIFT		(31U)
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_HD_INVLD_SHIFT		(30U)
@@ -267,6 +267,7 @@ extern "C" {
 #define XNVM_EFUSE_AES_KEY_START_ROW			(12U)
 #define XNVM_EFUSE_USER_KEY_0_START_ROW			(20U)
 #define XNVM_EFUSE_USER_KEY_1_START_ROW			(28U)
+#define XNVM_EFUSE_USER_KEY_1_END_ROW			(35U)
 #define XNVM_EFUSE_BOOT_ENV_CTRL_ROW			(37U)
 #define XNVM_EFUSE_MISC_CTRL_ROW			(40U)
 #define XNVM_EFUSE_PUF_AUX_ROW				(41U)
@@ -289,6 +290,7 @@ extern "C" {
 #define XNVM_EFUSE_PLML_IV_START_ROW			(119U)
 #define XNVM_EFUSE_DATA_PARTITION_IV_START_ROW		(122U)
 #define XNVM_EFUSE_PUF_SYN_START_ROW			(129U)
+#define XNVM_EFUSE_USER_FUSE_START_ROW			(129U)
 
 /* EFUSE ROW COUNT*/
 #define XNVM_EFUSE_AES_KEY_NUM_OF_ROWS			(8U)
@@ -317,6 +319,9 @@ extern "C" {
 #define XNVM_EFUSE_TBITS_1_COLUMN			(29U)
 #define XNVM_EFUSE_TBITS_2_COLUMN			(30U)
 #define XNVM_EFUSE_TBITS_3_COLUMN			(31U)
+
+#define XNVM_EFUSE_PUF_ECC_PUF_CTRL_REGEN_DIS_COLUMN	(31U)
+#define XNVM_EFUSE_PUF_ECC_PUF_CTRL_HD_INVLD_COLUMN	(30U)
 
 /* eFUSE Controller WR_LOCK register definition */
 #define XNVM_EFUSE_WR_UNLOCK_PASSCODE			(0xDF0DU)
@@ -422,48 +427,8 @@ extern "C" {
  */
 #define XNVM_POLL_TIMEOUT				(0xFFFFFFFFU)
 
-/***************** Macros (Inline Functions) Definitions ********************/
-
-/*****************************************************************************/
-/*
- *
- * This macro reads the given register.
- *
- * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
- * @param	RegOffset is the register offset of the register.
- *
- * @return	The 32-bit value of the register.
- *
- * @note	C-style signature:
- * 		u32 Xnvm_Efuse_ReadReg(u32 BaseAddress, u32 RegOffset)
- *
- * ******************************************************************************/
-
-#define XNvm_Efuse_ReadReg(BaseAddress, RegOffset) \
-		Xil_In32((BaseAddress) + (u32)(RegOffset))
-
-/*****************************************************************************/
-/*
- *
- * This macro writes the value into the given register.
- *
- * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
- * @param	RegOffset is the register offset of the register.
- * @param	Data is the 32-bit value to write to the register.
- *
- * @return	None.
- *
- * @note	C-style signature:
- * 		void XNvm_Efuse_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
- *
- * ******************************************************************************/
-#define XNvm_Efuse_WriteReg(BaseAddress, RegOffset, Data) \
-		Xil_Out32(((BaseAddress) + (u32)(RegOffset)), (u32)(Data))
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif		/* XNVM_EFUSE_HW_H */
+#endif	/* XNVM_EFUSE_HW_H */
