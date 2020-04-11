@@ -47,7 +47,13 @@
 #include <xaiengine.h>
 #include <unistd.h>
 
-#ifndef __AIEBAREMTL__
+#ifdef __AIEBAREMTL__
+#include <xil_printf.h>
+#include <xil_exception.h>
+#include <xstatus.h>
+#include <xscugic.h>
+#endif
+
 /************************** Constant Definitions *****************************/
 #define XAIE_NUM_ROWS		8
 #define XAIE_NUM_COLS		50
@@ -55,6 +61,11 @@
 
 #define EVENTS_NUM_ROWS	4
 #define EVENTS_NUM_COLS	4
+
+#ifdef __AIEBAREMTL__
+#define INTC_DEVICE_ID	XPAR_SCUGIC_0_DEVICE_ID
+#define IRQ1_VECT_ID	180U /* AI engine NPI interrupt 1 vector ID */
+#endif
 
 /************************** Variable Definitions *****************************/
 static XAieGbl_Config *AieConfigPtr;	/**< AIE configuration pointer */
@@ -69,9 +80,75 @@ static u8 MemDmaS2MM0Errors[XAIE_NUM_COLS][XAIE_NUM_ROWS];
 static u8 CoreDMUnavailErrors[XAIE_NUM_COLS][XAIE_NUM_ROWS];
 static u8 ShimCntrPktErrors[XAIE_NUM_COLS];
 
+#ifdef __AIEBAREMTL__
+static XScuGic xInterruptController;
+#endif
 /************************** Function Prototypes  *****************************/
 
 /************************** Function Definitions *****************************/
+#ifdef __AIEBAREMTL__
+/*****************************************************************************/
+/**
+*
+* This is to intialize interrupt controller
+* It will register the AI engine driver interrupt handler to the interrupt
+* controller.
+*
+* @param	None.
+*
+* @return	0 for success, and negative value for failure.
+
+* @note		This is required to enable AI engine interrupt. It will
+*		connect the AI engine driver interrupt handler to the interrupt
+*		controller driver.
+*		This is required to by done by the baremetal application, as
+*		there is no interrupt abstraction in baremetal. The interrupt
+*		controller instance is maintained by application. There is no
+*		generic function for driver to call to register interrupt
+*		handller for baremetal.
+*
+*******************************************************************************/
+static int init_irq()
+{
+	int ret = 0;
+	XScuGic_Config *IntcConfig;	/* The configuration parameters of
+					   the interrupt controller */
+	Xil_ExceptionDisable();
+
+	/* Initialize the interrupt controller driver */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return (int)XST_FAILURE;
+	}
+
+	ret = XScuGic_CfgInitialize(&xInterruptController, IntcConfig,
+			       IntcConfig->CpuBaseAddress);
+	if (ret != XST_SUCCESS) {
+		return (int)XST_FAILURE;
+	}
+
+	/*
+	 * Register the interrupt handler to the hardware interrupt handling
+	 * logic in the ARM processor.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
+				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				&xInterruptController);
+
+	Xil_ExceptionEnable();
+	/* Connect Interrupt */
+	XScuGic_Connect(&xInterruptController, IRQ1_VECT_ID,
+		   (Xil_InterruptHandler)XAieTile_EventsIsr,
+		   (void *)(&AieInst));
+
+	XScuGic_Enable(&xInterruptController, IRQ1_VECT_ID);
+
+	printf("%s\n", __func__);
+
+	return 0;
+}
+#endif
+
 static XAieGbl_ErrorHandleStatus
 _XAie_ParityErrorCallback(struct XAieGbl *AieInst, XAie_LocType Loc,
 			  u8 Module, u8 Error, void *Arg)
@@ -204,19 +281,12 @@ _XAie_ErrorCallback(struct XAieGbl *AieInst, XAie_LocType Loc,
 *******************************************************************************/
 static int test_kill_error(void)
 {
-	const char *LogFile = "xaie.log";
-	int ret;
-
 	printf("***********************\r\n");
 	printf("* Test error to kill application\r\n");
 	printf("***********************\r\n");
 	/* Enable AXI Default NPI interrupt routing */
-	printf("Set logging file.\n");
-	ret = (int)XAieLib_OpenLogFile(LogFile);
-	if (ret != XAIE_SUCCESS) {
-		fprintf(stderr, "Failed to ope log file.\n");
-	}
-
+	printf("Close logging file.\n");
+	XAieLib_CloseLogFile();
 	/* Wait for pending errors to finish */
 	XAieTile_EventsWaitForPending(&AieInst);
 	/* Unregister the error handler first before registering for another handler */
@@ -227,16 +297,28 @@ static int test_kill_error(void)
 					   _XAie_DecodeErrorCallback, NULL);
 	XAieTile_EventsEnableInterrupt(&AieInst);
 	XAieTilePl_EventGenerate(&TileInst[47][0], XAIETILE_EVENT_SHIM_AXI_MM_DECODE_NSU_ERROR_NOC);
+	usleep(500);
+	return 0;
 }
 
 static int test_all_error(void)
 {
+	const char *LogFile = "xaie.log";
+	int ret;
+
 	printf("***********************\r\n");
 	printf("* Test errors for all cores\r\n");
 	printf("***********************\r\n");
 	/* Wait for pending errors to finish */
 	XAieTile_EventsWaitForPending(&AieInst);
 	XAieTile_EventsDisableInterrupt(&AieInst);
+	/* Set log file */
+	printf("Set logging file.\n");
+	ret = (int)XAieLib_OpenLogFile(LogFile);
+	if (ret != XAIE_SUCCESS) {
+		fprintf(stderr, "Failed to open log file.\n");
+	}
+
 	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_ALL,
 					   XAIETILE_ERROR_ALL,
 					   _XAie_ErrorCallback, NULL);
@@ -252,8 +334,27 @@ static int test_all_error(void)
 	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
 		XAieTilePl_EventGenerate(&TileInst[c][0], XAIETILE_EVENT_SHIM_CONTROL_PKT_ERROR);
 	}
-	/* Wait untile all the errors have been handled */
-	sleep(1);
+	/* Wait until all the errors have been handled */
+	for (u32 i = 0; i < 10; i++) {
+		for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
+			for (u32 r = 1; r <= XAIE_NUM_ROWS; r++) {
+				if (MemDmaS2MM0Errors[c][r-1] != 1) {
+					sleep(1);
+					continue;
+				}
+				if (CoreDMUnavailErrors[c][r-1] != 1) {
+					sleep(1);
+					continue;
+				}
+			}
+		}
+		for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
+			if (ShimCntrPktErrors[c] != 1) {
+				sleep(1);
+				continue;
+			}
+		}
+	}
 	for (u32 c = 0; c < XAIE_NUM_COLS; c++) {
 		for (u32 r = 1; r <= XAIE_NUM_ROWS; r++) {
 			if (MemDmaS2MM0Errors[c][r-1] != 1) {
@@ -328,7 +429,7 @@ static int test_custom_event_handlers(void)
 		XAieTileCore_EventGenerate(&TileInst[6][1], XAIETILE_EVENT_CORE_SRS_SATURATE);
 		XAieTileCore_EventGenerate(&TileInst[7][2], XAIETILE_EVENT_CORE_SRS_SATURATE);
 	}
-	sleep(1);
+	usleep(500);
 	/* Unregister handlers */
 	XAieTile_EventUnregisterNotification(&AieInst, Loc, 2, XAIEGBL_MODULE_CORE,
 					     XAIETILE_EVENTS_ALL);
@@ -376,11 +477,8 @@ static int test_custom_error_handlers(void)
 	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_MEM,
 					   XAIETILE_EVENT_MEM_DM_ECC_ERROR_2BIT,
 					   _XAie_ECC2BitErrorCallback, NULL);
-	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_CORE,
-					   XAIETILE_EVENT_CORE_INSTR_ERROR,
-					   _XAie_InstrErrorCallback, NULL);
 	/* Setup routing */
-	printf("Initialize events routingi\r\n");
+	printf("Initialize events routing\r\n");
 	ret = XAieTile_EventsHandlingInitialize(&AieInst);
 	if (ret != XAIE_SUCCESS) {
 		fprintf(stderr, "ERROR: failed to initialize Events Handling.\n");
@@ -392,12 +490,24 @@ static int test_custom_error_handlers(void)
 	printf("Generating errors\r\n");
 	XAieTileMem_EventGenerate(&TileInst[4][3], XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_3);
 	XAieTileMem_EventGenerate(&TileInst[5][2], XAIETILE_EVENT_MEM_DM_ECC_ERROR_2BIT);
+	usleep(500);
+
+	/* Register notification for errors which are not generate interrupt
+	 * by default. This will need to be done after the events handling
+	 * is initialized.
+	 */
+	XAieTile_EventsDisableInterrupt(&AieInst);
+	XAieTile_ErrorRegisterNotification(&AieInst, XAIEGBL_MODULE_CORE,
+					   XAIETILE_EVENT_CORE_INSTR_ERROR,
+					   _XAie_InstrErrorCallback, NULL);
+	XAieTile_EventsEnableInterrupt(&AieInst);
 	XAieTileCore_EventGenerate(&TileInst[7][3], XAIETILE_EVENT_CORE_INSTR_ERROR);
 	XAieTileCore_EventGenerate(&TileInst[8][3], XAIETILE_EVENT_CORE_INSTR_ERROR);
 	XAieTileCore_EventGenerate(&TileInst[8][8], XAIETILE_EVENT_CORE_INSTR_ERROR);
 	XAieTileCore_EventGenerate(&TileInst[48][8], XAIETILE_EVENT_CORE_INSTR_ERROR);
 	XAieTileCore_EventGenerate(&TileInst[49][8], XAIETILE_EVENT_CORE_INSTR_ERROR);
-	sleep(1);
+	usleep(500);
+
 	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_MEM,
 					     XAIETILE_EVENT_MEM_DM_PARITY_ERROR_BANK_2, XAIE_ENABLE);
 	XAieTile_ErrorUnregisterNotification(&AieInst, XAIEGBL_MODULE_MEM,
@@ -432,6 +542,10 @@ static int test_custom_error_handlers(void)
 int main(void)
 {
 	int ret;
+
+#ifdef __AIEBAREMTL__
+	init_irq();
+#endif
 
 	printf("*************************************\n"
 	       " XAIE Events Testing.\n"
@@ -469,6 +583,5 @@ int main(void)
 	}
 	return 0;
 }
-#endif /* not __AIEBAREMTL__ */
 
 /** @} */
