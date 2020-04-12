@@ -17,7 +17,14 @@
  *
  * Ver   Who   Date     Changes
  * ----- ---  -------- -------------------------------------------------------
- * 1.0	har   01/30/19 Initial release
+ * 1.0   har  01/30/20 Initial release
+ * 1.1   har  01/30/20 Updated file version to 1.1 to sync with library version
+ *       har  03/08/20 Added function to print array
+ *                     Corrected endianness of PUF helper data
+ * 1.2   har  07/03/20 Corrected the length of PUF ID passed in XPuf_ShowData
+ *       am   08/14/20 Replacing function prototype and local status variable
+ *                     from u32 and s32 to int.
+ *       har  09/30/20 Replaced XPuf_printf with xil_printf
  *
  * @note
  *
@@ -64,6 +71,10 @@
  * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
  * configured as XPUF_READ_FROM_RAM.
  *
+ * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+ * It is recommended to always enable this option to ensure entropy. It can
+ * be configured as FALSE to disable Global Variation Filter.
+ *
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf.h"
@@ -90,6 +101,8 @@
 #define XPUF_AUX				(0x00000000U)
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000U)
 #endif
+
+#define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 /*User configurable parameters end */
 
 #define XPUF_PMCDMA_DEVICEID			PMCDMA_0_DEVICE_ID
@@ -102,7 +115,7 @@
 #define XPUF_GCM_TAG_SIZE			(XSECURE_SECURE_GCM_TAG_SIZE)
 						/* GCM tag Length in bytes */
 #define XPUF_HD_LEN_IN_WORDS			(386U)
-#define XPUF_DEBUG_INFO				(1U)
+#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
 
 /************************** Type Definitions *********************************/
 static XPuf_Data PufData;
@@ -129,25 +142,23 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
 /************************** Function Prototypes ******************************/
-static s32 XPuf_GenerateKey();
-static s32 XPuf_VerifyDataEncDec(void);
+static int XPuf_GenerateKey(void);
+static int XPuf_VerifyDataEncDec(void);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 
 /************************** Function Definitions *****************************/
-int main()
+int main(void)
 {
-	int Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	/* Generate PUF KEY
 	 */
 	Status = XPuf_GenerateKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Successfully generated "
-					"PUF KEY %x\r\n", Status);
+		xil_printf("Successfully generated PUF KEY %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n PUF KEY generation failed %x\r\n",
-					Status);
+		xil_printf("PUF KEY generation failed %x\r\n", Status);
 		goto END;
 	}
 
@@ -155,17 +166,14 @@ int main()
 	 * decrypted data with original data */
 	Status = XPuf_VerifyDataEncDec();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\nSuccessfully encrypted and "
-				"decrypted user data %x\r\n", Status);
+		xil_printf("Successfully encrypted and decrypted user data %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\nEncryption/Decryption failed"
-				"%x\r\n", Status);
+		xil_printf("Encryption/Decryption failed %x\r\n", Status);
 	}
 
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Successfully ran Xilpuf enc dec "
-			"data example\r\n");
+		xil_printf("Successfully ran Xilpuf enc dec data example\r\n");
 	}
 
 END:
@@ -175,25 +183,42 @@ END:
 /******************************************************************************/
 /**
  *
- * This function generates PUF KEY by PUF registration or PUF on demand
- * regeneration as per the user provided inputs.
+ * @brief	This function generates PUF KEY by PUF registration or PUF on demand
+ * 			regeneration as per the user provided inputs.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if PUF_KEY generation was successful
- *		- XST_FAILURE if PUF KEY generation failed
+ *		- XST_SUCCESS - If PUF_KEY generation was successful.
+ * 		- XPUF_ERROR_INVALID_PARAM              - PufData is NULL.
+ *		- XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration mode.
+ *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while waiting
+ *												  for PUF Syndrome data.
+ *		- XPUF_ERROR_SYNDROME_DATA_OVERFLOW    - Syndrome data overflow reported
+ *												 by PUF controller or more than
+ *												 required data is provided by
+ *												 PUF controller.
+ *	    - XPUF_ERROR_SYNDROME_DATA_UNDERFLOW   - Number of syndrome data words
+ *												 are less than expected number
+ * 												 of words.
+ *		- XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ *			 									 regeneration type.
+ *		- XPUF_ERROR_CHASH_NOT_PROGRAMMED      - Helper data not provided.
+ *		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout before Status was done.
+ *
+ *		- XST_FAILURE 						   - if PUF KEY generation failed.
  *
  ******************************************************************************/
-static s32 XPuf_GenerateKey()
+static int XPuf_GenerateKey(void)
 {
-	s32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 	u32 PUF_HelperData[XPUF_HD_LEN_IN_WORDS] = {0U};
 #endif
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
+	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
 
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
@@ -201,21 +226,18 @@ static s32 XPuf_GenerateKey()
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "Provided PUF helper "
-				"on UART\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data Start\r\n");
+	xil_printf("Provided PUF helper on UART\r\n");
+	xil_printf("PUF Helper data Start\r\n");
 	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
-		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
+		XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-2] = PufData.Chash;
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-1] = PufData.Aux;
-	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * sizeof(u32));
-	xPuf_printf(XPUF_DEBUG_INFO,"Chash: %02x", PufData.Chash);
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO,"Aux: %02x", PufData.Aux);
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data End\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
-	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LENGTH);
+	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
+	xil_printf("Chash: %02x \r\n", PufData.Chash);
+	xil_printf("Aux: %02x \r\n", PufData.Aux);
+	xil_printf("PUF Helper data End\r\n");
+	xil_printf("PUF ID : ");
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 	PufData.ReadOption = XPUF_READ_HD_OPTION;
@@ -223,25 +245,21 @@ static s32 XPuf_GenerateKey()
 		PufData.Chash = XPUF_CHASH;
 		PufData.Aux = XPUF_AUX;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
-		xPuf_printf(XPUF_DEBUG_INFO, "Reading helper"
-			"data from provided address\r\n");
+		xil_printf("Reading helper data from provided address\r\n");
 	}
 	else if (PufData.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Reading helper data "
-			"from eFUSE\r\n");
+		xil_printf("Reading helper data from eFUSE\r\n");
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "Invalid read option for "
-			"reading helper data\r\n");
+		xil_printf("Invalid read option for reading helper data\r\n");
 	}
 	Status = XPuf_Regeneration(&PufData);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Puf Regeneration failed"
-			"with error:%x\r\n", Status);
+		xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 		goto END;
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
-	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LENGTH);
+	xil_printf("PUF ID : ");
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 #else
 	#error "Invalid option selected for generating PUF KEY. Only Puf \
 registration and on demand regeneration are allowed"
@@ -254,21 +272,25 @@ END:
 /******************************************************************************/
 /**
  *
- * This function encrypts the data with PUF key and IV and decrypts
- * the encrypted data also checks whether GCM tag is matched or not and
- * compares the decrypted data with the original data provided.
+ * @brief	This function verifies the encryption and decryption of the data blob
+ *			using PUF key.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if encryption was successful
- *		- error code if encruption failed
+ *		- XST_SUCCESS - When the encryption and decryption of data is
+ *						 successfully verified
+ *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XST_FAILURE 				   - On failure of AES Encrypt
+ *										 Initialization, AES Encrypt data,
+ *										 format AES key and AES decrypt
+ *										 Initialization and data.
  *
  ******************************************************************************/
-static s32 XPuf_VerifyDataEncDec(void)
+static int XPuf_VerifyDataEncDec(void)
 {
+	int Status = XST_FAILURE;
 	XPmcDma_Config *Config;
-	s32 Status = XST_FAILURE;
 	u32 Index;
 	XPmcDma PmcDmaInstance;
 	XSecure_Aes SecureAes;
@@ -280,13 +302,12 @@ static s32 XPuf_VerifyDataEncDec(void)
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
 						XPUF_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_INFO, "String Conversion error"
-				"(IV):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (IV):%08x !!!\r\n", Status);
 			goto END;
 		}
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "Provided IV length is wrong\r\n");
+		xil_printf("Provided IV length is wrong\r\n");
 		goto END;
 	}
 
@@ -296,14 +317,13 @@ static s32 XPuf_VerifyDataEncDec(void)
 			(const char *) (XPUF_DATA),
 			Data, XPUF_DATA_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_INFO, "String Conversion error"
-			"(Data):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (Data):%08x !!!\r\n", Status);
 			goto END;
 		}
 	}
 	else {
-		Status = (u32)XST_FAILURE;
-		xPuf_printf(XPUF_DEBUG_INFO, "Provided data length is wrong\r\n");
+		Status = XST_FAILURE;
+		xil_printf("Provided data length is wrong\r\n");
 		goto END;
 	}
 
@@ -318,36 +338,34 @@ static s32 XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
+	xil_printf("Data to be encrypted: \n\r");
+	XPuf_ShowData((u8*)Data, XPUF_DATA_LEN_IN_BYTES);
+
+	xil_printf("IV: \n\r");
+	XPuf_ShowData((u8*)Iv, XPUF_IV_LEN_IN_BYTES);
+
 	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
 
-	xPuf_printf(XPUF_DEBUG_INFO, "Data to be encrypted: \n\r");
-	XPuf_ShowData((u8*)Data, XPUF_DATA_LEN_IN_BYTES);
-
-	xPuf_printf(XPUF_DEBUG_INFO, "IV: \n\r");
-	XPuf_ShowData((u8*)Iv, XPUF_IV_LEN_IN_BYTES);
-
 	/* Encryption of Data */
 	Status = XSecure_AesEncryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
-				XSECURE_AES_KEY_SIZE_256, (u64)Iv);
+				XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, " Aes encrypt init failed %x\n\r"
-			, Status);
+		xil_printf("Aes encrypt init failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptData(&SecureAes, (u64)Data, (u64)EncData,
-			XPUF_DATA_LEN_IN_BYTES, (u64)GcmTag);
+	Status = XSecure_AesEncryptData(&SecureAes, (UINTPTR)Data, (UINTPTR)EncData,
+			XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, " Data encryption failed %x\n\r"
-			, Status);
+		xil_printf("Data encryption failed %x\n\r", Status);
 		goto END;
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\nEncrypted data: \n\r");
+	xil_printf("Encrypted data: \n\r");
 	XPuf_ShowData((u8*)EncData, XPUF_DATA_LEN_IN_BYTES);
 
-	xPuf_printf(XPUF_DEBUG_INFO, "GCM tag: \n\r");
+	xil_printf("GCM tag: \n\r");
 	XPuf_ShowData((u8*)GcmTag, XPUF_GCM_TAG_SIZE);
 
 	/* Initialize the Aes driver so that it's ready to use */
@@ -355,29 +373,26 @@ static s32 XPuf_VerifyDataEncDec(void)
 
 	/* Decryption of Data */
 	Status = XSecure_AesDecryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
-			XSECURE_AES_KEY_SIZE_256, (u64)Iv);
+			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Error in decrypt init %x\n\r"
-					, Status);
+		xil_printf("Error in decrypt init %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptData(&SecureAes, (u64)EncData, (u64)DecData,
-			XPUF_DATA_LEN_IN_BYTES, (u64)GcmTag);
+	Status = XSecure_AesDecryptData(&SecureAes, (UINTPTR)EncData, (UINTPTR)DecData,
+			XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Data encryption failed %x\n\r"
-			, Status);
+		xil_printf("Data encryption failed %x\n\r", Status);
 		goto END;
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\nDecrypted data \n\r ");
+	xil_printf("Decrypted data \n\r ");
 	XPuf_ShowData((u8*)DecData, XPUF_DATA_LEN_IN_BYTES);
 
 	/* Comparison of Decrypted Data with original data */
 	for(Index = 0U; Index < XPUF_DATA_LEN_IN_BYTES; Index++) {
 		if (Data[Index] != DecData[Index]) {
-			xPuf_printf(XPUF_DEBUG_INFO, "Failure during comparison "
-				"of the data\n\r");
+			xil_printf("Failure during comparison of the data\n\r");
 			Status = XST_FAILURE;
 		}
 	}
@@ -388,12 +403,12 @@ END:
 /******************************************************************************/
 /**
  *
- * This function prints the data array.
+ * @brief	This function prints the data array.
  *
- * @param	Data Pointer to the data to be printed
- * @param	Len  Length of the data in bytes
+ * @param	Data - Pointer to the data to be printed.
+ * @param	Len  - Length of the data in bytes.
  *
- * @return	None
+ * @return	None.
  *
  ******************************************************************************/
 static void XPuf_ShowData(const u8* Data, u32 Len)
@@ -401,7 +416,7 @@ static void XPuf_ShowData(const u8* Data, u32 Len)
 	u32 Index;
 
 	for (Index = 0U; Index < Len; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO, "%02x", Data[Index]);
+		xil_printf("%02x", Data[Index]);
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
+	xil_printf("\r\n");
 }

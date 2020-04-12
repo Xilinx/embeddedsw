@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMANGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -35,7 +15,13 @@
  *
  * Ver   Who   Date        Changes
  * ----- ---  ----------   -----------------------------------------------------
- * 1.0	 ka   01/08/2019   Initial realease of Puf_regeneration example
+ * 1.0   ka   01/08/2019   Initial release of Puf_regeneration example
+ *       ka   01/13/2020   Added "successfully ran" golden string
+ * 1.1   har  03/01/2020   Added ID only regeneration support as default option
+ * 1.2   har  07/03/2020   Added XPuf_ShowData and replaced XPUF_ID_LENGTH with
+ *                         XPUF_ID_LEN_IN_BYTES for printing PUF ID
+ *       am   08/14/2020   Replacing local status variable from u32 to int.
+ *       har  09/30/2020   Replaced XPuf_printf with xil_printf
  *
  * @note
  *
@@ -43,70 +29,116 @@
  *
  * User configurable parameters for PUF
  *------------------------------------------------------------------------------
- *	#define 	XPUF_READ_OPTION		(XPUF_READ_FROM_RAM)
- *								(or)
- *							(XPUF_READ_FROM_CACHE)
- *								(or)
- *							(XPUF_READ_FROM_EFUSE)
- *	XPUF_READ_OPTION can be any value among above three options
- *	based on where syndrome data is stored.
+ * #define XPUF_REGEN_OPTION			(XPUF_REGEN_ID_ONLY)
+ *							(or)
+ *						(XPUF_REGEN_ON_DEMAND)
+ * This selects the type of PUF regeneration. It is configured as REGEN_ID_ONLY
+ * by default.
  *
- *	#define 	XPUF_RAM_CHASH			(0x00000000)
- *	In case of external memory PUF regeneration, CHASH value should be
- *	supplied along with the SYN_DATA_ADDRESS.
+ * #define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
+ *							(or)
+ *						(XPUF_READ_FROM_EFUSE_CACHE)
+ * This selects the location from where the helper data must be read by the
+ * application.
  *
- *	#define 	XPUF_RAM_AUX			(0x00000000)
- *	In case of external memory PUF regeneration, AUX value should be
- *	supplied along with the SYN_DATA_ADDRESS.
+ * #define XPUF_CHASH				(0x00000000)
+ * The length of CHASH should be 24 bits. It is valid only for PUF regeneration
+ * and invalid for PUF registration. CHASH value should be supplied if
+ * XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.
  *
- *	#define 	XPUF_SYN_DATA_ADDRESS		(0x00000000)
- *	This is the address from where ROM will take the syndrome data
- *	to regenerate the PUF.
+ * #define XPUF_AUX				(0x00000000)
+ * The length of AUX should be 32 bits. It is valid only for PUF regeneration
+ * and invalid for PUF registration. AUX value should be supplied if
+ * XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.
+ *
+ * #define XPUF_SYN_DATA_ADDRESS		(0x00000000)
+ * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
+ * configured as XPUF_READ_FROM_RAM.
+ *
+ * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+ * This option should be configured as TRUE to enable Global Variation Filter.
+ * It is recommended to always enable this option to ensure entropy. It can
+ * be configured as FALSE to disable Global Variation Filter.
  *
  ******************************************************************************/
 /***************************** Include Files *********************************/
-
 #include "xpuf.h"
+#include "xstatus.h"
+#include "xil_printf.h"
 
-
-/* Configurable parameters */
-#define XPUF_READ_OPTION			(XPUF_READ_FROM_RAM)
-#define XPUF_RAM_CHASH				(0x00000000)
-#define XPUF_RAM_AUX				(0x00000000)
+/* User Configurable parameters start */
+#define XPUF_REGEN_OPTION			(XPUF_REGEN_ID_ONLY)
+#define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
+#define XPUF_CHASH				(0x00000000)
+#define XPUF_AUX				(0x00000000)
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000)
-#define XPUF_DEBUG_INFO				(1U)
+#define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+/* User Configurable parameters end */
+
+#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
+							 XPUF_WORD_LENGTH)
 
 /************************** Type Definitions **********************************/
 
-static XPuf_Data PufData;
+/************************** Function Prototypes ******************************/
+static void XPuf_ShowData(const u8* Data, u32 Len);
 
 /************************** Function Definitions *****************************/
-
-int main()
+int main(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
+	XPuf_Data PufData;
 
-	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
-	PufData.ReadOption = XPUF_READ_OPTION;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
+	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
+	PufData.PufOperation = XPUF_REGEN_OPTION;
+	PufData.ReadOption = XPUF_READ_HD_OPTION;
+	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
 
 	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
-		PufData.Chash = XPUF_RAM_CHASH;
-		PufData.Aux = XPUF_RAM_AUX;
+		PufData.Chash = XPUF_CHASH;
+		PufData.Aux = XPUF_AUX;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 	}
 
 	Status = XPuf_Regeneration(&PufData);
 
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,
-			"Puf Regeneration example failed with error : %x\r\n",
-			 Status);
+		xil_printf("Puf Regeneration example failed with error : %x\r\n",
+			Status);
 		goto END;
 	}
-	xPuf_printf(XPUF_DEBUG_INFO,
-		"Puf Regeneration example run successfully!!\r\n");
 
+	if (PufData.PufOperation == XPUF_REGEN_ID_ONLY) {
+		xil_printf("PUF ID only regeneration is done!!\r\n");
+	}
+	else {
+		xil_printf("PUF On Demand regeneration is done!!\r\n");
+	}
+	xil_printf("PUF ID : ");
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
+	xil_printf("Successfully ran Puf Regeneration example!!\r\n");
 END:
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ *
+ * @brief	This function prints the data array.
+ *
+ * @param	Data - Pointer to the data to be printed.
+ * @param	Len  - Length of the data in bytes.
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+static void XPuf_ShowData(const u8* Data, u32 Len)
+{
+	u32 Index;
+
+	for (Index = 0U; Index < Len; Index++) {
+		xil_printf("%02x", Data[Index]);
+	}
+	xil_printf("\r\n");
 }

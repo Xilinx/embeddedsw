@@ -16,7 +16,9 @@
  *
  * Ver   Who     Date     Changes
  * ----- ------  -------- ------------------------------------------------------
- * 1.0   har     04/05/20 First release
+ * 1.0   har     01/31/20 First release
+ * 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
+ * 1.2   am      08/14/20 Changed unsigned to signed enum object.
  *
  * </pre>
  *
@@ -106,6 +108,10 @@
  * #define PUF_SYN_LK				(FALSE)
  * This option should be configured as TRUE to program the PUF_SYN_LK eFUSE bit
  *
+ * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+ * It is recommended to always enable this option to ensure entropy. It can
+ * be configured as FALSE to disable Global Variation Filter.
+ *
  ******************************************************************************/
 #ifndef XILPUF_EXAMPLE_H
 #define XILPUF_EXAMPLE_H
@@ -142,6 +148,7 @@ extern "C" {
 
 #define XPUF_IV					"000000000000000000000000"
 #define XPUF_KEY_GENERATE_OPTION		(XPUF_REGISTRATION)
+#define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 #define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
@@ -165,7 +172,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef enum {
-	XPUF_EFUSE_AES_KEY = 1U,
+	XPUF_EFUSE_AES_KEY = 1,
 	XPUF_BBRAM_AES_KEY,
 	XPUF_EFUSE_USER_0_KEY,
 	XPUF_EFUSE_USER_1_KEY
