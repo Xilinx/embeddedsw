@@ -43,57 +43,61 @@
  *
  * User configurable parameters for PUF
  *------------------------------------------------------------------------------
- *	#define XPUF_READ_OPTION	(XPUF_READ_FROM_RAM)
- *						(or)
- *					(XPUF_READ_FROM_EFUSE_CACHE)
- *	This selects the location from where the helper data must be read by the
- *	application. This option must be configured if XPUF_KEK_GENERATE_OPTION
- *	is configured as XPUF_REGEN_ON_DEMAND.
+ * #define XPUF_REGEN_OPTION			(XPUF_REGEN_ID_ONLY)
+ *							(or)
+ *						(XPUF_REGEN_ON_DEMAND)
+ * This selects the type of PUF regeneration. It is configured as REGEN_ID_ONLY
+ * by default.
  *
- *	#define XPUF_RAM_CHASH		(0x00000000)
- *	CHASH value should be supplied if XPUF_READ_OPTION is configured as
- *	XPUF_READ_FROM_RAM
+ * #define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
+ *							(or)
+ *						(XPUF_READ_FROM_EFUSE_CACHE)
+ * This selects the location from where the helper data must be read by the
+ * application. This option must be configured if XPUF_KEY_GENERATE_OPTION
+ * is configured as XPUF_REGEN_ON_DEMAND.
  *
- *	#define XPUF_RAM_AUX		(0x00000000)
- *	AUX value should be supplied if XPUF_READ_OPTION is configured as
- *	XPUF_READ_FROM_RAM
+ * #define XPUF_CHASH				(0x00000000)
+ * The length of CHASH should be 24 bits. It is valid only for PUF regeneration
+ * and invalid for PUF registration. CHASH value should be supplied if
+ * XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.
  *
- *	#define XPUF_SYN_DATA_ADDRES	(0x00000000)
- *	Address of syndrome data should be supplied if XPUF_READ_OPTION is
- *	configured as XPUF_READ_FROM_RAM.
+ * #define XPUF_AUX				(0x00000000)
+ * The length of AUX should be 32 bits. It is valid only for PUF regeneration
+ * and invalid for PUF registration. AUX value should be supplied if
+ * XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.
+ *
+ * #define XPUF_SYN_DATA_ADDRESS		(0x00000000)
+ * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
+ * configured as XPUF_READ_FROM_RAM.
+ *
  ******************************************************************************/
 /***************************** Include Files *********************************/
-
 #include "xpuf.h"
 
-
-/* Configurable parameters */
-#define XPUF_REGEN_OPTION			(XPUF_REGEN_ON_DEMAND)
-#define XPUF_READ_OPTION			(XPUF_READ_FROM_RAM)
-#define XPUF_RAM_CHASH				(0x00000000)
-#define XPUF_RAM_AUX				(0x00000000)
+/* User Configurable parameters */
+#define XPUF_REGEN_OPTION			(XPUF_REGEN_ID_ONLY)
+#define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
+#define XPUF_CHASH				(0x00000000)
+#define XPUF_AUX				(0x00000000)
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000)
 #define XPUF_DEBUG_INFO				(1U)
 
 /************************** Type Definitions **********************************/
-
 static XPuf_Data PufData;
 
 /************************** Function Definitions *****************************/
-
 int main()
 {
 	int Idx;
 	u32 Status = XST_FAILURE;
 
-	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
-	PufData.ReadOption = XPUF_READ_OPTION;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
+	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.PufOperation = XPUF_REGEN_OPTION;
-
+	PufData.ReadOption = XPUF_READ_HD_OPTION;
 	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
-		PufData.Chash = XPUF_RAM_CHASH;
-		PufData.Aux = XPUF_RAM_AUX;
+		PufData.Chash = XPUF_CHASH;
+		PufData.Aux = XPUF_AUX;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 	}
 
