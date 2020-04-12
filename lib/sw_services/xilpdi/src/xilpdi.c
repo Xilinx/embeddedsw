@@ -261,6 +261,21 @@ u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 
 /****************************************************************************/
 /**
+* @brief	This function will return whether boot header authentication is
+* enabled or not.
+*
+* @param	ImgHdrTbl is pointer to the Image Header Table
+*
+* @return 	Secondary Boot device
+*
+*****************************************************************************/
+inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
+{
+	return (BootHdr->ImgAttrb & XIH_BH_IMG_ATTRB_BH_AUTH_MASK);
+}
+
+/****************************************************************************/
+/**
 * @brief	This function is used to validate the word checksum for the Image Header
 * table and Partition Headers.
 * Checksum is based on the below formula

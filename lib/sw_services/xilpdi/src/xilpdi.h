@@ -443,6 +443,7 @@ int XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);
 u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl * IHdrTable);
 u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl * IHdrTable);
 u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr);
+u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr);
 
 #ifdef __cplusplus
 }
