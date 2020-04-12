@@ -297,6 +297,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 			else {
 				ReadCommand = XLOADER_FAST_READ_CMD_32BIT;
 			}
+			QspiBusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			break;
 		case XLOADER_QSPI_BUSWIDTH_TWO:
 			if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
@@ -305,6 +306,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 			else {
 				ReadCommand = XLOADER_DUAL_READ_CMD_32BIT;
 			}
+			QspiBusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
 			break;
 		case XLOADER_QSPI_BUSWIDTH_FOUR:
 			if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
@@ -313,6 +315,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 			else {
 				ReadCommand = XLOADER_QUAD_READ_CMD_32BIT;
 			}
+			QspiBusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 			break;
 		default:
 			Status = XPLMI_UPDATE_STATUS(
@@ -363,6 +366,7 @@ int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
 	else {
 		ReadCommand = XLOADER_QUAD_READ_CMD_32BIT;
 	}
+	QspiBusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 	Status = XLoader_QspiCopy((ImageOffsetAddress +
 				XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 				(u64)(UINTPTR)(&QspiWidthBuffer),
@@ -371,7 +375,6 @@ int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
 	if ((Status == XST_SUCCESS) && (QspiWidthBuffer[0U] ==
 			XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)) {
 		XLoader_Printf(DEBUG_INFO, "ConnectionType: QUAD\n\r");
-		QspiBusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 	}
 	else {
 		if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
@@ -380,6 +383,7 @@ int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
 		else {
 			ReadCommand = XLOADER_DUAL_READ_CMD_32BIT;
 		}
+		QspiBusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
 		Status = XLoader_QspiCopy((ImageOffsetAddress +
 					XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 					(u64)(UINTPTR)(&QspiWidthBuffer),
@@ -387,7 +391,6 @@ int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
 		if((Status == XST_SUCCESS) && (QspiWidthBuffer[0U] ==
 			XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 			XLoader_Printf(DEBUG_INFO, "ConnectionType: DUAL\n\r");
-			QspiBusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
 		}
 		else {
 			if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
@@ -396,6 +399,7 @@ int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
 			else {
 				ReadCommand = XLOADER_FAST_READ_CMD_32BIT;
 			}
+			QspiBusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			Status = XLoader_QspiCopy((ImageOffsetAddress +
 					XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 					(u64)(UINTPTR)(&QspiWidthBuffer),
@@ -404,7 +408,6 @@ int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
 					XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
 				XLoader_Printf(DEBUG_INFO, "ConnectionType: "
 						"SINGLE\n\r");
-				QspiBusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			}
 			else {
 				Status = XPLMI_UPDATE_STATUS(
@@ -712,7 +715,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg[0U].TxBfrPtr = WriteBuffer;
 	FlashMsg[0U].RxBfrPtr = (u8 *)NULL;
 	FlashMsg[0U].ByteCount = DiscardByteCnt;
-	FlashMsg[0U].BusWidth = ReadCommand;
+	FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 	FlashMsg[1U].TxBfrPtr = (u8 *)NULL;
