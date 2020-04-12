@@ -348,6 +348,10 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	InstancePtr->PmcDmaPtr = PmcDmaPtr;
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
+	/* Clear all key zeroization register */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+		XSECURE_AES_KEY_CLEAR_OFFSET, XSECURE_AES_KEY_CLEAR_ALL_AES_KEYS);
+
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
 
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
