@@ -112,7 +112,7 @@
 #endif
 /*User configurable parameters end */
 
-#define XPUF_PMCDMA_DEVICEID			XPAR_XCSUDMA_0_DEVICE_ID
+#define XPUF_PMCDMA_DEVICEID			PMCDMA_0_DEVICE_ID
 #define XPUF_IV_LEN_IN_BYTES			(12U)
 						/* IV Length in bytes */
 #define XPUF_DATA_LEN_IN_BITS			(XPUF_DATA_LEN_IN_BYTES * 8U)
@@ -300,10 +300,10 @@ END:
  ******************************************************************************/
 static s32 XPuf_VerifyDataEncDec(void)
 {
-	XCsuDma_Config *Config;
+	XPmcDma_Config *Config;
 	s32 Status = XST_FAILURE;
 	u32 Index;
-	XCsuDma PmcDmaInstance;
+	XPmcDma PmcDmaInstance;
 	XSecure_Aes SecureAes;
 
 	Xil_DCacheDisable();
@@ -340,12 +340,12 @@ static s32 XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
-	/* Initialize Csu DMA driver */
-	Config = XCsuDma_LookupConfig(XPUF_PMCDMA_DEVICEID);
+	/* Initialize PMC DMA driver */
+	Config = XPmcDma_LookupConfig(XPUF_PMCDMA_DEVICEID);
 	if (Config == NULL) {
 		goto END;
 	}
-	Status = XCsuDma_CfgInitialize(&PmcDmaInstance, Config,
+	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
 			Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto END;

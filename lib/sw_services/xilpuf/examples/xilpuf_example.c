@@ -50,7 +50,7 @@
 #include "xilpuf_example.h"
 
 /************************** Constant Definitions ****************************/
-#define XPUF_PMCDMA_DEVICEID			XPAR_CSUDMA_0_DEVICE_ID
+#define XPUF_PMCDMA_DEVICEID			PMCDMA_0_DEVICE_ID
 #define XPUF_IV_LEN_IN_BYTES			(12U)
 						/* IV Length in bytes */
 #define XPUF_RED_KEY_LEN_IN_BITS		(XPUF_RED_KEY_LEN_IN_BYTES * 8U)
@@ -411,10 +411,10 @@ END:
  ******************************************************************************/
 static s32 XPuf_GenerateBlackKey(void)
 {
-	XCsuDma_Config *Config;
+	XPmcDma_Config *Config;
 	s32 Status = XST_FAILURE;
 	u32 Index;
-	XCsuDma PmcDmaInstance;
+	XPmcDma PmcDmaInstance;
 	XSecure_Aes SecureAes;
 
 	Xil_DCacheDisable();
@@ -450,13 +450,13 @@ static s32 XPuf_GenerateBlackKey(void)
 		goto END;
 	}
 
-	/*Initialize CSU DMA driver */
-	Config = XCsuDma_LookupConfig(XPUF_PMCDMA_DEVICEID);
+	/*Initialize PMC DMA driver */
+	Config = XPmcDma_LookupConfig(XPUF_PMCDMA_DEVICEID);
 	if (Config == NULL) {
 		goto END;
 	}
 
-	Status = XCsuDma_CfgInitialize(&PmcDmaInstance, Config,
+	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
 		Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto END;
