@@ -46,12 +46,9 @@
 *
 * </pre>
 *
-* @note
-*
 * @endcond
 *
 *******************************************************************************/
-
 #ifndef XPUF_H
 #define XPUF_H
 
@@ -90,20 +87,12 @@ extern "C" {
 #define XPUF_ID_LENGTH					(0x8U)
 #define XPUF_WORD_LENGTH				(0x4U)
 
+#define XPUF_REGISTRATION				(0x0U)
+#define XPUF_REGEN_ON_DEMAND				(0x1U)
+#define XPUF_REGEN_ID_ONLY				(0x2U)
+
 #define XPUF_SYNDROME_MODE_4K				(0x0U)
 #define XPUF_SYNDROME_MODE_12K				(0x1U)
-
-#define XPUF_READ_FROM_EFUSE_CACHE			(0x1U)
-#define XPUF_READ_FROM_RAM				(0x2U)
-#define XPUF_READ_FROM_BBRAM				(0x3U)
-
-#define XPUF_WRITE_INTO_EFUSE				(0x1U)
-#define XPUF_WRITE_INTO_RAM				(0x2U)
-#define XPUF_WRITE_INTO_BBRAM				(0x3U)
-
-#define XPUF_REGISTRATION				(0X1U)
-#define XPUF_REGEN_ON_DEMAND				(0x2U)
-#define XPUF_REGEN_ID_ONLY				(0x3U)
 
 #define XPUF_EFUSE_TRIM_MASK				(0xFFFFF000U)
 #define XPUF_LAST_WORD_OFFSET				(126U)
@@ -125,14 +114,18 @@ extern "C" {
 #define XPUF_ERROR_INVALID_PUF_OPERATION		((u32)0x13)
 #define XPUF_ERROR_REGENERATION_INVALID			((u32)0x14)
 #define XPUF_ERROR_REGEN_PUF_HD_INVALID			((u32)0x15)
+
 /***************************** Type Definitions *******************************/
+typedef enum {
+	XPUF_READ_FROM_RAM,
+	XPUF_READ_FROM_EFUSE_CACHE
+} XPuf_ReadOption;
 
 typedef struct {
 	u8 RegMode;		/* PUF Registration Mode 4K/12K*/
-	u8 PufOperation;	/* PUF Registration/ Regeneration On Demand/
-				 or ID only regeneration) */
-	u8 ReadOption;		/* Read Syndrome data from eFuse Cache/DDR */
-	u8 WriteOption;	/*Write into eFuse/BBRAM/DDR */
+	u8 PufOperation;
+	   /* PUF Registration/ Regeneration On Demand/ ID only regeneration) */
+	XPuf_ReadOption ReadOption;	/* Read helper data from eFuse Cache/DDR */
 	u32 ShutterValue;
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
 	u32 Chash;
@@ -140,14 +133,34 @@ typedef struct {
 	u32 PufID[XPUF_ID_LENGTH];
 	u32 SyndromeAddr;
 	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
-				 /*< Trimmed data to be	written in efuse */
-}XPuf_Data;
+				 /* Trimmed data to be written in efuse */
+} XPuf_Data;
 
 /** @}
 @endcond */
 
-/*************************** Function Prototypes ******************************/
+/***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ *
+ * This function reads the given register.
+ *
+ * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
+ *		controller.
+ * @param	RegOffset is the register offset of the register.
+ *
+ * @return	The 32-bit value of the register.
+ *
+ * @note	C-style signature:
+ * 		u32 XilPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
+ *
+ * ***************************************************************************/
+static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
+{
+	return Xil_In32(BaseAddress + RegOffset);
+}
 
+/*************************** Function Prototypes ******************************/
 u32 XPuf_Registration(XPuf_Data *PufData);
 u32 XPuf_Regeneration(XPuf_Data *PufData);
 void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
