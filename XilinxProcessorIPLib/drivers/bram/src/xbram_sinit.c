@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xbram_sinit.c
-* @addtogroup bram_v4_2
+* @addtogroup bram_v4_5
 * @{
 *
 * The implementation of the XBram driver's static initialization
