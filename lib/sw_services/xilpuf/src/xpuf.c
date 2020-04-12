@@ -46,7 +46,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "sleep.h"
 #include "xpuf.h"
 #include "xpuf_hw.h"
@@ -72,8 +71,6 @@ typedef enum {
  * @return	XST_SUCCESS - Syndrome word is ready
  *		XST_FAILURE - Timeout occured
  *
- * @note	None.
- *
  *****************************************************************************/
 static inline u32 XPuf_WaitForPufSynWordRdy()
 {
@@ -82,6 +79,7 @@ static inline u32 XPuf_WaitForPufSynWordRdy()
 		XPUF_STATUS_SYNDROME_WORD_RDY, XPUF_STATUS_SYNDROME_WORD_RDY,
 		XPUF_STATUS_WAIT_TIMEOUT);
 }
+
 /*****************************************************************************/
 /**
  * @brief
@@ -92,8 +90,6 @@ static inline u32 XPuf_WaitForPufSynWordRdy()
  * @return	XST_SUCCESS - Puf Operation is done.
  *		XST_FAILURE - Timeout occured
  *
- * @note	None.
- *
  *****************************************************************************/
 static inline u32 XPuf_WaitForPufDoneStatus()
 {
@@ -101,25 +97,7 @@ static inline u32 XPuf_WaitForPufDoneStatus()
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_PUF_DONE,
 		XPUF_STATUS_PUF_DONE, XPUF_STATUS_WAIT_TIMEOUT);
 }
-/*****************************************************************************/
-/**
- *
- * This function reads the given register.
- *
- * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
- * @param	RegOffset is the register offset of the register.
- *
- * @return	The 32-bit value of the register.
- *
- * @note	C-style signature:
- * 		u32 XilPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
- *
- * ***************************************************************************/
-static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
-{
-	return Xil_In32((BaseAddress) + (u32)(RegOffset));
-}
+
 /*****************************************************************************/
 /**
  *
@@ -138,10 +116,10 @@ static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
  *****************************************************************************/
 static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 {
-	Xil_Out32(((BaseAddress) + (u32)(RegOffset)), (u32)(Data));
+	Xil_Out32(BaseAddress + RegOffset, Data);
 }
-/************************** Function Prototypes ******************************/
 
+/************************** Function Prototypes ******************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData);
 static u32 XPuf_ValidateAccessRules(XPuf_Data *PufData);
 void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
@@ -220,7 +198,7 @@ u32 XPuf_Registration(XPuf_Data *PufData)
 	RegistrationStatus = XPUF_REGISTRATION_STARTED;
 
 	while (RegistrationStatus != XPUF_REGISTRATION_COMPLETE) {
-		Status = XPuf_WaitForPufSynWordRdy();
+		Status = XPuf_WaitForPufSynWordRdy(PufData);
 		if (Status != XST_SUCCESS) {
 			Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
 			break;
@@ -231,7 +209,7 @@ u32 XPuf_Registration(XPuf_Data *PufData)
 					XPUF_PMC_GLOBAL_PUF_WORD_OFFSET);
 
 		if (Idx == MaxSyndromeSizeInWords -1) {
-			Status  = XPuf_WaitForPufDoneStatus();
+			Status  = XPuf_WaitForPufDoneStatus(PufData);
 			if (Status != XST_SUCCESS) {
 				Status = XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT;
 				break;
@@ -258,7 +236,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function regenerate PUF data using helper date stored in eFUSE or in
+ * This function regenerate PUF data using helper data stored in eFUSE or in
  * and external memory.
  *
  * @param	None.
@@ -320,8 +298,7 @@ u32 XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
-			XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
+	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
 			XPUF_CFG0_HASH_SEL);
 
 	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
@@ -354,7 +331,7 @@ u32 XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	Status  = XPuf_WaitForPufDoneStatus();
+	Status  = XPuf_WaitForPufDoneStatus(PufData);
 	if (Status != XST_SUCCESS) {
 		xPuf_printf(Debug,
 		"Error: Puf Regeneration failed!! \r\n");
@@ -399,7 +376,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 {
 	u32 Index;
 
-	for (Index = 0; Index < XPUF_ID_LENGTH; Index++) {
+	for (Index = 0U; Index < XPUF_ID_LENGTH; Index++) {
 		PufData->PufID[Index] = XPuf_ReadReg(
 			XPUF_PMC_GLOBAL_BASEADDR,
 			(XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET +
@@ -418,8 +395,6 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  *
  * @return	XST_SUCCESS - secure control bits are not set
  * 		XST_FAILURE - secure control bits are set
- *
- * @note	None.
  *
  *****************************************************************************/
 static u32 XPuf_ValidateAccessRules(XPuf_Data *PufData)
@@ -481,14 +456,14 @@ static u32 XPuf_ValidateAccessRules(XPuf_Data *PufData)
 void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 {
 
-	u32 SynData[XPUF_4K_PUF_SYN_LEN_IN_WORDS] = {0};
-	u32 SIndex = 0;
-	u32 DIndex = 0;
+	u32 SynData[XPUF_4K_PUF_SYN_LEN_IN_WORDS] = {0U};
+	u32 SIndex = 0U;
+	u32 DIndex = 0U;
 	u32 Index;
 	u32 SubIndex;
 
 	Xil_MemCpy(SynData, PufData->SyndromeData,
-		XPUF_4K_PUF_SYN_LEN_IN_WORDS*4);
+		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
 
 	/**
 	 * Trimming logic for PUF Syndrome Data:
@@ -527,12 +502,12 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	 * ........
 	 */
 
-	for (Index = 0; Index < 5; Index++) {
-		for (SubIndex = 0; SubIndex < 4; SubIndex++) {
-			if (SubIndex == 3) {
+	for (Index = 0U; Index < 5U; Index++) {
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
 				PufData->EfuseSynData[DIndex] =
 				(SynData[SIndex] & XPUF_EFUSE_TRIM_MASK) |
-				(SynData[SIndex+1] >> 20);
+				(SynData[SIndex+1U] >> 20U);
 			}
 			else {
 				PufData->EfuseSynData[DIndex] =
@@ -542,126 +517,126 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 			DIndex++;
 		}
 
-		for (SubIndex = 0; SubIndex < 4; SubIndex++) {
-			if (SubIndex == 3) {
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
 				PufData->EfuseSynData[DIndex] =
 					(((SynData[SIndex] &
-					XPUF_EFUSE_TRIM_MASK) << 12) |
-						SynData[SIndex+1] >> 8);
+					XPUF_EFUSE_TRIM_MASK) << 12U) |
+						SynData[SIndex+1U] >> 8U);
 			}
 			else {
 				PufData->EfuseSynData[DIndex] =
-				((SynData[SIndex] << 12) |
-						SynData[SIndex+1] >> 20);
+				((SynData[SIndex] << 12U) |
+						SynData[SIndex+1U] >> 20U);
 			}
 			SIndex++;
 			DIndex++;
 		}
 
-		for (SubIndex = 0; SubIndex < 3; SubIndex++) {
-			if (SubIndex == 2) {
+		for (SubIndex = 0U; SubIndex < 3U; SubIndex++) {
+			if (SubIndex == 2U) {
 				PufData->EfuseSynData[DIndex] =
-					((SynData[SIndex] << 24) |
-					(SynData[SIndex+1] &
-						XPUF_EFUSE_TRIM_MASK) >> 8);
-				if (DIndex < (XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS - 1)) {
+					((SynData[SIndex] << 24U) |
+					(SynData[SIndex+1U] &
+						XPUF_EFUSE_TRIM_MASK) >> 8U);
+				if (DIndex < (XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS - 1U)) {
 					PufData->EfuseSynData[DIndex] |=
-						(SynData[SIndex+2] >> 28);
+						(SynData[SIndex+2U] >> 28U);
 				}
 			}
 			else {
 				PufData->EfuseSynData[DIndex]=
-					((SynData[SIndex] << 24) |
-						SynData[SIndex+1] >> 8);
+					((SynData[SIndex] << 24U) |
+						SynData[SIndex+1U] >> 8U);
 			}
 			SIndex++;
 			DIndex++;
 		}
 		SIndex++;
 
-		if (Index != 4) {
-			for (SubIndex = 0; SubIndex < 4; SubIndex++) {
-				if (SubIndex == 3) {
+		if (Index != 4U) {
+			for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+				if (SubIndex == 3U) {
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
-					XPUF_EFUSE_TRIM_MASK) << 4) |
-						SynData[SIndex+1] >> 16);
+					XPUF_EFUSE_TRIM_MASK) << 4U) |
+						SynData[SIndex+1U] >> 16U);
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex] =
-						((SynData[SIndex] << 4) |
-						SynData[SIndex+1] >> 28);
+						((SynData[SIndex] << 4U) |
+						SynData[SIndex+1U] >> 28U);
 				}
 				SIndex++;
 				DIndex++;
 			}
 
-			for (SubIndex = 0; SubIndex < 4; SubIndex++) {
-				if(SubIndex == 3) {
+			for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+				if(SubIndex == 3U) {
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
-					XPUF_EFUSE_TRIM_MASK) << 16) |
-						SynData[SIndex+1] >> 4);
+					XPUF_EFUSE_TRIM_MASK) << 16U) |
+						SynData[SIndex+1U] >> 4U);
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
-						((SynData[SIndex] << 16) |
-						SynData[SIndex+1] >> 16);
+						((SynData[SIndex] << 16U) |
+						SynData[SIndex+1U] >> 16U);
 				}
 				SIndex++;
 				DIndex++;
 			}
 
-			for (SubIndex = 0; SubIndex < 3; SubIndex++) {
-				if (SubIndex == 2) {
+			for (SubIndex = 0U; SubIndex < 3U; SubIndex++) {
+				if (SubIndex == 2U) {
 					PufData->EfuseSynData[DIndex] =
-						((SynData[SIndex] << 28) |
-						(SynData[SIndex+1] &
-						XPUF_EFUSE_TRIM_MASK) >> 4);
+						((SynData[SIndex] << 28U) |
+						(SynData[SIndex+1U] &
+						XPUF_EFUSE_TRIM_MASK) >> 4U);
 					PufData->EfuseSynData[DIndex] |=
-						(SynData[SIndex+2] >> 24);
+						(SynData[SIndex+2U] >> 24U);
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
-						((SynData[SIndex] << 28) |
-						SynData[SIndex+1] >> 4);
+						((SynData[SIndex] << 28U) |
+						SynData[SIndex+1U] >> 4U);
 				}
 				SIndex++;
 				DIndex++;
 			}
 			SIndex++;
 
-			for (SubIndex = 0; SubIndex < 4; SubIndex++) {
-				if (SubIndex == 3) {
+			for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+				if (SubIndex == 3U) {
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
-						XPUF_EFUSE_TRIM_MASK) << 8) |
-						SynData[SIndex+1] >> 12);
+						XPUF_EFUSE_TRIM_MASK) << 8U) |
+						SynData[SIndex+1U] >> 12U);
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex] =
-						((SynData[SIndex] << 8) |
-						SynData[SIndex+1] >> 24);
+						((SynData[SIndex] << 8U) |
+						SynData[SIndex+1U] >> 24U);
 				}
 				SIndex++;
 				DIndex++;
 			}
 
-			for (SubIndex = 0; SubIndex < 3; SubIndex++) {
-				if (SubIndex == 2) {
+			for (SubIndex = 0U; SubIndex < 3U; SubIndex++) {
+				if (SubIndex == 2U) {
 					PufData->EfuseSynData[DIndex] =
-						((SynData[SIndex] << 20) |
-						(SynData[SIndex+1] &
-					XPUF_EFUSE_TRIM_MASK) >> 12);
+						((SynData[SIndex] << 20U) |
+						(SynData[SIndex+1U] &
+					XPUF_EFUSE_TRIM_MASK) >> 12U);
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
-						((SynData[SIndex] << 20) |
-						SynData[SIndex+1] >> 12);
+						((SynData[SIndex] << 20U) |
+						SynData[SIndex+1U] >> 12U);
 				}
 				SIndex++;
 				DIndex++;

@@ -41,10 +41,7 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
 #ifndef XPUF_HW_H
 #define XPUF_HW_H
 
@@ -53,7 +50,6 @@ extern "C" {
 #endif
 
 /****************************** Include Files *********************************/
-
 #include "xil_io.h"
 
 /*************************** Constant Definitions *****************************/
@@ -127,14 +123,11 @@ extern "C" {
 
 /* EFUSE_CACHE SECURITY_CONTROL register definition */
 #define XPUF_PUF_DIS				(1U << 18U)
-#define XPUF_PUF_TEST2_DIS			(1U << 17U)
 
 /* Reset value of PUF_SYN_ADDR register */
 #define XPUF_EFUSE_SYN_ADD_INIT			(0xF1250A04U)
 
 /***************** Macros (Inline Functions) Definitions ********************/
-
-
 
 #ifdef __cplusplus
 }
