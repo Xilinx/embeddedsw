@@ -419,8 +419,7 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 
 	/* Authentication of IHT */
 	if (SecureParam.IsAuthenticated == TRUE) {
-		Status = XLoader_ImgHdrTblAuth(&SecureParam,
-				&(PdiPtr->MetaHdr.ImgHdrTbl));
+		Status = XLoader_ImgHdrTblAuth(&SecureParam);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
