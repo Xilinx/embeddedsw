@@ -527,7 +527,7 @@ void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
  ******************************************************************************/
 static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent)
 {
-	(const void) CallBackRef;
+	(void) CallBackRef;
 	(void) StatusEvent;
 
 	Xil_AssertVoidAlways();
