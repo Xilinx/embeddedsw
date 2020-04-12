@@ -387,25 +387,35 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 
 	PadLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
 
-	PadLen = (PadLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
-		(XSECURE_SHA3_BLOCK_LEN - PadLen);
+	if (InstancePtr->IsLastUpdate != TRUE) {
+		PadLen = (PadLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
+			(XSECURE_SHA3_BLOCK_LEN - PadLen);
 
-	if (InstancePtr->Sha3PadType == XSECURE_CSU_NIST_SHA3) {
-		XSecure_Sha3NistPadd(InstancePtr,
-			&InstancePtr->PartialData[InstancePtr->PartialLen],
-								PadLen);
+		if (InstancePtr->Sha3PadType == XSECURE_CSU_NIST_SHA3) {
+			XSecure_Sha3NistPadd(InstancePtr,
+				&InstancePtr->PartialData[InstancePtr->PartialLen],
+									PadLen);
+		}
+		else {
+			 XSecure_Sha3KeccakPadd(InstancePtr,
+				&InstancePtr->PartialData[InstancePtr->PartialLen],
+									PadLen);
+		}
+
+		Size = PadLen + InstancePtr->PartialLen;
+		Status = XSecure_Sha3DmaTransfer(InstancePtr,
+					(u8*)InstancePtr->PartialData,
+					Size, 1U);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
 	}
 	else {
-		 XSecure_Sha3KeccakPadd(InstancePtr,
-			&InstancePtr->PartialData[InstancePtr->PartialLen],
-								PadLen);
-	}
-
-	Size = PadLen + InstancePtr->PartialLen;
-	Status = XSecure_Sha3DmaTransfer(InstancePtr, (u8*)InstancePtr->PartialData,
-						   Size, 1U);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
+		Size = InstancePtr->PartialLen;
+		if (Size != 0x0U) {
+			Status = XST_FAILURE;
+			goto END;
+		}
 	}
 	/* Check the SHA3 DONE bit. */
 	Status = XSecure_Sha3WaitForDone(InstancePtr);
