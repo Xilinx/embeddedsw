@@ -14,7 +14,7 @@
 OPTION psf_version = 2.1;
 
 BEGIN driver clk_wiz
-	OPTION supported_peripherals = (clk_wiz);
+	OPTION supported_peripherals = (clk_wiz clk_wizard);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
 	OPTION VERSION = 1.3;

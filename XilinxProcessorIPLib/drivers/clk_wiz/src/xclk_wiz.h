@@ -8,7 +8,7 @@
 *
 * @file xclk_wiz.h
 *
-* @addtogroup clk_wiz_v1_2
+* @addtogroup clk_wiz_v1_3
 * @{
 * @details
 *
@@ -78,6 +78,7 @@
 *                  and warnings in xclk_wiz.c files. Fix for CR-970507.
 *     ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                  generation.
+* 1.3 sd  4/09/20 Added versal support.
 * </pre>
 *
 ******************************************************************************/
@@ -99,6 +100,7 @@ extern "C" {
 #endif
 
 #include "xclk_wiz_hw.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 /** @name Interrupt Types for setting Callbacks
@@ -108,6 +110,15 @@ extern "C" {
 #define XCLK_WIZ_HANDLER_CLK_GLITCH		2
 #define XCLK_WIZ_HANDLER_CLK_STOP		3
 #define XCLK_WIZ_HANDLER_CLK_OTHER_ERROR	4
+
+#define XCLK_M_MIN 4
+#define XCLK_M_MAX 432
+#define XCLK_D_MIN 1
+#define XCLK_D_MAX 123
+#define XCLK_VCO_MIN  2160
+#define XCLK_VCO_MAX  4320
+#define XCLK_O_MIN 2
+#define XCLK_O_MAX 511
 
 /*@}*/
 
@@ -185,6 +196,9 @@ typedef struct {
 					   *  for rest all errors */
 	void *ErrRef; /**< To be passed to the Error Call back */
 	u32 IsReady; /**< Driver is ready */
+	u32 MVal;	/* Multiplier valuer */
+	u32 DVal;	/* Divisor value */
+	u32  OVal;	/* Output Value */
 } XClk_Wiz;
 
 /************************** Macros Definitions *******************************/
@@ -391,6 +405,8 @@ static inline void XClk_Wiz_IntrAckIrq(XClk_Wiz *InstancePtr, u32 Value) {
 /************************** Function Prototypes ******************************/
 
 XClk_Wiz_Config *XClk_Wiz_LookupConfig(u32 DeviceId);
+
+int XClk_Wiz_SetRate(XClk_Wiz *InstancePtr, u64 SetRate);
 
 u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *Config,
 			UINTPTR EffectiveAddr);

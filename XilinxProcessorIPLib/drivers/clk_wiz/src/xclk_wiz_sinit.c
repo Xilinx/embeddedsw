@@ -7,7 +7,7 @@
 /**
 *
 * @file xclk_wiz_sinit.c
-* @addtogroup clk_wiz_v1_2
+* @addtogroup clk_wiz_v1_3
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
