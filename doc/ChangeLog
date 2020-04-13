@@ -213,7 +213,7 @@ Added 10/12 bpc and HFR support.
 v_sdirxss_v3_0:
 Added 10/12 bpc support.
 
-dp12_v7_1 :
+dp12_v7_1:
 Added a new API call XDp_RxSetAuxClkFilterValue
 
 dp12rxss_v4_3:
