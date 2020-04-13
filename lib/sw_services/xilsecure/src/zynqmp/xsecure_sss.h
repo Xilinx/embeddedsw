@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_sss.h
-* 
+*
 * This file contains macros and functions required for the SSS configuration
 * for Zynqmp
 *
@@ -18,7 +18,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.2   har     03/26/20 Initial Release
-* 
+*
 * </pre>
 * @endcond
 ******************************************************************************/
@@ -30,7 +30,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_types.h" 
+#include "xil_types.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal */

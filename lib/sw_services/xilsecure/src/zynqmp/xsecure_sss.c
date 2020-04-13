@@ -146,7 +146,7 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(DmaId == 0U);	
+	Xil_AssertNonvoid(DmaId == 0U);
 
 	Status = XSecure_SssDmaSrc(DmaId, &Resource);
 	if (Status != XST_SUCCESS) {
@@ -211,7 +211,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	u32 InputSrcCfg = 0x00;
 	u32 OutputSrcCfg = 0x00;
 	volatile u32 InputSrcCfgRedundant = 0x00;
-	volatile u32 OutputSrcCfgRedundant = 0x00; 
+	volatile u32 OutputSrcCfgRedundant = 0x00;
 	u32 SssCfg = 0x00;
 	u32 Status = (u32)XST_FAILURE;
 
@@ -223,7 +223,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 		(OutputSrc <= XSECURE_SSS_INVALID));
 	Xil_AssertNonvoid((Resource >= XSECURE_SSS_PCAP) &&
 		(Resource <= XSECURE_SSS_INVALID));
-        
+
 	/*
 	 * Configure source of the input for given resource
 	 * i.e Configure given InputSrc as a input for given Resource
@@ -238,8 +238,8 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	*/
 	OutputSrcCfg = (u32) XSecure_SssLookupTable [OutputSrc][Resource] <<
 			(XSECURE_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
-	
-	/* Recalculating to verify values */   
+
+	/* Recalculating to verify values */
 	InputSrcCfgRedundant = (u32) XSecure_SssLookupTable [Resource][InputSrc] <<
                 (XSECURE_SSS_CFG_LEN_IN_BITS * (u32)Resource);
 
@@ -254,4 +254,3 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 
 	return Status;
 }
-

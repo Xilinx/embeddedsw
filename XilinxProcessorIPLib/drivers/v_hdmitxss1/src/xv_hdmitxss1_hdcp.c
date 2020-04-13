@@ -41,7 +41,7 @@ static u8 XV_HdmiTxSs1_HdcpGetTopologyMaxDevsExceeded(XV_HdmiTxSs1 *InstancePtr)
 static u8
         XV_HdmiTxSs1_HdcpGetTopologyMaxCascadeExceeded(XV_HdmiTxSs1 *InstancePtr);
 static u8
-  XV_HdmiTxSs1_HdcpGetTopologyHdcp20RepeaterDownstream(XV_HdmiTxSs1 *InstancePtr);
+  XV_HdmiTxSs1_HdcpGetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiTxSs1 *InstancePtr);
 static u8
      XV_HdmiTxSs1_HdcpGetTopologyHdcp1DeviceDownstream(XV_HdmiTxSs1 *InstancePtr);
 #endif
@@ -1751,8 +1751,8 @@ u32 XV_HdmiTxSs1_HdcpGetTopologyField(XV_HdmiTxSs1 *InstancePtr,
       return XV_HdmiTxSs1_HdcpGetTopologyMaxDevsExceeded(InstancePtr);
       case XV_HDMITXSS1_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED:
       return XV_HdmiTxSs1_HdcpGetTopologyMaxCascadeExceeded(InstancePtr);
-      case XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM:
-      return XV_HdmiTxSs1_HdcpGetTopologyHdcp20RepeaterDownstream(InstancePtr);
+      case XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM:
+      return XV_HdmiTxSs1_HdcpGetTopologyHdcp2LegacyDeviceDownstream(InstancePtr);
       case XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM:
       return XV_HdmiTxSs1_HdcpGetTopologyHdcp1DeviceDownstream(InstancePtr);
     default:
@@ -1972,20 +1972,20 @@ u8 XV_HdmiTxSs1_HdcpGetTopologyMaxCascadeExceeded(XV_HdmiTxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function gets the HDCP repeater topology HDCP 2.0 repeater downstream
+* This function gets the HDCP repeater topology HDCP2 Legacy Device downstream
 * flag.
 *
 * @param InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
 *
 * @return
-*   - TRUE if HDCP 2.0 repeater is downstream.
-*   - FALSE if HDCP 2.0 repeater is not downstream.
+*   - TRUE if HDCP2 legacy device is downstream.
+*   - FALSE if HDCP2 legacy device is not downstream.
 *
 * @note   None.
 *
 ******************************************************************************/
 static
-u8 XV_HdmiTxSs1_HdcpGetTopologyHdcp20RepeaterDownstream(XV_HdmiTxSs1 *InstancePtr)
+u8 XV_HdmiTxSs1_HdcpGetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiTxSs1 *InstancePtr)
 {
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2008,7 +2008,7 @@ u8 XV_HdmiTxSs1_HdcpGetTopologyHdcp20RepeaterDownstream(XV_HdmiTxSs1 *InstancePt
     case XV_HDMITXSS1_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Flag = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
-                 XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+                 XHDCP22_TX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
       }
       break;
 #endif
