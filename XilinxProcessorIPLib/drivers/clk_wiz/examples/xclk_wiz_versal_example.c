@@ -16,6 +16,7 @@
 * Ver Who Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.3 sd  4/7/20 Initial version for Clock Wizard Example
+* 1.4 sd  5/20/20 Use Macros and use readReg API
 * </pre>
 *
 ******************************************************************************/
@@ -84,10 +85,9 @@ u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr_Dynamic)
 {
 	u32 Count = 0;
 
-	while(!(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK)) {
+	while(!XClk_Wiz_ReadReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK) {
 		if(Count == 10000) {
 			return XST_FAILURE;
-			break;
 		}
 		usleep(100);
 		Count++;
@@ -150,6 +150,7 @@ u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId)
 {
 	XClk_Wiz_Config *CfgPtr_Dynamic;
 	u32 Status = XST_FAILURE;
+	u32 Reg;
 
 	/*
 	 * Get the CLK_WIZ Dynamic reconfiguration driver instance
@@ -170,16 +171,16 @@ u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId)
 
 	/* Calling Clock wizard dynamic reconfig */
 
-	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x3F0) = 0;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
 	XClk_Wiz_SetRate(&ClkWiz_Dynamic, 200);
 
-	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x14) = 0x3;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
 	Status = XClk_WaitForLock(CfgPtr_Dynamic);
 	if (Status != XST_SUCCESS) {
+		Reg = XClk_Wiz_ReadReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK;
 		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected "\
-		": 0x1\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
+		": 0x1\n\r", Reg);
 	}
 
 	return Status;
 }
-
