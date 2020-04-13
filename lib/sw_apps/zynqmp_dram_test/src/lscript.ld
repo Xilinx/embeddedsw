@@ -84,6 +84,10 @@ SECTIONS
    KEEP (*(.fini))
 } > psu_ocm_ram_1_S_AXI_BASEADDR
 
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
+} > psu_ocm_ram_0_S_AXI_BASEADDR
+
 .interp : {
    KEEP (*(.interp))
 } > psu_ocm_ram_0_S_AXI_BASEADDR
