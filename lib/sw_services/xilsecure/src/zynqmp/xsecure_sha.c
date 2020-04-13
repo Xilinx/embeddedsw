@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-* 
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -70,7 +50,12 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xsecure_sha_hw.h"
 #include "xsecure_sha.h"
+#include "xil_util.h"
+#include "xil_assert.h"
+#include "xsecure_utils.h"
+
 /************************** Constant Definitions *****************************/
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U)
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS	\
@@ -429,7 +414,9 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 		XSecure_Sha3_ReadHash(InstancePtr, Hash);
 	}
 END:
-	(void)memset((void*)InstancePtr->PartialData, 0, Size);
+	if (Size > 0X0U) {
+		(void)memset((void*)InstancePtr->PartialData, 0, Size);
+	}
 	/* Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET);
