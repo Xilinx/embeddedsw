@@ -1023,7 +1023,6 @@ s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
 	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
 	val = XPfw_Read32(addr);
 
-	/* Workaround the hardware bug in bank1_ctrl5 */
 	if (IOU_SLCR_BANK1_CTRL5 == addr) {
 		SWAP_BITS_BANK1_CTRL5(val);
 	}
@@ -1051,22 +1050,9 @@ done:
  * @return	XST_INVALID_PARAM if an argument is not valid
  *		XST_SUCCESS otherwise
  *
- * @note	There is a hardware bug in bank1 ctrl5 - bits 25:14 are shifted
- *		by 14 places to the right (to bitfields 11:0), and bits 13:0 are
- *		shifted to the left by 12 places (to bitfields 25:12) by
- *		hardware. Since we want users to not be aware of this bug, the
- *		fix is added in the function below.
- *		E.g. writing 0x00803FFF bank1_ctrl5 will result in 0x03FFF200:
- * bits: 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
- * val:   0  0  1  0  0  0  0  0  0  0  0  0  1  1  1  1 1 1 1 1 1 1 1 1 1 1
- * val`:  1  1  1  1  1  1  1  1  1  1  1  1  1  1  0  0 1 0 0 0 0 0 0 0 0 0
- *
- * val is the written value, val` is the actual value that will be configured by
- * hardware. Therefore, if a user writes to configure pin 13, the hardware will
- * actually configure pin 25 (13 + 12). To get pin 13 configured we need to
- * write as if we're configuring pin 1 (13 - 12), so hardware will configure
- * bit 13 (1 + 12). If a user wants to configure pin 4, we need to write as if
- * we're configuring bit[18] to actually get the pin 4 configured.
+ * @note	In bank1 ctrl5, pins are not mapped with sequential order.
+ *		Pin 38 to 51 are mapped with BIT[0:13], Pin 26 to 37 are mapped
+ *		with BIT[14:25].
  */
 s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 {
@@ -1090,7 +1076,6 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 	shift = pinId % PM_PIN_PARAM_PER_REG;
 	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
 
-	/* Workaround the hardware bug in bank1_ctrl5 */
 	if (IOU_SLCR_BANK1_CTRL5 == addr) {
 		FIX_BANK1_CTRL5(shift);
 	}
@@ -1102,7 +1087,6 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 			addr = PM_PIN_PARAM_GET_ADDR(pinId,
 				pmPinParams[PINCTRL_CONFIG_PULL_CTRL].offset);
 
-			/* Workaround the hardware bug in bank1_ctrl5 */
 			if (addr == IOU_SLCR_BANK1_CTRL5) {
 				FIX_BANK1_CTRL5(shift);
 			}
