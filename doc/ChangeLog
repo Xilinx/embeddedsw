@@ -160,6 +160,15 @@ Clean up old versions in axiethernet.mdd.
 zynqmp_fsbl:
 Added code changes to update the PMU GLOBAL register to indicate PL configuration
 Update the status of FSBL image encryption in PMU Global register 5 bit 3 for PMU
+Added support for ZCU216 board in ZynqMP FSBL.
+Updated FSBL to consider high DDR addresses for R5.
+Fixed logical error in XFsbl_ResetValidation for WDT reset error.
+Added Macronix 2G flash support to FSBL.
+Added support for ZCU208 board in ZynqMP FSBL.
+
+zynq_fsbl:
+Added macronix 1.8V 512MB flash support to Zynq FSBL.
+Fixed typo error in FlashReadID.
 
 xxvethernet_v1_4:
 Added dependencies.props for xxvethernet in data folder.
