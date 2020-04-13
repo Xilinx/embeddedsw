@@ -285,6 +285,7 @@ typedef struct {
 	u32 EncNextBlkSize;
 	XLoader_AuthCertificate *AcPtr;
 	XPmcDma *PmcDmaInstPtr;
+	XSecure_Aes AesInstance;
 }XLoader_SecureParms;
 
 typedef enum {
