@@ -317,7 +317,6 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DestAddr,
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
 	u32 TotalSize = BlockSize;
-	XSecure_Aes AesInstance;
 	u32 SrcAddr;
 	u64 OutAddr;
 
@@ -406,7 +405,7 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DestAddr,
 		else {
 			OutAddr = SecurePtr->SecureData;
 		}
-		Status = XLoader_AesDecryption(SecurePtr, &AesInstance,
+		Status = XLoader_AesDecryption(SecurePtr, &SecurePtr->AesInstance,
 					SecurePtr->SecureData, OutAddr, SecurePtr->SecureDataLen);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
