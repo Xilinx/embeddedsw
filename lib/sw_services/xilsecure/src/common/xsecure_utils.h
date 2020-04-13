@@ -44,6 +44,7 @@
 * 4.2   har     01/06/20 Added macro XSecure_Out32
 *       kpt     01/07/20 Added Macro XSECURE_WORD_SIZE common for
 *                        both AES and RSA
+*       har     03/26/20 Removed code for SSS configuration
 * </pre>
 * @endcond
 ******************************************************************************/
@@ -55,7 +56,6 @@
 extern "C" {
 #endif
 /***************************** Include Files *********************************/
-
 #include "xil_io.h"
 #include "xparameters.h"
 #include "xil_types.h"
@@ -65,62 +65,15 @@ extern "C" {
 #include "xil_mem.h"
 
 /************************** Constant Definitions ****************************/
-/** @cond xsecure_internal */
-#ifdef versal
-#define XSECURE_VERSAL		/**< Definition for VERSAL */
-#else
-#define XSECURE_ZYNQMP		/**< Definition for ZynqMP */
-#endif
-
 #define XSECURE_RESET_SET		(1U) /**< To set the core into reset */
 #define XSECURE_RESET_UNSET		(0U)
 					/**< To take the core out of reset */
-
-#define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length is bits */
-
-#ifdef XSECURE_VERSAL
-#define XSECURE_SSS_ADDRESS		(0xF1110500U) /**< SSS base address */
-#define XSECURE_SSS_MAX_SRCS		(8U)	/**< Maximum resources */
-#else
-#define XSECURE_CSU_REG_BASE_ADDR	(0xFFCA0000U)
-					/**< CSU base address */
-#define XSECURE_SSS_ADDRESS		(0xFFCA0008U)/**< SSS base address */
-#define XSECURE_SSS_MAX_SRCS		(5U)	/**< Maximum resources */
-#endif
 
 #define XSECURE_TIMEOUT_MAX		(0x1FFFFFU)
 #define XSECURE_WORD_SIZE		(4U) /**< WORD size in BYTES */
 #define XSECURE_WORD_IN_BITS	(32U)/**< WORD size in BITS	 */
 
 /***************************** Type Definitions******************************/
-/**
- * Instance structure of secure stream switch
- */
-typedef struct {
-	u32 Address; /**< Address of SSS CFG register */
-}XSecure_Sss;
-
-/* Sources to be selected to configure secure stream switch */
-#ifdef XSECURE_VERSAL
-typedef enum {
-	XSECURE_SSS_DMA0,
-	XSECURE_SSS_DMA1,
-	XSECURE_SSS_PTPI,
-	XSECURE_SSS_AES,
-	XSECURE_SSS_SHA,
-	XSECURE_SSS_SBI,
-	XSECURE_SSS_PZI,
-	XSECURE_SSS_INVALID
-}XSecure_SssSrc;
-#else
-typedef enum{
-	XSECURE_SSS_PCAP,
-	XSECURE_SSS_DMA0,
-	XSECURE_SSS_AES,
-	XSECURE_SSS_SHA,
-	XSECURE_SSS_INVALID
-}XSecure_SssSrc;
-#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -183,12 +136,6 @@ static inline void XSecure_WriteReg(u32 BaseAddress,
 
 void XSecure_SetReset(u32 BaseAddress, u32 Offset);
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset);
-
-void XSecure_SssInitialize(XSecure_Sss *InstancePtr);
-u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
-		XSecure_SssSrc OutputSrc);
-u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
-u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
 
 #ifdef __cplusplus
 }
