@@ -71,9 +71,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_util.h"
 #include "xpmcdma.h"
-#include "xsecure_utils.h"
+#include "xsecure_sss.h"
+
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
 @{

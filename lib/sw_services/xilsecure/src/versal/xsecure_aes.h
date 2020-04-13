@@ -53,8 +53,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xpmcdma.h"
-#include "xsecure_aes_core_hw.h"
-#include "xsecure_utils.h"
+#include "xsecure_sss.h"
+
 /************************** Constant Definitions *****************************/
 #define XSECURE_AES_BUFFER_SIZE                         (4U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)

@@ -46,6 +46,7 @@
 #include "xsecure_sha_hw.h"
 #include "xil_assert.h"
 #include "xsecure_sha.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SHA3_HASH_LENGTH_IN_BITS	(384U)
