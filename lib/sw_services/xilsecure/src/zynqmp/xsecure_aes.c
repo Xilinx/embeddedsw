@@ -72,8 +72,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xsecure_aes.h"
+#include "xil_io.h"
+#include "xsecure_utils.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

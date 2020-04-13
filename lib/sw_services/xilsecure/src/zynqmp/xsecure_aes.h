@@ -99,13 +99,11 @@ extern "C" {
 #endif
 
 /************************** Include Files ***********************************/
-
-#include "xcsudma.h"
-#include "xstatus.h"
-#include "xil_io.h"
-#include "xil_util.h"
 #include "xsecure_aes_hw.h"
+#include "xcsudma.h"
+#include "xil_util.h"
 #include "xsecure_utils.h"
+#include "xsecure_sss.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal

@@ -70,7 +70,12 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xsecure_sha_hw.h"
 #include "xsecure_sha.h"
+#include "xil_util.h"
+#include "xil_assert.h"
+#include "xsecure_utils.h"
+
 /************************** Constant Definitions *****************************/
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U)
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS	\

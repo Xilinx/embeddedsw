@@ -53,11 +53,9 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
-#include "xsecure_utils.h"
-
 /************************** Constant Definitions ****************************/
 /**< SHA3 base address */
-#define XSECURE_CSU_SHA3_BASE	(XSECURE_CSU_REG_BASE_ADDR + 0x2000U)
+#define XSECURE_CSU_SHA3_BASE		(0xFFCA2000U)
 
 /** @name Register Map
  *

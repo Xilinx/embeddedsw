@@ -53,19 +53,14 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_io.h"
-#include "xparameters.h"
-#include "xil_types.h"
-#include "sleep.h"
-#include "xsecure_utils.h"
 
 /************************** Constant Definitions *****************************/
-
-#define XSECURE_CSU_AES_BASE	(XSECURE_CSU_REG_BASE_ADDR + 0x1000U)
-					/**< CSU AES base address */
-#define XSECURE_CSU_PCAP_STATUS	(XSECURE_CSU_REG_BASE_ADDR + 0X00003010U)
-					/**< CSU PCAP Status reg. */
+#define XSECURE_CSU_AES_BASE				(0xFFCA1000 )
+						/**< CSU AES base address */
+#define XSECURE_CSU_PCAP_STATUS				(0xFFCA3010U)
+						/**< CSU PCAP Status reg. */
 #define XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK	(0X00000001U)
-					/**< PCAP Write Idle */
+						/**< PCAP Write Idle */
 /** @name Register Map
  *
  * Register offsets for the AES module.
