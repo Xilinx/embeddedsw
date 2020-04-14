@@ -466,6 +466,9 @@ proc xredefine_intc {drvhandle config_inc} {
         #update global array of Interrupt sources for this periph
         intc_update_source_array $periph
 
+        if {$total_source_intrs == 0} {
+            continue
+        }
         lappend source_list
         for {set j 0 } { $j < $total_source_intrs   } { incr j} {
             lappend source_list $source_name($j)
