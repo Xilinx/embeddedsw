@@ -406,7 +406,7 @@ static inline void XClk_Wiz_IntrAckIrq(XClk_Wiz *InstancePtr, u32 Value) {
 
 XClk_Wiz_Config *XClk_Wiz_LookupConfig(u32 DeviceId);
 
-int XClk_Wiz_SetRate(XClk_Wiz *InstancePtr, u64 SetRate);
+u32 XClk_Wiz_SetRate(XClk_Wiz *InstancePtr, u64 SetRate);
 
 u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *Config,
 			UINTPTR EffectiveAddr);

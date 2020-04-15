@@ -99,6 +99,7 @@ u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
 /**
 * Calculate the M, D, and O values for the given SetRate frequency.
 *
@@ -112,7 +113,7 @@ u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 *
 * @note		None
 *****************************************************************************/
-static XStatus  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
+static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 {
 	u32 m;
 	u32 d;
@@ -121,7 +122,7 @@ static XStatus  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 	u64 Freq;
 	u64 Diff;
 	u64 Minerr = 1000;
-	XStatus Status = XST_FAILURE;
+	u32 Status = XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(SetRate != 0);
@@ -171,7 +172,7 @@ static XStatus  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 *
 * @note		Should be called only if there is only one output clock.
 *****************************************************************************/
-XStatus XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
+u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 {
 	u32 Platform;
 	u32 HighTime;
@@ -179,7 +180,7 @@ XStatus XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 	u32 Reg;
 	u32 P5Enable;
 	u32 P5fEdge;
-	XStatus Status;
+	u32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(SetRate != 0);
