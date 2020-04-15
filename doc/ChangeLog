@@ -279,6 +279,9 @@ Provide build option to disable FSBL copy to DDR feature
 Skip copying FSBL to DDR if FSBL image is encrypted
 Add new module to monitor RPU run mode
 
+dsitxss_v2_0:
+Introduced new API to enable sub cores
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
