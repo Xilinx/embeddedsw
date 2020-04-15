@@ -1,8 +1,8 @@
 /*******************************************************************
-* Copyright 1986-2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 1986-2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
-*
 *******************************************************************************/
+
 
 
 #include "xparameters.h"
