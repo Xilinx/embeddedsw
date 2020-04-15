@@ -388,7 +388,7 @@ void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 		break;
 	default:
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
-				"for PSM errors\r\n");
+				"for PSM errors. Error ID: 0x%x\r\n", ErrorIndex);
 		break;
 	}
 }
@@ -419,7 +419,8 @@ void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 		for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
 			if ((Err1Status & (1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)))
-				&& (ErrorTable[Index].Handler != NULL)) {
+				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
+				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
 				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR1, Index);
 
 				/* Do not clear error status for register notifier
@@ -436,7 +437,8 @@ void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 		for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
 			if ((Err2Status & (1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)))
-				&& (ErrorTable[Index].Handler != NULL)) {
+				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
+				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
 				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR2, Index);
 
 				/* Do not clear error status for register notifier
