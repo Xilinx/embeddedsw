@@ -40,6 +40,7 @@
 #include <xdp.h>
 #include <xdp_hw.h>
 #include "xiicps.h"
+#include "xclk_wiz.h"
 #else
 #include "xvphy.h"
 #include "xvphy_i.h"
@@ -261,7 +262,7 @@ char xil_getc(u32 timeout_ms);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config);
-u32 config_phy(int LineRate_init_tx, int LaneCount_init_tx);
+u32 config_phy(int LineRate_init_tx);
 
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 void sink_power_down(void);
