@@ -82,8 +82,7 @@ extern "C" {
 #include "xsecure_aes_hw.h"
 #include "xcsudma.h"
 #include "xil_util.h"
-#include "xsecure_utils.h"
-#include "xsecure_sss.h" 
+#include "xsecure_sss.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
