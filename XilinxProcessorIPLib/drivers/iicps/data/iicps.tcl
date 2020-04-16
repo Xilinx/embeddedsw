@@ -12,6 +12,7 @@
 # 1.00a sdm  11/22/11 Created
 # 2.0   adk  12/10/13 Updated as per the New Tcl API's
 # 3.11   sd   03/20/20 Added clock support
+# 3.11   sd   04/16/20 Remove a print
 #
 ##############################################################################
 
@@ -62,7 +63,6 @@ proc generate_ref_params {drv_handle file_name} {
 	set iszynqmp [check_platform]
 	set isclocking [check_clocking]
 	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
-	puts $ips
 	foreach ip $ips {
 		set ref_tag 0xff
 		puts $file_handle "/* Definition for input Clock */"
