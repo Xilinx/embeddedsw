@@ -175,6 +175,7 @@ Bug fix for threshold over flag assertion directly after applying settings
 axidma_v9_11:
 Removed xaxidma_example_multichan_sg_intr.c example from axidma driver.
 Clean up old versions in axidma.mdd.
+Fix simple interrupt example failure with smaller packet size.
 
 axivdma_v6_7:
 Clean up old versions in axivdma.mdd.
