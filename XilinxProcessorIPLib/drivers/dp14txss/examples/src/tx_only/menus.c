@@ -703,7 +703,7 @@ void main_loop(){
 						LineRate_init_tx = user_tx_LineRate;
 						prev_line_rate = user_tx_LineRate;
 						LaneCount_init_tx = user_tx_LaneCount;
-						Status = config_phy(LineRate_init_tx, LaneCount_init_tx);
+						Status = config_phy(LineRate_init_tx);
 						XDpTxSs_Stop(&DpTxSsInst);
 						audio_on = 0;
 						xil_printf(
@@ -714,7 +714,7 @@ void main_loop(){
 						XDpTxSs_Reset(&DpTxSsInst);
 						user_config.user_bpc=8;
 						user_config.VideoMode_local
-										=XVIDC_VM_1920x1080_60_P; //XVIDC_VM_800x600_60_P;
+										=XVIDC_VM_800x600_60_P;
 						user_config.user_pattern=1;
 						user_config.user_format = XVIDC_CSF_RGB;
 						start_tx (user_tx_LineRate, user_tx_LaneCount,
@@ -782,6 +782,7 @@ void main_loop(){
 		case '5' :
 			//MSA;
 			XDpTxSs_ReportMsaInfo(&DpTxSsInst);
+
 			break;
 
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
@@ -1368,9 +1369,9 @@ void ReadModifyWrite(u32 MaskValue, u32 data)
 {
 	u32 retval=0;
 	MaskValue=~MaskValue;
-	retval=XDp_ReadReg(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_BASEADDR,0x4C);
+	retval=XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x4C);
 	retval= retval & MaskValue;
 	retval= retval | data;
-	XDp_WriteReg(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_BASEADDR,0x4C,retval);
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x4C,retval);
 }
 #endif
