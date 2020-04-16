@@ -878,6 +878,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	Status &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
 	if (Status != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) {
 		Status = XSECURE_AES_GCM_TAG_MISMATCH;
+		goto END;
 	}
 	else {
 		Status = XST_SUCCESS;
