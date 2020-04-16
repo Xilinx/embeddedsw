@@ -12,6 +12,7 @@
 # 1.00a sdm  11/22/11 Created
 # 3.9   sd   02/22/20 Added clock support
 # 3.9   sd   03/27/20 Added fix for hierarchial designs
+# 3.9   sd   04/16/20 Remove a print
 #
 ##############################################################################
 
@@ -43,7 +44,6 @@ proc generate_ref_params {drv_handle file_name} {
 	set iszynqmp [check_platform]
 	set isclocking [check_clocking]
 	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
-	puts $ips
 	foreach ip $ips {
 		set ref_tag 0xff
 		puts $file_handle "/* Definition for input Clock */"
