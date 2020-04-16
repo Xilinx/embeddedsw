@@ -323,11 +323,9 @@ int XMipi_DisplayMainMenu(void)
 	xil_printf("---   MAIN MENU   ---\r\n");
 	xil_printf("---------------------\r\n");
 	xil_printf("0 - 1920x1080p60\r\n");
-	xil_printf(" => Configures Sensor and Display \\
-                                                the output for 1080p60.\r\n");
+xil_printf(" => Configures Sensor for 1920x1080 60fps.\r\n");
 	xil_printf("1 - 3840x2160p60\r\n");
-	xil_printf("       => Configures Sensor and \\
-                                        Display the output for 2160p60.\r\n");
+xil_printf(" => Configures Sensor for 3840x2160 60fps.\r\n");
 
 
 	xil_printf("\r\n\r\n");
@@ -343,13 +341,11 @@ do {
 
 				if ((Response == '0')) {
 					VideoMode_Select = 0 ;
-					xil_printf("\r\n\r\n 1080p60 \\
-                                                           is Selected.\r\n");
+					xil_printf("\r\n\r\n 1920x1080p60 is Selected.\r\n");
 					break;
 				} else if ((Response == '1')) {
                     VideoMode_Select = 1 ;
-					xil_printf("\r\n\r\n 2160p60 \\
-                                                           is Selected.\r\n");
+					xil_printf("\r\n\r\n 3840x2160p60 is Selected.\r\n");
 					break;
 				} else if ((Response != 0)) {
 					VideoMode_Select = 0 ;
@@ -416,7 +412,7 @@ int main() {
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
 		xil_printf("\r\n\r\n CSI Cature Pipe \\
-                                               Configuration failed.\r\n\r\n");
+                                      Configuration failed.\r\n\r\n");
 		return XST_FAILURE;
 	}
 
