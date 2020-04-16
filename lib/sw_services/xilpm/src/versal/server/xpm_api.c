@@ -1463,9 +1463,6 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm;
-	XPm_Device *Device;
-	XPm_Core *Core = NULL;
 
 	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
 	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
@@ -1481,28 +1478,13 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
-		Reqm = Subsystem->Requirements;
-		while (NULL != Reqm) {
-			if (1U == Reqm->Allocated) {
-				Device = Reqm->Device;
-				if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
-					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
-					if (NULL != Core->CoreOps->PowerDown) {
-						Status = Core->CoreOps->PowerDown(Core);
-						if (XST_SUCCESS != Status) {
-							goto done;
-						}
-					}
-				}
-			}
-			Reqm = Reqm->NextDevice;
-		}
-		/* Idle the subsystem */
+		/* Idle the subsystem first */
 		Status = XPmSubsystem_Idle(SubsystemId);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_SUBSYS_IDLE;
 			goto done;
 		}
+		/* Release devices and power down cores */
 		Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_CLEANUP;
