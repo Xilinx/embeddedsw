@@ -8,7 +8,7 @@
 /**
 *
 * @file xcfupmc_selftest.c
-* @addtogroup cfupmc_v1_0
+* @addtogroup cfupmc_v1_1
 * @{
 *
 * This file contains a diagnostic self-test function for the CFU driver.
