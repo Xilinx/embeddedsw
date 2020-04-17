@@ -7,7 +7,7 @@
 /**
 *
 * @file xprd_selftest.c
-* @addtogroup prd_v1_1
+* @addtogroup prd_v2_0
 * @{
 *
 * This file contains the self-test functions for the XPrd driver.

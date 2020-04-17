@@ -7,7 +7,7 @@
 /**
 *
 * @file xprd.h
-* @addtogroup prd_v1_1
+* @addtogroup prd_v2_0
 * @{
 * @details
 *
