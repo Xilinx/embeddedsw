@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss_dbg.c
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v6_0
 * @{
 *
 * This file contains functions to report debug information of DisplayPort RX
