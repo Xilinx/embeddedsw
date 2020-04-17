@@ -7,7 +7,7 @@
 /**
 *
 * @file xrtcpsu_selftest.c
-* @addtogroup rtcpsu_v1_8
+* @addtogroup rtcpsu_v1_9
 * @{
 *
 * This file contains the self-test functions for the XRtcPsu driver.

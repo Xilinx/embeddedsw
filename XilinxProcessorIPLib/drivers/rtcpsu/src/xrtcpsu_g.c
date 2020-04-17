@@ -7,7 +7,7 @@
 /**
 *
 * @file xrtcpsu_g.c
-* @addtogroup rtcpsu_v1_8
+* @addtogroup rtcpsu_v1_9
 * @{
 *
 * This file contains a configuration table that specifies the configuration
