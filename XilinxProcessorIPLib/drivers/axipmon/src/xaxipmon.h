@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxipmon.h
-* @addtogroup axipmon_v6_6
+* @addtogroup axipmon_v6_8
 * @{
 * @details
 *
