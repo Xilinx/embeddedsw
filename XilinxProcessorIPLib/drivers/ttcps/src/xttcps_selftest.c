@@ -7,7 +7,7 @@
 /**
 *
 * @file xttcps_selftest.c
-* @addtogroup ttcps_v3_10
+* @addtogroup ttcps_v3_11
 * @{
 *
 * This file contains the implementation of self test function for the
