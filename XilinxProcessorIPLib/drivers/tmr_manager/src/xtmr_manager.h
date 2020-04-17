@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager.h
-* @addtogroup tmr_manager_v1_0
+* @addtogroup tmr_manager_v1_1
 * @{
 * @details
 *
