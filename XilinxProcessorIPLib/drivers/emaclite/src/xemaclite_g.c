@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite_g.c
-* @addtogroup emaclite_v4_4
+* @addtogroup emaclite_v4_5
 * @{
 *
 * This file contains a configuration table that specifies the configuration
