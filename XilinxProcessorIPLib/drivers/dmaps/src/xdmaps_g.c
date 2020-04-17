@@ -7,7 +7,7 @@
 /**
 *
 * @file xdmaps_g.c
-* @addtogroup dmaps_v2_5
+* @addtogroup dmaps_v2_6
 * @{
 *
 * This file contains a configuration table where each entry is a configuration

@@ -7,7 +7,7 @@
 /**
 *
 * @file xdmaps_selftest.c
-* @addtogroup dmaps_v2_5
+* @addtogroup dmaps_v2_6
 * @{
 *
 * This file contains the self-test functions for the XDmaPs driver.

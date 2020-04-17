@@ -7,7 +7,7 @@
 /**
 *
 * @file xdmaps_sinit.c
-* @addtogroup dmaps_v2_5
+* @addtogroup dmaps_v2_6
 * @{
 *
 * The implementation of the XDmaPs driver's static initialzation

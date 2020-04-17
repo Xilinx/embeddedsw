@@ -7,7 +7,7 @@
 /**
 *
 * @file xdmaps_hw.h
-* @addtogroup dmaps_v2_5
+* @addtogroup dmaps_v2_6
 * @{
 *
 * This header file contains the hardware interface of an XDmaPs device.
