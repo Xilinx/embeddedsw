@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu_onfi.h
-* @addtogroup nandpsu_v1_3
+* @addtogroup nandpsu_v1_6
 * @{
 *
 * This file defines all the ONFI 3.1 specific commands and values.
