@@ -7,7 +7,7 @@
 /**
 *
 * @file xtrafgen_sinit.c
-* @addtogroup trafgen_v4_2
+* @addtogroup trafgen_v4_3
 * @{
 *
 * This file contains static initialization functionality for Axi Traffic
