@@ -7,7 +7,7 @@
 /**
 *
 * @file xemc.h
-* @addtogroup emc_v4_0
+* @addtogroup emc_v4_1
 * @{
 * @details
 *
