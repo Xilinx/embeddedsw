@@ -31,9 +31,8 @@
 #include <xdprxss_mcdp6000.h>
 #ifdef versal
 #include "xuartpsv_hw.h"
-#include <xdp.h>
-#include <xdp_hw.h>
 #include "xiicps.h"
+#include "xclk_wiz.h"
 #endif
 //#ifndef versal
 #include <xiic.h>
@@ -179,7 +178,8 @@
 
 #define GT_RST_HOLD_MASK 0x80000000
 #define GT_RST_MASK 0x00000001
-#define GT_VSWING_MASK 0x007FFF00
+#define GT_VSWING_MASK 0x00001F00
+#define GT_POSTCUR_MASK 0x007C0000
 #define GT_LANE_MASK 0x00000070
 #define GT_RATE_MASK 0x00000006
 #define GT_PLL_MASK 0x00000008
