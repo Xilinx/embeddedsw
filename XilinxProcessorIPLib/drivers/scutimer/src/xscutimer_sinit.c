@@ -7,7 +7,7 @@
 /**
 *
 * @file xscutimer_sinit.c
-* @addtogroup scutimer_v2_1
+* @addtogroup scutimer_v2_2
 * @{
 *
 * This file contains method for static initialization (compile-time) of the

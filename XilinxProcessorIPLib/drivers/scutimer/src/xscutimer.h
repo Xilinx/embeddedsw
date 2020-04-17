@@ -7,7 +7,7 @@
 /**
 *
 * @file xscutimer.h
-* @addtogroup scutimer_v2_1
+* @addtogroup scutimer_v2_2
 * @{
 * @details
 *
