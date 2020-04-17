@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_sinit.c
-* @addtogroup scugic_v4_0
+* @addtogroup scugic_v4_2
 * @{
 *
 * Contains static init functions for the XScuGic driver for the Interrupt
