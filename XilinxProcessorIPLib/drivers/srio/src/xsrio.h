@@ -7,7 +7,7 @@
 /**
 *
 * @file xsrio.h
-* @addtogroup srio_v1_2
+* @addtogroup srio_v1_3
 * @{
 * @details
 * 
