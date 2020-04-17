@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps_hw.h
-* @addtogroup nandps_v2_4
+* @addtogroup nandps_v2_5
 * @{
 *
 * This file contains identifiers and low-level macros/functions for the NAND
