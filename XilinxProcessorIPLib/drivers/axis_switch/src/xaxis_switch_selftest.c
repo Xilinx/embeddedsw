@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxis_switch_selftest.c
-* @addtogroup axis_switch_v1_2
+* @addtogroup axis_switch_v1_3
 * @{
 *
 * This file contains self test function for the AXI4-Stream Source Control
