@@ -18,6 +18,12 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   mmd     06/06/19 First release
+* 2.0   kal     09/30/19 Renamed example to xilnvm_bbram_versal_example
+*       kal     01/03/20 Added "Successfully ran" golden string when success
+*       kal     05/12/20 Adds Zeroization before every BBRAM write.
+* 2.1	am	10/10/20 Changed function return type and type of
+*			 status variable from u32 to int
+*
 * </pre>
 *
 *
@@ -25,14 +31,14 @@
 * ------------------------------------------------------------------------------
 * #define 		XNVM_BBRAM_AES_KEY
 * "0000000000000000000000000000000000000000000000000000000000000000"
-* User should replace zeros with 256/128 bit AES key in hexadecimal
+* User should replace zeros with 256 bit AES key in hexadecimal
 * string format. Also should set the key length in bits to macro
 * XNVM_BBRAM_AES_KEY_LEN_IN_BITS.
 *
 *
 * #define 		XNVM_BBRAM_AES_KEY_LEN_IN_BITS		(256U)
 * User should replace this value based on length of the AES Key defined
-* by macro XNVM_BBRAM_AES_KEY. Supported values - 256 or 128
+* by macro XNVM_BBRAM_AES_KEY. Supported values - 256
 *
 ******************************************************************************/
 
@@ -42,7 +48,7 @@
 #include "xil_util.h"
 #include "xstatus.h"
 #include "xnvm_bbram.h"
-
+#include "xnvm_utils.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -65,31 +71,25 @@
 
 /************************** Variable Definitions ****************************/
 
-u8 AesKey[XNVM_BBRAM_AES_KEY_LEN_IN_BYTES];
-
 /************************** Function Prototypes ******************************/
-u32 BbramWriteAesKey(void);
+static int BbramWriteAesKey(void);
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Bbram AES key Write example function.
+* Main function to call the Bbram AES key write example function.
 *
 * @param	None
 *
 * @return
-*		- XST_FAILURE if the Test Failed .
+*		- XST_FAILURE if the BBRAM programming failed.
 *
 * @note		None
 *
 ******************************************************************************/
 int main(void)
 {
-	u32 Status;
-
-#if defined (XSK_ZYNQ_PLATFORM) || defined (XSK_MICROBLAZE_PLATFORM)
-	xil_printf("This example will not work for this platform\n\r");
-#endif
+	int Status = XST_FAILURE;
 
 	xil_printf("BBRAM AES Key writing example for Versal\n\r");
 
@@ -99,13 +99,12 @@ int main(void)
 		xil_printf("Successfully ran Versal BBRAM example....\n\r");
 	}
 	else {
-		xil_printf("BBRAM programming exit with error code = %08x\n\r",
+		xil_printf("BBRAM programming failed with error code = %08x\n\r",
 		          Status);
 	}
 
 	return 0;
 }
-
 
 /*****************************************************************************/
 /**
@@ -113,16 +112,17 @@ int main(void)
 * in BBRAM.
 *
 * @return
-*		- XST_SUCCESS if the Aes decryption was successful
-*		- XST_FAILURE if the Aes decryption failed
+*		- XST_SUCCESS if the Aes key write successful
+*		- XST_FAILURE if the Aes key write failed
 *
 * @note		None.
 *
 ******************************************************************************/
 /** //! [XNvm BBRAM example] */
-u32 BbramWriteAesKey(void)
+static int BbramWriteAesKey(void)
 {
-	u32 Status = XST_SUCCESS;
+	int Status = XST_SUCCESS;
+	u8 AesKey[XNVM_BBRAM_AES_KEY_LEN_IN_BYTES];
 
 	/* Validate the key */
 	Status = XNvm_ValidateAesKey((char *)XNVM_BBRAM_AES_KEY);
@@ -132,7 +132,7 @@ u32 BbramWriteAesKey(void)
 
 	/* Convert key given in macro and assign it to the variable */
 	Xil_ConvertStringToHexLE((char *)XNVM_BBRAM_AES_KEY,
-				&(AesKey[0]), XNVM_BBRAM_AES_KEY_LEN_IN_BITS);
+				AesKey, XNVM_BBRAM_AES_KEY_LEN_IN_BITS);
 
 	/* Write AES key to BBRAM */
 	Status = XNvm_BbramWriteAesKey(AesKey,
