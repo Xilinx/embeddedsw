@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt.c
-* @addtogroup scuwdt_v2_1
+* @addtogroup scuwdt_v2_2
 * @{
 *
 * Contains the implementation of interface functions of the XScuWdt driver.
