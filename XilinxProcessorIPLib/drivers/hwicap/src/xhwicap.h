@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap.h
-* @addtogroup hwicap_v11_2
+* @addtogroup hwicap_v11_3
 * @{
 * @details
 *
