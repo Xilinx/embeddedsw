@@ -7,7 +7,7 @@
 /**
  *
  * @file xddrps.h
- * @addtogroup ddrps_v1_0
+ * @addtogroup ddrps_v1_1
  * @{
  * @details
  *
