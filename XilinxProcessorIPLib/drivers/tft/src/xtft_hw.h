@@ -7,7 +7,7 @@
 /**
 *
 * @file xtft_hw.h
-* @addtogroup tft_v6_1
+* @addtogroup tft_v6_2
 * @{
 * @details
 *
