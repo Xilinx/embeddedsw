@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_sinit.c
-* @addtogroup iic_v3_4
+* @addtogroup iic_v3_6
 * @{
 *
 * The implementation of the Xiic component's static initialization functionality.

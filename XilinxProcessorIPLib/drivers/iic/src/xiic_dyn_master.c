@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_dyn_master.c
-* @addtogroup iic_v3_4
+* @addtogroup iic_v3_6
 * @{
 *
 * Contains master functions for the XIic component in Dynamic controller mode.
