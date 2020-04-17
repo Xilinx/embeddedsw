@@ -186,6 +186,8 @@ usbpsu_v1_7:
 Update optimal number of TRB to improve performance.
 Fixed doxygen warnings.
 Add CCI support
+Restructured usbpsu driver for more modularity and readability.
+Add clock support.
 
 usb_v5_3:
 Update copyright license for usb driver and examples.
