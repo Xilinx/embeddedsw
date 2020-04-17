@@ -121,6 +121,30 @@ xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
 Add support for Multi Partitions
 
+xilrsa_v1_6:
+Added support for ARMCC compiler
+
+xilsecure_v4_2:
+Updated RSA zeroize API for both ZynqMP and versal
+In Versal added an API to enable/disable DPA CM
+Optimized Sha3 data transfer for unaligned sizes and addresses
+Moved AES reset calls into library for Versal and ZynqMP
+ZynqMP single parition image IV calculation is corrected
+Cleared local copied AES keys
+Added APIs for Versal KAT
+RSA zeroization and verification are only done for private operations
+Cleaned up library
+
+xilskey_v6_9:
+Disabled BBRAM programming mode after key write
+Fixes coverity warnings
+Depecrated XilSKey_Puf_Fetch_Dbg_Mode2_result functionality
+Fixed ARMCC compilation errors
+Removed ZynqMP efuse temperature and voltage checks for efuse reads
+Deprecated support to read from efuse memory, if requested throws an error
+Placed temperature and voltage checks before enabling programming
+Cleaned up library
+
 usbps_v2_5:
 Added dependencies.props file to support automation testing.
 Update ch9 framework
