@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_hw.h
-* @addtogroup axicdma_v4_6
+* @addtogroup axicdma_v4_7
 * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
