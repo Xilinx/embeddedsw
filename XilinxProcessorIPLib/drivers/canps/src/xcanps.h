@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps.h
-* @addtogroup canps_v3_3
+* @addtogroup canps_v3_4
 * @{
 * @details
 *

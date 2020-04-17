@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps_hw.c
-* @addtogroup canps_v3_3
+* @addtogroup canps_v3_4
 * @{
 *
 * This file contains the implementation of the canps interface reset sequence

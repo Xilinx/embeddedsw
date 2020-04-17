@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps_g.c
-* @addtogroup canps_v3_3
+* @addtogroup canps_v3_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration
