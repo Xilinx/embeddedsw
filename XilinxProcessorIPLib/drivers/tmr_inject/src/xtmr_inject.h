@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_inject.h
-* @addtogroup tmr_inject_v1_1
+* @addtogroup tmr_inject_v1_2
 * @{
 * @details
 *
