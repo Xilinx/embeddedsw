@@ -65,6 +65,10 @@ Updated the SP701 example
 ospipsv_v1_2:
 Removed psu_ospi entry in supported peripherals in mdd file.
 Added APIs (XOspiPsv_StartDmaTransfer and XOspiPsv_CheckDmaDone) for non-blocking DMA transfer support.
+Reorganize the source code and enable the interrupts by default.
+Updated XOspiPsv_DeviceReset() API with masked data writes.
+Make XOspiPsv_SetDllDelay() API as user API for DLL delay configuration.
+Added support for DLL Master mode.
 
 prc_v2_0:
 Updated prc IP drivers to dfx_controller nomenclature.
