@@ -233,6 +233,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	u64 PdiInitTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
 	u32 DeviceFlags = PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u32 SdRawBootVal;
 
 	/*
 	 * Update PDI Ptr with source, addr, meta header
@@ -256,8 +257,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		|| (DeviceFlags == XLOADER_PDI_SRC_SD1)
 		|| (DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
 		|| (DeviceFlags == XLOADER_PDI_SRC_EMMC)) {
-			if ((RegVal & XLOADER_SD_RAWBOOT_MASK) ==
-				XLOADER_SD_RAWBOOT_VAL) {
+			SdRawBootVal = RegVal & XLOADER_SD_RAWBOOT_MASK;
+			if (SdRawBootVal == XLOADER_SD_RAWBOOT_VAL) {
 				if (DeviceFlags == XLOADER_PDI_SRC_SD0) {
 					PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
 				}
@@ -271,18 +272,17 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 					PdiSrc = XLOADER_PDI_SRC_EMMC_RAW;
 				}
 			}
-			else if ((RegVal & XLOADER_SD_RAWBOOT_MASK) ==
-					XLOADER_EMMC_BP1_RAW_VAL) {
+			else if (SdRawBootVal == XLOADER_EMMC_BP1_RAW_VAL) {
 				PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP1;
 			}
-			else if ((RegVal & XLOADER_SD_RAWBOOT_MASK) ==
-					XLOADER_EMMC_BP2_RAW_VAL) {
+			else if (SdRawBootVal == XLOADER_EMMC_BP2_RAW_VAL) {
 				PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP2;
 			}
 			else {
 				/* For MISRA-C compliance */
 			}
 			PdiPtr->PdiSrc = PdiSrc;
+			DeviceFlags = PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 		}
 		RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
 	}
