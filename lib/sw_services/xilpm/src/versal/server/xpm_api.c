@@ -651,6 +651,8 @@ static void PostTopologyHook(void)
 
 XStatus XPm_HookAfterPlmCdo(void)
 {
+	XStatus Status = XST_FAILURE;
+
 	/*
 	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
 	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
@@ -666,7 +668,29 @@ XStatus XPm_HookAfterPlmCdo(void)
 	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PM_POWER_PMC, 1);
 	PostTopologyHook();
 
-	return XST_SUCCESS;
+	/**
+	 * VCK190/VMK180 boards have VCC_AUX workaround where MIO-37 (PMC GPIO)
+	 * is used to enable the VCC_RAM which used to power the PL.
+	 * As a result, if PMC GPIO is disabled, VCC_RAM goes off.
+	 * To prevent this from happening, request PMC GPIO device on behalf PMC subsystem.
+	 * This will take care of the use cases where PMC is up.
+	 * GPIO will get reset only when PMC goes down.
+	 *
+	 * The VCC_AUX workaround will be removed from MIO-37 in ES2 going ahead.
+	 */
+	if ((PLATFORM_VERSION_SILICON == Platform) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
+					   XPM_MAX_CAPABILITY, XPM_MAX_QOS);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 /****************************************************************************/
