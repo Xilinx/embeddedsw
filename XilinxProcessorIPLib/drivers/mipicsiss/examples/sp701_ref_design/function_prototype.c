@@ -565,12 +565,35 @@ void EnableCSI(void)
 }
 void EnableDSI(void)
 {
-	XDsiTxSs_Activate(&DsiTxSs, XCSI_ENABLE);
+	int Status;
+//	XDsiTxSs_Activate(&DsiTxSs, XCSI_ENABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
 }
 
 void InitDSI(void)
 {
+	 u32 Status;
 	 XDsi_VideoTiming Timing = { 0 };
+	 /* Disable DSI core only. So removed DPHY register interface in design*/
+		Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+		Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+
+
+		XDsiTxSs_Reset(&DsiTxSs);
+
+	 usleep(100000);
+		Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+	 //	XDphy_Activate(DsiTxSs.DphyPtr, XDSITXSS_ENABLE);
+
+	 /*	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
+			xil_printf("DSI Controller NOT Ready!!!!\r\n");
+			return;
+		}*/
+		do {
+			Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
+		} while (!Status);
+
 
 	        Timing.HActive = DSI_DISPLAY_HORI_VAL;
 	        Timing.VActive = DSI_DISPLAY_VERT_VAL;
