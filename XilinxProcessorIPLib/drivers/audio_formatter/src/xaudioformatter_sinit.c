@@ -8,7 +8,7 @@
 /**
 *
 * @file xaudioformatter_sinit.c
-* @addtogroup audio_formatter_v1_0
+* @addtogroup audio_formatter_v1_1
 * @{
 *
 * This file contains static initialization methods for Xilinx audio formatter
