@@ -148,8 +148,7 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			continue;
 		}
 
-		if ((((u32)PM_DEV_GPIO_PMC == Device->Node.Id) ||
-		    ((u32)PM_DEV_GPIO == Device->Node.Id)) &&
+		if (((u32)PM_DEV_GPIO == Device->Node.Id) &&
 		    (PLATFORM_VERSION_SILICON == Platform) &&
 		    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 			continue;
