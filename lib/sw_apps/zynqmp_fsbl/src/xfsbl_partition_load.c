@@ -1102,7 +1102,7 @@ END:
 static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 						u32 PartitionNum)
 {
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 	u32 IsEncryptionEnabled;
 	u32 IsAuthenticationEnabled;
 	u32 IsChecksumEnabled;
@@ -1641,7 +1641,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 	}
 
-	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
