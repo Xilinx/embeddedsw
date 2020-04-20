@@ -7,7 +7,7 @@
 /**
 *
 * @file xcan_g.c
-* @addtogroup can_v3_3
+* @addtogroup can_v3_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration

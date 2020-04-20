@@ -7,7 +7,7 @@
 /**
 *
 * @file xcan_config.c
-* @addtogroup can_v3_3
+* @addtogroup can_v3_4
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.
