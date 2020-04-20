@@ -1191,9 +1191,10 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					case XVIDC_FR_48HZ:
 						if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
 								(bitdepth == XST352_BYTE4_BIT_DEPTH_10) &&
-								(InstancePtr->Transport.TScan) &&
-								(active_luma)) {
-							SdiStream->VmId = XVIDC_VM_4096x2160_48_P;
+								(InstancePtr->Transport.TScan)) {
+							SdiStream->VmId  = active_luma ?
+									XVIDC_VM_4096x2160_48_P :
+									XVIDC_VM_3840x2160_48_P;
 						} else {
 							xil_printf("Unsupported format detected\n\r");
 							return;
