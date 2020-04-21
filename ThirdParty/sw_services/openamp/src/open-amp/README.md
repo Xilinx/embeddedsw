@@ -267,4 +267,4 @@ For now, it supports:
 ## Communication and Collaboration
 [Subscribe](https://lists.openampproject.org/mailman/listinfo/openamp-rp) to the OpenAMP mailing list(openamp-rp@lists.openampproject.org).
 
-For using the framework please refer to the wiki of the OpenAMP repo.
+For more details on the framework please refer to the the [OpenAMP wiki](https://github.com/OpenAMP/open-amp/wiki).
