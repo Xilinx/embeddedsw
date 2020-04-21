@@ -20,26 +20,22 @@ enable development of software applications for Asymmetric Multiprocessing
 ## OpenAMP Source Structure
 ```
 |- lib/
-|  |- common/     # common helper functions
 |  |- virtio/     # virtio implementation
 |  |- rpmsg/      # rpmsg implementation
 |  |- remoteproc/ # remoteproc implementation
-|  |  |- drivers  # remoteproc drivers
 |  |- proxy/      # implement one processor access device on the
 |  |              # other processor with file operations
 |- apps/        # demonstration/testing applications
+|  |- examples/ # Application samples using the OpenAMP framework.
 |  |- machine/  # common files for machine can be shared by applications
-|               # It is up to each app to decide whether to use these files.
+|  |            # It is up to each app to decide whether to use these files.
 |  |- system/   # common files for system can be shared by applications
 |               # It is up to each app to decide whether to use these files.
-|- obsolete     # It is used to build libs which may also required when
-|               # building the apps. It will be removed in future since
-|               # user can specify which libs to use when compiling the apps.
 |- cmake        # CMake files
+|- script       # helper scripts (such as checkpatch) for contributors.
 ```
 
 OpenAMP library libopen_amp is composed of the following directories in `lib/`:
-*   `common/`
 *   `virtio/`
 *   `rpmsg/`
 *   `remoteproc/`
