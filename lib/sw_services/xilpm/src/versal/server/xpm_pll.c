@@ -25,6 +25,8 @@
 ******************************************************************************/
 
 #include "xpm_pll.h"
+#include "xpm_psm.h"
+#include "xpm_regs.h"
 
 #define CLK_PARENTS_PAYLOAD_LEN		12U
 
@@ -203,6 +205,22 @@ static void XPm_PllRestoreContext(XPm_PllClockNode* Pll)
 	Pll->Context.Flag &= (u8)(~PM_PLL_CONTEXT_SAVED);
 }
 
+static void XPm_PllClearLockError(XPm_PllClockNode* Pll)
+{
+	XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL != Psm) {
+		if (PM_CLK_APU_PLL == Pll->ClkNode.Node.Id) {
+			XPm_Write32(Psm->PsmGlobalBaseAddr + PSM_ERR1_STATUS_OFFSET,
+				    PSM_ERR1_STATUS_APLL_LOCK_MASK);
+		} else if (PM_CLK_RPU_PLL == Pll->ClkNode.Node.Id) {
+			XPm_Write32(Psm->PsmGlobalBaseAddr + PSM_ERR1_STATUS_OFFSET,
+				    PSM_ERR1_STATUS_RPLL_LOCK_MASK);
+		} else {
+			/* Required due to MISRA */
+		}
+	}
+}
+
 XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 {
 	XStatus Status = XST_FAILURE;
@@ -357,6 +375,15 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 			XPm_RMW32(ControlReg, BIT32(Pll->Topology->BypassShift),
 					~BIT32(Pll->Topology->BypassShift));
 			Pll->ClkNode.Node.State = PM_PLL_STATE_LOCKED;
+
+			/**
+			 * PLL lock error source needs to be disabled before PLL suspend
+			 * and re-enable after PLL lock which can be done by disabling
+			 * interrupt from PMC global module but it is also disabling
+			 * another error interrupts. So another way is to clear the PLL
+			 * error lock status once PLL is locked after resume.
+			 */
+			XPm_PllClearLockError(Pll);
 		} else {
 			goto done;
 		}
