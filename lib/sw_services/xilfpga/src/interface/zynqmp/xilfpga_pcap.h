@@ -199,6 +199,7 @@ extern "C" {
 #define XFPGA_ERROR_BITSTREAM_FORMAT		(0x1AU)
 #define XFPGA_ERROR_UNALIGN_ADDR		(0x1BU)
 #define XFPGA_ERROR_AES_INIT			(0x1CU)
+#define XFPGA_ERROR_EFUSE_CHECK 		(0x1DU)
 
 /* PCAP Error Update Macro */
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)

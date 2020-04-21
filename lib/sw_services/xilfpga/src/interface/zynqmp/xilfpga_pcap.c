@@ -304,6 +304,15 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	}
 
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) == 0U) {
+
+		/* eFUSE checks */
+		if ((XSecure_IsRsaEnabled() == XSECURE_ENABLED) ||
+		    (XSecure_IsEncOnlyEnabled() == XSECURE_ENABLED)) {
+			Status = XFPGA_PCAP_UPDATE_ERR(
+					(u32)XFPGA_ERROR_EFUSE_CHECK, (u32)0U);
+			goto END;
+		}
+
 		if((u32)(memcmp((u8 *)(InstancePtr->WriteInfo.BitstreamAddr +
 		   BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
 		   BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat)))== 0U) {
