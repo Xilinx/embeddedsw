@@ -264,5 +264,7 @@ For now, it supports:
 4. `sudo` is required to run the OpenAMP demos between Linux processes, as
    it doesn't work on some systems if you are normal users.
 
+## Communication and Collaboration
+[Subscribe](https://lists.openampproject.org/mailman/listinfo/openamp-rp) to the OpenAMP mailing list(openamp-rp@lists.openampproject.org).
+
 For using the framework please refer to the wiki of the OpenAMP repo.
-Subscribe to the open-amp mailing list at https://groups.google.com/group/open-amp.
