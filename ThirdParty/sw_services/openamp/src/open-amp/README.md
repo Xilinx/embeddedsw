@@ -77,6 +77,24 @@ compile libmetal library separately before you compiling OpenAMP library.
 In future, we will try to make libmetal as a submodule to OpenAMP to make this
 flow easier.
 
+Some Cmake options are available to allow user to customize to the OpenAMP
+library for it project:
+* **WITH_PROXY** (default OFF): Include proxy support in the library.
+* **WITH APPS** (default OFF): Build with sample applications.
+* **WITH_PROXY_APPS** (default OFF):Build with proxy sample applications.
+* **WITH_VIRTIO_MASTER** (default ON): Build with virtio master enabled.
+  This option can be set to OFF if the only the remote mode is implemented.
+* **WITH_VIRTIO_SLAVE** (default ON): Build with virtio slave enabled.
+  This option can be set to OFF if the only the master mode is implemented.
+* **WITH_STATIC_LIB** (default ON): Build with a static library.
+* **WITH_SHARED_LIB** (default ON): Build with a shared library.
+* **WITH_ZEPHYR** (default OFF): Build open-amp as a zephyr library. This option
+  is mandatory in a Zephyr environment.
+* **RPMSG_BUFFER_SIZE** (default 512): adjust the size of the RPMsg buffers.
+  The default value of the RPMsg size is compatible with the Linux Kernel hard
+  coded value. If you AMP configuration is Linux kernel master/ OpenAMP remote,
+  this option must not be used.
+
 ### Example to compile OpenAMP for Zephyr
 You can compile OpenAMP library for Zephyr.
 As OpenAMP uses libmetal, please refer to libmetal README to build libmetal
