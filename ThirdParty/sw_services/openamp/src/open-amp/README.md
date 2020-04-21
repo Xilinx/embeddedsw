@@ -96,7 +96,13 @@ library for it project:
   this option must not be used.
 
 ### Example to compile OpenAMP for Zephyr
-You can compile OpenAMP library for Zephyr.
+The [Zephyr open-amp repo](https://github.com/zephyrproject-rtos/open-amp)
+implements the open-amp library for the Zephyr project. It is mainly a fork of
+this repository, with some add-ons for integration in the Zephyr project.
+The standard way to compile OpenAMP for a Zephyr project is to use Zephyr build
+environment. Please refer to [Zephyr OpenAMP samples](https://github.com/zephyrproject-rtos/zephyr/tree/master/samples/subsys/ipc) for examples.
+
+Nevertheless you can compile the OpenAMP project for Zephyr.
 As OpenAMP uses libmetal, please refer to libmetal README to build libmetal
 for Zephyr before building OpenAMP library for Zephyr.
 As Zephyr uses CMake, we build OpenAMP library as a target of Zephyr CMake
