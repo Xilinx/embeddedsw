@@ -304,7 +304,9 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	}
 
 END:
-	(void)memset((void*)InstancePtr->PartialData, 0, Size);
+	if (Size > 0x0U) {
+		(void)memset((void*)InstancePtr->PartialData, 0, Size);
+	}
 	/* Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_SHA3_RESET_OFFSET);
