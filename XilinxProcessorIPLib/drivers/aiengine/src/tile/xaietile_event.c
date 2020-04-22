@@ -3822,8 +3822,10 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 		TilePtr += col * (NumRows + 1);
 		u8 Irq1stBc;
 		XAie_LocType Loc;
+#ifndef __AIESIM__
 		u32 ClockCntrlRegVal;
 		u64 RegAddr;
+#endif
 
 		Loc.Col = TilePtr->ColId;
 		Loc.Row = 0;
@@ -3923,9 +3925,11 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 					XAIETILE_BCEVENTS_NOTIFY_MASK);
 			}
 		}
+#ifndef __AIESIM__
 		RegAddr = TilePtr->TileAddr;
 		ClockCntrlRegVal = XAieGbl_Read32(RegAddr + XAIEGBL_PL_TILCLOCTRL);
 		if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+#endif
 			for(u32 row = 1; row <= NumRows; row++){
 				TilePtr = AieInst->Tiles;
 				TilePtr += col * (NumRows + 1) + row;
@@ -3952,14 +3956,18 @@ int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst)
 				TilePtr->MemBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
 				TilePtr->CoreBCUsedMask = 1 << XAIETILE_ERROR_BROADCAST;
 
+#ifndef __AIESIM__
 				RegAddr = TilePtr->TileAddr;
 				ClockCntrlRegVal = XAieGbl_Read32(RegAddr +
 					XAIEGBL_CORE_TILCLOCTRL);
 				/* check if the tile above this tile is gated */
 				if(!(ClockCntrlRegVal & XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
 					break;
+#endif
 			}
+#ifndef __AIESIM__
 		}
+#endif
 	}
 
 	/* Initialize errors handling. Setup the errors broadcasting event.

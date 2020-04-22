@@ -876,9 +876,12 @@ void XAieTile_ErrorsSetupDefaultHandler(XAieGbl *AieInst)
  *****************************************************************************/
 int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
 {
-	u32 NumCols, NumRows, ClockCntrlRegVal;
+	u32 NumCols, NumRows;
 	XAieGbl_Tile *TilePtr;
+#ifndef __AIESIM__
+	u32 ClockCntrlRegVal;
 	u64 RegAddr;
+#endif
 
 	XAie_AssertNonvoid(AieInst != XAIE_NULL);
 	XAie_AssertNonvoid(AieInst->Config != XAIE_NULL);
@@ -902,10 +905,12 @@ int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
 					     XAIETILE_ERROR_SHIM_INTEVENT,
 					     XAIETILE_EVENT_SHIM_GROUP_ERRORS_,
 					     XAIETILE_PL_BLOCK_SWITCHA);
+#ifndef __AIESIM__
 		/* check if any tile in this col is used */
 		RegAddr = TilePtr->TileAddr;
 		ClockCntrlRegVal = XAieGbl_Read32(RegAddr + XAIEGBL_PL_TILCLOCTRL);
 		if(ClockCntrlRegVal & XAIEGBL_PL_TILCLOCTRLMSK){
+#endif
 			for(u32 row = 1; row <= NumRows; row++){
 				TilePtr = AieInst->Tiles;
 				TilePtr += col * (NumRows + 1) + row;
@@ -924,14 +929,18 @@ int XAieTile_ErrorsHandlingInitialize(XAieGbl *AieInst)
 					XAIETILE_ERROR_BROADCAST,
 					XAIETILE_EVENT_MEM_GROUP_ERRORS);
 
+#ifndef __AIESIM__
 				RegAddr = TilePtr->TileAddr;
 				ClockCntrlRegVal = XAieGbl_Read32(
 					RegAddr + XAIEGBL_CORE_TILCLOCTRL);
 				/* check if the tile above this tile is gated */
 				if(!(ClockCntrlRegVal & XAIEGBL_CORE_TILCLOCTRL_NEXTILCLOENA_MASK))
 					break;
+#endif
 			}
+#ifndef __AIESIM__
 		}
+#endif
 	}
 	return XAIE_SUCCESS;
 }
