@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*
  * CONTENT
@@ -38,7 +18,9 @@
 #include <xpseudo_asm.h>
 
 /* Mask to get affinity level 0 */
-#define PM_AFL0_MASK   0xFF
+#define PM_AFL0_MASK   0xFFU
+
+#define WFI		__asm__ ("wfi")
 
 static struct XPm_Master pm_apu_0_master = {
 	.node_id = NODE_APU_0,
@@ -181,15 +163,15 @@ void XPm_ClientWakeup(const struct XPm_Master *const master)
  */
 void XPm_ClientSuspendFinalize(void)
 {
-	u32 ctrlReg;
-
 	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
+	u64 ctrlReg;
 	ctrlReg = mfcp(SCTLR_EL3);
 	if ((XREG_CONTROL_DCACHE_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
 	}
 #else
+	u32 ctrlReg;
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
@@ -197,7 +179,7 @@ void XPm_ClientSuspendFinalize(void)
 #endif
 
 	pm_dbg("Going to WFI...\n");
-	__asm__("wfi");
+	WFI;
 	pm_dbg("WFI exit...\n");
 }
 
@@ -206,10 +188,11 @@ void XPm_ClientSuspendFinalize(void)
  */
 void XPm_ClientSetPrimaryMaster(void)
 {
-	u32 master_id;
 #ifdef __aarch64__
+	u64 master_id;
 	master_id = mfcp(MPIDR_EL1);
 #else
+	u32 master_id;
 	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY);
 #endif
 

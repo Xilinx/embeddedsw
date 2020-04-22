@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /**
  * @file pm_callbacks.c
  *
@@ -50,10 +30,10 @@ static XPm_Notifier* notifierList = NULL;
  ****************************************************************************/
 XStatus XPm_NotifierAdd(XPm_Notifier* const notifier)
 {
-	XStatus status = XST_FAILURE;
+	XStatus status = (XStatus)XST_FAILURE;
 
 	if (NULL == notifier) {
-		status = XST_INVALID_PARAM;
+		status = (XStatus)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -63,7 +43,7 @@ XStatus XPm_NotifierAdd(XPm_Notifier* const notifier)
 	notifier->next = notifierList;
 	notifierList = notifier;
 
-	status = XST_SUCCESS;
+	status = (XStatus)XST_SUCCESS;
 
 done:
 	return status;
@@ -84,12 +64,12 @@ done:
  ****************************************************************************/
 XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 {
-	XStatus status = XST_FAILURE;
+	XStatus status = (XStatus)XST_FAILURE;
 	XPm_Notifier* curr;
 	XPm_Notifier* prev = NULL;
 
 	if (NULL == notifier) {
-		status = XST_INVALID_PARAM;
+		status = (XStatus)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -103,7 +83,7 @@ XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 				notifierList = curr->next;
 			}
 
-			status = XST_SUCCESS;
+			status = (XStatus)XST_SUCCESS;
 			break;
 		}
 		prev = curr;
