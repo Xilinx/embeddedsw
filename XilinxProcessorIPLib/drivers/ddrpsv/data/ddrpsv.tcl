@@ -9,6 +9,7 @@
 # 1.0      mus    03/16/19 First Release.
 #          mn     09/05/19 Correct the variable name for C0_DDR_CH2 block
 #          mn     09/12/19 Check only for initial block name for DDR region
+#          mn     04/22/20 Update the tcl to check C1, C2 and C3 regions
 #
 ###############################################################################
 
@@ -46,7 +47,7 @@ proc define_addr_params {drv_handle file_name} {
 	set i 0
 	foreach block_name $interface_block_names {
 
-		if {[string match "C0_DDR_LOW0*" $block_name]} {
+		if {[string match "C*_DDR_LOW0*" $block_name]} {
 			if {$is_ddr_low_0 == 0} {
 				set base_value_0 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
 					-of_objects [get_cells -hier $sw_proc] $periph] $i]]
@@ -55,7 +56,7 @@ proc define_addr_params {drv_handle file_name} {
                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
 			set is_ddr_low_0 1
 
-		} elseif {[string match "C0_DDR_LOW1*" $block_name]} {
+		} elseif {[string match "C*_DDR_LOW1*" $block_name]} {
                         if {$is_ddr_low_1 == 0} {
                                 set base_value_1 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
                                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
@@ -64,7 +65,7 @@ proc define_addr_params {drv_handle file_name} {
                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
                         set is_ddr_low_1 1
 
-		} elseif {[string match "C0_DDR_LOW2*" $block_name]} {
+		} elseif {[string match "C*_DDR_LOW2*" $block_name]} {
                         if {$is_ddr_low_2 == 0} {
                                 set base_value_2 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
                                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
@@ -73,7 +74,7 @@ proc define_addr_params {drv_handle file_name} {
                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
                         set is_ddr_low_2 1
 
-		} elseif {[string match "C0_DDR_LOW3*" $block_name]} {
+		} elseif {[string match "C*_DDR_LOW3*" $block_name]} {
                         if {$is_ddr_low_3 == "0"} {
                                 set base_value_3 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
                                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
@@ -81,7 +82,7 @@ proc define_addr_params {drv_handle file_name} {
                         set high_value_3 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
                         set is_ddr_low_3 1
-		} elseif {[string match "C0_DDR_CH1*" $block_name]} {
+		} elseif {[string match "C*_DDR_CH1*" $block_name]} {
                         if {$is_ddr_ch_1 == "0"} {
                                 set base_value_4 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
                                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
@@ -89,7 +90,7 @@ proc define_addr_params {drv_handle file_name} {
                         set high_value_4 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
                         set is_ddr_ch_1 1
-		} elseif {[string match "C0_DDR_CH2*" $block_name]} {
+		} elseif {[string match "C*_DDR_CH2*" $block_name]} {
                         if {$is_ddr_ch_2 == "0"} {
                                 set base_value_5 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
                                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
@@ -97,7 +98,7 @@ proc define_addr_params {drv_handle file_name} {
                         set high_value_5 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
                         set is_ddr_ch_2 1
-		} elseif {[string match "C0_DDR_CH3*" $block_name]} {
+		} elseif {[string match "C*_DDR_CH3*" $block_name]} {
                         if {$is_ddr_ch_3 == "0"} {
                                 set base_value_6 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
                                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
