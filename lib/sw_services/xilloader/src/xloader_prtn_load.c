@@ -66,7 +66,6 @@ static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu);
-static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 
 /************************** Variable Definitions *****************************/
@@ -94,12 +93,6 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		PrtnIndex++) {
 		PrtnLoadTime = XPlmi_GetTimerValue();
 
-		if (PdiPtr->DelayHandoff == TRUE) {
-			/* Update the handoff values */
-			XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
-			PrtnNum++;
-			continue;
-		}
 		XPlmi_Printf(DEBUG_GENERAL, "+++++++Loading Prtn No: 0x%0x\r\n",
 			     PrtnNum);
 		/* Prtn Hdr Validation */
@@ -338,8 +331,9 @@ END:
  * @return	None
  *
  *****************************************************************************/
-static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
+int XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 {
+	int Status = XST_FAILURE;
 	u32 DstnCpu;
 	u32 CpuNo;
 	XilPdi_PrtnHdr * PrtnHdr;
@@ -352,6 +346,11 @@ static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM)) {
 		CpuNo = PdiPtr->NoOfHandoffCpus;
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
+			if (CpuNo == XLOADER_MAX_HANDOFF_CPUS) {
+				Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_NUM_HANDOFF_CPUS, 0U);
+				goto END;
+			}
 			/* Update the CPU settings */
 			PdiPtr->HandoffParam[CpuNo].CpuSettings =
 				XilPdi_GetDstnCpu(PrtnHdr) |
@@ -362,6 +361,9 @@ static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 			PdiPtr->NoOfHandoffCpus += 1U;
 		}
 	}
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -615,13 +617,17 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 		Status = XLoader_PrtnCopy(PdiPtr, PrtnNum);
 	}
 
-	if (XST_SUCCESS != Status) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (PdiPtr->CopyToMem == FALSE) {
+	if ((PdiPtr->CopyToMem == FALSE) &&
+		(PdiPtr->DelayHandoff == FALSE)) {
 		/* Update the handoff values */
-		XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
+		Status = XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 END:
