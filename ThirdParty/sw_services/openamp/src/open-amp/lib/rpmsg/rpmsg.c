@@ -29,7 +29,7 @@ static uint32_t rpmsg_get_address(unsigned long *bitmap, int size)
 
 	nextbit = metal_bitmap_next_clear_bit(bitmap, 0, size);
 	if (nextbit < (uint32_t)size) {
-		addr = nextbit;
+		addr = RPMSG_RESERVED_ADDRESSES + nextbit;
 		metal_bitmap_set_bit(bitmap, nextbit);
 	}
 
@@ -48,7 +48,8 @@ static uint32_t rpmsg_get_address(unsigned long *bitmap, int size)
 static void rpmsg_release_address(unsigned long *bitmap, int size,
 				  int addr)
 {
-	if (addr < size)
+	addr -= RPMSG_RESERVED_ADDRESSES;
+	if (addr >= 0 && addr < size)
 		metal_bitmap_clear_bit(bitmap, addr);
 }
 
@@ -65,7 +66,8 @@ static void rpmsg_release_address(unsigned long *bitmap, int size,
  */
 static int rpmsg_is_address_set(unsigned long *bitmap, int size, int addr)
 {
-	if (addr < size)
+	addr -= RPMSG_RESERVED_ADDRESSES;
+	if (addr >= 0 && addr < size)
 		return metal_bitmap_is_bit_set(bitmap, addr);
 	else
 		return RPMSG_ERR_PARAM;
@@ -84,7 +86,8 @@ static int rpmsg_is_address_set(unsigned long *bitmap, int size, int addr)
  */
 static int rpmsg_set_address(unsigned long *bitmap, int size, int addr)
 {
-	if (addr < size) {
+	addr -= RPMSG_RESERVED_ADDRESSES;
+	if (addr >= 0 && addr < size) {
 		metal_bitmap_set_bit(bitmap, addr);
 		return RPMSG_SUCCESS;
 	} else {
@@ -207,7 +210,13 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 		return RPMSG_ERR_PARAM;
 
 	metal_mutex_acquire(&rdev->lock);
-	if (src != RPMSG_ADDR_ANY) {
+	if (src == RPMSG_ADDR_ANY) {
+		addr = rpmsg_get_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE);
+		if (addr == RPMSG_ADDR_ANY) {
+			status = RPMSG_ERR_ADDR;
+			goto ret_status;
+		}
+	} else if (src >= RPMSG_RESERVED_ADDRESSES) {
 		status = rpmsg_is_address_set(rdev->bitmap,
 					      RPMSG_ADDR_BMP_SIZE, src);
 		if (!status) {
@@ -221,11 +230,10 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 			goto ret_status;
 		}
 	} else {
-		addr = rpmsg_get_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE);
-		if (addr == RPMSG_ADDR_ANY) {
-			status = RPMSG_ERR_ADDR;
-			goto ret_status;
-		}
+		/* Skip check the address duplication in 0-1023:
+		 * 1.Trust the author of predefined service
+		 * 2.Simplify the tracking implementation
+		 */
 	}
 
 	rpmsg_init_ept(ept, name, addr, dest, cb, unbind_cb);
