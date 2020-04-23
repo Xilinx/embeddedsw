@@ -145,6 +145,8 @@ enum {
 						 length is received in Logging command. */
 	XPLMI_ERR_IPI_CMD, /**< 0x115 - Error when command execution through
 							IPI is not supported */
+	XPLMI_ERR_REGISTER_IOMOD_HANDLER, /**< 0x116 - Error when registering
+						IoModule Handler */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200U,	/**< 0x200 - Error when task create

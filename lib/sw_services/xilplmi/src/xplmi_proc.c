@@ -61,11 +61,16 @@
 	(Lvl0<<0U | Lvl1<<8U | Lvl2<<16U)
 
 /************************** Function Prototypes ******************************/
+static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
+			XInterruptHandler Handler, void * Data);
 
 /************************** Variable Definitions *****************************/
 static int PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
 static u32 PlmIntrMap [] = {
+	[XPLMI_CFRAME_SEU] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_CFRAME_SEU,
+						0x0U,
+						0x0U),
 	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
 						XPLMI_PMC_GIC_IRQ_GICP0,
 						XPLMI_GICP0_SRC27),
@@ -391,7 +396,6 @@ int XPlmi_SetUpInterruptSystem(void)
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GIC_IRQ);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_MB_RAM);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GPI);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_PIT3_IRQ);
 
@@ -456,6 +460,10 @@ void XPlmi_PlmIntrEnable(u32 IntrId)
 			XPlmi_GicIntrEnable(PlmIntrId);
 			break;
 
+		case XPLMI_IOMODULE_CFRAME_SEU:
+			XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
+			break;
+
 		default:
 			break;
 	}
@@ -482,6 +490,10 @@ void XPlmi_PlmIntrDisable(u32 IntrId)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicIntrDisable(PlmIntrId);
+			break;
+
+		case XPLMI_IOMODULE_CFRAME_SEU:
+			XIOModule_Disable(&IOModule, (u8 )IoModIntrNum);
 			break;
 
 		default:
@@ -512,9 +524,43 @@ void XPlmi_PlmIntrClear(u32 IntrId)
 			XPlmi_GicIntrClearStatus(PlmIntrId);
 			break;
 
+		case XPLMI_IOMODULE_CFRAME_SEU:
+			XIOModule_Acknowledge(&IOModule, (u8 )IoModIntrNum);
+			break;
+
 		default:
 			break;
 	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will register IOModule handler.
+*
+* @param    IoModIntrNum IOModule interrupt Number
+* @param    Handler to be registered for the interrupt
+* @param    Data to be passed to handler
+*
+* @return   XST_SUCCESS on success and error code on failure
+*
+****************************************************************************/
+static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
+			XInterruptHandler Handler, void * Data)
+{
+	int Status = XST_FAILURE;
+
+	g_TopLevelInterruptTable[IoModIntrNum].Handler = Handler;
+	Status = XIOModule_Connect(&IOModule, (u8)IoModIntrNum, Handler, Data);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "IoModule Connect Failed:0x%0x\n\r",
+			     Status);
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_REGISTER_IOMOD_HANDLER,
+					    Status);
+		goto END;
+	}
+
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -540,6 +586,11 @@ void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
+			break;
+
+		case XPLMI_IOMODULE_CFRAME_SEU:
+			(void )XPlmi_IoModuleRegisterHandler(IoModIntrNum,
+				      (XInterruptHandler)Handler, Data);
 			break;
 
 		default:
