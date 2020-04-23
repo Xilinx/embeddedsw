@@ -1444,7 +1444,8 @@ static u32 XSecure_BhdrValidation(XSecure_ImageInfo *ImageInfo)
 	ImgAttributes = Xil_In32((UINTPTR)(Buffer +
 				XSECURE_IMAGE_ATTR_OFFSET));
 
-	if ((ImgAttributes & XSECURE_IMG_ATTR_BHDR_MASK) != 0x00U) {
+	if ((ImgAttributes & XSECURE_IMG_ATTR_BHDR_MASK) ==
+				XSECURE_IMG_ATTR_BHDR_MASK) {
 		ImageInfo->BhdrAuth = XSECURE_ENABLED;
 	}
 
