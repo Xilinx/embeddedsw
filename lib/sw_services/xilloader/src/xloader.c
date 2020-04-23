@@ -492,6 +492,13 @@ END:
 int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
+	u32 NoOfDelayedHandoffCpus = 0U;
+	u32 DelayHandoffImageNum[XLOADER_MAX_HANDOFF_CPUS] = {0U};
+	u32 DelayHandoffPrtnNum[XLOADER_MAX_HANDOFF_CPUS] = {0U};
+	u32 Index = 0U;
+	u32 ImageNum;
+	u32 PrtnNum;
+	u32 PrtnIndex;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -514,7 +521,29 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		else {
 			PdiPtr->CopyToMem = FALSE;
 		}
-		PdiPtr->DelayHandoff = FALSE;
+		PdiPtr->DelayHandoff = XilPdi_GetDelayHandoff(
+			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
+			XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT;
+		if ((PdiPtr->CopyToMem == TRUE) &&
+				(PdiPtr->DelayHandoff == TRUE)) {
+			Status = XPLMI_UPDATE_STATUS(
+					XLOADER_ERR_DELAY_ATTRB, 0U);
+			goto END;
+		}
+
+		if (PdiPtr->DelayHandoff == TRUE) {
+			if (NoOfDelayedHandoffCpus == XLOADER_MAX_HANDOFF_CPUS) {
+				Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_NUM_HANDOFF_CPUS, 0U);
+				goto END;
+			}
+			DelayHandoffImageNum[NoOfDelayedHandoffCpus] =
+					PdiPtr->ImageNum;
+			DelayHandoffPrtnNum[NoOfDelayedHandoffCpus] =
+					PdiPtr->PrtnNum;
+			NoOfDelayedHandoffCpus += 1U;
+		}
+
 		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
 		/* Check for Cfi errors */
 		XLoader_CframeErrorHandler();
@@ -522,18 +551,9 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			goto END;
 		}
 
-		if (PdiPtr->CopyToMem == TRUE) {
-			if (PdiPtr->DelayHandoff == TRUE) {
-				Status = XPLMI_UPDATE_STATUS(
-						XLOADER_ERR_DELAY_ATTRB, 0U);
-				goto END;
-			}
+		if ((PdiPtr->CopyToMem == TRUE) ||
+			(PdiPtr->DelayHandoff == TRUE)) {
 			continue;
-		}
-		else {
-			if (PdiPtr->DelayHandoff == TRUE) {
-				continue;
-			}
 		}
 
 		Status = XLoader_StartImage(PdiPtr);
@@ -542,26 +562,23 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		}
 	}
 
-	for (PdiPtr->ImageNum = 1U;
-		PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
-		++PdiPtr->ImageNum) {
-		PdiPtr->DelayHandoff = XilPdi_GetDelayHandoff(
-			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
-			XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT;
-		if (PdiPtr->DelayHandoff == TRUE) {
-			XPlmi_Printf(DEBUG_INFO, "Delayed handoff of"
-				"Image Id 0x%x\n\r",
-				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-			Status = XLoader_LoadImage(PdiPtr,
-				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
+	/* Delay Handoff starts here */
+	for ( ; Index < NoOfDelayedHandoffCpus; ++Index) {
+		ImageNum = DelayHandoffImageNum[Index];
+		PrtnNum = DelayHandoffPrtnNum[Index];
 
-			Status = XLoader_StartImage(PdiPtr);
+		for (PrtnIndex = 0U; PrtnIndex <
+			PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns; PrtnIndex++) {
+			Status = XLoader_UpdateHandoffParam(PdiPtr,
+					PrtnNum + PrtnIndex);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+		}
+
+		Status = XLoader_StartImage(PdiPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
 	}
 	Status = XST_SUCCESS;

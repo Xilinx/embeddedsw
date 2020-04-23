@@ -108,6 +108,7 @@ extern "C" {
 #define XLOADER_MAX_SUBSYSTEMS		(10U)
 #define XLOADER_RUNNING_CPU_SHIFT	(0x8U)
 #define XLOADER_MAX_DDRCOPYIMGS		(10U)
+#define XLOADER_MAX_HANDOFF_CPUS	(10U)
 
 /*
  * PDI type macros
@@ -221,7 +222,7 @@ typedef struct {
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
 	int (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
-	XLoader_HandoffParam HandoffParam[10U];
+	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
 	u32 ImageNum; /**< Image number in the PDI */
@@ -326,6 +327,7 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
+int XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
 
 /* Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);

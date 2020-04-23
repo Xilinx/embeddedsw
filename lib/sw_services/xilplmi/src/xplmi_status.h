@@ -278,6 +278,8 @@ enum {
 					  SEM Scan */
 	XLOADER_ERR_DELAY_ATTRB,	/**< 0x332 - Error when both delay handoff
 					  and copy to image */
+	XLOADER_ERR_NUM_HANDOFF_CPUS,	/**< 0x333 - Error when number of CPUs
+						exceed max count */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600U,
