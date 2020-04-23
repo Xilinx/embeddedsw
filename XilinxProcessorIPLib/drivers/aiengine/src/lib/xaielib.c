@@ -37,6 +37,7 @@
 * 2.5  Hyun    09/13/2019  Use XAieSim_LoadElfMem()
 * 2.6  Tejus   10/14/2019  Enable assertion for linux and simulation
 * 2.7  Wendy   02/25/2020  Add logging API
+* 2.8  Tejus   04/17/2020  Fix variable overflow issue.
 * </pre>
 *
 ******************************************************************************/
@@ -1069,7 +1070,7 @@ u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
 	 * on some profiling, and it may vary between platforms.
 	 */
 	MinTimeOutUs = 200;
-	Count = (TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
+	Count = ((u64)TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
 
 	while (Count > 0U) {
 		if ((XAieLib_Read32(Addr) & Mask) == Value) {
@@ -1237,7 +1238,7 @@ u32 XAieLib_NPIMaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
 	 * on some profiling, and it may vary between platforms.
 	 */
 	MinTimeOutUs = 200;
-	Count = (TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
+	Count = ((u64)TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
 
 	while (Count > 0U) {
 		if ((XAieLib_NPIRead32(Addr) & Mask) == Value) {
