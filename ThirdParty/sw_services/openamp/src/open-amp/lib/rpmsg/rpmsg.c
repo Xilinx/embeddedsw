@@ -215,13 +215,17 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 			rpmsg_set_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE,
 					  src);
 		} else if (status > 0) {
-			status = RPMSG_SUCCESS;
+			status = RPMSG_ERR_ADDR;
 			goto ret_status;
 		} else {
 			goto ret_status;
 		}
 	} else {
 		addr = rpmsg_get_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE);
+		if (addr == RPMSG_ADDR_ANY) {
+			status = RPMSG_ERR_ADDR;
+			goto ret_status;
+		}
 	}
 
 	rpmsg_init_ept(ept, name, addr, dest, cb, unbind_cb);
