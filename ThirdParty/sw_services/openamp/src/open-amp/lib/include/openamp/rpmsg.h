@@ -146,8 +146,6 @@ int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
 static inline int rpmsg_send(struct rpmsg_endpoint *ept, const void *data,
 			     int len)
 {
-	if (ept->dest_addr == RPMSG_ADDR_ANY)
-		return RPMSG_ERR_ADDR;
 	return rpmsg_send_offchannel_raw(ept, ept->addr, ept->dest_addr, data,
 					 len, true);
 }
@@ -216,8 +214,6 @@ static inline int rpmsg_send_offchannel(struct rpmsg_endpoint *ept,
 static inline int rpmsg_trysend(struct rpmsg_endpoint *ept, const void *data,
 				int len)
 {
-	if (ept->dest_addr == RPMSG_ADDR_ANY)
-		return RPMSG_ERR_ADDR;
 	return rpmsg_send_offchannel_raw(ept, ept->addr, ept->dest_addr, data,
 					 len, false);
 }
