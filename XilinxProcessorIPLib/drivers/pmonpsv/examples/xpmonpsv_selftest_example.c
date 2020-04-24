@@ -6,11 +6,11 @@
 /*****************************************************************************/
 /**
 *
-* @file xpmonpsv_selftest.c
-* @addtogroup xpmonpsv_v1_0
+* @file xpmonpsv_selftest_example.c
+* @addtogroup xpmonpsv_v2_0
 * @{
 *
-* This file contains a diagnostic self test function for the XpsvPmon driver.
+* This file contains a diagnostic self test function for the XPmonPsv driver.
 * The self test function does a simple read/write test of the Alarm Threshold
 * Register.
 *
@@ -25,6 +25,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd  01/20/19 First release
 * 1.2 sd  11/14/19 Update the name of the device id.
+* 2.0 sd  04/22/20 Change the file name.
 * </pre>
 *
 *****************************************************************************/
@@ -51,7 +52,7 @@
  * The following are declared globally so they are zeroed and so they are
  * easily accessible from a debugger.
  */
-static XpsvPmon PsvPmonInstance; /* The driver instance for Psvpmon Device */
+static XPmonPsv PmonPsvInstance; /* The driver instance for PmonPsv Device */
 
 
 /************************** Function Prototypes *****************************/
@@ -66,7 +67,7 @@ static XpsvPmon PsvPmonInstance; /* The driver instance for Psvpmon Device */
 *	- Resets the device again.
 *
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 *
 * @return
 *		- XST_SUCCESS if the value read from the Range Register of
@@ -78,9 +79,9 @@ static XpsvPmon PsvPmonInstance; /* The driver instance for Psvpmon Device */
 *		device status after the reset operation.
 *
 ******************************************************************************/
-static s32 XpsvPmon_SelfTest(XpsvPmon *InstancePtr)
+static u32 XPmonPsv_SelfTest(XPmonPsv *InstancePtr)
 {
-	s32 Status;
+	u32 Status = XST_FAILURE;
 	u32 Regval = 0;
 	u32 WriteRequestValue;
 	u32 WriteRespValue;
@@ -92,37 +93,30 @@ static s32 XpsvPmon_SelfTest(XpsvPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	XpsvPmon_Unlock(InstancePtr);
-	XpsvPmon_RequestCounter(InstancePtr,XPMONPSV_R5_DOMAIN, &CounterNum);
-	XpsvPmon_ResetCounter(InstancePtr, XPMONPSV_R5_DOMAIN, CounterNum);
-	XpsvPmon_SetSrc(InstancePtr, 0x6, XPMONPSV_R5_DOMAIN, CounterNum);
-	XpsvPmon_SetPort(InstancePtr, 0x0, XPMONPSV_R5_DOMAIN, CounterNum);
-	TestAddress =  TESTADDRESS;
-	XpsvPmon_SetMetrics(InstancePtr, 0x1F, XPMONPSV_R5_DOMAIN, CounterNum);
-	XpsvPmon_EnableCounters(InstancePtr, XPMONPSV_R5_DOMAIN, CounterNum);
+	XPmonPsv_Unlock(InstancePtr);
+	XPmonPsv_RequestCounter(InstancePtr,XPMONPSV_R5_DOMAIN, &CounterNum);
+	XPmonPsv_ResetCounter(InstancePtr, XPMONPSV_R5_DOMAIN, CounterNum);
+	XPmonPsv_SetSrc(InstancePtr, 0x6, XPMONPSV_R5_DOMAIN, CounterNum);
+	XPmonPsv_SetPort(InstancePtr, 0x0, XPMONPSV_R5_DOMAIN, CounterNum);
+	XPmonPsv_SetMetrics(InstancePtr, 0x1F, XPMONPSV_R5_DOMAIN, CounterNum);
+	XPmonPsv_EnableCounters(InstancePtr, XPMONPSV_R5_DOMAIN, CounterNum);
 
+	TestAddress =  TESTADDRESS;
 	Xil_Out32( TestAddress, 0x0); /* lpd_afifs_axi_wr_req */
-	Regval = Xil_In32(TestAddress);
 	Xil_Out32( TestAddress, 0x0); /* lpd_afifs_axi_wr_req */
-	Regval = Xil_In32(TestAddress);
 
 	sleep(1);
 
-	XpsvPmon_GetWriteCounter(InstancePtr,&WriteRequestValue, &WriteRespValue, XPMONPSV_R5_DOMAIN, CounterNum);
-	XpsvPmon_GetReadCounter(InstancePtr,&ReadRequestValue, &ReadRespValue, XPMONPSV_R5_DOMAIN, CounterNum);
+	XPmonPsv_GetWriteCounter(InstancePtr,&WriteRequestValue, &WriteRespValue, XPMONPSV_R5_DOMAIN, CounterNum);
 
 	xil_printf("\r\n TestAddress: %x \n", TestAddress);
 	xil_printf("\r\n WriteRequestValue: %d WriteRespValue:%d\n", WriteRequestValue, WriteRespValue);
-	xil_printf("\r\n ReadRequestValue: %d ReadRespValue:%d\n", ReadRequestValue, ReadRespValue);
 
-	Status = XST_SUCCESS;
-	if (WriteRequestValue != WriteRespValue)
-		Status = XST_FAILURE;
+	if (WriteRequestValue == WriteRespValue) {
+		Status = XST_SUCCESS;
+	}
 
-	if (ReadRequestValue != ReadRespValue)
-		Status = XST_FAILURE;
-
-	XpsvPmon_Lock(InstancePtr);
+	XPmonPsv_Lock(InstancePtr);
 	return Status;
 }
 /*****************************************************************************/
@@ -142,29 +136,42 @@ static s32 XpsvPmon_SelfTest(XpsvPmon *InstancePtr)
 static u32 XpmonpsvSelfTestExample(u16 DeviceId)
 {
 	u32 Status;
-	XPmonpsv_Config *ConfigPtr;/* Pointer to configuration data */
+	XPmonPsv_Config *ConfigPtr;/* Pointer to configuration data */
 
 	/*
 	 * Initialize the PmonPsv driver so that it is ready
 	 * to use.
 	 */
-	ConfigPtr = XpsvPmon_LookupConfig(DeviceId);
+	ConfigPtr = XPmonPsv_LookupConfig(DeviceId);
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	Status = XpsvPmon_CfgInitialize(&PsvPmonInstance, ConfigPtr, ConfigPtr->BaseAddress);
+	Status = XPmonPsv_CfgInitialize(&PmonPsvInstance, ConfigPtr, ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	Status =  XpsvPmon_SelfTest(&PsvPmonInstance);
+	Status =  XPmonPsv_SelfTest(&PmonPsvInstance);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+	return XST_SUCCESS;
 
 }
-s32 main(void)
+/*****************************************************************************/
+/**
+*
+* Main function to call the pmonpsv example.
+*
+* @param	None
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note		None
+*
+******************************************************************************/
+int main(void)
 {
 	u32 Status;
 
@@ -174,11 +181,11 @@ s32 main(void)
 	 */
 	Status = XpmonpsvSelfTestExample(PMON_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Pmonpsv selftest Example Failed\r\n");
+		xil_printf("PmonPsv selftest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran Pmonpsv selftest Example\r\n");
+	xil_printf("Successfully ran PmonPsv selftest Example\r\n");
 	return XST_SUCCESS;
 
 }

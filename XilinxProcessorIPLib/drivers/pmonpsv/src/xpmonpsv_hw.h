@@ -7,7 +7,7 @@
 /**
 *
 * @file xpmonpsv_hw.h
-* @addtogroup pmonpsv_v1_1
+* @addtogroup pmonpsv_v2_0
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
@@ -24,6 +24,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd    01/20/19 First release
+* 2.0 sd    04/22/20  Rename the APIs
 * </pre>
 *
 *****************************************************************************/
@@ -102,7 +103,7 @@ extern "C" {
 *
 *
 ******************************************************************************/
-#define XpsvPmon_ReadReg(InstancePtr, RegOffset) \
+#define XPmonPsv_ReadReg(InstancePtr, RegOffset) \
 		(Xil_In32((InstancePtr->Config.BaseAddress) + (RegOffset)))
 
 /*****************************************************************************/
@@ -119,7 +120,7 @@ extern "C" {
 *
 *
 ******************************************************************************/
-#define XpsvPmon_WriteReg(InstancePtr, RegOffset, Data) \
+#define XPmonPsv_WriteReg(InstancePtr, RegOffset, Data) \
 		(Xil_Out32( InstancePtr->Config.BaseAddress +  (RegOffset), (Data)))
 /************************** Function Prototypes ******************************/
 

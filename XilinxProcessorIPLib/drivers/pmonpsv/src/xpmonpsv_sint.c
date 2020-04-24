@@ -7,10 +7,10 @@
 /**
 *
 * @file xpmonpsv_sint.c
-* @addtogroup pmonpsv_v1_1
+* @addtogroup pmonpsv_v2_0
 * @{
 *
-* This file contains the implementation of the XpsvPmon driver's static
+* This file contains the implementation of the XPmonPsv driver's static
 * initialization functionality.
 *
 * @note	None.
@@ -22,6 +22,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd    01/20/19 First release
+* 2.0 sd    04/22/20  Rename the APIs
 * </pre>
 *
 ******************************************************************************/
@@ -39,13 +40,13 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XPmonpsv_Config XPmonpsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES];
+extern XPmonPsv_Config XPmonPsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
 *
 * This function looks up the device configuration based on the unique device ID.
-* The table XPmonpsv_ConfigTable contains the configuration info for each device
+* The table XPmonPsv_ConfigTable contains the configuration info for each device
 * in the system.
 *
 * @param	DeviceId contains the ID of the device for which the
@@ -58,18 +59,18 @@ extern XPmonpsv_Config XPmonpsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES];
 * @note		None.
 *
 ******************************************************************************/
-XPmonpsv_Config *XpsvPmon_LookupConfig(u16 DeviceId)
+XPmonPsv_Config *XPmonPsv_LookupConfig(u16 DeviceId)
 {
-	XPmonpsv_Config *CfgPtr = NULL;
+	XPmonPsv_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index=0U; Index < (u32)2; Index++) {
-		if (XPmonpsv_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XPmonpsv_ConfigTable[Index];
+	for (Index=0U; Index < (u32)XPAR_XPMONPSV_NUM_INSTANCES; Index++) {
+		if (XPmonPsv_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XPmonPsv_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return (XPmonpsv_Config *)CfgPtr;
+	return (XPmonPsv_Config *)CfgPtr;
 }
 /** @} */
