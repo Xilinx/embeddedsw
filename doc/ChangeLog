@@ -287,6 +287,10 @@ Add new module to monitor RPU run mode
 dsitxss_v2_0:
 Introduced new API to enable sub cores
 
+pmonpsv_v2_0:
+Rename the APIs for pmonpsv.
+Rename the example name.
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
