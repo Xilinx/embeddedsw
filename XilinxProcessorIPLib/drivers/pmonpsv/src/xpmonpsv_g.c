@@ -7,7 +7,7 @@
 /**
 *
 * @file xpmonpsv_g.c
-* @addtogroup pmonpsv_v1_1
+* @addtogroup pmonpsv_v2_0
 * @{
 *
 * This file contains a configuration table that specifies the configuration
@@ -23,6 +23,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd   01/20/19 First release
+* 2.0 sd   04/22/20  Rename the APIs
 * </pre>
 *
 ******************************************************************************/
@@ -46,7 +47,7 @@
  * This table contains configuration information for each System Monitor/ADC
  * device in the system.
  */
-XPmonpsv_Config XPmonpsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES] =
+XPmonPsv_Config XPmonPsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES] =
 {
 	{
 		XPAR_PSU_CORESIGHT_FPD_ATM_DEVICE_ID,
