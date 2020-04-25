@@ -9,15 +9,14 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-OUTS = *.o 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-LIBSOURCES=*.c
-INCLUDEFILES=*.h
+LIBSOURCES=$(wildcard *.c)
+INCLUDEFILES=$(wildcard *.h)
 
 libs:
 	echo "Compiling mbox"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS} 
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 	make clean
 
 include: 
