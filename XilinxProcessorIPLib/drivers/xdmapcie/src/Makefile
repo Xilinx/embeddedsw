@@ -11,14 +11,13 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=xdmapcie_hw.h xdmapcie.h
 
-LIBSOURCES=*.c
-OUTS = *.o
+LIBSOURCES=$(wildcard *.c)
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling axipcie"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OUTS)
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
 	make clean
 
 include:

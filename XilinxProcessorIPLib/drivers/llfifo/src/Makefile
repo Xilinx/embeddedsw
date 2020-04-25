@@ -10,8 +10,7 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES:=xllfifo.h xllfifo_hw.h xstreamer.h
-LIBSOURCES:=*.c
-OUTS := *.o
+LIBSOURCES:=$(wildcard *.c)
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
