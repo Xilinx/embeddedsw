@@ -662,7 +662,6 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 RemainingBytes;
 	u32 TransferBytes;
 	u32 DiscardByteCnt;
-	u8 BankSwitchFlag = 0U;
 	u32 BankSize;
 	u32 BankMask;
 	XQspiPsu_Msg FlashMsg[3U] = {0U,};
@@ -674,9 +673,8 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 #endif
 
 	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
-		       "Length 0x%08x, Flags 0x%0x\r\n", SrcAddr,
-		       (u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
-
+			"Length 0x%08x, Flags 0x%0x\r\n", SrcAddr,
+			(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 
 	/*
 	 * Check the read length with Qspi flash size
@@ -694,7 +692,6 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		DiscardByteCnt = XLOADER_QSPI24_COPY_DISCARD_BYTE_CNT;
 	}
 
-	FlashMsg[0U].TxBfrPtr = WriteBuffer;
 	FlashMsg[0U].RxBfrPtr = (u8 *)NULL;
 	FlashMsg[0U].ByteCount = DiscardByteCnt;
 	FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
@@ -711,7 +708,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg[2U].BusWidth = QspiBusWidth;
 	FlashMsg[2U].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-	if(QspiMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+	if (QspiMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		FlashMsg[2U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		BankSize =  XLOADER_BANKSIZE * 2U;
 		BankMask =  XLOADER_BANKMASK * 2U;
@@ -739,43 +736,47 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * If stacked assert the slave select based on address
 		 */
 		QspiAddr = XLoader_GetQspiAddr(SrcAddr);
-		/*
-		 * Multiply address by 2 in case of Dual Parallel
-		 * This address is used to calculate the bank crossing
-		 * condition
-		 */
-		if (QspiPsuInstance.Config.ConnectionMode ==
-		    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			OrigAddr = QspiAddr * 2U;
-		}
-		else {
-			OrigAddr = QspiAddr;
-		}
 
-		/*
-		 * Select bank check logic for DualQspi
-		 */
-		if (QspiFlashSize > BankSize) {
-			BankSel = QspiAddr / XLOADER_BANKSIZE;
-			Status = SendBankSelect(BankSel);
-			if (Status != XST_SUCCESS) {
-				Status = XPLMI_UPDATE_STATUS(
-					XLOADER_ERR_QSPI_READ, Status);
-				XLoader_Printf(DEBUG_GENERAL,
-						"XLOADER_ERR_QSPI_READ\r\n");
-				goto END;
+		if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
+
+			/*
+			 * Multiply address by 2 in case of Dual Parallel
+			 * This address is used to calculate the bank crossing
+			 * condition
+			 */
+			if (QspiPsuInstance.Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				OrigAddr = QspiAddr * 2U;
 			}
-		}
+			else {
+				OrigAddr = QspiAddr;
+			}
 
-		/*
-		 * If data to be read spans beyond the current bank, then
-		 * calculate Transfer Bytes in current bank. Else
-		 * transfer bytes are same
-		 */
-		if ((OrigAddr & BankMask) != ((OrigAddr + TransferBytes)
-			& BankMask)) {
-			TransferBytes = (OrigAddr & BankMask) + BankSize -
-					OrigAddr;
+			/*
+			 * Select bank check logic for DualQspi
+			 */
+			if (QspiFlashSize > BankSize) {
+				BankSel = QspiAddr / XLOADER_BANKSIZE;
+				Status = SendBankSelect(BankSel);
+				if (Status != XST_SUCCESS) {
+					Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_QSPI_READ, Status);
+					XLoader_Printf(DEBUG_GENERAL,
+						"XLOADER_ERR_QSPI_READ\r\n");
+					goto END;
+				}
+			}
+
+			/*
+			 * If data to be read spans beyond the current bank, then
+			 * calculate Transfer Bytes in current bank. Else
+			 * transfer bytes are same
+			 */
+			if ((OrigAddr & BankMask) != ((OrigAddr + TransferBytes)
+				& BankMask)) {
+				TransferBytes = (OrigAddr & BankMask) +
+						BankSize - OrigAddr;
+			}
 		}
 
 		XLoader_Printf(DEBUG_DETAILED, "QSPI Read Src 0x%08x, "
@@ -804,6 +805,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 		WriteBuffer[XLOADER_ADDR_1_OFST] = (u8)(QspiAddr & 0xFFU);
 
+		FlashMsg[0U].TxBfrPtr = WriteBuffer;
 		FlashMsg[2U].RxAddr64bit = DestAddr;
 		FlashMsg[2U].ByteCount = TransferBytes;
 
@@ -813,7 +815,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * receive the specified number of bytes of data in the data buffer
 		 */
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U],
-				XPLMI_ARRAY_SIZE(FlashMsg));;
+				XPLMI_ARRAY_SIZE(FlashMsg));
 		if (Status != XST_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_READ,
 				Status);
@@ -829,21 +831,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		SrcAddr += TransferBytes;
 	}
 
-	if (BankSwitchFlag == TRUE) {
-		/*
-		 * Reset Bank selection to zero
-		 */
-		Status = SendBankSelect(0U);
-		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_QSPI_READ,
-				Status);
-			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
-			goto END;
-		}
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
+	Status = XST_SUCCESS;
 
 END:
 #ifdef	PLM_PRINT_PERF_DMA
