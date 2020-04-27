@@ -293,7 +293,7 @@ END:
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	SetupData is the structure containing the setup request
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
 int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
@@ -351,7 +351,7 @@ END:
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	SetupData is the structure containing the setup request
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
 int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
@@ -461,7 +461,7 @@ END:
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	SetupData is the structure containing the setup request
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
 int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,

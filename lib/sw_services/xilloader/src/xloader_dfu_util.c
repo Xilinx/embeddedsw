@@ -185,7 +185,7 @@ static XLoaderPs_UsbConfig __attribute__ ((aligned(16U))) Config2 = {
 	/* Bulk In Endpoint Config */
 	{
 		(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
-		XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
+		XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
 		XLOADER_USB2_BULK_IN_EP_ADDR, /**< EndpointAddress */
 		XLOADER_USB2_BULK_IN_EP_ATTRB, /**< Attribute  */
 		XLOADER_USB2_BULK_IN_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
@@ -535,6 +535,7 @@ int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr, SetupPacket *Ctrl)
  ******************************************************************************/
 void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 {
+	int Status = XST_FAILURE;
 	(void) InstancePtr;
 
 	switch (DfuState) {
@@ -546,6 +547,7 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 			DfuObj.IsDfu = FALSE;
 			DfuObj.RuntimeToDfu = FALSE;
 			++DownloadDone;
+			Status = XST_SUCCESS;
 			break;
 		case XLOADER_STATE_APP_DETACH:
 			if (DfuObj.CurrState == XLOADER_STATE_APP_IDLE) {
@@ -563,6 +565,7 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 				DfuObj.CurrState = XLOADER_STATE_DFU_IDLE;
 				DfuObj.NextState = XLOADER_STATE_DFU_DOWNLOAD_SYNC;
 				DfuObj.IsDfu = TRUE;
+				Status = XST_SUCCESS;
 			}
 			else if (DfuObj.CurrState == XLOADER_STATE_DFU_IDLE) {
 				/* Wait For USB Reset to happen */
@@ -571,18 +574,21 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 				DfuObj.NextState = XLOADER_STATE_APP_DETACH;
 				DfuObj.CurrStatus = XLOADER_DFU_STATUS_OK;
 				DfuObj.IsDfu = FALSE;
+				Status = XST_SUCCESS;
 			}
 			else {
-				goto END;
+				/* Error */
 			}
 			break;
 		case XLOADER_STATE_DFU_IDLE:
 			DfuObj.CurrState = XLOADER_STATE_DFU_IDLE;
 			DfuObj.NextState = XLOADER_STATE_DFU_DOWNLOAD_SYNC;
 			DfuObj.IsDfu = TRUE;
+			Status = XST_SUCCESS;
 			break;
 		case XLOADER_STATE_DFU_DOWNLOAD_SYNC:
 			DfuObj.CurrState = XLOADER_STATE_DFU_DOWNLOAD_SYNC;
+			Status = XST_SUCCESS;
 			break;
 		case XLOADER_STATE_DFU_DOWNLOAD_BUSY:
 		case XLOADER_STATE_DFU_DOWNLOAD_IDLE:
@@ -592,11 +598,12 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 			break;
 	}
 
-END:
-	 /* Unsupported command. Stall the end point. */
-	DfuObj.CurrState = XLOADER_STATE_DFU_ERROR;
-	XUsbPsu_Ep0StallRestart(
-		(struct XUsbPsu*)InstancePtr->PrivateData);
+	if (Status != XST_SUCCESS) {
+		/* Unsupported command. Stall the end point. */
+		DfuObj.CurrState = XLOADER_STATE_DFU_ERROR;
+		XUsbPsu_Ep0StallRestart(
+			(struct XUsbPsu*)InstancePtr->PrivateData);
+	}
 
 }
 
