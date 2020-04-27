@@ -48,6 +48,10 @@ SECTIONS
    *(.gnu.linkonce.t.*)
 } > instruction_Mem
 
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
+} > instruction_Mem
+
 .init : {
    KEEP (*(.init))
 } > instruction_Mem

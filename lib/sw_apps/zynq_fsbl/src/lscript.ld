@@ -45,6 +45,10 @@ SECTIONS
    *(.gnu.linkonce.armextab.*)
 } > ps7_ram_0_S_AXI_BASEADDR
 
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
+} > ps7_ram_0_S_AXI_BASEADDR
+
 .init : {
    KEEP (*(.init))
 } > ps7_ram_0_S_AXI_BASEADDR
