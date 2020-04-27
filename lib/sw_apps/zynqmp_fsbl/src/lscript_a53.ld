@@ -45,6 +45,10 @@ SECTIONS
    *(.gnu.linkonce.armextab.*)
 } > psu_ocm_ram_0_S_AXI_BASEADDR
 
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
+} > psu_ocm_ram_0_S_AXI_BASEADDR
+
 .init (ALIGN(64)): {
    KEEP (*(.init))
 } > psu_ocm_ram_0_S_AXI_BASEADDR

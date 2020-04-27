@@ -45,6 +45,10 @@ XpbrServHndlrTbl = 0xffd07bc8;
    *(.gnu.linkonce.t.*)
 } > PMU_RAM
 
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
+} > PMU_RAM
+
 .rodata : {
    __rodata_start = .;
    *(.rodata)
