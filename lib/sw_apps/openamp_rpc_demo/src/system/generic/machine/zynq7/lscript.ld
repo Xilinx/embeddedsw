@@ -56,6 +56,11 @@ _binary_firmware2_end = 0;
    *(.vfp11_veneer)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
+   *(.note.gnu.build-id)
+} > ps7_ddr_0_S_AXI_BASEADDR
+
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
 } > ps7_ddr_0_S_AXI_BASEADDR
 
 .init : {
