@@ -11,6 +11,6 @@ BEGIN driver spdif
   OPTION supported_peripherals = (spdif);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = spdif;
 END driver
