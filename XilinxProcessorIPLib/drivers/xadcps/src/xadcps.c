@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps.c
-* @addtogroup xadcps_v2_3
+* @addtogroup xadcps_v2_4
 * @{
 *
 * This file contains the driver API functions that can be used to access
