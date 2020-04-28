@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
