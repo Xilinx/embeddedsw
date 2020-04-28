@@ -73,6 +73,11 @@ SECTIONS
    *(.vfp11_veneer)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
+   *(.note.gnu.build-id)
+} > psu_r5_atcm_MEM_0
+
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
 } > psu_r5_atcm_MEM_0
 
 .init : {
