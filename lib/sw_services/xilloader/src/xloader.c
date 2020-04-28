@@ -1304,31 +1304,47 @@ int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_0:
+				#ifdef XLOADER_SD_0
 					PdiSrc = XLOADER_PDI_SRC_SD0 |
-						XLOADER_SBD_ADDR_SET_MASK |
+						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
-						<< XLOADER_SBD_ADDR_SHIFT);
+						<< XLOADER_SD_SBD_ADDR_SHIFT);
+				#else
+					PdiSrc = XLOADER_PDI_SRC_SD0;
+				#endif
 					PdiAddr = 0U;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_1:
+				#ifdef XLOADER_SD_1
 					PdiSrc = XLOADER_PDI_SRC_SD1 |
-						XLOADER_SBD_ADDR_SET_MASK |
+						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
-						<< XLOADER_SBD_ADDR_SHIFT);
+						<< XLOADER_SD_SBD_ADDR_SHIFT);
+				#else
+					PdiSrc = XLOADER_PDI_SRC_SD1;
+				#endif
 					PdiAddr = 0U;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_LS:
+				#ifdef XLOADER_SD_1
 					PdiSrc = XLOADER_PDI_SRC_SD1_LS |
-						XLOADER_SBD_ADDR_SET_MASK |
+						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
-						<< XLOADER_SBD_ADDR_SHIFT);
+						<< XLOADER_SD_SBD_ADDR_SHIFT);
+				#else
+					PdiSrc = XLOADER_PDI_SRC_SD1_LS;
+				#endif
 					PdiAddr = 0U;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC:
+				#ifdef XLOADER_SD_1
 					PdiSrc = XLOADER_PDI_SRC_EMMC |
-						XLOADER_SBD_ADDR_SET_MASK |
+						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
-						<< XLOADER_SBD_ADDR_SHIFT);
+						<< XLOADER_SD_SBD_ADDR_SHIFT);
+				#else
+					PdiSrc = XLOADER_PDI_SRC_EMMC;
+				#endif
 					PdiAddr = 0U;
 					break;
 				case XIH_IHT_ATTR_SBD_OSPI:
@@ -1360,10 +1376,14 @@ int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_0:
+				#ifdef XLOADER_SD_0
 					PdiSrc = XLOADER_PDI_SRC_EMMC0 |
-						XLOADER_SBD_ADDR_SET_MASK |
+						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
-						 << XLOADER_SBD_ADDR_SHIFT);
+						 << XLOADER_SD_SBD_ADDR_SHIFT);
+				#else
+					PdiSrc = XLOADER_PDI_SRC_EMMC0;
+				#endif
 					PdiAddr = 0U;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_0_RAW:

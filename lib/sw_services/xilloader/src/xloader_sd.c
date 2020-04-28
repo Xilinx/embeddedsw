@@ -119,7 +119,7 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags)
 		if ((DeviceFlags == XLOADER_PDI_SRC_SD1)
 		|| (DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
 		|| (DeviceFlags == XLOADER_PDI_SRC_EMMC)) {
-			DeviceFlags = XLOADER_SD_DRV_NUM_4;
+			DeviceFlags = XLOADER_SD_DRV_NUM_5;
 		}
 		else {
 			DeviceFlags = XLOADER_SD_DRV_NUM_1;
@@ -151,24 +151,24 @@ int XLoader_SdInit(u32 DeviceFlags)
 	u32 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	XLoader_IsSDRaw = FALSE;
 
-	if ((DeviceFlags & XLOADER_SBD_ADDR_SET_MASK) ==
-		XLOADER_SBD_ADDR_SET_MASK) {
+	if ((DeviceFlags & XLOADER_SD_SBD_ADDR_SET_MASK) ==
+		XLOADER_SD_SBD_ADDR_SET_MASK) {
 		/*
 		 * Filesystem boot modes require the filename extension as well as
 		 * the logical drive in which the secondary pdi file is present.
 		 * To meet these requirements and to reuse the same code for primary
 		 * and secondary boot modes, bits 0 to 7 in DeviceFlags denote the
 		 * PdiSrc. Bit 8, if set, denotes that filesystem boot is secondary.
-		 * Bits 9 to 29 denote the file name extension. Example if the offset
+		 * Bits 9 to 24 denote the file name extension. Example if the offset
 		 * is 4, file name should be BOOT0004.BIN, these bits are analogous to
-		 * multiboot offset in case of primary boot mode. Bits 30 and 31 denote
-		 * the logical drive number of the secondary device. Please note that bits 30
-		 * and 31 in device flags actually map to bits 20 and 21 in secondary device
-		 * address specified in bif file.
+		 * multiboot offset in case of primary boot mode. Bits 25, 26, 27 and 28
+		 * denote the logical drive number of the secondary device. Please note
+		 * that bits 25, 26, 27 and 28 in device flags actually map to bits 16,
+		 * 17, 18 and 19 in secondary device address specified in bif file.
 		 */
-		DeviceFlags = DeviceFlags >> XLOADER_SBD_ADDR_SHIFT;
+		DeviceFlags = DeviceFlags >> XLOADER_SD_SBD_ADDR_SHIFT;
 		/* Secondary Boot in FAT filesystem mode */
-		MultiBootOffset = (DeviceFlags & XLOADER_MULTIBOOT_OFFSET_MASK);
+		MultiBootOffset = (DeviceFlags & XLOADER_SD_SBD_ADDR_MASK);
 		DrvNum += ((DeviceFlags & XLOADER_LOGICAL_DRV_MASK) >>
 				XLOADER_LOGICAL_DRV_SHIFT);
 	}

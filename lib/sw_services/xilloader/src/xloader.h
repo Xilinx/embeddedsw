@@ -103,10 +103,6 @@ extern "C" {
  * Secondary boot mode related macros
  */
 #define XLOADER_PDISRC_FLAGS_MASK	(0xFFU)
-#define XLOADER_SBD_ADDR_SET_MASK	(0x100U)
-#define XLOADER_SBD_ADDR_SHIFT		(0x9U)
-#define XLOADER_LOGICAL_DRV_MASK	(0x600000U)
-#define XLOADER_LOGICAL_DRV_SHIFT	(21U)
 
 /*
  * PDI Loading status
