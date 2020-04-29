@@ -317,7 +317,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
 			if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
 				Status = XOspiPsv_WaitForLock(InstancePtr,
-						XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
+						XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
 				if (Status != (u32)XST_SUCCESS) {
 					goto RETURN_PATH;
 				}
@@ -377,7 +377,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
 	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
 		Status = XOspiPsv_WaitForLock(InstancePtr,
-				XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
+				XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
 	} else {
 		Status = (u32)XST_SUCCESS;
 	}
