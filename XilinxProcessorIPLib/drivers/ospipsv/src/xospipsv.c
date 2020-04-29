@@ -693,7 +693,7 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 				InstancePtr->StatusHandler(InstancePtr->StatusRef,
 						XST_SPI_TRANSFER_DONE);
 				XOspiPsv_DeAssertCS(InstancePtr);
-				InstancePtr->IsBusy = FALSE;
+				InstancePtr->IsBusy = (u32)FALSE;
 			}
 		}
 	} else {

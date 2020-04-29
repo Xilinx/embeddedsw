@@ -211,7 +211,7 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 		 */
 		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_CONFIG_REG);
-		if ((ConfigReg & OptionsTable[Index].Mask) != FALSE) {
+		if ((ConfigReg & OptionsTable[Index].Mask) != (u32)FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
 	}
