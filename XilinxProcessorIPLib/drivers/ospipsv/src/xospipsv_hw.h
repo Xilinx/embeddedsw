@@ -24,8 +24,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef _XOSPIPSV_HW_H_		/* prevent circular inclusions */
-#define _XOSPIPSV_HW_H_		/* by using protection macros */
+#ifndef XOSPIPSV_HW_H_		/* prevent circular inclusions */
+#define XOSPIPSV_HW_H_		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -1732,5 +1732,5 @@ extern "C" {
 }
 #endif
 
-#endif /* _XOSPIPSV_H_ */
+#endif /* XOSPIPSV_H_ */
 /** @} */
