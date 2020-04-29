@@ -217,7 +217,7 @@ ERROR_PATH:
 u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
 	u32 Status;
-	u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
+	const u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
 
 	if (Addr >= (u32 *)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
 		Status = XST_FAILURE;
@@ -285,7 +285,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 	u8 RXMin_Tap = 0;
 	u8 Avg_RXTap = 0;
 	u8 Index;
-	u32 *DeviceIdInfo;
+	const u32 *DeviceIdInfo;
 	u8 RXTapFound = 0;
 	u32 Status;
 	u8 MaxTap;
@@ -350,7 +350,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 						Avg_RXTap = (RXMin_Tap + RXMax_Tap) / 2U;
 					}
 					RXTapFound = 0U;
-					Index = MaxTap;
+					break;
 				}
 			}
 		}
