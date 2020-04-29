@@ -99,7 +99,7 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8 IsCacheCoherent;		/**< If OSPI is Cache Coherent or not */
 } XOspiPsv_Config;
@@ -135,6 +135,9 @@ typedef struct {
 	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64)));
 #endif
 } XOspiPsv;
+
+/************************** Variable Definitions *****************************/
+extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XOSPIPSV_DAC_EN_OPTION	0x1U

@@ -39,8 +39,6 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XOspiPsv_Config XOspiPsv_ConfigTable[XPAR_XOSPIPSV_NUM_INSTANCES];
-
 /*****************************************************************************/
 /**
 * @brief
