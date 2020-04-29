@@ -1,3 +1,8 @@
+Changes for 2020.2
+===============================
+zdma_v1_10:
+Expose ZDMA scatter gather and enable APIs for direct use.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
