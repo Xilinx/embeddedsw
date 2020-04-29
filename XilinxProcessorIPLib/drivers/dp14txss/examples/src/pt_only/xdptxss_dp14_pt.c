@@ -595,8 +595,23 @@ u32 DpSs_Main(void)
     }
     if (loop == 10000) {
 	xil_printf("+\r\n");
+        // Issue one more reset. Sometimes the first reset may not complete the
+        // POR
+        GtCtrl (GT_RST_MASK, 0x00000001, 1);
+        GtCtrl (GT_RST_MASK, 0x00000000, 1);
     }
-
+    loop = 0;
+    good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
+        good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+        good &= ALL_LANE;
+        loop++;
+    }
+    if (loop == 10000) {
+	xil_printf("++\r\n");
+    }
+    loop = 0;
 #endif
 
 	/* Set DP141 Tx driver here. */
@@ -626,12 +641,23 @@ u32 DpSs_Main(void)
         loop++;
     }
     if (loop == 10000) {
-	xil_printf("GT Rx reset failure\r\n");
-//        xil_printf ("RX first timeout %x %x!!\r\n",good, good1);
-    } else {
-//        xil_printf ("RX out of reset %x %x!!\r\n",good, good1);
+	xil_printf("-\r\n");
+        // Issue one more reset. Sometimes the first reset may not complete the
+        // POR
+        GtCtrl (GT_RST_MASK, 0x00000001, 0);
+        GtCtrl (GT_RST_MASK, 0x00000000, 0);
     }
     loop = 0;
+    good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
+        good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+        good &= ALL_LANE;
+        loop++;
+    }
+    if (loop == 10000) {
+	xil_printf("--\r\n");
+    }
 
 #endif
 
@@ -1787,14 +1813,8 @@ u32 DpSs_PhyInit(u16 DeviceId)
      XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_RX,(FALSE));
 #else
 
-     u32 good,good1,loop;
-
-     //Setting the bridge for 4 lanes
-     //deasserting the Reset Hold Mask
-     GtCtrl (GT_LANE_MASK, (XPAR_DPTXSS_0_LANE_COUNT << 4), 1);
-     GtCtrl (GT_LANE_MASK, (XPAR_DPTXSS_0_LANE_COUNT << 4), 0);
-     GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 1);
-     GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 0);
+     //Setting Vswing on TX
+     GtCtrl (0x1F00,(5 << 8), 1);
 
 #endif
 

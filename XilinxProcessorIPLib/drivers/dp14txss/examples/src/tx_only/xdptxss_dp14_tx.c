@@ -741,50 +741,46 @@ u32 DpTxSs_PhyInit(u16 DeviceId)
 #else
 	//set vswing of value of 5
 	ReadModifyWrite(0x1F00,(5 << 8));
-	// Configuring lanes to 4
-	ReadModifyWrite(0x70,(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_LANE_COUNT << 4));
-//     releasing reset. bit[31] and bit[0] = > 0
-//     releasing reset. bit[31] and bit[0] = > 0
+//      releasing reset. bit[0] = > 0
 	ReadModifyWrite(0x1, (0 << 0));
-	ReadModifyWrite(0x80000000, (0<<31));
 	u32 dptx_sts = 0;
-	u8 retry=0;
+	u32 retry=0;
 	dptx_sts = 0;
 	//Checking the status for 4 lanes
-    while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
-         retry++;
-      }
-    if(retry==255)
-    {
-		xil_printf ("+\r\n");
-    }
+	while ((dptx_sts != ALL_LANE) && retry < 10000) {
+	   dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+	   dptx_sts &= ALL_LANE;
+	   retry++;
+	}
+	if(retry==10000)
+	{
+	xil_printf ("+\r\n");
+			//This reset is needed for Versal GT. Sometimes the GT does not come out
+			//automatically and needs a reset
+			//This is because the refclk is not present at start
+			ReadModifyWrite(0x1, (1 << 0));
+			ReadModifyWrite(0x1, (0 << 0));
+	}
 
-    //This reset is needed for Versal GT. Sometimes the GT does not come out
-    //automatically and needs a reset
-    //This is because the refclk is not present at start
-    ReadModifyWrite(0x1, (1 << 0));
-    ReadModifyWrite(0x1, (0 << 0));
 	dptx_sts = 0;
 	retry=0;
-    while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
-         retry++;
-      }
-    if(retry==255)
-    {
-        prev_line_rate = XDP_TX_LINK_BW_SET_162GBPS;
-		xil_printf (
-   "+++++++ TX GT configuration encountered a failure init2 +++++++ \r\n");
-//	return XST_FAILURE;
-    } else {
-        prev_line_rate = XDP_TX_LINK_BW_SET_540GBPS;
-//    	xil_printf ("second time pass %x\r\n",dptx_sts1);
-    }
+	//Checking the status for 4 lanes
+	while ((dptx_sts != ALL_LANE) && retry < 10000) {
+	   dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+	   dptx_sts &= ALL_LANE;
+	   retry++;
+	}
+
+	if(retry==10000)
+	{
+	   prev_line_rate = XDP_TX_LINK_BW_SET_162GBPS;
+	   xil_printf (
+		"+++++++ TX GT configuration encountered a failure init2 +++++++ \r\n");
+	//	return XST_FAILURE;
+	} else {
+	   prev_line_rate = XDP_TX_LINK_BW_SET_540GBPS;
+	//    	xil_printf ("second time pass %x\r\n",dptx_sts1);
+	}
 #endif
 	return XST_SUCCESS;
 }

@@ -1373,7 +1373,7 @@ u32 config_phy(int LineRate_init_tx){
     while ((dptx_sts != ALL_LANE) && retry < 255) {
          dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
          dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
          retry++;
     //        xil_printf ("tmp is %d\r\n", tmp);
       }
