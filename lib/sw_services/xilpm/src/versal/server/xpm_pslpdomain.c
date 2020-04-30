@@ -9,7 +9,6 @@
 #include "xpm_domain_iso.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
-#include "xpm_board.h"
 #include "xpm_prot.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
@@ -23,11 +22,7 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 
 	/* Check vccint_pslp first to make sure power is on */
 	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK)) {
-		Status = XPmBoard_ControlRail(RAIL_POWER_UP, POWER_RAIL_LPD);
-		if (XST_SUCCESS != Status) {
-			PmErr("Control power rail for LPD failure during power up\r\n");
-			goto done;
-		}
+		goto done;
 	}
 
 	/* Remove PS_PMC domains isolation */

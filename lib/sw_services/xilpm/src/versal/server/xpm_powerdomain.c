@@ -17,7 +17,6 @@
 #include "xpm_device.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_regs.h"
-#include "xpm_board.h"
 #include "xpm_api.h"
 
 static u8 SystemResetFlag;
@@ -344,16 +343,6 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm;
 
-	/*
-	 *  Power up FPD power rail
-	 *  Compiler flag CUSTOM_PMBUS must be set
-	 */
-	Status = XPmBoard_ControlRail(RAIL_POWER_UP, POWER_RAIL_FPD);
-	if (XST_SUCCESS != Status) {
-		PmErr("Control power rail for FPD failure during power up\r\n");
-		goto done;
-	}
-
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
 		Status = XST_FAILURE;
@@ -423,16 +412,6 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 
 	/* Assert POR for FPD */
 	Status = XPmReset_AssertbyId(PM_RST_FPD_POR, (u32)PM_RESET_ACTION_ASSERT);
-
-	/*
-	 * Power down FPD power rail
-	 * Compiler flag CUSTOM_PMBUS must be set
-	 */
-	Status = XPmBoard_ControlRail(RAIL_POWER_DOWN, POWER_RAIL_FPD);
-	if (XST_SUCCESS != Status) {
-		PmErr("Control power rail for FPD failure during power down\r\n");
-		goto done;
-	}
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
