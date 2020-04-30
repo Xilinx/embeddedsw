@@ -772,7 +772,10 @@ void XV_tpg_Set_enableInput(XV_tpg *InstancePtr, u32 Data) {
 
     Reg = XV_tpg_Get_fieldId(InstancePtr);
     Reg &= ~(XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_MASK);
-    Reg |= (1) << XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_SHIFT;
+
+    if (Data) {
+        Reg |= (1) << XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_SHIFT;
+    }
 
     XV_tpg_WriteReg(InstancePtr->Config.BaseAddress,
 			XV_TPG_CTRL_ADDR_FIELDID_DATA, Reg);
