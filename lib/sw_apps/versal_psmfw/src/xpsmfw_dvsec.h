@@ -337,7 +337,9 @@ extern "C" {
 	Val = Dvsec_Rd32((PCIEA_DVSEC_0), (Reg)) & (DvsecStruct[Index].Mask);
 
 #define CMN_MEMORY_LEN(EndAddr, StartAddr) \
-	log2((((EndAddr) - (StartAddr)) * ((u32)4U * (u32)1024U)) / (u32)64U);
+	log2((((EndAddr) - (StartAddr)) * ((u32)4U * (u32)1024U)) / (u32)64U)
+
+#define CMN_SAM_LEN(EndAddr, StartAddr) CMN_MEMORY_LEN(EndAddr, StartAddr) + (u32)0xAU
 
 #define DVSEC_SET_MEM_CAP_L(Index, PsmDvsecOff) \
 	DvsecPcsrHa0[Index].Val = \

@@ -342,7 +342,6 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 	u32 SamPid;
 	u32 IdmVal;
 	u32 TgtId;
-	u32 Len;
 	u32 i;
 	u32 j;
 
@@ -418,7 +417,7 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 				  DvsecSamEntry[i].DvsecPcrSam[DVSEC_SAM_EADDR_IDX].DvsecOff)
 				  & DvsecSamEntry[i].DvsecPcrSam[DVSEC_SAM_EADDR_IDX].Mask;
 
-			Len = CMN_MEMORY_LEN(EndAddr, StartAddr);
+			Reg1Val = CMN_SAM_LEN(EndAddr, StartAddr);
 
 			if (((IdmVal & DVSEC_SAM_DEST_MASK) == 0U) &&
 			    ((SamVal & DVSEC_SAM_DEST_MASK) == DVSEC_SAM_DEST_MASK)) {
@@ -427,9 +426,8 @@ void XPsmFW_DvsecSetVal(u32 Off, u32 Val)
 				/* Assigning IDM entry num as a target ID */
 				TgtId = j;
 			}
-			Reg1Val = ((StartAddr & DVSEC_LOW_16B_MASK)
-				  << DVSEC_SHIFT_16BIT) | Len;
-			Reg2Val = (StartAddr >> DVSEC_SHIFT_16BIT)	|
+
+			Reg2Val = StartAddr				|
 				  (TgtId << CMN_RSAM_REGN_TID_SHIFT)	|
 				  CMN_RSAM_REGION_VALID_MASK;
 
