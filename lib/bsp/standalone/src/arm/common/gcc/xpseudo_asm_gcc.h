@@ -19,6 +19,7 @@
 * 5.00 	pkp		 05/21/14 First release
 * 6.0   mus      07/27/16 Consolidated file for a53,a9 and r5 processors
 * 7.2   asa      04/03/20 Renamed the str macro to strw.
+* 7.2   dp       04/30/20 Added clobber "cc" to mtcpsr for aarch32 processors
 * </pre>
 *
 ******************************************************************************/
@@ -115,7 +116,7 @@ extern "C" {
 
 #define mtcpsr(v)	__asm__ __volatile__(\
 			  "msr	cpsr,%0\n"\
-			  : : "r" (v)\
+			  : : "r" (v) : "cc" \
 			)
 
 #define cpsiei()	__asm__ __volatile__("cpsie	i\n")
