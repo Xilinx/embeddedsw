@@ -311,6 +311,186 @@ pmonpsv_v2_0:
 Rename the APIs for pmonpsv.
 Rename the example name.
 
+aiengine_v1_1:
+updating license content to SPDX based licensing
+
+audio_formatter_v1_1:
+updating license content to SPDX based licensing
+
+avbuf_v2_3:
+updating license content to SPDX based licensing
+
+axipmon_v6_8:
+updating license content to SPDX based licensing
+
+axis_switch_v1_3:
+updating license content to SPDX based licensing
+
+board_common_v1_1:
+updating license content to SPDX based licensing
+
+bram_v4_4:
+updating license content to SPDX based licensing
+
+can_v3_4:
+updating license content to SPDX based licensing
+
+canps_v3_4:
+updating license content to SPDX based licensing
+
+cframe_v1_1:
+updating license content to SPDX based licensing
+
+cfupmc_v1_1:
+updating license content to SPDX based licensing
+
+clk_wiz_v1_3:
+updating license content to SPDX based licensing
+
+coresightps_dcc_v1_7:
+updating license content to SPDX based licensing
+
+cpu_cortexa53_v1_7:
+updating license content to SPDX based licensing
+
+cpu_cortexa9_v2_9:
+updating license content to SPDX based licensing
+
+cpu_cortexr5_v1_7:
+updating license content to SPDX based licensing
+
+ddrcpsu_v1_2:
+updating license content to SPDX based licensing
+
+ddrps_v1_1:
+updating license content to SPDX based licensing
+
+ddrpsv_v1_2:
+updating license content to SPDX based licensing
+
+devcfg_v3_6:
+updating license content to SPDX based licensing
+
+dpdma_v1_2:
+updating license content to SPDX based licensing
+
+dppsu_v1_2:
+updating license content to SPDX based licensing
+
+emaclite_v4_5:
+updating license content to SPDX based licensing
+
+emc_v4_1:
+updating license content to SPDX based licensing
+
+generic_v2_1:
+updating license content to SPDX based licensing
+
+hwicap_v11_3:
+updating license content to SPDX based licensing
+
+iic_v3_6:
+updating license content to SPDX based licensing
+
+iomodule_v2_8:
+updating license content to SPDX based licensing
+
+llfifo_v5_4:
+updating license content to SPDX based licensing
+
+mbox_v4_4:
+updating license content to SPDX based licensing
+
+mig_v1_1:
+updating license content to SPDX based licensing
+
+mig_7series_v2_2:
+updating license content to SPDX based licensing
+
+mutex_v4_5:
+updating license content to SPDX based licensing
+
+nandps_v2_5:
+updating license content to SPDX based licensing
+
+pciepsu_v1_1:
+updating license content to SPDX based licensing
+
+resetps_v1_3:
+updating license content to SPDX based licensing
+
+rfdc_v8_1:
+updating license content to SPDX based licensing
+
+rtcpsu_v1_9:
+updating license content to SPDX based licensing
+
+scugic_v4_2:
+updating license content to SPDX based licensing
+
+scutimer_v2_2:
+updating license content to SPDX based licensing
+
+scuwdt_v4_2:
+updating license content to SPDX based licensing
+
+sd_fec_v1_1:
+updating license content to SPDX based licensing
+
+spi_v4_6:
+updating license content to SPDX based licensing
+
+spips_v3_4:
+updating license content to SPDX based licensing
+
+srio_v1_3:
+updating license content to SPDX based licensing
+
+sysmonpsv_v1_2:
+updating license content to SPDX based licensing
+
+tft_v6_2:
+updating license content to SPDX based licensing
+
+tmr_inject_v1_2:
+updating license content to SPDX based licensing
+
+tmr_manager_v1_1:
+updating license content to SPDX based licensing
+
+trafgen_v4_3:
+updating license content to SPDX based licensing
+
+ttcps_v3_11:
+updating license content to SPDX based licensing
+
+usb_v5_4:
+updating license content to SPDX based licensing
+
+wdtps_v3_3:
+updating license content to SPDX based licensing
+
+xadcps_v2_4:
+updating license content to SPDX based licensing
+
+xdmapcie_v1_1:
+updating license content to SPDX based licensing
+
+zdma_v1_9:
+updating license content to SPDX based licensing
+
+xilisf_v5_15:
+updating license content to SPDX based licensing
+
+xilsem_v1_1:
+updating license content to SPDX based licensing
+
+libmetal_v2_1:
+updating license content to SPDX based licensing
+
+openamp_v1_6:
+updating license content to SPDX based licensing
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
