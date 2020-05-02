@@ -45,9 +45,6 @@
 #define LOCKSTEP_MODE_DEBUG 0U
 
 /* Definitions for sleep timer configuration */
-#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR
-#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ
-#define XSLEEP_TTC_INSTANCE 3
 #define XSLEEP_TIMER_IS_DEFAULT_TIMER
  
 /* Definitions for processor access to RPU/IOU slcr address space*/
@@ -401,6 +398,7 @@
 
 #define XPAR_PSU_ETHERNET_3_IS_CACHE_COHERENT 0
 #define XPAR_XEMACPS_0_IS_CACHE_COHERENT 0
+#define XPAR_PSU_ETHERNET_3_REF_CLK 0xff
 /* Canonical definitions for peripheral PSU_ETHERNET_3 */
 #define XPAR_XEMACPS_0_DEVICE_ID XPAR_PSU_ETHERNET_3_DEVICE_ID
 #define XPAR_XEMACPS_0_BASEADDR 0xFF0E0000
@@ -471,6 +469,11 @@
 /* Definitions for peripheral PSU_CRL_APB */
 #define XPAR_PSU_CRL_APB_S_AXI_BASEADDR 0xFF5E0000
 #define XPAR_PSU_CRL_APB_S_AXI_HIGHADDR 0xFF85FFFF
+
+
+/* Definitions for peripheral PSU_CSU_0 */
+#define XPAR_PSU_CSU_0_S_AXI_BASEADDR 0xFFCA0000
+#define XPAR_PSU_CSU_0_S_AXI_HIGHADDR 0xFFCAFFFF
 
 
 /* Definitions for peripheral PSU_CTRL_IPI */
@@ -743,6 +746,10 @@
 
 /******************************************************************/
 
+/* Definition for input Clock */
+#define XPAR_PSU_I2C_0_REF_CLK I2C0_REF
+/* Definition for input Clock */
+#define XPAR_PSU_I2C_1_REF_CLK I2C1_REF
 #define  XPAR_XIPIPSU_NUM_INSTANCES  1U
 
 /* Parameter definitions for peripheral psu_ipi_1 */
@@ -901,6 +908,7 @@
 /******************************************************************/
 
 #define XPAR_PSU_QSPI_0_IS_CACHE_COHERENT 0
+#define XPAR_PSU_QSPI_0_REF_CLK 0xff
 /* Canonical definitions for peripheral PSU_QSPI_0 */
 #define XPAR_XQSPIPSU_0_DEVICE_ID XPAR_PSU_QSPI_0_DEVICE_ID
 #define XPAR_XQSPIPSU_0_BASEADDR 0xFF0F0000
@@ -1004,6 +1012,7 @@
 /******************************************************************/
 
 #define XPAR_PSU_SD_1_IS_CACHE_COHERENT 0
+#define XPAR_PSU_SD_1_REF_CLK 0xff
 /* Canonical definitions for peripheral PSU_SD_1 */
 #define XPAR_XSDPS_0_DEVICE_ID XPAR_PSU_SD_1_DEVICE_ID
 #define XPAR_XSDPS_0_BASEADDR 0xFF170000
@@ -1210,6 +1219,10 @@
 
 /******************************************************************/
 
+/* Definition for input Clock */
+#define XPAR_PSU_UART_0_REF_CLK UART0_REF
+/* Definition for input Clock */
+#define XPAR_PSU_UART_1_REF_CLK UART1_REF
 /* Definitions for driver USBPSU */
 #define XPAR_XUSBPSU_NUM_INSTANCES 1
 
@@ -1222,6 +1235,7 @@
 /******************************************************************/
 
 #define XPAR_PSU_USB_XHCI_0_IS_CACHE_COHERENT 0
+#define XPAR_PSU_USB_XHCI_0_REF_CLK 0xff
 #define XPAR_PSU_USB_XHCI_0_SUPER_SPEED 1
 /* Canonical definitions for peripheral PSU_USB_XHCI_0 */
 #define XPAR_XUSBPSU_0_DEVICE_ID XPAR_PSU_USB_XHCI_0_DEVICE_ID

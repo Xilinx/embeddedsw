@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2020 <Xilinx Inc.>
 *
 *  This program is free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -2914,8 +2914,6 @@
 #define DDR_PHY_DX8SL4DXCTL2_OFFSET                                                0XFD08152C
 #undef DDR_PHY_DX8SL4IOCR_OFFSET
 #define DDR_PHY_DX8SL4IOCR_OFFSET                                                  0XFD081530
-#undef DDR_PHY_DX8SLBPLLCR0_OFFSET
-#define DDR_PHY_DX8SLBPLLCR0_OFFSET                                                0XFD0817C4
 #undef DDR_PHY_DX8SLBDQSCTL_OFFSET
 #define DDR_PHY_DX8SLBDQSCTL_OFFSET                                                0XFD0817DC
 
@@ -23224,132 +23222,54 @@
 /*
 * PLL Bypass
 */
-#undef DDR_PHY_DX8SLBPLLCR0_PLLBYP_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_PLLBYP_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_PLLBYP_MASK
-#define DDR_PHY_DX8SLBPLLCR0_PLLBYP_DEFVAL                     0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_PLLBYP_SHIFT                      31
-#define DDR_PHY_DX8SLBPLLCR0_PLLBYP_MASK                       0x80000000U
 
 /*
 * PLL Reset
 */
-#undef DDR_PHY_DX8SLBPLLCR0_PLLRST_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_PLLRST_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_PLLRST_MASK
-#define DDR_PHY_DX8SLBPLLCR0_PLLRST_DEFVAL                     0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_PLLRST_SHIFT                      30
-#define DDR_PHY_DX8SLBPLLCR0_PLLRST_MASK                       0x40000000U
 
 /*
 * PLL Power Down
 */
-#undef DDR_PHY_DX8SLBPLLCR0_PLLPD_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_PLLPD_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_PLLPD_MASK
-#define DDR_PHY_DX8SLBPLLCR0_PLLPD_DEFVAL                      0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_PLLPD_SHIFT                       29
-#define DDR_PHY_DX8SLBPLLCR0_PLLPD_MASK                        0x20000000U
 
 /*
 * Reference Stop Mode
 */
-#undef DDR_PHY_DX8SLBPLLCR0_RSTOPM_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_RSTOPM_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_RSTOPM_MASK
-#define DDR_PHY_DX8SLBPLLCR0_RSTOPM_DEFVAL                     0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_RSTOPM_SHIFT                      28
-#define DDR_PHY_DX8SLBPLLCR0_RSTOPM_MASK                       0x10000000U
 
 /*
 * PLL Frequency Select
 */
-#undef DDR_PHY_DX8SLBPLLCR0_FRQSEL_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_FRQSEL_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_FRQSEL_MASK
-#define DDR_PHY_DX8SLBPLLCR0_FRQSEL_DEFVAL                     0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_FRQSEL_SHIFT                      24
-#define DDR_PHY_DX8SLBPLLCR0_FRQSEL_MASK                       0x0F000000U
 
 /*
 * Relock Mode
 */
-#undef DDR_PHY_DX8SLBPLLCR0_RLOCKM_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_RLOCKM_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_RLOCKM_MASK
-#define DDR_PHY_DX8SLBPLLCR0_RLOCKM_DEFVAL                     0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_RLOCKM_SHIFT                      23
-#define DDR_PHY_DX8SLBPLLCR0_RLOCKM_MASK                       0x00800000U
 
 /*
 * Charge Pump Proportional Current Control
 */
-#undef DDR_PHY_DX8SLBPLLCR0_CPPC_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_CPPC_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_CPPC_MASK
-#define DDR_PHY_DX8SLBPLLCR0_CPPC_DEFVAL                       0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_CPPC_SHIFT                        17
-#define DDR_PHY_DX8SLBPLLCR0_CPPC_MASK                         0x007E0000U
 
 /*
 * Charge Pump Integrating Current Control
 */
-#undef DDR_PHY_DX8SLBPLLCR0_CPIC_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_CPIC_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_CPIC_MASK
-#define DDR_PHY_DX8SLBPLLCR0_CPIC_DEFVAL                       0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_CPIC_SHIFT                        13
-#define DDR_PHY_DX8SLBPLLCR0_CPIC_MASK                         0x0001E000U
 
 /*
 * Gear Shift
 */
-#undef DDR_PHY_DX8SLBPLLCR0_GSHIFT_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_GSHIFT_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_GSHIFT_MASK
-#define DDR_PHY_DX8SLBPLLCR0_GSHIFT_DEFVAL                     0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_GSHIFT_SHIFT                      12
-#define DDR_PHY_DX8SLBPLLCR0_GSHIFT_MASK                       0x00001000U
 
 /*
 * Reserved. Return zeroes on reads.
 */
-#undef DDR_PHY_DX8SLBPLLCR0_RESERVED_11_9_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_RESERVED_11_9_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_RESERVED_11_9_MASK
-#define DDR_PHY_DX8SLBPLLCR0_RESERVED_11_9_DEFVAL              0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_RESERVED_11_9_SHIFT               9
-#define DDR_PHY_DX8SLBPLLCR0_RESERVED_11_9_MASK                0x00000E00U
 
 /*
 * Analog Test Enable (ATOEN)
 */
-#undef DDR_PHY_DX8SLBPLLCR0_ATOEN_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_ATOEN_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_ATOEN_MASK
-#define DDR_PHY_DX8SLBPLLCR0_ATOEN_DEFVAL                      0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_ATOEN_SHIFT                       8
-#define DDR_PHY_DX8SLBPLLCR0_ATOEN_MASK                        0x00000100U
 
 /*
 * Analog Test Control
 */
-#undef DDR_PHY_DX8SLBPLLCR0_ATC_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_ATC_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_ATC_MASK
-#define DDR_PHY_DX8SLBPLLCR0_ATC_DEFVAL                        0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_ATC_SHIFT                         4
-#define DDR_PHY_DX8SLBPLLCR0_ATC_MASK                          0x000000F0U
 
 /*
 * Digital Test Control
 */
-#undef DDR_PHY_DX8SLBPLLCR0_DTC_DEFVAL
-#undef DDR_PHY_DX8SLBPLLCR0_DTC_SHIFT
-#undef DDR_PHY_DX8SLBPLLCR0_DTC_MASK
-#define DDR_PHY_DX8SLBPLLCR0_DTC_DEFVAL                        0x00000000
-#define DDR_PHY_DX8SLBPLLCR0_DTC_SHIFT                         0
-#define DDR_PHY_DX8SLBPLLCR0_DTC_MASK                          0x0000000FU
 
 /*
 * Reserved. Return zeroes on reads.

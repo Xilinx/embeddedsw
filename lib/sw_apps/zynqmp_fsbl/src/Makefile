@@ -28,7 +28,7 @@ AS      :=      $(CROSS)armr5-none-eabi-gcc
 LINKER  :=      $(CROSS)armr5-none-eabi-gcc
 DUMP    :=      $(CROSS)armr5-none-eabi-objdump -xSD
 CFLAGS :=  -Wall -O0 -g3 -fmessage-length=0
-ECFLAGS := -g -DARMR5 -Wall -Wextra -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
+ECFLAGS := -g -DARMR5 -Wall -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
 LSCRIPT := -Tlscript.ld
 EXEC := ron_r5_fsbl.elf
 INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I. -I../misc/$(BOARD)/$(PROC) -I../misc/$(BOARD)
@@ -70,7 +70,7 @@ CC      :=      $(CROSS)arm-none-eabi-gcc
 AS      :=      $(CROSS)arm-none-eabi-gcc
 LINKER  :=      $(CROSS)arm-none-eabi-gcc
 DUMP    :=      $(CROSS)arm-none-eabi-objdump -xSD
-ECFLAGS :=  -Wextra -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
+ECFLAGS :=	-march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -DARMA53_$(A53_STATE) -Os -flto -ffat-lto-objects
 LSCRIPT :=	-Tlscript.ld
 LDFLAGS :=  -Wl,--start-group,-lxil,-lxilffs,-lxilsecure,-lxilpm,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))

@@ -290,11 +290,6 @@ __root const u32 XPm_ConfigObject[] =
 /* Prealloc for psu_cortexa53_0 */
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK,
 	12,
-	NODE_IPI_APU,
-	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
-
 	NODE_DDR,
 	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
@@ -350,15 +345,15 @@ __root const u32 XPm_ConfigObject[] =
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
 
-
-	/* Prealloc for psu_cortexr5_0 */
-	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,
-	14,
-	NODE_IPI_RPU_0,
+	NODE_IPI_APU,
 	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
 
+
+	/* Prealloc for psu_cortexr5_0 */
+	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,
+	15,
 	NODE_TCM_0_A,
 	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
@@ -424,15 +419,20 @@ __root const u32 XPm_ConfigObject[] =
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
 
-
-	/* Prealloc for psu_cortexr5_1 */
-	PM_CONFIG_IPI_PSU_CORTEXR5_1_MASK,
-	3,
-	NODE_IPI_RPU_1,
+	NODE_ADMA,
 	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
 
+	NODE_IPI_RPU_0,
+	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
+	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
+	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
+
+
+	/* Prealloc for psu_cortexr5_1 */
+	PM_CONFIG_IPI_PSU_CORTEXR5_1_MASK,
+	3,
 	NODE_TCM_1_A,
 	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
@@ -443,6 +443,10 @@ __root const u32 XPm_ConfigObject[] =
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
 	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
 
+	NODE_IPI_RPU_1,
+	PM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */
+	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */
+	PM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */
 
 
 	/**********************************************************************/
@@ -455,7 +459,7 @@ __root const u32 XPm_ConfigObject[] =
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK | PM_CONFIG_IPI_PSU_CORTEXR5_1_MASK, /* Force power down permissions */
 
 	NODE_RPU, /* Power node ID */
-	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK, /* Force power down permissions */
+	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK | PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK | PM_CONFIG_IPI_PSU_CORTEXR5_1_MASK, /* Force power down permissions */
 
 	NODE_FPD, /* Power node ID */
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK | PM_CONFIG_IPI_PSU_CORTEXR5_1_MASK, /* Force power down permissions */

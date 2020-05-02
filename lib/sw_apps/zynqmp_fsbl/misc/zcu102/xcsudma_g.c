@@ -9,13 +9,22 @@
 * SPDX-License-Identifier: MIT
 
 *
-* Description: Configurations for Standalone BSP
+* Description: Driver configuration
 *
 *******************************************************************/
 
-#ifndef BSPCONFIG_H /* prevent circular inclusions */
-#define BSPCONFIG_H /* by using protection macros */
+#include "xparameters.h"
+#include "xcsudma.h"
 
-#define MICROBLAZE_PVR_NONE
+/*
+* The configuration table for devices
+*/
 
-#endif /*end of __BSPCONFIG_H_*/
+XCsuDma_Config XCsuDma_ConfigTable[XPAR_XCSUDMA_NUM_INSTANCES] =
+{
+	{
+		XPAR_PSU_CSUDMA_DEVICE_ID,
+		XPAR_PSU_CSUDMA_BASEADDR,
+		XPAR_PSU_CSUDMA_DMATYPE
+	}
+};
