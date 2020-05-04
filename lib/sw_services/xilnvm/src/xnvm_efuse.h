@@ -45,34 +45,43 @@ extern "C" {
  * @{
  */
 /* Key and Iv length definitions for Versal eFuse */
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)
-#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
+#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
+#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
+#define XNVM_EFUSE_DNA_IN_WORDS				(4U)
 
-/* PPK definition for Versal eFuse */
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)
+#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES                 (32U)
 
 /* PUF syndrome length definitions for Versal eFuse */
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
 #define XNVM_EFUSE_PUF_AUX_LEN_IN_BITS			(24U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
-
-/* Versal eFuse maximum bits in a row */
-#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
-
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
-#define XNVM_EFUSE_DNA_IN_WORDS				(4U)
-#define XNVM_EFUSE_IV_LEN_IN_WORDS			(3U)
-
 
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
-
 #define XNVM_USER_FUSE_START_NUM			(1U)
 #define XNVM_USER_FUSE_END_NUM				(63U)
 #define XNVM_NUM_OF_USER_FUSES				(63U)
 
+/* Versal eFuse maximum bits in a row */
+#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
+
+/**
+* @}
+* @endcond
+*/
+
 /***************************** Type Definitions *******************************/
 
+/**
+ * @addtogroup xilsecure_versal_error_codes List of Error Codes
+ * @{
+ */
+
+/**
+ The following table lists the Versal eFuse library error codes.
+ */
 typedef enum {
 	XNVM_EFUSE_ERR_NONE = 0U,/**< 0 - No error. */
 
@@ -107,8 +116,8 @@ typedef enum {
 	XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD = 0x60U,/**<0x60U - Ppk hash 2 is
 						* already programmed */
 
-	XNVM_EFUSE_ERR_DEC_EFUSE_ONLY_ALREADY_PRGMD = 0x70U,/**<0x70U -
-						* DEC_ONLY is
+	XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD = 0x70U,/**<0x70U -
+						* BLK_OBFUS_IV is
 						* already programmed */
 
 	XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD = 0x80U,/**<0x80U - Puf syndrome is
@@ -120,6 +129,14 @@ typedef enum {
 	XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD = 0xA0U,/**<0xA0U - Puf Aux is
 						* already programmed */
 
+	XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD = 0xB0U,/**<0xB0U - Aes key
+						* should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD = 0xC0U,/**<0xC0U - Blk obfus
+						* IV should be programmed for
+						* DEC_ONLY eFuse programming */
+
 	XNVM_EFUSE_ERR_BIT_CANT_REVERT = 0xF0U,/**<0xF0U - Already programmed eFuse
 						* Bit, cant be reverted */
 
@@ -127,10 +144,10 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_AES_KEY = 0x8000U,/**<0x8000U - Error in Aes key
 						* programming */
 
-	XNVM_EFUSE_ERR_WRITE_USER0_KEY = 0x8100U,/**<0x8100U - Error in Userkey0
+	XNVM_EFUSE_ERR_WRITE_USER_KEY0 = 0x8100U,/**<0x8100U - Error in Userkey0
 						* programming */
 
-	XNVM_EFUSE_ERR_WRITE_USER1_KEY = 0x8200U,/**<0x8200U - Error in Userkey1
+	XNVM_EFUSE_ERR_WRITE_USER_KEY1 = 0x8200U,/**<0x8200U - Error in Userkey1
 						* programming */
 
 	XNVM_EFUSE_ERR_WRITE_PPK0_HASH = 0x8300U,/**<0x8300U - Error in PPK0hash
@@ -154,8 +171,8 @@ typedef enum {
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRITE_PLML_IV = 0x8900U,/**<0x8900U - Error in
-						* PLML IV
+	XNVM_EFUSE_ERR_WRITE_PLM_IV = 0x8900U,/**<0x8900U - Error in
+						* PLM IV
 						* programming */
 
 
@@ -205,13 +222,13 @@ typedef enum {
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_1 = 0x9300U,/**<0x9300U - Error in
-						* AES_CRC_LK_BIT1 efuse
+	XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_0 = 0x9300U,/**<0x9300U - Error in
+						* AES_CRC_LK_BIT0 efuse
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_2 = 0x9400U,/**<0x9400U - Error in
-							 * AES_CRC_LK_BIT2 efuse
+	XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_1 = 0x9400U,/**<0x9400U - Error in
+							 * AES_CRC_LK_BIT1 efuse
 							 * programming */
 
 
@@ -242,31 +259,31 @@ typedef enum {
 							* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_1 = 0x9A00U,/**<0x9600U - Error in
+	XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_0 = 0x9A00U,/**<0x9600U - Error in
+							* SECDBG_DIS_BIT_0
+							* efuse programming */
+
+
+	XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_1 = 0x9B00U,/**<0x9B00U - Error in
 							* SECDBG_DIS_BIT_1
 							* efuse programming */
-
-
-	XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_2 = 0x9B00U,/**<0x9B00U - Error in
-							* SECDBG_DIS_BIT_2
+	XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_0 = 0x9C00U,/**<0x9C00U - Error in
+							* SECLOCKDBG_DIS
+							* bit0
+							* programming */
+	XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_1 = 0x9D00U,/**<0x9D00U - Error in
+							* SECLOCKDBG_DIS
+							* bit1 efuse
+							* programming */
+	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_0 = 0x9E00U,/**<0x9E00U - Error in
+							* PMC_SC_EN_BIT_0
 							* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_1 = 0x9C00U,/**<0x9C00U - Error in
-							* SECLOCKDBG_DIS
-							* bit1
-							* programming */
-	XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_2 = 0x9D00U,/**<0x9D00U - Error in
-							* SECLOCKDBG_DIS
-							* bit2 efuse
-							* programming */
-	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_1 = 0x9E00U,/**<0x9E00U - Error in
+	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_1 = 0x9F00U,/**<0x9F00U - Error in
 							* PMC_SC_EN_BIT_1
 							* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_2 = 0x9F00U,/**<0x9F00U - Error in
-							* PMC_SC_EN_BIT_2
-							* efuse programming */
 
-	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_3 = 0xA000U,/**<0xA000U - Error in
-							* PMC_SC_EN_BIT_3
+	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_2 = 0xA000U,/**<0xA000U - Error in
+							* PMC_SC_EN_BIT_2
 							* efuse programming */
 	XNVM_EFUSE_ERR_WRTIE_SVD_WR_LK = 0xA100U,/**<0xA100U - Error in
 						* SVD_WR_LK
@@ -280,29 +297,29 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRTIE_CACHE_WR_LK = 0xA400U,/**<0xA400U - Error in
 						* SVD_WR_LK
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_1 = 0xA500U,/**<0xA500U - Error in
+	XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_0 = 0xA500U,/**<0xA500U - Error in
+						* REG_INIT_DIS_BIT_0
+						* efuse programming */
+	XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_1 = 0xA600U,/**<0xA600U - Error in
 						* REG_INIT_DIS_BIT_1
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_2 = 0xA600U,/**<0xA600U - Error in
-						* REG_INIT_DIS_BIT_2
+	XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0 = 0xA700U,/**<0xA700U - Error in
+						* PPK0_INVALID_BIT_0
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1 = 0xA700U,/**<0xA700U - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1 = 0xA800U,/**<0xA800U - Error in
 						* PPK0_INVALID_BIT_1
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_2 = 0xA800U,/**<0xA800U - Error in
-						* PPK0_INVALID_BIT_2
+	XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0 = 0xA900U,/**<0xA900U - Error in
+						* PPK1_INVALID_BIT_0
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1 = 0xA900U,/**<0xA900U - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1 = 0xAA00U,/**<0xAA00U - Error in
 						* PPK1_INVALID_BIT_1
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_2 = 0xAA00U,/**<0xAA00U - Error in
-						* PPK1_INVALID_BIT_2
+	XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0 = 0xAB00U,/**<0xAB00U - Error in
+						* PPK2_INVALID_BIT_0
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1 = 0xAB00U,/**<0xAB00U - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1 = 0xAC00U,/**<0xAC00U - Error in
 						* PPK2_INVALID_BIT_1
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_2 = 0xAC00U,/**<0xAC00U - Error in
-						* PPK2_INVALID_BIT_2
 						* efuse programming */
 
 	XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA = 0xB000U,/**<0xB000U - Error in
@@ -381,8 +398,8 @@ typedef enum {
 						* reading Meta IV efuses */
 	XNVM_EFUSE_ERR_RD_BLACK_OBFUS_IV = 0xD900U,/**<0xD900U - Error in
 						* reading Blk IV efuses */
-	XNVM_EFUSE_ERR_RD_PLML_IV = 0xDA00U,/**<0xDA00U - Error in
-						* reading PLML Iv efuses */
+	XNVM_EFUSE_ERR_RD_PLM_IV = 0xDA00U,/**<0xDA00U - Error in
+						* reading PLM Iv efuses */
 	XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV = 0xDB00U,/**<0xDB00U - Error in
 						* reading Data Partition IV
 						* efuses */
@@ -424,7 +441,10 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT = 0xEB00U,/**<0xEB00U - Error in
 						* ROW96_99_1_PROT
 						* programming */
-
+	XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED = 0xF000U,/**<0xF000U - Error in
+						* Programming, no data is
+						* provided for Programming.
+						* All Data pointers are NULL */
 	XNVM_EFUSE_ERR_FUSE_PROTECTED = 0x40000U,/**< 0x40000U
 						* Requested eFUSE is write
 						* protected. */
@@ -436,8 +456,11 @@ typedef enum {
 
 /**
 * @}
-* @endcond
 */
+
+/**@cond xnvm_internal
+ * @{
+ */
 typedef enum {
 	XNVM_EFUSE_PAGE_0,
 	XNVM_EFUSE_PAGE_1,
@@ -447,7 +470,7 @@ typedef enum {
 typedef enum {
 	XNVM_EFUSE_META_HEADER_IV_TYPE,
 	XNVM_EFUSE_BLACK_OBFUS_IV_TYPE,
-	XNVM_EFUSE_PLML_IV_TYPE,
+	XNVM_EFUSE_PLM_IV_TYPE,
 	XNVM_EFUSE_DATA_PARTITION_IV_TYPE
 }XNvm_IvType;
 
@@ -477,8 +500,8 @@ typedef enum {
 	XNVM_EFUSE_SEC_PPK0_WRLK,
 	XNVM_EFUSE_SEC_PPK1_WRLK,
 	XNVM_EFUSE_SEC_PPK2_WRLK,
+	XNVM_EFUSE_SEC_AES_CRC_LK_BIT_0,
 	XNVM_EFUSE_SEC_AES_CRC_LK_BIT_1,
-	XNVM_EFUSE_SEC_AES_CRC_LK_BIT_2,
 	XNVM_EFUSE_SEC_AES_WRLK,
 	XNVM_EFUSE_SEC_USER_KEY0_CRC_LK,
 	XNVM_EFUSE_SEC_USER_KEY0_WRLK,
@@ -487,39 +510,51 @@ typedef enum {
 	XNVM_EFUSE_SEC_PUF_SYN_LK,
 	XNVM_EFUSE_SEC_PUF_TEST2_DIS,
 	XNVM_EFUSE_SEC_PUF_DIS,
+	XNVM_EFUSE_SEC_SECDBG_DIS_BIT_0,
 	XNVM_EFUSE_SEC_SECDBG_DIS_BIT_1,
-	XNVM_EFUSE_SEC_SECDBG_DIS_BIT_2,
+	XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_0,
 	XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_1,
-	XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_2,
+	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_0,
 	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_1,
 	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_2,
-	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_3,
 	XNVM_EFUSE_SEC_SVD_WRLK,
 	XNVM_EFUSE_SEC_DNA_WRLK,
 	XNVM_EFUSE_SEC_BOOTENV_WRLK,
 	XNVM_EFUSE_SEC_CACHE_WRLK,
-	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1,
-	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_2
+	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_0,
+	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1
 }XNvm_SecCtrlBitColumns;
 
 typedef enum {
-	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1 = 2U,
-	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_2,
+	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_0 = 2U,
+	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1,
+	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_0,
 	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_1,
-	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_2,
+	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0,
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1,
-	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_2,
 	XNVM_EFUSE_MISC_SAFETY_MISSION_EN,
 	XNVM_EFUSE_LBIST_EN = 14U,
 	XNVM_EFUSE_CRYPTO_KAT_EN,
-	XNVM_EFUSE_HALT_BOOT_ENV_BIT_1 = 19U,
-	XNVM_EFUSE_HALT_BOOT_ENV_BIT_2,
+	XNVM_EFUSE_HALT_BOOT_ENV_BIT_0 = 19U,
+	XNVM_EFUSE_HALT_BOOT_ENV_BIT_1,
+	XNVM_HALT_BOOT_ERROR_BIT_0,
 	XNVM_HALT_BOOT_ERROR_BIT_1,
-	XNVM_HALT_BOOT_ERROR_BIT_2,
 	XNVM_EFUSE_GD_ROM_MONITOR_EN = 29U,
-	XNVm_EFUSE_GD_HALT_BOOT_EN_BIT_1,
-	XNVm_EFUSE_GD_HALT_BOOT_EN_BIT_2
+	XNVm_EFUSE_GD_HALT_BOOT_EN_BIT_0,
+	XNVm_EFUSE_GD_HALT_BOOT_EN_BIT_1
 }XNvm_MiscCtrlBitColumns;
+
+typedef struct {
+	u32 Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+}XNvm_PpkHash;
+
+typedef struct {
+	u32 Iv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+}XNvm_Iv;
+
+typedef struct {
+	u32 Dna[XNVM_EFUSE_DNA_IN_WORDS];
+}XNvm_Dna;
 
 typedef struct {
 	u8 AesDis;
@@ -538,7 +573,7 @@ typedef struct {
 	u8 SecLockDbgDis;
 	u8 BootEnvWrLk;
 	u8 RegInitDis;
-}XNvm_SecCtrlBits;
+}XNvm_EfuseSecCtrlBits;
 
 typedef struct {
 	u8 PufRegenDis;
@@ -546,7 +581,7 @@ typedef struct {
 	u8 PufTest2Dis;
 	u8 PufDis;
 	u8 PufSynLk;
-}XNvm_PufSecCtrlBits;
+}XNvm_EfusePufSecCtrlBits;
 
 typedef struct {
 	u8 SafetyMissionEn;
@@ -559,50 +594,35 @@ typedef struct {
 	u8 Ppk0Invalid;
 	u8 Ppk1Invalid;
 	u8 Ppk2Invalid;
-}XNvm_MiscCtrlBits;
-
-typedef struct {
 	u8 SysmonTempMonEn;
 	u8 SysmonVoltMonEn;
 	u8 LpdNocScEn;
 	u8 PmcMbistEn;
 	u8 LpdMbistEn;
-	u16 DpaMaskDis;
-}Xnvm_SecurityMisc1Bits;
+}XNvm_EfuseMiscCtrlBits;
 
 typedef struct {
-	u8 AesKey;
-	u8 UserKey0;
-	u8 UserKey1;
-	u8 Ppk0Hash;
-	u8 Ppk1Hash;
-	u8 Ppk2Hash;
-	u8 DecOnly;
-}Xnvm_WriteFlags;
+	u8 PrgmAesKey;
+	u8 PrgmUserKey0;
+	u8 PrgmUserKey1;
+	u32 AesKey[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
+	u32 UserKey0[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
+	u32 UserKey1[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
+}XNvm_EfuseAesKeys;
 
 typedef struct {
-	XNvm_SecCtrlBits PrgmSecCtrlFlags;
-	Xnvm_WriteFlags	CheckWriteFlags;
-	u32 AesKey[XNVM_EFUSE_AES_KEY_LEN_IN_BYTES / 4];
-	u32 UserKey0[XNVM_EFUSE_AES_KEY_LEN_IN_BYTES / 4];
-	u32 UserKey1[XNVM_EFUSE_AES_KEY_LEN_IN_BYTES / 4];
-	u32 Ppk0Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES / 4];
-	u32 Ppk1Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES / 4];
-	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES / 4];
+	u8 PrgmPpk0Hash;
+	u8 PrgmPpk1Hash;
+	u8 PrgmPpk2Hash;
+	u32 Ppk0Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+	u32 Ppk1Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+}XNvm_EfusePpkHash;
+
+typedef struct {
+	u8 PrgmDecOnly;
 	u32 DecEfuseOnly;
-	XNvm_SecCtrlBits ReadBackSecCtrlBits;
-}XNvm_EfuseWriteData;
-
-typedef struct {
-	u8 RevokeId0;
-	u8 RevokeId1;
-	u8 RevokeId2;
-	u8 RevokeId3;
-	u8 RevokeId4;
-	u8 RevokeId5;
-	u8 RevokeId6;
-	u8 RevokeId7;
-}XNvm_RevokeIdFlags;
+}XNvm_EfuseDecOnly;
 
 typedef struct {
 	u8 PrgmRevokeId0;
@@ -613,72 +633,70 @@ typedef struct {
 	u8 PrgmRevokeId5;
 	u8 PrgmRevokeId6;
 	u8 PrgmRevokeId7;
-	u32 RevokeId0;
-	u32 RevokeId1;
-	u32 RevokeId2;
-	u32 RevokeId3;
-	u32 RevokeId4;
-	u32 RevokeId5;
-	u32 RevokeId6;
-	u32 RevokeId7;
-}XNvm_RevokeIdEfuse;
+	u32 RevokeId[XNVM_NUM_OF_REVOKE_ID_FUSES];
+}XNvm_EfuseRevokeIds;
 
 typedef struct {
-	u8 Ppk0;
-	u8 Ppk1;
-	u8 Ppk2;
-}XNvm_RevokePpkFlags;
+	u8 PrgmMetaHeaderIv;
+	u8 PrgmBlkObfusIv;
+	u8 PrgmPlmIv;
+	u8 PrgmDataPartitionIv;
+	u32 MetaHeaderIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+	u32 BlkObfusIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+	u32 PlmIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+	u32 DataPartitionIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+}XNvm_EfuseIvs;
 
 typedef struct {
-	XNvm_PufSecCtrlBits PrgmPufSecCtrlBits;
-	u8 PrgmChash;
-	u8 PrgmAux;
-	u8 PrgmSynData;
+	u32 StartUserFuseNum;
+	u32 NumOfUserFuses;
+	u32 *UserFuseData;
+}XNvm_EfuseUserData;
+
+typedef struct {
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
+	u8 PrgmPufHelperData;
 	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
 	u32 Chash;
 	u32 Aux;
-	XNvm_PufSecCtrlBits ReadPufSecCtrlBits;
-}XNvm_PufHelperData;
+}XNvm_EfusePufHd;
 
 typedef struct {
-	u8 PgrmMetaHeaderIv;
-	u8 PgrmBlkObfusIv;
-	u8 PgmPlmlIv;
-	u8 PgmDataPartitionIv;
-	u32 MetaHeaderIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
-	u32 BlkObfusIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
-	u32 PlmlIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
-	u32 DataPartitionIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
-}XNvm_Iv;
+	XNvm_EfuseAesKeys *AesKeys;
+	XNvm_EfusePpkHash *PpkHash;
+	XNvm_EfuseDecOnly *DecOnly;
+	XNvm_EfuseSecCtrlBits *SecCtrlBits;
+	XNvm_EfuseMiscCtrlBits *MiscCtrlBits;
+	XNvm_EfuseRevokeIds *RevokeIds;
+	XNvm_EfuseIvs *Ivs;
+	XNvm_EfuseUserData *UserFuses;
+}XNvm_EfuseData;
 
-typedef struct {
-	u32 Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
-}XNvm_PpkHash;
-
-typedef struct {
-	u32 Dna[XNVM_EFUSE_DNA_IN_WORDS];
-}XNvm_Dna;
+/**
+* @}
+* @endcond
+*/
 
 /*************************** Function Prototypes ******************************/
-u32 XNvm_EfuseWrite(XNvm_EfuseWriteData *WriteNvm);
-u32 XNvm_EfuseReadSecCtrlBits(XNvm_SecCtrlBits *ReadbackSecCtrlBits);
-u32 XNvm_EfuseWritePuf(XNvm_PufHelperData *PrgmPufHelperData);
-u32 XNvm_EfuseReadPufSecCtrlBits(XNvm_PufSecCtrlBits *ReadBackPufSecCtrlBits);
-u32 XNvm_EfuseWriteIVs(XNvm_Iv *EfuseIv);
-u32 XNvm_EfuseReadIVs(XNvm_Iv *EfuseIv);
-u32 XNvm_EfuseReadPufHelperData(XNvm_PufHelperData *PrgmPufHelperData);
-u32 XNvm_EfuseReadDna(XNvm_Dna *EfuseDna);
-u32 XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType);
-u32 XNvm_EfuseRevokePpk(XNvm_RevokePpkFlags *PpkRevoke);
-u32 XNvm_EfuseWriteRevocationId(XNvm_RevokeIdEfuse *WriteRevokeId);
-u32 XNvm_EfuseReadMiscCtrlBits(XNvm_MiscCtrlBits *ReadMiscCtrlBits);
-u32 XNvm_EfuseReadDecOnly(u32* DecOnly);
+u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm);
+u32 XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv);
+u32 XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke);
+u32 XNvm_EfuseWriteRevocationId(u32 RevokeId);
+u32 XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WiriteUserFuses);
+u32 XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType);
 u32 XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr, u8 RevokeFuseNum);
+u32 XNvm_EfuseReadUserFuses(XNvm_EfuseUserData *UserFuseData);
+u32 XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits);
+u32 XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
+u32 XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType);
+u32 XNvm_EfuseReadDecOnly(u32* DecOnly);
+u32 XNvm_EfuseReadDna(XNvm_Dna *EfuseDna);
 u32 XNvm_EfuseCheckAesKeyCrc(u32 Crc);
 u32 XNvm_EfuseCheckAesUserKey0Crc(u32 Crc);
 u32 XNvm_EfuseCheckAesUserKey1Crc(u32 Crc);
-u32 XNvm_EfuseWriteUserFuses(u32 StartUserFuseNum, u8 NumOfUserFuses, const u32* UserFuseData);
-u32 XNvm_EfuseReadUserFuses(u32 *UserFuseData);
+u32 XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData);
+u32 XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData);
+u32 XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
 
 #ifdef __cplusplus
 }
