@@ -30,6 +30,10 @@ extern "C" {
 /***************************** Include Files *********************************/
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
+/**
+ * @addtogroup xilsecure_versal_error_codes List of Error Codes
+ * @{
+ */
 typedef enum {
 	XSECURE_SHA3_INIT_ERROR = 0x02U,      /**< 0x02 - Error when SHA3
                                             init fails. */
@@ -43,12 +47,12 @@ typedef enum {
                                          not matched with expected hash */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40U,
-					/**< 0x40 user provided GCM tag does
+					/**< 0x40 - user provided GCM tag does
 						not match calculated tag */
 	XSECURE_AES_KEY_CLEAR_ERROR,
-					/**< 0x41 AES key clear error */
+					/**< 0x41 - AES key clear error */
 	XSECURE_AES_DPA_CM_NOT_SUPPORTED,
-					/**< 0x42 AES DPA CM is not supported on device */
+					/**< 0x42 - AES DPA CM is not supported on device */
 	XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR, /**< 0x43 - Error when AES key write
                                                   fails. */
 	XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR, /**< 0x44 - Error when AES
@@ -65,7 +69,7 @@ typedef enum {
 							key write fails. */
 	XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR,   /**< 0x49 - Error when AESDPACM
                                                         key load fails. */
-	XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR,       /**< 0x4A Eroor ehen AESDPACM
+	XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR,       /**< 0x4A - Eroor ehen AESDPACM
 							sss config fails */
 	XSECURE_AESDPACM_KAT_FAILED_ERROR,           /**< 0x4B - AESDPACM KAT Failes*/
 	XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR,    /**< 0x4C - Error when AESDPACM
@@ -93,9 +97,10 @@ typedef enum {
 
 	XSECURE_ECC_KAT_FAILED_ERROR,   /**< 0xC1 - ECC KAT Failes */
 
-
 } XSecure_ErrorCodes;
-
+/**
+ * @}
+*/
 /************************** Function Prototypes ******************************/
 
 #ifdef __cplusplus

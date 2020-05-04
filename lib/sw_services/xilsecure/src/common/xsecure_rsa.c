@@ -122,8 +122,9 @@ END:
  *		- For SHA3 it should be 48 bytes
  *		- For SHA2 it should be 32 bytes
  *
- * @return	XST_SUCCESS if decryption was successful.
- *		XST_FAILURE in case of mismatch.
+ * @return
+ *		- XST_SUCCESS if decryption was successful.
+ *		- XST_FAILURE in case of mismatch.
  *
  ******************************************************************************/
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
@@ -223,7 +224,9 @@ ENDF:
 * @param	Result		Pointer to the buffer where resultant decrypted
 *		data to be stored		.
 *
-* @return	XST_SUCCESS if encryption was successful.
+* @return
+*		- XST_SUCCESS if encryption was successful.
+*		- Error code on failure
 *
 * @note		The Size passed here needs to match the key size used in the
 * 		XSecure_RsaInitialize function.
@@ -266,11 +269,10 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 * @param	Result		Pointer to the buffer where resultant decrypted
 *		data to be stored		.
 *
-* @return	XST_SUCCESS if decryption was successful.
-*
-*		XSECURE_RSA_DATA_VALUE_ERROR - if input data is
-*		greater than modulus.
-*		XST_FAILURE - on RSA operation failure.
+* @return
+*		- XST_SUCCESS if decryption was successful.
+*		- XSECURE_RSA_DATA_VALUE_ERROR - if input data is greater than modulus.
+*		- XST_FAILURE - on RSA operation failure.
 *
 * @note		The Size passed in needs to match the key size used in the
 * 		XSecure_RsaInitialize function..

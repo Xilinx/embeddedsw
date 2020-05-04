@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 4.2   har  03/20/20 Initial release
 *
+* </pre>
 * @note
 *
 ******************************************************************************/
@@ -47,8 +48,9 @@
  *
  * @param	InstancePtr Pointer to the XSecure_Sha3 instance.
  *
- * @return	XST_SUCCESS if the SHA3 completes its operation.
- * 		XST_FAILURE if a timeout has occurred.
+ * @return
+ *		- XST_SUCCESS if the SHA3 completes its operation.
+ * 		- XST_FAILURE if a timeout has occurred.
  *
  ******************************************************************************/
 inline u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
@@ -194,8 +196,9 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
  * @param	Data 		Pointer to the input data for hashing.
  * @param	Size 		Size of the input data in bytes.
  *
- * @return	XST_SUCCESS if the update is successful
- * 		XST_FAILURE if there is a failure in SSS config
+ * @return
+ *		- XST_SUCCESS if the update is successful
+ * 		- XST_FAILURE if there is a failure in SSS config
  *
  ******************************************************************************/
 u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
@@ -251,8 +254,9 @@ END:
  * @param	Hash		Pointer to location where resulting hash will
  *		be written
  *
- * @return	XST_SUCCESS if finished without any errors
- *		XST_FAILURE if Sha3PadType is other than KECCAK or NIST
+ * @return
+ *		- XST_SUCCESS if finished without any errors
+ *		- XST_FAILURE if Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
@@ -326,8 +330,9 @@ END:
  * @param	Out		Pointer to location where resulting hash will
  *		be written.
  *
- * @return	XST_SUCCESS if digest calculation done successfully
- *		XST_FAILURE if any error from Sha3Update or Sha3Finish.
+ * @return
+ *		- XST_SUCCESS if digest calculation done successfully
+ *		- XST_FAILURE if any error from Sha3Update or Sha3Finish.
  *
  ******************************************************************************/
 u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
@@ -393,8 +398,9 @@ void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
  * @param	Data 		Pointer to the input data need to be transferred.
  * @param	Size 		Size of the input data in bytes.
  *
- * @return	None
- *
+ * @return
+ *		- XST_SUCCESS if the update is successful
+ * 		- XST_FAILURE if there an error occurs
  *
  ******************************************************************************/
 static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
@@ -436,8 +442,9 @@ ENDF:
  * @param	Data 		Pointer to the input data for hashing.
  * @param	Size 		Size of the input data in bytes.
  *
- * @return	None
- *
+ * @return
+ *		- XST_SUCCESS if the update is successful
+ * 		- XST_FAILURE if there is a failure
  *
  ******************************************************************************/
 static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
@@ -512,12 +519,13 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief       This function performs KAT on SHA.
+ * @brief	This function performs known answer test(KAT) on SHA crypto engine.
  *
- * @param       SecureSha3 Pointer to the XSecure_Sha3 instance.
+ * @param	SecureSha3	Pointer to the XSecure_Sha3 instance.
  *
- * @return      - XST_SUCCESS when KAT Pass
- *              - Error code on failure
+ * @return
+ *			- XST_SUCCESS when KAT Pass
+ *			- Error code on failure
  *
  ******************************************************************************/
 u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)

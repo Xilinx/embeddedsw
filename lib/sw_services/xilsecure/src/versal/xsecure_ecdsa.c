@@ -42,12 +42,11 @@
 
 /*****************************************************************************/
 /**
- * @brief	This function performs KAT on ECDSA core.
+ * @brief	This function performs known answer test(KAT) on ECDSA core.
  *
- * @param 	None
- *
- * @return	Returns the error codes based on failure
- *		Returns XST_SUCCESS on success
+ * @return
+ *		- Returns XST_SUCCESS on success.
+ *		- Returns error code on failure
  *
  *****************************************************************************/
 u32 XSecure_EcdsaKat(void)
