@@ -244,14 +244,18 @@ u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 * @brief	This function will return whether boot header authentication is
 * enabled or not.
 *
-* @param	ImgHdrTbl is pointer to the Image Header Table
+* @param	BootHdr is pointer to the boot header
 *
-* @return 	Secondary Boot device
+* @return 	TRUE if boot header authentication is enabled.
+*			FALSE if boot header authentication is disabled.
 *
 *****************************************************************************/
 inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 {
-	return (BootHdr->ImgAttrb & XIH_BH_IMG_ATTRB_BH_AUTH_MASK);
+	u32 BhAuth = (BootHdr->ImgAttrb & XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+					XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT;
+
+	return ((BhAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ? TRUE : FALSE);
 }
 
 /****************************************************************************/
