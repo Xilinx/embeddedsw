@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_hdmirxss_coreinit.h
-* @addtogroup v_hdmirxss_v5_4
+* @addtogroup v_hdmirxss_v5_5
 * @{
 * @details
 *
