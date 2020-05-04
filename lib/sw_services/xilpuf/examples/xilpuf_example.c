@@ -47,7 +47,7 @@
 
 /************************** Variable Definitions ******************************/
 #if (XPUF_WRITE_HD_IN_EFUSE)
-static XNvm_PufHelperData PrgmPufHelperData;
+static XNvm_EfusePufHd PrgmPufHelperData;
 #endif
 
 static XPuf_Data PufData;
@@ -176,11 +176,11 @@ END:
 static s32 XPuf_ValidateUserInput()
 {
 	int Status = XST_FAILURE;
-	XNvm_PufSecCtrlBits ReadPufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits ReadPufSecCtrlBits;
 #if (XPUF_WRITE_HD_IN_EFUSE)
 	u32 Index;
-	u32 CheckHdZero;
-	XNvm_PufHelperData RdPufHelperData;
+	u32 CheckHdZero = 0U;
+	XNvm_EfusePufHd RdPufHelperData;
 #endif
 
 	/* Checks for programming black key */
@@ -235,7 +235,7 @@ static s32 XPuf_ValidateUserInput()
 		goto END;
 	}
 
-	Status = XNvm_EfuseReadPufHelperData(&RdPufHelperData);
+	Status = XNvm_EfuseReadPuf(&RdPufHelperData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -324,9 +324,7 @@ static s32 XPuf_GenerateKey()
 	PrgmPufHelperData.Chash = PufData.Chash;
 	PrgmPufHelperData.Aux = PufData.Aux;
 
-	PrgmPufHelperData.PrgmSynData = TRUE;
-	PrgmPufHelperData.PrgmChash = TRUE;
-	PrgmPufHelperData.PrgmAux = TRUE;
+	PrgmPufHelperData.PrgmPufHelperData = TRUE;
 
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS)
@@ -501,7 +499,8 @@ static s32 XPuf_ProgramBlackKey(void)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
-	XNvm_EfuseWriteData WriteData;
+	XNvm_EfuseAesKeys WriteAesKeys = {0U};
+	XNvm_EfuseData WriteData = {NULL};
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
 					XPUF_WRITE_BLACK_KEY_OPTION;
 
@@ -513,9 +512,10 @@ static s32 XPuf_ProgramBlackKey(void)
 	switch (BlackKeyWriteOption) {
 
 		case XPUF_EFUSE_AES_KEY:
-			WriteData.CheckWriteFlags.AesKey = TRUE;
-			Xil_MemCpy(WriteData.AesKey,BlackKey,
+			WriteAesKeys.PrgmAesKey = TRUE;
+			Xil_MemCpy(WriteAesKeys.AesKey, BlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
 			if (Status != XST_SUCCESS) {
 				xPuf_printf(XPUF_DEBUG_INFO,"Error in"
@@ -533,9 +533,10 @@ static s32 XPuf_ProgramBlackKey(void)
 			break;
 
 		case XPUF_EFUSE_USER_0_KEY:
-			WriteData.CheckWriteFlags.UserKey0 = TRUE;
-			Xil_MemCpy(WriteData.UserKey0,BlackKey,
+			WriteAesKeys.PrgmUserKey0 = TRUE;
+			Xil_MemCpy(WriteAesKeys.UserKey0, BlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
 			if (Status != XST_SUCCESS) {
 				xPuf_printf(XPUF_DEBUG_INFO,"Error in"
@@ -544,9 +545,10 @@ static s32 XPuf_ProgramBlackKey(void)
 			break;
 
 		case XPUF_EFUSE_USER_1_KEY:
-			WriteData.CheckWriteFlags.UserKey1 = TRUE;
-			Xil_MemCpy(WriteData.UserKey1,BlackKey,
+			WriteAesKeys.PrgmUserKey1 = TRUE;
+			Xil_MemCpy(WriteAesKeys.UserKey1, BlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
 			if (Status != XST_SUCCESS) {
 				xPuf_printf(XPUF_DEBUG_INFO,"Error in"
@@ -580,12 +582,12 @@ static s32 XPuf_ProgramBlackKey(void)
 static u32 XPuf_WritePufSecCtrlBits()
 {
 	u32 Status = XST_FAILURE;
-	XNvm_PufHelperData PrgmPufHelperData;
+	XNvm_EfusePufHd PrgmPufHelperData;
 
-	PrgmPufHelperData.PrgmPufSecCtrlBits.PufDis = PUF_DIS;
-	PrgmPufHelperData.PrgmPufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
-	PrgmPufHelperData.PrgmPufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
-	PrgmPufHelperData.PrgmPufSecCtrlBits.PufSynLk = PUF_SYN_LK;
+	PrgmPufHelperData.PufSecCtrlBits.PufDis = PUF_DIS;
+	PrgmPufHelperData.PufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
+	PrgmPufHelperData.PufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
+	PrgmPufHelperData.PufSecCtrlBits.PufSynLk = PUF_SYN_LK;
 
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
@@ -612,7 +614,7 @@ static u32 XPuf_WritePufSecCtrlBits()
 static void XPuf_ShowPufSecCtrlBits()
 {
 	int Status = XST_FAILURE;
-	XNvm_PufSecCtrlBits ReadPufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits ReadPufSecCtrlBits;
 
 	Status = XNvm_EfuseReadPufSecCtrlBits(&ReadPufSecCtrlBits);
 	if (Status != (u32)XST_SUCCESS) {
