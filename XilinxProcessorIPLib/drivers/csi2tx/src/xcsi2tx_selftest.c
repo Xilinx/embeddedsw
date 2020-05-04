@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2tx_selftest.c
-* @addtogroup csi2tx_v1_0
+* @addtogroup csi2tx_v1_2
 * @{
 *
 * Contains diagnostic/self-test functions for the CSI Tx Controller core.
