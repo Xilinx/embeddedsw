@@ -9,6 +9,7 @@
 # -------- ------ -------- ------------------------------------
 # 1.0 ram 02/15/16 Initial version for Clock Wizard
 # 1.1 siv 08/17/16 Added support for Zynq MPSoC and 64-bit addressing
+# 1.3 sd  05/04/20 Added check for interrupts for the interrupt example
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I
@@ -40,18 +41,26 @@ proc gen_include_files {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
   if {$swproj == 1} {
+    if {$isintr == 0} {
+      return ""
+    }
     set inc_file_lines {clk_wiz_header.h}
     return $inc_file_lines
   }
 }
 
 proc gen_src_files {swproj mhsinst} {
+  set inc_file_lines ""
   if {$swproj == 0} {
     return ""
   }
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
   if {$swproj == 1} {
-    set inc_file_lines {examples/xclk_wiz_intr_example.c data/clk_wiz_header.h}
+    if {$isintr == 1} {
+	set inc_file_lines {examples/xclk_wiz_intr_example.c data/clk_wiz_header.h}
+    }
     return $inc_file_lines
   }
 }
@@ -80,6 +89,10 @@ proc gen_testfunc_call {swproj mhsinst} {
    }
 
   set testfunc_call ""
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+  if {$isintr == 0} {
+	return $testfunc_call
+  }
 
   if {${hasStdout} == 0} {
 
