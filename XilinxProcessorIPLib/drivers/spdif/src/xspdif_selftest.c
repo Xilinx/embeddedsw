@@ -7,7 +7,7 @@
 /**
  *
  * @file xspdif_selftest.c
- * @addtogroup xspdif_v1_0
+ * @addtogroup xspdif_v1_1
  * @{
  * Contains an basic self-test API
  * @note None

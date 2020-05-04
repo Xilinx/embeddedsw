@@ -7,7 +7,7 @@
 /**
  *
  * @file xspdif_chsts.c
- * @addtogroup Spdif_v1_0
+ * @addtogroup Spdif_v1_1
  * @{
  *
  * This file implements the channel status format related functions.For
