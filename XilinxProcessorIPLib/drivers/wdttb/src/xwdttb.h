@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v5_0
+* @addtogroup wdttb_v5_1
 * @{
 * @details
 *
@@ -162,6 +162,7 @@
 *		      watchdog window timer.CR#1052544
 * 5.0	sne  02/27/20 Reorganize the driver source and Fixed doxygen warnings.
 *		      Added XWdtTb_ConfigureWDTMode function.
+* 5.1	sne  05/04/20 Fixed violations according to MISRAC-2012 standards.
 *
 * </pre>
 *
