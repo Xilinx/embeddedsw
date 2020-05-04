@@ -90,7 +90,6 @@ static XPm_ClkTopology ClkTopologies[ ] = {
 	 {&GenericDivGate2Nodes, TOPOLOGY_GENERIC_DIV_GATE, ARRAY_SIZE(GenericDivGate2Nodes), {0}},
 	 {&GenericMuxDivGate1Nodes, TOPOLOGY_GENERIC_MUX_DIV_GATE_1, ARRAY_SIZE(GenericMuxDivGate1Nodes), {0}},
 	 {&GenericMuxDivGate2Nodes, TOPOLOGY_GENERIC_MUX_DIV_GATE_2, ARRAY_SIZE(GenericMuxDivGate2Nodes), {0}},
-	 {&GenericMuxDivGate2Nodes, TOPOLOGY_GENERIC_MUX_DIV_GATE_2, ARRAY_SIZE(GenericMuxDivGate2Nodes), {0}},
 };
 
 static XPm_ClockNode *ClkNodeList[(u32)XPM_NODEIDX_CLK_MAX];
