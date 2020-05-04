@@ -8,6 +8,9 @@
 /**
 *
 * @file xsecure_aes.h
+* @addtogroup xsecure_aes_versal_apis XilSecure AES VERSAL APIs
+* @{
+* @cond xsecure_internal
 *
 * This file contains AES hardware interface APIs
 *
@@ -24,6 +27,7 @@
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 #ifndef XSECURE_AES_H_
@@ -38,7 +42,11 @@ extern "C" {
 #include "xsecure_sss.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_AES_BUFFER_SIZE                         (4U)
+/** @cond xsecure_internal
+@{
+*/
+
+#define XSECURE_AES_BUFFER_SIZE					(4U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
@@ -82,6 +90,9 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240)
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280)
 
+/** @}
+@endcond */
+
 /**************************** Type Definitions *******************************/
 typedef enum {
 	XSECURE_BLACK_KEY,
@@ -120,7 +131,9 @@ typedef enum {
 	XSECURE_AES_KEY_SIZE_256 = 2,
 }XSecure_AesKeySize;
 
-
+/** @cond xsecure_internal
+@{
+*/
 typedef enum {
 	XSECURE_AES_UNINITIALIZED,
 	XSECURE_AES_INITIALIZED,
@@ -135,7 +148,8 @@ typedef struct {
 	XSecure_AesState AesState; /**< Current Aes State  */
 	XSecure_AesKeySrc KeySrc;
 } XSecure_Aes;
-
+/** @}
+@endcond */
 /************************** Function Prototypes ******************************/
 u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
 

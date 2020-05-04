@@ -22,10 +22,10 @@
 *       vns  08/23/2019 Initialized status variables
 * 4.2   har  01/03/2020 Added checks for return value of XSecure_SssAes
 *       vns  02/10/2020 Added DPA CM enable/disable function
-*		rpo  02/27/2020 Removed function prototype and static keyword of XSecure_AesKeyLoad
-*			XSecure_AesWaitForDone functions
+*       rpo  02/27/2020 Removed function prototype and static keyword of
+*                       XSecure_AesKeyLoad, XSecure_AesWaitForDone functions
 *       har  03/01/2020 Added code to soft reset once key decryption is done
-*       rpo	 03/23/2020 Replaced timeouts with WaitForEvent and code clean up
+*       rpo  03/23/2020 Replaced timeouts with WaitForEvent and code clean up
 * </pre>
 *
 * @note
@@ -347,19 +347,18 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 /*****************************************************************************/
 /**
  * @brief
- * This function enables or disable DPA counter measures in AES engine.
+ * This function enables or disables DPA counter measures in AES engine based
+ * on user input.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
- * @param	DpaCmCfg
- *				- TRUE - to enable AES DPA counter measure (Default setting)
- *				- FALSE -to disable AES DPA counter measure
+ * @param	DpaCmCfg	User choice to enable/disable DPA CM.
+ *			- TRUE - to enable AES DPA counter measure (Default setting)
+ *			- FALSE - to disable AES DPA counter measure
  *
  * @return
- *			- XST_FAILURE if DPA CM is disbaled on chip.
- *			  (Enabling/Disabling does not impact functionality)
+ *			- XSECURE_AES_DPA_CM_NOT_SUPPORTED if DPA CM is disbaled on chip.
+ *			(Enabling/Disabling in AES engine does not impact functionality)
  *			- XST_SUCCESS if configuration is success.
- *
- * @note	By default AES engine is enabled with
  *
  ******************************************************************************/
 u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
@@ -398,12 +397,12 @@ u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 /**
  *
  * @brief
- * This function is used to write key to the specified AES key registers.
+ * This function writes the key provided into the specified AES key registers.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	KeySrc		Key Source to be selected to which provided
- *		key should be updated
- * 		- XSECURE_AES_USER_KEY_0
+ *		key should be updated.
+ *		- XSECURE_AES_USER_KEY_0
  *		- XSECURE_AES_USER_KEY_1
  *		- XSECURE_AES_USER_KEY_2
  *		- XSECURE_AES_USER_KEY_3
@@ -412,15 +411,15 @@ u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
  *		- XSECURE_AES_USER_KEY_6
  *		- XSECURE_AES_USER_KEY_7
  *		- XSECURE_AES_BH_KEY
- * @param	Key		Address of a buffer which should contain
- *		the key to be written.
- *
- * @param	Size	A 32 bit variable, which holds the size of
- *		the input key to be loaded.
+ * @param	KeySize		A variable of type XSecure_AesKeySize, which
+ *		holds the size of the input key to be written.
  *		 - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *		 - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeyAddr		Address of a buffer which should contain
+ *		the key to be written.
  *
- * @return	- XST_SUCCESS on successful written
+ * @return
+ *		- XST_SUCCESS on successful written
  *		- Error code on failure
  *
  ******************************************************************************/
@@ -478,20 +477,28 @@ END:
 
 /*****************************************************************************/
 /**
- * This function will write decrypted KEK/Obfuscated key from
- * boot header/Efuse/BBRAM to corresponding red key register.
+ * This function decrypts the key which is in KEK/Obfuscated key form and
+ * exist in either of the boot header/Efuse/BBRAM and updates the mentioned
+ * destination red key register with corresponding red key.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	KeyType		The source of key to be used for decryption
  * 			- XSECURE_BLACK_KEY
  * 			- XSECURE_OBFUSCATED_KEY
- * @param	DecKeySrc	Select key to be decrypted
- * @param	DstKeySrc	Select the key in which decrypted key should be
+ * @param	DecKeySrc	Select key source which holds KEK and needs to be
+ *		decrypted
+ * @param	DstKeySrc	Select the key in which decrypted red key should be
  *		updated
  * @param	IvAddr		Address of IV holding buffer for decryption
- *		of key
+ *		of the key.
+ * @param	KeySize		A variable of type XSecure_AesKeySize, which
+ *		specifies the size of the key.
+ *		 - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
+ *		 - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  *
- * @return	XST_SUCCESS on successful return.
+ * @return
+ *		- XST_SUCCESS on successful key decryption.
+ *		- Error code on failure
  *
  ******************************************************************************/
 u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
@@ -613,13 +620,14 @@ END:
  * This function initializes the AES engine for decryption.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
- * @param	KeySrc		Key Source for decryption.
+ * @param	KeySrc		Key Source for decryption of the data.
  * @param	KeySize		Size of the AES key to be used for decryption.
  *		 - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *		 - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	IvAddr		Address to the buffer holding IV.
  *
- * @return	- XST_SUCCESS on successful init
+ * @return
+ *		- XST_SUCCESS on successful init
  *		- Error code on failure
  *
  ******************************************************************************/
@@ -724,7 +732,9 @@ END:
  * @param	IsLastChunk	If this is the last update of data to be
  *		decrypted, this parameter should be set to TRUE otherwise FALSE.
  *
- * @return	XST_SUCCESS on successful decryption of the data.
+ * @return
+ *		- XST_SUCCESS on successful decryption of the data.
+ *		- Error code on failure
  *
  ******************************************************************************/
 u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
@@ -810,14 +820,16 @@ END:
 /**
  *
  * @brief
- * This function is used to write key to the specified AES key registers.
+ * This function verifies the GCM tag provided for the data decrypted
+ * till the point.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
 
- * @param	GcmTagAddr	Address of a buffer which should contain
+ * @param	GcmTagAddr	Address of a buffer which should holds
  *		GCM Tag.
  *
- * @return	- XST_SUCCESS on successful GCM tag verification
+ * @return
+ *		- XST_SUCCESS on successful GCM tag verification
  *		- Error code on failure
  *
  ******************************************************************************/
@@ -906,7 +918,9 @@ END:
 /**
  *
  * @brief
- * This function is for data decryption.
+ * This function decrypts the  size (length) number of bytes of the passed in
+ * InDataAddr (source) buffer and stores the decrypted data in the OutDataAddr
+ * (destination) buffer and verifies GcmTagAddr.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	InDataAddr	Address of the encrypted data which needs to be
@@ -918,7 +932,8 @@ END:
  * @param	GcmTagAddr	Address of a buffer which should contain
  *		GCM Tag.
  *
- * @return	- XST_SUCCESS on successful GCM tag verification
+ * @return
+ *		- XST_SUCCESS on successful GCM tag verification
  *		- Error code on failure
  *
  ******************************************************************************/
@@ -959,11 +974,12 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	KeySrc		Key Source for encryption.
  * @param	KeySize		Size of the AES key to be used for encryption.
- *		 - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *		 - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ *			 - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
+ *			 - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	IvAddr		Address to the buffer holding IV.
  *
- * @return	- XST_SUCCESS on successful init
+ * @return
+ *		- XST_SUCCESS on successful init
  *		- Error code on failure
  *
  ******************************************************************************/
@@ -1065,7 +1081,9 @@ END:
  * @param	IsLastChunk		If this is the last update of data to be
  *		encrypted, this parameter should be set to TRUE otherwise FALSE.
  *
- * @return	XST_SUCCESS on successful encryption of the data.
+ * @return
+ *		- XST_SUCCESS on successful encryption of the data.
+ *		- Error code on failure
  *
  ******************************************************************************/
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
@@ -1154,14 +1172,15 @@ END:
 /**
  *
  * @brief
- * This function provides GCM tag for the encrypted data.
+ * This function updates the GCM tag for the encrypted data.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
 
  * @param	GcmTagAddr	Address to the buffer of GCM tag size, where the API
  *		updates GCM tag.
  *
- * @return	- XST_SUCCESS on successful GCM tag updation
+ * @return
+ *		- XST_SUCCESS on successful GCM tag updation
  *		- Error code on failure
  *
  ******************************************************************************/
@@ -1229,7 +1248,10 @@ END:
 /**
  *
  * @brief
- * This function is for data encryption.
+ * This function encrypts size (length) number of bytes of the passed in
+ * InDataAddr (source) buffer and stores the encrypted data along with its
+ * associated 16 byte tag in the OutDataAddr (destination) buffer and
+ * GcmTagAddr (buffer) respectively.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	InDataAddr	Address of the data which needs to be
@@ -1239,7 +1261,8 @@ END:
  * @param	Size		Size of data to be encrypted in bytes,
  *			whereas number of bytes provided should be multiples of 4.
  *
- * @return	- XST_SUCCESS on successful encryption.
+ * @return
+ *		- XST_SUCCESS on successful encryption.
  *		- Error code on failure
  *
  ******************************************************************************/
@@ -1276,10 +1299,11 @@ END:
  * @brief
  * This function waits for AES engine completes key loading.
  *
- * @param	InstancePtr Pointer to the XSecure_Aes instance.
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  *
- * @return	XST_SUCCESS if the AES engine completes key loading.
- * 		XST_FAILURE if a timeout has occurred.
+ * @return
+ *		- XST_SUCCESS if the AES engine completes key loading.
+ *		- XST_FAILURE if a timeout has occurred.
  *
  ******************************************************************************/
 static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
@@ -1300,15 +1324,17 @@ static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 /*****************************************************************************/
 /**
  * @brief
- * This function sets AES engine to update key and IV
+ * This function sets AES engine to update key and IV during decryption of
+ * secure header or footer of encrypted partition.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	Config
- * 				- TRUE - to enable KUP and IV update
- * 				- FALSE -to disable KUP and IV update
+ *				- TRUE - to enable KUP and IV update
+ *				- FALSE -to disable KUP and IV update
  *
- * @return	None
- *
+ * @return
+ *		- XST_SUCCESS on successful configuration.
+ *		- Error code on failure
  *
  ******************************************************************************/
 u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config)
@@ -1344,8 +1370,7 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config)
  * @param	Size		Pointer to a 32 bit variable where next block
  *		length will be updated.
  *
- * @return	None
- *
+ * @return	XST_SUCCESS on successful configuration.
  *
  ******************************************************************************/
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
@@ -1366,9 +1391,13 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
  * This function configures and loads AES key from selected key source.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	KeySrc		Variable is of type XSecure_AesKeySrc
+ *			which mentiones the key source to be loaded into AES engine.
+ * @param	KeySize		Size of the key selected.
  *
- * @return	None
- *
+ * @return
+ *		- XST_SUCCESS on successful key load
+ *		- Error code on failure.
  *
  ******************************************************************************/
 u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
@@ -1408,7 +1437,9 @@ u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
  *
  * @param	InstancePtr Pointer to the XSecure_Aes instance.
  *
- * @return	None
+ * @return
+ *		- XST_SUCCESS on successful key load
+ *		- Error code on failure.
  *
  ******************************************************************************/
 u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
@@ -1432,7 +1463,9 @@ u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
  *
  * @param	InstancePtr Pointer to the XSecure_Aes instance.
  *
- * @return	None
+ * @return
+ *		- XST_SUCCESS on success
+ *		- Error code on failure.
  *
  ******************************************************************************/
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr)
@@ -1453,12 +1486,14 @@ static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr)
 /*****************************************************************************/
 /**
  * @brief
- * This function resets the AES key storage registers.
+ * This function zeroizes the selected AES key storage register.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	KeySrc	Select the key source which needs to be zeroized.
  *
- * @return	None
- *
+ * @return
+ *		- XST_SUCCESS when key zeroization is success.
+ *		- Error code on failure
  *
  ******************************************************************************/
 u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
@@ -1537,11 +1572,12 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 
 /*****************************************************************************/
 /**
- * @brief	This function performs KAT on AES (NIST).
+ * @brief	This function performs known answer test(KAT) on AES engine.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  *
- * @return	- XST_SUCCESS when KAT Pass
+ * @return
+ *		- XST_SUCCESS when KAT Pass
  *		- Error code on failure
  *
  *****************************************************************************/
@@ -1607,8 +1643,9 @@ END:
  *
  * @param 	OutputPtr	Output where the decrypted data to be stored
  *
- * @return	Returns the error codes
- *		Returns XST_SUCCESS on success
+ * @return
+ *		- Returns the error codes
+ *		- Returns XST_SUCCESS on success
  *
  *****************************************************************************/
 static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr)
@@ -1710,12 +1747,14 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	Wrapper function for DAPCM KAT
+ * @brief	This function performs known answer test(KAT) on AES engine
+ * to confirm DPA counter measures is working fine.
  *
- * @param 	AesInstance	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param 	AesInstance	Pointer to the XSecure_Aes instance
  *
- * @return	Returns the error code
- *		returns XST_SUCCESS on success
+ * @return
+ *		- XST_SUCCESS when KAT Pass
+ *		- Error code on failure
  *
  *****************************************************************************/
 u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
@@ -1881,14 +1920,14 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if ((((R0[0U] ^ RM0[0U]) != Ct0[0U])  || ((R0[1U] ^ RM0[1U]) != Ct0[1U])  ||
-			 ((R0[2U] ^ RM0[2U]) != Ct0[2U])  || ((R0[3U] ^ RM0[3U]) != Ct0[3U]))  ||
-			(((M0[0U] ^ Mm0[0U]) != MiC0[0U]) || ((M0[1U] ^ Mm0[1U]) != MiC0[1U]) ||
-			 ((M0[2U] ^ Mm0[2U]) != MiC0[2U]) || ((M0[3U] ^ Mm0[3U]) != MiC0[3U])) ||
-			(((R1[0U] ^ RM1[0U]) != Ct1[0U])  || ((R1[1U] ^ RM1[1U]) != Ct1[1U])  ||
-			((R1[2U] ^ RM1[2U]) != Ct1[2U])  || ((R1[3U] ^ RM1[3U]) != Ct1[3U]))  ||
-			(((M1[0U] ^ Mm1[0U]) != MiC1[0U]) || ((M1[1U] ^ Mm1[1U]) != MiC1[1U]) ||
-			 ((M1[2U] ^ Mm1[2U]) != MiC1[2U]) || ((M1[3U] ^ Mm1[3U]) != MiC1[3U]))) {
+	if ((((R0[0U] ^ RM0[0U]) != Ct0[0U])  || ((R0[1U] ^ RM0[1U]) != Ct0[1U]) ||
+		 ((R0[2U] ^ RM0[2U]) != Ct0[2U])  || ((R0[3U] ^ RM0[3U]) != Ct0[3U])) ||
+		(((M0[0U] ^ Mm0[0U]) != MiC0[0U]) || ((M0[1U] ^ Mm0[1U]) != MiC0[1U]) ||
+		 ((M0[2U] ^ Mm0[2U]) != MiC0[2U]) || ((M0[3U] ^ Mm0[3U]) != MiC0[3U])) ||
+		(((R1[0U] ^ RM1[0U]) != Ct1[0U])  || ((R1[1U] ^ RM1[1U]) != Ct1[1U]) ||
+		((R1[2U] ^ RM1[2U]) != Ct1[2U])  || ((R1[3U] ^ RM1[3U]) != Ct1[3U])) ||
+		(((M1[0U] ^ Mm1[0U]) != MiC1[0U]) || ((M1[1U] ^ Mm1[1U]) != MiC1[1U]) ||
+		 ((M1[2U] ^ Mm1[2U]) != MiC1[2U]) || ((M1[3U] ^ Mm1[3U]) != MiC1[3U]))) {
 		Status = XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR;
 		goto END;
 	}
