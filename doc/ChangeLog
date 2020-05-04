@@ -491,6 +491,82 @@ updating license content to SPDX based licensing
 openamp_v1_6:
 updating license content to SPDX based licensing
 
+csi_v1_4:
+updating license content to SPDX based licensing
+
+csi2tx_v1_2:
+updating license content to SPDX based licensing
+
+csi2txss_v1_3:
+updating license content to SPDX based licensing
+
+dp14txss_v6_3:
+updating license content to SPDX based licensing
+
+dphy_v1_4:
+updating license content to SPDX based licensing
+
+dsi_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_cipher_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_mmult_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_rng_v1_3:
+updating license content to SPDX based licensing
+
+hdcp22_rx_v2_3:
+updating license content to SPDX based licensing
+
+hdcp22_tx_v2_5:
+updating license content to SPDX based licensing
+
+mpegtsmux_v1_1:
+updating license content to SPDX based licensing
+
+sdi_common_v1_2:
+updating license content to SPDX based licensing
+
+spdif_v1_1:
+updating license content to SPDX based licensing
+
+v_axi4s_remap_v1_2:
+updating license content to SPDX based licensing
+
+v_csc_v2_4:
+updating license content to SPDX based licensing
+
+v_deinterlacer_v7_1:
+updating license content to SPDX based licensing
+
+v_demosaic_v1_1:
+updating license content to SPDX based licensing
+
+v_hcresampler_v3_1:
+updating license content to SPDX based licensing
+
+v_letterbox_v2_2:
+updating license content to SPDX based licensing
+
+v_scenechange_v1_1:
+updating license content to SPDX based licensing
+
+v_tpg_v8_2:
+updating license content to SPDX based licensing
+
+v_vcresampler_v3_1:
+updating license content to SPDX based licensing
+
+vphy_v1_10:
+updating license content to SPDX based licensing
+
+vprocss_v2_7:
+updating license content to SPDX based licensing
+
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
