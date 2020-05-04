@@ -44,17 +44,14 @@ extern "C" {
 
 #define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 #define XNVM_AES_KEY_SIZE_IN_WORDS	(XNVM_256_BITS_AES_KEY_LEN_IN_BYTES / 4)
+#define XNVM_IV_STRING_LEN		24U
 
 /***************************** Type Definitions *******************************/
 
 /*************************** Function Prototypes ******************************/
 u32 XNvm_ValidateAesKey(const char *Key);
-u32 XNvm_ConvertHexToByteArray(const u8 * Bits, u8 * Bytes, u32 Len);
 u32 XNvm_AesCrcCalc(u32 *Key);
-u32 XNvm_ValidateHash(const char *Hash, u32 Len);
-u32 XNvm_ConvertByteArrayToHex(const u8 * Bytes, u8 * Bits , u32 Len);
-u32 XNvm_ValidateUserFuseStr(const char *UserFuseStr);
-u32 XNvm_ValidateIvString(const char *IvStr);
+
 #ifdef __cplusplus
 }
 #endif
