@@ -7,7 +7,7 @@
 /**
 *
 * @file xdsi.h
-* @addtogroup dsi_v1_1
+* @addtogroup dsi_v1_2
 * @{
 * @details
 *

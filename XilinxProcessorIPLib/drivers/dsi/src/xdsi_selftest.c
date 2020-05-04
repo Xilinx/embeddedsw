@@ -7,7 +7,7 @@
 /**
 *
 * @file xdsi_selftest.c
-* @addtogroup dsi_v1_1
+* @addtogroup dsi_v1_2
 * @{
 *
 * Contains diagnostic/self-test functions for the XDsi Controller component.

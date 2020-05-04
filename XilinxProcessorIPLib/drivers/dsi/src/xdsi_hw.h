@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  * @file xdsi_hw.h
- * @addtogroup dsi_v1_1
+ * @addtogroup dsi_v1_2
  * @{
  *
  * Hardware definition file. It defines the register interface.
