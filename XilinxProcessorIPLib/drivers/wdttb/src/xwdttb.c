@@ -434,7 +434,11 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 			(XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
 				XWT_ESR_OFFSET) & XWT_ESR_WSW_MASK) >>
 					XWT_ESR_WSW_SHIFT;
-		Status = !ControlStatusRegister0;
+		if (ControlStatusRegister0 == (u32)TRUE) {
+			Status = (u32)FALSE;
+		} else {
+			Status = (u32)TRUE;
+		}
         }
         else {
 		if (InstancePtr->Config.IsPl == (u32)0) {
