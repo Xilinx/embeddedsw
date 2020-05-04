@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2txss.h
-* @addtogroup csi2txss_v1_1
+* @addtogroup csi2txss_v1_3
 * @{
 * @details
 *

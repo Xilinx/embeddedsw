@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2txss_sinit.c
-* @addtogroup csi2txss_v1_1
+* @addtogroup csi2txss_v1_3
 * @{
 *
 * This file contains the implementation of the MIPI CSI Rx Subsystem
