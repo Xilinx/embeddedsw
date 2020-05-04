@@ -770,6 +770,8 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 	u32 i;
 	struct XPm_ClkTopologyNode *PtrNodes;
 	XPm_OutClockNode *Clk;
+	u8 Type, Typeflags;
+	u16 Clkflags;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
 
@@ -787,9 +789,24 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			if ((Index + i) == Clk->Topology.NumNodes) {
 				break;
 			}
-			Resp[i] =  PtrNodes[Index + i].Type;
-			Resp[i] |= ((u32)(PtrNodes[Index + i].Clkflags) << CLK_CLKFLAGS_SHIFT);
-			Resp[i] |= ((u32)(PtrNodes[Index + i].Typeflags) << CLK_TYPEFLAGS_SHIFT);
+			Type =  PtrNodes[Index + i].Type;
+			Clkflags = PtrNodes[Index + i].Clkflags;
+			Typeflags = PtrNodes[Index + i].Typeflags;
+
+			/* Set CCF flags to each nodes for read only clock */
+			if (0 != (Clk->ClkNode.Flags & CLK_FLAG_READ_ONLY)) {
+				if (TYPE_GATE == Type) {
+					Clkflags |= CLK_IS_CRITICAL;
+				} else if ((TYPE_DIV1 == Type) || (TYPE_DIV2 == Type)) {
+					Typeflags |= CLK_DIVIDER_READ_ONLY;
+				} else if (TYPE_MUX == Type) {
+					Typeflags |= CLK_MUX_READ_ONLY;
+				}
+			}
+
+			Resp[i] = Type;
+			Resp[i] |= ((u32)Clkflags << CLK_CLKFLAGS_SHIFT);
+			Resp[i] |= ((u32)Typeflags << CLK_TYPEFLAGS_SHIFT);
 		}
 	} else if (ISPLL(ClockId)) {
 		if (Index != 0U) {
