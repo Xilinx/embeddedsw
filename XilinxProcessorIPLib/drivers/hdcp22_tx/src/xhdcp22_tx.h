@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_tx.h
-* @addtogroup hdcp22_tx_v2_3
+* @addtogroup hdcp22_tx_v2_5
 * @{
 * @details
 *
