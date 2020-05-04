@@ -466,6 +466,18 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate 
 			Data = 0xB;
 			break;
 
+		case (XVIDC_FR_96HZ):
+			Data = 0xC;
+			break;
+
+		case (XVIDC_FR_100HZ):
+			Data = 0xD;
+			break;
+
+		case (XVIDC_FR_120HZ):
+			Data = 0xF;
+			break;
+
 		default:
 			Data = 0;
 			break;
@@ -486,6 +498,14 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate 
 
 		case (XVIDC_FR_60HZ):
 			Data = 0xA;
+			break;
+
+		case (XVIDC_FR_96HZ):
+			Data = 0x1;
+			break;
+
+		case (XVIDC_FR_120HZ):
+			Data = 0xE;
 			break;
 
 		default:
@@ -591,7 +611,9 @@ u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Da
 				*Data = 0x84;
 		break;
 	case 1080:
-		if (SdiMode == XSDIVID_MODE_3GA)
+		if (SdiMode == XSDIVID_MODE_12G)
+				*Data = 0xCE;
+		else if (SdiMode == XSDIVID_MODE_3GA)
 				*Data = 0x89;
 		else if (SdiMode == XSDIVID_MODE_3GB)
 				*Data = 0x8A;
@@ -991,6 +1013,11 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 	Data |= (((SdiMode & 0x7) << XV_SDITX_MDL_CTRL_MODE_SHIFT) |
 		((IsFractional & 0x1) << XV_SDITX_MDL_CTRL_M_SHIFT) |
 		((MuxPattern & 0x7) << XV_SDITX_MDL_CTRL_MUX_PATTERN_SHIFT));
+
+	/* Enable HFR, if frame rate is above 96 */
+	if (InstancePtr->Stream[0].Video.FrameRate >= XVIDC_FR_96HZ &&
+			InstancePtr->Stream[0].Video.FrameRate <= XVIDC_FR_240HZ)
+		Data |= XV_SDITX_MDL_CTRL_ENABLE_HFR;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDITX_MDL_CTRL_OFFSET), (Data));
