@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi_sinit.c
-* @addtogroup csi_v1_1
+* @addtogroup csi_v1_4
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
