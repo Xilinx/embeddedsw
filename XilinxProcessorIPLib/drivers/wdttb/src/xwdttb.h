@@ -223,6 +223,9 @@ typedef struct {
        u32 EnableWinMode;      /**<Enable Window WDT Method,0= DIsable,1=Enable*/
 } XWdtTb;
 
+/************************** Variable Definitions *****************************/
+extern XWdtTb_Config XWdtTb_ConfigTable[];
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**

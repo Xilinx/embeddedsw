@@ -68,7 +68,6 @@
 ******************************************************************************/
 XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId)
 {
-	extern XWdtTb_Config XWdtTb_ConfigTable[XPAR_XWDTTB_NUM_INSTANCES];
 	XWdtTb_Config *CfgPtr = NULL;
 	u32 Index;
 
