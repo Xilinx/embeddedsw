@@ -348,6 +348,25 @@ done:
 	return Status;
 }
 
+void XPmClock_SetPlClockAsReadOnly()
+{
+	XPm_ClockNode *Clk = NULL;
+	u32 Idx;
+	u32 PlClocksList[] = {
+		PM_CLK_PMC_PL0_REF,
+		PM_CLK_PMC_PL1_REF,
+		PM_CLK_PMC_PL2_REF,
+		PM_CLK_PMC_PL3_REF,
+	};
+
+	for (Idx = 0U; Idx < ARRAY_SIZE(PlClocksList); Idx++) {
+		Clk = XPmClock_GetById(PlClocksList[Idx]);
+		if (NULL != Clk) {
+			Clk->Flags |= CLK_FLAG_READ_ONLY;
+		}
+	}
+}
+
 XPm_ClockNode* XPmClock_GetById(u32 ClockId)
 {
 	u32 ClockIndex = NODEINDEX(ClockId);
