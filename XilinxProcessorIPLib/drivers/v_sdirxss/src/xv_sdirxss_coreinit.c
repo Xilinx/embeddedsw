@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_sdirxss_coreinit.c
-* @addtogroup v_sdirxss_v1_1
+* @addtogroup v_sdirxss_v3_0
 * @{
 * @details
 
