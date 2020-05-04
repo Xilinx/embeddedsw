@@ -47,6 +47,8 @@ extern "C" {
 
 /* Boot header Attr fields */
 #define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
+#define XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT	(14U)
+#define XIH_BH_IMG_ATTRB_BH_AUTH_VALUE	(0x3U)
 #define XIH_BH_IMG_ATTRB_SHA2_MASK	(0x3000U)
 
 /* Boot Header PMC FW Rsvd Fields */
