@@ -876,14 +876,14 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 			goto END;
 		}
 	} else {
-		DestAddr = (((Cmd->ProcessedLen - Cmd->ResumeData[3U] - DestOffset) *
+		DestAddr = ((((u64)Cmd->ProcessedLen - Cmd->ResumeData[3U] - DestOffset) *
 			XPLMI_WORD_LEN) & (Keyholesize - 1U)) + BaseAddr;
 		/* Set DMA flags to DMA0 */
 		Flags = XPLMI_PMCDMA_0;
 		if (Cmd->ProcessedLen != 0U) {
 			Count = Cmd->ResumeData[3U];
 			if (Count > 0U) {
-				while ((Count > 0U) && (Count < 4U)) {
+				while (Count < 4U) {
 					CfiDataPtr = (u32*)SrcAddr;
 					Cmd->ResumeData[Count + XPLMI_WORD_LEN] = *CfiDataPtr;
 					SrcAddr += XPLMI_WORD_LEN;
@@ -895,7 +895,7 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 					XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 					goto END;
 				}
-				DestAddr = ((Cmd->ProcessedLen-Cmd->ResumeData[3U]-DestOffset+Count)*4U)%Keyholesize + BaseAddr;
+				DestAddr += (4U * XPLMI_WORD_LEN);
 			}
 			Cmd->ResumeData[3U] = 0U;
 	}
