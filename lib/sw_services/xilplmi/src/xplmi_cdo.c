@@ -215,8 +215,15 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 *Size)
 	if (*Size > XPLMI_CMD_LEN_TEMPBUF) {
 		*Size = XPLMI_CMD_LEN_TEMPBUF;
 	}
-	memcpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen,
-	       BufPtr, (*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN);
+
+	/*
+	 * Copy the remaining cmd data to TempCmdBuf only if
+	 * command size is greater than copied length
+	 */
+	if (*Size > CdoPtr->CopiedCmdLen) {
+		memcpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen, BufPtr,
+			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN);
+	}
 	CdoPtr->CopiedCmdLen = 0U;
 	Status = XST_SUCCESS;
 
