@@ -13,12 +13,12 @@
 #include "xpm_pslpdomain.h"
 
 #define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
+#define NOT_INITIALIZED	0xFFFFFFFFU
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
-
-u32 Platform;
-u32 PlatformVersion;
-u32 SlrType;
+static u32 Platform = NOT_INITIALIZED;
+static u32 PlatformVersion = NOT_INITIALIZED;
+static u32 SlrType = NOT_INITIALIZED;
 
 void *XPm_AllocBytes(u32 Size)
 {
@@ -166,4 +166,37 @@ u32 XPm_ComputeParity(u32 Value)
 	Value ^= (Value >> 1U);
 
 	return (Value & 1U);
+}
+
+u32 XPm_GetPlatform(void)
+{
+	if (Platform == NOT_INITIALIZED) {
+		Platform = (XPm_In32(PMC_TAP_VERSION) &
+		            PMC_TAP_VERSION_PLATFORM_MASK) >>
+			    PMC_TAP_VERSION_PLATFORM_SHIFT;
+	}
+
+	return Platform;
+}
+
+u32 XPm_GetPlatformVersion(void)
+{
+	if (PlatformVersion == NOT_INITIALIZED) {
+		PlatformVersion = (XPm_In32(PMC_TAP_VERSION) &
+				   PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
+				   PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT;
+	}
+
+	return PlatformVersion;
+}
+
+u32 XPm_GetSlrType(void)
+{
+	if (SlrType == NOT_INITIALIZED) {
+		SlrType = PMC_TAP_SLR_TYPE_MASK &
+			  XPm_In32(PMC_TAP_SLR_TYPE_OFFSET +
+				   PMC_TAP_BASEADDR);
+	}
+
+	return SlrType;
 }

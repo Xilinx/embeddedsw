@@ -245,8 +245,9 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		 * To fix this bug rerun LPD BISR whenever the RPU power
 		 * island is powered down and brought up again.
 		 */
-		if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
-		    (PLATFORM_VERSION_SILICON == Platform) &&
+		if ((PLATFORM_VERSION_SILICON_ES1 ==
+		     XPm_GetPlatformVersion()) &&
+		    (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 		    ((u32)XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
 		    (0U == (LPD_BISR_DONE & LpDomain->LpdBisrFlags))) {
 			if (0U != (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags)) {

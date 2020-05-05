@@ -121,15 +121,15 @@ extern "C" {
 #endif
 #endif
 
-extern u32 Platform;
-extern u32 PlatformVersion;
-extern u32 SlrType;
-
 void *XPm_AllocBytes(u32 Size);
 
 void XPm_Out32(u32 RegAddress, u32 l_Val);
 
 u32 XPm_In32(u32 RegAddress);
+
+u32 XPm_GetPlatform(void);
+u32 XPm_GetPlatformVersion(void);
+u32 XPm_GetSlrType(void);
 
 /**
  * Read Modify Write a register

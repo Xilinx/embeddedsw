@@ -98,7 +98,10 @@ static void PldApplyTrim(u32 TrimType)
 			       TrimVal);
 			/* if eFUSE is not programmed,
 			then set rw_read_voltages to 0.61V + 0.625V by writing */
-			if ((TrimVal == 0U) && (PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+			if ((TrimVal == 0U) &&
+			    (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+			    (PLATFORM_VERSION_SILICON_ES1 ==
+			     XPm_GetPlatformVersion())) {
 				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
 			}
                         XCframe_CramTrim(&CframeIns, TrimVal);
@@ -326,6 +329,9 @@ static XStatus PlHouseClean(u32 TriggerTime)
 	XStatus Status = XST_FAILURE;
 	XPm_PlDomain *Pld;
 	u32 Value;
+	u32 Platform = XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
+
 
 	if (PLHCLEAN_EARLY_BOOT == TriggerTime) {
 		/* Enable ROWON */
@@ -465,6 +471,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_PlDomain *Pld;
 	u32 PlPowerUpTime=0;
+	u32 Platform = XPm_GetPlatform();
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -589,7 +596,8 @@ done:
 XStatus XPmPlDomain_InitandHouseclean(void)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Version;
+	u32 Platform;
+	u32 PlatformVersion;
 	XPm_Pmc *Pmc;
 	u32 VoltageRailMask = (PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
 			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
@@ -619,11 +627,8 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		goto done;
 	}
 
-	PmIn32(PMC_TAP_VERSION, Version);
-	PlatformVersion = ((Version & PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-			   PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
-	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
-		    PMC_TAP_VERSION_PLATFORM_SHIFT);
+	PlatformVersion = XPm_GetPlatformVersion();
+	Platform = XPm_GetPlatform();
 
 	/* Check if housecleaning needs to be bypassed */
 	if (PLATFORM_VERSION_FCV == Platform) {

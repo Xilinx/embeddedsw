@@ -329,7 +329,7 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	XStatus Status = XST_FAILURE;
 	u32 i = 0;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
-	u32 Address, BaseAddr, RegVal;
+	u32 Address, BaseAddr, RegVal, Platform, PlatformVersion;
 
 	if (PpuNode == NULL) {
 		goto done;
@@ -338,6 +338,8 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	/* XPPU Base Address */
 	BaseAddr = PpuNode->ProtNode.Node.BaseAddress;
 
+	Platform = XPm_GetPlatform();
+	PlatformVersion = XPm_GetPlatformVersion();
 	if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/* Disable permission checks for all apertures */
 		Address = BaseAddr + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
@@ -452,7 +454,8 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 		goto done;
 	}
 
-	if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
 		/* Disable permission checks for all apertures */
 		Address = PpuNode->ProtNode.Node.BaseAddress + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
 		for (idx = 0; idx < MAX_PERM_REGS; idx++)
@@ -574,7 +577,8 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 
 	PmDbg("PermissionRegAddress %x Permissions %x RegMask %x \r\n",PermissionRegAddress, Permissions, PermissionRegMask);
 
-	if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
 		/* Set XPPU control to 0 */
 		PmRmw32(PpuNode->ProtNode.Node.BaseAddress + XPPU_CTRL_OFFSET,
 				XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
@@ -922,7 +926,7 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 	}
 	DeviceId = Reqm->Device->Node.Id;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}

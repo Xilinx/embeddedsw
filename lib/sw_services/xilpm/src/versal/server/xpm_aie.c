@@ -350,7 +350,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if (PLATFORM_VERSION_SILICON == Platform) {
+	if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
 		/* Trigger Scan Clear */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 						ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
@@ -447,7 +447,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	if (Platform == PLATFORM_VERSION_SILICON) {
+	if (XPm_GetPlatform() == PLATFORM_VERSION_SILICON) {
 		/* Assert MEM_CLEAR_EN_ALL */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK,
 					ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK);
@@ -593,6 +593,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
+	u32 Platform = XPm_GetPlatform();
 
 	/* Skip AIE Init for base QEMU without COSIM */
 	if (Platform == PLATFORM_VERSION_QEMU) {

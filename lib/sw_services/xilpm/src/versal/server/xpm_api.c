@@ -450,8 +450,9 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 {
 	XStatus Status = XST_FAILURE;
 	unsigned int i;
-	u32 Version;
-	u32 RegValue;
+	u32 Platform = 0;
+	u32 PlatformVersion = 0;
+
 	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
 			   CRP_RESET_REASON_SLR_POR_MASK |
 			   CRP_RESET_REASON_SW_POR_MASK);
@@ -487,13 +488,8 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 
 	XPm_PsmModuleInit();
 
-	PmIn32(PMC_TAP_VERSION, Version);
-	PlatformVersion = ((Version & PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-                        PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
-	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
-                        PMC_TAP_VERSION_PLATFORM_SHIFT);
-	PmIn32(PMC_TAP_SLR_TYPE_OFFSET + PMC_TAP_BASEADDR, RegValue);
-	SlrType = (RegValue & PMC_TAP_SLR_TYPE_MASK);
+	PlatformVersion = XPm_GetPlatformVersion();
+	Platform = XPm_GetPlatform();
 
 	/* Read and store the reset reason value */
 	PmIn32(CRP_RESET_REASON, ResetReason);
@@ -620,8 +616,8 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 *
 	 * The VCC_AUX workaround will be removed from MIO-37 in ES2 going ahead.
 	 */
-	if ((PLATFORM_VERSION_SILICON == Platform) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
 					   XPM_MAX_CAPABILITY, XPM_MAX_QOS);
 		if (XST_SUCCESS != Status) {

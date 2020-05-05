@@ -134,7 +134,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -195,7 +195,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -379,7 +379,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}

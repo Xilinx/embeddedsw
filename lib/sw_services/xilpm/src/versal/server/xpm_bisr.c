@@ -1039,7 +1039,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 		goto done;
 	}
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1219,9 +1219,11 @@ XStatus XPmBisr_NidbLaneRepair(void)
 	u32 NocSwId     = 0x0;
 	u32 SlvSkipAddr = 0x0;
 	u32 NidbAddr    = 0x0;
+	u32 SlrType;
 	struct XPm_NidbEfuseGrpInfo NidbEfuseGrpInfo[MAX_NIDB_EFUSE_GROUPS];
 
 	/* Check SLR TYPE */
+	SlrType = XPm_GetSlrType();
 	if ( SlrType == SLR_TYPE_MONOLITHIC_DEV ||
 		 SlrType == SLR_TYPE_INVALID) {
 		PmInfo("Not an SSIT Device\n\r");

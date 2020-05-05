@@ -104,7 +104,7 @@ static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-        if (PLATFORM_VERSION_SILICON != Platform) {
+        if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
                 Status = XST_SUCCESS;
                 goto done;
         }
@@ -199,7 +199,7 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 
         Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
 
-        if (PLATFORM_VERSION_SILICON != Platform) {
+        if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
                 Status = XST_SUCCESS;
                 goto done;
         }

@@ -323,8 +323,9 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 			   BIT32(Pll->Topology->ResetShift));
 		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
 
-		if ((PLATFORM_VERSION_SILICON == Platform) &&
-		    (PLATFORM_VERSION_SILICON_ES1 != PlatformVersion)) {
+		if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+		    (PLATFORM_VERSION_SILICON_ES1 != XPm_GetPlatformVersion()))
+		{
 			/*
 			 * The value of the CRX.XPLL_REG3.CP_RES_H must be set
 			 * to 0x1 while the PLL is in reset for ES2 and forward

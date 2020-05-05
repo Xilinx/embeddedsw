@@ -44,7 +44,8 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* CPM POR control is not valid for ES1 platforms so skip. It is taken care by hw */
-	if(!(PLATFORM_VERSION_SILICON == Platform && PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
+	if(!(PLATFORM_VERSION_SILICON == XPm_GetPlatform() &&
+	     PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()))
 	{
 		/* Remove POR for CPM */
 		/*Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
@@ -120,13 +121,16 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
-
+	u32 Platform;
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Scan clear should be skipped for ES1 platforms */
-	if ((PLATFORM_VERSION_SILICON != Platform) || (PLATFORM_VERSION_SILICON == Platform && PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	Platform = XPm_GetPlatform();
+	if ((PLATFORM_VERSION_SILICON != Platform) ||
+	    (PLATFORM_VERSION_SILICON == Platform &&
+	     PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -183,7 +187,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -238,7 +242,7 @@ static XStatus CpmBisr(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -258,7 +262,7 @@ static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -289,7 +293,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -379,7 +383,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}

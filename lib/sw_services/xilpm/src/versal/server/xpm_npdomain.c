@@ -39,7 +39,7 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 			goto done;
 		}
 	}
-	if (PLATFORM_VERSION_SILICON == Platform) {
+	if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
 		/* TODO: This is a temporary fix for MGT boards;
 		 * Remove the delay once AMS solution to read rail voltages is finalized.
 		 */
@@ -108,7 +108,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	 */
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
 			if (i == (u32)XPM_NODEIDX_MEMIC_NSU_1 &&
-				SlrType < SLR_TYPE_SSIT_DEV_MASTER_SLR) {
+				XPm_GetSlrType() < SLR_TYPE_SSIT_DEV_MASTER_SLR) {
 				continue;
 			}
 
@@ -132,7 +132,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 			PmOut32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, 0);
 			PmOut32(BaseAddress + NPI_PCSR_LOCK_OFFSET, 1);
 			/* Only UB0 for non sillicon platforms */
-			if (PLATFORM_VERSION_SILICON != Platform) {
+			if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 				Status = XST_SUCCESS;
 				break;
 			}
@@ -175,16 +175,18 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc;
 	u32 RegValue;
+	u32 SlrType;
 	XPm_OutClockNode *Clk;
 
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
+	SlrType = XPm_GetSlrType();
 	if (SlrType != SLR_TYPE_MONOLITHIC_DEV &&
 		SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR) {
 		PmDbg("Skipping Scan-Clear of NPD for Slave SLR\n\r");
@@ -258,7 +260,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	/* NPD pre bisr requirements - in case if bisr was skipped */
 	NpdPreBisrReqs();
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -380,7 +382,7 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 	NpdPreBisrReqs();
 
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
