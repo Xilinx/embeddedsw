@@ -31,7 +31,6 @@
 
 #ifdef __BAREMETAL__
 #include "xstatus.h"
-#include "platform.h"
 #include "xil_printf.h"
 #else
 #include <errno.h>

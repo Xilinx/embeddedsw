@@ -41,7 +41,6 @@
 #include "xil_assert.h"
 #include "xil_types.h"
 #include "xstatus.h"
-#include "platform.h"
 #include "xil_printf.h"
 #include "xiicps.h"
 #define PRINTF xil_printf /* Print macro for BM */
