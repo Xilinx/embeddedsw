@@ -608,8 +608,8 @@ static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 	MiscCtrlBits->Ppk2Invalid = XNVM_EFUSE_PPK2_INVLD;
 
 	if ((MiscCtrlBits->Ppk0Invalid == TRUE) ||
-		(MiscCtrlBits->Ppk0Invalid == TRUE) ||
-		(MiscCtrlBits->Ppk0Invalid == TRUE)) {
+		(MiscCtrlBits->Ppk1Invalid == TRUE) ||
+		(MiscCtrlBits->Ppk2Invalid == TRUE)) {
 		WriteEfuse->MiscCtrlBits = MiscCtrlBits;
 	}
 
