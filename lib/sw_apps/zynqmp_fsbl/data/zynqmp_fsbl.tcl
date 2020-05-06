@@ -201,8 +201,7 @@ proc swapp_is_supported_hw {} {
         set fields [split $boardname ":"]
         lassign $fields prefix board suffix
 
-        if { $board == "zcu102" || $board == "zcu106" || \
-		$board == "zcu104" || $board == "zcu111" } {
+        if { $board == "zcu102" || $board == "zcu106" } {
             set ip_list "psu_csudma psu_adma_0 psu_ipi_* psu_i2c_0"
         } else {
             set ip_list "psu_csudma psu_adma_0 psu_ipi_*"
