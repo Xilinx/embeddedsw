@@ -218,6 +218,7 @@ Updated the library example RemoteId variable to use IPIPSU driver canonical def
 
 axivdma_v6_7:
 Clean up old versions in axivdma.mdd.
+Fix xaxivdma_example_intr example failure in release mode.
 
 hdcp1x_v4_4:
 Added repeater support fixes for DP
