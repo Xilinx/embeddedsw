@@ -45,6 +45,7 @@
  *                     CR-965028.
  * 6.5   rsp  12/01/17 Set TX/RX framebuffer count to IP default. CR-990409
  * 6.6   rsp  07/02/18 Set Vertical Flip state to IP default. CR-989453
+ * 6.7   sk   05/06/20 Fix optimization level 2 failure in release mode.
  * </pre>
  *
  * ***************************************************************************
@@ -201,10 +202,10 @@ static XAxiVdma_DmaSetup WriteCfg;
 
 /* Transfer statics
  */
-static int ReadDone;
-static int ReadError;
-static int WriteDone;
-static int WriteError;
+volatile static int ReadDone;
+volatile static int ReadError;
+volatile static int WriteDone;
+volatile static int WriteError;
 
 /******************* Function Prototypes ************************************/
 
