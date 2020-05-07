@@ -374,6 +374,7 @@ int main()
 
 #ifdef __MICROBLAZE__
 	int cpu;
+	int pvr;
 #endif
 
 	XCACHE_DISABLE_CACHE();
@@ -387,8 +388,9 @@ int main()
 	uart_init();
 
 #ifdef __MICROBLAZE__
-	cpu = mfpvr(0) & 0xff;
-	if (cpu > 0) {
+	pvr = mfmsr() & 0x400;
+        cpu = mfpvr(0) & 0xff;
+        if (pvr != 0 && cpu > 0) {
 		/* Sleep until IPI #0 issued by CPU 0 */
 		mb_sleep();
 
