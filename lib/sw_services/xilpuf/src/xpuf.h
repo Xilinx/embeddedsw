@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -39,8 +38,6 @@ extern "C" {
 /****************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xil_io.h"
-#include "xstatus.h"
-#include "xpuf_hw.h"
 #include "xil_printf.h"
 
 /*************************** Constant Definitions *****************************/
@@ -53,7 +50,7 @@ extern "C" {
 #define XPUF_DEBUG_GENERAL (0U)
 #endif
 
-#define xPuf_printf(type,...)	if ((type) == (1U)) {xil_printf (__VA_ARGS__);}
+#define xPuf_printf(type, ...)	if ((type) == (1U)) {xil_printf (__VA_ARGS__);}
 
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
 #define XPUF_AES_KEY_LEN_IN_BYTES			(32U)
@@ -120,25 +117,6 @@ typedef struct {
 @endcond */
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/*****************************************************************************/
-/**
- *
- * This function reads the given register.
- *
- * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
- * @param	RegOffset is the register offset of the register.
- *
- * @return	The 32-bit value of the register.
- *
- * @note	C-style signature:
- * 		u32 XilPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
- *
- * ***************************************************************************/
-static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
-{
-	return Xil_In32(BaseAddress + RegOffset);
-}
 
 /*************************** Function Prototypes ******************************/
 u32 XPuf_Registration(XPuf_Data *PufData);

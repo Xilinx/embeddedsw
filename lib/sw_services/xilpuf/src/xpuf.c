@@ -40,6 +40,7 @@ typedef enum {
 	XPUF_REGISTRATION_STARTED,
 	XPUF_REGISTRATION_COMPLETE
 } XPuf_PufRegistrationState;
+
 /********************Macros (Inline function) Definitions*********************/
 /*****************************************************************************/
 /**
@@ -76,6 +77,26 @@ static inline u32 XPuf_WaitForPufDoneStatus()
 	return Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_PUF_DONE,
 		XPUF_STATUS_PUF_DONE, XPUF_STATUS_WAIT_TIMEOUT);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function reads the given register.
+ *
+ * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
+ *		controller.
+ * @param	RegOffset is the register offset of the register.
+ *
+ * @return	The 32-bit value of the register.
+ *
+ * @note	C-style signature:
+ * 		u32 XilPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
+ *
+ * ***************************************************************************/
+static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
+{
+	return Xil_In32(BaseAddress + RegOffset);
 }
 
 /*****************************************************************************/
