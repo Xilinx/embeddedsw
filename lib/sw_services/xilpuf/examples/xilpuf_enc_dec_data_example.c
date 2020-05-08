@@ -31,7 +31,7 @@
  *
  * #define XPUF_IV				"000000000000000000000000"
  * IV should be provided in string format. It should be 24 characters long, valid
- * characters are 0-9,a-f,A-F. Any other character is considered as invalid
+ * characters are 0-9, a-f, A-F. Any other character is considered as invalid
  * string. The value mentioned here will be converted to hex buffer. It is used
  * with the AES-GCM cryptographic hardware in order to encrypt user data.
  *
@@ -141,11 +141,11 @@ int main()
 	 */
 	Status = XPuf_GenerateKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n Successfully generated "
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Successfully generated "
 					"PUF KEY %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n PUF KEY generation failed %x\r\n",
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n PUF KEY generation failed %x\r\n",
 					Status);
 		goto END;
 	}
@@ -154,11 +154,11 @@ int main()
 	 * decrypted data with original data */
 	Status = XPuf_VerifyDataEncDec();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\nSuccessfully encrypted and "
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\nSuccessfully encrypted and "
 				"decrypted user data %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\nEncryption/Decryption failed"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\nEncryption/Decryption failed"
 				"%x\r\n", Status);
 	}
 
@@ -200,15 +200,15 @@ static s32 XPuf_GenerateKey()
 
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-		Status = XPuf_Registration(&PufData);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		xPuf_printf(XPUF_DEBUG_INFO, "Provided PUF helper "
-					"on UART\r\n");
-		xPuf_printf(XPUF_DEBUG_INFO,"PUF Helper data Start\r\n");
-		Xil_MemCpy(PUF_HelperData,PufData.SyndromeData,
-			XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
+	Status = XPuf_Registration(&PufData);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	xPuf_printf(XPUF_DEBUG_INFO, "Provided PUF helper "
+				"on UART\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data Start\r\n");
+	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
+		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
 		for (SynIndex = 0U; SynIndex < XPUF_HD_LEN_IN_WORDS;
 			SynIndex++) {
 			Buffer = (u8*) &(PUF_HelperData[SynIndex]);
@@ -219,8 +219,8 @@ static s32 XPuf_GenerateKey()
 		}
 		xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Chash);
 		xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Aux);
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
-		xPuf_printf(XPUF_DEBUG_INFO,"PUF Helper data End\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data End\r\n");
 		xPuf_printf(XPUF_DEBUG_INFO,"PUF ID : ");
 		for (Idx = 0U; Idx < XPUF_ID_LENGTH; Idx++) {
 			xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.PufID[Idx]);
@@ -293,13 +293,13 @@ static s32 XPuf_VerifyDataEncDec(void)
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
 						XPUF_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_INFO,"String Conversion error"
+			xPuf_printf(XPUF_DEBUG_INFO, "String Conversion error"
 				"(IV):%08x !!!\r\n", Status);
 			goto END;
 		}
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"Provided IV length is wrong\r\n");
+		xPuf_printf(XPUF_DEBUG_INFO, "Provided IV length is wrong\r\n");
 		goto END;
 	}
 
@@ -309,14 +309,14 @@ static s32 XPuf_VerifyDataEncDec(void)
 			(const char *) (XPUF_DATA),
 			Data, XPUF_DATA_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_INFO,"String Conversion error"
+			xPuf_printf(XPUF_DEBUG_INFO, "String Conversion error"
 			"(Data):%08x !!!\r\n", Status);
 			goto END;
 		}
 	}
 	else {
 		Status = (u32)XST_FAILURE;
-		xil_printf("Provided data length is wrong\r\n");
+		xPuf_printf(XPUF_DEBUG_INFO, "Provided data length is wrong\r\n");
 		goto END;
 	}
 
@@ -344,7 +344,7 @@ static s32 XPuf_VerifyDataEncDec(void)
 	Status = XSecure_AesEncryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
 				XSECURE_AES_KEY_SIZE_256, (u64)Iv);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO," Aes encrypt init failed %x\n\r"
+		xPuf_printf(XPUF_DEBUG_INFO, " Aes encrypt init failed %x\n\r"
 			, Status);
 		goto END;
 	}
@@ -352,7 +352,7 @@ static s32 XPuf_VerifyDataEncDec(void)
 	Status = XSecure_AesEncryptData(&SecureAes, (u64)Data, (u64)EncData,
 			XPUF_DATA_LEN_IN_BYTES, (u64)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO," Data encryption failed %x\n\r"
+		xPuf_printf(XPUF_DEBUG_INFO, " Data encryption failed %x\n\r"
 			, Status);
 		goto END;
 	}
@@ -373,11 +373,10 @@ static s32 XPuf_VerifyDataEncDec(void)
 	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
 
 	/* Decryption of Data */
-
 	Status = XSecure_AesDecryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
 			XSECURE_AES_KEY_SIZE_256, (u64)Iv);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"Error in decrypt init %x\n\r"
+		xPuf_printf(XPUF_DEBUG_INFO, "Error in decrypt init %x\n\r"
 					, Status);
 		goto END;
 	}
@@ -385,7 +384,7 @@ static s32 XPuf_VerifyDataEncDec(void)
 	Status = XSecure_AesDecryptData(&SecureAes, (u64)EncData, (u64)DecData,
 			XPUF_DATA_LEN_IN_BYTES, (u64)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO," Data encryption failed %x\n\r"
+		xPuf_printf(XPUF_DEBUG_INFO, "Data encryption failed %x\n\r"
 			, Status);
 		goto END;
 	}
@@ -399,7 +398,7 @@ static s32 XPuf_VerifyDataEncDec(void)
 	/* Comparison of Decrypted Data with original data */
 	for(Index = 0U; Index < XPUF_DATA_LEN_IN_BYTES; Index++) {
 		if (Data[Index] != DecData[Index]) {
-			xPuf_printf(XPUF_DEBUG_INFO,"Failure during comparison "
+			xPuf_printf(XPUF_DEBUG_INFO, "Failure during comparison "
 				"of the data\n\r");
 			Status = XST_FAILURE;
 		}
