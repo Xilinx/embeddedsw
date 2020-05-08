@@ -879,7 +879,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* This function sets all the required fields for initiating data
 * transfer in scatter gather mode.
 *
 * @param	InstancePtr is a pointer to the XZDma instance.
@@ -1165,7 +1165,7 @@ static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 
 /*****************************************************************************/
 /**
-* This static function enable's all the interrupts which user intended to
+* This function enables all the interrupts which user intended to
 * enable and enables the ZDMA channel for initiating data transfer.
 *
 * @param	InstancePtr is a pointer to the XZDma instance.
