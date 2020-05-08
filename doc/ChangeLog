@@ -1,5 +1,8 @@
 Changes for 2020.2
 ===============================
+lwip211_v1_3:
+Fix RX BD setup order.
+
 zdma_v1_10:
 Expose ZDMA scatter gather and enable APIs for direct use.
 
