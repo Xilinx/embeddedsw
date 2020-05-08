@@ -131,6 +131,7 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 /************************** Function Prototypes ******************************/
 static s32 XPuf_GenerateKey();
 static s32 XPuf_VerifyDataEncDec(void);
+static void XPuf_ShowData(const u8* Data, u32 Len);
 
 /************************** Function Definitions *****************************/
 int main()
@@ -188,10 +189,6 @@ static s32 XPuf_GenerateKey()
 {
 	s32 Status = XST_FAILURE;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-	u32 Subindex;
-	u8 *Buffer;
-	u32 SynIndex;
-	u32 Idx;
 	u32 PUF_HelperData[XPUF_HD_LEN_IN_WORDS] = {0U};
 #endif
 
@@ -209,23 +206,13 @@ static s32 XPuf_GenerateKey()
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data Start\r\n");
 	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
 		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
-		for (SynIndex = 0U; SynIndex < XPUF_HD_LEN_IN_WORDS;
-			SynIndex++) {
-			Buffer = (u8*) &(PUF_HelperData[SynIndex]);
-			for (Subindex = 0U; Subindex < 4U; Subindex++) {
-				xPuf_printf(XPUF_DEBUG_INFO,"%02x",
-					Buffer[Subindex]);
-			}
-		}
+	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * sizeof(u32));
 		xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Chash);
 		xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Aux);
 	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data End\r\n");
-		xPuf_printf(XPUF_DEBUG_INFO,"PUF ID : ");
-		for (Idx = 0U; Idx < XPUF_ID_LENGTH; Idx++) {
-			xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.PufID[Idx]);
-		}
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LENGTH);
 
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 	PufData.ReadOption = XPUF_READ_HD_OPTION;
@@ -250,6 +237,8 @@ static s32 XPuf_GenerateKey()
 			"with error:%x\r\n", Status);
 		goto END;
 	}
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LENGTH);
 #else
 	#error "Invalid option selected for generating PUF KEY. Only Puf \
 registration and on demand regeneration are allowed"
@@ -329,11 +318,11 @@ static s32 XPuf_VerifyDataEncDec(void)
 	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
 
-	xPuf_printf(XPUF_DEBUG_INFO,"Data to be encrypted: \n\r");
-	for (Index = 0U; Index < XPUF_DATA_LEN_IN_BYTES; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO,"%02x", Data[Index]);
-	}
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "Data to be encrypted: \n\r");
+	XPuf_ShowData((u8*)Data, XPUF_DATA_LEN_IN_BYTES);
+
+	xPuf_printf(XPUF_DEBUG_INFO, "IV: \n\r");
+	XPuf_ShowData((u8*)Iv, XPUF_IV_LEN_IN_BYTES);
 
 	/* Encryption of Data */
 	Status = XSecure_AesEncryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
@@ -352,17 +341,11 @@ static s32 XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\nEncrypted data: \n\r");
-	for (Index = 0U; Index < XPUF_DATA_LEN_IN_BYTES; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO,"%02x", EncData[Index]);
-	}
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "\r\nEncrypted data: \n\r");
+	XPuf_ShowData((u8*)EncData, XPUF_DATA_LEN_IN_BYTES);
 
-	xPuf_printf(XPUF_DEBUG_INFO,"GCM tag: \n\r");
-	for (Index = 0U; Index < XPUF_GCM_TAG_SIZE; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO,"%02x", GcmTag[Index]);
-	}
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "GCM tag: \n\r");
+	XPuf_ShowData((u8*)GcmTag, XPUF_GCM_TAG_SIZE);
 
 	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
@@ -384,11 +367,8 @@ static s32 XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\nDecrypted data %x ", DecData);
-	for (Index = 0U; Index < XPUF_DATA_LEN_IN_BYTES; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO,"%02x", DecData[Index]);
-	}
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "\r\nDecrypted data \n\r ");
+	XPuf_ShowData((u8*)DecData, XPUF_DATA_LEN_IN_BYTES);
 
 	/* Comparison of Decrypted Data with original data */
 	for(Index = 0U; Index < XPUF_DATA_LEN_IN_BYTES; Index++) {
@@ -400,4 +380,25 @@ static s32 XPuf_VerifyDataEncDec(void)
 	}
 END:
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ *
+ * This function prints the data array.
+ *
+ * @param	Data Pointer to the data to be printed
+ * @param	Len  Length of the data in bytes
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static void XPuf_ShowData(const u8* Data, u32 Len)
+{
+	u32 Index;
+
+	for (Index = 0U; Index < Len; Index++) {
+		xPuf_printf(XPUF_DEBUG_INFO, "%02x", Data[Index]);
+	}
+	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 }
