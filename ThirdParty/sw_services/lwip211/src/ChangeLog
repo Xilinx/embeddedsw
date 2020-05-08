@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2020-05-08
+	* Fix the RX BD setup order to avoid clearing used bit without
+	  buffer address.
 2019-08-24
 	* Add support for clock config in EL1 Non secure for Versal.
 2019-08-12

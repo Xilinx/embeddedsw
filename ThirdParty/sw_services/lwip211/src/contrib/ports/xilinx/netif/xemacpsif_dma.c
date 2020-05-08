@@ -424,16 +424,23 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 #endif
 		bdindex = XEMACPS_BD_TO_INDEX(rxring, rxbd);
 		temp = (u32 *)rxbd;
-		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
-			*temp = 0x00000002;
-		} else {
-			*temp = 0;
-		}
 		temp++;
+		/* Status field should be cleared first to avoid drops */
 		*temp = 0;
 		dsb();
 
-		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
+		/* Set high address when required */
+#ifdef __aarch64__
+		XEmacPs_BdWrite(rxbd, XEMACPS_BD_ADDR_HI_OFFSET,
+			(((UINTPTR)p->payload) & ULONG64_HI_MASK) >> 32U);
+#endif
+		/* Set address field; add WRAP bit on last descriptor  */
+		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
+			XEmacPs_BdWrite(rxbd, XEMACPS_BD_ADDR_OFFSET, ((UINTPTR)p->payload | XEMACPS_RXBUF_WRAP_MASK));
+		} else {
+			XEmacPs_BdWrite(rxbd, XEMACPS_BD_ADDR_OFFSET, (UINTPTR)p->payload);
+		}
+
 		rx_pbufs_storage[index + bdindex] = (UINTPTR)p;
 	}
 }
