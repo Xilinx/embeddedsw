@@ -1,9 +1,3 @@
-/******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
-
-
 /*
 
 *   Byte-oriented AES-256 implementation.
