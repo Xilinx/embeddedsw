@@ -101,7 +101,7 @@
 						/* IV length in Bits */
 #define XPUF_GCM_TAG_SIZE			(XSECURE_SECURE_GCM_TAG_SIZE)
 						/* GCM tag Length in bytes */
-#define XPUF_HD_LEN_IN_WORDS			(384U)
+#define XPUF_HD_LEN_IN_WORDS			(386U)
 #define XPUF_DEBUG_INFO				(1U)
 
 /************************** Type Definitions *********************************/
@@ -206,9 +206,12 @@ static s32 XPuf_GenerateKey()
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data Start\r\n");
 	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
 		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
+	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-2] = PufData.Chash;
+	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-1] = PufData.Aux;
 	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * sizeof(u32));
-		xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Chash);
-		xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Aux);
+	xPuf_printf(XPUF_DEBUG_INFO,"Chash: %02x", PufData.Chash);
+	xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO,"Aux: %02x", PufData.Aux);
 	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data End\r\n");
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
