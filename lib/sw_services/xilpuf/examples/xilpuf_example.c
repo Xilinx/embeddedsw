@@ -76,7 +76,6 @@ static s32 XPuf_ValidateUserInput();
 static s32 XPuf_GenerateKey(void);
 static s32 XPuf_GenerateBlackKey(void);
 static s32 XPuf_ProgramBlackKey(void);
-
 static void XPuf_ShowPufSecCtrlBits(void);
 
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
@@ -90,11 +89,11 @@ int main()
 
 	Status = XPuf_ValidateUserInput();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"Successfully validated user "
+		xPuf_printf(XPUF_DEBUG_INFO, "Successfully validated user "
 			"input %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n User input validation failed"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n User input validation failed"
 			"%x\r\n", Status);
 		goto END;
 	}
@@ -102,11 +101,11 @@ int main()
 	/* Generate PUF KEY */
 	Status = XPuf_GenerateKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n Successfully generated "
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Successfully generated "
 			"PUF KEY %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n PUF KEY generation failed %x\r\n",
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n PUF KEY generation failed %x\r\n",
 			Status);
 		goto END;
 	}
@@ -114,11 +113,11 @@ int main()
 	/* Encrypt red key using PUF KEY */
 	Status = XPuf_GenerateBlackKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\nSuccessfully encrypted red key"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\nSuccessfully encrypted red key"
 			"%x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\nEncryption/Decryption failed"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\nEncryption/Decryption failed"
 			"%x\r\n", Status);
 		goto END;
 	}
@@ -126,11 +125,11 @@ int main()
 	/* Program black key and helper data into NVM */
 	Status = XPuf_ProgramBlackKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n Successfully programmed Black"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Successfully programmed Black"
 			"key %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n Programming into NVM"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Programming into NVM"
 			"failed %x\r\n", Status);
 		goto END;
 	}
@@ -139,11 +138,11 @@ int main()
 	/* Program PUF security control bits */
 	Status = XPuf_WritePufSecCtrlBits();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"Successfully programmed "
+		xPuf_printf(XPUF_DEBUG_INFO, "Successfully programmed "
 			"security control bit %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n Security control bit"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Security control bit"
 			"programming failed %x\r\n", Status);
 	}
 #endif
@@ -192,7 +191,7 @@ static s32 XPuf_ValidateUserInput()
 		goto END;
 	}
 
-	if ((XPUF_RED_KEY_LEN_IN_BYTES == XSECURE_AES_KEY_SIZE_128) &&
+	if ((XPUF_RED_KEY_LEN_IN_BYTES == (XSECURE_AES_KEY_SIZE_128BIT_WORDS * sizeof(u32))) &&
 		((XPUF_WRITE_BLACK_KEY_OPTION != XPUF_EFUSE_USER_0_KEY) &&
 		(XPUF_WRITE_BLACK_KEY_OPTION != XPUF_EFUSE_USER_1_KEY))) {
 		Status = XST_FAILURE;
@@ -288,8 +287,8 @@ static s32 XPuf_GenerateKey()
 		goto END;
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO,"PUF Helper data Start!!!\r\n");
-	Xil_MemCpy(PUF_HelperData,PufData.SyndromeData,
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data Start!!!\r\n");
+	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
 		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
 	for (SynIndex = 0U; SynIndex < XPUF_HD_LEN_IN_WORDS; SynIndex++) {
 		Buffer = (u8*) &(PUF_HelperData[SynIndex]);
@@ -299,9 +298,9 @@ static s32 XPuf_GenerateKey()
 	}
 	xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Chash);
 	xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.Aux);
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO,"PUF Helper data End\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO,"PUF ID : ");
+	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data End\r\n");
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
 	for (Idx = 0U; Idx < XPUF_ID_LENGTH; Idx++) {
 		xPuf_printf(XPUF_DEBUG_INFO,"%02x", PufData.PufID[Idx]);
 	}
@@ -309,7 +308,7 @@ static s32 XPuf_GenerateKey()
 
 #if XPUF_WRITE_HD_IN_EFUSE
 	XPuf_GenerateFuseFormat(&PufData);
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\nFormatted syndrome "
+	xPuf_printf(XPUF_DEBUG_INFO, "\r\nFormatted syndrome "
 			"data written in eFuse");
 	for (SynIndex = 0U; SynIndex < XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS; SynIndex++) {
 		Buffer = (u8*) &(PufData.EfuseSynData[SynIndex]);
@@ -329,11 +328,12 @@ static s32 XPuf_GenerateKey()
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS)
 	{
-		xPuf_printf(XPUF_DEBUG_INFO,"Programming Helper data"
+		xPuf_printf(XPUF_DEBUG_INFO, "Programming Helper data"
 			 "into eFUSE failed\r\n");
+		goto END;
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\n PUF helper data "
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\n PUF helper data "
 		"written in eFUSE\r\n");
 	}
 #endif
@@ -346,22 +346,23 @@ static s32 XPuf_GenerateKey()
 		PufData.Chash = XPUF_CHASH;
 		PufData.Aux = XPUF_AUX;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\nReading helper"
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\nReading helper"
 			"data from DDR\r\n");
 	}
 	else if (PufData.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
-		xPuf_printf(XPUF_DEBUG_INFO,"\r\nReading helper data "
+		xPuf_printf(XPUF_DEBUG_INFO, "\r\nReading helper data "
 			"from eFUSE\r\n");
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"Invalid read option for "
+		xPuf_printf(XPUF_DEBUG_INFO, "Invalid read option for "
 			"reading helper data\r\n");
 		goto END;
 	}
 	Status = XPuf_Regeneration(&PufData);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"Puf Regeneration failed"
+		xPuf_printf(XPUF_DEBUG_INFO, "Puf Regeneration failed"
 			"with error:%x\r\n", Status);
+		goto END;
 	}
 #endif
 
@@ -409,7 +410,7 @@ static s32 XPuf_GenerateBlackKey(void)
 		}
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"Provided IV length is wrong\r\n");
+		xPuf_printf(XPUF_DEBUG_INFO, "Provided IV length is wrong\r\n");
 		goto END;
 	}
 
@@ -425,7 +426,7 @@ static s32 XPuf_GenerateBlackKey(void)
 		}
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,"Provided red key length is wrong\r\n");
+		xPuf_printf(XPUF_DEBUG_INFO, "Provided red key length is wrong\r\n");
 		goto END;
 	}
 
@@ -444,18 +445,17 @@ static s32 XPuf_GenerateBlackKey(void)
 	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
 
-	xPuf_printf(XPUF_DEBUG_INFO,"Red Key to be encrypted: \n\r");
+	xPuf_printf(XPUF_DEBUG_INFO, "Red Key to be encrypted: \n\r");
 	for (Index = 0U; Index < XPUF_RED_KEY_LEN_IN_BYTES; Index++) {
 		xPuf_printf(XPUF_DEBUG_INFO,"%02x", RedKey[Index]);
 	}
 	xPuf_printf(XPUF_DEBUG_INFO,"\r\n\n");
 
 	/* Encryption of Red Key */
-
 	Status = XSecure_AesEncryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
 		XSECURE_AES_KEY_SIZE_256, (u64)Iv);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO," Aes encrypt init is failed "
+		xPuf_printf(XPUF_DEBUG_INFO, "Aes encrypt init is failed "
 			"%x\n\r", Status);
 		goto END;
 	}
@@ -463,7 +463,7 @@ static s32 XPuf_GenerateBlackKey(void)
 	Status = XSecure_AesEncryptData(&SecureAes, (u64)RedKey,
 			(u64)BlackKey, XPUF_RED_KEY_LEN_IN_BYTES, (u64)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO," Black key generation failed"
+		xPuf_printf(XPUF_DEBUG_INFO, "Black key generation failed"
 			"%x\n\r", Status);
 		goto END;
 	}
@@ -483,6 +483,7 @@ static s32 XPuf_GenerateBlackKey(void)
 END:
 	return Status;
 }
+
 /******************************************************************************/
 /**
  * @brief
@@ -591,7 +592,7 @@ static u32 XPuf_WritePufSecCtrlBits()
 
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,"Error in programming PUF Security"
+		xPuf_printf(XPUF_DEBUG_INFO, "Error in programming PUF Security"
 			"Control bits %x\r\n", Status);
 	}
 

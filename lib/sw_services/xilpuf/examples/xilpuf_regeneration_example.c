@@ -93,7 +93,7 @@ int main()
 	if (PufData.PufOperation == XPUF_REGEN_ID_ONLY) {
 		xPuf_printf(XPUF_DEBUG_INFO,
 		"PUF ID only regeneration is done!!\r\n");
-		xPuf_printf(XPUF_DEBUG_INFO,"PUF ID : ");
+		xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
 		for (Idx = 0; Idx < XPUF_ID_LENGTH; Idx++) {
 			xPuf_printf(XPUF_DEBUG_INFO, "%02x", PufData.PufID[Idx]);
 		}
