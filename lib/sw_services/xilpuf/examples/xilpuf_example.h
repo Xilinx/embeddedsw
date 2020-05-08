@@ -28,11 +28,12 @@
  * should be either 32 or 64 characters long as only 128 bit and 256 bit key
  * are supported.
  *
- * #define XPUF_RED_KEY_LEN_IN_BYTES		(XSECURE_AES_KEY_SIZE_256)
+ * #define XPUF_RED_KEY_LEN				(XPUF_RED_KEY_SIZE_256)
  *							(or)
- *						(XSECURE_AES_KEY_SIZE_128)
- * Length of red key to be encrypted should be provided in bytes. Only 128 bit
- * and 256 bit key are supported. By default the length of red key is
+ *						(XPUF_RED_KEY_SIZE_128)
+ * XPUF_RED_KEY_LEN can be configured as one of the two provided options. This
+ * configuration should be done on the basis of the length of the red key in bits.
+ * Only 128 bit and 256 bit key are supported. By default the length of red key is
  * configured as 256 bit.
  *
  * #define XPUF_IV				"000000000000000000000000"
