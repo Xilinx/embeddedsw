@@ -154,6 +154,15 @@ Deprecated support to read from efuse memory, if requested throws an error
 Placed temperature and voltage checks before enabling programming
 Cleaned up library
 
+xilnvm_v2_0:
+Added XilNvm utility functions to xnvm_utils
+Added Wrapper APIs to eFuse library
+Enhancements to xilnvm_efuse_versal_example to have user configurable
+parameters to program different eFuses
+Added eFuse programming rules
+Optimization done in XilNvm library
+Cleaned up library and eFuse example.
+
 usbps_v2_5:
 Added dependencies.props file to support automation testing.
 Update ch9 framework
