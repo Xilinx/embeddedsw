@@ -51,6 +51,7 @@ static XNvm_EfusePufHd PrgmPufHelperData;
 #endif
 
 static XPuf_Data PufData;
+static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS];
 
 static u8 Iv[XPUF_IV_LEN_IN_BYTES];
 #if defined (__GNUC__)
@@ -78,6 +79,8 @@ static s32 XPuf_GenerateBlackKey(void);
 static s32 XPuf_ProgramBlackKey(void);
 static void XPuf_ShowPufSecCtrlBits(void);
 static void XPuf_ShowData(const u8* Data, u32 Len);
+static s32 XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
+static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
 static u32 XPuf_WritePufSecCtrlBits(void);
@@ -451,17 +454,12 @@ static s32 XPuf_GenerateBlackKey(void)
 		goto END;
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO,"Black Key: \n\r");
-	for (Index = 0; Index < XPUF_RED_KEY_LEN_IN_BYTES; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO, "%02x", BlackKey[Index]);
+	Status = XPuf_FormatAesKey(BlackKey, FormattedBlackKey,
+		XPUF_RED_KEY_LEN_IN_BYTES);
+	if (Status == XST_SUCCESS) {
+		xPuf_printf(XPUF_DEBUG_INFO, "Black Key: \n\r");
+		XPuf_ShowData((u8*)FormattedBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
 	}
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
-
-	xPuf_printf(XPUF_DEBUG_INFO,"GCM tag: \n\r");
-	for (Index = 0; Index < XPUF_GCM_TAG_SIZE; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO, "%02x", GcmTag[Index]);
-	}
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n\n");
 
 END:
 	return Status;
@@ -482,22 +480,19 @@ END:
 static s32 XPuf_ProgramBlackKey(void)
 {
 	int Status = XST_FAILURE;
-	u32 Index;
 	XNvm_EfuseAesKeys WriteAesKeys = {0U};
 	XNvm_EfuseData WriteData = {NULL};
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
 					XPUF_WRITE_BLACK_KEY_OPTION;
+	u8 FlashBlackKey[XPUF_RED_KEY_LEN_IN_BYTES] = {0};
 
-	xPuf_printf(XPUF_DEBUG_INFO,"Black Key: \n\r");
-	for (Index = 0U; Index < XPUF_RED_KEY_LEN_IN_BYTES; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO,"%02x", BlackKey[Index]);
-	}
+	XPuf_ReverseData(FormattedBlackKey, FlashBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
 	switch (BlackKeyWriteOption) {
 
 		case XPUF_EFUSE_AES_KEY:
 			WriteAesKeys.PrgmAesKey = TRUE;
-			Xil_MemCpy(WriteAesKeys.AesKey, BlackKey,
+			Xil_MemCpy(WriteAesKeys.AesKey, FlashBlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
@@ -508,7 +503,7 @@ static s32 XPuf_ProgramBlackKey(void)
 			break;
 
 		case XPUF_BBRAM_AES_KEY:
-			Status = XNvm_BbramWriteAesKey((u8 *)BlackKey,
+			Status = XNvm_BbramWriteAesKey(FlashBlackKey,
 				 XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			if (Status != XST_SUCCESS) {
 				xPuf_printf(XPUF_DEBUG_INFO,"Error in "
@@ -518,7 +513,7 @@ static s32 XPuf_ProgramBlackKey(void)
 
 		case XPUF_EFUSE_USER_0_KEY:
 			WriteAesKeys.PrgmUserKey0 = TRUE;
-			Xil_MemCpy(WriteAesKeys.UserKey0, BlackKey,
+			Xil_MemCpy(WriteAesKeys.UserKey0, FlashBlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
@@ -530,7 +525,7 @@ static s32 XPuf_ProgramBlackKey(void)
 
 		case XPUF_EFUSE_USER_1_KEY:
 			WriteAesKeys.PrgmUserKey1 = TRUE;
-			Xil_MemCpy(WriteAesKeys.UserKey1, BlackKey,
+			Xil_MemCpy(WriteAesKeys.UserKey1, FlashBlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
@@ -636,6 +631,77 @@ static void XPuf_ShowPufSecCtrlBits()
 
 END: ;
 }
+
+/******************************************************************************/
+/**
+ *
+ * This function converts AES key to the format expected by xilsecure aes
+ * library
+ *
+ * @param	Key				Pointer to the input key
+ * @param	FormattedKey	Pointer to the formatted key
+ * @param	KeyLen			Length of the input key in bytes
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static s32 XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen)
+{
+	s32 Status = XST_FAILURE;
+	u32 Index = 0U;
+	u32 Words = (KeyLen / sizeof(u32));
+	u32 WordIndex = (Words / 2U);
+	u32* InputKey = (u32*)Key;
+	u32* OutputKey  = (u32*)FormattedKey;
+
+	if ((KeyLen != (XSECURE_AES_KEY_SIZE_128BIT_WORDS * sizeof(u32))) &&
+		(KeyLen != (XSECURE_AES_KEY_SIZE_256BIT_WORDS * sizeof(u32)))) {
+		xPuf_printf(XPUF_DEBUG_INFO, "Only 128-bit keys and 256-bit keys are supported");
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	for(Index = 0U; Index < Words; Index++)
+	{
+		OutputKey[Index] = InputKey[WordIndex];
+		WordIndex++;
+		/*
+		 * AES word size = 128 bits
+		 * So to change the endianness, code should swap lower 64bits
+		 * with upper 64 bits
+		 * 64 bits = 8 bytes
+		 */
+		WordIndex = WordIndex % 8U;
+	}
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ *
+ * This function reverses the data array
+ *
+ * @param	OrgDataPtr Pointer to the original data
+ * @param	SwapPtr    Pointer to the reversed data
+ * @param	Len        Length of the data in bytes
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
+{
+	u32 Index = 0U;
+	u32 ReverseIndex = (Len - 1U);
+
+	for(Index = 0U; Index < Len; Index++)
+	{
+		SwapPtr[Index] = OrgDataPtr[ReverseIndex];
+		ReverseIndex--;
+	}
+}
+
 /******************************************************************************/
 /**
  *
