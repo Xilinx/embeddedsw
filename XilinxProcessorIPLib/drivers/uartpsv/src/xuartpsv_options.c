@@ -20,6 +20,7 @@
 * 1.0  sg   09/18/17  First Releasee
 * 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to change mode
 *		      Add functions to set Tx and Rx FIFO threshold levels
+* 1.3  rna  04/08/20  Format is corrected in XUartPsv_SetDataFormat function
 * </pre>
 *
 ******************************************************************************/
@@ -567,9 +568,9 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Verify the inputs specified are valid */
-	if ((FormatPtr->DataBits > ((u32)XUARTPSV_FORMAT_6_BITS)) ||
+	if ((FormatPtr->DataBits > ((u32)XUARTPSV_FORMAT_8_BITS)) ||
 		(FormatPtr->StopBits > ((u8)XUARTPSV_FORMAT_2_STOP_BIT)) ||
-		(FormatPtr->Parity > ((u32)XUARTPSV_FORMAT_NO_PARITY))) {
+		(FormatPtr->Parity > ((u32)XUARTPSV_FORMAT_PARITY_MASK))) {
 		Status = XST_INVALID_PARAM;
 	} else {
 
@@ -617,8 +618,17 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 */
 			LineCtrlRegister &= (u32)
 					(~XUARTPSV_UARTLCR_PARITY_MASK);
-			LineCtrlRegister |= (FormatPtr->Parity <<
+			LineCtrlRegister |= ((FormatPtr->Parity &
+						XUARTPSV_FORMAT_EN_PARITY) <<
 						XUARTPSV_UARTLCR_PARITY_SHIFT);
+			/* Even/Odd parity set */
+			LineCtrlRegister |= ((FormatPtr->Parity &
+                                                XUARTPSV_FORMAT_EVEN_PARITY) <<
+                                                XUARTPSV_FORMAT_EVEN_PARITY_SHIFT);
+			/* Stick parity enable/disable */
+			LineCtrlRegister |= ((FormatPtr->Parity &
+                                                XUARTPSV_FORMAT_EN_STICK_PARITY) <<
+                                                XUARTPSV_FORMAT_EN_STICK_PARITY_SHIFT);
 
 			/* Update the Line control register */
 			XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,

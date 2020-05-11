@@ -106,6 +106,8 @@
 *		      Add XUartPsv_ProgramCtrlReg function
 *		      Add XUartPsv_SetTxFifoThreshold function
 *		      Add XUartPsv_SetRxFifoThreshold function
+* 1.3  rna  04/05/20  Change input format for XUartPsv_SetDataFormat function
+*		      to reflect the Linecontrol register
 * </pre>
 *
 ******************************************************************************/
@@ -181,18 +183,24 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPSV_FORMAT_8_BITS 	0U	/**< 8 data bits */
+#define XUARTPSV_FORMAT_8_BITS 	3U	/**< 8 data bits */
 #define XUARTPSV_FORMAT_7_BITS 	2U	/**< 7 data bits */
-#define XUARTPSV_FORMAT_6_BITS 	3U	/**< 6 data bits */
+#define XUARTPSV_FORMAT_6_BITS 	1U	/**< 6 data bits */
+#define XUARTPSV_FORMAT_5_BITS	0U	/**< 5 data bits */
 
-#define XUARTPSV_FORMAT_NO_PARITY  	4U	/**< No parity */
-#define XUARTPSV_FORMAT_MARK_PARITY	3U	/**< Mark parity */
-#define XUARTPSV_FORMAT_SPACE_PARITY	2U	/**< parity */
-#define XUARTPSV_FORMAT_ODD_PARITY 	1U	/**< Odd parity */
-#define XUARTPSV_FORMAT_EVEN_PARITY	0U	/**< Even parity */
+#define XUARTPSV_FORMAT_NO_PARITY  	0U	/**< No parity */
+#define XUARTPSV_FORMAT_EN_PARITY	1U	/**< Enable parity */
+#define XUARTPSV_FORMAT_EVEN_PARITY	2U	/**< Even parity */
+#define XUARTPSV_FORMAT_ODD_PARITY 	0U	/**< Odd parity */
+#define XUARTPSV_FORMAT_EN_STICK_PARITY	4U	/**< Stick parity */
+#define XUARTPSV_FORMAT_NO_STICK_PARITY	0U	/**< Stick parity */
 
-#define XUARTPSV_FORMAT_2_STOP_BIT 	2U	/**< 2 stop bits */
-#define XUARTPSV_FORMAT_1_5_STOP_BIT	1U	/**< 1.5 stop bits */
+#define XUARTPSV_FORMAT_PARITY_MASK	7U	/**< Format parity mask */
+
+#define XUARTPSV_FORMAT_EVEN_PARITY_SHIFT	1U /**< Even parity shift */
+#define XUARTPSV_FORMAT_EN_STICK_PARITY_SHIFT	5U /**< Stick parity shift */
+
+#define XUARTPSV_FORMAT_2_STOP_BIT 	1U	/**< 2 stop bits */
 #define XUARTPSV_FORMAT_1_STOP_BIT 	0U	/**< 1 stop bit */
 /*@}*/
 
