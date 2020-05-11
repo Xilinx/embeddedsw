@@ -56,6 +56,10 @@ mkdir -p $BSP_DIR/libsrc/xilplmi
 cp -r $SERVICES_DIR/xilplmi/src $BSP_DIR/libsrc/xilplmi/
 cp -r $SERVICES_DIR/xilplmi/src/*.h $BSP_DIR/include/
 
+mkdir -p $BSP_DIR/libsrc/xilpuf
+cp -r $SERVICES_DIR/xilpuf/src $BSP_DIR/libsrc/xilpuf/
+cp -r $SERVICES_DIR/xilpuf/src/*.h $BSP_DIR/include/
+
 mkdir -p $BSP_DIR/libsrc/xilloader
 cp -r $SERVICES_DIR/xilloader/src $BSP_DIR/libsrc/xilloader/
 cp -r $SERVICES_DIR/xilloader/src/*.h $BSP_DIR/include/
@@ -81,6 +85,7 @@ cp -r $SERVICES_DIR/xilsem/src/*.h $BSP_DIR/include/
 
 # copy bsp standalone code
 cp $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/common/clocking/*  $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/microblaze/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
@@ -118,7 +123,18 @@ cp $WORKING_DIR/xparameters*.h $BSP_DIR/include/
 
 # other dependencies which are required
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/
+cp $WORKING_DIR/xtmr_manager_g.c $BSP_DIR/libsrc/tmr_manager/src/
+cp $WORKING_DIR/xtmr_inject_g.c $BSP_DIR/libsrc/tmr_inject/src/
+cp $WORKING_DIR/xttcps_g.c $BSP_DIR/libsrc/ttcps/src/
+cp $WORKING_DIR/xpmonpsv_g.c $BSP_DIR/libsrc/pmonpsv/src/
+cp $WORKING_DIR/xgpiops_g.c $BSP_DIR/libsrc/gpiops/src/
+cp $WORKING_DIR/xqspipsu_g.c $BSP_DIR/libsrc/qspipsu/src/
+cp $WORKING_DIR/xrtcpsu_g.c $BSP_DIR/libsrc/rtcpsu/src/
+cp $WORKING_DIR/xsdps_g.c $BSP_DIR/libsrc/sdps/src/
+cp $WORKING_DIR/xuartlite_g.c $BSP_DIR/libsrc/uartlite/src/
+cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/libsrc/sysmonpsv/src/
 cp $STANDALONE_DIR/common/*.h  $BSP_DIR/include/
+cp $STANDALONE_DIR/common/clocking/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/microblaze/*.h  $BSP_DIR/include/
 
 # no inbyte and outbyte present in standalone

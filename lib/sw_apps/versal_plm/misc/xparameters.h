@@ -230,6 +230,7 @@
 /******************************************************************/
 
 /* Platform specific definitions */
+#define VERSAL_PLM
 #ifndef versal
 #define versal
 #endif
@@ -240,38 +241,31 @@
  
  
 /******************************************************************/
+#define XPAR_CANFD_ISPS
 /* Definitions for driver CANFD */
-#define XPAR_XCANFD_NUM_INSTANCES 1
+#define XPAR_XCANFD_NUM_INSTANCES 1U
 
 /* Definitions for peripheral PSV_CANFD_1 */
-#define XPAR_PSV_CANFD_1_DEVICE_ID 0
-#define XPAR_PSV_CANFD_1_BASEADDR 0xFF070000
-#define XPAR_PSV_CANFD_1_HIGHADDR 0xFF07FFFF
-#define XPAR_PSV_CANFD_1_CAN_RX_DPTH 64
-#define XPAR_PSV_CANFD_1_CAN_TX_DPTH 32
-#define XPAR_PSV_CANFD_1_RX_MODE 0
-#define XPAR_PSV_CANFD_1_NUM_OF_RX_MB_BUF 48
-#define XPAR_PSV_CANFD_1_NUM_OF_TX_BUF 32
-#define XPAR_PSV_CANFD_1_CAN_CLK_FREQ_HZ 149998505
-
-
-/******************************************************************/
+#define XPAR_PSV_CANFD_1_DEVICE_ID 0U
+#define XPAR_PSV_CANFD_1_BASEADDR 0xFF070000U
+#define XPAR_PSV_CANFD_1_HIGHADDR 0xFF07FFFFU
+#define XPAR_PSV_CANFD_1_RX_MODE 0U
+#define XPAR_PSV_CANFD_1_NUM_OF_RX_MB_BUF 48U
+#define XPAR_PSV_CANFD_1_NUM_OF_TX_BUF 32U
+#define XPAR_PSV_CANFD_1_CAN_CLK_FREQ_HZ 149998505U
+#define XPAR_PSV_CANFD_1_IS_PL 0U
 
 /* Canonical definitions for peripheral PSV_CANFD_1 */
-#define XPAR_CANFD_0_DEVICE_ID XPAR_PSV_CANFD_1_DEVICE_ID
-#define XPAR_CANFD_0_BASEADDR 0xFF070000
-#define XPAR_CANFD_0_HIGHADDR 0xFF07FFFF
-#define XPAR_CANFD_0_CAN_RX_DPTH 64
-#define XPAR_CANFD_0_CAN_TX_DPTH 32
-#define XPAR_CANFD_0_RX_MODE 0
-#define XPAR_CANFD_0_NUM_OF_RX_MB_BUF 48
-#define XPAR_CANFD_0_NUM_OF_TX_BUF 32
-#define XPAR_CANFD_0_CAN_CLK_FREQ_HZ 149998505
-
+#define XPAR_CANFD_0_DEVICE_ID 0U
+#define XPAR_CANFD_0_BASEADDR 0xFF070000U
+#define XPAR_CANFD_0_HIGHADDR 0xFF07FFFFU
+#define XPAR_CANFD_0_RX_MODE 0U
+#define XPAR_CANFD_0_NUM_OF_RX_MB_BUF 48U
+#define XPAR_CANFD_0_NUM_OF_TX_BUF 32U
+#define XPAR_CANFD_0_CAN_CLK_FREQ_HZ 149998505U
+#define XPAR_CANFD_0_IS_PL 0U
 
 /******************************************************************/
-
-#define XPAR_CANFD_ISPS
 /* Definitions for driver CFRAME */
 #define XPAR_XCFRAME_NUM_INSTANCES 1
 
@@ -421,19 +415,9 @@
 /******************************************************************/
 
 
-/* Definitions for peripheral PSV_CORESIGHT_FPD_ATM */
-#define XPAR_PSV_CORESIGHT_FPD_ATM_S_AXI_BASEADDR 0xF0B80000
-#define XPAR_PSV_CORESIGHT_FPD_ATM_S_AXI_HIGHADDR 0xF0B8FFFF
-
-
 /* Definitions for peripheral PSV_CORESIGHT_FPD_STM */
 #define XPAR_PSV_CORESIGHT_FPD_STM_S_AXI_BASEADDR 0xF0B70000
 #define XPAR_PSV_CORESIGHT_FPD_STM_S_AXI_HIGHADDR 0xF0B7FFFF
-
-
-/* Definitions for peripheral PSV_CORESIGHT_LPD_ATM */
-#define XPAR_PSV_CORESIGHT_LPD_ATM_S_AXI_BASEADDR 0xF0980000
-#define XPAR_PSV_CORESIGHT_LPD_ATM_S_AXI_HIGHADDR 0xF098FFFF
 
 
 /* Definitions for peripheral PSV_CRF_0 */
@@ -678,6 +662,25 @@
 
 /******************************************************************/
 
+/* Definitions for driver GPIOPS */
+#define XPAR_XGPIOPS_NUM_INSTANCES 1
+
+/* Definitions for peripheral PSV_PMC_GPIO_0 */
+#define XPAR_PSV_PMC_GPIO_0_DEVICE_ID 0
+#define XPAR_PSV_PMC_GPIO_0_BASEADDR 0xF1020000
+#define XPAR_PSV_PMC_GPIO_0_HIGHADDR 0xF102FFFF
+
+
+/******************************************************************/
+
+/* Canonical definitions for peripheral PSV_PMC_GPIO_0 */
+#define XPAR_XGPIOPS_0_DEVICE_ID XPAR_PSV_PMC_GPIO_0_DEVICE_ID
+#define XPAR_XGPIOPS_0_BASEADDR 0xF1020000
+#define XPAR_XGPIOPS_0_HIGHADDR 0xF102FFFF
+
+
+/******************************************************************/
+
 /* Definitions for driver IICPS */
 #define XPAR_XIICPS_NUM_INSTANCES 2
 
@@ -712,6 +715,8 @@
 
 /******************************************************************/
 
+/* Definition for input Clock */
+/* Definition for input Clock */
 /* Definitions for driver IOMODULE */
 #define XPAR_XIOMODULE_NUM_INSTANCES 1U
 
@@ -1007,6 +1012,32 @@
 #define  XPAR_XIPIPS_TARGET_PSV_CORTEXA72_1_CH6_INDEX  9U
 
 
+
+/* Definitions for driver PMONPSV */
+#define XPAR_XPMONPSV_NUM_INSTANCES 2
+
+/* Definitions for peripheral PSV_CORESIGHT_FPD_ATM */
+#define XPAR_PSV_CORESIGHT_FPD_ATM_DEVICE_ID 0
+#define XPAR_PSV_CORESIGHT_FPD_ATM_S_AXI_BASEADDR 0xF0B80000
+
+
+/* Definitions for peripheral PSV_CORESIGHT_LPD_ATM */
+#define XPAR_PSV_CORESIGHT_LPD_ATM_DEVICE_ID 1
+#define XPAR_PSV_CORESIGHT_LPD_ATM_S_AXI_BASEADDR 0xF0980000
+
+
+/******************************************************************/
+
+/* Canonical definitions for peripheral PSV_CORESIGHT_FPD_ATM */
+#define XPAR_XPMONPSV_0_DEVICE_ID XPAR_PSV_CORESIGHT_FPD_ATM_DEVICE_ID
+#define XPAR_XPMONPSV_0_S_AXI_BASEADDR 0xF0B80000
+
+/* Canonical definitions for peripheral PSV_CORESIGHT_LPD_ATM */
+#define XPAR_XPMONPSV_1_DEVICE_ID XPAR_PSV_CORESIGHT_LPD_ATM_DEVICE_ID
+#define XPAR_XPMONPSV_1_S_AXI_BASEADDR 0xF0980000
+
+
+/******************************************************************/
 
 /* Definitions for driver QSPIPSU */
 #define XPAR_XQSPIPSU_NUM_INSTANCES 1
@@ -1439,7 +1470,8 @@
 /* Xilinx FAT File System Library (XilFFs) User Settings */
 #define FILE_SYSTEM_INTERFACE_SD
 #define FILE_SYSTEM_READ_ONLY
-#define FILE_SYSTEM_NUM_LOGIC_VOL 2
+#define FILE_SYSTEM_MULTI_PARTITION
+#define FILE_SYSTEM_NUM_LOGIC_VOL 10
 #define FILE_SYSTEM_USE_STRFUNC 0
 #define FILE_SYSTEM_SET_FS_RPATH 0
 #define XPAR_XILPM_ENABLED
