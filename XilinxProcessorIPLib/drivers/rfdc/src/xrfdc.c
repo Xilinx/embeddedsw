@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.c
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v8_0
 * @{
 *
 * Contains the interface functions of the XRFdc driver.
