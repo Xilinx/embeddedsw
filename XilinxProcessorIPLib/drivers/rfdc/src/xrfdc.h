@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v8_0
 * @{
 * @details
 *

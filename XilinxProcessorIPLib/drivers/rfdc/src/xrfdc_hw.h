@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v8_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
