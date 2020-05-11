@@ -14,18 +14,27 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xcframe.h"
+#include "xttcps.h"
 
 /*
 * The configuration table for devices
 */
 
-XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES] =
+XTtcPs_Config XTtcPs_ConfigTable[] =
 {
 	{
-		XPAR_PSV_PMC_CFI_CFRAME_0_DEVICE_ID,
-		XPAR_PSV_PMC_CFI_CFRAME_0_BASEADDR
+		XPAR_PSV_TTC_0_DEVICE_ID,
+		XPAR_PSV_TTC_0_BASEADDR,
+		XPAR_PSV_TTC_0_TTC_CLK_FREQ_HZ
+	},
+	{
+		XPAR_PSV_TTC_1_DEVICE_ID,
+		XPAR_PSV_TTC_1_BASEADDR,
+		XPAR_PSV_TTC_1_TTC_CLK_FREQ_HZ
+	},
+	{
+		XPAR_PSV_TTC_2_DEVICE_ID,
+		XPAR_PSV_TTC_2_BASEADDR,
+		XPAR_PSV_TTC_2_TTC_CLK_FREQ_HZ
 	}
 };
-
-

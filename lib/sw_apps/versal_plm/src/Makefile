@@ -7,7 +7,7 @@
 CC := mb-gcc
 CC_FLAGS := -MMD -MP    -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high
 CFLAGS := -Os
-LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilloader,-lxilpm,-lxilsecure,-lxilsem,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
+LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,-lxilpm,-lxilsecure,-lxilsem,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
 
 c_SOURCES := $(wildcard *.c)
 INCLUDES := $(wildcard *.h)

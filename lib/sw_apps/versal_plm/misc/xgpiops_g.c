@@ -14,18 +14,16 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xcframe.h"
+#include "xgpiops.h"
 
 /*
 * The configuration table for devices
 */
 
-XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES] =
+XGpioPs_Config XGpioPs_ConfigTable[XPAR_XGPIOPS_NUM_INSTANCES] =
 {
 	{
-		XPAR_PSV_PMC_CFI_CFRAME_0_DEVICE_ID,
-		XPAR_PSV_PMC_CFI_CFRAME_0_BASEADDR
+		XPAR_PSV_PMC_GPIO_0_DEVICE_ID,
+		XPAR_PSV_PMC_GPIO_0_BASEADDR
 	}
 };
-
-

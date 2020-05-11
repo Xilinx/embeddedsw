@@ -14,18 +14,23 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xcframe.h"
+#include "xsdps.h"
 
 /*
 * The configuration table for devices
 */
 
-XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES] =
+XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES] =
 {
 	{
-		XPAR_PSV_PMC_CFI_CFRAME_0_DEVICE_ID,
-		XPAR_PSV_PMC_CFI_CFRAME_0_BASEADDR
+		XPAR_PSV_PMC_SD_1_DEVICE_ID,
+		XPAR_PSV_PMC_SD_1_BASEADDR,
+		XPAR_PSV_PMC_SD_1_SDIO_CLK_FREQ_HZ,
+		XPAR_PSV_PMC_SD_1_HAS_CD,
+		XPAR_PSV_PMC_SD_1_HAS_WP,
+		XPAR_PSV_PMC_SD_1_BUS_WIDTH,
+		XPAR_PSV_PMC_SD_1_MIO_BANK,
+		XPAR_PSV_PMC_SD_1_HAS_EMIO,
+		XPAR_PSV_PMC_SD_1_IS_CACHE_COHERENT
 	}
 };
-
-
