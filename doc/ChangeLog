@@ -134,6 +134,26 @@ xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
 Add support for Multi Partitions
 
+xilfpga_v5_2:
+Fixed the issues with Aes-key.
+Cleared Aes-key from internal memory.
+Fix for function naming issues.
+Removed unwanted status check.
+Added support for Versal.
+Removed unused variables.
+Fixed security violation in the readback path.
+Replaced event poll logic with Xil_WaitForEvent() API.
+Adopted Bitstream Configuration and readback support using IPI mechanism.
+Removed unwanted header file inclusion.
+Updated SECURE_MODE handling logic.
+Updated the write path to handle the return values properly for veral.
+Added example for versal platform.
+Replaced hardcode values with macro's.
+Removed capturing the key in the global array.
+Added support to clear KUP and IV from the AES engine.
+updated license content to SPDX based licensing.
+Added eFuse checks in bitstream validation path.
+
 xilrsa_v1_6:
 Added support for ARMCC compiler
 
