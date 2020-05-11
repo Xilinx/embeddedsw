@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_options.c
-* @addtogroup uartpsv_v1_2
+* @addtogroup uartpsv_v1_3
 * @{
 *
 * The implementation of the options functions for the XUartPsv driver.
