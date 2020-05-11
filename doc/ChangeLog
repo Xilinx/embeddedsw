@@ -17,6 +17,12 @@ Updated all files with Copyright year 2020.
 Fixed sending extra frames in XCanFd_Send_Queue API.
 Initialize IsPl of config structure.
 
+cpu_v2_11:
+Updated tcl as per new toolchain directory structure in Vitis 2020.1
+
+cpu_cortexa72_v1_1:
+Updated to support armclang compiler.
+
 csudma_v1_6:
 Added assert check XCsuDma_WaitForDoneTimeout().
 Modified usleep(100) to usleep(1) and XCSUDMA_DONE_TIMEOUT_VAL increased by 100 times.
@@ -32,6 +38,9 @@ Add baremetal clock support.
 Add XCLOCKING flag support.
 Add fix for clock detection in hier designs.
 
+freertos10_xilinx_v1_6:
+Upgraded kernel version to 10.3.0.
+
 gpio_v4_6:
 Fixed compilation error of armcc compiler.
 
@@ -45,6 +54,10 @@ used to calculate Sclk for 32bit mode
 i2srx_v2_1:
 This patch has 1 new variable Is32bitLR in XI2srx_Config structure that is
 used to calculate Sclk for 32bit mode
+
+intc_v3_11:
+Fix issues reported by coverity tool.
+Updated tcl to fix issues related to design with slice IP.
 
 iicps_v3_11:
 Added 10-bit address support for I2C Master/Slave, Slave monitor.
@@ -87,6 +100,17 @@ Added SD/eMMC Raw Read/Write example
 Added support for UHS mode by default for ZynqMP
 Restructured SDPS driver for more modularity and readability.
 Fix eMMC issue where it fails due to no card ID
+
+standalone_v7_2:
+Removed the logic to delete source code directories from tcl CR#1038151.
+Added armclang compiler support for Cortex-A72.
+Updated Cortex-R5 BSP, to use TTC2 in sleep routines if TTC3 is not present in
+the design. If TTC2 is also not present, in that case PMU cycle counter would be
+used in sleep routines.
+Added clocking support.
+Add new APIs to provide improvised support for R5 PMU Handling, also added example
+to demonstrate the API usage.
+Added unaligned exception handling support to 64 bit variant of microblaze processor.
 
 uartns550_v3_6:
 Changed the xuartns550_intr_example to get Success/Failure strings.
