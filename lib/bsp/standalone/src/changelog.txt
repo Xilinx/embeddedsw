@@ -590,9 +590,25 @@
  * 7.0 mus    04/08/19  Fix microblaze_disable_dcache for 64 bit microblaze
  * 7.0 mus    04/26/19  Added frequently used functions in common area in xil_utils.c,
  *                      so that other modules can make use of it.
+ * 7.2 mus    11/14/19  Remove logic for deletion of source directories, to avoid race
+ *                      condition in standalone tcl.It fixes CR#1038151.
+ *            01/09/20  Updated boot code and standalone tcl to support armclang compiler
+ *                      for Cortex-A72. Also, versal translation table is ported for
+ *                      armclang compiler.
+ *            01/29/20  Updated standalone tcl for CortexR5 BSP, Now TTC2 would be used
+ *                      for sleep routines, if TTC3 is not present in HW design. If TTC2
+ *                      also not present, then CortexR5 PMU cycle counter would be used.
+ *                      If user dont want to use PMU cycle counter,
+ *                      -DDONT_USE_PMU_FOR_SLEEP_ROUTINES flag needs to be added in BSP
+ *                      compiler flags.
+ * 7.2 sd     03/08/20  Addéd clocking support for baremetal drivers, related files have
+ *                      been added in "lib/bsp/standalone/src/common/clocking" path
  * 7.2 asa    03/18/20  Added a new examples folder for standalone BSP.
  *                      Added a new example inside it to show usage of R5 PMU event
  *                      counters and APIs provided to configure and read PMU events.
  *                      Added new APIs for better R5 PMU events handling.
  * 7.2 asa    04/03/20  Renamed the str macro to strw.
+ * 7.2 dp     04/30/20  Added clobber to mtcpsr macro.
+ * 7.2 mus    05/02/20  Added unaligned exception support for 64 bit version of
+ *                      microblaze processor.
  *****************************************************************************************/
