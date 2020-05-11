@@ -163,6 +163,15 @@ Added eFuse programming rules
 Optimization done in XilNvm library
 Cleaned up library and eFuse example.
 
+xilpuf_v1_1:
+Added support for ID only regeneration
+Added support for regeneration of PUF key by using helper data programmed
+in eFuse
+Removed xilpuf_registration_example.c
+Updated xilpuf_regeneration_example.c to support ID only regeneration
+Added xilpuf_enc_dec_data_example.c for encryption and decryption of user data
+Added xilpuf_example.c to support black key programming
+
 usbps_v2_5:
 Added dependencies.props file to support automation testing.
 Update ch9 framework
