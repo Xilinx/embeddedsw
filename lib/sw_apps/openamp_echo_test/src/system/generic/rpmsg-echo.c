@@ -66,7 +66,8 @@ int app(struct rpmsg_device *rdev, void *priv)
 	ML_INFO("Try to create rpmsg endpoint.\n");
 
 	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME,
-			       0, RPMSG_ADDR_ANY, rpmsg_endpoint_cb,
+			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
+			       rpmsg_endpoint_cb,
 			       rpmsg_service_unbind);
 	if (ret) {
 		ML_ERR("Failed to create endpoint.\n");
