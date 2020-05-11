@@ -21,7 +21,7 @@
 * 1.2  rna  01/20/20  Modify the  Interrupt sub routine
 *		      Add support for Rx errors
 *		      Change the Tx interrupt  path to support > 32 byte transfers
-*
+* 1.3  rna  04/05/20  Correct XUartPsv_SetInterruptMask function clear IMSC
 * </pre>
 *
 ******************************************************************************/
@@ -92,16 +92,11 @@ u32 XUartPsv_GetInterruptMask(XUartPsv *InstancePtr)
 ******************************************************************************/
 void XUartPsv_SetInterruptMask(XUartPsv *InstancePtr, u32 Mask)
 {
-	u32 TempMask;
+	u32 TempMask = Mask;
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	TempMask = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				XUARTPSV_UARTIMSC_OFFSET);
-
 	TempMask &= (u32)XUARTPSV_UARTIMSC_MASK;
-
-	TempMask |= Mask;
 
 	/* Write the mask to the mask set/clear Register */
 	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
