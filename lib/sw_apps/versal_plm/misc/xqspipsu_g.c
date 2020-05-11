@@ -14,18 +14,20 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xcframe.h"
+#include "xqspipsu.h"
 
 /*
 * The configuration table for devices
 */
 
-XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES] =
+XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES] =
 {
 	{
-		XPAR_PSV_PMC_CFI_CFRAME_0_DEVICE_ID,
-		XPAR_PSV_PMC_CFI_CFRAME_0_BASEADDR
+		XPAR_PSV_PMC_QSPI_0_DEVICE_ID,
+		XPAR_PSV_PMC_QSPI_0_BASEADDR,
+		XPAR_PSV_PMC_QSPI_0_QSPI_CLK_FREQ_HZ,
+		XPAR_PSV_PMC_QSPI_0_QSPI_MODE,
+		XPAR_PSV_PMC_QSPI_0_QSPI_BUS_WIDTH,
+		XPAR_PSV_PMC_QSPI_0_IS_CACHE_COHERENT
 	}
 };
-
-

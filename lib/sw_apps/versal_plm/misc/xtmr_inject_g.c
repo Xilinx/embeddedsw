@@ -14,18 +14,19 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xcframe.h"
+#include "xtmr_inject.h"
 
 /*
 * The configuration table for devices
 */
 
-XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES] =
+XTMR_Inject_Config XTMR_Inject_ConfigTable[XPAR_XTMR_INJECT_NUM_INSTANCES] =
 {
 	{
-		XPAR_PSV_PMC_CFI_CFRAME_0_DEVICE_ID,
-		XPAR_PSV_PMC_CFI_CFRAME_0_BASEADDR
+		XPAR_PSV_PMC_TMR_INJECT_0_DEVICE_ID,
+		XPAR_PSV_PMC_TMR_INJECT_0_BASEADDR,
+		XPAR_PSV_PMC_TMR_INJECT_0_MAGIC,
+		XPAR_PSV_PMC_TMR_INJECT_0_CPU_ID,
+		XPAR_PSV_PMC_TMR_INJECT_0_INJECT_LMB_AWIDTH
 	}
 };
-
-

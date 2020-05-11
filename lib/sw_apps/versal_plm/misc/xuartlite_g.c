@@ -14,18 +14,20 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xcframe.h"
+#include "xuartlite.h"
 
 /*
 * The configuration table for devices
 */
 
-XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES] =
+XUartLite_Config XUartLite_ConfigTable[] =
 {
 	{
-		XPAR_PSV_PMC_CFI_CFRAME_0_DEVICE_ID,
-		XPAR_PSV_PMC_CFI_CFRAME_0_BASEADDR
+		XPAR_UARTLITE_0_DEVICE_ID,
+		XPAR_UARTLITE_0_BASEADDR,
+		XPAR_UARTLITE_0_BAUDRATE,
+		XPAR_UARTLITE_0_USE_PARITY,
+		XPAR_UARTLITE_0_ODD_PARITY,
+		XPAR_UARTLITE_0_DATA_BITS
 	}
 };
-
-

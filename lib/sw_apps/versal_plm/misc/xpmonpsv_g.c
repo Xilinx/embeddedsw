@@ -14,18 +14,20 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xcframe.h"
+#include "xpmonpsv.h"
 
 /*
 * The configuration table for devices
 */
 
-XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES] =
+XPmonPsv_Config XPmonPsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES] =
 {
 	{
-		XPAR_PSV_PMC_CFI_CFRAME_0_DEVICE_ID,
-		XPAR_PSV_PMC_CFI_CFRAME_0_BASEADDR
+		XPAR_PSV_CORESIGHT_FPD_ATM_DEVICE_ID,
+		XPAR_PSV_CORESIGHT_FPD_ATM_S_AXI_BASEADDR
+	},
+	{
+		XPAR_PSV_CORESIGHT_LPD_ATM_DEVICE_ID,
+		XPAR_PSV_CORESIGHT_LPD_ATM_S_AXI_BASEADDR
 	}
 };
-
-
