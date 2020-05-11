@@ -575,6 +575,14 @@ updating license content to SPDX based licensing
 vprocss_v2_7:
 updating license content to SPDX based licensing
 
+intc_v3_11:
+Fixed coverity warnings in the driver.
+Fixed race condition for designs where interrupt source pin is connected to
+cascade slices.
+
+uartlite_v3_4:
+Don't generate defines in _g.c and xparameters.h file when IP is not
+configured for uart functionality.
 
 Changes for 2019.2.2
 ===============================
