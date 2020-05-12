@@ -85,6 +85,15 @@ u32 XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 		goto END;
 	}
 
+	/*
+	 * As per hardware design, zeroization is must between two BBRAM
+	 * AES CRC Check requests
+	 */
+	Status = XNvm_BbramZeroize();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XNvm_BbramEnablePgmMode();
 	if (Status != XST_SUCCESS) {
 		goto END;
