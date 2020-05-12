@@ -7,7 +7,7 @@
 /**
 *
 * @file XDeint_g.c
-* @addtogroup deinterlacer_v3_2
+* @addtogroup deinterlacer_v3_3
 * @{
 *
 * This file contains a template for configuration table of Xilinx Video

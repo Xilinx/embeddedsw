@@ -7,7 +7,7 @@
 /**
 *
 * @file xdeint.c
-* @addtogroup deinterlacer_v3_2
+* @addtogroup deinterlacer_v3_3
 * @{
 *
 * This is main code of Xilinx Vide Deinterlacer core.
