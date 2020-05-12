@@ -10,6 +10,8 @@
 # 09/26/18 rsp Fix interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
 # 06/21/19 rsp Fix bsp generation error for axis_rx_0 external port design.
+# 05/07/20 rsp Fix bsp generation error for multiple xxv instances design in
+#              which dma is not connected to one of the xxv instance.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -121,10 +123,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
     puts $file_handle ""
 
     set device_id 0
-    set validentry 0
 
     # Get unique list of p2p peripherals
     foreach periph $periphs {
+        set validentry 0
         set periph_name [string toupper [get_property NAME $periph]]
 
         puts $file_handle ""
