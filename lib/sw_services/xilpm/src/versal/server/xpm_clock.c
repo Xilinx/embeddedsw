@@ -33,8 +33,7 @@
 		.Type = (u8)TYPE_MUX,				\
 		.Param1.Shift = PERIPH_MUX_SHIFT,		\
 		.Param2.Width = PERIPH_MUX_WIDTH,		\
-		.Clkflags = CLK_SET_RATE_NO_REPARENT |	\
-				CLK_IS_BASIC,			\
+		.Clkflags = CLK_SET_RATE_NO_REPARENT,		\
 		.Typeflags = NA_TYPE_FLAGS,		\
 	}
 
@@ -43,8 +42,7 @@
 		.Type = (u8)TYPE_DIV1,				\
 		.Param1.Shift = PERIPH_DIV_SHIFT,		\
 		.Param2.Width = PERIPH_DIV_WIDTH,		\
-		.Clkflags = CLK_SET_RATE_NO_REPARENT |	\
-				CLK_IS_BASIC,			\
+		.Clkflags = CLK_SET_RATE_NO_REPARENT,		\
 		.Typeflags = CLK_DIVIDER_ONE_BASED |	\
 				 CLK_DIVIDER_ALLOW_ZERO,		\
 	}
@@ -55,8 +53,7 @@
 		.Param1.Shift = PERIPH_GATE##id##_SHIFT,		\
 		.Param2.Width = PERIPH_GATE_WIDTH,				\
 		.Clkflags = CLK_SET_RATE_PARENT |		\
-				CLK_SET_RATE_GATE |		\
-				CLK_IS_BASIC,			\
+				CLK_SET_RATE_GATE,		\
 		.Typeflags = NA_TYPE_FLAGS,		\
 	}
 static struct XPm_ClkTopologyNode GenericMuxDivNodes[] = {

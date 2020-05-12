@@ -122,7 +122,8 @@ enum XPm_ClockSubnodeType {
 #define CLK_SET_PARENT_GATE		BIT16(1) /* must be gated across re-parent */
 #define CLK_SET_RATE_PARENT		BIT16(2) /* propagate rate change up one level */
 #define CLK_IGNORE_UNUSED		BIT16(3) /* do not gate even if unused */
-#define CLK_IS_BASIC			BIT16(5) /* Basic clk, can't do a to_clk_foo() */
+						 /* BIT(4) unused */
+						 /* BIT(5) unused */
 #define CLK_GET_RATE_NOCACHE		BIT16(6) /* do not use the cached clk rate */
 #define CLK_SET_RATE_NO_REPARENT	BIT16(7) /* don't re-parent on rate change */
 #define CLK_GET_ACCURACY_NOCACHE	BIT16(8) /* do not use the cached clk accuracy */
