@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_test.c
-* @addtogroup hdcp22_rx_v1_0
+* @addtogroup hdcp22_rx_v1_1
 * @{
 * @details
 *
