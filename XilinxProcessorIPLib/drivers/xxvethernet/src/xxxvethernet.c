@@ -19,6 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   hk   6/16/17  First release
 *       hk   2/15/18  Add support for USXGMII
+* 1.4   rsp  5/08/20  Remove unused variable in usxgmii autoneg reset and
+                      restart function.
 *
 * </pre>
 ******************************************************************************/
@@ -670,7 +672,6 @@ int XXxvEthernet_SetUsxgmiiRateAndDuplex(XXxvEthernet *InstancePtr, u32 Rate, u3
 void XXxvEthernet_UsxgmiiAnMainReset(XXxvEthernet *InstancePtr)
 {
 	u32 UsxgmiiAnReg;
-	int i;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -704,7 +705,6 @@ void XXxvEthernet_UsxgmiiAnMainReset(XXxvEthernet *InstancePtr)
 void XXxvEthernet_UsxgmiiAnMainRestart(XXxvEthernet *InstancePtr)
 {
 	u32 UsxgmiiAnReg;
-	int i;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
