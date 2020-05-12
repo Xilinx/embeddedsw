@@ -112,6 +112,9 @@ Add new APIs to provide improvised support for R5 PMU Handling, also added examp
 to demonstrate the API usage.
 Added unaligned exception handling support to 64 bit variant of microblaze processor.
 
+uartlite_v3_4:
+Updates driver tcl to not to generate defines when IP is not configured for uart.
+
 uartns550_v3_6:
 Changed the xuartns550_intr_example to get Success/Failure strings.
 Changed the macro names.
