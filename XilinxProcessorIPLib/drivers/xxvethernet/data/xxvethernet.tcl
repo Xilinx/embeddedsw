@@ -12,6 +12,8 @@
 # 06/21/19 rsp Fix bsp generation error for axis_rx_0 external port design.
 # 05/07/20 rsp Fix bsp generation error for multiple xxv instances design in
 #              which dma is not connected to one of the xxv instance.
+#              Fix pmufw bsp compilation error by generating dummy mcdma tx
+#              and rx interrupts nodes.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -245,6 +247,16 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
 
     set target_periph_name [string toupper [get_property NAME $target_periph]]
 
+    set proc  [hsi::get_sw_processor];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+
+    # Generate dummy mcdma interrupt nodes for PMU processor
+    if {$proc_type == "psu_pmu"} {
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMARX%s_INTR 0xFF" $canonical_tag $chan_id]
+        add_field_to_periph_config_struct $deviceid 0xFF
+        return
+    }
+
     # First get the interrupt ports on this AXI peripheral
     set interrupt_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
     if {$interrupt_port == ""} {
@@ -344,6 +356,15 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
 
     set target_periph_name [string toupper [get_property NAME $target_periph]]
 
+    set proc  [hsi::get_sw_processor];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+
+    # Generate dummy mcdma interrupt nodes for PMU processor
+    if {$proc_type == "psu_pmu"} {
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMATX%s_INTR 0xFF" $canonical_tag $chan_id]
+        add_field_to_periph_config_struct $deviceid 0xFF
+        return
+    }
     # First get the interrupt ports on this AXI peripheral
     set interrupt_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
     if {$interrupt_port == ""} {
