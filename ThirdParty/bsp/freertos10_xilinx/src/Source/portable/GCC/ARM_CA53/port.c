@@ -103,7 +103,7 @@ context. */
 #define portSP_ELx						( ( StackType_t ) 0x01 )
 #define portSP_EL0						( ( StackType_t ) 0x00 )
 
-#if defined( GUEST )
+#if EL1_NONSECURE
 	#define portEL1						( ( StackType_t ) 0x04 )
 	#define portINITIAL_PSTATE				( portEL1 | portSP_EL0 )
 #else
@@ -485,7 +485,7 @@ uint32_t ulBpr;
 	__asm volatile ( "MRS %0, CurrentEL" : "=r" ( ulAPSR ) );
 	ulAPSR &= portAPSR_MODE_BITS_MASK;
 
-#if defined( GUEST )
+#if EL1_NONSECURE
 	#warning Building for execution as a guest under XEN. THIS IS NOT A FULLY TESTED PATH.
 	configASSERT( ulAPSR == portEL1 );
 	if( ulAPSR == portEL1 )

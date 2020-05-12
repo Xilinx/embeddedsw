@@ -48,6 +48,8 @@
 *
 ******************************************************************************/
 
+#include "bspconfig.h"
+
 #if defined (versal) && !defined(ARMR5)
 #define GICv3
 #else
