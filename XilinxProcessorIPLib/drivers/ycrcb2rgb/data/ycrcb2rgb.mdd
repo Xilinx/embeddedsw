@@ -11,7 +11,7 @@ BEGIN driver ycrcb2rgb
   OPTION supported_peripherals = (v_ycrcb2rgb);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 7.1;
+  OPTION VERSION = 7.2;
   OPTION NAME = ycrcb2rgb;
 
 END driver
