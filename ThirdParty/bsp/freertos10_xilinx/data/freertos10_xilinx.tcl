@@ -1,4 +1,4 @@
-#
+
 # Copyright (C) 2015 - 2020 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
@@ -1123,7 +1123,11 @@ proc generate {os_handle} {
 		xput_define $config_file "configUNIQUE_INTERRUPT_PRIORITIES"			   "32"
 		xput_define $config_file "configINTERRUPT_CONTROLLER_DEVICE_ID"			"XPAR_SCUGIC_SINGLE_DEVICE_ID"
 		xput_define $config_file "configINTERRUPT_CONTROLLER_BASE_ADDRESS"		 "XPAR_SCUGIC_0_DIST_BASEADDR"
-		xput_define $config_file "configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET" 	"0x10000"
+		if { $proctype == "psu_cortexa53" && $hypervisor_guest == "true" } {
+			xput_define $config_file "configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET" 	"0x1000"
+		} else {
+			xput_define $config_file "configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET" 	"0x10000"
+		}
 
 		# Function prototypes cannot be in the common code as some compilers or
 		# ports require pre-processor guards to ensure they are not visible from
