@@ -111,6 +111,7 @@
 *       hk   2/15/18  Add support for USXGMII
 * 1.1   mj   3/30/18  Add Macro XXxvEthernet_IsMcDma(InstancePtr) to check
 *                     McDma is connected or not.
+* 1.4   rsp  05/08/20 Include sleep.h header
 * </pre>
 *
 ******************************************************************************/
@@ -124,6 +125,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
+#include "sleep.h"
 #include "xenv.h"
 #include "xstatus.h"
 #include "xil_assert.h"
