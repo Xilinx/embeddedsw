@@ -61,6 +61,7 @@
 *                         to ensure floating-point unit is disabled, before
 *                         any subsequent instruction.
 * 7.0   mus      03/26/18 Updated TCR_EL3/TCR_EL1 as per versal address map
+* 7.3   mus      04/24/20 Corrected CPACR_EL1 handling at EL1 NS
 *
 *
 ******************************************************************************/
@@ -301,9 +302,16 @@ InitEL1:
 	ldr	x1, =vector_base
 	msr	VBAR_EL1,x1
 
+	/* Trap floating point access only in case of standalone BSP */
+#ifdef FREERTOS_BSP
+        mrs     x0, CPACR_EL1
+        orr     x0, x0, #(0x3 << 20)
+        msr     CPACR_EL1, x0
+#else
 	mrs	x0, CPACR_EL1
-	bic	x0, x0, #(0x3 << 0x20)
+	bic	x0, x0, #(0x3 << 20)
 	msr	CPACR_EL1, x0
+#endif
 	isb
 
 	/*
