@@ -7,7 +7,7 @@
 /**
 *
 * @file xycrcb2rgb.h
-* @addtogroup ycrcb2rgb_v7_1
+* @addtogroup ycrcb2rgb_v7_2
 * @{
 * @details
 *
