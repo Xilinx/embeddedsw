@@ -259,6 +259,9 @@ Update the status of FSBL image encryption in PMU Global register 5 bit 3 for PM
 
 xxvethernet_v1_4:
 Added dependencies.props for xxvethernet in data folder.
+Fix bsp generation error for multiple xxv instance design.
+Fix pmufw bsp compilation error.
+Fix gcc warnings in driver and mcdma interrupt example.
 
 rfdc_v8_0:
 Fixed issue where IMR datapath modes frequency was halved
