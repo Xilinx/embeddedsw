@@ -23,6 +23,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   hk   06/16/17 First release
+* 1.4   rsp  05/12/20 Fix Wint-conversion gcc warning in XxvEthernetSgDmaIntrExample().
 *
 * </pre>
 *
@@ -303,10 +304,10 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	 * call the API for two continuous 2MB blocks.
 	 */
 #if defined(__aarch64__)
-	Xil_SetTlbAttributes(TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(TxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(RxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)TxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)RxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
 #endif
 
 	RxBdSetup(DmaInstancePtr, XxvEthernetInstancePtr, MacCfgPtr);
