@@ -653,6 +653,28 @@ vprocss_v2_7:
 updating license content to SPDX based licensing
 
 
+deinterlacer_v3_3:
+updating license content to SPDX based licensing
+
+dual_splitter_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_cipher_dp_v1_1:
+updating license content to SPDX based licensing
+
+hdcp22_rx_dp_v1_1:
+updating license content to SPDX based licensing
+
+rgb2ycrcb_v7_2:
+updating license content to SPDX based licensing
+
+sdiaud_v2_1:
+updating license content to SPDX based licensing
+
+ycrcb2rgb_v7_2:
+updating license content to SPDX based licensing
+
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
