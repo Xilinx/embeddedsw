@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xdphy_hw.h
-* @addtogroup xdphy_v1_0
+* @addtogroup xdphy_v1_4
 * @{
 *
 * Hardware definition file. It defines the register interface.

@@ -8,7 +8,7 @@
 *
 * @file xdphy_selftest.c
 *
-* @addtogroup dphy_v1_0
+* @addtogroup dphy_v1_4
 * @{
 *
 * Contains diagnostic/self-test functions for the XDphy component.
