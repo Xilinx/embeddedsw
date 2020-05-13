@@ -7,7 +7,7 @@
 /**
 *
 * @file xdevcfg.h
-* @addtogroup devcfg_v3_5
+* @addtogroup devcfg_v3_6
 * @{
 * @details
 *

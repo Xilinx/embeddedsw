@@ -7,7 +7,7 @@
 /**
 *
 * @file xdevcfg_hw.h
-* @addtogroup devcfg_v3_3
+* @addtogroup devcfg_v3_6
 * @{
 *
 * This file contains the hardware interface to the Device Config Interface.
