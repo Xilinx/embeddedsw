@@ -7,7 +7,7 @@
 /**
 *
 * @file xrgb2ycrcb_hw.h
-* @addtogroup rgb2ycrcb_v7_1
+* @addtogroup rgb2ycrcb_v7_2
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
