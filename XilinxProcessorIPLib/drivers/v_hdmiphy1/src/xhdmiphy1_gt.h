@@ -23,7 +23,7 @@
  * 1.0   gm   10/12/18 Initial release.
  * </pre>
  *
- * @addtogroup xhdmiphy1_v1_0
+ * @addtogroup xhdmiphy1_v2_0
  * @{
 *******************************************************************************/
 
