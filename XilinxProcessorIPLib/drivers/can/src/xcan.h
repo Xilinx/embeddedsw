@@ -7,7 +7,7 @@
 /**
 *
 * @file xcan.h
-* @addtogroup can_v3_3
+* @addtogroup can_v3_4
 * @{
 * @details
 *

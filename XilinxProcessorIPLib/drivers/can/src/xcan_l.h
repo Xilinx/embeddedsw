@@ -7,7 +7,7 @@
 /**
 *
 * @file xcan_l.h
-* @addtogroup can_v3_3
+* @addtogroup can_v3_4
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
