@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma.c
-* @addtogroup axicdma_v4_6
+* @addtogroup axicdma_v4_7
 * @{
  *
  * The implementation of the API of Xilinx CDMA engine.
