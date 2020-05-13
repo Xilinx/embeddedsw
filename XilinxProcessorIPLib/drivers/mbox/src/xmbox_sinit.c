@@ -7,7 +7,7 @@
 /**
 *
 * @file xmbox_sinit.c
-* @addtogroup mbox_v4_3
+* @addtogroup mbox_v4_4
 * @{
 *
 * Implements static initialization

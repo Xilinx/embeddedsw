@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xmbox_g.c
-* @addtogroup mbox_v4_3
+* @addtogroup mbox_v4_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration

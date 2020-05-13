@@ -7,7 +7,7 @@
 /**
 *
 * @file xmbox.c
-* @addtogroup mbox_v4_3
+* @addtogroup mbox_v4_4
 * @{
 *
 * Contains required functions for the XMbox driver.
