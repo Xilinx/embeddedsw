@@ -8,7 +8,7 @@
 /**
 *
 * @file xiomodule_uart.c
-* @addtogroup iomodule_v2_7
+* @addtogroup iomodule_v2_8
 * @{
 *
 * Contains required functions for the XIOModule UART driver. See the

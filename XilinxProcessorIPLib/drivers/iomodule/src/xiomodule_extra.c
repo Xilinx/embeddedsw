@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xiomodule_extra.c
-* @addtogroup iomodule_v2_7
+* @addtogroup iomodule_v2_8
 * @{
 *
 * The implementation of the XIOModule component's advanced discrete

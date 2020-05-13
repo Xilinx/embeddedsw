@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_g.c
-* @addtogroup iomodule_v2_7
+* @addtogroup iomodule_v2_8
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
