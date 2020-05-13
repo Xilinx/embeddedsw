@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdtps.c
-* @addtogroup wdtps_v3_2
+* @addtogroup wdtps_v3_3
 * @{
 *
 * Contains the implementation of interface functions of the XWdtPs driver.

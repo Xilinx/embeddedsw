@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdtps_sinit.c
-* @addtogroup wdtps_v3_2
+* @addtogroup wdtps_v3_3
 * @{
 *
 * This file contains method for static initialization (compile-time) of the
