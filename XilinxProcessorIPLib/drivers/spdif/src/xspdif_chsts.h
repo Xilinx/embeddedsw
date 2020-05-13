@@ -7,7 +7,7 @@
 /**
  *
  * @file xspdif_chsts.h
- * @addtogroup spdif_v1_0
+ * @addtogroup spdif_v1_1
  * @{
  *
  * Format status related offsets & masks definitions related to the

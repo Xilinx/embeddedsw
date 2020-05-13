@@ -7,7 +7,7 @@
 /**
  *
  * @file xspdif_intr.c
- * @addtogroup spdif_v1_0
+ * @addtogroup spdif_v1_1
  * @{
  * ...
  *

@@ -7,7 +7,7 @@
 /**
  *
  * @file xspdif.h
- * @addtogroup xspdif_v1_0
+ * @addtogroup xspdif_v1_1
  * @{
  *
  * <pre>
