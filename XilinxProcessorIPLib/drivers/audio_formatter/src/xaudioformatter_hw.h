@@ -7,7 +7,7 @@
 /**
 *
 * @file xaudioformatter_hw.h
-* @addtogroup audioformatter_v1_0
+* @addtogroup audioformatter_v1_1
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or

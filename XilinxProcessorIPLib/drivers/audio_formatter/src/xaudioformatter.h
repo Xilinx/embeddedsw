@@ -38,7 +38,7 @@
 * is recommended that users leave asserts on during development.
 *
 * @file xaudioformatter.h
-* @addtogroup audio_formatter_v1_0
+* @addtogroup audio_formatter_v1_1
 * @{
 * @details
 *

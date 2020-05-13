@@ -8,7 +8,7 @@
 /**
 *
 * @file xaudioformatter.c
-* @addtogroup audio_formatter_v1_0
+* @addtogroup audio_formatter_v1_1
 * @{
 *
 * This file contains the implementation of the interface functions for audio
