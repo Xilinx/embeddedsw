@@ -7,7 +7,7 @@
 /**
 *
 * @file xvprocss_sinit.c
-* @addtogroup vprocss_v2_4
+* @addtogroup vprocss_v2_7
 * @{
 * @details
 *
