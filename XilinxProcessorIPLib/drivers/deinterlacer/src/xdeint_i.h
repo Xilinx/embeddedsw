@@ -7,7 +7,7 @@
 /**
 *
 * @file xdeint_i.h
-* @addtogroup deinterlacer_v3_2
+* @addtogroup deinterlacer_v3_3
 * @{
 *
 * This code contains internal functions of the Xilinx Video Deinterlacer core.
