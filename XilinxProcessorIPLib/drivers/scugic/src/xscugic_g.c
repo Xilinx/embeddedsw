@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_g.c
-* @addtogroup scugic_v4_0
+* @addtogroup scugic_v4_2
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

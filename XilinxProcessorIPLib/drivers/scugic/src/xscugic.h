@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic.h
-* @addtogroup scugic_v4_0
+* @addtogroup scugic_v4_2
 * @{
 * @details
 *
