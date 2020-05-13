@@ -677,6 +677,8 @@ updating license content to SPDX based licensing
 clockps_v1_2:
 Rename the ARRAY_SIZE.
 
+ipipsu_v2_6:
+Code refactoring for readability.
 
 Changes for 2019.2.2
 ===============================
