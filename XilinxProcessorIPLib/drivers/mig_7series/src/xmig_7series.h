@@ -7,7 +7,7 @@
 /**
 *
 * @file xmig_7series.h
-* @addtogroup mig_7series_v2_1
+* @addtogroup mig_7series_v2_2
 * @{
 * @details
 * This driver exists only to allow the SDK tools to create a memory test
