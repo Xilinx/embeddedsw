@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_sinit.c
-* @addtogroup hwicap_v11_2
+* @addtogroup hwicap_v11_3
 * @{
 *
 * This file contains the implementation of the XHwicap driver's static
