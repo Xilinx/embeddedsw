@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_letterbox_l2.h
-* @addtogroup v_letterbox_v2_1
+* @addtogroup v_letterbox_v2_2
 * @{
 * @details
 *
