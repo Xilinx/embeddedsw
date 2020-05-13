@@ -7,7 +7,7 @@
 /**
 *
 * @file xdmaps.h
-* @addtogroup dmaps_v2_5
+* @addtogroup dmaps_v2_6
 * @{
 * @details
 *

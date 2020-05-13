@@ -7,7 +7,7 @@
 /**
 *
 * @file xdmaps.c
-* @addtogroup dmaps_v2_5
+* @addtogroup dmaps_v2_6
 * @{
 *
 * This file contains the implementation of the interface functions for XDmaPs
