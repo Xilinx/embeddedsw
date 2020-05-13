@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt.h
-* @addtogroup scuwdt_v2_1
+* @addtogroup scuwdt_v2_2
 * @{
 * @details
 *
