@@ -7,7 +7,7 @@
 /**
 *
 * @file xycrcb2rgb.c
-* @addtogroup ycrcb2rgb_v7_1
+* @addtogroup ycrcb2rgb_v7_2
 * @{
 *
 * This file contains the implementation of the interface functions for
