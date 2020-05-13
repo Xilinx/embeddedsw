@@ -7,7 +7,7 @@
 /**
  *
  * @file xddcrpsu.h
- * @addtogroup ddrcpsu_v1_1
+ * @addtogroup ddrcpsu_v1_2
  * @{
  * @details
  *
