@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v7_0
+ * @addtogroup dp_v7_3
  * @{
  * @details
  *
