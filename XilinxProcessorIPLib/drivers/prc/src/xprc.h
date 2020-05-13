@@ -7,7 +7,7 @@
 /**
 *
 * @file xprc.h
-* @addtogroup prc_v1_2
+* @addtogroup prc_v2_0
 * @{
 * @details
 *
