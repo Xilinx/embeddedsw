@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfclk.c
-* @addtogroup xrfclk_v1_3
+* @addtogroup xrfclk_v1_1
 * @{
 *
 * Contains the API of the XRFclk middleware.
