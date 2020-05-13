@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_i.h
-* @addtogroup iic_v3_4
+* @addtogroup iic_v3_6
 * @{
 *
 * This header file contains internal identifiers, which are those shared
