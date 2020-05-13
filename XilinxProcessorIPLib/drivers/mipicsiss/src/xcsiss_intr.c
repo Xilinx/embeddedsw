@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsiss_intr.c
-* @addtogroup csiss_v1_1
+* @addtogroup csiss_v1_3
 * @{
 *
 * This is the interrupt handling part of the Xilinx MIPI CSI Rx Subsystem

@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsiss.h
-* @addtogroup csiss_v1_1
+* @addtogroup csiss_v1_3
 * @{
 * @details
 *
