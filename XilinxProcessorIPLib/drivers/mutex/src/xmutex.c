@@ -7,7 +7,7 @@
 /**
 *
 * @file xmutex.c
-* @addtogroup mutex_v4_4
+* @addtogroup mutex_v4_5
 * @{
 *
 * Contains required functions for the XMutex driver.

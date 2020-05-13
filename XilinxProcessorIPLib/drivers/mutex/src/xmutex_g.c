@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xmutex_g.c
-* @addtogroup mutex_v4_4
+* @addtogroup mutex_v4_5
 * @{
 *
 * This file contains a configuration table that specifies the configuration
