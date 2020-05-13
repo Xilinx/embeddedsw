@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_hdmitxss_coreinit.h
-* @addtogroup v_hdmitxss_v5_4
+* @addtogroup v_hdmitxss_v5_5
 * @{
 * @details
 *
