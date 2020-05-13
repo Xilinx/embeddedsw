@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2tx.c
-* @addtogroup csi2tx_v1_0
+* @addtogroup csi2tx_v1_2
 * @{
 *
 * This file implements the functions to control and get info from the CSI2 TX

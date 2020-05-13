@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2tx_sinit.c
-* @addtogroup csi2tx_v1_0
+* @addtogroup csi2tx_v1_2
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
