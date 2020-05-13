@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps_g.c
-* @addtogroup xresetps_v1_2
+* @addtogroup xresetps_v1_3
 * @{
 *
 * This file contains a table that specifies the configuration of the reset

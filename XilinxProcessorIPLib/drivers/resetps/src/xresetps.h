@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps.h
-* @addtogroup xresetps_v1_2
+* @addtogroup xresetps_v1_3
 * @{
 * @details
 *
