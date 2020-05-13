@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxis_switch_g.c
-* @addtogroup axis_switch_v1_2
+* @addtogroup axis_switch_v1_3
 * @{
 *
 * This file gets generated automatically by HSI.
