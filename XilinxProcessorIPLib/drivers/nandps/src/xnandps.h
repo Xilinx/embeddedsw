@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps.h
-* @addtogroup nandps_v2_4
+* @addtogroup nandps_v2_5
 * @{
 * @details
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps_g.c
-* @addtogroup nandps_v2_4
+* @addtogroup nandps_v2_5
 * @{
 *
 * This file contains a configuration table that specifies the configuration

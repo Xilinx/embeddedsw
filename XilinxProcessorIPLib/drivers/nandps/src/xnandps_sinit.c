@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps_sinit.c
-* @addtogroup nandps_v2_4
+* @addtogroup nandps_v2_5
 * @{
 *
 * This file contains the implementation of the XNand driver's static
