@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps.c
-* @addtogroup canps_v3_3
+* @addtogroup canps_v3_4
 * @{
 *
 * Functions in this file are the minimum required functions for the XCanPs
