@@ -664,6 +664,9 @@ updating license content to SPDX based licensing
 ycrcb2rgb_v7_2:
 updating license content to SPDX based licensing
 
+clockps_v1_2:
+Rename the ARRAY_SIZE.
+
 
 Changes for 2019.2.2
 ===============================
