@@ -37,7 +37,6 @@ print_msg_xaie:
 include: xaie_includes
 
 xaie_includes:
-	mkdir $(INCLUDEDIR)/xaiengine -p
 	${CP} xaiengine.h ${INCLUDEDIR}
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}/xaiengine
 
