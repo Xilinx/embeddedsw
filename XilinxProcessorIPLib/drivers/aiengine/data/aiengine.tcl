@@ -37,6 +37,8 @@ proc generate {libhandle} {
 	puts $fid "#endif";
 	close $fid;
 
+	file mkdir "../../include/xaiengine"
+
 	# generate any parameters needed in xparameters.h or config file
 }
 
