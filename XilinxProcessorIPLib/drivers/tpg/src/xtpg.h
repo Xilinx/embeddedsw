@@ -7,7 +7,7 @@
 /**
 *
 * @file xtpg.h
-* @addtogroup tpg_v3_1
+* @addtogroup tpg_v3_2
 * @{
 * @details
 *
