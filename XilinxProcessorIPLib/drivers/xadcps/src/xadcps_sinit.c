@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps_sinit.c
-* @addtogroup xadcps_v2_3
+* @addtogroup xadcps_v2_4
 * @{
 *
 * This file contains the implementation of the XAdcPs driver's static

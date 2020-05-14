@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps_hw.h
-* @addtogroup xadcps_v2_3
+* @addtogroup xadcps_v2_4
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
