@@ -680,6 +680,34 @@ Rename the ARRAY_SIZE.
 ipipsu_v2_6:
 Code refactoring for readability.
 
+xilpdi_v1_1:
+Added API to read PUF header parameter
+Added APIs to read DPA CM enable and boot header authentication enable parameters
+Added API to read delay handoff parameter
+
+xilplmi_v1_1:
+Added support for NOP, SET and GetDeviceID commands
+Added support for event logging mechanism
+Updated scheduler to add / remove tasks
+Added configurable priority for scheduler tasks
+Added support for error management CDO commands
+
+xilloader_v1_1:
+Added SD/eMMC raw boot mode support as primary and secondary boot modes
+Added USB, SMAP, EMMC0 and EMMC0_RAW as secondary boot modes
+Added multi partition support for SD/eMMC file system boot mode
+Added support for copy to memory and delay handoff
+Added support for Image Restore IPI command
+Added support for PUF KEK decrypt operations
+Added Obfuscated key decryption support
+Added DPA CM enable/disable
+Added KATs for crypto engines
+Added revocation checks for decryption
+Added DEC_ONLY checks
+Added support for loading partial secure PDI
+Enabled direct DMA from SBI, SMAP, DDR, QSPI and OSPI boot modes to CFI for
+performance improvement (non secure boot only)
+
 Changes for 2019.2.2
 ===============================
 rfdc_v7_1:
