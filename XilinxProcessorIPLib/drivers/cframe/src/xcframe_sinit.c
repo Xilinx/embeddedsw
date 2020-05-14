@@ -8,7 +8,7 @@
 /**
 *
 * @file xcframe_sinit.c
-* @addtogroup cframe_v1_0
+* @addtogroup cframe_v1_1
 * @{
 *
 * This file contains static initialization methods for Xilinx CFRAME core.
