@@ -245,20 +245,6 @@ int main() {
 					"App: Aux write successful\r\n");
 		}
 
-		Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&Aux,
-					XSK_EFUSEPS_READ_FROM_EFUSE);
-		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-				"App: Reading Aux value is failed\r\n");
-			goto ENDF;
-		}
-		/* Comparing Aux value */
-		if (PufInstance.Aux != Aux) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-				"App: Aux read not matched W:%08x,R:%08x\r\n",
-					PufInstance.Aux, Aux);
-			goto ENDF;
-		}
 		/* programming CHash into eFUSE */
 		Status = XilSKey_ZynqMp_EfusePs_WritePufChash(&PufInstance);
 		if (Status != XST_SUCCESS)	{
@@ -271,8 +257,31 @@ int main() {
 					"App: CHASH write successful\r\n");
 		}
 
+		/* Programs and verifies the black key */
+		Status = XilSkey_Program_Black_Key();
+		if (Status != XST_SUCCESS) {
+			xPuf_printf(XPUF_DEBUG_GENERAL,
+				"App: Writing Black key is failed\r\n");
+			goto ENDF;
+		}
+
+		Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&Aux,
+					XSK_EFUSEPS_READ_FROM_CACHE);
+		if (Status != XST_SUCCESS) {
+			xPuf_printf(XPUF_DEBUG_GENERAL,
+				"App: Reading Aux value is failed\r\n");
+			goto ENDF;
+		}
+
+		/* Comparing Aux value */
+		if (PufInstance.Aux != Aux) {
+			xPuf_printf(XPUF_DEBUG_GENERAL,
+				"App: Aux read not matched W:%08x,R:%08x\r\n",
+					PufInstance.Aux, Aux);
+			goto ENDF;
+		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&Chash,
-						XSK_EFUSEPS_READ_FROM_EFUSE);
+						XSK_EFUSEPS_READ_FROM_CACHE);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 				"App: Reading Aux value is failed\r\n");
@@ -283,13 +292,6 @@ int main() {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 				"App: Chash read not matched W:%08x,R:%08x\r\n",
 					PufInstance.Chash, Chash);
-			goto ENDF;
-		}
-		/* Programs and verifies the black key */
-		Status = XilSkey_Program_Black_Key();
-		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-				"App: Writing Black key is failed\r\n");
 			goto ENDF;
 		}
 	}
@@ -323,7 +325,7 @@ int main() {
 	XilSKey_Puf_Secure	PufSecureBits;
 
 	Status = XilSKey_Read_Puf_EfusePs_SecureBits(
-			&(PufSecureBits), XSK_EFUSEPS_READ_FROM_EFUSE);
+			&(PufSecureBits), XSK_EFUSEPS_READ_FROM_CACHE);
 	if (Status != XST_SUCCESS) {
 		xPuf_printf(XPUF_DEBUG_GENERAL,
 		"App: Failed while reading PUF secure bits\r\n");

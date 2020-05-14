@@ -873,6 +873,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 		}
 	}
 
+	Status = XilSKey_ZynqMp_EfusePs_CacheLoad();
 END:
 	/* Lock the controller back */
 	XilSKey_ZynqMp_EfusePs_CtrlrLock();
