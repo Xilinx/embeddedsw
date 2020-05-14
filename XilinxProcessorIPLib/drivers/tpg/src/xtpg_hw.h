@@ -7,7 +7,7 @@
 /**
 *
 * @file xtpg_hw.h
-* @addtogroup tpg_v3_1
+* @addtogroup tpg_v3_2
 * @{
 *
 * This header file contains the hardware register offsets and register bit
