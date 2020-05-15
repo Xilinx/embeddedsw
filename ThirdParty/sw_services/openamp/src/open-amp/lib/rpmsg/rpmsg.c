@@ -271,7 +271,8 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *ept)
 	if (!rdev)
 		return;
 
-	if (ept->name[0] && rdev->support_ns && ept->addr != RPMSG_NS_EPT_ADDR)
+	if (ept->name[0] && rdev->support_ns &&
+	    ept->addr >= RPMSG_RESERVED_ADDRESSES)
 		(void)rpmsg_send_ns_message(ept, RPMSG_NS_DESTROY);
 	rpmsg_unregister_endpoint(ept);
 }
