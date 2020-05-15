@@ -241,6 +241,11 @@ XStatus XPsmFw_DvsecRead(void)
 	u32 RegNum = 0U;
 	u32 Index = 0U;
 
+	if ((Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF)
+		& CPM_SLCR_DVSEC_CFG_RD_MASK) == 0U) {
+		return XST_SUCCESS;
+	}
+
 	if (dvsec_init == 0U) {
 		XPsmFw_DvsecInit();
 		dvsec_init = 1U;
@@ -550,6 +555,11 @@ XStatus XPsmFw_DvsecWrite(void)
 	u32 Index = 0U;
 	u8 Check = 0U;
 	u32 Val = 0U;
+
+	if ((Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF) &
+		CPM_SLCR_DVSEC_CFG_WR_MASK) == 0U) {
+		return XST_SUCCESS;
+	}
 
 	RegNum = (((Xil_In32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF)) >>
 		   PCIE_PDVSEC_REG_NO_SHIFT) << PCIE_PDVSEC_REG_FIX_SHIFT);
