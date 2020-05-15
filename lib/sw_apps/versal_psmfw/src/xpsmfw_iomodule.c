@@ -251,7 +251,9 @@ int SetUpInterruptSystem(void)
 
 	microblaze_enable_interrupts();
 
+#ifdef EN_ONLY_FOR_CCIX
 	XPsmFw_GicP2IrqEnable();
+#endif
 
 	/*
 	 * Clear Break in progress to get interrupts
