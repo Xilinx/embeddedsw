@@ -343,8 +343,7 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *ept);
  */
 static inline unsigned int is_rpmsg_ept_ready(struct rpmsg_endpoint *ept)
 {
-	return (ept->dest_addr != RPMSG_ADDR_ANY) &&
-		(ept->addr != RPMSG_ADDR_ANY);
+	return ept && ept->rdev && ept->dest_addr != RPMSG_ADDR_ANY;
 }
 
 #if defined __cplusplus
