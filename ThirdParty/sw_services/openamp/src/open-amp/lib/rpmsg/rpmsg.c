@@ -186,6 +186,7 @@ static void rpmsg_unregister_endpoint(struct rpmsg_endpoint *ept)
 		rpmsg_release_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE,
 				      ept->addr);
 	metal_list_del(&ept->node);
+	ept->rdev = NULL;
 	metal_mutex_release(&rdev->lock);
 }
 
