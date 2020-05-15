@@ -179,17 +179,14 @@ struct rpmsg_endpoint *rpmsg_get_endpoint(struct rpmsg_device *rdev,
 
 static void rpmsg_unregister_endpoint(struct rpmsg_endpoint *ept)
 {
-	struct rpmsg_device *rdev;
+	struct rpmsg_device *rdev = ept->rdev;
 
-	if (!ept)
-		return;
-
-	rdev = ept->rdev;
-
+	metal_mutex_acquire(&rdev->lock);
 	if (ept->addr != RPMSG_ADDR_ANY)
 		rpmsg_release_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE,
 				      ept->addr);
 	metal_list_del(&ept->node);
+	metal_mutex_release(&rdev->lock);
 }
 
 void rpmsg_register_endpoint(struct rpmsg_device *rdev,
@@ -238,15 +235,15 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 
 	rpmsg_init_ept(ept, name, addr, dest, cb, unbind_cb);
 	rpmsg_register_endpoint(rdev, ept);
+	metal_mutex_release(&rdev->lock);
 
-	if (rdev->support_ns && ept->dest_addr == RPMSG_ADDR_ANY) {
-		/* Send NS announcement to remote processor */
-		metal_mutex_release(&rdev->lock);
+	/* Send NS announcement to remote processor */
+	if (rdev->support_ns && ept->dest_addr == RPMSG_ADDR_ANY)
 		status = rpmsg_send_ns_message(ept, RPMSG_NS_CREATE);
-		metal_mutex_acquire(&rdev->lock);
-		if (status)
-			rpmsg_unregister_endpoint(ept);
-	}
+
+	if (status)
+		rpmsg_unregister_endpoint(ept);
+	return status;
 
 ret_status:
 	metal_mutex_release(&rdev->lock);
@@ -269,9 +266,10 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *ept)
 		return;
 
 	rdev = ept->rdev;
+	if (!rdev)
+		return;
+
 	if (ept->name[0] && rdev->support_ns && ept->addr != RPMSG_NS_EPT_ADDR)
 		(void)rpmsg_send_ns_message(ept, RPMSG_NS_DESTROY);
-	metal_mutex_acquire(&rdev->lock);
 	rpmsg_unregister_endpoint(ept);
-	metal_mutex_release(&rdev->lock);
 }
