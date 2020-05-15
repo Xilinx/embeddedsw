@@ -140,6 +140,15 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 		}
 	}
 
+	/**
+	 * Since RPU direct power down is skipped in case of power-down,
+	 * wakeup interrupt needs to be enabled here.
+	 */
+	if (((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) &&
+	    ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State)) {
+		ENABLE_WAKE(Core->SleepMask);
+	}
+
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
 
 done:
