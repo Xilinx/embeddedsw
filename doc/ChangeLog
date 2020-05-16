@@ -155,6 +155,10 @@ xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
 Add support for Multi Partitions
 
+xilflash_v4_8:
+Updated the Status variable in success case.
+Updated license content to SPDX based licensing.
+
 xilfpga_v5_2:
 Fixed the issues with Aes-key.
 Cleared Aes-key from internal memory.
