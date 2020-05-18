@@ -21,6 +21,7 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * </pre>
  *
 *******************************************************************************/
@@ -1380,7 +1381,7 @@ u32 XHdmiphy1_ClkReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @note		None.
 *
 ******************************************************************************/
-XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect)
+XHdmiphy1_SysClkDataSelType XHdmiphy1_Pll2SysClkData(XHdmiphy1_PllType PllSelect)
 {
 	return	(PllSelect == XHDMIPHY1_PLL_TYPE_CPLL) ?
 			XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK :
@@ -1404,7 +1405,7 @@ XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect)
 * @note		None.
 *
 ******************************************************************************/
-XHdmiphy1_SysClkOutSelType Pll2SysClkOut(XHdmiphy1_PllType PllSelect)
+XHdmiphy1_SysClkOutSelType XHdmiphy1_Pll2SysClkOut(XHdmiphy1_PllType PllSelect)
 {
 	return	(PllSelect == XHDMIPHY1_PLL_TYPE_CPLL) ?
 			XHDMIPHY1_SYSCLKSELOUT_TYPE_CPLL_REFCLK :

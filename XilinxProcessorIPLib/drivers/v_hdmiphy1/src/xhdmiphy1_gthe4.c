@@ -22,6 +22,7 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * </pre>
  *
 *******************************************************************************/
@@ -97,18 +98,18 @@ u32 XHdmiphy1_Gthe4RxPllRefClkDiv1Reconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 #define XHDMIPHY1_CPLL_MIN        2000000000LL
 #define XHDMIPHY1_CPLL_MAX        6250000000LL
 
-const u8 Gthe4CpllDivsM[]   = {1, 2, 0};
-const u8 Gthe4CpllDivsN1[]  = {4, 5, 0};
-const u8 Gthe4CpllDivsN2[]  = {1, 2, 3, 4, 5, 8, 0};
-const u8 Gthe4CpllDivsD[]   = {1, 2, 4, 8, 0};
+const u8 XHdmiphy1_Gthe4CpllDivsM[]   = {1, 2, 0};
+const u8 XHdmiphy1_Gthe4CpllDivsN1[]  = {4, 5, 0};
+const u8 XHdmiphy1_Gthe4CpllDivsN2[]  = {1, 2, 3, 4, 5, 8, 0};
+const u8 XHdmiphy1_Gthe4CpllDivsD[]   = {1, 2, 4, 8, 0};
 
-const u8 Gthe4QpllDivsM[]   = {1, 2, 3, 4, 0};
-const u8 Gthe4QpllDivsN1[]  = {16, 20, 25, 30, 32, 40, 60, 64, 66, 75, 80, 84,
+const u8 XHdmiphy1_Gthe4QpllDivsM[]   = {1, 2, 3, 4, 0};
+const u8 XHdmiphy1_Gthe4QpllDivsN1[]  = {16, 20, 25, 30, 32, 40, 60, 64, 66, 75, 80, 84,
                    90, 96, 100, 112, 120, 125, 150, 160, 0};
-const u8 Gthe4QpllDivsN2[]  = {1, 0};
-const u8 Gthe4QpllDivsD[]   = {1, 2, 4, 8, 16, 0};
+const u8 XHdmiphy1_Gthe4QpllDivsN2[]  = {1, 0};
+const u8 XHdmiphy1_Gthe4QpllDivsD[]   = {1, 2, 4, 8, 16, 0};
 
-const XHdmiphy1_GtConfig Gthe4Config = {
+const XHdmiphy1_GtConfig XHdmiphy1_Gthe4Config = {
     .CfgSetCdr = XHdmiphy1_Gthe4CfgSetCdr,
     .CheckPllOpRange = XHdmiphy1_Gthe4CheckPllOpRange,
     .OutDivChReconfig = XHdmiphy1_Gthe4OutDivChReconfig,
@@ -118,16 +119,16 @@ const XHdmiphy1_GtConfig Gthe4Config = {
     .TxChReconfig = XHdmiphy1_Gthe4TxChReconfig,
 
     .CpllDivs = {
-        .M = Gthe4CpllDivsM,
-        .N1 = Gthe4CpllDivsN1,
-        .N2 = Gthe4CpllDivsN2,
-        .D = Gthe4CpllDivsD,
+        .M = XHdmiphy1_Gthe4CpllDivsM,
+        .N1 = XHdmiphy1_Gthe4CpllDivsN1,
+        .N2 = XHdmiphy1_Gthe4CpllDivsN2,
+        .D = XHdmiphy1_Gthe4CpllDivsD,
     },
     .QpllDivs = {
-        .M = Gthe4QpllDivsM,
-        .N1 = Gthe4QpllDivsN1,
-        .N2 = Gthe4QpllDivsN2,
-        .D = Gthe4QpllDivsD,
+        .M = XHdmiphy1_Gthe4QpllDivsM,
+        .N1 = XHdmiphy1_Gthe4QpllDivsN1,
+        .N2 = XHdmiphy1_Gthe4QpllDivsN2,
+        .D = XHdmiphy1_Gthe4QpllDivsD,
     },
 };
 

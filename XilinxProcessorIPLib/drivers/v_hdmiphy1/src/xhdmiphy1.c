@@ -22,6 +22,7 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * </pre>
  *
 *******************************************************************************/
@@ -82,9 +83,9 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
 	InstancePtr->GtAdaptor = &Gthe3Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
-	InstancePtr->GtAdaptor = &Gthe4Config;
+	InstancePtr->GtAdaptor = &XHdmiphy1_Gthe4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	InstancePtr->GtAdaptor = &Gtye4Config;
+	InstancePtr->GtAdaptor = &XHdmiphy1_Gtye4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 	InstancePtr->GtAdaptor = &Gtye5Config;
 #endif
@@ -173,13 +174,13 @@ u32 XHdmiphy1_PllInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
     XHdmiphy1_CfgPllRefClkSel(InstancePtr, QuadId,
             XHDMIPHY1_CHANNEL_ID_CHA, CpllRefClkSel);
 	XHdmiphy1_CfgSysClkDataSel(InstancePtr, QuadId, XHDMIPHY1_DIR_TX,
-			Pll2SysClkData(TxPllSelect));
+			XHdmiphy1_Pll2SysClkData(TxPllSelect));
 	XHdmiphy1_CfgSysClkDataSel(InstancePtr, QuadId, XHDMIPHY1_DIR_RX,
-			Pll2SysClkData(RxPllSelect));
+			XHdmiphy1_Pll2SysClkData(RxPllSelect));
 	XHdmiphy1_CfgSysClkOutSel(InstancePtr, QuadId, XHDMIPHY1_DIR_TX,
-			Pll2SysClkOut(TxPllSelect));
+			XHdmiphy1_Pll2SysClkOut(TxPllSelect));
 	XHdmiphy1_CfgSysClkOutSel(InstancePtr, QuadId, XHDMIPHY1_DIR_RX,
-			Pll2SysClkOut(RxPllSelect));
+			XHdmiphy1_Pll2SysClkOut(RxPllSelect));
 
 	/* Write configuration to hardware at once. */
 	XHdmiphy1_WriteCfgRefClkSelReg(InstancePtr, QuadId);
