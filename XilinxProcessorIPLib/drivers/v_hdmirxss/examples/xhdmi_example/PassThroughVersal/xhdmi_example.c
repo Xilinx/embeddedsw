@@ -100,6 +100,7 @@
 *                              toggle HPD
 *       mmo    03/08/19 Added "IsStreamUpHDCP" to enable the HDCP
 *                              Authentication on the first VSYNC of TX
+*       ku     05/19/20 Fixed  Removed the IPS register wa for Versal
 * </pre>
 *
 ******************************************************************************/
@@ -2650,53 +2651,6 @@ int main() {
 	Si570_SetFreq(&Ps_Iic0, 0x5D, 400.00);
 	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
-
-	//IPS Workaround TODO
-	//Unlock the IPS registers
-	XHdmiphy1_Out32(0xF70E000C, 0xF9E8D7C6);
-
-	// GTY SLAVE_7 Correct the HS1 MUX Selection
-#if (XPAR_HDMIPHY1_0_TX_PLL_SELECTION == 7) || (XPAR_HDMIPHY1_0_RX_PLL_SELECTION == 8)
-#if defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-        xil_printf("RX:HS0 RPLL IPS  0x%08x\r\n",    XHdmiphy1_In32(0xF70E304C));
-        xil_printf("RX:HS1 RPLL IPS  From: 0x%08x ", XHdmiphy1_In32(0xF70E3C4C));
-        XHdmiphy1_Out32(0xF70E3C4C, 0x03000810);
-    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C4C));
-#endif
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-        xil_printf("TX:HS0 LCPLL IPS  0x%08x\r\n",   XHdmiphy1_In32(0xF70E3048));
-    xil_printf("TX:HS1 LCPLL IPS From: 0x%08x ", XHdmiphy1_In32(0xF70E3C48));
-//      XHdmiphy1_Out32(0xF70E3C48, 0x03E00840);
-    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C48));
-#endif
-#else
-#if defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-        xil_printf("TX:HS0 RPLL IPS  0x%08x\r\n",    XHdmiphy1_In32(0xF70E304C));
-        xil_printf("TX:HS1 RPLL IPS  From: 0x%08x ", XHdmiphy1_In32(0xF70E3C4C));
-//        XHdmiphy1_Out32(0xF70E3C4C, 0x02E00040);
-    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C48));
-#endif
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-        xil_printf("RX:HS0 LCPLL IPS  0x%08x\r\n",   XHdmiphy1_In32(0xF70E3048));
-    xil_printf("RX:HS1 LCPLL IPS From: 0x%08x ", XHdmiphy1_In32(0xF70E3C48));
-        XHdmiphy1_Out32(0xF70E3C48, 0x03E00810);
-    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C48));
-#endif
-#endif
-
-
-//    xil_printf("TX POR Workaround From: 0x%08x ", XHdmiphy1_In32(0xf70e3448));
-//	XHdmiphy1_Out32(0xf70e3448, 0x0ad6b50f);
-//    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xf70e3448));
-
-	/* Deassert the GTWiz_RESET_ALL for RX */
-//	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
-//			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) & ~0x3));
-//	usleep (50000);
-//	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x24,
-//			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) | 0x20));
-//	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x24,
-//			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) & ~0x20));
 
 
 	XIic_Config *ConfigPtr;	/* Pointer to configuration data */
