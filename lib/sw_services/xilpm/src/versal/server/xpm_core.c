@@ -123,10 +123,12 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
 
-	DISABLE_WAKE(Core->SleepMask);
+	if ((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		goto done;
+	}
 
-	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) &&
-	    (NULL != Core->Device.Power)) {
+	DISABLE_WAKE(Core->SleepMask);
+	if (NULL != Core->Device.Power) {
 		PwrNode = Core->Device.Power;
 		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_UP);
 		if (XST_SUCCESS != Status) {
@@ -142,8 +144,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		}
 	}
 
-	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State)
-	    && (NULL != Core->Device.ClkHandles)) {
+	if (NULL != Core->Device.ClkHandles) {
 		Status = XPmClock_Request(Core->Device.ClkHandles);
 		if (XST_SUCCESS != Status) {
 			goto done;
