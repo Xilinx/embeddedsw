@@ -36,60 +36,9 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"	/* SDK generated parameters */
-#include "xospipsv.h"		/* OSPIPSV device driver */
-#include "xil_printf.h"
-#include "xil_cache.h"
+#include "xospipsv_flash_config.h"
 
 /************************** Constant Definitions *****************************/
-
-/*
- * The following constants define the commands which may be sent to the Flash
- * device.
- */
-
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_DISABLE_CMD	0x04
-#define WRITE_ENABLE_CMD	0x06
-#define BULK_ERASE_CMD		0xC7
-#define DIE_ERASE_CMD		0xC4
-#define READ_ID			0x9F
-#define READ_CONFIG_CMD		0x35
-#define WRITE_CONFIG_CMD	0x01
-#define READ_FLAG_STATUS_CMD	0x70
-#define WRITE_CMD_4B		0x12
-#define SEC_ERASE_CMD_4B	0xDC
-#define READ_CMD_OCTAL_IO_4B	0xCC
-#define READ_CMD_OCTAL_DDR	0x9D
-#define WRITE_CMD_OCTAL_4B	0x84
-#define ENTER_4B_ADDR_MODE	0xB7
-#define EXIT_4B_ADDR_MODE	0xE9
-#define WRITE_CONFIG_REG	0x81
-#define READ_CONFIG_REG		0x85
-
-/*
- * Sixteen MB
- */
-#define SIXTEENMB 0x1000000
-#define ONEMB	0x100000
-
-/*
- * Identification of Flash
- * Micron:
- * Byte 0 is Manufacturer ID;
- * Byte 1 is first byte of Device ID - 0x5B
- * Byte 2 is second byte of Device ID describes flash size:
- * 512Mbit : 0x1A
- */
-#define	MICRON_OCTAL_ID_BYTE0	0x2c
-#define MICRON_OCTAL_ID_BYTE2_512	0x1a
-
-/*
- * The index for Flash config table
- */
-/* Spansion*/
-#define MICRON_INDEX_START			0
-#define FLASH_CFG_TBL_OCTAL_SINGLE_512_MC	MICRON_INDEX_START
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -117,27 +66,6 @@
 #define UNIQUE_VALUE		0x09
 
 /**************************** Type Definitions *******************************/
-
-typedef struct{
-	u32 SectSize;		/* Individual sector size or
-						 * combined sector size in case of parallel config*/
-	u32 NumSect;		/* Total no. of sectors in one/two flash devices */
-	u32 PageSize;		/* Individual page size or
-				 * combined page size in case of parallel config*/
-	u32 NumPage;		/* Total no. of pages in one/two flash devices */
-	u32 FlashDeviceSize;	/* This is the size of one flash device
-				 * NOT the combination of both devices, if present
-				 */
-	u8 ManufacturerID;	/* Manufacturer ID - used to identify make */
-	u8 DeviceIDMemSize;	/* Byte of device ID indicating the memory size */
-	u32 SectMask;		/* Mask to get sector start address */
-	u8 NumDie;		/* No. of die forming a single flash */
-	u32 ReadCmd;		/* Read command used to read data from flash */
-	u32 WriteCmd;	/* Write command used to write data to flash */
-	u32 EraseCmd;	/* Erase Command */
-	u8 StatusCmd;	/* Status Command */
-	u8 DummyCycles;	/* Number of Dummy cycles for Read operation */
-}FlashInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -172,14 +100,6 @@ u8 ReadBfrPtr[8];
 #else
 u8 ReadBfrPtr[8]__attribute__ ((aligned(4)));
 #endif
-FlashInfo Flash_Config_Table[1] = {
-	/* Micron */
-	{0x20000, 0x200, 256, 0x40000, 0x4000000, MICRON_OCTAL_ID_BYTE0,
-		MICRON_OCTAL_ID_BYTE2_512, 0xFFFF0000, 1, READ_CMD_OCTAL_IO_4B,
-		(WRITE_CMD_OCTAL_4B << 8) | WRITE_CMD_4B,
-		(DIE_ERASE_CMD << 16) | (BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_4B,
-		READ_FLAG_STATUS_CMD, 16}
-};
 
 u32 FlashMake;
 u32 FCTIndex;	/* Flash configuration table index */
@@ -441,6 +361,7 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 {
 	int Status;
 	int ReadIdBytes = 8;
+	u32 ReadId = 0;
 
 	/*
 	 * Read ID
@@ -465,27 +386,19 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	xil_printf("FlashID = ");
 	while(ReadIdBytes >= 0 ) {
 		xil_printf("0x%x ", ReadBfrPtr[FlashMsg.ByteCount - ReadIdBytes]);
-		if (ReadIdBytes >= 5) {
-			OspiPsvPtr->DeviceIdData |= (ReadBfrPtr[FlashMsg.ByteCount -
-				ReadIdBytes] << ((FlashMsg.ByteCount - ReadIdBytes) * 8));
-		}
 		ReadIdBytes--;
 	}
 	xil_printf("\n\r");
-	/*
-	 * Deduce flash make
-	 */
-	if (ReadBfrPtr[0] == MICRON_OCTAL_ID_BYTE0) {
-		FlashMake = MICRON_OCTAL_ID_BYTE0;
-	}
 
-	/*
-	 * If valid flash ID, then check connection mode & size and
-	 * assign corresponding index in the Flash configuration table
-	 */
-	if(((FlashMake == MICRON_OCTAL_ID_BYTE0)) &&
-		(ReadBfrPtr[2] == MICRON_OCTAL_ID_BYTE2_512)) {
-		FCTIndex = FLASH_CFG_TBL_OCTAL_SINGLE_512_MC;
+	OspiPsvPtr->DeviceIdData = ((ReadBfrPtr[3] << 24) | (ReadBfrPtr[2] << 16) |
+		(ReadBfrPtr[1] << 8) | ReadBfrPtr[0]);
+	ReadId = ((ReadBfrPtr[0] << 16) | (ReadBfrPtr[1] << 8) | ReadBfrPtr[2]);
+
+	FlashMake = ReadBfrPtr[0];
+
+	Status = CalculateFCTIndex(ReadId, &FCTIndex);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
@@ -1083,29 +996,23 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	else
 		Command = EXIT_4B_ADDR_MODE;
 
-	switch (FlashMake) {
-		case MICRON_OCTAL_ID_BYTE0:
-			FlashMsg.Opcode = WRITE_ENABLE_CMD;
-			FlashMsg.Addrsize = 0;
-			FlashMsg.Addrvalid = 0;
-			FlashMsg.TxBfrPtr = NULL;
-			FlashMsg.RxBfrPtr = NULL;
-			FlashMsg.ByteCount = 0;
-			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-			FlashMsg.IsDDROpCode = 0;
-			FlashMsg.Proto = 0;
-			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-				FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
-			}
-			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-			break;
-
-		default:
-			break;
+	FlashMsg.Opcode = WRITE_ENABLE_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	FlashMsg.Opcode = Command;
 	FlashMsg.Addrvalid = 0;
 	FlashMsg.Addrsize = 0;
