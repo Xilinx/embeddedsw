@@ -1,0 +1,3 @@
+xospipsv_flash_intr_example.c=xospipsv_flash_config.h
+xospipsv_flash_non_blocking_read_example.c=xospipsv_flash_config.h
+xospipsv_flash_polled_example.c=xospipsv_flash_config.h
