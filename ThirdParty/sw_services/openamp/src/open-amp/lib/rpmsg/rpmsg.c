@@ -238,7 +238,8 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 	metal_mutex_release(&rdev->lock);
 
 	/* Send NS announcement to remote processor */
-	if (rdev->support_ns && ept->dest_addr == RPMSG_ADDR_ANY)
+	if (ept->name[0] && rdev->support_ns &&
+	    ept->dest_addr == RPMSG_ADDR_ANY)
 		status = rpmsg_send_ns_message(ept, RPMSG_NS_CREATE);
 
 	if (status)
