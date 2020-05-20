@@ -866,7 +866,6 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	u32 HbExtendedRepair[4];
 	u32 HbRepairWord;
 
-	//tag size must be multiple of 2
 	TagDataAddr = EfuseTagAddr + 4U;
 
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
@@ -876,6 +875,7 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		goto done;
 	}
 
+	//tag size must be multiple of 2
 	if ((TagSize % 2U) != 0U) {
 		XPmBisr_SwError(PMC_EFUSE_BISR_CFRM_HB_BAD_SIZE);
 		TagDataAddr += (TagSize << 2);
@@ -890,6 +890,8 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
+		/* Return negative address so error can be identified by caller */
+		TagDataAddr = ~0U;
 		goto done;
 	}
 
@@ -1107,12 +1109,21 @@ XStatus XPmBisr_Repair(u32 TagId)
 						break;
 					case TAG_ID_TYPE_CFRM_BR: //BRAM repair function
 						EfuseNextAddr = XPmBisr_RepairBram(EfuseCurrAddr, EfuseBisrSize);
+						if (EfuseNextAddr != ~0U) {
+							Status = XST_SUCCESS;
+						}
 						break;
 					case TAG_ID_TYPE_CFRM_UR: //URAM Repair function
 						EfuseNextAddr = XPmBisr_RepairUram(EfuseCurrAddr, EfuseBisrSize);
+						if (EfuseNextAddr != ~0U) {
+							Status = XST_SUCCESS;
+						}
 						break;
 					case TAG_ID_TYPE_CFRM_HB: //HardBlock repair function
 						EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
+						if (EfuseNextAddr != ~0U) {
+							Status = XST_SUCCESS;
+						}
 						break;
 					case TAG_ID_TYPE_CPM5:
 						Status = XPmBisr_RepairCpm5(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
