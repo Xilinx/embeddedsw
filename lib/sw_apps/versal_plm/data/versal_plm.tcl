@@ -69,6 +69,12 @@ proc get_stdout {} {
 }
 
 proc swapp_generate {} {
+	# disable global optimizations through --no-relax flag
+	set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
+	set new_link_flags "-Wl,--no-relax "
+	append new_link_flags $def_link_flags
+	common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design]
+
 	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
 	set new_flags "-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare"
 	append new_flags " -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high "
