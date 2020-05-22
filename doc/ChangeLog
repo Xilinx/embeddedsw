@@ -115,6 +115,14 @@ Add new APIs to provide improvised support for R5 PMU Handling, also added examp
 to demonstrate the API usage.
 Added unaligned exception handling support to 64 bit variant of microblaze processor.
 
+sysmon_v7_6:
+Corrected macros according to documentaion
+
+sysmonpsu_v2_6:
+added PL support to examples
+updated alarm macro description
+added function to initialize sysmonpsu instance
+
 uartlite_v3_4:
 Updates driver tcl to not to generate defines when IP is not configured for uart.
 
