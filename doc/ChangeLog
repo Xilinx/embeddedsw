@@ -351,6 +351,10 @@ v_hdmirx_v2_5:
 v_hdmirxss_v5_5:
 3D Audio, HDR and Versal support added.
 
+dp14rxss_v6_0:
+Added PS I2C support
+Removed DP v1.2 Protocol support
+
 v_hdmitx_v2_5:
 3D Audio support added.
 
