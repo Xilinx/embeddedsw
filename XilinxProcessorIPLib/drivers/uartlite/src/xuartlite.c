@@ -93,6 +93,29 @@
 
 static void StubHandler(void *CallBackRef, unsigned int ByteCount);
 
+
+/****************************************************************************/
+/**
+*
+* This is a wrapper around the low-level XUartLite_GetStatusReg. This reads
+* the status register with the XUartLite_GetStatusReg, then updates the stats
+* with its value. Do not use the low-level XUartLite_GetStatusReg, because you
+* will miss some errors.
+*
+* @param	InstancePtr is a pointer to the XUartLite instance.
+*
+* @return	A 32-bit value representing the contents of the status register.
+*
+* @note		-
+*
+*****************************************************************************/
+u32 XUartLite_GetStatusReg2(XUartLite *InstancePtr)
+{
+    u32 statusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+    XUartLite_UpdateStats(InstancePtr, statusRegister);
+    return statusRegister;
+}
+
 /****************************************************************************/
 /**
 *
@@ -222,7 +245,7 @@ unsigned int XUartLite_Send(XUartLite *InstancePtr, u8 *DataBufferPtr,
 	 * Enter a critical region by disabling the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven.
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetStatusReg2(InstancePtr);
 
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
@@ -305,7 +328,7 @@ unsigned int XUartLite_Recv(XUartLite *InstancePtr, u8 *DataBufferPtr,
 	 * Enter a critical region by disabling all the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetStatusReg2(InstancePtr);
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
 
@@ -480,13 +503,13 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 	/*
 	 * Read the status register to determine if the transmitter is full
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetStatusReg2(InstancePtr);
 
 	/*
 	 * Enter a critical region by disabling all the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetStatusReg2(InstancePtr);
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
 
@@ -511,7 +534,7 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 		SentCount++;
 
 		StatusRegister =
-			XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+			XUartLite_GetStatusReg2(InstancePtr);
 
 	}
 
@@ -583,7 +606,7 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 	 * Enter a critical region by disabling all the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven
 	 */
-	StatusRegisterVal = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegisterVal = XUartLite_GetStatusReg2(InstancePtr);
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
 	/*
@@ -597,7 +620,7 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 		 * the receiver/FIFO
 		 */
 		StatusRegister =
-			XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+			XUartLite_GetStatusReg2(InstancePtr);
 
 		/*
 		 * If there is data ready to be removed, then put the next byte
@@ -608,8 +631,6 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 			InstancePtr->ReceiveBuffer.NextBytePtr[ReceivedCount++]=
 				XUartLite_ReadReg(InstancePtr->RegBaseAddress,
 							XUL_RX_FIFO_OFFSET);
-
-			XUartLite_UpdateStats(InstancePtr, StatusRegister);
 		}
 
 		/*

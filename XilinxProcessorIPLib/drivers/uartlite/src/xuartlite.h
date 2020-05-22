@@ -234,6 +234,8 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 
+u32 XUartLite_GetStatusReg2(XUartLite *InstancePtr);
+
 /*
  * Initialization functions in xuartlite_sinit.c
  */
