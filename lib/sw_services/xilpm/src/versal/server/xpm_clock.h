@@ -36,6 +36,9 @@ extern "C" {
 #define MAX_MUX_PARENTS		8U
 #define MAX_NAME_BYTES		16U
 
+/* Clock Flags */
+#define CLK_FLAG_READ_ONLY		(1U << 0U)
+
 /**
  * The topology node class.	 This is the class to represent each node
  * in clock topology. It can be mux/div/gate/fixed factor.

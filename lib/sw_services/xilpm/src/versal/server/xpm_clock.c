@@ -25,9 +25,6 @@
 
 #define CLOCK_PARENT_INVALID		0U
 
-/* Clock Flags */
-#define CLK_FLAG_READ_ONLY		(1U << 0U)
-
 #define GENERIC_MUX						\
 	{									\
 		.Type = (u8)TYPE_MUX,				\

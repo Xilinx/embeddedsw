@@ -1900,9 +1900,17 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 		goto done;
 	}
 
-	/* HACK: Allow enabling of PLLs for now */
-	if ((1U == Enable) && (ISPLL(ClockId))) {
-		goto bypass;
+	if (1U == Enable) {
+		if (ISPLL(ClockId)) {
+			/* HACK: Allow enabling of PLLs for now */
+			goto bypass;
+		} else if (ISOUTCLK(ClockId) &&
+			   (0U != (Clk->Flags & CLK_FLAG_READ_ONLY))) {
+			/* Allow enable operation for read-only clocks */
+			goto bypass;
+		} else {
+			/* Required due to MISRA */
+		}
 	}
 
 	/* Check if subsystem is allowed to access requested clock or not */
