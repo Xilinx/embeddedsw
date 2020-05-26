@@ -22,6 +22,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
  * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
+ * 1.1   ku   23/05/20 Corrected XHdmiphy1_Ch2Ids to set correct value
+ *                     for Id1
  * </pre>
  *
 *******************************************************************************/
@@ -66,7 +68,12 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 		*Id0 = XHDMIPHY1_CHANNEL_ID_CH1;
 		if ((XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_TX)) ||
 			(XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_RX))) {
-			if (InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) {
+			if ((InstancePtr->Config.TxProtocol == XHDMIPHY1_PROTOCOL_HDMI21) ||
+					(InstancePtr->Config.RxProtocol == XHDMIPHY1_PROTOCOL_HDMI21)) {
+				*Id1 = XHDMIPHY1_CHANNEL_ID_CH4;
+			}
+			else if ((InstancePtr->Config.TxProtocol == XHDMIPHY1_PROTOCOL_HDMI) &&
+					(InstancePtr->Config.UseGtAsTxTmdsClk == TRUE)){
 				*Id1 = XHDMIPHY1_CHANNEL_ID_CH4;
 			}
 			else {

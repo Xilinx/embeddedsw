@@ -1077,6 +1077,13 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     /* De-assert RX PLL reset. */
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_RX, FALSE);
+
+    for (Id = Id0; Id <= Id1; Id++) {
+            InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].RxState =
+			XHDMIPHY1_GT_STATE_LOCK;
+    }
+
+
 #else
 	XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
     for (Id = Id0; Id <= Id1; Id++) {
