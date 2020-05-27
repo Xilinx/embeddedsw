@@ -1200,6 +1200,9 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
   AviInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(HdmiRxSsPtr);
   memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
 
+  AviInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(HdmiRxSsPtr);
+  memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
+
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_STREAMDOWN, 0);
 #endif
