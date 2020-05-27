@@ -2189,6 +2189,18 @@ static void XV_HdmiRxSs_ConfigBridgeMode(XV_HdmiRxSs *InstancePtr) {
     XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
     AviInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(InstancePtr);
 
+    if ((!InstancePtr->HdmiRxPtr->Stream.IsHdmi) &&
+		    HdmiRxSsVidStreamPtr->IsInterlaced) {
+	if ((HdmiRxSsVidStreamPtr->Timing.HActive == 1440) &&
+			((HdmiRxSsVidStreamPtr->Timing.VActive == 288) ||
+			 (HdmiRxSsVidStreamPtr->Timing.VActive == 240))) {
+             XV_HdmiRxSs_BridgeYuv420(InstancePtr, FALSE);
+             XV_HdmiRxSs_BridgePixelDrop(InstancePtr, TRUE);
+
+	     return;
+	}
+    }
+
     // Pixel Repetition factor of 3 and above are not supported by the bridge
     if (AviInfoFramePtr->PixelRepetition > XHDMIC_PIXEL_REPETITION_FACTOR_2) {
 #ifdef XV_HDMIRXSS_LOG_ENABLE
