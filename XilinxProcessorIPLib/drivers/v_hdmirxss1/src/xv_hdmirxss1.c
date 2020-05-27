@@ -1257,6 +1257,7 @@ static void XV_HdmiRxSs1_DdcCallback(void *CallbackRef)
 static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
 {
   XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+  XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
 
   if (HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
 	  /* Assert HDMI RX core resets */
@@ -1269,6 +1270,10 @@ static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiRxSs1Ptr->IsStreamUp = (FALSE);
+
+  AviInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(HdmiRxSs1Ptr);
+  memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
+
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
   XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_STREAMDOWN, 0);
 #endif
