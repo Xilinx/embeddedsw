@@ -804,6 +804,7 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 	}
 
 	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
+		InstancePtr->Extra_DummyCycle = 0U;
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_PHY_CONFIGURATION_REG, 0x0U);
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,

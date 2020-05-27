@@ -292,6 +292,7 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 
 	Regval = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XOSPIPSV_DEV_INSTR_RD_CONFIG_REG);
+	Regval &= ~XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK;
 	Regval |= ((Instxfer_Type <<
 		(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_SHIFT)
 		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK);
