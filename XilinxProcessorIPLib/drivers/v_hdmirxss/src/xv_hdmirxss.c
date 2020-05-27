@@ -1178,6 +1178,7 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
 {
   XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
   XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
+  XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
 
   /* Assert HDMI RX core resets */
   XV_HdmiRxSs_RXCore_VRST(HdmiRxSsPtr, TRUE);
@@ -1192,6 +1193,9 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
   DrmInfoFramePtr = XV_HdmiRxSs_GetDrmInfoframe(HdmiRxSsPtr);
 
   DrmInfoFramePtr->Static_Metadata_Descriptor_ID = 0xFF;
+
+  AviInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(HdmiRxSsPtr);
+  memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_STREAMDOWN, 0);
