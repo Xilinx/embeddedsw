@@ -17,12 +17,12 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XOspiPsv" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_OSPI_CLK_FREQ_HZ"
+    ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XOspiPsv" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_OSPI_CLK_FREQ_HZ" "C_OSPI_MODE"
 
      generate_ospipsv_params $drv_handle "xparameters.h"
-    ::hsi::utils::define_zynq_config_file $drv_handle "xospipsv_g.c" "XOspiPsv"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_OSPI_CLK_FREQ_HZ" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xospipsv_g.c" "XOspiPsv"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_OSPI_CLK_FREQ_HZ" "IS_CACHE_COHERENT" "C_OSPI_MODE"
 
-    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XOspiPsv" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_OSPI_CLK_FREQ_HZ" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XOspiPsv" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_OSPI_CLK_FREQ_HZ" "IS_CACHE_COHERENT" "C_OSPI_MODE"
 
 }
 
