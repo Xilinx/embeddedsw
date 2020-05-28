@@ -1084,6 +1084,14 @@ int XPm_GicProxyWakeUp(const u32 PeriphIdx)
 		goto done;
 	}
 
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+
+	/* Do not process anything if core is already running */
+	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, Periph->WakeProcId, 0, 0, 0);
 
 done:
