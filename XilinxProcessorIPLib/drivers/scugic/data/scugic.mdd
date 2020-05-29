@@ -10,7 +10,7 @@ BEGIN driver scugic
   OPTION supported_peripherals = (ps7_scugic psu_scugic psu_acpu_gic psu_rcpu_gic psv_scugic psv_acpu_gic psv_rcpu_gic);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.2;
+  OPTION VERSION = 4.3;
   OPTION NAME = scugic;
   OPTION INTC_TYPE = XScuGic;
 END driver
