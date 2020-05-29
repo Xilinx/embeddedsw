@@ -124,7 +124,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XPm_Power *PwrNode;
 
 	DISABLE_WAKE(Core->SleepMask);
-	if (((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) &&
+	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) &&
 	    (NULL != Core->Device.Power)) {
 		PwrNode = Core->Device.Power;
 		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_UP);
