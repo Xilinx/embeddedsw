@@ -91,6 +91,7 @@ extern "C" {
 #define XPUF_ERROR_INVALID_PUF_OPERATION		((u32)0x13)
 #define XPUF_ERROR_REGENERATION_INVALID			((u32)0x14)
 #define XPUF_ERROR_REGEN_PUF_HD_INVALID			((u32)0x15)
+#define XPUF_ERROR_INVALID_READ_HD_INPUT		((u32)0x16)
 
 /***************************** Type Definitions *******************************/
 typedef enum {

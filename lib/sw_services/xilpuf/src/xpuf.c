@@ -296,6 +296,7 @@ u32 XPuf_Regeneration(XPuf_Data *PufData)
 			XPUF_EFUSE_SYN_ADD_INIT);
 	}
 	else {
+		Status = XPUF_ERROR_INVALID_READ_HD_INPUT;
 		goto END;
 	}
 
