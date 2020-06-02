@@ -23,6 +23,7 @@
 
 /***************************** Include Files *********************************/
 #include "xhdmi_exdes_sm_rx.h"
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 
 /************************** Constant Definitions ****************************/
 
@@ -2394,3 +2395,4 @@ const char *XV_Rx_Hdmi_Rx_EventtoString(XV_Rx_Hdmi_Events Event)
 
 	return eventNameString;
 }
+#endif

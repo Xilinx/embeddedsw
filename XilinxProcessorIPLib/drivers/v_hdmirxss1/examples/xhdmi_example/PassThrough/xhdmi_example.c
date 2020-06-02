@@ -163,6 +163,7 @@ XVfmc           Vfmc[1];
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 /* HDMI TX SS structure */
 XV_HdmiTxSs1    HdmiTxSs;
+u8 HdmiTxErrorFlag = 0;
 
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 /* Test Pattern Generator Structure */
@@ -206,7 +207,7 @@ u8 AuxFifoStartFlag = (FALSE);
 u32 FrWrDoneCounter = 0;
 u32 FrRdDoneCounter = 0;
 
-u8 HdmiTxErrorFlag = 0;
+
 #endif
 
 #ifdef XPAR_XGPIO_NUM_INSTANCES
@@ -4767,6 +4768,7 @@ void Hdmiphy1ProcessError(void)
 
 }
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 /*****************************************************************************/
 /**
 *
@@ -4811,7 +4813,6 @@ void HdmiTxProcessError(void)
 	HdmiTxErrorFlag = FALSE;
 }
 
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 /*****************************************************************************/
 /**
 *
@@ -5054,10 +5055,12 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 #endif
 
 #if (!defined XPS_BOARD_VCU118)
-	/* Set FRL and DRU MGT REFCLK Frequency */
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	/* Set DRU MGT REFCLK Frequency */
 	Si570_SetFreq(&Iic, 0x5D, 400.00);
 	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
+#endif
 #endif
 
 	return Status;
@@ -5409,11 +5412,12 @@ int main()
 	xil_printf("------------------------------------------\r\n");
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	xhdmi_exdes_ctrlr.TxBusy            = (TRUE);
+	HdmiTxErrorFlag = FALSE;
 #endif
 	Hdmiphy1ErrorFlag = FALSE;
 	Hdmiphy1PllLayoutErrorFlag = FALSE;
 
-	HdmiTxErrorFlag = FALSE;
+
 
 	/* Initialize platform */
 	xil_printf("Initializing platform. \r\n");
@@ -5527,10 +5531,12 @@ int main()
 				(void *)Hdmiphy1ErrorCallback,
 				(void *)&Hdmiphy1);
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	Status |= XV_HdmiTxSs1_SetCallback(&HdmiTxSs,
 			XV_HDMITXSS1_HANDLER_ERROR,
 			(void *)HdmiTxErrorCallback,
 			(void *)&HdmiTxSs);
+#endif
 
 	/* Initialize Video FMC and GT TX output*/
 	Status = Vfmc_HdmiInit(&Vfmc[0], XPAR_VFMC_CTLR_SS_0_VFMC_GPIO_DEVICE_ID,
@@ -5540,6 +5546,7 @@ int main()
 		return 0;
 	} else {
 		for (int ChId=1; ChId <= 4; ChId++) {
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 #if defined (XPS_BOARD_ZCU102)
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : 0xD);/*0xc 0xb */
@@ -5568,6 +5575,7 @@ int main()
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x9);
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x9);
+#endif
 #endif
 		}
 	}
@@ -5685,8 +5693,18 @@ int main()
 
 	u8 SinkReady = FALSE;
 #endif
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	/* Start the system in pass-through mode. */
 	xhdmi_exdes_ctrlr.ForceIndependent = FALSE;
+#else
+	xhdmi_exdes_ctrlr.ForceIndependent = TRUE;
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
+	xhdmi_exdes_ctrlr.IsTxPresent = 0;
+#endif
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
+	xhdmi_exdes_ctrlr.IsRxPresent = 0;
+#endif
+#endif
 #if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	/* Set the default Link Training Patterns to be requested by RX
 	 * during FRL Link Training
@@ -5721,6 +5739,7 @@ int main()
 	XV_HdmiTxSs1_SetFfeLevels(&HdmiTxSs, 0);
 	XV_HdmiTxSs1_Start(&HdmiTxSs);
 #endif
+
 #if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	XV_HdmiRxSs1_Start(&HdmiRxSs);
 #endif
@@ -5824,8 +5843,10 @@ int main()
 		/* VPHY error */
 		Hdmiphy1ProcessError();
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 		/* HDMI TX error */
 		HdmiTxProcessError();
+#endif
 
 	} while (1);
 

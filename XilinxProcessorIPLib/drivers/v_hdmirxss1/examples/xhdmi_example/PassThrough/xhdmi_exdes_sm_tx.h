@@ -24,12 +24,12 @@
 #define _XHDMI_EXDES_SM_TX_H_
 
 /***************************** Include Files *********************************/
-#include <string.h>
 #include "xparameters.h"
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+#include <string.h>
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
-
 #include "xv_hdmitxss1.h"
 #include "xhdmiphy1.h"
 #include "xvidc.h"
@@ -348,4 +348,5 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 u32 XV_Tx_GetNVal(XV_Tx *InstancePtr,
 		  XHdmiC_SamplingFrequencyVal SampFreqVal);
 
+#endif
 #endif /* _XHDMI_EXDES_SM_TX_H_ */
