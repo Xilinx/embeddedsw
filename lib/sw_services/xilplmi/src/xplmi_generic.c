@@ -156,7 +156,7 @@ static int XPlmi_GetDeviceID( XPlmi_Cmd * Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
@@ -657,7 +657,7 @@ END:
 static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
 {
 	/* For MISRA C */
-	(void )Cmd;
+	(void)Cmd;
 
 	return XPLMI_ERR_CMD_NOT_SUPPORTED;
 }
@@ -948,6 +948,43 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides SET BOARD command execution.
+ *  		Command payload parameters are
+ *				* Board Name
+ *
+ * @param	Cmd is pointer to the command structure and unused
+ *
+ * @return	XST_SUCCESS
+ *
+ *****************************************************************************/
+static int XPlmi_SetBoard(XPlmi_Cmd * Cmd)
+{
+	/* For MISRA C */
+	(void)Cmd;
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides GET BOARD command execution.
+ * 		No payload parameters
+ *
+ * @param	Cmd is pointer to the command structure and unused
+ *
+ * @return	XST_SUCCESS
+ *
+ *****************************************************************************/
+static int XPlmi_GetBoard(XPlmi_Cmd * Cmd)
+{
+	/* For MISRA C */
+	(void)Cmd;
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
  * @brief	Contains the array of PLM generic commands
  *
  *****************************************************************************/
@@ -973,6 +1010,8 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_Nop),
 	XPLMI_MODULE_COMMAND(XPlmi_GetDeviceID),
 	XPLMI_MODULE_COMMAND(XPlmi_EventLogging),
+	XPLMI_MODULE_COMMAND(XPlmi_SetBoard),
+	XPLMI_MODULE_COMMAND(XPlmi_GetBoard),
 };
 
 /*****************************************************************************/

@@ -67,6 +67,8 @@ enum {
 #define XPLMI_PLM_MODULES_FEATURES_VAL		(0x00U)
 #define XPLMI_PLM_GENERIC_DEVICE_ID_VAL		(0x12U)
 #define XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL	(0x13U)
+#define XPLMI_PLM_MODULES_SET_BOARD_VAL		(0x14U)
+#define XPLMI_PLM_MODULES_GET_BOARD_VAL		(0x15U)
 
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);

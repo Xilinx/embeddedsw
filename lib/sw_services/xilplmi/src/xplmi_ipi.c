@@ -294,20 +294,22 @@ inline int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 int XPlmi_ValidateIpiCmd(u32 CmdId)
 {
 	int Status = XST_FAILURE;
+	u32 CmdHndlr = CmdId & XPLMI_CMD_HNDLR_MASK;
+	u32 PlmCmdId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
 
-	if ((CmdId & XPLMI_CMD_HNDLR_MASK) == XPLMI_CMD_HNDLR_PLM_VAL) {
-		/* Only DEVICE ID and Event Logging commands are allowed through IPI.
-		 *  All other commands are allowed only from CDO file.
+	if (CmdHndlr == XPLMI_CMD_HNDLR_PLM_VAL) {
+		/*
+		 * Only Device ID, Event Logging and Get Board
+		 * commands are allowed through IPI.
+		 * All other commands are allowed only from CDO file.
 		 */
-		if((((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) >=
-				XPLMI_PLM_GENERIC_DEVICE_ID_VAL) &&
-				((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) <=
-					XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL)) ||
-					((CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK) ==
-						XPLMI_PLM_MODULES_FEATURES_VAL)) {
+		if ((PlmCmdId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
+			(PlmCmdId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
+			(PlmCmdId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
+			(PlmCmdId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
 			Status = XST_SUCCESS;
 		}
-	} else if (((CmdId & XPLMI_CMD_HNDLR_MASK) == XPLMI_CMD_HNDLR_EM_VAL) &&
+	} else if ((CmdHndlr == XPLMI_CMD_HNDLR_EM_VAL) &&
 				((CmdId & XPLMI_CMD_API_ID_MASK) ==
 					XPLMI_PLM_MODULES_FEATURES_VAL)) {
 		/*
@@ -315,7 +317,7 @@ int XPlmi_ValidateIpiCmd(u32 CmdId)
 		 * Other EM commands are allowed only from CDO file.
 		 */
 		Status = XST_SUCCESS;
-	} else if ((CmdId & XPLMI_CMD_HNDLR_MASK) != XPLMI_CMD_HNDLR_EM_VAL) {
+	} else if (CmdHndlr != XPLMI_CMD_HNDLR_EM_VAL) {
 		/*
 		 * Other module's commands are allowed through IPI.
 		 */
