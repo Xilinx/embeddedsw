@@ -2277,6 +2277,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 #endif
 
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	case 13:
 	    /* HDCP 2.2 Cipher status */
 	    xil_printf(" Offset |     Register      |"
@@ -2308,7 +2309,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("                                     Irq -----------------| \r\n");
 	    xil_printf("\r\n");
 	    break;
-
+#endif
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
@@ -2499,11 +2500,11 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    }
 #endif
 	    break;
-
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	case 21:
 	    XV_HdmiRxSs1_DdcRegDump(&HdmiRxSs);
 	    break;
-
+#endif
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
 	    Menu = XHDMI_MAIN_MENU;

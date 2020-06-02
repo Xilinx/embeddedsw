@@ -23,6 +23,7 @@
 
 /***************************** Include Files *********************************/
 #include "xhdmi_exdes_sm_tx.h"
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 
 #define DEBUG_VCKE
 #define DEBUG_DC
@@ -3096,3 +3097,4 @@ const char *XV_Tx_Hdmi_Tx_EventtoString(XV_Tx_Hdmi_Events Event)
 
 	return eventNameString;
 }
+#endif
