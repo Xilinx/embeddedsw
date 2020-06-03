@@ -1,0 +1,28 @@
+var xmipi__example_8c =
+[
+    [ "I2C_CLK_ADDR", "xmipi__example_8c.html#a71bd0b63917e21a117972939353bda39", null ],
+    [ "I2C_MUX_ADDR", "xmipi__example_8c.html#a9e3c02ccaf71eeda39e2524f2fb02a41", null ],
+    [ "CamReset", "xmipi__example_8c.html#a757a75677d4ddc9b3d14e2f4f3f0332c", null ],
+    [ "CloneTxEdid", "xmipi__example_8c.html#ac0e2b7e475ed03270d5000ad9bd4e923", null ],
+    [ "EnableColorBar", "xmipi__example_8c.html#adc524e092889eb6825e874b8a94fa38b", null ],
+    [ "EnableDSI", "xmipi__example_8c.html#a72dc2cf47df7366bd814007b9a38f9a3", null ],
+    [ "I2cClk", "xmipi__example_8c.html#a13f636ef2d93d7ee10e421e5f604a510", null ],
+    [ "I2cMux", "xmipi__example_8c.html#adcbba64f9438ee7f171f2718c6324474", null ],
+    [ "Info", "xmipi__example_8c.html#a14b96491d9e48ad8fadbbb391d097ab6", null ],
+    [ "main", "xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
+    [ "ReportStreamMode", "xmipi__example_8c.html#a9b0d2b849482971534222077f2949418", null ],
+    [ "Reset_IP_Pipe", "xmipi__example_8c.html#a27ae0b7f949e11fb7e55c2fe3fda88d5", null ],
+    [ "ResetTpg", "xmipi__example_8c.html#a815be228f3c0f5df1cb4624e60e1c5d3", null ],
+    [ "SetupInterruptSystem", "xmipi__example_8c.html#ab458f6ff7df970c30ccf4a575995bc7e", null ],
+    [ "StartTxAfterRx", "xmipi__example_8c.html#a09a07df362490e4ba97f77a9ce5edd74", null ],
+    [ "TxConnectCallback", "xmipi__example_8c.html#ac493d3aecd3ba27b1c359fac5403bcc4", null ],
+    [ "TxStreamDownCallback", "xmipi__example_8c.html#a58d2813cae3d1fee94b6cc619f827911", null ],
+    [ "TxStreamUpCallback", "xmipi__example_8c.html#a1d9aa9958743b89bbebf1e4fc360cccc", null ],
+    [ "TxVsCallback", "xmipi__example_8c.html#a867454807fce16217777a7c356010b5a", null ],
+    [ "VphyHdmiTxInitCallback", "xmipi__example_8c.html#ac75e4a2188fc703e5595b9da7b9ae87d", null ],
+    [ "VphyHdmiTxReadyCallback", "xmipi__example_8c.html#abf58ba0d5d5eb70e9e1af8c2a786298a", null ],
+    [ "Xil_AssertCallbackRoutine", "xmipi__example_8c.html#a4dce91041c96d24627182e29908c4b77", null ],
+    [ "XV_ConfigTpg", "xmipi__example_8c.html#a4a5ac3a38401a55659af4cf0a4a765b0", null ],
+    [ "IsPassThrough", "xmipi__example_8c.html#a2d5525edd4cf0958da26f4eb70d24b85", null ],
+    [ "Pattern", "xmipi__example_8c.html#a4dd9957df1df06f40703f124a18c8904", null ]
+];

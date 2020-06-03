@@ -1,0 +1,26 @@
+var xtmrctr_8h =
+[
+    [ "XTC_CASCADE_MODE_OPTION", "xtmrctr_8h.html#ga4fb085742ee50628791c81ff9a14bc2c", null ],
+    [ "XTmrCtr_Handler", "xtmrctr_8h.html#ga2d96523ba7b80814a9f6c769619564cf", null ],
+    [ "XTmrCtr_CfgInitialize", "xtmrctr_8h.html#ga220874785f096cc5f38b3bec907a008c", null ],
+    [ "XTmrCtr_ClearStats", "xtmrctr_8h.html#ga6f51d8030e9d1a4edc588b0846e22e49", null ],
+    [ "XTmrCtr_GetCaptureValue", "xtmrctr_8h.html#gad8f339bdf71ed11fa92f08720c9ce663", null ],
+    [ "XTmrCtr_GetOptions", "xtmrctr_8h.html#gaaff209dc01c2946c239c6e5c1bdc1a5b", null ],
+    [ "XTmrCtr_GetStats", "xtmrctr_8h.html#ga3c99744f99aef2a019616e712206f1b0", null ],
+    [ "XTmrCtr_GetValue", "xtmrctr_8h.html#ga325269055bb6f9f7a0c7f703bd2f2174", null ],
+    [ "XTmrCtr_InitHw", "xtmrctr_8h.html#gac3ffcfef4ba4507d5f2b9e17a08c7bf0", null ],
+    [ "XTmrCtr_Initialize", "xtmrctr_8h.html#gad5f9b6172f448d2dd13d1c200ca37928", null ],
+    [ "XTmrCtr_InterruptHandler", "xtmrctr_8h.html#ga2c00e99b19f58b5821c5541069ffb20b", null ],
+    [ "XTmrCtr_IsExpired", "xtmrctr_8h.html#ga44d19561a31682753e4996c7b57d6982", null ],
+    [ "XTmrCtr_LookupConfig", "xtmrctr_8h.html#ga59bced86622b77630d18e731fbcec7f5", null ],
+    [ "XTmrCtr_PwmConfigure", "xtmrctr_8h.html#ga295c8b4acc8b8fd71cb1085d3fa2c53c", null ],
+    [ "XTmrCtr_PwmDisable", "xtmrctr_8h.html#ga7442dd2a194e46db961019a29c9e755d", null ],
+    [ "XTmrCtr_PwmEnable", "xtmrctr_8h.html#gaf13a8cf6dcc0f322abd768c41243220d", null ],
+    [ "XTmrCtr_Reset", "xtmrctr_8h.html#gaa7b4ca5a0ac2199ee5341fddd8056500", null ],
+    [ "XTmrCtr_SelfTest", "xtmrctr_8h.html#ga42b972b6d7ae5d18a9bb2ca99446b1e7", null ],
+    [ "XTmrCtr_SetHandler", "xtmrctr_8h.html#ga9eb7b372c13b5e3493fec7370858309f", null ],
+    [ "XTmrCtr_SetOptions", "xtmrctr_8h.html#ga93d796cf55144d6adb3c51fedf6c3b76", null ],
+    [ "XTmrCtr_SetResetValue", "xtmrctr_8h.html#ga74b790866611a3ab1e96700feb48f6ea", null ],
+    [ "XTmrCtr_Start", "xtmrctr_8h.html#ga009c17ab4fcedf73279638dd97b6edd4", null ],
+    [ "XTmrCtr_Stop", "xtmrctr_8h.html#gab8156ff2a16b8efc0fcd3ed2b7ecf91a", null ]
+];

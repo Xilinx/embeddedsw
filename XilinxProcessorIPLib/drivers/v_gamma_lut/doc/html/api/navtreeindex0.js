@@ -1,0 +1,21 @@
+var NAVTREEINDEX0 =
+{
+"annotated.html":[0,0],
+"example.html":[1],
+"example.html#ex1":[1,0],
+"example.html#ex2":[1,1],
+"functions.html":[0,1,0],
+"functions_vars.html":[0,1,1],
+"index.html":[],
+"pages.html":[],
+"struct_x_v__gamma__lut.html":[0,0,0],
+"struct_x_v__gamma__lut.html#ad1109f4bcf245a6f77ae977604913234":[0,0,0,1],
+"struct_x_v__gamma__lut.html#af687bb1b717fc788b78d485113f147a5":[0,0,0,0],
+"struct_x_v__gamma__lut___config.html":[0,0,1],
+"struct_x_v__gamma__lut___config.html#a6dee95d2ebd3c5cae2633d5894d219ca":[0,0,1,4],
+"struct_x_v__gamma__lut___config.html#a9f01ac51de9fbce91ef32917e87e739d":[0,0,1,2],
+"struct_x_v__gamma__lut___config.html#aa4b12f6dc99b6b4e93a991c90b13ac1f":[0,0,1,0],
+"struct_x_v__gamma__lut___config.html#aa56dc0b454274c012552981967ba7405":[0,0,1,1],
+"struct_x_v__gamma__lut___config.html#aaefbc5af603e4cae5505a29665da14a1":[0,0,1,5],
+"struct_x_v__gamma__lut___config.html#af3de00dbd374e9e93c1a1590a68699a0":[0,0,1,3]
+};
