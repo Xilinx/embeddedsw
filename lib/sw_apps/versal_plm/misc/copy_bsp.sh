@@ -84,7 +84,7 @@ cp -r $SERVICES_DIR/xilsem/src $BSP_DIR/libsrc/xilsem/
 cp -r $SERVICES_DIR/xilsem/src/*.h $BSP_DIR/include/
 
 # copy bsp standalone code
-cp $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
+cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/common/clocking/*  $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/microblaze/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/

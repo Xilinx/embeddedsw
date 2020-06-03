@@ -1,9 +1,6 @@
-canfd
 cframe
 cfupmc
-coresightps_dcc
 csudma
-ddrpsv
 emacps
 gpiops
 iicps
