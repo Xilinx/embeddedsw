@@ -1664,6 +1664,7 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 {
 
 	u32 Status = (u32)XST_FAILURE;
+	u32 Mask = 0U;
 	u32 ReadReg = 0U;
 	u32 TimeOut = 0U;
 
@@ -1690,19 +1691,17 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 		TimeOut = TimeOut + 1U;
 	}
 
-	if ((ReadReg & XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_DONE_MASK) ==
-								0x00U) {
-		Status = (u32)XST_FAILURE;
-		goto END;
-	}
+	Mask = XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_DONE_MASK |
+			XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_PASS_MASK;
 
-	if ((ReadReg & XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_PASS_MASK) == 0x00U) {
+	if ((ReadReg & Mask) != Mask) {
 		Status = (u32)XST_FAILURE;
 	}
+	else {
+		Status = (u32)XST_SUCCESS;
+	}
 
-END:
 	return Status;
-
 }
 
 /*****************************************************************************/
