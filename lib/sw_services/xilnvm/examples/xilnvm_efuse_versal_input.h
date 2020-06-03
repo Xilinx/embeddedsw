@@ -15,6 +15,18 @@
 *
 *	User configurable parameters for Versal eFUSE
 *------------------------------------------------------------------------------
+*	#define XNVM_EFUSE_GLITCH_DET_WR_LOCK	FALSE
+*	TRUE permanently disables writing to ANLG_TRIM_3 row
+*	FALSE will not modify the bits in that row in eFUSE
+*
+*	#define XNVM_EFUSE_GD_HALT_BOOT_EN_1_0	FALSE
+*	TRUE permanently enables halt boot in ROM when a glitch observed
+*	FALSE will not modify the control bit in eFUSE
+
+*	#define XNVM_EFUSE_GD_ROM_MONITOR_EN	FALSE
+*	TRUE permanently enables the glitch monitoring in ROM
+*	FALSE will not modify the the control bit in eFUSE
+*
 *	#define XNVM_EFUSE_PPK0_WR_LK			FALSE
 *	TRUE permanently disables writing to PPK0 eFuse.
 *	FALSE will not modify this control bit of eFuse.
@@ -63,8 +75,12 @@
 *	TRUE invalidates the PPK2 hash stored in eFuses.
 *	FALSE will not modify this control bit of eFuse.
 *
-*	Following has to be set for programming required keys
+*	Following has to be set for programming required keys/data
 *------------------------------------------------------------------------------
+*	#define XNVM_EFUSE_WRITE_GLITCH_CFG		FALSE
+*	TRUE will burn the glitch configuration data in XNVM_EFUSE_GLITCH_CFG
+*	FALSE will ignore the data provided in XNVM_EFUSE_GLITCH_CFG
+*
 *	#define XNVM_EFUSE_WRITE_AES_KEY		FALSE
 *	TRUE will burn the AES key provided in XNVM_EFUSE_AES_KEY.
 *	FALSE will ignore the key provided in XNVM_EFUSE_AES_KEY.
@@ -183,6 +199,15 @@
 *	#define XNVM_EFUSE_READ_NUM_OF_USER_FUSES  XNVM_EFUSE_NUM_OF_USER_FUSES
 *	XNVM_EFUSE_READ_NUM_OF_USER_FUSES - Number of eFuses to be read
 *	By default it reads XNVM_EFUSE_NUM_OF_USER_FUSES
+*
+*	#define XNVM_EFUSE_GLITCH_CFG	"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should be
+*	given in string format. It should be 8 characters long and make sure
+*	that bit[31] is zero. Valid characters are 0-9,a-f,A-F. Any other
+*	character is considered as invalid string and will not burn any eFuses.
+*	Note that for writing the glitch configuration data,
+*	XNVM_EFUSE_WRITE_GLITCH_CFG should be set to TRUE
 *
 *	#define		XNVM_EFUSE_AES_KEY
 *	"0000000000000000000000000000000000000000000000000000000000000000"
@@ -460,7 +485,16 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* Following defines should be defined either TRUE or FALSE */
-
+/**
+ * Following define is to lock the glitch detection row (ANLG_TRIM_3[31])
+ */
+#define XNVM_EFUSE_GLITCH_DET_WR_LK		FALSE
+/**
+ * Following are the defines to select if the user wants to program
+ * glitch miscellaneous control bits
+ */
+#define XNVM_EFUSE_GD_HALT_BOOT_EN_1_0	FALSE
+#define XNVM_EFUSE_GD_ROM_MONITOR_EN	FALSE
 /**
  * Following is the define to select if the user wants to program
  * Secure control bits
@@ -479,10 +513,11 @@ extern "C" {
 #define XNVM_EFUSE_PPK2_INVLD			FALSE
 
 /**
- * Following is the define to select if the user wants to select AES key,
- * User Fuses, PPK0/PPK1/PPK2 hash, IVs, Revocation IDs and IVs
+ * Following is the define to select if the user wants to select Glitch configuration,
+ * AES key, User Fuses, PPK0/PPK1/PPK2 hash, IVs, Revocation IDs and IVs
  */
 /* For writing into eFuse */
+#define XNVM_EFUSE_WRITE_GLITCH_CFG		FALSE
 #define XNVM_EFUSE_WRITE_AES_KEY		FALSE
 #define XNVM_EFUSE_WRITE_USER_KEY_0		FALSE
 #define XNVM_EFUSE_WRITE_USER_KEY_1		FALSE
@@ -513,6 +548,9 @@ extern "C" {
  * The length of AES_KEY string must be 64, PPK hash should be 64 for
  * and for USER_FUSES.
  */
+
+#define XNVM_EFUSE_GLITCH_CFG	"00000000"
+
 #define XNVM_EFUSE_AES_KEY	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_USER_KEY_0	"0000000000000000000000000000000000000000000000000000000000000000"

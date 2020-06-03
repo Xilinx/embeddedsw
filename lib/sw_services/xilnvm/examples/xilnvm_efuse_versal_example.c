@@ -35,6 +35,7 @@
 #define XNVM_EFUSE_PPK_INVD_MASK			(3U)
 #define XNVM_EFUSE_AES_CRC_LK_MASK			(3U)
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
+#define XNVM_EFUSE_GLITCH_WR_LK_MASK		(0x80000000U)
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -48,7 +49,11 @@ static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseMiscCtrlBits *MiscCtrlBits);
 static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseRevokeIds *RevokeId);
-static u32 XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse, XNvm_EfuseIvs *Ivs);
+static u32 XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
+					XNvm_EfuseIvs *Ivs);
+
+static u32 XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
+					XNvm_EfuseGlitchCfgBits *GlitchData);
 
 static u32 XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseAesKeys *AesKeys);
@@ -98,10 +103,10 @@ EFUSE_ERROR:
 /****************************************************************************/
 /**
  * This function is used to send eFuses write request to library.
- * There are individual strutures for each set of eFuses in the library and
- * one global struture which defines type of requests present in the write
+ * There are individual structures for each set of eFuses in the library and
+ * one global structure which defines type of requests present in the write
  * request.
- * XNvm_EfuseData is a glbal struture and members of this struture will be
+ * XNvm_EfuseData is a global structure and members of this structure will be
  * filled with the data to be written to eFuse.
  *
  * Example :
@@ -109,7 +114,7 @@ EFUSE_ERROR:
  * program IVs then Ivs pointer in XNvm_EfuseData will be NULL.
  *
  * @return
- *	- XST_SUCCESS - If the Write is successfull
+ *	- XST_SUCCESS - If the Write is successful
  *	- Error code - On failure.
  *
  ******************************************************************************/
@@ -117,6 +122,7 @@ static u32 XilNvm_EfuseWriteFuses(void)
 {
 	XNvm_EfuseIvs Ivs = {0U};
 	XNvm_EfuseData WriteEfuse = {NULL};
+	XNvm_EfuseGlitchCfgBits GlitchData = {0U};
 	XNvm_EfuseAesKeys AesKeys = {0U};
 	XNvm_EfusePpkHash PpkHash = {0U};
 	XNvm_EfuseDecOnly DecOnly = {0U};
@@ -126,6 +132,11 @@ static u32 XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseUserData UserFuses = {0U};
 	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
 	u32 Status = (u32)XST_FAILURE;
+
+	Status = XilNvM_EfuseInitGlitchData(&WriteEfuse, &GlitchData);
+	if (Status != XST_SUCCESS) {
+		goto EFUSE_ERROR;
+	}
 
 	Status = XilNvm_EfuseInitAesKeys(&WriteEfuse, &AesKeys);
 	if (Status != XST_SUCCESS) {
@@ -180,7 +191,7 @@ EFUSE_ERROR:
  * This function reads all eFuses data and displays.
  *
  * @return
- *	- XST_SUCCESS - If all the read requests are succesfull.
+ *	- XST_SUCCESS - If all the read requests are successful.
  *	- Error code - On failure.
  *
  ******************************************************************************/
@@ -316,7 +327,7 @@ EFUSE_ERROR:
  * expected CRC values
  *
  * @return
- *	- XST_SUCCESS - If the CRC checks are successfull.
+ *	- XST_SUCCESS - If the CRC checks are successful.
  *	- Error code - On Failure
  *
  ******************************************************************************/
@@ -372,20 +383,84 @@ static u32 XilNvm_EfusePerformCrcChecks(void)
 EFUSE_ERROR:
 	return Status;
 }
-
 /****************************************************************************/
 /**
- * This function is used to initialize XNvm_EfuseAesKeys struture with user
+ * This function is used to initialize Glitch config structure with user
+ * provided data to program below eFuses.
+ * - Glitch Configuration Row write lock
+ * - Glitch configuration data
+ *
+ * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
+ *
+ * @param	GlitchData	Pointer to XNvm_EfuseGlitchCfgBits structure.
+ *
+ * @return
+ *		- XST_SUCCESS - If programming is successful
+ *		- ErrorCode - On Failure
+ *
+ ******************************************************************************/
+static u32 XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
+											XNvm_EfuseGlitchCfgBits *GlitchData)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	GlitchData->PrgmGlitch = XNVM_EFUSE_WRITE_GLITCH_CFG;
+
+	if(GlitchData->PrgmGlitch == TRUE) {
+		Status = Xil_ConvertStringToHex(XNVM_EFUSE_GLITCH_CFG,
+					&(GlitchData->GlitchDetTrim),
+					XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto ERROR;
+		}
+
+		/**
+		 * Config data size is 31 bits Bit[30:0]
+		 */
+		GlitchData->GlitchDetTrim = GlitchData->GlitchDetTrim &
+						(~XNVM_EFUSE_GLITCH_WR_LK_MASK);
+
+		if(XNVM_EFUSE_GLITCH_DET_WR_LK == TRUE) {
+			GlitchData->GlitchDetWrLk = 1U;
+		}
+		else {
+			GlitchData->GlitchDetWrLk = 0U;
+		}
+
+		if(XNVM_EFUSE_GD_ROM_MONITOR_EN == TRUE) {
+			GlitchData->GdRomMonitorEn = 1U;
+		}
+		else {
+			GlitchData->GdRomMonitorEn = 0U;
+		}
+
+		if(XNVM_EFUSE_GD_HALT_BOOT_EN_1_0 == TRUE) {
+			GlitchData->GdHaltBootEn = 1U;
+		}
+		else {
+			GlitchData->GdHaltBootEn = 0U;
+		}
+
+		WriteEfuse->GlitchCfgBits = GlitchData;
+	}
+
+	Status = (u32)XST_SUCCESS;
+ERROR:
+	return Status;
+}
+/****************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfuseAesKeys structure with user
  * provided data to program below eFuses.
  * - AES key
  * - AES User keys
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
- * @param	AesKeys		Pointer to XNvm_EfuseAesKeys struture.
+ * @param	AesKeys		Pointer to XNvm_EfuseAesKeys structure.
  *
  * @return
- *		- XST_SUCCESS - If programming is successfull
+ *		- XST_SUCCESS - If programming is successful
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
@@ -434,15 +509,15 @@ ERROR:
 
 /****************************************************************************/
 /**
- * This function is used to properly initialize the XNvm_EfusePpkHash struture
+ * This function is used to properly initialize the XNvm_EfusePpkHash structure
  * instance to program PPK0/PPK1/PPK2 hash eFuses.
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
- * @param	PpkHash		Pointer to XNvm_EfusePpkHash struture.
+ * @param	PpkHash		Pointer to XNvm_EfusePpkHash structure.
  *
  * @return
- *		- XST_SUCCESS - If programming is successfull
+ *		- XST_SUCCESS - If programming is successful
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
@@ -511,10 +586,10 @@ ERROR:
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
- * @param	DecOnly		Pointer to XNvm_EfuseDecOnly struture.
+ * @param	DecOnly		Pointer to XNvm_EfuseDecOnly structure.
  *
  * @return
- *		- XST_SUCCESS - If the programming is successfull
+ *		- XST_SUCCESS - If the programming is successful
  *		- ErrorCode - On failure.
  *
  ******************************************************************************/
@@ -542,14 +617,14 @@ ERROR:
 
 /****************************************************************************/
 /**
- * This function is used to initialize the XNvm_EfuseSecCtrlBits struture to program
+ * This function is used to initialize the XNvm_EfuseSecCtrlBits structure to program
  * SECURITY_CONTROL eFuses.
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
- * @param	SecCtrlBits	Pointer to XNvm_EfuseSecCtrlBits struture.
+ * @param	SecCtrlBits	Pointer to XNvm_EfuseSecCtrlBits structure.
  * @return
- *		- XST_SUCCESS - If the programming is successfull
+ *		- XST_SUCCESS - If the programming is successful
  *		- ErrCode - On failure
  *
  ******************************************************************************/
@@ -588,7 +663,7 @@ static u32 XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 
 /*****************************************************************************/
 /**
- * This function is used to initialize XNvm_EfuseMiscCtrlBits struture to program
+ * This function is used to initialize XNvm_EfuseMiscCtrlBits structure to program
  * PPK INVLD eFuses.
  *
  * @param	MiscCtrlBits	Pointer to XNvm_EfuseMiscCtrlBits structure
@@ -596,8 +671,8 @@ static u32 XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure
  *
  * @return
- *		- XST_SUCCESS - In programming is successfull
- *		- Error Code - On Faliure.
+ *		- XST_SUCCESS - In programming is successful
+ *		- Error Code - On Failure.
  *
  ******************************************************************************/
 static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
@@ -618,7 +693,7 @@ static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 
 /****************************************************************************/
 /**
- * This function is used to initialize XNvm_EfuseRevokeIds struture to program
+ * This function is used to initialize XNvm_EfuseRevokeIds structure to program
  * Revocation ID eFuses
  *
  * @param	WriteEfuse      Pointer to XNvm_EfuseData structure
@@ -626,8 +701,8 @@ static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
  * @param	RevokeIds	Pointer to XNvm_EfuseRevokeIds structure
  *
  * @return
- *		- XST_SUCCESS - If programming is succesfull
- *		- Error Code - On Faliure.
+ *		- XST_SUCCESS - If programming is successful
+ *		- Error Code - On Failure.
  *
  ******************************************************************************/
 static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
@@ -743,8 +818,8 @@ ERROR:
  * @param	Ivs		Pointer to XNvm_EfuseIvs structure
  *
  * @return
- *		- XST_SUCCESS - If programming is successfull
- *		- Error Code - On Faliure.
+ *		- XST_SUCCESS - If programming is successful
+ *		- Error Code - On Failure.
  *
  ******************************************************************************/
 static u32 XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
@@ -801,7 +876,7 @@ ERROR:
 
 /****************************************************************************/
 /**
- * This function is used to initialize XNvm_UserEfuseData struture to
+ * This function is used to initialize XNvm_UserEfuseData structure to
  * Program User Fuses
  *
  * @param	WriteEfuse      Pointer to XNvm_EfuseData structure
@@ -809,8 +884,8 @@ ERROR:
  * @param	Data		Pointer to XNvm_UserEfuseData structure
  *
  * @return
- *		- XST_SUCCESS - If programming is successfull
- *		- Error Code - On Faliure.
+ *		- XST_SUCCESS - If programming is successful
+ *		- Error Code - On Failure.
  *
  ******************************************************************************/
 static u32 XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
@@ -848,7 +923,7 @@ END:
  * This API reads secure and control bits from efuse cache and displays here.
  *
  * @return
- * 		- XST_SUCCESS - If read is successfull
+ * 		- XST_SUCCESS - If read is successful
  * 		- ErrorCode - On failure
  *
  ******************************************************************************/
@@ -1014,7 +1089,7 @@ static u32 XilNvm_EfuseShowCtrlBits()
  *
  * @return
  *		- XST_SUCCESS - In case of Success
- *		- Error Code - On Faliure.
+ *		- Error Code - On Failure.
  *
  ******************************************************************************/
 static u32 XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len)
@@ -1047,7 +1122,7 @@ ERROR:
  *
  * @return
  *		- XST_SUCCESS - In case of Success
- *		- Error Code - On Faliure.
+ *		- Error Code - On Failure.
  *
  ******************************************************************************/
 static u32 XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len)
@@ -1105,7 +1180,7 @@ END:
  * @param	Len  - Length of the input string
  *
  * @return
- *	- XST_SUCCESS	- On valid input Ppk Hash sring
+ *	- XST_SUCCESS	- On valid input Ppk Hash string
  *	- XST_INVALID_PARAM - On invalid length of the input string
  *	- XST_FAILURE	- On non hexadecimal character in string
  *

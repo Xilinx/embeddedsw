@@ -122,6 +122,10 @@ static u32 XNvm_EfuseWritePufSynData(u32 *SynData);
 static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
 static u32 XNvm_EfuseIsPufHelperDataEmpty(void);
 static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl);
+static u32 XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static u32 XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static u32 XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static u32 XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
 static u32 XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys);
 static u32 XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash);
 static u32 XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly);
@@ -176,7 +180,8 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 		(WriteNvm->RevokeIds == NULL) &&
 		(WriteNvm->MiscCtrlBits == NULL) &&
 		(WriteNvm->Ivs == NULL) &&
-		(WriteNvm->UserFuses == NULL)) {
+		(WriteNvm->UserFuses == NULL) &&
+		(WriteNvm->GlitchCfgBits == NULL)) {
 		Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
 	}
@@ -191,6 +196,35 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (Status | (u32)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		goto END;
+	}
+
+	if (WriteNvm->GlitchCfgBits != NULL) {
+
+		Status = XNvm_EfusePrgmGlitchCfgValues(WriteNvm->GlitchCfgBits);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		if (WriteNvm->GlitchCfgBits->GlitchDetWrLk == TRUE) {
+			Status =  XNvm_EfusePrgmGlitchWriteLock(WriteNvm->GlitchCfgBits);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if (WriteNvm->GlitchCfgBits->GdRomMonitorEn == TRUE) {
+			Status = XNvm_EfusePrgmGdRomMonEn(WriteNvm->GlitchCfgBits);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if (WriteNvm->GlitchCfgBits->GdHaltBootEn == TRUE) {
+			Status = XNvm_EfusePrgmGdRomHaltBootEn(WriteNvm->GlitchCfgBits);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
 	}
 
 	if (WriteNvm->AesKeys != NULL) {
@@ -467,7 +501,7 @@ END:
  * @param	SecCtrlBits		Pointer to the Xnvm_SecCtrlBits
  * 					which holds the read secure control bits.
  * @return
- * 		- XST_SUCCESS - On Successfull read.
+ * 		- XST_SUCCESS - On Successful read.
  * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter
  *
  ******************************************************************************/
@@ -662,7 +696,7 @@ END :
  *					which holds the read secure control bits.
  *
  * @return
- * 		- XST_SUCCESS - On Successfull read
+ * 		- XST_SUCCESS - On Successful read
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter
  *
  *******************************************************************************/
@@ -717,7 +751,7 @@ END:
  *					which holds the read secure control bits.
  *
  * @return
- * 		- XST_SUCCESS - On Successfull read.
+ * 		- XST_SUCCESS - On Successful read.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
  ******************************************************************************/
@@ -757,7 +791,7 @@ END:
  * @param	EfuseIv		Pointer to the XNvm_Iv.
  *
  * @return
- *	- XST_SUCCESS - On Successfull Write.
+ *	- XST_SUCCESS - On Successful Write.
  *	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  * 	- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV - Error while writing Meta Iv
  *	- XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV - Error while writing BlkObfus IV
@@ -789,7 +823,7 @@ END :
  * @param	EfuseIv		Pointer to the Xnvm_Iv
  *
  * @return
- * 	- XST_SUCCESS - On Successfull read.
+ * 	- XST_SUCCESS - On Successful read.
  *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *	- XNVM_EFUSE_ERR_RD_META_HEADER_IV - Error while reading Meta IV
  *	- XNVM_EFUSE_ERR_RD_BLACK_OBFUS_IV - Error while reading BlkObfus IV
@@ -913,7 +947,7 @@ END:
  * @param	EfuseDna	Pointer to the Xnvm_Dna
  *
  * @return
- * 		- XST_SUCCESS - On Successfull read.
+ * 		- XST_SUCCESS - On Successful read.
 
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid parameter.
  *
@@ -945,7 +979,7 @@ END:
  * @param	DecOnly		Pointer to the DecOnly efuse data
  *
  * @return
- * 		- XST_SUCCESS - On Successfull read
+ * 		- XST_SUCCESS - On Successful read
  *
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
@@ -978,7 +1012,7 @@ END:
  * @param 	PpkType		Type of the Ppk to be programmed
  *
  * @return
- *		- XST_SUCCESS - On Successfull read.
+ *		- XST_SUCCESS - On Successful read.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  * 		- XNVM_EFUSE_ERR_RD_PPK_HASH - Error while reading PPK Hash.
  ******************************************************************************/
@@ -1025,7 +1059,7 @@ END:
  * 				which Ppk to revoke.
  *
  * @return
- *		- XST_SUCCESS - On Successfull Revocation.
+ *		- XST_SUCCESS - On Successful Revocation.
  *		- Errorcode - On failure.
  ******************************************************************************/
 u32 XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
@@ -1591,6 +1625,181 @@ END:
 }
 
 /******************************************************************************/
+/**
+ * This function program Glitch Configuration
+ *
+ * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ *
+ * @return
+ *		- XST_SUCCESS - On Success
+ *		- XST_FAILURE - Failure in programming
+ *
+ ******************************************************************************/
+static u32 XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+{
+	u32 Status = (u32)XST_FAILURE;
+	u32 PrgmGlitchCfg = 0U;
+
+	if (WriteGlitchCfg == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (WriteGlitchCfg->PrgmGlitch == TRUE) {
+		Status = XNvm_EfuseComputeProgrammableBits(
+				&WriteGlitchCfg->GlitchDetTrim,
+				&PrgmGlitchCfg,
+				XNM_EFUSE_GLITCH_ANLG_TRIM_3,
+				(XNM_EFUSE_GLITCH_ANLG_TRIM_3 +
+				XNVM_EFUSE_GLITCH_NUM_OF_ROWS));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XNvm_EfusePgmAndVerifyRows(
+				XNM_EFUSE_GLITCH_ANLG_TRIM_3,
+				XNVM_EFUSE_GLITCH_NUM_OF_ROWS,
+				XNVM_EFUSE_PAGE_0,
+				&PrgmGlitchCfg);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_GLITCH_CFG);
+			goto END;
+		}
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function programs Glitch Write lock bit
+ *
+ * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ *
+ * @return
+ *		- XST_SUCCESS - On Success
+ *		- XST_FAILURE - Failure in programming
+ *
+ ******************************************************************************/
+static u32 XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	if (WriteGlitchCfg == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((WriteGlitchCfg->PrgmGlitch == TRUE)  &&
+			(WriteGlitchCfg->GlitchDetWrLk == TRUE)) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNM_EFUSE_GLITCH_ANLG_TRIM_3,
+				XNVM_EFUSE_GLITCH_WRLK_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_GLITCH_WRLK);
+			goto END;
+		}
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function enables the halt boot by ROM upon glitch detection.
+ *
+ * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ *
+ * @return
+ *		- XST_SUCCESS - On Success
+ *		- XST_FAILURE - Failure in programming
+ ******************************************************************************/
+static u32 XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	if (WriteGlitchCfg == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((WriteGlitchCfg->PrgmGlitch == TRUE)  &&
+			(WriteGlitchCfg->GdHaltBootEn == TRUE)) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			XNVM_EFUSE_GLITCH_HALT_EN_0_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
+			goto END;
+		}
+
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				XNVM_EFUSE_GLITCH_HALT_EN_1_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
+			goto END;
+		}
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function enables the glitch detection monitoring by ROM.
+ *
+ * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ *
+ * @return
+ *		- XST_SUCCESS - On Success
+ *		- XST_FAILURE - Failure in programming
+ ******************************************************************************/
+static u32 XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	if (WriteGlitchCfg == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((WriteGlitchCfg->PrgmGlitch == TRUE) &&
+			(WriteGlitchCfg->GdRomMonitorEn == TRUE)) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			XNVM_EFUSE_GLITCH_ROM_EN_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
+			goto END;
+		}
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
 /*
  * This function is used to program below eFuses
  * AES key
@@ -2130,7 +2339,7 @@ END:
  * @param	PpkSelect	Pointer to XNvm_EfuseMiscCtrlBits struture.
  *
  * @return
- *	- XST_SUCCESS - On Successfull write of Ppk revoke efuses.
+ *	- XST_SUCCESS - On Successful write of Ppk revoke efuses.
  *	- XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0 - Error in writing PPK0 Invld
  *	- XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1 - Error in writing PPK0 Invld
  *	- XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0 - Error in writing PPK1 Invld

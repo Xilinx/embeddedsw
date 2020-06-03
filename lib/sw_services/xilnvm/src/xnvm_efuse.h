@@ -441,6 +441,13 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT = 0xEB00U,/**<0xEB00U - Error in
 						* ROW96_99_1_PROT
 						* programming */
+	XNVM_EFUSE_ERR_WRITE_GLITCH_CFG = 0xEC00,/**<0xEC00 - Error in
+						* programming of glitch configuration */
+	XNVM_EFUSE_ERR_WRITE_GLITCH_WRLK = 0xED00,/**<0xED00 - Error in
+						* programming of glitch write lock */
+	XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS = 0xEE00,/**<0xEE00 - Error in
+						* programming of Glitch ROM monitor
+						* or glitch halt boot */
 	XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED = 0xF000U,/**<0xF000U - Error in
 						* Programming, no data is
 						* provided for Programming.
@@ -589,8 +596,6 @@ typedef struct {
 	u8 CrytoKatEn;
 	u8 HaltBootEnv;
 	u8 HaltBootError;
-	u8 GdRomMonitorEn;
-	u8 GdHaltBootEn;
 	u8 Ppk0Invalid;
 	u8 Ppk1Invalid;
 	u8 Ppk2Invalid;
@@ -600,6 +605,14 @@ typedef struct {
 	u8 PmcMbistEn;
 	u8 LpdMbistEn;
 }XNvm_EfuseMiscCtrlBits;
+
+typedef struct {
+	u8 PrgmGlitch;
+	u8 GlitchDetWrLk;
+	u32 GlitchDetTrim;
+	u8 GdRomMonitorEn;
+	u8 GdHaltBootEn;
+}XNvm_EfuseGlitchCfgBits;
 
 typedef struct {
 	u8 PrgmAesKey;
@@ -670,6 +683,7 @@ typedef struct {
 	XNvm_EfuseRevokeIds *RevokeIds;
 	XNvm_EfuseIvs *Ivs;
 	XNvm_EfuseUserData *UserFuses;
+	XNvm_EfuseGlitchCfgBits *GlitchCfgBits;
 }XNvm_EfuseData;
 
 /**
