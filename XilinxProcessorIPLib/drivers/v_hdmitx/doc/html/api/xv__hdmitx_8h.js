@@ -44,7 +44,8 @@ var xv__hdmitx_8h =
     [ "XV_HdmiTx_SetScrambler", "xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf", null ],
     [ "XV_HdmiTx_Callback", "xv__hdmitx_8h.html#ae8a70df98d7f9509bf1f21f1107fa49d", [
       [ "XV_HDMITX_AUDFMT_LPCM", "xv__hdmitx_8h.html#ae5879c686b0d530b43164d505cebeb7eaae37ebc0175d8adc167b9f2dc6148b9f", null ],
-      [ "XV_HDMITX_AUDFMT_HBR", "xv__hdmitx_8h.html#ae5879c686b0d530b43164d505cebeb7ea813b7b8a92558dffb69d7a3dbc5db601", null ]
+      [ "XV_HDMITX_AUDFMT_HBR", "xv__hdmitx_8h.html#ae5879c686b0d530b43164d505cebeb7ea813b7b8a92558dffb69d7a3dbc5db601", null ],
+      [ "XV_HDMITX_AUDFMT_3D", "xv__hdmitx_8h.html#ae5879c686b0d530b43164d505cebeb7ead70b75132a15ef1f723d0e1848bfe043", null ]
     ] ],
     [ "XV_HdmiTx_HandlerType", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2", [
       [ "XV_HDMITX_HANDLER_CONNECT", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2a9cce555e4306bf2bbae923e17db3e058", null ],

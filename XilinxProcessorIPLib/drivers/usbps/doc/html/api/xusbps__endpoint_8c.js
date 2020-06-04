@@ -5,8 +5,11 @@ var xusbps__endpoint_8c =
     [ "XUsbPs_EpBufferRelease", "xusbps__endpoint_8c.html#gaa01a009151d133f07249d7f932e22f11", null ],
     [ "XUsbPs_EpBufferSend", "xusbps__endpoint_8c.html#ga6bfe53ec45a998d5673b80e11ab4d292", null ],
     [ "XUsbPs_EpBufferSendWithZLT", "xusbps__endpoint_8c.html#ga1e4c0735be24ea24b73404db8d18133e", null ],
+    [ "XUsbPs_EpDataBufferReceive", "xusbps__endpoint_8c.html#gadbe72ae98e3bc73150a650f5f8e5c34f", null ],
+    [ "XUsbPs_EpGetData", "xusbps__endpoint_8c.html#ga0532b9ebbcab7bb72ec6bef692e20faf", null ],
     [ "XUsbPs_EpGetSetupData", "xusbps__endpoint_8c.html#ga91c44ff9dcae2e47ed8112c8a0779fa1", null ],
     [ "XUsbPs_EpPrime", "xusbps__endpoint_8c.html#gaba0ae2eac9c6b402e32e401333a5b105", null ],
     [ "XUsbPs_EpSetHandler", "xusbps__endpoint_8c.html#ga04fb0b564bcd01cdf33e29ca2732656a", null ],
+    [ "XUsbPs_EpSetIsoHandler", "xusbps__endpoint_8c.html#ga5eb603906d381d4a426a3d24fc2082a0", null ],
     [ "XUsbPs_ReconfigureEp", "xusbps__endpoint_8c.html#ga90aab040f015299b2064124bed882896", null ]
 ];

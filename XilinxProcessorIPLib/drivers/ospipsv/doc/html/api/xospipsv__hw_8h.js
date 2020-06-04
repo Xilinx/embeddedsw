@@ -9,6 +9,7 @@ var xospipsv__hw_8h =
     [ "XOSPIPSV_DLL_OBSERVABLE_LOWER_REG", "xospipsv__hw_8h.html#gab9e6d413329e545b16163ed5bac0b2dc", null ],
     [ "XOSPIPSV_DLL_OBSERVABLE_UPPER_REG", "xospipsv__hw_8h.html#ga1545fd712226d7848797a98e89564b96", null ],
     [ "XOSPIPSV_DMA_PERIPH_CONFIG_REG", "xospipsv__hw_8h.html#gaf0173423cbb0c6f0f095f20bea970a81", null ],
+    [ "XOSPIPSV_ECO_REG", "xospipsv__hw_8h.html#ga2539086689a8de22c2102411c25ca8e8", null ],
     [ "XOSPIPSV_FLASH_CMD_ADDR_REG", "xospipsv__hw_8h.html#ga1147b04a97e9da772a6779929ae2a557", null ],
     [ "XOSPIPSV_FLASH_CMD_CTRL_REG", "xospipsv__hw_8h.html#ga454e15e6a4565328cec46ffe7efad288", null ],
     [ "XOSPIPSV_FLASH_COMMAND_CTRL_MEM_REG", "xospipsv__hw_8h.html#ga13b7fc41fdd2c030689972c22ea9685e", null ],

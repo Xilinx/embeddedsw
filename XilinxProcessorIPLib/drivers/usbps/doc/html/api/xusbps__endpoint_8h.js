@@ -30,6 +30,7 @@ var xusbps__endpoint_8h =
     [ "XUSBPS_dTDRSRVD", "xusbps__endpoint_8h.html#ga304ffb51a9138fa0195b284096c1463e", null ],
     [ "XUsbPs_dTDSetActive", "xusbps__endpoint_8h.html#ga391b6782385021bb6ea588f85e81655d", null ],
     [ "XUsbPs_dTDSetIOC", "xusbps__endpoint_8h.html#gabd3140e00ef6e8680e34ee234d0ea416", null ],
+    [ "XUsbPs_dTDSetMultO", "xusbps__endpoint_8h.html#ga3a1bc5acb0e193094a4d98ff052cf934", null ],
     [ "XUsbPs_dTDSetNLP", "xusbps__endpoint_8h.html#ga8d5cfe0e60b6d415d793c2a7ae59fff3", null ],
     [ "XUsbPs_dTDSetTerminate", "xusbps__endpoint_8h.html#ga90d5c9b287b9f052eaacd2134bfe144a", null ],
     [ "XUsbPs_dTDSetTransferLen", "xusbps__endpoint_8h.html#ga53e16e680fe49e56c3267e4d9d81078a", null ],

@@ -11,6 +11,7 @@ var xv__hdmitxss_8c =
     [ "XV_HdmiTxSs_GetAudioInfoframe", "xv__hdmitxss_8c.html#a25d70c52e0192568f9baa27951ea2e7a", null ],
     [ "XV_HdmiTxSs_GetAuxiliary", "xv__hdmitxss_8c.html#a75e0c4c16875b294389b12e2dd1910d8", null ],
     [ "XV_HdmiTxSs_GetAviInfoframe", "xv__hdmitxss_8c.html#a64baf7a67735b16f23b3ae4aa3db6a18", null ],
+    [ "XV_HdmiTxSs_GetDrmInfoframe", "xv__hdmitxss_8c.html#ab5b252d413f8804cc5eddf894a2ddcc4", null ],
     [ "XV_HdmiTxSs_GetTmdsClockFreqHz", "xv__hdmitxss_8c.html#ad3f21f86b6abc00a736416e435067085", null ],
     [ "XV_HdmiTxSs_GetVideoStream", "xv__hdmitxss_8c.html#ae0188b2e6efd4b22b2c0c8203a180f52", null ],
     [ "XV_HdmiTxSs_GetVSIF", "xv__hdmitxss_8c.html#a5d7b94dcf090118a688144c74cbd9442", null ],

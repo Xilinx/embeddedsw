@@ -18,7 +18,7 @@ var xv__sdirx_8h =
       [ "XV_SDIRX_NTSC", "xv__sdirx_8h.html#a643d44aea91e14664fbe67a5aaf604f1abc4b57c54225f99fb7dc60aa42b30659", null ],
       [ "XV_SDIRX_PAL", "xv__sdirx_8h.html#a643d44aea91e14664fbe67a5aaf604f1ae95b3d675cac5018853061e5e94bd282", null ],
       [ "XV_SDIRX_FR_NONE", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bca941fb132f1d70468b95ed3149ad42a61", null ],
-      [ "XV_SDIRX_FR_UNKNOWN", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bca61c3d24694e4db8d5bbd1f2976e5f397", null ],
+      [ "XV_SDIRX_FR_96HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bcab6b8bf36e04179ecfe58aa8fa1eff2d3", null ],
       [ "XV_SDIRX_FR_23_98HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bcaf4c8e55b670dda06a5fbeae082745149", null ],
       [ "XV_SDIRX_FR_24HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bca9d4328d6a2e478abc3decc7e2340fc1f", null ],
       [ "XV_SDIRX_FR_47_95HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bcad598968f2b4a0d2a6af63fb0bb287569", null ],
@@ -29,6 +29,10 @@ var xv__sdirx_8h =
       [ "XV_SDIRX_FR_50HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bcab02181bae398f867e6f144938df37b36", null ],
       [ "XV_SDIRX_FR_59_94HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bcab068435b52dbb14b33758a3a2c9d51a6", null ],
       [ "XV_SDIRX_FR_60HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bca38a2ed0b6cdea3e632d4c39d32bee6b1", null ],
+      [ "XV_SDIRX_FR_96_F_HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bca28c0ca775a39705e95b0fcb835f3a252", null ],
+      [ "XV_SDIRX_FR_100HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bca14dba08b17e2fd170d9bc0c6d15fbe1a", null ],
+      [ "XV_SDIRX_FR_120HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bca9eb79dd76f7121d4269c3dff21f771e8", null ],
+      [ "XV_SDIRX_FR_120_F_HZ", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bcad61dffa5bcde3f5d7ee100736fcd8446", null ],
       [ "XV_SDIRX_FR_NUM_SUPPORTED", "xv__sdirx_8h.html#a60329280ba571767f1eb8c2b7566d5bcab534425b1756eebc08b744354b2fb831", null ]
     ] ],
     [ "XV_SdiRx_HandlerType", "xv__sdirx_8h.html#a9b55e7f779d33af1dfd1e94d8229e74c", [
@@ -83,6 +87,7 @@ var xv__sdirx_8h =
     [ "XV_SdiRx_ReportDetectedError", "xv__sdirx_8h.html#aa5e237f32f024f3faff39e35aa4cb117", null ],
     [ "XV_SdiRx_ResetStream", "xv__sdirx_8h.html#aa66cc2cf6652b5b1278dd7a49ddf9a8e", null ],
     [ "XV_SdiRx_SelfTest", "xv__sdirx_8h.html#ga44f1120088e4da9b903c225f4610e830", null ],
+    [ "XV_SdiRx_SetBitDepth", "xv__sdirx_8h.html#a136ea0572bd8a2d63572d89e53c515af", null ],
     [ "XV_SdiRx_SetCallback", "xv__sdirx_8h.html#a930b44edf2e883bcd5c3ac06e8b257a0", null ],
     [ "XV_SdiRx_SetEdhErrCntTrigger", "xv__sdirx_8h.html#aeb19c921c0ff6ec2b60bdb6911bdc8d2", null ],
     [ "XV_SdiRx_SetVidLckWindow", "xv__sdirx_8h.html#ab2a5fcb4ce17112434766264f92099ef", null ],

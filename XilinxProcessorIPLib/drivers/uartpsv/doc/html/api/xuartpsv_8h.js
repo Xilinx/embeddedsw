@@ -45,6 +45,7 @@ var xuartpsv_8h =
     [ "XUartPsv_InterruptHandler", "xuartpsv_8h.html#ga869ac0531d2e16457706d013d7f0a0cc", null ],
     [ "XUartPsv_IsSending", "xuartpsv_8h.html#gaa335aef95c763728b0d179ddc3e8b209", null ],
     [ "XUartPsv_LookupConfig", "xuartpsv_8h.html#ga7477291ed48190c1ef632c2086e013e9", null ],
+    [ "XUartPsv_ProgramCtrlReg", "xuartpsv_8h.html#gaa19ed118438249d9c56cd3afcfa8898c", null ],
     [ "XUartPsv_Recv", "xuartpsv_8h.html#ga4d4d20bbcedb1de2adbe2644b821d12d", null ],
     [ "XUartPsv_SelfTest", "xuartpsv_8h.html#ga5dba5d9d345ab578b8410113968ffaa6", null ],
     [ "XUartPsv_Send", "xuartpsv_8h.html#ga71a962de4963e15f1c38e7831e825f7c", null ],
@@ -54,5 +55,7 @@ var xuartpsv_8h =
     [ "XUartPsv_SetHandler", "xuartpsv_8h.html#gafc24dc61fc253a957ba631fb53b5dfc8", null ],
     [ "XUartPsv_SetInterruptMask", "xuartpsv_8h.html#ga09b94a490c696d7ff7b1c6bbec42b226", null ],
     [ "XUartPsv_SetOperMode", "xuartpsv_8h.html#ga0ea310ea61d052f2c4f5cce2dfadfc46", null ],
-    [ "XUartPsv_SetOptions", "xuartpsv_8h.html#gada7b7128f09873d46fc19d0d9cf91751", null ]
+    [ "XUartPsv_SetOptions", "xuartpsv_8h.html#gada7b7128f09873d46fc19d0d9cf91751", null ],
+    [ "XUartPsv_SetRxFifoThreshold", "xuartpsv_8h.html#ga8bc7523050515544bb2823a9254ac8f5", null ],
+    [ "XUartPsv_SetTxFifoThreshold", "xuartpsv_8h.html#ga43c4fde1105e2505e10c684622be1d13", null ]
 ];

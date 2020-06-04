@@ -10,6 +10,7 @@ var struct_x_v___sdi_tx_ss =
     [ "IsReady", "struct_x_v___sdi_tx_ss.html#a007ef3d8344c1cbd5ab2c5d2eed76854", null ],
     [ "IsStreamUp", "struct_x_v___sdi_tx_ss.html#a937df31c09d932687e6cd1fae650b084", null ],
     [ "Log", "struct_x_v___sdi_tx_ss.html#a310541f8343d83af656a6b8a313a3d4c", null ],
+    [ "MaxDataStreams", "struct_x_v___sdi_tx_ss.html#a1816a566cc15b5dec1c8137e59162dcd", null ],
     [ "OverFlowCallback", "struct_x_v___sdi_tx_ss.html#aa081253e62e662304ceb1327023b0737", null ],
     [ "OverFlowRef", "struct_x_v___sdi_tx_ss.html#a1487b5295185aaf55fa557244ab002b1", null ],
     [ "SdiTxPtr", "struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71", null ],

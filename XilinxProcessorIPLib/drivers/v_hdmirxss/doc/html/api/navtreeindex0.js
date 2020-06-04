@@ -8,6 +8,9 @@ var NAVTREEINDEX0 =
 "audiogen__drv_8h.html":[2,2],
 "audiogen__drv_8h.html#a1f8b21c2dd98f173e0f58038514a832d":[2,2,3],
 "audiogen__drv_8h.html#a32eb5f44dc9631db2600edd337de5e35":[2,2,2],
+"audiogen__drv_8h.html#a38f16784b07ff9bb90f943cf805b1054a0af4624477c2375604b4fcbb5570f54a":[2,2,3,1],
+"audiogen__drv_8h.html#a38f16784b07ff9bb90f943cf805b1054a70c7ae4177c9d370cf95c111d5c4736a":[2,2,3,0],
+"audiogen__drv_8h.html#a38f16784b07ff9bb90f943cf805b1054ab5c5ad9a8fbfe115d8a54660b096e593":[2,2,3,2],
 "audiogen__drv_8h.html#a54032017588d2fc51e5632662318220d":[2,2,0],
 "audiogen__drv_8h.html#a6ec52584543cfd0cb513205cb3e84e60a0c06bfa39aa16f400dc7738d05e187cc":[2,2,3,0],
 "audiogen__drv_8h.html#a6ec52584543cfd0cb513205cb3e84e60a0de9e337cd9581197947935fdcdaf706":[2,2,3,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "struct_x_v___hdmi_rx_ss___config.html#a63cf365a205b7f982be654194c765353":[0,0,3,0],
 "struct_x_v___hdmi_rx_ss___config.html#ac2fbb1bb237fb962318fd3e6512abdb2":[0,0,3,2],
 "struct_x_v___hdmi_rx_ss___config.html#ad08f9bc0025dc447f1d91d62e03d6c89":[0,0,3,5],
-"struct_x_v___hdmi_rx_ss___config.html#ae3bc6c803098c13d8b8d6bce5920c10f":[0,0,3,8],
-"struct_x_v___hdmi_rx_ss___config.html#aee79d98ebde06a2f3605a6e3a1566316":[0,0,3,7],
-"struct_x_v___hdmi_rx_ss___log.html":[0,0,4],
-"struct_x_v___hdmi_rx_ss___log.html#a88f784a8fadd929060a2d86c9c7afe3b":[0,0,4,2]
+"struct_x_v___hdmi_rx_ss___config.html#ae3bc6c803098c13d8b8d6bce5920c10f":[0,0,3,8]
 };

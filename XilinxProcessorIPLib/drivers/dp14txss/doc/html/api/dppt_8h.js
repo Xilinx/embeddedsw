@@ -13,6 +13,7 @@ var dppt_8h =
     [ "DpRxSs_CRCTestEventHandler", "dppt_8h.html#ab705b88ffccba236871be621549ff82d", null ],
     [ "DpRxSs_ExtPacketHandler", "dppt_8h.html#a5fce4aaa5fae17e664cd573bef9c2be0", null ],
     [ "DpRxSs_InfoPacketHandler", "dppt_8h.html#a5261c0e9a724d7ccdcf46f15f1c2c2e6", null ],
+    [ "get_LineRate", "dppt_8h.html#a4f08b7f747aa871c3bf0347e7a97a014", null ],
     [ "hpd_con", "dppt_8h.html#a40dd23eb6e5ea766a4f13761eebbd773", null ],
     [ "hpd_pulse_con", "dppt_8h.html#ac521dd8412dd53d968e0cbe056d7dbb9", null ],
     [ "i2c_read_dp141", "dppt_8h.html#af589f4ebb478f2da75bfdc9b89379db5", null ],

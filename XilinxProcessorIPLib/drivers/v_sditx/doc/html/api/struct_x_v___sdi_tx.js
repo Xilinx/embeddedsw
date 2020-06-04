@@ -2,6 +2,7 @@ var struct_x_v___sdi_tx =
 [
     [ "Axi4sVidLockCallback", "struct_x_v___sdi_tx.html#aed8cfe1133b6634062a812d071a0aa22", null ],
     [ "Axi4sVidLockRef", "struct_x_v___sdi_tx.html#abf36537078035e585923379c2418ab3b", null ],
+    [ "bitdepth", "struct_x_v___sdi_tx.html#ae263a574a1cda2b8183a39b64f11cb0e", null ],
     [ "CeAlignErrCallback", "struct_x_v___sdi_tx.html#a64fdd35bfea31fc793c9d29224772cdd", null ],
     [ "CeAlignErrRef", "struct_x_v___sdi_tx.html#af36c4e02ba3fe1d781a8d778fb22c733", null ],
     [ "Config", "struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825", null ],

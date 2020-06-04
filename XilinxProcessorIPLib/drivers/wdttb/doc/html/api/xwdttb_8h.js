@@ -30,6 +30,7 @@ var xwdttb_8h =
     [ "XWdtTb_SelfTest", "xwdttb_8h.html#gaa9e410506154d92a551b6261742d98b1", null ],
     [ "XWdtTb_SetByteCount", "xwdttb_8h.html#gaa1e121c7e6b69d7b10fedf92d91b5396", null ],
     [ "XWdtTb_SetByteSegment", "xwdttb_8h.html#ga26519cefd97128dca8d1f147f5364945", null ],
+    [ "XWdtTb_SetGenericWdtWindow", "xwdttb_8h.html#ga160723502d4b5b8797e358f96cc902c1", null ],
     [ "XWdtTb_SetWindowCount", "xwdttb_8h.html#ga924185ce28862e06ea62fa4f51bfed8d", null ],
     [ "XWdtTb_Start", "xwdttb_8h.html#gaab195e280eca1e2985509d954c2e4e52", null ],
     [ "XWdtTb_Stop", "xwdttb_8h.html#gacd5617bce061deaa57743ea46008daf8", null ]

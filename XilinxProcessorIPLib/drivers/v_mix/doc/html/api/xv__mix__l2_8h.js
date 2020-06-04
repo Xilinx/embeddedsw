@@ -4,6 +4,7 @@ var xv__mix__l2_8h =
     [ "XVMix_GetLayerInterfaceType", "xv__mix__l2_8h.html#ga61712123a1ec7d4f21b3e6245fb1e422", null ],
     [ "XVMix_GetNumLayers", "xv__mix__l2_8h.html#gab0893c45f2ea0018724305170296e926", null ],
     [ "XVMix_IsAlphaEnabled", "xv__mix__l2_8h.html#ga4e3f6aec16afcf025476f4a331741d82", null ],
+    [ "XVMix_IsCscCoeffsRegsEnabled", "xv__mix__l2_8h.html#ga065d3541c8ce721b6098398cf7d4e97f", null ],
     [ "XVMix_IsLayerInterfaceStream", "xv__mix__l2_8h.html#ga33dca66e76d77f9384a0fee6b662cd25", null ],
     [ "XVMix_IsLogoColorKeyEnabled", "xv__mix__l2_8h.html#ga13bf8d0cb911a015fce2f4a5d85c2646", null ],
     [ "XVMix_IsLogoEnabled", "xv__mix__l2_8h.html#ga213581e68e05ded964cd81e67dd6dda9", null ],

@@ -13,6 +13,7 @@ var xv__sdirx_8c =
     [ "XV_SdiRx_GetSdiMode", "xv__sdirx_8c.html#aee258ea49b5efc86d34ece895236a71a", null ],
     [ "XV_SdiRx_ReportDetectedError", "xv__sdirx_8c.html#aa5e237f32f024f3faff39e35aa4cb117", null ],
     [ "XV_SdiRx_ResetStream", "xv__sdirx_8c.html#aa66cc2cf6652b5b1278dd7a49ddf9a8e", null ],
+    [ "XV_SdiRx_SetBitDepth", "xv__sdirx_8c.html#a136ea0572bd8a2d63572d89e53c515af", null ],
     [ "XV_SdiRx_SetEdhErrCntTrigger", "xv__sdirx_8c.html#aeb19c921c0ff6ec2b60bdb6911bdc8d2", null ],
     [ "XV_SdiRx_SetVidLckWindow", "xv__sdirx_8c.html#ab2a5fcb4ce17112434766264f92099ef", null ],
     [ "XV_SdiRx_SetYCbCr444_RGB_10bit", "xv__sdirx_8c.html#ab94dfd6e8b78b704f5b9a16a2afb5840", null ],

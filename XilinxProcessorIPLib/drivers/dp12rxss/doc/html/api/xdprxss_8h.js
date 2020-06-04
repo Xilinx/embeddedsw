@@ -41,7 +41,7 @@ var xdprxss_8h =
     [ "XDpRxSs_DrvVideoHandler", "xdprxss_8h.html#gafe7a6062139a0cc9b6128ba8af7eea9e", null ],
     [ "XDpRxSs_ExposePort", "xdprxss_8h.html#ga65886916bf0be3e73f4d718ec087c6f5", null ],
     [ "XDpRxSs_HandleDownReq", "xdprxss_8h.html#gaae2cb38734654cfeca1d77b0439c243e", null ],
-    [ "XDpRxSs_LookupConfig", "xdprxss_8h.html#gac2f05811603d9d38de752c4da2297dfc", null ],
+    [ "XDpRxSs_LookupConfig", "xdprxss_8h.html#ga81fb45e531552358b584b48d5d1d65f5", null ],
     [ "XDpRxSs_ReportCoreInfo", "xdprxss_8h.html#ga5bcda88f1e979aa99b8a903a12e421fc", null ],
     [ "XDpRxSs_ReportDp159BitErrCount", "xdprxss_8h.html#gaec9c155be16f1cd2464202647930d27b", null ],
     [ "XDpRxSs_ReportHdcpInfo", "xdprxss_8h.html#gab0ccd2eb3d6c5633d9ca61961ddc911d", null ],

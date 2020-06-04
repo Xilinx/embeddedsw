@@ -9,5 +9,7 @@ var xuartpsv__options_8c =
     [ "XUartPsv_SetDataFormat", "xuartpsv__options_8c.html#ga5947dc8794a2d6d1b5cfb7558a83ac4a", null ],
     [ "XUartPsv_SetFifoThreshold", "xuartpsv__options_8c.html#gab2c5afc9fe98688f68d1eb52e5014401", null ],
     [ "XUartPsv_SetOperMode", "xuartpsv__options_8c.html#ga0ea310ea61d052f2c4f5cce2dfadfc46", null ],
-    [ "XUartPsv_SetOptions", "xuartpsv__options_8c.html#gada7b7128f09873d46fc19d0d9cf91751", null ]
+    [ "XUartPsv_SetOptions", "xuartpsv__options_8c.html#gada7b7128f09873d46fc19d0d9cf91751", null ],
+    [ "XUartPsv_SetRxFifoThreshold", "xuartpsv__options_8c.html#ga8bc7523050515544bb2823a9254ac8f5", null ],
+    [ "XUartPsv_SetTxFifoThreshold", "xuartpsv__options_8c.html#ga43c4fde1105e2505e10c684622be1d13", null ]
 ];

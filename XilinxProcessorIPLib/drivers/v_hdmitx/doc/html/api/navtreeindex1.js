@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"xv__hdmitx__hw_8h.html#a4ba5033c98cfedf815f51ea6c76cb0ec":[2,2,21],
 "xv__hdmitx__hw_8h.html#a5057e256f62c3af0dc0c4e08a6ebf5b3":[2,2,103],
 "xv__hdmitx__hw_8h.html#a50a497ec4e91768009efd7752e7ed9f6":[2,2,84],
 "xv__hdmitx__hw_8h.html#a5131cd2488ca4a797d71849293cc1109":[2,2,77],

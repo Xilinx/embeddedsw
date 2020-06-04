@@ -16,6 +16,9 @@ var audiogen__drv_8h =
       [ "XAUD_SRATE_96K", "audiogen__drv_8h.html#a6ec52584543cfd0cb513205cb3e84e60a997cd2b908fb409f88d1496f5b37c48d", null ],
       [ "XAUD_SRATE_176K4", "audiogen__drv_8h.html#a6ec52584543cfd0cb513205cb3e84e60aa29da6460c80df657718fcd684f1ad5a", null ],
       [ "XAUD_SRATE_192K", "audiogen__drv_8h.html#a6ec52584543cfd0cb513205cb3e84e60a8553d90ac68210c0c5c1f67b5a91b2f6", null ],
-      [ "XAUD_NUM_SUPPORTED_SRATE", "audiogen__drv_8h.html#a6ec52584543cfd0cb513205cb3e84e60aaa7fde28bb185111d341b7a09433801f", null ]
+      [ "XAUD_NUM_SUPPORTED_SRATE", "audiogen__drv_8h.html#a6ec52584543cfd0cb513205cb3e84e60aaa7fde28bb185111d341b7a09433801f", null ],
+      [ "AUDGEN_MMCM_CLKFBOUT_MULT_F", "audiogen__drv_8h.html#a38f16784b07ff9bb90f943cf805b1054a70c7ae4177c9d370cf95c111d5c4736a", null ],
+      [ "AUDGEN_MMCM_DIVCLK_DIVIDE", "audiogen__drv_8h.html#a38f16784b07ff9bb90f943cf805b1054a0af4624477c2375604b4fcbb5570f54a", null ],
+      [ "AUDGEN_MMCM_CLKOUT_DIVIDE", "audiogen__drv_8h.html#a38f16784b07ff9bb90f943cf805b1054ab5c5ad9a8fbfe115d8a54660b096e593", null ]
     ] ]
 ];

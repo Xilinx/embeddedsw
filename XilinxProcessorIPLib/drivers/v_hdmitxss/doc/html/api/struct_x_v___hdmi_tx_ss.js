@@ -16,6 +16,7 @@ var struct_x_v___hdmi_tx_ss =
     [ "Config", "struct_x_v___hdmi_tx_ss.html#a85f740373921c8cd92ced34d1c84b08a", null ],
     [ "ConnectCallback", "struct_x_v___hdmi_tx_ss.html#a39b5e05a75519d2a5ea95843a73d5b3d", null ],
     [ "ConnectRef", "struct_x_v___hdmi_tx_ss.html#af2d693256a7ab9bd3b4bbee0a1f52a94", null ],
+    [ "DrmInfoframe", "struct_x_v___hdmi_tx_ss.html#ab4402bb295156f676dc7f4ce449aa4e9", null ],
     [ "HdcpProtocol", "struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967", null ],
     [ "HdmiTxPtr", "struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89", null ],
     [ "IsReady", "struct_x_v___hdmi_tx_ss.html#ad62ad2dbc295e57b36a4117b58c22ae3", null ],

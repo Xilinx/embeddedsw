@@ -23,8 +23,8 @@ var xhdmiphy1_8h =
     ] ],
     [ "XHdmiphy1_GtState", "xhdmiphy1_8h.html#ga19e4c793abee3457123797eca4f61cd0", [
       [ "XHDMIPHY1_GT_STATE_IDLE", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0abb6da8fd6d31dd97dea1910021b0d8f7", null ],
-      [ "XHDMIPHY1_GT_STATE_LOCK", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0aeb66246b5c2c3de1c42d34fc8a5a9de2", null ],
       [ "XHDMIPHY1_GT_STATE_GPO_RE", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0a8237da6c8720d2611ec2eb56927e9fd6", null ],
+      [ "XHDMIPHY1_GT_STATE_LOCK", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0aeb66246b5c2c3de1c42d34fc8a5a9de2", null ],
       [ "XHDMIPHY1_GT_STATE_RESET", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0adbd966511bbee7acb1ce508578605fb6", null ],
       [ "XHDMIPHY1_GT_STATE_ALIGN", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0a540efa0ad171c67927e0364e77bf0ab0", null ],
       [ "XHDMIPHY1_GT_STATE_READY", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0af0bd0b978b52982e2caf6a30afc3f57d", null ],
@@ -130,11 +130,11 @@ var xhdmiphy1_8h =
       [ "XHDMIPHY1_LOG_EVT_USRCLK_ERR", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fabf63790d5f5a16fdfbbd3c5d2680fa29", null ],
       [ "XHDMIPHY1_LOG_EVT_SPDGRDE_ERR", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa087c065913419984d661cf0488fe3e7e", null ],
       [ "XHDMIPHY1_LOG_EVT_DUMMY", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fac5e344d7d6b6232fbba3fa5698de8532", null ],
-      [ "MMCM_CLKINSEL_CLKIN1", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056ebaa00c64ed64facf6e3b9a3040a867bb89", null ],
-      [ "MMCM_CLKINSEL_CLKIN2", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056eba79789c29c8c172411cab9e5471c691ff", null ],
-      [ "MMCM_CLKFBOUT_MULT_F", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1aa8489b98d64a482faac08775bfddc5b6", null ],
-      [ "MMCM_DIVCLK_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4f289b13fe1f330746041550af27eb88", null ],
-      [ "MMCM_CLKOUT_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4c4adb11a4bedf6052cc12834eb0d747", null ]
+      [ "XHDMIPHY1_MMCM_CLKINSEL_CLKIN1", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056ebaf1260fac83210a6f4eaa8a662337ab77", null ],
+      [ "XHDMIPHY1_MMCM_CLKINSEL_CLKIN2", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056eba5f4960a25e2d9a5e894732aed7f5243c", null ],
+      [ "XHDMIPHY1_MMCM_CLKFBOUT_MULT_F", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1ac73ff0db8b5c939871761014ab1d4167", null ],
+      [ "XHDMIPHY1_MMCM_DIVCLK_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a95b2ddb09d855294152b039776ce4e32", null ],
+      [ "XHDMIPHY1_MMCM_CLKOUT_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4618e557ec32d01bede36da5194b1ac5", null ]
     ] ],
     [ "XHdmiphy1_OutClkSelType", "xhdmiphy1_8h.html#ga1b751875671500e5b0173be954368177", [
       [ "XHDMIPHY1_OUTCLKSEL_TYPE_OUTCLKPCS", "xhdmiphy1_8h.html#gga1b751875671500e5b0173be954368177a75fb0ca7ba319387dc2c9fb9d18747f0", null ],

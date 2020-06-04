@@ -1,5 +1,6 @@
 var files =
 [
+    [ "xaie-events.c", "xaie-events_8c.html", "xaie-events_8c" ],
     [ "xaieconfig.h", "xaieconfig_8h.html", null ],
     [ "xaiedma_shim.c", "xaiedma__shim_8c.html", "xaiedma__shim_8c" ],
     [ "xaiedma_shim.h", "xaiedma__shim_8h.html", "xaiedma__shim_8h" ],
@@ -18,6 +19,8 @@ var files =
     [ "xaielib.h", "xaielib_8h.html", "xaielib_8h" ],
     [ "xaielib_npi.c", "xaielib__npi_8c.html", "xaielib__npi_8c" ],
     [ "xaielib_npi.h", "xaielib__npi_8h.html", "xaielib__npi_8h" ],
+    [ "xaiepm_clock.c", "xaiepm__clock_8c.html", null ],
+    [ "xaiepm_clock.h", "xaiepm__clock_8h.html", null ],
     [ "xaierts_test_app.c", "xaierts__test__app_8c.html", null ],
     [ "xaiesim.c", "xaiesim_8c.html", "xaiesim_8c" ],
     [ "xaiesim.h", "xaiesim_8h.html", "xaiesim_8h" ],
@@ -25,6 +28,8 @@ var files =
     [ "xaiesim_elfload.h", "xaiesim__elfload_8h.html", "xaiesim__elfload_8h" ],
     [ "xaietile_core.c", "xaietile__core_8c.html", "xaietile__core_8c" ],
     [ "xaietile_core.h", "xaietile__core_8h.html", "xaietile__core_8h" ],
+    [ "xaietile_error.c", "xaietile__error_8c.html", "xaietile__error_8c" ],
+    [ "xaietile_error.h", "xaietile__error_8h.html", "xaietile__error_8h" ],
     [ "xaietile_event.c", "xaietile__event_8c.html", "xaietile__event_8c" ],
     [ "xaietile_event.h", "xaietile__event_8h.html", "xaietile__event_8h" ],
     [ "xaietile_lock.c", "xaietile__lock_8c.html", "xaietile__lock_8c" ],
@@ -45,6 +50,8 @@ var files =
     [ "xaietile_shim.h", "xaietile__shim_8h.html", "xaietile__shim_8h" ],
     [ "xaietile_strm.c", "xaietile__strm_8c.html", "xaietile__strm_8c" ],
     [ "xaietile_strm.h", "xaietile__strm_8h.html", "xaietile__strm_8h" ],
+    [ "xaietile_timer.c", "xaietile__timer_8c.html", "xaietile__timer_8c" ],
+    [ "xaietile_timer.h", "xaietile__timer_8h.html", "xaietile__timer_8h" ],
     [ "xparameters_aie.h", "xparameters__aie_8h.html", null ],
     [ "xsock.c", "xsock_8c.html", "xsock_8c" ],
     [ "xsock.h", "xsock_8h.html", "xsock_8h" ],

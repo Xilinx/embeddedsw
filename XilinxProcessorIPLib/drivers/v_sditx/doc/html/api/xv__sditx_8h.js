@@ -71,6 +71,7 @@ var xv__sditx_8h =
     [ "XV_SdiTx_ReportDetectedError", "xv__sditx_8h.html#aee1111d7059109893a1d72030ad1a9ac", null ],
     [ "XV_SdiTx_Reset", "xv__sditx_8h.html#a70285dc6297657fdda31509014f50f7e", null ],
     [ "XV_SdiTx_SelfTest", "xv__sditx_8h.html#gae535cd30cd5fd6414bf89142bc937e4a", null ],
+    [ "XV_SdiTx_Set_Bpc", "xv__sditx_8h.html#a85b51809e07e7b0599d012d7d470d32b", null ],
     [ "XV_SdiTx_SetCallback", "xv__sditx_8h.html#aa63fd99ec8bbdc967c397e4cee31fc64", null ],
     [ "XV_SdiTx_SetColorFormat", "xv__sditx_8h.html#a62c8fbdcb856eff73bbb32ebcf78a41e", null ],
     [ "XV_SdiTx_SetCoreSettings", "xv__sditx_8h.html#a5ea8e0af6e69e9fc3376d880c3b01cdd", null ],

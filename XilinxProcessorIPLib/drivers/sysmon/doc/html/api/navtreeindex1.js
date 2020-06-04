@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"xsysmon__hw_8h.html#ga2d716c0404815b90c9aa5634d6be376f":[2,5,95],
+"xsysmon__hw_8h.html#ga2dc0653d6621aebfb0c5fae9edf3f005":[2,5,229],
+"xsysmon__hw_8h.html#ga2e4bb82e81af4963e4bc499ddf1b41c5":[2,5,189],
 "xsysmon__hw_8h.html#ga2eeccaf88e9f2786a03340c0fdc2ed6f":[2,5,180],
 "xsysmon__hw_8h.html#ga2fc91abc8fb69a6209c3e50ff189b2e9":[2,5,217],
 "xsysmon__hw_8h.html#ga306d1f6c4636d8a6d5a6177c3f64456b":[2,5,76],

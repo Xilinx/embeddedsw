@@ -9,6 +9,7 @@ var xcframe_8h =
     [ "XCframe_CramTrim", "xcframe_8h.html#a7216cc68cb11957feee22cbffd47a242", null ],
     [ "XCframe_LookupConfig", "xcframe_8h.html#ga8251535b86bf918ab9b32b1073ce61a4", null ],
     [ "XCframe_ReadReg", "xcframe_8h.html#aeb00001498f033100db2269724c9b81b", null ],
+    [ "XCframe_SafetyWriteReg", "xcframe_8h.html#ab70d14e7b50bcb58ea3c5fa9c7b8bbe9", null ],
     [ "XCframe_SelfTest", "xcframe_8h.html#ga8d6e062ea3c044aa122eb36920d50f07", null ],
     [ "XCframe_SetReadParam", "xcframe_8h.html#a717f66177cfa290aed0d0e26d2c29931", null ],
     [ "XCframe_UramTrim", "xcframe_8h.html#ad36cadc6d3c21e69b16942d23c6921da", null ],

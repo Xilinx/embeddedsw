@@ -9,6 +9,7 @@ var xv__hdmirxss_8c =
     [ "XV_HdmiRxSs_GetAudioInfoframe", "xv__hdmirxss_8c.html#a05f94117a349e62618cd03cefe3208af", null ],
     [ "XV_HdmiRxSs_GetAuxiliary", "xv__hdmirxss_8c.html#a461c8c44a3dc58685afd72b911047ec4", null ],
     [ "XV_HdmiRxSs_GetAviInfoframe", "xv__hdmirxss_8c.html#aa671579897f973e1ad154ef39309a218", null ],
+    [ "XV_HdmiRxSs_GetDrmInfoframe", "xv__hdmirxss_8c.html#aa5df94d11c03edb51e4ce320e1b4701e", null ],
     [ "XV_HdmiRxSs_GetGCP", "xv__hdmirxss_8c.html#a57cfe6053ed992c9bd8c77428ad1e226", null ],
     [ "XV_HdmiRxSs_GetVideoIDCode", "xv__hdmirxss_8c.html#a3dd6f120b55c78fc21385878b3b930fe", null ],
     [ "XV_HdmiRxSs_GetVideoStream", "xv__hdmirxss_8c.html#acf4f848d7fbcea5843ae8bab4d255e2e", null ],

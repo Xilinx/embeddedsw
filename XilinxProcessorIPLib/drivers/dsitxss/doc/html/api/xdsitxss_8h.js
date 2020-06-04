@@ -5,7 +5,11 @@ var xdsitxss_8h =
       [ "XDSITXSS_DISABLE", "xdsitxss_8h.html#ggab21c5c6cf1bc849ac9912ad16b8003ada91e63edb167a393c0ca63f4436ada209", null ],
       [ "XDSITXSS_ENABLE", "xdsitxss_8h.html#ggab21c5c6cf1bc849ac9912ad16b8003adab870fa67b07d52ca0d9c580fdfb25dd2", null ]
     ] ],
-    [ "XDsiTxSs_Activate", "xdsitxss_8h.html#ga9de4a4062424944ecf7069cb3e66cc83", null ],
+    [ "XDsiSS_Subcore", "xdsitxss_8h.html#gadef8b5375269dee0a06de275d2140e07", [
+      [ "XDSITXSS_DSI", "xdsitxss_8h.html#ggadef8b5375269dee0a06de275d2140e07aaf074857e7b3c8f5994da89befa9d4a6", null ],
+      [ "XDSITXSS_PHY", "xdsitxss_8h.html#ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6", null ]
+    ] ],
+    [ "XDsiTxSs_Activate", "xdsitxss_8h.html#ga3587a6254bc3f3d8e9f9dd9ef6c71126", null ],
     [ "XDsiTxSs_CfgInitialize", "xdsitxss_8h.html#gaa4193394015188a834eeeee8e5da3e40", null ],
     [ "XDsiTxSs_DefaultConfigure", "xdsitxss_8h.html#ga8cd432c1d79f544b4da07563cadaf39e", null ],
     [ "XDsiTxSs_GetCmdQVacancy", "xdsitxss_8h.html#ga55a4510207c1994cf296b4cf3ccb05c4", null ],

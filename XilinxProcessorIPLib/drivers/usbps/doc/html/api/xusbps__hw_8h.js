@@ -51,6 +51,7 @@ var xusbps__hw_8h =
     [ "XUSBPS_EPCR_RXT_CONTROL_MASK", "xusbps__hw_8h.html#ga0f2a51408fd7e0f8454611d4232446d7", null ],
     [ "XUSBPS_EPCR_RXT_INTR_MASK", "xusbps__hw_8h.html#gaf090efcf5f240254772e385f6b1ba3d0", null ],
     [ "XUSBPS_EPCR_RXT_ISO_MASK", "xusbps__hw_8h.html#ga60e82ff6c8172020ae8ad6f9c9a63149", null ],
+    [ "XUSBPS_EPCR_RXT_TYPE_MASK", "xusbps__hw_8h.html#ga48f7291d1cb6051b93cd1a3c994311e6", null ],
     [ "XUSBPS_EPCR_TXE_MASK", "xusbps__hw_8h.html#ga5cc1450fbbe3d6e525b363a2faf54575", null ],
     [ "XUSBPS_EPCR_TXR_MASK", "xusbps__hw_8h.html#gaec7cf9ddd4b206b68e8a6856c2393c53", null ],
     [ "XUSBPS_EPCR_TXS_MASK", "xusbps__hw_8h.html#gad22deb4883894f452b73ed38418970d0", null ],

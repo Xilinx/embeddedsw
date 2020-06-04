@@ -12,6 +12,7 @@ var xdptxss__kcu105__dp14_8c =
     [ "DpRxSs_CRCTestEventHandler", "xdptxss__kcu105__dp14_8c.html#ab705b88ffccba236871be621549ff82d", null ],
     [ "DpRxSs_ExtPacketHandler", "xdptxss__kcu105__dp14_8c.html#a5fce4aaa5fae17e664cd573bef9c2be0", null ],
     [ "DpRxSs_InfoPacketHandler", "xdptxss__kcu105__dp14_8c.html#a5261c0e9a724d7ccdcf46f15f1c2c2e6", null ],
+    [ "get_LineRate", "xdptxss__kcu105__dp14_8c.html#a4f08b7f747aa871c3bf0347e7a97a014", null ],
     [ "hpd_con", "xdptxss__kcu105__dp14_8c.html#a40dd23eb6e5ea766a4f13761eebbd773", null ],
     [ "hpd_pulse_con", "xdptxss__kcu105__dp14_8c.html#ac521dd8412dd53d968e0cbe056d7dbb9", null ],
     [ "Print_ExtPkt", "xdptxss__kcu105__dp14_8c.html#a5b27aa5d150120cd4f5b26b14aa6b6af", null ],
@@ -27,5 +28,6 @@ var xdptxss__kcu105__dp14_8c =
     [ "update_edid", "xdptxss__kcu105__dp14_8c.html#acbbbb90b2f7ea876d4b492c7ca63712c", null ],
     [ "video_change_detect", "xdptxss__kcu105__dp14_8c.html#acd925d2fdf6aa67430a4a6f8dac3e646", null ],
     [ "VideoFMC_Init", "xdptxss__kcu105__dp14_8c.html#a83b1170da398be3c53b87955c0a5b6a3", null ],
+    [ "hpd_pulse_con_event", "xdptxss__kcu105__dp14_8c.html#abf837d981cd312ee75c7a534bccca419", null ],
     [ "lane_link_table", "xdptxss__kcu105__dp14_8c.html#ab0fb3d1ea8d00f1033f476917741a776", null ]
 ];

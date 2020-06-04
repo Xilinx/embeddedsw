@@ -1,6 +1,7 @@
 var xuartpsv_8c =
 [
     [ "XUartPsv_CfgInitialize", "xuartpsv_8c.html#ga00b3e05b08d2d1679e6bfe8d272cda33", null ],
+    [ "XUartPsv_ProgramCtrlReg", "xuartpsv_8c.html#gaa19ed118438249d9c56cd3afcfa8898c", null ],
     [ "XUartPsv_ReceiveBuffer", "xuartpsv_8c.html#gab7c628a4fd29e1f9d1d4cb9cbe672279", null ],
     [ "XUartPsv_Recv", "xuartpsv_8c.html#ga4d4d20bbcedb1de2adbe2644b821d12d", null ],
     [ "XUartPsv_Send", "xuartpsv_8c.html#ga71a962de4963e15f1c38e7831e825f7c", null ],

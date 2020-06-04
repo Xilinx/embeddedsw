@@ -5,6 +5,8 @@ var xaieio_8c =
     [ "_XAieIO_GetIO", "xaieio_8c.html#ae317aab30f6ef1344dd0621b3ddceb98", null ],
     [ "XAieIO_Finish", "xaieio_8c.html#ab37487826cc01ed0872186a8180a5381", null ],
     [ "XAieIO_Init", "xaieio_8c.html#a6c3a871a1b2b2362ba05ee722e16bfb9", null ],
+    [ "XAieIO_IntrDisable", "xaieio_8c.html#ac43f086a7416a66c092a5243801208c6", null ],
+    [ "XAieIO_IntrEnable", "xaieio_8c.html#a26b0c57e4a689b70ba70bb60d7214a2a", null ],
     [ "XAieIO_IntrRegisterIsr", "xaieio_8c.html#af889ecb39a27c4b30d1a69cc36ebbef8", null ],
     [ "XAieIO_IntrUnregisterIsr", "xaieio_8c.html#a5a62fad8f5270c2e3a34f3f7f155370a", null ],
     [ "XAieIO_MemAllocate", "xaieio_8c.html#a4dd5b2c08face034b55c0debe6b4ea32", null ],
