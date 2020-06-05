@@ -195,7 +195,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 		 * checking each bit in the register from LSB to MSB which
 		 * corresponds to an interrupt input signal
 		 */
-		for (IntrNumber = 0; IntrNumber < CfgPtr->NumberofIntrs;
+		for (IntrNumber = 0; IntrNumber < CfgPtr->NumberofHwIntrs;
 								IntrNumber++) {
 			if (IntrStatus & 1) {
 				XIntc_VectorTableEntry *TablePtr;
@@ -595,7 +595,7 @@ static void XIntc_CascadeHandler(void *DeviceId)
 	 * checking each bit in the register from LSB to MSB which
 	 * corresponds to an interrupt input signal
 	 */
-	for (IntrNumber = 0; IntrNumber < CfgPtr->NumberofIntrs; IntrNumber++) {
+	for (IntrNumber = 0; IntrNumber < CfgPtr->NumberofHwIntrs; IntrNumber++) {
 		if (IntrStatus & 1) {
 			XIntc_VectorTableEntry *TablePtr;
 

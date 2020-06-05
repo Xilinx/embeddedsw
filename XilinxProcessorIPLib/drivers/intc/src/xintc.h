@@ -199,6 +199,7 @@
 *		      return proper error message(CR#1018878).
 * 3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
 *                      connected to cascade slices.
+* 3.12   mus  05/28/20 Renamed NumberofIntrs to NumberofHwIntrs
 * </pre>
 *
 ******************************************************************************/
@@ -281,7 +282,7 @@ typedef struct {
 	u32 AckBeforeService;	/**< Ack location per interrupt */
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
-	int NumberofIntrs;      /**< Number of Interrupt sources */
+	int NumberofHwIntrs;      /**< Number of HW Interrupt sources */
 	u8 VectorAddrWidth;		/**< Width of vector address */
 	u32 Options;		/**< Device options */
 	int IntcType;		/**< Intc type 0 - No Cascade Mode
