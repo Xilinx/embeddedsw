@@ -19,6 +19,6 @@ BEGIN LIBRARY xilnvm
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilnvm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal";
-  OPTION VERSION = 2.0;
+  OPTION VERSION = 2.1;
   OPTION NAME = xilnvm;
 END LIBRARY
