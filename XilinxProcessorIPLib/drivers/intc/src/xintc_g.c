@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_g.c
-* @addtogroup intc_v3_11
+* @addtogroup intc_v3_12
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

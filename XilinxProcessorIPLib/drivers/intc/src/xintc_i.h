@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_i.h
-* @addtogroup intc_v3_11
+* @addtogroup intc_v3_12
 * @{
 *
 * This file contains data which is shared between files and internal to the
