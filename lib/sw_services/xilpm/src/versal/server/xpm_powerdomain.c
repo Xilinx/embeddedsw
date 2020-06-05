@@ -870,6 +870,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->InitStart)) {
 			Status = Ops->InitStart(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("InitStart failed\r\n");
 				goto done;
 			}
 		}
@@ -877,12 +878,14 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_INIT_FINISH:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for InitFinish\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->InitFinish)) {
 			Status = Ops->InitFinish(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("InitFinish failed\r\n");
 				goto done;
 			}
 		}
@@ -893,6 +896,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 						   XPM_MAX_CAPABILITY,
 						   XPM_MAX_QOS);
 			if (XST_SUCCESS != Status) {
+				PmErr("PLD0 request failed\r\n");
 				break;
 			}
 		} else if (PM_POWER_ME == PwrDomain->Power.Node.Id) {
@@ -901,6 +905,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 						   XPM_MAX_CAPABILITY,
 						   XPM_MAX_QOS);
 			if (XST_SUCCESS != Status) {
+				PmErr("AIE request failed\r\n");
 				break;
 			}
 		} else {
@@ -909,6 +914,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 		Status = XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
 		if (XST_SUCCESS != Status) {
+			PmErr("Domain Iso for pending process failed\r\n");
 			goto done;
 		}
 
@@ -918,6 +924,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_SCAN_CLEAR:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for ScanClear\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -931,6 +938,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->ScanClear)) {
 			Status = Ops->ScanClear(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("ScanClear failed\r\n");
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_SCAN_CLEAR);
@@ -939,6 +947,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_BISR:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for Bisr\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -951,6 +960,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->Bisr)) {
 			Status = Ops->Bisr(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("Bisr failed\r\n");
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_BISR);
@@ -959,6 +969,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_LBIST:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for Lbist\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -970,6 +981,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->Lbist)) {
 			Status = Ops->Lbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("Lbist failed\r\n");
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_LBIST);
@@ -978,6 +990,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_MBIST_CLEAR:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for Mbist\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -989,6 +1002,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->Mbist)) {
 			Status = Ops->Mbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("Mbist failed\r\n");
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_MBIST_CLEAR);
@@ -997,12 +1011,14 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_HOUSECLEAN_PL:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for PlHouseclean\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->PlHouseclean)) {
 			Status = Ops->PlHouseclean(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("PlHouseclean failed\r\n");
 				goto done;
 			}
 		}
@@ -1010,12 +1026,14 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_MEM_INIT:
                 if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for MemInit\r\n", PwrDomain->Power.Node.State);
                         Status = XST_FAILURE;
                         goto done;
                 }
                 if ((NULL != Ops) && (NULL != Ops->MemInit)) {
                         Status = Ops->MemInit(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
+				PmErr("MemInit failed\r\n");
                                 goto done;
                         }
                 }
@@ -1023,12 +1041,14 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                 break;
 	case (u32)FUNC_HOUSECLEAN_COMPLETE:
                 if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for HcComplete\r\n", PwrDomain->Power.Node.State);
                         Status = XST_FAILURE;
                         goto done;
                 }
                 if ((NULL != Ops) && (NULL != Ops->HcComplete)) {
                         Status = Ops->HcComplete(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
+				PmErr("HcComplete failed\r\n");
                                 goto done;
                         }
                 }
@@ -1036,12 +1056,14 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                 break;
 	case (u32)FUNC_XPPU_CTRL:
 		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for XppuCtrl\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->XppuCtrl)) {
 			Status = Ops->XppuCtrl(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("XppuCtrl failed\r\n");
 				goto done;
 			}
 		}
@@ -1049,22 +1071,28 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_XMPU_CTRL:
 		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+			PmErr("Invalid FSM state %d for XmpuCtrl\r\n", PwrDomain->Power.Node.State);
 			Status = XST_FAILURE;
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->XmpuCtrl)) {
 			Status = Ops->XmpuCtrl(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				PmErr("XmpuCtrl failed\r\n");
 				goto done;
 			}
 		}
 		Status = XST_SUCCESS;
 		break;
 	default:
+		PmErr("Invalid Function:0x%x\r\n", Function);
 		Status = XST_INVALID_PARAM;
 		break;
 	}
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed for NodeId:0x%x and Return: 0x%x\r\n", PwrDomain->Power.Node.Id, Status);
+	}
 	return Status;
 }
