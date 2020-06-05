@@ -65,6 +65,7 @@
 ##		    slice width, while calculating the total interrupt sources.
 ##     18/10/19 adk Updated the get_slice_interrupt_sources_for_slice proc to consider
 ##		    external interrupt source pin connected to slice use case.
+##     05/28/20 mus Added support for software interrupts.
 ##
 ##
 ## @END_CHANGELOG
@@ -111,12 +112,19 @@ proc generate {drv_handle} {
 	}
 
 	if {$cascade == 0} {
-		::hsi::utils::define_max $drv_handle "xparameters.h" "XPAR_INTC_MAX_NUM_INTR_INPUTS" "C_NUM_INTR_INPUTS"
+		set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periphs]
+		set swintrs [common::get_property CONFIG.C_NUM_SW_INTR $periphs]
+		set maxintrs [expr "$intrs + $swintrs"]
+		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "#define XPAR_INTC_MAX_NUM_INTR_INPUTS $maxintrs"
+		close $file_handle
+
 	} else {
 		set maxintrs 0
 		foreach periph $periphs {
 			set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
-			set maxintrs [expr "$maxintrs + $intrs"]
+			set swintrs [common::get_property CONFIG.C_NUM_SW_INTR $periph]
+			set maxintrs [expr "$maxintrs + $intrs + $swintrs"]
 		}
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "#define XPAR_INTC_MAX_NUM_INTR_INPUTS $maxintrs"
@@ -135,7 +143,7 @@ proc generate {drv_handle} {
 	}
 
 	::hsi::utils::define_if_all $drv_handle "xparameters.h" "XIntc" "C_HAS_IPR" "C_HAS_SIE" "C_HAS_CIE" "C_HAS_IVR" "C_HAS_ILR"
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XIntc" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_ADDR_WIDTH"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XIntc" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_NUM_SW_INTR" "C_ADDR_WIDTH"
 
 
 	# Define XPAR_SINGLE_DEVICE_ID
@@ -153,7 +161,7 @@ proc generate {drv_handle} {
 	close $config_inc
 
 	# Generate canonical xparameters
-	xdefine_canonical_xpars $drv_handle "xparameters.h" "Intc" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_ADDR_WIDTH"
+	xdefine_canonical_xpars $drv_handle "xparameters.h" "Intc" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_NUM_SW_INTR" "C_ADDR_WIDTH"
 }
 
 
@@ -173,7 +181,7 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 	set isr_options XIN_SVC_SGL_ISR_OPTION
 	set file_name "xintc_g.c"
 	set drv_string "XIntc"
-	set args [list "DEVICE_ID" "C_BASEADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_ADDR_WIDTH"]
+	set args [list "DEVICE_ID" "C_BASEADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_NUM_SW_INTR" "C_ADDR_WIDTH"]
 	set filename [file join "src" $file_name]
 	set config_file [open $filename w]
 	::hsi::utils::write_c_header $config_file "Driver configuration"
@@ -269,7 +277,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
     # Get pins/ports that are driving the interrupt
 	lappend source_pins
 	set source_pins [::hsi::utils::get_source_pins $interrupt_pin]
-
+    set num_sw_intrs [common::get_property CONFIG.C_NUM_SW_INTR $periph]
     set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
     #calculate the total interrupt sources
 
@@ -341,6 +349,19 @@ proc intc_define_vector_table {periph config_inc config_file} {
         set comma ",\n"
     }
     puts $config_file "\n\t\t\}"
+	#Export Definitions for software interrupts to xparameters.h
+	if {$num_sw_intrs > 0} {
+		puts $config_inc "\n"
+		puts $config_inc "/*Definitions for software interrupts*/"
+		set i [expr "$i - 1"]
+		# Interrupt ID's for software interrupts starts after the hardware interrupt ID's
+		set offset [expr "$source_interrupt_id($i) + 1"]
+		for {set i 0} {$i < $num_sw_intrs} {incr i} {
+			set value [expr "$offset + $i"]
+			puts $config_inc [format "#define XPAR_%s_SW_%s_INTR %s" \
+			[string toupper $periph] $i $value]
+		}
+	}
 }
 
 ################################################

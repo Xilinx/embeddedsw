@@ -283,6 +283,7 @@ typedef struct {
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
 	int NumberofHwIntrs;      /**< Number of HW Interrupt sources */
+	int NumberofSwIntrs;      /**< Number of SW interrupts */
 	u8 VectorAddrWidth;		/**< Width of vector address */
 	u32 Options;		/**< Device options */
 	int IntcType;		/**< Intc type 0 - No Cascade Mode
@@ -340,6 +341,7 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 				XFastInterruptHandler Handler);
 void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id);
 
+int XIntc_TriggerSwIntr(XIntc * InstancePtr, u8 Id);
 /*
  * Interrupt functions in xintr_intr.c
  */
