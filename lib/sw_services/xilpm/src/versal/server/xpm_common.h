@@ -40,8 +40,7 @@ extern "C" {
 	XPlmi_Printf(DEBUG_GENERAL, __VA_ARGS__)
 
 #define PmErr(...) \
-	XPlmi_Printf(DEBUG_GENERAL, "[ERROR] %s: ", __func__); \
-	XPlmi_Printf(DEBUG_GENERAL, __VA_ARGS__)
+	XPlmi_Printf_WoTimeStamp(DEBUG_GENERAL, "[ERR] %s: ", __func__, __VA_ARGS__)
 
 #define PmWarn(...) \
 	XPlmi_Printf(DEBUG_GENERAL, "[WARN] %s: ", __func__); \

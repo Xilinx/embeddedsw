@@ -98,6 +98,12 @@ extern u8 LpdInitialized;
 		xil_printf (__VA_ARGS__); \
 	}
 
+/* Prints without TimeStamp */
+#define XPlmi_Printf_WoTimeStamp(DebugType, ...) \
+	if(((DebugType) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+		xil_printf (__VA_ARGS__); \
+	}
+
 /*****************************************************************************/
 /**
  * @brief	This function resets LpdInitialized variable to 0.
