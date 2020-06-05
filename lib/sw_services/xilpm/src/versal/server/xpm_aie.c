@@ -107,6 +107,7 @@ static XStatus AiePcsrWrite(u32 Mask, u32 Value)
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
+		PmErr("Invalid AIE Device\r\n");
 		goto done;
 	}
 
@@ -265,6 +266,7 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
+		PmErr("Invalid AIE Device\r\n");
 		goto done;
 	}
 
@@ -274,15 +276,17 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 	if( (XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
 			 ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) !=
 			 ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) {
+		PmErr("ME Power Supply bit in AIE PCSR is zero\r\n");
 		goto done;
 	}
 
 	/* Unlock ME PCSR */
 	PmOut32((BaseAddress + NPI_PCSR_LOCK_OFFSET), NPI_PCSR_UNLOCK_VAL);
 
-	/* Relelase IPOR */
+	/* Release IPOR */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_IPOR_MASK, 0U);
 	if (XST_SUCCESS != Status) {
+		PmErr("Failed to Release IPOR for AIE\r\n");
 		goto done;
 	}
 
@@ -293,6 +297,9 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 	Status = XST_SUCCESS;
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Return: 0x%x\r\n", Status);
+	}
 	return Status;
 }
 
@@ -307,6 +314,7 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
+		PmErr("Invalid AIE Device\r\n");
 		goto done;
 	}
 
@@ -316,6 +324,7 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK,
 				 ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK);
 	if (XST_SUCCESS != Status) {
+		PmErr("Failed to Set PCOMPLETE bit in AIE PCSR\r\n");
 		goto done;
 	}
 
@@ -325,6 +334,9 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 	Status = XST_SUCCESS;
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Return: 0x%x\r\n", Status);
+	}
 	return Status;
 }
 
@@ -339,6 +351,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
+		PmErr("Invalid AIE Device\r\n");
 		goto done;
 	}
 
@@ -347,6 +360,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 	/* De-assert ODISABLE[1] */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_1_MASK, 0U);
 	if (XST_SUCCESS != Status) {
+		PmErr("Failed to DeAssert ODISABLE_1 bit in AIE PCSR\r\n");
 		goto done;
 	}
 
@@ -355,6 +369,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 						ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to Trigger ScanClear for AIE\r\n");
 			goto done;
 		}
 
@@ -366,6 +381,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 					 AIE_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
+			PmErr("Timeout happen in ScanClear for AIE");
 			goto done;
 		}
 		else {
@@ -384,6 +400,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 		/* Unwrite trigger bits */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK, 0);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to Unwrite trigger bit for ScanClear in AIE PCSR\r\n");
 			goto done;
 		}
 	}
@@ -391,13 +408,21 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 	/* De-assert ODISABLE[0] */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_0_MASK, 0U);
 	if (XST_SUCCESS != Status) {
+		PmErr("Failed to DeAssert ODISABLE_0 bit in AIE PCSR\r\n");
 		goto done;
 	}
 
 	/* De-assert GATEREG */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_GATEREG_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to DeAssert GATEREG bit in AIE PCSR\r\n");
+		goto done;
+	}
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Return: 0x%x\r\n", Status);
+	}
 	return Status;
 }
 
@@ -412,22 +437,29 @@ static XStatus AieBisr(u32 *Args, u32 NumOfArgs)
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		PmErr("Failed to Remove PMC-NoC domain isolation\r\n");
 		goto done;
 	}
 
 	Status = XPmBisr_Repair(MEA_TAG_ID);
 	if (XST_SUCCESS != Status) {
+		PmErr("BisrRep for MEA_TAG_ID:0x%x is Failed\r\n", MEA_TAG_ID);
                 goto done;
         }
 	Status = XPmBisr_Repair(MEB_TAG_ID);
 	if (XST_SUCCESS != Status) {
+		PmErr("BisrRep for MEB_TAG_ID:0x%x is Failed\r\n", MEB_TAG_ID);
                 goto done;
         }
 	Status = XPmBisr_Repair(MEC_TAG_ID);
 	if (XST_SUCCESS != Status) {
+		PmErr("BisrRep for MEC_TAG_ID:0x%x is Failed\r\n", MEC_TAG_ID);
                 goto done;
         }
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Return: 0x%x\r\n", Status);
+        }
 	return Status;
 }
 
@@ -442,6 +474,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
+		PmErr("Invalid AIE Device\r\n");
 		goto done;
 	}
 
@@ -452,6 +485,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK,
 					ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to Assert MEM_CLEAR_EN_ALL bits in AIE PCSR\r\n");
 			goto done;
 		}
 
@@ -459,6 +493,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK,
 					ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to DeAssert OD_MBIST_ASYNC_RESET_N bits in AIE PCSR\r\n");
 			goto done;
 		}
 
@@ -466,6 +501,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK,
 					ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to Assert OD_BIST_SETUP_1 bits in AIE PCSR\r\n");
 			goto done;
 		}
 
@@ -473,6 +509,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
 			ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to Assert MEM_CLEAR_TRIGGER bits in AIE PCSR\r\n");
 			goto done;
 		}
 
@@ -484,6 +521,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 					AIE_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
+			PmErr("Timeout happen for Mem Clear in AIE\r\n");
 			goto done;
 		}
 		else {
@@ -502,18 +540,21 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 		/* Assert OD_MBIST_ASYNC_RESET_N */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to Assert OD_MBIST_ASYNC_RESET_N bits in AIE PCSR\r\n");
 			goto done;
 		}
 
 		/* De-assert OD_BIST_SETUP_1 */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK, 0U);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to DeAssert OD_BIST_SETUP_1 bits in AIE PCSR\r\n");
 			goto done;
 		}
 
 		/* De-assert MEM_CLEAR_TRIGGER */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
 		if (XST_SUCCESS != Status) {
+			PmErr("Failed to DeAssert MEM_CLEAR_TRIGGER bits in AIE PCSR\r\n");
 			goto done;
 		}
 	}
@@ -521,6 +562,9 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 	Status = XST_SUCCESS;
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Return: 0x%x\r\n", Status);
+	}
 	return Status;
 }
 
@@ -546,7 +590,7 @@ static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
 	/* Zeroize Data Memory */
 	Status = MemInit();
 	if (Status != XST_SUCCESS) {
-		PmInfo("ERROR: MemInit failed\r\n");
+		PmErr("MemInit failed\r\n");
 	}
 	/* Reset Array */
 	Status = ArrayReset();
@@ -555,6 +599,9 @@ static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
 	}
 	PmDbg("---------- END ----------\r\n");
 
+	if (XST_SUCCESS != Status) {
+		PmErr("Return: 0x%x\r\n", Status);
+	}
 	return Status;
 }
 
