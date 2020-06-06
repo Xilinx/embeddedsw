@@ -147,6 +147,7 @@ typedef struct {
 	XSecure_Sss SssInstance;
 	XSecure_AesState AesState; /**< Current Aes State  */
 	XSecure_AesKeySrc KeySrc;
+	u32 NextBlkLen;
 } XSecure_Aes;
 /** @}
 @endcond */

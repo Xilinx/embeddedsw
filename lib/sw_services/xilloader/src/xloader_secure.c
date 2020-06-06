@@ -671,6 +671,15 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 			goto END;
 		}
 
+		/* Initialize AES driver */
+		Status = XSecure_AesInitialize(&SecurePtr->AesInstance, SecurePtr->PmcDmaInstPtr);
+		if (Status != XLOADER_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO," Failed at XSecure_AesInitialize \n\r");
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
+					Status);
+			goto END;
+		}
+
 		/*
 		 * Skip running the KAT for AES DPACM or AES if it is already run by ROM
 		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -682,15 +691,6 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 
 		if((DpacmEfuseStatus == 0U) && (PlmDpacmKatStatus == 0U)) {
 
-			/* Initialize AES driver */
-			Status = XSecure_AesInitialize(&SecurePtr->AesInstance,
-							SecurePtr->PmcDmaInstPtr);
-			if (Status != XLOADER_SUCCESS) {
-				XPlmi_Printf(DEBUG_GENERAL,
-					" Failed at XSecure_AesInitialize \n\r");
-				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
-				goto END;
-			}
 			Status = XSecure_AesDecryptCmKat(&SecurePtr->AesInstance);
 			if(Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT Failed\n");
@@ -701,16 +701,6 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		}
 
 		if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_AES_KAT_MASK) == 0U) {
-
-			/* Initialize AES driver */
-			Status = XSecure_AesInitialize(&SecurePtr->AesInstance,
-							SecurePtr->PmcDmaInstPtr);
-			if (Status != XLOADER_SUCCESS) {
-				XPlmi_Printf(DEBUG_GENERAL,
-					" Failed at XSecure_AesInitialize \n\r");
-				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
-				goto END;
-			}
 
 			Status = XSecure_AesDecryptKat(&SecurePtr->AesInstance);
 			if(Status != XLOADER_SUCCESS) {
@@ -1975,14 +1965,6 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
-		/* Initialize AES driver */
-		Status = XSecure_AesInitialize(&SecurePtr->AesInstance,
-							SecurePtr->PmcDmaInstPtr);
-		if (Status != XLOADER_SUCCESS) {
-			Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_AES_OPERATION_FAILED,
-							Status);
-			goto END;
-		}
 		/* Configure DPA counter measure */
 		DpaCmCfg = XilPdi_IsDpaCmEnable(SecurePtr->PrtnHdr);
 		Status = XLoader_SetAesDpaCm(&SecurePtr->AesInstance, DpaCmCfg);
@@ -2690,14 +2672,6 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 		XPlmi_Printf(DEBUG_INFO,"Failed at Key selection \n\r");
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
 							 Status);
-		goto END;
-	}
-	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(&SecurePtr->AesInstance, SecurePtr->PmcDmaInstPtr);
-	if (Status != XLOADER_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO," Failed at XSecure_AesInitialize \n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
-					Status);
 		goto END;
 	}
 

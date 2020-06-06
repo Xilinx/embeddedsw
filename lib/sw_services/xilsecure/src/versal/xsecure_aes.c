@@ -329,15 +329,13 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	InstancePtr->BaseAddress = XSECURE_AES_BASEADDR;
 	InstancePtr->PmcDmaPtr = PmcDmaPtr;
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+	InstancePtr->NextBlkLen = 0U;
 
 	/* Clear all key zeroization register */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_KEY_CLEAR_OFFSET, XSECURE_AES_KEY_CLEAR_ALL_AES_KEYS);
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
-
-	XSecure_ReleaseReset(InstancePtr->BaseAddress,
-		XSECURE_AES_SOFT_RST_OFFSET);
 
 	Status = XST_SUCCESS;
 
@@ -644,6 +642,10 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	Xil_AssertNonvoid(IvAddr != 0x00U);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
+	if(InstancePtr->NextBlkLen == 0U) {
+		XSecure_ReleaseReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
 	/* Key selected does not allow decryption */
 	if (AesKeyLookupTbl[KeySrc].DecAllowed == FALSE) {
 		Status = XST_FAILURE;
@@ -708,6 +710,10 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 END:
 	if (Status != (u32)XST_SUCCESS) {
+		/* To make sure that Decrrypt init function should allow to
+		 * release reset in failure cases also
+		 */
+		InstancePtr->NextBlkLen = 0U;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -808,6 +814,10 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 END:
 	if (Status != (u32)XST_SUCCESS) {
+		/* To make sure that Decrrypt init function should allow to
+		 * release reset in failure cases also
+		 */
+		InstancePtr->NextBlkLen = 0U;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -836,7 +846,6 @@ END:
 u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u32 NextBlkLen = 0U;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -896,19 +905,22 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		Status = XST_SUCCESS;
 	}
 
-	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &NextBlkLen);
+	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 END:
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
 
-	if ((NextBlkLen == 0U) || (Status != (u32)XST_SUCCESS)) {
+	if ((InstancePtr->NextBlkLen == 0U) || (Status != (u32)XST_SUCCESS)) {
+		/* To make sure that Decrrypt init function should allow to
+		 * release reset in failure cases also
+		 */
+		InstancePtr->NextBlkLen = 0U;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
-
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
 
 	return Status;
 
@@ -996,6 +1008,9 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		(KeySize == XSECURE_AES_KEY_SIZE_256));
 	Xil_AssertNonvoid(IvAddr != 0x00U);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+
+	XSecure_ReleaseReset(InstancePtr->BaseAddress,
+				XSECURE_AES_SOFT_RST_OFFSET);
 
 	/* Key selected does not allow Encryption */
 	if (AesKeyLookupTbl[KeySrc].EncAllowed == FALSE) {
@@ -1235,10 +1250,11 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 					XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 END:
-	XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
+
+	XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
 
 	return Status;
 
@@ -1653,6 +1669,9 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 	u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 
+	XSecure_ReleaseReset(AesInstance->BaseAddress,
+				XSECURE_AES_SOFT_RST_OFFSET);
+
 	/* Configure AES for Encryption */
 	XSecure_WriteReg(AesInstance->BaseAddress,
 		XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
@@ -1857,12 +1876,6 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 
 	/* Test 1 */
 	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key0, Data0, Output0);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(AesInstance, AesInstance->PmcDmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

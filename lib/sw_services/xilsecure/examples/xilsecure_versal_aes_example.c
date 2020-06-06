@@ -224,9 +224,6 @@ static s32 SecureAesExample(void)
 	}
 	xil_printf( "\r\n\n");
 
-	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
-
 	/* Decrypt's the encrypted data */
 	/*
 	 * If data to be decrypted is contiguous one can also call
