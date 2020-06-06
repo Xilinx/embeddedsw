@@ -367,6 +367,7 @@ u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((DpaCmCfg == TRUE) ||
 					(DpaCmCfg == FALSE));
+	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	/* Chip has DPA CM support */
 	if ((XSecure_In32(XSECURE_EFUSE_SECURITY_MISC1) &
@@ -435,6 +436,7 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	Xil_AssertNonvoid((XSECURE_AES_KEY_SIZE_128 == KeySize) ||
 			(XSECURE_AES_KEY_SIZE_256 == KeySize));
 	Xil_AssertNonvoid(KeyAddr != 0x00U);
+	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	Key = (u32 *)(INTPTR)KeyAddr;
 
@@ -714,6 +716,7 @@ END:
 		 * release reset in failure cases also
 		 */
 		InstancePtr->NextBlkLen = 0U;
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -818,6 +821,7 @@ END:
 		 * release reset in failure cases also
 		 */
 		InstancePtr->NextBlkLen = 0U;
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -912,7 +916,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 END:
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
-
+	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	if ((InstancePtr->NextBlkLen == 0U) || (Status != (u32)XST_SUCCESS)) {
 		/* To make sure that Decrrypt init function should allow to
 		 * release reset in failure cases also
@@ -1073,6 +1077,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 END:
 	if (Status != (u32)XST_SUCCESS) {
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -1175,6 +1180,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 END:
 	if (Status != (u32)XST_SUCCESS) {
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
@@ -1250,6 +1256,8 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 					XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 END:
+	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
 
@@ -1361,6 +1369,8 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Config == FALSE) ||
 					(Config == TRUE));
+	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+
 	if (Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_AES_KUP_WR_OFFSET, XSECURE_AES_DISABLE_KUP_IV_UPDATE);
@@ -1394,6 +1404,8 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Size != NULL);
+	Xil_AssertNonvoid(InstancePtr->AesState !=
+                        XSECURE_AES_UNINITIALIZED);
 
 	*Size = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_IV_3_OFFSET)) * 4;
@@ -1416,8 +1428,8 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
  *		- Error code on failure.
  *
  ******************************************************************************/
-u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-					   XSecure_AesKeySize KeySize)
+static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
+			XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize)
 {
 	u32 Status = (u32)XST_FAILURE;
 
@@ -1521,6 +1533,7 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid (KeySrc <= XSECURE_AES_EXPANDED_KEYS);
+	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
