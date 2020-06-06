@@ -26,6 +26,7 @@
 *                       XSecure_AesKeyLoad, XSecure_AesWaitForDone functions
 *       har  03/01/2020 Added code to soft reset once key decryption is done
 *       rpo  03/23/2020 Replaced timeouts with WaitForEvent and code clean up
+* 4.3   ana  06/04/2020 Minor enhancement and Updated AES state
 * </pre>
 *
 * @note
@@ -68,6 +69,9 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
 static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
 		u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr);
+static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
+
 /************************** Variable Definitions *****************************/
 static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 {
@@ -303,88 +307,6 @@ static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	}
 };
 
-/*****************************************************************************/
-/**
- *
- * @brief
- * This function initializes the AES engine for decryption.
- *
- * @param       InstancePtr     Pointer to the XSecure_Aes instance.
- * @param       KeySrc          Key Source for decryption of the data.
- * @param       KeySize         Size of the AES key to be used for decryption.
- *               - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *               - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
- * @param       IvAddr          Address to the buffer holding IV.
- * @param       AesMode         Aes Mode for Encryption or Decryption.
- *
- * @return
- *              - XST_SUCCESS on successful init
- *              - Error code on failure
- *
- ******************************************************************************/
-static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc KeySrc,
-		XSecure_AesKeySize KeySize, u64 IvAddr,u32 AesMode)
-{
-	u32 Status = (u32)XST_FAILURE;
-	/* Key selected does not allow decryption */
-	if (AesKeyLookupTbl[KeySrc].DecAllowed == FALSE) {
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	/* Configure AES for decryption */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_MODE_OFFSET, AesMode);
-	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
-		Status = XSecure_SssAes(&InstancePtr->SssInstance,
-				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
-	}
-	else {
-		Status = XSecure_SssAes(&InstancePtr->SssInstance,
-				XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
-	}
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-
-	/* Load key for decryption */
-	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_AES_DATA_SWAP_VAL_MASK);
-
-
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-			XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
-
-	/* Start the message. */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_START_MSG_OFFSET,
-			XSECURE_AES_START_MSG_VAL_MASK);
-
-	/* Push IV */
-	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-			IvAddr, IvAddr >> 32,
-			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
-
-	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
-			XPMCDMA_SRC_CHANNEL);
-
-	/* Acknowledge the transfer has completed */
-	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-			XPMCDMA_IXR_DONE_MASK);
-
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-			XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
-END:
-	return Status;
-
-}
 /*****************************************************************************/
 /**
  * @brief
@@ -731,8 +653,17 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-	Status = XSecure_AesEncNDecInit(InstancePtr, KeySrc, KeySize,
-					IvAddr, XSECURE_AES_MODE_DEC);
+	/* Key selected does not allow decryption */
+	if (AesKeyLookupTbl[KeySrc].DecAllowed == FALSE) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/* Configure AES for decryption */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_DEC);
+
+	Status = XSecure_AesEncNDecInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -743,8 +674,9 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 END:
 	if (Status != (u32)XST_SUCCESS) {
-		/* To make sure that Decrrypt init function should allow to
-		 * release reset in failure cases also
+		/*
+		 * To make sure that Decrypt init function
+		 * placing AES engine into reset on failure
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -848,8 +780,9 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 END:
 	if (Status != (u32)XST_SUCCESS) {
-		/* To make sure that Decrrypt init function should allow to
-		 * release reset in failure cases also
+		/*
+		 * To make sure that Decrypt update function
+		 * placing AES engine into reset on failure
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -949,8 +882,9 @@ END:
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	if ((InstancePtr->NextBlkLen == 0U) || (Status != (u32)XST_SUCCESS)) {
-		/* To make sure that Decrrypt init function should allow to
-		 * release reset in failure cases also
+		/*
+		 * To make sure that Decrypt final function
+		 * placing AES engine into reset on failure
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		XSecure_SetReset(InstancePtr->BaseAddress,
@@ -1047,8 +981,17 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
 				XSECURE_AES_SOFT_RST_OFFSET);
 
-	Status = XSecure_AesEncNDecInit(InstancePtr, KeySrc, KeySize,
-					IvAddr, XSECURE_AES_MODE_ENC);
+	/* Key selected does not allow Encryption */
+	if (AesKeyLookupTbl[KeySrc].EncAllowed == FALSE) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/* Configure AES for Encryption */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
+
+	Status = XSecure_AesEncNDecInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1385,7 +1328,7 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Size != NULL);
 	Xil_AssertNonvoid(InstancePtr->AesState !=
-                        XSECURE_AES_UNINITIALIZED);
+			XSECURE_AES_UNINITIALIZED);
 
 	*Size = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_IV_3_OFFSET)) * 4;
@@ -1534,16 +1477,13 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 				Mask,
 				XSECURE_AES_TIMEOUT_MAX);
 
-	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
-					 Mask);
-
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KEY_CLEAR_ERROR;
 	}
 
 END:
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
-					0x00000000);
+					XSECURE_AES_KEY_CLEAR_ALL_AES_KEYS);
 	return Status;
 
 }
@@ -1939,4 +1879,77 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 	Status = XST_SUCCESS;
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief
+ * This function initializes the AES engine for decryption.
+ *
+ * @param       InstancePtr     Pointer to the XSecure_Aes instance.
+ * @param       KeySrc          Key Source for decryption of the data.
+ * @param       KeySize         Size of the AES key to be used for decryption.
+ *               - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
+ *               - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param       IvAddr          Address to the buffer holding IV.
+ * @param       AesMode         Aes Mode for Encryption or Decryption.
+ *
+ * @return
+ *              - XST_SUCCESS on successful init
+ *              - Error code on failure
+ *
+ ******************************************************************************/
+static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc KeySrc,
+		XSecure_AesKeySize KeySize, u64 IvAddr)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	/* Configure the SSS for AES. */
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
+				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
+	}
+	else {
+		Status = XSecure_SssAes(&InstancePtr->SssInstance,
+				XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
+	}
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_AES_DATA_SWAP_VAL_MASK);
+
+
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+
+	/* Start the message. */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_START_MSG_OFFSET,
+			XSECURE_AES_START_MSG_VAL_MASK);
+
+	/* Push IV */
+	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+			IvAddr, IvAddr >> 32,
+			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
+
+	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+			XPMCDMA_IXR_DONE_MASK);
+
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+END:
+	return Status;
+
 }

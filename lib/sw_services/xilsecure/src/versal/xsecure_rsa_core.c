@@ -23,6 +23,7 @@
 *            03/24/20 Added XSecure_RsaZeroizeVerify for
 *                     RSA Zeroization Verification and modified Code for
 *                     Zeroization
+* 4.3   ana  06/04/2020 Minor enhancement
 *
 * </pre>
 *

@@ -18,7 +18,9 @@
 * 1.0   vns  04/23/19 First release
 *       har  08/22/19 Fixed MISRA C violations
 *       har  02/13/20 Added code to return error codes
-* 		rpo  02/25/20 Added SHA, RSA, ECDSA, AES KAT support
+* 	rpo  02/25/20 Added SHA, RSA, ECDSA, AES KAT support
+* 1.1	ana  06/04/20 Minor Enhancemet and updated Sha3 hash buffer
+*		      with XSecure_Sha3Hash Structure
 * </pre>
 *
 * @note
@@ -202,7 +204,6 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	Status = XLOADER_SUCCESS;
 
 END:
-
 	return Status;
 }
 
@@ -260,7 +261,7 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 
 END:
 	if (Status != XLOADER_SUCCESS) {
-		/* On failure clear data at destination address is cleared */
+		/* On failure clear data at destination address */
 		ClrStatus = XPlmi_InitNVerifyMem(DestAddr, Size);
 		if (ClrStatus != XST_SUCCESS) {
 			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
@@ -269,7 +270,6 @@ END:
 			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
 		}
 	}
-
 	return Status;
 }
 
@@ -395,7 +395,6 @@ END:
 			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
 		}
 	}
-
 	return Status;
 }
 
@@ -467,12 +466,14 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 				 */
 				XPlmi_Printf(DEBUG_INFO,
 					"Authentication with BH enabled\n\r");
+				Status = XLOADER_SUCCESS;
 			}
 		}
 		else {
 			/* Authentication is not compulsory */
 			XPlmi_Printf(DEBUG_DETAILED,
 				"Authentication is not enabled\n\r");
+			Status = XLOADER_SUCCESS;
 		}
 	}
 
@@ -488,7 +489,6 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 		}
 		else {
 			XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
-			Status = XLOADER_SUCCESS;
 			/*
 			 * When DEC only is set, meta header should be decrypted
 			 * with only efuse black key
@@ -503,14 +503,10 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 	else {
 		/* Header encryption is not compulsory */
 		XPlmi_Printf(DEBUG_DETAILED, "Encryption is not enabled\n\r");
-		Status = XLOADER_SUCCESS;
 	}
-
-	Status = XLOADER_SUCCESS;
 
 END:
 	return Status;
-
 }
 
 /*****************************************************************************/
@@ -526,7 +522,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
-	Sha3Hash HashVal;
+	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 Sha3Instance;
 	u32 AcOffset;
 	XilPdi_ImgHdrTbl *ImgHdrTbl =
@@ -555,17 +551,19 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 		goto END;
 	}
 
+	/* calculate hash of the image header table */
+	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
+					Status);
+		goto END;
+	}
+
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_SHA3_KAT_MASK) == 0U) {
 		/*
 		 * Skip running the KAT for SHA3 if it is already run by ROM
 		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
 		 */
-		Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
-		if (Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
-						Status);
-			goto END;
-		}
 		Status = XSecure_Sha3Kat(&Sha3Instance);
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT Failed\n\r");
@@ -575,26 +573,19 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
 	}
 
-	/* calculate hash of the image header table */
-	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
-	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
-					Status);
-		goto END;
-	}
 	Status = XSecure_Sha3Digest(&Sha3Instance, (u8 *)ImgHdrTbl, XIH_IHT_LEN,
-								&HashVal);
+								&Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
 					Status);
 		goto END;
 	}
 
-	XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)HashVal.Hash,
+	XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)Sha3Hash.Hash,
 		XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "IHT Hash");
 
 	/* Authenticating Image header table */
-	Status = XLoader_DataAuth(SecurePtr, HashVal.Hash,
+	Status = XLoader_DataAuth(SecurePtr, Sha3Hash.Hash,
 			(u8 *)SecurePtr->AcPtr->BHSignature);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_AUTH_FAIL, Status);
@@ -617,7 +608,6 @@ END:
 			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
 		}
 	}
-
 	return Status;
 }
 
@@ -739,6 +729,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		Status = XLOADER_ERR_HDR_NOT_SECURE;
 		goto END;
 	}
+
 END:
 	if ((Status != XLOADER_SUCCESS) &&
 		(Status != XLOADER_ERR_HDR_NOT_SECURE)) {
@@ -758,7 +749,6 @@ END:
 			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_NOT_SECURE, 0U);
 		}
 	}
-
 	return Status;
 }
 
@@ -822,7 +812,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 	u32 Status = XLOADER_FAILURE;
 	XSecure_Sha3 Sha3Instance;
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
-	Sha3Hash CalHash = {0U};
+	XSecure_Sha3Hash CalHash = {0U};
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	XLoader_AuthCertificate *AcPtr=
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
@@ -1016,7 +1006,6 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash,
 
 END:
 	return Status;
-
 }
 
 /*****************************************************************************/
@@ -1078,7 +1067,7 @@ END:
 static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
-	Sha3Hash SpkHash;
+	XSecure_Sha3Hash SpkHash;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
 
@@ -1221,14 +1210,13 @@ static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
 	}
 
 	return Status;
-
 }
 
 /*****************************************************************************/
 /**
-* @brief	This function validates PPK, by checking selected PPK is valid
-* or not by reading PPK invalid bits
-* Efuse only stores 256 bits of hash.
+* @brief	The function reads PPK invalid bits. If the bits are valid,
+* it compares the provided hash value with the programed hash value. Efuse
+* stores only 256 bits of hash.
 *
 * @param	PpkSelect	PPK selection of eFUSE.
 * @param	PpkHash		Pointer to the PPK hash to be verified.
@@ -1293,7 +1281,7 @@ END:
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_CheckNonZeroPpk()
+static u32 XLoader_CheckNonZeroPpk(void)
 {
 	u32 Status = XLOADER_FAILURE;
 	u32 Index;
@@ -1323,7 +1311,7 @@ static u32 XLoader_CheckNonZeroPpk()
 static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
-	Sha3Hash HashVal;
+	XSecure_Sha3Hash Sha3Hash;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
 	u32 ReadReg;
@@ -1337,7 +1325,8 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 			XLOADER_SEC_ALL_PPK_REVOKED_ERR, 0x0U);
 		goto END;
 	}
-		/* Calculate PPK hash */
+
+	/* Calculate PPK hash */
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(
@@ -1352,6 +1341,7 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 				XLOADER_SEC_PPK_HASH_CALCULATION_FAIL, Status);
 		goto END;
 	}
+
 	/* Update PPK  */
 	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)&AcPtr->Ppk,
 			XLOADER_PPK_SIZE);
@@ -1361,18 +1351,18 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(&Sha3Instance, &HashVal);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_PPK_HASH_CALCULATION_FAIL, Status);
 		goto END;
 	}
 
-	Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_0, HashVal.Hash);
+	Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_0, Sha3Hash.Hash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_1, HashVal.Hash);
+		Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_1, Sha3Hash.Hash);
 		if(Status != XLOADER_SUCCESS) {
-			Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_2, HashVal.Hash);
+			Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_2, Sha3Hash.Hash);
 			if (Status == XLOADER_SUCCESS) {
 				/* Selection matched with PPK2 HASH */
 				XPlmi_Printf(DEBUG_INFO, "PPK2 is valid\n\r");
@@ -1438,7 +1428,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u32 Status = XLOADER_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = XLOADER_SHA3_LEN;
-	Sha3Hash HashStore = {0U};
+	XSecure_Sha3Hash HashStore = {0U};
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
 	u32 Size = XLOADER_SHA3_LEN;
 
@@ -1494,9 +1484,8 @@ END:
 static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature)
 {
-
 	u32 Status = XLOADER_FAILURE;
-	Sha3Hash MPrimeHash = {0U};
+	XSecure_Sha3Hash MPrimeHash = {0U};
 	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
 	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
 	/* Buffer variable used to store HashMgf and DB */
@@ -1546,14 +1535,13 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
-			/* Salt extraction */
+	/* Salt extraction */
 	/* Generate DB from masked DB and Hash */
 	Status = XLoader_MaskGenFunc(&Sha3Instance, Buffer,
-								XLOADER_RSA_PSS_MASKED_DB_LEN,
-								Xsecure_Varsocm.EmHash);
+			XLOADER_RSA_PSS_MASKED_DB_LEN, Xsecure_Varsocm.EmHash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
-									 Status);
+		Status = XLOADER_UPDATE_MIN_ERR(
+				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
 		goto END;
 	}
 
@@ -1566,46 +1554,39 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 	(void)memcpy(Xsecure_Varsocm.Salt, Buffer + XLOADER_RSA_PSS_DB_LEN,
 				XLOADER_RSA_PSS_SALT_LEN);
 
-	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
-	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
-									 Status);
-		goto END;
-	}
 	/* Hash on M prime */
 	XSecure_Sha3Start(&Sha3Instance);
 
 	 /* Padding 1 */
-	Status = XSecure_Sha3Update(&Sha3Instance,
-							Xsecure_Varsocm.Padding1,
-							XLOADER_RSA_PSS_PADDING1);
+	Status = XSecure_Sha3Update(&Sha3Instance, Xsecure_Varsocm.Padding1,
+			XLOADER_RSA_PSS_PADDING1);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
-											 Status);
+		Status = XLOADER_UPDATE_MIN_ERR(
+				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
 		goto END;
 	}
 
 	 /* Message hash */
 	Status = XSecure_Sha3Update(&Sha3Instance, DataHash, XLOADER_SHA3_LEN);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
-											 Status);
+		Status = XLOADER_UPDATE_MIN_ERR(
+				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
 		goto END;
 	}
 
 	 /* Salt */
 	Status = XSecure_Sha3Update(&Sha3Instance, Xsecure_Varsocm.Salt,
-							XLOADER_RSA_PSS_SALT_LEN);
+			XLOADER_RSA_PSS_SALT_LEN);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
-											 Status);
+		Status = XLOADER_UPDATE_MIN_ERR(
+				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
 		goto END;
 	}
 
 	Status = XSecure_Sha3Finish(&Sha3Instance, &MPrimeHash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
-											 Status);
+		Status = XLOADER_UPDATE_MIN_ERR(
+				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
 		goto END;
 	}
 
@@ -1620,9 +1601,9 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 				XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN,
 					"M prime Hash");
 			XPlmi_PrintArray(DEBUG_INFO,
-				(UINTPTR)(XSecure_RsaSha3Array + XLOADER_RSA_PSS_MASKED_DB_LEN),
+				(UINTPTR)XSecure_RsaSha3Array,
 				XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN,
-				"RSA sha3 array Hash");
+				"RSA Encrypted Signature");
 			Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE,
 					0U);
 			goto END;
@@ -1836,11 +1817,8 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 			break;
 		}
 		if (SecurePtr->AesInstance.NextBlkLen == 0x00U) {
-			if (SecurePtr->RemainingEncLen == 0U) {
-				Status = XLOADER_SUCCESS;
-			}
-			else {
-			/* Still remaining data is there for decryption */
+			if (SecurePtr->RemainingEncLen != 0U) {
+				/* Still remaining data is there for decryption */
 				Status = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR, 0x0U);
 			}
@@ -1933,7 +1911,6 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		}
 		SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
 		ChunkSize = ChunkSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
-
 	}
 	Status = XLoader_DataDecrypt(SecurePtr,
 			 SrcAddr, DstAddr, ChunkSize);
@@ -1949,7 +1926,6 @@ END:
 
 /*****************************************************************************/
 /**
- *
  * @brief	This function helps in key selection.
  *
  * @param	SecurePtr is pointer to the XLoader_SecureParms
@@ -1963,9 +1939,7 @@ END:
  *
  ******************************************************************************/
 static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
-						XLoader_AesKekKey *KeyDetails,
-						XSecure_AesKeySrc *KeySrc)
-
+		XLoader_AesKekKey *KeyDetails, XSecure_AesKeySrc *KeySrc)
 {
 	u32 Status = XLOADER_FAILURE;
 	u32 *KekStatus = &SecurePtr->PdiPtr->KekStatus;
@@ -2104,7 +2078,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 		}
 		break;
 	case XLOADER_BH_OBFUS_KEY:
-		if ((*KekStatus & XLOADER_BHDR_RED_KEY) == 0x0U) {
+		if (((*KekStatus) & XLOADER_BHDR_RED_KEY) == 0x0U) {
 			/* If corresponding RED key is not available */
 			XPlmi_Printf(DEBUG_INFO,
 					"Decryting BH obfuscated key\n\r");
@@ -2279,8 +2253,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 
 /*****************************************************************************/
 /**
- * @brief
- * This function authenticates image headers and partition headers
+ * @brief	This function authenticates image headers and partition headers
  * of image.
  *
  * @param	SecurePtr	Pointer to the XLoader_SecureParms
@@ -2297,7 +2270,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	int ClrIh = XST_FAILURE;
 	int ClrPh = XST_FAILURE;
 	int SStatus = XST_FAILURE;
-	Sha3Hash HashVal;
+	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 Sha3Instance;
 
 	/* Get DMA instance */
@@ -2365,19 +2338,19 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 	/* Read hash */
-	Status = XSecure_Sha3Finish(&Sha3Instance, &HashVal);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
 		goto END;
 	}
 	XPlmi_PrintArray(DEBUG_INFO,
-		(UINTPTR)HashVal.Hash,
+		(UINTPTR)Sha3Hash.Hash,
 		XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN,
 		"Headers Hash");
 
 	/* Signature Verification */
-	Status = XLoader_DataAuth(SecurePtr, HashVal.Hash,
+	Status = XLoader_DataAuth(SecurePtr, Sha3Hash.Hash,
 					 (u8 *)SecurePtr->AcPtr->ImgSignature);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AUTH_FAIL, Status);
@@ -2402,7 +2375,6 @@ END:
 			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
 		}
 	}
-
 	return Status;
 }
 
@@ -2469,7 +2441,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
-	Sha3Hash CalHash;
+	XSecure_Sha3Hash CalHash;
 	XSecure_Sha3 Sha3Instance;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 
@@ -2494,6 +2466,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 							 Status);
 		goto END;
 	}
+
 	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)BufferAddr, TotalSize);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
@@ -2543,8 +2516,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief
- * This function decrypts headers.
+ * @brief	This function decrypts headers.
  *
  * @param	SecurePtr	Pointer to the XLoader_SecureParms
  * @param	MetaHdr		Pointer to the Meta header.
@@ -2561,7 +2533,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	u32 Status = XLOADER_FAILURE;
 	u32 Iv[XLOADER_SECURE_IV_LEN];
 	u8 Index;
-	XSecure_AesKeySrc KeySrc = 0;
+	XSecure_AesKeySrc KeySrc = 0U;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 	u32 SrcAddr = BufferAddr;
 	u32 DpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);
@@ -2578,23 +2550,6 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
-	/* Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
-	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_GET_DMA, 0x0U);
-		goto END;
-	}
-
-	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(&SecurePtr->AesInstance, SecurePtr->PmcDmaInstPtr);
-	if (Status != XLOADER_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO,
-			"Failed at XSecure_AesInitialize\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
-							 Status);
-		goto END;
-	}
-
 	KeyDetails.PufHdLocation = XilPdi_GetPufHdMetaHdr(&MetaHdr->ImgHdrTbl) >>
 					XIH_IHT_ATTR_PUFHD_SHIFT;
 	KeyDetails.PdiKeySrc = MetaHdr->ImgHdrTbl.EncKeySrc;
@@ -2606,16 +2561,14 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XLoader_AesKeySelect(SecurePtr, &KeyDetails, &KeySrc);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at Key selection\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
-							 Status);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
 		goto END;
 	}
 
 	/* Configure DPA CM */
 	Status = XLoader_SetAesDpaCm(&SecurePtr->AesInstance, DpaCmCfg);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_DPA_CM_ERR,
-								Status);
+		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_DPA_CM_ERR, Status);
 		goto END;
 	}
 
@@ -2624,8 +2577,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 			XSECURE_AES_KEY_SIZE_256,
 			(UINTPTR)MetaHdr->ImgHdrTbl.IvMetaHdr);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
-							 Status);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
 		goto END;
 	}
 
@@ -2633,15 +2585,10 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XLoader_DecryptSH(SecurePtr, SrcAddr);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,
-		"SH decryption failed during header decryption\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_DEC_FAIL,
-							 Status);
+			"SH decryption failed during header decryption\n\r");
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_DEC_FAIL, Status);
 		goto END;
 	}
-
-	SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
-	TotalSize = TotalSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
-
 
 	for (Index = 0U; Index < XLOADER_SECURE_IV_LEN; Index++) {
 		Iv[Index] = Xil_Htonl(XPlmi_In32(SecurePtr->AesInstance.BaseAddress +
@@ -2653,10 +2600,12 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at header decryption"
 					" XSecure_AesDecryptInit\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
-							 Status);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
 		goto END;
 	}
+
+	SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
+	TotalSize = TotalSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
 	Status = XLoader_DataDecrypt(SecurePtr,
 			 (UINTPTR)SrcAddr,
 			(UINTPTR)SecurePtr->ChunkAddr, TotalSize);
@@ -2676,13 +2625,13 @@ END:
  *
  * @param	AesInstPtr	Pointer to the XSecure_Aes instance.
  * @param	DpaCmCfg
- *				- TRUE - to enable AES DPA counter measure
- *				- FALSE -to disable AES DPA counter measure
+ *			- TRUE - to enable AES DPA counter measure
+ *			- FALSE -to disable AES DPA counter measure
  *
  * @return
- *			- XLOADER_SUCCESS if enable/disable of DPA was successful.
- *			- Error if device doesn't support DPA CM or configuration is
- *			not successful
+ *		- XLOADER_SUCCESS if enable/disable of DPA was successful.
+ *		- Error if device doesn't support DPA CM or configuration is
+ *		not successful
  *
  ******************************************************************************/
 static u32 XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
@@ -2742,7 +2691,7 @@ static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 		XPlmi_Printf(DEBUG_GENERAL,
 			"Failed at PUF regeneration with status %0x\n\r", Status);
 		Status  = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_PUF_REGN_ERRR,
-						 Status);
+				Status);
 		goto END;
 	}
 
@@ -2752,8 +2701,7 @@ static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 				XSECURE_AES_KEY_SIZE_256);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Failed during AES KEK decrypt\n\r");
-		Status  = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_AES_KEK_DEC,
-						 Status);
+		Status  = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_AES_KEK_DEC, Status);
 		goto END;
 	}
 

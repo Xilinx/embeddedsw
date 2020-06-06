@@ -19,6 +19,8 @@
 * 1.00  kc   02/21/2017 Initial release
 * 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
+* 1.02  ana  06/04/2020 Modified XLoader_ProcessSecurePrtn function name
+*			from XLoader_SecurePrtn
 *
 * </pre>
 *

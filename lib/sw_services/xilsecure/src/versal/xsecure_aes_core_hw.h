@@ -16,6 +16,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/21/19 Initial release
 * 4.2   vns  02/10/20 Added efuse cache DPA mask register address and mask
+* 4.3   ana  06/04/20 Added XSECURE_AES_MODE_DEC macro
 *
 * </pre>
 *

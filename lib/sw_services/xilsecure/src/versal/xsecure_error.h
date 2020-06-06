@@ -16,6 +16,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   rpo  03/19/2020 Initial release
+ * 1.1   ana  06/05/2020 Added XSECURE_SHA3_FINISH_ERROR error code
  * </pre>
  *
  * @note
@@ -45,6 +46,7 @@ typedef enum {
 
 	XSECURE_SHA3_KAT_FAILED_ERROR,  /**< 0x06 - Error when SHA3 hash
                                          not matched with expected hash */
+	XSECURE_SHA3_FINISH_ERROR,      /**<0x07 - Error when SHA3 finish fails */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40U,
 					/**< 0x40 - user provided GCM tag does

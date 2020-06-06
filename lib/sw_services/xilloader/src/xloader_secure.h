@@ -17,6 +17,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   vns  04/23/19 First release
 *       har  02/18/20 Added minor error codes for security
+* 1.1	ana  06/04/20 Removed XLOADER_ECDSA_INDEXVAL macro and
+* 		      updated u32 datatype to u8 datatype
 * </pre>
 *
 * @note

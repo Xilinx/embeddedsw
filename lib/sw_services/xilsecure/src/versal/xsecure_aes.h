@@ -24,6 +24,7 @@
 * 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
 *                       and added in xsecure_utils.h
 *       vns  02/10/2020 Added DPA CM enable/disable function
+* 4.3   ana  06/04/2020 Minor enhancement
 * </pre>
 *
 * @note

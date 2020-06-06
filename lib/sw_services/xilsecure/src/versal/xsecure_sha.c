@@ -16,6 +16,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.2   har  03/20/20 Initial release
+* 4.3   ana  06/04/20 Minor enhancement and Updated Sha3 hash variable with
+*		      XSecure_Sha3Hash structure
 *
 * </pre>
 * @note
@@ -251,8 +253,9 @@ END:
  * padding and reads final hash on complete data.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Sha3Hash		Pointer to location where resulting hash will
- *		be written
+ * @param	Sha3Hash	Pointer to XSecure_Sha3Hash structure,
+ *                              where output hash is stored into Hash
+ *                              which is member of the XSecure_Sha3Hash structure
  *
  * @return
  *		- XST_SUCCESS if finished without any errors
@@ -327,8 +330,9 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
  * @param	In		Pointer to the input data for hashing
  * @param	Size		Size of the input data
- * @param	Out		Pointer to location where resulting hash will
- *		be written.
+ * @param	Sha3Hash	Pointer to XSecure_Sha3Hash structure,
+ *                              where output hash is stored into Hash
+ *                              which is member of the XSecure_Sha3Hash structure
  *
  * @return
  *		- XST_SUCCESS if digest calculation done successfully
@@ -365,8 +369,9 @@ END:
  * between calls to XSecure_Sha3Update.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Sha3Hash	Pointer to a buffer in which read hash will be
- *		stored.
+ * @param	Sha3Hash	Pointer to XSecure_Sha3Hash structure,
+ *				where output hash is stored into Hash
+ *				which is member of the XSecure_Sha3Hash structure
  *
  * @return	None
  *
@@ -532,7 +537,7 @@ u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 {
 	u32 Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
 	u32 Index;
-	XSecure_Sha3Hash OutVal={0U};
+	XSecure_Sha3Hash OutVal = {0U};
 
 	u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
 			0x86U, 0x89U, 0xACU, 0xE3U, 0xA5U, 0xF9U, 0xF5U, 0x71U, 0xD6U,
@@ -555,30 +560,28 @@ u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	XSecure_Sha3Start(SecureSha3);
 	Status = XSecure_Sha3LastUpdate(SecureSha3);
 	if (Status != (u32)XST_SUCCESS) {
-			Status = XSECURE_SHA3_LAST_UPDATE_ERROR;
-			goto END;
+		Status = XSECURE_SHA3_LAST_UPDATE_ERROR;
+		goto END;
 	}
 
 	Status = XSecure_Sha3Update(SecureSha3, (u8 *)DataValue,
-							XSECURE_SHA3_BLOCK_LEN);
+			XSECURE_SHA3_BLOCK_LEN);
 	if (Status != (u32)XST_SUCCESS) {
-			Status = XSECURE_SHA3_PMC_DMA_UPDATE_ERROR;
-			goto END;
-	}
-	Status = XSecure_Sha3WaitForDone(SecureSha3);
-	if (Status != (u32)XST_SUCCESS) {
-			Status = XSECURE_SHA3_TIMEOUT_ERROR;
-			goto END;
+		Status = XSECURE_SHA3_PMC_DMA_UPDATE_ERROR;
+		goto END;
 	}
 
-	XSecure_Sha3ReadHash(SecureSha3, &OutVal);
-
+	Status = XSecure_Sha3Finish(SecureSha3, &OutVal);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = XSECURE_SHA3_FINISH_ERROR;
+		goto END;
+	}
 
 	for(Index = 0U; Index <XSECURE_HASH_SIZE_IN_BYTES; Index++) {
-			if (OutVal.Hash[Index] != ExpectedHash[Index]) {
-					Status = XSECURE_SHA3_KAT_FAILED_ERROR;
-					goto END;
-			}
+		if (OutVal.Hash[Index] != ExpectedHash[Index]) {
+			Status = XSECURE_SHA3_KAT_FAILED_ERROR;
+			goto END;
+		}
 	}
 
 	Status = (u32)XST_SUCCESS;

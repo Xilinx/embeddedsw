@@ -20,6 +20,8 @@
 *                       time and print
 *       har  02/18/2020 Removed code to return error codes for security related
 *                       errors
+* 1.02	ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
+*			initial boot pdi to partial pdi structure variables
 * </pre>
 *
 * @note
