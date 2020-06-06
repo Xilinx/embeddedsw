@@ -372,6 +372,8 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		memset(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
 			0U, sizeof(XilPdi_BootHdrFwRsvd));
+		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
+		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
 	}
 
 	/* Read image header */

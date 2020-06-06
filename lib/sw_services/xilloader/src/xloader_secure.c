@@ -70,10 +70,9 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 static u32 XLoader_VerifySignature(XLoader_SecureParms *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
 static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
-	XSecure_Aes *AesInstacePtr, u64 SrcAddr, u64 DestAddr, u32 Size);
+	u64 SrcAddr, u64 DestAddr, u32 Size);
 static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
-	XSecure_Aes *AesInstancePtr, XLoader_AesKekKey *KeyDetails,
-	XSecure_AesKeySrc *KeySrc);
+	XLoader_AesKekKey *KeyDetails, XSecure_AesKeySrc *KeySrc);
 static u32 XLoader_CheckNonZeroPpk(void);
 static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr);
 static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash);
@@ -385,7 +384,7 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DestAddr,
 		else {
 			OutAddr = SecurePtr->SecureData;
 		}
-		Status = XLoader_AesDecryption(SecurePtr, &SecurePtr->AesInstance,
+		Status = XLoader_AesDecryption(SecurePtr,
 					SecurePtr->SecureData, OutAddr, SecurePtr->SecureDataLen);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
@@ -575,11 +574,10 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 		 */
 		Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 		if (Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED,
-							 Status);
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
+						Status);
 			goto END;
 		}
-
 		Status = XSecure_Sha3Kat(&Sha3Instance);
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT Failed\n");
@@ -655,7 +653,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	u32 Ihs;
 	u32 DpacmEfuseStatus;
 	u32 PlmDpacmKatStatus;
-	XSecure_Aes AesInstance;
+
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"Loading secure image headers and partition headers\n\r");
@@ -685,15 +683,15 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		if((DpacmEfuseStatus == 0U) && (PlmDpacmKatStatus == 0U)) {
 
 			/* Initialize AES driver */
-			Status = XSecure_AesInitialize(&AesInstance,
-									SecurePtr->PmcDmaInstPtr);
+			Status = XSecure_AesInitialize(&SecurePtr->AesInstance,
+							SecurePtr->PmcDmaInstPtr);
 			if (Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
 					" Failed at XSecure_AesInitialize \n\r");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
 				goto END;
 			}
-			Status = XSecure_AesDecryptCmKat(&AesInstance);
+			Status = XSecure_AesDecryptCmKat(&SecurePtr->AesInstance);
 			if(Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT Failed\n");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -705,7 +703,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_AES_KAT_MASK) == 0U) {
 
 			/* Initialize AES driver */
-			Status = XSecure_AesInitialize(&AesInstance,
+			Status = XSecure_AesInitialize(&SecurePtr->AesInstance,
 							SecurePtr->PmcDmaInstPtr);
 			if (Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -714,7 +712,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 				goto END;
 			}
 
-			Status = XSecure_AesDecryptKat(&AesInstance);
+			Status = XSecure_AesDecryptKat(&SecurePtr->AesInstance);
 			if(Status != XLOADER_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "AES KAT Failed\n");
 				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
@@ -883,6 +881,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
+
 	Status = XSecure_Sha3Initialize(&Sha3Instance, PmcDmaPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
@@ -1011,6 +1010,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash,
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECDSA_KAT_MASK;
 	}
+
 	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
 	Status = XLoader_CheckNonZeroPpk();
 	/*
@@ -1780,13 +1780,13 @@ static u32 XLoader_EcdsaSignVerify(u32 *DataHash, u32 *Key, u32 *Signature)
  *
  ******************************************************************************/
 static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
-			XSecure_Aes *AesInstancePtr, u64 SrcAddr)
+			u64 SrcAddr)
 {
 	u32 Status = XLOADER_FAILURE;
 
 	/* Configure AES engine to push Key and IV */
 	XPlmi_Printf(DEBUG_DETAILED, "Decrypting Secure header\n\r");
-	Status = XSecure_AesCfgKupIv(AesInstancePtr, TRUE);
+	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, TRUE);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
@@ -1794,7 +1794,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* Push secure header */
-	Status = XSecure_AesDecryptUpdate(AesInstancePtr,
+	Status = XSecure_AesDecryptUpdate(&SecurePtr->AesInstance,
 			SrcAddr, XSECURE_AES_NO_CFG_DST_DMA,
 			XLOADER_SECURE_HDR_SIZE, TRUE);
 	if (Status != XLOADER_SUCCESS) {
@@ -1804,7 +1804,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* Verify GCM Tag */
-	Status = XSecure_AesDecryptFinal(AesInstancePtr,
+	Status = XSecure_AesDecryptFinal(&SecurePtr->AesInstance,
 			SrcAddr + XLOADER_SECURE_HDR_SIZE);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "GCM TAG is mismatching\n\r");
@@ -1815,22 +1815,14 @@ static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 
 	SecurePtr->RemainingEncLen = SecurePtr->RemainingEncLen -
 				XLOADER_SECURE_HDR_TOTAL_SIZE;
-	Status = XSecure_AesCfgKupIv(AesInstancePtr, FALSE);
-	if (Status != XLOADER_SUCCESS) {
-		Status  = XLOADER_UPDATE_MIN_ERR(
-				XLOADER_SEC_AES_OPERATION_FAILED, Status);
-		goto END;
-	}
-	/* Get next block length */
-	Status = XSecure_AesGetNxtBlkLen(AesInstancePtr,
-			&SecurePtr->EncNextBlkSize);
+	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, FALSE);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
 		goto END;
 	}
 	XPlmi_Printf(DEBUG_DETAILED,
-	"Decryption NextBlkLen = %x\n\r", SecurePtr->EncNextBlkSize);
+	"Decryption NextBlkLen = %x\n\r", SecurePtr->AesInstance.NextBlkLen);
 
 END:
 
@@ -1852,7 +1844,7 @@ END:
  *
  ******************************************************************************/
 static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
-		XSecure_Aes *AesInstancePtr, u64 SrcAddr, u64 DestAddr, u32 Size)
+		u64 SrcAddr, u64 DestAddr, u32 Size)
 {
 	u32 Status = XLOADER_FAILURE;
 	u64 InAddr = SrcAddr;
@@ -1864,12 +1856,12 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 	do {
 		for (Index = 0; Index < XLOADER_SECURE_IV_LEN; Index++) {
 			Iv[Index] = Xil_Htonl(
-					XPlmi_In32(AesInstancePtr->BaseAddress +
+					XPlmi_In32(SecurePtr->AesInstance.BaseAddress +
 					(XSECURE_AES_IV_0_OFFSET +
 					(Index *XIH_PRTN_WORD_LEN))));
 		}
 
-		Status = XSecure_AesDecryptInit(AesInstancePtr,
+		Status = XSecure_AesDecryptInit(&SecurePtr->AesInstance,
 			XSECURE_AES_KUP_KEY, XSECURE_AES_KEY_SIZE_256,
 			(UINTPTR)Iv);
 		if (Status != XLOADER_SUCCESS) {
@@ -1880,24 +1872,24 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 		}
 
 		/* Decrypt the data */
-		Status = XSecure_AesDecryptUpdate(AesInstancePtr,
-				InAddr, OutAddr, SecurePtr->EncNextBlkSize, 0U);
+		Status = XSecure_AesDecryptUpdate(&SecurePtr->AesInstance,
+				InAddr, OutAddr, SecurePtr->AesInstance.NextBlkLen, 0U);
 		if (Status != XLOADER_SUCCESS) {
 			Status  = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
 			break;
 		}
 
-		InAddr = InAddr + SecurePtr->EncNextBlkSize;
-		OutAddr = OutAddr + SecurePtr->EncNextBlkSize;
+		InAddr = InAddr + SecurePtr->AesInstance.NextBlkLen;
+		OutAddr = OutAddr + SecurePtr->AesInstance.NextBlkLen;
 		SecurePtr->SecureDataLen = SecurePtr->SecureDataLen +
-						 SecurePtr->EncNextBlkSize;
-		ChunkSize = ChunkSize - SecurePtr->EncNextBlkSize;
+						 SecurePtr->AesInstance.NextBlkLen;
+		ChunkSize = ChunkSize - SecurePtr->AesInstance.NextBlkLen;
 		SecurePtr->RemainingEncLen = SecurePtr->RemainingEncLen -
-						 SecurePtr->EncNextBlkSize;
+						 SecurePtr->AesInstance.NextBlkLen;
 
 		/* Decrypt Secure header */
-		Status = XLoader_DecryptSH(SecurePtr, AesInstancePtr, InAddr);
+		Status = XLoader_DecryptSH(SecurePtr, InAddr);
 		if (Status != XLOADER_SUCCESS) {
 			break;
 		}
@@ -1907,7 +1899,7 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 		if (ChunkSize == 0x00) {
 			break;
 		}
-		if (SecurePtr->EncNextBlkSize == 0x00) {
+		if (SecurePtr->AesInstance.NextBlkLen == 0x00) {
 			if (SecurePtr->RemainingEncLen == 0) {
 				Status = XLOADER_SUCCESS;
 			}
@@ -1919,13 +1911,13 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 			break;
 		}
 		else {
-			if (SecurePtr->RemainingEncLen < SecurePtr->EncNextBlkSize) {
+			if (SecurePtr->RemainingEncLen < SecurePtr->AesInstance.NextBlkLen) {
 				Status = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH,
 							 0x0U);
 				break;
 			}
-			if (ChunkSize < SecurePtr->EncNextBlkSize) {
+			if (ChunkSize < SecurePtr->AesInstance.NextBlkLen) {
 				Status = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH,
 							0x0U);
@@ -1953,7 +1945,7 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
  *
  ******************************************************************************/
 static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
-		XSecure_Aes *AesInstacePtr, u64 SrcAddr, u64 DstAddr, u32 Size)
+		 u64 SrcAddr, u64 DstAddr, u32 Size)
 {
 	u32 Status = XLOADER_FAILURE;
 	XSecure_AesKeySrc KeySrc;
@@ -1966,7 +1958,8 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 
 	if (SecurePtr->BlockNum == 0x0) {
 		/* Initialize AES driver */
-		Status = XSecure_AesInitialize(AesInstacePtr, SecurePtr->PmcDmaInstPtr);
+		Status = XSecure_AesInitialize(&SecurePtr->AesInstance,
+							SecurePtr->PmcDmaInstPtr);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_AES_OPERATION_FAILED,
 						Status);
@@ -1977,13 +1970,14 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 					>> XIH_PH_ATTRB_PUFHD_SHIFT;
 		KeyDetails.PdiKeySrc = SecurePtr->PrtnHdr->EncStatus;
 		KeyDetails.KekIvAddr = (UINTPTR)SecurePtr->PrtnHdr->KekIv;
-		Status = XLoader_AesKeySelect(SecurePtr, AesInstacePtr,
+		Status = XLoader_AesKeySelect(SecurePtr,
 					&KeyDetails, &KeySrc);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
 		/* Initialize AES driver */
-		Status = XSecure_AesInitialize(AesInstacePtr, SecurePtr->PmcDmaInstPtr);
+		Status = XSecure_AesInitialize(&SecurePtr->AesInstance,
+							SecurePtr->PmcDmaInstPtr);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_AES_OPERATION_FAILED,
 							Status);
@@ -1991,14 +1985,14 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		}
 		/* Configure DPA counter measure */
 		DpaCmCfg = XilPdi_IsDpaCmEnable(SecurePtr->PrtnHdr);
-		Status = XLoader_SetAesDpaCm(AesInstacePtr, DpaCmCfg);
+		Status = XLoader_SetAesDpaCm(&SecurePtr->AesInstance, DpaCmCfg);
 		if (Status != XLOADER_SUCCESS) {
 			Status  = XLOADER_UPDATE_MIN_ERR(
 					XLOADER_SEC_DPA_CM_ERR, Status);
 			goto END;
 		}
 		/* Decrypting SH */
-		Status = XSecure_AesDecryptInit(AesInstacePtr, KeySrc,
+		Status = XSecure_AesDecryptInit(&SecurePtr->AesInstance, KeySrc,
 					XSECURE_AES_KEY_SIZE_256,
 					(UINTPTR)SecurePtr->PrtnHdr->PrtnIv);
 		if (Status != XLOADER_SUCCESS) {
@@ -2007,7 +2001,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 			goto END;
 		}
 		/* Decrypt Secure header */
-		Status = XLoader_DecryptSH(SecurePtr, AesInstacePtr, SrcAddr);
+		Status = XLoader_DecryptSH(SecurePtr, SrcAddr);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -2016,7 +2010,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 
 	}
 	Status = XLoader_DataDecrypt(SecurePtr,
-			AesInstacePtr, SrcAddr, DstAddr, ChunkSize);
+			 SrcAddr, DstAddr, ChunkSize);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
@@ -2043,7 +2037,6 @@ END:
  *
  ******************************************************************************/
 static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
-						XSecure_Aes *AesInstancePtr,
 						XLoader_AesKekKey *KeyDetails,
 						XSecure_AesKeySrc *KeySrc)
 
@@ -2063,7 +2056,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_RED_KEY;
 
-			Status = XLoader_DecryptBlkKey(AesInstancePtr, KeyDetails);
+			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
 				*KekStatus = (*KekStatus) | XLOADER_EFUSE_RED_KEY;
 				*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
@@ -2085,7 +2078,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO,
 						"Decrypting EFUSE obfuscated key\n\r");
 
-			Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
 					XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_KEY,
 					XSECURE_AES_EFUSE_RED_KEY,
 					(UINTPTR)KeyDetails->KekIvAddr,
@@ -2115,7 +2108,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_BBRAM_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BBRAM_RED_KEY;
 
-			Status = XLoader_DecryptBlkKey(AesInstancePtr, KeyDetails);
+			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
 				*KekStatus = (*KekStatus) | XLOADER_BBRAM_RED_KEY;
 				*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
@@ -2137,7 +2130,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO,
 						"Decrypting BBRAM obfuscated key\n\r");
 
-			Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
 					XSECURE_OBFUSCATED_KEY, XSECURE_AES_BBRAM_KEY,
 					XSECURE_AES_BBRAM_RED_KEY,
 					(UINTPTR)KeyDetails->KekIvAddr,
@@ -2166,13 +2159,13 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			KeyDetails->KeyDst = XSECURE_AES_BH_RED_KEY;
 
 			/* Write BH key into BH registers */
-			Status = XSecure_AesWriteKey(AesInstancePtr,
+			Status = XSecure_AesWriteKey(&SecurePtr->AesInstance,
 				XSECURE_AES_BH_KEY, XSECURE_AES_KEY_SIZE_256,
 					(UINTPTR)SecurePtr->PdiPtr->MetaHdr.BootHdr.Kek);
 			if (Status != XLOADER_SUCCESS) {
 				break;
 			}
-			Status = XLoader_DecryptBlkKey(AesInstancePtr, KeyDetails);
+			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
 				*KekStatus = (*KekStatus) | XLOADER_BHDR_RED_KEY;
 				*KeySrc = XSECURE_AES_BH_RED_KEY;
@@ -2194,13 +2187,13 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO,
 					"Decryting BH obfuscated key\n\r");
 			/* Write BH key into BH registers */
-			Status = XSecure_AesWriteKey(AesInstancePtr,
+			Status = XSecure_AesWriteKey(&SecurePtr->AesInstance,
 				XSECURE_AES_BH_KEY, XSECURE_AES_KEY_SIZE_256,
 					(UINTPTR)SecurePtr->PdiPtr->MetaHdr.BootHdr.Kek);
 			if (Status != XLOADER_SUCCESS) {
 				break;
 			}
-			Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
 					XSECURE_OBFUSCATED_KEY, XSECURE_AES_BH_KEY,
 					XSECURE_AES_BH_RED_KEY,
 				(UINTPTR)KeyDetails->KekIvAddr,
@@ -2229,7 +2222,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_0;
 
-			Status = XLoader_DecryptBlkKey(AesInstancePtr, KeyDetails);
+			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
 				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR0_RED_KEY;
 				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
@@ -2250,7 +2243,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO,
 						"Decrypting BBRAM obfuscated key\n\r");
 
-			Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
 					XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_USER_KEY_0,
 					XSECURE_AES_EFUSE_USER_RED_KEY_0,
 					(UINTPTR)KeyDetails->KekIvAddr,
@@ -2280,7 +2273,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_1;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_1;
 
-			Status = XLoader_DecryptBlkKey(AesInstancePtr, KeyDetails);
+			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
 				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR1_RED_KEY;
 				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
@@ -2301,7 +2294,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO,
 						"Decrypting BBRAM obfuscated key\n\r");
 
-			Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
 					XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_USER_KEY_1,
 					XSECURE_AES_EFUSE_USER_RED_KEY_1,
 					(UINTPTR)KeyDetails->KekIvAddr,
@@ -2647,7 +2640,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 			XilPdi_MetaHdr *MetaHdr, u64 BufferAddr)
 {
 	u32 Status = XLOADER_FAILURE;
-	XSecure_Aes AesInstance;
+
 	u32 Iv[XLOADER_SECURE_IV_LEN];
 	u8 Index;
 	XSecure_AesKeySrc KeySrc = 0;
@@ -2675,7 +2668,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_AesInitialize(&SecurePtr->AesInstance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,
 			" Failed at XSecure_AesInitialize \n\r");
@@ -2692,8 +2685,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	/*
 	 * Key source selection
 	 */
-	Status = XLoader_AesKeySelect(SecurePtr, &AesInstance,
-				&KeyDetails, &KeySrc);
+	Status = XLoader_AesKeySelect(SecurePtr, &KeyDetails, &KeySrc);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at Key selection \n\r");
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
@@ -2701,7 +2693,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 	/* Initialize AES driver */
-	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_AesInitialize(&SecurePtr->AesInstance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO," Failed at XSecure_AesInitialize \n\r");
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
@@ -2710,7 +2702,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* Configure DPA CM */
-	Status = XLoader_SetAesDpaCm(&AesInstance, DpaCmCfg);
+	Status = XLoader_SetAesDpaCm(&SecurePtr->AesInstance, DpaCmCfg);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_DPA_CM_ERR,
 								Status);
@@ -2718,7 +2710,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* Decrypting SH */
-	Status = XSecure_AesDecryptInit(&AesInstance, KeySrc,
+	Status = XSecure_AesDecryptInit(&SecurePtr->AesInstance, KeySrc,
 			XSECURE_AES_KEY_SIZE_256,
 			(UINTPTR)MetaHdr->ImgHdrTbl.IvMetaHdr);
 	if (Status != XLOADER_SUCCESS) {
@@ -2728,7 +2720,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* Decrypt Secure header */
-	Status = XLoader_DecryptSH(SecurePtr, &AesInstance, SrcAddr);
+	Status = XLoader_DecryptSH(SecurePtr, SrcAddr);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,
 		"SH decryption failed during header decryption\n\r");
@@ -2742,11 +2734,11 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 
 
 	for (Index = 0; Index < XLOADER_SECURE_IV_LEN; Index++) {
-		Iv[Index] = Xil_Htonl(XPlmi_In32(AesInstance.BaseAddress +
+		Iv[Index] = Xil_Htonl(XPlmi_In32(SecurePtr->AesInstance.BaseAddress +
 		(XSECURE_AES_IV_0_OFFSET + (Index * XIH_PRTN_WORD_LEN))));
 	}
 
-	Status = XSecure_AesDecryptInit(&AesInstance,
+	Status = XSecure_AesDecryptInit(&SecurePtr->AesInstance,
 		XSECURE_AES_KUP_KEY, XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at header decryption"
@@ -2756,7 +2748,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 	Status = XLoader_DataDecrypt(SecurePtr,
-			&AesInstance, (UINTPTR)SrcAddr,
+			 (UINTPTR)SrcAddr,
 			(UINTPTR)SecurePtr->ChunkAddr, TotalSize);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_DEC_FAIL, Status);

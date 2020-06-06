@@ -262,7 +262,6 @@ typedef struct {
 	u32 RemainingEncLen;
 	u32 BlockNum;
 	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];
-	u32 EncNextBlkSize;
 	XLoader_AuthCertificate *AcPtr;
 	XPmcDma *PmcDmaInstPtr;
 	XSecure_Aes AesInstance;
