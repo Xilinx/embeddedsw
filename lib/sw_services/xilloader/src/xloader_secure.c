@@ -538,7 +538,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
-	u8 Hash[XLOADER_SHA3_LEN];
+	Sha3Hash HashVal;
 	XSecure_Sha3 Sha3Instance;
 	u32 AcOffset;
 	XilPdi_ImgHdrTbl *ImgHdrTbl =
@@ -595,18 +595,18 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 		goto END;
 	}
 	Status = XSecure_Sha3Digest(&Sha3Instance, (u8 *)ImgHdrTbl, XIH_IHT_LEN,
-								Hash);
+								&HashVal);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
 					Status);
 		goto END;
 	}
 
-	XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)Hash,
+	XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)HashVal.Hash,
 		XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN, "IHT Hash");
 
 	/* Authenticating Image header table */
-	Status = XLoader_DataAuth(SecurePtr, Hash,
+	Status = XLoader_DataAuth(SecurePtr, HashVal.Hash,
 			(u8 *)SecurePtr->AcPtr->BHSignature);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_AUTH_FAIL, Status);
@@ -861,7 +861,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 	u32 Status = XLOADER_FAILURE;
 	XSecure_Sha3 Sha3Instance;
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
-	u8 CalHash[XLOADER_SHA3_LEN] = {0U};
+	Sha3Hash CalHash = {0U};
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	XPmcDma *PmcDmaPtr = SecurePtr->PmcDmaInstPtr;
 	XLoader_AuthCertificate *AcPtr=
@@ -902,7 +902,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(&Sha3Instance, CalHash);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &CalHash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 							Status);
@@ -912,7 +912,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 	/* Verify the hash */
 	if ((SecurePtr->IsAuthenticated == TRUE) &&
 			(SecurePtr->BlockNum == 0x00U)) {
-		Status = XLoader_DataAuth(SecurePtr, CalHash,
+		Status = XLoader_DataAuth(SecurePtr, CalHash.Hash,
 					(u8 *)SecurePtr->AcPtr->ImgSignature);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XPLMI_UPDATE_STATUS(
@@ -921,11 +921,11 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 		}
 	}
 	else {
-		Status = XPlmi_MemCmp(ExpHash, CalHash, XLOADER_SHA3_LEN);
+		Status = XPlmi_MemCmp(ExpHash, CalHash.Hash, XLOADER_SHA3_LEN);
 		if (Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO," Hash mismatch error \n\r");
 			XPlmi_PrintArray(DEBUG_INFO,
-			(UINTPTR)CalHash, XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
+			(UINTPTR)CalHash.Hash, XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
 				"Calculated Hash");
 			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)ExpHash,
 				XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
@@ -1122,8 +1122,7 @@ END:
 static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
-	u8 Hash[XSECURE_HASH_TYPE_SHA3]__attribute__ ((aligned(32U)));
-	u8 *SpkHash = Hash;
+	Sha3Hash SpkHash;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
 
@@ -1163,14 +1162,14 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(&Sha3Instance, SpkHash);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &SpkHash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(
 			XLOADER_SEC_SPK_HASH_CALCULATION_FAIL, Status);
 		goto END;
 	}
 
-	Status = XLoader_VerifySignature(SecurePtr, SpkHash, &AcPtr->Ppk,
+	Status = XLoader_VerifySignature(SecurePtr, SpkHash.Hash, &AcPtr->Ppk,
 					(u8 *)&AcPtr->SPKSignature);
 
 END:
@@ -1374,7 +1373,7 @@ static u32 XLoader_CheckNonZeroPpk()
 static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
-	u8 Hash[XSECURE_HASH_TYPE_SHA3]__attribute__ ((aligned(32U)));
+	Sha3Hash HashVal;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
 	u32 ReadReg;
@@ -1412,18 +1411,18 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(&Sha3Instance, Hash);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &HashVal);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(
 				XLOADER_SEC_PPK_HASH_CALCULATION_FAIL, Status);
 		goto END;
 	}
 
-	Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_0, Hash);
+	Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_0, HashVal.Hash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_1, Hash);
+		Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_1, HashVal.Hash);
 		if(Status != XLOADER_SUCCESS) {
-			Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_2, Hash);
+			Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_2, HashVal.Hash);
 			if (Status == XLOADER_SUCCESS) {
 				/* Selection matched with PPK2 HASH */
 				XPlmi_Printf(DEBUG_INFO, "PPK2 is valid\n\r");
@@ -1488,7 +1487,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u32 Status = XLOADER_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = XLOADER_SHA3_LEN;
-	u8 Hashstore[XLOADER_SHA3_LEN]= {0U};
+	Sha3Hash Hashstore = {0U};
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
 	u32 Size = XLOADER_SHA3_LEN;
 
@@ -1510,7 +1509,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
-		Status = XSecure_Sha3Finish(Sha3InstancePtr, Hashstore);
+		Status = XSecure_Sha3Finish(Sha3InstancePtr, &Hashstore);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -1521,7 +1520,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			   */
 			 Size = (OutLen % HashLen);
 		}
-		(void)XPlmi_MemCpy(Out, Hashstore, Size);
+		(void)XPlmi_MemCpy(Out, Hashstore.Hash, Size);
 		Out = Out + XLOADER_SHA3_LEN;
 		Counter = Counter + 1U;
 	}
@@ -1552,7 +1551,7 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 {
 
 	u32 Status = XLOADER_FAILURE;
-	u8 MPrimeHash[XLOADER_SHA3_LEN] = {0U};
+	Sha3Hash MPrimeHash = {0U};
 	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
 	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32)));
 	/* Buffer variable used to store HashMgf and DB */
@@ -1658,7 +1657,7 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(&Sha3Instance, MPrimeHash);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &MPrimeHash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLOADER_UPDATE_MIN_ERR(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
 											 Status);
@@ -1667,12 +1666,12 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 
 	/* Compare MPrime Hash with Hash from EM */
 	for (Index = 0U; Index < XLOADER_SHA3_LEN; Index++) {
-		if (MPrimeHash[Index] !=
+		if (MPrimeHash.Hash[Index] !=
 			XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN + Index]) {
 			XPlmi_Printf(DEBUG_INFO, "Failed at RSA PSS "
 				"signature verification \n\r");
 			XPlmi_PrintArray(DEBUG_INFO,
-				(UINTPTR)MPrimeHash,
+				(UINTPTR)MPrimeHash.Hash,
 				XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
 					"M prime Hash");
 			XPlmi_PrintArray(DEBUG_INFO,
@@ -2357,7 +2356,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	int ClrIh = XST_FAILURE;
 	int ClrPh = XST_FAILURE;
 	int SStatus = XST_FAILURE;
-	u8 Hash[XLOADER_SHA3_LEN];
+	Sha3Hash HashVal;
 	XSecure_Sha3 Sha3Instance;
 
 	/* Get DMA instance */
@@ -2425,19 +2424,19 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 	/* Read hash */
-	Status = XSecure_Sha3Finish(&Sha3Instance, Hash);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &HashVal);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
 		goto END;
 	}
 	XPlmi_PrintArray(DEBUG_INFO,
-		(UINTPTR)Hash,
+		(UINTPTR)HashVal.Hash,
 		XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
 		"Headers Hash");
 
 	/* Signature Verification */
-	Status = XLoader_DataAuth(SecurePtr, Hash,
+	Status = XLoader_DataAuth(SecurePtr, HashVal.Hash,
 					 (u8 *)SecurePtr->AcPtr->ImgSignature);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AUTH_FAIL, Status);
@@ -2529,7 +2528,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
-	u8 CalHash[XLOADER_SHA3_LEN];
+	Sha3Hash CalHash;
 	XSecure_Sha3 Sha3Instance;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 
@@ -2561,7 +2560,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(&Sha3Instance, CalHash);
+	Status = XSecure_Sha3Finish(&Sha3Instance, &CalHash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 							 Status);
@@ -2569,7 +2568,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 	}
 
 	/* RSA PSS signature verification */
-	Status = XLoader_DataAuth(SecurePtr, CalHash,
+	Status = XLoader_DataAuth(SecurePtr, CalHash.Hash,
 				(u8 *)SecurePtr->AcPtr->ImgSignature);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AUTH_FAIL,

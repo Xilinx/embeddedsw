@@ -54,6 +54,7 @@ extern "C" {
 #include "xpmcdma.h"
 #include "xsecure_sss.h"
 
+
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
 @{
@@ -82,6 +83,10 @@ extern "C" {
 * SHA3 padding type
 */
 /***************************** Type Definitions******************************/
+
+typedef struct {
+	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+} XSecure_Sha3Hash;
 
 /* Sha3 driver states */
 typedef enum {
@@ -118,13 +123,14 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 /* Data Transfer */
 u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size);
-u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
+u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
+
 
 /* Complete SHA digest calculation */
-u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
-						const u32 Size, u8 *Out);
+u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
+					XSecure_Sha3Hash *Sha3Hash);
 
-void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
+void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
 u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 

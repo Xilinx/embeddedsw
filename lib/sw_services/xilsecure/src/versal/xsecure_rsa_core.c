@@ -88,7 +88,8 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 /*****************************************************************************/
 /**
  * @brief
-* This function handles the all RSA operations with provided inputs.
+* This function handles the Public encryption and private decryption
+* RSA operations with provided inputs.
 *
 * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
 * @param	Input		Pointer to the buffer which contains the input
@@ -129,8 +130,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	/* Setting Key length */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_KEY_LEN_OFFSET,
-		(InstancePtr->SizeInWords * XSECURE_WORD_IN_BITS) &
-		XSECURE_ECDSA_RSA_KEY_LEN_MASK);
+		(InstancePtr->SizeInWords * XSECURE_WORD_IN_BITS));
 
 	/* configuring endianness for data */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -229,7 +229,7 @@ END:
 	/* Revert configuring endianness for data */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_CFG_OFFSET,
-		XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK);
+		XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK);
 
 	/* Zeroize and Verify RSA memory space */
 	if (InstancePtr->EncDec == XSECURE_RSA_SIGN_DEC) {

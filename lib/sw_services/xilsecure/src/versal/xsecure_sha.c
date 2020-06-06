@@ -251,7 +251,7 @@ END:
  * padding and reads final hash on complete data.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Hash		Pointer to location where resulting hash will
+ * @param	Sha3Hash		Pointer to location where resulting hash will
  *		be written
  *
  * @return
@@ -259,7 +259,7 @@ END:
  *		- XST_FAILURE if Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
-u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
+u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 {
 	u32 PadLen;
 	u32 Status = (u32)XST_FAILURE;
@@ -267,7 +267,7 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Hash != NULL);
+	Xil_AssertNonvoid(Sha3Hash != NULL);
 	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	PadLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
@@ -302,9 +302,9 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	}
 
 	/* If requested, read out the Hash in reverse order.  */
-	if (Hash != NULL)
+	if (Sha3Hash != NULL)
 	{
-		XSecure_Sha3ReadHash(InstancePtr, Hash);
+		XSecure_Sha3ReadHash(InstancePtr, Sha3Hash);
 	}
 
 END:
@@ -336,20 +336,20 @@ END:
  *
  ******************************************************************************/
 u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
-								u8 *Out)
+								XSecure_Sha3Hash *Sha3Hash)
 {
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Out != NULL);
+	Xil_AssertNonvoid(Sha3Hash != NULL);
 
 	XSecure_Sha3Start(InstancePtr);
 	Status = XSecure_Sha3Update(InstancePtr, In, Size);
 	if (Status != (u32)XST_SUCCESS){
 		goto END;
 	}
-	Status = XSecure_Sha3Finish(InstancePtr, Out);
+	Status = XSecure_Sha3Finish(InstancePtr, Sha3Hash);
 	if (Status != (u32)XST_SUCCESS){
 		goto END;
 	}
@@ -365,26 +365,26 @@ END:
  * between calls to XSecure_Sha3Update.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Hash		Pointer to a buffer in which read hash will be
+ * @param	Sha3Hash	Pointer to a buffer in which read hash will be
  *		stored.
  *
  * @return	None
  *
  ******************************************************************************/
-void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
+void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 {
 	u32 Index;
 	u32 RegVal;
-	u32 *HashPtr = (u32 *)Hash;
+	u32 *HashPtr = (u32 *)Sha3Hash->Hash;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Hash != NULL);
+	Xil_AssertVoid(Sha3Hash != NULL);
 	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	for (Index = 0U; Index < XSECURE_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
-			XSECURE_SHA3_DIGEST_0_OFFSET + (Index * 4U));
+			XSECURE_SHA3_DIGEST_0_OFFSET + (Index * XSECURE_WORD_SIZE));
 		HashPtr[XSECURE_SHA3_HASH_LENGTH_IN_WORDS - Index - 1] = RegVal;
 	}
 }
@@ -418,7 +418,7 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 		goto ENDF;
 	}
 	XPmcDma_Transfer(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
-				(UINTPTR)Data, (u32)Size/4U, IsLast);
+				(UINTPTR)Data, (u32)Size/XSECURE_WORD_SIZE, IsLast);
 
 	/* Checking the PMC DMA done bit should be enough. */
 	Status = XPmcDma_WaitForDoneTimeout(InstancePtr->DmaPtr,
@@ -532,7 +532,8 @@ u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 {
 	u32 Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
 	u32 Index;
-	u8 OutVal[XSECURE_HASH_SIZE_IN_BYTES] = {0U};
+	XSecure_Sha3Hash OutVal={0U};
+
 	u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
 			0x86U, 0x89U, 0xACU, 0xE3U, 0xA5U, 0xF9U, 0xF5U, 0x71U, 0xD6U,
 			0xBBU, 0xCDU, 0x1CU, 0xE2U, 0xD4U, 0x18U, 0xD8U, 0xF6U, 0xCFU,
@@ -570,10 +571,11 @@ u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 			goto END;
 	}
 
-	XSecure_Sha3ReadHash(SecureSha3, (u8 *)OutVal);
+	XSecure_Sha3ReadHash(SecureSha3, &OutVal);
+
 
 	for(Index = 0U; Index <XSECURE_HASH_SIZE_IN_BYTES; Index++) {
-			if (OutVal[Index] != ExpectedHash[Index]) {
+			if (OutVal.Hash[Index] != ExpectedHash[Index]) {
 					Status = XSECURE_SHA3_KAT_FAILED_ERROR;
 					goto END;
 			}

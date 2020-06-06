@@ -164,6 +164,7 @@ extern "C" {
 
 #define XSECURE_AES_MODE_ENC_DEC_N_MASK    (0x00000001U)
 #define XSECURE_AES_MODE_ENC		   (0x00000001U)
+#define XSECURE_AES_MODE_DEC		   (0x00000000U)
 
 /**
  * Register: XSECURE_AES_KUP_WR
