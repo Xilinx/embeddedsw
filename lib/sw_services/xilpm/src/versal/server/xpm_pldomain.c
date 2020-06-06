@@ -360,6 +360,10 @@ static XStatus PlHouseClean(u32 TriggerTime)
 			goto done;
 		}
 
+		/* BRAM/URAM TRIM */
+		PldApplyTrim(XPM_PL_TRIM_BRAM);
+		PldApplyTrim(XPM_PL_TRIM_URAM);
+
 		/* BRAM/URAM repair */
 		Status = XPmBisr_Repair(BRAM_TAG_ID);
 		if (XST_SUCCESS != Status) {
@@ -392,10 +396,6 @@ static XStatus PlHouseClean(u32 TriggerTime)
 
 		/* CRAM TRIM */
 		PldApplyTrim(XPM_PL_TRIM_CRAM);
-
-		/* BRAM/URAM TRIM */
-		PldApplyTrim(XPM_PL_TRIM_BRAM);
-		PldApplyTrim(XPM_PL_TRIM_URAM);
 
 		if (PLATFORM_VERSION_SILICON != Platform) {
 			Status = XST_SUCCESS;
