@@ -113,7 +113,6 @@ extern "C" {
 #define XLOADER_AC_AH_PUB_ALG_ECDSA		(0x2U)
 
 #define XLOADER_ECDSA_KEYSIZE			(0x0000000CU)
-#define XLOADER_ECDSA_INDEXVAL			(0x0000000BU)
 
 #define XLOADER_SECURE_HDR_SIZE			(48U)/**< Secure Header Size in Bytes*/
 #define XLOADER_SECURE_GCM_TAG_SIZE		(16U) /**< GCM Tag Size in Bytes */
@@ -246,14 +245,14 @@ typedef struct {
 }XLoader_AesKekKey;
 
 typedef struct {
-	u32 SecureEn;
-	u32 IsCheckSumEnabled;
-	u32 IsEncrypted;
-	u32 IsAuthenticated;
+	u8 SecureEn;
+	u8 IsCheckSumEnabled;
+	u8 IsEncrypted;
+	u8 IsAuthenticated;
 	XLoader_AuthType SigType;
 	XilPdi *PdiPtr;
 	XilPdi_PrtnHdr *PrtnHdr;
-	u32 IsCdo; /**< CDO or Elf */
+	u8 IsCdo; /**< CDO or Elf */
 	u32 NextBlkAddr;
 	u32 ChunkAddr;
 	/* verified data is at */
@@ -337,7 +336,7 @@ typedef enum {
 /***************************** Function Prototypes ***************************/
 u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum);
-u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
+u32 XLoader_ProcessSecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 	u32 Size, u8 Last);
 u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size);
 u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr);

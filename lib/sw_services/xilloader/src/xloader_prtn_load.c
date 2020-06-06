@@ -529,7 +529,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			}
 		}
 		else {
-			Status = XLoader_SecurePrtn(&SecureParams,
+			Status = XLoader_ProcessSecurePrtn(&SecureParams,
 				SecureParams.SecureData, ChunkLen, LastChunk);
 			if (Status != XST_SUCCESS) {
 				goto END;
