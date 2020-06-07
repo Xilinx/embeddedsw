@@ -100,10 +100,16 @@ FreeRTOS_DataAbortHandler:		/* Data Abort handler */
 #ifdef CONFIG_ARM_ERRATA_775420
 	dsb
 #endif
-	stmdb	sp!,{r0-r3,r12,lr}	/* state save from compiled code */
-	blx	DataAbortInterrupt		/*DataAbortInterrupt :call C function here */
-	ldmia	sp!,{r0-r3,r12,lr}	/* state restore from compiled code */
-	subs	pc, lr, #4			/* adjust return */
+        stmdb   sp!,{r0-r3,r12,lr}              /* state save from compiled code */
+        ldr     r0, =DataAbortAddrFreeRTOS
+        sub     r1, lr, #8
+        str     r1, [r0]                        /* Stores instruction causing data abort */
+
+        bl      DataAbortInterrupt              /*DataAbortInterrupt :call C function here */
+
+        ldmia   sp!,{r0-r3,r12,lr}              /* state restore from compiled code */
+
+        subs    pc, lr, #8                      /* points to the instruction that caused the Data Abort exception */
 
 .align 4
 FreeRTOS_PrefetchAbortHandler:	/* Prefetch Abort handler */

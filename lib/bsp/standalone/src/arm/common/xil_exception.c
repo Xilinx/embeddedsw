@@ -80,7 +80,8 @@ XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
 };
 #endif
 #if !defined (__aarch64__)
-u32 DataAbortAddr;       /* Address of instruction causing data abort */
+u32 DataAbortAddr;       /* Address of instruction causing data abort for BareMetal-Standalone */
+u32 DataAbortAddrFreeRTOS;       /* Address of instruction causing data abort for FreeRTOS */
 u32 PrefetchAbortAddr;   /* Address of instruction causing prefetch abort */
 u32 UndefinedExceptionAddr;   /* Address of instruction causing Undefined
 							     exception */
@@ -293,7 +294,10 @@ void Xil_DataAbortHandler(void *CallBackRef){
 	        FaultStatus = Reg; }
 	    #endif
 	xdbg_printf(XDBG_DEBUG_GENERAL, "Data abort with Data Fault Status Register  %lx\n",FaultStatus);
-	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instruction causing Data abort %lx\n",DataAbortAddr);
+#ifdef USING_FREERTOS_ZYNQ7
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instruction causing FreeRTOS Data abort %lx\n",DataAbortAddrFreeRTOS);
+#endif
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instruction causing BareMetail Data abort %lx\n",DataAbortAddr);
 #endif
 	while(1) {
 		;
