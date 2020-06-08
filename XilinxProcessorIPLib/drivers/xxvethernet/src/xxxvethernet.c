@@ -6,7 +6,7 @@
 /**
 *
 * @file xxxvethernet.c
-* @addtogroup xxvethernet_v1_4
+* @addtogroup xxvethernet_v1_5
 * @{
 *
 * This file implements all the XXV ethernet functions to initialize, start,
