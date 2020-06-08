@@ -492,16 +492,23 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 
 			/* Request the parent first */
 			XPm_ClockNode *ParentClk = XPmClock_GetByIdx(Clk->ParentIdx);
+			if (NULL == ParentClk) {
+				PmWarn("Invalid parent clockIdx %d\r\n", Clk->ParentIdx);
+				goto done;
+			}
+
 			if (ISOUTCLK(ParentClk->Node.Id)) {
 				XPmClock_RequestInt(ParentClk);
 			} else if (ISPLL(ParentClk->Node.Id)) {
 				Status = XPmClockPll_Request(ParentClk->Node.Id);
 				if (XST_SUCCESS != Status) {
 					PmWarn("Error %d in request PLL of 0x%x\r\n", Status, ParentClk->Node.Id);
+					goto done;
 				}
 			} else {
 				/* Required due to MISRA */
 				PmDbg("Invalid clock type of clock 0x%x\r\n", ParentClk->Node.Id);
+				goto done;
 			}
 
 			/* Mark it as requested. If clock has a gate, state will be changed to On when enabled */
@@ -513,6 +520,8 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 		/* Increment the use count of clock */
 		Clk->UseCount++;
 	}
+
+done:
 	return;
 }
 
@@ -668,6 +677,11 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 
 	/* Request new parent */
 	ParentClk = XPmClock_GetByIdx(Clk->Topology.MuxSources[ParentIdx]);
+	if (NULL == ParentClk) {
+		Status = XPM_INVALID_PARENT_CLKID;
+		goto done;
+	}
+
 	if (ISOUTCLK(ParentClk->Node.Id)) {
 		XPmClock_RequestInt(ParentClk);
 	} else if (ISPLL(ParentClk->Node.Id)) {
@@ -684,6 +698,11 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 
 	/* Release old parent */
 	OldParentClk = XPmClock_GetByIdx(Clk->ClkNode.ParentIdx);
+	if (NULL == OldParentClk) {
+		Status = XPM_INVALID_PARENT_CLKID;
+		goto done;
+	}
+
 	if (ISOUTCLK(OldParentClk->Node.Id)) {
 		XPmClock_ReleaseInt(OldParentClk);
 	} else if (ISPLL(OldParentClk->Node.Id)) {
@@ -873,8 +892,8 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 	u32 i;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
-
-	if (!ISOUTCLK(ClockId)) {
+	if ((NULL == Clk) || (!ISOUTCLK(ClockId))) {
+		Status = XPM_INVALID_CLKID;
 		goto done;
 	}
 

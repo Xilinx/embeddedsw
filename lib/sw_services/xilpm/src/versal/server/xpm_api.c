@@ -2058,7 +2058,13 @@ done:
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	XPm_ClockNode *Clk = NULL;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
 
 	if (ISOUTCLK(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
@@ -2133,7 +2139,13 @@ done:
 XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	XPm_ClockNode *Clk = NULL;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
 
 	/* Get parent is allowed only on output clocks */
 	if (!ISOUTCLK(ClockId)) {

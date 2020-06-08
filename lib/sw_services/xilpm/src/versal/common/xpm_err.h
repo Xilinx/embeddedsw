@@ -109,6 +109,7 @@ extern "C" {
 #define XPM_ERR_SET_LATENCY                      (2066L) /* Failure to set latency for a device*/
 #define XPM_INVALID_CLKID                        (2067L) /* Invalid clock id passed */
 #define XPM_INVALID_CLK_SUBNODETYPE              (2068L) /* Invalid clock sub-node type */
+#define XPM_INVALID_PARENT_CLKID                 (2069L) /* Invalid parent clock id */
 
 /**************************** Power Errors *******************************/
 /**************************** (2081L) - (2095L) **************************/
