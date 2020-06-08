@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   hk   06/16/17 First release
 *       hk   02/15/18 Add support for USXGMII
+* 1.5   rsp  06/08/20 Fix Xil_poll_timeout compilation error on microblaze.
 *
 * </pre>
 *
@@ -26,7 +27,7 @@
 /***************************** Include Files *********************************/
 
 #include "xxxvethernet_example.h"
-#if !defined (__MICROBLAZE__) && !defined(__PPC__)
+#if !defined(__PPC__)
 #include "sleep.h"
 #endif
 
