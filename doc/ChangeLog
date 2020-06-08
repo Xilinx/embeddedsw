@@ -32,6 +32,9 @@ axidma_v9_12:
 Fix the MaxTransferLen calculation for MM2S and S2MM in axidma micro
 mode.
 
+xxvethernet_v1_5:
+Fix intr_mcdma example compilation on microblaze platform.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
