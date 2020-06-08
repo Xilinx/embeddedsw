@@ -25,7 +25,17 @@
 
 *	#define XNVM_EFUSE_GD_ROM_MONITOR_EN	FALSE
 *	TRUE permanently enables the glitch monitoring in ROM
-*	FALSE will not modify the the control bit in eFUSE
+*	FALSE will not modify the control bit in eFUSE
+*
+*	#define XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0	FALSE
+*	TRUE halts the boot at ROM stage when any error other
+*	than environmental and glitch observed
+*	FALSE will not modify the control bit in eFUSE
+*
+*	#define XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0	FALSE
+*	TRUE halts the boot at ROM stage when any
+*	environmental error observed
+*	FALSE will not modify the control bit in eFUSE
 *
 *	#define XNVM_EFUSE_PPK0_WR_LK			FALSE
 *	TRUE permanently disables writing to PPK0 eFuse.
@@ -493,8 +503,10 @@ extern "C" {
  * Following are the defines to select if the user wants to program
  * glitch miscellaneous control bits
  */
-#define XNVM_EFUSE_GD_HALT_BOOT_EN_1_0	FALSE
-#define XNVM_EFUSE_GD_ROM_MONITOR_EN	FALSE
+#define XNVM_EFUSE_GD_HALT_BOOT_EN_1_0		FALSE
+#define XNVM_EFUSE_GD_ROM_MONITOR_EN		FALSE
+#define XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0	FALSE
+#define XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0	FALSE
 /**
  * Following is the define to select if the user wants to program
  * Secure control bits

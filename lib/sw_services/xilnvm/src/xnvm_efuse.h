@@ -138,7 +138,7 @@ typedef enum {
 						* DEC_ONLY eFuse programming */
 
 	XNVM_EFUSE_ERR_BIT_CANT_REVERT = 0xF0U,/**<0xF0U - Already programmed eFuse
-						* Bit, cant be reverted */
+						* Bit, can't be reverted */
 
 
 	XNVM_EFUSE_ERR_WRITE_AES_KEY = 0x8000U,/**<0x8000U - Error in Aes key
@@ -448,6 +448,9 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS = 0xEE00,/**<0xEE00 - Error in
 						* programming of Glitch ROM monitor
 						* or glitch halt boot */
+	XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS = 0xEF00,/**<0xEF00 - Error in
+						* programming of ROM flow control halt boot
+						* bits for generic and environment errors*/
 	XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED = 0xF000U,/**<0xF000U - Error in
 						* Programming, no data is
 						* provided for Programming.

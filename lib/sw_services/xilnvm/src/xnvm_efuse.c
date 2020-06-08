@@ -132,6 +132,8 @@ static u32 XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly);
 static u32 XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses);
 static u32 XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs);
 static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect);
+static u32 Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
+static u32 Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
 static u32 XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *WriteRevokeId);
 static u32 XNvm_EfusePrgmProtectionEfuse(void);
 
@@ -234,6 +236,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 			goto END;
 		}
 	}
+
 	if (WriteNvm->PpkHash != NULL) {
 
 		Status = XNvm_EfusePrgmPpkHash(WriteNvm->PpkHash);
@@ -241,6 +244,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 			goto END;
 		}
 	}
+
 	if (WriteNvm->Ivs != NULL) {
 
 		Status = XNvm_EfusePrgmIVs(WriteNvm->Ivs);
@@ -248,6 +252,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 			goto END;
 		}
 	}
+
 	if (WriteNvm->DecOnly != NULL) {
 
 		Status = XNvm_EfusePrgmDecOnly(WriteNvm->DecOnly);
@@ -255,6 +260,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 			goto END;
 		}
 	}
+
 	if (WriteNvm->RevokeIds != NULL) {
 
 		Status = XNvm_EfusePrgmRevocationIdFuses(WriteNvm->RevokeIds);
@@ -262,13 +268,31 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 			goto END;
 		}
 	}
+
 	if (WriteNvm->MiscCtrlBits != NULL) {
 
 		Status = XNvm_EfusePrgmPpkRevokeFuses(WriteNvm->MiscCtrlBits);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
+
+		if(WriteNvm->MiscCtrlBits->HaltBootError == TRUE) {
+
+			Status = Xnvm_EfusePrgmHaltBootonError(WriteNvm->MiscCtrlBits);
+			if (Status != (u32)XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if(WriteNvm->MiscCtrlBits->HaltBootEnv == TRUE) {
+
+			Status = Xnvm_EfusePrgmHaltBootEnvError(WriteNvm->MiscCtrlBits);
+			if (Status != (u32)XST_SUCCESS) {
+				goto END;
+			}
+		}
 	}
+
 	if (WriteNvm->UserFuses != NULL) {
 
 		Status = XNvm_EfusePrgmUserFuses(WriteNvm->UserFuses);
@@ -276,6 +300,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 			goto END;
 		}
 	}
+
 	if (WriteNvm->SecCtrlBits != NULL) {
 
 		Status = XNvm_EfuseWriteSecCtrl(WriteNvm->SecCtrlBits);
@@ -283,6 +308,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 			goto END;
 		}
 	}
+
 	Status = XNvm_EfuseCacheLoad();
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -2336,7 +2362,7 @@ END:
 /**
  * This function revokes the Ppk.
  *
- * @param	PpkSelect	Pointer to XNvm_EfuseMiscCtrlBits struture.
+ * @param	PpkSelect	Pointer to XNvm_EfuseMiscCtrlBits structure.
  *
  * @return
  *	- XST_SUCCESS - On Successful write of Ppk revoke efuses.
@@ -2439,6 +2465,100 @@ static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
 	}
 
 	Status = (u32)XST_SUCCESS;
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function enables halt boot on general errors other than environmental
+ * and glitch identified by ROM
+ *
+ * @param	MiscCtrlData	Pointer to XNvm_EfuseMiscCtrlBits structure.
+ *
+ * @return
+ *		- XST_SUCCESS - On Success
+ *		- Error Code - Failure in programming
+ ******************************************************************************/
+static u32 Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	if (MiscCtrlData == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MiscCtrlData->HaltBootError == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			XNVM_EFUSE_HALT_BOOT_ERROR_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				XNVM_EFUSE_HALT_BOOT_ERROR_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function enables the halt boot on environmental errors
+ * identified by ROM
+ *
+ * @param	MiscCtrlData	Pointer to XNvm_EfuseMiscCtrlBits structure.
+ *
+ * @return
+ *		- XST_SUCCESS - On Success
+ *		- Error Code - Failure in programming
+ ******************************************************************************/
+static u32 Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	if (MiscCtrlData == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MiscCtrlData->HaltBootEnv == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			XNVM_EFUSE_HALT_ENV_ERROR_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				XNVM_EFUSE_HALT_ENV_ERROR_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
 END:
 	return Status;
 }
@@ -3047,7 +3167,7 @@ END :
  *
  * @return
  *		- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - Efuse bit cant be reverted
+ *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - Efuse bit can't be reverted
  *		- XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS - Error in writing
  *						Revocation id efuses.
  ******************************************************************************/
@@ -3159,7 +3279,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS - if programming is successful.
- *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - Efuse bit cant be reverted.
+ *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - Efuse bit can't be reverted.
  ******************************************************************************/
 static u32 XNvm_EfuseValidateUserFusesWriteReq(
 					XNvm_EfuseUserData *WriteUserFuses)
@@ -3242,7 +3362,7 @@ END:
  *						protection bit 1
  *	- XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT - Error in programming Row 96_99
  *						protection bit 0
- *	- XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT - Error in programing Row 96_99
+ *	- XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT - Error in programming Row 96_99
  *						protection bit 1
  *	- XNVM_EFUSE_ERR_WRITE_ROW_40_PROT - Error in programming Row 40
  *						protection bit
@@ -3685,7 +3805,7 @@ static inline void XNvm_EfuseInitTimers(void)
 /**
  * This function setups eFUSE controller for given operation and read mode.
  *
- * @param	Op -	Opeartion to be performed read/program(write).
+ * @param	Op -	Operation to be performed read/program(write).
  *		RdMode - Read mode for eFUSE read operation
  *
  * @return
@@ -3739,7 +3859,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS - 32-bit data is read from specified location
- *		- XNVM_EFUSE_ERR_RD_TIMEOUT - Timeout occured while reading the
+ *		- XNVM_EFUSE_ERR_RD_TIMEOUT - Timeout occurred while reading the
  *						eFUSE
  *		- XNVM_EFUSE_ERR_RD - eFUSE Read failed
  *		- XST_FAILURE - Unexpected error
@@ -4127,7 +4247,7 @@ END:
 
 /******************************************************************************/
 /**
- * This function checks wheather Tbits are programmed or not
+ * This function checks whether Tbits are programmed or not
  *
  * @return
  *		- XST_SUCCESS - On Success

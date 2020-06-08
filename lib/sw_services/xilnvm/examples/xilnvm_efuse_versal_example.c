@@ -681,10 +681,14 @@ static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 	MiscCtrlBits->Ppk0Invalid = XNVM_EFUSE_PPK0_INVLD;
 	MiscCtrlBits->Ppk1Invalid = XNVM_EFUSE_PPK1_INVLD;
 	MiscCtrlBits->Ppk2Invalid = XNVM_EFUSE_PPK2_INVLD;
+	MiscCtrlBits->HaltBootError = XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0;
+	MiscCtrlBits->HaltBootEnv = XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0;
 
 	if ((MiscCtrlBits->Ppk0Invalid == TRUE) ||
 		(MiscCtrlBits->Ppk1Invalid == TRUE) ||
-		(MiscCtrlBits->Ppk2Invalid == TRUE)) {
+		(MiscCtrlBits->Ppk2Invalid == TRUE) ||
+		(MiscCtrlBits->HaltBootError == TRUE)||
+		(MiscCtrlBits->HaltBootEnv == TRUE)) {
 		WriteEfuse->MiscCtrlBits = MiscCtrlBits;
 	}
 
