@@ -319,11 +319,11 @@ typedef enum {
 	XLOADER_SEC_PUF_REGN_ERRR,
 			/**< 0x19 PUF regeneration error */
 	XLOADER_SEC_AES_KEK_DEC,
-			/**< 0x20 AES KEK decryption */
+			/**< 0x1A AES KEK decryption */
 	XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED,
-			/**< 0x21 RSA ENC 0xbc value is not matched */
+			/**< 0x1B RSA ENC 0xbc value is not matched */
 	XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE,
-			/**< 0x22 RSA PSS verification hash is not matched */
+			/**< 0x1C RSA PSS verification hash is not matched */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,
