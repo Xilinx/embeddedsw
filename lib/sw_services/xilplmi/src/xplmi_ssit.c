@@ -206,16 +206,17 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 	u32 SlavesMask = Cmd->Payload[0U];
 	u32 TimeOut = Cmd->Payload[1U];
 	u32 SlavesReady = 0U;
-	u32 ErrorStatus = 0U;
-	u32 PmcErrStatus2;
+	volatile u32 ErrorStatus = 0U;
+	volatile u32 PmcErrStatus2;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
-		((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
+		(ErrorStatus == 0x0U) && (TimeOut != 0x0U)) {
 		usleep(1U);
-		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
+		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS) &
+			PMC_GLOBAL_SSIT_ERR_MASK;
 		PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
