@@ -151,6 +151,11 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			SubsystemId = Cmd->SubsystemId;
 			PmDbg("Using subsystemId passed by PLM: 0x%x\n\r", SubsystemId);
 
+			/* PLD node ids are used as image ids for PLD images */
+			if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(SubsystemId)) &&
+				((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(SubsystemId))) {
+				SubsystemId = PM_SUBSYS_PMC;
+			}
 			/* Use PMC subsystem ID for power domain CDOs. */
 			if ((u32)XPM_NODECLASS_POWER == NODECLASS(SubsystemId)) {
 				SubsystemId = PM_SUBSYS_PMC;
