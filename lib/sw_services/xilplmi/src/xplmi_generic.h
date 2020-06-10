@@ -49,12 +49,14 @@ enum {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
-#define XPLMI_SBI_DEST_ADDR				(0xFFFFFFFFFFFFFFFFL)
+#define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFL)
 #define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 #define XPLMI_SET_CHUNK_SIZE			(128U)
+/* Max board name length supported is 256 bytes */
+#define XPLMI_MAX_NAME_LEN			(256U)
+#define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)
 
 /* Mask poll command flag descriptions */
 #define XPLMI_MASKPOLL_LEN_EXT			(5U)

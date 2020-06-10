@@ -948,21 +948,66 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function stores the board name in a local variable based
+ * on the parameters passed.
+ *
+ * @param	Cmd is pointer to the command structure
+ * @param	Len is pointer to the number of bytes to be copied
+ * @param	GetFlag is set to TRUE for read and FALSE for write
+ *
+ * @return	BoardName
+ *
+ *****************************************************************************/
+static u8* XPlmi_BoardNameRW(XPlmi_Cmd * Cmd, u8 GetFlag, u32 * Len)
+{
+	int Status = XST_FAILURE;
+	static u8 BoardName[XPLMI_MAX_NAME_LEN + 1U] = {0U,};
+	static u32 BoardLen = 0U;
+
+	if ((*Len) > XPLMI_MAX_NAME_WORDS) {
+		(*Len) = XPLMI_MAX_NAME_WORDS;
+	}
+
+	if (GetFlag == FALSE) {
+		/* Set Command */
+		Status = XPlmi_DmaXfr((u64)(u32)&Cmd->Payload[0U],
+				(u64)(u32)BoardName, (*Len), XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		BoardName[((*Len) * XPLMI_WORD_LEN)] = '\0';
+		BoardLen = (*Len);
+	}
+	else {
+		(*Len) = BoardLen;
+	}
+
+END:
+	return BoardName;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function provides SET BOARD command execution.
  *  		Command payload parameters are
  *				* Board Name
  *
- * @param	Cmd is pointer to the command structure and unused
+ * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
 static int XPlmi_SetBoard(XPlmi_Cmd * Cmd)
 {
-	/* For MISRA C */
-	(void)Cmd;
+	int Status = XST_FAILURE;
+	u32 Len = Cmd->PayloadLen;
 
-	return XST_SUCCESS;
+	(void)XPlmi_BoardNameRW(Cmd, FALSE, &Len);
+
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -970,17 +1015,35 @@ static int XPlmi_SetBoard(XPlmi_Cmd * Cmd)
  * @brief	This function provides GET BOARD command execution.
  * 		No payload parameters
  *
- * @param	Cmd is pointer to the command structure and unused
+ * @param	Cmd is pointer to the command structure
+ *		Command payload parameters are
+ *				* High Addr
+ *				* Low Addr
+ *				* Max size in words
  *
- * @return	XST_SUCCESS
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_GetBoard(XPlmi_Cmd * Cmd)
 {
-	/* For MISRA C */
-	(void)Cmd;
+	int Status = XST_FAILURE;
+	u64 HighAddr = Cmd->Payload[0U];
+	u32 LowAddr = Cmd->Payload[1U];
+	u64 DestAddr = (HighAddr << 32U) | LowAddr;
+	u32 Len = Cmd->Payload[2U];
+	u8* BoardName = XPlmi_BoardNameRW(Cmd, TRUE, &Len);
 
-	return XST_SUCCESS;
+	Status = XPlmi_DmaXfr((u64)(u32)&BoardName[0U], DestAddr, Len,
+			XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Cmd->Response[1U] = Len;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1124,7 +1187,7 @@ int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	} else {
 		/* The code is for for direct DMA from DDR to CFI */
 		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, (Cmd->Len - Cmd->PayloadLen),
-			XPLMI_DST_CH_AXI_FIXED | XPLMI_PMCDMA_0);
+				(XPLMI_DST_CH_AXI_FIXED | XPLMI_PMCDMA_0));
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL,
 					"DMA WRITE Key Hole Failed\n\r");
