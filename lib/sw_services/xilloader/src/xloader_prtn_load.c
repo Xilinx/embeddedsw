@@ -441,6 +441,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	XPlmi_InitCdo(&Cdo);
 	Cdo.ImgId = PdiPtr->CurImgId;
 	Cdo.PrtnId = PdiPtr->CurPrtnId;
+	Cdo.IpiMask = PdiPtr->IpiMask;
 
 	/*
 	 * Process CDO in chunks.

@@ -89,7 +89,6 @@ static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 	u32 HdrLen = 1U;
 
 	Cmd->CmdId = Buf[0U];
-	Cmd->IpiMask = 0U;
 	Cmd->Len = (Cmd->CmdId >> 16U) & 255U;
 	Cmd->Payload = Buf + 1U;
 	Cmd->ProcessedLen = 0U;
@@ -258,6 +257,7 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 
 	/* Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
+	CmdPtr->IpiMask = CdoPtr->IpiMask;
 	CmdPtr->Payload = BufPtr;
 	*Size = CmdPtr->PayloadLen;
 	Status = XPlmi_CmdResume(CmdPtr);
@@ -326,6 +326,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	}
 	/* Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
+	CmdPtr->IpiMask = CdoPtr->IpiMask;
 
 	/* Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);

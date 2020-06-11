@@ -108,8 +108,9 @@ int XLoader_SbiLoadPdi(void *Data)
 
 	PdiAddr = 0U;
 
-	XPlmi_Printf(DEBUG_INFO, "SBI PDI Load: Started\n\r");
+	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Started\n\r");
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+	PdiPtr->IpiMask = 0U;
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */

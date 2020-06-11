@@ -69,6 +69,7 @@ typedef struct {
 				CDO header*/
 	u32 ImgId;		/**< Info about which Image this belongs to */
 	u32 PrtnId;		/**< Info about which partition this belongs to*/
+	u32 IpiMask;		/**< Info about which master has sent the request*/
 	u32 DeferredError;	/**< Defer the error for any command till the
 				  end of CDO processing */
 } XPlmiCdo;
