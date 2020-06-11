@@ -89,6 +89,7 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 
 	PdiPtr->ImageNum = 1U;
 	PdiPtr->PrtnNum = 1U;
+	PdiPtr->IpiMask = Cmd->IpiMask;
 	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
 
 #if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
@@ -170,6 +171,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Started\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+	PdiPtr->IpiMask = Cmd->IpiMask;
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */

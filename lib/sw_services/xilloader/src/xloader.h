@@ -203,6 +203,7 @@ typedef struct {
 	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
+	u32 IpiMask; /**< Info about which master has sent the request*/
 	u32 ImageNum; /**< Image number in the PDI */
 	u32 PrtnNum; /**< Partition number in the PDI */
 	u32 SlrType; /**< SLR Type */
