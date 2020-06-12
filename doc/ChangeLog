@@ -14,6 +14,10 @@ Fixed MISRAC violations.
 Corrected fabric watchdog interrupt id in example.
 Added window watchdog support in peripheral test app.
 
+clk_wiz_v1_4:
+Add updates for clocking wizard.
+Add set rate capability for zynqmp.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
