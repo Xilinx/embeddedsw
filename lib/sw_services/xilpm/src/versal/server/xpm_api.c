@@ -438,6 +438,47 @@ static void XPm_RegisterWakeUpHandlers(void)
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP4, (u32)XPLMI_GICP4_SRC14, XPM_NODEIDX_DEV_RTC);
 }
 
+static void XPm_CheckLastResetReason(void)
+{
+	u32 CurrResetReason;
+	u32 PreviousSysResetReason;
+	u32 LatestSysReset;
+	u32 SysRstReason;
+	u32 RegVal;
+
+	PmIn32(CRP_RESET_REASON, CurrResetReason);
+	/* Read previous system reset reason stored in PGGS2 BIT[3:0] */
+	PmIn32(PGGS_BASEADDR + 0x8U, RegVal);
+	PreviousSysResetReason = (RegVal << 7U) & CRP_RESET_REASON_SYS_RESET_MASK;
+
+	SysRstReason = CurrResetReason & CRP_RESET_REASON_SYS_RESET_MASK;
+
+	/* No need to do anything is same system reset occurs back to back */
+	if (CurrResetReason == PreviousSysResetReason) {
+		ResetReason = CurrResetReason;
+		return;
+	}
+
+	LatestSysReset = SysRstReason & ~PreviousSysResetReason;
+
+	/*
+	 * Clear all reset reasons, except the latest sys reset reason.
+	 * The reset reason can not be completely cleared since ROM need
+	 * to know if last reset was due to sys reset or not.
+	 * Clear all POR and all sys resets except the latest so
+	 * next reset reason can be uniquely identified.
+	 */
+	PmOut32(CRP_RESET_REASON, CurrResetReason & ~LatestSysReset);
+
+	/* Store latest system reset reason in PGGS2 BIT[3:0] */
+	PmRmw32(PGGS_BASEADDR + 0x8U, 0xFU, (LatestSysReset >> 7U));
+
+	/* Mast out previous system reset reason. */
+	ResetReason = CurrResetReason & ~PreviousSysResetReason;
+
+	return;
+}
+
 /****************************************************************************/
 /**
  * @brief  Initialize XilPM library
@@ -496,13 +537,10 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	PlatformVersion = XPm_GetPlatformVersion();
 	Platform = XPm_GetPlatform();
 
-	/* Read and store the reset reason value */
-	PmIn32(CRP_RESET_REASON, ResetReason);
+	/* Check last reset reason */
+	XPm_CheckLastResetReason();
 
 	if (0U != (ResetReason & SysResetMask)) {
-		/* Clear the system reset bits of reset_reason register */
-		PmOut32(CRP_RESET_REASON, (ResetReason & SysResetMask));
-
 		/* Enable domain isolations after system reset */
 		for (i = 0; i < ARRAY_SIZE(IsolationIdx); i++) {
 			Status = XPmDomainIso_Control(IsolationIdx[i], TRUE_VALUE);
