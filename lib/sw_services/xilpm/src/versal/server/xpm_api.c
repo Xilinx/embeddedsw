@@ -3256,6 +3256,36 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 
 		Status = XPm_USBDxState(DeviceId, Arg1, Arg2);
 		break;
+	case (u32)IOCTL_GET_LAST_RESET_REASON:
+		if (CRP_RESET_REASON_SW_POR_MASK ==
+		    (ResetReason & CRP_RESET_REASON_SW_POR_MASK)) {
+			*Response = XPM_RESET_REASON_SW_POR;
+		} else if (CRP_RESET_REASON_SLR_POR_MASK ==
+			   (ResetReason & CRP_RESET_REASON_SLR_POR_MASK)) {
+			*Response = XPM_RESET_REASON_SLR_POR;
+		} else if (CRP_RESET_REASON_ERR_POR_MASK ==
+			   (ResetReason & CRP_RESET_REASON_ERR_POR_MASK)) {
+			*Response = XPM_RESET_REASON_ERR_POR;
+		} else if (CRP_RESET_REASON_DAP_SYS_MASK ==
+			   (ResetReason & CRP_RESET_REASON_DAP_SYS_MASK)) {
+			*Response = XPM_RESET_REASON_DAP_SRST;
+		} else if (CRP_RESET_REASON_SW_SYS_MASK ==
+			   (ResetReason & CRP_RESET_REASON_SW_SYS_MASK)) {
+			*Response = XPM_RESET_REASON_SW_SRST;
+		} else if (CRP_RESET_REASON_ERR_SYS_MASK ==
+			   (ResetReason & CRP_RESET_REASON_ERR_SYS_MASK)) {
+			*Response = XPM_RESET_REASON_ERR_SRST;
+		} else if (CRP_RESET_REASON_SLR_SYS_MASK ==
+			   (ResetReason & CRP_RESET_REASON_SLR_SYS_MASK)) {
+			*Response = XPM_RESET_REASON_SLR_SRST;
+		} else if (CRP_RESET_REASON_EXTERNAL_POR_MASK ==
+			   (ResetReason & CRP_RESET_REASON_EXTERNAL_POR_MASK)) {
+			*Response = XPM_RESET_REASON_EXT_POR;
+		} else {
+			*Response = XPM_RESET_REASON_INVALID;
+		}
+		Status = XST_SUCCESS;
+		break;
 	default:
 		/* Not supported yet */
 		Status = XPM_ERR_IOCTL;

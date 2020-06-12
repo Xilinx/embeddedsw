@@ -262,6 +262,7 @@ enum pm_ioctl_id {
 	IOCTL_OSPI_MUX_SELECT,
 	/* USB PMU state req */
 	IOCTL_USB_SET_STATE,
+	IOCTL_GET_LAST_RESET_REASON,
 };
 
 /* PLL parameters */
@@ -367,6 +368,17 @@ enum XPmNotifyEvent {
 #define XPM_DLL_RESET_ASSERT		(0U)
 #define XPM_DLL_RESET_RELEASE		(1U)
 #define XPM_DLL_RESET_PULSE		(2U)
+
+/* Reset Reason */
+#define XPM_RESET_REASON_EXT_POR	(0U)
+#define XPM_RESET_REASON_SW_POR		(1U)
+#define XPM_RESET_REASON_SLR_POR	(2U)
+#define XPM_RESET_REASON_ERR_POR	(3U)
+#define XPM_RESET_REASON_DAP_SRST	(7U)
+#define XPM_RESET_REASON_ERR_SRST	(8U)
+#define XPM_RESET_REASON_SW_SRST	(9U)
+#define XPM_RESET_REASON_SLR_SRST	(10U)
+#define XPM_RESET_REASON_INVALID	(0xFFU)
 
 /* Probe Counter Type */
 #define XPM_PROBE_COUNTER_TYPE_LAR_LSR		(0U)
