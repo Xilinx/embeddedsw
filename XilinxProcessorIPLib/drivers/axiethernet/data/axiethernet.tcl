@@ -31,6 +31,8 @@
 # 09/01/18 rsp Fixed interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
 # 02/18/20 rsp Switch to ::hsi::utils::get_connected_intf API.
+# 05/22/20 rsp Fix bsp generation error for multiple axieth instances design in
+#              which dma is not connected to one of the axieth instance.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -160,10 +162,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
     puts $file_handle ""
 
     set device_id 0
-    set validentry 0
 
     # Get unique list of p2p peripherals
     foreach periph $periphs {
+        set validentry 0
 		set periph_name [string toupper [get_property NAME $periph]]
         puts $file_handle ""
         puts $file_handle "/* Canonical Axi parameters for $periph_name */"
@@ -1072,10 +1074,12 @@ proc get_connected_ip {periph} {
 
     if { [llength $intf] } {
         set connectd_intf_handle [::hsi::utils::get_connected_intf $periph $intf]
-        set connected_ip [get_cells -of_objects $connectd_intf_handle ]
-        set target_ip [is_ethsupported_target $connected_ip]
-        if { $target_ip == "true"} {
+        if {$connectd_intf_handle != ""} {
+           set connected_ip [get_cells -of_objects $connectd_intf_handle ]
+           set target_ip [is_ethsupported_target $connected_ip]
+           if { $target_ip == "true"} {
 	      return $connected_ip
+           }
         }
     }
 }
