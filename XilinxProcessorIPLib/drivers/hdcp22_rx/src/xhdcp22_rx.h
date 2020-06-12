@@ -594,6 +594,7 @@ typedef struct
 	/** Test instance */
 	XHdcp22_Rx_Test Test;
 #endif
+	u8 Hdcp22Broadcast;
 } XHdcp22_Rx;
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -611,6 +612,7 @@ int  XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr,
        XHdcp22_Rx_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef);
 u32  XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr);
 XTmrCtr* XHdcp22Rx_GetTimer(XHdcp22_Rx *InstancePtr);
+void XHdcp22Rx_SetBroadcast(XHdcp22_Rx *InstancePtr, u8 enable);
 
 /* Functions for checking status */
 u8   XHdcp22Rx_IsEnabled(XHdcp22_Rx *InstancePtr);
