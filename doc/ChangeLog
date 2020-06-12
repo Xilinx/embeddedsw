@@ -231,6 +231,9 @@ Add support for SD/eMMC Non-Blocking Read
 uartlite_v3_5:
 Update the Makefile for parallel execution.
 
+sdps_v3_10
+Add support for SD/eMMC Non-Blocking Read
+
 zdma_v1_10:
 Expose ZDMA scatter gather and enable APIs for direct use.
 Update zdma driver makefile for parallel execution.
