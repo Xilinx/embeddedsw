@@ -4,7 +4,7 @@
 ******************************************************************************/
 /**
 *
-* @file xclk_wiz_versal_example.c
+* @file xclk_wiz_setrate_example.c
 *
 * This file contains a design example using the XClk_Wiz driver with different rates.
 * assigned to clock wizard 1. Modify this value as per your dynamic clock
@@ -15,8 +15,7 @@
 *
 * Ver Who Date   Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.3 sd  4/7/20 Initial version for Clock Wizard Example
-* 1.4 sd  5/20/20 Use Macros and use readReg API
+* 1.4 sd  5/21/20 Initial version for Clock Wizard Example
 * </pre>
 *
 ******************************************************************************/
@@ -37,7 +36,8 @@
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
 */
-#define XCLK_WIZARD_DEVICE_ID		XPAR_TX_SUBSYSTEM_VID_CLK_RST_HIER_CLK_WIZARD_1_DEVICE_ID
+#define XCLK_WIZARD_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
+#define XCLK_US_WIZ_RECONFIG_OFFSET	0x0000025C  /**< Reconfig Register */
 
 /*
 * The following constants are part of clock dynamic reconfiguration
@@ -47,11 +47,6 @@
 
 #define CLK_LOCK			1
 
-/*
- * Output frequency in MHz. User need to change this value to
- * generate grater/lesser interrupt as per input frequency
- */
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
@@ -59,41 +54,11 @@
 /************************** Function Prototypes ******************************/
 
 u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId);
-u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr_Dynamic);
 
 /************************** Variable Definitions *****************************/
 XClk_Wiz ClkWiz_Dynamic; /* The instance of the ClkWiz_Dynamic */
 
 /************************** Function Definitions *****************************/
-
-/*****************************************************************************/
-/**
-*
-* This is the XClk_WaitForLock function, it will wait for lock to settle change
-* frequency value
-*
-* @param	CfgPtr_Dynamic provides pointer to clock wizard dynamic config
-*
-* @return
-*		- XST_SUCCESS if the lock occurs.
-*		- XST_FAILURE if timeout.
-*
-* @note		None
-*
-******************************************************************************/
-u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr_Dynamic)
-{
-	u32 Count = 0;
-
-	while(!XClk_Wiz_ReadReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK) {
-		if(Count == 10000) {
-			return XST_FAILURE;
-		}
-		usleep(100);
-		Count++;
-        }
-	return XST_SUCCESS;
-}
 
 /*****************************************************************************/
 /**
@@ -104,10 +69,9 @@ u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr_Dynamic)
 *
 * @param	None.
 *
-* @return
-*		- XST_FAILURE if the interrupt example was unsuccessful.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		Unless setup failed, main will never return since
+* @note		None
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -121,7 +85,7 @@ int main()
 
 	Status = ClkWiz_Example(&ClkWiz_Dynamic, XCLK_WIZARD_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("CLK_WIZARD Monitor interrupt example Failed");
+		xil_printf("CLK_WIZARD example Failed");
 		return XST_FAILURE;
 	}
 
@@ -134,9 +98,8 @@ int main()
 /*****************************************************************************/
 /**
 *
-* This function is the main entry point for the versal example using the
-* XClk_Wiz driver. This function will set up the system with interrupts
-* handlers.
+* This function is the main entry point for the example using the
+* XClk_Wiz driver.
 *
 * @param	DeviceId is the unique device ID of the CLK_WIZ
 *		Subsystem core.
@@ -174,10 +137,10 @@ u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId)
 	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
 	XClk_Wiz_SetRate(&ClkWiz_Dynamic, 200);
 
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
-	Status = XClk_WaitForLock(CfgPtr_Dynamic);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_US_WIZ_RECONFIG_OFFSET, (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
+	Status = XClk_Wiz_WaitForLock(&ClkWiz_Dynamic);
 	if (Status != XST_SUCCESS) {
-		Reg = XClk_Wiz_ReadReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK;
+		Reg = XClk_Wiz_ReadReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & CLK_LOCK;
 		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected "\
 		": 0x1\n\r", Reg);
 	}
