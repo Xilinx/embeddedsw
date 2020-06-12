@@ -3,6 +3,9 @@ Changes for 2020.2
 lwip211_v1_3:
 Fix RX BD setup order.
 
+sdps_v3_10
+Add support for SD/eMMC Non-Blocking Read
+
 zdma_v1_10:
 Expose ZDMA scatter gather and enable APIs for direct use.
 
