@@ -25,6 +25,9 @@ axicdma_v4_8:
 Fix the compilation error for xreg_cortexa9.h preprocessor in
 xaxicdma_example_hybrid_intr.c example.
 
+axiethernet_v5_11:
+Fix bsp generation error for multiple axieth instance design.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
