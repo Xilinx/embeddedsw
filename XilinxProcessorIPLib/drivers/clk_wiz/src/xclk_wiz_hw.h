@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xclk_wiz_hw.h
- * @addtogroup clk_wiz_v1_3
+ * @addtogroup clk_wiz_v1_4
  * @{
  *
  * Hardware definition file. It defines the register interface.

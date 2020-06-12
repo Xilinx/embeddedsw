@@ -7,7 +7,7 @@
 /**
 *
 * @file xclk_wiz_intr.c
-* @addtogroup clk_wiz_v1_3
+* @addtogroup clk_wiz_v1_4
 * @{
 *
 * This file implements the functions which handle the interrupts in the CLK_WIZ
