@@ -273,6 +273,8 @@ int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPt
 
 	/* Indicate component has been initialized */
 	InstancePtr->IsReady = (XIL_COMPONENT_IS_READY);
+	/* Default enable broadcasting */
+	InstancePtr->Hdcp22Broadcast = TRUE;
 
 	return (XST_SUCCESS);
 }
@@ -431,6 +433,20 @@ int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
 	InstancePtr->Info.IsEnabled = FALSE;
 
 	return (XST_SUCCESS);
+}
+
+void XHdcp22Rx_SetBroadcast(XHdcp22_Rx *InstancePtr, u8 enable)
+{
+	InstancePtr->Hdcp22Broadcast = enable;
+	if(enable == TRUE) {
+		/* Set HDCP2Version register */
+		InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_VERSION_REG);
+		InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, 0x4);
+	} else {
+		/* Disable HDCP2Version register */
+		InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_VERSION_REG);
+		InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, 0x0);
+	}
 }
 
 /*****************************************************************************/
@@ -1645,9 +1661,11 @@ static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr, u8 ClrWrBuffer,
 	/* Clear DDC error flags */
 	InstancePtr->Info.ErrorFlag &= ~XHDCP22_RX_ERROR_FLAG_DDC_BURST;
 
-	/* Set HDCP2Version register */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_VERSION_REG);
-	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, 0x04);
+	if(InstancePtr->Hdcp22Broadcast == TRUE) {
+		/* Set HDCP2Version register */
+		InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_VERSION_REG);
+		InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, 0x04);
+	}
 }
 
 /*****************************************************************************/
