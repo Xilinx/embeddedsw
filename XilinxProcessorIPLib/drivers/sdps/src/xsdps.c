@@ -80,6 +80,8 @@
 *       mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/30/20 Return XST_DEVICE_IS_STARTED when host is already started
 *       mn     03/30/20 Move Clock enabling before checking for Host already started
+* 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
+*                       XSdPs_Write APIs
 *
 * </pre>
 *
@@ -162,6 +164,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->ITapDelay = 0U;
 	InstancePtr->Dma64BitAddr = 0U;
 	InstancePtr->SlcrBaseAddr = XPS_SYS_CTRL_BASEADDR;
+	InstancePtr->BlkSize = 0U;
 
 	/* Host Controller version is read. */
 	InstancePtr->HC_Version =
@@ -309,6 +312,18 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 		goto RETURN_PATH;
 	}
 
+	/* Check for transfer done */
+	Status = XSdps_CheckTransferDone(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
+		Xil_DCacheInvalidateRange((INTPTR)Buff,
+				(INTPTR)BlkCnt * InstancePtr->BlkSize);
+	}
+
 RETURN_PATH:
 #if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
@@ -353,6 +368,13 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 
 	/* Write to the card */
 	Status = XSdPs_Write(InstancePtr, Arg, BlkCnt, Buff);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/* Check for transfer done */
+	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
