@@ -129,6 +129,8 @@
 *       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
+* 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
+*                       XSdPs_Write APIs
 *
 * </pre>
 *
@@ -262,6 +264,7 @@ typedef struct {
 	u64 Dma64BitAddr;	/**< 64 Bit DMA Address */
 	u16 TransferMode;	/**< Transfer Mode */
 	u32 SlcrBaseAddr;	/**< SLCR base address*/
+	u32 BlkSize;		/**< Block Size*/
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/

@@ -20,6 +20,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
+* 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
+*                       XSdPs_Write APIs
 *
 * </pre>
 *
@@ -56,42 +58,23 @@
 s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 {
 	s32 Status;
-	u16 BlkSize;
 
-	BlkSize = XSDPS_BLK_SIZE_512_MASK;
-
-	XSdPs_SetupReadDma(InstancePtr, BlkCnt, BlkSize, Buff);
+	XSdPs_SetupReadDma(InstancePtr, BlkCnt, InstancePtr->BlkSize, Buff);
 
 	if (BlkCnt == 1U) {
 		/* Send single block read command */
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD17, Arg, BlkCnt);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
-			goto RETURN_PATH;
 		}
 	} else {
 		/* Send multiple blocks read command */
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
-			goto RETURN_PATH;
 		}
 	}
 
-	/* Check for transfer done */
-	Status = XSdps_CheckTransferDone(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-	}
-
-	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheInvalidateRange((INTPTR)Buff,
-				(INTPTR)BlkCnt * BlkSize);
-	}
-
-	Status = XST_SUCCESS;
-
-RETURN_PATH:
 	return Status;
 }
 
@@ -115,39 +98,26 @@ RETURN_PATH:
 s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 {
 	s32 Status;
-	u16 BlkSize;
 
-	BlkSize = XSDPS_BLK_SIZE_512_MASK;
-
-	XSdPs_SetupWriteDma(InstancePtr, BlkCnt, BlkSize, Buff);
+	XSdPs_SetupWriteDma(InstancePtr, BlkCnt, InstancePtr->BlkSize, Buff);
 
 	if (BlkCnt == 1U) {
 		/* Send single block write command */
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD24, Arg, BlkCnt);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
-			goto RETURN_PATH;
 		}
 	} else {
 		/* Send multiple blocks write command */
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
-			goto RETURN_PATH;
 		}
 	}
 
-	/* Check for transfer done */
-	Status = XSdps_CheckTransferDone(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-	}
-
-	Status = XST_SUCCESS;
-
-	RETURN_PATH:
-		return Status;
+	return Status;
 }
+
 /*****************************************************************************/
 /**
 *

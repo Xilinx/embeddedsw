@@ -146,6 +146,8 @@ s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
 			 BlkSize & XSDPS_BLK_SIZE_MASK);
 
+	InstancePtr->BlkSize = BlkSize;
+
 RETURN_PATH:
 	return Status;
 }
