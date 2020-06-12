@@ -534,6 +534,7 @@ int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
   /* Default value */
   HdmiRxSsPtr->HdcpIsReady = (FALSE);
   XV_HdmiRxSs_HdcpSetCapability(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_BOTH);
+  HdmiRxSsPtr->UserHdcpProt = XV_HDMIRXSS_HDCP_NOUSERPREF;
 #endif
 
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
