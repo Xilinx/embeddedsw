@@ -649,6 +649,10 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
   int Status;
 
   /* Set requested protocol */
+  if ((InstancePtr->UserHdcpProt != XV_HDMIRXSS_HDCP_NOUSERPREF) &&
+		  (Protocol != InstancePtr->UserHdcpProt))
+	  return XST_SUCCESS;
+
   InstancePtr->HdcpProtocol = Protocol;
 
   /* Reset both protocols */
@@ -666,6 +670,64 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
   }
 
   return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the active HDCP protocol and enables it.
+* XV_HdmiRxSs_HdcpSetProtocol is intended to be used internally.
+* Applications should API XV_HdmiRxSs_SetUserHdcpProtocol
+* instead of directly using XV_HdmiRxSs_HdcpSetProtocol.
+*
+* The protocol can be set to either HDCP 1.4, 2.2, or None.
+* XV_HDMIRXSS_HDCP_NOUSERPREF is the default state and should
+* be reset back to this state when application wants the HDCP
+* configuration based on source connected.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+* @param Protocol is the requested content protection scheme of type
+*        XV_HdmiRxSs_HdcpProtocol.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
+
+int XV_HdmiRxSs_SetUserHdcpProtocol(XV_HdmiRxSs *InstancePtr,
+		XV_HdmiRxSs_HdcpProtocol protocol)
+{
+	int Status = XST_SUCCESS;
+
+	Xil_AssertNonvoid((protocol == XV_HDMIRXSS_HDCP_NONE) ||
+		(protocol == XV_HDMIRXSS_HDCP_NOUSERPREF) ||
+		(protocol == XV_HDMIRXSS_HDCP_14) ||
+		(protocol == XV_HDMIRXSS_HDCP_22));
+
+	XV_HdmiRx_DdcHdcpDisable(InstancePtr->HdmiRxPtr);
+
+	InstancePtr->UserHdcpProt = protocol;
+	if (protocol == XV_HDMIRXSS_HDCP_14)
+		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, FALSE);
+	else
+		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, TRUE);
+
+	if (protocol != XV_HDMIRXSS_HDCP_NOUSERPREF)
+		Status =  XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, protocol);
+
+	if (InstancePtr->UserHdcpProt == XV_HDMIRXSS_HDCP_NONE) {
+		XV_HdmiRx_DdcHdcpDisable(InstancePtr->HdmiRxPtr);
+	} else {
+		XV_HdmiRx_DdcHdcpEnable(InstancePtr->HdmiRxPtr);
+	}
+
+	/* Toggle HPD to get attention of upstream transmitter */
+	XV_HdmiRxSs_ToggleHpd(InstancePtr);
+
+	return Status;
 }
 #endif
 
