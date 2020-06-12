@@ -7,7 +7,7 @@
 /**
 *
 * @file xclk_wiz.c
-* @addtogroup clk_wiz_v1_3
+* @addtogroup clk_wiz_v1_4
 * @{
 *
 * This file implements the functions to get the CLK_WIZ GUI information and

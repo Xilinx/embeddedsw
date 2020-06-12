@@ -8,7 +8,7 @@
 *
 * @file xclk_wiz.h
 *
-* @addtogroup clk_wiz_v1_3
+* @addtogroup clk_wiz_v1_4
 * @{
 * @details
 *
