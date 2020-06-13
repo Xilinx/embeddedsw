@@ -43,6 +43,11 @@
 #include "xdppsu_hw.h"
 #include "xil_types.h"
 #include "xvidc.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+	
 /****************************** Type Definitions ******************************/
 /**
  * This typedef contains configuration information for the DisplayPort TX core.
@@ -328,4 +333,8 @@ u32 XDpPsu_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag,
 
 void XDpPsu_SetColorEncode(XDpPsu *InstancePtr, XDpPsu_ColorEncoding ColorEncode);
 
+#ifdef __cplusplus
+}
+#endif
+	
 #endif /* XDPPSU_H_ */
