@@ -301,8 +301,13 @@ InitEL1:
 	ldr	x1, =vector_base
 	msr	VBAR_EL1,x1
 
+	/* Enable Trapping of SIMD/FPU register for standalone BSP */
 	mrs	x0, CPACR_EL1
-	bic	x0, x0, #(0x3 << 0x20)
+#ifndef FREERTOS_BSP
+	bic	x0, x0, #(0x3 << 20)
+#else
+	orr	x0, x0, #(0x3 << 20)
+#endif
 	msr	CPACR_EL1, x0
 	isb
 
