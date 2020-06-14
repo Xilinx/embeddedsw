@@ -38,6 +38,7 @@
 *                     functions instead of XWdtTb_Initialize for
 *                     initialization.
 * 5.0	sne  03/26/20 Updated example with interrupt id's.
+* 5.1	sne  06/01/20 Corrected fabric watchdog interrupt id.
 * </pre>
 *
 ******************************************************************************/
@@ -71,7 +72,7 @@
 #define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_WDT_INTERRUPT_VEC_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define WDTTB_IRPT_INTR		XPAR_FABRIC_WDTTB_0_WDT_INTERRUPT_VEC_ID
+#define WDTTB_IRPT_INTR		XPAR_FABRIC_WDTTB_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #endif
