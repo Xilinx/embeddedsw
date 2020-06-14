@@ -36,5 +36,6 @@
 int WdtTbSelfTestExample(u16 DeviceId);
 int WdtTbExample(u16 DeviceId);
 int GWdtTbExample(u16 DeviceId);
+int WinWdtTbExample(u16 DeviceId);
 #endif
 
