@@ -8,6 +8,8 @@ Expose ZDMA scatter gather and enable APIs for direct use.
 
 wdttb_v5_1:
 Fixed MISRAC violations.
+Corrected fabric watchdog interrupt id in example.
+Added window watchdog support in peripheral test app.
 
 Changes for 2020.1
 ===============================
