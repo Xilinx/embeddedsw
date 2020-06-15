@@ -7,7 +7,7 @@
 /**
  *
  * @file xllfifo.h
-* @addtogroup llfifo_v5_4
+* @addtogroup llfifo_v5_5
 * @{
 * @details
  *
