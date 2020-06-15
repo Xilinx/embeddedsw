@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxicdma_porting_guide.h
-* @addtogroup axicdma_v4_7
+* @addtogroup axicdma_v4_8
 * @{
 *
 * This is a guide on how to move from using the XPS Central DMA driver,

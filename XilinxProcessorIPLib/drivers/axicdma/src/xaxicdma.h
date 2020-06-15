@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma.h
-* @addtogroup axicdma_v4_7
+* @addtogroup axicdma_v4_8
 * @{
 * @details
  *
