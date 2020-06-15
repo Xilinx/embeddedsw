@@ -20,7 +20,8 @@
 *
 * Ver   Who    Date	    Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.0   aad    20/11/18 First release.
+* 1.0   aad    11/20/18 First release.
+* 1.2   aad    06/11/20 Corrected the configuration assignment
 *
 * </pre>
 *
@@ -63,12 +64,19 @@ static void XSysMonPsv_StubHandler(void *CallBackRef);
 ******************************************************************************/
 s32 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)
 {
+	u32 i;
+
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
 	/* Set the values read from the device config and the base address. */
 	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
+
+	/* Map Supplies to supply registers */
+	for(i = 0U; i < XSYSMONPSV_MAX_SUPPLIES; i++) {
+		InstancePtr->Config.Supply_List[i] = CfgPtr->Supply_List[i];
+	}
 
 	/* Set all handlers to stub values, let user configure this data later. */
 	InstancePtr->Handler = (XSysMonPsv_Handler)XSysMonPsv_StubHandler;
