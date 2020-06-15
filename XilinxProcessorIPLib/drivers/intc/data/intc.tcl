@@ -66,6 +66,9 @@
 ##     18/10/19 adk Updated the get_slice_interrupt_sources_for_slice proc to consider
 ##		    external interrupt source pin connected to slice use case.
 ##     05/28/20 mus Added support for software interrupts.
+##     06/15/20 mus Added checks to see if IP property value is empty string,
+##                  if so, variable which is storing that value will be set to 0, to
+##                  avoid failure in arithmatic calculations. It fixes CR#1067679.
 ##
 ##
 ## @END_CHANGELOG
@@ -113,7 +116,13 @@ proc generate {drv_handle} {
 
 	if {$cascade == 0} {
 		set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periphs]
+		if { [llength $intrs] == 0 } {
+			set intrs 0
+		}
 		set swintrs [common::get_property CONFIG.C_NUM_SW_INTR $periphs]
+		if { [llength $swintrs] == 0 } {
+			set swintrs 0
+		}
 		set maxintrs [expr "$intrs + $swintrs"]
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "#define XPAR_INTC_MAX_NUM_INTR_INPUTS $maxintrs"
@@ -123,7 +132,13 @@ proc generate {drv_handle} {
 		set maxintrs 0
 		foreach periph $periphs {
 			set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
+			if { [llength $intrs] == 0 } {
+				set intrs 0
+			}
 			set swintrs [common::get_property CONFIG.C_NUM_SW_INTR $periph]
+			if { [llength $swintrs] == 0 } {
+				set swintrs 0
+			}
 			set maxintrs [expr "$maxintrs + $intrs + $swintrs"]
 		}
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
