@@ -89,7 +89,8 @@
 *
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.00  aad    08/02/18 First release
+* 1.0   aad    02/08/18 First release
+* 1.2	aad    06/14/20 Fixed temperature calculation for negative temp
 *
 * </pre>
 *
@@ -110,8 +111,7 @@ extern "C" {
 #include "xsysmonpsv_hw.h"
 #include "xsysmonpsv_supplylist.h"
 /************************** Constant Definitions *****************************/
-#define XSYSMONPSV_MAX_SUPPLIES		185
-#define XSYSMONPSV_MAX_ACTIVE_MEAS	160
+#define XSYSMONPSV_MAX_SUPPLIES		160
 #define XSYSMONPSV_INVALID_SUPPLY	160
 #define XSYSMONPSV_PMBUS_INTERFACE	0
 #define XSYSMONPSV_I2C_INTERFACE	1
@@ -262,14 +262,18 @@ static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
 *****************************************************************************/
 static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
 {
+	u32 TwosComp;
+	float Temperature;
 	if(FixedQFmt >> XSYSMONPSV_QFMT_SIGN) {
-		return (float)(~(FixedQFmt) + 1) /
-			((float)(1 << XSYSMONPSV_QFMT_FRACTION)) * (-1.0);
+		TwosComp = (~(FixedQFmt) + 1) & (0x000FFFF);
+		Temperature = ((float)((TwosComp) /
+			(float)(1 << XSYSMONPSV_QFMT_FRACTION)) * (-1.0));
 	}
 	else {
-		return	(float)FixedQFmt /
+		Temperature = (float)FixedQFmt /
 			(float)(1 << XSYSMONPSV_QFMT_FRACTION);
 	}
+	return Temperature;
 }
 
 /************************** Function Prototypes ******************************/
