@@ -52,6 +52,8 @@
  *                     generation of examples.
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for storing
  *                     and typecasting buffer address(CR-995116).
+ * 4.8   sk   06/15/20 Fix the compilation error for xreg_cortexa9.h
+ *		       preprocessor.
  * </pre>
  *
  ****************************************************************************/
@@ -68,8 +70,7 @@
 #endif
 
 #ifndef __MICROBLAZE__
-#include "xpseudo_asm_gcc.h"
-#include "xreg_cortexa9.h"
+#include "xpseudo_asm.h"
 #endif
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
