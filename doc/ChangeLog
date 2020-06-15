@@ -21,6 +21,10 @@ Add set rate capability for zynqmp.
 llfifo_v5_5:
 Add type casting to fix gcc warnings in xllfifo.c and xstreamer.c.
 
+axicdma_v4_8:
+Fix the compilation error for xreg_cortexa9.h preprocessor in
+xaxicdma_example_hybrid_intr.c example.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
