@@ -2592,12 +2592,22 @@ void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr)
 void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr)
 {
   xil_printf("Format   : ");
-  if (XV_HdmiTxSs1_GetAudioFormat(InstancePtr) == 1) {
-	  xil_printf("HBR\r\n");
+
+  switch (XV_HdmiTxSs1_GetAudioFormat(InstancePtr)) {
+  case XV_HDMITX1_AUDFMT_3D:
+	xil_printf("3D\r\n");
+	break;
+  case XV_HDMITX1_AUDFMT_HBR:
+	xil_printf("HBR\r\n");
+	break;
+  case XV_HDMITX1_AUDFMT_LPCM:
+	xil_printf("L-PCM\r\n");
+	break;
+  default:
+	xil_printf("Invalid\r\n");
+	break;
   }
-  else {
-	  xil_printf("L-PCM\r\n");
-  }
+
   xil_printf("Channels : %d\r\n",
   XV_HdmiTx1_GetAudioChannels(InstancePtr->HdmiTx1Ptr));
   xil_printf("ACR CTS  : %d\r\n",
