@@ -204,7 +204,8 @@ typedef enum {
 typedef enum {
 	XV_HDMIRX1_AUDFMT_UNKNOWN = 0,
 	XV_HDMIRX1_AUDFMT_LPCM,     /* L-PCM*/
-	XV_HDMIRX1_AUDFMT_HBR       /* HBR*/
+	XV_HDMIRX1_AUDFMT_HBR,      /* HBR*/
+	XV_HDMIRX1_AUDFMT_3D,	    /* 3D Audio */
 } XV_HdmiRx1_AudioFormatType;
 
 /** @name HDMI RX EDID RAM Size

@@ -1510,35 +1510,55 @@ static void HdmiRx1_AudIntrHandler(XV_HdmiRx1 *InstancePtr)
 			return;
 		}
 
-		/* Active channels*/
-		switch ((Status >> XV_HDMIRX1_AUD_STA_AUD_CH_SHIFT) &
-		        XV_HDMIRX1_AUD_STA_AUD_CH_MASK) {
-
-		/* 8 channels*/
-		case 3 :
-			InstancePtr->Stream.Audio.Channels = 8;
-			break;
-
-		/* 6 channels*/
-		case 2 :
-			InstancePtr->Stream.Audio.Channels = 6;
-			break;
-
-		/* 4 channels*/
-		case 1 :
-			InstancePtr->Stream.Audio.Channels = 4;
-			break;
-
-		/* 2 channels*/
-		default :
-			InstancePtr->Stream.Audio.Channels = 2;
-			break;
-		}
-
 		/* Audio Format*/
-		InstancePtr->AudFormat =
-			(XV_HdmiRx1_AudioFormatType)((Status >> XV_HDMIRX1_AUD_STA_AUD_FMT_SHIFT) &
-						     XV_HDMIRX1_AUD_STA_AUD_FMT_MASK);
+		InstancePtr->AudFormat = (XV_HdmiRx1_AudioFormatType)
+				((Status >> XV_HDMIRX1_AUD_STA_AUD_FMT_SHIFT) &
+					XV_HDMIRX1_AUD_STA_AUD_FMT_MASK);
+
+		/* Parsing only for 3D audio */
+		if (InstancePtr->AudFormat == 0x3) {
+			switch ((Status >>
+				XV_HDMIRX1_AUD_STA_3DAUD_CH_SHIFT) &
+					XV_HDMIRX1_AUD_STA_3DAUD_CH_MASK) {
+			case 6:
+				InstancePtr->Stream.Audio.Channels = 32;
+				break;
+			case 4:
+				InstancePtr->Stream.Audio.Channels = 24;
+				break;
+			case 0:
+				InstancePtr->Stream.Audio.Channels = 12;
+				break;
+			default:
+				break;
+			}
+		} else {
+			/* Active channels*/
+			switch ((Status >>
+					XV_HDMIRX1_AUD_STA_AUD_CH_SHIFT) &
+				        XV_HDMIRX1_AUD_STA_AUD_CH_MASK) {
+
+			/* 8 channels*/
+			case 3 :
+				InstancePtr->Stream.Audio.Channels = 8;
+				break;
+
+			/* 6 channels*/
+			case 2 :
+				InstancePtr->Stream.Audio.Channels = 6;
+				break;
+
+			/* 4 channels*/
+			case 1 :
+				InstancePtr->Stream.Audio.Channels = 4;
+				break;
+
+			/* 2 channels*/
+			default :
+				InstancePtr->Stream.Audio.Channels = 2;
+				break;
+			}
+		}
 
 		/* Callback */
 		if (InstancePtr->AudCallback) {
