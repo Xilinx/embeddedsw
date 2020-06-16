@@ -2339,6 +2339,9 @@ void XV_HdmiRxSs1_ReportAudio(XV_HdmiRxSs1 *InstancePtr)
 		  break;
 	  case 2:
 		  xil_printf("HBR\r\n");
+		  break;
+	  case 3:
+		  xil_printf("3D\r\n");
 	  default:
 		  break;
   }
