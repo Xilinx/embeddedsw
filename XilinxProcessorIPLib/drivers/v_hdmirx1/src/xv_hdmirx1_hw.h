@@ -316,6 +316,8 @@ extern "C" {
 #define XV_HDMIRX1_AUD_STA_ACT_MASK                  (1<<3)  /**< AUD Status Active mask */
 #define XV_HDMIRX1_AUD_STA_AUD_CH_MASK               0x03    /**< AUD Status Audio channel mask */
 #define XV_HDMIRX1_AUD_STA_AUD_CH_SHIFT              4       /**< AUD Status Audio channel Shift */
+#define XV_HDMIRX1_AUD_STA_3DAUD_CH_MASK               0x07    /**< AUD Status Audio channel mask */
+#define XV_HDMIRX1_AUD_STA_3DAUD_CH_SHIFT              10       /**< AUD Status Audio channel Shift */
 #define XV_HDMIRX1_AUD_STA_AUD_FMT_MASK              0x07    /**< AUD Status Audio Format mask */
 #define XV_HDMIRX1_AUD_STA_AUD_FMT_SHIFT             6       /**< AUD Status Audio Format Shift */
 #define XV_HDMIRX1_AUD_STA_ACR_UPD_MASK              (1<<9)  /**< AUD Status ACR Update mask */
