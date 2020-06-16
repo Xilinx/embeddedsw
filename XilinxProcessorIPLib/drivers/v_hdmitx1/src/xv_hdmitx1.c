@@ -2577,42 +2577,61 @@ void XV_HdmiTx1_TMDSACRStart(XV_HdmiTx1 *InstancePtr)
 int XV_HdmiTx1_SetAudioChannels(XV_HdmiTx1 *InstancePtr, u8 Value)
 {
 	u32 Data;
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 	u8 AudioStatus;
+	u32 AudioCtrl;
+	u8 Flag3d = FALSE;
 
 	AudioStatus = XV_HdmiTx1_ReadReg((InstancePtr)->Config.BaseAddress,
 					 XV_HDMITX1_AUD_CTRL_OFFSET) &
 		      XV_HDMITX1_AUD_CTRL_RUN_MASK;
+
+	AudioCtrl = XV_HdmiTx1_ReadReg((InstancePtr)->Config.BaseAddress,
+			XV_HDMITX1_AUD_CTRL_OFFSET);
+
+	AudioStatus = AudioCtrl & XV_HDMITX1_AUD_CTRL_RUN_MASK;
 
 	/* Stop peripheral*/
 	XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
 			    (XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
 			    (XV_HDMITX1_AUD_CTRL_RUN_MASK));
 
+	AudioCtrl &= ~((u32)XV_HDMITX1_AUD_CTRL_RUN_MASK);
+
 	switch (Value) {
+	case 32:
+	    Data = 6;
+	    Flag3d = TRUE;
+	    break;
+
+	case 24:
+	    Data = 4;
+	    Flag3d = TRUE;
+	    break;
+
+	case 12:
+	    Data = 0;
+	    Flag3d = TRUE;
+	    break;
 
 	/* 8 Channels*/
 	case 8:
-	    Data = 3 << XV_HDMITX1_AUD_CTRL_CH_SHIFT;
-	    Status = (XST_SUCCESS);
+	    Data = 3;
 	    break;
 
 	/* 6 Channels*/
 	case 6:
-	    Data = 2 << XV_HDMITX1_AUD_CTRL_CH_SHIFT;
-	    Status = (XST_SUCCESS);
+	    Data = 2;
 	    break;
 
 	/* 4 Channels*/
 	case 4:
-	    Data = 1 << XV_HDMITX1_AUD_CTRL_CH_SHIFT;
-	    Status = (XST_SUCCESS);
+	    Data = 1;
 	    break;
 
 	/* 2 Channels*/
 	case 2:
-	    Data = 0 << XV_HDMITX1_AUD_CTRL_CH_SHIFT;
-	    Status = (XST_SUCCESS);
+	    Data = 0;
 	    break;
 
 	default :
@@ -2621,15 +2640,23 @@ int XV_HdmiTx1_SetAudioChannels(XV_HdmiTx1 *InstancePtr, u8 Value)
 	}
 
 	if (Status == (XST_SUCCESS)) {
-		/* Clear active channels*/
-		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
-				(XV_HDMITX1_AUD_CTRL_CH_MASK <<
-				 XV_HDMITX1_AUD_CTRL_CH_SHIFT));
+		if (Flag3d) {
+			Data &= XV_HDMITX1_3DAUD_CTRL_CH_MASK;
+			Data <<= XV_HDMITX1_3DAUD_CTRL_CH_SHIFT;
+			AudioCtrl &= ~((u32)(XV_HDMITX1_3DAUD_CTRL_CH_MASK <<
+					XV_HDMITX1_3DAUD_CTRL_CH_SHIFT));
+		} else {
+			Data &= XV_HDMITX1_AUD_CTRL_CH_MASK;
+			Data <<= XV_HDMITX1_AUD_CTRL_CH_SHIFT;
+			AudioCtrl &= ~((u32)(XV_HDMITX1_AUD_CTRL_CH_MASK <<
+					XV_HDMITX1_AUD_CTRL_CH_SHIFT));
+		}
+
+		AudioCtrl |= Data;
+
 		/* Set active channels*/
 		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_HDMITX1_AUD_CTRL_SET_OFFSET),
-				Data);
+				(XV_HDMITX1_AUD_CTRL_OFFSET), AudioCtrl);
 
 		/* Store active channel in structure*/
 		(InstancePtr)->Stream.Audio.Channels = Value;
@@ -2712,28 +2739,48 @@ int XV_HdmiTx1_SetAudioFormat(XV_HdmiTx1 *InstancePtr,
 			      XV_HdmiTx1_AudioFormatType Value)
 {
 	u32 Status;
+	u32 AudioCtrl;
+
+	if (Value > XV_HDMITX1_AUDFMT_3D)
+		return XST_FAILURE;
+
+	AudioCtrl = XV_HdmiTx1_ReadReg((InstancePtr)->Config.BaseAddress,
+				XV_HDMITX1_AUD_CTRL_OFFSET);
 
 	/* Stop peripheral*/
 	XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
 			    (XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
 			    (XV_HDMITX1_AUD_CTRL_RUN_MASK));
 
-	if (Value) {
+	switch (Value) {
+	case XV_HDMITX1_AUDFMT_3D:
+		/* 3D audio*/
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
+			    (XV_HDMITX1_AUD_CTRL_SET_OFFSET),
+			    (XV_HDMITX1_AUD_CTRL_3DAUDFMT_MASK & 0x1));
+		break;
+
+	case XV_HDMITX1_AUDFMT_HBR:
 		/* HBR audio*/
 		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
 				    (XV_HDMITX1_AUD_CTRL_SET_OFFSET),
 				    (XV_HDMITX1_AUD_CTRL_AUDFMT_MASK));
-	} else {
+		break;
+
+	default:
 		/* L-PCM*/
 		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
 				    (XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
 				    (XV_HDMITX1_AUD_CTRL_AUDFMT_MASK));
+		break;
 	}
 
 	/* Start peripheral*/
-	XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
+	if (AudioCtrl & XV_HDMITX1_AUD_CTRL_RUN_MASK) {
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
 			    (XV_HDMITX1_AUD_CTRL_SET_OFFSET),
 			    (XV_HDMITX1_AUD_CTRL_RUN_MASK));
+	}
 
 	XV_HdmiTx1_AudioEnable(InstancePtr);
 
@@ -2762,6 +2809,10 @@ XV_HdmiTx1_AudioFormatType XV_HdmiTx1_GetAudioFormat(XV_HdmiTx1 *InstancePtr)
 
 	RegValue = XV_HdmiTx1_ReadReg((InstancePtr)->Config.BaseAddress,
 				      (XV_HDMITX1_AUD_CTRL_OFFSET));
+	/* 3D */
+	if (RegValue & XV_HDMITX1_AUD_CTRL_3DAUDFMT_MASK)
+		return XV_HDMITX1_AUDFMT_3D;
+
 	RegValue = (RegValue & (XV_HDMITX1_AUD_CTRL_AUDFMT_MASK)) >>
 	           XV_HDMITX1_AUD_CTRL_AUDFMT_SHIFT;
 

@@ -180,7 +180,8 @@ typedef enum {
 */
 typedef enum {
 	XV_HDMITX1_AUDFMT_LPCM = 0,    /* L-PCM*/
-	XV_HDMITX1_AUDFMT_HBR          /* HBR*/
+	XV_HDMITX1_AUDFMT_HBR,         /* HBR*/
+	XV_HDMITX1_AUDFMT_3D,           /* 3D Audio */
 } XV_HdmiTx1_AudioFormatType;
 
 /** @name HDMI TX SCDC Fields
