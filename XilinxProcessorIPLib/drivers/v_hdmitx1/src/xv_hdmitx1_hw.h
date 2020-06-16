@@ -330,10 +330,16 @@ extern "C" {
                                                 * Enable mask */
 #define XV_HDMITX1_AUD_CTRL_CH_MASK      0x03 /**< AUD Control channels mask */
 #define XV_HDMITX1_AUD_CTRL_CH_SHIFT     2   /**< AUD Control channels mask */
+#define XV_HDMITX1_3DAUD_CTRL_CH_MASK      0x07 /**< 3D AUD Control channels mask */
+#define XV_HDMITX1_3DAUD_CTRL_CH_SHIFT     18   /**< 3D AUD Control channels mask */
 #define XV_HDMITX1_AUD_CTRL_AUDFMT_MASK  (1<<4) /**< AUD Control AUD Format
                                                 * mask */
 #define XV_HDMITX1_AUD_CTRL_AUDFMT_SHIFT 4   /**< AUD Control AUD Format
                                               * shift */
+#define XV_HDMITX1_AUD_CTRL_3DAUDFMT_MASK  (0x3 << 16) /**< 3D AUD Control AUD
+						    * Format mask */
+#define XV_HDMITX1_AUD_CTRL_3DAUDFMT_SHIFT 16   /**< 3DAUD Control AUD Format
+						    * Format shift */
 #define XV_HDMITX1_AUD_CTRL_AUDRST_MASK  (1<<5)
 #define XV_HDMITX1_AUD_CTRL_ACR_EN_MASK  (1<<6)
 #define XV_HDMITX1_AUD_CTRL_ACR_SEL_MASK (1<<7)
