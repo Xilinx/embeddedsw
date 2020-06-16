@@ -22,6 +22,7 @@
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   04/09/19 Add check for Carriage return when entering the test size
  *       mn   07/01/19 Add support to specify number of iteration for memtest
+ * 1.1   mn   06/15/20 Improved random value generation for Read/Write Tests
  *
  * </pre>
  *
@@ -315,14 +316,11 @@ static double XMt_CalcTime(XTime tCur)
  *
  * @note none
  *****************************************************************************/
-static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern)
+static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern, s64 *RandVal)
 {
 	u64 RefVal;
 	u64 Mod128;
-	s64 RandVal;
-
-	/* Create a Random Value */
-	RandVal = XMT_RANDOM_VALUE(ModeVal);
+	s64 RandValue;
 
 	if (ModeVal == 0U) {
 		RefVal = ((((Addr + 4) << 32) | Addr) & U64_MASK);
@@ -332,8 +330,8 @@ static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern)
 		Mod128 = (Index >> 2) & 0x07f;
 		RefVal = (u64)Pattern[Mod128] & U64_MASK;
 	} else {
-		RandVal = XMT_YLFSR(RandVal);
-		RefVal = RandVal & U64_MASK;
+		RandValue = (s64) ((*RandVal) * ModeVal);
+		RefVal = XMT_YLFSR(RandValue) & U64_MASK;
 	}
 
 	return RefVal;
@@ -368,6 +366,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	u8 Cnt;
 	XTime tCur1;
 	float TestTime;
+	s64 RandVal;
 
 	MemErr = 0U;
 
@@ -376,6 +375,9 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	Size = ((u64) SizeVal) * XMT_MB2BYTE;
 
 	memset(LocalErrCnt, 0U, 8*(sizeof(s32)));
+
+	/* Create a Random Value */
+	RandVal = XMT_RANDOM_VALUE(rand() % ModeVal);
 
 	/* Get the Starting Time value */
 	XTime_GetTime(&tCur1);
@@ -391,7 +393,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 		}
 
 		/* Create a value to be written to the memory */
-		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern);
+		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern, &RandVal);
 		Xil_Out64(Addr, RefVal);
 	}
 
@@ -415,7 +417,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 		}
 
 		/* Create a value to be compared with read value from memory */
-		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern);
+		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern, &RandVal);
 		Data = Xil_In64(Addr);
 
 		/* Compare the data got from the memory */
