@@ -736,7 +736,8 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	} else {
 		/* Configure Dynamic reconfig enable registers before changing XPPU config */
 		PmOut32(PpuBase + XPPU_DYNAMIC_RECONFIG_APER_ADDR_OFFSET, DynamicReconfigAddrOffset);
-		PmOut32(PpuBase + XPPU_DYNAMIC_RECONFIG_APER_PERM_OFFSET, Permissions);
+		XPmProt_XppuSetAperture(PpuNode,
+				PpuBase + XPPU_DYNAMIC_RECONFIG_APER_PERM_OFFSET, Permissions);
 		PmOut32(PpuBase + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 1);
 
 		/* Write values to Aperture */
