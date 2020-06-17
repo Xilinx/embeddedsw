@@ -37,6 +37,8 @@
 * 4.1   kal  05/20/19 Updated doxygen tags
 * 4.2   kpt  01/07/20 Resolved CR-1049149,1049107,1049116,1049115,1049118
 *                     and Replaced Magic Numbers with Macros
+* 4.3   har  06/17/20 Renamed ErrorCode as Status in XSecure_RsaPublicEncrypt
+*                     and initialized with XST_FAILURE
 * </pre>
 *
 * @note
@@ -235,7 +237,7 @@ ENDF:
 s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 					u8 *Result)
 {
-	s32 ErrorCode;
+	s32 Status = XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -244,10 +246,10 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	Xil_AssertNonvoid(Size != 0x00U);
 	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
 
-	ErrorCode = (s32)XSecure_RsaOperation(InstancePtr, Input, Result,
+	Status = (s32)XSecure_RsaOperation(InstancePtr, Input, Result,
 					XSECURE_RSA_SIGN_ENC, Size);
 
-	return ErrorCode;
+	return Status;
 
 }
 
