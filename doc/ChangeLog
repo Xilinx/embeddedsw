@@ -28,6 +28,10 @@ xaxicdma_example_hybrid_intr.c example.
 axiethernet_v5_11:
 Fix bsp generation error for multiple axieth instance design.
 
+axidma_v9_12:
+Fix the MaxTransferLen calculation for MM2S and S2MM in axidma micro
+mode.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
