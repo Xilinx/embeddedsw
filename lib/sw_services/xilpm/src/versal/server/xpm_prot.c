@@ -577,11 +577,21 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 DynamicReconfigAddrOffset = 0;
 	u32 PermissionRegAddress = 0;
 	u32 PermissionRegMask = 0;
-	u32 Security = 0;
-	u8 UsagePolicy = 0;
+	u32 Security = SECURITY_POLICY(Reqm->Flags);	/** < Device security policy */
+	u8 UsagePolicy = USAGE_POLICY(Reqm->Flags);	/** < Device usage policy */
 
 	PmDbg("Xppu configure: 0x%x\r\n", Enable);
 	PmDbg("Device Node Id: 0x%x\r\n", Reqm->Device->Node.Id);
+
+	/*
+	 * For PMC Subsystem, with default requirements, do not re-configure any
+	 * apertures since PMC master is a part of default permission mask.
+	 */
+	if (((u32)PM_SUBSYS_PMC == Reqm->Subsystem->Id) &&
+	    ((u8)REQ_NO_RESTRICTION == UsagePolicy)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/*
 	 * NOTE:
@@ -648,10 +658,6 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 
 	PmDbg("Aperoffset 0x%x AperAddress 0x%08x DynamicReconfigAddrOffset 0x%x\r\n",
 			ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
-
-	/* Get device usage and security policy */
-	UsagePolicy = USAGE_POLICY(Reqm->Flags);
-	Security = SECURITY_POLICY(Reqm->Flags);
 
 	/* Get permission mask configured for this aperture as of now */
 	PmIn32(ApertureAddress, Permissions);
