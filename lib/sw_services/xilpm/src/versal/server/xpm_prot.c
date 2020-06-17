@@ -45,6 +45,14 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 #define APER_IPI_MAX				(63U)
 
 /**
+ * XPPU Macros
+ */
+#define PERM_MASK		(XPPU_APERTURE_TRUSTZONE_MASK | XPPU_APERTURE_PERMISSION_MASK)
+#define PERM(ApertureAddr)	((ApertureAddr) & XPPU_APERTURE_PERMISSION_MASK)
+#define TZ(ApertureAddr)	((ApertureAddr) & XPPU_APERTURE_TRUSTZONE_MASK)
+#define APER_PERM(Tz, Perms)	(TZ(((Tz) << XPPU_APERTURE_TRUSTZONE_OFFSET)) | PERM((Perms)))
+
+/**
  * Max XMPU regions count
  */
 #define MAX_MEM_REGIONS				(16U)
@@ -156,6 +164,9 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 	/* Parity status bits */
 	PpuNode->MIDParityEn = 0;
 	PpuNode->AperParityEn = 0;
+
+	/* Default aperture mask */
+	PpuNode->AperPermInitMask = 0;
 
 	/* Init addresses - 64k */
 	PpuNode->Aperture_64k.NumSupported = 0;
@@ -339,6 +350,9 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 
 	/* XPPU Base Address */
 	BaseAddr = PpuNode->ProtNode.Node.BaseAddress;
+
+	/* Set default aperture permission mask */
+	PpuNode->AperPermInitMask = ApertureInitVal & PERM_MASK;
 
 	Platform = XPm_GetPlatform();
 	PlatformVersion = XPm_GetPlatformVersion();
@@ -643,23 +657,25 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	PmIn32(ApertureAddress, Permissions);
 
 	if (0U != Enable) {
+		u32 DefPerms = PpuNode->AperPermInitMask & PERM_MASK;
+
 		/* Configure XPPU Aperture */
 		if ((UsagePolicy == (u8)REQ_NONSHARED) || (UsagePolicy == (u8)REQ_TIME_SHARED)) {
-			Permissions = ((Security << XPPU_APERTURE_TRUSTZONE_OFFSET) | (Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK));
+			Permissions = (DefPerms | APER_PERM(Security, Reqm->Params[0]));
 		} else if (UsagePolicy == (u8)REQ_SHARED) {
-			/* if device is shared, permissions need to be ored with existing */
-			Permissions |= ((Security << XPPU_APERTURE_TRUSTZONE_OFFSET) | (Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK));
+			/* if device is shared, permissions need to be ORed with existing */
+			Permissions |= (DefPerms | APER_PERM(Security, Reqm->Params[0]));
 		} else if (UsagePolicy == (u8)REQ_NO_RESTRICTION) {
-			Permissions = (XPPU_APERTURE_PERMISSION_MASK | XPPU_APERTURE_TRUSTZONE_MASK);
+			Permissions = PERM_MASK;
 		} else {
-			/* Required due to MISRA */
-			PmDbg("Invalid UsagePolicy %d\r\n", UsagePolicy);
+			Status = XST_INVALID_PARAM;
+			goto done;
 		}
 	} else {
 		if (UsagePolicy != (u8)REQ_NO_RESTRICTION) {
 			/* Configure XPPU to disable masters belonging to this subsystem */
 			Permissions = (Permissions | XPPU_APERTURE_TRUSTZONE_MASK);
-			Permissions = (Permissions & (~(Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK)));
+			Permissions = (Permissions & (~PERM(Reqm->Params[0])));
 		}
 	}
 
