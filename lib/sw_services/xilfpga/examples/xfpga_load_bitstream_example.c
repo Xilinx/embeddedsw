@@ -26,6 +26,7 @@
  *			   updated the bitstream size macro value for the same.
  * 5.2   Nava	 02/14/20  Removed unwanted header file inclusion.
  * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3   Nava    06/16/20  Added support for Versal Platform.
  * </pre>
  *
  ******************************************************************************/
@@ -41,9 +42,14 @@
  * Below definition is for typical bitstream size of zcu102 board
  * User should replace the below definition value with the actual bitstream size.
  *
- * @note: This example supports only Zynq UltraScale+ MPSoC platform.
  */
-#define BITSTREAM_SIZE	0x1A00000
+
+/* For Versal platform Passing the below definition is Optional */
+#define BITSTREAM_SIZE 0x1A00000U /* Bin or bit or PDI image size */
+#ifdef versal
+#define PDI_LOAD        0U
+#endif
+
 /*****************************************************************************/
 int main(void)
 {
@@ -60,8 +66,13 @@ int main(void)
 		goto done;
 	}
 
+#ifdef versal
+	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
+					 BITSTREAM_SIZE, PDI_LOAD);
+#else
 	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
 					 BITSTREAM_SIZE, XFPGA_FULLBIT_EN);
+#endif
 
  done:
 	if (Status == XFPGA_SUCCESS)
