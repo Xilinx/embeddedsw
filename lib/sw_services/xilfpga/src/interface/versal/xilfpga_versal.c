@@ -15,10 +15,11 @@
  *
  * Ver   Who  Date        Changes
  * ---- ----- --------  -------------------------------------------------------
- * 5.2  Nava  05/12/19  Added Versal platform support.
- * 5.2  Nava  27/02/20  Updated the write path to read the pdi/bin image ipi
+ * 5.2  Nava  12/05/19  Added Versal platform support.
+ * 5.2  Nava  02/27/20  Updated the write path to read the pdi/bin image ipi
  *                      load response to handle the pdi/bin image load
  *                      errors properly.
+ * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  * @note

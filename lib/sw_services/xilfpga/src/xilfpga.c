@@ -15,32 +15,32 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
- * 4.2  Nava  08/06/16  Refactor the xilfpga library to support
+ * 4.2  Nava  06/08/16  Refactor the xilfpga library to support
  *			different PL programming Interfaces.
- * 4.2  adk   11/07/18  Added support for readback of PL configuration data.
- * 4.2  Nava  16/08/18	Modified the PL data handling Logic to support
+ * 4.2  adk   07/11/18  Added support for readback of PL configuration data.
+ * 4.2  Nava  08/16/18	Modified the PL data handling Logic to support
  *			different PL programming interfaces.
- * 4.2  Nava  15/09/18 Fixed global function call-backs issue.
- * 5.0  Nava 11/05/18  Added full bitstream loading support for versal Platform.
- * 5.0  Div  21/01/19  Fixed misra-c required standard violation for zynqmp.
- * 5.0  Nava 06/02/19  Remove redundant API's from the interface agnostic layer
- *                     and make the existing API's generic to support both
- *                     ZynqMP and versal platforms.
- * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
- *		       duplication
- * 5.0 sne   27/03/19  Fixed misra-c violations.
- * 5.0 Nava  29/03/19  Removed vesal platform related changes.As per the new
- *                     design, the Bitstream loading for versal platform is
- *                     done by PLM based on the CDO's data exists in the PDI
- *                     images. So there is no need of xilfpga API's for versal
- *                     platform to configure the PL.
- * 5.1 Nava  27/06/19  Updated documentation for readback API's.
- * 5.1 Nava  16/07/19  Initialize empty status (or) status success to status failure
- *                     to avoid security violations.
- * 5.2 Nava  05/12/19  Added Versal platform support.
- * 5.2 Nava  14/02/20  Added Bitstream loading support by using IPI services
- *                     for ZynqMP platform.
- *
+ * 4.2  Nava  09/15/18  Fixed global function call-backs issue.
+ * 5.0  Nava  05/11/18  Added full bitstream loading support for versal Platform.
+ * 5.0  Div   01/21/19  Fixed misra-c required standard violation for zynqmp.
+ * 5.0  Nava  02/06/19  Remove redundant API's from the interface agnostic layer
+ *                      and make the existing API's generic to support both
+ *                      ZynqMP and versal platforms.
+ * 5.0 Nava   02/26/19  Update the data handling logic to avoid the code
+ *		        duplication
+ * 5.0 sne    03/27/19  Fixed misra-c violations.
+ * 5.0 Nava   03/29/19  Removed vesal platform related changes.As per the new
+ *                      design, the Bitstream loading for versal platform is
+ *                      done by PLM based on the CDO's data exists in the PDI
+ *                      images. So there is no need of xilfpga API's for versal
+ *                      platform to configure the PL.
+ * 5.1 Nava   06/27/19  Updated documentation for readback API's.
+ * 5.1 Nava   07/16/19  Initialize empty status (or) status success to status failure
+ *                      to avoid security violations.
+ * 5.2 Nava   12/05/19  Added Versal platform support.
+ * 5.2 Nava   02/14/20  Added Bitstream loading support by using IPI services
+ *                      for ZynqMP platform.
+ * 5.3 Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
  *</pre>
  *
  *@note

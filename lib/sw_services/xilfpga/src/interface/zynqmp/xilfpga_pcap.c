@@ -15,78 +15,79 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
- * 1.0   Nava  08/06/16 Initial release
- * 1.1   Nava  16/11/16 Added PL power-up sequence.
- * 2.0	 Nava  10/1/17  Added Encrypted bitstream loading support.
- * 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
- * 2.1	 Nava  06/05/17	Correct the check logic issues in
+ * 1.0   Nava  06/08/16 Initial release
+ * 1.1   Nava  11/16/16 Added PL power-up sequence.
+ * 2.0	 Nava  01/10/17 Added Encrypted bitstream loading support.
+ * 2.0   Nava  02/16/17 Added Authenticated bitstream loading support.
+ * 2.1	 Nava  05/06/17	Correct the check logic issues in
  *			XFpga_PL_BitStream_Load()
  *			to avoid the unwanted blocking conditions.
- * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
- * 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream
+ * 3.0   Nava  05/12/17 Added PL configuration registers readback support.
+ * 4.0   Nava  02/08/18 Added Authenticated and Encypted Bitstream
  *			loading	support.
- * 4.0   Nava  02/03/18 Added the legacy bit file loading feature support
+ * 4.0   Nava  03/02/18 Added the legacy bit file loading feature support
  *			from U-boot.
  *			and improve the error handling support by returning the
  *			proper ERROR value upon error conditions.
- * 4.1   Nava  7/03/18  For Secure Bitstream loading to avoid the Security
+ * 4.1   Nava  03/07/18  For Secure Bitstream loading to avoid the Security
  *			violations Need to Re-validate the User Crypto flags
  *			with the Image Crypto operation by using the internal
  *			memory.To Fix this added a new API
  *			XFpga_ReValidateCryptoFlags().
- * 4.1   Nava  16/04/18 Added partial bitstream loading support.
- * 4.2   Nava  08/06/16 Refactor the xilfpga library to support
+ * 4.1   Nava  04/16/18 Added partial bitstream loading support.
+ * 4.2   Nava  06/08/16 Refactor the xilfpga library to support
  *			different PL programming Interfaces.
- * 4.2   adk   11/07/18 Added support for readback of PL configuration data.
- * 4.2   Nava  22/07/18 Added XFpga_SelectEndianess() new API to Support
+ * 4.2   adk   07/11/18 Added support for readback of PL configuration data.
+ * 4.2   Nava  07/22/18 Added XFpga_SelectEndianess() new API to Support
  *                      programming the vivado generated .bit and .bin files.
- * 4.2   Nava  16/08/18 Modified the PL data handling Logic to support
+ * 4.2   Nava  08/16/18 Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
- * 4.2	 adk   23/08/18 Added support for unaligned bitstream programming.
- * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
- * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
- * 5.0	 Nava  10/01/19	Improve the PS-PL resets handling.
- * 5.0   Nava  10/01/19 Improve the Image validation handling logic for
+ * 4.2	 adk   08/23/18 Added support for unaligned bitstream programming.
+ * 4.2   adk   08/28/18 Fixed misra-c required standard violations.
+ * 4.2   Nava  09/15/18 Fixed global function call-backs issue.
+ * 5.0	 Nava  01/10/19	Improve the PS-PL resets handling.
+ * 5.0   Nava  01/10/19 Improve the Image validation handling logic for
  *			bootgen created Bitstream Images.
- * 5.0	 Div   21/01/19	Fixed misra-c required standard violations.
- * 5.0  Nava   06/02/19 Remove redundant API's from the interface agnostic layer
+ * 5.0	 Div   01/21/19	Fixed misra-c required standard violations.
+ * 5.0  Nava   02/06/19 Remove redundant API's from the interface agnostic layer
  *                      and make the existing API's generic to support both
  *                      ZynqMP and versal platforms.
- * 5.0  Nava  26/02/19  Fix for power-up PL issue with pmufw.
- * 5.0  Nava  26/02/19  Update the data handling logic to avoid the code
+ * 5.0  Nava  02/26/19  Fix for power-up PL issue with pmufw.
+ * 5.0  Nava  02/26/19  Update the data handling logic to avoid the code
  *                      duplication
- * 5.0  Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
+ * 5.0  Nava  02/28/19  Handling all the 4 PS-PL resets irrespective of the
  *                      design configuration.
- * 5.0  vns   12/03/19  Modified secure stream switch related functions.
- * 5.0  Nava  19/03/19 In the current implementation, the SecureIv variable
+ * 5.0  vns   03/12/19  Modified secure stream switch related functions.
+ * 5.0  Nava  03/19/19 In the current implementation, the SecureIv variable
  *                     is sharing between xilfpga and Xilsecure libraries.
  *                     To avoid data sharing conflicts removed SecureIV
  *                     shared variable dependency.
- * 5.0 Nava  21/03/19  Added Address alignment check. As CSUDMA expects word
+ * 5.0 Nava  03/21/19  Added Address alignment check. As CSUDMA expects word
  *                     aligned address. In case user passes an unaligned
  *                     address return error.
- * 5.0 sne   27/03/19  Fixed misra-c violations.
- * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
- * 5.1 Nava  27/06/19  Adds support to clear out the SHA3 engine.
- * 5.1 Nava  05/07/19  Zeroize the Secure data to avoid security violations.
- * 5.1 Nava  16/07/19  Begin all functions return status with failure and return
+ * 5.0 sne   03/27/19  Fixed misra-c violations.
+ * 5.0 Nava  04/23/19  Optimize the API's logic to avoid code duplication.
+ * 5.1 Nava  06/27/19  Adds support to clear out the SHA3 engine.
+ * 5.1 Nava  07/05/19  Zeroize the Secure data to avoid security violations.
+ * 5.1 Nava  07/16/19  Begin all functions return status with failure and return
  *		       to success only on successful completion of the operation
  *                     of the functions.
- * 5.1 Nava  16/07/19  Improve error handling in the bitstream validation path.
- * 5.2 Nava  11/10/19  Clear the key info from DDR or Physical memory Once it
+ * 5.1 Nava  07/16/19  Improve error handling in the bitstream validation path.
+ * 5.2 Nava  10/11/19  Clear the key info from DDR or Physical memory Once it
  *                     preserves into the internal memory.
- * 5.2 Nava  1/11/19   Clear the Aes-key info from internal memory after
+ * 5.2 Nava  11/01/19  Clear the Aes-key info from internal memory after
  *                     completion of its usage.
- * 5.2 Nava 14/11/19   Rename the XFpga_GetPLConfigData() function name
+ * 5.2 Nava  11/14/19  Rename the XFpga_GetPLConfigData() function name
  *                     to improve the code readability.
- * 5.2 Nava 06/12/19   Removed unwanted pcap interface status check In
+ * 5.2 Nava  12/06/19  Removed unwanted pcap interface status check In
  *                     XFpga_DecrypSecureHdr path.
- * 5.2 Nava 18/12/19   Fix for security violation in the readback path.
- * 5.2 Nava 02/01/20  Added conditional compilation support for readback feature.
- * 5.2 Nava 21/01/20  Replace event poll logic with Xil_WaitForEvent() API.
- * 5.2 Nava 20/02/20  Updated SECURE_MODE check handling logic by using conditional
- *                    compilation macro to Optimize XFpga_Validate BitstreamImage
- *                    function
+ * 5.2 Nava  12/18/19  Fix for security violation in the readback path.
+ * 5.2 Nava  01/02/20  Added conditional compilation support for readback feature.
+ * 5.2 Nava  01/21/20  Replace event poll logic with Xil_WaitForEvent() API.
+ * 5.2 Nava  02/20/20  Updated SECURE_MODE check handling logic by using conditional
+ *                     compilation macro to Optimize XFpga_Validate BitstreamImage
+ *                     function
+ * 5.3 Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  * @note

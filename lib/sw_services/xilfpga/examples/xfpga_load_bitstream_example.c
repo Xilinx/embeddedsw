@@ -16,15 +16,16 @@
  *
  * Ver   Who     Date     Changes
  * ----- ------  -------- ------------------------------------------------------
- * 1.0   Nava    08/06/16  First release
- * 4.0   Nava	21/02/18  Updated the example relevant to src code changes.
- * 4.2   Nava    30/05/18  Refactor the xilfpga library to support
+ * 1.0   Nava    06/08/16  First release
+ * 4.0   Nava	 02/21/18  Updated the example relevant to src code changes.
+ * 4.2   Nava    05/30/18  Refactor the xilfpga library to support
  *                         different PL programming Interfaces.
- * 4.2	 adk	 23/08/18  Added bitstream size define.
- * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
- * 5.0	 Nava 	 16/03/19  Typical bitstram size of zcu102 board is 26MB.So
+ * 4.2	 adk	 08/23/18  Added bitstream size define.
+ * 5.0   Nava	 02/06/19  Updated the example to sync with 5.0 version API's
+ * 5.0	 Nava 	 03/16/19  Typical bitstram size of zcu102 board is 26MB.So
  *			   updated the bitstream size macro value for the same.
- * 5.2   Nava	 14/02/20  Removed unwanted header file inclusion.
+ * 5.2   Nava	 02/14/20  Removed unwanted header file inclusion.
+ * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  ******************************************************************************/
