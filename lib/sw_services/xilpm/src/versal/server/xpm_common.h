@@ -36,23 +36,34 @@ extern "C" {
 
 /* Debug logs */
 #define PmAlert(...) \
-	XPlmi_Printf(DEBUG_GENERAL, "[ALERT] %s: ", __func__); \
-	XPlmi_Printf(DEBUG_GENERAL, __VA_ARGS__)
+	if(((DEBUG_GENERAL) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+		xil_printf("ALERT %s: ", __func__); \
+		xil_printf(__VA_ARGS__);	\
+	}
 
 #define PmErr(...) \
-	XPlmi_Printf_WoTimeStamp(DEBUG_GENERAL, "[ERR] %s: ", __func__, __VA_ARGS__)
+	if(((DEBUG_GENERAL) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+		xil_printf("ERR %s: ", __func__); \
+		xil_printf(__VA_ARGS__);	\
+	}
 
 #define PmWarn(...) \
-	XPlmi_Printf(DEBUG_GENERAL, "[WARN] %s: ", __func__); \
-	XPlmi_Printf(DEBUG_GENERAL, __VA_ARGS__)
+	if(((DEBUG_GENERAL) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+		xil_printf("WARN %s: ", __func__); \
+		xil_printf(__VA_ARGS__);	\
+	}
 
 #define PmInfo(...) \
-	XPlmi_Printf(DEBUG_INFO, "[INFO] %s: ", __func__); \
-	XPlmi_Printf(DEBUG_INFO, __VA_ARGS__)
+	if(((DEBUG_INFO) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+		xil_printf("INFO %s: ", __func__); \
+		xil_printf(__VA_ARGS__);	\
+	}
 
 #define PmDbg(...) \
-	XPlmi_Printf(DEBUG_DETAILED, "[DEBUG] %s: ", __func__); \
-	XPlmi_Printf(DEBUG_DETAILED, __VA_ARGS__)
+	if(((DEBUG_DETAILED) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+		xil_printf("DBG %s: ", __func__); \
+		xil_printf(__VA_ARGS__);	\
+	}
 
 #ifdef DEBUG_REG_IO
 
