@@ -288,7 +288,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	u32 PartHeaderOffset = 0U;
 
 #ifndef XFPGA_SECURE_MODE
-	if (InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS != 0U) {
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U) {
 		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_SECURE_MODE_EN,
 				(u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
