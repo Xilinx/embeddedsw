@@ -576,7 +576,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 DeviceBaseAddr = 0;
 	XPm_ProtPpu *PpuNode = NULL;
 	u32 PpuBase = 0;
-	u32 ApertureOffset = 0, ApertureAddress = 0;
+	u32 ApertureAddress = 0;
 	u32 Permissions = 0, i;
 	u32 DynamicReconfigAddrOffset = 0;
 	u32 PermissionRegAddress = 0;
@@ -622,38 +622,46 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 			/* XPPU Node specifics */
 			PpuNode = (XPm_ProtPpu *)PmProtNodes[i];
 			PpuBase = PpuNode->ProtNode.Node.BaseAddress;
+			u32 ApertureOffset = 0;
 
 			/* XPPU Address boundaries */
 			u32 Aper64kStart = PpuNode->Aperture_64k.StartAddress;
 			u32 Aper64kEnd = PpuNode->Aperture_64k.EndAddress;
 			u32 Aper1mStart = PpuNode->Aperture_1m.StartAddress;
 			u32 Aper1mEnd = PpuNode->Aperture_1m.EndAddress;
+			// u32 Aper512mStart = PpuNode->Aperture_512m.StartAddress;
+			// u32 Aper512mEnd = PpuNode->Aperture_512m.EndAddress;
 
 			/* 64k */
 			if ((DeviceBaseAddr >= Aper64kStart) && (DeviceBaseAddr <= Aper64kEnd)) {
 				ApertureOffset =  (DeviceBaseAddr - Aper64kStart) / SIZE_64K;
 				ApertureAddress = (PpuBase + XPPU_APERTURE_0_OFFSET) + (ApertureOffset * 4U);
-				DynamicReconfigAddrOffset = ApertureOffset;
+				DynamicReconfigAddrOffset = APER_64K_START + ApertureOffset;
 				PermissionRegAddress = PpuBase
 					+ XPPU_ENABLE_PERM_CHECK_REG00_OFFSET
-					+ (((APER_64K_START + ApertureOffset) / 32U) * 4U);
-				PermissionRegMask = (u32)1U << ((APER_64K_START + ApertureOffset) % 32U);
+					+ ((DynamicReconfigAddrOffset / 32U) * 4U);
+				PermissionRegMask = (u32)1U << (DynamicReconfigAddrOffset % 32U);
 			/* 1m */
 			} else if ((DeviceBaseAddr >= Aper1mStart) && (DeviceBaseAddr <= Aper1mEnd)) {
 				ApertureOffset =  (DeviceBaseAddr - Aper1mStart) / SIZE_1M;
 				ApertureAddress = (PpuBase + XPPU_APERTURE_384_OFFSET) + (ApertureOffset * 4U);
-				DynamicReconfigAddrOffset = ApertureOffset;
+				DynamicReconfigAddrOffset = APER_1M_START + ApertureOffset;
 				PermissionRegAddress = PpuBase
 					+ XPPU_ENABLE_PERM_CHECK_REG00_OFFSET
-					+ (((APER_1M_START + ApertureOffset) / 32U) * 4U);
-				PermissionRegMask = (u32)1U << ((APER_1M_START + ApertureOffset) % 32U);
-			/*TODO: 512M start and end address need to be validated */
-			/*} else if ((DeviceBaseAddr >= PpuNode->Aperture_512m.StartAddress) && (DeviceBaseAddr <= PpuNode->Aperture_512m.EndAddress)) {
-				ApertureOffset =  (DeviceBaseAddr - PpuNode->Aperture_512m.StartAddress) / SIZE_512M;
-				ApertureAddress = (PpuBase + XPPU_APERTURE_400_OFFSET) + (ApertureOffset * 4);
+					+ ((DynamicReconfigAddrOffset / 32U) * 4U);
+				PermissionRegMask = (u32)1U << (DynamicReconfigAddrOffset % 32U);
+			/* 512m */
+			/*
+			 * FIXME: Need to handle this separately as there is no 512M aperture for PMC_NPI_XPPU
+			 *
+			} else if ((DeviceBaseAddr >= Aper512mStart) && (DeviceBaseAddr <= Aper512mEnd)) {
+				ApertureAddress = (PpuBase + XPPU_APERTURE_400_OFFSET);
 				DynamicReconfigAddrOffset = APER_512M_START;
-				PermissionRegAddress = PpuBase + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET + (((APER_512M_START + ApertureOffset) / 32) * 4);
-				PermissionRegMask = 1 << ((APER_512M_START + ApertureOffset) % 32); */
+				PermissionRegAddress = PpuBase
+					+ XPPU_ENABLE_PERM_CHECK_REG00_OFFSET
+					+ ((DynamicReconfigAddrOffset / 32) * 4);
+				PermissionRegMask = 1 << (DynamicReconfigAddrOffset % 32);
+			*/
 			} else {
 				continue;
 			}
@@ -676,8 +684,8 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 		goto done;
 	}
 
-	PmDbg("Aperoffset 0x%x AperAddress 0x%08x DynamicReconfigAddrOffset 0x%x\r\n",
-			ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
+	PmDbg("AperAddress 0x%08x DynamicReconfigAddrOffset %d\r\n",
+			ApertureAddress, DynamicReconfigAddrOffset);
 
 	/* Get permission mask configured for this aperture as of now */
 	PmIn32(ApertureAddress, Permissions);
