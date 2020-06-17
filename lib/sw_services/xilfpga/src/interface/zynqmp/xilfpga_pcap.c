@@ -1748,8 +1748,6 @@ static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
 	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) {
 		Status = Xil_ConvertStringToHex(KeyPtr,
 						    AesKupKey, KEY_LEN);
-		/* Clear the key info from DDR or Physical memory */
-		(void)memset(KeyPtr, 0U, KEY_LEN);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
 		}
