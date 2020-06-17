@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxidma_bdring.c
-* @addtogroup axidma_v9_11
+* @addtogroup axidma_v9_12
 * @{
 *
 * This file implements buffer descriptor ring related functions. For more
