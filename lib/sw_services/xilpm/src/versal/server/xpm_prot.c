@@ -561,8 +561,10 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 ApertureOffset = 0, ApertureAddress = 0;
 	u32 Permissions = 0, i;
 	u32 DynamicReconfigAddrOffset = 0;
-	u32	PermissionRegAddress = 0;
-	u32	PermissionRegMask = 0;
+	u32 PermissionRegAddress = 0;
+	u32 PermissionRegMask = 0;
+	u32 Security = 0;
+	u8 UsagePolicy = 0;
 
 	PmDbg("Xppu configure: 0x%x\r\n", Enable);
 	PmDbg("Device Node Id: 0x%x\r\n", Reqm->Device->Node.Id);
@@ -633,12 +635,14 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	PmDbg("Aperoffset 0x%x AperAddress 0x%08x DynamicReconfigAddrOffset 0x%x\r\n",
 			ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
 
+	/* Get device usage and security policy */
+	UsagePolicy = USAGE_POLICY(Reqm->Flags);
+	Security = SECURITY_POLICY(Reqm->Flags);
+
+	/* Get permission mask configured for this aperture as of now */
+	PmIn32(ApertureAddress, Permissions);
+
 	if (0U != Enable) {
-		u8 UsagePolicy = USAGE_POLICY(Reqm->Flags);
-		u32 Security = SECURITY_POLICY(Reqm->Flags);
-
-		PmIn32(ApertureAddress, Permissions);
-
 		/* Configure XPPU Aperture */
 		if ((UsagePolicy == (u8)REQ_NONSHARED) || (UsagePolicy == (u8)REQ_TIME_SHARED)) {
 			Permissions = ((Security << XPPU_APERTURE_TRUSTZONE_OFFSET) | (Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK));
@@ -652,9 +656,11 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 			PmDbg("Invalid UsagePolicy %d\r\n", UsagePolicy);
 		}
 	} else {
-		/* Configure XPPU to disable masters belonging to this subsystem */
-		Permissions = (Permissions | XPPU_APERTURE_TRUSTZONE_MASK);
-		Permissions = (Permissions & (~(Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK)));
+		if (UsagePolicy != (u8)REQ_NO_RESTRICTION) {
+			/* Configure XPPU to disable masters belonging to this subsystem */
+			Permissions = (Permissions | XPPU_APERTURE_TRUSTZONE_MASK);
+			Permissions = (Permissions & (~(Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK)));
+		}
 	}
 
 	PmDbg("PermissionRegAddress 0x%08x Permissions 0x%08x RegMask 0x%x \r\n",
