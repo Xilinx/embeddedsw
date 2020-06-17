@@ -1022,6 +1022,10 @@ SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/ion.h
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xlnx-ai-engine.h
 
+axidma_v9_12:
+Fix the MaxTransferLen calculation for MM2S and S2MM in axidma micro
+mode.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
