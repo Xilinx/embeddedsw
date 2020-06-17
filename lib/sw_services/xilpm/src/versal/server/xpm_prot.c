@@ -12,6 +12,8 @@
 #include "xpm_device.h"
 #include "xpm_mem.h"
 #include "xpm_prot.h"
+#include "xpm_apucore.h"
+#include "xpm_rpucore.h"
 
 static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 
@@ -479,6 +481,64 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Get device base address from device object for "supported" devices
+ *
+ * @param  Device: handle to device object
+ *
+ * @return base address if stored in base class, else 0
+ *
+ * @note  This function will return the base address of the selected devices.
+ *	  For a few devices, where the base addresses are not stored in dev
+ *	  base class, the address returned will be 0. Such devices can be but
+ *	  are not limited to PMC Proc, PSM Proc and DDR.
+ *
+ ****************************************************************************/
+static u32 XPmProt_GetDevBaseAddr(XPm_Device *Device)
+{
+	u32 BaseAddr = 0;
+	u32 DeviceId, DevSubcl, DevType;
+
+	if (NULL == Device) {
+		goto done;
+	}
+	DeviceId = Device->Node.Id;
+	DevSubcl = NODESUBCLASS(DeviceId);
+	DevType = NODETYPE(DeviceId);
+
+	/* By default, the base address is stored in base class */
+	BaseAddr = Device->Node.BaseAddress;
+
+	switch (DevSubcl) {
+	case XPM_NODESUBCL_DEV_CORE:
+		if ((u32)XPM_NODETYPE_DEV_CORE_APU == DevType) {
+			BaseAddr = ((XPm_ApuCore *)Device)->FpdApuBaseAddr;
+		} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == DevType) {
+			BaseAddr = ((XPm_RpuCore *)Device)->RpuBaseAddr;
+		} else {
+			/* Any other proc types than APU/RPU, return 0 */
+			BaseAddr = 0;
+		}
+		break;
+	case XPM_NODESUBCL_DEV_MEM:
+		if ((u32)XPM_NODETYPE_DEV_TCM == DevType) {
+			XPm_MemDevice *Tcm = (XPm_MemDevice *)Device;
+			BaseAddr = Tcm->StartAddress;
+		} else {
+			/* Any other memory types than TCM, return 0 */
+			BaseAddr = 0;
+		}
+		break;
+	default:
+		BaseAddr = Device->Node.BaseAddress;
+		break;
+	}
+
+done:
+	return BaseAddr;
+}
+
+/****************************************************************************/
+/**
  * @brief  Configure XPPU according to access control policies from
  *         given subsystem requirement for the peripheral device
  *
@@ -496,7 +556,7 @@ done:
 static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
-	u32 DeviceBaseAddr = Reqm->Device->Node.BaseAddress;
+	u32 DeviceBaseAddr = 0;
 	XPm_ProtPpu *PpuNode = NULL;
 	u32 ApertureOffset = 0, ApertureAddress = 0;
 	u32 Permissions = 0, i;
@@ -504,8 +564,25 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32	PermissionRegAddress = 0;
 	u32	PermissionRegMask = 0;
 
-        PmDbg("Xppu configure %x\r\n", Enable);
-	PmDbg("Device base %x\r\n", DeviceBaseAddr);
+	PmDbg("Xppu configure: 0x%x\r\n", Enable);
+	PmDbg("Device Node Id: 0x%x\r\n", Reqm->Device->Node.Id);
+
+	/*
+	 * NOTE:
+	 *  For PMC, PSM, DDR, any other memory devices than TCM and nodes that
+	 *  do not have a base address mapped in topology (i.e. abstract nodes),
+	 *  we'll only support default init permission mask that was set up
+	 *  while enabling XPPU. No dynamic reconfiguration would be supported
+	 *  for these devices.
+	 */
+	DeviceBaseAddr = XPmProt_GetDevBaseAddr(Reqm->Device);
+	if (!DeviceBaseAddr) {
+		PmDbg("Aperture permission config not supported for device node: 0x%08x\r\n",
+				Reqm->Device->Node.Id);
+		Status = XST_SUCCESS;
+		goto done;
+	}
+	PmDbg("Device Base Address: 0x%08x\r\n", DeviceBaseAddr);
 
 	/* Find XPPU */
 	for (i = 0; i < (u32)XPM_NODEIDX_PROT_MAX; i++)
@@ -538,7 +615,11 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 			break;
 		}
 	}
-	if ((i == (u32)XPM_NODEIDX_PROT_MAX) || (NULL == PpuNode) || (0U == ApertureAddress)) {
+	if ((i == (u32)XPM_NODEIDX_PROT_MAX)
+	 || (NULL == PpuNode)
+	 || (0U == ApertureAddress)) {
+		PmDbg("Device base address 0x%08x is out of address ranges for all XPPUs.\r\n",
+				DeviceBaseAddr);
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -549,7 +630,8 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 		goto done;
 	}
 
-	PmDbg("Aperoffset %x AperAddress %x DynamicReconfigAddrOffset %x\r\n",ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
+	PmDbg("Aperoffset 0x%x AperAddress 0x%08x DynamicReconfigAddrOffset 0x%x\r\n",
+			ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
 
 	if (0U != Enable) {
 		u8 UsagePolicy = USAGE_POLICY(Reqm->Flags);
@@ -575,7 +657,8 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 		Permissions = (Permissions & (~(Reqm->Params[0] & XPPU_APERTURE_PERMISSION_MASK)));
 	}
 
-	PmDbg("PermissionRegAddress %x Permissions %x RegMask %x \r\n",PermissionRegAddress, Permissions, PermissionRegMask);
+	PmDbg("PermissionRegAddress 0x%08x Permissions 0x%08x RegMask 0x%x \r\n",
+			PermissionRegAddress, Permissions, PermissionRegMask);
 
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
@@ -919,29 +1002,33 @@ done:
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
-	u32 DeviceId;
+	u32 DeviceId = 0;
+	u32 DevSubcl = 0;
 
 	if ((NULL == Reqm) || (NULL == Reqm->Device)) {
 		goto done;
 	}
 	DeviceId = Reqm->Device->Node.Id;
+	DevSubcl = NODESUBCLASS(DeviceId);
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	/* Configure XPPU for peripheral devices */
-	if ((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(DeviceId)) {
-		Status = XPmProt_XppuConfigure(Reqm, Enable);
 	/* Configure XMPU for memory regions */
-	} else if (1U == IS_MEM_REGN(DeviceId)) {
+	if (1U == IS_MEM_REGN(DeviceId)) {
 		/**
 		 * TODO:
 		 * Add support for protecting FPD Slave peripherals protected by XMPU.
 		 * Current support is only for OCM and DDR memory regions.
 		 */
 		Status = XPmProt_XmpuConfigure(Reqm, Enable);
+	/* Configure XPPU for peripheral devices */
+	} else if (((u32)XPM_NODESUBCL_DEV_CORE == DevSubcl)
+		|| ((u32)XPM_NODESUBCL_DEV_MEM == DevSubcl)
+		|| ((u32)XPM_NODESUBCL_DEV_PERIPH == DevSubcl)) {
+		Status = XPmProt_XppuConfigure(Reqm, Enable);
 	} else {
 		Status = XST_SUCCESS;
 		goto done;
