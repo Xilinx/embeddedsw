@@ -88,6 +88,8 @@
  *                     compilation macro to Optimize XFpga_Validate BitstreamImage
  *                     function
  * 5.3 Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3 Nava  06/16/20  clear the AES key from the KUP register upon GCM-tag
+ *                     check failure.
  * </pre>
  *
  * @note
@@ -1710,10 +1712,16 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 				XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
 	if (GcmStatus == 0U) {
-		Xfpga_Printf(XFPGA_DEBUG, "GCM TAG NOT Matched\r\n");
+		/* Zerioze the Aes key */
+		Status = XSecure_AesKeyZero(InstancePtr);
 		XSecure_SetReset(InstancePtr->BaseAddress,
 				 XSECURE_CSU_AES_RESET_OFFSET);
-		Status = XFPGA_FAILURE;
+		if (Status != XST_SUCCESS) {
+			Status = XFPGA_PCAP_UPDATE_ERR((u32)Status,
+						       XFPGA_FAILURE);
+		} else {
+			Status = XFPGA_FAILURE;
+		}
 	} else {
 		Status = XFPGA_SUCCESS;
 	}
