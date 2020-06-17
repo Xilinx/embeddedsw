@@ -19,13 +19,14 @@
  *<pre>
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------
- * 4.2   adk  11/07/18 First Release
- * 4.2   Nava 16/08/18 Modified the PL data handling Logic to support
+ * 4.2   adk  07/11/18 First Release
+ * 4.2   Nava 08/16/18 Modified the PL data handling Logic to support
  *                     different PL programming interfaces.
- * 5.0   Nava 06/02/19 Updated the example to sync with 5.0 version API's
- *       rama 03/04/19 Fixed IAR compiler warning
- * 5.2   Nava 18/12/19 Fix for security violation in the readback path.
- * 5.2   Nava 14/02/20 Removed unwanted header file inclusion.
+ * 5.0   Nava 02/06/19 Updated the example to sync with 5.0 version API's
+ * 5.0   rama 04/03/19 Fixed IAR compiler warning
+ * 5.2   Nava 12/18/19 Fix for security violation in the readback path.
+ * 5.2   Nava 02/14/20 Removed unwanted header file inclusion.
+ * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
  *</pre>
  ******************************************************************************/
 

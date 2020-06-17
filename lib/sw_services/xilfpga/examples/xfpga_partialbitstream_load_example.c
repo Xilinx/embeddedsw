@@ -23,11 +23,12 @@
  *
  * Ver   Who     Date     Changes
  * ----- ------  -------- ------------------------------------------------------
- * 4.2   adk     03/08/18  Initial Release.
- * 4.2	 adk	 23/08/18  Added bitstream size define.
- * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
- * 5.2   Nava    14/02/20  Removed unwanted header file inclusion.
- * 5.2   Nava    27/02/20  Added support for Versal Platform.
+ * 4.2   adk     08/03/18  Initial Release.
+ * 4.2	 adk	 08/23/18  Added bitstream size define.
+ * 5.0   Nava	 02/06/19  Updated the example to sync with 5.0 version API's
+ * 5.2   Nava    02/14/20  Removed unwanted header file inclusion.
+ * 5.2   Nava    02/27/20  Added support for Versal Platform.
+ * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  ******************************************************************************/

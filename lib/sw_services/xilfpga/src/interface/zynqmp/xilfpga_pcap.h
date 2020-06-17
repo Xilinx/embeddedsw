@@ -13,53 +13,54 @@
  *
  * MODIFICATION HISTORY:
  *
- * Ver   Who  Date        Changes
- * ----- ---- -------- -------------------------------------------------------
- * 1.0   Nava   08/06/16 Initial release
- * 1.1   Nava  16/11/16 Added PL power-up sequence.
- * 2.0   Nava  10/1/17  Added Encrypted bitstream loading support.
- * 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
- * 2.1   Nava  06/05/17 Correct the check logic issues in
- *                      XFpga_PL_BitStream_Load()
- *                      to avoid the unwanted blocking conditions.
- * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
- * 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream
-			loading support.
- * 4.0   Nava  02/03/18 Added the legacy bit file loading feature support
- *			from U-boot.and improve the error handling support
- *			by returning the proper ERROR value upon error
- *			conditions.
- * 4.1  Nava   27/03/18 For Secure Bitstream loading to avoid the Security
- *			violations Need to Re-validate the User Crypto flags
- *			with the Image Crypto operation by using the internal
- *			memory.To Fix this added a new API
- *			XFpga_ReValidateCryptoFlags().
- * 4.1 Nava   16/04/18  Added partial bitstream loading support.
- * 4.2 Nava   08/06/16  Refactor the xilfpga library to support
- *                      different PL programming Interfaces.
- * 4.2 adk    11/07/18  Added support for readback of PL configuration data.
- * 4.2 Nava   22/07/18 Added XFpga_SelectEndianess() new API to Support
- *                      programming the vivado generated .bit and .bin files
- * 4.2 adk   03/08/18 Added example for partial reconfiguration.
- * 4.2 Nava   16/08/18  Modified the PL data handling Logic to support
- *                      different PL programming interfaces.
- * 4.2 Nava   15/09/18  Fixed global function call-backs issue.
- * 5.0 Div    21/01/19  Fixed misra-c required standard violations.
- * 5.0  Nava 06/02/19  Remove redundant API's from the interface agnostic layer
- *                     and make the existing API's generic to support both
- *                     ZynqMP and versal platforms.
- * 5.0 Nava  26/02/19  Fix for power-up PL issue with pmufw.
- * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
- *                     duplication
- * 5.0 Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
- *                     design configuration.
- * 5.0 Nava  21/03/19  Added Address alignment check. As CSUDMA expects word
- *		       aligned address. In case user passes an unaligned
- *		       address return error.
- * 5.0 sne   27/03/19  Fixed misra-c violations.
- * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
- * 5.2 Nava  18/12/19  Fix for security violation in the readback path.
- * 5.2 Nava  14/02/20  Added Bitstream loading support by using IPI services.
+ * Ver   Who    Date        Changes
+ * ----- ----   -------- -------------------------------------------------------
+ * 1.0   Nava   06/08/16 Initial release
+ * 1.1   Nava   11/16/16 Added PL power-up sequence.
+ * 2.0   Nava   01/10/17 Added Encrypted bitstream loading support.
+ * 2.0   Nava   02/16/17 Added Authenticated bitstream loading support.
+ * 2.1   Nava   05/06/17 Correct the check logic issues in
+ *                       XFpga_PL_BitStream_Load()
+ *                       to avoid the unwanted blocking conditions.
+ * 3.0   Nava   05/12/17 Added PL configuration registers readback support.
+ * 4.0   Nava   02/08/18 Added Authenticated and Encypted Bitstream
+			 loading support.
+ * 4.0   Nava   03/02/18 Added the legacy bit file loading feature support
+ *			 from U-boot.and improve the error handling support
+ *			 by returning the proper ERROR value upon error
+ *			 conditions.
+ * 4.1   Nava   03/27/18 For Secure Bitstream loading to avoid the Security
+ *			 violations Need to Re-validate the User Crypto flags
+ *			 with the Image Crypto operation by using the internal
+ *			 memory.To Fix this added a new API
+ *			 XFpga_ReValidateCryptoFlags().
+ * 4.1   Nava   04/16/18 Added partial bitstream loading support.
+ * 4.2   Nava   06/08/16 Refactor the xilfpga library to support
+ *                       different PL programming Interfaces.
+ * 4.2   adk    07/11/18 Added support for readback of PL configuration data.
+ * 4.2   Nava   07/22/18 Added XFpga_SelectEndianess() new API to Support
+ *                       programming the vivado generated .bit and .bin files
+ * 4.2   adk    08/03/18 Added example for partial reconfiguration.
+ * 4.2   Nava   08/16/18 Modified the PL data handling Logic to support
+ *                       different PL programming interfaces.
+ * 4.2   Nava   09/15/18 Fixed global function call-backs issue.
+ * 5.0   Div    01/21/19 Fixed misra-c required standard violations.
+ * 5.0   Nava   02/06/19 Remove redundant API's from the interface agnostic layer
+ *                       and make the existing API's generic to support both
+ *                       ZynqMP and versal platforms.
+ * 5.0   Nava   02/26/19 Fix for power-up PL issue with pmufw.
+ * 5.0   Nava   02/26/19 Update the data handling logic to avoid the code
+ *                       duplication
+ * 5.0   Nava   02/28/19 Handling all the 4 PS-PL resets irrespective of the
+ *                       design configuration.
+ * 5.0   Nava   03/21/19 Added Address alignment check. As CSUDMA expects word
+ *		         aligned address. In case user passes an unaligned
+ *		         address return error.
+ * 5.0   sne    03/27/19 Fixed misra-c violations.
+ * 5.0   Nava   04/23/19 Optimize the API's logic to avoid code duplication.
+ * 5.2   Nava   12/18/19 Fix for security violation in the readback path.
+ * 5.2   Nava   02/14/20 Added Bitstream loading support by using IPI services.
+ * 5.3   Nava   06/16/20 Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  * @note

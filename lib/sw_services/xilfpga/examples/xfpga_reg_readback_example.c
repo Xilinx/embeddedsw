@@ -21,13 +21,14 @@
  *<pre>
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------
- * 2.1   Nava  05/10/17  First Release
- * 4.2   Nava    30/05/18  Refactor the xilfpga library to support
- *                         different PL programming Interfaces.
- * 5.0 	 Nava   06/02/19 Updated the example to sync with 5.0 version API's
- *       rama   03/04/19 Fixed IAR compiler warning.
- * 5.2   Nava   18/12/19 Fix for security violation in the readback path.
- * 5.2   Nava   14/02/20 Removed unwanted header file inclusion.
+ * 2.1   Nava   10/05/17  First Release
+ * 4.2   Nava   05/30/18  Refactor the xilfpga library to support
+ *                        different PL programming Interfaces.
+ * 5.0 	 Nava   02/06/19  Updated the example to sync with 5.0 version API's
+ * 5.0   rama   04/03/19  Fixed IAR compiler warning.
+ * 5.2   Nava   12/18/19  Fix for security violation in the readback path.
+ * 5.2   Nava   02/14/20  Removed unwanted header file inclusion.
+ * 5.3   Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
  *</pre>
  ******************************************************************************/
 

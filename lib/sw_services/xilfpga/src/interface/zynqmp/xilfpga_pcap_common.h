@@ -49,7 +49,8 @@
  *
  * Ver   Who  Date        Changes
  * ---- ----  --------  --------------------------------------------------------
- * 5.2  Nava  14/02/20  Added Bitstream loading support by using IPI services.
+ * 5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services.
+ * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  * @note

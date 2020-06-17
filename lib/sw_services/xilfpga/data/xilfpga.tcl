@@ -6,36 +6,37 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 1.0   Nava 08/06/16 First release
-# 1.1   Nava  16/11/16 Added PL power-up sequence.
-# 2.0   Nava  10/1/17  Added Encrypted bitstream loading support.
-# 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
-# 2.1   Nava  06/05/17 Correct the check logic issues in
+# 1.0   Nava  06/08/16 First release
+# 1.1   Nava  11/16/16 Added PL power-up sequence.
+# 2.0   Nava  01/10/17  Added Encrypted bitstream loading support.
+# 2.0   Nava  02/16/17 Added Authenticated bitstream loading support.
+# 2.1   Nava  05/06/17 Correct the check logic issues in
 #                      XFpga_PL_BitStream_Load()
 #                      to avoid the unwanted blocking conditions.
-# 3.0   Nava  12/05/17 Added PL configuration registers readback support.
-# 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream loading support.
-# 4.1	Nava   27/03/18 For Secure Bitstream loading to avoid the Security violations
+# 3.0   Nava  05/12/17 Added PL configuration registers readback support.
+# 4.0   Nava  02/08/18 Added Authenticated and Encypted Bitstream loading support.
+# 4.1	Nava  03/27/18 For Secure Bitstream loading to avoid the Security violations
 #                      Need to Re-validate the User Crypto flags with the Image
 #                      Crypto operation by using the internal memory.To Fix this
 #                      added a new API XFpga_ReValidateCryptoFlags().
-# 4.1	Nava   16/04/18  Added partial bitstream loading support.
-# 4.2	Nava  30/05/18 Refactor the xilfpga library to support
+# 4.1	Nava  04/16/18  Added partial bitstream loading support.
+# 4.2	Nava  05/30/18 Refactor the xilfpga library to support
 #                      different PL programming Interfaces.
-# 4.2	adk   24/07/18 Added proper error message if xilsecure is not enabled
+# 4.2	adk   07/24/18 Added proper error message if xilsecure is not enabled
 #			in the bsp.
-# 5.0   Nava  11/05/18  Added full bitstream loading support for versal Platform.
-# 5.0	sne   27/03/19 Fixed Misra-C violations.
-# 5.0   Nava  29/03/19  Removed Versal platform related changes.As per the new
+# 5.0   Nava  05/11/18  Added full bitstream loading support for versal Platform.
+# 5.0	sne   03/27/19 Fixed Misra-C violations.
+# 5.0   Nava  03/29/19  Removed Versal platform related changes.As per the new
 #                       design, the Bitstream loading for versal platform is
 #                       done by PLM based on the CDO's data exists in the PDI
 #                       images. So there is no need of xilfpga API's for versal
 #                       platform to configure the PL.
-# 5.2   Nava  05/12/19  Added Versal platform support.
-# 5.2   Nava  02/01/20  Added XFPGA_SECURE_READBACK_MODE flag to support secure
+# 5.2   Nava  12/05/19  Added Versal platform support.
+# 5.2   Nava  01/02/20  Added XFPGA_SECURE_READBACK_MODE flag to support secure
 #                       PL configuration data readback.
-# 5.2   Nava  14/02/20  Added Bitstream loading support by using IPI services
+# 5.2   Nava  03/14/20  Added Bitstream loading support by using IPI services
 #                       for ZynqMP platform.
+# 5.3   Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
 #
 ##############################################################################
 
