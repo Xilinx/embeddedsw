@@ -620,6 +620,8 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 	IntrVecIds.IntrVecId_VPhy = XPAR_INTC_0_V_HDMIPHY1_0_VEC_ID;
 #endif /* defined(__arm__) || (__aarch64__) */
 
+
+
 	memcpy(&(InstancePtr->Edid), &SampleEdid,
 		       sizeof(InstancePtr->Edid));
 
