@@ -281,6 +281,7 @@ typedef struct
                         subsystem address range */
   XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
+  u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
   u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
   XV_HdmiRxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
   XV_HdmiRxSs1_SubCore Hdcp14;       /**< Sub-core instance configuration */
