@@ -122,6 +122,7 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	InstancePtr->ModeCallback = NULL;
 	InstancePtr->TmdsClkRatioCallback = NULL;
 	InstancePtr->Stream.Frl.LtpMatchedCounts = 0;
+	InstancePtr->Stream.Frl.CurFrlRate = 0;
 
 	/* Clear HDMI variables */
 	XV_HdmiRx1_Clear(InstancePtr);

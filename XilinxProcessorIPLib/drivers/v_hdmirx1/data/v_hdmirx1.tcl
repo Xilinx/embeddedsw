@@ -12,6 +12,7 @@ proc generate {drv_handle} {
     "AXI_LITE_FREQ_HZ" \
     "C_LNK_REF_CLK" \
     "C_VID_REF_CLK" \
+    "C_MAX_FRL_RATE" \
     "C_DDC_EDID_SIZE"
 
     xdefine_config_file $drv_handle "xv_hdmirx1_g.c" \
@@ -21,6 +22,7 @@ proc generate {drv_handle} {
     "AXI_LITE_FREQ_HZ" \
     "C_LNK_REF_CLK" \
     "C_VID_REF_CLK" \
+    "C_MAX_FRL_RATE" \
     "C_DDC_EDID_SIZE"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_HdmiRx1" \
@@ -31,6 +33,7 @@ proc generate {drv_handle} {
     "AXI_LITE_FREQ_HZ" \
     "C_LNK_REF_CLK" \
     "C_VID_REF_CLK" \
+    "C_MAX_FRL_RATE" \
     "C_DDC_EDID_SIZE"
 }
 

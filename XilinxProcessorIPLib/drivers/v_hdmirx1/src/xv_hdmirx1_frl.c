@@ -684,7 +684,10 @@ int XV_HdmiRx1_ExecFrlState(XV_HdmiRx1 *InstancePtr)
 	int Status = XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-
+#ifdef DEBUG_RX_FRL_VERBOSITY
+		xil_printf(ANSI_COLOR_MAGENTA"RX : LTS :%d\r\n"
+			ANSI_COLOR_RESET,InstancePtr->Stream.Frl.TrainingState);
+#endif
 	switch (InstancePtr->Stream.Frl.TrainingState) {
 	case XV_HDMIRX1_FRLSTATE_LTS_L:
 		Status = XV_HdmiRx1_ExecFrlState_LtsL(InstancePtr);
@@ -1116,21 +1119,29 @@ int XV_HdmiRx1_ConfigFrlLtpDetection(XV_HdmiRx1 *InstancePtr)
 
 	/* Check if source has read and cleared FLT_update, FALSE = Cleared */
 	if (Data == FALSE) {
-		for (u8 ln = 0; ln < 4; ln++) {
-			ConfiguredLtp = XV_HdmiRx1_GetFrlLtpDetection(InstancePtr, ln);
+		if ((InstancePtr->Stream.Frl.TrainingState ==
+					XV_HDMIRX1_FRLSTATE_LTS_3_RATE_CH) &&
+				(InstancePtr->Stream.Frl.CurFrlRate >
+					InstancePtr->Config.MaxFrlRate)) {
+			Data = TRUE;
+		} else if (InstancePtr->Stream.Frl.CurFrlRate <=
+					InstancePtr->Config.MaxFrlRate) {
+			for (u8 ln = 0; ln < 4; ln++) {
+				ConfiguredLtp = XV_HdmiRx1_GetFrlLtpDetection(InstancePtr, ln);
 
-			/* If the lane was previously configured as 0xE, it needs to be
-			 * configured back to the LTP to resume link training. */
-			if (ConfiguredLtp == 0xE) {
-				InstancePtr->Stream.Frl.Ltp.Byte[ln] =
+				/* If the lane was previously configured as 0xE, it needs to be
+				 * configured back to the LTP to resume link training. */
+				if (ConfiguredLtp == 0xE) {
+					InstancePtr->Stream.Frl.Ltp.Byte[ln] =
 						InstancePtr->Stream.Frl.DefaultLtp.Byte[ln];
-			}
+				}
 
-			/* Check if the LTP data requires updating */
-			if (ConfiguredLtp != InstancePtr->Stream.Frl.Ltp.Byte[ln]) {
-				XV_HdmiRx1_SetFrlLtpDetection(InstancePtr, ln,
-						InstancePtr->Stream.Frl.Ltp.Byte[ln]);
-				Data = TRUE;
+				/* Check if the LTP data requires updating */
+				if (ConfiguredLtp != InstancePtr->Stream.Frl.Ltp.Byte[ln]) {
+					XV_HdmiRx1_SetFrlLtpDetection(InstancePtr, ln,
+							InstancePtr->Stream.Frl.Ltp.Byte[ln]);
+					Data = TRUE;
+				}
 			}
 		}
 
@@ -1183,6 +1194,7 @@ int XV_HdmiRx1_RetrieveFrlRateLanes(XV_HdmiRx1 *InstancePtr)
 
 	Data = XV_HdmiRx1_FrlDdcReadField(InstancePtr,
 					  XV_HDMIRX1_SCDCFIELD_FRL_RATE);
+	InstancePtr->Stream.Frl.CurFrlRate = Data;
 
 	switch (Data) {
 	case 6:
