@@ -17,6 +17,7 @@ proc generate {drv_handle} {
                     "DEVICE_ID" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
+		    "C_MAX_FRL_RATE" \
                     "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_config_file $drv_handle "xv_hdmirxss1_g.c" "XV_HdmiRxSs1" \
@@ -25,6 +26,7 @@ proc generate {drv_handle} {
                     "C_HIGHADDR" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
+		    "C_MAX_FRL_RATE" \
                     "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_canonical_xpars $drv_handle "xparameters.h" \
@@ -34,6 +36,7 @@ proc generate {drv_handle} {
                     "DEVICE_ID" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
+		    "C_MAX_FRL_RATE" \
                     "AXI_LITE_FREQ_HZ"
 }
 
