@@ -141,7 +141,11 @@ typedef struct {
 	XV_HdmiRx1_FrlTrainingState TrainingState;	/**< Fixed Rate Link
 							  *  State */
 	u32                         TimerCnt;		/**< FRL Timer */
-	u8                          LineRate;		/**< Current FRL Rate */
+	u8                          LineRate;		/**< Current Line
+							  * Rate from FRL
+							  * rate*/
+	u32                          CurFrlRate;	/**< Current FRL Rate
+							  * supported */
 	u8                          Lanes;		/**< Current number of
 							  *  lanes used */
 	u8                          FfeLevels;		/**< Number of Supported

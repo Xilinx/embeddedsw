@@ -234,6 +234,7 @@ typedef struct {
 	u32 AxiLiteClkFreq;
 	u32 FRLClkFreqkHz;
 	u32 VideoClkFreqkHz;
+	u32 MaxFrlRate; /** < Maximum FRL Rate Supporte */
 	XV_HdmiRx1_EdidSize EdidRamSize;
 } XV_HdmiRx1_Config;
 
