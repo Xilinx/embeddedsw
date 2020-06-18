@@ -37,6 +37,7 @@
 #include "xilsem.h"
 #endif
 #include "xplmi_err.h"
+#include "xplmi_event_logging.h"
 
 /************************** Constant Definitions *****************************/
 
