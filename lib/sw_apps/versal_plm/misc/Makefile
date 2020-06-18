@@ -23,11 +23,11 @@ $(PROCESSOR)/lib/libxil.a: $(PROCESSOR)/lib/libxil_init.a
 
 %/make.include: $(if $(wildcard $(PROCESSOR)/lib/libxil_init.a),$(PROCESSOR)/lib/libxil.a,)
 	@echo "Running Make include in $(subst /make.include,,$@)"
-	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g3 -ffunction-sections -fdata-sections -Wall -Wextra"
+	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-gcc-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v10.0 -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g3 -ffunction-sections -fdata-sections -Wall -Wextra -Os -flto -ffat-lto-objects"
 
 %/make.libs: include
 	@echo "Running Make libs in $(subst /make.libs,,$@)"
-	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g3 -ffunction-sections -fdata-sections -Wall -Wextra"
+	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-gcc-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v10.0 -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g3 -ffunction-sections -fdata-sections -Wall -Wextra -Os -flto -ffat-lto-objects"
 
 %/make.clean: 
 	$(MAKE) -C $(subst /make.clean,,$@) -s clean 
