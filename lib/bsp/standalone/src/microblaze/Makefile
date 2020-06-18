@@ -28,11 +28,17 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 INCLUDEFILES=*.h
 
+ECC_FLAGS_NO_FLTO1 = $(subst -flto,,$(ECC_FLAGS))
+ECC_FLAGS_NO_FLTO = $(subst -ffat-lto-objects,,$(ECC_FLAGS_NO_FLTO1))
+
+NON_LTO_FILES:=microblaze_interrupt_handler.c
+
 libs: $(LIBS) clean
 
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone";
-	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
+	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(filter-out $(NON_LTO_FILES), $^)
+	$(CC) $(CC_FLAGS) $(ECC_FLAGS_NO_FLTO) $(INCLUDES) $(NON_LTO_FILES)
 	$(AR) -r ${RELEASEDIR}/${LIB} ${OBJECTS} ${ASSEMBLY_OBJECTS}
 
 profile_libs:
