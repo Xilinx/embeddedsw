@@ -614,6 +614,29 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 	memcpy(&(InstancePtr->Edid), &SampleEdid,
 		       sizeof(InstancePtr->Edid));
 
+#if XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 6
+	InstancePtr->Edid[187] = 0x63;
+	InstancePtr->Edid[255] = 0x94;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 5
+	InstancePtr->Edid[187] = 0x53;
+	InstancePtr->Edid[255] = 0xA4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 4
+	InstancePtr->Edid[187] = 0x43;
+	InstancePtr->Edid[255] = 0xB4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 3
+	InstancePtr->Edid[187] = 0x33;
+	InstancePtr->Edid[255] = 0xC4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 2
+	InstancePtr->Edid[187] = 0x23;
+	InstancePtr->Edid[255] = 0xD4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 1
+	InstancePtr->Edid[187] = 0x13;
+	InstancePtr->Edid[255] = 0xE4;
+#elif XPAR_V_HDMI_RXSS1_MAX_FRL_RATE == 0
+	InstancePtr->Edid[187] = 0x03;
+	InstancePtr->Edid[255] = 0xF4;
+#endif
+
 	/* Get User Edid Info */
 	XV_HdmiRxSs1_SetEdidParam(&HdmiRxSs, (u8*)&(InstancePtr->Edid),
 			sizeof(InstancePtr->Edid) / sizeof(InstancePtr->Edid[0]));
