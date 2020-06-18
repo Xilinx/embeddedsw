@@ -416,12 +416,17 @@ proc generate {drv_handle} {
 		append compiler_flags " -m64"
 	}
     }
-    append compiler_flags " -mcpu=v" $cpu_version
+
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+        append compiler_flags " -mcpu=v10.0"
+    } else {
+        append compiler_flags " -mcpu=v" $cpu_version
+    }
 
     common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
 
-    # Append LTO flag in extra_compiler_flags for PMU Firmware BSP
-    if {[string compare "psu_pmu" $proctype] == 0} {
+    # Append LTO flag in extra_compiler_flags for BSPs of PMU Firmware, PLM
+    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
 
         set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
         #Check if LTO flag in EXTRA_COMPILER_FLAGS exist previoulsy
@@ -429,6 +434,12 @@ proc generate {drv_handle} {
                 append extra_flags " -Os -flto -ffat-lto-objects"
                 common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
         }
+    }
+
+    # Update archiver to mb-gcc-ar for PLM
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+	set arch_flags "mb-gcc-ar"
+	common::set_property -name {ARCHIVER} -value $arch_flags -objects [hsi::get_sw_processor]
     }
 
 	#------------------------------------------------------------------------------
