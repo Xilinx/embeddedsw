@@ -355,7 +355,7 @@ int XDcfg_GetConfigReg(XDcfg *DcfgInstancePtr, u32 ConfigReg, u32 *RegData)
 	CmdBuf[CmdIndex++] = 0x20000000; 	/* Type 1 NOOP Word 0 */
 	CmdBuf[CmdIndex++] = 0x20000000; 	/* Type 1 NOOP Word 0 */
 
-	XDcfg_Transfer(&DcfgInstance, (&CmdBuf[0]),
+	XDcfg_Transfer(DcfgInstancePtr, (&CmdBuf[0]),
 			CmdIndex, RegData, 1, XDCFG_PCAP_READBACK);
 
 	/* Poll IXR_DMA_DONE */
