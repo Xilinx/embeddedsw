@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2020-06-22
+	* Fix the Zynq base address check to use internal definition
+	  instead of canonical definition.
 2020-05-08
 	* Fix the RX BD setup order to avoid clearing used bit without
 	  buffer address.
