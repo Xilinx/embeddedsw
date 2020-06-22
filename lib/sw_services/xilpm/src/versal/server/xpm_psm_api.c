@@ -6,6 +6,7 @@
 
 #include "xpm_defs.h"
 #include "xpm_psm_api.h"
+#include "xpm_psm.h"
 #include "xplmi_modules.h"
 #include "xpm_common.h"
 #include "xpm_core.h"
@@ -195,6 +196,9 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	u32 SubsystemId;
 	XPm_Power *Lpd;
 	u32 CpuIdleFlag = 0;
+	u32 PsmPggs0Val;
+	u32 PsmPggs1Val;
+	XPm_Psm *Psm;
 
 	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
 	    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
@@ -244,9 +248,27 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 			goto done;
 		}
 
+		Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+		if (NULL == Psm) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+
+		/**
+		 * Read PSM_PGGS_0 and PSM_PGGS_1 registers value and do not
+		 * power down LPD if values are non zero, because both registers
+		 * are used by users and if LPD powers down then PGGS values
+		 * will be lost.
+		 */
+		PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET,
+		       PsmPggs0Val);
+		PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS1_OFFSET,
+		       PsmPggs1Val);
+
 		/* Release devices requested by PLM to turn of LPD domain */
 		Lpd = XPmPower_GetById(PM_POWER_LPD);
 		if (((Lpd->UseCount > 0U) && (Lpd->UseCount <= 3U)) &&
+		    (0U == PsmPggs0Val) && (0U == PsmPggs1Val) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
 		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
 			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC);
