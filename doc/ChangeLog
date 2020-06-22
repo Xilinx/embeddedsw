@@ -2,6 +2,7 @@ Changes for 2020.2
 ===============================
 lwip211_v1_3:
 Fix RX BD setup order.
+Fix check for base address in Zynq clock setup.
 
 sdps_v3_10
 Add support for SD/eMMC Non-Blocking Read
