@@ -20,9 +20,8 @@ extern "C" {
 
 #define GGS_4_OFFSET	(0x10U)
 
-/* Persistent global general storage register base address */
-#define PGGS_BASEADDR	(0xF1110050U)
-#define PGGS_NUM_REGS	(4U)
+#define PSM_PGGS_REGS	(2U)
+#define PMC_PGGS_REGS	(2U)
 
 /* Tap delay bypass */
 #define TAPDLY_BYPASS_OFFSET			(0x0000003CU)

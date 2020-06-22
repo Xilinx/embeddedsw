@@ -3,10 +3,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_defs.h"
+#include "xpm_device.h"
 #include "xpm_ioctl.h"
 #include "xpm_rpucore.h"
 #include "xpm_pmc.h"
 #include "xpm_power.h"
+#include "xpm_psm.h"
 #include "xpm_regs.h"
 #include "sleep.h"
 
@@ -477,6 +479,74 @@ done:
 	return Status;
 }
 
+static int XPm_ReadPggs(u32 PggsNum, u32 *Value)
+{
+	int Status = XST_FAILURE;
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+
+	if ((NULL == Pmc) || (NULL == Psm)) {
+		goto done;
+	}
+
+	if ((PSM_PGGS_REGS + PMC_PGGS_REGS) <= PggsNum) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 and PGGS2-3 to PSM_GLOBAL_PGGS0-1 */
+	if (2U > PggsNum) {
+		PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
+		       (PggsNum << 2)), *Value);
+	} else {
+		XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
+		if (XPM_POWER_STATE_ON != Lpd->Node.State) {
+			goto done;
+		}
+		PmIn32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
+		       ((PggsNum - 2) << 2), *Value);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static int XPm_WritePggs(u32 PggsNum, u32 Value)
+{
+	int Status = XST_FAILURE;
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+
+	if ((NULL == Pmc) || (NULL == Psm)) {
+		goto done;
+	}
+
+	if ((PSM_PGGS_REGS + PMC_PGGS_REGS) <= PggsNum) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 and PGGS2-3 to PSM_GLOBAL_PGGS0-1 */
+	if (2U > PggsNum) {
+		PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
+			(PggsNum << 2)), Value);
+	} else {
+		XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
+		if (XPM_POWER_STATE_ON != Lpd->Node.State) {
+			goto done;
+		}
+		PmOut32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
+			((PggsNum - 2) << 2), Value);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response)
 {
@@ -560,18 +630,10 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)IOCTL_WRITE_PGGS:
-		if (PGGS_NUM_REGS <= Arg1) {
-			goto done;
-		}
-		PmOut32((PGGS_BASEADDR + (Arg1 << 2)), Arg2);
-		Status = XST_SUCCESS;
+		Status = XPm_WritePggs(Arg1, Arg2);
 		break;
 	case (u32)IOCTL_READ_PGGS:
-		if (PGGS_NUM_REGS <= Arg1) {
-			goto done;
-		}
-		PmIn32((PGGS_BASEADDR + (Arg1 << 2)), *Response);
-		Status = XST_SUCCESS;
+		Status = XPm_ReadPggs(Arg1, Response);
 		break;
 	case (u32)IOCTL_SET_BOOT_HEALTH_STATUS:
 		PmRmw32(GGS_BASEADDR + GGS_4_OFFSET,
