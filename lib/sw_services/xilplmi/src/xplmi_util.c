@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
+* 1.02  kc   06/22/2020 Minor updates to PrintArray for better display
 *
 * </pre>
 *
@@ -361,18 +362,22 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str)
 {
 	u32 Index;
+	u64 Addr = BufAddr;
 
 	if ((DebugType & XPlmiDbgCurrentTypes) != 0U) {
-		XPlmi_Printf(DebugType, "%s START from Addr: 0x%0x%08x, Len:0x%0x\r\n",
-		Str, (u32)(BufAddr >> 32U), (u32)BufAddr, Len);
+		XPlmi_Printf(DebugType, "%s START, Len:0x%0x\r\n 0x%0x%08x: ",
+			     Str, Len, (u32)(Addr >> 32U), (u32)Addr);
 		for (Index = 0U; Index < Len; Index++) {
-			XPlmi_Printf(DEBUG_INFO, "0x%08x ",
-				XPlmi_In64(BufAddr + (Index * XPLMI_WORD_LEN)));
+			XPlmi_Printf_WoTimeStamp(DebugType, "0x%08x ",
+				XPlmi_In64(Addr));
 			if (((Index + 1U) % XPLMI_WORD_LEN) == 0U) {
-				XPlmi_Printf(DebugType, "\r\n");
+				XPlmi_Printf_WoTimeStamp(DebugType,
+				"\r\n 0x%0x%08x: ", (u32)(Addr >> 32U), (u32)Addr);
 			}
+			Addr += XPLMI_WORD_LEN;
 		}
-		XPlmi_Printf(DebugType, "\r\n%s END\r\n", Str);
+		XPlmi_Printf_WoTimeStamp(DebugType, "\r\n");
+		XPlmi_Printf(DebugType, "%s END\r\n", Str);
 	}
 	return;
 }

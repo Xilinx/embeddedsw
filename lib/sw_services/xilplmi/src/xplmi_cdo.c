@@ -19,6 +19,7 @@
 * 1.00  kc   08/23/2018 Initial release
 * 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
+* 1.02  kc   06/22/2020 Added CDO command details in case of CMD handler error
 *
 * </pre>
 *
@@ -246,6 +247,7 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 {
 	int Status = XST_FAILURE;
 	XPlmi_Cmd *CmdPtr = &CdoPtr->Cmd;
+	u32 PrintLen;
 
 	/* Update the Payload buffer and length */
 	if (CmdPtr->Len > (CmdPtr->ProcessedLen + BufLen)) {
@@ -263,8 +265,14 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 	Status = XPlmi_CmdResume(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
-			"CMD: 0x%0x Resume failed, Processed Cdo Length 0x%0x\n\r",
+			"CMD: 0x%08x Resume failed, Processed Cdo Length 0x%0x\n\r",
 			CmdPtr->CmdId, CdoPtr->ProcessedCdoLen);
+		PrintLen = CmdPtr->PayloadLen;
+		if (PrintLen > XPLMI_CMD_LEN_TEMPBUF) {
+			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
+		}
+		XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)CmdPtr->Payload, PrintLen,
+				 "CMD payload");
 		goto END;
 	}
 
@@ -289,6 +297,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 {
 	int Status = XST_FAILURE;
 	XPlmi_Cmd *CmdPtr = &CdoPtr->Cmd;
+	u32 PrintLen;
 
 	/*
 	 * Break if CMD says END of commands,
@@ -334,9 +343,15 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
-			"CMD: 0x%0x execute failed, Processed Cdo Length 0x%0x\n\r",
+			"CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
 			CmdPtr->CmdId,
 			CdoPtr->ProcessedCdoLen + CdoPtr->BufLen - BufLen);
+		PrintLen = CmdPtr->PayloadLen;
+		if (CmdPtr->Len > XPLMI_CMD_LEN_TEMPBUF) {
+			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
+		}
+		XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)CmdPtr->Payload, PrintLen,
+				 "CMD Payload");
 		goto END;
 	}
 	if(CmdPtr->Len == CmdPtr->PayloadLen - 1U) {
