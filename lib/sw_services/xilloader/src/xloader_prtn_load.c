@@ -21,6 +21,7 @@
 *                       time and print
 * 1.02  ana  06/04/2020 Modified XLoader_ProcessSecurePrtn function name
 *			from XLoader_SecurePrtn
+*       kc   06/22/2020 Modified print statement for partition loading
 *
 * </pre>
 *
@@ -77,7 +78,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		PrtnIndex++) {
 		PrtnLoadTime = XPlmi_GetTimerValue();
 
-		XPlmi_Printf(DEBUG_GENERAL, "+++++++Loading Prtn No: 0x%0x\r\n",
+		XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
 			     PrtnNum);
 		/* Prtn Hdr Validation */
 		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
