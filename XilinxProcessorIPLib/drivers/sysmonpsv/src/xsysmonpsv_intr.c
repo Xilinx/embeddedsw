@@ -20,7 +20,8 @@
 *
 * Ver   Who    Date	    Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.0   aad    20/11/18 First release.
+* 1.0   aad    11/20/18 First release.
+* 1.3   aad    06/23/20 Fixed the register to read enabled interrupts
 *
 * </pre>
 *
@@ -78,8 +79,8 @@ void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 /****************************************************************************/
 /**
 *
-* This function returns the enabled interrupts read from the Interrupt Enable
-* Register (IER). Use the XSYSMONPSV_IER0_* and XSYSMONPSV_IER1_* constants
+* This function returns the enabled interrupts read from the Interrupt Mask
+* Register (IMR). Use the XSYSMONPSV_IMR0_* and XSYSMONPSV_IMR1_* constants
 * defined in xsysmonpsv_hw.h to interpret the returned value.
 *
 * @param	InstancePtr is a pointer to the XSysMonPsv instance.
@@ -102,12 +103,12 @@ u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
 	Xil_AssertNonvoid(IntrNum <= 1);
 
 	/* Calculate the offset of the IER register to be written to */
-	Offset = XSYSMONPSV_IER0_OFFSET + (IntrNum * XSYSMONPSV_INTR_OFFSET);
+	Offset = XSYSMONPSV_IMR0_OFFSET + (IntrNum * XSYSMONPSV_INTR_OFFSET);
 	/* Return the value read from the AMS Interrupt Mask Register. */
 	Interrupts = (u32)XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
 					     Offset);
 
-	return Interrupts;
+	return ~(Interrupts);
 }
 
 /****************************************************************************/
