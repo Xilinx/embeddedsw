@@ -20,6 +20,8 @@
 * 1.00  kc   07/13/2018 Initial release
 * 1.01  ma   02/03/2020 Add event logging related error codes
 *       har  02/18/2020 Added major error code for Security
+* 1.02  kc   06/22/2020 Updated command handler error codes to include command
+*                       IDs
 * </pre>
 *
 * @note
@@ -54,6 +56,7 @@ extern "C" {
 #define XPLMI_UPDATE_STATUS(PlmiStatus, ModuleStatus)		\
 		(((PlmiStatus << 16U) & XPLMI_STATUS_MASK) + \
 		(ModuleStatus & XPLMI_STATUS_MODULE_MASK))
+#define XPLMI_ERR_CDO_CMD_MASK				(0x1FFFU)
 
 /**
  * Status for PLM functions
@@ -337,6 +340,12 @@ enum {
 		/**< 0x61D Encryption is disabled */
 	XLOADER_ERR_KAT_FAILED,
 		/**< 0x61E KAT failed */
+
+	XPLMI_ERR_CDO_CMD = 0x2000U,
+		/**< 0x2XXX, CDO command handler has failed.
+		 * [12:8] contains Module ID, [7:0] contains API ID.
+		 * Refer Minor code for Handler error code */
+
 };
 
 /**************************** Type Definitions *******************************/

@@ -17,6 +17,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.02  kc   06/22/2020 Updated command handler error codes to include command
+*                       IDs
+* </pre>
 *
 * </pre>
 *
@@ -53,6 +56,7 @@
 int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
+	int CdoErr;
 	u32 ModuleId = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> 8U;
 	u32 ApiId = Cmd->CmdId & XPLMI_CMD_API_ID_MASK;
 	const XPlmi_Module * Module = NULL;
@@ -86,7 +90,8 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	/* Run the command handler */
 	Status = ModuleCmd->Handler(Cmd);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CMD_HANDLER, Status);
+		CdoErr = XPLMI_ERR_CDO_CMD + (Cmd->CmdId & XPLMI_ERR_CDO_CMD_MASK);
+		Status = XPLMI_UPDATE_STATUS(CdoErr, Status);
 		goto END;
 	}
 
