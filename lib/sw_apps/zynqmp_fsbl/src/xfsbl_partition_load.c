@@ -574,6 +574,21 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function validates the load address for R5 elfs and maps it to global
+ * physical TCM address space so that any cpu can access it globally.
+ *
+ * @param       DestinationCpu is the cpu on which partition will run
+ *
+ * @param       LoadAddress will be updated according to the cpu and address
+ *
+ * @param       Length of the data to be copied. This is required only to
+ *              check for error cases
+ *
+ * @return      returns the error codes described in xfsbl_error.h on any error
+ *                      returns XFSBL_SUCCESS on success
+ *****************************************************************************/
 static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Length)
 {
 	u32 Status;
@@ -669,7 +684,7 @@ END:
  * cpu. For R5 cpu's TCM address is remapped to the higher TCM address
  * so that any cpu can globally access it
  *
- * @param	DestinationCpu is the cpu which partition will run
+ * @param	DestinationCpu is the cpu on which partition will run
  *
  * @param	LoadAddress will be updated according to the cpu and address
  *
