@@ -247,6 +247,7 @@
 *       cog    03/20/20 Updated PowerState masks for Gen 3 Devices.
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Expand range of DSA for production Si.
+*       cog    06/24/20 Expand range of VOP for production Si.
 *
 * </pre>
 *
@@ -1095,6 +1096,9 @@ typedef struct {
 #define XRFDC_DISABLED 0
 #define XRFDC_ENABLED 1
 
+#define XRFDC_ES1_SI 0U
+#define XRFDC_PROD_SI 1U
+
 #define XRFDC_CAL_BLOCK_OCB1 0
 #define XRFDC_CAL_BLOCK_OCB2 1
 #define XRFDC_CAL_BLOCK_GCB 2
@@ -1139,12 +1143,14 @@ typedef struct {
 
 #define XRFDC_GEN1_LOW_I 20000U
 #define XRFDC_GEN1_HIGH_I 32000U
-#define XRFDC_MIN_I_UA 6425U
-#define XRFDC_MAX_I_UA 32000U
-#define XRFDC_STEP_I_UA 25U
+#define XRFDC_MIN_I_UA(X) ((X == XRFDC_ES1_SI) ? 6425U : 2250U)
+#define XRFDC_MAX_I_UA(X) ((X == XRFDC_ES1_SI) ? 32000U : 40500U)
+#define XRFDC_MIN_I_UA_INT(X) ((X == XRFDC_ES1_SI) ? 6425U : 1400U)
+#define XRFDC_MAX_I_UA_INT(X) ((X == XRFDC_ES1_SI) ? 32000U : 46000U)
+#define XRFDC_STEP_I_UA(X) ((X == XRFDC_ES1_SI) ? 25.0 : 43.75)
 #define XRFDC_BLDR_GAIN 0x0000U
 #define XRFDC_CSCAS_BLDR 0xE000U
-#define XRFDC_CSCAS_BIAS 0x001BU
+#define XRFDC_OPCAS_BIAS 0x001BU
 
 #define XRFDC_MAX_ATTEN(X) ((X == 0) ? 11.0 : 27.0)
 #define XRFDC_MIN_ATTEN 0
