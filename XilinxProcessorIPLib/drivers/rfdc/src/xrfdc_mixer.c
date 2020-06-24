@@ -47,6 +47,7 @@
 *       cog    03/23/20 Relegate the datapath being in bypass mode to a warning when
 *                       getting mixer parameters.
 * 8.1   cog    06/24/20 Upversion.
+*       cog    06/24/20 Explicitly set FIFO width when setting the mixer.
 * </pre>
 *
 ******************************************************************************/
@@ -112,7 +113,6 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	u32 NyquistZone = 0U;
 	u32 Offset;
 	u32 DatapathMode;
-	u32 FabricRate;
 	u32 BWDiv = XRFDC_FULL_BW_DIVISOR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -190,31 +190,17 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		/* Set MixerInputDataType for ADC and DAC */
 		if (Type == XRFDC_DAC_TILE) {
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
-			FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET,
-						 XRFDC_DAC_FAB_RATE_RD_MASK);
-			FabricRate = FabricRate >> XRFDC_FAB_RATE_RD_SHIFT;
-			if (((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
-			     (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) &&
-			    (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType ==
-			     XRFDC_DATA_TYPE_REAL)) {
+			ReadReg &= ~XRFDC_DAC_INTERP_DATA_MASK;
+			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType =
+				XRFDC_DATA_TYPE_REAL;
+			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
+			    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
 				ReadReg |= XRFDC_DAC_INTERP_DATA_MASK;
 				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_IQ;
-				FabricRate <<= 1;
-			} else if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R) &&
-				   (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType ==
-				    XRFDC_DATA_TYPE_IQ)) {
-				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType =
-					XRFDC_DATA_TYPE_REAL;
-				ReadReg &= ~XRFDC_DAC_INTERP_DATA_MASK;
-				FabricRate >>= 1;
 			}
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
-					(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET, ReadReg);
 		} else {
-			FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET,
-						 XRFDC_ADC_FAB_RATE_WR_MASK);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_DECI_CONFIG_OFFSET);
 			ReadReg &= ~XRFDC_DEC_CFG_MASK;
 			if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
@@ -226,26 +212,16 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 				ReadReg |= XRFDC_DEC_CFG_CHA_MASK;
 			}
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_DECI_CONFIG_OFFSET, ReadReg);
-			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) &&
-			    (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
-			     XRFDC_DATA_TYPE_REAL)) {
+			if (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) {
 				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_IQ;
-				FabricRate <<= 1;
-			} else if (((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ||
-				    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) &&
-				   (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
-				    XRFDC_DATA_TYPE_IQ)) {
+			}
+			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ||
+			    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
 				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_REAL;
-				FabricRate >>= 1;
-			}
-			if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
-				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET,
-						XRFDC_ADC_FAB_RATE_WR_MASK, FabricRate);
 			}
 		}
-
 		/* Set NCO Phase Mode */
 		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Type == XRFDC_ADC_TILE)) {
 			if ((Index == XRFDC_BLK_ID0) || (Index == XRFDC_BLK_ID2)) {
@@ -370,7 +346,11 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		MixerConfigPtr->Freq = MixerSettingsPtr->Freq;
 		MixerConfigPtr->MixerType = MixerSettingsPtr->MixerType;
 	}
-
+	/*make sure the datapath side fifo width is correct for the given mode & rate change factor)*/
+	Status = XRFdc_ResetInternalFIFOWidth(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		goto RETURN_PATH;
+	}
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
