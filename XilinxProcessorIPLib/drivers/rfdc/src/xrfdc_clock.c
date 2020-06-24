@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_clock.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -44,6 +44,7 @@
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    03/20/20 Updated PowerState masks for Gen3.
 *       cog    04/06/20 Fix GCC warnings.
+* 8.1   cog    06/24/20 Upversion.
 * </pre>
 *
 ******************************************************************************/

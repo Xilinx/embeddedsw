@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -76,6 +76,7 @@
 *       cog    02/20/20 Added offsets, masks and shifts for FIFO delays.
 *       cog    03/20/20 Added masks and shifts for power state mask.
 *       cog    03/20/20 Added masks and shifts for datapath clock enables.
+* 8.1   cog    06/24/20 Upversion.
 *
 *</pre>
 *

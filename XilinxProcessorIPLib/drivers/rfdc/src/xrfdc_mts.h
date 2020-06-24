@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * Contains the multi tile sync related structures, Macros of the XRFdc driver.
@@ -32,6 +32,7 @@
 * 7.0   cog    05/13/19 Formatting changes.
 * 7.1   cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
 * 8.0   cog    02/10/20 Updated addtogroup.
+* 8.1   cog    06/24/20 Upversion.
 *
 * </pre>
 *

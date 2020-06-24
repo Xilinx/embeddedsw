@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mixer.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -46,6 +46,7 @@
 *       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
 *       cog    03/23/20 Relegate the datapath being in bypass mode to a warning when
 *                       getting mixer parameters.
+* 8.1   cog    06/24/20 Upversion.
 * </pre>
 *
 ******************************************************************************/

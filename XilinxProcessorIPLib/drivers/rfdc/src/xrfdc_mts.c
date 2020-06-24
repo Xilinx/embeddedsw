@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
@@ -39,6 +39,7 @@
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    02/20/20 Apply applicable clock gated offets to marker counter.
 *       cog    02/20/20 Double sysref frequency if in IQ mode.
+* 8.1   cog    06/24/20 Upversion.
 *
 * </pre>
 *
