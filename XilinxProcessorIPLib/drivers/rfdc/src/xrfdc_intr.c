@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_intr.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * This file contains functions related to RFdc interrupt handling.
@@ -44,6 +44,7 @@
 *              12/20/19 Metal log messages are now more descriptive.
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
+* 8.1   cog    06/24/20 Upversion.
 *
 * </pre>
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 * @details
 *
@@ -245,6 +245,7 @@
 *       cog    02/20/20 Added macros for Clock Gater handling.
 *       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
 *       cog    03/20/20 Updated PowerState masks for Gen 3 Devices.
+* 8.1   cog    06/24/20 Upversion.
 *
 * </pre>
 *
@@ -2056,7 +2057,7 @@ RETURN_PATH:
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion(void)
 {
-	return 8.0;
+	return 8.1;
 }
 
 /************************** Function Prototypes ******************************/

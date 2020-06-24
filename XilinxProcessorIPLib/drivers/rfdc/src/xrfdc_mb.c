@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -25,6 +25,7 @@
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    03/20/20 Clock enables for new bondout.
+* 8.1   cog    06/24/20 Upversion.
 *
 * </pre>
 *

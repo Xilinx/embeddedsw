@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.c
-* @addtogroup rfdc_v8_0
+* @addtogroup rfdc_v8_1
 * @{
 *
 * Contains the interface functions of the XRFdc driver.
@@ -176,6 +176,7 @@
 *       cog    02/20/20 Adjust FIFO delays for clock gated interpolation/decimation rates.
 *       cog    03/13/20 Fixed issue where over threshold flag was asserting as soon as the threshold
 *                       settings are applied.
+* 8.1   cog    06/24/20 Upversion.
 *
 * </pre>
 *
