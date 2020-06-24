@@ -178,6 +178,7 @@
 *                       settings are applied.
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Expand range of DSA for production Si.
+*       cog    06/24/20 Expand range of VOP for production Si.
 *
 * </pre>
 *
@@ -3282,7 +3283,9 @@ u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Outp
 			goto RETURN_PATH;
 		}
 	} else {
-		*OutputCurrPtr = ((ReadReg_Cfg3 >> XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) * XRFDC_STEP_I_UA) + XRFDC_MIN_I_UA;
+		*OutputCurrPtr = ((ReadReg_Cfg3 >> XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) *
+				  XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision)) +
+				 XRFDC_MIN_I_UA_INT(InstancePtr->RFdc_Config.SiRevision);
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -5329,15 +5332,29 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 {
 	u32 Status;
 	u32 BaseAddr;
-	u16 EFuse;
 	u16 Gen1CompatibilityMode;
 	u32 OptIdx;
-	u32 uACurrentNext;
+	float uACurrentInt;
+	float uACurrentNext;
 	u32 Code;
 
 	/* Tuned optimization values*/
-	u32 OptimLU[32] = { 5, 5, 5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  8,  8,  8,  9,
-			    9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 20, 20 };
+	u32 BldrOPCBias[64] = { 22542, 26637, 27661, 27661, 28686, 28686, 29710, 29711, 30735, 30735, 31760,
+				31760, 32784, 32785, 33809, 33809, 34833, 34833, 35857, 36881, 37906, 38930,
+				38930, 39954, 40978, 42003, 43027, 43027, 44051, 45075, 46100, 47124, 48148,
+				49172, 50196, 51220, 52245, 53269, 53269, 54293, 55317, 56342, 57366, 58390,
+				58390, 58390, 59415, 59415, 59415, 59415, 60439, 60439, 60439, 60439, 60439,
+				60440, 62489, 62489, 63514, 63514, 63514, 64539, 64539, 64539 };
+	u32 CSCBldr[64] = { 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152,
+			    49152, 49152, 49152, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 40960,
+			    40960, 40960, 40960, 40960, 40960, 40960, 32768, 32768, 32768, 32768, 32768, 32768, 32768,
+			    32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 24576, 24576, 24576, 24576,
+			    24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576 };
+	u32 CSCBiasProd[64] = { 0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2,  3,  3,  3,  3,
+				5,  5,  5,  5,  5,  5,  6,  7,  8,  9,  10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16,
+				16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 31, 31, 31, 31 };
+	u32 CSCBiasES1[32] = { 5, 5, 5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  8,  8,  8,  9,
+			       9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 20, 20 };
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -5354,36 +5371,20 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 		goto RETURN_PATH;
 	}
 
-	EFuse = XRFdc_ReadReg16(InstancePtr, XRFDC_DRP_BASE(XRFDC_DAC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR,
-				XRFDC_HSCOM_EFUSE_2_OFFSET);
-	if ((EFuse & XRFDC_EXPORTCTRL_VOP) == XRFDC_EXPORTCTRL_VOP) {
-		if ((uACurrent != XRFDC_GEN1_LOW_I) && (uACurrent != XRFDC_GEN1_HIGH_I)) {
-			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n API not available - Licensing - for DAC %u block %u in %s\r\n",
-				  Tile_Id, Block_Id, __func__);
-			goto RETURN_PATH;
-		}
-	}
-	if (uACurrent > XRFDC_MAX_I_UA) {
+	if (uACurrent > XRFDC_MAX_I_UA(InstancePtr->RFdc_Config.SiRevision)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high - %u) for DAC %u block %u in %s\r\n",
 			  uACurrent, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (uACurrent < XRFDC_MIN_I_UA) {
+	if (uACurrent < XRFDC_MIN_I_UA(InstancePtr->RFdc_Config.SiRevision)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low - %u) for DAC %u block %u in %s\r\n",
 			  uACurrent, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (uACurrent % XRFDC_STEP_I_UA) {
-		metal_log(
-			METAL_LOG_ERROR,
-			"\n Invalid current selection (%u - please use a multiple of 25 uA)  for DAC %u block %u in %s\r\n",
-			uACurrent, Tile_Id, Block_Id, __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
+	uACurrentInt = (float)uACurrent;
+
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	Gen1CompatibilityMode =
 		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET, XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK);
@@ -5396,31 +5397,50 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_VOP_CTRL_OFFSET,
 			(XRFDC_DAC_VOP_CTRL_REG_UPDT_MASK | XRFDC_DAC_VOP_CTRL_TST_BLD_MASK), XRFDC_DISABLED);
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK,
-			XRFDC_CSCAS_BLDR);
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
-			(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
-			(XRFDC_BLDR_GAIN | XRFDC_CSCAS_BIAS));
-	uACurrentNext = ((XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_CSGAIN_MASK)) *
-			 XRFDC_STEP_I_UA) +
-			XRFDC_MIN_I_UA;
 
-	while (uACurrent != uACurrentNext) {
-		if (uACurrentNext < uACurrent) {
+	if (InstancePtr->RFdc_Config.SiRevision == XRFDC_ES1_SI) {
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK,
+				XRFDC_CSCAS_BLDR);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
+				(XRFDC_DAC_MC_CFG2_BLDGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
+				(XRFDC_BLDR_GAIN | XRFDC_OPCAS_BIAS));
+	}
+
+	uACurrentNext =
+		((float)(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_CSGAIN_MASK)) *
+		 XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision)) +
+		(float)XRFDC_MIN_I_UA_INT(InstancePtr->RFdc_Config.SiRevision);
+
+	while (uACurrentInt != uACurrentNext) {
+		if (uACurrentNext < uACurrentInt) {
 			uACurrentNext += uACurrentNext / 10;
-			if (uACurrentNext > uACurrent)
-				uACurrentNext = uACurrent;
+			if (uACurrentNext > uACurrentInt)
+				uACurrentNext = uACurrentInt;
 		} else {
 			uACurrentNext -= uACurrentNext / 10;
-			if (uACurrentNext < uACurrent)
-				uACurrentNext = uACurrent;
+			if (uACurrentNext < uACurrentInt)
+				uACurrentNext = uACurrentInt;
 		}
-		Code = ((uACurrentNext - XRFDC_MIN_I_UA) / XRFDC_STEP_I_UA);
+		Code = (u32)((uACurrentNext - XRFDC_MIN_I_UA_INT(InstancePtr->RFdc_Config.SiRevision)) /
+			     XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision));
 
-		OptIdx = (Code & XRFDC_DAC_MC_CFG3_OPT_LUT_MASK) >> XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT;
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
-				(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
-				((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | OptimLU[OptIdx]));
+		OptIdx = (Code & XRFDC_DAC_MC_CFG3_OPT_LUT_MASK(InstancePtr->RFdc_Config.SiRevision)) >>
+			 XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT(InstancePtr->RFdc_Config.SiRevision);
+		if (InstancePtr->RFdc_Config.SiRevision == XRFDC_ES1_SI) {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
+					(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
+					((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | CSCBiasES1[OptIdx]));
+		} else {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET,
+					XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK, CSCBldr[OptIdx]);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
+					(XRFDC_DAC_MC_CFG2_BLDGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
+					BldrOPCBias[OptIdx]);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
+					(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
+					((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | CSCBiasProd[OptIdx]));
+		}
+
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_UPDATE_MASK,
 				XRFDC_DAC_MC_CFG3_UPDATE_MASK);
 #ifdef __BAREMETAL__
@@ -5683,7 +5703,8 @@ u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 	Code = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Block_Id), XRFDC_ADC_DSA_CODE_MASK);
 	RTSENMode = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Block_Id), XRFDC_ADC_DSA_RTS_PIN_MASK);
 
-	SettingsPtr->Attenuation = XRFDC_MAX_ATTEN(InstancePtr->RFdc_Config.SiRevision) - (float)(Code * XRFDC_STEP_ATTEN(InstancePtr->RFdc_Config.SiRevision));
+	SettingsPtr->Attenuation = XRFDC_MAX_ATTEN(InstancePtr->RFdc_Config.SiRevision) -
+				   (float)(Code * XRFDC_STEP_ATTEN(InstancePtr->RFdc_Config.SiRevision));
 	SettingsPtr->DisableRTS = RTSENMode >> XRFDC_ADC_DSA_RTS_PIN_SHIFT;
 
 	Status = XRFDC_SUCCESS;
