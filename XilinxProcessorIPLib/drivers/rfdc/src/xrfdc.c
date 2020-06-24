@@ -182,6 +182,7 @@
 *       cog    06/24/20 Support for Dual Band IQ for new bondout.
 *       cog    06/24/20 Added observation FIFO and decimation functionality.
 *       cog    06/24/20 Added channel powerdon functionality.
+*       cog    06/24/20 Refactor to functionaize the FIFO width setting.
 *
 * </pre>
 *
@@ -210,6 +211,7 @@ static void XRFdc_DumpHSCOMRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 static void XRFdc_DumpDACRegs(XRFdc *InstancePtr, int Tile_Id);
 static void XRFdc_DumpADCRegs(XRFdc *InstancePtr, int Tile_Id);
 static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 BaseAddr, u32 End);
+static void XRFdc_IntResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 Channel);
 
 /************************** Function Prototypes ******************************/
 
@@ -1723,8 +1725,6 @@ static u32 XRFdc_SetDecimationFactorInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Blo
 	u32 BaseAddr;
 	u32 Index;
 	u32 NoOfBlocks;
-	u16 FabricRate;
-	u8 DataType;
 	u32 Factor;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1771,8 +1771,6 @@ static u32 XRFdc_SetDecimationFactorInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Blo
 
 	for (; Index < NoOfBlocks; Index++) {
 		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
-		DataType = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_CONFIG_TDD_OFFSET(Channel),
-				       XRFDC_DEC_CFG_MASK);
 
 		/* Decimation factor */
 		Factor = DecimationFactor;
@@ -1788,67 +1786,9 @@ static u32 XRFdc_SetDecimationFactorInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Blo
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_MODE_TDD_OFFSET(Channel),
 					XRFDC_DEC_MOD_MASK_EXT, Factor);
 		}
-
-		/* Fabric rate */
-		if ((DataType == XRFDC_DECIM_2G_IQ_DATA_TYPE) || (DataType == XRFDC_DECIM_4G_DATA_TYPE) ||
-		    (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
-			switch (DecimationFactor) {
-			case XRFDC_INTERP_DECIM_1X:
-				FabricRate = XRFDC_FAB_RATE_8;
-				break;
-			case XRFDC_INTERP_DECIM_2X:
-			case XRFDC_INTERP_DECIM_3X:
-				FabricRate = XRFDC_FAB_RATE_4;
-				break;
-			case XRFDC_INTERP_DECIM_4X:
-			case XRFDC_INTERP_DECIM_5X:
-			case XRFDC_INTERP_DECIM_6X:
-				FabricRate = XRFDC_FAB_RATE_2;
-				break;
-			case XRFDC_INTERP_DECIM_8X:
-			case XRFDC_INTERP_DECIM_10X:
-			case XRFDC_INTERP_DECIM_12X:
-			case XRFDC_INTERP_DECIM_16X:
-			case XRFDC_INTERP_DECIM_20X:
-			case XRFDC_INTERP_DECIM_24X:
-			case XRFDC_INTERP_DECIM_40X:
-				FabricRate = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) ? XRFDC_FAB_RATE_1 :
-											  XRFDC_FAB_RATE_2;
-				break;
-			default:
-				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in ADC %u block %u in %s\r\n",
-					  Tile_Id, Block_Id, __func__);
-				break;
-			}
-		} else {
-			switch (DecimationFactor) {
-			case XRFDC_INTERP_DECIM_1X:
-				FabricRate = XRFDC_FAB_RATE_4;
-				break;
-			case XRFDC_INTERP_DECIM_2X:
-			case XRFDC_INTERP_DECIM_3X:
-				FabricRate = XRFDC_FAB_RATE_2;
-				break;
-			case XRFDC_INTERP_DECIM_4X:
-			case XRFDC_INTERP_DECIM_8X:
-			case XRFDC_INTERP_DECIM_5X:
-			case XRFDC_INTERP_DECIM_6X:
-			case XRFDC_INTERP_DECIM_10X:
-			case XRFDC_INTERP_DECIM_12X:
-			case XRFDC_INTERP_DECIM_16X:
-			case XRFDC_INTERP_DECIM_20X:
-			case XRFDC_INTERP_DECIM_24X:
-			case XRFDC_INTERP_DECIM_40X:
-				FabricRate = XRFDC_FAB_RATE_1;
-				break;
-			default:
-				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in %s\r\n", __func__);
-				break;
-			}
-		}
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_TDD_OFFSET(Channel),
-				XRFDC_ADC_FAB_RATE_WR_MASK, FabricRate);
 	}
+
+	XRFdc_IntResetInternalFIFOWidth(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Channel);
 
 	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 		switch (DecimationFactor) {
@@ -2061,7 +2001,6 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 {
 	u32 Status;
 	u32 BaseAddr;
-	u16 FabricRate;
 	u8 DataType;
 	u32 Factor;
 	u32 DatapathMode;
@@ -2110,7 +2049,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 	}
 
 	DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
-	if ((DataType == XRFDC_ADC_MIXER_MODE_IQ) && (InterpolationFactor == XRFDC_INTERP_DECIM_1X)) {
+	if ((DataType == XRFDC_MIXER_MODE_IQ) && (InterpolationFactor == XRFDC_INTERP_DECIM_1X)) {
 		Status = XRFDC_FAILURE;
 		metal_log(
 			METAL_LOG_ERROR,
@@ -2130,7 +2069,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 			Factor = 0x4;
 		}
 	}
-	if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
+	if (DataType == XRFDC_MIXER_MODE_IQ) {
 		Factor |= Factor << ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_INTERP_MODE_Q_SHIFT :
 										      XRFDC_INTERP_MODE_Q_SHIFT_EXT);
 	}
@@ -2140,61 +2079,8 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 									 XRFDC_INTERP_MODE_MASK_EXT,
 			Factor);
 
-	/* Fabric rate */
-	if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
-		switch (InterpolationFactor) {
-		case XRFDC_INTERP_DECIM_2X:
-		case XRFDC_INTERP_DECIM_3X:
-			FabricRate = XRFDC_FAB_RATE_8;
-			break;
-		case XRFDC_INTERP_DECIM_4X:
-		case XRFDC_INTERP_DECIM_5X:
-		case XRFDC_INTERP_DECIM_6X:
-			FabricRate = XRFDC_FAB_RATE_4;
-			break;
-		case XRFDC_INTERP_DECIM_8X:
-		case XRFDC_INTERP_DECIM_10X:
-		case XRFDC_INTERP_DECIM_12X:
-		case XRFDC_INTERP_DECIM_16X:
-		case XRFDC_INTERP_DECIM_20X:
-		case XRFDC_INTERP_DECIM_24X:
-		case XRFDC_INTERP_DECIM_40X:
-			FabricRate = XRFDC_FAB_RATE_2;
-			break;
-		default:
-			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF for DAC %u block %u in %s\r\n",
-				  Tile_Id, Block_Id, __func__);
-			break;
-		}
-	} else {
-		switch (InterpolationFactor) {
-		case XRFDC_INTERP_DECIM_1X:
-			FabricRate = XRFDC_FAB_RATE_8;
-			break;
-		case XRFDC_INTERP_DECIM_2X:
-		case XRFDC_INTERP_DECIM_3X:
-			FabricRate = XRFDC_FAB_RATE_4;
-			break;
-		case XRFDC_INTERP_DECIM_4X:
-		case XRFDC_INTERP_DECIM_5X:
-		case XRFDC_INTERP_DECIM_6X:
-			FabricRate = XRFDC_FAB_RATE_2;
-			break;
-		case XRFDC_INTERP_DECIM_8X:
-		case XRFDC_INTERP_DECIM_10X:
-		case XRFDC_INTERP_DECIM_12X:
-		case XRFDC_INTERP_DECIM_16X:
-		case XRFDC_INTERP_DECIM_20X:
-		case XRFDC_INTERP_DECIM_24X:
-		case XRFDC_INTERP_DECIM_40X:
-			FabricRate = XRFDC_FAB_RATE_1;
-			break;
-		default:
-			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF for DAC %u block %u in %s\r\n",
-				  Tile_Id, Block_Id, __func__);
-			break;
-		}
-	}
+	XRFdc_IntResetInternalFIFOWidth(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_FIFO_CHANNEL_ACT);
+
 	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 		switch (InterpolationFactor) {
 		case XRFDC_INTERP_DECIM_1X:
@@ -2243,8 +2129,6 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FIFO_START_OFFSET, XRFDC_DAC_FIFO_DELAY_MASK,
 				ReadPtrDelay);
 	}
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
-			(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
@@ -6285,6 +6169,291 @@ u32 XRFdc_GetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XR
 	SettingsPtr->DisableIPControl =
 		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_TDD_CTRL_SLICE_OFFSET(Block_Id), XRFDC_TDD_CTRL_RTP_MASK) >>
 		XRFDC_TDD_CTRL_RTP_SHIFT;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* Set the correct FIFO width for current mixer & rate change settings (int).
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id Valid values are 0-3.
+* @param    Channel Valid values are 0 for actual FIFO 1 for obs FIFO.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     Common API for ADC/DAC blocks
+*
+******************************************************************************/
+static void XRFdc_IntResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 Channel)
+{
+	u32 Factor;
+	u32 BaseAddr;
+	u32 DataType;
+	u32 FabricRate;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	if (Type == XRFDC_ADC_TILE) {
+		Index = Block_Id;
+		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+			NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+			if (Block_Id == XRFDC_BLK_ID1) {
+				Index = XRFDC_BLK_ID2;
+				NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+			}
+		} else {
+			NoOfBlocks = Block_Id + 1U;
+		}
+
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			Factor = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_MODE_OFFSET, XRFDC_DEC_MOD_MASK);
+			if (Factor == 0x3U) {
+				Factor = XRFDC_INTERP_DECIM_4X;
+			} else if (Factor == 0x4U) {
+				Factor = XRFDC_INTERP_DECIM_8X;
+			}
+		} else {
+			Factor = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_MODE_TDD_OFFSET(Channel),
+					     XRFDC_DEC_MOD_MASK_EXT);
+		}
+		DataType = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_CONFIG_TDD_OFFSET(Channel),
+				       XRFDC_DEC_CFG_MASK);
+		/* Fabric rate */
+		FabricRate =
+			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_ADC_FAB_RATE_WR_MASK);
+		if ((DataType == XRFDC_DECIM_2G_IQ_DATA_TYPE) || (DataType == XRFDC_DECIM_4G_DATA_TYPE) ||
+		    (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
+			switch (Factor) {
+			case XRFDC_INTERP_DECIM_1X:
+				FabricRate = XRFDC_FAB_RATE_8;
+				break;
+			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_3X:
+				FabricRate = XRFDC_FAB_RATE_4;
+				break;
+			case XRFDC_INTERP_DECIM_4X:
+			case XRFDC_INTERP_DECIM_5X:
+			case XRFDC_INTERP_DECIM_6X:
+				FabricRate = XRFDC_FAB_RATE_2;
+				break;
+			case XRFDC_INTERP_DECIM_8X:
+			case XRFDC_INTERP_DECIM_10X:
+			case XRFDC_INTERP_DECIM_12X:
+			case XRFDC_INTERP_DECIM_16X:
+			case XRFDC_INTERP_DECIM_20X:
+			case XRFDC_INTERP_DECIM_24X:
+			case XRFDC_INTERP_DECIM_40X:
+				FabricRate = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) ? XRFDC_FAB_RATE_1 :
+											  XRFDC_FAB_RATE_2;
+				break;
+			default:
+				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in ADC %u block %u in %s\r\n",
+					  Tile_Id, Block_Id, __func__);
+				break;
+			}
+		} else {
+			switch (Factor) {
+			case XRFDC_INTERP_DECIM_1X:
+				FabricRate = XRFDC_FAB_RATE_4;
+				break;
+			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_3X:
+				FabricRate = XRFDC_FAB_RATE_2;
+				break;
+			case XRFDC_INTERP_DECIM_4X:
+			case XRFDC_INTERP_DECIM_8X:
+			case XRFDC_INTERP_DECIM_5X:
+			case XRFDC_INTERP_DECIM_6X:
+			case XRFDC_INTERP_DECIM_10X:
+			case XRFDC_INTERP_DECIM_12X:
+			case XRFDC_INTERP_DECIM_16X:
+			case XRFDC_INTERP_DECIM_20X:
+			case XRFDC_INTERP_DECIM_24X:
+			case XRFDC_INTERP_DECIM_40X:
+				FabricRate = XRFDC_FAB_RATE_1;
+				break;
+			default:
+				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in %s\r\n", __func__);
+				break;
+			}
+		}
+		for (; Index < NoOfBlocks; Index++) {
+			BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_TDD_OFFSET(Channel),
+					XRFDC_ADC_FAB_RATE_WR_MASK, FabricRate);
+		}
+	} else {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			Factor = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET,
+					     XRFDC_INTERP_MODE_I_MASK);
+			if (Factor == 0x3U) {
+				Factor = XRFDC_INTERP_DECIM_4X;
+			} else if (Factor == 0x4U) {
+				Factor = XRFDC_INTERP_DECIM_8X;
+			}
+		} else {
+			Factor = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET,
+					     XRFDC_INTERP_MODE_I_MASK_EXT);
+		}
+
+		DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
+
+		/* Fabric rate */
+		FabricRate =
+			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK);
+		FabricRate = FabricRate >> XRFDC_FAB_RATE_RD_SHIFT;
+		if (DataType == XRFDC_MIXER_MODE_IQ) {
+			switch (Factor) {
+			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_3X:
+				FabricRate = XRFDC_FAB_RATE_8;
+				break;
+			case XRFDC_INTERP_DECIM_4X:
+			case XRFDC_INTERP_DECIM_5X:
+			case XRFDC_INTERP_DECIM_6X:
+				FabricRate = XRFDC_FAB_RATE_4;
+				break;
+			case XRFDC_INTERP_DECIM_8X:
+			case XRFDC_INTERP_DECIM_10X:
+			case XRFDC_INTERP_DECIM_12X:
+			case XRFDC_INTERP_DECIM_16X:
+			case XRFDC_INTERP_DECIM_20X:
+			case XRFDC_INTERP_DECIM_24X:
+			case XRFDC_INTERP_DECIM_40X:
+				FabricRate = XRFDC_FAB_RATE_2;
+				break;
+			default:
+				metal_log(METAL_LOG_DEBUG,
+					  "\n Interpolation block is OFF for DAC %u block %u in %s\r\n", Tile_Id,
+					  Block_Id, __func__);
+				break;
+			}
+		} else {
+			switch (Factor) {
+			case XRFDC_INTERP_DECIM_1X:
+				FabricRate = XRFDC_FAB_RATE_8;
+				break;
+			case XRFDC_INTERP_DECIM_2X:
+			case XRFDC_INTERP_DECIM_3X:
+				FabricRate = XRFDC_FAB_RATE_4;
+				break;
+			case XRFDC_INTERP_DECIM_4X:
+			case XRFDC_INTERP_DECIM_5X:
+			case XRFDC_INTERP_DECIM_6X:
+				FabricRate = XRFDC_FAB_RATE_2;
+				break;
+			case XRFDC_INTERP_DECIM_8X:
+			case XRFDC_INTERP_DECIM_10X:
+			case XRFDC_INTERP_DECIM_12X:
+			case XRFDC_INTERP_DECIM_16X:
+			case XRFDC_INTERP_DECIM_20X:
+			case XRFDC_INTERP_DECIM_24X:
+			case XRFDC_INTERP_DECIM_40X:
+				FabricRate = XRFDC_FAB_RATE_1;
+				break;
+			default:
+				metal_log(METAL_LOG_DEBUG,
+					  "\n Interpolation block is OFF for DAC %u block %u in %s\r\n", Tile_Id,
+					  Block_Id, __func__);
+				break;
+			}
+		}
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
+				(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
+	}
+}
+
+/*****************************************************************************/
+/**
+* Set the correct FIFO width for current mixer & rate change settings.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id Valid values are 0-3.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     Common API for ADC/DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_ResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
+{
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid type (%u) in %s\r\n", Type, __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	XRFdc_IntResetInternalFIFOWidth(InstancePtr, Type, Tile_Id, Block_Id, XRFDC_FIFO_CHANNEL_ACT);
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Set the correct Observation FIFO width for current mixer & rate change
+* settings.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id Valid values are 0-3.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     ADC blocks only
+*
+******************************************************************************/
+u32 XRFdc_ResetInternalFIFOWidthObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
+{
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n ADC %u digital path %u not available in %s\r\n", Tile_Id, Block_Id,
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	XRFdc_IntResetInternalFIFOWidth(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, XRFDC_FIFO_CHANNEL_OBS);
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:

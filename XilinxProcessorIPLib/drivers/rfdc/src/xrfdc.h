@@ -251,6 +251,7 @@
 *       cog    06/24/20 MB config is now read from bitstream.
 *       cog    06/24/20 Added observation FIFO and decimation functionality.
 *       cog    06/24/20 Added channel powerdon functionality.
+*       cog    06/24/20 Refactor to functionaize the FIFO width setting.
 *
 * </pre>
 *
@@ -847,6 +848,7 @@ typedef struct {
 #define XRFDC_OUTPUT_CURRENT_32MA 32U
 #define XRFDC_OUTPUT_CURRENT_20MA 20U
 
+#define XRFDC_MIXER_MODE_IQ 0x1U
 #define XRFDC_ADC_MIXER_MODE_IQ 0x1U
 #define XRFDC_DAC_MIXER_MODE_REAL 0x2U
 
@@ -2175,6 +2177,8 @@ u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr);
 u32 XRFdc_SetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_Pwr_Mode_Settings *SettingsPtr);
 u32 XRFdc_GetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_Pwr_Mode_Settings *SettingsPtr);
+u32 XRFdc_ResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id);
+u32 XRFdc_ResetInternalFIFOWidthObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif
