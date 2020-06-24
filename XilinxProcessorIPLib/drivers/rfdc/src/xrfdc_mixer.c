@@ -190,7 +190,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		/* Set MixerInputDataType for ADC and DAC */
 		if (Type == XRFDC_DAC_TILE) {
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
-			FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET,
+			FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET,
 						 XRFDC_DAC_FAB_RATE_RD_MASK);
 			FabricRate = FabricRate >> XRFDC_FAB_RATE_RD_SHIFT;
 			if (((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
@@ -209,7 +209,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 				ReadReg &= ~XRFDC_DAC_INTERP_DATA_MASK;
 				FabricRate >>= 1;
 			}
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
 					(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET, ReadReg);
 		} else {
