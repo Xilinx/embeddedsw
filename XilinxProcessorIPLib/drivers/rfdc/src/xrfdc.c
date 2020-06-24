@@ -179,6 +179,7 @@
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Expand range of DSA for production Si.
 *       cog    06/24/20 Expand range of VOP for production Si.
+*       cog    06/24/20 Support for Dual Band IQ for new bondout.
 *
 * </pre>
 *
@@ -426,6 +427,10 @@ static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 		case XRFDC_MB_MODE_4X:
 			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
 						 XRFDC_BLK_ID1);
+			break;
+		case XRFDC_MB_MODE_2X_BLK01_BLK23_ALT:
+			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
+						 XRFDC_BLK_ID2);
 			break;
 		case XRFDC_MB_MODE_2X_BLK01_BLK23:
 		case XRFDC_MB_MODE_2X_BLK01:

@@ -248,6 +248,7 @@
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Expand range of DSA for production Si.
 *       cog    06/24/20 Expand range of VOP for production Si.
+*       cog    06/24/20 MB config is now read from bitstream.
 *
 * </pre>
 *
@@ -923,6 +924,7 @@ typedef struct {
 #define XRFDC_MB_MODE_2X_BLK23 0x2U
 #define XRFDC_MB_MODE_2X_BLK01_BLK23 0x3U
 #define XRFDC_MB_MODE_4X 0x4U
+#define XRFDC_MB_MODE_2X_BLK01_BLK23_ALT 0x5U
 
 #define XRFDC_MILLI 1000U
 #define XRFDC_DAC_SAMPLING_MIN 500
@@ -1868,15 +1870,7 @@ static inline void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Ti
 ******************************************************************************/
 static inline u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
-	u32 MultibandConfig;
-
-	if (Type == XRFDC_ADC_TILE) {
-		MultibandConfig = InstancePtr->ADC_Tile[Tile_Id].MultibandConfig;
-	} else {
-		MultibandConfig = InstancePtr->DAC_Tile[Tile_Id].MultibandConfig;
-	}
-
-	return MultibandConfig;
+	return XRFdc_ReadReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_MB_CONFIG_OFFSET);
 }
 
 /*****************************************************************************/

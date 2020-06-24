@@ -26,6 +26,8 @@
 * 8.0   cog    02/10/20 Updated addtogroup.
 *       cog    03/20/20 Clock enables for new bondout.
 * 8.1   cog    06/24/20 Upversion.
+*       cog    06/24/20 Support for Dual Band IQ for new bondout.
+*       cog    06/24/20 MB config is now read from bitstream.
 *
 * </pre>
 *
@@ -429,6 +431,7 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 * @param    ModePtr is a pointer to connection mode SB/MB_2X/MB_4X.
 * @param    DataPathIndex is the array that represents the blocks enabled in
 *           DigitalData Path.
+* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
 *
 * @return
 *           - None
@@ -437,24 +440,22 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 *
 ******************************************************************************/
 static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataPaths, u32 *ModePtr,
-				u32 DataPathIndex[])
+				u32 DataPathIndex[], u32 MixerInOutDataType)
 {
 	u8 MultibandConfig;
 	u32 Status;
 
-	if (Type == XRFDC_ADC_TILE) {
-		MultibandConfig = InstancePtr->ADC_Tile[Tile_Id].MultibandConfig;
-	} else {
-		MultibandConfig = InstancePtr->DAC_Tile[Tile_Id].MultibandConfig;
-	}
+	MultibandConfig = XRFdc_GetMultibandConfig(InstancePtr, Type, Tile_Id);
 
 	if (NoOfDataPaths == 1U) {
 		*ModePtr = XRFDC_SINGLEBAND_MODE;
 		if (((DataPathIndex[0] == XRFDC_BLK_ID2) || (DataPathIndex[0] == XRFDC_BLK_ID3)) &&
-		    ((MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23) || (MultibandConfig == XRFDC_MB_MODE_4X))) {
+		    ((MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23) ||
+		     (MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23_ALT) || (MultibandConfig == XRFDC_MB_MODE_4X))) {
 			MultibandConfig = XRFDC_MB_MODE_2X_BLK01;
 		} else if (((DataPathIndex[0] == XRFDC_BLK_ID0) || (DataPathIndex[0] == XRFDC_BLK_ID1)) &&
 			   ((MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23) ||
+			    (MultibandConfig == XRFDC_MB_MODE_2X_BLK01_BLK23_ALT) ||
 			    (MultibandConfig == XRFDC_MB_MODE_4X))) {
 			MultibandConfig = XRFDC_MB_MODE_2X_BLK23;
 		} else if ((MultibandConfig == XRFDC_MB_MODE_2X_BLK01) &&
@@ -471,7 +472,13 @@ static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 No
 		    ((MultibandConfig == XRFDC_MB_MODE_2X_BLK23) && (DataPathIndex[0] == XRFDC_BLK_ID0) &&
 		     (DataPathIndex[1] == XRFDC_BLK_ID1)) ||
 		    (MultibandConfig == XRFDC_MB_MODE_4X)) {
-			MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23;
+			if ((Type == XRFDC_DAC_TILE) &&
+			    (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == 2) &&
+			    (MixerInOutDataType == XRFDC_MB_DATATYPE_C2C)) {
+				MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23_ALT;
+			} else {
+				MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23;
+			}
 		} else if (((DataPathIndex[0] == XRFDC_BLK_ID2) && (DataPathIndex[1] == XRFDC_BLK_ID3)) &&
 			   (MultibandConfig == XRFDC_MB_MODE_SB)) {
 			MultibandConfig = XRFDC_MB_MODE_2X_BLK23;
@@ -490,6 +497,7 @@ static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 No
 	}
 
 	/* Update Multiband Config member */
+	XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_MB_CONFIG_OFFSET, MultibandConfig);
 	if (Type == XRFDC_ADC_TILE) {
 		InstancePtr->ADC_Tile[Tile_Id].MultibandConfig = MultibandConfig;
 	} else {
@@ -607,7 +615,8 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 	}
 
 	/* UPdate MultibandConfig in driver instance */
-	Status = XRFdc_UpdateMBConfig(InstancePtr, Type, Tile_Id, NoOfDataPaths, &Mode, DataPathIndex);
+	Status = XRFdc_UpdateMBConfig(InstancePtr, Type, Tile_Id, NoOfDataPaths, &Mode, DataPathIndex,
+				      MixerInOutDataType);
 	if (Status != XRFDC_SUCCESS) {
 		goto RETURN_PATH;
 	}
