@@ -79,6 +79,7 @@
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Masks, shifts and offsets for production Si VOP.
 *       cog    06/24/20 Masks and offsets for MB config.
+*       cog    06/24/20 Masks, shifts and offsets or observaion FIFO.
 *
 *</pre>
 *
@@ -108,26 +109,53 @@ extern "C" {
 #define XRFDC_CLK_EN_OFFSET 0x000U /**< ADC Clock Enable Register */
 #define XRFDC_ADC_DEBUG_RST_OFFSET 0x004U /**< ADC Debug Reset Register */
 #define XRFDC_ADC_FABRIC_RATE_OFFSET 0x008U /**< ADC Fabric Rate Register */
+#define XRFDC_ADC_FABRIC_RATE_OBS_OFFSET 0x050U /**< ADC Obs Fabric Rate Register */
+#define XRFDC_ADC_FABRIC_RATE_TDD_OFFSET(X)                                                                            \
+	((X == 0) ? XRFDC_ADC_FABRIC_RATE_OFFSET :                                                                     \
+		    XRFDC_ADC_FABRIC_RATE_OBS_OFFSET) /**< ADC Fabric Rate (or OBS) Register TDD Selected */
 #define XRFDC_DAC_FABRIC_RATE_OFFSET 0x008U /**< DAC Fabric Rate Register */
 #define XRFDC_ADC_FABRIC_OFFSET 0x00CU /**< ADC Fabric Register */
+#define XRFDC_ADC_FABRIC_OBS_OFFSET 0x054U /**< ADC Obs Fabric Register */
+#define XRFDC_ADC_FABRIC_TDD_OFFSET(X)                                                                                 \
+	((X == 0) ? XRFDC_ADC_FABRIC_OFFSET :                                                                          \
+		    XRFDC_ADC_FABRIC_OBS_OFFSET) /**< ADC Fabric Register (or OBS) TDD Selected*/
 #define XRFDC_ADC_FABRIC_ISR_OFFSET 0x010U /**< ADC Fabric ISR Register */
 #define XRFDC_DAC_FIFO_START_OFFSET 0x010U /**< DAC FIFO Start Register */
 #define XRFDC_DAC_FABRIC_ISR_OFFSET 0x014U /**< DAC Fabric ISR Register */
 #define XRFDC_ADC_FABRIC_IMR_OFFSET 0x014U /**< ADC Fabric IMR Register */
 #define XRFDC_DAC_FABRIC_IMR_OFFSET 0x018U /**< DAC Fabric IMR Register */
 #define XRFDC_ADC_FABRIC_DBG_OFFSET 0x018U /**< ADC Fabric Debug Register */
+#define XRFDC_ADC_FABRIC_DBG_OBS_OFFSET 0x058U /**< ADC Obs Fabric Debug Register */
+#define XRFDC_ADC_FABRIC_DBG_TDD_OFFSET(X)                                                                             \
+	((X == 0) ? XRFDC_ADC_FABRIC_DBG_OFFSET :                                                                      \
+		    XRFDC_ADC_FABRIC_DBG_OBS_OFFSET) /**< ADC Fabric Debug (or OBS) Register TDD Selected */
 #define XRFDC_ADC_UPDATE_DYN_OFFSET 0x01CU /**< ADC Update Dynamic Register */
 #define XRFDC_DAC_UPDATE_DYN_OFFSET 0x020U /**< DAC Update Dynamic Register */
 #define XRFDC_ADC_FIFO_LTNC_CRL_OFFSET 0x020U /**< ADC FIFO Latency Control Register */
+#define XRFDC_ADC_FIFO_LTNC_CRL_OBS_OFFSET 0x064U /**< ADC Obs FIFO Latency Control Register */
+#define XRFDC_ADC_FIFO_LTNC_CRL_TDD_OFFSET(X)                                                                          \
+	((X == 0) ?                                                                                                    \
+		 XRFDC_ADC_FIFO_LTNC_CRL_OFFSET :                                                                      \
+		 XRFDC_ADC_FIFO_LTNC_CRL_OBS_OFFSET) /**< ADC FIFO Latency Control (or OBS) Register TDD Selected */
 #define XRFDC_ADC_DEC_ISR_OFFSET 0x030U /**< ADC Decoder interface ISR Register */
 #define XRFDC_DAC_DATAPATH_OFFSET 0x034U /**< ADC Decoder interface IMR Register */
 #define XRFDC_ADC_DEC_IMR_OFFSET 0x034U /**< ADC Decoder interface IMR Register */
 #define XRFDC_DATPATH_ISR_OFFSET 0x038U /**< ADC Data Path ISR Register */
 #define XRFDC_DATPATH_IMR_OFFSET 0x03CU /**< ADC Data Path IMR Register */
 #define XRFDC_ADC_DECI_CONFIG_OFFSET 0x040U /**< ADC Decimation Config Register */
+#define XRFDC_ADC_DECI_CONFIG_OBS_OFFSET 0x048U /**< ADC Decimation Config Register */
+#define XRFDC_ADC_DECI_CONFIG_TDD_OFFSET(X)                                                                            \
+	((X == 0) ? XRFDC_ADC_DECI_CONFIG_OFFSET :                                                                     \
+		    XRFDC_ADC_DECI_CONFIG_OBS_OFFSET) /**< ADC Decimation Config (or OBS) Register TDD Selected */
 #define XRFDC_DAC_INTERP_CTRL_OFFSET 0x040U /**< DAC Interpolation Control Register */
 #define XRFDC_ADC_DECI_MODE_OFFSET 0x044U /**< ADC Decimation mode Register */
+#define XRFDC_ADC_DECI_MODE_OBS_OFFSET 0x04CU /**< ADC Obs Decimation mode Register */
+#define XRFDC_ADC_DECI_MODE_TDD_OFFSET(X)                                                                              \
+	((X == 0) ? XRFDC_ADC_DECI_MODE_OFFSET :                                                                       \
+		    XRFDC_ADC_DECI_MODE_OBS_OFFSET) /**< ADC Decimation mode (or OBS) Register TDD Selected */
 #define XRFDC_DAC_ITERP_DATA_OFFSET 0x044U /**< DAC interpolation data */
+#define XRFDC_ADC_FABRIC_ISR_OBS_OFFSET 0x05CU /**< ADC Fabric ISR Observation Register */
+#define XRFDC_ADC_FABRIC_IMR_OBS_OFFSET 0x060U /**< ADC Fabric ISR Observation Register */
 #define XRFDC_ADC_MXR_CFG0_OFFSET 0x080U /**< ADC I channel mixer config Register */
 #define XRFDC_ADC_MXR_CFG1_OFFSET 0x084U /**< ADC Q channel mixer config Register */
 #define XRFDC_MXR_MODE_OFFSET 0x088U /**< ADC/DAC mixer mode Register */
@@ -342,6 +370,11 @@ extern "C" {
 #define XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT 0x184 /**< Background time skew correction block (below Gen 3) */
 
 #define XRFDC_HSCOM_FIFO_START_OFFSET 0x0C0U /**< FIFO Start register tommon along tile */
+#define XRFDC_HSCOM_FIFO_START_OBS_OFFSET 0x0BCU /**< FIFO Obs Start register common along tile */
+#define XRFDC_HSCOM_FIFO_START_TDD_OFFSET(X)                                                                           \
+	((X == 0) ?                                                                                                    \
+		 XRFDC_HSCOM_FIFO_START_OFFSET :                                                                       \
+		 XRFDC_HSCOM_FIFO_START_OBS_OFFSET) /**< FIFO Start (or OBS) register common along tile TDD Selected */
 
 /* @} */
 
@@ -421,7 +454,9 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_FIFO_EN_MASK 0x00000001U /**< FIFO enable/disable */
+#define XRFDC_FIFO_EN_MASK 0x00000001U /**< FIFO enable/disable mask*/
+#define XRFDC_FIFO_EN_OBS_MASK 0x00000002U /**< FIFO OBS enable/disable mask*/
+#define XRFDC_FIFO_EN_OBS_SHIFT 1U /**< FIFO OBS enable/disable  shift*/
 #define XRFDC_RESTART_MASK 0x00000001U /**< Restart bit mask */
 
 /* @} */
@@ -1841,6 +1876,13 @@ extern "C" {
 #define XRFDC_MODE_INVSINC_MASK 0x00000003U /**< invsinc mode mask */
 /* @} */
 
+/** @name OBS FIFO start register
+ *
+ * This register contains bits to configure Invsinc.
+ * @{
+ */
+#define XRFDC_HSCOM_FIFO_START_OBS_EN_MASK 0x00000200U /**< invsinc enable mask */
+#define XRFDC_HSCOM_FIFO_START_OBS_EN_SHIFT 9U /**< invsinc mode mask */
 /* @} */
 
 /** @name Signal Detector control register
@@ -1968,6 +2010,7 @@ extern "C" {
 /* @} */
 
 #define XRFDC_IXR_FIFOUSRDAT_MASK 0x0000000FU
+#define XRFDC_IXR_FIFOUSRDAT_OBS_MASK 0x0000F000U
 #define XRFDC_IXR_FIFOUSRDAT_OF_MASK 0x00000001U
 #define XRFDC_IXR_FIFOUSRDAT_UF_MASK 0x00000002U
 #define XRFDC_IXR_FIFOMRGNIND_OF_MASK 0x00000004U
@@ -2029,6 +2072,7 @@ extern "C" {
 #define XRFDC_ADC_OVR_VOL_RANGE_SHIFT 24U
 #define XRFDC_ADC_DAT_FIFO_OVR_SHIFT 16U
 #define XRFDC_ADC_SUBADC_DCDR_SHIFT 16U
+#define XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT 12U
 #define XRFDC_DATA_PATH_SHIFT 4U
 #define XRFDC_ADC_CMODE_SHIFT 10U
 #define XRFDC_COMMON_SHIFT 20U

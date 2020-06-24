@@ -45,6 +45,7 @@
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
 * 8.1   cog    06/24/20 Upversion.
+*       cog    06/24/20 Added observation FIFO interrupts.
 *
 * </pre>
 *
@@ -161,6 +162,12 @@ u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u3
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 				ReadReg = (IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_IMR_OFFSET,
+						XRFDC_IXR_FIFOUSRDAT_MASK, ReadReg);
+			}
+			/* Check for FIFO interface interrupts (Observation FIFO)*/
+			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_OBS_MASK) != 0U) {
+				ReadReg = (IntrMask & XRFDC_IXR_FIFOUSRDAT_OBS_MASK) >> XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT;
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_IMR_OBS_OFFSET,
 						XRFDC_IXR_FIFOUSRDAT_MASK, ReadReg);
 			}
 			/* Check for SUBADC interrupts */
@@ -286,6 +293,12 @@ u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 				ReadReg = IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK;
 				XRFdc_ClrReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_IMR_OFFSET, ReadReg);
+			}
+			/* Check for FIFO interface interrupts (observaion FIFO)*/
+			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_OBS_MASK) != 0U) {
+				ReadReg =
+					((IntrMask & XRFDC_IXR_FIFOUSRDAT_OBS_MASK) >> XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT);
+				XRFdc_ClrReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_IMR_OBS_OFFSET, ReadReg);
 			}
 			/* Check for SUBADC interrupts */
 			if ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
@@ -418,6 +431,11 @@ u32 XRFdc_GetEnabledInterrupts(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Bl
 			if (ReadReg & XRFDC_IXR_FIFOUSRDAT_MASK) {
 				*IntrMask |= XRFDC_IXR_FIFOUSRDAT_MASK;
 			}
+			/* Check for Obs FIFO interface interrupts */
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_IMR_OBS_OFFSET);
+			if (ReadReg & XRFDC_IXR_FIFOUSRDAT_MASK) {
+				*IntrMask |= XRFDC_IXR_FIFOUSRDAT_OBS_MASK;
+			}
 			/* Check for SUBADC interrupts */
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_DEC_IMR_OFFSET);
 			if (ReadReg & XRFDC_DEC_IMR_MASK) {
@@ -519,6 +537,8 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 			/* Check for FIFO interface interrupts */
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_ISR_OFFSET);
 			*IntrStsPtr |= (ReadReg & XRFDC_IXR_FIFOUSRDAT_MASK);
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_ISR_OBS_OFFSET);
+			*IntrStsPtr |= (ReadReg & XRFDC_IXR_FIFOUSRDAT_MASK) << XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT;
 			/* Check for SUBADC interrupts */
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_DEC_ISR_OFFSET);
 			*IntrStsPtr |= ((ReadReg & XRFDC_DEC_ISR_SUBADC_MASK) << XRFDC_ADC_SUBADC_DCDR_SHIFT);
@@ -623,6 +643,11 @@ u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 I
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_ISR_OFFSET,
 						 (IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK));
+			}
+			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_OBS_MASK) != 0U) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_ISR_OBS_OFFSET,
+						 (IntrMask & XRFDC_IXR_FIFOUSRDAT_OBS_MASK) >>
+							 XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT);
 			}
 			/* Check for SUBADC interrupts */
 			if ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
@@ -786,6 +811,10 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC FIFO interface interrupt \r\n");
+		}
+		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_OBS_MASK) != 0U) {
+			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_OBS_MASK;
+			metal_log(METAL_LOG_DEBUG, "\n ADC Obs FIFO interface interrupt \r\n");
 		}
 		if ((Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK;
