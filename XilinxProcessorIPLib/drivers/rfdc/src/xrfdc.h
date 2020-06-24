@@ -246,6 +246,7 @@
 *       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
 *       cog    03/20/20 Updated PowerState masks for Gen 3 Devices.
 * 8.1   cog    06/24/20 Upversion.
+*       cog    06/24/20 Expand range of DSA for production Si.
 *
 * </pre>
 *
@@ -1145,9 +1146,9 @@ typedef struct {
 #define XRFDC_CSCAS_BLDR 0xE000U
 #define XRFDC_CSCAS_BIAS 0x001BU
 
-#define XRFDC_MAX_ATTEN 11
+#define XRFDC_MAX_ATTEN(X) ((X == 0) ? 11.0 : 27.0)
 #define XRFDC_MIN_ATTEN 0
-#define XRFDC_STEP_ATTEN 0.5
+#define XRFDC_STEP_ATTEN(X) ((X == 0) ? 0.5 : 1.0)
 
 #define XRFDC_DAC_VOP_CTRL_REG_UPDT_MASK 0x2U
 #define XRFDC_DAC_VOP_CTRL_TST_BLD_MASK 0x1U
