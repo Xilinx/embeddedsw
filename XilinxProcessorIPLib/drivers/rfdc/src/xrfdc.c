@@ -177,6 +177,7 @@
 *       cog    03/13/20 Fixed issue where over threshold flag was asserting as soon as the threshold
 *                       settings are applied.
 * 8.1   cog    06/24/20 Upversion.
+*       cog    06/24/20 Expand range of DSA for production Si.
 *
 * </pre>
 *
@@ -5552,13 +5553,13 @@ RETURN_PATH:
 *           - XRFDC_SUCCESS if successful.
 *           - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 0 - 11 dB with 0.5 dB resolution.
+* @note  Range 0 - 11 dB with 0.5 dB resolution ES1 Si.
+*        Range 0 - 27 dB with 1 dB resolution for Production Si.
 ******************************************************************************/
 u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr)
 {
 	u32 Status;
 	u32 BaseAddr;
-	u16 EFuse;
 	u32 Code;
 	u32 Index;
 	u32 NoOfBlocks;
@@ -5579,15 +5580,7 @@ u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 		goto RETURN_PATH;
 	}
 
-	EFuse = XRFdc_ReadReg16(InstancePtr, XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR,
-				XRFDC_HSCOM_EFUSE_2_OFFSET);
-	if ((EFuse & XRFDC_EXPORTCTRL_DSA) == XRFDC_EXPORTCTRL_DSA) {
-		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing - for ADC %u block %u in %s\r\n", Tile_Id,
-			  Block_Id, __func__);
-		goto RETURN_PATH;
-	}
-	if (SettingsPtr->Attenuation > XRFDC_MAX_ATTEN) {
+	if (SettingsPtr->Attenuation > XRFDC_MAX_ATTEN(InstancePtr->RFdc_Config.SiRevision)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid attenuation selection (too high - %f) in ADC %u block %u %s\r\n",
 			  SettingsPtr->Attenuation, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
@@ -5613,7 +5606,8 @@ u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 
 	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
 
-	Code = (u32)((XRFDC_MAX_ATTEN - SettingsPtr->Attenuation) / XRFDC_STEP_ATTEN);
+	Code = (u32)((XRFDC_MAX_ATTEN(InstancePtr->RFdc_Config.SiRevision) - SettingsPtr->Attenuation) /
+		     XRFDC_STEP_ATTEN(InstancePtr->RFdc_Config.SiRevision));
 	for (; Index < NoOfBlocks; Index++) {
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Index),
 				(XRFDC_ADC_DSA_CODE_MASK | XRFDC_ADC_DSA_RTS_PIN_MASK),
@@ -5643,7 +5637,8 @@ RETURN_PATH:
 *           - XRFDC_SUCCESS if successful.
 *           - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 0 - ll dB with 0.5 dB resolution.
+* @note  Range 0 - 11 dB with 0.5 dB resolution ES1 Si.
+*        Range 0 - 27 dB with 1 dB resolution for Production Si.
 ******************************************************************************/
 u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr)
 {
@@ -5688,7 +5683,7 @@ u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 	Code = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Block_Id), XRFDC_ADC_DSA_CODE_MASK);
 	RTSENMode = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Block_Id), XRFDC_ADC_DSA_RTS_PIN_MASK);
 
-	SettingsPtr->Attenuation = XRFDC_MAX_ATTEN - (float)(Code * XRFDC_STEP_ATTEN);
+	SettingsPtr->Attenuation = XRFDC_MAX_ATTEN(InstancePtr->RFdc_Config.SiRevision) - (float)(Code * XRFDC_STEP_ATTEN(InstancePtr->RFdc_Config.SiRevision));
 	SettingsPtr->DisableRTS = RTSENMode >> XRFDC_ADC_DSA_RTS_PIN_SHIFT;
 
 	Status = XRFDC_SUCCESS;
