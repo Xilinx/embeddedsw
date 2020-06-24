@@ -181,6 +181,7 @@
 *       cog    06/24/20 Expand range of VOP for production Si.
 *       cog    06/24/20 Support for Dual Band IQ for new bondout.
 *       cog    06/24/20 Added observation FIFO and decimation functionality.
+*       cog    06/24/20 Added channel powerdon functionality.
 *
 * </pre>
 *
@@ -6143,4 +6144,149 @@ u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 RETURN_PATH:
 	return Status;
 }
-/** @} */
+
+/*****************************************************************************/
+/**
+*
+* Set The Power up/down mode of a given converter.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id Valid values are 0-3.
+* @param    SettingsPtr is a pointer with the power mode settings.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     Common API for ADC/DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_Pwr_Mode_Settings *SettingsPtr)
+{
+	u32 Status;
+	u32 BaseAddrCtrl;
+	u32 BaseAddrConfig;
+	u32 Index;
+	u32 NoOfBlocks;
+	u32 CtrlSettingsMask;
+	u32 CfgSettingsMask;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(SettingsPtr != NULL);
+
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	if (SettingsPtr->PwrMode > XRFDC_PWR_MODE_ON) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid power mode selection (%u) in %s %u block %u %s\r\n",
+			  SettingsPtr->PwrMode, ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, Block_Id,
+			  __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (SettingsPtr->DisableIPControl > XRFDC_ENABLED) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid IP control disable selection (%u) in %s %u block %u %s\r\n",
+			  SettingsPtr->PwrMode, ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, Block_Id,
+			  __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Index = Block_Id;
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) && (Type == XRFDC_ADC_TILE)) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	BaseAddrCtrl = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+	CtrlSettingsMask = !SettingsPtr->PwrMode;
+	CtrlSettingsMask |= (SettingsPtr->DisableIPControl << XRFDC_TDD_CTRL_RTP_SHIFT);
+	CfgSettingsMask = ((SettingsPtr->PwrMode == XRFDC_PWR_MODE_ON) ? XRFDC_DISABLED : XRFDC_TDD_CFG_MASK(Type));
+
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddrConfig = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddrConfig, XRFDC_TDD_MODE0_OFFSET(Type), XRFDC_TDD_CFG_MASK(Type),
+				CfgSettingsMask);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddrCtrl, XRFDC_TDD_CTRL_SLICE_OFFSET(Index),
+				(XRFDC_TDD_CTRL_MODE0_MASK | XRFDC_TDD_CTRL_RTP_MASK), CtrlSettingsMask);
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Get The Power up/down mode of a given converter.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id Valid values are 0-3.
+* @param    SettingsPtr is a pointer to be filled with the power mode settings.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     Common API for ADC/DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_Pwr_Mode_Settings *SettingsPtr)
+{
+	u32 Status;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(SettingsPtr != NULL);
+
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) && (Type == XRFDC_ADC_TILE)) {
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Block_Id = XRFDC_BLK_ID2;
+		}
+	}
+
+	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+	SettingsPtr->PwrMode =
+		!XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_TDD_CTRL_SLICE_OFFSET(Block_Id), XRFDC_TDD_CTRL_MODE0_MASK);
+	SettingsPtr->DisableIPControl =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_TDD_CTRL_SLICE_OFFSET(Block_Id), XRFDC_TDD_CTRL_RTP_MASK) >>
+		XRFDC_TDD_CTRL_RTP_SHIFT;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
