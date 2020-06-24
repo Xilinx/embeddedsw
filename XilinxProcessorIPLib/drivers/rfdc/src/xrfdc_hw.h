@@ -80,6 +80,7 @@
 *       cog    06/24/20 Masks, shifts and offsets for production Si VOP.
 *       cog    06/24/20 Masks and offsets for MB config.
 *       cog    06/24/20 Masks, shifts and offsets or observaion FIFO.
+*       cog    06/24/20 Masks, shifts and offsets for TDD Mode registers.
 *
 *</pre>
 *
@@ -156,6 +157,10 @@ extern "C" {
 #define XRFDC_DAC_ITERP_DATA_OFFSET 0x044U /**< DAC interpolation data */
 #define XRFDC_ADC_FABRIC_ISR_OBS_OFFSET 0x05CU /**< ADC Fabric ISR Observation Register */
 #define XRFDC_ADC_FABRIC_IMR_OBS_OFFSET 0x060U /**< ADC Fabric ISR Observation Register */
+#define XRFDC_DAC_TDD_MODE0_OFFSET 0x060U /**< DAC TDD Mode 0 Configuration*/
+#define XRFDC_ADC_TDD_MODE0_OFFSET 0x068U /**< ADC TDD Mode 0 Configuration*/
+#define XRFDC_TDD_MODE0_OFFSET(X)                                                                                      \
+	((X == 0) ? XRFDC_ADC_TDD_MODE0_OFFSET : XRFDC_DAC_TDD_MODE0_OFFSET) /**< ADC TDD Mode 0 Configuration*/
 #define XRFDC_ADC_MXR_CFG0_OFFSET 0x080U /**< ADC I channel mixer config Register */
 #define XRFDC_ADC_MXR_CFG1_OFFSET 0x084U /**< ADC Q channel mixer config Register */
 #define XRFDC_MXR_MODE_OFFSET 0x088U /**< ADC/DAC mixer mode Register */
@@ -306,6 +311,7 @@ extern "C" {
 #define XRFDC_CAL_GCB_COEFF1_FAB(X) (0x284U + (X * 0x10U))
 #define XRFDC_CAL_GCB_COEFF2_FAB(X) (0x288U + (X * 0x10U))
 #define XRFDC_CAL_GCB_COEFF3_FAB(X) (0x28CU + (X * 0x10U))
+#define XRFDC_TDD_CTRL_SLICE_OFFSET(X) (0x260 + (X * 0x04U)) /**< TDD control registers */
 #define XRFDC_PLL_FREQ 0x300U /**< PLL output frequency (before divider) register */
 #define XRFDC_PLL_FS 0x304U /**< Sampling rate register */
 #define XRFDC_FIFO_ENABLE 0x230U /**< FIFO Enable and Disable */
@@ -1099,6 +1105,38 @@ extern "C" {
  */
 
 #define XRFDC_TRSHD1_OVER_MASK 0x00007FFFU /**< Threshold1 under Threshold[14:0] */
+
+/* @} */
+
+/** @name TDD Control
+ *
+ * This register contains bits to manage the TDD Control
+ * @{
+ */
+
+#define XRFDC_TDD_CTRL_MASK 0x0000001FU /**< All TDD control bits */
+#define XRFDC_TDD_CTRL_MODE01_MASK 0x00000003U /**< The TDD mode control bits */
+#define XRFDC_TDD_CTRL_MODE0_MASK 0x00000001U /**< The TDD control bit for Mode 0 config */
+#define XRFDC_TDD_CTRL_MODE1_MASK 0x00000002U /**< The TDD control bit for Mode 1 config (unused)*/
+#define XRFDC_TDD_CTRL_OBS_EN_MASK 0x00000008U /**< The observation port enable*/
+#define XRFDC_TDD_CTRL_RTP_MASK 0x00000004U /**< The IP RTS disable bit*/
+#define XRFDC_TDD_CTRL_RTP_OBS_MASK 0x00000010U /**< The IP RTS disable bit for the observation channel*/
+#define XRFDC_TDD_CTRL_MODE1_SHIFT 1U /**< The TDD control bit for Mode 1 config (unused)*/
+#define XRFDC_TDD_CTRL_OBS_EN_SHIFT 3U /**< The observation port enable*/
+#define XRFDC_TDD_CTRL_RTP_SHIFT 2U /**< The IP RTS disable bit*/
+#define XRFDC_TDD_CTRL_RTP_OBS_SHIFT 4U /**< The IP RTS disable bit for the observation channel*/
+
+/* @} */
+
+/** @name TDD Configuration
+ *
+ * This register contains bits to manage the TDD Configuration
+ * @{
+ */
+
+#define XRFDC_TDD_ADC_CFG_MASK 0x00007FFFU /**< All ADC TDD config bits */
+#define XRFDC_TDD_DAC_CFG_MASK 0x00003FFFU /**< All DAC TDD config bits */
+#define XRFDC_TDD_CFG_MASK(X) ((X == 0) ? XRFDC_TDD_ADC_CFG_MASK : XRFDC_TDD_DAC_CFG_MASK) /**< All TDD config bits */
 
 /* @} */
 

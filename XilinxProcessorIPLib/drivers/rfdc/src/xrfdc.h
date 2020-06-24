@@ -250,6 +250,7 @@
 *       cog    06/24/20 Expand range of VOP for production Si.
 *       cog    06/24/20 MB config is now read from bitstream.
 *       cog    06/24/20 Added observation FIFO and decimation functionality.
+*       cog    06/24/20 Added channel powerdon functionality.
 *
 * </pre>
 *
@@ -435,6 +436,14 @@ typedef struct {
 	u32 Coeff6;
 	u32 Coeff7;
 } XRFdc_Calibration_Coefficients;
+
+/**
+ * RFSoC Power Mode settings
+ */
+typedef struct {
+	u32 DisableIPControl; /*Disables IP RTS control of the power mode*/
+	u32 PwrMode; /*The power mode*/
+} XRFdc_Pwr_Mode_Settings;
 
 /**
  * RFSoC DSA settings
@@ -1195,6 +1204,9 @@ typedef struct {
 #define XRFDC_FIFO_CHANNEL_ACT 0U
 #define XRFDC_FIFO_CHANNEL_OBS 1U
 #define XRFDC_FIFO_CHANNEL_BOTH 2U
+
+#define XRFDC_PWR_MODE_OFF 0U
+#define XRFDC_PWR_MODE_ON 1U
 
 /*****************************************************************************/
 /**
@@ -2161,6 +2173,8 @@ u32 XRFdc_SetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enab
 u32 XRFdc_GetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr);
 u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr);
 u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr);
+u32 XRFdc_SetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_Pwr_Mode_Settings *SettingsPtr);
+u32 XRFdc_GetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_Pwr_Mode_Settings *SettingsPtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif
