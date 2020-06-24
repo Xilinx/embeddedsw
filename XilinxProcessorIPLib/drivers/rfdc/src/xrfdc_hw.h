@@ -78,6 +78,7 @@
 *       cog    03/20/20 Added masks and shifts for datapath clock enables.
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Masks, shifts and offsets for production Si VOP.
+*       cog    06/24/20 Masks and offsets for MB config.
 *
 *</pre>
 *
@@ -216,6 +217,7 @@ extern "C" {
 #define XRFDC_ADC_FIFO_LTNCY_MB_OFFSET 0x284U /**< ADC FIFO Latency measurement MSB Register */
 #define XRFDC_DAC_DECODER_CTRL_OFFSET 0x180U /**< DAC Unary Decoder/ Randomizer settings */
 #define XRFDC_DAC_DECODER_CLK_OFFSET 0x184U /**< Decoder Clock enable */
+#define XRFDC_MB_CONFIG_OFFSET 0x308U /**< Multiband Config status */
 
 #define XRFDC_ADC_SIG_DETECT_CTRL_OFFSET 0x114 /**< ADC Signal Detector Control */
 #define XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET 0x118 /**< ADC Signal Detector Threshold 0 */
@@ -1826,6 +1828,7 @@ extern "C" {
 #define XRFDC_ALT_BOND_SHIFT 9U /** <Alt bondout shift */
 #define XRFDC_ALT_BOND_CLKDP_MASK 0x4U /** <Alt bondout shift */
 #define XRFDC_ALT_BOND_CLKDP_SHIFT 2U /** <Alt bondout shift */
+#define XRFDC_MB_CONFIG_MASK 0x00000007U /** <Multiband Config mask */
 
 /* @} */
 
