@@ -60,6 +60,8 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_TRIM_TYPE		0x310EU
 /* Error during self test */
 #define XPM_INT_ERR_SELF_TEST			0x310FU
+/* MEM clear not passed */
+#define XPM_INT_ERR_MEM_CLEAR_PASS		0x3110U
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
@@ -115,6 +117,8 @@ extern "C" {
 #define XPM_INT_ERR_IPI_STATUS			0x3601U
 /* PSMFW is not present */
 #define XPM_INT_ERR_PSMFW_NOT_PRESENT		0x3602U
+/* Invalid parameter passed to function */
+#define XPM_INT_ERR_INVALID_PARAM		0x3603U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
@@ -162,6 +166,26 @@ extern "C" {
 #define XPM_INT_ERR_VCCRAM_SOC_ISO		0x3714U
 /* CFU not ready error */
 #define XPM_INT_ERR_CFU_NOT_READY		0x3715U
+
+/************************** NPD specific Errors ******************************/
+/************************** (0x3800) - (0x38FF) ******************************/
+/* Error during NOC POR assert/release*/
+#define XPM_INT_ERR_NOC_POR			0x3800U
+/* DDRMC power status error */
+#define XPM_INT_ERR_NOC_DDRMC_STATUS		0x3801U
+/* DDR MEM clear done timeout */
+#define XPM_INT_ERR_DDR_MEM_CLEAR_DONE		0x3802U
+/* DDR MEM clear pass timeout */
+#define XPM_INT_ERR_DDR_MEM_CLEAR_PASS		0x3803U
+/* Error during NIDB BISR repair */
+#define XPM_INT_ERR_NIDB_BISR_REPAIR		0x3804U
+/* Error during PMC-SOC isolation enable/disable */
+#define XPM_INT_ERR_PMC_SOC_ISO			0x3805U
+
+/************************* Clock specific errors *****************************/
+/************************** (0x3900) - (0x39FF) ******************************/
+/* Error during clock enable */
+#define XPM_INT_ERR_CLK_ENABLE			0x3900U
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
