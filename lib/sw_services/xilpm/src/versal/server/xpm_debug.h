@@ -62,6 +62,10 @@ extern "C" {
 #define XPM_INT_ERR_SELF_TEST			0x310FU
 /* MEM clear not passed */
 #define XPM_INT_ERR_MEM_CLEAR_PASS		0x3110U
+/* MBIST pass timeout error */
+#define XPM_INT_ERR_MBIST_PASS			0x3111U
+/* Error during MBIST */
+#define XPM_INT_ERR_MBIST			0x3112U
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
@@ -186,6 +190,17 @@ extern "C" {
 /************************** (0x3900) - (0x39FF) ******************************/
 /* Error during clock enable */
 #define XPM_INT_ERR_CLK_ENABLE			0x3900U
+
+/************************** CPM specific Errors ******************************/
+/************************** (0x4000) - (0x40FF) ******************************/
+/* Error during LPD-CPM DFX Isolation enable/disable */
+#define XPM_INT_ERR_LPD_CPM_DFX_ISO		0x4000U
+/* Error during LPD-CPM5 DFX Isolation enable/disable */
+#define XPM_INT_ERR_LPD_CPM5_DFX_ISO		0x4001U
+/* Error during CPM5 BISR repair*/
+#define XPM_INT_ERR_CPM5_BISR_REPAIR		0x4002U
+/* Error during CPM5 GTYP BISR repair */
+#define XPM_INT_ERR_CPM5_GTYP_BISR_REPAIR	0x4003U
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
