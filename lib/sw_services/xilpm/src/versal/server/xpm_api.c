@@ -793,7 +793,6 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	if (((u32)XPM_NODECLASS_POWER != NODECLASS(NodeId)) ||
 	    ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) ||
 	    ((u32)XPM_NODEIDX_POWER_MAX <= NODEINDEX(NodeId))) {
-		PmErr("Invalid node\r\n");
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
@@ -816,9 +815,6 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	case (u32)XPM_NODEIDX_POWER_CPM5:
 		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function,
 						   Args, NumArgs);
-		if (Status != XST_SUCCESS) {
-			PmErr("Power domain init failed\r\n");
-		}
 		break;
 	default:
 		Status = XPM_INVALID_PWRDOMAIN;
@@ -842,7 +838,6 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, NODE_UART,
 					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
 		if (XST_SUCCESS != Status) {
-			PmErr("UART request failed\r\n");
 			goto done;
 		}
 #endif
