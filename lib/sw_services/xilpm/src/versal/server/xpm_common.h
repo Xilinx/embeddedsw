@@ -34,36 +34,23 @@ extern "C" {
 #define maybe_unused __attribute__((unused))
 #endif
 
+/**
+ * Common baseline macro to print debug logs
+ */
+#define PmPrintCommon(DbgLevel, PrefixStr, ...)						  \
+	do {										  \
+		if (((DbgLevel) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+			xil_printf("%s %s: ", PrefixStr, __func__);			  \
+			xil_printf(__VA_ARGS__);					  \
+		}									  \
+	} while (0)
+
 /* Debug logs */
-#define PmAlert(...) \
-	if(((DEBUG_GENERAL) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
-		xil_printf("ALERT %s: ", __func__); \
-		xil_printf(__VA_ARGS__);	\
-	}
-
-#define PmErr(...) \
-	if(((DEBUG_GENERAL) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
-		xil_printf("ERR %s: ", __func__); \
-		xil_printf(__VA_ARGS__);	\
-	}
-
-#define PmWarn(...) \
-	if(((DEBUG_GENERAL) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
-		xil_printf("WARN %s: ", __func__); \
-		xil_printf(__VA_ARGS__);	\
-	}
-
-#define PmInfo(...) \
-	if(((DEBUG_INFO) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
-		xil_printf("INFO %s: ", __func__); \
-		xil_printf(__VA_ARGS__);	\
-	}
-
-#define PmDbg(...) \
-	if(((DEBUG_DETAILED) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
-		xil_printf("DBG %s: ", __func__); \
-		xil_printf(__VA_ARGS__);	\
-	}
+#define PmAlert(...)	PmPrintCommon(DEBUG_GENERAL,  "ALERT", __VA_ARGS__)
+#define PmErr(...)	PmPrintCommon(DEBUG_GENERAL,  "ERR",   __VA_ARGS__)
+#define PmWarn(...)	PmPrintCommon(DEBUG_GENERAL,  "WARN",  __VA_ARGS__)
+#define PmInfo(...)	PmPrintCommon(DEBUG_INFO,     "INFO",  __VA_ARGS__)
+#define PmDbg(...)	PmPrintCommon(DEBUG_DETAILED, "DBG",   __VA_ARGS__)
 
 #ifdef DEBUG_REG_IO
 

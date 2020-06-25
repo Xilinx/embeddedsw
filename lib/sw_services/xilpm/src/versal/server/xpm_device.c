@@ -1093,7 +1093,7 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 	/* Reset LPD init flag to stop debug prints which is using UART */
 	if ((NODE_UART == Device->Node.Id) &&
 	    (PM_RESET_ACTION_ASSERT == Action)) {
-		PmDbg("Disabling UART prints\r\n")
+		PmDbg("Disabling UART prints\r\n");
 		/* Wait for UART buffer to flush */
 		usleep(10000);
 		XPlmi_ResetLpdInitialized();
