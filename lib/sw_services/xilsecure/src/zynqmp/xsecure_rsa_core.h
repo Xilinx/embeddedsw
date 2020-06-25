@@ -18,7 +18,7 @@
 * 4.1   kpt  01/07/20 Added Macros for all the Magic Numbers
 *                     in xsecure_rsa_core.c
 * 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
-*
+* 4.3   har  06/17/20 Removed references to unused algorithms
 * </pre>
 *
 ******************************************************************************/
@@ -39,7 +39,6 @@ extern "C" {
 #define XSECURE_RSA_ZEROIZE_ERROR		0x80U /**< for RSA zeroization Error*/
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
-#define XSECURE_HASH_TYPE_SHA2		(32U) /**< SHA-2 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
 #define XSECURE_RSA_MAX_BUFF		(6U)  /**< RSA RAM Write Buffers */
 #define XSECURE_RSA_MAX_RD_WR_CNT	(22U) /**< No of writes or reads to RSA RAM Buffers */

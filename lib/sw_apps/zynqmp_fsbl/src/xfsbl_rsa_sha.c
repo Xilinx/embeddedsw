@@ -8,9 +8,8 @@
  *
  * @file xfsbl_rsa_sha.c
  *
- * This contains code for the RSA and SHA functionality.
- * If the Hash type is SHA3 then CSU h/w will be used
- * else we will use SoftSHA256 s/w library for SHA2-256.
+ * This contains code for the RSA and SHA3 functionality.
+ * For SHA3 CSU h/w will be used.
  * For RSA-4096 we will always use CSU h/w.
  * <pre>
  * MODIFICATION HISTORY:
@@ -21,7 +20,7 @@
  * 2.0   bv   12/02/16  Made compliance to MISRAC 2012 guidelines
  * 3.0   vns  01/23/18  Added XFsbl_Sha3PadSelect() API to change SHA3 padding
  *                      to KECCAK SHA3 padding.
- *
+ * 4.0   har  06/17/20  Removed references to unused algorithms
  * </pre>
  *
  * @note
