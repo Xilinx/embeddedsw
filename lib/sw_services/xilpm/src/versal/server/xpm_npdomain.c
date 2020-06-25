@@ -14,6 +14,7 @@
 #include "xpm_clock.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
+#include "xpm_debug.h"
 
 #define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
@@ -24,6 +25,7 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NpdPowerUpTime = 0;
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -35,6 +37,7 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 		NpdPowerUpTime++;
 		if (NpdPowerUpTime > XPM_POLL_TIMEOUT) {
 			/* TODO: Request PMC to power up VCCINT_SOC rail and wait for the acknowledgement.*/
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -48,13 +51,19 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_NPI_ISO;
 		goto done;
 	}
 
 	/* Release POR for NoC */
 	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -80,6 +89,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	u32 i=0;
 	XPm_Device *Device;
 	u32 BaseAddress;
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -92,6 +102,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		/* Remove vccaux-soc domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE_VALUE);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
 			goto done;
 		}
 	}
@@ -99,6 +110,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_ISO;
 		goto done;
 	}
 
@@ -144,6 +156,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		if (0U != SysmonAddresses[i]) {
 			Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_AMS_TRIM;
 				goto done;
 			}
 		}
@@ -167,6 +180,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		0x1);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -177,6 +191,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	u32 RegValue;
 	u32 SlrType;
 	XPm_OutClockNode *Clk;
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -196,6 +211,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -216,12 +232,14 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx((u32)XPM_NODEIDX_CLK_NPI_REF);
 	Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CLK_ENABLE;
 		goto done;
 	}
 
 	/* Release NPI Reset */
 	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
 	}
 
@@ -229,6 +247,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	       RegValue);
 	if (0U != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 			     PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK))) {
+		DbgErr = XPM_INT_ERR_NOC_DDRMC_STATUS;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -236,6 +255,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -246,6 +266,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	u32 i;
 	XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -300,6 +321,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
 					 XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 			goto done;
 		}
 	}
@@ -308,6 +330,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 				 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_DONE;
 			goto done;
 		}
 	}
@@ -317,6 +340,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 		PmIn32(NpdMemIcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
 		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
 		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -325,6 +349,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 		PmIn32(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
 		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
 		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_PASS;
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -358,6 +383,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -367,6 +393,7 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 	u32 i = 0;
 	XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -399,6 +426,7 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 	/* Run BISR */
 	Status = XPmBisr_Repair(DDRMC_TAG_ID);
 	if (Status != XST_SUCCESS) {
+		DbgErr = XPM_INT_ERR_BISR_REPAIR;
 		goto done;
 	}
 
@@ -412,8 +440,12 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 
 	/* NIDB Lane Repair */
 	Status = XPmBisr_NidbLaneRepair();
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NIDB_BISR_REPAIR;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -429,12 +461,16 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	Status = XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
 	if (XST_SUCCESS == Status) {
 		Npd->BisrDataCopied = 0;
+	} else {
+		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 	}
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -443,10 +479,12 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	XStatus Status = XST_FAILURE;
 	u32 Idx = NODEINDEX(DeviceId);
 	u32 Type = NODETYPE(DeviceId);
+	u16 DbgErr = 0;
 
 	if ((((u32)XPM_NODETYPE_MEMIC_SLAVE != Type) &&
 	    ((u32)XPM_NODETYPE_MEMIC_MASTER != Type)) ||
 	    ((u32)XPM_NODEIDX_MEMIC_MAX <= Idx)) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -456,5 +494,6 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
