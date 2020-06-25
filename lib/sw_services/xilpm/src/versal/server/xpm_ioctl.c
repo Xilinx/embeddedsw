@@ -13,6 +13,7 @@
 #include "sleep.h"
 
 extern u32 ResetReason;
+static u32 PsmGgsValues[GGS_REGS] = {0U};
 
 /****************************************************************************/
 /**
@@ -547,10 +548,45 @@ done:
 	return Status;
 }
 
+static int XPm_ReadGgs(u32 GgsNum, u32 *Value)
+{
+	int Status = XST_FAILURE;
+
+	if (GGS_REGS <= GgsNum) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	*Value = PsmGgsValues[GgsNum];
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static int XPm_WriteGgs(u32 GgsNum, u32 Value)
+{
+	int Status = XST_FAILURE;
+
+	if (GGS_REGS <= GgsNum) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	PsmGgsValues[GgsNum] = Value;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response)
 {
 	int Status = XPM_ERR_IOCTL;
+	XPm_Pmc *Pmc;
 
 	switch (IoctlId) {
 	case (u32)IOCTL_GET_RPU_OPER_MODE:
@@ -616,18 +652,10 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 		Status = XPm_SetSdTapDelay(DeviceId, Arg1, Arg2);
 		break;
 	case (u32)IOCTL_WRITE_GGS:
-		if (GGS_NUM_REGS <= Arg1) {
-			goto done;
-		}
-		PmOut32((GGS_BASEADDR + (Arg1 << 2)), Arg2);
-		Status = XST_SUCCESS;
+		Status = XPm_WriteGgs(Arg1, Arg2);
 		break;
 	case (u32)IOCTL_READ_GGS:
-		if (GGS_NUM_REGS <= Arg1) {
-			goto done;
-		}
-		PmIn32((GGS_BASEADDR + (Arg1 << 2)), *Response);
-		Status = XST_SUCCESS;
+		Status = XPm_ReadGgs(Arg1, Response);
 		break;
 	case (u32)IOCTL_WRITE_PGGS:
 		Status = XPm_WritePggs(Arg1, Arg2);
@@ -636,7 +664,12 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 		Status = XPm_ReadPggs(Arg1, Response);
 		break;
 	case (u32)IOCTL_SET_BOOT_HEALTH_STATUS:
-		PmRmw32(GGS_BASEADDR + GGS_4_OFFSET,
+		Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+		if (NULL == Pmc) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		PmRmw32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_GGS4_OFFSET,
 			XPM_BOOT_HEALTH_STATUS_MASK, Arg1);
 		Status = XST_SUCCESS;
 		break;
