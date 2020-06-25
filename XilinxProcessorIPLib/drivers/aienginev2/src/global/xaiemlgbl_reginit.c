@@ -43,6 +43,7 @@
 * 2.8   Nishad  06/09/2020  Fix typo in *_MEMORY_* event macros
 * 2.9   Tejus   06/05/2020  Populate fifo mode availability in data structure.
 * 3.0   Nishad  06/16/2020  Add trace module properties
+* 3.1   Nishad  06/25/2020  Fix typo in Aie2MemTileTraceMod structure
 * </pre>
 *
 ******************************************************************************/
@@ -2237,7 +2238,7 @@ static const XAie_TraceMod Aie2MemTileTraceMod =
 	.PktId = {XAIE2GBL_MEM_TILE_MODULE_TRACE_CONTROL1_ID_LSB, XAIE2GBL_MEM_TILE_MODULE_TRACE_CONTROL1_ID_MASK},
 	.State = {XAIE2GBL_MEM_TILE_MODULE_TRACE_STATUS_STATE_LSB, XAIE2GBL_MEM_TILE_MODULE_TRACE_STATUS_STATE_MASK},
 	.ModeSts = {XAIE2GBL_MEM_TILE_MODULE_TRACE_STATUS_MODE_LSB, XAIE2GBL_MEM_TILE_MODULE_TRACE_STATUS_MODE_MASK},
-	.Event = Aie2MemTraceEvent
+	.Event = Aie2MemTileTraceEvent
 };
 
 /*
