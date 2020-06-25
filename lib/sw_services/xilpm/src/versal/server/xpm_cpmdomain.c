@@ -11,6 +11,7 @@
 #include "xpm_power.h"
 #include "sleep.h"
 #include "xpm_device.h"
+#include "xpm_debug.h"
 
 #define XPM_HC_CPM_OPS			0U
 #define XPM_HC_CPM5_OPS			1U
@@ -27,6 +28,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
+	u16 DbgErr = 0;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -34,12 +36,14 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
 	/* Remove isolation to allow scan_clear on CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM_DFX_ISO;
 		goto done;
 	}
 
@@ -59,6 +63,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -68,6 +73,7 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 	XPm_CpmDomain *Cpm;
 	u32 i;
 	XPm_Device* Device = NULL;
+	u16 DbgErr = 0;
 
 	/* This function does not use any args */
 	(void)Args;
@@ -75,6 +81,7 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
@@ -83,12 +90,14 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 	/* lpd_cpm5_por_n reset maps to PM_RST_OCM2_POR */
 	Status = XPmReset_AssertbyId(PM_RST_OCM2_POR, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
 	}
 
 	/* Remove isolation between CPM5 and LPD */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM5_DFX_ISO;
 		goto done;
 	}
 
@@ -101,6 +110,7 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -122,6 +132,7 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u32 Platform;
+	u16 DbgErr = 0;
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
@@ -137,6 +148,7 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -153,12 +165,14 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 				 CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 		goto done;
 	}
 	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
 				 CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
 		goto done;
 	}
 
@@ -175,6 +189,7 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -182,6 +197,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XPM_ERR_SCAN_CLR;
 	XPm_CpmDomain *Cpm;
+	u16 DbgErr = 0;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -194,6 +210,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
@@ -212,6 +229,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 				 CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 		goto done;
 	}
 	/* Check if Scan Clear Passed */
@@ -219,6 +237,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 				 CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
 		goto done;
 	}
 
@@ -230,6 +249,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -237,6 +257,7 @@ done:
 static XStatus CpmBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -249,14 +270,19 @@ static XStatus CpmBisr(u32 *Args, u32 NumOfArgs)
 
 	/* Bisr */
 	Status = XPmBisr_Repair(CPM_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_REPAIR;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -270,16 +296,19 @@ static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 	/* Bisr on CPM5 PD*/
 	Status = XPmBisr_Repair(CPM5_TAG_ID);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CPM5_BISR_REPAIR;
 		goto done;
 	}
 
 	/* Bisr on GTYP_CPM5 */
 	Status = XPmBisr_Repair(CPM5_GTYP_TAG_ID);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CPM5_GTYP_BISR_REPAIR;
 		goto done;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -288,6 +317,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
+	u16 DbgErr = 0;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -300,6 +330,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -320,6 +351,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 				 CPM_SLCR_SECURE_OD_MBIST_DONE_OFFSET,
 				 0xFF, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -327,6 +359,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	PmIn32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_GO_OFFSET,
 	       RegValue);
 	if (0xFFU != (RegValue & 0xFFU)) {
+		DbgErr = XPM_INT_ERR_MBIST_GOOD;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -343,12 +376,14 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_WPROT0_OFFSET, 1);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
         return Status;
 }
 
 static XStatus Cpm5GtypMbist(u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET,
@@ -356,12 +391,14 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
 	GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto done;
 	}
 
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
 	GTY_PCSR_STATUS_MEM_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		goto done;
 	}
 
@@ -370,6 +407,7 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, 0);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -378,6 +416,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XPM_ERR_MBIST_CLR;
 	XPm_CpmDomain *Cpm;
 	u32 RegValue, i;
+	u16 DbgErr = 0;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -390,6 +429,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
@@ -410,6 +450,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 				 CPM5_SLCR_SECURE_OD_MBIST_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -418,6 +459,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 		RegValue);
 	if ((CPM5_SLCR_SECURE_OD_MBIST_PASSOUT_MASK & RegValue) !=
 		CPM5_SLCR_SECURE_OD_MBIST_PASSOUT_MASK) {
+		DbgErr = XPM_INT_ERR_MBIST_PASS;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -433,7 +475,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 		/* Mbist */
 		Status = Cpm5GtypMbist(GtyAddresses[i]);
 		if (Status != XST_SUCCESS) {
-			PmErr("ERROR: CPM5 GTYP Mem clear failed\n\r");
+			DbgErr = XPM_INT_ERR_MBIST;
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 			goto done;
 		}
@@ -442,6 +484,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -467,6 +510,7 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 			  u32 OtherBaseAddressesCnt)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 	struct XPm_PowerDomainOps *Ops = NULL;
 
 	if (Id == PM_POWER_CPM) {
@@ -474,12 +518,14 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 	} else if (Id == PM_POWER_CPM5) {
 		Ops = &CpmOps[XPM_HC_CPM5_OPS];
 	} else {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
 
 	Status = XPmPowerDomain_Init(&CpmDomain->Domain, Id, BaseAddress, Parent, Ops);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
 	}
 
@@ -491,9 +537,11 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		CpmDomain->CpmCrCpmBaseAddr = OtherBaseAddresses[3];
 		Status = XST_SUCCESS;
 	} else {
+		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
 		Status = XST_FAILURE;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
