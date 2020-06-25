@@ -12,6 +12,7 @@
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 #include "xpm_pmc.h"
+#include "xpm_debug.h"
 #include "xparameters.h"
 #include "sleep.h"
 
@@ -48,31 +49,38 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 static XStatus PldGtyMbist(u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto done;
 	}
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_MEM_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		goto done;
 	}
 	/* Unwrite trigger bits */
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, 0);
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 static void PldApplyTrim(u32 TrimType)
 {
         u32 TrimVal;
+	XStatus Status = XST_FAILURE;
         Xuint128 VggTrim={0};
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	u16 DbgErr = 0;
 
 	if (NULL == EfuseCache) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
@@ -89,6 +97,7 @@ static void PldApplyTrim(u32 TrimType)
                         PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_2_OFFSET,
 			       VggTrim.Word2);
                         XCframe_VggTrim(&CframeIns, &VggTrim);
+			Status = XST_SUCCESS;
                 }
                 break;
                 /* Read CRAM trim efuse registers */
@@ -105,6 +114,7 @@ static void PldApplyTrim(u32 TrimType)
 				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
 			}
                         XCframe_CramTrim(&CframeIns, TrimVal);
+			Status = XST_SUCCESS;
                 }
                 break;
                 /* Read BRAM trim efuse registers */
@@ -113,6 +123,7 @@ static void PldApplyTrim(u32 TrimType)
                         PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_BRAM_OFFSET,
 			       TrimVal);
                         XCframe_BramTrim(&CframeIns, TrimVal);
+			Status = XST_SUCCESS;
                 }
                 break;
                 /* Read URAM trim efuse registers */
@@ -121,17 +132,18 @@ static void PldApplyTrim(u32 TrimType)
                         PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_URAM_OFFSET,
 			       TrimVal);
                         XCframe_UramTrim(&CframeIns, TrimVal);
+			Status = XST_SUCCESS;
                 }
                 break;
                 default:
                 {
-			/* Added due to MISRA */
-			PmDbg("[%d] Default case in switch\r\n", __LINE__);
+			DbgErr = XPM_INT_ERR_INVALID_TRIM_TYPE;
+			Status = XST_FAILURE;
                         break;
                 }
         }
-
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return;
 }
 
@@ -155,8 +167,10 @@ static XStatus PldCfuInit(void)
 {
 	XStatus Status = XST_FAILURE;
 	XCfupmc_Config *Config;
+	u16 DbgErr = 0;
 
 	if (0U != CfupmcIns.IsReady) {
+		DbgErr = XPM_INT_ERR_CFU_NOT_READY;
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -167,12 +181,14 @@ static XStatus PldCfuInit(void)
 	 */
 	Config = XCfupmc_LookupConfig((u16)XPAR_XCFUPMC_0_DEVICE_ID);
 	if (NULL == Config) {
+		DbgErr = XPM_INT_ERR_DEVICE_LOOKUP;
                 Status = XST_FAILURE;
 		goto done;
 	}
 
 	Status = XCfupmc_CfgInitialize(&CfupmcIns, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
+		DbgErr = XPM_INT_ERR_CFG_INIT;
 		goto done;
 	}
 
@@ -181,16 +197,19 @@ static XStatus PldCfuInit(void)
 	 */
 	Status = XCfupmc_SelfTest(&CfupmcIns);
 	if (Status != XST_SUCCESS) {
+		DbgErr = XPM_INT_ERR_SELF_TEST;
 		goto done;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 static XStatus PldCframeInit(void)
 {
         XStatus Status = XST_FAILURE;
         XCframe_Config *Config;
+	u16 DbgErr = 0;
 
         if (0U != CframeIns.IsReady) {
                 Status = XST_SUCCESS;
@@ -203,12 +222,14 @@ static XStatus PldCframeInit(void)
          */
 	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
 	if (NULL == Config) {
+		DbgErr = XPM_INT_ERR_DEVICE_LOOKUP;
                 Status = XST_FAILURE;
                 goto done;
         }
 
         Status = XCframe_CfgInitialize(&CframeIns, Config, Config->BaseAddress);
         if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CFG_INIT;
                 goto done;
         }
 
@@ -217,10 +238,12 @@ static XStatus PldCframeInit(void)
          */
         Status = XCframe_SelfTest(&CframeIns);
         if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SELF_TEST;
                 goto done;
         }
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
         return Status;
 }
 
@@ -237,6 +260,7 @@ static XStatus GtyHouseClean(void)
 	u32 GtmSize = (u32)XPM_NODEIDX_DEV_GTM_0_4_MAX - (u32)XPM_NODEIDX_DEV_GTM_0_4_MIN + 1U;
 	u32 GtypSize = (u32)XPM_NODEIDX_DEV_GTYP_MAX - (u32)XPM_NODEIDX_DEV_GTYP_MIN + 1U;
 	u32 GtmSize2 = (u32)XPM_NODEIDX_DEV_GTM_5_9_MAX - (u32)XPM_NODEIDX_DEV_GTM_5_9_MIN + 1U;
+	u16 DbgErr = 0;
 
 	/* Store GTY Addresses */
 	for (i = 0; i < GtySize; i++) {
@@ -285,16 +309,19 @@ static XStatus GtyHouseClean(void)
 		 * */
 		Status = XPmBisr_Repair(GTY_TAG_ID);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_GTY_BISR_REPAIR;
 			goto done;
 		}
 
 		Status = XPmBisr_Repair(GTM_TAG_ID);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_GTM_BISR_REPAIR;
 			goto done;
 		}
 
 		Status = XPmBisr_Repair(GTYP_TAG_ID);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_GTYP_BISR_REPAIR;
 			goto done;
 		}
 
@@ -321,6 +348,7 @@ static XStatus GtyHouseClean(void)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -331,6 +359,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 	u32 Value;
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
+	u16 DbgErr = 0;
 
 
 	if (PLHCLEAN_EARLY_BOOT == TriggerTime) {
@@ -345,18 +374,22 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		/* HB BISR REPAIR */
 		Status = XPmBisr_Repair(DCMAC_TAG_ID);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DCMAC_BISR_REPAIR;
 			goto done;
 		}
 		Status = XPmBisr_Repair(ILKN_TAG_ID);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_ILKN_BISR_REPAIR;
 			goto done;
 		}
 		Status = XPmBisr_Repair(MRMAC_TAG_ID);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MRMAC_BISR_REPAIR;
 			goto done;
 		}
 		Status = XPmBisr_Repair(SDFEC_TAG_ID);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SDFEC_BISR_REPAIR;
 			goto done;
 		}
 
@@ -367,12 +400,14 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		/* BRAM/URAM repair */
 		Status = XPmBisr_Repair(BRAM_TAG_ID);
 		if (XST_SUCCESS != Status) {
-					goto done;
-			}
+			DbgErr = XPM_INT_ERR_BRAM_BISR_REPAIR;
+			goto done;
+		}
 		Status = XPmBisr_Repair(URAM_TAG_ID);
 		if (XST_SUCCESS != Status) {
-					goto done;
-			}
+			DbgErr = XPM_INT_ERR_URAM_BISR_REPAIR;
+			goto done;
+		}
 
 		/* HCLEAN type 0,1,2 */
 		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
@@ -381,6 +416,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 
 		Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 		if (NULL == Pld) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 			goto done;
 		}
 
@@ -434,6 +470,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 			if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 				Status = XST_SUCCESS;
 			} else {
+				DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 				goto done;
 			}
 		}
@@ -449,6 +486,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 			if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 				Status = XST_SUCCESS;
 			} else {
+				DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
 				goto done;
 			}
 		}
@@ -463,6 +501,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 	(void)Value;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -472,6 +511,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	XPm_PlDomain *Pld;
 	u32 PlPowerUpTime=0;
 	u32 Platform = XPm_GetPlatform();
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -489,6 +529,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 			if (PlPowerUpTime > XPM_POLL_TIMEOUT)
 			{
 				XPlmi_Printf(DEBUG_GENERAL, "ERROR: PL Power Up TimeOut\n\r");
+				DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 				Status = XST_FAILURE;
 				/* TODO: Request PMC to power up all required rails and wait for the acknowledgement.*/
 				goto done;
@@ -498,11 +539,13 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		usleep(250);
 		Status = XPmPlDomain_InitandHouseclean();
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DOMAIN_INIT_AND_HC;
 			goto done;
 		}
 	}
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -510,11 +553,13 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	/* Remove PL-SOC isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
 		goto done;
 	}
 	 /* Remove PMC-SOC isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_NPI_ISO;
 		goto done;
 	}
 
@@ -524,12 +569,14 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	if(0U == PlpdHouseCleanBypass) {
 		Status = PlHouseClean(PLHCLEAN_INIT_NODE);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PL_HC;
 			goto done;
 		}
 	}
 
 	Status = PldCfuInit();
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CFU_INIT;
 		goto done;
 	}
 
@@ -537,12 +584,14 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		/*House clean GTY*/
 		Status = GtyHouseClean();
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_GTY_HC;
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s : GTY HC failed", __func__);
 		}
 	}
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -561,6 +610,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		/* Remove vccaux-vccram domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
 			goto done;
 		}
 	}
@@ -570,6 +620,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		/* Remove vccaux-vccram domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
 			goto done;
 		}
 	}
@@ -580,6 +631,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	PldCfuLock(Pld, 1U);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -599,6 +651,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	u32 Platform;
 	u32 PlatformVersion;
 	XPm_Pmc *Pmc;
+	u16 DbgErr = 0;
 	u32 VoltageRailMask = (PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
 			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
@@ -612,6 +665,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	/* Proceed only if vccint, vccaux, vccint_ram is 1 */
 	Status = XPmPower_CheckPower(VoltageRailMask);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;
 	}
 
@@ -623,6 +677,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -647,6 +702,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		/* Toggle PL POR */
 		Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_PULSE);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PL_POR;
 			goto done;
 		}
 
@@ -677,29 +733,34 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
 				 XPM_POLL_TIMEOUT);
 	if(XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_STATUS_TIMEOUT;
 		goto done;
 	}
 
 	/* Remove SRST for PL */
 	Status = XPmReset_AssertbyId(PM_RST_PL_SRST, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SRST;
 		goto done;
 	}
 
 	Status = PldCframeInit();
 	if (XST_SUCCESS != Status) {
-			goto done;
+		DbgErr = XPM_INT_ERR_CFRAME_INIT;
+		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME,
 					  FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
 		goto done;
 	}
 
 	if(0U == PlpdHouseCleanBypass) {
 		Status = PlHouseClean(PLHCLEAN_EARLY_BOOT);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PL_HC;
 			goto done;
 		}
 	}
@@ -708,6 +769,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	HcleanDone = 1;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -723,6 +785,7 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
+	u16 DbgErr = 0;
 
 	PmDbg("State=%d, Event=%d\n\r", Node->State, Event);
 
@@ -737,6 +800,7 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 				Power->UseCount--;
 				Node->State = (u8)XPM_POWER_STATE_OFF;
 			} else {
+				DbgErr = XPM_INT_ERR_PWR_STATE_ON_EVENT;
 				Status = XST_FAILURE;
 			}
 			break;
@@ -749,15 +813,16 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 				Status = XST_SUCCESS;
 				Power->UseCount--;
 			} else {
+				DbgErr = XPM_INT_ERR_PWR_STATE_OFF_EVENT;
 				Status = XST_FAILURE;
 			}
 			break;
 		default:
-			PmWarn("Wrong state %d for event %d\n",
-			       Node->State, Event);
+			DbgErr = XPM_INT_ERR_INVALID_STATE;
 			break;
 	}
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -766,9 +831,11 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 u32 OtherBaseAddressCnt)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
 	}
 
@@ -784,9 +851,11 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 		PlDomain->Cframe0RegBaseAddr = OtherBaseAddresses[1];
 		Status = XST_SUCCESS;
 	} else {
+		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
 		Status = XST_FAILURE;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
