@@ -23,6 +23,12 @@ extern "C" {
 #define XPM_INT_ERR_PWR_STATE_OFF_EVENT		0x3002U
 /* Invalid state */
 #define XPM_INT_ERR_INVALID_STATE		0x3003U
+/* Error during domain isolation enable/disable */
+#define XPM_INT_ERR_DOMAIN_ISO			0x3004U
+/* Invalid power state */
+#define XPM_INT_ERR_INVALID_PWR_STATE		0x3005U
+/* Invalid function ID */
+#define XPM_INT_ERR_INVALID_FUNC		0x3006U
 
 /*********************** Generic House Cleaning Errors ***********************/
 /*************************** (0x3100) - (0x31FF) *****************************/
@@ -86,6 +92,28 @@ extern "C" {
 #define XPM_INT_ERR_BIST_RESET_RELEASE		0x311BU
 /* MEM clear trigger is unset*/
 #define XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET	0x311CU
+/* Error during init start function */
+#define XPM_INT_ERR_FUNC_INIT_START		0x311DU
+/* Error during init finish function */
+#define XPM_INT_ERR_FUNC_INIT_FINISH		0x311EU
+/* Error during init scan clear function */
+#define XPM_INT_ERR_FUNC_SCAN_CLEAR		0x311FU
+/* Error during init BISR function */
+#define XPM_INT_ERR_FUNC_BISR			0x3120U
+/* Error during init LBIST function */
+#define XPM_INT_ERR_FUNC_LBIST			0x3121U
+/* Error during init MEM init function */
+#define XPM_INT_ERR_FUNC_MEM_INIT		0x3122U
+/* Error during init MBIST clear function */
+#define XPM_INT_ERR_FUNC_MBIST_CLEAR		0x3123U
+/* Error during init house clean function */
+#define XPM_INT_ERR_FUNC_HOUSECLEAN_PL		0x3124U
+/* Error during init house clean complete function */
+#define XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE	0x3125U
+/* Error during init XPPU control function */
+#define XPM_INT_ERR_FUNC_XPPU_CTRL		0x3126U
+/* Error during init XMPU control function */
+#define XPM_INT_ERR_FUNC_XMPU_CTRL		0x3127U
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
@@ -103,6 +131,12 @@ extern "C" {
 #define XPM_INT_ERR_XRAM_BISR_REPAIR		0x3205U
 /* Error during XRAM MBIST */
 #define XPM_INT_ERR_XRAM_MBIST			0x3206U
+/* Error during LPD-PL test Isolation enable/disable */
+#define XPM_INT_ERR_LPD_PL_TEST_ISO		0x3207U
+/* Error during LPD-PL Isolation enable/disable */
+#define XPM_INT_ERR_LPD_PL_ISO			0x3208U
+/* Error during LPD-CPM Isolation enable/disable */
+#define XPM_INT_ERR_LPD_CPM_ISO			0x3209U
 
 /************************* Device specific Errors ****************************/
 /************************** (0x3300) - (0x33FF) ******************************/
@@ -112,6 +146,10 @@ extern "C" {
 #define XPM_INT_ERR_DEVICE_LOOKUP		0x3301U
 /* Error during configuration initialization */
 #define XPM_INT_ERR_CFG_INIT			0x3302U
+/* Error during request PL device */
+#define XPM_INT_ERR_REQ_PL_DEVICE		0x3303U
+/* Error during request ME device */
+#define XPM_INT_ERR_REQ_ME_DEVICE		0x3304U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
@@ -132,6 +170,10 @@ extern "C" {
 #define XPM_INT_ERR_FPD_SOC_ISO			0x3501U
 /* Error during SRST FPD reset release/assert */
 #define XPM_INT_ERR_SRST_FPD			0x3502U
+/* Error during FPD-PL Isolation disable/enable */
+#define XPM_INT_ERR_FPD_PL_ISO			0x3503U
+/* Error during FPD-PL test Isolation disable/enable */
+#define XPM_INT_ERR_FPD_PL_TEST_ISO		0x3504U
 
 /************************* Miscellaneous Errors ******************************/
 /************************** (0x3600) - (0x36FF) ******************************/
@@ -143,6 +185,12 @@ extern "C" {
 #define XPM_INT_ERR_PSMFW_NOT_PRESENT		0x3602U
 /* Invalid parameter passed to function */
 #define XPM_INT_ERR_INVALID_PARAM		0x3603U
+/* Invalid address */
+#define XPM_INT_ERR_INVALID_ADDR		0x3604U
+/* Error during reload image */
+#define XPM_INT_ERR_RELOAD_IMAGE		0x3605U
+/* Invalid processor */
+#define XPM_INT_ERR_INVALID_PROC		0x3606U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
@@ -221,6 +269,14 @@ extern "C" {
 #define XPM_INT_ERR_CPM5_BISR_REPAIR		0x4002U
 /* Error during CPM5 GTYP BISR repair */
 #define XPM_INT_ERR_CPM5_GTYP_BISR_REPAIR	0x4003U
+/* Error during PL-CPM-PCIEA0 Isolation enable/disable */
+#define XPM_INT_ERR_PL_CPM_PCIEA0_ISO		0x4004U
+/* Error during PL-CPM-PCIEA1 Isolation enable/disable */
+#define XPM_INT_ERR_PL_CPM_PCIEA1_ISO		0x4005U
+/* Error during PL_CPM_RST_CPI0 Isolation enable/disable */
+#define XPM_INT_ERR_PL_CPM_RST_CPI0_ISO		0x4006U
+/* Error during PL_CPM_RST_CPI1 Isolation enable/disable */
+#define XPM_INT_ERR_PL_CPM_RST_CPI1_ISO		0x4007U
 
 /************************** AIE specific Errors ******************************/
 /************************** (0x4100) - (0x41FF) ******************************/
@@ -246,6 +302,15 @@ extern "C" {
 #define XPM_INT_ERR_ARRAY_RESET			0x4109U
 /* Error during ARRAY reset release */
 #define XPM_INT_ERR_ARRAY_RESET_RELEASE		0x410AU
+
+/************************** PMC specific Errors ******************************/
+/************************** (0x4200) - (0x42FF) ******************************/
+/* Error during PMC-PL Isolation enable/disable */
+#define XPM_INT_ERR_PMC_PL_ISO			0x4200U
+/* Error during PMC-PL test Isolation enable/disable */
+#define XPM_INT_ERR_PMC_PL_TEST_ISO		0x4201U
+/* Error during VCCAUX Isolation enable/disable */
+#define XPM_INT_ERR_VCCAUX_ISO			0x4202U
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
