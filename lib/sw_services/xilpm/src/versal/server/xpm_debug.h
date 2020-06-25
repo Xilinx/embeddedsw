@@ -312,6 +312,23 @@ extern "C" {
 /* Error during VCCAUX Isolation enable/disable */
 #define XPM_INT_ERR_VCCAUX_ISO			0x4202U
 
+/************************** BISR specific errors *****************************/
+/************************** (0x4300) - (0x43FF) ******************************/
+/* BISR unsupported ID */
+#define XPM_INT_ERR_BISR_UNSUPPORTED_ID		0x4300U
+/* BISR done timeout */
+#define XPM_INT_ERR_BISR_DONE_TIMEOUT		0x4301U
+/* BISR PASS error */
+#define XPM_INT_ERR_BISR_PASS			0x4302U
+/* BISR trigger timeout */
+#define XPM_INT_ERR_BISR_TRIGGER		0x4303U
+/* Invalid BISR ID */
+#define XPM_INT_ERR_BISR_INVALID_ID		0x4304U
+/* Bad tag type */
+#define XPM_INT_ERR_BAD_TAG_TYPE		0x4305U
+/* Unknown tag ID */
+#define XPM_INT_ERR_BISR_UNKN_TAG_ID		0x4306U
+
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
 		if (XST_SUCCESS != Status) {		\
