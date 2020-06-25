@@ -12,22 +12,26 @@
 #include "xpm_prot.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
+#include "xpm_debug.h"
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Check vccint_pslp first to make sure power is on */
 	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK)) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;
 	}
 
 	/* Remove PS_PMC domains isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_LPD_DFX_ISO;
 		goto done;
 	}
 
@@ -35,7 +39,11 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	 * Release POR for PS-LPD
 	 */
 	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_POR;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -44,22 +52,26 @@ static XStatus LpdPreBisrReqs(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *XramDevice = NULL;
 	XPm_ResetNode *XramRst = NULL;
+	u16 DbgErr = 0;
 
 	/* Remove PMC LPD isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_LPD_ISO;
 		goto done;
 	}
 
 	/* Release reset for PS SRST */
 	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_SRST;
 		goto done;
 	}
 
 	/* Release OCM2 (XRAM) SRST if XRAM exists */
 	XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	if (NULL == XramDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
@@ -68,18 +80,24 @@ static XStatus LpdPreBisrReqs(void)
 	/* else XRAM_SRST = PL_SRST */
 	XramRst = XPmReset_GetById(PM_RST_XRAM);
 	if (NULL == XramRst) {
+		DbgErr = XPM_INT_ERR_INVALID_RST;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	if (XramRst->Ops->GetState(XramRst) == 0x0U) {
 		Status = XPmReset_AssertbyId(PM_RST_OCM2_RST, (u32)PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_RELEASE;
+		}
 	} else {
 		/* We shouldn't reach here. PL SRST is source for XRAM SRST */
+		DbgErr = XPM_INT_ERR_RST_STATE;
 		Status = XPM_ERR_RESET;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -98,6 +116,7 @@ static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -105,18 +124,24 @@ static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 	/* In case bisr and mbist are skipped */
 	Status = LpdPreBisrReqs();
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PRE_BISR_REQ;
 		goto done;
 	}
 
 	/* Remove LPD SoC isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_SOC_ISO;
 		goto done;
 	}
 
 	/* Copy sysmon data */
 	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AMS_TRIM;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -130,6 +155,7 @@ done:
 static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -153,6 +179,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 		goto done;
 	}
 
@@ -162,6 +189,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
                 goto done;
         }
 
@@ -175,7 +203,11 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	 * Pulse PS POR
 	 */
 	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_POR;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -191,6 +223,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegVal;
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -201,6 +234,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	if (NULL == EfuseCache) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -239,6 +273,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 				 XPM_POLL_TIMEOUT);
 
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LBIST_DONE_TIMEOUT;
                 goto done;
         }
 	/* Unwrite trigger bits */
@@ -250,7 +285,11 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	 * Pulse PS POR
 	 */
 	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_POR;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -266,8 +305,10 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	u16 DbgErr;
 
 	if (NULL == LpDomain) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -277,23 +318,31 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 	/* Pre bisr requirements */
 	Status = LpdPreBisrReqs();
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PRE_BISR_REQ;
 		goto done;
 	}
 
 	Status = XPmBisr_Repair(LPD_TAG_ID);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_REPAIR;
 		goto done;
 	}
 
 	if (NULL == XramDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
 	Status = XPmBisr_Repair(XRAM_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_XRAM_BISR_REPAIR;
+	}
 
 done:
 	if (XST_SUCCESS == Status) {
 		LpDomain->LpdBisrFlags |= LPD_BISR_DONE;
+	} else {
+		PmErr("0x%x\r\n", DbgErr);
 	}
 
 	return Status;
@@ -314,6 +363,7 @@ static XStatus XramMbist(void)
 	/* Using Unison Mode */
 
 	XStatus Status = XPM_ERR_MBIST_CLR;
+	u16 DbgErr = 0;
 	XPm_Device *Device = NULL;
 	u32 BaseAddr, RegValue;
 
@@ -338,6 +388,7 @@ static XStatus XramMbist(void)
 			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_0_MASK |
 			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_3_TO_1_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -348,6 +399,7 @@ static XStatus XramMbist(void)
 		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK)) !=
 		((XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_0_MASK |
 		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK))) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -362,6 +414,7 @@ static XStatus XramMbist(void)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -375,6 +428,7 @@ done:
 static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -389,6 +443,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	/* Pre bisr requirements - In case if Bisr is skipped */
 	Status = LpdPreBisrReqs();
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PRE_BISR_REQ;
 		goto done;
 	}
 
@@ -425,6 +480,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_OD_MBIST_DONE_LPD_MASK),
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -433,6 +489,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	if ((PMC_ANALOG_OD_MBIST_GOOD_LPD_IOU_MASK |
 	     PMC_ANALOG_OD_MBIST_GOOD_LPD_RPU_MASK |
 	     PMC_ANALOG_OD_MBIST_GOOD_LPD_MASK) != RegValue) {
+		DbgErr = XPM_INT_ERR_MBIST_GOOD;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -455,8 +512,12 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 
 
 	Status = XramMbist();
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_XRAM_MBIST;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -502,9 +563,11 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   u32 OtherBaseAddressesCnt)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	Status = XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
 	}
 
@@ -517,9 +580,11 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 		PsLpd->LpdSlcrSecureBaseAddr = OtherBaseAddresses[2];
 		Status = XST_SUCCESS;
 	} else {
+		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
 		Status = XST_FAILURE;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
