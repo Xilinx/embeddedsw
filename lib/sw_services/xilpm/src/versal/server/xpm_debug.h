@@ -66,6 +66,26 @@ extern "C" {
 #define XPM_INT_ERR_MBIST_PASS			0x3111U
 /* Error during MBIST */
 #define XPM_INT_ERR_MBIST			0x3112U
+/* Error during scan clear trigger */
+#define XPM_INT_ERR_SCAN_CLEAR_TRIGGER		0x3113U
+/* Scan clear pass timeout */
+#define XPM_INT_ERR_SCAN_CLEAR_PASS		0x3114U
+/* Scan clear trigger is unset */
+#define XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET	0x3115U
+/* Error during MEM clear enable */
+#define XPM_INT_ERR_MEM_CLEAR_EN		0x3116U
+/* Error during MBIST reset */
+#define XPM_INT_ERR_MBIST_RESET			0x3117U
+/* Error during BIST reset */
+#define XPM_INT_ERR_BIST_RESET			0x3118U
+/* Error during MEM clear trigger */
+#define XPM_INT_ERR_MEM_CLEAR_TRIGGER		0x3119U
+/* Error during MBIST reset release */
+#define XPM_INT_ERR_MBIST_RESET_RELEASE		0x311AU
+/* Error during BIST reset release */
+#define XPM_INT_ERR_BIST_RESET_RELEASE		0x311BU
+/* MEM clear trigger is unset*/
+#define XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET	0x311CU
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
@@ -201,6 +221,31 @@ extern "C" {
 #define XPM_INT_ERR_CPM5_BISR_REPAIR		0x4002U
 /* Error during CPM5 GTYP BISR repair */
 #define XPM_INT_ERR_CPM5_GTYP_BISR_REPAIR	0x4003U
+
+/************************** AIE specific Errors ******************************/
+/************************** (0x4100) - (0x41FF) ******************************/
+/* Timeout during AIE core status check */
+#define XPM_INT_ERR_AIE_CORE_STATUS_TIMEOUT	0x4100U
+/* Error during program core */
+#define XPM_INT_ERR_PRGRM_CORE			0x4101U
+/* AIE program complete error */
+#define XPM_INT_ERR_AIE_PCOMPLETE		0x4102U
+/* Error during ODISABLE_0 release */
+#define XPM_INT_ERR_ODISABLE_0_RELEASE		0x4103U
+/* Error during ODISABLE_1 release */
+#define XPM_INT_ERR_ODISABLE_1_RELEASE		0x4104U
+/* Gate register is unset */
+#define XPM_INT_ERR_GATEREG_UNSET		0x4105U
+/* Error during MEA BISR repair */
+#define XPM_INT_ERR_MEA_BISR_REPAIR		0x4106U
+/* Error during MEB BISR repair */
+#define XPM_INT_ERR_MEB_BISR_REPAIR		0x4107U
+/* Error during MEC BISR repair */
+#define XPM_INT_ERR_MEC_BISR_REPAIR		0x4108U
+/* Error in ARRAY reset */
+#define XPM_INT_ERR_ARRAY_RESET			0x4109U
+/* Error during ARRAY reset release */
+#define XPM_INT_ERR_ARRAY_RESET_RELEASE		0x410AU
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
