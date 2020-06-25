@@ -39,6 +39,8 @@
 *                     and Replaced Magic Numbers with Macros
 * 4.3   har  06/17/20 Renamed ErrorCode as Status in XSecure_RsaPublicEncrypt
 *                     and initialized with XST_FAILURE
+* 4.3   har  06/17/20 Removed references to unused algorithms
+*
 * </pre>
 *
 * @note
@@ -122,7 +124,6 @@ END:
  *		calculated on the data to be authenticated.
  * @param	HashLen		Length of Hash used.
  *		- For SHA3 it should be 48 bytes
- *		- For SHA2 it should be 32 bytes
  *
  * @return
  *		- XST_SUCCESS if decryption was successful.

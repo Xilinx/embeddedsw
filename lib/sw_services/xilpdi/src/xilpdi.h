@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
+* 2.0   har  06/17/2020 Removed references to unused algorithms
 *
 * </pre>
 *
@@ -49,7 +50,6 @@ extern "C" {
 #define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT	(14U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_VALUE	(0x3U)
-#define XIH_BH_IMG_ATTRB_SHA2_MASK	(0x3000U)
 
 /* Boot Header PMC FW Rsvd Fields */
 #define XIH_BH_MH_START_OFST		(0xC4U)
@@ -173,7 +173,6 @@ extern "C" {
 #define XIH_PH_ATTRB_RSA_SIGNATURE				(0x8000U)
 #define XIH_PH_ATTRB_NOCHECKSUM					(0x0000U)
 #define XIH_PH_ATTRB_CHECKSUM_MD5				(0x1000U)
-#define XIH_PH_ATTRB_HASH_SHA2					(0x2000U)
 #define XIH_PH_ATTRB_HASH_SHA3					(0x3000U)
 
 #define XIH_PH_ATTRB_DSTN_CPU_NONE				(0x0000U)
