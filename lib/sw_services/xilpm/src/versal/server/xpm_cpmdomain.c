@@ -138,10 +138,12 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	/* Scan clear should be skipped for ES1 platforms */
+	/* TODO: Skip scan clear for ES2 platform also as it has some issues */
 	Platform = XPm_GetPlatform();
 	if ((PLATFORM_VERSION_SILICON != Platform) ||
 	    (PLATFORM_VERSION_SILICON == Platform &&
-	     PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
+	     (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion() ||
+	      PLATFORM_VERSION_SILICON_ES2 == XPm_GetPlatformVersion()))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}

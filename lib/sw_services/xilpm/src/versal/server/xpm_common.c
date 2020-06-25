@@ -182,9 +182,15 @@ u32 XPm_GetPlatform(void)
 u32 XPm_GetPlatformVersion(void)
 {
 	if (PlatformVersion == NOT_INITIALIZED) {
-		PlatformVersion = (XPm_In32(PMC_TAP_VERSION) &
-				   PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-				   PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT;
+		if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
+			PlatformVersion = (XPm_In32(PMC_TAP_IDCODE) &
+				PMC_TAP_IDCODE_SI_REV_MASK) >>
+				PMC_TAP_IDCODE_SI_REV_SHIFT;
+		} else {
+			PlatformVersion = (XPm_In32(PMC_TAP_VERSION) &
+				PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
+				PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT;
+		}
 	}
 
 	return PlatformVersion;

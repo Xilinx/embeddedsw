@@ -579,6 +579,8 @@ extern "C" {
  * Definitions required from pmc_tap.h
  */
 #define PMC_TAP_IDCODE						( ( PMC_TAP_BASEADDR ) + 0x00000000U )
+#define PMC_TAP_IDCODE_SI_REV_MASK				(0xF0000000U)
+#define PMC_TAP_IDCODE_SI_REV_SHIFT				(28U)
 #define PMC_TAP_VERSION						( ( PMC_TAP_BASEADDR ) + 0x00000004U )
 #define PMC_TAP_VERSION_PLATFORM_SHIFT				(24U)
 #define PMC_TAP_VERSION_PLATFORM_MASK				(0x0F000000U)
