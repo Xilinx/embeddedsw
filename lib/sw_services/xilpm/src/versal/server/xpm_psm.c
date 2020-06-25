@@ -228,7 +228,7 @@ u32 XPmPsm_FwIsPresent(void)
 		goto done;
 	}
 
-	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg)
+	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg);
 	if (PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ==
 		(Reg & PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)) {
 		Reg = 1U;

@@ -54,29 +54,32 @@ extern "C" {
 
 #ifdef DEBUG_REG_IO
 
-#define PmIn32(ADDR, VAL) \
-	(VAL) = XPm_In32(ADDR); \
-	PmInfo("Read from 0x%08X: 0x%08X\n\r", ADDR, VAL); \
+#define PmIn32(ADDR, VAL)					\
+	do {							\
+		(VAL) = XPm_In32(ADDR);				\
+		PmInfo("RD: 0x%08X -> 0x%08X\r\n", ADDR, VAL);	\
+	} while (0)
 
-#define PmOut32(ADDR, VAL) \
-	PmInfo("Write to 0x%08X: 0x%08X\n\r", ADDR, VAL); \
-	XPm_Out32(ADDR, VAL);
+#define PmOut32(ADDR, VAL)					\
+	do {							\
+		PmInfo("WR: 0x%08X <- 0x%08X\r\n", ADDR, VAL);	\
+		XPm_Out32(ADDR, VAL);				\
+	} while (0)
 
-#define PmRmw32(ADDR, MASK, VAL) \
-	XPm_RMW32(ADDR, MASK, VAL); \
-	PmInfo("RMW: Addr=0x%08X, Mask=0x%08X, Val=0x%08X, Reg=0x%08X\n\r", \
-		ADDR, MASK, VAL, XPm_In32(ADDR));
+#define PmRmw32(ADDR, MASK, VAL)				\
+	do {							\
+		XPm_RMW32(ADDR, MASK, VAL);			\
+		PmInfo("RMW: Addr=0x%08X, Mask=0x%08X, Val=0x%08X, Reg=0x%08X\r\n", \
+			ADDR, MASK, VAL, XPm_In32(ADDR));	\
+	} while (0)
 
 #else
 
-#define PmIn32(ADDR, VAL) \
-	(VAL) = XPm_In32(ADDR);
+#define PmIn32(ADDR, VAL)		((VAL) = XPm_In32(ADDR))
 
-#define PmOut32(ADDR, VAL) \
-	XPm_Out32(ADDR, VAL);
+#define PmOut32(ADDR, VAL)		XPm_Out32(ADDR, VAL)
 
-#define PmRmw32(ADDR, MASK, VAL) \
-	XPm_RMW32(ADDR, MASK, VAL);
+#define PmRmw32(ADDR, MASK, VAL)	XPm_RMW32(ADDR, MASK, VAL)
 
 #endif
 

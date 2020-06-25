@@ -366,7 +366,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	/* Unwrite trigger bits */
         for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
                 PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-                        NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK)
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
                 PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
         }
         for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
