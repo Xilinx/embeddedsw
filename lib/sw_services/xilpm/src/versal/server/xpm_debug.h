@@ -191,6 +191,14 @@ extern "C" {
 #define XPM_INT_ERR_RELOAD_IMAGE		0x3605U
 /* Invalid processor */
 #define XPM_INT_ERR_INVALID_PROC		0x3606U
+/* Invalid NODE ID */
+#define XPM_INT_ERR_INVALID_NODE		0x3607U
+/* Invalid NODE index */
+#define XPM_INT_ERR_INVALID_NODE_IDX		0x3608U
+/* Invalid arguments */
+#define XPM_INT_ERR_INVALID_ARGS		0x3609U
+/* No feature supported */
+#define XPM_INT_ERR_NO_FEATURE			0x360AU
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
@@ -328,6 +336,27 @@ extern "C" {
 #define XPM_INT_ERR_BAD_TAG_TYPE		0x4305U
 /* Unknown tag ID */
 #define XPM_INT_ERR_BISR_UNKN_TAG_ID		0x4306U
+
+/*********************** Protection specific Errors **************************/
+/************************** (0x4400) - (0x44FF) ******************************/
+/* Error during protection init */
+#define XPM_INT_ERR_PROT_INIT			0x4400U
+/* Invalid region */
+#define XPM_INT_ERR_INVALID_REGION		0x4401U
+/* Error during setup region */
+#define XPM_INT_ERR_SETUP_REGION		0x4402U
+/* Error during XPPU configuration */
+#define XPM_INT_ERR_XPPU_CONFIG			0x4403U
+/* Error during XMPU configuration */
+#define XPM_INT_ERR_XMPU_CONFIG			0x4404U
+/* Error during XPPU Enable*/
+#define XPM_INT_ERR_XPPU_EN			0x4405U
+/* Error during XPPU disable */
+#define XPM_INT_ERR_XPPU_DISABLE		0x4406U
+/* Error during XMPU enable */
+#define XPM_INT_ERR_XMPU_EN			0x4407U
+/* Error during XMPU disable */
+#define XPM_INT_ERR_XMPU_DISABLE		0x4408U
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\

@@ -14,6 +14,7 @@
 #include "xpm_prot.h"
 #include "xpm_apucore.h"
 #include "xpm_rpucore.h"
+#include "xpm_debug.h"
 
 /**
  * Protection nodes (XPPUs + XMPUs)
@@ -130,8 +131,10 @@ static XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeIndex = NODEINDEX(Id);
+	u16 DbgErr = 0;
 
 	if ((u32)XPM_NODEIDX_PROT_MAX <= NodeIndex) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
 		goto done;
 	}
 
@@ -141,6 +144,7 @@ static XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -158,9 +162,11 @@ done:
 XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr;
 
 	Status = XPmProt_Init((XPm_Prot *)PpuNode, Id, BaseAddr);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PROT_INIT;
 		goto done;
 	}
 
@@ -187,6 +193,7 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 	PpuNode->Aperture_512m.EndAddress = 0;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -204,9 +211,11 @@ done:
 XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	Status = XPmProt_Init((XPm_Prot *)MpuNode, Id, BaseAddr);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PROT_INIT;
 		goto done;
 	}
 
@@ -214,6 +223,7 @@ XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr)
 	MpuNode->AlignCfg = 0;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -346,8 +356,10 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	u32 i = 0;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 Address, BaseAddr, RegVal, Platform, PlatformVersion;
+	u16 DbgErr = 0;
 
 	if (PpuNode == NULL) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
 		goto done;
 	}
 
@@ -450,6 +462,7 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -468,8 +481,10 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 	u32 Address, idx;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 PpuBase = PpuNode->ProtNode.Node.BaseAddress;
+	u16 DbgErr = 0;
 
 	if (PpuNode == NULL) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -493,6 +508,7 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -767,10 +783,12 @@ static XStatus XPmProt_XmpuEnable(u32 NodeId)
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddr;
 	u32 RegVal;
+	u16 DbgErr = 0;
 	XPm_ProtMpu *MpuNode = NULL;
 
 	MpuNode = (XPm_ProtMpu *)XPmProt_GetById(NodeId);
 	if (NULL == MpuNode) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
 		goto done;
 	}
 
@@ -801,6 +819,7 @@ static XStatus XPmProt_XmpuEnable(u32 NodeId)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -819,9 +838,11 @@ static XStatus XPmProt_XmpuDisable(u32 NodeId)
 	u32 BaseAddr, Region;
 	u32 RegnCfgAddr = 0;
 	XPm_ProtMpu *MpuNode = NULL;
+	u16 DbgErr = 0;
 
 	MpuNode = (XPm_ProtMpu *)XPmProt_GetById(NodeId);
 	if (NULL == MpuNode) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
 		goto done;
 	}
 
@@ -846,6 +867,7 @@ static XStatus XPmProt_XmpuDisable(u32 NodeId)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -869,9 +891,11 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 {
 	u32 Status = XST_FAILURE;
 	u32 CfgToWr, RegnCfgAddr;
+	u16 DbgErr = 0;
 	u8 Usage, Security, RdAllowed, WrAllowed, NSRegnCheck;
 
 	if (MAX_MEM_REGIONS <= RegionId) {
+		DbgErr = XPM_INT_ERR_INVALID_REGION;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -908,6 +932,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 		 *   - REQ_TIME_SHARED
 		 *   - REQ_NO_RESTRICTION
 		 */
+		DbgErr = XPM_INT_ERR_NO_FEATURE;
 		Status = XST_NO_FEATURE;
 		goto done;
 	} else {
@@ -924,6 +949,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -948,10 +974,12 @@ static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
 	u32 RegnEndLo, RegnEndHi, RegnEndLoVal, RegnEndHiVal;
 	XPm_ProtMpu *MpuNode = NULL;
 	XPm_MemDevice *MemDevice = NULL;
+	u16 DbgErr = 0;
 
 	u8 XmpuIdx;
 
 	if ((NULL == Reqm) || (NULL == Reqm->Device)) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XPM_ERR_DEVICE;
 		goto done;
 	}
@@ -973,6 +1001,7 @@ static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
 
 	MpuNode = (XPm_ProtMpu *)XPmProt_GetByIndex(XmpuIdx);
 	if (NULL == MpuNode) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
 		goto done;
 	}
 
@@ -1017,6 +1046,7 @@ static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
 			/* Configure and enable/disable the region based on requirements */
 			Status = XPmProt_XmpuSetupRegion(Reqm, MpuNode, Region, Enable);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_SETUP_REGION;
 				goto done;
 			}
 		}
@@ -1029,10 +1059,7 @@ static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
 	Status = XST_SUCCESS;
 
 done:
-	if (XST_SUCCESS != Status) {
-		PmErr("Returned: %x\r\n", Status);
-	}
-
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1059,8 +1086,10 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId = 0;
 	u32 DevSubcl = 0;
+	u16 DbgErr = 0;
 
 	if ((NULL == Reqm) || (NULL == Reqm->Device)) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 	DeviceId = Reqm->Device->Node.Id;
@@ -1079,17 +1108,24 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 		 * Current support is only for OCM and DDR memory regions.
 		 */
 		Status = XPmProt_XmpuConfigure(Reqm, Enable);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XMPU_CONFIG;
+		}
 	/* Configure XPPU for peripheral devices */
 	} else if (((u32)XPM_NODESUBCL_DEV_CORE == DevSubcl)
 		|| ((u32)XPM_NODESUBCL_DEV_MEM == DevSubcl)
 		|| ((u32)XPM_NODESUBCL_DEV_PERIPH == DevSubcl)) {
 		Status = XPmProt_XppuConfigure(Reqm, Enable);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XPPU_CONFIG;
+		}
 	} else {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1114,8 +1150,10 @@ XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 XppuNodeId, Enable;
+	u16 DbgErr = 0;
 
 	if ((NULL == Args) || (NumOfArgs < 2U)) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1125,17 +1163,25 @@ XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs)
 
 	if (((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId))
 	||  ((u32)XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId))) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	if ((1U == Enable) && (3U == NumOfArgs)) {
 		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XPPU_EN;
+		}
 	} else {
 		Status = XPmProt_XppuDisable(XppuNodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XPPU_DISABLE;
+		}
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1159,8 +1205,10 @@ XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 XmpuNodeId, Enable;
+	u16 DbgErr = 0;
 
 	if ((NULL == Args) || (2U != NumOfArgs)) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1170,16 +1218,24 @@ XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs)
 
 	if (((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XmpuNodeId))
 	||  ((u32)XPM_NODESUBCL_PROT_XMPU != NODESUBCLASS(XmpuNodeId))) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	if (1U == Enable) {
 		Status = XPmProt_XmpuEnable(XmpuNodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XMPU_EN;
+		}
 	} else {
 		Status = XPmProt_XmpuDisable(XmpuNodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XMPU_DISABLE;
+		}
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
