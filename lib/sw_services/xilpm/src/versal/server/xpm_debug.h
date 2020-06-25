@@ -46,6 +46,8 @@ extern "C" {
 #define XPM_INT_ERR_MBIST_DONE_TIMEOUT		0x310BU
 /* MBIST not done proper */
 #define XPM_INT_ERR_MBIST_GOOD			0x310CU
+/* MBIST GO bit not set */
+#define XPM_INT_ERR_MBIST_GO			0x310DU
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
@@ -77,6 +79,26 @@ extern "C" {
 #define XPM_INT_ERR_RST_STATE			0x3401U
 /* Error during reset release */
 #define XPM_INT_ERR_RST_RELEASE			0x3402U
+/* Error during reset assert */
+#define XPM_INT_ERR_RST_ASSERT			0x3403U
+
+/************************** FPD specific Errors ******************************/
+/************************** (0x3500) - (0x35FF) ******************************/
+/* Error during FPD power on reset release/assert */
+#define XPM_INT_ERR_FPD_POR			0x3500U
+/* Error during FPD-SOC Isolation disable/enable */
+#define XPM_INT_ERR_FPD_SOC_ISO			0x3501U
+/* Error during SRST FPD reset release/assert */
+#define XPM_INT_ERR_SRST_FPD			0x3502U
+
+/************************* Miscellaneous Errors ******************************/
+/************************** (0x3600) - (0x36FF) ******************************/
+/* Error during IPI send */
+#define XPM_INT_ERR_IPI_SEND			0x3600U
+/* Error during get IPI status */
+#define XPM_INT_ERR_IPI_STATUS			0x3601U
+/* PSMFW is not present */
+#define XPM_INT_ERR_PSMFW_NOT_PRESENT		0x3602U
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
