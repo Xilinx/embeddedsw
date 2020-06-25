@@ -14,11 +14,7 @@
 extern "C" {
 #endif
 
-/* Global general storage register base address */
-#define GGS_BASEADDR	(0xF1110030U)
-#define GGS_NUM_REGS	(4U)
-
-#define GGS_4_OFFSET	(0x10U)
+#define GGS_REGS	(4U)
 
 #define PSM_PGGS_REGS	(2U)
 #define PMC_PGGS_REGS	(2U)
