@@ -635,6 +635,14 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		PlpdHouseCleanBypass = 1;
 	}
 
+	/* Check for PL POR Status */
+	Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +
+				 PMC_GLOBAL_PL_STATUS_OFFSET,
+				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
+				 XPM_POLL_TIMEOUT);
+	if(XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/*
@@ -671,7 +679,8 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 				PMC_GLOBAL_ERR2_STATUS_CFRAME_SEU_ECC_MASK);
 	}
 
-	/* Check for PL PowerUp */
+	/* Check for PL POR Status */
+	/* This check is repeated due to ES1 workaround where PL POR is toggled again */
 	Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +
 				 PMC_GLOBAL_PL_STATUS_OFFSET,
 				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
