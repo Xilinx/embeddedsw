@@ -572,7 +572,7 @@ int XIic_DynamicInitialize(XIic *InstancePtr);
  */
 void XIic_SlaveInclude(void);
 int XIic_SlaveRecv(XIic *InstancePtr, u8 *RxMsgPtr, int ByteCount);
-int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount);
+int XIic_SlaveSend(XIic *InstancePtr, const u8 *TxMsgPtr, int ByteCount);
 
 /*
  * Statistics functions in xiic_stats.c
