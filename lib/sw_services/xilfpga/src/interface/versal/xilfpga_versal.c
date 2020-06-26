@@ -48,7 +48,7 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr);
 /************************** Variable Definitions *****************************/
 
 XMailbox XMboxInstance;
-static u32 ReqBuffer[LOAD_PDI_MSG_LEN];
+static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
 /*****************************************************************************/
 /* This API when called initializes the XFPGA interface with default settings.
@@ -90,6 +90,8 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	if (InstancePtr->WriteInfo.Flags & PDI_LOAD_TYPE_MASK) {
 		ReqBuffer[0U] = DELAYED_PDI_LOAD;
 		ReqBuffer[1U] = (u32)BitstreamAddr; /* Image ID */
+		ReqBuffer[2U] = 0U;
+		ReqBuffer[3U] = 0U;
 	} else {
 		ReqBuffer[0U] = PDI_LOAD;
 		ReqBuffer[1U] = FPGA_PDI_SRC_DDR;
