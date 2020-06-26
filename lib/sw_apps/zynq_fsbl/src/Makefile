@@ -10,7 +10,12 @@ CFLAGS :=
 ECFLAGS := 
 LDFLAGS := 
 
+BOARD	:= zc702
+BSP_DIR	:= ../misc
+DEPS	:= depends
+
 c_SOURCES := $(wildcard *.c)
+c_SOURCES += $(BSP_DIR)/$(BOARD)/ps7_init.c
 S_SOURCES := $(wildcard *.S)
 s_SOURCES := $(wildcard *.s)
 INCLUDES := $(wildcard *.h)
@@ -19,16 +24,12 @@ OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 LSCRIPT := -Tlscript.ld
 
-BSP_DIR	:= ../misc
-
 LIBS := libxil.a 
 EXEC := fsbl.elf
 
-INCLUDEPATH := -I$(BSP_DIR)/ps7_cortexa9_0/include -I.
+INCLUDEPATH := -I$(BSP_DIR)/ps7_cortexa9_0/include -I. -I$(BSP_DIR)/$(BOARD)
 LIBPATH := $(BSP_DIR)/ps7_cortexa9_0/lib
 
-BOARD	:= zc702
-DEPS	:= depends
 
 ifeq "$(CC)" "arm-none-eabi-gcc"
 AS=arm-none-eabi-gcc
@@ -50,7 +51,6 @@ endif
 all: $(EXEC)
 
 $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
-	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
 	$(LINKER) $(LD1FLAGS)  -o $@ $(OBJS) $(LDFLAGS)
 	rm -rf $(OBJS)
 	
