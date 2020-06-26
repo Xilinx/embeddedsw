@@ -210,6 +210,7 @@ typedef enum {
 	XPM_NODETYPE_DEV_OCM_REGN,
 	XPM_NODETYPE_DEV_DDR_REGN,
 	XPM_NODETYPE_DEV_HBM,
+	XPM_NODETYPE_DEV_VDU,
 } XPm_DeviceNodeType;
 
 typedef enum {
@@ -287,6 +288,9 @@ typedef enum {
 
 	/* CPM 5 Power Domain */
 	XPM_NODEIDX_POWER_CPM5,
+
+	/* AIE 2 Power Domain */
+	XPM_NODEIDX_POWER_ME2,
 
 	XPM_NODEIDX_POWER_MAX,
 } XPm_PowerNodeIndex;
@@ -937,6 +941,12 @@ typedef enum {
 
 	/* HBM Memory */
 	XPM_NODEIDX_DEV_HBM_0,
+
+	/* VDU devices */
+	XPM_NODEIDX_DEV_VDU_0,
+	XPM_NODEIDX_DEV_VDU_1,
+	XPM_NODEIDX_DEV_VDU_2,
+	XPM_NODEIDX_DEV_VDU_3,
 
 	XPM_NODEIDX_DEV_MAX
 } XPm_DeviceNodeIndex;

@@ -3414,6 +3414,7 @@ static XStatus AddPhyDevice(u32 *Args, u32 PowerId)
 
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_GT:
+	case (u32)XPM_NODETYPE_DEV_VDU:
 		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;

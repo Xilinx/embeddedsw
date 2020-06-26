@@ -55,6 +55,7 @@
 #define PM_POWER_XRAM_14			(0x4124025U)
 #define PM_POWER_XRAM_15			(0x4124026U)
 #define PM_POWER_CPM5				(0x4218027U)
+#define PM_POWER_ME2				(0x421c028U)
 /** @}
  * @endcond
  */
@@ -495,9 +496,6 @@
 #define PM_DEV_GTM_7				(0x1862c076U)
 #define PM_DEV_GTM_8				(0x1862c077U)
 #define PM_DEV_GTM_9				(0x1862c078U)
-/** @}
- * @endcond
- */
 #define PM_DEV_HBMMC_0				(0x18540079U)
 #define PM_DEV_HBMMC_1				(0x1854007aU)
 #define PM_DEV_HBMMC_2				(0x1854007bU)
@@ -522,6 +520,13 @@
 #define PM_DEV_GTYP_8				(0x1862c08eU)
 #define PM_DEV_GTYP_9				(0x1862c08fU)
 #define PM_DEV_HBM_0				(0x18340090U)
+#define PM_DEV_VDU_0				(0x18644091U)
+#define PM_DEV_VDU_1				(0x18644092U)
+#define PM_DEV_VDU_2				(0x18644093U)
+#define PM_DEV_VDU_3				(0x18644094U)
+/** @}
+ * @endcond
+ */
 
 /** @defgroup xilpmsubsysnodes Subsystem nodes
 @ingroup xilpmnodeids
