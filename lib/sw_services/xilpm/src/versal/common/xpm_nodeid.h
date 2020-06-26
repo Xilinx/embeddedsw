@@ -498,6 +498,30 @@
 /** @}
  * @endcond
  */
+#define PM_DEV_HBMMC_0				(0x18540079U)
+#define PM_DEV_HBMMC_1				(0x1854007aU)
+#define PM_DEV_HBMMC_2				(0x1854007bU)
+#define PM_DEV_HBMMC_3				(0x1854007cU)
+#define PM_DEV_HBMMC_4				(0x1854007dU)
+#define PM_DEV_HBMMC_5				(0x1854007eU)
+#define PM_DEV_HBMMC_6				(0x1854007fU)
+#define PM_DEV_HBMMC_7				(0x18540080U)
+#define PM_DEV_HBMMC_8				(0x18540081U)
+#define PM_DEV_HBMMC_9				(0x18540082U)
+#define PM_DEV_HBMMC_10				(0x18540083U)
+#define PM_DEV_HBMMC_11				(0x18540084U)
+#define PM_DEV_HBMMC_12				(0x18540085U)
+#define PM_DEV_HBMMC_13				(0x18540086U)
+#define PM_DEV_HBMMC_14				(0x18540087U)
+#define PM_DEV_HBMMC_15				(0x18540088U)
+#define PM_DEV_GTYP_3				(0x1862c089U)
+#define PM_DEV_GTYP_4				(0x1862c08aU)
+#define PM_DEV_GTYP_5				(0x1862c08bU)
+#define PM_DEV_GTYP_6				(0x1862c08cU)
+#define PM_DEV_GTYP_7				(0x1862c08dU)
+#define PM_DEV_GTYP_8				(0x1862c08eU)
+#define PM_DEV_GTYP_9				(0x1862c08fU)
+#define PM_DEV_HBM_0				(0x18340090U)
 
 /** @defgroup xilpmsubsysnodes Subsystem nodes
 @ingroup xilpmnodeids
