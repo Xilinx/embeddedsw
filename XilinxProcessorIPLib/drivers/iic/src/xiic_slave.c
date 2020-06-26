@@ -136,7 +136,7 @@ void XIic_SlaveInclude()
 * @note		None.
 *
 ******************************************************************************/
-int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
+int XIic_SlaveSend(XIic *InstancePtr, const u8 *TxMsgPtr, int ByteCount)
 {
 	u32 IntrStatus;
 	u32 Status;
