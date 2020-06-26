@@ -788,53 +788,6 @@ static struct XPm_PowerDomainOps PldOps = {
 	.PlHouseclean = NULL,
 };
 
-static XStatus (*HandlePowerEvent)(XPm_Node *Node, u32 Event);
-
-static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Power *Power = (XPm_Power *)Node;
-	u16 DbgErr = 0;
-
-	PmDbg("State=%d, Event=%d\n\r", Node->State, Event);
-
-	switch (Node->State)
-	{
-		case (u8)XPM_POWER_STATE_ON:
-			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
-				Status = XST_SUCCESS;
-				Power->UseCount++;
-			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
-				Status = XST_SUCCESS;
-				Power->UseCount--;
-				Node->State = (u8)XPM_POWER_STATE_OFF;
-			} else {
-				DbgErr = XPM_INT_ERR_PWR_STATE_ON_EVENT;
-				Status = XST_FAILURE;
-			}
-			break;
-		case (u8)XPM_POWER_STATE_OFF:
-			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
-				Status = XST_SUCCESS;
-				Power->UseCount++;
-				Node->State = (u8)XPM_POWER_STATE_ON;
-			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
-				Status = XST_SUCCESS;
-				Power->UseCount--;
-			} else {
-				DbgErr = XPM_INT_ERR_PWR_STATE_OFF_EVENT;
-				Status = XST_FAILURE;
-			}
-			break;
-		default:
-			DbgErr = XPM_INT_ERR_INVALID_STATE;
-			break;
-	}
-
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
-}
-
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent, u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt)
@@ -847,12 +800,6 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
 	}
-
-	PlDomain->Domain.Power.Node.State = (u8)XPM_POWER_STATE_OFF;
-	PlDomain->Domain.Power.UseCount = 1;
-
-	HandlePowerEvent = PlDomain->Domain.Power.HandleEvent;
-	PlDomain->Domain.Power.HandleEvent = HandlePlDomainEvent;
 
 	/* Make sure enough base addresses are being passed */
 	if (2U <= OtherBaseAddressCnt) {
