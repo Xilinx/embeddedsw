@@ -3325,6 +3325,7 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	case (u32)XPM_NODETYPE_DEV_EFUSE:
 	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
 	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
+	case (u32)XPM_NODETYPE_DEV_HBM:
 		Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -3368,6 +3369,7 @@ static XStatus AddMemCtrlrDevice(u32 *Args, u32 PowerId)
 
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_DDR:
+	case (u32)XPM_NODETYPE_DEV_HBM:
 		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;
