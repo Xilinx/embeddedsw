@@ -41,12 +41,7 @@ extern "C" {
 /*
  * Flash connection type as defined in Vivado
  */
-#define FLASH_SIZE_16MB				(0x1000000U)
 #define MICRON_ID				(0x20U)
-#define FLASH_SIZE_ID_512M			(0x20U)
-#define FLASH_SIZE_512M				(0x4000000U)
-#define FLASH_SIZE_1G				(0x8000000U)
-#define FLASH_SIZE_2G                   	(0x10000000U)
 #define READ_CMD_OCTAL_4B    			(0x7CU)
 #define READ_ID					(0x9FU)
 #define MICRON_INDEX_START			(0x0U)

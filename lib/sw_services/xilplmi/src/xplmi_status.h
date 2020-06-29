@@ -192,8 +192,8 @@ enum {
 					  is not selected in CIPS */
 	XLOADER_ERR_OSPI_CFG,		/**< 0x30F - Error when OSPI driver
 					  CFG fails */
-	XLOADER_ERR_OSPI_SEL_FLASH,	/**< 0x310 - Error when OSPI driver is
-					  unable to select flash. Check minor
+	XLOADER_ERR_OSPI_SEL_FLASH_CS0,	/**< 0x310 - Error when OSPI driver is
+					  unable to select flash CS0. Check minor
 					  code for OSPI driver error code */
 	XLOADER_ERR_OSPI_READID,	/**< 0x311 - Error when OSPI ReadID
 					  fails */
@@ -267,6 +267,15 @@ enum {
 					  and copy to image */
 	XLOADER_ERR_NUM_HANDOFF_CPUS,	/**< 0x333 - Error when number of CPUs
 						exceed max count */
+	XLOADER_ERR_OSPI_CONN_MODE, /**< 0x334 - Error when OSPI mode is not
+						supported */
+	XLOADER_ERR_OSPI_SEL_FLASH_CS1,	/**< 0x335 - Error when OSPI driver is
+					  unable to select flash CS1. Check minor
+					  code for OSPI driver error code */
+	XLOADER_ERR_OSPI_SDR_NON_PHY, /**< 0x336 - Error when OSPI driver is unable
+						to set the controller to SDR NON PHY mode */
+	XLOADER_ERR_OSPI_COPY_OVERFLOW, /**< 0x337 - Error when source address in
+						OSPI copy exceeds flash size */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600U,
