@@ -707,12 +707,23 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		 * around requires to toggle PL_POR twice after PL supplies is
 		 * up.
 		 */
+
+		// Disable PUDC_B pin to allow PL_POR to toggle
+		XPm_RMW32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PUDC_B_OVERRIDE_OFFSET,
+				PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK,
+				PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK);
+
 		/* Toggle PL POR */
 		Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_PULSE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PL_POR;
 			goto done;
 		}
+
+		// Reset to allow PUDC_B pin to function
+		XPm_RMW32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PUDC_B_OVERRIDE_OFFSET,
+				PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK,
+				~PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK);
 
 		/*
 		 * Clear sticky ERROR and interrupt status (They are not
