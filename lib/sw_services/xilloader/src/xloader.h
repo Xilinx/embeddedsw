@@ -129,6 +129,18 @@ extern "C" {
 #define XLOADER_DEVICE_COPY_STATE_INITIATE	(0x1U)
 #define XLOADER_DEVICE_COPY_STATE_WAIT_DONE	(0x2U)
 
+/*
+ * Flash Size macros
+ */
+#if defined(XLOADER_QSPI) || defined(XLOADER_OSPI)
+#define XLOADER_FLASH_SIZE_64M                  (0x0800000U)
+#define XLOADER_FLASH_SIZE_128M                 (0x1000000U)
+#define XLOADER_FLASH_SIZE_256M                 (0x2000000U)
+#define XLOADER_FLASH_SIZE_512M                 (0x4000000U)
+#define XLOADER_FLASH_SIZE_1G                   (0x8000000U)
+#define XLOADER_FLASH_SIZE_2G                   (0x10000000U)
+#endif
+
 /* Boot Modes */
 enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_JTAG = (0x0U),

@@ -103,6 +103,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
+		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
