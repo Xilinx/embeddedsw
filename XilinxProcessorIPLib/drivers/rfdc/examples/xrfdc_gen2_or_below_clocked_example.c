@@ -6,13 +6,18 @@
 /****************************************************************************/
 /**
 *
-* @file xrfdc_selftest_example.c
+* @file xrfdc_gen2_or_below_clocked_example.c
 *
-* This file contains a selftest example for using the rfdc hardware and
+* This file contains an example for Gen 1/2 using the rfdc hardware and
 * RFSoC Data Converter driver.
-* This example does some writes to the hardware to do some sanity checks.
-* To remove external dependencies, this test does not require the IP
-* state machine to complete (i.e. this is configuration only).
+* This example does some writes to the hardware to do some sanity checks
+* and does a reset to restore the original settings.
+*
+* Users are expected to define XPS_BOARD_ZCU111 macro while compiling
+* this example for ZCU111.
+*
+* Users are expected to have a programmed CLK-103 module if using this
+* example for ZCU1275/1285.
 *
 * <pre>
 *
@@ -20,20 +25,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
-* 1.0   sk     05/25/17 First release
-* 1.1   sk     08/09/17 Modified the example to support both Linux and
-*                       Baremetal.
-* 4.0   sd     04/28/18 Add Clock configuration support for ZCU111.
-*       sd     05/15/18 Updated Clock configuration for lmk.
-* 5.0   sk     08/03/18 For baremetal, add metal device structure for rfdc
-*                       device and register the device to libmetal generic bus.
-*       mus    08/18/18 Updated to remove xparameters.h dependency for linux
-*                       platform.
-* 7.0   cog    07/25/19 Updated example for new metal register API.
-* 7.1   cog    12/09/19 Added routing of clocks for ZCU216.
-* 8.1   cog    06/29/20 Changing setlftest to a test with no external
-*                       dependencies. The previous example including clocking
-*                       will be in supplemental example(s).
+* 8.1   cog    06/29/20 First release.
 *
 * </pre>
 *
@@ -74,7 +66,7 @@
 #endif
 /************************** Function Prototypes *****************************/
 
-static int SelfTestExample(u16 SysMonDeviceId);
+static int ClockedExample(u16 SysMonDeviceId);
 static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 
 /************************** Variable Definitions ****************************/
@@ -82,6 +74,15 @@ static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
 metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
+
+#ifdef XPS_BOARD_ZCU111
+unsigned int LMK04208_CKin[1][26] = {
+		{0x00160040,0x80140320,0x80140321,0x80140322,
+		0xC0140023,0x40140024,0x80141E05,0x03300006,0x01300007,0x06010008,
+		0x55555549,0x9102410A,0x0401100B,0x1B0C006C,0x2302886D,0x0200000E,
+		0x8000800F,0xC1550410,0x00000058,0x02C9C419,0x8FA8001A,0x10001E1B,
+		0x0021201C,0x0180033D,0x0200033E,0x003F001F }};
+#endif
 
 #ifdef __BAREMETAL__
 static struct metal_device CustomDev = {
@@ -125,18 +126,19 @@ int main(void)
 
 	int Status;
 
-	printf("RFdc Selftest Example Test\r\n");
+	printf("RFdc Gen 1/2 Clocked Example Test\r\n");
 	/*
-	 * Run the RFdc fabric rate example, specify the Device ID that is
+	 * Run the RFdc Decoder Mode example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
-	Status = SelfTestExample(RFDC_DEVICE_ID);
+
+	Status = ClockedExample(RFDC_DEVICE_ID);
 	if (Status != XRFDC_SUCCESS) {
-		printf(" Selftest Example Test failed\r\n");
+		printf("RFdc Gen 1/2 Clocked Example failed\r\n");
 		return XRFDC_FAILURE;
 	}
 
-	printf("Successfully ran Selftest Example Test\r\n");
+	printf("Successfully ran RFdc Gen 1/2 Clocked Example\r\n");
 	return XRFDC_SUCCESS;
 }
 
@@ -161,7 +163,7 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-int SelfTestExample(u16 RFdcDeviceId)
+int ClockedExample(u16 RFdcDeviceId)
 {
 
 	int Status;
@@ -190,7 +192,6 @@ int SelfTestExample(u16 RFdcDeviceId)
 #ifdef __BAREMETAL__
 	deviceptr = &CustomDev;
 #endif
-
 	Status = XRFdc_RegisterMetal(RFdcInstPtr, RFdcDeviceId, &deviceptr);
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
@@ -202,6 +203,16 @@ int SelfTestExample(u16 RFdcDeviceId)
 		return XRFDC_FAILURE;
 	}
 
+	if(RFdcInstPtr->RFdc_Config.IPType >= XRFDC_GEN3){
+		printf("ERROR: Running a Gen 1/2 example on a higher Gen board\n");
+		return XRFDC_FAILURE;
+	}
+
+#ifdef XPS_BOARD_ZCU111
+printf("\n Configuring the Clock \r\n");
+	LMK04208ClockConfig(I2CBUS, LMK04208_CKin);
+	LMX2594ClockConfig(I2CBUS, 3932160);
+#endif
 	Tile = 0x0;
 	for (Block = 0; Block <4; Block++) {
 		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
@@ -252,6 +263,38 @@ int SelfTestExample(u16 RFdcDeviceId)
 			}
 			Status = CompareFabricRate(ADCSetFabricRate[Block], GetFabricRate);
 			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+		}
+	}
+
+	Status = XRFdc_Reset(RFdcInstPtr, XRFDC_ADC_TILE, Tile);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+	Status = XRFdc_Reset(RFdcInstPtr, XRFDC_DAC_TILE, Tile);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
+	for (Block = 0; Block <4; Block++) {
+		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			Status = XRFdc_GetFabWrVldWords(RFdcInstPtr, XRFDC_DAC_TILE,
+							Tile, Block, &GetFabricRate);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			if (GetFabricRate == DACSetFabricRate[Block]) {
+				return XRFDC_FAILURE;
+			}
+		}
+		if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE,
+									Tile, Block, &GetFabricRate);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			if (GetFabricRate == ADCSetFabricRate[Block]) {
 				return XRFDC_FAILURE;
 			}
 		}
