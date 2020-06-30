@@ -365,8 +365,8 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 	/*
-     * Detect Zynq-7000 base silicon configuration,Dual or Single CPU.
-     * If it is single CPU cnfiguration then invoke assert for CPU ID=1
+	 * Check Zynq-7000 base silicon configuration.
+	 * If it is single CPU configuration then invoke assert for CPU ID 1.
 	 */
 #ifdef ARMA9
 	if (XPAR_CPU_ID == 0x01) {
@@ -1123,7 +1123,7 @@ u32 XScuGic_GetCpuID(void)
 * @note 	It should be called before suspending processor core. Once this
 * 			API is invoked, pending interrupts for processor core asserts
 * 			WakeRequest, to indicate that the PE is to have its power
-* 			restored  Incase of Versal SoC, WakeRequest will be consumed by
+* 			restored  In case of Versal SoC, WakeRequest will be consumed by
 * 			psv_psm processor and psmfw will wake up APU processor core.
 *
 *****************************************************************************/
