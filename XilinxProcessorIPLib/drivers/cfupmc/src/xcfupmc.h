@@ -19,6 +19,7 @@
 * 1.00  kc   12/21/2017 Initial release
 * 2.00  bsv  03/01/2019 Added error handling APIs
 * 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
+* 3.00  bsv  27/06/2020 Code clean up
 * </pre>
 *
 * @note
@@ -37,18 +38,26 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xil_io.h"
-
 #include "cfu_apb.h"
 #include "xcfupmc_hw.h"
 
 /************************** Constant Definitions *****************************/
-
 /* CFU key hole register address */
-//#define CFU_STREAM_ADDR     (0xF1300000)
-//#define CFU_FDRO_ADDR		(0xF1302000)
 /* Address updates after RTL HW40 */
-#define CFU_STREAM_ADDR     (0xF12C0000)
-#define CFU_FDRO_ADDR		(0xF12C2000)
+#define CFU_STREAM_ADDR	(0xF12C0000U)
+#define CFU_FDRO_ADDR	(0xF12C2000U)
+#define CFUPMC_GLB_SIG_EN	(0x1U)
+#define CFUPMC_PROT_DISABLE	(0x0U)
+#define CFUPMC_PROT_ENABLE	(0x1U)
+#define CFU_APB_CFU_FGCR_GRESTORE_CLEAR	(0x0U)
+#define CFU_APB_CFU_FGCR_EN_GLOBS_B_ASSERT_VAL	(0x0U)
+#define CFU_APB_CFU_CTL_CFRAME_DISABLE_CLR_VAL	(0x0U)
+#define CFU_APB_CFU_CTL_CFI_LOCAL_RESET_CLR_VAL	(0x0U)
+#define CFU_APB_CFU_CTL_SEU_GO_CLR_VAL	(0x0U)
+#define CFU_APB_CFU_CTL_DECOMPRESS_CLR_VAL	(0x0U)
+#define CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_CLR_VAL	(0x0U)
+#define CFU_APB_CFU_CTL_DECOMPRESS_CLR_VAL	(0x0U)
+
 
 /**************************** Type Definitions *******************************/
 /**
@@ -57,9 +66,9 @@ extern "C" {
 */
 typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
-				  *  device */
+					*  device */
 	u32 BaseAddress;	/**< BaseAddress is the physical base address
-				  *  of the device's registers */
+					*  of the device's registers */
 } XCfupmc_Config;
 
 /******************************************************************************/
@@ -72,47 +81,45 @@ typedef struct {
 typedef struct {
 	XCfupmc_Config Config;		/**< Hardware configuration */
 	u32 IsReady;			/**< Device and the driver instance
-					  *  are initialized */
-	u32 DeCompress;
-	u32 Crc32Check;
+						*  are initialized */
+	u8 DeCompress;
+	u8 Crc32Check;
 	u32 Crc32Val;
-	u32 Crc8Dis;
+	u8 Crc8Dis;
 }XCfupmc;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
- * This function clears CFU ISR
- *
- * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return	None
- *
-* @note		None.
-*		C-style signature:
-*		XStatus XCfupmc_ClearIsr(XCfupmc *InstancePtr, IsrMask)
+* This function clears CFU ISR
+*
+* @param	InstancePtr is a pointer to the XCfupmc instance.
+* @param	IsrMask specifies the bits to be cleared in ISR
+*
+* @return	None
 *
 ******************************************************************************/
-#define XCfupmc_ClearIsr(InstancePtr, IsrMask) \
-	XCfupmc_WriteReg(InstancePtr->Config.BaseAddress, \
-			       CFU_APB_CFU_ISR, IsrMask)
+static inline void XCfupmc_ClearIsr(const XCfupmc *InstancePtr, u32 IsrMask)
+{
+	(void)InstancePtr;
+	XCfupmc_WriteReg(CFU_APB_CFU_ISR, IsrMask);
+}
 
 /*****************************************************************************/
 /**
 * This function reads CFU ISR
 *
-* @param	InstancePtr is a pointer to the XCfupmc instance.
+* @param	InstancePtr is a pointer to the XCfupmc instance._
 *
-* @return	None
-*
-* @note		None.
-*		C-style signature:
-*		XStatus XCfupmc_ReadIsr(XCfupmc *InstancePtr)
+* @return	32-bit register value
 *
 ******************************************************************************/
-#define XCfupmc_ReadIsr(InstancePtr) \
-	XCfupmc_ReadReg(InstancePtr->Config.BaseAddress, \
-			       CFU_APB_CFU_ISR)
+static inline u32 XCfupmc_ReadIsr(const XCfupmc *InstancePtr)
+{
+	(void)InstancePtr;
+
+	return XCfupmc_ReadReg(CFU_APB_CFU_ISR);
+}
 
 /*****************************************************************************/
 /**
@@ -120,16 +127,15 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XCfupmc instance.
 *
-* @return	None
-*
-* @note		None.
-*		C-style signature:
-*		XStatus XCfupmc_ReadStatus(XCfupmc *InstancePtr)
+* @return	32-bit register value
 *
 ******************************************************************************/
-#define XCfupmc_ReadStatus(InstancePtr) \
-	XCfupmc_ReadReg(InstancePtr->Config.BaseAddress, \
-			       CFU_APB_CFU_STATUS)
+static inline u32 XCfupmc_ReadStatus(const XCfupmc *InstancePtr)
+{
+	(void)InstancePtr;
+
+	return XCfupmc_ReadReg(CFU_APB_CFU_STATUS);
+}
 
 #ifdef XCFUPMC_DEBUG
 #define XCfupmc_Printf(...)	xil_printf(__VA_ARGS__)
@@ -139,24 +145,19 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 XCfupmc_Config *XCfupmc_LookupConfig(u16 DeviceId);
-s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, XCfupmc_Config *CfgPtr,
-			u32 EffectiveAddr);
-s32 XCfupmc_SelfTest(XCfupmc *InstancePtr);
-void XCfupmc_MaskRegWrite(XCfupmc *InstancePtr, u32 Addr, u32 Mask, u32 Val);
-void XCfupmc_SetParam(XCfupmc *InstancePtr);
-s32 XCfupmc_CheckParam(XCfupmc *InstancePtr);
-s32 XCfupmc_WaitForStreamBusy(XCfupmc *InstancePtr);
-void XCfupmc_SetGlblSigEn(XCfupmc *InstancePtr, u8 Enable);
-void XCfupmc_GlblSeqInit(XCfupmc *InstancePtr);
-void XCfupmc_StartGlblSeq(XCfupmc *InstancePtr);
-void XCfupmc_EndGlblSeq(XCfupmc *InstancePtr);
-void XCfupmc_Reset(XCfupmc *InstancePtr);
-void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr);
-void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr);
-void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr);
-void XCfupmc_ExtErrorHandler(XCfupmc *InstancePtr);
-void XCfupmc_ClearIgnoreCfiErr(XCfupmc *InstancePtr);
-void XCfupmc_ClearCfuIsr(XCfupmc *InstancePtr);
+s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, const XCfupmc_Config *CfgPtr,
+	u32 EffectiveAddr);
+s32 XCfupmc_SelfTest(const XCfupmc *InstancePtr);
+void XCfupmc_MaskRegWrite(const XCfupmc *InstancePtr, u32 Addr, u32 Mask,
+	u32 Val);
+void XCfupmc_SetGlblSigEn(const XCfupmc *InstancePtr, u8 Enable);
+void XCfupmc_GlblSeqInit(const XCfupmc *InstancePtr);
+void XCfupmc_CfuErrHandler(const XCfupmc *InstancePtr);
+void XCfupmc_CfiErrHandler(const XCfupmc *InstancePtr);
+void XCfupmc_ExtErrorHandler(const XCfupmc *InstancePtr);
+void XCfupmc_ClearIgnoreCfiErr(const XCfupmc *InstancePtr);
+void XCfupmc_ClearCfuIsr(const XCfupmc *InstancePtr);
+
 #ifdef __cplusplus
 }
 #endif
