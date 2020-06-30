@@ -24,6 +24,20 @@ static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 static u32 PsmApuPwrState;
 
+static const char *PmInitFunctions[] = {
+	[FUNC_INIT_START]		= "INIT_START",
+	[FUNC_INIT_FINISH]		= "INIT_FINISH",
+	[FUNC_SCAN_CLEAR]		= "SCAN_CLEAR",
+	[FUNC_BISR]			= "BISR",
+	[FUNC_LBIST]			= "LBIST",
+	[FUNC_MEM_INIT]			= "MEM_INIT",
+	[FUNC_MBIST_CLEAR]		= "MBIST_CLEAR",
+	[FUNC_HOUSECLEAN_PL]		= "HOUSECLEAN_PL",
+	[FUNC_HOUSECLEAN_COMPLETE]	= "HOUSECLEAN_COMPLETE",
+	[FUNC_XPPU_CTRL]		= "XPPU_CTRL",
+	[FUNC_XMPU_CTRL]		= "XMPU_CTRL",
+};
+
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops)
@@ -963,6 +977,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 	u16 DbgErr = 0;
 
+	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
+						  PwrDomain->Power.Node.Id);
+
 	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State)
 	&&  ((u32)FUNC_XPPU_CTRL != Function)
 	&&  ((u32)FUNC_XMPU_CTRL != Function)) {
@@ -1202,5 +1219,11 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+
+	if (XST_SUCCESS == Status) {
+		PmDbg("%s for PwrDomain 0x%x completed successfully\r\n",
+		      PmInitFunctions[Function], PwrDomain->Power.Node.Id);
+	}
+
 	return Status;
 }
