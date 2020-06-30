@@ -6,13 +6,15 @@
 /****************************************************************************/
 /**
 *
-* @file xrfdc_selftest_example.c
+* @file xrfdc_gen3_clocked_example.c
 *
-* This file contains a selftest example for using the rfdc hardware and
+* This file contains an example for Gen 3 using the rfdc hardware and
 * RFSoC Data Converter driver.
-* This example does some writes to the hardware to do some sanity checks.
-* To remove external dependencies, this test does not require the IP
-* state machine to complete (i.e. this is configuration only).
+* This example does some writes to the hardware to do some sanity checks
+* and does a reset to restore the original settings.
+*
+* Users are expected to have a programmed CLK-104 module if using this
+* example for ZCU208/216.
 *
 * <pre>
 *
@@ -20,20 +22,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
-* 1.0   sk     05/25/17 First release
-* 1.1   sk     08/09/17 Modified the example to support both Linux and
-*                       Baremetal.
-* 4.0   sd     04/28/18 Add Clock configuration support for ZCU111.
-*       sd     05/15/18 Updated Clock configuration for lmk.
-* 5.0   sk     08/03/18 For baremetal, add metal device structure for rfdc
-*                       device and register the device to libmetal generic bus.
-*       mus    08/18/18 Updated to remove xparameters.h dependency for linux
-*                       platform.
-* 7.0   cog    07/25/19 Updated example for new metal register API.
-* 7.1   cog    12/09/19 Added routing of clocks for ZCU216.
-* 8.1   cog    06/29/20 Changing setlftest to a test with no external
-*                       dependencies. The previous example including clocking
-*                       will be in supplemental example(s).
+* 8.1   cog    06/29/20 First release.
 *
 * </pre>
 *
@@ -44,9 +33,6 @@
 #include "xparameters.h"
 #endif
 #include "xrfdc.h"
-#ifdef XPS_BOARD_ZCU111
-#include "xrfdc_clk.h"
-#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -74,7 +60,7 @@
 #endif
 /************************** Function Prototypes *****************************/
 
-static int SelfTestExample(u16 SysMonDeviceId);
+static int ClockedExample(u16 SysMonDeviceId);
 static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 
 /************************** Variable Definitions ****************************/
@@ -125,18 +111,19 @@ int main(void)
 
 	int Status;
 
-	printf("RFdc Selftest Example Test\r\n");
+	printf("RFdc Gen 3 Clocked Example\r\n");
 	/*
-	 * Run the RFdc fabric rate example, specify the Device ID that is
+	 * Run the RFdc Decoder Mode example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
-	Status = SelfTestExample(RFDC_DEVICE_ID);
+
+	Status = ClockedExample(RFDC_DEVICE_ID);
 	if (Status != XRFDC_SUCCESS) {
-		printf(" Selftest Example Test failed\r\n");
+		printf("RFdc Gen 3 Clocked failed\r\n");
 		return XRFDC_FAILURE;
 	}
 
-	printf("Successfully ran Selftest Example Test\r\n");
+	printf("Successfully ran RFdc Gen 3 Clocked Example\r\n");
 	return XRFDC_SUCCESS;
 }
 
@@ -161,7 +148,7 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-int SelfTestExample(u16 RFdcDeviceId)
+int ClockedExample(u16 RFdcDeviceId)
 {
 
 	int Status;
@@ -172,6 +159,11 @@ int SelfTestExample(u16 RFdcDeviceId)
 	u32 ADCSetFabricRate[4];
 	u32 DACSetFabricRate[4];
 	u32 GetFabricRate;
+	XRFdc_Distribution_Settings Distribution_Settings;
+	u32 ADCClockedTile;
+	u32 DACClockedTile;
+	u32 ADCSource;
+	u32 DACSource;
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -190,7 +182,6 @@ int SelfTestExample(u16 RFdcDeviceId)
 #ifdef __BAREMETAL__
 	deviceptr = &CustomDev;
 #endif
-
 	Status = XRFdc_RegisterMetal(RFdcInstPtr, RFdcDeviceId, &deviceptr);
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
@@ -199,6 +190,11 @@ int SelfTestExample(u16 RFdcDeviceId)
 	/* Initializes the controller */
 	Status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
 	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
+	if(RFdcInstPtr->RFdc_Config.IPType < XRFDC_GEN3){
+		printf("ERROR: Running a Gen 3 example on a Gen 1/2 board\n");
 		return XRFDC_FAILURE;
 	}
 
@@ -231,6 +227,14 @@ int SelfTestExample(u16 RFdcDeviceId)
 			}
 		}
 		if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			if (RFdcInstPtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+				if ((Block == 2) || (Block == 3))
+					continue;
+				else if (Block == 1) {
+					if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, 2) == 0)
+						continue;
+				}
+			}
 			Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE,
 									Tile, Block, &GetFabricRate);
 			if (Status != XRFDC_SUCCESS) {
@@ -252,6 +256,75 @@ int SelfTestExample(u16 RFdcDeviceId)
 			}
 			Status = CompareFabricRate(ADCSetFabricRate[Block], GetFabricRate);
 			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+		}
+	}
+
+		/*Reset IP - the clock distribution will bring the tiles up again*/
+		XRFdc_WriteReg16(RFdcInstPtr, 0x0, 0x4, 1);
+
+		printf("\n Configuring the Clock \r\n");
+		/* This takes a reference clock of 245.76 MHz into ADC1/DAC1 uses PLL to increase to 2211.84 GHz
+		   and distrubutes the ful rate clock to all other ADC/DAC tiles.*/
+		memset(&Distribution_Settings, 0, sizeof(Distribution_Settings));
+		if(XRFdc_IsHighSpeedADC(RFdcInstPtr, Tile) == XRFDC_ENABLED) { /*ZCU208*/
+			DACClockedTile = XRFDC_TILE_ID0;
+			DACSource = XRFDC_CLK_DST_TILE_228;
+		} else { /*ZCU216*/
+			DACClockedTile = XRFDC_TILE_ID2;
+			DACSource = XRFDC_CLK_DST_TILE_230;
+		}
+		ADCClockedTile = XRFDC_TILE_ID2;
+		ADCSource = XRFDC_CLK_DST_TILE_226;
+
+		for (int i =0;i<4;i++) {
+			Distribution_Settings.DAC[i].SourceTile                   = DACSource;
+			Distribution_Settings.ADC[i].SourceTile                   = ADCSource;
+			Distribution_Settings.DAC[i].PLLSettings.SampleRate       = 2211.84;
+			Distribution_Settings.ADC[i].PLLSettings.SampleRate       = 2211.84;
+			if(i == DACClockedTile){
+				Distribution_Settings.DAC[i].PLLEnable                    = 1;
+				Distribution_Settings.DAC[i].PLLSettings.RefClkFreq       = 245.76;
+				Distribution_Settings.DAC[i].DistributedClock             = XRFDC_DIST_OUT_OUTDIV;
+			} else {
+				Distribution_Settings.DAC[i].PLLEnable                    = 0;
+				Distribution_Settings.DAC[i].PLLSettings.RefClkFreq       = 2211.84;
+				Distribution_Settings.DAC[i].DistributedClock             = XRFDC_DIST_OUT_NONE;
+			}
+			if(i == ADCClockedTile){
+				Distribution_Settings.ADC[i].PLLEnable                    = 1;
+				Distribution_Settings.ADC[i].PLLSettings.RefClkFreq       = 245.76;
+				Distribution_Settings.ADC[i].DistributedClock             = XRFDC_DIST_OUT_OUTDIV;
+			} else {
+				Distribution_Settings.ADC[i].PLLEnable                    = 0;
+				Distribution_Settings.ADC[i].PLLSettings.RefClkFreq       = 2211.84;
+				Distribution_Settings.ADC[i].DistributedClock             = XRFDC_DIST_OUT_NONE;
+			}
+		}
+		Status = XRFdc_SetClkDistribution(RFdcInstPtr, &Distribution_Settings);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+
+	for (Block = 0; Block <4; Block++) {
+		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			Status = XRFdc_GetFabWrVldWords(RFdcInstPtr, XRFDC_DAC_TILE,
+							Tile, Block, &GetFabricRate);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			if (GetFabricRate == DACSetFabricRate[Block]) {
+				return XRFDC_FAILURE;
+			}
+		}
+		if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
+			Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE,
+									Tile, Block, &GetFabricRate);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			if (GetFabricRate == ADCSetFabricRate[Block]) {
 				return XRFDC_FAILURE;
 			}
 		}

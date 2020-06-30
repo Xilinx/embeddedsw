@@ -54,6 +54,7 @@
 * 7.0   cog    07/25/19 Updated example for new metal register API.
 * 7.1   cog    07/25/19 Updated example for Gen 3 compatibility.
 * 8.0   cog    04/03/20 Updated example for 48dr compatibility.
+* 8.1   cog    06/29/20 Always register metal device in baremetal.
 *
 * </pre>
 *
@@ -78,10 +79,8 @@
 #ifdef __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
 #define I2CBUS	1
-#ifdef CUSTOM_DEVICE_EXAMPLE
 #define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
 #define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
-#endif
 #else
 #define RFDC_DEVICE_ID 	0
 #define I2CBUS	12
@@ -112,6 +111,7 @@ static int CompareThresholdSettings(XRFdc_Threshold_Settings *SetThresholdSettin
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
+metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 
 #ifdef XPS_BOARD_ZCU111
 unsigned int LMK04208_CKin[1][26] = {
@@ -123,7 +123,6 @@ unsigned int LMK04208_CKin[1][26] = {
 #endif
 
 #ifdef __BAREMETAL__
-#ifdef CUSTOM_DEVICE_EXAMPLE
 static struct metal_device CustomDev = {
 	/* RFdc device */
 	.name = RFDC_DEV_NAME,
@@ -132,7 +131,7 @@ static struct metal_device CustomDev = {
 	.regions = {
 		{
 			.virt = (void *)XRFDC_BASE_ADDR,
-			.physmap = &metal_phys[0],
+			.physmap = &metal_phys,
 			.size = 0x40000,
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
@@ -144,7 +143,6 @@ static struct metal_device CustomDev = {
 	.irq_num = 0,
 	.irq_info = NULL,
 };
-#endif
 #endif
 
 /****************************************************************************/
@@ -255,19 +253,13 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 
 	/* Register & MAP RFDC to Libmetal */
 #ifdef __BAREMETAL__
-#ifdef CUSTOM_DEVICE_EXAMPLE
 	deviceptr = &CustomDev;
+#endif
+
 	Status = XRFdc_RegisterMetal(RFdcInstPtr, RFdcDeviceId, &deviceptr);
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
 	}
-#endif
-#else
-	Status = XRFdc_RegisterMetal(RFdcInstPtr, RFdcDeviceId, &deviceptr);
-	if (Status != XRFDC_SUCCESS) {
-		return XRFDC_FAILURE;
-	}
-#endif
 
 	/* Initializes the controller */
 	Status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
