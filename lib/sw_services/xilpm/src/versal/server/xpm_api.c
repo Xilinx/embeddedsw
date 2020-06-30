@@ -592,37 +592,8 @@ int XPm_DispatchWakeHandler(void *DeviceIdx)
 	return Status;
 }
 
-static void AddIPIPmcDevice(void)
-{
-	XPm_Device *Device = XPmDevice_GetById(PM_DEV_IPI_PMC);
-	int Status;
-
-	if (NULL == Device) {
-		u32 Args[3] = {PM_DEV_IPI_PMC, PM_POWER_LPD, 0U};
-		u32 Parents[] = {PM_RST_IPI};
-
-		Status = XPm_AddNode(Args, (u32)ARRAY_SIZE(Args));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in adding PLD0 device\r\n", Status);
-		}
-
-		Status = XPmDevice_AddParent(PM_DEV_IPI_PMC, Parents,
-					     (u32)ARRAY_SIZE(Parents));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in add patent for PLD0 device\r\n",
-				Status);
-		}
-	}
-}
-
 static void PostTopologyHook(void)
 {
-	/**
-	 * TODO: Remove this workaround when CDO changes to add PMC IPI device
-	 *	 will available in tools.
-	 */
-	AddIPIPmcDevice();
-
 	/* TODO: Remove this hack once PS_POR reset type is changed in topology CDO */
 	XPmReset_ChangePsPorResetType();
 
