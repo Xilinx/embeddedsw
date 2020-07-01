@@ -194,10 +194,12 @@ typedef struct {
 typedef struct {
 	char *Name; /**< Source name */
 	u32 DeviceBaseAddr; /**< Flash device base address */
-	int (*Init) (u32 DeviceFlags);
-		/**< Function pointer for Device initialization code */
+	int (*Init) (u32 DeviceFlags); /**< Function pointer for Device
+				initialization code */
+	/**< Function pointer for device copy */
 	int (*Copy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-		/**< Function pointer for device copy */
+	/**< Function pointer for device release */
+	int (*Release) (void);
 } XLoader_DeviceOps;
 
 /*

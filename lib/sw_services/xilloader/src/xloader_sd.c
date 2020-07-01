@@ -49,6 +49,7 @@ static FIL FFil;		/* File object */
 static FATFS fatfs;
 static u32 XLoader_IsSDRaw;
 static XSdPs SdInstance = {0U,};
+static char BootFile[XLOADER_BASE_FILE_NAME_LEN_SD_1 + 1U] = {0U};
 
 /*****************************************************************************/
 /**
@@ -145,11 +146,12 @@ int XLoader_SdInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	FRESULT Rc;
-	char BootFile[XLOADER_BASE_FILE_NAME_LEN_SD_1 + 1U] = {0U};
 	u32 MultiBootOffset;
 	u32 PdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
 	u32 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	XLoader_IsSDRaw = FALSE;
+
+	memset(BootFile, 0U, sizeof(BootFile));
 
 	if ((DeviceFlags & XLOADER_SD_SBD_ADDR_SET_MASK) ==
 		XLOADER_SD_SBD_ADDR_SET_MASK) {
@@ -257,6 +259,42 @@ int XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to close the boot file and unmount the
+ * file system.
+ *
+ * @param       None
+ *
+ * @return      XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+ int XLoader_SdRelease(void)
+ {
+	int Status = XST_FAILURE;
+	FRESULT Rc;
+
+	Rc = f_close(&FFil);
+	if (Rc != FR_OK) {
+		XLoader_Printf(DEBUG_INFO, "SD: Unable to close file\n\r");
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_F_CLOSE, Rc);
+		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_CLOSE\n\r");
+		goto END;
+	}
+
+	Rc = f_unmount(BootFile);
+	if (Rc != FR_OK) {
+		XLoader_Printf(DEBUG_INFO, "SD: Unable to unmount filesystem\n\r");
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_UMOUNT, Rc);
+		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_UMOUNT\n\r");
+		goto END;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+ }
 
 /*****************************************************************************/
 /**
