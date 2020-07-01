@@ -18,6 +18,7 @@ BEGIN LIBRARY xilffs
   OPTION drc = ffs_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
+  OPTION SUPPORTED_PERIPHERALS = (ps7_ddr psu_ddrc axi_noc noc_mc_ddr4 ps7_sdio psu_sd psv_pmc_sd);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Generic Fat File System Library";
   OPTION VERSION = 4.4;
