@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
+* 1.01  kc   01/07/2020 Added MACRO to get performance number for keyhole
 *
 * </pre>
 *
@@ -75,11 +76,14 @@ extern "C" {
  * POLL prints the time taken for any poll for MASK_POLL command.
  * DMA prints the time taken for PMC DMA, QSPI, OSPI.
  * CDO_PROCESS will print the time taken to process CDO file.
+ * KEYHOLE will print the time taken to process keyhole command.
+ * Keyhole command is used for Cframe and slave slr image loading.
  * Make sure to enable PLM_PRINT_PERF to see prints.
  */
 //#define PLM_PRINT_PERF_POLL
 //#define PLM_PRINT_PERF_DMA
 //#define PLM_PRINT_PERF_CDO_PROCESS
+//#define PLM_PRINT_PERF_KEYHOLE
 
 /**
  * @name PLM code include options
