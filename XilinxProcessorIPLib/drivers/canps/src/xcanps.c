@@ -26,6 +26,7 @@
 * 			XCanPs_GetTxIntrWatermark.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.3	sne    08/06/19	Fixed coverity warnings.
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
 *
 * </pre>
 *
@@ -103,7 +104,7 @@ s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 	 */
 	XCanPs_Reset(InstancePtr);
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 	return Status;
 }
 
@@ -452,7 +453,7 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_IsTxFifoFull(InstancePtr) == TRUE) {
-		Status = XST_FIFO_NO_ROOM;
+		Status = (s32)XST_FIFO_NO_ROOM;
 	} else {
 
 		/*
@@ -467,7 +468,7 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXFIFO_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -500,7 +501,7 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_IsRxEmpty(InstancePtr) == TRUE) {
-		Status = XST_NO_DATA;
+		Status = (s32)XST_NO_DATA;
 	} else {
 
 		/*
@@ -521,7 +522,7 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 		 */
 		XCanPs_IntrClear(InstancePtr, XCANPS_IXR_RXNEMP_MASK);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -559,7 +560,7 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_IsHighPriorityBufFull(InstancePtr) == TRUE) {
-		Status = XST_FIFO_NO_ROOM;
+		Status = (s32)XST_FIFO_NO_ROOM;
 	} else {
 
 		/*
@@ -574,7 +575,7 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXHPB_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -727,7 +728,7 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 	 */
 	EnabledFilters = XCanPs_AcceptFilterGetEnabled(InstancePtr);
 	if ((EnabledFilters & FilterIndex) == FilterIndex) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		/*
@@ -735,7 +736,7 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 		 * return error code.
 		 */
 		if (XCanPs_IsAcceptFilterBusy(InstancePtr) == TRUE) {
-			Status = XST_FAILURE;
+			Status = (s32)XST_FAILURE;
 		} else {
 
 			/*
@@ -774,7 +775,7 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 					break;
 			}
 
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 		}
 	}
 	return Status;
@@ -880,13 +881,13 @@ s32 XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_BRPR_OFFSET,
 					(u32)Prescaler);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -958,7 +959,7 @@ s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 	Xil_AssertNonvoid(TimeSegment1 <= (u8)15U );
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		Value = ((u32) TimeSegment1) & XCANPS_BTR_TS1_MASK;
@@ -970,7 +971,7 @@ s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_BTR_OFFSET, Value);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -1046,7 +1047,7 @@ s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 	Xil_AssertNonvoid(Threshold <= (u8)63);
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
@@ -1057,7 +1058,7 @@ s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_WIR_OFFSET, ThrReg);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -1115,7 +1116,7 @@ s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 	Xil_AssertNonvoid(Threshold <= (u8)63);
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
@@ -1127,7 +1128,7 @@ s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_WIR_OFFSET, ThrReg);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }

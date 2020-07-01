@@ -361,32 +361,32 @@ s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 			InstancePtr->SendHandler =
 				(XCanPs_SendRecvHandler) CallBackFunc;
 			InstancePtr->SendRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_RECV:
 			InstancePtr->RecvHandler =
 				(XCanPs_SendRecvHandler) CallBackFunc;
 			InstancePtr->RecvRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_ERROR:
 			InstancePtr->ErrorHandler =
 				(XCanPs_ErrorHandler) CallBackFunc;
 			InstancePtr->ErrorRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_EVENT:
 			InstancePtr->EventHandler =
 				(XCanPs_EventHandler) CallBackFunc;
 			InstancePtr->EventRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		default:
-			Status = XST_INVALID_PARAM;
+			Status = (s32)XST_INVALID_PARAM;
 			break;
 	}
 	return Status;

@@ -107,7 +107,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 * it is not Configuration Mode.
 	 */
 	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
@@ -149,7 +149,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	Status = XCanPs_Send(InstancePtr, TxFrame);
 	if (Status != (s32)XST_SUCCESS) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
@@ -169,7 +169,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	Status = XCanPs_Recv(InstancePtr, RxFrame);
 	if (Status != (s32)XST_SUCCESS) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
@@ -178,19 +178,19 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	if (RxFrame[0] !=
 		(u32)XCanPs_CreateIdValue((u32)2000U, (u32)0U, (u32)0U, (u32)0U, (u32)0U)) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
 	if ((RxFrame[1] & ~XCANPS_DLCR_TIMESTAMP_MASK) != TxFrame[1]) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 		return Status;
 	}
 
 
 	for (Index = 2U; Index < (XCANPS_MAX_FRAME_SIZE_IN_WORDS); Index++) {
 		if (RxFrame[Index] != TxFrame[Index]) {
-			Status = XST_FAILURE;
+			Status = (s32)XST_FAILURE;
 			return Status;
 		}
 	}
@@ -200,7 +200,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	XCanPs_Reset(InstancePtr);
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 	return Status;
 }
 
