@@ -182,6 +182,7 @@
 *                       generation.
 * 3.3 sne     08/06/19	Fixed coverity warnings.
 * 3.5 sne     06/29/20  Fixed MISRA-C violations.
+* 3.5 sne     06/29/20  Fix multiple packets send issue #CR-1066438.
 *
 * </pre>
 *
@@ -299,6 +300,7 @@ typedef struct {
 	 */
 	XCanPs_EventHandler EventHandler;
 	void *EventRef;
+	u32 IsBusy;              /**< A transfer is in progress (state) */
 
 } XCanPs;
 

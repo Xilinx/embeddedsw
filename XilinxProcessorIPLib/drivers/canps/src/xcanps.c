@@ -27,6 +27,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.3	sne    08/06/19	Fixed coverity warnings.
 * 3.5	sne    07/01/20 Fixed MISRAC warnings.
+* 3.5	sne    07/01/20 Fixed multiple packets send issue.
 *
 * </pre>
 *
@@ -98,6 +99,8 @@ s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 	 * Indicate the component is now ready to use.
 	 */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+	InstancePtr->IsBusy = (u32)FALSE;
 
 	/*
 	 * Reset the device to get it into its initial state.
@@ -441,6 +444,7 @@ void XCanPs_ClearBusErrorStatus(XCanPs *InstancePtr, u32 Mask)
 *		written into the FIFO.
 *		- XST_FIFO_NO_ROOM if there is no room in the TX FIFO for the
 *		given frame.
+*		- XST_DEVICE_BUSY if a transfer is already in progress.
 *
 * @note		None.
 *
@@ -452,10 +456,23 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+        /*
+         * Check for transfer in progress.
+         */
+        if (InstancePtr->IsBusy == (u32)TRUE) {
+                Status = (s32)XST_DEVICE_BUSY;
+                goto END;
+        }
+
 	if (XCanPs_IsTxFifoFull(InstancePtr) == TRUE) {
 		Status = (s32)XST_FIFO_NO_ROOM;
 	} else {
 
+		/*
+		 * Set the busy flag, which will be cleared after the packet
+		 * writes to FIFO.
+		 */
+		InstancePtr->IsBusy = (u32)TRUE;
 		/*
 		 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
 		 */
@@ -467,9 +484,12 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 				XCANPS_TXFIFO_DW1_OFFSET, Xil_EndianSwap32(FramePtr[2]));
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXFIFO_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
+		/* Clear the busy flag. */
+		InstancePtr->IsBusy = (u32)FALSE;
 
 		Status = (s32)XST_SUCCESS;
 	}
+	END:
 	return Status;
 }
 
@@ -544,6 +564,7 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 *		given frame was written into the buffer.
 *		- XST_FIFO_NO_ROOM if there is no room in the TX High Priority
 *		Buffer for this frame.
+*		- XST_DEVICE_BUSY if a transfer is already in progress.
 *
 * @note
 *
@@ -559,9 +580,22 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+        /*
+         * Check for transfer in progress.
+         */
+        if (InstancePtr->IsBusy == (u32)TRUE) {
+                Status = (s32)XST_DEVICE_BUSY;
+                goto END;
+        }
+
 	if (XCanPs_IsHighPriorityBufFull(InstancePtr) == TRUE) {
 		Status = (s32)XST_FIFO_NO_ROOM;
 	} else {
+		/*
+		 * Set the busy flag, which will be cleared after the packet
+		 * writes to FIFO.
+		 */
+		InstancePtr->IsBusy = (u32)TRUE;
 
 		/*
 		 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
@@ -574,9 +608,12 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 				XCANPS_TXHPB_DW1_OFFSET, Xil_EndianSwap32(FramePtr[2]));
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXHPB_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
+		/* Clear the busy flag. */
+		InstancePtr->IsBusy = (u32)FALSE;
 
 		Status = (s32)XST_SUCCESS;
 	}
+	END:
 	return Status;
 }
 
