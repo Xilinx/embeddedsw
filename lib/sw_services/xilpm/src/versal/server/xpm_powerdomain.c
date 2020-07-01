@@ -888,7 +888,10 @@ XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 	Status = XST_SUCCESS;
 
 done:
-	XPm_PrintDbgErr(Status, DbgErr);
+	if (XST_SUCCESS != Status) {
+		PmDbg("0x%x\r\n", DbgErr);
+	}
+
 	return Status;
 }
 
