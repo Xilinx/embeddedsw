@@ -10,7 +10,7 @@ BEGIN driver canps
   OPTION supported_peripherals = (ps7_can psu_can);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.4;
+  OPTION VERSION = 3.5;
   OPTION NAME = canps;
 
 END driver
