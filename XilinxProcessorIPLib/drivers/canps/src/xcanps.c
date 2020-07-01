@@ -72,7 +72,7 @@ static void StubHandler(void);
 *
 ******************************************************************************/
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
