@@ -789,7 +789,10 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	HcleanDone = 1;
 
 done:
-	XPm_PrintDbgErr(Status, DbgErr);
+	if (XPM_INT_ERR_POWER_SUPPLY != DbgErr) {
+		XPm_PrintDbgErr(Status, DbgErr);
+	}
+
 	return Status;
 }
 
