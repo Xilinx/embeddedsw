@@ -181,6 +181,7 @@
 *     ms      03/17/17  Added readme.txt file in examples folder for doxygen
 *                       generation.
 * 3.3 sne     08/06/19	Fixed coverity warnings.
+* 3.5 sne     06/29/20  Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -301,6 +302,10 @@ typedef struct {
 
 } XCanPs;
 
+
+/************************** Variable Definitions *****************************/
+
+extern XCanPs_Config XCanPs_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
