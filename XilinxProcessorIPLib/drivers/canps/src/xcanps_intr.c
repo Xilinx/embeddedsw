@@ -270,9 +270,6 @@ void XCanPs_IntrHandler(void *InstancePtr)
 			 * handling of other interrupts is needed any more.
 			 */
 			return;
-		} else {
-			/*This else was made for misra-c compliance*/
-			;
 		}
 	}
 
