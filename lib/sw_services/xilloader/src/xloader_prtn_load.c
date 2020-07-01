@@ -22,6 +22,8 @@
 * 1.02  ana  06/04/2020 Modified XLoader_ProcessSecurePrtn function name
 *			from XLoader_SecurePrtn
 *       kc   06/22/2020 Modified print statement for partition loading
+*       kc   06/29/2020 Moved partition loading print statement to get proper
+*			partition load time value.
 *
 * </pre>
 *
@@ -76,10 +78,11 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 	/* Validate and load the image partitions */
 	for (PrtnIndex = 0U; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns;
 		PrtnIndex++) {
-		PrtnLoadTime = XPlmi_GetTimerValue();
 
 		XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
 			     PrtnNum);
+
+		PrtnLoadTime = XPlmi_GetTimerValue();
 		/* Prtn Hdr Validation */
 		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
 

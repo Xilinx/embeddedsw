@@ -19,6 +19,7 @@
 * 1.00  kc   08/23/2018 Initial release
 * 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
+* 1.02  kc   01/07/2020 Added performance print for KeyHole command
 *
 * </pre>
 *
@@ -847,6 +848,10 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	u64 BaseAddr;
 	u32 DestOffset;
 	u32 ChunkLenTemp = 0U;
+#ifdef PLM_PRINT_PERF_KEYHOLE
+	u64 KeyHoleTime = XPlmi_GetTimerValue();
+	XPlmi_PerfTime PerfTime = {0U};
+#endif
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
 	if (Cmd->ProcessedLen == 0U) {
@@ -943,6 +948,11 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	}
 
 END:
+#ifdef PLM_PRINT_PERF_KEYHOLE
+	XPlmi_MeasurePerfTime(KeyHoleTime, &PerfTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF, " %u.%u ms KeyHole Run Time \r\n",
+	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+#endif
 	return Status;
 }
 
