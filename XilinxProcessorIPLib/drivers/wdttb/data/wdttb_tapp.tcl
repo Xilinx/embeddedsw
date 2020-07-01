@@ -232,16 +232,6 @@ proc gen_testfunc_call {swproj mhsinst} {
       Status = GWdtTbExample(${deviceid});
 
    }"
-        append testfunc_call "
-
-   {
-      int Status;
-
-      Status = GWdtIntrExample(&${intcvar}, &${ipname}_Wdttb, \\
-                                ${deviceid}, \\
-                                ${intr_id});
-
-   }"
    }
   } else {
 
