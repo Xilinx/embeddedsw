@@ -21,6 +21,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1   nsk    12/21/15 Updated XCanPs_IntrHandler to handle error
 *			interrupts correctly. CR#925615
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -210,7 +211,7 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	u32 PendingIntr;
 	u32 EventIntr;
 	u32 ErrorStatus;
-	XCanPs *CanPtr = (XCanPs *) ((void *)InstancePtr);
+	XCanPs *CanPtr = (XCanPs *) InstancePtr;
 
 	Xil_AssertVoid(CanPtr != NULL);
 	Xil_AssertVoid(CanPtr->IsReady == XIL_COMPONENT_IS_READY);

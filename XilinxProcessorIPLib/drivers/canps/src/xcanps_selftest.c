@@ -29,6 +29,7 @@
 * 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
 *						 SDK claims a 40kbps baud rate but it's not.
 * 3.00  kvn    02/13/15 Modified code for MISRA_C:2012 compliance.
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -136,7 +137,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	TxFrame[0] = (u32)XCanPs_CreateIdValue((u32)2000U, (u32)0U, (u32)0U, (u32)0U, (u32)0U);
 	TxFrame[1] = (u32)XCanPs_CreateDlcValue((u32)8U);
 
-	FramePtr = (u8 *)((void *)(&TxFrame[2]));
+	FramePtr = (u8 *)(&TxFrame[2]);
 	for (Index = 0U; Index < 8U; Index++) {
 		if(*FramePtr != 0U) {
 			*FramePtr = (u8)Index;
