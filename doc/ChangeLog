@@ -1,5 +1,9 @@
 Changes for 2020.2
 ===============================
+canps_v3_5:
+Fixed MISRA-C violations.
+Fixed multiple packets send issue in interrupt mode.
+
 lwip211_v1_3:
 Fix RX BD setup order.
 Fix check for base address in Zynq clock setup.
