@@ -226,7 +226,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddr;		/**< Register base address */
+	UINTPTR BaseAddr;	/**< Register base address */
 } XCanPs_Config;
 
 /******************************************************************************/
@@ -490,7 +490,7 @@ typedef struct {
  * Functions in xcanps.c
  */
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 
 void XCanPs_Reset(XCanPs *InstancePtr);
 u8 XCanPs_GetMode(XCanPs *InstancePtr);
