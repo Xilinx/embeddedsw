@@ -12,6 +12,8 @@
 #                          example, when Wdttb interrupt pin is not connected
 #                          (CR-1035919).
 # 5.1	   sne    06/05/20 Updated tcl to support WWDT mode.
+# 5.1	   sne	  06/30/20 Added interrupt connection check for Generic WDT
+#			   example.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_Im_SP2
@@ -224,6 +226,7 @@ proc gen_testfunc_call {swproj mhsinst} {
           
       }
    } else {
+     if {$ps_wdt == 1} {
         append testfunc_call "
 
    {
@@ -232,6 +235,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       Status = GWdtTbExample(${deviceid});
 
    }"
+     }
    }
   } else {
 
@@ -341,6 +345,7 @@ proc gen_testfunc_call {swproj mhsinst} {
            }
          }
        } else {
+         if {$ps_wdt == 1} {
     append testfunc_call "
 
    {
@@ -357,6 +362,7 @@ proc gen_testfunc_call {swproj mhsinst} {
          print(\"GWdtTbExample FAILED\\r\\n\");
       }
    }"
+         }
        }
   }
 
