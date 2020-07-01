@@ -183,6 +183,7 @@
 *       cog    06/24/20 Added observation FIFO and decimation functionality.
 *       cog    06/24/20 Added channel powerdon functionality.
 *       cog    06/24/20 Refactor to functionaize the FIFO width setting.
+*       cog    07/01/20 Fixed metal log print error in XRFdc_SetQMCSettings.
 *
 * </pre>
 *
@@ -1208,7 +1209,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		if ((QMCSettingsPtr->PhaseCorrectionFactor <= XRFDC_MIN_PHASE_CORR_FACTOR) ||
 		    (QMCSettingsPtr->PhaseCorrectionFactor >= XRFDC_MAX_PHASE_CORR_FACTOR)) {
 			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid QMC Phase Correction factor (%d) for %s %u block %u in %s\r\n",
+				  "\n Invalid QMC Phase Correction factor (%lf) for %s %u block %u in %s\r\n",
 				  QMCSettingsPtr->PhaseCorrectionFactor, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC",
 				  Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
@@ -1217,7 +1218,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		if ((QMCSettingsPtr->GainCorrectionFactor < XRFDC_MIN_GAIN_CORR_FACTOR) ||
 		    (QMCSettingsPtr->GainCorrectionFactor >= XRFDC_MAX_GAIN_CORR_FACTOR)) {
 			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid QMC Gain Correction factor (%d) for %s %u block %u in %s\r\n",
+				  "\n Invalid QMC Gain Correction factor (%lf) for %s %u block %u in %s\r\n",
 				  QMCSettingsPtr->GainCorrectionFactor, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC",
 				  Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
