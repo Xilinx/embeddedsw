@@ -276,6 +276,9 @@ enum {
 						to set the controller to SDR NON PHY mode */
 	XLOADER_ERR_OSPI_COPY_OVERFLOW, /**< 0x337 - Error when source address in
 						OSPI copy exceeds flash size */
+	XLOADER_ERR_SD_F_CLOSE,		/**< 0x338 - Error on closure of file in SD
+							filesystem modes */
+	XLOADER_ERR_SD_UMOUNT,		/**< 0X339 - Error on unmounting filsystem */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600U,
@@ -354,7 +357,6 @@ enum {
 		/**< 0x2XXX, CDO command handler has failed.
 		 * [12:8] contains Module ID, [7:0] contains API ID.
 		 * Refer Minor code for Handler error code */
-
 };
 
 /**************************** Type Definitions *******************************/

@@ -54,110 +54,111 @@ XilPdi_ATFHandoffParams ATFHandoffParams = {0U};
 XilPdi* BootPdiPtr = NULL;
 
 /*****************************************************************************/
-#define XLOADER_DEVICEOPS_INIT(DevSrc, DevInit, DevCopy)\
+#define XLOADER_DEVICEOPS_INIT(DevSrc, DevInit, DevCopy, DevRelease)\
 	{ \
 		.Name = DevSrc, \
 		.DeviceBaseAddr = 0U, \
 		.Init = DevInit, \
 		.Copy = DevCopy, \
+		.Release = DevRelease, \
 	}
 
 const XLoader_DeviceOps DeviceOps[] =
 {
-	XLOADER_DEVICEOPS_INIT("JTAG", XLoader_SbiInit, XLoader_SbiCopy),  /* JTAG - 0U */
+	XLOADER_DEVICEOPS_INIT("JTAG", XLoader_SbiInit, XLoader_SbiCopy, NULL),  /* JTAG - 0U */
 #ifdef XLOADER_QSPI
-	XLOADER_DEVICEOPS_INIT("QSPI24", XLoader_QspiInit, XLoader_QspiCopy), /* QSPI24 - 1U */
-	XLOADER_DEVICEOPS_INIT("QSPI32", XLoader_QspiInit, XLoader_QspiCopy), /* QSPI32- 2U */
+	XLOADER_DEVICEOPS_INIT("QSPI24", XLoader_QspiInit, XLoader_QspiCopy, NULL), /* QSPI24 - 1U */
+	XLOADER_DEVICEOPS_INIT("QSPI32", XLoader_QspiInit, XLoader_QspiCopy, NULL), /* QSPI32- 2U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("SD0", XLoader_SdInit, XLoader_SdCopy), /* SD0 - 3U*/
+	XLOADER_DEVICEOPS_INIT("SD0", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* SD0 - 3U*/
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),  /* 4U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),  /* 4U */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1", XLoader_SdInit, XLoader_SdCopy), /* SD1 - 5U */
+	XLOADER_DEVICEOPS_INIT("SD1", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* SD1 - 5U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC", XLoader_SdInit, XLoader_SdCopy), /* EMMC - 6U */
+	XLOADER_DEVICEOPS_INIT("EMMC", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* EMMC - 6U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_USB
-	XLOADER_DEVICEOPS_INIT("USB", XLoader_UsbInit, XLoader_UsbCopy), /* USB - 7U */
+	XLOADER_DEVICEOPS_INIT("USB", XLoader_UsbInit, XLoader_UsbCopy, NULL), /* USB - 7U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_OSPI
-	XLOADER_DEVICEOPS_INIT("OSPI", XLoader_OspiInit, XLoader_OspiCopy), /* OSPI - 8U */
+	XLOADER_DEVICEOPS_INIT("OSPI", XLoader_OspiInit, XLoader_OspiCopy, NULL), /* OSPI - 8U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 9U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* 9U */
 #ifdef XLOADER_SBI
-	XLOADER_DEVICEOPS_INIT("SMAP", XLoader_SbiInit, XLoader_SbiCopy), /* SMAP - 0xA */
+	XLOADER_DEVICEOPS_INIT("SMAP", XLoader_SbiInit, XLoader_SbiCopy, NULL), /* SMAP - 0xA */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xBU */
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xCU */
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xDU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* 0xBU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* 0xCU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* 0xDU */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_LS", XLoader_SdInit, XLoader_SdCopy), /* SD1 LS - 0xEU */
+	XLOADER_DEVICEOPS_INIT("SD1_LS", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* SD1 LS - 0xEU */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT("DDR", XLoader_DdrInit, XLoader_DdrCopy), /* DDR - 0xF */
+	XLOADER_DEVICEOPS_INIT("DDR", XLoader_DdrInit, XLoader_DdrCopy, NULL), /* DDR - 0xF */
 #ifdef XLOADER_SBI
-	XLOADER_DEVICEOPS_INIT("SBI", XLoader_SbiInit, XLoader_SbiCopy), /* SBI - 0x10 */
+	XLOADER_DEVICEOPS_INIT("SBI", XLoader_SbiInit, XLoader_SbiCopy, NULL), /* SBI - 0x10 */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* PCIE - 0x11U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* PCIE - 0x11U */
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD0_RAW - 0x12U */
+	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_RawInit, XLoader_RawCopy, XLoader_SdRelease), /* SD0_RAW - 0x12U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD1_RAW - 0x13U */
+	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* SD1_RAW - 0x13U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x14U */
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC_RAW - 0x14U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD1_LS_RAW - 0x15U */
+	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* SD1_LS_RAW - 0x15U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP1", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x16U */
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP1", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC_RAW - 0x16U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP2", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x17U */
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP2", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC_RAW - 0x17U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
-#endif
-#ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("EMMC0", XLoader_SdInit, XLoader_SdCopy), /* EMMC0 - 0x18U */
-#else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("EMMC0_RAW", XLoader_RawInit, XLoader_RawCopy), /* EMMC0_RAW - 0x19U */
+	XLOADER_DEVICEOPS_INIT("EMMC0", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* EMMC0 - 0x18U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
+#endif
+#ifdef XLOADER_SD_0
+	XLOADER_DEVICEOPS_INIT("EMMC0_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC0_RAW - 0x19U */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 };
 
@@ -571,6 +572,14 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			goto END;
 		}
 	}
+
+	if (DeviceOps[PdiPtr->PdiSrc].Release != NULL) {
+		Status = DeviceOps[PdiPtr->PdiSrc].Release();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	Status = XST_SUCCESS;
 
 END:
@@ -1075,6 +1084,13 @@ int XLoader_ReloadImage(u32 ImageId)
 			break;
 		default:
 			break;
+	}
+
+	if (DeviceOps[DeviceFlags].Release != NULL) {
+		Status = DeviceOps[DeviceFlags].Release();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 END:

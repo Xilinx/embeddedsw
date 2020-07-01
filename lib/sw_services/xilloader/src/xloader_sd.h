@@ -58,6 +58,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XLoader_SdInit(u32 DeviceFlags);
 int XLoader_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SdRelease(void);
 int XLoader_RawInit(u32 DrvNum);
 int XLoader_RawCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
