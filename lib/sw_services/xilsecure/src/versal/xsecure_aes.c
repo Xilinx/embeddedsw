@@ -27,6 +27,8 @@
 *       har  03/01/2020 Added code to soft reset once key decryption is done
 *       rpo  03/23/2020 Replaced timeouts with WaitForEvent and code clean up
 * 4.3   ana  06/04/2020 Minor enhancement and Updated AES state
+*       kpt  06/29/2020 Added asserts for input arguments and minor
+*                       enhancements on AES state
 * </pre>
 *
 * @note
@@ -518,6 +520,15 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((KeyType == XSECURE_BLACK_KEY) ||
 			(KeyType == XSECURE_OBFUSCATED_KEY));
+	Xil_AssertNonvoid((DecKeySrc < XSECURE_MAX_KEY_SOURCES) &&
+		(DecKeySrc >= XSECURE_AES_BBRAM_KEY));
+	Xil_AssertNonvoid((DstKeySrc < XSECURE_MAX_KEY_SOURCES) &&
+		(DstKeySrc >= XSECURE_AES_BBRAM_KEY));
+	Xil_AssertNonvoid(IvAddr != 0x00U);
+	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
+		(KeySize == XSECURE_AES_KEY_SIZE_256));
+
+
 
 	if ((AesKeyLookupTbl[DecKeySrc].KeyDecSrcAllowed != TRUE) ||
 	    (AesKeyLookupTbl[DstKeySrc].KeyDecSrcSelVal ==
