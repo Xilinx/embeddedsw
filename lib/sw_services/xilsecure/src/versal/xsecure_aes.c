@@ -437,6 +437,8 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+		(KeySrc >= XSECURE_AES_BBRAM_KEY));
 	Xil_AssertNonvoid(AesKeyLookupTbl[KeySrc].UsrWrAllowed == TRUE);
 	Xil_AssertNonvoid((XSECURE_AES_KEY_SIZE_128 == KeySize) ||
 			(XSECURE_AES_KEY_SIZE_256 == KeySize));
@@ -1362,7 +1364,8 @@ static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(KeySrc < XSECURE_MAX_KEY_SOURCES);
+	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+		(KeySrc >= XSECURE_AES_BBRAM_KEY));
 	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
 			  (KeySize == XSECURE_AES_KEY_SIZE_256));
 
@@ -1458,7 +1461,8 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid (KeySrc <= XSECURE_AES_EXPANDED_KEYS);
+	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+		(KeySrc >= XSECURE_AES_BBRAM_KEY));
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
