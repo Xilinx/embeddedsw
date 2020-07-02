@@ -53,7 +53,10 @@ extern "C" {
 #define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
+
+#define XNVM_EFUSE_IV_LEN_IN_BYES			(12U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES                 (32U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)
 
 /* PUF syndrome length definitions for Versal eFuse */
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
@@ -594,20 +597,25 @@ typedef struct {
 }XNvm_EfusePufSecCtrlBits;
 
 typedef struct {
-	u8 SafetyMissionEn;
-	u8 LbistEn;
-	u8 CrytoKatEn;
-	u8 HaltBootEnv;
+	u8 GlitchDetHaltBootEn;
+	u8 GlitchDetRomMonitorEn;
 	u8 HaltBootError;
+	u8 HaltBootEnv;
+	u8 CryptoKatEn;
+	u8 LbistEn;
+	u8 SafetyMissionEn;
 	u8 Ppk0Invalid;
 	u8 Ppk1Invalid;
 	u8 Ppk2Invalid;
-	u8 SysmonTempMonEn;
-	u8 SysmonVoltMonEn;
-	u8 LpdNocScEn;
-	u8 PmcMbistEn;
-	u8 LpdMbistEn;
 }XNvm_EfuseMiscCtrlBits;
+
+typedef struct {
+	u8 SysmonTempMonEn;
+        u8 SysmonVoltMonEn;
+        u8 LpdNocScEn;
+        u8 PmcMbistEn;
+        u8 LpdMbistEn;
+}XNvm_EfuseSecurityMisc1Bits;
 
 typedef struct {
 	u8 PrgmGlitch;
@@ -641,14 +649,7 @@ typedef struct {
 }XNvm_EfuseDecOnly;
 
 typedef struct {
-	u8 PrgmRevokeId0;
-	u8 PrgmRevokeId1;
-	u8 PrgmRevokeId2;
-	u8 PrgmRevokeId3;
-	u8 PrgmRevokeId4;
-	u8 PrgmRevokeId5;
-	u8 PrgmRevokeId6;
-	u8 PrgmRevokeId7;
+	u8 PrgmRevokeId;
 	u32 RevokeId[XNVM_NUM_OF_REVOKE_ID_FUSES];
 }XNvm_EfuseRevokeIds;
 
