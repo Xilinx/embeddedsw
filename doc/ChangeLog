@@ -7,6 +7,7 @@ Fixed multiple packets send issue in interrupt mode.
 lwip211_v1_3:
 Fix RX BD setup order.
 Fix check for base address in Zynq clock setup.
+Fix mkfs usage in lwip examples.
 
 sdps_v3_10
 Add support for SD/eMMC Non-Blocking Read
