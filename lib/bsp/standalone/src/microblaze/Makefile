@@ -26,12 +26,11 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
+NON_LTO_FILES = $(wildcard microblaze_interrupt_handler.c)
 INCLUDEFILES=*.h
 
 ECC_FLAGS_NO_FLTO1 = $(subst -flto,,$(ECC_FLAGS))
 ECC_FLAGS_NO_FLTO = $(subst -ffat-lto-objects,,$(ECC_FLAGS_NO_FLTO1))
-
-NON_LTO_FILES:=microblaze_interrupt_handler.c
 
 libs: $(LIBS) clean
 
