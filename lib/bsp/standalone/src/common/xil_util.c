@@ -19,6 +19,7 @@
 * 7.2   nava     08/01/20 Updated Xil_WaitForEvent() and Xil_WaitForEvents(()
 *                         API to use microsecond timeout instead of a free
 *                         counter.
+* 7.3   kal      06/30/20 Converted Xil_Ceil macro to API.
 *
 * </pre>
 *
@@ -32,6 +33,28 @@
 #define MAX_NIBBLES			8U
 
 /************************** Function Prototypes *****************************/
+
+/******************************************************************************/
+/**
+* This API ceils the provided float value.
+*
+* @param	Value is a float variable which has to ceiled to nearest
+*		integer.
+*
+* @return	Returns ceiled value.
+*
+*******************************************************************************/
+int Xil_Ceil(float Value)
+{
+    int Result = Value;
+
+	if (Value > Result) {
+        Result = Result + 1;
+    }
+
+    return Result;
+}
+
 /****************************************************************************/
 /**
  * Converts the char into the equivalent nibble.

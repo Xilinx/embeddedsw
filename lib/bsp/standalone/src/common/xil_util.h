@@ -17,6 +17,8 @@
 * ----- -------- -------- -----------------------------------------------
 * 6.4   mmd      04/21/19 First release.
 * 6.5   kal      02/29/20 Added Xil_ConvertStringToHexBE API
+* 7.3   kal	 06/30/20 Converted Xil_Ceil macro to API
+*
 * </pre>
 *
 *****************************************************************************/
@@ -42,24 +44,9 @@ extern "C" {
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************/
-/**
-* This API ceils the provided float value.
-*
-* @param	Value is a float variable which has to ceiled to nearest
-*		integer.
-*
-* @return	Returns ceiled value.
-*
-* @note		one.
-*
-*******************************************************************************/
-#define Xil_Ceil(Value) \
-	(((Value > (u32)Value) || ((u32)Value == 0U)) ? \
-					(u32)((u32)Value + 1U) : (u32)Value)
-
-
 /*************************** Function Prototypes ******************************/
+/* Ceils the provided float value */
+int Xil_Ceil(float Value);
 
 /* Converts input character to nibble */
 u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num);
