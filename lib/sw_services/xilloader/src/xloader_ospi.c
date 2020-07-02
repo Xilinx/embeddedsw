@@ -393,10 +393,18 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg.Addrsize = XLOADER_OSPI_READ_ADDR_SIZE;
 	FlashMsg.Addrvalid = TRUE;
 	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
 	FlashMsg.ByteCount = TrfLen;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = SrcAddr;
+
+	if ((DestAddr >> 32U) == 0U) {
+		FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
+	}
+	else {
+		FlashMsg.RxBfrPtr = NULL;
+		FlashMsg.RxAddr64bit = DestAddr;
+		FlashMsg.Xfer64bit = 1U;
+	}
 
 	if (OspiPsvInstance.SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
@@ -439,10 +447,18 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			FlashMsg.Addrsize = XLOADER_OSPI_READ_ADDR_SIZE;
 			FlashMsg.Addrvalid = TRUE;
 			FlashMsg.TxBfrPtr = NULL;
-			FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
 			FlashMsg.ByteCount = TrfLen;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 			FlashMsg.Addr = SrcAddr;
+
+			if ((DestAddr >> 32U) == 0U) {
+				FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
+			}
+			else {
+				FlashMsg.RxBfrPtr = NULL;
+				FlashMsg.RxAddr64bit = DestAddr;
+				FlashMsg.Xfer64bit = 1U;
+			}
 
 			Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 			if (Status != XST_SUCCESS) {
