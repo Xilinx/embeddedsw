@@ -19,6 +19,8 @@
  * ----- ---  -------- -------------------------------------------------------
  * 1.0	 kal   08/16/2019 Initial release of xnvm_efuse_versal_example
  * 2.0   kal   02/27/2020 Updates example with Wrapper function calls
+ * 2.1   kal   06/30/2020 Added read support to all SecCtrl efuses and
+ *                        MiscCtrl eFuses.
  *
  ******************************************************************************/
 
@@ -32,10 +34,9 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
 #define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
-#define XNVM_EFUSE_PPK_INVD_MASK			(3U)
-#define XNVM_EFUSE_AES_CRC_LK_MASK			(3U)
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
 #define XNVM_EFUSE_GLITCH_WR_LK_MASK		(0x80000000U)
+#define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK		(0x0000ffffU)
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -68,6 +69,7 @@ static u32 XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len);
 static u32 XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len);
 static u32 XilNvm_ValidateIvString(const char *IvStr);
 static u32 XilNvm_ValidateHash(const char *Hash, u32 Len);
+static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 
 /*****************************************************************************/
 
@@ -77,9 +79,11 @@ int main()
 
 	Status = XilNvm_EfuseWriteFuses();
 	if (Status != XST_SUCCESS) {
-		if (Status != XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED) {
+		if (Status == XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED) {
 			xil_printf("eFuse write requests are NULL,"
 					"hence nothing is programmed\r\n");
+		}
+		else {
 			goto EFUSE_ERROR;
 		}
 	}
@@ -199,10 +203,12 @@ static u32 XilNvm_EfuseReadFuses(void)
 {
 	XNvm_Dna EfuseDna = {0U};
 	XNvm_PpkHash EfusePpk = {0U};
-	XNvm_Iv ReadIv = {0U};
+	XNvm_Iv EfuseIv = {0U};
 	XNvm_EfuseUserData ReadUserFuses = {0U};
 	u32 RdRevocationIds[XNVM_NUM_OF_REVOKE_ID_FUSES];
 	u32 Status = (u32)XST_FAILURE;
+	u32 ReadIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+	u32 ReadPpk[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
 	u32 RegData;
 	u32 Index;
 	s8 Row;
@@ -222,56 +228,67 @@ static u32 XilNvm_EfuseReadFuses(void)
 			goto EFUSE_ERROR;
 		}
 		else {
+
 			xil_printf("\n\rPPK%d:", Index);
+			XilNvm_FormatData((u8 *)EfusePpk.Hash, (u8 *)ReadPpk,
+					XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES);
 			for (Row = (XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS - 1U);
 							Row >= 0; Row--) {
-				xil_printf("%08x", EfusePpk.Hash[Row]);
+				xil_printf("%08x", ReadPpk[Row]);
 			}
 		}
 		xil_printf("\n\r");
 	}
 
-	Status = XNvm_EfuseReadIv(&ReadIv, XNVM_EFUSE_META_HEADER_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_META_HEADER_IV_TYPE);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
 	xil_printf("\n\rMetaheader IV:");
+
+	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
 	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
 			Row >= 0; Row--) {
-		xil_printf("%08x", ReadIv.Iv[Row]);
+		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
 
-	Status = XNvm_EfuseReadIv(&ReadIv, XNVM_EFUSE_BLACK_OBFUS_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_BLACK_OBFUS_IV_TYPE);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
 	xil_printf("\n\rBlack Obfuscated IV:");
+
+	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
 	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
 			Row >= 0; Row--) {
-		xil_printf("%08x", ReadIv.Iv[Row]);
+		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
 
-	Status = XNvm_EfuseReadIv(&ReadIv, XNVM_EFUSE_PLM_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_PLM_IV_TYPE);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
 	xil_printf("\n\rPlm IV:");
+
+	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
 	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
 			Row >= 0; Row--) {
-		xil_printf("%08x", ReadIv.Iv[Row]);
+		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
 
-	Status = XNvm_EfuseReadIv(&ReadIv, XNVM_EFUSE_DATA_PARTITION_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_DATA_PARTITION_IV_TYPE);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
 	xil_printf("\n\rData Partition IV:");
+
+	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
 	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
 			Row >= 0; Row--) {
-		xil_printf("%08x", ReadIv.Iv[Row]);
+		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
 
@@ -400,7 +417,7 @@ EFUSE_ERROR:
  *
  ******************************************************************************/
 static u32 XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
-											XNvm_EfuseGlitchCfgBits *GlitchData)
+				XNvm_EfuseGlitchCfgBits *GlitchData)
 {
 	u32 Status = (u32)XST_FAILURE;
 
@@ -607,6 +624,13 @@ static u32 XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto ERROR;
 		}
+
+		/**
+		 * DEC_ONLY data size is 16 bits Bit[15:0]
+		 */
+		DecOnly->DecEfuseOnly = DecOnly->DecEfuseOnly &
+					(XNVM_EFUSE_DEC_EFUSE_ONLY_MASK);
+
 		WriteEfuse->DecOnly = DecOnly;
 	}
 
@@ -714,33 +738,26 @@ static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	RevokeIds->PrgmRevokeId0 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_0;
-	RevokeIds->PrgmRevokeId1 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_1;
-	RevokeIds->PrgmRevokeId2 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_2;
-	RevokeIds->PrgmRevokeId3 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_3;
-	RevokeIds->PrgmRevokeId4 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_4;
-	RevokeIds->PrgmRevokeId5 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_5;
-	RevokeIds->PrgmRevokeId6 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_6;
-	RevokeIds->PrgmRevokeId7 =
-			XNVM_EFUSE_WRITE_REVOCATION_ID_7;
+	if ((XNVM_EFUSE_WRITE_REVOCATION_ID_0 |
+		XNVM_EFUSE_WRITE_REVOCATION_ID_1 |
+		XNVM_EFUSE_WRITE_REVOCATION_ID_2 |
+		XNVM_EFUSE_WRITE_REVOCATION_ID_3 |
+		XNVM_EFUSE_WRITE_REVOCATION_ID_4 |
+		XNVM_EFUSE_WRITE_REVOCATION_ID_5 |
+		XNVM_EFUSE_WRITE_REVOCATION_ID_6 |
+		XNVM_EFUSE_WRITE_REVOCATION_ID_7) != 0U) {
 
-	if (RevokeIds->PrgmRevokeId0 == TRUE) {
+		RevokeIds->PrgmRevokeId = TRUE;
+	}
+
+	if (RevokeIds->PrgmRevokeId == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_0_FUSES,
-			RevokeIds->RevokeId,
+			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_0],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
 			goto ERROR;
 		}
-	}
-	if (RevokeIds->PrgmRevokeId1 == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_1_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_1],
@@ -748,8 +765,6 @@ static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto ERROR;
 		}
-	}
-	if (RevokeIds->PrgmRevokeId2 == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_2_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_2],
@@ -757,17 +772,13 @@ static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto ERROR;
 		}
-	}
-	if (RevokeIds->PrgmRevokeId3 == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_3_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_3],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-		goto ERROR;
+			goto ERROR;
 		}
-	}
-	if (RevokeIds->PrgmRevokeId4 == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_4_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_4],
@@ -775,8 +786,6 @@ static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto ERROR;
 		}
-	}
-	if (RevokeIds->PrgmRevokeId5 == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_5_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_5],
@@ -784,8 +793,6 @@ static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto ERROR;
 		}
-	}
-	if (RevokeIds->PrgmRevokeId6 == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_6_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_6],
@@ -793,8 +800,6 @@ static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto ERROR;
 		}
-	}
-	if (RevokeIds->PrgmRevokeId7 == TRUE) {
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_7_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_7],
@@ -992,7 +997,7 @@ static u32 XilNvm_EfuseShowCtrlBits()
 	else {
 		xil_printf("writing to PPK2 efuse is not locked\n\r");
 	}
-	if (SecCtrlBits.AesCrcLk == XNVM_EFUSE_AES_CRC_LK_MASK) {
+	if (SecCtrlBits.AesCrcLk != FALSE) {
 		xil_printf("CRC check on AES key is disabled\n\r");
 	}
 	else {
@@ -1028,6 +1033,30 @@ static u32 XilNvm_EfuseShowCtrlBits()
 	else {
 		xil_printf("Programming User key 1 is not disabled\n\r");
 	}
+	if (SecCtrlBits.SecDbgDis != FALSE) {
+		xil_printf("Secure Debug feature is disabled\n\r");
+	}
+	else {
+		xil_printf("Secure Debug feature is enabled\n\r");
+	}
+	if (SecCtrlBits.SecLockDbgDis != FALSE) {
+		xil_printf("Secure Debug feature in JTAG is disabled\n\r");
+	}
+	else {
+		xil_printf("Secure Debug feature in JTAG is enabled\n\r");
+	}
+	if (SecCtrlBits.BootEnvWrLk == TRUE) {
+		xil_printf("Update to BOOT_ENV_CTRL row is disabled\n\r");
+	}
+	else {
+		xil_printf("Update to BOOT_ENV_CTRL row is enabled\n\r");
+	}
+	if(SecCtrlBits.RegInitDis != FALSE) {
+		xil_printf("Register Init is disabled\n\r");
+	}
+	else {
+		xil_printf("Register Init is enabled\n\r");
+	}
 	if (PufSecCtrlBits.PufSynLk == TRUE) {
 		xil_printf("Programming Puf Syndrome data is disabled\n\r");
 	}
@@ -1058,19 +1087,61 @@ static u32 XilNvm_EfuseShowCtrlBits()
 	else {
 		xil_printf("Puf test 2 is enabled\n\r");
 	}
-	if(MiscCtrlBits.Ppk0Invalid == XNVM_EFUSE_PPK_INVD_MASK) {
+	if (MiscCtrlBits.GlitchDetHaltBootEn != FALSE) {
+		xil_printf("GdHaltBootEn efuse is programmed\r\n");
+	}
+	else {
+		xil_printf("GdHaltBootEn efuse is not programmed\n\r");
+	}
+	if (MiscCtrlBits.GlitchDetRomMonitorEn == TRUE) {
+		xil_printf("GdRomMonitorEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("GdRomMonitorEn efuse is not programmed\n\r");
+	}
+	if (MiscCtrlBits.HaltBootError != FALSE) {
+		xil_printf("HaltBootError efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("HaltBootError efuse is not programmed\r\n");
+	}
+	if (MiscCtrlBits.HaltBootEnv != FALSE) {
+		xil_printf("HaltBootEnv efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("HaltBootEnv efuse is not programmed\n\r");
+	}
+	if (MiscCtrlBits.CryptoKatEn == TRUE) {
+		xil_printf("CryptoKatEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("CryptoKatEn efuse is not programmed\n\r");
+	}
+	if (MiscCtrlBits.LbistEn == TRUE) {
+		xil_printf("LbistEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("LbistEn efuse is not programmed\n\r");
+	}
+	if (MiscCtrlBits.SafetyMissionEn == TRUE) {
+		xil_printf("SafetyMissionEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("SafetyMissionEn efuse is not programmed\n\r");
+	}
+	if(MiscCtrlBits.Ppk0Invalid != FALSE) {
 		xil_printf("Ppk0 hash stored in efuse is not valid\n\r");
 	}
 	else {
 		xil_printf("Ppk0 hash stored in efuse is valid\n\r");
 	}
-	if(MiscCtrlBits.Ppk1Invalid == XNVM_EFUSE_PPK_INVD_MASK) {
+	if(MiscCtrlBits.Ppk1Invalid != FALSE) {
 		xil_printf("Ppk1 hash stored in efuse is not valid\n\r");
 	}
 	else {
 		xil_printf("Ppk1 hash stored in efuse is valid\n\r");
 	}
-	if(MiscCtrlBits.Ppk2Invalid == XNVM_EFUSE_PPK_INVD_MASK) {
+	if(MiscCtrlBits.Ppk2Invalid != FALSE) {
 		xil_printf("Ppk2 hash stored in efuse is not valid\n\r");
 	}
 	else {
@@ -1241,6 +1312,26 @@ END:
 
 }
 
+/******************************************************************************/
+/**
+ *
+ * This function reverses the data array
+ *
+ * @param	OrgDataPtr Pointer to the original data
+ * @param	SwapPtr    Pointer to the reversed data
+ * @param	Len        Length of the data in bytes
+ *
+ ******************************************************************************/
+static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
+{
+	u32 Index = 0U;
+	u32 ReverseIndex = (Len - 1U);
+	for(Index = 0U; Index < Len; Index++)
+	{
+		SwapPtr[Index] = OrgDataPtr[ReverseIndex];
+		ReverseIndex--;
+	}
+}
 
 /** //! [XNvm eFuse example] */
 /**@}*/
