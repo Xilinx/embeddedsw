@@ -717,6 +717,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
 	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
 	Xil_AssertNonvoid((IsLastChunk == TRUE) || (IsLastChunk == FALSE));
 	Xil_AssertNonvoid(InstancePtr->AesState ==
