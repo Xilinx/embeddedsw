@@ -32,6 +32,7 @@ extern "C" {
 
 /****************************** Include Files *********************************/
 #include "xil_io.h"
+#include "xparameters.h"
 
 /*************************** Constant Definitions *****************************/
 
@@ -223,6 +224,13 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_ROW_43_PROT_0_MASK		(0x00000004U)
 
 /* access_type: ro  */
+#define XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_SHIFT	   	(30U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_SHIFT   		(29U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_SHIFT   		(21U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ENV_1_0_SHIFT   		(19U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_SHIFT   		(15U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_SHIFT   			(14U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_SHIFT   		(8U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_SHIFT			(6U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_SHIFT			(4U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_SHIFT			(2U)
@@ -396,7 +404,10 @@ extern "C" {
 #define XNVM_EFUSE_PD_ENABLE				(0x01U << 0U)
 
 /* PS Reference clock definition in Hz. */
-#define XNVM_PS_REF_CLK_FREQ				(33.333333e6) /* Hz */
+#define XNVM_PS_REF_CLK_FREQ			(XPAR_PSU_PSS_REF_CLK_FREQ_HZ)
+
+/* Number of Rows per Page */
+#define XNVM_NUM_OF_ROWS_PER_PAGE			(256U)
 
 /* Timeout in term of number of times status register polled to check eFUSE
  * read operation complete

@@ -116,6 +116,7 @@ static u32 XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash);
 static u32 XNvm_EfuseValidateUserFusesWriteReq(XNvm_EfuseUserData *WriteUserFuses);
 static u32 XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq);
 static u32 XNvm_EfuseValidateIV(u32 *Iv, u32 Row);
+static u32 XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row);
 static u32 XNvm_EfuseWritePufAux(u32 Aux);
 static u32 XNvm_EfuseWritePufChash(u32 Chash);
 static u32 XNvm_EfuseWritePufSynData(u32 *SynData);
@@ -596,6 +597,10 @@ u32 XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		(u8)((RegData &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_DEBUG_DIS_MASK) >>
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_DEBUG_DIS_1_0_SHIFT);
+	SecCtrlBits->SecLockDbgDis =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_MASK) >>
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_1_0_SHIFT);
 	SecCtrlBits->BootEnvWrLk =
 		(u8)((RegData &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK) >>
@@ -656,12 +661,6 @@ u32 XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
 		goto END;
 	}
 
-	Status = XNvm_EfuseIsPufHelperDataEmpty();
-	if (Status != (u32)XST_SUCCESS) {
-		Status = (Status |
-				(u32)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-	}
-
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
@@ -669,6 +668,12 @@ u32 XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
 	}
 
 	if (PufHelperData->PrgmPufHelperData == TRUE) {
+
+		Status = XNvm_EfuseIsPufHelperDataEmpty();
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (Status |
+					(u32)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+		}
 
 		Status = XNvm_EfuseWritePufSynData(PufHelperData->EfuseSynData);
 		if (Status != (u32)XST_SUCCESS) {
@@ -794,6 +799,34 @@ u32 XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits)
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
+	MiscCtrlBits->GlitchDetHaltBootEn =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_SHIFT);
+	MiscCtrlBits->GlitchDetRomMonitorEn =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_SHIFT);
+	MiscCtrlBits->HaltBootError =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_SHIFT);
+	MiscCtrlBits->HaltBootEnv =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ENV_1_0_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ENV_1_0_SHIFT);
+	MiscCtrlBits->CryptoKatEn =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_SHIFT);
+	MiscCtrlBits->LbistEn =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_SHIFT);
+	MiscCtrlBits->SafetyMissionEn =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_SHIFT);
 	MiscCtrlBits->Ppk0Invalid =
 		(u8)((ReadReg &
 		XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_MASK) >>
@@ -937,19 +970,28 @@ END:
 u32 XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 {
 	u32 Status = (u32)XST_FAILURE;
+	u32 PufSynRowNum;
 
 	if (PufHelperData == NULL) {
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_PUF_SYN_START_ROW,
+	/* Puf Syndrome eFuses are in Page 2 of eFuse memory map,
+	 * hence effective row should be calculated to read
+	 * correct eFuses.
+	 */
+	PufSynRowNum = XNVM_EFUSE_PUF_SYN_START_ROW +
+			(XNVM_NUM_OF_ROWS_PER_PAGE * XNVM_EFUSE_PAGE_2);
+
+	Status = XNvm_EfuseReadCacheRange(PufSynRowNum,
 					XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS,
 					PufHelperData->EfuseSynData);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_PUF_SYN_DATA);
 		goto END;
 	}
+
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_CHASH_ROW,
 					&(PufHelperData->Chash));
 	if (Status != XST_SUCCESS) {
@@ -961,6 +1003,9 @@ u32 XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 	if (Status != XST_SUCCESS) {
 		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_PUF_AUX);
 	}
+
+	PufHelperData->Aux = PufHelperData->Aux &
+				XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK;
 
 END:
 	return Status;
@@ -1141,33 +1186,7 @@ u32 XNvm_EfuseWriteRevocationId(u32 RevokeId)
 	RevokeIdBit = (RevokeId % XNVM_EFUSE_MAX_BITS_IN_ROW);
 
 	WriteRevokeId.RevokeId[RevokeIdRow] = 1U << RevokeIdBit;
-
-	switch(RevokeIdRow) {
-	case XNVM_EFUSE_REVOCATION_ID_0:
-		WriteRevokeId.PrgmRevokeId0 = TRUE;
-		break;
-	case XNVM_EFUSE_REVOCATION_ID_1:
-		WriteRevokeId.PrgmRevokeId1 = TRUE;
-		break;
-	case XNVM_EFUSE_REVOCATION_ID_2:
-		WriteRevokeId.PrgmRevokeId2 = TRUE;
-		break;
-	case XNVM_EFUSE_REVOCATION_ID_3:
-		WriteRevokeId.PrgmRevokeId3 = TRUE;
-		break;
-	case XNVM_EFUSE_REVOCATION_ID_4:
-		WriteRevokeId.PrgmRevokeId4 = TRUE;
-		break;
-	case XNVM_EFUSE_REVOCATION_ID_5:
-		WriteRevokeId.PrgmRevokeId5 = TRUE;
-		break;
-	case XNVM_EFUSE_REVOCATION_ID_6:
-		WriteRevokeId.PrgmRevokeId6 = TRUE;
-		break;
-	case XNVM_EFUSE_REVOCATION_ID_7:
-		WriteRevokeId.PrgmRevokeId7 = TRUE;
-		break;
-	}
+	WriteRevokeId.PrgmRevokeId = TRUE;
 
 	EfuseData.RevokeIds = &WriteRevokeId;
 
@@ -2229,7 +2248,6 @@ static u32 XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u32 PrgmRevokeIds[XNVM_NUM_OF_REVOKE_ID_FUSES] = {0U};
-	u32 Row;
 
 	if (RevokeIds == NULL) {
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -2245,109 +2263,15 @@ static u32 XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds)
 		goto END;
 	}
 
-	if (RevokeIds->PrgmRevokeId0 != 0x00U) {
-
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_0;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_0]);
+	if (RevokeIds->PrgmRevokeId != 0x00U) {
+		Status = XNvm_EfusePgmAndVerifyRows(
+				XNVM_EFUSE_REVOCATION_ID_0_ROW,
+				XNVM_NUM_OF_REVOKE_ID_FUSES,
+				XNVM_EFUSE_PAGE_0,
+				PrgmRevokeIds);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_0);
-			goto END;
-		}
-	}
-	if (RevokeIds->PrgmRevokeId1 != 0x00U) {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_1;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_1]);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-			(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_1);
-			goto END;
-		}
-	}
-	if (RevokeIds->PrgmRevokeId2 != 0x00U) {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_2;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_2]);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_2);
-			goto END;
-		}
-
-	}
-	if (RevokeIds->PrgmRevokeId3 != 0x00U) {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_3;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_3]);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-			(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_3);
-			goto END;
-		}
-	}
-	if (RevokeIds->PrgmRevokeId4 != 0x00U) {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_4;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_4]);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_4);
-			goto END;
-		}
-	}
-	if (RevokeIds->PrgmRevokeId5 != 0x00U) {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_5;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_5]);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-			(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_5);
-			goto END;
-		}
-	}
-	if (RevokeIds->PrgmRevokeId6 != 0x00U) {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_6;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_6]);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_6);
-			goto END;
-		}
-	}
-	if (RevokeIds->PrgmRevokeId7 != 0x00U) {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW +
-			XNVM_EFUSE_REVOCATION_ID_7;
-
-		Status = XNvm_EfusePgmAndVerifyRows(Row, 0x1U,
-	                XNVM_EFUSE_PAGE_0,
-			&PrgmRevokeIds[XNVM_EFUSE_REVOCATION_ID_7]);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-			(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_7);
+				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS);
 			goto END;
 		}
 	}
@@ -2683,6 +2607,51 @@ static u32 XNvm_EfuseValidateIV(u32 *Iv, u32 Row)
 
 END:
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function Validates Revocation ID requested for programming bit by bit.
+ *
+ * @param	RevokeId	Pointer to RevokeId data.
+ *
+ * @param	Row		Start row of the Iv to be validated.
+ *
+ * @return
+ *		- XST_SUCCESS - if validation is successful.
+ *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - if requested to revert the
+ *						already programmed bit.
+ *******************************************************************************/
+static u32 XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row)
+{
+	u32 Status = (u32)XST_FAILURE;
+	u32 RevokeIdRd;
+	u32 Column;
+	u32 Mask;
+
+	Status = XNvm_EfuseReadCache(Row, &RevokeIdRd);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
+			Column++) {
+
+		Mask = 1U << Column;
+
+		if (((ReqRevokeId & Mask) == 0U) &&
+				((RevokeIdRd & Mask) == Mask)) {
+
+			Status = (u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS |
+				(u32)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
+			goto END;
+		}
+	}
+
+	Status = (u32)XST_SUCCESS;
+END:
+	return Status;
+
 }
 
 /******************************************************************************/
@@ -3129,6 +3098,7 @@ static u32 XNvm_EfuseWritePufAux(u32 Aux)
 static u32 XNvm_EfuseIsPufHelperDataEmpty(void)
 {
 	u32 Status = (u32)XST_FAILURE;
+	u32 PufSynRowNum;
 	u32 RowDataVal;
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PUF_CHASH_ROW,
@@ -3147,8 +3117,15 @@ static u32 XNvm_EfuseIsPufHelperDataEmpty(void)
 		Status = (u32)XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD;
 	}
 
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PUF_SYN_START_ROW,
-					(XNVM_EFUSE_PUF_SYN_START_ROW +
+	/* Puf Syndrome eFuses are in Page 2 of eFuse memory map,
+	 * hence effective row should be calculated to read
+	 * correct eFuses.
+	 */
+	PufSynRowNum = XNVM_EFUSE_PUF_SYN_START_ROW +
+		(XNVM_NUM_OF_ROWS_PER_PAGE * XNVM_EFUSE_PAGE_2);
+
+	Status = XNvm_EfuseCheckZeros(PufSynRowNum,
+					(PufSynRowNum +
 					XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS));
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
@@ -3174,25 +3151,16 @@ END :
 static u32 XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u32 RevokeIdRd;
-	u32 RevokeIdNum;
-	u32 Column;
-	u32 Mask;
-	u32 Row;
+	u32 StartRow = XNVM_EFUSE_REVOCATION_ID_0_ROW;
+	u32 EndRow = StartRow + XNVM_NUM_OF_REVOKE_ID_FUSES;
+	u32 Index;
 
 	if (RevokeIds == NULL) {
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((RevokeIds->PrgmRevokeId0 != FALSE) ||
-		(RevokeIds->PrgmRevokeId1 != FALSE) ||
-		(RevokeIds->PrgmRevokeId2 != FALSE) ||
-		(RevokeIds->PrgmRevokeId3 != FALSE) ||
-		(RevokeIds->PrgmRevokeId4 != FALSE) ||
-		(RevokeIds->PrgmRevokeId5 != FALSE) ||
-		(RevokeIds->PrgmRevokeId6 != FALSE) ||
-		(RevokeIds->PrgmRevokeId7 != FALSE)) {
+	if (RevokeIds->PrgmRevokeId != FALSE) {
 
 		if (XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_PGM_LOCK_REG_OFFSET) != 0x00U) {
@@ -3200,32 +3168,16 @@ static u32 XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds)
 				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS);
 			goto END;
 		}
-
-		for (RevokeIdNum = 0; RevokeIdNum < XNVM_NUM_OF_REVOKE_ID_FUSES;
-				RevokeIdNum++) {
-			Row = RevokeIdNum + XNVM_EFUSE_REVOCATION_ID_0_ROW;
-
-			Status = XNvm_EfuseReadCache(Row, &RevokeIdRd);
+		for (Index = StartRow; Index < EndRow; Index++) {
+			Status = XNvm_EfuseValidateRevokeId(
+                                RevokeIds->RevokeId[Index - StartRow],
+                                Index);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-
-			for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
-					Column++) {
-
-				Mask = 1U << Column;
-
-				if (((RevokeIds->RevokeId[RevokeIdNum] &
-					Mask) == 0U) && ((RevokeIdRd & Mask) ==
-								Mask)) {
-
-					Status = (u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS |
-						(u32)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
-					goto END;
-				}
-			}
 		}
 	}
+
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -3521,7 +3473,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 
 	SecurityMisc1Data = XNvm_EfuseReadReg(
 			XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
+			XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
 	if ((SecurityMisc1Data &
 		XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK) != 0x00U) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -3896,6 +3848,11 @@ static u32 XNvm_EfuseReadRow(u8 Page, u32 Row, u32* RowData)
 					XNVM_EFUSE_RD_DATA_REG_OFFSET);
 		Status = XST_SUCCESS;
 	}
+
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+				XNVM_EFUSE_ISR_REG_OFFSET,
+                                (XNVM_EFUSE_ISR_RD_DONE |
+				XNVM_EFUSE_ISR_RD_ERROR));
 	return Status;
 }
 
@@ -3930,6 +3887,9 @@ static u32 XNvm_EfuseReadCache(u32 Row, u32* RowData)
 	Status = XST_SUCCESS;
 
 END:
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+				XNVM_EFUSE_ISR_REG_OFFSET,
+                                XNVM_EFUSE_ISR_CACHE_ERROR);
 	return Status;
 }
 
@@ -4007,6 +3967,11 @@ static u32 XNvm_EfusePgmBit(u32 Page, u32 Row, u32 Col)
 		Status = XST_SUCCESS;
 	}
 
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_ISR_REG_OFFSET,
+			(XNVM_EFUSE_ISR_PGM_DONE |
+			XNVM_EFUSE_ISR_PGM_ERROR));
+
 	return Status;
 
 }
@@ -4043,6 +4008,7 @@ static u32 XNvm_EfuseVerifyBit(u32 Page, u32 Row, u32 Col)
 		Status = (u32)XST_SUCCESS;
 		goto END;
 	}
+
 	RdAddr = (Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
 				(Row << XNVM_EFUSE_ADDR_ROW_SHIFT);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -4061,10 +4027,16 @@ static u32 XNvm_EfuseVerifyBit(u32 Page, u32 Row, u32 Col)
 		if (RegData & (0x01U << Col)) {
 			Status = XST_SUCCESS;
 		}
+		else {
+			Status = XST_FAILURE;
+		}
 	} else {
 		Status = XNVM_EFUSE_ERR_PGM_VERIFY;
 	}
 END:
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_ISR_REG_OFFSET,
+			XNVM_EFUSE_ISR_RD_DONE);
 	return Status;
 }
 
@@ -4218,7 +4190,6 @@ static u32 XNvm_EfuseCacheLoad(void)
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET,
 					XNVM_EFUSE_WR_UNLOCK_PASSCODE);
 	}
-
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_CACHE_LOAD_REG_OFFSET,
 			XNVM_EFUSE_CACHE_LOAD_MASK);
@@ -4242,6 +4213,10 @@ static u32 XNvm_EfuseCacheLoad(void)
 	}
 	Status = (u32)XST_SUCCESS;
 END:
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_ISR_REG_OFFSET,
+			(XNVM_EFUSE_STATUS_CACHE_DONE |
+			XNVM_EFUSE_ISR_CACHE_ERROR));
 	return Status;
 }
 
