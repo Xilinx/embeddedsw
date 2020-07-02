@@ -645,7 +645,8 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(KeySrc < XSECURE_MAX_KEY_SOURCES);
+	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+		(KeySrc >= XSECURE_AES_BBRAM_KEY));
 	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
 		(KeySize == XSECURE_AES_KEY_SIZE_256));
 	Xil_AssertNonvoid(IvAddr != 0x00U);
