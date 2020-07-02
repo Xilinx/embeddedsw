@@ -941,6 +941,7 @@ u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
 	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
 	Xil_AssertNonvoid(GcmTagAddr != 0x00U);
 	Xil_AssertNonvoid(InstancePtr->AesState ==
@@ -1238,6 +1239,7 @@ u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
 	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
 	Xil_AssertNonvoid(GcmTagAddr != 0x00U);
 	Xil_AssertNonvoid(InstancePtr->AesState ==
