@@ -425,8 +425,6 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
-	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-
 	Status = XST_SUCCESS;
 
 END:
