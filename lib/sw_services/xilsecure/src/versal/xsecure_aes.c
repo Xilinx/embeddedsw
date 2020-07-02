@@ -332,7 +332,6 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	/* Initialize the instance */
 	InstancePtr->BaseAddress = XSECURE_AES_BASEADDR;
 	InstancePtr->PmcDmaPtr = PmcDmaPtr;
-	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	InstancePtr->NextBlkLen = 0U;
 
 	/* Clear all key zeroization register */
@@ -340,6 +339,8 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 		XSECURE_AES_KEY_CLEAR_OFFSET, XSECURE_AES_KEY_CLEAR_ALL_AES_KEYS);
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
+
+	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
 	Status = XST_SUCCESS;
 
