@@ -137,7 +137,6 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask);
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
-int XPm_DispatchWakeHandler(void *DeviceIdx);
 XStatus XPm_HookAfterPlmCdo(void);
 
 #ifdef __cplusplus
