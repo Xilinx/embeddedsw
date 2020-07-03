@@ -17,6 +17,7 @@
  * ---- ----- --------  -------------------------------------------------------
  * 5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services.
  * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3  Nava  06/29/20  Added asserts to validate input params.
  * </pre>
  *
  * @note
@@ -64,6 +65,9 @@ XMailbox XMboxInstance;
 u32 XFpga_Initialize(XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_FAILURE;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
 	InstancePtr->XFpga_WriteToPl = XFpga_IPI_WriteToPl;

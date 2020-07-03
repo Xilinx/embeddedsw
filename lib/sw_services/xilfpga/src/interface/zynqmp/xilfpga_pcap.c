@@ -90,6 +90,7 @@
  * 5.3 Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
  * 5.3 Nava  06/16/20  clear the AES key from the KUP register upon GCM-tag
  *                     check failure.
+ * 5.3 Nava  06/29/20  Added asserts to validate input params.
  * </pre>
  *
  * @note
@@ -247,6 +248,9 @@ static const u8 BootgenBinFormat[] = {
  ******************************************************************************/
 u32 XFpga_Initialize(XFpga *InstancePtr) {
 	u32 Status = XFPGA_FAILURE;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
 	InstancePtr->XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage;

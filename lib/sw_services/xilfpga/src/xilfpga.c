@@ -41,6 +41,7 @@
  * 5.2 Nava   02/14/20  Added Bitstream loading support by using IPI services
  *                      for ZynqMP platform.
  * 5.3 Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3 Nava   06/23/20  Added asserts to validate input params.
  *</pre>
  *
  *@note
@@ -98,6 +99,21 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 {
 	u32 Status = XFPGA_FAILURE;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BitstreamImageAddr != (UINTPTR)NULL);
+#ifdef versal
+	Xil_AssertNonvoid((Flags != XFPGA_PDI_LOAD) ||
+			  (Flags != XFPGA_DELAYED_PDI_LOAD));
+#else
+	Xil_AssertNonvoid((Flags != XFPGA_FULLBIT_EN) ||
+			  (Flags != XFPGA_PARTIAL_EN) ||
+			  (Flags != XFPGA_SECURE_FLAGS));
+
+	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == 0U) {
+		Xil_AssertNonvoid(AddrPtr_Size != (UINTPTR)NULL);
+	}
+#endif
 	/* Validate Bitstream Image */
 	Status = XFpga_PL_ValidateImage(InstancePtr, BitstreamImageAddr,
 			AddrPtr_Size, Flags);
@@ -169,8 +185,21 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 {
 	u32 Status = XFPGA_VALIDATE_ERROR;
 
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BitstreamImageAddr != (UINTPTR)NULL);
+#ifdef versal
+	Xil_AssertNonvoid((Flags != XFPGA_PDI_LOAD) ||
+			  (Flags != XFPGA_DELAYED_PDI_LOAD));
+#else
+	Xil_AssertNonvoid((Flags != XFPGA_FULLBIT_EN) ||
+			  (Flags != XFPGA_PARTIAL_EN) ||
+			  (Flags != XFPGA_SECURE_FLAGS));
 
+	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == 0U) {
+		Xil_AssertNonvoid(AddrPtr_Size != (UINTPTR)NULL);
+	}
+#endif
 	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
 	InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
 	InstancePtr->WriteInfo.Flags = Flags;
@@ -252,8 +281,20 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 {
 	 u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
 
-	 Xil_AssertNonvoid(InstancePtr != NULL);
-
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BitstreamImageAddr != (UINTPTR)NULL);
+#ifdef versal
+	Xil_AssertNonvoid((Flags != XFPGA_PDI_LOAD) ||
+			  (Flags != XFPGA_DELAYED_PDI_LOAD));
+#else
+	Xil_AssertNonvoid((Flags != XFPGA_FULLBIT_EN) ||
+			  (Flags != XFPGA_PARTIAL_EN) ||
+			  (Flags != XFPGA_SECURE_FLAGS));
+	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == 0U) {
+		Xil_AssertNonvoid(AddrPtr_Size != (UINTPTR)NULL);
+	}
+#endif
 	 InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
 	 InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
 	 InstancePtr->WriteInfo.Flags = Flags;
@@ -323,7 +364,10 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 {
 	u32 Status = XFPGA_FAILURE;
 
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(ReadbackAddr != (UINTPTR)NULL);
+	Xil_AssertNonvoid(NumFrames != 0U);
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = NumFrames;
@@ -362,7 +406,21 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 {
 	u32 Status = XFPGA_FAILURE;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Assert validates the input arguments */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+        Xil_AssertNonvoid(ReadbackAddr != (UINTPTR)NULL);
+        Xil_AssertNonvoid((ConfigRegAddr != CRC) || (ConfigRegAddr != FAR1) ||
+			  (ConfigRegAddr != FDRI) || (ConfigRegAddr != FDRO) ||
+			  (ConfigRegAddr != CMD) || (ConfigRegAddr != CTL0) ||
+			  (ConfigRegAddr != MASK) || (ConfigRegAddr != STAT) ||
+			  (ConfigRegAddr != LOUT) || (ConfigRegAddr != COR0) ||
+			  (ConfigRegAddr != MFWR) || (ConfigRegAddr != CBC) ||
+			  (ConfigRegAddr != IDCODE) ||
+			  (ConfigRegAddr != AXSS) || (ConfigRegAddr != COR1) ||
+			  (ConfigRegAddr != WBSTAR) ||
+			  (ConfigRegAddr != TIMER) ||
+			  (ConfigRegAddr != BOOTSTS) ||
+			  (ConfigRegAddr != CTL1));
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigRegAddr;
