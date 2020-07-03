@@ -382,6 +382,24 @@ done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief This is the handler for wake up interrupts
+ *
+ * @param  DeviceIdx	Index of peripheral device
+ *
+ * @return Status	XST_SUCCESS if processor wake successfully
+ *			XST_FAILURE or error code in case of failure
+ *
+ *****************************************************************************/
+static int XPm_DispatchWakeHandler(void *DeviceIdx)
+{
+	int Status;
+
+	Status = XPm_GicProxyWakeUp((u32)DeviceIdx);
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief Register wakeup handlers with XilPlmi
@@ -571,24 +589,6 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
 
 done:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief This is the handler for wake up interrupts
- *
- * @param  DeviceIdx	Index of peripheral device
- *
- * @return Status	XST_SUCCESS if processor wake successfully
- *			XST_FAILURE or error code in case of failure
- *
- *****************************************************************************/
-int XPm_DispatchWakeHandler(void *DeviceIdx)
-{
-	int Status;
-
-	Status = XPm_GicProxyWakeUp((u32)DeviceIdx);
 	return Status;
 }
 
