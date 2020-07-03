@@ -1530,10 +1530,10 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 	XPm_Periph *Periph = NULL;
 	XPm_Subsystem *Subsystem;
 
-	/* Check if given target node is valid */
-	if(NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE ||
-	   NODESUBCLASS(TargetNodeId) != (u32)XPM_NODESUBCL_DEV_CORE)
-	{
+	/* Check if given target node is valid and present in device list */
+	if ((NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE) ||
+	    (NODESUBCLASS(TargetNodeId) != (u32)XPM_NODESUBCL_DEV_CORE) ||
+	    (NULL == XPmDevice_GetById(TargetNodeId))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
