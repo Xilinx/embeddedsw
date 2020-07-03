@@ -1022,11 +1022,6 @@ SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/ion.h
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xlnx-ai-engine.h
 
-axivdma_v6_8:
-Add the frame data check in the interrupt example.
-Fix driver tcl to read user-defined config parameters for the number
-of frame buffers in design.
-
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
