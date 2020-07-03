@@ -452,3 +452,31 @@ XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId)
 
 	return Status;
 }
+
+XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask, Base, Polarity;
+
+	if ((IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX) || (NULL == State)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Mask = XPmDomainIso_List[IsoIdx].Mask;
+	Base = XPmDomainIso_List[IsoIdx].Node.BaseAddress;
+	Polarity = XPmDomainIso_List[IsoIdx].Polarity;
+
+	if (Mask == (XPm_In32(Base) & Mask)) {
+		*State = (Polarity == PM_ACTIVE_HIGH)?
+			PM_ISOLATION_ON : PM_ISOLATION_OFF;
+	} else {
+		*State = (Polarity == PM_ACTIVE_HIGH)?
+			PM_ISOLATION_OFF : PM_ISOLATION_ON;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
