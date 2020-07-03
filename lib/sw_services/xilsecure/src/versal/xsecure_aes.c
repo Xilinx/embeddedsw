@@ -29,6 +29,8 @@
 * 4.3   ana  06/04/2020 Minor enhancement and Updated AES state
 *       kpt  06/29/2020 Added asserts for input arguments and minor
 *                       enhancements on AES state
+*       kpt  07/03/2020 Added type casting for the arguments in
+*                       XPmcDma_64BitTransfer
 * </pre>
 *
 * @note
@@ -584,7 +586,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 
 	/* Push IV into the AES engine. */
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-		IvAddr, IvAddr >> 32, XSECURE_SECURE_GCM_TAG_SIZE/4U, (u8)1);
+		(u32)IvAddr, (u32)(IvAddr >> 32U), XSECURE_SECURE_GCM_TAG_SIZE/4U, (u8)1);
 
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 
@@ -762,13 +764,13 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
 		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 				XPMCDMA_DST_CHANNEL,
-				OutDataAddr, OutDataAddr >> 32,
+				(u32)OutDataAddr, (u32)(OutDataAddr >> 32U),
 				Size/XSECURE_WORD_SIZE, 0);
 	}
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL,
-				InDataAddr, InDataAddr >> 32,
+				(u32)InDataAddr, (u32)(InDataAddr >> 32U),
 				Size/XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
@@ -857,7 +859,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	}
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
-		XPMCDMA_SRC_CHANNEL, GcmTagAddr, GcmTagAddr >> 32,
+		XPMCDMA_SRC_CHANNEL, (u32)GcmTagAddr, (u32)(GcmTagAddr >> 32U),
 		XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0);
 
 	/* Wait for the Src DMA completion. */
@@ -1085,13 +1087,13 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
 		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 						XPMCDMA_DST_CHANNEL,
-						OutDataAddr, OutDataAddr >> 32U,
+						(u32)OutDataAddr, (u32)(OutDataAddr >> 32U),
 						Size/XSECURE_WORD_SIZE, FALSE);
 	}
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL,
-				InDataAddr, InDataAddr >> 32U,
+				(u32)InDataAddr, (u32)(InDataAddr >> 32U),
 				Size/XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
@@ -1179,7 +1181,7 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 			XPMCDMA_DST_CHANNEL,
-			GcmTagAddr, GcmTagAddr >> 32,
+			(u32)GcmTagAddr, (u32)(GcmTagAddr >> 32U),
 			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0);
 	/* Wait for the DST DMA completion. */
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
@@ -1959,7 +1961,7 @@ static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc Key
 
 	/* Push IV */
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-			IvAddr, IvAddr >> 32,
+			(u32)IvAddr, (u32)(IvAddr >> 32U),
 			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
 
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
