@@ -1742,7 +1742,8 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
 {
 	u32 Idx;
 	u32 Latency = 0U;
-	u32 HighestState = Device->DeviceFsm->StatesCnt - (u32)1U;
+	u32 HighestStateIdx = Device->DeviceFsm->StatesCnt - (u32)1U;
+	u32 HighestState = Device->DeviceFsm->States[HighestStateIdx].State;
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->TransCnt; Idx++) {
 		if ((State == Device->DeviceFsm->Trans[Idx].FromState) &&
