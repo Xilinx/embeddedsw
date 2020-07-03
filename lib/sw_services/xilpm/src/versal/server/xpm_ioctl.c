@@ -392,7 +392,7 @@ static int XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
 	}
 
 	/* Only (D0 == 0U) or (D3 == 3U) states allowed */
-	if ((0U != ReqState) && (0U != ReqState)) {
+	if ((0U != ReqState) && (3U != ReqState)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
