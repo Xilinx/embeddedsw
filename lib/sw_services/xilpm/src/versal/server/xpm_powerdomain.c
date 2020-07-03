@@ -290,6 +290,16 @@ XStatus XPm_PowerDwnLPD(void)
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	u16 DbgErr = 0;
+	u32 i;
+
+	const u32 LpdPlIso[] = {
+		XPM_NODEIDX_ISO_LPD_PL_TEST,
+		XPM_NODEIDX_ISO_LPD_PL
+	};
+	const u32 LpdPlIsoErr[] = {
+		XPM_INT_ERR_LPD_PL_TEST_ISO,
+		XPM_INT_ERR_LPD_PL_ISO
+	};
 
 	if (NULL == LpDomain) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
@@ -315,17 +325,28 @@ XStatus XPm_PowerDwnLPD(void)
 	/* Lock configuration and system registers */
 	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
 
-	/* Isolate PS_PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_LPD_PL_TEST_ISO;
-		goto done;
-	}
+	/**
+	 * Isolate LPD <-> PL interface and mark the isolations pending for removal
+	 * only if appropriate based on the initial boot time configuration.
+	 */
+	for (i = 0; i < ARRAY_SIZE(LpdPlIso) && i < ARRAY_SIZE(LpdPlIsoErr); i++) {
+		XPm_IsoStates IsoState;
 
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_LPD_PL_ISO;
-		goto done;
+		Status = XPmDomainIso_GetState(LpdPlIso[i], &IsoState);
+		if (XST_SUCCESS != Status) {
+			DbgErr = LpdPlIsoErr[i];
+			goto done;
+		}
+
+		u32 Enable = (IsoState == PM_ISOLATION_ON) ?
+					TRUE_VALUE : TRUE_PENDING_REMOVE;
+
+		/* Isolate LPD-PL */
+		Status = XPmDomainIso_Control(LpdPlIso[i], Enable);
+		if (XST_SUCCESS != Status) {
+			DbgErr = LpdPlIsoErr[i];
+			goto done;
+		}
 	}
 
 	/* Isolate PS_CPM domains */
@@ -423,6 +444,17 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	XPm_Core *ApuCore;
 	int HasResumeAddrStatus = XST_FAILURE;
 	u16 DbgErr = 0;
+	u32 i;
+
+	const u32 FpdPlIso[] = {
+		XPM_NODEIDX_ISO_FPD_PL,
+		XPM_NODEIDX_ISO_FPD_PL_TEST
+	};
+	const u32 FpdPlIsoErr[] = {
+		XPM_INT_ERR_FPD_PL_ISO,
+		XPM_INT_ERR_FPD_PL_TEST_ISO
+	};
+
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -448,16 +480,28 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 		goto done;
 	}
 
-	/* Isolate FPD-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_FPD_PL_ISO;
-		goto done;
-	}
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_FPD_PL_TEST_ISO;
-		goto done;
+	/**
+	 * Isolate FPD <-> PL interface and mark the isolations pending for removal
+	 * only if appropriate based on the initial boot time configuration.
+	 */
+	for (i = 0; i < ARRAY_SIZE(FpdPlIso) && i < ARRAY_SIZE(FpdPlIsoErr); i++) {
+		XPm_IsoStates IsoState;
+
+		Status = XPmDomainIso_GetState(FpdPlIso[i], &IsoState);
+		if (XST_SUCCESS != Status) {
+			DbgErr = FpdPlIsoErr[i];
+			goto done;
+		}
+
+		u32 Enable = (IsoState == PM_ISOLATION_ON)?
+				TRUE_VALUE : TRUE_PENDING_REMOVE;
+
+		/* Isolate FPD-PL */
+		Status = XPmDomainIso_Control(FpdPlIso[i], Enable);
+		if (XST_SUCCESS != Status) {
+			DbgErr = FpdPlIsoErr[i];
+			goto done;
+		}
 	}
 
 	Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
