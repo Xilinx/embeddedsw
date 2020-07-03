@@ -141,7 +141,9 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		QspiFlashSize = XLOADER_FLASH_SIZE_64M;
 		XLoader_Printf(DEBUG_INFO, "64M Bits\r\n");
 	}
-	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_128M) {
+	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_128M)
+		|| (ReadBuffer[2U] ==
+			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_128M)) {
 		QspiFlashSize = XLOADER_FLASH_SIZE_128M;
 		XLoader_Printf(DEBUG_INFO, "128M Bits\r\n");
 	}
@@ -152,20 +154,20 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_512M)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_512M)
 		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FALSH_1_8_V_SIZE_ID_512M)){
+			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_512M;
 		XLoader_Printf(DEBUG_INFO, "512M Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_1G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_1G)
 		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FALSH_1_8_V_SIZE_ID_1G)){
+			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_1G;
 		XLoader_Printf(DEBUG_INFO, "1G Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_2G)
 		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FALSH_1_8_V_SIZE_ID_2G)){
+			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_2G;
 		XLoader_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}
@@ -343,7 +345,12 @@ int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
 
 	/* Qspi width detection for 1x, 2x and 4x */
 	if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
-		ReadCommand = XLOADER_QUAD_READ_CMD_24BIT;
+		if (QspiFlashMake == XLOADER_MACRONIX_ID) {
+			ReadCommand = XLOADER_QUAD_READ_CMD_24BIT2;
+		}
+		else {
+			ReadCommand = XLOADER_QUAD_READ_CMD_24BIT;
+		}
 	}
 	else {
 		ReadCommand = XLOADER_QUAD_READ_CMD_32BIT;
