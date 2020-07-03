@@ -20,6 +20,7 @@
  *                      load response to handle the pdi/bin image load
  *                      errors properly.
  * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3  Nava  06/29/20  Added asserts to validate input params.
  * </pre>
  *
  * @note
@@ -62,6 +63,9 @@ static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
  ******************************************************************************/
 u32 XFpga_Initialize(XFpga *InstancePtr) {
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
 
@@ -82,6 +86,9 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_FAILURE;
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);
 	if (Status != XST_SUCCESS) {

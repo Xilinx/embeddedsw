@@ -169,6 +169,29 @@ typedef struct XFpgatag{
 					XFPGA_AUTHENTICATION_OCM_EN	\
 					| XFPGA_ENCRYPTION_DEVKEY_EN	\
 					)
+/* FPGA Configuration Registers Offsets */
+#define CRC             0U  /* Status Register */
+#define FAR1            1U  /* Frame Address Register */
+#define FDRI            2U  /* FDRI Register */
+#define FDRO            3U  /* FDRO Register */
+#define CMD             4U  /* Command Register */
+#define CTL0            5U  /* Control Register 0 */
+#define MASK            6U  /* MASK Register */
+#define STAT            7U  /* Status Register */
+#define LOUT            8U  /* LOUT Register */
+#define COR0            9U  /* Configuration Options Register 0 */
+#define MFWR            10U /* MFWR Register */
+#define CBC             11U /* CBC Register */
+#define IDCODE          12U /* IDCODE Register */
+#define AXSS            13U /* AXSS Register */
+#define COR1            14U /* Configuration Options Register 1 */
+#define WBSTAR          16U /* Warm Boot Start Address Register */
+#define TIMER           17U /* Watchdog Timer Register */
+#define BOOTSTS         22U /* Boot History Status Register */
+#define CTL1            24U /* Control Register 1 */
+#else
+#define XFPGA_PDI_LOAD			(0x00000000U)
+#define XFPGA_DELAYED_PDI_LOAD		(0x00000001U)
 #endif
 
 #define Xfpga_Printf(DebugType, ...) \
