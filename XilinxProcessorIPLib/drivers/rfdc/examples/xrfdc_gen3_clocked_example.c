@@ -23,6 +23,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 8.1   cog    06/29/20 First release.
+*       cog    07/03/20 The metal_phys parameter is baremetal only.
+*       cog    07/03/20 Formatting and text changes.
 *
 * </pre>
 *
@@ -67,9 +69,9 @@ static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
-metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 
 #ifdef __BAREMETAL__
+metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 static struct metal_device CustomDev = {
 	/* RFdc device */
 	.name = RFDC_DEV_NAME,
@@ -113,7 +115,7 @@ int main(void)
 
 	printf("RFdc Gen 3 Clocked Example\r\n");
 	/*
-	 * Run the RFdc Decoder Mode example, specify the Device ID that is
+	 * Run the RFdc fabric rate example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
 
@@ -192,7 +194,6 @@ int ClockedExample(u16 RFdcDeviceId)
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
 	}
-
 	if(RFdcInstPtr->RFdc_Config.IPType < XRFDC_GEN3){
 		printf("ERROR: Running a Gen 3 example on a Gen 1/2 board\n");
 		return XRFDC_FAILURE;
@@ -260,7 +261,6 @@ int ClockedExample(u16 RFdcDeviceId)
 			}
 		}
 	}
-
 		/*Reset IP - the clock distribution will bring the tiles up again*/
 		XRFdc_WriteReg16(RFdcInstPtr, 0x0, 0x4, 1);
 
