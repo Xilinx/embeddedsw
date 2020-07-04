@@ -34,6 +34,7 @@
 * 8.1   cog    06/29/20 Changing setlftest to a test with no external
 *                       dependencies. The previous example including clocking
 *                       will be in supplemental example(s).
+*       cog    07/03/20 The metal_phys parameter is baremetal only.
 *
 * </pre>
 *
@@ -81,9 +82,9 @@ static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
-metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 
 #ifdef __BAREMETAL__
+metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 static struct metal_device CustomDev = {
 	/* RFdc device */
 	.name = RFDC_DEV_NAME,

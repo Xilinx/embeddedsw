@@ -55,6 +55,7 @@
 * 7.1   cog    07/25/19 Updated example for Gen 3 compatibility.
 * 8.0   cog    04/03/20 Updated example for 48dr compatibility.
 * 8.1   cog    06/29/20 Always register metal device in baremetal.
+*       cog    07/03/20 The metal_phys parameter is baremetal only.
 *
 * </pre>
 *
@@ -111,7 +112,6 @@ static int CompareThresholdSettings(XRFdc_Threshold_Settings *SetThresholdSettin
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
-metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 
 #ifdef XPS_BOARD_ZCU111
 unsigned int LMK04208_CKin[1][26] = {
@@ -123,6 +123,7 @@ unsigned int LMK04208_CKin[1][26] = {
 #endif
 
 #ifdef __BAREMETAL__
+metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 static struct metal_device CustomDev = {
 	/* RFdc device */
 	.name = RFDC_DEV_NAME,

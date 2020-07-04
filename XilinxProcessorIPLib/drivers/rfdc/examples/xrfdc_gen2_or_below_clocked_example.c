@@ -26,6 +26,9 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 8.1   cog    06/29/20 First release.
+*       cog    07/03/20 The metal_phys parameter is baremetal only.
+*       cog    07/03/20 The change clock to fit with new reference design.
+*       cog    07/03/20 Formatting and text changes.
 *
 * </pre>
 *
@@ -73,7 +76,6 @@ static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
-metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 
 #ifdef XPS_BOARD_ZCU111
 unsigned int LMK04208_CKin[1][26] = {
@@ -85,6 +87,7 @@ unsigned int LMK04208_CKin[1][26] = {
 #endif
 
 #ifdef __BAREMETAL__
+metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
 static struct metal_device CustomDev = {
 	/* RFdc device */
 	.name = RFDC_DEV_NAME,
@@ -128,7 +131,7 @@ int main(void)
 
 	printf("RFdc Gen 1/2 Clocked Example Test\r\n");
 	/*
-	 * Run the RFdc Decoder Mode example, specify the Device ID that is
+	 * Run the RFdc fabric rate example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
 
@@ -211,7 +214,7 @@ int ClockedExample(u16 RFdcDeviceId)
 #ifdef XPS_BOARD_ZCU111
 printf("\n Configuring the Clock \r\n");
 	LMK04208ClockConfig(I2CBUS, LMK04208_CKin);
-	LMX2594ClockConfig(I2CBUS, 3932160);
+	LMX2594ClockConfig(I2CBUS, 245760);
 #endif
 	Tile = 0x0;
 	for (Block = 0; Block <4; Block++) {
