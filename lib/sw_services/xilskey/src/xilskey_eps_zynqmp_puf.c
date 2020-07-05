@@ -40,6 +40,10 @@
 *       kpt  03/17/20 Replaced direct eFuse reads with cache reads
 *                     and Error code is returned when user chooses
 *                     read option as eFuse
+*       kal 04/09/20  Added Temp and Voltage checks before unlocking the
+*                     controller.
+*       kal 05/14/20  Added Cache Reload in XilSKey_Write_Puf_EfusePs_SecureBits
+*                     to reflect programmed bit when read from puf example.
 *
 * </pre>
 *

@@ -69,9 +69,16 @@
 *       vns   03/18/20 Fixed Armcc compilation errors
 *       kal   03/18/20 Removed Temp and Voltage check while checking AES key
 *                      CRC.
+*       kal   03/20/20 Removed Temp and Voltage checks for eFuse reads.
 *       kpt   03/17/20 Replaced direct eFuse reads with cache reads
 *                      and Error code is returned when user chooses
 *                      read option as eFuse.
+*       ana   04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
+*                      as these are not required with only sha3 support.
+*       kal   04/09/20 Added Temp and Voltage checks before unlocking the
+*                      controller.
+* 7.0   kal   06/04/20 Fixed XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc
+*                      return Status in case of success.
 *
 * </pre>
 *
