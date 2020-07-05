@@ -28,6 +28,10 @@
  * 6.7   mmd  03/17/19 Ignored PUF data on overflow
  * 6.9   kpt  02/27/20 Removed XilSKey_Puf_Fetch_Dbg_Mode2_result
  *                     which is used only for debug purpose
+ *       har  03/09/20 Fixed array overrun condition in
+ *                     XilSKey_Generate_FuseFormat function.
+ *       kal  05/15/20 Replace all eFuse read with Cache reads.
+ *
  * </pre>
  *
  * @note

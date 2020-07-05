@@ -41,6 +41,10 @@
 *       vns     09/18/18 Added APIs to support eFUSE programming from linux
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
 * 6.8   psl     07/30/19 Fixed MISRA-C violations.
+* 6.9   kal     03/16/20 Added macro for AES key offset for IPI calls.
+*       ana     04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
+*                        as these are not required with only sha3 support.
+*
 * </pre>
 *
 *****************************************************************************/
