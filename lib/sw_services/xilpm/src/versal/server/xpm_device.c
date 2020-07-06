@@ -15,6 +15,7 @@
 #include "xpm_mem.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_requirement.h"
+#include "xpm_debug.h"
 
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
@@ -921,8 +922,10 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		XPm_Power *Power, XPm_ClockNode * Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XPM_ERR_DEVICE_INIT;
+	u16 DbgErr = 0;
 
 	if (NULL != XPmDevice_GetById(Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
@@ -942,6 +945,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 					(u32)REQ_NO_RESTRICTION),
 				NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 			goto done;
 		}
 	}
@@ -953,11 +957,13 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	Status = XPmDevice_AddClock(Device, Clock);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ADD_CLK;
 		goto done;
 	}
 
 	Status = XPmDevice_AddReset(Device, Reset);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ADD_RST;
 		goto done;
 	}
 
@@ -974,24 +980,25 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id)) {
 		Status = SetPlDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_PL_DEV;
 			goto done;
 		}
 	}  else if (IS_MEM_REGN(Id)) {
 		Status = SetMemRegnDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_MEM_REG_DEV;
 			goto done;
 		}
 	} else {
 		Status = SetDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_DEV_NODE;
 			goto done;
 		}
 	}
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 

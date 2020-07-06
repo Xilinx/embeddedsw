@@ -152,6 +152,18 @@ extern "C" {
 #define XPM_INT_ERR_REQ_ME_DEVICE		0x3304U
 /* Error during device init */
 #define XPM_INT_ERR_DEVICE_INIT			0x3305U
+/* Error during Add requirement of device*/
+#define XPM_INT_ERR_ADD_REQUIREMENT		0x3306U
+/* Error during add clock */
+#define XPM_INT_ERR_ADD_CLK			0x3307U
+/* Error during add reset node */
+#define XPM_INT_ERR_ADD_RST			0x3308U
+/* Error during set device node */
+#define XPM_INT_ERR_SET_DEV_NODE		0x3309U
+/* Error during set PL device */
+#define XPM_INT_ERR_SET_PL_DEV			0x330AU
+/* Error during set mem region */
+#define XPM_INT_ERR_SET_MEM_REG_DEV		0x330BU
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
