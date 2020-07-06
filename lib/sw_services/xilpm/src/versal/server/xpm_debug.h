@@ -150,6 +150,8 @@ extern "C" {
 #define XPM_INT_ERR_REQ_PL_DEVICE		0x3303U
 /* Error during request ME device */
 #define XPM_INT_ERR_REQ_ME_DEVICE		0x3304U
+/* Error during device init */
+#define XPM_INT_ERR_DEVICE_INIT			0x3305U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
@@ -357,6 +359,13 @@ extern "C" {
 #define XPM_INT_ERR_XMPU_EN			0x4407U
 /* Error during XMPU disable */
 #define XPM_INT_ERR_XMPU_DISABLE		0x4408U
+
+/************************* Proc specific Errors ******************************/
+/************************** (0x4500) - (0x45FF) ******************************/
+/* Invalid resume address */
+#define XPM_INT_ERR_INVALID_RESUME_ADDR		0x4500U
+/* Error during core init */
+#define XPM_INT_ERR_CORE_INIT			0x4501U
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\

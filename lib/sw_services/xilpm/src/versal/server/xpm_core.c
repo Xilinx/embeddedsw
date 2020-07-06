@@ -7,6 +7,7 @@
 #include "xpm_psm_api.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
+#include "xpm_debug.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
@@ -14,9 +15,11 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 {
 	XStatus Status = XST_FAILURE;
 	u32 Idx;
+	u16 DbgErr = 0;
 
 	Status = XPmDevice_Init(&Core->Device, Id, 0, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_DEVICE_INIT;
 		goto done;
 	}
 
@@ -39,25 +42,29 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 			}
 		}
 		if (Idx >= ARRAY_SIZE(ProcDevList)) {
+			DbgErr = XPM_INT_ERR_INVALID_PROC;
 			Status = XST_FAILURE;
 		}
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 {
 	int Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	/* Check for valid resume address */
 	if (0U == (Address & 1ULL)) {
-		PmErr("Invalid resume address\r\n");
+		DbgErr = XPM_INT_ERR_INVALID_RESUME_ADDR;
 		goto done;
 	}
 
 	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		DbgErr = XPM_INT_ERR_INVALID_PROC;
 		goto done;
 	}
 
@@ -66,6 +73,7 @@ int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
