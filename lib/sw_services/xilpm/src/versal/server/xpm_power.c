@@ -13,6 +13,7 @@
 #include "sleep.h"
 #include "xpm_rpucore.h"
 #include "xpm_pll.h"
+#include "xpm_debug.h"
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 static u32 PmNumPowers;
@@ -532,9 +533,11 @@ XStatus XPmPower_Init(XPm_Power *Power,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PowerDomain;
+	u16 DbgErr = 0;
 
 	/* Todo: Uncomment this after integrating with CDO handler */
 	if (NULL != XPmPower_GetById(Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
@@ -558,11 +561,13 @@ XStatus XPmPower_Init(XPm_Power *Power,
 
 	Status = SetPowerNode(Id, Power);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
 	}
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
