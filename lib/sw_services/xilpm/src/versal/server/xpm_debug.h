@@ -445,6 +445,16 @@ extern "C" {
 /* Error during set subsystem state */
 #define XPM_INT_ERR_SUBSYS_SET_STATE		0x4606U
 
+/************************* Power specific Errors *****************************/
+/************************** (0x4700) - (0x47FF) ******************************/
+/* Error during parent power up */
+#define XPM_INT_ERR_PWR_PARENT_UP		0x4700U
+/* Error during PSM power up request */
+#define XPM_INT_ERR_PSM_PWR_UP			0x4701U
+/* Error during PSM power down request */
+#define XPM_INT_ERR_PSM_PWR_DWN			0x4702U
+
+
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
 		if (XST_SUCCESS != Status) {		\
