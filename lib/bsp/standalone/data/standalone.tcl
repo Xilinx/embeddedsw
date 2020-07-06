@@ -54,6 +54,8 @@
 #                     BSP creation CR#1055177
 # 7.2   sd   03/20/20 Added clocking support
 # 7.2   sd   03/27/20 Fix the hierarchcal design case
+# 7.3   kal  07/06/20 Export XPAR_PSU_PSS_REF_CLK_FREQ_HZ macro in
+#                     xparameters.h file for psv_pmc and psu_pmc processors.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -315,6 +317,16 @@ proc generate {os_handle} {
             }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
+            set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
+            if { $pss_ref_clk_mhz == "" } {
+                puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
+                set pss_ref_clk_mhz 33333000
+             }
+            set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+            puts $file_handle " /* Definition for PSS REF CLK FREQUENCY */"
+            puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz]  "U"]
+            puts $file_handle ""
+            close $file_handle
         }
 	"psu_psm" -
 	"psv_psm"
