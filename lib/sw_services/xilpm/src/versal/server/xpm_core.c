@@ -26,6 +26,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 	Core->CoreOps = Ops;
 	Core->PwrUpLatency = 0;
 	Core->PwrDwnLatency = 0;
+	Core->isCoreUp = 0;
 	Core->PsmToPlmEvent_ProcIdx = (u8)PROC_DEV_MAX;
 
 	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Id)) ||
@@ -123,6 +124,11 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
 
+	if (1U == Core->isCoreUp) {
+		Status = XPM_ERR_WAKEUP;
+		goto done;
+	}
+
 	DISABLE_WAKE(Core->SleepMask);
 	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) &&
 	    (NULL != Core->Device.Power)) {
@@ -156,6 +162,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	}
 
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	Core->isCoreUp = 1;
 
 done:
 	return Status;
@@ -187,6 +194,7 @@ int XPmCore_AfterDirectWakeUp(XPm_Core *Core)
 	}
 
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	Core->isCoreUp = 1;
 	Status = XST_SUCCESS;
 
 done:
@@ -267,6 +275,7 @@ int XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 	}
 
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
+	Core->isCoreUp = 0;
 	Status = XST_SUCCESS;
 
 done:

@@ -29,6 +29,11 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XPm_Psm *Psm = (XPm_Psm *)Core;
 	u32 CRLBaseAddress = Psm->CrlBaseAddr;
 
+	if (1U == Core->isCoreUp) {
+		Status = XPM_ERR_WAKEUP;
+		goto done;
+	}
+
 	/* Set reset address */
 	if (1U == SetAddress) {
 		if (0U != Address) {
@@ -60,6 +65,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		goto done;
 	} else {
 		Status = XST_SUCCESS;
+		Core->isCoreUp = 1;
 	}
 
 done:
@@ -93,6 +99,7 @@ static XStatus XPmPsm_PowerDown(XPm_Core *Core)
 	Is_PsmPoweredDown = 1U;
 
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
+	Core->isCoreUp = 0;
 	Status = XST_SUCCESS;
 
 done:

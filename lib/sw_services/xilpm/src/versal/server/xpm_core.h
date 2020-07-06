@@ -41,6 +41,7 @@ struct XPm_Core {
 	u8 SleepMask;
 	u8 PwrDwnMask;
 	u8 PsmToPlmEvent_ProcIdx; /**< Processor index in the PsmToPlmEvent structure */
+	u8 isCoreUp;
 };
 
 /************************** Function Prototypes ******************************/
