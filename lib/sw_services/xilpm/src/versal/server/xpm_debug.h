@@ -29,6 +29,8 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_PWR_STATE		0x3005U
 /* Invalid function ID */
 #define XPM_INT_ERR_INVALID_FUNC		0x3006U
+/* Power domain state is OFF */
+#define XPM_INT_ERR_PWR_DOMAIN_OFF		0x3007U
 
 /*********************** Generic House Cleaning Errors ***********************/
 /*************************** (0x3100) - (0x31FF) *****************************/
@@ -164,6 +166,12 @@ extern "C" {
 #define XPM_INT_ERR_SET_PL_DEV			0x330AU
 /* Error during set mem region */
 #define XPM_INT_ERR_SET_MEM_REG_DEV		0x330BU
+/* Error during get device permission */
+#define XPM_INT_ERR_GET_DEVICE_PERMISSION	0x330CU
+/* Subsystem has no permission to that device */
+#define XPM_INT_ERR_DEVICE_PERMISSION		0x330DU
+/* Shared resource has no permission to access */
+#define XPM_INT_ERR_SHARED_RESOURCE		0x330EU
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
@@ -213,6 +221,10 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_ARGS		0x3609U
 /* No feature supported */
 #define XPM_INT_ERR_NO_FEATURE			0x360AU
+/* Invalid subclass */
+#define XPM_INT_ERR_INVALID_SUBCLASS		0x360BU
+/* Buffer too small */
+#define XPM_INT_ERR_BUFFER_TOO_SMALL		0x360CU
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
@@ -280,6 +292,21 @@ extern "C" {
 /************************** (0x3900) - (0x39FF) ******************************/
 /* Error during clock enable */
 #define XPM_INT_ERR_CLK_ENABLE			0x3900U
+/* Max clock parents error */
+#define XPM_INT_ERR_MAX_CLK_PARENTS		0x3901U
+/* Error during clock init */
+#define XPM_INT_ERR_CLK_INIT			0x3902U
+/* Topology nodes greater than max number of nodes */
+#define XPM_INT_ERR_CLK_TOPOLOGY_MAX_NUM_NODES	0x3903U
+/* Invalid clock type */
+#define XPM_INT_ERR_INVALID_CLK_TYPE		0x3904U
+/* Invalid clock parent */
+#define XPM_INT_ERR_INVALID_CLK_PARENT		0x3905U
+/* Read only clock */
+#define XPM_INT_ERR_READ_ONLY_CLK		0x3906U
+/* PLL permission error as PLLs are shared */
+#define XPM_INT_ERR_PLL_PERMISSION		0x3907U
+
 
 /************************** CPM specific Errors ******************************/
 /************************** (0x4000) - (0x40FF) ******************************/
