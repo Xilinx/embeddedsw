@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bsv   06/17/2019 Initial release
+* 1.01  kc    07/06/2020 Added prints for CFU status values in error case
 *
 * </pre>
 *
@@ -104,6 +105,13 @@ void XLoader_CframeErrorHandler(void)
 	}
 
 	if (RegVal != 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "Error loading CFI data: \n\r"
+			     "CFU_ISR: 0x%08x, CFU_STATUS: 0x%08x \n\r"
+			     "PMC ERR1: 0x%08x, PMC ERR2: 0x%08x\n\r",
+			     XPlmi_In32(CFU_APB_CFU_ISR),
+			     XPlmi_In32(CFU_APB_CFU_STATUS),
+			     XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS),
+			     XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS));
 		XCfupmc_CfiErrHandler(&XLoader_CfuIns);
 		XCframe_ClearCframeErr(&XLoader_CframeIns);
 		XCfupmc_ClearIgnoreCfiErr(&XLoader_CfuIns);
