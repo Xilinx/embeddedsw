@@ -135,6 +135,8 @@ AieRC _XAieMl_DmaSetLock(XAie_DmaDesc *DmaDesc, XAie_Lock Acq, XAie_Lock Rel,
 	DmaDesc->LockDesc.LockRelId = Rel.LockId;
 	DmaDesc->LockDesc.LockAcqEn = AcqEn;
 	DmaDesc->LockDesc.LockRelEn = RelEn;
+	DmaDesc->LockDesc.LockRelVal = Rel.LockVal;
+	DmaDesc->LockDesc.LockAcqVal = Acq.LockVal;
 
 	return XAIE_OK;
 }
