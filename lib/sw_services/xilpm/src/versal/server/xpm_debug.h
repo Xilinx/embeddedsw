@@ -183,6 +183,14 @@ extern "C" {
 #define XPM_INT_ERR_RST_RELEASE			0x3402U
 /* Error during reset assert */
 #define XPM_INT_ERR_RST_ASSERT			0x3403U
+/* Error during set reset node */
+#define XPM_INT_ERR_SET_RESET_NODE		0x3404U
+/* Error during custom reset release */
+#define XPM_INT_ERR_CUSTOM_RESET_RELEASE	0x3405U
+/* Error during custom reset assert */
+#define XPM_INT_ERR_CUSTOM_RESET_ASSERT		0x3406U
+/* Error during custom reset pulse */
+#define XPM_INT_ERR_CUSTOM_RESET_PULSE		0x3407U
 
 /************************** FPD specific Errors ******************************/
 /************************** (0x3500) - (0x35FF) ******************************/
