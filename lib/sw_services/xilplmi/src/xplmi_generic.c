@@ -20,6 +20,7 @@
 * 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
 * 1.02  kc   01/07/2020 Added performance print for KeyHole command
+*       kc   03/07/2020 Added SetWdtParam command support
 *
 * </pre>
 *
@@ -1058,6 +1059,28 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function sets the WDT parameters used in PLM
+ *
+ * @param	Cmd is pointer to the command structure
+ *		Command payload parameters are
+ *			* Node Idx for PMC, PS MIO
+ *			* Periodicity
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_SetWdtParam(XPlmi_Cmd * Cmd)
+{
+	int Status = XST_FAILURE;
+	(void)Cmd;
+
+	/* Place holder for Set WDT command */
+	Status = XST_SUCCESS;
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	Contains the array of PLM generic commands
  *
  *****************************************************************************/
@@ -1085,6 +1108,7 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_EventLogging),
 	XPLMI_MODULE_COMMAND(XPlmi_SetBoard),
 	XPLMI_MODULE_COMMAND(XPlmi_GetBoard),
+	XPLMI_MODULE_COMMAND(XPlmi_SetWdtParam),
 };
 
 /*****************************************************************************/
