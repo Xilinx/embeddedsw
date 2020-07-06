@@ -29,6 +29,8 @@
 #define XAIEML_TILEDMA_NUM_BD_WORDS			6U
 #define XAIEML_SHIMDMA_NUM_BD_WORDS			8U
 #define XAIEML_MEMTILEDMA_NUM_BD_WORDS			8U
+#define XAIEML_DMA_STEPSIZE_DEFAULT			1U
+#define XAIEML_DMA_ITERWRAP_DEFAULT			1U
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -45,7 +47,15 @@
 ******************************************************************************/
 void _XAieMl_ShimDmaInit(XAie_DmaDesc *Desc)
 {
-	return;
+	for(u8 i = 0U; i < 3U; i++) {
+		Desc->MultiDimDesc.Gen2MultiDimDesc.DimDesc[i].StepSize =
+			XAIEML_DMA_STEPSIZE_DEFAULT;
+	}
+
+	Desc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.Wrap =
+		XAIEML_DMA_ITERWRAP_DEFAULT;
+	Desc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.StepSize =
+		XAIEML_DMA_STEPSIZE_DEFAULT;
 }
 
 /*****************************************************************************/
@@ -62,7 +72,15 @@ void _XAieMl_ShimDmaInit(XAie_DmaDesc *Desc)
 ******************************************************************************/
 void _XAieMl_TileDmaInit(XAie_DmaDesc *Desc)
 {
-	return;
+	for(u8 i = 0U; i < 3U; i++) {
+		Desc->MultiDimDesc.Gen2MultiDimDesc.DimDesc[i].StepSize =
+			XAIEML_DMA_STEPSIZE_DEFAULT;
+	}
+
+	Desc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.Wrap =
+		XAIEML_DMA_ITERWRAP_DEFAULT;
+	Desc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.StepSize =
+		XAIEML_DMA_STEPSIZE_DEFAULT;
 }
 
 /*****************************************************************************/
@@ -79,7 +97,15 @@ void _XAieMl_TileDmaInit(XAie_DmaDesc *Desc)
 ******************************************************************************/
 void _XAieMl_MemTileDmaInit(XAie_DmaDesc *Desc)
 {
-	return;
+	for(u8 i = 0U; i < 4U; i++) {
+		Desc->MultiDimDesc.Gen2MultiDimDesc.DimDesc[i].StepSize =
+			XAIEML_DMA_STEPSIZE_DEFAULT;
+	}
+
+	Desc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.Wrap =
+		XAIEML_DMA_ITERWRAP_DEFAULT;
+	Desc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.StepSize =
+		XAIEML_DMA_STEPSIZE_DEFAULT;
 }
 
 /*****************************************************************************/
