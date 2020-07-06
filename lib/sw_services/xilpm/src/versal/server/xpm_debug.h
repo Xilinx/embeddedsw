@@ -172,6 +172,10 @@ extern "C" {
 #define XPM_INT_ERR_DEVICE_PERMISSION		0x330DU
 /* Shared resource has no permission to access */
 #define XPM_INT_ERR_SHARED_RESOURCE		0x330EU
+/* Device is busy */
+#define XPM_INT_ERR_DEVICE_BUSY			0x330FU
+/* Error during power up device parent power domain */
+#define XPM_INT_ERR_DEVICE_PWR_PARENT_UP	0x3310U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
@@ -233,6 +237,14 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_SUBCLASS		0x360BU
 /* Buffer too small */
 #define XPM_INT_ERR_BUFFER_TOO_SMALL		0x360CU
+/* Invalid event */
+#define XPM_INT_ERR_INVALID_EVENT		0x360DU
+/* Error during reset SD DLL registers */
+#define XPM_INT_ERR_RST_SD_DLL_REGS		0x360EU
+/* Error during RPU core halt */
+#define XPM_INT_ERR_RPU_CORE_HALT		0x360FU
+/* Error during PSM RAM ECC init */
+#define XPM_INT_ERR_ECC_INIT_PSM_RAM		0x3610U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
@@ -314,6 +326,8 @@ extern "C" {
 #define XPM_INT_ERR_READ_ONLY_CLK		0x3906U
 /* PLL permission error as PLLs are shared */
 #define XPM_INT_ERR_PLL_PERMISSION		0x3907U
+/* Error during clock disable */
+#define XPM_INT_ERR_CLK_DISABLE			0x3908U
 
 
 /************************** CPM specific Errors ******************************/
