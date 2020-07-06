@@ -328,8 +328,10 @@ static u32 IsRunning(XPm_Device *Device)
 XStatus XPmDevice_BringUp(XPm_Device *Device)
 {
 	XStatus Status = XPM_ERR_DEVICE_BRINGUP;
+	u16 DbgErr = 0;
 
 	if (NULL == Device->Power) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -347,9 +349,13 @@ XStatus XPmDevice_BringUp(XPm_Device *Device)
 		/* Todo: Start timer to poll the power node */
 		/* Hack */
 		Status = Device->HandleEvent(&Device->Node, XPM_DEVEVENT_TIMER);
+	} else {
+		DbgErr = XPM_INT_ERR_DEVICE_PWR_PARENT_UP;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
+
 	return Status;
 }
 
@@ -422,8 +428,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = (XPm_Device *)Node;
 	XPm_Core *Core;
+	u16 DbgErr = 0;
 
-	PmDbg("State=%s, Event=%s\n\r", PmDevStates[Node->State], PmDevEvents[Event]);
+	PmDbg("ID=0x%x State=%s, Event=%s\n\r", Node->Id, PmDevStates[Node->State], PmDevEvents[Event]);
 
 	switch(Node->State)
 	{
@@ -433,8 +440,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			} else if ((u32)XPM_DEVEVENT_SHUTDOWN == Event) {
 				Status = XST_SUCCESS;
 			} else {
-				/* Required due to MISRA */
-				PmDbg("Invalid event type %d\r\n", Event);
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 			}
 			break;
 		case (u8)XPM_DEVSTATE_PWR_ON:
@@ -445,6 +451,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Enable clock */
 					Status = SetClocks(Device, 1U);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_CLK_ENABLE;
 						break;
 					}
 					/* Todo: Start timer to poll the clock node */
@@ -454,6 +461,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Todo: Start timer to poll the power node */
 				}
 			} else {
+				DbgErr = XPM_INT_ERR_DEVICE_BUSY;
 				Status = XST_DEVICE_BUSY;
 			}
 			break;
@@ -467,6 +475,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					XPm_PsLpDomain *PsLpd;
 					PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 					if (NULL == PsLpd) {
+						DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 						Status = XST_FAILURE;
 						break;
 					}
@@ -494,6 +503,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_RELEASE);
 						if (XST_SUCCESS != Status) {
+							DbgErr = XPM_INT_ERR_RST_RELEASE;
 							break;
 						}
 
@@ -506,6 +516,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						    (PM_DEV_SDIO_1 == Device->Node.Id)) {
 							Status = ResetSdDllRegs(Device);
 							if (XST_SUCCESS != Status) {
+								DbgErr = XPM_INT_ERR_RST_SD_DLL_REGS;
 								break;
 							}
 						}
@@ -513,17 +524,18 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						/*RPU has a special handling */
 						Status = XPmRpuCore_Halt(Device);
 						if (XST_SUCCESS != Status) {
+							DbgErr = XPM_INT_ERR_RPU_CORE_HALT;
 							break;
 						}
 					} else if(Node->Id == PM_DEV_PSM_PROC) {
 						/* Ecc initialize PSM RAM*/
 						Status = XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE);
 						if (XST_SUCCESS != Status) {
+							DbgErr = XPM_INT_ERR_ECC_INIT_PSM_RAM;
 							break;
 						}
 					} else {
-						/* Required due to MISRA */
-						PmDbg("Invalid node id 0x%x\r\n", Node->Id);
+						DbgErr = XPM_INT_ERR_INVALID_NODE;
 					}
 					/* Todo: Start timer to poll the reset node */
 					/* Hack */
@@ -547,6 +559,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Todo: Start timer to poll the reset node */
 				}
 			} else {
+				DbgErr = XPM_INT_ERR_DEVICE_BUSY;
 				Status = XST_DEVICE_BUSY;
 			}
 			break;
@@ -558,6 +571,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Enable all clocks */
 				Status = SetClocks(Device, 1U);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_CLK_ENABLE;
 					break;
 				}
 				/* Todo: Start timer to poll the clock node */
@@ -580,6 +594,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_ASSERT);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_RST_ASSERT;
 						break;
 					}
 				}
@@ -591,9 +606,11 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Disable all clocks */
 				Status = SetClocks(Device, 0U);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_CLK_DISABLE;
 					break;
 				}
 			} else {
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 				/* Required by MISRA */
 			}
 			break;
@@ -606,6 +623,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Disable all clocks */
 					Status = SetClocks(Device, 0U);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_CLK_DISABLE;
 						break;
 					}
 					/* Todo: Start timer to poll clock node */
@@ -658,8 +676,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Device is already in power off state */
 				Status = XST_SUCCESS;
 			} else {
-				/* Required due to MISRA */
-				PmDbg("Invalid event type %d\r\n", Event);
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 			}
 			break;
 		case (u8)XPM_DEVSTATE_RUNTIME_SUSPEND:
@@ -670,6 +687,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_ASSERT);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_RST_ASSERT;
 						break;
 					}
 				}
@@ -683,21 +701,25 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Enable all clocks */
 				Status = SetClocks(Device, 1U);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_CLK_ENABLE;
 					break;
 				}
 				Node->State = (u8)XPM_DEVSTATE_RUNNING;
 			} else {
-				/* Required by MISRA */
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 			}
 			break;
 		default:
+			DbgErr = XPM_INT_ERR_INVALID_STATE;
 			Status = XPM_INVALID_STATE;
 			break;
 	}
 
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("ID=0x%x State=%s Event=%s Err=%x\r\n", Node->Id,
+		      Node->State, Event, DbgErr);
 	}
+
 	return Status;
 }
 
