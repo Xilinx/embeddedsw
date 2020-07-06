@@ -414,6 +414,23 @@ extern "C" {
 /* Error during core init */
 #define XPM_INT_ERR_CORE_INIT			0x4501U
 
+/************************ Subsys specific Errors *****************************/
+/************************** (0x4600) - (0x46FF) ******************************/
+/* Invalid subsystem ID */
+#define XPM_INT_ERR_INVALID_SUBSYSTEMID		0x4600U
+/* Subsystem not allowed to access clock */
+#define XPM_INT_ERR_CLOCK_PERMISSION		0x4601U
+/* Subsystem not allowed to access reset */
+#define XPM_INT_ERR_RESET_PERMISSION		0x4602U
+/* Subsystem not allowed to access pin */
+#define XPM_INT_ERR_PIN_PERMISSION		0x4603U
+/* Default subsystem added and not allowed to add new subsystem */
+#define XPM_INT_ERR_DEFAULT_SUBSYS_ADDED	0x4604U
+/* Subsystem already added */
+#define XPM_INT_ERR_SUBSYS_ADDED		0x4605U
+/* Error during set subsystem state */
+#define XPM_INT_ERR_SUBSYS_SET_STATE		0x4606U
+
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
 		if (XST_SUCCESS != Status) {		\
