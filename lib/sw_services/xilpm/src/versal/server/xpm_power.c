@@ -372,6 +372,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
+	u16 DbgErr = 0;
 
 	PmDbg("Id:0x%x, UseCount:%d, State=%x, Event=%x\n\r",
 				Node->Id, Power->UseCount, Node->State, Event);
@@ -387,6 +388,10 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					Power->WfParentUseCnt = Power->Parent->UseCount + 1U;
 					Status = Power->Parent->HandleEvent(
 						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
+					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
+						break;
+					}
 					/* Todo: Start timer to poll parent node */
 					/* Hack */
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
@@ -394,6 +399,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					/* Write to PSM power up request register */
 					Status = SendPowerUpReq(Node);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PSM_PWR_UP;
 						break;
 					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
@@ -411,6 +417,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					/* Write to PSM power up request register */
 					Status = SendPowerUpReq(Node);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PSM_PWR_UP;
 						break;
 					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
@@ -448,6 +455,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					/* Write to PSM power down request register */
 					Status = SendPowerDownReq(Node);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PSM_PWR_DWN;
 						break;
 					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
@@ -503,6 +511,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			break;
 	}
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
