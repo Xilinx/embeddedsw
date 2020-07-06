@@ -114,6 +114,7 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset,
 			      (u8)Ipi, &PsmOps);
 	if (XST_SUCCESS != Status) {
+		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 
@@ -137,6 +138,7 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 	}
 
 	if (1U != XPmPsm_FwIsPresent()) {
+		PmErr("PSMFW is not present\r\n");
 		Status = XST_NOT_ENABLED;
 		goto done;
 	}

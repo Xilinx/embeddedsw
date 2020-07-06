@@ -74,6 +74,7 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
 
 	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL, &PmcOps);
 	if (XST_SUCCESS != Status) {
+		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 

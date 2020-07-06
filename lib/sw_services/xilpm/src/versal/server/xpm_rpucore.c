@@ -40,7 +40,7 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
-		PmErr("Core Wake Up failed, Status = %x\r\n", Status);
+		PmErr("Status = %x\r\n", Status);
 		goto done;
 	}
 
@@ -82,6 +82,7 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 	Status = XPmCore_Init(&RpuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
 			      &RpuOps);
 	if (XST_SUCCESS != Status) {
+		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 
@@ -225,7 +226,6 @@ XStatus XPm_RpuRstComparators(const u32 DeviceId)
 	RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	if(RpuCore == NULL) {
-		PmInfo("Device Id does not correspond to any RPU Core\n\r");
 		PmInfo("Invalid Device Id: 0x%x\n\r", DeviceId);
 		goto done;
 	}

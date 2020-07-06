@@ -7,6 +7,7 @@
 #include "xil_io.h"
 #include "xpm_apucore.h"
 #include "xpm_regs.h"
+#include "xpm_debug.h"
 
 static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
@@ -14,7 +15,7 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
-		PmErr("Core Wake Up failed, Status = %x\r\n", Status);
+		PmErr("Status = %x\r\n", Status);
 		goto done;
 	}
 
@@ -27,6 +28,9 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 	XStatus Status = XST_FAILURE;
 
 	Status = XPmCore_PwrDwn(Core);
+	if (XST_SUCCESS != Status) {
+		PmErr("Status = %x\r\n", Status);
+	}
 
 	return Status;
 }
@@ -43,9 +47,13 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = 0;
 
 	Status = XPmCore_Init(&ApuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
 			      &ApuOps);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CORE_INIT;
+	}
 
 	ApuCore->FpdApuBaseAddr = BaseAddress[0];
 
@@ -56,8 +64,10 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 		ApuCore->Core.SleepMask = XPM_ACPU_1_PWR_CTRL_MASK;
 		ApuCore->Core.PwrDwnMask = XPM_ACPU_1_CPUPWRDWNREQ_MASK;
 	} else {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 	}
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
