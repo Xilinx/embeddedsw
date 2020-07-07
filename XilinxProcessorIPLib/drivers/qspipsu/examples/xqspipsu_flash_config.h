@@ -22,6 +22,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.12  akm 07/07/20 First release
+* 1.12	akm 07/07/20 Add support for Macronix flash(MX66U2G45G, MX66L2G45G)
+*                    and ISSI flash(IS25LP01G, IS25WP01G) parts.
 *
 *</pre>
 *
@@ -255,6 +257,12 @@ FlashInfo Flash_Config_Table[] = {
 	/*mx66u1g45g*/
 	{0xc2253b, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
 		0x80000, 0x8000000, 0xFFFF0000, 4},
+	/*mx66l2g45g*/
+	{0xc2201c, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 0xFFFF0000, 1},
+	/*mx66u2g45g*/
+	{0xc2253c, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 0xFFFF0000, 1},
 	/* ISSI */
 	/*is25wp080d*/
 	{0x9d7014, SECTOR_SIZE_64K, NUM_OF_SECTORS16, BYTES256_PER_PAGE,
@@ -297,7 +305,13 @@ FlashInfo Flash_Config_Table[] = {
 		0x40000, 0x4000000, 0xFFFF0000, 2},
 	/*is25wp512m*/
 	{0x9d701a, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
-		0x40000, 0x4000000, 0xFFFF0000, 2}
+		0x40000, 0x4000000, 0xFFFF0000, 2},
+	/*is25lp01g*/
+	{0x9d601b, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 0xFFFF0000, 1},
+	/*is25wp01g*/
+	{0x9d701b, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 0xFFFF0000, 1}
 };
 
 static INLINE u32 CalculateFCTIndex(u32 ReadId, u32 *FCTIndex)
