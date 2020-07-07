@@ -143,7 +143,7 @@ int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size,
 	else
 	{
 		xil_printf("The password is not valid.\r\n");
-	        xil_printf("Is the EEPROM programmed and \\
+	        xil_printf("Is the EEPROM programmed and \
 						  is the password correct?\r\n");
 		xil_printf("Disabled HDCP functionality\r\n");
 		return XST_FAILURE;

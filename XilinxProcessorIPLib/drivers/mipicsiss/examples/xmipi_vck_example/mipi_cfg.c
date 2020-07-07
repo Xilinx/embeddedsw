@@ -348,9 +348,7 @@ void InitVprocSs_Scaler(int count,int width,int height)
 	resIdOut = XVidC_GetVideoModeId(widthOut, heightOut, XVIDC_FR_60HZ,
 					FALSE);
 
-//	if (resIdOut != XVIDC_VM_1920x1200_60_P) {
-//xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1200_60_P \r\n",resIdOut);
-//	}
+
 
 	StreamOut.VmId = resIdOut;
 	StreamOut.Timing.HActive = widthOut;
@@ -455,23 +453,18 @@ int SensorWriteData(u16 ByteCount) {
 	IicSensor.Stats.TxErrors = 0;
 
 	/* Start the IIC device. */
-//	xil_printf("  Wr1   \r\n");
 	Status = XIic_Start(&IicSensor);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-//	xil_printf("  Wr2   \r\n");
 	/* Send the Data. */
 	Status = XIic_MasterSend(&IicSensor, WriteBuffer, ByteCount);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-//	xil_printf("  Wr3   \r\n");
 	/* Wait till the transmission is completed. */
 	while ((TransmitComplete) || (XIic_IsIicBusy(&IicSensor) == TRUE)) {
 
-//xil_printf(" TTT :%d %d %d \r\n",TransmitComplete,IicSensor.Stats.TxErrors,
-//                                          (XIic_IsIicBusy(&IicSensor)) );
 
 		if (IicSensor.Stats.TxErrors != 0) {
 
@@ -493,10 +486,9 @@ int SensorWriteData(u16 ByteCount) {
 			}
 		}
 	}
-//	xil_printf("  Wr4   \r\n");
 	/* Stop the IIC device. */
 	Status = XIic_Stop(&IicSensor);
-//	xil_printf("  Wr5   \r\n");
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -523,9 +515,9 @@ int SensorReadData(u8 *BufferPtr, u16 ByteCount) {
 
 	/* Set the Defaults. */
 	ReceiveComplete = 1;
-//	xil_printf("  in1   ");
+
 	Status = SensorWriteData(2);
-//	xil_printf("  in2   ");
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -535,27 +527,27 @@ int SensorReadData(u8 *BufferPtr, u16 ByteCount) {
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-//	xil_printf("  in3   \r\n");
+
 	/* Receive the Data. */
 	Status = XIic_MasterRecv(&IicSensor, BufferPtr, ByteCount);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-//	xil_printf("  in4   \r\n");
+
 	/* Wait till all the data is received. */
 	while ((ReceiveComplete) || (XIic_IsIicBusy(&IicSensor) == TRUE)) {
-		//xil_printf(" ");
+
 		usleep(10);
 	}
 
 
-//	xil_printf("  in5   \r\n");
+
 	/* Stop the IIC device. */
 	Status = XIic_Stop(&IicSensor);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-//	xil_printf("  in6  \r\n");
+
 	return XST_SUCCESS;
 }
 
@@ -592,10 +584,10 @@ int SetupCameraSensor(void) {
 		xil_printf("1080p doesn't support 1 Lane configuration\r\n");
 		return XST_FAILURE;
 	}
-//	xil_printf(" 1 \r\n");
+
 	Status = XIic_SetAddress(&IicSensor, XII_ADDR_TO_SEND_TYPE,
 					SensorIicAddr);
-//	xil_printf(" 2 \r\n");
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -634,25 +626,20 @@ int SetupCameraSensor(void) {
 			break;
 
 	}
-//    xil_printf("Max Index : %d \r \n",MaxIndex);
+
 	/* Program sensor */
 	for (Index = 0; Index < (MaxIndex - 1); Index++) {
 
 		WriteBuffer[0] = sensor_cfg[Index].Address >> 8;
 		WriteBuffer[1] = sensor_cfg[Index].Address;
 		WriteBuffer[2] = sensor_cfg[Index].Data;
-//		xil_printf("   WR IN - %d  ",Index);
 		Status = SensorWriteData(3);
-//		xil_printf("   WR OUT  - %d n",Index);
-//		usleep(100);
 		if (Status == XST_SUCCESS) {
 			ReadBuffer[0] = 0;
-//			xil_printf("   RD IN - %d  ",Index);
 			Status = SensorReadData(ReadBuffer, 1);
 			if(WriteBuffer[2] != ReadBuffer[0])
 			 xil_printf("index %d Ref %d Read %d\n",Index,WriteBuffer[2],ReadBuffer[0]);
 			usleep(100);
-//			xil_printf("   RD OUT - %d  \n",Index);
 
 		} else {
 			xil_printf("Error in Writing entry status = %x \r\n",
@@ -660,7 +647,6 @@ int SetupCameraSensor(void) {
 			break;
 		}
 	}
-//	xil_printf("   WR FINISHED \r\n");
 	if (Index != (MaxIndex - 1)) {
 		/* all registers are written into */
 		return XST_FAILURE;
@@ -822,7 +808,7 @@ u32 InitializeCsiRxSs(void)
  *****************************************************************************/
 void SetColorDepth(void)
 {
-	//Pipeline_Cfg.ColorDepth = GetColorDepth(CsiRxSs.Config.PixelFormat);
+
 	print(TXT_GREEN);
 	xil_printf("Setting Color Depth = %d bpc\r\n", CsiRxSs.Config.PixelFormat);
 	print(TXT_RST);
@@ -991,10 +977,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
 {
   int Status;
 
-  /* Stop Frame Buffers */
-  //XVFrmbufRd_Stop(&frmbufrd);
-  //XVFrmbufWr_Stop(&frmbufwr);
-  //resetFrmbufIp();
+
   XVFrmbufWr_WaitForIdle(&frmbufwr);
   XVFrmbufRd_WaitForIdle(&frmbufrd);
 
@@ -1012,7 +995,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
 
     Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
     if(Status != XST_SUCCESS) {
-      xil_printf("ERROR:: Unable to configure Frame \\
+      xil_printf("ERROR:: Unable to configure Frame \
                                         Buffer Write buffer address\r\n");
       return(XST_FAILURE);
     }
@@ -1023,7 +1006,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
       Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr,
                                XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
       if(Status != XST_SUCCESS) {
-        xil_printf("ERROR::Unable to configure Frame Buffer \\
+        xil_printf("ERROR::Unable to configure Frame Buffer \
                                            Write chroma buffer address\r\n");
         return(XST_FAILURE);
       }
@@ -1040,7 +1023,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
         Status = XVFrmbufRd_SetBufferAddr(&frmbufrd,
                                       XVFRMBUFRD_BUFFER_BASEADDR);
         if(Status != XST_SUCCESS) {
-          xil_printf("ERROR:: Unable to configure Frame \\
+          xil_printf("ERROR:: Unable to configure Frame \
                                          Buffer Read buffer address\r\n");
           return(XST_FAILURE);
         }
@@ -1054,7 +1037,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
           Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd,
                        XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
           if(Status != XST_SUCCESS) {
-            xil_printf("ERROR:: Unable to configure Frame \\
+            xil_printf("ERROR:: Unable to configure Frame \
                                Buffer Read chroma buffer address\r\n");
             return(XST_FAILURE);
           }
@@ -1105,7 +1088,7 @@ void FrmbufwrDoneCallback(void *CallbackRef) {
 	 Status = XVFrmbufWr_SetBufferAddr(&frmbufwr,
                                                XVFRMBUFWR_BUFFER_BASEADDR);
 	   if(Status != XST_SUCCESS) {
-	     xil_printf("ERROR:: Unable to configure Frame Buffer \\
+	     xil_printf("ERROR:: Unable to configure Frame Buffer \
                                                  Write buffer address\r\n");
 	   }
 
@@ -1117,14 +1100,14 @@ void FrmbufwrDoneCallback(void *CallbackRef) {
 	     Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr,
                              XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
 	     if(Status != XST_SUCCESS) {
-	       xil_printf("ERROR:: Unable to configure Frame Buffer \\
+	       xil_printf("ERROR:: Unable to configure Frame Buffer \
                                            Write chroma buffer address\r\n");
 	     }
 	   }
 
 	  Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
 	   if(Status != XST_SUCCESS) {
-	     xil_printf("ERROR:: Unable to configure Frame Buffer \\
+	     xil_printf("ERROR:: Unable to configure Frame Buffer \
                                                    Read buffer address\r\n");
 	   }
 
@@ -1136,7 +1119,7 @@ void FrmbufwrDoneCallback(void *CallbackRef) {
 	     Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd,
                             XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
 	     if(Status != XST_SUCCESS) {
-	       xil_printf("ERROR:: Unable to configure Frame \\
+	       xil_printf("ERROR:: Unable to configure Frame \
                                       Buffer Read chroma buffer address\r\n");
 	     }
 	   }
@@ -1162,9 +1145,7 @@ frm_cnt++;
  *
  *****************************************************************************/
 void FrmbufrdDoneCallback(void *CallbackRef) {
-    if( (frm_cnt1%1000) == 0)
-	    xil_printf(" Frame Completed :%d \r\n",frm_cnt1);
-	frm_cnt1++;
+      frm_cnt1++;
 }
 
 
@@ -1387,12 +1368,16 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	/* Reset Camera Sensor module through GPIO */
 	xil_printf("Disable CAM_RST of Sensor through GPIO\r\n");
 	CamReset();
-	xil_printf("Sensor is Enabled\r\n");
+	xil_printf("\r\nSensor is Enabled\r\n");
 	usleep(20000);
 
 
 	XV_frmbufwr_EnableAutoRestart(&frmbufwr.FrmbufWr);
 	XVFrmbufWr_Start(&frmbufwr);
+
+	XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
+	XVFrmbufRd_Start(&frmbufrd);
+
 	InitVprocSs_Scaler(1,widthOut, heightOut);
 	ConfigCSC(widthIn, heightIn);
 	ConfigGammaLut(widthIn, heightIn);
@@ -1408,11 +1393,13 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 		xil_printf(TXT_RED "Failed to setup Camera sensor\r\n" TXT_RST);
 		return XST_FAILURE;
 	}
-	xil_printf("Sensor is setup is Done\r\n");
+	xil_printf("Sensor setup is Done\r\n");
 
 	/* Start Camera Sensor to capture video */
 	StartSensor();
 	xil_printf("Sensor is started \r\n");
+
+
 	xil_printf(TXT_RST);
 
     return 0;

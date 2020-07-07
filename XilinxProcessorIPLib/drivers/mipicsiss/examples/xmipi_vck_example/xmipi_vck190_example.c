@@ -26,6 +26,7 @@
 #include "xscugic.h"
 #include "xuartpsv.h"
 #include "xvidc.h"
+#include "platform.h"
 
 int config_hdmi();
 void start_hdmi(XVidC_VideoMode VideoMode);
@@ -332,12 +333,12 @@ xil_printf(" => Configures Sensor for 3840x2160 60fps.\r\n");
 	xil_printf("Enter Selection -> ");
 
 do {
+
 			u8 Response;
 
 			Response = XUartPsv_RecvByte(XPAR_XUARTPSV_0_BASEADDR);
 
 			XUartPsv_SendByte(XPAR_XUARTPSV_0_BASEADDR, Response);
-
 
 				if ((Response == '0')) {
 					VideoMode_Select = 0 ;
@@ -349,8 +350,7 @@ do {
 					break;
 				} else if ((Response != 0)) {
 					VideoMode_Select = 0 ;
-					xil_printf("\r\n\r\n Wrong Input \\
-                        Selection,Default (1080p60) Output is Selected.\r\n");
+xil_printf("\r\n Wrong Input Selection, Default(1080p60) is Selected\r\n");
 					break;
 				}
 			} while (1);
@@ -358,6 +358,8 @@ do {
 	return (VideoMode_Select) ;
 
 }
+
+
 int main() {
 
 	u32 Status = XST_FAILURE;
@@ -377,9 +379,6 @@ int main() {
 	/*  XPIO DCI Enable */
 	xpio_dci_fix();
 
-	/*  XPIO equalization_fix */
-//	xpio_equalization_fix();
-
 	/* Enable MMCME5 Fabric Control in
  *                 PCSR - Work around for HDMI ( SIEA Build Only) */
 	Enable_mmcmfabric_control();
@@ -391,6 +390,13 @@ int main() {
 		return XST_FAILURE;
 	}
 
+	Status = config_hdmi();
+		if (Status == XST_FAILURE) {
+			xil_printf("\r\n\r\n HDMI  TX Configuration failed.\r\n\r\n");
+			return XST_FAILURE;
+		}
+
+do {
 
 	val = XMipi_DisplayMainMenu();
 
@@ -403,16 +409,9 @@ int main() {
 		 VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
 	}
 
-	Status = config_hdmi();
-	if (Status == XST_FAILURE) {
-		xil_printf("\r\n\r\n HDMI  TX Configuration failed.\r\n\r\n");
-		return XST_FAILURE;
-	}
-
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
-		xil_printf("\r\n\r\n CSI Cature Pipe \\
-                                      Configuration failed.\r\n\r\n");
+xil_printf("\r\n\r\n CSI Cature Pipe Configuration failed.\r\n\r\n");
 		return XST_FAILURE;
 	}
 
@@ -430,5 +429,8 @@ int main() {
 		xil_printf("\r\n\r\n CSI Cature Pipe Start failed.\r\n\r\n");
 		return XST_FAILURE;
 	}
-	return 0;
+
+} while(1);
+
+  return 0;
 }

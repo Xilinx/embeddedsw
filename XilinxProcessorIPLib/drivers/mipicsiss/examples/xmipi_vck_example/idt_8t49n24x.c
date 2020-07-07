@@ -303,10 +303,10 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 	int OutDivMin;
 	int OutDivMax;
 
-	/* ceil(IDT_8T49N24X_FVCO_MIN/FOut) */
+
 	OutDivMin = (IDT_8T49N24X_FVCO_MIN/FOut) +
 					(((IDT_8T49N24X_FVCO_MIN % FOut)==0) ? 0 : 1);
-	/* (int)floor(IDT_8T49N24X_FVCO_MAX/FOut) */
+
 	OutDivMax = (IDT_8T49N24X_FVCO_MAX/FOut);
 
 	int Count = 0;
@@ -531,9 +531,7 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 	/* DSMInt_RegSettings = (int)floor(UpperFBDiv); */
 	DSMInt_RegSettings = (int)(UpperFBDiv);
 
-	/*DSMFrac_RegSettings =
-	 * 			(int)round((UpperFBDiv - floor(UpperFBDiv))*pow(2,21));
-	 */
+
 	DSMFrac_RegSettings = (int)(((UpperFBDiv - (int)UpperFBDiv)*2097152)
 								+ 0.5);
 
@@ -747,7 +745,7 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
 static int IDT_8T49N24x_InputMonitorControl(u32 I2CBaseAddress,
 							u8 I2CSlaveAddress, u32 Value, u8 Input)
 {
-	int Result;
+	int Result = XST_SUCCESS;
 	u8 Data;
 	u16 Address;
 
