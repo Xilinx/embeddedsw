@@ -41,6 +41,11 @@ mode.
 xxvethernet_v1_5:
 Fix intr_mcdma example compilation on microblaze platform.
 
+axivdma_v6_8:
+Add the frame data check in the interrupt example.
+Fix driver tcl to read user-defined config parameters for the number
+of frame buffers in design.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
