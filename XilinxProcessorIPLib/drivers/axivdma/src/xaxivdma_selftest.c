@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxivdma_selftest.c
-* @addtogroup axivdma_v6_7
+* @addtogroup axivdma_v6_8
 * @{
 *
 * Contains diagnostic/self-test functions for the XAxiVdma component.
