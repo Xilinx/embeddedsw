@@ -472,18 +472,18 @@ int main(void)
 	}
 
 Done:
-	xil_printf("--- Exiting main() --- \r\n");
-
 	DisableIntrSystem(READ_INTR_ID, WRITE_INTR_ID);
 
 	if (Status != XST_SUCCESS) {
 		if(Status == XST_VDMA_MISMATCH_ERROR)
 			xil_printf("DMA Mismatch Error\r\n");
 		xil_printf("axivdma intr Example Failed\r\n");
-		return XST_FAILURE;
+		Status = XST_FAILURE;
 	}
 
-	return XST_SUCCESS;
+	xil_printf("--- Exiting main() --- \r\n");
+
+	return Status;
 }
 
 
