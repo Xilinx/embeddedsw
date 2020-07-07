@@ -69,8 +69,7 @@ struct XPlmi_TaskNode {
 
 /************************** Function Prototypes ******************************/
 XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
-	int (*Handler)(void * PrivData), void * PrivData);
-void XPlmi_TaskDelete(XPlmi_TaskNode * Task);
+	int (*Handler)(void *), void * PrivData);
 void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task);
 void XPlmi_TaskInit(void);
 void XPlmi_TaskDispatchLoop(void);

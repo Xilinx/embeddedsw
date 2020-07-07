@@ -37,13 +37,14 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlmi_ValidateIpiCmd(u32 CmdId);
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
-u32 IpiMaskList[XPLMI_IPI_MASK_COUNT] = {0U};
+static u32 IpiMaskList[XPLMI_IPI_MASK_COUNT] = {0U};
 
 /*****************************************************************************/
 /**
@@ -176,12 +177,13 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function writes the IPI message or response to destination CPU.
+ * @brief	This function writes an IPI message or a response to
+ * destination CPU.
  *
  * @param	DestCpuMask Destination CPU IPI mask
- * 			MsgPtr		Pointer to message to be written
- * 			MsgLen		IPI message length
- * 			Type		IPI buffer type
+ * 		MsgPtr		Pointer to message to be written
+ * 		MsgLen		IPI message length
+ * 		Type		IPI buffer type
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -212,12 +214,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function read the IPI message or response from source CPU.
+ * @brief	This function reads an IPI message or response from source CPU.
  *
  * @param	SrcCpuMask	Source CPU IPI mask
- * 			MsgPtr 		IPI read message buffer
- * 			MsgLen		IPI message length
- * 			Type		IPI buffer type
+ * 		MsgPtr 		IPI read message buffer
+ * 		MsgLen		IPI message length
+ * 		Type		IPI buffer type
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -267,7 +269,7 @@ inline int XPlmi_IpiTrigger(u32 DestCpuMask)
  * @brief	This function polls for IPI acknowledgment from destination CPU.
  *
  * @param	DestCpuMask Destination CPU IPI mask
- * 			TimeOutCount Timeout value
+ * 		TimeOutCount Timeout value
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -291,7 +293,7 @@ inline int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_ValidateIpiCmd(u32 CmdId)
+static int XPlmi_ValidateIpiCmd(u32 CmdId)
 {
 	int Status = XST_FAILURE;
 	u32 CmdHndlr = CmdId & XPLMI_CMD_HNDLR_MASK;

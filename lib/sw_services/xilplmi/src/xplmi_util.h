@@ -57,7 +57,7 @@ extern "C" {
 
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value);
-int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
+int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);
 int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);

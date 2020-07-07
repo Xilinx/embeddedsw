@@ -316,7 +316,7 @@ END:
  * @param	PdiPtr is pointer to XilPdi Instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)

@@ -91,8 +91,6 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 int XPlmi_EccInit(u64 Addr, u32 Len);
 int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
-int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
-		XPmcDma** DmaPtrAddr);
 void XPlmi_WaitForNonBlkSrcDma(void);
 void XPlmi_WaitForNonBlkDma(void);
 void XPlmi_SetMaxOutCmds(u32 Val);

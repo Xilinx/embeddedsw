@@ -39,6 +39,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XPlmi_GicIntrAddTask(u32 Index);
+static int XPlmi_GicTaskHandler(void *Arg);
 
 /************************** Variable Definitions *****************************/
 static struct GicIntrHandlerTable
@@ -221,7 +223,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GicIntrAddTask(u32 Index)
+static void XPlmi_GicIntrAddTask(u32 Index)
 {
 	XPlmi_TaskNode *Task;
 
@@ -249,7 +251,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-int XPlmi_GicTaskHandler(void *Arg)
+static int XPlmi_GicTaskHandler(void *Arg)
 {
 	int Status = XST_FAILURE;
 	u32 Index = (u32)Arg;

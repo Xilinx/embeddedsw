@@ -36,6 +36,7 @@ typedef int (*XPlmiInit)(void);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XPlm_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/
 

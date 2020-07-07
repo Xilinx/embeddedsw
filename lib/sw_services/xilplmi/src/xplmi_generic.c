@@ -20,7 +20,6 @@
 * 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
 * 1.02  kc   01/07/2020 Added performance print for KeyHole command
-*       kc   03/07/2020 Added SetWdtParam command support
 *
 * </pre>
 *
@@ -46,6 +45,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
+        XPlmi_Cmd* Cmd);
 
 /************************** Variable Definitions *****************************/
 
@@ -67,7 +68,7 @@ static XPlmi_Module XPlmi_Generic;
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-int XPlmi_Features(XPlmi_Cmd * Cmd)
+static int XPlmi_Features(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 
@@ -487,7 +488,7 @@ static int XPlmi_Write64(XPlmi_Cmd * Cmd)
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
+static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 RegVal;
@@ -679,7 +680,7 @@ static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
+static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 SrcType = Cmd->Payload[0U];
@@ -835,7 +836,7 @@ static int XPlmi_Set(XPlmi_Cmd * Cmd)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
+static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
@@ -1142,7 +1143,7 @@ void XPlmi_GenericInit(void)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
+static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	XPlmi_Cmd* Cmd)
 {
 	int Status = XST_FAILURE;

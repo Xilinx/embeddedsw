@@ -74,10 +74,6 @@ enum {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
-int XPlmi_CfiRead(XPlmi_Cmd * Cmd);
-int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd);
-int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
-		XPlmi_Cmd* Cmd);
 
 /************************** Variable Definitions *****************************/
 

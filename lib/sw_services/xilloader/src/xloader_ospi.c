@@ -41,6 +41,8 @@
 
 /************************** Function Prototypes ******************************/
 static int FlashReadID(XOspiPsv *OspiPsvPtr);
+static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
+static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
 
 /************************** Variable Definitions *****************************/
 static XOspiPsv OspiPsvInstance;
@@ -494,7 +496,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
+static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 {
 	int Status = XST_FAILURE;
 	u32 Command;
@@ -610,7 +612,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
+static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 {
 	int Status = XST_FAILURE;
 	u8 ConfigReg[2U] __attribute__ ((aligned(4U)));

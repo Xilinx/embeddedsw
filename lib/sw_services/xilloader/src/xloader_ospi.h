@@ -90,9 +90,6 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);
 int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_OspiRelease(void);
-int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
-int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
 
 /************************** Variable Definitions *****************************/
 

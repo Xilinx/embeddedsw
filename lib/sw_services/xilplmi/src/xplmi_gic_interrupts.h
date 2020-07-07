@@ -148,8 +148,6 @@ void XPlmi_GicIntrEnable(u32 PlmIntrId);
 void XPlmi_GicIntrDisable(u32 PlmIntrId);
 void XPlmi_GicIntrClearStatus(u32 PlmIntrId);
 int XPlmi_DispatchWakeHandler(void *DeviceIdx);
-void XPlmi_GicIntrAddTask(u32 Index);
-int XPlmi_GicTaskHandler(void *Arg);
 
 /************************** Variable Definitions *****************************/
 

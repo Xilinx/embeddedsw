@@ -347,7 +347,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 			CmdPtr->CmdId,
 			CdoPtr->ProcessedCdoLen + CdoPtr->BufLen - BufLen);
 		PrintLen = CmdPtr->PayloadLen;
-		if (CmdPtr->Len > XPLMI_CMD_LEN_TEMPBUF) {
+		if (PrintLen > XPLMI_CMD_LEN_TEMPBUF) {
 			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
 		}
 		XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)CmdPtr->Payload, PrintLen,

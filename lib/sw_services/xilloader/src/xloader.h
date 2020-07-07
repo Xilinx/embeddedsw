@@ -302,21 +302,14 @@ extern XilPdi SubsystemPdiIns;
 
 int XLoader_Init(void);
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
-int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId);
 int XLoader_ReloadImage(u32 ImageId);
-int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl);
-void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
-void XLoader_ClearIntrSbiDataRdy();
 void XLoader_CframeErrorHandler(void);
 int XLoader_CframeInit(void);
-int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
-void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader);
-int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
-int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
+void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
@@ -329,6 +322,7 @@ void XLoader_CmdsInit(void);
 int XLoader_IntrInit(void);
 int XLoader_SbiLoadPdi(void *Data);
 void XLoader_SbiRecovery(void);
+void XLoader_ClearIntrSbiDataRdy(void);
 
 #ifdef __cplusplus
 }

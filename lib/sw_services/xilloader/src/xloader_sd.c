@@ -379,6 +379,8 @@ END:
  * @param	DestAddress is the address of the destination where it
  * 		should copy to
  * @param	Length of the bytes to be copied
+ * @param	Flags param is unused and is only included for compliance with
+ * 		other device boot modes
  *
  * @return	XST_SUCCESS on success and error code on failure
  *

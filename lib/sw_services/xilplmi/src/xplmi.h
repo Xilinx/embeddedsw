@@ -64,7 +64,6 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
-void XPlm_PrintPlmBanner(void);
 
 #ifdef __cplusplus
 }

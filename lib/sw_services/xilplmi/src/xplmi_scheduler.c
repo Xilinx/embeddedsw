@@ -131,50 +131,8 @@ int XPlmi_SchedulerInit(void)
 
 /******************************************************************************/
 /**
-* @brief	The function starts the scheduler and updates start status.
-*
-* @param    Scheduler pointer
-*
-* @return	XST_SUCCESS if scheduler is started successfully
-*
-****************************************************************************/
-int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr)
-{
-	int Status = XST_FAILURE;
-
-	if (SchedPtr != NULL) {
-		SchedPtr->Enabled = TRUE;
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
-}
-
-/******************************************************************************/
-/**
-* @brief	The function stops the scheduler and updates Enabled field.
-*
-* @param    Scheduler pointer
-*
-* @return	XST_SUCCESS
-*
-****************************************************************************/
-int XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr)
-{
-	int Status = XST_FAILURE;
-
-	if(SchedPtr != NULL) {
-		SchedPtr->Enabled = FALSE;
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
-}
-
-/******************************************************************************/
-/**
 * @brief	The function is scheduler handler and it is called at regular
-* intervals based on configured interval. Scheduler handler check and adds the
+* intervals based on configured interval. Scheduler handler checks and adds the
 * user periodic task to PLM task queue.
 *
 * @param	Data - Not used currently. Added as a part of generic interrupt
@@ -224,6 +182,7 @@ END:
 * @param	CallbackFn callback function that should be called
 * @param	MilliSeconds Periodicity of the task. If Zero, task is added
 *               once. Value should be in multiples of 10ms.
+* @param	Priority is the priority of the task.
 *
 * @return	XST_SUCCESS if scheduler task is registered properly
 *
@@ -257,14 +216,14 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 *
 * @param	OwnerId Id of the owner, removed only if matches the ownerid
 *               while adding the task.
-* @param	MilliSeconds Periodicity of the task given while adding.
 * @param	CallbackFn callback function that is given while adding.
+* @param	MilliSeconds Periodicity of the task given while adding.
 *
 * @return	XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-												u32 MilliSeconds)
+		u32 MilliSeconds)
 {
 	int Status = XST_FAILURE;
 	u32 Idx;

@@ -41,6 +41,14 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId);
+static void XPlmi_SSSCfgDmaDma(u32 Flags);
+static void XPlmi_SSSCfgDmaPzm(u32 Flags);
+static void XPlmi_SSSCfgSbiDma(u32 Flags);
+static void XPlmi_SSSCfgDmaSbi(u32 Flags);
+static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags);
+static int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
+                XPmcDma** DmaPtrAddr);
 
 /************************** Variable Definitions *****************************/
 static XPmcDma PmcDma0;		/**<Instance of the Pmc_Dma Device */
@@ -58,7 +66,7 @@ static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
  * @return	XST_SUCCESS on success and error code on failure
  *
 *****************************************************************************/
-int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
+static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 {
 	int Status = XST_FAILURE;
 	XPmcDma_Config *Config;
@@ -157,7 +165,7 @@ XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
  * @return  None
  *
  *****************************************************************************/
-void XPlmi_SSSCfgDmaDma(u32 Flags)
+static void XPlmi_SSSCfgDmaDma(u32 Flags)
 {
 	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to DMA0/1\n\r");
 
@@ -184,7 +192,7 @@ void XPlmi_SSSCfgDmaDma(u32 Flags)
  * @return  None
  *
  *****************************************************************************/
-void XPlmi_SSSCfgSbiDma(u32 Flags)
+static void XPlmi_SSSCfgSbiDma(u32 Flags)
 {
 	XPlmi_Printf(DEBUG_DETAILED, "SSS config for SBI to DMA0/1\n\r");
 
@@ -217,7 +225,7 @@ void XPlmi_SSSCfgSbiDma(u32 Flags)
  * @return  None
  *
  *****************************************************************************/
-void XPlmi_SSSCfgDmaPzm(u32 Flags)
+static void XPlmi_SSSCfgDmaPzm(u32 Flags)
 {
 	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to PZM\n\r");
 
@@ -244,7 +252,7 @@ void XPlmi_SSSCfgDmaPzm(u32 Flags)
  * @return  None
  *
  *****************************************************************************/
-void XPlmi_SSSCfgDmaSbi(u32 Flags)
+static void XPlmi_SSSCfgDmaSbi(u32 Flags)
 {
 	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to SBI\n\r");
 
@@ -279,7 +287,7 @@ void XPlmi_SSSCfgDmaSbi(u32 Flags)
  * @return	XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
-int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
+static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	XPmcDma *DmaPtr;
@@ -331,7 +339,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used set wait on non blocking DMA.
+ * @brief	This function is used to wait on non blocking DMA.
  *
  * @param	None
  *
@@ -382,7 +390,7 @@ void XPlmi_WaitForNonBlkSrcDma(void)
  * @brief	This function is used to transfer the data from SBI to DMA.
  *
  * @param	DestAddr to which data has to be stored
- * @param	Len of the data in byte
+ * @param	Len of the data in words
  * @param	Flags to select PMC DMA and DMA Burst type
  *
  * @return	XST_SUCCESS on success and error codes on failure
@@ -409,7 +417,7 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
  * @brief	This function is used to transfer the data from DMA to SBI.
  *
  * @param	SrcAddr for DMA to fetch data from
- * @param	Len of the data in bytes
+ * @param	Len of the data in words
  * @param	Flags to select PMC DMA and DMA Burst type
  *
  * @return	XST_SUCCESS on success and error codes on failure
@@ -517,7 +525,7 @@ END:
  * @return	XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
-int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
+static int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		XPmcDma** DmaPtrAddr)
 {
 	int Status = XST_FAILURE;

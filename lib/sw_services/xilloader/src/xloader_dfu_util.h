@@ -368,6 +368,9 @@ typedef struct {
 }XLoader_UsbCh9_Data;
 
 /************************** Function Prototypes ******************************/
+void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr);
+void XLoader_DfuSetState(struct Usb_DevData* XLoader_UsbInstancePtr,
+        u32 DfuState );
 
 #endif/*XLOADER_USB*/
 

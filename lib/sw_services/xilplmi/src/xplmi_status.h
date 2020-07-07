@@ -141,8 +141,8 @@ enum {
 					  the PM Module */
 	XPLM_ERR_LPD_MOD,		/**< 0x202 - Error initializing
 					  the LPD modules */
-	XPLM_ERR_EXCEPTION,		/**< 0x203 - Expection has occurred
-					  duing PLM initialization. EAR and
+	XPLM_ERR_EXCEPTION,		/**< 0x203 - Exception has occurred
+					  during PLM initialization. EAR and
 					  ESR are printed on UART console
 					  if enabled */
 
@@ -154,12 +154,8 @@ enum {
 					 not selected in CIPS */
 	XLOADER_ERR_IMGHDR_TBL = 0x302U,	/**< 0x302 - Multiple conditions can
 					  give this error.
-					  -If Image header table has wrong
-					  checksum or invalid IDCODE
 					  - If PLM is unable to read
-					  image header table
-					  - If secure settings do not
-					  match to efuse settings  */
+					  image header table */
 	XLOADER_ERR_IMGHDR,		/**< 0x303 - Error if image header
 					  checksum fails */
 	XLOADER_ERR_PRTNHDR,		/**< 0x304 - Error if partition header
@@ -251,15 +247,15 @@ enum {
 	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
 	XLOADER_ERR_DFU_DWNLD,	/**< 0x32A - Error when pdi fails to download */
-	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occured while
+	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occurred while
 					  processing CDO but error is deferred
 					  till whole CDO processing is completed */
 	XLOADER_ERR_SD_LOOKUP,		/**< 0x32C - Error when SD look up fails */
 	XLOADER_ERR_SD_CFG,		/**< 0x32D - Error when SD config fails */
 	XLOADER_ERR_SD_CARD_INIT,	/**< 0x32E - Error when SD card init fails */
-	XLOADER_ERR_MMC_PART_CONFIG, /**< 0x32F - Error when MMC switch to user
-									area in raw boot mode fails */
-	XLOADER_ERR_SEM_STOP_SCAN,	/**< 0x330 - Error while stoping the
+	XLOADER_ERR_MMC_PART_CONFIG, /**< 0x32F - Error when MMC part
+						configuration fails */
+	XLOADER_ERR_SEM_STOP_SCAN,	/**< 0x330 - Error while stopping the
 					  SEM Scan */
 	XLOADER_ERR_SEM_CFR_INIT,	/**< 0x331 - Error while starting the
 					  SEM Scan */
@@ -278,7 +274,7 @@ enum {
 						OSPI copy exceeds flash size */
 	XLOADER_ERR_SD_F_CLOSE,		/**< 0x338 - Error on closure of file in SD
 							filesystem modes */
-	XLOADER_ERR_SD_UMOUNT,		/**< 0X339 - Error on unmounting filsystem */
+	XLOADER_ERR_SD_UMOUNT,		/**< 0X339 - Error on unmounting filesystem */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600U,

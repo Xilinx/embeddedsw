@@ -379,8 +379,8 @@ typedef struct {
  */
 typedef struct {
 	u64 EntryPoint; /**< Entry point */
-	u64 PartitionFlags; /**< Attributes of partition */
-} XilPdi_PartitionEntry;
+	u64 PrtnFlags; /**< Attributes of partition */
+} XilPdi_PrtnEntry;
 
 /*
  * Structure for handoff parameters to ARM Trusted Firmware (ATF)
@@ -389,7 +389,7 @@ typedef struct {
 	u8 MagicValue[4U]; /**< 32 bit magic string */
 	u32 NumEntries; /**< Number of Entries */
 	/**< Structure corresponding to each entry */
-	XilPdi_PartitionEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF];
+	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF];
 } XilPdi_ATFHandoffParams __attribute__ ((aligned(16U)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -412,7 +412,6 @@ u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr);
 u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr);
 u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr);
 
-int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 int XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
 int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl);
 void XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
