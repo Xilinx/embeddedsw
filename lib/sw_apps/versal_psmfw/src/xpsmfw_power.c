@@ -319,10 +319,8 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
-int XPsmFw_FpdMbisr(void)
+void XPsmFw_FpdMbisr(void)
 {
-	int Status = XST_FAILURE;
-
 	/* Release FPD reset */
 	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
 			     ~CRL_RST_FPD_SRST_MASK);
@@ -332,18 +330,11 @@ int XPsmFw_FpdMbisr(void)
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
-	/* Bisr will now be triggered by libpm when this call
-		returns*/
-
-	Status = XST_SUCCESS;
-
-	return Status;
+	/* Bisr will now be triggered by libpm when this call returns */
 }
 
-int XPsmFw_FpdMbistClear(void)
+void XPsmFw_FpdMbistClear(void)
 {
-	int Status = XST_FAILURE;
-
 	/* Release FPD reset */
 	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
 			     ~CRL_RST_FPD_SRST_MASK);
@@ -352,10 +343,6 @@ int XPsmFw_FpdMbistClear(void)
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
-
-	Status = XST_SUCCESS;
-
-	return Status;
 }
 
 int XPsmFw_FpdPreHouseClean(void)
@@ -414,10 +401,8 @@ done:
 	return Status;
 }
 
-int XPsmFw_FpdPostHouseClean(void)
+void XPsmFw_FpdPostHouseClean(void)
 {
-	int Status = XST_FAILURE;
-
 	/* Disable Remaining LP-FP isolation - in case bisr and mbist was skipped */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
@@ -442,11 +427,8 @@ int XPsmFw_FpdPostHouseClean(void)
 		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
 			     PSM_LOCAL_PWR_STATE_FP_MASK);
 	}
+
 	/* TODO: Enable PSM Interrupts */
-
-	Status = XST_SUCCESS;
-
-	return Status;
 }
 
 static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)

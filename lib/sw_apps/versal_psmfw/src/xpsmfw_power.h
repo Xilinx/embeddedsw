@@ -285,9 +285,9 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask);
 XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId);
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId);
 int XPsmFw_FpdPreHouseClean(void);
-int XPsmFw_FpdPostHouseClean(void);
-int XPsmFw_FpdMbisr(void);
-int XPsmFw_FpdMbistClear(void);
+void XPsmFw_FpdPostHouseClean(void);
+void XPsmFw_FpdMbisr(void);
+void XPsmFw_FpdMbistClear(void);
 
 #ifdef __cplusplus
 }
