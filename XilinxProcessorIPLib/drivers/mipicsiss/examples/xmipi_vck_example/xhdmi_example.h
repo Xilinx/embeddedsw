@@ -157,6 +157,8 @@ extern "C" {
 /* VHdmiphy structure */
 extern XHdmiphy1     Hdmiphy1;
 
+extern int I2cClk(u32 InFreq, u32 OutFreq);
+
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /* HDMI TX SS structure */
 extern XV_HdmiTxSs HdmiTxSs;

@@ -50,7 +50,6 @@ extern "C" {
 #define IDT_8T49N24X_FIN_MAX 875000000   //!< Max Input Freq in Hz
 #define IDT_8T49N24X_FIN_MIN      8000   //!< Min Input Freq in Hz
 
-//#define IDT_8T49N24X_FPD_MAX 8000000   //!< Max Phase Detector Freq in Hz
 #define IDT_8T49N24X_FPD_MAX 128000      //!< Max Phase Detector Freq in Hz
 #define IDT_8T49N24X_FPD_MIN   8000      //!< Min Phase Detector Freq in Hz
 

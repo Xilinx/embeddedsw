@@ -122,9 +122,6 @@ s32 Si5324_DoSettings_Ps(XIicPs *InstancePtr, u16 IICAddress,
 	}
 
 	for (i = 0; i < NumRegs; i++) {
-		//        result = XIic_Send(IICBaseAddress, IICAddress,
-		//                           BufPtr + (i << 1), 2,
-		//                           XIIC_STOP);
 		Status = XIicPs_MasterSendPolled(InstancePtr,
 				BufPtr + (i << 1), 2, IICAddress);
 		if (Status != XST_SUCCESS) {
@@ -260,7 +257,7 @@ s32 Si5324_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
                                      &BwSel);
     if (Status != SI5324_SUCCESS) {
         if (SI5324_DEBUG) {
-            xil_printf("Si5324: ERROR: Could not determine \\
+            xil_printf("Si5324: ERROR: Could not determine \
                                      settings for requested frequency!\n");
         }
         return Status;
@@ -315,14 +312,6 @@ s32 Si5324_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
     buf[i+5] = (u8)( NCn_ls & 0x000000FF       );
     i += 6;
 
-//    // NC2_LS
-//    buf[i]   = 34;
-//    buf[i+1] = (u8)((NCn_ls & 0x000F0000) >> 16);
-//    buf[i+2] = 35;
-//    buf[i+3] = (u8)((NCn_ls & 0x0000FF00) >>  8);
-//    buf[i+4] = 36;
-//    buf[i+5] = (u8)( NCn_ls & 0x000000FF       );
-//    i += 6;
 
     // N2_HS and N2_LS
     buf[i]    = 40;
@@ -360,7 +349,7 @@ s32 Si5324_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
     // Sanity check
     if (i != sizeof(buf)) {
         if (SI5324_DEBUG) {
-            xil_printf("Si5324: FATAL ERROR: Incorrect buffer size \\
+            xil_printf("Si5324: FATAL ERROR: Incorrect buffer size \
                                       while programming frequency settings!");
         }
         exit(-1);
@@ -477,7 +466,6 @@ int Si5324_Reset(u32 IICBaseAddress, u8 IICAddress) {
 int Si5324_Init(u32 IICBaseAddress, u8 IICAddress) {
     int result;
 
-    //Si5324_Reset(IICBaseAddress, IICAddress);
     if (SI5324_DEBUG) {
         xil_printf("Si5324: Initializing.\n");
     }
@@ -922,7 +910,7 @@ int Si5324_SetClock(u32 IICBaseAddress, u8 IICAddress, u8 ClkSrc,
                                      &BwSel);
     if (result != SI5324_SUCCESS) {
         if (SI5324_DEBUG) {
-            xil_printf("Si5324: ERROR: Could not determine \\
+            xil_printf("Si5324: ERROR: Could not determine \
                                    settings for requested frequency!\n");
         }
         return result;
@@ -977,14 +965,6 @@ int Si5324_SetClock(u32 IICBaseAddress, u8 IICAddress, u8 ClkSrc,
     buf[i+5] = (u8)( NCn_ls & 0x000000FF       );
     i += 6;
 
-//    // NC2_LS
-//    buf[i]   = 34;
-//    buf[i+1] = (u8)((NCn_ls & 0x000F0000) >> 16);
-//    buf[i+2] = 35;
-//    buf[i+3] = (u8)((NCn_ls & 0x0000FF00) >>  8);
-//    buf[i+4] = 36;
-//    buf[i+5] = (u8)( NCn_ls & 0x000000FF       );
-//    i += 6;
 
     // N2_HS and N2_LS
     buf[i]    = 40;
@@ -1022,7 +1002,7 @@ int Si5324_SetClock(u32 IICBaseAddress, u8 IICAddress, u8 ClkSrc,
     // Sanity check
     if (i != sizeof(buf)) {
         if (SI5324_DEBUG) {
-            xil_printf("Si5324: FATAL ERROR: Incorrect buffer size \\
+            xil_printf("Si5324: FATAL ERROR: Incorrect buffer size \
                                 while programming frequency settings!");
         }
         exit(-1);

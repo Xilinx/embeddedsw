@@ -1514,7 +1514,7 @@ static void XHdcp_EnforceBlank(XHdcp_Repeater *InstancePtr)
               Status =
            XV_HdmiTxSs_HdcpEnableBlank(InstancePtr->DownstreamInstancePtr[i]);
               if (Status != XST_SUCCESS) {
-                xdbg_printf(XDBG_DEBUG_GENERAL, "Error: Problem blocking
+                xdbg_printf(XDBG_DEBUG_GENERAL, "Error: Problem blocking \
                                                      downstream content.\r\n");
               }
             }
