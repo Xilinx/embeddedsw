@@ -333,7 +333,6 @@ void Si570_RfreqCalc(double Freq, u8 *RFreq_Cal, u8 *RFreq_Set,
                 (RFreq_Cal[2] * two_to_16) + (RFreq_Cal[3] * two_to_8) +
                 RFreq_Cal[4];
    RFreq_Val= ((DCO / (*XtalFreq)) * (Rval_Cal / Rval_Std)) * two_to_28;
-   /*RFreq_Val= ((DCO / (*XtalFreq))) * two_to_28;*/
 
    double2hex(RFreq_Val, RFreq_Set);
 
