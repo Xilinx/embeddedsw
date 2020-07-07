@@ -45,6 +45,8 @@
 /************************** Function Prototypes ******************************/
 static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 			XInterruptHandler Handler, void * Data);
+static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
+static void XPlmi_IntrHandler(void *CallbackRef);
 
 /************************** Variable Definitions *****************************/
 static int PmcIroFreq; /* Frequency of the PMC IRO */
@@ -71,7 +73,7 @@ static u32 PlmIntrMap [] = {
 * @return	None
 *
 *****************************************************************************/
-void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
+static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 {
 	/*
 	 * When used in PIT1 prescalar to PIT2, PIT2 has least 32bits
@@ -81,7 +83,7 @@ void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 		XIOModule_Timer_SetOptions(&IOModule, Timer,
 				XTC_AUTO_RELOAD_OPTION);
 	}
-    if (XPLMI_PIT3 == Timer) {
+	if (XPLMI_PIT3 == Timer) {
 		XIOModule_Timer_SetOptions(&IOModule, Timer,
 				XTC_AUTO_RELOAD_OPTION);
 	}
@@ -226,7 +228,7 @@ void XPlmi_PrintPlmTimeStamp(void)
 * @return	None
 *
 *****************************************************************************/
-static void XPlmi_SetPmcIroFreq()
+static void XPlmi_SetPmcIroFreq(void)
 {
 	u32 Trim5;
 	u32 Trim7;
@@ -245,7 +247,7 @@ static void XPlmi_SetPmcIroFreq()
 
 /*****************************************************************************/
 /**
-* @brief	It initializes the IO module strutures and PIT timers.
+* @brief	It initializes the IO module structures and PIT timers.
 *
 * @param	None
 *
@@ -410,7 +412,7 @@ END:
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_IntrHandler(void *CallbackRef)
+static void XPlmi_IntrHandler(void *CallbackRef)
 {
 	/*
 	 * Indicate Interrupt received
@@ -550,7 +552,7 @@ END:
 * @brief    This function will register the handler and enable the interrupt.
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
-* @param    Handler to the registered for the interrupt
+* @param    Handler to be registered for the interrupt
 * @param    Data to be passed to handler
 *
 * @return   None

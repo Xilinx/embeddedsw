@@ -103,48 +103,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to initialize the SBI with user inputs.
- *
- * @param	CtrlInterface is interface value for configuring SBI
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_SbiConfig(u32 CtrlInterface)
-{
-	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-		SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK, CtrlInterface);
-	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, XLOADER_SBI_CTRL_ENABLE);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used to initialize the SBI for Slave SLRs.
- *
- * @param	SlrBaseAddr is the base address of slave device
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
-{
-	u64 SbiCtrlAddr = ((u64)SlrBaseAddr +((u64)(SLAVE_BOOT_SBI_CTRL -
-				PMC_LOCAL_BASEADDR)));
-
-	XPlmi_UtilRMW64((SbiCtrlAddr >> 32U),
-			(SbiCtrlAddr & XLOADER_32BIT_MASK),
-			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
-
-	XPlmi_UtilRMW64((SbiCtrlAddr >> 32U),
-			(SbiCtrlAddr & XLOADER_32BIT_MASK),
-			SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
-			XLOADER_SBI_CTRL_ENABLE);
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function is used to copy the data from SMAP/JTAG to
  * destination address through SBI interface.
  *

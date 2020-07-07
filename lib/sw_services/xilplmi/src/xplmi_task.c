@@ -37,6 +37,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XPlmi_TaskDelete(XPlmi_TaskNode * Task);
 
 /************************** Variable Definitions *****************************/
 static struct metal_list TaskQueue[XPLMI_TASK_PRIORITIES];
@@ -50,14 +51,14 @@ static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
  * the user parameters.
  *
  * @param	Priority Priority of the task
- * @param	handler function pointer to the task handler
+ * @param	Handler function pointer to the task handler
  * @param	PrivData Private Data to be passed with task handler
  *
  * @return	Pointer to the task node structure
  *
  *****************************************************************************/
 XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
-	int (*Handler)(void * PrivData), void * PrivData)
+	int (*Handler)(void *), void * PrivData)
 {
 	XPlmi_TaskNode * Task = NULL;
 	u32 Index;
@@ -91,7 +92,7 @@ XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
+static void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
 {
 	if (!metal_list_is_empty(&Task->TaskNode)) {
 		metal_list_del(&Task->TaskNode);

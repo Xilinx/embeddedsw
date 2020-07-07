@@ -45,8 +45,6 @@ typedef struct {
 } XPlmi_Scheduler_t ;
 
 int XPlmi_SchedulerInit(void);
-int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
-int XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr);
 void XPlmi_SchedulerHandler(void *Data);
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		u32 MilliSeconds, u32 Priority);

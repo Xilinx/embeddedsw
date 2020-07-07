@@ -95,6 +95,7 @@ int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value)
  *
  * @param	RegAddr is the address of the register
  * @param	Mask denotes the bits to be modified
+ * @param	ExpectedValue is the value for which the register is polled
  * @param	TimeOutInUs is the max time in microseconds for which the register
  *			would be polled for the expected value
  *
@@ -143,15 +144,15 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
  * @brief	This function polls a 64 bit address till the masked bits are set to
  * expected value or till timeout occurs.
  *
- * @param	Addr 64 bit address
+ * @param	RegAddr 64 bit address
  * @param	Mask is the bit field to be polled
  * @param	Expected Value is value to be polled
- * @param   TimeOutCount is delay time in micro sec
+ * @param   TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
+int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 {
 	int Status = XST_FAILURE;
 	u32 ReadValue;
@@ -166,7 +167,7 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	/*
 	 * Read the Register value
 	 */
-	ReadValue = XPlmi_In64(Addr);
+	ReadValue = XPlmi_In64(RegAddr);
 	/*
 	 * Loop while the Mask is not set or we timeout
 	 */
@@ -175,7 +176,7 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 		/*
 		 * Latch up the value again
 		 */
-		ReadValue = XPlmi_In64(Addr);
+		ReadValue = XPlmi_In64(RegAddr);
 		/*
 		 * Decrement the TimeOut Count
 		 */
@@ -195,16 +196,16 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
  *
  * @param	RegAddr is the register address
  * @param	Mask is the bit field to be updated
- * @param	TimeOutCount is delay time in micro sec
+ * @param	TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
+int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 {
 	int Status = XST_FAILURE;
 	u32 RegValue;
-	u32 TimeOut = TimeOutCount;
+	u32 TimeOut = TimeOutInUs;
 
 	/*
 	 * Read the Register value
@@ -242,7 +243,7 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
  * @param	LowAddr is lower 32-bits of 64-bit address
  * @param	Mask is the bit field to be updated
  * @param	Value is value to be updated
- * @param	TimeOutCount is delay time in micro sec
+ * @param	TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
  *

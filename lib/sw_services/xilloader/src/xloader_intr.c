@@ -134,7 +134,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void XLoader_ClearIntrSbiDataRdy()
+void XLoader_ClearIntrSbiDataRdy(void)
 {
 	/* Clear the SBI interrupt */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,

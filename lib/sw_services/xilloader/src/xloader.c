@@ -46,6 +46,12 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
+static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
+static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
+static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
+static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl);
+static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
 
 /************************** Variable Definitions *****************************/
 XilSubsystem SubSystemInfo = {0U};
@@ -327,7 +333,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 {
 	int Status = XST_FAILURE;
 	XLoader_SecureParms SecureParam = {0U};
@@ -477,7 +483,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
+static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
 	u32 NoOfDelayedHandoffCpus = 0U;
@@ -595,7 +601,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
+static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
 
@@ -805,7 +811,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
+static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 {
 	u32 RegVal;
 
@@ -1107,7 +1113,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
+static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 	XLoader_IdCodeInfo IdCodeInfo;
@@ -1212,45 +1218,45 @@ END:
 * header. A pointer to the structure containing these parameters is stored in
 * the PMC_GLOBAL.GLOBAL_GEN_STORAGE4 register, which ATF reads.
 *
-* @param	PartitionHeader is pointer to Partition header details
+* @param	PrtnHdr is pointer to Partition header details
 *
 * @return	None
 *
 *****************************************************************************/
-void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
+void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 {
-	u32 PartitionAttributes;
-	u32 PartitionFlags = 0U;
+	u32 PrtnAttrbs;
+	u32 PrtnFlags = 0U;
 	u32 LoopCount = 0U;
 
-	PartitionAttributes = PartitionHeader->PrtnAttrb;
+	PrtnAttrbs = PrtnHdr->PrtnAttrb;
 
-	PartitionFlags =
-		(((PartitionAttributes & XIH_PH_ATTRB_A72_EXEC_ST_MASK)
+	PrtnFlags =
+		(((PrtnAttrbs & XIH_PH_ATTRB_A72_EXEC_ST_MASK)
 				>> XIH_ATTRB_A72_EXEC_ST_SHIFT_DIFF) |
-		((PartitionAttributes & XIH_PH_ATTRB_ENDIAN_MASK)
+		((PrtnAttrbs & XIH_PH_ATTRB_ENDIAN_MASK)
 				>> XIH_ATTRB_ENDIAN_SHIFT_DIFF) |
-		((PartitionAttributes & XIH_PH_ATTRB_TZ_SECURE_MASK)
+		((PrtnAttrbs & XIH_PH_ATTRB_TZ_SECURE_MASK)
 				<< XIH_ATTRB_TR_SECURE_SHIFT_DIFF) |
-		((PartitionAttributes & XIH_PH_ATTRB_TARGET_EL_MASK)
+		((PrtnAttrbs & XIH_PH_ATTRB_TARGET_EL_MASK)
 				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
 
 	/* Update CPU number based on destination CPU */
-	if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+	if ((PrtnAttrbs & XIH_PH_ATTRB_DSTN_CPU_MASK)
 			== XIH_PH_ATTRB_DSTN_CPU_A72_0) {
-		PartitionFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
+		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
 	}
-	else if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+	else if ((PrtnAttrbs & XIH_PH_ATTRB_DSTN_CPU_MASK)
 			== XIH_PH_ATTRB_DSTN_CPU_A72_1) {
-		PartitionFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_1;
+		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_1;
 	}
-	else if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+	else if ((PrtnAttrbs & XIH_PH_ATTRB_DSTN_CPU_MASK)
 			== XIH_PH_ATTRB_DSTN_CPU_NONE) {
 		/*
 		 * This is required for u-boot handoff to work
 		 * when BOOTGEN_SUBSYSTEM_PDI is set to 0 in bootgen
 		 */
-		PartitionFlags &= (~(XIH_ATTRB_EL_MASK) | XIH_PRTN_FLAGS_EL_2)
+		PrtnFlags &= (~(XIH_ATTRB_EL_MASK) | XIH_PRTN_FLAGS_EL_2)
 					| XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
 	}
 	else {
@@ -1265,11 +1271,11 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
 		ATFHandoffParams.MagicValue[3U] = 'X';
 	}
 	else {
-		for (;LoopCount < ATFHandoffParams.NumEntries; LoopCount++) {
-			if (ATFHandoffParams.Entry[LoopCount].PartitionFlags ==
-					PartitionFlags) {
+		for (; LoopCount < ATFHandoffParams.NumEntries; LoopCount++) {
+			if (ATFHandoffParams.Entry[LoopCount].PrtnFlags ==
+					PrtnFlags) {
 				ATFHandoffParams.Entry[LoopCount].EntryPoint =
-					PartitionHeader->DstnExecutionAddr;
+					PrtnHdr->DstnExecutionAddr;
 				break;
 			}
 		}
@@ -1279,8 +1285,8 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
 		(ATFHandoffParams.NumEntries == LoopCount)) {
 		ATFHandoffParams.NumEntries += 1U;
 		ATFHandoffParams.Entry[LoopCount].EntryPoint =
-				PartitionHeader->DstnExecutionAddr;
-		ATFHandoffParams.Entry[LoopCount].PartitionFlags = PartitionFlags;
+				PrtnHdr->DstnExecutionAddr;
+		ATFHandoffParams.Entry[LoopCount].PrtnFlags = PrtnFlags;
 	}
 }
 
@@ -1293,7 +1299,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
+static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
 	u32 PdiSrc;

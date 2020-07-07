@@ -51,7 +51,7 @@
 * @return	None
 *
 *****************************************************************************/
-void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
+static void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	XStatus Status = XST_FAILURE;

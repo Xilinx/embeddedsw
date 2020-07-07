@@ -59,7 +59,6 @@ int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type);
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
-int XPlmi_ValidateIpiCmd(u32 CmdId);
 
 /************************** Variable Definitions *****************************/
 

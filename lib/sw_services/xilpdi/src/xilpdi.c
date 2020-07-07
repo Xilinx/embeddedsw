@@ -36,6 +36,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 
 /************************** Variable Definitions *****************************/
 
@@ -273,7 +274,7 @@ inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 			XST_FAILURE if checksum validation fails
 *
 *****************************************************************************/
-int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
+static int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 Checksum = 0U;
@@ -606,8 +607,7 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	XilPdi_Printf("Reading %u Partition Headers \n\r", NoOfPrtns);
 
 	/*
-	 * Read the Img header table of 64 bytes
-	 * and update the Image Header Table structure
+	 * Read partition headers into partition structures
 	 */
 	for (PrtnIndex = 0U; PrtnIndex < NoOfPrtns; PrtnIndex++) {
 		/* Performs device copy */

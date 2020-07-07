@@ -39,6 +39,10 @@
 
 /************************** Function Prototypes ******************************/
 s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
+static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex);
+static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask);
+static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask);
+static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask);
 
 /************************** Variable Definitions *****************************/
 u32 EmSubsystemId = 0U;
@@ -47,18 +51,18 @@ u32 EmSubsystemId = 0U;
 /**
  * @brief	This function is called in PLM error cases.
  *
- * @param	ErrorStatus is the error code written to the error status register
+ * @param	ErrStatus is the error code written to the FW_ERR register
  *
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_ErrMgr(int Status)
+void XPlmi_ErrMgr(int ErrStatus)
 {
 	u32 RegVal;
 
 	/* Print the PLM error */
-	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", Status);
-	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, Status);
+	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
+	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, ErrStatus);
 
 	/*
 	 * Fallback if boot PDI is not done
@@ -98,7 +102,7 @@ void XPlmi_ErrMgr(int Status)
  * Structure to define error action type and handler if error to be handled
  * by PLM
  */
-struct XPlmi_Error_t ErrorTable[] = {
+static struct XPlmi_Error_t ErrorTable[] = {
 	[XPLMI_NODEIDX_ERROR_BOOT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
@@ -346,7 +350,7 @@ struct XPlmi_Error_t ErrorTable[] = {
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
+static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 {
 	u32 RegVal;
 
@@ -385,7 +389,7 @@ void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
+static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 {
 	u32 Err1Status;
 	u32 Err2Status;
@@ -446,7 +450,7 @@ void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask)
+static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status = XST_FAILURE;
 	u32 ActionId;
@@ -549,7 +553,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
+static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 {
 	u32 RegMask = XPlmi_ErrRegMask(ErrorMask);
 

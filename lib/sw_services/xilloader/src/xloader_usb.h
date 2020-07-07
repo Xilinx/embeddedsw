@@ -48,6 +48,8 @@ struct dfu_if {
 	u8 runtime_to_dfu;
 };
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_REQ_REPLY_LEN		(1024U)	/* Max size of reply buffer. */
+
 /*
  * @brief	Request types
  */
@@ -92,36 +94,10 @@ struct dfu_if {
 #define XLOADER_DFU_STATUS_SIZE			(0x6U)
 
 /************************** Function Prototypes **************************/
-void XLoader_DfuInit(void);
-void XLoader_DfuSetIntf(struct Usb_DevData* XLoader_UsbInstancePtr,
-	SetupPacket *SetupData);
-void XLoader_DfuClassReq(struct Usb_DevData* XLoader_UsbInstancePtr,
-	SetupPacket *SetupData);
-void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr);
-u32 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen);
-u32 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen);
-u32 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen, u8 Index);
-u32 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen);
-int XLoader_SetConfiguration(struct Usb_DevData* XLoader_UsbInstancePtr,
-	SetupPacket *Ctrl);
-void XLoader_DfuSetState(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u32 DfuState );
-void XLoader_StdDevReq(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData);
 void XLoader_Ch9Handler(struct Usb_DevData *InstancePtr,
 	SetupPacket *SetupData);
 int XLoader_UsbInit(u32 DeviceFlags);
 int XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData);
-int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData);
-int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData);
 
 #endif/*XLOADER_USB*/
 
