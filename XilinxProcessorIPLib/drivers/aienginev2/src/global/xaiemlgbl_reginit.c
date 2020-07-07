@@ -44,6 +44,8 @@
 * 2.9   Tejus   06/05/2020  Populate fifo mode availability in data structure.
 * 3.0   Nishad  06/16/2020  Add trace module properties
 * 3.1   Nishad  06/25/2020  Fix typo in Aie2MemTileTraceMod structure
+* 3.2   Nishad  06/28/2020  Populate stream switch port event selection, event
+*			    generation and combo event properties
 * </pre>
 *
 ******************************************************************************/
@@ -2017,7 +2019,6 @@ static const XAie_PerfMod Aie2MemTilePerfCnt =
 	{XAIE2GBL_MEM_TILE_MODULE_PERFORMANCE_CONTROL2_CNT0_RESET_EVENT_LSB, XAIE2GBL_MEM_TILE_MODULE_PERFORMANCE_CONTROL2_CNT0_RESET_EVENT_MASK},
 };
 
-
 /* Data structure to capture core and memory module events properties */
 static const XAie_EvntMod Aie2TileEvntMod[] =
 {
@@ -2025,11 +2026,41 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.XAie_EventNumber = Aie2MemModEventMapping,
 		.EventMin = 1000U,
 		.EventMax = 1149U,
+		.GenEventRegOff = XAIE2GBL_MEMORY_MODULE_EVENT_GENERATE,
+		.GenEvent = {XAIE2GBL_MEMORY_MODULE_EVENT_GENERATE_EVENT_LSB, XAIE2GBL_MEMORY_MODULE_EVENT_GENERATE_EVENT_MASK},
+		.ComboInputRegOff = XAIE2GBL_MEMORY_MODULE_COMBO_EVENT_INPUTS,
+		.ComboEventMask = XAIE2GBL_MEMORY_MODULE_COMBO_EVENT_INPUTS_EVENTA_MASK,
+		.ComboEventOff = 8U,
+		.ComboCtrlRegOff = XAIE2GBL_MEMORY_MODULE_COMBO_EVENT_CONTROL,
+		.ComboConfigMask = XAIE2GBL_MEMORY_MODULE_COMBO_EVENT_CONTROL_COMBO0_MASK,
+		.ComboConfigOff = 8U,
+		.BaseStrmPortSelectRegOff = XAIE_FEATURE_UNAVAILABLE,
+		.NumStrmPortSelectIds = XAIE_FEATURE_UNAVAILABLE,
+		.StrmPortSelectIdsPerReg = XAIE_FEATURE_UNAVAILABLE,
+		.PortIdMask = XAIE_FEATURE_UNAVAILABLE,
+		.PortIdOff = XAIE_FEATURE_UNAVAILABLE,
+		.PortMstrSlvMask = XAIE_FEATURE_UNAVAILABLE,
+		.PortMstrSlvOff = XAIE_FEATURE_UNAVAILABLE,
 	},
 	{
 		.XAie_EventNumber = Aie2CoreModEventMapping,
 		.EventMin = 0U,
 		.EventMax = 128U,
+		.GenEventRegOff = XAIE2GBL_CORE_MODULE_EVENT_GENERATE,
+		.GenEvent = {XAIE2GBL_CORE_MODULE_EVENT_GENERATE_EVENT_LSB, XAIE2GBL_CORE_MODULE_EVENT_GENERATE_EVENT_MASK},
+		.ComboInputRegOff = XAIE2GBL_CORE_MODULE_COMBO_EVENT_INPUTS,
+		.ComboEventMask = XAIE2GBL_CORE_MODULE_COMBO_EVENT_INPUTS_EVENTA_MASK,
+		.ComboEventOff = 8U,
+		.ComboCtrlRegOff = XAIE2GBL_CORE_MODULE_COMBO_EVENT_CONTROL,
+		.ComboConfigMask = XAIE2GBL_CORE_MODULE_COMBO_EVENT_CONTROL_COMBO0_MASK,
+		.ComboConfigOff = 8U,
+		.BaseStrmPortSelectRegOff = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0,
+		.NumStrmPortSelectIds = 8U,
+		.StrmPortSelectIdsPerReg = 4U,
+		.PortIdMask = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0_PORT_0_ID_MASK,
+		.PortIdOff = 8U,
+		.PortMstrSlvMask = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0_PORT_0_MASTER_SLAVE_MASK,
+		.PortMstrSlvOff = 8U,
 	}
 };
 
@@ -2039,6 +2070,21 @@ static const XAie_EvntMod Aie2PlEvntMod =
 	.XAie_EventNumber = Aie2PlModEventMapping,
 	.EventMin = 2000U,
 	.EventMax = 2160U,
+	.GenEventRegOff = XAIE2GBL_PL_MODULE_EVENT_GENERATE,
+	.GenEvent = {XAIE2GBL_PL_MODULE_EVENT_GENERATE_EVENT_LSB, XAIE2GBL_PL_MODULE_EVENT_GENERATE_EVENT_MASK},
+	.ComboInputRegOff = XAIE2GBL_PL_MODULE_COMBO_EVENT_INPUTS,
+	.ComboEventMask = XAIE2GBL_PL_MODULE_COMBO_EVENT_INPUTS_EVENTA_MASK,
+	.ComboEventOff = 8U,
+	.ComboCtrlRegOff = XAIE2GBL_PL_MODULE_COMBO_EVENT_CONTROL,
+	.ComboConfigMask = XAIE2GBL_PL_MODULE_COMBO_EVENT_CONTROL_COMBO0_MASK,
+	.ComboConfigOff = 8U,
+	.BaseStrmPortSelectRegOff = XAIE2GBL_PL_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0,
+	.NumStrmPortSelectIds = 8U,
+	.StrmPortSelectIdsPerReg = 4U,
+	.PortIdMask = XAIE2GBL_PL_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0_PORT_0_ID_MASK,
+	.PortIdOff = 8U,
+	.PortMstrSlvMask = XAIE2GBL_PL_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0_PORT_0_MASTER_SLAVE_MASK,
+	.PortMstrSlvOff = 8U,
 };
 
 /* Data structure to capture mem tile module events properties */
@@ -2047,6 +2093,21 @@ static const XAie_EvntMod Aie2MemTileEvntMod =
 	.XAie_EventNumber = Aie2MemTileModEventMapping,
 	.EventMin = 3000U,
 	.EventMax = 3159U,
+	.GenEventRegOff = XAIE2GBL_MEM_TILE_MODULE_EVENT_GENERATE,
+	.GenEvent = {XAIE2GBL_MEM_TILE_MODULE_EVENT_GENERATE_EVENT_LSB, XAIE2GBL_MEM_TILE_MODULE_EVENT_GENERATE_EVENT_MASK},
+	.ComboInputRegOff = XAIE2GBL_MEM_TILE_MODULE_COMBO_EVENT_INPUTS,
+	.ComboEventMask = XAIE2GBL_MEM_TILE_MODULE_COMBO_EVENT_INPUTS_EVENTA_MASK,
+	.ComboEventOff = 8U,
+	.ComboCtrlRegOff = XAIE2GBL_MEM_TILE_MODULE_COMBO_EVENT_CONTROL,
+	.ComboConfigMask = XAIE2GBL_MEM_TILE_MODULE_COMBO_EVENT_CONTROL_COMBO0_MASK,
+	.ComboConfigOff = 8U,
+	.BaseStrmPortSelectRegOff = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0,
+	.NumStrmPortSelectIds = 8U,
+	.StrmPortSelectIdsPerReg = 4U,
+	.PortIdMask = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0_PORT_0_ID_MASK,
+	.PortIdOff = 8U,
+	.PortMstrSlvMask = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_EVENT_PORT_SELECTION_0_PORT_0_MASTER_SLAVE_MASK,
+	.PortMstrSlvOff = 8U,
 };
 
 static const XAie_TimerMod Aie2TileTimerMod[] =
