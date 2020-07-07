@@ -340,11 +340,6 @@ int XPsmFw_FpdMbisr(void)
 	return Status;
 }
 
-int XPsmFw_FpdScanClear(void)
-{
-	return XST_SUCCESS;
-}
-
 int XPsmFw_FpdMbistClear(void)
 {
 	int Status = XST_FAILURE;

@@ -286,7 +286,6 @@ XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId);
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId);
 int XPsmFw_FpdPreHouseClean(void);
 int XPsmFw_FpdPostHouseClean(void);
-int XPsmFw_FpdScanClear(void);
 int XPsmFw_FpdMbisr(void);
 int XPsmFw_FpdMbistClear(void);
 

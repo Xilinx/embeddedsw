@@ -40,12 +40,6 @@ static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 			goto done;
 		}
 		break;
-	case (u32)FUNC_SCAN_CLEAR:
-		Status = XPsmFw_FpdScanClear();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		break;
 	case (u32)FUNC_BISR:
 		Status = XPsmFw_FpdMbisr();
 		if (XST_SUCCESS != Status) {
