@@ -3,7 +3,6 @@
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
@@ -18,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   11/13/13 Initial release
 *       mus  02/26/19 Added support for armclang compiler
+*       dp   06/25/20 Added armclang support for Cortex-R5
 *
 * </pre>
 *
@@ -134,7 +134,48 @@ XFsbl_StartApp:
 	AREA |.exit|, CODE
 XFsbl_Exit
 
+#ifdef ARMR5
+	mov	 lr, r0 ;move the destination address into link register
 
+	mcr	 p15,0,r0,c7,c5,0 ;Invalidate Instruction cache
+	mcr	 p15,0,r0,c7,c5,6 ;Invalidate branch predictor array
+
+	dsb
+	isb ;make sure it completes
+
+	mrc     p15,0,r4,c1,c0,0 ;Read SCTLR
+	bic     r4, r4, #0x04  ;disable L1 I Cache
+	bic     r4, r4, #0x1000 ;Disable L1 D Cache
+	mcr	p15,0,r4,c1,c0,0 ;disable the DCache, ICache
+	isb ;make sure it completes
+
+	;set exception vector to HIVEC
+	;this is done because, in LOVEC we can not disable the MPU as
+	;OCM region is not present in default MPU regions when in LOVEC
+	mrc     p15, 0, r0, c1, c0, 0  ;Read SCTLR
+	orr	r0, r0, #0x2000
+	mcr	p15, 0, r0, c1, c0, 0
+	isb
+
+	;disable the MPU
+	mrc     p15,0,r4,c1,c0,0 ;Read SCTLR
+	bic     r4, r4, #0x01
+	mcr	p15,0,r4,c1,c0,0
+	isb
+
+	cmp r1, #0  ;exit to wfe
+	beq XFsbl_Loop
+
+	cmp r1, #2   ;x1 is 2 - exit in aarch32
+	beq XFsbl_StartApp
+
+	;x1 is 1 - exit in aarch64
+	mov r2, #3   ;request for warm reset and aarch64
+	dsb
+	isb
+	mcr	p15, 0, r2, c12, c0, 2 ;write to reset management register
+	isb
+#else
 	mov x30, x0 ; move the destination address into x30 register
 
 	tlbi ALLE3   ; invalidate All E3 translation tables
@@ -163,7 +204,7 @@ XFsbl_Exit
 	isb
 	msr RMR_EL3,x2 ; write to reset management register
 	isb
-
+#endif
 
 XFsbl_Loop
 	wfe				;wait for event
@@ -171,6 +212,10 @@ XFsbl_Loop
 
 
 XFsbl_StartApp
+#ifdef ARMR5
+	bx	lr;
+#else
 	br 	x30        ; branch to
+#endif
 	END
 #endif
