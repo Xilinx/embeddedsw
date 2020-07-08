@@ -44,6 +44,11 @@ proc secure_drc {libhandle} {
 				file copy -force $entry "./src"
 			}
 
+			if {$proc_type != "psv_pmc" &&  $proc_type != "psu_pmc"} {
+				file delete -force ./src/xsecure_init.c
+				file delete -force ./src/xsecure_init.h
+			}
+
 			if {[string compare -nocase $compiler "mb-gcc"] == 0} {
 				file delete -force ./src/libxilsecure_a72_64.a
 				file delete -force ./src/libxilsecure_r5.a
