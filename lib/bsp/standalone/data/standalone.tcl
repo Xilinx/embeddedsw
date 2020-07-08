@@ -56,6 +56,11 @@
 # 7.2   sd   03/27/20 Fix the hierarchcal design case
 # 7.3   kal  07/06/20 Export XPAR_PSU_PSS_REF_CLK_FREQ_HZ macro in
 #                     xparameters.h file for psv_pmc and psu_pmc processors.
+# 7.3   mus  07/02/20 Fix xsleep_timer_config proc for CortexR5 BSP.
+#                     is_ttc_accessible_from_processor returns 1 if TTC is
+#                     accessible to the processor. Updated conditions in
+#                     xsleep_timer_config proc accordingly. It fixes
+#                     CR#1069210
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -920,25 +925,25 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 			set is_ttc_present 0
 			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
-				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
 					break
-				} elseif {[string compare -nocase "psu_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+				} elseif {[string compare -nocase "psu_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_6_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_6_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
 					break
-				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph]} {
+				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
 					break
-				} elseif {[string compare -nocase "psv_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 0} {
+				} elseif {[string compare -nocase "psv_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_6_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_6_TTC_CLK_FREQ_HZ"
