@@ -29,6 +29,7 @@
 #include "xplm_default.h"
 #include "xplmi_sysmon.h"
 #include "xpm_api.h"
+#include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -40,6 +41,7 @@ typedef int (*ModuleInit)(void);
 /************************** Function Prototypes ******************************/
 static int XPlm_PlmiInit(void);
 static int XPlm_ErrInit(void);
+static int XPlm_SecureInit(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -54,8 +56,26 @@ static const ModuleInit ModuleList[] =
 	XPlm_ErrInit,
 	XPlm_PmInit,
 	XPlm_LoaderInit,
+	XPlm_SecureInit,
 };
 
+/*****************************************************************************/
+/**
+ * @brief This function initializes the XilSecure module and registers the
+ * interrupt handlers and other requests.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplmi_status.h
+ *
+ *****************************************************************************/
+static int XPlm_SecureInit(void)
+{
+	int Status = XST_FAILURE;
+	Status = XSecure_Init();
+
+	return Status;
+}
 /*****************************************************************************/
 /**
  * @brief This function initializes the Error module and registers the
@@ -90,6 +110,7 @@ static int XPlm_PlmiInit(void)
 {
 	int Status = XST_FAILURE;
 	Status = XPlmi_Init();
+
 	return Status;
 }
 
