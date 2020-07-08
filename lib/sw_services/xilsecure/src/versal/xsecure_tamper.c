@@ -6,10 +6,9 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_init.c
+* @file xsecure_tamper.c
 *
-* This file contains the initialization functions to be called by PLM. This
-* file will only be part of XilSecure when it is compiled with PLM.
+* This file contains the tamper response processing routines
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,19 +24,26 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xil_util.h"
-#include "xplmi_err.h"
-#include "xsecure_init.h"
 #include "xsecure_tamper.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
+
 /**************************** Type Definitions *******************************/
+
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_EVENT_ERROR_PMC_ERR2		(0x28104000U)
-#define	XPLMI_NODEIDX_ERROR_PMCAPB		(32U)
+#define PMC_GLOBAL_IER_REG_ADDR					(0xF1110018U)
+#define PMC_GLOBAL_IER_TAMPER_INT				(0x00000008U)
+#define PMC_GLOBAL_ISR_REG_ADDR					(0xF1110010U)
+#define PMC_GLOBAL_ISR_TAMPER_INT				(0x00000008U)
+#define PMC_GLOBAL_TAMPER_RESP_0				(0xF1110530U)
+#define PMC_GLOBAL_TAMPER_RESP_0_SYS_INT		(1U)
+#define PMC_GLOBAL_TAMPER_RESP_0_BBRAM_ERASE	(0x10U)
+#define PMC_GLOBAL_SLD_MASK						((1U<<2U)|(1U<<3U))
+#define PMC_GLOBAL_TAMPER_TRIG					(0xF1110570U)
+#define PMC_GLOBAL_TAMPER_TRIG_VAL				(1U)
 
 /************************** Function Prototypes ******************************/
-static u32 XSecure_RegisterTampIntHandler(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -45,74 +51,79 @@ static u32 XSecure_RegisterTampIntHandler(void);
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the handler for tamper interrupt.
+ * @brief	This function enables the tamper interrupt in PMC_GLOBAL
  *
  * @param	None
  *
- * @return
- *		- Returns XST_SUCCESS on success.
- *		- Returns error code on failure
+ * @return	None
  *
  *****************************************************************************/
-u32 XSecure_Init(void)
-{
-	u32 Status = (u32)XST_FAILURE;
-
-	Status = XSecure_RegisterTampIntHandler();
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function registers the handler for tamper interrupt.
- *
- * @param	None
- *
- * @return
- *		- Returns XST_SUCCESS on success.
- *		- Returns error code on failure
- *
- *****************************************************************************/
-static u32 XSecure_RegisterTampIntHandler(void)
-{
-	u32 Status = (u32)XST_FAILURE;
-	/**
-	 * Register handler
-	 */
-	Status = (u32)XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-						XPLMI_NODEIDX_ERROR_PMCAPB,
-						XPLMI_EM_ACTION_CUSTOM,
-						XSecure_TamperInterruptHandler);
-	if(Status != XST_SUCCESS) {
-		goto END;
-	}
+void XSecure_EnableTamperInterrupt(void)
+ {
 	/**
 	 * Enable tamper interrupt in PMC GLOBAL
 	 */
-	XSecure_EnableTamperInterrupt();
-
-END:
-	return Status;
-}
-
+	Xil_Out32(PMC_GLOBAL_IER_REG_ADDR, PMC_GLOBAL_IER_TAMPER_INT);
+ }
 /*****************************************************************************/
 /**
- * @brief	This is the handler for tamper interrupt.
- *
- * @param	ErrorNodeId - Node Identifier
- * @param	ErrorMask - Mask Identifier
+ * @brief	This function processes the tamper response.
  *
  * @return
  *		- Returns XST_SUCCESS on success.
  *		- Returns error code on failure
  *
  *****************************************************************************/
-void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
+u32 XSecure_ProcessTamperResponse(void)
 {
+	u32 Status = (u32)XST_FAILURE;
+	u32 TamperResponse;
 
-	(void)ErrorNodeId;
-	(void)ErrorMask;
+	/**
+	 * Clear the tamper interrupt in PMC_GLOBAL
+	 */
+	Xil_Out32(PMC_GLOBAL_ISR_REG_ADDR, PMC_GLOBAL_ISR_TAMPER_INT);
 
-	(void)XSecure_ProcessTamperResponse();
+	/**
+	 * Check the reason for interrupt
+	 */
+	if ((Xil_In32(PMC_GLOBAL_ISR_REG_ADDR) &
+		PMC_GLOBAL_ISR_TAMPER_INT) ==
+		PMC_GLOBAL_ISR_TAMPER_INT) {
+		TamperResponse = Xil_In32(PMC_GLOBAL_TAMPER_RESP_0);
+		if ((TamperResponse & PMC_GLOBAL_SLD_MASK) != 0U) {
+			XSecure_SecureLockDown();
+			/**
+			 * Trigger software tamper event to ROM to execute lockdown
+			 * for PMC
+			 */
+			Xil_Out32(PMC_GLOBAL_TAMPER_TRIG, PMC_GLOBAL_TAMPER_TRIG_VAL);
+			/**
+			 * Wait forever; ROM to complete secure lock down
+			 */
+			while(1U) {
+			 ;
+			};
+		}
+	}
+
+	Status = (u32)XST_SUCCESS;
+
+	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function executes the secure lock down for LPD/FPD/PL/NoC
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+ void XSecure_SecureLockDown(void)
+ {
+	 /**
+	  * TODO: Secure lock down implementation
+	  */
+ }
