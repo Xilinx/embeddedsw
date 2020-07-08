@@ -289,6 +289,11 @@ proc generate {os_handle} {
             foreach entry [glob -nocomplain [file join $commonccdir *]] {
                  file copy -force $entry "./src/"
             }
+        } elseif {[string compare -nocase $compiler "armclang"] == 0} {
+            set commonccdir "./src/arm/common/armclang"
+            foreach entry [glob -nocomplain [file join $commonccdir *]] {
+                 file copy -force $entry "./src/"
+            }
         }
 
     }
@@ -492,7 +497,9 @@ proc generate {os_handle} {
 	    }
 	    if {[string compare -nocase $compiler "iccarm"] == 0} {
 	           set ccdir "./src/arm/cortexr5/iccarm"
-            } else {
+	    } elseif {[string compare -nocase $compiler "armclang"] == 0} {
+	           set ccdir "./src/arm/cortexr5/armclang"
+           } else {
 	           set ccdir "./src/arm/cortexr5/gcc"
 	   }
 	    foreach entry [glob -nocomplain -types f [file join $cortexr5srcdir *]] {
