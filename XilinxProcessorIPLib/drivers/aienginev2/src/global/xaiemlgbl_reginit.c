@@ -1211,6 +1211,14 @@ static const  XAie_RegFldAttr Aie2ShimDeMuxConfig[] =
 	{XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH5_LSB, XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH5_MASK}
 };
 
+/* Register to set SHIM clock buffer control */
+static const XAie_ShimClkBufCntr Aie2ShimClkBufCntr =
+{
+	.RegOff = 0xFFF20,
+	.RstEnable = XAIE_DISABLE,
+	.ClkBufEnable = {0, 0x1}
+};
+
 /* Core Module */
 static const  XAie_CoreMod Aie2CoreMod =
 {
@@ -1259,7 +1267,8 @@ static const  XAie_PlIfMod Aie2PlIfMod =
 	.ShimNocMuxOff = 0x0,
 	.ShimNocDeMuxOff = 0x0,
 	.ShimNocMux = NULL,
-	.ShimNocDeMux = NULL
+	.ShimNocDeMux = NULL,
+	.ClkBufCntr = &Aie2ShimClkBufCntr,
 };
 
 /* PL Interface module for SHIMNOC Tiles */
@@ -1281,7 +1290,8 @@ static const  XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.ShimNocMuxOff = XAIE2GBL_NOC_MODULE_MUX_CONFIG,
 	.ShimNocDeMuxOff = XAIE2GBL_NOC_MODULE_DEMUX_CONFIG,
 	.ShimNocMux = Aie2ShimMuxConfig,
-	.ShimNocDeMux = Aie2ShimDeMuxConfig
+	.ShimNocDeMux = Aie2ShimDeMuxConfig,
+	.ClkBufCntr = &Aie2ShimClkBufCntr,
 };
 
 /* Lock Module for AIE Tiles  */
