@@ -1035,9 +1035,10 @@ done:
  *
  * - status - The current power state of the requested node.
  *  - For CPU nodes:
- *   - 0 : if CPU is powered down,
+ *   - 0 : if CPU is off (powered down),
  *   - 1 : if CPU is active (powered up),
- *   - 2 : if CPU is suspending (powered up)
+ *   - 2 : if CPU is in sleep (powered down),
+ *   - 3 : if CPU is suspending (powered up)
  *  - For power islands and power domains:
  *   - 0 : if island is powered down,
  *   - 1 : if island is powered up
