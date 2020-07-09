@@ -186,49 +186,48 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		}
 
 		Notifier = &PmNotifiers[Idx];
-		break;
-	}
 
-	if ((NULL == Notifier) || (NULL == PmRequestCb)) {
-		goto done;
-	}
-
-	/* Populate the PayLoad */
-	Payload[0] = (u32)PM_NOTIFY_CB;
-	Payload[1] = Notifier->NodeId;
-	Payload[2] = Event;
-
-	switch (NODECLASS(NodeId)) {
-	case (u32)XPM_NODECLASS_EVENT:
-		/* Disable the error event. Agent will re-register for
-		 * notification if needed */
-		(void)XPlmi_EmDisable(NodeId, Event);
-		Payload[3] = 0U;
-		Status = XST_SUCCESS;
-		break;
-	case (u32)XPM_NODECLASS_DEVICE:
-		Device = XPmDevice_GetById(NodeId);
-		if (NULL == Device) {
+		if ((NULL == Notifier) || (NULL == PmRequestCb)) {
 			goto done;
 		}
-		Payload[3] = Device->Node.State;
-		Status = XST_SUCCESS;
-		break;
-	default:
-		PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
-		break;
-	}
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
-	/*
-	 * If subsystem is OFFLINE then it should be notified about
-	 * the event only if it requested to be woken up.
-	 */
-	if (((u8)OFFLINE != Notifier->Subsystem->State) ||
-	    (0U != (Event & Notifier->WakeMask))) {
-		(*PmRequestCb)(Notifier->IpiMask, PM_NOTIFY_CB, Payload);
+		/* Populate the PayLoad */
+		Payload[0] = (u32)PM_NOTIFY_CB;
+		Payload[1] = Notifier->NodeId;
+		Payload[2] = Event;
+
+		switch (NODECLASS(NodeId)) {
+		case (u32)XPM_NODECLASS_EVENT:
+			/* Disable the error event. Agent will re-register for
+			 * notification if needed */
+			(void)XPlmi_EmDisable(NodeId, Event);
+			Payload[3] = 0U;
+			Status = XST_SUCCESS;
+			break;
+		case (u32)XPM_NODECLASS_DEVICE:
+			Device = XPmDevice_GetById(NodeId);
+			if (NULL == Device) {
+				goto done;
+			}
+			Payload[3] = Device->Node.State;
+			Status = XST_SUCCESS;
+			break;
+		default:
+			PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
+			break;
+		}
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/*
+		 * If subsystem is OFFLINE then it should be notified about
+		 * the event only if it requested to be woken up.
+		 */
+		if (((u8)OFFLINE != Notifier->Subsystem->State) ||
+		    (0U != (Event & Notifier->WakeMask))) {
+			(*PmRequestCb)(Notifier->IpiMask, PM_NOTIFY_CB, Payload);
+		}
 	}
 
  done:
