@@ -147,7 +147,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr   != NULL);
-	Xil_AssertNonvoid(BaseAddress != 0U)
+	Xil_AssertNonvoid(BaseAddress != 0U);
 
 	InstancePtr->ConfigPtr = ConfigPtr;
 

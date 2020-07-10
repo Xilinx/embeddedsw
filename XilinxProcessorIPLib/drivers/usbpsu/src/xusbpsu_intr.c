@@ -448,7 +448,7 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 {
 	u32 RegVal;
-	u32 retries;
+	u32 Retries;
 
 	struct XUsbPsu  *InstancePtr = (struct XUsbPsu *)XUsbPsuInstancePtr;
 
@@ -474,9 +474,9 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 #endif
 
 	/* wait till current state is changed to D0 */
-	retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
+	Retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
 
-	while (retries > 0U) {
+	while (Retries > 0U) {
 #if defined (PLATFORM_ZYNQMP)
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
 #else
@@ -489,10 +489,10 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 		}
 
 		XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
-		retries = retries - 1U;
+		Retries = Retries - 1U;
 	}
 
-	if (retries == 0U) {
+	if (Retries == 0U) {
 		xil_printf("Failed to change power state to D0\r\n");
 		return;
 	}

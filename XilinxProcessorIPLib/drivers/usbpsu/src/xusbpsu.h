@@ -664,7 +664,13 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr);
 void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
 void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask);
+
+/*
+ * Hibernation Functions
+ */
+#ifdef XUSBPSU_HIBERNATION_ENABLE
 void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr);
+#endif
 
 /*
  * Functions in xusbpsu_device.c
