@@ -17,8 +17,18 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  kc   02/12/2019 Initial release
-* 1.01  ma   05/02/2020 Remove SRST error action for PSM errors as it is
+* 1.01  kc   08/01/2019 Added error management framework
+*       ma   08/01/2019 Added LPD init code
+*       sn   08/03/2019 Added code to wait until over-temperature condition
+*						gets resolved before restart
+*       bsv  08/29/2019 Added Multiboot and Fallback support
+*       scs  08/29/2019 Added support for Extended IDCODE checks
+* 1.02  ma   05/02/2020 Remove SRST error action for PSM errors as it is
 *                       de-featured
+*       ma   02/28/2020 Error actions related changes
+*       bsv  04/04/2020 Code clean up
+* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
+*						static
 *
 * </pre>
 *

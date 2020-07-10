@@ -15,7 +15,9 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   bvikram  02/10/19 First release
+* 1.00   bsv 02/10/2019 First release
+*        bsv 04/09/2020 Code clean up
+* 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
 *
 * </pre>
 *

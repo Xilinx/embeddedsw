@@ -16,7 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bsv   06/17/2019 Initial release
-* 1.01  kc    07/06/2020 Added prints for CFU status values in error case
+* 1.01  bsv   04/09/2020 Code clean up of xilloader
 *
 * </pre>
 *

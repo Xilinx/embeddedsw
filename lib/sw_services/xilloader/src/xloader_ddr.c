@@ -18,6 +18,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/12/2019 Initial release
+* 1.01  kc   09/04/2019 Added support to use non blocking DMA in
+*						DdrCopy function
+* 1.02  bsv  04/09/2020 Code clean up of Xilloader
 *
 * </pre>
 *

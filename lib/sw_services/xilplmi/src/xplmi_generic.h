@@ -17,6 +17,18 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  bsv  04/18/2019 Added support for NPI and CFI readback
+*       bsv  05/01/2019 Added support to load CFI bitstreams larger
+*						than 64K
+*       ma   08/24/2019 Added SSIT commands
+* 1.02  bsv  12/13/2019 Added support for NOP and SET commands
+*       kc   12/17/2019 Add deferred error mechanism for mask poll
+*       bsv  01/09/2020 Changes related to bitstream loading
+*       bsv  01/31/2020 Added API to read device ID from hardware
+*       ma   03/18/2020 Added event logging code
+*       bsv  03/09/2020 Added support for CDO features command
+*       bsv  04/04/2020 Code clean up
+* 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
 *
 * </pre>
 *

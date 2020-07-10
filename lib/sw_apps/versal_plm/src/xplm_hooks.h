@@ -17,6 +17,10 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/08/2019 Initial release
+* 1.01  ma   08/01/2019 Removed LPD module init related code from PLM app
+*       kc   08/29/2019 Added xilpm hook to be called after plm cdo
+* 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
+*       kc   03/23/2020 Minor code cleanup
 *
 * </pre>
 *

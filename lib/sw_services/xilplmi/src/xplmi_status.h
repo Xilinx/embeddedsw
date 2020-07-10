@@ -18,10 +18,30 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/13/2018 Initial release
-* 1.01  ma   02/03/2020 Add event logging related error codes
+* 1.01  bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
+*						R5-1 split mode functionality
+*       bsv  06/17/2019 Added support for CFI and CFU error handling
+*       bsv  06/26/2019 Added secondary boot support
+*       vnsl 07/30/2019 Added code to load secure headers
+*       ma   08/01/2019 Added LPD init code
+*       ma   08/24/2019 Added SSIT commands
+*       kc   08/28/2019 Added descriptions to PLM error codes
+*       scs  08/29/2019 Added API to validate extended ID Code
+* 1.02  bsv  10/31/2019 Added USB secondary boot mode support
+*       kc   12/17/2019 Add deferred error mechanism for mask poll
+*       bsv  02/12/2020 Added support for SD/eMMC raw boot mode
+*       bsv  02/13/2020 XilPlmi generic commands should not be supported
+* 						via IPI
+*       ma   02/18/2020 Added event logging code
+*       bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
+*       kc   02/27/2020 Added SEM support for partial reconfiguration
+*       bsv  02/28/2020 Added support for delay handoff
 *       har  02/18/2020 Added major error code for Security
-* 1.02  kc   06/22/2020 Updated command handler error codes to include command
-*                       IDs
+*       bsv  04/04/2020 Code clean up
+*       kc   04/23/2020 Added interrupt support for SEU events
+* 1.03  bsv  27/06/2020 Add dual stacked mode support
+*       bsv  07/01/2020 Unmount file system after loading PDIs
+*
 * </pre>
 *
 * @note

@@ -15,8 +15,16 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2018 Initial release
-* 1.01  bsv  09/15/2019 Added Read Config and Write Config registers
+* 1.00  bsv  08/23/2018 Initial release
+* 1.01  bsv  09/10/2019 Added support to set OSPI to DDR mode
+*       ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
+*       bsv  02/04/2020 Reset qspi instance in init functions for LPD off
+*						suspend and resume to work
+*       bsv  04/09/2020 Code clean up of Xilloader
+* 1.02  bsv  27/06/2020 Add dual stacked mode support
+*       bsv  07/08/2020 APIs specific to this file made static
+*
 * </pre>
 *
 * @note

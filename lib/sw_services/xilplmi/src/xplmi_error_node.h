@@ -15,7 +15,9 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ma   02/26/2020 Initial release
+* 1.00  kc   02/12/2019 Initial release
+* 1.01  ma   02/28/2020 Error actions related changes
+*       bsv  04/04/2020 Code clean up
 *
 * </pre>
 *

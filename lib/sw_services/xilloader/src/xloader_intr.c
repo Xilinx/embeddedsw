@@ -16,6 +16,14 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/25/2019 Initial release
+* 1.01  kc   04/09/2019 Added support for PCIe secondary boot mode and
+*						partial PDI load
+*       kc   09/13/2019 SBI reset is removed for SMAP boot mode to ensure smap
+*						bus width value remains unchanged
+* 1.02  kc   02/17/2020 Added APIs to add services to task queues in interrupt
+*						context
+*       kc   06/03/2020 Moved PLM GIC interrupt enablement to GIC handlers
+*       bsv  04/09/2020 Code clean up of Xilloader
 *
 * </pre>
 *

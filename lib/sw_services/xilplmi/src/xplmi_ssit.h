@@ -17,6 +17,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ma   08/13/2019 Initial release
+*       ma   08/24/2019 Added SSIT commands
+* 1.01  bsv  04/04/2020 Code clean up
 *
 * </pre>
 *

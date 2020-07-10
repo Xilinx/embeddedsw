@@ -15,8 +15,15 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ====  ==== ======== ======================================================-
+* ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/12/2018 Initial release
+* 1.01  kc   04/08/2019 Added code to request UART if debug prints
+*						are enabled
+*       kc   05/09/2019 Addeed code to disable CFRAME isolation
+*						as soon as we boot in PLM
+*       ma   08/01/2019 Removed LPD module init related code from PLM app
+* 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
+*       kc   03/23/2020 Minor code cleanup
 *
 * </pre>
 *

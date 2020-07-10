@@ -16,8 +16,9 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  mg   10/08/2018 Initial release
-* 1.01  mg   04/02/2020 Remove defines which are already part of pmc_global.h
+* 1.00  ma   10/08/2018 Initial release
+* 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+* 1.02  bsv  04/04/2020 Code clean up
 *
 * </pre>
 *

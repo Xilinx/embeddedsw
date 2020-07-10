@@ -16,7 +16,20 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
- * 1.00  mg   10/09/2018 Initial release
+ * 1.00  ma   10/09/2018 Initial release
+ * 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+ *       kc   05/21/2019 Updated IPI error code to response buffer
+ *       ma   08/01/2019 Added LPD init code
+ *       rv   02/04/2020 Set the 1st element of response array always to status
+ *       bsv  02/13/2020 XilPlmi generic commands should not be supported
+ * 						 via IPI
+ *       ma   02/21/2020 Added code to allow event logging command via IPI
+ *       ma   02/28/2020 Added code to disallow EM commands over IPI
+ *       bsv  03/09/2020 Added code to support CDO features command
+ *       ma   03/19/2020 Added features command for EM module
+ *       bsv  04/04/2020 Code clean up
+ * 1.02  bsv  06/02/2020 Added code to support GET BOARD command and disallow
+ *						 SET BOARD command via IPI
  *
  * </pre>
  *

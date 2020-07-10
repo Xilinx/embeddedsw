@@ -16,8 +16,14 @@
 *
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a kc   07/13/2018 Initial release
-* 1.01  ma   03/02/2020 Add timestamp for each PLM print
+* 1.00  kc   07/13/2018 Initial release
+* 1.01  kc   07/16/2019 Added PERF macro to print task times
+*       ma   08/01/2019 Added LPD init code
+* 1.02  ana  11/26/2019 Updated Uart Device ID
+*       kc   01/16/2020 Removed xilpm dependency in PLMI for UART
+*       ma   02/18/2020 Added support for logging terminal prints
+*       ma   03/02/2020 Implement PLMI own outbyte to support logging as well
+*       bsv  04/04/2020 Code clean up
 *
 * </pre>
 *

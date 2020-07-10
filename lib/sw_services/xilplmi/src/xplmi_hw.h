@@ -18,7 +18,19 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
-* 1.01  ma   02/03/2020 Add support for writing a byte to 64 bit address
+* 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+*       bsv  04/18/2019 Added support for NPI readback and CFI readback
+*       kc   04/27/2019 Added SPP check for UART frequency
+*       kc   05/21/2019 Updated IPI error code to response buffer
+*       kc   07/16/2019 Added logic to determine the IRO frequency
+*       bsv  08/29/2019 Added Multiboot and Fallback support in PLM
+*       scs  08/31/2019 Added support for Extended IDCODE checks
+* 1.02  ma   02/05/2020 Removed SRST error action for PSM errors
+*       ma   02/18/2020 Added event logging code
+*       ma   02/28/2020 Code related to handling PSM errors from PLM
+*       ma   03/02/2020 Added support for logging trace events
+*       bsv  04/04/2020 Code clean up
+*
 *
 * </pre>
 *

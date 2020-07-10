@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  bsv  04/03/2020 Code clean up Xilpdi
 * 1.02  kc   06/22/2020 Updated command handler error codes to include command
 *                       IDs
 * </pre>
