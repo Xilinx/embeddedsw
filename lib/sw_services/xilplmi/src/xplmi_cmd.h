@@ -17,6 +17,14 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  bsv  01/09/2020 Changes related to bitsteram loading
+*       bsv  02/13/2020 Added code to prevent Plmi generic commands from
+*						getting executed via IPI
+*       ma   02/28/2020 Added code to prevent EM commands from getting executed
+*						via IPI
+*       bsv  04/03/2020 Code clean up Xilpdi
+* 1.02  kc   06/22/2020 Updated command handler error codes to include command
+*                       IDs
 *
 * </pre>
 *

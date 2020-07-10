@@ -17,6 +17,16 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  kc   12/02/2019 Added performance timestamps
+*       kc   12/17/2019 Added deferred error mechanism for mask poll
+*       bsv  01/12/2020 Changes related to bitstream loading
+*       ma   02/18/2020 Made performance measurement functions generic
+*       bsv  04/03/2020 Code clean up Xilpdi
+* 1.02  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
+* 						subsystem information
+*       kc   06/23/2020 Added code print command details for errors
+*       bsv  07/07/2020 Made functions used in single transaltion unit as
+*						static
 *
 * </pre>
 *

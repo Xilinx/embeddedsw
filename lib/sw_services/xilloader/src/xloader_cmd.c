@@ -16,7 +16,15 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/12/2019 Initial release
-		har  08/28/2019 Fixed MISRA C violations
+* 1.01  kc   04/09/2019 Added support to load partial Pdi
+* 1.02  har  08/28/2019 Fixed MISRA C violations
+* 1.03  bsv  02/27/2020 Added support for delay handoff
+*       bsv  03/09/2020 Added CDO features command for xilloader
+*       bsv  04/09/2020 Code clean up Xilloader
+* 1.04  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
+*						subsystem information
+*
+commands.
 * </pre>
 *
 * @note

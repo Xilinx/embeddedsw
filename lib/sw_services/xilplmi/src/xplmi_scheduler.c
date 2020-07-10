@@ -16,7 +16,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rm   06/02/2019 Initial release
-* 1.01  kc   01/20/2020 Added APIs for removing the task
+* 1.01  kc   02/10/2020 Updated scheduler to add/remove tasks
+*       kc   02/17/2020 Added configurable priority for scheduler tasks
+*       bsv  04/04/2020 Code clean up
 *
 * </pre>
 *

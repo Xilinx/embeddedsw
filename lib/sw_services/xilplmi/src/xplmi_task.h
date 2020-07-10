@@ -17,6 +17,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/06/2019 Initial release
+* 1.01  kc   07/16/2019 Added PERF macro to print task times
+* 1.02  kc   02/17/2020 Task dispatcher updated with round robin from FCFS
+*       bsv  04/04/2020 Code clean up
 *
 * </pre>
 *

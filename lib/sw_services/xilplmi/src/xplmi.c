@@ -17,6 +17,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/07/2019 Initial release
+* 1.01  ma   08/01/2019 Added LPD init code
+* 1.02  kc   02/19/2020 Moved code to support PLM banner from PLM app
+*       bsv  04/04/2020 Code clean up
+* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
+*						static
 *
 * </pre>
 *

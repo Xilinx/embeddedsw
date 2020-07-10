@@ -16,7 +16,11 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ma   03/02/2020 Initial release
+* 1.00  ma   02/18/2020 Initial release
+* 1.01  ma   02/21/2020 Added support for retrieve buffer information
+* 						event logging command through IPI
+*       ma   03/02/2020 Added support for logging trace events
+*       bsv  04/04/2020 Code clean up
 *
 * </pre>
 *

@@ -17,13 +17,25 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
-* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+* 1.01  vnsl 04/28/2019 Added security support
+*       kc   05/09/2019 Added code for PSM RAM ECC initialization
+*       bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
+*						R5-1 split mode functionality
+*       bsv  06/24/2019 Moved ECC initialization code from Xilloader to Xilpm
+*       js   06/27/2019 Updated PSM arguments
+*       vnsl 07/09/2019 Added PPK and SPK integrity checks
+*       vnsl 07/09/2019 Added authentication + encryption support
+*       kc   09/05/2019 Added code to use PMCDMA0 and PMCDMA1 in parallel
+* 1.02  ma   12/12/2019 Added support for passing hand off parameters to ATF
+*       kc   12/17/2019 Added support for deferred error mechanism for mask poll
+*       bsv  01/12/2020 Changes related to bitstream loading
+*       bsv  01/30/2002 Enabled direct DMA from boot devices to CFI
+*       ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
-* 1.02  ana  06/04/2020 Modified XLoader_ProcessSecurePrtn function name
-*			from XLoader_SecurePrtn
-*       kc   06/22/2020 Modified print statement for partition loading
-*       kc   06/29/2020 Moved partition loading print statement to get proper
-*			partition load time value.
+*       bsv  02/28/2020 Added support for delay handoff
+*       ma   03/02/2020 Added support for logging trace events
+*       bsv  04/09/2020 Code clean up of Xilloader
+* 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get subsystem info
 *
 * </pre>
 *

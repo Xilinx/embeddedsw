@@ -16,7 +16,8 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/24/2018 Initial release
+* 1.00  kc   03/27/2018 Initial release
+* 1.01  kc   03/23/2020 Minor code cleanup
 *
 * </pre>
 *

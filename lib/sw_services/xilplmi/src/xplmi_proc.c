@@ -17,8 +17,16 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/07/2019 Initial release
-* 1.01  ma   02/03/2020 Change performance measurement functions generic to be
-*                       used for logging
+* 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+*       sn   07/04/2019 Added support for enabling GIC proxy for sysmon
+*       kc   07/16/2019 Added PERF macro to print task times
+*       kc   07/16/2019 Added logic to determine the IRO frequency
+*       kc   08/01/2019 Added PLM and ROM boot times
+* 1.02  kc   02/10/2020 Updated scheduler to add/remove tasks
+*       ma   02/28/2020 Added support for new error actions
+*       kc   03/20/2020 Scheduler frequency is increased to 100ms for QEMU
+*       bsv  04/04/2020 Code clean up
+*       kc   04/23/2020 Added interrupt support for SEU event
 *
 * </pre>
 *

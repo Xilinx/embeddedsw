@@ -17,6 +17,17 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   09/21/2017 Initial release
+* 1.01  bsv  06/26/2019 Added secondary boot support
+*       bsv  02/12/2020 Added support for SD/eMMC raw boot mode
+*       bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
+*       bsv  03/14/2020 Added eMMC0 FS and raw boot mode support
+*       bsv  03/17/2020 Changes relatd to multiple partitions in SD/eMMC boot
+*       bsv  02/04/2020 Reset file system instance in init functions for LPD off
+*						suspend and resume to work
+* 1.02  bsv  04/09/2020 Code clean up
+*       bsv  04/28/2020 Changed SD drive number to 5 when both SD0 and SD1 are
+*						in design
+* 1.03  bsv  07/01/2020 Unmount file system after loading PDIs
 *
 * </pre>
 *

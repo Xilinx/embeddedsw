@@ -17,6 +17,11 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  kc   08/28/2018 Initial release
+* 1.01  sn   07/04/2019 Added code to enable SysMon's over-temperature
+*						interrupt
+*       kc   08/01/2019 Added error management module in PLM
+*       ma   08/01/2019 Removed LPD module init related code from PLM app
+* 1.02  kc   03/23/2020 Minor code cleanup
 *
 * </pre>
 *

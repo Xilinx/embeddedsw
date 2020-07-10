@@ -16,7 +16,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
-* 1.02  kc   06/22/2020 Minor updates to PrintArray for better display
+* 1.01  bsv  04/18/2019 Added support for NPI readback and CFI readback
+*       kc   04/26/2019 Updated Delay and Poll timeout based on timers
+*       rm   06/27/2019 Added APIs for safety register writes
+*       vnsl 07/19/2019 Added XPlmi_MemCmp API to check for PPK and SPK integrity
+* 1.02  bsv  02/17/2020 Added 64-bit / 128-bit safety write APIs for xilsem
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   06/22/2020 Minor updates to PrintArray for better display
 *
 * </pre>
 *

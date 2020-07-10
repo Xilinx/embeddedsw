@@ -16,6 +16,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
+* 1.01  bsv  04/18/2019 Added APIs to support non blocking DMA
+*       vnsl 04/22/2019 Added API to get DMA instance
+*       kc   05/17/2019 Added ECC initiation function using PMC DMA
+* 1.02  bsv  04/04/2020 Code clean up
+*       bsv  04/07/2020 Renamed DMA to PMCDMA
 *
 * </pre>
 *

@@ -15,7 +15,42 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/24/2018 Initial release
+* 1.00  kc   07/25/2018 Initial release
+*       tp   04/05/2019 Added API to reload a particular image
+*       kc   04/09/2019 Added support for PCIe secondary boot mode and
+*						partial PDI load
+*       bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
+*						R5-1 split mode functionality
+*       bsv  06/17/2019 Added support for CFI and CFU error handling
+*       bsv  06/26/2019 Added secondary boot support
+*       kc   07/16/2019 Added code to print execution time
+*       rv   07/29/2019 Added code to request boot source before subsystem restart
+*       vnsl 07/30/2019 Added APIs to load secure headers
+*       scs  08/29/2019 Added API to validate extended ID Code
+*       bsv  08/30/2019 Added fallback and multiboot support in PLM
+*       kc   09/05/2019 Added code to use PMCDMA0 and PMCDMA1 in parallel
+*       kc   09/13/2019 SBI reset is removed for SMAP boot mode to ensure smap
+*						bus width value remains unchanged
+* 1.01  bsv  10/31/2019 Added USB secondary boot mode support
+*       kc   12/02/2019 Added peformance time stamps
+*       ma   12/12/2019 Added support for passing hand off parameters to ATF
+*       bsv  12/30/2019 Added SMAP secondary boot mode support
+*       ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
+*       bsv  02/12/2020 Added support for SD/eMMC raw boot mode
+*       bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
+*       bsv  02/25/2020 Added macros to handle u32 return values from drivers
+*       vnsl 02/26/2020 Added boot header reading call during partial PDI
+*       kc   02/27/2020 Added SEM support for partial reconfiguration
+*       bsv  02/28/2020 Added support for delay handoff
+*       har  02/28/2020 Removed code to return error codes for security related
+*                       errors
+*       vnsl 03/01/2020 Added PUF KEK decrypt support
+*       bsv  03/14/2020 Added eMMC0 FS and raw boot mode support
+*       bsv  04/09/2020 Code clean up
+* 1.02	ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
+*						initial boot pdi to partial pdi structure variables
+*       bsv  06/22/2020 Cfi error handler should only be called for PL image
 *
 * </pre>
 *

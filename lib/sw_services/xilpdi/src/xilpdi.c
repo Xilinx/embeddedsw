@@ -17,6 +17,17 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
+* 1.01  bsv  04/08/2019 Added support for secondary boot device parameters
+*       bsv  07/30/2019 Renamed XilPdi_ReadAndValidateImgHdrTbl to
+							XilPdi_ReadImgHdrTbl
+*       rm   28/08/2019 Added APIs for retrieving delay load and delay handoff
+*						params
+* 1.02  bsv  29/11/2019 Added support for smap bus width word in partial pdis
+*       vnsl 26/02/2020 Added support to read DPA CM Enable field in meta headers
+*       vnsl 01/03/2020 Added support to read PufHeader from Meta Headers and
+*						partition headers
+*       vnsl 12/04/2020 Added support to read BootHdr Auth Enable field in
+*						boot header
 *
 * </pre>
 *

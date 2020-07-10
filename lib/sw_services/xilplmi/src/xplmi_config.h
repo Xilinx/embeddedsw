@@ -18,7 +18,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
-* 1.01  kc   01/07/2020 Added MACRO to get performance number for keyhole
+* 1.01  kc   07/16/2019 Make DEBUG_GENERAL as default to reduce print log
+*       kc   07/16/2019 Added PERF macro to print task times
+* 1.02  bsv  10/31/2019 Added macro to exclude USB
+*       kc   02/26/2020 Added macro to exclude SEM
+*       bsv  03/09/2020 Added DEBUG MODE to PLM
+* 1.03  bsv  04/04/2020 Code clean up
+* 1.04  kc   01/07/2020 Added MACRO to get performance number for keyhole
 *
 * </pre>
 *

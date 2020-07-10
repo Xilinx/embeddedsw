@@ -17,6 +17,10 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  sn   07/01/2019 Initial release
+ *       sn   07/04/2019 Enabled SysMon's over-temperature interrupt
+ *       sn   08/03/2019 Added code to wait until over-temperature condition
+ *						 gets resolved before restart
+ * 1.01  bsv  04/04/2020 Code clean up
  *
  * </pre>
  *
