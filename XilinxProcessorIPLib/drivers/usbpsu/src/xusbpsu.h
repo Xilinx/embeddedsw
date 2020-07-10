@@ -60,7 +60,6 @@ extern "C" {
 /* Enable XUSBPSU_HIBERNATION_ENABLE to enable hibernation */
 //#define XUSBPSU_HIBERNATION_ENABLE		1
 
-#include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"

@@ -20,6 +20,7 @@
 * 1.4   myk   12/01/18 Added support of hibernation
 * 1.6	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
 * 1.7	pm    02/20/20 Added Coherency Mode Register for CCI feature is enable
+* 1.8	pm    07/01/20 Add versal hibernation support
 *
 * </pre>
 *
@@ -33,6 +34,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files ********************************/
+#include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -294,15 +296,29 @@ extern "C" {
 #define XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT	(0U)
 
 /* Register for LPD block */
+#if defined (PLATFORM_ZYNQMP)
 #define RST_LPD_TOP				0x23CU
 #define USB0_CORE_RST				(1U << 6U)
 #define USB1_CORE_RST				(1U << 7U)
+#else
+#define RST_LPD_TOP				0x0314U
+#define USB0_CORE_RST				(1U << 0U)
+#endif
+
 
 /* Vendor registers for Xilinx */
+#if defined (PLATFORM_ZYNQMP)
 #define XIL_CUR_PWR_STATE			0x00U
 #define XIL_PME_ENABLE				0x34U
 #define XIL_REQ_PWR_STATE			0x3CU
 #define XIL_PWR_CONFIG_USB3			0x48U
+#else
+#define XIL_CUR_PWR_STATE			0x00U
+#define XIL_PME_ENABLE				0x1CU
+#define XIL_REQ_PWR_STATE			0X08U
+#define XIL_PWR_CONFIG_USB3			0X20U
+#define XIL_VSL_USB2_PHYRST_MASK		0X1CU
+#endif
 
 #define XIL_REQ_PWR_STATE_D0			0U
 #define XIL_REQ_PWR_STATE_D3			3U
@@ -312,6 +328,11 @@ extern "C" {
 #define XIL_CUR_PWR_STATE_BITMASK		0x03U
 
 #define VENDOR_BASE_ADDRESS			0xFF9D0000U
+
+#if defined (versal)
+#define VSL_CUR_PWR_ST_REG			0xF1060600U
+#endif
+
 #define LPD_BASE_ADDRESS			0xFF5E0000U
 
  /*@}*/
@@ -391,6 +412,43 @@ extern "C" {
 ******************************************************************************/
 #define XUsbPsu_WriteVendorReg(Offset, Data) \
        Xil_Out32(VENDOR_BASE_ADDRESS + (u32)(Offset), (u32)(Data))
+
+#if defined (versal)
+/*****************************************************************************/
+/**
+*
+* Read a power state register of the USBPSU device.
+*
+* @param       Offset is the offset of the register to read.
+*
+* @return      The contents of the register.
+*
+* @note                C-style Signature:
+*              u32 XUsbPsu_ReadVslPwrStateReg(struct XUsbPsu *InstancePtr,
+*								u32 Offset);
+*
+******************************************************************************/
+#define XUsbPsu_ReadVslPwrStateReg(Offset) \
+	Xil_In32(VSL_CUR_PWR_ST_REG + (u32)(Offset))
+
+/*****************************************************************************/
+/**
+*
+* Write a power state register of the USBPSU device.
+*
+* @param       Offset is the offset of the register to write.
+* @param       Data is the value to write to the register.
+*
+* @return      None.
+*
+* @note        C-style Signature:
+*              void XUsbPsu_WriteVslPwrStateReg(struct XUsbPsu *InstancePtr,
+*                                                         u32 Offset,u32 Data);
+*
+******************************************************************************/
+#define XUsbPsu_WriteVslPwrStateReg(Offset, Data) \
+	Xil_Out32(VSL_CUR_PWR_ST_REG + (u32)(Offset), (u32)(Data))
+#endif
 
 /*****************************************************************************/
 /**

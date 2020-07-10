@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/03/20 First release
+* 1.8	pm  01/07/20 Add versal hibernation support
 *
 * </pre>
 *
@@ -221,9 +222,9 @@ void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 
 	switch (link_state) {
 	case XUSBPSU_LINK_STATE_RESET:
-		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DSTS);
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
 		RegVal &= ~XUSBPSU_DCFG_DEVADDR_MASK;
-		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DSTS, RegVal);
+		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
 
 		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)
 					== XST_FAILURE) {
@@ -241,6 +242,22 @@ void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 		/* enter hibernation again */
 		enter_hiber = (u8)1U;
 		break;
+#if defined (versal)
+	case XUSBPSU_LINK_STATE_RESUME:
+	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
+	 * clear KEEP_CONNECT bit.
+	 */
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+		RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
+		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+
+		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)
+					== XST_FAILURE) {
+			xil_printf("Failed to put link in Recovery\r\n");
+			return;
+		}
+		break;
+#endif
 	default:
 		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)
 					== XST_FAILURE) {
@@ -261,6 +278,8 @@ void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 		XUsbPsu_HibernationIntr(InstancePtr);
 		return;
 	}
+
+	xil_printf("We are back from hibernation!\r\n");
 }
 
 #endif /* XUSBPSU_HIBERNATION_ENABLE */
