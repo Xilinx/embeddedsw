@@ -27,6 +27,7 @@
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
 * 1.7	pm  23/03/20 Restructured the code for more readability and modularity
 * 	pm  25/03/20 Add clocking support
+* 1.8	pm  01/07/20 Add versal hibernation support
 *
 * </pre>
 *
@@ -464,14 +465,24 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 				(u32)(RegVal & ~(u32)USB0_CORE_RST));
 	}
 
+#if defined (PLATFORM_ZYNQMP)
 	/* change power state to D0 */
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
+#else
+	/* change power state to D0 */
+	XUsbPsu_WriteVslPwrStateReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
+#endif
 
 	/* wait till current state is changed to D0 */
 	retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
 
 	while (retries > 0U) {
+#if defined (PLATFORM_ZYNQMP)
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
+#else
+		RegVal = XUsbPsu_ReadVslPwrStateReg(XIL_CUR_PWR_STATE);
+#endif
+
 		if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) ==
 					XIL_CUR_PWR_STATE_D0) {
 			break;
@@ -488,6 +499,7 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 
 	/* ask core to restore non-sticky registers */
 	if (XUsbPsu_CoreRegRestore(InstancePtr) == XST_FAILURE) {
+		xil_printf("Failed to Core Restore\r\n");
 		return;
 	}
 
@@ -512,8 +524,6 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 
 	/* Processes link state events for hibernation */
 	XUsbPsu_HibernationStateIntr(InstancePtr);
-
-	xil_printf("We are back from hibernation!\r\n");
 
 }
 

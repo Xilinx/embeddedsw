@@ -22,6 +22,7 @@
 *                       XUSBPSU_HIBERNATION_ENABLE is defined
 * 1.7	pm     23/03/20 Restructured the code for more readability and modularity
 * 	pm     25/03/20 Add clocking support
+* 1.8	pm     01/07/20 Add versal hibernation support
 *
 * </pre>
 *
@@ -182,6 +183,9 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	u32 RegVal;
 	u32 retries;
 	XusbPsuLinkState LinkState;
+#if defined (versal)
+	u8 MaskPhyBit = 0x00U;
+#endif
 
 	/* sanity check */
 	switch(XUsbPsu_GetLinkState(InstancePtr)) {
@@ -259,17 +263,30 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 		return;
 	}
 
+#if defined (PLATFORM_ZYNQMP)
 	/* Enable PME to wakeup from hibernation */
 	XUsbPsu_WriteVendorReg(XIL_PME_ENABLE, XIL_PME_ENABLE_SIG_GEN);
 
 	/* change power state to D3 */
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D3);
+#else
+	/* Enable PME to wakeup from hibernation */
+	XUsbPsu_WriteVslPwrStateReg(XIL_PME_ENABLE, XIL_PME_ENABLE_SIG_GEN);
+
+	/* change power state to D3 */
+	XUsbPsu_WriteVslPwrStateReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D3);
+#endif
+
 
 	/* wait till current state is changed to D3 */
         retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
 
         while (retries > 0U) {
+#if defined (PLATFORM_ZYNQMP)
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
+#else
+		RegVal = XUsbPsu_ReadVslPwrStateReg(XIL_CUR_PWR_STATE);
+#endif
 		if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) ==
 					XIL_CUR_PWR_STATE_D3) {
                         break;
@@ -284,6 +301,11 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 		return;
 	}
 	XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
+
+#if defined (versal)
+	/* Masking unwanted PHY interrupt generation */
+	XUsbPsu_WriteVendorReg(XIL_VSL_USB2_PHYRST_MASK, MaskPhyBit);
+#endif
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
