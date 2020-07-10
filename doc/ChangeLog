@@ -30,6 +30,8 @@ Add type casting to fix gcc warnings in xllfifo.c and xstreamer.c.
 axicdma_v4_8:
 Fix the compilation error for xreg_cortexa9.h preprocessor in
 xaxicdma_example_hybrid_intr.c example.
+Fix the data check failure in xaxicdma_example_hybrid_poll example
+by adding Cache operations for receive and destination buffers.
 
 axiethernet_v5_11:
 Fix bsp generation error for multiple axieth instance design.
