@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_command.c
-* @addtogroup usbpsu_v1_7
+* @addtogroup usbpsu_v1_8
 * @{
 *
 *
