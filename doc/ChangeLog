@@ -351,6 +351,9 @@ usbpsu_v1_8:
 Updated makefile for parallel make execution
 Add hibernation support in versal.
 
+usbpsu_v1_8:
+Add hibernation support in versal.
+
 xxvethernet_v1_5:
 Fix intr_mcdma example compilation on microblaze platform.
 Update the makefile for parallel execution.
