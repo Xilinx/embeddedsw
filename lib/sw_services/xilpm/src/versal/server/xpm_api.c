@@ -629,10 +629,11 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 * This will take care of the use cases where PMC is up.
 	 * GPIO will get reset only when PMC goes down.
 	 *
-	 * The VCC_AUX workaround will be removed from MIO-37 in ES2 going ahead.
+	 * The VCC_AUX workaround will be removed from MIO-37 in future.
 	 */
-	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform() &&
+	    ((PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) ||
+	     (PLATFORM_VERSION_SILICON_ES2 == XPm_GetPlatformVersion())))) {
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
 					   XPM_MAX_CAPABILITY, XPM_MAX_QOS);
 		if (XST_SUCCESS != Status) {
