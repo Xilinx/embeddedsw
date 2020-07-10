@@ -181,7 +181,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 {
 	u8 EpNum;
 	u32 RegVal;
-	u32 retries;
+	u32 Retries;
 	XusbPsuLinkState LinkState;
 #if defined (versal)
 	u8 MaskPhyBit = 0x00U;
@@ -279,9 +279,9 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 
 	/* wait till current state is changed to D3 */
-        retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
+	Retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
 
-        while (retries > 0U) {
+	while (Retries > 0U) {
 #if defined (PLATFORM_ZYNQMP)
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
 #else
@@ -289,14 +289,14 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 #endif
 		if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) ==
 					XIL_CUR_PWR_STATE_D3) {
-                        break;
-                }
+			break;
+		}
 
 		XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
-                retries = retries - 1U;
-        }
+		Retries = Retries - 1U;
+	}
 
-	if (retries == 0U) {
+	if (Retries == 0U) {
 		xil_printf("Failed to change power state to D3\r\n");
 		return;
 	}
