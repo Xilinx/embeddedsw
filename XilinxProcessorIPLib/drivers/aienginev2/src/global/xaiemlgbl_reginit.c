@@ -1219,6 +1219,14 @@ static const XAie_ShimClkBufCntr Aie2ShimClkBufCntr =
 	.ClkBufEnable = {0, 0x1}
 };
 
+/* Register feild attributes for Shim AXI MM config for NSU Errors */
+static const XAie_ShimNocAxiMMConfig Aie2ShimNocAxiMMConfig =
+{
+	.RegOff = XAIE2GBL_NOC_MODULE_ME_AXIMM_CONFIG,
+	.NsuSlvErr = {XAIE2GBL_NOC_MODULE_ME_AXIMM_CONFIG_SLVERR_BLOCK_LSB, XAIE2GBL_NOC_MODULE_ME_AXIMM_CONFIG_SLVERR_BLOCK_MASK},
+	.NsuDecErr = {XAIE2GBL_NOC_MODULE_ME_AXIMM_CONFIG_DECERR_BLOCK_LSB, XAIE2GBL_NOC_MODULE_ME_AXIMM_CONFIG_DECERR_BLOCK_MASK}
+};
+
 /* Core Module */
 static const  XAie_CoreMod Aie2CoreMod =
 {
@@ -1255,6 +1263,7 @@ static const  XAie_PlIfMod Aie2PlIfMod =
 	.DownSzrOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG,
 	.DownSzrEnOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE,
 	.DownSzrByPassOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_BYPASS,
+	.ColRstOff = 0xFFF28,
 	.NumUpSzrPorts = 0x6,
 	.MaxByPassPortNum = 0x6,
 	.NumDownSzrPorts = 0x8,
@@ -1269,6 +1278,9 @@ static const  XAie_PlIfMod Aie2PlIfMod =
 	.ShimNocMux = NULL,
 	.ShimNocDeMux = NULL,
 	.ClkBufCntr = &Aie2ShimClkBufCntr,
+	.ColRst = {0, 0x1},
+	.ShimTileRst = NULL,
+	.ShimNocAxiMM = NULL,
 };
 
 /* PL Interface module for SHIMNOC Tiles */
@@ -1278,6 +1290,7 @@ static const  XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.DownSzrOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG,
 	.DownSzrEnOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE,
 	.DownSzrByPassOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_BYPASS,
+	.ColRstOff = 0xFFF28,
 	.NumUpSzrPorts = 0x6,
 	.MaxByPassPortNum = 0x6,
 	.NumDownSzrPorts = 0x8,
@@ -1292,6 +1305,9 @@ static const  XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.ShimNocMux = Aie2ShimMuxConfig,
 	.ShimNocDeMux = Aie2ShimDeMuxConfig,
 	.ClkBufCntr = &Aie2ShimClkBufCntr,
+	.ColRst = {0, 0x1},
+	.ShimTileRst = NULL,
+	.ShimNocAxiMM = &Aie2ShimNocAxiMMConfig,
 };
 
 /* Lock Module for AIE Tiles  */
