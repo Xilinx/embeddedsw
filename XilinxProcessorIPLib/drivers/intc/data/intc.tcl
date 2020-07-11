@@ -69,6 +69,8 @@
 ##     06/15/20 mus Added checks to see if IP property value is empty string,
 ##                  if so, variable which is storing that value will be set to 0, to
 ##                  avoid failure in arithmatic calculations. It fixes CR#1067679.
+##     07/11/20 mus Fix tcl failures for design with more than one AXI INTC, chained
+##                  to the GIC. It fixes CR#1069891
 ##
 ##
 ## @END_CHANGELOG
@@ -115,11 +117,11 @@ proc generate {drv_handle} {
 	}
 
 	if {$cascade == 0} {
-		set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periphs]
+		set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS [lindex $periphs 0]]
 		if { [llength $intrs] == 0 } {
 			set intrs 0
 		}
-		set swintrs [common::get_property CONFIG.C_NUM_SW_INTR $periphs]
+		set swintrs [common::get_property CONFIG.C_NUM_SW_INTR [lindex $periphs 0]]
 		if { [llength $swintrs] == 0 } {
 			set swintrs 0
 		}
