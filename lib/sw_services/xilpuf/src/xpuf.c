@@ -19,6 +19,7 @@
 *       har  09/24/2019 Fixed MISRA-C violations
 *       har  01/27/2020 Added support for helper data programming ID only
 *			regeneration and XPuf_Validate_Access_Rules
+* 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
 * </pre>
 *
 * @note
@@ -378,7 +379,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 {
 	u32 Index;
 
-	for (Index = 0U; Index < XPUF_ID_LENGTH; Index++) {
+	for (Index = 0U; Index < XPUF_ID_LEN_IN_WORDS; Index++) {
 		PufData->PufID[Index] = XPuf_ReadReg(
 			XPUF_PMC_GLOBAL_BASEADDR,
 			(XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET +

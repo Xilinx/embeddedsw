@@ -18,6 +18,7 @@
  * Ver   Who   Date     Changes
  * ----- ---  -------- -------------------------------------------------------
  * 1.0	har   01/30/19 Initial release
+ * 1.2	har   07/03/20 Corrected the length of PUF ID passed in XPuf_ShowData
  *
  * @note
  *
@@ -102,6 +103,7 @@
 #define XPUF_GCM_TAG_SIZE			(XSECURE_SECURE_GCM_TAG_SIZE)
 						/* GCM tag Length in bytes */
 #define XPUF_HD_LEN_IN_WORDS			(386U)
+#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
 #define XPUF_DEBUG_INFO				(1U)
 
 /************************** Type Definitions *********************************/
@@ -215,7 +217,7 @@ static s32 XPuf_GenerateKey()
 	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data End\r\n");
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
-	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LENGTH);
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 	PufData.ReadOption = XPUF_READ_HD_OPTION;
@@ -241,7 +243,7 @@ static s32 XPuf_GenerateKey()
 		goto END;
 	}
 	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
-	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LENGTH);
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 #else
 	#error "Invalid option selected for generating PUF KEY. Only Puf \
 registration and on demand regeneration are allowed"

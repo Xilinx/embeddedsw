@@ -22,6 +22,7 @@
 *			programming
 *			Added macros for supporting ID only regeneration and
 *			black key programming
+* 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
 *
 * </pre>
 *
@@ -61,7 +62,7 @@ extern "C" {
 #define XPUF_12K_PUF_SYN_LEN_IN_WORDS			(350U)
 #define XPUF_12K_PUF_SYN_LEN_IN_BYTES			(1400U)
 #define XPUF_SHUTTER_VALUE				(0x1000040U)
-#define XPUF_ID_LENGTH					(0x8U)
+#define XPUF_ID_LEN_IN_WORDS					(0x8U)
 #define XPUF_WORD_LENGTH				(0x4U)
 
 #define XPUF_REGISTRATION				(0x0U)
@@ -108,7 +109,7 @@ typedef struct {
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
 	u32 Chash;
 	u32 Aux;
-	u32 PufID[XPUF_ID_LENGTH];
+	u32 PufID[XPUF_ID_LEN_IN_WORDS];
 	u32 SyndromeAddr;
 	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
 				 /* Trimmed data to be written in efuse */
