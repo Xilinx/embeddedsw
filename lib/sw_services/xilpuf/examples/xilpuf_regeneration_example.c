@@ -16,6 +16,7 @@
  * Ver   Who   Date        Changes
  * ----- ---  ----------   -----------------------------------------------------
  * 1.0	 ka   01/08/2019   Initial realease of Puf_regeneration example
+ * 1.2	 har  07/03/2020   Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
  *
  * @note
  *
@@ -60,15 +61,19 @@
 #define XPUF_CHASH				(0x00000000)
 #define XPUF_AUX				(0x00000000)
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000)
+#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
+							 XPUF_WORD_LENGTH)
 #define XPUF_DEBUG_INFO				(1U)
 
 /************************** Type Definitions **********************************/
 static XPuf_Data PufData;
 
+/************************** Function Prototypes ******************************/
+static void XPuf_ShowData(const u8* Data, u32 Len);
+
 /************************** Function Definitions *****************************/
 int main()
 {
-	int Idx;
 	u32 Status = XST_FAILURE;
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
@@ -93,18 +98,36 @@ int main()
 	if (PufData.PufOperation == XPUF_REGEN_ID_ONLY) {
 		xPuf_printf(XPUF_DEBUG_INFO,
 		"PUF ID only regeneration is done!!\r\n");
-		xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
-		for (Idx = 0; Idx < XPUF_ID_LENGTH; Idx++) {
-			xPuf_printf(XPUF_DEBUG_INFO, "%02x", PufData.PufID[Idx]);
-		}
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 	}
 	else {
 		xPuf_printf(XPUF_DEBUG_INFO,
 			"PUF On Demand regeneration is done!!\r\n");
 	}
+	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
+	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 	xPuf_printf(XPUF_DEBUG_INFO,
 		"Successfully ran Puf Regeneration example!!\r\n");
 END:
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ *
+ * This function prints the data array.
+ *
+ * @param	Data    Pointer to the data to be printed
+ * @param	Len      Length of the data in bytes
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static void XPuf_ShowData(const u8* Data, u32 Len)
+{
+	u32 Index;
+
+	for (Index = 0U; Index < Len; Index++) {
+		xPuf_printf(XPUF_DEBUG_INFO, "%02x", Data[Index]);
+	}
+	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 }
