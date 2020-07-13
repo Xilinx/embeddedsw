@@ -875,6 +875,9 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 					XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
+
 	/* Get the AES status to know if GCM check passed. */
 	Status = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_STATUS_OFFSET);
@@ -883,14 +886,8 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		Status = XSECURE_AES_GCM_TAG_MISMATCH;
 		goto END;
 	}
-	else {
-		Status = XST_SUCCESS;
-	}
 
 	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
 END:
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
