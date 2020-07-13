@@ -51,6 +51,10 @@ Add the frame data check in the interrupt example.
 Fix driver tcl to read user-defined config parameters for the number
 of frame buffers in design.
 
+mcdma_v1_5:
+Add XMcDma_BdGetAppWord() function declaration to fix the gcc
+warning in mcdma integration test suite.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
