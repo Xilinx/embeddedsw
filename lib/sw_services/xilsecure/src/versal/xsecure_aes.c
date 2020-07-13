@@ -785,14 +785,14 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 						XPMCDMA_IXR_DONE_MASK);
 	}
 
+	Status = (u32)XST_SUCCESS;
+
+END:
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-					XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
-	Status = (u32)XST_SUCCESS;
-
-END:
+				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	if (Status != (u32)XST_SUCCESS) {
 		/*
 		 * To make sure that Decrypt update function
@@ -948,12 +948,12 @@ u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
+
 	/* Verify GCM tag */
 	Status = XSecure_AesDecryptFinal(InstancePtr, GcmTagAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 END:
 	return Status;
 }
