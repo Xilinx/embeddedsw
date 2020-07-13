@@ -31,6 +31,8 @@
 *                       enhancements on AES state
 *       kpt  07/03/2020 Added type casting for the arguments in
 *                       XPmcDma_64BitTransfer
+*       kpt  07/08/2020 Removed dummy code and Status value reinitialized
+*                       to XST_FAILURE
 * </pre>
 *
 * @note
@@ -1933,6 +1935,9 @@ static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc Key
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
 
 	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
 	if (Status != XST_SUCCESS) {
