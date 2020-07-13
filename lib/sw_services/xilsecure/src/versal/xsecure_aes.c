@@ -709,6 +709,9 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 
 	Status = XST_FAILURE;
 
+	/* Status Reset*/
+	Status = (u32)XST_FAILURE;
+
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesKekWaitForDone(InstancePtr);
 
