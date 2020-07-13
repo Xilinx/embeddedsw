@@ -1186,17 +1186,17 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 					XPMCDMA_IXR_DONE_MASK);
 
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
+
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-					XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 END:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+			XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
