@@ -616,13 +616,6 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesKekWaitForDone(InstancePtr);
-
-	if(Status != (u32)XST_SUCCESS)
-	{
-		Status = (u32)XST_FAILURE;
-		goto END;
-	}
-
 END:
 	XSecure_SetReset(InstancePtr->BaseAddress,
 		XSECURE_AES_SOFT_RST_OFFSET);
