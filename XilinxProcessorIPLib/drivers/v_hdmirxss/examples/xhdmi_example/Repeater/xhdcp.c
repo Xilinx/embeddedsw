@@ -33,7 +33,7 @@
 *                     Updated XHdcp_Authenticate,
 *                     XHdcp_StreamUpCallback,
 *                     XHdcp_AuthenticationRequestCallback,
-*                     XHdcp_AssembleTopolgy.
+*                     XHdcp_AssembleTopology.
 *                     Updating UpstreamAuthRequestCount flag in
 *                     StreamConnect, StreamDisconnect and
 *                     AuthenticateCallback flow.
