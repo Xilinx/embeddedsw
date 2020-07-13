@@ -257,7 +257,7 @@ typedef enum {
 	XHDCP22_TX_TOPOLOGY_DEVICECNT,
 	XHDCP22_TX_TOPOLOGY_MAXDEVSEXCEEDED,
 	XHDCP22_TX_TOPOLOGY_MAXCASCADEEXCEEDED,
-	XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP22_TX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
 	XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
 	XHDCP22_TX_TOPOLOGY_INVALID
 } XHdcp22_Tx_TopologyField;
@@ -479,8 +479,8 @@ typedef struct
 	u8  MaxCascadeExceeded;
 
 	/** Flag used to indicate topology information. When set to one,
-	    indicates presence of an HDCP2.0-compliant Repeater in the topology. */
-	u8  Hdcp20RepeaterDownstream;
+	    indicates presence of an HDCP2.1-compliant Device in the topology. */
+	u8  Hdcp2LegacyDeviceDownstream;
 
 	/** Flag used to indicate topology information. When set to one,
 	    indicates presence of an HDCP1.x-compliant device in the topology. */

@@ -2378,7 +2378,7 @@ static int XHdcp22Rx_TestUpdateTopology(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_SetTopologyDeviceCnt(InstancePtr, 3);
 	XHdcp22Rx_SetTopologyMaxDevsExceeded(InstancePtr, FALSE);
 	XHdcp22Rx_SetTopologyMaxCascadeExceeded(InstancePtr, FALSE);
-	XHdcp22Rx_SetTopologyHdcp20RepeaterDownstream(InstancePtr, FALSE);
+	XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(InstancePtr, FALSE);
 	XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(InstancePtr, TRUE);
 
 	/* Trigger receiver to propagate topology table upstream */

@@ -3590,11 +3590,11 @@ static void XHdcp_EnforceBlanking(XV_Rx *UpstreamInstancePtr,
 			 * Allow content under the following conditions:
 			 * - Stream type is 0
 			 * - Stream type is 1, and no HDCP 1.x devices are downstream,
-			 *   and no HDCP 2.0 repeaters are downstream. */
+			 *   and no HDCP2 legacy devices are downstream. */
 			case XV_HDMITXSS1_HDCP_22:
 				Status = XV_HdmiTxSs1_HdcpGetTopologyField(
 						DownstreamInstancePtr->HdmiTxSs,
-						XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+						XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
 				Status |= XV_HdmiTxSs1_HdcpGetTopologyField(
 						DownstreamInstancePtr->HdmiTxSs,
 						XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);

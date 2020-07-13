@@ -40,7 +40,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyDepth(XV_HdmiRxSs *InstancePtr, u32 Depth)
 static int XV_HdmiRxSs_HdcpSetTopologyDeviceCnt(XV_HdmiRxSs *InstancePtr, u32 DeviceCnt);
 static int XV_HdmiRxSs_HdcpSetTopologyMaxDevsExceeded(XV_HdmiRxSs *InstancePtr, u8 Value);
 static int XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(XV_HdmiRxSs *InstancePtr, u8 Value);
-static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
+static int XV_HdmiRxSs_HdcpSetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
 static int XV_HdmiRxSs_HdcpSetTopologyHdcp1DeviceDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
 #endif
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -1572,8 +1572,8 @@ int XV_HdmiRxSs_HdcpSetTopologyField(XV_HdmiRxSs *InstancePtr,
       return XV_HdmiRxSs_HdcpSetTopologyMaxDevsExceeded(InstancePtr, Value);
 	  case XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED:
       return XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(InstancePtr, Value);
-	  case XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM:
-      return XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(InstancePtr, Value);
+	  case XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM:
+      return XV_HdmiRxSs_HdcpSetTopologyHdcp2LegacyDeviceDownstream(InstancePtr, Value);
 	  case XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM:
       return XV_HdmiRxSs_HdcpSetTopologyHdcp1DeviceDownstream(InstancePtr, Value);
     default:
@@ -1834,7 +1834,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(XV_HdmiRxSs *InstancePt
 /*****************************************************************************/
 /**
 *
-* This function sets the HDCP repeater topology HDCP 2.0 repeater
+* This function sets the HDCP repeater topology HDCP2 legacy device
 * downstream flag.
 *
 * @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
@@ -1845,7 +1845,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(XV_HdmiRxSs *InstancePt
 * @note   None.
 *
 ******************************************************************************/
-static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *InstancePtr, u8 Value)
+static int XV_HdmiRxSs_HdcpSetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiRxSs *InstancePtr, u8 Value)
 {
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1871,7 +1871,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *Inst
     case XV_HDMIRXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         XHdcp22Rx_SetTopologyField(InstancePtr->Hdcp22Ptr,
-          XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM, Value);
+          XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM, Value);
       } else {
         Status = XST_FAILURE;
       }
