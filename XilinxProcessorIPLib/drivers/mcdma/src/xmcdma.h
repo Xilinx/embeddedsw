@@ -7,7 +7,7 @@
 /**
 *
 * @file xmcdma.h
-* @addtogroup mcdma_v1_4
+* @addtogroup mcdma_v1_5
 * @{
 * @details
 *
