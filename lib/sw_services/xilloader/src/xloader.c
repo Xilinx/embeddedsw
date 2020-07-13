@@ -1098,6 +1098,13 @@ int XLoader_ReloadImage(u32 ImageId)
 		goto END;
 	}
 
+	if (DeviceOps[DeviceFlags].Release != NULL) {
+		Status = DeviceOps[DeviceFlags].Release();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	switch(DeviceFlags)
 	{
 		case XLOADER_PDI_SRC_QSPI24:
@@ -1120,13 +1127,6 @@ int XLoader_ReloadImage(u32 ImageId)
 			break;
 		default:
 			break;
-	}
-
-	if (DeviceOps[DeviceFlags].Release != NULL) {
-		Status = DeviceOps[DeviceFlags].Release();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 	}
 
 END:
