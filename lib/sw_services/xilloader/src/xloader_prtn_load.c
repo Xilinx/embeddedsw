@@ -179,7 +179,7 @@ END:
 static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 {
 	int Status = XST_FAILURE;
-	u32 SrcAddr;
+	u64 SrcAddr;
 	u64 DestAddr;
 	u32 DstnCpu;
 	u32 Len;
@@ -431,7 +431,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +
-			((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
+			(((u64)PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
 	Len = (PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN);
 
 	/**

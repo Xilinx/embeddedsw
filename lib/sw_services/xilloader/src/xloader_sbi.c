@@ -22,6 +22,7 @@
 *       kc   05/21/2019 Updated error code for partial PDI load
 * 1.02  bsv  04/09/2020 Code clean up
 * 1.03  bsv  07/07/2020 Remove unused functions
+*       skd  07/14/2020 XLoader_SbiCopy prototype changed
 *
 * </pre>
 *
@@ -121,7 +122,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_SbiCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 ReadFlags;

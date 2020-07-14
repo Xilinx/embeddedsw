@@ -24,6 +24,7 @@
 *       bsv  04/09/2020 Code clean up of Xilloader
 * 1.02  bsv  27/06/2020 Add dual stacked mode support
 *       bsv  07/08/2020 APIs specific to this file made static
+*       skd  07/14/2020 XLoader_OspiCopy prototype changed
 *
 * </pre>
 *
@@ -97,7 +98,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);
-int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

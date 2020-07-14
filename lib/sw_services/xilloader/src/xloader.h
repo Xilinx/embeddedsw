@@ -51,6 +51,7 @@
 * 1.02	ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
 *						initial boot pdi to partial pdi structure variables
 *       bsv  06/22/2020 Cfi error handler should only be called for PL image
+*       skd  07/14/2020 Function pointers Copy and DeviceCopy prototypes changed
 *
 * </pre>
 *
@@ -232,7 +233,7 @@ typedef struct {
 	int (*Init) (u32 DeviceFlags); /**< Function pointer for Device
 				initialization code */
 	/**< Function pointer for device copy */
-	int (*Copy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+	int (*Copy) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 	/**< Function pointer for device release */
 	int (*Release) (void);
 } XLoader_DeviceOps;
@@ -247,7 +248,7 @@ typedef struct {
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
-	int (*DeviceCopy) (u32, u64, u32, u32);
+	int (*DeviceCopy) (u64, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
 	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
 	u32 CurImgId; /**< Current Processing image ID */

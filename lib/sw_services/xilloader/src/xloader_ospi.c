@@ -25,6 +25,7 @@
 *       bsv  04/09/2020 Code clean up of Xilloader
 * 1.02  bsv  27/06/2020 Add dual stacked mode support
 *       bsv  07/08/2020 APIs specific to this file made static
+*       skd  07/14/2020 XLoader_OspiCopy prototype changed
 *
 * </pre>
 *
@@ -325,9 +326,10 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
+	u32 SrcAddrLow = (u32)SrcAddr;
 	XOspiPsv_Msg FlashMsg = {0U};
 	u32 TrfLen;
 	u8 OspiMode = OspiPsvInstance.Config.ConnectionMode;
@@ -337,16 +339,16 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 #endif
 
 	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
-		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddr, (u32)(DestAddr >> 32U),
+		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddrLow, (u32)(DestAddr >> 32U),
 		(u32)(DestAddr), Length, Flags);
 
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-		if ((SrcAddr + Length) > (2U * OspiFlashSize)) {
+		if ((SrcAddrLow + Length) > (2U * OspiFlashSize)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_COPY_OVERFLOW, Status);
 			goto END;
 		}
 		else {
-			if (SrcAddr < OspiFlashSize) {
+			if (SrcAddrLow < OspiFlashSize) {
 				/*
 				 * Select lower flash
 				 */
@@ -359,8 +361,8 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 						goto END;
 					}
 				}
-				if ((SrcAddr + Length) > OspiFlashSize) {
-					TrfLen = OspiFlashSize - SrcAddr;
+				if ((SrcAddrLow + Length) > OspiFlashSize) {
+					TrfLen = OspiFlashSize - SrcAddrLow;
 				}
 				else {
 					TrfLen = Length;
@@ -379,13 +381,13 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 						goto END;
 					}
 				}
-				SrcAddr = SrcAddr - OspiFlashSize;
+				SrcAddrLow = SrcAddrLow - OspiFlashSize;
 				TrfLen = Length;
 			}
 		}
 	}
 	else {
-		if ((SrcAddr + Length) > OspiFlashSize) {
+		if ((SrcAddrLow + Length) > OspiFlashSize) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_COPY_OVERFLOW, Status);
 			goto END;
 		}
@@ -402,7 +404,7 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.ByteCount = TrfLen;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Addr = SrcAddr;
+	FlashMsg.Addr = SrcAddrLow;
 
 	if ((DestAddr >> 32U) == 0U) {
 		FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
@@ -445,7 +447,7 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 			DestAddr = DestAddr + TrfLen;
 			TrfLen = Length - TrfLen;
-			SrcAddr = 0U;
+			SrcAddrLow = 0U;
 
 			/*
 			 * Read cmd
@@ -456,7 +458,7 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			FlashMsg.TxBfrPtr = NULL;
 			FlashMsg.ByteCount = TrfLen;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-			FlashMsg.Addr = SrcAddr;
+			FlashMsg.Addr = SrcAddrLow;
 
 			if ((DestAddr >> 32U) == 0U) {
 				FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
@@ -482,7 +484,7 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	" %u.%u ms OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
 	"%u Bytes, Flags: 0x%0x\n\r",
 	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
-	SrcAddr, (u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
+	SrcAddrLow, (u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 #endif
 
 END:

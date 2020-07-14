@@ -18,6 +18,7 @@
 * 1.00   bsv 02/10/2019 First release
 *        bsv 04/09/2020 Code clean up
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
+*        skd 07/14/2020 XLoader_UsbCopy prototype changed
 *
 * </pre>
 *
@@ -141,7 +142,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-int XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_UsbCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	(void)Flags;

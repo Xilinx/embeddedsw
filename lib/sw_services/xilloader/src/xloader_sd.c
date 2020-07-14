@@ -28,6 +28,7 @@
 *       bsv  04/28/2020 Changed SD drive number to 5 when both SD0 and SD1 are
 *						in design
 * 1.03  bsv  07/01/2020 Unmount file system after loading PDIs
+*       skd  07/14/2020 Added 64bit support for SD copy destination address
 *
 * </pre>
 *
@@ -242,28 +243,59 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_SdCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	FRESULT Rc; /* Result code */
 	UINT Br = 0U;
+	u32 TrfLen;
 	(void)Flags;
 
 	Rc = f_lseek(&FFil, SrcAddress);
 	if (Rc != FR_OK) {
-		XLoader_Printf(DEBUG_INFO, "SD: Unable to seek to %x\n",
-				SrcAddress);
+		XLoader_Printf(DEBUG_INFO, "SD: Unable to seek to 0x%0x%08x\n",
+				(SrcAddress >> 32U), (u32)SrcAddress);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_LSEEK, Rc);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_LSEEK\n\r");
 		goto END;
 	}
 
-	Rc = f_read(&FFil, (void*)(UINTPTR)DestAddress, Length, &Br);
-	if (Rc != FR_OK) {
-		XLoader_Printf(DEBUG_GENERAL, "SD: f_read returned %d\r\n", Rc);
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, Rc);
-		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
-		goto END;
+	if ((DestAddress >> 32U) == 0U) {
+		Rc = f_read(&FFil, (void*)(UINTPTR)DestAddress, Length, &Br);
+		if (Rc != FR_OK) {
+			XLoader_Printf(DEBUG_GENERAL, "SD: f_read returned %d\r\n", Rc);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, Rc);
+			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
+			goto END;
+		}
+	}
+	else {
+		while(Length > 0U) {
+			if(Length > XLOADER_CHUNK_SIZE) {
+				TrfLen = XLOADER_CHUNK_SIZE;
+			}
+			else {
+				TrfLen = Length;
+			}
+
+			Rc = f_read(&FFil, (void*)(UINTPTR)XPLMI_PMCRAM_BASEADDR, TrfLen, &Br);
+			if (Rc != FR_OK) {
+				XLoader_Printf(DEBUG_GENERAL, "SD: f_read returned %d\r\n", Rc);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, Rc);
+				XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
+				goto END;
+			}
+			Status = XPlmi_DmaXfr((u64)XPLMI_PMCRAM_BASEADDR, DestAddress,
+					(TrfLen / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
+            if (Status != XST_SUCCESS) {
+            Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER, Status);
+                 XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
+                 goto END;
+            }
+
+			Length -= TrfLen;
+			DestAddress += TrfLen;
+		}
 	}
 	Status = XST_SUCCESS;
 
@@ -396,11 +428,11 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
-	u32 BlockNumber;
-	u32 DataOffset;
+	u64 BlockNumber;
+	u64 DataOffset;
 	u32 RemainingBytes;
 	u8 ReadBuffer[1024U];
 	u8* ReadBuffPtr;
@@ -417,9 +449,9 @@ int XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	 */
 	SectorReadLen =  XLOADER_SD_RAW_BLK_SIZE - DataOffset;
 
-	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%08x, Dest 0x%0x%08x, "
-		       "Length 0x%0x, Flags 0x%0x\r\n", SrcAddress,
-		       (u32)(DestAddress >> 32U), (u32)DestAddress,
+	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%0x%08x, Dest 0x%0x%08x, "
+		       "Length 0x%0x, Flags 0x%0x\r\n", (u32)(SrcAddress >> 32U),
+		       (u32)(SrcAddress), (u32)(DestAddress >> 32U), (u32)DestAddress,
 		       Length, Flags);
 
 	do
@@ -457,7 +489,7 @@ int XLoader_RawCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 		 */
 		if (SectorReadLen != XLOADER_SD_RAW_BLK_SIZE) {
 			(void)XPlmi_MemCpy((void *)Destination, (ReadBuffPtr
-					+ DataOffset), SectorReadLen);
+					+ (u32)DataOffset), SectorReadLen);
 		}
 		BlockNumber += NoOfSectors;
 		Destination += (NoOfSectors * SectorReadLen);

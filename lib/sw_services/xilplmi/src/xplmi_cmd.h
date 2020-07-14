@@ -25,6 +25,7 @@
 *       bsv  04/03/2020 Code clean up Xilpdi
 * 1.02  kc   06/22/2020 Updated command handler error codes to include command
 *                       IDs
+*       skd  07/14/2020 Function pointer Func prototype changed
 *
 * </pre>
 *
@@ -64,7 +65,7 @@ struct XPlmi_KeyHoleParams {
 	u8 InChunkCopy;
 	u32 SrcAddr; /**< Boot Source address */
 	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
-	int (*Func) (u32, u64, u32, u32);
+	int (*Func) (u64, u64, u32, u32);
 };
 
 struct XPlmi_Cmd {

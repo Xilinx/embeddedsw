@@ -24,6 +24,7 @@
 *						suspend and resume to work
 *       bsv  04/09/2020 Code clean up
 * 1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
+*       skd  07/14/2020 XLoader_QspiCopy prototype changed
 *
 * </pre>
 *
@@ -666,7 +667,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 QspiAddr;
@@ -677,6 +678,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 DiscardByteCnt;
 	u32 BankSize;
 	u32 BankMask;
+	u32 SrcAddrLow = (u32)SrcAddr;
 	XQspiPsu_Msg FlashMsg[3U] = {0U,};
 	u8 WriteBuffer[10U] __attribute__ ((aligned(32U))) = {0U};
 
@@ -686,13 +688,13 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 #endif
 
 	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
-			"Length 0x%08x, Flags 0x%0x\r\n", SrcAddr,
+			"Length 0x%08x, Flags 0x%0x\r\n", SrcAddrLow,
 			(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 
 	/*
 	 * Check the read length with Qspi flash size
 	 */
-	if ((SrcAddr + Length) > QspiFlashSize) {
+	if ((SrcAddrLow + Length) > QspiFlashSize) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_LENGTH, 0);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_LENGTH\r\n");
 		goto END;
@@ -748,7 +750,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * Translate address based on type of connection
 		 * If stacked assert the slave select based on address
 		 */
-		QspiAddr = XLoader_GetQspiAddr(SrcAddr);
+		QspiAddr = XLoader_GetQspiAddr(SrcAddrLow);
 
 		if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
 
@@ -841,7 +843,7 @@ int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 */
 		RemainingBytes -= TransferBytes;
 		DestAddr += TransferBytes;
-		SrcAddr += TransferBytes;
+		SrcAddrLow += TransferBytes;
 	}
 
 	Status = XST_SUCCESS;
@@ -851,7 +853,7 @@ END:
 	XPlmi_MeasurePerfTime(QspiCopyTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%u ms QSPI Copy time:"
 	"SrcAddr: 0x%08x, DestAddr: 0x%0x08x, %u Bytes, Flags: 0x%0x\n\r",
-	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, SrcAddr,
+	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, SrcAddrLow,
 	(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 #endif
 	return Status;
