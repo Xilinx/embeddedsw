@@ -20,6 +20,9 @@ Fixed MISRAC violations.
 Corrected fabric watchdog interrupt id in example.
 Added window watchdog support in peripheral test app.
 
+v_axi4s_remap_v1_3:
+Added example to this driver.
+
 clk_wiz_v1_4:
 Add updates for clocking wizard.
 Add set rate capability for zynqmp.
