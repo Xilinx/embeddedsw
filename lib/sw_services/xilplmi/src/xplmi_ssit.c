@@ -72,7 +72,7 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
 			XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 				PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
 
-			Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_MASTER_SYNC, Status);
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_MASTER_SYNC, Status);
 			goto END;
 		}
 		Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
@@ -174,7 +174,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 		XPlmi_Printf(DEBUG_GENERAL, "Received error from Slave SLR or Timed out\r\n");
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
 		goto END;
 	}
 
@@ -236,7 +236,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 			"Received error from Slave SLR or Timed out\r\n");
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
 		goto END;
 	}
 

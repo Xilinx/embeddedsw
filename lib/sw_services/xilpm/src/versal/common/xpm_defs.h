@@ -76,11 +76,11 @@ enum XPmSuspendReason {
 };
 
 /* PM API callback ids */
-enum XPmApiCbId {
-	PM_INIT_SUSPEND_CB		= (30U),
-	PM_ACKNOWLEDGE_CB		= (31U),
-	PM_NOTIFY_CB			= (32U),
-};
+typedef enum {
+	PM_INIT_SUSPEND_CB		= (30),
+	PM_ACKNOWLEDGE_CB		= (31),
+	PM_NOTIFY_CB			= (32),
+} XPmApiCbId_t;
 
 /**
  * Contains the device status information.

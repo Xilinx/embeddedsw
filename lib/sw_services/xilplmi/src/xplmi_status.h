@@ -73,23 +73,22 @@ extern "C" {
 
 #define XPLMI_STATUS_MASK				(0xFFFF0000U)
 #define XPLMI_STATUS_MODULE_MASK			(0xFFFFU)
-#define XPLMI_UPDATE_STATUS(PlmiStatus, ModuleStatus)		\
-		(((PlmiStatus << 16U) & XPLMI_STATUS_MASK) + \
-		(ModuleStatus & XPLMI_STATUS_MODULE_MASK))
 #define XPLMI_ERR_CDO_CMD_MASK				(0x1FFFU)
+#define XPLMI_STATUS_SHIFT				(16U)
+#define XPLMI_ERR_CODE_MASK				(0xFFFFFFFU)
 
 /**
  * Status for PLM functions
  */
-enum {
+typedef enum {
 	/** Status codes used in PLMI */
-	XPLM_SUCCESS = 0x0U,		/**< 0x0 - Success */
+	XPLM_SUCCESS = 0x0,		/**< 0x0 - Success */
 	XPLM_FAILURE,			/**< 0x1 - Used internally
 					  for small functions */
 	XPLMI_TASK_INPROGRESS,		/**< 0x2 - Used internally
 					  to indicate task is in progress */
 
-	XPLMI_ERR_DMA_LOOKUP = 0x100U,	/**< 0x100 - Error when DMA driver
+	XPLMI_ERR_DMA_LOOKUP = 0x100,	/**< 0x100 - Error when DMA driver
 					  lookup fails. */
 	XPLMI_ERR_DMA_CFG,		/**< 0x101 - Error when DMA driver
 					  config fails. */
@@ -154,7 +153,7 @@ enum {
 						IoModule Handler */
 
 	/** Status codes used in PLM */
-	XPLM_ERR_TASK_CREATE = 0x200U,	/**< 0x200 - Error when task create
+	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
 					  fails. This can happen when max
 					  tasks are created */
 	XPLM_ERR_PM_MOD,		/**< 0x201 - Error initializing
@@ -167,12 +166,12 @@ enum {
 					  if enabled */
 
 	/** Status codes used in XLOADER */
-	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300U, /**< 0x300 - Error for
+	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
 					 unsupported bootmode. It occurs if
 					 invalid boot mode is selected or
 					 selected boot mode peripheral is
 					 not selected in CIPS */
-	XLOADER_ERR_IMGHDR_TBL = 0x302U,	/**< 0x302 - Multiple conditions can
+	XLOADER_ERR_IMGHDR_TBL = 0x302,	/**< 0x302 - Multiple conditions can
 					  give this error.
 					  - If PLM is unable to read
 					  image header table */
@@ -297,7 +296,7 @@ enum {
 	XLOADER_ERR_SD_UMOUNT,		/**< 0X339 - Error on unmounting filesystem */
 
 	/**< Security Major error codes */
-	XLOADER_ERR_INIT_GET_DMA = 0x600U,
+	XLOADER_ERR_INIT_GET_DMA = 0x600,
 		/**< 0x600 Failed to get DMA instance at time of initialization */
 	XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE,
 		/**< 0x601 only SHA3 checksum is supported */
@@ -369,15 +368,27 @@ enum {
 	XLOADER_ERR_KAT_FAILED,
 		/**< 0x61E KAT failed */
 
-	XPLMI_ERR_CDO_CMD = 0x2000U,
+	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
 		 * [12:8] contains Module ID, [7:0] contains API ID.
 		 * Refer Minor code for Handler error code */
-};
+} XPlmiStatus_t;
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
+{
+	int Status =  XST_FAILURE;
+	u32 UStatus = PlmiStatus;
+	u32 UModuleStatus = (u32)ModuleStatus;
+
+	UStatus = UStatus << XPLMI_STATUS_SHIFT;
+	UStatus = UStatus | (UModuleStatus & XPLMI_STATUS_MODULE_MASK);
+	Status = UStatus & XPLMI_ERR_CODE_MASK;
+
+	return Status;
+}
 
 /************************** Function Prototypes ******************************/
 void XPlmi_ErrMgr(int Status);

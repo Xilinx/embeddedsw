@@ -177,29 +177,29 @@ extern "C" {
 #endif
 
 /* Boot Modes */
-enum XLOADER_PDI_SRC {
-	XLOADER_PDI_SRC_JTAG = (0x0U),
-	XLOADER_PDI_SRC_QSPI24 = (0x1U),
-	XLOADER_PDI_SRC_QSPI32 = (0x2U),
-	XLOADER_PDI_SRC_SD0 = (0x3U),
-	XLOADER_PDI_SRC_SD1 = (0x5U),
-	XLOADER_PDI_SRC_EMMC = (0x6U),
-	XLOADER_PDI_SRC_USB = (0x7U),
-	XLOADER_PDI_SRC_OSPI = (0x8U),
-	XLOADER_PDI_SRC_SMAP = (0xAU),
-	XLOADER_PDI_SRC_SD1_LS = (0xEU),
-	XLOADER_PDI_SRC_DDR = (0xFU),
-	XLOADER_PDI_SRC_SBI = (0x10U),
-	XLOADER_PDI_SRC_PCIE = (0x11U),
-	XLOADER_PDI_SRC_SD0_RAW = (0x12U),
-	XLOADER_PDI_SRC_SD1_RAW = (0x13U),
-	XLOADER_PDI_SRC_EMMC_RAW = (0x14U),
-	XLOADER_PDI_SRC_SD1_LS_RAW = (0x15U),
-	XLOADER_PDI_SRC_EMMC_RAW_BP1 = (0x16U),
-	XLOADER_PDI_SRC_EMMC_RAW_BP2 = (0x17U),
-	XLOADER_PDI_SRC_EMMC0 = (0x18U),
-	XLOADER_PDI_SRC_EMMC0_RAW = (0x19U),
-};
+typedef enum {
+	XLOADER_PDI_SRC_JTAG = (0x0),
+	XLOADER_PDI_SRC_QSPI24 = (0x1),
+	XLOADER_PDI_SRC_QSPI32 = (0x2),
+	XLOADER_PDI_SRC_SD0 = (0x3),
+	XLOADER_PDI_SRC_SD1 = (0x5),
+	XLOADER_PDI_SRC_EMMC = (0x6),
+	XLOADER_PDI_SRC_USB = (0x7),
+	XLOADER_PDI_SRC_OSPI = (0x8),
+	XLOADER_PDI_SRC_SMAP = (0xA),
+	XLOADER_PDI_SRC_SD1_LS = (0xE),
+	XLOADER_PDI_SRC_DDR = (0xF),
+	XLOADER_PDI_SRC_SBI = (0x10),
+	XLOADER_PDI_SRC_PCIE = (0x11),
+	XLOADER_PDI_SRC_SD0_RAW = (0x12),
+	XLOADER_PDI_SRC_SD1_RAW = (0x13),
+	XLOADER_PDI_SRC_EMMC_RAW = (0x14),
+	XLOADER_PDI_SRC_SD1_LS_RAW = (0x15),
+	XLOADER_PDI_SRC_EMMC_RAW_BP1 = (0x16),
+	XLOADER_PDI_SRC_EMMC_RAW_BP2 = (0x17),
+	XLOADER_PDI_SRC_EMMC0 = (0x18),
+	XLOADER_PDI_SRC_EMMC0_RAW = (0x19),
+} PdiSrc_t;
 
 /* Multiboot register offset mask */
 #define XLOADER_MULTIBOOT_OFFSET_MASK		(0x001FFFFFU)
@@ -243,7 +243,7 @@ typedef struct {
  */
 typedef struct {
 	u32 PdiType; /**< Indicate PDI Type, full PDI, partial PDI */
-	u32 PdiSrc; /**< Source of the PDI - Boot device, DDR */
+	PdiSrc_t PdiSrc; /**< Source of the PDI - Boot device, DDR */
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
@@ -294,13 +294,23 @@ typedef struct {
 } XLoader_IdCodeInfo __attribute__ ((aligned(16U)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLoader_GetBootMode()	XPlmi_In32(CRP_BOOT_MODE_USER) & \
-				CRP_BOOT_MODE_USER_BOOT_MODE_MASK
+static inline PdiSrc_t XLoader_GetBootMode(void)
+{
+	PdiSrc_t PdiSrc;
 
-#define XLoader_IsJtagSbiMode()	((XPlmi_In32(SLAVE_BOOT_SBI_MODE) & \
-				SLAVE_BOOT_SBI_MODE_JTAG_MASK) == \
-				    SLAVE_BOOT_SBI_MODE_JTAG_MASK) ? \
-					(TRUE) : (FALSE)
+	PdiSrc = (PdiSrc_t) (XPlmi_In32(CRP_BOOT_MODE_USER) &
+							CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
+
+	return PdiSrc;
+}
+
+static inline u8 XLoader_IsJtagSbiMode(void)
+{
+	return (((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &
+				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ==
+				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ?
+				(TRUE) : (FALSE));
+}
 
 /*****************************************************************************/
 /**
@@ -336,8 +346,8 @@ inline u8 XLoader_IsEncEnabled(XilPdi* PdiPtr)
 extern XilPdi SubsystemPdiIns;
 
 int XLoader_Init(void);
-int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
-int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
+int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
+int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId);

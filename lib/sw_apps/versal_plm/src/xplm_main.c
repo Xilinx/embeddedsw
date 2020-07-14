@@ -46,7 +46,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XPlm_Init();
+static int XPlm_Init(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -89,7 +89,10 @@ int main(void)
 	XPlmi_TaskDispatchLoop();
 
 	/** should never reach here */
-	while(1U);
+	while (TRUE) {
+		;
+	}
+
 	return XST_FAILURE;
 }
 
@@ -102,7 +105,7 @@ int main(void)
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-static int XPlm_Init()
+static int XPlm_Init(void)
 {
 	int Status = XST_FAILURE;
 

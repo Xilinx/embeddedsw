@@ -37,7 +37,7 @@
 
 /************************** Function Prototypes ******************************/
 static void XPlm_ExceptionInit(void);
-static void XPlm_ExceptionHandler(u32 Status);
+static void XPlm_ExceptionHandler(void *Data);
 
 /************************** Variable Definitions *****************************/
 extern u32 _stack;
@@ -56,17 +56,17 @@ extern u32 _stack_end;
 static void XPlm_ExceptionInit(void)
 {
 	int Status = XST_FAILURE;
-	u32 Index;
+	u16 Index;
 	Xil_ExceptionInit();
 
 	/* Register exception handlers */
 	for (Index = XIL_EXCEPTION_ID_FIRST;
 	     Index <= XIL_EXCEPTION_ID_LAST; Index++)
 	{
-		Status = XPLMI_UPDATE_STATUS(XPLM_ERR_EXCEPTION, Index);
+		Status = XPlmi_UpdateStatus(XPLM_ERR_EXCEPTION, (int)Index);
 		Xil_ExceptionRegisterHandler(Index,
-			     (Xil_ExceptionHandler)XPlm_ExceptionHandler,
-			     (void *)Status);
+			     XPlm_ExceptionHandler,
+			     &Status);
 	}
 
 	/** Write stack high and low register for stack protection */
@@ -79,15 +79,17 @@ static void XPlm_ExceptionInit(void)
 /**
  * @brief This is a function handler for all exceptions
  *
- * @param	Status Error Status that needs to be updated in Error Register.
- * Status is initialized during exception initialization having Index and
- * exception error code.
+ * @param	Data Pointer to Error Status that needs to be updated in
+ * Error Register. Status is initialized during exception initialization
+ * having Index and exception error code.
  *
  * @return	None
  *
  *****************************************************************************/
-void XPlm_ExceptionHandler(u32 Status)
+static void XPlm_ExceptionHandler(void *Data)
 {
+	int Status = *(int *) Data;
+
 	XPlmi_Printf(DEBUG_GENERAL, "Received Exception \n\r"
 		      "MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
 		      "R14: 0x%08x, R15: 0x%08x, R16: 0x%08x, R17: 0x%08x \n\r",
@@ -97,7 +99,9 @@ void XPlm_ExceptionHandler(u32 Status)
 	XPlmi_ErrMgr(Status);
 
 	/* Just in case if it returns */
-	while(1U);
+	while (TRUE) {
+		;
+	}
 }
 
 /*****************************************************************************/

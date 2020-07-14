@@ -159,7 +159,7 @@ void XPlmi_SchedulerHandler(void *Data)
 			Task = XPlmi_TaskCreate(Sched.TaskList[Idx].Priority,
 					Sched.TaskList[Idx].CustomerFunc, 0U);
 			if (Task == NULL) {
-				Status = XPLMI_UPDATE_STATUS(XPLM_ERR_TASK_CREATE, 0x0);
+				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0x0);
 				XPlmi_Printf(DEBUG_GENERAL, "Task Creation Err:0x%x\n\r", Status);
 				goto END;
 			}

@@ -50,8 +50,8 @@ extern "C" {
 #define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK        (0X00008000U)
 
 /************************** Function Prototypes ******************************/
-int XPlm_LoaderInit();
-int XPlm_LoadBootPdi(void *arg);
+int XPlm_LoaderInit(void);
+int XPlm_LoadBootPdi(void *Arg);
 
 /************************** Variable Definitions *****************************/
 

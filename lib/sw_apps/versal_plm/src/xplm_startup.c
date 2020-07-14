@@ -61,7 +61,7 @@
  * Start up tasks of the PLM.
  * Current they point to the loading of the Boot PDI.
  */
-struct XPlmi_TaskNode StartUpTaskList[] =
+static struct XPlmi_TaskNode StartUpTaskList[] =
 {
 	XPLM_TASK_DEFINE(XPlm_ModuleInit, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_TASK_DEFINE(XPlm_HookBeforePlmCdo, 0U, XPLM_TASK_PRIORITY_0),
@@ -93,14 +93,12 @@ int XPlm_AddStartUpTasks(void)
 	XPlmi_TaskNode *Task;
 	int Status = XST_FAILURE;
 
-	for (Index = 0U; Index < ARRAY_SIZE(StartUpTaskList); Index++)
-	{
+	for (Index = 0U; Index < ARRAY_SIZE(StartUpTaskList); Index++) {
 		Task = XPlmi_TaskCreate(StartUpTaskList[Index].Priority,
 					StartUpTaskList[Index].Handler,
 					StartUpTaskList[Index].PrivData);
-		if (Task == NULL)
-		{
-			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_TASK_CREATE, 0x0U);
+		if (Task == NULL) {
+			Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
 			goto END;
 		}
 		XPlmi_TaskTriggerNow(Task);
