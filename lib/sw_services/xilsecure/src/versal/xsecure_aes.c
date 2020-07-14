@@ -569,6 +569,9 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 		goto END;
 	}
 
+	/* Status Reset*/
+	Status = (u32)XST_FAILURE;
+
 	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -868,6 +871,9 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 			XPMCDMA_SRC_CHANNEL,
 			XPMCDMA_IXR_DONE_MASK);
 
+	/* Status Reset*/
+	Status = (u32)XST_FAILURE;
+
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -888,6 +894,9 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		Status = XSECURE_AES_GCM_TAG_MISMATCH;
 		goto END;
 	}
+
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
 
 	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
 END:
