@@ -69,20 +69,20 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 		Module = Modules[ModuleId];
 	}
 	if (Module == NULL) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_MODULE_MAX, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_MAX, 0);
 		goto END;
 	}
 
 	/* Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CMD_APIID, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
 		goto END;
 	}
 
 	/* Check if proper handler is registered */
 	ModuleCmd = &Module->CmdAry[ApiId];
 	if (ModuleCmd->Handler == NULL) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CMD_HANDLER_NULL, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_HANDLER_NULL, 0);
 		goto END;
 	}
 	XPlmi_Printf(DEBUG_DETAILED, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
@@ -92,7 +92,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	Status = ModuleCmd->Handler(Cmd);
 	if (Status != XST_SUCCESS) {
 		CdoErr = XPLMI_ERR_CDO_CMD + (Cmd->CmdId & XPLMI_ERR_CDO_CMD_MASK);
-		Status = XPLMI_UPDATE_STATUS(CdoErr, Status);
+		Status = XPlmi_UpdateStatus(CdoErr, Status);
 		goto END;
 	}
 
@@ -123,7 +123,7 @@ int XPlmi_CmdResume(XPlmi_Cmd * Cmd)
 	Xil_AssertNonvoid(Cmd->ResumeHandler != NULL);
 	Status = Cmd->ResumeHandler(Cmd);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_RESUME_HANDLER, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_RESUME_HANDLER, Status);
 		goto END;
 	}
 

@@ -144,7 +144,7 @@ int XPlmi_IpiDispatchHandler(void *Data)
 			Cmd.IpiMask = IpiMaskList[MaskIndex];
 			Status = XPlmi_ValidateIpiCmd(Cmd.CmdId);
 			if (Status != XST_SUCCESS) {
-				Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IPI_CMD, 0U);
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
 				Cmd.Response[0U] = (u32)Status;
 				/* Send response to caller */
 				XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,

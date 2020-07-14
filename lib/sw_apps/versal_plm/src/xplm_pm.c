@@ -53,7 +53,7 @@
 * @return	None
 *
 *****************************************************************************/
-static void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
+static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 *Payload)
 {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	XStatus Status = XST_FAILURE;
@@ -89,9 +89,9 @@ static void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
-int XPlm_PmInit()
+int XPlm_PmInit(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/**
 	 * Initialize the XilPm component. It registers the callback handlers,
@@ -100,7 +100,7 @@ int XPlm_PmInit()
 	Status = XPm_Init(XPlm_PmRequestCb);
 	if (Status != XST_SUCCESS)
 	{
-		Status = XPLMI_UPDATE_STATUS(XPLM_ERR_PM_MOD, Status);
+		Status = XPlmi_UpdateStatus(XPLM_ERR_PM_MOD, Status);
 		goto END;
 	}
 

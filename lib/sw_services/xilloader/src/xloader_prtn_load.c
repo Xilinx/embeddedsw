@@ -347,8 +347,8 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 		CpuNo = PdiPtr->NoOfHandoffCpus;
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
 			if (CpuNo == XLOADER_MAX_HANDOFF_CPUS) {
-				Status = XPLMI_UPDATE_STATUS(
-						XLOADER_ERR_NUM_HANDOFF_CPUS, 0U);
+				Status = XPlmi_UpdateStatus(
+							XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
 				goto END;
 			}
 			/* Update the CPU settings */
@@ -574,8 +574,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	}
 	/* If deferred error, flagging it after CDO process complete */
 	if (Cdo.DeferredError == TRUE) {
-		Status = XPLMI_UPDATE_STATUS(
-				XLOADER_ERR_DEFERRED_CDO_PROCESS, 0x0U);
+		Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_DEFERRED_CDO_PROCESS, 0);
 		goto END;
 	}
 	Status = XST_SUCCESS;
@@ -661,8 +661,8 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
 					XLOADER_R5_TCM_BANK_LENGTH))))) {
 		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XPLMI_UPDATE_STATUS(
-					XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0U);
+			Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
 
@@ -675,8 +675,8 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
 					XLOADER_R5_TCM_BANK_LENGTH))))) {
 		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XPLMI_UPDATE_STATUS(
-					XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0U);
+			Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
 
@@ -685,8 +685,8 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
 			(Address < (XLOADER_R5_TCM_BANK_LENGTH * 4U))) {
 		if (Len > (XLOADER_R5_TCM_BANK_LENGTH * 4U)) {
-			Status = XPLMI_UPDATE_STATUS(
-					XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0U);
+			Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
 

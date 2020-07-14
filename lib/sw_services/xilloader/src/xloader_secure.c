@@ -129,7 +129,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_INIT_GET_DMA, 0x0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_GET_DMA, 0);
 		goto END;
 	}
 
@@ -146,8 +146,8 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 		}
 		else {
 			/* Only SHA3 checksum is supported */
-			Status = XPLMI_UPDATE_STATUS(
-				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, 0x0U);
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, 0);
 			goto END;
 		}
 		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
@@ -158,7 +158,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 		Status = SecurePtr->PdiPtr->DeviceCopy(ChecksumOffset,
 				(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
 		if (Status != XLOADER_SUCCESS){
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL, Status);
 			goto END;
 		}
@@ -179,7 +179,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 				(UINTPTR)SecurePtr->AcPtr,
 				XLOADER_AUTH_CERT_MIN_SIZE, 0U);
 		if (Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_INIT_AC_COPY_FAIL, Status);
 			goto END;
 		}
@@ -196,8 +196,8 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	if ((SecurePtr->IsCheckSumEnabled == TRUE) &&
 		((SecurePtr->IsAuthenticated == TRUE) ||
 		 (SecurePtr->IsEncrypted == TRUE))) {
-		Status = XPLMI_UPDATE_STATUS(
-			XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC, 0x0U);
+		Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC, 0);
 		goto END;
 	}
 
@@ -248,7 +248,7 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 						SecurePtr->SecureDataLen / XIH_PRTN_WORD_LEN,
 						XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
-				Status = XPLMI_UPDATE_STATUS(
+				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_DMA_TRANSFER, Status);
 				goto END;
 			}
@@ -375,7 +375,7 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParms *SecurePtr, u64 DestAddr,
 		Status = XLoader_AesDecryption(SecurePtr,
 					SecurePtr->SecureData, OutAddr, SecurePtr->SecureDataLen);
 		if (Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_PRTN_DECRYPT_FAIL, Status);
 			goto END;
 		}
@@ -425,8 +425,8 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 			XPlmi_Printf(DEBUG_INFO,
 				"HWROT is enabled, non authenticated PDI is"
 				" not allowed\n\r");
-			Status = XPLMI_UPDATE_STATUS(
-				XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY, 0x0U);
+			Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY, 0);
 			goto END;
 		}
 		else {
@@ -434,8 +434,8 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 				XPlmi_Printf(DEBUG_INFO,
 				"Boot header authentication is not allowed"
 				 "when HWROT is enabled\n\r");
-				Status = XPLMI_UPDATE_STATUS(
-				XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0x0U);
+				Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
 				goto END;
 			}
 			else {
@@ -455,8 +455,8 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 				"eFUSE PPK(s) are zero and Boot header authentication"
 				" is disabled, loading PDI with authentication"
 				" enabled is not allowed\n\r");
-				Status = XPLMI_UPDATE_STATUS(
-				  XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0x0U);
+				Status = XPlmi_UpdateStatus(
+							XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0);
 				goto END;
 			}
 			else {
@@ -483,8 +483,8 @@ u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 		if (SecurePtr->IsEncrypted == FALSE) {
 			XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			" non encrypted meta header is not allowed\n\r");
-			Status = XPLMI_UPDATE_STATUS(
-				XLOADER_ERR_ENCONLY_ENC_COMPULSORY, 0x0U);
+			Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_ENCONLY_ENC_COMPULSORY, 0);
 			goto END;
 		}
 		else {
@@ -534,7 +534,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_GET_DMA, 0x0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_GET_DMA, 0);
 		goto END;
 	}
 
@@ -546,7 +546,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 	Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
 		(UINTPTR)SecurePtr->AcPtr, XLOADER_AUTH_CERT_MIN_SIZE, 0U);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_COPY_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_COPY_FAIL,
 				Status);
 		goto END;
 	}
@@ -554,7 +554,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 	/* calculate hash of the image header table */
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_HASH_CALC_FAIL,
 					Status);
 		goto END;
 	}
@@ -567,7 +567,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 		Status = XSecure_Sha3Kat(&Sha3Instance);
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT Failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
@@ -576,7 +576,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 	Status = XSecure_Sha3Digest(&Sha3Instance, (u8 *)ImgHdrTbl, XIH_IHT_LEN,
 								&Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_HASH_CALC_FAIL,
 					Status);
 		goto END;
 	}
@@ -588,7 +588,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
 	Status = XLoader_DataAuth(SecurePtr, Sha3Hash.Hash,
 			(u8 *)SecurePtr->AcPtr->BHSignature);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IHT_AUTH_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_AUTH_FAIL, Status);
 		XPlmi_Printf(DEBUG_INFO, "Authentication of image header table "
 					"is failed\n\r");
 		goto END;
@@ -642,7 +642,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		/* Get DMA instance */
 		SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
 		if (SecurePtr->PmcDmaInstPtr == NULL) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_GET_DMA, 0x0U);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
 			goto END;
 		}
 
@@ -650,7 +650,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		Status = XSecure_AesInitialize(&SecurePtr->AesInstance, SecurePtr->PmcDmaInstPtr);
 		if (Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO,"Failed at XSecure_AesInitialize\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL,
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AES_OP_FAIL,
 					Status);
 			goto END;
 		}
@@ -694,7 +694,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 		/* Read IHT and PHT to structures and verify checksum */
 		Status = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
 		if (Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL, Status);
 			goto END;
 		}
@@ -711,7 +711,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 					(MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN);
 		Status = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
 		if(Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL, Status);
 			goto END;
 		}
@@ -746,7 +746,7 @@ END:
 	}
 	else {
 		if (Status == XLOADER_ERR_HDR_NOT_SECURE) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_NOT_SECURE, 0U);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, 0);
 		}
 	}
 	return Status;
@@ -822,7 +822,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 				Status);
 		goto END;
 	}
@@ -837,7 +837,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 					XLOADER_AUTH_CERT_MIN_SIZE -
 					XLOADER_PARTITION_SIG_SIZE);
 		if (Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 			goto END;
 		}
@@ -845,14 +845,14 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 
 	Status = XSecure_Sha3Update(&Sha3Instance, Data, Size);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 							Status);
 		goto END;
 	}
 
 	Status = XSecure_Sha3Finish(&Sha3Instance, &CalHash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 							Status);
 		goto END;
 	}
@@ -863,7 +863,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 		Status = XLoader_DataAuth(SecurePtr, CalHash.Hash,
 					(u8 *)SecurePtr->AcPtr->ImgSignature);
 		if (Status != XLOADER_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_PRTN_AUTH_FAIL, Status);
 			goto END;
 		}
@@ -878,7 +878,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
 			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)ExpHash,
 				XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN,
 				"Expected Hash");
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_PRTN_HASH_COMPARE_FAIL, Status);
 			goto END;
 		}
@@ -934,7 +934,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash,
 		Status = XSecure_RsaPublicEncryptKat();
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "RSA KAT Failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_RSA_KAT_MASK;
@@ -944,7 +944,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash,
 		Status = XSecure_EcdsaKat();
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECDSA_KAT_MASK;
@@ -2276,7 +2276,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_GET_DMA, 0x0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
 		goto END;
 	}
 
@@ -2285,7 +2285,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	SStatus = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
 	if (SStatus != XST_SUCCESS)
 	{
-		Status = XPLMI_UPDATE_STATUS(
+		Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL, SStatus);
 		goto END;
 	}
@@ -2293,7 +2293,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	SStatus = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
 	if(SStatus != XST_SUCCESS)
 	{
-		Status = XPLMI_UPDATE_STATUS(
+		Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL, SStatus);
 		goto END;
 	}
@@ -2306,7 +2306,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XSecure_Sha3Initialize(&Sha3Instance,
 			SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
 		goto END;
 	}
@@ -2315,7 +2315,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)SecurePtr->AcPtr,
 		XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
 		goto END;
 	}
@@ -2324,7 +2324,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)MetaHdr->ImgHdr,
 				(MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN));
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
 		goto END;
 	}
@@ -2333,14 +2333,14 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)MetaHdr->PrtnHdr,
 				(MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN));
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
 		goto END;
 	}
 	/* Read hash */
 	Status = XSecure_Sha3Finish(&Sha3Instance, &Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 						 Status);
 		goto END;
 	}
@@ -2353,7 +2353,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XLoader_DataAuth(SecurePtr, Sha3Hash.Hash,
 					 (u8 *)SecurePtr->AcPtr->ImgSignature);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AUTH_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AUTH_FAIL, Status);
 		goto END;
 	}
 
@@ -2412,7 +2412,7 @@ static u32 XLoader_ReadHdrs(XLoader_SecureParms *SecurePtr,
 					ImgHdrAddr, (u64 )BufferAddr,
 					TotalSize, 0x0U);
 	if (XLOADER_SUCCESS != Status) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_COPY_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_COPY_FAIL, Status);
 		goto END;
 	}
 
@@ -2453,7 +2453,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XSecure_Sha3Initialize(&Sha3Instance,
 				SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 							 Status);
 		goto END;
 	}
@@ -2462,21 +2462,21 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)SecurePtr->AcPtr,
 		(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE));
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 							 Status);
 		goto END;
 	}
 
 	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)BufferAddr, TotalSize);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 							 Status);
 		goto END;
 	}
 
 	Status = XSecure_Sha3Finish(&Sha3Instance, &CalHash);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 							 Status);
 		goto END;
 	}
@@ -2485,7 +2485,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XLoader_DataAuth(SecurePtr, CalHash.Hash,
 				(u8 *)SecurePtr->AcPtr->ImgSignature);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AUTH_FAIL,
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AUTH_FAIL,
 							 Status);
 		goto END;
 	}
@@ -2545,8 +2545,8 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 
 	if (SecurePtr->IsEncrypted != TRUE) {
 		XPlmi_Printf(DEBUG_INFO,"Headers are not encrypted\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_NOT_ENCRYPTED,
-							 0x0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_ENCRYPTED,
+							 0);
 		goto END;
 	}
 
@@ -2561,7 +2561,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	Status = XLoader_AesKeySelect(SecurePtr, &KeyDetails, &KeySrc);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at Key selection\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
 		goto END;
 	}
 
@@ -2577,7 +2577,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 			XSECURE_AES_KEY_SIZE_256,
 			(UINTPTR)MetaHdr->ImgHdrTbl.IvMetaHdr);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
 		goto END;
 	}
 
@@ -2586,7 +2586,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,
 			"SH decryption failed during header decryption\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_DEC_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_DEC_FAIL, Status);
 		goto END;
 	}
 
@@ -2600,7 +2600,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at header decryption"
 					" XSecure_AesDecryptInit\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
 		goto END;
 	}
 
@@ -2610,7 +2610,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
 			 (UINTPTR)SrcAddr,
 			(UINTPTR)SecurePtr->ChunkAddr, TotalSize);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_HDR_DEC_FAIL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_DEC_FAIL, Status);
 		XPlmi_Printf(DEBUG_INFO, "Failed at headers decryption\n\r");
 		goto END;
 	}
@@ -2737,7 +2737,7 @@ static u32 XLoader_AesKatTest(XLoader_SecureParms *SecurePtr)
 		Status = XSecure_AesDecryptCmKat(&SecurePtr->AesInstance);
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT Failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_DPACM_KAT_MASK;
@@ -2747,7 +2747,7 @@ static u32 XLoader_AesKatTest(XLoader_SecureParms *SecurePtr)
 		Status = XSecure_AesDecryptKat(&SecurePtr->AesInstance);
 		if(Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "AES KAT Failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_KAT_FAILED, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_AES_KAT_MASK;

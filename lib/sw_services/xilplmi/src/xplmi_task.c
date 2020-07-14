@@ -58,7 +58,7 @@ static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
  * @return	Pointer to the task node structure
  *
  *****************************************************************************/
-XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
+XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 	int (*Handler)(void *), void * PrivData)
 {
 	XPlmi_TaskNode * Task = NULL;

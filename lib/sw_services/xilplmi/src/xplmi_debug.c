@@ -93,7 +93,7 @@ int XPlmi_InitUart(void)
 
 	Config = XUartPsv_LookupConfig(XPLMI_UART_INDEX);
 	if (NULL == Config) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_LOOKUP, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_LOOKUP, 0);
 		goto END;
 	}
 
@@ -103,7 +103,7 @@ int XPlmi_InitUart(void)
 
 	Status = XUartPsv_CfgInitialize(&UartPsvIns, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_CFG, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_CFG, Status);
 		goto END;
 	}
 	XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);

@@ -273,13 +273,13 @@ int XPlmi_StartTimer(void)
 	 */
 	Status = XIOModule_Initialize(&IOModule, IOMODULE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_INIT, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, Status);
 		goto END;
 	}
 
 	Status = XIOModule_Start(&IOModule);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_START, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_START, Status);
 		goto END;
 	}
 
@@ -372,7 +372,7 @@ int XPlmi_SetUpInterruptSystem(void)
 			(void *)IntrNum);
 		if (Status != XST_SUCCESS)
 		{
-			Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_CONNECT, Status);
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
 			goto END;
 		}
 	}
@@ -381,7 +381,7 @@ int XPlmi_SetUpInterruptSystem(void)
 			(XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
 			(void *)IntrNum);
 			if (Status != XST_SUCCESS) {
-				Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_CONNECT, Status);
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
 				goto END;
 			}
 
@@ -546,7 +546,7 @@ static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "IoModule Connect Failed:0x%0x\n\r",
 			     Status);
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_REGISTER_IOMOD_HANDLER,
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER,
 					    Status);
 		goto END;
 	}

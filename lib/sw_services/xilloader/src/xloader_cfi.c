@@ -68,14 +68,14 @@ int XLoader_CframeInit(void)
 	 */
 	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
 	if (NULL == Config) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_CFRAME_LOOKUP, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_LOOKUP, 0);
 		goto END;
 	}
 
 	Status = XCframe_CfgInitialize(&XLoader_CframeIns, Config,
 				Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_CFRAME_CFG, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_CFG, Status);
 		goto END;
 	}
 

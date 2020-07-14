@@ -23,7 +23,7 @@ extern "C" {
 /* Extern Variable and Function */
 extern int XLoader_RestartImage(u32 SubsystemId);
 
-XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload));
+XStatus XPm_Init(void (* const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload));
 
 int XPm_GetChipID(u32* IDCode, u32 *Version);
 

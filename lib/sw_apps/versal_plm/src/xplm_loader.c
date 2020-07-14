@@ -42,7 +42,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XilPdi PdiInstance;
+static XilPdi PdiInstance;
 
 /*****************************************************************************/
 /**
@@ -54,11 +54,12 @@ XilPdi PdiInstance;
 * @return	None
 *
 *****************************************************************************/
-int XPlm_LoaderInit()
+int XPlm_LoaderInit(void)
 {
 	int Status =  XST_FAILURE;
 
 	Status = XLoader_Init();
+
 	return Status;
 }
 
@@ -74,7 +75,7 @@ int XPlm_LoaderInit()
 int XPlm_LoadBootPdi(void *Arg)
 {
 	int Status = XST_FAILURE;
-	u32 BootMode;
+	PdiSrc_t BootMode;
 	u32 CryptoKat;
 	XilPdi* PdiPtr;
 
@@ -100,8 +101,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	 * no PDI gets loaded
 	 */
 	if ((BootMode == XLOADER_PDI_SRC_JTAG) &&
-	    (!XLoader_IsJtagSbiMode()))
-	{
+	    (XLoader_IsJtagSbiMode() == FALSE)) {
 		Status = XST_SUCCESS;
 		goto END;
 	}

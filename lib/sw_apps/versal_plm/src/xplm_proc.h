@@ -45,7 +45,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_InitProc();
+int XPlm_InitProc(void);
 
 #ifdef __cplusplus
 }

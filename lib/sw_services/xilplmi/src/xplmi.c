@@ -102,7 +102,7 @@ void XPlmi_LpdInit(void)
 	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(LpdInitList); Index++) {
 		Status = LpdInitList[Index]();
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_LPD_MOD, Status);
+			Status = XPlmi_UpdateStatus(XPLM_ERR_LPD_MOD, Status);
 			break;
 		}
 	}

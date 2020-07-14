@@ -42,7 +42,7 @@
 u32 ResetReason;
 u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];
 
-void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
+void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX+1];
 static XPlmi_Module XPlmi_Pm =
@@ -511,7 +511,7 @@ static void XPm_CheckLastResetReason(void)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload))
+XStatus XPm_Init(void (* const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload))
 {
 	XStatus Status = XST_FAILURE;
 	unsigned int i;

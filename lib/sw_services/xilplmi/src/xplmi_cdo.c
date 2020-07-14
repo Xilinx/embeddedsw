@@ -133,7 +133,7 @@ static int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
 	if (CdoHdr[1U] != XPLMI_CDO_HDR_IDN_WRD) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"CDO Header Identification Failed\n\r");
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CDO_HDR_ID, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_HDR_ID, 0);
 		goto END;
 	}
 	for (Index = 0U; Index < (XPLMI_CDO_HDR_LEN - 1U); Index++) {
@@ -145,7 +145,7 @@ static int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
 	if (CheckSum != CdoHdr[Index]) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"Config Object Checksum Failed\n\r");
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CDO_CHECKSUM, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_CHECKSUM, 0);
 		goto END;
 	} else {
 		Status = XST_SUCCESS;

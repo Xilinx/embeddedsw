@@ -81,13 +81,13 @@ static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 	 */
 	Config = XPmcDma_LookupConfig((u16)DeviceId);
 	if (NULL == Config) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_LOOKUP, 0x0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_LOOKUP, 0);
 		goto END;
 	}
 
 	Status = XPmcDma_CfgInitialize(DmaPtr, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_CFG, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_CFG, Status);
 		goto END;
 	}
 
@@ -96,7 +96,7 @@ static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 	 */
 	Status = XPmcDma_SelfTest(DmaPtr);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_SELFTEST, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_SELFTEST, Status);
 		goto END;
 	}
 

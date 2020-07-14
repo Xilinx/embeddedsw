@@ -248,7 +248,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
+int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
 	int Status = XST_FAILURE;
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
@@ -312,8 +312,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	if (DeviceOps[DeviceFlags].Init == NULL) {
 		XPlmi_Printf(DEBUG_GENERAL, "Unsupported Boot Mode:"
 					"Source:0x%x\n\r", DeviceFlags);
-		Status = XPLMI_UPDATE_STATUS(XLOADER_UNSUPPORTED_BOOT_MODE,
-					0x0U);
+		Status = XPlmi_UpdateStatus(XLOADER_UNSUPPORTED_BOOT_MODE,
+					0);
 		goto END;
 	}
 
@@ -419,7 +419,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	/* Read image header */
 	Status = XilPdi_ReadImgHdrTbl(&PdiPtr->MetaHdr);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		goto END;
 	}
 
@@ -456,7 +456,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		goto END;
 	}
 
@@ -465,7 +465,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr.ImgHdrTbl));
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_GENERAL, "IDCODE Checks failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_GEN_IDCODE,
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GEN_IDCODE,
 						Status);
 			goto END;
 		}
@@ -478,13 +478,13 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		PdiPtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
 		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
 		if (XST_SUCCESS != Status) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
 			goto END;
 		}
 
 		Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTNHDR, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
 			goto END;
 		}
 	}
@@ -492,7 +492,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		Status = XLoader_ReadAndVerifySecureHdrs(&SecureParam,
 					&(PdiPtr->MetaHdr));
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SECURE_METAHDR,
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_METAHDR,
 						Status);
 			goto END;
 		}
@@ -550,14 +550,14 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT;
 		if ((PdiPtr->CopyToMem == TRUE) &&
 				(PdiPtr->DelayHandoff == TRUE)) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_DELAY_ATTRB, 0U);
 			goto END;
 		}
 
 		if (PdiPtr->DelayHandoff == TRUE) {
 			if (NoOfDelayedHandoffCpus == XLOADER_MAX_HANDOFF_CPUS) {
-				Status = XPLMI_UPDATE_STATUS(
+				Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_NUM_HANDOFF_CPUS, 0U);
 				goto END;
 			}
@@ -665,7 +665,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
+int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
 	int Status = XST_FAILURE;
 
@@ -676,7 +676,7 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
 		Status = XSem_CfrStopScan();
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_SEM_STOP_SCAN, Status);
 			goto END;
 		}
@@ -704,7 +704,7 @@ END:
 	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
 		Status = XSem_CfrInit();
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
+			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_SEM_CFR_INIT, Status);
 			goto END1;
 		}
@@ -753,7 +753,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_ACPU_0, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_A72_0, Status);
 					goto END;
 				}
@@ -766,7 +766,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_ACPU_1, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_A72_1, Status);
 					goto END;
 				}
@@ -777,7 +777,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_0, Status);
 					goto END;
 				}
@@ -788,7 +788,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_RPU0_1, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_1, Status);
 					goto END;
 				}
@@ -799,7 +799,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_L, Status);
 					goto END;
 				}
@@ -809,7 +809,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 						PM_DEV_PSM_PROC, 0U, 0U, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_PSM, Status);
 					goto END;
 				}
@@ -957,8 +957,8 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 		}
 
 		if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMG_ID_NOT_FOUND,
-				0U);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND,
+						0);
 			goto END;
 		}
 	}
@@ -1008,7 +1008,7 @@ int XLoader_RestartImage(u32 ImageId)
 	/** Stop the SEM scan before Image load */
 	Status = XSem_CfrStopScan();
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_STOP_SCAN, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_STOP_SCAN, Status);
 		goto END;
 	}
 #endif
@@ -1026,7 +1026,7 @@ int XLoader_RestartImage(u32 ImageId)
 	/* Restart the SEM SCAN */
 	Status = XSem_CfrInit();
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_CFR_INIT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_CFR_INIT, Status);
 		goto END;
 	}
 #endif

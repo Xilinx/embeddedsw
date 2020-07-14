@@ -67,7 +67,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 
 	UsbConfigPtr = XUsbPsu_LookupConfig(XLOADER_USB_DEVICE_ID);
 	if (NULL == UsbConfigPtr) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_USB_LOOKUP, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_LOOKUP, Status);
 		goto END;
 	}
 
@@ -78,7 +78,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 			(struct XUsbPsu*)UsbInstance.PrivateData,
 			UsbConfigPtr, UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_USB_CFG, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_CFG, Status);
 		goto END;
 	}
 
@@ -110,7 +110,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	/* Start the controller so that Host can see our device */
 	Status = XUsbPsu_Start((struct XUsbPsu*)UsbInstance.PrivateData);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_USB_START, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_START, Status);
 		goto END;
 	}
 

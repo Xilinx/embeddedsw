@@ -104,7 +104,7 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 	/* Stop the SEM scan before Image load */
 	Status = XSem_CfrStopScan();
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_STOP_SCAN, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_STOP_SCAN, Status);
 		goto END;
 	}
 #endif
@@ -140,7 +140,7 @@ END:
 	/* Restart the SEM SCAN */
 	Status = XSem_CfrInit();
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_CFR_INIT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_CFR_INIT, Status);
 		goto END1;
 	}
 END1:

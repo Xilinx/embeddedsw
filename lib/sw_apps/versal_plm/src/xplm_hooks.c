@@ -49,10 +49,10 @@
 * as POR.Please note that PS LPD UART is not initialized by this time
 *
 * @param	None
-* @return	XST_SUCCESS on success, any other value for error
+* @return	XST_SUCCESS always
 *
 *****************************************************************************/
-int XPlm_HookBeforePlmCdo()
+int XPlm_HookBeforePlmCdo(void)
 {
 
 	return XST_SUCCESS;
@@ -67,11 +67,14 @@ int XPlm_HookBeforePlmCdo()
 * @return	XST_SUCCESS on success, any other value for error
 *
 *****************************************************************************/
-int XPlm_HookAfterPlmCdo()
+int XPlm_HookAfterPlmCdo(void)
 {
+	int Status = XST_FAILURE;
+
 	/* Call LibPM hook */
-	XPm_HookAfterPlmCdo();
-	return XST_SUCCESS;
+	Status = XPm_HookAfterPlmCdo();
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -79,10 +82,10 @@ int XPlm_HookAfterPlmCdo()
 * @brief This function will be called after loading the boot PDI.
 *
 * @param	None
-* @return	XST_SUCCESS on success, any other value for error
+* @return	XST_SUCCESS always
 *
 *****************************************************************************/
-int XPlm_HookAfterBootPdi()
+int XPlm_HookAfterBootPdi(void)
 {
 
 	return XST_SUCCESS;
