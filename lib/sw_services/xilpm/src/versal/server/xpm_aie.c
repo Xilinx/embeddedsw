@@ -26,6 +26,15 @@
 #define AIE_CORE_STATUS_DONE_MASK   (1UL<<20U)
 
 #define AieWrite64(addr, val) swea(addr, val)
+#define AieRead64(addr) lwea(addr)
+
+static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
+{
+	u32 l_val;
+	l_val = AieRead64(addr);
+	l_val = (l_val & (~Mask)) | (Mask & Value);
+	AieWrite64(addr, l_val);
+}
 
 /* Buffer to hold AIE data memory zeroization elf*/
 static u32 ProgramMem[] __attribute__ ((aligned(16))) = {
@@ -90,6 +99,16 @@ static struct AieArray AieInst = {
 	.NumRows = 8U,
 	.StartCol = 0U,
 	.StartRow = 1U,
+	.IsSecure = 0U,
+};
+
+static struct AieArray ShimInst = {
+	.NpiAddress = 0xF70A0000U,
+	.NocAddress = 0x20000000000U,
+	.NumCols = 50U,
+	.NumRows = 1U,
+	.StartCol = 0U,
+	.StartRow = 0U,
 	.IsSecure = 0U,
 };
 
@@ -240,6 +259,24 @@ static void TriggerEccScrub(void)
 	}
 }
 
+/*****************************************************************************/
+/**
+ * This function clock gates ME tiles clock column-wise
+ *
+ * @return
+ *****************************************************************************/
+static void AieClkGateByCol(void)
+{
+	u32 row, col;
+
+	for(row = ShimInst.StartRow; row < (ShimInst.StartRow + ShimInst.NumRows); ++row) {
+		for(col = ShimInst.StartCol; col < (ShimInst.StartCol + ShimInst.NumCols); ++col) {
+			AieRMW64(TILE_BASEADDRESS(col, row) + AIE_TILE_CLOCK_CONTROL_OFFSET,
+				AIE_TILE_CLOCK_CONTROL_CLK_BUFF_EN_MASK,
+				~AIE_TILE_CLOCK_CONTROL_CLK_BUFF_EN_MASK);
+		}
+	}
+}
 
 static XStatus MemInit(void)
 {
@@ -348,6 +385,9 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 
 	/* Lock PCSR registers */
 	XPmAieDomain_LockPcsr(BaseAddress);
+
+	/* Clock gate ME Array column-wise (except SHIM array) */
+	AieClkGateByCol();
 
 	Status = XST_SUCCESS;
 
