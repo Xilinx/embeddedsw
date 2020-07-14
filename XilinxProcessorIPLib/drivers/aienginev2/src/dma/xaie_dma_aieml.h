@@ -37,5 +37,11 @@ AieRC _XAieMl_TileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 AieRC _XAieMl_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 		XAie_LocType Loc, u8 BdNum);
 AieRC _XAieMl_DmaSetMultiDim(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor);
+AieRC _XAieMl_DmaGetPendingBdCount(XAie_DevInst *DevInst, XAie_LocType Loc,
+		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
+		u8 *PendingBd);
+AieRC _XAieMl_DmaWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
+		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
+		u32 TimeOutUs);
 
 /** @} */
