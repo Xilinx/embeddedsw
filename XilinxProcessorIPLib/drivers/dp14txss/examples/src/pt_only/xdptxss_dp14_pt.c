@@ -995,14 +995,14 @@ void CalculateCRC(void)
     if (VidFrameCRC_rx.Mode_422 != 0x1) {
 	XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                           VIDEO_FRAME_CRC_CONFIG,
-                            DpRxSsInst.UsrOpt.LaneCount);
+						  (int)DpRxSsInst.UsrOpt.LaneCount);
     } else { // 422
         XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                               VIDEO_FRAME_CRC_CONFIG,
-                                (DpRxSsInst.UsrOpt.LaneCount | 0x80000000));
+                                ((int)DpRxSsInst.UsrOpt.LaneCount | 0x80000000));
 
     }
-
+#if PHY_COMP
     /* Add delay (~40 ms) for Frame CRC
      * to compute on couple of frames. */
     CustomWaitUs(DpRxSsInst.DpPtr, 400000);
@@ -1044,7 +1044,7 @@ void CalculateCRC(void)
                VidFrameCRC_rx.Pixel_r, VidFrameCRC_rx.Pixel_g,
                VidFrameCRC_rx.Pixel_b);
 
-
+#endif
 
 }
 #endif
@@ -2601,9 +2601,7 @@ int Dppt_DetectResolution(void *InstancePtr,
 		XDp_RxDtgEn(DpRxSsInst.DpPtr);
 	}
 
-#if PHY_COMP
-		CalculateCRC();
-#endif
+	CalculateCRC();
 
 		return 1;
 }

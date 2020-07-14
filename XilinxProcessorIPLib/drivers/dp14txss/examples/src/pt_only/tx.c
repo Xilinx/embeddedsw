@@ -866,10 +866,18 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	/* Reset CRC*/
 	XVidFrameCrc_Reset(&VidFrameCRC_tx);
 	/* Set Pixel width in CRC engine*/
-	XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
+	if (format != 2) {
+		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
 				  VIDEO_FRAME_CRC_CONFIG,
 				  XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					  XDP_TX_USER_PIXEL_WIDTH));
+									  XDP_TX_USER_PIXEL_WIDTH));
+	} else { // 422
+		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
+				  VIDEO_FRAME_CRC_CONFIG,
+					(XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+							  XDP_TX_USER_PIXEL_WIDTH) | 0x80000000));
+
+	}
 
 //	start_audio_passThrough(line_rate);
 	xil_printf ("..done !\r\n");
