@@ -547,4 +547,62 @@ AieRC _XAieMl_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API is used to get the count of scheduled BDs in pending.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of AIE Tile
+* @param	DmaMod: Dma module pointer
+* @param	ChNum: Channel number of the DMA.
+* @param	Dir: Direction of the DMA Channel. (MM2S or S2MM)
+* @param	PendingBd: Pointer to store the number of pending BDs.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only. For AIEML Tiles only.
+*
+******************************************************************************/
+AieRC _XAieMl_DmaGetPendingBdCount(XAie_DevInst *DevInst, XAie_LocType Loc,
+		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
+		u8 *PendingBd)
+{
+	/*
+	 * TODO: The register database required for this api has changed b/w
+	 * r0p6 and r0p13. Implement this once the register database if freezed.
+	 */
+
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to wait on Shim DMA channel to be completed.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of AIE Tile
+* @param	DmaMod: Dma module pointer
+* @param	ChNum: Channel number of the DMA.
+* @param	Dir: Direction of the DMA Channel. (MM2S or S2MM)
+* @param        TimeOutUs - Minimum timeout value in micro seconds.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only. For AIEML Tiles only.
+*
+******************************************************************************/
+AieRC _XAieMl_DmaWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
+		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
+		u32 TimeOutUs)
+{
+	/*
+	 * TODO: The register database required for this api has changed b/w
+	 * r0p6 and r0p13. Implement this once the register database if freezed.
+	 */
+
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
 /** @} */

@@ -289,7 +289,9 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.SetLock = &_XAieMl_DmaSetLock,
 	.SetIntrleave = NULL,
 	.SetMultiDim = &_XAieMl_DmaSetMultiDim,
-	.WriteBd = &_XAieMl_MemTileDmaWriteBd
+	.WriteBd = &_XAieMl_MemTileDmaWriteBd,
+	.PendingBd = &_XAieMl_DmaGetPendingBdCount,
+	.WaitforDone = &_XAieMl_DmaWaitForDone,
 };
 
 static const  XAie_DmaBdEnProp Aie2TileDmaBdEnProp =
@@ -461,7 +463,9 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.SetLock = &_XAieMl_DmaSetLock,
 	.SetIntrleave = NULL,
 	.SetMultiDim = &_XAieMl_DmaSetMultiDim,
-	.WriteBd = &_XAieMl_TileDmaWriteBd
+	.WriteBd = &_XAieMl_TileDmaWriteBd,
+	.PendingBd = &_XAieMl_DmaGetPendingBdCount,
+	.WaitforDone = &_XAieMl_DmaWaitForDone,
 };
 
 static const  XAie_DmaBdEnProp Aie2ShimDmaBdEnProp =
@@ -648,7 +652,9 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
 	.SetLock = &_XAieMl_DmaSetLock,
 	.SetIntrleave = NULL,
 	.SetMultiDim = &_XAieMl_DmaSetMultiDim,
-	.WriteBd = &_XAieMl_ShimDmaWriteBd
+	.WriteBd = &_XAieMl_ShimDmaWriteBd,
+	.PendingBd = &_XAieMl_DmaGetPendingBdCount,
+	.WaitforDone = &_XAieMl_DmaWaitForDone,
 };
 
 /*
