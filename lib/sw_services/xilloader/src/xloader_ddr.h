@@ -20,6 +20,7 @@
 * 1.01  kc   09/04/2019 Added support to use non blocking DMA in
 *						DdrCopy function
 * 1.02  bsv  04/09/2020 Code clean up of Xilloader
+* 1.03  skd  07/14/2020 Added 64bit support for DDR source address
 *
 * </pre>
 *
@@ -48,7 +49,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_DdrInit(u32 DeviceFlags);
-int XLoader_DdrCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

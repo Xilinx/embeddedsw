@@ -24,6 +24,7 @@
 *						suspend and resume to work
 *       bsv  04/09/2020 Code clean up
 * 1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
+*       skd  07/14/2020 XLoader_QspiCopy prototype changed
 *
 * </pre>
 *
@@ -181,7 +182,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_QspiInit(u32 DeviceFlags);
-int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress);
 
 /************************** Variable Definitions *****************************/

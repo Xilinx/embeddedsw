@@ -39,8 +39,9 @@
 *       har  02/18/2020 Added major error code for Security
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU events
-* 1.03  bsv  27/06/2020 Add dual stacked mode support
+* 1.03  bsv  06/27/2020 Add dual stacked mode support
 *       bsv  07/01/2020 Unmount file system after loading PDIs
+*       skd  07/14/2020 Added a macro for DMA transfer error
 *
 * </pre>
 *
@@ -294,6 +295,7 @@ typedef enum {
 	XLOADER_ERR_SD_F_CLOSE,		/**< 0x338 - Error on closure of file in SD
 							filesystem modes */
 	XLOADER_ERR_SD_UMOUNT,		/**< 0X339 - Error on unmounting filesystem */
+	XLOADER_ERR_DMA_XFER,		/**< 0x33A DMA Transfer failed */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

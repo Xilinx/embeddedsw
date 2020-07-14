@@ -27,6 +27,7 @@
 *       bsv  04/28/2020 Changed SD drive number to 5 when both SD0 and SD1 are
 *						in design
 * 1.03  bsv  07/01/2020 Unmount file system after loading PDIs
+*       skd  07/14/2020 Added 64bit support for SD copy destination address
 *
 * </pre>
 *
@@ -69,10 +70,10 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_SdInit(u32 DeviceFlags);
-int XLoader_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SdCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_SdRelease(void);
 int XLoader_RawInit(u32 DrvNum);
-int XLoader_RawCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_RawCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

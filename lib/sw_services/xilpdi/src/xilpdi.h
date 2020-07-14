@@ -20,14 +20,15 @@
 * 1.01  bsv  04/08/2019 Added support for secondary boot device parameters
 *       bsv  07/30/2019 Renamed XilPdi_ReadAndValidateImgHdrTbl to
 							XilPdi_ReadImgHdrTbl
-*       rm   28/08/2019 Added APIs for retrieving delay load and delay handoff
+*       rm   08/28/2019 Added APIs for retrieving delay load and delay handoff
 *						params
-* 1.02  bsv  29/11/2019 Added support for smap bus width word in partial pdis
-*       vnsl 26/02/2020 Added support to read DPA CM Enable field in meta headers
-*       vnsl 01/03/2020 Added support to read PufHeader from Meta Headers and
+* 1.02  bsv  11/29/2019 Added support for smap bus width word in partial pdis
+*       vnsl 02/26/2020 Added support to read DPA CM Enable field in meta headers
+*       vnsl 03/01/2020 Added support to read PufHeader from Meta Headers and
 *						partition headers
-*       vnsl 12/04/2020 Added support to read BootHdr Auth Enable field in
+*       vnsl 04/12/2020 Added support to read BootHdr Auth Enable field in
 *						boot header
+* 1.03  skd  07/14/2020 Function pointer DeviceCopy prototype changed
 *
 * </pre>
 *
@@ -373,9 +374,9 @@ typedef struct {
 	XilPdi_ImgHdrTbl ImgHdrTbl; /**< Img header table structure */
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_PRTNS]; /**< Prtn header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
-	u32 FlashOfstAddr; /**< Start of DPI start address in Flash */
+	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
 	/**< Function pointer for device copy */
-	int (*DeviceCopy) (u32 SrcAddr, u64 DestAddress, u32 Length,
+	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 															u32 Flags);
 	u32 Flag; /**< To read from flash or buffer,
 				0 for flash and 1 for buffer */
