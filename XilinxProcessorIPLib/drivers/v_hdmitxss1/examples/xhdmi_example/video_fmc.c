@@ -251,29 +251,6 @@ int Vfmc_I2cMuxSelect(XVfmc *VfmcPtr)
 	Status = Vfmc_I2cSend(IicPtr, 0x74,
 					   (u8 *)&Buffer, 1, (I2C_STOP));
 
-#elif defined (XPS_BOARD_KCU105)
-	/* Reset I2C controller before issuing new transaction. This is
-	 * required to recover the IIC controller in case a previous
-	 * transaction is pending.
-	 */
-	/*XIic_WriteReg(XPAR_IIC_0_BASEADDR, XIIC_RESETR_OFFSET,
-				  XIIC_RESET_MASK);*/
-
-	/* Set TCA9548 MUX1 to select port 7 (No connection)*/
-	Buffer = 0x80;
-	Status = Vfmc_I2cSend(IicPtr, 0x74,
-					   (u8 *)&Buffer, 1, (I2C_STOP));
-
-	/* Set PCA9544 MUX2 to select channel 1 (HPC) */
-	/* 0x0 - no channel selected
-	 * 0x4 - channel 0
-	 * 0x5 - channel 1
-	 * 0x6 - channel 2
-	 * 0x7 - channel 3 */
-	Buffer = 0x05;
-	Status = Vfmc_I2cSend(IicPtr, 0x75,
-					   (u8 *)&Buffer, 1, (I2C_STOP));
-
 #elif defined (XPS_BOARD_ZCU102)
 	/* Set TCA9548 U34 to select port 7 (No connection)*/
 	Buffer = 0x80;
@@ -450,7 +427,7 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		xil_printf("Failed to initialize SI5344.\r\n");
 		return XST_FAILURE;
 	}
-
+#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	/* Check if mezzanine card is with an active device */
 	if (ONSEMI_NB7NQ621M_CheckDeviceID(Iic_Ptr,
 			VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR) == XST_SUCCESS) {
@@ -472,7 +449,9 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	}
 	/* TX Mezzanine Init Done */
 	Vfmc_Gpio_Led_On(VfmcPtr, VFMC_GPIO_TX_LED0, TRUE);
+#endif
 
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	/* Check if mezzanine card is with an active device */
 	if (ONSEMI_NB7NQ621M_CheckDeviceID(Iic_Ptr,
 			VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR) == XST_SUCCESS) {
@@ -494,6 +473,7 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	}
 	/* RX Mezzanine Init Done */
 	Vfmc_Gpio_Led_On(VfmcPtr, VFMC_GPIO_RX_LED0, TRUE);
+#endif
 
 	VfmcPtr->IsReady = XIL_COMPONENT_IS_READY;
 
