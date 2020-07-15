@@ -19,7 +19,7 @@ proc generate {drv_handle} {
     set ips [hsi::get_cells -hier "*"]
     foreach ip $ips {
 	set periph [common::get_property IP_NAME $ip]
-        if {[string compare -nocase "xdma" $periph] == 0} {
+        if {[string compare -nocase "xdma" $periph] == 0 || [string compare -nocase "pcie_dma_versal" $periph] == 0 } {
             xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
                 "NUM_INSTANCES" \
                 "DEVICE_ID" \

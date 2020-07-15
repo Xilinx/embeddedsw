@@ -11,10 +11,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver xdmapcie
 
- OPTION supported_peripherals = (xdma psv_pciea_attrib );
+ OPTION supported_peripherals = (xdma psv_pciea_attrib pcie_dma_versal);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
- OPTION VERSION = 1.1;
+ OPTION VERSION = 1.2;
  OPTION NAME = xdmapcie;
 
 END driver
