@@ -71,6 +71,8 @@
 ##                  avoid failure in arithmatic calculations. It fixes CR#1067679.
 ##     07/11/20 mus Fix tcl failures for design with more than one AXI INTC, chained
 ##                  to the GIC. It fixes CR#1069891
+##     07/15/20 mus Fixed designs where external interrupt port is connected
+##                  to more than one slice instances of variable output width.
 ##
 ##
 ## @END_CHANGELOG
@@ -735,6 +737,10 @@ proc intc_update_source_array {periph} {
     variable source_interrupt_handler
     variable source_interrupt_id
     variable total_source_intrs
+    variable traversed_source_port_name
+    variable num_slice_traversed
+    variable traversed_slice_instance
+    variable check_slice_duplication
 
     array unset source_port_name
     array unset source_name
@@ -742,6 +748,9 @@ proc intc_update_source_array {periph} {
     array unset source_driver
     array unset source_interrupt_handler
     array unset source_interrupt_id
+    array unset traversed_source_port_name
+    array unset traversed_slice_instance
+    set num_slice_traversed 0
 
 	lappend source_pins
 	set source_pins [::hsi::utils::get_interrupt_sources $periph]
@@ -756,6 +765,7 @@ proc intc_update_source_array {periph} {
         set t_source_interrupt_handler  $default_interrupt_handler
         set t_source_intrrupt_id        "-1"
 
+        set check_slice_duplication 0
         #if interrupt is coming from IP, update it.
         if { [::hsi::utils::is_external_pin $source_pin] == 0} {
             set source_periph   [hsi::get_cells -of_objects $source_pin]
@@ -765,7 +775,7 @@ proc intc_update_source_array {periph} {
             set t_source_driver [hsi::get_drivers -filter "HW_INSTANCE==$t_source_name"]
         }
         set port_intr_id [::hsi::utils::get_interrupt_id $t_ip_name $source_pin]
-        set isslice_exist [::hsi::utils::is_slice_exists_in_path $periph $source_pin]
+        set isslice_exist [is_slice_exists_in_path $periph $source_pin]
         if { [llength $port_intr_id ] > 1  &&
              $isslice_exist == 0} {
             #this is the case of vector interrupt port
@@ -781,7 +791,17 @@ proc intc_update_source_array {periph} {
                 incr j
             }
         } else {
-            set width [::hsi::utils::get_intr_connected_slice_width $periph $source_pin]
+           if {([::hsi::utils::is_external_pin $source_pin] == 1) && ($isslice_exist == 1)} {
+                set check_slice_duplication 1
+                set traversed_source_port_name($num_slice_traversed) $t_source_port_name
+            }
+
+            set width [get_intr_connected_slice_width $periph $source_pin]
+
+            if {$check_slice_duplication == 1} {
+                incr num_slice_traversed
+            }
+
             if {$width == 0 || $width == ""} {
                 set width [expr [common::get_property LEFT $source_pin] + 1]
             } else {
