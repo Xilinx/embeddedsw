@@ -60,7 +60,9 @@
 int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 							 UINTPTR EffectiveAddress)
 {
+#ifndef versal
 	u32 Data;
+#endif
 
 	/* Assert arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
