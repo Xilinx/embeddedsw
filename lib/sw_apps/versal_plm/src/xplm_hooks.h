@@ -45,9 +45,9 @@ extern "C" {
 
 /************************** Variable Definitions *****************************/
 
-int XPlm_HookBeforePlmCdo(void);
-int XPlm_HookAfterPlmCdo(void);
-int XPlm_HookAfterBootPdi(void);
+int XPlm_HookBeforePlmCdo(void *Arg);
+int XPlm_HookAfterPlmCdo(void *Arg);
+int XPlm_HookAfterBootPdi(void *Arg);
 
 #ifdef __cplusplus
 }

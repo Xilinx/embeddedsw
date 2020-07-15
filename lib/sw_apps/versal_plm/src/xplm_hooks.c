@@ -52,8 +52,9 @@
 * @return	XST_SUCCESS always
 *
 *****************************************************************************/
-int XPlm_HookBeforePlmCdo(void)
+int XPlm_HookBeforePlmCdo(void *Arg)
 {
+	(void)Arg;
 
 	return XST_SUCCESS;
 }
@@ -67,10 +68,11 @@ int XPlm_HookBeforePlmCdo(void)
 * @return	XST_SUCCESS on success, any other value for error
 *
 *****************************************************************************/
-int XPlm_HookAfterPlmCdo(void)
+int XPlm_HookAfterPlmCdo(void *Arg)
 {
 	int Status = XST_FAILURE;
 
+	(void)Arg;
 	/* Call LibPM hook */
 	Status = XPm_HookAfterPlmCdo();
 
@@ -85,8 +87,9 @@ int XPlm_HookAfterPlmCdo(void)
 * @return	XST_SUCCESS always
 *
 *****************************************************************************/
-int XPlm_HookAfterBootPdi(void)
+int XPlm_HookAfterBootPdi(void *Arg)
 {
+	(void)Arg;
 
 	return XST_SUCCESS;
 }

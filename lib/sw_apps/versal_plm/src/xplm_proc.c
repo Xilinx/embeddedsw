@@ -61,12 +61,11 @@ static void XPlm_ExceptionInit(void)
 
 	/* Register exception handlers */
 	for (Index = XIL_EXCEPTION_ID_FIRST;
-	     Index <= XIL_EXCEPTION_ID_LAST; Index++)
-	{
+	     Index <= XIL_EXCEPTION_ID_LAST; Index++) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_EXCEPTION, (int)Index);
 		Xil_ExceptionRegisterHandler(Index,
 			     XPlm_ExceptionHandler,
-			     &Status);
+			     (void *)Status);
 	}
 
 	/** Write stack high and low register for stack protection */
@@ -88,7 +87,7 @@ static void XPlm_ExceptionInit(void)
  *****************************************************************************/
 static void XPlm_ExceptionHandler(void *Data)
 {
-	int Status = *(int *) Data;
+	int Status = (int) Data;
 
 	XPlmi_Printf(DEBUG_GENERAL, "Received Exception \n\r"
 		      "MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"

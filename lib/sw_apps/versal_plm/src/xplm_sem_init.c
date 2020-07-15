@@ -58,10 +58,11 @@
  * @return	Status as defined in XilSem library
  *
  *****************************************************************************/
-int XPlm_SemInit(void)
+int XPlm_SemInit(void *Arg)
 {
 	int Status = XST_FAILURE;
 
+	(void)Arg;
 #ifdef XSEM_CFRSCAN_EN
 	Status = XSem_CfrInit();
 	if (Status != XST_SUCCESS) {
