@@ -18,6 +18,7 @@
 * ----- ---- ---------- --------------------------------------------------
 * X.X   ..   DD-MM-YYYY ..
 * 1.0   mmo  30-04-2019 Initial version
+* 1.1   ku   14-07-2020 Menu option for 4K Quad selection
 *
 * </pre>
 *
@@ -87,7 +88,10 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_Hdmiphy1DebugMenu(XHdmi_Menu *InstancePtr,
 					u8 Input);
 static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input);
-
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+static XHdmi_MenuType XHdmi_8kQuadMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#endif
 static void XHdmi_DisplayMainMenu(void);
 static void XHdmi_DisplayEdidMenu(void);
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
@@ -113,6 +117,10 @@ static void XHdmi_DisplayDebugMainMenu(void);
 #endif
 static void XHdmi_DisplayHdmiphy1DebugMenu(void);
 static void XHdmi_DisplayOnSemiDebugMenu(void);
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+static void XHdmi_Display8kQuadMenu(void);
+#endif
 static u8 XHdmi_OneSemiMenuProcess(u8 Hex);
 
 extern void Info(void);
@@ -174,6 +182,10 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 #endif
     XHdmi_Hdmiphy1DebugMenu,
     XHdmi_OnSemiDebugMenu,
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+               (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+	XHdmi_8kQuadMenu,
+#endif
 };
 
 extern XVfmc Vfmc[1];
@@ -214,6 +226,7 @@ extern void XV_ConfigVidFrameBuf(XV_FrmbufWr_l2 *FrmBufWrPtr,
 			  XV_FrmbufRd_l2 *FrmBufRdPtr);
 extern XV_FrmbufWr_l2       FrameBufWr;
 extern XV_FrmbufRd_l2        FrameBufRd;
+extern u32 offset;
 #endif
 
 /************************** Function Definitions *****************************/
@@ -337,6 +350,11 @@ void XHdmi_DisplayMainMenu(void)
 #if defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
     xil_printf("p - Toggle HPD\r\n");
     xil_printf("       => Toggles the HPD of HDMI RX.\r\n");
+#endif
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+    xil_printf("q - 4K Quad Selection\r\n");
+    xil_printf("       => Display 4K quad video\r\n");
 #endif
     xil_printf("z - GT & HDMI TX/RX log\r\n");
     xil_printf("       => Shows log information for GT & HDMI TX/RX.\r\n");
@@ -619,6 +637,14 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    XHdmi_DisplayOnSemiDebugMenu();
 	    Menu = XHDMI_ONSEMI_DEBUG_MENU;
 	    break;
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+	case ('q') :
+	case ('Q') :
+	    XHdmi_Display8kQuadMenu();
+	    Menu = XHDMI_8KQUAD_MENU;
+	    break;
+#endif
 
 	default :
 	    XHdmi_DisplayMainMenu();
@@ -3264,7 +3290,101 @@ static u8 ONSEMI_NB7NQ621M_GetRegister(void *IicPtr, u8 I2CSlaveAddress,
     return Buffer[0];
 }
 
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
 
+/*****************************************************************************/
+/**
+*
+* This function displays the debug menu.
+*
+* @param None
+*
+* @return None
+*
+*
+******************************************************************************/
+static void XHdmi_Display8kQuadMenu(void) {
+    xil_printf("\r\n");
+    xil_printf("---------------------------\r\n");
+    xil_printf("---   4K Quad Selection ---\r\n");
+    xil_printf("---------------------------\r\n");
+    xil_printf("  1 - Quad 1\r\n");
+    xil_printf("  2 - Quad 2\r\n");
+    xil_printf("  3 - Quad 3\r\n");
+    xil_printf("  4 - Quad 4\r\n");
+    xil_printf("  99- Exit\r\n");
+    xil_printf("Enter Selection -> ");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function implements the HDMI resolution menu state.
+*
+* @param input is the value used for the next menu state decoder.
+*
+* @return The next menu state.
+*
+******************************************************************************/
+static XHdmi_MenuType XHdmi_8kQuadMenu(XHdmi_Menu *InstancePtr, u8 Input) {
+    /* Variables */
+    XHdmi_MenuType  Menu;
+
+    /* Default */
+    Menu = XHDMI_8KQUAD_MENU;
+    u32 stride = 0;
+    stride = XV_frmbufwr_Get_HwReg_stride (&FrameBufWr.FrmbufWr);
+
+    /*
+     * Quad selection is done by adjusting the buffer address
+     * of FrameBuffer Read
+     *
+     * +---------+---------+   ^
+       |         |         |   |
+       |  Quad 1 |  Quad 2 |   |
+       |     +-------+     |   +
+       |     |   |   |     |  4320
+       +-------Quad 5+-----+
+       |     |   |   |     |   +
+       |     +-------+     |   |
+       | Quad 3  |  Quad 4 |   |
+       |         |         |   |
+       +---------+---------+   v
+
+       <----+ 7680   +----->
+    *
+    */
+
+    switch (Input) {
+		case 1 :
+			offset = 0;
+			break;
+		case 2 :
+			offset = 3840 * 3;
+			break;
+		case 3 :
+			offset = stride * 2160;
+			break;
+		case 4 :
+			offset = (stride *2160)+ (3840 * 3);
+			break;
+		case 5 :
+			offset = (stride *1080)+ (1920 * 3);
+			break;
+
+		case 99 :
+			xil_printf("Returning to main menu.\r\n");
+			Menu = XHDMI_MAIN_MENU;
+			break;
+
+		default:
+			XHdmi_Display8kQuadMenu();
+			break;
+    }
+    return Menu;
+}
+#endif
 /*****************************************************************************/
 /**
 *
