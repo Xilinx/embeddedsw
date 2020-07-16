@@ -350,13 +350,6 @@ int XPsmFw_FpdPreHouseClean(void)
 	int Status = XST_FAILURE;
 	u32 RegVal;
 
-	/* Check vccint_fpd first to make sure power is on */
-	RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
-	if ((RegVal & PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) != PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) {
-		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
-		goto done;
-	}
-
 	/* TODO: Disable PSM interrupts */
 
 	/*
