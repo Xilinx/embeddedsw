@@ -51,6 +51,7 @@
 * 1.02	ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
 *						initial boot pdi to partial pdi structure variables
 *       bsv  06/22/2020 Cfi error handler should only be called for PL image
+*       bsv  07/01/2020 Added DevRelease to DevOps
 *       skd  07/14/2020 Function pointers Copy and DeviceCopy prototypes changed
 *
 * </pre>
