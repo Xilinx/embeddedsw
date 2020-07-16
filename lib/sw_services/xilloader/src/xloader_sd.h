@@ -28,6 +28,7 @@
 *						in design
 * 1.03  bsv  07/01/2020 Unmount file system after loading PDIs
 *       skd  07/14/2020 Added 64bit support for SD copy destination address
+*       bsv  07/16/2020 Force Cdn bit to 1 to improve performance
 *
 * </pre>
 *
@@ -74,6 +75,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_SdRelease(void);
 int XLoader_RawInit(u32 DrvNum);
 int XLoader_RawCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_RawRelease(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -30,7 +30,7 @@
 *       ma   02/28/2020 Code related to handling PSM errors from PLM
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
-*
+* 1.03  bsv  07/10/2020 Added PMC_IOU_SLCR register related macros
 *
 * </pre>
 *
@@ -283,6 +283,23 @@ extern "C" {
  */
 #define PMC_TAP_SLR_TYPE		(PMC_TAP_BASEADDR + 0X00000024U)
 #define PMC_TAP_SLR_TYPE_VAL_MASK		(0X00000007U)
+
+/*
+ * Register: PMC_IOU_SLCR
+ */
+#define PMC_IOU_SLCR_BASEADDR      (0XF1060000U)
+
+/*
+ * Register: PMC_IOU_SLCR_SD0_CDN_CTRL
+ */
+#define PMC_IOU_SLCR_SD0_CDN_CTRL    (PMC_IOU_SLCR_BASEADDR + 0X0000044CU)
+#define PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK    (0X00000001U)
+
+/*
+ * Register: PMC_IOU_SLCR_SD1_CDN_CTRL
+ */
+#define PMC_IOU_SLCR_SD1_CDN_CTRL    (PMC_IOU_SLCR_BASEADDR + 0X000004CCU)
+#define PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK    (0X00000001U)
 
 /************************** Function Prototypes ******************************/
 

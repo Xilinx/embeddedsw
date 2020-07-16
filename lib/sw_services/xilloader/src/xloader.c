@@ -51,6 +51,7 @@
 * 1.02	ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
 *						initial boot pdi to partial pdi structure variables
 *       bsv  06/22/2020 Cfi error handler should only be called for PL image
+*       bsv  07/01/2020 Added DevRelease to DevOps
 *
 * </pre>
 *
@@ -110,18 +111,21 @@ const XLoader_DeviceOps DeviceOps[] =
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("SD0", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* SD0 - 3U*/
+	XLOADER_DEVICEOPS_INIT("SD0", XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease), /* SD0 - 3U*/
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),  /* 4U */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* SD1 - 5U */
+	XLOADER_DEVICEOPS_INIT("SD1", XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease), /* SD1 - 5U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* EMMC - 6U */
+	XLOADER_DEVICEOPS_INIT("EMMC", XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease), /* EMMC - 6U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
@@ -145,7 +149,8 @@ const XLoader_DeviceOps DeviceOps[] =
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* 0xCU */
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* 0xDU */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_LS", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* SD1 LS - 0xEU */
+	XLOADER_DEVICEOPS_INIT("SD1_LS", XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease), /* SD1 LS - 0xEU */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
@@ -157,42 +162,50 @@ const XLoader_DeviceOps DeviceOps[] =
 #endif
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL), /* PCIE - 0x11U */
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_RawInit, XLoader_RawCopy, XLoader_SdRelease), /* SD0_RAW - 0x12U */
+	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease), /* SD0_RAW - 0x12U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* SD1_RAW - 0x13U */
+	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease), /* SD1_RAW - 0x13U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC_RAW - 0x14U */
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease), /* EMMC_RAW - 0x14U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* SD1_LS_RAW - 0x15U */
+	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease), /* SD1_LS_RAW - 0x15U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP1", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC_RAW - 0x16U */
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP1", XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease), /* EMMC_RAW_BP1 - 0x16U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP2", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC_RAW - 0x17U */
+	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP2", XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease), /* EMMC_RAW_BP2 - 0x17U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("EMMC0", XLoader_SdInit, XLoader_SdCopy, XLoader_SdRelease), /* EMMC0 - 0x18U */
+	XLOADER_DEVICEOPS_INIT("EMMC0", XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease), /* EMMC0 - 0x18U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("EMMC0_RAW", XLoader_RawInit, XLoader_RawCopy, NULL), /* EMMC0_RAW - 0x19U */
+	XLOADER_DEVICEOPS_INIT("EMMC0_RAW", XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease), /* EMMC0_RAW - 0x19U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL, NULL),
 #endif
@@ -609,16 +622,12 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		}
 	}
 
-	if (DeviceOps[PdiPtr->PdiSrc].Release != NULL) {
-		Status = DeviceOps[PdiPtr->PdiSrc].Release();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
 	Status = XST_SUCCESS;
 
 END:
+	if (DeviceOps[PdiPtr->PdiSrc].Release != NULL) {
+		(void) DeviceOps[PdiPtr->PdiSrc].Release();
+	}
 	return Status;
 }
 

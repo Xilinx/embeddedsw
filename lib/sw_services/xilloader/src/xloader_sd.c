@@ -29,6 +29,7 @@
 *						in design
 * 1.03  bsv  07/01/2020 Unmount file system after loading PDIs
 *       skd  07/14/2020 Added 64bit support for SD copy destination address
+*       bsv  07/16/2020 Force Cdn bit to 1 to improve performance
 *
 * </pre>
 *
@@ -62,6 +63,8 @@ static FATFS fatfs;
 static u32 XLoader_IsSDRaw;
 static XSdPs SdInstance = {0U,};
 static char BootFile[XLOADER_BASE_FILE_NAME_LEN_SD_1 + 1U] = {0U};
+static u32 SdCdnVal = 0U;
+static u32 SdCdnReg = 0U;
 
 /*****************************************************************************/
 /**
@@ -165,6 +168,21 @@ int XLoader_SdInit(u32 DeviceFlags)
 
 	memset(BootFile, 0U, sizeof(BootFile));
 
+	if ((PdiSrc == XLOADER_PDI_SRC_SD0) ||
+		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
+		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD0_CDN_CTRL);
+		XPlmi_Out32(PMC_IOU_SLCR_SD0_CDN_CTRL,
+			PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
+		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
+	}
+	else {
+		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD1_CDN_CTRL);
+		XPlmi_Out32(PMC_IOU_SLCR_SD1_CDN_CTRL,
+			PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK);
+		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
+	}
+
+
 	if ((DeviceFlags & XLOADER_SD_SBD_ADDR_SET_MASK) ==
 		XLOADER_SD_SBD_ADDR_SET_MASK) {
 		/*
@@ -205,6 +223,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	if (Rc != FR_OK) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_INIT, Rc);
 		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_INIT\n\r");
+		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;
 	}
 
@@ -219,6 +238,8 @@ int XLoader_SdInit(u32 DeviceFlags)
 				BootFile, Rc);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_OPEN, Rc);
 		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_OPEN\n\r");
+		XPlmi_Out32(SdCdnReg, SdCdnVal);
+		(void)f_unmount(BootFile);
 		goto END;
 	}
 	Status = XST_SUCCESS;
@@ -318,6 +339,8 @@ END:
 	int Status = XST_FAILURE;
 	FRESULT Rc;
 
+	XPlmi_Out32(SdCdnReg, SdCdnVal);
+
 	Rc = f_close(&FFil);
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to close file\n\r");
@@ -358,6 +381,19 @@ int XLoader_RawInit(u32 DeviceFlags)
 	XSdPs_Config *SdConfig;
 
 	memset(&SdInstance, 0U, sizeof(SdInstance));
+	if ((PdiSrc == XLOADER_PDI_SRC_SD0_RAW) ||
+		(PdiSrc == XLOADER_PDI_SRC_EMMC0_RAW)) {
+		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD0_CDN_CTRL);
+		XPlmi_Out32(PMC_IOU_SLCR_SD0_CDN_CTRL,
+			PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
+		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
+	}
+	else {
+		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD1_CDN_CTRL);
+		XPlmi_Out32(PMC_IOU_SLCR_SD1_CDN_CTRL,
+			PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK);
+		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
+	}
 
 	/*
 	 * Initialize the host controller
@@ -366,6 +402,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (NULL == SdConfig) {
 		XLoader_Printf(DEBUG_GENERAL,"RAW Lookup config failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_LOOKUP, Status);
+		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;
 	}
 
@@ -374,6 +411,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS) {
 		XLoader_Printf(DEBUG_GENERAL, "RAW Config init failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_CFG, Status);
+		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;
 	}
 
@@ -381,6 +419,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS) {
 		XLoader_Printf(DEBUG_GENERAL, "RAW SD Card init failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_CARD_INIT, Status);
+		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;
 	}
 
@@ -403,6 +442,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_MMC_PART_CONFIG, Status);
+		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;
 	}
 
@@ -501,6 +541,27 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	Status = XST_SUCCESS;
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to restore the card detect value to
+ * PMC_IOU_SLCR registers.
+ *
+ * @param       None
+ *
+ * @return      XST_SUCCESS on success always
+ *
+ ****************************************************************************/
+int XLoader_RawRelease(void)
+{
+	int Status = XST_FAILURE;
+
+	XPlmi_Out32(SdCdnReg, SdCdnVal);
+
+	Status = XST_SUCCESS;
+
 	return Status;
 }
 #endif /* end of XLOADER_SD_0 */
