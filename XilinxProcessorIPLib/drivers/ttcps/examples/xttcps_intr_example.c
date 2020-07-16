@@ -36,6 +36,9 @@
 * 3.10 mus    05/20/19 Update example to make it generic to run on any
 *                      intended TTC device
 *      aru    05/30/19 Updated the exapmle to use XTtcPs_InterruptHandler().
+* 3.12 mus    07/13/20 Updated SettingsTable, to hold settings for PWM and tick
+*                       timer device setting at correct indices. It fixes
+*                       CR#1069191.
 *</pre>
 ******************************************************************************/
 
@@ -121,8 +124,8 @@ static void PWMHandler(void *CallBackRef, u32 StatusEvent);
 static XTtcPs TtcPsInst[NUM_DEVICES];	/* Number of available timer counters */
 
 static TmrCntrSetup SettingsTable[NUM_DEVICES] = {
-	{100, 0, 0, 0},	/* Ticker timer counter initial setup, only output freq */
 	{200, 0, 0, 0}, /* PWM timer counter initial setup, only output freq */
+	{100, 0, 0, 0},	/* Ticker timer counter initial setup, only output freq */
 };
 
 XScuGic InterruptController;  /* Interrupt controller instance */
