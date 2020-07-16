@@ -7,7 +7,7 @@
 /**
 *
 * @file xttcps.h
-* @addtogroup ttcps_v3_11
+* @addtogroup ttcps_v3_12
 * @{
 * @details
 *
