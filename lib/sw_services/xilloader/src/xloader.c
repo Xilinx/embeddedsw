@@ -536,6 +536,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u32 ImageNum;
 	u32 PrtnNum;
 	u32 PrtnIndex;
+	u32 DeviceFlags = PdiPtr->PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -625,8 +626,8 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	Status = XST_SUCCESS;
 
 END:
-	if (DeviceOps[PdiPtr->PdiSrc].Release != NULL) {
-		(void) DeviceOps[PdiPtr->PdiSrc].Release();
+	if (DeviceOps[DeviceFlags].Release != NULL) {
+		(void) DeviceOps[DeviceFlags].Release();
 	}
 	return Status;
 }
