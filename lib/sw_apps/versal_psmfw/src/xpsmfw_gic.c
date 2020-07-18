@@ -64,9 +64,17 @@ void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 	}
 }
 
+/******************************************************************************/
 /**
- * XPsmFw_GicIrqDisable() - Disables GICP2 PSM Irq's
- */
+ * @brief	Disables GICProxy2 interrupts.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
 void XPsmFw_GicP2IrqDisable(void)
 {
 	u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |
@@ -78,9 +86,18 @@ void XPsmFw_GicP2IrqDisable(void)
 	/* Disable GIC PSM irq */
 	XPsmFw_Write32(PSM_GLOBAL_GICP_PSM_IRQ_DIS, PSM_GLOBAL_GICP_GICP2_MASK);
 }
+
+/******************************************************************************/
 /**
- * XPsmFw_GicIrqEnable() - Enables GICP2 PSM Irq's
- */
+ * @brief	Enables GICProxy2 interrupts.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
 void XPsmFw_GicP2IrqEnable(void)
 {
 	u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |

@@ -40,6 +40,18 @@ DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN] = {
 	{0x688U, 0x1FF80000U},
 };
 
+/****************************************************************************/
+/**
+ * @brief	Handler function for DVSEC Config Reads. This function also
+ * invokes DvsecInit on its first call.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_DvsecRead(void)
 {
 	if (((Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF)
@@ -78,6 +90,17 @@ void XPsmFw_DvsecRead(void)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handler function for DVSEC Config Writes
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_DvsecWrite(void)
 {
 	if (((Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF) &
@@ -90,6 +113,17 @@ void XPsmFw_DvsecWrite(void)
 }
 
 void XPsmFw_DvsecPLHandler(void)
+/****************************************************************************/
+/**
+ * @brief	Execute PSM->PL handoff on recieving a PL Ready interrupt
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 {
 	PlIntrRcvd = TRUE;
 
@@ -109,6 +143,17 @@ void XPsmFw_DvsecPLHandler(void)
 	XPsmFw_GicP2IrqDisable();
 }
 
+/****************************************************************************/
+/**
+ * @brief	Initializes necessary DVSEC PCSR registers
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_DvsecInit(void)
 {
 	u32 Value;
