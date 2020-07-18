@@ -27,7 +27,10 @@
  * 2.0   mn   02/28/19 Add Dynamic DDR initialization support for all DDR DIMMs
  *       mn   03/12/19 Select EEPROM Lower Page for reading SPD data
  *       mn   09/03/19 Fix coverity warnings
- * 2.1   mn   12/24/19 Enable Address Mirroring based on SPD data
+ * 3.0   bsv  11/12/19 Added support for ZCU216 board
+ *       mn   12/24/19 Enable Address Mirroring based on SPD data
+ *       bsv  02/05/20 Added support for ZCU208 board
+ *
  * </pre>
  *
  * @note

@@ -38,6 +38,12 @@
 * 5.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
 *       mus  02/26/19 Added support for armclang compiler
 *       vns  03/14/19 Setting AES and SHA hardware engines into reset.
+* 6.0   bsv  08/27/19 Added check to ensure padding in image header does not
+*                     exceed allotted buffer in OCM
+* 7.0   bsv  03/05/20 Restore value of SD_CDN_CTRL register before handoff
+*       ma   03/19/20 Update the status of FSBL image encryption in PMU Global
+*                     register
+*
 * </pre>
 *
 * @note

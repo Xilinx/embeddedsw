@@ -24,6 +24,10 @@
  *                     it is by passed.
  *       bv   03/17/17 Modified such that XFsbl_PmInit is done only duing
  *                     system reset
+ * 3.0   ma   09/09/19 Update FSBL proc info reporting to PMU
+ * 4.0   bsv  03/05/19 Restore value of SD_CDN_CTRL register before
+ *                     handoff in FSBL
+ *
  * </pre>
  *
  * @note
