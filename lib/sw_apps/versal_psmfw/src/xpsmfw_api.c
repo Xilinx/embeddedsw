@@ -7,6 +7,7 @@
 #include "xpsmfw_api.h"
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_power.h"
+#include "xpsmfw_gic.h"
 
 #define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
 	Payload[0] = (u32)Arg0;		\
@@ -80,6 +81,10 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 			break;
 		case PSM_API_FPD_HOUSECLEAN:
 			Status = XPsmFw_FpHouseClean(Payload[1]);
+			break;
+		case PSM_API_CCIX_EN:
+			XPsmFw_GicP2IrqEnable();
+			Status = XST_SUCCESS;
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
