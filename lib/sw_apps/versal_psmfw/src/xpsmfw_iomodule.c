@@ -125,15 +125,10 @@ static void XPsmfw_InterruptGicP2Handler(void)
 {
 	u32 GicP2IrqStatus;
 	u32 GicP2IrqMask;
-	XStatus Status;
 
 	GicP2IrqStatus = XPsmFw_Read32(PSM_GLOBAL_GICP2_IRQ_STATUS);
 	GicP2IrqMask = XPsmFw_Read32(PSM_GLOBAL_GICP2_IRQ_MASK);
-	Status = XPsmFw_DispatchGicP2Handler(GicP2IrqStatus, GicP2IrqMask);
-	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR, "Error in handling GICP2 interrupt\r\n");
-	}
-
+	XPsmFw_DispatchGicP2Handler(GicP2IrqStatus, GicP2IrqMask);
 }
 
 /* Structure for Top level interrupt table */

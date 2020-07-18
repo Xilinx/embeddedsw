@@ -32,24 +32,27 @@ static struct GicP2HandlerTable_t GicHandlerTable[] = {
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, XPsmFw_DvsecRead},
 };
 
+/******************************************************************************/
 /**
- * XPsmFw_DispatchGicP2Handler() - GIC Proxy 2 interrupt handler
+ * @brief	Dispatche handler for GICProxy2 interrupts.
  *
- * @GICP2Status   GICP2 status register value
- * @GICP2IntMask  GICP2 interrupt mask register value
+ * @param GICP2Status	GICP2 status register value
+ * @param GICP2IntMask	GICP2 interrupt mask register value
  *
- * @return         XST_SUCCESS or error code
- */
-XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 {
-	XStatus Status = XST_SUCCESS;
 	u32 Idx;
 
 	for (Idx = 0U; Idx < ARRAYSIZE(GicHandlerTable); Idx++) {
 		if ((CHECK_BIT(GicP2Status, GicHandlerTable[Idx].Mask) != 0) &&
 		     (CHECK_BIT(GicP2IntMask, GicHandlerTable[Idx].Mask) == 0)) {
 			/* Call gic handler */
-			Status = GicHandlerTable[Idx].Handler();
+			GicHandlerTable[Idx].Handler();
 		}
 
 		/* Ack the service */
@@ -58,8 +61,6 @@ XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 		XPsmFw_Write32(PSM_GLOBAL_GICP_PSM_IRQ_STATUS,
 			       PSM_GLOBAL_GICP_GICP2_MASK);
 	}
-
-	return Status;
 }
 
 /**
