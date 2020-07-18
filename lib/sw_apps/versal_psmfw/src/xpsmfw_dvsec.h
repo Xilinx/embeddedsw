@@ -74,13 +74,40 @@ extern "C" {
 #define DVSEC_PCSR_PROT_PL_CAPSTAT_IDX	0x3U
 #define DVSEC_PCSR_PROT_PL_CNTRL_IDX	0x4U
 
+/**
+Register write after masking original value of the register with specified mask.
+
+@param Reg	Register base address
+@param Off	Register address offset
+@param Mask	Mask for the value
+@param Val	Value to be written
+*/
 #define Dvsec_Wr_M32(Reg, Off, Mask, Val) \
 	Xil_Out32((Reg) + (Off), (Xil_In32((Reg) + (Off)) & (Mask)) | (Val))
 
+/**
+Register write operation.
+
+@param Reg	Register base address
+@param Off	Register address offset
+@param Val	Value to be written
+*/
 #define Dvsec_Wr32(Reg, Off, Val) Xil_Out32((Reg) + (Off), (Val))
 
+/**
+Register read operation.
+
+@param Reg	Register base address
+@param Off	Register address offset
+*/
 #define Dvsec_Rd32(Reg, Off) Xil_In32((Reg) + (Off))
 
+/**
+Calculate index of register from the specified DVSEC struct
+
+@param Reg		Register offset
+@param DvsecStruct	Dvsec Structure
+*/
 #define DVSEC_CALC_IDX(Reg, DvsecStruct) \
 	((Reg) - (DvsecStruct[0].DvsecOff)) / (DVSEC_REG_SIZE)
 
