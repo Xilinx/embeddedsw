@@ -67,6 +67,7 @@ extern "C" {
 #define PSM_API_DIRECT_PWR_DWN	(1U)
 #define PSM_API_DIRECT_PWR_UP	(2U)
 #define PSM_API_FPD_HOUSECLEAN	(3U)
+#define PSM_API_CCIX_EN		(4U)
 
 /**
  *  PM init node functions
