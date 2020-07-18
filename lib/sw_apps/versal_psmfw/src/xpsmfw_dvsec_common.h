@@ -31,6 +31,8 @@ extern "C" {
 
 void XPsmFw_DvsecRead(void);
 void XPsmFw_DvsecWrite(void);
+void XPsmFw_DvsecPLHandler(void);
+void XPsmFw_GicP2IrqDisable(void);
 
 #ifdef __cplusplus
 }

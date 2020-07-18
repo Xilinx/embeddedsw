@@ -25,6 +25,8 @@
 #include "pmc_global.h"
 #include "xpsmfw_dvsec.h"
 
+static u8 PlIntrRcvd = FALSE;
+
 static DvsecPcsr DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN] = {
 	{0x644U, 0x00000023U},
 	{0x648U, 0x66000000U},
@@ -40,8 +42,9 @@ DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN] = {
 
 void XPsmFw_DvsecRead(void)
 {
-	if ((Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF)
-		& CPM_SLCR_DVSEC_CFG_RD_MASK) == CPM_SLCR_DVSEC_CFG_RD_MASK) {
+	if (((Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF)
+		& CPM_SLCR_DVSEC_CFG_RD_MASK) == CPM_SLCR_DVSEC_CFG_RD_MASK) &&
+	     (PlIntrRcvd == FALSE)) {
 		static u8 DvsecInit;
 		u32 RegNum = 0U;
 		u32 Index = 0U;
@@ -77,12 +80,33 @@ void XPsmFw_DvsecRead(void)
 
 void XPsmFw_DvsecWrite(void)
 {
-	if ((Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF) &
-		CPM_SLCR_DVSEC_CFG_WR_MASK) == CPM_SLCR_DVSEC_CFG_WR_MASK) {
+	if (((Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF) &
+		CPM_SLCR_DVSEC_CFG_WR_MASK) == CPM_SLCR_DVSEC_CFG_WR_MASK) &&
+	    (PlIntrRcvd == FALSE)) {
 		Xil_Out32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF,
 			  Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF));
 		Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
 	}
+}
+
+void XPsmFw_DvsecPLHandler(void)
+{
+	PlIntrRcvd = TRUE;
+
+	/* Enable PL CPM SLCR MISC/CORR interrupts */
+	Xil_Out32(CPM_SLCR_BASE + CPM_PL_MISC_IRQ_ENA_OFF,
+		  CPM_MISC_IRQ_UNMASK);
+	Xil_Out32(CPM_SLCR_BASE + CPM_PL_CORR_IRQ_ENA_OFF,
+		  CPM_CORR_IRQ_UNMASK);
+
+	/* Disable PS CPM SLCR MISC/CORR interrupts */
+	Xil_Out32(CPM_SLCR_BASE + CPM_PS_MISC_IRQ_DIS_OFF,
+			CPM_MISC_IRQ_UNMASK);
+	Xil_Out32(CPM_SLCR_BASE + CPM_PS_CORR_IRQ_DIS_OFF,
+			CPM_CORR_IRQ_UNMASK);
+
+	/* Disable PSM GIC interrupts */
+	XPsmFw_GicP2IrqDisable();
 }
 
 void XPsmFw_DvsecInit(void)
