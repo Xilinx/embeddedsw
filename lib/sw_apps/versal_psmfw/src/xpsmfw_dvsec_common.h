@@ -29,8 +29,8 @@
 extern "C" {
 #endif
 
-XStatus XPsmFw_DvsecRead(void);
-XStatus XPsmFw_DvsecWrite(void);
+void XPsmFw_DvsecRead(void);
+void XPsmFw_DvsecWrite(void);
 
 #ifdef __cplusplus
 }

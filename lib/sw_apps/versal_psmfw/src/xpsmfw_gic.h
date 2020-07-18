@@ -31,13 +31,13 @@ extern "C" {
 #endif
 
 /* GIC Handler Table Structure */
-typedef XStatus (*HandlerFunction_t)(void);
+typedef void (*GicHandlerFunction_t)(void);
 struct GicP2HandlerTable_t {
         u32 Mask;
-	HandlerFunction_t Handler;
+	GicHandlerFunction_t Handler;
 };
 
-XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask);
+void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask);
 
 void XPsmFw_GicP2IrqEnable(void);
 

@@ -38,60 +38,51 @@ DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN] = {
 	{0x688U, 0x1FF80000U},
 };
 
-XStatus XPsmFw_DvsecRead(void)
+void XPsmFw_DvsecRead(void)
 {
-	static u8 dvsec_init;
-	u32 RegNum = 0U;
-	u32 Index = 0U;
-
 	if ((Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF)
-		& CPM_SLCR_DVSEC_CFG_RD_MASK) == 0U) {
-		return XST_SUCCESS;
+		& CPM_SLCR_DVSEC_CFG_RD_MASK) == CPM_SLCR_DVSEC_CFG_RD_MASK) {
+		static u8 DvsecInit;
+		u32 RegNum = 0U;
+		u32 Index = 0U;
+
+		if (DvsecInit == 0U) {
+			XPsmFw_DvsecInit();
+			DvsecInit = 1U;
+		}
+		RegNum = (((Xil_In32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF)) >>
+			   PCIE_PDVSEC_REG_NO_SHIFT) << PCIE_PDVSEC_REG_FIX_SHIFT);
+
+		if ((RegNum >= DvsecPcsrPrimary[0].DvsecOff) &&
+		    (RegNum <= DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN - 1].DvsecOff)) {
+			Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrPrimary);
+
+			Dvsec_Wr_M32(PCIEA_DVSEC_0, RegNum,
+				    ~(DVSEC_DEV_ID_MASK << DVSEC_DEV_ID_SHIFT),
+				    DvsecPcsrPrimary[Index].Val);
+		} else if ((RegNum >= DvsecPcsrProtocol[0].DvsecOff) &&
+			 (RegNum <= DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN - 1].DvsecOff)) {
+			Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrProtocol);
+			Dvsec_Wr32(PCIEA_DVSEC_0, RegNum,
+				      DvsecPcsrProtocol[Index].Val);
+		} else {
+			Dvsec_Wr32(PCIEA_DVSEC_0, RegNum, 0U);
+		}
+
+		Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
+		Xil_Out32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF,
+			  Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF));
 	}
-
-	if (dvsec_init == 0U) {
-		XPsmFw_DvsecInit();
-		dvsec_init = 1U;
-	}
-
-	RegNum = (((Xil_In32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF)) >>
-		   PCIE_PDVSEC_REG_NO_SHIFT) << PCIE_PDVSEC_REG_FIX_SHIFT);
-
-	if ((RegNum >= DvsecPcsrPrimary[0].DvsecOff) &&
-	    (RegNum <= DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN - 1].DvsecOff)) {
-		Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrPrimary);
-
-		Dvsec_Wr_M32(PCIEA_DVSEC_0, RegNum,
-			    ~(DVSEC_DEV_ID_MASK << DVSEC_DEV_ID_SHIFT),
-			    DvsecPcsrPrimary[Index].Val);
-	} else if ((RegNum >= DvsecPcsrProtocol[0].DvsecOff) &&
-		 (RegNum <= DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN - 1].DvsecOff)) {
-		Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrProtocol);
-		Dvsec_Wr32(PCIEA_DVSEC_0, RegNum,
-			      DvsecPcsrProtocol[Index].Val);
-	} else {
-		Dvsec_Wr32(PCIEA_DVSEC_0, RegNum, 0U);
-	}
-
-	Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
-	Xil_Out32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF,
-		  Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF));
-
-	return XST_SUCCESS;
 }
 
-XStatus XPsmFw_DvsecWrite(void)
+void XPsmFw_DvsecWrite(void)
 {
 	if ((Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF) &
-		CPM_SLCR_DVSEC_CFG_WR_MASK) == 0U) {
-		return XST_SUCCESS;
+		CPM_SLCR_DVSEC_CFG_WR_MASK) == CPM_SLCR_DVSEC_CFG_WR_MASK) {
+		Xil_Out32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF,
+			  Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF));
+		Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
 	}
-
-	Xil_Out32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF,
-		  Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF));
-	Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
-
-	return XST_SUCCESS;
 }
 
 void XPsmFw_DvsecInit(void)
