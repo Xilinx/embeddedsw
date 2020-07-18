@@ -23,6 +23,9 @@
 * 3.0   vns     03/12/19 Added instance to XSecure_Sss structure in
 *                        XFsblPs_PlPartition structure.
 * 4.0   har     06/17/20 Removed references to unused algorithms
+* 5.0   har     01/16/20 Added checks for Status of SSS configuration when AES
+*                        engine is the Resource
+*
 * </pre>
 *
 ******************************************************************************/

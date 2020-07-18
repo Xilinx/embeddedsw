@@ -29,6 +29,8 @@
 *                     eFUSE bit is set, if not encrypted FSBL throw an error.
 *       mus  02/26/19 Added support for armclang compiler
 *       bsv  07/05/19 Remove MD5 checksum related code
+*       bsv  07/19/19 Rectify the TCM limit used for validating DDR address
+*                     by R5 FSBL
 *
 * </pre>
 *

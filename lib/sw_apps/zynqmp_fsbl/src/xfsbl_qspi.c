@@ -24,6 +24,7 @@
 * 4.0   tjs  10/16/18 Added support for QPI mode in Macronix flash parts.
 *       sk   03/13/19 Added dual parallel support and QPI support for 24bit
 *                     boot mode for Macronix flash parts.
+* 5.0   bsv  11/15/20 Added Macronix 2G flash support
 *
 * </pre>
 *

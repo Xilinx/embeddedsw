@@ -25,6 +25,7 @@
 * 5.0   ka   04/10/18 Added error codes for user-efuse revocation
 * 6.0   bkm  04/10/18 Added error codes for FMC_VADJ
 * 7.0	bsv	 08/27/19 Added error code for invalid image header size
+*
 * </pre>
 *
 * @note

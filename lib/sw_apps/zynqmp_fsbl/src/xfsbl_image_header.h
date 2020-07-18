@@ -32,6 +32,8 @@
 *       vns  03/07/18 Added BHDR attribute mask for PUF and macros for
 *                     boot header size.
 *       bsv  07/05/19 Remove MD5 checksum related macro
+*       bsv  07/19/19 Rectify the TCM limit used for validating DDR address
+*                     by R5 FSBL
 *
 * </pre>
 *

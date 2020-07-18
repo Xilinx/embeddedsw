@@ -22,6 +22,7 @@
 *                     Added FSBL_PL_CLEAR_EXCLUDE_VAL, FSBL_USB_EXCLUDE_VAL,
 *                     FSBL_PROT_BYPASS_EXCLUDE_VAL configurations
 * 3.0   vns  03/07/18 Added FSBL_FORCE_ENC_EXCLUDE_VAL configuration
+*
 *</pre>
 *
 * @note
