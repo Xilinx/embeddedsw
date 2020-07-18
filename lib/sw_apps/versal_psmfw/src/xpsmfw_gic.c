@@ -30,7 +30,6 @@
 static struct GicP2HandlerTable_t GicHandlerTable[] = {
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, XPsmFw_DvsecWrite},
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, XPsmFw_DvsecRead},
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, XPsmFw_DvsecATSHandler},
 };
 
 /**

@@ -31,7 +31,6 @@ extern "C" {
 
 XStatus XPsmFw_DvsecRead(void);
 XStatus XPsmFw_DvsecWrite(void);
-XStatus XPsmFw_DvsecATSHandler(void);
 
 #ifdef __cplusplus
 }
