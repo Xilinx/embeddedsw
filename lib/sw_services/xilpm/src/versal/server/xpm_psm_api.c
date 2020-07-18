@@ -346,3 +346,40 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief This Function sends a CCIX_EN IPI to PSM if it design used is a
+ * valid CPM CCIX design.
+ *
+ * @param None
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_CCIXEnEvent(void)
+{
+	u32 Payload[PAYLOAD_ARG_CNT];
+	XStatus Status = XST_FAILURE;
+	u32 RegVal;
+
+	PmIn32(PCIE_ATTRIB_0_TDVSEC_NXT_PTR, RegVal);
+
+	if (RegVal == DVSEC_PCSR_START_ADDR)  {
+		Payload[0] = PSM_API_CCIX_EN;
+
+		Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}

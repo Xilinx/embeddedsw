@@ -21,11 +21,14 @@ extern "C" {
 #define PSM_API_DIRECT_PWR_DWN			(1U)
 #define PSM_API_DIRECT_PWR_UP			(2U)
 #define PSM_API_FPD_HOUSECLEAN			(3U)
+#define PSM_API_CCIX_EN				(4U)
 
 #define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
 #define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
+
+#define DVSEC_PCSR_START_ADDR			(0x644U)
 
 enum ProcDeviceId {
 	ACPU_0,
@@ -47,6 +50,7 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId);
 XStatus XPm_WakeUpEvent(const u32 DeviceId);
 XStatus XPm_DirectPwrUp(const u32 DeviceId);
 XStatus XPm_DirectPwrDwn(const u32 DeviceId);
+XStatus XPm_CCIXEnEvent(void);
 
 #ifdef __cplusplus
 }

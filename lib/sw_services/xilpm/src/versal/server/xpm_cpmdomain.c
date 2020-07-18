@@ -12,6 +12,7 @@
 #include "sleep.h"
 #include "xpm_device.h"
 #include "xpm_debug.h"
+#include "xpm_psm_api.h"
 
 #define XPM_HC_CPM_OPS			0U
 #define XPM_HC_CPM5_OPS			1U
@@ -122,8 +123,12 @@ static XStatus CpmInitFinish(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	Status = XST_SUCCESS;
-
+	/* Send a CCIX_EN IPI to PSM if its a valid CPM CCIX design */
+	Status = XPm_CCIXEnEvent();
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to send CCIX_EN IPI to PSM, Return: 0x%x\r\n",
+		      Status);
+	}
 	return Status;
 }
 
