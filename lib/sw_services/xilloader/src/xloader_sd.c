@@ -339,8 +339,6 @@ END:
 	int Status = XST_FAILURE;
 	FRESULT Rc;
 
-	XPlmi_Out32(SdCdnReg, SdCdnVal);
-
 	Rc = f_close(&FFil);
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to close file\n\r");
@@ -359,6 +357,7 @@ END:
 	Status = XST_SUCCESS;
 
 END:
+	XPlmi_Out32(SdCdnReg, SdCdnVal);
 	return Status;
  }
 

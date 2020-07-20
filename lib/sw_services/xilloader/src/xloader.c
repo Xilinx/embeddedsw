@@ -529,6 +529,7 @@ END:
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 NoOfDelayedHandoffCpus = 0U;
 	u32 DelayHandoffImageNum[XLOADER_MAX_HANDOFF_CPUS] = {0U};
 	u32 DelayHandoffPrtnNum[XLOADER_MAX_HANDOFF_CPUS] = {0U};
@@ -627,7 +628,10 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 
 END:
 	if (DeviceOps[DeviceFlags].Release != NULL) {
-		(void) DeviceOps[DeviceFlags].Release();
+		SStatus = DeviceOps[DeviceFlags].Release();
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
 	}
 	return Status;
 }
@@ -1059,6 +1063,7 @@ END:
 int XLoader_ReloadImage(u32 ImageId)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 DeviceFlags = SubSystemInfo.PdiPtr->PdiSrc &
 				XLOADER_PDISRC_FLAGS_MASK;
 
@@ -1104,17 +1109,17 @@ int XLoader_ReloadImage(u32 ImageId)
 	}
 
 	Status = XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
+	if (DeviceOps[DeviceFlags].Release != NULL) {
+		SStatus = DeviceOps[DeviceFlags].Release();
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (DeviceOps[DeviceFlags].Release != NULL) {
-		Status = DeviceOps[DeviceFlags].Release();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
+END:
 	switch(DeviceFlags)
 	{
 		case XLOADER_PDI_SRC_QSPI24:
@@ -1138,8 +1143,6 @@ int XLoader_ReloadImage(u32 ImageId)
 		default:
 			break;
 	}
-
-END:
 	return Status;
 }
 
