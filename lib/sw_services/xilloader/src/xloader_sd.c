@@ -476,8 +476,7 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	u8 ReadBuffer[1024U];
 	u8* ReadBuffPtr;
 	u32 SectorReadLen;
-	u32 NoOfSectors;
-	u32 Destination = DestAddress;
+	u64 NoOfSectors;
 	(void) Flags;
 
 	RemainingBytes = Length;
@@ -510,7 +509,13 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 			NoOfSectors = 1U;
 		}
 		else {
-			ReadBuffPtr = (u8 *)Destination;
+			if((DestAddress >> 32U) == 0U) {
+				ReadBuffPtr = (u8 *)(UINTPTR)DestAddress;
+			}
+			else {
+				SdInstance.Dma64BitAddr = DestAddress;
+				ReadBuffPtr = NULL;
+			}
 			NoOfSectors = RemainingBytes / XLOADER_SD_RAW_BLK_SIZE;
 			if (NoOfSectors > XLOADER_SD_RAW_NUM_SECTORS) {
 				NoOfSectors = XLOADER_SD_RAW_NUM_SECTORS;
@@ -527,11 +532,16 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 		 * Copy the temporary read data to actual destination
 		 */
 		if (SectorReadLen != XLOADER_SD_RAW_BLK_SIZE) {
-			(void)XPlmi_MemCpy((void *)Destination, (ReadBuffPtr
-					+ (u32)DataOffset), SectorReadLen);
+			Status = XPlmi_DmaXfr(((UINTPTR)ReadBuffPtr + DataOffset), DestAddress,
+					(SectorReadLen / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
+			if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER_SD_RAW, Status);
+				 XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_RAW_READ\n\r");
+				 goto END;
+			}
 		}
 		BlockNumber += NoOfSectors;
-		Destination += (NoOfSectors * SectorReadLen);
+		DestAddress += (NoOfSectors * SectorReadLen);
 		RemainingBytes -= (NoOfSectors * SectorReadLen);
 		SectorReadLen = XLOADER_SD_RAW_BLK_SIZE;
 		DataOffset = 0U;

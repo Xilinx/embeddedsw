@@ -296,6 +296,7 @@ typedef enum {
 							filesystem modes */
 	XLOADER_ERR_SD_UMOUNT,		/**< 0X339 - Error on unmounting filesystem */
 	XLOADER_ERR_DMA_XFER,		/**< 0x33A DMA Transfer failed */
+	XLOADER_ERR_DMA_XFER_SD_RAW,		/**< 0x33B DMA Transfer failed in SD Raw*/
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
