@@ -433,14 +433,25 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 			VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR) == XST_SUCCESS) {
 		RevisionNumber = ONSEMI_NB7NQ621M_CheckDeviceVersion(Iic_Ptr,
 				VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR);
-		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR,
-				RevisionNumber, 1);
-		Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(VfmcPtr, TRUE);
 		if (RevisionNumber == 0x00) {
+			/* Revision 0 Silicon */
 			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R0;
 		} else if (RevisionNumber == 0x01) {
+			/* Revision 1 Silicon */
 			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R1;
+		} else if (RevisionNumber == 0x24) {
+			/* Revision Pass3 Silicon */
+			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R2;
+		} else if (RevisionNumber == 0x02) {
+			/* Revision Pass4 Silicon */
+			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R3;
+		} else {
+			VfmcPtr->TxMezzType = VFMC_MEZZ_INVALID;
+			xil_printf("VFMC TX Mezz Not Supported!\r\n");
 		}
+		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR,
+				VfmcPtr->TxMezzType - VFMC_MEZZ_HDMI_ONSEMI_R0, 1);
+		Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(VfmcPtr, TRUE);
 		xil_printf("VFMC Active HDMI TX Mezz (R%d) Detected\r\n",
 				RevisionNumber);
 	} else {
@@ -457,14 +468,25 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 			VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR) == XST_SUCCESS) {
 		RevisionNumber = ONSEMI_NB7NQ621M_CheckDeviceVersion(Iic_Ptr,
 				VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR);
-		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR,
-				0, RevisionNumber);
-		Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(VfmcPtr, TRUE);
 		if (RevisionNumber == 0x00) {
+			/* Revision 0 Silicon */
 			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R0;
 		} else if (RevisionNumber == 0x01) {
+			/* Revision 1 Silicon */
 			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R1;
+		} else if (RevisionNumber == 0x24) {
+			/* Revision Pass3 Silicon */
+			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R2;
+		} else if (RevisionNumber == 0x02) {
+			/* Revision Pass4 Silicon */
+			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_ONSEMI_R3;
+		} else {
+			VfmcPtr->RxMezzType = VFMC_MEZZ_INVALID;
+			xil_printf("VFMC RX Mezz Not Supported!\r\n");
 		}
+		ONSEMI_NB7NQ621M_Init(Iic_Ptr, VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR,
+				VfmcPtr->RxMezzType - VFMC_MEZZ_HDMI_ONSEMI_R0, 0);
+		Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(VfmcPtr, TRUE);
 		xil_printf("VFMC Active HDMI RX Mezz (R%d) Detected\r\n",
 				RevisionNumber);
 	} else {
@@ -578,8 +600,7 @@ void Vfmc_Gpio_Ch4_DataClock_Sel(XVfmc *VfmcPtr,
 	 */
 	if (((DataClkSel == VFMC_GPIO_TX_CH4_As_DataAndClock) ||
 		 (DataClkSel == VFMC_GPIO_TX_CH4_As_ClockOut)) &&
-		(VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0 ||
-		 VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1)) {
+		(VfmcPtr->TxMezzType != VFMC_MEZZ_HDMI_PASSIVE)) {
 		return;
 	}
 
@@ -668,8 +689,7 @@ void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable)
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 		u64 LineRate)
 {
-	if (VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0 ||
-			VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
+	if (VfmcPtr->TxMezzType != VFMC_MEZZ_HDMI_PASSIVE) {
 		ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
 				VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR,
 				(VfmcPtr->TxMezzType -
@@ -692,7 +712,7 @@ void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 		u64 LineRate)
 {
-	if (VfmcPtr->TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
+	if (VfmcPtr->TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R1) {
 		ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
 				VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR,
 				(VfmcPtr->RxMezzType -
