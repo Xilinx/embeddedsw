@@ -24,6 +24,7 @@
 *                     RSA Zeroization Verification and modified Code for
 *                     Zeroization
 * 4.3   ana  06/04/2020 Minor enhancement
+*       har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
 *
 * </pre>
 *
@@ -727,8 +728,8 @@ u32 XSecure_RsaPublicEncryptKat(void)
 	XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)PubMod,
 		(u8 *)PubModExt, (u8 *)&PubExponent);
 
-	Status = XSecure_RsaPublicEncrypt(&XSecureRsaInstance, (u8 *)RsaData, 512U,
-				(u8 *)RsaOutput);
+	Status = XSecure_RsaPublicEncrypt(&XSecureRsaInstance, (u8 *)RsaData,
+			XSECURE_RSA_4096_KEY_SIZE, (u8 *)RsaOutput);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR;
 		goto END;
