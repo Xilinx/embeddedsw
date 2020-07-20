@@ -684,32 +684,32 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
-	u32 BaseAddr, BisrDataDestAddr;
+	u64 BaseAddr, BisrDataDestAddr;
 	u16 DbgErr = 0;
 
 	/* Compilation warning fix */
 	(void)TagId;
 
-	BaseAddr = (u32)VIVADO_ME_BASEADDR + (TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
+	BaseAddr = (u64)VIVADO_ME_BASEADDR + (TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
 	BisrDataDestAddr = BaseAddr + ME_BISR_FIXED_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger Bisr */
-	PmRmw32(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK);
+	PmRmw64(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK);
 
 	/* Wait for Bisr to finish */
-	Status = XPm_PollForMask(BaseAddr + ME_BISR_CACHE_STATUS_OFFSET,
-				 ME_BISR_CACHE_STATUS_BISR_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask64(BaseAddr + ME_BISR_CACHE_STATUS_OFFSET,
+				   ME_BISR_CACHE_STATUS_BISR_DONE_MASK,
+				   XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
 	/* Check Bisr Status */
-	PmIn32(BaseAddr + ME_BISR_CACHE_STATUS_OFFSET, RegValue);
+	PmIn64(BaseAddr + ME_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & ME_BISR_CACHE_STATUS_BISR_PASS_MASK) !=
 				  ME_BISR_CACHE_STATUS_BISR_PASS_MASK) {
 		DbgErr = XPM_INT_ERR_BISR_PASS;
@@ -718,7 +718,8 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	}
 
 	/* Unwrite Trigger Bit */
-	PmRmw32(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, 0);
+	PmRmw64(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET,
+		ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, 0);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
