@@ -73,6 +73,25 @@ extern "C" {
 			ADDR, MASK, VAL, XPm_In32(ADDR));	\
 	} while (0)
 
+#define PmIn64(ADDR, VAL)					\
+	do {							\
+		(VAL) = XPm_In64(ADDR);				\
+		PmInfo("RD: 0x%016X -> 0x%08X\r\n", ADDR, VAL);	\
+	} while (0)
+
+#define PmOut64(ADDR, VAL)					\
+	do {							\
+		PmInfo("WR: 0x%016X <- 0x%08X\r\n", ADDR, VAL);	\
+		XPm_Out64(ADDR, VAL);				\
+	} while (0)
+
+#define PmRmw64(ADDR, MASK, VAL)				\
+	do {							\
+		XPm_RMW64(ADDR, MASK, VAL);			\
+		PmInfo("RMW: Addr=0x%016X, Mask=0x%08X, Val=0x%08X, Reg=0x%08X\r\n", \
+			ADDR, MASK, VAL, XPm_In64(ADDR));	\
+	} while (0)
+
 #else
 
 #define PmIn32(ADDR, VAL)		((VAL) = XPm_In32(ADDR))
@@ -80,6 +99,12 @@ extern "C" {
 #define PmOut32(ADDR, VAL)		XPm_Out32(ADDR, VAL)
 
 #define PmRmw32(ADDR, MASK, VAL)	XPm_RMW32(ADDR, MASK, VAL)
+
+#define PmIn64(ADDR, VAL)		((VAL) = XPm_In64(ADDR))
+
+#define PmOut64(ADDR, VAL)		XPm_Out64(ADDR, VAL)
+
+#define PmRmw64(ADDR, MASK, VAL)	XPm_RMW64(ADDR, MASK, VAL)
 
 #endif
 
@@ -143,6 +168,10 @@ u32 XPm_GetIdCode(void);
  */
 void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value);
 
+void XPm_Out64(u64 RegAddress, u32 l_Val);
+u32 XPm_In64(u64 RegAddress);
+void XPm_RMW64(u64 RegAddress, u32 Mask, u32 Value);
+
 /**
  * Wait for a period represented by TimeOut
  *
@@ -153,6 +182,7 @@ void XPm_Wait(u32 TimeOutCount);
  * Poll for mask for a period represented by TimeOut
  */
 XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
+int XPm_PollForMask64(u64 RegAddress, u32 Mask, u32 TimeOutCount);
 XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
 /**
