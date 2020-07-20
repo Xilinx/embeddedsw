@@ -346,15 +346,16 @@ void XHdmi_DisplayMainMenu(void)
     xil_printf("       => Change the color depth of the colorbar.\r\n");
     xil_printf("s - Color space\r\n");
     xil_printf("       => Change the color space of the colorbar.\r\n");
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+    xil_printf("q - View 4K Quad Video\r\n");
+    xil_printf("       => Select to display a part 4K Video on TX (TMDS) when \r\n"
+		"              RX (FRL) receives 8K Video\r\n");
+#endif
 #endif
 #if defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
     xil_printf("p - Toggle HPD\r\n");
     xil_printf("       => Toggles the HPD of HDMI RX.\r\n");
-#endif
-#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
-    xil_printf("q - 4K Quad Selection\r\n");
-    xil_printf("       => Display 4K quad video\r\n");
 #endif
     xil_printf("z - GT & HDMI TX/RX log\r\n");
     xil_printf("       => Shows log information for GT & HDMI TX/RX.\r\n");
