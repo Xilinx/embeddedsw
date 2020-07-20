@@ -19,10 +19,10 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  YB     11/05/19 Initial release.
 * 1.01  KU     07/07/20 Support for FrameBuffer
-* 						Can use FRL on RX and TMDS on TX
-* 						Video will be clipped if RX resolution in more than
-* 						4K
-* 						Support Revision2 of OnSemi retimer
+*                       Can use FRL on RX and TMDS on TX
+*                       Video will be clipped if RX resolution in more than
+*                       4K
+*                       Support Revision 2 (Pass 4) of OnSemi retimer
 * </pre>
 *
 ******************************************************************************/
@@ -4313,10 +4313,12 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 							     FALSE,
 							     TxLineRate);
 
+#if defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCU118) || \
+	defined (XPS_BOARD_ZCU102)
 			/* Adjust GT TX Diff Swing based on Line rate */
-			if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0 ||
-				Vfmc[0].TxMezzType ==
-						VFMC_MEZZ_HDMI_ONSEMI_R1) {
+			if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R0 &&
+				Vfmc[0].TxMezzType <  VFMC_MEZZ_INVALID) {
 				/*Convert Line Rate to Mbps */
 				TxLineRate = (u32)((u64) TxLineRate / 1000000);
 
@@ -4329,7 +4331,7 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 						 * 963 mV */
 						TxDiffSwingVal = 0xE;
 					}
-					else if (Vfmc[0].TxMezzType ==
+					else if (Vfmc[0].TxMezzType >=
 						VFMC_MEZZ_HDMI_ONSEMI_R1) {
 						/* Set Tx Diff Swing to
 						 * 1000 mV */
@@ -4355,6 +4357,7 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 								TxDiffSwingVal);
 				}
 			}
+#endif
 		}
 	}
 }
@@ -4426,38 +4429,41 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 					     LineRate);
 
 	/* Adjust GT TX Diff Swing based on Mode */
-	if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0) {
-		/* Set TxDiffSwing to 921 mV for all channels */
-		for (int ChId=1; ChId <= 4; ChId++) {
+	for (int ChId=1; ChId <= 4; ChId++) {
+		if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0) {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xD);
+			Data = 0xD;
 #elif defined (XPS_BOARD_VCU118)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1,
-				0, ChId, ChId==4 ? 0x1C : 0x1A);
+			Data = ChId==4 ? 0x1C : 0x1A;
 #endif
-		}
-	} else if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
-#if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
-		if (LineRate >= (u64)5940000000) {
-			/* Set TxDiffSwing to 1000 mV for all channels */
-			Data = 0xF;
-		} else {
-			/* Set TxDiffSwing to 1000 mV for all channels */
-			Data = 0xF;
-		}
-#endif
-		for (int ChId=1; ChId <= 4; ChId++) {
+		} else if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R1) {
 #if defined (XPS_BOARD_ZCU106)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, Data);
+			/* Set TxDiffSwing to 1000 mV for all channels */
+			Data = 0xF;
 #elif defined (XPS_BOARD_VCU118)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1,
-				0, ChId, ChId==4 ? 0x1C : 0x1A);
+			Data = ChId==4 ? 0x1C : 0x1A;
 #elif defined (XPS_BOARD_ZCU102)
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xD);
+			Data = 0xD;
+#endif
+		} else if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R2) {
+#if defined (XPS_BOARD_ZCU106)
+			if ((ChId == 2) || (ChId == 3)) {
+				Data = 0xD;
+			} else {
+				Data = 0xA;
+			}
+#elif defined (XPS_BOARD_VCU118)
+			Data = 0x1F;
+#elif defined (XPS_BOARD_ZCU102)
+			Data = 0xD;
 #endif
 		}
+#if defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCU118) || \
+	defined (XPS_BOARD_ZCU102)
+		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, Data);
+#endif
 	}
 }
 
