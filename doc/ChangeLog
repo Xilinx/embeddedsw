@@ -58,6 +58,60 @@ mcdma_v1_5:
 Add XMcDma_BdGetAppWord() function declaration to fix the gcc
 warning in mcdma integration test suite.
 
+dp14txss_v6_4:
+Updated for HDCP 2.3
+
+hdcp22_rx_v3_0:
+Updated for HDCP 2.3
+Allow user selection of hdcp 2.2 broadcasting
+
+hdcp22_rx_dp_v2_0:
+Updated for HDCP 2.3
+
+hdcp22_tx_v3_0:
+Updated for HDCP 2.3
+
+hdcp22_tx_dp_v2_0:
+Updated for HDCP 2.3
+
+mipicsiss_v1_4:
+Updated for HDCP 2.3
+
+v_hdmirx_v2_6:
+Add non-zero check for timing parameters
+
+v_hdmirx1_v1_1:
+Add protection for Max FRL rate
+Add support for 3D audio
+
+v_hdmirxss_v6_0:
+Updated for HDCP 2.3
+Allow user selection of hdcp protocol
+clean up AviInfoFrame upon stream down
+Implement pixel drop for DVI
+
+v_hdmirxss1_v2_0:
+Updated for HDCP 2.3
+Add protection for Max FRL rate
+Add support for 3D audio
+Allow user selection of hdcp protocol
+clean up AviInfoFrame upon stream down
+Implement pixel drop for DVI
+
+v_hdmitx1_v1_1:
+Add support for 3D audio
+
+v_hdmitxss_v6_0:
+Updated for HDCP 2.3
+
+v_hdmitxss1_v2_0:
+Updated for HDCP 2.3
+Update max_frl_rate in Edid based on device in PT examaple
+Add support for 3D audio
+
+video_common_v4_10:
+Fix field1 values of 1440x480i/576i modes
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
