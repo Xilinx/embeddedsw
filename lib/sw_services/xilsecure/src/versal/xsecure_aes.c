@@ -33,6 +33,8 @@
 *                       XPmcDma_64BitTransfer
 *       kpt  07/08/2020 Removed dummy code and Status value reinitialized
 *                       to XST_FAILURE
+*       har  07/12/2020 Removed magic number from XSecure_AesKeyZero
+*
 * </pre>
 *
 * @note
@@ -545,7 +547,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 		XSECURE_AES_SOFT_RST_OFFSET);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -750,7 +752,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -766,7 +768,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 				XPMCDMA_DST_CHANNEL,
 				(u32)OutDataAddr, (u32)(OutDataAddr >> 32U),
-				Size/XSECURE_WORD_SIZE, 0);
+				Size/XSECURE_WORD_SIZE, 0U);
 	}
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
@@ -847,7 +849,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 					XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1076,7 +1078,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1170,7 +1172,7 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 					XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1185,7 +1187,7 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 			XPMCDMA_DST_CHANNEL,
 			(u32)GcmTagAddr, (u32)(GcmTagAddr >> 32U),
-			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0);
+			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
 	/* Wait for the DST DMA completion. */
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 
@@ -1356,7 +1358,7 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 			XSECURE_AES_UNINITIALIZED);
 
 	*Size = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
-			XSECURE_AES_IV_3_OFFSET)) * 4;
+			XSECURE_AES_IV_3_OFFSET)) * 4U;
 
 	return XST_SUCCESS;
 }
@@ -1487,7 +1489,7 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
 	}
-	else if (AesKeyLookupTbl[KeySrc].KeyClearVal != 0xFFFFFFFF) {
+	else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XSECURE_AES_INVALID_CFG) {
 		Mask = AesKeyLookupTbl[KeySrc].KeyClearVal;
 	}
 	else {
@@ -1534,7 +1536,7 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 		XPmcDma_Channel Channel,
 		u8 EndianType)
 {
-	XPmcDma_Configure ConfigValues = {0};
+	XPmcDma_Configure ConfigValues = {0U};
 
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1933,7 +1935,7 @@ static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc Key
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
