@@ -205,7 +205,7 @@ static inline struct virtqueue *virtqueue_allocate(unsigned int num_desc_extra)
 	uint32_t vq_size = sizeof(struct virtqueue) +
 		 num_desc_extra * sizeof(struct vq_desc_extra);
 
-	vqs = metal_allocate_memory(vq_size);
+	vqs = (struct virtqueue *)metal_allocate_memory(vq_size);
 	if (vqs) {
 		memset(vqs, 0x00, vq_size);
 	}
