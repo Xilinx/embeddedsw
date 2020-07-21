@@ -29,6 +29,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_util.h"
 #include "xloader_ddr.h"

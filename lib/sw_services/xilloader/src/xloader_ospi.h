@@ -39,8 +39,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
-
 #ifdef XLOADER_OSPI
 #include "xparameters.h"	/* SDK generated parameters */
 #include "xospipsv.h"		/* OSPIPSV device driver */

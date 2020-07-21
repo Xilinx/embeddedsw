@@ -30,7 +30,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "xplmi_hw.h"
 #ifdef XLOADER_USB
 #include "xusbpsu.h"
 

@@ -44,7 +44,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
 #include "xplmi_status.h"
 
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)

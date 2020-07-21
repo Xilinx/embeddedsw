@@ -36,7 +36,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
 #include "xplmi_dma.h"
 #include "xplmi_status.h"
 #include "xplmi_debug.h"

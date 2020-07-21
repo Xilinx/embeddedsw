@@ -33,10 +33,10 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 #include "xloader_qspi.h"
 #include "xplmi_dma.h"
 #include "xloader.h"
-#include "xplmi_hw.h"
 
 #ifdef XLOADER_QSPI
 

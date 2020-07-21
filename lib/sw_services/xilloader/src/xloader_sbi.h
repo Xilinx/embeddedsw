@@ -37,7 +37,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
 #include "xplmi_dma.h"
 #include "xplmi_status.h"
 #ifdef XLOADER_SBI

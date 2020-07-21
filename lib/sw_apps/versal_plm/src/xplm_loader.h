@@ -38,6 +38,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
+#include "xplmi_hw.h"
 #include "xloader.h"
 
 /************************** Constant Definitions *****************************/
@@ -48,6 +49,24 @@ extern "C" {
 #define XLOADER_KAT_DONE        (0x000001F0U)
 #define EFUSE_CACHE_MISC_CTRL   (0xF12500A0U)
 #define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK        (0X00008000U)
+
+static inline PdiSrc_t XLoader_GetBootMode(void)
+{
+	u32 BootMode;
+
+	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
+				CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
+
+	return (PdiSrc_t)BootMode;
+}
+
+static inline u8 XLoader_IsJtagSbiMode(void)
+{
+	return (u8)(((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &
+				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ==
+				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ?
+				(TRUE) : (FALSE));
+}
 
 /************************** Function Prototypes ******************************/
 int XPlm_LoaderInit(void);

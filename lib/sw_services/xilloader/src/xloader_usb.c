@@ -25,6 +25,7 @@
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
+#include "xplmi_hw.h"
 #include "xloader_usb.h"
 #ifdef XLOADER_USB
 #include "xloader_dfu_util.h"
