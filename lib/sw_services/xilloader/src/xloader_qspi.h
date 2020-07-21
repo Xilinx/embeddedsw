@@ -40,7 +40,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
 #include "xplmi_status.h"
 #ifdef XLOADER_QSPI
 #include "xqspipsu.h"

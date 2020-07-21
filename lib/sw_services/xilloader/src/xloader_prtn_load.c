@@ -45,6 +45,7 @@
 
 /***************************** Include Files *********************************/
 #include "xpm_nodeid.h"
+#include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_dma.h"
 #include "xplmi_debug.h"

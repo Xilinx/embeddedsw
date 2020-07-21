@@ -32,6 +32,7 @@ commands.
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_cmd.h"
 #include "xplmi_modules.h"

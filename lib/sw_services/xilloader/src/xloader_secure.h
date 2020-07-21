@@ -38,6 +38,7 @@ extern "C" {
 #include "xsecure_sha.h"
 #include "xsecure_rsa.h"
 #include "xsecure_aes.h"
+#include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_util.h"
 #include "xpuf.h"

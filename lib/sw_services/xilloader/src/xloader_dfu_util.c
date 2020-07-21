@@ -23,6 +23,7 @@
 * </pre>
 *
 *****************************************************************************/
+#include "xplmi_hw.h"
 #include "xloader_dfu_util.h"
 #ifdef XLOADER_USB
 #include "xparameters.h"	/* XPAR parameters */

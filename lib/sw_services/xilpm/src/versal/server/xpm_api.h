@@ -10,6 +10,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_defs.h"
+#include "xloader.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,9 +20,6 @@ extern "C" {
 #define PGGS_BASEADDR	(0xF1110050U)
 
 #define MAX_BASEADDR_LEN	3
-
-/* Extern Variable and Function */
-extern int XLoader_RestartImage(u32 SubsystemId);
 
 XStatus XPm_Init(void (* const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload));
 

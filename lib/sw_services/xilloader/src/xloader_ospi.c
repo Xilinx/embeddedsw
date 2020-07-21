@@ -34,6 +34,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 #include "xloader_ospi.h"
 #include "xplmi_proc.h"
 #include "xloader.h"

@@ -31,11 +31,11 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
 #include "xloader_sbi.h"
-#include "xplmi_hw.h"
 
 #if defined(XLOADER_SBI)
 /************************** Constant Definitions *****************************/

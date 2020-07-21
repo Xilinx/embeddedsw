@@ -69,7 +69,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xilpdi.h"
-#include "xplmi_hw.h"
 #include "xplmi_status.h"
 #include "xplmi_debug.h"
 #include "xloader_ospi.h"
@@ -296,24 +295,6 @@ typedef struct {
 } XLoader_IdCodeInfo __attribute__ ((aligned(16U)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
-static inline PdiSrc_t XLoader_GetBootMode(void)
-{
-	u32 BootMode;
-
-	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
-						CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
-
-	return (PdiSrc_t)BootMode;
-}
-
-static inline u8 XLoader_IsJtagSbiMode(void)
-{
-	return (u8)(((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &
-				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ==
-				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ?
-				(TRUE) : (FALSE));
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function checks if authentication is enabled or not.

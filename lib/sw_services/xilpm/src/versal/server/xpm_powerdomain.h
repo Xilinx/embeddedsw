@@ -10,6 +10,7 @@
 #include "xpm_power.h"
 #include "xpm_reset.h"
 #include "xpm_domain_iso.h"
+#include "xloader.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,7 +21,6 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 /* Extern Variable and Function */
 extern u32 SysmonAddresses[];
 extern u32 ResetReason;
-extern int XLoader_ReloadImage(u32 ImageId);
 
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
