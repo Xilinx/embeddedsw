@@ -119,14 +119,6 @@ done:
 	return Status;
 }
 
-void XPmReset_ChangePsPorResetType(void)
-{
-	XPm_ResetNode* Rst = XPmReset_GetById(PM_RST_PS_POR);
-	if (NULL != Rst) {
-		Rst->Ops = &ResetOps[XPM_RSTOPS_CUSTOM];
-	}
-}
-
 XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 {
 	u32 ResetIndex = NODEINDEX(ResetId);
