@@ -83,6 +83,10 @@ enum XPm_ReqNsRegionCheckType {
 #define REG_FLAGS_NSREGN_CHECK_MASK	(0x20U)
 #define REG_FLAGS_NSREGN_CHECK_OFFSET	(0x5U)
 
+#define REG_FLAGS_CAPABILITY_OFFSET	(0x8U)
+#define REG_FLAGS_CAPABILITY_MASK	(0x7F00U)
+#define REG_FLAGS_PREALLOC_OFFSET	(0xFU)
+#define REG_FLAGS_PREALLOC_MASK		(0x8000U)
 /**
  * Combined mask for requirement flags
  */
@@ -90,7 +94,9 @@ enum XPm_ReqNsRegionCheckType {
 				 REG_FLAGS_SECURITY_MASK |\
 				 REG_FLAGS_RD_POLICY_MASK |\
 				 REG_FLAGS_WR_POLICY_MASK |\
-				 REG_FLAGS_NSREGN_CHECK_MASK)
+				 REG_FLAGS_NSREGN_CHECK_MASK |\
+				 REG_FLAGS_CAPABILITY_MASK |\
+				 REG_FLAGS_PREALLOC_MASK)
 
 /**
  * Make Requirement Flags from individual attributes
@@ -101,8 +107,10 @@ enum XPm_ReqNsRegionCheckType {
  *     - Read Policy
  *     - Write Policy
  */
-#define REQUIREMENT_FLAGS(RegnCheck, Wr, Rd, Security, Usage) \
-				(((RegnCheck) << (REG_FLAGS_NSREGN_CHECK_OFFSET)) | \
+#define REQUIREMENT_FLAGS(Prealloc, Capability, RegnCheck, Wr, Rd, Security, Usage) \
+				(((Prealloc) << (REG_FLAGS_PREALLOC_OFFSET)) | \
+				 ((Capability) << (REG_FLAGS_CAPABILITY_OFFSET)) | \
+				 ((RegnCheck) << (REG_FLAGS_NSREGN_CHECK_OFFSET)) | \
 				 ((Wr) << (REG_FLAGS_WR_POLICY_OFFSET)) | \
 				 ((Rd) << (REG_FLAGS_RD_POLICY_OFFSET)) | \
 				 ((Security) << (REG_FLAGS_SECURITY_OFFSET)) | \
@@ -116,6 +124,8 @@ enum XPm_ReqNsRegionCheckType {
 #define RD_POLICY(Flags)	(((Flags) & REG_FLAGS_RD_POLICY_MASK) >> REG_FLAGS_RD_POLICY_OFFSET)
 #define WR_POLICY(Flags)	(((Flags) & REG_FLAGS_WR_POLICY_MASK) >> REG_FLAGS_WR_POLICY_OFFSET)
 #define REGN_CHECK_POLICY(Flags)(((Flags) & REG_FLAGS_NSREGN_CHECK_MASK) >> REG_FLAGS_NSREGN_CHECK_OFFSET)
+#define CAPABILITY(Flags)	(((Flags) & REG_FLAGS_CAPABILITY_MASK) >> REG_FLAGS_CAPABILITY_OFFSET)
+#define ISPREALLOCREQUIRED(Flags)(((Flags) & REG_FLAGS_PREALLOC_MASK) >> REG_FLAGS_PREALLOC_OFFSET)
 
 /**
  * The requirement class.
@@ -125,13 +135,13 @@ struct XPm_Reqm {
 	XPm_Device *Device; /**< Device used by the subsystem */
 	XPm_Requirement *NextDevice; /**< Requirement on the next device from this subsystem */
 	XPm_Requirement *NextSubsystem; /**< Requirement from the next subsystem on this device */
-	u8 Allocated; /**< Device has been allocated to the subsystem */
-	u8 SetLatReq; /**< Latency has been set from the subsystem */
-	u8 Flags;	  /** Flags */
-	u8 NumParams; /**< Params count */
 	u32 Params[MAX_REQ_PARAMS]; /**< Params */
 	XPm_ReqmInfo Curr; /**< Current requirements */
 	XPm_ReqmInfo Next; /**< Pending requirements */
+	u16 Flags;	  /** Flags */
+	u8 Allocated; /**< Device has been allocated to the subsystem */
+	u8 SetLatReq; /**< Latency has been set from the subsystem */
+	u8 NumParams; /**< Params count */
 };
 
 /************************** Function Prototypes ******************************/

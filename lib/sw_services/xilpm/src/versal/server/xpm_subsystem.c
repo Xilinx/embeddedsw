@@ -514,8 +514,25 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	u32 i = 0;
 	u16 DbgErr = 0;
+	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
+	const u32 DefaultPreallocDevList[][2] = {
+		{PM_DEV_PSM_PROC, PM_CAP_ACCESS},
+		{PM_DEV_UART_0, XPM_MAX_CAPABILITY},
+		{PM_DEV_UART_1, XPM_MAX_CAPABILITY},
+		{PM_DEV_OCM_0, PM_CAP_ACCESS | PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1, PM_CAP_ACCESS | PM_CAP_CONTEXT},
+		{PM_DEV_OCM_2, PM_CAP_ACCESS | PM_CAP_CONTEXT},
+		{PM_DEV_OCM_3, PM_CAP_ACCESS | PM_CAP_CONTEXT},
+		{PM_DEV_DDR_0, PM_CAP_ACCESS | PM_CAP_CONTEXT},
+		{PM_DEV_ACPU_0, PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1, PM_CAP_ACCESS},
+		{PM_DEV_SDIO_0, PM_CAP_ACCESS},
+		{PM_DEV_SDIO_1, PM_CAP_ACCESS},
+		{PM_DEV_GEM_0, XPM_MAX_CAPABILITY},
+		{PM_DEV_GEM_1, XPM_MAX_CAPABILITY},
+		{PM_DEV_RPU0_0, PM_CAP_ACCESS},
+	};
 
 	if (((u32)XPM_NODECLASS_SUBSYSTEM != NODECLASS(SubsystemId)) ||
 	    ((u32)XPM_NODESUBCL_SUBSYSTEM != NODESUBCLASS(SubsystemId)) ||
@@ -573,8 +590,17 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			 */
 			XPm_Device *Device = XPmDevice_GetByIndex(i);
 			if (NULL != Device) {
+				Prealloc = 0;
+				Capability = 0;
+				for (j = 0; j < ARRAY_SIZE(DefaultPreallocDevList); j++) {
+					if (Device->Node.Id == DefaultPreallocDevList[j][0]) {
+						Prealloc = 1;
+						Capability = DefaultPreallocDevList[j][1];
+						break;
+					}
+				}
 				Status = XPmRequirement_Add(Subsystem, Device,
-						REQUIREMENT_FLAGS(0, 0, 0,
+						REQUIREMENT_FLAGS(Prealloc, Capability, 0, 0, 0,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
 						NULL, 0);
@@ -589,7 +615,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
 			if (NULL != Device) {
 				Status = XPmRequirement_Add(Subsystem, Device,
-						REQUIREMENT_FLAGS(0, 0, 0,
+						REQUIREMENT_FLAGS(0, 0, 0, 0, 0,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
 						NULL, 0);
