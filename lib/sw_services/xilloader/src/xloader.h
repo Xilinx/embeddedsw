@@ -298,12 +298,12 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 static inline PdiSrc_t XLoader_GetBootMode(void)
 {
-	PdiSrc_t PdiSrc;
+	u32 BootMode;
 
-	PdiSrc = (PdiSrc_t) (XPlmi_In32(CRP_BOOT_MODE_USER) &
-							CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
+	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
+						CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
 
-	return PdiSrc;
+	return (PdiSrc_t)BootMode;
 }
 
 static inline u8 XLoader_IsJtagSbiMode(void)
