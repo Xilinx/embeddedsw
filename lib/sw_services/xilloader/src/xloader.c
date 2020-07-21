@@ -62,6 +62,7 @@
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xpm_api.h"
+#include "xpm_subsystem.h"
 #include "xpm_nodeid.h"
 #include "xloader_secure.h"
 #ifdef XPLM_SEM
@@ -973,6 +974,17 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 		if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND,
 						0);
+			goto END;
+		}
+	}
+
+	/* Configure preallocs for subsystem */
+	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
+			== XPM_NODECLASS_SUBSYSTEM) {
+		Status = XPmSubsystem_Configure(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
 			goto END;
 		}
 	}

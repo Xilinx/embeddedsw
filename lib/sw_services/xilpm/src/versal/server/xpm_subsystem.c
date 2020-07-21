@@ -510,6 +510,41 @@ done:
 	return Status;
 }
 
+XStatus XPmSubsystem_Configure(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	XPm_Requirement *Reqm;
+	u32 DeviceId;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	PmDbg("Configuring Subsystem: 0x%x\r\n", SubsystemId);
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		if ((1U != Reqm->Allocated) && ISPREALLOCREQUIRED(Reqm->Flags)) {
+			DeviceId = Reqm->Device->Node.Id;
+			PmDbg("Prealloc Node: 0x%x Capabilities: 0x%x\r\n", DeviceId, CAPABILITY(Reqm->Flags));
+			Status = XPm_RequestDevice(SubsystemId, DeviceId,
+					   (u32)CAPABILITY(Reqm->Flags), XPM_DEF_QOS, 0);
+			if (XST_SUCCESS != Status) {
+				PmErr("Requesting prealloc device 0x%x failed.\n\r", DeviceId);
+				Status = XPM_ERR_DEVICE_REQ;
+				goto done;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
