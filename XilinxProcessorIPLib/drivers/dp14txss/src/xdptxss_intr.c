@@ -7,7 +7,7 @@
 /**
 *
 * @file xdptxss_intr.c
-* @addtogroup dptxss_v6_3
+* @addtogroup dptxss_v6_4
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
