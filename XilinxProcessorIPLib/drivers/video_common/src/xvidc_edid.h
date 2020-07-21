@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc_edid.h
- * @addtogroup video_common_v4_9
+ * @addtogroup video_common_v4_10
  * @{
  *
  * Contains macros, definitions, and function declarations related to the
