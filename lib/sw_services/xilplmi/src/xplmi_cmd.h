@@ -65,7 +65,7 @@ struct XPlmi_KeyHoleParams {
 	u8 InChunkCopy;
 	u32 SrcAddr; /**< Boot Source address */
 	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
-	int (*Func) (u64, u64, u32, u32);
+	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 };
 
 struct XPlmi_Cmd {
