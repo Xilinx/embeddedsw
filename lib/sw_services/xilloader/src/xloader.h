@@ -323,7 +323,7 @@ static inline u8 XLoader_IsJtagSbiMode(void)
  * @return	TRUE if authentication is enabled and false otherwise
  *
  *****************************************************************************/
-inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
+static inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
 {
 	return	(PdiPtr->MetaHdr.ImgHdrTbl.AcOffset != 0x0U) ? \
 		(TRUE) : (FALSE);
@@ -338,7 +338,7 @@ inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
  * @return	TRUE if encryption is enabled and false otherwise
  *
  *****************************************************************************/
-inline u8 XLoader_IsEncEnabled(XilPdi* PdiPtr)
+static inline u8 XLoader_IsEncEnabled(XilPdi* PdiPtr)
 {
 	return (PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc != 0x0U) ? \
 		(TRUE) : (FALSE);

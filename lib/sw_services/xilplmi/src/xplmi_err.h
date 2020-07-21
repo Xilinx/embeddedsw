@@ -113,7 +113,7 @@ static inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
  * @return	Error event ID
  *
  *****************************************************************************/
-inline u32 XPlmi_EventNodeType(u32 Id)
+static inline u32 XPlmi_EventNodeType(u32 Id)
 {
 	return ((Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT);
 }
