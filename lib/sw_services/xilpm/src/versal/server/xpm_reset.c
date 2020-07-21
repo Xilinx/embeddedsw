@@ -12,6 +12,7 @@
 #include "xpm_regs.h"
 #include "xpm_aie.h"
 #include "xpm_api.h"
+#include "xpm_pmc.h"
 #include "xpm_common.h"
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
@@ -212,6 +213,77 @@ done:
 	return Status;
 }
 
+static XStatus PlPorResetAssert(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	XPm_Pmc *Pmc;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	/* Disable PUDC_B pin to allow PL_POR to toggle */
+	XPm_RMW32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PUDC_B_OVERRIDE_OFFSET,
+			PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK,
+			PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK);
+
+	/* Assert PL POR Reset */
+	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus PlPorResetRelease(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	XPm_Pmc *Pmc;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	/* Release PL POR Reset */
+	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0);
+
+	/* Reset to allow PUDC_B pin to function */
+	XPm_RMW32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PUDC_B_OVERRIDE_OFFSET,
+			PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK,
+			~PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus PlPorResetPulse(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Assert PL POR Reset */
+	Status = PlPorResetAssert(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Release PL POR Reset */
+	Status = PlPorResetRelease(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+
 static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
@@ -319,6 +391,12 @@ static const struct ResetCustomOps {
 		.ActionAssert = &PsOnlyResetAssert,
 		.ActionRelease = &PsOnlyResetRelease,
 		.ActionPulse = &PsOnlyResetPulse,
+	},
+	{
+		.ResetIdx = (u32)XPM_NODEIDX_RST_PL_POR,
+		.ActionAssert = &PlPorResetAssert,
+		.ActionRelease = &PlPorResetRelease,
+		.ActionPulse = &PlPorResetPulse,
 	},
 	{
 		.ResetIdx = (u32)XPM_NODEIDX_RST_LPD,
