@@ -31,6 +31,11 @@ XStatus XPfw_CoreInit(u32 Options)
 {
 	u32 Index;
 	XStatus Status;
+
+	/* Disable scan clear signal bit */
+	XPfw_UtilRMW(PMU_GLOBAL_SAFETY_GATE,
+				PMU_GLOBAL_SAFETY_GATE_SCAN_ENABLE_MASK, 0U);
+
 	if (CorePtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;
