@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_tx_sinit.c
-* @addtogroup hdcp22_tx_v1_0
+* @addtogroup hdcp22_tx_dp_v2_0
 * @{
 * @details
 *
