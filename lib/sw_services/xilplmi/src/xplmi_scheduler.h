@@ -48,7 +48,7 @@ extern "C" {
 #define PMC_PMC_MB_IO_IRQ_ACK_WIDTH		(0x1U)
 #define PMC_PMC_MB_IO_IRQ_ACK_MASK		(0X0000020U)
 
-typedef int (*XPlmi_Callback_t)(void *);
+typedef int (*XPlmi_Callback_t)(void *Data);
 
 struct XPlmi_Task_t{
 	u32 Interval;

@@ -89,7 +89,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlmi_DmaInit();
+int XPlmi_DmaInit(void);
 XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId);
 int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);

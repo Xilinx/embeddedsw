@@ -249,7 +249,7 @@ typedef struct {
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
-	int (*DeviceCopy) (u64, u64, u32, u32);
+	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
 	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
 	u32 CurImgId; /**< Current Processing image ID */

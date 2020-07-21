@@ -59,7 +59,7 @@ static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
  *
  *****************************************************************************/
 XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
-	int (*Handler)(void *), void * PrivData)
+	int (*Handler)(void *Arg), void * PrivData)
 {
 	XPlmi_TaskNode * Task = NULL;
 	u32 Index;
