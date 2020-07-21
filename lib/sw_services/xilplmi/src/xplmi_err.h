@@ -99,9 +99,9 @@ struct XPlmi_Error_t {
  * @return	Register mask value
  *
  *****************************************************************************/
-inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
+static inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
 {
-	return (0x1U << (ErrorMask & 0x1FU));
+	return ((u32)0x1U << (ErrorMask & (u32)0x1FU));
 }
 
 /*****************************************************************************/
