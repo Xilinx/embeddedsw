@@ -119,7 +119,7 @@ extern u8 LpdInitialized;
  * @return	None
  *
  *****************************************************************************/
-inline void XPlmi_ResetLpdInitialized(void)
+static inline void XPlmi_ResetLpdInitialized(void)
 {
 	LpdInitialized = FALSE;
 }
