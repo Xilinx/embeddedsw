@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_crypt.c
-* @addtogroup hdcp22_rx_v1_1
+* @addtogroup hdcp22_rx_dp_v2_0
 * @{
 * @details
 *
