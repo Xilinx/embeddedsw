@@ -383,15 +383,14 @@ typedef enum {
 /***************** Macros (Inline Functions) Definitions *********************/
 static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 {
-	int Status =  XST_FAILURE;
-	u32 UStatus = PlmiStatus;
+	u32 UStatus = (u32)PlmiStatus;
 	u32 UModuleStatus = (u32)ModuleStatus;
 
 	UStatus = UStatus << XPLMI_STATUS_SHIFT;
 	UStatus = UStatus | (UModuleStatus & XPLMI_STATUS_MODULE_MASK);
-	Status = UStatus & XPLMI_ERR_CODE_MASK;
+	UStatus = UStatus & XPLMI_ERR_CODE_MASK;
 
-	return Status;
+	return (int)UStatus;
 }
 
 /************************** Function Prototypes ******************************/
