@@ -176,14 +176,6 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPM_INVALID_SUBSYSID;
 			goto done;
 		}
-		/* Set subsystem to online if suspended or powered off */
-		if ((Subsystem->State == (u8)SUSPENDED) ||
-		    (Subsystem->State == (u8)POWERED_OFF)) {
-			Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
 	}
 
 	switch (Cmd->CmdId & 0xFFU) {
