@@ -308,7 +308,7 @@ static inline PdiSrc_t XLoader_GetBootMode(void)
 
 static inline u8 XLoader_IsJtagSbiMode(void)
 {
-	return (((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &
+	return (u8)(((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &
 				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ==
 				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ?
 				(TRUE) : (FALSE));

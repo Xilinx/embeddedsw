@@ -121,7 +121,7 @@ extern u8 LpdInitialized;
  *****************************************************************************/
 static inline void XPlmi_ResetLpdInitialized(void)
 {
-	LpdInitialized = FALSE;
+	LpdInitialized = (u8)FALSE;
 }
 
 #ifdef __cplusplus
