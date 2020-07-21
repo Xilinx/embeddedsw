@@ -61,7 +61,7 @@ enum {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFL)
+#define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFUL)
 #define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
