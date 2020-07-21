@@ -57,6 +57,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State);
+XStatus XPmSubsystem_Configure(u32 SubsystemId);
 XStatus XPmSubsystem_Add(u32 SubsystemId);
 XStatus XPmSubsystem_Destroy(u32 SubsystemId);
 XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId);
