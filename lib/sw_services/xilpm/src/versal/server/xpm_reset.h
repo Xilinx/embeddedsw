@@ -84,7 +84,6 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
 int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId);
 int XPmReset_SystemReset(void);
-void XPmReset_ChangePsPorResetType(void);
 
 #ifdef __cplusplus
 }

@@ -586,9 +586,6 @@ done:
 
 static void PostTopologyHook(void)
 {
-	/* TODO: Remove this hack once PS_POR reset type is changed in topology CDO */
-	XPmReset_ChangePsPorResetType();
-
 	/* TODO: Remove this when PL topology handling is added */
 	/* Set all PL clock as read only so that Linux won't disable those */
 	XPmClock_SetPlClockAsReadOnly();
