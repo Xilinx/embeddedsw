@@ -962,7 +962,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Status = XPmRequirement_Add(
 				XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
 				Device,
-				REQUIREMENT_FLAGS(0, 0, 0,
+				REQUIREMENT_FLAGS(0, 0, 0, 0, 0,
 					(u32)REQ_ACCESS_SECURE_NONSECURE,
 					(u32)REQ_NO_RESTRICTION),
 				NULL, 0);
