@@ -1567,7 +1567,7 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
  *****************************************************************************/
 u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 
 	const u32 Key[8U] = {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
@@ -1586,12 +1586,16 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
+	Status = (u32)XST_FAILURE;
+
 	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR;
 		goto END;
 	}
+
+	Status = (u32)XST_FAILURE;
 
 	Status =  XSecure_AesDecryptData(AesInstance, (UINTPTR)Message,
 			(UINTPTR)DstVal, XSECURE_SECURE_GCM_TAG_SIZE, (UINTPTR)GcmTag);
@@ -1605,6 +1609,7 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	for (Index = 0U; Index < XSECURE_AES_BUFFER_SIZE; Index++) {
 		if (DstVal[Index] != Output[Index]) {
 			/* Comparison failure of decrypted data */
+			Status = XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
 			goto END;
 		}
 	}
@@ -1659,7 +1664,7 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 	}
 
 	/* Write AES key */
-	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_0,
+	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KeyPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR;
@@ -1668,7 +1673,7 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 
 	Status = (u32)XST_FAILURE;
 
-	Status = XSecure_AesKeyLoad(AesInstance, XSECURE_AES_USER_KEY_0,
+	Status = XSecure_AesKeyLoad(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR;
@@ -1862,6 +1867,8 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = (u32)XST_FAILURE;
 
 	if (((*(RM0) == 0U) && (*(RM0 + 1U) == 0U) && (*(RM0 + 2U) == 0U) &&
 				(*(RM0 + 3U) == 0U)) ||
