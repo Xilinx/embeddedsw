@@ -1609,7 +1609,9 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	if (Index == XSECURE_AES_BUFFER_SIZE) {
+		Status = (u32)XST_SUCCESS;
+	}
 
 END:
 	return Status;
