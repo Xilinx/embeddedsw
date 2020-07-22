@@ -1579,14 +1579,14 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	u32 DstVal[4U];
 
 	/* Write AES key */
-	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_0,
+	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Key);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_0,
+	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR;
