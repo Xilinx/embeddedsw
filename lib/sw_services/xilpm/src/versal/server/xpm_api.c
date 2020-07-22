@@ -2331,12 +2331,16 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function reset or de-reset a device.
+ * @brief  This function reset or de-reset a device. Alternatively a reset
+ * 	   pulse can be requested as well.
  *
  * @param SubsystemId	Subsystem ID
  * @param ResetId	Reset ID
  * @param IpiMask	IPI Mask currently being used
- * @param Action	Reset (true) or de-reset (false) the device
+ * @param Action	Reset action to be taken
+ *			- PM_RESET_ACTION_RELEASE for Release Reset
+ *			- PM_RESET_ACTION_ASSERT for Assert Reset
+ *			- PM_RESET_ACTION_PULSE for Pulse Reset
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
