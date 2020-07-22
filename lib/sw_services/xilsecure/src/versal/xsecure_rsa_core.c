@@ -749,8 +749,9 @@ u32 XSecure_RsaPublicEncryptKat(void)
 			goto END;
 		}
 	}
-
-	Status = (u32)XST_SUCCESS;
+	if (Index == XSECURE_RSA_4096_SIZE_WORDS) {
+		Status = (u32)XST_SUCCESS;
+	}
 
 END:
 	return Status;

@@ -52,7 +52,7 @@
  *****************************************************************************/
 u32 XSecure_EcdsaKat(void)
 {
-	u32 Status = XSECURE_ECC_KAT_FAILED_ERROR;
+	volatile u32 Status = XSECURE_ECC_KAT_FAILED_ERROR;
 	const u32 QxCord[XSECURE_ECC_DATA_SIZE_WORDS] = {
 		0x88371BE6U, 0xFD2D8761U, 0x30DA0A10U, 0xEA9DBD2EU,
 		0x30FB204AU, 0x1361EFBAU, 0xF9FDF2CEU, 0x48405353U,
@@ -94,6 +94,9 @@ u32 XSecure_EcdsaKat(void)
 		Status = XSECURE_ECC_KAT_KEY_NOTVALID_ERROR;
 		goto END;
 	}
+
+	Status = XSECURE_ECC_KAT_FAILED_ERROR;
+
 	Status = P384_ecdsaverify((u8 *)HashVal, (u8 *)QxCord, (u8 *)QyCord,
 				 (u8 *)SignR, (u8 *)SignS);
 	if(Status != XST_SUCCESS) {
