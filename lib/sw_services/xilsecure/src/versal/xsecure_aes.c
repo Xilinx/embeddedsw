@@ -1636,7 +1636,7 @@ END:
  *****************************************************************************/
 static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 
 	XSecure_ReleaseReset(AesInstance->BaseAddress,
@@ -1666,12 +1666,16 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 		goto END;
 	}
 
+	Status = (u32)XST_FAILURE;
+
 	Status = XSecure_AesKeyLoad(AesInstance, XSECURE_AES_USER_KEY_0,
 			XSECURE_AES_KEY_SIZE_256);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR;
 		goto END;
 	}
+
+	Status = (u32)XST_FAILURE;
 
 	Status = XSecure_SssAes(&AesInstance->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
@@ -1702,6 +1706,8 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32
 		(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
 
 	XPmcDma_WaitForDone(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+
+	Status = (u32)XST_FAILURE;
 
 	Status = XSecure_AesWaitForDone(AesInstance);
 	if (Status != (u32)XST_SUCCESS) {
