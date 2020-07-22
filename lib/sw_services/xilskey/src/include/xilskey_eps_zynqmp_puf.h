@@ -70,6 +70,7 @@ extern "C" {
 #define		XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES	(12U)
 #define		XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS		(24U)
 #define		XSK_ZYNQMP_PUF_SHUTTER_VALUE		(0x0100005eU)
+#define 	XSK_ZYNQMP_GCM_TAG_SIZE				(16U)
 
 /************************** Type Definitions ********************************/
 
@@ -115,7 +116,8 @@ typedef struct {
 	u8 BlackKeyIV[XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES];
 				/**< Black key IV (IV used to encrypt the
 				  *  red key using PUF key) */
-	u8 BlackKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES];
+	u8 BlackKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES +
+				XSK_ZYNQMP_GCM_TAG_SIZE];
 				/**< Black Key generated */
 } XilSKey_Puf;
 /** @}
