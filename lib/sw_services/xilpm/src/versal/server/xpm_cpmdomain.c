@@ -142,13 +142,12 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	/* Scan clear should be skipped for ES1 platforms */
-	/* TODO: Skip scan clear for ES2 platform also as it has some issues */
+	/* Skip scan clear for S80 devices */
 	Platform = XPm_GetPlatform();
 	if ((PLATFORM_VERSION_SILICON != Platform) ||
 	    (PLATFORM_VERSION_SILICON == Platform &&
-	     (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion() ||
-	      PLATFORM_VERSION_SILICON_ES2 == XPm_GetPlatformVersion()))) {
+	     (PMC_TAP_IDCODE_DEV_SBFMLY_S80 ==
+	      (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}

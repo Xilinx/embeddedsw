@@ -106,6 +106,10 @@ extern "C" {
 #define PLATFORM_VERSION_SILICON_ES1		(0x0U)
 #define PLATFORM_VERSION_SILICON_ES2		(0x1U)
 
+#define PMC_TAP_IDCODE_SBFMLY_S			(0x00080000U)
+#define PMC_TAP_IDCODE_DEV_80			(0x00028000U)
+#define PMC_TAP_IDCODE_DEV_SBFMLY_S80		(PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_80)
+
 #define SLR_TYPE_MONOLITHIC_DEV			(0x7U)
 #define SLR_TYPE_SSIT_DEV_MASTER_SLR		(0x6U)
 #define SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_TOP	(0x5U)
@@ -132,6 +136,7 @@ u32 XPm_In32(u32 RegAddress);
 u32 XPm_GetPlatform(void);
 u32 XPm_GetPlatformVersion(void);
 u32 XPm_GetSlrType(void);
+u32 XPm_GetIdCode(void);
 
 /**
  * Read Modify Write a register
