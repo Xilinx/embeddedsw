@@ -488,8 +488,8 @@ done:
  *
  * @param  ResetId		Reset ID
  * @param  State		Pointer to store the status of specified reset
+ *				- 0 for reset released
  *				- 1 for reset asserted
- *				- 2 for reset released
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
