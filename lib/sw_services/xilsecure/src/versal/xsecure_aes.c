@@ -1570,12 +1570,12 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 
-	u32 Key[8U] = {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
+	const u32 Key[8U] = {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
 		       0x4D3B0A53U, 0xF3C6E1AEU, 0xAFC2447AU, 0x7B534D99U};
-	u32 Iv[4U] = {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
-	u32 Message[4U] = {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
-	u32 GcmTag[4U] = {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
-	u32 Output[4U] = {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
+	const u32 Iv[4U] = {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
+	const u32 Message[4U] = {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
+	const u32 GcmTag[4U] = {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
+	const u32 Output[4U] = {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
 	u32 DstVal[4U];
 
 	/* Write AES key */
@@ -1754,7 +1754,7 @@ END:
  *****************************************************************************/
 u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 	u32 Ct0[4U];
 	u32 MiC0[4U];
 	u32 Ct1[4U];
@@ -1855,6 +1855,8 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = (u32)XST_FAILURE;
 
 	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key1, Data1, Output1);
 	if (Status != XST_SUCCESS) {
