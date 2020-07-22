@@ -541,7 +541,7 @@ END:
  ******************************************************************************/
 u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 {
-	u32 Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
+	volatile u32 Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
 	u32 Index;
 	XSecure_Sha3Hash OutVal = {0U};
 
@@ -570,6 +570,8 @@ u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 
+	Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
+
 	Status = XSecure_Sha3Update(SecureSha3, (u8 *)DataValue,
 			XSECURE_SHA3_BLOCK_LEN);
 	if (Status != (u32)XST_SUCCESS) {
@@ -577,20 +579,25 @@ u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 
+	Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
+
 	Status = XSecure_Sha3Finish(SecureSha3, &OutVal);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_SHA3_FINISH_ERROR;
 		goto END;
 	}
 
-	for(Index = 0U; Index <XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+	Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
+	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
 		if (OutVal.Hash[Index] != ExpectedHash[Index]) {
-			Status = XSECURE_SHA3_KAT_FAILED_ERROR;
+			Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
 			goto END;
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	if (Index == XSECURE_HASH_SIZE_IN_BYTES) {
+		Status = (u32)XST_SUCCESS;
+	}
 
 END:
 	XSecure_SetReset(SecureSha3->BaseAddress,
