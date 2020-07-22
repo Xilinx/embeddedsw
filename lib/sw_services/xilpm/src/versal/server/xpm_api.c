@@ -1235,20 +1235,17 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to Powerdown other
- * 		processor or domain node forcefully. To powerdown whole
- * 		subsystem, this function needs to be called for all processors
- * 		of target subsystem, which in turn will power down the whole
- * 		subsystem
+ * 	   processor or domain node or subsystem forcefully.
  *
  * @param SubsystemId	Subsystem ID
- * @param  Node 		Processor or domain node to be powered down
- * @param  Ack			Ack request
+ * @param Node 		Processor or domain node or subsystem to be powered down
+ * @param Ack		Ack request
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
  * @note   The affected PUs are not notified about the upcoming powerdown,
- *          and PMU does not wait for their WFI interrupt.
+ *         and PLM does not wait for their WFI interrupt.
  *
  ****************************************************************************/
 XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
