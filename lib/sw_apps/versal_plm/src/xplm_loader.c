@@ -101,7 +101,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	 * no PDI gets loaded
 	 */
 	if ((BootMode == XLOADER_PDI_SRC_JTAG) &&
-	    (XLoader_IsJtagSbiMode() == FALSE)) {
+	    (XLoader_IsJtagSbiMode() == (u8)FALSE)) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
