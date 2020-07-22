@@ -19,6 +19,7 @@ static u8 *FreeBytes = ByteBuffer;
 static u32 Platform = NOT_INITIALIZED;
 static u32 PlatformVersion = NOT_INITIALIZED;
 static u32 SlrType = NOT_INITIALIZED;
+static u32 IdCode = NOT_INITIALIZED;
 
 void *XPm_AllocBytes(u32 Size)
 {
@@ -205,4 +206,13 @@ u32 XPm_GetSlrType(void)
 	}
 
 	return SlrType;
+}
+
+u32 XPm_GetIdCode(void)
+{
+	if (IdCode == NOT_INITIALIZED) {
+		IdCode = XPm_In32(PMC_TAP_IDCODE);
+	}
+
+	return IdCode;
 }
