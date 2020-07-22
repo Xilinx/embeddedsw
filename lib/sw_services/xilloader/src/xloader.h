@@ -53,6 +53,7 @@
 *       bsv  06/22/2020 Cfi error handler should only be called for PL image
 *       bsv  07/01/2020 Added DevRelease to DevOps
 *       skd  07/14/2020 Function pointers Copy and DeviceCopy prototypes changed
+*       kal  07/20/2020 Added macro XLOADER_SECURE_CHUNK_SIZE for security
 *
 * </pre>
 *
@@ -92,6 +93,7 @@ extern "C" {
 #define XLOADER_DDR_COPYIMAGE_BASEADDR	(0x40000000U)
 #define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0x50000000U)
 #define XLOADER_CHUNK_SIZE		(0x10000U) /* 64K */
+#define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /* 32K */
 #define XLOADER_CFI_CHUNK_SIZE		(0x40000U) /* 256K */
 #define XLOADER_DMA_LEN_ALIGN           (0x10U)
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U) /* 32K */
@@ -176,6 +178,12 @@ extern "C" {
 #define XLOADER_FLASH_SIZE_1G                   (0x8000000U)
 #define XLOADER_FLASH_SIZE_2G                   (0x10000000U)
 #endif
+
+/*
+ * PDI Version macros
+ */
+#define XLOADER_PDI_VERSION_1			(0x01030000U)
+#define XLOADER_PDI_VERSION_2			(0x00020000U)
 
 /* Boot Modes */
 typedef enum {

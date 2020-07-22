@@ -36,6 +36,7 @@
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/09/2020 Code clean up of Xilloader
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get subsystem info
+*       kal  07/20/2020 Added double buffering support for secure CDOs
 *
 * </pre>
 *
@@ -421,6 +422,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	u32 IsNextChunkCopyStarted = FALSE;
 	XLoader_SecureParms SecureParams = {0U};
 	u32 TempVal;
+	u32 PdiVer;
+	u8 Is32kChunk = FALSE;
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
 
@@ -460,6 +463,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	Cdo.PrtnId = PdiPtr->CurPrtnId;
 	Cdo.IpiMask = PdiPtr->IpiMask;
 
+	PdiVer = PdiPtr->MetaHdr.ImgHdrTbl.Version;
 	/*
 	 * Process CDO in chunks.
 	 * Chunk size is based on the available PRAM size.
@@ -468,8 +472,30 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		(SecureParams.SecureEn != TRUE)) {
 		ChunkLen = XLOADER_CHUNK_SIZE / 2U;
 	}
+	else if ((SecureParams.SecureEn == TRUE) &&
+		(PdiVer != XLOADER_PDI_VERSION_1) &&
+		(PdiVer != XLOADER_PDI_VERSION_2)) {
+		ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
+		Is32kChunk = TRUE;
+	}
 	else {
 		ChunkLen = XLOADER_CHUNK_SIZE;
+	}
+
+	/*
+	 * Double buffering for secure cases is possible only
+	 * when available PRAM Size >= ChunkLen * 2
+	 */
+	if ((Is32kChunk == TRUE) &&
+		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE) &&
+		((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR))) {
+		SecureParams.IsDoubleBuffering = TRUE;
+	}
+	else {
+		/* Blocking DMA will be used in case
+		 * DoubleBuffering is FALSE.
+		 */
+		SecureParams.IsDoubleBuffering = FALSE;
 	}
 
 	SecureParams.IsCdo = TRUE;
@@ -550,7 +576,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		}
 		else {
 			Status = XLoader_ProcessSecurePrtn(&SecureParams,
-				SecureParams.SecureData, ChunkLen, LastChunk);
+					SecureParams.SecureData, ChunkLen, LastChunk);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -558,8 +584,16 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			Cdo.BufLen = SecureParams.SecureDataLen / XIH_PRTN_WORD_LEN;
 			SrcAddr += ChunkLen;
 			Len -= ChunkLen;
-		}
 
+			if ((SecureParams.IsDoubleBuffering == TRUE) &&
+						(LastChunk != TRUE)) {
+				Status = XLoader_StartNextChunkCopy(
+						&SecureParams, Len, ChunkLen);
+				if (Status != XLOADER_SUCCESS) {
+					goto END;
+				}
+			}
+		}
 		/* Process the chunk */
 		Status = XPlmi_ProcessCdo(&Cdo);
 		if (Status != XST_SUCCESS) {
@@ -570,6 +604,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			Len = Len - Cdo.Cmd.KeyHoleParams.ExtraWords;
 			SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
 			IsNextChunkCopyStarted = FALSE;
+			SecureParams.IsNextChunkCopyStarted = FALSE;
 			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 		}
 	}
