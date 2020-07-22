@@ -34,7 +34,8 @@
 *       kpt  07/08/2020 Removed dummy code and Status value reinitialized
 *                       to XST_FAILURE
 *       har  07/12/2020 Removed magic number from XSecure_AesKeyZero
-*
+*       har  07/21/2020 Corrected input paramters for config in
+*                       XSecure_AesCfgKupIv
 * </pre>
 *
 * @note
@@ -50,7 +51,8 @@
 /************************** Constant Definitions *****************************/
 
 #define XSECURE_MAX_KEY_SOURCES				XSECURE_AES_EXPANDED_KEYS
-#define XSECURE_AES_DISABLE_KUP_IV_UPDATE	(0x0U)
+#define XSECURE_AES_DISABLE_KUP_IV_UPDATE		(0x0U)
+#define XSECURE_AES_ENABLE_KUP_IV_UPDATE		(0x1U)
 #define XSECURE_ENABLE_BYTE_SWAP			(0x1U)
 #define XSECURE_DISABLE_BYTE_SWAP			(0x0U)
 
@@ -1302,9 +1304,10 @@ static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
  * secure header or footer of encrypted partition.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
- * @param	Config
- *				- TRUE - to enable KUP and IV update
- *				- FALSE -to disable KUP and IV update
+ * @param	Config		- XSECURE_AES_ENABLE_KUP_IV_UPDATE
+ *                                to enable KUP and IV update
+ *				- XSECURE_AES_DISABLE_KUP_IV_UPDATE
+ *				  to disable KUP and IV update
  *
  * @return
  *		- XST_SUCCESS on successful configuration.
@@ -1317,8 +1320,8 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Config == FALSE) ||
-					(Config == TRUE));
+	Xil_AssertNonvoid((Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) ||
+				(Config == XSECURE_AES_ENABLE_KUP_IV_UPDATE));
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	if (Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) {
