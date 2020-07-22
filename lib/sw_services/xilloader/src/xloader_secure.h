@@ -19,6 +19,9 @@
 *       har  02/18/20 Added minor error codes for security
 * 1.1	ana  06/04/20 Removed XLOADER_ECDSA_INDEXVAL macro and
 * 		      updated u32 datatype to u8 datatype
+*       kal  07/20/20 Added XLoader_StartNextChunkCopy API to trigger
+*                     next chunk copy when double buffering is enabled
+*
 * </pre>
 *
 * @note
@@ -249,9 +252,11 @@ typedef struct {
 
 typedef struct {
 	u8 SecureEn;
+	u8 IsNextChunkCopyStarted;
 	u8 IsCheckSumEnabled;
 	u8 IsEncrypted;
 	u8 IsAuthenticated;
+	u8 IsDoubleBuffering;
 	XLoader_AuthType SigType;
 	XilPdi *PdiPtr;
 	XilPdi_PrtnHdr *PrtnHdr;
@@ -347,6 +352,8 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	XilPdi_MetaHdr *ImgHdrTbl);
 u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr);
 void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
+u32 XLoader_StartNextChunkCopy(XLoader_SecureParms *SecurePtr, u32 TotalLen,
+	u32 ChunkLen);
 
 #ifdef __cplusplus
 }

@@ -21,6 +21,8 @@
 * 	rpo  02/25/20 Added SHA, RSA, ECDSA, AES KAT support
 * 1.1	ana  06/04/20 Minor Enhancemet and updated Sha3 hash buffer
 *		      with XSecure_Sha3Hash Structure
+*       kal  07/20/2020 Added double buffering support for secure partitions
+*
 * </pre>
 *
 * @note
@@ -222,10 +224,39 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 {
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
-	u32 ChunkLen = XLOADER_CHUNK_SIZE;
+	u32 ChunkLen;
+	u32 PdiVer;
 	u32 Len = Size;
 	u64 LoadAddr = DestAddr;
 	u8 LastChunk = FALSE;
+	u8 Is32kChunk = FALSE;
+
+	PdiVer = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.Version;
+
+	if ((PdiVer != XLOADER_PDI_VERSION_1) &&
+                (PdiVer != XLOADER_PDI_VERSION_2)) {
+		ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
+		Is32kChunk = TRUE;
+	}
+	else {
+		ChunkLen = XLOADER_CHUNK_SIZE;
+	}
+
+	/*
+	 * Double buffering is possible only
+	 * when available PRAM Size >= ChunkLen * 2
+	 */
+	if ((Is32kChunk == TRUE) &&
+		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE) &&
+		(SecurePtr->PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)) {
+		SecurePtr->IsDoubleBuffering = TRUE;
+	}
+	else {
+		/* Blocking DMA will be used in case
+		 * DoubleBuffering is FALSE.
+		 */
+		SecurePtr->IsDoubleBuffering = FALSE;
+	}
 
 	while (Len > 0U) {
 		/* Update the length for last chunk */
@@ -239,6 +270,16 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 					ChunkLen, LastChunk);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
+		}
+
+		if ((SecurePtr->IsDoubleBuffering == TRUE) &&
+					(LastChunk != TRUE)) {
+
+			Status = XLoader_StartNextChunkCopy(SecurePtr,
+							Len, ChunkLen);
+			if (Status != XLOADER_SUCCESS) {
+				goto END;
+			}
 		}
 
 		if (SecurePtr->IsEncrypted != TRUE) {
@@ -345,23 +386,57 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParms *SecurePtr, u64 DestAddr,
 			TotalSize = TotalSize + XLOADER_SHA3_LEN;
 		}
 
-		/* Copy to total data to the buffer */
-		SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
-			SecurePtr->ChunkAddr, TotalSize, 0U);
+		if (SecurePtr->IsNextChunkCopyStarted == TRUE) {
+			SecurePtr->IsNextChunkCopyStarted = FALSE;
+			/* Wait for copy to get completed */
+			Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
+					SecurePtr->ChunkAddr,
+					TotalSize,
+					XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
+		}
+		else {
+			/* Copy the data to PRAM buffer */
+			Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
+					SecurePtr->ChunkAddr,
+					TotalSize,
+					XLOADER_DEVICE_COPY_STATE_BLK);
+		}
+		if (Status != XLOADER_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_DATA_COPY_FAIL, Status);
+			goto END;
+		}
 
 		/* Verify hash */
 		Status = XLoader_VerifyHashNUpdateNext(SecurePtr, TotalSize, Last);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
-
 	}
 
 	/* If encryption is enabled */
 	if (SecurePtr->IsEncrypted == TRUE) {
 		if (SecurePtr->IsAuthenticated != TRUE) {
-			SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
-				SecurePtr->ChunkAddr, TotalSize, 0U);
+			if (SecurePtr->IsNextChunkCopyStarted == TRUE) {
+				SecurePtr->IsNextChunkCopyStarted = FALSE;
+				/* Wait for copy to get completed */
+				Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
+					SecurePtr->ChunkAddr, TotalSize,
+					XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
+			}
+			else {
+				/* Copy the data to PRAM buffer */
+				Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
+						SecurePtr->ChunkAddr,
+						TotalSize,
+						XLOADER_DEVICE_COPY_STATE_BLK);
+			}
+			if (Status != XLOADER_SUCCESS) {
+				Status = XPlmi_UpdateStatus(
+                                        XLOADER_ERR_DATA_COPY_FAIL, Status);
+				goto END;
+			}
+
 			SecurePtr->SecureData = SecurePtr->ChunkAddr;
 			SecurePtr->SecureDataLen = TotalSize;
 		}
@@ -373,7 +448,9 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParms *SecurePtr, u64 DestAddr,
 			OutAddr = SecurePtr->SecureData;
 		}
 		Status = XLoader_AesDecryption(SecurePtr,
-					SecurePtr->SecureData, OutAddr, SecurePtr->SecureDataLen);
+					SecurePtr->SecureData,
+					OutAddr,
+					SecurePtr->SecureDataLen);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_PRTN_DECRYPT_FAIL, Status);
@@ -395,6 +472,61 @@ END:
 			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
 		}
 	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function starts next chunk copy when security is enabled.
+*
+* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	TotalLen is total length of the partition.
+* @param 	ChunkLen is size of the data block to be copied.
+*
+* @return	XLOADER_SUCCESS on success
+* 		XLOADER_FAILURE on failure
+*
+******************************************************************************/
+u32 XLoader_StartNextChunkCopy(XLoader_SecureParms *SecurePtr, u32 TotalLen,
+				u32 ChunkLen)
+{
+	u32 Status = XLOADER_FAILURE;
+	u32 CopyLen = ChunkLen;
+
+	if (SecurePtr->ChunkAddr == XPLMI_LOADER_CHUNK_MEMORY) {
+		SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY_1;
+	}
+	else {
+		SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
+	}
+
+	if (TotalLen <= ChunkLen) {
+		if (((SecurePtr->IsEncrypted == TRUE) &&
+			((SecurePtr->IsAuthenticated == TRUE) ||
+			(SecurePtr->IsCheckSumEnabled == TRUE))) ||
+			(SecurePtr->IsEncrypted == TRUE)) {
+			CopyLen = SecurePtr->RemainingEncLen;
+		}
+	}
+	else {
+		if ((SecurePtr->IsAuthenticated == TRUE) ||
+			(SecurePtr->IsCheckSumEnabled == TRUE)) {
+			CopyLen = CopyLen + XLOADER_SHA3_LEN;
+		}
+	}
+
+	SecurePtr->IsNextChunkCopyStarted = TRUE;
+
+	/* Initiate the data copy */
+	Status = SecurePtr->PdiPtr->DeviceCopy(SecurePtr->NextBlkAddr,
+			SecurePtr->ChunkAddr,
+			CopyLen,
+			XLOADER_DEVICE_COPY_STATE_INITIATE);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPlmi_UpdateStatus(
+			XLOADER_ERR_DATA_COPY_FAIL, Status);
+	}
+
 	return Status;
 }
 

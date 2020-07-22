@@ -42,6 +42,7 @@
 * 1.03  bsv  06/27/2020 Add dual stacked mode support
 *       bsv  07/01/2020 Unmount file system after loading PDIs
 *       skd  07/14/2020 Added a macro for DMA transfer error
+*       kal  07/21/2020 Added a macro for Data copy failure for Security
 *
 * </pre>
 *
@@ -371,6 +372,8 @@ typedef enum {
 		/**< 0x61D Encryption is disabled */
 	XLOADER_ERR_KAT_FAILED,
 		/**< 0x61E KAT failed */
+	XLOADER_ERR_DATA_COPY_FAIL,
+		/**< 0x61F Data copy to internal memory failed */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
