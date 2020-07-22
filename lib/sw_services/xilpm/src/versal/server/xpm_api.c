@@ -1756,14 +1756,14 @@ done:
  *  - For CPU nodes:
  *   - 0 : if CPU is powered down,
  *   - 1 : if CPU is active (powered up),
- *   - 2 : if CPU is suspending (powered up)
+ *   - 8 : if CPU is suspending (powered up)
  *  - For power islands and power domains:
  *   - 0 : if island is powered down,
- *   - 1 : if island is powered up
+ *   - 2 : if island is powered up
  *  - For slaves:
  *   - 0 : if slave is powered down,
  *   - 1 : if slave is powered up,
- *   - 2 : if slave is in retention
+ *   - 9 : if slave is in retention
  *
  * - Requirement - Requirements placed on the device by the caller
  *
