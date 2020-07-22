@@ -45,32 +45,20 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-#define XPLM_TASK_DEFINE(Func, Arg, Prio) \
-	{ \
-		.Priority = Prio, \
-		.Delay = 0, \
-		.TaskNode = { \
-			.prev = NULL, \
-			.next = NULL, \
-		}, \
-		.Handler = Func, \
-		.PrivData = Arg, \
-	}
-
 /**
  * Start up tasks of the PLM.
  * Current they point to the loading of the Boot PDI.
  */
 static struct XPlmi_TaskNode StartUpTaskList[] =
 {
-	XPLM_TASK_DEFINE(XPlm_ModuleInit, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_TASK_DEFINE(XPlm_HookBeforePlmCdo, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_TASK_DEFINE(XPlm_ProcessPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_TASK_DEFINE(XPlm_HookAfterPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_TASK_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_TASK_DEFINE(XPlm_HookAfterBootPdi, 0U, XPLM_TASK_PRIORITY_0),
+	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ModuleInit, 0U},
+	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookBeforePlmCdo, 0U},
+	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ProcessPlmCdo, 0U},
+	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPlmCdo, 0U},
+	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
+	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},
 #ifdef XPLM_SEM
-	XPLM_TASK_DEFINE(XPlm_SemInit, 0U, XPLM_TASK_PRIORITY_0)
+	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_SemInit, 0U}
 #endif
 };
 
