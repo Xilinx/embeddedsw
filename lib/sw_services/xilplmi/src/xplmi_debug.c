@@ -107,7 +107,9 @@ int XPlmi_InitUart(void)
 		goto END;
 	}
 	XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);
+#ifndef PLM_PRINT_NO_UART
 	LpdInitialized |= UART_INITIALIZED;
+#endif
 #endif
 
 #ifdef DEBUG_UART_MDM

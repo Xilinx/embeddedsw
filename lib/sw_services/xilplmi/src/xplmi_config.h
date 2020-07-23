@@ -41,7 +41,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-//#undef STDOUT_BASEADDRESS
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -65,6 +65,11 @@ extern "C" {
 /**
  * PLM Debug options
  */
+/**
+ * Enable the below define to disable prints from UART.
+ * Prints to memory are still enabled as defined by PLM DEBUG macros
+ */
+//#define PLM_PRINT_NO_UART
 
 //#define PLM_PRINT
 #define PLM_DEBUG
