@@ -16,6 +16,9 @@
 extern "C" {
 #endif
 
+#define ECC_SCRUB_ENABLE	(1U)
+#define ECC_SCRUB_DISABLE	(0U)
+
 /**
  * AI Engine domain node class.
  */

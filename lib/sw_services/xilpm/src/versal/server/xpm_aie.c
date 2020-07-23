@@ -245,16 +245,18 @@ done:
 /*****************************************************************************/
 /**
  * This function is used to scrub ECC enabled memories in the entire AIE array
+ * Parameter: Action: ECC_SCRUB_DISABLE - Disable ECC scrub (disable PMEM Scrub using False event in all the Tiles)
+ *		      ECC_SCRUB_ENABLE  - Enable ECC scrub (enable PMEM Scrub using True event in all the Tiles)
  *
  * @return
  *****************************************************************************/
-static void TriggerEccScrub(void)
+static void TriggerEccScrub(u32 Action)
 {
 	u32 row, col;
 
 	for (col = AieInst.StartCol; col < (AieInst.StartCol + AieInst.NumCols); col++) {
 		for (row = AieInst.StartRow; row < (AieInst.StartRow + AieInst.NumRows); row++) {
-			AieWrite64(TILE_BASEADDRESS(col, row) + AIE_CORE_ECC_SCRUB_EVENT_OFFSET, 1U);
+			AieWrite64(TILE_BASEADDRESS(col, row) + AIE_CORE_ECC_SCRUB_EVENT_OFFSET, Action);
 		}
 	}
 }
@@ -632,10 +634,14 @@ static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
 
 	PmDbg("---------- START ----------\r\n");
 
-	/* Scrub ECC protected memories */
-	TriggerEccScrub();
+	/* Enable scrub, Scrub ECC protected memories */
+	TriggerEccScrub(ECC_SCRUB_ENABLE);
 	/* Wait for scrubbing to finish (1ms)*/
 	AieWait(1000U);
+
+	/* Disable scrub, Scrub ECC protected memories */
+	TriggerEccScrub(ECC_SCRUB_DISABLE);
+
 	/* Reset Array */
 	Status = ArrayReset();
 	if (XST_SUCCESS != Status) {
