@@ -22,10 +22,14 @@
 *       mmd  03/15/19 Refactored the code
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   psl  08/05/19 Fixed MISRA-C violation
+*       kal  08/27/19 Changed default status to XST_FAILURE
 * 4.2   kpt  01/07/20 Resolved CR-1049134 and Added Macros for all
 *                     the Magic Numbers
+*       har  03/19/20 Simplified calculation for index
 *       kpt  03/24/20 Added XSecure_RsaZeroizeVerify for
 *                     RSA Zeroize Verification
+*       har  04/06/20 Moved PKCS padding related code for zynqmp here from the
+*                     common directory
 *
 * </pre>
 *

@@ -31,9 +31,10 @@
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   psl  07/31/19 Fixed MISRA-C violation.
-* 4.2   kal  03/12/20 Authenticate SizeofImgHdr before use, incase of failure
+* 4.2   kal  03/12/20 Authenticate SizeofImgHdr before use, in case of failure
 *                     return XSECURE_IMAGE_HEADER_SIZE_ERR.
-*
+*       ana  04/03/20 Removed support of storing key in global array
+*       rpo  04/09/20 Aligned buffers used by DMA to 64 bytes
 * </pre>
 *
 * @note

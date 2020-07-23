@@ -17,8 +17,10 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     02/14/19 First Release
-* 4.1   kpt     01/07/20 Added MACRO
-*                        XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK
+* 4.1   kpt     01/07/20 Added macro XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK
+* 4.3   ana     06/06/20 Renamed XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK as
+*                        XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK
+*
 * </pre>
 *
 ******************************************************************************/

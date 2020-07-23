@@ -18,6 +18,7 @@
 * 4.1   kpt  01/07/20 Added Macros for all the Magic Numbers
 *                     in xsecure_rsa_core.c
 * 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
+*       har  04/06/20 Added function for selection of PKCS padding
 * 4.3   har  06/17/20 Removed references to unused algorithms
 * </pre>
 *

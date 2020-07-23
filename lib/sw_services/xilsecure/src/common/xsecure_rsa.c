@@ -37,9 +37,10 @@
 * 4.1   kal  05/20/19 Updated doxygen tags
 * 4.2   kpt  01/07/20 Resolved CR-1049149,1049107,1049116,1049115,1049118
 *                     and Replaced Magic Numbers with Macros
+*       har  04/19/20 Removed platform specific code
 * 4.3   har  06/17/20 Renamed ErrorCode as Status in XSecure_RsaPublicEncrypt
 *                     and initialized with XST_FAILURE
-* 4.3   har  06/17/20 Removed references to unused algorithms
+*       har  06/17/20 Removed references to unused algorithms
 *
 * </pre>
 *

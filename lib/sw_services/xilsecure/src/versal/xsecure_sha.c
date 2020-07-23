@@ -15,7 +15,13 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 4.2   har  03/20/20 Initial release
+* 1.0   har  03/20/20 Initial release
+* 4.2   har  03/20/20 Updated file version to sync with library version
+*       ana  04/02/20 Added APIs for crypto KAT
+*       bvi  04/07/20 Renamed csudma as pmcdma
+*       kpt  04/08/20 Updated Sha3 State variable in Xsecure_Sha3Update
+*       vns  04/13/20 Improved SHA3Finish to handle if last update is set
+*       kpt  04/21/20 Fixed MISRA C violation
 * 4.3   ana  06/04/20 Minor enhancement and Updated Sha3 hash variable with
 *		      XSecure_Sha3Hash structure
 *

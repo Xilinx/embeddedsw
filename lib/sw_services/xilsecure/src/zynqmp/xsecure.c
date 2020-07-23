@@ -48,11 +48,16 @@
 * 4.1   psl 07/02/19 Fixed Coverity warning.
 *       mmd 07/05/19 Optimized the code
 *       psl 07/31/19 Fixed MISRA-C violations.
-* 4.2   kal 03/12/20 Authenticate SizeofImgHdr before use, incase of failure
+* 4.2   kal 03/12/20 Authenticate SizeofImgHdr before use, in case of failure
 *                    return XSECURE_IMAGE_HEADER_SIZE_ERR.
 *                    Added support to hold Aes engine in reset after secure
 *                    image processing.
-*
+*       vns 03/24/20 Cleared locally copied user key
+*                    Corrected IV calculation
+*       ana 04/03/20 Removed the support of storing key in global array
+*       rpo 04/09/20 Aligned the buffers used by DMA to 64 bytes
+*       kpt 04/10/20 Resolved coverity warnings
+*       ana 04/24/20 Removed support of boot header RSA with 0x1 and 0x2
 * </pre>
 *
 * @note

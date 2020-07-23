@@ -15,7 +15,8 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
- * 1.0   rpo  01/07/2020 Initial release
+ * 1.0   rpo  07/01/2020 Initial release
+ * 4.3   rpo  07/01/2020 Updated file version to sync with library version
   * </pre>
  *
  * @note

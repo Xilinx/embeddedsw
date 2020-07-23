@@ -24,7 +24,10 @@
 * 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
 *                       and added in xsecure_utils.h
 *       vns  02/10/2020 Added DPA CM enable/disable function
-* 4.3   ana  06/04/2020 Minor enhancement
+*       rpo  04/02/2020 Added Crypto KAT APIs
+*                       Moved AES error codes to xsecure_error.h
+*       bvi  04/07/2020 Renamed csudma as pmcdma
+* 4.3   ana  06/04/2020 Added NextBlkLen in Xsecure_Aes structure
 * </pre>
 *
 * @note
