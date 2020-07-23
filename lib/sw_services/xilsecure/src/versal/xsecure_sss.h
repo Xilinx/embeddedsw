@@ -17,7 +17,8 @@
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 4.2   har     03/26/20 Initial Release
+* 1.0   har     03/26/20 Initial Release
+* 4.2   har     03/26/20 Updated file version to sync with library version
 *
 * </pre>
 * @endcond

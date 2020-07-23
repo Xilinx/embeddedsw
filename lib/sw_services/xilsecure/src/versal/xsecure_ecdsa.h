@@ -18,7 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 4.0 	vns  03/27/19 First Release
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
-*
+*       rpo  04/02/20 Added crypto KAT APIs
 * </pre>
 *
 * @endcond

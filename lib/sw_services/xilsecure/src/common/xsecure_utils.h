@@ -24,7 +24,10 @@
 * 4.2   har     01/06/20 Added macro XSecure_Out32
 *       kpt     01/07/20 Added Macro XSECURE_WORD_SIZE common for
 *                        both AES and RSA
-*       har     03/26/20 Removed code for SSS configuration
+*       rpo     04/02/20 Replaced function like macros with inline functions
+*                        Redefined macros for reading and writing into registers
+*       har     04/13/20 Removed code for SSS configuration
+*
 * </pre>
 * @endcond
 ******************************************************************************/

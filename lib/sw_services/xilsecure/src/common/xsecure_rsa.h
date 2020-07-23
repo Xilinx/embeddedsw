@@ -55,7 +55,8 @@
 *                     Moved all macro definitions and instance structure to
 *                     xsecure_rsa_core.h
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
-* 4.3   kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
+*       kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
+*
 * </pre>
 *
 * @endcond

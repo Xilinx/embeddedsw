@@ -26,7 +26,12 @@
 *                       XSecure_AesKeyLoad, XSecure_AesWaitForDone functions
 *       har  03/01/2020 Added code to soft reset once key decryption is done
 *       rpo  03/23/2020 Replaced timeouts with WaitForEvent and code clean up
-* 4.3   ana  06/04/2020 Minor enhancement and Updated AES state
+*       rpo  04/02/2020 Added Crypto KAT APIs
+*                       Added support of release and set reset for AES
+*       bvi  04/07/2020 Renamed csudma as pmcdma
+*       vns  04/12/2020 Reset Versal key clear register in AES initialize call
+* 4.3   ana  06/04/2020 Updated NextBlkLen in Xsecure_Aes structure wherever required
+*                       Updated Aes state
 *       kpt  06/29/2020 Added asserts for input arguments and minor
 *                       enhancements on AES state
 *       kpt  07/03/2020 Added type casting for the arguments in
@@ -34,7 +39,7 @@
 *       kpt  07/08/2020 Removed dummy code and Status value reinitialized
 *                       to XST_FAILURE
 *       har  07/12/2020 Removed magic number from XSecure_AesKeyZero
-*       har  07/21/2020 Corrected input paramters for config in
+*       har  07/21/2020 Corrected input parameters for config in
 *                       XSecure_AesCfgKupIv
 * </pre>
 *
@@ -369,7 +374,7 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
  *			- FALSE - to disable AES DPA counter measure
  *
  * @return
- *			- XSECURE_AES_DPA_CM_NOT_SUPPORTED if DPA CM is disbaled on chip.
+ *			- XSECURE_AES_DPA_CM_NOT_SUPPORTED if DPA CM is disabled on chip.
  *			(Enabling/Disabling in AES engine does not impact functionality)
  *			- XST_SUCCESS if configuration is success.
  *

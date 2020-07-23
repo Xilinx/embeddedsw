@@ -65,7 +65,7 @@
 *       mmd  03/15/19 Defined AES Key Clear value
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   mmd  07/05/19 Optimized the code
-*
+* 4.2   har  04/16/20 Removed extra header file
 * </pre>
 * @endcond
 *

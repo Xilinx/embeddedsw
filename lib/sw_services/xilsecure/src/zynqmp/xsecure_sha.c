@@ -45,6 +45,10 @@
 *       kpt  02/03/20 Enhanced the Code for non-aligned data and
 *                     aligned address i.e CR-1052152
 *       har  03/23/20 Moved to zynqmp directory and removed versal related code
+*       kpt  04/06/20 Updated Sha3 State variable in Xsecure_Sha3Update
+*       vns  04/13/20 Improved SHA3Finish to handle if last update is set
+*       kot  04/21/20 Fixed MISRA C violations
+*
 * @note
 *
 ******************************************************************************/

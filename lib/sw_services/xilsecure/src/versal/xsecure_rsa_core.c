@@ -20,10 +20,16 @@
 *                     to while loops.
 * 4.2   kpt  01/07/20 Resolved CR-1049134 and added Macro's for all the
 *                     Magic Numbers
-*            03/24/20 Added XSecure_RsaZeroizeVerify for
+*       har  03/19/20 Simplified calculation for Index
+*       rpo  04/02/20 Added crypto KAT APIs
+*                     Added function to update data length configuration
+*       kpt  03/24/20 Added XSecure_RsaZeroizeVerify for
 *                     RSA Zeroization Verification and modified Code for
 *                     Zeroization
-* 4.3   ana  06/04/2020 Minor enhancement
+*       har  04/06/20 Moved PKCS padding related code for versal from the
+*                     common directory
+*       bvi  04/07/20 Renamed csudma as pmcdma
+* 4.3   ana  06/04/20 Minor enhancement
 *       har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
 *
 * </pre>

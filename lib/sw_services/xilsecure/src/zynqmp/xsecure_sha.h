@@ -46,7 +46,9 @@
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   mmd  07/05/19 Optimized the code
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
-*
+*       har  03/23/20 Moved to zynqmp directory
+*                     Replaced function like macro with inline function
+
 * </pre>
 *
 * @note

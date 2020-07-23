@@ -6,12 +6,15 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 1.00a ba  06/01/15 Initial Release
-# 1.2   vns 08/23/16 Added support for SHA2 by adding .a files
-# 2.0   vns 11/28/16  Added support for PMU
-# 2.0   srm 02/16/18 Updated to pick up latest freertos port 10.0
-# 3.1   vns 04/13/18 Added user configurable macro secure environment
-# 4.0   vns 03/20/19 Added support for versal
+# 1.00a ba   06/01/15 Initial Release
+# 1.2   vns  08/23/16 Added support for SHA2 by adding .a files
+# 2.0   vns  11/28/16 Added support for PMU
+# 2.0   srm  02/16/18 Updated to pick up latest freertos port 10.0
+# 3.1   vns  04/13/18 Added user configurable macro secure environment
+# 4.0   vns  03/20/19 Added support for versal
+# 4.1   vns  08/02/19 Added support for a72 and r5 processors of Versal
+# 4.3   rpo  07/08/20 Added support to access xsecure init files only for
+#                     psv_pmc and psu_pmc processor
 ##############################################################################
 
 #---------------------------------------------

@@ -18,6 +18,9 @@
 * 4.1   kpt  01/07/20 Added Macro's for Magic Numbers in
 *                     xsecure_rsa_core.c
 * 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
+*       rpo  04/02/20 Added structure XSecure_RsaOps
+*                     Added Crypto KAT APIs
+*       har  04/06/20 Added function for selection of PKCS padding
 * 4.3   har  06/17/20 Removed references to unused algorithms
 * </pre>
 *

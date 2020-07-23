@@ -44,7 +44,10 @@
 *       psl 07/02/19 Fixed Coverity warning.
 *       mmd 07/05/19 Optimized the code
 *       psl 07/31/19 Fixed MISRA-C violation
-*
+*       kal 08/27/19 Changed default status to XST_FAILURE
+* 4.2   ana 04/02/20 Skipped zeroization when destination is PCAP
+*                    Added support of release and set reset for AES
+*       kpt 04/10/20 Resolved coverity warnings
 * </pre>
 *
 * @note
