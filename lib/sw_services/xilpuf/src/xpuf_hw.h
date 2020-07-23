@@ -16,8 +16,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kal  08/01/2019 Initial release
-        har  01/27/2020 Added offsets and register definitions for registers of
-                        EFUSE_CACHE module
+* 1.1   har  01/27/2020 Added offsets and register definitions for registers of
+*                       EFUSE_CACHE module
+*                       Moved definition of XPuf_ReadReg and XPuf_WriteReg to
+*                       xpuf.c
+*                       Renamed macros related to PUF Command register
 *
 * </pre>
 *

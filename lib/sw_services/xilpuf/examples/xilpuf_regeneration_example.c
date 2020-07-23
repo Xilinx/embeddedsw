@@ -15,8 +15,11 @@
  *
  * Ver   Who   Date        Changes
  * ----- ---  ----------   -----------------------------------------------------
- * 1.0	 ka   01/08/2019   Initial realease of Puf_regeneration example
- * 1.2	 har  07/03/2020   Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
+ * 1.0   ka   01/08/2019   Initial release of Puf_regeneration example
+ *       ka   01/13/2020   Added "successfully ran" golden string
+ * 1.1   har  03/01/2020   Added ID only regeneration support as default option
+ * 1.2   har  07/03/2020   Added XPuf_ShowData and replaced XPUF_ID_LENGTH with
+ *                         XPUF_ID_LEN_IN_BYTES for printing PUF ID
  *
  * @note
  *
@@ -34,8 +37,7 @@
  *							(or)
  *						(XPUF_READ_FROM_EFUSE_CACHE)
  * This selects the location from where the helper data must be read by the
- * application. This option must be configured if XPUF_KEY_GENERATE_OPTION
- * is configured as XPUF_REGEN_ON_DEMAND.
+ * application.
  *
  * #define XPUF_CHASH				(0x00000000)
  * The length of CHASH should be 24 bits. It is valid only for PUF regeneration

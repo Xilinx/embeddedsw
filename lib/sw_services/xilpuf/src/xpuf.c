@@ -17,8 +17,8 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kal  08/01/2019 Initial release
 *       har  09/24/2019 Fixed MISRA-C violations
-*       har  01/27/2020 Added support for helper data programming ID only
-*			regeneration and XPuf_Validate_Access_Rules
+* 1.1   har  01/27/2020 Added support for on-demand regeneration from efuse cache,
+*                       ID only regeneration and XPuf_Validate_Access_Rules
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
 * </pre>
 *
@@ -51,7 +51,7 @@ typedef enum {
  * @param	None.
  *
  * @return	XST_SUCCESS - Syndrome word is ready
- *		XST_FAILURE - Timeout occured
+ *		XST_FAILURE - Timeout occurred
  *
  *****************************************************************************/
 static inline u32 XPuf_WaitForPufSynWordRdy()
@@ -70,7 +70,7 @@ static inline u32 XPuf_WaitForPufSynWordRdy()
  * @param	None.
  *
  * @return	XST_SUCCESS - Puf Operation is done.
- *		XST_FAILURE - Timeout occured
+ *		XST_FAILURE - Timeout occurred
  *
  *****************************************************************************/
 static inline u32 XPuf_WaitForPufDoneStatus()
@@ -138,7 +138,7 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
  * @return	XST_SUCCESS - PUF registration successful
  *		XPUF_ERROR_INVALID_PARAM - PufData is NULL
  *		XPUF_ERROR_INVALID_SYNDROME_MODE - Incorrect Registration mode
- *		XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occured while
+ *		XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
  *			waiting for PUF Syndrome data
  *		XPUF_ERROR_SYNDROME_DATA_OVERFLOW - Syndrome data overflow
  *			reported by PUF controller or more than required data
