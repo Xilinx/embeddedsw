@@ -16,7 +16,8 @@
  *
  * Ver   Who     Date     Changes
  * ----- ------  -------- ------------------------------------------------------
- * 1.0   har     04/05/20 First release
+ * 1.0   har     01/31/20 First release
+ * 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
  *
  * </pre>
  *

@@ -18,10 +18,10 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kal  08/01/2019 Initial release
-* 1.1   har  01/27/2020 Updated XPufData structure to support helper data
-*			programming
-*			Added macros for supporting ID only regeneration and
-*			black key programming
+* 1.1   har  01/27/2020 Updated XPufData structure to support on demand regeneration
+*                       from efuse cache
+*                       Added macros for supporting ID only regeneration and
+*                       black key programming
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
 *
 * </pre>

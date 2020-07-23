@@ -17,6 +17,9 @@
   * Ver   Who   Date     Changes
   * ----- ---  -------- -------------------------------------------------------
   * 1.0   har  01/30/20 Initial release
+  * 1.1   har  01/31/20 Updated file version to 1.1 to sync with library version
+  *       har  03/08/20 Added function to print array
+  *                     Corrected endianness of PUF helper data
   * 1.2   har  07/03/20 Corrected the length of PUF ID passed in XPuf_ShowData
   *
   *@note
