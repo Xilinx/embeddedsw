@@ -16,6 +16,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   rpo 06/25/2020 Initial release
+* 4.3   rpo 06/25/2020 Updated file version to sync with library version
+*       am  09/24/2020 Resolved MISRA C violations
+*       har 10/12/2020 Addressed security review comments
 *
 * </pre>
 *
@@ -32,16 +35,14 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define PMC_GLOBAL_IER_REG_ADDR					(0xF1110018U)
-#define PMC_GLOBAL_IER_TAMPER_INT				(0x00000008U)
-#define PMC_GLOBAL_ISR_REG_ADDR					(0xF1110010U)
-#define PMC_GLOBAL_ISR_TAMPER_INT				(0x00000008U)
-#define PMC_GLOBAL_TAMPER_RESP_0				(0xF1110530U)
-#define PMC_GLOBAL_TAMPER_RESP_0_SYS_INT		(1U)
-#define PMC_GLOBAL_TAMPER_RESP_0_BBRAM_ERASE	(0x10U)
-#define PMC_GLOBAL_SLD_MASK						((1U<<2U)|(1U<<3U))
-#define PMC_GLOBAL_TAMPER_TRIG					(0xF1110570U)
-#define PMC_GLOBAL_TAMPER_TRIG_VAL				(1U)
+#define PMC_GLOBAL_IER_REG_ADDR		(0xF1110018U)
+#define PMC_GLOBAL_IER_TAMPER_INT	(0x00000008U)
+#define PMC_GLOBAL_ISR_REG_ADDR		(0xF1110010U)
+#define PMC_GLOBAL_ISR_TAMPER_INT	(0x00000008U)
+#define PMC_GLOBAL_TAMPER_RESP_0	(0xF1110530U)
+#define PMC_GLOBAL_SLD_MASK		((1U<<2U)|(1U<<3U))
+#define PMC_GLOBAL_TAMPER_TRIG		(0xF1110570U)
+#define PMC_GLOBAL_TAMPER_TRIG_VAL	(1U)
 
 /************************** Function Prototypes ******************************/
 
@@ -65,18 +66,19 @@ void XSecure_EnableTamperInterrupt(void)
 	 */
 	Xil_Out32(PMC_GLOBAL_IER_REG_ADDR, PMC_GLOBAL_IER_TAMPER_INT);
  }
+
 /*****************************************************************************/
 /**
- * @brief	This function processes the tamper response.
+ * @brief	This function processes the tamper response
  *
- * @return
- *		- Returns XST_SUCCESS on success.
- *		- Returns error code on failure
+ * @param	None
+ *
+ * @return 	- XST_SUCCESS - Always
  *
  *****************************************************************************/
-u32 XSecure_ProcessTamperResponse(void)
+int XSecure_ProcessTamperResponse(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 TamperResponse;
 
 	/**
@@ -93,11 +95,13 @@ u32 XSecure_ProcessTamperResponse(void)
 		TamperResponse = Xil_In32(PMC_GLOBAL_TAMPER_RESP_0);
 		if ((TamperResponse & PMC_GLOBAL_SLD_MASK) != 0U) {
 			XSecure_SecureLockDown();
+
 			/**
 			 * Trigger software tamper event to ROM to execute lockdown
 			 * for PMC
 			 */
 			Xil_Out32(PMC_GLOBAL_TAMPER_TRIG, PMC_GLOBAL_TAMPER_TRIG_VAL);
+
 			/**
 			 * Wait forever; ROM to complete secure lock down
 			 */
@@ -107,7 +111,7 @@ u32 XSecure_ProcessTamperResponse(void)
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 
 	return Status;
 }
@@ -123,7 +127,5 @@ u32 XSecure_ProcessTamperResponse(void)
  *****************************************************************************/
  void XSecure_SecureLockDown(void)
  {
-	 /**
-	  * TODO: Secure lock down implementation
-	  */
+	 return;
  }
