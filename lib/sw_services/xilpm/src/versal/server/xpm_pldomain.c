@@ -696,6 +696,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
 				 XPM_POLL_TIMEOUT);
 	if(XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_POR_STATUS;
 		goto done;
 	}
 
