@@ -58,6 +58,7 @@
 #include "xaie_events.h"
 #include "xaie_events_aieml.h"
 #include "xaie_locks_aieml.h"
+#include "xaie_reset_aieml.h"
 #include "xaiegbl_regdef.h"
 #include "xaiemlgbl_params.h"
 
@@ -1227,6 +1228,13 @@ static const XAie_ShimClkBufCntr Aie2ShimClkBufCntr =
 	.ClkBufEnable = {0, 0x1}
 };
 
+static const XAie_ShimRstMod Aie2ShimTileRst =
+{
+	.RegOff = 0,
+	.RstCntr = {0},
+	.RstShims = _XAieMl_RstShims,
+};
+
 /* Register feild attributes for Shim AXI MM config for NSU Errors */
 static const XAie_ShimNocAxiMMConfig Aie2ShimNocAxiMMConfig =
 {
@@ -1287,7 +1295,7 @@ static const  XAie_PlIfMod Aie2PlIfMod =
 	.ShimNocDeMux = NULL,
 	.ClkBufCntr = &Aie2ShimClkBufCntr,
 	.ColRst = {0, 0x1},
-	.ShimTileRst = NULL,
+	.ShimTileRst = &Aie2ShimTileRst,
 	.ShimNocAxiMM = NULL,
 };
 
@@ -1314,7 +1322,7 @@ static const  XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.ShimNocDeMux = Aie2ShimDeMuxConfig,
 	.ClkBufCntr = &Aie2ShimClkBufCntr,
 	.ColRst = {0, 0x1},
-	.ShimTileRst = NULL,
+	.ShimTileRst = &Aie2ShimTileRst,
 	.ShimNocAxiMM = &Aie2ShimNocAxiMMConfig,
 };
 
