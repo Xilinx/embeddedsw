@@ -15,7 +15,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 {
 	XStatus Status = XST_FAILURE;
 	u32 Idx;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmDevice_Init(&Core->Device, Id, 0, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
@@ -55,7 +55,7 @@ done:
 int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 {
 	int Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Check for valid resume address */
 	if (0U == (Address & 1ULL)) {

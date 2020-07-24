@@ -76,7 +76,7 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 	XStatus Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(Id);
 	XPm_ResetNode *Rst = NULL;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL != XPmReset_GetById(Id) || NumParents > MAX_RESET_PARENTS) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
@@ -434,7 +434,7 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
 	const struct ResetCustomOps *Ops = GetResetCustomOps(Rst->Node.Id);
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	switch (Action) {
 	case (u32)PM_RESET_ACTION_RELEASE:

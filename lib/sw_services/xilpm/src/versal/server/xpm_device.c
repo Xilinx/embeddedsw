@@ -328,7 +328,7 @@ static u32 IsRunning(XPm_Device *Device)
 XStatus XPmDevice_BringUp(XPm_Device *Device)
 {
 	XStatus Status = XPM_ERR_DEVICE_BRINGUP;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL == Device->Power) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
@@ -428,7 +428,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = (XPm_Device *)Node;
 	XPm_Core *Core;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmDbg("ID=0x%x State=%s, Event=%s\n\r", Node->Id, PmDevStates[Node->State], PmDevEvents[Event]);
 
@@ -944,7 +944,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		XPm_Power *Power, XPm_ClockNode * Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XPM_ERR_DEVICE_INIT;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL != XPmDevice_GetById(Id)) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;

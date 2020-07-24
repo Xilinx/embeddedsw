@@ -17,7 +17,7 @@
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -52,7 +52,7 @@ static XStatus LpdPreBisrReqs(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *XramDevice = NULL;
 	XPm_ResetNode *XramRst = NULL;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Remove PMC LPD isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, FALSE_VALUE);
@@ -116,7 +116,7 @@ static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -223,7 +223,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegVal;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -363,7 +363,7 @@ static XStatus XramMbist(void)
 	/* Using Unison Mode */
 
 	XStatus Status = XPM_ERR_MBIST_CLR;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Device *Device = NULL;
 	u32 BaseAddr, RegValue;
 
@@ -428,7 +428,7 @@ done:
 static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -563,7 +563,7 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   u32 OtherBaseAddressesCnt)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
 	if (XST_SUCCESS != Status) {

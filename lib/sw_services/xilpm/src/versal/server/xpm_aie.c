@@ -124,7 +124,7 @@ static XStatus AiePcsrWrite(u32 Mask, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
@@ -186,7 +186,7 @@ static XStatus AieWaitForCoreDone(u32 Col, u32 Row)
 {
 	u64 StatusRegAddr = TILE_BASEADDRESS(Col, Row) + AIE_CORE_STATUS_OFFSET;
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPlmi_UtilPollForMask64((u32)(StatusRegAddr>>32),
 				(u32)(StatusRegAddr), AIE_CORE_STATUS_DONE_MASK, 10U);
@@ -223,7 +223,7 @@ static XStatus ProgramCore(u32 Col, u32 Row, u32 *PrgData, u32 NumOfWords)
 static XStatus ArrayReset(void)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_ARRAY_RESET_MASK,
 					ME_NPI_REG_PCSR_MASK_ME_ARRAY_RESET_MASK);
@@ -283,7 +283,7 @@ static XStatus MemInit(void)
 	u32 row = AieInst.StartRow;
 	u32 col = AieInst.StartCol;
 	int Status;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	for (col = AieInst.StartCol; col < (AieInst.StartCol + AieInst.NumCols); col++) {
 		for (row = AieInst.StartRow; row < (AieInst.StartRow + AieInst.NumRows); row++) {
@@ -314,7 +314,7 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -361,7 +361,7 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -400,7 +400,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -484,7 +484,7 @@ done:
 static XStatus AieBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -521,7 +521,7 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -692,7 +692,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Skip AIE Init for base QEMU without COSIM */
 	if (Platform == PLATFORM_VERSION_QEMU) {

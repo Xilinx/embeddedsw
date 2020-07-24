@@ -47,7 +47,7 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmCore_Init(&ApuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
 			      &ApuOps);

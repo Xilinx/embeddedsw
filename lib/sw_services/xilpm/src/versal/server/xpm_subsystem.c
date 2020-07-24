@@ -379,7 +379,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	XPm_PinNode *Pin;
 	XPm_Device *Device = NULL;
 	u32 DevId;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (SubsystemId == PM_SUBSYS_PMC) {
 		Status = XST_SUCCESS;
@@ -558,7 +558,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
 	const u32 DefaultPreallocDevList[][2] = {
 		{PM_DEV_PSM_PROC, PM_CAP_ACCESS},

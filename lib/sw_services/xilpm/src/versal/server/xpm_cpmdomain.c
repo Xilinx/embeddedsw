@@ -29,7 +29,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -74,7 +74,7 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 	XPm_CpmDomain *Cpm;
 	u32 i;
 	XPm_Device* Device = NULL;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use any args */
 	(void)Args;
@@ -137,7 +137,7 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u32 Platform;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
@@ -203,7 +203,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XPM_ERR_SCAN_CLR;
 	XPm_CpmDomain *Cpm;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -263,7 +263,7 @@ done:
 static XStatus CpmBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -288,7 +288,7 @@ done:
 static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -323,7 +323,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -389,7 +389,7 @@ done:
 static XStatus Cpm5GtypMbist(u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET,
@@ -422,7 +422,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XPM_ERR_MBIST_CLR;
 	XPm_CpmDomain *Cpm;
 	u32 RegValue, i;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -516,7 +516,7 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 			  u32 OtherBaseAddressesCnt)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	struct XPm_PowerDomainOps *Ops = NULL;
 
 	if (Id == PM_POWER_CPM) {
