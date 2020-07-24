@@ -292,6 +292,8 @@ extern "C" {
 #define XPM_INT_ERR_VCCRAM_SOC_ISO		0x3714U
 /* CFU not ready error */
 #define XPM_INT_ERR_CFU_NOT_READY		0x3715U
+/* Error during check for PL POR status */
+#define XPM_INT_ERR_PL_POR_STATUS		0x3716U
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
