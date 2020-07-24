@@ -42,7 +42,8 @@
 /****************************** Type Definitions *****************************/
 
 /************************** Variable Definitions *****************************/
-static u32 _XAie_NpiSetProtectedRegField(XAie_DevInst *DevInst, u8 Enable);
+static AieRC _XAie2_NpiSetProtectedRegField(XAie_DevInst *DevInst,
+		XAie_NpiProtRegReq *Req, u32 *RegVal);
 
 const XAie_NpiMod _XAie2NpiMod =
 {
@@ -55,7 +56,7 @@ const XAie_NpiMod _XAie2NpiMod =
 	.ProtRegEnable = {XAIE2_NPI_PROT_REG_CNTR_EN_LSB, XAIE2_NPI_PROT_REG_CNTR_EN_MSK},
 	.ProtRegFirstCol = {XAIE2_NPI_PROT_REG_CNTR_FIRSTCOL_LSB, XAIE2_NPI_PROT_REG_CNTR_FIRSTCOL_MSK},
 	.ProtRegLastCol = {XAIE2_NPI_PROT_REG_CNTR_LASTCOL_LSB, XAIE2_NPI_PROT_REG_CNTR_LASTCOL_MSK},
-	.SetProtectedRegField = _XAie_NpiSetProtectedRegField,
+	.SetProtectedRegField = _XAie2_NpiSetProtectedRegField,
 };
 
 /************************** Function Definitions *****************************/
@@ -65,30 +66,48 @@ const XAie_NpiMod _XAie2NpiMod =
 * This is function to setup the protected register configuration value.
 *
 * @param	DevInst : AI engine partition device pointer
-* @param	Enable : XAIE_ENABLE to enable access to protected register,
-*			 XAIE_DISABLE to disable access to protected register
+* @param	Req: Protect Register Request
+* @param	RegVal: pointer to return calculated register value
 *
-* @return	32bit Value used by caller function to set to the register
+* @return	XAIE_OK for success, and negative value for failure
 *
 * @note		None
 *
 *******************************************************************************/
-static u32 _XAie_NpiSetProtectedRegField(XAie_DevInst *DevInst, u8 Enable)
+static AieRC _XAie2_NpiSetProtectedRegField(XAie_DevInst *DevInst,
+		XAie_NpiProtRegReq *Req, u32 *RegVal)
 {
-	u32 RegVal, CFirst, CLast;
+	u32 CFirst, CLast, NumCols;
 
-	RegVal = XAie_SetField(Enable, _XAie2NpiMod.ProtRegEnable.Lsb,
+	if ((Req->StartCol + Req->NumCols) > DevInst->NumCols ||
+	    (Req->StartCol != 0  && Req->NumCols == 0)) {
+		XAieLib_print("Error: Invalid columns (%u,%u) for protected regs.\n",
+				Req->StartCol, Req->NumCols);
+		return XAIE_INVALID_ARGS;
+	}
+
+	*RegVal = XAie_SetField(Req->Enable, _XAie2NpiMod.ProtRegEnable.Lsb,
 			       _XAie2NpiMod.ProtRegEnable.Mask);
 
-	CFirst = (DevInst->BaseAddr & XAIE2_COL_MASK) >>
-		DevInst->DevProp.ColShift;
-	CLast = CFirst + DevInst->NumCols - 1;
+	NumCols = Req->NumCols;
+	if (NumCols == 0) {
+		/* It is for the whole partition instance */
+		NumCols = DevInst->NumCols;
+		CFirst = 0;
+	} else {
+		CFirst = Req->StartCol;
+	}
 
-	RegVal |= XAie_SetField(CFirst, _XAie2NpiMod.ProtRegFirstCol.Lsb,
+	CFirst += (DevInst->BaseAddr & XAIE2_COL_MASK) >>
+		DevInst->DevProp.ColShift;
+	CLast = CFirst + NumCols - 1;
+
+	*RegVal |= XAie_SetField(CFirst, _XAie2NpiMod.ProtRegFirstCol.Lsb,
 				_XAie2NpiMod.ProtRegFirstCol.Mask);
-	RegVal |= XAie_SetField(CLast, _XAie2NpiMod.ProtRegLastCol.Lsb,
+	*RegVal |= XAie_SetField(CLast, _XAie2NpiMod.ProtRegLastCol.Lsb,
 				_XAie2NpiMod.ProtRegLastCol.Mask);
-	return RegVal;
+
+	return XAIE_OK;
 }
 
 /** @} */
