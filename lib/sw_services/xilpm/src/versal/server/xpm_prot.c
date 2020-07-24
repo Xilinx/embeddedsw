@@ -131,7 +131,7 @@ static XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeIndex = NODEINDEX(Id);
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((u32)XPM_NODEIDX_PROT_MAX <= NodeIndex) {
 		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
@@ -211,7 +211,7 @@ done:
 XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmProt_Init((XPm_Prot *)MpuNode, Id, BaseAddr);
 	if (XST_SUCCESS != Status) {
@@ -356,7 +356,7 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	u32 i = 0;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 Address, BaseAddr, RegVal, Platform, PlatformVersion;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (PpuNode == NULL) {
 		DbgErr = XPM_INT_ERR_INVALID_NODE;
@@ -481,7 +481,7 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 	u32 Address, idx;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 PpuBase = PpuNode->ProtNode.Node.BaseAddress;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (PpuNode == NULL) {
 		DbgErr = XPM_INT_ERR_INVALID_NODE;
@@ -783,7 +783,7 @@ static XStatus XPmProt_XmpuEnable(u32 NodeId)
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddr;
 	u32 RegVal;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_ProtMpu *MpuNode = NULL;
 
 	MpuNode = (XPm_ProtMpu *)XPmProt_GetById(NodeId);
@@ -838,7 +838,7 @@ static XStatus XPmProt_XmpuDisable(u32 NodeId)
 	u32 BaseAddr, Region;
 	u32 RegnCfgAddr = 0;
 	XPm_ProtMpu *MpuNode = NULL;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	MpuNode = (XPm_ProtMpu *)XPmProt_GetById(NodeId);
 	if (NULL == MpuNode) {
@@ -891,7 +891,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 {
 	u32 Status = XST_FAILURE;
 	u32 CfgToWr, RegnCfgAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u8 Usage, Security, RdAllowed, WrAllowed, NSRegnCheck;
 
 	if (MAX_MEM_REGIONS <= RegionId) {
@@ -974,7 +974,7 @@ static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
 	u32 RegnEndLo, RegnEndHi, RegnEndLoVal, RegnEndHiVal;
 	XPm_ProtMpu *MpuNode = NULL;
 	XPm_MemDevice *MemDevice = NULL;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	u8 XmpuIdx;
 
@@ -1086,7 +1086,7 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId = 0;
 	u32 DevSubcl = 0;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((NULL == Reqm) || (NULL == Reqm->Device)) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -1150,7 +1150,7 @@ XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 XppuNodeId, Enable;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((NULL == Args) || (NumOfArgs < 2U)) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -1205,7 +1205,7 @@ XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 XmpuNodeId, Enable;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((NULL == Args) || (2U != NumOfArgs)) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;

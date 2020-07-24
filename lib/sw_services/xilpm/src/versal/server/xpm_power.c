@@ -372,7 +372,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmDbg("Id:0x%x, UseCount:%d, State=%x, Event=%x\n\r",
 				Node->Id, Power->UseCount, Node->State, Event);
@@ -542,7 +542,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PowerDomain;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Todo: Uncomment this after integrating with CDO handler */
 	if (NULL != XPmPower_GetById(Id)) {

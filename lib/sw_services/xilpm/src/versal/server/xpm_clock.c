@@ -97,7 +97,7 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 {
 	XStatus Status = XST_FAILURE;
 	u32 Subclass = NODESUBCLASS(Id);
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (Subclass == (u32)XPM_NODETYPE_CLOCK_REF) {
 		XPmNode_Init(&Clk->Node, Id, (u8)XPM_CLK_STATE_ON, 0);
@@ -164,7 +164,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	XStatus Status = XST_FAILURE;
 	u32 Subclass = NODESUBCLASS(Id);
 	XPm_ClockNode *Clk;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL != XPmClock_GetById(Id)) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
@@ -235,7 +235,7 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 	u32 i = 0U;
 	XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 	struct XPm_ClkTopologyNode *SubNodes;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (OutClkPtr == NULL  || OutClkPtr->Topology.Id != TOPOLOGY_CUSTOM)	{
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
@@ -286,7 +286,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	u16 ParentIdx = 0;
 	XPm_ClockNode *ParentClk = NULL;
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (ClkPtr == NULL || NumParents > MAX_MUX_PARENTS || NumParents == 0U) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
@@ -1018,7 +1018,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	XPm_ClockNode *Clk;
 	XPm_ClockHandle *DevHandle;
 	u32 PermissionMask = 0U;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {

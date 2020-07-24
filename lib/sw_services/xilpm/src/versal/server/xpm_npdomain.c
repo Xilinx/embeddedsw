@@ -25,7 +25,7 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NpdPowerUpTime = 0;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -89,7 +89,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	u32 i=0;
 	XPm_Device *Device;
 	u32 BaseAddress;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -191,7 +191,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	u32 RegValue;
 	u32 SlrType;
 	XPm_OutClockNode *Clk;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -266,7 +266,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	u32 i;
 	XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -393,7 +393,7 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 	u32 i = 0;
 	XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -461,7 +461,7 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
 	if (XST_SUCCESS == Status) {
@@ -479,7 +479,7 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	XStatus Status = XST_FAILURE;
 	u32 Idx = NODEINDEX(DeviceId);
 	u32 Type = NODETYPE(DeviceId);
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((((u32)XPM_NODETYPE_MEMIC_SLAVE != Type) &&
 	    ((u32)XPM_NODETYPE_MEMIC_MASTER != Type)) ||

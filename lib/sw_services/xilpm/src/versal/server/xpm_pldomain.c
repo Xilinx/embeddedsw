@@ -49,7 +49,7 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 static XStatus PldGtyMbist(u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
@@ -77,7 +77,7 @@ static void PldApplyTrim(u32 TrimType)
 	XStatus Status = XST_FAILURE;
         Xuint128 VggTrim={0};
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -167,7 +167,7 @@ static XStatus PldCfuInit(void)
 {
 	XStatus Status = XST_FAILURE;
 	XCfupmc_Config *Config;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (0U != CfupmcIns.IsReady) {
 		DbgErr = XPM_INT_ERR_CFU_NOT_READY;
@@ -209,7 +209,7 @@ static XStatus PldCframeInit(void)
 {
         XStatus Status = XST_FAILURE;
         XCframe_Config *Config;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
         if (0U != CframeIns.IsReady) {
                 Status = XST_SUCCESS;
@@ -260,7 +260,7 @@ static XStatus GtyHouseClean(void)
 	u32 GtmSize = (u32)XPM_NODEIDX_DEV_GTM_0_4_MAX - (u32)XPM_NODEIDX_DEV_GTM_0_4_MIN + 1U;
 	u32 GtypSize = (u32)XPM_NODEIDX_DEV_GTYP_MAX - (u32)XPM_NODEIDX_DEV_GTYP_MIN + 1U;
 	u32 GtmSize2 = (u32)XPM_NODEIDX_DEV_GTM_5_9_MAX - (u32)XPM_NODEIDX_DEV_GTM_5_9_MIN + 1U;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Store GTY Addresses */
 	for (i = 0; i < GtySize; i++) {
@@ -359,7 +359,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 	u32 Value;
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 
 	if (PLHCLEAN_EARLY_BOOT == TriggerTime) {
@@ -511,7 +511,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	XPm_PlDomain *Pld;
 	u32 PlPowerUpTime=0;
 	u32 Platform = XPm_GetPlatform();
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -651,7 +651,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	u32 Platform;
 	u32 PlatformVersion;
 	XPm_Pmc *Pmc;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 VoltageRailMask = (PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
 			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
@@ -808,7 +808,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 u32 OtherBaseAddressCnt)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
 	if (XST_SUCCESS != Status) {

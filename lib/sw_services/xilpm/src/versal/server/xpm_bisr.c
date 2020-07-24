@@ -276,7 +276,7 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	XStatus Status = XST_FAILURE;
 	u32 RegValue, EfuseEndpointShift;
 	u32 BaseAddr, BisrDataDestAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Modify Base Address based on the Tag type */
 	switch(TagType) {
@@ -347,7 +347,7 @@ static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	XStatus Status = XST_FAILURE;
 	u64 BisrDataDestAddr;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL == LpDomain) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
@@ -376,7 +376,7 @@ int XPmBisr_TriggerLpd(void)
 	int Status = XST_FAILURE;
 	XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == PsLpd) {
@@ -431,7 +431,7 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	XPm_PsFpDomain *PsFpd;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	if (NULL == PsFpd) {
@@ -508,7 +508,7 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
@@ -561,7 +561,7 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
 	if (NULL == Cpm) {
@@ -621,7 +621,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u32 BaseAddr, BisrDataDestAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 
 	if (NULL == NpDomain) {
@@ -685,7 +685,7 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Compilation warning fix */
 	(void)TagId;
@@ -1007,7 +1007,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	XPm_Device *Device = NULL;
 	u32 RegValue, BaseAddr;
 	u64 BisrDataDestAddr;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Not possible to reach here if Device doesn't exist hence no */
 	/* check for existence of Device */
@@ -1082,7 +1082,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseBisrSize;
 	u32 EfuseBisrOptional;
 	u32 TagType;
-	u16 DbgErr = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;

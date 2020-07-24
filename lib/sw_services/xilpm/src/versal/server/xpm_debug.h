@@ -456,6 +456,8 @@ extern "C" {
 /* Error during PSM power down request */
 #define XPM_INT_ERR_PSM_PWR_DWN			0x4702U
 
+/*************************** Undefined error *********************************/
+#define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
