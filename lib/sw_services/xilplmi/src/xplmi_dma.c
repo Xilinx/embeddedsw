@@ -506,7 +506,7 @@ END:
 #ifdef PLM_PRINT_PERF_DMA
 	XPlmi_MeasurePerfTime(XfrTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		" %u.%u ms DMA Xfr time: SrcAddr: 0x%0x%08x, DestAddr: 0x%0x%08x,"
+		" %u.%06u ms DMA Xfr time: SrcAddr: 0x%0x%08x, DestAddr: 0x%0x%08x,"
 		"%u Bytes, Flags: 0x%0x\n\r",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 		(u32)(SrcAddr >> 32U), (u32)SrcAddr, (u32)(DestAddr >> 32U),

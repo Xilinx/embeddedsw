@@ -851,7 +851,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 END:
 #ifdef	PLM_PRINT_PERF_DMA
 	XPlmi_MeasurePerfTime(QspiCopyTime, &PerfTime);
-	XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%u ms QSPI Copy time:"
+	XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%06u ms QSPI Copy time:"
 	"SrcAddr: 0x%08x, DestAddr: 0x%0x08x, %u Bytes, Flags: 0x%0x\n\r",
 	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, SrcAddrLow,
 	(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);

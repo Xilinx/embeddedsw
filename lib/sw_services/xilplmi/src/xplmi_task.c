@@ -202,7 +202,7 @@ void XPlmi_TaskDispatchLoop(void)
 			Status = Task->Handler(Task->PrivData);
 #ifdef PLM_DEBUG_INFO
 			XPlmi_MeasurePerfTime(TaskStartTime, &PerfTime);
-			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%u ms: Task Time\n\r",
+			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%06u ms: Task Time\n\r",
 				(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
 			if (Status != XPLMI_TASK_INPROGRESS) {
