@@ -204,7 +204,7 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 #ifdef PLM_PRINT_PERF_POLL
 	XPlmi_MeasurePerfTime(PollTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-	" %u.%u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
+	" %u.%06u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
 	"Timeout: %u \r\n",
 	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 	Addr, Mask, ExpectedValue, TimeOutInUs);
@@ -961,7 +961,7 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 END:
 #ifdef PLM_PRINT_PERF_KEYHOLE
 	XPlmi_MeasurePerfTime(KeyHoleTime, &PerfTime);
-	XPlmi_Printf(DEBUG_PRINT_PERF, " %u.%u ms KeyHole Run Time \r\n",
+	XPlmi_Printf(DEBUG_PRINT_PERF, " %u.%06u ms KeyHole Run Time \r\n",
 	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
 	return Status;

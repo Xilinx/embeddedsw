@@ -363,7 +363,7 @@ END:
 	}
 	XPlmi_MeasurePerfTime(PdiInitTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		"%u.%u ms: PDI initialization time\n\r",
+		"%u.%06u ms: PDI initialization time\n\r",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 	return Status;
 }

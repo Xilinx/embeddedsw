@@ -119,7 +119,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		}
 		XPlmi_MeasurePerfTime(PrtnLoadTime, &PerfTime);
 		XPlmi_Printf(DEBUG_PRINT_PERF,
-			" %u.%u ms for PrtnNum: %u, Size: %u Bytes\n\r",
+			" %u.%06u ms for PrtnNum: %u, Size: %u Bytes\n\r",
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, PrtnNum,
 			(PdiPtr->MetaHdr.PrtnHdr[PrtnNum].TotalDataWordLen) *
 			XPLMI_WORD_LEN);

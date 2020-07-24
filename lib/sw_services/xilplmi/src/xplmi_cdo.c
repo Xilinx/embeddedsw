@@ -480,7 +480,7 @@ END:
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 	XPlmi_MeasurePerfTime(ProcessTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-			"%u.%u ms Cdo Processing time\n\r",
+			"%u.%06u ms Cdo Processing time\n\r",
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
 	return Status;
