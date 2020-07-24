@@ -20,7 +20,13 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kal  08/16/2019 Initial release
-* 2.0 	kal  02/27/2020	Added Wrapper APIs for eFuse.
+* 2.0 	kal  02/27/2020	Added eFuse wrapper APIs to program AES keys, PPK hash,
+*                       Revocation ID, SecCtrl eFuses, Puf HD and APIs to read
+*                       eFuse Cache values.
+*       kal  03/03/2020 Added protection eFuse row programming.
+* 2.1   rpo  06/06/2020 Support added to write glitch configuration data.
+*       rpo  06/08/2020 Support added to program eFUSE halt boot bits to stop
+*                       at ROM stage.
 *
 * </pre>
 *

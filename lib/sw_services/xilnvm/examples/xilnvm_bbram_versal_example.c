@@ -18,6 +18,10 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   mmd     06/06/19 First release
+* 2.0   kal     09/30/19 Renamed example to xilnvm_bbram_versal_example
+*       kal     01/03/20 Added "Successfully ran" golden string when success
+*       kal     05/12/20 Adds Zeroization before every BBRAM write.
+*
 * </pre>
 *
 *

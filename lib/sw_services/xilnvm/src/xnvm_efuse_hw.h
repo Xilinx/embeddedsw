@@ -18,6 +18,9 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kal  08/16/2019 Initial release
 * 2.0	kal  02/27/2019	Added eFuse rows, Cache offsets
+* 2.1   kal  07/09/2020 Replaced hardcoded CLK_REF_FREQ to the
+*                       XPAR_PSU_PSS_REF_CLK_FREQ_HZ
+*
 * </pre>
 *
 * @note
