@@ -471,8 +471,12 @@
 *
 * Ver	Who	Date	Changes
 * ----- ------  -------- ------------------------------------------------------
-* 1.0   kal    10/01/20 First release
-* 2.0   kal    08/04/20 Addressed Security review comments
+* 2.0   kal    03/02/20 First release to add different configurable options
+*                       to program different eFuse bits.
+*       kal    08/04/20 Addressed Security review comments.
+* 2.1   rpo    06/06/20 Support added to write glitch configuration data.
+*       rpo    06/08/20 Support added to program eFUSE halt boot bits to stop
+*                       at ROM stage.
 *
 * </pre>
 *

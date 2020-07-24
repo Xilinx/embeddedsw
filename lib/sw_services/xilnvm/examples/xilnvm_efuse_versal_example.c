@@ -18,9 +18,17 @@
  * Ver	 Who	Date	Changes
  * ----- ---  -------- -------------------------------------------------------
  * 1.0	 kal   08/16/2019 Initial release of xnvm_efuse_versal_example
- * 2.0   kal   02/27/2020 Updates example with Wrapper function calls
- * 2.1   kal   06/30/2020 Added read support to all SecCtrl efuses and
- *                        MiscCtrl eFuses.
+ * 2.0   kal   09/30/2019 Renamed example to xilnvm_efuse_versal_example
+ *       kal   01/03/2020 Added "Successfully ran" golden string when success
+ *       kal   02/27/2020 Updates example with wrapper function calls.
+ *       kal   03/06/2020 Optimized the example to have single interface
+ *                        to xilnvm library.
+ *       kal   05/06/2020 Fixed bug of not programming Ppk2_Invld eFuse bit.
+ * 2.1   rpo   06/06/2020 Support added to write glitch configuration data.
+ *       rpo   06/08/2020 Support added to program eFUSE halt boot bits to stop
+ *                        at ROM stage.
+ *       kal   06/30/2020 Added read support to all SecCtrl efuses and
+ *                        MiscCtrl eFuses also updated read pattern.
  *
  ******************************************************************************/
 

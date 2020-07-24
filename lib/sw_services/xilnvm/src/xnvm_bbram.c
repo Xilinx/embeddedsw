@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
+* 2.0   kal  11/14/2019 Added error check when BBRAM keylen is not 128 or 256.
 *
 * </pre>
 *

@@ -18,7 +18,14 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
 *	har  09/24/2019 Fixed MISRA-C violations
-* 2.0	kal  03/08/2020 Added Utility APIs
+* 2.0	kal  02/28/2020 Added utility APIs XNvm_ValidateHash, XNvm_AesCrcCalc
+*                       XNvm_ConvertBytesToBits and XNvm_ConvertBitsToBytes
+*       kal  04/11/2020 Renamed conversion APIs to XNvm_ConvertHexToByteArray
+*       		and XNvm_ConvertByteArrayToHex
+*       kal  05/04/2020 Moved few utility functions to application and removed
+*       		usage of conversion APIs as the same functionality is
+*       		achieved by bit-wise operators.
+*
 * </pre>
 *
 * @note
@@ -53,7 +60,7 @@
  * @param   Key - Pointer to AES key
  *
  * @return
- *	- XST_SUCCESS	- On valid input AES key sring
+ *	- XST_SUCCESS	- On valid input AES key string
  *	- XST_INVALID_PARAM - On invalid length of the input string
  *	- XST_FAILURE	- On non hexadecimal character in string
  *

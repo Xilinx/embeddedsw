@@ -17,7 +17,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
-* 2.0	kal  03/08/2020 Added Utility APIs
+* 2.0	kal  02/28/2020 Added utility APIs XNvm_ValidateHash, XNvm_AesCrcCalc
+*                       XNvm_ConvertBytesToBits and XNvm_ConvertBitsToBytes
+*       kal  04/11/2020 Renamed conversion APIs to XNvm_ConvertHexToByteArray
+*       		and XNvm_ConvertByteArrayToHex
+*       kal  05/04/2020 Moved few utility functions to application and removed
+*       		usage of conversion APIs as the same functionality is
+*       		achieved by bit-wise operators.
 *
 * </pre>
 *
