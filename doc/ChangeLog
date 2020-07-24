@@ -26,6 +26,9 @@ Added window watchdog support in peripheral test app.
 v_axi4s_remap_v1_3:
 Added example to this driver.
 
+v_multi_scaler_v1_2:
+mdd file is updated to call driver wrt to IP version used.
+
 clk_wiz_v1_4:
 Add updates for clocking wizard.
 Add set rate capability for zynqmp.
