@@ -118,7 +118,7 @@ proc get_flash_config { fp } {
 	switch -exact $ipname {
 		"axi_quad_spi"  {
 			set axi_type_value [common::get_property CONFIG.C_TYPE_OF_AXI4_INTERFACE [get_cells -hier $flash]]
-			if {[llength $axi_type_value] == 0} {
+			if {$axi_type_value == "0"} {
 				set flash_start [common::get_property CONFIG.C_BASEADDR [get_cells -hier $flash]];
 			} else {
 				set flash_start [common::get_property CONFIG.C_S_AXI4_BASEADDR [get_cells -hier $flash]];
