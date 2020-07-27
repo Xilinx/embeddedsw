@@ -138,7 +138,7 @@ END:
 /**
  * @brief	This function is used to initialize the ospi controller and driver.
  *
- * @param	DeviceFlags are ununsed and passed for compatibility with other
+ * @param	DeviceFlags are unused and passed for compatibility with other
  *		boot device APIs.
  *
  * @return	None

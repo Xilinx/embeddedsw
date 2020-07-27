@@ -19,7 +19,7 @@
 * 1.01  sb   08/23/2019 Added QSPI buswidth detection logic
 *       har  08/28/2019 Fixed MISRA C violations
 *       bsv  08/30/2019 Added fallback and multiboot support in PLM
-*       bsv	 09/12/2019 Added suport for Macronix 1.8V flash parts
+*       bsv  09/12/2019 Added support for Macronix 1.8V flash parts
 * 1.02  bsv  02/04/2020 Reset qspi instance in init functions for LPD off
 *						suspend and resume to work
 *       bsv  04/09/2020 Code clean up

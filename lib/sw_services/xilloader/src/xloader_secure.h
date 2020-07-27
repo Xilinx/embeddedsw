@@ -15,12 +15,22 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   vns  04/23/19 First release
-*       har  02/18/20 Added minor error codes for security
-* 1.1	ana  06/04/20 Removed XLOADER_ECDSA_INDEXVAL macro and
-* 		      updated u32 datatype to u8 datatype
-*       kal  07/20/20 Added XLoader_StartNextChunkCopy API to trigger
-*                     next chunk copy when double buffering is enabled
+* 1.00  vns  04/23/19 First release
+* 1.01  vns  07/09/19 Added PPK and SPK integrity checks
+*                     Updated chunk size for secure partition
+*                     Added encryption + authentication support
+*       vns  07/23/19 Added functions to load secure headers
+*       vns  08/23/19 Added buffer cleaning on failure
+*                     Added different key sources support
+* 1.02  vns  02/23/20 Added DPA CM enable/disable functionality
+*       har  02/28/20 Added minor error codes for security
+*       vns  03/01/20 Added PUF KEK decrypt support
+*       ana  04/02/20 Added crypto engine KAT test function calls
+*       bsv  04/07/20 Change CSUDMA name to PMCDMA
+*       vns  04/13/20 Moved Aes instance to Secure structure
+* 1.03  ana  06/04/20 Removed XLOADER_ECDSA_INDEXVAL macro and
+*                     updated u32 datatype to u8 datatype
+*       tar  07/23/20 Fixed MISRA-C required violations
 *
 * </pre>
 *
