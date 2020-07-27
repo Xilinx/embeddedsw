@@ -99,14 +99,14 @@ extern u8 LpdInitialized;
 #define LPD_INITIALIZED		(1U << 1U)
 
 #define XPlmi_Printf(DebugType, ...) \
-	if(((DebugType) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
 		XPlmi_PrintPlmTimeStamp(); \
 		xil_printf (__VA_ARGS__); \
 	}
 
 /* Prints without TimeStamp */
 #define XPlmi_Printf_WoTimeStamp(DebugType, ...) \
-	if(((DebugType) & (XPlmiDbgCurrentTypes & DebugLog.LogLevel)) != FALSE) { \
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
 		xil_printf (__VA_ARGS__); \
 	}
 
