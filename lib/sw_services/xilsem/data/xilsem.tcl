@@ -7,6 +7,9 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00  pc   01/21/19 Initial creation
+# 1.01  pc   03/24/20 Update copyright year
+# 1.02  pc   06/05/20 Remove unused params
+# 1.03  pc   07/16/20 Update syntax to fetch CIPS HIP properties
 ##############################################################################
 
 #---------------------------------------------
@@ -36,12 +39,28 @@ proc execs_generate {libhandle} {
 
 }
 
+proc getCIPSProperty { cips_prop } {
+  set isHierIp [common::get_property IS_HIERARCHICAL [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]]
+  if {$isHierIp} {
+    set ps_pmc_config [common::get_property CONFIG.PS_PMC_CONFIG [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]]
+    set prop_exists [dict get $ps_pmc_config $cips_prop]
+    if {$prop_exists} {
+      return [dict get $ps_pmc_config $cips_prop]
+    } else {
+      return 0
+    }
+  } else {
+    return [common::get_property $cips_prop [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]]
+  }
+  return 0
+}
+
 proc xgen_opts_file {libhandle} {
 
 	# Export SEM options to xparameters.h if SEM CFRAME and/or NPI reg scan is enabled
 
-	set sem_cfrscan_en [common::get_property CONFIG.SEM_CONFIG_MEM_SCAN [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-	set sem_npiscan_en [common::get_property CONFIG.SEM_CONFIG_NPI_SCAN [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
+	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_CONFIG_MEM_SCAN]
+	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_CONFIG_NPI_SCAN]
 
 	if {($sem_cfrscan_en == 1)||($sem_npiscan_en == 1)} {
 	  # Open xparameters.h file
@@ -50,27 +69,12 @@ proc xgen_opts_file {libhandle} {
 	  puts $file_handle ""
 	  puts $file_handle "/* Xilinx Soft Error Mitigation Library (XilSEM) User Settings */"
 
-	  set sem_cfrtest_en [common::get_property CONFIG.SEM_MEM_ENABLE_ALL_TEST_FEATURE [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-	  set sem_cfr_grant  [common::get_property CONFIG.SEM_MEM_ENABLE_SCAN_AFTER_CONFIG [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-	  set sem_cfr_swecc  [common::get_property CONFIG.SEM_MEM_GOLDEN_ECC_SW [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-	  set sem_cfr_errcfg [common::get_property CONFIG.SEM_ERROR_HANDLE_OPTIONS [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-	  set sem_npitest_en [common::get_property CONFIG.SEM_NPI_ENABLE_ALL_TEST_FEATURE [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-	  set sem_npi_swsha  [common::get_property CONFIG.SEM_NPI_GOLDEN_CHECKSUM_SW [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-	  set sem_npi_grant  [common::get_property CONFIG.SEM_NPI_ENABLE_SCAN_AFTER_CONFIG [::hsi::get_cells -filter "IP_NAME==versal_cips"]]
-
 	  if {$sem_cfrscan_en == 1} {
 	     puts $file_handle "\#define XSEM_CFRSCAN_EN"
-	     if {$sem_cfrtest_en == 1} {puts $file_handle "\#define XSEM_CFRTEST_EN"}
-	     if {$sem_cfr_grant == 1} {puts $file_handle "\#define XSEM_CFRGRANT"}
-	     if {$sem_cfr_swecc == 1} {puts $file_handle "\#define XSEM_CFRSWECC"}
-	     if {$sem_cfr_errcfg eq "Detect & Correct"} {puts $file_handle "\#define XSEM_CFRCORR_EN"}
 	  }
 
 	  if {$sem_npiscan_en == 1} {
 	    puts $file_handle "\#define XSEM_NPISCAN_EN"
-	    if {$sem_npitest_en == 1} {puts $file_handle "\#define XSEM_NPITEST_EN"}
-	    if {$sem_npi_swsha == 1} {puts $file_handle "\#define XSEM_NPISWSHA"}
-	    if {$sem_npi_grant == 1} {puts $file_handle "\#define XSEM_NPIGRANT"}
 	  }
 
 	  puts $file_handle ""
