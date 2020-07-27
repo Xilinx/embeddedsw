@@ -7,6 +7,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00  pc   01-21-19 Initial creation
+# 1.01  pc   03-24-20 Update copyright year and uprev library to v1.1
+# 1.02  pc   06-05-20 Uprev library to v1.2. Remove unused params
 #
 ##############################################################################
 
@@ -19,19 +21,12 @@ BEGIN LIBRARY xilsem
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = xilsem;
   BEGIN CATEGORY cfr_options
-    PARAM name = SEM_CONFIG_MEM_SCAN, desc = "Defines if SEM Cframe scan is enabled(1) or disabled (0).", type = bool, default = false;
-    PARAM name = SEM_MEM_ENABLE_ALL_TEST_FEATURE, desc = "Defines if SEM Cframe scan test features are enabled(1) or disabled (0).", type = bool, default = false;
-    PARAM name = SEM_MEM_ENABLE_SCAN_AFTER_CONFIG, desc = "Defines if SEM Cframe scan will start up immediately(1) or delayed until user sends a command(0).", type = bool, default = false;
-    PARAM name = SEM_MEM_GOLDEN_ECC_SW, desc = "Defines if SEM Cframe scan uses SW ECC(1) or HW ECC(0).", type = bool, default = false;
-    PARAM name = SEM_ERROR_HANDLE_OPTIONS, desc = "Defines SEM response to Cframe SEU. Detect-only or Detect&Correct.", type = string, default = "Detect & Correct";
+    PARAM name = SEM_CONFIG_MEM_SCAN, desc = "Defines if XilSEM CRAM scan is enabled(1) or disabled (0).", type = bool, default = false;
   END CATEGORY
   BEGIN CATEGORY npi_options
-    PARAM name = SEM_CONFIG_NPI_SCAN, desc = "Defines if SEM NPI register scan is enabled(1) or disabled (0).", type = bool, default = false;
-    PARAM name = SEM_NPI_ENABLE_ALL_TEST_FEATURE, desc = "Defines if SEM NPI register scan test features are enabled(1) or disabled (0).", type = bool, default = false;
-    PARAM name = SEM_NPI_GOLDEN_CHECKSUM_SW, desc = "Defines if SEM NPI register scan uses SW SHA(1) or HW SHA(0).", type = bool, default = false;
-    PARAM name = SEM_NPI_ENABLE_SCAN_AFTER_CONFIG, desc = "Defines if SEM NPI register scan will start up immediately(1) or delayed until user sends a command(0).", type = bool, default = false;
+    PARAM name = SEM_CONFIG_NPI_SCAN, desc = "Defines if XilSEM NPI register scan is enabled(1) or disabled (0).", type = bool, default = false;
   END CATEGORY
 END LIBRARY
