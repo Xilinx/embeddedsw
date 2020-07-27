@@ -32,7 +32,7 @@
 *       kc   09/13/2019 SBI reset is removed for SMAP boot mode to ensure smap
 *						bus width value remains unchanged
 * 1.01  bsv  10/31/2019 Added USB secondary boot mode support
-*       kc   12/02/2019 Added peformance time stamps
+*       kc   12/02/2019 Added performance time stamps
 *       ma   12/12/2019 Added support for passing hand off parameters to ATF
 *       bsv  12/30/2019 Added SMAP secondary boot mode support
 *       ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
@@ -416,7 +416,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		else {
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		}
-		/* Update KEK red key availablity status */
+		/* Update KEK red key availability status */
 		XLoader_UpdateKekRdKeyStatus(PdiPtr);
 	}
 	else {

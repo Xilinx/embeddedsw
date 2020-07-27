@@ -51,7 +51,7 @@ u32 DownloadDone = 0U;
 /**
  * @brief	This function initializes the USB interface.
  *
- * @param	Device Flags are ununsed and only passed to maintain
+ * @param	Device Flags are unused and only passed to maintain
  *		compatibility with init functions of other boot modes
  *
  * @return	XST_SUCCESS on success and error code on failure

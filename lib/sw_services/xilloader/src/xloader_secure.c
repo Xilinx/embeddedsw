@@ -15,13 +15,36 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   vns  04/23/19 First release
-*       har  08/22/19 Fixed MISRA C violations
-*       har  02/13/20 Added code to return error codes
-* 	rpo  02/25/20 Added SHA, RSA, ECDSA, AES KAT support
-* 1.1	ana  06/04/20 Minor Enhancemet and updated Sha3 hash buffer
-*		      with XSecure_Sha3Hash Structure
-*       kal  07/20/2020 Added double buffering support for secure partitions
+* 1.00  vns  04/23/19 First release
+* 1.01  vns  05/13/19 Added grey key decryption support
+*       vns  06/14/19 Removed SHA padding related code
+*       vns  07/09/19 Added PPK and SPK integrity checks
+*                     Updated chunk size for secure partition
+*                     Added encryption + authentication support
+*       vns  07/23/19 Added functions to load secure headers
+*       vns  08/23/19 Added buffer cleaning on failure
+*                     Added different key sources support
+*                     Added header decryption support
+*                     Set hardware into reset upon failure
+*       sb   08/24/19  Fixed coverity warnings
+*       har  08/26/19 Fixed MISRA C violations
+*       vns  08/28/19 Fixed bug in loading bigger secure CDOs
+* 1.02  vns  02/23/20 Added DPA CM enable/disable functionality
+*       vns  02/26/20 Added encryption revoke checks
+*                     Added DEC_ONLY checks
+*                     Updated PDI fields
+*                     Added DPA CM enable/disable for MetaHeader
+*       har  02/24/20 Added code to return error codes
+*       rpo  02/25/20 Added SHA, RSA, ECDSA, AES KAT support
+*       vns  03/01/20 Added PUF KEK decrypt support
+*       ana  04/02/20 Added crypto engine KAT test function calls
+*                     Removed release reset function calls from this file
+*                     and added in respective library files
+*       bsv  04/07/20 Change DMA name to PMCDMA
+*       vns  04/13/20 Moved Aes instance to Secure structure
+* 1.03  ana  06/04/20 Minor Enhancement and updated Sha3 hash buffer
+*                     with XSecure_Sha3Hash Structure
+*       tar  07/23/20 Fixed MISRA-C required violations
 *
 * </pre>
 *
@@ -1523,7 +1546,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @breif	This function converts a non-negative integer to an octet string of a
+ * @brief	This function converts a non-negative integer to an octet string of a
  * specified length.
  *
  * @param	Integer is the variable in which input should be provided.
