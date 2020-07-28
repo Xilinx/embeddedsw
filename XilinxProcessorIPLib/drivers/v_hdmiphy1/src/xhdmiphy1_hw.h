@@ -24,7 +24,7 @@
  * 1.0   gm   10/12/18 Initial release.
  * </pre>
  *
- * @addtogroup xhdmiphy1_v2_0
+ * @addtogroup xhdmiphy1_v2_1
  * @{
 *******************************************************************************/
 
@@ -239,36 +239,28 @@ extern "C" {
 #define XHDMIPHY1_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN0 2
 #define XHDMIPHY1_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN1 3
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0x03000000 : 0x02000000)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0x0C000000 : 0x08000000)
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0x30000000 : 0x01000000)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0xC0000000 : 0x04000000)
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 24 : 25)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 26 : 27)
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 28 : 24)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 30 : 26)
 /* 0x014: PLL_RESET */
 #define XHDMIPHY1_PLL_RESET_CPLL_MASK    0x1

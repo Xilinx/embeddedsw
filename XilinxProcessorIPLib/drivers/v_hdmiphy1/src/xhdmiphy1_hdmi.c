@@ -183,8 +183,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 		InstancePtr->HdmiIsQpllPresent = FALSE;
 	}
 
-	if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-	    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+	if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
 	    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 		XHdmiphy1_SetBufgGtDiv(InstancePtr, XHDMIPHY1_DIR_TX, 1);
 		XHdmiphy1_SetBufgGtDiv(InstancePtr, XHDMIPHY1_DIR_RX, 1);
@@ -745,17 +744,7 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) {
-		if (DruFreqHz > XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK_MIN &&
-				DruFreqHz < XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK_MAX){
-			return XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK;
-		}
-		else if (DruFreqHz > XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK2_MIN &&
-				DruFreqHz < XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK2_MAX){
-			return XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK2;
-		}
-	}
-	else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
+	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
 		if (DruFreqHz > XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK_MIN &&
 				DruFreqHz < XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK_MAX){
 			return XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK;
@@ -1440,23 +1429,7 @@ u32 XHdmiphy1_HdmiQpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		RefClkPtr = &InstancePtr->HdmiTxRefClkHz;
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	/* Determine which QPLL to use. */
-	if (((102343750 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
-		((204687500 <= QpllRefClk) && (QpllRefClk <= 245000000)) ||
-		((409375000 <= QpllRefClk) && (QpllRefClk <= 490000000))) {
-		SysClkDataSel = XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK;
-		SysClkOutSel = XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL1_REFCLK;
-		ActiveCmnId = XHDMIPHY1_CHANNEL_ID_CMN1;
-		QpllClkMin = (u32) XHDMIPHY1_HDMI_GTHE3_QPLL1_REFCLK_MIN;
-	}
-	else {
-		SysClkDataSel = XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK;
-		SysClkOutSel = XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL0_REFCLK;
-		ActiveCmnId = XHDMIPHY1_CHANNEL_ID_CMN0;
-		QpllClkMin = (u32) XHDMIPHY1_HDMI_GTHE3_QPLL0_REFCLK_MIN;
-	}
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 	/* Determine which QPLL to use. */
 	if (((102343750 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
 		((204687500 <= QpllRefClk) && (QpllRefClk <= 245000000)) ||
@@ -2708,21 +2681,7 @@ void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
 	}
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-static const XHdmiphy1_GtHdmiChars Gthe3HdmiChars = {
-	.DruLineRate = XHDMIPHY1_HDMI_GTHE3_DRU_LRATE,
-	.PllScale = XHDMIPHY1_HDMI_GTHE3_PLL_SCALE,
-	.Qpll0RefClkMin = XHDMIPHY1_HDMI_GTHE3_QPLL0_REFCLK_MIN,
-	.Qpll1RefClkMin = XHDMIPHY1_HDMI_GTHE3_QPLL1_REFCLK_MIN,
-	.CpllRefClkMin = XHDMIPHY1_HDMI_GTHE3_CPLL_REFCLK_MIN,
-	.TxMmcmScale = XHDMIPHY1_HDMI_GTHE3_TX_MMCM_SCALE,
-	.TxMmcmFvcoMin = XHDMIPHY1_HDMI_GTHE3_TX_MMCM_FVCO_MIN,
-	.TxMmcmFvcoMax = XHDMIPHY1_HDMI_GTHE3_TX_MMCM_FVCO_MAX,
-	.RxMmcmScale = XHDMIPHY1_HDMI_GTHE3_RX_MMCM_SCALE,
-	.RxMmcmFvcoMin = XHDMIPHY1_HDMI_GTHE3_RX_MMCM_FVCO_MIN,
-	.RxMmcmFvcoMax = XHDMIPHY1_HDMI_GTHE3_RX_MMCM_FVCO_MAX,
-};
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 static const XHdmiphy1_GtHdmiChars Gthe4HdmiChars = {
 	.DruLineRate = XHDMIPHY1_HDMI_GTHE4_DRU_LRATE,
 	.PllScale = XHDMIPHY1_HDMI_GTHE4_PLL_SCALE,
@@ -2786,9 +2745,7 @@ static const XHdmiphy1_GtHdmiChars *GetGtHdmiPtr(XHdmiphy1 *InstancePtr)
 	/* Suppress Warning Messages */
 	InstancePtr = InstancePtr;
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	return &Gthe3HdmiChars;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 	return &Gthe4HdmiChars;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	return &Gtye4HdmiChars;

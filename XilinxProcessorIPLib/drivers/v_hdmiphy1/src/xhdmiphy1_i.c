@@ -102,8 +102,7 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 	}
 	else if (ChId == XHDMIPHY1_CHANNEL_ID_CMNA) {
 		*Id0 = XHDMIPHY1_CHANNEL_ID_CMN0;
-		if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-		    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+		if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
 		    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 			*Id1 = XHDMIPHY1_CHANNEL_ID_CMN1;
 		}
@@ -191,8 +190,7 @@ u32 XHdmiphy1_WriteCfgRefClkSelReg(XHdmiphy1 *InstancePtr, u8 QuadId)
 	/* - CPLL. */
 	RegVal &= ~XHDMIPHY1_REF_CLK_SEL_CPLL_MASK;
 	RegVal |= (ChPtr->CpllRefClkSel << XHDMIPHY1_REF_CLK_SEL_CPLL_SHIFT);
-	if ((GtType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-            (GtType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+	if ((GtType == XHDMIPHY1_GT_TYPE_GTHE4) ||
             (GtType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 		/* - QPLL1. */
 		RegVal &= ~XHDMIPHY1_REF_CLK_SEL_QPLL1_MASK;
