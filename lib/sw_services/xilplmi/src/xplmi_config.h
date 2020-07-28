@@ -89,12 +89,14 @@ extern "C" {
  * CDO_PROCESS will print the time taken to process CDO file.
  * KEYHOLE will print the time taken to process keyhole command.
  * Keyhole command is used for Cframe and slave slr image loading.
+ * PL prints the PL Power status and House clean status.
  * Make sure to enable PLM_PRINT_PERF to see prints.
  */
 //#define PLM_PRINT_PERF_POLL
 //#define PLM_PRINT_PERF_DMA
 //#define PLM_PRINT_PERF_CDO_PROCESS
 //#define PLM_PRINT_PERF_KEYHOLE
+//#define PLM_PRINT_PERF_PL
 
 /**
  * @name PLM code include options
