@@ -75,6 +75,8 @@
 ##                  to more than one slice instances of variable output width.
 ##     07/24/20 mus Added support for interrupt sources traversed through OR gate.
 ##                  It fixes CR#1071073
+##     07/28/20 mus Updated intc_define_vector_table to have single interrupt
+##                  handler entry for each interrupt id.
 ##
 ##
 ## @END_CHANGELOG
@@ -291,6 +293,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
     variable source_interrupt_id
     variable total_source_intrs
 
+    set prev_intr_id    -1
+    set is_entry_already_present    1
+
     #update global array of Interrupt sources for this periph
     intc_update_source_array $periph
 
@@ -323,6 +328,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
     set instance_list {}
 
     for {set i 0} {$i < $total_source_intrs} {incr i} {
+        set is_entry_already_present 0
         set source_ip $source_name($i)
         if { [llength $source_ip] != 0 && [llength [hsi::get_cells -hier $source_ip]] != 0} {
            set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $source_ip]]
@@ -331,10 +337,17 @@ proc intc_define_vector_table {periph config_inc config_file} {
               continue
            }
         }
-        puts $config_file [format "%s\t\t\t\{" $comma ]
-        puts $config_file [format "\t\t\t\t%s," $source_interrupt_handler($i) ]
+        if { $prev_intr_id == $source_interrupt_id($i)} {
+            set is_entry_already_present 1
+        }
+        if { $is_entry_already_present == 0} {
+            puts $config_file [format "%s\t\t\t\{" $comma ]
+            puts $config_file [format "\t\t\t\t%s," $source_interrupt_handler($i) ]
+        }
         if {[llength $source_name($i)] == 0} {
-            puts $config_file "\t\t\t\t(void *)XNULL"
+            if { $is_entry_already_present == 0 } {
+                puts $config_file "\t\t\t\t(void *)XNULL"
+            }
         } else {
             set source_name_port_name $source_name($i)$source_port_name($i)
             set sname [string toupper $source_name($i)]
@@ -361,15 +374,20 @@ proc intc_define_vector_table {periph config_inc config_file} {
 
             }
 	    lappend instance_list $source_name_port_name
-            if {[string compare -nocase "global" $source_port_type($i) ] != 0 && \
-                [string compare $source_interrupt_handler($i) $default_interrupt_handler ] != 0} {
-                puts $config_file [format "\t\t\t\t(void *) %s" $source_handler_arg($i)]
-            } else {
-                puts $config_file "\t\t\t\t(void *) XNULL"
+            if { $is_entry_already_present == 0 } {
+                if {[string compare -nocase "global" $source_port_type($i) ] != 0 && \
+                    [string compare $source_interrupt_handler($i) $default_interrupt_handler ] != 0} {
+                    puts $config_file [format "\t\t\t\t(void *) %s" $source_handler_arg($i)]
+                } else {
+                    puts $config_file "\t\t\t\t(void *) XNULL"
+                }
             }
         }
-        puts -nonewline $config_file "\t\t\t\}"
-        set comma ",\n"
+        set prev_intr_id    $source_interrupt_id($i)
+        if { $is_entry_already_present == 0 } {
+            puts -nonewline $config_file "\t\t\t\}"
+            set comma ",\n"
+        }
     }
     puts $config_file "\n\t\t\}"
 	#Export Definitions for software interrupts to xparameters.h
