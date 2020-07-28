@@ -73,6 +73,8 @@
 ##                  to the GIC. It fixes CR#1069891
 ##     07/15/20 mus Fixed designs where external interrupt port is connected
 ##                  to more than one slice instances of variable output width.
+##     07/24/20 mus Added support for interrupt sources traversed through OR gate.
+##                  It fixes CR#1071073
 ##
 ##
 ## @END_CHANGELOG
@@ -93,7 +95,9 @@ array set source_driver            ""
 array set source_interrupt_handler ""
 array set source_interrupt_id      ""
 set total_source_intrs             0
-
+set num_or_gate_instance_traversed 0
+# Number of OR gate input sources in path of specific AXI INTC instance
+set num_or_gate_inputs             0
 ############################################################
 # DRC procedure
 ############################################################
@@ -338,9 +342,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	    set pname [string toupper $periph_name]
 	    set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
 	    if {[lcount $instance_list $source_name_port_name] != 0} {
-	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
+	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $source_interrupt_id($i)]]
 	    } else {
-	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
+	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $source_interrupt_id($i)]]
 	    }
 	    if {$cascade ==1} {
 	       if {[lcount $instance_list $source_name_port_name] == 0} {
@@ -350,9 +354,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	       }
             } else {
                  if {[lcount $instance_list $source_name_port_name] == 0} {
-                     puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
+                     puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
                  } else {
-                     puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
+                     puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
                  }
 
             }
@@ -490,6 +494,8 @@ proc xredefine_intc {drvhandle config_inc} {
     variable source_interrupt_handler
     variable source_interrupt_id
     variable total_source_intrs
+    variable num_or_gate_instance_traversed
+    variable num_or_gate_inputs
 
 
     # Next define interrupt IDs for each connected peripheral
@@ -519,13 +525,13 @@ proc xredefine_intc {drvhandle config_inc} {
         set periph_ip_name [common::get_property NAME $periph]
 
         set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
-	if {$num_intr_inputs != $total_source_intrs} {
+	if {$num_intr_inputs != [ expr $total_source_intrs + $num_or_gate_instance_traversed - $num_or_gate_inputs]} {
 	    error "ERROR: unconnected interrupt pins in the design.\n" "" "MDT_ERROR"
 	    return
 	}
 
         set instance_list {}
-        for {set i 0} {$i < $num_intr_inputs} {incr i} {
+        for {set i 0} {$i < $total_source_intrs} {incr i} {
 
             if {[string compare -nocase $source_name($i) "system"] == 0} {
                 continue
@@ -741,6 +747,8 @@ proc intc_update_source_array {periph} {
     variable num_slice_traversed
     variable traversed_slice_instance
     variable check_slice_duplication
+    variable num_or_gate_instance_traversed
+    variable num_or_gate_inputs
 
     array unset source_port_name
     array unset source_name
@@ -751,6 +759,13 @@ proc intc_update_source_array {periph} {
     array unset traversed_source_port_name
     array unset traversed_slice_instance
     set num_slice_traversed 0
+    set num_or_gate_instance_traversed 0
+    set num_or_gate_inputs 0
+
+    set prev_intr_id -1
+    set or_gate_width -1
+     #OR gate input sources traversed, for specific OR gate instance
+    set or_gate_inputs_traversed 0
 
 	lappend source_pins
 	set source_pins [::hsi::utils::get_interrupt_sources $periph]
@@ -776,8 +791,14 @@ proc intc_update_source_array {periph} {
         }
         set port_intr_id [::hsi::utils::get_interrupt_id $t_ip_name $source_pin]
         set isslice_exist [is_slice_exists_in_path $periph $source_pin]
+        if { $or_gate_width !=-1 && $or_gate_inputs_traversed == $or_gate_width } {
+            set or_gate_inputs_traversed 0
+            incr num_or_gate_instance_traversed
+            incr prev_intr_id
+        }
+        set or_gate_width [is_orgate_exist_in_path $source_pin]
         if { [llength $port_intr_id ] > 1  &&
-             $isslice_exist == 0} {
+             $isslice_exist == 0 && $or_gate_width == -1 } {
             #this is the case of vector interrupt port
             set j 0
             foreach pin_id $port_intr_id {
@@ -786,16 +807,20 @@ proc intc_update_source_array {periph} {
                 set source_port_type($intr_cnt)         $t_port_type
                 set source_driver($intr_cnt)            $t_source_driver
                 set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
-                set source_interrupt_id($intr_cnt)      $pin_id
+                if { $num_or_gate_inputs != 0} {
+                    set source_interrupt_id($intr_cnt)      [expr $intr_cnt - $num_or_gate_inputs + $num_or_gate_instance_traversed]
+                } else {
+                   set source_interrupt_id($intr_cnt)      $intr_cnt
+                }
+                set prev_intr_id $source_interrupt_id($intr_cnt)
                 incr intr_cnt
                 incr j
             }
-        } else {
+		} else {
            if {([::hsi::utils::is_external_pin $source_pin] == 1) && ($isslice_exist == 1)} {
                 set check_slice_duplication 1
                 set traversed_source_port_name($num_slice_traversed) $t_source_port_name
             }
-
             set width [get_intr_connected_slice_width $periph $source_pin]
 
             if {$check_slice_duplication == 1} {
@@ -804,8 +829,6 @@ proc intc_update_source_array {periph} {
 
             if {$width == 0 || $width == ""} {
                 set width [expr [common::get_property LEFT $source_pin] + 1]
-            } else {
-                set port_intr_id 0
             }
             for {set count 0} {$count != $width} {incr count} {
                 if { ${count} > 0 } {
@@ -817,12 +840,52 @@ proc intc_update_source_array {periph} {
                 set source_port_type($intr_cnt)          $t_port_type
                 set source_driver($intr_cnt)            $t_source_driver
                 set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
-                set source_interrupt_id($intr_cnt)      [expr $count + $port_intr_id]
+                if { $or_gate_width != -1 } {
+                    #OR gate is preset in source_pin path
+                    set source_interrupt_id($intr_cnt)      [expr $prev_intr_id + 1]
+                    incr or_gate_inputs_traversed
+                    incr num_or_gate_inputs
+                } elseif { $num_or_gate_inputs != 0 } {
+                    #
+                    #OR gate is not present in path of source_pin, but other source pin which is
+                    #interrupting same AXI INTC IP is having OR gate in it's path
+                    #
+                    set source_interrupt_id($intr_cnt)      [expr $intr_cnt - $num_or_gate_inputs + $num_or_gate_instance_traversed]
+                    set prev_intr_id $source_interrupt_id($intr_cnt)
+                } else {
+                    # OR gate is not present in HW design
+                    set source_interrupt_id($intr_cnt)      $intr_cnt
+                    set prev_intr_id $source_interrupt_id($intr_cnt)
+                }
                 incr intr_cnt
             }
         }
     }
     set total_source_intrs $intr_cnt
+}
+
+proc is_orgate_exist_in_path { intc_src_port } {
+    set ret -1
+    set intr_sink_pins [::hsi::utils::get_sink_pins $intc_src_port]
+    foreach intr_sink_pin $intr_sink_pins {
+        set sink_periph [::hsi::get_cells -of_objects $intr_sink_pin]
+        set ipname [get_property IP_NAME $sink_periph]
+        if { $ipname == "xlconcat" || $ipname == "xlslice" } {
+            set intf_concat "dout"
+            set intf_slice  "Dout"
+            set intr1_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$intf_concat || NAME==$intf_slice"]
+            set intr_sink_pins1 [::hsi::utils::get_sink_pins $intr1_pin]
+            foreach sink_pin $intr_sink_pins1 {
+                set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+                set ipname [get_property IP_NAME $sink_periph]
+                if {$ipname == "util_reduced_logic"} {
+                    set width [get_property CONFIG.C_SIZE $sink_periph]
+                    return $width
+                }
+            }
+        }
+    }
+    return $ret
 }
 
 proc xdefine_getSuffix {arg_name value} {
