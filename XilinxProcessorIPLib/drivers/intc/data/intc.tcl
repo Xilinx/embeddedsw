@@ -206,7 +206,7 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 	set isr_options XIN_SVC_SGL_ISR_OPTION
 	set file_name "xintc_g.c"
 	set drv_string "XIntc"
-	set args [list "DEVICE_ID" "C_BASEADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_NUM_SW_INTR" "C_ADDR_WIDTH"]
+	set args [list "DEVICE_ID" "C_BASEADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_ADDR_WIDTH"]
 	set filename [file join "src" $file_name]
 	set config_file [open $filename w]
 	::hsi::utils::write_c_header $config_file "Driver configuration"
@@ -254,6 +254,13 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 		# generate the vector table for this intc instance
 		intc_define_vector_table $periph $config_inc $tmp_config_file
 
+        # generate entry for software interrupts parameter
+        set value [common::get_property CONFIG.C_NUM_SW_INTR $drv_handle ]
+        if {[llength $value] == 0} {
+             puts -nonewline $tmp_config_file [format "\t\t%s" [::hsi::utils::get_ip_param_name $periph C_NUM_SW_INTR]]
+        } else {
+             puts -nonewline $tmp_config_file [format "\t\t%s" [::hsi::utils::get_driver_param_name $drv_string C_NUM_SW_INTR]]
+        }
 		puts $config_inc "\n/******************************************************************/\n"
 
 		puts -nonewline $tmp_config_file "\n\t\}"
@@ -389,7 +396,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
             set comma ",\n"
         }
     }
-    puts $config_file "\n\t\t\}"
+    puts $config_file "\n\t\t\},"
 	#Export Definitions for software interrupts to xparameters.h
 	if {$num_sw_intrs > 0} {
 		puts $config_inc "\n"

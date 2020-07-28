@@ -282,7 +282,6 @@ typedef struct {
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
 	int NumberofIntrs;      /**< Number of HW Interrupt sources */
-	int NumberofSwIntrs;      /**< Number of SW interrupts */
 	u8 VectorAddrWidth;		/**< Width of vector address */
 	u32 Options;		/**< Device options */
 	int IntcType;		/**< Intc type 0 - No Cascade Mode
@@ -296,7 +295,7 @@ typedef struct {
 #else
 	XIntc_VectorTableEntry HandlerTable[XPAR_INTC_MAX_NUM_INTR_INPUTS];
 #endif
-
+	int NumberofSwIntrs;      /**< Number of SW interrupts */
 } XIntc_Config;
 
 /**
