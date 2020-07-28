@@ -166,7 +166,7 @@ int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId)
 	 * Initialize all the data needed to perform interrupt processing for
 	 * each interrupt ID up to the maximum used
 	 */
-	for (Id = 0; Id < (CfgPtr->NumberofHwIntrs + CfgPtr->NumberofSwIntrs) ; Id++) {
+	for (Id = 0; Id < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs) ; Id++) {
 
 		/*
 		 * Initialize the handler to point to a stub to handle an
@@ -1147,7 +1147,7 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 		 * Initialize all the data needed to perform interrupt
 		 * processing for each interrupt ID up to the maximum used
 		 */
-		for (Id = 0; Id < (CfgPtr->NumberofHwIntrs + CfgPtr->NumberofSwIntrs); Id++) {
+		for (Id = 0; Id < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs); Id++) {
 
 			/*
 			 * Initialize the handler to point to a stub to handle an
@@ -1211,7 +1211,7 @@ int XIntc_TriggerSwIntr(XIntc * InstancePtr, u8 Id)
 			return XST_FAILURE;
 		}
 		/* Check if interrupt id belongs to software interrupts */
-		if ( (Id%32) < CfgPtr->NumberofHwIntrs ) {
+		if ( (Id%32) < CfgPtr->NumberofIntrs ) {
 			return XST_FAILURE;
 		}
 
