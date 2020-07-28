@@ -45,6 +45,7 @@
 ##                      renaming. Now tcl uses XILINX_VITIS env variable if XILINX_SDK
 ##                      is not defined.
 ## 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
+## 2.12  sd  07/09/20 Updated the CPUID for the pmufw case CR#1069466
 # uses xillib.tcl
 
 ########################################
@@ -491,6 +492,7 @@ proc generate {drv_handle} {
 		puts $file_handle "#define XPAR_CPU_CORE_CLOCK_FREQ_HZ XPAR_MICROBLAZE_FREQ"
 		puts $file_handle "\n/******************************************************************/\n"
 		close $file_handle
+		::hsi::utils::define_processor_params $drv_handle "xparameters.h"
 		# We have generated all the params required for PMU MICROBLAZE. So just return
 		return
 	}
