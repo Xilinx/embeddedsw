@@ -495,6 +495,10 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
 			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, 0);
+
+#ifdef PLM_PRINT_PERF_PL
+		XPlmi_Printf(DEBUG_GENERAL, "PL House Clean completed\n\r");
+#endif
 	}
 
 	/* Compilation warning fix */
@@ -669,6 +673,10 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		goto done;
 	}
 
+#ifdef PLM_PRINT_PERF_PL
+	XPlmi_Printf(DEBUG_GENERAL, "PL supply status good\n\r");
+#endif
+
 	/* Remove POR for PL */
 	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
@@ -757,6 +765,10 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		DbgErr = XPM_INT_ERR_PL_STATUS_TIMEOUT;
 		goto done;
 	}
+
+#ifdef PLM_PRINT_PERF_PL
+	XPlmi_Printf(DEBUG_GENERAL, "PL POR B status good\n\r");
+#endif
 
 	/* Remove SRST for PL */
 	Status = XPmReset_AssertbyId(PM_RST_PL_SRST, (u32)PM_RESET_ACTION_RELEASE);
