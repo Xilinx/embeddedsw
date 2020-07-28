@@ -24,6 +24,7 @@
 *       ma   02/18/2020 Added support for logging terminal prints
 *       ma   03/02/2020 Implement PLMI own outbyte to support logging as well
 *       bsv  04/04/2020 Code clean up
+* 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *
 * </pre>
 *
@@ -44,6 +45,7 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_proc.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 /**
@@ -93,11 +95,6 @@ extern "C" {
 int XPlmi_InitUart(void);
 
 /************************** Variable Definitions *****************************/
-extern u8 LpdInitialized;
-
-#define UART_INITIALIZED	(1U << 0U)
-#define LPD_INITIALIZED		(1U << 1U)
-
 #define XPlmi_Printf(DebugType, ...) \
 	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
 		XPlmi_PrintPlmTimeStamp(); \
@@ -109,20 +106,6 @@ extern u8 LpdInitialized;
 	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
 		xil_printf (__VA_ARGS__); \
 	}
-
-/*****************************************************************************/
-/**
- * @brief	This function resets LpdInitialized variable to 0.
- *
- * @param	None
- *
- * @return	None
- *
- *****************************************************************************/
-static inline void XPlmi_ResetLpdInitialized(void)
-{
-	LpdInitialized = (u8)FALSE;
-}
 
 #ifdef __cplusplus
 }

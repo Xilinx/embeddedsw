@@ -29,6 +29,7 @@
 *       bsv  03/09/2020 Added support for CDO features command
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
+*       kc   07/28/2020 Added SetWdt command support
 *
 * </pre>
 *
@@ -46,6 +47,7 @@
 #include "sleep.h"
 #include "xplmi_ssit.h"
 #include "xplmi_event_logging.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -1073,7 +1075,7 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *		Command payload parameters are
- *			* Node Idx for PMC, PS MIO
+ *			* Node Id for PMC, PS MIO
  *			* Periodicity
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -1082,10 +1084,13 @@ END:
 static int XPlmi_SetWdtParam(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-	(void)Cmd;
+	u32 NodeId = Cmd->Payload[0U];
+	u32 Periodicity = Cmd->Payload[1U];
 
-	/* Place holder for Set WDT command */
-	Status = XST_SUCCESS;
+	XPlmi_Printf(DEBUG_INFO, "Enabling WDT with Node:0x%08x, "
+		     "Periodicity: %u ms\n\r", NodeId, Periodicity);
+	Status = XPlmi_EnableWdt(NodeId, Periodicity);
+
 	return Status;
 }
 

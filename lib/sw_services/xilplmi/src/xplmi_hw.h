@@ -31,6 +31,7 @@
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/10/2020 Added PMC_IOU_SLCR register related macros
+*       kc   07/28/2020 Added PMC PS GPIO related macros
 *
 * </pre>
 *
@@ -300,6 +301,13 @@ extern "C" {
  */
 #define PMC_IOU_SLCR_SD1_CDN_CTRL    (PMC_IOU_SLCR_BASEADDR + 0X000004CCU)
 #define PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK    (0X00000001U)
+
+/*
+ * Definitions required for PMC, PS GPIO
+ */
+#define PMC_GPIO_DATA_0_OFFSET		(0xF1020040U)
+#define PMC_GPIO_DATA_1_OFFSET		(0xF1020044U)
+#define PS_GPIO_DATA_0_OFFSET		(0xFF0B0040U)
 
 /************************** Function Prototypes ******************************/
 

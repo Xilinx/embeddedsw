@@ -23,6 +23,7 @@
 *       ma   02/18/2020 Added support for logging terminal prints
 *       ma   03/02/2020 Implement PLMI own outbyte to support logging as well
 *       bsv  04/04/2020 Code clean up
+* 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *
 * </pre>
 *
@@ -65,7 +66,6 @@ void outbyte(char c);
 #ifdef DEBUG_UART_PS
 XUartPsv UartPsvIns;	/* The instance of the UART Driver */
 #endif
-u8 LpdInitialized = FALSE;
 
 /*****************************************************************************/
 /*****************************************************************************/

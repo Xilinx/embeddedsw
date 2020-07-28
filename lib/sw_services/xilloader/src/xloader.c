@@ -52,6 +52,7 @@
 *						initial boot pdi to partial pdi structure variables
 *       bsv  06/22/2020 Cfi error handler should only be called for PL image
 *       bsv  07/01/2020 Added DevRelease to DevOps
+*       kc   07/28/2020 PLM mode is set to configuration during PDI load
 *
 * </pre>
 *
@@ -71,6 +72,7 @@
 #endif
 #include "xplmi_err.h"
 #include "xplmi_event_logging.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -698,6 +700,8 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		}
 	}
 #endif
+	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
+
 	Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -727,6 +731,7 @@ END:
 	}
 END1:
 #endif
+	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	return Status;
 }
 
@@ -1039,6 +1044,7 @@ int XLoader_RestartImage(u32 ImageId)
 		goto END;
 	}
 #endif
+
 	Status = XLoader_ReloadImage(ImageId);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1079,6 +1085,8 @@ int XLoader_ReloadImage(u32 ImageId)
 	int SStatus = XST_FAILURE;
 	u32 DeviceFlags = SubSystemInfo.PdiPtr->PdiSrc &
 				XLOADER_PDISRC_FLAGS_MASK;
+
+	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
 	/*
 	 * This is for libpm to do the clock settings reqired for boot device
@@ -1156,6 +1164,8 @@ END:
 		default:
 			break;
 	}
+
+	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	return Status;
 }
 

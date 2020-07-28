@@ -43,6 +43,7 @@
 *       bsv  07/01/2020 Unmount file system after loading PDIs
 *       skd  07/14/2020 Added a macro for DMA transfer error
 *       kal  07/21/2020 Added a macro for Data copy failure for Security
+*       kc   07/28/2020 Added error codes for WDT command failures
 *
 * </pre>
 *
@@ -77,7 +78,7 @@ extern "C" {
 #define XPLMI_STATUS_MODULE_MASK			(0xFFFFU)
 #define XPLMI_ERR_CDO_CMD_MASK				(0x1FFFU)
 #define XPLMI_STATUS_SHIFT				(16U)
-#define XPLMI_ERR_CODE_MASK				(0xFFFFFFFU)
+#define XPLMI_ERR_CODE_MASK				(0xFFFFFFFFU)
 
 /**
  * Status for PLM functions
@@ -153,6 +154,12 @@ typedef enum {
 							IPI is not supported */
 	XPLMI_ERR_REGISTER_IOMOD_HANDLER, /**< 0x116 - Error when registering
 						IoModule Handler */
+	XPLMI_ERR_WDT_PERIODICITY, /**< 0x117 - Invalid Periodicity paramter for
+				     SetWDT command */
+	XPLMI_ERR_WDT_NODE_ID, /**< 0x118 - Invalid Node ID parameter for SetWDT
+				 command */
+	XPLMI_ERR_WDT_LPD_NOT_INITIALIZED, /**< 0x119 LPD MIO is used for WDT
+					     but LPD is not initialized */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

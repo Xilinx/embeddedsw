@@ -23,6 +23,7 @@
 *       bsv  04/09/2020 Code clean up Xilloader
 * 1.04  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *						subsystem information
+*       kc   07/28/2020 PLM mode is set to configuration during PDI load
 *
 commands.
 * </pre>
@@ -36,6 +37,7 @@ commands.
 #include "xloader.h"
 #include "xplmi_cmd.h"
 #include "xplmi_modules.h"
+#include "xplmi_wdt.h"
 #ifdef XPLM_SEM
 #include "xilsem.h"
 #endif
@@ -109,6 +111,7 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 #endif
+	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
 	/*
 	 * Store the command fields in resume data
@@ -146,6 +149,7 @@ END:
 	}
 END1:
 #endif
+	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	Cmd->Response[0U] = (u32)Status;
 	return Status;
 }
