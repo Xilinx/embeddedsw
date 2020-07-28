@@ -22,6 +22,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
+*       kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *
 * </pre>
 *
@@ -33,6 +34,7 @@
 #include "xplmi.h"
 #include "xplmi_err.h"
 #include "xplmi_sysmon.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
@@ -44,6 +46,7 @@ typedef int (*XPlmiInit)(void);
 static void XPlm_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/
+u8 LpdInitialized = (u8)0U;
 
 /******************************************************************************/
 /**
@@ -158,4 +161,22 @@ void XPlm_PrintPlmBanner(void)
                  "****************************************\n\r");
 		IsBannerPrinted = TRUE;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function resets LpdInitialized variable to 0.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_ResetLpdInitialized(void)
+{
+	if ((LpdInitialized & LPD_WDT_INITIALIZED) == LPD_WDT_INITIALIZED) {
+		XPlmi_DisableWdt();
+	}
+
+	LpdInitialized = (u8)0U;
 }

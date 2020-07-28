@@ -20,6 +20,7 @@
 * 1.01  kc   07/16/2019 Added PERF macro to print task times
 * 1.02  kc   02/17/2020 Task dispatcher updated with round robin from FCFS
 *       bsv  04/04/2020 Code clean up
+* 1.03  kc   07/28/2020 WDT support added to set PLM live status
 *
 * </pre>
 *
@@ -30,6 +31,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_task.h"
 #include "xplmi_debug.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -170,6 +172,8 @@ void XPlmi_TaskDispatchLoop(void)
 
 	while (1U) {
 		Task = NULL;
+		XPlmi_SetPlmLiveStatus();
+
 		/* Priority based task handling */
 		for (Index = 0U; Index < XPLMI_TASK_PRIORITIES; Index++) {
 			/* If no pending tasks are present, go to sleep */

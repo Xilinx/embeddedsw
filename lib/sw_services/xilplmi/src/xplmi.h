@@ -22,6 +22,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
+*       kc   07/28/2020 Added WDT MACRO to indicate WDT initialized
 *
 * </pre>
 *
@@ -48,6 +49,9 @@ extern "C" {
 #define SDK_RELEASE_QUARTER	"2"
 
 /**************************** Type Definitions *******************************/
+#define UART_INITIALIZED	((u8)(1U << 0U))
+#define LPD_INITIALIZED		((u8)(1U << 1U))
+#define LPD_WDT_INITIALIZED	((u8)(1U << 2U))
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPlmi_PpuWakeUpDis()	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE, \
@@ -69,6 +73,10 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
+void XPlmi_ResetLpdInitialized(void);
+
+/************************** Variable Definitions *****************************/
+extern u8 LpdInitialized;
 
 #ifdef __cplusplus
 }

@@ -19,6 +19,7 @@
 * 1.01  kc   02/10/2020 Updated scheduler to add/remove tasks
 *       kc   02/17/2020 Added configurable priority for scheduler tasks
 *       bsv  04/04/2020 Code clean up
+* 1.02  kc   07/28/2020 Wdt handler added for every scheduler tick
 *
 * </pre>
 *
@@ -30,6 +31,7 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_task.h"
 #include "xplmi_debug.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -171,6 +173,9 @@ void XPlmi_SchedulerHandler(void *Data)
 			}
 		}
 	}
+
+	XPlmi_WdtHandler();
+
 END:
 	return;
 }
