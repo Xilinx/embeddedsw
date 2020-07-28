@@ -24,7 +24,7 @@
  * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * </pre>
  *
- * @addtogroup xhdmiphy1_v2_0
+ * @addtogroup xhdmiphy1_v2_1
  * @{
 *******************************************************************************/
 
@@ -100,9 +100,7 @@ u32 XHdmiphy1_TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 /*************************** Variable Declarations ****************************/
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-extern const XHdmiphy1_GtConfig Gthe3Config;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 extern const XHdmiphy1_GtConfig XHdmiphy1_Gthe4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 extern const XHdmiphy1_GtConfig XHdmiphy1_Gtye4Config;
