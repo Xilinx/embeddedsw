@@ -29,6 +29,8 @@
 *       vnsl 04/12/2020 Added support to read BootHdr Auth Enable field in
 *						boot header
 * 1.03  skd  07/14/2020 Function pointer DeviceCopy prototype changed
+* 1.04  bsv  07/29/2020 Added UID, parent ID, function ID and copy to memory
+*                       address
 *
 * </pre>
 *
@@ -333,7 +335,11 @@ typedef struct {
 	u32 ImgAttr; /**< Image Attributes */
 	u32 ImgName[4U]; /**< Image Name */
 	u32 ImgID; /**< Image ID */
-	u32 Rsvd[6U]; /**< Reserved */
+	u32 UID; /**< Unique ID */
+	u32 PUID; /**< Parent UID */
+	u32 FuncID; /**< Function ID */
+	u64 CopyToMemoryAddr; /**< Address at which image is backed up in DDR */
+	u32 Rsvd; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header */
 } XilPdi_ImgHdr __attribute__ ((aligned(16U)));
 

@@ -282,7 +282,7 @@ typedef struct {
 	XLoader_AuthCertificate *AcPtr;
 	XPmcDma *PmcDmaInstPtr;
 	XSecure_Aes AesInstance;
-}XLoader_SecureParms;
+} XLoader_SecureParams;
 
 typedef enum {
 	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02U,
@@ -352,17 +352,17 @@ typedef enum {
 }XLoader_SecErrCodes;
 
 /***************************** Function Prototypes ***************************/
-u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
+u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum);
-u32 XLoader_ProcessSecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
+u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DstAddr,
 	u32 Size, u8 Last);
-u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size);
-u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr);
-u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
+u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
+u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
+u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *ImgHdrTbl);
-u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr);
+u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
-u32 XLoader_StartNextChunkCopy(XLoader_SecureParms *SecurePtr, u32 TotalLen,
+u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	u32 ChunkLen);
 
 #ifdef __cplusplus

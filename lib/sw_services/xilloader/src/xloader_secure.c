@@ -85,38 +85,38 @@ static INLINE u32 XLoader_GetAuthType(const XLoader_AuthCertificate *AcPtr)
 
 /************************** Function Prototypes ******************************/
 
-static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
-static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr);
-static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash,
+static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr);
+static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
 static u32 XLoader_EcdsaSignVerify(u32 *Hash, u32 *Key, u32 *Signature);
-static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
-static u32 XLoader_VerifySignature(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
-static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 	u64 SrcAddr, u64 DestAddr, u32 Size);
-static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekKey *KeyDetails, XSecure_AesKeySrc *KeySrc);
 static u32 XLoader_CheckNonZeroPpk(void);
-static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr);
+static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr);
 static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash);
 static u32 XLoader_VerifyRevokeId(u32 RevokeId);
 static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash);
-static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
-static u32 XLoader_ReadHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_ReadHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
-static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
-static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 static u32 XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg);
 static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 	XLoader_AesKekKey *KeyDetails);
-static u32 XLoader_AesKatTest(XLoader_SecureParms *SecurePtr);
+static u32 XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert;
@@ -125,16 +125,16 @@ static XLoader_AuthCertificate AuthCert;
 
 /*****************************************************************************/
 /**
-* @brief	This function initializes  XLoader_SecureParms's instance.
+* @brief	This function initializes  XLoader_SecureParams's instance.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	PdiPtr is pointer to the XilPdi instance
 * @param	PrtnNum is the partition number to be processed
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
+u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -142,7 +142,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	u32 ChecksumOffset;
 	u32 AcOffset;
 
-	memset(SecurePtr, 0U, sizeof(XLoader_SecureParms));
+	memset(SecurePtr, 0U, sizeof(XLoader_SecureParams));
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -236,14 +236,14 @@ END:
 /**
 * @brief	This function loads secure non-cdo partitions.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	DestAddr is load address of the partition
 * @param	Size is unencrypted size of the partition.
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
+u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 {
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
@@ -342,7 +342,7 @@ END:
 * @brief	This function performs authentication, checksum and decryption
 * of the partition.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance
 * @param	DestAddr is the address to which data is copied
 * @param	BlockSize is size of the data block to be processed
 *		which doesn't include padding lengths and hash.
@@ -352,7 +352,7 @@ END:
 *
 ******************************************************************************/
 
-u32 XLoader_ProcessSecurePrtn(XLoader_SecureParms *SecurePtr, u64 DestAddr,
+u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 				u32 BlockSize, u8 Last)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -502,7 +502,7 @@ END:
 /**
 * @brief	This function starts next chunk copy when security is enabled.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	TotalLen is total length of the partition.
 * @param 	ChunkLen is size of the data block to be copied.
 *
@@ -510,7 +510,7 @@ END:
 * 		XLOADER_FAILURE on failure
 *
 ******************************************************************************/
-u32 XLoader_StartNextChunkCopy(XLoader_SecureParms *SecurePtr, u32 TotalLen,
+u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 				u32 ChunkLen)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -557,12 +557,12 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParms *SecurePtr, u32 TotalLen,
 /**
 * @brief	This function checks if authentication/encryption is compulsory.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
+u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
 	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
@@ -668,12 +668,12 @@ END:
 /**
 * @brief	This function authenticates the image header table
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr)
+u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
@@ -771,13 +771,13 @@ END:
 * @brief	This function authenticates and/or decrypts the image headers
 * and partition headers and copies the contents to the corresponding structures.
 *
-* @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr	Pointer to the XLoader_SecureParams instance.
 * @param	MetaHdr		Pointer to the Meta header table.
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
+u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -953,7 +953,7 @@ void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr)
 * For checksum and authentication(after first block), hash is calculated on block
 * of data and compared with the expected hash.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	Size is size of the data block to be processed
 *		which includes padding lengths and hash.
 * @param	Last notifies if the block to be processed is last or not.
@@ -961,7 +961,7 @@ void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr)
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -1062,14 +1062,14 @@ END:
 /**
 * @brief	This function authenticates the data with SPK.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	Hash is a Pointer to the expected hash buffer.
 * @param	Signature pointer points to the signature buffer.
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash,
+static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -1168,7 +1168,7 @@ END:
 * @brief	This function encrypts the RSA/ECDSA signature provided and
 * compares it with expected hash.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	Hash is pointer to the expected hash
 * @param	Key is pointer to the RSA/ECDSA public key to be used
 * @param	Signature is pointer to the Signature
@@ -1176,7 +1176,7 @@ END:
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_VerifySignature(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
 		u8 *Hash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -1214,12 +1214,12 @@ END:
 /**
 * @brief	This function verifies SPK with PPK.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
+static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
 	XSecure_Sha3Hash SpkHash;
@@ -1458,12 +1458,12 @@ static u32 XLoader_CheckNonZeroPpk(void)
 /**
 * @brief	This function verifies PPK.
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 *
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
+static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 {
 	u32 Status = XLOADER_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
@@ -1627,7 +1627,7 @@ END:
  * required PSS operations to extract salt and calculates M prime hash and
  * compares with hash obtained from EM.
  *
- * @param	SecurePtr is pointer to the XLoader_SecureParms instance.
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
  * @param	RsaInstancePtr is pointer to the XSecure_Rsa instance.
  * @param	Signature is pointer to RSA signature for data to be
  *		authenticated.
@@ -1636,7 +1636,7 @@ END:
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -1843,14 +1843,14 @@ static u32 XLoader_EcdsaSignVerify(u32 *DataHash, u32 *Key, u32 *Signature)
  *
  * @brief	This function decrypts the secure header/footer.
  *
- * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams
  * @param	AesInstancePtr	Pointer to the AES instance
  * @param	SrcAddr		Pointer to the buffer where header/footer present
  *
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_DecryptSH(XLoader_SecureParams *SecurePtr,
 			u64 SrcAddr)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -1904,7 +1904,7 @@ END:
 /**
  * @brief	This function decrypts the data.
  *
- * @param	SecurePtr is pointer to the XLoader_SecureParms
+ * @param	SecurePtr is pointer to the XLoader_SecureParams
  * @param	AesInstancePtr is pointer to the AES instance
  * @param	SrcAddr is pointer to the buffer where header/footer present
  * @param	DestAddr is pointer to the buffer where header/footer should
@@ -1914,7 +1914,7 @@ END:
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
 		u64 SrcAddr, u64 DestAddr, u32 Size)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -2002,7 +2002,7 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 /**
  * @brief	This function decrypts the data.
  *
- * @param	SecurePtr is pointer to the XLoader_SecureParms
+ * @param	SecurePtr is pointer to the XLoader_SecureParams
  * @param	AesInstacePtr is pointer to the Aes instance
  * @param	SrcAddr is address to the buffer where header/footer present
  * @param	DestAddr is the address to which header / footer is copied
@@ -2011,7 +2011,7 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 		 u64 SrcAddr, u64 DstAddr, u32 Size)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -2083,7 +2083,7 @@ END:
 /**
  * @brief	This function helps in key selection.
  *
- * @param	SecurePtr is pointer to the XLoader_SecureParms
+ * @param	SecurePtr is pointer to the XLoader_SecureParams
  * @param	AesInstancePtr is pointer to the AES instance
  * @param	KeyDetails is pointer to the key details.
  * @param	KeySrc is pointer to the key source to be updated as
@@ -2093,7 +2093,7 @@ END:
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 		XLoader_AesKekKey *KeyDetails, XSecure_AesKeySrc *KeySrc)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -2411,14 +2411,14 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParms *SecurePtr,
  * @brief	This function authenticates image headers and partition headers
  * of image.
  *
- * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams
  * @param	MetaHdr		Pointer to the Meta header.
  *
  * @return	XLOADER_SUCCESS if verification was successful.
  *			Error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 			XilPdi_MetaHdr *MetaHdr)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -2538,7 +2538,7 @@ END:
  * @brief
  * This function copies whole secure headers to the buffer.
  *
- * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams
  * @param	MetaHdr		Pointer to the Meta header.
  * @param	BufferAddr	Read whole headers to the mentioned buffer
  *		address
@@ -2547,7 +2547,7 @@ END:
  *			Error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_ReadHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_ReadHdrs(XLoader_SecureParams *SecurePtr,
 			XilPdi_MetaHdr *MetaHdr, u64 BufferAddr)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -2580,7 +2580,7 @@ END:
  * @brief
  * This function authenticates and decrypts the headers.
  *
- * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams
  * @param	MetaHdr		Pointer to the Meta header.
  * @param	BufferAddr	Read whole headers to the mentioned buffer
  *		address
@@ -2589,7 +2589,7 @@ END:
  *			Error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 		XilPdi_MetaHdr *MetaHdr,
 		u64 BufferAddr)
 {
@@ -2673,7 +2673,7 @@ END:
 /**
  * @brief	This function decrypts headers.
  *
- * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams
  * @param	MetaHdr		Pointer to the Meta header.
  * @param	BufferAddr	Read whole headers to the mentioned buffer
  *		address
@@ -2682,7 +2682,7 @@ END:
  *			Error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
+static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 			XilPdi_MetaHdr *MetaHdr, u64 BufferAddr)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -2868,12 +2868,12 @@ END:
 /**
 * @brief       This function performs KAT test on AES crypto Engine
 *
-* @param       SecurePtr       Pointer to the XLoader_SecureParms instance.
+* @param       SecurePtr       Pointer to the XLoader_SecureParams instance.
 *
 * @return      XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_AesKatTest(XLoader_SecureParms *SecurePtr)
+static u32 XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 {
 	u32 Status = XLOADER_SUCCESS;
 	u32 DpacmEfuseStatus;

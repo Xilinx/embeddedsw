@@ -37,6 +37,7 @@
 *       bsv  04/09/2020 Code clean up of Xilloader
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get subsystem info
 *       kal  07/20/2020 Added double buffering support for secure CDOs
+*       bsv  07/29/2020 Added delay load support
 *
 * </pre>
 *
@@ -65,9 +66,14 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
-static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum);
+static int XLoader_PrtnCopy(XilPdi* PdiPtr, XLoader_DeviceCopy DeviceCopy,
+	XLoader_SecureParams SecureParams);
 static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
+static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy DeviceCopy,
+	XLoader_SecureParams SecureParams);
+static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
+	XLoader_PrtnParams PrtnParams, XLoader_SecureParams SecureParams);
 
 /************************** Variable Definitions *****************************/
 
@@ -75,7 +81,7 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 /**
  * @brief	This function loads the partition.
  *
- * @param	PdiPtr is pointer to XilPdi Instance
+ * @param	PdiPtr is pointer to XilPdi instance
  * @param	ImgNum is the image number to be loaded
  * @param	PrtnNum is the partition number in the image to be loaded
  *
@@ -89,12 +95,48 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 	u64 PrtnLoadTime;
 	XPlmi_PerfTime PerfTime = {0U};
 
+	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
+	if ((PdiPtr->CopyToMem == FALSE) && (PdiPtr->DelayLoad == FALSE)) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"+++++++Loading Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+			PdiPtr->ImageNum,
+			(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
+			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+	}
+	else {
+		if (PdiPtr->DelayLoad == TRUE) {
+			XPlmi_Printf(DEBUG_GENERAL,
+				"+++++++Skipping Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+				PdiPtr->ImageNum,
+				(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
+				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+		}
+		if (PdiPtr->CopyToMem == TRUE) {
+			XPlmi_Printf(DEBUG_GENERAL,
+				"+++++++Copying Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+				PdiPtr->ImageNum,
+				(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
+				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+		}
+	}
+
 	/* Validate and load the image partitions */
 	for (PrtnIndex = 0U; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns;
 		PrtnIndex++) {
-
-		XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
-			     PrtnNum);
+		if ((PdiPtr->CopyToMem == FALSE) && (PdiPtr->DelayLoad == FALSE)) {
+			XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
+				PrtnNum);
+		}
+		else {
+			if (PdiPtr->DelayLoad == TRUE) {
+				XPlmi_Printf(DEBUG_GENERAL, "-------Skipping Prtn No: 0x%0x\r\n",
+					PrtnNum);
+			}
+			if (PdiPtr->CopyToMem == TRUE) {
+				XPlmi_Printf(DEBUG_GENERAL, "-------Copying Prtn No: 0x%0x\r\n",
+					PrtnNum);
+			}
+		}
 
 		PrtnLoadTime = XPlmi_GetTimerValue();
 		/* Prtn Hdr Validation */
@@ -135,7 +177,7 @@ END:
 /**
  * @brief	This function validates the partition header.
  *
- * @param	PdiPtr is pointer to XilPdi Instance
+ * @param	PdiPtr is pointer to XilPdi instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -170,53 +212,58 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function copies the partition to specified destination.
+ * @brief	This function copies partition data to respective target memories.
  *
- * @param	PdiPtr is pointer to XilPdi Instance
- * @param	PrtnNum is the partition number in the image to be loaded
+ * @param	PdiPtr is pointer to XilPdi instance
+ * @param	DeviceCopy is the structure variable with parameters required
+ *		for copying
+ * @param	SecureParams is instance containing security related params
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
+static int XLoader_PrtnCopy(XilPdi* PdiPtr, XLoader_DeviceCopy DeviceCopy,
+		XLoader_SecureParams SecureParams)
 {
 	int Status = XST_FAILURE;
-	u64 SrcAddr;
-	u64 DestAddr;
-	u32 DstnCpu;
-	u32 Len;
-	XilPdi_PrtnHdr * PrtnHdr;
-	XLoader_SecureParms SecureParams = {0U};
+
+	if (SecureParams.SecureEn != TRUE) {
+		Status = PdiPtr->MetaHdr.DeviceCopy(DeviceCopy.SrcAddr,
+					DeviceCopy.DestAddr, DeviceCopy.Len, DeviceCopy.Flags);
+	}
+	else {
+		Status = XLoader_SecureCopy(&SecureParams, DeviceCopy.DestAddr,
+					DeviceCopy.Len);
+	}
+	if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
+			goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function copies the elf partitions to specified destinations.
+ *
+ * @param	PdiPtr is pointer to XilPdi instance
+ * @param	PrtnHdr is pointer to the partition header
+ * @param	PrtnParams is the structure variable that contains parameters
+ *		required to process the partition
+ * @param	SecureParams is instance containing security related params
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
+	XLoader_PrtnParams PrtnParams, XLoader_SecureParams SecureParams)
+{
+	int Status = XST_FAILURE;
 	u32 Mode = 0U;
-	u32 PrtnType;
-	u32 TempVal;
 
-	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Assign the partition header to local variable */
-	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-	SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +
-		((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
-	DestAddr = PrtnHdr->DstnLoadAddr;
-
-	/* For Non-secure image */
-	Len = (PrtnHdr->UnEncDataWordLen) * XIH_PRTN_WORD_LEN;
-	/* Make Length 16byte aligned
-	 * TODO remove this after partition len is made
-	 * 16byte aligned by bootgen*/
-	TempVal = Len % XLOADER_DMA_LEN_ALIGN;
-	if (TempVal != 0U) {
-		Len = Len + XLOADER_DMA_LEN_ALIGN - TempVal;
-	}
-
-	if (PdiPtr->CopyToMem == TRUE) {
-		Status = PdiPtr->DeviceCopy(SrcAddr, SrcAddr +
-					XLOADER_DDR_COPYIMAGE_BASEADDR, Len, 0U);
-		goto END;
-	}
+	PrtnParams.DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	/*
 	 * Requirements:
@@ -232,17 +279,16 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	 * R5 should be taken out of reset before loading
 	 * R5 TCM should be ECC initialized
 	 */
-	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
-	if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
+	if (PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
 		XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
 			PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
 	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
-	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
-		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
-		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
-		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
+	if ((PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
+		(PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
+		(PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
+		if (PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 					IOCTL_SET_RPU_OPER_MODE,
 					XPM_RPU_MODE_SPLIT, 0U, &Mode);
@@ -253,7 +299,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 					PM_CAP_ACCESS | PM_CAP_CONTEXT,
 					XPM_DEF_QOS, 0U);
 		}
-		else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
+		else if (PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 				IOCTL_SET_RPU_OPER_MODE,
 				XPM_RPU_MODE_SPLIT, 0U, &Mode);
@@ -285,40 +331,27 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 					XPM_DEF_QOS, 0U);
 		}
 
-		Status = XLoader_GetLoadAddr(DstnCpu, &DestAddr, Len);
+		Status = XLoader_GetLoadAddr(PrtnParams.DstnCpu,
+					&PrtnParams.DeviceCopy.DestAddr, PrtnParams.DeviceCopy.Len);
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
 	}
 
-	if (SecureParams.SecureEn != TRUE) {
-		Status = PdiPtr->MetaHdr.DeviceCopy(SrcAddr, DestAddr, Len, 0x0U);
-		if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
+	Status = XLoader_PrtnCopy(PdiPtr, PrtnParams.DeviceCopy, SecureParams);
+	if (XST_SUCCESS != Status) {
 			goto END;
+	}
+
+	if ((PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_0) ||
+			(PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_1)) {
+			/*
+			 *  Populate handoff parameters to ATF
+			 *  These correspond to the partitions of application
+			 *  which ATF will be loading
+			 */
+			XLoader_SetATFHandoffParameters(PrtnHdr);
 		}
-	}
-	else {
-		Status = XLoader_SecureCopy(&SecureParams, DestAddr, Len);
-		if (XST_SUCCESS != Status) {
-			goto END;
-		}
-	}
-
-	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
-
-	if ((PrtnType == XIH_PH_ATTRB_PRTN_TYPE_ELF) &&
-		(((DstnCpu >= XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
-		(DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_A72_1))||
-		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_NONE))) {
-		/*
-		 *  Populate handoff parameters to ATF
-		 *  These correspond to the partition of application
-		 *  which ATF will be loading
-		 */
-		XLoader_SetATFHandoffParameters(PrtnHdr);
-	}
-
 END:
 	return Status;
 }
@@ -327,7 +360,7 @@ END:
 /**
  * @brief	This function is used to update the handoff parameters.
  *
- * @param	PdiPtr is pointer to XilPdi Instance
+ * @param	PdiPtr is pointer to XilPdi instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -373,7 +406,7 @@ END:
  * @brief	This function is used to check whether cpu has handoff address
  * stored in the handoff structure.
  *
- * @param	PdiPtr is pointer to XilPdi Instance
+ * @param	PdiPtr is pointer to XilPdi instance
  * @param	DstnCpu is the cpu which needs to be checked
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -403,57 +436,27 @@ END:
  * @brief	This function is used to process the CDO partition. It copies and
  * validates if security is enabled.
  *
- * @param	PdiPtr is pointer to XilPdi Instance
- * @param	PrtnNum is the partition number in the image to be loaded
+ * @param	PdiPtr is pointer to XilPdi instance
+ * @param	DeviceCopy is the structure variable with parameters required
+ * 		for copying
+ * @param	SecureParams is instance containing security related params
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
+static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy DeviceCopy,
+		XLoader_SecureParams SecureParams)
 {
 	int Status = XST_FAILURE;
-	u32 SrcAddr;
-	u32 Len;
 	u32 ChunkLen;
 	XPlmiCdo Cdo = {0U};
-	XilPdi_PrtnHdr * PrtnHdr;
-	u32 LastChunk = FALSE;
-	u32 ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
-	u32 IsNextChunkCopyStarted = FALSE;
-	XLoader_SecureParms SecureParams = {0U};
-	u32 TempVal;
 	u32 PdiVer;
+	u32 ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
+	u8 LastChunk = FALSE;
+	u8 IsNextChunkCopyStarted = FALSE;
 	u8 Is32kChunk = FALSE;
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
-
-	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Assign the partition header to local variable */
-	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-	SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +
-			(((u64)PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
-	Len = (PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN);
-
-	/**
-	 * Make Length 16byte aligned.
-	 * TODO remove this after partition len is made
-	 * 16byte aligned by bootgen
-	 */
-	TempVal = Len % XLOADER_DMA_LEN_ALIGN;
-	if (TempVal != 0U) {
-		Len = Len + XLOADER_DMA_LEN_ALIGN - TempVal;
-	}
-
-	if (PdiPtr->CopyToMem == TRUE) {
-		Status = PdiPtr->DeviceCopy(SrcAddr, SrcAddr +
-					XLOADER_DDR_COPYIMAGE_BASEADDR, Len, 0U);
-		goto END;
-	}
-
 	/*
 	 * Initialize the Cdo Pointer and
 	 * check CDO header contents
@@ -468,8 +471,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * Process CDO in chunks.
 	 * Chunk size is based on the available PRAM size.
 	 */
-	if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) &&
-		(SecureParams.SecureEn != TRUE)) {
+	if (DeviceCopy.IsDoubleBuffering == TRUE) {
 		ChunkLen = XLOADER_CHUNK_SIZE / 2U;
 	}
 	else if ((SecureParams.SecureEn == TRUE) &&
@@ -486,43 +488,36 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * Double buffering for secure cases is possible only
 	 * when available PRAM Size >= ChunkLen * 2
 	 */
-	if ((Is32kChunk == TRUE) &&
-		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE) &&
-		((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR))) {
+	if ((DeviceCopy.IsDoubleBuffering == TRUE) && (Is32kChunk == TRUE) &&
+		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE)) {
 		SecureParams.IsDoubleBuffering = TRUE;
-	}
-	else {
-		/* Blocking DMA will be used in case
-		 * DoubleBuffering is FALSE.
-		 */
-		SecureParams.IsDoubleBuffering = FALSE;
 	}
 
 	SecureParams.IsCdo = TRUE;
-	while (Len > 0U) {
+	while (DeviceCopy.Len > 0U) {
 		/* Update the len for last chunk */
-		if (Len <= ChunkLen) {
+		if (DeviceCopy.Len <= ChunkLen) {
 			LastChunk = TRUE;
-			ChunkLen = Len;
+			ChunkLen = DeviceCopy.Len;
 		}
 
 		if (SecureParams.SecureEn != TRUE) {
 			if (IsNextChunkCopyStarted == TRUE) {
 				IsNextChunkCopyStarted = FALSE;
 				/* Wait for copy to get completed */
-				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen,
-					XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
+				PdiPtr->DeviceCopy(DeviceCopy.SrcAddr, ChunkAddr, ChunkLen,
+					DeviceCopy.Flags | XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
 			}
 			else {
 				/* Copy the data to PRAM buffer */
-				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen,
-					XLOADER_DEVICE_COPY_STATE_BLK);
+				PdiPtr->DeviceCopy(DeviceCopy.SrcAddr, ChunkAddr, ChunkLen,
+					DeviceCopy.Flags | XLOADER_DEVICE_COPY_STATE_BLK);
 			}
 			/* Update variables for next chunk */
 			Cdo.BufPtr = (u32 *)ChunkAddr;
-			Cdo.BufLen = ChunkLen/XIH_PRTN_WORD_LEN;
-			SrcAddr += ChunkLen;
-			Len -= ChunkLen;
+			Cdo.BufLen = ChunkLen / XIH_PRTN_WORD_LEN;
+			DeviceCopy.SrcAddr += ChunkLen;
+			DeviceCopy.Len -= ChunkLen;
 
 			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
@@ -531,15 +526,15 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI)) {
 				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
-				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
+				Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy.SrcAddr;
 				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
 			}
 			else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) {
 				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
-				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
+				Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy.SrcAddr;
 			}
 			else {
-				/** MISRA-C compliance */
+				/* MISRA-C compliance */
 			}
 
 			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
@@ -552,7 +547,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			 * For DDR case, start the copy of the
 			 * next chunk for increasing performance
 			 */
-			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
+			if ((DeviceCopy.IsDoubleBuffering == TRUE)
 			    && (LastChunk != TRUE)) {
 				/* Update the next chunk address to other part */
 				if (ChunkAddr == XPLMI_LOADER_CHUNK_MEMORY) {
@@ -563,15 +558,15 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 				}
 
 				/* Update the len for last chunk */
-				if (Len <= ChunkLen) {
+				if (DeviceCopy.Len <= ChunkLen) {
 					LastChunk = TRUE;
-					ChunkLen = Len;
+					ChunkLen = DeviceCopy.Len;
 				}
 				IsNextChunkCopyStarted = TRUE;
 
 				/* Initiate the data copy */
-				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen,
-					XLOADER_DEVICE_COPY_STATE_INITIATE);
+				PdiPtr->DeviceCopy(DeviceCopy.SrcAddr, ChunkAddr, ChunkLen,
+					DeviceCopy.Flags | XLOADER_DEVICE_COPY_STATE_INITIATE);
 			}
 		}
 		else {
@@ -582,13 +577,13 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			}
 			Cdo.BufPtr = (u32 *)SecureParams.SecureData;
 			Cdo.BufLen = SecureParams.SecureDataLen / XIH_PRTN_WORD_LEN;
-			SrcAddr += ChunkLen;
-			Len -= ChunkLen;
+			DeviceCopy.SrcAddr += ChunkLen;
+			DeviceCopy.Len -= ChunkLen;
 
 			if ((SecureParams.IsDoubleBuffering == TRUE) &&
 						(LastChunk != TRUE)) {
 				Status = XLoader_StartNextChunkCopy(
-						&SecureParams, Len, ChunkLen);
+						&SecureParams, DeviceCopy.Len, ChunkLen);
 				if (Status != XLOADER_SUCCESS) {
 					goto END;
 				}
@@ -601,8 +596,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		}
 		if (Cdo.Cmd.KeyHoleParams.ExtraWords != 0x0U) {
 			Cdo.Cmd.KeyHoleParams.ExtraWords *= XPLMI_WORD_LEN;
-			Len = Len - Cdo.Cmd.KeyHoleParams.ExtraWords;
-			SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
+			DeviceCopy.Len -= Cdo.Cmd.KeyHoleParams.ExtraWords;
+			DeviceCopy.SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
 			IsNextChunkCopyStarted = FALSE;
 			SecureParams.IsNextChunkCopyStarted = FALSE;
 			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
@@ -625,7 +620,7 @@ END:
  * @brief	This function is used to process the partition. It copies and validates if
  * security is enabled.
  *
- * @param	PdiPtr is pointer to XilPdi Instance
+ * @param	PdiPtr is pointer to XilPdi instance
  * @param	PrtnNum is the partition number in the image to be loaded
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -635,31 +630,126 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 {
 	int Status = XST_FAILURE;
 	XilPdi_PrtnHdr * PrtnHdr;
+	PdiSrc_t PdiSrc = PdiPtr->PdiSrc;
+	int (*DevCopy) (u64, u64, u32, u32) = NULL;
+	XLoader_SecureParams SecureParams = {0U};
+	XLoader_PrtnParams PrtnParams = {0U};
 	u32 PrtnType;
+	u64 OfstAddr = 0U;
+	u32 TrfLen;
+	u8 ToStoreInDdr = (u8)FALSE;
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-
 	/* Update current Processing partition ID */
 	PdiPtr->CurPrtnId = PrtnHdr->PrtnId;
-
 	/* Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
-	if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO) {
-		Status = XLoader_ProcessCdo(PdiPtr, PrtnNum);
+
+	PrtnParams.DeviceCopy.DestAddr = PrtnHdr->DstnLoadAddr;
+	PrtnParams.DeviceCopy.Len = (PrtnHdr->TotalDataWordLen * XIH_PRTN_WORD_LEN);
+
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
+		PrtnParams.DeviceCopy.SrcAddr = PdiPtr->CopyToMemAddr;
+		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->CopyToMemAddr -
+				((u64)PrtnHdr->DataWordOfst * XIH_PRTN_WORD_LEN);
+		PdiPtr->CopyToMemAddr += PrtnParams.DeviceCopy.Len;
 	}
 	else {
-		XPlmi_Printf(DEBUG_INFO, "Copying elf/data partition \n\r");
-		/* Partition Copy */
-		Status = XLoader_PrtnCopy(PdiPtr, PrtnNum);
+		PrtnParams.DeviceCopy.SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +
+				((u64)PrtnHdr->DataWordOfst * XIH_PRTN_WORD_LEN);
 	}
 
+	if (PdiPtr->CopyToMem == TRUE) {
+		Status = PdiPtr->DeviceCopy(PrtnParams.DeviceCopy.SrcAddr,
+					PdiPtr->CopyToMemAddr, PrtnParams.DeviceCopy.Len,
+					PrtnParams.DeviceCopy.Flags);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_COPY_TO_MEM, 0);
+			goto END;
+		}
+
+		PdiPtr->CopyToMemAddr += PrtnParams.DeviceCopy.Len;
+		if (PdiPtr->DelayLoad == TRUE) {
+			goto END;
+		}
+
+		PdiSrc = PdiPtr->PdiSrc;
+		PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
+		DevCopy = PdiPtr->DeviceCopy;
+		PdiPtr->DeviceCopy = XLoader_DdrCopy;
+		PdiPtr->MetaHdr.DeviceCopy = XLoader_DdrCopy;
+		OfstAddr = PdiPtr->MetaHdr.FlashOfstAddr;
+		PrtnParams.DeviceCopy.SrcAddr = PdiPtr->CopyToMemAddr;
+		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->CopyToMemAddr -
+			PrtnParams.DeviceCopy.Len -
+			((u64)PrtnHdr->DataWordOfst * XIH_PRTN_WORD_LEN);
+		PrtnParams.DeviceCopy.Flags = XPLMI_PMCDMA_0;
+		ToStoreInDdr = TRUE;
+	}
+	else if (PdiPtr->DelayLoad == TRUE) {
+		if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
+			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI) ||
+			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SMAP) ||
+			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_PCIE)) {
+			while (PrtnParams.DeviceCopy.Len > 0U) {
+				if (PrtnParams.DeviceCopy.Len > XLOADER_CHUNK_SIZE) {
+					TrfLen = XLOADER_CHUNK_SIZE;
+				}
+				else {
+					TrfLen = PrtnParams.DeviceCopy.Len;
+				}
+				Status = PdiPtr->DeviceCopy(PrtnParams.DeviceCopy.SrcAddr,
+							XPLMI_LOADER_CHUNK_MEMORY, TrfLen, 0U);
+				if (Status != XST_SUCCESS) {
+					Status = XPlmi_UpdateStatus(XLOADER_ERR_DELAY_LOAD, Status);
+					goto END;
+				}
+				PrtnParams.DeviceCopy.Len = PrtnParams.DeviceCopy.Len - TrfLen;
+				PrtnParams.DeviceCopy.SrcAddr = PrtnParams.DeviceCopy.SrcAddr + TrfLen;
+			}
+		}
+		goto END;
+	}
+	else {
+		/*
+		 * MISRA-C compliance
+		 */
+	}
+
+	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if ((PdiPtr->CopyToMem == FALSE) &&
-		(PdiPtr->DelayHandoff == FALSE)) {
+	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
+			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)) {
+		PrtnParams.DeviceCopy.IsDoubleBuffering = TRUE;
+	}
+
+	if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO) {
+		Status = XLoader_ProcessCdo(PdiPtr, PrtnParams.DeviceCopy, SecureParams);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_ELF) {
+		XPlmi_Printf(DEBUG_INFO, "Copying elf partitions\n\r");
+		Status = XLoader_ProcessElf(PdiPtr, PrtnHdr, PrtnParams, SecureParams);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		XPlmi_Printf(DEBUG_INFO, "Copying data partition\n\r");
+		/* Partition Copy */
+		Status = XLoader_PrtnCopy(PdiPtr, PrtnParams.DeviceCopy, SecureParams);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	if (PdiPtr->DelayHandoff == FALSE) {
 		/* Update the handoff values */
 		Status = XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
 		if (Status != XST_SUCCESS) {
@@ -668,6 +758,12 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 	}
 
 END:
+	if (ToStoreInDdr == TRUE) {
+		PdiPtr->PdiSrc = PdiSrc;
+		PdiPtr->DeviceCopy = DevCopy;
+		PdiPtr->MetaHdr.DeviceCopy = DevCopy;
+		PdiPtr->MetaHdr.FlashOfstAddr = OfstAddr;
+	}
 	return Status;
 }
 

@@ -1123,7 +1123,7 @@ static int XPm_SubsystemPwrUp(const u32 SubsystemId)
 			goto done;
 		}
 	}
-	Status = XLoader_RestartImage(SubsystemId);
+	Status = XLoader_RestartImage(SubsystemId, XLoader_GetBootMode());
 
 done:
 	return Status;
@@ -1191,7 +1191,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 				/* Power up LPD if not powered up */
 				Power = XPmPower_GetById(PM_POWER_LPD);
 				if ((NULL != Power) && ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
-					Status = XLoader_RestartImage(Power->Node.Id);
+					Status = XLoader_RestartImage(Power->Node.Id, XLoader_GetBootMode());
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
