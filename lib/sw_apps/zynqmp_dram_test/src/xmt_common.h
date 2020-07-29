@@ -19,6 +19,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
+ *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  *
  * </pre>
  *
@@ -81,14 +82,46 @@ extern "C" {
 #define XMT_DDRC_MSTR_ACTIVE_RANKS_MASK		0x03000000
 #define XMT_DDRC_MSTR_DATA_BUS_WIDTH_SHIFT	12
 #define XMT_DDRC_MSTR_DATA_BUS_WIDTH_MASK	0x00003000
+#define XMT_DDRC_MSTR_DDR_TYPE_SHIFT		0
+#define XMT_DDRC_MSTR_DDR_TYPE_MASK		0x0000003F
 
 #define XMT_DDR_ECC_CONFIG0			0xFD070070
 #define XMT_DDR_ECC_CONFIG0_ECC_MODE_MASK	0x7
 #define XMT_DDR_ECC_CONFIG0_ECC_MODE_SHIFT	0
 
+#define XMT_DDRC_MRCTRL0			0xFD070010
+#define XMT_DDRC_MRCTRL0_MR_WR_SHIFT		31
+#define XMT_DDRC_MRCTRL0_MR_WR_MASK		0x80000000
+#define XMT_DDRC_MRCTRL0_MR_ADDR_SHIFT		12
+#define XMT_DDRC_MRCTRL0_MR_ADDR_MASK		0x0000F000
+#define XMT_DDRC_MRCTRL0_MR_RANK_SHIFT		4
+#define XMT_DDRC_MRCTRL0_MR_RANK_MASK		0x00000030
+#define XMT_DDRC_MRCTRL0_SW_INIT_INT_SHIFT	3
+#define XMT_DDRC_MRCTRL0_SW_INIT_INT_MASK	0x00000008
+#define XMT_DDRC_MRCTRL0_PDA_EN_SHIFT		2
+#define XMT_DDRC_MRCTRL0_PDA_EN_MASK		0x00000004
+#define XMT_DDRC_MRCTRL0_MPR_EN_SHIFT		1
+#define XMT_DDRC_MRCTRL0_MPR_EN_MASK		0x00000002
+#define XMT_DDRC_MRCTRL0_MR_TYPE_SHIFT		0
+#define XMT_DDRC_MRCTRL0_MR_TYPE_MASK		0x00000001
+
+#define XMT_DDRC_MRCTRL1			0xFD070014
+#define XMT_DDRC_MRCTRL1_MR_DATA_SHIFT		0
+#define XMT_DDRC_MRCTRL1_MR_DATA_MASK		0x0003FFFF
+
+#define XMT_DDRC_MRSTAT				0xFD070018
+#define XMT_DDRC_MRSTAT_PDA_DONE_SHIFT		8
+#define XMT_DDRC_MRSTAT_PDA_DONE_MASK		0x00000100
+#define XMT_DDRC_MRSTAT_MR_WR_BUSY_SHIFT	0
+#define XMT_DDRC_MRSTAT_MR_WR_BUSY_MASK		0x00000001
+
 #define XMT_DDRC_DERATEEN			0xFD070020
 #define XMT_DDRC_DERATEEN_DERATE_ENABLE_SHIFT	0
 #define XMT_DDRC_DERATEEN_DERATE_ENABLE_MASK	0x00000001
+
+#define XMT_DDRC_INIT4				0xFD0700E0
+#define XMT_DDRC_INIT4_EMR3_SHIFT	0U
+#define XMT_DDRC_INIT4_EMR3_MASK	0x0000FFFFU
 
 #define XMT_DDRC_DFIUPD0			0xFD0701A0
 #define XMT_DDRC_DFIUPD0_DIS_AUTO_CTRLUPD_SHIFT	31
@@ -172,6 +205,23 @@ extern "C" {
 
 #define XMT_LANE_OFFSET				0x100
 
+/* DDR QOS Registers */
+
+#define XMT_DDRC_MRR_STATUS			0xFD090518U
+#define XMT_DDRC_MRR_DATA0			0xFD09051CU
+#define XMT_DDRC_MRR_DATA1			0xFD090520U
+#define XMT_DDRC_MRR_DATA2			0xFD090524U
+#define XMT_DDRC_MRR_DATA3			0xFD090528U
+#define XMT_DDRC_MRR_DATA4			0xFD09052CU
+#define XMT_DDRC_MRR_DATA5			0xFD090530U
+#define XMT_DDRC_MRR_DATA6			0xFD090534U
+#define XMT_DDRC_MRR_DATA7			0xFD090538U
+#define XMT_DDRC_MRR_DATA8			0xFD09053CU
+#define XMT_DDRC_MRR_DATA9			0xFD090540U
+#define XMT_DDRC_MRR_DATA10			0xFD090544U
+#define XMT_DDRC_MRR_DATA11			0xFD090548U
+
+
 /* Results register */
 #define XMT_RESULTS_BASE			0xFF410020
 
@@ -182,6 +232,47 @@ extern "C" {
 #define XMT_DDR_CONFIG_4_LANE			4U
 #define XMT_DDR_CONFIG_64BIT_WIDTH			64U
 #define XMT_DDR_CONFIG_32BIT_WIDTH			32U
+
+#define XMT_DDR_TYPE_DDR3			0x01U
+#define XMT_DDR_TYPE_LPDDR2			0x04U
+#define XMT_DDR_TYPE_LPDDR3			0x08U
+#define XMT_DDR_TYPE_DDR4			0x10U
+#define XMT_DDR_TYPE_LPDDR4			0x20U
+
+#define XMT_DDR_MR3_CONFIG_MASK			0x0000E7F8U
+#define XMT_DDR_MR3_MPR_P2_CONFIG		0x00000006U
+
+#define XMT_DDR_MR_ADDR_MR0			0x0000U
+#define XMT_DDR_MR_ADDR_MR1			0x1000U
+#define XMT_DDR_MR_ADDR_MR2			0x2000U
+#define XMT_DDR_MR_ADDR_MR3			0x3000U
+#define XMT_DDR_MR_ADDR_MR4			0x4000U
+#define XMT_DDR_MR_ADDR_MR5			0x5000U
+#define XMT_DDR_MR_ADDR_MR6			0x6000U
+#define XMT_DDR_MR_ADDR_MR7			0x7000U
+
+#define XMT_DDR_MR_ADDR_MR14		0xE00U
+#define XMT_DDR_VREF_CALIB_MODE_EN	0x80U
+#define XMT_DDR_VREF_CALIB_MODE_DIS	0x00U
+
+
+#define XMT_DDR_MR_RANK_0			0x10U
+#define XMT_DDR_MR_RANK_1			0x20U
+#define XMT_DDR_MR_RANK_1_2			0x30U
+
+#define XMT_DDR_MR_WR				0x80000000U
+#define XMT_DDR_MPR_ENABLE			0x2U
+#define XMT_DDR_MRS_ENABLE			0x0U
+#define XMT_DDR_MR_READ				0x1U
+#define XMT_DDR_MR_WRITE			0x0U
+
+#define XMT_DDR_MR_WR_BUSY			0x1U
+
+#define XMT_DDRC_MRR_STATUS_VALID	0x1U
+#define XMT_DDRC_MRR_DATA_U8_MASK	0xFFU
+#define XMT_DDRC_MRR_DATA_WIDTH		8U
+
+#define XMT_MAX_WR_VREF				0x32U
 
 /**************************** Type Definitions *******************************/
 
@@ -260,11 +351,13 @@ typedef struct {
 	s32 EyeStart[8];
 	s32 EyeEnd[8];
 	u32 VRefAuto[8];
+	u32 VRefAutoWr;
 	XMt_ReadCenter RdCenter[8];
 	XMt_WriteCenter WrCenter[8];
 	XMt_WriteDs WrDs[8];
 	double TapPs;
 	double DdrFreq;
+	u32 DdrType;
 } XMt_CfgData;
 
 /************************** Function Prototypes ******************************/
@@ -298,6 +391,9 @@ double XMt_PllFreq(u32 Ddr);
 u32 XMt_GetVRefAuto(XMt_CfgData *XMtPtr);
 void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef);
 void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr);
+u32 XMt_GetWrVRef(XMt_CfgData *XMtPtr);
+void XMt_SetWrVref(XMt_CfgData *XMtPtr, u32 VRef);
+void XMt_ResetWrVref(XMt_CfgData *XMtPtr);
 void XMt_Print2DEyeResults(XMt_CfgData *XMtPtr, u32 VRef);
 u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr);
 u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr);
