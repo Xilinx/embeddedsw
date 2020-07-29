@@ -25,11 +25,13 @@
 *                         - CRC is reported on each component
 *                         - checking for 0x84 type frame in Infoframe
 * 1.03 KU 12/23/19 2020.1 - Minor updates
-* 1.04 ND 02/14/19 2020.1 - mcdp related function call now need dprxss instance address
+* 1.04 ND 02/14/20 2020.1 - mcdp related function call now need dprxss instance address
 *                           instead of base address  as first parameter
 * 1.05 ND 03/06/20 2020.1 - Added support for VCK190.
 * 						    Application file are common for VCK190 and
 * 						    ZCU102 PT design.
+* 1.06 ND 07/28/20 2020.2 - Minor updates and removal of redundant code related to PSIIC
+* 							initialization.
 *
 * </pre>
 *
@@ -45,7 +47,7 @@
 //
 #define PS_IIC_CLK 400000
 //
-XIicPs Ps_Iic0, Ps_Iic1;
+XIicPs Ps_Iic1;
 //
 
 #ifdef versal
@@ -231,33 +233,6 @@ int VideoFMC_Init(void)
 
 	xil_printf("VFMC: Setting IO Expanders...\n\r");
 
-#ifndef versal
-	XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
-	/* Initialize the IIC driver so that it is ready to use. */
-	ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
-	if (ConfigPtr_IIC == NULL) {
-	        return XST_FAILURE;
-	}
-
-	Status = XIic_CfgInitialize(&IicInstance, ConfigPtr_IIC,
-			ConfigPtr_IIC->BaseAddress);
-	if (Status != XST_SUCCESS) {
-	        return XST_FAILURE;
-	}
-
-	XIic_Reset(&IicInstance);
-
-
-	/* Set the I2C Mux to select the HPC FMC */
-	Buffer[0] = 0x01;
-	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
-			(u8*)Buffer, 1, XIIC_STOP);
-	if (ByteCount != 1) {
-		xil_printf("Failed to set the I2C Mux.\n\r");
-	    return XST_FAILURE;
-	}
-#endif
-
 //	I2C_Scan(XPAR_IIC_0_BASEADDR);
 
 	/* Configure VFMC IO Expander 0:
@@ -267,7 +242,7 @@ int VideoFMC_Init(void)
 	 * Disable LMK61E2*/
 	Buffer[0] = 0x52;
 #ifdef versal
-	  Status = XIicPs_MasterSendPolled(&Ps_Iic0,(u8 *)&Buffer,
+	  Status = XIicPs_MasterSendPolled(&Ps_Iic1,(u8 *)&Buffer,
 									  1,I2C_VFMCEXP_0_ADDR);
 	    if(Status == XST_SUCCESS)
 	    {
@@ -293,7 +268,7 @@ int VideoFMC_Init(void)
 	 * Enable IDT8T49N241 */
 	Buffer[0] = 0x1E;
 #ifdef versal
-	Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+	Status = XIicPs_MasterSendPolled(&Ps_Iic1,
 	           (u8 *)&Buffer,1,I2C_VFMCEXP_1_ADDR);
     if(Status == XST_SUCCESS)
     {
@@ -434,7 +409,7 @@ int I2cMux_Ps(u8 mux)
 
 #else
   Buffer = mux;
-  Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+  Status = XIicPs_MasterSendPolled(&Ps_Iic1,
                                    (u8 *)&Buffer,
                                    1,
 									  I2C_MUX_ADDR_SI);
@@ -663,7 +638,7 @@ u32 DpSs_Main(void)
 
 	/*Megachips Retimer Initialization*/
 #ifdef versal
-	DpRxSsInst.IicPsPtr = &Ps_Iic0;
+	DpRxSsInst.IicPsPtr = &Ps_Iic1;
 #endif
 	XDpRxSs_McDp6000_init(&DpRxSsInst);
 
@@ -1196,7 +1171,7 @@ int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 			return XST_SUCCESS;
 		}
 #else
-	    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+	    Status = XIicPs_MasterSendPolled(&Ps_Iic1,
 	                                             (u8 *)&Buffer,
 	                                             2,
 												 I2CSlaveAddress);
@@ -1232,7 +1207,7 @@ void read_DP141()
     u8 Buffer;
     u32 Status;
     Buffer = 0x02 & 0xff;
-    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+    Status = XIicPs_MasterSendPolled(&Ps_Iic1,
                                              (u8 *)&Buffer,
                                              1,
 											 I2C_TI_DP141_ADDR);
@@ -1240,7 +1215,7 @@ void read_DP141()
 
 //        for(i=0; i<0xD; i++){
 //                Data = i2c_read_dp141( XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, i);
-                XIicPs_MasterRecvPolled(&Ps_Iic0, &Data, 1, I2C_TI_DP141_ADDR);
+                XIicPs_MasterRecvPolled(&Ps_Iic1, &Data, 1, I2C_TI_DP141_ADDR);
                 xil_printf("%x : %02x \r\n",i, Data);
 //        }
 #endif
@@ -1264,9 +1239,9 @@ void read_DP141()
 u32 DpSs_PlatformInit(void)
 {
 	u32 Status;
+	u8 Buffer[2];
+	int ByteCount;
 
-	/*Initializing vck190 onboard IDT8T49N24X for audio*/
-#ifdef versal
 	XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
 	int result=XST_SUCCESS;
 	/* Initialize the IIC driver so that it is ready to use. */
@@ -1283,12 +1258,15 @@ u32 DpSs_PlatformInit(void)
 
 	XIic_Reset(&IicInstance);
 
+
+	/*Initializing vck190 onboard IDT8T49N24X for audio*/
+#ifdef versal
+
 	result=IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR_1);
 	if(result!=XST_SUCCESS)
 	{
 		xil_printf("IDT_8T49N24x_Init failed\r\n");
 	}
-
 
    /*
 	  * Get the CLK_WIZ Dynamic reconfiguration driver instance
@@ -1329,31 +1307,41 @@ u32 DpSs_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XTIMER0_DEVICE_ID);
 
 //   /* Initialize PS IIC1 */
-#ifdef versal
-	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-	if (NULL == XIic0Ps_ConfigPtr) {
+	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+	if (NULL == XIic1Ps_ConfigPtr) {
 			return XST_FAILURE;
 	}
 
-	Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr,
-								XIic0Ps_ConfigPtr->BaseAddress);
+	Status = XIicPs_CfgInitialize(&Ps_Iic1, XIic1Ps_ConfigPtr,
+								XIic1Ps_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 	}
 
-	XIicPs_Reset(&Ps_Iic0);
+	XIicPs_Reset(&Ps_Iic1);
 	/*
 	 * Set the IIC serial clock rate.
 	 */
-	XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
+	XIicPs_SetSClk(&Ps_Iic1, PS_IIC_CLK);
 
+	/* Set the I2C Mux to select the HPC FMC */
+#ifdef versal
 	I2cMux_Ps(0x04);
+#else
+	Buffer[0] = 0x01;
+	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
+			(u8*)Buffer, 1, XIIC_STOP);
+	if (ByteCount != 1) {
+		xil_printf("Failed to set the I2C Mux.\n\r");
+	    return XST_FAILURE;
+	}
 #endif
 
 	VideoFMC_Init();
 
 #ifndef versal
-	IDT_8T49N24x_Configure(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR);
+	IDT_8T49N24x_SetClock(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR, 0,
+            270000000, TRUE);
 #else
 	IDT_8T49N24x_SetClock(0x0, I2C_IDT8N49_ADDR, 0,
             270000000, TRUE);
@@ -1392,44 +1380,6 @@ u32 DpSs_PlatformInit(void)
 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
-
-#ifndef versal
-    XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-    if (NULL == XIic0Ps_ConfigPtr) {
-            return XST_FAILURE;
-    }
-
-    Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr,
-								XIic0Ps_ConfigPtr->BaseAddress);
-    if (Status != XST_SUCCESS) {
-            return XST_FAILURE;
-    }
-
-    XIicPs_Reset(&Ps_Iic0);
-    /*
-     * Set the IIC serial clock rate.
-     */
-    XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
-#endif
-
-    /* Initialize PS IIC1 */
-    XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-    if (NULL == XIic1Ps_ConfigPtr) {
-            return XST_FAILURE;
-    }
-
-    Status = XIicPs_CfgInitialize(&Ps_Iic1, XIic1Ps_ConfigPtr,
-								XIic1Ps_ConfigPtr->BaseAddress);
-    if (Status != XST_SUCCESS) {
-            return XST_FAILURE;
-    }
-
-    XIicPs_Reset(&Ps_Iic1);
-    /*
-     * Set the IIC serial clock rate.
-     */
-    XIicPs_SetSClk(&Ps_Iic1, PS_IIC_CLK);
-
 
 #if ENABLE_AUDIO
 
@@ -1711,7 +1661,7 @@ int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	Buffer[0] = RegisterAddress;
 	Buffer[1] = Value;
 #ifdef versal
-	Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+	Status = XIicPs_MasterSendPolled(&Ps_Iic1,
 		                                             (u8 *)&Buffer,
 		                                             2,
 													 I2CSlaveAddress);
