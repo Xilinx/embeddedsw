@@ -43,7 +43,7 @@
 *       bsv  07/01/2020 Unmount file system after loading PDIs
 *       skd  07/14/2020 Added a macro for DMA transfer error
 *       kal  07/21/2020 Added a macro for Data copy failure for Security
-*       kc   07/28/2020 Added error codes for WDT command failures
+*       bsv  07/29/2020 Added error codes related to delay load
 *
 * </pre>
 *
@@ -78,7 +78,7 @@ extern "C" {
 #define XPLMI_STATUS_MODULE_MASK			(0xFFFFU)
 #define XPLMI_ERR_CDO_CMD_MASK				(0x1FFFU)
 #define XPLMI_STATUS_SHIFT				(16U)
-#define XPLMI_ERR_CODE_MASK				(0xFFFFFFFFU)
+#define XPLMI_ERR_CODE_MASK				(0x7FFFFFFFU)
 
 /**
  * Status for PLM functions
@@ -288,7 +288,7 @@ typedef enum {
 	XLOADER_ERR_SEM_CFR_INIT,	/**< 0x331 - Error while starting the
 					  SEM Scan */
 	XLOADER_ERR_DELAY_ATTRB,	/**< 0x332 - Error when both delay handoff
-					  and copy to image */
+					  and delay load are set for the same image */
 	XLOADER_ERR_NUM_HANDOFF_CPUS,	/**< 0x333 - Error when number of CPUs
 						exceed max count */
 	XLOADER_ERR_OSPI_CONN_MODE, /**< 0x334 - Error when OSPI mode is not
@@ -306,6 +306,14 @@ typedef enum {
 	XLOADER_ERR_DMA_XFER,		/**< 0x33A DMA Transfer failed */
 	XLOADER_ERR_DMA_XFER_SD_RAW,		/**< 0x33B DMA Transfer failed in SD Raw*/
 	XLOADER_ERR_CONFIG_SUBSYSTEM,		/**< 0X33C - Error while configuring subsystem */
+	XLOADER_ERR_COPY_TO_MEM,		/**< 0x33D - Error on copying image to DDR with
+						the copy to memory attribute enabled */
+	XLOADER_ERR_DELAY_LOAD,		/**< 0x33E - When the image has delay load
+						attribute set and the boot source is SMAP, SBI,
+						PCIE or JTAG, the image is copied to PMC RAM to
+						free it from the SBI buffers. Errors occurred
+						during such copies to PMC RAM is denoted using
+						this error code. */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

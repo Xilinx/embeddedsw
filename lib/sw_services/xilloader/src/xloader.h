@@ -54,6 +54,8 @@
 *       bsv  07/01/2020 Added DevRelease to DevOps
 *       skd  07/14/2020 Function pointers Copy and DeviceCopy prototypes changed
 *       kal  07/20/2020 Added macro XLOADER_SECURE_CHUNK_SIZE for security
+*       bsv  07/29/2020 Added CopyToMem address and delay load fields in XilPdi
+*                       structure
 *
 * </pre>
 *
@@ -90,7 +92,6 @@ extern "C" {
 #define XLoader_Printf		XPlmi_Printf
 #define XLOADER_32BIT_MASK	(0xFFFFFFFFU)
 #define PMC_LOCAL_BASEADDR	(0xF0000000U)
-#define XLOADER_DDR_COPYIMAGE_BASEADDR	(0x40000000U)
 #define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0x50000000U)
 #define XLOADER_CHUNK_SIZE		(0x10000U) /* 64K */
 #define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /* 32K */
@@ -269,27 +270,9 @@ typedef struct {
 	u32 DelayHandoff; /**< Delay handoff is enabled if set */
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
 	u32 KekStatus; /**< KEK status flag */
+	u32 DelayLoad; /**< Delay Load is enabled if set */
+	u64 CopyToMemAddr; /**< Address to which image is copied */
 } XilPdi;
-
-/*
- * This stores all the information required for Subsystem
- */
-typedef struct {
-	u32 SubsystemId; /**< Corresponding subsystem ID */
-	u32 ImageId; /**< Corresponding Image ID in the PDI */
-	u32 ImageNum; /**< Corresponding Image Number in the PDI */
-	u32 PrtnNum; /**< Corresponding Partition Number in the PDI */
-} XilSubsysInfo;
-
-/*
- * This is a subsystem instance pointer. This stores all the information
- * required for subsystem along with subsystem count
- */
-typedef struct {
-	XilSubsysInfo SubsystemLut[XLOADER_MAX_SUBSYSTEMS]; /**< Subsystem lookup table */
-	XilPdi *PdiPtr; /**< PDI source for that Subsystem */
-	u32 Count; /**< Subsystem count */
-} XilSubsystem;
 
 /* Structure to store various attributes required for IDCODEs checks */
 typedef struct {
@@ -301,6 +284,21 @@ typedef struct {
 	u32 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
 	u32 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
 } XLoader_IdCodeInfo __attribute__ ((aligned(16U)));
+
+/* Structure to store various parameters for Device Copy */
+typedef struct {
+	u64 SrcAddr;	/**< Source Address */
+	u64 DestAddr;	/**< Desrination Address */
+	u32 Len;	/**< Number of bytes to be copied */
+	u32 Flags;	/**< Flags indicate mode of copying */
+	u8 IsDoubleBuffering;	/**< Indicates if parallel DMA is allowed or not */
+} XLoader_DeviceCopy;
+
+/* Structure to store various parameters for processing partitions */
+typedef struct {
+	XLoader_DeviceCopy DeviceCopy; /**< Device Copy instance */
+	u32 DstnCpu;	/** < Destination Cpu */
+} XLoader_PrtnParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
@@ -337,12 +335,13 @@ static inline u8 XLoader_IsEncEnabled(XilPdi* PdiPtr)
 extern XilPdi SubsystemPdiIns;
 
 int XLoader_Init(void);
+PdiSrc_t XLoader_GetBootMode(void);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
-int XLoader_RestartImage(u32 ImageId);
-int XLoader_ReloadImage(u32 ImageId);
+int XLoader_RestartImage(u32 ImageId, PdiSrc_t PdiSrc);
+int XLoader_ReloadImage(u32 ImageId, PdiSrc_t PdiSrc);
 void XLoader_CframeErrorHandler(void);
 int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);

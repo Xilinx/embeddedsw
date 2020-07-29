@@ -28,6 +28,7 @@
 *						partition headers
 *       vnsl 12/04/2020 Added support to read BootHdr Auth Enable field in
 *						boot header
+* 1.03  bsv  07/29/2020 Updated function headers
 *
 * </pre>
 *

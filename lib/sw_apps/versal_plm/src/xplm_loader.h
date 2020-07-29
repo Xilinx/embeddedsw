@@ -50,16 +50,15 @@ extern "C" {
 #define EFUSE_CACHE_MISC_CTRL   (0xF12500A0U)
 #define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK        (0X00008000U)
 
-static inline PdiSrc_t XLoader_GetBootMode(void)
-{
-	u32 BootMode;
-
-	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
-				CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
-
-	return (PdiSrc_t)BootMode;
-}
-
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the boot mode is jtag or not.
+ *
+ * @param	Void
+ *
+ * @return	TRUE if JTAG and FALSE otherwise
+ *
+ *****************************************************************************/
 static inline u8 XLoader_IsJtagSbiMode(void)
 {
 	return (u8)(((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &

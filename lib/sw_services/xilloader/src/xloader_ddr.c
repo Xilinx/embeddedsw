@@ -22,6 +22,7 @@
 *						DdrCopy function
 * 1.02  bsv  04/09/2020 Code clean up of Xilloader
 * 1.03  skd  07/14/2020 Added 64bit support for DDR source address
+*       bsv  07/29/2020 Added provision to use PMCDMA0 for Ddr Copy
 *
 * </pre>
 *
@@ -84,7 +85,13 @@ int XLoader_DdrCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	int Status = XST_FAILURE;
 	u32 DmaFlags;
 
-	DmaFlags = XPLMI_PMCDMA_1;
+	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
+		DmaFlags = XPLMI_PMCDMA_0;
+	}
+	else {
+		DmaFlags = XPLMI_PMCDMA_1;
+	}
+
 	Flags = Flags & XLOADER_DEVICE_COPY_STATE_MASK;
 
 	/* Just wait for the Data to be copied */

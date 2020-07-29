@@ -24,6 +24,7 @@
 * 1.04  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *						subsystem information
 *       kc   07/28/2020 PLM mode is set to configuration during PDI load
+*       bsv  07/29/2020 Removed hard coding of DDR back up address
 *
 commands.
 * </pre>
@@ -121,10 +122,9 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 	PdiPtr->DeviceCopy = DeviceOps[XLOADER_PDI_SRC_DDR].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
 	ImgId = Cmd->Payload[0U];
-	PdiPtr->PdiAddr = PdiPtr->MetaHdr.FlashOfstAddr =
-		XLOADER_DDR_COPYIMAGE_BASEADDR;
 	PdiPtr->CopyToMem = FALSE;
 	PdiPtr->DelayHandoff = FALSE;
+	PdiPtr->DelayLoad = FALSE;
 
 	Status = XLoader_LoadImage(PdiPtr, ImgId);
 	if (Status != XST_SUCCESS) {
