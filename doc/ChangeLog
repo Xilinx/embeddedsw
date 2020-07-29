@@ -121,6 +121,9 @@ Fix field1 values of 1440x480i/576i modes
 cpu_v2_12:
 Updated tcl to get cpuid for the pmufw case
 
+mutex_v4_6:
+Fix the redefinition of cannonicals.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
