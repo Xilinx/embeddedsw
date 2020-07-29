@@ -183,7 +183,7 @@ END:
 /******************************************************************************/
 /**
 * @brief	The function adds user periodic task to scheduler queue. The user
-* shall call this funtion to register their scheduler task.
+* shall call this function to register their scheduler task.
 *
 * @param	OwnerId Id of the owner, used while removing the task.
 * @param	CallbackFn callback function that should be called
