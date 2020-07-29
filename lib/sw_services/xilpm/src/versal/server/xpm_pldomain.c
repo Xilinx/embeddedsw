@@ -593,12 +593,6 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
-	if (NULL == Pld) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XST_FAILURE;
-		goto done;
-	}
 
 	/* Set init_complete */
 	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
