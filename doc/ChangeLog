@@ -1,5 +1,8 @@
 Changes for 2020.2
 ===============================
+v_hdmiphy1_v2_1:
+Removed redundant GTHE3 related code
+
 canps_v3_5:
 Fixed MISRA-C violations.
 Fixed multiple packets send issue in interrupt mode.
