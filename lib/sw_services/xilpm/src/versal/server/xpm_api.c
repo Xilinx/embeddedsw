@@ -2946,10 +2946,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	Shift = (u8)(Args[1] & 0xFFU);
 	ParentId = Args[2];
 
-	if (NODECLASS(PowerId) != (u32)XPM_NODECLASS_POWER) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	} else if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) {
+	if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
@@ -3527,10 +3524,6 @@ static XStatus XPm_AddNodeMemIc(u32 *Args, u32 NumArgs)
 	MemIcId = Args[0];
 	BaseAddress = Args[2];
 
-	if ((u32)XPM_NODECLASS_MEMIC != NODECLASS(MemIcId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	if ((u32)XPM_NODESUBCL_MEMIC_NOC != NODESUBCLASS(MemIcId)) {
 		Status = XST_INVALID_PARAM;
@@ -3570,10 +3563,6 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 	NodeId = Args[0];
 	BaseAddress = Args[2];
 
-	if ((u32)XPM_NODECLASS_MONITOR != NODECLASS(NodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	if ((u32)XPM_NODESUBCL_MONITOR_SYSMON != NODESUBCLASS(NodeId)) {
 		Status = XST_INVALID_PARAM;
@@ -3627,10 +3616,6 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 	BaseAddress = Args[2];
 	SubClass = NODESUBCLASS(NodeId);
 
-	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(NodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	switch (SubClass) {
 	case (u32)XPM_NODESUBCL_PROT_XPPU:
@@ -3686,10 +3671,6 @@ static XStatus XPm_AddNodeMio(u32 *Args, u32 NumArgs)
 	MioId = Args[0];
 	BaseAddress = Args[1];
 
-	if ((u32)XPM_NODECLASS_STMIC != NODECLASS(MioId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	if ((u32)XPM_NODESUBCL_PIN != NODESUBCLASS(MioId)) {
 		Status = XST_INVALID_PARAM;

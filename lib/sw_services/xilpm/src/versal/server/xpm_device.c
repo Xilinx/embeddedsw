@@ -1362,10 +1362,6 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 		goto done;
 	}
 
-	if (Device->Node.Id != DeviceId) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
@@ -1411,10 +1407,6 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
-	if (Device->Node.Id != DeviceId) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
@@ -1451,10 +1443,6 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	if (Device->Node.Id != DeviceId) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
