@@ -39,14 +39,15 @@ extern "C" {
 #define PMC_TAP_VERSION    			((PMC_TAP_BASEADDR) + 0X00000004U)
 #define PMC_TAP_VERSION_PLATFORM_SHIFT   	(24)
 #define PMC_TAP_VERSION_PLATFORM_MASK    	(0X0F000000U)
+#define PMC_TAP_IDCODE		((PMC_TAP_BASEADDR) + 0X00000000U)
 
 #define PLATFORM_VERSION_SILICON		(0x0U)
 #define PLATFORM_VERSION_SPP			(0x1U)
 #define PLATFORM_VERSION_EMU			(0x2U)
 #define PLATFORM_VERSION_QEMU			(0x3U)
 
-extern u32 Platform;
-
+u32 XPsmFw_GetPlatform(void);
+u32 XPsmFw_GetIdCode(void);
 int XPsmFw_Init(void);
 
 #ifdef __cplusplus
