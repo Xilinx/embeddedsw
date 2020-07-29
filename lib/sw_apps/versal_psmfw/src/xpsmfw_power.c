@@ -35,6 +35,10 @@
 #include "pmc_global.h"
 #include <assert.h>
 #define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
+#define NOT_INITIALIZED					0xFFFFFFFFU
+#define IDCODE_DEVICE_SHIFT				(12U)
+#define IDCODE_DEVICE_MASK				(0x0FFFF000U)
+#define IDCODE_DEVICE_S80				(0X4CA8U)
 
 /**
  * NOTE: Older PsmToPlmEvent version (0x1U) only consists Event array
@@ -576,9 +580,19 @@ done:
 static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
+	u32 IdCodeDevice;
 
 	/* Enable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, PSM_LOCAL_PWR_CTRL_ISO_MASK);
+
+	/* EDT-1005580/CR-1070320: De-feature power down of Power Islands */
+	IdCodeDevice = (XPsmFw_GetIdCode() & IDCODE_DEVICE_MASK) >>
+				IDCODE_DEVICE_SHIFT;
+
+	if (IdCodeDevice == IDCODE_DEVICE_S80) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/* Disable all power stages */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_GATES_MASK, ~PSM_LOCAL_PWR_CTRL_GATES_MASK);
@@ -586,6 +600,7 @@ static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Poll the power stage status */
 	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, PSM_LOCAL_PWR_CTRL_GATES_MASK, Args->PwrDwnAckTimeout);
 
+done:
 	return Status;
 }
 
