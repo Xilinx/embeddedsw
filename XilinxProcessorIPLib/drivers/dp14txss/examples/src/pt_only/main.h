@@ -377,7 +377,7 @@ XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
 
 XDp_TxAudioInfoFrame *xilInfoFrame;
-XIicPs_Config *XIic0Ps_ConfigPtr;
+//XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
 
 #if ENABLE_AUDIO
