@@ -1020,7 +1020,7 @@ static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 	/* Disable power state for selected bank */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, ~Args->PwrCtrlMask);
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPsmFw_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
