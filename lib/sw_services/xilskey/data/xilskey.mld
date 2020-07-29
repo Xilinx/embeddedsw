@@ -47,4 +47,5 @@ BEGIN LIBRARY xilskey
   PARAM name = device_numslr, desc = "Number of SLRs", type = int, default = 1;
   PARAM name = device_masterslr, desc = "Master SLR number", type = int, default = 0;
   PARAM name = override_sysmon_cfg, desc = "Override Sysmon configuration", type = bool, default = true;
+  PARAM name = device_with_gpio, desc = "Allows to build a subset of the library when there's no GPIO driver available", type = bool, default = true;
 END LIBRARY
