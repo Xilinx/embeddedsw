@@ -60,6 +60,12 @@
 #define XSECURE_AES_ENABLE_KUP_IV_UPDATE		(0x1U)
 #define XSECURE_ENABLE_BYTE_SWAP			(0x1U)
 #define XSECURE_DISABLE_BYTE_SWAP			(0x0U)
+#define XSECURE_KAT_IV_SIZE_IN_WORDS			(4U)
+#define XSECURE_KAT_MSG_SIZE_IN_WORDS			(4U)
+#define XSECURE_KAT_GCMTAG_SIZE_IN_WORDS		(4U)
+#define XSECURE_KAT_AES_SPLIT_DATA_SIZE			(4U)
+#define XSECURE_KAT_KEY_SIZE_IN_WORDS			(8U)
+#define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS		(16U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -83,7 +89,7 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 		XPmcDma_Channel Channel, u8 EndianType);
 static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
 static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
-		u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr);
+		const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
 static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
 
@@ -1570,13 +1576,18 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	volatile u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 
-	const u32 Key[8U] = {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
+	const u32 Key[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
+			  {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
 		       0x4D3B0A53U, 0xF3C6E1AEU, 0xAFC2447AU, 0x7B534D99U};
-	const u32 Iv[4U] = {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
-	const u32 Message[4U] = {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
-	const u32 GcmTag[4U] = {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
-	const u32 Output[4U] = {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
-	u32 DstVal[4U];
+	const u32 Iv[XSECURE_KAT_IV_SIZE_IN_WORDS] =
+			  {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
+	const u32 Message[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
+			  {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
+	const u32 GcmTag[XSECURE_KAT_GCMTAG_SIZE_IN_WORDS] =
+			  {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
+	const u32 Output[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
+			  {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
+	u32 DstVal[XSECURE_KAT_MSG_SIZE_IN_WORDS];
 
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
@@ -1639,7 +1650,8 @@ END:
  *		- Returns XST_SUCCESS on success
  *
  *****************************************************************************/
-static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance, u32 *KeyPtr, u32 *DataPtr, u32 *OutputPtr)
+static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
+						const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
 	u32 Index;
@@ -1760,16 +1772,36 @@ END:
 u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
-	u32 Ct0[4U];
-	u32 MiC0[4U];
-	u32 Ct1[4U];
-	u32 MiC1[4U];
-	u32 Output0[16U];
-	u32 Output1[16U];
-	u32 Key0[8U];
-	u32 Data0[16U];
-	u32 Key1[8U];
-	u32 Data1[16U];
+	const u32 Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
+							{0x98076956U, 0x4f158c97U, 0x78ba50f2U, 0x5f7663e4U,
+                             0x97e60c2fU, 0x1b55a409U, 0xdd3acbd8U, 0xb687a0edU};
+
+	const u32 Data0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
+							  {0U, 0U, 0U, 0U, 0x86c237cfU, 0xead48ac1U,
+                               0xa0a60b3dU, 0U, 0U, 0U, 0U, 0U, 0x2481322dU,
+                               0x568dd5a8U, 0xed5e77d0U, 0x881ade93U};
+
+	const u32 Key1[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
+							{0x3ba3028aU, 0x84e787dfU, 0xe38a7a5dU, 0x707e72c8U,
+                             0x8cd04f4fU, 0x2883201fU, 0xa5b38c2dU, 0xe9deced3U};
+
+	const u32 Data1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
+							{0x0U, 0x0U, 0x0U, 0x0U, 0x96589f59U, 0x8e961c85U,
+                               0x3b3208d8U, 0x0U, 0x0U, 0x0U, 0x0U, 0x0U,
+                               0x328bde4aU, 0xfb2367d5U, 0x40ce658fU, 0xc9275e82U};
+
+	const u32 Ct0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x67020a3bU, 0x3adeecf6U, 0x0309b378U, 0x6ecad4ebU};
+	const u32 Ct1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x793391cbU, 0x6575906bU, 0x1a424078U, 0x632b0246U};
+	const u32 MiC0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x6400d21fU, 0x6363fc09U, 0x06d4f379U, 0x8809ca7eU};
+	const u32 MiC1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x3c459ea7U, 0x5a8aad6fU, 0x878e2a4cU, 0x887f1c82U};
+
+	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
+	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
+
 	u32 *RM0 = &Output0[0U];
 	u32 *R0 = &Output0[4U];
 	u32 *Mm0 = &Output0[8U];
@@ -1779,81 +1811,6 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 	u32 *Mm1 = &Output1[8U];
 	u32 *M1 = &Output1[12U];
 
-	Key0[0] = Xil_Htonl(0x56690798U);
-	Key0[1] = Xil_Htonl(0x978C154FU);
-	Key0[2] = Xil_Htonl(0xF250BA78U);
-	Key0[3] = Xil_Htonl(0xE463765FU);
-	Key0[4] = Xil_Htonl(0x2F0CE697U);
-	Key0[5] = Xil_Htonl(0x09A4551BU);
-	Key0[6] = Xil_Htonl(0xD8CB3ADDU);
-	Key0[7] = Xil_Htonl(0xEDA087B6U);
-
-	Data0[0] = 0U;
-	Data0[1] = 0U;
-	Data0[2] = 0U;
-	Data0[3] = 0U;
-	Data0[4] = Xil_Htonl(0xCF37C286U);
-	Data0[5] = Xil_Htonl(0xC18AD4EAU);
-	Data0[6] = Xil_Htonl(0x3D0BA6A0U);
-	Data0[7] = 0U;
-	Data0[8] = 0U;
-	Data0[9] = 0U;
-	Data0[10] = 0U;
-	Data0[11] = 0U;
-	Data0[12] = Xil_Htonl(0x2D328124U);
-	Data0[13] = Xil_Htonl(0xA8D58D56U);
-	Data0[14] = Xil_Htonl(0xD0775EEDU);
-	Data0[15] = Xil_Htonl(0x93DE1A88U);
-
-	Key1[0] = Xil_Htonl(0x8A02A33BU);
-	Key1[1] = Xil_Htonl(0xDF87E784U);
-	Key1[2] = Xil_Htonl(0x5D7A8AE3U);
-	Key1[3] = Xil_Htonl(0xC8727E70U);
-	Key1[4] = Xil_Htonl(0x4F4FD08CU);
-	Key1[5] = Xil_Htonl(0x1F208328U);
-	Key1[6] = Xil_Htonl(0x2D8CB3A5U);
-	Key1[7] = Xil_Htonl(0xD3CEDEE9U);
-
-	Data1[0]  = 0U;
-	Data1[1]  = 0U;
-	Data1[2]  = 0U;
-	Data1[3]  = 0U;
-	Data1[4]  = Xil_Htonl(0x599F5896U);
-	Data1[5]  = Xil_Htonl(0x851C968EU);
-	Data1[6]  = Xil_Htonl(0xD808323BU);
-	Data1[7]  = 0U;
-	Data1[8]  = 0U;
-	Data1[9]  = 0U;
-	Data1[10] = 0U;
-	Data1[11] = 0U;
-	Data1[12] = Xil_Htonl(0x4ADE8B32U);
-	Data1[13] = Xil_Htonl(0xD56723FBU);
-	Data1[14] = Xil_Htonl(0x8F65CE40U);
-	Data1[15] = Xil_Htonl(0x825E27C9U);
-
-	/*
-	 * In DPA counter measure KAT modify CT and
-	 * MiC values with expected output
-	 */
-	Ct0[0] = Xil_Htonl(0x3B0A0267U);
-	Ct0[1] = Xil_Htonl(0xF6ECDE3AU);
-	Ct0[2] = Xil_Htonl(0x78B30903U);
-	Ct0[3] = Xil_Htonl(0xEBD4CA6EU);
-
-	Ct1[0] = Xil_Htonl(0xCB913379U);
-	Ct1[1] = Xil_Htonl(0x6B907565U);
-	Ct1[2] = Xil_Htonl(0x7840421AU);
-	Ct1[3] = Xil_Htonl(0x46022B63U);
-
-	MiC0[0] = Xil_Htonl(0x1FD20064U);
-	MiC0[1] = Xil_Htonl(0x09FC6363U);
-	MiC0[2] = Xil_Htonl(0x79F3D406U);
-	MiC0[3] = Xil_Htonl(0x7ECA0988U);
-
-	MiC1[0] = Xil_Htonl(0xA79E453CU);
-	MiC1[1] = Xil_Htonl(0x6FAD8A5AU);
-	MiC1[2] = Xil_Htonl(0x4C2A8E87U);
-	MiC1[3] = Xil_Htonl(0x821C7F88U);
 
 	/* Test 1 */
 	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key0, Data0, Output0);
