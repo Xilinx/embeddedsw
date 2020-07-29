@@ -40,17 +40,26 @@ proc execs_generate {libhandle} {
 }
 
 proc getCIPSProperty { cips_prop } {
-  set isHierIp [common::get_property IS_HIERARCHICAL [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]]
-  if {$isHierIp} {
-    set ps_pmc_config [common::get_property CONFIG.PS_PMC_CONFIG [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]]
-    set prop_exists [dict get $ps_pmc_config $cips_prop]
-    if {$prop_exists} {
-      return [dict get $ps_pmc_config $cips_prop]
-    } else {
-      return 0
-    }
+  set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==pspmc"]
+  if {$pspmcCell ne ""} {
+    return [common::get_property $cips_prop $pspmcCell]
   } else {
-    return [common::get_property $cips_prop [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]]
+    set cipsCell [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]
+    if {$cipsCell ne ""} {
+      set isHierIp [common::get_property IS_HIERARCHICAL $cipsCell]
+      if {$isHierIp} {
+        set ps_pmc_config [common::get_property CONFIG.PS_PMC_CONFIG $cipsCell]
+        set prop_exists [dict get $ps_pmc_config $cips_prop]
+        if {$prop_exists} {
+          return [dict get $ps_pmc_config $cips_prop]
+        } else {
+          return 0
+        }
+      } else {
+        return [common::get_property $cips_prop $cipsCell]
+      }
+    }
+    return 0
   }
   return 0
 }
