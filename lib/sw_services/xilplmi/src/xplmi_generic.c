@@ -1149,7 +1149,7 @@ void XPlmi_GenericInit(void)
  * @brief	This function provides DMA transfer to CFI bypassing PMCRAM
  *
  * @param	SrcAddr is the address to read cfi data from
- * @param	DestAddr is the addres to write cfi data to.
+ * @param	DestAddr is the address to write cfi data to
  * @param	Keyholesize is the size of the DMA key hole in bytes
  * @param	Len is number of words already transferred
  * @param	Cmd is pointer to the command structure

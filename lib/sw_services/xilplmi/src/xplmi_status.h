@@ -154,7 +154,7 @@ typedef enum {
 							IPI is not supported */
 	XPLMI_ERR_REGISTER_IOMOD_HANDLER, /**< 0x116 - Error when registering
 						IoModule Handler */
-	XPLMI_ERR_WDT_PERIODICITY, /**< 0x117 - Invalid Periodicity paramter for
+	XPLMI_ERR_WDT_PERIODICITY, /**< 0x117 - Invalid Periodicity parameter for
 				     SetWDT command */
 	XPLMI_ERR_WDT_NODE_ID, /**< 0x118 - Invalid Node ID parameter for SetWDT
 				 command */
