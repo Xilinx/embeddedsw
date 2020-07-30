@@ -63,9 +63,6 @@ extern "C" {
 #define LPD_WDT_INITIALIZED	((u8)(1U << 2U))
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPlmi_PpuWakeUpDis()	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE, \
-					XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) & \
-					~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK)
 
 /*
  * Using FW_IS_PRESENT to indicate Boot PDI loading is completed
