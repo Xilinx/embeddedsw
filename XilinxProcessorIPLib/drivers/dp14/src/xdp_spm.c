@@ -189,6 +189,14 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	else if (MsaConfig->BitsPerColor == 16) {
 		MsaConfig->Misc0 = XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC;
 	}
+	if (InstancePtr->IsColorimetryVsc &&
+	    MsaConfig->ComponentFormat == XVIDC_CSF_YCRCB_420) {
+		MsaConfig->VscExtendedPacket = MsaConfig->Misc0;
+		MsaConfig->VscExtendedPacket <<= XDP_TX_MAIN_STREAMX_BDC_SHIFT;
+		MsaConfig->VscExtendedPacket |= MsaConfig->DynamicRange <<
+				XDP_TX_MAIN_STREAMX_DYNAMIC_RANGE_SHIFT;
+		MsaConfig->VscExtendedPacket |= MsaConfig->ComponentFormat;
+	}
 	MsaConfig->Misc0 <<= XDP_TX_MAIN_STREAMX_MISC0_BDC_SHIFT;
 	MsaConfig->Misc0 |= MsaConfig->ComponentFormat <<
 		XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
@@ -208,6 +216,11 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 		/* YCbCr 4:2:2 color component format. */
 		BitsPerPixel = MsaConfig->BitsPerColor * 2;
+	}
+	else if (MsaConfig->ComponentFormat ==
+			XDP_MAIN_STREAMX_COMPONENT_FORMAT_YCBCR420) {
+		/* YCbCr 4:2:0 color component format. */
+		BitsPerPixel = MsaConfig->BitsPerColor * 1.5;
 	}
 	else {
 		/* RGB or YCbCr 4:4:4 color component format. */
@@ -587,24 +600,31 @@ u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
 	MsaConfig->Misc0	    = 0;
 	MsaConfig->Misc1	    = 0;
 
-	switch (Format) {
-	case XVIDC_CSF_RGB:
-		MsaConfig->ComponentFormat =
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
-		break;
-	case XVIDC_CSF_YCRCB_444:
-		MsaConfig->ComponentFormat =
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-		break;
-	case XVIDC_CSF_YCRCB_422:
-		MsaConfig->ComponentFormat =
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
-		break;
-	case XVIDC_CSF_YONLY:
-		MsaConfig->Misc1 = XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK;
-		break;
-	default:
-		Status = XST_FAILURE;
+	if (InstancePtr->IsColorimetryVsc &&
+	    Format == XVIDC_CSF_YCRCB_420)
+	{
+			MsaConfig->ComponentFormat =
+				XDP_MAIN_STREAMX_COMPONENT_FORMAT_YCBCR420;
+	} else {
+		switch (Format) {
+		case XVIDC_CSF_RGB:
+			MsaConfig->ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+			break;
+		case XVIDC_CSF_YCRCB_444:
+			MsaConfig->ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+			break;
+		case XVIDC_CSF_YCRCB_422:
+			MsaConfig->ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+			break;
+		case XVIDC_CSF_YONLY:
+			MsaConfig->Misc1 = XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK;
+			break;
+		default:
+			Status = XST_FAILURE;
+		}
 	}
 
 	if (ColorCoeffs == XVIDC_BT_601) {
@@ -880,6 +900,15 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - 1], MsaConfig->HStart);
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
 			StreamOffset[Stream - 1], MsaConfig->VStart);
+		if (InstancePtr->IsColorimetryVsc &&
+		    MsaConfig->ComponentFormat == XVIDC_CSF_YCRCB_420)
+		{
+			XDp_WriteReg(ConfigPtr->BaseAddr,
+				     XDP_TX_AUDIO_EXT_DATA(6) +
+				     StreamOffset[Stream - 1],
+				     MsaConfig->VscExtendedPacket);
+			MsaConfig->Misc1 |= XDP_TX_AUDIO_EXT_DATA_EN;
+		}
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
 			StreamOffset[Stream - 1], MsaConfig->Misc0);
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
@@ -1057,22 +1086,33 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 						(Stream == XDP_TX_STREAM_ID3) ||
 						(Stream == XDP_TX_STREAM_ID4));
 
-	/* Extract color component from MISC0. */
-	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
-			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+	/* Extract color component from VSC  packet */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			     XDP_RX_SDP_PAYLOAD_STREAM1 +
+			     StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 
-	/* Determine the color component format for the stream. */
-	RegVal  &= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;
-	RegVal >>= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
-	switch (RegVal) {
-		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB:
-			return XVIDC_CSF_RGB;
-		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
-			return XVIDC_CSF_YCRCB_422;
-		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
-			return XVIDC_CSF_YCRCB_444;
-		default:
-			return XVIDC_CSF_UNKNOWN;
+	if (InstancePtr->IsColorimetryVsc &&
+		RegVal == XDP_MAIN_STREAMX_COMPONENT_FORMAT_YCBCR420 ) {
+		return XVIDC_CSF_YCRCB_420;
+	} else {
+		/* Extract color component from MISC0. */
+		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				     XDP_RX_MSA_MISC0 +
+				     StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+
+		/* Determine the color component format for the stream. */
+		RegVal  &= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;
+		RegVal >>= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
+		switch (RegVal) {
+			case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB:
+				return XVIDC_CSF_RGB;
+			case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
+				return XVIDC_CSF_YCRCB_422;
+			case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
+				return XVIDC_CSF_YCRCB_444;
+			default:
+				return XVIDC_CSF_UNKNOWN;
+		}
 	}
 }
 
@@ -1129,6 +1169,11 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	if (ColorComponent == XVIDC_CSF_YCRCB_422) {
 		/* YCbCr422 color component format. */
 		BitsPerPixel = BitsPerColor * 2;
+	}
+	else if (ColorComponent ==
+			XDP_MAIN_STREAMX_COMPONENT_FORMAT_YCBCR420) {
+		/* YCbCr 4:2:0 color component format. */
+		BitsPerPixel = MsaConfig->BitsPerColor * 1.5;
 	}
 	else {
 		/* RGB or YCbCr 4:4:4 color component format. */
