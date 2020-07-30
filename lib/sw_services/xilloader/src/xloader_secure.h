@@ -31,6 +31,8 @@
 * 1.03  ana  06/04/20 Removed XLOADER_ECDSA_INDEXVAL macro and
 *                     updated u32 datatype to u8 datatype
 *       tar  07/23/20 Fixed MISRA-C required violations
+*       kpt  07/30/20 Added minor error codes for ENC only and macros
+*                     related to IV
 *
 * </pre>
 *
@@ -134,7 +136,6 @@ extern "C" {
 #define XLOADER_SECURE_GCM_TAG_SIZE		(16U) /**< GCM Tag Size in Bytes */
 #define XLOADER_SECURE_HDR_TOTAL_SIZE	\
 					(XLOADER_SECURE_HDR_SIZE + XLOADER_SECURE_GCM_TAG_SIZE)
-#define XLOADER_SECURE_IV_LEN			(4U)
 
 /* AES key source */
 #define XLOADER_UNENCRYPTED			(0x00000000U) /* Unencrypted */
@@ -179,6 +180,13 @@ extern "C" {
 #define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF1250140U)
 #define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
 #define XLOADER_EFUSE_PPK_HASH_LEN				(32U)
+
+#define XLOADER_SECURE_IV_LEN			(4U)
+#define XLOADER_SECURE_IV_NUM_ROWS      (3U)
+#define XLOADER_EFUSE_IV_METAHDR_START_OFFSET     (0xF1250180U)
+#define XLOADER_EFUSE_IV_METAHDR_END_OFFSET       (0xF1250188U)
+#define XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET (0xF12501D0U)
+#define XLOADER_EFUSE_IV_BLACK_OBFUS_END_OFFSET   (0xF12501D8U)
 
 #define XLOADER_EFUSE_REVOCATION_ID_0_OFFSET	(0xF12500B0U)
 #define XLOADER_EFUSE_REVOCATION_ID_1_OFFSET	(0xF12500B4U)
@@ -340,6 +348,16 @@ typedef enum {
 			/**< 0x1B RSA ENC 0xbc value is not matched */
 	XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE,
 			/**< 0x1C RSA PSS verification hash is not matched */
+	XLOADER_SEC_ENC_ONLY_KEYSRC_ERR,
+	        /**< 0x1D Keysrc should be efuse black key for enc only */
+	XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR,
+			/**< 0x1E PUFHD location should be from eFuse for enc only */
+	XLOADER_SEC_METAHDR_IV_ZERO_ERR,
+	        /**< 0x1F eFuse IV should be non-zero for enc only */
+	XLOADER_SEC_BLACK_IV_ZERO_ERR,
+			 /**< 0x20 eFuse IV should be non-zero for enc only */
+	XLOADER_SEC_IV_METAHDR_RANGE_ERROR,
+		   /**< 0x21 Metahdr IV Range not matched with eFuse IV */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,

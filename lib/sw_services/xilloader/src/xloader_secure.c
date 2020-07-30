@@ -46,6 +46,8 @@
 *                     with XSecure_Sha3Hash Structure
 *       tar  07/23/20 Fixed MISRA-C required violations
 *       skd  07/29/20 Updated device copy macros
+*       kpt  07/30/20 Added Meta header IV range checks and added IV
+*                     support for ENC only case
 *
 * </pre>
 *
@@ -103,6 +105,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekKey *KeyDetails, XSecure_AesKeySrc *KeySrc);
 static u32 XLoader_CheckNonZeroPpk(void);
+static u32 XLoader_CheckNonZeroIV(void);
 static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr);
 static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash);
 static u32 XLoader_VerifyRevokeId(u32 RevokeId);
@@ -119,6 +122,9 @@ static u32 XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg);
 static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 	XLoader_AesKekKey *KeyDetails);
 static u32 XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
+static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr);
+static int XLoader_ValidateIV(u32 *IHPtr, u32 *EfusePtr);
+static void XLoader_ReadIV(u32 *IV, u32 *EfuseIV);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert;
@@ -646,13 +652,9 @@ u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
 		}
 		else {
 			XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
-			/*
-			 * When DEC only is set, meta header should be decrypted
-			 * with only efuse black key
-			 */
-			if (SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc !=
-				XLOADER_EFUSE_BLK_KEY) {
-				Status = XLOADER_FAILURE;
+			/* Enc only validations */
+			Status = XLoader_SecureEncOnlyValidations(SecurePtr);
+			if (Status != XLOADER_SUCCESS) {
 				goto END;
 			}
 		}
@@ -660,6 +662,65 @@ u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
 	else {
 		/* Header encryption is not compulsory */
 		XPlmi_Printf(DEBUG_DETAILED, "Encryption is not enabled\n\r");
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function validates the encryption keysrc, puf helper data
+*               location and eFUSE IV for ENC only case.
+*
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+*
+* @return	XLOADER_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr)
+{
+	u32 Status = XLOADER_FAILURE;
+	u32 PufHdLocation;
+
+	/*
+	 * When ENC only is set, Meta header should be decrypted
+	 * with only efuse black key and pufhd should come from eFUSE
+	 */
+	if (SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc !=
+			XLOADER_EFUSE_BLK_KEY) {
+		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
+			"Key src should be eFUSE blk key\n\r");
+		Status = XLOADER_SEC_ENC_ONLY_KEYSRC_ERR;
+		goto END;
+	}
+
+	PufHdLocation =
+		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl))
+					>> XIH_PH_ATTRB_PUFHD_SHIFT;
+	if (PufHdLocation == XLOADER_PUF_HD_BHDR) {
+		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
+			"PUFHD should be from eFuse\n\r");
+		Status = XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR;
+		goto END;
+	}
+
+	/* Check for non-zero Meta header and Black IV */
+	Status = XLoader_CheckNonZeroIV();
+	if (Status != XLOADER_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
+			"  eFuse IV should be non-zero\n\r");
+		goto END;
+	}
+
+	/* Status Reset */
+	Status = XLOADER_FAILURE;
+
+	/* Validate MetaHdr IV range with eFUSE IV */
+	Status = XLoader_ValidateIV(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.IvMetaHdr,
+						(u32*)XLOADER_EFUSE_IV_METAHDR_START_OFFSET);
+	if (Status != XLOADER_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
+			"  eFuse Meta header IV range is not matched\n\r");
 	}
 
 END:
@@ -1450,6 +1511,52 @@ static u32 XLoader_CheckNonZeroPpk(void)
 		if (XPlmi_In32(Index) != 0x0U) {
 			Status = XLOADER_SUCCESS;
 			break;
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function validates for non-zero Meta header IV and Black IV.
+*
+* @param	None
+*
+* @return	XLOADER_SUCCESS on both Meta header IV and Black IV are non-zero
+*			and error code on failure.
+*
+******************************************************************************/
+static u32 XLoader_CheckNonZeroIV(void)
+{
+	u32 Status = XLOADER_SEC_METAHDR_IV_ZERO_ERR;
+	u32 Index;
+	u8 Mhiv = (u8)FALSE;
+
+	for (Index = XLOADER_EFUSE_IV_METAHDR_START_OFFSET;
+			Index <= XLOADER_EFUSE_IV_METAHDR_END_OFFSET;
+			Index = Index + XIH_PRTN_WORD_LEN) {
+		/* Any bit of Meta header IV are non-zero break and
+		 * validate Black IV.
+		 */
+		if (XPlmi_In32(Index) != 0x0U) {
+			Mhiv = TRUE;
+			break;
+		}
+	}
+	/* If Metahdr IV is non-zero then validate Black IV */
+	if (Mhiv == (u8)TRUE) {
+		Status = XLOADER_SEC_BLACK_IV_ZERO_ERR;
+		for (Index = XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET;
+			Index <= XLOADER_EFUSE_IV_BLACK_OBFUS_END_OFFSET;
+			Index = Index + XIH_PRTN_WORD_LEN) {
+			/* Any bit of Black IV are non-zero break and
+			 * return success
+			 */
+			if (XPlmi_In32(Index) != 0x0U) {
+				Status = XLOADER_SUCCESS;
+				break;
+			}
 		}
 	}
 
@@ -2564,6 +2671,12 @@ static u32 XLoader_ReadHdrs(XLoader_SecureParams *SecurePtr,
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
 	}
 
+	/* Validate Meta header length */
+	if (TotalSize > XLOADER_CHUNK_SIZE) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, 0);
+		goto END;
+	}
+
 	/* Read IHT and PHT to buffers along with encryption overhead */
 	Status = MetaHdr->DeviceCopy(MetaHdr->FlashOfstAddr +
 					ImgHdrAddr, (u64 )BufferAddr,
@@ -2705,6 +2818,13 @@ static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_ENCRYPTED,
 							 0);
 		goto END;
+	}
+
+	/* Enforce Black IV for ENC only */
+	if ((XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+		XLOADER_EFUSE_SEC_DEC_MASK) != 0x0U) {
+		XLoader_ReadIV(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.KekIv,
+			(u32*)XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET);
 	}
 
 	KeyDetails.PufHdLocation = XilPdi_GetPufHdMetaHdr(&MetaHdr->ImgHdrTbl) >>
@@ -2912,4 +3032,80 @@ static u32 XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief       IV Criteria check
+*
+* @param       IHPTR      IV to be compared
+*              EfusePtr   eFUSE cache address
+*
+* @return      XST_SUCCESS on success.
+*              XLOADER_SEC_IV_METAHDR_RANGE_ERROR on Failure.
+*
+* Example: iv[95:0] - F7F8FDE0 8674A28D C6ED8E37
+* Bootgen follows the big-endian format so the values stored will be
+*
+* IHPtr[0]=E0FDF8F7 -> IV[64:95]
+* IHPtr[1]=8DA27486 -> IV[32:63]
+* IhPtr[2]=378EEDC6 -> IV[0:31]
+*
+* Our xilnvm driver also follows the same format to store it in eFUSE
+*
+* EfusePtr[0]=C6ED8E37 -> IV[31:0]
+* EfusePtr[1]=8674A28D -> IV[63:32]
+* EfusePtr[2]=F7F8FDE0 -> IV[95:64]
+*
+* Spec says:
+* IV[95:32] defined by user in meta header should match with eFUSEIV[95:32]
+* IV[31:0] defined by user in meta header should >= eFUSEIV[31:0]
+*
+******************************************************************************/
+static int XLoader_ValidateIV(u32 *IHPtr, u32 *EfusePtr)
+{
+	int Status = XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
+	u32 IHValue95_64;
+	u32 IHValue63_32;
+	u32 IHValue31_0;
+
+	IHValue95_64 = Xil_Htonl(IHPtr[0U]);
+	IHValue63_32 = Xil_Htonl(IHPtr[1U]);
+	IHValue31_0  = Xil_Htonl(IHPtr[2U]);
+
+	if ((IHValue95_64 != EfusePtr[2U]) || (IHValue63_32 != EfusePtr[1U])) {
+		XPlmi_Printf(DEBUG_INFO, "IV not matched for bits[95:32]\r\n");
+		goto END;
+	}
+
+	if (IHValue31_0 >= EfusePtr[0U]) {
+		Status = XLOADER_SUCCESS;
+	}
+	else {
+		XPlmi_Printf(DEBUG_INFO, "IV range check failed for bits[31:0]\r\n");
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief       This function reads IV from eFUSE
+*
+* @param       IV       Pointer to store the IV.
+*              EfuseIV  Pointer to read the IV from eFUSE
+*
+* @return      None
+*
+******************************************************************************/
+static void XLoader_ReadIV(u32 *IV, u32 *EfuseIV)
+{
+	u32 Index;
+
+	/* Read IV from eFUSE */
+	for (Index = 0U; Index < XLOADER_SECURE_IV_NUM_ROWS;
+					Index++) {
+		IV[Index] = EfuseIV[Index];
+	}
 }
