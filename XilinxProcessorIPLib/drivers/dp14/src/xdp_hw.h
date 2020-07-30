@@ -347,6 +347,14 @@
 #define XDP_TX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
+#define XDP_TX_AUDIO_EXT_DATA_EN	0x40 	/**< audio extended data
+							enable bit. */
+#define XDP_MAIN_STREAMX_COMPONENT_FORMAT_YCBCR420 \
+					0x3	/**< Stream's component format
+						     is YcbCr 4:2:0. */
+#define XDP_TX_MAIN_STREAMX_BDC_SHIFT			0x8
+#define XDP_TX_MAIN_STREAMX_DYNAMIC_RANGE_SHIFT 	0xf
+
 /* @} */
 
 /** @name DPTX core registers: DisplayPort video.
@@ -1286,6 +1294,9 @@
 							offset from the
 							corresponding registers
 							of stream 1. */
+#define XDP_RX_SDP_PAYLOAD_STREAM1	0x0644	/**< VSC SDP payload data from
+							DB16 to DB18 */
+
 /* @} */
 
 /** @name DPRX core registers: DPCD registers for HDCP.
