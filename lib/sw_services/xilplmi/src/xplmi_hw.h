@@ -57,11 +57,39 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPlmi_In32(Addr)		Xil_In32(Addr)
+/*****************************************************************************/
+/**
+ * @brief        This function reads a 32-bit register
+ *
+ * @param        Addr is the address of the register
+ *
+ * @return       32-bit register value
+ *
+ ******************************************************************************/
+static inline u32 XPlmi_In32(UINTPTR Addr)
+{
+	return Xil_In32(Addr);
+}
 
 #define XPlmi_In64(Addr)		lwea(Addr)
 #define XPlmi_InByte64(Addr)	lbuea(Addr)
 #define XPlmi_Out32(Addr, Data)		Xil_Out32(Addr, Data)
+
+/*****************************************************************************/
+/**
+ * @brief       This function disables waking up of PPU1 processor
+ *
+ * @param       None
+ *
+ * @return      None
+ *
+ *****************************************************************************/
+static inline void XPlmi_PpuWakeUpDis(void)
+{
+	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE,
+			XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) &
+			(~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK));
+}
 
 #define XPlmi_Out64(Addr, Data)		swea(Addr, Data)
 #define XPlmi_OutByte64(Addr, Data)	sbea(Addr, Data)
