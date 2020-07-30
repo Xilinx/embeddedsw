@@ -23,6 +23,7 @@
 * 1.02  bsv  04/09/2020 Code clean up of Xilloader
 * 1.03  skd  07/14/2020 Added 64bit support for DDR source address
 *       bsv  07/29/2020 Added provision to use PMCDMA0 for Ddr Copy
+*       skd  07/29/2020 Updated device copy macros
 *
 * </pre>
 *
@@ -34,7 +35,7 @@
 #include "xloader.h"
 #include "xplmi_util.h"
 #include "xloader_ddr.h"
-#include "xplmi_hw.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -92,17 +93,17 @@ int XLoader_DdrCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 		DmaFlags = XPLMI_PMCDMA_1;
 	}
 
-	Flags = Flags & XLOADER_DEVICE_COPY_STATE_MASK;
+	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 
 	/* Just wait for the Data to be copied */
-	if (Flags == XLOADER_DEVICE_COPY_STATE_WAIT_DONE) {
+	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
 		XPlmi_WaitForNonBlkDma();
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
 	/* Update the flags for NON blocking DMA call */
-	if (Flags == XLOADER_DEVICE_COPY_STATE_INITIATE) {
+	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		DmaFlags |= XPLMI_DMA_SRC_NONBLK;
 	}
 	Status = XPlmi_DmaXfr(SrcAddress, DestAddress,

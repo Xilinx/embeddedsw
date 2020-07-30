@@ -23,6 +23,7 @@
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
 *       kc   07/28/2020 Added WDT MACRO to indicate WDT initialized
+*	    skd  07/29/2020 Added device copy macros
 *
 * </pre>
 *
@@ -47,6 +48,14 @@ extern "C" {
 /* SDK release version */
 #define SDK_RELEASE_YEAR	"2020"
 #define SDK_RELEASE_QUARTER	"2"
+
+/*
+ * Device Copy flag related macros
+ */
+#define XPLMI_DEVICE_COPY_STATE_MASK		(0x7U << 5U)
+#define XPLMI_DEVICE_COPY_STATE_BLK			(0x0U << 5U)
+#define XPLMI_DEVICE_COPY_STATE_INITIATE	(0x1U << 5U)
+#define XPLMI_DEVICE_COPY_STATE_WAIT_DONE	(0x2U << 5U)
 
 /**************************** Type Definitions *******************************/
 #define UART_INITIALIZED	((u8)(1U << 0U))

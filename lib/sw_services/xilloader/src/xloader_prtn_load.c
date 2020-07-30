@@ -38,6 +38,7 @@
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get subsystem info
 *       kal  07/20/2020 Added double buffering support for secure CDOs
 *       bsv  07/29/2020 Added delay load support
+*       skd  07/29/2020 Added parallel DMA support for Qspi and Ospi
 *
 * </pre>
 *
@@ -55,6 +56,7 @@
 #include "xpm_api.h"
 #include "xplmi_util.h"
 #include "xloader_secure.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -506,12 +508,12 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy DeviceCopy,
 				IsNextChunkCopyStarted = FALSE;
 				/* Wait for copy to get completed */
 				PdiPtr->DeviceCopy(DeviceCopy.SrcAddr, ChunkAddr, ChunkLen,
-					DeviceCopy.Flags | XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
+					DeviceCopy.Flags | XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 			}
 			else {
 				/* Copy the data to PRAM buffer */
 				PdiPtr->DeviceCopy(DeviceCopy.SrcAddr, ChunkAddr, ChunkLen,
-					DeviceCopy.Flags | XLOADER_DEVICE_COPY_STATE_BLK);
+					DeviceCopy.Flags | XPLMI_DEVICE_COPY_STATE_BLK);
 			}
 			/* Update variables for next chunk */
 			Cdo.BufPtr = (u32 *)ChunkAddr;
@@ -566,7 +568,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy DeviceCopy,
 
 				/* Initiate the data copy */
 				PdiPtr->DeviceCopy(DeviceCopy.SrcAddr, ChunkAddr, ChunkLen,
-					DeviceCopy.Flags | XLOADER_DEVICE_COPY_STATE_INITIATE);
+					DeviceCopy.Flags | XPLMI_DEVICE_COPY_STATE_INITIATE);
 			}
 		}
 		else {
@@ -722,8 +724,11 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 		goto END;
 	}
 
-	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
-			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)) {
+	if (((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) ||
+		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
+		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32)) &&
+		(SecureParams.SecureEn != TRUE)) {
 		PrtnParams.DeviceCopy.IsDoubleBuffering = TRUE;
 	}
 

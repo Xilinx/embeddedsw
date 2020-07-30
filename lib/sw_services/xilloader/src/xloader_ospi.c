@@ -26,6 +26,7 @@
 * 1.02  bsv  27/06/2020 Add dual stacked mode support
 *       bsv  07/08/2020 APIs specific to this file made static
 *       skd  07/14/2020 XLoader_OspiCopy prototype changed
+*       skd  07/29/2020 Added non-blocking DMA support for Ospi copy
 *
 * </pre>
 *
@@ -38,6 +39,7 @@
 #include "xloader_ospi.h"
 #include "xplmi_proc.h"
 #include "xloader.h"
+#include "xplmi.h"
 
 #ifdef XLOADER_OSPI
 /************************** Constant Definitions *****************************/
@@ -141,7 +143,7 @@ END:
  * @param	DeviceFlags are unused and passed for compatibility with other
  *		boot device APIs.
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_OspiInit(u32 DeviceFlags)
@@ -339,6 +341,14 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
+	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
+	/* Just wait for the Data to be copied */
+	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+		do {
+			Status = XOspiPsv_CheckDmaDone(&OspiPsvInstance);
+		} while (Status != XST_SUCCESS);
+		goto END;
+	}
 	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
 		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddrLow, (u32)(DestAddr >> 32U),
 		(u32)(DestAddr), Length, Flags);
@@ -364,6 +374,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				}
 				if ((SrcAddrLow + Length) > OspiFlashSize) {
 					TrfLen = OspiFlashSize - SrcAddrLow;
+					Flags = XPLMI_DEVICE_COPY_STATE_BLK;
 				}
 				else {
 					TrfLen = Length;
@@ -425,7 +436,15 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		FlashMsg.Proto = XOSPIPSV_READ_1_1_8;
 		FlashMsg.Dummy = XLOADER_OSPI_SDR_DUMMY_CYCLES;
 	}
-	
+
+	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
+		Status = XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
+		}
+		goto END;
+	}
+
 	Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
@@ -470,10 +489,12 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				FlashMsg.Xfer64bit = 1U;
 			}
 
-			Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
+			/*
+			 * Non-Blocking DMA transfer for 2nd stacked flash
+			 */
+			Status = XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ,
-							Status);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 				goto END;
 			}
 		}

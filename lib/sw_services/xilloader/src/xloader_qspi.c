@@ -25,6 +25,7 @@
 *       bsv  04/09/2020 Code clean up
 * 1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
 *       skd  07/14/2020 XLoader_QspiCopy prototype changed
+*       skd  07/29/2020 Added non-blocking DMA support for Qspi copy
 *
 * </pre>
 *
@@ -37,6 +38,7 @@
 #include "xloader_qspi.h"
 #include "xplmi_dma.h"
 #include "xloader.h"
+#include "xplmi.h"
 
 #ifdef XLOADER_QSPI
 
@@ -687,6 +689,15 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
+	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
+	/* Just wait for the Data to be copied */
+	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+		do {
+			Status = XQspiPsu_CheckDmaDone(&QspiPsuInstance);
+		} while (Status != XST_SUCCESS);
+		goto END;
+	}
+
 	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
 			"Length 0x%08x, Flags 0x%0x\r\n", SrcAddrLow,
 			(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
@@ -829,6 +840,16 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * of bytes from the Flash, send the read command and address and
 		 * receive the specified number of bytes of data in the data buffer
 		 */
+		if ((Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) &&
+				(RemainingBytes == TransferBytes)) {
+			Status = XQspiPsu_StartDmaTransfer(&QspiPsuInstance, &FlashMsg[0U],
+						XPLMI_ARRAY_SIZE(FlashMsg));
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ, Status);
+			}
+			goto END;
+		}
+
 		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U],
 				XPLMI_ARRAY_SIZE(FlashMsg));
 		if (Status != XST_SUCCESS) {
