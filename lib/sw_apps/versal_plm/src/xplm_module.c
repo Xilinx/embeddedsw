@@ -135,12 +135,10 @@ int XPlm_ModuleInit(void *Arg)
 	int Status = XST_FAILURE;
 	u32 Index;
 
-	(void )Arg;
-	for (Index = 0; Index < sizeof ModuleList / sizeof *ModuleList; Index++)
-	{
+	(void) Arg;
+	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(ModuleList); Index++) {
 		Status = ModuleList[Index]();
-		if (Status != XST_SUCCESS)
-		{
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
