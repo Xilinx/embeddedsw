@@ -21,6 +21,7 @@
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Add code to get card ID for MMC/eMMC
 * 3.10  mn     07/09/20 Modified code to prevent removing pull up on D3 line
+*       mn     07/30/20 Read 16Bit value for Block Size Register
 *
 * </pre>
 *
@@ -116,7 +117,7 @@ s32 XSdPs_SetupTransfer(XSdPs *InstancePtr)
 	}
 
 	/* Set block size to 512 if not already set */
-	if(XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+	if(XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_BLK_SIZE_OFFSET) != XSDPS_BLK_SIZE_512_MASK ) {
 		Status = XSdPs_SetBlkSize(InstancePtr,
 			XSDPS_BLK_SIZE_512_MASK);
