@@ -30,6 +30,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
 *       kc   07/28/2020 Added SetWdt command support
+*       skd  07/29/2020 Cfi Write related changes for Qspi and Ospi
 *
 * </pre>
 *
@@ -1191,6 +1192,13 @@ static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 			}
 			Cmd->ProcessedLen = Cmd->Len;
 		} else {
+			Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr,
+					RemData, XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+				goto END;
+			}
+
 			/*
 			 * Qspi and Ospi donot support fixed modes.
 			 * Hence the bitstream is copied in chunks of keyhole size.

@@ -56,6 +56,7 @@
 *       kal  07/20/2020 Added macro XLOADER_SECURE_CHUNK_SIZE for security
 *       bsv  07/29/2020 Added CopyToMem address and delay load fields in XilPdi
 *                       structure
+*       skd  07/29/2020 Removed device copy macros
 *
 * </pre>
 *
@@ -159,14 +160,6 @@ extern "C" {
 #define XLOADER_SSIT_SLAVE_SLR2_TOP_SLR		(0x3U)
 #define XLOADER_SSIT_SLAVE_SLR2_NON_TOP_SLR	(0x2U)
 #define XLOADER_SSIT_SLAVE_SLR3_TOP_SLR		(0x1U)
-
-/*
- * Device Copy flag related macros
- */
-#define XLOADER_DEVICE_COPY_STATE_MASK		(0x7U)
-#define XLOADER_DEVICE_COPY_STATE_BLK		(0x0U)
-#define XLOADER_DEVICE_COPY_STATE_INITIATE	(0x1U)
-#define XLOADER_DEVICE_COPY_STATE_WAIT_DONE	(0x2U)
 
 /*
  * Flash Size macros

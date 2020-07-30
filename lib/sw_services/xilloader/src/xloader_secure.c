@@ -45,6 +45,7 @@
 * 1.03  ana  06/04/20 Minor Enhancement and updated Sha3 hash buffer
 *                     with XSecure_Sha3Hash Structure
 *       tar  07/23/20 Fixed MISRA-C required violations
+*       skd  07/29/20 Updated device copy macros
 *
 * </pre>
 *
@@ -60,6 +61,7 @@
 #include "xsecure_error.h"
 #include "xsecure_aes_core_hw.h"
 #include "xsecure_aes.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -415,14 +417,14 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
 					SecurePtr->ChunkAddr,
 					TotalSize,
-					XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
+					XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 		}
 		else {
 			/* Copy the data to PRAM buffer */
 			Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
 					SecurePtr->ChunkAddr,
 					TotalSize,
-					XLOADER_DEVICE_COPY_STATE_BLK);
+					XPLMI_DEVICE_COPY_STATE_BLK);
 		}
 		if (Status != XLOADER_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
@@ -445,14 +447,14 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 				/* Wait for copy to get completed */
 				Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
 					SecurePtr->ChunkAddr, TotalSize,
-					XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
+					XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 			}
 			else {
 				/* Copy the data to PRAM buffer */
 				Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
 						SecurePtr->ChunkAddr,
 						TotalSize,
-						XLOADER_DEVICE_COPY_STATE_BLK);
+						XPLMI_DEVICE_COPY_STATE_BLK);
 			}
 			if (Status != XLOADER_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
@@ -544,7 +546,7 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	Status = SecurePtr->PdiPtr->DeviceCopy(SecurePtr->NextBlkAddr,
 			SecurePtr->ChunkAddr,
 			CopyLen,
-			XLOADER_DEVICE_COPY_STATE_INITIATE);
+			XPLMI_DEVICE_COPY_STATE_INITIATE);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_DATA_COPY_FAIL, Status);
