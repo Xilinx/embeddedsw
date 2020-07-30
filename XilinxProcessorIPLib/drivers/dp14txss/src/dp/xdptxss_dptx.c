@@ -761,10 +761,18 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 
 	LinkBw = (InstancePtr->TxInstance.LinkConfig.LaneCount *
 		  InstancePtr->TxInstance.LinkConfig.LinkRate * 27);
-	BitsPerPixel = (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) ?
-				(2 * Bpc) :
-				(3 * Bpc);
+	if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+	    XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+		/* YCbCr 4:2:2 color component format. */
+		BitsPerPixel = Bpc * 2;
+	} else if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+		 XDP_MAIN_STREAMX_COMPONENT_FORMAT_YCBCR420) {
+		/* YCbCr 4:2:0 color component format. */
+		BitsPerPixel = Bpc * 1.5;
+	} else {
+		/* RGB or YCbCr 4:4:4 color component format. */
+		BitsPerPixel = Bpc * 3;
+	}
 
 	/* Check for maximum link rate supported */
 	if (InstancePtr->TxInstance.LinkConfig.MaxLinkRate <
