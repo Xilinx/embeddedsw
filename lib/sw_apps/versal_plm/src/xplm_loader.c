@@ -42,7 +42,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static XilPdi PdiInstance;
 
 /*****************************************************************************/
 /**
@@ -78,6 +77,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	PdiSrc_t BootMode;
 	u32 CryptoKat;
 	XilPdi* PdiPtr;
+	static XilPdi PdiInstance;
 
 	(void )Arg;
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");

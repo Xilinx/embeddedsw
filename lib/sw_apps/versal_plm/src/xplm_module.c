@@ -51,18 +51,6 @@ static int XPlm_SecureInit(void);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-/**
- * It contains the all the init functions to be run for every module that
- * is present as a part of PLM.
- */
-static const ModuleInit ModuleList[] =
-{
-	XPlm_PlmiInit,
-	XPlm_ErrInit,
-	XPlm_PmInit,
-	XPlm_LoaderInit,
-	XPlm_SecureInit,
-};
 
 /*****************************************************************************/
 /**
@@ -134,6 +122,19 @@ int XPlm_ModuleInit(void *Arg)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
+	/**
+	 * It contains the all the init functions to be run for every module that
+	 * is present as a part of PLM.
+	 */
+	const ModuleInit ModuleList[] =
+	{
+		XPlm_PlmiInit,
+		XPlm_ErrInit,
+		XPlm_PmInit,
+		XPlm_LoaderInit,
+		XPlm_SecureInit,
+	};
+
 
 	(void) Arg;
 	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(ModuleList); Index++) {

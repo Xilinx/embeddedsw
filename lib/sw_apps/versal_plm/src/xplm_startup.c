@@ -45,22 +45,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-/**
- * Start up tasks of the PLM.
- * Current they point to the loading of the Boot PDI.
- */
-static struct XPlmi_TaskNode StartUpTaskList[] =
-{
-	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ModuleInit, 0U},
-	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookBeforePlmCdo, 0U},
-	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ProcessPlmCdo, 0U},
-	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPlmCdo, 0U},
-	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
-	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},
-#ifdef XPLM_SEM
-	{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_SemInit, 0U}
-#endif
-};
 
 /*****************************************************************************/
 
@@ -77,9 +61,26 @@ static struct XPlmi_TaskNode StartUpTaskList[] =
  *****************************************************************************/
 int XPlm_AddStartUpTasks(void)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
 	XPlmi_TaskNode *Task;
-	int Status = XST_FAILURE;
+	/**
+	 * Start up tasks of the PLM.
+	 * Current they point to the loading of the Boot PDI.
+	 */
+	const struct XPlmi_TaskNode StartUpTaskList[] =
+	{
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ModuleInit, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookBeforePlmCdo, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ProcessPlmCdo, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPlmCdo, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},
+#ifdef XPLM_SEM
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_SemInit, 0U}
+#endif
+	};
+
 
 	for (Index = 0U; Index < ARRAY_SIZE(StartUpTaskList); Index++) {
 		Task = XPlmi_TaskCreate(StartUpTaskList[Index].Priority,
