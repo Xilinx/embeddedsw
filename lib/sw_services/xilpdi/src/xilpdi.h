@@ -31,6 +31,7 @@
 * 1.03  skd  07/14/2020 Function pointer DeviceCopy prototype changed
 * 1.04  bsv  07/29/2020 Added UID, parent ID, function ID and copy to memory
 *                       address
+*       kpt  07/30/2020 Added maximum limit for number of images
 *
 * </pre>
 *
@@ -53,6 +54,8 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XIH_MIN_PRTNS			(1U)
 #define XIH_MAX_PRTNS			(32U)
+#define XIH_MIN_IMGS			(1U)
+#define XIH_MAX_IMGS			(32U)
 
 /* Boot header address in PRAM copied by ROM*/
 #define XIH_BH_PRAM_ADDR		(0xF201E000U)
@@ -246,6 +249,7 @@ extern "C" {
 #define XILPDI_ERR_ZERO_LENGTH		(0x4U)
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
 #define XILPDI_ERR_PRTN_TYPE		(0x6U)
+#define XILPDI_ERR_NO_OF_IMGS		(0x7U)
 
 /*
  * Image Header Attributes

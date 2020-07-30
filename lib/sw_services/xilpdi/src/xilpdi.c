@@ -29,6 +29,7 @@
 *       vnsl 12/04/2020 Added support to read BootHdr Auth Enable field in
 *						boot header
 * 1.03  bsv  07/29/2020 Updated function headers
+*       kpt  07/30/2020 Added check to validate number of images
 *
 * </pre>
 *
@@ -348,7 +349,15 @@ int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl)
 		XilPdi_Printf("XILPDI_ERR_IHT_CHECKSUM\n\r");
 		goto END;
 	}
-
+	/* Check for number of images */
+	if ((ImgHdrTbl->NoOfImgs < XIH_MIN_IMGS) ||
+		(ImgHdrTbl->NoOfImgs > XIH_MAX_IMGS)) {
+		Status = XILPDI_ERR_NO_OF_IMGS;
+		XilPdi_Printf("No of Images %u\n\r",
+			      ImgHdrTbl->NoOfImgs);
+		XilPdi_Printf("XILPDI_ERR_NO_OF_IMAGES\n\r");
+		goto END;
+	}
 	/* Check for number of partitions */
 	if ((ImgHdrTbl->NoOfPrtns < XIH_MIN_PRTNS) ||
 		(ImgHdrTbl->NoOfPrtns > XIH_MAX_PRTNS)) {

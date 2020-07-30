@@ -44,6 +44,7 @@
 *       skd  07/14/2020 Added a macro for DMA transfer error
 *       kal  07/21/2020 Added a macro for Data copy failure for Security
 *       bsv  07/29/2020 Added error codes related to delay load
+*       kpt  07/30/2020 Added error code for Meta header length overflow
 *
 * </pre>
 *
@@ -389,6 +390,8 @@ typedef enum {
 		/**< 0x61E KAT failed */
 	XLOADER_ERR_DATA_COPY_FAIL,
 		/**< 0x61F Data copy to internal memory failed */
+	XLOADER_ERR_METAHDR_LEN_OVERFLOW,
+		/**< 0x620 Failed when total size is greater than Metahdr length */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
