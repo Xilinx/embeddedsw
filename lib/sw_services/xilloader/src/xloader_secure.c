@@ -48,6 +48,7 @@
 *       skd  07/29/20 Updated device copy macros
 *       kpt  07/30/20 Added Meta header IV range checks and added IV
 *                     support for ENC only case
+*       kpt  08/01/20 Corrected check to validate the last row of ppk hash
 *
 * </pre>
 *
@@ -1505,7 +1506,7 @@ static u32 XLoader_CheckNonZeroPpk(void)
 	u32 Index;
 
 	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
-			Index < XLOADER_EFUSE_PPK2_END_OFFSET;
+			Index <= XLOADER_EFUSE_PPK2_END_OFFSET;
 			Index = Index + XIH_PRTN_WORD_LEN) {
 		/* Any bit of PPK hash are non-zero break and return success */
 		if (XPlmi_In32(Index) != 0x0U) {
