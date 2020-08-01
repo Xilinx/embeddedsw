@@ -39,45 +39,8 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-#ifdef XPREFSBL_GET_BOARD_PARAMS
-static u8 ReadBuffer[XPREFSBL_MAX_SIZE]; /* Read buffer for reading a page. */
-#endif
 
 /************************** Function Definitions *****************************/
-#ifdef XPREFSBL_GET_BOARD_PARAMS
-/*****************************************************************************/
-/**
- * This function is used to Get the board specifc information from IIC EEPROM
- * @param	None.
- *
- * @return	returns the error codes described in xpfsbl_error.h on any error
- *				returns XST_SUCCESS on success
- *
- *
- ******************************************************************************/
-int XPreFsbl_GetBoardName(void)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPrefsbl_IicPsMuxInit();
-	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_MUX_INIT_ERROR;
-		goto END;
-	}
-	/*
-	 * Read from the EEPROM.
-	 */
-	Status = XPrefsbl_EepromReadData(ReadBuffer, XPREFSBL_PAGE_SIZE_16);
-	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_EEPROM_READ_ERROR;
-		goto END;
-	}
-
-END:
-	return Status;
-}
-#endif
-
 /*****************************************************************************/
 /**
 * This is the Pre-FSBL main function and is implemented to support
@@ -109,12 +72,7 @@ int main(void)
 	XPreFsbl_Printf(DEBUG_PRINT_ALWAYS, "Pre-FSBL boot Started\r\n");
 
 #if defined(XPREFSBL_GET_BOARD_PARAMS)
-	Status = XPreFsbl_GetBoardName();
-	if (Status != XST_SUCCESS) {
-		XPreFsbl_Printf(DEBUG_GENERAL, "Pre-FSBL boot Failed\r\n");
-		goto END;
-	}
-	Status = XPrefsbl_UpdateMultiBootRegister(ReadBuffer);
+	Status = XPrefsbl_ImageSelBoardParam();
 	if (Status != XST_SUCCESS) {
 		XPreFsbl_Printf(DEBUG_GENERAL, "Single Image Multiboot"
 							"value update failed\r\n");

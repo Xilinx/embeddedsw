@@ -127,11 +127,11 @@ END:
  * @return	XST_SUCCESS if successful else XST_FAILURE.
  *
  ******************************************************************************/
-int XPrefsbl_EepromReadData(u8 *BufferPtr, u16 ByteCount)
+int XPrefsbl_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
+									u32 WrBfrOffset)
 {
 	int Status = XST_FAILURE;
-	AddressType Address = XPREFSBL_EEPROM_START_ADDRESS;
-	u32 WrBfrOffset = 1U;
+	AddressType Address = ReadAddress;
 	u32 Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
 
 	/*
@@ -144,7 +144,6 @@ int XPrefsbl_EepromReadData(u8 *BufferPtr, u16 ByteCount)
 		Status = XPREFSBL_EEPROM_WRITE_ERROR;
 		goto END;
 	}
-
 	/*
 	 * Receive the Data.
 	 */

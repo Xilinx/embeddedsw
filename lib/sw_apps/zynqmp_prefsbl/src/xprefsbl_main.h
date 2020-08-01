@@ -76,13 +76,12 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-int XPreFsbl_GetBoardName(void);
 void XPrefsbl_Softreset(void);
 void XPrefsbl_UpdateError(int Error);
 void XPrefsbl_UpdateMultiBootValue(u32 Offset);
 int XPrefsbl_UartConfiguration(void);
 #ifndef XPREFSBL_UPDATE_A_B_MECHANISM
-int XPrefsbl_UpdateMultiBootRegister(u8 *ReadBuffer);
+int XPrefsbl_ImageSelBoardParam(void);
 #else
 int XPrefsbl_UpdateABMultiBootValue(void);
 #endif
