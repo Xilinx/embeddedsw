@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_multi_scaler_l2.c
-* @addtogroup v_multi_scaler_v1_1
+* @addtogroup v_multi_scaler_v1_2
 * @{
 *
 * The Multi Scaler Layer-2 Driver.

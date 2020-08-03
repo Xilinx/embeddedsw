@@ -7,7 +7,7 @@
 /**
  *
  * @file xv_scenechange_l2.c
- * @addtogroup v_scenechange_v1_1
+ * @addtogroup v_scenechange_v1_2
  * @{
  *
  * The SceneChange Layer-2 Driver.

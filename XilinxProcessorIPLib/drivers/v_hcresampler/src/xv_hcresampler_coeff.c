@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_hcresampler_coeff.c
-* @addtogroup v_hcresampler_v3_1
+* @addtogroup v_hcresampler_v3_2
 * @{
 * @details
 *

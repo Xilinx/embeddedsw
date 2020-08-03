@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_vcresampler_l2.c
-* @addtogroup v_vcresampler_v3_1
+* @addtogroup v_vcresamplerr_v3_2
 * @{
 * @details
 *
