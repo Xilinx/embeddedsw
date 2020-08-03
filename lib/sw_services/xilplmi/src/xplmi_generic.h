@@ -29,6 +29,7 @@
 *       bsv  03/09/2020 Added support for CDO features command
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
+*       bm   08/03/2020 Added ReadBack Props & related API
 *
 * </pre>
 *
@@ -53,18 +54,25 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 enum {
-	XPLMI_ERR_MASKPOLL = 0x10U,
-	XPLMI_ERR_MASKPOLL64, /**< 0x11U */
-	XPLMI_ERR_CMD_NOT_SUPPORTED, /**< 0x12U */
+	XPLMI_ERR_MASKPOLL = 0x10,
+	XPLMI_ERR_MASKPOLL64, /**< 0x11 */
+	XPLMI_ERR_CMD_NOT_SUPPORTED, /**< 0x12 */
+	XPLMI_ERR_READBACK_BUFFER_OVERFLOW, /**< 0x13 */
 };
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u64 DestAddr;
+	u32 MaxSize;
+	u32 ProcessedLen;
+} XPlmi_ReadBackProps;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFUL)
 #define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
+#define XPLMI_READBACK_DEF_DST_ADDR		(0xFFFFFFFFFFFFFFFFUL)
 #define XPLMI_SET_CHUNK_SIZE			(128U)
 /* Max board name length supported is 256 bytes */
 #define XPLMI_MAX_NAME_LEN			(256U)
@@ -86,6 +94,8 @@ enum {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
+void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBack);
+void XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack);
 
 /************************** Variable Definitions *****************************/
 
