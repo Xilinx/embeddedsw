@@ -32,6 +32,7 @@
 * 1.6   aru     08/29/19 Added assert check in XCsuDma_WaitForDoneTimeout().
 * 1.6   rm      11/05/19 Modified usleep waitloop and timeout value in
 *				XCsuDma_WaitForDoneTimeout().
+* 1.7   sk      08/01/20 Fix MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
@@ -39,6 +40,7 @@
 /***************************** Include Files *********************************/
 
 #include "xcsudma.h"
+#include <stdbool.h>
 
 /************************** Function Prototypes ******************************/
 
@@ -70,7 +72,7 @@
 *
 ******************************************************************************/
 s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 
 	/* Verify arguments. */
@@ -90,7 +92,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
-	return (XST_SUCCESS);
+	return (s32)(XST_SUCCESS);
 
 }
 
@@ -416,7 +418,7 @@ s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 {
 
 	u32 Data;
-	s32 PauseState;
+	bool PauseState;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -433,19 +435,19 @@ s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	if (Type == (XCSUDMA_PAUSE_MEMORY)) {
 		if ((Data & (u32)(XCSUDMA_CTRL_PAUSE_MEM_MASK)) ==
 								(u32)0x00) {
-			PauseState = (s32)(FALSE);
+			PauseState = FALSE;
 		}
 		else {
-			PauseState = (s32)(TRUE);
+			PauseState = TRUE;
 		}
 	}
 	else {
 		if ((Data & (u32)(XCSUDMA_CTRL_PAUSE_STRM_MASK)) ==
 								(u32)0x00) {
-				PauseState = (s32)(FALSE);
+				PauseState = FALSE;
 		}
 		else {
-			PauseState = (s32)(TRUE);
+			PauseState = TRUE;
 		}
 	}
 
@@ -588,7 +590,7 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	volatile u32 Regval;
 	u32 Timeout = XCSUDMA_DONE_TIMEOUT_VAL;
 	u32 status;
-	u32 Addr;
+	UINTPTR Addr;
 	u32 TimeoutFlag = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -699,7 +701,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(ConfigurValues != NULL);
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 				(Channel == (XCSUDMA_DST_CHANNEL)));
-	Xil_AssertVoid(XCsuDma_IsBusy(InstancePtr, Channel) != (s32)(TRUE));
+	Xil_AssertVoid(XCsuDma_IsBusy(InstancePtr, Channel) != (s32)TRUE);
 
 	Data = ((((u32)(ConfigurValues->EndianType) <<
 			(u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
@@ -713,7 +715,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		((ConfigurValues->TimeoutValue <<
 			(u32)(XCSUDMA_CTRL_TIMEOUT_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_TIMEOUT_MASK)) |
-		((ConfigurValues->FifoThresh <<
+		(((u32)(ConfigurValues->FifoThresh) <<
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_MASK)));
 	if(Channel == XCSUDMA_DST_CHANNEL) {
@@ -739,7 +741,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		(((u32)(ConfigurValues->TimeoutEn) <<
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_MASK)) |
-		((ConfigurValues->TimeoutPre <<
+		(((u32)(ConfigurValues->TimeoutPre) <<
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_PRE_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_PRE_MASK)) |
 		((ConfigurValues->MaxOutCmds) &

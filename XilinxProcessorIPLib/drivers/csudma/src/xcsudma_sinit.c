@@ -19,6 +19,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
+* 1.7   sk      08/01/20 Fix MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
@@ -63,7 +64,6 @@
 ******************************************************************************/
 XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId)
 {
-	extern XCsuDma_Config XCsuDma_ConfigTable[XPAR_XCSUDMA_NUM_INSTANCES];
 	XCsuDma_Config *CfgPtr = NULL;
 	u32 Index;
 

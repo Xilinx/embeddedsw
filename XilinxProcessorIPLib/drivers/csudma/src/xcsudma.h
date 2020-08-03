@@ -95,6 +95,7 @@
 *       Rama	02/26/19 Fixed IAR issue by changing
 *						 "XCsuDma_WaitForDoneTimeout" to function
 *       arc     03/26/19 Fixed MISRA-C violations.
+* 1.7   sk      08/01/20 Fix MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
@@ -328,11 +329,11 @@ typedef enum {
 ******************************************************************************/
 
 #define XCsuDma_IsBusy(InstancePtr, Channel) \
-		((XCsuDma_ReadReg(((InstancePtr)->Config.BaseAddress), \
+		(((XCsuDma_ReadReg(((InstancePtr)->Config.BaseAddress), \
 					((u32)(XCSUDMA_STS_OFFSET) + \
 			((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) & \
 		(u32)(XCSUDMA_STS_BUSY_MASK)) == (XCSUDMA_STS_BUSY_MASK)) ? \
-				(TRUE) : (FALSE)
+				TRUE : FALSE)
 
 
 /**************************** Type Definitions *******************************/
@@ -344,7 +345,7 @@ typedef enum {
 typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 				  *  device */
-	u32 BaseAddress;	/**< BaseAddress is the physical base address
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the device's registers */
 	u8 DmaType;		/**< DMA type
 				 * 0 -- CSUDMA
@@ -390,13 +391,17 @@ typedef struct {
 
 /*****************************************************************************/
 
+/************************** Variable Definitions *****************************/
+
+extern XCsuDma_Config XCsuDma_ConfigTable[XPAR_XCSUDMA_NUM_INSTANCES];
+
 
 /************************** Function Prototypes ******************************/
 
 XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId);
 
 s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					UINTPTR Addr, u32 Size, u8 EnDataLast);
 void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
