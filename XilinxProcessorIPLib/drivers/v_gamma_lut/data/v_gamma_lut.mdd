@@ -7,10 +7,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_gamma_lut
 
- OPTION supported_peripherals = (v_gamma_lut_v1_0 );
+ OPTION supported_peripherals = (v_gamma_lut_v1_[0-1] );
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = v_gamma_lut;
- OPTION version = 1.1;
+ OPTION version = 1.2;
 
 END driver

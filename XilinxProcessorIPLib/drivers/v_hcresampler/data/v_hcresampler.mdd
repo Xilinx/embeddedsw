@@ -8,11 +8,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_hcresampler
 
- OPTION supported_peripherals = (v_hcresampler_v1_0);
+ OPTION supported_peripherals = (v_hcresampler_v1_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_hcresampler;
- OPTION version = 3.1;
+ OPTION version = 3.2;
 
 END driver
