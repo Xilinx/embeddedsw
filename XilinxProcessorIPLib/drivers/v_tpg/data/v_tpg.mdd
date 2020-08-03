@@ -8,11 +8,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_tpg
 
- OPTION supported_peripherals = (v_tpg_v8_0);
+ OPTION supported_peripherals = (v_tpg_v8_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_tpg;
- OPTION version = 8.2;
+ OPTION version = 8.3;
 
 END driver

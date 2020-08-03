@@ -8,11 +8,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_deinterlacer
 
- OPTION supported_peripherals = (v_deinterlacer_v5_0);
+ OPTION supported_peripherals = (v_deinterlacer_v5_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_deinterlacer;
- OPTION version = 7.1;
+ OPTION version = 7.2;
 
 END driver
