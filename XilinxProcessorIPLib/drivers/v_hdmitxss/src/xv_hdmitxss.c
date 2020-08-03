@@ -1469,6 +1469,7 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiTxSsPtr->IsStreamUp = (FALSE);
+  HdmiTxSsPtr->DrmInfoframe.Static_Metadata_Descriptor_ID = 0xff;
 #ifdef XV_HDMITXSS_LOG_ENABLE
   XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_STREAMDOWN, 0);
 #endif
