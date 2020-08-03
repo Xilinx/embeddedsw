@@ -25,6 +25,7 @@
 *						subsystem information
 *       kc   07/28/2020 PLM mode is set to configuration during PDI load
 *       bsv  07/29/2020 Removed hard coding of DDR back up address
+*       bm   08/03/2020 Added LoadReadBackPdi Cmd
 *
 commands.
 * </pre>
@@ -37,6 +38,7 @@ commands.
 #include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_cmd.h"
+#include "xplmi_generic.h"
 #include "xplmi_modules.h"
 #include "xplmi_wdt.h"
 #ifdef XPLM_SEM
@@ -44,6 +46,9 @@ commands.
 #endif
 
 /************************** Constant Definitions *****************************/
+
+/* READBACK Cmd Macros */
+#define XLOADER_CMD_READBACK_SIZE_MASK		(0x7FFFFFFFU)
 
 /**************************** Type Definitions *******************************/
 
@@ -201,6 +206,66 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides loading of ReadBack PDI overriding
+ *  destination address of readback data.
+ *  Command payload parameters are
+ *	* PdiSrc - Boot Mode values, DDR
+ *	* PdiAddr - 64bit PDI address located in the Source
+ *	* ReadbackDdrDestAddr - 64bit DDR destination address
+ *	* MaxSize - MaxSize of the buffer present at destination address
+ *
+ * @param	Pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_LoadReadBackPdi(XPlmi_Cmd * Cmd)
+{
+	int Status = XST_FAILURE;
+	XPlmi_ReadBackProps ReadBack;
+	XPlmi_ReadBackProps DefaultReadBack = {
+		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
+	};
+
+	ReadBack.DestAddr = (u64)Cmd->Payload[3U];
+	ReadBack.DestAddr = ((u64)(Cmd->Payload[4U]) |
+					(ReadBack.DestAddr << 32U));
+	ReadBack.MaxSize = Cmd->Payload[5U] & XLOADER_CMD_READBACK_SIZE_MASK;
+	ReadBack.ProcessedLen = 0U;
+
+	XPlmi_SetReadBackProps(&ReadBack);
+	Status = XLoader_LoadSubsystemPdi(Cmd);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	XPlmi_GetReadBackPropsValue(&ReadBack);
+	XPlmi_SetReadBackProps(&DefaultReadBack);
+	Cmd->Response[0U] = (u32)Status;
+	Cmd->Response[1U] = ReadBack.ProcessedLen;
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function can act as a placeholder for Unimplemented cmds
+ *
+ * @param	Pointer to the command structure
+ *
+ * @return	XST_SUCCESS
+ *
+ *****************************************************************************/
+static int XLoader_UnImplementedCmd(XPlmi_Cmd * Cmd)
+{
+	/* For MISRA C */
+	(void)Cmd;
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
  * @brief	Contains the array of PLM loader commands
  *
  *****************************************************************************/
@@ -208,7 +273,12 @@ static XPlmi_ModuleCmd XLoader_Cmds[] =
 {
 	XPLMI_MODULE_COMMAND(XLoader_Features),
 	XPLMI_MODULE_COMMAND(XLoader_LoadSubsystemPdi),
-	XPLMI_MODULE_COMMAND(XLoader_LoadDdrCpyImg)
+	XPLMI_MODULE_COMMAND(XLoader_LoadDdrCpyImg),
+	XPLMI_MODULE_COMMAND(XLoader_UnImplementedCmd),
+	XPLMI_MODULE_COMMAND(XLoader_UnImplementedCmd),
+	XPLMI_MODULE_COMMAND(XLoader_UnImplementedCmd),
+	XPLMI_MODULE_COMMAND(XLoader_UnImplementedCmd),
+	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi)
 };
 
 /*****************************************************************************/
