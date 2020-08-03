@@ -589,6 +589,7 @@ int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
   DrmInfoFramePtr = XV_HdmiRxSs_GetDrmInfoframe(HdmiRxSsPtr);
 
   DrmInfoFramePtr->Static_Metadata_Descriptor_ID = 0xFF;
+  DrmInfoFramePtr->EOTF = 0xff;
 
   return(XST_SUCCESS);
 }
@@ -1194,6 +1195,7 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
   DrmInfoFramePtr = XV_HdmiRxSs_GetDrmInfoframe(HdmiRxSsPtr);
 
   DrmInfoFramePtr->Static_Metadata_Descriptor_ID = 0xFF;
+  DrmInfoFramePtr->EOTF = 0xff;
 
   AviInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(HdmiRxSsPtr);
   memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
@@ -2026,6 +2028,10 @@ static void XV_HdmiRxSs_ReportDRMInfo(XV_HdmiRxSs *InstancePtr)
 {
 	XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
 	DrmInfoFramePtr = XV_HdmiRxSs_GetDrmInfoframe(InstancePtr);
+
+	if (DrmInfoFramePtr->EOTF != 0xff)
+		xil_printf("eotf: %d\r\n", DrmInfoFramePtr->EOTF);
+
 	if (DrmInfoFramePtr->Static_Metadata_Descriptor_ID == 0xFF) {
 		xil_printf("No DRM info\r\n");
 		return;
