@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_deinterlacer_l2.c
-* @addtogroup v_deinterlacer_v7_1
+* @addtogroup v_deinterlacer_v7_2
 * @{
 * @details
 *
