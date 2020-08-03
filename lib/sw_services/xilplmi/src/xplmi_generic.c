@@ -31,6 +31,7 @@
 * 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
 *       kc   07/28/2020 Added SetWdt command support
 *       skd  07/29/2020 Cfi Write related changes for Qspi and Ospi
+*       bm   08/03/2020 Added ReadBack Override support
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
+static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -508,6 +510,19 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	u32 Offset;
 	u32 ProcWords = 0U;
 	u32 RegValAddr = (u32)(&RegVal);
+	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
+
+	/* Check if Readback Dest Addr is Overriden */
+	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
+			(XPLMI_SBI_DEST_ADDR != DestAddr)) {
+		DestAddr = ReadBackPtr->DestAddr;
+		if ((Len + ReadBackPtr->ProcessedLen) > ReadBackPtr->MaxSize) {
+			Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
+			XPlmi_Printf(DEBUG_GENERAL,
+				"ReadBack Buffer Overflow\n\r");
+			goto END;
+		}
+	}
 
 	/* For NPI READ command, the source address needs to be
 	 * 16 byte aligned. Use XPlmi_Out64 till the destination address
@@ -557,6 +572,13 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 		Offset += XPLMI_WORD_LEN;
 		ProcWords++;
 	}
+
+	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
+			(XPLMI_SBI_DEST_ADDR != DestAddr)) {
+		ReadBackPtr->ProcessedLen += Len;
+		ReadBackPtr->DestAddr += (Len * XPLMI_WORD_LEN);
+	}
+
 
 END:
 	return Status;
@@ -701,13 +723,27 @@ static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 	u32 Len = Cmd->Payload[3U];
 	u32 SrcAddr = CFU_FDRO_ADDR;
 	u64 DestAddr;
+	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 
 	XPlmi_SetMaxOutCmds(1U);
-	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
-		DestAddrHigh = Cmd->Payload[1U];
-		DestAddrLow =  Cmd->Payload[2U];
-		DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
 
+	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
+		/* Check if Readback Dest Addr is Overriden */
+		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
+			DestAddr = ReadBackPtr->DestAddr;
+			if ((Len + ReadBackPtr->ProcessedLen) >
+				ReadBackPtr->MaxSize) {
+				Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
+				XPlmi_Printf(DEBUG_GENERAL,
+					"ReadBack Buffer Overflow\n\r");
+				goto END;
+			}
+		}
+		else {
+			DestAddrHigh = Cmd->Payload[1U];
+			DestAddrLow =  Cmd->Payload[2U];
+			DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
+		}
 		Status = XPlmi_DmaXfr(CFU_FDRO_ADDR, DestAddr, Len,
 			XPLMI_PMCDMA_1 | XPLMI_SRC_CH_AXI_FIXED |
 						XPLMI_DMA_SRC_NONBLK);
@@ -741,6 +777,10 @@ static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 		XPlmi_WaitForNonBlkDma();
+		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
+			ReadBackPtr->ProcessedLen += Len;
+			ReadBackPtr->DestAddr += (Len * XPLMI_WORD_LEN);
+		}
 		goto END;
 	} else {
 		XPlmi_WaitForNonBlkSrcDma();
@@ -1143,6 +1183,58 @@ void XPlmi_GenericInit(void)
 	XPlmi_Generic.CmdCnt = XPLMI_ARRAY_SIZE(XPlmi_GenericCmds);
 
 	XPlmi_ModuleRegister(&XPlmi_Generic);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function gives the address of ReadBack Properties instance
+ *
+ * @param	None
+ *
+ * @return	Address of ReadBack variable which is static to this function
+ *
+ *****************************************************************************/
+static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
+{
+	static XPlmi_ReadBackProps ReadBack = {
+		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
+	};
+
+	return &ReadBack;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function gets the ReadBack Properties Value after readback
+ *
+ * @param	None
+ *
+ * @return	ReadBack value
+ *
+ *****************************************************************************/
+void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
+{
+	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
+	(void)memcpy(ReadBackVal, ReadBackPtr, sizeof(XPlmi_ReadBackProps));
+
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function gets the ReadBack Properties Value after readback
+ *
+ * @param	None
+ *
+ * @return	ReadBack value
+ *
+ *****************************************************************************/
+void XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
+{
+	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
+	(void)memcpy(ReadBackPtr, ReadBack, sizeof(XPlmi_ReadBackProps));
+
+	return;
 }
 
 /*****************************************************************************/
