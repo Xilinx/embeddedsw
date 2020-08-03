@@ -51,10 +51,12 @@ extern "C" {
  */
 //#define XPREFSBL_UPDATE_A_B_MECHANISM
 //#define XPREFSBL_UART_ENABLE
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 #define XPREFSBL_GET_BOARD_PARAMS
 #define XPREFSBL_MUX_ADDR 			(0x74U)
 #define XPREFSBL_I2C_MUX_INDEX		(0x1U)
 #define XPREFSBL_EEPROM_ADDRESS		(0x54U)
+#endif
 
 #ifdef __cplusplus
 }
