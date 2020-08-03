@@ -118,6 +118,9 @@ Updated tcl to get cpuid for the pmufw case
 mutex_v4_6:
 Fix the redefinition of cannonicals.
 
+csudma_v1_7:
+Fix MISRA-C violations in csudma driver.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
