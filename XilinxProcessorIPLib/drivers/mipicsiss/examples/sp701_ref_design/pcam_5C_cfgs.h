@@ -20,9 +20,9 @@
 ******************************************************************************/
 
 extern struct regval_list {
-        u16 Address;
-        u16  Data;
-};
+  u16 Address;
+  u16  Data;
+} regval_list;
 
 extern struct regval_list sensor_pre[];
 extern const int length_sensor_pre;
