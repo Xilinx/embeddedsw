@@ -414,7 +414,7 @@ static int XPuf_ValidateAccessRules(XPuf_Data *PufData)
 
 		/* For Registration */
 		case XPUF_REGISTRATION:
-			if ((Security_Control_Value & XPUF_PUF_DIS)) {
+			if ((Security_Control_Value & XPUF_PUF_DIS) == XPUF_PUF_DIS) {
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
 			}
 			else {
@@ -425,12 +425,12 @@ static int XPuf_ValidateAccessRules(XPuf_Data *PufData)
 		/* For Regeneration */
 		case XPUF_REGEN_ON_DEMAND:
 		case XPUF_REGEN_ID_ONLY:
-			if ((Security_Control_Value & XPUF_PUF_DIS) &&
-				(Puf_Ecc_Puf_Ctrl_Value & XPUF_PUF_REGEN_DIS)) {
+			if (((Security_Control_Value & XPUF_PUF_DIS) == XPUF_PUF_DIS) &&
+				((Puf_Ecc_Puf_Ctrl_Value & XPUF_PUF_REGEN_DIS) == XPUF_PUF_REGEN_DIS)) {
 				Status = XPUF_ERROR_REGENERATION_INVALID;
 			}
 			else if((PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) &&
-				(Puf_Ecc_Puf_Ctrl_Value & XPUF_PUF_HD_INVLD)) {
+				((Puf_Ecc_Puf_Ctrl_Value & XPUF_PUF_HD_INVLD) == XPUF_PUF_HD_INVLD)) {
 				Status = XPUF_ERROR_REGEN_PUF_HD_INVALID;
 			}
 			else {
