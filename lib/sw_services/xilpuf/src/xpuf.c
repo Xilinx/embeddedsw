@@ -200,7 +200,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	RegistrationStatus = XPUF_REGISTRATION_STARTED;
 
 	while (RegistrationStatus != XPUF_REGISTRATION_COMPLETE) {
-		Status = XPuf_WaitForPufSynWordRdy(PufData);
+		Status = XPuf_WaitForPufSynWordRdy();
 		if (Status != XST_SUCCESS) {
 			Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
 			break;
@@ -210,8 +210,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 					XPUF_PMC_GLOBAL_BASEADDR,
 					XPUF_PMC_GLOBAL_PUF_WORD_OFFSET);
 
-		if (Idx == (MaxSyndromeSizeInWords -1U)) {
-			Status  = XPuf_WaitForPufDoneStatus(PufData);
+		if (Idx == (MaxSyndromeSizeInWords - 1U)) {
+			Status  = XPuf_WaitForPufDoneStatus();
 			if (Status != XST_SUCCESS) {
 				Status = XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT;
 				break;
@@ -334,7 +334,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	Status  = XPuf_WaitForPufDoneStatus(PufData);
+	Status  = XPuf_WaitForPufDoneStatus();
 	if (Status != XST_SUCCESS) {
 		xPuf_printf(Debug,
 		"Error: Puf Regeneration failed!! \r\n");
