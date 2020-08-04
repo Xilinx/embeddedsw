@@ -34,6 +34,7 @@
 #include "xsysmonpsv.h"
 #include "xpm_notifier.h"
 #include "xplmi_error_node.h"
+#include "xpm_rail.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
@@ -2934,6 +2935,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_PlDomain *PlDomain;
 	XPm_AieDomain *AieDomain;
 	XPm_CpmDomain *CpmDomain;
+	XPm_Rail *Rail;
 
 	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
@@ -2955,7 +2957,8 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 
 	BitMask = BITNMASK(Shift, Width);
 
-	if (ParentId != (u32)XPM_NODEIDX_POWER_MIN) {
+	if ((ParentId != (u32)XPM_NODEIDX_POWER_MIN) &&
+		((u32)XPM_NODETYPE_POWER_RAIL != PowerType)) {
 		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -3048,6 +3051,14 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			goto done;
 		}
 		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent);
+		break;
+	case (u32)XPM_NODETYPE_POWER_RAIL:
+		Rail = (XPm_Rail *)XPm_AllocBytes(sizeof(XPm_Rail));
+		if (NULL == Rail) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmRail_Init(Rail, PowerId, Args);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
