@@ -641,6 +641,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 PrtnType;
 	u64 OfstAddr = 0U;
 	u32 TrfLen;
+	u32 TempVal;
 	u8 ToStoreInDdr = (u8)FALSE;
 
 	/* Assign the partition header to local variable */
@@ -726,6 +727,14 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 		goto END;
 	}
 
+	PrtnParams.DeviceCopy.Len = (PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN);
+	/*
+	 * Make unencrypted length 16 byte aligned.
+	 */
+	TempVal = PrtnParams.DeviceCopy.Len % XLOADER_DMA_LEN_ALIGN;
+	if (TempVal != 0U) {
+		PrtnParams.DeviceCopy.Len += (XLOADER_DMA_LEN_ALIGN - TempVal);
+	}
 	if (((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) ||
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
