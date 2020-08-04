@@ -791,6 +791,9 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 				Result = XUsbPsu_EpBufferSend(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
 				0U, DfuReply, (u32)SetupData->wLength);
+				if (Result != XST_SUCCESS) {
+					goto END;
+				}
 			}
 			break;
 		default:
@@ -800,6 +803,9 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 				(struct XUsbPsu*)InstancePtr->PrivateData);
 			break;
 	}
+
+END:
+	return;
 }
 
 /*****************************************************************************/
