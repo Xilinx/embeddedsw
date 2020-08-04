@@ -23,6 +23,7 @@
 *                       Added macros for supporting ID only regeneration and
 *                       black key programming
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
+*		am 	 08/04/2020 Resolved MISRA C Violations
 *
 * </pre>
 *
@@ -121,8 +122,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
-u32 XPuf_Registration(XPuf_Data *PufData);
-u32 XPuf_Regeneration(XPuf_Data *PufData);
+int XPuf_Registration(XPuf_Data *PufData);
+int XPuf_Regeneration(XPuf_Data *PufData);
 void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
 
 #ifdef __cplusplus

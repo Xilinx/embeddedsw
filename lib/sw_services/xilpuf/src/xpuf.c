@@ -20,6 +20,7 @@
 * 1.1   har  01/27/2020 Added support for on-demand regeneration from efuse cache,
 *                       ID only regeneration and XPuf_Validate_Access_Rules
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
+*		am 	 08/04/2020 Resolved MISRA C Violations
 * </pre>
 *
 * @note
@@ -54,7 +55,7 @@ typedef enum {
  *		XST_FAILURE - Timeout occurred
  *
  *****************************************************************************/
-static inline u32 XPuf_WaitForPufSynWordRdy()
+static inline int XPuf_WaitForPufSynWordRdy()
 {
 	return Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET),
@@ -73,7 +74,7 @@ static inline u32 XPuf_WaitForPufSynWordRdy()
  *		XST_FAILURE - Timeout occurred
  *
  *****************************************************************************/
-static inline u32 XPuf_WaitForPufDoneStatus()
+static inline int XPuf_WaitForPufDoneStatus()
 {
 	return Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_PUF_DONE,
@@ -123,7 +124,7 @@ static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 
 /************************** Function Prototypes ******************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData);
-static u32 XPuf_ValidateAccessRules(XPuf_Data *PufData);
+static int XPuf_ValidateAccessRules(XPuf_Data *PufData);
 void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
 
 /************************** Function Definitions *****************************/
@@ -151,9 +152,9 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
  *		PufData->Chash, PufData->Aux
  *
  *****************************************************************************/
-u32 XPuf_Registration(XPuf_Data *PufData)
+int XPuf_Registration(XPuf_Data *PufData)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 MaxSyndromeSizeInWords;
 	u32 Idx = 0;
 	XPuf_PufRegistrationState RegistrationStatus;
@@ -254,9 +255,9 @@ END:
  * @note	None.
  *
  *****************************************************************************/
-u32 XPuf_Regeneration(XPuf_Data *PufData)
+int XPuf_Regeneration(XPuf_Data *PufData)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PufChash;
 	u32 PufAux;
 	u32 PufStatus;
@@ -400,9 +401,9 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  * 		XST_FAILURE - secure control bits are set
  *
  *****************************************************************************/
-static u32 XPuf_ValidateAccessRules(XPuf_Data *PufData)
+static int XPuf_ValidateAccessRules(XPuf_Data *PufData)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Operation = PufData->PufOperation;
 	u32 Puf_Ecc_Puf_Ctrl_Value = XPuf_ReadReg(XPUF_EFUSE_CACHE_BASEADDR,
 					XPUF_PUF_ECC_PUF_CTRL_OFFSET);
@@ -417,7 +418,7 @@ static u32 XPuf_ValidateAccessRules(XPuf_Data *PufData)
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
 			}
 			else {
-				Status = (u32)XST_SUCCESS;
+				Status = XST_SUCCESS;
 			}
 			break;
 
@@ -433,11 +434,11 @@ static u32 XPuf_ValidateAccessRules(XPuf_Data *PufData)
 				Status = XPUF_ERROR_REGEN_PUF_HD_INVALID;
 			}
 			else {
-				Status = (u32)XST_SUCCESS;
+				Status = XST_SUCCESS;
 			}
 			break;
 		default:
-			Status = (u32)XST_FAILURE;
+			Status = XST_FAILURE;
 			break;
 
 	}
