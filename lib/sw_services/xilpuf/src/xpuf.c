@@ -57,7 +57,7 @@ typedef enum {
  *****************************************************************************/
 static inline int XPuf_WaitForPufSynWordRdy()
 {
-	return Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
+	return (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET),
 		XPUF_STATUS_SYNDROME_WORD_RDY, XPUF_STATUS_SYNDROME_WORD_RDY,
 		XPUF_STATUS_WAIT_TIMEOUT);
@@ -76,7 +76,7 @@ static inline int XPuf_WaitForPufSynWordRdy()
  *****************************************************************************/
 static inline int XPuf_WaitForPufDoneStatus()
 {
-	return Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
+	return (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_PUF_DONE,
 		XPUF_STATUS_PUF_DONE, XPUF_STATUS_WAIT_TIMEOUT);
 }
@@ -467,7 +467,7 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	u32 SubIndex;
 
 	Xil_MemCpy(SynData, PufData->SyndromeData,
-		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
+		(u32)(XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32)));
 
 	/**
 	 * Trimming logic for PUF Syndrome Data:
