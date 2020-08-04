@@ -20,6 +20,8 @@
 #include "xpm_api.h"
 #include "xpm_debug.h"
 
+#define SYSMON_CHECK_POWER_TIMEOUT	2000000U
+
 static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 static u32 PsmApuPwrState;
@@ -909,7 +911,82 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_CheckPower(u32 VoltageRailMask)
+/****************************************************************************/
+/**
+ * @brief  Check power rail if minimum operational voltage has been reached
+ *		   using Sysmon
+ *
+ * @param  PowerRail: Pointer to power rail node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
+static XStatus XPmPower_SysmonCheckPower(XPm_Rail *Rail)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RailVoltage = 0;
+	u32 LowThreshVal = 0;
+
+	/**
+	 * Index is stored as the BaseAddress and is used to calculate the SysMon
+	 * SUPPLYn and NewDataFlag registers
+	 */
+	u32 Index = Rail->Power.Node.BaseAddress;
+	u32 SysmonSupplyReg = (u32)PMC_SYSMON_SUPPLY0 + (Index * 4);
+	u32 SysmonLowThReg = (u32)PMC_SYSMON_SUPPLY0_TH_LOWER + (Index * 4);
+	u32 NewDataFlagReg = (u32)PMC_SYSMON_NEW_DATA_FLAG0 + ((Index/32) * 4);
+	u32 Offset = Index % 32;
+
+	/* Wait for New Data Flag */
+	Status = XPm_PollForMask(NewDataFlagReg, BIT32(Offset),
+								SYSMON_CHECK_POWER_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT;
+		goto done;
+	}
+
+	PmIn32(SysmonLowThReg, LowThreshVal);
+	PmIn32(SysmonSupplyReg, RailVoltage);
+	if (RailVoltage < LowThreshVal) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		Status = XST_FAILURE;
+	}
+
+	/* Unlock Root SysMon registers */
+	PmOut32((PMC_SYSMON_BASEADDR + AMS_ROOT_REG_PCSR_LOCK_OFFSET),
+			PCSR_UNLOCK_VAL);
+
+	/* Clear New Data Flag */
+	PmOut32(NewDataFlagReg, BIT32(Offset));
+
+	/* Lock Root SysMon registers */
+	PmOut32((PMC_SYSMON_BASEADDR + AMS_ROOT_REG_PCSR_LOCK_OFFSET), 1U);
+
+done:
+
+	if (XST_SUCCESS != Status) {
+		PmDbg("0x%x\r\n", DbgErr);
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Check power rail power using power detectors. This check uses the
+ *		   PMC_GLOBAL_PWR_SUPPLY_STATUS registers
+ *
+ * @param  VoltageRailMask: Mask of PMC_GLOBAL_PWR_SUPPLY_STATUS registers for
+ *		   rails to be checked
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note This function uses power detectors which are not very reliable. It
+ *		 should only be used when no other methods are available i.e. sysmon
+ *
+ ****************************************************************************/
+static XStatus XPmPower_DetectorCheckPower(u32 VoltageRailMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
@@ -925,11 +1002,43 @@ XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 	PmIn32(Pmc->PmcGlobalBaseAddr + PWR_SUPPLY_STATUS_OFFSET, RegVal);
 	if((RegVal & VoltageRailMask) != VoltageRailMask) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
-		Status = XST_FAILURE;
 		goto done;
 	}
 
 	Status = XST_SUCCESS;
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmDbg("0x%x\r\n", DbgErr);
+	}
+
+	return Status;
+
+}
+
+XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Source;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	if (NULL == Rail) {
+		Status = XPmPower_DetectorCheckPower(VoltageRailMask);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		}
+		goto done;
+	}
+
+	Source = Rail->Source;
+	if (XPM_PGOOD_SYSMON == Source) {
+		Status = XPmPower_SysmonCheckPower(Rail);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		}
+	} else {
+		DbgErr = XPM_INT_ERR_RAIL_SOURCE;
+	}
 
 done:
 	if (XST_SUCCESS != Status) {
