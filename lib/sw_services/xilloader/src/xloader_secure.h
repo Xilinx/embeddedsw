@@ -60,27 +60,6 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/**
-* @brief
-* This macro updates security related minor error codes for Xilloader
-*
-* @param	Minor1	To specify the cause of failure of
-*					security operation
-* @param	Minor2	Libraries / Drivers error code as defined in respective
-*					modules
-* @note		If MSB of Minor1 is set then error in clearing of security
-*			buffer	(16th bit)
-*			If bit next to MSB is set then security buffer was successfully
-*			cleared (15th bit)
-*			For eg: 0x02 : Incorrect authentication type selected
-*			0x42 : Incorrect authentication type selected and
-*				buffer was successfully cleared
-*			0x82 : Incorrect authentication type selected and
-*	 			error in clearing buffer
-******************************************************************************/
-#define XLOADER_UPDATE_MIN_ERR(Minor1, Minor2)		\
-						((Minor1<<8U) | (Minor2))
 /************************** Constant Definitions *****************************/
 #define XLOADER_SHA3_LEN				(48U)
 #define XLOADER_RSA_SIG_EXP_BYTE		(0xBCU)
@@ -209,8 +188,8 @@ extern "C" {
 
 #define XLOADER_PUF_HD_BHDR						(0x3U)
 
-#define XLOADER_SEC_BUF_CLEAR_ERR		(XLOADER_SEC_ERR_BUF_CLR_FAILED << 8U)
-#define XLOADER_SEC_BUF_CLEAR_SUCCESS	(XLOADER_SEC_ERR_BUF_CLR_SUCCESS << 8U)
+#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)(XLOADER_SEC_ERR_BUF_CLR_FAILED) << (8U))
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS		((u32)(XLOADER_SEC_ERR_BUF_CLR_SUCCESS) << (8U))
 
 /* KEK key decryption status */
 #define XLOADER_BBRAM_RED_KEY					(0x00000001U)
@@ -368,6 +347,32 @@ typedef enum {
 	XLOADER_SEC_ERR_BUF_CLR_FAILED = 0x80U,
 			/* Error in clearing buffer */
 }XLoader_SecErrCodes;
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function updates security related minor error codes for Xilloader
+ *
+ * @param        Minor1  To specify the cause of failure of
+ *                                       security operation
+ * @param        Minor2  Libraries / Drivers error code as defined in respective
+ *                                       modules
+ * @note         If MSB of Minor1 is set then error in clearing of security
+ *                       buffer  (16th bit)
+ *                       If bit next to MSB is set then security buffer was successfully
+ *                       cleared (15th bit)
+ *                       For eg: 0x02 : Incorrect authentication type selected
+ *                       0x42 : Incorrect authentication type selected and
+ *                               buffer was successfully cleared
+ *                       0x82 : Incorrect authentication type selected and
+ *                               error in clearing buffer
+ ******************************************************************************/
+static inline u32 XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, u32 Minor2)
+{
+	u32 UMinor1 = (u32)Minor1;
+
+	return ((UMinor1 << 8U) | Minor2);
+}
 
 /***************************** Function Prototypes ***************************/
 u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,

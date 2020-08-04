@@ -291,7 +291,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 	u64 PdiInitTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
-	u32 DeviceFlags = PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u32 UPdiSrc = (u32)PdiSrc;
+	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 	u32 SdRawBootVal;
 
 	/*
@@ -341,7 +342,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 				/* For MISRA-C compliance */
 			}
 			PdiPtr->PdiSrc = PdiSrc;
-			DeviceFlags = PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+			UPdiSrc = (u32)PdiSrc;
+			DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 		}
 		RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
 	}
@@ -561,7 +563,8 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u32 ImageNum;
 	u32 PrtnNum;
 	u32 PrtnIndex;
-	u32 DeviceFlags = PdiPtr->PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
+	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -1077,7 +1080,8 @@ int XLoader_ReloadImage(u32 ImageId, PdiSrc_t PdiSrc)
 	PdiSrc_t BootPdiSrc = PdiPtr->PdiSrc;
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->CopyToMem = FALSE;
-	u32 DeviceFlags = PdiPtr->PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
+	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 
 	if (PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) {
 		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
@@ -1365,7 +1369,8 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
-	u32 PdiSrc;
+	PdiSrc_t PdiSrc;
+	u32 UPdiSrc;
 	u32 PdiAddr;
 	u32 SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTbl)) >>
 				XIH_IHT_ATTR_SBD_SHIFT;
@@ -1398,10 +1403,11 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					break;
 				case XIH_IHT_ATTR_SBD_SD_0:
 				#ifdef XLOADER_SD_0
-					PdiSrc = XLOADER_PDI_SRC_SD0 |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_SD0 |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_SD0;
 				#endif
@@ -1409,10 +1415,11 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					break;
 				case XIH_IHT_ATTR_SBD_SD_1:
 				#ifdef XLOADER_SD_1
-					PdiSrc = XLOADER_PDI_SRC_SD1 |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_SD1 |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_SD1;
 				#endif
@@ -1420,10 +1427,11 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					break;
 				case XIH_IHT_ATTR_SBD_SD_LS:
 				#ifdef XLOADER_SD_1
-					PdiSrc = XLOADER_PDI_SRC_SD1_LS |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_SD1_LS |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_SD1_LS;
 				#endif
@@ -1431,10 +1439,11 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC:
 				#ifdef XLOADER_SD_1
-					PdiSrc = XLOADER_PDI_SRC_EMMC |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_EMMC |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_EMMC;
 				#endif
@@ -1470,10 +1479,11 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_0:
 				#ifdef XLOADER_SD_0
-					PdiSrc = XLOADER_PDI_SRC_EMMC0 |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_EMMC0 |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						 << XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_EMMC0;
 				#endif

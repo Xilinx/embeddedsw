@@ -264,6 +264,8 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 {
 	int Status = XST_FAILURE;
 	u32 Mode = 0U;
+	u32 Pm_CapAccess = (u32)PM_CAP_ACCESS;
+	u32 Pm_CapContext = (u32)PM_CAP_CONTEXT;
 
 	PrtnParams.DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
@@ -283,7 +285,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 	 */
 	if (PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
 		XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-			PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
+			Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
 	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
@@ -295,10 +297,10 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 					IOCTL_SET_RPU_OPER_MODE,
 					XPM_RPU_MODE_SPLIT, 0U, &Mode);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS,0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
 		}
 		else if (PrtnParams.DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
@@ -306,10 +308,10 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 				IOCTL_SET_RPU_OPER_MODE,
 				XPM_RPU_MODE_SPLIT, 0U, &Mode);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
 		}
 		else {
@@ -320,16 +322,16 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 				IOCTL_SET_RPU_OPER_MODE,
 				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
-					PM_CAP_ACCESS | PM_CAP_CONTEXT,
+					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
 		}
 
