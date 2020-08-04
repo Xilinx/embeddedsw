@@ -4003,6 +4003,48 @@ static void XHdcp22Tx_InvalidatePairingInfo(XHdcp22_Tx *InstancePtr,
 /*****************************************************************************/
 /**
 *
+* This function adds a ReceiverID to RevocationList
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+* @param  ReceiverId is a pointer to a 5-byte receiver Id.
+*
+* @return None.
+*
+* @note Supposed to be called by Upstream Content Control Function
+*
+******************************************************************************/
+void XHdcp22Tx_RevokeReceiverId(XHdcp22_Tx *InstancePtr, u8 *ReceiverIdPtr)
+{
+	XHdcp22_Tx_RevocationList *RevocationListPtr;
+	u32 NumDevices;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ReceiverIdPtr != NULL);
+
+	RevocationListPtr =
+		XHdcp22Tx_GetRevocationReceiverIdList(InstancePtr);
+	NumDevices = RevocationListPtr->NumDevices;
+
+	if (InstancePtr->Config.Mode != XHDCP22_TX_TRANSMITTER)
+		return;
+
+	if (!XHdcp22Tx_IsDeviceRevoked(InstancePtr, ReceiverIdPtr)) {
+		memcpy(RevocationListPtr->ReceiverId[NumDevices],
+				ReceiverIdPtr, XHDCP22_TX_SRM_RCVID_SIZE);
+		RevocationListPtr->NumDevices++;
+		InstancePtr->Info.IsRevocationListValid = TRUE;
+	}
+	InstancePtr->Info.IsDeviceRevoked = TRUE;
+	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_DEVICE_IS_REVOKED;
+
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
+	InstancePtr->Info.CurrentState = XHDCP22_TX_STATE_A0;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function returns the DEPTH in the repeater topology structure.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
