@@ -456,6 +456,13 @@ extern "C" {
 /* Error during PSM power down request */
 #define XPM_INT_ERR_PSM_PWR_DWN			0x4702U
 
+/*********************** Power rail specific Errors **************************/
+/************************** (0x4800) - (0x48FF) ******************************/
+/* Error adding Sysmon power good source */
+#define XPM_INT_ERR_RAIL_SOURCE			0x4800U
+/* Timeout while waiting for new data flag */
+#define	XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT	0x4801U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
