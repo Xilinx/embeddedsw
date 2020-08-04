@@ -124,7 +124,7 @@ static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 
 /************************** Function Prototypes ******************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData);
-static int XPuf_ValidateAccessRules(XPuf_Data *PufData);
+static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
 void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
 
 /************************** Function Definitions *****************************/
@@ -401,7 +401,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  * 		XST_FAILURE - secure control bits are set
  *
  *****************************************************************************/
-static int XPuf_ValidateAccessRules(XPuf_Data *PufData)
+static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 {
 	int Status = XST_FAILURE;
 	u32 Operation = PufData->PufOperation;
