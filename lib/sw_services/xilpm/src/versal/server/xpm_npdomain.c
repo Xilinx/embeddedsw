@@ -15,6 +15,7 @@
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 #include "xpm_debug.h"
+#include "xpm_rail.h"
 
 #define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
@@ -30,9 +31,12 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_SOC);
+
 	/* Check vccint_soc first to make sure power is on */
-	while (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
-		/* Wait for VCCINT_SOC power up */
+	while (XST_SUCCESS != Status) {
+		Status = XPmPower_CheckPower(VccSocRail, PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
+
 		usleep(10);
 		NpdPowerUpTime++;
 		if (NpdPowerUpTime > XPM_POLL_TIMEOUT) {
@@ -42,11 +46,13 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 			goto done;
 		}
 	}
-	if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
-		/* TODO: This is a temporary fix for MGT boards;
-		 * Remove the delay once AMS solution to read rail voltages is finalized.
-		 */
-		usleep(1000);
+	if ((NULL == VccSocRail) || (VccSocRail->Source != XPM_PGOOD_SYSMON)) {
+		if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
+			/* This is a workaround for MGT boards when sysmon is not used.
+			 * The delay is required to wait for power rails to stabilize
+			 */
+			usleep(1000);
+		}
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_VALUE);
@@ -94,11 +100,17 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_SOC);
+	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+
 	/* NPD pre bisr requirements - in case if bisr and mbist was skipped */
 	NpdPreBisrReqs();
 
-	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK |
-						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
+	Status = (XPmPower_CheckPower(VccSocRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK) |
+			  XPmPower_CheckPower(VccauxRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
+	if (XST_SUCCESS == Status) {
 		/* Remove vccaux-soc domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE_VALUE);
 		if (XST_SUCCESS != Status) {

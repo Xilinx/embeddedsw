@@ -15,6 +15,7 @@
 #include "xpm_debug.h"
 #include "xparameters.h"
 #include "sleep.h"
+#include "xpm_rail.h"
 
 #define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
 #define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
@@ -520,13 +521,23 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT);
+	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_RAM);
+	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_SOC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
 	/* If PL power is still not up, return error as PLD cant
 	   be initialized */
 	if (1U != HcleanDone) {
-		/* Check if vccint, vccaux, vccint_ram is 1 */
-		while (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
-						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
-						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
+		while (XST_SUCCESS != Status) {
+			Status = (XPmPower_CheckPower(VccintRail,
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK) |
+					  XPmPower_CheckPower(VccRamRail,
+						  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
+					  XPmPower_CheckPower(VccauxRail,
+						  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
+
 			/** Wait for PL power up */
 			usleep(10);
 			PlPowerUpTime++;
@@ -539,8 +550,15 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 				goto done;
 			}
 		}
-		/* Add delay to stabilize the voltage rails. Need to check exact amount of time. */
-		usleep(250);
+
+		/* Skip PL release delay if using sysmon */
+		if ((NULL != VccintRail) && (XPM_PGOOD_SYSMON == VccintRail->Source)) {
+			PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET, 1U);
+		} else {
+			/* Delay is required to stabilize the voltage rails */
+			usleep(250);
+		}
+
 		Status = XPmPlDomain_InitandHouseclean();
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_DOMAIN_INIT_AND_HC;
@@ -603,8 +621,12 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	/* Enable the global signals */
 	XCfupmc_SetGlblSigEn(&CfupmcIns, (u8 )TRUE);
 
-	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
-					PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
+	Status = (XPmPower_CheckPower(VccRamRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
+			  XPmPower_CheckPower(VccauxRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
+
+	if (XST_SUCCESS == Status) {
 		/* Remove vccaux-vccram domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
@@ -613,8 +635,11 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
-						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
+	Status = (XPmPower_CheckPower(VccRamRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
+			  XPmPower_CheckPower(VccSocRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK));
+	if (XST_SUCCESS == Status) {
 		/* Remove vccaux-vccram domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
@@ -650,9 +675,10 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	u32 PlatformVersion;
 	XPm_Pmc *Pmc;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 VoltageRailMask = (PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
-			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
-			       PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
+
+	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT);
+	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_RAM);
+	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 
 	/* Skip if already done */
 	if (0U != HcleanDone) {
@@ -661,7 +687,12 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	}
 
 	/* Proceed only if vccint, vccaux, vccint_ram is 1 */
-	Status = XPmPower_CheckPower(VoltageRailMask);
+	Status = (XPmPower_CheckPower(VccintRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK) |
+		      XPmPower_CheckPower(VccRamRail,
+				  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
+		      XPmPower_CheckPower(VccauxRail,
+				  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;

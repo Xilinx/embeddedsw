@@ -11,6 +11,7 @@
 #include "xpm_reset.h"
 #include "xpm_domain_iso.h"
 #include "xloader.h"
+#include "xpm_rail.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,7 +70,7 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
-XStatus XPmPower_CheckPower(u32 VoltageRailMask);
+XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask);
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx);
 
 #ifdef __cplusplus

@@ -13,6 +13,7 @@
 #include "xpm_regs.h"
 #include "xpm_device.h"
 #include "xpm_debug.h"
+#include "xpm_rail.h"
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -22,8 +23,12 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+
 	/* Check vccint_pslp first to make sure power is on */
-	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK)) {
+	Status = XPmPower_CheckPower(VccintPslpRail,
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK);
+	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;
 	}
