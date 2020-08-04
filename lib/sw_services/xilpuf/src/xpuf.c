@@ -525,12 +525,12 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				PufData->EfuseSynData[DIndex] =
 					(((SynData[SIndex] &
 					XPUF_EFUSE_TRIM_MASK) << 12U) |
-						SynData[SIndex+1U] >> 8U);
+						(SynData[SIndex+1U] >> 8U));
 			}
 			else {
 				PufData->EfuseSynData[DIndex] =
 				((SynData[SIndex] << 12U) |
-						SynData[SIndex+1U] >> 20U);
+						(SynData[SIndex+1U] >> 20U));
 			}
 			SIndex++;
 			DIndex++;
@@ -540,8 +540,8 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 			if (SubIndex == 2U) {
 				PufData->EfuseSynData[DIndex] =
 					((SynData[SIndex] << 24U) |
-					(SynData[SIndex+1U] &
-						XPUF_EFUSE_TRIM_MASK) >> 8U);
+					((SynData[SIndex+1U] &
+						XPUF_EFUSE_TRIM_MASK) >> 8U));
 				if (DIndex < (XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS - 1U)) {
 					PufData->EfuseSynData[DIndex] |=
 						(SynData[SIndex+2U] >> 28U);
@@ -550,7 +550,7 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 			else {
 				PufData->EfuseSynData[DIndex]=
 					((SynData[SIndex] << 24U) |
-						SynData[SIndex+1U] >> 8U);
+						(SynData[SIndex+1U] >> 8U));
 			}
 			SIndex++;
 			DIndex++;
@@ -563,13 +563,13 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
 					XPUF_EFUSE_TRIM_MASK) << 4U) |
-						SynData[SIndex+1U] >> 16U);
+						(SynData[SIndex+1U] >> 16U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 4U) |
-						SynData[SIndex+1U] >> 28U);
+						(SynData[SIndex+1U] >> 28U));
 				}
 				SIndex++;
 				DIndex++;
@@ -580,13 +580,13 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
 					XPUF_EFUSE_TRIM_MASK) << 16U) |
-						SynData[SIndex+1U] >> 4U);
+						(SynData[SIndex+1U] >> 4U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
 						((SynData[SIndex] << 16U) |
-						SynData[SIndex+1U] >> 16U);
+						(SynData[SIndex+1U] >> 16U));
 				}
 				SIndex++;
 				DIndex++;
@@ -596,15 +596,15 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				if (SubIndex == 2U) {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 28U) |
-						(SynData[SIndex+1U] &
-						XPUF_EFUSE_TRIM_MASK) >> 4U);
+						((SynData[SIndex+1U] &
+						XPUF_EFUSE_TRIM_MASK) >> 4U));
 					PufData->EfuseSynData[DIndex] |=
 						(SynData[SIndex+2U] >> 24U);
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
 						((SynData[SIndex] << 28U) |
-						SynData[SIndex+1U] >> 4U);
+						(SynData[SIndex+1U] >> 4U));
 				}
 				SIndex++;
 				DIndex++;
@@ -616,13 +616,13 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
 						XPUF_EFUSE_TRIM_MASK) << 8U) |
-						SynData[SIndex+1U] >> 12U);
+						(SynData[SIndex+1U] >> 12U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 8U) |
-						SynData[SIndex+1U] >> 24U);
+						(SynData[SIndex+1U] >> 24U));
 				}
 				SIndex++;
 				DIndex++;
@@ -632,14 +632,14 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				if (SubIndex == 2U) {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 20U) |
-						(SynData[SIndex+1U] &
-					XPUF_EFUSE_TRIM_MASK) >> 12U);
+						((SynData[SIndex+1U] &
+					XPUF_EFUSE_TRIM_MASK) >> 12U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
 						((SynData[SIndex] << 20U) |
-						SynData[SIndex+1U] >> 12U);
+						(SynData[SIndex+1U] >> 12U));
 				}
 				SIndex++;
 				DIndex++;
