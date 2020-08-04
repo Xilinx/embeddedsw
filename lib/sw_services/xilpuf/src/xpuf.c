@@ -55,7 +55,7 @@ typedef enum {
  *		XST_FAILURE - Timeout occurred
  *
  *****************************************************************************/
-static inline int XPuf_WaitForPufSynWordRdy()
+static inline int XPuf_WaitForPufSynWordRdy(void)
 {
 	return (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET),
@@ -74,7 +74,7 @@ static inline int XPuf_WaitForPufSynWordRdy()
  *		XST_FAILURE - Timeout occurred
  *
  *****************************************************************************/
-static inline int XPuf_WaitForPufDoneStatus()
+static inline int XPuf_WaitForPufDoneStatus(void)
 {
 	return (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_PUF_DONE,
