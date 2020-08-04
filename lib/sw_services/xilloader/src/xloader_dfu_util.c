@@ -1015,7 +1015,7 @@ END:
 		XLoader_Printf(DEBUG_INFO, "Std dev req %d/%d error, stall 0"
 				" in out\n\r", SetupData->bRequest,
 				(SetupData->wValue >> 8U) & 0xFFU);
-		if (!EpNum) {
+		if (EpNum == (u8)FALSE) {
 			XUsbPsu_Ep0StallRestart(
 				(struct XUsbPsu *)InstancePtr->PrivateData);
 		} else {
@@ -1108,7 +1108,7 @@ static int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,
 	switch(SetupData->bRequestType & XLOADER_STATUS_MASK) {
 		case XLOADER_STATUS_ENDPOINT:
 			if(SetupData->wValue == XLOADER_ENDPOINT_HALT) {
-				if (!EpNum) {
+				if (EpNum == (u8)FALSE) {
 					XUsbPsu_Ep0StallRestart(
 					(struct XUsbPsu *)InstancePtr->PrivateData);
 				}
