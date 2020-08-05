@@ -62,7 +62,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_7
+* @addtogroup csudma_v1_6
 * @{
 * @details
 *
