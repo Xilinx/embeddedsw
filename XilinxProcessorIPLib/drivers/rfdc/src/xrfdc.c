@@ -184,6 +184,7 @@
 *       cog    06/24/20 Added channel powerdon functionality.
 *       cog    06/24/20 Refactor to functionaize the FIFO width setting.
 *       cog    07/01/20 Fixed metal log print error in XRFdc_SetQMCSettings.
+*       cog    08/04/20 Fixed issues with the connected data initialization for multiband.
 *
 * </pre>
 *
@@ -430,12 +431,22 @@ static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 		/* Mixer Mode is C2C */
 		switch (InstancePtr->DAC_Tile[Tile_Id].MultibandConfig) {
 		case XRFDC_MB_MODE_4X:
-			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
-						 XRFDC_BLK_ID1);
+			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
+				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
+							 XRFDC_BLK_ID2);
+			} else {
+				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
+							 XRFDC_BLK_ID1);
+			}
 			break;
 		case XRFDC_MB_MODE_2X_BLK01_BLK23_ALT:
-			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
-						 XRFDC_BLK_ID2);
+			if (Block_Id < XRFDC_BLK_ID2) {
+				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
+							 XRFDC_BLK_ID2);
+			} else {
+				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, -1, -1);
+			}
+
 			break;
 		case XRFDC_MB_MODE_2X_BLK01_BLK23:
 		case XRFDC_MB_MODE_2X_BLK01:
