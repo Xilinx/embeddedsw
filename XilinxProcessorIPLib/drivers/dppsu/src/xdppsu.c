@@ -1192,20 +1192,23 @@ static u32 XDpPsu_WaitPhyReady(XDpPsu *InstancePtr)
 {
 	u32 Timeout = 100;
 	u32 PhyStatus;
+	u8 PhyReadyMask = InstancePtr->LinkConfig.MaxLaneCount == 1 ?
+			XDPPSU_PHY_STATUS_RESET_LANE_0_DONE_MASK |
+			XDPPSU_PHY_STATUS_GT_PLL_LOCK_MASK :
+			XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
 
 	/* Wait until the PHY is ready. */
 	do {
 		XDpPsu_WaitUs(InstancePtr, 20);
 		PhyStatus = XDpPsu_ReadReg(InstancePtr->Config.BaseAddr,
 					XDPPSU_PHY_STATUS);
-		PhyStatus &= XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
+		PhyStatus &= PhyReadyMask;
 		/* Protect against an infinite loop. */
 		if (!Timeout--) {
 			return XST_ERROR_COUNT_MAX;
 		}
 
-	}
-	while (PhyStatus != XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK);
+	} while (PhyStatus != PhyReadyMask);
 
 	return XST_SUCCESS;
 }
@@ -1967,8 +1970,7 @@ u32 XDpPsu_SetLaneCount(XDpPsu *InstancePtr, u8 LaneCount)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((LaneCount == XDPPSU_LANE_COUNT_SET_1) ||
-					(LaneCount == XDPPSU_LANE_COUNT_SET_2));
+	Xil_AssertNonvoid(LaneCount <= XDPPSU_0_LANE_COUNT);
 
 
 	InstancePtr->LinkConfig.LaneCount = LaneCount;
