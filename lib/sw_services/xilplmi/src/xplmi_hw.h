@@ -32,6 +32,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/10/2020 Added PMC_IOU_SLCR register related macros
 *       kc   07/28/2020 Added PMC PS GPIO related macros
+*       kc   08/04/2020 Added CRP NPLL related macros
 *
 * </pre>
 *
@@ -217,6 +218,24 @@ static inline void XPlmi_PpuWakeUpDis(void)
 #define CRP_RST_PS		(CRP_BASEADDR + 0x0000031CU)
 #define CRP_RST_PS_PMC_SRST_MASK		(0X00000008U)
 #define CRP_RST_PS_PMC_POR_MASK		(0X00000080U)
+
+/*
+ * Register: CRP_NOCPLL_CTRL
+ */
+#define CRP_NOCPLL_CTRL		((CRP_BASEADDR) + 0X00000050U)
+#define CRP_NOCPLL_CTRL_BYPASS_MASK	(0X00000008U)
+#define CRP_NOCPLL_CTRL_RESET_MASK	(0X00000001U)
+
+/*
+ * Register: CRP_NOCPLL_CFG
+ */
+#define CRP_NOCPLL_CFG		((CRP_BASEADDR) + 0X00000054U)
+
+/*
+ * Register: CRP_PLL_STATUS
+ */
+#define CRP_PLL_STATUS		((CRP_BASEADDR ) + 0X00000060U )
+#define CRP_PLL_STATUS_NOCPLL_LOCK_MASK		(0X00000002U)
 
 /*
  * PMC_ANALOG Base Address
