@@ -45,6 +45,7 @@
 *       kal  07/21/2020 Added a macro for Data copy failure for Security
 *       bsv  07/29/2020 Added error codes related to delay load
 *       kpt  07/30/2020 Added error code for Meta header length overflow
+*       kc   08/04/2020 Added error code NPLL lock status for master SLR
 *
 * </pre>
 *
@@ -174,6 +175,8 @@ typedef enum {
 					  during PLM initialization. EAR and
 					  ESR are printed on UART console
 					  if enabled */
+	XPLM_ERR_NPLL_LOCK,		/**< 0x204 - Unable to lock NOC PLL
+					  for master SLR devices */
 
 	/** Status codes used in XLOADER */
 	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
