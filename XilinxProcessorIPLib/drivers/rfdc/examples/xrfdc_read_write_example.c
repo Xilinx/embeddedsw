@@ -56,6 +56,7 @@
 * 8.0   cog    04/03/20 Updated example for 48dr compatibility.
 * 8.1   cog    06/29/20 Always register metal device in baremetal.
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
+*       cog    08/04/20 Connected Q data for Dual DACs should be block 2.
 *
 * </pre>
 *
@@ -88,6 +89,7 @@
 #endif
 
 #define REG_BOND_NSLICES 4U
+#define ALT_BOND_NSLICES 2U
 
 /**************************** Type Definitions ******************************/
 
@@ -1220,7 +1222,7 @@ printf("\n Configuring the Clock \r\n");
 	printf("\n DAC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 	printf("\n ============================================\r\n");
 
-	if (RFdcInstPtr->DAC_Tile[Tile].NumOfDACBlocks >= 2U) {
+	if (RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == ALT_BOND_NSLICES) {
 		/* DAC Singleband C2C */
 		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, ((RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES)?0x3:0x5));
 		if (Status != XRFDC_SUCCESS) {
@@ -1239,7 +1241,7 @@ printf("\n Configuring the Clock \r\n");
 			if (Block == 0) {
 				if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
 					return XRFDC_FAILURE;
-				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
+				if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != ((RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES)?1:2))
 					return XRFDC_FAILURE;
 			}
 		}
@@ -1265,7 +1267,7 @@ printf("\n Configuring the Clock \r\n");
 				if ((Block == 0) || (Block == 1)) {
 					if (XRFdc_GetConnectedIData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 0)
 						return XRFDC_FAILURE;
-					if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != 1)
+					if (XRFdc_GetConnectedQData(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block) != ((RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES)?1:2))
 						return XRFDC_FAILURE;
 				}
 			}
@@ -1274,7 +1276,7 @@ printf("\n Configuring the Clock \r\n");
 		}
 	}
 
-	if (RFdcInstPtr->DAC_Tile[Tile].NumOfDACBlocks == 4U) {
+	if (RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES) {
 		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0xC, XRFDC_MB_DATATYPE_C2C, 0xC);
 		if (Status != XRFDC_SUCCESS) {
 			return XRFDC_FAILURE;

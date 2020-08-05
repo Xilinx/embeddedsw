@@ -28,6 +28,7 @@
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Support for Dual Band IQ for new bondout.
 *       cog    06/24/20 MB config is now read from bitstream.
+*       cog    08/04/20 Refactor multiband for Dual DAC tiles.
 *
 * </pre>
 *
@@ -103,10 +104,10 @@ static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInO
 		DataPathIndex[1] = BlockIndex[0] + BlockIndex[1] - DataPathIndex[0];
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0], MixerInOutDataType,
 				    BlockIndex[0], BlockIndex[1]);
-		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1], MixerInOutDataType, -1, -1);
-
 		/* Update ConnectedIData and ConnectedQData for DAC and ADC 2GSPS */
 		if (Type == XRFDC_ADC_TILE) {
+			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1], MixerInOutDataType, -1,
+					    -1);
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
 				BlockIndex[0];
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].ConnectedQData =
@@ -115,6 +116,29 @@ static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInO
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].ConnectedIData = -1;
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].ConnectedQData = -1;
 		} else {
+			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
+				/* rerouting & configuration for alternative bonding. */
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_CLK_EN_OFFSET, XRFDC_ALT_BOND_CLKDP_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_CLKDP_SHIFT);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, XRFDC_BLK_ID1, MixerInOutDataType,
+						    -1, -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, XRFDC_BLK_ID3, MixerInOutDataType,
+						    -1, -1);
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[XRFDC_BLK_ID1].ConnectedIData =
+					-1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[XRFDC_BLK_ID3].ConnectedQData =
+					-1;
+			} else {
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1],
+						    MixerInOutDataType, -1, -1);
+			}
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
 				BlockIndex[0];
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedQData =
@@ -155,6 +179,15 @@ static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Mixe
 			BlockIndex[0U];
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].ConnectedQData = -1;
 	} else {
+		if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
+			/* rerouting & configuration for alternative bonding. */
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+					XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+					XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
+					XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+					XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
+		}
 		InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
 			BlockIndex[0U];
 		InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedQData = -1;
@@ -215,7 +248,7 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 			BlockIndex[0U];
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].ConnectedQData =
 			BlockIndex[1U];
-	} else if (NoOfDataPaths == 2U) {
+	} else if (NoOfDataPaths == XRFDC_MB_DUAL_BAND) {
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0], MixerInOutDataType,
 				    BlockIndex[0U], BlockIndex[1U]);
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1], MixerInOutDataType,
@@ -232,6 +265,30 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].ConnectedQData =
 				BlockIndex[1U];
 		} else {
+			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
+				/* rerouting & configuration for alternative bonding. */
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_CLK_EN_OFFSET, XRFDC_ALT_BOND_CLKDP_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_CLKDP_SHIFT);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, XRFDC_BLK_ID2, MixerInOutDataType,
+						    -1, -1);
+				XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, XRFDC_BLK_ID3, MixerInOutDataType,
+						    -1, -1);
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[XRFDC_BLK_ID2].ConnectedIData =
+					-1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[XRFDC_BLK_ID2].ConnectedQData =
+					-1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[XRFDC_BLK_ID3].ConnectedIData =
+					-1;
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[XRFDC_BLK_ID3].ConnectedQData =
+					-1;
+			}
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
 				BlockIndex[0U];
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedQData =
@@ -242,7 +299,7 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 				BlockIndex[1U];
 		}
 	}
-	if (NoOfDataPaths == 4U) {
+	if (NoOfDataPaths == XRFDC_MB_QUAD_BAND) {
 		if (Type == XRFDC_ADC_TILE) {
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0], MixerInOutDataType,
 					    BlockIndex[0U], BlockIndex[1U]);
@@ -280,6 +337,19 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[3], MixerInOutDataType,
 					    DataPathIndex[2U], DataPathIndex[3U]);
 
+			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
+				/* rerouting & configuration for alternative bonding. */
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_CLK_EN_OFFSET, XRFDC_ALT_BOND_CLKDP_MASK,
+						XRFDC_ENABLED << XRFDC_ALT_BOND_CLKDP_SHIFT);
+			}
+
 			/* Update ConnectedIData and ConnectedQData for DAC and ADC 2GSPS */
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
 				BlockIndex[0U];
@@ -290,13 +360,13 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].ConnectedQData =
 				BlockIndex[1U];
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].ConnectedIData =
-				DataPathIndex[0U];
+				BlockIndex[0U];
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[2]].ConnectedQData =
-				DataPathIndex[1U];
+				BlockIndex[1U];
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].ConnectedIData =
-				DataPathIndex[0U];
+				BlockIndex[0U];
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[3]].ConnectedQData =
-				DataPathIndex[1U];
+				BlockIndex[1U];
 		}
 	}
 }
@@ -344,7 +414,7 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 				    BlockIndex[0U], -1);
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1] + 2U, MixerInOutDataType,
 				    BlockIndex[0U] + 1U, -1);
-	} else if (NoOfDataPaths == 2U) {
+	} else if (NoOfDataPaths == XRFDC_MB_DUAL_BAND) {
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0], MixerInOutDataType,
 				    BlockIndex[0], -1);
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1], MixerInOutDataType,
@@ -359,6 +429,15 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 				BlockIndex[0U];
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[1]].ConnectedQData = -1;
 		} else {
+			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
+				/* rerouting & configuration for alternative bonding. */
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
+			}
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
 				BlockIndex[0U];
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].ConnectedQData = -1;
@@ -367,7 +446,7 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[1]].ConnectedQData = -1;
 		}
 	}
-	if (NoOfDataPaths == 4U) {
+	if (NoOfDataPaths == XRFDC_MB_QUAD_BAND) {
 		if (Type == XRFDC_ADC_TILE) {
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0], MixerInOutDataType,
 					    BlockIndex[0], -1);
@@ -393,6 +472,15 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[3]].ConnectedQData = -1;
 
 		} else {
+			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
+				/* rerouting & configuration for alternative bonding. */
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
+						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
+						XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
+			}
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0], MixerInOutDataType,
 					    DataPathIndex[0], -1);
 			XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[1], MixerInOutDataType,
@@ -465,20 +553,18 @@ static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 No
 			   ((DataPathIndex[0] == XRFDC_BLK_ID2) || (DataPathIndex[0] == XRFDC_BLK_ID3))) {
 			MultibandConfig = XRFDC_MB_MODE_SB;
 		}
-	} else if (NoOfDataPaths == 2U) {
+	} else if (NoOfDataPaths == XRFDC_MB_DUAL_BAND) {
 		*ModePtr = XRFDC_MULTIBAND_MODE_2X;
-		if (((MultibandConfig == XRFDC_MB_MODE_2X_BLK01) && (DataPathIndex[0] == XRFDC_BLK_ID2) &&
-		     (DataPathIndex[1] == XRFDC_BLK_ID3)) ||
-		    ((MultibandConfig == XRFDC_MB_MODE_2X_BLK23) && (DataPathIndex[0] == XRFDC_BLK_ID0) &&
-		     (DataPathIndex[1] == XRFDC_BLK_ID1)) ||
-		    (MultibandConfig == XRFDC_MB_MODE_4X)) {
-			if ((Type == XRFDC_DAC_TILE) &&
-			    (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == 2) &&
-			    (MixerInOutDataType == XRFDC_MB_DATATYPE_C2C)) {
-				MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23_ALT;
-			} else {
-				MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23;
-			}
+		if ((Type == XRFDC_DAC_TILE) &&
+		    (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) &&
+		    (MixerInOutDataType == XRFDC_MB_DATATYPE_C2C)) {
+			MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23_ALT;
+		} else if (((MultibandConfig == XRFDC_MB_MODE_2X_BLK01) && (DataPathIndex[0] == XRFDC_BLK_ID2) &&
+			    (DataPathIndex[1] == XRFDC_BLK_ID3)) ||
+			   ((MultibandConfig == XRFDC_MB_MODE_2X_BLK23) && (DataPathIndex[0] == XRFDC_BLK_ID0) &&
+			    (DataPathIndex[1] == XRFDC_BLK_ID1)) ||
+			   (MultibandConfig == XRFDC_MB_MODE_4X)) {
+			MultibandConfig = XRFDC_MB_MODE_2X_BLK01_BLK23;
 		} else if (((DataPathIndex[0] == XRFDC_BLK_ID2) && (DataPathIndex[1] == XRFDC_BLK_ID3)) &&
 			   (MultibandConfig == XRFDC_MB_MODE_SB)) {
 			MultibandConfig = XRFDC_MB_MODE_2X_BLK23;
@@ -486,7 +572,7 @@ static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 No
 			   (MultibandConfig == XRFDC_MB_MODE_SB)) {
 			MultibandConfig = XRFDC_MB_MODE_2X_BLK01;
 		}
-	} else if (NoOfDataPaths == 4U) {
+	} else if (NoOfDataPaths == XRFDC_MB_QUAD_BAND) {
 		*ModePtr = XRFDC_MULTIBAND_MODE_4X;
 		MultibandConfig = XRFDC_MB_MODE_4X;
 	} else {
@@ -552,6 +638,16 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 		goto RETURN_PATH;
 	}
 
+	if ((Type == XRFDC_DAC_TILE) &&
+	    (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) &&
+	    (DataConverterMask & 0xa)) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid DigitalDataPathMask value (0x%x) for alternate bondout DAC %u in %s\r\n",
+			  DigitalDataPathMask, Tile_Id, __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
 	if ((DataConverterMask == 0U) || (DataConverterMask > 0xFU)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid DataConverterMask value (0x%x) for %s %u in %s\r\n",
 			  DataConverterMask, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
@@ -592,19 +688,6 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 				goto RETURN_PATH;
 			}
 		}
-	}
-
-	/* rerouting & configuration for alternative bonding. */
-	if ((Type == XRFDC_DAC_TILE) && (DataConverterMask & 0x05) && (MixerInOutDataType == XRFDC_MB_DATATYPE_C2C) &&
-	    (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == 2)) {
-		BlockIndex[XRFDC_BLK_ID1] = XRFDC_BLK_ID1;
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
-				XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK, XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
-				XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK, XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
-				XRFDC_CLK_EN_OFFSET, XRFDC_ALT_BOND_CLKDP_MASK,
-				XRFDC_ENABLED << XRFDC_ALT_BOND_CLKDP_SHIFT);
 	}
 
 	if (BlockIndex[0] != DataPathIndex[0]) {

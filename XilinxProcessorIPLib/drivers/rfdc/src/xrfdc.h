@@ -252,6 +252,7 @@
 *       cog    06/24/20 Added observation FIFO and decimation functionality.
 *       cog    06/24/20 Added channel powerdon functionality.
 *       cog    06/24/20 Refactor to functionaize the FIFO width setting.
+*       cog    08/04/20 Added multiband macros.
 *
 * </pre>
 *
@@ -918,6 +919,9 @@ typedef struct {
 #define XRFDC_MB_DATATYPE_R2C 0x2U
 #define XRFDC_MB_DATATYPE_C2R 0x4U
 
+#define XRFDC_MB_DUAL_BAND 2U
+#define XRFDC_MB_QUAD_BAND 4U
+
 #define XRFDC_SB_C2C_BLK0 0x82U
 #define XRFDC_SB_C2C_BLK1 0x64U
 #define XRFDC_SB_C2R 0x40U
@@ -1209,6 +1213,9 @@ typedef struct {
 
 #define XRFDC_PWR_MODE_OFF 0U
 #define XRFDC_PWR_MODE_ON 1U
+
+#define XRFDC_DUAL_TILE 2U
+#define XRFDC_QUAD_TILE 4U
 
 /*****************************************************************************/
 /**
