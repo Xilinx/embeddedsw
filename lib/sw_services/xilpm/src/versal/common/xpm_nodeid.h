@@ -290,9 +290,11 @@
 /** @cond INTERNAL */
 #define PM_CLK_XRAM_MAIN_CLK			(0x8208074U)
 #define PM_CLK_XRAM_APB				(0x8208075U)
-/** @}
- * @endcond
- */
+/** @endcond */
+#define PM_CLK_PL_PMC_ALT_REF_CLK		(0x830c076U)
+#define PM_CLK_PL_LPD_ALT_REF_CLK		(0x830c077U)
+#define PM_CLK_PL_FPD_ALT_REF_CLK		(0x830c078U)
+/** @} */
 
 /** @defgroup xilpmmionodes MIO nodes
 @ingroup xilpmnodeids
