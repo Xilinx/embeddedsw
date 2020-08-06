@@ -17,6 +17,7 @@
 * 4.0   vns  03/21/19 Initial release
 * 4.2   vns  02/10/20 Added efuse cache DPA mask register address and mask
 * 4.3   ana  06/04/20 Added XSECURE_AES_MODE_DEC macro
+*       kpt  08/06/20 Added XSECURE_AES_KEY_DEC_RESET_MASK macro
 *
 * </pre>
 *
@@ -212,6 +213,7 @@ extern "C" {
  */
 #define XSECURE_AES_KEY_DEC_OFFSET    (0x00000058U)
 #define XSECURE_AES_KEY_DEC_MASK		(0xFFFFFFFFU)
+#define XSECURE_AES_KEY_DEC_RESET_MASK  (0X00000000U)
 
 /**
  * Register: XSECURE_AES_KEY_DEC_TRIG

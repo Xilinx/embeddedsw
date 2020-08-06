@@ -41,6 +41,7 @@
 *       har  07/12/2020 Removed magic number from XSecure_AesKeyZero
 *       har  07/21/2020 Corrected input parameters for config in
 *                       XSecure_AesCfgKupIv
+*       kpt  08/06/2020 Replaced magic numbers with macro's
 * </pre>
 *
 * @note
@@ -56,10 +57,12 @@
 /************************** Constant Definitions *****************************/
 
 #define XSECURE_MAX_KEY_SOURCES				XSECURE_AES_EXPANDED_KEYS
+#define XSECURE_KEK_DEC_ENABLE                  (0x1U)
+#define XSECURE_KEK_DEC_DISABLE                 (0x0U)
 #define XSECURE_AES_DISABLE_KUP_IV_UPDATE		(0x0U)
 #define XSECURE_AES_ENABLE_KUP_IV_UPDATE		(0x1U)
-#define XSECURE_ENABLE_BYTE_SWAP			(0x1U)
-#define XSECURE_DISABLE_BYTE_SWAP			(0x0U)
+#define XSECURE_ENABLE_BYTE_SWAP				(0x1U)
+#define XSECURE_DISABLE_BYTE_SWAP				(0x0U)
 #define XSECURE_KAT_IV_SIZE_IN_WORDS			(4U)
 #define XSECURE_KAT_MSG_SIZE_IN_WORDS			(4U)
 #define XSECURE_KAT_GCMTAG_SIZE_IN_WORDS		(4U)
@@ -560,7 +563,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 		XSECURE_AES_SOFT_RST_OFFSET);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == PMCDMA_0_DEVICE_ID) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -602,17 +605,18 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-		XSECURE_AES_DATA_SWAP_OFFSET, 0x1U);
+		XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Push IV into the AES engine. */
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-		(u32)IvAddr, (u32)(IvAddr >> 32U), XSECURE_SECURE_GCM_TAG_SIZE/4U, (u8)1);
+		(u32)IvAddr, (u32)(IvAddr >> 32U),
+		XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, TRUE);
 
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 
 	/* Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -632,7 +636,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 		AesKeyLookupTbl[DecKeySrc].KeySrcSelVal);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_KEY_DEC_TRIG_OFFSET, (u32)0x1);
+			XSECURE_AES_KEY_DEC_TRIG_OFFSET, XSECURE_KEK_DEC_ENABLE);
 
 	/* Status Reset*/
 	Status = (u32)XST_FAILURE;
@@ -645,7 +649,7 @@ END:
 
 	/* Select key decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_KEY_DEC_OFFSET, 0U);
+			XSECURE_AES_KEY_DEC_OFFSET, XSECURE_AES_KEY_DEC_RESET_MASK);
 
 	return Status;
 }
@@ -765,7 +769,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == PMCDMA_0_DEVICE_ID) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -781,13 +785,13 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 				XPMCDMA_DST_CHANNEL,
 				(u32)OutDataAddr, (u32)(OutDataAddr >> 32U),
-				Size/XSECURE_WORD_SIZE, 0U);
+				Size / XSECURE_WORD_SIZE, FALSE);
 	}
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL,
 				(u32)InDataAddr, (u32)(InDataAddr >> 32U),
-				Size/XSECURE_WORD_SIZE, IsLastChunk);
+				Size / XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
@@ -856,13 +860,13 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 			XSECURE_AES_DECRYPT_INITIALIZED);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, 0x1U);
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 					XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == PMCDMA_0_DEVICE_ID) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -876,7 +880,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 		XPMCDMA_SRC_CHANNEL, (u32)GcmTagAddr, (u32)(GcmTagAddr >> 32U),
-		XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0);
+		XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, FALSE);
 
 	/* Wait for the Src DMA completion. */
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
@@ -916,7 +920,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
 END:
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	if ((InstancePtr->NextBlkLen == 0U) || (Status != (u32)XST_SUCCESS)) {
 		/*
@@ -1091,7 +1095,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == PMCDMA_0_DEVICE_ID) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1107,13 +1111,13 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 						XPMCDMA_DST_CHANNEL,
 						(u32)OutDataAddr, (u32)(OutDataAddr >> 32U),
-						Size/XSECURE_WORD_SIZE, FALSE);
+						Size / XSECURE_WORD_SIZE, FALSE);
 	}
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL,
 				(u32)InDataAddr, (u32)(InDataAddr >> 32U),
-				Size/XSECURE_WORD_SIZE, IsLastChunk);
+				Size / XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
@@ -1185,7 +1189,7 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 					XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == PMCDMA_0_DEVICE_ID) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1200,7 +1204,7 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
 			XPMCDMA_DST_CHANNEL,
 			(u32)GcmTagAddr, (u32)(GcmTagAddr >> 32U),
-			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
+			XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, FALSE);
 	/* Wait for the DST DMA completion. */
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 
@@ -1221,7 +1225,7 @@ END:
 			XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, 0x0U);
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 
 	XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
@@ -1372,7 +1376,7 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 			XSECURE_AES_UNINITIALIZED);
 
 	*Size = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
-			XSECURE_AES_IV_3_OFFSET)) * 4U;
+			XSECURE_AES_IV_3_OFFSET)) * XSECURE_WORD_SIZE;
 
 	return XST_SUCCESS;
 }
@@ -1917,7 +1921,7 @@ static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc Key
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Configure the SSS for AES. */
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == 0U) {
+	if (InstancePtr->PmcDmaPtr->Config.DeviceId == PMCDMA_0_DEVICE_ID) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}
@@ -1952,7 +1956,7 @@ static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc Key
 	/* Push IV */
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 			(u32)IvAddr, (u32)(IvAddr >> 32U),
-			XSECURE_SECURE_GCM_TAG_SIZE/XSECURE_WORD_SIZE, 0U);
+			XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, FALSE);
 
 	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
 			XPMCDMA_SRC_CHANNEL);
