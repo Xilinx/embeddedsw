@@ -386,6 +386,7 @@ static const  XAie_DmaBdMultiDimAddr Aie2TileDmaMultiDimProp =
 	.Aie2MultiDimAddr.Iter.StepSize.Lsb = XAIE2GBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_STEPSIZE_LSB,
 	.Aie2MultiDimAddr.Iter.StepSize.Mask = XAIE2GBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_STEPSIZE_MASK,
 	.Aie2MultiDimAddr.DmaDimProp[2U].Wrap = {0U},
+	.Aie2MultiDimAddr.DmaDimProp[3U].Wrap = {0U},
 	.Aie2MultiDimAddr.DmaDimProp[3U].StepSize = {0U}
 };
 
@@ -563,6 +564,7 @@ static const  XAie_DmaBdMultiDimAddr Aie2ShimDmaMultiDimProp =
 	.Aie2MultiDimAddr.Iter.StepSize.Lsb = XAIE2GBL_NOC_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_LSB,
 	.Aie2MultiDimAddr.Iter.StepSize.Mask = XAIE2GBL_NOC_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_MASK,
 	.Aie2MultiDimAddr.DmaDimProp[2U].Wrap = {0U},
+	.Aie2MultiDimAddr.DmaDimProp[3U].Wrap = {0U},
 	.Aie2MultiDimAddr.DmaDimProp[3U].StepSize = {0U}
 };
 
