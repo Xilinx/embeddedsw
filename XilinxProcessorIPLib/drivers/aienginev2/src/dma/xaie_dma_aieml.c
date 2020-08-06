@@ -572,6 +572,12 @@ AieRC _XAieMl_DmaGetPendingBdCount(XAie_DevInst *DevInst, XAie_LocType Loc,
 	 * TODO: The register database required for this api has changed b/w
 	 * r0p6 and r0p13. Implement this once the register database if freezed.
 	 */
+	(void)DevInst;
+	(void)Loc;
+	(void)DmaMod;
+	(void)ChNum;
+	(void)Dir;
+	(void)PendingBd;
 
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
@@ -601,6 +607,12 @@ AieRC _XAieMl_DmaWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 	 * TODO: The register database required for this api has changed b/w
 	 * r0p6 and r0p13. Implement this once the register database if freezed.
 	 */
+	(void)DevInst;
+	(void)Loc;
+	(void)DmaMod;
+	(void)ChNum;
+	(void)Dir;
+	(void)TimeOutUs;
 
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
