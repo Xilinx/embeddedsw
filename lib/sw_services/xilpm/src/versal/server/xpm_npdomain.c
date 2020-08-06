@@ -130,7 +130,11 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	 * This step is omitted for SSIT Device Slave SLR for  NSU_1 as config is
 	 * done by BOOT ROM
 	 */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+			if (0U == NpdMemIcAddresses[i]) {
+				continue;
+			}
+
 			if (i == (u32)XPM_NODEIDX_MEMIC_NSU_1 &&
 				XPm_GetSlrType() < SLR_TYPE_SSIT_DEV_MASTER_SLR) {
 				continue;
@@ -299,7 +303,11 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Deassert PCSR Lock*/
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET,
 			PCSR_UNLOCK_VAL);
 	}
@@ -313,7 +321,11 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Trigger Mem clear */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
@@ -327,7 +339,11 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Check for Mem clear done */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
 		Status = XPm_PollForMask(NpdMemIcAddresses[i] +
 					 NPI_PCSR_STATUS_OFFSET,
 					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
@@ -348,7 +364,11 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Check for Mem clear Pass/Fail */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
 		PmIn32(NpdMemIcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
 		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
 		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
@@ -376,19 +396,28 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 
 
 	/* Unwrite trigger bits */
-        for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+        for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+			if (0U == NpdMemIcAddresses[i]) {
+				continue;
+			}
+
                 PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
                 PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
         }
+
         for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
                 PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
                         NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
-	}
+		}
 
 	/* Assert PCSR Lock*/
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
 
