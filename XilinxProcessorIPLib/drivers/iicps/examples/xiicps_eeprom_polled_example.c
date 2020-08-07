@@ -39,9 +39,10 @@
 * 1.04a hk   09/03/13 Removed GPIO code to pull MUX out of reset - CR#722425.
 * 2.3 	sk	 10/07/14 Removed multiple initializations for read buffer.
 * 3.3   Nava 08/08/16 Adopt the Dynamic EEPROM finding support.
-* 4.0   rna  10/16/19 Added support for 64 page size eeproms on Versal based
+* 3.11   rna  10/16/19 Added support for 64 page size eeproms on Versal based
 *		      boards, scanning for eeprom until found on all I2C
-*		      instances - CR#1035348
+*		      instances
+*        rna  03/26/20 Eeprom page size detection support is added.
 * </pre>
 *
 ******************************************************************************/
@@ -102,6 +103,7 @@ static s32 FindEepromDevice(u16 Address);
 static s32 IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize);
 static s32 IicPsConfig(u16 DeviceId);
 static s32 IicPsFindDevice(u16 addr, u16 DeviceId);
+static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr);
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
 XIicPs IicInstance;		/* The instance of the IIC device. */
@@ -489,7 +491,6 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 	u32 MuxIndex,Index;
 	u8 MuxChannel;
 	u16 DeviceId;
-	int Type_of_board;
 
 	for (DeviceId = 0; DeviceId < XPAR_XIICPS_NUM_INSTANCES; DeviceId++) {
 		for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
@@ -505,12 +506,13 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 						Status = FindEepromDevice(EepromAddr[Index]);
 						if (Status == XST_SUCCESS) {
 							*Eeprom_Addr = EepromAddr[Index];
-							Type_of_board = XGetPlatform_Info();
-							if (Type_of_board == XPLAT_VERSAL)
-								*PageSize = PAGE_SIZE_64;
-							else
-								*PageSize = PAGE_SIZE_16;
-							return XST_SUCCESS;
+						Status = FindEepromPageSize(EepromAddr[Index], PageSize);
+						if (Status != XST_SUCCESS) {
+							xil_printf("Failed to find the page size of 0X%X EEPROM\r\n", EepromAddr[Index]);
+							return XST_FAILURE;
+						}
+						xil_printf("Page size %d\r\n", *PageSize);
+						return XST_SUCCESS;
 						}
 					}
 				}
@@ -568,6 +570,83 @@ static s32 FindEepromDevice(u16 Address)
 	XIicPs_DisableSlaveMonitor(&IicInstance);
 
 	return XST_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+* This function is used to figure out page size Eeprom slave device
+*
+* @param	Eeprom Address
+*
+* @param	Pagesize pointer
+*
+* @return	XST_SUCCESS if successful and also update the epprom slave
+* device pagesize else XST_FAILURE.
+*
+* @note		None.
+*
+******************************************************************************/
+static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
+{
+	u32 Index, i;
+	int Status = XST_FAILURE;
+	AddressType Address = EEPROM_START_ADDRESS;
+	int WrBfrOffset = 0;
+	u32 ps[3] = {64, 32, 16};
+	u32 PageSize_test, count;
+
+	for (i = 0; i < 3; i++)
+	{
+		count = 0;
+		PageSize_test = ps[i];
+		*PageSize_ptr = PageSize_test;
+		/*
+		 * Initialize the data to write and the read buffer.
+		 */
+		if (PageSize_test == PAGE_SIZE_16) {
+			WriteBuffer[0] = (u8) (Address);
+			WrBfrOffset = 1;
+		} else {
+			WriteBuffer[0] = (u8) (Address >> 8);
+			WriteBuffer[1] = (u8) (Address);
+			WrBfrOffset = 2;
+		}
+
+		for (Index = 0; Index < PageSize_test; Index++) {
+			WriteBuffer[WrBfrOffset + Index] = Index + i;
+			ReadBuffer[Index] = 0;
+		}
+
+		/*
+		 * Write to the EEPROM.
+		 */
+		Status = EepromWriteData(&IicInstance, WrBfrOffset + PageSize_test);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		/*
+		 * Read from the EEPROM.
+		 */
+		Status = EepromReadData(&IicInstance, ReadBuffer, PageSize_test);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		/*
+		 * Verify the data read against the data written.
+		 */
+		for (Index = 0; Index < PageSize_test; Index++) {
+			if (ReadBuffer[Index] == Index + i) {
+				count++;
+			}
+		}
+		if (count == PageSize_test)
+		{
+			return XST_SUCCESS;
+		}
+	}
+	return Status;
 }
 
 /*****************************************************************************/
