@@ -183,6 +183,7 @@ iicps_v3_11:
 Added 10-bit address support for I2C Master/Slave, Slave monitor.
 Correct the stale interrupt triggering by clearing the ISR before enabling interrupts.
 Re-organize the driver and fix Misra-c violations.
+Update eeprom examples with dynamic page size detection.
 
 lwip211_v1_2:
 Add dependencies.props file for examples.
