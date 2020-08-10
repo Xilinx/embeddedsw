@@ -23,6 +23,7 @@
 * 1.02  bsv  04/09/2020 Code clean up
 * 1.03  bsv  07/07/2020 Remove unused functions
 *       skd  07/14/2020 XLoader_SbiCopy prototype changed
+*       kc   08/10/2020 Added release of SBI reset in SbiInit
 *
 * </pre>
 *
@@ -66,6 +67,10 @@
 int XLoader_SbiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
+
+	/* Release reset of SBI */
+	XPlmi_UtilRMW(CRP_RST_SBI,
+	       CRP_RST_SBI_RESET_MASK, ~CRP_RST_SBI_RESET_MASK);
 
 	switch (DeviceFlags) {
 		case XLOADER_PDI_SRC_SMAP:
