@@ -57,6 +57,7 @@
 *       bsv  07/29/2020 Added CopyToMem address and delay load fields in XilPdi
 *                       structure
 *       skd  07/29/2020 Removed device copy macros
+*       bsv  08/06/2020 Code clean up
 *
 * </pre>
 *
@@ -340,8 +341,8 @@ int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 
 /* Functions defined in xloader_prtn_load.c */
-int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
-int XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
+int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
+int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);
 
 /* Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);
