@@ -32,6 +32,8 @@
 * 1.6   aru     08/29/19 Added assert check in XCsuDma_WaitForDoneTimeout().
 * 1.6   rm      11/05/19 Modified usleep waitloop and timeout value in
 *				XCsuDma_WaitForDoneTimeout().
+* 1.7	hk	08/03/20 Reorganize transfer function to accommodate all
+*			 processors and cache functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -125,9 +127,8 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 *
 ******************************************************************************/
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
-					UINTPTR Addr, u32 Size, u8 EnDataLast)
+					u64 Addr, u32 Size, u8 EnDataLast)
 {
-	u64 LocalAddr = (u64)Addr;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
@@ -136,20 +137,27 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#if !defined(PSU_PMU)
-	/* Flushing cache memory */
-	if (Channel == (XCSUDMA_SRC_CHANNEL)) {
-		Xil_DCacheFlushRange(Addr, Size << (u32)(XCSUDMA_SIZE_SHIFT));
+#if defined(ARMR5)
+	/* No action if 64 bit address is used when this code is running on R5.
+	 * Flush if 32 bit addressing is used.
+	 */
+	if ((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) {
+		Xil_DCacheFlushRange((INTPTR)Addr,
+					(INTPTR)(Size << XCSUDMA_SIZE_SHIFT));
 	}
-	/* Invalidating cache memory */
-	else {
-#if defined(__aarch64__)
-		Xil_DCacheInvalidateRange(Addr, Size <<
-					(u32)(XCSUDMA_SIZE_SHIFT));
 #else
-		Xil_DCacheFlushRange(Addr, Size << (u32)(XCSUDMA_SIZE_SHIFT));
-#endif
-	}
+	/* No action required for PSU_PMU.
+	 * Perform cache operations on ARM64 (either 32 bit and 64 bit address)
+	 */
+	#if defined(__aarch64__)
+		if (Channel == (XCSUDMA_SRC_CHANNEL)) {
+			Xil_DCacheFlushRange((INTPTR)Addr,
+					(INTPTR)(Size << XCSUDMA_SIZE_SHIFT));
+		} else {
+			Xil_DCacheInvalidateRange((INTPTR)Addr,
+					(INTPTR)(Size << XCSUDMA_SIZE_SHIFT));
+		}
+	#endif
 #endif
 
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
@@ -160,7 +168,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 		(u32)(XCSUDMA_ADDR_MSB_OFFSET +
 			((u32)Channel * XCSUDMA_OFFSET_DIFF)),
-			((u32)((LocalAddr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
+			((u32)((Addr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
 					(u32)(XCSUDMA_MSB_ADDR_MASK)));
 
 	if (EnDataLast == (u8)(XCSUDMA_LAST_WORD_MASK)) {
