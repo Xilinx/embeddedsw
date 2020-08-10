@@ -175,6 +175,10 @@ Updated tcl to get cpuid for the pmufw case
 mutex_v4_6:
 Fix the redefinition of cannonicals.
 
+emaclite_v4_6:
+Fix self test failure on zynqmp platform.
+Fix resource error in importing xemaclite_internal_loopback_example.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
