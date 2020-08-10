@@ -50,6 +50,7 @@
 *                     support for ENC only case
 *       kpt  08/01/20 Corrected check to validate the last row of ppk hash
 *       bsv  08/06/20 Added delay load support for secure cases
+*       kpt  08/10/20 Corrected endianness for meta header IV range checking
 *
 * </pre>
 *
@@ -3094,9 +3095,9 @@ END:
 *
 * Our xilnvm driver also follows the same format to store it in eFUSE
 *
-* EfusePtr[0]=C6ED8E37 -> IV[31:0]
-* EfusePtr[1]=8674A28D -> IV[63:32]
-* EfusePtr[2]=F7F8FDE0 -> IV[95:64]
+* EfusePtr[0]=E0FDF8F7 -> IV[64:95]
+* EfusePtr[1]=8DA27486 -> IV[32:63]
+* EfusePtr[2]=378EEDC6 -> IV[0:31]]
 *
 * Spec says:
 * IV[95:32] defined by user in meta header should match with eFUSEIV[95:32]
@@ -3106,20 +3107,13 @@ END:
 static int XLoader_ValidateIV(u32 *IHPtr, u32 *EfusePtr)
 {
 	int Status = XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
-	u32 IHValue95_64;
-	u32 IHValue63_32;
-	u32 IHValue31_0;
 
-	IHValue95_64 = Xil_Htonl(IHPtr[0U]);
-	IHValue63_32 = Xil_Htonl(IHPtr[1U]);
-	IHValue31_0  = Xil_Htonl(IHPtr[2U]);
-
-	if ((IHValue95_64 != EfusePtr[2U]) || (IHValue63_32 != EfusePtr[1U])) {
+	if ((IHPtr[0U] != EfusePtr[0U]) || (IHPtr[1U] != EfusePtr[1U])) {
 		XPlmi_Printf(DEBUG_INFO, "IV not matched for bits[95:32]\r\n");
 		goto END;
 	}
 
-	if (IHValue31_0 >= EfusePtr[0U]) {
+	if (IHPtr[2U] >= EfusePtr[2U]) {
 		Status = XLOADER_SUCCESS;
 	}
 	else {
