@@ -95,6 +95,8 @@
 *       Rama	02/26/19 Fixed IAR issue by changing
 *						 "XCsuDma_WaitForDoneTimeout" to function
 *       arc     03/26/19 Fixed MISRA-C violations.
+* 1.7	hk	08/03/20 Reorganize transfer function to accommodate all
+*			 processors and cache functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -398,7 +400,7 @@ XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId);
 s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 			u32 EffectiveAddr);
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
-					UINTPTR Addr, u32 Size, u8 EnDataLast);
+					u64 Addr, u32 Size, u8 EnDataLast);
 void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			   u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast);
 void XCsuDma_LoopBackTransfer(XCsuDma *InstancePtr, u64 SrcAddr, u64 DstAddr,
