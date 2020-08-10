@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi.c
-* @addtogroup csi_v1_4
+* @addtogroup csi_v1_5
 * @{
 *
 * This file implements the functions to control and get info from the CSI2 RX

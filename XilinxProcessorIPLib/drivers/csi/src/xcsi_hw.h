@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xcsi_hw.h
-* @addtogroup csi_v1_4
+* @addtogroup csi_v1_5
 * @{
 *
 * Hardware register & masks definition file. It defines the register interface.
@@ -19,6 +19,7 @@
 * 1.0 vsa 06/15/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
 * 1.2 vsa 03/02/17 Add Word Count corruption interrupt bit support
+* 1.5 vsa 08/10/20 Add YUV 420 8bit support
 * </pre>
 *
 *****************************************************************************/
@@ -217,6 +218,7 @@ extern "C" {
 #define XCSI_ISR_FR_MASK	0x80000000	/**< Frame Received */
 #define XCSI_ISR_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
 #define XCSI_ISR_SKEWCALCHS_MASK	0x20000000	/**< Skewcalhs Error */
+#define XCSI_ISR_YUV420_MASK	0x10000000	/**< YUV420 Word count Error */
 #define XCSI_ISR_WC_MASK	0x00400000	/**< Word count corruption */
 #define XCSI_ISR_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
@@ -258,7 +260,7 @@ extern "C" {
 							  *  on Virtual
 							  *  Channel 0 */
 
-#define XCSI_ISR_ALLINTR_MASK		0xC07FFFFF	/**< All interrupts
+#define XCSI_ISR_ALLINTR_MASK		0xF07FFFFF	/**< All interrupts
 							  *  mask */
 
 #define XCSI_ISR_FR_SHIFT	31	/**< Shift bits for
@@ -267,6 +269,8 @@ extern "C" {
 					  *  VCx Frame Error interrupt */
 #define XCSI_ISR_SKEWCALCHS_SHIFT	29	/**< Shift bits for
 					  *  skeecalchs Error interrupt */
+#define XCSI_ISR_YUV420_SHIFT	28	/**< Shift bits for
+					  *  YUV420 word count interrupt */
 #define XCSI_ISR_WC_SHIFT	22	/**< Shift bits for Word Count
 					  *  corruption */
 #define XCSI_ISR_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
@@ -445,6 +449,7 @@ extern "C" {
 #define XCSI_INTR_VCXFE_MASK		(XCSI_ISR_VCXFE_MASK)
 
 #define XCSI_INTR_ERR_MASK 	(XCSI_ISR_SKEWCALCHS_MASK |\
+				 XCSI_ISR_YUV420_MASK	|\
 				 XCSI_ISR_WC_MASK	|\
 				 XCSI_ISR_ILC_MASK 	|\
 				 XCSI_ISR_SLBF_MASK 	|\
@@ -460,6 +465,7 @@ extern "C" {
 #define XCSI_IER_FR_MASK	0x80000000	/**< Frame Received */
 #define XCSI_IER_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
 #define XCSI_IER_SKEWCALHS_MASK	0x20000000	/**< Skewcalchs State */
+#define XCSI_IER_YUV420_MASK	0x10000000	/**< YUV420 Word Count Error */
 #define XCSI_IER_WC_MASK	0x00400000	/**< Word Count Corruption */
 #define XCSI_IER_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
@@ -500,11 +506,12 @@ extern "C" {
 							  *  Virtual
 							  *  Channel 0 */
 
-#define XCSI_IER_ALLINTR_MASK		0xC07FFFFF /**< All interrupts mask */
+#define XCSI_IER_ALLINTR_MASK		0xF07FFFFF /**< All interrupts mask */
 
 #define XCSI_IER_FR_SHIFT	31	/**< Shift bits for Frame received
 					  *  interrupt*/
 #define XCSI_IER_SKEWCALHS_SHIFT	29	/**< Shift bits for skewcalhs status */
+#define XCSI_IER_YUV420_SHIFT	28	/**< Shift bits for YUV 420 Word Count error */
 #define XCSI_IER_WC_SHIFT	22	/**< Shift bits for Word count
 					 *  corruption */
 #define XCSI_IER_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
