@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite.c
-* @addtogroup emaclite_v4_5
+* @addtogroup emaclite_v4_6
 * @{
 *
 * Functions in this file are the minimum required functions for the EmacLite
