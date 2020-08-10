@@ -1,5 +1,11 @@
 Changes for 2020.2
 ===============================
+csi_v1_5:
+Add support for YUV 420 8bits
+
+mipicsiss_v1_5:
+Add support for YUV 420 8bits
+
 v_hdmiphy1_v2_1:
 Removed redundant GTHE3 related code
 
