@@ -33,6 +33,7 @@
 *       tar  07/23/20 Fixed MISRA-C required violations
 *       kpt  07/30/20 Added minor error codes for ENC only and macros
 *                     related to IV
+*       bsv  08/06/20 Added delay load support for secure cases
 *
 * </pre>
 *
@@ -260,7 +261,7 @@ typedef struct {
 	u8 IsCdo; /**< CDO or Elf */
 	u32 NextBlkAddr;
 	u32 ChunkAddr;
-	/* verified data is at */
+	/* Verified data is at */
 	u32 SecureData;
 	u32 SecureDataLen;
 	u32 RemainingEncLen;
@@ -269,6 +270,7 @@ typedef struct {
 	XLoader_AuthCertificate *AcPtr;
 	XPmcDma *PmcDmaInstPtr;
 	XSecure_Aes AesInstance;
+	u32 SecureHdrLen;
 } XLoader_SecureParams;
 
 typedef enum {

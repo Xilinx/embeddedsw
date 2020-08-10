@@ -54,6 +54,7 @@
 *       bsv  07/01/2020 Added DevRelease to DevOps
 *       kc   07/28/2020 PLM mode is set to configuration during PDI load
 *       bsv  07/29/2020 Added support for delay load attribute
+*       bsv  08/06/2020 Code clean up
 *
 * </pre>
 *
@@ -576,7 +577,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	 *      CDO commands to Xilpm, and other components
 	 *   3. Load partitions to respective memories
 	 */
-	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
+	for ( ; PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
 			++PdiPtr->ImageNum) {
 		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 			PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
@@ -638,11 +639,11 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	for ( ; Index < NoOfDelayedHandoffCpus; ++Index) {
 		ImageNum = DelayHandoffImageNum[Index];
 		PrtnNum = DelayHandoffPrtnNum[Index];
-
-		for (PrtnIndex = 0U; PrtnIndex <
-			PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns; PrtnIndex++) {
-			Status = XLoader_UpdateHandoffParam(PdiPtr,
-					PrtnNum + PrtnIndex);
+		PdiPtr->PrtnNum = PrtnNum;
+		for (PrtnIndex = 0U;
+			PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns;
+			PrtnIndex++, PdiPtr->PrtnNum++) {
+			Status = XLoader_UpdateHandoffParam(PdiPtr);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -654,10 +655,10 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		}
 	}
 
-	NoOfDelayedHandoffCpus = 0U;
 	Status = XST_SUCCESS;
 
 END:
+	NoOfDelayedHandoffCpus = 0U;
 	if (DeviceOps[DeviceFlags].Release != NULL) {
 		SStatus = DeviceOps[DeviceFlags].Release();
 		if (Status == XST_SUCCESS) {
@@ -866,13 +867,13 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		}
 	}
 
+	Status = XST_SUCCESS;
+
+END:
 	/*
 	 * Make Number of handoff CPUs to zero
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
-	Status = XST_SUCCESS;
-
-END:
 	return Status;
 }
 
@@ -997,12 +998,10 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 	EmSubsystemId = PdiPtr->CurImgId;
 	PdiPtr->CopyToMemAddr =
 					PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
-	Status = XLoader_LoadImagePrtns(PdiPtr, PdiPtr->ImageNum,
-				PdiPtr->PrtnNum);
+	Status = XLoader_LoadImagePrtns(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	PdiPtr->PrtnNum += PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 
 	/* Log the image load to the Trace Log buffer */
 	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);

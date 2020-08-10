@@ -49,6 +49,7 @@
 *       kpt  07/30/20 Added Meta header IV range checks and added IV
 *                     support for ENC only case
 *       kpt  08/01/20 Corrected check to validate the last row of ppk hash
+*       bsv  08/06/20 Added delay load support for secure cases
 *
 * </pre>
 *
@@ -184,19 +185,37 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, 0);
 			goto END;
 		}
-		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-				(SecurePtr->PrtnHdr->ChecksumWordOfst *
-					XIH_PRTN_WORD_LEN);
 
 		/* Copy checksum hash */
-		Status = SecurePtr->PdiPtr->DeviceCopy(ChecksumOffset,
-				(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
+		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
+			Status = SecurePtr->PdiPtr->DeviceCopy(
+					SecurePtr->PdiPtr->CopyToMemAddr,
+					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
+			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
+		}
+		else {
+			ChecksumOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+					((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
+						XIH_PRTN_WORD_LEN);
+			if (PdiPtr->CopyToMem == TRUE) {
+				Status = SecurePtr->PdiPtr->DeviceCopy(ChecksumOffset,
+						SecurePtr->PdiPtr->CopyToMemAddr,
+						XLOADER_SHA3_LEN, 0U);
+				SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
+			}
+			else {
+				Status = SecurePtr->PdiPtr->DeviceCopy(ChecksumOffset,
+						(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
+			}
+		}
 		if (Status != XLOADER_SUCCESS){
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL, Status);
 			goto END;
 		}
+		SecurePtr->SecureHdrLen += XLOADER_SHA3_LEN;
 	}
+
 	/* Check if authentication is enabled */
 	if (PrtnHdr->AuthCertificateOfst != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO,
@@ -204,20 +223,41 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 
 		SecurePtr->IsAuthenticated = TRUE;
 		SecurePtr->SecureEn = TRUE;
-		/* Copy Authentication certificate */
+
 		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-			(SecurePtr->PrtnHdr->AuthCertificateOfst *
+			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
 				XIH_PRTN_WORD_LEN);
 		SecurePtr->AcPtr = &AuthCert;
-		Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
-				(UINTPTR)SecurePtr->AcPtr,
-				XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+
+		/* Copy Authentication certificate */
+		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
+			Status = SecurePtr->PdiPtr->DeviceCopy(
+					SecurePtr->PdiPtr->CopyToMemAddr,
+					(UINTPTR)SecurePtr->AcPtr,
+					XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_AUTH_CERT_MIN_SIZE;
+		}
+		else {
+			if (PdiPtr->CopyToMem == TRUE) {
+				Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
+						SecurePtr->PdiPtr->CopyToMemAddr,
+						XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+				PdiPtr->CopyToMemAddr += XLOADER_AUTH_CERT_MIN_SIZE;
+			}
+			else {
+				Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
+							(UINTPTR)SecurePtr->AcPtr,
+							XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+			}
+		}
 		if (Status != XLOADER_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_INIT_AC_COPY_FAIL, Status);
 			goto END;
 		}
+		SecurePtr->SecureHdrLen += XLOADER_AUTH_CERT_MIN_SIZE;
 	}
+
 	/* Check if encryption is enabled */
 	if (PrtnHdr->EncStatus != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO,
