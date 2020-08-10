@@ -291,7 +291,7 @@ void XCsi_IntrHandler(void *InstancePtr)
 	Xil_AssertVoid(XCsiPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Get Active interrupts */
-	ActiveIntr = XCsi_GetIntrStatus(XCsiPtr);
+	ActiveIntr = XCsi_GetIntrStatus(XCsiPtr) & XCsi_GetIntrEnable(XCsiPtr);
 
 	Mask = ActiveIntr & XCSI_INTR_FRAMERCVD_MASK;
 	if (Mask) {
