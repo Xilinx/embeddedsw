@@ -77,6 +77,9 @@
 ##                  It fixes CR#1071073
 ##     07/28/20 mus Updated intc_define_vector_table to have single interrupt
 ##                  handler entry for each interrupt id.
+##    08/10/20  mus Updated intc_define_vector_table to create HandlerTable entry,
+##                  in case if no valid interrupts are connected to AXI INTC IP in
+##                  specific HW design. It fixes CR#1072238
 ##
 ##
 ## @END_CHANGELOG
@@ -322,6 +325,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
         if {$num_intr_inputs != 1} {
             puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the same as length of ::hsi::utils::get_interrupt_sources [llength $source_pins] hsi_error"
         }
+       puts -nonewline $config_file ",\n\t\t\{"
+       puts $config_file "\t\tNULL"
+       puts $config_file "\n\t\t\},"
        return
     }
 
