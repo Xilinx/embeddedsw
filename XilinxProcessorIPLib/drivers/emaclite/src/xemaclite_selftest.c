@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite_selftest.c
-* @addtogroup emaclite_v4_5
+* @addtogroup emaclite_v4_6
 * @{
 *
 * Function(s) in this file are the required functions for the EMAC Lite

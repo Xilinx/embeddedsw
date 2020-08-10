@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite_l.c
-* @addtogroup emaclite_v4_5
+* @addtogroup emaclite_v4_6
 * @{
 *
 * This file contains the minimal, polled functions to send and receive Ethernet
