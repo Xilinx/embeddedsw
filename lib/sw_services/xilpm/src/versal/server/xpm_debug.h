@@ -294,6 +294,8 @@ extern "C" {
 #define XPM_INT_ERR_CFU_NOT_READY		0x3715U
 /* Error during check for PL POR status */
 #define XPM_INT_ERR_PL_POR_STATUS		0x3716U
+/* Error during initialization of GTY Address Array */
+#define XPM_INT_ERR_GTY_INIT		0x3717U
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
