@@ -468,12 +468,13 @@ static u32 XDpPsu_CheckClockRecovery(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved clock recovery. */
 		return XST_SUCCESS;
@@ -512,12 +513,13 @@ static u32 XDpPsu_CheckChannelEqualization(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved channel equalization. */
 		break;
@@ -530,12 +532,13 @@ static u32 XDpPsu_CheckChannelEqualization(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved symbol lock. */
 		break;
