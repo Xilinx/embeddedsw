@@ -426,7 +426,7 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 		PmOut32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
 
 		PmInfo("Reloading FPD CDO\r\n");
-		Status = XLoader_ReloadImage(Node->Id, XLoader_GetBootMode());
+		Status = XLoader_ReloadImage(Node->Id);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_RELOAD_IMAGE;
 		}
