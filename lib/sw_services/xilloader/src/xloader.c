@@ -55,6 +55,7 @@
 *       kc   07/28/2020 PLM mode is set to configuration during PDI load
 *       bsv  07/29/2020 Added support for delay load attribute
 *       bsv  08/06/2020 Code clean up
+*       bsv  08/10/2020 Added subsystem restart support from DDR
 *
 * </pre>
 *
@@ -252,26 +253,6 @@ int XLoader_Init()
 
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function reads the boot mode register and returns the
- * 			boot source
- *
- * @param	Void
- *
- * @return	Boot Source
- *
- *****************************************************************************/
-PdiSrc_t XLoader_GetBootMode(void)
-{
-	u32 BootMode;
-
-	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
-				CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
-
-	return (PdiSrc_t)BootMode;
 }
 
 /*****************************************************************************/
@@ -566,6 +547,9 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u32 PrtnIndex;
 	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u8 DdrRequested = (u8)FALSE;
+	u32 Pm_CapAccess = (u32)PM_CAP_ACCESS;
+	u32 Pm_CapContext = (u32)PM_CAP_CONTEXT;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -583,6 +567,12 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
 			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 			XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
+
+			if ((PdiPtr->CopyToMem == (u8)TRUE) && (DdrRequested == (u8)FALSE)) {
+				XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+					Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
+				DdrRequested = (u8)TRUE;
+			}
 		}
 		else {
 			PdiPtr->CopyToMem = FALSE;
@@ -614,7 +604,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			NoOfDelayedHandoffCpus += 1U;
 		}
 
-		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
+		Status = XLoader_LoadImage(PdiPtr);
 		if (Status != XST_SUCCESS) {
 			/* Check for Cfi errors */
 			if (NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
@@ -950,37 +940,13 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
  * This will load all the partitions that are present in that image.
  *
  * @param	PdiPtr is Pdi instance pointer
- * @param	ImageId is Id of the image present in PDI
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
+int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
-	u32 Index;
-	u32 PrtnNum = 0U;
-
-	if (0xFFFFFFFFU != ImageId) {
-		/*
-		 * Get subsystem information from the info stored during boot
-		 */
-		for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
-			++Index) {
-			if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
-				PdiPtr->ImageNum = Index;
-				PdiPtr->PrtnNum = PrtnNum;
-				break;
-			}
-			PrtnNum += PdiPtr->MetaHdr.ImgHdr[Index].NoOfPrtns;
-		}
-
-		if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND,
-						0);
-			goto END;
-		}
-	}
 
 	/* Configure preallocs for subsystem */
 	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
@@ -1018,12 +984,11 @@ END:
  * as part of the image load.
  *
  * @param	ImageId Id of the image present in PDI
- * @param	PdiSrc is the source from which image id is to be loaded
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_RestartImage(u32 ImageId, PdiSrc_t PdiSrc)
+int XLoader_RestartImage(u32 ImageId)
 {
 	int Status = XST_FAILURE;
 
@@ -1036,7 +1001,7 @@ int XLoader_RestartImage(u32 ImageId, PdiSrc_t PdiSrc)
 	}
 #endif
 
-	Status = XLoader_ReloadImage(ImageId, PdiSrc);
+	Status = XLoader_ReloadImage(ImageId);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1066,25 +1031,49 @@ END:
  * read the image partitions and loads them.
  *
  * @param	ImageId Id of the image present in PDI
- * @param	PdiSrc is the source from which image id is to be loaded
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_ReloadImage(u32 ImageId, PdiSrc_t PdiSrc)
+int XLoader_ReloadImage(u32 ImageId)
 {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;
 	XilPdi* PdiPtr = BootPdiPtr;
-	PdiSrc_t BootPdiSrc = PdiPtr->PdiSrc;
-	PdiPtr->PdiSrc = PdiSrc;
-	PdiPtr->CopyToMem = FALSE;
+	PdiSrc_t PdiSrc = PdiPtr->PdiSrc;
 	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u32 PrtnNum = 0U;
+	u32 Index = 0U;
 
-	if (PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) {
-		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
+	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
+		++Index) {
+		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
+			PdiPtr->ImageNum = Index;
+			PdiPtr->PrtnNum = PrtnNum;
+			break;
+		}
+		PrtnNum += PdiPtr->MetaHdr.ImgHdr[Index].NoOfPrtns;
 	}
+	if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
+		goto END;
+	}
+
+	PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
+		&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
+		XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
+	if (PdiPtr->CopyToMem == TRUE) {
+		PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
+		UPdiSrc = (u32)(PdiPtr->PdiSrc);
+		DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
+		PdiPtr->CopyToMem = FALSE;
+		PdiPtr->CopyToMemAddr =
+				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
+	}
+	PdiPtr->DelayHandoff = FALSE;
+	PdiPtr->DelayLoad = FALSE;
 
 	/*
 	 * This is for libpm to do the clock settings reqired for boot device
@@ -1129,7 +1118,7 @@ int XLoader_ReloadImage(u32 ImageId, PdiSrc_t PdiSrc)
 	PdiPtr->DeviceCopy = DeviceOps[PdiPtr->PdiSrc].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiSrc].Copy;
 
-	Status = XLoader_LoadImage(PdiPtr, ImageId);
+	Status = XLoader_LoadImage(PdiPtr);
 	if (DeviceOps[DeviceFlags].Release != NULL) {
 		SStatus = DeviceOps[DeviceFlags].Release();
 		if (Status == XST_SUCCESS) {
@@ -1164,8 +1153,9 @@ END:
 		default:
 			break;
 	}
-	PdiPtr->PdiSrc = BootPdiSrc;
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
+	PdiPtr->PdiSrc = PdiSrc;
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	return Status;
 }
 

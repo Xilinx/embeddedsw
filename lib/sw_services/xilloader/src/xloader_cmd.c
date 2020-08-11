@@ -26,8 +26,8 @@
 *       kc   07/28/2020 PLM mode is set to configuration during PDI load
 *       bsv  07/29/2020 Removed hard coding of DDR back up address
 *       bm   08/03/2020 Added LoadReadBackPdi Cmd
+*       bsv  08/10/2020 Added subsystem restart support from DDR
 *
-commands.
 * </pre>
 *
 * @note
@@ -101,43 +101,15 @@ static int XLoader_Features(XPlmi_Cmd * Cmd)
 static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ImgId;
+	u32 ImgId = Cmd->Payload[0U];
 	XilPdi* PdiPtr = BootPdiPtr;
 
-	PdiPtr->ImageNum = 1U;
-	PdiPtr->PrtnNum = 1U;
 	PdiPtr->IpiMask = Cmd->IpiMask;
 	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
 
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Stop the SEM scan before Image load */
-	Status = XSem_CfrStopScan();
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_STOP_SCAN, Status);
-		goto END;
-	}
-#endif
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
-	/*
-	 * Store the command fields in resume data
-	 */
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
-	PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
-	PdiPtr->DeviceCopy = DeviceOps[XLOADER_PDI_SRC_DDR].Copy;
-	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
-	ImgId = Cmd->Payload[0U];
-	PdiPtr->CopyToMem = FALSE;
-	PdiPtr->DelayHandoff = FALSE;
-	PdiPtr->DelayLoad = FALSE;
-
-	Status = XLoader_LoadImage(PdiPtr, ImgId);
-	if (Status != XST_SUCCESS) {
-		/* Update the error code */
-		XPlmi_ErrMgr(Status);
-		goto END;
-	}
-	Status = XLoader_StartImage(PdiPtr);
+	Status = XLoader_RestartImage(ImgId);
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
@@ -145,15 +117,6 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 	}
 
 END:
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Restart the SEM SCAN */
-	Status = XSem_CfrInit();
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_CFR_INIT, Status);
-		goto END1;
-	}
-END1:
-#endif
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	Cmd->Response[0U] = (u32)Status;
 	return Status;

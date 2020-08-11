@@ -52,6 +52,26 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+ * @brief	This function reads the boot mode register and returns the
+ * 			boot source
+ *
+ * @param	Void
+ *
+ * @return	Boot Source
+ *
+ *****************************************************************************/
+static inline PdiSrc_t XLoader_GetBootMode(void)
+{
+	u32 BootMode;
+
+	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
+				CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
+
+	return (PdiSrc_t)BootMode;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function checks if the boot mode is jtag or not.
  *
  * @param	Void
