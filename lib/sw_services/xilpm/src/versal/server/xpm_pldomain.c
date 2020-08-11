@@ -18,13 +18,8 @@
 #include "xpm_rail.h"
 
 #define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
-#define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
-#define XPM_NODEIDX_DEV_GTM_0_4_MIN		XPM_NODEIDX_DEV_GTM_0
-#define XPM_NODEIDX_DEV_GTM_0_4_MAX		XPM_NODEIDX_DEV_GTM_4
-#define XPM_NODEIDX_DEV_GTM_5_9_MIN		XPM_NODEIDX_DEV_GTM_5
-#define XPM_NODEIDX_DEV_GTM_5_9_MAX		XPM_NODEIDX_DEV_GTM_9
-#define XPM_NODEIDX_DEV_GTYP_MIN		XPM_NODEIDX_DEV_GTYP_0
-#define XPM_NODEIDX_DEV_GTYP_MAX		XPM_NODEIDX_DEV_GTYP_2
+/* Modify value of MAX_DEV_GT if we run out */
+#define MAX_DEV_GT		52U
 
 #define PLHCLEAN_EARLY_BOOT 0U
 #define PLHCLEAN_INIT_NODE  1U
@@ -248,49 +243,49 @@ done:
         return Status;
 }
 
+static XStatus InitGtyAddrArr(u32 *GtArrPtr, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 Idx = 0U;
+	u32 i;
+	XPm_Device *Device;
+
+	for (i = (u32)XPM_NODEIDX_DEV_GT_MIN; i < (u32)XPM_NODEIDX_DEV_MAX; ++i) {
+		Device = XPmDevice_GetByIndex(i);
+		if ((Device == NULL) ||
+			(NODETYPE(Device->Node.Id) != (u32)XPM_NODETYPE_DEV_GT)) {
+			continue;
+		}
+
+		if (Idx >= ArrLen) {
+			DbgErr = XPM_INT_ERR_GTY_INIT;
+			goto done;
+		}
+
+		GtArrPtr[Idx] = Device->Node.BaseAddress;
+		++Idx;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus GtyHouseClean(void)
 {
 	XStatus Status = XPM_ERR_HC_PL;
 	unsigned int i;
-	XPm_Device *Device;
-	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1 +
-			XPM_NODEIDX_DEV_GTM_0_4_MAX - XPM_NODEIDX_DEV_GTM_0_4_MIN + 1 +
-			XPM_NODEIDX_DEV_GTYP_MAX - XPM_NODEIDX_DEV_GTYP_MIN + 1 +
-			XPM_NODEIDX_DEV_GTM_5_9_MAX - XPM_NODEIDX_DEV_GTM_5_9_MIN + 1] = {0};
-	u32 GtySize = (u32)XPM_NODEIDX_DEV_GT_MAX - (u32)XPM_NODEIDX_DEV_GT_MIN + 1U;
-	u32 GtmSize = (u32)XPM_NODEIDX_DEV_GTM_0_4_MAX - (u32)XPM_NODEIDX_DEV_GTM_0_4_MIN + 1U;
-	u32 GtypSize = (u32)XPM_NODEIDX_DEV_GTYP_MAX - (u32)XPM_NODEIDX_DEV_GTYP_MIN + 1U;
-	u32 GtmSize2 = (u32)XPM_NODEIDX_DEV_GTM_5_9_MAX - (u32)XPM_NODEIDX_DEV_GTM_5_9_MIN + 1U;
+	u32 GtyAddresses[MAX_DEV_GT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	/* Store GTY Addresses */
-	for (i = 0; i < GtySize; i++) {
-		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GT_MIN + i);
-		if (NULL != Device) {
-			GtyAddresses[i] = Device->Node.BaseAddress;
-		}
-	}
-
-	/* Store GTM Addresses */
-	for (i = 0; i < GtmSize; i++) {
-		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTM_0_4_MIN + i);
-		if (NULL != Device) {
-			GtyAddresses[i + GtySize] = Device->Node.BaseAddress;
-		}
-	}
-	for (i = 0; i < GtmSize2; i++) {
-		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTM_5_9_MIN + i);
-		if (NULL != Device) {
-			GtyAddresses[i + GtySize + GtmSize + GtypSize] = Device->Node.BaseAddress;
-		}
-	}
-
-	/* Store GTYP Addresses */
-	for (i = 0; i <  GtypSize; i++) {
-		Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_GTYP_MIN + i);
-		if (NULL != Device) {
-			GtyAddresses[i + GtySize + GtmSize] = Device->Node.BaseAddress;
-		}
+	/* Initialize array with GT addresses */
+	Status = InitGtyAddrArr(GtyAddresses, ARRAY_SIZE(GtyAddresses));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_GTY_HC;
+		goto done;
 	}
 
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
