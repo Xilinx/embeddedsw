@@ -29,6 +29,10 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
+*       kc   08/11/2020 Added disabling and clearing of error which has actions
+*                       selected as subsystem shutdown or restart or custom.
+*                       They have to be re-enabled again using SetAction
+*                       command.
 *
 * </pre>
 *
@@ -378,11 +382,14 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 	case XPLMI_EM_ACTION_CUSTOM:
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
+		(void)XPlmi_EmDisable(ErrorNodeId, ErrorIndex);
 		if (ErrorTable[ErrorIndex].Handler != NULL) {
 			ErrorTable[ErrorIndex].Handler(ErrorNodeId, ErrorIndex);
 		}
+		XPlmi_EmClearError(ErrorNodeId, ErrorIndex);
 		break;
 	default:
+		XPlmi_EmClearError(ErrorNodeId, ErrorIndex);
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
 				"for PSM errors. Error ID: 0x%x\r\n", ErrorIndex);
 		break;
@@ -417,15 +424,8 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 			if ((Err1Status & (1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)))
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
-				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR1, Index);
-
-				/* Do not clear error status for register notifier
-				 * error action
-				 */
-				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
-					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS,
-						(1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)));
-				}
+				XPlmi_HandlePsmError(
+					XPLMI_EVENT_ERROR_PSM_ERR1, Index);
 			}
 		}
 	}
@@ -435,15 +435,8 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 			if ((Err2Status & (1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)))
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
-				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR2, Index);
-
-				/* Do not clear error status for register notifier
-				 * error action
-				 */
-				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
-					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS,
-					(1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)));
-				}
+				XPlmi_HandlePsmError(
+					XPLMI_EVENT_ERROR_PSM_ERR2, Index);
 			}
 		}
 	}
@@ -507,11 +500,22 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	u32 Err2Status;
 	u32 Index;
 
+	(void)CallbackRef;
+
 	Err1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 
 	XPlmi_Printf(DEBUG_GENERAL,
-			"Received Error Interrupt: 0x%0x\n\r", (u32) CallbackRef);
+		"PMC EAM Interrupt: ERR1: 0x%0x, ERR2: 0x%0x\n\r",
+			Err1Status, Err2Status);
+	/*
+	 * Interrupt is selected as response for Custom, subsystem shutdown
+	 * and subsystem restart actions. For these actions, error will be
+	 * disabled. Agent should clear the source and enable the error again
+	 * using SetAction. In SetAction, error will be cleared and enabled.
+	 * For subsystem cases, during subsystem restart, error will be enabled
+	 * again.
+	 */
 
 	if (Err1Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
@@ -519,15 +523,16 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 			if ((Err1Status & (1U << Index)) &&
 				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR1, Index);
 
-				/* Do not clear error status for register notifier
-				* error action
-				*/
-				if ((XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) ||
-					(Index == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
-					XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, (1U << Index));
+				/* PSM errors are handled in PsmErrHandler */
+				if (Index != XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
+				      XPlmi_EmDisable(
+					XPLMI_EVENT_ERROR_PMC_ERR1, Index);
 				}
+				ErrorTable[Index].Handler(
+					XPLMI_EVENT_ERROR_PMC_ERR1, Index);
+				XPlmi_EmClearError(XPLMI_EVENT_ERROR_PMC_ERR1,
+						   Index);
 			}
 		}
 	}
@@ -539,15 +544,13 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 				(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)))
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR2, Index);
 
-				/* Do not clear error status for register notifier
-				 * error action
-				 */
-				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
-					XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
-						(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)));
-				}
+				XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR2,
+						      Index);
+				ErrorTable[Index].Handler(
+					XPLMI_EVENT_ERROR_PMC_ERR2, Index);
+				XPlmi_EmClearError(XPLMI_EVENT_ERROR_PMC_ERR2,
+						   Index);
 			}
 		}
 	}
