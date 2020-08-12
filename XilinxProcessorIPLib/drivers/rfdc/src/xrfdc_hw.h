@@ -81,6 +81,7 @@
 *       cog    06/24/20 Masks and offsets for MB config.
 *       cog    06/24/20 Masks, shifts and offsets or observaion FIFO.
 *       cog    06/24/20 Masks, shifts and offsets for TDD Mode registers.
+*       cog    08/11/20 Refactor of clock distribution settings.
 *
 *</pre>
 *
@@ -1841,6 +1842,7 @@ extern "C" {
  */
 
 #define XRFDC_CLOCK_DETECT_MASK 0x0000FFFFU /**< Clock detect mask */
+#define XRFDC_CLOCK_DETECT_SRC_MASK 0x00005555U /**< Clock detect mask */
 
 /* @} */
 
@@ -1994,7 +1996,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_PLL_DIVIDER0_MASK 0x00FFU
+#define XRFDC_PLL_DIVIDER0_MASK 0x0CFFU
 #define XRFDC_PLL_DIVIDER0_MODE_MASK 0x00C0U
 #define XRFDC_PLL_DIVIDER0_BYP_OPDIV_MASK 0x0400U
 #define XRFDC_PLL_DIVIDER0_BYP_PLL_MASK 0x0800U
