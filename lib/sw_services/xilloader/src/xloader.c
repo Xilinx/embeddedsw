@@ -609,7 +609,12 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			/* Check for Cfi errors */
 			if (NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
 					== XPM_NODESUBCL_DEV_PL) {
-				XLoader_CframeErrorHandler();
+				/*
+				 * To preserve the PDI error, ignoring the
+				 * Error returned by XLoader_CframeErrorHandler
+				 */
+				XLoader_CframeErrorHandler(
+				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 			}
 			goto END;
 		}
