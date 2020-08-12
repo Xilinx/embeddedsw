@@ -59,6 +59,9 @@
 *       skd  07/29/2020 Removed device copy macros
 *       bsv  08/06/2020 Code clean up
 *       bsv  08/10/2020 Added subsystem restart support from DDR
+*       kal  08/12/2020 Added param ImageId for XLoader_CframeErrorHandler
+*                       to identify Full PL partition and perform PL house
+*                       cleaning.
 *
 * </pre>
 *
@@ -336,7 +339,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId);
 int XLoader_ReloadImage(u32 ImageId);
-void XLoader_CframeErrorHandler(void);
+int XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 

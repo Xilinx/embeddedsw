@@ -18,6 +18,7 @@
 * 1.00  bsv   06/17/2019 Initial release
 * 1.01  bsv   04/09/2020 Code clean up of xilloader
 * 1.02  kc    08/03/2020 Added status prints for CFU/CFI errors
+*       kal   08/12/2020 Added PlHouseCleaning in case of any PL error.
 *
 * </pre>
 *
@@ -29,6 +30,7 @@
 #include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_util.h"
+#include "xpm_pldomain.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -91,17 +93,19 @@ END:
  * status registers to check for any errors in PL and call corresponding error
  * recovery functions if needed.
  *
- * @param 	None
+ * @param       ImageId is Id of the image present in PDI
  *
- * @return      None
+ * @return      XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XLoader_CframeErrorHandler(void)
+int XLoader_CframeErrorHandler(u32 ImageId)
 {
+	int Status = XST_FAILURE;
 	u32 Err1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	u32 Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 	u32 CfiErrStatus = Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
 	u32 CfuErrStatus = Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK;
+	u32 CountVal = 0U;
 
 	if (CfiErrStatus == 0U) {
 		CfiErrStatus = Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;
@@ -136,4 +140,17 @@ void XLoader_CframeErrorHandler(void)
 	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
 			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK,
 			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK);
+
+	CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
+
+	if ((CountVal != 0U) && (ImageId == PM_DEV_PLD_0)) {
+		Status = XPmPlDomain_RetriggerPlHouseClean();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
