@@ -9,7 +9,7 @@
 /**
 *
 * @file xv_sditx_example_selftest.c
-* @addtogroup v_sditx_v1_0
+* @addtogroup v_sditx_v3_1
 * @{
 *
 * This file contains a design example using the XV_SdiTx driver. It performs a

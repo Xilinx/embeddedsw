@@ -22,6 +22,8 @@
 	jsr    10/05/18 Moved 3GB specific video modes timing
 			parameters from video common library
 			to SDI common driver
+* 3.1   vsa    08/12/20 Avoid workaround in XV_SdiTx_StreamStart() for versal
+*			device
 * </pre>
 *
 ******************************************************************************/
@@ -939,6 +941,7 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		break;
 	}
 
+#ifndef versal
 	/* Workaround for the current limitation of the TX core */
 	/* Read back the current mode and fractional information then program
 	* it accordingly
@@ -963,6 +966,7 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 					~(InstancePtr->Transport.IsFractional),
 					MuxPattern);
 	}
+#endif
 
 	InstancePtr->State = XV_SDITX_STATE_GTRESETDONE_NORMAL;
 	XV_SdiTx_StartSdi(InstancePtr, InstancePtr->Transport.TMode,
