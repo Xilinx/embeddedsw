@@ -36,6 +36,7 @@ XStatus XPmPlDomain_InitandHouseclean(void);
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent, u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt);
+XStatus XPmPlDomain_RetriggerPlHouseClean(void);
 
 #ifdef __cplusplus
 }

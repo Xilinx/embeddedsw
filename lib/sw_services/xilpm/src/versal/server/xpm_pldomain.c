@@ -862,3 +862,37 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+XStatus XPmPlDomain_RetriggerPlHouseClean()
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_PlDomain *Pld;
+
+	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
+	if (NULL == Pld) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XST_FAILURE;
+		goto done;
+	}
+	HcleanDone = 0U;
+
+	Status = XPmPlDomain_InitandHouseclean();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Unlock CFU writes */
+        PldCfuLock(Pld, 0U);
+
+	Status = PlHouseClean(PLHCLEAN_INIT_NODE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Lock CFU writes */
+        PldCfuLock(Pld, 1U);
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
