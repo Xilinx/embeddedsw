@@ -24,6 +24,7 @@
 *						context
 *       kc   06/03/2020 Moved PLM GIC interrupt enablement to GIC handlers
 *       bsv  04/09/2020 Code clean up of Xilloader
+*       bsv  08/12/2020 Remove misleading comments
 *
 * </pre>
 *
@@ -65,9 +66,6 @@ int XLoader_IntrInit()
 	/*
 	 * Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
-	 * TODO
-	 * When we enable SMAP_ABORT or any errors, then we need checks for
-	 * SBI DATA RDY mask before loading the PDI.
 	 */
 	XPlmi_RegisterHandler(XPLMI_SBI_DATA_RDY, XLoader_SbiLoadPdi, (void *)0U);
 	Status = XST_SUCCESS;
