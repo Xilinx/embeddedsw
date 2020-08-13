@@ -11,6 +11,7 @@
 #include "xpm_psm.h"
 #include "xpm_regs.h"
 #include "sleep.h"
+#include "xpm_aie.h"
 
 extern u32 ResetReason;
 static u32 PsmGgsValues[GGS_REGS] = {0U};
@@ -582,6 +583,45 @@ done:
 	return Status;
 }
 
+static int XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
+{
+	int Status = XST_FAILURE;
+	XPm_Device *Aie = NULL;
+	u32 IntrClear = 0x0U;
+
+	Aie = XPmDevice_GetById(AieDeviceId);
+	if (NULL == Aie) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	/* Only needed for S80 ES1 devices */
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_S80 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+		/* Check whether given subsystem has access to the device */
+		Status = XPm_IsAccessAllowed(SubsystemId, AieDeviceId);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
+		/* Unlock the AIE PCSR register to allow register writes */
+		XPmAieDomain_UnlockPcsr(Aie->Node.BaseAddress);
+
+		/* Clear ISR */
+		IntrClear = Value & ME_NPI_ME_ISR_MASK;
+		XPm_Out32(Aie->Node.BaseAddress + ME_NPI_ME_ISR_OFFSET, IntrClear);
+
+		/* Re-lock the AIE PCSR register for protection */
+		XPmAieDomain_LockPcsr(Aie->Node.BaseAddress);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response)
 {
@@ -734,6 +774,13 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 			*Response = XPM_RESET_REASON_INVALID;
 		}
 		Status = XST_SUCCESS;
+		break;
+	case (u32)IOCTL_AIE_ISR_CLEAR:
+		if (PM_DEV_AIE != DeviceId) {
+			Status = XPM_INVALID_DEVICEID;
+			goto done;
+		}
+		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
 		break;
 	default:
 		/* Not supported yet */

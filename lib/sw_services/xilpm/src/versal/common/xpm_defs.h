@@ -263,6 +263,8 @@ enum pm_ioctl_id {
 	/* USB PMU state req */
 	IOCTL_USB_SET_STATE,
 	IOCTL_GET_LAST_RESET_REASON,
+	/* AIE ISR Clear */
+	IOCTL_AIE_ISR_CLEAR,
 };
 
 /* PLL parameters */
