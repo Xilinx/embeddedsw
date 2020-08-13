@@ -680,6 +680,8 @@ typedef struct {
     u32 AxiLiteClkFreq;     /**< AXI Lite Clock Frequency in Hz */
     u32 DrpClkFreq;         /**< DRP Clock Frequency in Hz */
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
+    u8  RxMaxRate;          /**< Max rate of RX */
+    u8  TxMaxRate;          /**< Max rate of TX */
 } XHdmiphy1_Config;
 
 /* Forward declaration. */
