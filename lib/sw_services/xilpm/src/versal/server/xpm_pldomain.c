@@ -103,10 +103,7 @@ static void PldApplyTrim(u32 TrimType)
 			       TrimVal);
 			/* if eFUSE is not programmed,
 			then set rw_read_voltages to 0.61V + 0.625V by writing */
-			if ((TrimVal == 0U) &&
-			    (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-			    (PLATFORM_VERSION_SILICON_ES1 ==
-			     XPm_GetPlatformVersion())) {
+			if ((TrimVal == 0U) && (PLATFORM_VERSION_SILICON == XPm_GetPlatform())) {
 				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
 			}
                         XCframe_CramTrim(&CframeIns, TrimVal);
