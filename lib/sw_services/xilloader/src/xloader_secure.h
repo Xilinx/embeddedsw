@@ -34,6 +34,8 @@
 *       kpt  07/30/20 Added minor error codes for ENC only and macros
 *                     related to IV
 *       bsv  08/06/20 Added delay load support for secure cases
+*       har  08/11/20 Added XLoader_AuthJtagMessage structure  and macros for
+*                     Authenticated JTAG
 *
 * </pre>
 *
@@ -199,6 +201,38 @@ extern "C" {
 #define XLOADER_EFUSE_USR0_RED_KEY				(0x00000008U)
 #define XLOADER_EFUSE_USR1_RED_KEY				(0x00000010U)
 
+#define XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET		(0xF12500ACU)
+#define XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET			(0xF11B0030U)
+#define XLOADER_PMC_TAP_DAP_CFG_OFFSET				(0xF11B0008U)
+#define XLOADER_PMC_TAP_INST_MASK_0_OFFSET			(0xF11B0000U)
+#define XLOADER_PMC_TAP_INST_MASK_1_OFFSET			(0xF11B0004U)
+#define XLOADER_PMC_TAP_DAP_SECURITY_OFFSET			(0xF11B000CU)
+#define XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET		(0xF11B0018U)
+#define XLOADER_CRP_RST_DBG_OFFSET				(0xF1260400U)
+
+#define XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK		(0x1U)
+#define XLOADER_AUTH_JTAG_DIS_MASK				(0x180000U)
+#define XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS			(512U)
+#define XLOADER_AUTH_JTAG_DATA_AH_LENGTH			(104U)
+#define XLOADER_AUTH_JTAG_MAX_ATTEMPTS				(1U)
+#define XLOADER_AUTH_FAIL_COUNTER_RST_VALUE			(0U)
+
+#define XLOADER_AUTH_JTAG_DATA_AH_INDEX				(0U)
+#define XLOADER_AUTH_JTAG_DATA_PPK_INDEX			(26U)
+#define XLOADER_AUTH_JTAG_DATA_SIGNATURE_INDEX			(286U)
+
+#define XLOADER_DAP_SECURITY_GATE_DISABLE_MASK			(0xFFFFFFFFU)
+#define XLOADER_DAP_CFG_SPNIDEN_MASK				(0x1U)
+#define XLOADER_DAP_CFG_SPIDEN_MASK				(0x2U)
+#define XLOADER_DAP_CFG_NIDEN_MASK				(0x4U)
+#define XLOADER_DAP_CFG_DBGEN_MASK				(0x8U)
+#define XLOADER_DAP_CFG_ENABLE_ALL_DBG_MASK	(XLOADER_DAP_CFG_SPNIDEN_MASK | \
+						XLOADER_DAP_CFG_SPIDEN_MASK | \
+						XLOADER_DAP_CFG_NIDEN_MASK |  \
+						XLOADER_DAP_CFG_DBGEN_MASK)
+#define XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK			(0U)
+#define XLOADER_CRP_RST_DBG_ENABLE_MASK				(0U)
+
 /**************************** Type Definitions *******************************/
 
 typedef struct {
@@ -249,6 +283,16 @@ typedef struct {
 }XLoader_AesKekKey;
 
 typedef struct {
+	u8 AuthFailCounter;
+	u32* AuthHdrPtr;
+	u32 RevocationId;
+	u32 MessageType;
+	u32 JtagEnableTimeout;
+	u32* PpkPtr;
+	u32* EnableJtagSignaturePtr;
+} XLoader_AuthJtagMessage;
+
+typedef struct {
 	u8 SecureEn;
 	u8 IsNextChunkCopyStarted;
 	u8 IsCheckSumEnabled;
@@ -271,6 +315,8 @@ typedef struct {
 	XPmcDma *PmcDmaInstPtr;
 	XSecure_Aes AesInstance;
 	u32 SecureHdrLen;
+	u8 CheckJtagAuth;
+	XLoader_AuthJtagMessage AuthJtagMessage;
 } XLoader_SecureParams;
 
 typedef enum {
@@ -389,6 +435,9 @@ u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
 u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	u32 ChunkLen);
+int XLoader_AddAuthJtagToScheduler(void);
+int XLoader_CheckAuthJtagIntStatus(void *);
+int XLoader_AuthJtag(void);
 
 #ifdef __cplusplus
 }

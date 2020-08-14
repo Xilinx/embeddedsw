@@ -46,6 +46,7 @@
 *       bsv  07/29/2020 Added error codes related to delay load
 *       kpt  07/30/2020 Added error code for Meta header length overflow
 *       kc   08/04/2020 Added error code NPLL lock status for master SLR
+*       har  08/11/2020 Added error code for authenticated JTAG
 *
 * </pre>
 *
@@ -318,6 +319,8 @@ typedef enum {
 						free it from the SBI buffers. Errors occurred
 						during such copies to PMC RAM is denoted using
 						this error code. */
+	XLOADER_ERR_ADD_TASK_SCHEDULER,	/**<0x33F - Error while adding task to
+						the scheduler */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
@@ -395,6 +398,23 @@ typedef enum {
 		/**< 0x61F Data copy to internal memory failed */
 	XLOADER_ERR_METAHDR_LEN_OVERFLOW,
 		/**< 0x620 Failed when total size is greater than Metahdr length */
+
+	XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY,
+		/**< 0x621 Jtag Authentication failed when PPK not programmed */
+	XLOADER_ERR_AUTH_JTAG_DISABLED,
+		/**< 0x622 Jtag Authentication disable efuse bit is set */
+	XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL,
+		/**< 0x623 Jtag Authentication failed when verification of PPK
+		hash verification failed */
+	XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL,
+		/**< 0x624 Jtag Authentication failed when verification of
+		signature failed*/
+	XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS,
+		/**< 0x625 Jtag Authentication failed more than once */
+	XLOADER_ERR_AUTH_JTAG_GET_DMA,
+		/**< 0x626 Failed to get DMA instance for JTAG authentication */
+	XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
+		/**<0x627 Hash calculation failed before signature verification */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
