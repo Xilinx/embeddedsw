@@ -23,6 +23,7 @@ lwip211_v1_3:
 Fix RX BD setup order.
 Fix check for base address in Zynq clock setup.
 Fix mkfs usage in lwip examples.
+Fix RX pbuf freeing in GEM error handling path.
 
 sdps_v3_10
 Add support for SD/eMMC Non-Blocking Read
