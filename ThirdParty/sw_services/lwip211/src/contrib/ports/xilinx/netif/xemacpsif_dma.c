@@ -821,7 +821,8 @@ void free_txrx_pbufs(xemacpsif_s *xemacpsif)
 		}
 	}
 
-	for (index = index1; index < (index1 + XLWIP_CONFIG_N_TX_DESC); index++) {
+	index1 = get_base_index_rxpbufsstorage(xemacpsif);
+	for (index = index1; index < (index1 + XLWIP_CONFIG_N_RX_DESC); index++) {
 		p = (struct pbuf *)rx_pbufs_storage[index];
 		pbuf_free(p);
 

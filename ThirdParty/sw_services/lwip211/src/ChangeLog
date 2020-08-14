@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2020-08-14
+	* Fix RX pbuf freeing in GEM error handling path.
 2020-06-22
 	* Fix the Zynq base address check to use internal definition
 	  instead of canonical definition.
