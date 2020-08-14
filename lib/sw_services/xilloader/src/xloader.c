@@ -56,6 +56,8 @@
 *       bsv  07/29/2020 Added support for delay load attribute
 *       bsv  08/06/2020 Code clean up
 *       bsv  08/10/2020 Added subsystem restart support from DDR
+*       har  08/11/2020 Added task to scheduler for checking Authenticated JTAG
+*                       interrupt status
 *
 * </pre>
 *
@@ -248,6 +250,12 @@ int XLoader_Init()
 	}
 
 	Status = XLoader_CframeInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Adding task to the scheduler to handle Authenticated JTAG message */
+	Status = XLoader_AddAuthJtagToScheduler();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

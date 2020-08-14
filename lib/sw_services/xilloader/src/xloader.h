@@ -59,9 +59,13 @@
 *       skd  07/29/2020 Removed device copy macros
 *       bsv  08/06/2020 Code clean up
 *       bsv  08/10/2020 Added subsystem restart support from DDR
+<<<<<<< HEAD
 *       kal  08/12/2020 Added param ImageId for XLoader_CframeErrorHandler
 *                       to identify Full PL partition and perform PL house
 *                       cleaning.
+=======
+*       har  08/11/2020 Added XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL
+>>>>>>> sw_services:xilloader:Support for Authenticated JTAG
 *
 * </pre>
 *
@@ -225,6 +229,7 @@ typedef enum {
 						* EXTENDED IDCODE - Device
 						*/
 
+#define XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL	(1000U)
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's

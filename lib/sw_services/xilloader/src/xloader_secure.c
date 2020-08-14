@@ -51,6 +51,7 @@
 *       kpt  08/01/20 Corrected check to validate the last row of ppk hash
 *       bsv  08/06/20 Added delay load support for secure cases
 *       kpt  08/10/20 Corrected endianness for meta header IV range checking
+*       har  08/11/20 Added support for authenticated JTAG
 *
 * </pre>
 *
@@ -67,6 +68,9 @@
 #include "xsecure_aes_core_hw.h"
 #include "xsecure_aes.h"
 #include "xplmi.h"
+#include "xplmi_modules.h"
+#include "xplmi_task.h"
+#include "xplmi_scheduler.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -79,15 +83,15 @@
 * @brief	This function returns authentication type by reading
 * authentication header.
 *
-* @param	AcPtr is pointer to the XLoader_AuthCertificate instance.
+* @param	AuthHdrPtr is a pointer to the Authentication header of the AC.
 *
 * @return	- XLOADER_AC_AH_PUB_ALG_RSA
 *		- XLOADER_AC_AH_PUB_ALG_ECDSA
 *
 ******************************************************************************/
-static INLINE u32 XLoader_GetAuthType(const XLoader_AuthCertificate *AcPtr)
+static INLINE u32 XLoader_GetAuthType(const u32* AuthHdrPtr)
 {
-	return (AcPtr->AuthHdr & XLOADER_AC_AH_PUB_ALG_MASK);
+	return ((*AuthHdrPtr) & XLOADER_AC_AH_PUB_ALG_MASK);
 }
 
 /************************** Function Prototypes ******************************/
@@ -128,6 +132,9 @@ static u32 XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
 static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr);
 static int XLoader_ValidateIV(u32 *IHPtr, u32 *EfusePtr);
 static void XLoader_ReadIV(u32 *IV, u32 *EfuseIV);
+static void XLoader_AuthJtagInit(XLoader_SecureParams *SecurePtr,
+	u32* AuthJtagData);
+static void XLoader_EnableJtag(void);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert;
@@ -1184,7 +1191,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 IsEfuseAuth = TRUE;
 	u32 AuthType;
 
-	AuthType = XLoader_GetAuthType(AcPtr);
+	AuthType = XLoader_GetAuthType(&AcPtr->AuthHdr);
 	/*
 	 * Skip running the KAT for ECDSA or RSA if it is already run by ROM
 	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -1287,7 +1294,14 @@ static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
 	u32 Status = XLOADER_FAILURE;
 	XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
-	u32 AuthType =  XLoader_GetAuthType(AcPtr);
+	u32 AuthType;
+
+	if (SecurePtr->CheckJtagAuth == (u8)TRUE) {
+		AuthType = XLoader_GetAuthType(SecurePtr->AuthJtagMessage.AuthHdrPtr);
+	}
+	else {
+		AuthType = XLoader_GetAuthType(&AcPtr->AuthHdr);
+	}
 
 	/* RSA authentication */
 	if (AuthType ==	XLOADER_AC_AH_PUB_ALG_RSA) {
@@ -1649,8 +1663,14 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Update PPK  */
-	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)&AcPtr->Ppk,
+	if (SecurePtr->CheckJtagAuth == TRUE) {
+		Status = XSecure_Sha3Update(&Sha3Instance,
+		(u8 *)SecurePtr->AuthJtagMessage.PpkPtr, XLOADER_PPK_SIZE);
+	}
+	else {
+		Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)&AcPtr->Ppk,
 			XLOADER_PPK_SIZE);
+	}
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_PPK_HASH_CALCULATION_FAIL, Status);
@@ -3143,4 +3163,269 @@ static void XLoader_ReadIV(u32 *IV, u32 *EfuseIV)
 					Index++) {
 		IV[Index] = EfuseIV[Index];
 	}
+}
+
+/******************************************************************************/
+/**
+* @brief        This function adds periodic checks of the status of Auth
+*               JTAG interrupt status to the scheduler.
+*
+* @param        None
+*
+* @return       XST_SUCCESS otherwise error code is returned
+*
+******************************************************************************/
+int XLoader_AddAuthJtagToScheduler(void)
+{
+	int Status = XST_FAILURE;
+	u32 AuthJtagDis;
+
+	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+		XLOADER_AUTH_JTAG_DIS_MASK;
+	Status = XLoader_CheckNonZeroPpk();
+
+	if ((AuthJtagDis != XLOADER_AUTH_JTAG_DIS_MASK) &&
+		(Status == XST_SUCCESS)) {
+		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
+			XLoader_CheckAuthJtagIntStatus,
+			XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL,
+			XPLM_TASK_PRIORITY_1);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus( XLOADER_ERR_ADD_TASK_SCHEDULER, 0);
+		}
+	}
+	else {
+		/*
+		 * The task should not be added to the scheduler if Auth JTAG
+		 * disable efuse bit is set or PPK hash is not programmed in
+		 * efuse. Thus forcing the Status to be XST_SUCCESS.
+		 */
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function checks the status of Auth JTAG interrupt status.
+*
+* @param	Arg Not used in the function currently
+*
+* @return	XST_SUCCESS otherwise error code shall be returned
+*
+* @note    	If Auth JTAG interrupt status is set, then XLoader_AuthJtag
+*		API will be called.
+*****************************************************************************/
+int XLoader_CheckAuthJtagIntStatus(void *Arg)
+{
+	int Status = XST_FAILURE;
+	u32 InterruptStatus;
+
+	(void)Arg;
+
+	InterruptStatus = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET) &
+		XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK;
+
+	if (InterruptStatus == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK) {
+		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
+			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
+		Status = XLoader_AuthJtag();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief       This function initilizes the SecureParams pointer for
+*              JTAG authentication.
+*
+* @param       SecureParams is pointer to the XLoader_SecureParams instance
+* @param       AuthJtagData is an array which stores Auth Jtag message
+*
+* @return      None
+*
+****************************************************************************/
+static void XLoader_AuthJtagInit(XLoader_SecureParams *SecureParams,
+		 u32* AuthJtagData)
+{
+	SecureParams->CheckJtagAuth = (u8)TRUE;
+	SecureParams->AuthJtagMessage.AuthHdrPtr =
+		&AuthJtagData[XLOADER_AUTH_JTAG_DATA_AH_INDEX];
+	SecureParams->AuthJtagMessage.PpkPtr =
+		&AuthJtagData[XLOADER_AUTH_JTAG_DATA_PPK_INDEX];
+	SecureParams->AuthJtagMessage.EnableJtagSignaturePtr =
+		&AuthJtagData[XLOADER_AUTH_JTAG_DATA_SIGNATURE_INDEX];
+}
+
+/*****************************************************************************/
+/**
+* @brief       This function authenticates the data pushed in through PMC TAP
+*              before enabling the JTAG
+*
+* @param       None
+*
+* @return      XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_AuthJtag()
+{
+	volatile int Status = XST_FAILURE;
+	u32 AuthJtagDis = 0U;
+	u16 Index;
+	u32 AuthJtagData[XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS]
+		__attribute__ ((aligned (16U))) = {0U};
+	XLoader_SecureParams SecureParams = {0U};
+	XSecure_Sha3Hash Sha3Hash = {0U};
+	XSecure_Sha3 Sha3Instance = {0U};
+
+	for (Index = 0U; Index < XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS; Index++) {
+		AuthJtagData[Index] = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET +
+			(Index * XPLMI_WORD_LEN));
+	}
+
+	/* Check efuse bits for secure debug disable */
+	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+		XLOADER_AUTH_JTAG_DIS_MASK;
+	if (AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, 0);
+		goto END;
+	}
+
+	/* Check eFUSE bits for HwRoT */
+	Status = XLoader_CheckNonZeroPpk();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY, 0);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	if (SecureParams.PmcDmaInstPtr == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_GET_DMA, 0);
+		goto END;
+	}
+
+	XLoader_AuthJtagInit(&SecureParams, AuthJtagData);
+
+	Status = XLoader_PpkVerify(&SecureParams);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL,
+			Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	Status = XSecure_Sha3Initialize(&Sha3Instance, SecureParams.PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
+			 Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	XSecure_Sha3Start(&Sha3Instance);
+
+	Status = XSecure_Sha3LastUpdate(&Sha3Instance);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
+			 Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	Status = XSecure_Sha3Update(&Sha3Instance,
+		 (u8*)(SecureParams.AuthJtagMessage.AuthHdrPtr),
+		 XLOADER_AUTH_JTAG_DATA_AH_LENGTH);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(
+			XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL, Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	Status = XSecure_Sha3Finish(&Sha3Instance, &Sha3Hash);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(
+			XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL, Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	/* Verify signature of Auth Jtag data */
+	Status = XLoader_VerifySignature(&SecureParams, Sha3Hash.Hash,
+		 (XLoader_RsaKey*)(SecureParams.AuthJtagMessage.PpkPtr),
+		 (u8*)(SecureParams.AuthJtagMessage.EnableJtagSignaturePtr));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(
+			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);
+		SecureParams.AuthJtagMessage.AuthFailCounter += 1U;
+		if (SecureParams.AuthJtagMessage.AuthFailCounter >
+			XLOADER_AUTH_JTAG_MAX_ATTEMPTS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS, 0);
+		}
+	}
+	else {
+		SecureParams.AuthJtagMessage.AuthFailCounter =
+			XLOADER_AUTH_FAIL_COUNTER_RST_VALUE;
+		XLoader_EnableJtag();
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief       This function authenticates the data pushed in through PMC TAP
+*              before enabling the JTAG
+*
+* @param       None
+*
+* @return      None
+*
+******************************************************************************/
+static void XLoader_EnableJtag()
+{
+	/*
+	 * Enable secure/non-secure debug
+	 * Enabled invasive & non-invasive debug
+	 */
+	XPlmi_Out32(XLOADER_PMC_TAP_DAP_CFG_OFFSET,
+		XLOADER_DAP_CFG_ENABLE_ALL_DBG_MASK);
+
+	/*
+	 * Enable all the instructions
+	 */
+	XPlmi_Out32(XLOADER_PMC_TAP_INST_MASK_0_OFFSET,
+		XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK);
+	XPlmi_Out32(XLOADER_PMC_TAP_INST_MASK_1_OFFSET,
+		XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK);
+
+	/*
+	 * Disable security gate
+	 */
+	XPlmi_Out32(XLOADER_PMC_TAP_DAP_SECURITY_OFFSET,
+		XLOADER_DAP_SECURITY_GATE_DISABLE_MASK);
+
+	/*
+	 * Take DBG module out of reset
+	 */
+	XPlmi_Out32(XLOADER_CRP_RST_DBG_OFFSET,
+		XLOADER_CRP_RST_DBG_ENABLE_MASK);
 }
