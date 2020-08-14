@@ -160,7 +160,15 @@ static const  XAie_DmaBdBuffer Aie2MemTileBufferProp =
 	.TileDmaBuff.BufferLen.Mask = XAIE2GBL_MEM_TILE_MODULE_DMA_BD0_0_BUFFER_LENGTH_MASK,
 };
 
-static const  XAie_DmaBdDoubleBuffer Aie2MemTileDoubleBufferProp = {0U};
+static const XAie_DmaBdDoubleBuffer Aie2MemTileDoubleBufferProp =
+{
+	.EnDoubleBuff = {0U},
+	.BaseAddr_B = {0U},
+	.FifoMode = {0U},
+	.EnIntrleaved = {0U},
+	.IntrleaveCnt = {0U},
+	.BuffSelect = {0U},
+};
 
 static const  XAie_DmaBdMultiDimAddr Aie2MemTileMultiDimProp =
 {
@@ -357,7 +365,15 @@ static const  XAie_DmaBdBuffer Aie2TileDmaBufferProp =
 	.TileDmaBuff.BufferLen.Mask = XAIE2GBL_MEMORY_MODULE_DMA_BD0_0_BUFFER_LENGTH_MASK,
 };
 
-static const  XAie_DmaBdDoubleBuffer Aie2TileDmaDoubleBufferProp = {0U};
+static const XAie_DmaBdDoubleBuffer Aie2TileDmaDoubleBufferProp =
+{
+	.EnDoubleBuff = {0U},
+	.BaseAddr_B = {0U},
+	.FifoMode = {0U},
+	.EnIntrleaved = {0U},
+	.IntrleaveCnt = {0U},
+	.BuffSelect = {0U},
+};
 
 static const  XAie_DmaBdMultiDimAddr Aie2TileDmaMultiDimProp =
 {
@@ -535,7 +551,15 @@ static const  XAie_DmaBdBuffer Aie2ShimDmaBufferProp =
 	.ShimDmaBuff.BufferLen.Mask = XAIE2GBL_NOC_MODULE_DMA_BD0_0_BUFFER_LENGTH_MASK,
 };
 
-static const  XAie_DmaBdDoubleBuffer Aie2ShimDmaDoubleBufferProp = {0U};
+static const  XAie_DmaBdDoubleBuffer Aie2ShimDmaDoubleBufferProp =
+{
+	.EnDoubleBuff = {0U},
+	.BaseAddr_B = {0U},
+	.FifoMode = {0U},
+	.EnIntrleaved = {0U},
+	.IntrleaveCnt = {0U},
+	.BuffSelect = {0U},
+};
 
 static const  XAie_DmaBdMultiDimAddr Aie2ShimDmaMultiDimProp =
 {
