@@ -17,6 +17,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 nd 2/14/19  Common rx only application for zcu102 and vcu118
+* 1.1  ku 8/14/20  CRC Calculator configured for 4 PPC
 * </pre>
 *
 ******************************************************************************/
@@ -1826,11 +1827,11 @@ void CalculateCRC(void)
 
 	if(VidFrameCRC.Mode_422 != 0x1 ) {
 	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-				  DpRxSsInst.UsrOpt.LaneCount);
+				  0x4);
 	}
 	else{
 	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-			  DpRxSsInst.UsrOpt.LaneCount | 0x80000000);
+			  0x4 | 0x80000000);
 	}
 
 	XVidFrameCrc_Reset();
