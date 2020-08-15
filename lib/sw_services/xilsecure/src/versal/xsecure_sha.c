@@ -24,6 +24,9 @@
 *       kpt  04/21/20 Fixed MISRA C violation
 * 4.3   ana  06/04/20 Minor enhancement and Updated Sha3 hash variable with
 *		      XSecure_Sha3Hash structure
+*       kpt  08/10/20 Updated status value before reuse
+*                     Replaced magic number with macro's
+*                     and removed redundant check
 *
 * </pre>
 * @note
@@ -231,7 +234,7 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	while (DataSize > XSECURE_PMC_DMA_MAX_TRANSFER) {
 		Status = XSecure_Sha3DataUpdate(InstancePtr,
 				(Data + TransferredBytes),
-				XSECURE_PMC_DMA_MAX_TRANSFER, 0);
+				XSECURE_PMC_DMA_MAX_TRANSFER, FALSE);
 		if (Status != (u32)XST_SUCCESS){
 			goto END;
 		}
@@ -292,7 +295,7 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 		Size = PadLen + InstancePtr->PartialLen;
 		Status = XSecure_Sha3DmaTransfer(InstancePtr,
 					(u8*)InstancePtr->PartialData,
-					Size, 1U);
+					Size, TRUE);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
