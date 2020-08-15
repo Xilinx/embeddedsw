@@ -314,11 +314,8 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 		goto END;
 	}
 
-	/* If requested, read out the Hash in reverse order.  */
-	if (Sha3Hash != NULL)
-	{
-		XSecure_Sha3ReadHash(InstancePtr, Sha3Hash);
-	}
+	/* read out the Hash in reverse order.  */
+	XSecure_Sha3ReadHash(InstancePtr, Sha3Hash);
 
 END:
 	if (Size > 0x0U) {
