@@ -271,7 +271,7 @@ END:
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 {
 	u32 PadLen;
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 	u32 Size;
 
 	/* Asserts validate the input arguments */
@@ -304,6 +304,10 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 			goto END;
 		}
 	}
+
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
+
 	/* Check the SHA3 DONE bit. */
 	Status = XSecure_Sha3WaitForDone(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
@@ -348,7 +352,7 @@ END:
 u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 								XSecure_Sha3Hash *Sha3Hash)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -359,6 +363,10 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 	if (Status != (u32)XST_SUCCESS){
 		goto END;
 	}
+
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
+
 	Status = XSecure_Sha3Finish(InstancePtr, Sha3Hash);
 	if (Status != (u32)XST_SUCCESS){
 		goto END;
