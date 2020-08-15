@@ -222,6 +222,8 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
+	Xil_AssertNonvoid((Data != NULL && Size > 0x00U) ||
+					  (Data == NULL && Size == 0x00U));
 
 	InstancePtr->Sha3Len += Size;
 	DataSize = Size;
