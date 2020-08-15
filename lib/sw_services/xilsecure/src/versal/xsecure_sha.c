@@ -24,9 +24,10 @@
 *       kpt  04/21/20 Fixed MISRA C violation
 * 4.3   ana  06/04/20 Minor enhancement and Updated Sha3 hash variable with
 *		      XSecure_Sha3Hash structure
-*       kpt  08/10/20 Updated status value before reuse
+*       kpt  08/15/20 Updated status value before reuse
 *                     Replaced magic number with macro's
 *                     and removed redundant check
+*       kpt  08/15/20 Added validation for input arguments
 *
 * </pre>
 * @note
@@ -359,6 +360,8 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Sha3Hash != NULL);
+	Xil_AssertNonvoid((In != NULL && Size > 0x00U) ||
+					  (In == NULL && Size == 0x00U));
 
 	XSecure_Sha3Start(InstancePtr);
 	Status = XSecure_Sha3Update(InstancePtr, In, Size);
