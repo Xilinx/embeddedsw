@@ -58,6 +58,8 @@
 *       bsv  08/10/2020 Added subsystem restart support from DDR
 *       har  08/11/2020 Added task to scheduler for checking Authenticated JTAG
 *                       interrupt status
+*       bsv  08/16/2020 Reinitialized Status variable to XST_FAILURE for
+*                       security reasons
 *
 * </pre>
 *
@@ -278,7 +280,7 @@ END:
  *****************************************************************************/
 static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 	u64 PdiInitTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
@@ -367,6 +369,7 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	PdiPtr->DeviceCopy = DeviceOps[DeviceFlags].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
 
+	Status = XST_FAILURE;
 	Status = XLoader_ReadAndValidateHdrs(PdiPtr, RegVal);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -395,7 +398,7 @@ END:
  *****************************************************************************/
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XLoader_SecureParams SecureParams = {0U};
 
 	/*
@@ -465,6 +468,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	/* Validates if authentication/encryption is compulsory */
+	Status = XST_FAILURE;
 	Status = XLoader_SecureValidations(&SecureParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at secure validations\n\r");
@@ -473,6 +477,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 
 	/* Authentication of IHT */
 	if (SecureParams.IsAuthenticated == TRUE) {
+		Status = XST_FAILURE;
 		Status = XLoader_ImgHdrTblAuth(&SecureParams);
 		if (Status != XST_SUCCESS) {
 			goto END;
