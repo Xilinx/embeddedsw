@@ -894,7 +894,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 				u32 RegionId,
 				u32 Enable)
 {
-	u32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 CfgToWr, RegnCfgAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u8 Usage, Security, RdAllowed, WrAllowed, NSRegnCheck;
@@ -1106,7 +1106,7 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 	}
 
 	/* Configure XMPU for memory regions */
-	if (1U == IS_MEM_REGN(DeviceId)) {
+	if (1U == (u8)IS_MEM_REGN(DeviceId)) {
 		/**
 		 * TODO:
 		 * Add support for protecting FPD Slave peripherals protected by XMPU.

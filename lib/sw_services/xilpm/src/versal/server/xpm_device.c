@@ -958,7 +958,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	 * Add requirement by default for PMC subsystem;
 	 * for all the devices except memory region devices.
 	 */
-	if (0U == IS_MEM_REGN(Id)) {
+	if (0U == (u8)IS_MEM_REGN(Id)) {
 		Status = XPmRequirement_Add(
 				XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
 				Device,
