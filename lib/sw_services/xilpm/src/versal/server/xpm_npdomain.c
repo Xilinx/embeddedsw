@@ -97,6 +97,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 powerRtnStatus = (u32)XST_FAILURE;
+	u32 SlrType;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -136,8 +137,9 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 				continue;
 			}
 
+			SlrType = XPm_GetSlrType();
 			if (i == (u32)XPM_NODEIDX_MEMIC_NSU_1 &&
-				XPm_GetSlrType() < SLR_TYPE_SSIT_DEV_MASTER_SLR) {
+				SlrType < (u32)SLR_TYPE_SSIT_DEV_MASTER_SLR) {
 				continue;
 			}
 

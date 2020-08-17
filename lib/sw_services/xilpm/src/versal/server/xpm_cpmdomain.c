@@ -30,6 +30,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 PlatformVersion;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -48,9 +49,10 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	PlatformVersion = XPm_GetPlatformVersion();
 	/* CPM POR control is not valid for ES1 platforms so skip. It is taken care by hw */
 	if(!(PLATFORM_VERSION_SILICON == XPm_GetPlatform() &&
-	     PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()))
+	     (u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
 	{
 		/* Remove POR for CPM */
 		/*Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
@@ -141,13 +143,15 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
+	u32 IdCode;
 
 	/* Skip scan clear for S80 devices */
 	Platform = XPm_GetPlatform();
+	IdCode = XPm_GetIdCode();
 	if ((PLATFORM_VERSION_SILICON != Platform) ||
 	    (PLATFORM_VERSION_SILICON == Platform &&
 	     (PMC_TAP_IDCODE_DEV_SBFMLY_S80 ==
-	      (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)))) {
+	      (IdCode & (u32)PMC_TAP_IDCODE_DEV_SBFMLY_MASK)))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
