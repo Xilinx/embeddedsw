@@ -5,7 +5,7 @@
 
 /*****************************************************************************/
 /**
-* @file xprefsbl_qspi.h
+* @file xis_qspi.h
 *
 * This is the qspi header file which contains definitions for the qspi.
 *
@@ -21,17 +21,17 @@
 *
 ******************************************************************************/
 
-#ifndef XPREFSBL_QSPI_H
-#define XPREFSBL_QSPI_H
+#ifndef XIS_QSPI_H
+#define XIS_QSPI_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xprefsbl_config.h"
+#include "xis_config.h"
 
-#ifdef XPREFSBL_UPDATE_A_B_MECHANISM
+#ifdef XIS_UPDATE_A_B_MECHANISM
 #include "xqspipsu.h"
 
 /************************** Constant Definitions *****************************/
@@ -39,9 +39,9 @@ extern "C" {
  * The following constants define the commands which may be sent to the FLASH
  * device.
  */
-#define XPREFSBL_QSPI_BUSWIDTH_ONE			(0U)
-#define XPREFSBL_QSPI_BUSWIDTH_TWO			(1U)
-#define XPREFSBL_QSPI_BUSWIDTH_FOUR			(2U)
+#define XIS_QSPI_BUSWIDTH_ONE			(0U)
+#define XIS_QSPI_BUSWIDTH_TWO			(1U)
+#define XIS_QSPI_BUSWIDTH_FOUR			(2U)
 
 #define READ_ID_CMD				(0x9FU)
 #define FAST_READ_CMD_24BIT		(0x0BU)
@@ -118,7 +118,7 @@ extern "C" {
  * Flash connection type as defined in PCW
  */
 #define FLASH_SIZE_16MB			(0x1000000U)
-#define BANKSIZE			(FLASH_SIZE_16MB)
+#define BANKSIZE				(FLASH_SIZE_16MB)
 #define SINGLEBANKSIZE			BANKSIZE
 
 /*
@@ -204,16 +204,16 @@ typedef struct{
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPreFsbl_QspiInit(void);
-int XPreFsbl_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length);
-int XPreFsbl_QspiWrite(u32 Address, u8 *WriteBfrPtr, u32 ByteCount);
+int XIs_QspiInit(void);
+int XIs_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length);
+int XIs_QspiWrite(u32 Address, u8 *WriteBfrPtr, u32 ByteCount);
 
 /************************** Variable Definitions *****************************/
 
-#endif /* end of PREFSBL_UPDATE_A_B_MECHANISM */
+#endif /* end of XIS_UPDATE_A_B_MECHANISM */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XPREFSBL_QSPI_H */
+#endif  /* XIS_QSPI_H */

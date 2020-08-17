@@ -15,7 +15,7 @@
 #include <xil_io.h>
 #include <sleep.h>
 #include "psu_init.h"
-#include "xprefsbl_config.h"
+#include "xis_config.h"
 
 static int Mask_Poll(u32 Address, u32 Mask);
 
@@ -294,7 +294,7 @@ static int Psu_Clock_Init_Data(void)
     */
 /*##################################################################### */
 
-#ifdef XPREFSBL_GET_BOARD_PARAMS
+#ifdef XIS_GET_BOARD_PARAMS
     /*
     * Register : I2C1_REF_CTRL @ 0XFF5E0124
 
@@ -320,7 +320,7 @@ static int Psu_Clock_Init_Data(void)
 #endif
 /*##################################################################### */
 
-#ifdef XPREFSBL_UART_ENABLE
+#ifdef XIS_UART_ENABLE
     /*
     * Register : UART0_REF_CTRL @ 0XFF5E0074
 
@@ -346,7 +346,7 @@ static int Psu_Clock_Init_Data(void)
 #endif
 /*##################################################################### */
 
-#ifdef XPREFSBL_UPDATE_A_B_MECHANISM
+#ifdef XIS_UPDATE_A_B_MECHANISM
     /*
     * Register : QSPI_REF_CTRL @ 0XFF5E0068
 
@@ -380,7 +380,7 @@ static int Psu_Mio_Init_Data(void)
 {
 	int Status = XST_FAILURE;
 
-#ifdef XPREFSBL_UPDATE_A_B_MECHANISM
+#ifdef XIS_UPDATE_A_B_MECHANISM
     /*
     * MIO PROGRAMMING
     */
@@ -796,7 +796,7 @@ static int Psu_Mio_Init_Data(void)
 #endif
 /*##################################################################### */
 
-#ifdef XPREFSBL_GET_BOARD_PARAMS
+#ifdef XIS_GET_BOARD_PARAMS
     /*
     * Register : MIO_PIN_16 @ 0XFF180040
 
@@ -862,7 +862,7 @@ static int Psu_Mio_Init_Data(void)
 #endif
 /*##################################################################### */
 
-#ifdef XPREFSBL_UART_ENABLE
+#ifdef XIS_UART_ENABLE
     /*
     * Register : MIO_PIN_18 @ 0XFF180048
 
@@ -928,7 +928,7 @@ static int Psu_Mio_Init_Data(void)
 #endif
 /*##################################################################### */
 
-#ifdef XPREFSBL_UPDATE_A_B_MECHANISM
+#ifdef XIS_UPDATE_A_B_MECHANISM
     /*
     * Register : MIO_MST_TRI0 @ 0XFF180204
 
@@ -990,7 +990,7 @@ static int Psu_Mio_Init_Data(void)
     * Master Tri-state Enable for pin 17, active high
     *  PSU_IOU_SLCR_MIO_MST_TRI0_PIN_17_TRI                        0
     */
-#ifdef XPREFSBL_GET_BOARD_PARAMS
+#ifdef XIS_GET_BOARD_PARAMS
 	PSU_Mask_Write(IOU_SLCR_MIO_MST_TRI0_OFFSET,
 			0x00030000U, 0xFFFCFFFFU);
 #endif
@@ -1041,7 +1041,7 @@ static int Psu_Mio_Init_Data(void)
     * MIO pin Tri-state Enables, 31:0
     * (OFFSET, MASK, VALUE)      (0XFF180204, 0x000F1FFFU ,0xFFF0E000U)
     */
-#ifdef XPREFSBL_UART_ENABLE
+#ifdef XIS_UART_ENABLE
 	PSU_Mask_Write(IOU_SLCR_MIO_MST_TRI0_OFFSET,
 			0x000C0000U, 0xFFF3FFFFU);
 #endif
@@ -1063,7 +1063,7 @@ static int Psu_Peripherals_Init_Data(void)
     */
    /*##################################################################### */
 
-#ifdef XPREFSBL_UART_ENABLE
+#ifdef XIS_UART_ENABLE
     /*
     * UART
     */
@@ -1102,7 +1102,7 @@ static int Psu_Peripherals_Init_Data(void)
 		0x00000001U, 0x00000000U);
 /*##################################################################### */
 
-#ifdef XPREFSBL_GET_BOARD_PARAMS
+#ifdef XIS_GET_BOARD_PARAMS
     /*
     * I2C
     */
@@ -1124,7 +1124,7 @@ static int Psu_Peripherals_Init_Data(void)
 #endif
 /*##################################################################### */
 
-#ifdef XPREFSBL_UPDATE_A_B_MECHANISM
+#ifdef XIS_UPDATE_A_B_MECHANISM
     /*
     * QSPI TAP DELAY
     */
