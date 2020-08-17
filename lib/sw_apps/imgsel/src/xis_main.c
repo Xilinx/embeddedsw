@@ -5,9 +5,9 @@
 
 /*****************************************************************************/
 /**
-* @file xprefsbl_main.c
+* @file xis_main.c
 *
-* This is the main file which contains code for the Pre-FSBL.
+* This is the main file which contains code for the ImgSel.
 *
 *
 * @note
@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xprefsbl_main.h"
+#include "xis_main.h"
 #include "psu_init.h"
 
 /************************** Constant Definitions *****************************/
@@ -43,7 +43,7 @@
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
-* This is the Pre-FSBL main function and is implemented to support
+* This is the ImgSel main function and is implemented to support
 * A/B update mechanism and get board params mechanism
 *
 * @param	None.
@@ -62,46 +62,46 @@ int main(void)
 		goto END;
 	}
 
-#if defined(XPREFSBL_UART_ENABLE) && defined(STDOUT_BASEADDRESS)
-	Status = XPrefsbl_UartConfiguration();
+#if defined(XIS_UART_ENABLE) && defined(STDOUT_BASEADDRESS)
+	Status = XIs_UartConfiguration();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 #endif
 
-	XPreFsbl_Printf(DEBUG_PRINT_ALWAYS, "Pre-FSBL boot Started\r\n");
+	XIs_Printf(DEBUG_PRINT_ALWAYS, "ImageSelector boot Started\r\n");
 
-#if defined(XPREFSBL_GET_BOARD_PARAMS)
-	Status = XPrefsbl_ImageSelBoardParam();
+#if defined(XIS_GET_BOARD_PARAMS)
+	Status = XIs_ImageSelBoardParam();
 	if (Status != XST_SUCCESS) {
-		XPreFsbl_Printf(DEBUG_GENERAL, "Single Image Multiboot"
+		XIs_Printf(DEBUG_GENERAL, "Single Image Multiboot"
 							"value update failed\r\n");
 		goto END;
 	}
-#elif defined(XPREFSBL_UPDATE_A_B_MECHANISM)
-	Status = XPrefsbl_UpdateABMultiBootValue();
+#elif defined(XIS_UPDATE_A_B_MECHANISM)
+	Status = XIs_UpdateABMultiBootValue();
 	if (Status != XST_SUCCESS) {
-		XPreFsbl_Printf(DEBUG_GENERAL, "A/B Image Multiboot"
+		XIs_Printf(DEBUG_GENERAL, "A/B Image Multiboot"
 							" value update failed\r\n");
 		goto END;
 	}
 #else
-	MultiBootVal = XPreFsbl_In32(XPREFSBL_CSU_MULTI_BOOT);
-	(void)XPrefsbl_UpdateMultiBootValue(MultiBootVal + 1U);
+	MultiBootVal = XIs_In32(XIS_CSU_MULTI_BOOT);
+	(void)XIs_UpdateMultiBootValue(MultiBootVal + 1U);
 #endif
 
 END:
 	if (Status != XST_SUCCESS) {
-		(void)XPrefsbl_UpdateError(Status);
-		MultiBootVal = XPreFsbl_In32(XPREFSBL_CSU_MULTI_BOOT);
-		(void)XPrefsbl_UpdateMultiBootValue(MultiBootVal + 1U);
+		(void)XIs_UpdateError(Status);
+		MultiBootVal = XIs_In32(XIS_CSU_MULTI_BOOT);
+		(void)XIs_UpdateMultiBootValue(MultiBootVal + 1U);
 	}
 
 	dsb();
 
 	isb();
 
-	XPrefsbl_Softreset();
+	XIs_Softreset();
 
 	while(1U) {
 		;

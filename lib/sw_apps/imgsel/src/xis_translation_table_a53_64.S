@@ -5,11 +5,11 @@
 
 /*****************************************************************************/
 /**
-* @file xfsbl_translation_table.S
+* @file xis_translation_table_a53_64.S
 *
 * This file contains the initialization for the MMU table in RAM
 * needed by the Cortex A53 processor (64-bit)
-* This file is Pre-FSBL local copy of the BSP file
+* This file is ImgSel local copy of the BSP file
 *
 * <pre>
 * MODIFICATION HISTORY:

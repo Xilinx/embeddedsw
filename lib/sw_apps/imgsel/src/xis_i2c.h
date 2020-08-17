@@ -5,7 +5,7 @@
 
 /*****************************************************************************/
 /**
-* @file xprefsbl_i2c.h
+* @file xis_i2c.h
 *
 * This is the main header file which contains definitions for the i2c.
 *
@@ -21,15 +21,15 @@
 *
 ******************************************************************************/
 
-#ifndef XPREFSBL_I2C_H
-#define XPREFSBL_I2C_H
+#ifndef XIS_I2C_H
+#define XIS_I2C_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#ifdef XPREFSBL_GET_BOARD_PARAMS
+#ifdef XIS_GET_BOARD_PARAMS
 #include "xiicps.h"
 
 /************************** Variable Definitions *****************************/
@@ -50,26 +50,26 @@ typedef u16 AddressType;
 /* Board Parameters will present at 0xD0 Address location
  * for ZCU102,104,106,111 boards
  */
-#define XPREFSBL_EEPROM_BOARD_ADDR_OFFSET_1			(0xD0U)
-#define XPREFSBL_EEPROM_OFFSET_1_WRITE_BYTES   		(0x01U)
+#define XIS_EEPROM_BOARD_ADDR_OFFSET_1			(0xD0U)
+#define XIS_EEPROM_OFFSET_1_WRITE_BYTES   		(0x01U)
 /* Board Parameters will present at 0x00 Address location
  * for ZCU208,216 boards
  */
-#define XPREFSBL_EEPROM_BOARD_ADDR_OFFSET_2	        (0x00U)
-#define XPREFSBL_EEPROM_OFFSET_2_WRITE_BYTES  		(0x02U)
-#define XPREFSBL_IIC_SCLK_RATE						(100000U)
-#define XPREFSBL_PAGE_SIZE_16						(16U)
-#define XPREFSBL_DELAY								(10000U)
+#define XIS_EEPROM_BOARD_ADDR_OFFSET_2	        (0x00U)
+#define XIS_EEPROM_OFFSET_2_WRITE_BYTES  		(0x02U)
+#define XIS_IIC_SCLK_RATE						(100000U)
+#define XIS_PAGE_SIZE_16						(16U)
+#define XIS_DELAY								(10000U)
 
 /************************** Function Prototypes ******************************/
 /*
- * Functions defined in xprefsbl_i2c.c
+ * Functions defined in xis_i2c.c
  */
-int XPrefsbl_IicPsMuxInit(void);
-int XPrefsbl_EepromReadData(u8 *BufferPtr, u16 ReadAddress,
+int XIs_IicPsMuxInit(void);
+int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress,
 						u16 ByteCount, u32 WrBfrOffset);
 
-#endif /* end of PREFSBL_GET_BOARDNAME_ENABLE */
+#endif /* end of XIS_GET_BOARD_PARAMS */
 
 #ifdef __cplusplus
 }

@@ -5,9 +5,9 @@
 
 /*****************************************************************************/
 /**
-* @file xprefsbl_singleimage.c
+* @file xis_singleimage.c
 *
-* This is the file which contains code for the Pre-FSBL single image.
+* This is the file which contains code for the ImgSel single image.
 *
 *
 * @note
@@ -26,21 +26,21 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xprefsbl_main.h"
+#include "xis_main.h"
 
-#ifdef XPREFSBL_GET_BOARD_PARAMS
+#ifdef XIS_GET_BOARD_PARAMS
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPREFSBL_MAX_BOARDS 				(6U)
-#define XPREFSBL_BOARDNAME_SIZE 			(6U)
+#define XIS_MAX_BOARDS 				(6U)
+#define XIS_BOARDNAME_SIZE 			(6U)
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-Boards_List Board[XPREFSBL_MAX_BOARDS] = {
+Boards_List Board[XIS_MAX_BOARDS] = {
 	{"ZCU102" , 1020U},
 
 	{"ZCU104" , 1040U},
@@ -55,7 +55,7 @@ Boards_List Board[XPREFSBL_MAX_BOARDS] = {
 
 };
 
-static u8 ReadBuffer[XPREFSBL_MAX_SIZE]; /* Read buffer for reading a page. */
+static u8 ReadBuffer[XIS_MAX_SIZE]; /* Read buffer for reading a page. */
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -70,7 +70,7 @@ static u8 ReadBuffer[XPREFSBL_MAX_SIZE]; /* Read buffer for reading a page. */
  *
  *
  ******************************************************************************/
-int XPreFsbl_GetBoardName(u16 ReadAddress, u16 *Offset,u32 WrBfrOffset)
+int XIs_GetBoardName(u16 ReadAddress, u16 *Offset,u32 WrBfrOffset)
 {
 	int Status = XST_FAILURE;
 	u32 BoardIndex;
@@ -78,21 +78,21 @@ int XPreFsbl_GetBoardName(u16 ReadAddress, u16 *Offset,u32 WrBfrOffset)
 	/*
 	 * Read from the EEPROM.
 	 */
-	Status = XPrefsbl_EepromReadData(ReadBuffer, ReadAddress,
-					XPREFSBL_PAGE_SIZE_16, WrBfrOffset);
+	Status = XIs_EepromReadData(ReadBuffer, ReadAddress,
+					XIS_PAGE_SIZE_16, WrBfrOffset);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_EEPROM_READ_ERROR;
+		Status = XIS_EEPROM_READ_ERROR;
 		goto END;
 	}
 
-	for(BoardIndex = 0U; BoardIndex < XPREFSBL_MAX_BOARDS; BoardIndex++) {
+	for(BoardIndex = 0U; BoardIndex < XIS_MAX_BOARDS; BoardIndex++) {
 		if(strncmp((char *)ReadBuffer, Board[BoardIndex].Name,
-				XPREFSBL_BOARDNAME_SIZE) == 0U) {
+				XIS_BOARDNAME_SIZE) == 0U) {
 			*Offset = Board[BoardIndex].Offset;
 			goto END;
 		}
 	}
-	Status = XPREFSBL_BOARD_NAME_NOTFOUND;
+	Status = XIS_BOARD_NAME_NOTFOUND_ERROR;
 
 END:
 	return Status;
@@ -103,33 +103,33 @@ END:
  * This function is used to update the multiboot value
  * @param	None.
  *
- * @return	returns XPREFSBL_BOARD_NAME_NOTFOUND on failure
+ * @return	returns XIS_BOARD_NAME_NOTFOUND on failure
  *				returns XST_SUCCESS on success
  *
  *
  ******************************************************************************/
-int XPrefsbl_ImageSelBoardParam(void)
+int XIs_ImageSelBoardParam(void)
 {
 	int Status = XST_FAILURE;
 	u16 BoardOffset;
 
-	Status = XPrefsbl_IicPsMuxInit();
+	Status = XIs_IicPsMuxInit();
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_MUX_INIT_ERROR;
+		Status = XIS_MUX_INIT_ERROR;
 		goto END;
 	}
 
-	Status = XPreFsbl_GetBoardName(XPREFSBL_EEPROM_BOARD_ADDR_OFFSET_1,
-					&BoardOffset, XPREFSBL_EEPROM_OFFSET_1_WRITE_BYTES);
+	Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET_1,
+					&BoardOffset, XIS_EEPROM_OFFSET_1_WRITE_BYTES);
 	if(Status != XST_SUCCESS) {
-		Status = XPreFsbl_GetBoardName(XPREFSBL_EEPROM_BOARD_ADDR_OFFSET_2,
-					&BoardOffset, XPREFSBL_EEPROM_OFFSET_2_WRITE_BYTES);
+		Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET_2,
+					&BoardOffset, XIS_EEPROM_OFFSET_2_WRITE_BYTES);
 		if(Status != XST_SUCCESS) {
-			XPreFsbl_Printf(DEBUG_GENERAL, "Pre-FSBL Board Name NotFound\r\n");
+			XIs_Printf(DEBUG_GENERAL, "Board Name NotFound\r\n");
 			goto END;
 		}
 	}
-	XPrefsbl_UpdateMultiBootValue(BoardOffset);
+	XIs_UpdateMultiBootValue(BoardOffset);
 
 END:
 	return Status;

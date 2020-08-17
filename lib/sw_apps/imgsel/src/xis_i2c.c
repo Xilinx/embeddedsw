@@ -5,7 +5,7 @@
 
 /*****************************************************************************/
 /**
- * @file xprefsbl_i2c.c
+ * @file xis_i2c.c
  *
  * This file used to Read the Board Name from IIC EEPROM from 0xD0 location, Based
  * on the Board Name it will update the corresponding multiboot offset value.
@@ -23,34 +23,34 @@
  ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xprefsbl_main.h"
+#include "xis_main.h"
 
-#ifdef XPREFSBL_GET_BOARD_PARAMS
+#ifdef XIS_GET_BOARD_PARAMS
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #if (XPAR_XIICPS_NUM_INSTANCES == 2U)
-#define XPREFSBL_I2C_EEPROM_INDEX (1U)
+#define XIS_I2C_EEPROM_INDEX (1U)
 #else
-#define XPREFSBL_I2C_EEPROM_INDEX (0U)
+#define XIS_I2C_EEPROM_INDEX (0U)
 #endif
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-u8 WriteBuffer[sizeof(AddressType) + XPREFSBL_MAX_SIZE];
+u8 WriteBuffer[sizeof(AddressType) + XIS_MAX_SIZE];
 XIicPs IicInstance;
 
 /************************** Function Definitions *****************************/
-static int XPrefsbl_EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
-static int XPrefsbl_MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
-static int XPrefsbl_IicPsConfig(u16 DeviceId);
+static int XIs_EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
+static int XIs_MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
+static int XIs_IicPsConfig(u16 DeviceId);
 
 /*****************************************************************************/
 /**
-* This API gives a XPrefsbl_Delay in microseconds
+* This API gives a XIs_Delay in microseconds
 *
 * @param	useconds requested
 *
@@ -58,7 +58,7 @@ static int XPrefsbl_IicPsConfig(u16 DeviceId);
 *
 *
 ****************************************************************************/
-static void XPrefsbl_Delay(unsigned int useconds)
+static void XIs_Delay(unsigned int useconds)
 {
 	int i,j;
 
@@ -83,7 +83,7 @@ static void XPrefsbl_Delay(unsigned int useconds)
  *		noted by the constant PAGE_SIZE.
  *
  ******************************************************************************/
-static int XPrefsbl_EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
+static int XIs_EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 {
 	int Status = XST_FAILURE;
 	u32 Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
@@ -92,9 +92,9 @@ static int XPrefsbl_EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 	 * Send the Data.
 	 */
 	Status = XIicPs_MasterSendPolled(IicInstance, WriteBuffer,
-			ByteCount, XPREFSBL_EEPROM_ADDRESS);
+			ByteCount, XIS_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_IICPS_MASTER_SEND_POLLED_ERROR;
+		Status = XIS_IICPS_MASTER_SEND_POLLED_ERROR;
 		goto END;
 	}
 
@@ -105,10 +105,10 @@ static int XPrefsbl_EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 		if(XIicPs_BusIsBusy(IicInstance) == FALSE ) {
 			break;
 		}
-		XPrefsbl_Delay(XPREFSBL_DELAY);
+		XIs_Delay(XIS_DELAY);
 		Timeout--;
 		if(!Timeout) {
-			Status = XPREFSBL_IICPS_TIMEOUT;
+			Status = XIS_IICPS_TIMEOUT;
 			goto END;
 		}
 	}
@@ -127,7 +127,7 @@ END:
  * @return	XST_SUCCESS if successful else XST_FAILURE.
  *
  ******************************************************************************/
-int XPrefsbl_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
+int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 									u32 WrBfrOffset)
 {
 	int Status = XST_FAILURE;
@@ -139,18 +139,18 @@ int XPrefsbl_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 	 */
 	WriteBuffer[0U] = (u8)(Address);
 
-	Status = XPrefsbl_EepromWriteData(&IicInstance, WrBfrOffset);
+	Status = XIs_EepromWriteData(&IicInstance, WrBfrOffset);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_EEPROM_WRITE_ERROR;
+		Status = XIS_EEPROM_WRITE_ERROR;
 		goto END;
 	}
 	/*
 	 * Receive the Data.
 	 */
 	Status = XIicPs_MasterRecvPolled(&IicInstance, BufferPtr,
-			ByteCount, XPREFSBL_EEPROM_ADDRESS);
+			ByteCount, XIS_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_IICPS_MASTER_RECV_POLLED_ERROR;
+		Status = XIS_IICPS_MASTER_RECV_POLLED_ERROR;
 		goto END;
 	}
 
@@ -161,10 +161,10 @@ int XPrefsbl_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
 			break;
 		}
-		XPrefsbl_Delay(XPREFSBL_DELAY);
+		XIs_Delay(XIS_DELAY);
 		Timeout--;
 		if(!Timeout) {
-			Status = XPREFSBL_IICPS_TIMEOUT;
+			Status = XIS_IICPS_TIMEOUT;
 			goto END;
 		}
 	}
@@ -185,7 +185,7 @@ END:
  * @note		None.
  *
  ****************************************************************************/
-static int XPrefsbl_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
+static int XIs_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 {
 	int Status = XST_FAILURE;
 	u8 Buffer = 0U;
@@ -199,10 +199,10 @@ static int XPrefsbl_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
 			break;
 		}
-		XPrefsbl_Delay(XPREFSBL_DELAY);
+		XIs_Delay(XIS_DELAY);
 		Timeout--;
 		if(!Timeout) {
-			Status = XPREFSBL_IICPS_TIMEOUT;
+			Status = XIS_IICPS_TIMEOUT;
 			goto END;
 		}
 	}
@@ -213,7 +213,7 @@ static int XPrefsbl_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 	Status = XIicPs_MasterSendPolled(&IicInstance, &Channel, 1U,
 			MuxIicAddr);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_IICPS_MASTER_SEND_POLLED_ERROR;
+		Status = XIS_IICPS_MASTER_SEND_POLLED_ERROR;
 		goto END;
 	}
 
@@ -226,10 +226,10 @@ static int XPrefsbl_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
 			break;
 		}
-		XPrefsbl_Delay(XPREFSBL_DELAY);
+		XIs_Delay(XIS_DELAY);
 		Timeout--;
 		if(!Timeout) {
-			Status = XPREFSBL_IICPS_TIMEOUT;
+			Status = XIS_IICPS_TIMEOUT;
 			goto END;
 		}
 	}
@@ -239,7 +239,7 @@ static int XPrefsbl_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 	 */
 	Status = XIicPs_MasterRecvPolled(&IicInstance, &Buffer, 1U, MuxIicAddr);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_IICPS_MASTER_RECV_POLLED_ERROR;
+		Status = XIS_IICPS_MASTER_RECV_POLLED_ERROR;
 		goto END;
 	}
 
@@ -252,10 +252,10 @@ static int XPrefsbl_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
 			break;
 		}
-		XPrefsbl_Delay(XPREFSBL_DELAY);
+		XIs_Delay(XIS_DELAY);
 		Timeout--;
 		if(!Timeout) {
-			Status = XPREFSBL_IICPS_TIMEOUT;
+			Status = XIS_IICPS_TIMEOUT;
 			goto END;
 		}
 	}
@@ -273,7 +273,7 @@ END:
  * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
  *
  ****************************************************************************/
-static int XPrefsbl_IicPsConfig(u16 DeviceId)
+static int XIs_IicPsConfig(u16 DeviceId)
 {
 	int Status = XST_FAILURE;
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
@@ -283,22 +283,22 @@ static int XPrefsbl_IicPsConfig(u16 DeviceId)
 	 */
 	ConfigPtr = XIicPs_LookupConfig(DeviceId);
 	if (ConfigPtr == NULL) {
-		Status = XPREFSBL_IICPS_LKP_CONFIG_ERROR;
+		Status = XIS_IICPS_LKP_CONFIG_ERROR;
 		goto END;
 	}
 
 	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_IICPS_CONFIG_INIT_ERROR;
+		Status = XIS_IICPS_CONFIG_INIT_ERROR;
 		goto END;
 	}
 	/*
 	 * Set the IIC serial clock rate.
 	 */
-	Status = XIicPs_SetSClk(&IicInstance, XPREFSBL_IIC_SCLK_RATE);
+	Status = XIicPs_SetSClk(&IicInstance, XIS_IIC_SCLK_RATE);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_IICPS_SET_SCLK_ERROR;
+		Status = XIS_IICPS_SET_SCLK_ERROR;
 		goto END;
 	}
 
@@ -318,22 +318,22 @@ END:
  * @note		None.
  *
  ******************************************************************************/
-int XPrefsbl_IicPsMuxInit(void)
+int XIs_IicPsMuxInit(void)
 {
 	int Status = XST_FAILURE;
-	u8 MuxChannel = XPREFSBL_I2C_MUX_INDEX;
-	u16 DeviceId = XPREFSBL_I2C_EEPROM_INDEX;
+	u8 MuxChannel = XIS_I2C_MUX_INDEX;
+	u16 DeviceId = XIS_I2C_EEPROM_INDEX;
 
-	Status = XPrefsbl_IicPsConfig(DeviceId);
+	Status = XIs_IicPsConfig(DeviceId);
 	if (Status != XST_SUCCESS) {
-		Status = XPREFSBL_IICPS_CONFIG_ERROR;
+		Status = XIS_IICPS_CONFIG_ERROR;
 		goto END;
 	}
 
-	Status = XPrefsbl_MuxInitChannel(XPREFSBL_MUX_ADDR, MuxChannel);
+	Status = XIs_MuxInitChannel(XIS_MUX_ADDR, MuxChannel);
 	if (Status != XST_SUCCESS) {
-		XPreFsbl_Printf(DEBUG_INFO,"Failed to enable the MUX channel\r\n");
-		Status = XPREFSBL_IICPS_MUX_ERROR;
+		XIs_Printf(DEBUG_INFO,"Failed to enable the MUX channel\r\n");
+		Status = XIS_IICPS_MUX_ERROR;
 		goto END;
 	}
 
