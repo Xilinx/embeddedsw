@@ -179,11 +179,11 @@ static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
 	u32 *NumMemRegDevices = NULL;
 
 	switch (NodeType) {
-	case XPM_NODETYPE_DEV_OCM_REGN:
+	case (u8)XPM_NODETYPE_DEV_OCM_REGN:
 		MemRegDevices = PmOcmMemRegnDevices;
 		NumMemRegDevices = &PmNumOcmMemRegnDevices;
 		break;
-	case XPM_NODETYPE_DEV_DDR_REGN:
+	case (u8)XPM_NODETYPE_DEV_DDR_REGN:
 		MemRegDevices = PmDdrMemRegnDevices;
 		NumMemRegDevices = &PmNumDdrMemRegnDevices;
 		break;
@@ -779,7 +779,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Requirement *Reqm;
-	u8 UsagePolicy = 0;
+	u16 UsagePolicy = 0;
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
@@ -800,7 +800,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	/* Check whether this device is shareable */
 	UsagePolicy = USAGE_POLICY(Reqm->Flags);
-	if ((UsagePolicy == (u8)REQ_TIME_SHARED) || (UsagePolicy == (u8)REQ_NONSHARED)) {
+	if ((UsagePolicy == (u16)REQ_TIME_SHARED) || (UsagePolicy == (u16)REQ_NONSHARED)) {
 			//Check if it already requested by other subsystem. If yes, return
 			XPm_Requirement *NextReqm = Reqm->NextSubsystem;
 			while (NULL != NextReqm) {
@@ -1232,10 +1232,10 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 		}
 
 		switch (NODETYPE(DeviceId)) {
-		case XPM_NODETYPE_DEV_OCM_REGN:
+		case (u8)XPM_NODETYPE_DEV_OCM_REGN:
 			DevicesHandle = PmOcmMemRegnDevices;
 			break;
-		case XPM_NODETYPE_DEV_DDR_REGN:
+		case (u8)XPM_NODETYPE_DEV_DDR_REGN:
 			DevicesHandle = PmDdrMemRegnDevices;
 			break;
 		default:

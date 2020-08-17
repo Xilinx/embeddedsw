@@ -826,7 +826,8 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 	u32 i;
 	struct XPm_ClkTopologyNode *PtrNodes;
 	XPm_OutClockNode *Clk;
-	u8 Type, Typeflags;
+	u8 Type;
+	u16 Typeflags;
 	u16 Clkflags;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
@@ -854,9 +855,9 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 				if ((u8)TYPE_GATE == Type) {
 					Clkflags |= CLK_IS_CRITICAL;
 				} else if (((u8)TYPE_DIV1 == Type) || ((u8)TYPE_DIV2 == Type)) {
-					Typeflags |= CLK_DIVIDER_READ_ONLY;
+					Typeflags |= (u16)CLK_DIVIDER_READ_ONLY;
 				} else if ((u8)TYPE_MUX == Type) {
-					Typeflags |= CLK_MUX_READ_ONLY;
+					Typeflags |= (u16)CLK_MUX_READ_ONLY;
 				}
 			}
 

@@ -291,26 +291,26 @@ XStatus XPm_PowerDwnLPD(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
 	u32 i;
 
 	const u32 LpdPlIso[] = {
-		XPM_NODEIDX_ISO_LPD_PL_TEST,
-		XPM_NODEIDX_ISO_LPD_PL
+		(u32)XPM_NODEIDX_ISO_LPD_PL_TEST,
+		(u32)XPM_NODEIDX_ISO_LPD_PL
 	};
 	const u32 LpdPlIsoErr[] = {
-		XPM_INT_ERR_LPD_PL_TEST_ISO,
-		XPM_INT_ERR_LPD_PL_ISO
+		(u32)XPM_INT_ERR_LPD_PL_TEST_ISO,
+		(u32)XPM_INT_ERR_LPD_PL_ISO
 	};
 
 	if (NULL == LpDomain) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		DbgErr = (u32)XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		DbgErr = (u32)XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -354,40 +354,40 @@ XStatus XPm_PowerDwnLPD(void)
 	/* Isolate PS_CPM domains */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM_DFX, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_LPD_CPM_DFX_ISO;
+		DbgErr = (u32)XPM_INT_ERR_LPD_CPM_DFX_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_LPD_CPM_ISO;
+		DbgErr = (u32)XPM_INT_ERR_LPD_CPM_ISO;
 		goto done;
 	}
 
 	/* Isolate LP-SoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_LPD_SOC_ISO;
+		DbgErr = (u32)XPM_INT_ERR_LPD_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate PS_PMC domains */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PMC_LPD_DFX_ISO;
+		DbgErr = (u32)XPM_INT_ERR_PMC_LPD_DFX_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PMC_LPD_ISO;
+		DbgErr = (u32)XPM_INT_ERR_PMC_LPD_ISO;
 		goto done;
 	}
 
 	/* Assert reset for PS SRST */
 	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_ASSERT);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PS_SRST;
+		DbgErr = (u32)XPM_INT_ERR_PS_SRST;
 	}
 
 	/* Skip PS-POR and LPD power rail handling in case of user PS-SRST */
@@ -395,7 +395,7 @@ XStatus XPm_PowerDwnLPD(void)
 		/* Assert POR for PS-LPD */
 		Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_ASSERT);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_PS_POR;
+			DbgErr = (u32)XPM_INT_ERR_PS_POR;
 		}
 
 		/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
@@ -445,21 +445,21 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	XPm_Psm *Psm;
 	XPm_Core *ApuCore;
 	int HasResumeAddrStatus = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
 	u32 i;
 
 	const u32 FpdPlIso[] = {
-		XPM_NODEIDX_ISO_FPD_PL,
-		XPM_NODEIDX_ISO_FPD_PL_TEST
+		(u32)XPM_NODEIDX_ISO_FPD_PL,
+		(u32)XPM_NODEIDX_ISO_FPD_PL_TEST
 	};
 	const u32 FpdPlIsoErr[] = {
-		XPM_INT_ERR_FPD_PL_ISO,
-		XPM_INT_ERR_FPD_PL_TEST_ISO
+		(u32)XPM_INT_ERR_FPD_PL_ISO,
+		(u32)XPM_INT_ERR_FPD_PL_TEST_ISO
 	};
 
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		DbgErr = (u32)XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
@@ -478,7 +478,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_FPD_SOC_ISO;
+		DbgErr = (u32)XPM_INT_ERR_FPD_SOC_ISO;
 		goto done;
 	}
 
@@ -516,7 +516,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
-		DbgErr = XPM_INT_ERR_INVALID_PROC;
+		DbgErr = (u32)XPM_INT_ERR_INVALID_PROC;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -531,7 +531,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 			/* Store the PSM APU power state register */
 			PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
 		} else {
-			DbgErr = XPM_INT_ERR_INVALID_ADDR;
+			DbgErr = (u32)XPM_INT_ERR_INVALID_ADDR;
 		}
 	}
 
@@ -1030,7 +1030,7 @@ XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask)
 		goto done;
 	}
 
-	Source = Rail->Source;
+	Source = (u32)Rail->Source;
 	if ((u32)XPM_PGOOD_SYSMON == Source) {
 		Status = XPmPower_SysmonCheckPower(Rail);
 		if (XST_SUCCESS != Status) {

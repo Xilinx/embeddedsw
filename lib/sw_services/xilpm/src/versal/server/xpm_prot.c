@@ -68,8 +68,8 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 	((u32)(Idx) - (u32)XPM_NODETYPE_DEV_OCM_REGN)
 
 static const u8 MemToXMPUMap[2] = {
-	[MEMIDX(XPM_NODETYPE_DEV_OCM_REGN)] = XPM_NODEIDX_PROT_XMPU_OCM,
-	[MEMIDX(XPM_NODETYPE_DEV_DDR_REGN)] = XPM_NODEIDX_PROT_XMPU_PMC,
+	[MEMIDX(XPM_NODETYPE_DEV_OCM_REGN)] = (u8)XPM_NODEIDX_PROT_XMPU_OCM,
+	[MEMIDX(XPM_NODETYPE_DEV_DDR_REGN)] = (u8)XPM_NODEIDX_PROT_XMPU_PMC,
 };
 
 /**
@@ -544,7 +544,7 @@ static u32 XPmProt_GetDevBaseAddr(XPm_Device *Device)
 	BaseAddr = Device->Node.BaseAddress;
 
 	switch (DevSubcl) {
-	case XPM_NODESUBCL_DEV_CORE:
+	case (u32)XPM_NODESUBCL_DEV_CORE:
 		if ((u32)XPM_NODETYPE_DEV_CORE_APU == DevType) {
 			BaseAddr = ((XPm_ApuCore *)Device)->FpdApuBaseAddr;
 		} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == DevType) {
@@ -554,7 +554,7 @@ static u32 XPmProt_GetDevBaseAddr(XPm_Device *Device)
 			BaseAddr = 0;
 		}
 		break;
-	case XPM_NODESUBCL_DEV_MEM:
+	case (u32)XPM_NODESUBCL_DEV_MEM:
 		if ((u32)XPM_NODETYPE_DEV_TCM == DevType) {
 			XPm_MemDevice *Tcm = (XPm_MemDevice *)Device;
 			BaseAddr = Tcm->StartAddress;
@@ -600,8 +600,8 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 PermissionRegAddress = 0;
 	u32 PermissionRegMask = 0;
 	u32 Security = (u32)SECURITY_POLICY(Reqm->Flags);	/** < Device security policy */
-	u8 UsagePolicy = USAGE_POLICY(Reqm->Flags);	/** < Device usage policy */
 	u32 PlatformVersion;
+	u16 UsagePolicy = USAGE_POLICY(Reqm->Flags);	/** < Device usage policy */
 
 	PmDbg("Xppu configure: 0x%x\r\n", Enable);
 	PmDbg("Device Node Id: 0x%x\r\n", Reqm->Device->Node.Id);
@@ -611,7 +611,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	 * apertures since PMC master is a part of default permission mask.
 	 */
 	if (((u32)PM_SUBSYS_PMC == Reqm->Subsystem->Id) &&
-	    ((u8)REQ_NO_RESTRICTION == UsagePolicy)) {
+	    ((u16)REQ_NO_RESTRICTION == UsagePolicy)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -713,19 +713,19 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 		u32 DefPerms = PpuNode->AperPermInitMask & PERM_MASK;
 
 		/* Configure XPPU Aperture */
-		if ((UsagePolicy == (u8)REQ_NONSHARED) || (UsagePolicy == (u8)REQ_TIME_SHARED)) {
+		if ((UsagePolicy == (u16)REQ_NONSHARED) || (UsagePolicy == (u16)REQ_TIME_SHARED)) {
 			Permissions = (DefPerms | APER_PERM(Security, Reqm->Params[0]));
-		} else if (UsagePolicy == (u8)REQ_SHARED) {
+		} else if (UsagePolicy == (u16)REQ_SHARED) {
 			/* if device is shared, permissions need to be ORed with existing */
 			Permissions |= (DefPerms | APER_PERM(Security, Reqm->Params[0]));
-		} else if (UsagePolicy == (u8)REQ_NO_RESTRICTION) {
+		} else if (UsagePolicy == (u16)REQ_NO_RESTRICTION) {
 			Permissions = PERM_MASK;
 		} else {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
 	} else {
-		if (UsagePolicy != (u8)REQ_NO_RESTRICTION) {
+		if (UsagePolicy != (u16)REQ_NO_RESTRICTION) {
 			/* Configure XPPU to disable masters belonging to this subsystem */
 			Permissions = (Permissions | XPPU_APERTURE_TRUSTZONE_MASK);
 			Permissions = (Permissions & (~PERM(Reqm->Params[0])));
@@ -807,7 +807,7 @@ static XStatus XPmProt_XmpuEnable(u32 NodeId)
 
 	/* Read region alignment */
 	PmIn32(BaseAddr + XMPU_CTRL_OFFSET, RegVal);
-	MpuNode->AlignCfg = (RegVal >> XMPU_CTRL_ALIGN_CFG_SHIFT) & 0x1U;
+	MpuNode->AlignCfg = (u8)(RegVal >> XMPU_CTRL_ALIGN_CFG_SHIFT) & 0x1U;
 
 	/* Disable default RD/WR configuration on protected regions */
 	PmRmw32(BaseAddr + XMPU_CTRL_OFFSET,
@@ -897,7 +897,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 	XStatus Status = XST_FAILURE;
 	u32 CfgToWr, RegnCfgAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u8 Usage, Security, RdAllowed, WrAllowed, NSRegnCheck;
+	u16 Usage, Security, RdAllowed, WrAllowed, NSRegnCheck;
 
 	if (MAX_MEM_REGIONS <= RegionId) {
 		DbgErr = XPM_INT_ERR_INVALID_REGION;
@@ -930,7 +930,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 			 & XMPU_RXX_CONFIG_RDALLOWED_MASK));
 
 	/* Setup memory region config */
-	if ((u8)REQ_NONSHARED != Usage) {
+	if ((u16)REQ_NONSHARED != Usage) {
 		/**
 		 * TODO: Add support for following usage modes:
 		 *   - REQ_SHARED
