@@ -23,6 +23,7 @@
 * 1.02  bsv  02/17/2020 Added 64-bit / 128-bit safety write APIs for xilsem
 *       bsv  04/04/2020 Code clean up
 * 1.03  kc   06/22/2020 Minor updates to PrintArray for better display
+*       kc   08/17/2020 Added redundancy checks to XPlmi_MemCmp
 *
 * </pre>
 *
@@ -480,7 +481,7 @@ void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
  ******************************************************************************/
 int XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 {
-	int RetVal = 0;
+	volatile int RetVal = 1;
 	const u8 *Buf1 = Buf1Ptr;
 	const u8 *Buf2 = Buf2Ptr;
 	u32 Size = Len;
@@ -494,10 +495,10 @@ int XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 	while (Size != 0U) {
 		if (*Buf1 > *Buf2) {
 			RetVal = 1;
-			break;
+			goto END;
 		} else if (*Buf1 < *Buf2) {
 			RetVal = -1;
-			break;
+			goto END;
 		} else {
 			Buf1++;
 			Buf2++;
@@ -505,5 +506,11 @@ int XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 		}
 	}
 
+	/* Make sure size is zero to know the whole of data is compared */
+	if (Size == 0U) {
+		RetVal = 0;
+	}
+
+END:
 	return RetVal;
 }
