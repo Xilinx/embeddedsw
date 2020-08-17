@@ -470,8 +470,8 @@ extern "C" {
 
 #define XPm_PrintDbgErr(Status, DbgErr)			\
 	do {						\
-		if (XST_SUCCESS != Status) {		\
-			PmErr("0x%x\r\n", DbgErr);	\
+		if (XST_SUCCESS != (Status)) {		\
+			PmErr("0x%x\r\n", (DbgErr));	\
 		}					\
 	} while (0)					\
 
