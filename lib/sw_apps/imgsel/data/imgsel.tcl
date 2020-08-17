@@ -4,11 +4,11 @@
 #******************************************************************************/
 
 proc swapp_get_name {} {
-    return "Zynq MP Pre-FSBL";
+    return "Image Selector";
 }
 
 proc swapp_get_description {} {
-    return "Pre First Stage Bootloader (Pre-FSBL) for Zynq Ultrascale+ MPSoC. The Pre-FSBL \
+    return "ImgSel for Zynq Ultrascale+ MPSoC. The Image Selector \
 	selects the image based on configuration parameters";
 }
 
@@ -83,6 +83,6 @@ proc swapp_generate {} {
 
 proc swapp_get_linker_constraints {} {
 
-    # don't generate a linker script. Pre-FSBL has its own linker script
+    # don't generate a linker script. ImgSel has its own linker script
     return "lscript no";
 }

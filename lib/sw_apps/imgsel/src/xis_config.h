@@ -5,7 +5,7 @@
 
 /*****************************************************************************/
 /**
-* @file xprefsbl_config.h
+* @file xis_config.h
 *
 * This is the header file which contains all configuration data.
 *
@@ -21,8 +21,8 @@
 *
 ******************************************************************************/
 
-#ifndef XPREFSBL_CONFIG_H
-#define XPREFSBL_CONFIG_H
+#ifndef XIS_CONFIG_H
+#define XIS_CONFIG_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,22 +40,22 @@ extern "C" {
  * Below mentioned macros support two different mechanisms
  * We will support any one mechanism at a time
  *
- * XPREFSBL_UPDATE_A_B_MECHANISM
+ * XIS_UPDATE_A_B_MECHANISM
  * It will read the persistent registers from QSPI and based on persistent
  * registers data it will update the multiboot value
  *
- * XPREFSBL_GET_BOARD_PARAMS
+ * XIS_GET_BOARD_PARAMS
  * It will read the board name from EEPROM and based on board name
  * it will update the multiboot value
  *
  */
-//#define XPREFSBL_UPDATE_A_B_MECHANISM
-//#define XPREFSBL_UART_ENABLE
+//#define XIS_UPDATE_A_B_MECHANISM
+//#define XIS_UART_ENABLE
 #ifdef XPAR_XIICPS_NUM_INSTANCES
-#define XPREFSBL_GET_BOARD_PARAMS
-#define XPREFSBL_MUX_ADDR 			(0x74U)
-#define XPREFSBL_I2C_MUX_INDEX		(0x1U)
-#define XPREFSBL_EEPROM_ADDRESS		(0x54U)
+#define XIS_GET_BOARD_PARAMS
+#define XIS_MUX_ADDR 			(0x74U)
+#define XIS_I2C_MUX_INDEX		(0x1U)
+#define XIS_EEPROM_ADDRESS		(0x54U)
 #endif
 
 #ifdef __cplusplus

@@ -5,7 +5,7 @@
 
 /*****************************************************************************/
 /**
-* @file xprefsbl_common.c
+* @file xis_common.c
 *
 * This is the file which contains error update functionality,
 * multiboot value update functionality and soft reset functionality
@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xprefsbl_main.h"
+#include "xis_main.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -44,9 +44,9 @@
  * @return	None.
  *
  ******************************************************************************/
-void XPrefsbl_UpdateMultiBootValue(u32 Offset)
+void XIs_UpdateMultiBootValue(u32 Offset)
 {
-	XPreFsbl_Out32(XPREFSBL_CSU_MULTI_BOOT, Offset);
+	XIs_Out32(XIS_CSU_MULTI_BOOT, Offset);
 }
 
 /*****************************************************************************/
@@ -58,9 +58,9 @@ void XPrefsbl_UpdateMultiBootValue(u32 Offset)
  * @return	None.
  *
  ******************************************************************************/
-void XPrefsbl_Softreset(void)
+void XIs_Softreset(void)
 {
-	XPreFsbl_Out32(XPREFSBL_CRL_APB_RESET_CTRL, XPREFSBL_CSU_APB_RESET_VAL);
+	XIs_Out32(XIS_CRL_APB_RESET_CTRL, XIS_CSU_APB_RESET_VAL);
 }
 
 /*****************************************************************************/
@@ -72,7 +72,7 @@ void XPrefsbl_Softreset(void)
  * @return	None.
  *
  ******************************************************************************/
-void XPrefsbl_UpdateError(int Error)
+void XIs_UpdateError(int Error)
 {
-	XPreFsbl_Out32(XPREFSBL_ERROR_STATUS_REGISTER_OFFSET, ((u32)Error << 16U));
+	XIs_Out32(XIS_ERROR_STATUS_REGISTER_OFFSET, ((u32)Error << 16U));
 }
