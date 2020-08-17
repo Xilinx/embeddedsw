@@ -933,10 +933,10 @@ static XStatus XPmPower_SysmonCheckPower(XPm_Rail *Rail)
 	 * SUPPLYn and NewDataFlag registers
 	 */
 	u32 Index = Rail->Power.Node.BaseAddress;
-	u32 SysmonSupplyReg = (u32)PMC_SYSMON_SUPPLY0 + (Index * 4);
-	u32 SysmonLowThReg = (u32)PMC_SYSMON_SUPPLY0_TH_LOWER + (Index * 4);
-	u32 NewDataFlagReg = (u32)PMC_SYSMON_NEW_DATA_FLAG0 + ((Index/32) * 4);
-	u32 Offset = Index % 32;
+	u32 SysmonSupplyReg = (u32)PMC_SYSMON_SUPPLY0 + (Index * 4U);
+	u32 SysmonLowThReg = (u32)PMC_SYSMON_SUPPLY0_TH_LOWER + (Index * 4U);
+	u32 NewDataFlagReg = (u32)PMC_SYSMON_NEW_DATA_FLAG0 + ((Index/32U) * 4U);
+	u32 Offset = Index % 32U;
 
 	/* Wait for New Data Flag */
 	Status = XPm_PollForMask(NewDataFlagReg, BIT32(Offset),
@@ -1031,7 +1031,7 @@ XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask)
 	}
 
 	Source = Rail->Source;
-	if (XPM_PGOOD_SYSMON == Source) {
+	if ((u32)XPM_PGOOD_SYSMON == Source) {
 		Status = XPmPower_SysmonCheckPower(Rail);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_POWER_SUPPLY;

@@ -499,14 +499,14 @@ static int XPm_ReadPggs(u32 PggsNum, u32 *Value)
 	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 and PGGS2-3 to PSM_GLOBAL_PGGS0-1 */
 	if (2U > PggsNum) {
 		PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
-		       (PggsNum << 2)), *Value);
+		       (PggsNum << 2U)), *Value);
 	} else {
 		XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
-		if (XPM_POWER_STATE_ON != Lpd->Node.State) {
+		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
 			goto done;
 		}
 		PmIn32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
-		       ((PggsNum - 2) << 2), *Value);
+		       ((PggsNum - 2U) << 2U), *Value);
 	}
 
 	Status = XST_SUCCESS;
@@ -533,14 +533,14 @@ static int XPm_WritePggs(u32 PggsNum, u32 Value)
 	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 and PGGS2-3 to PSM_GLOBAL_PGGS0-1 */
 	if (2U > PggsNum) {
 		PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
-			(PggsNum << 2)), Value);
+			(PggsNum << 2U)), Value);
 	} else {
 		XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
-		if (XPM_POWER_STATE_ON != Lpd->Node.State) {
+		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
 			goto done;
 		}
 		PmOut32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
-			((PggsNum - 2) << 2), Value);
+			((PggsNum - 2U) << 2U), Value);
 	}
 
 	Status = XST_SUCCESS;

@@ -850,12 +850,12 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			Typeflags = PtrNodes[Index + i].Typeflags;
 
 			/* Set CCF flags to each nodes for read only clock */
-			if (0 != (Clk->ClkNode.Flags & CLK_FLAG_READ_ONLY)) {
-				if (TYPE_GATE == Type) {
+			if (0U != (Clk->ClkNode.Flags & CLK_FLAG_READ_ONLY)) {
+				if ((u8)TYPE_GATE == Type) {
 					Clkflags |= CLK_IS_CRITICAL;
-				} else if ((TYPE_DIV1 == Type) || (TYPE_DIV2 == Type)) {
+				} else if (((u8)TYPE_DIV1 == Type) || ((u8)TYPE_DIV2 == Type)) {
 					Typeflags |= CLK_DIVIDER_READ_ONLY;
-				} else if (TYPE_MUX == Type) {
+				} else if ((u8)TYPE_MUX == Type) {
 					Typeflags |= CLK_MUX_READ_ONLY;
 				}
 			}

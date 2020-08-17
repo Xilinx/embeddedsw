@@ -468,10 +468,10 @@ XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
 	Polarity = XPmDomainIso_List[IsoIdx].Polarity;
 
 	if (Mask == (XPm_In32(Base) & Mask)) {
-		*State = (Polarity == PM_ACTIVE_HIGH)?
+		*State = (Polarity == (u32)PM_ACTIVE_HIGH)?
 			PM_ISOLATION_ON : PM_ISOLATION_OFF;
 	} else {
-		*State = (Polarity == PM_ACTIVE_HIGH)?
+		*State = (Polarity == (u32)PM_ACTIVE_HIGH)?
 			PM_ISOLATION_OFF : PM_ISOLATION_ON;
 	}
 
