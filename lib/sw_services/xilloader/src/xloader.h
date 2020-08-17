@@ -59,13 +59,11 @@
 *       skd  07/29/2020 Removed device copy macros
 *       bsv  08/06/2020 Code clean up
 *       bsv  08/10/2020 Added subsystem restart support from DDR
-<<<<<<< HEAD
 *       kal  08/12/2020 Added param ImageId for XLoader_CframeErrorHandler
 *                       to identify Full PL partition and perform PL house
 *                       cleaning.
-=======
 *       har  08/11/2020 Added XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL
->>>>>>> sw_services:xilloader:Support for Authenticated JTAG
+*       bsv  08/17/2020 Added redundancy in XLoader_IsAuthEnabled
 *
 * </pre>
 *
@@ -315,8 +313,12 @@ typedef struct {
  *****************************************************************************/
 static inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
 {
-	return	(PdiPtr->MetaHdr.ImgHdrTbl.AcOffset != 0x0U) ? \
+	volatile u8 IsAuth = TRUE;
+	volatile u8 IsAuthTemp = TRUE;
+	IsAuth = (PdiPtr->MetaHdr.ImgHdrTbl.AcOffset != 0x0U) ? \
 		(TRUE) : (FALSE);
+	IsAuthTemp = IsAuth;
+	return (IsAuth | IsAuthTemp);
 }
 
 /*****************************************************************************/
