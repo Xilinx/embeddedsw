@@ -19,6 +19,7 @@
 * X.X   ..   DD-MM-YYYY ..
 * 1.0   mmo  30-04-2019 Initial version
 * 1.1   ku   14-07-2020 Menu option for 4K Quad selection
+*                       Menu option for 16 BPC
 *
 * </pre>
 *
@@ -1061,6 +1062,7 @@ void XHdmi_DisplayColorDepthMenu(void) {
     xil_printf("  1 - 24 bpp\r\n");
     xil_printf("  2 - 30 bpp\r\n");
     xil_printf("  3 - 36 bpp\r\n");
+    xil_printf("  4 - 48 bpp\r\n");
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
 }
@@ -1116,6 +1118,10 @@ static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    ColorDepth = XVIDC_BPC_12;
 	    break;
 
+	    /* 48 bpp */
+	case 4 :
+	    ColorDepth = XVIDC_BPC_16;
+	    break;
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
