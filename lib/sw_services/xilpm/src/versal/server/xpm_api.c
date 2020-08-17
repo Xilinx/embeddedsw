@@ -595,6 +595,7 @@ static void PostTopologyHook(void)
 XStatus XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_FAILURE;
+	u32 PlatformVersion;
 
 	/*
 	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
@@ -621,9 +622,11 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 *
 	 * The VCC_AUX workaround will be removed from MIO-37 in future.
 	 */
+	PlatformVersion = XPm_GetPlatformVersion();
+
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform() &&
-	    ((PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) ||
-	     (PLATFORM_VERSION_SILICON_ES2 == XPm_GetPlatformVersion())))) {
+	    (((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) ||
+	     ((u32)PLATFORM_VERSION_SILICON_ES2 == PlatformVersion)))) {
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
 					   XPM_MAX_CAPABILITY, XPM_MAX_QOS);
 		if (XST_SUCCESS != Status) {

@@ -74,6 +74,7 @@ static void PldApplyTrim(u32 TrimType)
         Xuint128 VggTrim={0};
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 Platform;
 
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -101,9 +102,11 @@ static void PldApplyTrim(u32 TrimType)
                 {
                         PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CRAM_OFFSET,
 			       TrimVal);
+
+			Platform = XPm_GetPlatform();
 			/* if eFUSE is not programmed,
 			then set rw_read_voltages to 0.61V + 0.625V by writing */
-			if ((TrimVal == 0U) && (PLATFORM_VERSION_SILICON == XPm_GetPlatform())) {
+			if ((TrimVal == 0U) && ((u32)PLATFORM_VERSION_SILICON == Platform)) {
 				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
 			}
                         XCframe_CramTrim(&CframeIns, TrimVal);

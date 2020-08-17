@@ -216,6 +216,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	u32 Platform;
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
@@ -246,9 +247,10 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		 * To fix this bug rerun LPD BISR whenever the RPU power
 		 * island is powered down and brought up again.
 		 */
+		Platform = XPm_GetPlatform();
 		if ((PLATFORM_VERSION_SILICON_ES1 ==
 		     XPm_GetPlatformVersion()) &&
-		    (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+		    ((u32)PLATFORM_VERSION_SILICON == Platform) &&
 		    ((u32)XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
 		    (0U == (LPD_BISR_DONE & LpDomain->LpdBisrFlags))) {
 			if (0U != (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags)) {

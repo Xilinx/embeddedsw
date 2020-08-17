@@ -573,6 +573,7 @@ done:
 int XPmReset_SystemReset(void)
 {
 	int Status = XST_FAILURE;
+	u32 PlatformVersion = 0x0U;
 
 	/* TODO: Confirm if idling is required here or not */
 
@@ -584,8 +585,9 @@ int XPmReset_SystemReset(void)
 	 * There is no need to set original parent of SYSMON_REF_CLK explicitly,
 	 * as after SRST, CDO will set it to default value.
 	 */
+	PlatformVersion = XPm_GetPlatformVersion();
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		u16 i;
 		XPm_OutClockNode *Clk;
 		Clk = (XPm_OutClockNode *)XPmClock_GetById(PM_CLK_SYSMON_REF);

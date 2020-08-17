@@ -482,6 +482,7 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 PpuBase = PpuNode->ProtNode.Node.BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 PlatformVersion;
 
 	if (PpuNode == NULL) {
 		DbgErr = XPM_INT_ERR_INVALID_NODE;
@@ -489,8 +490,9 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 		goto done;
 	}
 
+	PlatformVersion = XPm_GetPlatformVersion();
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/* Disable permission checks for all apertures */
 		Address = PpuBase + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
 		for (idx = 0; idx < MAX_PERM_REGS; idx++)
@@ -599,6 +601,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 PermissionRegMask = 0;
 	u32 Security = (u32)SECURITY_POLICY(Reqm->Flags);	/** < Device security policy */
 	u8 UsagePolicy = USAGE_POLICY(Reqm->Flags);	/** < Device usage policy */
+	u32 PlatformVersion;
 
 	PmDbg("Xppu configure: 0x%x\r\n", Enable);
 	PmDbg("Device Node Id: 0x%x\r\n", Reqm->Device->Node.Id);
@@ -732,8 +735,10 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	PmDbg("PermissionRegAddress 0x%08x Permissions 0x%08x RegMask 0x%x \r\n",
 			PermissionRegAddress, Permissions, PermissionRegMask);
 
+	PlatformVersion = XPm_GetPlatformVersion();
+
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion())) {
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/* Set XPPU control to 0 */
 		PmRmw32(PpuBase + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
 

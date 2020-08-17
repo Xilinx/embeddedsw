@@ -99,6 +99,9 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	XPm_Requirement *Reqm;
 	int DeviceInUse = 0;
 	u32 Idx, Idx2;
+	u32 Platform;
+	u32 PlatformVersion;
+
 	/* TODO: Remove this device list when CDO change is available */
 	u32 ExcludeDevList[] = {
 		PM_DEV_L2_BANK_0,
@@ -149,9 +152,12 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			continue;
 		}
 
+		Platform = XPm_GetPlatform();
+		PlatformVersion = XPm_GetPlatformVersion();
+
 		if (((u32)PM_DEV_GPIO == Device->Node.Id) &&
-		    (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-		    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()))
+		    ((u32)PLATFORM_VERSION_SILICON == Platform) &&
+		    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
 		{
 			continue;
 		}
