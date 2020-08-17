@@ -65,7 +65,7 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
  * Memory region type to XMPU map.
  */
 #define MEMIDX(Idx) \
-	((Idx) - XPM_NODETYPE_DEV_OCM_REGN)
+	((u32)(Idx) - (u32)XPM_NODETYPE_DEV_OCM_REGN)
 
 static const u8 MemToXMPUMap[2] = {
 	[MEMIDX(XPM_NODETYPE_DEV_OCM_REGN)] = XPM_NODEIDX_PROT_XMPU_OCM,
@@ -622,7 +622,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	 *  for these devices.
 	 */
 	DeviceBaseAddr = XPmProt_GetDevBaseAddr(Reqm->Device);
-	if (!DeviceBaseAddr) {
+	if (0x0U == DeviceBaseAddr) {
 		PmDbg("Aperture permission config not supported for device node: 0x%08x\r\n",
 				Reqm->Device->Node.Id);
 		Status = XST_SUCCESS;
