@@ -108,13 +108,13 @@ enum XPm_ReqNsRegionCheckType {
  *     - Write Policy
  */
 #define REQUIREMENT_FLAGS(Prealloc, Capability, RegnCheck, Wr, Rd, Security, Usage) \
-				(((Prealloc) << (REG_FLAGS_PREALLOC_OFFSET)) | \
-				 ((Capability) << (REG_FLAGS_CAPABILITY_OFFSET)) | \
-				 ((RegnCheck) << (REG_FLAGS_NSREGN_CHECK_OFFSET)) | \
-				 ((Wr) << (REG_FLAGS_WR_POLICY_OFFSET)) | \
-				 ((Rd) << (REG_FLAGS_RD_POLICY_OFFSET)) | \
-				 ((Security) << (REG_FLAGS_SECURITY_OFFSET)) | \
-				 ((Usage) & (REG_FLAGS_USAGE_MASK)))
+				(((u16)(Prealloc) << (REG_FLAGS_PREALLOC_OFFSET)) | \
+				 ((u16)(Capability) << (REG_FLAGS_CAPABILITY_OFFSET)) | \
+				 ((u16)(RegnCheck) << (REG_FLAGS_NSREGN_CHECK_OFFSET)) | \
+				 ((u16)(Wr) << (REG_FLAGS_WR_POLICY_OFFSET)) | \
+				 ((u16)(Rd) << (REG_FLAGS_RD_POLICY_OFFSET)) | \
+				 ((u16)(Security) << (REG_FLAGS_SECURITY_OFFSET)) | \
+				 ((u16)(Usage) & (REG_FLAGS_USAGE_MASK)))
 
 /**
  * Macros for extracting attributes from Flags

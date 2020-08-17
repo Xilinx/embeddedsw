@@ -535,7 +535,7 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 	PmDbg("Configuring Subsystem: 0x%x\r\n", SubsystemId);
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		if ((1U != Reqm->Allocated) && ISPREALLOCREQUIRED(Reqm->Flags)) {
+		if ((1U != Reqm->Allocated) && (0x1U == (u32)ISPREALLOCREQUIRED(Reqm->Flags))) {
 			DeviceId = Reqm->Device->Node.Id;
 			PmDbg("Prealloc Node: 0x%x Capabilities: 0x%x\r\n", DeviceId, CAPABILITY(Reqm->Flags));
 			Status = XPm_RequestDevice(SubsystemId, DeviceId,
@@ -561,21 +561,21 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
 	const u32 DefaultPreallocDevList[][2] = {
-		{PM_DEV_PSM_PROC, PM_CAP_ACCESS},
-		{PM_DEV_UART_0, XPM_MAX_CAPABILITY},
-		{PM_DEV_UART_1, XPM_MAX_CAPABILITY},
-		{PM_DEV_OCM_0, PM_CAP_ACCESS | PM_CAP_CONTEXT},
-		{PM_DEV_OCM_1, PM_CAP_ACCESS | PM_CAP_CONTEXT},
-		{PM_DEV_OCM_2, PM_CAP_ACCESS | PM_CAP_CONTEXT},
-		{PM_DEV_OCM_3, PM_CAP_ACCESS | PM_CAP_CONTEXT},
-		{PM_DEV_DDR_0, PM_CAP_ACCESS | PM_CAP_CONTEXT},
-		{PM_DEV_ACPU_0, PM_CAP_ACCESS},
-		{PM_DEV_ACPU_1, PM_CAP_ACCESS},
-		{PM_DEV_SDIO_0, PM_CAP_ACCESS},
-		{PM_DEV_SDIO_1, PM_CAP_ACCESS},
-		{PM_DEV_GEM_0, XPM_MAX_CAPABILITY},
-		{PM_DEV_GEM_1, XPM_MAX_CAPABILITY},
-		{PM_DEV_RPU0_0, PM_CAP_ACCESS},
+		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
+		{PM_DEV_UART_0, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_UART_1, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_OCM_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_DDR_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_ACPU_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_SDIO_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_SDIO_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_GEM_0, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_GEM_1, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_RPU0_0, (u32)PM_CAP_ACCESS},
 	};
 
 	if (((u32)XPM_NODECLASS_SUBSYSTEM != NODECLASS(SubsystemId)) ||
@@ -644,7 +644,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 					}
 				}
 				Status = XPmRequirement_Add(Subsystem, Device,
-						REQUIREMENT_FLAGS(Prealloc, Capability, 0, 0, 0,
+						(u32)REQUIREMENT_FLAGS(Prealloc, Capability, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
 						NULL, 0);
@@ -659,7 +659,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
 			if (NULL != Device) {
 				Status = XPmRequirement_Add(Subsystem, Device,
-						REQUIREMENT_FLAGS(0, 0, 0, 0, 0,
+						(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
 						NULL, 0);

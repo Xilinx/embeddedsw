@@ -509,6 +509,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	u32 PlPowerUpTime=0;
 	u32 Platform = XPm_GetPlatform();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 powerRtnStatus = (u32)XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -522,12 +523,12 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	/* If PL power is still not up, return error as PLD cant
 	   be initialized */
 	if (1U != HcleanDone) {
-		while (XST_SUCCESS != Status) {
-			Status = (XPmPower_CheckPower(VccintRail,
+		while ((u32)XST_SUCCESS != powerRtnStatus) {
+			powerRtnStatus = ((u32)XPmPower_CheckPower(VccintRail,
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK) |
-					  XPmPower_CheckPower(VccRamRail,
+					 (u32)XPmPower_CheckPower(VccRamRail,
 						  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
-					  XPmPower_CheckPower(VccauxRail,
+					  (u32)XPmPower_CheckPower(VccauxRail,
 						  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
 
 			/** Wait for PL power up */
@@ -613,12 +614,12 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	/* Enable the global signals */
 	XCfupmc_SetGlblSigEn(&CfupmcIns, (u8 )TRUE);
 
-	Status = (XPmPower_CheckPower(VccRamRail,
+	powerRtnStatus = ((u32)XPmPower_CheckPower(VccRamRail,
 				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
-			  XPmPower_CheckPower(VccauxRail,
+			 (u32) XPmPower_CheckPower(VccauxRail,
 				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
 
-	if (XST_SUCCESS == Status) {
+	if ((u32)XST_SUCCESS == powerRtnStatus) {
 		/* Remove vccaux-vccram domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
@@ -627,17 +628,19 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	Status = (XPmPower_CheckPower(VccRamRail,
+	powerRtnStatus = ((u32)XPmPower_CheckPower(VccRamRail,
 				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
-			  XPmPower_CheckPower(VccSocRail,
+			  (u32)XPmPower_CheckPower(VccSocRail,
 				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK));
-	if (XST_SUCCESS == Status) {
+	if ((u32)XST_SUCCESS == powerRtnStatus) {
 		/* Remove vccaux-vccram domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
 			goto done;
 		}
+	} else {
+		Status = XST_FAILURE;
 	}
 
 	XCfupmc_GlblSeqInit(&CfupmcIns);
@@ -667,6 +670,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	u32 PlatformVersion;
 	XPm_Pmc *Pmc;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 powerRtnStatus = (u32)XST_FAILURE;
 
 	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT);
 	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_RAM);
@@ -679,14 +683,15 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	}
 
 	/* Proceed only if vccint, vccaux, vccint_ram is 1 */
-	Status = (XPmPower_CheckPower(VccintRail,
+	powerRtnStatus = ((u32)XPmPower_CheckPower(VccintRail,
 				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK) |
-		      XPmPower_CheckPower(VccRamRail,
+		      (u32)XPmPower_CheckPower(VccRamRail,
 				  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK) |
-		      XPmPower_CheckPower(VccauxRail,
+		      (u32)XPmPower_CheckPower(VccauxRail,
 				  PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
-	if (XST_SUCCESS != Status) {
+	if ((u32)XST_SUCCESS != powerRtnStatus) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		Status = XST_FAILURE;
 		goto done;
 	}
 
