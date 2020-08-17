@@ -134,6 +134,9 @@ emaclite_v4_6:
 Fix self test failure on zynqmp platform.
 Fix resource error in importing xemaclite_internal_loopback_example.
 
+emacps_v3_12:
+Remove emacps 1588 examples.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
