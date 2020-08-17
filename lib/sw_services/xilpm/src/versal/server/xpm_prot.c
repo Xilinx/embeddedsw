@@ -597,7 +597,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 DynamicReconfigAddrOffset = 0;
 	u32 PermissionRegAddress = 0;
 	u32 PermissionRegMask = 0;
-	u32 Security = SECURITY_POLICY(Reqm->Flags);	/** < Device security policy */
+	u32 Security = (u32)SECURITY_POLICY(Reqm->Flags);	/** < Device security policy */
 	u8 UsagePolicy = USAGE_POLICY(Reqm->Flags);	/** < Device usage policy */
 
 	PmDbg("Xppu configure: 0x%x\r\n", Enable);
@@ -915,7 +915,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 			Usage, Security, RdAllowed, WrAllowed, NSRegnCheck);
 
 	/* Setup config to be written; except enable */
-	CfgToWr = (((NSRegnCheck << XMPU_RXX_CONFIG_NSCHECKTYPE_SHIFT)
+	CfgToWr = (u32)(((NSRegnCheck << XMPU_RXX_CONFIG_NSCHECKTYPE_SHIFT)
 			& XMPU_RXX_CONFIG_NSCHECKTYPE_MASK)
 		 | ((Security << XMPU_RXX_CONFIG_REGIONNS_SHIFT)
 			 & XMPU_RXX_CONFIG_REGIONNS_MASK)
