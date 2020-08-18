@@ -36,6 +36,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   Tejus   07/30/2019  Initial creation
+* 1.1   Tejus   10/21/2019  Optimize stream switch data structures
 * </pre>
 *
 ******************************************************************************/
@@ -1372,34 +1373,43 @@ const static XAie_DmaMod Aie2MemTileDmaMod =
  * Array of all Tile Stream Switch Master Config registers
  * The data structure contains number of ports and the register offsets
  */
-const static XAie_StrmMstr Aie2TileStrmMstr[SS_PORT_TYPE_MAX] =
+const static XAie_StrmPort Aie2TileStrmMstr[SS_PORT_TYPE_MAX] =
 {
-	{
-		1, Aie2TileStrmMstrCore,	/* Core */
+	{	/* Core */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0,
 	},
-	{
-		2, Aie2TileStrmMstrDma,		/* DMA */
+	{	/* DMA */
+		.NumPorts = 2,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_DMA0,
 	},
-	{
-		1, Aie2TileStrmMstrCtrl,	/* Ctrl */
+	{	/* Ctrl */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_TILE_CTRL,
 	},
-	{
-		1, Aie2TileStrmMstrFifo,	/* Fifo */
+	{	/* Fifo */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_FIFO0,
 	},
-	{
-		4, Aie2TileStrmMstrSouth,	/* South */
+	{	/* South */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_SOUTH0,
 	},
-	{
-		4, Aie2TileStrmMstrWest,	/* West */
+	{	/* West */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_WEST0,
 	},
-	{
-		6, Aie2TileStrmMstrNorth,	/* North */
+	{	/* North */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_NORTH0,
 	},
-	{
-		4, Aie2TileStrmMstrEast,	/* East */
+	{	/* East */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_EAST0,
 	},
-	{
-		0, NULL				/* Trace */
+	{	/* Trace */
+		.NumPorts = 0,
+		.PortBaseAddr = 0
 	}
 };
 
@@ -1407,34 +1417,43 @@ const static XAie_StrmMstr Aie2TileStrmMstr[SS_PORT_TYPE_MAX] =
  * Array of all Tile Stream Switch Slave Config registers
  * The data structure contains number of ports and the register offsets
  */
-const static XAie_StrmSlv Aie2TileStrmSlv[SS_PORT_TYPE_MAX] =
+const static XAie_StrmPort Aie2TileStrmSlv[SS_PORT_TYPE_MAX] =
 {
-	{
-		1, Aie2TileStrmSlvCore,		/* Core */
+	{	/* Core */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0,
 	},
-	{
-		2, Aie2TileStrmSlvDma,		/* DMA */
+	{	/* DMA */
+		.NumPorts = 2,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_DMA_0,
 	},
-	{
-		1, Aie2TileStrmSlvCtrl,		/* Ctrl */
+	{	/* Ctrl */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TILE_CTRL,
 	},
-	{
-		1, Aie2TileStrmSlvFifo,		/* Fifo */
+	{	/* Fifo */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_FIFO_0,
 	},
-	{
-		6, Aie2TileStrmSlvSouth,	/* South */
+	{	/* South */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_SOUTH_0,
 	},
-	{
-		4, Aie2TileStrmSlvWest,		/* West */
+	{	/* West */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_WEST_0,
 	},
-	{
-		4, Aie2TileStrmSlvNorth,	/* North */
+	{	/* North */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_NORTH_0,
 	},
-	{
-		4, Aie2TileStrmSlvEast,		/* East */
+	{	/* East */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_EAST_0,
 	},
-	{
-		1, Aie2TileStrmSlvTrace,	/* Trace */
+	{	/* Trace */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_MEM_TRACE
 	}
 };
 
@@ -1442,34 +1461,43 @@ const static XAie_StrmSlv Aie2TileStrmSlv[SS_PORT_TYPE_MAX] =
  * Array of all Shim NOC/PL Stream Switch Master Config registers
  * The data structure contains number of ports and the register offsets
  */
-const static XAie_StrmMstr Aie2ShimStrmMstr[SS_PORT_TYPE_MAX] =
+const static XAie_StrmPort Aie2ShimStrmMstr[SS_PORT_TYPE_MAX] =
 {
-	{
-		0, NULL,			/* Core */
+	{	/* Core */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		0, NULL,			/* DMA */
+	{	/* DMA */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		1, Aie2ShimStrmMstrCtrl,	/* Ctrl */
+	{	/* Ctrl */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_TILE_CTRL,
 	},
-	{
-		1, Aie2ShimStrmMstrFifo,	/* Fifo */
+	{	/* Fifo */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_FIFO0,
 	},
-	{
-		6, Aie2ShimStrmMstrSouth,	/* South */
+	{	/* South */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_SOUTH0,
 	},
-	{
-		4, Aie2ShimStrmMstrWest,	/* West */
+	{	/* West */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_WEST0,
 	},
-	{
-		6, Aie2ShimStrmMstrNorth,	/* North */
+	{	/* North */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_NORTH0,
 	},
-	{
-		4, Aie2ShimStrmMstrEast,	/* East */
+	{	/* East */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_EAST0,
 	},
-	{
-		0, NULL,			/* Trace */
+	{	/* Trace */
+		.NumPorts = 0,
+		.PortBaseAddr = 0
 	}
 };
 
@@ -1477,34 +1505,43 @@ const static XAie_StrmMstr Aie2ShimStrmMstr[SS_PORT_TYPE_MAX] =
  * Array of all Shim NOC/PL Stream Switch Slave Config registers
  * The data structure contains number of ports and the register offsets
  */
-const static XAie_StrmSlv Aie2ShimStrmSlv[SS_PORT_TYPE_MAX] =
+const static XAie_StrmPort Aie2ShimStrmSlv[SS_PORT_TYPE_MAX] =
 {
-	{
-		0, NULL,			/* Core */
+	{	/* Core */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		0, NULL,			/* DMA */
+	{	/* DMA */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		1, Aie2ShimStrmSlvCtrl,		/* Ctrl */
+	{	/* Ctrl */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TILE_CTRL,
 	},
-	{
-		1, Aie2ShimStrmSlvFifo,		/* Fifo */
+	{	/* Fifo */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_FIFO_0,
 	},
-	{
-		8, Aie2ShimStrmSlvSouth,	/* South */
+	{	/* South */
+		.NumPorts = 8,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_SOUTH_0,
 	},
-	{
-		4, Aie2ShimStrmSlvWest,		/* West */
+	{	/* West */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_WEST_0,
 	},
-	{
-		4, Aie2ShimStrmSlvNorth,   	/* North */
+	{	/* North */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_NORTH_0,
 	},
-	{
-		4, Aie2ShimStrmSlvEast,		/* East */
+	{	/* East */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_EAST_0,
 	},
-	{
-		1, Aie2ShimStrmSlvTrace,   	/* Trace */
+	{	/* Trace */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TRACE
 	}
 };
 
@@ -1512,34 +1549,43 @@ const static XAie_StrmSlv Aie2ShimStrmSlv[SS_PORT_TYPE_MAX] =
  * Array of all Mem Tile Stream Switch Master Config registers
  * The data structure contains number of ports and the register offsets
  */
-const static XAie_StrmMstr Aie2MemTileStrmMstr[SS_PORT_TYPE_MAX] =
+const static XAie_StrmPort Aie2MemTileStrmMstr[SS_PORT_TYPE_MAX] =
 {
-	{
-		0, NULL,			/* Core */
+	{	/* Core */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		6, Aie2MemTileStrmMstrDma,	/* DMA */
+	{	/* DMA */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_MASTER_CONFIG_DMA0,
 	},
-	{
-		1, Aie2MemTileStrmMstrCtrl, 	/* Ctrl */
+	{	/* Ctrl */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_MASTER_CONFIG_TILE_CTRL,
 	},
-	{
-		0, NULL,			/* Fifo */
+	{	/* Fifo */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		4, Aie2MemTileStrmMstrSouth,	/* South */
+	{	/* South */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_MASTER_CONFIG_SOUTH0,
 	},
-	{
-		0, NULL,			/* West */
+	{	/* West */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		6, Aie2MemTileStrmMstrNorth,	/* North */
+	{	/* North */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_MASTER_CONFIG_NORTH0,
 	},
-	{
-		0, NULL,			/* East */
+	{	/* East */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		0, NULL				/* Trace */
+	{	/* Trace */
+		.NumPorts = 0,
+		.PortBaseAddr = 0
 	}
 };
 
@@ -1547,34 +1593,43 @@ const static XAie_StrmMstr Aie2MemTileStrmMstr[SS_PORT_TYPE_MAX] =
  * Array of all Mem Tile Stream Switch Slave Config registers
  * The data structure contains number of ports and the register offsets
  */
-const static XAie_StrmSlv Aie2MemTileStrmSlv[SS_PORT_TYPE_MAX] =
+const static XAie_StrmPort Aie2MemTileStrmSlv[SS_PORT_TYPE_MAX] =
 {
-	{
-		0, NULL,			/* Core */
+	{	/* Core */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		6, Aie2MemTileStrmSlvDma,	/* DMA */
+	{	/* DMA */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_DMA_0,
 	},
-	{
-		1, Aie2MemTileStrmSlvCtrl,	/* Ctrl */
+	{	/* Ctrl */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TILE_CTRL,
 	},
-	{
-		0, NULL,			/* Fifo */
+	{	/* Fifo */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		6, Aie2MemTileStrmSlvSouth,	/* South */
+	{	/* South */
+		.NumPorts = 6,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_SOUTH_0,
 	},
-	{
-		0, NULL,			/* West */
+	{	/* West */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		4, Aie2MemTileStrmSlvNorth,	/* North */
+	{	/* North */
+		.NumPorts = 4,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_NORTH_0,
 	},
-	{
-		0, NULL,			/* East */
+	{	/* East */
+		.NumPorts = 0,
+		.PortBaseAddr = 0,
 	},
-	{
-		1, Aie2MemTileStrmSlvTrace	/* Trace */
+	{	/* Trace */
+		.NumPorts = 1,
+		.PortBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TRACE
 	}
 };
 
@@ -1583,8 +1638,14 @@ const static XAie_StrmSlv Aie2MemTileStrmSlv[SS_PORT_TYPE_MAX] =
  */
 const static XAie_StrmMod Aie2TileStrmSw =
 {
-	XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0,
 	XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0,
+	0x4,
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_MASTER_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_MASTER_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_PACKET_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_PACKET_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_DROP_HEADER_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_DROP_HEADER_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_CONFIGURATION_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_CONFIGURATION_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_SLAVE_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_SLAVE_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_PACKET_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_PACKET_ENABLE_MASK},
 	Aie2TileStrmMstr,
 	Aie2TileStrmSlv
 };
@@ -1594,8 +1655,14 @@ const static XAie_StrmMod Aie2TileStrmSw =
  */
 const static XAie_StrmMod Aie2ShimStrmSw =
 {
-	XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_TILE_CTRL,
 	XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TILE_CTRL,
+	0x4,
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_MASTER_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_MASTER_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_PACKET_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_PACKET_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_DROP_HEADER_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_DROP_HEADER_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_CONFIGURATION_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_CONFIGURATION_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_SLAVE_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_SLAVE_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_PACKET_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_PACKET_ENABLE_MASK},
 	Aie2ShimStrmMstr,
 	Aie2ShimStrmSlv
 };
@@ -1605,8 +1672,14 @@ const static XAie_StrmMod Aie2ShimStrmSw =
  */
 const static XAie_StrmMod Aie2MemTileStrmSw =
 {
-	XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_MASTER_CONFIG_DMA0,
 	XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_DMA_0,
+	0x4,
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_MASTER_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_MASTER_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_PACKET_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_PACKET_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_DROP_HEADER_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_DROP_HEADER_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_CONFIGURATION_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0_CONFIGURATION_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_SLAVE_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_SLAVE_ENABLE_MASK},
+	{XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_PACKET_ENABLE_LSB, XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0_PACKET_ENABLE_MASK},
 	Aie2MemTileStrmMstr,
 	Aie2MemTileStrmSlv
 };
