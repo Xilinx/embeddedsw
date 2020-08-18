@@ -41,6 +41,7 @@
 * 1.3   Tejus   12/09/2019  Include correct header file to avoid cyclic
 *			    dependancy
 * 1.4   Tejus   03/16/2020  Seperate PlIf Module for SHIMPL and SHIMNOC Tiles
+* 1.5   Tejus   03/16/2020  Add register properties for Mux/Demux registers
 * </pre>
 *
 ******************************************************************************/
@@ -736,6 +737,24 @@ const static XAie_RegFldAttr Aie2DownSzrEnable[] =
 	{XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE_SOUTH7_LSB, XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE_SOUTH7_MASK}
 };
 
+/* Register field attributes for SHIMNOC Mux configuration */
+const static XAie_RegFldAttr Aie2ShimMuxConfig[] =
+{
+	{XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH2_LSB, XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH2_MASK},
+	{XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH3_LSB, XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH3_MASK},
+	{XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH6_LSB, XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH6_MASK},
+	{XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH7_LSB, XAIE2GBL_NOC_MODULE_MUX_CONFIG_SOUTH7_MASK},
+};
+
+/* Register field attributes for SHIMNOC DeMux configuration */
+const static XAie_RegFldAttr Aie2ShimDeMuxConfig[] =
+{
+	{XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH2_LSB, XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH2_MASK},
+	{XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH3_LSB, XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH3_MASK},
+	{XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH4_LSB, XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH4_MASK},
+	{XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH5_LSB, XAIE2GBL_NOC_MODULE_DEMUX_CONFIG_SOUTH5_MASK}
+};
+
 /* Core Module */
 const static XAie_CoreMod Aie2CoreMod =
 {
@@ -782,7 +801,11 @@ const static XAie_PlIfMod Aie2PlIfMod =
 	.DownSzr32_64Bit = Aie2DownSzr32_64Bit,
 	.DownSzr128Bit = Aie2DownSzr128Bit,
 	.DownSzrEn = Aie2DownSzrEnable,
-	.DownSzrByPass = Aie2DownSzrByPass
+	.DownSzrByPass = Aie2DownSzrByPass,
+	.ShimNocMuxOff = 0x0,
+	.ShimNocDeMuxOff = 0x0,
+	.ShimNocMux = NULL,
+	.ShimNocDeMux = NULL
 };
 
 /* PL Interface module for SHIMNOC Tiles */
@@ -800,7 +823,11 @@ const static XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.DownSzr32_64Bit = Aie2DownSzr32_64Bit,
 	.DownSzr128Bit = Aie2DownSzr128Bit,
 	.DownSzrEn = Aie2DownSzrEnable,
-	.DownSzrByPass = Aie2DownSzrByPass
+	.DownSzrByPass = Aie2DownSzrByPass,
+	.ShimNocMuxOff = XAIE2GBL_NOC_MODULE_MUX_CONFIG,
+	.ShimNocDeMuxOff = XAIE2GBL_NOC_MODULE_DEMUX_CONFIG,
+	.ShimNocMux = Aie2ShimMuxConfig,
+	.ShimNocDeMux = Aie2ShimDeMuxConfig
 };
 
 /*
