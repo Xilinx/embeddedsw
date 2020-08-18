@@ -42,6 +42,7 @@
 *			    dependancy
 * 1.4   Tejus   03/16/2020  Seperate PlIf Module for SHIMPL and SHIMNOC Tiles
 * 1.5   Tejus   03/16/2020  Add register properties for Mux/Demux registers
+* 1.6   Tejus   03/17/2020  Add lock module properties
 * </pre>
 *
 ******************************************************************************/
@@ -49,6 +50,7 @@
 /***************************** Include Files *********************************/
 #include "xaiegbl_regdef.h"
 #include "xaiemlgbl_params.h"
+#include "xaie_locks_aieml.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -830,6 +832,48 @@ const static XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.ShimNocDeMux = Aie2ShimDeMuxConfig
 };
 
+/* Lock Module for AIE Tiles  */
+const static XAie_LockMod Aie2TileLockMod =
+{
+	.BaseAddr = XAIE2GBL_MEMORY_MODULE_LOCK_REQUEST,
+	.NumLocks = 16U,
+	.LockIdOff = 0x400,
+	.RelAcqOff = 0x200,
+	.LockValOff = 0x4,
+	.LockValUpperBound = 63,
+	.LockValLowerBound = -64,
+	.Acquire = &_XAieMl_LockAcquire,
+	.Release = &_XAieMl_LockRelease
+};
+
+/* Lock Module for SHIM NOC Tiles  */
+const static XAie_LockMod Aie2ShimNocLockMod =
+{
+	.BaseAddr = XAIE2GBL_NOC_MODULE_LOCK_REQUEST,
+	.NumLocks = 16U,
+	.LockIdOff = 0x400,
+	.RelAcqOff = 0x200,
+	.LockValOff = 0x4,
+	.LockValUpperBound = 63,
+	.LockValLowerBound = -64,
+	.Acquire = &_XAieMl_LockAcquire,
+	.Release = &_XAieMl_LockRelease
+};
+
+/* Lock Module for Mem Tiles  */
+const static XAie_LockMod Aie2MemTileLockMod =
+{
+	.BaseAddr = XAIE2GBL_MEM_TILE_MODULE_LOCK_REQUEST,
+	.NumLocks = 64U,
+	.LockIdOff = 0x400,
+	.RelAcqOff = 0x200,
+	.LockValOff = 0x4,
+	.LockValUpperBound = 63,
+	.LockValLowerBound = -64,
+	.Acquire = &_XAieMl_LockAcquire,
+	.Release = &_XAieMl_LockRelease
+};
+
 /*
  * AIE2 Module
  * This data structure captures all the modules for each tile type.
@@ -847,6 +891,7 @@ XAie_TileMod Aie2Mod[] =
 		.DmaMod  = &Aie2TileDmaMod,
 		.MemMod  = &Aie2TileMemMod,
 		.PlIfMod = NULL,
+		.LockMod = &Aie2TileLockMod,
 	},
 	{
 		/*
@@ -857,6 +902,7 @@ XAie_TileMod Aie2Mod[] =
 		.DmaMod  = NULL,
 		.MemMod  = NULL,
 		.PlIfMod = &Aie2ShimTilePlIfMod,
+		.LockMod = &Aie2ShimNocLockMod,
 	},
 	{
 		/*
@@ -867,6 +913,7 @@ XAie_TileMod Aie2Mod[] =
 		.DmaMod  = NULL,
 		.MemMod  = NULL,
 		.PlIfMod = &Aie2PlIfMod,
+		.LockMod = NULL,
 	},
 	{
 		/*
@@ -877,6 +924,7 @@ XAie_TileMod Aie2Mod[] =
 		.DmaMod  = &Aie2MemTileDmaMod,
 		.MemMod  = &Aie2MemTileMemMod,
 		.PlIfMod = NULL,
+		.LockMod = &Aie2MemTileLockMod
 	}
 };
 
