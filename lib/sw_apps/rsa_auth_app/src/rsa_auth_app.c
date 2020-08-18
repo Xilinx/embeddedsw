@@ -20,6 +20,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  27/01/14 First release
+*       kpt 08/17/20 Fixed Misra-C and Coverity Warnings
 *
 *</pre>
 *
@@ -47,7 +48,7 @@
 
 static int AuthenticatePartition(const u8 *Buffer, u32 Size, u8 *CertStart);
 static void SetPpk(u8 *CertStart);
-static int RecreatePaddingAndCheck(const u8 *signature, const u8 *hash);
+static int RecreatePaddingAndCheck(const u8 *Signature, const u8 *Hash);
 
 /************************** Variable Definitions *****************************/
 
@@ -267,8 +268,8 @@ END:
 *
 * This function recreates and checks the signature.
 *
-* @param	signature Partition signature
-* @param	hash      Partition hash value which includes boot header,
+* @param	Signature Partition signature
+* @param	Hash      Partition hash value which includes boot header,
 *                     partition data
 *
 * @return   XST_SUCCESS signature verification passed
@@ -277,52 +278,53 @@ END:
 * @note		None
 *
 ******************************************************************************/
-static int RecreatePaddingAndCheck(const u8 *signature, const u8 *hash)
+static int RecreatePaddingAndCheck(const u8 *Signature, const u8 *Hash)
 {
 	int Status = XST_FAILURE;
-	const u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
-		0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05, 0x00, 0x04, 0x20 };
-    const u8 * pad_ptr = signature + RSA_PARTITION_SIGNATURE_SIZE;
-    u32 padlen;
-    u32 ii;
+	const u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86,
+							0x48, 0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05,
+							0x00, 0x04, 0x20 };
+    const u8 * PadPtr = Signature + RSA_PARTITION_SIGNATURE_SIZE;
+    u32 PadLen;
+    u32 Idx;
 
-	padlen = RSA_PARTITION_SIGNATURE_SIZE - RSA_BYTE_PAD_LENGTH -
+	PadLen = RSA_PARTITION_SIGNATURE_SIZE - RSA_BYTE_PAD_LENGTH -
 				RSA_T_PAD_LENGTH - HASHLEN;
     /*
     * Re-Create PKCS#1v1.5 Padding
     * MSB  ----------------------------------------------------LSB
     * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA256 Hash
     */
-    if (*--pad_ptr != 0x00U) {
-	goto END;
+    if (*--PadPtr != 0x00U) {
+		goto END;
     }
 
-	if (*--pad_ptr != 0x01U) {
+	if (*--PadPtr != 0x01U) {
 		goto END;
 	}
 
-    for (ii = 0U; ii < padlen; ii++) {
-	if (*--pad_ptr != 0xFFU) {
-		goto END;
+    for (Idx = 0U; Idx < PadLen; Idx++) {
+		if (*--PadPtr != 0xFFU) {
+			goto END;
         }
     }
 
-    if (*--pad_ptr != 0x00U) {
-	goto END;
+    if (*--PadPtr != 0x00U) {
+		goto END;
     }
 
-    for (ii = 0U; ii < sizeof(T_padding); ii++) {
-	if (*--pad_ptr != T_padding[ii]) {
-		goto END;
+    for (Idx = 0U; Idx < sizeof(T_padding); Idx++) {
+		if (*--PadPtr != T_padding[Idx]) {
+			goto END;
         }
     }
 
-    for (ii = 0U; ii < HASHLEN; ii++) {
-	if (*--pad_ptr != hash[ii]) {
-		goto END;
-	}
+    for (Idx = 0U; Idx < HASHLEN; Idx++) {
+		if (*--PadPtr != Hash[Idx]) {
+			goto END;
+		}
     }
-	Status= (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
