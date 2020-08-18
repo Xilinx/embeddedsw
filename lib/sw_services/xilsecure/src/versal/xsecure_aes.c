@@ -42,6 +42,9 @@
 *       har  07/21/2020 Corrected input parameters for config in
 *                       XSecure_AesCfgKupIv
 *       kpt  08/06/2020 Replaced magic numbers with macro's
+*       kpt  08/18/2020 Added volatile keyword to status variable in case of
+*                       status reset
+*
 * </pre>
 *
 * @note
@@ -536,7 +539,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			  XSecure_AesKeySrc DecKeySrc,
 			  XSecure_AesKeySrc DstKeySrc, u64 IvAddr, u32 KeySize)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 	XSecure_AesKeySrc KeySrc;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -851,7 +854,7 @@ END:
  ******************************************************************************/
 u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -962,7 +965,7 @@ END:
 u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1173,7 +1176,7 @@ END:
  ******************************************************************************/
 u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1259,7 +1262,7 @@ END:
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1918,7 +1921,7 @@ END:
 static u32 XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,XSecure_AesKeySrc KeySrc,
 		XSecure_AesKeySize KeySize, u64 IvAddr)
 {
-	u32 Status = (u32)XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Configure the SSS for AES. */
 	if (InstancePtr->PmcDmaPtr->Config.DeviceId == PMCDMA_0_DEVICE_ID) {
