@@ -18,6 +18,7 @@
  * ----- ------  -------- ------------------------------------------------------
  * 1.0   har     01/31/20 First release
  * 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
+ * 1.2   am      08/14/20 Changed unsigned to signed enum object.
  *
  * </pre>
  *
@@ -166,7 +167,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef enum {
-	XPUF_EFUSE_AES_KEY = 1U,
+	XPUF_EFUSE_AES_KEY = 1,
 	XPUF_BBRAM_AES_KEY,
 	XPUF_EFUSE_USER_0_KEY,
 	XPUF_EFUSE_USER_1_KEY

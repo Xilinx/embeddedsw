@@ -22,6 +22,8 @@
  *       har  03/08/20 Added function to print array
  *                     Corrected endianness of PUF helper data
  * 1.2   har  07/03/20 Corrected the length of PUF ID passed in XPuf_ShowData
+ *       am   08/14/20 Replacing function prototype and local status variable
+ *  				   from u32 and s32 to int.
  *
  * @note
  *
@@ -134,14 +136,14 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
 /************************** Function Prototypes ******************************/
-static s32 XPuf_GenerateKey();
-static s32 XPuf_VerifyDataEncDec(void);
+static int XPuf_GenerateKey(void);
+static int XPuf_VerifyDataEncDec(void);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 
 /************************** Function Definitions *****************************/
-int main()
+int main(void)
 {
-	int Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	/* Generate PUF KEY
 	 */
@@ -180,19 +182,35 @@ END:
 /******************************************************************************/
 /**
  *
- * This function generates PUF KEY by PUF registration or PUF on demand
- * regeneration as per the user provided inputs.
+ * @brief	This function generates PUF KEY by PUF registration or PUF on demand
+ * 			regeneration as per the user provided inputs.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if PUF_KEY generation was successful
- *		- XST_FAILURE if PUF KEY generation failed
+ *		- XST_SUCCESS - If PUF_KEY generation was successful.
+ * 		- XPUF_ERROR_INVALID_PARAM              - PufData is NULL.
+ *		- XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration mode.
+ *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while waiting
+ *												  for PUF Syndrome data.
+ *		- XPUF_ERROR_SYNDROME_DATA_OVERFLOW    - Syndrome data overflow reported
+ *												 by PUF controller or more than
+ *												 required data is provided by
+ *												 PUF controller.
+ *	    - XPUF_ERROR_SYNDROME_DATA_UNDERFLOW   - Number of syndrome data words
+ *												 are less than expected number
+ * 												 of words.
+ *		- XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ *			 									 regeneration type.
+ *		- XPUF_ERROR_CHASH_NOT_PROGRAMMED      - Helper data not provided.
+ *		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout before Status was done.
+ *
+ *		- XST_FAILURE 						   - if PUF KEY generation failed.
  *
  ******************************************************************************/
-static s32 XPuf_GenerateKey()
+static int XPuf_GenerateKey(void)
 {
-	s32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 	u32 PUF_HelperData[XPUF_HD_LEN_IN_WORDS] = {0U};
 #endif
@@ -259,21 +277,25 @@ END:
 /******************************************************************************/
 /**
  *
- * This function encrypts the data with PUF key and IV and decrypts
- * the encrypted data also checks whether GCM tag is matched or not and
- * compares the decrypted data with the original data provided.
+ * @brief	This function encrypts the data with PUF key and IV and decrypts
+ * 			the encrypted data also checks whether GCM tag is matched or not
+ * 			and compares the decrypted data with the original data provided.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if encryption was successful
- *		- error code if encruption failed
+ *		- XST_SUCCESS - If encryption was successful.
+ *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XST_FAILURE 				   - On failure of AES Encrypt
+ *										 Initialization, AES Encrypt data,
+ *										 format AES key and AES decrypt
+ *										 Initialization and data.
  *
  ******************************************************************************/
-static s32 XPuf_VerifyDataEncDec(void)
+static int XPuf_VerifyDataEncDec(void)
 {
+	int Status = XST_FAILURE;
 	XPmcDma_Config *Config;
-	s32 Status = XST_FAILURE;
 	u32 Index;
 	XPmcDma PmcDmaInstance;
 	XSecure_Aes SecureAes;
@@ -307,7 +329,7 @@ static s32 XPuf_VerifyDataEncDec(void)
 		}
 	}
 	else {
-		Status = (u32)XST_FAILURE;
+		Status = XST_FAILURE;
 		xPuf_printf(XPUF_DEBUG_INFO, "Provided data length is wrong\r\n");
 		goto END;
 	}
@@ -393,12 +415,12 @@ END:
 /******************************************************************************/
 /**
  *
- * This function prints the data array.
+ * @brief	This function prints the data array.
  *
- * @param	Data Pointer to the data to be printed
- * @param	Len  Length of the data in bytes
+ * @param	Data - Pointer to the data to be printed.
+ * @param	Len  - Length of the data in bytes.
  *
- * @return	None
+ * @return	None.
  *
  ******************************************************************************/
 static void XPuf_ShowData(const u8* Data, u32 Len)
