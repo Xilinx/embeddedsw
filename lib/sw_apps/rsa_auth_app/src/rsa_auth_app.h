@@ -96,7 +96,7 @@ extern "C" {
 
 /************************** Global Function Prototypes ***********************/
 
-int AuthenticateApp(void);
+static int AuthenticateApp(void);
 
 /************************** Variable Definitions *****************************/
 
