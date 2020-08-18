@@ -80,12 +80,12 @@ int main(void)
 	Status = AuthenticateApp();
 	if (Status != XST_SUCCESS) {
 		xil_printf("RSA authentication of SW application failed\n\r");
-		return XST_FAILURE;
+		goto END;
 	}
 
 	xil_printf("Successfully authenticated SW application \n\r");
-	return XST_SUCCESS;
-
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -103,8 +103,6 @@ int main(void)
 ******************************************************************************/
 int AuthenticateApp(void)
 {
-	int Status = XST_FAILURE;
-
 	/*
 	 * Set the Ppk
 	 */
@@ -113,13 +111,8 @@ int AuthenticateApp(void)
 	/*
 	 * Authenticate partition containing the application.
 	 */
-	Status = AuthenticatePartition((u8 *)APPLICATION_START_ADDR,
+	return AuthenticatePartition((u8 *)APPLICATION_START_ADDR,
 			PARTITION_SIZE, (u8 *)CERTIFICATE_START_ADDR);
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-
-	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -244,7 +237,7 @@ int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 
 	Status = RecreatePaddingAndCheck(DecryptSignature, HashSignature);
 	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+		goto END;
 	}
 	SignaturePtr += RSA_SPK_SIGNATURE_SIZE;
 
@@ -265,11 +258,8 @@ int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 			HashSignature);
 
 	Status = RecreatePaddingAndCheck(DecryptSignature, HashSignature);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -289,9 +279,10 @@ int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 ******************************************************************************/
 int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
 {
+	int Status = XST_FAILURE;
 	u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
 		0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05, 0x00, 0x04, 0x20 };
-    u8 * pad_ptr = signature + 256;
+    u8 * pad_ptr = signature + RSA_PARTITION_SIGNATURE_SIZE;
     u32 padlen;
     u32 ii;
 
@@ -303,34 +294,35 @@ int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
     * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA256 Hash
     */
     if (*--pad_ptr != 0x00U) {
-	return XST_FAILURE;
+	goto END;
     }
 
 	if (*--pad_ptr != 0x01U) {
-		return XST_FAILURE;
+		goto END;
 	}
 
     for (ii = 0U; ii < padlen; ii++) {
 	if (*--pad_ptr != 0xFFU) {
-		return XST_FAILURE;
+		goto END;
         }
     }
 
     if (*--pad_ptr != 0x00U) {
-       	return XST_FAILURE;
+	goto END;
     }
 
     for (ii = 0U; ii < sizeof(T_padding); ii++) {
-    	if (*--pad_ptr != T_padding[ii]) {
-        	return XST_FAILURE;
+	if (*--pad_ptr != T_padding[ii]) {
+		goto END;
         }
     }
 
     for (ii = 0U; ii < HASHLEN; ii++) {
 	if (*--pad_ptr != hash[ii]) {
-		return XST_FAILURE;
+		goto END;
 	}
     }
-
-	return XST_SUCCESS;
+	Status= (u32)XST_SUCCESS;
+END:
+	return Status;
 }
