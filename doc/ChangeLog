@@ -1,5 +1,8 @@
 Changes for 2020.2
 ===============================
+v_sdirx_v2_1:
+Update the framerate in the Videostream struct
+
 csi_v1_5:
 Add support for YUV 420 8bits
 
