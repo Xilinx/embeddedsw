@@ -23,6 +23,7 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaie_helper.h"
+#include "xaie_io.h"
 #include "xaiegbl_regdef.h"
 
 /************************** Constant Definitions *****************************/
@@ -442,6 +443,7 @@ AieRC _XAieMl_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 	u64 Addr;
 	u64 BdBaseAddr;
 	u32 BdWord[XAIEML_SHIMDMA_NUM_BD_WORDS];
+	XAie_ShimDmaBdArgs Args;
 	const XAie_DmaMod *DmaMod;
 	const XAie_DmaBdProp *BdProp;
 
@@ -540,9 +542,14 @@ AieRC _XAieMl_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 
 	Addr = BdBaseAddr + _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	for(u8 i = 0U; i < XAIEML_SHIMDMA_NUM_BD_WORDS; i++) {
-		XAie_Write32(DevInst, Addr + i * 4U, BdWord[i]);
-	}
+	Args.NumBdWords = XAIEML_SHIMDMA_NUM_BD_WORDS;
+	Args.BdWords = &BdWord[0U];
+	Args.Loc = Loc;
+	Args.VAddr = DmaDesc->AddrDesc.Address;
+	Args.BdNum = BdNum;
+	Args.Addr = Addr;
+
+	XAie_RunOp(DevInst, XAIE_BACKEND_OP_CONFIG_SHIMDMABD, (void *)&Args);
 
 	return XAIE_OK;
 }
