@@ -38,9 +38,9 @@
 
 /************************** Function Prototypes ******************************/
 
-u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart);
+int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart);
 void SetPpk(u8 *CertStart);
-u32 RecreatePaddingAndCheck(u8 *signature, u8 *hash);
+int RecreatePaddingAndCheck(u8 *signature, u8 *hash);
 
 /************************** Variable Definitions *****************************/
 
@@ -171,7 +171,7 @@ void SetPpk(u8 *CertStart)
 * @note		None
 *
 ******************************************************************************/
-u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
+int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 {
 	u8 DecryptSignature[256];
 	u8 HashSignature[32];
@@ -179,7 +179,7 @@ u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 	u8 *SpkModularEx;
 	u32 SpkExp;
 	u8 *SignaturePtr;
-	u32 Status;
+	int Status;
 
 	/*
 	 * Point to Authentication Certificate
@@ -273,7 +273,7 @@ u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 * @note		None
 *
 ******************************************************************************/
-u32 RecreatePaddingAndCheck(u8 *signature, u8 *hash)
+int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
 {
 	u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
 		0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05, 0x00, 0x04, 0x20 };
@@ -286,27 +286,27 @@ u32 RecreatePaddingAndCheck(u8 *signature, u8 *hash)
     * MSB  ----------------------------------------------------LSB
     * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA256 Hash
     */
-    if (*--pad_ptr != 0x00 || *--pad_ptr != 0x01) {
+    if (*--pad_ptr != 0x00U || *--pad_ptr != 0x01U) {
     	return XST_FAILURE;
     }
 
-    for (ii = 0; ii < pad; ii++) {
-    	if (*--pad_ptr != 0xFF) {
+    for (ii = 0U; ii < pad; ii++) {
+	if (*--pad_ptr != 0xFFU) {
         	return XST_FAILURE;
         }
     }
 
-    if (*--pad_ptr != 0x00) {
+    if (*--pad_ptr != 0x00U) {
        	return XST_FAILURE;
     }
 
-    for (ii = 0; ii < sizeof(T_padding); ii++) {
+    for (ii = 0U; ii < sizeof(T_padding); ii++) {
     	if (*--pad_ptr != T_padding[ii]) {
         	return XST_FAILURE;
         }
     }
 
-    for (ii = 0; ii < 32; ii++) {
+    for (ii = 0U; ii < 32U; ii++) {
        	if (*--pad_ptr != hash[ii])
        		return XST_FAILURE;
     }
