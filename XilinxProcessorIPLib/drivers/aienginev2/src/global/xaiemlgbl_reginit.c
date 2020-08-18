@@ -40,6 +40,7 @@
 * 1.2   Tejus   10/28/2019  Add pl interface register properties
 * 1.3   Tejus   12/09/2019  Include correct header file to avoid cyclic
 *			    dependancy
+* 1.4   Tejus   03/16/2020  Seperate PlIf Module for SHIMPL and SHIMNOC Tiles
 * </pre>
 *
 ******************************************************************************/
@@ -766,8 +767,26 @@ const static XAie_MemMod Aie2MemTileMemMod =
 	.MemAddr = XAIE2GBL_MEM_TILE_MODULE_DATAMEMORY
 };
 
-/* PL Interface module for SHIMPL/SHIMNOC Tiles */
+/* PL Interface module for SHIMPL Tiles */
 const static XAie_PlIfMod Aie2PlIfMod =
+{
+	.UpSzrOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG,
+	.DownSzrOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG,
+	.DownSzrEnOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE,
+	.DownSzrByPassOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_BYPASS,
+	.NumUpSzrPorts = 0x6,
+	.MaxByPassPortNum = 0x6,
+	.NumDownSzrPorts = 0x8,
+	.UpSzr32_64Bit = Aie2UpSzr32_64Bit,
+	.UpSzr128Bit = Aie2UpSzr128Bit,
+	.DownSzr32_64Bit = Aie2DownSzr32_64Bit,
+	.DownSzr128Bit = Aie2DownSzr128Bit,
+	.DownSzrEn = Aie2DownSzrEnable,
+	.DownSzrByPass = Aie2DownSzrByPass
+};
+
+/* PL Interface module for SHIMNOC Tiles */
+const static XAie_PlIfMod Aie2ShimTilePlIfMod =
 {
 	.UpSzrOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG,
 	.DownSzrOff = XAIE2GBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG,
@@ -810,7 +829,7 @@ XAie_TileMod Aie2Mod[] =
 		.StrmSw  = &Aie2ShimStrmSw,
 		.DmaMod  = NULL,
 		.MemMod  = NULL,
-		.PlIfMod = &Aie2PlIfMod,
+		.PlIfMod = &Aie2ShimTilePlIfMod,
 	},
 	{
 		/*
