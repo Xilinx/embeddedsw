@@ -20,6 +20,7 @@
  * 1.1   har  03/01/2020   Added ID only regeneration support as default option
  * 1.2   har  07/03/2020   Added XPuf_ShowData and replaced XPUF_ID_LENGTH with
  *                         XPUF_ID_LEN_IN_BYTES for printing PUF ID
+ *       am   08/14/2020   Replacing local status variable from u32 to int.
  *
  * @note
  *
@@ -74,9 +75,9 @@ static XPuf_Data PufData;
 static void XPuf_ShowData(const u8* Data, u32 Len);
 
 /************************** Function Definitions *****************************/
-int main()
+int main(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
@@ -116,12 +117,12 @@ END:
 /******************************************************************************/
 /**
  *
- * This function prints the data array.
+ * @brief	This function prints the data array.
  *
- * @param	Data    Pointer to the data to be printed
- * @param	Len      Length of the data in bytes
+ * @param	Data - Pointer to the data to be printed.
+ * @param	Len  - Length of the data in bytes.
  *
- * @return	None
+ * @return	None.
  *
  ******************************************************************************/
 static void XPuf_ShowData(const u8* Data, u32 Len)

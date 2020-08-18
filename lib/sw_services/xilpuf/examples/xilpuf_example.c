@@ -21,6 +21,8 @@
   *       har  03/08/20 Added function to print array
   *                     Corrected endianness of PUF helper data
   * 1.2   har  07/03/20 Corrected the length of PUF ID passed in XPuf_ShowData
+  *       am   08/14/20 Replacing function prototype and local status variable
+  *  					from u32 and s32 to int.
   *
   *@note
   *
@@ -78,21 +80,21 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
 /************************** Function Prototypes ******************************/
-static s32 XPuf_ValidateUserInput();
-static s32 XPuf_GenerateKey(void);
-static s32 XPuf_GenerateBlackKey(void);
-static s32 XPuf_ProgramBlackKey(void);
+static int XPuf_ValidateUserInput(void);
+static int XPuf_GenerateKey(void);
+static int XPuf_GenerateBlackKey(void);
+static int XPuf_ProgramBlackKey(void);
 static void XPuf_ShowPufSecCtrlBits(void);
 static void XPuf_ShowData(const u8* Data, u32 Len);
-static s32 XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
+static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
-static u32 XPuf_WritePufSecCtrlBits(void);
+static int XPuf_WritePufSecCtrlBits(void);
 #endif
 
 /************************** Function Definitions *****************************/
-int main()
+int main(void)
 {
 	int Status = XST_FAILURE;
 
@@ -171,17 +173,17 @@ END:
 /******************************************************************************/
 /**
  *
- * This function validates user input provided for programming PUF helper data
- * and black key
+ * @brief	This function validates user input provided for programming
+ * 			PUF helper data and black key.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if user input validation was successful
- *		- XST_FAILURE if user input validation failed
+ *		- XST_SUCCESS - If user input validation was successful.
+ *		- XST_FAILURE - If user input validation failed.
  *
  ******************************************************************************/
-static s32 XPuf_ValidateUserInput()
+static int XPuf_ValidateUserInput(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePufSecCtrlBits ReadPufSecCtrlBits;
@@ -211,7 +213,7 @@ static s32 XPuf_ValidateUserInput()
 
 	/* Checks for programming helper data */
 	Status = XNvm_EfuseReadPufSecCtrlBits(&ReadPufSecCtrlBits);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		xil_printf("Failed while reading PUF security control bits\r\n");
 		goto END;
 	}
@@ -265,19 +267,35 @@ END:
 /******************************************************************************/
 /**
  *
- * This function generates PUF KEY by PUF registration or PUF on demand
- * regeneration as per the user provided inputs.
+ * @brief	This function generates PUF KEY by PUF registration or PUF on demand
+ * 			regeneration as per the user provided inputs.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if PUF_KEY generation was successful
- *		- XST_FAILURE if PUF KEY generation failed
+ *		- XST_SUCCESS - if PUF_KEY generation was successful.
+ *		- XPUF_ERROR_INVALID_PARAM              - PufData is NULL.
+ *		- XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration mode.
+ *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while waiting
+ *												  for PUF Syndrome data.
+ *		- XPUF_ERROR_SYNDROME_DATA_OVERFLOW    - Syndrome data overflow reported
+ *												 by PUF controller or more than
+ *												 required data is provided by
+ *												 PUF controller.
+ *	    - XPUF_ERROR_SYNDROME_DATA_UNDERFLOW   - Number of syndrome data words
+ *												 are less than expected number
+ * 												 of words.
+ *		- XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ *			 									 regeneration type.
+ *		- XPUF_ERROR_CHASH_NOT_PROGRAMMED      - Helper data not provided.
+ *		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout before Status was done.
+ *
+ *		- XST_FAILURE 						   - if PUF KEY generation failed.
  *
  ******************************************************************************/
-static s32 XPuf_GenerateKey()
+static int XPuf_GenerateKey(void)
 {
-	s32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 	u32 PUF_HelperData[XPUF_HD_LEN_IN_WORDS] = {0U};
 #endif
@@ -371,20 +389,22 @@ END:
 
 /******************************************************************************/
 /**
- * @brief
- * This function encrypts the red key with PUF KEY and IV
+ * @brief	This function encrypts the red key with PUF KEY and IV.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if encryption was successful
- *		- error code if encryption failed
+ *		- XST_SUCCESS - if encryption was successful.
+ *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XST_FAILURE 				   - On failure of AES Encrypt
+ *										 Initialization, AES Encrypt data and
+ *										 format AES key.
  *
  ******************************************************************************/
-static s32 XPuf_GenerateBlackKey(void)
+static int XPuf_GenerateBlackKey(void)
 {
+	int Status = XST_FAILURE;
 	XPmcDma_Config *Config;
-	s32 Status = XST_FAILURE;
 	XPmcDma PmcDmaInstance;
 	XSecure_Aes SecureAes;
 
@@ -472,17 +492,25 @@ END:
 
 /******************************************************************************/
 /**
- * @brief
- * This function programs black key into efuse or BBRAM
+ * @brief	This function programs black key into efuse or BBRAM.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *			- XST_SUCCESS if programming was successful
- *			- XST_FAILURE if programming failed.
+ *		- XST_SUCCESS if programming was successful.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM 		   - On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED - If nothing is programmed.
+ *		- XNVM_EFUSE_ERR_LOCK 				   - Lock eFUSE Control Register.
+ *      - XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT - Timeout during enabling
+ *                  								 programming mode.
+ *      - XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT- Timeout during disabling
+ *                  							     programming mode.
+ *      - XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT    - CRC validation check
+ *                 									 timed out.
+ *      - XNVM_BBRAM_ERROR_AES_CRC_MISMATCH        - CRC mismatch.
  *
 *******************************************************************************/
-static s32 XPuf_ProgramBlackKey(void)
+static int XPuf_ProgramBlackKey(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseAesKeys WriteAesKeys = {0U};
@@ -554,18 +582,27 @@ static s32 XPuf_ProgramBlackKey(void)
 /******************************************************************************/
 /**
  *
- * This function programs PUF security control bits
+ * @brief	This function programs PUF security control bits.
  *
- * @param	None
+ * @param	None.
  *
  * @return
- *		- XST_SUCCESS if PUF secure control bits are successfully programmed
- *		- XST_FAILURE if PUF secure control bit programming fails
+ *		- XST_SUCCESS - If PUF secure control bits are successfully programmed.
+ *		- XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL       - Error while reading
+ *												 PufSecCtrl.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA - Error while writing
+ *			  									 Puf helper data.
+ *		- XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA    - Error while writing
+ *			 									 Puf Syndata.
+ *		- XNVM_EFUSE_ERR_WRITE_PUF_CHASH       - Error while writing
+ *												 Puf Chash.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_AUX         - Error while writing
+ *												 Puf Aux.
  *
  ******************************************************************************/
-static u32 XPuf_WritePufSecCtrlBits()
+static int XPuf_WritePufSecCtrlBits(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfusePufHd PrgmPufHelperData;
 
 	PrgmPufHelperData.PufSecCtrlBits.PufDis = PUF_DIS;
@@ -586,22 +623,20 @@ static u32 XPuf_WritePufSecCtrlBits()
 /******************************************************************************/
 /**
  *
- * This function shows PUF security control bits
+ * @brief	This function shows PUF security control bits.
  *
- * @param	None
+ * @param	None.
  *
- * @return
- *		- XST_SUCCESS if none of the PUF secure control bits are programmed
- *		- XST_FAILURE if any PUF secure control bit is programmed
+ * @return	None.
  *
  ******************************************************************************/
-static void XPuf_ShowPufSecCtrlBits()
+static void XPuf_ShowPufSecCtrlBits(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePufSecCtrlBits ReadPufSecCtrlBits;
 
 	Status = XNvm_EfuseReadPufSecCtrlBits(&ReadPufSecCtrlBits);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		xil_printf("Failed while reading PUF security control bits\r\n");
 		goto END;
 	}
@@ -640,19 +675,21 @@ END: ;
 /******************************************************************************/
 /**
  *
- * This function converts AES key to the format expected by xilsecure aes
- * library
+ * @brief	This function converts AES key to the format expected by
+ * 			xilsecure AES library.
  *
- * @param	Key				Pointer to the input key
- * @param	FormattedKey	Pointer to the formatted key
- * @param	KeyLen			Length of the input key in bytes
+ * @param	Key			 - Pointer to the input key.
+ * @param	FormattedKey - Pointer to the formatted key.
+ * @param	KeyLen		 - Length of the input key in bytes.
  *
- * @return	None
+ * @return
+ *		- XST_SUCCESS - On Successfully Format of AES key.
+ *		- XST_FAILURE - On Failure.
  *
  ******************************************************************************/
-static s32 XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen)
+static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen)
 {
-	s32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Index = 0U;
 	u32 Words = (KeyLen / sizeof(u32));
 	u32 WordIndex = (Words / 2U);
@@ -686,11 +723,11 @@ END:
 /******************************************************************************/
 /**
  *
- * This function reverses the data array
+ * @brief	This function reverses the data array.
  *
- * @param	OrgDataPtr Pointer to the original data
- * @param	SwapPtr    Pointer to the reversed data
- * @param	Len        Length of the data in bytes
+ * @param	OrgDataPtr - Pointer to the original data.
+ * @param	SwapPtr    - Pointer to the reversed data.
+ * @param	Len        - Length of the data in bytes.
  *
  * @return	None
  *
@@ -710,10 +747,10 @@ static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
 /******************************************************************************/
 /**
  *
- * This function prints the data array.
+ * @brief	This function prints the data array.
  *
- * @param	Data    Pointer to the data to be printed
- * @param	Len      Length of the data in bytes
+ * @param	Data - Pointer to the data to be printed.
+ * @param	Len  - Length of the data in bytes.
  *
  * @return	None
  *
