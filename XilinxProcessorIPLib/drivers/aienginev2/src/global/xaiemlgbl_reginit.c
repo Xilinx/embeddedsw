@@ -47,14 +47,15 @@
 *			    definition
 * 1.8   Tejus   03/21/2020  Add register properties for stream switch slot
 *			    registers
+* 1.9   Tejus   03/23/2020  Organize header files in alphabetical order
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xaie_locks_aieml.h"
 #include "xaiegbl_regdef.h"
 #include "xaiemlgbl_params.h"
-#include "xaie_locks_aieml.h"
 
 /************************** Constant Definitions *****************************/
 
