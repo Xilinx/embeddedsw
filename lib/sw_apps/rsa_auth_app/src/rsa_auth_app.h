@@ -81,9 +81,8 @@ extern "C" {
 #define RSA_SPK_EXPO_SIZE				64U
 #define RSA_SPK_SIGNATURE_SIZE			256U
 #define RSA_PARTITION_SIGNATURE_SIZE	256U
-#define RSA_SIGNATURE_SIZE				0x6C0U 	/* Signature size in bytes */
-#define RSA_HEADER_SIZE					4U /* Signature header size in bytes */
-#define RSA_MAGIC_WORD_SIZE				60U	/* Magic word size in bytes */
+#define RSA_HEADER_SIZE			        4U /* Signature header size in bytes */
+#define RSA_MAGIC_WORD_SIZE		        60U	/* Magic word size in bytes */
 
 #define RSA_BYTE_PAD_LENGTH				3U  /**< PKCS Byte Padding */
 #define RSA_T_PAD_LENGTH				19U /**< PKCS T Padding */
