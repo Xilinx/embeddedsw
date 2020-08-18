@@ -568,7 +568,6 @@ typedef struct {
 	u32 Misc0;			/**< Miscellaneous stream attributes 0
 						as specified by the DisplayPort
 						1.2 specification. */
-	u32 VscExtendedPacket;		/** <VSC extended packet> */
 	u32 Misc1;			/**< Miscellaneous stream attributes 1
 						as specified by the DisplayPort
 						1.2 specification. */
@@ -1309,9 +1308,6 @@ typedef struct {
 		XDp_Tx TxInstance;
 		XDp_Rx RxInstance;
 	};
-	u32 IsColorimetryVsc;                   /**< Support of colorimetry
-							information through
-							VSC packets */
 } XDp;
 
 /**************************** Function Prototypes *****************************/
