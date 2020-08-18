@@ -45,9 +45,9 @@
 
 /************************** Function Prototypes ******************************/
 
-static int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart);
+static int AuthenticatePartition(const u8 *Buffer, u32 Size, u8 *CertStart);
 static void SetPpk(u8 *CertStart);
-static int RecreatePaddingAndCheck(u8 *signature, u8 *hash);
+static int RecreatePaddingAndCheck(const u8 *signature, const u8 *hash);
 
 /************************** Variable Definitions *****************************/
 
@@ -177,7 +177,7 @@ static void SetPpk(u8 *CertStart)
 * @note		None
 *
 ******************************************************************************/
-static int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
+static int AuthenticatePartition(const u8 *Buffer, u32 Size, u8 *CertStart)
 {
 	int Status = XST_FAILURE;
 	u8 DecryptSignature[RSA_PARTITION_SIGNATURE_SIZE];
@@ -254,7 +254,7 @@ static int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 	 * Partition Authentication
 	 * Calculate Hash Signature
 	 */
-	sha_256((u8 *)Buffer, (Size - RSA_PARTITION_SIGNATURE_SIZE),
+	sha_256((const u8 *)Buffer, (Size - RSA_PARTITION_SIGNATURE_SIZE),
 			HashSignature);
 
 	Status = RecreatePaddingAndCheck(DecryptSignature, HashSignature);
@@ -277,12 +277,12 @@ END:
 * @note		None
 *
 ******************************************************************************/
-static int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
+static int RecreatePaddingAndCheck(const u8 *signature, const u8 *hash)
 {
 	int Status = XST_FAILURE;
-	u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
+	const u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
 		0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05, 0x00, 0x04, 0x20 };
-    u8 * pad_ptr = signature + RSA_PARTITION_SIGNATURE_SIZE;
+    const u8 * pad_ptr = signature + RSA_PARTITION_SIGNATURE_SIZE;
     u32 padlen;
     u32 ii;
 
