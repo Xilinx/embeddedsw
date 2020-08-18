@@ -173,8 +173,8 @@ void SetPpk(u8 *CertStart)
 ******************************************************************************/
 int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 {
-	u8 DecryptSignature[256];
-	u8 HashSignature[32];
+	u8 DecryptSignature[RSA_PARTITION_SIGNATURE_SIZE];
+	u8 HashSignature[HASHLEN];
 	u8 *SpkModular;
 	u8 *SpkModularEx;
 	u32 SpkExp;
@@ -278,9 +278,11 @@ int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
 	u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
 		0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05, 0x00, 0x04, 0x20 };
     u8 * pad_ptr = signature + 256;
-    u32 pad = 256 - 3 - 19 - 32;
+    u32 padlen;
     u32 ii;
 
+	padlen = RSA_PARTITION_SIGNATURE_SIZE - RSA_BYTE_PAD_LENGTH -
+				RSA_T_PAD_LENGTH - HASHLEN;
     /*
     * Re-Create PKCS#1v1.5 Padding
     * MSB  ----------------------------------------------------LSB
@@ -294,7 +296,7 @@ int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
 		return XST_FAILURE;
 	}
 
-    for (ii = 0U; ii < pad; ii++) {
+    for (ii = 0U; ii < padlen; ii++) {
 	if (*--pad_ptr != 0xFFU) {
 		return XST_FAILURE;
         }
@@ -310,9 +312,9 @@ int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
         }
     }
 
-    for (ii = 0U; ii < 32U; ii++) {
+    for (ii = 0U; ii < HASHLEN; ii++) {
 	if (*--pad_ptr != hash[ii]) {
-       		return XST_FAILURE;
+		return XST_FAILURE;
 	}
     }
 

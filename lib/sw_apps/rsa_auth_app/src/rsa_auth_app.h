@@ -93,6 +93,11 @@ extern "C" {
 #define RSA_HEADER_SIZE					4U /* Signature header size in bytes */
 #define RSA_MAGIC_WORD_SIZE				60U	/* Magic word size in bytes */
 
+#define RSA_BYTE_PAD_LENGTH	(3U)  /**< PKCS Byte Padding */
+#define RSA_T_PAD_LENGTH	(19U) /**< PKCS T Padding */
+#define HASHLEN             (32U) /**  Hash length */
+
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
