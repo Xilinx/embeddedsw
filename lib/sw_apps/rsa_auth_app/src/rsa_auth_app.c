@@ -307,8 +307,9 @@ int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
     }
 
     for (ii = 0U; ii < 32U; ii++) {
-       	if (*--pad_ptr != hash[ii])
+	if (*--pad_ptr != hash[ii]) {
        		return XST_FAILURE;
+	}
     }
 
 	return XST_SUCCESS;
