@@ -286,13 +286,17 @@ int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
     * MSB  ----------------------------------------------------LSB
     * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA256 Hash
     */
-    if (*--pad_ptr != 0x00U || *--pad_ptr != 0x01U) {
-    	return XST_FAILURE;
+    if (*--pad_ptr != 0x00U) {
+	return XST_FAILURE;
     }
+
+	if (*--pad_ptr != 0x01U) {
+		return XST_FAILURE;
+	}
 
     for (ii = 0U; ii < pad; ii++) {
 	if (*--pad_ptr != 0xFFU) {
-        	return XST_FAILURE;
+		return XST_FAILURE;
         }
     }
 
