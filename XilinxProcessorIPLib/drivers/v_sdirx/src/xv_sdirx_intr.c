@@ -1297,6 +1297,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			SdiStream->Timing = *Timing;
 		}
 
+		SdiStream->FrameRate = FrameRate;
+
 		/* Call stream up callback */
 		if (InstancePtr->StreamUpCallback) {
 			InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
