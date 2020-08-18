@@ -27,6 +27,13 @@
 
 /***************************** Include Files *********************************/
 
+#include "xparameters.h"
+#include "xil_types.h"
+#include "xil_assert.h"
+#include "xil_io.h"
+#include "xstatus.h"
+#include "xil_printf.h"
+#include "xilrsa.h"
 #include "rsa_auth_app.h"
 #include "xil_cache.h"
 
@@ -56,14 +63,15 @@ static u32 PpkExp;
 *
 * @param	None
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if authentication was successful.
+*           XST_FAILURE if authentication failed
 *
 * @note		None
 *
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Xil_DCacheFlush();
 
@@ -87,14 +95,15 @@ int main(void)
 *
 * @param	None
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if authentication was successful.
+*           XST_FAILURE if authentication failed
 *
 * @note		None
 *
 ******************************************************************************/
 int AuthenticateApp(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Set the Ppk
@@ -118,9 +127,10 @@ int AuthenticateApp(void)
 *
 * This function is used to set ppk pointer to ppk in OCM
 *
-* @param	None
+* @param	CertStart Pointer to buffer which holds the starting address of
+*                     authentication certificate provided by user
 *
-* @return
+* @return   None
 *
 * @note		None
 *
@@ -162,24 +172,27 @@ void SetPpk(u8 *CertStart)
 *
 * This function authenticates the partition signature
 *
-* @param	Partition header pointer
+* @param	Buffer    Pointer which holds the address of the partition
+*                     data which needs to be authenticated
+*           Size      size of the partition
+*           CertStart Pointer to buffer which holds the starting address of
+*                     authentication certificate provided by user
 *
-* @return
-*		- XST_SUCCESS if Authentication passed
-*		- XST_FAILURE if Authentication failed
+* @return   XST_SUCCESS if Authentication passed
+*		    XST_FAILURE if Authentication failed
 *
 * @note		None
 *
 ******************************************************************************/
 int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 {
+	int Status = XST_FAILURE;
 	u8 DecryptSignature[RSA_PARTITION_SIGNATURE_SIZE];
 	u8 HashSignature[HASHLEN];
 	u8 *SpkModular;
 	u8 *SpkModularEx;
 	u32 SpkExp;
 	u8 *SignaturePtr;
-	int Status;
 
 	/*
 	 * Point to Authentication Certificate
@@ -264,11 +277,12 @@ int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 *
 * This function recreates and checks the signature.
 *
-* @param	Partition signature
-* @param	Partition hash value which includes boot header, partition data
-* @return
-*		- XST_SUCCESS if check passed
-*		- XST_FAILURE if check failed
+* @param	signature Partition signature
+* @param	hash      Partition hash value which includes boot header,
+*                     partition data
+*
+* @return   XST_SUCCESS signature verification passed
+*		    XST_FAILURE signature verification failed
 *
 * @note		None
 *
