@@ -45,9 +45,9 @@
 
 /************************** Function Prototypes ******************************/
 
-int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart);
-void SetPpk(u8 *CertStart);
-int RecreatePaddingAndCheck(u8 *signature, u8 *hash);
+static int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart);
+static void SetPpk(u8 *CertStart);
+static int RecreatePaddingAndCheck(u8 *signature, u8 *hash);
 
 /************************** Variable Definitions *****************************/
 
@@ -101,7 +101,7 @@ END:
 * @note		None
 *
 ******************************************************************************/
-int AuthenticateApp(void)
+static int AuthenticateApp(void)
 {
 	/*
 	 * Set the Ppk
@@ -129,7 +129,7 @@ int AuthenticateApp(void)
 *
 ******************************************************************************/
 
-void SetPpk(u8 *CertStart)
+static void SetPpk(u8 *CertStart)
 {
 	u8 *PpkPtr;
 
@@ -177,7 +177,7 @@ void SetPpk(u8 *CertStart)
 * @note		None
 *
 ******************************************************************************/
-int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
+static int AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 {
 	int Status = XST_FAILURE;
 	u8 DecryptSignature[RSA_PARTITION_SIGNATURE_SIZE];
@@ -277,7 +277,7 @@ END:
 * @note		None
 *
 ******************************************************************************/
-int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
+static int RecreatePaddingAndCheck(u8 *signature, u8 *hash)
 {
 	int Status = XST_FAILURE;
 	u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
