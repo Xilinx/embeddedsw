@@ -14,6 +14,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_helper.h"
 #include "xaie_npi.h"
 #include "xaiegbl.h"
 
@@ -81,7 +82,7 @@ static AieRC _XAie2_NpiSetProtectedRegField(XAie_DevInst *DevInst,
 
 	if ((Req->StartCol + Req->NumCols) > DevInst->NumCols ||
 	    (Req->StartCol != 0  && Req->NumCols == 0)) {
-		XAieLib_print("Error: Invalid columns (%u,%u) for protected regs.\n",
+		XAIE_ERROR("Invalid columns (%u, %u) for protected regs.\n",
 				Req->StartCol, Req->NumCols);
 		return XAIE_INVALID_ARGS;
 	}
