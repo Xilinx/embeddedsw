@@ -41,6 +41,7 @@
 * 2.7   Nishad  06/03/2020  Rename XAIEGBL_<MODULE>_EVENT_* macros to
 *			    XAIE_EVENTS_<MODULE>_*
 * 2.8   Nishad  06/09/2020  Fix typo in *_MEMORY_* event macros
+* 2.9   Tejus   06/05/2020  Populate fifo mode availability in data structure.
 * </pre>
 *
 ******************************************************************************/
@@ -273,6 +274,7 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.ZeroPadding = XAIE_FEATURE_UNAVAILABLE,
 	.OutofOrderBdId = XAIE_FEATURE_AVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
+	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.ChCtrlBase = XAIE2GBL_MEM_TILE_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 6,  /* number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
@@ -444,6 +446,7 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.ZeroPadding = XAIE_FEATURE_UNAVAILABLE,
 	.OutofOrderBdId = XAIE_FEATURE_AVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
+	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.ChCtrlBase = XAIE2GBL_MEMORY_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
@@ -630,6 +633,7 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
 	.ZeroPadding = XAIE_FEATURE_UNAVAILABLE,
 	.OutofOrderBdId = XAIE_FEATURE_AVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
+	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.ChCtrlBase = XAIE2GBL_NOC_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
