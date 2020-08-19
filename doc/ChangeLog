@@ -1022,9 +1022,6 @@ SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/ion.h
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xlnx-ai-engine.h
 
-emacps_v3_12:
-Remove emacps 1588 examples.
-
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
