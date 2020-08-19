@@ -50,6 +50,7 @@
 * 3.4   Nishad  07/12/2020  Populate event broadcast, PC event, and group event
 *			    register properties
 * 3.5   Nishad  07/21/2020  Populate interrupt controller data structure.
+* 3.4   Nishad  07/24/2020  Populate value of default group error mask.
 * </pre>
 *
 ******************************************************************************/
@@ -2273,7 +2274,38 @@ static const XAie_EventGroup Aie2MemTileGroupEvent[] = {
 	},
 };
 
-/* Data structure to capture core and memory module events properties */
+/*
+ * Data structure to capture core and memory module events properties.
+ * For memory module default error group mask enables,
+ *	DM_ECC_Error_Scrub_2bit,
+ *	DM_ECC_Error_2bit,
+ *	DM_Parity_Error_Bank_2,
+ *	DM_Parity_Error_Bank_3,
+ *	DM_Parity_Error_Bank_4,
+ *	DM_Parity_Error_Bank_5,
+ *	DM_Parity_Error_Bank_6,
+ *	DM_Parity_Error_Bank_7,
+ *	DMA_S2MM_0_Error,
+ *	DMA_S2MM_1_Error,
+ *	DMA_MM2S_0_Error,
+ *	DMA_MM2S_1_Error,
+ *	Lock_Error.
+ * For core module default error group mask enables,
+ *	PM_Reg_Access_Failure,
+ *	Stream_Pkt_Parity_Error,
+ *	Control_Pkt_Error,
+ *	AXI_MM_Slave_Error,
+ *	Instruction_Decompression_Error,
+ *	DM_address_out_of_range,
+ *	PM_ECC_Error_Scrub_2bit,
+ *	PM_ECC_Error_2bit,
+ *	PM_address_out_of_range,
+ *	DM_access_to_Unavailable,
+ *	Lock_Access_to_Unavailable,
+ *	Decompression_underflow,
+ *	Stream_Switch_Port_Parity_Error,
+ *	Processor_Bus_Error.
+ */
 static const XAie_EvntMod Aie2TileEvntMod[] =
 {
 	{
@@ -2305,6 +2337,7 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.NumSwitches = 1U,
 		.BaseGroupEventRegOff = XAIE2GBL_MEMORY_MODULE_EVENT_GROUP_0_ENABLE,
 		.NumGroupEvents = 8U,
+		.DefaultGroupErrorMask = 0x7FFAU,
 		.Group = Aie2MemGroupEvent,
 		.BasePCEventRegOff = XAIE_FEATURE_UNAVAILABLE,
 		.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
@@ -2340,6 +2373,7 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.NumSwitches = 1U,
 		.BaseGroupEventRegOff = XAIE2GBL_CORE_MODULE_EVENT_GROUP_0_ENABLE,
 		.NumGroupEvents = 9U,
+		.DefaultGroupErrorMask = 0x1CF5F80U,
 		.Group = Aie2CoreGroupEvent,
 		.BasePCEventRegOff = XAIE2GBL_CORE_MODULE_PC_EVENT0,
 		.NumPCEvents = 4U,
@@ -2348,7 +2382,21 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 	}
 };
 
-/* Data structure to capture PL module events properties */
+/*
+ * Data structure to capture PL module events properties.
+ * For PL module default error group mask enables,
+ *	AXI_MM_Slave_Tile_Error,
+ *	Control_Pkt_Error,
+ *	Stream_Switch_Parity_Error,
+ *	AXI_MM_Decode_NSU_Error,
+ *	AXI_MM_Slave_NSU_Error,
+ *	AXI_MM_Unsupported_Traffic,
+ *	AXI_MM_Unsecure_Access_in_Secure_Mode,
+ *	AXI_MM_Byte_Strobe_Error,
+ *	DMA_S2MM_Error,
+ *	DMA_MM2S_Error,
+ *	Lock_Error.
+ */
 static const XAie_EvntMod Aie2PlEvntMod =
 {
 	.XAie_EventNumber = Aie2PlModEventMapping,
@@ -2379,6 +2427,7 @@ static const XAie_EvntMod Aie2PlEvntMod =
 	.NumSwitches = 2U,
 	.BaseGroupEventRegOff = XAIE2GBL_PL_MODULE_EVENT_GROUP_0_ENABLE,
 	.NumGroupEvents = 6U,
+	.DefaultGroupErrorMask = 0x7FFU,
 	.Group = Aie2PlGroupEvent,
 	.BasePCEventRegOff = XAIE_FEATURE_UNAVAILABLE,
 	.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
@@ -2386,7 +2435,19 @@ static const XAie_EvntMod Aie2PlEvntMod =
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 };
 
-/* Data structure to capture mem tile module events properties */
+/*
+ * Data structure to capture mem tile module events properties.
+ * For mem tile default error group mask enables,
+ *	DM_ECC_Error_Scrub_2bit,
+ *	DM_ECC_Error_2bit,
+ *	DMA_S2MM_Error,
+ *	DMA_MM2S_Error,
+ *	Stream_Switch_Parity_Error,
+ *	Stream_Pkt_Parity_Error,
+ *	Control_Pkt_Error,
+ *	AXI-MM_Slave_Error,
+ *	Lock_Error.
+ */
 static const XAie_EvntMod Aie2MemTileEvntMod =
 {
 	.XAie_EventNumber = Aie2MemTileModEventMapping,
@@ -2417,6 +2478,7 @@ static const XAie_EvntMod Aie2MemTileEvntMod =
 	.NumSwitches = 2U,
 	.BaseGroupEventRegOff = XAIE2GBL_MEM_TILE_MODULE_EVENT_GROUP_0_ENABLE,
 	.NumGroupEvents = 9U,
+	.DefaultGroupErrorMask = 0x7FAU,
 	.Group = Aie2MemTileGroupEvent,
 	.BasePCEventRegOff = XAIE_FEATURE_UNAVAILABLE,
 	.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
