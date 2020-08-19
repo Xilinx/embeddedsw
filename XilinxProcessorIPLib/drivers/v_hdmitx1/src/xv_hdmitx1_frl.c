@@ -171,7 +171,15 @@ void XV_HdmiTx1_SetFrlMaxFrlRate(XV_HdmiTx1 *InstancePtr,
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	InstancePtr->Stream.Frl.MaxFrlRate = MaxFrlRate;
+	if(MaxFrlRate <= InstancePtr->Config.MaxFrlRate)
+		InstancePtr->Stream.Frl.MaxFrlRate = MaxFrlRate;
+	else {
+		InstancePtr->Stream.Frl.MaxFrlRate =
+				InstancePtr->Config.MaxFrlRate;
+		xil_printf(ANSI_COLOR_CYAN "TX: User Configured FRL Rate is not supported by IP.\r\n");
+		xil_printf("Reset to FRL Rate : %d\r\n" ANSI_COLOR_RESET,
+				InstancePtr->Config.MaxFrlRate);
+	}
 }
 
 /*****************************************************************************/
