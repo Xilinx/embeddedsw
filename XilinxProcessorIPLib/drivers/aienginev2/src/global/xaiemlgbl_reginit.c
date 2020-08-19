@@ -50,6 +50,7 @@
 * 1.9   Tejus   03/23/2020  Organize header files in alphabetical order
 * 2.0   Tejus   03/23/2020  Re-organize dma data structures
 * 2.1   Dishita 03/24/2020  Add performance counter properties
+* 2.2   Dishita 04/16/2020  Fix compiler warnings
 * </pre>
 *
 ******************************************************************************/
@@ -1316,7 +1317,7 @@ const static XAie_LockMod Aie2MemTileLockMod =
 };
 
 /* Enum to event number mapping of all events of AIE2 Core Mod of aie tile */
-const static u8 Aie2CoreModEventMapping[] =
+static const u8 Aie2CoreModEventMapping[] =
 {
 	XAIE2GBL_CORE_EVENT_NONE,
 	XAIE2GBL_CORE_EVENT_TRUE,
@@ -1448,7 +1449,7 @@ const static u8 Aie2CoreModEventMapping[] =
 };
 
 /* Enum to event number mapping of all events of AIE2 Mem Mod of aie tile */
-const static u8 Aie2MemModEventMapping[] =
+static const u8 Aie2MemModEventMapping[] =
 {
 	XAIE2GBL_MEM_EVENT_NONE,
 	XAIE2GBL_MEM_EVENT_TRUE,
@@ -1603,7 +1604,7 @@ const static u8 Aie2MemModEventMapping[] =
 };
 
 /* Enum to event number mapping of all events of AIE2 PL Module */
-const static u8 Aie2PlModEventMapping[] =
+static const u8 Aie2PlModEventMapping[] =
 {
 	XAIE2GBL_PL_EVENT_NONE,
 	XAIE2GBL_PL_EVENT_TRUE,
@@ -1775,7 +1776,7 @@ const static u8 Aie2PlModEventMapping[] =
 };
 
 /* Enum to event number mapping of all events of AIE2 Mem Tile Module */
-const static u8 Aie2MemTileModEventMapping[] =
+static const u8 Aie2MemTileModEventMapping[] =
 {
 	XAIE2GBL_MEM_TILE_EVENT_NONE,
 	XAIE2GBL_MEM_TILE_EVENT_TRUE,
@@ -1943,7 +1944,7 @@ const static u8 Aie2MemTileModEventMapping[] =
  * Data structure to capture registers & offsets for Core and memory Module of
  * performance counter.
  */
-const static XAie_PerfMod Aie2TilePerfCnt[] =
+static const XAie_PerfMod Aie2TilePerfCnt[] =
 {
 	{	.MaxCounterVal = 4U,
 		.StartStopShift = 16U,
@@ -1977,7 +1978,7 @@ const static XAie_PerfMod Aie2TilePerfCnt[] =
  * Data structure to capture registers & offsets for PL Module of performance
  * counter.
  */
-const static XAie_PerfMod Aie2PlPerfCnt =
+static const XAie_PerfMod Aie2PlPerfCnt =
 {
 	.MaxCounterVal = 2U,
 	.StartStopShift = 16U,
@@ -1996,7 +1997,7 @@ const static XAie_PerfMod Aie2PlPerfCnt =
  * Data structure to capture registers & offsets for Mem tile Module of
  * performance counter.
  */
-static XAie_PerfMod Aie2MemTilePerfCnt =
+static const XAie_PerfMod Aie2MemTilePerfCnt =
 {
 	.MaxCounterVal = 4U,
 	.StartStopShift = 16U,
@@ -2014,7 +2015,7 @@ static XAie_PerfMod Aie2MemTilePerfCnt =
 
 
 /* Data structure to capture core and memory module events properties */
-const static XAie_EvntMod Aie2TileEvntMod[] =
+static const XAie_EvntMod Aie2TileEvntMod[] =
 {
 	{
 		.XAie_EventNumber = Aie2CoreModEventMapping,
@@ -2029,7 +2030,7 @@ const static XAie_EvntMod Aie2TileEvntMod[] =
 };
 
 /* Data structure to capture PL module events properties */
-const static XAie_EvntMod Aie2PlEvntMod =
+static const XAie_EvntMod Aie2PlEvntMod =
 {
 	.XAie_EventNumber = Aie2PlModEventMapping,
 	.EventMin = 2000U,
@@ -2037,7 +2038,7 @@ const static XAie_EvntMod Aie2PlEvntMod =
 };
 
 /* Data structure to capture mem tile module events properties */
-static XAie_EvntMod Aie2MemTileEvntMod =
+static const XAie_EvntMod Aie2MemTileEvntMod =
 {
 	.XAie_EventNumber = Aie2MemTileModEventMapping,
 	.EventMin = 3000U,
@@ -2062,8 +2063,8 @@ XAie_TileMod Aie2Mod[] =
 		.MemMod  = &Aie2TileMemMod,
 		.PlIfMod = NULL,
 		.LockMod = &Aie2TileLockMod,
-		.PerfMod = &Aie2TilePerfCnt,
-		.EvntMod = &Aie2TileEvntMod,
+		.PerfMod = Aie2TilePerfCnt,
+		.EvntMod = Aie2TileEvntMod,
 	},
 	{
 		/*
