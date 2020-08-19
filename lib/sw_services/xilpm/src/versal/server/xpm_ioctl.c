@@ -622,14 +622,14 @@ done:
 	return Status;
 }
 
-int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
+int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response)
 {
 	int Status = XPM_ERR_IOCTL;
 	XPm_Pmc *Pmc;
 
 	switch (IoctlId) {
-	case (u32)IOCTL_GET_RPU_OPER_MODE:
+	case IOCTL_GET_RPU_OPER_MODE:
 		if ((PM_DEV_RPU0_0 != DeviceId) &&
 		    (PM_DEV_RPU0_1 != DeviceId)) {
 			Status = XPM_INVALID_DEVICEID;
@@ -638,7 +638,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 		XPm_RpuGetOperMode(DeviceId, Response);
 		Status = XST_SUCCESS;
 		break;
-	case (u32)IOCTL_SET_RPU_OPER_MODE:
+	case IOCTL_SET_RPU_OPER_MODE:
 		if ((PM_DEV_RPU0_0 != DeviceId) &&
 		    (PM_DEV_RPU0_1 != DeviceId)) {
 			Status = XPM_INVALID_DEVICEID;
@@ -647,14 +647,14 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 		XPm_RpuSetOperMode(DeviceId, Arg1);
 		Status = XST_SUCCESS;
 		break;
-	case (u32)IOCTL_RPU_BOOT_ADDR_CONFIG:
+	case IOCTL_RPU_BOOT_ADDR_CONFIG:
 		if ((PM_DEV_RPU0_0 != DeviceId) &&
 		    (PM_DEV_RPU0_1 != DeviceId)) {
 			goto done;
 		}
 		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
 		break;
-	case (u32)IOCTL_TCM_COMB_CONFIG:
+	case IOCTL_TCM_COMB_CONFIG:
 		if ((PM_DEV_RPU0_0 != DeviceId) &&
 		    (PM_DEV_RPU0_1 != DeviceId)) {
 			Status = XPM_INVALID_DEVICEID;
@@ -662,7 +662,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 		}
 		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
 		break;
-	case (u32)IOCTL_SET_TAPDELAY_BYPASS:
+	case IOCTL_SET_TAPDELAY_BYPASS:
 		if (PM_DEV_QSPI != DeviceId) {
 			Status = XPM_INVALID_DEVICEID;
 			goto done;
@@ -675,7 +675,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 
 		Status = XPm_SetTapdelayBypass(DeviceId, Arg1, Arg2);
 		break;
-	case (u32)IOCTL_SD_DLL_RESET:
+	case IOCTL_SD_DLL_RESET:
 		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -683,7 +683,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 
 		Status = XPm_SdDllReset(DeviceId, Arg1);
 		break;
-	case (u32)IOCTL_SET_SD_TAPDELAY:
+	case IOCTL_SET_SD_TAPDELAY:
 		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -691,19 +691,19 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 
 		Status = XPm_SetSdTapDelay(DeviceId, Arg1, Arg2);
 		break;
-	case (u32)IOCTL_WRITE_GGS:
+	case IOCTL_WRITE_GGS:
 		Status = XPm_WriteGgs(Arg1, Arg2);
 		break;
-	case (u32)IOCTL_READ_GGS:
+	case IOCTL_READ_GGS:
 		Status = XPm_ReadGgs(Arg1, Response);
 		break;
-	case (u32)IOCTL_WRITE_PGGS:
+	case IOCTL_WRITE_PGGS:
 		Status = XPm_WritePggs(Arg1, Arg2);
 		break;
-	case (u32)IOCTL_READ_PGGS:
+	case IOCTL_READ_PGGS:
 		Status = XPm_ReadPggs(Arg1, Response);
 		break;
-	case (u32)IOCTL_SET_BOOT_HEALTH_STATUS:
+	case IOCTL_SET_BOOT_HEALTH_STATUS:
 		Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 		if (NULL == Pmc) {
 			Status = XST_FAILURE;
@@ -713,15 +713,15 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 			XPM_BOOT_HEALTH_STATUS_MASK, Arg1);
 		Status = XST_SUCCESS;
 		break;
-	case (u32)IOCTL_PROBE_COUNTER_READ:
+	case IOCTL_PROBE_COUNTER_READ:
 		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
 						Response, 0U);
 		break;
-	case (u32)IOCTL_PROBE_COUNTER_WRITE:
+	case IOCTL_PROBE_COUNTER_WRITE:
 		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
 						Response, 1U);
 		break;
-	case (u32)IOCTL_OSPI_MUX_SELECT:
+	case IOCTL_OSPI_MUX_SELECT:
 		if (PM_DEV_OSPI != DeviceId) {
 			goto done;
 		}
@@ -733,7 +733,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 
 		Status = XPm_OspiMuxSelect(DeviceId, Arg1, Response);
 		break;
-	case (u32)IOCTL_USB_SET_STATE:
+	case IOCTL_USB_SET_STATE:
 		if (PM_DEV_USB_0 != DeviceId) {
 			goto done;
 		}
@@ -745,7 +745,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 
 		Status = XPm_USBDxState(DeviceId, Arg1, Arg2);
 		break;
-	case (u32)IOCTL_GET_LAST_RESET_REASON:
+	case IOCTL_GET_LAST_RESET_REASON:
 		if (CRP_RESET_REASON_SW_POR_MASK ==
 		    (ResetReason & CRP_RESET_REASON_SW_POR_MASK)) {
 			*Response = XPM_RESET_REASON_SW_POR;
@@ -775,7 +775,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
 		}
 		Status = XST_SUCCESS;
 		break;
-	case (u32)IOCTL_AIE_ISR_CLEAR:
+	case IOCTL_AIE_ISR_CLEAR:
 		if (PM_DEV_AIE != DeviceId) {
 			Status = XPM_INVALID_DEVICEID;
 			goto done;

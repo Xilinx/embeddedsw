@@ -25,6 +25,7 @@
 *       bsv  04/09/2020 Code clean up
 * 1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
 *       skd  07/14/2020 XLoader_QspiCopy prototype changed
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -182,7 +183,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XLoader_QspiInit(u32 DeviceFlags);
 int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress);
+int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress);
 
 /************************** Variable Definitions *****************************/
 

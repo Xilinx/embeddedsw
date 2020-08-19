@@ -19,6 +19,7 @@
 * 1.00   bsv 02/10/2019 First release
 *        bsv 04/09/2020 Code clean up
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs from xloader_usb.c
+*        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -353,10 +354,10 @@ struct XLoaderPs_DfuIf {
 };
 
 typedef struct {
-	u32 (*XLoaderPs_Ch9SetupDevDescReply)(struct Usb_DevData *, u8 *, u32);
-	u32 (*XLoaderPs_Ch9SetupCfgDescReply)(struct Usb_DevData *, u8 *, u32);
-	u32 (*XLoaderPs_Ch9SetupBosDescReply)(struct Usb_DevData *, u8 *, u32);
-	u32 (*XLoaderPs_Ch9SetupStrDescReply)(struct Usb_DevData *, u8 *, u32, u8);
+	u8 (*XLoaderPs_Ch9SetupDevDescReply)(struct Usb_DevData *, u8 *, u32);
+	u8 (*XLoaderPs_Ch9SetupCfgDescReply)(struct Usb_DevData *, u8 *, u32);
+	u8 (*XLoaderPs_Ch9SetupBosDescReply)(struct Usb_DevData *, u8 *, u32);
+	u8 (*XLoaderPs_Ch9SetupStrDescReply)(struct Usb_DevData *, u8 *, u32, u8);
 	int (*XLoaderPs_SetConfiguration)(struct Usb_DevData *, SetupPacket *);
 	int (*XLoaderPs_SetConfigurationApp)(struct Usb_DevData *, SetupPacket *);
 	void (*XLoaderPs_SetInterfaceHandler)(struct Usb_DevData *, SetupPacket *);

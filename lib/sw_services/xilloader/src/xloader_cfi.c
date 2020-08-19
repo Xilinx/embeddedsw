@@ -19,6 +19,7 @@
 * 1.01  bsv   04/09/2020 Code clean up of xilloader
 * 1.02  kc    08/03/2020 Added status prints for CFU/CFI errors
 *       kal   08/12/2020 Added PlHouseCleaning in case of any PL error.
+*       td    08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -29,6 +30,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xloader.h"
+#include "xcframe.h"
 #include "xplmi_util.h"
 #include "xpm_pldomain.h"
 

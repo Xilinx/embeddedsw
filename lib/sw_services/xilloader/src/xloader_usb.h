@@ -20,6 +20,7 @@
 *        bsv 04/09/2020 Code clean up
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
 *        skd 07/14/2020 XLoader_UsbCopy prototype changed
+*        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -50,7 +51,7 @@ struct dfu_if {
 	u8 runtime_to_dfu;
 };
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_REQ_REPLY_LEN		(1024U)	/* Max size of reply buffer. */
+#define XLOADER_REQ_REPLY_LEN		(256U)	/* Max size of reply buffer. */
 
 /*
  * @brief	Request types

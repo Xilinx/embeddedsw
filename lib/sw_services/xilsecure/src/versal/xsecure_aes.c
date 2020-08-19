@@ -44,6 +44,7 @@
 *       kpt  08/06/2020 Replaced magic numbers with macro's
 *       kpt  08/18/2020 Added volatile keyword to status variable in case of
 *                       status reset
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -537,7 +538,7 @@ END:
  ******************************************************************************/
 u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			  XSecure_AesKeySrc DecKeySrc,
-			  XSecure_AesKeySrc DstKeySrc, u64 IvAddr, u32 KeySize)
+			  XSecure_AesKeySrc DstKeySrc, u64 IvAddr, XSecure_AesKeySize KeySize)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
 	XSecure_AesKeySrc KeySrc;
@@ -1332,7 +1333,7 @@ static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
  *		- Error code on failure
  *
  ******************************************************************************/
-u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config)
+u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u8 Config)
 {
 	u32 Status = (u32)XST_FAILURE;
 

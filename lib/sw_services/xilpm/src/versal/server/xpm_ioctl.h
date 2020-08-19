@@ -55,7 +55,7 @@ extern "C" {
 #define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7U)
 #define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3U)
 
-int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const u32 IoctlId,
+int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response);
 
 #ifdef __cplusplus

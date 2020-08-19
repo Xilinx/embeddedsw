@@ -29,6 +29,7 @@
 * 1.03  bsv  07/01/2020 Unmount file system after loading PDIs
 *       skd  07/14/2020 Added 64bit support for SD copy destination address
 *       bsv  07/16/2020 Force Cdn bit to 1 to improve performance
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -67,12 +68,13 @@ extern "C" {
 #define XLOADER_SD_DRV_NUM_5			(5U)
 #define XLOADER_SD_RAW_BLK_SIZE			(512U)
 #define XLOADER_SD_RAW_NUM_SECTORS		(128U)
+#define XLOADER_SD_MAX_BOOT_FILES_LIMIT		(8192U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_SdInit(u32 DeviceFlags);
 int XLoader_SdCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_SdRelease(void);
-int XLoader_RawInit(u32 DrvNum);
+int XLoader_RawInit(u32 DeviceFlags);
 int XLoader_RawCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_RawRelease(void);
 

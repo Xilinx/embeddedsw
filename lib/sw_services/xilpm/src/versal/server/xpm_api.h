@@ -108,7 +108,7 @@ XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
 XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
 
 XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
-                        const u32 IoctlId,
+                        const pm_ioctl_id IoctlId,
                         const u32 Arg1,
                         const u32 Arg2,u32 *const Response);
 int XPm_InitFinalize(const u32 SubsystemId);

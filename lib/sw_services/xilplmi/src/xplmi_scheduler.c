@@ -20,6 +20,7 @@
 *       kc   02/17/2020 Added configurable priority for scheduler tasks
 *       bsv  04/04/2020 Code clean up
 * 1.02  kc   07/28/2020 Wdt handler added for every scheduler tick
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -29,7 +30,6 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_scheduler.h"
-#include "xplmi_task.h"
 #include "xplmi_debug.h"
 #include "xplmi_wdt.h"
 
@@ -195,7 +195,7 @@ END:
 *
 ****************************************************************************/
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-			   u32 MilliSeconds, u32 Priority)
+			   u32 MilliSeconds, TaskPriority_t Priority)
 {
 	int Status = XST_FAILURE;
 	u32 Idx;

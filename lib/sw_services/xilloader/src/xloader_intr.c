@@ -25,6 +25,7 @@
 *       kc   06/03/2020 Moved PLM GIC interrupt enablement to GIC handlers
 *       bsv  04/09/2020 Code clean up of Xilloader
 *       bsv  08/12/2020 Remove misleading comments
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -89,7 +90,7 @@ int XLoader_IntrInit()
 int XLoader_SbiLoadPdi(void *Data)
 {
 	int Status = XST_FAILURE;
-	u32 PdiSrc;
+	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	u32 RegVal;
 	XilPdi* PdiPtr = &SubsystemPdiIns;

@@ -19,6 +19,7 @@
 * 1.00   bsv 02/10/2019 First release
 *        bsv 04/09/2020 Code clean up
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs from xloader_usb.c
+*        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -37,13 +38,13 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /***************** Function Prototypes ***************************************/
-static u32 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
+static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
         u8 *BufPtr, u32 BufferLen);
-static u32 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
+static u8 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
         u8 *BufPtr, u32 BufferLen);
-static u32 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
+static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
         u8 *BufPtr, u32 BufferLen, u8 Index);
-static u32 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
+static u8 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
         u8 *BufPtr, u32 BufferLen);
 static int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
                 SetupPacket *SetupData);
@@ -282,7 +283,7 @@ static XLoaderPs_UsbConfig __attribute__ ((aligned(16U))) Config2 = {
 static void XLoader_DfuWaitForReset(void)
 {
 	/* This bit would be cleared when reset happens. */
-	DfuObj.DfuWaitForInterrupt = TRUE;
+	DfuObj.DfuWaitForInterrupt = (u8)TRUE;
 	while (DfuObj.DfuWaitForInterrupt == FALSE) {
 		;
 	}
@@ -302,14 +303,14 @@ static void XLoader_DfuWaitForReset(void)
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u32 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
+static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
 	u32 BufLen, u8 Index)
 {
 	int Status = XST_FAILURE;
 	u32 LoopVar;
 	char* String;
 	u32 StringLen;
-	u32 DescLen = 0U;
+	u8 DescLen = 0U;
 	XLoaderPs_UsbStdStringDesc StringDesc;
 	/* String Descriptors */
 	static char* StringList[XLOADER_USB_MODES_NUM]
@@ -404,11 +405,11 @@ END:
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u32 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
+static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
 	u32 BufLen)
 {
 	int Status = XST_FAILURE;
-	u32 DevDescLength = 0U;
+	u8 DevDescLength = 0U;
 
 	/* Check buffer pointer is there and buffer is big enough. */
 	if (BufPtr == NULL) {
@@ -446,12 +447,12 @@ END:
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u32 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
+static u8 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
 		u32 BufferLen)
 {
 	int Status = XST_FAILURE;
 	u8 *Config;
-	u32 CfgDescLen = 0U;
+	u8 CfgDescLen = 0U;
 
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (BufPtr == NULL) {
@@ -493,10 +494,10 @@ END:
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u32 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
+static u8 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
 	u32 BufferLen)
 {
-	u32 UsbBosDescLen = 0U;
+	u8 UsbBosDescLen = 0U;
 	(void)(InstancePtr);
 
 	/* Check buffer pointer is OK and buffer is big enough. */
@@ -595,8 +596,8 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 			DfuObj.NextState = XLOADER_STATE_APP_DETACH;
 			DfuObj.CurrStatus = XLOADER_DFU_STATUS_OK;
 			/* Set to runtime mode by default */
-			DfuObj.IsDfu = FALSE;
-			DfuObj.RuntimeToDfu = FALSE;
+			DfuObj.IsDfu = (u8)FALSE;
+			DfuObj.RuntimeToDfu = (u8)FALSE;
 			++DownloadDone;
 			Status = XST_SUCCESS;
 			break;
@@ -607,15 +608,15 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 				/* Wait For USB Reset to happen */
 				XLoader_DfuWaitForReset();
 				/* Setting Dfu Mode */
-				DfuObj.IsDfu = TRUE;
+				DfuObj.IsDfu = (u8)TRUE;
 				/*
 				 * Set this flag to indicate we are going
 				 * from runtime to dfu mode
 				 */
-				DfuObj.RuntimeToDfu = TRUE;
+				DfuObj.RuntimeToDfu = (u8)TRUE;
 				DfuObj.CurrState = XLOADER_STATE_DFU_IDLE;
 				DfuObj.NextState = XLOADER_STATE_DFU_DOWNLOAD_SYNC;
-				DfuObj.IsDfu = TRUE;
+				DfuObj.IsDfu = (u8)TRUE;
 				Status = XST_SUCCESS;
 			}
 			else if (DfuObj.CurrState == XLOADER_STATE_DFU_IDLE) {
@@ -624,7 +625,7 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 				DfuObj.CurrState = XLOADER_STATE_APP_IDLE;
 				DfuObj.NextState = XLOADER_STATE_APP_DETACH;
 				DfuObj.CurrStatus = XLOADER_DFU_STATUS_OK;
-				DfuObj.IsDfu = FALSE;
+				DfuObj.IsDfu = (u8)FALSE;
 				Status = XST_SUCCESS;
 			}
 			else {
@@ -634,7 +635,7 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 		case XLOADER_STATE_DFU_IDLE:
 			DfuObj.CurrState = XLOADER_STATE_DFU_IDLE;
 			DfuObj.NextState = XLOADER_STATE_DFU_DOWNLOAD_SYNC;
-			DfuObj.IsDfu = TRUE;
+			DfuObj.IsDfu = (u8)TRUE;
 			Status = XST_SUCCESS;
 			break;
 		case XLOADER_STATE_DFU_DOWNLOAD_SYNC:
@@ -672,7 +673,7 @@ void XLoader_DfuReset(struct Usb_DevData* InstancePtr)
 	(void)(InstancePtr);
 	if (DfuObj.DfuWaitForInterrupt == TRUE) {
 		/* Tell DFU that we got reset signal */
-		DfuObj.DfuWaitForInterrupt = FALSE;
+		DfuObj.DfuWaitForInterrupt = (u8)FALSE;
 	}
 }
 
@@ -695,7 +696,7 @@ static void XLoader_DfuSetIntf(struct Usb_DevData* InstancePtr, SetupPacket *Set
 		 * Clear the flag, before entering into DFU
 		 * mode from runtime mode.
 		 */
-		DfuObj.RuntimeToDfu = FALSE;
+		DfuObj.RuntimeToDfu = (u8)FALSE;
 		/* Entering DFU_IDLE state */
 		XLoader_DfuSetState(InstancePtr, XLOADER_STATE_DFU_IDLE);
 	}
@@ -735,7 +736,7 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 			break;
 		case XLOADER_DFU_DNLOAD:
 			if(DfuObj.GotDnloadRqst == FALSE) {
-				DfuObj.GotDnloadRqst = TRUE;
+				DfuObj.GotDnloadRqst = (u8)TRUE;
 			}
 			if ((DfuObj.TotalTransfers == 0U) &&
 				(SetupData->wValue == 0U)) {
@@ -758,7 +759,7 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 				if (DfuObj.GotDnloadRqst == TRUE) {
 					DfuObj.CurrState =
 						XLOADER_STATE_DFU_IDLE;
-					DfuObj.GotDnloadRqst = FALSE;
+					DfuObj.GotDnloadRqst = (u8)FALSE;
 					DfuObj.TotalTransfers = 0U;
 				}
 			}
@@ -767,7 +768,7 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 				(Result == XST_SUCCESS)) {
 				DfuObj.CurrState =
 					XLOADER_STATE_DFU_DOWNLOAD_IDLE;
-				DfuObj.GotDnloadRqst = FALSE;
+				DfuObj.GotDnloadRqst = (u8)FALSE;
 			}
 			break;
 		case XLOADER_DFU_GETSTATUS:
@@ -822,7 +823,7 @@ static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
 	SetupPacket *SetupData)
 {
 	int Status = XST_FAILURE;
-	u32 ReplyLen;
+	u8 ReplyLen;
 	u8 Reply[XLOADER_REQ_REPLY_LEN] = {0U};
 
 	switch ((SetupData->wValue >> 8U) & 0xFFU) {
@@ -830,8 +831,8 @@ static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
 		case XLOADER_TYPE_DEVICE_QUALIFIER:
 			ReplyLen = XLoader_Ch9SetupDevDescReply(InstancePtr,
 					Reply, XLOADER_REQ_REPLY_LEN);
-			if (ReplyLen > SetupData->wLength) {
-				ReplyLen = SetupData->wLength;
+			if (ReplyLen > (u8)SetupData->wLength) {
+				ReplyLen = (u8)SetupData->wLength;
 			}
 
 			if (ReplyLen != 0U) {
@@ -860,8 +861,8 @@ static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
 			ReplyLen = XLoader_Ch9SetupCfgDescReply(InstancePtr,
 					Reply, XLOADER_REQ_REPLY_LEN);
 
-			if(ReplyLen > SetupData->wLength){
-				ReplyLen = SetupData->wLength;
+			if(ReplyLen > (u8)SetupData->wLength){
+				ReplyLen = (u8)SetupData->wLength;
 			}
 
 			if (ReplyLen != 0U) {
@@ -875,10 +876,10 @@ static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
 			break;
 		case XLOADER_TYPE_STRING_DESC:
 			ReplyLen = XLoader_Ch9SetupStrDescReply(InstancePtr, Reply,
-					XLOADER_STRING_SIZE, SetupData->wValue & 0xFFU);
+					XLOADER_STRING_SIZE, (u8)(SetupData->wValue & 0xFFU));
 
-			if(ReplyLen > SetupData->wLength){
-				ReplyLen = SetupData->wLength;
+			if(ReplyLen > (u8)SetupData->wLength){
+				ReplyLen = (u8)SetupData->wLength;
 			}
 
 			if(ReplyLen != 0U) {
@@ -894,8 +895,8 @@ static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
 			ReplyLen = XLoader_Ch9SetupBosDescReply(InstancePtr,
 					Reply, XLOADER_REQ_REPLY_LEN);
 
-			if (ReplyLen > SetupData->wLength) {
-				ReplyLen = SetupData->wLength;
+			if (ReplyLen > (u8)SetupData->wLength) {
+				ReplyLen = (u8)SetupData->wLength;
 			}
 
 			if (ReplyLen != 0U) {
@@ -961,12 +962,12 @@ static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 {
 	int Status = XST_FAILURE;
 	u8 TmpBuffer[XLOADER_DFU_STATUS_SIZE] = {0U};
-	u8 EpNum = SetupData->wIndex & XLOADER_USB_ENDPOINT_NUMBER_MASK;
+	u8 EpNum = (u8)(SetupData->wIndex & XLOADER_USB_ENDPOINT_NUMBER_MASK);
 	/*
 	 * Direction - 1 -- XUSBPSU_EP_DIR_IN
 	 * Direction - 0 -- XUSBPSU_EP_DIR_OUT
 	 */
-	u8 Direction = SetupData->wIndex & XLOADER_USB_ENDPOINT_DIR_MASK;
+	u8 Direction = (u8)(SetupData->wIndex & XLOADER_USB_ENDPOINT_DIR_MASK);
 
 	/* Check that the requested reply length is not bigger than our reply
 	 * buffer. This should never happen.*/
@@ -1048,12 +1049,12 @@ static int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
 	int Status = XST_FAILURE;
 	u16 ShortVar;
 	u8 Reply[XLOADER_REQ_REPLY_LEN] = {0U};
-	u8 EpNum = SetupData->wIndex & XLOADER_USB_ENDPOINT_NUMBER_MASK;
+	u8 EpNum = (u8)(SetupData->wIndex & XLOADER_USB_ENDPOINT_NUMBER_MASK);
 	/*
 	 * Direction - 1 -- XUSBPSU_EP_DIR_IN
 	 * Direction - 0 -- XUSBPSU_EP_DIR_OUT
 	 */
-	u8 Direction = SetupData->wIndex & XLOADER_USB_ENDPOINT_DIR_MASK;
+	u8 Direction = (u8)(SetupData->wIndex & XLOADER_USB_ENDPOINT_DIR_MASK);
 
 	switch(SetupData->bRequestType & XLOADER_STATUS_MASK) {
 
@@ -1062,7 +1063,7 @@ static int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
 			(void)XPlmi_MemCpy(&Reply[0U], &ShortVar, sizeof(u16));/* Self powered */
 			break;
 		case XLOADER_STATUS_ENDPOINT:
-			ShortVar = XUsbPsu_IsEpStalled(
+			ShortVar = (u16)XUsbPsu_IsEpStalled(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
 				EpNum, Direction);
 			(void)XPlmi_MemCpy(&Reply[0U], &ShortVar, sizeof(u16));
@@ -1104,12 +1105,12 @@ static int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,
 	SetupPacket *SetupData)
 {
 	int Status = XST_FAILURE;
-	u8 EpNum = SetupData->wIndex & XLOADER_USB_ENDPOINT_NUMBER_MASK;
+	u8 EpNum = (u8)(SetupData->wIndex & XLOADER_USB_ENDPOINT_NUMBER_MASK);
 	/*
 	 * Direction - 1 -- XUSBPSU_EP_DIR_IN
 	 * Direction - 0 -- XUSBPSU_EP_DIR_OUT
 	 */
-	u8 Direction = SetupData->wIndex & XLOADER_USB_ENDPOINT_DIR_MASK;
+	u8 Direction = (u8)(SetupData->wIndex & XLOADER_USB_ENDPOINT_DIR_MASK);
 
 	switch(SetupData->bRequestType & XLOADER_STATUS_MASK) {
 		case XLOADER_STATUS_ENDPOINT:

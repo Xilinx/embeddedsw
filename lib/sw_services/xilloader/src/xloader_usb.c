@@ -19,6 +19,7 @@
 *        bsv 04/09/2020 Code clean up
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
 *        skd 07/14/2020 XLoader_UsbCopy prototype changed
+*        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -63,9 +64,9 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	Usb_Config *UsbConfigPtr;
 	(void) DeviceFlags;
 
-	(void)memset(&UsbInstance, 0U, sizeof(UsbInstance));
-	(void)memset(&UsbPrivateData, 0U, sizeof(struct XUsbPsu));
-	(void)memset(&DfuObj, 0U, sizeof(DfuObj));
+	(void)memset(&UsbInstance, 0, sizeof(UsbInstance));
+	(void)memset(&UsbPrivateData, 0, sizeof(struct XUsbPsu));
+	(void)memset(&DfuObj, 0, sizeof(DfuObj));
 
 	UsbConfigPtr = XUsbPsu_LookupConfig(XLOADER_USB_DEVICE_ID);
 	if (NULL == UsbConfigPtr) {

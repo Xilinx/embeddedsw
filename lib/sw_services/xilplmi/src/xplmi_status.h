@@ -47,6 +47,7 @@
 *       kpt  07/30/2020 Added error code for Meta header length overflow
 *       kc   08/04/2020 Added error code NPLL lock status for master SLR
 *       har  08/11/2020 Added error code for authenticated JTAG
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -321,6 +322,8 @@ typedef enum {
 						this error code. */
 	XLOADER_ERR_ADD_TASK_SCHEDULER,	/**<0x33F - Error while adding task to
 						the scheduler */
+	XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT,	/**< 0x340 - Error code returned when search
+							for bootable file crosses max limit */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

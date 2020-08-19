@@ -108,7 +108,7 @@ XStatus XPm_PinCtrlSetFunction(const u32 PinId, const u32 FunctionId);
 XStatus XPm_PinCtrlGetFunction(const u32 PinId, u32 *const FunctionId);
 XStatus XPm_PinCtrlSetParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal);
 XStatus XPm_PinCtrlGetParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal);
-XStatus XPm_DevIoctl(const u32 DeviceId, const u32 IoctlId, const u32 Arg1,
+XStatus XPm_DevIoctl(const u32 DeviceId, const pm_ioctl_id IoctlId, const u32 Arg1,
 		     const u32 Arg2, u32 *const Response);
 XStatus XPm_ClockEnable(const u32 ClockId);
 XStatus XPm_ClockDisable(const u32 ClockId);

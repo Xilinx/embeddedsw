@@ -26,6 +26,7 @@
 * 1.02  kc   06/22/2020 Updated command handler error codes to include command
 *                       IDs
 *       skd  07/14/2020 Function pointer Func prototype changed
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -63,7 +64,7 @@ struct XPlmi_KeyHoleParams {
 	/** < True implies copied in chunks of 64K */
 	/** < False implies complete bitstream is copied in one chunk */
 	u8 InChunkCopy;
-	u32 SrcAddr; /**< Boot Source address */
+	u64 SrcAddr; /**< Boot Source address */
 	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
 	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 };
