@@ -126,6 +126,9 @@ int XV_HdmiTx1_CfgInitialize(XV_HdmiTx1 *InstancePtr, XV_HdmiTx1_Config *CfgPtr,
 	/* Clear HDMI variables */
 	XV_HdmiTx1_Clear(InstancePtr);
 
+	/* core always runs at 4 ppc */
+	InstancePtr->Stream.CorePixPerClk = XVIDC_PPC_4;
+
 	/* Disable scrambler override function */
 	InstancePtr->Stream.OverrideScrambler = (FALSE);
 
@@ -905,8 +908,6 @@ void XV_HdmiTx1_ShowSCDC(XV_HdmiTx1 *InstancePtr)
 *       - 12 = XVIDC_BPC_12
 *       - 16 = XVIDC_BPC_16
 * @param    Ppc specifies the pixel per clock.
-*       - 1 = XVIDC_PPC_1
-*       - 2 = XVIDC_PPC_2
 *       - 4 = XVIDC_PPC_4
 *
 * @return   TmdsClock, reference clock calculated based on the input
@@ -937,10 +938,8 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		          (Bpc == (XVIDC_BPC_10)) ||
 		          (Bpc == (XVIDC_BPC_12)) ||
 		          (Bpc == (XVIDC_BPC_16)));
-	Xil_AssertNonvoid((Ppc == (XVIDC_PPC_1)) ||
-		          (Ppc == (XVIDC_PPC_2)) ||
-		          (Ppc == (XVIDC_PPC_4)));
-
+	Xil_AssertNonvoid((Ppc == (XVIDC_PPC_4)) ||
+		          (Ppc == (XVIDC_PPC_8)));
 	/* SetVideoStream Start */
 	InstancePtr->Stream.Video.Timing	= VideoTiming;
 	InstancePtr->Stream.Video.FrameRate	= FrameRate;
@@ -1318,12 +1317,7 @@ void XV_HdmiTx1_SetPixelRate(XV_HdmiTx1 *InstancePtr)
 			    (XV_HDMITX1_PIO_OUT_PIXEL_RATE_MASK));
 
 	/* Check for pixel width */
-	switch (InstancePtr->Stream.Video.PixPerClk) {
-
-	case (XVIDC_PPC_2):
-		RegValue = 1;
-		break;
-
+	switch (InstancePtr->Stream.CorePixPerClk) {
 	case (XVIDC_PPC_4):
 		RegValue = 2;
 		break;
