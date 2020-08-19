@@ -546,6 +546,7 @@ u8 XV_HdmiTxSs1_IsSinkHdcp22Capable(XV_HdmiTxSs1 *InstancePtr);
 
 void XV_HdmiTxSs1_SetDefaultPpc(XV_HdmiTxSs1 *InstancePtr, u8 Id);
 void XV_HdmiTxSs1_SetPpc(XV_HdmiTxSs1 *InstancePtr, u8 Id, u8 Ppc);
+XVidC_PixelsPerClock XV_HdmiTxSS1_GetCorePpc(XV_HdmiTxSs1 *InstancePtr);
 
 #ifdef XV_HDMITXSS1_LOG_ENABLE
 void XV_HdmiTxSs1_LogReset(XV_HdmiTxSs1 *InstancePtr);
