@@ -51,6 +51,7 @@
 * 2.0   Tejus   03/23/2020  Re-organize dma data structures
 * 2.1   Dishita 03/24/2020  Add performance counter properties
 * 2.2   Dishita 04/16/2020  Fix compiler warnings
+* 2.3   Dishita 04/20/2020  Add timer properties
 * </pre>
 *
 ******************************************************************************/
@@ -2018,14 +2019,14 @@ static const XAie_PerfMod Aie2MemTilePerfCnt =
 static const XAie_EvntMod Aie2TileEvntMod[] =
 {
 	{
-		.XAie_EventNumber = Aie2CoreModEventMapping,
-		.EventMin = 0U,
-		.EventMax = 128U,
-	},
-	{
 		.XAie_EventNumber = Aie2MemModEventMapping,
 		.EventMin = 1000U,
 		.EventMax = 1149U,
+	},
+	{
+		.XAie_EventNumber = Aie2CoreModEventMapping,
+		.EventMin = 0U,
+		.EventMax = 128U,
 	}
 };
 
@@ -2043,6 +2044,50 @@ static const XAie_EvntMod Aie2MemTileEvntMod =
 	.XAie_EventNumber = Aie2MemTileModEventMapping,
 	.EventMin = 3000U,
 	.EventMax = 3159U,
+};
+
+static const XAie_TimerMod Aie2TileTimerMod[] =
+{
+	 {
+		.TrigEventLowValOff = XAIE2GBL_MEMORY_MODULE_TIMER_TRIG_EVENT_LOW_VALUE,
+		.TrigEventHighValOff = XAIE2GBL_MEMORY_MODULE_TIMER_TRIG_EVENT_HIGH_VALUE,
+		.LowOff = XAIE2GBL_MEMORY_MODULE_TIMER_LOW,
+		.HighOff = XAIE2GBL_MEMORY_MODULE_TIMER_HIGH,
+		.CtrlOff = XAIE2GBL_MEMORY_MODULE_TIMER_CONTROL,
+		{XAIE2GBL_MEMORY_MODULE_TIMER_CONTROL_RESET_LSB, XAIE2GBL_MEMORY_MODULE_TIMER_CONTROL_RESET_MASK},
+		{XAIE2GBL_MEMORY_MODULE_TIMER_CONTROL_RESET_EVENT_LSB, XAIE2GBL_MEMORY_MODULE_TIMER_CONTROL_RESET_EVENT_MASK},
+	},
+	{
+		.TrigEventLowValOff = XAIE2GBL_CORE_MODULE_TIMER_TRIG_EVENT_LOW_VALUE,
+		.TrigEventHighValOff = XAIE2GBL_CORE_MODULE_TIMER_TRIG_EVENT_HIGH_VALUE,
+		.LowOff = XAIE2GBL_CORE_MODULE_TIMER_LOW,
+		.HighOff = XAIE2GBL_CORE_MODULE_TIMER_HIGH,
+		.CtrlOff = XAIE2GBL_CORE_MODULE_TIMER_CONTROL,
+		{XAIE2GBL_CORE_MODULE_TIMER_CONTROL_RESET_LSB, XAIE2GBL_CORE_MODULE_TIMER_CONTROL_RESET_MASK},
+		{XAIE2GBL_CORE_MODULE_TIMER_CONTROL_RESET_EVENT_LSB, XAIE2GBL_CORE_MODULE_TIMER_CONTROL_RESET_EVENT_MASK},
+	}
+};
+
+static const XAie_TimerMod Aie2PlTimerMod =
+{
+	.TrigEventLowValOff = XAIE2GBL_PL_MODULE_TIMER_TRIG_EVENT_LOW_VALUE,
+	.TrigEventHighValOff = XAIE2GBL_PL_MODULE_TIMER_TRIG_EVENT_HIGH_VALUE,
+	.LowOff = XAIE2GBL_PL_MODULE_TIMER_LOW,
+	.HighOff = XAIE2GBL_PL_MODULE_TIMER_HIGH,
+	.CtrlOff = XAIE2GBL_PL_MODULE_TIMER_CONTROL,
+	{XAIE2GBL_PL_MODULE_TIMER_CONTROL_RESET_LSB, XAIE2GBL_PL_MODULE_TIMER_CONTROL_RESET_MASK},
+	{XAIE2GBL_PL_MODULE_TIMER_CONTROL_RESET_EVENT_LSB, XAIE2GBL_PL_MODULE_TIMER_CONTROL_RESET_EVENT_MASK}
+};
+
+static const XAie_TimerMod Aie2MemTileTimerMod =
+{
+	.TrigEventLowValOff = XAIE2GBL_MEM_TILE_MODULE_TIMER_TRIG_EVENT_LOW_VALUE ,
+	.TrigEventHighValOff = XAIE2GBL_MEM_TILE_MODULE_TIMER_TRIG_EVENT_HIGH_VALUE,
+	.LowOff = XAIE2GBL_MEM_TILE_MODULE_TIMER_LOW,
+	.HighOff = XAIE2GBL_MEM_TILE_MODULE_TIMER_HIGH,
+	.CtrlOff = XAIE2GBL_MEM_TILE_MODULE_TIMER_CONTROL,
+	{XAIE2GBL_MEM_TILE_MODULE_TIMER_CONTROL_RESET_LSB, XAIE2GBL_MEM_TILE_MODULE_TIMER_CONTROL_RESET_MASK},
+	{XAIE2GBL_MEM_TILE_MODULE_TIMER_CONTROL_RESET_EVENT_LSB, XAIE2GBL_MEM_TILE_MODULE_TIMER_CONTROL_RESET_EVENT_MASK}
 };
 
 /*
@@ -2065,6 +2110,7 @@ XAie_TileMod Aie2Mod[] =
 		.LockMod = &Aie2TileLockMod,
 		.PerfMod = Aie2TilePerfCnt,
 		.EvntMod = Aie2TileEvntMod,
+		.TimerMod = Aie2TileTimerMod,
 	},
 	{
 		/*
@@ -2078,6 +2124,7 @@ XAie_TileMod Aie2Mod[] =
 		.LockMod = &Aie2ShimNocLockMod,
 		.PerfMod = &Aie2PlPerfCnt,
 		.EvntMod = &Aie2PlEvntMod,
+		.TimerMod = &Aie2PlTimerMod,
 	},
 	{
 		/*
@@ -2091,6 +2138,7 @@ XAie_TileMod Aie2Mod[] =
 		.LockMod = NULL,
 		.PerfMod = &Aie2PlPerfCnt,
 		.EvntMod = &Aie2PlEvntMod,
+		.TimerMod = &Aie2PlTimerMod,
 	},
 	{
 		/*
@@ -2104,6 +2152,7 @@ XAie_TileMod Aie2Mod[] =
 		.LockMod = &Aie2MemTileLockMod,
 		.PerfMod = &Aie2MemTilePerfCnt,
 		.EvntMod = &Aie2MemTileEvntMod,
+		.TimerMod = &Aie2MemTileTimerMod,
 	}
 };
 
