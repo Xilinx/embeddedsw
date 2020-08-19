@@ -20,6 +20,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.2   sk  02/20/20 First release
 * 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
+*       sk  08/19/20 Reduced the usleep delay while checking transfer done.
 *
 * </pre>
 *
@@ -30,8 +31,8 @@
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
-#define MAX_STIG_DELAY_CNT		50U
-#define MAX_DMA_DELAY_CNT		10000U
+#define MAX_STIG_DELAY_CNT		50000U
+#define MAX_DMA_DELAY_CNT		10000000U
 #define LOCK_MAX_DELAY_CNT	10000000U
 /**************************** Type Definitions *******************************/
 
@@ -138,8 +139,8 @@ u32 XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr)
 			Status = (u32)XST_FAILURE;
 			goto ERROR_PATH;
 		} else {
-			/* Wait for 1 msec */
-			usleep(1000);
+			/* Wait for 1 usec */
+			usleep(1);
 			DelayCount++;
 			Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 						XOSPIPSV_FLASH_CMD_CTRL_REG);
@@ -576,8 +577,8 @@ u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr)
 			Status = (u32)XST_FAILURE;
 			goto ERROR_PATH;
 		} else {
-			/* Wait for 1 msec */
-			usleep(1000);
+			/* Wait for 1 usec */
+			usleep(1);
 			DelayCount++;
 			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 								XOSPIPSV_OSPIDMA_DST_I_STS);
