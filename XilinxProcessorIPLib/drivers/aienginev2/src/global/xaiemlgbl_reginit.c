@@ -34,6 +34,7 @@
 * 2.1   Dishita 03/24/2020  Add performance counter properties
 * 2.2   Dishita 04/16/2020  Fix compiler warnings
 * 2.3   Dishita 04/20/2020  Add timer properties
+* 2.4   Tejus   05/26/2020  Restructure and optimize core module.
 * </pre>
 *
 ******************************************************************************/
@@ -1185,18 +1186,15 @@ static const  XAie_RegFldAttr Aie2ShimDeMuxConfig[] =
 /* Core Module */
 static const  XAie_CoreMod Aie2CoreMod =
 {
-	.ProgMemAddr = XAIE2GBL_CORE_MODULE_PROGRAM_MEMORY,
+	.IsCheckerBoard = 0U,
+	.ProgMemAddr = 0x0,
+	.ProgMemSize = 16 * 1024,
+	.DataMemAddr = 0x40000,
+	.ProgMemHostOffset = XAIE2GBL_CORE_MODULE_PROGRAM_MEMORY,
+	.DataMemSize = 64 * 1024,		/* AIE2 Tile Memory is 64kB */
+	.DataMemShift = 16,
 	.CoreCtrl = &Aie2CoreCtrlReg,
 	.CoreSts = &Aie2CoreStsReg,
-	.CoreMemSize = 0x10000,		/* AIE2 Tile Memory is 64kB */
-	.CoreEastAddrStart = 0x70000,
-	.CoreEastAddrEnd = 0x7FFFF,
-	.CoreWestAddrStart = 0x50000,
-	.CoreWestAddrEnd = 0x5FFFF,
-	.CoreSouthAddrStart = 0x40000,
-	.CoreSouthAddrEnd = 0x4FFFF,
-	.CoreNorthAddrStart = 0x60000,
-	.CoreNorthAddrEnd = 0x6FFFF,
 };
 
 /* Data Memory Module for Tile data memory*/
