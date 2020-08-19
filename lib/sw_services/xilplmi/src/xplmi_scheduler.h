@@ -20,6 +20,7 @@
 * 1.01  kc   02/10/2020 Updated scheduler to add/remove tasks
 *       kc   02/17/2020 Added configurable priority for scheduler tasks
 *       bsv  04/04/2020 Code clean up
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -35,6 +36,7 @@ extern "C" {
 #endif
 
 #include "xil_types.h"
+#include "xplmi_task.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_SCHED_MAX_TASK		(10U)
@@ -69,7 +71,7 @@ typedef struct {
 int XPlmi_SchedulerInit(void);
 void XPlmi_SchedulerHandler(void *Data);
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-		u32 MilliSeconds, u32 Priority);
+		u32 MilliSeconds, TaskPriority_t Priority);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		u32 MilliSeconds);
 

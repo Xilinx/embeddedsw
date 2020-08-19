@@ -774,7 +774,7 @@ done:
  *
  *
  ****************************************************************************/
-XStatus XPm_DevIoctl(const u32 DeviceId, const u32 IoctlId, const u32 Arg1,
+XStatus XPm_DevIoctl(const u32 DeviceId, const pm_ioctl_id IoctlId, const u32 Arg1,
 		     const u32 Arg2, u32 *const Response)
 {
 	XStatus Status = (s32)XST_FAILURE;

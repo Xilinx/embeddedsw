@@ -26,6 +26,7 @@
 * 1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
 *       skd  07/14/2020 XLoader_QspiCopy prototype changed
 *       skd  07/29/2020 Added non-blocking DMA support for Qspi copy
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -208,8 +209,8 @@ int XLoader_QspiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	XQspiPsu_Config *QspiConfig;
-	QspiBootMode = DeviceFlags;
-	memset(&QspiPsuInstance, 0U, sizeof(QspiPsuInstance));
+	QspiBootMode = (u8)DeviceFlags;
+	memset(&QspiPsuInstance, 0, sizeof(QspiPsuInstance));
 
 	/*
 	 * Initialize the QSPI driver so that it's ready to use
@@ -347,7 +348,7 @@ END:
  * @return      XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress)
+int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 {
 	int Status = XST_FAILURE;
 	u32 QspiWidthBuffer[4U] = {0U};

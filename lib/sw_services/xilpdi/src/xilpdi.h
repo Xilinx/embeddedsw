@@ -32,6 +32,7 @@
 * 1.04  bsv  07/29/2020 Added UID, parent ID, function ID and copy to memory
 *                       address
 *       kpt  07/30/2020 Added maximum limit for number of images
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -406,7 +407,7 @@ typedef struct {
  * Structure for handoff parameters to ARM Trusted Firmware (ATF)
  */
 typedef struct {
-	u8 MagicValue[4U]; /**< 32 bit magic string */
+	char MagicValue[4U]; /**< 32 bit magic string */
 	u32 NumEntries; /**< Number of Entries */
 	/**< Structure corresponding to each entry */
 	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF];

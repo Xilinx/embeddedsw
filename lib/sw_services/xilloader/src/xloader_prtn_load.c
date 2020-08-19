@@ -40,6 +40,7 @@
 *       bsv  07/29/2020 Added delay load support
 *       skd  07/29/2020 Added parallel DMA support for Qspi and Ospi
 *       bsv  08/06/2020 Code clean up
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -57,6 +58,7 @@
 #include "xpm_api.h"
 #include "xplmi_util.h"
 #include "xloader_secure.h"
+#include "xloader_ddr.h"
 #include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
@@ -145,7 +147,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		Status = XLoader_PrtnHdrValidation(
 				&(PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum]), PdiPtr->PrtnNum);
 		/* PLM is not partition owner and skip this partition */
-		if (Status == XLOADER_SUCCESS_NOT_PRTN_OWNER) {
+		if (Status == (int)XLOADER_SUCCESS_NOT_PRTN_OWNER) {
 			Status = XST_SUCCESS;
 			continue;
 		}
@@ -187,7 +189,7 @@ END:
  *****************************************************************************/
 static int XLoader_PrtnHdrValidation(XilPdi_PrtnHdr * PrtnHdr, u32 PrtnNum)
 {
-	int Status = XLOADER_SUCCESS_NOT_PRTN_OWNER;
+	int Status = (int)XLOADER_SUCCESS_NOT_PRTN_OWNER;
 
 	/* Check if partition belongs to PLM */
 	if (XilPdi_GetPrtnOwner(PrtnHdr) != XIH_PH_ATTRB_PRTN_OWNER_PLM) {
@@ -456,7 +458,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
+static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 		XLoader_SecureParams* SecureParams)
 {
 	int Status = XST_FAILURE;
@@ -464,9 +466,9 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	XPlmiCdo Cdo = {0U};
 	u32 PdiVer;
 	u32 ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
-	u8 LastChunk = FALSE;
-	u8 IsNextChunkCopyStarted = FALSE;
-	u8 Is32kChunk = FALSE;
+	u8 LastChunk = (u8)FALSE;
+	u8 IsNextChunkCopyStarted = (u8)FALSE;
+	u8 Is32kChunk = (u8)FALSE;
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
 	/*
@@ -484,7 +486,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	 * Chunk size is based on the available PRAM size.
 	 */
 	if (SecureParams->SecureEn == (u8)FALSE) {
-		if (DeviceCopy->IsDoubleBuffering == TRUE) {
+		if (DeviceCopy->IsDoubleBuffering == (u8)TRUE) {
 			ChunkLen = XLOADER_CHUNK_SIZE / 2U;
 		}
 		else {
@@ -495,7 +497,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 		if ((PdiVer != XLOADER_PDI_VERSION_1) &&
 			(PdiVer != XLOADER_PDI_VERSION_2)) {
 			ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
-			Is32kChunk = TRUE;
+			Is32kChunk = (u8)TRUE;
 		}
 		else {
 			ChunkLen = XLOADER_CHUNK_SIZE;
@@ -508,20 +510,20 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	 */
 	if ((DeviceCopy->IsDoubleBuffering == TRUE) && (Is32kChunk == TRUE) &&
 		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE)) {
-		SecureParams->IsDoubleBuffering = TRUE;
+		SecureParams->IsDoubleBuffering = (u8)TRUE;
 	}
 
-	SecureParams->IsCdo = TRUE;
+	SecureParams->IsCdo = (u8)TRUE;
 	while (DeviceCopy->Len > 0U) {
 		/* Update the len for last chunk */
 		if (DeviceCopy->Len <= ChunkLen) {
-			LastChunk = TRUE;
+			LastChunk = (u8)TRUE;
 			ChunkLen = DeviceCopy->Len;
 		}
 
 		if (SecureParams->SecureEn != TRUE) {
 			if (IsNextChunkCopyStarted == TRUE) {
-				IsNextChunkCopyStarted = FALSE;
+				IsNextChunkCopyStarted = (u8)FALSE;
 				/* Wait for copy to get completed */
 				PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
 					DeviceCopy->Flags | XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
@@ -543,12 +545,12 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SMAP) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI)) {
-				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+				Cdo.Cmd.KeyHoleParams.PdiSrc = (u16)(PdiPtr->PdiSrc);
 				Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy->SrcAddr;
 				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
 			}
 			else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) {
-				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+				Cdo.Cmd.KeyHoleParams.PdiSrc = (u16)(PdiPtr->PdiSrc);
 				Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy->SrcAddr;
 			}
 			else {
@@ -559,7 +561,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
 				(PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR)) {
-				Cdo.Cmd.KeyHoleParams.InChunkCopy = TRUE;
+				Cdo.Cmd.KeyHoleParams.InChunkCopy = (u8)TRUE;
 			}
 			/*
 			 * For DDR case, start the copy of the
@@ -577,10 +579,10 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 
 				/* Update the len for last chunk */
 				if (DeviceCopy->Len <= ChunkLen) {
-					LastChunk = TRUE;
+					LastChunk = (u8)TRUE;
 					ChunkLen = DeviceCopy->Len;
 				}
-				IsNextChunkCopyStarted = TRUE;
+				IsNextChunkCopyStarted = (u8)TRUE;
 
 				/* Initiate the data copy */
 				PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
@@ -616,8 +618,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 			Cdo.Cmd.KeyHoleParams.ExtraWords *= XPLMI_WORD_LEN;
 			DeviceCopy->Len -= Cdo.Cmd.KeyHoleParams.ExtraWords;
 			DeviceCopy->SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
-			IsNextChunkCopyStarted = FALSE;
-			SecureParams->IsNextChunkCopyStarted = FALSE;
+			IsNextChunkCopyStarted = (u8)FALSE;
+			SecureParams->IsNextChunkCopyStarted = (u8)FALSE;
 			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 		}
 	}
@@ -700,7 +702,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		PdiPtr->MetaHdr.DeviceCopy = XLoader_DdrCopy;
 		OfstAddr = PdiPtr->MetaHdr.FlashOfstAddr;
 		PrtnParams.DeviceCopy.Flags = XPLMI_PMCDMA_0;
-		ToStoreInDdr = TRUE;
+		ToStoreInDdr = (u8)TRUE;
 		PdiPtr->CopyToMemAddr -= SecureParams.SecureHdrLen;
 		PdiPtr->CopyToMem = (u8)FALSE;
 		PdiType = PdiPtr->PdiType;
@@ -757,7 +759,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32)) {
-		PrtnParams.DeviceCopy.IsDoubleBuffering = TRUE;
+		PrtnParams.DeviceCopy.IsDoubleBuffering = (u8)TRUE;
 	}
 
 	/*
@@ -795,7 +797,7 @@ END:
 		PdiPtr->DeviceCopy = DevCopy;
 		PdiPtr->MetaHdr.DeviceCopy = DevCopy;
 		PdiPtr->MetaHdr.FlashOfstAddr = OfstAddr;
-		PdiPtr->CopyToMem = TRUE;
+		PdiPtr->CopyToMem = (u8)TRUE;
 		PdiPtr->PdiType = PdiType;
 	}
 	return Status;

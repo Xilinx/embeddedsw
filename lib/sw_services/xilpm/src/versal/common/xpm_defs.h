@@ -232,7 +232,7 @@ enum pm_pinctrl_tri_state {
 	PINCTRL_TRI_STATE_ENABLE,
 };
 
-enum pm_ioctl_id {
+typedef enum {
 	IOCTL_GET_RPU_OPER_MODE,
 	IOCTL_SET_RPU_OPER_MODE,
 	IOCTL_RPU_BOOT_ADDR_CONFIG,
@@ -265,7 +265,7 @@ enum pm_ioctl_id {
 	IOCTL_GET_LAST_RESET_REASON,
 	/* AIE ISR Clear */
 	IOCTL_AIE_ISR_CLEAR,
-};
+} pm_ioctl_id;
 
 /* PLL parameters */
 enum XPm_PllConfigParams {

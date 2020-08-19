@@ -52,6 +52,7 @@
 *       bsv  08/06/20 Added delay load support for secure cases
 *       kpt  08/10/20 Corrected endianness for meta header IV range checking
 *       har  08/11/20 Added support for authenticated JTAG
+*       td   08/19/20 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -69,7 +70,6 @@
 #include "xsecure_aes.h"
 #include "xplmi.h"
 #include "xplmi_modules.h"
-#include "xplmi_task.h"
 #include "xplmi_scheduler.h"
 
 /************************** Constant Definitions ****************************/
@@ -114,7 +114,7 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 static u32 XLoader_CheckNonZeroPpk(void);
 static u32 XLoader_CheckNonZeroIV(void);
 static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr);
-static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash);
+static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash);
 static u32 XLoader_VerifyRevokeId(u32 RevokeId);
 static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash);
 static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
@@ -157,10 +157,10 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 {
 	u32 Status = XLOADER_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
-	u32 ChecksumOffset;
-	u32 AcOffset;
+	u64 ChecksumOffset;
+	u64 AcOffset;
 
-	memset(SecurePtr, 0U, sizeof(XLoader_SecureParams));
+	memset(SecurePtr, 0, sizeof(XLoader_SecureParams));
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -184,8 +184,8 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		/* Check checksum type */
 		if((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK) ==
 			XIH_PH_ATTRB_HASH_SHA3) {
-			SecurePtr->IsCheckSumEnabled = TRUE;
-			SecurePtr->SecureEn = TRUE;
+			SecurePtr->IsCheckSumEnabled = (u8)TRUE;
+			SecurePtr->SecureEn = (u8)TRUE;
 		}
 		else {
 			/* Only SHA3 checksum is supported */
@@ -229,8 +229,8 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		 XPlmi_Printf(DEBUG_INFO,
 			 "Authentication is enabled\n\r");
 
-		SecurePtr->IsAuthenticated = TRUE;
-		SecurePtr->SecureEn = TRUE;
+		SecurePtr->IsAuthenticated = (u8)TRUE;
+		SecurePtr->SecureEn = (u8)TRUE;
 
 		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
@@ -270,8 +270,8 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	if (PrtnHdr->EncStatus != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO,
 			"Encryption is enabled\n\r");
-		SecurePtr->IsEncrypted = TRUE;
-		SecurePtr->SecureEn = TRUE;
+		SecurePtr->IsEncrypted = (u8)TRUE;
+		SecurePtr->SecureEn = (u8)TRUE;
 	}
 
 	/* Checksum could not be enabled with authentication or encryption */
@@ -308,15 +308,15 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 	u32 PdiVer;
 	u32 Len = Size;
 	u64 LoadAddr = DestAddr;
-	u8 LastChunk = FALSE;
-	u8 Is32kChunk = FALSE;
+	u8 LastChunk = (u8)FALSE;
+	u8 Is32kChunk = (u8)FALSE;
 
 	PdiVer = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.Version;
 
 	if ((PdiVer != XLOADER_PDI_VERSION_1) &&
                 (PdiVer != XLOADER_PDI_VERSION_2)) {
 		ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
-		Is32kChunk = TRUE;
+		Is32kChunk = (u8)TRUE;
 	}
 	else {
 		ChunkLen = XLOADER_CHUNK_SIZE;
@@ -329,19 +329,19 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 	if ((Is32kChunk == TRUE) &&
 		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE) &&
 		(SecurePtr->PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)) {
-		SecurePtr->IsDoubleBuffering = TRUE;
+		SecurePtr->IsDoubleBuffering = (u8)TRUE;
 	}
 	else {
 		/* Blocking DMA will be used in case
 		 * DoubleBuffering is FALSE.
 		 */
-		SecurePtr->IsDoubleBuffering = FALSE;
+		SecurePtr->IsDoubleBuffering = (u8)FALSE;
 	}
 
 	while (Len > 0U) {
 		/* Update the length for last chunk */
 		if (Len <= ChunkLen) {
-			LastChunk = TRUE;
+			LastChunk = (u8)TRUE;
 			ChunkLen = Len;
 		}
 
@@ -415,7 +415,7 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 Status = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
 	u32 TotalSize = BlockSize;
-	u32 SrcAddr;
+	u64 SrcAddr;
 	u64 OutAddr;
 
 	XPlmi_Printf(DEBUG_DETAILED,
@@ -467,7 +467,7 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 		}
 
 		if (SecurePtr->IsNextChunkCopyStarted == TRUE) {
-			SecurePtr->IsNextChunkCopyStarted = FALSE;
+			SecurePtr->IsNextChunkCopyStarted = (u8)FALSE;
 			/* Wait for copy to get completed */
 			Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
 					SecurePtr->ChunkAddr,
@@ -498,7 +498,7 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	if (SecurePtr->IsEncrypted == TRUE) {
 		if (SecurePtr->IsAuthenticated != TRUE) {
 			if (SecurePtr->IsNextChunkCopyStarted == TRUE) {
-				SecurePtr->IsNextChunkCopyStarted = FALSE;
+				SecurePtr->IsNextChunkCopyStarted = (u8)FALSE;
 				/* Wait for copy to get completed */
 				Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
 					SecurePtr->ChunkAddr, TotalSize,
@@ -595,7 +595,7 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 		}
 	}
 
-	SecurePtr->IsNextChunkCopyStarted = TRUE;
+	SecurePtr->IsNextChunkCopyStarted = (u8)TRUE;
 
 	/* Initiate the data copy */
 	Status = SecurePtr->PdiPtr->DeviceCopy(SecurePtr->NextBlkAddr,
@@ -791,7 +791,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	int ClrStatus = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 Sha3Instance;
-	u32 AcOffset;
+	u64 AcOffset;
 	XilPdi_ImgHdrTbl *ImgHdrTbl =
 		&SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl;
 
@@ -893,8 +893,8 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr)
 {
 	u32 Status = XLOADER_FAILURE;
-	u32 ClearIHs;
-	u32 ClearPHs;
+	int ClearIHs;
+	int ClearPHs;
 	u32 Ihs;
 
 	XPlmi_Printf(DEBUG_DETAILED,
@@ -1004,7 +1004,7 @@ END:
 			(MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN));
 		ClearPHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->PrtnHdr[0U],
 			(MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN));
-		if ((ClearIHs != XLOADER_SUCCESS) || (ClearPHs != XLOADER_SUCCESS)) {
+		if ((ClearIHs != XST_SUCCESS) || (ClearPHs != XST_SUCCESS)) {
 			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
 		}
 		else {
@@ -1188,7 +1188,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
 	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
-	u8 IsEfuseAuth = TRUE;
+	u8 IsEfuseAuth = (u8)TRUE;
 	u32 AuthType;
 
 	AuthType = XLoader_GetAuthType(&AcPtr->AuthHdr);
@@ -1224,7 +1224,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	 * none of PPK hash bits are programmed
 	 */
 	if (Status != XLOADER_SUCCESS) {
-		IsEfuseAuth = FALSE;
+		IsEfuseAuth = (u8)FALSE;
 		/* If BHDR authentication is not enabled return error */
 		if (XilPdi_IsBhdrAuthEnable(BootHdr) == 0x00U) {
 			XPlmi_Printf(DEBUG_INFO,
@@ -1237,7 +1237,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	}
 	/* Only efuse RSA authentication is allowed */
 	else {
-		IsEfuseAuth = TRUE;
+		IsEfuseAuth = (u8)TRUE;
 
 		/* If BHDR authentication is enabled return error */
 		if (XilPdi_IsBhdrAuthEnable(BootHdr) != 0x00U) {
@@ -1498,7 +1498,7 @@ static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash)
+static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash)
 {
 	u32 Status = XLOADER_FAILURE;
 	int HashStatus;
@@ -1596,7 +1596,7 @@ static u32 XLoader_CheckNonZeroIV(void)
 		 * validate Black IV.
 		 */
 		if (XPlmi_In32(Index) != 0x0U) {
-			Mhiv = TRUE;
+			Mhiv = (u8)TRUE;
 			break;
 		}
 	}
@@ -1830,8 +1830,8 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	(void)memset(XSecure_RsaSha3Array, 0U, XLOADER_PARTITION_SIG_SIZE);
-	(void)memset(&Xsecure_Varsocm, 0U, sizeof(Xsecure_Varsocm));
+	(void)memset(XSecure_RsaSha3Array, 0, XLOADER_PARTITION_SIG_SIZE);
+	(void)memset(&Xsecure_Varsocm, 0, sizeof(Xsecure_Varsocm));
 
 	/* RSA signature encryption with public key components */
 	Status = (u32)XSecure_RsaPublicEncrypt(&RsaInstance, Signature,
@@ -2028,7 +2028,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParams *SecurePtr,
 
 	/* Configure AES engine to push Key and IV */
 	XPlmi_Printf(DEBUG_DETAILED, "Decrypting Secure header\n\r");
-	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, TRUE);
+	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, (u8)TRUE);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLoader_UpdateMinorErr(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
@@ -2038,7 +2038,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParams *SecurePtr,
 	/* Push secure header */
 	Status = XSecure_AesDecryptUpdate(&SecurePtr->AesInstance,
 			SrcAddr, XSECURE_AES_NO_CFG_DST_DMA,
-			XLOADER_SECURE_HDR_SIZE, TRUE);
+			XLOADER_SECURE_HDR_SIZE, (u8)TRUE);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLoader_UpdateMinorErr(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
@@ -2058,7 +2058,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParams *SecurePtr,
 
 	SecurePtr->RemainingEncLen = SecurePtr->RemainingEncLen -
 				XLOADER_SECURE_HDR_TOTAL_SIZE;
-	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, FALSE);
+	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, (u8)FALSE);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLoader_UpdateMinorErr(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
@@ -2867,7 +2867,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	u8 Index;
 	XSecure_AesKeySrc KeySrc = 0U;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
-	u32 SrcAddr = BufferAddr;
+	u64 SrcAddr = BufferAddr;
 	u32 DpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);
 	XLoader_AesKekKey KeyDetails;
 

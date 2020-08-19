@@ -59,11 +59,12 @@
 *       skd  07/29/2020 Removed device copy macros
 *       bsv  08/06/2020 Code clean up
 *       bsv  08/10/2020 Added subsystem restart support from DDR
+*       har  08/11/2020 Added XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL
 *       kal  08/12/2020 Added param ImageId for XLoader_CframeErrorHandler
 *                       to identify Full PL partition and perform PL house
 *                       cleaning.
-*       har  08/11/2020 Added XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL
 *       bsv  08/17/2020 Added redundancy in XLoader_IsAuthEnabled
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -82,17 +83,8 @@ extern "C" {
 #include "xilpdi.h"
 #include "xplmi_status.h"
 #include "xplmi_debug.h"
-#include "xloader_ospi.h"
-#include "xloader_sd.h"
-#include "xloader_sbi.h"
-#include "xloader_qspi.h"
-#include "xloader_ddr.h"
-#include "xloader_usb.h"
 #include "xplmi_dma.h"
-#include "xpm_device.h"
 #include "xcfupmc.h"
-#include "xcframe.h"
-#include "xplmi_proc.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		(u32)XST_SUCCESS
@@ -221,9 +213,9 @@ typedef enum {
 #define XLOADER_EMMC_BP2_RAW_VAL		(0x20000000U)
 
 /* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
-#define XLOADER_ERR_IDCODE		(0x1U) /* IDCODE mismatch */
-#define XLOADER_ERR_EXT_IDCODE		(0x2U) /* EXTENDED IDCODE mismatch */
-#define XLOADER_ERR_EXT_ID_SI		(0x3U) /* Invalid combination of
+#define XLOADER_ERR_IDCODE		(0x1) /* IDCODE mismatch */
+#define XLOADER_ERR_EXT_IDCODE		(0x2) /* EXTENDED IDCODE mismatch */
+#define XLOADER_ERR_EXT_ID_SI		(0x3) /* Invalid combination of
 						* EXTENDED IDCODE - Device
 						*/
 
@@ -253,7 +245,7 @@ typedef struct {
  * required for PDI
  */
 typedef struct {
-	u32 PdiType; /**< Indicate PDI Type, full PDI, partial PDI */
+	u8 PdiType; /**< Indicate PDI Type, full PDI, partial PDI */
 	PdiSrc_t PdiSrc; /**< Source of the PDI - Boot device, DDR */
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */
@@ -281,9 +273,9 @@ typedef struct {
 	u32 ExtIdCodeIHT; /**< Extended IdCode as read from IHT */
 	u32 IdCodeRd; /**< IdCode as read from Device */
 	u32 ExtIdCodeRd; /**< Extended IdCode as read from Device */
-	u32 BypassChkIHT; /**< Flag to bypass checks */
-	u32 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
-	u32 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
+	u8 BypassChkIHT; /**< Flag to bypass checks */
+	u8 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
+	u8 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
 } XLoader_IdCodeInfo __attribute__ ((aligned(16U)));
 
 /* Structure to store various parameters for Device Copy */
@@ -313,8 +305,8 @@ typedef struct {
  *****************************************************************************/
 static inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
 {
-	volatile u8 IsAuth = TRUE;
-	volatile u8 IsAuthTemp = TRUE;
+	volatile u8 IsAuth = (u8)TRUE;
+	volatile u8 IsAuthTemp = (u8)TRUE;
 	IsAuth = (PdiPtr->MetaHdr.ImgHdrTbl.AcOffset != 0x0U) ? \
 		(TRUE) : (FALSE);
 	IsAuthTemp = IsAuth;

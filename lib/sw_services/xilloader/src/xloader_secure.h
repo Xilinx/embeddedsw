@@ -36,6 +36,7 @@
 *       bsv  08/06/20 Added delay load support for secure cases
 *       har  08/11/20 Added XLoader_AuthJtagMessage structure  and macros for
 *                     Authenticated JTAG
+*       td   08/19/20 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -303,7 +304,7 @@ typedef struct {
 	XilPdi *PdiPtr;
 	XilPdi_PrtnHdr *PrtnHdr;
 	u8 IsCdo; /**< CDO or Elf */
-	u32 NextBlkAddr;
+	u64 NextBlkAddr;
 	u32 ChunkAddr;
 	/* Verified data is at */
 	u32 SecureData;

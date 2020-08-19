@@ -28,6 +28,7 @@
 *                       Moved AES error codes to xsecure_error.h
 *       bvi  04/07/2020 Renamed csudma as pmcdma
 * 4.3   ana  06/04/2020 Added NextBlkLen in Xsecure_Aes structure
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 * </pre>
 *
 * @note
@@ -167,9 +168,9 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			XSecure_AesKeySrc DecKeySrc, XSecure_AesKeySrc DstKeySrc,
-			u64 IvAddr, u32 KeySize);
+			u64 IvAddr, XSecure_AesKeySize KeySize);
 
-u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config);
+u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u8 Config);
 
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size);
 

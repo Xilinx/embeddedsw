@@ -27,6 +27,7 @@
 *       bsv  07/29/2020 Removed hard coding of DDR back up address
 *       bm   08/03/2020 Added LoadReadBackPdi Cmd
 *       bsv  08/10/2020 Added subsystem restart support from DDR
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -83,7 +84,7 @@ static int XLoader_Features(XPlmi_Cmd * Cmd)
 		Cmd->Response[1U] = XLOADER_FAILURE;
 	}
 	Status = XST_SUCCESS;
-	Cmd->Response[0U] = Status;
+	Cmd->Response[0U] = XLOADER_SUCCESS;
 	return Status;
 }
 
@@ -138,14 +139,14 @@ END:
 static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 PdiSrc;
+	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	XilPdi* PdiPtr = &SubsystemPdiIns;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
 	/* Store the command fields in resume data */
-	PdiSrc = Cmd->Payload[0U];
+	PdiSrc = (PdiSrc_t)(Cmd->Payload[0U]);
 	PdiAddr = (u64)Cmd->Payload[1U];
 	PdiAddr = ((u64)(Cmd->Payload[2U]) | (PdiAddr << 32U));
 

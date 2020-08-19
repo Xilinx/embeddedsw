@@ -24,6 +24,7 @@
 * 1.03  bsv  07/07/2020 Remove unused functions
 *       skd  07/14/2020 XLoader_SbiCopy prototype changed
 *       kc   08/10/2020 Added release of SBI reset in SbiInit
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -72,7 +73,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	XPlmi_UtilRMW(CRP_RST_SBI,
 	       CRP_RST_SBI_RESET_MASK, ~CRP_RST_SBI_RESET_MASK);
 
-	switch (DeviceFlags) {
+	switch ((PdiSrc_t)DeviceFlags) {
 		case XLOADER_PDI_SRC_SMAP:
 			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
