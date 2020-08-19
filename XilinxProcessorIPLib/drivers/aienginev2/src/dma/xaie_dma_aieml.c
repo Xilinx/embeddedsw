@@ -35,7 +35,7 @@
 *
 * This API initializes the Dma Descriptor for AIEML Shim Dma.
 *
-* @param	DmaDesc: Dma Descriptor
+* @param	Desc: Dma Descriptor
 *
 * @return	None.
 *
@@ -52,7 +52,7 @@ void _XAieMl_ShimDmaInit(XAie_DmaDesc *Desc)
 *
 * This API initializes the Dma Descriptor for AIEML Tile Dma.
 *
-* @param	DmaDesc: Dma Descriptor
+* @param	Desc: Dma Descriptor
 *
 * @return	None.
 *
@@ -69,7 +69,7 @@ void _XAieMl_TileDmaInit(XAie_DmaDesc *Desc)
 *
 * This API initializes the Dma Descriptor for AIE 2 Mem Tile Dma.
 *
-* @param	DmaDesc: Dma Descriptor
+* @param	Desc: Dma Descriptor
 *
 * @return	None.
 *
@@ -87,7 +87,6 @@ void _XAieMl_MemTileDmaInit(XAie_DmaDesc *Desc)
 * This API initializes the Acquire and Release Locks for a a Dma for AIEML
 * descriptor.
 *
-* @param	DevInst: Device Instance.
 * @param	DmaDesc: Initialized Dma Descriptor.
 * @param	Acq: Lock object with acquire lock ID and lock value.
 * @param	Rel: Lock object with release lock ID and lock value.
