@@ -508,7 +508,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 				if (InstancePtr->Stream.IsFrl == TRUE) {
 					VidClk = (InstancePtr->Stream.PixelClk / 100000) /
-							InstancePtr->Stream.Video.PixPerClk;
+							InstancePtr->Stream.CorePixPerClk;
 					VidClk = InstancePtr->Config.VideoClkFreqkHz / VidClk;
 					Remainder = VidClk % 100;
 					VidClk = VidClk / 100;
