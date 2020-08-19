@@ -37,6 +37,7 @@
 *       sk   02/20/20 Added support for DLL Master mode.
 * 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
 *       sk   05/27/20 Added support for reading C_OSPI_MODE param.
+*       sk  08/19/20 Reduced the usleep delay while checking transfer done.
 *
 * </pre>
 *
