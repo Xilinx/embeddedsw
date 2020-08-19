@@ -129,6 +129,9 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	/* Clear HDMI variables */
 	XV_HdmiRx1_Clear(InstancePtr);
 
+	/* core always runs at 4 ppc */
+	InstancePtr->Stream.CorePixPerClk = XVIDC_PPC_4;
+
 	/* Clear connected flag*/
 	InstancePtr->Stream.IsConnected = (FALSE);
 
@@ -442,8 +445,6 @@ void XV_HdmiRx1_Stop(XV_HdmiRx1 *InstancePtr) {
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 * @param    Ppc specifies the pixel per clock.
-*       - 1 = XVIDC_PPC_1
-*       - 2 = XVIDC_PPC_2
 *       - 4 = XVIDC_PPC_4
 * @param    Clock specifies reference pixel clock frequency.
 *
@@ -457,12 +458,14 @@ int XV_HdmiRx1_SetStream(XV_HdmiRx1 *InstancePtr, XVidC_PixelsPerClock Ppc, u32 
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Ppc == (XVIDC_PPC_1)) ||
-			  (Ppc == (XVIDC_PPC_2)) ||
-			  (Ppc == (XVIDC_PPC_4)));
+	Xil_AssertNonvoid((Ppc == (XVIDC_PPC_4)) ||
+			  (Ppc == (XVIDC_PPC_8)));
 	Xil_AssertNonvoid(Clock > 0x0);
 
-	/* Pixels per clock */
+	/*
+	 * Pixels per clock. Not used.
+	 * Set only for legacy reasons to display in the stream info.
+	 */
 	InstancePtr->Stream.Video.PixPerClk = Ppc;
 
 	/* Reference clock */
@@ -641,11 +644,7 @@ int XV_HdmiRx1_SetPixelRate(XV_HdmiRx1 *InstancePtr)
 			    (XV_HDMIRX1_PIO_OUT_PIXEL_RATE_MASK));
 
 	/* Check pixel per clock */
-	switch (InstancePtr->Stream.Video.PixPerClk) {
-	case (XVIDC_PPC_2):
-		PixelRate = 1;
-		break;
-
+	switch (InstancePtr->Stream.CorePixPerClk) {
 	case (XVIDC_PPC_4):
 		PixelRate = 2;
 		break;

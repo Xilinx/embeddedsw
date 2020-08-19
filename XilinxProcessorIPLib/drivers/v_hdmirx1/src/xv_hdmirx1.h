@@ -252,6 +252,7 @@ typedef struct {
 */
 typedef struct {
 	XVidC_VideoStream 	Video;		/* Video stream for HDMI RX */
+	XVidC_PixelsPerClock	CorePixPerClk;	/* Core operates at a fixed 4PPC */
 	XV_HdmiRx1_AudioStream	Audio;		/* Audio stream */
 	XV_HdmiRx1_Frl		Frl;		/* FRL for HDMI TR */
 	u8 	Vic;				/* Video Identification code flag */
