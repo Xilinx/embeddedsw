@@ -249,6 +249,14 @@ proc lwip_sw_drc {libhandle emacs_list} {
 			}
 		}
 	}
+	if { [string compare -nocase "RAW_API" $api_mode] == 0} {
+		set sw_proc_handle [hsi::get_sw_processor]
+		set os_handle [hsi::get_os]
+		set os_name [common::get_property NAME $os_handle]
+		if { [string compare -nocase "standalone" $os_name] != 0} {
+			error "ERROR: lwIP in RAW mode requires \"standalone\" OS" "" "mdt_error"
+		}
+	}
 }
 
 proc get_emac_periphs {processor} {
