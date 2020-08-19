@@ -302,6 +302,7 @@ typedef struct
     u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
 	u8 LowResolutionSupp;
 	u8 YUV420Supp;
+	u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
     u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
     XV_HdmiTxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
     XV_HdmiTxSs1_SubCore Hdcp14;       /**< Sub-core instance configuration */
