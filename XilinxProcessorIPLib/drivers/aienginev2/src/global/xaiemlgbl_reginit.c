@@ -46,6 +46,7 @@
 * 3.1   Nishad  06/25/2020  Fix typo in Aie2MemTileTraceMod structure
 * 3.2   Nishad  06/28/2020  Populate stream switch port event selection, event
 *			    generation and combo event properties
+* 3.3   Nishad  07/01/2020  Populate MstrConfigBaseAddr stream switch property
 * </pre>
 *
 ******************************************************************************/
@@ -1052,6 +1053,7 @@ static const  XAie_StrmPort Aie2MemTileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 static const  XAie_StrmMod Aie2TileStrmSw =
 {
 	.SlvConfigBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0,
+	.MstrConfigBaseAddr = XAIE2GBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0,
 	.PortOffset = 0x4,
 	.NumSlaveSlots = 4U,
 	.SlotOffsetPerPort = 0x10,
@@ -1078,6 +1080,7 @@ static const  XAie_StrmMod Aie2TileStrmSw =
 static const  XAie_StrmMod Aie2ShimStrmSw =
 {
 	.SlvConfigBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TILE_CTRL,
+	.MstrConfigBaseAddr = XAIE2GBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_TILE_CTRL,
 	.PortOffset = 0x4,
 	.NumSlaveSlots = 4U,
 	.SlotOffsetPerPort = 0x10,
@@ -1104,6 +1107,7 @@ static const  XAie_StrmMod Aie2ShimStrmSw =
 static const  XAie_StrmMod Aie2MemTileStrmSw =
 {
 	.SlvConfigBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_DMA_0,
+	.MstrConfigBaseAddr = XAIE2GBL_MEM_TILE_MODULE_STREAM_SWITCH_MASTER_CONFIG_DMA0,
 	.PortOffset = 0x4,
 	.NumSlaveSlots = 4U,
 	.SlotOffsetPerPort = 0x10,
