@@ -2585,6 +2585,23 @@ void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable)
   }
 }
 
+/*****************************************************************************/
+/**
+*
+* This function returns core ppc value
+*
+* @param  InstancePtr pointer to XV_HdmiRXSs instance
+*
+* @return Core pixel per clock value
+*
+* @note   None.
+*
+******************************************************************************/
+XVidC_PixelsPerClock XV_HdmiRxSs1_GetCorePpc(XV_HdmiRxSs1 *InstancePtr)
+{
+	return InstancePtr->HdmiRx1Ptr->Stream.CorePixPerClk;
+}
+
 static void XV_HdmiRxSs1_FrlLtsLCallback(void *CallbackRef)
 {
 	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
