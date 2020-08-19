@@ -47,7 +47,7 @@ AieRC _XAieMl_RstShims(XAie_DevInst *DevInst, u32 StartCol, u32 NumCols)
 	XAie_NpiProtRegReq ProtRegReq;
 
 	if(StartCol > 0 || NumCols != DevInst->NumCols) {
-		XAieLib_print("Error: AIE shim reset, not supported columns.\n");
+		XAIE_ERROR("AIE shim reset, not supported columns.\n");
 		return XAIE_INVALID_ARGS;
 	}
 
