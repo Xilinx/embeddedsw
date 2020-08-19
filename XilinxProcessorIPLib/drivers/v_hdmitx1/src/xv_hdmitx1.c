@@ -121,7 +121,8 @@ int XV_HdmiTx1_CfgInitialize(XV_HdmiTx1 *InstancePtr, XV_HdmiTx1_Config *CfgPtr,
 
 	InstancePtr->TmdsConfigCallback = (XV_HdmiTx1_Callback)((void *)StubCallback);
 
-	InstancePtr->Stream.Frl.MaxFrlRate = XHDMIC_MAXFRLRATE_NOT_SUPPORTED;
+	/* Maximum FRL Rate Supported */
+	InstancePtr->Stream.Frl.MaxFrlRate =  InstancePtr->Config.MaxFrlRate;
 
 	/* Clear HDMI variables */
 	XV_HdmiTx1_Clear(InstancePtr);

@@ -228,6 +228,7 @@ typedef struct {
 				  *  of the HDMI TX core */
 	UINTPTR BaseAddress;    /**< BaseAddress is the physical
 				  * base address of the core's registers */
+	u32 MaxFrlRate ;	/**< Maximum FRL Rate Supported */
 	u32 AxiLiteClkFreq;
 } XV_HdmiTx1_Config;
 
