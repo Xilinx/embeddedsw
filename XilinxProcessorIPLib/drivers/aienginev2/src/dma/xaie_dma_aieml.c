@@ -17,6 +17,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   Tejus   03/23/2020  Initial creation
+* 1.1   Tejus   06/10/2020  Switch to new io backend apis.
 * </pre>
 *
 ******************************************************************************/
@@ -268,11 +269,10 @@ AieRC _XAieMl_MemTileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 				BdProp->Lock->Aie2DmaLock.LckAcqEn.Lsb,
 				BdProp->Lock->Aie2DmaLock.LckAcqEn.Mask);
 
-	Addr = DevInst->BaseAddr + BdBaseAddr +
-		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+	Addr = BdBaseAddr + _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
 	for(u8 i = 0U; i < XAIEML_MEMTILEDMA_NUM_BD_WORDS; i++) {
-		XAieGbl_Write32(Addr + i * 4U, BdWord[i]);
+		XAie_Write32(DevInst, Addr + i * 4U, BdWord[i]);
 	}
 
 	return XAIE_OK;
@@ -382,11 +382,10 @@ AieRC _XAieMl_TileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 		XAie_SetField(DmaDesc->BdEnDesc.NxtBd, BdProp->BdEn->NxtBd.Lsb,
 				BdProp->BdEn->NxtBd.Mask);
 
-	Addr = DevInst->BaseAddr + BdBaseAddr +
-		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+	Addr = BdBaseAddr + _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
 	for(u8 i = 0U; i < XAIEML_TILEDMA_NUM_BD_WORDS; i++) {
-		XAieGbl_Write32(Addr + i * 4U, BdWord[i]);
+		XAie_Write32(DevInst, Addr + i * 4U, BdWord[i]);
 	}
 
 	return XAIE_OK;
@@ -511,11 +510,10 @@ AieRC _XAieMl_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 		XAie_SetField(DmaDesc->BdEnDesc.NxtBd, BdProp->BdEn->NxtBd.Lsb,
 				BdProp->BdEn->NxtBd.Mask);
 
-	Addr = DevInst->BaseAddr + BdBaseAddr +
-		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+	Addr = BdBaseAddr + _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
 	for(u8 i = 0U; i < XAIEML_SHIMDMA_NUM_BD_WORDS; i++) {
-		XAieGbl_Write32(Addr + i * 4U, BdWord[i]);
+		XAie_Write32(DevInst, Addr + i * 4U, BdWord[i]);
 	}
 
 	return XAIE_OK;
