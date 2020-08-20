@@ -33,6 +33,7 @@
 * 1.03  bsv  07/10/2020 Added PMC_IOU_SLCR register related macros
 *       kc   07/28/2020 Added PMC PS GPIO related macros
 *       kc   08/04/2020 Added CRP NPLL related macros
+*       bm   08/19/2020 Added ImageInfo Table related macros
 *
 * </pre>
 *
@@ -142,7 +143,12 @@ static inline void XPlmi_PpuWakeUpDis(void)
 
 /* Trace Buffer default address and length */
 #define XPLMI_TRACE_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1D000U)
-#define XPLMI_TRACE_LOG_BUFFER_LEN	(0x1000U)	/* 4KB */
+#define XPLMI_TRACE_LOG_BUFFER_LEN	(0xE00U)	/* 3.5KB */
+
+/* Image Info Table related macros */
+#define XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1DE00U)
+#define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x200U)	/* 512B */
+
 
 /*
  * Definitions required from Efuse

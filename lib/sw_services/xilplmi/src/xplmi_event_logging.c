@@ -21,6 +21,7 @@
 * 						event logging command through IPI
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
+* 1.02  bm   08/19/2020 Added ImageInfo Table and related APIs
 *
 * </pre>
 *
@@ -40,6 +41,10 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/* Image Info Table Max Count*/
+#define XPLMI_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
+						sizeof(XPlmi_ImageInfo))
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -56,6 +61,13 @@ XPlmi_CircularBuffer TraceLog = {
 	.StartAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
 	.Len = XPLMI_TRACE_LOG_BUFFER_LEN,
 	.CurrentAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
+	.IsBufferFull = FALSE,
+};
+
+/* Image Info Table */
+XPlmi_ImageInfoTbl ImageInfoTbl = {
+	.TblPtr = (XPlmi_ImageInfo *)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR,
+	.Count = 0U,
 	.IsBufferFull = FALSE,
 };
 
@@ -269,4 +281,118 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 		XPlmi_Out64(TraceLog.CurrentAddr, TraceData[Index]);
 		TraceLog.CurrentAddr += XPLMI_WORD_LEN;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the ImageInfoEntry by checking if an entry
+ * exists for that paritcular ImgId in the ImgInfoTbl
+ *
+ * @param	ImgId of the the entry that has to be stored
+ * @param	ImgIndex of the ImageEntry that is being returned
+ *
+ * @return	Address of ImageInfo Entry in the table
+ *
+ *****************************************************************************/
+XPlmi_ImageInfo* XPlmi_GetImageInfoEntry(u32 ImgID, u32 *ImgIndex)
+{
+	XPlmi_ImageInfo *ImageEntry = NULL;
+	u32 Index;
+
+	if (ImgIndex == NULL) {
+		goto END;
+	}
+
+	*ImgIndex = (u32)XPLMI_IMG_INDEX_NOT_FOUND;
+
+	for (Index = 0U; Index < XPLMI_IMAGE_INFO_TBL_MAX_NUM; Index++) {
+		/* Check if it's a existing valid Image Entry*/
+		if (Index < ImageInfoTbl.Count) {
+			if (ImageInfoTbl.TblPtr[Index].ImgID == ImgID) {
+				ImageEntry = &ImageInfoTbl.TblPtr[Index];
+				*ImgIndex = Index;
+				break;
+			}
+		}
+		else {
+			ImageEntry = &ImageInfoTbl.TblPtr[Index];
+			ImageEntry->ImgID = XPLMI_INVALID_IMG_ID;
+			*ImgIndex = Index;
+			break;
+		}
+	}
+
+END:
+	return ImageEntry;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function stores the ImageInfo to Image Info Table
+ *
+ * @param	Pointer to ImageInfo that has to be written.
+ *
+ * @return	XST_SUCCESS when succesfully stored,
+ *		XPLMI_ERR_IMAGE_INFO_TBL_OVERFLOW when buffer overflow occured
+ *
+ *****************************************************************************/
+int XPlmi_StoreImageInfo(XPlmi_ImageInfo *ImageInfo)
+{
+	int Status = XST_FAILURE;
+	XPlmi_ImageInfo *ImageEntry;
+	u32 Index;
+
+	ImageEntry = XPlmi_GetImageInfoEntry(ImageInfo->ImgID, &Index);
+	if (ImageEntry == NULL) {
+		ImageInfoTbl.IsBufferFull = TRUE;
+		Status = XPLMI_ERR_IMAGE_INFO_TBL_OVERFLOW;
+		goto END;
+	}
+
+	(void)memcpy(ImageEntry, ImageInfo, sizeof(XPlmi_ImageInfo));
+	if ((Index + 1U) > ImageInfoTbl.Count) {
+		ImageInfoTbl.Count++;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function loads the imageinfo Table to given memory address
+ *
+ * @param	64 bit Destination Address
+ * @param	Max Size of Buffer present at Destination Address
+ * @param	NumEntries that are loaded from the Image Info Table
+ *
+ * @return	XST_SUCCESS when succesfully loaded,
+ * 		XPLMI_ERR_IMAGE_INFO_TBL_OVERFLOW when buffer overflow occured.
+ * 		XST_FAILURE when DmaXfr Failed
+ *
+ *****************************************************************************/
+int XPlmi_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
+{
+	int Status = XST_FAILURE;
+	u32 Len = ImageInfoTbl.Count;
+	u32 MaxLen = MaxSize / sizeof(XPlmi_ImageInfo);
+
+	if (Len > MaxLen) {
+		Len = MaxLen;
+	}
+	Status = XPlmi_DmaXfr((u64)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR, DestAddr,
+			(Len * sizeof(XPlmi_ImageInfo)) / XPLMI_WORD_LEN,
+			XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	if (ImageInfoTbl.IsBufferFull == TRUE) {
+		Status = XPLMI_ERR_IMAGE_INFO_TBL_OVERFLOW;
+		XPlmi_Printf(DEBUG_INFO, "Image Info Table Overflowed");
+	}
+	*NumEntries = Len;
+
+END:
+	return Status;
 }
