@@ -65,6 +65,7 @@
 *                       cleaning.
 *       bsv  08/17/2020 Added redundancy in XLoader_IsAuthEnabled
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bm   08/19/2020 Added minor error codes
 *
 * </pre>
 *
@@ -202,6 +203,14 @@ typedef enum {
 	XLOADER_PDI_SRC_EMMC0 = (0x18),
 	XLOADER_PDI_SRC_EMMC0_RAW = (0x19),
 } PdiSrc_t;
+
+/* Minor Error Codes */
+enum {
+	XLOADER_ERR_INVALID_IMGID = 0x2, /**< 0x2 - Invalid ImgID passed
+						in Command */
+	XLOADER_ERR_NO_VALID_IMG_FOUND,	 /**< 0x3 - No Valid Image Found
+						in the Image Info Table */
+};
 
 /* Multiboot register offset mask */
 #define XLOADER_MULTIBOOT_OFFSET_MASK		(0x001FFFFFU)
