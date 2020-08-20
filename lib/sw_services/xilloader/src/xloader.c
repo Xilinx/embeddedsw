@@ -61,6 +61,7 @@
 *       bsv  08/16/2020 Reinitialized Status variable to XST_FAILURE for
 *                       security reasons
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bm   08/19/2020 Added logic to store ImageInfo
 *
 * </pre>
 *
@@ -103,6 +104,7 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl);
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
+static int XLoader_VerifyImgInfo(XPlmi_ImageInfo *ImageInfo);
 
 /************************** Variable Definitions *****************************/
 XilPdi SubsystemPdiIns = {0U};
@@ -960,6 +962,24 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 	XPlmi_Out32(XLOADER_FPD_APU_CONFIG_0, RegVal);
 }
 
+/****************************************************************************/
+/**
+* @brief	This function validates the UIDs in Image Header
+*
+* @param	ImageInfo is pointer to the image info in image
+*
+* @return	XST_SUCCESS
+*
+*****************************************************************************/
+static int XLoader_VerifyImgInfo(XPlmi_ImageInfo *ImageInfo)
+{
+	/* For MISRA C */
+	(void)ImageInfo;
+
+	/* PlaceHolder for ImageInfo Validation */
+	return XST_SUCCESS;
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function is used load a image in PDI. PDI can have multiple
@@ -974,6 +994,17 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
+	XPlmi_ImageInfo ImageInfo;
+
+	ImageInfo.ImgID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+	ImageInfo.UID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].UID;
+	ImageInfo.PUID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PUID;
+	ImageInfo.FuncID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].FuncID;
+
+	Status = XLoader_VerifyImgInfo(&ImageInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Configure preallocs for subsystem */
 	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
@@ -989,13 +1020,21 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	/* Update current subsystem ID for EM */
 	EmSubsystemId = PdiPtr->CurImgId;
-	PdiPtr->CopyToMemAddr =
-					PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
+	PdiPtr->CopyToMemAddr = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
 	Status = XLoader_LoadImagePrtns(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	if ((PdiPtr->DelayLoad == FALSE) &&
+		(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID !=
+		XPLMI_INVALID_IMG_ID)) {
+		Status = XPlmi_StoreImageInfo(&ImageInfo);
+		if (Status == XPLMI_ERR_IMAGE_INFO_TBL_OVERFLOW) {
+			Status = XST_SUCCESS;
+			XPlmi_Printf(DEBUG_INFO, "ImageInfo Table Overflowed\n\r");
+		}
+	}
 	/* Log the image load to the Trace Log buffer */
 	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
 
