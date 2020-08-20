@@ -439,15 +439,15 @@ int XLoader_RawInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	if (DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW) {
+	if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW) {
 		Status = XSdPs_Set_Mmc_ExtCsd(
 					&SdInstance, XSDPS_MMC_PART_CFG_0_ARG);
 	}
-	else if (DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP1) {
+	else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP1) {
 		Status = XSdPs_Set_Mmc_ExtCsd(
 					&SdInstance, XSDPS_MMC_PART_CFG_1_ARG);
 	}
-	else if (DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP2)
+	else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP2)
 	{
 		Status = XSdPs_Set_Mmc_ExtCsd(
 					&SdInstance, XSDPS_MMC_PART_CFG_2_ARG);

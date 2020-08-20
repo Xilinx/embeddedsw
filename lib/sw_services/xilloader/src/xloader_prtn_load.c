@@ -98,7 +98,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	u64 PrtnLoadTime;
 	XPlmi_PerfTime PerfTime = {0U};
 
-	if ((PdiPtr->CopyToMem == FALSE) && (PdiPtr->DelayLoad == FALSE)) {
+	if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"+++++++Loading Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 			PdiPtr->ImageNum,
@@ -106,14 +106,14 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	}
 	else {
-		if (PdiPtr->DelayLoad == TRUE) {
+		if (PdiPtr->DelayLoad == (u8)TRUE) {
 			XPlmi_Printf(DEBUG_GENERAL,
 				"+++++++Skipping Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 				PdiPtr->ImageNum,
 				(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
 				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 		}
-		if (PdiPtr->CopyToMem == TRUE) {
+		if (PdiPtr->CopyToMem == (u8)TRUE) {
 			XPlmi_Printf(DEBUG_GENERAL,
 				"+++++++Copying Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 				PdiPtr->ImageNum,
@@ -127,16 +127,16 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	for (PrtnIndex = 0U;
 		PrtnIndex < PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 		++PrtnIndex, ++PdiPtr->PrtnNum) {
-		if ((PdiPtr->CopyToMem == FALSE) && (PdiPtr->DelayLoad == FALSE)) {
+		if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
 				PdiPtr->PrtnNum);
 		}
 		else {
-			if (PdiPtr->DelayLoad == TRUE) {
+			if (PdiPtr->DelayLoad == (u8)TRUE) {
 				XPlmi_Printf(DEBUG_GENERAL, "-------Skipping Prtn No: 0x%0x\r\n",
 					PdiPtr->PrtnNum);
 			}
-			if (PdiPtr->CopyToMem == TRUE) {
+			if (PdiPtr->CopyToMem == (u8)TRUE) {
 				XPlmi_Printf(DEBUG_GENERAL, "-------Copying Prtn No: 0x%0x\r\n",
 					PdiPtr->PrtnNum);
 			}
@@ -227,7 +227,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 {
 	int Status = XST_FAILURE;
 
-	if (SecureParams->SecureEn != TRUE) {
+	if (SecureParams->SecureEn != (u8)TRUE) {
 		Status = PdiPtr->MetaHdr.DeviceCopy(DeviceCopy->SrcAddr,
 					DeviceCopy->DestAddr, DeviceCopy->Len, DeviceCopy->Flags);
 	}
@@ -356,7 +356,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 		XLoader_SetATFHandoffParameters(PrtnHdr);
 	}
 
-	if (PdiPtr->DelayHandoff == FALSE) {
+	if (PdiPtr->DelayHandoff == (u8)FALSE) {
 		/* Update the handoff values */
 		Status = XLoader_UpdateHandoffParam(PdiPtr);
 		if (Status != XST_SUCCESS) {
@@ -508,7 +508,7 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	 * Double buffering for secure cases is possible only
 	 * when available PRAM Size >= ChunkLen * 2
 	 */
-	if ((DeviceCopy->IsDoubleBuffering == TRUE) && (Is32kChunk == TRUE) &&
+	if ((DeviceCopy->IsDoubleBuffering == (u8)TRUE) && (Is32kChunk == (u8)TRUE) &&
 		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE)) {
 		SecureParams->IsDoubleBuffering = (u8)TRUE;
 	}
@@ -521,8 +521,8 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 			ChunkLen = DeviceCopy->Len;
 		}
 
-		if (SecureParams->SecureEn != TRUE) {
-			if (IsNextChunkCopyStarted == TRUE) {
+		if (SecureParams->SecureEn != (u8)TRUE) {
+			if (IsNextChunkCopyStarted == (u8)TRUE) {
 				IsNextChunkCopyStarted = (u8)FALSE;
 				/* Wait for copy to get completed */
 				PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
@@ -567,8 +567,8 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 			 * For DDR case, start the copy of the
 			 * next chunk for increasing performance
 			 */
-			if ((DeviceCopy->IsDoubleBuffering == TRUE)
-			    && (LastChunk != TRUE)) {
+			if ((DeviceCopy->IsDoubleBuffering == (u8)TRUE)
+			    && (LastChunk != (u8)TRUE)) {
 				/* Update the next chunk address to other part */
 				if (ChunkAddr == XPLMI_LOADER_CHUNK_MEMORY) {
 					ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY_1;
@@ -600,11 +600,11 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 			DeviceCopy->SrcAddr += ChunkLen;
 			DeviceCopy->Len -= ChunkLen;
 
-			if ((SecureParams->IsDoubleBuffering == TRUE) &&
-						(LastChunk != TRUE)) {
+			if ((SecureParams->IsDoubleBuffering == (u8)TRUE) &&
+						(LastChunk != (u8)TRUE)) {
 				Status = XLoader_StartNextChunkCopy(
 						SecureParams, DeviceCopy->Len, ChunkLen);
-				if (Status != XLOADER_SUCCESS) {
+				if (Status != XST_SUCCESS) {
 					goto END;
 				}
 			}
@@ -624,7 +624,7 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 		}
 	}
 	/* If deferred error, flagging it after CDO process complete */
-	if (Cdo.DeferredError == TRUE) {
+	if (Cdo.DeferredError == (u8)TRUE) {
 		Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_DEFERRED_CDO_PROCESS, 0);
 		goto END;
@@ -675,7 +675,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 			((u64)PrtnHdr->DataWordOfst * XIH_PRTN_WORD_LEN);
 	}
 
-	if (PdiPtr->CopyToMem == TRUE) {
+	if (PdiPtr->CopyToMem == (u8)TRUE) {
 		Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -689,7 +689,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 			goto END;
 		}
 
-		if (PdiPtr->DelayLoad == TRUE) {
+		if (PdiPtr->DelayLoad == (u8)TRUE) {
 			PdiPtr->CopyToMemAddr +=
 					(PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen);
 			goto END;
@@ -708,7 +708,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		PdiType = PdiPtr->PdiType;
 		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
 	}
-	else if (PdiPtr->DelayLoad == TRUE) {
+	else if (PdiPtr->DelayLoad == (u8)TRUE) {
 		if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
 			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI) ||
 			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SMAP) ||
@@ -751,7 +751,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		PdiPtr->CopyToMemAddr += PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen;;
 	}
 
-	if (ToStoreInDdr == TRUE) {
+	if (ToStoreInDdr == (u8)TRUE) {
 		PdiPtr->CopyToMemAddr += PrtnParams.DeviceCopy.Len;
 	}
 
@@ -792,7 +792,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	}
 
 END:
-	if (ToStoreInDdr == TRUE) {
+	if (ToStoreInDdr == (u8)TRUE) {
 		PdiPtr->PdiSrc = PdiSrc;
 		PdiPtr->DeviceCopy = DevCopy;
 		PdiPtr->MetaHdr.DeviceCopy = DevCopy;
