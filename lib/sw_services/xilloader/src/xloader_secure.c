@@ -974,8 +974,8 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			}
 		}
 		/* Update buffer address to point to PHs */
-		MetaHdr->BufferAddr = SecurePtr->ChunkAddr +
-					(MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN);
+		MetaHdr->BufferAddr = (u64)(SecurePtr->ChunkAddr) +
+					((u64)(MetaHdr->ImgHdrTbl.NoOfImgs) * XIH_IH_LEN);
 		Status = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
 		if(Status != XLOADER_SUCCESS) {
 			Status = XPlmi_UpdateStatus(

@@ -1088,7 +1088,7 @@ int XLoader_ReloadImage(u32 ImageId)
 		goto END;
 	}
 
-	PdiPtr->CopyToMem = (u8)XilPdi_GetCopyToMemory(
+	PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
 		&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 		XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
 	if (PdiPtr->CopyToMem == (u8)TRUE) {
