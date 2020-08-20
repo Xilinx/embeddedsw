@@ -284,7 +284,7 @@ static void XLoader_DfuWaitForReset(void)
 {
 	/* This bit would be cleared when reset happens. */
 	DfuObj.DfuWaitForInterrupt = (u8)TRUE;
-	while (DfuObj.DfuWaitForInterrupt == FALSE) {
+	while (DfuObj.DfuWaitForInterrupt == (u8)FALSE) {
 		;
 	}
 }
@@ -671,7 +671,7 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 void XLoader_DfuReset(struct Usb_DevData* InstancePtr)
 {
 	(void)(InstancePtr);
-	if (DfuObj.DfuWaitForInterrupt == TRUE) {
+	if (DfuObj.DfuWaitForInterrupt == (u8)TRUE) {
 		/* Tell DFU that we got reset signal */
 		DfuObj.DfuWaitForInterrupt = (u8)FALSE;
 	}
@@ -691,7 +691,7 @@ static void XLoader_DfuSetIntf(struct Usb_DevData* InstancePtr, SetupPacket *Set
 {
 	/* Setting the alternate setting requested */
 	DfuObj.CurrentInf = SetupData->wValue;
-	if (DfuObj.RuntimeToDfu == TRUE) {
+	if (DfuObj.RuntimeToDfu == (u8)TRUE) {
 		/*
 		 * Clear the flag, before entering into DFU
 		 * mode from runtime mode.
@@ -735,7 +735,7 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 				InstancePtr, XLOADER_STATE_APP_DETACH);
 			break;
 		case XLOADER_DFU_DNLOAD:
-			if(DfuObj.GotDnloadRqst == FALSE) {
+			if(DfuObj.GotDnloadRqst == (u8)FALSE) {
 				DfuObj.GotDnloadRqst = (u8)TRUE;
 			}
 			if ((DfuObj.TotalTransfers == 0U) &&
@@ -756,7 +756,7 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 				DfuObj.TotalBytesDnloaded += RxBytesLeft;
 			}
 			else {
-				if (DfuObj.GotDnloadRqst == TRUE) {
+				if (DfuObj.GotDnloadRqst == (u8)TRUE) {
 					DfuObj.CurrState =
 						XLOADER_STATE_DFU_IDLE;
 					DfuObj.GotDnloadRqst = (u8)FALSE;
@@ -764,7 +764,7 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 				}
 			}
 
-			if((DfuObj.GotDnloadRqst == TRUE) &&
+			if((DfuObj.GotDnloadRqst == (u8)TRUE) &&
 				(Result == XST_SUCCESS)) {
 				DfuObj.CurrState =
 					XLOADER_STATE_DFU_DOWNLOAD_IDLE;
@@ -772,7 +772,7 @@ static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *Se
 			}
 			break;
 		case XLOADER_DFU_GETSTATUS:
-			if (DfuObj.GotDnloadRqst == TRUE) {
+			if (DfuObj.GotDnloadRqst == (u8)TRUE) {
 				if (DfuObj.CurrState == XLOADER_STATE_DFU_IDLE ) {
 					DfuObj.CurrState =
 						XLOADER_STATE_DFU_DOWNLOAD_SYNC;

@@ -64,7 +64,7 @@ static u32 QspiFlashSize = 0U;
 static u32 QspiFlashMake = 0U;
 static u32 ReadCommand = 0U;
 static u8 QspiMode;
-static u8 QspiBootMode;
+static PdiSrc_t QspiBootMode;
 static u8 QspiBusWidth;
 
 /*****************************************************************************/
@@ -209,7 +209,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	XQspiPsu_Config *QspiConfig;
-	QspiBootMode = (u8)DeviceFlags;
+	QspiBootMode = (PdiSrc_t)DeviceFlags;
 	memset(&QspiPsuInstance, 0, sizeof(QspiPsuInstance));
 
 	/*

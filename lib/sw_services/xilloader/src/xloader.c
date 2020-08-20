@@ -314,19 +314,19 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		(u32)((UINTPTR) &ATFHandoffParams));
 
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		if ((DeviceFlags == XLOADER_PDI_SRC_SD0)
-		|| (DeviceFlags == XLOADER_PDI_SRC_SD1)
-		|| (DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
-		|| (DeviceFlags == XLOADER_PDI_SRC_EMMC)) {
+		if (((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD0)
+		|| ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1)
+		|| ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
+		|| ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC)) {
 			SdRawBootVal = RegVal & XLOADER_SD_RAWBOOT_MASK;
 			if (SdRawBootVal == XLOADER_SD_RAWBOOT_VAL) {
-				if (DeviceFlags == XLOADER_PDI_SRC_SD0) {
+				if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD0) {
 					PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
 				}
-				else if (DeviceFlags == XLOADER_PDI_SRC_SD1) {
+				else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1) {
 					PdiSrc = XLOADER_PDI_SRC_SD1_RAW;
 				}
-				else if (DeviceFlags == XLOADER_PDI_SRC_SD1_LS) {
+				else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1_LS) {
 					PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
 				}
 				else {
@@ -465,12 +465,12 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	SecureParams.PdiPtr = PdiPtr;
-	if (XLoader_IsAuthEnabled(PdiPtr) == TRUE) {
+	if (XLoader_IsAuthEnabled(PdiPtr) == (u8)TRUE) {
 		SecureParams.IsAuthenticated = (u8)TRUE;
 		SecureParams.SecureEn = (u8)TRUE;
 	}
 
-	if (XLoader_IsEncEnabled(PdiPtr) == TRUE) {
+	if (XLoader_IsEncEnabled(PdiPtr) == (u8)TRUE) {
 		SecureParams.IsEncrypted = (u8)TRUE;
 		SecureParams.SecureEn = (u8)TRUE;
 	}
@@ -484,7 +484,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	/* Authentication of IHT */
-	if (SecureParams.IsAuthenticated == TRUE) {
+	if (SecureParams.IsAuthenticated == (u8)TRUE) {
 		Status = XST_FAILURE;
 		Status = XLoader_ImgHdrTblAuth(&SecureParams);
 		if (Status != XST_SUCCESS) {
@@ -517,7 +517,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	/*
 	 * Read and verify image headers and partition headers
 	 */
-	if (SecureParams.SecureEn != TRUE) {
+	if (SecureParams.SecureEn != (u8)TRUE) {
 		PdiPtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
 		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
 		if (XST_SUCCESS != Status) {
@@ -608,8 +608,8 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 			XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT;
 
-		if (PdiPtr->DelayHandoff == TRUE) {
-			if (PdiPtr->DelayLoad == TRUE) {
+		if (PdiPtr->DelayHandoff == (u8)TRUE) {
+			if (PdiPtr->DelayLoad == (u8)TRUE) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_DELAY_ATTRB, 0);
 				goto END;
 			}
@@ -630,7 +630,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		if (Status != XST_SUCCESS) {
 			/* Check for Cfi errors */
 			if (NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
-					== XPM_NODESUBCL_DEV_PL) {
+					== (u32)XPM_NODESUBCL_DEV_PL) {
 				/*
 				 * To preserve the PDI error, ignoring the
 				 * Error returned by XLoader_CframeErrorHandler
@@ -641,8 +641,8 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			goto END;
 		}
 
-		if ((PdiPtr->DelayLoad == TRUE) ||
-			(PdiPtr->DelayHandoff == TRUE)) {
+		if ((PdiPtr->DelayLoad == (u8)TRUE) ||
+			(PdiPtr->DelayHandoff == (u8)TRUE)) {
 			continue;
 		}
 
@@ -977,7 +977,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 
 	/* Configure preallocs for subsystem */
 	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
-			== XPM_NODECLASS_SUBSYSTEM) {
+			== (u32)XPM_NODECLASS_SUBSYSTEM) {
 		Status = XPmSubsystem_Configure(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
@@ -1091,7 +1091,7 @@ int XLoader_ReloadImage(u32 ImageId)
 	PdiPtr->CopyToMem = (u8)XilPdi_GetCopyToMemory(
 		&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 		XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
-	if (PdiPtr->CopyToMem == TRUE) {
+	if (PdiPtr->CopyToMem == (u8)TRUE) {
 		PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
 		UPdiSrc = (u32)(PdiPtr->PdiSrc);
 		DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
@@ -1262,14 +1262,14 @@ static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
 	 * Error out for the invalid combination of Extended IDCODE - Device.
 	 * Assumption is that only VC1902-ES1 device can have Extended IDCODE value 0
 	 */
-	if ((IdCodeInfo.IsExtIdCodeZero == TRUE) &&
-			(IdCodeInfo.IsVC1902Es1 == FALSE)) {
+	if ((IdCodeInfo.IsExtIdCodeZero == (u8)TRUE) &&
+			(IdCodeInfo.IsVC1902Es1 == (u8)FALSE)) {
 		Status = XLOADER_ERR_EXT_ID_SI;
 		goto END;
 	}
 	else {
 		/* Do not check Si revision if bypass configured */
-		if (TRUE == IdCodeInfo.BypassChkIHT) {
+		if ((u8)TRUE == IdCodeInfo.BypassChkIHT) {
 			IdCodeInfo.IdCodeIHT &= ~PMC_TAP_IDCODE_SI_REV_MASK;
 			IdCodeInfo.IdCodeRd &= ~PMC_TAP_IDCODE_SI_REV_MASK;
 		}
@@ -1281,7 +1281,7 @@ static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
 		}
 
 		/* Do the actual Extended IDCODE check */
-		if (FALSE == IdCodeInfo.IsExtIdCodeZero) {
+		if ((u8)FALSE == IdCodeInfo.IsExtIdCodeZero) {
 			if (IdCodeInfo.ExtIdCodeIHT != IdCodeInfo.ExtIdCodeRd) {
 				Status = XLOADER_ERR_EXT_IDCODE;
 				goto END;
