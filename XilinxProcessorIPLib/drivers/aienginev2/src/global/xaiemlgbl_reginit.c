@@ -1281,6 +1281,7 @@ static const  XAie_CoreMod Aie2CoreMod =
 	.ProgMemHostOffset = XAIE2GBL_CORE_MODULE_PROGRAM_MEMORY,
 	.DataMemSize = 64 * 1024,		/* AIE2 Tile Memory is 64kB */
 	.DataMemShift = 16,
+	.EccEvntRegOff = XAIE2GBL_CORE_MODULE_ECC_SCRUBBING_EVENT,
 	.CoreCtrl = &Aie2CoreCtrlReg,
 	.CoreSts = &Aie2CoreStsReg,
 	.CoreDebug = &Aie2CoreDebugReg
@@ -1290,14 +1291,16 @@ static const  XAie_CoreMod Aie2CoreMod =
 static const  XAie_MemMod Aie2TileMemMod =
 {
 	.Size = 0x10000,
-	.MemAddr = XAIE2GBL_MEMORY_MODULE_DATAMEMORY
+	.MemAddr = XAIE2GBL_MEMORY_MODULE_DATAMEMORY,
+	.EccEvntRegOff = XAIE2GBL_MEMORY_MODULE_ECC_SCRUBBING_EVENT,
 };
 
 /* Data Memory Module for Mem Tile data memory*/
 static const  XAie_MemMod Aie2MemTileMemMod =
 {
 	.Size = 0x80000,
-	.MemAddr = XAIE2GBL_MEM_TILE_MODULE_DATAMEMORY
+	.MemAddr = XAIE2GBL_MEM_TILE_MODULE_DATAMEMORY,
+	.EccEvntRegOff = XAIE2GBL_MEM_TILE_MODULE_ECC_SCRUBBING_EVENT,
 };
 
 /* PL Interface module for SHIMPL Tiles */
