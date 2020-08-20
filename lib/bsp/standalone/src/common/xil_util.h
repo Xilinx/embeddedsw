@@ -18,6 +18,7 @@
 * 6.4   mmd      04/21/19 First release.
 * 6.5   kal      02/29/20 Added Xil_ConvertStringToHexBE API
 * 7.3   kal	 06/30/20 Converted Xil_Ceil macro to API
+*		rpo  08/19/20 Added function for read,modify,write
 *
 * </pre>
 *
@@ -75,6 +76,9 @@ u32 Xil_Strnlen(const char *Str, u32 MaxLen);
 
 /* Convert string to hex numbers in big endian format */
 u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
+
+/*Read, Modify and Write to an address*/
+void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
 
 #ifdef __cplusplus
 }

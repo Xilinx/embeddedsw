@@ -20,6 +20,7 @@
 *                         API to use microsecond timeout instead of a free
 *                         counter.
 * 7.3   kal      06/30/20 Converted Xil_Ceil macro to API.
+*		rpo  	 08/19/20 Added function for read,modify,write
 *
 * </pre>
 *
@@ -472,4 +473,24 @@ u32 Xil_Strnlen(const char *Str, u32 MaxLen)
 
 END:
 	return StrLen;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will Read, Modify and Write to an address.
+ *
+ * @param	Addr denotes Address
+ * @param	Mask denotes the bits to be modified
+ * @param	Value is the value to be written to the address
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value)
+{
+	u32 Val;
+
+	Val = Xil_In32(Addr);
+	Val = (Val & (~Mask)) | (Mask & Value);
+	Xil_Out32(Addr, Val);
 }

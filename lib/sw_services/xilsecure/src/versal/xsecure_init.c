@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   rpo 06/25/2020 Initial release
 * 4.3   rpo 06/25/2020 Updated file version to sync with library version
+*		rpo 08/19/2020 Clear the tamper interrupt source
 * </pre>
 *
 * @note
@@ -35,6 +36,13 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_EVENT_ERROR_PMC_ERR2		(0x28104000U)
 #define	XPLMI_NODEIDX_ERROR_PMCAPB		(32U)
+#define XSECURE_TAMPER_INT_MASK			(8U)
+#define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200)
+#define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000)
+#define XSECURE_GD_STATUS 				(XSECURE_GD1_GLITCH_STATUS_MASK | \
+										 XSECURE_GD0_GLITCH_STATUS_MASK)
+#define PMC_ANALOG_GD_CTRL_REG			(0xF1160000U)
+#define PMC_GLOBAL_ISR_REG				(0xF1110010U)
 
 /************************** Function Prototypes ******************************/
 static u32 XSecure_RegisterTampIntHandler(void);
@@ -110,9 +118,24 @@ END:
  *****************************************************************************/
 void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
 {
-
 	(void)ErrorNodeId;
 	(void)ErrorMask;
 
 	(void)XSecure_ProcessTamperResponse();
+
+	/**
+	 * Clear the interrupt source
+	 */
+	Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG,	XSECURE_GD_STATUS, XSECURE_GD_STATUS);
+	Xil_Out32(PMC_GLOBAL_ISR_REG, XSECURE_TAMPER_INT_MASK);
+	Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG, XSECURE_GD_STATUS, 0U);
+
+	/**
+	 * Once the interrupt is detected by PLM, disables the interrupt and
+	 * calls the handler. So it is necessary to re-enable the interrupt
+	 */
+	(void)XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
+						XPLMI_NODEIDX_ERROR_PMCAPB,
+						XPLMI_EM_ACTION_CUSTOM,
+						XSecure_TamperInterruptHandler);
 }
