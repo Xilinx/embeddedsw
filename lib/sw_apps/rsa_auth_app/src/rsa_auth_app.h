@@ -20,12 +20,13 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  27/01/14 First release
+*       kpt 20/08/20 Removed underscore from macro name
 *
 *</pre>
 *
 ******************************************************************************/
-#ifndef ___RSAEXHEADER_H___
-#define ___RSAEXHEADER_H___
+#ifndef RSAEXHEADER_H_
+#define RSAEXHEADER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -103,4 +104,4 @@ static int AuthenticateApp(void);
 }
 #endif
 
-#endif /* ___RSAEXHEADER_H___ */
+#endif /* RSAEXHEADER_H_ */
