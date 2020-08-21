@@ -141,7 +141,7 @@ typedef struct {
  */
 typedef struct {
 	u64 Address;
-	u64 Size;
+	u32 Size;
 } XDpDma_AudioBuffer;
 
 /**
