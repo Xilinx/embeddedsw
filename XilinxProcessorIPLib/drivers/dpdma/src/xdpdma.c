@@ -143,8 +143,11 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 			RegVal = XDPDMA_CH_CNTL_EN_MASK;
 			break;
 		case XDPDMA_DISABLE:
-			XDpDma_ConfigChannelState(InstancePtr, ChannelNum,
-						  XDPDMA_PAUSE);
+			if (XDpDma_ConfigChannelState(InstancePtr, ChannelNum,
+						      XDPDMA_PAUSE) ==
+						      XST_FAILURE) {
+				return XST_FAILURE;
+			}
 			if (XDpDma_WaitPendingTransaction(InstancePtr,
 							  ChannelNum) ==
 							  XST_FAILURE) {
@@ -186,12 +189,12 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
  * @param    Channel is a pointer to the channel on which the operation is
  *	     to be carried out.
  *
- * @return   Descriptor for next operation.
+ * @return   None.
  *
  * @note     None.
  *
  * **************************************************************************/
-static XDpDma_Descriptor *XDpDma_UpdateVideoDescriptor(XDpDma_Channel *Channel)
+static void XDpDma_UpdateVideoDescriptor(XDpDma_Channel *Channel)
 {
 	Xil_AssertVoid((Channel->Current == NULL) ||
 		       (Channel->Current == &Channel->Descriptor0) ||
@@ -207,7 +210,6 @@ static XDpDma_Descriptor *XDpDma_UpdateVideoDescriptor(XDpDma_Channel *Channel)
 	} else {
 		/* This will never occurs for XDpDma_Channel(Video/Graphics) */
 	}
-	return Channel->Current;
 }
 
 /*************************************************************************/
@@ -381,8 +383,9 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 				if (XDpDma_ConfigChannelState(InstancePtr,
 							      Index,
 							      ChannelState) ==
-							      XST_FAILURE)
+							      XST_FAILURE) {
 					return XST_FAILURE;
+				}
 			}
 		}
 		break;
