@@ -221,9 +221,9 @@ static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
 	u64 DescAddr;
 	Xil_AssertVoid(ChannelNum <= XDPDMA_AUDIO_CHANNEL1);
 	AddrOffset = XDPDMA_CH0_DSCR_STRT_ADDR +
-					(XDPDMA_CH_OFFSET * ChannelNum);
+					(XDPDMA_CH_OFFSET * (u32)ChannelNum);
 	AddrEOffset = XDPDMA_CH0_DSCR_STRT_ADDRE +
-					(XDPDMA_CH_OFFSET * ChannelNum);
+					(XDPDMA_CH_OFFSET * (u32)ChannelNum);
 
 	XDpDma_Descriptor *Descriptor = NULL;
 	switch(ChannelNum) {
@@ -477,9 +477,9 @@ void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS)
 
 	Xil_AssertVoid(QOS >= XDPDMA_QOS_MIN && QOS <= XDPDMA_QOS_MAX);
 
-	RegVal = ((QOS << XDPDMA_CH_CNTL_QOS_DATA_RD_SHIFT) |
-		   (QOS << XDPDMA_CH_CNTL_QOS_DSCR_RD_SHIFT) |
-		   (QOS << XDPDMA_CH_CNTL_QOS_DSCR_WR_SHIFT));
+	RegVal = (((u32)QOS << XDPDMA_CH_CNTL_QOS_DATA_RD_SHIFT) |
+		   ((u32)QOS << XDPDMA_CH_CNTL_QOS_DSCR_RD_SHIFT) |
+		   ((u32)QOS << XDPDMA_CH_CNTL_QOS_DSCR_WR_SHIFT));
 
 	u32 Mask = XDPDMA_CH_CNTL_QOS_DATA_RD_MASK |
 		XDPDMA_CH_CNTL_QOS_DSCR_RD_MASK |
