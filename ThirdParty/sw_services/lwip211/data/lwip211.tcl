@@ -1052,17 +1052,16 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 			from processor $proc_name" "" "mdt_error"
 	}
     } else {
-	set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
+	set intc_periph_type [lindex $intc_periph_type [lsearch -regexp $intc_periph_type "ps\[u,v\]_acpu_gic"]]
     }
-
-	if { [llength $intc_handle] != 1 && $intc_periph_type != [format "psu_acpu_gic"]} {
+	if { [llength $intc_handle] != 1 && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psv_acpu_gic"]} {
 		set emac_name [common::get_property NAME $emac]
 		error "ERROR: axi_ethernet ($emac_name) interrupt port connected to more than one IP.\
 			lwIP requires that the interrupt line be connected only to the interrupt controller"
 			"" "mdt_error"
 	}
 
-	if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_scugic"] && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psu_rcpu_gic"]} {
+	if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_scugic"] && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psu_rcpu_gic"] && $intc_periph_type != [format "psv_acpu_gic"]} {
 		set topology(intc_baseaddr) [common::get_property CONFIG.C_BASEADDR $intc_handle]
 		set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 		set topology(scugic_baseaddr) "0x0"
@@ -1074,6 +1073,10 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 	} elseif { $intc_periph_type == [format "psu_acpu_gic"] && $proc_type == "psu_cortexa53"} {
 		set topology(intc_baseaddr) "0x0"
 		set topology(scugic_baseaddr) "0xF9020000"
+		set topology(scugic_emac_intr) "0x0"
+	} elseif { $intc_periph_type == [format "psv_acpu_gic"] && $proc_type == "psv_cortexa72"} {
+		set topology(intc_baseaddr) "0x0"
+		set topology(scugic_baseaddr) "0xF9040000"
 		set topology(scugic_emac_intr) "0x0"
 	} else {
 		set topology(intc_baseaddr) "0x0"
