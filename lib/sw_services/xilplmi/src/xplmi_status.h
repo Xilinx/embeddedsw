@@ -48,6 +48,7 @@
 *       kc   08/04/2020 Added error code NPLL lock status for master SLR
 *       har  08/11/2020 Added error code for authenticated JTAG
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       rama 08/21/2020 Added error code for STL
 *
 * </pre>
 *
@@ -179,6 +180,8 @@ typedef enum {
 					  if enabled */
 	XPLM_ERR_NPLL_LOCK,		/**< 0x204 - Unable to lock NOC PLL
 					  for master SLR devices */
+    XPLM_ERR_STL_MOD,		/**< 0x205 - Error initializing
+					  the STL Module */
 
 	/** Status codes used in XLOADER */
 	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
