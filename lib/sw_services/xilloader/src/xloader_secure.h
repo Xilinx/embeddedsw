@@ -37,6 +37,7 @@
 *       har  08/11/20 Added XLoader_AuthJtagMessage structure  and macros for
 *                     Authenticated JTAG
 *       td   08/19/20 Fixed MISRA C violations Rule 10.3
+*       bsv  08/21/20 Included xil_util.h for XSECURE_TEMPORAL_CHECK macro
 *
 * </pre>
 *
@@ -61,6 +62,7 @@ extern "C" {
 #include "xloader.h"
 #include "xplmi_util.h"
 #include "xpuf.h"
+#include "xil_util.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

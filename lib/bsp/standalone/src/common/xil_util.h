@@ -17,8 +17,13 @@
 * ----- -------- -------- -----------------------------------------------
 * 6.4   mmd      04/21/19 First release.
 * 6.5   kal      02/29/20 Added Xil_ConvertStringToHexBE API
-* 7.3   kal	 06/30/20 Converted Xil_Ceil macro to API
-*		rpo  08/19/20 Added function for read,modify,write
+* 7.3   kal      06/30/20 Converted Xil_Ceil macro to API
+*		rpo      08/19/20 Added function for read, modify and write
+*       bsv      08/21/20 Added XSECURE_TEMPORAL_CHECK macro to add
+*                         redundancy in security critical functions, to avoid
+*                         glitches from altering the return values of security
+*                         critical functions. The macro requires a label to be
+*                         passed to "go to" in case of error.
 *
 * </pre>
 *
@@ -44,6 +49,34 @@ extern "C" {
 
 
 /****************** Macros (Inline Functions) Definitions *********************/
+#ifdef __GNUC__
+/******************************************************************************/
+/**
+ *
+ * Adds redundancy while checking the status of the called function.
+ * This is to avoid glitches from altering the return values of security
+ * critical functions. The macro requires a label to be passed to "go to"
+ * in case of error.
+ *
+ * @param	Function is the function to be executed
+ * @param	Other params are arguments to the called function
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+#define XSECURE_TEMPORAL_CHECK(Label, Status, Function, ...)   \
+	({ \
+		volatile int StatusTmp = XST_FAILURE;\
+		Status = XST_FAILURE;\
+		Status = Function(__VA_ARGS__);\
+		StatusTmp = Status;\
+		if ((Status != XST_SUCCESS) || \
+			(StatusTmp != XST_SUCCESS)) { \
+			Status |= StatusTmp;\
+			goto Label; \
+		} \
+	 })
+#endif
 
 /*************************** Function Prototypes ******************************/
 /* Ceils the provided float value */

@@ -62,6 +62,8 @@
 *                       security reasons
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   08/19/2020 Added logic to store ImageInfo
+*       bsv  08/21/2020 Added XSECURE_TEMPORAL_CHECK macro to add
+*                       redundancy in security critical functions
 *
 * </pre>
 *
@@ -486,12 +488,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	/* Authentication of IHT */
-	if (SecureParams.IsAuthenticated == (u8)TRUE) {
-		Status = XST_FAILURE;
-		Status = XLoader_ImgHdrTblAuth(&SecureParams);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	if (XLoader_IsAuthEnabled(PdiPtr) == TRUE) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
+			&SecureParams);
 	}
 
 	/*
