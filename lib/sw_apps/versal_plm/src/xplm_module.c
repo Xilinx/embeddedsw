@@ -22,6 +22,7 @@
 *       kc   08/01/2019 Added error management module in PLM
 *       ma   08/01/2019 Removed LPD module init related code from PLM app
 * 1.02  kc   03/23/2020 Minor code cleanup
+* 1.03  rama 07/29/2020 Added module support for STL
 *
 * </pre>
 *
@@ -133,6 +134,9 @@ int XPlm_ModuleInit(void *Arg)
 		XPlm_PmInit,
 		XPlm_LoaderInit,
 		XPlm_SecureInit,
+#ifdef PLM_ENABLE_STL
+		XPlm_StlInit,
+#endif
 	};
 
 

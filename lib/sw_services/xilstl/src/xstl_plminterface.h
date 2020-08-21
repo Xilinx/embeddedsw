@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,72 +7,61 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_modules.h
+* @file xstl_plminterface.h
 *
-* This is the header file which contains definitions for the modules
+* This file contains the header functions of STL PLM interface
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   08/20/2018 Initial release
-* 1.01  bsv  04/04/2020 Code clean up
-* 1.02  rama 08/12/2020 Added STL module ID
+* 1.00  rama 08/20/2020 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-
-#ifndef XPLMI_MODULES_H
-#define XPLMI_MODULES_H
+#ifdef VERSAL_PLM
+#ifndef XSTL_PLMINTERFACE_H
+#define XSTL_PLMINTERFACE_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES				(11U)
+#define XSTL_ID_REGINIT		0x0U
+#define XSTL_ID_REGCHECK	0x1U
+#define XSTL_ID_INTCCHECK	0x2U
 
-/* TODO add enum for declaring module ids */
-#define XPLMI_MODULE_GENERIC_ID			(1U)
-#define XPLMI_MODULE_XILPM_ID				(2U)
-#define XPLMI_MODULE_SEM_ID				(3U)
-#define XPLMI_MODULE_XILFPGA_ID			(4U)
-#define XPLMI_MODULE_XILSECURE_ID			(5U)
-#define XPLMI_MODULE_XILPSM_ID				(6U)
-#define XPLMI_MODULE_LOADER_ID				(7U)
-#define XPLMI_MODULE_ERROR_ID				(8U)
-#define XPLMI_MODULE_STL_ID					(10U)
-
-#define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
+#define XSTL_ARGS_LEN 			4U
+#define XSTL_NUM_STLS_ON_PMC	4U
+#define XSTL_EXECUTION_EN		1U
+#define XSTL_EXECUTION_DIS		0U
+#define XSTL_PERIODICTY			100U
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	int (*Handler)(XPlmi_Cmd *Cmd);
-} XPlmi_ModuleCmd;
-
-typedef struct {
-	u32 Id;
-	XPlmi_ModuleCmd * CmdAry;
-	u32 CmdCnt;
-} XPlmi_Module;
+	int (*StlFuncPtr)(void);
+	u32 *ArgListPtr;
+	u32 Enable;
+} XStl_PmcStlList;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_ModuleRegister(XPlmi_Module * Module);
+int XStl_Init();
 
 /************************** Variable Definitions *****************************/
-extern XPlmi_Module * Modules[XPLMI_MAX_MODULES];
+
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XPLMI_MODULES_H */
+#endif  /* XSTL_PLMINTERFACE_H */
+#endif /* End of __MICROBLAZE__ macro */

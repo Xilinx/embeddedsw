@@ -25,6 +25,7 @@
 *       bsv  03/09/2020 Added DEBUG MODE to PLM
 * 1.03  bsv  04/04/2020 Code clean up
 * 1.04  kc   01/07/2020 Added MACRO to get performance number for keyhole
+* 1.05  rama 08/12/2020 Added macro to exclude STL by default
 *
 * </pre>
 *
@@ -136,6 +137,14 @@ extern "C" {
  *
  */
 //#define PLM_DEBUG_MODE
+/**
+ * @name PLM DEBUG MODE options
+ *
+ * By default, STL is not enabled in PLM
+ * Users will be given an option to enable this
+ *
+ */
+//#define PLM_ENABLE_STL
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
