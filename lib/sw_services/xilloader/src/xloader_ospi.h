@@ -25,6 +25,7 @@
 * 1.02  bsv  27/06/2020 Add dual stacked mode support
 *       bsv  07/08/2020 APIs specific to this file made static
 *       skd  07/14/2020 XLoader_OspiCopy prototype changed
+*       skd  08/21/2020 Added GIGADEVICE and ISSI flash ID macros
 *
 * </pre>
 *
@@ -68,10 +69,9 @@ extern "C" {
  * Byte 2 is second byte of Device ID describes flash size:
  * 512Mbit : 0x1A
  */
-#define	MICRON_OCTAL_ID_BYTE0		(0x2CU)
-#define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
-#define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
-#define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
+#define	MICRON_OCTAL_ID_BYTE0		  (0x2CU)
+#define GIGADEVICE_OCTAL_ID_BYTE0     (0xC8U)
+#define ISSI_OCTAL_ID_BYTE0           (0x9DU)
 
 /**************************** Type Definitions *******************************/
 

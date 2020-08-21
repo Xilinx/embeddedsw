@@ -26,6 +26,7 @@
 * 1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
 *       skd  07/14/2020 XLoader_QspiCopy prototype changed
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       skd  08/21/2020 Removed flash size macros
 *
 * </pre>
 *
@@ -141,12 +142,6 @@ extern "C" {
 #define XLOADER_MACRONIX_ID		(0xC2U)
 #define XLOADER_ISSI_ID			(0x9DU)
 
-#define XLOADER_FLASH_SIZE_ID_64M		(0x17U)
-#define XLOADER_FLASH_SIZE_ID_128M		(0x18U)
-#define XLOADER_FLASH_SIZE_ID_256M		(0x19U)
-#define XLOADER_FLASH_SIZE_ID_512M		(0x20U)
-#define XLOADER_FLASH_SIZE_ID_1G		(0x21U)
-#define XLOADER_FLASH_SIZE_ID_2G		(0x22U)
 /* Macronix size constants for 1.8V and 3.3 parts. */
 #define XLOADER_MACRONIX_FLASH_SIZE_ID_512M		(0x1AU)
 #define XLOADER_MACRONIX_FLASH_SIZE_ID_1G		(0x1BU)
