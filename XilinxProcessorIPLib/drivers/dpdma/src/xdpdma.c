@@ -829,8 +829,8 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 
 	else if(Channel->Current == &Channel->Descriptor0) {
 		/* Check if descriptor chain can be updated */
-		if(Channel->Descriptor1.MSB_Timestamp >>
-		   XDPDMA_DESC_DONE_SHIFT) {
+		if ((Channel->Descriptor1.MSB_Timestamp >>
+		     XDPDMA_DESC_DONE_SHIFT) != 0U) {
 			Channel->Current = NULL;
 			return XST_FAILURE;
 		} else if (((Channel->Descriptor7.MSB_Timestamp >>
@@ -856,13 +856,12 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 
 	else if(Channel->Current == &Channel->Descriptor4)  {
 		/* Check if descriptor chain can be updated */
-		if(Channel->Descriptor5.MSB_Timestamp >>
-		   XDPDMA_DESC_DONE_SHIFT) {
+		if ((Channel->Descriptor5.MSB_Timestamp >>
+		   XDPDMA_DESC_DONE_SHIFT) != 0U) {
 			Channel->Current = NULL;
 			return XST_FAILURE;
-		}
-		else if(Channel->Descriptor3.MSB_Timestamp >>
-			XDPDMA_DESC_DONE_SHIFT) {
+		} else if ((Channel->Descriptor3.MSB_Timestamp >>
+			XDPDMA_DESC_DONE_SHIFT) != 0U) {
 			DescAddr = (UINTPTR) &Channel->Descriptor0;
 			Channel->Descriptor7.Control = XDPDMA_DESC_PREAMBLE |
 				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
