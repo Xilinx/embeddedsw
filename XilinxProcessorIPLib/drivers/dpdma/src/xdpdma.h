@@ -255,6 +255,15 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 			       XDpDma_AudioBuffer *AudioBuffer);
 int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		      u8 ChannelNum);
+
+/*************************** Variable Declarations ****************************/
+
+/**
+ * A table of configuration structures containing the configuration information
+ * for each DisplayPort TX core in the system.
+ */
+extern XDpDma_Config XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];
+
 #ifdef __cplusplus
 }
 #endif
