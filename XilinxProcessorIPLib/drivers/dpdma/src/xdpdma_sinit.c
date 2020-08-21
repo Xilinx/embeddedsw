@@ -58,7 +58,7 @@ XDpDma_Config *XDpDma_LookupConfig(u16 DeviceId)
 	XDpDma_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0; Index < XPAR_XDPDMA_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XDPDMA_NUM_INSTANCES; Index++) {
 		if (XDpDma_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XDpDma_ConfigTable[Index];
 			break;

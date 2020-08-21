@@ -63,7 +63,7 @@ extern "C" {
 /**
  * Register: XDPDMA_ISR
  */
-#define XDPDMA_ISR					0X0004
+#define XDPDMA_ISR					0X0004U
 
 #define XDPDMA_ISR_VSYNC_INT_SHIFT			27
 #define XDPDMA_ISR_VSYNC_INT_WIDTH			1
@@ -297,7 +297,7 @@ extern "C" {
 /**
  * Register: XDPDMA_IEN
  */
-#define XDPDMA_IEN					0X000C
+#define XDPDMA_IEN					0X000CU
 
 #define XDPDMA_IEN_VSYNC_INT_SHIFT			27
 #define XDPDMA_IEN_VSYNC_INT_WIDTH			1
@@ -1068,7 +1068,7 @@ extern "C" {
 /**
  * Register: XDPDMA_GBL
  */
-#define XDPDMA_GBL					0X0104
+#define XDPDMA_GBL					0X0104U
 
 #define XDPDMA_GBL_RTRG_CH5_SHIFT			11
 #define XDPDMA_GBL_RTRG_CH5_WIDTH			1
@@ -1121,7 +1121,7 @@ extern "C" {
 /**
  * Register: XDPDMA_CH0_DSCR_STRT_ADDRE
  */
-#define XDPDMA_CH0_DSCR_STRT_ADDRE			0X0200
+#define XDPDMA_CH0_DSCR_STRT_ADDRE			0X0200U
 
 /**
  * Register: XDPDMA_CH0_DSCR_STRT_ADDR
@@ -1151,14 +1151,14 @@ extern "C" {
 /**
  * Register: XDPDMA_CH0_CNTL
  */
-#define XDPDMA_CH0_CNTL					0X0218
+#define XDPDMA_CH0_CNTL					0X0218U
 
 #define XDPDMA_CNTL_QOS_VIDEO				0x11
 
 /**
  * Register: XDPDMA_CH0_STATUS
  */
-#define XDPDMA_CH0_STATUS				0X021C
+#define XDPDMA_CH0_STATUS				0X021CU
 
 /**
  * Register: XDPDMA_CH0_VDO
@@ -1484,15 +1484,15 @@ extern "C" {
 #define XDPDMA_CH_CNTL_DSCR_AXPROT_WIDTH		2
 #define XDPDMA_CH_CNTL_DSCR_AXPROT_MASK			0XC000
 
-#define XDPDMA_CH_CNTL_QOS_DATA_RD_SHIFT		10
+#define XDPDMA_CH_CNTL_QOS_DATA_RD_SHIFT		10U
 #define XDPDMA_CH_CNTL_QOS_DATA_RD_WIDTH		4
 #define XDPDMA_CH_CNTL_QOS_DATA_RD_MASK			0X3C00U
 
-#define XDPDMA_CH_CNTL_QOS_DSCR_RD_SHIFT		6
+#define XDPDMA_CH_CNTL_QOS_DSCR_RD_SHIFT		6U
 #define XDPDMA_CH_CNTL_QOS_DSCR_RD_WIDTH		4
 #define XDPDMA_CH_CNTL_QOS_DSCR_RD_MASK			0X03C0U
 
-#define XDPDMA_CH_CNTL_QOS_DSCR_WR_SHIFT		2
+#define XDPDMA_CH_CNTL_QOS_DSCR_WR_SHIFT		2U
 #define XDPDMA_CH_CNTL_QOS_DSCR_WR_WIDTH		4
 #define XDPDMA_CH_CNTL_QOS_DSCR_WR_MASK			0X3CU
 
@@ -1707,10 +1707,10 @@ extern "C" {
 #define XDPDMA_DESCRIPTOR_SRC_ADDR5_WIDTH			32
 #define XDPDMA_DESCRIPTOR_SRC_ADDR5_MASK			0XFFFFFFFF
 
-#define XDPDMA_TRIGGER_EN					1
-#define XDPDMA_RETRIGGER_EN					2
-#define XDPDMA_TRIGGER_DONE					0
-#define XDPDMA_RETRIGGER_DONE					0
+#define XDPDMA_TRIGGER_EN					1U
+#define XDPDMA_RETRIGGER_EN					2U
+#define XDPDMA_TRIGGER_DONE					0U
+#define XDPDMA_RETRIGGER_DONE					0U
 /* @} */
 
 /******************* Macros (Inline Functions Definitions ********************/

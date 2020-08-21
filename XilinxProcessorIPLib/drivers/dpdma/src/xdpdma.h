@@ -44,7 +44,7 @@ extern "C" {
 /************************** Constant Definitions ******************************/
 
 /* Alignment for DPDMA Descriptor and Payload */
-#define XDPDMA_DESCRIPTOR_ALIGN 256
+#define XDPDMA_DESCRIPTOR_ALIGN 256U
 /* DPDMA preamble field */
 #define XDPDMA_DESCRIPTOR_PREAMBLE 0xA5
 /**************************** Type Definitions ********************************/
