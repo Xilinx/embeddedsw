@@ -189,6 +189,9 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
  * **************************************************************************/
 static XDpDma_Descriptor *XDpDma_UpdateVideoDescriptor(XDpDma_Channel *Channel)
 {
+	Xil_AssertVoid((Channel->Current == NULL) ||
+		       (Channel->Current == &Channel->Descriptor0) ||
+		       (Channel->Current == &Channel->Descriptor1));
 	if(Channel->Current == NULL) {
 		Channel->Current = &Channel->Descriptor0;
 	}
@@ -197,6 +200,8 @@ static XDpDma_Descriptor *XDpDma_UpdateVideoDescriptor(XDpDma_Channel *Channel)
 	}
 	else if(Channel->Current == &Channel->Descriptor1) {
 		Channel->Current = &Channel->Descriptor0;
+	} else {
+		/* This will never occurs for XDpDma_Channel(Video/Graphics) */
 	}
 	return Channel->Current;
 }
@@ -664,6 +669,8 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 	u32 Size;
 	u64 Address;
 	Xil_AssertVoid(Channel != NULL);
+	Xil_AssertVoid((Channel->Current == &Channel->Descriptor0) ||
+		       (Channel->Current == &Channel->Descriptor4));
 	Xil_AssertVoid(AudioBuffer != NULL);
 	Xil_AssertVoid((AudioBuffer->Size) % XDPDMA_AUDIO_ALIGNMENT == 0U);
 	Xil_AssertVoid((AudioBuffer->Address) % XDPDMA_AUDIO_ALIGNMENT == 0U);
@@ -697,6 +704,8 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor3, Size,
 					    Address + ((u64)Size * 3UL), NULL);
 
+	} else {
+		/* This will never occurs for audio channel */
 	}
 }
 
@@ -877,6 +886,9 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		else {
 			return XST_FAILURE;
 		}
+	} else {
+		/* This should never occurs for audio channel */
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;

@@ -107,6 +107,10 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	else if(InstancePtr->Video.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, VideoChan);
 		XDpDma_ReTrigger(InstancePtr, VideoChan);
+	} else {
+		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
+		 * XDPDMA_RETRIGGER_DONE
+		 */
 	}
 
 	/* Graphics Channel Trigger/Retrigger Handler */
@@ -119,6 +123,10 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	else if(InstancePtr->Gfx.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, GraphicsChan);
 		XDpDma_ReTrigger(InstancePtr, GraphicsChan);
+	} else {
+		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
+		 * XDPDMA_RETRIGGER_DONE
+		 */
 	}
 
 	/* Audio Channel 0 Trigger Handler */
