@@ -21,6 +21,7 @@ Fix RX BD setup order.
 Fix check for base address in Zynq clock setup.
 Fix mkfs usage in lwip examples.
 Fix RX pbuf freeing in GEM error handling path.
+Add axiethernet support on versal silicon.
 
 sdps_v3_10
 Add support for SD/eMMC Non-Blocking Read
@@ -99,6 +100,7 @@ by adding Cache operations for receive and destination buffers.
 
 axiethernet_v5_11:
 Fix bsp generation error for multiple axieth instance design.
+Add support for versal silicon.
 
 axidma_v9_12:
 Fix the MaxTransferLen calculation for MM2S and S2MM in axidma micro
