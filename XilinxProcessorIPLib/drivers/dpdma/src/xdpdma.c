@@ -167,8 +167,8 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 			break;
 	}
 	XDpDma_ReadModifyWrite(InstancePtr->Config.BaseAddr,
-			       XDPDMA_CH0_CNTL + XDPDMA_CH_OFFSET * ChannelNum,
-			       RegVal, Mask);
+			       XDPDMA_CH0_CNTL + XDPDMA_CH_OFFSET *
+			       (u32)ChannelNum, RegVal, Mask);
 	return XST_SUCCESS;
 }
 
@@ -487,8 +487,8 @@ void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS)
 
 	for(Index = 0; Index <= XDPDMA_AUDIO_CHANNEL1; Index++) {
 		XDpDma_ReadModifyWrite(InstancePtr->Config.BaseAddr,
-				XDPDMA_CH0_CNTL + (XDPDMA_CH_OFFSET * Index),
-			        RegVal, Mask);
+				XDPDMA_CH0_CNTL + (XDPDMA_CH_OFFSET *
+				(u32)Index), RegVal, Mask);
 	}
 
 }
@@ -522,7 +522,8 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 		else {
 			NumPlanes = (u8)InstancePtr->Video.VideoInfo->Mode;
 			for(Index = 0; Index <= NumPlanes; Index++) {
-				Trigger |= XDPDMA_GBL_TRG_CH0_MASK << Index;
+				Trigger |= (u32)XDPDMA_GBL_TRG_CH0_MASK <<
+					   (u32)Index;
 				InstancePtr->Video.TriggerStatus =
 					XDPDMA_TRIGGER_DONE;
 			}
@@ -579,7 +580,8 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 		else {
 			NumPlanes = (u8)InstancePtr->Video.VideoInfo->Mode;
 			for(Index = 0; Index <= NumPlanes; Index++) {
-				Trigger |= XDPDMA_GBL_RTRG_CH0_MASK << Index;
+				Trigger |= (u32)XDPDMA_GBL_RTRG_CH0_MASK <<
+					   (u32)Index;
 				InstancePtr->Video.TriggerStatus =
 					XDPDMA_RETRIGGER_DONE;
 			}
@@ -676,10 +678,10 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 					    Address + Size,
 					    &Channel->Descriptor6);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor6, Size,
-					    Address + (Size * 2U),
+					    Address + ((u64)Size * 2UL),
 					    &Channel->Descriptor7);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor7, Size,
-					    Address + (Size * 3U), NULL);
+					    Address + ((u64)Size * 3UL), NULL);
 	}
 
 	else if(Channel->Current == &Channel->Descriptor0) {
@@ -690,10 +692,10 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 					    Address + Size,
 					    &Channel->Descriptor2);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor2, Size,
-					    Address + (Size * 2U),
+					    Address + ((u64)Size * 2UL),
 					    &Channel->Descriptor3);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor3, Size,
-					    Address + (Size * 3U), NULL);
+					    Address + ((u64)Size * 3UL), NULL);
 
 	}
 }
