@@ -369,7 +369,8 @@ done:
 void XPmClock_SetPlClockAsReadOnly()
 {
 	XPm_ClockNode *Clk = NULL;
-	u32 Idx;
+	u32 Idx, Enable = 0U;
+	XStatus Status = XST_FAILURE;
 	u32 PlClocksList[] = {
 		PM_CLK_PMC_PL0_REF,
 		PM_CLK_PMC_PL1_REF,
@@ -380,7 +381,12 @@ void XPmClock_SetPlClockAsReadOnly()
 	for (Idx = 0U; Idx < ARRAY_SIZE(PlClocksList); Idx++) {
 		Clk = XPmClock_GetById(PlClocksList[Idx]);
 		if (NULL != Clk) {
-			Clk->Flags |= CLK_FLAG_READ_ONLY;
+			/* Mark only enabled PL clocks */
+			Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
+						       (u32)TYPE_GATE, &Enable);
+			if ((XST_SUCCESS == Status) && (1U == Enable)) {
+				Clk->Flags |= CLK_FLAG_READ_ONLY;
+			}
 		}
 	}
 }

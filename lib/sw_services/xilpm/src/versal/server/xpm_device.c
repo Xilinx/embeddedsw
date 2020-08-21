@@ -363,6 +363,12 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 
+	/* TODO: Skip handling for PL clocks until PL topology is available */
+	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Device->Node.Id)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 
 	/* Enable all the clock gates, skip over others */
@@ -372,6 +378,7 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 		Status = XPmClock_Release(ClkHandle);
 	}
 
+done:
 	return Status;
 }
 
@@ -1115,6 +1122,12 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 
 	if (NULL == Device) {
 		Status = XPM_ERR_DEVICE;
+		goto done;
+	}
+
+	/* TODO: Skip handling for PL resets until PL topology is available */
+	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Device->Node.Id)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
