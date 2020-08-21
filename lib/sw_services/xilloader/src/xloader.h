@@ -66,6 +66,7 @@
 *       bsv  08/17/2020 Added redundancy in XLoader_IsAuthEnabled
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   08/19/2020 Added minor error codes
+*       skd  08/21/2020 Added flash size macros
 *
 * </pre>
 *
@@ -165,12 +166,18 @@ extern "C" {
  * Flash Size macros
  */
 #if defined(XLOADER_QSPI) || defined(XLOADER_OSPI)
-#define XLOADER_FLASH_SIZE_64M                  (0x0800000U)
-#define XLOADER_FLASH_SIZE_128M                 (0x1000000U)
-#define XLOADER_FLASH_SIZE_256M                 (0x2000000U)
-#define XLOADER_FLASH_SIZE_512M                 (0x4000000U)
-#define XLOADER_FLASH_SIZE_1G                   (0x8000000U)
-#define XLOADER_FLASH_SIZE_2G                   (0x10000000U)
+#define XLOADER_FLASH_SIZE_ID_64M		(0x17U)
+#define XLOADER_FLASH_SIZE_ID_128M		(0x18U)
+#define XLOADER_FLASH_SIZE_ID_256M		(0x19U)
+#define XLOADER_FLASH_SIZE_ID_512M		(0x20U)
+#define XLOADER_FLASH_SIZE_ID_1G		(0x21U)
+#define XLOADER_FLASH_SIZE_ID_2G		(0x22U)
+#define XLOADER_FLASH_SIZE_64M          (0x0800000U)
+#define XLOADER_FLASH_SIZE_128M         (0x1000000U)
+#define XLOADER_FLASH_SIZE_256M         (0x2000000U)
+#define XLOADER_FLASH_SIZE_512M         (0x4000000U)
+#define XLOADER_FLASH_SIZE_1G           (0x8000000U)
+#define XLOADER_FLASH_SIZE_2G           (0x10000000U)
 #endif
 
 /*

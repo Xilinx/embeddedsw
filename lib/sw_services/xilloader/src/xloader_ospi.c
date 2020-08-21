@@ -27,6 +27,7 @@
 *       bsv  07/08/2020 APIs specific to this file made static
 *       skd  07/14/2020 XLoader_OspiCopy prototype changed
 *       skd  07/29/2020 Added non-blocking DMA support for Ospi copy
+*       skd  08/21/2020 Added support for GIGADEVICE and ISSI flash parts
 *
 * </pre>
 *
@@ -106,22 +107,37 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	/*
 	 * Deduce flash make
 	 */
-	if (ReadBuffer[0U] != MICRON_OCTAL_ID_BYTE0) {
+	if (ReadBuffer[0U] == MICRON_OCTAL_ID_BYTE0) {
+		OspiFlashMake = MICRON_OCTAL_ID_BYTE0;
+		XLoader_Printf(DEBUG_INFO, "MICRON");
+	}
+	else if (ReadBuffer[0U] == GIGADEVICE_OCTAL_ID_BYTE0) {
+		OspiFlashMake = GIGADEVICE_OCTAL_ID_BYTE0;
+		XLoader_Printf(DEBUG_INFO, "GIGADEVICE");
+	}
+	else if (ReadBuffer[0U] == ISSI_OCTAL_ID_BYTE0) {
+		OspiFlashMake = GIGADEVICE_OCTAL_ID_BYTE0;
+		XLoader_Printf(DEBUG_INFO, "ISSI");
+	}
+	else {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI, 0);
 		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
 		goto END;
 	}
-	else {
-		OspiFlashMake = MICRON_OCTAL_ID_BYTE0;
-	}
 
-	if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_512) {
+	/*
+	 * Deduce flash Size
+	 */
+	if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_256M) {
+		OspiFlashSize = XLOADER_FLASH_SIZE_256M;
+	}
+	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_512M) {
 		OspiFlashSize = XLOADER_FLASH_SIZE_512M;
 	}
-	else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_1G) {
+	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_1G) {
 		OspiFlashSize = XLOADER_FLASH_SIZE_1G;
 	}
-	else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_2G) {
+	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_2G) {
 		OspiFlashSize = XLOADER_FLASH_SIZE_2G;
 	}
 	else {
