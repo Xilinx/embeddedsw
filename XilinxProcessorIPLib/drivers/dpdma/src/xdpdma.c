@@ -135,6 +135,7 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ChannelNum <= XDPDMA_AUDIO_CHANNEL1);
+	Xil_AssertNonvoid(Enable <= XDPDMA_PAUSE);
 
 	Mask = XDPDMA_CH_CNTL_EN_MASK | XDPDMA_CH_CNTL_PAUSE_MASK;
 	switch(Enable) {
@@ -164,6 +165,9 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 			break;
 		case XDPDMA_PAUSE:
 			RegVal = (u32)XDPDMA_PAUSE;
+			break;
+		default:
+			/* This will never occur */
 			break;
 	}
 	XDpDma_ReadModifyWrite(InstancePtr->Config.BaseAddr,
@@ -249,6 +253,9 @@ static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
 		break;
 	case XDPDMA_AUDIO_CHANNEL1:
 		Descriptor = InstancePtr->Audio[1].Current;
+		break;
+	default:
+		/* This will never occur */
 		break;
 	}
 
@@ -361,6 +368,7 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 	u8 NumPlanes = 0;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(ChannelState <= XDPDMA_PAUSE);
 
 	switch(Channel) {
 	case VideoChan:
@@ -519,6 +527,10 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	u32 Trigger = 0;
 	u8 Index = 0;
 	u8 NumPlanes = 0;
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Channel <= AudioChan1);
+
 	switch(Channel) {
 	case VideoChan:
 		if(InstancePtr->Video.VideoInfo == NULL) {
@@ -549,6 +561,9 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 		Trigger = XDPDMA_GBL_TRG_CH5_MASK;
 		InstancePtr->Audio[1].TriggerStatus = XDPDMA_TRIGGER_DONE;
 		break;
+	default:
+		/* This will never occur */
+		break;
 	}
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_GBL, Trigger);
 
@@ -577,6 +592,10 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	u32 Trigger = 0;
 	u8 NumPlanes;
 	u8 Index;
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Channel <= AudioChan1);
+
 	switch(Channel) {
 	case VideoChan:
 		if(InstancePtr->Video.VideoInfo == NULL) {
@@ -606,6 +625,9 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	case AudioChan1:
 		Trigger = XDPDMA_GBL_RTRG_CH5_MASK;
 		InstancePtr->Audio[1].TriggerStatus = XDPDMA_RETRIGGER_DONE;
+		break;
+	default:
+		/* This will never occur */
 		break;
 	}
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_GBL, Trigger);
@@ -757,6 +779,9 @@ void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
 			InstancePtr->Video.FrameBuffer[XDPDMA_VIDEO_CHANNEL0] =
 			Plane0;
 			NumPlanes--;
+			break;
+			default:
+			/* This will never occur */
 			break;
 		}
 	}
@@ -916,6 +941,7 @@ void XDpDma_SetupChannel(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	XDpDma_AudioBuffer *AudioBuffer;
 	u8 Index, NumPlanes;
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Channel <= AudioChan1);
 
 	switch(Channel) {
 		case VideoChan:
@@ -958,6 +984,9 @@ void XDpDma_SetupChannel(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 			XDpDma_InitAudioDescriptor(AudChan, AudioBuffer);
 			XDpDma_SetDescriptorAddress(InstancePtr,
 						    XDPDMA_AUDIO_CHANNEL1);
+			break;
+		default:
+			/* This will never occur */
 			break;
 	}
 }
