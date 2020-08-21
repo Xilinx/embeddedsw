@@ -30,25 +30,25 @@
 
 /************************** Constant Definitions ******************************/
 #define XDPDMA_CH_OFFSET		0x100U
-#define XDPDMA_WAIT_TIMEOUT		10000
+#define XDPDMA_WAIT_TIMEOUT		10000U
 
-#define XDPDMA_AUDIO_ALIGNMENT		128
+#define XDPDMA_AUDIO_ALIGNMENT		128U
 
-#define XDPDMA_VIDEO_CHANNEL0		0
-#define XDPDMA_VIDEO_CHANNEL1		1
-#define XDPDMA_VIDEO_CHANNEL2		2
-#define XDPDMA_GRAPHICS_CHANNEL		3
-#define XDPDMA_AUDIO_CHANNEL0		4
-#define XDPDMA_AUDIO_CHANNEL1		5
+#define XDPDMA_VIDEO_CHANNEL0		0U
+#define XDPDMA_VIDEO_CHANNEL1		1U
+#define XDPDMA_VIDEO_CHANNEL2		2U
+#define XDPDMA_GRAPHICS_CHANNEL		3U
+#define XDPDMA_AUDIO_CHANNEL0		4U
+#define XDPDMA_AUDIO_CHANNEL1		5U
 
 #define XDPDMA_DESC_PREAMBLE		0xA5U
 #define XDPDMA_DESC_IGNR_DONE		0x400U
 #define XDPDMA_DESC_UPDATE		0x200U
 #define XDPDMA_DESC_COMP_INTR		0x100U
 #define XDPDMA_DESC_LAST_FRAME		0x200000U
-#define XDPDMA_DESC_DONE_SHIFT		31
-#define XDPDMA_QOS_MIN			4
-#define XDPDMA_QOS_MAX			11
+#define XDPDMA_DESC_DONE_SHIFT		31U
+#define XDPDMA_QOS_MIN			4U
+#define XDPDMA_QOS_MAX			11U
 
 /*************************************************************************/
 /**
@@ -69,7 +69,8 @@ static u32 XDpDma_GetPendingTransaction(XDpDma *InstancePtr, u32 ChannelNum)
 {
 	u32 RegVal;
 	RegVal = XDpDma_ReadReg(InstancePtr->Config.BaseAddr,
-				XDPDMA_CH0_STATUS + 0x100 * ChannelNum);
+				XDPDMA_CH0_STATUS +
+				XDPDMA_CH_OFFSET * ChannelNum);
 	return (RegVal & XDPDMA_CH_STATUS_OTRAN_CNT_MASK);
 }
 
@@ -272,8 +273,8 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
 					XDpDma_Descriptor *NextDesc)
 {
 	Xil_AssertVoid(CurrDesc != NULL);
-	Xil_AssertVoid(DataSize != 0);
-	Xil_AssertVoid(BuffAddr != 0);
+	Xil_AssertVoid(DataSize != 0U);
+	Xil_AssertVoid(BuffAddr != 0U);
 	u64 DescAddr = (UINTPTR) NextDesc;
 	if(NextDesc == NULL) {
 		CurrDesc->Control = XDPDMA_DESC_PREAMBLE |
@@ -624,7 +625,7 @@ void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 {
 	Xil_AssertVoid(CurrDesc != NULL);
 	Xil_AssertVoid(FrameBuffer != NULL);
-	Xil_AssertVoid((FrameBuffer->Stride) % XDPDMA_DESCRIPTOR_ALIGN == 0);
+	Xil_AssertVoid((FrameBuffer->Stride) % XDPDMA_DESCRIPTOR_ALIGN == 0U);
 	u64 DescAddr = (UINTPTR) CurrDesc;
 	CurrDesc->Control = XDPDMA_DESC_PREAMBLE | XDPDMA_DESC_IGNR_DONE |
 			    XDPDMA_DESC_LAST_FRAME;
@@ -662,8 +663,8 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 	u64 Address;
 	Xil_AssertVoid(Channel != NULL);
 	Xil_AssertVoid(AudioBuffer != NULL);
-	Xil_AssertVoid((AudioBuffer->Size) % XDPDMA_AUDIO_ALIGNMENT == 0);
-	Xil_AssertVoid((AudioBuffer->Address) % XDPDMA_AUDIO_ALIGNMENT == 0);
+	Xil_AssertVoid((AudioBuffer->Size) % XDPDMA_AUDIO_ALIGNMENT == 0U);
+	Xil_AssertVoid((AudioBuffer->Address) % XDPDMA_AUDIO_ALIGNMENT == 0U);
 
 	Size = AudioBuffer->Size / 4U;
 	Address = AudioBuffer->Address;
@@ -675,10 +676,10 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 					    Address + Size,
 					    &Channel->Descriptor6);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor6, Size,
-					    Address + (Size * 2),
+					    Address + (Size * 2U),
 					    &Channel->Descriptor7);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor7, Size,
-					    Address + (Size * 3), NULL);
+					    Address + (Size * 3U), NULL);
 	}
 
 	else if(Channel->Current == &Channel->Descriptor0) {
@@ -689,10 +690,10 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 					    Address + Size,
 					    &Channel->Descriptor2);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor2, Size,
-					    Address + (Size * 2),
+					    Address + (Size * 2U),
 					    &Channel->Descriptor3);
 		XDpDma_SetupAudioDescriptor(&Channel->Descriptor3, Size,
-					    Address + (Size * 3), NULL);
+					    Address + (Size * 3U), NULL);
 
 	}
 }
@@ -727,7 +728,7 @@ void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
 	NumPlanes = (int)InstancePtr->Video.VideoInfo->Mode;
 
 	while(NumPlanes >= 0) {
-		switch(NumPlanes) {
+		switch ((u8)NumPlanes) {
 			case XDPDMA_VIDEO_CHANNEL2:
 			Xil_AssertVoid(Plane2 != NULL);
 			InstancePtr->Video.FrameBuffer[XDPDMA_VIDEO_CHANNEL2] =
@@ -811,9 +812,9 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 	u64 DescAddr;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buffer != NULL);
-	Xil_AssertNonvoid(Buffer->Size >= 512);
-	Xil_AssertNonvoid(Buffer->Size % 128 == 0);
-	Xil_AssertNonvoid(Buffer->Address % 128 == 0);
+	Xil_AssertNonvoid(Buffer->Size >= 512U);
+	Xil_AssertNonvoid(Buffer->Size % 128U == 0U);
+	Xil_AssertNonvoid(Buffer->Address % 128U == 0U);
 
 	Channel = &InstancePtr->Audio[ChannelNum];
 	Channel->Buffer = Buffer;
