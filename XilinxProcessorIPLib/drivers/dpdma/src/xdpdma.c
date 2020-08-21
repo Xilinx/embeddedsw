@@ -41,11 +41,11 @@
 #define XDPDMA_AUDIO_CHANNEL0		4
 #define XDPDMA_AUDIO_CHANNEL1		5
 
-#define XDPDMA_DESC_PREAMBLE		0xA5
-#define XDPDMA_DESC_IGNR_DONE		0x400
-#define XDPDMA_DESC_UPDATE		0x200
-#define XDPDMA_DESC_COMP_INTR		0x100
-#define XDPDMA_DESC_LAST_FRAME		0x200000
+#define XDPDMA_DESC_PREAMBLE		0xA5U
+#define XDPDMA_DESC_IGNR_DONE		0x400U
+#define XDPDMA_DESC_UPDATE		0x200U
+#define XDPDMA_DESC_COMP_INTR		0x100U
+#define XDPDMA_DESC_LAST_FRAME		0x200000U
 #define XDPDMA_DESC_DONE_SHIFT		31
 #define XDPDMA_QOS_MIN			4
 #define XDPDMA_QOS_MAX			11
@@ -101,7 +101,7 @@ static int XDpDma_WaitPendingTransaction(XDpDma *InstancePtr, u8 ChannelNum)
 	do {
 		Count = XDpDma_GetPendingTransaction(InstancePtr, ChannelNum);
 		Timeout++;
-	} while((Timeout != XDPDMA_WAIT_TIMEOUT) && Count);
+	} while ((Timeout != XDPDMA_WAIT_TIMEOUT) && (Count != 0U));
 
 	if(Timeout ==  XDPDMA_WAIT_TIMEOUT) {
 		return XST_FAILURE;
@@ -833,9 +833,9 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		   XDPDMA_DESC_DONE_SHIFT) {
 			Channel->Current = NULL;
 			return XST_FAILURE;
-		}
-		else if(Channel->Descriptor7.MSB_Timestamp >>
-			XDPDMA_DESC_DONE_SHIFT || !(Channel->Used)) {
+		} else if (((Channel->Descriptor7.MSB_Timestamp >>
+			     XDPDMA_DESC_DONE_SHIFT) == 1U) ||
+			     (Channel->Used == 0U)) {
 			DescAddr = (INTPTR) &Channel->Descriptor4;
 			Channel->Descriptor3.Control = XDPDMA_DESC_PREAMBLE |
 				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
