@@ -236,13 +236,11 @@ void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS);
 void XDpDma_SetupChannel(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 int XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
 int XDpDma_SetGraphicsFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
-void XDpDma_SetVideoTiming(XDpDma *InstancePtr, XVidC_VideoTiming *Timing);
 int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 void XDpDma_InterruptEnable(XDpDma *InstancePtr, u32 Mask);
 void XDpDma_InterruptHandler(XDpDma *InstancePtr);
 void XDpDma_VSyncHandler(XDpDma *InstancePtr);
-void XDpDma_DoneHandler(XDpDma *InstancePtr);
 void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 				XDpDma_FrameBuffer *FrameBuffer);
 void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
