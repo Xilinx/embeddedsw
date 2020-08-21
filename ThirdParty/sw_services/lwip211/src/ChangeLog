@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2020-08-18
+	* Add axiethernet support on versal.
 2020-08-14
 	* Fix RX pbuf freeing in GEM error handling path.
 2020-06-22
