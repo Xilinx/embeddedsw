@@ -41,6 +41,7 @@
 *       skd  07/29/2020 Added parallel DMA support for Qspi and Ospi
 *       bsv  08/06/2020 Code clean up
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       kal  08/23/2020 Added parallel DMA support for Qspi and Ospi for secure
 *
 * </pre>
 *
@@ -468,7 +469,6 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	u32 ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 	u8 LastChunk = (u8)FALSE;
 	u8 IsNextChunkCopyStarted = (u8)FALSE;
-	u8 Is32kChunk = (u8)FALSE;
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
 	/*
@@ -497,7 +497,6 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 		if ((PdiVer != XLOADER_PDI_VERSION_1) &&
 			(PdiVer != XLOADER_PDI_VERSION_2)) {
 			ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
-			Is32kChunk = (u8)TRUE;
 		}
 		else {
 			ChunkLen = XLOADER_CHUNK_SIZE;
@@ -508,9 +507,18 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	 * Double buffering for secure cases is possible only
 	 * when available PRAM Size >= ChunkLen * 2
 	 */
-	if ((DeviceCopy->IsDoubleBuffering == (u8)TRUE) && (Is32kChunk == (u8)TRUE) &&
+	if ((SecureParams->IsDoubleBuffering == (u8)TRUE) &&
 		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE)) {
-		SecureParams->IsDoubleBuffering = (u8)TRUE;
+		/*
+		 * Do nothing
+		 */
+	}
+	else {
+		/*
+		 * Blocking DMA will be used in case
+		 * DoubleBuffering is FALSE.
+		 */
+		SecureParams->IsDoubleBuffering = (u8)FALSE;
 	}
 
 	SecureParams->IsCdo = (u8)TRUE;
@@ -761,6 +769,8 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32)) {
 		PrtnParams.DeviceCopy.IsDoubleBuffering = (u8)TRUE;
 	}
+
+	SecureParams.IsDoubleBuffering = PrtnParams.DeviceCopy.IsDoubleBuffering;
 
 	/*
 	 * ProcessCdo, ProcessElf and PrtnCopy APIs expected unencrypted
