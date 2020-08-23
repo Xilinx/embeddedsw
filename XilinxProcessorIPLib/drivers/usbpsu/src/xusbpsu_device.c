@@ -18,6 +18,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   pm    03/03/20 First release
 * 1.7 	pm    25/03/20 Add clocking support
+* 1.8	pm    22/08/20 Configure register bits when CCI is enable
 *
 * </pre>
 *
@@ -491,6 +492,16 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 		XUsbPsu_InitHibernation(InstancePtr);
 	}
 #endif
+
+	/* Set AXI-cache bits when CCI is Enable */
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)1U) {
+		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSBUSCFG0);
+		RegVal |= XUSBPSU_GSBUSCFG0_BITMASK;
+		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GSBUSCFG0, RegVal);
+
+		XUsbPsu_WriteVendorReg(XUSBPSU_COHERENCY,
+					XUSBPSU_COHERENCY_MODE_ENABLE);
+	}
 
 	return XST_SUCCESS;
 }
