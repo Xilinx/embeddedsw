@@ -53,6 +53,7 @@
 *       kpt  08/10/20 Corrected endianness for meta header IV range checking
 *       har  08/11/20 Added support for authenticated JTAG
 *       td   08/19/20 Fixed MISRA C violations Rule 10.3
+*       kal  08/23/2020 Added parallel DMA support for Qspi and Ospi for secure
 *
 * </pre>
 *
@@ -309,14 +310,12 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 	u32 Len = Size;
 	u64 LoadAddr = DestAddr;
 	u8 LastChunk = (u8)FALSE;
-	u8 Is32kChunk = (u8)FALSE;
 
 	PdiVer = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.Version;
 
 	if ((PdiVer != XLOADER_PDI_VERSION_1) &&
                 (PdiVer != XLOADER_PDI_VERSION_2)) {
 		ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
-		Is32kChunk = (u8)TRUE;
 	}
 	else {
 		ChunkLen = XLOADER_CHUNK_SIZE;
@@ -326,13 +325,15 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 	 * Double buffering is possible only
 	 * when available PRAM Size >= ChunkLen * 2
 	 */
-	if ((Is32kChunk == (u8)TRUE) &&
-		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE) &&
-		(SecurePtr->PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)) {
-		SecurePtr->IsDoubleBuffering = (u8)TRUE;
+	if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
+		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE)) {
+		/*
+		 * Do nothing
+		 */
 	}
 	else {
-		/* Blocking DMA will be used in case
+		/*
+		 * Blocking DMA will be used in case
 		 * DoubleBuffering is FALSE.
 		 */
 		SecurePtr->IsDoubleBuffering = (u8)FALSE;
@@ -352,16 +353,6 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 			goto END;
 		}
 
-		if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
-					(LastChunk != (u8)TRUE)) {
-
-			Status = XLoader_StartNextChunkCopy(SecurePtr,
-							Len, ChunkLen);
-			if (Status != XLOADER_SUCCESS) {
-				goto END;
-			}
-		}
-
 		if (SecurePtr->IsEncrypted != (u8)TRUE) {
 			/* Copy to destination address */
 			Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData,
@@ -378,6 +369,16 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 		/* Update variables for next chunk */
 		LoadAddr = LoadAddr + SecurePtr->SecureDataLen;
 		Len = Len - SecurePtr->SecureDataLen;
+
+		if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
+					(LastChunk != (u8)TRUE)) {
+
+			Status = XLoader_StartNextChunkCopy(SecurePtr,
+							Len, ChunkLen);
+			if (Status != XLOADER_SUCCESS) {
+				goto END;
+			}
+		}
 	}
 
 END:
