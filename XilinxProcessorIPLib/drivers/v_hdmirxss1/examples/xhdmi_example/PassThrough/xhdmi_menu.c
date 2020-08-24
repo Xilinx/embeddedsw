@@ -1261,12 +1261,18 @@ void XHdmi_DisplayEdidMenu(void) {
     xil_printf("  Load HDMI Rx EDID :\r\n");
     xil_printf("---------------------\r\n");
     xil_printf("  10 - TMDS.\r\n");
-    xil_printf("  11 - RX FRL 4 Lanes 12G.\r\n");
-    xil_printf("  12 - RX FRL 4 Lanes 10G.\r\n");
-    xil_printf("  13 - RX FRL 4 Lanes 8G.\r\n");
-    xil_printf("  14 - RX FRL 4 Lanes 6G.\r\n");
-    xil_printf("  15 - RX FRL 3 Lanes 6G.\r\n");
-    xil_printf("  16 - RX FRL 3 Lanes 3G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate == 6)
+	xil_printf("  11 - RX FRL 4 Lanes 12G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 5)
+	xil_printf("  12 - RX FRL 4 Lanes 10G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 4)
+	xil_printf("  13 - RX FRL 4 Lanes 8G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 3)
+	xil_printf("  14 - RX FRL 4 Lanes 6G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 2)
+	xil_printf("  15 - RX FRL 3 Lanes 6G.\r\n");
+    if(HdmiRxSs.Config.MaxFrlRate >= 1)
+	xil_printf("  16 - RX FRL 3 Lanes 3G.\r\n");
 #endif
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
@@ -1327,7 +1333,6 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("Enter Selection -> ");
 	    break;
 
-
 	case 10 :
 	    xhdmi_example_rx_controller.Edid[187] = 0x03;
 	    xhdmi_example_rx_controller.Edid[255] = 0xF4;
@@ -1337,51 +1342,75 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 
 	case 11 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x63;
-	    xhdmi_example_rx_controller.Edid[255] = 0x94;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate == 6) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x63;
+	        xhdmi_example_rx_controller.Edid[255] = 0x94;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			     (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 12Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 12 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x53;
-	    xhdmi_example_rx_controller.Edid[255] = 0xA4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 5) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x53;
+	        xhdmi_example_rx_controller.Edid[255] = 0xA4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			    (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	         InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 10Gbps @ 4 Gbps is not supported.\r\n");
+		}
 	    break;
 
 	case 13 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x43;
-	    xhdmi_example_rx_controller.Edid[255] = 0xB4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 4) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x43;
+	        xhdmi_example_rx_controller.Edid[255] = 0xB4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			   (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 8Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 14 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x33;
-	    xhdmi_example_rx_controller.Edid[255] = 0xC4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 3) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x33;
+	        xhdmi_example_rx_controller.Edid[255] = 0xC4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			    (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 15 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x23;
-	    xhdmi_example_rx_controller.Edid[255] = 0xD4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 2) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x23;
+	        xhdmi_example_rx_controller.Edid[255] = 0xD4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			   (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    break;
 
 	case 16 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x13;
-	    xhdmi_example_rx_controller.Edid[255] = 0xE4;
-	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
-			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
-	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		if(HdmiRxSs.Config.MaxFrlRate >= 1) {
+	        xhdmi_example_rx_controller.Edid[187] = 0x13;
+	        xhdmi_example_rx_controller.Edid[255] = 0xE4;
+	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
+			     (u8*)&(xhdmi_example_rx_controller.Edid), 256);
+	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
+		}else {
+			xil_printf("FRL Rate : 3Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    break;
 #endif
 	    /* Exit */
@@ -2378,12 +2407,18 @@ static void XHdmi_DisplayDebugMainMenu(void) {
     xil_printf("----------------------\r\n");
     xil_printf("Force TX to perform :\r\n");
     xil_printf("  1  - TX TMDS.\r\n");
-    xil_printf("  2  - TX FRL 4 Lanes 12G.\r\n");
-    xil_printf("  3  - TX FRL 4 Lanes 10G.\r\n");
-    xil_printf("  4  - TX FRL 4 Lanes 8G.\r\n");
-    xil_printf("  5  - TX FRL 4 Lanes 6G.\r\n");
-    xil_printf("  6  - TX FRL 3 Lanes 6G.\r\n");
-    xil_printf("  7  - TX FRL 3 Lanes 3G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate == 6)
+       xil_printf("  2  - TX FRL 4 Lanes 12G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 5)
+       xil_printf("  3  - TX FRL 4 Lanes 10G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 4)
+       xil_printf("  4  - TX FRL 4 Lanes 8G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 3)
+       xil_printf("  5  - TX FRL 4 Lanes 6G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 2)
+       xil_printf("  6  - TX FRL 3 Lanes 6G.\r\n");
+    if(HdmiTxSs.Config.MaxFrlRate >= 1)
+       xil_printf("  7  - TX FRL 3 Lanes 3G.\r\n");
     xil_printf("\r\n");
     xil_printf("  10 - RX Request Rate Drop.\r\n");
     xil_printf("  11 - RX sets FltNoTimeout.\r\n");
@@ -2426,43 +2461,67 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 
 	case 2 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X12GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate == 6) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X12GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 12Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 3 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X10GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 5) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X10GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 10Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 4 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X8GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 4) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X8GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 8Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 5 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_4X6GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 3) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_4X6GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 4 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 6 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_3X6GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 2) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_3X6GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 6Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 7 :
-	    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
-			    XHDMIC_MAXFRLRATE_3X3GBITSPS);
+	    if(HdmiTxSs.Config.MaxFrlRate >= 1) {
+	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+			      XHDMIC_MAXFRLRATE_3X3GBITSPS);
+		}else {
+			xil_printf("FRL Rate : 3Gbps @ 3 Lanes is not supported.\r\n");
+		}
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
