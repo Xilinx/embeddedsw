@@ -312,6 +312,7 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	u32 WrAddr = Offset;
 	u8 *WrBuff = Data;
 	static u32 PrevPendingDataLen = 0U;
+	u16 PageSize = Xbir_QspiGetPageSize();
 
 	if (PrevPendingDataLen > 0U) {
 		if ((Size + PrevPendingDataLen) > sizeof(QspiBuffer)) {
@@ -329,14 +330,14 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 		goto END;
 	}
 
-	while (DataSize >= XBIR_QSPI_FLASH_PAGE_SIZE) {
-		Status = Xbir_QspiWrite(WrAddr, WrBuff, XBIR_QSPI_FLASH_PAGE_SIZE);
+	while (DataSize >= PageSize) {
+		Status = Xbir_QspiWrite(WrAddr, WrBuff, PageSize);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		WrAddr += XBIR_QSPI_FLASH_PAGE_SIZE;
-		WrBuff += XBIR_QSPI_FLASH_PAGE_SIZE;
-		DataSize -= XBIR_QSPI_FLASH_PAGE_SIZE;
+		WrAddr += PageSize;
+		WrBuff += PageSize;
+		DataSize -= PageSize;
 	}
 
 	if (XBIR_SYS_PARTIAL_DATA_CHUNK == IsLast) {

@@ -41,7 +41,7 @@ extern "C" {
 #define	XBIR_ERROR_QSPI_MANUAL_START		(0x27U)
 #define	XBIR_ERROR_QSPI_PRESCALER_CLK		(0x28U)
 #define	XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE	(0x29U)
-#define XBIR_QSPI_FLASH_PAGE_SIZE		(256U)
+#define XBIR_ERROR_UNSUPPORTED_QSPI_VENDOR	(0x30U)
 
 /**************************** Type Definitions *******************************/
 
@@ -53,6 +53,7 @@ int Xbir_QspiRead (u32 SrcAddr, u8 *DestAddr, u32 Length);
 int Xbir_QspiWrite(u32 Addr, u8 *WrBuff, u32 Len);
 int Xbir_QspiFlashErase(u32 Address, u32 Length);
 int Xbir_QspiWrite(u32 Address, u8 *WrBuffer, u32 Length);
+u16 Xbir_QspiGetPageSize(void);
 
 #ifdef __cplusplus
 }

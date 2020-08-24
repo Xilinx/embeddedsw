@@ -29,6 +29,7 @@
 #include "xqspipsu.h"
 #include "xbir_qspi.h"
 #include "xbir_qspi_hw.h"
+#include "xbir_config.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -39,13 +40,6 @@
 #define XBIR_QSPI_DEVICE_ID	XPAR_XQSPIPSU_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
-typedef struct{
-	u8 QspiFlashMake;
-	u32 QspiFlashSize;
-	u32 SectSize;
-	u32 SectMask;
-	u8 NumDie;
-} Xbir_QspiFlashInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -53,12 +47,14 @@ typedef struct{
 static int Xbir_QspiFlashReadID(XQspiPsu *QspiPsuPtr);
 static int Xbir_QspiMacronixEnable4B(XQspiPsu *QspiPsuPtr);
 static int Xbir_QspiMacronixEnableQPIMode(XQspiPsu *QspiPsuPtr, int Enable);
+static int Xbir_GetFlashInfo(u8 VendorId, u8 SizeId);
+static int Xbir_FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, u8 Enable);
 
 /************************** Variable Definitions *****************************/
-static XQspiPsu Xbir_QspiPsuInstance;
+static XQspiPsu QspiPsuInstance;
 static u32 RdCmd = 0U;
 static int StatusCmd = 0;
-static Xbir_QspiFlashInfo FlashCfg;
+static Xbir_QspiFlashInfo FlashInfo;
 static u8 FsrFlag;
 static u8 MacronixFlash = FALSE;
 
@@ -105,262 +101,28 @@ static int Xbir_QspiFlashReadID(XQspiPsu *QspiPsuPtr)
 
 	/* Deduce flash make */
 	if (ReadBuffer[0U] == MICRON_ID) {
-		FlashCfg.QspiFlashMake = MICRON_ID;
+		FlashInfo.FlashMake = MICRON_ID;
 	} else if(ReadBuffer[0U] == SPANSION_ID) {
-		FlashCfg.QspiFlashMake = SPANSION_ID;
+		FlashInfo.FlashMake = SPANSION_ID;
 	} else if(ReadBuffer[0U] == WINBOND_ID) {
-		FlashCfg.QspiFlashMake = WINBOND_ID;
+		FlashInfo.FlashMake = WINBOND_ID;
 	} else if(ReadBuffer[0U] == MACRONIX_ID) {
-		FlashCfg.QspiFlashMake = MACRONIX_ID;
+		FlashInfo.FlashMake = MACRONIX_ID;
 		MacronixFlash = TRUE;
 	} else if(ReadBuffer[0U] == ISSI_ID) {
-		FlashCfg.QspiFlashMake = ISSI_ID;
+		FlashInfo.FlashMake = ISSI_ID;
 	} else {
+		Status = XBIR_ERROR_UNSUPPORTED_QSPI_VENDOR;
+		goto END;
+	}
+	Status = Xbir_GetFlashInfo(ReadBuffer[0U], ReadBuffer[2U]);
+	if (Status != XST_SUCCESS) {
 		Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
 		goto END;
 	}
 
-	/* Deduce flash Size */
-	if (ReadBuffer[2U] == FLASH_SIZE_ID_8M) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				FlashCfg.SectMask = 0xFFFE0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_8M;
-	} else if (ReadBuffer[2U] == FLASH_SIZE_ID_16M) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				FlashCfg.SectMask = 0xFFFE0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_16M;
-	} else if (ReadBuffer[2U] == FLASH_SIZE_ID_32M) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				FlashCfg.SectMask = 0xFFFE0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_32M;
-	} else if (ReadBuffer[2U] == FLASH_SIZE_ID_64M) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				FlashCfg.SectMask = 0xFFFE0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_64M;
-	} else if (ReadBuffer[2U] == FLASH_SIZE_ID_128M) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				FlashCfg.SectMask = 0xFFFE0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_128M;
-	} else if ((ReadBuffer[2U] == FLASH_SIZE_ID_256M) ||
-		(ReadBuffer[2U] == MACRONIX_FLASH_1_8_V_MX25_ID_256)) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 1U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				if(FlashCfg.QspiFlashMake == ISSI_ID) {
-					FlashCfg.SectMask = 0xFFFF0000U;
-				}
-				else {
-					FlashCfg.SectMask = 0xFFFE0000U;
-				}
-				FlashCfg.NumDie = 1U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_256M;
-	} else if ((ReadBuffer[2U] == FLASH_SIZE_ID_512M) ||
-		(ReadBuffer[2U] == MACRONIX_FLASH_SIZE_ID_512M) ||
-		(ReadBuffer[2U] == MACRONIX_FLASH_1_8_V_MX66_ID_512)) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				if(FlashCfg.QspiFlashMake == SPANSION_ID) {
-					FlashCfg.SectSize = SECTOR_SIZE_256K;
-					FlashCfg.SectMask = 0xFFFC0000U;
-					FlashCfg.NumDie = 1U;
-				}
-				else {
-					FlashCfg.SectSize = SECTOR_SIZE_64K;
-					FlashCfg.SectMask = 0xFFFF0000U;
-					FlashCfg.NumDie = 2U;
-				}
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				if(FlashCfg.QspiFlashMake == SPANSION_ID) {
-					FlashCfg.SectSize = SECTOR_SIZE_512K;
-					FlashCfg.SectMask = 0xFFF80000U;
-					FlashCfg.NumDie = 1U;
-				}
-				else {
-					FlashCfg.SectSize = SECTOR_SIZE_128K;
-					FlashCfg.SectMask = 0xFFFE0000U;
-					FlashCfg.NumDie = 2U;
-				}
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_512M;
-	} else if ((ReadBuffer[2U] == FLASH_SIZE_ID_1G) ||
-		(ReadBuffer[2U] == MACRONIX_FLASH_SIZE_ID_1G) ||
-		(ReadBuffer[2U] == MACRONIX_FLASH_1_8_V_SIZE_ID_1G)) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 4U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				FlashCfg.SectMask = 0xFFFE0000U;
-				FlashCfg.NumDie = 4U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_1G;
-	} else if ((ReadBuffer[2U] == FLASH_SIZE_ID_2G) ||
-		(ReadBuffer[2U] == MACRONIX_FLASH_SIZE_ID_2G) ||
-		(ReadBuffer[2U] == MACRONIX_FLASH_1_8_V_SIZE_ID_2G)) {
-		switch(QspiPsuPtr->Config.ConnectionMode) {
-			case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			case XQSPIPSU_CONNECTION_MODE_STACKED:
-				FlashCfg.SectSize = SECTOR_SIZE_64K;
-				FlashCfg.SectMask = 0xFFFF0000U;
-				FlashCfg.NumDie = 4U;
-				break;
-
-			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-				FlashCfg.SectSize = SECTOR_SIZE_128K;
-				FlashCfg.SectMask = 0xFFFE0000U;
-				FlashCfg.NumDie = 4U;
-				break;
-
-			default:
-				Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-				break;
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		FlashCfg.QspiFlashSize = FLASH_SIZE_2G;
-	} else {
-		Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
-		goto END;
-	}
-
-	if ((FlashCfg.NumDie > 1U) &&
-			(FlashCfg.QspiFlashMake == MICRON_ID)) {
+	if ((FlashInfo.NumDie > 1U) &&
+			(FlashInfo.FlashMake == MICRON_ID)) {
 		StatusCmd = READ_FLAG_STATUS_CMD;
 		FsrFlag = 1U;
 	} else {
@@ -368,15 +130,13 @@ static int Xbir_QspiFlashReadID(XQspiPsu *QspiPsuPtr)
 		FsrFlag = 0U;
 	}
 
-	xil_printf("[Flash Image Info]\r\n");
-	xil_printf("\t Flash size : %uMB\r\n",
-		FlashCfg.QspiFlashSize / (1024U * 1024U));
-	xil_printf("\tSector size : %uKB\r\n",
-		FlashCfg.SectSize / 1024U);
-	xil_printf("\tSector Mask : 0x%08X\r\n\r\n",
-			FlashCfg.SectMask);
-
-	Status = XST_SUCCESS;
+	Xbir_Printf("[Flash Image Info]\r\n");
+	Xbir_Printf("\t Flash size : %uMB\r\n",
+		FlashInfo.FlashSize / (1024U * 1024U));
+	Xbir_Printf("\tSector size : %uKB\r\n",
+		FlashInfo.SectSize / 1024U);
+	Xbir_Printf("\tPageSize in bytes: 0x%08X\r\n\r\n",
+			FlashInfo.PageSize);
 
 END:
 	return Status;
@@ -399,9 +159,9 @@ static u32 Xbir_GetQspiAddr(u32 Address)
 {
 	u32 RealAddr;
 
-	switch(Xbir_QspiPsuInstance.Config.ConnectionMode) {
+	switch(QspiPsuInstance.Config.ConnectionMode) {
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
+			XQspiPsu_SelectFlash(&QspiPsuInstance,
 					XQSPIPSU_SELECT_FLASH_CS_LOWER,
 					XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 			RealAddr = Address;
@@ -410,17 +170,17 @@ static u32 Xbir_GetQspiAddr(u32 Address)
 		case XQSPIPSU_CONNECTION_MODE_STACKED:
 			/* Select lower or upper Flash based on sector address
 			 */
-			if(Address >= (FlashCfg.QspiFlashSize / 2U)) {
-				XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
+			if (Address >= FlashInfo.FlashSize) {
+				XQspiPsu_SelectFlash(&QspiPsuInstance,
 						XQSPIPSU_SELECT_FLASH_CS_UPPER,
 						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 				/* Subtract first flash size when accessing
 				 *  second flash
 				 */
-				RealAddr = Address - (FlashCfg.QspiFlashSize / 2U);
-			}else{
+				RealAddr = Address - FlashInfo.FlashSize;
+			} else {
 				/* Set selection to L_PAGE */
-				XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
+				XQspiPsu_SelectFlash(&QspiPsuInstance,
 						XQSPIPSU_SELECT_FLASH_CS_LOWER,
 						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 				RealAddr = Address;
@@ -431,7 +191,7 @@ static u32 Xbir_GetQspiAddr(u32 Address)
 			/* The effective address in each flash is the actual
 			 * address / 2
 			 */
-			XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
+			XQspiPsu_SelectFlash(&QspiPsuInstance,
 				XQSPIPSU_SELECT_FLASH_CS_BOTH,
 				XQSPIPSU_SELECT_FLASH_BUS_BOTH);
 			RealAddr = Address / 2U;
@@ -444,6 +204,10 @@ static u32 Xbir_GetQspiAddr(u32 Address)
 			 */
 			RealAddr = 0U;
 			break;
+	}
+
+	if (RealAddr >= FlashInfo.FlashSize) {
+		RealAddr = 0U;
 	}
 
 	return RealAddr;
@@ -464,7 +228,6 @@ int Xbir_QspiInit(void)
 {
 	int Status = XST_FAILURE;
 	XQspiPsu_Config *QspiConfig;
-	u32 QspiMode;
 
 	/* Initialize the QSPI driver so that it's ready to use */
 	QspiConfig =  XQspiPsu_LookupConfig(XBIR_QSPI_DEVICE_ID);
@@ -473,7 +236,7 @@ int Xbir_QspiInit(void)
 		goto END;
 	}
 
-	Status =  XQspiPsu_CfgInitialize(&Xbir_QspiPsuInstance, QspiConfig,
+	Status =  XQspiPsu_CfgInitialize(&QspiPsuInstance, QspiConfig,
 			QspiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_QSPI_CONFIG_INIT_FAILED;
@@ -481,7 +244,7 @@ int Xbir_QspiInit(void)
 	}
 
 	/* Set Manual Start */
-	Status = XQspiPsu_SetOptions(&Xbir_QspiPsuInstance,
+	Status = XQspiPsu_SetOptions(&QspiPsuInstance,
 		XQSPIPSU_MANUAL_START_OPTION);
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_ERROR_QSPI_MANUAL_START;
@@ -489,39 +252,50 @@ int Xbir_QspiInit(void)
 	}
 
 	/* Set the pre-scaler for QSPI clock */
-	Status = XQspiPsu_SetClkPrescaler(&Xbir_QspiPsuInstance,
+	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance,
 		XQSPIPSU_CLK_PRESCALE_8);
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_ERROR_QSPI_PRESCALER_CLK;
 		goto END;
 	}
 
-	XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
-		XQSPIPSU_SELECT_FLASH_CS_LOWER,	XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+	XQspiPsu_SelectFlash(&QspiPsuInstance,
+			XQSPIPSU_SELECT_FLASH_CS_LOWER,
+			XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 
-	/* Configure the qspi in linear mode if running in XIP
-	 * TBD
-	 */
+	/* Read Flash ID and extract Manufacturer and Size information */
+	Status = Xbir_QspiFlashReadID(&QspiPsuInstance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	switch ((u32)XPAR_PSU_QSPI_0_QSPI_MODE) {
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 			break;
 
 		case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				XQspiPsu_SelectFlash(&QspiPsuInstance,
+						XQSPIPSU_SELECT_FLASH_CS_BOTH,
+						XQSPIPSU_SELECT_FLASH_BUS_BOTH);
+				FlashInfo.SectorMask -= FlashInfo.SectSize;
+				FlashInfo.SectSize *= 2U;
+				FlashInfo.PageSize *= 2U;
 			break;
 
 		case XQSPIPSU_CONNECTION_MODE_STACKED:
+				FlashInfo.NumSectors *= 2U;
+				FlashInfo.PageSize *= 2U;
 			break;
 
 		default:
 			Status = XBIR_ERROR_INVALID_QSPI_CONNECTION;
 			break;
 	}
-
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	switch (Xbir_QspiPsuInstance.Config.BusWidth) {
+	switch (QspiPsuInstance.Config.BusWidth) {
 		case XBIR_QSPI_BUSWIDTH_ONE:
 			RdCmd = FAST_READ_CMD_32BIT;
 			break;
@@ -538,45 +312,35 @@ int Xbir_QspiInit(void)
 			Status = XBIR_ERROR_INVALID_QSPI_CONNECTION;
 			break;
 	}
-
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Read Flash ID and extract Manufacture and Size information */
-	Status = Xbir_QspiFlashReadID(&Xbir_QspiPsuInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	if (MacronixFlash == 1U) {
-		if (Xbir_QspiPsuInstance.Config.BusWidth == XBIR_QSPI_BUSWIDTH_FOUR) {
+		if (QspiPsuInstance.Config.BusWidth == XBIR_QSPI_BUSWIDTH_FOUR) {
 			RdCmd = QUAD_READ_CMD_24BIT2;
 		}
 
-		if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+		if (QspiPsuInstance.Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
-						XQSPIPSU_SELECT_FLASH_CS_BOTH,
-						XQSPIPSU_SELECT_FLASH_BUS_BOTH);
-			Status = Xbir_QspiMacronixEnable4B(&Xbir_QspiPsuInstance);
+			Status = Xbir_QspiMacronixEnable4B(&QspiPsuInstance);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 		} else {
-			XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
+			XQspiPsu_SelectFlash(&QspiPsuInstance,
 						XQSPIPSU_SELECT_FLASH_CS_LOWER,
 						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-			Status = Xbir_QspiMacronixEnable4B(&Xbir_QspiPsuInstance);
+			Status = Xbir_QspiMacronixEnable4B(&QspiPsuInstance);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+			if (QspiPsuInstance.Config.ConnectionMode ==
 					XQSPIPSU_CONNECTION_MODE_STACKED) {
-				XQspiPsu_SelectFlash(&Xbir_QspiPsuInstance,
+				XQspiPsu_SelectFlash(&QspiPsuInstance,
 						XQSPIPSU_SELECT_FLASH_CS_UPPER,
 						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-				Status = Xbir_QspiMacronixEnable4B(&Xbir_QspiPsuInstance);
+				Status = Xbir_QspiMacronixEnable4B(&QspiPsuInstance);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
@@ -584,11 +348,9 @@ int Xbir_QspiInit(void)
 		}
 	}
 
-	/* Add code: For a Stacked connection, read second Flash ID */
-	QspiMode = Xbir_QspiPsuInstance.Config.ConnectionMode;
-	if ((QspiMode == (u32)XQSPIPSU_CONNECTION_MODE_PARALLEL) ||
-		(QspiMode == (u32)XQSPIPSU_CONNECTION_MODE_STACKED)) {
-		FlashCfg.QspiFlashSize = 2U * FlashCfg.QspiFlashSize;
+	Status = Xbir_FlashEnterExit4BAddMode(&QspiPsuInstance, 1U);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 END:
@@ -669,7 +431,7 @@ static int Xbir_QspiMacronixEnableQPIMode(XQspiPsu *QspiPsuPtr, int Enable)
 	}
 	FlashMsg.Flags = XQSPIPSU_MSG_FLAG_TX;
 
-	Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, &FlashMsg, 1U);
+	Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg, 1U);
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_ERROR_QSPI_READ;
 		goto END;
@@ -690,7 +452,7 @@ static int Xbir_QspiMacronixEnableQPIMode(XQspiPsu *QspiPsuPtr, int Enable)
 	}
 	FlashMsg.Flags = XQSPIPSU_MSG_FLAG_TX;
 
-	Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, &FlashMsg, 1U);
+	Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg, 1U);
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_ERROR_QSPI_READ;
 		goto END;
@@ -723,9 +485,17 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 	u32 DiscardByteCnt;
 	XQspiPsu_Msg FlashMsg[5U];
 	u8 WriteBuf[5U] __attribute__ ((aligned(32U))) = {0U};
+	u32 FlashSize = FlashInfo.FlashSize;
+
+	if ((QspiPsuInstance.Config.ConnectionMode ==
+		XQSPIPSU_CONNECTION_MODE_STACKED) ||
+		(QspiPsuInstance.Config.ConnectionMode ==
+		XQSPIPSU_CONNECTION_MODE_PARALLEL)) {
+		FlashSize *= 2U;
+	}
 
 	/* Check the read length with Qspi flash size */
-	if ((SrcAddress + Length) > FlashCfg.QspiFlashSize) {
+	if ((SrcAddress + Length) > FlashSize) {
 		Status = XBIR_ERROR_QSPI_LENGTH;
 		goto END;
 	}
@@ -751,9 +521,9 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 		 * Flash
 		 */
 		if ((MacronixFlash == 1U) &&
-				(Xbir_QspiPsuInstance.Config.BusWidth == XBIR_QSPI_BUSWIDTH_FOUR)) {
+				(QspiPsuInstance.Config.BusWidth == XBIR_QSPI_BUSWIDTH_FOUR)) {
 			/* Enable QPI mode */
-			Status = Xbir_QspiMacronixEnableQPIMode(&Xbir_QspiPsuInstance, ENABLE_QPI);
+			Status = Xbir_QspiMacronixEnableQPIMode(&QspiPsuInstance, ENABLE_QPI);
 			if (Status != XST_SUCCESS) {
 				Status = XBIR_QSPI_4BYTE_ENETER_ERROR;
 				goto END;
@@ -799,19 +569,19 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			FlashMsg[3U].ByteCount = TransferBytes;
 			FlashMsg[3U].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 			FlashMsg[3U].Flags = XQSPIPSU_MSG_FLAG_RX;
-			if(Xbir_QspiPsuInstance.Config.ConnectionMode ==
+			if(QspiPsuInstance.Config.ConnectionMode ==
 					XQSPIPSU_CONNECTION_MODE_PARALLEL){
 				FlashMsg[3U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
 
-			Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, &FlashMsg[0U], 4U);
+			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U], 4U);
 			if (Status != XST_SUCCESS) {
 				Status = XBIR_ERROR_QSPI_READ;
 				goto END;
 			}
 
 			/* Disable QPI mode */
-			Status = Xbir_QspiMacronixEnableQPIMode(&Xbir_QspiPsuInstance, DISABLE_QPI);
+			Status = Xbir_QspiMacronixEnableQPIMode(&QspiPsuInstance, DISABLE_QPI);
 			if (Status != XST_SUCCESS) {
 				Status = XBIR_QSPI_4BYTE_ENETER_ERROR;
 				goto END;
@@ -877,7 +647,7 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			FlashMsg[2U].ByteCount = TransferBytes;
 			FlashMsg[2U].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-			if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+			if (QspiPsuInstance.Config.ConnectionMode ==
 					XQSPIPSU_CONNECTION_MODE_PARALLEL){
 				FlashMsg[2U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
@@ -888,7 +658,7 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			 * read command and address and receive the specified
 			 * number of bytes of data in the data buffer
 			 */
-			Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance,
+			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance,
 				&FlashMsg[0U], 3U);
 			if (Status != XST_SUCCESS) {
 				Status = XBIR_ERROR_QSPI_READ;
@@ -949,7 +719,7 @@ int Xbir_QspiWrite(u32 Address, u8 *WrBuffer, u32 Length)
 	FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-	Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, FlashMsg, 1);
+	Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, FlashMsg, 1);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -977,12 +747,12 @@ int Xbir_QspiWrite(u32 Address, u8 *WrBuffer, u32 Length)
 	FlashMsg[1U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[1U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-	if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+	if (QspiPsuInstance.Config.ConnectionMode ==
 			XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		FlashMsg[1U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 	}
 
-	Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, FlashMsg, 2U);
+	Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, FlashMsg, 2U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1004,17 +774,17 @@ int Xbir_QspiWrite(u32 Address, u8 *WrBuffer, u32 Length)
 		FlashMsg[1U].ByteCount = 2U;
 		FlashMsg[1U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[1U].Flags = XQSPIPSU_MSG_FLAG_RX;
-		if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+		if (QspiPsuInstance.Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 			FlashMsg[1U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		}
 
-		Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, FlashMsg, 2U);
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, FlashMsg, 2U);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+		if (QspiPsuInstance.Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 			if (FsrFlag) {
 				FlashStatus[1U] &= FlashStatus[0U];
@@ -1064,22 +834,20 @@ int Xbir_QspiFlashErase(u32 Address, u32 Length)
 	u32 RealAddr;
 	u32 NumSect;
 	u8 WrBuffer[8U];
-	u32 SectorOffset;
 	XQspiPsu_Msg FlashMsg[5U];
+	u32 SectorOffset;
+
+	SectorOffset = Address & ~(FlashInfo.SectSize - 1U);
+	Address = Address - SectorOffset;
+	Length = Length + SectorOffset;
+
+	SectorOffset = Length &  ~(FlashInfo.SectSize - 1U);
+	if (SectorOffset != 0U) {
+		Length = Length + FlashInfo.SectSize - SectorOffset;
+	}
+        NumSect = (Length / FlashInfo.SectSize);
 
 	WrEnableCmd = WRITE_ENABLE_CMD;
-	/* If the erase size is less than the total size of the flash, use
-	 * sector erase command
-	 *
-	 * Calculate no. of sectors to erase based on byte count
-	 */
-	SectorOffset = (Address % FlashCfg.SectSize);
-	Length += SectorOffset;
-	Address -= SectorOffset;
-	NumSect = (Length / (FlashCfg.SectSize));
-	if ((Length % FlashCfg.SectSize) != 0U) {
-		NumSect++;
-	}
 
 	for (Sector = 0U; Sector < NumSect; Sector++) {
 		/* Translate address based on type of connection
@@ -1096,12 +864,13 @@ int Xbir_QspiFlashErase(u32 Address, u32 Length)
 		FlashMsg[0U].ByteCount = 1U;
 		FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
-		Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, FlashMsg, 1U);
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, FlashMsg, 1U);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		WrBuffer[COMMAND_OFFSET]   = SPINOR_OP_BE_4K_4B;
+		WrBuffer[COMMAND_OFFSET] = SEC_ERASE_CMD;
+
 		/* To be used only if 4B address sector erase cmd is
 		 * supported by flash
 		 */
@@ -1120,7 +889,7 @@ int Xbir_QspiFlashErase(u32 Address, u32 Length)
 		FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance, FlashMsg, 1U);
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, FlashMsg, 1U);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1139,18 +908,18 @@ int Xbir_QspiFlashErase(u32 Address, u32 Length)
 			FlashMsg[1U].ByteCount = 2U;
 			FlashMsg[1U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			FlashMsg[1U].Flags = XQSPIPSU_MSG_FLAG_RX;
-			if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+			if (QspiPsuInstance.Config.ConnectionMode ==
 					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				FlashMsg[1U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
 
-			Status = XQspiPsu_PolledTransfer(&Xbir_QspiPsuInstance,
+			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance,
 					FlashMsg, 2U);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 
-			if (Xbir_QspiPsuInstance.Config.ConnectionMode ==
+			if (QspiPsuInstance.Config.ConnectionMode ==
 					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				if (FsrFlag) {
 					FlashStatus[1U] &= FlashStatus[0U];
@@ -1171,9 +940,321 @@ int Xbir_QspiFlashErase(u32 Address, u32 Length)
 				}
 			}
 		}
-		Address += FlashCfg.SectSize;
+		Address += FlashInfo.SectSize;
 	}
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This API gets the detailed information about the flash that the input
+ * VendorID and SizeID correspond to.
+ *
+ * @param	VendorId is the ID of the flash vendor
+ * @param	SizeID is the ID corresponding to the size of the flash
+ *
+ * @return	XST_SUCCESS on successful matching of VendorID and SizeID
+ *			XST_FAILURE on failure
+ *
+ ******************************************************************************/
+static int Xbir_GetFlashInfo(u8 VendorId, u8 SizeId)
+{
+	int Status = XST_FAILURE;
+	u8 Index = 0U;
+	Xbir_QspiFlashInfo FlashInfoTbl[] = {
+		/* SPANSION */
+		/*S25FL064L*/
+		{SPANSION_ID, FLASH_SIZE_ID_64M, SECTOR_SIZE_64K, NUM_OF_SECTORS128, BYTES256_PER_PAGE, FLASH_SIZE_64M, 0xFFFF0000U, 1U},
+		/*S25FL128L*/
+		{SPANSION_ID, FLASH_SIZE_ID_128M, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/*S25FL256L*/
+		{SPANSION_ID, FLASH_SIZE_ID_256M, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/*S25FL512S*/
+		{SPANSION_ID, FLASH_SIZE_ID_256M, SECTOR_SIZE_256K, NUM_OF_SECTORS256, BYTES512_PER_PAGE, FLASH_SIZE_256M, 0xFFFC0000U, 1U},
+		/* SPANSION 1GBIT IS HANDLED AS 512MBIT STACKED */
+		/* MICRON */
+		/*N25Q128A11*/
+		{MICRON_ID, FLASH_SIZE_ID_128M, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/*N25Q128A13*/
+		{MICRON_ID, FLASH_SIZE_ID_128M, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/*N25Q256AX1*/
+		{MICRON_ID, FLASH_SIZE_ID_256M, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE, FLASH_SIZE_256M, 0xFFFF0000U, 1U},
+		/*N25Q256A*/
+		{MICRON_ID, FLASH_SIZE_ID_256M, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE, FLASH_SIZE_256M, 0xFFFF0000U, 1U},
+		/*MT25QU512A*/
+		{MICRON_ID, FLASH_SIZE_ID_512M, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE, FLASH_SIZE_512M, 0xFFFF0000U, 2U},
+		/*N25Q512AX3*/
+		{MICRON_ID, FLASH_SIZE_ID_512M, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE, FLASH_SIZE_512M, 0xFFFF0000U, 2U},
+		/*N25Q00A*/
+		{MICRON_ID, FLASH_SIZE_ID_1G, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE, FLASH_SIZE_1G, 0xFFFF0000U, 4U},
+		/*N25Q00*/
+		{MICRON_ID, FLASH_SIZE_ID_1G, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE, FLASH_SIZE_1G, 0xFFFF0000U, 4U},
+		/*MT25QU02G*/
+		{MICRON_ID, FLASH_SIZE_ID_2G, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE, FLASH_SIZE_2G, 0xFFFF0000U, 4U},
+		/*MT25QL02G*/
+		{MICRON_ID, FLASH_SIZE_ID_2G, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE, FLASH_SIZE_2G, 0xFFFF0000U, 4U},
+		/* WINBOND */
+		/*W25Q128FW*/
+		{WINBOND_ID, FLASH_SIZE_ID_128M, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/*W25Q128JV*/
+		{WINBOND_ID, FLASH_SIZE_ID_128M, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/* MACRONIX */
+		/* MX66L1G45G*/
+		{MACRONIX_ID, MACRONIX_FLASH_SIZE_ID_1G, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE, FLASH_SIZE_1G, 0xFFFF0000U, 1U},
+		/* MX66L1G55G*/
+		{MACRONIX_ID, MACRONIX_FLASH_SIZE_ID_1G, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE, FLASH_SIZE_1G, 0xFFFF0000U, 1U},
+		/* MX66U1G45G*/
+		{MACRONIX_ID, MACRONIX_FLASH_1_8_V_SIZE_ID_1G, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE, FLASH_SIZE_1G, 0xFFFF0000U, 1U},
+		/* MX66L2G45G*/
+		{MACRONIX_ID, MACRONIX_FLASH_SIZE_ID_2G, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE, FLASH_SIZE_2G, 0xFFFF0000U, 1U},
+		/* MX66U2G45G*/
+		{MACRONIX_ID, 0x3CU, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE, FLASH_SIZE_2G, 0xFFFF0000U, 1U},
+		/* ISSI */
+		/* IS25WP080D */
+		{ISSI_ID, FLASH_SIZE_ID_8M, SECTOR_SIZE_64K, NUM_OF_SECTORS16, BYTES256_PER_PAGE, FLASH_SIZE_8M, 0xFFFF0000U, 1U},
+		/* IS25LP080D */
+		{ISSI_ID, FLASH_SIZE_ID_8M, SECTOR_SIZE_64K, NUM_OF_SECTORS16, BYTES256_PER_PAGE, FLASH_SIZE_8M, 0xFFFF0000U, 1U},
+		/* IS25WPSPANSION_ID6D */
+		{ISSI_ID, FLASH_SIZE_ID_16M, SECTOR_SIZE_64K, NUM_OF_SECTORS32, BYTES256_PER_PAGE, FLASH_SIZE_16M, 0xFFFF0000U, 1U},
+		/* IS25LPSPANSION_ID6D */
+		{ISSI_ID, FLASH_SIZE_ID_16M, SECTOR_SIZE_64K, NUM_OF_SECTORS32, BYTES256_PER_PAGE, FLASH_SIZE_16M, 0xFFFF0000U, 1U},
+		/* IS25WP032 */
+		{ISSI_ID, FLASH_SIZE_ID_32M, SECTOR_SIZE_64K, NUM_OF_SECTORS64, BYTES256_PER_PAGE, FLASH_SIZE_32M, 0xFFFF0000U, 1U},
+		/*IS25LP032*/
+		{ISSI_ID, FLASH_SIZE_ID_32M, SECTOR_SIZE_64K, NUM_OF_SECTORS64, BYTES256_PER_PAGE, FLASH_SIZE_32M, 0xFFFF0000U, 1U},
+		/*IS25WP064*/
+		{ISSI_ID, FLASH_SIZE_ID_64M, SECTOR_SIZE_64K, NUM_OF_SECTORS128, BYTES256_PER_PAGE, FLASH_SIZE_64M, 0xFFFF0000U, 1U},
+		/*IS25LP064*/
+		{ISSI_ID, FLASH_SIZE_ID_64M, SECTOR_SIZE_64K, NUM_OF_SECTORS128, BYTES256_PER_PAGE, FLASH_SIZE_64M, 0xFFFF0000U, 1U},
+		/*IS25WP128*/
+		{ISSI_ID, FLASH_SIZE_ID_128M, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/*IS25LP128*/
+		{ISSI_ID, FLASH_SIZE_ID_128M, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE, FLASH_SIZE_128M, 0xFFFF0000U, 1U},
+		/*IS25LP256D*/
+		{ISSI_ID, FLASH_SIZE_ID_256M, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE, FLASH_SIZE_256M, 0xFFFF0000U, 1U},
+		/*IS25WP256D*/
+		{ISSI_ID, FLASH_SIZE_ID_256M, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE, FLASH_SIZE_256M, 0xFFFF0000U, 1U},
+		/*IS25LP512M*/
+		{ISSI_ID, MACRONIX_FLASH_SIZE_ID_512M, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE, FLASH_SIZE_512M, 0xFFFF0000U, 1U},
+		/*IS25WP512M*/
+		{ISSI_ID, MACRONIX_FLASH_SIZE_ID_512M, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE, FLASH_SIZE_512M, 0xFFFF0000U, 1U},
+		/*IS25LPSPANSION_IDG*/
+		{ISSI_ID, MACRONIX_FLASH_SIZE_ID_1G, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE, FLASH_SIZE_1G, 0xFFFF0000U, 1U},
+		/*IS25WPSPANSION_IDG*/
+		{ISSI_ID, MACRONIX_FLASH_SIZE_ID_1G, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE, FLASH_SIZE_1G, 0xFFFF0000U, 1U},
+	};
+
+	for (; Index < sizeof(FlashInfoTbl) / sizeof(FlashInfoTbl[0U]);
+				Index++) {
+		if ((FlashInfoTbl[Index].FlashMake == VendorId) &&
+				(FlashInfoTbl[Index].FlashSizeId == SizeId)) {
+			FlashInfo.SectSize = FlashInfoTbl[Index].SectSize;
+			FlashInfo.PageSize = FlashInfoTbl[Index].PageSize;
+			FlashInfo.NumDie = FlashInfoTbl[Index].NumDie;
+			FlashInfo.FlashSize = FlashInfoTbl[Index].FlashSize;
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This API enters the flash device into 4 bytes addressing mode.
+ * As per the Micron and ISSI spec, before issuing the command to enter
+ * into 4 byte addr mode, a write enable command is issued.
+ * For Macronix and Winbond flash parts write
+ * enable is not required.
+ *
+ * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
+ * @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
+ *
+ * @return
+ *		- XST_SUCCESS if successful
+ *		- XST_FAILURE if it fails
+ *
+ ******************************************************************************/
+static int Xbir_FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, u8 Enable)
+{
+	int Status;
+	u8 WriteEnableCmd;
+	u8 Cmd;
+	u8 WriteDisableCmd;
+	u8 ReadStatusCmd;
+	u8 WriteBuffer[2U] = {0U};
+	u8 FlashStatus[2U] = {0U};
+	XQspiPsu_Msg FlashMsg[2U] = {0U};
+
+	if (Enable) {
+		Cmd = ENTER_4B_ADDR_MODE;
+	} else {
+		if (FlashInfo.FlashMake == ISSI_ID)
+			Cmd = EXIT_4B_ADDR_MODE_ISSI;
+		else
+			Cmd = EXIT_4B_ADDR_MODE;
+	}
+
+	switch (FlashInfo.FlashMake) {
+	case ISSI_ID:
+	case MICRON_ID:
+		WriteEnableCmd = WRITE_ENABLE_CMD;
+		/*
+		 * Send the write enable command to the
+		 * Flash so that it can be written to, this
+		 * needs to be sent as a separate transfer before
+		 * the write
+		 */
+		FlashMsg[0U].TxBfrPtr = &WriteEnableCmd;
+		FlashMsg[0U].RxBfrPtr = NULL;
+		FlashMsg[0U].ByteCount = 1U;
+		FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		break;
+
+	case SPANSION_ID:
+		if (Enable) {
+			WriteBuffer[0U] = BANK_REG_WR_CMD;
+			WriteBuffer[1U] = 1U << 7U;
+		} else {
+			WriteBuffer[0U] = BANK_REG_WR_CMD;
+			WriteBuffer[1U] = 0U << 7U;
+		}
+
+		FlashMsg[0U].TxBfrPtr = WriteBuffer;
+		FlashMsg[0U].RxBfrPtr = NULL;
+		FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
+		FlashMsg[0U].ByteCount = 2U;
+
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
+
+	default:
+		/*
+		 * For Macronix and Winbond flash parts
+		 * Write enable command is not required.
+		 */
+		break;
+	}
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	FlashMsg[0U].TxBfrPtr = &Cmd;
+	FlashMsg[0U].RxBfrPtr = NULL;
+	FlashMsg[0U].ByteCount =1U;
+	FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	while (1U) {
+		ReadStatusCmd = StatusCmd;
+
+		FlashMsg[0U].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0U].RxBfrPtr = NULL;
+		FlashMsg[0U].ByteCount = 1;
+		FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1U].TxBfrPtr = NULL;
+		FlashMsg[1U].RxBfrPtr = FlashStatus;
+		FlashMsg[1U].ByteCount = 2;
+		FlashMsg[1U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1U].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+		if (QspiPsuPtr->Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			FlashMsg[1U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2U);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		if (QspiPsuPtr->Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			if (FsrFlag) {
+				FlashStatus[1U] &= FlashStatus[0U];
+			} else {
+				FlashStatus[1U] |= FlashStatus[0U];
+			}
+		}
+
+		if (FsrFlag) {
+			if ((FlashStatus[1U] & 0x80U) != 0U) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[1U] & 0x01U) == 0U) {
+				break;
+			}
+		}
+	}
+
+	switch (FlashInfo.FlashMake) {
+	case ISSI_ID:
+	case MICRON_ID:
+		WriteDisableCmd = WRITE_DISABLE_CMD;
+		/*
+		 * Send the write enable command to the
+		 * Flash so that it can be written to,
+		 * this needs to be sent as a separate
+		 * transfer before
+		 * the write
+		 */
+		FlashMsg[0U].TxBfrPtr = &WriteDisableCmd;
+		FlashMsg[0U].RxBfrPtr = NULL;
+		FlashMsg[0U].ByteCount = sizeof(WriteDisableCmd);
+		FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
+		break;
+
+	default:
+		/*
+		 * For Macronix and Winbond flash parts
+		 * Write disable command is not required.
+		 */
+		break;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This API returns the page size of the flash
+ *
+ * @param       None
+ *
+ * @return	Page Size of the flash
+ *
+ ******************************************************************************/
+u16 Xbir_QspiGetPageSize(void)
+{
+	return FlashInfo.PageSize;
 }
