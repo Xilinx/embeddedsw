@@ -48,13 +48,14 @@ extern "C" {
 #define DUAL_READ_CMD_32BIT	(0x3CU)
 #define QUAD_READ_CMD_32BIT	(0x6CU)
 #define QUAD_READ_CMD_24BIT2	(0xEBU)
-#define SPINOR_OP_BE_4K_4B	(0x21U)
+#define	SEC_ERASE_CMD		(0xD8U)
 
 #define READ_STATUS_CMD		(0x05U)
 #define READ_FLAG_STATUS_CMD 	(0x70U)
 #define WRITE_STATUS_CMD	(0x01U)
 #define WRITE_CMD		(0x12U)
 #define WRITE_ENABLE_CMD	(0x06U)
+#define WRITE_DISABLE_CMD	(0x04U)
 #define BANK_REG_RD_CMD		(0x16U)
 #define BANK_REG_WR_CMD		(0x17U)
 /* Bank register is called Extended Address Reg in Micron */
@@ -79,6 +80,9 @@ extern "C" {
 #define BANK_SEL_SIZE		(2U) /* BRWR or EARWR command + 1 byte bank
 				        value */
 #define WRITE_ENABLE_CMD_SIZE	(1U) /* WE command */
+#define ENTER_4B_ADDR_MODE	(0xB7U)
+#define EXIT_4B_ADDR_MODE	(0xE9U)
+#define EXIT_4B_ADDR_MODE_ISSI	(0x29U)
 
 /* The following constants specify the extra bytes which are sent to the
  * FLASH on the QSPI interface, that are not data, but control information
@@ -168,7 +172,21 @@ extern "C" {
 #define ENABLE_QPI		(0x1U)
 
 /**************************** Type Definitions *******************************/
-
+typedef struct{
+	u8 FlashMake;	/* Deduced from JEDEC ID */
+	u8 FlashSizeId; /* Deduced from flash size */
+	u32 SectSize;	/* Individual sector size or combined sector
+					 * size in case of parallel config
+					 */
+	u32 NumSectors;
+	u16 PageSize;	/* Individual page size or
+					 * combined page size in case of parallel
+					 * config
+					 */
+	u32 FlashSize; /* Size of one flash part */
+	u32 SectorMask;
+	u8 NumDie;		/* Number of die forming a single flash */
+} Xbir_QspiFlashInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
