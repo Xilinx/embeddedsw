@@ -478,7 +478,7 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 
 	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
 	u32 Status = XST_SUCCESS;
-
+	XVidC_PixelsPerClock Ppc_core;
 	/* Calculate RX MMCM parameters
 	 * In the application the YUV422 colordepth is 12 bits
 	 * However the HDMI transports YUV422 in 8 bits.
@@ -491,13 +491,13 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 	/* An additonal check can be added here, to ensure that the input
 	 * for mmcm params are valid here.
 	 */
-
+	Ppc_core = XV_HdmiRxSs1_GetCorePpc(InstancePtr->HdmiRxSs);
 	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
 		Status = XHdmiphy1_HdmiCfgCalcMmcmParam(&Hdmiphy1,
 	                                        0,
 	                                        XHDMIPHY1_CHANNEL_ID_CH1,
 	                                        XHDMIPHY1_DIR_RX,
-	                                        HdmiRxSsVidStreamPtr->PixPerClk,
+	                                        Ppc_core,
 	                                        XVIDC_BPC_8);
 	}
 	/* Other colorspaces */
@@ -506,7 +506,7 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 	                                        0,
 	                                        XHDMIPHY1_CHANNEL_ID_CH1,
 	                                        XHDMIPHY1_DIR_RX,
-	                                        HdmiRxSsVidStreamPtr->PixPerClk,
+	                                        Ppc_core,
 	                                        HdmiRxSsVidStreamPtr->ColorDepth);
 	}
 
