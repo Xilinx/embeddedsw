@@ -23,6 +23,9 @@
 *                       Video will be clipped if RX resolution in more than
 *                       4K
 *                       Support Revision 2 (Pass 4) of OnSemi retimer
+*                       Menu option updated for EDID and Training based on
+*                       MaxRate configuration
+*                       Added support for 16 BPC
 * </pre>
 *
 ******************************************************************************/
