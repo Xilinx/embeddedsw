@@ -21,6 +21,9 @@ extern "C" {
 
 #define MAX_BASEADDR_LEN	3
 
+/* Extern Variable and Function */
+extern u32 ResetReason;
+
 XStatus XPm_Init(void (* const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload));
 
 int XPm_GetChipID(u32* IDCode, u32 *Version);

@@ -12,8 +12,8 @@
 #include "xpm_regs.h"
 #include "sleep.h"
 #include "xpm_aie.h"
+#include "xpm_api.h"
 
-extern u32 ResetReason;
 static u32 PsmGgsValues[GGS_REGS] = {0U};
 
 /****************************************************************************/
