@@ -3940,16 +3940,18 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 		goto done;
 	}
 
-	/* Only Event and Device Nodes are supported */
+	/* Only Event, Device and Power Nodes are supported */
 	if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
-		((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId))) {
+	    ((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) &&
+	    ((u32)XPM_NODECLASS_POWER != NODECLASS(NodeId))) {
 		goto done;
 	}
 
 	/* Validate other parameters */
 	if ((((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) &&
 			(Event >= (u32)XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) ||
-		(((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+		((((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId) ||
+		 (u32)XPM_NODECLASS_POWER == NODECLASS(NodeId))) &&
 			(((0U != Wake) && (1U != Wake)) ||
 			((0U != Enable) && (1U != Enable)) ||
 			(((u32)EVENT_STATE_CHANGE != Event) &&

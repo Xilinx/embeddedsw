@@ -6,6 +6,7 @@
 #include "xpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
+#include "xpm_notifier.h"
 #include "xpm_npdomain.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
@@ -1173,6 +1174,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 		}
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+		XPmNotifier_Event(PwrDomain->Power.Node.Id, (u32)EVENT_STATE_CHANGE);
 		if (PM_POWER_PLD == PwrDomain->Power.Node.Id) {
 			/* Request PLD0 device once PL is housecleaned. */
 			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_PLD_0,

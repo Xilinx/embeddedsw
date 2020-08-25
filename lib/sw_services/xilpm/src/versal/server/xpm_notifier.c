@@ -7,6 +7,7 @@
 #include "xpm_api.h"
 #include "xpm_ipi.h"
 #include "xpm_notifier.h"
+#include "xpm_power.h"
 #include "xplmi_err.h"
 
 #define XPM_NOTIFIERS_COUNT	10U
@@ -169,6 +170,7 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 	XPmNotifier* Notifier = NULL;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XPm_Device* Device;
+	XPm_Power *Power;
 	int Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
@@ -210,6 +212,14 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 				goto done;
 			}
 			Payload[3] = Device->Node.State;
+			Status = XST_SUCCESS;
+			break;
+		case (u32)XPM_NODECLASS_POWER:
+			Power = XPmPower_GetById(NodeId);
+			if (NULL == Power) {
+				goto done;
+			}
+			Payload[3] = Power->Node.State;
 			Status = XST_SUCCESS;
 			break;
 		default:
