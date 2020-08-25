@@ -180,7 +180,7 @@ void XUartPsv_InterruptHandler(XUartPsv *InstancePtr)
 	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XUARTPSV_UARTICR_OFFSET, IsrStatus);
 
-	if (IsrStatus) {
+	if (IsrStatus != 0U) {
 
 		/* Dispatch an appropriate handler. */
 
