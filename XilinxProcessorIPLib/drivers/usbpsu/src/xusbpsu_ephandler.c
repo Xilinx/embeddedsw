@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/23/20 First release
+* 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -335,7 +336,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
 								cmd, Params);
-	if (RetVal & (s32)XST_FAILURE) {
+	if (RetVal != (s32)XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
 
