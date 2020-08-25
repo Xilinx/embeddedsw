@@ -16,7 +16,9 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   rpo  03/19/2020 Initial release
- * 1.1   ana  06/05/2020 Added XSECURE_SHA3_FINISH_ERROR error code
+ * 4.2   rpo  03/19/2020 Updated file version to sync with library version
+ * 4.3   ana  06/05/2020 Added XSECURE_SHA3_FINISH_ERROR error code
+ *       har  08/24/2020 Added ECDSA error codes
  * </pre>
  *
  * @note
@@ -97,7 +99,21 @@ typedef enum {
 						       expected data  */
 	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0U, /**< 0xC0 -ECC key is not valid */
 
-	XSECURE_ECC_KAT_FAILED_ERROR,   /**< 0xC1 - ECC KAT Failes */
+	XSECURE_ECC_KAT_FAILED_ERROR,   /**< 0xC1 - ECC KAT Fails */
+	XSECURE_ECDSA_NON_SUPPORTED_CRV, /**< 0xC2 - ECDSA Curve not supported */
+	XSECURE_ECDSA_KEY_ZERO,     /**< 0xC3 - Public key is zero */
+	XSECURE_ECDSA_KEY_WRONG_ORDER,  /**< 0xC4 - Wrong order of Public key */
+	XSECURE_ECDSA_KEY_NOT_ON_CRV,  /**< 0xC5 - Key not found on curve */
+	XSECURE_ECDSA_BAD_SIGN,         /**< 0xC6 - Signature provided for
+					verification is bad */
+	XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN, /**< 0xC7 - Incorrect hash length
+					for sign generation */
+	XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN, /**< 0xC8 - Incorrect hash length
+					for sign verification */
+	XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM,  /**< 0xC9 - Bad random number used
+					for sign generation */
+	XSECURE_ECDSA_GEN_KEY_ERR,    /**< 0xCA - Error in generating Public key */
+	XSECURE_ECDSA_INVALID_PARAM   /**< 0xCB - Invalid argument */
 
 } XSecure_ErrorCodes;
 /**
