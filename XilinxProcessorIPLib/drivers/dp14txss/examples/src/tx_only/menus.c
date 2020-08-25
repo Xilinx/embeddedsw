@@ -832,9 +832,7 @@ void main_loop(){
 								//Set Color Ramp for RGB (default)
 								user_config.user_pattern = 1;
 							}
-							Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
-									C_VideoUserStreamPattern[
-											user_config.user_pattern]);
+
 							start_tx (LineRate, LaneCount,user_config);
 							LineRate = get_LineRate();
 							LaneCount = get_Lanecounts();

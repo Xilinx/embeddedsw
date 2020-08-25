@@ -69,7 +69,10 @@
 
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
+#endif
 
 #include "xi2stx.h"
 #include "xi2srx.h"
@@ -194,6 +197,35 @@
 #ifdef versal
 #define XVPHY_DEVICE_ID					0
 #endif
+
+/* The following FLAG enables the Adaptive Sync feature of the
+ * DP RX and TX. Set ADAPTIVE to 0 if ADAPTIVE sync is not
+ * needed.
+ */
+#define ADAPTIVE 1
+
+/* The following determines the type of ADAPTIVE sync mechanism
+ * in the system.
+ * 1 : TX will adapt to the incoming rate. FrameBuffer Read is triggered
+ * 		every time FrameBuffer Write is completed. Here, TX will always
+ * 		be in Adaptive Sync mode, even if the received video is of
+ * 		constant rate.
+ * 0 : TX will be in guided mode. it will stretch by the amount
+ *      specified by the user. This amount is determined by the information
+ *      provided by the DP RX on every frame. FrameBuffer Read is in
+ *      auto-restart mode. This mode is interrupt intensive.
+ *      In this mode, interrupt is enabled on RX. This interrupt is
+ *      asserted when RX detects any change in rate
+ */
+#define ADAPTIVE_TYPE (1 * ADAPTIVE)
+
+/* This value determines the amount by which the Vertical Front Porch is
+ * stretched. When Adaptive Mode is 0x1, this specifies the Max limit of
+ * stretching. When Adaptive mode is 0x0, this specifies the amount by
+ * which the Vertical Front Porch is to be stretched
+ */
+#define DPTXSS_VFP_STRETCH 0xFFF
+
 /*
  * User can tune these variables as per their system
  */
@@ -371,10 +403,13 @@ u64 XVFRMBUFWR_BUFFER_BASEADDR;
 u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
 u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
 
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
+#endif
 
 XDp_TxAudioInfoFrame *xilInfoFrame;
 //XIicPs_Config *XIic0Ps_ConfigPtr;
@@ -392,3 +427,13 @@ XAxis_Switch axis_switch_rx;
 XAxis_Switch axis_switch_tx;
 
 #endif
+
+/* Defining constants for colors in printing */
+#define ANSI_COLOR_RED          "\x1b[31m"
+#define ANSI_COLOR_GREEN    "\x1b[32m"
+#define ANSI_COLOR_YELLOW   "\x1b[33m"
+#define ANSI_COLOR_BLUE     "\x1b[34m"
+#define ANSI_COLOR_MAGENTA  "\x1b[35m"
+#define ANSI_COLOR_CYAN     "\x1b[36m"
+#define ANSI_COLOR_WHITE    "\x1b[37m"
+#define ANSI_COLOR_RESET    "\x1b[0m"

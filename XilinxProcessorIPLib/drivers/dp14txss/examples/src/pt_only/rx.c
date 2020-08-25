@@ -27,6 +27,9 @@ volatile u16 DrpVal_lower_lane1=0;
 volatile u16 DrpVal_lower_lane2=0;
 volatile u16 DrpVal_lower_lane3=0;
 extern u8 tx_after_rx;
+extern XDpTxSs DpTxSsInst;
+extern u32 vblank_init;
+extern u8 vblank_captured;
 //extern u8 audio_info_avail;
 
 /*****************************************************************************/
@@ -43,14 +46,13 @@ extern u8 tx_after_rx;
 * @note        None.
 *
 ******************************************************************************/
-u32 DpRxSs_Setup(void)
+u32 DpRxSs_Setup(u8 freesync)
 {
 	u32 ReadVal;
 
 	/*Disable Rx*/
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_LINK_ENABLE, 0x0);
-
 
 	/*Disable All Interrupts*/
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFFFFFFF);
@@ -125,6 +127,30 @@ u32 DpRxSs_Setup(void)
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_LOCAL_EDID_VIDEO, 0x0);
 #endif
+
+#if ADAPTIVE
+	if (freesync) {
+		//Setting RX DPCD to be Adaptive-Sync capable
+		XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 1);
+
+#if ADAPTIVE_TYPE
+		//Disabling Adaptive interrupt
+		XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+#else
+		//enabling Adaptive interrupt
+		XDpRxSs_UnMaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+#endif
+		xil_printf (ANSI_COLOR_GREEN"DP RX enabled for Adaptive Sync"ANSI_COLOR_RESET" \r\n");
+	} else {
+		//Disabling Adaptive interrupt
+		XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+		XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 0);
+		xil_printf (ANSI_COLOR_GREEN"DP RX not enabled for Adaptive Sync"ANSI_COLOR_RESET" \r\n");
+	}
+#else
+	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+	XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 0);
+#endif
 	/*Enable Rx*/
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_LINK_ENABLE, 0x1);
@@ -192,11 +218,68 @@ u32 DpRxSs_SetupIntrSystem(void)
 			&DpRxSs_InfoPacketHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
+#if ADAPTIVE
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT,
+			&DpRxSs_AdaptiveVblankHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT,
+			&DpRxSs_AdaptiveSDPHandler, &DpRxSsInst);
+
+#endif
 
 	/* Set custom timer wait */
 	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
 
 	return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback function for when the Adaptive SDP interrupt
+* occurs.
+*
+* @param    InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpRxSs_AdaptiveSDPHandler(void *InstancePtr)
+{
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback function for when the Adaptive Vblank interrupt
+* occurs. Here the new value of Vblank is read. The difference in vblank is
+* then programmed into VTC
+*
+* @param    InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpRxSs_AdaptiveVblankHandler(void *InstancePtr)
+{
+	u32 vblank;
+	u32 delta;
+	vblank = XDpRxSs_GetVblank(&DpRxSsInst);
+
+	/* Calculate delta of Vtotal */
+	if (vblank_captured) {
+		delta = vblank - vblank_init;
+		/* Update the Stretch value in VTC */
+#if !ADAPTIVE_TYPE
+		XDpTxSs_VtcAdaptiveSyncSetup(DpTxSsInst.VtcPtr[0], ADAPTIVE_TYPE, delta);
+#endif
+	}
+
+
 }
 
 /*****************************************************************************/
@@ -339,7 +422,8 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 		xil_printf ("Training Lost !!\r\n");
 	}
 	rx_trained = 0;
-
+	vblank_captured = 0;
+	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
 }
 
 /*****************************************************************************/
