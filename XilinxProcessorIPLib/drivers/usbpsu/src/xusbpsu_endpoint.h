@@ -58,8 +58,8 @@ extern "C" {
 #define XUSBPSU_DGCMD_RUN_SOC_BUS_LOOPBACK      0x00000010U
 
 #define XUSBPSU_DGCMD_STATUS(n)                 (((u32)(n) >> 15U) & 1U)
-#define XUSBPSU_DGCMD_CMDACT                    (0x00000001U << 10U)
-#define XUSBPSU_DGCMD_CMDIOC                    (0x00000001U << 8U)
+#define XUSBPSU_DGCMD_CMDACT                    0x00000400U /* bit 10 */
+#define XUSBPSU_DGCMD_CMDIOC                    0x00000100U /* bit 8 */
 
 /* Device Generic Command Parameter Register */
 #define XUSBPSU_DGCMDPAR_FORCE_LINKPM_ACCEPT    (0x00000001U << 0U)
@@ -75,9 +75,9 @@ extern "C" {
 #define XUSBPSU_DEPCMD_GET_RSC_IDX(x)  (((u32)(x) >> XUSBPSU_DEPCMD_PARAM_SHIFT) & \
                                         (u32)0x0000007fU)
 #define XUSBPSU_DEPCMD_STATUS(x)                (((u32)(x) >> 12U) & (u32)0xFU)
-#define XUSBPSU_DEPCMD_HIPRI_FORCERM            (0x00000001U << 11U)
-#define XUSBPSU_DEPCMD_CMDACT                   (0x00000001U << 10U)
-#define XUSBPSU_DEPCMD_CMDIOC                   (0x00000001U << 8U)
+#define XUSBPSU_DEPCMD_HIPRI_FORCERM            0x00000800U /* bit 11 */
+#define XUSBPSU_DEPCMD_CMDACT                   0x00000400U /* bit 10U */
+#define XUSBPSU_DEPCMD_CMDIOC                   0x00000100U /* bit 8U */
 
 #define XUSBPSU_DEPCMD_DEPSTARTCFG              0x00000009U
 #define XUSBPSU_DEPCMD_ENDTRANSFER              0x00000008U
@@ -93,16 +93,16 @@ extern "C" {
 #define XUSBPSU_DALEPENA_EP(n)                  ((u32)0x00000001U << (n))
 
 #define XUSBPSU_DEPCFG_INT_NUM(n)               ((u32)(n) << 0U)
-#define XUSBPSU_DEPCFG_XFER_COMPLETE_EN         (0x00000001U << 8U)
-#define XUSBPSU_DEPCFG_XFER_IN_PROGRESS_EN      (0x00000001U << 9U)
-#define XUSBPSU_DEPCFG_XFER_NOT_READY_EN        (0x00000001U << 10U)
-#define XUSBPSU_DEPCFG_FIFO_ERROR_EN            (0x00000001U << 11U)
-#define XUSBPSU_DEPCFG_STREAM_EVENT_EN          (0x00000001U << 13U)
+#define XUSBPSU_DEPCFG_XFER_COMPLETE_EN         0x00000100U /* bit 8 */
+#define XUSBPSU_DEPCFG_XFER_IN_PROGRESS_EN      0x00000200U /* bit 9 */
+#define XUSBPSU_DEPCFG_XFER_NOT_READY_EN        0x00000400U /* bit 10 */
+#define XUSBPSU_DEPCFG_FIFO_ERROR_EN            0x00000800U /* bit 11 */
+#define XUSBPSU_DEPCFG_STREAM_EVENT_EN          0x00002000U /* bit 13 */
 #define XUSBPSU_DEPCFG_BINTERVAL_M1(n)          ((u32)(n) << 16U)
-#define XUSBPSU_DEPCFG_STREAM_CAPABLE           (0x00000001U << 24U)
+#define XUSBPSU_DEPCFG_STREAM_CAPABLE           0x01000000U /* bit 24 */
 #define XUSBPSU_DEPCFG_EP_NUMBER(n)             ((u32)(n) << 25U)
-#define XUSBPSU_DEPCFG_BULK_BASED               (0x00000001U << 30U)
-#define XUSBPSU_DEPCFG_FIFO_BASED               (0x00000001U << 31U)
+#define XUSBPSU_DEPCFG_BULK_BASED               0x40000000U /* bit 30 */
+#define XUSBPSU_DEPCFG_FIFO_BASED               0x80000000U /* bit 31 */
 
 /* DEPCFG parameter 0 */
 #define XUSBPSU_DEPCFG_EP_TYPE(n)               ((u32)(n) << 1U)
@@ -113,9 +113,9 @@ extern "C" {
 /* This applies for core versions earlier than 1.94a */
 #define XUSBPSU_DEPCFG_IGN_SEQ_NUM              (0x00000001U << 31U)
 /* These apply for core versions 1.94a and later */
-#define XUSBPSU_DEPCFG_ACTION_INIT              (0x00000000U << 30U)
-#define XUSBPSU_DEPCFG_ACTION_RESTORE           (0x00000001U << 30U)
-#define XUSBPSU_DEPCFG_ACTION_MODIFY            (0x00000002U << 30U)
+#define XUSBPSU_DEPCFG_ACTION_INIT              0x00000000U
+#define XUSBPSU_DEPCFG_ACTION_RESTORE           0x40000000U /* bit 30 */
+#define XUSBPSU_DEPCFG_ACTION_MODIFY            0x80000000U /* bit 30 */
 
 /* DEPXFERCFG parameter 0 */
 #define XUSBPSU_DEPXFERCFG_NUM_XFER_RES(n) ((u32)(n) & (u32)0xFFFFU)
@@ -140,8 +140,8 @@ extern "C" {
 #define XUSBPSU_TRB_CTRL_CHN            ((u32)0x00000001U << 2U)
 #define XUSBPSU_TRB_CTRL_CSP            ((u32)0x00000001U << 3U)
 #define XUSBPSU_TRB_CTRL_TRBCTL(n)      (((u32)(n) & (u32)0x3FU) << 4U)
-#define XUSBPSU_TRB_CTRL_ISP_IMI        (0x00000001U << 10U)
-#define XUSBPSU_TRB_CTRL_IOC            (0x00000001U << 11U)
+#define XUSBPSU_TRB_CTRL_ISP_IMI        0x00000400U /* bit 10 */
+#define XUSBPSU_TRB_CTRL_IOC            0x00000800U /* bit 11 */
 #define XUSBPSU_TRB_CTRL_SID_SOFN(n)    (((u32)(n) & (u32)0xFFFFU) << 14U)
 
 #define XUSBPSU_TRBCTL_NORMAL                   XUSBPSU_TRB_CTRL_TRBCTL(1U)
