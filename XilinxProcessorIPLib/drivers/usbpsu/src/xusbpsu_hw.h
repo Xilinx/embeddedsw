@@ -114,10 +114,10 @@ extern "C" {
 #define XUSBPSU_DGCMDPAR                        0x0000c710U
 #define XUSBPSU_DGCMD                           0x0000c714U
 #define XUSBPSU_DALEPENA                        0x0000c720U
-#define XUSBPSU_DEPCMDPAR2(n)                   ((u32)0xc800 + ((u32)n * (u32)0x10U))
-#define XUSBPSU_DEPCMDPAR1(n)                   ((u32)0xc804 + ((u32)n * (u32)0x10U))
-#define XUSBPSU_DEPCMDPAR0(n)                   ((u32)0xc808 + ((u32)n * (u32)0x10U))
-#define XUSBPSU_DEPCMD(n)                       ((u32)0xc80c + ((u32)n * (u32)0x10U))
+#define XUSBPSU_DEPCMDPAR2(n)                   ((u32)0xc800 + ((u32)(n) * (u32)0x10U))
+#define XUSBPSU_DEPCMDPAR1(n)                   ((u32)0xc804 + ((u32)(n) * (u32)0x10U))
+#define XUSBPSU_DEPCMDPAR0(n)                   ((u32)0xc808 + ((u32)(n) * (u32)0x10U))
+#define XUSBPSU_DEPCMD(n)                       ((u32)0xc80c + ((u32)(n) * (u32)0x10U))
 
 /* OTG Registers */
 #define XUSBPSU_OCFG                            0x0000cc00U
