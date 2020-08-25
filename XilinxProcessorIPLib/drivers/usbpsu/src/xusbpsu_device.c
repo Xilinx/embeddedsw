@@ -490,7 +490,9 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	if (InstancePtr->HasHibernation == (u8)TRUE) {
-		XUsbPsu_InitHibernation(InstancePtr);
+		if (XUsbPsu_InitHibernation(InstancePtr) == XST_FAILURE) {
+			return (s32)XST_FAILURE;
+		}
 	}
 #endif
 

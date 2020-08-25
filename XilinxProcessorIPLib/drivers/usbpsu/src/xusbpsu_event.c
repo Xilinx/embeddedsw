@@ -119,7 +119,12 @@ void XUsbPsu_DeviceEvent(struct XUsbPsu *InstancePtr,
 	case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 		if (InstancePtr->HasHibernation == (u8)TRUE) {
-			XUsbPsu_HibernationIntr(InstancePtr);
+			if (XUsbPsu_HibernationIntr(InstancePtr)
+						== XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
+				xil_printf("Hibernation event failure\r\n");
+#endif
+			}
 		}
 #endif
 		break;
@@ -210,12 +215,12 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
 * 			on.
 *
-* @return	None.
+* @return	XST_SUCCESS else XST_FAILURE.
 *
 * @note		None.
 *
 *****************************************************************************/
-void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal;
 	u8 EnterHiber = 0U;
@@ -232,8 +237,10 @@ void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 		if (XUsbPsu_SetLinkState(InstancePtr,
 						XUSBPSU_LINK_STATE_CHANGE_RECOV)
 						== (s32)XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
 			xil_printf("Failed to put link in Recovery\r\n");
-			return;
+#endif
+			return (s32)XST_FAILURE;
 		}
 		break;
 	case XUSBPSU_LINK_STATE_SS_DIS:
@@ -258,8 +265,10 @@ void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 		if (XUsbPsu_SetLinkState(InstancePtr,
 						XUSBPSU_LINK_STATE_CHANGE_RECOV)
 						== (s32)XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
 			xil_printf("Failed to put link in Recovery\r\n");
-			return;
+#endif
+			return (s32)XST_FAILURE;
 		}
 		break;
 #endif
@@ -267,25 +276,33 @@ void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 		if (XUsbPsu_SetLinkState(InstancePtr,
 						XUSBPSU_LINK_STATE_CHANGE_RECOV)
 						== (s32)XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
 			xil_printf("Failed to put link in Recovery\r\n");
-			return;
+#endif
+			return (s32)XST_FAILURE;
 		}
 		break;
 	};
 
 	if (XUsbPsu_RestoreEps(InstancePtr) == XST_FAILURE) {
-		xil_printf("Failed to restore EPs\r\n");
-		return;
+		return (s32)XST_FAILURE;
 	}
 
 	InstancePtr->IsHibernated = 0U;
 
 	if (EnterHiber == 1U)  {
-		XUsbPsu_HibernationIntr(InstancePtr);
-		return;
+		if (XUsbPsu_HibernationIntr(InstancePtr)
+						== XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
+		xil_printf("Handle hibernation event fail\r\n");
+#endif
+			return (s32)XST_FAILURE;
+		}
+		return (s32)XST_SUCCESS;
 	}
 
 	xil_printf("We are back from hibernation!\r\n");
+	return (s32)XST_SUCCESS;
 }
 
 #endif /* XUSBPSU_HIBERNATION_ENABLE */

@@ -163,15 +163,15 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr);
  */
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 /** @cond INTERNAL */
-void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
-void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr, u8 *ScratchBuf);
 s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum);
 s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 							u32 param);
-void XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr);
 /** @endcond */
 #endif /* XUSBPSU_HIBERNATION_ENABLE */
