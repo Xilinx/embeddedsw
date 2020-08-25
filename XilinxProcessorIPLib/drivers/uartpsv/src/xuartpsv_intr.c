@@ -226,7 +226,7 @@ void XUartPsv_InterruptHandler(XUartPsv *InstancePtr)
 * @note 	None.
 *
 ******************************************************************************/
-void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr)
+static void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr)
 {
 	/*
 	 * If there are bytes still to be received in the specified buffer
@@ -260,7 +260,7 @@ void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr)
 * @note 	None.
 *
 ******************************************************************************/
-void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr)
+static void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr)
 {
 	/*
 	 * If there are bytes still to be received in the specified buffer
