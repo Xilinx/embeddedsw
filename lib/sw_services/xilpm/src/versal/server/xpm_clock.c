@@ -366,7 +366,7 @@ done:
 	return Status;
 }
 
-void XPmClock_SetPlClockAsReadOnly()
+void XPmClock_SetPlClockAsReadOnly(void)
 {
 	XPm_ClockNode *Clk = NULL;
 	u32 Idx, Enable = 0U;
