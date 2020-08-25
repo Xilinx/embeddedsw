@@ -86,6 +86,10 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 
 	/* Release SRST for PS-FPD - in case Bisr and Mbist are skipped */
 	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
 	Payload[1] = (u32)FUNC_INIT_FINISH;
@@ -179,6 +183,10 @@ static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 
 	/* Release SRST for PS-FPD */
 	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
 
 	/* Call PSM to execute pre bisr requirements */
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;

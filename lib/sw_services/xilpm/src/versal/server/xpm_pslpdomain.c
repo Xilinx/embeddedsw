@@ -454,6 +454,10 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 
 	/* Release USB reset for LPD IOU Mbist to work*/
 	Status = XPmReset_AssertbyId(PM_RST_USB_0, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
 
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
 		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
