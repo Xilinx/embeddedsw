@@ -509,7 +509,7 @@ void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
 				XUARTPSV_UARTCR_OFFSET);
 
 	/* Set the correct value by masking the bits, then ORing the const. */
-	CtrlRegister &= (u32)(~XUARTPSV_UARTCR_MODE_MASK);
+	CtrlRegister &= ~(u32)XUARTPSV_UARTCR_MODE_MASK;
 
 	switch (OperationMode) {
 		case XUARTPSV_OPER_MODE_NORMAL:
@@ -592,8 +592,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * out the bits that control it in the register,
 			 * then set the length in the register
 			 */
-			LineCtrlRegister &= (u32)
-					(~XUARTPSV_UARTLCR_WLEN_MASK);
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_WLEN_MASK;
 			LineCtrlRegister |= (FormatPtr->DataBits <<
 						XUARTPSV_UARTLCR_WLEN_SHIFT);
 
@@ -603,7 +602,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * register, then set the number of stop bits in the
 			 * register.
 			 */
-			LineCtrlRegister &= (u32)(~XUARTPSV_UARTLCR_STP_MASK);
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_STP_MASK;
 			LineCtrlRegister |= (((u32)FormatPtr->StopBits) <<
 						XUARTPSV_UARTLCR_STP_SHIFT);
 
@@ -613,8 +612,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * the register, the default is no parity after
 			 * clearing the register bits
 			 */
-			LineCtrlRegister &= (u32)
-					(~XUARTPSV_UARTLCR_PARITY_MASK);
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_PARITY_MASK;
 			LineCtrlRegister |= ((FormatPtr->Parity &
 						XUARTPSV_FORMAT_EN_PARITY) <<
 						XUARTPSV_UARTLCR_PARITY_SHIFT);

@@ -138,8 +138,8 @@ s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
 		/* Set the FIFO trigger level to 1/2 full of Fifo's size */
 		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XUARTPSV_UARTIFLS_OFFSET,
-				(XUARTPSV_UARTIFLS_RXIFLSEL_1_2 |
-				XUARTPSV_UARTIFLS_TXIFLSEL_1_2));
+				((u32)XUARTPSV_UARTIFLS_RXIFLSEL_1_2 |
+				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_1_2));
 
 		/*
 		 * Set up the default data format: 8 bit data, 1 stop bit,
