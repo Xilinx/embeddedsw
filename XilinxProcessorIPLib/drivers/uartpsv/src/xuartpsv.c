@@ -497,7 +497,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 			 * Multiply BAUDDIV_Value with 64 to avoid
 			 * fractional values
 			 */
-			BAUDDIV_Value = 64U * BAUDIDIV_Value+BAUDFDIV_Value;
+			BAUDDIV_Value = (64U * BAUDIDIV_Value)+BAUDFDIV_Value;
 
 			/*
 			 * Calculate the baud rate with BAUDDIV_Value divided
