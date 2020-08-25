@@ -489,7 +489,7 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
-	if (InstancePtr->HasHibernation == TRUE) {
+	if (InstancePtr->HasHibernation == (u8)TRUE) {
 		XUsbPsu_InitHibernation(InstancePtr);
 	}
 #endif

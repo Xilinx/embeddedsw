@@ -170,7 +170,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Params->Param1 = XUSBPSU_DEPCFG_XFER_COMPLETE_EN
 		| XUSBPSU_DEPCFG_XFER_NOT_READY_EN;
 
-	if (Restore == TRUE) {
+	if (Restore == (u8)TRUE) {
 		Params->Param0 |= XUSBPSU_DEPCFG_ACTION_RESTORE;
 		Params->Param2 = Ept->EpSavedState;
 	}

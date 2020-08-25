@@ -102,13 +102,13 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->MaxSize	= Maxsize;
 	Ept->PhyEpNum	= (u8)PhyEpNum;
 	Ept->CurUf	= 0U;
-	if (InstancePtr->IsHibernated == FALSE) {
+	if (InstancePtr->IsHibernated == (u8)FALSE) {
 		Ept->TrbEnqueue	= 0U;
 		Ept->TrbDequeue	= 0U;
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
-			|| (InstancePtr->IsHibernated == TRUE)) {
+			|| (InstancePtr->IsHibernated == (u8)TRUE)) {
 		if (XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum,
 						Dir)	== XST_FAILURE) {
 			return (s32)XST_FAILURE;
@@ -121,7 +121,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
-			|| (InstancePtr->IsHibernated == TRUE)) {
+			|| (InstancePtr->IsHibernated == (u8)TRUE)) {
 		if (XUsbPsu_SetXferResource(InstancePtr, UsbEpNum,
 						Dir)	== XST_FAILURE) {
 			return (s32)XST_FAILURE;
