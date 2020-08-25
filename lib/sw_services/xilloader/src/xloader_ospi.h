@@ -72,6 +72,9 @@ extern "C" {
 #define	MICRON_OCTAL_ID_BYTE0		  (0x2CU)
 #define GIGADEVICE_OCTAL_ID_BYTE0     (0xC8U)
 #define ISSI_OCTAL_ID_BYTE0           (0x9DU)
+#define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
+#define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
+#define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
 
 /**************************** Type Definitions *******************************/
 
