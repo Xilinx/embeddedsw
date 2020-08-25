@@ -464,7 +464,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	 * Make sure the baud rate is not impossible by large.
 	 * Fastest possible baud rate is Input Clock / 16.
 	 */
-	if ((BaudRate * 16) > InstancePtr->Config.InputClockHz) {
+	if ((BaudRate * 16U) > InstancePtr->Config.InputClockHz) {
 		return (s32)XST_UART_BAUD_ERROR;
 	}
 
@@ -478,32 +478,32 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	 */
 
 	/* Calculate the baud divisor integer value */
-	BAUDIDIV_Value = (u16)(InputClk / (BaudRate * 16));
-	BAUDFDIV_Value = (u8)(InputClk % (BaudRate * 16));
+	BAUDIDIV_Value = (u16)(InputClk / (BaudRate * 16U));
+	BAUDFDIV_Value = (u8)(InputClk % (BaudRate * 16U));
 
 	Best_BAUDIDIV = BAUDIDIV_Value;
 	Best_BAUDFDIV = BAUDFDIV_Value;
 
-	if (BAUDFDIV_Value != 0) {
+	if (BAUDFDIV_Value != 0U) {
 		/*
 		 * Determine the fractional Baud rate divider.
 		 * It can be 0 to 63.
 		 * Loop through all possible combinations
 		 */
-		for (BAUDFDIV_Value = 1; BAUDFDIV_Value < 64;
+		for (BAUDFDIV_Value = 1; BAUDFDIV_Value < 64U;
 				BAUDFDIV_Value++) {
 
 			/*
 			 * Multiply BAUDDIV_Value with 64 to avoid
 			 * fractional values
 			 */
-			BAUDDIV_Value = 64 * BAUDIDIV_Value+BAUDFDIV_Value;
+			BAUDDIV_Value = 64U * BAUDIDIV_Value+BAUDFDIV_Value;
 
 			/*
 			 * Calculate the baud rate with BAUDDIV_Value divided
 			 * by 64
 			 */
-			CalcBaudRate = (InputClk / (16 * BAUDDIV_Value)) * 64;
+			CalcBaudRate = (InputClk / (16U * BAUDDIV_Value)) * 64U;
 
 			/* Avoid unsigned integer underflow */
 			if (BaudRate > CalcBaudRate) {
@@ -525,7 +525,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 		}
 
 		/* Make sure the best error is not too large. */
-		PercentError = (Best_Error * 100) / BaudRate;
+		PercentError = (Best_Error * 100U) / BaudRate;
 		if (XUARTPSV_MAX_BAUD_ERROR_RATE < PercentError) {
 			return (s32)XST_UART_BAUD_ERROR;
 		}
