@@ -46,6 +46,9 @@
 ##                      is not defined.
 ## 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
 ## 2.12  sd  07/09/20 Updated the CPUID for the pmufw case CR#1069466
+## 2.12   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
+##                     it would be used to generate appropriate flags
+##                     required for dependency files configuration
 # uses xillib.tcl
 
 ########################################

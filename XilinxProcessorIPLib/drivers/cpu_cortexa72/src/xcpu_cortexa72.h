@@ -7,7 +7,7 @@
 /**
 *
 * @file xcpu_cortexa72.h
-* @addtogroup cpu_cortexa72_v1_1
+* @addtogroup cpu_cortexa72_v1_2
 * @{
 * @details
 *

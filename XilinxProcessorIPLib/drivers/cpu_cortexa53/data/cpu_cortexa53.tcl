@@ -21,6 +21,9 @@
 #                     modify default flag value.It fixes CR#984945.
 # 1.6   mus  01/30/18 Updated to support armclang compiler
 #       aru  04/18/19 Updated to add Assembler support for armclang
+# 1.8   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
+#                     it would be used to generate appropriate flags
+#                     required for dependency files configuration
 ##############################################################################
 #uses "xillib.tcl"
 
