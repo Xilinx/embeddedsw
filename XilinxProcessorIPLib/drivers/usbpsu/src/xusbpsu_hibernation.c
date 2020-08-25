@@ -192,15 +192,14 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 	LinkState = (XusbPsuLinkState)XUsbPsu_GetLinkState(InstancePtr);
 	/* sanity check */
-	switch (LinkState) {
-	case XUSBPSU_LINK_STATE_SS_DIS:
-	case XUSBPSU_LINK_STATE_U3:
-		break;
-	default:
+	if ((LinkState != XUSBPSU_LINK_STATE_SS_DIS) &&
+			(LinkState != XUSBPSU_LINK_STATE_U3)) {
 		/* fake hiber interrupt */
+#ifdef XUSBPSU_DEBUG
 		xil_printf("got fake interrupt\r\n");
+#endif
 		return;
-	};
+	}
 
 	if (InstancePtr->Ep0State == XUSBPSU_EP0_SETUP_PHASE) {
 		XUsbPsu_StopTransfer(InstancePtr, 0U,
