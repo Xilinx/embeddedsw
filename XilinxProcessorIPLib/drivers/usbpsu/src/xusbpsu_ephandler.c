@@ -726,7 +726,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 		}
 	}
 
-	if (Ept->Handler) {
+	if (Ept->Handler != NULL) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes,
 							 Ept->BytesTxed);
 	}
@@ -763,7 +763,7 @@ void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
 		Mask = ~(u32)((u32)1U << (Ept->Interval - 1U));
 		CurUf = Event->Parameters & Mask;
 		Ept->CurUf = (u16)(CurUf + (Ept->Interval * 4U));
-		if (Ept->Handler) {
+		if (Ept->Handler != NULL) {
 			Ept->Handler(InstancePtr->AppData, 0U, 0U);
 		}
 	}
