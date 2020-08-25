@@ -249,8 +249,8 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	FifoTrigRegister &= ~(XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
 					XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT;
 
 	/*
 	 * Write the new value for the FIFO control register to it such that
@@ -296,7 +296,7 @@ void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 
 	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
 
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
 
 	/*
 	 * Write the new value for the FIFO control register to it such that
