@@ -44,6 +44,7 @@
 * 1.7	pm    14/11/19 Updated number of TRB to improve performance
 * 	pm    03/23/20 Restructured the code for more readability and modularity
 *	pm    03/14/20 Added clocking support
+* 1.8	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -626,8 +627,8 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 			XUsbPsu_Config *ConfigPtr, u32 BaseAddress);
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr);
-s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
-s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
+s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout);
+s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout);
 s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr);
