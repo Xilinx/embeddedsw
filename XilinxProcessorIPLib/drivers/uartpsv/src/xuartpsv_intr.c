@@ -50,8 +50,6 @@ extern u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
-typedef void (*Handler)(XUartPsv *InstancePtr);
-
 /*****************************************************************************/
 /**
 *
