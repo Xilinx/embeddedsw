@@ -868,7 +868,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPlDomain_RetriggerPlHouseClean()
+XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
