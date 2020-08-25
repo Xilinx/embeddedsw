@@ -53,7 +53,8 @@
 *       kpt  08/10/20 Corrected endianness for meta header IV range checking
 *       har  08/11/20 Added support for authenticated JTAG
 *       td   08/19/20 Fixed MISRA C violations Rule 10.3
-*       kal  08/23/2020 Added parallel DMA support for Qspi and Ospi for secure
+*       kal  08/23/20 Added parallel DMA support for Qspi and Ospi for secure
+*       har  08/24/20 Added support for ECDSA P521 authentication
 *
 * </pre>
 *
@@ -95,6 +96,23 @@ static INLINE u32 XLoader_GetAuthType(const u32* AuthHdrPtr)
 	return ((*AuthHdrPtr) & XLOADER_AC_AH_PUB_ALG_MASK);
 }
 
+/*****************************************************************************/
+/**
+* @brief	This function returns the public algorithm used for authentication
+*
+* @param	AuthHdrPtr is a pointer to the Authentication header of the AC.
+*
+* @return	- XLOADER_PUB_STRENGTH_ECDSA_P384
+*		- XLOADER_PUB_STRENGTH_RSA_4096
+*		- XLOADER_PUB_STRENGTH_ECDSA_P521
+*
+******************************************************************************/
+static INLINE u32 XLoader_GetAuthPubAlgo(const u32* AuthHdrPtr)
+{
+	return (((*AuthHdrPtr) & XLOADER_AC_AH_PUB_STRENGTH_MASK) >>
+		XLOADER_AC_AH_PUB_STRENGTH_SHIFT);
+}
+
 /************************** Function Prototypes ******************************/
 
 static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
@@ -103,7 +121,8 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr);
 static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
-static u32 XLoader_EcdsaSignVerify(u32 *Hash, u32 *Key, u32 *Signature);
+static u32 XLoader_EcdsaSignVerify(XSecure_EcdsaCrvTyp CrvType, u8 *DataHash,
+	u8 *Key, u32 KeySize, u8 *Signature);
 static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
 static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
@@ -1298,32 +1317,35 @@ static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
 	u32 AuthType;
 
 	if (SecurePtr->CheckJtagAuth == (u8)TRUE) {
-		AuthType = XLoader_GetAuthType(SecurePtr->AuthJtagMessage.AuthHdrPtr);
+		AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AuthJtagMessage.AuthHdrPtr);
 	}
 	else {
-		AuthType = XLoader_GetAuthType(&AcPtr->AuthHdr);
+		AuthType = XLoader_GetAuthPubAlgo(&AcPtr->AuthHdr);
 	}
 
 	/* RSA authentication */
-	if (AuthType ==	XLOADER_AC_AH_PUB_ALG_RSA) {
+	if (AuthType ==	XLOADER_PUB_STRENGTH_RSA_4096) {
 		Status = XLoader_RsaSignVerify(SecurePtr, Hash,
 			Key, Signature);
-		if (Status != XLOADER_SUCCESS) {
-			goto END;
-		}
 	}
-	else if (AuthType == XLOADER_AC_AH_PUB_ALG_ECDSA) {
-		/* ECDSA authentication */
-		Status = XLoader_EcdsaSignVerify((u32 *)Hash,
-			(u32 *)Key->PubModulus, (u32 *)Signature);
-		if (Status != XLOADER_SUCCESS) {
-			goto END;
-		}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+		/* ECDSA P384 authentication */
+		Status = XLoader_EcdsaSignVerify(XSECURE_ECDSA_NIST_P384, Hash,
+			(u8 *)Key->PubModulus, XLOADER_ECDSA_P384_KEYSIZE, Signature);
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		/* ECDSA P521 authentication */
+		Status = XLoader_EcdsaSignVerify(XSECURE_ECDSA_NIST_P521, Hash,
+			(u8 *)Key->PubModulus, XLOADER_ECDSA_P521_KEYSIZE, Signature);
 	}
 	else {
 		/* Not supported */
 		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0U);
+	}
+
+	if (Status != XLOADER_SUCCESS) {
+		goto END;
 	}
 
 END:
@@ -1948,53 +1970,62 @@ END:
  * @brief	This function encrypts the ECDSA signature
  * provided with the key components.
  *
- * @param	Hash is pointer to the hash of the data to be authenticated.
+ * @param	CrvType  is the type of the ECDSA curve
+ * @param	DataHash is pointer to the hash of the data to be authenticated.
  * @param	Key is pointer to the ECDSA key.
+ * @param	KeySize is the size of the public key component in bytes
  * @param	Signature is pointer to the ECDSA signature.
  *
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_EcdsaSignVerify(u32 *DataHash, u32 *Key, u32 *Signature)
+static u32 XLoader_EcdsaSignVerify(XSecure_EcdsaCrvTyp CrvType, u8 *DataHash,
+	u8 *Key, u32 KeySize, u8 *Signature)
 {
 	u32 Status = XLOADER_FAILURE;
-	u32 *XKey = (u32 *)Key;
-	u32 *YKey = (u32 *)(Key + XLOADER_ECDSA_KEYSIZE);
-	u32 *W = (u32 *)Signature;
-	u32 *S= (u32 *)(Signature + XLOADER_ECDSA_KEYSIZE);
-	u32 Qx[XLOADER_ECDSA_KEYSIZE] = {0U};
-	u32 Qy[XLOADER_ECDSA_KEYSIZE] = {0U};
-	u32 SIGR[XLOADER_ECDSA_KEYSIZE] = {0U};
-	u32 SIGS[XLOADER_ECDSA_KEYSIZE] = {0U};
-	u32 HashPtr[XLOADER_ECDSA_KEYSIZE] = {0U};
+	u8 *XKey = Key;
+	u8 *YKey = Key + KeySize;
+	u8 *RSign = Signature;
+	u8 *SSign= Signature + KeySize;
+	u8 Qx[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
+	u8 Qy[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
+	u8 SigR[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
+	u8 SigS[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
+	u8 Hash[XLOADER_SHA3_LEN] = {0U};
 	u32 Index;
+	XSecure_EcdsaKey PublicKey = {0};
+	XSecure_EcdsaSign Sign = {0};
 
-	/* Take the core out of reset */
-	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
-			XSECURE_ECDSA_RSA_RESET_OFFSET);
-
-	for (Index = 0U; Index < XLOADER_ECDSA_KEYSIZE; Index++) {
-		Qx[Index] = Xil_Htonl(XKey[XLOADER_ECDSA_KEYSIZE - Index - 1U]);
-		Qy[Index] = Xil_Htonl(YKey[XLOADER_ECDSA_KEYSIZE - Index - 1U]);
-		SIGR[Index] =  Xil_Htonl(W[XLOADER_ECDSA_KEYSIZE - Index - 1U]);
-		SIGS[Index] =  Xil_Htonl(S[XLOADER_ECDSA_KEYSIZE - Index - 1U]);
-		HashPtr[Index] = Xil_Htonl(DataHash[XLOADER_ECDSA_KEYSIZE -
-					Index - 1U]);
+	for (Index = 0U; Index < KeySize; Index++) {
+		Qx[Index] = XKey[KeySize - Index - 1U];
+		Qy[Index] = YKey[KeySize - Index - 1U];
+		SigR[Index] = RSign[KeySize - Index - 1U];
+		SigS[Index] = SSign[KeySize - Index - 1U];
 	}
+
+	for (Index = 0U; Index < XLOADER_SHA3_LEN; Index++) {
+		Hash[Index] = DataHash[XLOADER_SHA3_LEN - Index - 1U];
+	}
+
+	PublicKey.Qx = Qx;
+	PublicKey.Qy = Qy;
+	Sign.SignR = SigR;
+	Sign.SignS = SigS;
+
 	/* Validate point on the curve */
-	Status = (u32)P384_validatekey((u8 *)Qx, (u8 *)Qy);
+	Status = (u32)XSecure_EcdsaValidateKey(CrvType, &PublicKey);
 	if (Status != XLOADER_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "\nFailed at "
 			"ECDSA Key validation\n\r");
 		Status = XLoader_UpdateMinorErr(
-			XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES, 0x0U);
+			XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES, Status);
 	}
 	else {
-		Status = (u32)P384_ecdsaverify((u8 *)HashPtr, (u8 *)Qx,
-					(u8 *)Qy, (u8 *)SIGR, (u8 *)SIGS);
+		Status = (u32)XSecure_EcdsaVerifySign(CrvType, Hash,
+			XLOADER_SHA3_LEN, &PublicKey, &Sign);
 		if (Status != XLOADER_SUCCESS) {
 			Status = XLoader_UpdateMinorErr(
-					XLOADER_SEC_ECDSA_AUTH_FAIL, 0x0U);
+					XLOADER_SEC_ECDSA_AUTH_FAIL, Status);
 			XPlmi_Printf(DEBUG_INFO, "Failed at ECDSA signature "
 					"verification\n\r");
 		}
@@ -2003,9 +2034,6 @@ static u32 XLoader_EcdsaSignVerify(u32 *DataHash, u32 *Key, u32 *Signature)
 						"is successful\n\r");
 		}
 	}
-
-	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
-		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
 	return Status;
 }
