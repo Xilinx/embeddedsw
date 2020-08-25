@@ -124,7 +124,7 @@ void XUsbPsu_EpTransferDeactive(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-	RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
+	RegVal &= ~((u32)XUSBPSU_DALEPENA_EP(PhyEpNum));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
 
 	Ept = &InstancePtr->eps[PhyEpNum];

@@ -23,6 +23,7 @@
  * 1.4 	 bk  12/01/18  Modify USBPSU driver code to fit USB common example code
  *		       for all USB IPs.
  * 1.6   pm  22/07/18  Removed coverity warning- INCLUDE_RECURSION
+ * 1.8	 pm  24/07/20  Fixed MISRA-C and Coverity warnings
  * </pre>
  *
  ******************************************************************************/

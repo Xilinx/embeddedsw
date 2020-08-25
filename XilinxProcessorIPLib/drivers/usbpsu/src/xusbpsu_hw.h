@@ -21,6 +21,7 @@
 * 1.6	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
 * 1.7	pm    02/20/20 Added Coherency Mode Register for CCI feature is enable
 * 1.8	pm    07/01/20 Add versal hibernation support
+*	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
