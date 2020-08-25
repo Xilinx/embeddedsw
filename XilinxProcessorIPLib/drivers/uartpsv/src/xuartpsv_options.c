@@ -21,6 +21,7 @@
 * 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to change mode
 *		      Add functions to set Tx and Rx FIFO threshold levels
 * 1.3  rna  04/08/20  Format is corrected in XUartPsv_SetDataFormat function
+*      rna  05/18/20  Fix MISRA-C violations
 * </pre>
 *
 ******************************************************************************/
@@ -52,7 +53,7 @@ typedef struct {
  * maintenance and expansion of the options.
  */
 
-static Mapping OptionsTable[] = {
+static Mapping XUartPsv_OptionsTable[] = {
 	{XUARTPSV_OPTION_SET_BREAK, XUARTPSV_UARTCR_OFFSET,
 				XUARTPSV_UARTLCR_BRK},
 	{XUARTPSV_OPTION_STOP_BREAK, XUARTPSV_UARTCR_OFFSET,
@@ -73,7 +74,7 @@ static Mapping OptionsTable[] = {
 
 /* Create a constant for the number of entries in the table */
 
-#define XUARTPSV_NUM_OPTIONS	  (sizeof(OptionsTable) / sizeof(Mapping))
+#define XUARTPSV_NUM_OPTIONS	  (sizeof(XUartPsv_OptionsTable) / sizeof(Mapping))
 
 /************************** Function Prototypes ******************************/
 
@@ -109,7 +110,7 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 	 */
 	for (Index = 0U; Index < XUARTPSV_NUM_OPTIONS; Index++) {
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				OptionsTable[Index].RegisterOffset);
+				XUartPsv_OptionsTable[Index].RegisterOffset);
 
 		/*
 		 * If the bit in the register which correlates to the option
@@ -117,8 +118,8 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 		 * ignoring any bits which are zero since the options
 		 * variable is initialized to zero
 		 */
-		if ((Register & OptionsTable[Index].Mask) != (u32)0) {
-			Options |= OptionsTable[Index].Option;
+		if ((Register & XUartPsv_OptionsTable[Index].Mask) != (u32)0) {
+			Options |= XUartPsv_OptionsTable[Index].Option;
 		}
 	}
 
@@ -168,11 +169,11 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 		 * of the register.
 		 */
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					OptionsTable[Index].RegisterOffset);
+					XUartPsv_OptionsTable[Index].RegisterOffset);
 
 		/* Write the new value to the register to set the option */
 		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				OptionsTable[Index].RegisterOffset, Register);
+				XUartPsv_OptionsTable[Index].RegisterOffset, Register);
 	}
 
 }
