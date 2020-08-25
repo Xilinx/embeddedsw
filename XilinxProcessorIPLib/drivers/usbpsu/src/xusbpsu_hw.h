@@ -138,13 +138,13 @@ extern "C" {
 #define XUSBPSU_GCTL_CLK_MASK                   (3U)
 
 #define XUSBPSU_GCTL_PRTCAP(n)                  (((n) & (3U << 12U)) >> 12U)
-#define XUSBPSU_GCTL_PRTCAPDIR(n)               ((n) << 12U)
+#define XUSBPSU_GCTL_PRTCAPDIR(n)               ((u32)(n) << 12U)
 #define XUSBPSU_GCTL_PRTCAP_HOST                1U
 #define XUSBPSU_GCTL_PRTCAP_DEVICE              2U
 #define XUSBPSU_GCTL_PRTCAP_OTG                 3U
 
-#define XUSBPSU_GCTL_CORESOFTRESET              (0x00000001U << 11U)
-#define XUSBPSU_GCTL_SOFITPSYNC                 (0x00000001U << 10U)
+#define XUSBPSU_GCTL_CORESOFTRESET              0x00000800U /* bit 11 */
+#define XUSBPSU_GCTL_SOFITPSYNC                 0x00000400U /* bit 10 */
 #define XUSBPSU_GCTL_SCALEDOWN(n)               ((u32)(n) << 4U)
 #define XUSBPSU_GCTL_SCALEDOWN_MASK             XUSBPSU_GCTL_SCALEDOWN(3U)
 #define XUSBPSU_GCTL_DISSCRAMBLE                (0x00000001U << 3U)
@@ -157,12 +157,12 @@ extern "C" {
 #define XUSBPSU_GSTS_CUR_MODE			(0x00000001U << 0U)
 
 /* Global USB2 PHY Configuration Register */
-#define XUSBPSU_GUSB2PHYCFG_PHYSOFTRST          (0x00000001U << 31U)
+#define XUSBPSU_GUSB2PHYCFG_PHYSOFTRST          0x80000000U /* bit 31 */
 #define XUSBPSU_GUSB2PHYCFG_SUSPHY              (0x00000001U << 6U)
 
 /* Global USB3 PIPE Control Register */
-#define XUSBPSU_GUSB3PIPECTL_PHYSOFTRST         (0x00000001U << 31U)
-#define XUSBPSU_GUSB3PIPECTL_SUSPHY             (0x00000001U << 17U)
+#define XUSBPSU_GUSB3PIPECTL_PHYSOFTRST         0x80000000U /* bit 31 */
+#define XUSBPSU_GUSB3PIPECTL_SUSPHY             0x00020000U /* bit 17 */
 
 /* Global TX Fifo Size Register */
 #define XUSBPSU_GTXFIFOSIZ_TXFDEF(n)            ((u32)(n) & (u32)0xffffU)
@@ -198,11 +198,11 @@ extern "C" {
 #define XUSBPSU_DCFG_LPM_CAP                    (0x00000001U << 22U)
 
 /* Device Control Register */
-#define XUSBPSU_DCTL_RUN_STOP                   (0x00000001U << 31U)
-#define XUSBPSU_DCTL_CSFTRST                    ((u32)0x00000001U << 30U)
-#define XUSBPSU_DCTL_LSFTRST                    (0x00000001U << 29U)
+#define XUSBPSU_DCTL_RUN_STOP                   0x80000000U /* bit 31 */
+#define XUSBPSU_DCTL_CSFTRST                    0x40000000U /* bit 30 */
+#define XUSBPSU_DCTL_LSFTRST                    0x20000000U /* bit 29 */
 
-#define XUSBPSU_DCTL_HIRD_THRES_MASK            (0x0000001fU << 24U)
+#define XUSBPSU_DCTL_HIRD_THRES_MASK            0x1F000000U /* bit shift 24 */
 #define XUSBPSU_DCTL_HIRD_THRES(n)              ((u32)(n) << 24U)
 
 #define XUSBPSU_DCTL_APPL1RES                   (0x00000001U << 23U)
@@ -217,15 +217,15 @@ extern "C" {
 #define XUSBPSU_DCTL_TRGTULST_SS_INACT          (XUSBPSU_DCTL_TRGTULST(6U))
 
 /* These apply for core versions 1.94a and later */
-#define XUSBPSU_DCTL_KEEP_CONNECT               (0x00000001U << 19U)
-#define XUSBPSU_DCTL_L1_HIBER_EN                (0x00000001U << 18U)
-#define XUSBPSU_DCTL_CRS                        (0x00000001U << 17U)
-#define XUSBPSU_DCTL_CSS                        (0x00000001U << 16U)
+#define XUSBPSU_DCTL_KEEP_CONNECT               0x00080000U /* bit 19 */
+#define XUSBPSU_DCTL_L1_HIBER_EN                0x00040000U /* bit 18 */
+#define XUSBPSU_DCTL_CRS                        0x00020000U /* bit 17 */
+#define XUSBPSU_DCTL_CSS                        0x00010000U /* bit 16 */
 
-#define XUSBPSU_DCTL_INITU2ENA                  (0x00000001U << 12U)
-#define XUSBPSU_DCTL_ACCEPTU2ENA                (0x00000001U << 11U)
-#define XUSBPSU_DCTL_INITU1ENA                  (0x00000001U << 10U)
-#define XUSBPSU_DCTL_ACCEPTU1ENA                (0x00000001U << 9U)
+#define XUSBPSU_DCTL_INITU2ENA                  0x00001000U /* bit 12 */
+#define XUSBPSU_DCTL_ACCEPTU2ENA                0x00000800U /* bit 11 */
+#define XUSBPSU_DCTL_INITU1ENA                  0x00000400U /* bit 10 */
+#define XUSBPSU_DCTL_ACCEPTU1ENA                0x00000200U /* bit 9 */
 #define XUSBPSU_DCTL_TSTCTRL_MASK               (0x0000000fU << 1U)
 
 #define XUSBPSU_DCTL_ULSTCHNGREQ_MASK           (0x0000000FU << 5U)
@@ -254,19 +254,19 @@ extern "C" {
 #define XUSBPSU_DEVTEN_DISCONNEVTEN             ((u32)0x00000001U << 0U)
 
 /* Device Status Register */
-#define XUSBPSU_DSTS_DCNRD                      (0x00000001U << 29U)
+#define XUSBPSU_DSTS_DCNRD                      0x40000000U /* bit 29 */
 
 /* This applies for core versions 1.87a and earlier */
-#define XUSBPSU_DSTS_PWRUPREQ                   (0x00000001U << 24U)
+#define XUSBPSU_DSTS_PWRUPREQ                   0x01000000U /* bit 24 */
 
 /* These apply for core versions 1.94a and later */
-#define XUSBPSU_DSTS_RSS                        (0x00000001U << 25U)
-#define XUSBPSU_DSTS_SSS                        (0x00000001U << 24U)
+#define XUSBPSU_DSTS_RSS                        0x02000000U /* bit 25 */
+#define XUSBPSU_DSTS_SSS                        0x01000000U /* bit 24 */
 
-#define XUSBPSU_DSTS_COREIDLE                   (0x00000001U << 23U)
-#define XUSBPSU_DSTS_DEVCTRLHLT                 (0x00000001U << 22U)
+#define XUSBPSU_DSTS_COREIDLE                   0x00800000U /* bit 23 */
+#define XUSBPSU_DSTS_DEVCTRLHLT                 0x00400000U /* bit 22 */
 
-#define XUSBPSU_DSTS_USBLNKST_MASK              (0x0000000FU << 18U)
+#define XUSBPSU_DSTS_USBLNKST_MASK              0x003C0000U /* bit shift 18 */
 #define XUSBPSU_DSTS_USBLNKST(n) (((u32)(n) & XUSBPSU_DSTS_USBLNKST_MASK) >> 18U)
 
 #define XUSBPSU_DSTS_RXFIFOEMPTY                (0x00000001U << 17U)
@@ -291,9 +291,9 @@ extern "C" {
 
 /*Portpmsc 3.0 bit field*/
 #define XUSBPSU_PORTMSC_30_FLA_MASK		(1U << 16U)
-#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK	(0xFFU << 8U)
+#define XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK	0xFF00U
 #define XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT	(8U)
-#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK	(0xFFU << 0U)
+#define XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK	0xFFU
 #define XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT	(0U)
 
 /* Register for LPD block */
