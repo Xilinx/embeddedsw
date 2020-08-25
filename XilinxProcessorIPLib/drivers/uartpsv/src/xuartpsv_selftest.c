@@ -66,7 +66,7 @@ static u8 ReturnString[XUARTPSV_TOTAL_BYTES];
 ******************************************************************************/
 s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status = (s32)XST_SUCCESS;
 	u32 CtrlRegister;
 	u8 Index;
 	u32 ReceiveDataResult;
@@ -115,13 +115,13 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	 */
 	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1; Index++) {
 		if (TestString[Index] != ReturnString[Index]) {
-			Status = XST_UART_TEST_FAIL;
+			Status = (s32)XST_UART_TEST_FAIL;
 		}
 	}
 
 	/* Reprogram the control Register with the saved value */
 	XUartPsv_ProgramCtrlReg(InstancePtr, CtrlRegister);
 
-	return Status;
+	return (s32)Status;
 }
 /** @} */

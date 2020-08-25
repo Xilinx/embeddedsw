@@ -241,8 +241,7 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	TriggerLevel = ((u32)TriggerLevel) &
-				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
 
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
@@ -290,8 +289,7 @@ void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	TriggerLevel = ((u32)TriggerLevel) &
-				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
 
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
@@ -337,8 +335,7 @@ void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	TriggerLevel = ((u32)TriggerLevel) &
-				(u32)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
 
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
@@ -427,8 +424,8 @@ u32 XUartPsv_IsSending(XUartPsv *InstancePtr)
 	 */
 	ActiveResult = FlagRegister & ((u32)XUARTPSV_UARTFR_BUSY);
 	EmptyResult = FlagRegister & ((u32)XUARTPSV_UARTFR_TXFE);
-	SendStatus = (((u32)XUARTPSV_UARTFR_BUSY) == ActiveResult) ||
-		(((u32)XUARTPSV_UARTFR_TXFE) != EmptyResult);
+	SendStatus = (u32)((XUARTPSV_UARTFR_BUSY == ActiveResult) ||
+		(XUARTPSV_UARTFR_TXFE != EmptyResult));
 
 	return SendStatus;
 }
@@ -571,7 +568,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 	if ((FormatPtr->DataBits > ((u32)XUARTPSV_FORMAT_8_BITS)) ||
 		(FormatPtr->StopBits > ((u8)XUARTPSV_FORMAT_2_STOP_BIT)) ||
 		(FormatPtr->Parity > ((u32)XUARTPSV_FORMAT_PARITY_MASK))) {
-		Status = XST_INVALID_PARAM;
+		Status = (s32)XST_INVALID_PARAM;
 	} else {
 
 		/*
@@ -635,7 +632,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 					XUARTPSV_UARTLCR_OFFSET,
 					LineCtrlRegister);
 
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 		}
 	}
 	return Status;
