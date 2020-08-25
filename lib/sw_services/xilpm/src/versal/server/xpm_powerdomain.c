@@ -265,6 +265,10 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		 * Release SRST for PS-LPD
 		 */
 		Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_RELEASE;
+			goto done;
+		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
 		if (XST_SUCCESS != Status) {
