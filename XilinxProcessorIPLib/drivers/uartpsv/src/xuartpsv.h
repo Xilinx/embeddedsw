@@ -37,7 +37,7 @@
 * <b>Baud Rate</b>
 *
 * The UART has an internal baud rate generator, which furnishes the baud rate
-* clock for both the receiver and the transmitter. Ther input clock frequency
+* clock for both the receiver and the transmitter. Their input clock frequency
 * can be either the master clock or the master clock divided by 8, configured
 * through the mode register.
 *
@@ -229,7 +229,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;				/**< Unique ID  of device */
-	u32 BaseAddress;			/**< Base address of device (IPIF) */
+	UINTPTR BaseAddress;			/**< Base address of device (IPIF) */
 	u32 InputClockHz;			/**< Input clock frequency */
 	s32 ModemPinsConnected; 	/**< Specifies whether modem pins are
 								  *  connected to MIO or FMIO */
@@ -410,7 +410,7 @@ XUartPsv_Config *XUartPsv_LookupConfig(u16 DeviceId);
 
 /* Interface functions implemented in xuartpsv.c */
 s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
-			XUartPsv_Config * Config, u32 EffectiveAddr);
+			XUartPsv_Config * Config, UINTPTR EffectiveAddr);
 
 u32 XUartPsv_Send(XUartPsv *InstancePtr,u8 *BufferPtr,
 			u32 NumBytes);
