@@ -19,6 +19,7 @@
 * 1.0   pm    03/03/20 First release
 * 1.7 	pm    25/03/20 Add clocking support
 * 1.8	pm    22/08/20 Configure register bits when CCI is enable
+*	pm    24/08/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -298,7 +299,7 @@ s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
 {
 	u32	RegVal;
-	s32 Status = XST_SUCCESS;
+	s32 Status = (s32)XST_SUCCESS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -322,7 +323,7 @@ s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
 
 	if (Status != (s32)XST_FAILURE) {
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 
 	return Status;
@@ -363,8 +364,8 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
 					XUSBPSU_EP_DIR_OUT);
 
-			XUsbPsu_StopTransfer(InstancePtr, CurEpNum,
-					XUSBPSU_EP_DIR_OUT, FALSE);
+			XUsbPsu_StopTransfer(InstancePtr, (u8)CurEpNum,
+					XUSBPSU_EP_DIR_OUT, (u8)FALSE);
 
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_WaitClearTimeout(InstancePtr,
@@ -385,8 +386,8 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
 					XUSBPSU_EP_DIR_IN);
 
-			XUsbPsu_StopTransfer(InstancePtr, CurEpNum,
-					XUSBPSU_EP_DIR_IN, FALSE);
+			XUsbPsu_StopTransfer(InstancePtr, (u8)CurEpNum,
+					XUSBPSU_EP_DIR_IN, (u8)FALSE);
 
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_WaitClearTimeout(InstancePtr,
@@ -404,7 +405,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		/* Stop transfers for Out Endpoints */
 		for (CurEpNum = 0U; CurEpNum < OutEpNums; CurEpNum++) {
 
-			XUsbPsu_EpTransferDeactive(InstancePtr, CurEpNum,
+			XUsbPsu_EpTransferDeactive(InstancePtr, (u8)CurEpNum,
 					XUSBPSU_EP_DIR_OUT);
 
 		}
@@ -412,7 +413,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		/* Stop transfers for In Endpoints */
 		for (CurEpNum = 0U; CurEpNum < InEpNums; CurEpNum++) {
 
-			XUsbPsu_EpTransferDeactive(InstancePtr, CurEpNum,
+			XUsbPsu_EpTransferDeactive(InstancePtr, (u8)CurEpNum,
 					XUSBPSU_EP_DIR_IN);
 
 		}
@@ -503,7 +504,7 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 					XUSBPSU_COHERENCY_MODE_ENABLE);
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -569,7 +570,7 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr, u8 *ScratchBuf)
 	s32 Ret;
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
 			XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_LO,
-				(UINTPTR)ScratchBuf & 0xFFFFFFFFU);
+				(u32)((UINTPTR)ScratchBuf & 0xFFFFFFFFU));
 	if (Ret == XST_FAILURE) {
 		xil_printf("Failed to set scratchpad low addr: %d\n", Ret);
 		return Ret;
@@ -577,13 +578,13 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr, u8 *ScratchBuf)
 
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
 			XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_HI,
-				((UINTPTR)ScratchBuf >> 16U) >> 16U);
+				(u32)(((UINTPTR)ScratchBuf >> 16U) >> 16U));
 	if (Ret == XST_FAILURE) {
 		xil_printf("Failed to set scratchpad high addr: %d\n", Ret);
 		return Ret;
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 #endif

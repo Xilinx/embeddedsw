@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/03/20 First release
+* 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * </pre>
 *
 *****************************************************************************/
@@ -110,20 +111,20 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 			|| (InstancePtr->IsHibernated == TRUE)) {
 		if (XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum,
 						Dir)	== XST_FAILURE) {
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 	}
 
 	if (XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize,
 					Type, Restore) == XST_FAILURE) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated == TRUE)) {
 		if (XUsbPsu_SetXferResource(InstancePtr, UsbEpNum,
 						Dir)	== XST_FAILURE) {
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 
 		Ept->EpStatus |= XUSBPSU_EP_ENABLED;
@@ -138,7 +139,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		/* Link TRB. The HWO bit is never reset */
 		TrbLink = &Ept->EpTrb[NO_OF_TRB_PER_EP];
 
-		memset(TrbLink, 0x00U, sizeof(struct XUsbPsu_Trb));
+		memset(TrbLink, 0x0, sizeof(struct XUsbPsu_Trb));
 
 		TrbLink->BufferPtrLow = (UINTPTR)TrbStHw;
 		TrbLink->BufferPtrHigh = ((UINTPTR)TrbStHw >> 16U) >> 16U;
@@ -152,7 +153,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		}
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -200,7 +201,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Ept->TrbEnqueue	= 0U;
 	Ept->TrbDequeue	= 0U;
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
