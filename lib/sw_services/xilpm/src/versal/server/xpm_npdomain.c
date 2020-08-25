@@ -92,11 +92,12 @@ static void NpdPreBisrReqs(void)
 static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	XStatus SocRailPwrSts = XST_FAILURE;
+	XStatus AuxRailPwrSts = XST_FAILURE;
 	u32 i=0;
 	XPm_Device *Device;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 powerRtnStatus = (u32)XST_FAILURE;
 	u32 SlrType;
 
 	(void)Args;
@@ -108,11 +109,11 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	/* NPD pre bisr requirements - in case if bisr and mbist was skipped */
 	NpdPreBisrReqs();
 
-	powerRtnStatus = ((u32)XPmPower_CheckPower(VccSocRail,
-				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK) |
-			  (u32)XPmPower_CheckPower(VccauxRail,
-				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK));
-	if ((u32)XST_SUCCESS == powerRtnStatus) {
+	SocRailPwrSts = XPmPower_CheckPower(VccSocRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
+	AuxRailPwrSts = XPmPower_CheckPower(VccauxRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
+	if ((XST_SUCCESS == SocRailPwrSts) && (XST_SUCCESS == AuxRailPwrSts)) {
 		/* Remove vccaux-soc domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE_VALUE);
 		if (XST_SUCCESS != Status) {
