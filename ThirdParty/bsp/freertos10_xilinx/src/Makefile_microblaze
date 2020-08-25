@@ -32,6 +32,9 @@
 # Processor architecture
 # microblaze
 #
+
+DRIVER_LIB_VERSION = v1.0
+
 ARCH = microblaze
 
 SYSTEMDIR = ../../..
@@ -68,72 +71,57 @@ INCLUDEFILES =	${TOPDIR}/*.h
 INCLUDES = -I$(INCLUDEDIR) \
 	-I${TOPDIR}
 
-KERNEL_AR_OBJS = *.c *.S
+SRCFILES:=$(wildcard *.c)
+
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 
 STANDALONE_VERSION = $(wildcard ../../standalone*)
 
-libs:	$(KERNEL_AR_OBJS)
+libs: $(LIBFREERTOS) standalone_lib
+
+$(LIBFREERTOS): $(OBJECTS) $(ASSEMBLY_OBJECTS)
+	@$(ARCHIVER) -r ${LIBFREERTOS} $^
+
+standalone_lib:
+
 	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src libs
-	@echo "Compiling FreeRTOS"
-	@$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $^
-	@$(ARCHIVER) -r ${LIBFREERTOS} ${OBJECTS}
-	@$(ARCHIVER) -r ${LIBFREERTOS} ${ASSEMBLY_OBJECTS}
-	@$(ARCHIVER) -d ${LIBXIL} asm_vectors.o
-	@$(ARCHIVER) -s ${LIBXIL}
 
-	make clean
+DEPFILES := $(SRCFILES:%.c=%.d)
+
+include $(wildcard $(DEPFILES))
+
+ASSEMBLY_DEPFILES := $(ASSEMBLY_SRCFILES:%.S=%.d)
+
+include $(wildcard $(ASSEMBLY_DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
 
 
+%.o: %.S
+		@$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
 
+%.o: %.c
+		@$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
+
+.PHONY: include
+include: freertos_include include_standalone
 
 include_standalone:
 	@echo "includes"
 	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src include
-	$(CP) -rf $(INCLUDEFILES) $(INCLUDEDIR)
 
 
-.PHONY: include
-include:
-	@echo "include"
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src include
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+freertos_include: $(addprefix $(INCLUDEDIR)/,$(wildcard *.h))
+
+$(INCLUDEDIR)/%.h: %.h
+	$(CP) $< $@
 
 clean:
+	$(MAKE) -f Makefile_depends -C ${STANDALONE_VERSION}/src -s clean
+	rm -rf $(LIBFREERTOS)
 	rm -rf ${OBJECTS}
-
-
-
-
-
-#PROCESSOR = microblaze_0
-#LIBRARIES = ${PROCESSOR}/lib/libxil.a
-#BSP_MAKEFILES := $(wildcard $(PROCESSOR)/libsrc/*/src/Makefile)
-#SUBDIRS := $(patsubst %/Makefile, %, $(BSP_MAKEFILES))
-#
-#ifneq (,$(findstring win,$(RDI_PLATFORM)))
-# SHELL = CMD
-#endif
-#
-#all: libs
-#	@echo 'Finished building libraries'
-#
-#include: $(addsuffix /make.include,$(SUBDIRS))
-#
-#libs: $(addsuffix /make.libs,$(SUBDIRS))
-#
-#$(PROCESSOR)/lib/libxil.a: $(PROCESSOR)/lib/libxil_init.a
-#	cp -f $< $@
-#
-#%/make.include: $(if $(wildcard $(PROCESSOR)/lib/libxil_init.a),$(PROCESSOR)/lib/libxil.a,)
-#	@echo "Running Make include in $(subst /make.include,,$@)"
-#	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS= -O2 -c -mcpu=v9.4 -mhard-float -mlittle-endian #-mno-xl-soft-div -mno-xl-soft-mul -mxl-barrel-shift -mxl-float-convert -mxl-float-sqrt -mxl-multiply-high -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections #-fdata-sections"
-#
-#%/make.libs: include
-#	@echo "Running Make libs in $(subst /make.libs,,$@)"
-#	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS= -O2 -c -mcpu=v9.4 -mhard-float -mlittle-endian #-mno-xl-soft-div -mno-xl-soft-mul -mxl-barrel-shift -mxl-float-convert -mxl-float-sqrt -mxl-multiply-high -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections #-fdata-sections"
-#
-#clean:
-#	rm -f ${PROCESSOR}/lib/libxil.a
+	rm -rf $(DEPFILES)
+	rm -rf $(ASSEMBLY_DEPFILES)
