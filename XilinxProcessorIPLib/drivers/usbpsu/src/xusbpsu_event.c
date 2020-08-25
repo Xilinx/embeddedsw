@@ -118,7 +118,7 @@ void XUsbPsu_DeviceEvent(struct XUsbPsu *InstancePtr,
 
 	case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
 #ifdef XUSBPSU_HIBERNATION_ENABLE
-		if (InstancePtr->HasHibernation == TRUE) {
+		if (InstancePtr->HasHibernation == (u8)TRUE) {
 			XUsbPsu_HibernationIntr(InstancePtr);
 		}
 #endif
@@ -183,7 +183,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		XUsbPsu_EventHandler(InstancePtr, &Event);
 
 		/* don't process anymore events if core is hibernated */
-		if (InstancePtr->IsHibernated == TRUE) {
+		if (InstancePtr->IsHibernated == (u8)TRUE) {
 			return;
 		}
 

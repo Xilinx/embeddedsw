@@ -81,12 +81,12 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	 * - Wait 100us
 	 */
 	Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
-	Cmd |= (Force == TRUE) ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0U;
+	Cmd |= (Force == (u8)TRUE) ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0U;
 	Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							Cmd, Params);
-	if (Force == TRUE) {
+	if (Force == (u8)TRUE) {
 		Ept->ResourceIndex = 0U;
 	}
 

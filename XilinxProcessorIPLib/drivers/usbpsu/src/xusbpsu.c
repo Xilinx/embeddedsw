@@ -175,7 +175,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 	/*
 	 * Set connection speed based on EnableSuperSpeed parameter
 	 */
-	Speed = (ConfigPtr->EnableSuperSpeed == TRUE) ?
+	Speed = (ConfigPtr->EnableSuperSpeed == (u8)TRUE) ?
 			XUSBPSU_DCFG_SUPERSPEED : XUSBPSU_DCFG_HIGHSPEED;
 
 	/*

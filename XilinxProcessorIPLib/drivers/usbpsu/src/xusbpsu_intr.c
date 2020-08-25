@@ -76,7 +76,7 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation == TRUE) {
+	if (InstancePtr->HasHibernation == (u8)TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) != (u32)0U) {
 			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
@@ -248,7 +248,7 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation == TRUE) {
+	if (InstancePtr->HasHibernation == (u8)TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) == (u32)0U) {
 			RegVal |= XUSBPSU_DCTL_KEEP_CONNECT;
