@@ -185,7 +185,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 
 	(void)XUsbPsu_SetDeviceAddress(InstancePtr, 0U);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -272,7 +272,7 @@ u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DSTS);
 
-	return XUSBPSU_DSTS_USBLNKST(RegVal);
+	return (u8)XUSBPSU_DSTS_USBLNKST(RegVal);
 }
 
 /****************************************************************************/

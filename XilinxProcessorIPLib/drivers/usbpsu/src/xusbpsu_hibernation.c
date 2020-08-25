@@ -25,6 +25,7 @@
 * 1.7	pm     23/03/20 Restructured the code for more readability and modularity
 * 	pm     25/03/20 Add clocking support
 * 1.8	pm     01/07/20 Add versal hibernation support
+*	pm     24/07/20 Fixed MISRA-C and Coverity warnings
 *
 * </pre>
 *
@@ -149,7 +150,7 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 
 	InstancePtr->IsHibernated = 0U;
 
-	memset(ScratchBuf, 0U, sizeof(ScratchBuf));
+	memset(ScratchBuf, 0x0, sizeof(ScratchBuf));
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)ScratchBuf,
 					XUSBPSU_HIBER_SCRATCHBUF_SIZE);
@@ -189,8 +190,9 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	u8 MaskPhyBit = 0x00U;
 #endif
 
+	LinkState = (XusbPsuLinkState)XUsbPsu_GetLinkState(InstancePtr);
 	/* sanity check */
-	switch(XUsbPsu_GetLinkState(InstancePtr)) {
+	switch (LinkState) {
 	case XUSBPSU_LINK_STATE_SS_DIS:
 	case XUSBPSU_LINK_STATE_U3:
 		break;
@@ -201,7 +203,8 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	};
 
 	if (InstancePtr->Ep0State == XUSBPSU_EP0_SETUP_PHASE) {
-		XUsbPsu_StopTransfer(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, TRUE);
+		XUsbPsu_StopTransfer(InstancePtr, 0U,
+					XUSBPSU_EP_DIR_OUT, (u8)TRUE);
 		XUsbPsu_RecvSetup(InstancePtr);
 	}
 
@@ -218,7 +221,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 		/* save srsource index for later use */
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
-				Ept->Direction, FALSE);
+				Ept->Direction, (u8)FALSE);
 
 		XUsbPsu_SaveEndpointState(InstancePtr, Ept);
 	}
@@ -242,13 +245,13 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	/* Check the link state and if it is disconnected, set
 	 * KEEP_CONNECT to 0
 	 */
-	LinkState = XUsbPsu_GetLinkState(InstancePtr);
+	LinkState = (XusbPsuLinkState)XUsbPsu_GetLinkState(InstancePtr);
 	if (LinkState == XUSBPSU_LINK_STATE_SS_DIS) {
 		RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
 		/* update LinkState to be used while wakeup */
-		InstancePtr->LinkState = XUSBPSU_LINK_STATE_SS_DIS;
+		InstancePtr->LinkState = (u8)XUSBPSU_LINK_STATE_SS_DIS;
 	}
 
 	XUsbPsu_SaveRegs(InstancePtr);
@@ -352,7 +355,7 @@ s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr)
 			XUSBPSU_DSTS_RSS, XUSBPSU_NON_STICKY_SAVE_RETRIES) ==
 							XST_FAILURE) {
 		xil_printf("Failed to restore USB core\r\n");
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	XUsbPsu_RestoreRegs(InstancePtr);
@@ -363,15 +366,15 @@ s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr)
 	/* nothing to do when in OTG host mode */
 	if ((XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) &
 					XUSBPSU_GSTS_CUR_MODE) != (u32)0U) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	if (XUsbPsu_RestoreEp0(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to restore EP0\r\n");
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 #endif /* XUSBPSU_HIBERNATION_ENABLE */

@@ -348,7 +348,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -801,7 +801,7 @@ s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 
 	/* check if we need to restart transfer */
 	if ((Ept->ResourceIndex == (u32)0U) && (Ept->PhyEpNum != (u32)0U)) {
-		return XST_SUCCESS;
+		return (s32)XST_SUCCESS;
 	}
 
 	if (Ept->UsbEpNum != (u32)0U) {
