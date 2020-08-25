@@ -316,11 +316,15 @@ u32 XUartPsv_Recv(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr)
 {
 	u32 SentCount = 0U;
+	u32 IsBusy;
 
 	/*
 	 * Check is TX busy
 	 */
-	while (XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress));
+	IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	while (IsBusy == (u32)TRUE) {
+		IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	}
 
 	/*
 	 * If the TX FIFO is full, send nothing.
@@ -579,12 +583,16 @@ void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
 {
 	u32 LineCtrlRegister;
 	u32 TempCtrlRegister;
+	u32 IsBusy;
 
 	/*
 	 * Check is TX completed. If Uart is disabled in the middle, cannot
 	 * recover. So, keep this check before disable.
 	 */
-	while (XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress));
+	IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	while (IsBusy == (u32)TRUE) {
+		IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	}
 
 	/* Disable UART */
 	TempCtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
