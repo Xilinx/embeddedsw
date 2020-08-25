@@ -380,7 +380,7 @@ typedef struct {
 			(u32)XUARTPSV_UARTCR_OFFSET), \
 			(Xil_In32((InstancePtr)->Config. \
 			BaseAddress + (u32)XUARTPSV_UARTCR_OFFSET) & \
-			(u32)(~XUARTPSV_UARTCR_UARTEN)))
+			~(u32)XUARTPSV_UARTCR_UARTEN))
 
 /*****************************************************************************/
 /**
