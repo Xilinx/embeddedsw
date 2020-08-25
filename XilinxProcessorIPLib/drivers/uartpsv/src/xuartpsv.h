@@ -443,14 +443,6 @@ u8 XUartPsv_GetOperMode(XUartPsv *InstancePtr);
 
 void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode);
 
-u8 XUartPsv_GetFlowDelay(XUartPsv *InstancePtr);
-
-void XUartPsv_SetFlowDelay(XUartPsv *InstancePtr, u8 FlowDelayValue);
-
-u8 XUartPsv_GetRecvTimeout(XUartPsv *InstancePtr);
-
-void XUartPsv_SetRecvTimeout(XUartPsv *InstancePtr, u8 RecvTimeout);
-
 s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			XUartPsvFormat * FormatPtr);
 
