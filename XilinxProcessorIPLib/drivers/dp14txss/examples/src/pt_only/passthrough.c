@@ -64,9 +64,10 @@ int Dppt_DetectColor(void *InstancePtr,
 
 void resetIp_rd(void);
 void resetIp_wr(void);
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 		u16 height, u8 color_format);
+#endif
 
 void DpPt_TxSetMsaValuesImmediate(void *InstancePtr);
 void edid_change(int page);
@@ -110,6 +111,7 @@ u8 audio_info_avail = 0;
 int track_color = 0;
 u32 aud_start_delay = 0;
 u32 line_rst = 0;
+u8 supports_adaptive = 0;
 
 void DpPt_Main(void){
 	u32 Status;
@@ -121,6 +123,7 @@ void DpPt_Main(void){
 	u8 exit;
     u8 *LaneCount_tx = 0x4;
     u8 *LineRate_tx = 0x14;
+    u8 rData;
 
 	char CmdKey[2];
 	unsigned int Command;
@@ -215,6 +218,16 @@ void DpPt_Main(void){
 							XDP_DPCD_MAX_LINK_RATE,  1, LineRate_tx);
 	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
 							XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_tx);
+#if ADAPTIVE
+    XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_DOWNSP_COUNT_MSA_OUI, 1, &rData);
+    if(rData & 0x40){
+		xil_printf ("Supports MSA less !!!!!\r\n");
+		supports_adaptive = 1;
+    }
+    else {
+	supports_adaptive = 0;
+    }
+#endif
 
 //	if (Status == XST_SUCCESS) {
 //		xil_printf ("Monitor Capabilities are --> Link rate: %x, "
@@ -241,7 +254,7 @@ void DpPt_Main(void){
 	}
 
 	/* Setup DPRX SS, left to the user for implementation */
-	DpRxSs_Setup();
+	DpRxSs_Setup(supports_adaptive);
 
 	DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
 	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
@@ -614,7 +627,26 @@ void DpPt_Main(void){
 								i, edid_monitor[i/4]);
 						}
 					}
-
+#if ADAPTIVE
+				    XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_DOWNSP_COUNT_MSA_OUI, 1, &rData);
+				    if(rData & 0x40){
+						xil_printf ("Supports MSA less !!!!!\r\n");
+						XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 1);
+						supports_adaptive = 1;
+#if ADAPTIVE_TYPE
+						XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+#else
+						XDpRxSs_UnMaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+#endif
+						xil_printf (ANSI_COLOR_GREEN"DP RX enabled for Adaptive Sync"ANSI_COLOR_RESET" \r\n");
+				    }
+				    else {
+					supports_adaptive = 0;
+					XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 0);
+						XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+						xil_printf (ANSI_COLOR_GREEN"DP RX not enabled for Adaptive Sync"ANSI_COLOR_RESET" \r\n");
+				    }
+#endif
 					xil_printf ("Please unplug/plug DP RX cable for changes to take effect\r\n");
 
 					break;
@@ -683,14 +715,14 @@ void DpPt_Main(void){
 				break;
 
 				case 'q' :
-                                        line_rst = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE);
-                                        xil_printf ("Line reset was %d\r\n",line_rst & 0x1);
-                                        if (line_rst & 0x1) {
-                                            line_rst &= 0xFFFFFFFE;
-                                        } else {
-                                            line_rst |= 0xFFFFFFFF;
-                                        }
-                                        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE, line_rst);
+						line_rst = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE);
+						xil_printf ("Line reset was %d\r\n",line_rst & 0x1);
+						if (line_rst & 0x1) {
+							line_rst &= 0xFFFFFFFE;
+						} else {
+							line_rst |= 0xFFFFFFFF;
+						}
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE, line_rst);
 
 					break;
 
@@ -896,7 +928,9 @@ void DpPt_Main(void){
 					XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 					XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
 
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 					Vpg_Audio_stop();
+#endif
 					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 										XDP_TX_ENABLE, 0x0);
 					XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x140);
@@ -995,6 +1029,7 @@ void start_audio_passThrough(){
 
 void start_tx_after_rx (void) {
 	u32 Status;
+	u8 aux_data[0];
 	u32 dptx_sts=0;
 
 	rx_all_detect = 1;
@@ -1128,15 +1163,39 @@ void start_tx_after_rx (void) {
 
 	config_phy(LineRate_init_tx);
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
-
 	if(downshift4K == 0){
 		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, Msa);
-
 	}else{
 		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, 0);
 	}
 
 	frameBuffer_start_rd(Msa, downshift4K);
+#if ADAPTIVE
+	/* Putting VTC in Adaptive mode and
+	 * setting the MSA Ignore bit in Monitor
+	 */
+	if (supports_adaptive) {
+        aux_data[0] = 0x80;
+        XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x107, 1, aux_data);
+#if ADAPTIVE_TYPE
+        /* Setting Adaptive mode in VTC to auto stretch
+         * Max Limit is programmed as 0xFFF
+         */
+        XDpTxSs_VtcAdaptiveSyncSetup(DpTxSsInst.VtcPtr[0], ADAPTIVE_TYPE, DPTXSS_VFP_STRETCH);
+#else
+        /* Setting the VTC in guided mode and the initial
+         * stretch value is programmed as 0
+         */
+        XDpTxSs_VtcAdaptiveSyncSetup(DpTxSsInst.VtcPtr[0], ADAPTIVE_TYPE, 0x0);
+#endif
+	} else {
+		/* Disabling Adaptive Sync feature in VTC
+		 */
+		XDpTxSs_VtcDisableAdaptiveSync(DpTxSsInst.VtcPtr[0]);
+	}
+#else
+	XDpTxSs_VtcDisableAdaptiveSync(DpTxSsInst.VtcPtr[0]);
+#endif
 	rx_and_tx_started = 1;
 
 }
@@ -1203,8 +1262,11 @@ void unplug_proc (void) {
 	i2s_stop_proc();
 	audio_init();
 #endif
+
+//	XDpTxSs_VtcDisableAdaptiveSync(&DpTxSsInst);
+	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-	DpRxSs_Setup();
+	DpRxSs_Setup(supports_adaptive);
 }
 
 void i2s_stop_proc (void) {
@@ -1419,6 +1481,14 @@ void dprx_tracking (void) {
 				XDP_RX_DPCD_LANE01_STATUS),
 		XDpRxSs_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				XDP_RX_DPCD_LANE23_STATUS));
+#if !ADAPTIVE_TYPE
+		/* Enable the RX interrupt for Adaptive Sync
+		 *
+		 */
+		if (supports_adaptive) {
+			XDpRxSs_UnMaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
+		}
+#endif
 
 	}
 

@@ -32,6 +32,7 @@
 * 						    ZCU102 PT design.
 * 1.06 ND 07/28/20 2020.2 - Minor updates and removal of redundant code related to PSIIC
 * 							initialization.
+* 1.07 KU 08/10/20 2020.2 - Added support for Adaptive Sync
 *
 * </pre>
 *
@@ -83,6 +84,8 @@ u8 frame_pointer_rd = 2;
 u8 not_to_read = 1;
 u8 not_to_write = 3;
 u8 fb_rd_start = 0;
+u32 vblank_init = 0;
+u8 vblank_captured = 0;
 
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
@@ -212,6 +215,7 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
 
 
 extern u32 StreamOffset[4];
+extern u8 supports_adaptive;
 
 /*****************************************************************************/
 /**
@@ -970,12 +974,11 @@ void CalculateCRC(void)
     if (VidFrameCRC_rx.Mode_422 != 0x1) {
 	XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                           VIDEO_FRAME_CRC_CONFIG,
-						  (int)DpRxSsInst.UsrOpt.LaneCount);
+                            4/*DpRxSsInst.UsrOpt.LaneCount*/);
     } else { // 422
         XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                               VIDEO_FRAME_CRC_CONFIG,
-                                ((int)DpRxSsInst.UsrOpt.LaneCount | 0x80000000));
-
+                                (/*DpRxSsInst.UsrOpt.LaneCount*/4 | 0x80000000));
     }
 #if PHY_COMP
     /* Add delay (~40 ms) for Frame CRC
@@ -1349,6 +1352,9 @@ u32 DpSs_PlatformInit(void)
 
 	usleep(300000);
 
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+
 	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
 	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
 					      rx_remap_Config->BaseAddress);
@@ -1380,6 +1386,7 @@ u32 DpSs_PlatformInit(void)
 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
+#endif
 
 #if ENABLE_AUDIO
 
@@ -1488,7 +1495,12 @@ u32 DpSs_SetupIntrSystem(void)
 #endif
 
 	XVFrmbufWr_SetCallback(&frmbufwr, XVFRMBUFWR_HANDLER_DONE,
-								&bufferWr_callback,&frmbufwr);
+								&bufferWr_callback, &frmbufwr);
+
+
+	XVFrmbufRd_SetCallback(&frmbufrd, XVFRMBUFRD_HANDLER_DONE,
+								&bufferRd_callback, &frmbufrd);
+
 
 	/* The configuration parameters of the interrupt controller */
 	XScuGic_Config *IntcConfig;
@@ -1560,7 +1572,7 @@ u32 DpSs_SetupIntrSystem(void)
 	}
 
 	/* Disable the interrupt vector at the interrupt controller */
-	XScuGic_Disable(IntcInstPtr, XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID);
+	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID);
 
 
 #endif
@@ -1803,7 +1815,7 @@ int ConfigFrmbuf_wr(u32 StrideInBytes,
 
 	/* Enable Interrupt */
 	XVFrmbufWr_InterruptEnable(&frmbufwr,
-			XVFRMBUFWR_HANDLER_READY | XVFRMBUFWR_HANDLER_DONE);
+			XVFRMBUFWR_HANDLER_DONE);
 
 	XV_frmbufwr_EnableAutoRestart(&frmbufwr.FrmbufWr);
 	/* Start Frame Buffers */
@@ -1813,10 +1825,13 @@ int ConfigFrmbuf_wr(u32 StrideInBytes,
 	return(Status);
 }
 
+u8 stopped = 1;
 
 /*****************************************************************************/
 /**
  * This function configures Frame Buffer for defined mode
+ * The FrramBuffer is put in Autorestart mode for non-Adaptive Sync mode
+ * When Adaptive Sync mode is enabled the FrameBuffer is put in manual mode
  *
  * @return XST_SUCCESS if init is OK else XST_FAILURE
  *
@@ -1828,8 +1843,8 @@ int ConfigFrmbuf_rd(u32 StrideInBytes,
 
 	int Status;
 
-	XVFRMBUFRD_BUFFER_BASEADDR = frame_array[frame_pointer_rd];
-	XVFRMBUFRD_BUFFER_BASEADDR_Y = frame_array_y[frame_pointer_rd];
+	XVFRMBUFRD_BUFFER_BASEADDR = frame_array[frame_pointer];
+	XVFRMBUFRD_BUFFER_BASEADDR_Y = frame_array_y[frame_pointer];
 
 	/* Configure  Frame Buffers */
 	Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
@@ -1838,23 +1853,29 @@ int ConfigFrmbuf_rd(u32 StrideInBytes,
 		return(XST_FAILURE);
 	}
 
-	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
-	Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
-	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer "
-				"Read buffer address\r\n");
-		return(XST_FAILURE);
+	if (!supports_adaptive || !ADAPTIVE_TYPE) {
+		Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+		Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
+		if(Status != XST_SUCCESS) {
+			xil_printf("ERROR:: Unable to configure Frame Buffer "
+					"Read buffer address\r\n");
+			return(XST_FAILURE);
+		}
 	}
 
 	/* Enable Interrupt */
-//	XVFrmbufRd_InterruptEnable(&frmbufrd,
-//			XVFRMBUFRD_HANDLER_READY | XVFRMBUFRD_HANDLER_DONE);
+	XVFrmbufRd_InterruptEnable(&frmbufrd,
+			XVFRMBUFRD_HANDLER_DONE);
 
 
-	XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
-	/* Start Frame Buffers */
-	XVFrmbufRd_Start(&frmbufrd);
-
+	/* When Adaptive mode is 0 or Monitor does not support Adaptive Sync
+	 * the FB read is configured in AutoEnableRestart mode
+	 */
+	if (!supports_adaptive || !ADAPTIVE_TYPE) {
+		XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
+		/* Start Frame Buffers */
+		XVFrmbufRd_Start(&frmbufrd);
+	}
 	//xil_printf("INFO: FRMBUFrd configured\r\n");
 	return(Status);
 }
@@ -2004,15 +2025,16 @@ void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 //	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_wr(Msa, downshift4K);
-
+#endif
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
 					256,
 					&VidStream);
 	ConfigFrmbuf_wr(stride, Cfmt, &VidStream);
+	stopped = 1;
 }
 
 
@@ -2064,9 +2086,9 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
 
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_rd(Msa, downshift4K);
-
+#endif
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
@@ -2082,7 +2104,6 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 	}
 
 	ConfigFrmbuf_rd(stride, Cfmt, &VidStream);
-
 	fb_rd_start = 1;
 
 }
@@ -2126,6 +2147,8 @@ void resetIp_wr()
 }
 
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+
 void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 		u16 height, u8 color_format){
 	XV_axi4s_remap_Set_width(remap, width);
@@ -2134,6 +2157,10 @@ void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 	XV_axi4s_remap_Set_inPixClk(remap, in_ppc);
 	XV_axi4s_remap_Set_outPixClk(remap, out_ppc);
 }
+#endif
+
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 {
@@ -2154,7 +2181,10 @@ void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	XV_axi4s_remap_EnableAutoRestart(&rx_remap);
 	XV_axi4s_remap_Start(&rx_remap);
 }
+#endif
 
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 {
@@ -2203,9 +2233,33 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	XV_axi4s_remap_Start(&tx_remap);
 }
 
+#endif
 
 void bufferWr_callback(void *InstancePtr){
 	u32 Status;
+
+//	xil_printf ("^");
+
+	/* If Adaptive Mode is 1, the FB Read is triggered on FB Wr Interrupt
+	 * This ensures that the frame rate is maintained at TX (appx)
+	 *
+	 */
+	if (fb_rd_start && supports_adaptive && ADAPTIVE_TYPE) {
+		if (stopped) {
+			stopped = 0;
+			Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFWR_BUFFER_BASEADDR);
+			Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFWR_BUFFER_BASEADDR_Y);
+			XVFrmbufRd_Start(&frmbufrd);
+			if(Status != XST_SUCCESS) {
+				xil_printf("ERROR:: Unable to configure Frame Buffer "
+						"Read buffer address\r\n");
+			}
+		} else {
+			//Should never hit this in Adaptive sync mode
+	        xil_printf(ANSI_COLOR_RED"FrameBUffer RD is not idle !!"ANSI_COLOR_RESET"\r\n");
+		}
+	}
+
 
 	if(XVFRMBUFWR_BUFFER_BASEADDR >= (0 + (0x10000000) + (0x10000000 * 2))){
 
@@ -2213,7 +2267,6 @@ void bufferWr_callback(void *InstancePtr){
 										offset_rd);
 		XVFRMBUFRD_BUFFER_BASEADDR_Y = (0 + (0x40000000) + (0x10000000 * 1) +
 										offset_rd);
-
 
 		XVFRMBUFWR_BUFFER_BASEADDR = 0 + (0x10000000);
 		XVFRMBUFWR_BUFFER_BASEADDR_Y = 0 + (0x40000000);
@@ -2232,19 +2285,23 @@ void bufferWr_callback(void *InstancePtr){
 				"Write buffer address\r\n");
 	}
 
-	if (fb_rd_start) {
-	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
-	Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
-	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer "
-				"Read buffer address\r\n");
-	}
+	/* In Non-Adaptive Scenario, the FB Read is in Autorestart mode
+	 *
+	 */
+
+	if (fb_rd_start && (!supports_adaptive || !ADAPTIVE_TYPE)) {
+		Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+		Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
+		if(Status != XST_SUCCESS) {
+			xil_printf("ERROR:: Unable to configure Frame Buffer "
+					"Read buffer address\r\n");
+		}
 	}
 }
 
 
 void bufferRd_callback(void *InstancePtr){
-
+	stopped = 1;
 }
 
 
@@ -2443,6 +2500,10 @@ int Dppt_DetectResolution(void *InstancePtr,
 	Msa[0].Vtm.Timing.VActive = DpVres;
 	Msa[0].Vtm.Timing.HTotal = DpHres_total;
 	Msa[0].Vtm.Timing.F0PVTotal = DpVres_total;
+#if ADAPTIVE
+	vblank_captured = 1;
+	vblank_init = DpVres_total - DpVres;
+#endif
 	Msa[0].MVid = rxMsaMVid;
 	Msa[0].NVid = rxMsaNVid;
 	Msa[0].HStart =

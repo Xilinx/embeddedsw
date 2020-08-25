@@ -750,6 +750,10 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
+
+extern u8 supports_adaptive;
+
+
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 			XDpTxSs_MainStreamAttributes Msa[4])
 {
@@ -821,13 +825,18 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	}
 
 	xil_printf (".");
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
+#endif
+
+	gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	xil_printf (".");
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 	// setting video pattern
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				 C_VideoUserStreamPattern[pat]);
-
+#endif
 
 	xil_printf (".");
 	clk_wiz_locked();
@@ -869,13 +878,11 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	if (format != 2) {
 		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
 				  VIDEO_FRAME_CRC_CONFIG,
-				  XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-									  XDP_TX_USER_PIXEL_WIDTH));
+				  0x4);
 	} else { // 422
 		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
 				  VIDEO_FRAME_CRC_CONFIG,
-					(XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-							  XDP_TX_USER_PIXEL_WIDTH) | 0x80000000));
+					0x4 | 0x80000000);
 
 	}
 
@@ -931,12 +938,22 @@ static void clk_wiz_locked(void) {
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		u8 Edid1_org[128], u16 res_update)
 {
+	u8 rData;
 
 	/* This is a PassThrough System to display the Video received on RX
 	 * onto TX. There is nothing special done in the hpd_connect handler.
 	 * On a HPD the application simply tries to retrain the monitor
 	 */
-
+#if ADAPTIVE
+	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_DOWNSP_COUNT_MSA_OUI, 1, &rData);
+	if(rData & 0x40){
+//		xil_printf ("Supports MSA less !!!!!\r\n");
+		supports_adaptive = 1;
+	}
+	else {
+		supports_adaptive = 0;
+	}
+#endif
 }
 
 /*****************************************************************************/

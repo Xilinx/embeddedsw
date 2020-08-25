@@ -188,7 +188,7 @@ XilAudioExtFrame  SdpExtFrame_q;
 
 void DpRxSs_Main(void);
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
-u32 DpRxSs_Setup(void);
+u32 DpRxSs_Setup(u8 freesync);
 
 /* Interrupt helper functions */
 u32 DpRxSs_SetupIntrSystem(void);
@@ -214,6 +214,8 @@ void XDp_RxInterruptDisable1(XDp *InstancePtr, u32 Mask);
 void XDp_RxInterruptEnable1(XDp *InstancePtr, u32 Mask);
 void DpRxSs_InfoPacketHandler(void *InstancePtr);
 void DpRxSs_ExtPacketHandler(void *InstancePtr);
+void DpRxSs_AdaptiveVblankHandler(void *InstancePtr);
+void DpRxSs_AdaptiveSDPHandler(void *InstancePtr);
 void Print_InfoPkt();
 void Print_ExtPkt();
 

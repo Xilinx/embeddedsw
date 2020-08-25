@@ -12,12 +12,12 @@
 *
 * Ver  Who      Date      Changes
 * ---- ---      --------  --------------------------------------------------.
-* 1.00 Nishant  19/12/19 Added support for vck190, VCU118
-* 			 DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
-* 			 set_vphy() renamed to config_phy() and has two
-* 			 parameters for linerate and lanecount.
-* 			 The application files are common for ZCU102, VCU118
-* 			 and VCK190 TX Only design
+* 1.00 Nishant  19/12/19 	Added support for vck190, VCU118
+* 			 				DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
+* 			 				set_vphy() renamed to config_phy() and has two
+* 			 				parameters for linerate and lanecount.
+* 			 				The application files are common for ZCU102, VCU118
+* 			 				and VCK190 TX Only design
 *
 *
 * </pre>
@@ -90,6 +90,7 @@ void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte);
 
 void clk_wiz_locked(void);
 void hpd_pulse_con(XDpTxSs *InstancePtr);
+extern void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
 int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 static u8 CalculateChecksum(u8 *Data, u8 Size);
@@ -1477,6 +1478,10 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 
 
 	u32 Status;
+	// Stop the Patgen
+	XDp_WriteReg(XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR,
+			0x0, 0x0);
+
 	//Disabling TX interrupts
 //	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 //												XDP_TX_INTERRUPT_MASK, 0xFFF);
@@ -1532,7 +1537,6 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	}
 
 	}
-
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
@@ -1540,6 +1544,9 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	// setting video pattern
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[pat]);
 	xil_printf (".");
+    /* Generate the video clock using MMCM
+     */
+    Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	clk_wiz_locked();
 
 	if (DpTxSsInst.VtcPtr[0]) {
@@ -1575,9 +1582,13 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	/* Reset CRC*/
 	XVidFrameCrc_Reset();
 //	/* Set Pixel width in CRC engine*/
+    if (format != 2) {
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_USER_PIXEL_WIDTH));
+			0x4);
+    } else {
+	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+			0x4 | 0x80000000);
+    }
 
 	xil_printf ("..done !\r\n");
 		return XST_SUCCESS;
