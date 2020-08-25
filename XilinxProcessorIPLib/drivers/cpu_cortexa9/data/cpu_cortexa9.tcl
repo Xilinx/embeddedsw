@@ -80,16 +80,20 @@ proc xdefine_cortexa9_params {drvhandle} {
 		if {[string compare -nocase $compiler_flags "-Om --cpu=Cortex-A9"] != 0} {
 			regsub -- "-O2 -c" $compiler_flags "" compiler_flags
 			regsub -- {-Om --cpu=Cortex-A9 } $compiler_flags "" compiler_flags
-			set compiler_flags "-Om --cpu=Cortex-A9 $compiler_flags"
+			set compiler_flags "-Om --cpu=Cortex-A9 -e $compiler_flags"
 			common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
 		}
 	}
 	if {[string compare -nocase $compiler_name "iccarm"] == 0} {
 		set assembler_value "iasmarm"
         common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
+		regsub -all {\{|\}}  {--dependencies=m {$}(@D)/$*.d} "" dependency_flags
+		common::set_property -name VALUE -value $dependency_flags -objects  [hsi::get_comp_params -filter { NAME == dependency_flags } ]
 	} else {
 		set assembler_value "armasm"
         common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
+		regsub -all {\{|\}}  {--depend={$}(@D)/$*.d} "" dependency_flags
+		common::set_property -name VALUE -value $dependency_flags -objects  [hsi::get_comp_params -filter { NAME == dependency_flags } ]
 	}
     } else {
 	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]

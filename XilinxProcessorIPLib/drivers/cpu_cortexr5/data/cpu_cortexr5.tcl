@@ -19,6 +19,9 @@
 #                     BSP.
 # 1.6   aru  04/18/19 Updated tcl to add assembler for ARMCC and IAR
 # 1.8   dp   06/25/20 Updated tcl to support for armclang
+# 1.8   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
+#                     it would be used to generate appropriate flags
+#                     required for dependency files configuration
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -97,7 +100,7 @@ proc xdefine_cortexr5_params {drvhandle} {
                 regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
 		regsub -- {--fpu=VFPv3_D16} $temp_flag "" temp_flag
 		regsub -- {-DARMR5} $temp_flag "" temp_flag
-		set extra_flags "--debug -DARMR5 --fpu=VFPv3_D16 $temp_flag"
+		set extra_flags "--debug -DARMR5 --fpu=VFPv3_D16 -e $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
 
@@ -112,6 +115,8 @@ proc xdefine_cortexr5_params {drvhandle} {
 
 	set assembler_value "iasmarm"
     common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
+	regsub -all {\{|\}}  {--dependencies=m {$}(@D)/$*.d} "" dependency_flags
+	common::set_property -name VALUE -value $dependency_flags -objects  [hsi::get_comp_params -filter { NAME == dependency_flags } ]
    }  elseif {[string compare -nocase $compiler_name "armclang"] == 0} {
 	set temp_flag $extra_flags
 	if {[string compare -nocase $temp_flag "-g -DARMR5 -Wall -Wextra -mfloat-abi=hard -mfpu=vfpv3-d16 --target=arm-arm-none-eabi"] != 0} {
