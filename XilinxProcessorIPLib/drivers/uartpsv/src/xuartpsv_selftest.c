@@ -83,7 +83,7 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	XUartPsv_SetOperMode(InstancePtr, XUARTPSV_OPER_MODE_LOCAL_LOOP);
 
 	/* Send a number of bytes and receive them, one at a time. */
-	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1; Index++) {
+	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1U; Index++) {
 		/*
 		 * Send out the byte and if it was not sent then the failure
 		 * will be caught in the comparison at the end
@@ -113,7 +113,7 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	 * Compare the bytes received to the bytes sent to verify the exact
 	 * data was received
 	 */
-	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1; Index++) {
+	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1U; Index++) {
 		if (TestString[Index] != ReturnString[Index]) {
 			Status = (s32)XST_UART_TEST_FAIL;
 		}
