@@ -2,6 +2,7 @@
 # Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 include config.make
 
@@ -19,41 +20,37 @@ ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
 ECC_FLAGS	+= --fpu=VFPv3
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
 
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=*.h
 
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-OBJECTS +=	$(addsuffix .o, $(basename $(wildcard *.s)))
-#OBJECTS +=	boot.o
+OBJECTS =	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.c))))
+OBJECTS +=	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.s))))
 
-libs: banner $(LIBS) clean
+libs: $(LIBS)
+standalone_libs: ${OBJECTS}
 
-#boot.s: boot.S
-#	${COMPILER} $(INCLUDES) -E -o $@ $<
-#	rm -f boot.S
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
-%.o: %.s
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(RELEASEDIR)%.o: %.s
 	${AS} --cpu Cortex-A9 --fpu VFPv3 $(INCLUDES) -o $@ $<
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
 
-banner:
-	echo "Compiling standalone"
-	echo "${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<"
-
-standalone_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 
 .PHONY: include
-include: standalone_includes
-
-standalone_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+include:  $(addprefix $(INCLUDEDIR),$(wildcard *.h))
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
