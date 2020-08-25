@@ -168,7 +168,7 @@ u32 XPm_GetIdCode(void);
  */
 void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value);
 
-void XPm_Out64(u64 RegAddress, u32 l_Val);
+void XPm_Out64(u64 RegAddress, u32 Value);
 u32 XPm_In64(u64 RegAddress);
 void XPm_RMW64(u64 RegAddress, u32 Mask, u32 Value);
 

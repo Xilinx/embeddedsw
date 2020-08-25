@@ -622,7 +622,7 @@ done:
 	return Status;
 }
 
-int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, pm_ioctl_id IoctlId,
+int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response)
 {
 	int Status = XPM_ERR_IOCTL;
