@@ -1253,7 +1253,8 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 			break;
 		default:
 			/* Should never reach here */
-			goto done;
+			PmDbg("Memory type other than OCM or DDR\r\n");
+			break;
 		}
 	} else {
 		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
