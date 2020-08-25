@@ -90,7 +90,7 @@ extern "C" {
 #define XUSBPSU_DEPCMD_SETEPCONFIG              0x00000001U
 
 /* The EP number goes 0..31 so ep0 is always out and ep1 is always in */
-#define XUSBPSU_DALEPENA_EP(n)                  (0x00000001U << (n))
+#define XUSBPSU_DALEPENA_EP(n)                  ((u32)0x00000001U << (n))
 
 #define XUSBPSU_DEPCFG_INT_NUM(n)               ((u32)(n) << 0U)
 #define XUSBPSU_DEPCFG_XFER_COMPLETE_EN         (0x00000001U << 8U)

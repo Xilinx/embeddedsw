@@ -314,7 +314,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
-		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | (u32)USB0_CORE_RST);
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | USB0_CORE_RST);
 	}
 
 #if defined (XCLOCKING)

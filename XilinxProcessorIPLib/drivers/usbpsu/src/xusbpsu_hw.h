@@ -299,11 +299,11 @@ extern "C" {
 /* Register for LPD block */
 #if defined (PLATFORM_ZYNQMP)
 #define RST_LPD_TOP				0x23CU
-#define USB0_CORE_RST				(1U << 6U)
-#define USB1_CORE_RST				(1U << 7U)
+#define USB0_CORE_RST				0x40U /* bit 6 */
+#define USB1_CORE_RST				0x80U /* bit 7 */
 #else
 #define RST_LPD_TOP				0x0314U
-#define USB0_CORE_RST				(1U << 0U)
+#define USB0_CORE_RST				0x01U /* bit 0 */
 #endif
 
 

@@ -118,7 +118,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_ClearStallAllEp(InstancePtr);
 
 	for (Index = 0U; Index <
-		(u32)(InstancePtr->NumInEps + InstancePtr->NumOutEps);
+		((u32)InstancePtr->NumInEps + (u32)InstancePtr->NumOutEps);
 			Index++)
 	{
 		InstancePtr->eps[Index].EpStatus = 0U;
@@ -462,7 +462,7 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP,
-				(u32)(RegVal & ~(u32)USB0_CORE_RST));
+				(u32)(RegVal & ~USB0_CORE_RST));
 	}
 
 #if defined (PLATFORM_ZYNQMP)
