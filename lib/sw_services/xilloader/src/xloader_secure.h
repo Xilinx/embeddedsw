@@ -38,6 +38,7 @@
 *                     Authenticated JTAG
 *       td   08/19/20 Fixed MISRA C violations Rule 10.3
 *       bsv  08/21/20 Included xil_util.h for XSECURE_TEMPORAL_CHECK macro
+*       har  08/24/20 Added macros related to ECDSA P521 support
 *
 * </pre>
 *
@@ -68,6 +69,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SHA3_LEN				(48U)
+#define XLOADER_SHA3_LEN_IN_WORDS		(XLOADER_SHA3_LEN / XPLMI_WORD_LEN)
 #define XLOADER_RSA_SIG_EXP_BYTE		(0xBCU)
 #define XLOADER_I2OSP_INT_LIMIT			(256U)
 #define XLOADER_RSA_PSS_MASKED_DB_LEN	(463U)
@@ -115,7 +117,15 @@ extern "C" {
 #define XLOADER_AC_AH_PUB_ALG_RSA		(0x1U)
 #define XLOADER_AC_AH_PUB_ALG_ECDSA		(0x2U)
 
-#define XLOADER_ECDSA_KEYSIZE			(0x0000000CU)
+#define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
+#define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)
+#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x0U)
+#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
+#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x2U)
+
+#define XLOADER_ECDSA_P384_KEYSIZE		(48U)
+#define XLOADER_ECDSA_P521_KEYSIZE		(66U)
+#define XLOADER_ECDSA_MAX_KEYSIZE		XLOADER_ECDSA_P521_KEYSIZE
 
 #define XLOADER_SECURE_HDR_SIZE			(48U)/**< Secure Header Size in Bytes*/
 #define XLOADER_SECURE_GCM_TAG_SIZE		(16U) /**< GCM Tag Size in Bytes */
