@@ -588,6 +588,8 @@ static int XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 	int Status = XST_FAILURE;
 	XPm_Device *Aie = NULL;
 	u32 IntrClear = 0x0U;
+	u32 IdCode = XPm_GetIdCode();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
 
 	Aie = XPmDevice_GetById(AieDeviceId);
 	if (NULL == Aie) {
@@ -597,8 +599,8 @@ static int XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 
 	/* Only needed for S80 ES1 devices */
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) &&
-	    (PMC_TAP_IDCODE_DEV_SBFMLY_S80 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_S80 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		/* Check whether given subsystem has access to the device */
 		Status = XPm_IsAccessAllowed(SubsystemId, AieDeviceId);
 		if (XST_SUCCESS != Status) {
