@@ -5,6 +5,7 @@
 
 
 #include "xpm_bisr.h"
+#include "xpm_notifier.h"
 #include "xpm_power.h"
 #include "xpm_regs.h"
 #include "xpm_powerdomain.h"
@@ -437,6 +438,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				/* Todo: Read PSM status register */
 				if (TRUE /* Hack: Power node is up */) {
 					Node->State = (u8)XPM_POWER_STATE_ON;
+					XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 					Power->UseCount++;
 				} else {
 					/* Todo: Restart timer to poll PSM */
@@ -491,6 +493,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 						Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 					} else {
 						Node->State = (u8)XPM_POWER_STATE_OFF;
+						XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 					}
 				} else {
 					/* Todo: Restart timer to poll PSM */
@@ -503,6 +506,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
 					Node->State = (u8)XPM_POWER_STATE_OFF;
 					Power->WfParentUseCnt = 0;
+					XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 				} else {
 					/* Todo: Restart timer to poll parent state */
 				}
