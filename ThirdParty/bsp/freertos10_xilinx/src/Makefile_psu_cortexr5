@@ -32,6 +32,9 @@
 # Processor architecture
 # ps7_cortexa9
 #
+
+DRIVER_LIB_VERSION = v1.0
+
 ARCH = psu_cortexr5
 
 SYSTEMDIR = ../../..
@@ -78,38 +81,56 @@ INCLUDEFILES =	${TOPDIR}/*.h
 INCLUDES = -I$(INCLUDEDIR) \
 	-I${TOPDIR}
 
-KERNEL_AR_OBJS = *.c *.S
+SRCFILES:=$(wildcard *.c)
+
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 
 STANDALONE_VERSION = $(wildcard ../../standalone*)
 
-libs:	$(KERNEL_AR_OBJS)
+libs: $(LIBFREERTOS) standalone_lib
+
+$(LIBFREERTOS): $(OBJECTS) $(ASSEMBLY_OBJECTS)
+	@$(ARCHIVER) -r ${LIBFREERTOS} $^
+
+
+standalone_lib:
 	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src libs
-	@echo "Compiling FreeRTOS"
-	@$(COMPILER) $(COMPILER_FLAGS) $(CC_FLAG) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $^
-	@$(ARCHIVER) -r ${LIBFREERTOS} ${OBJECTS}
-	@$(ARCHIVER) -r ${LIBFREERTOS} ${ASSEMBLY_OBJECTS}
-	@$(ARCHIVER) -d ${LIBXIL} asm_vectors.o
-	@$(ARCHIVER) -s ${LIBXIL}
 
-	make clean
+DEPFILES := $(SRCFILES:%.c=%.d)
+
+include $(wildcard $(DEPFILES))
+
+ASSEMBLY_DEPFILES := $(ASSEMBLY_SRCFILES:%.S=%.d)
+
+include $(wildcard $(ASSEMBLY_DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+%.o: %.S
+	@$(COMPILER) $(COMPILER_FLAGS) $(CC_FLAG) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
 
 
+%.o: %.c
+	@$(COMPILER) $(COMPILER_FLAGS) $(CC_FLAG) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
 
+.PHONY: include
+include: freertos_include include_standalone
 
 include_standalone:
 	@echo "includes"
 	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src include
-	$(CP) -rf $(INCLUDEFILES) $(INCLUDEDIR)
 
+freertos_include: $(addprefix $(INCLUDEDIR)/,$(wildcard *.h))
 
-.PHONY: include
-include:
-	@echo "include"
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src include
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)/%.h: %.h
+	$(CP) $< $@
 
 clean:
+	$(MAKE) -f Makefile_depends -C ${STANDALONE_VERSION}/src -s clean
+	rm -rf $(LIBFREERTOS)
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
+	rm -rf $(ASSEMBLY_DEPFILES)

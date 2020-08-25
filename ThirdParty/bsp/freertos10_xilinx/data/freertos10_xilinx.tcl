@@ -162,7 +162,9 @@ proc generate {os_handle} {
 				}
 
 				foreach entry [glob -nocomplain [file join $armr5gccdir *]] {
-					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+					if { [string first "asm_vectors" $entry] == -1} {
+						file copy -force $entry [file join ".." "${standalone_version}" "src"]
+					}
 				}
 
 				file copy -force $includedir "../${standalone_version}/src/"
@@ -219,7 +221,9 @@ proc generate {os_handle} {
 				}
 
 				foreach entry [glob -nocomplain [file join $arma5364gccdir *]] {
-					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+					if { [string first "asm_vectors" $entry] == -1} {
+						file copy -force $entry [file join ".." "${standalone_version}" "src"]
+					}
 				}
 
 				if { $proctype == "psu_cortexa53" } {
@@ -269,7 +273,9 @@ proc generate {os_handle} {
 				}
 
 				foreach entry [glob -nocomplain -types f [file join $arma9gccdir *]] {
-					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+					if { [string first "asm_vectors" $entry] == -1} {
+						file copy -force $entry [file join ".." "${standalone_version}" "src"]
+					}
 				}
 
 				set need_config_file "true"
