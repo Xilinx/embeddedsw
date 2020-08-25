@@ -27,7 +27,7 @@ static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 static u32 PsmApuPwrState;
 
-static const char *PmInitFunctions[] = {
+static const char *PmInitFunctions[FUNC_MAX_COUNT_PMINIT] = {
 	[FUNC_INIT_START]		= "INIT_START",
 	[FUNC_INIT_FINISH]		= "INIT_FINISH",
 	[FUNC_SCAN_CLEAR]		= "SCAN_CLEAR",
