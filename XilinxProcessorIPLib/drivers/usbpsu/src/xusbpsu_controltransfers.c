@@ -119,8 +119,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		if (Dir == XUSBPSU_EP_DIR_IN) {
 			Ept->BytesTxed = Ept->RequestedBytes - Length;
 		} else {
-			if ((Dir == XUSBPSU_EP_DIR_OUT) &&
-				 (Ept->UnalignedTx == 1U)) {
+			if (Ept->UnalignedTx == 1U) {
 				Ept->BytesTxed = Ept->RequestedBytes;
 				Ept->UnalignedTx = 0U;
 			}
@@ -135,7 +134,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		}
 	}
 
-	if (Ept->Handler) {
+	if (Ept->Handler != NULL) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes,
 							 Ept->BytesTxed);
 	}
