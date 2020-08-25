@@ -176,7 +176,7 @@ s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
 				XUARTPSV_UARTICR_OFFSET,
 				XUARTPSV_UARTIMSC_MASK);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 
 	return Status;
@@ -438,8 +438,8 @@ u32 XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr)
 ******************************************************************************/
 s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 {
-	u32 BAUDIDIV_Value;	/* Value for integer baud rate divisor */
-	u16 BAUDFDIV_Value;	/* Value for fractional baud rate divisor */
+	u16 BAUDIDIV_Value;	/* Value for integer baud rate divisor */
+	u8 BAUDFDIV_Value;	/* Value for fractional baud rate divisor */
 	u32 BAUDDIV_Value;
 	u32 CalcBaudRate;	/* Calculated baud rate */
 	u32 BaudError;		/* Diff between calculated and requested
@@ -465,7 +465,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	 * Fastest possible baud rate is Input Clock / 16.
 	 */
 	if ((BaudRate * 16) > InstancePtr->Config.InputClockHz) {
-		return XST_UART_BAUD_ERROR;
+		return (s32)XST_UART_BAUD_ERROR;
 	}
 
 	InputClk = InstancePtr->Config.InputClockHz;
@@ -478,8 +478,8 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	 */
 
 	/* Calculate the baud divisor integer value */
-	BAUDIDIV_Value = InputClk / (BaudRate * 16);
-	BAUDFDIV_Value = InputClk % (BaudRate * 16);
+	BAUDIDIV_Value = (u16)(InputClk / (BaudRate * 16));
+	BAUDFDIV_Value = (u8)(InputClk % (BaudRate * 16));
 
 	Best_BAUDIDIV = BAUDIDIV_Value;
 	Best_BAUDFDIV = BAUDFDIV_Value;
@@ -527,7 +527,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 		/* Make sure the best error is not too large. */
 		PercentError = (Best_Error * 100) / BaudRate;
 		if (XUARTPSV_MAX_BAUD_ERROR_RATE < PercentError) {
-			return XST_UART_BAUD_ERROR;
+			return (s32)XST_UART_BAUD_ERROR;
 		}
 	}
 
@@ -551,7 +551,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	XUartPsv_EnableUart(InstancePtr);
 	InstancePtr->BaudRate = BaudRate;
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
