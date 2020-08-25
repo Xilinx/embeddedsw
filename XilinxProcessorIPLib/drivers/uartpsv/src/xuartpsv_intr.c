@@ -29,6 +29,7 @@
 /***************************** Include Files *********************************/
 
 #include "xuartpsv.h"
+#include "xuartpsv_xfer.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -42,11 +43,6 @@ static void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr);
 static void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr);
 static void XUartPsv_SendDataHandler(XUartPsv *InstancePtr);
 static void XUartPsv_ModemHandler(XUartPsv *InstancePtr);
-
-
-/* Internal function prototypes implemented in xuartpsv.c */
-extern u32 XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr);
-extern u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 

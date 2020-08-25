@@ -30,6 +30,7 @@
 
 #include "xstatus.h"
 #include "xuartpsv.h"
+#include "xuartpsv_xfer.h"
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
@@ -49,10 +50,6 @@
 /************************** Function Prototypes ******************************/
 
 static void XUartPsv_StubHandler(void *CallBackRef, u32 Event, u32 ByteCount);
-
-u32  XUartPsv_SendBuffer(XUartPsv *InstancePtr);
-
-u32  XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
