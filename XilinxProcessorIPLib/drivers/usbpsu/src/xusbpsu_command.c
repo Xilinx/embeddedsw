@@ -130,7 +130,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		Ept->EpStatus |= XUSBPSU_EP_ENABLED;
 
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-		RegVal |= XUSBPSU_DALEPENA_EP(Ept->PhyEpNum);
+		RegVal |= (u32)(XUSBPSU_DALEPENA_EP(Ept->PhyEpNum));
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
 
 		/* Following code is only applicable for ISO XFER */
@@ -192,7 +192,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	}
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
-	RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
+	RegVal &= ~((u32)XUSBPSU_DALEPENA_EP(PhyEpNum));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
 
 	Ept->Type = 0U;

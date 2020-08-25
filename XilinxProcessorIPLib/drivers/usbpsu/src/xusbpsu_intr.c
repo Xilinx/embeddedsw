@@ -118,7 +118,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_ClearStallAllEp(InstancePtr);
 
 	for (Index = 0U; Index <
-			(InstancePtr->NumInEps + InstancePtr->NumOutEps);
+		(u32)(InstancePtr->NumInEps + InstancePtr->NumOutEps);
 			Index++)
 	{
 		InstancePtr->eps[Index].EpStatus = 0U;
@@ -128,7 +128,7 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 
 	/* Reset device address to zero */
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
-	RegVal &= ~(XUSBPSU_DCFG_DEVADDR_MASK);
+	RegVal &= ~((u32)XUSBPSU_DCFG_DEVADDR_MASK);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
 
 	/* Call the handler if necessary */
