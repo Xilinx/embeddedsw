@@ -116,7 +116,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		XLoader_Printf(DEBUG_INFO, "GIGADEVICE");
 	}
 	else if (ReadBuffer[0U] == ISSI_OCTAL_ID_BYTE0) {
-		OspiFlashMake = GIGADEVICE_OCTAL_ID_BYTE0;
+		OspiFlashMake = ISSI_OCTAL_ID_BYTE0;
 		XLoader_Printf(DEBUG_INFO, "ISSI");
 	}
 	else {
@@ -128,7 +128,25 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	/*
 	 * Deduce flash Size
 	 */
-	if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_256M) {
+	if (OspiFlashMake == MICRON_OCTAL_ID_BYTE0) {
+		if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_512) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_512M;
+		}
+		else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_1G) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_1G;
+		}
+		else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_2G) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_2G;
+		}
+		else {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, 0);
+			XLoader_Printf(DEBUG_GENERAL,
+				"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
+			goto END;
+		}
+	}
+	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_256M) {
 		OspiFlashSize = XLOADER_FLASH_SIZE_256M;
 	}
 	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_512M) {
@@ -141,8 +159,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		OspiFlashSize = XLOADER_FLASH_SIZE_2G;
 	}
 	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE,
-					0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, 0);
 		XLoader_Printf(DEBUG_GENERAL,
 			"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
 		goto END;
