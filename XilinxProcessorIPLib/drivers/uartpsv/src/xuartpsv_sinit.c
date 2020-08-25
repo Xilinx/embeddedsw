@@ -37,7 +37,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
-extern XUartPsv_Config XUartPsv_ConfigTable[XPAR_XUARTPSV_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 

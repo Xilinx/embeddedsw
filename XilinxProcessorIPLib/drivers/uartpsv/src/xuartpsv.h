@@ -291,6 +291,8 @@ typedef struct {
 	void *CallBackRef;			/**< Callback reference for event handler */
 } XUartPsv;
 
+/************************** Variable Definitions *****************************/
+extern XUartPsv_Config XUartPsv_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
