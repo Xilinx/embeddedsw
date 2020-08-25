@@ -1425,10 +1425,12 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
 	PdiSrc_t PdiSrc;
-	u32 UPdiSrc;
 	u32 PdiAddr;
 	u32 SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTbl)) >>
 				XIH_IHT_ATTR_SBD_SHIFT;
+#if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
+	u32 UPdiSrc;
+#endif
 
 	if ((SecBootMode == XIH_IHT_ATTR_SBD_SAME) ||
 		((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
