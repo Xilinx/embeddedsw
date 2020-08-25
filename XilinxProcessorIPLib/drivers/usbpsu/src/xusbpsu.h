@@ -182,8 +182,8 @@ extern "C" {
 
 #define XUSBPSU_EVENT_SIZE			4U       /* bytes */
 #define XUSBPSU_EVENT_MAX_NUM			64U      /* 2 events/endpoint */
-#define XUSBPSU_EVENT_BUFFERS_SIZE		(XUSBPSU_EVENT_SIZE * \
-							XUSBPSU_EVENT_MAX_NUM)
+/* (event size * maximum number of event) */
+#define XUSBPSU_EVENT_BUFFERS_SIZE		256U
 
 #define XUSBPSU_EVENT_TYPE_MASK                 0x000000feU
 

@@ -404,7 +404,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	 * fixed non-multiple of MaxPacketSize transfer from the Host.
 	 */
 	if (!IS_ALIGNED(Length, Ept->MaxSize)) {
-		Size = (u32)roundup(Length, (u16)Ept->MaxSize);
+		Size = (u32)roundup(Length, (u32)Ept->MaxSize);
 		Ept->UnalignedTx = 1U;
 	}
 
@@ -705,7 +705,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 			if (Ept->UnalignedTx == 1U) {
 				Ept->BytesTxed = (u32)roundup(
 							Ept->RequestedBytes,
-							(u16)Ept->MaxSize);
+							(u32)Ept->MaxSize);
 				Ept->BytesTxed -= Length;
 				Ept->UnalignedTx = 0U;
 			} else {
