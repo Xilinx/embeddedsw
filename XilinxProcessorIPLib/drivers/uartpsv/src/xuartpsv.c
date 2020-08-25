@@ -93,7 +93,7 @@ static void XUartPsv_StubHandler(void *CallBackRef, u32 Event, u32 ByteCount);
 *
 ******************************************************************************/
 s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
-			XUartPsv_Config * Config, u32 EffectiveAddr)
+			XUartPsv_Config * Config, UINTPTR EffectiveAddr)
 {
 	s32 Status;
 	u32 LineCtrlRegister;
@@ -498,7 +498,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 			 * Multiply BAUDDIV_Value with 64 to avoid
 			 * fractional values
 			 */
-			BAUDDIV_Value = (64U * BAUDIDIV_Value)+BAUDFDIV_Value;
+			BAUDDIV_Value = (64U * (u32)BAUDIDIV_Value)+BAUDFDIV_Value;
 
 			/*
 			 * Calculate the baud rate with BAUDDIV_Value divided
