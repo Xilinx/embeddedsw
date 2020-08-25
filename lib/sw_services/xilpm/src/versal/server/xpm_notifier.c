@@ -189,7 +189,7 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 
 		Notifier = &PmNotifiers[Idx];
 
-		if ((NULL == Notifier) || (NULL == PmRequestCb)) {
+		if (NULL == PmRequestCb) {
 			goto done;
 		}
 
