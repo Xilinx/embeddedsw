@@ -2,6 +2,7 @@
 # Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 include config.make
 
@@ -17,41 +18,42 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
 
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=*.h
 
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-OBJECTS +=	$(addsuffix .o, $(basename $(wildcard *.s)))
-#OBJECTS +=	boot.o
+SRCFILES:=$(wildcard *.c)
 
-libs: banner $(LIBS) clean
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
 
-#boot.s: boot.S
-#	${COMPILER} $(INCLUDES) -E -o $@ $<
-#	rm -f boot.S
+OBJECTS =	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.c))))
+ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.S))))
 
-%.o: %.s
+
+libs: $(LIBS)
+standalone_libs: ${OBJECTS} ${ASSEMBLY_OBJECTS}
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(RELEASEDIR)%.o: %.s
 	${AS} --cpu Cortex-R5 --fpu VFPv3_D16 $(INCLUDES) -o $@ $<
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
-
-banner:
-	echo "Compiling standalone"
-	echo "${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<"
-
-standalone_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
 
 .PHONY: include
-include: standalone_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
-standalone_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf ${ASSEMBLY_OBJECTS}
+	rm -rf $(DEPFILES)
