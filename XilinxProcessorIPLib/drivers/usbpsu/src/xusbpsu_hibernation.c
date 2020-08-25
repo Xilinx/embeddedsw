@@ -139,24 +139,31 @@ static void XUsbPsu_RestoreRegs(struct XUsbPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
 * 		on.
 *
-* @return	none
+* @return	XST_SUCCESS else XST_FAILURE.
 *
 * @note		None.
 *
 ******************************************************************************/
-void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 {
 	u32		RegVal;
+	void		*RetPtr;
 
 	InstancePtr->IsHibernated = 0U;
 
-	memset(ScratchBuf, 0x0, sizeof(ScratchBuf));
+	RetPtr = memset(ScratchBuf, 0x0, sizeof(ScratchBuf));
+	if (RetPtr == NULL) {
+		return (s32)XST_FAILURE;
+	}
+
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)ScratchBuf,
 					XUSBPSU_HIBER_SCRATCHBUF_SIZE);
 	}
 
-	XUsbPsu_SetupScratchpad(InstancePtr, ScratchBuf);
+	if (XUsbPsu_SetupScratchpad(InstancePtr, ScratchBuf) == XST_FAILURE) {
+		return (s32)XST_FAILURE;
+	}
 
 	/* enable PHY suspend */
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
@@ -166,6 +173,7 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
 	RegVal |= XUSBPSU_GUSB3PIPECTL_SUSPHY;
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -175,17 +183,18 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
 * 		on.
 *
-* @return	none
+* @return	XST_SUCCESS else XST_FAILURE.
 *
 * @note		None.
 *
 ******************************************************************************/
-void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 {
 	u8 EpNum;
 	u32 RegVal;
 	u32 Retries;
 	XusbPsuLinkState LinkState;
+	s32 RetVal;
 #if defined (versal)
 	u8 MaskPhyBit = 0x00U;
 #endif
@@ -198,13 +207,18 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 #ifdef XUSBPSU_DEBUG
 		xil_printf("got fake interrupt\r\n");
 #endif
-		return;
+		return (s32)XST_FAILURE;
 	}
 
 	if (InstancePtr->Ep0State == XUSBPSU_EP0_SETUP_PHASE) {
 		XUsbPsu_StopTransfer(InstancePtr, 0U,
 					XUSBPSU_EP_DIR_OUT, (u8)TRUE);
-		XUsbPsu_RecvSetup(InstancePtr);
+		RetVal = XUsbPsu_RecvSetup(InstancePtr);
+		if (RetVal == XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
+		xil_printf("Endpoint status busy\r\n");
+#endif
+		}
 	}
 
 	/* stop active transfers for all endpoints including control
@@ -218,7 +232,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 			continue;
 		}
 
-		/* save srsource index for later use */
+		/* stop transfer and save resources index for later use */
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, (u8)FALSE);
 
@@ -235,8 +249,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	InstancePtr->Evt.Flags &= ~XUSBPSU_EVENT_PENDING;
 
 	if (XUsbPsu_Stop(InstancePtr) == XST_FAILURE) {
-		xil_printf("Failed to stop USB core\r\n");
-		return;
+		return (s32)XST_FAILURE;
 	}
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
@@ -263,8 +276,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
 		XUSBPSU_DSTS_SSS, XUSBPSU_NON_STICKY_SAVE_RETRIES) ==
 							XST_FAILURE) {
-		xil_printf("Failed to save core state\r\n");
-		return;
+		return (s32)XST_FAILURE;
 	}
 
 #if defined (PLATFORM_ZYNQMP)
@@ -302,7 +314,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 	if (Retries == 0U) {
 		xil_printf("Failed to change power state to D3\r\n");
-		return;
+		return (s32)XST_FAILURE;
 	}
 	XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
 
@@ -313,7 +325,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
-		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | USB0_CORE_RST);
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | (u32)USB0_CORE_RST);
 	}
 
 #if defined (XCLOCKING)
@@ -325,6 +337,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 	InstancePtr->IsHibernated = 1U;
 	xil_printf("Hibernated!\r\n");
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -334,7 +347,7 @@ void XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
 * 			on.
 *
-* @return	none
+* @return	XST_SUCCESS else XST_FAILURE.
 *
 * @note		None.
 *
@@ -343,7 +356,9 @@ s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal;
 
-	XUsbPsu_SetupScratchpad(InstancePtr, ScratchBuf);
+	if (XUsbPsu_SetupScratchpad(InstancePtr, ScratchBuf) == XST_FAILURE) {
+		return (s32)XST_FAILURE;
+	}
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 	RegVal |= XUSBPSU_DCTL_CRS;
@@ -353,7 +368,6 @@ s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr)
 	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
 			XUSBPSU_DSTS_RSS, XUSBPSU_NON_STICKY_SAVE_RETRIES) ==
 							XST_FAILURE) {
-		xil_printf("Failed to restore USB core\r\n");
 		return (s32)XST_FAILURE;
 	}
 
@@ -369,7 +383,6 @@ s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr)
 	}
 
 	if (XUsbPsu_RestoreEp0(InstancePtr) == XST_FAILURE) {
-		xil_printf("Failed to restore EP0\r\n");
 		return (s32)XST_FAILURE;
 	}
 

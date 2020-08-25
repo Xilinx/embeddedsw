@@ -84,6 +84,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 {
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_Trb *TrbStHw, *TrbLink;
+	void *RetPtr;
 	u32 RegVal;
 	u32 PhyEpNum;
 
@@ -139,7 +140,10 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		/* Link TRB. The HWO bit is never reset */
 		TrbLink = &Ept->EpTrb[NO_OF_TRB_PER_EP];
 
-		memset(TrbLink, 0x0, sizeof(struct XUsbPsu_Trb));
+		RetPtr = memset(TrbLink, 0x0, sizeof(struct XUsbPsu_Trb));
+		if (RetPtr == NULL) {
+			return (s32)XST_FAILURE;
+		}
 
 		TrbLink->BufferPtrLow = (UINTPTR)TrbStHw;
 		TrbLink->BufferPtrHigh = ((UINTPTR)TrbStHw >> 16U) >> 16U;

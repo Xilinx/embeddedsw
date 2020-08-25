@@ -523,7 +523,12 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 	XUsbPsu_Sleep(XUSBPSU_TIMEOUT * 10U);
 
 	/* Processes link state events for hibernation */
-	XUsbPsu_HibernationStateIntr(InstancePtr);
+	if (XUsbPsu_HibernationStateIntr(InstancePtr) == XST_FAILURE) {
+#ifdef XUSBPSU_DEBUG
+		xil_printf("link state event failure\r\n");
+#endif
+
+	}
 
 }
 

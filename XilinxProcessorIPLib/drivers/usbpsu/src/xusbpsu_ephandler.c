@@ -158,8 +158,9 @@ void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
 	struct XUsbPsu_EpParams *Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
-	XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
-					XUSBPSU_DEPCMD_GETEPSTATE, Params);
+	if (XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
+			XUSBPSU_DEPCMD_GETEPSTATE, Params) == XST_FAILURE) {
+	}
 	Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr,
 				 XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
 }
