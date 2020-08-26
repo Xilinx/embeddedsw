@@ -43,6 +43,7 @@
 *		       backward compatibility.
 * 9.2   vak  15/04/16  Fixed the compilation warnings in axidma driver
 * 9.7   rsp  01/11/18  Use UINTPTR instead of u32 for ChanBase CR#976392
+* 9.12  vak  08/21/20  Update the code to add LIBMETAL APIs support.
 *
 * </pre>
 *
@@ -56,10 +57,18 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
+#ifdef __BAREMETAL__
 #include "xstatus.h"
+#else
+#include "xaxidma_status.h"
+#endif
+
 #include "xaxidma_bd.h"
 #include <stdlib.h>
+
+#ifndef __BAREMETAL__
+#include "xaxidma_linux.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 /* State of a DMA channel
@@ -89,6 +98,7 @@ typedef struct {
 	int Addr_ext;
 	u32 MaxTransferLen;
 
+	void *InstancePtr;
 	UINTPTR FirstBdPhysAddr;	/**< Physical address of 1st BD in list */
 	UINTPTR FirstBdAddr;	/**< Virtual address of 1st BD in list */
 	UINTPTR LastBdAddr;		/**< Virtual address of last BD in the list */
@@ -193,7 +203,6 @@ typedef struct {
 *****************************************************************************/
 #define XAxiDma_BdRingGetFreeCnt(RingPtr)  ((RingPtr)->FreeCnt)
 
-
 /****************************************************************************/
 /**
 * Snap shot the latest BD a BD ring is processing.
@@ -234,6 +243,47 @@ typedef struct {
 
 /****************************************************************************/
 /**
+* Snap shot the latest BD a BD ring is processing.
+*
+* @param	RingPtr is the BD ring to operate on.
+*
+* @return	None
+*
+* @note
+*		C-style signature:
+*		void XAxiDma_InstBdRingSnapShotCurrBd(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingSnapShotCurrBd(RingPtr)		  \
+	{								  \
+		if (!RingPtr->IsRxChannel) {				  \
+			(RingPtr)->BdaRestart = 			  \
+				(XAxiDma_Bd *)(UINTPTR)XAxiDma_InstReadReg(		  \
+					(XAxiDma *)((RingPtr)->InstancePtr),			\
+					(RingPtr)->ChanBase,  		  \
+					XAXIDMA_CDESC_OFFSET);		  \
+		} else {						  \
+			if (!RingPtr->RingIndex) {				  \
+				(RingPtr)->BdaRestart = 		  \
+				(XAxiDma_Bd *)(UINTPTR)XAxiDma_InstReadReg(            \
+					(XAxiDma *)((RingPtr)->InstancePtr),			\
+					(RingPtr)->ChanBase, 		  \
+					XAXIDMA_CDESC_OFFSET);		  \
+			} else {					  \
+				(RingPtr)->BdaRestart = 		  \
+				(XAxiDma_Bd *)(UINTPTR)XAxiDma_InstReadReg( 		  \
+				(XAxiDma *)((RingPtr)->InstancePtr),				\
+				(RingPtr)->ChanBase,                      \
+				(XAXIDMA_RX_CDESC0_OFFSET +		  \
+                                (RingPtr->RingIndex - 1) * 		  \
+					XAXIDMA_RX_NDESC_OFFSET)); 	  \
+			}						  \
+		}							  \
+	}
+
+/****************************************************************************/
+/**
 * Get the BD a BD ring is processing.
 *
 * @param	RingPtr is the BD ring to operate on.
@@ -249,6 +299,25 @@ typedef struct {
 #define XAxiDma_BdRingGetCurrBd(RingPtr)               \
 	(XAxiDma_Bd *)XAxiDma_ReadReg((RingPtr)->ChanBase, \
 					XAXIDMA_CDESC_OFFSET)              \
+
+/****************************************************************************/
+/**
+* Get the BD a BD ring is processing.
+*
+* @param	RingPtr is the BD ring to operate on.
+*
+* @return	The current BD that the BD ring is working on
+*
+* @note
+*		C-style signature:
+*		XAxiDma_Bd * XAxiDma_InstBdRingGetCurrBd(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingGetCurrBd(RingPtr)               \
+	(XAxiDma_Bd *)XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, \
+					XAXIDMA_CDESC_OFFSET)              \
+
 
 /****************************************************************************/
 /**
@@ -311,6 +380,23 @@ typedef struct {
 
 /****************************************************************************/
 /**
+* Retrieve the contents of the channel status register
+*
+* @param	RingPtr is the channel instance to operate on.
+*
+* @return	Current contents of status register
+*
+* @note
+*		C-style signature:
+*		u32 XAxiDma_InstBdRingGetSr(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingGetSr(RingPtr)				\
+		XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_SR_OFFSET)
+
+/****************************************************************************/
+/**
 * Get error bits of a DMA channel
 *
 * @param	RingPtr is the channel instance to operate on.
@@ -330,6 +416,25 @@ typedef struct {
 
 /****************************************************************************/
 /**
+* Get error bits of a DMA channel
+*
+* @param	RingPtr is the channel instance to operate on.
+*
+* @return	Rrror bits in the status register, they should be interpreted
+*		with XAXIDMA_ERR_*_MASK defined in xaxidma_hw.h
+*
+* @note
+*		C-style signature:
+*		u32 XAxiDma_InstBdRingGetError(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingGetError(RingPtr)				\
+		(XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+			& XAXIDMA_ERR_ALL_MASK)
+
+/****************************************************************************/
+/**
 * Check whether a DMA channel is started, meaning the channel is not halted.
 *
 * @param	RingPtr is the channel instance to operate on.
@@ -345,6 +450,25 @@ typedef struct {
 *****************************************************************************/
 #define XAxiDma_BdRingHwIsStarted(RingPtr)				\
 		((XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+			& XAXIDMA_HALTED_MASK) ? FALSE : TRUE)
+
+/****************************************************************************/
+/**
+* Check whether a DMA channel is started, meaning the channel is not halted.
+*
+* @param	RingPtr is the channel instance to operate on.
+*
+* @return
+*		- 1 if channel is started
+*		- 0 otherwise
+*
+* @note
+*		C-style signature:
+*		int XAxiDma_InstBdRingHwIsStarted(XAxiDma_BdRing* RingPtr)
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingHwIsStarted(RingPtr)				\
+		((XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
 			& XAXIDMA_HALTED_MASK) ? FALSE : TRUE)
 
 /****************************************************************************/
@@ -370,6 +494,27 @@ typedef struct {
 
 /****************************************************************************/
 /**
+* Check if the current DMA channel is busy with a DMA operation.
+*
+* @param	RingPtr is the channel instance to operate on.
+*
+* @return
+*		- 1 if the DMA is busy.
+*		- 0 otherwise
+*
+* @note
+*		C-style signature:
+*		int XAxiDma_InstBdRingBusy(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingBusy(RingPtr)					 \
+		(XAxiDma_InstBdRingHwIsStarted(RingPtr) &&		\
+		((XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+			& XAXIDMA_IDLE_MASK) ? FALSE : TRUE))
+
+/****************************************************************************/
+/**
 * Set interrupt enable bits for a channel. This operation will modify the
 * XAXIDMA_CR_OFFSET register.
 *
@@ -390,6 +535,26 @@ typedef struct {
 
 /****************************************************************************/
 /**
+* Set interrupt enable bits for a channel. This operation will modify the
+* XAXIDMA_CR_OFFSET register.
+*
+* @param	RingPtr is the channel instance to operate on.
+* @param	Mask consists of the interrupt signals to enable.Bits not
+*		specified in the mask are not affected.
+*
+* @note
+*		C-style signature:
+*		void XAxiDma_InstBdRingIntEnable(XAxiDma_BdRing* RingPtr, u32 Mask)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingIntEnable(RingPtr, Mask)			\
+		(XAxiDma_InstWriteReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_CR_OFFSET, \
+		XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) \
+			| ((Mask) & XAXIDMA_IRQ_ALL_MASK)))
+
+/****************************************************************************/
+/**
 * Get enabled interrupts of a channel. It is in XAXIDMA_CR_OFFSET register.
 *
 * @param	RingPtr is the channel instance to operate on.
@@ -404,6 +569,24 @@ typedef struct {
 *****************************************************************************/
 #define XAxiDma_BdRingIntGetEnabled(RingPtr)				\
 	(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) \
+		& XAXIDMA_IRQ_ALL_MASK)
+
+/****************************************************************************/
+/**
+* Get enabled interrupts of a channel. It is in XAXIDMA_CR_OFFSET register.
+*
+* @param	RingPtr is the channel instance to operate on.
+* @return	Enabled interrupts of a channel. Use XAXIDMA_IRQ_* defined in
+*		xaxidma_hw.h to interpret this returned value.
+*
+* @note
+*		C-style signature:
+*		u32 XAxiDma_InstBdRingIntGetEnabled(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingIntGetEnabled(RingPtr)				\
+	(XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) \
 		& XAXIDMA_IRQ_ALL_MASK)
 
 /****************************************************************************/
@@ -429,6 +612,27 @@ typedef struct {
 
 /****************************************************************************/
 /**
+* Clear interrupt enable bits for a channel. It modifies the
+* XAXIDMA_CR_OFFSET register.
+*
+* @param	RingPtr is the channel instance to operate on.
+* @param	Mask consists of the interrupt signals to disable.Bits not
+*		specified in the Mask are not affected.
+*
+* @note
+*		C-style signature:
+*		void XAxiDma_InstBdRingIntDisable(XAxiDma_BdRing* RingPtr,
+*								u32 Mask)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingIntDisable(RingPtr, Mask)				\
+		(XAxiDma_InstWriteReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_CR_OFFSET, \
+		XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) & \
+			~((Mask) & XAXIDMA_IRQ_ALL_MASK)))
+
+/****************************************************************************/
+/**
 * Retrieve the contents of the channel's IRQ register XAXIDMA_SR_OFFSET. This
 * operation can be used to see which interrupts are pending.
 *
@@ -450,6 +654,27 @@ typedef struct {
 
 /****************************************************************************/
 /**
+* Retrieve the contents of the channel's IRQ register XAXIDMA_SR_OFFSET. This
+* operation can be used to see which interrupts are pending.
+*
+* @param	RingPtr is the channel instance to operate on.
+*
+* @return	Current contents of the IRQ_OFFSET register. Use
+*		XAXIDMA_IRQ_*** values defined in xaxidma_hw.h to interpret
+*		the returned value.
+*
+* @note
+*		C-style signature:
+*		u32 XAxiDma_InstBdRingGetIrq(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingGetIrq(RingPtr)				\
+		(XAxiDma_InstReadReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+			& XAXIDMA_IRQ_ALL_MASK)
+
+/****************************************************************************/
+/**
 * Acknowledge asserted interrupts. It modifies XAXIDMA_SR_OFFSET register.
 * A mask bit set for an unasserted interrupt has no effect.
 *
@@ -464,6 +689,24 @@ typedef struct {
 *****************************************************************************/
 #define XAxiDma_BdRingAckIrq(RingPtr, Mask)				\
 		XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET,\
+			(Mask) & XAXIDMA_IRQ_ALL_MASK)
+
+/****************************************************************************/
+/**
+* Acknowledge asserted interrupts. It modifies XAXIDMA_SR_OFFSET register.
+* A mask bit set for an unasserted interrupt has no effect.
+*
+* @param 	RingPtr is the channel instance to operate on.
+* @param	Mask are the interrupt signals to acknowledge
+*
+* @note
+*		C-style signature:
+*		void XAxiDma_InstBdRingAckIrq(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_InstBdRingAckIrq(RingPtr, Mask)				\
+		XAxiDma_InstWriteReg((XAxiDma *)((RingPtr)->InstancePtr), (RingPtr)->ChanBase, XAXIDMA_SR_OFFSET,\
 			(Mask) & XAXIDMA_IRQ_ALL_MASK)
 
 /****************************************************************************/

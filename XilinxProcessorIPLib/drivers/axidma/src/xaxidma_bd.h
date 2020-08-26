@@ -76,6 +76,7 @@
  * 8.0   srt  01/29/14 Added support for Micro DMA Mode.
  * 9.2   vak  15/04/16 Fixed compilation warnings in axidma driver
  * 9.8   rsp  07/11/18 Fix cppcheck portability warnings. CR #1006164
+ * 9.12  vak  08/21/20 Update the code to add LIBMETAL APIs support.
  *
  * </pre>
  *****************************************************************************/
@@ -88,16 +89,21 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
 #include "xaxidma_hw.h"
-#include "xstatus.h"
 #include "xdebug.h"
+
+#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
+#include "xaxidma_status.h"
+#include "xaxidma_linux.h"
+#else
+#include "xstatus.h"
 #include "xil_cache.h"
 
 #ifdef __MICROBLAZE__
 #include "xenv.h"
 #else
 #include <string.h>
+#endif
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -117,6 +123,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
  * Define methods to flush and invalidate cache for BDs should they be
  * located in cached memory.
  *****************************************************************************/
+#ifdef __BAREMETAL__
 #ifdef __aarch64__
 #define XAXIDMA_CACHE_FLUSH(BdPtr)
 #define XAXIDMA_CACHE_INVALIDATE(BdPtr)
@@ -126,6 +133,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 #define XAXIDMA_CACHE_INVALIDATE(BdPtr) \
 	Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XAXIDMA_BD_HW_NUM_BYTES)
+#endif
+#else
+#define XAXIDMA_CACHE_FLUSH(BdPtr)
+#define XAXIDMA_CACHE_INVALIDATE(BdPtr)
 #endif
 
 /*****************************************************************************/

@@ -27,6 +27,7 @@
  *		       operations.
  * 9.7   rsp  04/24/18 Added support for 64MB data transfer.Instead of #define
  *                     read max buffer width from IP config.
+ * 9.12  vak  08/21/20 Update the code to add LIBMETAL APIs support.
  *
  * </pre>
  *
@@ -39,8 +40,16 @@
 extern "C" {
 #endif
 
+#if defined(__LIBMETAL__) && !defined( __BAREMETAL__)
+#include "xaxidma_linux.h"
+#else
 #include "xil_types.h"
 #include "xil_io.h"
+#endif
+
+#if defined( __LIBMETAL__ )
+#include <metal/io.h>
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -272,8 +281,13 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#if defined(__LIBMETAL__)
+#define XAxiDma_In32	metal_io_read32
+#define XAxiDma_Out32	metal_io_write32
+#else
 #define XAxiDma_In32	Xil_In32
 #define XAxiDma_Out32	Xil_Out32
+#endif
 
 /*****************************************************************************/
 /**
@@ -296,6 +310,30 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
+* Read the given register.
+*
+* @param	InstancePtr is the driver instance we are working on
+* @param	BaseAddress is the base address of the device
+* @param	RegOffset is the register offset to be read
+*
+* @return	The 32-bit value of the register
+*
+* @note
+*		C-style signature:
+*		u32 XAxiDma_InstReadReg(u32 BaseAddress, u32 RegOffset)
+*
+******************************************************************************/
+#if defined(__LIBMETAL__)
+#define XAxiDma_InstReadReg(InstancePtr, BaseAddress, RegOffset)             \
+    XAxiDma_In32((InstancePtr)->io, (((BaseAddress) + (RegOffset)) - (InstancePtr)->RegBase))
+#else
+#define XAxiDma_InstReadReg(InstancePtr, BaseAddress, RegOffset)             \
+    XAxiDma_In32(((BaseAddress) + (RegOffset)))
+#endif
+
+/*****************************************************************************/
+/**
+*
 * Write the given register.
 *
 * @param	BaseAddress is the base address of the device
@@ -312,6 +350,30 @@ extern "C" {
 #define XAxiDma_WriteReg(BaseAddress, RegOffset, Data)          \
     XAxiDma_Out32((BaseAddress) + (RegOffset), (Data))
 
+/*****************************************************************************/
+/**
+*
+* Write the given register.
+*
+* @param	InstancePtr is the driver instance we are working on
+* @param	BaseAddress is the base address of the device
+* @param	RegOffset is the register offset to be written
+* @param	Data is the 32-bit value to write to the register
+*
+* @return	None.
+*
+* @note
+*		C-style signature:
+*		void XAxiDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+*
+******************************************************************************/
+#if defined(__LIBMETAL__)
+#define XAxiDma_InstWriteReg(InstancePtr, BaseAddress, RegOffset, Data)          \
+    XAxiDma_Out32((InstancePtr)->io, (((BaseAddress) + (RegOffset)) - (InstancePtr)->RegBase), (Data))
+#else
+#define XAxiDma_InstWriteReg(InstancePtr, BaseAddress, RegOffset, Data)          \
+    XAxiDma_Out32(((BaseAddress) + (RegOffset)), (Data))
+#endif
 #ifdef __cplusplus
 }
 #endif

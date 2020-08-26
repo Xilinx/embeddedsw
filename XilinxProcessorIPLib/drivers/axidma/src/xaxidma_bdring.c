@@ -44,12 +44,14 @@
 *       rsp  01/17/18  Use virtual address for register read/write.
 *                      In _BdRingCreate() assign VA to BdaRestart CR#976392
 * 9.9   rsp  02/05/19  Fix XAxiDma_BdRingFromHw implementation for cyclic mode.
+* 9.12  vak  08/21/20  Update the code to add LIBMETAL APIs support.
 *
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
+#include "xaxidma.h"
 #include "xaxidma_bdring.h"
 
 /************************** Constant Definitions *****************************/
@@ -182,7 +184,7 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 		return XST_SUCCESS;
 	}
 
-	if (!XAxiDma_BdRingHwIsStarted(RingPtr)) {
+	if (!XAxiDma_InstBdRingHwIsStarted(RingPtr)) {
 		/* If hardware is not running, then we need to put a valid current
 		 * BD pointer to the current BD register before start the hardware
 		 */
@@ -196,32 +198,32 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 		if (!XAxiDma_BdHwCompleted(BdPtr)) {
 			if (RingPtr->IsRxChannel) {
 				if (!RingIndex) {
-					XAxiDma_WriteReg(RegBase,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 							 XAXIDMA_CDESC_OFFSET,
 							 (XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 					if (RingPtr->Addr_ext)
-						XAxiDma_WriteReg(RegBase,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 								 XAXIDMA_CDESC_MSB_OFFSET,
 								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 				}
 				else {
-					XAxiDma_WriteReg(RegBase,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 					(XAXIDMA_RX_CDESC0_OFFSET +
 					(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 					(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 					if (RingPtr->Addr_ext)
-						XAxiDma_WriteReg(RegBase,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 								 (XAXIDMA_RX_CDESC0_MSB_OFFSET +
 								 (RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 				}
 			}
 			else {
-				XAxiDma_WriteReg(RegBase,
+				XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 						 XAXIDMA_CDESC_OFFSET,
 						 (XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 				if (RingPtr->Addr_ext)
-					XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_CDESC_MSB_OFFSET,
 							 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 			}
 		}
@@ -241,31 +243,31 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 				if (!XAxiDma_BdHwCompleted(BdPtr)) {
 					if (RingPtr->IsRxChannel) {
 						if (!RingIndex) {
-							XAxiDma_WriteReg(RegBase,
+							XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 								XAXIDMA_CDESC_OFFSET,
 								(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 							if (RingPtr->Addr_ext)
-								XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
+								XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_CDESC_MSB_OFFSET,
 									UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 						}
 						else {
-							XAxiDma_WriteReg(RegBase,
+							XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 								(XAXIDMA_RX_CDESC0_OFFSET +
 								(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 								(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 							if (RingPtr->Addr_ext)
-								XAxiDma_WriteReg(RegBase,
+								XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 									(XAXIDMA_RX_CDESC0_MSB_OFFSET +
 									(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 									UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 						}
 					}
 					else {
-						XAxiDma_WriteReg(RegBase,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 								XAXIDMA_CDESC_OFFSET,
 								(XAXIDMA_VIRT_TO_PHYS(BdPtr) & XAXIDMA_DESC_LSB_MASK));
 						if (RingPtr->Addr_ext)
-							XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
+							XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_CDESC_MSB_OFFSET,
 									 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(BdPtr)));
 					}
 					break;
@@ -556,16 +558,16 @@ int XAxiDma_StartBdRingHw(XAxiDma_BdRing * RingPtr)
 	UINTPTR RegBase;
 	int RingIndex = RingPtr->RingIndex;
 
-	if (!XAxiDma_BdRingHwIsStarted(RingPtr)) {
+	if (!XAxiDma_InstBdRingHwIsStarted(RingPtr)) {
 		/* Start the hardware
 		*/
 		RegBase = RingPtr->ChanBase;
-		XAxiDma_WriteReg(RegBase, XAXIDMA_CR_OFFSET,
-			XAxiDma_ReadReg(RegBase, XAXIDMA_CR_OFFSET)
+		XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_CR_OFFSET,
+			XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_CR_OFFSET)
 			| XAXIDMA_CR_RUNSTOP_MASK);
 	}
 
-	if (XAxiDma_BdRingHwIsStarted(RingPtr)) {
+	if (XAxiDma_InstBdRingHwIsStarted(RingPtr)) {
 		/* Note as started */
 		RingPtr->RunState = AXIDMA_CHANNEL_NOT_HALTED;
 
@@ -576,11 +578,11 @@ int XAxiDma_StartBdRingHw(XAxiDma_BdRing * RingPtr)
 
 			XAXIDMA_CACHE_INVALIDATE(RingPtr->HwTail);
 			if (RingPtr->Cyclic) {
-				XAxiDma_WriteReg(RingPtr->ChanBase,
+				XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 						 XAXIDMA_TDESC_OFFSET,
 						 (u32)XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd));
 				if (RingPtr->Addr_ext)
-					XAxiDma_WriteReg(RingPtr->ChanBase,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							 XAXIDMA_TDESC_MSB_OFFSET,
 							 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd)));
 				return XST_SUCCESS;
@@ -591,29 +593,29 @@ int XAxiDma_StartBdRingHw(XAxiDma_BdRing * RingPtr)
 				XAXIDMA_BD_STS_COMPLETE_MASK) == 0) {
 				if (RingPtr->IsRxChannel) {
 					if (!RingIndex) {
-						XAxiDma_WriteReg(RingPtr->ChanBase,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
 						if (RingPtr->Addr_ext)
-							XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+							XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
 								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 					}
 					else {
-						XAxiDma_WriteReg(RingPtr->ChanBase,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							(XAXIDMA_RX_TDESC0_OFFSET +
 							(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 							(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK ));
 						if (RingPtr->Addr_ext)
-							XAxiDma_WriteReg(RingPtr->ChanBase,
+							XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 								(XAXIDMA_RX_TDESC0_MSB_OFFSET +
 								(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 								UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 					}
 				}
 				else {
-					XAxiDma_WriteReg(RingPtr->ChanBase,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
 					if (RingPtr->Addr_ext)
-						XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
 								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 				}
 			}
@@ -692,7 +694,7 @@ int XAxiDma_BdRingSetCoalesce(XAxiDma_BdRing *RingPtr, u32 Counter, u32 Timer)
 {
 	u32 Cr;
 
-	Cr = XAxiDma_ReadReg(RingPtr->ChanBase, XAXIDMA_CR_OFFSET);
+	Cr = XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase, XAXIDMA_CR_OFFSET);
 
 	if (Counter != XAXIDMA_NO_CHANGE) {
 		if ((Counter == 0) || (Counter > 0xFF)) {
@@ -719,7 +721,7 @@ int XAxiDma_BdRingSetCoalesce(XAxiDma_BdRing *RingPtr, u32 Counter, u32 Timer)
 			(Timer << XAXIDMA_DELAY_SHIFT);
 	}
 
-	XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_CR_OFFSET, Cr);
+	XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase, XAXIDMA_CR_OFFSET, Cr);
 
 	return XST_SUCCESS;
 }
@@ -746,7 +748,7 @@ void XAxiDma_BdRingGetCoalesce(XAxiDma_BdRing * RingPtr,
 {
 	u32 Cr;
 
-	Cr = XAxiDma_ReadReg(RingPtr->ChanBase, XAXIDMA_CR_OFFSET);
+	Cr = XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase, XAXIDMA_CR_OFFSET);
 
 	*CounterPtr = ((Cr & XAXIDMA_COALESCE_MASK) >> XAXIDMA_COALESCE_SHIFT);
 	*TimerPtr = ((Cr & XAXIDMA_DELAY_MASK) >> XAXIDMA_DELAY_SHIFT);
@@ -1101,11 +1103,11 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing * RingPtr, int NumBd,
 	/* If it is running, signal the engine to begin processing */
 	if (RingPtr->RunState == AXIDMA_CHANNEL_NOT_HALTED) {
 			if (RingPtr->Cyclic) {
-				XAxiDma_WriteReg(RingPtr->ChanBase,
+				XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 						 XAXIDMA_TDESC_OFFSET,
 						 (u32)XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd));
 				if (RingPtr->Addr_ext)
-					XAxiDma_WriteReg(RingPtr->ChanBase,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							 XAXIDMA_TDESC_MSB_OFFSET,
 							 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd)));
 				return XST_SUCCESS;
@@ -1113,29 +1115,29 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing * RingPtr, int NumBd,
 
 			if (RingPtr->IsRxChannel) {
 				if (!RingIndex) {
-					XAxiDma_WriteReg(RingPtr->ChanBase,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
 					if (RingPtr->Addr_ext)
-						XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
 								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 				}
 				else {
-					XAxiDma_WriteReg(RingPtr->ChanBase,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 						(XAXIDMA_RX_TDESC0_OFFSET +
 						(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 						(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK ));
 					if (RingPtr->Addr_ext)
-						XAxiDma_WriteReg(RingPtr->ChanBase,
+						XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							(XAXIDMA_RX_TDESC0_MSB_OFFSET +
 							(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
 							UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 				}
 			}
 			else {
-				XAxiDma_WriteReg(RingPtr->ChanBase,
+				XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase,
 							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
 				if (RingPtr->Addr_ext)
-					XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+					XAxiDma_InstWriteReg((XAxiDma *)RingPtr->InstancePtr, RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
 								UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 			}
 	}
@@ -1567,25 +1569,25 @@ void XAxiDma_BdRingDumpRegs(XAxiDma_BdRing *RingPtr) {
 
 	xil_printf("Dump registers %p:\r\n", (void *)RegBase);
 	xil_printf("Control REG: %08x\r\n",
-		(unsigned int)XAxiDma_ReadReg(RegBase, XAXIDMA_CR_OFFSET));
+		(unsigned int)XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_CR_OFFSET));
 	xil_printf("Status REG: %08x\r\n",
-		(unsigned int)XAxiDma_ReadReg(RegBase, XAXIDMA_SR_OFFSET));
+		(unsigned int)XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_SR_OFFSET));
 
 	if (RingIndex) {
 	xil_printf("Cur BD REG: %08x\r\n",
-		(unsigned int)XAxiDma_ReadReg(RegBase,
+		(unsigned int)XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 		XAXIDMA_RX_CDESC0_OFFSET + ((RingIndex - 1) *
 		XAXIDMA_RX_NDESC_OFFSET)));
 	xil_printf("Tail BD REG: %08x\r\n",
-		(unsigned int)XAxiDma_ReadReg(RegBase,
+		(unsigned int)XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RegBase,
 		XAXIDMA_RX_TDESC0_OFFSET + ((RingIndex - 1) *
 		XAXIDMA_RX_NDESC_OFFSET)));
 	}
 	else {
 	xil_printf("Cur BD REG: %08x\r\n",
-		(unsigned int)XAxiDma_ReadReg(RegBase, XAXIDMA_CDESC_OFFSET));
+		(unsigned int)XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_CDESC_OFFSET));
 	xil_printf("Tail BD REG: %08x\r\n",
-		(unsigned int)XAxiDma_ReadReg(RegBase, XAXIDMA_TDESC_OFFSET));
+		(unsigned int)XAxiDma_InstReadReg((XAxiDma *)RingPtr->InstancePtr, RegBase, XAXIDMA_TDESC_OFFSET));
 	}
 
 	xil_printf("\r\n");

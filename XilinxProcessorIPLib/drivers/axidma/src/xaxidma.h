@@ -451,6 +451,7 @@
 * 9.6  rsp   01/11/18 Fixed CR#976392 In XAxiDma struct use UINTPTR for RegBase.
 *                     In XAxiDma_LookupConfigBaseAddr() use UINTPTR for Baseaddr.
 * 9.7  rsp   04/25/18 Add SgLengthWidth member in dma config structure. CR #1000474
+* 9.12 vak   08/21/20 Update the code to add LIBMETAL APIs support.
 * </pre>
 *
 ******************************************************************************/
@@ -464,11 +465,20 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xaxidma_bdring.h"
+#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
+#include "xaxidma_linux.h"
+#include "xaxidma_status.h"
+#else
 #ifdef __MICROBLAZE__
 #include "xenv.h"
 #else
 #include <string.h>
 #include "xil_cache.h"
+#endif
+#endif
+
+#if defined(__LIBMETAL__)
+#include <metal/device.h>
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -494,6 +504,10 @@ typedef struct XAxiDma {
 	int RxNumChannels;
 	int MicroDmaMode;
 	int AddrWidth;		  /**< Address Width */
+#if defined(__LIBMETAL__)
+	struct metal_device *device;
+	struct metal_io_region *io;
+#endif
 } XAxiDma;
 
 /**
@@ -627,6 +641,27 @@ typedef struct {
 			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_CR_OFFSET)) \
 			| (Mask & XAXIDMA_IRQ_ALL_MASK))
 
+/*****************************************************************************/
+/**
+ * This function enables interrupts specified by the Mask in specified
+ * direction, Interrupts that are not in the mask are not affected.
+ *
+ * @param	InstancePtr is the driver instance we are working on
+ * @param	Mask is the mask for the interrupts to be enabled
+ * @param	Direction is DMA transfer direction, valid values are
+ *			- XAXIDMA_DMA_TO_DEVICE.
+ *			- XAXIDMA_DEVICE_TO_DMA.
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+#define  XAxiDma_InstIntrEnable(InstancePtr, Mask, Direction) 	\
+	XAxiDma_InstWriteReg(InstancePtr, (InstancePtr)->RegBase + \
+			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_CR_OFFSET, \
+			(XAxiDma_InstReadReg(InstancePtr, (InstancePtr)->RegBase + \
+			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_CR_OFFSET)) \
+			| (Mask & XAXIDMA_IRQ_ALL_MASK))
 
 /*****************************************************************************/
 /**
@@ -648,6 +683,24 @@ typedef struct {
 							XAXIDMA_IRQ_ALL_MASK)
 
 
+/*****************************************************************************/
+/**
+ * This function gets the mask for the interrupts that are currently enabled
+ *
+ * @param	InstancePtr is the driver instance we are working on
+ * @param	Direction is DMA transfer direction, valid values are
+ *			- XAXIDMA_DMA_TO_DEVICE.
+ *			- XAXIDMA_DEVICE_TO_DMA.
+ *
+ * @return	The bit mask for the interrupts that are currently enabled
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+#define   XAxiDma_InstIntrGetEnabled(InstancePtr, Direction)	\
+			XAxiDma_InstReadReg(InstancePtr, (InstancePtr)->RegBase + \
+			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_CR_OFFSET) &\
+							XAXIDMA_IRQ_ALL_MASK)
 
 /*****************************************************************************/
 /**
@@ -674,6 +727,28 @@ typedef struct {
 
 /*****************************************************************************/
 /**
+ * This function disables interrupts specified by the Mask. Interrupts that
+ * are not in the mask are not affected.
+ *
+ * @param	InstancePtr is the driver instance we are working on
+ * @param	Mask is the mask for the interrupts to be disabled
+ * @param	Direction is DMA transfer direction, valid values are
+ *			- XAXIDMA_DMA_TO_DEVICE.
+ *			- XAXIDMA_DEVICE_TO_DMA.
+ * @return	None
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+ #define XAxiDma_InstIntrDisable(InstancePtr, Mask, Direction)	\
+		XAxiDma_InstWriteReg(InstancePtr, (InstancePtr)->RegBase + \
+			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_CR_OFFSET, \
+			(XAxiDma_InstReadReg(InstancePtr, (InstancePtr)->RegBase + \
+			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_CR_OFFSET)) \
+			& ~(Mask & XAXIDMA_IRQ_ALL_MASK))
+
+/*****************************************************************************/
+/**
  * This function gets the interrupts that are asserted.
  *
  * @param	InstancePtr is the driver instance we are working on
@@ -688,6 +763,25 @@ typedef struct {
  *****************************************************************************/
 #define  XAxiDma_IntrGetIrq(InstancePtr, Direction)	\
 			(XAxiDma_ReadReg((InstancePtr)->RegBase + \
+			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_SR_OFFSET) &\
+							XAXIDMA_IRQ_ALL_MASK)
+
+/*****************************************************************************/
+/**
+ * This function gets the interrupts that are asserted.
+ *
+ * @param	InstancePtr is the driver instance we are working on
+ * @param	Direction is DMA transfer direction, valid values are
+ *			- XAXIDMA_DMA_TO_DEVICE.
+ *			- XAXIDMA_DEVICE_TO_DMA.
+ *
+ * @return	The bit mask for the interrupts asserted.
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+#define  XAxiDma_InstIntrGetIrq(InstancePtr, Direction)	\
+			(XAxiDma_InstReadReg(InstancePtr, (InstancePtr)->RegBase + \
 			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_SR_OFFSET) &\
 							XAXIDMA_IRQ_ALL_MASK)
 
@@ -711,8 +805,29 @@ typedef struct {
 			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_SR_OFFSET, \
 			(Mask) & XAXIDMA_IRQ_ALL_MASK)
 
+/*****************************************************************************/
+/**
+ * This function acknowledges the interrupts that are specified in Mask
+ *
+ * @param	InstancePtr is the driver instance we are working on
+ * @param	Mask is the mask for the interrupts to be acknowledge
+ * @param	Direction is DMA transfer direction, valid values are
+ *			- XAXIDMA_DMA_TO_DEVICE.
+ *			- XAXIDMA_DEVICE_TO_DMA.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+#define  XAxiDma_InstIntrAckIrq(InstancePtr, Mask, Direction)	\
+			XAxiDma_InstWriteReg(InstancePtr, (InstancePtr)->RegBase + \
+			(XAXIDMA_RX_OFFSET * Direction), XAXIDMA_SR_OFFSET, \
+			(Mask) & XAXIDMA_IRQ_ALL_MASK)
 
-
+#ifndef __BAREMETAL__
+#define AXIDMA_BUS_NAME		"platform"
+#endif
 /************************** Function Prototypes ******************************/
 
 /*
@@ -720,6 +835,9 @@ typedef struct {
  */
 XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId);
 XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(UINTPTR Baseaddr);
+#if defined(__LIBMETAL__)
+u32 XAxiDma_RegisterMetal(XAxiDma *InstancePtr, UINTPTR Baseaddr, struct metal_device **DevicePtr);
+#endif
 int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config);
 void XAxiDma_Reset(XAxiDma * InstancePtr);
 int XAxiDma_ResetIsDone(XAxiDma * InstancePtr);
