@@ -73,6 +73,10 @@
 #                     has been modified to make interrupt calculation logic
 #                     generic, to support HW designs where concat, slice and OR
 #                     gate IPs are connected in different manner.
+# 4.3   mus  08/26/20 Updated procs to make use of IP_NAME, instead of directly
+#                     using instance name. Instance names for GIC might vary
+#                     based on the HW design, so its better to avoid using
+#                     instance names directly. It fixes CR#1073003.
 #
 ##############################################################################
 
@@ -120,13 +124,14 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst $periphs {
+	    set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
@@ -162,7 +167,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set args $newargs
     # Print all parameters for all peripherals
     set device_id 0
-    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [get_os] ]
+    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [hsi::get_os] ]
     set procdrv [hsi::get_sw_processor]
     set compiler [get_property CONFIG.compiler $procdrv]
     foreach periph $periphs {
@@ -255,13 +260,14 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     set valid_periph 0
 	set uSuffix "U"
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst $periphs {
+	set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0) || ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
@@ -295,7 +301,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     }
 
     set i 0
-    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [get_os] ]
+    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [hsi::get_os] ]
     set procdrv [hsi::get_sw_processor]
     set compiler [get_property CONFIG.compiler $procdrv]
     foreach periph $periphs {
@@ -407,13 +413,14 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
 
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst $periphs {
+	set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
@@ -482,13 +489,14 @@ proc xdefine_gic_params {drvhandle} {
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst  $periphs {
+	set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	   (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	   (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
