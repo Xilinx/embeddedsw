@@ -190,6 +190,8 @@ Fix resource error in importing xemaclite_internal_loopback_example.
 
 csudma_v1_7:
 Reorganize transfer function and cache operations.
+Fix MISRA-C violations in csudma driver.
+Remove XCsuDma_IsBusy() check in XCsuDma_SetConfig() API.
 
 Changes for 2020.1
 ===============================
