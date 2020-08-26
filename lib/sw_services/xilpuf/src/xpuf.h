@@ -24,6 +24,7 @@
 *                       black key programming
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
 *		am 	 08/04/2020 Resolved MISRA C Violations
+*		am 	 08/19/2020 Resolved MISRA C violations.
 *
 * </pre>
 *
@@ -55,13 +56,9 @@ extern "C" {
 #define xPuf_printf(type, ...)	if ((type) == (1U)) {xil_printf (__VA_ARGS__);}
 
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
-#define XPUF_AES_KEY_LEN_IN_BYTES			(32U)
-#define XPUF_AES_KEY_IV_LEN_IN_BYTES			(12U)
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
-#define XPUF_4K_PUF_SYN_LEN_IN_BYTES			(560U)
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
 #define XPUF_12K_PUF_SYN_LEN_IN_WORDS			(350U)
-#define XPUF_12K_PUF_SYN_LEN_IN_BYTES			(1400U)
 #define XPUF_SHUTTER_VALUE				(0x1000040U)
 #define XPUF_ID_LEN_IN_WORDS					(0x8U)
 #define XPUF_WORD_LENGTH				(0x4U)
@@ -81,8 +78,6 @@ extern "C" {
 #define XPUF_ERROR_INVALID_PARAM				(0x02)
 #define XPUF_ERROR_INVALID_SYNDROME_MODE		(0x03)
 #define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT	(0x04)
-#define XPUF_ERROR_SYNDROME_DATA_OVERFLOW		((u32)0x05)
-#define XPUF_ERROR_SYNDROME_DATA_UNDERFLOW		((u32)0x06)
 #define XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		(0x07)
 #define XPUF_ERROR_REGISTRATION_INVALID			(0x08)
 
@@ -90,7 +85,6 @@ extern "C" {
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)
 #define XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT		(0x11)
 #define XPUF_ERROR_INVALID_REGENERATION_TYPE	(0x12)
-#define XPUF_ERROR_INVALID_PUF_OPERATION		((u32)0x13)
 #define XPUF_ERROR_REGENERATION_INVALID			(0x14)
 #define XPUF_ERROR_REGEN_PUF_HD_INVALID			(0x15)
 #define XPUF_ERROR_INVALID_READ_HD_INPUT		(0x16)
