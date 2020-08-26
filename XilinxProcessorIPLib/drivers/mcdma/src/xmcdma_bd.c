@@ -22,6 +22,7 @@
 *  1.3  rsp  02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
 *                     to program BD control and sideband information.
 *  1.4  rsp  09/17/19 Prefer using dmb in XMcdma_UpdateChanTDesc.
+*  1.5  vak  02/08/20 Add libmetal support for mcdma.
 ******************************************************************************/
 
 #include "xmcdma.h"
@@ -74,6 +75,12 @@ int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan)
 {
 	UINTPTR BdPtr;
 	u32 Offset;
+	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
+
+#if !defined(__LIBMETAL__)
+	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
+	(void)InstancePtr;
+#endif
 
 	if (Chan->ChanState == XMCDMA_CHAN_BUSY) {
 		return XST_SUCCESS;
@@ -83,13 +90,13 @@ int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan)
 	BdPtr = (UINTPTR)(void *)Chan->BdHead;
 	XMCDMA_CACHE_FLUSH((UINTPTR)(BdPtr));
 
-	XMcdma_WriteReg(Chan->ChanBase,
+	XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase,
 				(XMCDMA_CDESC_OFFSET + Offset),
-				(u32)BdPtr);
+				(UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)BdPtr));
 	if (Chan->ext_addr) {
-		XMcdma_WriteReg(Chan->ChanBase,
+		XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase,
 				(XMCDMA_CDESC_MSB_OFFSET + Offset),
-			UPPER_32_BITS(BdPtr));
+			UPPER_32_BITS((UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)BdPtr)));
 	}
 
 	return XST_SUCCESS;
@@ -114,11 +121,17 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 	u32 Offset;
 	u32 Chan_id = Chan->Chan_id;
 	u32 Status;
+	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
+
+#if !defined(__LIBMETAL__)
+	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
+	(void)InstancePtr;
+#endif
 
 	RegBase = Chan->ChanBase;
 	Offset = (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET;
 
-	if (!XMcdma_HwIsStarted(Chan)) {
+	if (!XMcdma_InstHwIsStarted(InstancePtr, Chan)) {
 		Status = XMcdma_Start(Chan);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Failed to start the DMA\n\r");
@@ -126,9 +139,9 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 		}
 	}
 
-	if (!XMcdma_ChanHwIsStarted(Chan, Chan_id)) {
-		XMcdma_WriteReg(RegBase, XMCDMA_CR_OFFSET + Offset,
-				XMcdma_ReadReg(RegBase,
+	if (!XMcdma_InstChanHwIsStarted(InstancePtr, Chan, Chan_id)) {
+		XMcdma_InstWriteReg(InstancePtr, RegBase, XMCDMA_CR_OFFSET + Offset,
+				XMcdma_InstReadReg(InstancePtr, RegBase,
 					       (XMCDMA_CR_OFFSET + Offset)) |
 					       XMCDMA_CCR_RUNSTOP_MASK);
 	}
@@ -138,16 +151,16 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 
 	if (Chan->BdPendingCnt > 0) {
 		XMCDMA_CACHE_INVALIDATE(Chan->BdTail);
-#if !defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__) && defined (__BAREMETAL__)
 			dmb();
 #endif
-		XMcdma_WriteReg(Chan->ChanBase,
+		XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase,
 				(XMCDMA_TDESC_OFFSET + Offset),
-				LOWER_32_BITS((UINTPTR)Chan->BdTail));
+				LOWER_32_BITS((UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)Chan->BdTail)));
 		if (Chan->ext_addr) {
-			XMcdma_WriteReg(Chan->ChanBase,
+			XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase,
 				  (XMCDMA_TDESC_MSB_OFFSET + Offset),
-				  UPPER_32_BITS((UINTPTR)Chan->BdTail));
+				  UPPER_32_BITS((UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)Chan->BdTail)));
 		}
 		Chan->BdSubmitCnt += Chan->BdPendingCnt;
 		Chan->BdPendingCnt = 0;
@@ -175,9 +188,17 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 *****************************************************************************/
 u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 {
+
+	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
+
 	UINTPTR BdStartAddr;
 	UINTPTR NxtBdAddr;
 	u32 i;
+
+#if !defined(__LIBMETAL__)
+	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
+	(void)InstancePtr;
+#endif
 
 	if (Count <= 0)
 		return XST_INVALID_PARAM;
@@ -194,9 +215,10 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 	NxtBdAddr = Addr + Chan->Separation;
 	for (i = 1; i < Count; i++) {
 		XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_NDESC_OFFSET,
-			       (u32)NxtBdAddr);
+			       (UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)NxtBdAddr));
+
 		XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_NDESC_MSB_OFFSET,
-			       UPPER_32_BITS(NxtBdAddr));
+			       UPPER_32_BITS((UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)NxtBdAddr)));
 		if (Chan->IsRxChan) {
 			XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_DRE_OFFSET,
 				       (((u32)(Chan->Has_Rxdre)) <<
@@ -218,9 +240,9 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 
 	/* Link the last Bd to the first Bd */
 	XMCDMA_CACHE_FLUSH(BdStartAddr);
-	XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_NDESC_OFFSET, (u32)Addr);
+	XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_NDESC_OFFSET, (UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)Addr));
 	XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_NDESC_MSB_OFFSET,
-		       UPPER_32_BITS(Addr));
+		       UPPER_32_BITS((UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)Addr)));
 	if (Chan->IsRxChan) {
 		XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_DRE_OFFSET,
 			       (((u32)(Chan->Has_Rxdre)) <<
@@ -271,8 +293,14 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 {
 	u32 BdCount = 1;
 	XMcdma_Bd *BdCurPtr = Chan->BdRestart;
+	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
 	u32 i;
 	u32 Bdlen = len;
+
+#if !defined(__LIBMETAL__)
+	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
+	(void)InstancePtr;
+#endif
 
 	/* Calculate the Number of BD's required for transferring user
 	 * requested Data */
@@ -291,7 +319,7 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 	for (i = 0; i < BdCount; i++) {
 		XMcdma_BdClear(BdCurPtr);
 
-		XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
+		XMcdma_BdSetBufAddr(BdCurPtr, (UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)BufAddr));
 
 		if (len < Chan->MaxTransferLen)
 			Bdlen = len;
@@ -340,9 +368,15 @@ u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
 {
 	u32 BdCount = 1;
 	XMcdma_Bd *BdCurPtr = ChanPtr->BdRestart;
+	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(ChanPtr);
 	u32 i;
 	u32 k;
 	u32 Bdlen = Len;
+
+#if !defined(__LIBMETAL__)
+	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
+	(void)InstancePtr;
+#endif
 
 	/* Calculate the Number of BD's required for transferring user
 	 * requested Data */
@@ -362,7 +396,7 @@ u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
 	for (i = 0; i < BdCount; i++) {
 		XMcdma_BdClear(BdCurPtr);
 
-		XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
+		XMcdma_BdSetBufAddr(BdCurPtr, (UINTPTR)XMcdma_Virt2Phys(InstancePtr, (void *)BufAddr));
 
 		if (Len < ChanPtr->MaxTransferLen) {
 			Bdlen = Len;
@@ -599,7 +633,8 @@ u32 XMcdma_BdSetBufAddr(XMcdma_Bd *BdPtr, UINTPTR Addr)
 		}
 	}
 
-#if defined(__aarch64__) || defined(__arch64__)
+#if defined(__aarch64__) || defined(__arch64__) || \
+			(!defined(__BAREMETAL__) && defined(__LIBMETAL__))
 	XMcdma_BdWrite64(BdPtr, XMCDMA_BD_BUFA_OFFSET, Addr);
 #else
 	XMcdma_BdWrite(BdPtr, XMCDMA_BD_BUFA_OFFSET, Addr);
@@ -726,10 +761,16 @@ u32 XMcdma_SetChanCoalesceDelay(XMcdma_ChanCtrl *Chan, u32 IrqCoalesce, u32 IrqD
 {
 	u32 Cr;
 	u32 Offset;
+	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
+
+#if !defined(__LIBMETAL__)
+	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
+	(void)InstancePtr;
+#endif
 
 	Offset = (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET;
 
-	Cr = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_CR_OFFSET + Offset);
+	Cr = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_CR_OFFSET + Offset);
 
 	if (IrqCoalesce == 0 || IrqCoalesce > 0xFF) {
 		xil_printf("Invalid IrqCoalesce Value\n\r");
@@ -747,7 +788,7 @@ u32 XMcdma_SetChanCoalesceDelay(XMcdma_ChanCtrl *Chan, u32 IrqCoalesce, u32 IrqD
 	Cr = (Cr & ~XMCDMA_DELAY_MASK) |
 		(IrqDelay << XMCDMA_DELAY_SHIFT);
 
-	XMcdma_WriteReg(Chan->ChanBase, XMCDMA_CR_OFFSET + Offset, Cr);
+	XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase, XMCDMA_CR_OFFSET + Offset, Cr);
 
 	return XST_SUCCESS;
 }

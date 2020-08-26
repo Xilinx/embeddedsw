@@ -3,9 +3,9 @@
 * SPDX-License-Identifier: MIT
 *
 
-*******************************************************************************/*
+*******************************************************************************/
 
-
+#if defined(__BAREMETAL__)
 #include "xparameters.h"
 #include "xmcdma.h"
 
@@ -32,3 +32,8 @@ XMcdma_Config XMcdma_ConfigTable[] =
 		XPAR_AXI_MCDMA_0_SG_INCLUDE_STSCNTRL_STRM
 	}
 };
+#else
+#include "xmcdma.h"
+
+XMcdma_Config XMcdma_ConfigTable;
+#endif
