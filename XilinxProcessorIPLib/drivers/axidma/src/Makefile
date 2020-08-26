@@ -22,7 +22,7 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 libs: banner xaxidma_libs clean
 
 %.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -D __BAREMETAL__ -o $@ $<
 
 banner:
 	echo "Compiling axidma"

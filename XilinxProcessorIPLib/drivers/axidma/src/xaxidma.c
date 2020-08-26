@@ -60,6 +60,7 @@
 * 9.8   rsp  07/11/18 Fix cppcheck style warnings. CR #1006164
 * 9.12  sk   06/17/20 Fix the MM2S and S2MM MaxTransferLen calculation in DMA
 *		      Micro Mode.
+* 9.12  vak  08/21/20 Update the code to add LIBMETAL APIs support.
 *
 * </pre>
 ******************************************************************************/
@@ -116,6 +117,10 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 	int TimeOut;
 	int Index;
 	u32 MaxTransferLen;
+#if defined (__LIBMETAL__)
+	struct metal_device *device;
+	struct metal_io_region *io;
+#endif
 
 	InstancePtr->Initialized = 0;
 
@@ -125,9 +130,19 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 
 	BaseAddr = Config->BaseAddr;
 
+#if defined (__LIBMETAL__)
+	device = InstancePtr->device;
+	io = InstancePtr->io;
+#endif
+
 	/* Setup the instance */
 	memset(InstancePtr, 0, sizeof(XAxiDma));
 	InstancePtr->RegBase = BaseAddr;
+
+#if defined (__LIBMETAL__)
+	InstancePtr->io = io;
+	InstancePtr->device = device;
+#endif
 
 	/* Get hardware setting information from the configuration structure
 	 */
@@ -194,6 +209,8 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 		InstancePtr->TxBdRing.HasDRE = Config->HasMm2SDRE;
 		InstancePtr->TxBdRing.DataWidth =
 			((unsigned int)Config->Mm2SDataWidth >> 3);
+		InstancePtr->TxBdRing.InstancePtr =
+				(void *)InstancePtr;
 	}
 
 	if (InstancePtr->HasS2Mm) {
@@ -207,6 +224,8 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 					Config->HasS2MmDRE;
 			InstancePtr->RxBdRing[Index].DataWidth =
 			((unsigned int)Config->S2MmDataWidth >> 3);
+			InstancePtr->RxBdRing[Index].InstancePtr =
+					(void *)InstancePtr;
 
 			if (!InstancePtr->MicroDmaMode) {
 				InstancePtr->RxBdRing[Index].MaxTransferLen =
@@ -296,13 +315,13 @@ void XAxiDma_Reset(XAxiDma * InstancePtr)
 		 * before the reset so later we can resume the rings smoothly.
 		 */
 		if(XAxiDma_HasSg(InstancePtr)){
-			XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+			XAxiDma_InstBdRingSnapShotCurrBd(TxRingPtr);
 
 			for (RingIndex = 0; RingIndex < InstancePtr->RxNumChannels;
 							RingIndex++) {
 				RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr,
 							RingIndex);
-				XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+				XAxiDma_InstBdRingSnapShotCurrBd(RxRingPtr);
 			}
 		}
 	}
@@ -316,7 +335,7 @@ void XAxiDma_Reset(XAxiDma * InstancePtr)
 		RegBase = InstancePtr->RegBase + XAXIDMA_RX_OFFSET;
 	}
 
-	XAxiDma_WriteReg(RegBase, XAXIDMA_CR_OFFSET, XAXIDMA_CR_RESET_MASK);
+	XAxiDma_InstWriteReg(InstancePtr, RegBase, XAXIDMA_CR_OFFSET, XAXIDMA_CR_RESET_MASK);
 
 	/* Set TX/RX Channel state */
 	if (InstancePtr->HasMm2S) {
@@ -363,7 +382,7 @@ int XAxiDma_ResetIsDone(XAxiDma * InstancePtr)
 	/* Check transmit channel
 	 */
 	if (InstancePtr->HasMm2S) {
-		RegisterValue = XAxiDma_ReadReg(TxRingPtr->ChanBase,
+		RegisterValue = XAxiDma_InstReadReg(InstancePtr, TxRingPtr->ChanBase,
 			XAXIDMA_CR_OFFSET);
 
 		/* Reset is done when the reset bit is low
@@ -377,7 +396,7 @@ int XAxiDma_ResetIsDone(XAxiDma * InstancePtr)
 	/* Check receive channel
 	 */
 	if (InstancePtr->HasS2Mm) {
-		RegisterValue = XAxiDma_ReadReg(RxRingPtr->ChanBase,
+		RegisterValue = XAxiDma_InstReadReg(InstancePtr, RxRingPtr->ChanBase,
 				XAXIDMA_CR_OFFSET);
 
 		/* Reset is done when the reset bit is low
@@ -438,9 +457,9 @@ static int XAxiDma_Start(XAxiDma * InstancePtr)
 				}
 			}
 			else {
-				XAxiDma_WriteReg(TxRingPtr->ChanBase,
+				XAxiDma_InstWriteReg(InstancePtr, TxRingPtr->ChanBase,
 					XAXIDMA_CR_OFFSET,
-					XAxiDma_ReadReg(TxRingPtr->ChanBase,
+					XAxiDma_InstReadReg(InstancePtr, TxRingPtr->ChanBase,
 					XAXIDMA_CR_OFFSET)
 					| XAXIDMA_CR_RUNSTOP_MASK);
 			}
@@ -474,9 +493,9 @@ static int XAxiDma_Start(XAxiDma * InstancePtr)
 				}
 			}
 			else {
-				XAxiDma_WriteReg(RxRingPtr->ChanBase,
+				XAxiDma_InstWriteReg(InstancePtr, RxRingPtr->ChanBase,
 					XAXIDMA_CR_OFFSET,
-					XAxiDma_ReadReg(RxRingPtr->ChanBase,
+					XAxiDma_InstReadReg(InstancePtr, RxRingPtr->ChanBase,
 					XAXIDMA_CR_OFFSET) |
 					XAXIDMA_CR_RUNSTOP_MASK);
 			}
@@ -525,9 +544,9 @@ int XAxiDma_Pause(XAxiDma * InstancePtr)
 		/* If channel is halted, then we do not need to do anything
 		 */
 		if(!XAxiDma_HasSg(InstancePtr)) {
-			XAxiDma_WriteReg(TxRingPtr->ChanBase,
+			XAxiDma_InstWriteReg(InstancePtr, TxRingPtr->ChanBase,
 				XAXIDMA_CR_OFFSET,
-				XAxiDma_ReadReg(TxRingPtr->ChanBase,
+				XAxiDma_InstReadReg(InstancePtr, TxRingPtr->ChanBase,
 				XAXIDMA_CR_OFFSET)
 				& ~XAXIDMA_CR_RUNSTOP_MASK);
 		}
@@ -546,9 +565,9 @@ int XAxiDma_Pause(XAxiDma * InstancePtr)
 			 */
 
 			if(!XAxiDma_HasSg(InstancePtr) && !RingIndex) {
-				XAxiDma_WriteReg(RxRingPtr->ChanBase,
+				XAxiDma_InstWriteReg(InstancePtr, RxRingPtr->ChanBase,
 					XAXIDMA_CR_OFFSET,
-					XAxiDma_ReadReg(RxRingPtr->ChanBase,
+					XAxiDma_InstReadReg(InstancePtr, RxRingPtr->ChanBase,
 					XAXIDMA_CR_OFFSET)
 					& ~XAXIDMA_CR_RUNSTOP_MASK);
 			}
@@ -673,7 +692,7 @@ static int XAxiDma_Started(XAxiDma * InstancePtr)
 		XAxiDma_BdRing *TxRingPtr;
 		TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
 
-		if (!XAxiDma_BdRingHwIsStarted(TxRingPtr)) {
+		if (!XAxiDma_InstBdRingHwIsStarted(TxRingPtr)) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
 				"Started: tx ring not started\r\n");
 
@@ -685,7 +704,7 @@ static int XAxiDma_Started(XAxiDma * InstancePtr)
 		XAxiDma_BdRing *RxRingPtr;
 		RxRingPtr = XAxiDma_GetRxRing(InstancePtr);
 
-		if (!XAxiDma_BdRingHwIsStarted(RxRingPtr)) {
+		if (!XAxiDma_InstBdRingHwIsStarted(RxRingPtr)) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
 				"Started: rx ring not started\r\n");
 
@@ -715,7 +734,7 @@ static int XAxiDma_Started(XAxiDma * InstancePtr)
 u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
 {
 
-	return ((XAxiDma_ReadReg(InstancePtr->RegBase +
+	return ((XAxiDma_InstReadReg(InstancePtr, InstancePtr->RegBase +
 				(XAXIDMA_RX_OFFSET * Direction),
 				XAXIDMA_SR_OFFSET) &
 				XAXIDMA_IDLE_MASK) ? FALSE : TRUE);
@@ -742,7 +761,7 @@ int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
 {
 	u32 Value;
 
-	Value = XAxiDma_ReadReg(InstancePtr->RegBase +
+	Value = XAxiDma_InstReadReg(InstancePtr, InstancePtr->RegBase +
 				(XAXIDMA_RX_OFFSET * Direction),
 				XAXIDMA_CR_OFFSET);
 
@@ -751,7 +770,7 @@ int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
 	else
 		Value &= ~XAXIDMA_CR_KEYHOLE_MASK;
 
-	XAxiDma_WriteReg(InstancePtr->RegBase +
+	XAxiDma_InstWriteReg(InstancePtr, InstancePtr->RegBase +
 			(XAXIDMA_RX_OFFSET * Direction),
 			XAXIDMA_CR_OFFSET, Value);
 
@@ -779,7 +798,7 @@ int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
 {
 	u32 Value;
 
-	Value = XAxiDma_ReadReg(InstancePtr->RegBase +
+	Value = XAxiDma_InstReadReg(InstancePtr, InstancePtr->RegBase +
 				(XAXIDMA_RX_OFFSET * Direction),
 				XAXIDMA_CR_OFFSET);
 
@@ -788,7 +807,7 @@ int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
 	else
 		Value &= ~XAXIDMA_CR_CYCLIC_MASK;
 
-	XAxiDma_WriteReg(InstancePtr->RegBase +
+	XAxiDma_InstWriteReg(InstancePtr, InstancePtr->RegBase +
 			(XAXIDMA_RX_OFFSET * Direction),
 			XAXIDMA_CR_OFFSET, Value);
 
@@ -852,7 +871,7 @@ u32 XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, UINTPTR BuffAddr, u32 Length,
 		/* If the engine is doing transfer, cannot submit
 		 */
 
-		if(!(XAxiDma_ReadReg(InstancePtr->TxBdRing.ChanBase,
+		if(!(XAxiDma_InstReadReg(InstancePtr, InstancePtr->TxBdRing.ChanBase,
 				XAXIDMA_SR_OFFSET) & XAXIDMA_HALTED_MASK)) {
 			if (XAxiDma_Busy(InstancePtr,Direction)) {
 				xdbg_printf(XDBG_DEBUG_ERROR,
@@ -879,23 +898,22 @@ u32 XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, UINTPTR BuffAddr, u32 Length,
 			}
 		}
 
-
-		XAxiDma_WriteReg(InstancePtr->TxBdRing.ChanBase,
+		XAxiDma_InstWriteReg(InstancePtr, InstancePtr->TxBdRing.ChanBase,
 				 XAXIDMA_SRCADDR_OFFSET, LOWER_32_BITS(BuffAddr));
 		if (InstancePtr->AddrWidth > 32)
-			XAxiDma_WriteReg(InstancePtr->TxBdRing.ChanBase,
+			XAxiDma_InstWriteReg(InstancePtr, InstancePtr->TxBdRing.ChanBase,
 					 XAXIDMA_SRCADDR_MSB_OFFSET,
 					 UPPER_32_BITS(BuffAddr));
 
-		XAxiDma_WriteReg(InstancePtr->TxBdRing.ChanBase,
+		XAxiDma_InstWriteReg(InstancePtr, InstancePtr->TxBdRing.ChanBase,
 				XAXIDMA_CR_OFFSET,
-				XAxiDma_ReadReg(
+				XAxiDma_InstReadReg(InstancePtr,
 				InstancePtr->TxBdRing.ChanBase,
 				XAXIDMA_CR_OFFSET)| XAXIDMA_CR_RUNSTOP_MASK);
 
 		/* Writing to the BTT register starts the transfer
 		 */
-		XAxiDma_WriteReg(InstancePtr->TxBdRing.ChanBase,
+		XAxiDma_InstWriteReg(InstancePtr, InstancePtr->TxBdRing.ChanBase,
 					XAXIDMA_BUFFLEN_OFFSET, Length);
 	}
 	else if(Direction == XAXIDMA_DEVICE_TO_DMA){
@@ -913,7 +931,7 @@ u32 XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, UINTPTR BuffAddr, u32 Length,
 			return XST_FAILURE;
 		}
 
-		if(!(XAxiDma_ReadReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
+		if(!(XAxiDma_InstReadReg(InstancePtr, InstancePtr->RxBdRing[RingIndex].ChanBase,
 				XAXIDMA_SR_OFFSET) & XAXIDMA_HALTED_MASK)) {
 			if (XAxiDma_Busy(InstancePtr,Direction)) {
 				xdbg_printf(XDBG_DEBUG_ERROR,
@@ -942,20 +960,20 @@ u32 XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, UINTPTR BuffAddr, u32 Length,
 		}
 
 
-		XAxiDma_WriteReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
+		XAxiDma_InstWriteReg(InstancePtr, InstancePtr->RxBdRing[RingIndex].ChanBase,
 				 XAXIDMA_DESTADDR_OFFSET, LOWER_32_BITS(BuffAddr));
 		if (InstancePtr->AddrWidth > 32)
-			XAxiDma_WriteReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
+			XAxiDma_InstWriteReg(InstancePtr, InstancePtr->RxBdRing[RingIndex].ChanBase,
 					 XAXIDMA_DESTADDR_MSB_OFFSET,
 					 UPPER_32_BITS(BuffAddr));
 
-		XAxiDma_WriteReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
+		XAxiDma_InstWriteReg(InstancePtr, InstancePtr->RxBdRing[RingIndex].ChanBase,
 				XAXIDMA_CR_OFFSET,
-			XAxiDma_ReadReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
+			XAxiDma_InstReadReg(InstancePtr, InstancePtr->RxBdRing[RingIndex].ChanBase,
 			XAXIDMA_CR_OFFSET)| XAXIDMA_CR_RUNSTOP_MASK);
 		/* Writing to the BTT register starts the transfer
 		 */
-		XAxiDma_WriteReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
+		XAxiDma_InstWriteReg(InstancePtr, InstancePtr->RxBdRing[RingIndex].ChanBase,
 					XAXIDMA_BUFFLEN_OFFSET, Length);
 
 	}
