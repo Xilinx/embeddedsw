@@ -1,5 +1,8 @@
 Changes for 2020.2
 ===============================
+v_sdirxss_v3_1:
+Add versal VCK190 audio video passthrough app
+
 v_sdirx_v2_1:
 Update the framerate in the Videostream struct
 
