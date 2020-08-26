@@ -12,6 +12,7 @@
 * 1.0   adk 	18/07/17 Initial version.
 * 1.2   mj      05/03/18 Defined XMCDMA_BD_SW_ID_OFFSET
 * 1.2   rsp     08/17/18 Remove unused XMCDMA_BD_LEN_MASK
+* 1.5   vak     02/08/20 Add libmetal support for mcdma.
 ******************************************************************************/
 #ifndef XMCDMA_HW_H_
 #define XMCDMA_HW_H_		/**< Prevent circular inclusions
@@ -22,7 +23,15 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
+#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
+#include "xmcdma_linux.h"
+#else
 #include "xil_io.h"
+#endif
+
+#if defined(__LIBMETAL__)
+#include <metal/io.h>
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -182,8 +191,13 @@ extern "C" {
 #define XMCDMA_LAST_APPWORD		4
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#if defined(__LIBMETAL__)
+#define XMcdma_In32		metal_io_read32
+#define XMcdma_Out32	metal_io_write32
+#else
 #define XMcdma_In32		Xil_In32	/**< Input operation */
 #define XMcdma_Out32	Xil_Out32	/**< Output operation */
+#endif
 
 /*****************************************************************************/
 /**
@@ -220,6 +234,51 @@ extern "C" {
 #define XMcdma_WriteReg(BaseAddress, RegOffset, Data) \
 		XMcdma_Out32(((BaseAddress) + (RegOffset)), (Data))
 
+/*****************************************************************************/
+/**
+*
+* This macro reads the given register.
+*
+* @param	InstancePtr is the MCDMA instance ptr
+* @param	BaseAddress is the base address of the MCDMA core.
+* @param	RegOffset is the register offset of the register.
+*
+* @return	The 32-bit value of the register.
+*
+* @note		C-style signature:
+*		u32 XMcdma_InstReadReg(u32 BaseAddress, u32 RegOffset)
+*
+******************************************************************************/
+#if defined(__LIBMETAL__)
+#define XMcdma_InstReadReg(InstancePtr, BaseAddress, RegOffset)             \
+    XMcdma_In32((InstancePtr)->io, (((BaseAddress) + (RegOffset)) - (InstancePtr)->RegBase))
+#else
+#define XMcdma_InstReadReg(InstancePtr, BaseAddress, RegOffset)             \
+    XMcdma_In32((BaseAddress) + (u32)(RegOffset))
+#endif
+/*****************************************************************************/
+/**
+*
+* This macro writes the value into the given register.
+*
+* @param	InstancePtr is the MCDMA instance ptr
+* @param	BaseAddress is the base address of the MCDMA core.
+* @param	RegOffset is the register offset of the register.
+* @param	Data is the 32-bit value to write to the register.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XMcdma_InstWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+*
+******************************************************************************/
+#if defined(__LIBMETAL__)
+#define XMcdma_InstWriteReg(InstancePtr, BaseAddress, RegOffset, Data)          \
+    XMcdma_Out32((InstancePtr)->io, (((BaseAddress) + (RegOffset)) - (InstancePtr)->RegBase), (Data))
+#else
+#define XMcdma_InstWriteReg(InstancePtr, BaseAddress, RegOffset, Data)          \
+    XMcdma_Out32(((BaseAddress) + (RegOffset)), (Data))
+#endif
 #ifdef __cplusplus
 }
 
