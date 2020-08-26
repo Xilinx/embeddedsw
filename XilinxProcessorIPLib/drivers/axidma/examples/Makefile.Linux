@@ -1,0 +1,12 @@
+LIBSOURCES=*.c
+OUTS =
+AXIDMA_OBJS =
+INCLUDES =
+BOARD_FLAG =
+LDFLAGS += -D __LIBMETAL__
+
+all:
+	$(CC) ${LDFLAGS} $(INCLUDES) $(OBJS) $(AXIDMA_OBJS) -o $(OUTS) -laxidma -lmetal
+
+clean:
+	rm -rf $(OUTS) *.o

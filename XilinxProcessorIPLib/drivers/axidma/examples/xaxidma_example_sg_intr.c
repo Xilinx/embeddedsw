@@ -58,12 +58,24 @@
  *                     and typecasting buffer address(CR-992638).
  * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
+ * 9.12  vak  08/21/20 Add support for LIBMETAL APIs.
  * </pre>
  *
  * ***************************************************************************
  */
 /***************************** Include Files *********************************/
 #include "xaxidma.h"
+
+#if defined(__LIBMETAL__)
+#include <metal/log.h>
+#include <metal/device.h>
+#include <metal/sys.h>
+#include <metal/irq.h>
+#include <metal/scatterlist.h>
+
+#if !defined(__BAREMETAL__)
+#include "xaxidma_linux.h"
+#else
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xdebug.h"
@@ -72,7 +84,7 @@
 #include "xil_mmu.h"
 #endif
 
-#ifdef XPAR_UARTNS550_0_BASEADDR
+#if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */
 #endif
 
@@ -85,14 +97,36 @@ extern void xil_printf(const char *format, ...);
 #else
  #include "xscugic.h"
 #endif
+#endif /* __BAREMETAL__ */
+#else /* __LIBMETAL__ */
+#include "xparameters.h"
+#include "xil_exception.h"
+#include "xdebug.h"
+
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
+
+#if defined(XPAR_UARTNS550_0_BASEADDR)
+#include "xuartns550_l.h"       /* to use uartns550 */
+#endif
+
+#ifndef DEBUG
+extern void xil_printf(const char *format, ...);
+#endif
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #include "xintc.h"
+#else
+ #include "xscugic.h"
+#endif
+#endif
 
 /******************** Constant Definitions **********************************/
 /*
  * Device hardware build related constants.
  */
-
-#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
-
+#if defined(__BAREMETAL__)
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif defined (XPAR_MIG7SERIES_0_BASEADDR)
@@ -133,6 +167,39 @@ extern void xil_printf(const char *format, ...);
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #define INTC		XIntc
+ #define INTC_HANDLER	XIntc_InterruptHandler
+#else
+ #define INTC		XScuGic
+ #define INTC_HANDLER	XScuGic_InterruptHandler
+#endif
+
+#endif
+
+#define BD_SIZE			0x40
+#define TX_BD_SPACE_SIZE        0x00010000
+#define RX_BD_SPACE_SIZE        0x00010000
+
+#if defined(__BAREMETAL__)
+#define AXIDMA_BASE_ADDRESS XPAR_AXIDMA_0_BASEADDR
+#else
+/* FIXME: Get the AXI DMA base address runtime */
+#warning CHECK IF THE AXI DMA BASE ADDRESS IS PROPER
+#define AXIDMA_BASE_ADDRESS 0xA0000000
+#endif
+
+#if defined(__LIBMETAL__)
+static int TestStartValue = 0xC;
+static int XAxidmaTxIrq;
+static int XAxidmaRxIrq;
+
+#if defined(__BAREMETAL__)
+static int XAxidmaIrq_Info[32];
+#endif
+
+#endif /* __LIBMETAL__ */
+
 /* Timeout loop counter for reset
  */
 #define RESET_TIMEOUT_COUNTER	10000
@@ -162,23 +229,23 @@ extern void xil_printf(const char *format, ...);
 #define COALESCING_COUNT		NUMBER_OF_PKTS_TO_TRANSFER
 #define DELAY_TIMER_COUNT		100
 
-#ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC		XIntc
- #define INTC_HANDLER	XIntc_InterruptHandler
-#else
- #define INTC		XScuGic
- #define INTC_HANDLER	XScuGic_InterruptHandler
-#endif
+/* The address map size for AxidmaDevice */
+#define ADDR_MAP_SIZE			0x1000
 
 /**************************** Type Definitions *******************************/
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
+#define ALIGNPAGESIZE(Len) ((Len % 4096) ? 4096 - ((Len % 4096)) : 0);
+#endif
 
 /************************** Function Prototypes ******************************/
+#if defined(__BAREMETAL__)
 #ifdef XPAR_UARTNS550_0_BASEADDR
 static void Uart550_Setup(void);
+#endif
 #endif
 
 static int CheckData(int Length, u8 StartValue);
@@ -187,16 +254,30 @@ static void TxIntrHandler(void *Callback);
 static void RxCallBack(XAxiDma_BdRing * RxRingPtr);
 static void RxIntrHandler(void *Callback);
 
-
-
+#if defined(__BAREMETAL__)
 static int SetupIntrSystem(INTC * IntcInstancePtr,
 			   XAxiDma * AxiDmaPtr, u16 TxIntrId, u16 RxIntrId);
 static void DisableIntrSystem(INTC * IntcInstancePtr,
 					u16 TxIntrId, u16 RxIntrId);
+#endif
 
 static int RxSetup(XAxiDma * AxiDmaInstPtr);
 static int TxSetup(XAxiDma * AxiDmaInstPtr);
 static int SendPacket(XAxiDma * AxiDmaInstPtr);
+
+static UINTPTR TxBufVirtPtr;
+static UINTPTR TxBdVirtPtr;
+static UINTPTR TxBufPhysPtr;
+static UINTPTR TxBdPhysPtr;
+static int TxBufLen;
+static int TxBdLen;
+
+static UINTPTR RxBufVirtPtr;
+static UINTPTR RxBdVirtPtr;
+static UINTPTR RxBufPhysPtr;
+static UINTPTR RxBdPhysPtr;
+static int RxBufLen;
+static int RxBdLen;
 
 /************************** Variable Definitions *****************************/
 /*
@@ -204,8 +285,9 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr);
  */
 XAxiDma AxiDma;
 
-
+#if defined(__BAREMETAL__)
 static INTC Intc;	/* Instance of the Interrupt Controller */
+#endif
 
 /*
  * Flags interrupt handlers use to notify the application context the events.
@@ -214,10 +296,176 @@ volatile int TxDone;
 volatile int RxDone;
 volatile int Error;
 
-/*
- * Buffer for transmit packet. Must be 32-bit aligned to be used by DMA.
- */
-u32 *Packet = (u32 *) TX_BUFFER_BASE;
+#if defined(__BAREMETAL__) && defined(__LIBMETAL__)
+static struct metal_device AxidmaDevice = {
+	/* AXIDMA device */
+	.name = "axidma",
+	.bus = NULL,
+	.num_regions = 1,
+	.regions = {
+		{
+			.virt = (void *)AXIDMA_BASE_ADDRESS,
+			.physmap = (void *)AXIDMA_BASE_ADDRESS,
+			.size = ADDR_MAP_SIZE,
+			.page_shift = (unsigned)(-1),
+			.page_mask = (unsigned)(-1),
+			.mem_flags = 0x0,
+			.ops = {NULL},
+		}
+	},
+	.node = {NULL},
+	.irq_num = 0,
+	.irq_info = NULL,
+};
+#endif
+
+#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
+unsigned int mapped = 0;
+
+struct mem_container {
+	int size;
+	void *virt;
+	unsigned long phys;
+	struct metal_generic_shmem *shm;
+} mem_cnt[4];
+
+static unsigned long __XAxidma_MetalMap(struct metal_device *DevicePtr, void *vaddr, int size) {
+	struct metal_sg sg_out;
+	struct metal_sg sg_in;
+	int ret;
+
+	memset(&sg_out, 0, sizeof(struct metal_sg));
+	memset(&sg_in, 0, sizeof(struct metal_sg));
+
+	sg_in.virt = vaddr;
+	sg_in.len = size;
+	sg_in.io = NULL;
+
+	ret = metal_dma_map(DevicePtr, METAL_DMA_DEV_WR, &sg_in, 1, &sg_out);
+	if (ret < 0) {
+		metal_log(METAL_LOG_ERROR,
+			  "Failed to dma map addr: 0x%lx size: %d ret: %d\n",
+			  vaddr, size, ret);
+		return 0;
+	}
+
+	metal_device_add_dmamem(DevicePtr, sg_in.io);
+
+	return (unsigned long)*sg_in.io->physmap;
+}
+
+static void *XAxidma_MetalMap(struct metal_device *device, int size, unsigned long *phys)
+{
+	struct metal_generic_shmem *shm;
+	struct metal_scatter_list *sg;
+	struct metal_io_region *io;
+	char shm_name_internal[256];
+	int ret;
+	void *va;
+	unsigned int *a;
+
+	snprintf(shm_name_internal, 256, "ion.reserved/shm%d", mapped);
+
+	ret = metal_shmem_open(shm_name_internal,
+			       size, METAL_SHM_NOTCACHED, &shm);
+	if (ret) {
+		metal_log(METAL_LOG_ERROR,
+			  "failed to open shared memory %s.\n",
+			  shm_name_internal);
+		return NULL;
+	}
+
+	sg = metal_shm_attach(shm, device, METAL_SHM_DIR_DEV_RW);
+	if (sg == NULL) {
+		metal_shmem_close(shm);
+		shm = NULL;
+		va = aligned_alloc(4096, size);
+		if (va == NULL)
+			return NULL;
+
+		*phys = (unsigned long)__XAxidma_MetalMap(device, va, size);
+		if(*phys == 0)
+			return NULL;
+	} else {
+		io = sg->ios;
+		*phys = *(unsigned long *)io->physmap;
+		va = metal_io_virt(io, 0);
+		metal_device_add_dmamem(device, io);
+
+		if ((va == NULL) || (*phys == 0)) {
+			metal_shm_detach(shm, device);
+			metal_shmem_close(shm);
+			close(shm->id);
+			return NULL;
+		}
+	}
+
+	mem_cnt[mapped].phys = *phys;
+	mem_cnt[mapped].virt = va;
+	mem_cnt[mapped].size = size;
+	mem_cnt[mapped].shm = shm;
+	mapped++;
+
+	return va;
+}
+
+void XAxidma_MetalUnmap(struct metal_device *DevicePtr, void *virt, int size) {
+	struct metal_io_region io;
+	struct metal_sg sg;
+	struct mem_container *mem_cnt_ptr;
+
+	for (int i = 0; i < 4; i ++) {
+		if (mem_cnt[i].virt == virt) {
+			mem_cnt_ptr = &mem_cnt[i];
+			break;
+		}
+	}
+
+	if (mem_cnt_ptr->shm != NULL) {
+		metal_shm_detach(mem_cnt_ptr->shm, DevicePtr);
+		metal_shmem_close(mem_cnt_ptr->shm);
+		close(mem_cnt_ptr->shm->id);
+		mem_cnt_ptr->shm = NULL;
+	} else {
+		memset(&io, 0, sizeof(struct metal_io_region));
+		memset(&sg, 0, sizeof(struct metal_sg));
+
+		io.physmap = (metal_phys_addr_t)0;
+		io.virt = (void *)virt;
+		sg.virt = (void *)virt;
+		sg.len = size;
+		sg.io = &io;
+
+		metal_dma_unmap(DevicePtr, METAL_DMA_DEV_WR, &sg, 1);
+		munmap(virt, size);
+		free(virt);
+	}
+
+	return;
+}
+#endif
+
+#if defined(__LIBMETAL__)
+static int XAxidmaIrq_TxHandler (int vect_id, void *priv)
+{
+	XAxiDma *XAxidma_ptr = (XAxiDma *)priv;
+	XAxiDma_BdRing *TxRingPtr = XAxiDma_GetTxRing(XAxidma_ptr);
+
+	TxIntrHandler(TxRingPtr);
+
+	return METAL_IRQ_HANDLED;
+}
+
+static int XAxidmaIrq_RxHandler (int vect_id, void *priv)
+{
+	XAxiDma *XAxidma_ptr = (XAxiDma *)priv;
+	XAxiDma_BdRing *RxRingPtr = XAxiDma_GetRxRing(XAxidma_ptr);
+
+	RxIntrHandler(RxRingPtr);
+
+	return METAL_IRQ_HANDLED;
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -249,25 +497,68 @@ int main(void)
 	int Status;
 	XAxiDma_Config *Config;
 
+#if defined(__LIBMETAL__)
+	struct metal_device *DevicePtr = NULL;
+
+	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
+	init_param.log_level = METAL_LOG_CRITICAL;
+
+	if (metal_init(&init_param)) {
+		xil_printf("ERROR: Failed to run metal initialization\n");
+		return XST_FAILURE;
+	}
+#endif
+
+#if defined(__BAREMETAL__)
 	/* Initial setup for Uart16550 */
 #ifdef XPAR_UARTNS550_0_BASEADDR
 
 	Uart550_Setup();
 
 #endif
+#endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
+#if defined(__BAREMETAL__)
 #ifdef __aarch64__
 	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, MARK_UNCACHEABLE);
 	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, MARK_UNCACHEABLE);
 #endif
+#endif
 
-	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
+	Config = XAxiDma_LookupConfigBaseAddr(AXIDMA_BASE_ADDRESS);
 	if (!Config) {
-		xil_printf("No config found for %d\r\n", DMA_DEV_ID);
+		xil_printf("No config found for 0x%lx\r\n", AXIDMA_BASE_ADDRESS);
 
 		return XST_FAILURE;
 	}
+
+#if defined (__BAREMETAL__) && defined (__LIBMETAL__)
+	/* One Tx IRQ and RX IRQ */
+	AxidmaDevice.irq_num = 2;
+
+	/* Populate interrupts */
+	XAxidmaIrq_Info[0] = TX_INTR_ID;
+
+	XAxidmaIrq_Info[1] = RX_INTR_ID;
+
+	AxidmaDevice.irq_info = XAxidmaIrq_Info;
+
+	DevicePtr = &AxidmaDevice;
+#endif
+
+#if defined (__LIBMETAL__)
+	Status = XAxiDma_RegisterMetal(&AxiDma, AXIDMA_BASE_ADDRESS, &DevicePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Initialization failed %d\r\n", Status);
+		return XST_FAILURE;
+	}
+#endif
+
+#if !defined (__BAREMETAL__) && defined (__LIBMETAL__)
+	/* Set DMA as 32 bit addressing capable */
+	metal_device_set_dmacap(DevicePtr, 32);
+#endif
 
 	/* Initialize DMA engine */
 	XAxiDma_CfgInitialize(&AxiDma, Config);
@@ -277,6 +568,31 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+#if defined(__BAREMETAL__) && defined(__LIBMETAL__)
+	Status = metal_xlnx_irq_init();
+	if (Status != XST_SUCCESS) {
+		xil_printf("\n Failed to initialise interrupt handler \r\n");
+		return XST_FAILURE;
+	}
+#endif
+
+#if defined(__LIBMETAL__)
+	/* Populate interrupts */
+	if (DevicePtr->irq_num > 1) {
+		/* For VFIO the irq_num > 1 */
+		XAxidmaTxIrq = *(int *)((char *)DevicePtr->irq_info);
+
+		XAxidmaRxIrq = *(int *)((char *)DevicePtr->irq_info + sizeof(int));
+	} else if (DevicePtr->irq_num == 1) {
+		/* For UIO the irq_num == 1 */
+		XAxidmaTxIrq = (UINTPTR)DevicePtr->irq_info;
+
+		XAxidmaRxIrq = (UINTPTR)DevicePtr->irq_info;
+	} else {
+		/* No irq support, return error */
+		return XST_FAILURE;
+	}
+#endif
 	/* Set up TX/RX channels to be ready to transmit and receive packets */
 	Status = TxSetup(&AxiDma);
 
@@ -293,6 +609,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+#if defined(__BAREMETAL__)
 	/* Set up Interrupt system  */
 	Status = SetupIntrSystem(&Intc, &AxiDma, TX_INTR_ID, RX_INTR_ID);
 	if (Status != XST_SUCCESS) {
@@ -300,6 +617,7 @@ int main(void)
 		xil_printf("Failed intr setup\r\n");
 		return XST_FAILURE;
 	}
+#endif
 
 	/* Initialize flags before start transfer test  */
 	TxDone = 0;
@@ -329,7 +647,7 @@ int main(void)
 
 		goto Done;
 
-	}else {
+	} else {
 
 		/*
 		 * Test finished, check data
@@ -346,13 +664,21 @@ int main(void)
 		xil_printf("Successfully ran AXI DMA SG interrupt Example\r\n");
 	}
 
+#if defined(__BAREMETAL__)
 	/* Disable TX and RX Ring interrupts and return success */
-
 	DisableIntrSystem(&Intc, TX_INTR_ID, RX_INTR_ID);
+#endif
 
 Done:
 
 	xil_printf("--- Exiting main() --- \r\n");
+
+#if defined (__LIBMETAL__) && !defined (__BAREMETAL__)
+	XAxidma_MetalUnmap(DevicePtr, (void *)TxBufVirtPtr, TxBufLen);
+	XAxidma_MetalUnmap(DevicePtr, (void *)TxBdVirtPtr, TxBdLen);
+	XAxidma_MetalUnmap(DevicePtr, (void *)RxBufVirtPtr, RxBufLen);
+	XAxidma_MetalUnmap(DevicePtr, (void *)RxBdVirtPtr, RxBdLen);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -361,6 +687,7 @@ Done:
 	return XST_SUCCESS;
 }
 
+#if defined(__BAREMETAL__)
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
 /*
@@ -383,6 +710,7 @@ static void Uart550_Setup(void)
 	XUartNs550_SetLineControlReg(XPAR_UARTNS550_0_BASEADDR,
 			XUN_LCR_8_DATA_BITS);
 }
+#endif
 #endif
 
 /*****************************************************************************/
@@ -407,7 +735,7 @@ static int CheckData(int Length, u8 StartValue)
 	int Index = 0;
 	u8 Value;
 
-	RxPacket = (u8 *) RX_BUFFER_BASE;
+	RxPacket = (u8 *) RxBufVirtPtr;
 	Value = StartValue;
 
 	/* Invalidate the DestBuffer before receiving the data, in case the
@@ -515,10 +843,10 @@ static void TxIntrHandler(void *Callback)
 	int TimeOut;
 
 	/* Read pending interrupts */
-	IrqStatus = XAxiDma_BdRingGetIrq(TxRingPtr);
+	IrqStatus = XAxiDma_InstBdRingGetIrq(TxRingPtr);
 
 	/* Acknowledge pending interrupts */
-	XAxiDma_BdRingAckIrq(TxRingPtr, IrqStatus);
+	XAxiDma_InstBdRingAckIrq(TxRingPtr, IrqStatus);
 
 	/* If no interrupt is asserted, we do not do anything
 	 */
@@ -635,10 +963,10 @@ static void RxIntrHandler(void *Callback)
 	int TimeOut;
 
 	/* Read pending interrupts */
-	IrqStatus = XAxiDma_BdRingGetIrq(RxRingPtr);
+	IrqStatus = XAxiDma_InstBdRingGetIrq(RxRingPtr);
 
 	/* Acknowledge pending interrupts */
-	XAxiDma_BdRingAckIrq(RxRingPtr, IrqStatus);
+	XAxiDma_InstBdRingAckIrq(RxRingPtr, IrqStatus);
 
 	/*
 	 * If no interrupt is asserted, we do not do anything
@@ -685,6 +1013,7 @@ static void RxIntrHandler(void *Callback)
 	}
 }
 
+#if defined(__BAREMETAL__)
 /*****************************************************************************/
 /*
 *
@@ -711,6 +1040,12 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 	XAxiDma_BdRing *RxRingPtr = XAxiDma_GetRxRing(AxiDmaPtr);
 	int Status;
 
+#if defined(__LIBMETAL__)
+	/* TxRingPtr and RxRingPtr are unused when __LIBMETAL__ is set */
+	(void)TxRingPtr;
+	(void)RxRingPtr;
+#endif
+
 #ifdef XPAR_INTC_0_DEVICE_ID
 
 	/* Initialize the interrupt controller and connect the ISRs */
@@ -721,16 +1056,28 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
+#if defined(__LIBMETAL__)
+	Status = XIntc_Connect(IntcInstancePtr, TxIntrId,
+				(XInterruptHandler) metal_xlnx_irq_isr,
+				(void *)(unsigned long)TxIntrId);
+#else
 	Status = XIntc_Connect(IntcInstancePtr, TxIntrId,
 			       (XInterruptHandler) TxIntrHandler, TxRingPtr);
+#endif
 	if (Status != XST_SUCCESS) {
 
 		xil_printf("Failed tx connect intc\r\n");
 		return XST_FAILURE;
 	}
 
+#if defined(__LIBMETAL__)
+	Status = XIntc_Connect(IntcInstancePtr, RxIntrId,
+			       (XInterruptHandler) metal_xlnx_irq_isr,
+			       (void *)(unsigned long)RxIntrId);
+#else
 	Status = XIntc_Connect(IntcInstancePtr, RxIntrId,
 			       (XInterruptHandler) RxIntrHandler, RxRingPtr);
+#endif
 	if (Status != XST_SUCCESS) {
 
 		xil_printf("Failed rx connect intc\r\n");
@@ -777,16 +1124,28 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device.
 	 */
+#if defined(__LIBMETAL__)
+	Status = XScuGic_Connect(IntcInstancePtr, TxIntrId,
+				(Xil_InterruptHandler)metal_xlnx_irq_isr,
+				(void *)(unsigned long)TxIntrId);
+#else
 	Status = XScuGic_Connect(IntcInstancePtr, TxIntrId,
 				(Xil_InterruptHandler)TxIntrHandler,
 				TxRingPtr);
+#endif
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
+#if defined(__LIBMETAL__)
+	Status = XScuGic_Connect(IntcInstancePtr, RxIntrId,
+				(Xil_InterruptHandler)metal_xlnx_irq_isr,
+				(void *)(unsigned long)RxIntrId);
+#else
 	Status = XScuGic_Connect(IntcInstancePtr, RxIntrId,
 				(Xil_InterruptHandler)RxIntrHandler,
 				RxRingPtr);
+#endif
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -833,6 +1192,7 @@ static void DisableIntrSystem(INTC * IntcInstancePtr,
 	XScuGic_Disconnect(IntcInstancePtr, RxIntrId);
 #endif
 }
+#endif /* __BAREMETAL__ */
 
 /*****************************************************************************/
 /*
@@ -855,22 +1215,69 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd BdTemplate;
 	XAxiDma_Bd *BdPtr;
 	XAxiDma_Bd *BdCurPtr;
+	UINTPTR BufVirtPtr;
+	UINTPTR BdVirtPtr;
+	UINTPTR BufPhysPtr;
+	UINTPTR BdPhysPtr;
 	int BdCount;
 	int FreeBdCount;
-	UINTPTR RxBufferPtr;
 	int Index;
 
 	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);
 
 	/* Disable all RX interrupts before RxBD space setup */
-	XAxiDma_BdRingIntDisable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	XAxiDma_InstBdRingIntDisable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
 	/* Setup Rx BD space */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-				RX_BD_SPACE_HIGH - RX_BD_SPACE_BASE + 1);
+					RX_BD_SPACE_SIZE);
 
-	Status = XAxiDma_BdRingCreate(RxRingPtr, RX_BD_SPACE_BASE,
-					RX_BD_SPACE_BASE,
+#if defined(__BAREMETAL__)
+	BufPhysPtr = RX_BUFFER_BASE;
+	BdPhysPtr = RX_BD_SPACE_BASE;
+	BufVirtPtr = BufPhysPtr;
+	BdVirtPtr = BdPhysPtr;
+
+	RxBufVirtPtr = BufVirtPtr;
+	RxBdVirtPtr = BdVirtPtr;
+	RxBufPhysPtr = BufPhysPtr;
+	RxBdPhysPtr = BdPhysPtr;
+
+	(void)RxBufLen;
+	(void)RxBdLen;
+#else
+	u32 MaxLen;
+
+	MaxLen = BdCount * MAX_PKT_LEN;
+	MaxLen += ALIGNPAGESIZE(MaxLen);
+
+	BufVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BufPhysPtr);
+	if (!BufVirtPtr || !BufPhysPtr) {
+		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
+		return XST_FAILURE;
+	}
+
+	RxBufLen = MaxLen;
+
+	MaxLen = BdCount * BD_SIZE;
+	MaxLen += ALIGNPAGESIZE(MaxLen);
+
+	BdVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BdPhysPtr);
+	if (!BdVirtPtr || !BdPhysPtr) {
+		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
+		return XST_FAILURE;
+	}
+
+	RxBdLen = MaxLen;
+
+	RxBufVirtPtr = BufVirtPtr;
+	RxBdVirtPtr = BdVirtPtr;
+	RxBufPhysPtr = BufPhysPtr;
+	RxBdPhysPtr = BdPhysPtr;
+#endif
+
+	Status = XAxiDma_BdRingCreate(RxRingPtr, BdPhysPtr,
+					BdVirtPtr,
 					XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Rx bd create failed with %d\r\n", Status);
@@ -897,14 +1304,13 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	}
 
 	BdCurPtr = BdPtr;
-	RxBufferPtr = RX_BUFFER_BASE;
 
 	for (Index = 0; Index < FreeBdCount; Index++) {
 
-		Status = XAxiDma_BdSetBufAddr(BdCurPtr, RxBufferPtr);
+		Status = XAxiDma_BdSetBufAddr(BdCurPtr, BufPhysPtr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set buffer addr %x on BD %x failed %d\r\n",
-			(unsigned int)RxBufferPtr,
+			(unsigned int)BufPhysPtr,
 			(UINTPTR)BdCurPtr, Status);
 
 			return XST_FAILURE;
@@ -924,9 +1330,9 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		 */
 		XAxiDma_BdSetCtrl(BdCurPtr, 0);
 
-		XAxiDma_BdSetId(BdCurPtr, RxBufferPtr);
+		XAxiDma_BdSetId(BdCurPtr, BufPhysPtr);
 
-		RxBufferPtr += MAX_PKT_LEN;
+		BufPhysPtr += MAX_PKT_LEN;
 		BdCurPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
 	}
 
@@ -950,8 +1356,13 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		return XST_FAILURE;
 	}
 
+#if defined(__LIBMETAL__)
+	metal_irq_register(XAxidmaRxIrq, XAxidmaIrq_RxHandler, (void *)&AxiDma);
+	metal_irq_enable(XAxidmaRxIrq);
+#endif
+
 	/* Enable all RX interrupts */
-	XAxiDma_BdRingIntEnable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	XAxiDma_InstBdRingIntEnable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
 	/* Start RX DMA channel */
 	Status = XAxiDma_BdRingStart(RxRingPtr);
@@ -981,18 +1392,66 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 {
 	XAxiDma_BdRing *TxRingPtr = XAxiDma_GetTxRing(&AxiDma);
 	XAxiDma_Bd BdTemplate;
+	UINTPTR BufVirtPtr;
+	UINTPTR BdVirtPtr;
+	UINTPTR BufPhysPtr;
+	UINTPTR BdPhysPtr;
 	int Status;
 	u32 BdCount;
 
 	/* Disable all TX interrupts before TxBD space setup */
-	XAxiDma_BdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	XAxiDma_InstBdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
 	/* Setup TxBD space  */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-			(UINTPTR)TX_BD_SPACE_HIGH - (UINTPTR)TX_BD_SPACE_BASE + 1);
+					TX_BD_SPACE_SIZE);
 
-	Status = XAxiDma_BdRingCreate(TxRingPtr, TX_BD_SPACE_BASE,
-				     TX_BD_SPACE_BASE,
+#if defined(__BAREMETAL__)
+	BufPhysPtr = TX_BUFFER_BASE;
+	BdPhysPtr = TX_BD_SPACE_BASE;
+	BufVirtPtr = BufPhysPtr;
+	BdVirtPtr = BdPhysPtr;
+
+	TxBufVirtPtr = BufVirtPtr;
+	TxBdVirtPtr = BdVirtPtr;
+	TxBufPhysPtr = BufPhysPtr;
+	TxBdPhysPtr = BdPhysPtr;
+
+	(void)TxBdLen;
+	(void)TxBufLen;
+#else
+	u32 MaxLen;
+
+	MaxLen = BdCount * MAX_PKT_LEN;
+	MaxLen += ALIGNPAGESIZE(MaxLen);
+
+	BufVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BufPhysPtr);
+	if (!BufVirtPtr || !BufPhysPtr) {
+		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
+		return XST_FAILURE;
+	}
+
+	TxBufLen = MaxLen;
+
+	MaxLen = BdCount * BD_SIZE;
+	MaxLen += ALIGNPAGESIZE(MaxLen);
+
+	BdVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BdPhysPtr);
+	if (!BdVirtPtr || !BdPhysPtr) {
+		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
+		return XST_FAILURE;
+	}
+
+	TxBdLen = MaxLen;
+
+	TxBufVirtPtr = BufVirtPtr;
+	TxBdVirtPtr = BdVirtPtr;
+	TxBufPhysPtr = BufPhysPtr;
+	TxBdPhysPtr = BdPhysPtr;
+#endif
+
+	Status = XAxiDma_BdRingCreate(TxRingPtr, BdPhysPtr,
+				     BdVirtPtr,
 				     XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 
@@ -1028,8 +1487,13 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 		return XST_FAILURE;
 	}
 
+#if defined(__LIBMETAL__)
+	metal_irq_register(XAxidmaTxIrq, XAxidmaIrq_TxHandler, (void *)&AxiDma);
+	metal_irq_enable(XAxidmaTxIrq);
+#endif
+
 	/* Enable all TX interrupts */
-	XAxiDma_BdRingIntEnable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	XAxiDma_InstBdRingIntEnable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
 	/* Start the TX channel */
 	Status = XAxiDma_BdRingStart(TxRingPtr);
@@ -1082,7 +1546,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 		return XST_INVALID_PARAM;
 	}
 
-	TxPacket = (u8 *) Packet;
+	TxPacket = (u8 *) TxBufVirtPtr;
 
 	Value = 0xC;
 
@@ -1098,7 +1562,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 							NUMBER_OF_BDS_TO_TRANSFER);
-	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
+	Xil_DCacheFlushRange((UINTPTR)RxBufVirtPtr, MAX_PKT_LEN *
 							NUMBER_OF_BDS_TO_TRANSFER);
 
 	Status = XAxiDma_BdRingAlloc(TxRingPtr, NUMBER_OF_BDS_TO_TRANSFER,
@@ -1109,7 +1573,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 		return XST_FAILURE;
 	}
 
-	BufferAddr = (UINTPTR)Packet;
+	BufferAddr = (UINTPTR)TxBufPhysPtr;
 	BdCurPtr = BdPtr;
 
 	/*
