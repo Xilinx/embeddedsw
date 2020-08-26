@@ -21,6 +21,7 @@
 *                       Moved definition of XPuf_ReadReg and XPuf_WriteReg to
 *                       xpuf.c
 *                       Renamed macros related to PUF Command register
+* 1.2	am	 08/19/2020 Resolved MISRA C violations.
 *
 * </pre>
 *
@@ -78,19 +79,19 @@ extern "C" {
 #define XPUF_SHUTTER_OPEN_SET_SHIFT		(24U)
 
 /* PUF STATUS register definition */
-#define XPUF_STATUS_SYNDROME_WORD_RDY		(0x01U << 0U)
-#define XPUF_STATUS_ID_ZEROIZED			(0x01U << 1U)
-#define XPUF_STATUS_ID_RDY			(0x01U << 2U)
-#define XPUF_STATUS_KEY_RDY			(0x01U << 3U)
-#define XPUF_STATUS_PUF_DONE			(0x01U << 30U)
+#define XPUF_STATUS_SYNDROME_WORD_RDY		((u32)0x01U << 0U)
+#define XPUF_STATUS_ID_ZEROIZED			((u32)0x01U << 1U)
+#define XPUF_STATUS_ID_RDY			((u32)0x01U << 2U)
+#define XPUF_STATUS_KEY_RDY			((u32)0x01U << 3U)
+#define XPUF_STATUS_PUF_DONE			((u32)0x01U << 30U)
 
 /* PUF TM STATUS register definition */
 #define XPUF_TEST_MODE_STATUS_DONE		(0x01U)
 
 /* PUF TM TR register definition */
-#define XPUF_TEST_MODE_RESULT_FRR_TEST_PASSED	(0x01U << 0U)
-#define XPUF_TEST_MODE_RESULT_ER_TEST_MASK	(0xFFU << 16U)
-#define XPUF_TEST_MODE_RESULT_US_MASK		(0x03U << 24U)
+#define XPUF_TEST_MODE_RESULT_FRR_TEST_PASSED	((u32)0x01U << 0U)
+#define XPUF_TEST_MODE_RESULT_ER_TEST_MASK	((u32)0xFFU << 16U)
+#define XPUF_TEST_MODE_RESULT_US_MASK		((u32)0x03U << 24U)
 
 /*
  * EFUSE_CACHE Base Address
@@ -101,11 +102,11 @@ extern "C" {
 #define XPUF_EFUSE_CACHE_SECURITY_CONTROL	(0x000000ACU)
 
 /* EFUSE_CACHE PUF_ECC_PUF_CTRL register definition */
-#define XPUF_PUF_REGEN_DIS			(1U << 31U)
-#define XPUF_PUF_HD_INVLD			(1U << 30U)
+#define XPUF_PUF_REGEN_DIS			((u32)1U << 31U)
+#define XPUF_PUF_HD_INVLD			((u32)1U << 30U)
 
 /* EFUSE_CACHE SECURITY_CONTROL register definition */
-#define XPUF_PUF_DIS				(1U << 18U)
+#define XPUF_PUF_DIS				((u32)1U << 18U)
 
 /* Reset value of PUF_SYN_ADDR register */
 #define XPUF_EFUSE_SYN_ADD_INIT			(0xF1250A04U)

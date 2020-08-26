@@ -21,6 +21,8 @@
 *                       ID only regeneration and XPuf_Validate_Access_Rules
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
 *		am 	 08/04/2020 Resolved MISRA C Violations
+*		am 	 08/19/2020 Resolved MISRA C violations.
+*
 * </pre>
 *
 * @note
@@ -46,13 +48,12 @@ typedef enum {
 /********************Macros (Inline function) Definitions*********************/
 /*****************************************************************************/
 /**
- * @brief
- * This function waits till Puf Syndrome rdy bit is set.
+ * @brief	This function waits till Puf Syndrome ready bit is set.
  *
  * @param	None.
  *
- * @return	XST_SUCCESS - Syndrome word is ready
- *		XST_FAILURE - Timeout occurred
+ * @return	- XST_SUCCESS - Syndrome word is ready.
+ *			- XST_FAILURE - Timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufSynWordRdy(void)
@@ -65,13 +66,12 @@ static inline int XPuf_WaitForPufSynWordRdy(void)
 
 /*****************************************************************************/
 /**
- * @brief
- * This function waits till Puf done bit is set.
+ * @brief	This function waits till Puf done bit is set.
  *
  * @param	None.
  *
- * @return	XST_SUCCESS - Puf Operation is done.
- *		XST_FAILURE - Timeout occurred
+ * @return	- XST_SUCCESS - Puf Operation is done.
+ *			- XST_FAILURE - Timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufDoneStatus(void)
@@ -84,16 +84,16 @@ static inline int XPuf_WaitForPufDoneStatus(void)
 /*****************************************************************************/
 /**
  *
- * This function reads the given register.
+ * @brief	This function reads the given register.
  *
  * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
+ *			controller.
  * @param	RegOffset is the register offset of the register.
  *
  * @return	The 32-bit value of the register.
  *
  * @note	C-style signature:
- * 		u32 XilPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
+ * 			u32 XilPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
  *
  * ***************************************************************************/
 static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
@@ -104,17 +104,17 @@ static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
 /*****************************************************************************/
 /**
  *
- * This function writes the value into the given register.
+ * @brief	This function writes the value into the given register.
  *
  * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
+ *			controller.
  * @param	RegOffset is the register offset of the register.
  * @param	Data is the 32-bit value to write to the register.
  *
  * @return	None.
  *
  * @note	C-style signature:
- * 		void XilPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+ * 			void XilPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
  *
  *****************************************************************************/
 static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
@@ -130,32 +130,28 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
 
 /*****************************************************************************/
 /**
- * @brief
- * This functions performs PUF registration
+ * @brief	This functions performs PUF registration.
  *
- * @param	PufData - Pointer to XPuf_Data structure
+ * @param	PufData - Pointer to XPuf_Data structure.
  *
- * @return	XST_SUCCESS - PUF registration successful
- *		XPUF_ERROR_INVALID_PARAM - PufData is NULL
- *		XPUF_ERROR_INVALID_SYNDROME_MODE - Incorrect Registration mode
- *		XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
- *			waiting for PUF Syndrome data
- *		XPUF_ERROR_SYNDROME_DATA_OVERFLOW - Syndrome data overflow
- *			reported by PUF controller or more than required data
- *			is provided by PUF controller
- *		XPUF_ERROR_SYNDROME_DATA_UNDERFLOW - Number of syndrome data
- *			words are less than expected number of words
- *		XST_FAILURE - Unexpected event
+ * @return  - XST_SUCCESS - PUF registration successful.
+ *			- XPUF_ERROR_INVALID_PARAM 				- PufData is NULL.
+ *			- XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration
+ *													  mode.
+ *			- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
+ *			  										  waiting for PUF Syndrome
+ *													  data.
+ *			- XST_FAILURE						    - Unexpected event.
  *
  * @note	Helper data will be available in PufData->SyndromeData,
- *		PufData->Chash, PufData->Aux
+ *			PufData->Chash, PufData->Aux
  *
  *****************************************************************************/
 int XPuf_Registration(XPuf_Data *PufData)
 {
 	int Status = XST_FAILURE;
 	u32 MaxSyndromeSizeInWords;
-	u32 Idx = 0;
+	u32 Idx = 0U;
 	XPuf_PufRegistrationState RegistrationStatus;
 
 	if (PufData == NULL) {
@@ -237,19 +233,19 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief
- * This function regenerate PUF data using helper data stored in eFUSE or in
- * and external memory.
+ * @brief	This function regenerate PUF data using helper data stored in eFUSE
+ * 			or in and external memory.
  *
  * @param	None.
  *
- * @return	XST_SUCCESS - PUF Regeneration successful
- *		XPUF_ERROR_INVALID_REGENERATION_TYPE -Selection of invalid
- *			 regeneration type
- *		XPUF_ERROR_CHASH_NOT_PROGRAMMED- Helper data not provided
- *		XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout before Status was
- *			 done
- *		XST_FAILURE - Unexpected event
+ * @return	- XST_SUCCESS - PUF Regeneration successful.
+ *			- XPUF_ERROR_INVALID_PARAM 			   - PufData is NULL.
+ *			- XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ *			 										 regeneration type.
+ *			- XPUF_ERROR_CHASH_NOT_PROGRAMMED	   - Helper data not provided.
+ *			- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout before Status was
+ *			 										 done.
+ *			- XST_FAILURE 						   - Unexpected event.
  *
  * @note	None.
  *
@@ -364,15 +360,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief
- * This function captures PUF ID generated into XPuf_Data.
+ * @brief	This function captures PUF ID generated into XPuf_Data.
  *
- *
- * @param	PufData - Pointer to XPuf_Data structure
+ * @param	PufData - Pointer to XPuf_Data structure.
  *
  * @return	None.
- *
- * @note	None.
  *
  *****************************************************************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData)
@@ -389,15 +381,13 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 
 /*****************************************************************************/
 /**
- * @brief
- * This function validates if secure control bits for each PUF operations are
- * set or not.
+ * @brief	This function validates if secure control bits for each PUF
+ * 			operations are set or not.
  *
+ * @param	PufData - Pointer to XPuf_Data structure.
  *
- * @param	PufData - Pointer to XPuf_Data structure
- *
- * @return	XST_SUCCESS - secure control bits are not set
- * 		XST_FAILURE - secure control bits are set
+ * @return	- XST_SUCCESS - secure control bits are not set.
+ * 			- XST_FAILURE - secure control bits are set.
  *
  *****************************************************************************/
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
@@ -447,11 +437,11 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 /*****************************************************************************/
 /**
  *
- * Converts the PUF Syndrome data to eFUSE writing format.
+ * @brief	Converts the PUF Syndrome data to eFUSE writing format.
  *
- * @param	PufData - Pointer to XPuf_Data structure
+ * @param	PufData - Pointer to XPuf_Data structure.
  *
- * @return	none
+ * @return	None.
  *
  * @note	Formatted data will be available at PufData->EfuseSynData.
  *
@@ -466,7 +456,7 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	u32 SubIndex;
 
 	Xil_MemCpy(SynData, PufData->SyndromeData,
-		(u32)(XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32)));
+		(XPUF_4K_PUF_SYN_LEN_IN_WORDS * ((u32)sizeof(u32))));
 
 	/**
 	 * Trimming logic for PUF Syndrome Data:
@@ -510,7 +500,7 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 			if (SubIndex == 3U) {
 				PufData->EfuseSynData[DIndex] =
 				(SynData[SIndex] & XPUF_EFUSE_TRIM_MASK) |
-				(SynData[SIndex+1U] >> 20U);
+				(SynData[SIndex + 1U] >> 20U);
 			}
 			else {
 				PufData->EfuseSynData[DIndex] =
@@ -525,12 +515,12 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				PufData->EfuseSynData[DIndex] =
 					(((SynData[SIndex] &
 					XPUF_EFUSE_TRIM_MASK) << 12U) |
-						(SynData[SIndex+1U] >> 8U));
+						(SynData[SIndex + 1U] >> 8U));
 			}
 			else {
 				PufData->EfuseSynData[DIndex] =
 				((SynData[SIndex] << 12U) |
-						(SynData[SIndex+1U] >> 20U));
+						(SynData[SIndex + 1U] >> 20U));
 			}
 			SIndex++;
 			DIndex++;
@@ -540,17 +530,17 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 			if (SubIndex == 2U) {
 				PufData->EfuseSynData[DIndex] =
 					((SynData[SIndex] << 24U) |
-					((SynData[SIndex+1U] &
+					((SynData[SIndex + 1U] &
 						XPUF_EFUSE_TRIM_MASK) >> 8U));
 				if (DIndex < (XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS - 1U)) {
 					PufData->EfuseSynData[DIndex] |=
-						(SynData[SIndex+2U] >> 28U);
+						(SynData[SIndex + 2U] >> 28U);
 				}
 			}
 			else {
 				PufData->EfuseSynData[DIndex]=
 					((SynData[SIndex] << 24U) |
-						(SynData[SIndex+1U] >> 8U));
+						(SynData[SIndex + 1U] >> 8U));
 			}
 			SIndex++;
 			DIndex++;
@@ -563,13 +553,13 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
 					XPUF_EFUSE_TRIM_MASK) << 4U) |
-						(SynData[SIndex+1U] >> 16U));
+						(SynData[SIndex + 1U] >> 16U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 4U) |
-						(SynData[SIndex+1U] >> 28U));
+						(SynData[SIndex + 1U] >> 28U));
 				}
 				SIndex++;
 				DIndex++;
@@ -580,13 +570,13 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
 					XPUF_EFUSE_TRIM_MASK) << 16U) |
-						(SynData[SIndex+1U] >> 4U));
+						(SynData[SIndex + 1U] >> 4U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
 						((SynData[SIndex] << 16U) |
-						(SynData[SIndex+1U] >> 16U));
+						(SynData[SIndex + 1U] >> 16U));
 				}
 				SIndex++;
 				DIndex++;
@@ -596,15 +586,15 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				if (SubIndex == 2U) {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 28U) |
-						((SynData[SIndex+1U] &
+						((SynData[SIndex + 1U] &
 						XPUF_EFUSE_TRIM_MASK) >> 4U));
 					PufData->EfuseSynData[DIndex] |=
-						(SynData[SIndex+2U] >> 24U);
+						(SynData[SIndex + 2U] >> 24U);
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
 						((SynData[SIndex] << 28U) |
-						(SynData[SIndex+1U] >> 4U));
+						(SynData[SIndex + 1U] >> 4U));
 				}
 				SIndex++;
 				DIndex++;
@@ -616,13 +606,13 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 					PufData->EfuseSynData[DIndex] =
 						(((SynData[SIndex] &
 						XPUF_EFUSE_TRIM_MASK) << 8U) |
-						(SynData[SIndex+1U] >> 12U));
+						(SynData[SIndex + 1U] >> 12U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 8U) |
-						(SynData[SIndex+1U] >> 24U));
+						(SynData[SIndex + 1U] >> 24U));
 				}
 				SIndex++;
 				DIndex++;
@@ -632,14 +622,14 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				if (SubIndex == 2U) {
 					PufData->EfuseSynData[DIndex] =
 						((SynData[SIndex] << 20U) |
-						((SynData[SIndex+1U] &
+						((SynData[SIndex + 1U] &
 					XPUF_EFUSE_TRIM_MASK) >> 12U));
 
 				}
 				else {
 					PufData->EfuseSynData[DIndex]=
 						((SynData[SIndex] << 20U) |
-						(SynData[SIndex+1U] >> 12U));
+						(SynData[SIndex + 1U] >> 12U));
 				}
 				SIndex++;
 				DIndex++;
