@@ -35,6 +35,7 @@
 * 1.7	hk	08/03/20 Reorganize transfer function to accommodate all
 *			 processors and cache functionality.
 * 1.7	sk	08/26/20 Fix MISRA-C violations.
+* 1.7	sk	08/26/20 Remove busy check in SetConfig.
 * </pre>
 *
 ******************************************************************************/
@@ -695,6 +696,8 @@ done:
 *
 * @note		To use timers timeout value Timeout enable field should be
 *		enabled.
+*		Users should check for the status of existing transfers before
+*		making configuration changes.
 *
 ******************************************************************************/
 void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -708,7 +711,6 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(ConfigurValues != NULL);
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 				(Channel == (XCSUDMA_DST_CHANNEL)));
-	Xil_AssertVoid(XCsuDma_IsBusy(InstancePtr, Channel) != (s32)TRUE);
 
 	Data = ((((u32)(ConfigurValues->EndianType) <<
 			(u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
