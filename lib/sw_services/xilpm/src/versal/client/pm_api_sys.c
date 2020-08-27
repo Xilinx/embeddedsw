@@ -1733,15 +1733,16 @@ done:
  * @param  DeviceId   Device ID.
  * @param  Type       Type of operating characteristic requested:
  *                    - power (current power consumption),
- *                    - latency (current latency in us to return to active
- *			state),
- *                    - temperature (current temperature),
+ *                    - latency (current latency in micro seconds to return
+ *                               to active state),
+ *                    - temperature (current temperature in Celsius
+ *                                   (Q8.7 format)),
  * @param  Result     Used to return the requested operating characteristic.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- *
+ * @note   Currently power type is not supported for Versal.
  *
  ****************************************************************************/
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
