@@ -222,6 +222,11 @@ typedef enum{
 
 /* Data structures to capture data shape for dmas */
 typedef struct {
+	u32 StepSize;
+	u32 Wrap;
+} XAie_Gen2DmaDimDesc;
+
+typedef struct {
 	u32 Offset;
 	u32 Incr;
 	u32 Wrap;
@@ -229,6 +234,7 @@ typedef struct {
 
 typedef union {
 	XAie_AieDmaDimDesc AieDimDesc;
+	XAie_Gen2DmaDimDesc Aie2DimDesc;
 } XAie_DmaDimDesc;
 
 typedef struct {
@@ -262,6 +268,7 @@ typedef struct {
 	u8 ValidBd;
 	u8 NxtBd;
 	u8 UseNxtBd;
+	u8 OutofOrderBdId;
 } XAie_BdEnDesc;
 
 typedef struct {
@@ -285,9 +292,30 @@ typedef struct {
 	u8 EnInterleaved;
 } XAie_AieMultiDimDesc;
 
+typedef struct {
+	u16 Wrap;
+	u32 StepSize;
+} XAie_Gen2DimDesc;
+
+typedef struct {
+	u8 IterCurr;
+	XAie_Gen2DimDesc IterDesc;
+	XAie_Gen2DimDesc DimDesc[4U];	/* Max 4D addressing supported */
+} XAie_Gen2MultiDimDesc;
+
 typedef union {
 	XAie_AieMultiDimDesc AieMultiDimDesc;
+	XAie_Gen2MultiDimDesc Gen2MultiDimDesc;
 } XAie_MultiDimDesc;
+
+typedef struct {
+	u8 D0_ZeroBefore;
+	u8 D0_ZeroAfter;
+	u8 D1_ZeroBefore;
+	u8 D1_ZeroAfter;
+	u8 D2_ZeroBefore;
+	u8 D2_ZeroAfter;
+} XAie_ZeroPadDesc;
 
 typedef struct {
 	u8 ControllerId;
@@ -308,12 +336,15 @@ typedef struct {
 	XAie_LockDesc LockDesc_2;
 	XAie_AddrDesc AddrDesc_2;
 	XAie_MultiDimDesc MultiDimDesc;
+	XAie_ZeroPadDesc ZeroPadDesc;
 	XAie_ChannelDesc ChDesc;
 	const XAie_DmaMod *DmaMod;
 	const XAie_LockMod *LockMod;
 	XAie_MemInst *MemInst;
 	u8 EnDoubleBuff;
 	u8 FifoMode;
+	u8 EnCompression;
+	u8 EnOutofOrderBdId;
 	u8 TileType;
 	u8 IsReady;
 } XAie_DmaDesc;
