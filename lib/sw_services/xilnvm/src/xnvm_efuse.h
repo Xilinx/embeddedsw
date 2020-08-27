@@ -76,6 +76,12 @@ extern "C" {
 
 /* Versal eFuse maximum bits in a row */
 #define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
+#define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
+											* XNVM_EFUSE_MAX_BITS_IN_ROW)
+
+/*Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */
+#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
+#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
 
 /**
 * @}

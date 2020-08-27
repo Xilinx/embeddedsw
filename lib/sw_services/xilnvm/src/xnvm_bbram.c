@@ -139,7 +139,7 @@ int XNvm_BbramLockUsrDataWrite(void)
 
 	XNvm_BbramWriteReg(XNVM_BBRAM_MSW_LOCK_REG, XNVM_BBRAM_MSW_LOCK);
 	LockStatus = XNvm_BbramReadReg(XNVM_BBRAM_MSW_LOCK_REG);
-	if((LockStatus & XNVM_BBRAM_MSW_LOCK) != 0) {
+	if((LockStatus & XNVM_BBRAM_MSW_LOCK) == XNVM_BBRAM_MSW_LOCK) {
 		Status = XST_SUCCESS;
 	}
 	else {
@@ -167,7 +167,7 @@ int XNvm_BbramWriteUsrData(u32 UsrData)
 
 	LockStatus = XNvm_BbramReadReg(XNVM_BBRAM_MSW_LOCK_REG);
 
-	if((LockStatus & XNVM_BBRAM_MSW_LOCK) != 0) {
+	if((LockStatus & XNVM_BBRAM_MSW_LOCK) == XNVM_BBRAM_MSW_LOCK) {
 		Status = XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED;
 	}
 	else {
@@ -296,7 +296,8 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
 
 	BbramStatus = XNvm_BbramReadReg(XNVM_BBRAM_STATUS_REG);
 
-	if((BbramStatus & XNVM_BBRAM_STATUS_AES_CRC_PASS) != 0) {
+	if((BbramStatus & XNVM_BBRAM_STATUS_AES_CRC_PASS)
+			== XNVM_BBRAM_STATUS_AES_CRC_PASS) {
 		Status = XST_SUCCESS;
 	}
 	else {
