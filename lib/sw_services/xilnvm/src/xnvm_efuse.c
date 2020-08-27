@@ -3994,7 +3994,7 @@ static int XNvm_EfuseReadCache(u32 Row, u32* RowData)
 	u32 CacheData;
 	u32 IsrStatus;
 
-	CacheData = Xil_In32(XNVM_EFUSE_CACHE_BASEADDR + Row * sizeof(u32));
+	CacheData = Xil_In32(XNVM_EFUSE_CACHE_BASEADDR + (Row * sizeof(u32)));
 	IsrStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_ISR_REG_OFFSET);
 	if ((IsrStatus & XNVM_EFUSE_ISR_CACHE_ERROR)
