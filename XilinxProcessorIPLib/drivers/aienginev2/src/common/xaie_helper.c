@@ -55,7 +55,7 @@
 *
 * @param	DevInst: Device Instance
 * @param	Loc: Location of the AIE tile.
-* @return	TileType (AIETILE/RESERVED/SHIMPL/SHIMNOC on success and MAX on
+* @return	TileType (AIETILE/MEMTILE/SHIMPL/SHIMNOC on success and MAX on
 *		error)
 *
 * @note		Internal API only.
@@ -78,10 +78,10 @@ u8 _XAie_GetTileTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc)
 
 		return XAIEGBL_TILE_TYPE_SHIMNOC;
 
-	} else if(Loc.Row >= DevInst->ReservedRowStart &&
-			(Loc.Row < (DevInst->ReservedRowStart +
-				     DevInst->ReservedNumRows))) {
-		return XAIEGBL_TILE_TYPE_RESERVED;
+	} else if(Loc.Row >= DevInst->MemTileRowStart &&
+			(Loc.Row < (DevInst->MemTileRowStart +
+				     DevInst->MemTileNumRows))) {
+		return XAIEGBL_TILE_TYPE_MEMTILE;
 	} else if (Loc.Row >= DevInst->AieTileRowStart &&
 			(Loc.Row < (DevInst->AieTileRowStart +
 				     DevInst->AieTileNumRows))) {
@@ -126,7 +126,7 @@ AieRC _XAie_CheckModule(XAie_DevInst *DevInst,
 		return XAIE_INVALID_ARGS;
 	}
 
-	if(TileType == XAIEGBL_TILE_TYPE_RESERVED &&
+	if(TileType == XAIEGBL_TILE_TYPE_MEMTILE &&
 		Module != XAIE_MEM_MOD) {
 		XAIE_ERROR("Invalid Module\n");
 		return XAIE_INVALID_ARGS;
