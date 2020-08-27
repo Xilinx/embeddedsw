@@ -703,14 +703,14 @@ typedef struct {
 */
 
 /*************************** Function Prototypes ******************************/
-int XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm);
+int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm);
 int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv);
 int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke);
 int XNvm_EfuseWriteRevocationId(u32 RevokeId);
 int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses);
 int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType);
 int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr, u8 RevokeFuseNum);
-int XNvm_EfuseReadUserFuses(XNvm_EfuseUserData *UserFusesData);
+int XNvm_EfuseReadUserFuses(const XNvm_EfuseUserData *UserFusesData);
 int XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits);
 int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
 int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType);
@@ -719,7 +719,7 @@ int XNvm_EfuseReadDna(XNvm_Dna *EfuseDna);
 int XNvm_EfuseCheckAesKeyCrc(u32 Crc);
 int XNvm_EfuseCheckAesUserKey0Crc(u32 Crc);
 int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc);
-int XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData);
+int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData);
 int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData);
 int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
 
