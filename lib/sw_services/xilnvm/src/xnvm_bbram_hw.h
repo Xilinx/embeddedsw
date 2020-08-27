@@ -43,19 +43,7 @@ extern "C" {
 #define XNVM_BBRAM_PGM_MODE_REG			(0x08U)
 #define XNVM_BBRAM_AES_CRC_REG			(0x0CU)
 #define XNVM_BBRAM_0_REG			(0x10U)
-#define XNVM_BBRAM_1_REG			(0x14U)
-#define XNVM_BBRAM_2_REG			(0x18U)
-#define XNVM_BBRAM_3_REG			(0x1CU)
-#define XNVM_BBRAM_4_REG			(0x20U)
-#define XNVM_BBRAM_5_REG			(0x24U)
-#define XNVM_BBRAM_6_REG			(0x28U)
-#define XNVM_BBRAM_7_REG			(0x2CU)
 #define XNVM_BBRAM_8_REG			(0x30U)
-#define XNVM_BBRAM_SLV_ERR_CTRL_REG		(0x34U)
-#define XNVM_BBRAM_SLV_ERR_ISR_REG		(0x38U)
-#define XNVM_BBRAM_SLV_ERR_IMR_REG		(0x3CU)
-#define XNVM_BBRAM_SLV_ERR_IER_REG		(0x40U)
-#define XNVM_BBRAM_SLV_ERR_IDR_REG		(0x44U)
 #define XNVM_BBRAM_MSW_LOCK_REG			(0x4CU)
 
 /* BBRAM Controller STATUS register definition */
@@ -69,21 +57,6 @@ extern "C" {
 
 /* BBRAM Controller PGM_MODE register definition */
 #define XNVM_EFUSE_PGM_MODE_PASSCODE		(0x757BDF0DU)
-
-/* BBRAM Controller SLV_ERR_CTRL register definition */
-#define XNVM_BBRAM_SLV_ERR_CTRL_ENABLE		((u32)0x01U << 0U)
-
-/* BBRAM Controller SLV_ERR_ISR register definition */
-#define XNVM_BBRAM_SLV_ERR_ISR_ERR		((u32)0x01U << 0U)
-
-/* BBRAM Controller SLV_ERR_IMR register definition */
-#define XNVM_BBRAM_SLV_ERR_IMR_ERR		((u32)0x01U << 0U)
-
-/* BBRAM Controller SLV_ERR_IER register definition */
-#define XNVM_BBRAM_SLV_ERR_IER_ERR		((u32)0x01U << 0U)
-
-/* BBRAM Controller SLV_ERR_IDR register definition */
-#define XNVM_BBRAM_SLV_ERR_IDR_ERR		((u32)0x01U << 0U)
 
 /* BBRAM Controller MSW_LOCK register definition */
 #define XNVM_BBRAM_MSW_LOCK			((u32)0x01U << 0U)
