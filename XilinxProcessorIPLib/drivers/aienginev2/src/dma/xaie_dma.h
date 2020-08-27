@@ -45,6 +45,7 @@ AieRC XAie_DmaDescInit(XAie_DevInst *DevInst, XAie_DmaDesc *DmaDesc,
 		XAie_LocType Loc);
 AieRC XAie_DmaSetLock(XAie_DmaDesc *DmaDesc, XAie_Lock Acq, XAie_Lock Rel);
 AieRC XAie_DmaSetPkt(XAie_DmaDesc *DmaDesc, XAie_Packet Pkt);
+AieRC XAie_DmaSetOutofOrderBdId(XAie_DmaDesc *DmaDesc, u8 OutofOrderBdId);
 AieRC XAie_DmaSetDoubleBuffer(XAie_DmaDesc *DmaDesc, u64 Addr, XAie_Lock Acq,
 		XAie_Lock Rel);
 AieRC XAie_DmaSetAddrLen(XAie_DmaDesc *DmaDesc, u64 Addr, u32 Len);
@@ -53,6 +54,7 @@ AieRC XAie_DmaSetAddrOffsetLen(XAie_DmaDesc *DmaDesc, XAie_MemInst *MemInst,
 			       u64 Offset, u32 Len);
 AieRC XAie_DmaSetMultiDimAddr(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor,
 		u64 Addr, u32 Len);
+AieRC XAie_DmaEnableCompression(XAie_DmaDesc *DmaDesc);
 AieRC XAie_DmaConfigFifoMode(XAie_DmaDesc *DmaDesc,
 		XAie_DmaFifoCounter Counter);
 AieRC XAie_DmaSetNextBd(XAie_DmaDesc *DmaDesc, u8 NextBd, u8 EnableNextBd);
@@ -72,6 +74,9 @@ AieRC XAie_DmaChannelPauseStream(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 Pause);
 AieRC XAie_DmaChannelPauseMem(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
 		XAie_DmaDirection Dir, u8 Pause);
+AieRC XAie_DmaChannelConfig(XAie_DevInst *DevInst, XAie_DmaDesc *DmaDesc,
+		XAie_LocType Loc, u8 ChNum, XAie_DmaDirection Dir,
+		u8 RepeatCount, u8 EnTokenIssue, u8 ControllerId);
 AieRC XAie_DmaChannelPushBdToQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum);
 AieRC XAie_DmaChannelEnable(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,

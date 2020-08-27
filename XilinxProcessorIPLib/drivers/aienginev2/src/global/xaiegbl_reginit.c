@@ -1213,6 +1213,7 @@ static const XAie_DmaBdEnProp AieTileDmaBdEnProp =
 	.ValidBd.Idx = 6U,
 	.ValidBd.Lsb = XAIEGBL_MEM_DMABD0CTRL_VALBD_LSB,
 	.ValidBd.Mask = XAIEGBL_MEM_DMABD0CTRL_VALBD_MASK,
+	.OutofOrderBdId = {0U}
 };
 
 static const XAie_DmaBdPkt AieTileDmaBdPktProp =
@@ -1343,6 +1344,8 @@ static const XAie_DmaBdProp AieTileDmaProp =
 	.Pkt = &AieTileDmaBdPktProp,
 	.BdEn = &AieTileDmaBdEnProp,
 	.AddrMode = &AieTileDmaMultiDimProp,
+	.ZeroPad = NULL,
+	.Compression = NULL,
 	.SysProp = NULL
 };
 
@@ -1371,6 +1374,11 @@ static const XAie_DmaChStatus AieTileDmaChStatus[] =
 
 static const XAie_DmaChProp AieTileDmaChProp =
 {
+	.CtrlId = {0U},
+	.EnCompression = {0U},
+	.EnOutofOrder = {0U},
+	.EnToken = {0U},
+	.RptCount = {0U},
 	.PauseStream = {0U},
 	.PauseMem = {0U},
 	.Reset.Idx = 0U,
@@ -1395,6 +1403,9 @@ static const XAie_DmaMod AieTileDmaMod =
 	.NumLocks = 16U,
 	.NumAddrDim = 2U,
 	.DoubleBuffering = XAIE_FEATURE_AVAILABLE,
+	.Compression = XAIE_FEATURE_UNAVAILABLE,
+	.ZeroPadding = XAIE_FEATURE_UNAVAILABLE,
+	.OutofOrderBdId = XAIE_FEATURE_UNAVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_AVAILABLE,
 	.FifoMode = XAIE_FEATURE_AVAILABLE,
 	.ChCtrlBase = XAIEGBL_MEM_DMAS2MM0CTR,
@@ -1519,6 +1530,8 @@ static const XAie_DmaBdProp AieShimDmaProp =
 	.Pkt = &AieShimDmaBdPktProp,
 	.BdEn = &AieShimDmaBdEnProp,
 	.AddrMode = NULL,
+	.ZeroPad = NULL,
+	.Compression = NULL,
 	.SysProp = &AieShimDmaSysProp
 };
 
@@ -1547,6 +1560,11 @@ static const XAie_DmaChStatus AieShimDmaChStatus[] =
 
 static const XAie_DmaChProp AieShimDmaChProp =
 {
+	.CtrlId = {0U},
+	.EnCompression = {0U},
+	.EnOutofOrder = {0U},
+	.EnToken = {0U},
+	.RptCount = {0U},
 	.Reset = {0U},
 	.Enable.Idx = 0U,
 	.Enable.Lsb = XAIEGBL_NOC_DMAS2MM0CTR_ENA_LSB,
@@ -1573,6 +1591,9 @@ static const XAie_DmaMod AieShimDmaMod =
 	.NumLocks = 16U,
 	.NumAddrDim = 0U,
 	.DoubleBuffering = XAIE_FEATURE_UNAVAILABLE,
+	.Compression = XAIE_FEATURE_UNAVAILABLE,
+	.ZeroPadding = XAIE_FEATURE_UNAVAILABLE,
+	.OutofOrderBdId = XAIE_FEATURE_UNAVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.ChCtrlBase = XAIEGBL_NOC_DMAS2MM0CTR,
