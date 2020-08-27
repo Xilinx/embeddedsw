@@ -48,6 +48,7 @@
 
 /************************** Variable Definitions *****************************/
 extern XAie_TileMod AieMod[XAIEGBL_TILE_TYPE_MAX];
+extern XAie_TileMod Aie2Mod[XAIEGBL_TILE_TYPE_MAX];
 
 extern XAie_DeviceOps AieDevOps;
 extern XAie_DeviceOps AieMlDevOps;
@@ -85,7 +86,10 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 		return XAIE_OK;
 
 	/* Initialize device property according to Device Type */
-	if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIE) {
+	if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIE2) {
+		InstPtr->DevProp.DevMod = Aie2Mod;
+		InstPtr->DevProp.DevGen = XAIE_DEV_GEN_AIE2;
+	} else if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIE) {
 		InstPtr->DevProp.DevMod = AieMod;
 		InstPtr->DevProp.DevGen = XAIE_DEV_GEN_AIE;
 		InstPtr->DevOps = &AieDevOps;
@@ -102,8 +106,8 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 	InstPtr->NumRows = ConfigPtr->NumRows;
 	InstPtr->NumCols = ConfigPtr->NumCols;
 	InstPtr->ShimRow = ConfigPtr->ShimRowNum;
-	InstPtr->ReservedRowStart = ConfigPtr->ReservedRowStart;
-	InstPtr->ReservedNumRows = ConfigPtr->ReservedNumRows;
+	InstPtr->MemTileRowStart = ConfigPtr->MemTileRowStart;
+	InstPtr->MemTileNumRows = ConfigPtr->MemTileNumRows;
 	InstPtr->AieTileRowStart = ConfigPtr->AieTileRowStart;
 	InstPtr->AieTileNumRows = ConfigPtr->AieTileNumRows;
 	InstPtr->EccStatus = XAIE_ENABLE;

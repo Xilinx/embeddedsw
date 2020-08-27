@@ -44,6 +44,7 @@ typedef uint32_t		u32;
 typedef uint64_t		u64;
 
 #define XAIE_DEV_GEN_AIE		1U
+#define XAIE_DEV_GEN_AIE2		2U
 
 #define XAIE_COMPONENT_IS_READY		1U
 
@@ -54,7 +55,7 @@ typedef uint64_t		u64;
 #define XAIEGBL_TILE_TYPE_AIETILE	0U
 #define XAIEGBL_TILE_TYPE_SHIMNOC	1U
 #define XAIEGBL_TILE_TYPE_SHIMPL	2U
-#define XAIEGBL_TILE_TYPE_RESERVED	3U
+#define XAIEGBL_TILE_TYPE_MEMTILE	3U
 #define XAIEGBL_TILE_TYPE_MAX		4U
 
 #define XAie_SetField(Val, Lsb, Mask)	(((u32)Val << (Lsb)) & Mask)

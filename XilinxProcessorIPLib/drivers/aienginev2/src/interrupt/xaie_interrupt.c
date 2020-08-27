@@ -579,11 +579,11 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 {
 	AieRC RC;
 	u32 GroupErrorEnableMask;
-	u8 ReservedStart, ReservedEnd, AieRowStart, AieRowEnd;
+	u8 MemTileStart, MemTileEnd, AieRowStart, AieRowEnd;
 	XAie_LocType Loc;
 
-	ReservedStart = DevInst->ReservedRowStart;
-	ReservedEnd = DevInst->ReservedRowStart + DevInst->ReservedNumRows;
+	MemTileStart = DevInst->MemTileRowStart;
+	MemTileEnd = DevInst->MemTileRowStart + DevInst->MemTileNumRows;
 	AieRowStart = DevInst->AieTileRowStart;
 	AieRowEnd = DevInst->AieTileRowStart + DevInst->AieTileNumRows;
 
@@ -631,7 +631,7 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 			}
 		}
 
-		for(u8 MemRow = ReservedStart; MemRow < ReservedEnd; MemRow++) {
+		for(u8 MemRow = MemTileStart; MemRow < MemTileEnd; MemRow++) {
 			Loc = XAie_TileLoc(Col, MemRow);
 
 			if (_XAie_PmIsTileRequested(DevInst, Loc) == XAIE_DISABLE)
@@ -643,7 +643,7 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 					XAIE_EVENT_GROUP_ERRORS_MEM_TILE,
 					GroupErrorEnableMask);
 			if(RC != XAIE_OK) {
-				XAIE_ERROR("Failed to configure group error\n");
+				XAIE_ERROR("Failed to configure group error in mem tile\n");
 				return RC;
 			}
 
@@ -651,7 +651,7 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 					XAIE_ERROR_BROADCAST_ID,
 					XAIE_EVENT_GROUP_ERRORS_MEM_TILE);
 			if(RC != XAIE_OK) {
-				XAIE_ERROR("Failed to setup error broadcast\n");
+				XAIE_ERROR("Failed to setup error broadcast for mem tile\n");
 				return RC;
 			}
 		}
@@ -798,7 +798,7 @@ static AieRC XAie_ErrorHandlingReserveRsc(XAie_DevInst *DevInst)
 AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 {
 	AieRC RC;
-	u8 TileType, L1BroadcastId, ReservedStart, ReservedEnd, AieRowStart,
+	u8 TileType, L1BroadcastId, MemTileStart, MemTileEnd, AieRowStart,
 	   AieRowEnd, BroadcastDirSwA, BroadcastDirSwB;
 	XAie_LocType Loc;
 
@@ -813,8 +813,8 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 		return RC;
 	}
 
-	ReservedStart = DevInst->ReservedRowStart;
-	ReservedEnd = DevInst->ReservedRowStart + DevInst->ReservedNumRows;
+	MemTileStart = DevInst->MemTileRowStart;
+	MemTileEnd = DevInst->MemTileRowStart + DevInst->MemTileNumRows;
 	AieRowStart = DevInst->AieTileRowStart;
 	AieRowEnd = DevInst->AieTileRowStart + DevInst->AieTileNumRows;
 
@@ -849,8 +849,8 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 			}
 		}
 
-		/* Setup error broadcasts to SOUTH */
-		for(u8 MemRow = ReservedStart; MemRow < ReservedEnd; MemRow++) {
+		/* Setup error broadcasts to SOUTH from mem tile */
+		for(u8 MemRow = MemTileStart; MemRow < MemTileEnd; MemRow++) {
 			Loc = XAie_TileLoc(Col, MemRow);
 
 			if (_XAie_PmIsTileRequested(DevInst, Loc) == XAIE_DISABLE)
@@ -865,7 +865,7 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 				   XAIE_MEM_MOD, XAIE_EVENT_SWITCH_A,
 				   XAIE_ERROR_BROADCAST_ID, BroadcastDirSwA);
 			if(RC != XAIE_OK) {
-				XAIE_ERROR("Failed to block broadcasts in switch A\n");
+				XAIE_ERROR("Failed to block broadcasts in mem tile switch A\n");
 				return RC;
 			}
 
@@ -873,7 +873,7 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 				   XAIE_MEM_MOD, XAIE_EVENT_SWITCH_B,
 				   XAIE_ERROR_BROADCAST_ID, BroadcastDirSwB);
 			if(RC != XAIE_OK) {
-				XAIE_ERROR("Failed to block broadcasts in switch B\n");
+				XAIE_ERROR("Failed to block broadcasts in mem tile switch B\n");
 				return RC;
 			}
 		}

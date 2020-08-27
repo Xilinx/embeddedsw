@@ -63,7 +63,7 @@ AieRC XAie_DataMemWrWord(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if((TileType != XAIEGBL_TILE_TYPE_AIETILE) &&
-			(TileType != XAIEGBL_TILE_TYPE_RESERVED)){
+			(TileType != XAIEGBL_TILE_TYPE_MEMTILE)){
 		XAIE_ERROR("Invalid Tile Type\n");
 		return XAIE_INVALID_TILE;
 	}
@@ -111,7 +111,7 @@ AieRC XAie_DataMemRdWord(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if((TileType != XAIEGBL_TILE_TYPE_AIETILE) &&
-			(TileType != XAIEGBL_TILE_TYPE_RESERVED)){
+			(TileType != XAIEGBL_TILE_TYPE_MEMTILE)){
 		XAIE_ERROR("Invalid Tile Type\n");
 		return XAIE_INVALID_TILE;
 	}
@@ -168,7 +168,7 @@ AieRC XAie_DataMemBlockWrite(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 
 	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if((TileType != XAIEGBL_TILE_TYPE_AIETILE) &&
-			(TileType != XAIEGBL_TILE_TYPE_RESERVED)) {
+			(TileType != XAIEGBL_TILE_TYPE_MEMTILE)) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
 	}
@@ -277,7 +277,7 @@ AieRC XAie_DataMemBlockRead(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 
 	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if((TileType != XAIEGBL_TILE_TYPE_AIETILE) &&
-			(TileType != XAIEGBL_TILE_TYPE_RESERVED)) {
+			(TileType != XAIEGBL_TILE_TYPE_MEMTILE)) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
 	}

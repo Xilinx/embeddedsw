@@ -124,8 +124,8 @@ typedef struct {
 	u8 NumRows;   /* Number of rows allocated to the partition */
 	u8 NumCols;   /* Number of cols allocated to the partition */
 	u8 ShimRow;   /* ShimRow location */
-	u8 ReservedRowStart;
-	u8 ReservedNumRows;
+	u8 MemTileRowStart; /* Mem tile starting row in the partition */
+	u8 MemTileNumRows;  /* Number of memtile rows in the partition */
 	u8 AieTileRowStart; /* Aie tile starting row in the partition */
 	u8 AieTileNumRows;  /* Number of aie tile rows in the partition */
 	u8 IsReady;
@@ -177,8 +177,8 @@ typedef struct {
 	u8 NumRows;
 	u8 NumCols;
 	u8 ShimRowNum;
-	u8 ReservedRowStart;
-	u8 ReservedNumRows;
+	u8 MemTileRowStart;
+	u8 MemTileNumRows;
 	u8 AieTileRowStart;
 	u8 AieTileNumRows;
 	XAie_PartitionProp PartProp;
@@ -400,8 +400,8 @@ typedef enum{
 /*
  * This enum is to identify different hardware modules within a tile type.
  * An AIE tile can have memory or core module. A PL or Shim tile will have
- * Pl module. Any hardware module addition in future generations of AIE needs
- * to be appended to this enum.
+ * Pl module. A mem tile will have memory module. Any hardware module
+ * addition in future generations of AIE needs to be appended to this enum.
  */
 typedef enum{
 	XAIE_MEM_MOD,
@@ -560,10 +560,10 @@ static inline void XAie_SetupConfigPartProp(XAie_Config *ConfigPtr, u32 Nid,
 * @param	_NumCols: Number of cols in the hardware.
 * @param	_NumRows: Number of rows in the hardware.
 * @param	_ShimRowNum: Row number of the shimrow.
-* @param	_ReservedRowStart: Reserved
-* @param	_ReservedNumRows: Reserved
-* @param	_AieTileRowStart: Starting row number of the aie tile.
-* @param	_AieTileNumRows: Number of aie tile rows.
+* @param	_MemTileRowStart: Starting row number of the mem tile.
+* @param	_MemTileNumRows: Number of mem tile rows.
+* @param	_AieTileRowStart: Starting row number of the mem tile.
+* @param	_AieTileNumRows: Number of mem tile rows.
 *
 * @return	None.
 *
@@ -571,7 +571,7 @@ static inline void XAie_SetupConfigPartProp(XAie_Config *ConfigPtr, u32 Nid,
 *
 *******************************************************************************/
 #define XAie_SetupConfig(Config, _AieGen, _BaseAddr, _ColShift, _RowShift,\
-		_NumCols, _NumRows, _ShimRowNum, _ReservedRowStart, _ReservedNumRows,\
+		_NumCols, _NumRows, _ShimRowNum, _MemTileRowStart, _MemTileNumRows,\
 		_AieTileRowStart, _AieTileNumRows) \
 		XAie_Config Config = {\
 			.AieGen = _AieGen,\
@@ -581,8 +581,8 @@ static inline void XAie_SetupConfigPartProp(XAie_Config *ConfigPtr, u32 Nid,
 			.NumRows = _NumRows,\
 			.NumCols = _NumCols,\
 			.ShimRowNum = _ShimRowNum,\
-			.ReservedRowStart = _ReservedRowStart,\
-			.ReservedNumRows = _ReservedNumRows,\
+			.MemTileRowStart = _MemTileRowStart,\
+			.MemTileNumRows = _MemTileNumRows,\
 			.AieTileRowStart = _AieTileRowStart,\
 			.AieTileNumRows = _AieTileNumRows,\
 			.PartProp = {0}, \
