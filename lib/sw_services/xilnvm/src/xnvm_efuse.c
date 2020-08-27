@@ -3952,7 +3952,7 @@ static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32* RowData)
 		Status = (int)XNVM_EFUSE_ERR_RD_TIMEOUT;
 	}
 	else if ((EventMask & XNVM_EFUSE_ISR_RD_ERROR)
-				!= XNVM_EFUSE_ISR_RD_ERROR) {
+				== XNVM_EFUSE_ISR_RD_ERROR) {
 		Status = (int)XNVM_EFUSE_ERR_RD;
 	}
 	else {
@@ -3989,7 +3989,8 @@ static int XNvm_EfuseReadCache(u32 Row, u32* RowData)
 	CacheData = Xil_In32(XNVM_EFUSE_CACHE_BASEADDR + Row * sizeof(u32));
 	IsrStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_ISR_REG_OFFSET);
-	if (IsrStatus & XNVM_EFUSE_ISR_CACHE_ERROR) {
+	if ((IsrStatus & XNVM_EFUSE_ISR_CACHE_ERROR)
+			== XNVM_EFUSE_ISR_CACHE_ERROR) {
 		Status = (int)XNVM_EFUSE_ERR_CACHE_PARITY;
 		goto END;
 	}
@@ -4067,7 +4068,8 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 				&EventMask);
 	if (XST_TIMEOUT == Status) {
 		Status = (int)XNVM_EFUSE_ERR_PGM_TIMEOUT;
-	} else if (EventMask & XNVM_EFUSE_ISR_PGM_ERROR) {
+	} else if ((EventMask & XNVM_EFUSE_ISR_PGM_ERROR)
+					== XNVM_EFUSE_ISR_PGM_ERROR) {
 		Status = (int)XNVM_EFUSE_ERR_PGM;
 	} else {
 		Status = XST_SUCCESS;
@@ -4127,10 +4129,11 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 				&EventMask);
 	if (XST_TIMEOUT == Status) {
 		Status = (int)XNVM_EFUSE_ERR_PGM_TIMEOUT;
-	} else if (EventMask & XNVM_EFUSE_ISR_RD_DONE) {
+	} else if ((EventMask & XNVM_EFUSE_ISR_RD_DONE)
+					== XNVM_EFUSE_ISR_RD_DONE) {
 		RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_RD_DATA_REG_OFFSET);
-		if (RegData & (((u32)0x01U) << Col)) {
+		if ((RegData & (((u32)0x01U) << Col)) != 0U) {
 			Status = XST_SUCCESS;
 		}
 		else {
