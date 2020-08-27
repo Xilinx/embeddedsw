@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
+* 2.1	am 	 08/19/2020 Resolved MISRA C violations.
 *
 * </pre>
 *
@@ -57,19 +58,19 @@ extern "C" {
 /*************************** Function Prototypes ******************************/
 
 /* Writes AES key to BBRAM */
-u32 XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen);
+int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen);
 
 /* Locks user data and prevent writes */
-u32 XNvm_BbramLockUsrDataWrite();
+int XNvm_BbramLockUsrDataWrite(void);
 
 /* Write 32-bit user data */
-u32 XNvm_BbramWriteUsrData(u32 UsrData);
+int XNvm_BbramWriteUsrData(u32 UsrData);
 
 /* Read 32-bit user data */
-u32 XNvm_BbramReadUsrData();
+u32 XNvm_BbramReadUsrData(void);
 
 /* Zeroize BBRAM memory */
-u32 XNvm_BbramZeroize();
+int XNvm_BbramZeroize(void);
 
 #ifdef __cplusplus
 }

@@ -20,6 +20,7 @@
 * 2.0	kal  02/27/2019	Added eFuse rows, Cache offsets
 * 2.1   kal  07/09/2020 Replaced hardcoded CLK_REF_FREQ to the
 *                       XPAR_PSU_PSS_REF_CLK_FREQ_HZ
+*		am 	 08/19/2020 Resolved MISRA C violations.
 *
 * </pre>
 *
@@ -382,22 +383,22 @@ extern "C" {
 #define XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK		(0x1FFFU)
 
 /* eFuse ISR registers masks */
-#define XNVM_EFUSE_ISR_PGM_DONE				(0x01 << 0U)
-#define XNVM_EFUSE_ISR_PGM_ERROR			(0x01 << 1U)
-#define XNVM_EFUSE_ISR_RD_DONE				(0x01 << 2U)
-#define XNVM_EFUSE_ISR_RD_ERROR				(0x01 << 3U)
-#define XNVM_EFUSE_ISR_CACHE_ERROR			(0x01 << 4U)
-#define XNVM_EFUSE_ISR_MAIN_FSM_ERROR			(0x01 << 5U)
-#define XNVM_EFUSE_ISR_CACHE_FSM_ERROR			(0x01 << 6U)
-#define XNVM_EFUSE_ISR_RD_ON_CACHE_LD			(0x01 << 7U)
-#define XNVM_EFUSE_ISR_MAIN_REQ_ERROR			(0x01 << 8U)
-#define XNVM_EFUSE_ISR_CACHE_REQ_ERROR			(0x01 << 9U)
-#define XNVM_EFUSE_ISR_CACHE_APB_SLV_ERROR		(0x01 << 10U)
-#define XNVM_EFUSE_ISR_CACHE_PARITY_EOR			(0x01 << 11U)
-#define XNVM_EFUSE_ISR_CACHE_PARITY_EOS			(0x01 << 12U)
-#define XNVM_EFUSE_ISR_CACHE_PARITY_E1			(0x01 << 13U)
-#define XNVM_EFUSE_ISR_CACHE_PARITY_E2			(0x01 << 14U)
-#define XNVM_EFUSE_ISR_APB_SLV_ERROR			(0x01 << 31U)
+#define XNVM_EFUSE_ISR_PGM_DONE				(0x01U << 0U)
+#define XNVM_EFUSE_ISR_PGM_ERROR			(0x01U << 1U)
+#define XNVM_EFUSE_ISR_RD_DONE				(0x01U << 2U)
+#define XNVM_EFUSE_ISR_RD_ERROR				(0x01U << 3U)
+#define XNVM_EFUSE_ISR_CACHE_ERROR			(0x01U << 4U)
+#define XNVM_EFUSE_ISR_MAIN_FSM_ERROR			(0x01U << 5U)
+#define XNVM_EFUSE_ISR_CACHE_FSM_ERROR			(0x01U << 6U)
+#define XNVM_EFUSE_ISR_RD_ON_CACHE_LD			(0x01U << 7U)
+#define XNVM_EFUSE_ISR_MAIN_REQ_ERROR			(0x01U << 8U)
+#define XNVM_EFUSE_ISR_CACHE_REQ_ERROR			(0x01U << 9U)
+#define XNVM_EFUSE_ISR_CACHE_APB_SLV_ERROR		(0x01U << 10U)
+#define XNVM_EFUSE_ISR_CACHE_PARITY_EOR			(0x01U << 11U)
+#define XNVM_EFUSE_ISR_CACHE_PARITY_EOS			(0x01U << 12U)
+#define XNVM_EFUSE_ISR_CACHE_PARITY_E1			(0x01U << 13U)
+#define XNVM_EFUSE_ISR_CACHE_PARITY_E2			(0x01U << 14U)
+#define XNVM_EFUSE_ISR_APB_SLV_ERROR			(0x01U << 31U)
 
 
 /* eFUSE Controller PGM_LOCK register definition */
