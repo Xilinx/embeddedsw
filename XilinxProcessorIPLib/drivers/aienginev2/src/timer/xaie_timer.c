@@ -52,6 +52,7 @@
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Pl or Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 *
 * @param	LowEventValue: Value to set for the timer to trigger timer low
 *                              event.
@@ -123,6 +124,7 @@ AieRC XAie_SetTimerTrigEventVal(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module - Module of the tile
 *			 For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			 For Pl or Shim tile - XAIE_PL_MOD,
+*			 For Mem tile - XAIE_MEM_MOD.
 *
 * @return	XAIE_OK on success.
 *		XAIE_INVALID_ARGS if any argument is invalid
@@ -185,6 +187,7 @@ AieRC XAie_ResetTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module - Module of the tile
 *                         For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *                         For Pl or Shim tile - XAIE_PL_MOD,
+*                         For Mem tile - XAIE_MEM_MOD.
 * @param	Event - Reset event.
 * @param	Reset - Indicate if reset is also required in this call.
 *                       (XAIE_RESETENABLE, XAIE_RESETDISABLE)
@@ -280,6 +283,7 @@ AieRC XAie_SetTimerResetEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module - Module of the tile
 *                         For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *                         For Pl or Shim tile - XAIE_PL_MOD,
+*                         For Mem tile - XAIE_MEM_MOD.
 * @param	TimerVal - Pointer to store Timer Value.
 *
 * @return	XAIE_OK on success
@@ -352,6 +356,7 @@ AieRC XAie_ReadTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param        Module - Module of the tile
 *                        For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *                        For Pl or Shim tile - XAIE_PL_MOD,
+*                        For Mem tile - XAIE_MEM_MOD.
 * @param        CycleCnt - No. of timer clock cycles to elapse.
 *
 * @return       XAIE_OK on success
