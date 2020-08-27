@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Xilinx SBIRT</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="icon" href="favicon.ico" />
+	</head>
+
+	<body onload="onPageLoad()">
+		<div class="header">
+			<embed class="header_img" src="image/xlnxlogo.svg">
+			<span class="header_title"> SoM Boot Image Recovery Tool </span>
+		</div>
+
+		<div class="row_body">
+			<div class="column_body">
+				<h2>SoM Information </h2>
+				<hr>
+				<table class="sysinfotbl" id="somtbl">
+					<tr>
+						<td>Name :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Revision # :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Serial # :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>State :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Part # :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>UUID :</td>
+						<td> </td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="column_body">
+				<h2>Carrier Card Information</h2>
+				<hr>
+				<table class="sysinfotbl" id="cctbl">
+					<tr>
+						<td>Name :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Revision # :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Serial # :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>State :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Part # :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>UUID :</td>
+						<td> </td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row_body">
+			<div class="column_body">
+				<h2>SoM Boot Image Status</h2>
+				<hr>
+				<form action="" method="GET" onsubmit="onCfg(); return false;">
+					<div class="column_opt">
+						<p><b>Image A</b></p>
+						<input type="radio" id="imgAnb" name="imgAstate" value=0>
+						<label for="imgAbootable">Non Bootable</label><br>
+						<input type="radio" id="imgAb" name="imgAstate" value=1>
+						<label for="imgAbootable">Bootable</label><br>
+					</div>
+
+					<div class="column_opt">
+						<p><b>Image B</b></p>
+						<input type="radio" id="imgBnb" name="imgBstate" value=0>
+						<label for="imgBbootable">Non Bootable</label><br>
+						<input type="radio" id="imgBb" name="imgBstate" value=1>
+						<label for="imgBbootable">Bootable</label><br>
+					</div>
+
+					<div class="column_opt">
+						<p><b>Requested Boot Image</b></p>
+						<input type="radio" id="reqAimg" name="reqimg" value=0>
+						<label for="imgA">Image A</label><br>
+						<input type="radio" id="reqBimg" name="reqimg" value=1>
+						<label for="imgB">Image B</label><br>
+					</div>
+
+					<div class="column_opt">
+						</br>
+						<p><b>Last Image Booted</b></p>
+						<p id="LastBootImg" style="padding:0 10px">Image B</p>
+					</div>
+
+					<div class="column_opt">
+						</br>
+						</br>
+						<button type="submit" id="sbmt_btn" class="btn btn_act">Configure</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="column_body">
+				<h2>Recover Image</h2>
+				<hr>
+				<div style="padding:1px 0 0 10px">
+					<button type="button" id="brws_btn" class="btn btn_brws" onclick="onBrws()">Browse</button>
+					<input type:"text" class="file_info file_name" id="fileName" readonly>
+					<input type:"text" class="file_info" id="fileSize" readonly>
+					<input type="file" id="img_file" name="img_file">
+					<p><b>Select Image to be recovered</b></p>
+					<input type="radio" id="recAimg" name="recimg" value=0>
+					<label for="imgA">Image A</label><br>
+					<input type="radio" id="recBimg" name="recimg" value=1>
+					<label for="imgB">Image B</label><br> <br>
+					<button type="button" id="upld_btn" class="btn btn_act" onclick="onUpload()" disabled>Upload</button>
+					<progress id="upld_prgrs" value="0" max="100" style="width:400px;"> 0% </progress>
+					<br><input type:"text" class="upld_status" id="upld_status" readonly>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="js/index.js">
+		</script>
+	</body>
+</html>
