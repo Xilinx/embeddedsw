@@ -351,11 +351,16 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 SrcAddrLow = (u32)SrcAddr;
 	XOspiPsv_Msg FlashMsg = {0U};
 	u32 TrfLen;
+	u32 FlagsTmp;
 	u8 OspiMode = OspiPsvInstance.Config.ConnectionMode;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 OspiCopyTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
+
+	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
+		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddrLow, (u32)(DestAddr >> 32U),
+		(u32)(DestAddr), Length, Flags);
 
 	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 	/* Just wait for the Data to be copied */
@@ -363,12 +368,9 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		do {
 			Status = XOspiPsv_CheckDmaDone(&OspiPsvInstance);
 		} while (Status != XST_SUCCESS);
-		goto END;
+		goto END1;
 	}
-	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
-		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddrLow, (u32)(DestAddr >> 32U),
-		(u32)(DestAddr), Length, Flags);
-
+	FlagsTmp = Flags;
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
 		if ((SrcAddrLow + Length) > (2U * OspiFlashSize)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_COPY_OVERFLOW, Status);
@@ -458,13 +460,13 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 		}
-		goto END;
+		goto END1;
 	}
 
 	Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
-		goto END;
+		goto END1;
 	}
 
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
@@ -505,17 +507,27 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				FlashMsg.Xfer64bit = 1U;
 			}
 
-			/*
-			 * Non-Blocking DMA transfer for 2nd stacked flash
-			 */
-			Status = XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
+			/* Check to call blocking or non-blocking DMA */
+			if (FlagsTmp == XPLMI_DEVICE_COPY_STATE_INITIATE) {
+				 /* Non-Blocking DMA transfer */
+				Status = XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
+				if (Status != XST_SUCCESS) {
+					Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
+				}
+				goto END1;
+			}
+
+			/* Blocking DMA transfer */
+			Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
-				goto END;
+				goto END1;
 			}
+
 		}
 	}
 
+END1:
 #ifdef	PLM_PRINT_PERF_DMA
 	XPlmi_MeasurePerfTime(OspiCopyTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
