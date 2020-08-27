@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
+* 2.1	am 	 08/19/2020 Resolved MISRA C violations.
 *
 * </pre>
 *
@@ -58,34 +59,34 @@ extern "C" {
 #define XNVM_BBRAM_MSW_LOCK_REG			(0x4CU)
 
 /* BBRAM Controller STATUS register definition */
-#define XNVM_BBRAM_STATUS_PGM_MODE_DONE		(0x01U << 0U)
-#define XNVM_BBRAM_STATUS_ZEROIZED		(0x01U << 4U)
-#define XNVM_BBRAM_STATUS_AES_CRC_DONE		(0x01U << 8U)
-#define XNVM_BBRAM_STATUS_AES_CRC_PASS		(0x01U << 9U)
+#define XNVM_BBRAM_STATUS_PGM_MODE_DONE		((u32)0x01U << 0U)
+#define XNVM_BBRAM_STATUS_ZEROIZED			((u32)0x01U << 4U)
+#define XNVM_BBRAM_STATUS_AES_CRC_DONE		((u32)0x01U << 8U)
+#define XNVM_BBRAM_STATUS_AES_CRC_PASS		((u32)0x01U << 9U)
 
 /* BBRAM Controller CTRL register definition */
-#define XNVM_BBRAM_CTRL_START_ZEROIZE		(0x01U << 0U)
+#define XNVM_BBRAM_CTRL_START_ZEROIZE		((u32)0x01U << 0U)
 
 /* BBRAM Controller PGM_MODE register definition */
 #define XNVM_EFUSE_PGM_MODE_PASSCODE		(0x757BDF0DU)
 
 /* BBRAM Controller SLV_ERR_CTRL register definition */
-#define XNVM_BBRAM_SLV_ERR_CTRL_ENABLE		(0x01U << 0U)
+#define XNVM_BBRAM_SLV_ERR_CTRL_ENABLE		((u32)0x01U << 0U)
 
 /* BBRAM Controller SLV_ERR_ISR register definition */
-#define XNVM_BBRAM_SLV_ERR_ISR_ERR		(0x01U << 0U)
+#define XNVM_BBRAM_SLV_ERR_ISR_ERR		((u32)0x01U << 0U)
 
 /* BBRAM Controller SLV_ERR_IMR register definition */
-#define XNVM_BBRAM_SLV_ERR_IMR_ERR		(0x01U << 0U)
+#define XNVM_BBRAM_SLV_ERR_IMR_ERR		((u32)0x01U << 0U)
 
 /* BBRAM Controller SLV_ERR_IER register definition */
-#define XNVM_BBRAM_SLV_ERR_IER_ERR		(0x01U << 0U)
+#define XNVM_BBRAM_SLV_ERR_IER_ERR		((u32)0x01U << 0U)
 
 /* BBRAM Controller SLV_ERR_IDR register definition */
-#define XNVM_BBRAM_SLV_ERR_IDR_ERR		(0x01U << 0U)
+#define XNVM_BBRAM_SLV_ERR_IDR_ERR		((u32)0x01U << 0U)
 
 /* BBRAM Controller MSW_LOCK register definition */
-#define XNVM_BBRAM_MSW_LOCK			(0x01U << 0U)
+#define XNVM_BBRAM_MSW_LOCK			((u32)0x01U << 0U)
 
 /* Timeout in term of number of times status register polled to check BBRAM
  * is set to programming mode

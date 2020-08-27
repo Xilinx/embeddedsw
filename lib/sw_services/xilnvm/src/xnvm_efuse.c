@@ -1,7 +1,7 @@
-/******************************************************************************
+/*******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
-******************************************************************************/
+*******************************************************************************/
 
 
 /******************************************************************************/
@@ -33,6 +33,7 @@
 *       kal  07/09/2020 Fixed bugs in PUF Syndrome data read, ROW_58 protection
 *                       Row programming.
 *                       Read provision is expanded to all Misc Ctrl eFuses.
+*		am 	 08/19/2020 Resolved MISRA C violations.
 *
 * </pre>
 *
@@ -66,30 +67,32 @@ typedef enum {
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function reads the given register.
+ * @brief	This function reads the given register.
  *
  * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
+ *			controller.
  * @param	RegOffset is the register offset of the register.
  *
  * @return	The 32-bit value of the register.
  *
- *******************************************************************************/
+ ******************************************************************************/
 static INLINE u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
 {
 	return Xil_In32(BaseAddress + RegOffset);
 }
 
-/*****************************************************************************/
-/*
- * This function writes the value into the given register.
+/******************************************************************************/
+/**
+ * @brief	This function writes the value into the given register.
  *
  * @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
- *		controller.
+ *			controller.
  * @param	RegOffset is the register offset of the register.
  * @param	Data is the 32-bit value to write to the register.
+ *
+ * @return	None
  *
  ******************************************************************************/
 static INLINE void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
@@ -98,95 +101,95 @@ static INLINE void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 }
 
 /*************************** Function Prototypes ******************************/
-static inline u32 XNvm_EfuseLockController(void);
-static inline u32 XNvm_EfuseUnlockController(void);
+static inline int XNvm_EfuseLockController(void);
+static inline int XNvm_EfuseUnlockController(void);
 static inline void XNvm_EfuseDisablePowerDown(void);
 static inline void XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
 static inline void XNvm_EfuseSetRefClk(void);
 static inline void XNvm_EfuseEnableProgramming(void);
 static inline void XNvm_EfuseDisableProgramming(void);
 static inline void XNvm_EfuseInitTimers(void);
-static u32 XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
+static int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 					XNvm_EfuseRdMode RdMode);
-static u32 XNvm_EfuseReadRow(u8 Page, u32 Row, u32* RowData);
-static u32 XNvm_EfuseReadCache(u32 Row, u32* RowData);
-static u32 XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData);
-static u32 XNvm_EfusePgmBit(u32 Page, u32 Row, u32 Col);
-static u32 XNvm_EfuseVerifyBit(u32 Page, u32 Row, u32 Col);
-static u32 XNvm_EfusePgmAndVerifyBit(u32 Page, u32 Row, u32 Col);
-static u32 XNvm_EfusePgmTBits(void);
-static u32 XNvm_EfuseCacheLoad(void);
-static u32 XNvm_EfuseCheckForTBits(void);
-static u32 XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
+static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32* RowData);
+static int XNvm_EfuseReadCache(u32 Row, u32* RowData);
+static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData);
+static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col);
+static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col);
+static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col);
+static int XNvm_EfusePgmTBits(void);
+static int XNvm_EfuseCacheLoad(void);
+static int XNvm_EfuseCheckForTBits(void);
+static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 			XNvm_EfuseType EfuseType, const u32* RowData);
-static u32 XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd);
-static u32 XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
+static int XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd);
+static int XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
                                                 u32 StartRow, u32 EndRow);
-static u32 XNvm_EfuseValidateWriteReq(XNvm_EfuseData *WriteChecks);
-static u32 XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds);
-static u32 XNvm_EfuseValidateIVsWriteReq(XNvm_EfuseIvs *EfuseIv);
-static u32 XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *Keys);
-static u32 XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash);
-static u32 XNvm_EfuseValidateUserFusesWriteReq(XNvm_EfuseUserData *WriteUserFuses);
-static u32 XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq);
-static u32 XNvm_EfuseValidateIV(u32 *Iv, u32 Row);
-static u32 XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row);
-static u32 XNvm_EfuseWritePufAux(u32 Aux);
-static u32 XNvm_EfuseWritePufChash(u32 Chash);
-static u32 XNvm_EfuseWritePufSynData(u32 *SynData);
-static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
-static u32 XNvm_EfuseIsPufHelperDataEmpty(void);
-static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl);
-static u32 XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static u32 XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static u32 XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static u32 XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static u32 XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys);
-static u32 XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash);
-static u32 XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly);
-static u32 XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses);
-static u32 XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs);
-static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect);
-static u32 Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
-static u32 Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
-static u32 XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *WriteRevokeId);
-static u32 XNvm_EfusePrgmProtectionEfuse(void);
+static int XNvm_EfuseValidateWriteReq(XNvm_EfuseData *WriteChecks);
+static int XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds);
+static int XNvm_EfuseValidateIVsWriteReq(XNvm_EfuseIvs *EfuseIv);
+static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *Keys);
+static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash);
+static int XNvm_EfuseValidateUserFusesWriteReq(XNvm_EfuseUserData *WriteUserFuses);
+static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq);
+static int XNvm_EfuseValidateIV(u32 *Iv, u32 Row);
+static int XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row);
+static int XNvm_EfuseWritePufAux(u32 Aux);
+static int XNvm_EfuseWritePufChash(u32 Chash);
+static int XNvm_EfuseWritePufSynData(u32 *SynData);
+static int XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
+static int XNvm_EfuseIsPufHelperDataEmpty(void);
+static int XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl);
+static int XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys);
+static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash);
+static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly);
+static int XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses);
+static int XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs);
+static int XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect);
+static int Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
+static int Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
+static int XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds);
+static int XNvm_EfusePrgmProtectionEfuse(void);
 
 /*************************** Variable Definitions *****************************/
 
 /*************************** Function Definitions *****************************/
 
-/***************************************************************************/
+/******************************************************************************/
 /**
- * This function is used as a wrapper to program below eFuses
- * AES key
- * User key 0
- * User key 1
- * PPK0/PPK1/PPK2 hash
- * IVs
- * Revocation Ids
- * User Fuses
- * Secure and Control bits.
+ * @brief	This function is used as a wrapper to program below eFuses
+ * 			AES key
+ * 			User key 0
+ * 			User key 1
+ * 			PPK0/PPK1/PPK2 hash
+ * 			IVs
+ * 			Revocation Ids
+ * 			User Fuses
+ * 			Secure and Control bits.
  *
- * @param	WriteNvm	Pointer to the XNvm_EfuseData.
+ * @param	WriteNvm - Pointer to the XNvm_EfuseData.
  *
- * @return
- *	- XST_SUCCESS - On Specified data write
- * 	- Error code - On failure
+ * @return	- XST_SUCCESS - On Specified data write.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM 		  - On Invalid Parameter.
+			- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED- If nothing is programmed.
+			- XNVM_EFUSE_ERR_LOCK 				  - Lock eFUSE Control Register.
  *
- * @note
- *	After eFUSE programming is complete, the cache is automatically
- *	reloaded so all programmed eFUSE bits can be directly read from
- *	cache.
+ * @note	After eFUSE programming is complete, the cache is automatically
+ *			reloaded so all programmed eFUSE bits can be directly read from
+ *			cache.
  *
- *****************************************************************************/
-u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
+ ******************************************************************************/
+int XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 LockStatus = (u32)XST_FAILURE;
 
 	if (WriteNvm == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -199,7 +202,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 		(WriteNvm->Ivs == NULL) &&
 		(WriteNvm->UserFuses == NULL) &&
 		(WriteNvm->GlitchCfgBits == NULL)) {
-		Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
+		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
 	}
 
@@ -210,8 +213,8 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 	}
 
 	Status = XNvm_EfuseValidateWriteReq(WriteNvm);
-	if (Status != (u32)XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+	if (Status != XST_SUCCESS) {
+		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		goto END;
 	}
 
@@ -263,7 +266,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 	if (WriteNvm->Ivs != NULL) {
 
 		Status = XNvm_EfusePrgmIVs(WriteNvm->Ivs);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -279,7 +282,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 	if (WriteNvm->RevokeIds != NULL) {
 
 		Status = XNvm_EfusePrgmRevocationIdFuses(WriteNvm->RevokeIds);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -287,14 +290,14 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 	if (WriteNvm->MiscCtrlBits != NULL) {
 
 		Status = XNvm_EfusePrgmPpkRevokeFuses(WriteNvm->MiscCtrlBits);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
 		if(WriteNvm->MiscCtrlBits->HaltBootError == TRUE) {
 
 			Status = Xnvm_EfusePrgmHaltBootonError(WriteNvm->MiscCtrlBits);
-			if (Status != (u32)XST_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 		}
@@ -302,7 +305,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 		if(WriteNvm->MiscCtrlBits->HaltBootEnv == TRUE) {
 
 			Status = Xnvm_EfusePrgmHaltBootEnvError(WriteNvm->MiscCtrlBits);
-			if (Status != (u32)XST_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 		}
@@ -311,7 +314,7 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 	if (WriteNvm->UserFuses != NULL) {
 
 		Status = XNvm_EfusePrgmUserFuses(WriteNvm->UserFuses);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -319,13 +322,13 @@ u32 XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
 	if (WriteNvm->SecCtrlBits != NULL) {
 
 		Status = XNvm_EfuseWriteSecCtrl(WriteNvm->SecCtrlBits);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
 	Status = XNvm_EfuseCacheLoad();
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -339,23 +342,25 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function performs the CRC check of AES key
+ * @brief	This function performs the CRC check of AES key.
  *
- * @param	CrcValue	A 32 bit CRC value of an expected AES key.
+ * @param	Crc - A 32 bit CRC value of an expected AES key.
  *
- * @return
- *		- XST_SUCCESS - On successful CRC check.
- *		- XNVM_EFUSE_ERR_CRC_VERIFICATION - On failure.
+ * @return	- XST_SUCCESS - On successful CRC check.
+ *			- XNVM_EFUSE_ERR_CRC_VERIFICATION - If AES boot key integrity
+ *												check is failed.
+ *			- XST_FAILURE 					  - If AES boot key integrity check
+ *												has not finished.
  *
  * @note	For Calculating the CRC of the AES key use the
- *		XNvm_AesCrcCalc() function
+ *			XNvm_AesCrcCalc() function.
  *
  ******************************************************************************/
-u32 XNvm_EfuseCheckAesKeyCrc(u32 Crc)
+int XNvm_EfuseCheckAesKeyCrc(u32 Crc)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 LockStatus = 0U;
 	u32 ReadReg = 0U;
 	u8 IsUnlocked = FALSE;
@@ -386,16 +391,16 @@ u32 XNvm_EfuseCheckAesKeyCrc(u32 Crc)
 
 	if ((ReadReg & XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK) ==
 								0x00U) {
-		Status = (u32)XST_FAILURE;
+		Status = XST_FAILURE;
 	}
 	else if ((ReadReg &
 			XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK) ==
 			0x00U) {
 
-		Status = (u32)XNVM_EFUSE_ERR_CRC_VERIFICATION;
+		Status = (int)XNVM_EFUSE_ERR_CRC_VERIFICATION;
 	}
 	else {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 	}
 END:
 	if (IsUnlocked == TRUE) {
@@ -405,23 +410,25 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function performs the CRC check of User key 0
+ * @brief	This function performs the CRC check of User key 0.
  *
- * @param	CrcValue	A 32 bit CRC value of an expected User key 0.
+ * @param	Crc - A 32 bit CRC value of an expected User key 0.
  *
- * @return
- *		- XST_SUCCESS - On successful CRC check.
- *		- XNVM_EFUSE_ERR_CRC_VERIFICATION - On failure.
+ * @return	- XST_SUCCESS - On successful CRC check.
+ *			- XNVM_EFUSE_ERR_CRC_VERIFICATION - AES USER key 0 integrity
+ *												check failed.
+ *			- XST_FAILURE 					  - AES USER key 0 integrity check
+ *												is not finished.
  *
  * @note	For Calculating the CRC of the User key 0 use the
- *			XNvm_AesCrcCalc() function
+ *			XNvm_AesCrcCalc() function.
  *
  ******************************************************************************/
-u32 XNvm_EfuseCheckAesUserKey0Crc(u32 Crc)
+int XNvm_EfuseCheckAesUserKey0Crc(u32 Crc)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg = 0U;
 	u32 LockStatus = 0U;
 	u8 IsUnlocked = FALSE;
@@ -452,15 +459,15 @@ u32 XNvm_EfuseCheckAesUserKey0Crc(u32 Crc)
 	if ((ReadReg &
 		XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK) ==
 								0x00U) {
-		Status = (u32)XST_FAILURE;
+		Status = XST_FAILURE;
 	}
 	else if ((ReadReg &
 		XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK) ==
 								0x00U) {
-		Status = (u32)XNVM_EFUSE_ERR_CRC_VERIFICATION;
+		Status = (int)XNVM_EFUSE_ERR_CRC_VERIFICATION;
 	}
 	else {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 	}
 END:
 	if (IsUnlocked == TRUE) {
@@ -470,23 +477,25 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function performs the CRC check of User key 1
+ * @brief	This function performs the CRC check of User key 1.
  *
- * @param	CrcValue	A 32 bit CRC value of an expected User key 1.
+ * @param	Crc - A 32 bit CRC value of an expected User key 1.
  *
- * @return
- *		- XST_SUCCESS - On successful CRC check.
- *		- XNVM_EFUSE_ERR_CRC_VERIFICATION - On failure
+ * @return	- XST_SUCCESS - On successful CRC check.
+ *			- XNVM_EFUSE_ERR_CRC_VERIFICATION - If AES USER key 1 integrity
+ *												check failed.
+ *			- XST_FAILURE 					  - If AES USER key 1 integrity
+ *												check has not finished.
  *
  * @note	For Calculating the CRC of the User key 1 use the
- *		XNvm_AesCrcCalc() function
+ *			XNvm_AesCrcCalc() function.
  *
  ******************************************************************************/
-u32 XNvm_EfuseCheckAesUserKey1Crc(u32 Crc)
+int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg = 0U;
 	u32 LockStatus = 0U;
 	u8 IsUnlocked = FALSE;
@@ -517,15 +526,15 @@ u32 XNvm_EfuseCheckAesUserKey1Crc(u32 Crc)
 
 	if ((ReadReg & XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK) ==
 								0x00U) {
-		Status = (u32)XST_FAILURE;
+		Status = XST_FAILURE;
 	}
 	else if ((ReadReg &
 		XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK) ==
 								0x00U) {
-		Status = (u32)XNVM_EFUSE_ERR_CRC_VERIFICATION;
+		Status = (int)XNVM_EFUSE_ERR_CRC_VERIFICATION;
 	}
 	else {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 	}
 END:
 	if (IsUnlocked == TRUE) {
@@ -535,29 +544,31 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function is used to read the eFUSE secure control bits from cache.
+ * @brief	This function is used to read the eFUSE secure control bits from
+ *			cache.
  *
- * @param	SecCtrlBits		Pointer to the Xnvm_SecCtrlBits
- * 					which holds the read secure control bits.
- * @return
- * 		- XST_SUCCESS - On Successful read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter
+ * @param	SecCtrlBits - Pointer to the Xnvm_SecCtrlBits which holds the
+ *						  read secure control bits.
+ *
+ * @return	- XST_SUCCESS - On Successful read.
+ * 			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY  - Error while Cache reload.
  *
  ******************************************************************************/
-u32 XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
+int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 RegData = 0U;
 
 	if (SecCtrlBits == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_CONTROL_ROW,
 			&RegData);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	SecCtrlBits->AesDis =
@@ -629,40 +640,40 @@ END:
 
 /******************************************************************************/
 /**
- * This function programs the eFUSEs with the PUF helper data.
+ * @brief	This function programs the eFUSEs with the PUF helper data.
  *
- * @param	PrgmPufHelperData	Pointer to the Xnvm_PufHelperData.
+ * @param	PufHelperData - Pointer to the XNvm_EfusePufHd.
  *
- * @return
- *		- XST_SUCCESS - if programs successfully.
- *		- XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL - Error while reading PufSecCtrl
- * 		- XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA - Error while writing Puf
- *							helper data.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA - Error while writing Puf Syn
- *							data.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_CHASH - Error while writing Puf Chash.
- * 		- XNVM_EFUSE_ERR_WRITE_PUF_AUX - Error while writing Puf Aux.
+ * @return	- XST_SUCCESS - if programs successfully.
+ *			- XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL       - Error while reading
+ *													 PufSecCtrl.
+ * 			- XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA - Error while writing
+ *			  										 Puf helper data.
+ *			- XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA    - Error while writing
+ *			 									     Puf Syndata.
+ *			- XNVM_EFUSE_ERR_WRITE_PUF_CHASH       - Error while writing
+ *													 Puf Chash.
+ * 			- XNVM_EFUSE_ERR_WRITE_PUF_AUX         - Error while writing
+ *													 Puf Aux.
  *
- * @note	To generate PufSyndromeData please use
- *		XPuf_Registration API
+ * @note	To generate PufSyndromeData please use XPuf_Registration API.
  *
- *******************************************************************************/
-u32 XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
+ ******************************************************************************/
+int XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 LockStatus = (u32)XST_FAILURE;
 	u32 PufSecurityCtrlReg;
 
-	if (PufHelperData == NULL)
-	{
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	if (PufHelperData == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	Status = XNvm_EfuseReadCache(
 				XNVM_EFUSE_SECURITY_CONTROL_ROW,
 				&PufSecurityCtrlReg);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -670,8 +681,8 @@ u32 XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
 		(XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK |
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK)) != 0x0U) {
 
-		Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-				(u32)XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA);
+		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+				XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA);
 		goto END;
 	}
 
@@ -684,27 +695,27 @@ u32 XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
 	if (PufHelperData->PrgmPufHelperData == TRUE) {
 
 		Status = XNvm_EfuseIsPufHelperDataEmpty();
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-					(u32)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+					XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		}
 
 		Status = XNvm_EfuseWritePufSynData(PufHelperData->EfuseSynData);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
 				XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA);
 			goto END;
 		}
 
 		Status = XNvm_EfuseWritePufChash(PufHelperData->Chash);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
 				XNVM_EFUSE_ERR_WRITE_PUF_CHASH);
 			goto END;
 		}
 
 		Status = XNvm_EfuseWritePufAux(PufHelperData->Aux);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
 				XNVM_EFUSE_ERR_WRITE_PUF_AUX);
 		}
@@ -713,12 +724,12 @@ u32 XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
 	/* Programming Puf SecCtrl bits */
 	Status = XNvm_EfuseWritePufSecCtrl(
 			&(PufHelperData->PufSecCtrlBits));
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XNvm_EfuseCacheLoad();
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -730,38 +741,38 @@ END :
 		Status = LockStatus;
 	}
 	return Status;
-
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function is used to read the Puf eFUSE secure control bits from cache.
+ * @brief	This function is used to read the Puf eFUSE secure control bits
+ *			from cache.
  *
- * @param	PufSecCtrlBits		Pointer to the Xnvm_PufSecCtrlBits
- *					which holds the read secure control bits.
+ * @param	PufSecCtrlBits - Pointer to the XNvm_PufSecCtrlBits, which holds
+ *							 the read secure control bits.
  *
- * @return
- * 		- XST_SUCCESS - On Successful read
- *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter
+ * @return	- XST_SUCCESS - On Successful read.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY  - Error while Cache reload.
  *
- *******************************************************************************/
-u32 XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
+ ******************************************************************************/
+int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PufEccCtrlReg = 0U;
 	u32 PufSecurityCtrlReg = 0U;
 
 	if (PufSecCtrlBits == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_AUX_ROW, &PufEccCtrlReg);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_CONTROL_ROW,
 					&PufSecurityCtrlReg);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	PufSecCtrlBits->PufRegenDis =
@@ -790,27 +801,28 @@ END:
 
 /******************************************************************************/
 /**
- * This function is used to read the Misc eFUSE control bits from cache.
+ * @brief	This function is used to read the Misc eFUSE control bits from
+ *			cache.
  *
- * @param	ReadMiscCtrlBits	Pointer to the Xnvm_MiscCtrlBits
- *					which holds the read secure control bits.
+ * @param	ReadMiscCtrlBits - Pointer to the XNvm_MiscCtrlBits which holds
+ *							   the read secure control bits.
  *
- * @return
- * 		- XST_SUCCESS - On Successful read.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * @return	- XST_SUCCESS - On Successful read.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY  - Error while Cache reload.
  *
  ******************************************************************************/
-u32 XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits)
+int XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg = 0U;
 
 	if (MiscCtrlBits == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_MISC_CTRL_ROW, &ReadReg);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	MiscCtrlBits->GlitchDetHaltBootEn =
@@ -859,26 +871,29 @@ END:
 
 /******************************************************************************/
 /**
- * This function programs the eFUSEs with the IV.
+ * @brief	This function programs the eFUSEs with the IV.
  *
- * @param	EfuseIv		Pointer to the XNvm_Iv.
+ * @param	EfuseIv - Pointer to the XNvm_EfuseIvs.
  *
- * @return
- *	- XST_SUCCESS - On Successful Write.
- *	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- * 	- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV - Error while writing Meta Iv
- *	- XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV - Error while writing BlkObfus IV
- *	- XNVM_EFUSE_ERR_WRITE_PLM IV - Error while writing PLM IV
- * 	- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV - Error while writing Data
- *						Partition IV.
+ * @return	- XST_SUCCESS - On Successful Write.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM        	 - On Invalid Parameter.
+ * 			- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV	 - Error while writing
+ *													   MetaHeader Iv.
+ *			- XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV   	 - Error while writing
+ *													   BlkObfus IV.
+ *			- XNVM_EFUSE_ERR_WRITE_PLM IV         	 - Error while writing
+ *													   PLM IV.
+ * 			- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV - Error while writing
+ *			 										   Data Partition IV.
+ *
  ******************************************************************************/
-u32 XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv)
+int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseData WriteIvs = {NULL};
 
 	if (EfuseIv == NULL) {
-		Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
+		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
 	}
 
@@ -891,33 +906,35 @@ END :
 
 /******************************************************************************/
 /**
- * This function is used to read IV eFUSE bits from cache
+ * @brief	This function is used to read IV eFUSE bits from cache.
  *
- * @param	EfuseIv		Pointer to the Xnvm_Iv
+ * @param	EfuseIv - Pointer to the XNvm_Iv.
+ * @param	IvType  - Iv to be read.
  *
- * @return
- * 	- XST_SUCCESS - On Successful read.
- *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *	- XNVM_EFUSE_ERR_RD_META_HEADER_IV - Error while reading Meta IV
- *	- XNVM_EFUSE_ERR_RD_BLACK_OBFUS_IV - Error while reading BlkObfus IV
- *	- XNVM_EFUSE_ERR_RD_PLM_IV - Error while reading PLM IV
- *	- XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV - Error while reading Data
- *						Partition IV
+ * @return	- XST_SUCCESS - On Successful read.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM        - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_RD_META_HEADER_IV    - Error while reading
+ *													MetaHeader IV.
+ *			- XNVM_EFUSE_ERR_RD_BLACK_OBFUS_IV 	  - Error while reading
+ *			  										BlkObfus IV.
+ *			- XNVM_EFUSE_ERR_RD_PLM_IV 			  - Error while reading PLM IV.
+ *			- XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV - Error while reading
+ *			 									    Data Partition IV.
  *
  ******************************************************************************/
-u32 XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
+int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (EfuseIv == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if ((IvType != XNVM_EFUSE_BLACK_OBFUS_IV_TYPE) &&
 		(IvType != XNVM_EFUSE_PLM_IV_TYPE) &&
 		(IvType != XNVM_EFUSE_DATA_PARTITION_IV_TYPE) &&
 		(IvType != XNVM_EFUSE_META_HEADER_IV_TYPE)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -928,7 +945,7 @@ u32 XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 				EfuseIv->Iv);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_RD_META_HEADER_IV);
+				XNVM_EFUSE_ERR_RD_META_HEADER_IV);
 			goto END;
 		}
 	}
@@ -939,7 +956,7 @@ u32 XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 					EfuseIv->Iv);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-					(u32)XNVM_EFUSE_ERR_RD_BLACK_OBFUS_IV);
+					XNVM_EFUSE_ERR_RD_BLACK_OBFUS_IV);
 			goto END;
 		}
 	}
@@ -948,7 +965,7 @@ u32 XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 						XNVM_EFUSE_IV_NUM_OF_ROWS,
 						EfuseIv->Iv);
 		if (Status != XST_SUCCESS) {
-			Status = (Status | (u32)XNVM_EFUSE_ERR_RD_PLM_IV);
+			Status = (Status | XNVM_EFUSE_ERR_RD_PLM_IV);
 			goto END;
 		}
 	}
@@ -958,36 +975,35 @@ u32 XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 					XNVM_EFUSE_IV_NUM_OF_ROWS,
 					EfuseIv->Iv);
 		if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV);
+		Status = (Status | XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV);
 			goto END;
 		}
 	}
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * This function reads the PUF helper data from eFUSE cache.
+ * @brief	This function reads the PUF helper data from eFUSE cache.
  *
- * @param	PufHelperData		Pointer to Xnvm_PufHelperData which hold
- * 					the PUF helper data read from eFUSEs.
+ * @param	PufHelperData - Pointer to XNvm_EfusePufHd which holds the PUF
+ * 							helper data read from eFUSEs.
  *
- * @return
- *	- XST_SUCCESS -  On successful read.
- *	- XNVM_EFUSE_ERR_RD_PUF_SYN_DATA - Error while reading SYN_DATA.
- *	- XNVM_EFUSE_ERR_RD_PUF_CHASH - Error while reading CHASH.
- *	- XNVM_EFUSE_ERR_RD_PUF_AUX - Error while reading AUX.
+ * @return	- XST_SUCCESS - On successful read.
+ *			- XNVM_EFUSE_ERR_RD_PUF_SYN_DATA - Error while reading SYN_DATA.
+ *			- XNVM_EFUSE_ERR_RD_PUF_CHASH    - Error while reading CHASH.
+ *			- XNVM_EFUSE_ERR_RD_PUF_AUX      - Error while reading AUX.
  *
  ******************************************************************************/
-u32 XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
+int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PufSynRowNum;
 
 	if (PufHelperData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1002,20 +1018,20 @@ u32 XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 					XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS,
 					PufHelperData->EfuseSynData);
 	if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_PUF_SYN_DATA);
+		Status = (Status | XNVM_EFUSE_ERR_RD_PUF_SYN_DATA);
 		goto END;
 	}
 
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_CHASH_ROW,
 					&(PufHelperData->Chash));
 	if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_PUF_CHASH);
+		Status = (Status | XNVM_EFUSE_ERR_RD_PUF_CHASH);
 		goto END;
 	}
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_AUX_ROW,
 				&(PufHelperData->Aux));
 	if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_PUF_AUX);
+		Status = (Status | XNVM_EFUSE_ERR_RD_PUF_AUX);
 	}
 
 	PufHelperData->Aux = PufHelperData->Aux &
@@ -1027,22 +1043,21 @@ END:
 
 /******************************************************************************/
 /**
- * This function is used to read Dna eFUSE bits from cache
+ * @brief	This function is used to read Dna eFUSE bits from cache.
  *
- * @param	EfuseDna	Pointer to the Xnvm_Dna
+ * @param	EfuseDna - Pointer to the XNvm_Dna.
  *
- * @return
- * 		- XST_SUCCESS - On Successful read.
-
- *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid parameter.
+ * @return	- XST_SUCCESS - On Successful read.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid parameter.
+ *			- XNVM_EFUSE_ERR_RD_DNA        - Error in reading DNA efuses.
  *
  ******************************************************************************/
-u32 XNvm_EfuseReadDna(XNvm_Dna *EfuseDna)
+int XNvm_EfuseReadDna(XNvm_Dna *EfuseDna)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (EfuseDna == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1050,7 +1065,7 @@ u32 XNvm_EfuseReadDna(XNvm_Dna *EfuseDna)
 					XNVM_EFUSE_DNA_NUM_OF_ROWS,
 					EfuseDna->Dna);
 	if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_DNA);
+		Status = (Status | XNVM_EFUSE_ERR_RD_DNA);
 		goto END;
 	}
 END:
@@ -1059,29 +1074,28 @@ END:
 
 /******************************************************************************/
 /**
- * This function is used to read DecEfuseOnly eFUSE bits from cache
+ * @brief	This function is used to read DecEfuseOnly eFUSE bits from cache.
  *
- * @param	DecOnly		Pointer to the DecOnly efuse data
+ * @param	DecOnly - Pointer to the DecOnly efuse data.
  *
- * @return
- * 		- XST_SUCCESS - On Successful read
- *
- *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * @return	- XST_SUCCESS - On Successful read.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_RD_DEC_ONLY - Error in reading in Dec_only efuses.
  *
  ******************************************************************************/
-u32 XNvm_EfuseReadDecOnly(u32* DecOnly)
+int XNvm_EfuseReadDecOnly(u32* DecOnly)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (DecOnly == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_DEC_EFUSE_ONLY_ROW,
 					DecOnly);
 	if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_DEC_ONLY);
+		Status = (Status | XNVM_EFUSE_ERR_RD_DEC_ONLY);
 	}
 END:
 	return Status;
@@ -1089,32 +1103,31 @@ END:
 
 /******************************************************************************/
 /**
- * This function reads the Ppk Hash from eFUSE cache.
+ * @brief	This function reads the Ppk Hash from eFUSE cache.
  *
- * @param	EfusePpk	Pointer to Xnvm_PpkHash which hold
- * 				the PpkHash from eFUSE Cache.
+ * @param	EfusePpk - Pointer to XNvm_PpkHash which hold the PpkHash from
+ * 					   eFUSE Cache.
+ * @param 	PpkType - Type of the Ppk to be programmed.
  *
- * @param 	PpkType		Type of the Ppk to be programmed
+ * @return	- XST_SUCCESS - On Successful read.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * 			- XNVM_EFUSE_ERR_RD_PPK_HASH   - Error while reading PPK Hash.
  *
- * @return
- *		- XST_SUCCESS - On Successful read.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- * 		- XNVM_EFUSE_ERR_RD_PPK_HASH - Error while reading PPK Hash.
  ******************************************************************************/
-u32 XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
+int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PpkRow;
 
 	if (EfusePpk == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((PpkType != XNVM_EFUSE_PPK0) &&
 		(PpkType != XNVM_EFUSE_PPK1) &&
 		(PpkType != XNVM_EFUSE_PPK2)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if (PpkType == XNVM_EFUSE_PPK0) {
@@ -1129,7 +1142,7 @@ u32 XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
 					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS,
 					EfusePpk->Hash);
 	if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_PPK_HASH);
+		Status = (Status | XNVM_EFUSE_ERR_RD_PPK_HASH);
 		goto END;
 	}
 END:
@@ -1138,18 +1151,17 @@ END:
 
 /******************************************************************************/
 /**
- * This function revokes the Ppk.
+ * @brief	This function revokes the Ppk.
  *
- * @param	PpkRevoke	Xnvm_RevokePpkFlags that tells
- * 				which Ppk to revoke.
+ * @param	PpkRevoke - Xnvm_RevokePpkFlags that tells which Ppk to revoke.
  *
- * @return
- *		- XST_SUCCESS - On Successful Revocation.
- *		- Errorcode - On failure.
+ * @return	- XST_SUCCESS - On Successful Revocation.
+ *			- XNVM_EFUSE_ERR_LOCK - Error while Locking the controller.
+ *
  ******************************************************************************/
-u32 XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
+int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseData EfuseData = {NULL};
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits = {0U};
 
@@ -1172,34 +1184,36 @@ u32 XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
 
 /******************************************************************************/
 /**
- * This function writes Revocation eFuses.
+ * @brief	This function writes Revocation eFuses.
  *
- * @param	RevokeId	RevokeId number to program Revocation Id eFuses.
+ * @param	RevokeId - RevokeId number to program Revocation Id eFuses.
  *
+ * @return	- XST_SUCCESS - On successful write to eFuse.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_LOCK          - Error while Locking the controller.
+ *
+ * @note
  * Example: If the revoke id to program is 64, it will program the 0th bit of
- * the REVOCATION_ID_2 eFuse row
+ * 			the REVOCATION_ID_2 eFuse row.
  *
- * @return
- *		- XST_SUCCESS - On successful write to eFuse.
- *		- Errorcode - On failure.
  ******************************************************************************/
-u32 XNvm_EfuseWriteRevocationId(u32 RevokeId)
+int XNvm_EfuseWriteRevocationId(u32 RevokeId)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 RevokeIdRow;
 	u32 RevokeIdBit;
 	XNvm_EfuseRevokeIds WriteRevokeId = {0U};
 	XNvm_EfuseData EfuseData = {NULL};
 
 	if (RevokeId > 255U) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-                goto END;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+        goto END;
 	}
 
 	RevokeIdRow = (RevokeId / XNVM_EFUSE_MAX_BITS_IN_ROW);
 	RevokeIdBit = (RevokeId % XNVM_EFUSE_MAX_BITS_IN_ROW);
 
-	WriteRevokeId.RevokeId[RevokeIdRow] = 1U << RevokeIdBit;
+	WriteRevokeId.RevokeId[RevokeIdRow] = ((u32)1U) << RevokeIdBit;
 	WriteRevokeId.PrgmRevokeId = TRUE;
 
 	EfuseData.RevokeIds = &WriteRevokeId;
@@ -1211,31 +1225,31 @@ END:
 
 /******************************************************************************/
 /**
- * This function reads the Revocation Fuse from eFUSE cache.
+ * @brief	This function reads the Revocation Fuse from eFUSE cache.
  *
- * @param	RevokeFusePtr	Pointer to the data which hold
- * 				the Revocation IDs from eFUSE Cache.
+ * @param	RevokeFusePtr - Pointer to the data which hold the Revocation IDs
+ * 							from eFUSE Cache.
+ * @param 	RevokeFuseNum - Revocation ID fuse number to read.
  *
- * @param 	RevokeFuseNum	Revocation ID fuse number to read
+ * @return	- XST_SUCCESS - On successfull read.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
  *
- * @return
- *		- XST_SUCCESS  - On uccessfull read.
- *		- Errorcode - On failure.
  ******************************************************************************/
-u32 XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr, u8 RevokeFuseNum)
+int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr, u8 RevokeFuseNum)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Row;
 
 	if (RevokeFusePtr == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if (RevokeFuseNum > XNVM_EFUSE_REVOCATION_ID_7) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 	}
 	else {
-		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW + RevokeFuseNum;
+		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW + (u32)RevokeFuseNum;
 		Status = XNvm_EfuseReadCache(Row, RevokeFusePtr);
 	}
 END :
@@ -1244,53 +1258,53 @@ END :
 
 /******************************************************************************/
 /**
- * This function reads User eFuses from Cache.
+ * @brief	This function reads User eFuses from Cache.
  *
- *@param	UserFuseData 	UserFuseData to be read from eFuse Cache.
+ *@param	UserFuseData - UserFuseData to be read from eFuse Cache.
  *
- *@return
- *	- XST_SUCCESS - if reads successfully.
- *	- XNVM_EFUSE_ERR_RD_USER_FUSES - Error in reading User fuses.
+ *@return	- XST_SUCCESS - if reads successfully.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_RD_USER_FUSES - Error in reading User fuses.
+ *
  ******************************************************************************/
-u32 XNvm_EfuseReadUserFuses(XNvm_EfuseUserData *UserFusesData)
+int XNvm_EfuseReadUserFuses(XNvm_EfuseUserData *UserFusesData)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Row;
 
 	if (UserFusesData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	Row = XNVM_EFUSE_USER_FUSE_START_ROW + (
 		UserFusesData->StartUserFuseNum - 1U);
-	Status = XNvm_EfuseReadCacheRange(Row, UserFusesData->NumOfUserFuses,
+	Status = XNvm_EfuseReadCacheRange(Row, (u8)(UserFusesData->NumOfUserFuses),
 						UserFusesData->UserFuseData);
 	if (Status != XST_SUCCESS) {
-		Status = (Status | (u32)XNVM_EFUSE_ERR_RD_USER_FUSES);
+		Status = (Status | XNVM_EFUSE_ERR_RD_USER_FUSES);
 	}
 END:
 	return Status;
 }
 
 /******************************************************************************/
-/*
- * This function Programs User eFuses.
+/**
+ * @brief	This function Programs User eFuses.
  *
- * @param	WriteUserFuses	Pointer to the XNvm_UserEfuseData structure
+ * @param	WriteUserFuses - Pointer to the XNvm_EfuseUserData structure.
  *
- * @return
- *		- XST_SUCCESS - if programming is successful.
- *		- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED - if NULL request is sent
+ * @return	- XST_SUCCESS - if programming is successful.
+ *			- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED - if NULL request is sent.
  *
  ******************************************************************************/
-u32 XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses)
+int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseData UserFusesData = {NULL};
 
 	if (WriteUserFuses == NULL) {
-		Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
+		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
 	}
 
@@ -1301,52 +1315,56 @@ END :
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
  *
- * This function programs secure control bits specified by user.
+ * @brief	This function programs secure control bits specified by user.
  *
- * @param   SecCtrl  Pointer to the XNvm_EfuseSecCtrlBits structure
+ * @param   SecCtrl - Pointer to the XNvm_EfuseSecCtrlBits structure.
  *
- * @return
- *	- XST_SUCCESS - Specified bit set in eFUSE
- *	- XNVM_EFUSE_ERROR_INVALID_PARAM - Invalid Parameter.
- *	- XNVM_EFUSE_ERR_WRTIE_PPK0_WR_LK - Error while writing PPK0_WR_LK
- *	- XNVM_EFUSE_ERR_WRTIE_PPK1_WR_LK - Error while writing PPK1_WR_LK
- * 	- XNVM_EFUSE_ERR_WRTIE_PPK2_WR_LK - Error while writing PPK2_WR_LK
- *	- XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_1 - Error while writing
- *							AES_CRC_LK_BIT_1
- * 	- XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_2	- Error while writing
- *							AES_CRC_LK_BIT_2
- *	- XNVM_EFUSE_ERR_WRTIE_AES_WR_LK - Error while writing AES_WR_LK
- *	- XNVM_EFUSE_ERR_WRTIE_USER_KEY0_WR_LK - Error while writing
- *						USER_KEY0_WR_LK
- *	- XNVM_EFUSE_ERR_WRTIE_USER_KEY1_WR_LK - Error while writing
- *						USER_KEY1_WR_LK
- *	- XNVM_EFUSE_ERR_WRTIE_USER_KEY0_CRC_LK - Error while writing
- *						USER_KEY0_CRC_LK
- *	- XNVM_EFUSE_ERR_WRTIE_USER_KEY1_CRC_LK - Error while writing
- *						USER_KEY1_CRC_LK
- *	- XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_1 - Error while writing
- *						SECDBG_DIS_BIT_1
- *	- XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_2 - Error while writing
- *						SECDBG_DIS_BIT_2
- *	- XNVM_EFUSE_ERR_WRTIE_BOOTENV_WR_LK - Error while writing
- *						BOOTENV_WR_LK
- *	- XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_1 - Error while writing
- * 						REG_INIT_DIS_BIT_1
- *	- XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_2 - Error while writing
- *						REG_INIT_DIS_BIT_2
+ * @return	- XST_SUCCESS - Specified bit set in eFUSE.
+ *			- XNVM_EFUSE_ERROR_INVALID_PARAM		  - Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRTIE_PPK0_WR_LK		  -	Error while writing
+ *														PPK0_WR_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_PPK1_WR_LK 		  - Error while writing
+ *														PPK1_WR_LK.
+ * 			- XNVM_EFUSE_ERR_WRTIE_PPK2_WR_LK 		  - Error while writing
+ *														PPK2_WR_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_1   - Error while writing
+ *													    AES_CRC_LK_BIT_1.
+ * 			- XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_2	  - Error while writing
+ *													  	AES_CRC_LK_BIT_2.
+ *			- XNVM_EFUSE_ERR_WRTIE_AES_WR_LK          - Error while writing
+ *														AES_WR_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_USER_KEY0_WR_LK    - Error while writing
+ *													    USER_KEY0_WR_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_USER_KEY1_WR_LK    - Error while writing
+ *													    USER_KEY1_WR_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_USER_KEY0_CRC_LK   - Error while writing
+ *													    USER_KEY0_CRC_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_USER_KEY1_CRC_LK   - Error while writing
+ *													    USER_KEY1_CRC_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_1   - Error while writing
+ *													    SECDBG_DIS_BIT_1.
+ *			- XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_2	  - Error while writing
+ *													    SECDBG_DIS_BIT_2.
+ *			- XNVM_EFUSE_ERR_WRTIE_BOOTENV_WR_LK	  - Error while writing
+ *						                           		BOOTENV_WR_LK.
+ *			- XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_1 - Error while writing
+ * 														REG_INIT_DIS_BIT_1.
+ *			- XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_2 - Error while writing
+ *														REG_INIT_DIS_BIT_2.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
+static int XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseType EfuseType = XNVM_EFUSE_PAGE_0;
 	u32 Row = XNVM_EFUSE_SECURITY_CONTROL_ROW;
 	u32 RowDataVal = 0U;
 
 	if (SecCtrl == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1365,12 +1383,12 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		(SecCtrl->RegInitDis != FALSE)) {
 
 		Status = XNvm_EfuseReadCache(Row, &RowDataVal);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 	else {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 		goto END;
 	}
 
@@ -1378,10 +1396,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK) == 0U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-			XNVM_EFUSE_SEC_PPK0_WRLK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_PPK0_WR_LK);
+					(u32)XNVM_EFUSE_SEC_PPK0_WRLK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_PPK0_WR_LK);
 			goto END;
 		}
 	}
@@ -1389,10 +1407,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_MASK) == 0U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-			XNVM_EFUSE_SEC_PPK1_WRLK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_PPK1_WR_LK);
+					(u32)XNVM_EFUSE_SEC_PPK1_WRLK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_PPK1_WR_LK);
 			goto END;
 		}
 	}
@@ -1400,10 +1418,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_MASK) == 0U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-					XNVM_EFUSE_SEC_PPK2_WRLK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_PPK2_WR_LK);
+					(u32)XNVM_EFUSE_SEC_PPK2_WRLK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_PPK2_WR_LK);
 			goto END;
 		}
 	}
@@ -1412,17 +1430,17 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_CRC_LK_1_0_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_AES_CRC_LK_BIT_0);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_0);
+					(u32)XNVM_EFUSE_SEC_AES_CRC_LK_BIT_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_0);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_AES_CRC_LK_BIT_1);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_1);
+					(u32)XNVM_EFUSE_SEC_AES_CRC_LK_BIT_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_1);
 			goto END;
 		}
 	}
@@ -1431,10 +1449,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-					XNVM_EFUSE_SEC_AES_WRLK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_AES_WR_LK);
+					(u32)XNVM_EFUSE_SEC_AES_WRLK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_AES_WR_LK);
 			goto END;
 		}
 	}
@@ -1443,10 +1461,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-					XNVM_EFUSE_SEC_USER_KEY0_CRC_LK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_USER_KEY0_CRC_LK);
+					(u32)XNVM_EFUSE_SEC_USER_KEY0_CRC_LK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_USER_KEY0_CRC_LK);
 			goto END;
 		}
 	}
@@ -1455,10 +1473,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-			XNVM_EFUSE_SEC_USER_KEY0_WRLK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_USER_KEY0_WR_LK);
+					(u32)XNVM_EFUSE_SEC_USER_KEY0_WRLK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_USER_KEY0_WR_LK);
 			goto END;
 		}
 
@@ -1468,10 +1486,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-			XNVM_EFUSE_SEC_USER_KEY1_CRC_LK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_USER_KEY1_CRC_LK);
+					(u32)XNVM_EFUSE_SEC_USER_KEY1_CRC_LK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_USER_KEY1_CRC_LK);
 			goto END;
 		}
 	}
@@ -1480,10 +1498,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-			XNVM_EFUSE_SEC_USER_KEY1_WRLK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_USER_KEY1_WR_LK);
+					(u32)XNVM_EFUSE_SEC_USER_KEY1_WRLK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_USER_KEY1_WR_LK);
 			goto END;
 		}
 
@@ -1493,17 +1511,17 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_DEBUG_DIS_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_SECDBG_DIS_BIT_0);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_0);
+					(u32)XNVM_EFUSE_SEC_SECDBG_DIS_BIT_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_0);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_SECDBG_DIS_BIT_1);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_1);
+					(u32)XNVM_EFUSE_SEC_SECDBG_DIS_BIT_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_1);
 			goto END;
 		}
 	}
@@ -1512,17 +1530,17 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_0);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_0);
+					(u32)XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_0);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_1);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_1);
+					(u32)XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_1);
 			goto END;
 		}
 	}
@@ -1531,10 +1549,10 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-			XNVM_EFUSE_SEC_BOOTENV_WRLK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-			(u32)XNVM_EFUSE_ERR_WRTIE_BOOTENV_WR_LK);
+					(u32)XNVM_EFUSE_SEC_BOOTENV_WRLK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+			XNVM_EFUSE_ERR_WRTIE_BOOTENV_WR_LK);
 			goto END;
 		}
 	}
@@ -1543,55 +1561,54 @@ static u32 XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_0);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_0);
+					(u32)XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_0);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_1);
+					(u32)XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_1);
 			goto END;
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * This function programs Puf control bits specified by user.
+ * @brief	This function programs Puf control bits specified by user.
  *
- * @param	PrgmPufSecCtrlBits	Instance of XNvm_EfusePufSecCtrlBits.
+ * @param	PrgmPufSecCtrlBits - Instance of XNvm_EfusePufSecCtrlBits.
  *
- * @return
- *		- XST_SUCCESS - On success
- *		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid parameter.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_REGEN_DIS - Error while writing
- *							PUF_REGEN_DIS.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD - Error while writing
- *							PUF_HD_INVLD
- *		- XNVM_EFUSE_ERR_WRITE_PUF_SYN_LK - Error while writing
- * 							PUF_SYN_LK.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS - Error while writing
- *							PUF_TEST2_DIS
- *		- XNVM_EFUSE_ERR_WRITE_PUF_DIS - Error while writing PUF_DIS
+ * @return	- XST_SUCCESS - On success.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM       -  Invalid parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_PUF_REGEN_DIS - 	Error while writing
+ *												   	PUF_REGEN_DIS.
+ *			- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD  - 	Error while writing
+ *													PUF_HD_INVLD.
+ *			- XNVM_EFUSE_ERR_WRITE_PUF_SYN_LK - 	Error while writing
+ * 													PUF_SYN_LK.
+ *			- XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS - 	Error while writing
+ *													PUF_TEST2_DIS.
+ *			- XNVM_EFUSE_ERR_WRITE_PUF_DIS       - 	Error while writing PUF_DIS.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
+static int XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseType EfuseType = XNVM_EFUSE_PAGE_0;
 	u32 Row = XNVM_EFUSE_PUF_AUX_ROW;
 	u32 RowDataVal = 0U;
 
 	if (PufSecCtrlBits == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1599,7 +1616,7 @@ static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 		(PufSecCtrlBits->PufHdInvalid != FALSE)) {
 
 		Status = XNvm_EfuseReadCache(Row, &RowDataVal);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -1608,10 +1625,10 @@ static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGEN_DIS_MASK) == 0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-			XNVM_EFUSE_PUF_ECC_PUF_CTRL_REGEN_DIS_COLUMN);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PUF_REGEN_DIS);
+					XNVM_EFUSE_PUF_ECC_PUF_CTRL_REGEN_DIS_COLUMN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PUF_REGEN_DIS);
 			goto END;
 		}
 	}
@@ -1620,9 +1637,9 @@ static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 		XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_HD_INVLD_MASK) == 0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
 			XNVM_EFUSE_PUF_ECC_PUF_CTRL_HD_INVLD_COLUMN);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD);
 			goto END;
 		}
 	}
@@ -1635,7 +1652,7 @@ static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 		(PufSecCtrlBits->PufSynLk != FALSE)) {
 
 		Status = XNvm_EfuseReadCache(Row, &RowDataVal);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
@@ -1646,10 +1663,10 @@ static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-					XNVM_EFUSE_SEC_PUF_SYN_LK);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PUF_SYN_LK);
+					(u32)XNVM_EFUSE_SEC_PUF_SYN_LK);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PUF_SYN_LK);
 			goto END;
 		}
 	}
@@ -1659,10 +1676,10 @@ static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_MASK) ==
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_PUF_TEST2_DIS);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS);
+					(u32)XNVM_EFUSE_SEC_PUF_TEST2_DIS);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS);
 			goto END;
 		}
 	}
@@ -1671,10 +1688,10 @@ static u32 XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK) == 0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-				XNVM_EFUSE_SEC_PUF_DIS);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)(Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PUF_DIS);
+					(u32)XNVM_EFUSE_SEC_PUF_DIS);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PUF_DIS);
 			goto END;
 		}
 	}
@@ -1685,22 +1702,23 @@ END:
 
 /******************************************************************************/
 /**
- * This function program Glitch Configuration
+ * @brief	This function program Glitch Configuration.
  *
- * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ * @param	WriteGlitchCfg - Pointer to glitch configuration data.
  *
- * @return
- *		- XST_SUCCESS - On Success
- *		- XST_FAILURE - Failure in programming
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM    - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_GLITCH_CFG - Error in programming of glitch
+ *												configuration.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PrgmGlitchCfg = 0U;
 
 	if (WriteGlitchCfg == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1720,14 +1738,14 @@ static u32 XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg
 				XNVM_EFUSE_GLITCH_NUM_OF_ROWS,
 				XNVM_EFUSE_PAGE_0,
 				&PrgmGlitchCfg);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_GLITCH_CFG);
+				XNVM_EFUSE_ERR_WRITE_GLITCH_CFG);
 			goto END;
 		}
 	}
 	else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 	}
 
 END:
@@ -1736,21 +1754,22 @@ END:
 
 /******************************************************************************/
 /**
- * This function programs Glitch Write lock bit
+ * @brief	This function programs Glitch Write lock bit.
  *
- * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ * @param	WriteGlitchCfg - Pointer to glitch configuration data.
  *
- * @return
- *		- XST_SUCCESS - On Success
- *		- XST_FAILURE - Failure in programming
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM     - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_GLITCH_WRLK - Error in programming
+ *												 glitch write lock.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (WriteGlitchCfg == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1761,12 +1780,12 @@ static u32 XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg
 				XNVM_EFUSE_GLITCH_WRLK_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_GLITCH_WRLK);
+				XNVM_EFUSE_ERR_WRITE_GLITCH_WRLK);
 			goto END;
 		}
 	}
 	else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 	}
 
 END:
@@ -1775,20 +1794,22 @@ END:
 
 /******************************************************************************/
 /**
- * This function enables the halt boot by ROM upon glitch detection.
+ * @brief	This function enables the halt boot by ROM upon glitch detection.
  *
- * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ * @param	WriteGlitchCfg - Pointer to glitch configuration data.
  *
- * @return
- *		- XST_SUCCESS - On Success
- *		- XST_FAILURE - Failure in programming
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM     - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS - Error in programming of
+ *												  Glitch ROM monitor.
+ *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (WriteGlitchCfg == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1799,7 +1820,7 @@ static u32 XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg
 			XNVM_EFUSE_GLITCH_HALT_EN_0_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
+				XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
 			goto END;
 		}
 
@@ -1808,12 +1829,12 @@ static u32 XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg
 				XNVM_EFUSE_GLITCH_HALT_EN_1_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
+				XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
 			goto END;
 		}
 	}
 	else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 	}
 
 END:
@@ -1822,36 +1843,38 @@ END:
 
 /******************************************************************************/
 /**
- * This function enables the glitch detection monitoring by ROM.
+ * @brief	This function enables the glitch detection monitoring by ROM.
  *
- * @param	WriteGlitchCfg	Pointer to glitch configuration data
+ * @param	WriteGlitchCfg - Pointer to glitch configuration data.
  *
- * @return
- *		- XST_SUCCESS - On Success
- *		- XST_FAILURE - Failure in programming
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM     - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS - Error in programming of
+ *												 Glitch ROM monitor.
+ *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (WriteGlitchCfg == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((WriteGlitchCfg->PrgmGlitch == TRUE) &&
 			(WriteGlitchCfg->GdRomMonitorEn == TRUE)) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-			XNVM_EFUSE_MISC_CTRL_ROW,
-			XNVM_EFUSE_GLITCH_ROM_EN_COLUMN);
+					XNVM_EFUSE_MISC_CTRL_ROW,
+					XNVM_EFUSE_GLITCH_ROM_EN_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
+				XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS);
 			goto END;
 		}
 	}
 	else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 	}
 
 END:
@@ -1859,30 +1882,32 @@ END:
 }
 
 /******************************************************************************/
-/*
- * This function is used to program below eFuses
- * AES key
- * User key 0
- * User key 1
+/**
+ * @brief	This function is used to program below eFuses -
+ * 			AES key
+ * 			User key 0
+ * 			User key 1.
  *
- * @param	Keys	Pointer to the XNvm_EfuseAesKeys.
+ * @param	Keys - Pointer to the XNvm_EfuseAesKeys.
  *
- * @return
- *	- XST_SUCCESS - Specified data read
- *	- XNVM_EFUSE_ERR_BEFORE_PROGRAMMING - Error before programming eFuse
- *	- XNVM_EFUSE_ERR_WRITE_AES_KEY - Error while writing AES key
- *	- XNVM_EFUSE_ERR_WRITE_USER_KEY0 - Error while writing User key 0
- * 	- XNVM_EFUSE_ERR_WRITE_USER_KEY1 - Error while writing User key 1
- * 	- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - Specified data read.
+ *			- XNVM_EFUSE_ERR_BEFORE_PROGRAMMING - Error before programming
+ *												  eFuse.
+ *			- XNVM_EFUSE_ERR_WRITE_AES_KEY 		- Error while writing
+ *												  AES key.
+ *			- XNVM_EFUSE_ERR_WRITE_USER_KEY0    - Error while writing
+ *												  User key 0.
+ * 			- XNVM_EFUSE_ERR_WRITE_USER_KEY1    - Error while writing
+ *												  User key 1.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys)
+static int XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Crc;
 
 	if (Keys == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1892,20 +1917,20 @@ static u32 XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys)
 				XNVM_EFUSE_AES_KEY_NUM_OF_ROWS,
 				XNVM_EFUSE_PAGE_0, Keys->AesKey);
 		if (Status != XST_SUCCESS) {
-			Status = (Status | (u32)XNVM_EFUSE_ERR_WRITE_AES_KEY);
+			Status = (Status | XNVM_EFUSE_ERR_WRITE_AES_KEY);
 			goto END;
 		}
 		Status = XNvm_EfuseCacheLoad();
 		if (Status != XST_SUCCESS) {
-			Status = (Status | (u32)XNVM_EFUSE_ERR_WRITE_AES_KEY);
+			Status = (Status | XNVM_EFUSE_ERR_WRITE_AES_KEY);
 			goto END;
 		}
 		Crc = XNvm_AesCrcCalc(Keys->AesKey);
 
 		Status = XNvm_EfuseCheckAesKeyCrc(Crc);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_AES_KEY);
+				XNVM_EFUSE_ERR_WRITE_AES_KEY);
 			goto END;
 		}
 	}
@@ -1916,21 +1941,21 @@ static u32 XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys)
 				XNVM_EFUSE_PAGE_0, Keys->UserKey0);
 		 if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY0);
+				XNVM_EFUSE_ERR_WRITE_USER_KEY0);
 			goto END;
 		}
 		Status = XNvm_EfuseCacheLoad();
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY0);
+				XNVM_EFUSE_ERR_WRITE_USER_KEY0);
 			goto END;
 		}
 		Crc = XNvm_AesCrcCalc(Keys->UserKey0);
 
 		Status = XNvm_EfuseCheckAesUserKey0Crc(Crc);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY0);
+				XNVM_EFUSE_ERR_WRITE_USER_KEY0);
 			goto END;
 		}
 	}
@@ -1942,50 +1967,48 @@ static u32 XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys)
 					Keys->UserKey1);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY1);
+				XNVM_EFUSE_ERR_WRITE_USER_KEY1);
 		goto END;
 		}
 		Status = XNvm_EfuseCacheLoad();
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY1);
+				XNVM_EFUSE_ERR_WRITE_USER_KEY1);
 			goto END;
 		}
 		Crc = XNvm_AesCrcCalc(Keys->UserKey1);
 
 		Status = XNvm_EfuseCheckAesUserKey1Crc(Crc);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY1);
+				XNVM_EFUSE_ERR_WRITE_USER_KEY1);
 			goto END;
 		}
 	}
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
-/*
- * This function is used to program below eFuses
- * PPK0/PPK1/PPK2 hash
+/**
+ * @brief	This function is used to program below eFuses -
+ * 			PPK0/PPK1/PPK2 hash.
  *
- * @param	Hash	Pointer to the XNvm_EfusePpkHash.
+ * @param	Hash - Pointer to the XNvm_EfusePpkHash.
  *
- * @return
- *	- XST_SUCCESS - Specified data read
- *	- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error while writing PPK0 Hash
- *	- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error while writing PPK1 Hash
- * 	- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error while writing PPK2 Hash
- * 	- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - Specified data read.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error while writing PPK0 Hash.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error while writing PPK1 Hash.
+ * 			- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error while writing PPK2 Hash.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash)
+static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (Hash == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1995,9 +2018,9 @@ static u32 XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash)
 				XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS,
 				XNVM_EFUSE_PAGE_0,
 				Hash->Ppk0Hash);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
+				XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
 			goto END;
 		}
 	}
@@ -2007,9 +2030,9 @@ static u32 XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash)
 				XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS,
 				XNVM_EFUSE_PAGE_0,
 				Hash->Ppk1Hash);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PPK1_HASH);
+				XNVM_EFUSE_ERR_WRITE_PPK1_HASH);
 			goto END;
 		}
 	}
@@ -2019,35 +2042,37 @@ static u32 XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash)
 				XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS,
 				XNVM_EFUSE_PAGE_0,
 				Hash->Ppk2Hash);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PPK2_HASH);
+				XNVM_EFUSE_ERR_WRITE_PPK2_HASH);
 			goto END;
 		}
 	}
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
-/*
- * This function is used to program below DEC_ONLY fuses.
+/**
+ * @brief	This function is used to program below DEC_ONLY fuses.
  *
- * @param	DecOnly		Pointer to XNvm_EfuseDecOnly structure
+ * @param	DecOnly - Pointer to XNvm_EfuseDecOnly structure.
  *
- * @return
- *	- XST_SUCCESS - Specified data read
- *	- XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY - Error while writing
- *						DEC_ONLY eFuse.
+ * @return	- XST_SUCCESS - Specified data read.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM        - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY - Error in DEC_ONLY
+ *													programming.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY         - Error in Cache reload.
+ *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly)
+static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PrgmDecOnly = 0U;
 
 	if (DecOnly == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if (DecOnly->PrgmDecOnly == TRUE) {
@@ -2065,40 +2090,43 @@ static u32 XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly)
 				XNVM_EFUSE_DEC_EFUSE_ONLY_NUM_OF_ROWS,
 				XNVM_EFUSE_PAGE_0,
 				&PrgmDecOnly);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY);
+				XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY);
 			goto END;
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
-/*
- * This function is used to program all IVs
+/**
+ * @brief	This function is used to program all IVs.
  *
- * @param	EfuseIv		Pointer to the XNvm_EfuseIvs.
+ * @param	Ivs - Pointer to the XNvm_EfuseIvs.
  *
- * @return
- *	- XST_SUCCESS - Specified data read
- *	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- * 	- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV - Error while writing Meta Iv
- *	- XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV - Error while writing BlkObfus IV
- *	- XNVM_EFUSE_ERR_WRITE_PLM_IV - Error while writing PLM IV
- * 	- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV - Error while writing Data
- *						Partition IV.
+ * @return	- XST_SUCCESS - Specified data read
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM           - On Invalid Parameter.
+ * 			- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV    - Error while writing
+ *													   Meta Iv.
+ *			- XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV 	 - Error while writing
+ *													   BlkObfus IV.
+ *			- XNVM_EFUSE_ERR_WRITE_PLM_IV 			 - Error while writing
+ *													   PLM IV.
+ * 			- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV - Error while writing Data
+ *													   Partition IV.
+ *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs)
+static int XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PrgmIv[XNVM_EFUSE_IV_NUM_OF_ROWS] = {0U};
 
 	if (Ivs == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -2119,7 +2147,7 @@ static u32 XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs)
 
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_META_HEADER_IV);
+				XNVM_EFUSE_ERR_WRITE_META_HEADER_IV);
 			goto END;
 		}
 	}
@@ -2132,7 +2160,7 @@ static u32 XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs)
 
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV);
+				XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV);
 			goto END;
 		}
 	}
@@ -2152,7 +2180,7 @@ static u32 XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs)
 			PrgmIv);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PLM_IV);
+				XNVM_EFUSE_ERR_WRITE_PLM_IV);
 			goto END;
 		}
 	}
@@ -2173,7 +2201,7 @@ static u32 XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs)
 			PrgmIv);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV);
+				XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV);
 			goto END;
 		}
 	}
@@ -2184,24 +2212,26 @@ END :
 }
 
 /******************************************************************************/
-/*
- * This function is used to compute the eFuse bits to be programmed
- * to the eFuse.
+/**
+ * @brief	This function is used to compute the eFuse bits to be programmed
+ * 			to the eFuse.
  *
- * @param	ReqData		Pointer to the user provided eFuse data to
- * 				be written.
+ * @param	ReqData  - Pointer to the user provided eFuse data to be written.
+ * @param	PrgmData - Pointer to the computed eFuse bits to be programmed,
+ * 				 	   which means that this API fills only unprogrammed and
+ * 				 	   valid bits.
+ * @param	StartRow - A 32 bit StartRow value of an expected Programmable Bits.
+ * @param	EndRow   - A 32 bit EndRow value of an expected Programmable Bits.
  *
- * @param	PrgmData	Pointer to the computed eFuse bits to be
- * 				programmed, which means that this API fills
- * 				only unprogrammed and valid bits.
- * @return
- *	- XST_SUCCESS - if the eFuse data computation is successful
- *	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * @return	- XST_SUCCESS - if the eFuse data computation is successful.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
+static int XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
 						u32 StartRow, u32 EndRow)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg = 0U;
 	u32 NewData = 0U;
 	u32 Index;
@@ -2210,7 +2240,7 @@ static u32 XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
 
 	if ((ReqData == NULL) ||
 		(PrgmData == NULL)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -2223,7 +2253,7 @@ static u32 XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
 		for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
 				Column++) {
 
-			Mask = 1U << Column;
+			Mask = ((u32)1U) << Column;
 
 			if (((ReqData[Index - StartRow] & Mask) == Mask) &&
 				((ReadReg & Mask) == 0U)) {
@@ -2235,36 +2265,36 @@ static u32 XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
 		NewData = 0U;
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * This function programs Revocation Id eFuses.
+ * @brief	This function programs Revocation Id eFuses.
  *
- * @param	RevokeIds	Pointer to XNvm_RevokeIdEfuse that contains
- * 				Revocation Id to write.
+ * @param	RevokeIds - Pointer to XNvm_RevokeIdEfuse that contains
+ * 						Revocation Id to write.
  *
- * @return
- *	- XST_SUCCESS - On successful write of Revocation Id.
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_0 - Error in writing revoke id 0
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_1 - Error in writing revoke id 1
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_2 - Error in writing revoke id 2
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_3 - Error in writing revoke id 3
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_4 - Error in writing revoke id 4
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_5 - Error in writing revoke id 5
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_6 - Error in writing revoke id 6
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_7 - Error in writing revoke id 7
+ * @return - XST_SUCCESS - On successful write of Revocation Id.
+ *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_0 - Error in writing revoke id 0
+ *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_1 - Error in writing revoke id 1
+ *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_2 - Error in writing revoke id 2
+ *	       - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_3 - Error in writing revoke id 3
+ *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_4 - Error in writing revoke id 4
+ *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_5 - Error in writing revoke id 5
+ *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_6 - Error in writing revoke id 6
+ *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_7 - Error in writing revoke id 7
+ *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds)
+static int XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PrgmRevokeIds[XNVM_NUM_OF_REVOKE_ID_FUSES] = {0U};
 
 	if (RevokeIds == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -2285,7 +2315,7 @@ static u32 XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds)
 				PrgmRevokeIds);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS);
+				XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS);
 			goto END;
 		}
 	}
@@ -2298,26 +2328,32 @@ END:
 
 /******************************************************************************/
 /**
- * This function revokes the Ppk.
+ * @brief	This function revokes the Ppk.
  *
- * @param	PpkSelect	Pointer to XNvm_EfuseMiscCtrlBits structure.
+ * @param	PpkSelect - Pointer to XNvm_EfuseMiscCtrlBits structure.
  *
- * @return
- *	- XST_SUCCESS - On Successful write of Ppk revoke efuses.
- *	- XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0 - Error in writing PPK0 Invld
- *	- XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1 - Error in writing PPK0 Invld
- *	- XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0 - Error in writing PPK1 Invld
- *	- XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1 - Error in writing PPK1 Invld
- *	- XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0 - Error in writing PPK2 Invld
- *	- XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1 - Error in writing PPK2 Invld
+ * @return	- XST_SUCCESS - On Successful write of Ppk revoke efuses.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0 - Error in writing
+ *														PPK0 Invalid.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1 - Error in writing
+ *														PPK0 Invalid.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0 - Error in writing
+ *														PPK1 Invalid.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1 - Error in writing
+ *														PPK1 Invalid.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0 - Error in writing
+ *														PPK2 Invalid.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1 - Error in writing
+ *														PPK2 Invalid.
+ *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
+static int XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 RowData = 0U;
 
 	if (PpkSelect == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -2329,12 +2365,12 @@ static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
 						&RowData);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS);
+				XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS);
 			goto END;
 		}
 	}
 	else {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 		goto END;
 	}
 
@@ -2343,19 +2379,19 @@ static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_MISC_PPK0_INVALID_BIT_0);
+				(u32)XNVM_EFUSE_MISC_PPK0_INVALID_BIT_0);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0);
+				XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(
 				XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1);
+				(u32)XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1);
+				XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1);
 			goto END;
 		}
 	}
@@ -2364,18 +2400,18 @@ static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_MISC_PPK1_INVALID_BIT_0);
+				(u32)XNVM_EFUSE_MISC_PPK1_INVALID_BIT_0);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0);
+				XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_MISC_PPK1_INVALID_BIT_1);
+				(u32)XNVM_EFUSE_MISC_PPK1_INVALID_BIT_1);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1);
+				XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1);
 			goto END;
 		}
 	}
@@ -2384,181 +2420,20 @@ static u32 XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
 		0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0);
+				(u32)XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0);
 		if (Status != XST_SUCCESS) {
 			Status =
 				(Status |
-				 (u32)XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0);
+				 XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1);
+				(u32)XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1);
 		if (Status != XST_SUCCESS) {
 			Status =
 				(Status |
-				 (u32)XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1);
-			goto END;
-		}
-	}
-
-	Status = (u32)XST_SUCCESS;
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * This function enables halt boot on general errors other than environmental
- * and glitch identified by ROM
- *
- * @param	MiscCtrlData	Pointer to XNvm_EfuseMiscCtrlBits structure.
- *
- * @return
- *		- XST_SUCCESS - On Success
- *		- Error Code - Failure in programming
- ******************************************************************************/
-static u32 Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
-{
-	u32 Status = (u32)XST_FAILURE;
-
-	if (MiscCtrlData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	if (MiscCtrlData->HaltBootError == TRUE) {
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-			XNVM_EFUSE_MISC_CTRL_ROW,
-			XNVM_EFUSE_HALT_BOOT_ERROR_0);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
-			goto END;
-		}
-
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_HALT_BOOT_ERROR_1);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
-			goto END;
-		}
-	}
-	else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-	}
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * This function enables the halt boot on environmental errors
- * identified by ROM
- *
- * @param	MiscCtrlData	Pointer to XNvm_EfuseMiscCtrlBits structure.
- *
- * @return
- *		- XST_SUCCESS - On Success
- *		- Error Code - Failure in programming
- ******************************************************************************/
-static u32 Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
-{
-	u32 Status = (u32)XST_FAILURE;
-
-	if (MiscCtrlData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	if (MiscCtrlData->HaltBootEnv == TRUE) {
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-			XNVM_EFUSE_MISC_CTRL_ROW,
-			XNVM_EFUSE_HALT_ENV_ERROR_0);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
-			goto END;
-		}
-
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_MISC_CTRL_ROW,
-				XNVM_EFUSE_HALT_ENV_ERROR_1);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
-			goto END;
-		}
-	}
-	else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-	}
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * This function Validates all IVs requested for programming.
- *
- * @param	EfuseIv		Pointer to XNvm_EfuseIvs structure.
- *
- * @return
- *		- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV - Error in Metaheader IV
- *							write request.
- *		- XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD - Error in Blk Obfus
- *							Iv write request
- *		- XNVM_EFUSE_ERR_WRITE_PLM_IV - Error in Plm Iv write request
- *		- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV - Error in
- *							Data Partition Iv write
- ******************************************************************************/
-static u32 XNvm_EfuseValidateIVsWriteReq(XNvm_EfuseIvs *EfuseIv)
-{
-	u32 Status = (u32)XST_FAILURE;
-
-	if (EfuseIv == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	if (EfuseIv->PrgmMetaHeaderIv == TRUE) {
-		Status = XNvm_EfuseValidateIV(EfuseIv->MetaHeaderIv,
-					XNVM_EFUSE_META_HEADER_IV_START_ROW);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_META_HEADER_IV);
-			goto END;
-		}
-	}
-	if (EfuseIv->PrgmBlkObfusIv == TRUE) {
-		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW,
-					(XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW +
-					XNVM_EFUSE_IV_NUM_OF_ROWS));
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD;
-			goto END;
-		}
-	}
-	if (EfuseIv->PrgmPlmIv == TRUE) {
-		Status = XNvm_EfuseValidateIV(EfuseIv->PlmIv,
-					XNVM_EFUSE_PLM_IV_START_ROW);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_PLM_IV);
-			goto END;
-		}
-	}
-	if (EfuseIv->PrgmDataPartitionIv == TRUE) {
-		Status = XNvm_EfuseValidateIV(EfuseIv->DataPartitionIv,
-					XNVM_EFUSE_DATA_PARTITION_IV_START_ROW);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV);
+				 XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1);
 			goto END;
 		}
 	}
@@ -2570,27 +2445,198 @@ END:
 
 /******************************************************************************/
 /**
- * This function Validates single IV requested for programming bit by bit.
+ * @brief	This function enables halt boot on general errors other than
+ * 			environmental and glitch identified by ROM.
  *
- * @param	Iv	Pointer to Iv data.
+ * @param	MiscCtrlData - Pointer to XNvm_EfuseMiscCtrlBits structure.
  *
- * @param	Row	Start row of the Iv to be validated.
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM        - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS - Error in programming of
+ *													ROM flow control halt boot
+ * 													bits for generic and
+ *													environment errors.
  *
- * @return
- *		- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - if requested to revert the
- *						already programmed bit.
- *******************************************************************************/
-static u32 XNvm_EfuseValidateIV(u32 *Iv, u32 Row)
+ ******************************************************************************/
+static int Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
+
+	if (MiscCtrlData == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MiscCtrlData->HaltBootError == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			XNVM_EFUSE_HALT_BOOT_ERROR_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				XNVM_EFUSE_HALT_BOOT_ERROR_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function enables the halt boot on environmental errors
+ * 			identified by ROM.
+ *
+ * @param	MiscCtrlData - Pointer to XNvm_EfuseMiscCtrlBits structure.
+ *
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM        - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS - Error in programming of
+ *													ROM flow control halt boot
+ * 													bits for generic and
+ *													environment errors.
+ *
+ ******************************************************************************/
+static int Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+{
+	int Status = XST_FAILURE;
+
+	if (MiscCtrlData == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MiscCtrlData->HaltBootEnv == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			XNVM_EFUSE_HALT_ENV_ERROR_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				XNVM_EFUSE_HALT_ENV_ERROR_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
+			goto END;
+		}
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function Validates all IVs requested for programming.
+ *
+ * @param	EfuseIv - Pointer to XNvm_EfuseIvs structure.
+ *
+ * @return	- XST_SUCCESS - if validation is successful.
+ *			- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV 	    - Error in Metaheader IV
+ *														  write request.
+ *			- XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD - Error in Blk Obfus Iv
+ *														  write request.
+ *			- XNVM_EFUSE_ERR_WRITE_PLM_IV               - Error in Plm Iv
+ *														  write request.
+ *			- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV    - Error in Data
+ *														  Partition Iv write.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseValidateIVsWriteReq(XNvm_EfuseIvs *EfuseIv)
+{
+	int Status = XST_FAILURE;
+
+	if (EfuseIv == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (EfuseIv->PrgmMetaHeaderIv == TRUE) {
+		Status = XNvm_EfuseValidateIV(EfuseIv->MetaHeaderIv,
+					XNVM_EFUSE_META_HEADER_IV_START_ROW);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_META_HEADER_IV);
+			goto END;
+		}
+	}
+	if (EfuseIv->PrgmBlkObfusIv == TRUE) {
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW,
+					(XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW +
+					XNVM_EFUSE_IV_NUM_OF_ROWS));
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+	if (EfuseIv->PrgmPlmIv == TRUE) {
+		Status = XNvm_EfuseValidateIV(EfuseIv->PlmIv,
+					XNVM_EFUSE_PLM_IV_START_ROW);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PLM_IV);
+			goto END;
+		}
+	}
+	if (EfuseIv->PrgmDataPartitionIv == TRUE) {
+		Status = XNvm_EfuseValidateIV(EfuseIv->DataPartitionIv,
+					XNVM_EFUSE_DATA_PARTITION_IV_START_ROW);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV);
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function Validates single IV requested for programming
+ *			bit by bit.
+ *
+ * @param	Iv  - Pointer to Iv data.
+ * @param	Row - Start row of the Iv to be validated.
+ *
+ * @return	- XST_SUCCESS - if validation is successful.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_BIT_CANT_REVERT - if requested to revert the
+ *											   already programmed bit.
+ *
+ *******************************************************************************/
+static int XNvm_EfuseValidateIV(u32 *Iv, u32 Row)
+{
+	int Status = XST_FAILURE;
 	u32 IvRowsRd[XNVM_EFUSE_IV_LEN_IN_WORDS];
 	u32 Column;
 	u32 Mask;
 	u32 IvRow;
 
 	if (Iv == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -2601,19 +2647,19 @@ static u32 XNvm_EfuseValidateIV(u32 *Iv, u32 Row)
 		goto END;
 	}
 
-	for (IvRow = 0; IvRow < XNVM_EFUSE_IV_LEN_IN_WORDS;
+	for (IvRow = 0U; IvRow < XNVM_EFUSE_IV_LEN_IN_WORDS;
 			IvRow++) {
 
 		for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
 				Column++) {
 
-			Mask = 1U << Column;
+			Mask = ((u32)1U) << Column;
 
 			if (((Iv[IvRow] & Mask) == 0U) &&
 				((IvRowsRd[IvRow] & Mask) == Mask)) {
 
-				Status = (u32)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING |
-					(u32)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
+				Status = (XNVM_EFUSE_ERR_BEFORE_PROGRAMMING |
+							XNVM_EFUSE_ERR_BIT_CANT_REVERT);
 				goto END;
 			}
 		}
@@ -2625,20 +2671,20 @@ END:
 
 /******************************************************************************/
 /**
- * This function Validates Revocation ID requested for programming bit by bit.
+ * @brief	This function Validates Revocation ID requested for programming
+ *			bit by bit.
  *
- * @param	RevokeId	Pointer to RevokeId data.
+ * @param	RevokeId - Pointer to RevokeId data.
+ * @param	Row - Start row of the Iv to be validated.
  *
- * @param	Row		Start row of the Iv to be validated.
+ * @return	- XST_SUCCESS - if validation is successful.
+ *			- XNVM_EFUSE_ERR_BIT_CANT_REVERT - if requested to revert the
+ *										       already programmed bit.
  *
- * @return
- *		- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - if requested to revert the
- *						already programmed bit.
  *******************************************************************************/
-static u32 XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row)
+static int XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 RevokeIdRd;
 	u32 Column;
 	u32 Mask;
@@ -2650,19 +2696,18 @@ static u32 XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row)
 
 	for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
 			Column++) {
-
-		Mask = 1U << Column;
+		Mask = ((u32)1U) << Column;
 
 		if (((ReqRevokeId & Mask) == 0U) &&
 				((RevokeIdRd & Mask) == Mask)) {
 
-			Status = (u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS |
-				(u32)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
+			Status = (XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS |
+				XNVM_EFUSE_ERR_BIT_CANT_REVERT);
 			goto END;
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 
@@ -2670,70 +2715,73 @@ END:
 
 /******************************************************************************/
 /**
- * This function validates all Aes keys requested for programming.
+ * @brief	This function validates all Aes keys requested for programming.
  *
- * @param	Keys	Pointer to XNvm_EfuseAesKeys structure.
+ * @param	Keys - Pointer to XNvm_EfuseAesKeys structure.
  *
- * @return
- *	- XST_SUCCESS - if validation is successful.
- *	- XNVM_EFUSE_ERR_AES_ALREADY_PRGMD - Aes key already programmed
- *	- XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD - User key 0 is already
- *							programmed
- *	- XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD - User key 1 is already
- *							programmed
- *	- XNVM_EFUSE_ERR_FUSE_PROTECTED - Efuse is write protected
- *	- XNVM_EFUSE_ERR_WRITE_AES_KEY - Error in writing Aes key
- *	- XNVM_EFUSE_ERR_WRITE_USER0_KEY - Error in writing User key 0
- *	- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1
+ * @return	- XST_SUCCESS - if validation is successful.
+ *			- XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS        - Error in reading
+ *													   Sec Ctrl efuses.
+ *			- XNVM_EFUSE_ERR_AES_ALREADY_PRGMD       - Aes key already
+ *													   programmed.
+ *			- XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD - User key 0 is already
+ *							                           programmed.
+ *			- XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD - User key 1 is already
+ *													   programmed.
+ *			- XNVM_EFUSE_ERR_FUSE_PROTECTED  - Efuse is write protected.
+ *			- XNVM_EFUSE_ERR_WRITE_AES_KEY   - Error in writing Aes key.
+ *			- XNVM_EFUSE_ERR_WRITE_USER0_KEY - Error in writing User key 0.
+ *			- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *Keys)
+static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *Keys)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
 
 	Status = XNvm_EfuseReadSecCtrlBits(
 			&ReadBackSecCtrlBits);
-	if(Status != (u32)XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
+	if(Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
 		goto END;
 	}
 
 	if (Keys->PrgmAesKey == TRUE) {
 		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_CRC_AES_ZEROS);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XNVM_EFUSE_ERR_AES_ALREADY_PRGMD;
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_AES_ALREADY_PRGMD;
 			goto END;
 		}
 		if ((ReadBackSecCtrlBits.AesDis == TRUE) ||
 			(ReadBackSecCtrlBits.AesWrLk == TRUE)) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-				(u32)XNVM_EFUSE_ERR_WRITE_AES_KEY);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+				XNVM_EFUSE_ERR_WRITE_AES_KEY);
 			goto END;
 		}
 	}
 	if (Keys->PrgmUserKey0 == TRUE) {
 		Status = XNvm_EfuseCheckAesUserKey0Crc(XNVM_EFUSE_CRC_AES_ZEROS);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD;
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD;
 			goto END;
 		}
 		if ((ReadBackSecCtrlBits.AesDis == TRUE) ||
 			(ReadBackSecCtrlBits.UserKey0WrLk == TRUE)) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-				(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY0);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+				XNVM_EFUSE_ERR_WRITE_USER_KEY0);
 			goto END;
 		}
 	}
 	if (Keys->PrgmUserKey1 == TRUE) {
 		Status = XNvm_EfuseCheckAesUserKey1Crc(XNVM_EFUSE_CRC_AES_ZEROS);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD;
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD;
 			goto END;
 		}
 		if ((ReadBackSecCtrlBits.AesDis == TRUE) ||
 			(ReadBackSecCtrlBits.UserKey1WrLk == TRUE)) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-					(u32)XNVM_EFUSE_ERR_WRITE_USER_KEY1);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+					XNVM_EFUSE_ERR_WRITE_USER_KEY1);
 			goto END;
 		}
 	}
@@ -2745,42 +2793,45 @@ END:
 
 /******************************************************************************/
 /**
- * This function Validates all PPK Hash requested for programming.
+ * @brief	This function Validates all PPK Hash requested for programming.
  *
- * @param	Hash		Pointer to XNvm_EfusePpkHash structure.
+ * @param	Hash - Pointer to XNvm_EfusePpkHash structure.
  *
- * @return
- *	- XST_SUCCESS - if reads successfully.
- *	- XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD - Ppk0 hash already programmed
- *	- XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD - Ppk1 hash already programmed
- *	- XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD - Ppk2 hash already programmed
- *	- XNVM_EFUSE_ERR_FUSE_PROTECTED - Efuse is write protected
- *	- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error in writing ppk0 hash
- *	- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error in writing ppk1 hash
- *	- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error in writing ppk2 hash
+ * @return	- XST_SUCCESS - if reads successfully.
+ *			- XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD - Ppk0 hash already
+ *													   programmed.
+ *			- XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD - Ppk1 hash already
+ *													   programmed.
+ *			- XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD - Ppk2 hash already
+ *													   programmed.
+ *			- XNVM_EFUSE_ERR_FUSE_PROTECTED  - Efuse is write protected.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error in writing ppk0 hash.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error in writing ppk1 hash.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error in writing ppk2 hash.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash)
+static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
 
 	Status = XNvm_EfuseReadSecCtrlBits(
 			&ReadBackSecCtrlBits);
-	if(Status != (u32)XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
+	if(Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
 		goto END;
 	}
 	if (Hash->PrgmPpk0Hash == TRUE) {
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_0_HASH_START_ROW,
 					(XNVM_EFUSE_PPK_0_HASH_START_ROW +
 					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS));
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD;
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD;
 			goto END;
 		}
 		if (ReadBackSecCtrlBits.Ppk0WrLk == TRUE) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-					(u32)XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+					XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
 			goto END;
 		}
 	}
@@ -2788,8 +2839,8 @@ static u32 XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash)
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_1_HASH_START_ROW,
 					(XNVM_EFUSE_PPK_1_HASH_START_ROW +
 					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS));
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD;
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD;
 			goto END;
 		}
 	}
@@ -2797,71 +2848,74 @@ static u32 XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash)
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_2_HASH_START_ROW,
 					(XNVM_EFUSE_PPK_2_HASH_START_ROW +
 					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS));
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD;
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD;
 			goto END;
 		}
 	}
 
 	Status = XNvm_EfuseReadSecCtrlBits(
 			&ReadBackSecCtrlBits);
-	if(Status != (u32)XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
+	if(Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
 		goto END;
 	}
 
 	if (Hash->PrgmPpk0Hash == TRUE) {
 		if (ReadBackSecCtrlBits.Ppk0WrLk == TRUE) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-					(u32)XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+					XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
 			goto END;
 		}
 	}
 	if (Hash->PrgmPpk1Hash == TRUE) {
 		if (ReadBackSecCtrlBits.Ppk1WrLk == TRUE) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-					(u32)XNVM_EFUSE_ERR_WRITE_PPK1_HASH);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+					XNVM_EFUSE_ERR_WRITE_PPK1_HASH);
 			goto END;
 		}
 	}
 	if (Hash->PrgmPpk2Hash == TRUE) {
 		if (ReadBackSecCtrlBits.Ppk2WrLk == TRUE) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-					(u32)XNVM_EFUSE_ERR_WRITE_PPK2_HASH);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+					XNVM_EFUSE_ERR_WRITE_PPK2_HASH);
 			goto END;
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * This function validates DEC_ONLY eFuse programming request.
+ * @brief	This function validates DEC_ONLY eFuse programming request.
  *
- * @param	WriteReq	Pointer to XNvm_EfuseData structure.
+ * @param	WriteReq - Pointer to XNvm_EfuseData structure.
  *
- * @return
- *	- XST_SUCCESS - if validation is successful.
- *	- XNVM_EFUSE_ERR_AES_SHOULD_BE_PRGMD - Aes key should be programmed
- *						to program DEC_ONLY
+ * @return	- XST_SUCCESS - if validation is successful.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM             - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD- Aes key should be
+ *														 programmed for DEC_ONLY
+ *														 eFuse programming.
+ *			- XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD - Blk obfus IV should be
+ *  										 			 programmed for DEC_ONLY
+ *											   			 eFuse programming.
+ *			- XNVM_EFUSE_ERR_BIT_CANT_REVERT 		   - if requested to revert
+ *										       			 already programmed bit.
  *
- *	- XNVM_EFUSE_ERR_BLKOBFUS_IV_SHOULD_BE_PRGMD - Blk Obfuscated IV
- *						should be programmed to
- *						program DEC_ONLY
  ******************************************************************************/
-static u32 XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq)
+static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 SecurityMisc0 = 0U;
 	u32 Mask = 0U;
 	u32 Column;
 
 	if (WriteReq == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-                goto END;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+        goto END;
 	}
 
 	SecurityMisc0 = XNvm_EfuseReadReg(
@@ -2873,17 +2927,17 @@ static u32 XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq)
 								0x00U)) {
 		Status = XNvm_EfuseCheckAesKeyCrc(
 				XNVM_EFUSE_CRC_AES_ZEROS);
-		if (Status == (u32)XST_SUCCESS) {
+		if (Status == XST_SUCCESS) {
 			if (WriteReq->AesKeys != NULL) {
 				if (WriteReq->AesKeys->PrgmAesKey != TRUE) {
 					Status =
-					(u32)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
+					(int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
 					goto END;
 				}
 			}
 			else {
 				Status =
-				(u32)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
+				(int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
 				goto END;
 			}
 		}
@@ -2891,17 +2945,17 @@ static u32 XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq)
 				XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW,
 				XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW +
 				XNVM_EFUSE_IV_NUM_OF_ROWS);
-		if (Status == (u32)XST_SUCCESS) {
+		if (Status == XST_SUCCESS) {
 			if (WriteReq->Ivs != NULL) {
 				if (WriteReq->Ivs->PrgmBlkObfusIv != TRUE) {
 					Status =
-					(u32)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
+					(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
 					goto END;
 				}
 			}
 			else {
 				Status =
-				(u32)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
+				(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
 				goto END;
 			}
 		}
@@ -2910,45 +2964,44 @@ static u32 XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq)
 		for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
 				Column++) {
 
-			Mask = 1U << Column;
+			Mask = ((u32)1U) << Column;
 
 			if (((WriteReq->DecOnly->DecEfuseOnly &
 				Mask) == 0U) && ((SecurityMisc0 & Mask) ==
 							Mask)) {
 
 				Status =
-				(u32)XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY |
-				(u32)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
+				(XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY |
+				XNVM_EFUSE_ERR_BIT_CANT_REVERT);
 				goto END;
 			}
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 /******************************************************************************/
 /**
- * This function is used verify eFUSEs for Zeros
+ * @brief	This function is used verify eFUSEs for Zeros.
  *
- * @param	RowStart	Row number from which verification has to be
- *						started.
- * @param	RowEnd		Row number till which verification has to be
- *						ended.
- * @return
- *		- XST_SUCCESS - if efuses are not programmed.
- * 		- XST_FAILURE - if efuses are already programmed.
+ * @param	RowStart - Row number from which verification has to be started.
+ * @param	RowEnd   - Row number till which verification has to be ended.
+ *
+ * @return	- XST_SUCCESS - if efuses are not programmed.
+ * 			- XST_FAILURE - if efuses are already programmed.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd)
+static int XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Row;
 	u32 RowDataVal = 0U;
 
 	for (Row = RowStart; Row < RowEnd; Row++) {
 		Status  = XNvm_EfuseReadCache(Row, &RowDataVal);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			break;
 		}
 
@@ -2963,21 +3016,36 @@ static u32 XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd)
 
 /******************************************************************************/
 /**
- * This function performs pre checks for programming all the specified bits.
+ * @brief	This function performs pre checks for programming all the
+ *			specified bits.
  *
- * @param	WriteData	Pointer to the XNvm_EfuseData.
+ * @param	WriteChecks - Pointer to the XNvm_EfuseData.
  *
- * @return
- *		XST_SUCCESS - if all the conditions for programming is satisfied
- *		Errorcode - if any of the conditions are not met
+ * @return	- XST_SUCCESS - if all the conditions for programming is satisfied.
+ *			- XNVM_EFUSE_ERR_INVALID_PARAM   - On Invalid Parameter.
+ *			- XNVM_EFUSE_ERR_WRITE_AES_KEY   - Error in writing Aes key.
+  *			- XNVM_EFUSE_ERR_FUSE_PROTECTED  - Efuse is write protected.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error in writing ppk0 hash.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error in writing ppk1 hash.
+ *			- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error in writing ppk2 hash.
+  *			- XNVM_EFUSE_ERR_BIT_CANT_REVERT 	  - Efuse bit can't be reverted.
+ *			- XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS - Error in writing
+ *													Revocation id efuses.
+  *			- XNVM_EFUSE_ERR_AES_SHOULD_BE_PRGMD - Aes key should be programmed
+ *												   to program DEC_ONLY.
+ *			- XNVM_EFUSE_ERR_BLKOBFUS_IV_SHOULD_BE_PRGMD - Blk Obfuscated IV
+ *														   should be programmed
+ *														   to program DEC_ONLY.
+  *			- XNVM_EFUSE_ERR_WRITE_USER0_KEY - Error in writing User key 0.
+ *			- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseValidateWriteReq(XNvm_EfuseData *WriteChecks)
+static int XNvm_EfuseValidateWriteReq(XNvm_EfuseData *WriteChecks)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (WriteChecks == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -3019,31 +3087,29 @@ static u32 XNvm_EfuseValidateWriteReq(XNvm_EfuseData *WriteChecks)
 			goto END;
 		}
 	}
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function programs the eFUSEs with the PUF syndrome data.
+ * @brief	This function programs the eFUSEs with the PUF syndrome data.
  *
- * @param	PrgmPufHelperData	Pointer to the Xnvm_PufHelperData.
+ * @param	SynData - Pointer to the integer to program the eFUSE.
  *
- * @return
- *		- XST_SUCCESS - if programs successfully.
- *		- Errorcode - on failure
+ * @return	- XST_SUCCESS - if programs successfully.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
- * @note	To generate PufSyndromeData please use
- *		XPuf_Registration API
+ * @note	To generate PufSyndromeData please use XPuf_Registration API.
  *
- *******************************************************************************/
-static u32 XNvm_EfuseWritePufSynData(u32 *SynData)
+ ******************************************************************************/
+static int XNvm_EfuseWritePufSynData(u32 *SynData)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (SynData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -3055,20 +3121,19 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function programs the eFUSEs with the PUF Chash.
+ * @brief	This function programs the eFUSEs with the PUF Chash.
  *
- * @param	PrgmPufHelperData	Pointer to the Xnvm_PufHelperData.
+ * @param	Chash - A 32-bit Chash to program the eFUSE.
  *
- * @return
- *		- XST_SUCCESS - if programs successfully.
- *		- Errorcode - on failure
+ * @return	- XST_SUCCESS - if programs successfully.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
- *******************************************************************************/
-static u32 XNvm_EfuseWritePufChash(u32 Chash)
+ ******************************************************************************/
+static int XNvm_EfuseWritePufChash(u32 Chash)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	Status = XNvm_EfusePgmAndVerifyRows(XNVM_EFUSE_PUF_CHASH_ROW,
 				XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS,
@@ -3076,20 +3141,19 @@ static u32 XNvm_EfuseWritePufChash(u32 Chash)
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function programs the eFUSEs with the PUF Aux.
+ * @brief	This function programs the eFUSEs with the PUF Aux.
  *
- * @param	PrgmPufHelperData	Pointer to the Xnvm_PufHelperData.
+ * @param	Aux - A 32-bit Aux to program the eFUSE.
  *
- * @return
- *		- XST_SUCCESS - if programs successfully.
- *		- Errorcode - On failure
+ * @return	- XST_SUCCESS - if programs successfully.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
- *******************************************************************************/
-static u32 XNvm_EfuseWritePufAux(u32 Aux)
+ ******************************************************************************/
+static int XNvm_EfuseWritePufAux(u32 Aux)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 AuxData;
 
 	AuxData = (Aux & XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK);
@@ -3099,36 +3163,41 @@ static u32 XNvm_EfuseWritePufAux(u32 Aux)
 	return Status;
 
 }
-/***************************************************************************/
+/******************************************************************************/
 /**
- * This function checks whether PUF is already programmed or not.
+ * @brief	This function checks whether PUF is already programmed or not.
  *
- * @return
- *	- XST_SUCCESS - if all rows are zero
- *	- XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD - Puf Syn data already programmed
- *	- XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD - Puf chash already programmed
- *	- XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD - Puf Aux is already programmed
- *******************************************************************************/
-static u32 XNvm_EfuseIsPufHelperDataEmpty(void)
+ * @param	None
+ *
+ * @return	- XST_SUCCESS - if all rows are zero.
+ *			- XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD	 - Puf Syn data already
+ *													   programmed.
+ *			- XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD - Puf chash already
+ *													   programmed.
+ *			- XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD	 - Puf Aux is already
+ *													   programmed.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseIsPufHelperDataEmpty(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PufSynRowNum;
 	u32 RowDataVal;
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PUF_CHASH_ROW,
 					XNVM_EFUSE_PUF_CHASH_ROW);
-	if (Status != (u32)XST_SUCCESS) {
-		Status = (u32)XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD;
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD;
 		goto END;
 	}
 
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_AUX_ROW, &RowDataVal);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	if ((RowDataVal &
 		XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK) != 0x00U) {
-		Status = (u32)XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD;
+		Status = (int)XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD;
 	}
 
 	/* Puf Syndrome eFuses are in Page 2 of eFuse memory map,
@@ -3141,8 +3210,8 @@ static u32 XNvm_EfuseIsPufHelperDataEmpty(void)
 	Status = XNvm_EfuseCheckZeros(PufSynRowNum,
 					(PufSynRowNum +
 					XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS));
-	if (Status != (u32)XST_SUCCESS) {
-		Status = (u32)XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
 		goto END;
 	}
 END :
@@ -3152,25 +3221,26 @@ END :
 
 /******************************************************************************/
 /**
- * This function Validates all Revocation Ids requested for programming.
+ * @brief	This function Validates all Revocation Ids requested for
+ *			programming.
  *
- * @param	RevokeIds	Pointer to XNvm_EfuseRevokeIds structure.
+ * @param	RevokeIds - Pointer to XNvm_EfuseRevokeIds structure.
  *
- * @return
- *		- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - Efuse bit can't be reverted
- *		- XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS - Error in writing
- *						Revocation id efuses.
+ * @return	- XST_SUCCESS - if validation is successful.
+ *			- XNVM_EFUSE_ERR_BIT_CANT_REVERT 	  - Efuse bit can't be reverted.
+ *			- XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS - Error in writing
+ *													Revocation id efuses.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds)
+static int XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 StartRow = XNVM_EFUSE_REVOCATION_ID_0_ROW;
 	u32 EndRow = StartRow + XNVM_NUM_OF_REVOKE_ID_FUSES;
 	u32 Index;
 
 	if (RevokeIds == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -3178,8 +3248,8 @@ static u32 XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds)
 
 		if (XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_PGM_LOCK_REG_OFFSET) != 0x00U) {
-			Status = ((u32)XNVM_EFUSE_ERR_FUSE_PROTECTED |
-				(u32)XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS);
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+				XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS);
 			goto END;
 		}
 		for (Index = StartRow; Index < EndRow; Index++) {
@@ -3198,25 +3268,24 @@ END:
 }
 
 /******************************************************************************/
-/*
- * This function Programs User eFuses.
+/**
+ * @brief	This function Programs User eFuses.
  *
- * @param	WriteUserFuses	Pointer to the XNvm_EfuseUserData structure
+ * @param	WriteUserFuses - Pointer to the XNvm_EfuseUserData structure.
  *
- * @return
- *		- XST_SUCCESS - if programming is successful.
- *		- XST_FAILURE - On programming failure.
+ * @return	- XST_SUCCESS - if programming is successful.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses)
+static int XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 UserFusesDataToPrgm[XNVM_NUM_OF_USER_FUSES] = {0U};
 	u32 StartRow;
 	u32 EndRow;
 
 	if (WriteUserFuses == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	StartRow = XNVM_EFUSE_USER_FUSE_START_ROW +
@@ -3231,7 +3300,7 @@ static u32 XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses)
 		goto END;
 	}
 	Status = XNvm_EfusePgmAndVerifyRows(StartRow,
-				WriteUserFuses->NumOfUserFuses,
+				(u8)(WriteUserFuses->NumOfUserFuses),
 				XNVM_EFUSE_PAGE_0, UserFusesDataToPrgm);
 END:
 	return Status;
@@ -3239,18 +3308,19 @@ END:
 
 /******************************************************************************/
 /**
- * This function Validates all user fuses requested for programming.
+ * @brief	This function Validates all user fuses requested for programming.
  *
- * @param	WriteUserFuses		Pointer to XNvm_EfuseUserData structure.
+ * @param	WriteUserFuses - Pointer to XNvm_EfuseUserData structure.
  *
- * @return
- *		- XST_SUCCESS - if programming is successful.
- *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - Efuse bit can't be reverted.
+ * @return	- XST_SUCCESS - if programming is successful.
+ *			- XNVM_EFUSE_ERR_BIT_CANT_REVERT - Efuse bit can't be reverted.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseValidateUserFusesWriteReq(
+static int XNvm_EfuseValidateUserFusesWriteReq(
 					XNvm_EfuseUserData *WriteUserFuses)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 UserFuseValueRd = 0U;
 	u32 StartRow = 0U;
 	u32 EndRow = 0U;
@@ -3259,22 +3329,22 @@ static u32 XNvm_EfuseValidateUserFusesWriteReq(
 	u32 Mask;
 
 	if (WriteUserFuses == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if ((WriteUserFuses->StartUserFuseNum < XNVM_USER_FUSE_START_NUM) ||
 		(WriteUserFuses->StartUserFuseNum > XNVM_USER_FUSE_END_NUM)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if ((WriteUserFuses->UserFuseData == NULL) ||
 		(WriteUserFuses->NumOfUserFuses > XNVM_NUM_OF_USER_FUSES)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if (((WriteUserFuses->StartUserFuseNum - 1U)  +
 		WriteUserFuses->NumOfUserFuses) > XNVM_USER_FUSE_END_NUM) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	StartRow = XNVM_EFUSE_USER_FUSE_START_ROW +
@@ -3291,14 +3361,14 @@ static u32 XNvm_EfuseValidateUserFusesWriteReq(
 		for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
 				Column++) {
 
-			Mask = 1U << Column;
+			Mask = ((u32)1U) << Column;
 
 			if (((WriteUserFuses->UserFuseData[Row - StartRow] &
 				Mask) == 0U) &&
 				((UserFuseValueRd & Mask) == Mask)) {
 
-				Status = (u32)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING |
-					(u32)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
+				Status = (XNVM_EFUSE_ERR_BEFORE_PROGRAMMING |
+					XNVM_EFUSE_ERR_BIT_CANT_REVERT);
 				goto END;
 			}
 		}
@@ -3308,40 +3378,42 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function Programs Protection eFuses.
+ * @brief	This function Programs Protection eFuses.
  *
- * @return
- *	- XST_SUCCESS - if protection efuse programming is successful.
- *	- XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT - Error in programming Row 43
- *						protection bit 0
- *	- XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT - Error in programming Row 43
- *						protection bit 1
- *	- XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT - Error in programming Row 57
- *						protection bit 0
- *	- XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT - Error in programming Row 57
- *						protection bit 1
- *	- XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT - Error in programming Row 64_87
- *						protection bit 0
- *	- XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT - Error in programming Row 64_87
- *						protection bit 1
- *	- XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT - Error in programming Row 96_99
- *						protection bit 0
- *	- XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT - Error in programming Row 96_99
- *						protection bit 1
- *	- XNVM_EFUSE_ERR_WRITE_ROW_40_PROT - Error in programming Row 40
- *						protection bit
- *	- XNVM_EFUSE_ERR_WRITE_ROW_37_PROT - Error in programming Row 37
- *						protection bit
- *	- XNVM_EFUSE_ERR_WRITE_ROW_42_PROT - Error in programming row 42
- *						protection bit
- *	- XNVM_EFUSE_ERR_WRITE_ROW_58_PROT - Error in programming row 58
- *						protection bit
+ * @param	None
+ *
+ * @return	- XST_SUCCESS - if protection efuse programming is successful.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT - Error in programming Row 43
+ *												   protection bit 0.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT - Error in programming Row 43
+ *												   protection bit 1.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT - Error in programming Row 57
+ *												   protection bit 0.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT - Error in programming Row 57
+ *												   protection bit 1.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT - Error in programming
+ *													 Row 64_87 protection bit 0.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT - Error in programming
+ *													 Row 64_87 protection bit 1.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT - Error in programming
+ *													 Row 96_99 protection bit 0.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT - Error in programming
+ *													 Row 96_99 protection bit 1.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_40_PROT - Error in programming Row 40
+ *												 protection bit.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_37_PROT - Error in programming Row 37
+ *												 protection bit.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_42_PROT - Error in programming row 42
+ *												 protection bit.
+ *			- XNVM_EFUSE_ERR_WRITE_ROW_58_PROT - Error in programming row 58
+ *											     protection bit.
+ *
  *******************************************************************************/
-static u32 XNvm_EfusePrgmProtectionEfuse(void)
+static int XNvm_EfusePrgmProtectionEfuse(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 SecurityCtrlData;
 	u32 SecurityMisc0Data;
 	u32 SecurityMisc1Data;
@@ -3359,7 +3431,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_43_0_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -3367,7 +3439,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_43_1_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT);
 			goto END;
 		}
 	}
@@ -3382,7 +3454,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_57_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -3390,21 +3462,21 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_57_1_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT);
 			goto END;
 		}
 	}
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_0_HASH_START_ROW,
 			(XNVM_EFUSE_PPK_0_HASH_START_ROW +
-			 (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3)));
+			 (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)));
 	if (Status != XST_SUCCESS) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				XNVM_EFUSE_ROW64_87_0_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -3412,7 +3484,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW64_87_1_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT);
 			goto END;
 		}
 	}
@@ -3426,7 +3498,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW96_99_0_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT);
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -3434,7 +3506,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW96_99_1_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT);
 			goto END;
 		}
 	}
@@ -3448,7 +3520,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_37_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_37_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_37_PROT);
 			goto END;
 		}
 	}
@@ -3466,7 +3538,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_40_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_40_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_40_PROT);
 			goto END;
 		}
 	}
@@ -3480,7 +3552,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_42_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_42_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_42_PROT);
 			goto END;
 		}
 	}
@@ -3495,7 +3567,7 @@ static u32 XNvm_EfusePrgmProtectionEfuse(void)
 				XNVM_EFUSE_ROW_58_PROT_COLUMN);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
-				(u32)XNVM_EFUSE_ERR_WRITE_ROW_58_PROT);
+				XNVM_EFUSE_ERR_WRITE_ROW_58_PROT);
 			goto END;
 		}
 	}
@@ -3506,27 +3578,23 @@ END:
 
 /******************************************************************************/
 /**
- * This function sets and then verifies the specified bits in the eFUSE.
+ * @brief	This function sets and then verifies the specified bits
+ *			in the eFUSE.
  *
- * @param	StartRow	Starting Row number (0-based addressing)
- *		RowCount	Number of Rows to be read
- *		RowData		Pointer to memory location where bitmap
- *				to be written is stored.
- *				Only bit set are used for programming eFUSE.
+ * @param	StartRow  - Starting Row number (0-based addressing).
+ * @param	RowCount  - Number of Rows to be read.
+ * @param	RowData   - Pointer to memory location where bitmap to be written
+ *					    is stored. Only bit set are used for programming eFUSE.
+ * @param	EfuseType - It is an enum object of type XNvm_EfuseType.
  *
- * @return
- *		- XST_SUCCESS - Specified bit set in eFUSE
- *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out
- *		- XNVM_EFUSE_ERR_PGM - eFUSE programming failed
- *		- XNVM_EFUSE_ERR_PGM_VERIFY - Verification failed,
- *						specified bit is not set.
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - Specified bit set in eFUSE.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
+static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 			XNvm_EfuseType EfuseType, const u32* RowData)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Data;
 	u32 Row = StartRow;
 	u32 Idx;
@@ -3535,20 +3603,20 @@ static u32 XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 		(EfuseType != XNVM_EFUSE_PAGE_1) &&
 		(EfuseType != XNVM_EFUSE_PAGE_2)){
 
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
-	if ((RowData == NULL) || (RowCount == 0)) {
+	if ((RowData == NULL) || (RowCount == 0U)) {
 
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	do {
 		Data = *RowData;
-		Idx = 0;
-		while(Data) {
-			if(Data & 0x01) {
+		Idx = 0U;
+		while(Data != FALSE) {
+			if((Data & 0x01U) == 0x01U) {
 				Status = XNvm_EfusePgmAndVerifyBit(
 					EfuseType, Row, Idx);
 				if (Status != XST_SUCCESS) {
@@ -3556,7 +3624,7 @@ static u32 XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 				}
 			}
 			Idx++;
-			Data = Data >> 1;
+			Data = Data >> 1U;
 		}
 
 		RowCount--;
@@ -3565,26 +3633,26 @@ static u32 XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 	}
 	while (RowCount > 0U);
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * This function Locks the eFUSE Controller to prevent accidental writes to
- * eFUSE controller registers.
+ * @brief	This function Locks the eFUSE Controller to prevent accidental
+ * 			writes to eFUSE controller registers.
  *
- * @return
- *		- XST_SUCCESS - eFUSE controller locked
- *		- XNVM_EFUSE_ERR_LOCK - Failed to lock eFUSE controller
- *					register access
- *		- XST_FAILURE - Unexpected error
+ * @param	None
+ *
+ * @return	- XST_SUCCESS - eFUSE controller locked.
+ *			- XNVM_EFUSE_ERR_LOCK - Failed to lock eFUSE controller
+ *					                register access.
  *
  ******************************************************************************/
-static inline u32 XNvm_EfuseLockController(void)
+static inline int XNvm_EfuseLockController(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 LockStatus;
 
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -3596,7 +3664,7 @@ static inline u32 XNvm_EfuseLockController(void)
 		Status = XST_SUCCESS;
 	}
 	else {
-		Status = XNVM_EFUSE_ERR_LOCK;
+		Status = (int)XNVM_EFUSE_ERR_LOCK;
 	}
 
 	return Status;
@@ -3604,18 +3672,19 @@ static inline u32 XNvm_EfuseLockController(void)
 
 /******************************************************************************/
 /**
- * This function Unlocks the eFUSE Controller for writing to its registers.
+ * @brief	This function Unlocks the eFUSE Controller for writing
+ *			to its registers.
  *
- * @return
- *		XST_SUCCESS - 	eFUSE controller locked
- *		XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
- *					register access
- *		XST_FAILURE - 	Unexpected error
+ * @param	None
+ *
+ * @return	XST_SUCCESS - eFUSE controller locked.
+ *			XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
+ *									register access.
  *
  ******************************************************************************/
-static inline u32 XNvm_EfuseUnlockController(void)
+static inline int XNvm_EfuseUnlockController(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 LockStatus;
 
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -3627,7 +3696,7 @@ static inline u32 XNvm_EfuseUnlockController(void)
 		Status = XST_SUCCESS;
 	}
 	else {
-		Status = XNVM_EFUSE_ERR_UNLOCK;
+		Status = (int)XNVM_EFUSE_ERR_UNLOCK;
 	}
 
 	return Status;
@@ -3635,7 +3704,11 @@ static inline u32 XNvm_EfuseUnlockController(void)
 
 /******************************************************************************/
 /**
- * This function disables power down of eFUSE macros.
+ * @brief	This function disables power down of eFUSE macros.
+ *
+ * @param	None
+ *
+ * @return	None
  *
  ******************************************************************************/
 static inline void XNvm_EfuseDisablePowerDown(void)
@@ -3658,7 +3731,11 @@ static inline void XNvm_EfuseDisablePowerDown(void)
 
 /******************************************************************************/
 /**
- * This function sets read mode of eFUSE controller.
+ * @brief	This function sets read mode of eFUSE controller.
+ *
+ * @param	RdMode - Mode to be used for eFUSE read.
+ *
+ * @return	None
  *
  ******************************************************************************/
 static inline void XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
@@ -3678,7 +3755,11 @@ static inline void XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 
 /******************************************************************************/
 /**
- * This function sets reference clock of eFUSE controller.
+ * @brief	This function sets reference clock of eFUSE controller.
+ *
+ * @param	None
+ *
+ * @return	None
  *
  ******************************************************************************/
 static inline void XNvm_EfuseSetRefClk(void)
@@ -3690,7 +3771,11 @@ static inline void XNvm_EfuseSetRefClk(void)
 
 /******************************************************************************/
 /**
- * This function enabled programming mode of eFUSE controller.
+ * @brief	This function enabled programming mode of eFUSE controller.
+ *
+ * @param	None
+ *
+ * @return	None
  *
  ******************************************************************************/
 static inline void XNvm_EfuseEnableProgramming(void)
@@ -3705,7 +3790,11 @@ static inline void XNvm_EfuseEnableProgramming(void)
 
 /******************************************************************************/
 /**
- * This function disables programming mode of eFUSE controller.
+ * @brief	This function disables programming mode of eFUSE controller.
+ *
+ * @param	None
+ *
+ * @return	None
  *
  ******************************************************************************/
 static inline void XNvm_EfuseDisableProgramming(void)
@@ -3720,7 +3809,11 @@ static inline void XNvm_EfuseDisableProgramming(void)
 
 /******************************************************************************/
 /**
- * This function initializes eFUSE controller timers.
+ * @brief	This function initializes eFUSE controller timers.
+ *
+ * @param	None
+ *
+ * @return	None
  *
  ******************************************************************************/
 static inline void XNvm_EfuseInitTimers(void)
@@ -3734,34 +3827,34 @@ static inline void XNvm_EfuseInitTimers(void)
 
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
-	Tpgm = Xil_Ceil(5.0e-6 * XNVM_PS_REF_CLK_FREQ);
+	Tpgm = (u32)Xil_Ceil((float)(5.0e-6 * (float)XNVM_PS_REF_CLK_FREQ));
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TPGM_REG_OFFSET, Tpgm);
 
 	/* TRD = ceiling(217ns/REF_CLK_PERIOD) */
-	Trd = Xil_Ceil(217.0e-9 * XNVM_PS_REF_CLK_FREQ);
+	Trd = (u32)Xil_Ceil((float)(217.0e-9 * (float)XNVM_PS_REF_CLK_FREQ));
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRD_REG_OFFSET, Trd);
 
 	/* TRDM = ceiling(500ns/REF_CLK_PERIOD)*/
-	Trdm = Xil_Ceil(500.0e-9 * XNVM_PS_REF_CLK_FREQ);
+	Trdm = (u32)Xil_Ceil((float)(500.0e-9 * (float)XNVM_PS_REF_CLK_FREQ));
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRDM_REG_OFFSET, Trdm);
 
 	/* TSU_H_PS = ceiling(208ns/REF_CLK_PERIOD) */
-	Tsu_h_ps = Xil_Ceil(208.0e-9 * XNVM_PS_REF_CLK_FREQ);
+	Tsu_h_ps = (u32)Xil_Ceil((float)(208.0e-9 * (float)XNVM_PS_REF_CLK_FREQ));
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_REG_OFFSET,
 				Tsu_h_ps);
 
 	/* TSU_H_PS_CS = ceiling(143ns/REF_CLK_PERIOD) */
-	Tsu_h_ps_cs = Xil_Ceil(143.0e-9 * XNVM_PS_REF_CLK_FREQ);
+	Tsu_h_ps_cs = (u32)Xil_Ceil((float)(143.0e-9 * (float)XNVM_PS_REF_CLK_FREQ));
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_CS_REG_OFFSET,
 				Tsu_h_ps_cs);
 
 	/* TSU_H_CS = ceiling(184ns/REF_CLK_PERIOD) */
-	Tsu_h_cs = Xil_Ceil(184.0e-9 * XNVM_PS_REF_CLK_FREQ);
+	Tsu_h_cs = (u32)Xil_Ceil((float)(184.0e-9 * (float)XNVM_PS_REF_CLK_FREQ));
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_CS_REG_OFFSET,
 				Tsu_h_cs);
@@ -3769,21 +3862,21 @@ static inline void XNvm_EfuseInitTimers(void)
 
 /******************************************************************************/
 /**
- * This function setups eFUSE controller for given operation and read mode.
+ * @brief	This function setups eFUSE controller for given operation and
+ *			read mode.
  *
- * @param	Op -	Operation to be performed read/program(write).
- *		RdMode - Read mode for eFUSE read operation
+ * @param	Op     - Operation to be performed read/program(write).
+ * @param	RdMode - Read mode for eFUSE read operation.
  *
- * @return
- *		- XST_SUCCESS - eFUSE controller setup for given op
- *		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
- *					register access
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - eFUSE controller setup for given op.
+ *			- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
+ *									  register access.
+ *
  ******************************************************************************/
-static u32 XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
+static int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 			XNvm_EfuseRdMode RdMode)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	Status = XNvm_EfuseUnlockController();
 	if (Status != XST_SUCCESS) {
@@ -3802,7 +3895,7 @@ static u32 XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 
 	/* Enable programming of Xilinx reserved EFUSE */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00);
+			XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00U);
 
 	Status = XNvm_EfuseCheckForTBits();
 	if (Status != XST_SUCCESS) {
@@ -3816,28 +3909,26 @@ END:
 
 /******************************************************************************/
 /**
- * This function reads 32-bit data from eFUSE specified Row and Page.
+ * @brief	This function reads 32-bit data from eFUSE specified Row and Page.
  *
- * @param	Page - Page number
- *		Row - Row number (0-based addressing)
- *		RowData	- Pointer to memory location where 32-bit read data
- *				is to be stored
+ * @param	Page	- It is an enum variable of type XNvm_EfuseType.
+ * @param	Row 	- It is an 32-bit Row number (0-based addressing).
+ * @param	RowData	- Pointer to memory location where 32-bit read data
+ *					  is to be stored.
  *
- * @return
- *		- XST_SUCCESS - 32-bit data is read from specified location
- *		- XNVM_EFUSE_ERR_RD_TIMEOUT - Timeout occurred while reading the
- *						eFUSE
- *		- XNVM_EFUSE_ERR_RD - eFUSE Read failed
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - 32-bit data is read from specified location.
+ *			- XNVM_EFUSE_ERR_RD_TIMEOUT - Timeout occurred while reading the
+ *										  eFUSE.
+ *			- XNVM_EFUSE_ERR_RD 		- eFUSE Read failed.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseReadRow(u8 Page, u32 Row, u32* RowData)
+static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32* RowData)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 EventMask = 0U;
 	u32 EfuseReadAddr;
 
-	EfuseReadAddr = (Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
+	EfuseReadAddr = ((u32)Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
 			(Row << XNVM_EFUSE_ADDR_ROW_SHIFT);
 
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -3852,10 +3943,10 @@ static u32 XNvm_EfuseReadRow(u8 Page, u32 Row, u32* RowData)
 				XNVM_EFUSE_RD_TIMEOUT_VAL,
 				&EventMask);
 	if(XST_TIMEOUT == Status) {
-		Status = XNVM_EFUSE_ERR_RD_TIMEOUT;
+		Status = (int)XNVM_EFUSE_ERR_RD_TIMEOUT;
 	}
 	else if ((EventMask & XNVM_EFUSE_ISR_RD_ERROR) != 0x0U) {
-		Status = XNVM_EFUSE_ERR_RD;
+		Status = (int)XNVM_EFUSE_ERR_RD;
 	}
 	else {
 		*RowData = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -3872,21 +3963,19 @@ static u32 XNvm_EfuseReadRow(u8 Page, u32 Row, u32* RowData)
 
 /******************************************************************************/
 /**
- * This function reads 32-bit data from cache specified by Row
+ * @brief	This function reads 32-bit data from cache specified by Row.
  *
- * @param	Row - Starting Row number (0-based addressing)
- *		RowData	- Pointer to memory location where read 32-bit row data
- *			is to be stored
+ * @param	Row 	- Starting Row number (0-based addressing).
+ * @param	RowData	- Pointer to memory location where read 32-bit row data
+ *					  is to be stored.
  *
- * @return
- *		- XST_SUCCESS - Specified data read
- *		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity error exist in cache
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - Specified data read.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseReadCache(u32 Row, u32* RowData)
+static int XNvm_EfuseReadCache(u32 Row, u32* RowData)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 CacheData;
 	u32 IsrStatus;
 
@@ -3894,7 +3983,7 @@ static u32 XNvm_EfuseReadCache(u32 Row, u32* RowData)
 	IsrStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_ISR_REG_OFFSET);
 	if (IsrStatus & XNVM_EFUSE_ISR_CACHE_ERROR) {
-		Status = XNVM_EFUSE_ERR_CACHE_PARITY;
+		Status = (int)XNVM_EFUSE_ERR_CACHE_PARITY;
 		goto END;
 	}
 	*RowData = CacheData;
@@ -3909,22 +3998,20 @@ END:
 
 /******************************************************************************/
 /**
- * This function reads 32-bit rows from eFUSE cache.
+ * @brief	This function reads 32-bit rows from eFUSE cache.
  *
- * @param	StartRow - Starting Row number (0-based addressing)
- *		RowCount - Number of Rows to be read
- *		RowData  - Pointer to memory location where read 32-bit row data(s)
- *				is to be stored
+ * @param	StartRow - Starting Row number (0-based addressing).
+ * @param	RowCount - Number of Rows to be read.
+ * @param	RowData  - Pointer to memory location where read 32-bit row data(s)
+ *					   is to be stored.
  *
- * @return
- *		- XST_SUCCESS	- Specified data read
- *		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity error exist in cache
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS	- Specified data read.
+ *			- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
+static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Row = StartRow;
 
 	do {
@@ -3940,22 +4027,20 @@ static u32 XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
 
 /******************************************************************************/
 /**
- * This function sets the specified bit in the eFUSE.
+ * @brief	This function sets the specified bit in the eFUSE.
  *
- * @param	Page - Page number
- *		Row  - Row number (0-based addressing)
- *		Col  - Col number (0-based addressing)
+ * @param	Page - It is an enum variable of type XNvm_EfuseType.
+ * @param	Row  - It is an 32-bit Row number (0-based addressing).
+ * @param	Col  - It is an 32-bit Col number (0-based addressing).
  *
- * @return
- *		- XST_SUCCESS	- Specified bit set in eFUSE
- *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out
- *		- XNVM_EFUSE_ERR_PGM - eFUSE programming failed
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS	- Specified bit set in eFUSE.
+ *			- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out.
+ *			- XNVM_EFUSE_ERR_PGM 		 - eFUSE programming failed.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePgmBit(u32 Page, u32 Row, u32 Col)
+static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 PgmAddr;
 	u32 EventMask;
 
@@ -3974,9 +4059,9 @@ static u32 XNvm_EfusePgmBit(u32 Page, u32 Row, u32 Col)
 				XNVM_EFUSE_PGM_TIMEOUT_VAL,
 				&EventMask);
 	if (XST_TIMEOUT == Status) {
-		Status = XNVM_EFUSE_ERR_PGM_TIMEOUT;
+		Status = (int)XNVM_EFUSE_ERR_PGM_TIMEOUT;
 	} else if (EventMask & XNVM_EFUSE_ISR_PGM_ERROR) {
-		Status = XNVM_EFUSE_ERR_PGM;
+		Status = (int)XNVM_EFUSE_ERR_PGM;
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -3992,25 +4077,25 @@ static u32 XNvm_EfusePgmBit(u32 Page, u32 Row, u32 Col)
 
 /******************************************************************************/
 /**
- * This function verify the specified bit set in the eFUSE.
+ * @brief	This function verify the specified bit set in the eFUSE.
  *
- * @param	Page- Page number
- *		Row - Row number (0-based addressing)
- *		Col - Col number (0-based addressing)
+ * @param	Page- It is an enum variable of type XNvm_EfuseType.
+ * @param	Row - It is an 32-bit Row number (0-based addressing).
+ * @param	Col - It is an 32-bit Col number (0-based addressing).
  *
- * @return
- *		- XST_SUCCESS - Specified bit set in eFUSE
- *		- XNVM_EFUSE_ERR_PGM_VERIFY - Verification failed,
- *						specified bit is not set.
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - Specified bit set in eFUSE.
+ *			- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
+ *										   is not set.
+ *			- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occured.
+ *			- XST_FAILURE                - Unexpected error.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseVerifyBit(u32 Page, u32 Row, u32 Col)
+static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 {
+	int Status = XST_FAILURE;
 	u32 RdAddr;
 	u32 RegData;
-	u32 EventMask = 0x00;
-	u32 Status = XST_FAILURE;
+	u32 EventMask = 0x00U;
 
 	/*
 	 * If Row Belongs to AES key or User key 0 or
@@ -4019,7 +4104,7 @@ static u32 XNvm_EfuseVerifyBit(u32 Page, u32 Row, u32 Col)
 	 */
 	if (((Row >= XNVM_EFUSE_AES_KEY_START_ROW) &&
 		(Row <= XNVM_EFUSE_USER_KEY_1_END_ROW))) {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 		goto END;
 	}
 
@@ -4034,18 +4119,18 @@ static u32 XNvm_EfuseVerifyBit(u32 Page, u32 Row, u32 Col)
 				XNVM_EFUSE_PGM_TIMEOUT_VAL,
 				&EventMask);
 	if (XST_TIMEOUT == Status) {
-		Status = XNVM_EFUSE_ERR_PGM_TIMEOUT;
+		Status = (int)XNVM_EFUSE_ERR_PGM_TIMEOUT;
 	} else if (EventMask & XNVM_EFUSE_ISR_RD_DONE) {
 		RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_RD_DATA_REG_OFFSET);
-		if (RegData & (0x01U << Col)) {
+		if (RegData & (((u32)0x01U) << Col)) {
 			Status = XST_SUCCESS;
 		}
 		else {
 			Status = XST_FAILURE;
 		}
 	} else {
-		Status = XNVM_EFUSE_ERR_PGM_VERIFY;
+		Status = (int)XNVM_EFUSE_ERR_PGM_VERIFY;
 	}
 END:
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -4056,24 +4141,24 @@ END:
 
 /******************************************************************************/
 /**
- * This function sets and then verifies the specified bit in the eFUSE.
+ * @brief	This function sets and then verifies the specified
+ *			bit in the eFUSE.
  *
- * @param	Page - Page number
- *		Row  - Row number (0-based addressing)
- *		Col  - Col number (0-based addressing)
+ * @param	Page - It is an enum variable of type XNvm_EfuseType.
+ * @param	Row  - It is an 32-bit Row number (0-based addressing).
+ * @param	Col  - It is an 32-bit Col number (0-based addressing).
  *
- * @return
- *		- XST_SUCCESS - Specified bit set in eFUSE
- *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out
- *		- XNVM_EFUSE_ERR_PGM - eFUSE programming failed
- *		- XNVM_EFUSE_ERR_PGM_VERIFY - Verification failed,
- *						specified bit is not set.
- *		- XST_FAILURE - Unexpected error
+ * @return	- XST_SUCCESS - Specified bit set in eFUSE.
+ *			- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out.
+ *			- XNVM_EFUSE_ERR_PGM 		 - eFUSE programming failed.
+ *			- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
+ *										   is not set.
+ *			- XST_FAILURE 				 - Unexpected error.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePgmAndVerifyBit(u32 Page, u32 Row, u32 Col)
+static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	Status = XNvm_EfusePgmBit(Page, Row, Col);
 	if(XST_SUCCESS == Status) {
@@ -4085,16 +4170,17 @@ static u32 XNvm_EfusePgmAndVerifyBit(u32 Page, u32 Row, u32 Col)
 
 /******************************************************************************/
 /**
- * This function program Tbits
+ * @brief	This function program Tbits.
  *
- * @return
- *		- XST_SUCCESS - On Success
- *		- XST_FAILURE - Failure in programming
+ * @param	None
+ *
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
  *
  ******************************************************************************/
-static u32 XNvm_EfusePgmTBits(void)
+static int XNvm_EfusePgmTBits(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 TbitsPrgrmReg;
 	u32 RowDataVal = 0U;
 	u32 Column;
@@ -4110,36 +4196,36 @@ static u32 XNvm_EfusePgmTBits(void)
 	Status = XNvm_EfuseReadRow(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				&RowDataVal);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		 goto END;
 	}
 	if (((RowDataVal >> XNVM_EFUSE_TBITS_SHIFT) &
 			XNVM_EFUSE_TBITS_MASK) != 0x00U) {
-		Status = (u32)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
+		Status = (int)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
 		goto END;
 	}
 
 	Status = XNvm_EfuseReadRow(XNVM_EFUSE_PAGE_1,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				&RowDataVal);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	if (((RowDataVal >> XNVM_EFUSE_TBITS_SHIFT) &
 				XNVM_EFUSE_TBITS_MASK) != 0x00U) {
-		Status = (u32)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
+		Status = (int)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
 		goto END;
 	}
 
 	Status = XNvm_EfuseReadRow(XNVM_EFUSE_PAGE_2,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				&RowDataVal);
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	if (((RowDataVal >> XNVM_EFUSE_TBITS_SHIFT) &
 				XNVM_EFUSE_TBITS_MASK) != 0x00U) {
-		Status = (u32)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
+		Status = (int)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
 		goto END;
 	}
 
@@ -4152,17 +4238,17 @@ static u32 XNvm_EfusePgmTBits(void)
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW, Column);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_1,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW, Column);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_2,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW, Column);
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -4175,24 +4261,24 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * This function reloads the cache of eFUSE so that can be directly read from
- * cache.
+ * @brief	This function reloads the cache of eFUSE so that can be directly
+ * 			read from cache.
  *
- * @return
- * 		- XST_SUCCESS - on successful cache reload
- *		- ErrorCode - on failure
+ * @param	None
  *
- * @note	Not recommended to call this API frequently,
- *		if this API is called all the cache memory is reloaded
- *		by reading eFUSE array, reading eFUSE bit multiple times may
- *		diminish the life time.
+ * @return	- XST_SUCCESS - on successful cache reload.
+ *			- XNVM_EFUSE_ERR_CACHE_LOAD - Error while loading the cache.
  *
- *******************************************************************************/
-static u32 XNvm_EfuseCacheLoad(void)
+ * @note	Not recommended to call this API frequently,if this API is called
+ *			all the cache memory is reloaded by reading eFUSE array,
+ *			reading eFUSE bit multiple times may diminish the life time.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseCacheLoad(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 RegStatus;
 	volatile u32 CacheStatus;
 
@@ -4214,7 +4300,7 @@ static u32 XNvm_EfuseCacheLoad(void)
 				XNVM_EFUSE_STATUS_CACHE_DONE,
 				XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL);
 	if (CacheStatus != XST_SUCCESS) {
-		Status = (u32)XNVM_EFUSE_ERR_CACHE_LOAD;
+		Status = (int)XNVM_EFUSE_ERR_CACHE_LOAD;
 		goto END;
 	}
 
@@ -4222,10 +4308,10 @@ static u32 XNvm_EfuseCacheLoad(void)
 					XNVM_EFUSE_ISR_REG_OFFSET);
 	if ((CacheStatus & XNVM_EFUSE_ISR_CACHE_ERROR) ==
 			XNVM_EFUSE_ISR_CACHE_ERROR) {
-		Status = (u32)XNVM_EFUSE_ERR_CACHE_LOAD;
+		Status = (int)XNVM_EFUSE_ERR_CACHE_LOAD;
 		goto END;
 	}
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 END:
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_ISR_REG_OFFSET,
@@ -4236,16 +4322,17 @@ END:
 
 /******************************************************************************/
 /**
- * This function checks whether Tbits are programmed or not
+ * @brief	This function checks whether Tbits are programmed or not.
  *
- * @return
- *		- XST_SUCCESS - On Success
- *		- XST_FAILURE - On Failure
+ * @param	None
+ *
+ * @return	- XST_SUCCESS - On Success.
+ *			- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseCheckForTBits(void)
+static int XNvm_EfuseCheckForTBits(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg;
 	u32 TbitMask = (XNVM_EFUSE_STATUS_TBIT_0 |
 			XNVM_EFUSE_STATUS_TBIT_1 |
@@ -4256,15 +4343,15 @@ static u32 XNvm_EfuseCheckForTBits(void)
 	if ((ReadReg & TbitMask) != TbitMask)
 	{
 		Status = XNvm_EfusePgmTBits();
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		Status = XNvm_EfuseCacheLoad();
-		if (Status != (u32)XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 				goto END;
 		}
 	} else {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 	}
 END :
 	return Status;

@@ -25,6 +25,7 @@
 *       kal  05/04/2020 Moved few utility functions to application and removed
 *       		usage of conversion APIs as the same functionality is
 *       		achieved by bit-wise operators.
+* 2.1	am 	 08/19/2020 Resolved MISRA C violations.
 *
 * </pre>
 *
@@ -55,19 +56,18 @@
 
 /******************************************************************************/
 /**
- * Validate the input string contains valid AES key
+ * @brief	Validate the input string contains valid AES key.
  *
- * @param   Key - Pointer to AES key
+ * @param   Key - Pointer to AES key.
  *
- * @return
- *	- XST_SUCCESS	- On valid input AES key string
- *	- XST_INVALID_PARAM - On invalid length of the input string
- *	- XST_FAILURE	- On non hexadecimal character in string
+ * @return - XST_SUCCESS - On valid input AES key string.
+ *		   - XST_INVALID_PARAM - On invalid length of the input string.
+ *		   - XST_FAILURE	- On non hexadecimal character in string
  *
  ******************************************************************************/
-u32 XNvm_ValidateAesKey(const char *Key)
+int XNvm_ValidateAesKey(const char *Key)
 {
-	u32 Status = XST_INVALID_PARAM;
+	int Status = XST_INVALID_PARAM;
 	u32 Len;
 
 	if(NULL == Key) {
@@ -88,19 +88,19 @@ END:
 
 /******************************************************************************/
 /**
- * Calculates CRC value for each row of AES key.
+ * @brief	Calculates CRC value for each row of AES key.
  *
- * @param	PrevCRC	Holds the prev row's CRC
- * @param	Data	Holds the present row's key
- * @param	Addr	 Stores the current row number
+ * @param	PrevCRC - Holds the prev row's CRC.
+ * @param	Data	- Holds the present row's key.
+ * @param	Addr    - Stores the current row number.
  *
- * @return	Crc of current row
+ * @return	Crc of current row.
  *
  ******************************************************************************/
 static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, u32 *Data, u32 Addr)
 {
 	u32 Crc = PrevCRC;
-	u32 Value = *(u32 *)Data;
+	u32 Value = *Data;
 	u32 Row = Addr;
 	u32 Idx;
 
@@ -130,11 +130,11 @@ static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, u32 *Data, u32 Addr)
 }
 /******************************************************************************/
 /**
- * This function calculates CRC of AES key
+ * @brief	This function calculates CRC of AES key.
  *
- * @param	Key	Pointer to the key for which CRC has to be calculated
+ * @param	Key - Pointer to the key for which CRC has to be calculated.
  *
- * @return	CRC of AES key
+ * @return	CRC of AES key.
  *
  ******************************************************************************/
 u32 XNvm_AesCrcCalc(u32 *Key)
@@ -145,7 +145,7 @@ u32 XNvm_AesCrcCalc(u32 *Key)
 	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS ; Idx++) {
 		Crc = XNvm_RowAesCrcCalc(Crc,
 				&Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U],
-				XNVM_AES_KEY_SIZE_IN_WORDS - Idx);
+				(XNVM_AES_KEY_SIZE_IN_WORDS - (u32)Idx));
 	}
 
 	return Crc;
