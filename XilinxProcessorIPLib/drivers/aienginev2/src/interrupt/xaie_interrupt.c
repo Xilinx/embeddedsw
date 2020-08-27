@@ -640,7 +640,7 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 			GroupErrorEnableMask = _XAie_GetFatalGroupErrors(DevInst,
 							Loc, XAIE_MEM_MOD);
 			RC = XAie_EventGroupControl(DevInst, Loc, XAIE_MEM_MOD,
-					XAIE_EVENT_GROUP_ERRORS_MEM,
+					XAIE_EVENT_GROUP_ERRORS_MEM_TILE,
 					GroupErrorEnableMask);
 			if(RC != XAIE_OK) {
 				XAIE_ERROR("Failed to configure group error\n");
@@ -649,7 +649,7 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 
 			RC = XAie_EventBroadcast(DevInst, Loc, XAIE_MEM_MOD,
 					XAIE_ERROR_BROADCAST_ID,
-					XAIE_EVENT_GROUP_ERRORS_MEM);
+					XAIE_EVENT_GROUP_ERRORS_MEM_TILE);
 			if(RC != XAIE_OK) {
 				XAIE_ERROR("Failed to setup error broadcast\n");
 				return RC;

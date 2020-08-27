@@ -2547,7 +2547,7 @@ static const XAie_EvntMod AieTileEvntMod[] =
 	{
 		.XAie_EventNumber = AieTileMemModEventMapping,
 		.EventMin = XAIE_EVENT_NONE_MEM,
-		.EventMax = XAIE_EVENT_USER_EVENT_3_MEM,
+		.EventMax = XAIE_EVENT_DMA_TASK_TOKEN_STALL_MEM,
 		.GenEventRegOff = XAIEGBL_MEM_EVTGEN,
 		.GenEvent = {XAIEGBL_MEM_EVTGEN_EVT_LSB, XAIEGBL_MEM_EVTGEN_EVT_MASK},
 		.ComboInputRegOff = XAIEGBL_MEM_COMEVTINP,
@@ -2588,7 +2588,7 @@ static const XAie_EvntMod AieTileEvntMod[] =
 	{
 		.XAie_EventNumber = AieTileCoreModEventMapping,
 		.EventMin = XAIE_EVENT_NONE_CORE,
-		.EventMax = XAIE_EVENT_USER_EVENT_3_CORE,
+		.EventMax = XAIE_EVENT_PROCESSOR_BUS_ERROR_CORE,
 		.GenEventRegOff = XAIEGBL_CORE_EVTGEN,
 		.GenEvent = {XAIEGBL_CORE_EVTGEN_EVT_LSB, XAIEGBL_CORE_EVTGEN_EVT_MASK},
 		.ComboInputRegOff = XAIEGBL_CORE_COMEVTINP,
@@ -2646,7 +2646,7 @@ static const XAie_EvntMod AieNocEvntMod =
 {
 	.XAie_EventNumber = AieTileNocModEventMapping,
 	.EventMin = XAIE_EVENT_NONE_PL,
-	.EventMax = XAIE_EVENT_USER_EVENT_3_PL,
+	.EventMax = XAIE_EVENT_DMA_TASK_TOKEN_STALL_PL,
 	.GenEventRegOff = XAIEGBL_PL_EVTGEN,
 	.GenEvent = {XAIEGBL_PL_EVTGEN_EVT_LSB, XAIEGBL_PL_EVTGEN_EVT_MASK},
 	.ComboInputRegOff = XAIEGBL_PL_COMEVTINP,
@@ -2703,7 +2703,7 @@ static const XAie_EvntMod AiePlEvntMod =
 {
 	.XAie_EventNumber = AieTilePlModEventMapping,
 	.EventMin = XAIE_EVENT_NONE_PL,
-	.EventMax = XAIE_EVENT_USER_EVENT_3_PL,
+	.EventMax = XAIE_EVENT_DMA_TASK_TOKEN_STALL_PL,
 	.GenEventRegOff = XAIEGBL_PL_EVTGEN,
 	.GenEvent = {XAIEGBL_PL_EVTGEN_EVT_LSB, XAIEGBL_PL_EVTGEN_EVT_MASK},
 	.ComboInputRegOff = XAIEGBL_PL_COMEVTINP,
