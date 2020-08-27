@@ -39,6 +39,7 @@
 * 4.2   har  03/20/20 Updated file version to sync with library version
 *       bvi  04/07/20 Renamed csudma as pmcdma
 * 4.3   ana  06/04/20 created XSecure_Sha3Hash structure variable
+*       kpt  08/26/20 Changed argument type from u8* to UINTPTR
 *
 * </pre>
 *
@@ -124,14 +125,14 @@ u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma *DmaPtr);
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 
 /* Data Transfer */
-u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
+u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 						const u32 Size);
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
 
 /* Complete SHA digest calculation */
-u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
-					XSecure_Sha3Hash *Sha3Hash);
+u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+						const u32 Size, XSecure_Sha3Hash *Sha3Hash);
 
 void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
