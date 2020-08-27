@@ -689,6 +689,10 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
+	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
+			"Length 0x%08x, Flags 0x%0x\r\n", SrcAddrLow,
+			(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
+
 	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 	/* Just wait for the Data to be copied */
 	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
@@ -697,10 +701,6 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		} while (Status != XST_SUCCESS);
 		goto END;
 	}
-
-	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
-			"Length 0x%08x, Flags 0x%0x\r\n", SrcAddrLow,
-			(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 
 	/*
 	 * Check the read length with Qspi flash size
