@@ -12,6 +12,6 @@ BEGIN driver dp14
         OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common_v4_0);
         OPTION copyfiles = all;
-        OPTION VERSION = 7.3;
+        OPTION VERSION = 7.4;
         OPTION NAME = dp14;
 END driver
