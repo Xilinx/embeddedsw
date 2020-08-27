@@ -67,7 +67,6 @@ extern "C" {
 
 /* PUF syndrome length definitions for Versal eFuse */
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
-#define XNVM_EFUSE_PUF_AUX_LEN_IN_BITS			(24U)
 
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
 #define XNVM_USER_FUSE_START_NUM			(1U)
