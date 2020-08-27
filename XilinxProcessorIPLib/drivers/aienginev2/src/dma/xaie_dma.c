@@ -187,6 +187,45 @@ AieRC XAie_DmaSetPkt(XAie_DmaDesc *DmaDesc, XAie_Packet Pkt)
 /*****************************************************************************/
 /**
 *
+* This api sets up the value of inserted out of order ID field in packet header.
+*
+* @param	DmaDesc: Initialized dma descriptor.
+* @param	OutofOrderBdId: Value of out of order ID field in packet header.
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		The api sets up the value in the dma descriptor and does not
+*		configure the buffer descriptor field in the hardware. This API
+*		works only for AIE2 and has no effect on AIE. The buffer
+*		descriptor with this feature enabled can work only for MM2S
+*		channels.
+*
+******************************************************************************/
+AieRC XAie_DmaSetOutofOrderBdId(XAie_DmaDesc *DmaDesc, u8 OutofOrderBdId)
+{
+	const XAie_DmaMod *DmaMod;
+
+	if((DmaDesc == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaDesc->DmaMod;
+	if(DmaMod->OutofOrderBdId == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature unavailable\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	DmaDesc->BdEnDesc.OutofOrderBdId = OutofOrderBdId;
+	DmaDesc->EnOutofOrderBdId = XAIE_ENABLE;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
 * This API setups the Buffer starting address, Acquire lock and release lock for
 * DMA Descriptor and enables the double buffering mode. This API is supported
 * for AIE only.
@@ -405,6 +444,40 @@ AieRC XAie_DmaSetMultiDimAddr(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor,
 		DmaMod->BdProp->LenActualOffset;
 
 	return	DmaMod->SetMultiDim(DmaDesc, Tensor);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API enables the compression bit in the DMA Descriptor.
+*
+* @param	DmaDesc: Initialized Dma Descriptor.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		The API sets up the value in the dma descriptor and does not
+*		configure the buffer descriptor field in the hardware.
+*
+******************************************************************************/
+AieRC XAie_DmaEnableCompression(XAie_DmaDesc *DmaDesc)
+{
+	const XAie_DmaMod *DmaMod;
+
+	if((DmaDesc == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaDesc->DmaMod;
+	if(DmaMod->Compression == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature not supported\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	DmaDesc->EnCompression = XAIE_ENABLE;
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -905,6 +978,116 @@ AieRC XAie_DmaChannelPauseMem(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
 
 	return XAie_MaskWrite32(DevInst, Addr, DmaMod->ChProp->PauseMem.Mask,
 			Value);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API configures the Dma channel for a particular range of tiles. This API
+* has to be called before enabling the channel. The OutofOrderBdId and
+* Compression/Decompression are enabled automatically if the Dma Descriptor has
+* these features enabled.
+*
+* @param	DevInst: Device Instance.
+* @param	DmaDesc: Initialized Dma Descriptor.
+* @param	Loc: Location of AIE Tile
+* @param	ChNum: Channel number of the DMA.
+* @param	Dir: Direction of the DMA Channel. (MM2S or S2MM)
+* @param	RepeatCount: Number of times to repeat the task.
+* @param	EnTokenIssue: XAIE_ENABLE to issue token when task is complete.
+* @param	ControllerId: Task complete token controller ID field
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelConfig(XAie_DevInst *DevInst, XAie_DmaDesc *DmaDesc,
+		XAie_LocType Loc, u8 ChNum, XAie_DmaDirection Dir,
+		u8 RepeatCount, u8 EnTokenIssue, u8 ControllerId)
+{
+	u64 Addr;
+	u32 ChWord[XAIE_DMA_CHCTRL_NUM_WORDS] = {0U};
+	u32 ChWordMask[XAIE_DMA_CHCTRL_NUM_WORDS] = {0U};
+	const XAie_DmaMod *DmaMod;
+
+	if((DevInst == XAIE_NULL) || (DmaDesc == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE) {
+		XAIE_ERROR("Feature not supported\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	if(Dir >= DMA_MAX) {
+		XAIE_ERROR("Invalid DMA direction\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if((DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Dma descriptor not initilized\n");
+		return XAIE_INVALID_DMA_DESC;
+	}
+
+	if(DmaDesc->TileType != _XAie_GetTileTypefromLoc(DevInst, Loc)) {
+		XAIE_ERROR("Tile type mismatch\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	DmaMod = DevInst->DevProp.DevMod[DmaDesc->TileType].DmaMod;
+	if(ChNum > DmaMod->NumChannels) {
+		XAIE_ERROR("Invalid Channel number\n");
+		return XAIE_INVALID_CHANNEL_NUM;
+	}
+
+	/*
+	 * Register fields for these configurations are different for tile
+	 * types. The below implementation automatically sets up the correct
+	 * register values based on the tile type.
+	 */
+	ChWord[DmaMod->ChProp->CtrlId.Idx] |= XAie_SetField(ControllerId,
+			DmaMod->ChProp->CtrlId.Lsb,
+			DmaMod->ChProp->CtrlId.Mask);
+	ChWordMask[DmaMod->ChProp->CtrlId.Idx] |= DmaMod->ChProp->CtrlId.Mask;
+
+	ChWord[DmaMod->ChProp->RptCount.Idx] |= XAie_SetField(RepeatCount,
+			DmaMod->ChProp->RptCount.Lsb,
+			DmaMod->ChProp->RptCount.Mask);
+	ChWordMask[DmaMod->ChProp->RptCount.Idx] |=
+		DmaMod->ChProp->RptCount.Mask;
+
+	ChWord[DmaMod->ChProp->EnToken.Idx] |= XAie_SetField(EnTokenIssue,
+			DmaMod->ChProp->EnToken.Lsb,
+			DmaMod->ChProp->EnToken.Mask);
+	ChWordMask[DmaMod->ChProp->EnToken.Idx] |= DmaMod->ChProp->EnToken.Mask;
+
+	ChWord[DmaMod->ChProp->EnCompression.Idx] |=
+		XAie_SetField(DmaDesc->EnCompression,
+				DmaMod->ChProp->EnCompression.Lsb,
+				DmaMod->ChProp->EnCompression.Mask);
+	ChWordMask[DmaMod->ChProp->EnCompression.Idx] |=
+		DmaMod->ChProp->EnCompression.Mask;
+
+	ChWord[DmaMod->ChProp->EnOutofOrder.Idx] |=
+		XAie_SetField(DmaDesc->EnOutofOrderBdId,
+				DmaMod->ChProp->EnOutofOrder.Lsb,
+				DmaMod->ChProp->EnOutofOrder.Mask);
+	ChWordMask[DmaMod->ChProp->EnOutofOrder.Idx] |=
+		DmaMod->ChProp->EnOutofOrder.Mask;
+
+	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->ChCtrlBase + ChNum * DmaMod->ChIdxOffset +
+		Dir * DmaMod->ChIdxOffset * DmaMod->NumChannels;
+
+	for(u8 i = 0U; i < XAIE_DMA_CHCTRL_NUM_WORDS; i++) {
+		XAie_MaskWrite32(DevInst, Addr + (i * 4U),
+				ChWordMask[i], ChWord[i]);
+	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
