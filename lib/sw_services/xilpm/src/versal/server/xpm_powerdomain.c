@@ -297,7 +297,32 @@ XStatus XPm_PowerDwnLPD(void)
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
+	XPm_Core *RpuCore0;
+	XPm_Core *RpuCore1;
+	int HasResumeAddrStatus = XST_FAILURE;
 	u32 i;
+
+	RpuCore0 = (XPm_Core *)XPmDevice_GetById(PM_DEV_RPU0_0);
+	if (NULL != RpuCore0) {
+		HasResumeAddrStatus = XPmCore_HasResumeAddr(RpuCore0);
+		if (XST_SUCCESS == HasResumeAddrStatus) {
+			/* Enable GIC proxy only if resume path is set */
+			XPm_GicProxy.Enable();
+		} else {
+			DbgErr = (u32)XPM_INT_ERR_INVALID_ADDR;
+		}
+	}
+
+	RpuCore1 = (XPm_Core *)XPmDevice_GetById(PM_DEV_RPU0_1);
+	if (NULL != RpuCore1) {
+		HasResumeAddrStatus = XPmCore_HasResumeAddr(RpuCore1);
+		if (XST_SUCCESS == HasResumeAddrStatus) {
+			/* Enable GIC proxy only if resume path is set */
+			XPm_GicProxy.Enable();
+		} else {
+			DbgErr = (u32)XPM_INT_ERR_INVALID_ADDR;
+		}
+	}
 
 	const u32 LpdPlIso[] = {
 		(u32)XPM_NODEIDX_ISO_LPD_PL_TEST,
