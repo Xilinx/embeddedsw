@@ -936,6 +936,7 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
+
 	if ((IvType != XNVM_EFUSE_BLACK_OBFUS_IV_TYPE) &&
 		(IvType != XNVM_EFUSE_PLM_IV_TYPE) &&
 		(IvType != XNVM_EFUSE_DATA_PARTITION_IV_TYPE) &&
@@ -985,7 +986,13 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 			goto END;
 		}
 	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
 	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
@@ -1180,11 +1187,15 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
 	else if (PpkRevoke == XNVM_EFUSE_PPK2) {
 		MiscCtrlBits.Ppk2Invalid = TRUE;
 	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
 
 	EfuseData.MiscCtrlBits = &MiscCtrlBits;
 
 	Status = XNvm_EfuseWrite(&EfuseData);
-
+END:
 	return Status;
 }
 
@@ -2927,63 +2938,60 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *WriteReq)
 	SecurityMisc0 = XNvm_EfuseReadReg(
 				XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
-	if ((WriteReq->DecOnly->PrgmDecOnly == TRUE) &&
-		((SecurityMisc0 &
-		XNVM_EFUSE_CACHE_SECURITY_MISC_0_DEC_EFUSE_ONLY_MASK) ==
-								0x00U)) {
-		Status = XNvm_EfuseCheckAesKeyCrc(
+	if (WriteReq->DecOnly->PrgmDecOnly == TRUE) {
+		if ((SecurityMisc0 &
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_DEC_EFUSE_ONLY_MASK) ==
+								0x00U) {
+			Status = XNvm_EfuseCheckAesKeyCrc(
 				XNVM_EFUSE_CRC_AES_ZEROS);
-		if (Status == XST_SUCCESS) {
-			if (WriteReq->AesKeys != NULL) {
-				if (WriteReq->AesKeys->PrgmAesKey != TRUE) {
+			if (Status == XST_SUCCESS) {
+				if (WriteReq->AesKeys != NULL) {
+					if (WriteReq->AesKeys->PrgmAesKey != TRUE) {
+						Status =
+						(int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
+						goto END;
+					}
+				}
+				else {
 					Status =
 					(int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
 					goto END;
 				}
 			}
-			else {
-				Status =
-				(int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
-				goto END;
-			}
-		}
-		Status = XNvm_EfuseCheckZeros(
+			Status = XNvm_EfuseCheckZeros(
 				XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW,
 				XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW +
 				XNVM_EFUSE_IV_NUM_OF_ROWS);
-		if (Status == XST_SUCCESS) {
-			if (WriteReq->Ivs != NULL) {
-				if (WriteReq->Ivs->PrgmBlkObfusIv != TRUE) {
+			if (Status == XST_SUCCESS) {
+				if (WriteReq->Ivs != NULL) {
+					if (WriteReq->Ivs->PrgmBlkObfusIv != TRUE) {
+						Status =
+						(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
+						goto END;
+					}
+				}
+				else {
 					Status =
 					(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
 					goto END;
 				}
 			}
-			else {
-				Status =
-				(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
-				goto END;
-			}
 		}
-	}
-	else if (WriteReq->DecOnly->PrgmDecOnly == TRUE) {
-		for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
+		else {
+			for (Column = 0U; Column < XNVM_EFUSE_MAX_BITS_IN_ROW;
 				Column++) {
-
-			Mask = ((u32)1U) << Column;
-
-			if (((WriteReq->DecOnly->DecEfuseOnly &
-				Mask) == 0U) && ((SecurityMisc0 & Mask) ==
+				Mask = ((u32)1U) << Column;
+				if (((WriteReq->DecOnly->DecEfuseOnly &
+					Mask) == 0U) && ((SecurityMisc0 & Mask) ==
 							Mask)) {
-
-				Status =
-				(XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY |
-				XNVM_EFUSE_ERR_BIT_CANT_REVERT);
-				goto END;
+					Status =
+						(XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY |
+						XNVM_EFUSE_ERR_BIT_CANT_REVERT);
+					goto END;
+				}
 			}
 		}
 	}
-
 	Status = XST_SUCCESS;
 END:
 	return Status;
