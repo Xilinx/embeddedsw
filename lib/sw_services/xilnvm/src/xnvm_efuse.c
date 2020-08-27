@@ -186,7 +186,7 @@ static int XNvm_EfusePrgmProtectionEfuse(void);
 int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 {
 	int Status = XST_FAILURE;
-	u32 LockStatus = (u32)XST_FAILURE;
+	int LockStatus = XST_FAILURE;
 
 	if (WriteNvm == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -361,13 +361,13 @@ END:
 int XNvm_EfuseCheckAesKeyCrc(u32 Crc)
 {
 	int Status = XST_FAILURE;
-	u32 LockStatus = 0U;
+	int LockStatus = XST_FAILURE;
 	u32 ReadReg = 0U;
 	u8 IsUnlocked = FALSE;
 
-	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == ReadReg)	{
 		Status = XNvm_EfuseUnlockController();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -404,8 +404,10 @@ int XNvm_EfuseCheckAesKeyCrc(u32 Crc)
 	}
 END:
 	if (IsUnlocked == TRUE) {
-		XNvm_EfuseLockController();
-		IsUnlocked = FALSE;
+		LockStatus = XNvm_EfuseLockController();
+		if (XST_SUCCESS == Status) {
+			Status = LockStatus;
+		}
 	}
 	return Status;
 }
@@ -429,13 +431,13 @@ END:
 int XNvm_EfuseCheckAesUserKey0Crc(u32 Crc)
 {
 	int Status = XST_FAILURE;
+	int LockStatus = XST_FAILURE;
 	u32 ReadReg = 0U;
-	u32 LockStatus = 0U;
 	u8 IsUnlocked = FALSE;
 
-	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == ReadReg)	{
 		Status = XNvm_EfuseUnlockController();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -471,8 +473,10 @@ int XNvm_EfuseCheckAesUserKey0Crc(u32 Crc)
 	}
 END:
 	if (IsUnlocked == TRUE) {
-		XNvm_EfuseLockController();
-		IsUnlocked = FALSE;
+		LockStatus = XNvm_EfuseLockController();
+		if (XST_SUCCESS == Status) {
+			Status = LockStatus;
+		}
 	}
 	return Status;
 }
@@ -496,13 +500,13 @@ END:
 int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc)
 {
 	int Status = XST_FAILURE;
+	int LockStatus = XST_FAILURE;
 	u32 ReadReg = 0U;
-	u32 LockStatus = 0U;
 	u8 IsUnlocked = FALSE;
 
-	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == ReadReg)	{
 		Status = XNvm_EfuseUnlockController();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -538,8 +542,10 @@ int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc)
 	}
 END:
 	if (IsUnlocked == TRUE) {
-		XNvm_EfuseLockController();
-		IsUnlocked = FALSE;
+		LockStatus = XNvm_EfuseLockController();
+		if (XST_SUCCESS == Status) {
+			Status = LockStatus;
+		}
 	}
 	return Status;
 }
@@ -662,7 +668,7 @@ END:
 int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 {
 	int Status = XST_FAILURE;
-	u32 LockStatus = (u32)XST_FAILURE;
+	int LockStatus = XST_FAILURE;
 	u32 PufSecurityCtrlReg;
 
 	if (PufHelperData == NULL) {
