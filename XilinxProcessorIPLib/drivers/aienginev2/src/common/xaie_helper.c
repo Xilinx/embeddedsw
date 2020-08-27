@@ -302,6 +302,7 @@ AieRC _XAie_GetMstrIdx(const XAie_StrmMod *StrmMod, StrmSwPortType Master,
 * @param	Module: Module of tile.
 *			for AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			for Shim tile - XAIE_PL_MOD,
+*			for Mem tile - XAIE_MEM_MOD.
 *
 * @return	Default value of group fatal errors.
 *
