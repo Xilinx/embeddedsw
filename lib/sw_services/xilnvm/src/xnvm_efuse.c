@@ -367,7 +367,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 Crc)
 
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(0x01 == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus)	{
 		Status = XNvm_EfuseUnlockController();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -435,7 +435,7 @@ int XNvm_EfuseCheckAesUserKey0Crc(u32 Crc)
 
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(0x01 == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus)	{
 		Status = XNvm_EfuseUnlockController();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -502,7 +502,7 @@ int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc)
 
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(0x01 == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus)	{
 		Status = XNvm_EfuseUnlockController();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -1205,7 +1205,7 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId)
 	XNvm_EfuseRevokeIds WriteRevokeId = {0U};
 	XNvm_EfuseData EfuseData = {NULL};
 
-	if (RevokeId > 255U) {
+	if (RevokeId > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
         goto END;
 	}
@@ -3660,7 +3660,7 @@ static inline int XNvm_EfuseLockController(void)
 			~XNVM_EFUSE_WR_UNLOCK_PASSCODE);
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(0x01 == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus)	{
 		Status = XST_SUCCESS;
 	}
 	else {
@@ -3692,7 +3692,7 @@ static inline int XNvm_EfuseUnlockController(void)
 				XNVM_EFUSE_WR_UNLOCK_PASSCODE);
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if(0x00 == LockStatus)	{
+	if(XNVM_EFUSE_CTRL_WR_UNLOCKED == LockStatus)	{
 		Status = XST_SUCCESS;
 	}
 	else {
@@ -3945,7 +3945,8 @@ static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32* RowData)
 	if(XST_TIMEOUT == Status) {
 		Status = (int)XNVM_EFUSE_ERR_RD_TIMEOUT;
 	}
-	else if ((EventMask & XNVM_EFUSE_ISR_RD_ERROR) != 0x0U) {
+	else if ((EventMask & XNVM_EFUSE_ISR_RD_ERROR)
+				!= XNVM_EFUSE_ISR_RD_ERROR) {
 		Status = (int)XNVM_EFUSE_ERR_RD;
 	}
 	else {
