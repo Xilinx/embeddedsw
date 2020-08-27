@@ -55,6 +55,7 @@
 *       td   08/19/20 Fixed MISRA C violations Rule 10.3
 *       kal  08/23/20 Added parallel DMA support for Qspi and Ospi for secure
 *       har  08/24/20 Added support for ECDSA P521 authentication
+*       kpt  08/27/20 Changed argument type from u8* to UINTPTR for SHA
 *
 * </pre>
 *
@@ -860,7 +861,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
 	}
 
-	Status = XSecure_Sha3Digest(&Sha3Instance, (u8 *)ImgHdrTbl, XIH_IHT_LEN,
+	Status = XSecure_Sha3Digest(&Sha3Instance, (UINTPTR)ImgHdrTbl, XIH_IHT_LEN,
 								&Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_HASH_CALC_FAIL,
@@ -1120,7 +1121,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) &&
 		(SecurePtr->BlockNum == 0x00U)) {
 		Status = XSecure_Sha3Update(&Sha3Instance,
-					(u8 *)AcPtr,
+					(UINTPTR)AcPtr,
 					XLOADER_AUTH_CERT_MIN_SIZE -
 					XLOADER_PARTITION_SIG_SIZE);
 		if (Status != XLOADER_SUCCESS) {
@@ -1130,7 +1131,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 	}
 
-	Status = XSecure_Sha3Update(&Sha3Instance, Data, Size);
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)Data, Size);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 							Status);
@@ -1382,7 +1383,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 	/* Hash the AH  and SPK*/
 	/* Update AH */
 	Status = XSecure_Sha3Update(&Sha3Instance,
-			(u8 *)&AcPtr->AuthHdr, XLOADER_AUTH_HEADER_SIZE);
+			(UINTPTR)&AcPtr->AuthHdr, XLOADER_AUTH_HEADER_SIZE);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
 			XLOADER_SEC_SPK_HASH_CALCULATION_FAIL, Status);
@@ -1396,7 +1397,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Update SPK */
-	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)&AcPtr->Spk,
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)&AcPtr->Spk,
 						XLOADER_SPK_SIZE);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -1688,10 +1689,10 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 	/* Update PPK  */
 	if (SecurePtr->CheckJtagAuth == (u8)TRUE) {
 		Status = XSecure_Sha3Update(&Sha3Instance,
-		(u8 *)SecurePtr->AuthJtagMessage.PpkPtr, XLOADER_PPK_SIZE);
+		(UINTPTR)SecurePtr->AuthJtagMessage.PpkPtr, XLOADER_PPK_SIZE);
 	}
 	else {
-		Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)&AcPtr->Ppk,
+		Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)&AcPtr->Ppk,
 			XLOADER_PPK_SIZE);
 	}
 	if (Status != XLOADER_SUCCESS) {
@@ -1785,11 +1786,11 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 		XLoader_I2Osp(Counter, XIH_PRTN_WORD_LEN, Convert);
 
 		XSecure_Sha3Start(Sha3InstancePtr);
-		Status = XSecure_Sha3Update(Sha3InstancePtr, Input, HashLen);
+		Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)Input, HashLen);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
-		Status = XSecure_Sha3Update(Sha3InstancePtr, Convert,
+		Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)Convert,
 					XIH_PRTN_WORD_LEN);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
@@ -1907,7 +1908,7 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 	XSecure_Sha3Start(&Sha3Instance);
 
 	 /* Padding 1 */
-	Status = XSecure_Sha3Update(&Sha3Instance, Xsecure_Varsocm.Padding1,
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)Xsecure_Varsocm.Padding1,
 			XLOADER_RSA_PSS_PADDING1);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -1916,7 +1917,7 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 	}
 
 	 /* Message hash */
-	Status = XSecure_Sha3Update(&Sha3Instance, DataHash, XLOADER_SHA3_LEN);
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)DataHash, XLOADER_SHA3_LEN);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
@@ -1924,7 +1925,7 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 	}
 
 	 /* Salt */
-	Status = XSecure_Sha3Update(&Sha3Instance, Xsecure_Varsocm.Salt,
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)Xsecure_Varsocm.Salt,
 			XLOADER_RSA_PSS_SALT_LEN);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -2667,7 +2668,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 	}
 
 	XSecure_Sha3Start(&Sha3Instance);
-	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)SecurePtr->AcPtr,
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)SecurePtr->AcPtr,
 		XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
@@ -2676,7 +2677,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 	}
 
 	/* Image headers */
-	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)MetaHdr->ImgHdr,
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)MetaHdr->ImgHdr,
 				(MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN));
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
@@ -2685,7 +2686,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 	}
 
 	/* Partition headers */
-	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)MetaHdr->PrtnHdr,
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)MetaHdr->PrtnHdr,
 				(MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN));
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
@@ -2820,7 +2821,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	}
 
 	XSecure_Sha3Start(&Sha3Instance);
-	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)SecurePtr->AcPtr,
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)SecurePtr->AcPtr,
 		(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE));
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
@@ -2828,7 +2829,7 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)BufferAddr, TotalSize);
+	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)BufferAddr, TotalSize);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
 							 Status);
@@ -3376,7 +3377,7 @@ int XLoader_AuthJtag()
 	Status = XST_FAILURE;
 
 	Status = XSecure_Sha3Update(&Sha3Instance,
-		 (u8*)(SecureParams.AuthJtagMessage.AuthHdrPtr),
+		 (UINTPTR)(SecureParams.AuthJtagMessage.AuthHdrPtr),
 		 XLOADER_AUTH_JTAG_DATA_AH_LENGTH);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
