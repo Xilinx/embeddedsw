@@ -39,6 +39,7 @@
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	Event: Event to be traced
 * @param	SlotId: Trace slot index for corresponding event.
 *
@@ -122,6 +123,7 @@ AieRC XAie_TraceEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	StartEvent: Event number to start tracing.
 *
 * @return	XAIE_OK on success, error code on failure.
@@ -197,6 +199,7 @@ AieRC XAie_TraceStartEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	StopEvent: Event number to stop tracing.
 *
 * @return	XAIE_OK on success, error code on failure.
@@ -272,6 +275,7 @@ AieRC XAie_TraceStopEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	Pkt: Packet with initialized packet id and packet type.
 *
 * @return	XAIE_OK on success, error code on failure.
@@ -339,6 +343,7 @@ AieRC XAie_TracePktConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	Mode: Trace module can operate in the following modes,
 *			EVENT_TIME: Valid for all module types
 *			EVENT_PC, INST_EXEC: Only valid for core module.
@@ -404,6 +409,7 @@ AieRC XAie_TraceModeConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	State: Pointer to return the state trace module. Valid trace
 * 		       are, IDLE, RUNNING and OVERFLOW.
 *
@@ -467,6 +473,7 @@ AieRC XAie_TraceGetState(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	Mode: Pointer to return the current operational mode of trace
 * 		      module. Valid modes are,
 *			EVENT_TIME: Valid for all module types
@@ -533,6 +540,7 @@ AieRC XAie_TraceGetMode(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	StartEvent: Event number to start tracing.
 * @param	StopEvent: Event number to stop tracing.
 * @param	Mode: Trace module can operate in the following modes,
@@ -625,6 +633,7 @@ AieRC XAie_TraceControlConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 *
 * @return	XAIE_OK on success, error code on failure.
 *
@@ -678,6 +687,7 @@ AieRC XAie_TraceControlConfigReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 *
 * @return	XAIE_OK on success, error code on failure.
 *
@@ -732,6 +742,7 @@ AieRC XAie_TracePktConfigReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	Event: Array of events to be traced
 * @param	SlotId: Array of trace slot indicies for corresponding event.
 * @param	NumEvents: Number of events to configure.
@@ -779,6 +790,7 @@ AieRC XAie_TraceEventList(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			For AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			For Shim tile - XAIE_PL_MOD,
+*			For Mem tile - XAIE_MEM_MOD.
 * @param	SlotId: Trace slot index for corresponding event.
 *
 * @return	XAIE_OK on success, error code on failure.
