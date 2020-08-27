@@ -19,6 +19,9 @@
 * 2.2   vns    07/06/16 Added doxygen tags
 * 4.3   kpt    06/15/20 Added hash comparison and modified input data
 *                        string "hell" to "XILINX"
+*       kpt    08/27/20 Removed compilation warning and changed argument type
+*                       from u8* to UINTPTR for versal SHA3 function call
+*
 * </pre>
 ******************************************************************************/
 
@@ -141,7 +144,11 @@ u32 SecureSha3Example()
 	 */
 	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
 
-	XSecure_Sha3Digest(&Secure_Sha3, (const u8*)Data, Size, Out);
+	#ifdef versal
+		XSecure_Sha3Digest(&Secure_Sha3, (UINTPTR)Data, Size, (XSecure_Sha3Hash*)Out);
+	#else
+		XSecure_Sha3Digest(&Secure_Sha3, (u8*)Data, Size, Out);
+	#endif
 
 	xil_printf(" Calculated Hash \r\n ");
 	SecureSha3PrintHash(Out);
