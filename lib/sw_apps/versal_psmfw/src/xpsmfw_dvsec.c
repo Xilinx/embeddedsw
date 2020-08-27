@@ -37,7 +37,7 @@ static DvsecPcsr DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN] = {
 DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN] = {
 	{0x680U, 0x6A000003U},
 	{0x684U, 0x00000002U},
-	{0x688U, 0x1FF80000U},
+	{0x688U, 0x58000000U},
 };
 
 /****************************************************************************/
