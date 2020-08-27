@@ -97,7 +97,7 @@ END:
  * @return	Crc of current row.
  *
  ******************************************************************************/
-static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, u32 *Data, u32 Addr)
+static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, const u32 *Data, u32 Addr)
 {
 	u32 Crc = PrevCRC;
 	u32 Value = *Data;
@@ -137,7 +137,7 @@ static u32 XNvm_RowAesCrcCalc(u32 PrevCRC, u32 *Data, u32 Addr)
  * @return	CRC of AES key.
  *
  ******************************************************************************/
-u32 XNvm_AesCrcCalc(u32 *Key)
+u32 XNvm_AesCrcCalc(const u32 *Key)
 {
 	u32 Crc = 0U;
 	u8 Idx;

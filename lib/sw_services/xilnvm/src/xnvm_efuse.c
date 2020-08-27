@@ -123,36 +123,36 @@ static int XNvm_EfuseCheckForTBits(void);
 static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 			XNvm_EfuseType EfuseType, const u32* RowData);
 static int XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd);
-static int XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
+static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
                                                 u32 StartRow, u32 EndRow);
-static int XNvm_EfuseValidateWriteReq(XNvm_EfuseData *WriteChecks);
-static int XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds);
-static int XNvm_EfuseValidateIVsWriteReq(XNvm_EfuseIvs *EfuseIv);
-static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *Keys);
-static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash);
-static int XNvm_EfuseValidateUserFusesWriteReq(XNvm_EfuseUserData *WriteUserFuses);
-static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq);
-static int XNvm_EfuseValidateIV(u32 *Iv, u32 Row);
+static int XNvm_EfuseValidateWriteReq(const XNvm_EfuseData *WriteChecks);
+static int XNvm_EfuseValidateRevokeIdsWriteReq(const XNvm_EfuseRevokeIds *RevokeIds);
+static int XNvm_EfuseValidateIVsWriteReq(const XNvm_EfuseIvs *EfuseIv);
+static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *Keys);
+static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *Hash);
+static int XNvm_EfuseValidateUserFusesWriteReq(const XNvm_EfuseUserData *WriteUserFuses);
+static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *WriteReq);
+static int XNvm_EfuseValidateIV(const u32 *Iv, u32 Row);
 static int XNvm_EfuseValidateRevokeId(u32 ReqRevokeId, u32 Row);
 static int XNvm_EfuseWritePufAux(u32 Aux);
 static int XNvm_EfuseWritePufChash(u32 Chash);
-static int XNvm_EfuseWritePufSynData(u32 *SynData);
-static int XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
+static int XNvm_EfuseWritePufSynData(const u32 *SynData);
+static int XNvm_EfuseWritePufSecCtrl(const XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
 static int XNvm_EfuseIsPufHelperDataEmpty(void);
-static int XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl);
-static int XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static int XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static int XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static int XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
-static int XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys);
-static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash);
-static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly);
-static int XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses);
-static int XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs);
-static int XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect);
-static int Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
-static int Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData);
-static int XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds);
+static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl);
+static int XNvm_EfusePrgmGlitchCfgValues(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmGlitchWriteLock(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmGdRomMonEn(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmGdRomHaltBootEn(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg);
+static int XNvm_EfusePrgmAesKeys(const XNvm_EfuseAesKeys *Keys);
+static int XNvm_EfusePrgmPpkHash(const XNvm_EfusePpkHash *Hash);
+static int XNvm_EfusePrgmDecOnly(const XNvm_EfuseDecOnly *DecOnly);
+static int XNvm_EfusePrgmUserFuses(const XNvm_EfuseUserData *WriteUserFuses);
+static int XNvm_EfusePrgmIVs(const XNvm_EfuseIvs *Ivs);
+static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect);
+static int Xnvm_EfusePrgmHaltBootonError(const XNvm_EfuseMiscCtrlBits *MiscCtrlData);
+static int Xnvm_EfusePrgmHaltBootEnvError(const XNvm_EfuseMiscCtrlBits *MiscCtrlData);
+static int XNvm_EfusePrgmRevocationIdFuses(const XNvm_EfuseRevokeIds *RevokeIds);
 static int XNvm_EfusePrgmProtectionEfuse(void);
 
 /*************************** Variable Definitions *****************************/
@@ -183,7 +183,7 @@ static int XNvm_EfusePrgmProtectionEfuse(void);
  *			cache.
  *
  ******************************************************************************/
-int XNvm_EfuseWrite(XNvm_EfuseData *WriteNvm)
+int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 {
 	int Status = XST_FAILURE;
 	u32 LockStatus = (u32)XST_FAILURE;
@@ -659,7 +659,7 @@ END:
  * @note	To generate PufSyndromeData please use XPuf_Registration API.
  *
  ******************************************************************************/
-int XNvm_EfuseWritePuf(XNvm_EfusePufHd *PufHelperData)
+int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 {
 	int Status = XST_FAILURE;
 	u32 LockStatus = (u32)XST_FAILURE;
@@ -1267,7 +1267,7 @@ END :
  *			- XNVM_EFUSE_ERR_RD_USER_FUSES - Error in reading User fuses.
  *
  ******************************************************************************/
-int XNvm_EfuseReadUserFuses(XNvm_EfuseUserData *UserFusesData)
+int XNvm_EfuseReadUserFuses(const XNvm_EfuseUserData *UserFusesData)
 {
 	int Status = XST_FAILURE;
 	u32 Row;
@@ -1356,7 +1356,7 @@ END :
  *														REG_INIT_DIS_BIT_2.
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteSecCtrl(XNvm_EfuseSecCtrlBits *SecCtrl)
+static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseType EfuseType = XNVM_EFUSE_PAGE_0;
@@ -1600,7 +1600,7 @@ END:
  *			- XNVM_EFUSE_ERR_WRITE_PUF_DIS       - 	Error while writing PUF_DIS.
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePufSecCtrl(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
+static int XNvm_EfuseWritePufSecCtrl(const XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseType EfuseType = XNVM_EFUSE_PAGE_0;
@@ -1712,7 +1712,7 @@ END:
  *												configuration.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmGlitchCfgValues(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGlitchCfgValues(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
 	int Status = XST_FAILURE;
 	u32 PrgmGlitchCfg = 0U;
@@ -1764,7 +1764,7 @@ END:
  *												 glitch write lock.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmGlitchWriteLock(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGlitchWriteLock(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
 	int Status = XST_FAILURE;
 
@@ -1804,7 +1804,7 @@ END:
  *												  Glitch ROM monitor.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmGdRomHaltBootEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGdRomHaltBootEn(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
 	int Status = XST_FAILURE;
 
@@ -1853,7 +1853,7 @@ END:
  *												 Glitch ROM monitor.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmGdRomMonEn(XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
+static int XNvm_EfusePrgmGdRomMonEn(const XNvm_EfuseGlitchCfgBits *WriteGlitchCfg)
 {
 	int Status = XST_FAILURE;
 
@@ -1901,7 +1901,7 @@ END:
  *												  User key 1.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmAesKeys(XNvm_EfuseAesKeys *Keys)
+static int XNvm_EfusePrgmAesKeys(const XNvm_EfuseAesKeys *Keys)
 {
 	int Status = XST_FAILURE;
 	u32 Crc;
@@ -2003,7 +2003,7 @@ END:
  * 			- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error while writing PPK2 Hash.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *Hash)
+static int XNvm_EfusePrgmPpkHash(const XNvm_EfusePpkHash *Hash)
 {
 	int Status = XST_FAILURE;
 
@@ -2066,7 +2066,7 @@ END:
  *			- XNVM_EFUSE_ERR_CACHE_PARITY         - Error in Cache reload.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly)
+static int XNvm_EfusePrgmDecOnly(const XNvm_EfuseDecOnly *DecOnly)
 {
 	int Status = XST_FAILURE;
 	u32 PrgmDecOnly = 0U;
@@ -2120,7 +2120,7 @@ END:
  *													   Partition IV.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmIVs(XNvm_EfuseIvs *Ivs)
+static int XNvm_EfusePrgmIVs(const XNvm_EfuseIvs *Ivs)
 {
 	int Status = XST_FAILURE;
 	u32 PrgmIv[XNVM_EFUSE_IV_NUM_OF_ROWS] = {0U};
@@ -2228,7 +2228,7 @@ END :
  *			- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
  *
  ******************************************************************************/
-static int XNvm_EfuseComputeProgrammableBits(u32 *ReqData, u32 *PrgmData,
+static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 						u32 StartRow, u32 EndRow)
 {
 	int Status = XST_FAILURE;
@@ -2288,7 +2288,7 @@ END:
  *		   - XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_7 - Error in writing revoke id 7
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmRevocationIdFuses(XNvm_EfuseRevokeIds *RevokeIds)
+static int XNvm_EfusePrgmRevocationIdFuses(const XNvm_EfuseRevokeIds *RevokeIds)
 {
 	int Status = XST_FAILURE;
 	u32 PrgmRevokeIds[XNVM_NUM_OF_REVOKE_ID_FUSES] = {0U};
@@ -2347,7 +2347,7 @@ END:
  *														PPK2 Invalid.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmPpkRevokeFuses(XNvm_EfuseMiscCtrlBits *PpkSelect)
+static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 {
 	int Status = XST_FAILURE;
 	u32 RowData = 0U;
@@ -2458,7 +2458,7 @@ END:
  *													environment errors.
  *
  ******************************************************************************/
-static int Xnvm_EfusePrgmHaltBootonError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+static int Xnvm_EfusePrgmHaltBootonError(const XNvm_EfuseMiscCtrlBits *MiscCtrlData)
 {
 	int Status = XST_FAILURE;
 
@@ -2509,7 +2509,7 @@ END:
  *													environment errors.
  *
  ******************************************************************************/
-static int Xnvm_EfusePrgmHaltBootEnvError(XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+static int Xnvm_EfusePrgmHaltBootEnvError(const XNvm_EfuseMiscCtrlBits *MiscCtrlData)
 {
 	int Status = XST_FAILURE;
 
@@ -2562,7 +2562,7 @@ END:
  *														  Partition Iv write.
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateIVsWriteReq(XNvm_EfuseIvs *EfuseIv)
+static int XNvm_EfuseValidateIVsWriteReq(const XNvm_EfuseIvs *EfuseIv)
 {
 	int Status = XST_FAILURE;
 
@@ -2627,7 +2627,7 @@ END:
  *											   already programmed bit.
  *
  *******************************************************************************/
-static int XNvm_EfuseValidateIV(u32 *Iv, u32 Row)
+static int XNvm_EfuseValidateIV(const u32 *Iv, u32 Row)
 {
 	int Status = XST_FAILURE;
 	u32 IvRowsRd[XNVM_EFUSE_IV_LEN_IN_WORDS];
@@ -2734,7 +2734,7 @@ END:
  *			- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1.
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *Keys)
+static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *Keys)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
@@ -2810,7 +2810,7 @@ END:
  *			- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error in writing ppk2 hash.
  *
  ******************************************************************************/
-static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *Hash)
+static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *Hash)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
@@ -2906,7 +2906,7 @@ END:
  *										       			 already programmed bit.
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *WriteReq)
+static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *WriteReq)
 {
 	int Status = XST_FAILURE;
 	u32 SecurityMisc0 = 0U;
@@ -3040,7 +3040,7 @@ static int XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd)
  *			- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1.
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateWriteReq(XNvm_EfuseData *WriteChecks)
+static int XNvm_EfuseValidateWriteReq(const XNvm_EfuseData *WriteChecks)
 {
 	int Status = XST_FAILURE;
 
@@ -3104,7 +3104,7 @@ END:
  * @note	To generate PufSyndromeData please use XPuf_Registration API.
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePufSynData(u32 *SynData)
+static int XNvm_EfuseWritePufSynData(const u32 *SynData)
 {
 	int Status = XST_FAILURE;
 
@@ -3232,7 +3232,7 @@ END :
  *													Revocation id efuses.
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateRevokeIdsWriteReq(XNvm_EfuseRevokeIds *RevokeIds)
+static int XNvm_EfuseValidateRevokeIdsWriteReq(const XNvm_EfuseRevokeIds *RevokeIds)
 {
 	int Status = XST_FAILURE;
 	u32 StartRow = XNVM_EFUSE_REVOCATION_ID_0_ROW;
@@ -3277,7 +3277,7 @@ END:
  *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmUserFuses(XNvm_EfuseUserData *WriteUserFuses)
+static int XNvm_EfusePrgmUserFuses(const XNvm_EfuseUserData *WriteUserFuses)
 {
 	int Status = XST_FAILURE;
 	u32 UserFusesDataToPrgm[XNVM_NUM_OF_USER_FUSES] = {0U};
@@ -3318,7 +3318,7 @@ END:
  *
  ******************************************************************************/
 static int XNvm_EfuseValidateUserFusesWriteReq(
-					XNvm_EfuseUserData *WriteUserFuses)
+					const XNvm_EfuseUserData *WriteUserFuses)
 {
 	int Status = XST_FAILURE;
 	u32 UserFuseValueRd = 0U;

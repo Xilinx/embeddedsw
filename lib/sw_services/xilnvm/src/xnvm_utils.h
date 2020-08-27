@@ -57,7 +57,7 @@ extern "C" {
 
 /*************************** Function Prototypes ******************************/
 int XNvm_ValidateAesKey(const char *Key);
-u32 XNvm_AesCrcCalc(u32 *Key);
+u32 XNvm_AesCrcCalc(const u32 *Key);
 
 #ifdef __cplusplus
 }
