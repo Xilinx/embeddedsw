@@ -313,7 +313,9 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1, &Data);
 			if(Data == XDP_TX_LINK_BW_SET_810GBPS) {
 				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
-				LinkConfig->MaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+				LinkConfig->MaxLinkRate =
+				(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
 			}
 		}
 	}
