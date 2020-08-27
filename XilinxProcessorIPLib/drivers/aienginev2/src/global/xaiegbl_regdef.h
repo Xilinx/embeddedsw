@@ -246,10 +246,22 @@ typedef struct {
 } XAie_AieDmaLock;
 
 /*
+ * The typedef captures the buffer descriptor lock properties of aie2
+ */
+typedef struct {
+	XAie_RegBdFldAttr LckRelVal;
+	XAie_RegBdFldAttr LckRelId;
+	XAie_RegBdFldAttr LckAcqEn;
+	XAie_RegBdFldAttr LckAcqVal;
+	XAie_RegBdFldAttr LckAcqId;
+} XAie_Gen2DmaLock;
+
+/*
  * union to capture lock properties of dma
  */
 typedef union {
 	XAie_AieDmaLock AieDmaLock;
+	XAie_Gen2DmaLock Aie2DmaLock;
 } XAie_DmaBdLock;
 
 /*
@@ -303,12 +315,50 @@ typedef struct {
 } XAie_AieAddressMode;
 
 /*
+ * The typedef captures the dimension descriptors for aie2
+ */
+typedef struct {
+	XAie_RegBdFldAttr StepSize;
+	XAie_RegBdFldAttr Wrap;
+} XAie_Gen2DmaDimProp;
+
+/*
+ * The typedef captures buffer descriptor fields of aie2 multi dimension
+ * address generation
+ */
+typedef struct {
+	XAie_Gen2DmaDimProp DmaDimProp[4U];
+	XAie_Gen2DmaDimProp Iter;
+	XAie_RegBdFldAttr IterCurr;
+} XAie_Gen2AddressMode;
+
+/*
  * union captures multi dimension address generation properties between hardware
  * generations
  */
 typedef union {
 	XAie_AieAddressMode AieMultiDimAddr;
+	XAie_Gen2AddressMode Aie2MultiDimAddr;
 } XAie_DmaBdMultiDimAddr;
+
+/*
+ * The typedef captures Zero padding properties of buffer descriptor
+ */
+typedef struct {
+	XAie_RegBdFldAttr D0_ZeroBefore;
+	XAie_RegBdFldAttr D0_ZeroAfter;
+	XAie_RegBdFldAttr D1_ZeroBefore;
+	XAie_RegBdFldAttr D1_ZeroAfter;
+	XAie_RegBdFldAttr D2_ZeroBefore;
+	XAie_RegBdFldAttr D2_ZeroAfter;
+} XAie_DmaBdZeroPad;
+
+/*
+ * The typedef captures zero compression properties of aie
+ */
+typedef struct {
+	XAie_RegBdFldAttr EnCompression;
+} XAie_DmaBdCompression;
 
 /*
  * The typedef captures system level properties of DMA. This is applicable only
@@ -336,6 +386,8 @@ typedef struct {
 	const XAie_DmaBdPkt *Pkt;
 	const XAie_DmaBdEnProp *BdEn;
 	const XAie_DmaBdMultiDimAddr *AddrMode;
+	const XAie_DmaBdZeroPad *ZeroPad;
+	const XAie_DmaBdCompression *Compression;
 	const XAie_DmaSysProp *SysProp;
 } XAie_DmaBdProp;
 
@@ -345,8 +397,17 @@ typedef struct {
 	XAie_RegFldAttr Stalled;
 } XAie_AieDmaChStatus;
 
+typedef struct {
+	XAie_RegFldAttr Status;
+	XAie_RegFldAttr StalledLockRel;
+	XAie_RegFldAttr StalledLockAcq;
+	XAie_RegFldAttr StalledStreamStarve;
+	XAie_RegFldAttr TaskQSize;
+} XAie_Gen2DmaChStatus;
+
 typedef union {
 	XAie_AieDmaChStatus AieDmaChStatus;
+	XAie_Gen2DmaChStatus Aie2DmaChStatus;
 } XAie_DmaChStatus;
 
 /*
@@ -354,7 +415,12 @@ typedef union {
  */
 typedef struct {
 	u8 StartQSizeMax;
+	XAie_RegBdFldAttr EnToken;
+	XAie_RegBdFldAttr RptCount;
 	XAie_RegBdFldAttr StartBd;
+	XAie_RegBdFldAttr CtrlId;
+	XAie_RegBdFldAttr EnCompression;
+	XAie_RegBdFldAttr EnOutofOrder;
 	XAie_RegBdFldAttr Reset;
 	XAie_RegBdFldAttr Enable;
 	XAie_RegBdFldAttr PauseMem;
@@ -371,6 +437,9 @@ typedef struct XAie_DmaMod {
 	u8  ChIdxOffset;
 	u8  NumAddrDim;
 	u8  DoubleBuffering;
+	u8  Compression;
+	u8  ZeroPadding;
+	u8  OutofOrderBdId;
 	u8  InterleaveMode;
 	u8  FifoMode;
 	u32 BaseAddr;
