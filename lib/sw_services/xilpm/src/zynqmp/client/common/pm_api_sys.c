@@ -1094,14 +1094,16 @@ done:
  * @param  node   ID of the component or sub-system in question.
  * @param  type   Type of operating characteristic requested:
  * - power (current power consumption),
- * - latency (current latency in us to return to active state),
+ * - latency (current latency in micro seconds to return to active state),
  * - temperature (current temperature),
  * @param  result Used to return the requested operating characteristic.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ * @note   Power value is not actual power consumption of device. It is default
+ * 	   dummy power value which is fixed in PMUFW.
+ * 	   Temperature type is not supported for ZynqMP.
  *
  ****************************************************************************/
 XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
