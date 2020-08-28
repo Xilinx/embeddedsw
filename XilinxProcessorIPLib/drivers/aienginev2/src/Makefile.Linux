@@ -6,6 +6,10 @@ EXT = ../examples/aie_sim_test/ext/top
 LIBSOURCES = $(wildcard ./*/*.c) $(wildcard ./*/*/*.c)
 CFLAGS += -Wall -Wextra --std=c11
 
+ifneq (, $(findstring -D__AIEMETAL__,$(CFLAGS)))
+  LDFLAGS += -lmetal
+endif
+
 OUTS = $(LIBSOURCES:.c=.o)
 INCLUDEFILES = ./*/*.h ./*/*/*.h
 INCLUDEDIR = ../include
