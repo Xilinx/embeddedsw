@@ -198,6 +198,7 @@ Fix the redefinition of cannonicals.
 emaclite_v4_6:
 Fix self test failure on zynqmp platform.
 Fix resource error in importing xemaclite_internal_loopback_example.
+Update the makefile for parallel execution.
 
 csudma_v1_7:
 Reorganize transfer function and cache operations.
