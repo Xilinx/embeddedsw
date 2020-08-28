@@ -4,7 +4,12 @@ CC ?= gcc
 CP = cp
 EXT = ../examples/aie_sim_test/ext/top
 LIBSOURCES = $(wildcard ./*/*.c) $(wildcard ./*/*/*.c)
-CFLAGS += -DXAIE_WRKARND_CRVO1692 -Wall -D__AIEMETAL__
+CFLAGS += -DXAIE_WRKARND_CRVO1692 -Wall
+
+ifneq (, $(findstring -D__AIEMETAL__,$(CFLAGS)))
+  LDFLAGS += -lmetal
+endif
+
 OUTS = $(LIBSOURCES:.c=.o)
 INCLUDEFILES = ./*/*.h ./*/*/*.h
 INCLUDEDIR = ../include
@@ -21,7 +26,7 @@ include:
 	$(CP) $(INCLUDEFILES) $(INCLUDEDIR)/xaiengine
 
 lib$(NAME).so.$(VERSION): $(OUTS)
-	$(CC) $(LDFLAGS) $^ -shared -Wl,-soname,lib$(NAME).so.$(MAJOR) -o lib$(NAME).so.$(VERSION) -lmetal
+	$(CC) $(LDFLAGS) $^ -shared -Wl,-soname,lib$(NAME).so.$(MAJOR) -o lib$(NAME).so.$(VERSION)
 
 lib$(NAME).so: lib$(NAME).so.$(VERSION)
 	rm -f lib$(NAME).so.$(MAJOR) lib$(NAME).so
