@@ -80,6 +80,13 @@
 ##    08/10/20  mus Updated intc_define_vector_table to create HandlerTable entry,
 ##                  in case if no valid interrupts are connected to AXI INTC IP in
 ##                  specific HW design. It fixes CR#1072238
+##    08/28/20  mus For specific use cases, some of the inputs of AXI INTC
+##                  IP would be left un-connected purposefully. Existing logic
+##                  is aborting BSP generation in such scenarios. Updated
+##                  xredefine_intc to make use of "puts" instead of "error" to
+##                  display message related to unconnected pins in HW design.
+##                  Now, with this change, BSP generation would not be aborted
+##                  anymore. It fixes CR#1073535.
 ##
 ##
 ## @END_CHANGELOG
@@ -557,7 +564,7 @@ proc xredefine_intc {drvhandle config_inc} {
 
         set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
 	if {$num_intr_inputs != [ expr $total_source_intrs + $num_or_gate_instance_traversed - $num_or_gate_inputs]} {
-	    error "ERROR: unconnected interrupt pins in the design.\n" "" "MDT_ERROR"
+	    puts "ERROR: unconnected interrupt pins in the design \n"
 	    return
 	}
 
