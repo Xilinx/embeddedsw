@@ -33,6 +33,7 @@
 #include "xsecure_ecdsa.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_utils.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -117,7 +118,7 @@ int XSecure_EcdsaGenerateSign(XSecure_EcdsaCrvTyp CrvTyp, const u8* Hash,
 	const u32 HashLen, const u8* D, const u8* K, XSecure_EcdsaSign *Sign)
 {
 	int Status = XSECURE_ECDSA_NON_SUPPORTED_CRV;
-	int GenStatus;
+	int GenStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
 
@@ -144,19 +145,17 @@ int XSecure_EcdsaGenerateSign(XSecure_EcdsaCrvTyp CrvTyp, const u8* Hash,
 		Xil_MemCpy(PaddedHash, Hash, HashLen);
 		GenStatus = Ecdsa_GenerateSign(Crv, PaddedHash, Crv->Bits, D,
 			K, (EcdsaSign *)Sign);
-		switch (GenStatus) {
-			case ECDSA_SUCCESS:
-				Status = XST_SUCCESS;
-				break;
-			case ECDSA_GEN_SIGN_BAD_R:
-			case ECDSA_GEN_SIGN_BAD_S:
-				Status = XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM;
-				break;
-			case ECDSA_GEN_SIGN_INCORRECT_HASH_LEN:
-				Status = XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN;
-				break;
-			default : Status = XST_FAILURE;
-				break;
+		if ((GenStatus == ECDSA_GEN_SIGN_BAD_R) || (GenStatus == ECDSA_GEN_SIGN_BAD_S)) {
+			Status = XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM;
+		}
+		else if (GenStatus == ECDSA_GEN_SIGN_INCORRECT_HASH_LEN) {
+			Status = XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN;
+		}
+		else if (GenStatus != ECDSA_SUCCESS) {
+			Status = XST_FAILURE;
+		}
+		else {
+			Status = XST_SUCCESS;
 		}
 	}
 
@@ -200,22 +199,20 @@ int XSecure_EcdsaValidateKey(XSecure_EcdsaCrvTyp CrvType, XSecure_EcdsaKey *Key)
 	Crv = XSecure_EcdsaGetCrvData(CrvType);
 	if(Crv != NULL) {
 		ValidateStatus = Ecdsa_ValidateKey(Crv, (EcdsaKey *)Key);
-		switch (ValidateStatus) {
-			case ECDSA_SUCCESS:
-				Status = XST_SUCCESS;
-				break;
-			case ECDSA_KEY_ZERO:
-				Status = XSECURE_ECDSA_KEY_ZERO;
-				break;
-			case ECDSA_KEY_WRONG_ORDER:
-				Status = XSECURE_ECDSA_KEY_WRONG_ORDER;
-				break;
-			case ECDSA_KEY_NOT_ON_CRV:
-				Status = XSECURE_ECDSA_KEY_NOT_ON_CRV;
-				break;
-			default :
-				Status = XST_FAILURE;
-				break;
+		if (ValidateStatus == ECDSA_KEY_ZERO) {
+			Status = XSECURE_ECDSA_KEY_ZERO;
+		}
+		else if (ValidateStatus == ECDSA_KEY_WRONG_ORDER) {
+			Status = XSECURE_ECDSA_KEY_WRONG_ORDER;
+		}
+		else if (ValidateStatus == ECDSA_KEY_NOT_ON_CRV) {
+			Status = XSECURE_ECDSA_KEY_NOT_ON_CRV;
+		}
+		else if (ValidateStatus != ECDSA_SUCCESS) {
+			Status = XST_FAILURE;
+		}
+		else {
+			Status = XST_SUCCESS;
 		}
 	}
 
@@ -245,7 +242,7 @@ int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, XSecure_EcdsaKey *Key, XSecure_EcdsaSign *Sign)
 {
 	int Status = XSECURE_ECDSA_NON_SUPPORTED_CRV;
-	int VerifyStatus = XST_FAILURE;
+	volatile int VerifyStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
 
@@ -270,21 +267,21 @@ int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,
 	Crv = XSecure_EcdsaGetCrvData(CrvType);
 	if(Crv != NULL) {
 		Xil_MemCpy(PaddedHash, Hash, HashLen);
-		VerifyStatus = Ecdsa_VerifySign(Crv, PaddedHash, Crv->Bits, (EcdsaKey *)Key,
-			(EcdsaSign *)Sign);
-		switch (VerifyStatus) {
-			case ECDSA_SUCCESS:
-				Status = XST_SUCCESS;
-				break;
-			case ECDSA_BAD_SIGN:
-				Status = XSECURE_ECDSA_BAD_SIGN;
-					break;
-			case ECDSA_VER_SIGN_INCORRECT_HASH_LEN:
-				Status = XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN;
-				break;
-			default :
-				Status = XST_FAILURE;
-				break;
+		XSECURE_TEMPORAL_CHECK(SIG_ERR, VerifyStatus, Ecdsa_VerifySign,
+			Crv, PaddedHash, Crv->Bits, (EcdsaKey *)Key, (EcdsaSign *)Sign);
+
+SIG_ERR:
+		if (ECDSA_BAD_SIGN == VerifyStatus) {
+			Status = XSECURE_ECDSA_BAD_SIGN;
+		}
+		else if (ECDSA_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatus) {
+			Status = XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN;
+		}
+		else if (ECDSA_SUCCESS != VerifyStatus) {
+			Status = XST_FAILURE;
+		}
+		else {
+			Status = XST_SUCCESS;
 		}
 	}
 
