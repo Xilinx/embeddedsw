@@ -146,6 +146,7 @@ Fix the redefinition of cannonicals.
 emaclite_v4_6:
 Fix self test failure on zynqmp platform.
 Fix resource error in importing xemaclite_internal_loopback_example.
+Update the makefile for parallel execution.
 
 emacps_v3_12:
 Remove emacps 1588 examples.
