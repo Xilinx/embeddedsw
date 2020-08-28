@@ -688,38 +688,6 @@ done:
 	return Status;
 }
 
-XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm;
-	XPm_Device *Device;
-	u32 SubClass;
-
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	Reqm = Subsystem->Requirements;
-	while (NULL != Reqm) {
-		if (1U == Reqm->Allocated) {
-			Device = Reqm->Device;
-			SubClass = NODESUBCLASS(Device->Node.Id);
-			if (((u32)XPM_NODESUBCL_DEV_CORE == SubClass) &&
-			    ((u8)XPM_DEVSTATE_RUNNING == Device->Node.State)) {
-				goto done;
-			}
-		}
-		Reqm = Reqm->NextDevice;
-	}
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
-
 XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
