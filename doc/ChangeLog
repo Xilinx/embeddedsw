@@ -35,6 +35,7 @@ Update the Makefile for parallel execution.
 
 zdma_v1_10:
 Expose ZDMA scatter gather and enable APIs for direct use.
+Update zdma driver makefile for parallel execution.
 
 wdttb_v5_1:
 Fixed MISRAC violations.
