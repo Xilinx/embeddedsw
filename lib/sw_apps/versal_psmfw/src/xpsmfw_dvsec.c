@@ -125,7 +125,7 @@ void XPsmFw_DvsecPLHandler(void)
  *
  ****************************************************************************/
 {
-	PlIntrRcvd = TRUE;
+	PlIntrRcvd = TRUE_VALUE;
 
 	/* Enable PL CPM SLCR MISC/CORR interrupts */
 	Xil_Out32(CPM_SLCR_BASE + CPM_PL_MISC_IRQ_ENA_OFF,
