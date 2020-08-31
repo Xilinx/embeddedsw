@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x_port_dp_tx.c
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 *
 * This contains the implementation of the HDCP port driver for DP TX

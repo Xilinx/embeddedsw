@@ -7,7 +7,7 @@
 /**
  *
  * @file xv_sdivid.c
- * @addtogroup sdi_common_v1_2
+ * @addtogroup sdi_common_v1_3
  * @{
  *
  * Contains common utility variables that are used by SDI IP

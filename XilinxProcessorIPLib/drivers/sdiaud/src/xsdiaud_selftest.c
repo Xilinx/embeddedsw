@@ -7,7 +7,7 @@
 /**
  *
  * @file xsdiaud_selftest.c
- * @addtogroup sdiaud_v2_1
+ * @addtogroup sdiaud_v2_2
  * @{
  * Contains an basic self-test API
  * @note None

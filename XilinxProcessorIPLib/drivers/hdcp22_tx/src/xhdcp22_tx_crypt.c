@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_tx_crypt.c
-* @addtogroup hdcp22_tx_v3_0
+* @addtogroup hdcp22_tx_v3_1
 * @{
 * @details
 *
