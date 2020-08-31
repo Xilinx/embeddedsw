@@ -7,7 +7,7 @@
 /**
 *
 * @file xrgb2ycrcb_intr.c
-* @addtogroup rgb2ycrcb_v7_2
+* @addtogroup rgb2ycrcb_v7_3
 * @{
 *
 * This file contains interrupt related functions for the RGB2YCRCB core.
