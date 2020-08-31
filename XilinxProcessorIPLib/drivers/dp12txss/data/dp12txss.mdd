@@ -9,8 +9,8 @@ OPTION psf_version = 2.1;
 BEGIN driver dp12txss
 	OPTION supported_peripherals = (dp_tx_subsystem);
 	OPTION driver_state = ACTIVE;
-	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
+	OPTION depends = (dual_splitter_v1_0 vtc_v8_3);
 	OPTION copyfiles = all;
-	OPTION VERSION = 5.2;
+	OPTION VERSION = 5.3;
 	OPTION NAME = dp12txss;
 END driver

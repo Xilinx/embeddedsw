@@ -11,7 +11,7 @@ BEGIN driver v_hdmirxss
   OPTION supported_peripherals = (v_hdmi_rx_ss);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 6.0;
+  OPTION VERSION = 6.1;
   OPTION DEPENDS = (v_hdmirx v_hdmi_common);
   OPTION NAME = v_hdmirxss;
 
