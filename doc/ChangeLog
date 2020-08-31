@@ -133,6 +133,7 @@ parameter.
 mcdma_v1_5:
 Add XMcDma_BdGetAppWord() function declaration to fix the gcc
 warning in mcdma integration test suite.
+Update mcdma driver makefile for parallel execution.
 
 dp14txss_v6_4:
 Updated for HDCP 2.3
