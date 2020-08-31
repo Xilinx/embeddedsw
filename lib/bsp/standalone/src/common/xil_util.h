@@ -7,6 +7,9 @@
 /****************************************************************************/
 /**
 * @file xil_util.h
+* @addtogroup common_utilities Common Utility APIs
+* @{
+* @details
 *
 * This file contains xil utility functions declaration
 *
@@ -118,3 +121,6 @@ void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
 #endif
 
 #endif	/* XIL_UTIL_H_ */
+/**
+* @} End of "addtogroup common_utilities".
+*/
