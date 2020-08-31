@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_hw.c
-* @addtogroup iicps_v3_11
+* @addtogroup iicps_v3_12
 * @{
 *
 * Contains implementation of required functions for providing the reset sequence

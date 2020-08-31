@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_sinit.c
-* @addtogroup iicps_v3_11
+* @addtogroup iicps_v3_12
 * @{
 *
 * The implementation of the XIicPs component's static initialization
