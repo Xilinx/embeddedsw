@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_xfer.h
-* @addtogroup iicps_v3_11
+* @addtogroup iicps_v3_12
 * @{
 *
 * Contains implementation of required helper functions for the XIicPs driver.

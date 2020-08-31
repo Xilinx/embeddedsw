@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_hw.h
-* @addtogroup iicps_v3_11
+* @addtogroup iicps_v3_12
 * @{
 *
 * This header file contains the hardware definition for an IIC device.
