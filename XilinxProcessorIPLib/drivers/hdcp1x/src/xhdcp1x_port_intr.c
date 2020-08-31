@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x_port_intr.c
-* @addtogroup hdcp1x_v4_4
+* @addtogroup hdcp1x_v4_5
 * @{
 *
 * This contains the interrupt related functions of the Xilinx HDCP port driver

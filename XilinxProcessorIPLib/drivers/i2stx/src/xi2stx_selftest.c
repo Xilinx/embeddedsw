@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_selftest.c
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * Contains an basic sef-test API that displays the version of the

@@ -8,7 +8,7 @@
 *
 * @file xdphy_sinit.c
 *
-* @addtogroup dphy_v1_4
+* @addtogroup dphy_v1_5
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside

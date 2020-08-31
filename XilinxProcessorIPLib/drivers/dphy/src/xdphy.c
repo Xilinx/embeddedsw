@@ -7,7 +7,7 @@
 /**
 *
 * @file xdphy.c
-* @addtogroup dphy_v1_4
+* @addtogroup dphy_v1_5
 * @{
 *
 * This file implements the functions to control and get info from the DPHY.

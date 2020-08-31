@@ -7,7 +7,7 @@
 /**
 *
 * @file xdsitxss_intr.c
-* @addtogroup dsitxss_v2_0
+* @addtogroup dsitxss_v2_1
 * @{
 *
 * This is the interrupt handling part of the Xilinx MIPI DSI Tx Subsystem
