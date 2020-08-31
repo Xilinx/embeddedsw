@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdtps.h
-* @addtogroup wdtps_v3_3
+* @addtogroup wdtps_v3_4
 * @{
 * @details
 *
