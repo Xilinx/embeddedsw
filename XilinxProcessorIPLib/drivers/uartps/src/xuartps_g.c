@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartps_g.c
-* @addtogroup uartps_v3_9
+* @addtogroup uartps_v3_10
 * @{
 *
 * This file contains a configuration table where each entry is a configuration
