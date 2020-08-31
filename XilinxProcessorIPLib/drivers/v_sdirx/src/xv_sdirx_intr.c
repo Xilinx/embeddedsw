@@ -1299,6 +1299,46 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 
 		SdiStream->FrameRate = FrameRate;
 
+		if (InstancePtr->Transport.TMode != XSDIVID_MODE_SD) {
+			u8 eotf = (payload & XST352_BYTE2_EOTF_MASK) >>
+				XST352_BYTE2_EOTF_SHIFT;
+
+			u8 colorimetry = (payload & XST352_BYTE3_COLORIMETRY_MASK) >>
+				XST352_BYTE3_COLORIMETRY_SHIFT;
+
+			/* Get the EOTF function */
+			switch(eotf) {
+			case XST352_BYTE2_EOTF_SDRTV:
+				SdiStream->Eotf = XVIDC_EOTF_TG_SDR;
+				break;
+			case XST352_BYTE2_EOTF_SMPTE2084:
+				SdiStream->Eotf = XVIDC_EOTF_SMPTE2084;
+				break;
+			case XST352_BYTE2_EOTF_HLG:
+				SdiStream->Eotf = XVIDC_EOTF_HLG;
+				break;
+			default:
+				SdiStream->Eotf = XVIDC_EOTF_UNKNOWN;
+				break;
+			}
+
+			/* Get Colorimetry */
+			switch (colorimetry) {
+			case XST352_BYTE3_COLORIMETRY_BT709:
+				SdiStream->ColorStd = XVIDC_BT_709;
+				break;
+			case XST352_BYTE3_COLORIMETRY_UHDTV:
+				SdiStream->ColorStd = XVIDC_BT_2020;
+				break;
+			default:
+				SdiStream->ColorStd = XVIDC_BT_UNKNOWN;
+				break;
+			}
+		} else {
+			SdiStream->Eotf = XVIDC_EOTF_TG_SDR;
+			SdiStream->ColorStd = XVIDC_BT_601;
+		}
+
 		/* Call stream up callback */
 		if (InstancePtr->StreamUpCallback) {
 			InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
