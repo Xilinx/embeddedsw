@@ -1,40 +1,53 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=-ffunction-sections -fdata-sections
-EXTRA_COMPILER_FLAGS=-Wall -Wextra
+COMPILER_FLAGS=
+EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-OUTS = *.o
+INCLUDEFILES:=*.h
 
-INCLUDEFILES=$(wildcard *.h)
-LIBSOURCES=$(wildcard *.c)
+SRCFILES:=$(wildcard *.c)
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
 
-OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))
 
-libs: banner xvhdmirxss1_libs clean
+ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.S))))
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
 
-banner:
-	echo "Compiling HDMI RX Subsystem"
+libs: $(OBJECTS) $(ASSEMBLY_OBJECTS)
 
-xvhdmirxss1_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+ASSEMBLY_DEPFILES := $(ASSEMBLY_SRCFILES:%.S=$(RELEASEDIR)%.d)
+
+include $(wildcard $(ASSEMBLY_DEPFILES))
+
+
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
+
+$(RELEASEDIR)%.o: %.S
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
+
 
 .PHONY: include
-include: xvhdmirxss1_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
-xvhdmirxss1_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
+
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)

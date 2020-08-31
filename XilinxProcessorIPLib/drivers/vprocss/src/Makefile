@@ -1,3 +1,4 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
@@ -8,33 +9,41 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-OUTS = *.o
+INCLUDEFILES:=$(wildcard *.h) $(wildcard ./vdma/*.h)
 
-INCLUDEFILES=$(wildcard *.h) $(wildcard ./vdma/*.h)
-LIBSOURCES=$(wildcard *.c) $(wildcard ./vdma/*.c)
+SRCFILES:=$(wildcard *.c) $(wildcard ./vdma/*.c)
 
-OBJECTS = $(addsuffix .o, $(basename ./vdma/xvprocss_vdma.c $(wildcard *.c)))
 
-libs: banner xvprocss_libs clean
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename ./vdma/xvprocss_vdma.c $(wildcard *.c))))
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
 
-banner:
-	echo "Compiling Video Processing Subsystem"
+libs: $(OBJECTS)
 
-xvprocss_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $(realpath $<) -o $@
 
 .PHONY: include
-include: xvprocss_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h)) $(addprefix $(INCLUDEDIR), $(subst vdma/,,$(wildcard vdma/*.h)))
 
-xvprocss_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: vdma/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
+
+
+
+
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
