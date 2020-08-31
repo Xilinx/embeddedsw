@@ -92,6 +92,9 @@ Updated for HDCP 2.3
 mipicsiss_v1_4:
 Updated for HDCP 2.3
 
+uartps_v3_10:
+Updated makefile to support parallel execution.
+
 v_hdmirx_v2_6:
 Add non-zero check for timing parameters
 
