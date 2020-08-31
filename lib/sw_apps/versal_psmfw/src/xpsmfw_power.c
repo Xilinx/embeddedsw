@@ -352,7 +352,6 @@ void XPsmFw_FpdMbistClear(void)
 int XPsmFw_FpdPreHouseClean(void)
 {
 	int Status = XST_FAILURE;
-	u32 RegVal;
 
 	/* TODO: Disable PSM interrupts */
 
@@ -394,7 +393,6 @@ int XPsmFw_FpdPreHouseClean(void)
 
 	Status = XST_SUCCESS;
 
-done:
 	return Status;
 }
 
