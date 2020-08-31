@@ -11,6 +11,6 @@ BEGIN driver dp14rxss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common_v4_0);
 	OPTION copyfiles = all;
-	OPTION VERSION = 6.0;
+	OPTION VERSION = 6.1;
 	OPTION NAME = dp14rxss;
 END driver

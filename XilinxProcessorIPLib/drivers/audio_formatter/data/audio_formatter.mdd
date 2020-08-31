@@ -10,7 +10,7 @@ BEGIN driver audio_formatter
   OPTION supported_peripherals = (audio_formatter_v1_0);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION version = 1.1;
+  OPTION version = 1.2;
   OPTION name = audio_formatter;
 
 END driver
