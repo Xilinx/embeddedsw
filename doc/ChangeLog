@@ -19,6 +19,9 @@ canps_v3_5:
 Fixed MISRA-C violations.
 Fixed multiple packets send issue in interrupt mode.
 
+iicps_v3_12:
+Update the Makefile for parallel execution.
+
 lwip211_v1_3:
 Fix RX BD setup order.
 Fix check for base address in Zynq clock setup.
