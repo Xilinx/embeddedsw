@@ -17,7 +17,6 @@ extern "C" {
 
 typedef struct XPmDevice_SoftResetInfo {
 	u32 DeviceId;
-	void (*SoftRst)(u32 BaseAddress);	/**< Individual IP soft reset function */
 	void (*IdleHook)(u16 DeviceId, u32 BaseAddress);	/**< Hook function for idling */
 	u16 IdleHookArgs;
 } XPmDevice_SoftResetInfo;
