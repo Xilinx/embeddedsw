@@ -21,17 +21,17 @@ typedef struct XPmDevice_SoftResetInfo {
 	u16 IdleHookArgs;
 } XPmDevice_SoftResetInfo;
 
-#if defined(XPAR_PSV_QSPI_0_DEVICE_ID)
+#if defined(XPAR_PSV_PMC_QSPI_0_DEVICE_ID)
 #include "xqspipsu.h"
 void NodeQspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
-#if defined(XPAR_PSV_OSPI_0_DEVICE_ID)
+#if defined(XPAR_PSV_PMC_OSPI_0_DEVICE_ID)
 #include "xospipsv.h"
 void NodeOspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
-#if defined(XPAR_PSV_SD_0_DEVICE_ID) || defined(XPAR_PSV_SD_1_DEVICE_ID)
+#if defined(XPAR_PSV_PMC_SD_0_DEVICE_ID) || defined(XPAR_PSV_PMC_SD_1_DEVICE_ID)
 #include "xsdps.h"
 void NodeSdioIdle(u16 DeviceId, u32 BaseAddress);
 #endif
