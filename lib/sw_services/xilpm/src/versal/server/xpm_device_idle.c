@@ -31,37 +31,37 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 		.IdleHookArgs = XPAR_PSV_ETHERNET_1_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSV_OSPI_0_DEVICE_ID
+#ifdef XPAR_PSV_PMC_OSPI_0_DEVICE_ID
 	{
 		.DeviceId = PM_DEV_OSPI,
 		.IdleHook = NodeOspiIdle,
-		.IdleHookArgs = XPAR_PSV_OSPI_0_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_PMC_OSPI_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSV_QSPI_0_DEVICE_ID
+#ifdef XPAR_PSV_PMC_QSPI_0_DEVICE_ID
 	{
 		.DeviceId = PM_DEV_QSPI,
 		.IdleHook = NodeQspiIdle,
-		.IdleHookArgs = XPAR_PSV_QSPI_0_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_PMC_QSPI_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSV_SD_0_DEVICE_ID
+#ifdef XPAR_PSV_PMC_SD_0_DEVICE_ID
 	{
 		.DeviceId = PM_DEV_SDIO_0,
 		.IdleHook = NodeSdioIdle,
-		.IdleHookArgs = XPAR_PSV_SD_0_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_PMC_SD_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSV_SD_1_DEVICE_ID
+#ifdef XPAR_PSV_PMC_SD_1_DEVICE_ID
 	{
 		.DeviceId = PM_DEV_SDIO_1,
 		.IdleHook = NodeSdioIdle,
-		.IdleHookArgs = XPAR_PSV_SD_1_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_PMC_SD_1_DEVICE_ID,
 	},
 #endif
 };
 
-#if defined(XPAR_PSV_QSPI_0_DEVICE_ID)
+#if defined(XPAR_PSV_PMC_QSPI_0_DEVICE_ID)
 /**
  * NodeQspiIdle() - Idle the QSPI node
  *
@@ -91,7 +91,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSV_OSPI_0_DEVICE_ID)
+#if defined(XPAR_PSV_PMC_OSPI_0_DEVICE_ID)
 /**
  * NodeQspiIdle() - Idle the OSPI node
  *
@@ -124,7 +124,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSV_SD_0_DEVICE_ID) || defined(XPAR_PSV_SD_1_DEVICE_ID)
+#if defined(XPAR_PSV_PMC_SD_0_DEVICE_ID) || defined(XPAR_PSV_PMC_SD_1_DEVICE_ID)
 /**
  * NodeSdioIdle() - Idle the SDIO node
  *
