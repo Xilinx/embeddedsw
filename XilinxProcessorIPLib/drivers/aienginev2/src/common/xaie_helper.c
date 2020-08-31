@@ -26,6 +26,7 @@
 *			    _XAie_GetSlaveIdx() API.
 * 1.7   Nishad  07/24/2020  Add _XAie_GetFatalGroupErrors() helper function.
 * 1.8   Dishita 08/10/2020  Add api to get bit position from tile location
+* 1.9   Nishad  08/26/2020  Fix tiletype check in _XAie_CheckModule()
 * </pre>
 *
 ******************************************************************************/
@@ -110,8 +111,8 @@ AieRC _XAie_CheckModule(XAie_DevInst *DevInst,
 		return XAIE_INVALID_ARGS;
 	}
 
-	if(TileType == (XAIEGBL_TILE_TYPE_SHIMPL ||
-		XAIEGBL_TILE_TYPE_SHIMNOC) && Module != XAIE_PL_MOD) {
+	if((TileType == XAIEGBL_TILE_TYPE_SHIMPL ||
+	    TileType == XAIEGBL_TILE_TYPE_SHIMNOC) && Module != XAIE_PL_MOD) {
 		XAIE_ERROR("Invalid Module\n");
 		return XAIE_INVALID_ARGS;
 	}
