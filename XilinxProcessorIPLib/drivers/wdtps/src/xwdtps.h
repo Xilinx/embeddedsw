@@ -67,6 +67,7 @@
 * 3.1   sg     08/17/18 Updated interrupt example to fix interrupt ID conflict
 *			issue
 * 3.2	sne    08/05/19 Fixed coverity warnings.
+* 3.4	sne    08/28/20 Modify Makefile to support parallel make execution.
 *
 * </pre>
 *
