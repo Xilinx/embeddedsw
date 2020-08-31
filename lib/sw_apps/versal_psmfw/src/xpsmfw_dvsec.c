@@ -25,7 +25,7 @@
 #include "pmc_global.h"
 #include "xpsmfw_dvsec.h"
 
-static u8 PlIntrRcvd = FALSE;
+static u8 PlIntrRcvd = FALSE_VALUE;
 
 static DvsecPcsr DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN] = {
 	{0x644U, 0x00000023U},
@@ -56,7 +56,7 @@ void XPsmFw_DvsecRead(void)
 {
 	if (((Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF)
 		& CPM_SLCR_DVSEC_CFG_RD_MASK) == CPM_SLCR_DVSEC_CFG_RD_MASK) &&
-	     (PlIntrRcvd == FALSE)) {
+	     (PlIntrRcvd == FALSE_VALUE)) {
 		static u8 DvsecInit;
 		u32 RegNum = 0U;
 		u32 Index = 0U;
@@ -69,14 +69,14 @@ void XPsmFw_DvsecRead(void)
 			   PCIE_PDVSEC_REG_NO_SHIFT) << PCIE_PDVSEC_REG_FIX_SHIFT);
 
 		if ((RegNum >= DvsecPcsrPrimary[0].DvsecOff) &&
-		    (RegNum <= DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN - 1].DvsecOff)) {
+		    (RegNum <= DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN - 1U].DvsecOff)) {
 			Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrPrimary);
 
 			Dvsec_Wr_M32(PCIEA_DVSEC_0, RegNum,
 				    ~(DVSEC_DEV_ID_MASK << DVSEC_DEV_ID_SHIFT),
 				    DvsecPcsrPrimary[Index].Val);
 		} else if ((RegNum >= DvsecPcsrProtocol[0].DvsecOff) &&
-			 (RegNum <= DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN - 1].DvsecOff)) {
+			 (RegNum <= DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN - 1U].DvsecOff)) {
 			Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrProtocol);
 			Dvsec_Wr32(PCIEA_DVSEC_0, RegNum,
 				      DvsecPcsrProtocol[Index].Val);
@@ -105,7 +105,7 @@ void XPsmFw_DvsecWrite(void)
 {
 	if (((Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF) &
 		CPM_SLCR_DVSEC_CFG_WR_MASK) == CPM_SLCR_DVSEC_CFG_WR_MASK) &&
-	    (PlIntrRcvd == FALSE)) {
+	    (PlIntrRcvd == FALSE_VALUE)) {
 		Xil_Out32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF,
 			  Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF));
 		Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);

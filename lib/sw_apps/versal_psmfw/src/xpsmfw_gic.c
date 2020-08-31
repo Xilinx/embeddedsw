@@ -50,8 +50,8 @@ void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 	u32 Idx;
 
 	for (Idx = 0U; Idx < ARRAYSIZE(GicHandlerTable); Idx++) {
-		if ((CHECK_BIT(GicP2Status, GicHandlerTable[Idx].Mask) != 0) &&
-		     (CHECK_BIT(GicP2IntMask, GicHandlerTable[Idx].Mask) == 0)) {
+		if (CHECK_BIT(GicP2Status, GicHandlerTable[Idx].Mask) &&
+		    !CHECK_BIT(GicP2IntMask, GicHandlerTable[Idx].Mask)) {
 			/* Call gic handler */
 			GicHandlerTable[Idx].Handler();
 		}
