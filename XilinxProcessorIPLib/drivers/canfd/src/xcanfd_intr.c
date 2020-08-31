@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanfd_intr.c
-* @addtogroup canfd_v2_3
+* @addtogroup canfd_v2_4
 * @{
 *
 * This file contains functions related to CAN interrupt handling.
