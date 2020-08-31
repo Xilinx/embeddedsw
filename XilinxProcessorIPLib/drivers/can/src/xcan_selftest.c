@@ -7,7 +7,7 @@
 /**
 *
 * @file xcan_selftest.c
-* @addtogroup can_v3_4
+* @addtogroup can_v3_5
 * @{
 *
 * This file contains a diagnostic self-test function for the XCan driver.
