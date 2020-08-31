@@ -179,6 +179,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		XLoader_Printf(DEBUG_INFO, "1G Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_2G)
+		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_2G)
 		|| (ReadBuffer[2U] ==
 			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_2G;
