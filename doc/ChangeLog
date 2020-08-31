@@ -12,9 +12,22 @@ Add support for YUV 420 8bits
 v_hdmiphy1_v2_1:
 Removed redundant GTHE3 related code
 
+can_v3_5:
+Update the Makefile for parallel execution.
+
+canfd_v2_4:
+Update the Makefile for parallel execution.
+
 canps_v3_5:
 Fixed MISRA-C violations.
 Fixed multiple packets send issue in interrupt mode.
+Update the Makefile for parallel execution.
+
+gpiops_v3_8:
+Update the Makefile for parallel execution.
+
+gpio_v4_7:
+Update the Makefile for parallel execution.
 
 iicps_v3_12:
 Update the Makefile for parallel execution.
@@ -41,6 +54,10 @@ wdttb_v5_1:
 Fixed MISRAC violations.
 Corrected fabric watchdog interrupt id in example.
 Added window watchdog support in peripheral test app.
+Update the Makefile for parallel execution.
+
+wdtps_v3_4:
+Update the Makefile for parallel execution.
 
 v_axi4s_remap_v1_3:
 Added example to this driver.
