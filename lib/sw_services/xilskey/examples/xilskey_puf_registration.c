@@ -162,6 +162,8 @@ int main() {
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: AUX-%08x\r\n", PufInstance.Aux);
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: CHASH -%08x\r\n",
 					PufInstance.Chash);
+	xPuf_printf(XPUF_DEBUG_GENERAL, "App: ShutterValue -%08x\r\n",
+					PufInstance.ShutterValue);
 
 #endif /*XPUF_INFO_ON_UART*/
 
