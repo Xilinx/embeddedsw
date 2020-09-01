@@ -122,7 +122,7 @@ typedef struct {
 /*************************** Function Prototypes ******************************/
 int XPuf_Registration(XPuf_Data *PufData);
 int XPuf_Regeneration(XPuf_Data *PufData);
-void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
+int XPuf_GenerateFuseFormat(XPuf_Data *PufData);
 
 #ifdef __cplusplus
 }

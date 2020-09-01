@@ -467,19 +467,26 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
  *
  * @param	PufData - Pointer to XPuf_Data structure.
  *
- * @return	None.
+ * @return	XST_SUCCESS - Syndrome data is successfully trimmed
+ *			XPUF_ERROR_INVALID_PARAM   PufData instance pointer is NULL
+ * 			XST_FAILURE - in case of error
  *
  * @note	Formatted data will be available at PufData->EfuseSynData.
  *
  ******************************************************************************/
-void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
+int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 {
-
+	int Status = XST_FAILURE;
 	u32 SynData[XPUF_4K_PUF_SYN_LEN_IN_WORDS] = {0U};
 	u32 SIndex = 0U;
 	u32 DIndex = 0U;
 	u32 Index;
 	u32 SubIndex;
+
+	if (PufData == NULL) {
+		Status = XPUF_ERROR_INVALID_PARAM;
+		goto END;
+	}
 
 	Xil_MemCpy(SynData, PufData->SyndromeData,
 		(XPUF_4K_PUF_SYN_LEN_IN_WORDS * ((u32)sizeof(u32))));
@@ -665,4 +672,8 @@ void XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	}
 	PufData->EfuseSynData[XPUF_LAST_WORD_OFFSET] &=
 						XPUF_LAST_WORD_MASK;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
