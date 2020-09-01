@@ -149,7 +149,7 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
  *****************************************************************************/
 int XPuf_Registration(XPuf_Data *PufData)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 MaxSyndromeSizeInWords;
 	u32 Idx = 0U;
 	XPuf_PufRegistrationState RegistrationStatus;
@@ -199,6 +199,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 			XPUF_CMD_REGISTRATION);
 
 	RegistrationStatus = XPUF_REGISTRATION_STARTED;
+	Status = XST_FAILURE;
 
 	while (RegistrationStatus != XPUF_REGISTRATION_COMPLETE) {
 		Status = XPuf_WaitForPufSynWordRdy();
@@ -210,6 +211,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 		PufData->SyndromeData[Idx] = XPuf_ReadReg(
 					XPUF_PMC_GLOBAL_BASEADDR,
 					XPUF_PMC_GLOBAL_PUF_WORD_OFFSET);
+		Status = XST_FAILURE;
 
 		if (Idx == (MaxSyndromeSizeInWords - 1U)) {
 			Status  = XPuf_WaitForPufDoneStatus();
@@ -257,7 +259,7 @@ END:
  *****************************************************************************/
 int XPuf_Regeneration(XPuf_Data *PufData)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 PufChash;
 	u32 PufAux;
 	u32 PufStatus;
@@ -266,7 +268,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
 		goto END;
-        }
+	}
 
 	Status =  XPuf_ValidateAccessRules(PufData);
 	if (Status != XST_SUCCESS) {
@@ -340,6 +342,8 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		Status = XPUF_ERROR_INVALID_REGENERATION_TYPE;
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 
 	Status  = XPuf_WaitForPufDoneStatus();
 	if (Status != XST_SUCCESS) {
@@ -489,7 +493,7 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	}
 
 	Xil_MemCpy(SynData, PufData->SyndromeData,
-		(XPUF_4K_PUF_SYN_LEN_IN_WORDS * ((u32)sizeof(u32))));
+		(u32)(XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH));
 
 	/**
 	 * Trimming logic for PUF Syndrome Data:
