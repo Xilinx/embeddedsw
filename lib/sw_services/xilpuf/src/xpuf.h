@@ -88,6 +88,8 @@ extern "C" {
 #define XPUF_ERROR_REGENERATION_INVALID			(0x14)
 #define XPUF_ERROR_REGEN_PUF_HD_INVALID			(0x15)
 #define XPUF_ERROR_INVALID_READ_HD_INPUT		(0x16)
+#define XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY		(0x17)
+#define XPUF_ERROR_PUF_DONE_ID_NT_RDY			(0x18)
 
 /***************************** Type Definitions *******************************/
 typedef enum {
