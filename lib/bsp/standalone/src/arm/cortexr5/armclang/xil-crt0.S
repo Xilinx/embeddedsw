@@ -27,7 +27,9 @@
 	EXPORT _startup
 	IMPORT __cpu_init
 	IMPORT __main
-
+#ifdef SLEEP_TIMER_BASEADDR
+	IMPORT XTime_StartTTCTimer
+#endif
 	AREA |.text|, CODE
 	REQUIRE8 {TRUE}
 	PRESERVE8 {TRUE}
