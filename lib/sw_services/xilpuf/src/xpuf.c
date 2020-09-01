@@ -403,8 +403,13 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  *
  * @param	PufData - Pointer to XPuf_Data structure.
  *
- * @return	- XST_SUCCESS - secure control bits are not set.
- * 			- XST_FAILURE - secure control bits are set.
+ * @return	XST_SUCCESS -                      secure control bits are not set
+ *			XPUF_ERROR_REGISTRATION_INVALID - PUF registration is not allowed
+ *			XPUF_ERROR_REGENERATION_INVALID - PUF regeneration is not allowed
+ *			XPUF_ERROR_REGEN_PUF_HD_INVALID - PUF HD in eFUSE id invalidated
+ *			XPUF_ERROR_INVALID_SYNDROME_MODE - if regeneration from eFUSE cache
+ *				is selected with 12K syndrome mode
+ * 			XPUF_ERROR_INVALID_PUF_OPERATION - in case of invalid PUF operation
  *
  *****************************************************************************/
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
@@ -439,12 +444,16 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 				((Puf_Ecc_Puf_Ctrl_Value & XPUF_PUF_HD_INVLD) == XPUF_PUF_HD_INVLD)) {
 				Status = XPUF_ERROR_REGEN_PUF_HD_INVALID;
 			}
+			else if((PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) &&
+				(PufData->RegMode == XPUF_SYNDROME_MODE_12K)) {
+				Status = XPUF_ERROR_INVALID_SYNDROME_MODE;
+			}
 			else {
 				Status = XST_SUCCESS;
 			}
 			break;
 		default:
-			Status = XST_FAILURE;
+			Status = XPUF_ERROR_INVALID_PUF_OPERATION;
 			break;
 
 	}
