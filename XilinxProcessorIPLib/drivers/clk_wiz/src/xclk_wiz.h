@@ -131,6 +131,7 @@ extern "C" {
 #define XCLK_US_O_MAX 128
 #define XCLK_US_O_MIN 1
 
+#define XCLK_MHZ 1000000
 /*@}*/
 
 /*****************************************************************************/
@@ -212,6 +213,7 @@ typedef struct {
 	u32 MVal;	/* Multiplier valuer */
 	u32 DVal;	/* Divisor value */
 	u32  OVal;	/* Output Value */
+	u64 MinErr;	/* Min Error that is acceptable */
 } XClk_Wiz;
 
 /************************** Macros Definitions *******************************/

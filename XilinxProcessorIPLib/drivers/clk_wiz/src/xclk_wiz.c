@@ -25,6 +25,7 @@
 * 1.3 sd  4/09/20 Added versal support.
 * 1.4 sd  5/22/20 Added zynqmp set rate.
 * 		  Use PrimInClkFreq for input clock rate.
+*     sd  8/12/20 Added a setrate function that takes the rate in Hz.
 * </pre>
 ******************************************************************************/
 
@@ -95,6 +96,7 @@ u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 	InstancePtr->ClkStopCallBack        = StubErrCallBack;
 
 	InstancePtr->ErrorCallBack = StubErrCallBack;
+	InstancePtr->MinErr = 500000;
 
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
@@ -196,14 +198,213 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 
 /****************************************************************************/
 /**
+* Calculate the M, D, and O values for the given SetRate frequency.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	SetRate is the frequency for which the M, D and O values are to
+*		be calculated in Hz.
+*
+* @return
+*		- XST_SUCCESS Initialization was successful.
+*		- XST_FAILURE Initialization was failure.
+*
+* @note		None
+*****************************************************************************/
+static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
+{
+	u32 m;
+	u32 d;
+	u32 Div;
+	u64 Fvco;
+	u64 Freq;
+	u64 Diff;
+	u64 Minerr = InstancePtr->MinErr;
+	u32 Status = XST_FAILURE;
+	u64 VcoMin;
+	u64 VcoMax;
+	u32 Platform;
+	u32 Mmin;
+	u32 Mmax;
+	u32 Dmin;
+	u32 Dmax;
+	u32 Omin;
+	u32 Omax;
+
+	Platform = XGetPlatform_Info();
+
+	if (Platform == (u32)XPLAT_VERSAL) {
+		VcoMin = XCLK_VCO_MIN;
+		VcoMax = XCLK_VCO_MAX;
+		Mmin = XCLK_M_MIN;
+		Mmax = XCLK_M_MAX;
+		Dmin = XCLK_D_MIN;
+		Dmax = XCLK_D_MAX;
+		Omin = XCLK_O_MIN;
+		Omax = XCLK_O_MAX;
+	} else {
+		VcoMin = XCLK_US_VCO_MIN;
+		VcoMax = XCLK_US_VCO_MAX;
+		Mmin = XCLK_US_M_MIN;
+		Mmax = XCLK_US_M_MAX;
+		Dmin = XCLK_US_D_MIN;
+		Dmax = XCLK_US_D_MAX;
+		Omin = XCLK_US_O_MIN;
+		Omax = XCLK_US_O_MAX;
+	}
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(SetRate != 0);
+
+	for (m = Mmin; m <= Mmax; m++) {
+		for (d = Dmin; d <= Dmax; d++) {
+			Fvco = InstancePtr->Config.PrimInClkFreq  * XCLK_MHZ * m / d;
+			if ( Fvco >= VcoMin * XCLK_MHZ && Fvco <= VcoMax * XCLK_MHZ ) {
+
+				for (Div = Omin; Div <= Omax; Div++ ) {
+					Freq = Fvco/Div;
+
+					if (Freq > SetRate) {
+						Diff = Freq - SetRate;
+					} else {
+						Diff = SetRate - Freq;
+					}
+					if (Diff < Minerr) {
+						InstancePtr->MVal = m;
+						InstancePtr->DVal = d;
+						InstancePtr->OVal = Div;
+						return XST_SUCCESS;
+					}
+
+				}
+			}
+		}
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* Set the Minimum error that can be tolerated.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	Minerr is the error margin that can be tolerated in Hz.
+*
+* @return	None
+*
+* @note		Should be called only if there is only one output clock.
+*****************************************************************************/
+void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	InstancePtr->MinErr  = Minerr;
+}
+/****************************************************************************/
+/**
+* Change the frequency to the given rate in Hz.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	SetRate is the frequency in Hz to be set.
+*
+* @return
+*		- XST_SUCCESS Frequency setting was successful.
+*		- XST_FAILURE frequency setting failed.
+*
+* @note		Should be called only if there is only one output clock.
+*****************************************************************************/
+u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
+{
+	u32 Platform;
+	u32 HighTime;
+	u32 DivEdge;
+	u32 Reg;
+	u32 P5Enable;
+	u32 P5fEdge;
+	u32 Status = XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(SetRate != 0);
+
+
+	if (InstancePtr->Config.NumClocks  != 1 )
+		return Status;
+
+	Status = XClk_Wiz_CalculateDivisorsHz(InstancePtr, SetRate);
+	if ( Status != XST_SUCCESS)
+		return Status;
+
+	Platform = XGetPlatform_Info();
+
+	if(Platform != (u32)XPLAT_VERSAL) {
+		Reg = InstancePtr->MVal << 8 | InstancePtr->DVal;
+		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG0_OFFSET, Reg);
+		Reg =  InstancePtr->OVal;
+		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG2_OFFSET, Reg);
+		return XST_SUCCESS;
+	}
+
+	/* Implement O */
+	HighTime = (InstancePtr->OVal / 4);
+	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
+	if (InstancePtr->OVal % 4 <= 1) {
+		DivEdge = 0;
+	} else {
+		DivEdge = 1;
+	}
+	Reg |= (DivEdge << 8);
+	P5fEdge = InstancePtr->OVal % 2;
+	P5Enable = InstancePtr->OVal % 2;
+	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
+
+	/* Implement D */
+	HighTime = (InstancePtr->DVal / 2);
+	Reg  = 0;
+	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
+	DivEdge = InstancePtr->DVal % 2;
+	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+
+	/* Implement M*/
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
+
+	DivEdge = InstancePtr->MVal % 2;
+	HighTime = InstancePtr->MVal / 2;
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
+	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
+
+	if (DivEdge) {
+		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	} else {
+		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	}
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
+
+	return XST_SUCCESS;
+}
+/****************************************************************************/
+/**
 * Change the frequency to the given rate.
 *
 * @param	InstancePtr is the XClk_Wiz instance to operate on.
 * @param	SetRate is the frequency for which is desired.
 *
 * @return
-*		- XST_SUCCESS Initialization was successful.
-*		- XST_FAILURE Initialization was failure.
+*		- XST_SUCCESS frequency setting was successful.
+*		- XST_FAILURE frequency setting failed.
 *
 * @note		Should be called only if there is only one output clock.
 *****************************************************************************/
