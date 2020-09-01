@@ -10,6 +10,6 @@ BEGIN driver ddrps
         OPTION supported_peripherals = (ps7_ddr);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 1.1;
+        OPTION VERSION = 1.2;
         OPTION NAME = ddrps;
 END driver
