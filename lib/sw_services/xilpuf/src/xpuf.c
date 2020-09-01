@@ -226,7 +226,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 			Status = XST_SUCCESS;
 		}
 		Idx++;
-	};
+	}
 END:
 	return Status;
 }
