@@ -431,7 +431,7 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 		/* For Regeneration */
 		case XPUF_REGEN_ON_DEMAND:
 		case XPUF_REGEN_ID_ONLY:
-			if (((Security_Control_Value & XPUF_PUF_DIS) == XPUF_PUF_DIS) &&
+			if (((Security_Control_Value & XPUF_PUF_DIS) == XPUF_PUF_DIS) ||
 				((Puf_Ecc_Puf_Ctrl_Value & XPUF_PUF_REGEN_DIS) == XPUF_PUF_REGEN_DIS)) {
 				Status = XPUF_ERROR_REGENERATION_INVALID;
 			}
