@@ -31,6 +31,7 @@
 *       bvi  04/07/20 Renamed csudma as pmcdma
 * 4.3   ana  06/04/20 Minor enhancement
 *       har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
+*		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
 *
 * </pre>
 *
@@ -85,7 +86,7 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->BaseAddress = XSECURE_ECDSA_RSA_BASEADDR;
 	Status = (u32)XST_SUCCESS;
@@ -119,12 +120,12 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Events;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Input != NULL);
-	Xil_AssertNonvoid(Result != NULL);
-	Xil_AssertNonvoid((RsaOp == XSECURE_RSA_SIGN_ENC) ||
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(Input != NULL);
+	XSecure_AssertNonvoid(Result != NULL);
+	XSecure_AssertNonvoid((RsaOp == XSECURE_RSA_SIGN_ENC) ||
 			(RsaOp == XSECURE_RSA_SIGN_DEC));
-	Xil_AssertNonvoid((KeySize == XSECURE_RSA_4096_KEY_SIZE) ||
+	XSecure_AssertNonvoid((KeySize == XSECURE_RSA_4096_KEY_SIZE) ||
 			(KeySize == XSECURE_RSA_3072_KEY_SIZE) ||
 			(KeySize == XSECURE_RSA_2048_KEY_SIZE));
 
@@ -267,7 +268,7 @@ END:
 static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(InstancePtr != NULL);
 
 	/* Initialize Modular exponentiation */
 	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExpo,
@@ -305,7 +306,7 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	s32 TmpIndex;
 
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(InstancePtr != NULL);
 
 	TmpIndex = InstancePtr->SizeInWords - 1;
 	/* Each of this loop will write 192 bits of data */
@@ -352,7 +353,7 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 	u32 Inv;
 
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(InstancePtr != NULL);
 
 	ModPtr = (u32 *)(InstancePtr->Mod);
 	ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
@@ -392,8 +393,8 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 	u32 Data;
 
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(WrData != NULL);
+	XSecure_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(WrData != NULL);
 
 	/** Each of this loop will write 192 bits of data*/
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
@@ -458,7 +459,7 @@ static u32 XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_CTRL_OFFSET,
@@ -508,7 +509,7 @@ static u32 XSecure_RsaZeroizeVerify(XSecure_Rsa *InstancePtr)
 	u32 Data = 0U;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
 
 	do {
 
@@ -558,7 +559,7 @@ static void XSecure_RsaDataLenCfg(XSecure_Rsa *InstancePtr, u32 Cfg0, u32 Cfg1,
 								u32 Cfg2, u32 Cfg5)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(InstancePtr != NULL);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_ECDSA_RSA_CFG0_OFFSET,

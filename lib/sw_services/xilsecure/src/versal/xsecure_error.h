@@ -19,6 +19,7 @@
  * 4.2   rpo  03/19/2020 Updated file version to sync with library version
  * 4.3   ana  06/05/2020 Added XSECURE_SHA3_FINISH_ERROR error code
  *       har  08/24/2020 Added ECDSA error codes
+ *		 rpo  09/01/2020 Added Invalid argument error codes
  * </pre>
  *
  * @note
@@ -50,6 +51,8 @@ typedef enum {
                                          not matched with expected hash */
 	XSECURE_SHA3_FINISH_ERROR,      /**<0x07 - Error when SHA3 finish fails */
 
+	XSECURE_SHA3_INVALID_PARAM,		/**< 0x08 - Invalid Argument */
+
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40U,
 					/**< 0x40 - user provided GCM tag does
 						not match calculated tag */
@@ -67,15 +70,15 @@ typedef enum {
 	XSECURE_AES_KAT_DATA_MISMATCH_ERROR,  /**< 0x46 - Error when AES data
                                                    not matched with
 						   expected data  */
-	XSECURE_AES_KAT_FAILED_ERROR,         /**< 0x47 - AES KAT Failes  */
+	XSECURE_AES_KAT_FAILED_ERROR,         /**< 0x47 - AES KAT fails  */
 
 	XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR, /**< 0x48 - Error when AESDPACM
 							key write fails. */
 	XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR,   /**< 0x49 - Error when AESDPACM
                                                         key load fails. */
-	XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR,       /**< 0x4A - Eroor ehen AESDPACM
+	XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR,       /**< 0x4A - Error when AESDPACM
 							sss config fails */
-	XSECURE_AESDPACM_KAT_FAILED_ERROR,           /**< 0x4B - AESDPACM KAT Failes*/
+	XSECURE_AESDPACM_KAT_FAILED_ERROR,           /**< 0x4B - AESDPACM KAT fails*/
 	XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR,    /**< 0x4C - Error when AESDPACM
 							data not matched with
 							expected data  */
@@ -91,15 +94,20 @@ typedef enum {
 	XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR,     /**< 0x50 - Error when AESDPACM
 							data not matched with
 							expected data  */
+	XSECURE_AES_INVALID_PARAM,					 /**< 0x51 - Invalid Argument */
+	XSECURE_AESKAT_INVALID_PARAM,				 /**< 0x52 - Invalid Argument */
 
-	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80U, /**< 0x80 - RSA KAT Failes  */
+	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80U, /**< 0x80 - RSA KAT fails  */
 
 	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR, /**< 0x81 - Error when RSA data
                                                        not matched with
 						       expected data  */
+	XSECURE_RSA_INVALID_PARAM,					 /**< 0x82 - Invalid Argument */
+	XSECURE_RSAKAT_INVALID_PARAM,				 /**< 0x83 - Invalid Argument */
+
 	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0U, /**< 0xC0 -ECC key is not valid */
 
-	XSECURE_ECC_KAT_FAILED_ERROR,   /**< 0xC1 - ECC KAT Fails */
+	XSECURE_ECC_KAT_FAILED_ERROR,   /**< 0xC1 - ECC KAT fails */
 	XSECURE_ECDSA_NON_SUPPORTED_CRV, /**< 0xC2 - ECDSA Curve not supported */
 	XSECURE_ECDSA_KEY_ZERO,     /**< 0xC3 - Public key is zero */
 	XSECURE_ECDSA_KEY_WRONG_ORDER,  /**< 0xC4 - Wrong order of Public key */

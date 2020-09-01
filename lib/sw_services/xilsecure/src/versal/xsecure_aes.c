@@ -45,6 +45,8 @@
 *       kpt  08/18/2020 Added volatile keyword to status variable in case of
 *                       status reset
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*		rpo	 09/01/2020 Asserts are not compiled by default for
+*						secure libraries
 *
 * </pre>
 *
@@ -354,8 +356,8 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(PmcDmaPtr != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(PmcDmaPtr != NULL);
 
 	/* Initialize the instance */
 	InstancePtr->BaseAddress = XSECURE_AES_BASEADDR;
@@ -397,10 +399,10 @@ u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 	u32 Status = (u32)XST_FAILURE;
 	u32 ReadReg;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((DpaCmCfg == TRUE) ||
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((DpaCmCfg == TRUE) ||
 					(DpaCmCfg == FALSE));
-	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+	XSecure_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	/* Chip has DPA CM support */
 	if ((XSecure_In32(XSECURE_EFUSE_SECURITY_MISC1) &
@@ -464,14 +466,14 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 KeySizeInWords;
 	u32 Status = (u32)XST_FAILURE;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(KeySrc >= XSECURE_AES_BBRAM_KEY));
-	Xil_AssertNonvoid(AesKeyLookupTbl[KeySrc].UsrWrAllowed == TRUE);
-	Xil_AssertNonvoid((XSECURE_AES_KEY_SIZE_128 == KeySize) ||
+	XSecure_AssertNonvoid(AesKeyLookupTbl[KeySrc].UsrWrAllowed == TRUE);
+	XSecure_AssertNonvoid((XSECURE_AES_KEY_SIZE_128 == KeySize) ||
 			(XSECURE_AES_KEY_SIZE_256 == KeySize));
-	Xil_AssertNonvoid(KeyAddr != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+	XSecure_AssertNonvoid(KeyAddr != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	Key = (u32 *)(INTPTR)KeyAddr;
 
@@ -543,15 +545,15 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 	volatile u32 Status = (u32)XST_FAILURE;
 	XSecure_AesKeySrc KeySrc;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((KeyType == XSECURE_BLACK_KEY) ||
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((KeyType == XSECURE_BLACK_KEY) ||
 			(KeyType == XSECURE_OBFUSCATED_KEY));
-	Xil_AssertNonvoid((DecKeySrc < XSECURE_MAX_KEY_SOURCES) &&
+	XSecure_AssertNonvoid((DecKeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(DecKeySrc >= XSECURE_AES_BBRAM_KEY));
-	Xil_AssertNonvoid((DstKeySrc < XSECURE_MAX_KEY_SOURCES) &&
+	XSecure_AssertNonvoid((DstKeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(DstKeySrc >= XSECURE_AES_BBRAM_KEY));
-	Xil_AssertNonvoid(IvAddr != 0x00U);
-	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
+	XSecure_AssertNonvoid(IvAddr != 0x00U);
+	XSecure_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
 		(KeySize == XSECURE_AES_KEY_SIZE_256));
 
 
@@ -681,13 +683,13 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(KeySrc >= XSECURE_AES_BBRAM_KEY));
-	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
+	XSecure_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
 		(KeySize == XSECURE_AES_KEY_SIZE_256));
-	Xil_AssertNonvoid(IvAddr != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+	XSecure_AssertNonvoid(IvAddr != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	if(InstancePtr->NextBlkLen == 0U) {
 		XSecure_ReleaseReset(InstancePtr->BaseAddress,
@@ -756,11 +758,11 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
-	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
-	Xil_AssertNonvoid((IsLastChunk == TRUE) || (IsLastChunk == FALSE));
-	Xil_AssertNonvoid(InstancePtr->AesState ==
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
+	XSecure_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
+	XSecure_AssertNonvoid((IsLastChunk == TRUE) || (IsLastChunk == FALSE));
+	XSecure_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_DECRYPT_INITIALIZED);
 
 	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
@@ -858,9 +860,9 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(GcmTagAddr != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->AesState ==
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(GcmTagAddr != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_DECRYPT_INITIALIZED);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -969,11 +971,11 @@ u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
-	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
-	Xil_AssertNonvoid(GcmTagAddr != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->AesState ==
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
+	XSecure_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
+	XSecure_AssertNonvoid(GcmTagAddr != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_DECRYPT_INITIALIZED);
 
 	/* Update AES engine with data */
@@ -1017,13 +1019,13 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(KeySrc >= XSECURE_AES_BBRAM_KEY));
-	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
+	XSecure_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
 		(KeySize == XSECURE_AES_KEY_SIZE_256));
-	Xil_AssertNonvoid(IvAddr != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+	XSecure_AssertNonvoid(IvAddr != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
 				XSECURE_AES_SOFT_RST_OFFSET);
@@ -1082,11 +1084,11 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
-	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
-	Xil_AssertNonvoid((IsLastChunk == TRUE) || (IsLastChunk == FALSE));
-	Xil_AssertNonvoid(InstancePtr->AesState ==
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
+	XSecure_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
+	XSecure_AssertNonvoid((IsLastChunk == TRUE) || (IsLastChunk == FALSE));
+	XSecure_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_ENCRYPT_INITIALIZED);
 
 	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
@@ -1180,9 +1182,9 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(GcmTagAddr != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->AesState ==
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(GcmTagAddr != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_ENCRYPT_INITIALIZED);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -1266,11 +1268,11 @@ u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
-	Xil_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
-	Xil_AssertNonvoid(GcmTagAddr != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->AesState ==
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((InDataAddr != 0x00U) && (OutDataAddr != 0x00U));
+	XSecure_AssertNonvoid((Size % XSECURE_WORD_SIZE) == 0x00U);
+	XSecure_AssertNonvoid(GcmTagAddr != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->AesState ==
 			XSECURE_AES_ENCRYPT_INITIALIZED);
 
 	/* Update the data to AES engine */
@@ -1305,7 +1307,7 @@ static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
 	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 					XSECURE_AES_STATUS_OFFSET),
 			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
@@ -1338,10 +1340,10 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u8 Config)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) ||
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) ||
 				(Config == XSECURE_AES_ENABLE_KUP_IV_UPDATE));
-	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+	XSecure_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	if (Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -1374,9 +1376,9 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u8 Config)
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Size != NULL);
-	Xil_AssertNonvoid(InstancePtr->AesState !=
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(Size != NULL);
+	XSecure_AssertNonvoid(InstancePtr->AesState !=
 			XSECURE_AES_UNINITIALIZED);
 
 	*Size = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
@@ -1406,10 +1408,10 @@ static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(KeySrc >= XSECURE_AES_BBRAM_KEY));
-	Xil_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
+	XSecure_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
 			  (KeySize == XSECURE_AES_KEY_SIZE_256));
 
 	/* Load Key Size */
@@ -1447,7 +1449,7 @@ static u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
 
 	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 								XSECURE_AES_STATUS_OFFSET),
@@ -1474,7 +1476,7 @@ static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr)
 
 	u32 Status = (u32)XST_FAILURE;
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
 
 	Status = Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 								XSECURE_AES_STATUS_OFFSET),
@@ -1503,10 +1505,10 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	u32 Mask;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(KeySrc >= XSECURE_AES_BBRAM_KEY));
-	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
+	XSecure_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
@@ -1561,7 +1563,7 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	XPmcDma_Configure ConfigValues = {0U};
 
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(InstancePtr != NULL);
 
 	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
 	ConfigValues.EndianType = EndianType;
@@ -1596,6 +1598,11 @@ u32 XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	const u32 Output[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
 			  {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
 	u32 DstVal[XSECURE_KAT_MSG_SIZE_IN_WORDS];
+
+	if (AesInstance == NULL) {
+		Status = XSECURE_AESKAT_INVALID_PARAM;
+		goto END;
+	}
 
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
@@ -1663,6 +1670,14 @@ static u32 XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
 {
 	volatile u32 Status = (u32)XST_FAILURE;
 	u32 Index;
+
+	if ((KeyPtr == NULL) ||
+	   (DataPtr == NULL) ||
+	   (OutputPtr == NULL) ||
+	   (AesInstance->PmcDmaPtr == NULL)) {
+		Status = XSECURE_AESKAT_INVALID_PARAM;
+		goto END;
+	}
 
 	XSecure_ReleaseReset(AesInstance->BaseAddress,
 				XSECURE_AES_SOFT_RST_OFFSET);
@@ -1819,6 +1834,10 @@ u32 XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 	u32 *Mm1 = &Output1[8U];
 	u32 *M1 = &Output1[12U];
 
+	if (AesInstance == NULL) {
+		Status = XSECURE_AESKAT_INVALID_PARAM;
+		goto END;
+	}
 
 	/* Test 1 */
 	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key0, Data0, Output0);
