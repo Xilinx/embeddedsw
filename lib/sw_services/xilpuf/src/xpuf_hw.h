@@ -59,6 +59,7 @@ extern "C" {
 #define XPUF_CMD_REGEN_ID_ONLY		(0x03U)
 
 /* PUF CFG0 register definition */
+#define XPUF_CFG0_GLOBAL_FILTER_ENABLE		(0x01U)
 #define XPUF_CFG0_HASH_SEL			(0x02U)
 
 /* PUF CFG1 register definition */

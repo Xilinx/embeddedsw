@@ -303,6 +303,7 @@ static int XPuf_GenerateKey(void)
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
+	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 	Status = XPuf_Registration(&PufData);
