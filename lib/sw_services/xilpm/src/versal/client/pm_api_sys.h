@@ -157,6 +157,7 @@ int XPm_ClockSetRate(const u32 ClockId, const u32 Rate);
 int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate);
 int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value);
 int XPm_MmioRead(const u32 Address, u32 *const Value);
+XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version);
 
 #ifdef __cplusplus
 }
