@@ -17,6 +17,8 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     03/26/20 Initial release
 * 4.2   har     03/26/20 Updated file version to sync with library version
+* 4.3	rpo	 	09/01/20 Asserts are not compiled by default for
+*						 secure libraries
 *
 * </pre>
 *
@@ -62,7 +64,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->Address = XSECURE_SSS_ADDRESS;
 
@@ -87,10 +89,10 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 		XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((InputSrc >= XSECURE_SSS_DMA0) &&
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((InputSrc >= XSECURE_SSS_DMA0) &&
 		(InputSrc < XSECURE_SSS_INVALID));
-	Xil_AssertNonvoid((OutputSrc >= XSECURE_SSS_DMA0) &&
+	XSecure_AssertNonvoid((OutputSrc >= XSECURE_SSS_DMA0) &&
 		(OutputSrc < XSECURE_SSS_INVALID));
 
 	return XSecure_SssCfg(InstancePtr, XSECURE_SSS_AES,
@@ -116,8 +118,8 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
 
 	Status = XSecure_SssDmaSrc(DmaId, &InputSrc);
 	if (Status != XST_SUCCESS) {
@@ -149,8 +151,8 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
 
 	Status = XSecure_SssDmaSrc(DmaId, &Resource);
 	if (Status != XST_SUCCESS) {
@@ -183,8 +185,8 @@ static u32 XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(Resource != NULL);
-	Xil_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
+	XSecure_AssertNonvoid(Resource != NULL);
+	XSecure_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
 
 	if (DmaId == 0U) {
 		*Resource = XSECURE_SSS_DMA0;
@@ -225,12 +227,12 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((InputSrc >= XSECURE_SSS_DMA0) &&
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((InputSrc >= XSECURE_SSS_DMA0) &&
 		(InputSrc <= XSECURE_SSS_INVALID));
-	Xil_AssertNonvoid((OutputSrc >= XSECURE_SSS_DMA0) &&
+	XSecure_AssertNonvoid((OutputSrc >= XSECURE_SSS_DMA0) &&
 		(OutputSrc <= XSECURE_SSS_INVALID));
-	Xil_AssertNonvoid((Resource >= XSECURE_SSS_DMA0) &&
+	XSecure_AssertNonvoid((Resource >= XSECURE_SSS_DMA0) &&
 		(Resource <= XSECURE_SSS_INVALID));
 
 	/*

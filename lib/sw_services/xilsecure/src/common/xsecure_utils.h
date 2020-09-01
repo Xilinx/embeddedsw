@@ -27,6 +27,8 @@
 *       rpo     04/02/20 Replaced function like macros with inline functions
 *                        Redefined macros for reading and writing into registers
 *       har     04/13/20 Removed code for SSS configuration
+* 4.3	rpo		09/01/20 Asserts are not compiled by default for
+*						 secure libraries
 *
 * </pre>
 * @endcond
@@ -62,6 +64,19 @@ extern "C" {
 
 /* Backward compatibility */
 #define XSecure_MemCpy		Xil_MemCpy
+
+#ifdef XSECDEBUG
+/* All asserts are under XSECDEBUG macro now */
+#define XSecure_AssertVoid				Xil_AssertVoid
+#define XSecure_AssertVoidAlways		Xil_AssertVoidAlways
+#define XSecure_AssertNonvoid			Xil_AssertNonvoid
+#define XSecure_AssertNonvoidAlways		Xil_AssertNonvoidAlways
+#else
+#define XSecure_AssertVoid(Expression)
+#define XSecure_AssertVoidAlways()
+#define XSecure_AssertNonvoid(Expression)
+#define XSecure_AssertNonvoidAlways()
+#endif
 
 /*****************************************************************************/
 /**

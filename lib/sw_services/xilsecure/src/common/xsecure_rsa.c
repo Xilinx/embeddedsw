@@ -41,6 +41,7 @@
 * 4.3   har  06/17/20 Renamed ErrorCode as Status in XSecure_RsaPublicEncrypt
 *                     and initialized with XST_FAILURE
 *       har  06/17/20 Removed references to unused algorithms
+*		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
 *
 * </pre>
 *
@@ -50,6 +51,7 @@
 
 /***************************** Include Files *********************************/
 #include "xsecure_rsa.h"
+#include "xsecure_utils.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -93,9 +95,9 @@ s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	u32 Status = XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Mod != NULL);
-	Xil_AssertNonvoid(ModExpo != NULL);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(Mod != NULL);
+	XSecure_AssertNonvoid(ModExpo != NULL);
 
 	Status = XSecure_RsaCfgInitialize(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
@@ -140,9 +142,9 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(Signature != NULL);
-	Xil_AssertNonvoid(Hash != NULL);
-	Xil_AssertNonvoid(HashLen == XSECURE_HASH_TYPE_SHA3);
+	XSecure_AssertNonvoid(Signature != NULL);
+	XSecure_AssertNonvoid(Hash != NULL);
+	XSecure_AssertNonvoid(HashLen == XSECURE_HASH_TYPE_SHA3);
 
 	PadLength = XSECURE_FSBL_SIG_SIZE - XSECURE_RSA_BYTE_PAD_LENGTH
 				- XSECURE_RSA_T_PAD_LENGTH - HashLen;
@@ -242,11 +244,11 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	s32 Status = XST_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Result != NULL);
-	Xil_AssertNonvoid(Input != NULL);
-	Xil_AssertNonvoid(Size != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(Result != NULL);
+	XSecure_AssertNonvoid(Input != NULL);
+	XSecure_AssertNonvoid(Size != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
 
 	Status = (s32)XSecure_RsaOperation(InstancePtr, Input, Result,
 					XSECURE_RSA_SIGN_ENC, Size);
@@ -289,11 +291,11 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	u32 idx;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Result != NULL);
-	Xil_AssertNonvoid(Input != NULL);
-	Xil_AssertNonvoid(Size != 0x00U);
-	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid(Result != NULL);
+	XSecure_AssertNonvoid(Input != NULL);
+	XSecure_AssertNonvoid(Size != 0x00U);
+	XSecure_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
 
 	/*
 	 * Input data should always be smaller than modulus
