@@ -1268,6 +1268,9 @@ static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	DestAddr = (Len * XPLMI_WORD_LEN) % Keyholesize + BaseAddr;
 	SrcAddr = Cmd->KeyHoleParams.SrcAddr;
 	RemData = (Cmd->Len - Cmd->PayloadLen) * XPLMI_WORD_LEN;
+	if (RemData == 0U) {
+		goto END;
+	}
 
 	if (Cmd->KeyHoleParams.Func != NULL) {
 		/* The block is for qspi, ospi, sbi and smap boot modes */
