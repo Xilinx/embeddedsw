@@ -326,7 +326,10 @@ static int XPuf_GenerateKey(void)
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 #if XPUF_WRITE_HD_IN_EFUSE
-	XPuf_GenerateFuseFormat(&PufData);
+	Status = XPuf_GenerateFuseFormat(&PufData);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	xPuf_printf(XPUF_DEBUG_INFO, "\r\nFormatted syndrome "
 			"data written in eFuse");
 	XPuf_ShowData((u8*)PufData.EfuseSynData,
