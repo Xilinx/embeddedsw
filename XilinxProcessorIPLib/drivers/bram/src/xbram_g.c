@@ -7,7 +7,7 @@
 /**
 *
 * @file xbram_g.c
-* @addtogroup bram_v4_4
+* @addtogroup bram_v4_5
 * @{
 *
 * This file contains a configuration table that specifies the configuration
