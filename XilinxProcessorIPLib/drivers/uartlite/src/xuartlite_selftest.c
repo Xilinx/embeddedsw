@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite_selftest.c
-* @addtogroup uartlite_v3_4
+* @addtogroup uartlite_v3_5
 * @{
 *
 * This file contains the self-test functions for the UART Lite component
