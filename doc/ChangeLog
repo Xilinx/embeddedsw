@@ -179,6 +179,16 @@ Remove emacps 1588 examples.
 ipipsu_v2_7:
 Update the Makefile for parallel execution.
 
+ospipsv_v1_3:
+Added support for 64-bit address read from 32-bit proc.
+Added support for Stacked mode.
+Added support for reading C_OSPI_MODE param.
+Added flash_config header file in the examples and added dependency.props file as required.
+Added support for ISSI and Gigadevice parts.
+
+resetps_v1_4:
+Updated the Makefile to support parallel make execution.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
