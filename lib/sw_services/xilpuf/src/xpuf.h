@@ -99,6 +99,7 @@ typedef struct {
 	u8 RegMode;		/* PUF Registration Mode 4K/12K*/
 	u8 PufOperation;
 	   /* PUF Registration/ Regeneration On Demand/ ID only regeneration) */
+	u8 GlobalVarFilter;
 	XPuf_ReadOption ReadOption;	/* Read helper data from eFuse Cache/DDR */
 	u32 ShutterValue;
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];

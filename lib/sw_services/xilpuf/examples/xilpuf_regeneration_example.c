@@ -54,16 +54,22 @@
  * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
  * configured as XPUF_READ_FROM_RAM.
  *
+ * #define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
+ * This option should be configured as TRUE to enable Global Variation Filter.
+ *
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf.h"
 
-/* User Configurable parameters */
+/* User Configurable parameters start */
 #define XPUF_REGEN_OPTION			(XPUF_REGEN_ID_ONLY)
 #define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
 #define XPUF_CHASH				(0x00000000)
 #define XPUF_AUX				(0x00000000)
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000)
+#define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
+/* User Configurable parameters end */
+
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
 							 XPUF_WORD_LENGTH)
 #define XPUF_DEBUG_INFO				(1U)
@@ -83,6 +89,8 @@ int main(void)
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.PufOperation = XPUF_REGEN_OPTION;
 	PufData.ReadOption = XPUF_READ_HD_OPTION;
+	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
+
 	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
 		PufData.Chash = XPUF_CHASH;
 		PufData.Aux = XPUF_AUX;

@@ -70,6 +70,9 @@
  * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
  * configured as XPUF_READ_FROM_RAM.
  *
+ * #define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
+ * This option should be configured as TRUE to enable Global Variation Filter.
+ *
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf.h"
@@ -96,6 +99,8 @@
 #define XPUF_AUX				(0x00000000U)
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000U)
 #endif
+
+#define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
 /*User configurable parameters end */
 
 #define XPUF_PMCDMA_DEVICEID			PMCDMA_0_DEVICE_ID
@@ -217,6 +222,7 @@ static int XPuf_GenerateKey(void)
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
+	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
 
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
