@@ -92,6 +92,8 @@ Driver version is updated as IP version is changed
 clk_wiz_v1_4:
 Add updates for clocking wizard.
 Add set rate capability for zynqmp.
+Add setrate function for Hz.
+Modify Makefile for parallel execution.
 
 llfifo_v5_5:
 Add type casting to fix gcc warnings in xllfifo.c and xstreamer.c.
