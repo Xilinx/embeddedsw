@@ -66,6 +66,7 @@ Add hibernation support in versal.
 
 xxvethernet_v1_5:
 Fix intr_mcdma example compilation on microblaze platform.
+Update the makefile for parallel execution.
 
 axivdma_v6_8:
 Add the frame data check in the interrupt example.
