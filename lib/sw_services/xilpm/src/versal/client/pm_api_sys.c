@@ -2030,3 +2030,42 @@ int XPm_MmioRead(const u32 Address, u32 *const Value)
 	return (s32)XST_FAILURE;
 }
  /** @} */
+/****************************************************************************/
+/**
+ * @brief  This function queries information about the feature version.
+ *
+ * @param FeatureId	The feature ID (API-ID)
+ * @param Version	Pointer to the output data where  version of
+ *			feature store.
+ *			For the supported feature get non zero value in version,
+ *			But if version is 0U that means feature not supported.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version)
+{
+
+	XStatus Status = (s32)XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Version) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		goto done;
+	}
+
+	PACK_PAYLOAD1(Payload, PM_FEATURE_CHECK, FeatureId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Version, NULL, NULL);
+
+done:
+	return Status;
+}
