@@ -29,6 +29,9 @@ Add axiethernet support on versal silicon.
 sdps_v3_10
 Add support for SD/eMMC Non-Blocking Read
 
+uartlite_v3_5:
+Update the Makefile for parallel execution.
+
 zdma_v1_10:
 Expose ZDMA scatter gather and enable APIs for direct use.
 
