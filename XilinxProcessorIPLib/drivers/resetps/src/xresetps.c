@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps.c
-* @addtogroup xresetps_v1_3
+* @addtogroup xresetps_v1_4
 * @{
 *
 * Contains the implementation of interface functions of the XResetPs driver.
