@@ -422,7 +422,9 @@ typedef enum {
 	XLOADER_ERR_AUTH_JTAG_GET_DMA,
 		/**< 0x626 Failed to get DMA instance for JTAG authentication */
 	XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
-		/**<0x627 Hash calculation failed before signature verification */
+		/**< 0x627 Hash calculation failed before signature verification */
+	XLOADER_ERR_AUTH_JTAG_DMA_XFR,
+		/**< 0x628 Failed to get Auth Jtag data with DMA Xfr */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

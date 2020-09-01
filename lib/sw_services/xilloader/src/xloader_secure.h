@@ -234,6 +234,10 @@ extern "C" {
 #define XLOADER_AUTH_JTAG_DATA_PPK_INDEX			(26U)
 #define XLOADER_AUTH_JTAG_DATA_SIGNATURE_INDEX			(286U)
 
+#define XLOADER_AUTH_JTAG_PADDING_SIZE				(23U)
+#define XLOADER_AUTH_JTAG_SHA_PADDING_SIZE			(3U)
+#define XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE			(226U)
+
 #define XLOADER_DAP_SECURITY_GATE_DISABLE_MASK			(0xFFFFFFFFU)
 #define XLOADER_DAP_CFG_SPNIDEN_MASK				(0x1U)
 #define XLOADER_DAP_CFG_SPIDEN_MASK				(0x2U)
@@ -252,7 +256,7 @@ typedef struct {
 	u32 PubModulus[128U];
 	u32 PubModulusExt[128U];
 	u32 PubExponent;
-}XLoader_RsaKey;
+} XLoader_RsaKey;
 
 typedef struct {
 	u32 AuthHdr;
@@ -266,25 +270,25 @@ typedef struct {
 	u32 SPKSignature[128U];
 	u32 BHSignature[128U];
 	u32 ImgSignature[128U];
-}XLoader_AuthCertificate;
+} XLoader_AuthCertificate;
 
 typedef enum {
 	XLOADER_ECDSA,	/**< 0x0 - ECDSA */
 	XLOADER_RSA		/**< 0x1 - RSA */
-}XLoader_AuthType;
+} XLoader_AuthType;
 
 typedef enum {
 	XLOADER_PPK_SEL_0,	/**< 0 - PPK 0 */
 	XLOADER_PPK_SEL_1,	/**< 1 - PPK 1 */
 	XLOADER_PPK_SEL_2	/**< 2 - PPK 2 */
-}XLoader_PpkSel;
+} XLoader_PpkSel;
 
 typedef struct
 {
 	u8 EmHash[48];	/**< EM hash */
 	u8 Salt[48];	/**< Salt */
 	u8 Padding1[8];	/**< Padding 1 */
-}XLoader_Vars;
+} XLoader_Vars;
 
 typedef struct {
 	u32 PdiKeySrc;
@@ -293,16 +297,16 @@ typedef struct {
 	XSecure_AesKekType KekType;
 	XSecure_AesKeySrc KeySrc;
 	XSecure_AesKeySrc KeyDst;
-}XLoader_AesKekKey;
+} XLoader_AesKekKey;
 
 typedef struct {
-	u8 AuthFailCounter;
-	u32* AuthHdrPtr;
-	u32 RevocationId;
-	u32 MessageType;
+	u32 AuthHdr;
+	u32 RevocationIdMsgType;
 	u32 JtagEnableTimeout;
-	u32* PpkPtr;
-	u32* EnableJtagSignaturePtr;
+	u32 AuthJtagPadding[XLOADER_AUTH_JTAG_PADDING_SIZE];
+	XLoader_RsaKey PpkData;
+	u32 AuthJtagPpkShaPadding[XLOADER_AUTH_JTAG_SHA_PADDING_SIZE];
+	u32 EnableJtagSignature[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE];
 } XLoader_AuthJtagMessage;
 
 typedef struct {
@@ -329,7 +333,8 @@ typedef struct {
 	XSecure_Aes AesInstance;
 	u32 SecureHdrLen;
 	u8 CheckJtagAuth;
-	XLoader_AuthJtagMessage AuthJtagMessage;
+	XLoader_AuthJtagMessage AuthJtagMessage
+		__attribute__ ((aligned (16U)));
 } XLoader_SecureParams;
 
 typedef enum {
@@ -407,7 +412,7 @@ typedef enum {
 			/* Buffer is successfully cleared */
 	XLOADER_SEC_ERR_BUF_CLR_FAILED = 0x80U,
 			/* Error in clearing buffer */
-}XLoader_SecErrCodes;
+} XLoader_SecErrCodes;
 
 /*****************************************************************************/
 /**
