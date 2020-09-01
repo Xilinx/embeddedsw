@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps_hw.h
-* @addtogroup xresetps_v1_3
+* @addtogroup xresetps_v1_4
 * @{
 *
 * This file contains the hardware interface to the System Reset controller.
