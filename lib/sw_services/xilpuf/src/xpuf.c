@@ -357,11 +357,17 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY)) {
 			XPuf_CapturePufID(PufData);
 		}
+		else {
+			Status = XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY;
+		}
 	}
 	else {
 		/* PufData->PufOperation = XPUF_REGEN_ID_ONLY */
 		if ((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY) {
 			XPuf_CapturePufID(PufData);
+		}
+		else {
+			Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
 		}
 	}
 
