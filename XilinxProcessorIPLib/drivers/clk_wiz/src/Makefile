@@ -1,37 +1,41 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
-EXTRA_COMPILER_FLAGS=-Wall -Wextra
+EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-LIBSOURCES=*.c
-INCLUDEFILES=*.h
+INCLUDEFILES:=*.h
 
-libs: banner xclk_wiz_libs clean
+SRCFILES:=$(wildcard *.c)
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
-banner:
-	echo "Compiling Clkocking Wizard"
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-xclk_wiz_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+libs: $(OBJECTS)
+
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $(realpath $<) -o $@
 
 .PHONY: include
-include: xclk_wiz_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
-xclk_wiz_includes:
-	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
-	rm -rf $(OBJECTS)
+	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
