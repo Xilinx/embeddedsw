@@ -326,15 +326,15 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 			XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 			PufData->ShutterValue);
 
-	if(XPUF_REGEN_ON_DEMAND == PufData->PufOperation) {
-		 XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
-			XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
-			XPUF_CMD_REGEN_ON_DEMAND);
-	}
-	else if(XPUF_REGEN_ID_ONLY == PufData->PufOperation) {
+	if(XPUF_REGEN_ID_ONLY == PufData->PufOperation) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
 			XPUF_CMD_REGEN_ID_ONLY);
+	}
+	else if(XPUF_REGEN_ON_DEMAND == PufData->PufOperation) {
+		 XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
+			XPUF_CMD_REGEN_ON_DEMAND);
 	}
 	else {
 		Status = XPUF_ERROR_INVALID_REGENERATION_TYPE;
