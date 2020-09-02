@@ -26,6 +26,10 @@ RELEASEDIR=../../../lib/
 INCLUDEDIR=../../../include/
 INCLUDES=-I./. -I${INCLUDEDIR}
 
+SRCFILES:=$(wildcard *.c)
+
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
+
 OBJECTS =	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(filter-out _exit.c, $(wildcard *.c)))))
 ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.S))))
 NON_LTO_OBJECTS = $(addprefix $(RELEASEDIR),$(addsuffix .o,$(basename _exit.c)))

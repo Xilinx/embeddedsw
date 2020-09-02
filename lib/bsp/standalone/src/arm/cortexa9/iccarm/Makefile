@@ -24,8 +24,11 @@ RELEASEDIR=../../../lib/
 INCLUDEDIR=../../../include/
 
 INCLUDES=-I./. -I${INCLUDEDIR}
-
 INCLUDEFILES=*.h
+
+SRCFILES:=$(wildcard *.c)
+
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
 
 OBJECTS =	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.c))))
 OBJECTS +=	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.s))))
