@@ -24,6 +24,10 @@ RELEASEDIR=../../../lib/
 INCLUDEDIR=../../../include/
 INCLUDES=-I./. -I${INCLUDEDIR}
 
+SRCFILES:=$(wildcard *.c)
+
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
+
 OBJECTS =	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(filter-out $(wildcard microblaze_interrupt_handler.c), $(wildcard *.c)))))
 
 ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.S))))
