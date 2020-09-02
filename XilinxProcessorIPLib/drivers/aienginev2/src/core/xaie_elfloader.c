@@ -378,7 +378,8 @@ AieRC XAie_LoadElfMem(XAie_DevInst *DevInst, XAie_LocType Loc,
 	_XAie_PrintElfHdr(Ehdr);
 
 	/* For AIE, turn ECC Off before program memory load */
-	if(DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE) {
+	if((DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE) &&
+			(DevInst->EccStatus == XAIE_ENABLE)) {
 		_XAie_EccEvntResetPM(DevInst, Loc);
 	}
 
