@@ -7,7 +7,7 @@
 /**
 *
 * @file xscutimer.h
-* @addtogroup scutimer_v2_2
+* @addtogroup scutimer_v2_3
 * @{
 * @details
 *
@@ -79,6 +79,9 @@
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
 *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                    generation.
+* 2.3   mus 08/31/20 Updated makefile to support parallel make and
+*                    incremental builds, it would help to reduce compilation
+*                    time.
 * </pre>
 *
 ******************************************************************************/
