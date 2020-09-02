@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_g.c
-* @addtogroup spips_v3_4
+* @addtogroup spips_v3_5
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
