@@ -186,6 +186,8 @@
 *       cog    07/01/20 Fixed metal log print error in XRFdc_SetQMCSettings.
 *       cog    08/04/20 Fixed issues with the connected data initialization for multiband.
 *       cog    08/28/20 Allow non bypass datapath modes if digital path is enabled.
+*       cog    09/01/20 Added warning message if trying to incorrectly set QMC phase and
+*                       QMC phase should only be allowed to be set in IQ pair.
 *
 * </pre>
 *
@@ -1260,20 +1262,30 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_GAIN_MASK,
 				QMCSettingsPtr->EnableGain);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_PHASE_MASK,
-				(QMCSettingsPtr->EnablePhase << XRFDC_QMC_CFG_PHASE_SHIFT));
 
-		/* Phase Correction factor is applicable to ADC/DAC IQ mode only */
-		if (((Type == XRFDC_ADC_TILE) &&
-		     (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
-		      XRFDC_DATA_TYPE_IQ)) ||
-		    ((Type == XRFDC_DAC_TILE) &&
-		     (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType ==
-		      XRFDC_DATA_TYPE_IQ))) {
-			PhaseCorrectionFactor = ((QMCSettingsPtr->PhaseCorrectionFactor / XRFDC_MAX_PHASE_CORR_FACTOR) *
-						 XRFDC_QMC_PHASE_MULT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_QMC_PHASE_OFFSET, XRFDC_QMC_PHASE_CRCTN_MASK,
-					PhaseCorrectionFactor);
+		/* Phase Correction factor is applicable to ADC/DAC IQ Pair mode only */
+		if (QMCSettingsPtr->EnablePhase == XRFDC_ENABLED) {
+			if (((u32)XRFdc_GetConnectedIData(InstancePtr, Type, Tile_Id, Block_Id) == Block_Id) &&
+			    (XRFdc_GetConnectedQData(InstancePtr, Type, Tile_Id, Block_Id) != -1)) {
+				PhaseCorrectionFactor =
+					((QMCSettingsPtr->PhaseCorrectionFactor / XRFDC_MAX_PHASE_CORR_FACTOR) *
+					 XRFDC_QMC_PHASE_MULT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_QMC_PHASE_OFFSET,
+						XRFDC_QMC_PHASE_CRCTN_MASK, PhaseCorrectionFactor);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET,
+						XRFDC_QMC_CFG_EN_PHASE_MASK,
+						(XRFDC_ENABLED << XRFDC_QMC_CFG_PHASE_SHIFT));
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET,
+						XRFDC_QMC_CFG_EN_PHASE_MASK, XRFDC_DISABLED);
+				metal_log(
+					METAL_LOG_WARNING,
+					"\n Can't Set QMC phase option (must be I path of IQ pair) for %s %u block %u in %s\r\n",
+					(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
+			}
+		} else {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_PHASE_MASK,
+					XRFDC_DISABLED);
 		}
 
 		/* Gain Correction factor */
