@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu.c
-* @addtogroup nandpsu_v1_6
+* @addtogroup nandpsu_v1_7
 * @{
 *
 * This file contains the implementation of the interface functions for
