@@ -111,6 +111,7 @@ typedef struct XAie_Backend {
 
 /* Typedef to capture shimdma Bd arguments */
 typedef struct XAie_ShimDmaBdArgs {
+	XAie_MemInst *MemInst;
 	u8 NumBdWords;
 	u32 *BdWords;
 	XAie_LocType Loc;
