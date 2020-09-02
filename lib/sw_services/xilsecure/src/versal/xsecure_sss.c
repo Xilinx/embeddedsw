@@ -159,8 +159,11 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 		goto END;
 	}
 
+	Status = (u32)XST_FAILURE;
+
 	Status = XSecure_SssCfg(InstancePtr, Resource, Resource,
 				XSECURE_SSS_INVALID);
+
 END:
 	return Status;
 }
