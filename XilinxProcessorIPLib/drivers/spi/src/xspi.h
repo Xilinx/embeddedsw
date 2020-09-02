@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi.h
-* @addtogroup spi_v4_6
+* @addtogroup spi_v4_7
 * @{
 * @details
 *
