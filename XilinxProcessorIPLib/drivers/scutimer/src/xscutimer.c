@@ -7,7 +7,7 @@
 /**
 *
 * @file xscutimer.c
-* @addtogroup scutimer_v2_2
+* @addtogroup scutimer_v2_3
 * @{
 *
 * Contains the implementation of interface functions of the SCU Timer driver.
