@@ -54,6 +54,8 @@ const XAie_Backend DebugBackend =
 	.Ops.MemFree = XAie_DebugMemFree,
 	.Ops.MemSyncForCPU = XAie_DebugMemSyncForCPU,
 	.Ops.MemSyncForDev = XAie_DebugMemSyncForDev,
+	.Ops.MemAttach = XAie_DebugMemAttach,
+	.Ops.MemDetach = XAie_DebugMemDetach,
 };
 
 /************************** Function Definitions *****************************/
@@ -438,6 +440,23 @@ AieRC XAie_DebugMemSyncForDev(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	XAIE_DBG("Sync for Dev is no-op in debug mode\n");
+
+	return XAIE_OK;
+}
+
+AieRC XAie_DebugMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	(void)MemInst;
+	(void)MemHandle;
+	XAIE_DBG("Mem attach is no-op in debug mode\n");
+
+	return XAIE_OK;
+}
+
+AieRC XAie_DebugMemDetach(XAie_MemInst *MemInst)
+{
+	(void)MemInst;
+	XAIE_DBG("Mem detach is no-op in debug mode\n");
 
 	return XAIE_OK;
 }

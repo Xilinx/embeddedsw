@@ -434,4 +434,17 @@ AieRC XAie_SimMemSyncForDev(XAie_MemInst *MemInst)
 	return XAIE_ERR;
 }
 
+AieRC XAie_SimMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	(void)MemInst;
+	(void)MemHandle;
+	return XAIE_ERR;
+}
+
+AieRC XAie_SimMemDetach(XAie_MemInst *MemInst)
+{
+	(void)MemInst;
+	return XAIE_ERR;
+}
+
 /** @} */

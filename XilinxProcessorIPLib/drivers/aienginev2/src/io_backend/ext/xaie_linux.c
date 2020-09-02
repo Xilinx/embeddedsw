@@ -100,6 +100,8 @@ const XAie_Backend LinuxBackend =
 	.Ops.MemFree = XAie_LinuxMemFree,
 	.Ops.MemSyncForCPU = XAie_LinuxMemSyncForCPU,
 	.Ops.MemSyncForDev = XAie_LinuxMemSyncForDev,
+	.Ops.MemAttach = XAie_LinuxMemAttach,
+	.Ops.MemDetach = XAie_LinuxMemDetach,
 };
 
 /************************** Function Definitions *****************************/
@@ -1079,6 +1081,75 @@ AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst)
 /*****************************************************************************/
 /**
 *
+* This is the memory function to attach the external memory to device
+*
+* @param	MemInst: Memory instance pointer.
+* @param	MemHandle: dmabuf fd
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	XAie_DevInst *DevInst = MemInst->DevInst;
+	XAie_LinuxMem *LinuxMemInst;
+	AieRC RC;
+
+	LinuxMemInst = (XAie_LinuxMem *)malloc(sizeof(*LinuxMemInst));
+	if(LinuxMemInst == NULL) {
+		XAIE_ERROR("Memory attachmeent failed, Memory allocation failed\n");
+		return XAIE_ERR;
+	}
+
+	LinuxMemInst->BufferFd = MemHandle;
+
+	RC = _XAie_LinuxMemAttach((XAie_LinuxIO *)DevInst->IOInst,
+			LinuxMemInst);
+	if(RC != XAIE_OK) {
+		free(LinuxMemInst);
+		return XAIE_ERR;
+	}
+
+	MemInst->BackendHandle = (void *)LinuxMemInst;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to detach the memory from device
+*
+* @param	MemInst: Memory instance pointer.
+*
+* @return	XAIE_OK for success
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
+{
+	XAie_DevInst *DevInst = MemInst->DevInst;
+	XAie_LinuxMem *LinuxMemInst =
+		(XAie_LinuxMem *)MemInst->BackendHandle;
+	AieRC RC;
+
+	RC = _XAie_LinuxMemDetach((XAie_LinuxIO *)DevInst->IOInst,
+			LinuxMemInst);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
+	free(LinuxMemInst);
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
 * This is function to configure shim dma using the linux kernel driver.
 *
 * @param	IOInst: IO instance pointer
@@ -1376,6 +1447,19 @@ AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	(void)Op;
 	(void)Arg;
 	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	(void)MemInst;
+	(void)MemHandle;
+	return XAIE_ERR;
+}
+
+AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
+{
+	(void)MemInst;
+	return XAIE_ERR;
 }
 
 #endif /* __AIELINUX__ */

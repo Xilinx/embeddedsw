@@ -49,6 +49,8 @@ XAie_MemInst* XAie_LinuxMemAllocate(XAie_DevInst *DevInst, u64 Size,
 AieRC XAie_LinuxMemFree(XAie_MemInst *MemInst);
 AieRC XAie_LinuxMemSyncForCPU(XAie_MemInst *MemInst);
 AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst);
+AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle);
+AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst);
 
 #endif		/* end of protection macro */
 
