@@ -27,6 +27,8 @@
 *       skd  07/14/2020 XLoader_QspiCopy prototype changed
 *       skd  07/29/2020 Added non-blocking DMA support for Qspi copy
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bm   09/01/2020 Updated Major error codes for Unsupported Qspi Flash
+*			IDs and Unsupported Flash Sizes
 *
 * </pre>
 *
@@ -138,9 +140,10 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		XLoader_Printf(DEBUG_INFO, "ISSI ");
 	}
 	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID, 0);
 		XLoader_Printf(DEBUG_GENERAL,
-				"XLOADER_ERR_UNSUPPORTED_QSPI\r\n");
+				"XLOADER_ERR_UNSUPPORTED_QSPI - Unsupported"
+				" FlashID \r\n");
 		goto END;
 	}
 
@@ -182,9 +185,10 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		XLoader_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}
 	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE, 0);
 		XLoader_Printf(DEBUG_GENERAL,
-			"XLOADER_ERR_UNSUPPORTED_QSPI\r\n");
+				"XLOADER_ERR_UNSUPPORTED_QSPI - Unsupported"
+				" FlashSize \r\n");
 		goto END;
 	}
 
@@ -637,16 +641,16 @@ static int SendBankSelect(u32 BankSel)
 			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
 			goto END;
 		}
+	}
 
-		if (ReadBuffer[0U] != BankSel) {
-			XLoader_Printf(DEBUG_INFO, "Bank Select %u != "
-					"Register Read %u\n\r",
-					BankSel, ReadBuffer[0U]);
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ,
-						Status);
-			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
-			goto END;
-		}
+	if (ReadBuffer[0U] != BankSel) {
+		XLoader_Printf(DEBUG_INFO, "Bank Select %u != "
+				"Register Read %u\n\r",
+				BankSel, ReadBuffer[0U]);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ,
+					Status);
+		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
+		goto END;
 	}
 
 	/* Winbond can be added here */

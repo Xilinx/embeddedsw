@@ -235,8 +235,8 @@ typedef enum {
 
 	XLOADER_ERR_QSPI_READ_ID,	/**< 0x314 - Error when QSPI read
 					  fails */
-	XLOADER_ERR_UNSUPPORTED_QSPI,	/**< 0x315 - Error when QSPI flash is
-					  not supported */
+	XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID,	/**< 0x315 - Error when QSPI flash ID is
+							not supported */
 	XLOADER_ERR_QSPI_INIT,		/**< 0x316 - Error when QSPI driver look
 					  up or cfg fails */
 	XLOADER_ERR_QSPI_MANUAL_START,	/**< 0x317 - Error when QSPI driver
@@ -324,6 +324,8 @@ typedef enum {
 						the scheduler */
 	XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT,	/**< 0x340 - Error code returned when search
 							for bootable file crosses max limit */
+	XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE, /**< 0x341 - Error when QSPI flash Size is
+							not supported */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
