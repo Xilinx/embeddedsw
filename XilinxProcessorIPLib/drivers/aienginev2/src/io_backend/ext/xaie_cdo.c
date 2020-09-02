@@ -64,6 +64,8 @@ const XAie_Backend CdoBackend =
 	.Ops.MemFree = XAie_CdoMemFree,
 	.Ops.MemSyncForCPU = XAie_CdoMemSyncForCPU,
 	.Ops.MemSyncForDev = XAie_CdoMemSyncForDev,
+	.Ops.MemAttach = XAie_CdoMemAttach,
+	.Ops.MemDetach = XAie_CdoMemDetach,
 };
 
 /************************** Function Definitions *****************************/
@@ -461,6 +463,19 @@ AieRC XAie_CdoMemSyncForCPU(XAie_MemInst *MemInst)
 }
 
 AieRC XAie_CdoMemSyncForDev(XAie_MemInst *MemInst)
+{
+	(void)MemInst;
+	return XAIE_ERR;
+}
+
+AieRC XAie_CdoMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	(void)MemInst;
+	(void)MemHandle;
+	return XAIE_ERR;
+}
+
+AieRC XAie_CdoMemDetach(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;

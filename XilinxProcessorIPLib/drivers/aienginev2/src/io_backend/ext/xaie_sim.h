@@ -46,6 +46,8 @@ XAie_MemInst* XAie_SimMemAllocate(XAie_DevInst *DevInst, u64 Size,
 AieRC XAie_SimMemFree(XAie_MemInst *MemInst);
 AieRC XAie_SimMemSyncForCPU(XAie_MemInst *MemInst);
 AieRC XAie_SimMemSyncForDev(XAie_MemInst *MemInst);
+AieRC XAie_SimMemAttach(XAie_MemInst *MemInst, u64 MemHandle);
+AieRC XAie_SimMemDetach(XAie_MemInst *MemInst);
 
 #endif	/* End of protection macro */
 

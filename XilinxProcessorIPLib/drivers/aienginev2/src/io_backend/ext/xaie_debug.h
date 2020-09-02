@@ -49,6 +49,8 @@ XAie_MemInst* XAie_DebugMemAllocate(XAie_DevInst *DevInst, u64 Size,
 AieRC XAie_DebugMemFree(XAie_MemInst *MemInst);
 AieRC XAie_DebugMemSyncForCPU(XAie_MemInst *MemInst);
 AieRC XAie_DebugMemSyncForDev(XAie_MemInst *MemInst);
+AieRC XAie_DebugMemAttach(XAie_MemInst *MemInst, u64 MemHandle);
+AieRC XAie_DebugMemDetach(XAie_MemInst *MemInst);
 
 #endif	/* End of protection macro */
 

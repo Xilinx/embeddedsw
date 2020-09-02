@@ -63,6 +63,8 @@ const XAie_Backend BaremetalBackend =
 	.Ops.MemFree = XAie_BaremetalMemFree,
 	.Ops.MemSyncForCPU = XAie_BaremetalMemSyncForCPU,
 	.Ops.MemSyncForDev = XAie_BaremetalMemSyncForDev,
+	.Ops.MemAttach = XAie_BaremetalMemAttach,
+	.Ops.MemDetach = XAie_BaremetalMemDetach,
 };
 
 /************************** Function Definitions *****************************/
@@ -369,6 +371,19 @@ AieRC XAie_BaremetalMemSyncForDev(XAie_MemInst *MemInst)
 	return XAIE_OK;
 }
 
+AieRC XAie_BaremetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	(void)MemInst;
+	(void)MemHandle;
+	return XAIE_OK;
+}
+
+AieRC XAie_BaremetalMemDetach(XAie_MemInst *MemInst)
+{
+	(void)MemInst;
+	return XAIE_OK;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -505,6 +520,19 @@ AieRC XAie_BaremetalMemSyncForCPU(XAie_MemInst *MemInst)
 }
 
 AieRC XAie_BaremetalMemSyncForDev(XAie_MemInst *MemInst)
+{
+	(void)MemInst;
+	return XAIE_ERR;
+}
+
+AieRC XAie_BaremetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	(void)MemInst;
+	(void)MemHandle;
+	return XAIE_ERR;
+}
+
+AieRC XAie_BaremetalMemDetach(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;

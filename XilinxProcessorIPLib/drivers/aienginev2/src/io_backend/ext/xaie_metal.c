@@ -89,6 +89,8 @@ const XAie_Backend MetalBackend =
 	.Ops.MemFree = XAie_MetalMemFree,
 	.Ops.MemSyncForCPU = XAie_MetalMemSyncForCPU,
 	.Ops.MemSyncForDev = XAie_MetalMemSyncForDev,
+	.Ops.MemAttach = XAie_MetalMemAttach,
+	.Ops.MemDetach = XAie_MetalMemDetach,
 };
 
 /************************** Function Definitions *****************************/
@@ -617,6 +619,103 @@ AieRC XAie_MetalMemSyncForDev(XAie_MemInst *MemInst)
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+*
+* This is the memory function to attach the external memory to device
+*
+* @param	MemInst: Memory instance pointer.
+* @param	MemHandle: dmabuf fd
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC XAie_MetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	XAie_MetalMemInst *MetalMemInst;
+	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)MemInst->DevInst->IOInst;
+
+	MetalMemInst = metal_allocate_memory(sizeof(*MetalMemInst));
+	if(MetalMemInst == NULL) {
+		XAIE_ERROR("memory attach failed, memory allocation failed\n");
+		return XAIE_ERR;
+	}
+
+	MetalMemInst->shm = metal_allocate_memory(sizeof(*MetalMemInst->shm));
+	if (MetalMemInst->shm == NULL) {
+		XAIE_ERROR("memory attach failed, memory allocation failed\n");
+		metal_free_memory(MetalMemInst->shm);
+		metal_free_memory(MetalMemInst);
+		return XAIE_ERR;
+	}
+
+	metal_list_init(&MetalMemInst->shm->refs);
+	metal_mutex_init(&MetalMemInst->shm->lock);
+
+	/*
+	 * FIXME: dummy allocate to retreive the dmabuf ops. This can be
+	 * removed if libemtal allows to attach the dmabuf ops to shm object
+	 * allocated outside.
+	 */
+	MetalMemInst->shm->provider = metal_shmem_get_provider("ion.reserved");
+	MetalMemInst->shm->provider->alloc(MetalMemInst->shm->provider,
+			MetalMemInst->shm, 1);
+	MetalMemInst->shm->provider->free(MetalMemInst->shm->provider,
+			MetalMemInst->shm);
+
+	/* Expect the dmabuf fd as a handle*/
+	MetalMemInst->shm->id = MemHandle;
+	MetalMemInst->shm->size = MemInst->Size;
+	MetalMemInst->sg = metal_shm_attach(MetalMemInst->shm,
+			MetalIOInst->device, METAL_SHM_DIR_DEV_RW);
+	if (MetalMemInst->sg == NULL) {
+		XAIE_ERROR("libmetal memory attach failed\n");
+		metal_free_memory(MetalMemInst->shm);
+		metal_free_memory(MetalMemInst);
+		return XAIE_ERR;
+	}
+
+	/* This can be cross-checked if it matches as given argument */
+	MetalMemInst->io_base = metal_io_phys(MetalMemInst->sg->ios, 0);
+	MetalMemInst->io = MetalMemInst->sg->ios;
+	MetalMemInst->IOInst = MetalIOInst;
+
+	MemInst->BackendHandle = (void *)MetalMemInst;
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to detach the memory from device
+*
+* @param	MemInst: Memory instance pointer.
+*
+* @return	XAIE_OK for success
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC XAie_MetalMemDetach(XAie_MemInst *MemInst)
+{
+	XAie_MetalMemInst *MetalMemInst = (XAie_MetalMemInst *)
+		MemInst->BackendHandle;
+
+	if(MetalMemInst->shm == NULL || MetalMemInst->IOInst == NULL ||
+		MetalMemInst->IOInst->device == NULL) {
+		XAIE_ERROR("mem detach failed, invalid memory instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	metal_shm_detach(MetalMemInst->shm, MetalMemInst->IOInst->device);
+	metal_free_memory(MetalMemInst->shm);
+	metal_free_memory(MetalMemInst);
+
+	return XAIE_OK;
+}
+
 #else
 
 AieRC XAie_MetalIO_Finish(void *IOInst)
@@ -722,6 +821,19 @@ AieRC XAie_MetalMemSyncForCPU(XAie_MemInst *MemInst)
 }
 
 AieRC XAie_MetalMemSyncForDev(XAie_MemInst *MemInst)
+{
+	(void)MemInst;
+	return XAIE_ERR;
+}
+
+AieRC XAie_MetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+{
+	(void)MemInst;
+	(void)MemHandle;
+	return XAIE_ERR;
+}
+
+AieRC XAie_MetalMemDetach(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;

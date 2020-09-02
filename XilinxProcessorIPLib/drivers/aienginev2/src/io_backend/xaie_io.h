@@ -82,6 +82,8 @@ typedef struct XAie_BackendTilesArray {
  *		 by the MemAllocate api.
  * MemSyncForCPU: Backend operation to prepare memory for CPU access.
  * MemSyncForDev: Backend operation to prepare memory for Device access.
+ * MemAttach    : Backend operation to attach memory to AI engine device.
+ * MemDetach    : Backend operation to detach memory from AI engine device
  */
 typedef struct XAie_BackendOps {
 	AieRC (*Init)(XAie_DevInst *DevInst);
@@ -101,6 +103,8 @@ typedef struct XAie_BackendOps {
 	AieRC (*MemFree)(XAie_MemInst *MemInst);
 	AieRC (*MemSyncForCPU)(XAie_MemInst *MemInst);
 	AieRC (*MemSyncForDev)(XAie_MemInst *MemInst);
+	AieRC (*MemAttach)(XAie_MemInst *MemInst, u64 MemHandle);
+	AieRC (*MemDetach)(XAie_MemInst *MemInst);
 } XAie_BackendOps;
 
 /* Typedef to capture all backend information */

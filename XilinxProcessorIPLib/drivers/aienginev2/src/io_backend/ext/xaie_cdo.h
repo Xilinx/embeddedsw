@@ -46,6 +46,8 @@ XAie_MemInst* XAie_CdoMemAllocate(XAie_DevInst *DevInst, u64 Size,
 AieRC XAie_CdoMemFree(XAie_MemInst *MemInst);
 AieRC XAie_CdoMemSyncForCPU(XAie_MemInst *MemInst);
 AieRC XAie_CdoMemSyncForDev(XAie_MemInst *MemInst);
+AieRC XAie_CdoMemAttach(XAie_MemInst *MemInst, u64 MemHandle);
+AieRC XAie_CdoMemDetach(XAie_MemInst *MemInst);
 
 #endif	/* End of protection macro */
 
