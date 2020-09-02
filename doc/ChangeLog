@@ -9,9 +9,6 @@ Update the framerate in the Videostream struct
 csi_v1_5:
 Add support for YUV 420 8bits
 
-mipicsiss_v1_5:
-Add support for YUV 420 8bits
-
 v_hdmiphy1_v2_1:
 Removed redundant GTHE3 related code
 
@@ -145,6 +142,7 @@ hdcp22_tx_dp_v2_0:
 Updated for HDCP 2.3
 
 mipicsiss_v1_4:
+Add support for YUV 420 8bits
 Updated for HDCP 2.3
 
 uartps_v3_10:
