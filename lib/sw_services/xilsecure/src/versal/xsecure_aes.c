@@ -406,7 +406,7 @@ u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 
 	/* Chip has DPA CM support */
 	if ((XSecure_In32(XSECURE_EFUSE_SECURITY_MISC1) &
-		XSECURE_EFUSE_DPA_CM_DIS_MASK) == 0x00U) {
+		XSECURE_EFUSE_DPA_CM_DIS_MASK) != XSECURE_EFUSE_DPA_CM_DIS_MASK) {
 
 		/* Disable/enable DPA CM inside AES engine */
 		XSecure_WriteReg(InstancePtr->BaseAddress,
