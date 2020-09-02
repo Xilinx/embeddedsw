@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_8
+* @addtogroup iomodule_v2_9
 * @{
 * @details
 *
@@ -223,6 +223,9 @@
 *                     xiomodule_l.c, xiomodule_uart.c
 * 2.7   sa   11/09/18  Updated XIOModule_Config to support 64 bit base
 *                      addresses.
+* 2.9   mus  08/31/20  Updated makefile to support parallel make and
+*                      incremental builds. It would help to reduce
+*                      compilation time.
 * </pre>
 *
 ******************************************************************************/
