@@ -278,6 +278,7 @@
 * 4.5   akm  07/12/19 Fixed compilation error in spi interrupt example by
 *		       passing the correct interrupt controller instance to
 *		       SpiIntrExample() function (CR-1035793).
+* 4.7	akm  09/02/20 Updated the Makefile to support parallel make execution.
 * </pre>
 *
 ******************************************************************************/
