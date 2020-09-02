@@ -10,7 +10,7 @@ BEGIN driver spips
   OPTION supported_peripherals = (ps7_spi psu_spi psv_spi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.4;
+  OPTION VERSION = 3.5;
   OPTION NAME = spips;
 
 END driver
