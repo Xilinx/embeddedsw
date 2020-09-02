@@ -49,6 +49,8 @@ XAie_MemInst* XAie_MetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
 AieRC XAie_MetalMemFree(XAie_MemInst *MemInst);
 AieRC XAie_MetalMemSyncForCPU(XAie_MemInst *MemInst);
 AieRC XAie_MetalMemSyncForDev(XAie_MemInst *MemInst);
+AieRC XAie_MetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle);
+AieRC XAie_MetalMemDetach(XAie_MemInst *MemInst);
 
 #endif		/* end of protection macro */
 
