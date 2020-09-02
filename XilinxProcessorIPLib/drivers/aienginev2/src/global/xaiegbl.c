@@ -350,6 +350,88 @@ u64 XAie_MemGetDevAddr(XAie_MemInst *MemInst)
 }
 
 /*****************************************************************************/
+/**
+*
+* This is the memory function to attach user allocated memory to the AI engine
+* partition device instance.
+*
+* @param	DevInst: Device Instance
+* @param	MemInst: pointer to memory instance which will be filled with
+*			 attached AI engine memory instance information by
+*			 this function.
+* @param	DevAddr: Device address of the allocated memory. It is usually
+*			 the physical address of the memory. For Linux dmabuf
+*			 memory, it is the offset to the start of the dmabuf.
+* @param	VAddr: Virtual address of the allocated memory. For Linux
+*		       dmabuf memory, it is not required, it can be NULL.
+*		Cache: Buffer is cacheable or not.
+*		MemHandle: Handle of the allocated memory. It is ignored for
+*			   other backends except Linux backend. For Linux
+*			   backend, it is the file descriptor of a dmabuf.
+*
+* @return	XAIE_OK for success, or error code for failure.
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC XAie_MemAttach(XAie_DevInst *DevInst, XAie_MemInst *MemInst, u64 DevAddr,
+		u64 VAddr, u64 Size, XAie_MemCacheProp Cache, u64 MemHandle)
+{
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY) ||
+		(DevInst->Backend == XAIE_NULL)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(MemInst == XAIE_NULL) {
+		XAIE_ERROR("Invalid memory instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	MemInst->DevInst = DevInst;
+	MemInst->VAddr = (void *)(uintptr_t)VAddr;
+	MemInst->DevAddr = DevAddr;
+	MemInst->Size = Size;
+	MemInst->Cache = Cache;
+
+	return DevInst->Backend->Ops.MemAttach(MemInst, MemHandle);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to dettach user allocated memory from the AI engine
+* partition device instance.
+*
+* @param	MemInst: Memory Instance
+*
+* @return	XAIE_OK for success, and error code for failure.
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC XAie_MemDetach(XAie_MemInst *MemInst)
+{
+	XAie_DevInst *DevInst;
+
+	if(MemInst == XAIE_NULL) {
+		XAIE_ERROR("Invalid memory instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DevInst = MemInst->DevInst;
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY) ||
+		(DevInst->Backend == XAIE_NULL)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	return DevInst->Backend->Ops.MemDetach(MemInst);
+}
+
+/*****************************************************************************/
 /*
 * This API disables the ECC flag in the Device Instance of the partition. It
 * should be called before calling elf loader to disable ECC. ECC configuration
