@@ -10,7 +10,7 @@ BEGIN driver scuwdt
   OPTION supported_peripherals = (ps7_scuwdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.2;
+  OPTION VERSION = 2.3;
   OPTION NAME = scuwdt;
 
 END driver
