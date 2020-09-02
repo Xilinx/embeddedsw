@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager_stats.c
-* @addtogroup tmr_manager_v1_1
+* @addtogroup tmr_manager_v1_2
 * @{
 *
 * This file contains the statistics functions for the TMR Manager component
