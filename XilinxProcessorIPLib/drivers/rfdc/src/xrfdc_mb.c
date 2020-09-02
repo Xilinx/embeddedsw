@@ -29,6 +29,8 @@
 *       cog    06/24/20 Support for Dual Band IQ for new bondout.
 *       cog    06/24/20 MB config is now read from bitstream.
 *       cog    08/04/20 Refactor multiband for Dual DAC tiles.
+*       cog    08/28/20 Prevent datapaths in bypass mode from being
+*                       configured for multiband.
 *
 * </pre>
 *
@@ -627,6 +629,7 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 	u32 NoOfDataConverters = 0U;
 	u32 Mode = 0x0;
 	u32 NoOfBlocks = XRFDC_BLK_ID4;
+	u32 DatapathMode;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -677,6 +680,17 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 				goto RETURN_PATH;
 			}
+			if (Type == XRFDC_DAC_TILE) {
+				DatapathMode =
+					XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
+						    XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+				if (DatapathMode == XRFDC_DAC_INT_MODE_FULL_BW_BYPASS) {
+					metal_log(METAL_LOG_ERROR, "\n DAC %u block %u in bypass mode in %s\r\n",
+						  Tile_Id, Block_Id, __func__);
+					Status = XRFDC_FAILURE;
+					goto RETURN_PATH;
+				}
+			}
 		}
 		if ((DigitalDataPathMask & (1U << Block_Id)) != 0U) {
 			DataPathIndex[NoOfDataPaths] = Block_Id;
@@ -686,6 +700,17 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 				metal_log(METAL_LOG_ERROR, "\n %s %u digital path %u not enabled in %s\r\n",
 					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 				goto RETURN_PATH;
+			}
+			if (Type == XRFDC_DAC_TILE) {
+				DatapathMode =
+					XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
+						    XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+				if (DatapathMode == XRFDC_DAC_INT_MODE_FULL_BW_BYPASS) {
+					metal_log(METAL_LOG_ERROR, "\n DAC %u block %u in bypass mode in %s\r\n",
+						  Tile_Id, Block_Id, __func__);
+					Status = XRFDC_FAILURE;
+					goto RETURN_PATH;
+				}
 			}
 		}
 	}
