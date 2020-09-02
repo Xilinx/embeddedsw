@@ -90,10 +90,10 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 {
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid((InputSrc >= XSECURE_SSS_DMA0) &&
-		(InputSrc < XSECURE_SSS_INVALID));
-	XSecure_AssertNonvoid((OutputSrc >= XSECURE_SSS_DMA0) &&
-		(OutputSrc < XSECURE_SSS_INVALID));
+	XSecure_AssertNonvoid((InputSrc == XSECURE_SSS_DMA0) ||
+		(InputSrc == XSECURE_SSS_DMA1));
+	XSecure_AssertNonvoid((OutputSrc == XSECURE_SSS_DMA0) ||
+		(OutputSrc == XSECURE_SSS_DMA1));
 
 	return XSecure_SssCfg(InstancePtr, XSECURE_SSS_AES,
 			InputSrc, OutputSrc);
