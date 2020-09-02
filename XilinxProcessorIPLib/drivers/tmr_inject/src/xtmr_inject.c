@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_inject.c
-* @addtogroup tmr_inject_v1_2
+* @addtogroup tmr_inject_v1_3
 * @{
 *
 * Contains required functions for the XTMR_Inject driver. See the xtmr_inject.h
