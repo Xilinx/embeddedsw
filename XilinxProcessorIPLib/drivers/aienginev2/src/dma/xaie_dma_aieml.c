@@ -159,6 +159,13 @@ AieRC _XAieMl_DmaSetLock(XAie_DmaDesc *DmaDesc, XAie_Lock Acq, XAie_Lock Rel,
 AieRC _XAieMl_DmaSetMultiDim(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor)
 {
 	for(u8 i = 0U; i < Tensor->NumDim; i++) {
+		if(Tensor->Dim[i].Aie2DimDesc.StepSize == 0U) {
+			XAIE_ERROR("Invalid stepsize for dimension %d\n", i);
+			return XAIE_ERR;
+		}
+	}
+
+	for(u8 i = 0U; i < Tensor->NumDim; i++) {
 
 		DmaDesc->MultiDimDesc.Gen2MultiDimDesc.DimDesc[i].StepSize =
 			Tensor->Dim[i].Aie2DimDesc.StepSize;
