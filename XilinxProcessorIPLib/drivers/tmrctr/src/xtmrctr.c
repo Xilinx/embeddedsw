@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr.c
-* @addtogroup tmrctr_v4_6
+* @addtogroup tmrctr_v4_7
 * @{
 *
 * Contains required functions for the XTmrCtr driver.
