@@ -1087,24 +1087,51 @@ AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst)
 * @return	XAIE_OK on success, Error code on failure.
 *
 * @note		Internal only.
+*		This function will set SHIM DMA BD with dmabuf. It will check
+*		if the memory object is specified in the DMA descriptor
+*		If there is no memory object specified it will return error.
+*		The address field in the DMA buffer descriptor is the offset to
+*		the start of the dmabuf specified by the memory object.
 *
 *******************************************************************************/
 static AieRC _XAie_LinuxIO_ConfigShimDmaBd(void *IOInst,
 		XAie_ShimDmaBdArgs *Args)
 {
-	struct aie_dma_bd_args ShimArgs;
 	int Ret;
 
 	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
 
-	ShimArgs.bd = Args->BdWords;
-	ShimArgs.data_va = Args->VAddr;
-	ShimArgs.loc.row = Args->Loc.Row;
-	ShimArgs.loc.col = Args->Loc.Col;
-	ShimArgs.bd_id = Args->BdNum;
+	if (Args->MemInst == XAIE_NULL) {
+		struct aie_dma_bd_args ShimArgs;
 
-	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_SET_SHIMDMA_BD_IOCTL,
-			&ShimArgs);
+		ShimArgs.bd = Args->BdWords;
+		ShimArgs.data_va = Args->VAddr;
+		ShimArgs.loc.row = Args->Loc.Row;
+		ShimArgs.loc.col = Args->Loc.Col;
+		ShimArgs.bd_id = Args->BdNum;
+
+		Ret = ioctl(LinuxIOInst->PartitionFd, AIE_SET_SHIMDMA_BD_IOCTL,
+				&ShimArgs);
+	} else {
+		struct aie_dmabuf_bd_args ShimArgs;
+		XAie_LinuxMem *LinuxMemInst =
+			(XAie_LinuxMem *)Args->MemInst->BackendHandle;
+
+		if (LinuxMemInst == XAIE_NULL) {
+			XAIE_ERROR("Failed to configure shim dma bd, invalid bd MemInst.\n");
+			return XAIE_INVALID_ARGS;
+		}
+
+		ShimArgs.bd = Args->BdWords;
+		ShimArgs.loc.row = Args->Loc.Row;
+		ShimArgs.loc.col = Args->Loc.Col;
+		ShimArgs.bd_id = Args->BdNum;
+		ShimArgs.buf_fd = LinuxMemInst->BufferFd;
+
+		Ret = ioctl(LinuxIOInst->PartitionFd, AIE_SET_SHIMDMA_DMABUF_BD_IOCTL,
+				&ShimArgs);
+	}
+
 	if(Ret != 0) {
 		XAIE_ERROR("Failed to configure shim dma bd\n");
 		return XAIE_ERR;
