@@ -82,6 +82,7 @@
 *       cog    06/24/20 Masks, shifts and offsets or observaion FIFO.
 *       cog    06/24/20 Masks, shifts and offsets for TDD Mode registers.
 *       cog    08/11/20 Refactor of clock distribution settings.
+*       cog    08/28/20 Fixed bug in the ADC powerdown mode.
 *
 *</pre>
 *
@@ -1135,7 +1136,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_TDD_ADC_CFG_MASK 0x00007FFFU /**< All ADC TDD config bits */
+#define XRFDC_TDD_ADC_CFG_MASK 0x00007CFFU /**< All ADC TDD config bits */
 #define XRFDC_TDD_DAC_CFG_MASK 0x00003FFFU /**< All DAC TDD config bits */
 #define XRFDC_TDD_CFG_MASK(X) ((X == 0) ? XRFDC_TDD_ADC_CFG_MASK : XRFDC_TDD_DAC_CFG_MASK) /**< All TDD config bits */
 
