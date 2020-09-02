@@ -130,11 +130,13 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 		goto END;
 	}
 
+	Status = (u32)XST_FAILURE;
+
 	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_SHA, InputSrc,
 			XSECURE_SSS_INVALID);
+
 END:
 	return Status;
-
 }
 
 /*****************************************************************************/
