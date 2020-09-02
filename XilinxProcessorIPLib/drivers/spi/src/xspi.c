@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi.c
-* @addtogroup spi_v4_6
+* @addtogroup spi_v4_7
 * @{
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for
