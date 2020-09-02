@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_4
+* @addtogroup spips_v3_5
 * @{
 * @details
 *
