@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager.c
-* @addtogroup tmr_manager_v1_1
+* @addtogroup tmr_manager_v1_2
 * @{
 *
 * Contains required functions for the XTMR_Manager driver. See the xtmr_manager.h

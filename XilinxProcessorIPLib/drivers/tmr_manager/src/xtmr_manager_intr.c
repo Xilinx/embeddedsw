@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager_intr.c
-* @addtogroup tmr_manager_v1_1
+* @addtogroup tmr_manager_v1_2
 * @{
 *
 * This file contains interrupt-related functions for the TMR Manager component
