@@ -185,6 +185,7 @@
 *       cog    06/24/20 Refactor to functionaize the FIFO width setting.
 *       cog    07/01/20 Fixed metal log print error in XRFdc_SetQMCSettings.
 *       cog    08/04/20 Fixed issues with the connected data initialization for multiband.
+*       cog    08/28/20 Allow non bypass datapath modes if digital path is enabled.
 *
 * </pre>
 *
@@ -3852,8 +3853,17 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
-		goto RETURN_PATH;
+		if (Mode == XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO) {
+			metal_log(METAL_LOG_ERROR, "\n Bypass not valid as DAC %u block %u not available in %s\r\n",
+				  Tile_Id, Block_Id, __func__);
+			goto RETURN_PATH;
+		}
+		Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+		if (Status != XRFDC_SUCCESS) {
+			metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id,
+				  __func__);
+			goto RETURN_PATH;
+		}
 	}
 
 	SetClkDiv = XRFDC_CLK_DIV_DP_OTHER_MODES;
@@ -3988,7 +3998,7 @@ u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 		goto RETURN_PATH;
 	}
 
-	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
