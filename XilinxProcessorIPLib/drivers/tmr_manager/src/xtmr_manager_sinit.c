@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager_sinit.c
-* @addtogroup tmr_manager_v1_1
+* @addtogroup tmr_manager_v1_2
 * @{
 *
 * The implementation of the XTMR_Manager component's static initialzation
