@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_hw.c
-* @addtogroup spips_v3_4
+* @addtogroup spips_v3_5
 * @{
 *
 * Contains the reset and post boot rom state initialization.
