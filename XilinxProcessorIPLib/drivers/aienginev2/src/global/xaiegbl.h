@@ -266,6 +266,7 @@ typedef struct {
 	XAie_ChannelDesc ChDesc;
 	const XAie_DmaMod *DmaMod;
 	const XAie_LockMod *LockMod;
+	XAie_MemInst *MemInst;
 	u8 EnDoubleBuff;
 	u8 FifoMode;
 	u8 TileType;

@@ -291,6 +291,68 @@ AieRC XAie_DmaSetAddrLen(XAie_DmaDesc *DmaDesc, u64 Addr, u32 Len)
 	DmaDesc->AddrDesc.Length = (Len >> XAIE_DMA_32BIT_TXFER_LEN) -
 		DmaMod->BdProp->LenActualOffset;
 
+	/*
+	 * Make sure the MemInst is not set as the Addr is not the offset
+	 * to the memory object
+	 */
+	DmaDesc->MemInst = XAIE_NULL;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API setups the Buffer starting offset to a memory object and the buffer
+* length of the DMA Descriptor.
+*
+* @param	DmaDesc: Initialized Dma Descriptor.
+* @param	MemInst: Memory object instance
+* @param	Offset: Buffer address offset to the specified memory object.
+* @param	Len: Length of the buffer in bytes.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		The memory object is the shared memory object between the
+*		appication and the AI engine partition, this API is used to
+*		setup the DMA descriptor which be used for SHIM DMA as it is
+*		the one to transfer memory to/from external external memory.
+******************************************************************************/
+AieRC XAie_DmaSetAddrOffsetLen(XAie_DmaDesc *DmaDesc, XAie_MemInst *MemInst,
+		u64 Offset, u32 Len)
+{
+	const XAie_DmaMod *DmaMod;
+	u64 Addr;
+
+	if((DmaDesc == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("DMA set address offset failed, Invalid DmaDesc\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if (MemInst == XAIE_NULL) {
+		XAIE_ERROR("DMA set address offset failed, Invalid MemInst\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if (Offset >= MemInst->Size || Offset + Len > MemInst->Size) {
+		XAIE_ERROR("DMA set address offset failed, Invalid Offset, Len\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	Addr = Offset + MemInst->DevAddr;
+	DmaMod = DmaDesc->DmaMod;
+	if(((Addr & DmaMod->BdProp->AddrAlignMask) != 0U) ||
+			((Offset + Len) & ~DmaMod->BdProp->AddrMask)) {
+		XAIE_ERROR("DMA Set Address Offset failed, Invalid Address Offset\n");
+		return XAIE_INVALID_ADDRESS;
+	}
+
+	DmaDesc->AddrDesc.Address = Addr >> DmaMod->BdProp->AddrAlignShift;
+	DmaDesc->AddrDesc.Length = (Len >> XAIE_DMA_32BIT_TXFER_LEN) -
+		DmaMod->BdProp->LenActualOffset;
+	DmaDesc->MemInst = MemInst;
+
 	return XAIE_OK;
 }
 
