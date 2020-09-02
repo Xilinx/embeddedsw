@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu_hw.c
- * @addtogroup qspipsu_v1_11
+ * @addtogroup qspipsu_v1_12
  * @{
  *
  * This file contains functions to reads RXFifo, writes TXFifo and setup
