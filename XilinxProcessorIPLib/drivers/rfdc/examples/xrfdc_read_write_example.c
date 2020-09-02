@@ -57,6 +57,8 @@
 * 8.1   cog    06/29/20 Always register metal device in baremetal.
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
 *       cog    08/04/20 Connected Q data for Dual DACs should be block 2.
+*       cog    08/28/20 Make suitable for the default Petalinux designs
+*                       for Gen 1/2 devices.
 *
 * </pre>
 *
@@ -281,7 +283,7 @@ printf("\n Configuring the Clock \r\n");
 			/* Check for DAC block Enable */
 			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
 				/* Check datapath mode is not bypass*/
-				if(RFdcInstPtr->RFdc_Config.IPType == XRFDC_GEN3){
+				if(RFdcInstPtr->RFdc_Config.IPType >= XRFDC_GEN3){
 					Status = XRFdc_SetDataPathMode(RFdcInstPtr, Tile, Block, XRFDC_DATAPATH_MODE_DUC_0_FSDIVTWO);
 					if (Status != XRFDC_SUCCESS) {
 						return XRFDC_FAILURE;
@@ -1276,50 +1278,53 @@ printf("\n Configuring the Clock \r\n");
 		}
 	}
 
-	if (RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES) {
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0xC, XRFDC_MB_DATATYPE_C2C, 0xC);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		printf("\n DAC2,3 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
+	/*The Gen 1/2 default Petalinux BSP designs do not have Datapaths 1, 2 or 3 enabled.*/
+	if(RFdcInstPtr->RFdc_Config.IPType >= XRFDC_GEN3){
+		if (RFdcInstPtr->RFdc_Config.DACTile_Config[Tile].NumSlices == REG_BOND_NSLICES) {
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0xC, XRFDC_MB_DATATYPE_C2C, 0xC);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			printf("\n DAC2,3 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0xF, XRFDC_MB_DATATYPE_C2C, 0xF);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		printf("\n DAC 4X MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0xF, XRFDC_MB_DATATYPE_C2C, 0xF);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			printf("\n DAC 4X MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, 0x3);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		printf("\n DAC0,1 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x3, XRFDC_MB_DATATYPE_C2C, 0x3);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			printf("\n DAC0,1 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0xC, XRFDC_MB_DATATYPE_C2C, 0xC);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		printf("\n DAC2,3 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0xC, XRFDC_MB_DATATYPE_C2C, 0xC);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			printf("\n DAC2,3 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, 0x1);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x2, XRFDC_MB_DATATYPE_C2C, 0x2);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		printf("\n DAC0, 1 SB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_C2C, 0x1);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x2, XRFDC_MB_DATATYPE_C2C, 0x2);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			printf("\n DAC0, 1 SB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x4, XRFDC_MB_DATATYPE_C2C, 0x4);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x4, XRFDC_MB_DATATYPE_C2C, 0x4);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x8, XRFDC_MB_DATATYPE_C2C, 0x8);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			printf("\n DAC2, 3 SB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 		}
-		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_DAC_TILE, Tile, 0x8, XRFDC_MB_DATATYPE_C2C, 0x8);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
-		printf("\n DAC2, 3 SB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_DAC_TILE, Tile));
 	}
 
 	for (Tile = XRFDC_BLK_ID0; Tile <= XRFDC_BLOCK_ID_MAX; Tile++) {
