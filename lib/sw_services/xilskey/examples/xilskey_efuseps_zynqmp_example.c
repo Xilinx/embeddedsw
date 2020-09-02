@@ -42,10 +42,13 @@
 *                         successful programming of the requested efuse bits.
 * 6.7	psl      03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
 * 						  AES key CRC if TRUE.
-* 	psl      03/28/19 Corrected typos
+* 	    psl      03/28/19 Corrected typos
 *       psl      04/10/19 Fixed IAR warnings.
 * 6.8   psl      07/17/19 Added print to display CRC of AES key for CRC
 *                         verification.
+* 7.0   kpt      09/02/20 Added successfully ran print to the example in
+*                         case of success
+*
 * </pre>
 *
 ******************************************************************************/
@@ -184,11 +187,11 @@ int main()
 
 EFUSE_ERROR:
 	if (PsStatus != XST_SUCCESS) {
-		xil_printf("\r\nEfuse example is failed with Status = %08x\n\r",
+		xil_printf("\r\nnZynqMP eFuse example is failed with Status = %08x\n\r",
 								PsStatus);
 	}
 	else {
-		xil_printf("\r\nZynqMp Efuse example exited successfully");
+		xil_printf("\r\nSuccessfully ran ZynqMP eFuse example....");
 	}
 
 	return PsStatus;
