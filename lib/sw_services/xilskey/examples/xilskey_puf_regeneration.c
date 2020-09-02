@@ -18,6 +18,8 @@
  * ----- ---  -------- -------------------------------------------------------
  * 6.7   ka   01/09/19 First release.
  *       vns  03/21/19 Updated XilSKey_Efuse_ConvertStringToHexBE with bits
+ * 7.0   kpt  09/02/20 Added successfully ran print to the example in case of
+ *                     success
  *
  * </pre>
  *
@@ -150,16 +152,23 @@ int main()
 	if (Status != XST_SUCCESS) {
 		xPuf_printf(XPUF_DEBUG_GENERAL,
 		"App:Encryption Failure:0x%08x\r\n",Status);
+		goto END;
 	}
 
 	Status = XilSKey_Puf_Decrypt_data();
 	if (Status != XST_SUCCESS) {
-	xPuf_printf(XPUF_DEBUG_GENERAL,
+		xPuf_printf(XPUF_DEBUG_GENERAL,
 		"App:Decryption Failure:0x%08x\r\n",Status);
+		goto END;
 	}
-	xPuf_printf(XPUF_DEBUG_GENERAL,
-		"App: Xilskey_Puf_Regeneration example ran successfully\r\n");
 END:
+	if (Status != XST_SUCCESS) {
+		xil_printf("xilskey puf regeneration example failed with"
+					"Status:%08x\r\n", Status);
+	}
+	else {
+		xil_printf("Successfully ran xilskey puf regeneration example...");
+	}
 	return 0;
 }
 

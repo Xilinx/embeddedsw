@@ -31,6 +31,8 @@
  *       har  03/09/20 Fixed array overrun condition in
  *                     XilSKey_Generate_FuseFormat function.
  *       kal  05/15/20 Replace all eFuse read with Cache reads.
+ * 7.0   kpt  09/02/20 Added successfully ran print to the example in case of
+ *                     success
  *
  * </pre>
  *
@@ -368,7 +370,14 @@ int main() {
 
 #endif
 
-	ENDF: xil_printf("Status:%08x\r\n", Status);
+ENDF:
+	if (Status != XST_SUCCESS) {
+		xil_printf("xilskey puf registration example failed with"
+					"Status:%08x\r\n", Status);
+	}
+	else {
+		xil_printf("Successfully ran xilskey puf registration example...");
+	}
 	/**
 	 * TBD: Move the Status code to the persistent register
 	 */
