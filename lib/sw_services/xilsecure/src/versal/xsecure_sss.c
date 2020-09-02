@@ -88,6 +88,8 @@ void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 		XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
+	u32 Status = (u32)XST_FAILURE;
+
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 	XSecure_AssertNonvoid((InputSrc == XSECURE_SSS_DMA0) ||
@@ -95,8 +97,10 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 	XSecure_AssertNonvoid((OutputSrc == XSECURE_SSS_DMA0) ||
 		(OutputSrc == XSECURE_SSS_DMA1));
 
-	return XSecure_SssCfg(InstancePtr, XSECURE_SSS_AES,
+	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_AES,
 			InputSrc, OutputSrc);
+
+	return Status;
 }
 
 /*****************************************************************************/
