@@ -156,6 +156,9 @@ Update the makefile for parallel execution.
 emacps_v3_12:
 Remove emacps 1588 examples.
 
+ipipsu_v2_7:
+Update the Makefile for parallel execution.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
