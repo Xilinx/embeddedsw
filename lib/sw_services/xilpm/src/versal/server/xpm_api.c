@@ -4096,6 +4096,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_CLOCK_GETDIVIDER:
 	case PM_CLOCK_SETPARENT:
 	case PM_CLOCK_GETPARENT:
+	case PM_CLOCK_GETRATE:
 	case PM_PLL_SET_PARAMETER:
 	case PM_PLL_GET_PARAMETER:
 	case PM_PLL_SET_MODE:
