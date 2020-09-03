@@ -154,6 +154,8 @@
 *                          definitions of nandps in xparameters.h
 * 2.4   nsk    06/20/18    Fixed BBT offset overflow in XNandPs_WriteBbt()
 *			   and XNandPs_ReadBbt().
+* 2.6	akm    09/03/20    Updated the Makefile to support parallel make execution.
+*
 * </pre>
 *
 ******************************************************************************/
