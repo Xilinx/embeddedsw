@@ -268,11 +268,16 @@ void RxStreamUpCallback(void *CallbackRef)
 	RxTransMode =  XV_SdiRxSs_GetTransportMode(&SdiRxSs);
 	xil_printf("INFO>> SDI Rx: Input Locked\r\n");
 
-	/* Waiting for SI5328 Lock */
-	usleep(10000);
-
 	StartTxAfterRxFlag = (TRUE);
-	XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
+        XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
+        StartTxAfterRx();
+
+	/* Waiting for SI5328 Lock */
+        usleep(10000);
+        XV_SdiTxSs_StreamStart(&SdiTxSs);
+
+        /* Print stream information */
+        XV_SdiTxSs_ReportStreamInfo(&SdiTxSs);
 
 	#ifdef XPAR_XSDIAUD_NUM_INSTANCES
 	/* Enable SDI Audio Pass-Through or AES Audio Playback (from this ISR) */
