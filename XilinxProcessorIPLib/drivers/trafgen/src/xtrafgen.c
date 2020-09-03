@@ -7,7 +7,7 @@
 /**
 *
 * @file xtrafgen.c
-* @addtogroup trafgen_v4_3
+* @addtogroup trafgen_v4_4
 * @{
 *
 * This file implements AXI Traffic Generator device-wise initialization and 
