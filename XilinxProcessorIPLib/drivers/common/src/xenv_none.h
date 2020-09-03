@@ -7,7 +7,7 @@
 /**
 *
 * @file xenv_none.h
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * This is a legacy file kept for backwards compatibility.

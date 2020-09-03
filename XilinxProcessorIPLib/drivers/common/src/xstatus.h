@@ -7,7 +7,7 @@
 /**
 *
 * @file xstatus.h
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * This file contains Xilinx software status codes.  Status codes have their

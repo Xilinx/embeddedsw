@@ -7,7 +7,7 @@
 /**
 *
 * @file xenv.h
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * Defines common services that are typically found in a host operating.

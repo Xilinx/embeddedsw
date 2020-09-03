@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xversion.h
-* @addtogroup common_v1_00_a
+* @addtogroup common_v1_1
 * @{
 *
 * This file contains the interface for the XVersion component. This
