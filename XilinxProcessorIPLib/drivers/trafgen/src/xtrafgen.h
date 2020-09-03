@@ -7,7 +7,7 @@
 /**
 *
 * @file xtrafgen.h
-* @addtogroup trafgen_v4_3
+* @addtogroup trafgen_v4_4
 * @{
 * @details
 *
