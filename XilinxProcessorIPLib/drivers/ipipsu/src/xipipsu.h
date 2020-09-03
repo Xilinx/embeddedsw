@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v2_6
+* @addtogroup ipipsu_v2_7
 * @{
 * @details
  *
