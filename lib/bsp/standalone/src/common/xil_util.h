@@ -27,6 +27,7 @@
 *                         glitches from altering the return values of security
 *                         critical functions. The macro requires a label to be
 *                         passed to "go to" in case of error.
+*      kpt       09/03/20 Added XSECURE_TEMPORAL_IMPL macro for redundancy
 *
 * </pre>
 *
@@ -56,11 +57,39 @@ extern "C" {
 /******************************************************************************/
 /**
  *
+ * Updates the return value of the called function into Var and VarTmp variables
+ * for redundancy. This is to avoid glitches from altering the return values of
+ * security critical functions.
+ *
+ * @param   Var is the variable which holds the return value of function
+ *          executed
+ * @param   VarTmp is the variable which holds the value stored in Var
+ * @param	Function is the function to be executed
+ * @param	Other params are arguments to the called function
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+#define XSECURE_TEMPORAL_IMPL(Var, VarTmp, Function, ...) \
+		({ \
+			Var = XST_FAILURE; \
+			VarTmp = XST_FAILURE; \
+			Var = Function(__VA_ARGS__); \
+			VarTmp = Var; \
+		})
+
+/******************************************************************************/
+/**
+ *
  * Adds redundancy while checking the status of the called function.
  * This is to avoid glitches from altering the return values of security
  * critical functions. The macro requires a label to be passed to "go to"
  * in case of error.
  *
+ * @param   Label is the label defined in function and the control
+ *          will jump to the label in case of XST_FAILURE
+ * @param   Status is the variable which holds the return value of
+ *          function executed
  * @param	Function is the function to be executed
  * @param	Other params are arguments to the called function
  *
@@ -69,10 +98,8 @@ extern "C" {
  ******************************************************************************/
 #define XSECURE_TEMPORAL_CHECK(Label, Status, Function, ...)   \
 	({ \
-		volatile int StatusTmp = XST_FAILURE;\
-		Status = XST_FAILURE;\
-		Status = Function(__VA_ARGS__);\
-		StatusTmp = Status;\
+		volatile int StatusTmp; \
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Function, __VA_ARGS__); \
 		if ((Status != XST_SUCCESS) || \
 			(StatusTmp != XST_SUCCESS)) { \
 			Status |= StatusTmp;\
