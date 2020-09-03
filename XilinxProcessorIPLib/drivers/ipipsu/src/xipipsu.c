@@ -7,7 +7,7 @@
 /**
 *
 * @file xipipsu.c
-* @addtogroup ipipsu_v2_6
+* @addtogroup ipipsu_v2_7
 * @{
 *
 * This file contains the implementation of the interface functions for XIpiPsu
