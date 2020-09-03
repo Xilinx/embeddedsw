@@ -7,7 +7,7 @@
 /**
 *
 * @file xsrio.h
-* @addtogroup srio_v1_3
+* @addtogroup srio_v1_4
 * @{
 * @details
 * 
@@ -83,6 +83,9 @@
 *                     srio examples for proper documentation while
 *                     generating doxygen.
 * 1.2   adk  30/07/19 Fix portwidth handling in the XSrio_CfgInitialize() API.
+* 1.4   mus  09/02/20 Updated makefile to support parallel make and
+*                     incremental builds. It would help to reduce compilation
+*                     time
 * </pre>
 ******************************************************************************/
 
