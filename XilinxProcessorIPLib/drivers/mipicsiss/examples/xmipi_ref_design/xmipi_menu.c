@@ -62,7 +62,6 @@ extern void CloneTxEdid(void);
 void ResetTpg(void) ;
 extern void XV_ConfigTpg(XV_tpg *InstancePtr);
 extern void EnableDSI();
-
 /************************* Variable Definitions *****************************/
 
 extern XVprocSs scaler_new_inst;
@@ -626,7 +625,6 @@ void Reconfigure_DSI(void) {
 	ResetTpg();
 	InitCSC2TPG_Vdma();
 	XV_ConfigTpg(&Tpg);
-
 	InitVprocSs_Scaler(0);
 	InitDSI();
 	InitImageProcessingPipe();
@@ -644,6 +642,41 @@ void Reconfigure_DSI(void) {
 //	TxRestartColorbar = 1;
 //	PrintPipeConfig();
 	xil_printf("Restarted DSI pipeline...!!\r\n");
+
+}
+
+void Reconfigure_HDMI(void) {
+	/* shutdown pipeline */
+	CamReset();
+	DisableCSI();
+	DisableImageProcessingPipe();
+	Reset_IP_Pipe();
+	DisableTPGVdma();
+	DisableScaler();
+	DisableDSI();
+
+	/* Enable pipeline */
+	ResetTpg();
+	InitCSC2TPG_Vdma();
+	XV_ConfigTpg(&Tpg);
+	InitVprocSs_Scaler(0);
+
+	//InitDSI();
+	InitImageProcessingPipe();
+	EnableCSI();
+	usleep(20000);
+	SetupCameraSensor();
+
+	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
+
+	usleep(200000);
+	StartSensor();
+//	EnableDSI();
+
+	usleep(200000);
+	TxRestartColorbar = 1;
+//	PrintPipeConfig();
+	xil_printf("Restarted HDMI pipeline...!!\r\n");
 
 }
 /*****************************************************************************/
