@@ -321,7 +321,7 @@ proc xddrpsv_handle_address_details { index periph block_name is_ddr_region_acce
 
 	set temp [xddrpsv_get_base_addr $sw_proc $periph $index]
 	if { $is_ddr_region_accessed == 0 || [string compare $temp [lindex $base_addr_list $ddr_region_id]] < 0 } {
-		set base_addr_list [lreplace $base_addr_list $ddr_region_id 0 $temp]
+		lset base_addr_list $ddr_region_id $temp
 	}
 	set master_interface [get_property MASTER_INTERFACE [lindex [ get_mem_ranges -of_objects \
 		[hsi::get_cells -hier $sw_proc] $periph] $index]]
@@ -330,7 +330,7 @@ proc xddrpsv_handle_address_details { index periph block_name is_ddr_region_acce
 
 	set temp [xddrpsv_get_high_addr $sw_proc $periph $index]
 	if { $is_ddr_region_accessed == 0 || [string compare $temp [lindex $high_addr_list $ddr_region_id]] > 0} {
-		set high_addr_list [lreplace $high_addr_list $ddr_region_id 0 $temp]
+		lset high_addr_list $ddr_region_id $temp
 	}
 	set is_baseaddr 0
 	xddrpsv_generate_defines $periph $block_name $master_interface $temp $is_baseaddr
