@@ -591,10 +591,14 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 			XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
 
-			if ((PdiPtr->CopyToMem == (u8)TRUE) && (DdrRequested == (u8)FALSE)) {
-				XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
-					Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
-				DdrRequested = (u8)TRUE;
+			if (PdiPtr->CopyToMem == (u8)TRUE) {
+				if (DdrRequested == (u8)FALSE) {
+					XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+						Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
+					DdrRequested = (u8)TRUE;
+				}
+				PdiPtr->CopyToMemAddr =
+						PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
 			}
 		}
 		else {
@@ -1019,7 +1023,6 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	/* Update current subsystem ID for EM */
 	EmSubsystemId = PdiPtr->CurImgId;
-	PdiPtr->CopyToMemAddr = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
 	Status = XLoader_LoadImagePrtns(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1181,8 +1184,8 @@ int XLoader_ReloadImage(u32 ImageId)
 		}
 	}
 
-	PdiPtr->DeviceCopy = DeviceOps[PdiPtr->PdiSrc].Copy;
-	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiSrc].Copy;
+	PdiPtr->DeviceCopy = DeviceOps[DeviceFlags].Copy;
+	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[DeviceFlags].Copy;
 
 	Status = XLoader_LoadImage(PdiPtr);
 	if (DeviceOps[DeviceFlags].Release != NULL) {
