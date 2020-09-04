@@ -591,6 +591,10 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 	for(u8 Col = 0; Col < DevInst->NumCols; Col++) {
 		for(u8 Row = AieRowStart; Row < AieRowEnd; Row++) {
 			Loc = XAie_TileLoc(Col, Row);
+
+			if (_XAie_PmIsTileRequested(DevInst, Loc) == XAIE_DISABLE)
+				continue;
+
 			GroupErrorEnableMask = _XAie_GetFatalGroupErrors(DevInst,
 							Loc, XAIE_MEM_MOD);
 			RC = XAie_EventGroupControl(DevInst, Loc, XAIE_MEM_MOD,
@@ -630,6 +634,9 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 
 		for(u8 MemRow = ReservedStart; MemRow < ReservedEnd; MemRow++) {
 			Loc = XAie_TileLoc(Col, MemRow);
+
+			if (_XAie_PmIsTileRequested(DevInst, Loc) == XAIE_DISABLE)
+				continue;
 
 			GroupErrorEnableMask = _XAie_GetFatalGroupErrors(DevInst,
 							Loc, XAIE_MEM_MOD);
@@ -721,6 +728,10 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 		/* Setup error broadcasts to SOUTH from memory and core module */
 		for(u8 Row = AieRowStart; Row < AieRowEnd; Row++) {
 			Loc = XAie_TileLoc(Col, Row);
+
+			if (_XAie_PmIsTileRequested(DevInst, Loc) == XAIE_DISABLE)
+				continue;
+
 			RC = XAie_EventBroadcastBlockDir(DevInst, Loc,
 				   XAIE_MEM_MOD, XAIE_EVENT_SWITCH_A,
 				   XAIE_ERROR_BROADCAST_ID,
@@ -747,6 +758,10 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 		/* Setup error broadcasts to SOUTH */
 		for(u8 MemRow = ReservedStart; MemRow < ReservedEnd; MemRow++) {
 			Loc = XAie_TileLoc(Col, MemRow);
+
+			if (_XAie_PmIsTileRequested(DevInst, Loc) == XAIE_DISABLE)
+				continue;
+
 			BroadcastDirSwA = XAIE_EVENT_BROADCAST_NORTH |
 					  XAIE_EVENT_BROADCAST_EAST |
 					  XAIE_EVENT_BROADCAST_WEST;
