@@ -207,9 +207,6 @@ Update the Makefile for parallel execution.
 iicps_v3_12:
 Update the Makefile for parallel execution.
 
-iicps_v3_12:
-Update the Makefile for parallel execution.
-
 lwip211_v1_3:
 Fix RX BD setup order.
 Fix check for base address in Zynq clock setup.
