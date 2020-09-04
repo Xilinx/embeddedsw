@@ -18,7 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/27/2018 Initial release
 * 1.01  kc   03/23/2020 Minor code cleanup
-*
+* 1.02  bsv  09/04/2020 Removed call to Xil_ExceptionInit
 * </pre>
 *
 * @note
@@ -57,7 +57,6 @@ static void XPlm_ExceptionInit(void)
 {
 	int Status = XST_FAILURE;
 	u16 Index;
-	Xil_ExceptionInit();
 
 	/* Register exception handlers */
 	for (Index = XIL_EXCEPTION_ID_FIRST;
