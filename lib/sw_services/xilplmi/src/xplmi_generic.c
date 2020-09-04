@@ -1287,11 +1287,13 @@ static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 			}
 			Cmd->ProcessedLen = Cmd->Len;
 		} else {
-			Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr,
-					RemData, XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
-			if (Status != XST_SUCCESS) {
-				XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
-				goto END;
+			if(Cmd->KeyHoleParams.IsDoubleBuffering == (u8)TRUE) {
+				Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr,
+						RemData, XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
+				if (Status != XST_SUCCESS) {
+					XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+					goto END;
+				}
 			}
 
 			/*
