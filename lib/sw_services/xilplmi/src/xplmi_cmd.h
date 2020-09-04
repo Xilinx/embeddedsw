@@ -66,6 +66,7 @@ struct XPlmi_KeyHoleParams {
 	u8 InChunkCopy;
 	u64 SrcAddr; /**< Boot Source address */
 	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
+	u8 IsDoubleBuffering;	/**< Indicates if parallel DMA is allowed or not */
 	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 };
 

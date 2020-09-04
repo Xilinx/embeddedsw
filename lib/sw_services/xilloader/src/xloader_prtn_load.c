@@ -570,6 +570,7 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
 				(PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR)) {
 				Cdo.Cmd.KeyHoleParams.InChunkCopy = (u8)TRUE;
+				Cdo.Cmd.KeyHoleParams.IsDoubleBuffering = DeviceCopy->IsDoubleBuffering;
 			}
 			/*
 			 * For DDR case, start the copy of the
