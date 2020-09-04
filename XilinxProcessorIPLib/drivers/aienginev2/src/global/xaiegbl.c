@@ -57,7 +57,11 @@ extern XAie_TileMod AieMod[XAIEGBL_TILE_TYPE_MAX];
 *
 * @return	XAIE_OK on success and error code on failure
 *
-* @note		None.
+* @note		This function needs to be called before calling any other AI
+*		engine functions. After this function, as all tiles are gated
+*		after system boots, XAie_PmRequestTiles() needs to be called
+*		before calling other functions, otherwise, other functions
+*		may access gated tiles.
 *
 ******************************************************************************/
 AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
