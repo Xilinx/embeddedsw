@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_multi_master.c
-* @addtogroup iic_v3_6
+* @addtogroup iic_v3_7
 * @{
 *
 * Contains multi-master functions for the XIic component. This file is
