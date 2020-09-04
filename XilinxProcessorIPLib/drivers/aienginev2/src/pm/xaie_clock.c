@@ -166,7 +166,10 @@ static void _XAie_PmUngateTiles(XAie_DevInst *DevInst, XAie_LocType FromLoc,
 *
 * @return	XAIE_OK on success.
 *
-* @note
+* @note		As all the tiles are gated when the system boots, this function
+*		needs to be called after device instance is initialized and
+*		before any other AI engine operations. Otherwise, the other
+*		AI engine functions may access gated tiles.
 *
 *******************************************************************************/
 AieRC XAie_PmRequestTiles(XAie_DevInst *DevInst, XAie_LocType *Loc,
@@ -315,7 +318,12 @@ AieRC XAie_PmRequestTiles(XAie_DevInst *DevInst, XAie_LocType *Loc,
 			TileLoc.Row = Loc[i].Row;
 			_XAie_PmGateTiles(DevInst, TileLoc);
 		}
-		_XAie_SetBitInBitmap(DevInst->TilesInUse, SetTileStatus, 1U);
+		/*
+		 * Mark the tile and below are ungated.
+		 * Assuming the row starts from 0.
+		 */
+		_XAie_SetBitInBitmap(DevInst->TilesInUse,
+			SetTileStatus - Loc[i].Row + 1, Loc[i].Row);
 	}
 
 	return XAIE_OK;
