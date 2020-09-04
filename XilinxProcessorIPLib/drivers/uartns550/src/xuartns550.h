@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550.h
-* @addtogroup uartns550_v3_6
+* @addtogroup uartns550_v3_7
 * @{
 * @details
 *
