@@ -7,7 +7,7 @@
 /**
  *
  * @file xllfifo.c
-* @addtogroup llfifo_v5_5
+* @addtogroup llfifo_v5_6
 * @{
  *
  * The Xilinx local link FIFO driver component. This driver supports the

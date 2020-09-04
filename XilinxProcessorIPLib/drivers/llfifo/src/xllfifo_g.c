@@ -7,7 +7,7 @@
 /**
 *
 * @file xllfifo_g.c
-* @addtogroup llfifo_v5_5
+* @addtogroup llfifo_v5_6
 * @{
 *
 * Provide a template for user to define their own hardware settings.
