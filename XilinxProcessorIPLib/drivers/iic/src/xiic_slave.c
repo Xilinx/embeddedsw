@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_slave.c
-* @addtogroup iic_v3_6
+* @addtogroup iic_v3_7
 * @{
 *
 * Contains slave functions for the XIic component. This file is necessary when

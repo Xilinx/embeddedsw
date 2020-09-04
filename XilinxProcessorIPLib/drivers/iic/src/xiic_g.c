@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_g.c
-* @addtogroup iic_v3_6
+* @addtogroup iic_v3_7
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
