@@ -36,7 +36,7 @@
 *                                        command from LQSPI_CFG register
 *					 					 instead of hard coded read
 *					 					 command (0x6B).
-*
+* 15.0 bsv 09/04/20  Add support for 2Gb flash parts
 * </pre>
 *
 * @note
@@ -508,6 +508,10 @@ u32 FlashReadID(void)
 			|| (ReadBuffer[3] == MACRONIX_FLASH_SIZE_ID_1G)) {
 		QspiFlashSize = FLASH_SIZE_1G;
 		fsbl_printf(DEBUG_INFO, "1G Bits\r\n");
+	} else if ((ReadBuffer[3] == FLASH_SIZE_ID_2G)
+			|| (ReadBuffer[3] == MACRONIX_FLASH_SIZE_ID_2G)) {
+		QspiFlashSize = FLASH_SIZE_2G;
+		fsbl_printf(DEBUG_INFO, "2G Bits\r\n");
 	}
 	return XST_SUCCESS;
 }
