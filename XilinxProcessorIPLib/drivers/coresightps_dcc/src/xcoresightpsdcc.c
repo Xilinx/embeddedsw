@@ -7,7 +7,7 @@
 /**
 *
 * @file xcoresightpsdcc.c
-* @addtogroup coresightps_dcc_v1_7
+* @addtogroup coresightps_dcc_v1_8
 * @{
 *
 * Functions in this file are the minimum required functions for the
