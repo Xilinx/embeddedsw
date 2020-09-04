@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_stats.c
-* @addtogroup iic_v3_6
+* @addtogroup iic_v3_7
 * @{
 *
 * Contains statistics functions for the XIic component.
