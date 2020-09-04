@@ -49,6 +49,10 @@
 ## 2.12   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
 ##                     it would be used to generate appropriate flags
 ##                     required for dependency files configuration
+## 2.12  mus  08/27/20 Updated generate proc, to detect toolchain path through
+##                     "which" command, instead of relying on env variables
+##                     XILINX_VITIS/XILINX_SDK/HDI_APPROOT. It fixes
+##                     CR#1073988.
 # uses xillib.tcl
 
 ########################################
@@ -107,7 +111,9 @@ proc generate {drv_handle} {
 			} elseif {[string first "lnx64" $osname] != -1   || [string first "lnx" $osname] != -1 } {
 				set gnu_osdir "lin"
 			}
-            if { $xilinx_approot != "" } {
+            if { [catch {exec which $compiler} compiler_path ] == 0 } {
+                set compiler_root [ file dirname [ file dirname $compiler_path]]
+            } elseif { $xilinx_approot != "" } {
                 append compiler_root $env(HDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
             } elseif { $xilinx_vitis != "" } {
                     append compiler_root $env(XILINX_VITIS) "/gnu/microblaze/" $gnu_osdir
