@@ -31,6 +31,7 @@
 *       skd  07/14/2020 Added 64bit support for SD copy destination address
 *       bsv  07/16/2020 Force Cdn bit to 1 to improve performance
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  09/04/2020 Added error checks for XPlmi_Strcat function calls
 *
 * </pre>
 *
@@ -91,7 +92,11 @@ static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
 	}
 
 	if (0x0U == MultiBootOffset) {
-		(void)XPlmi_Strcat(SdEmmcFileName, "BOOT.BIN");
+		Status = XPlmi_Strcat(SdEmmcFileName, "BOOT.BIN",
+			XLOADER_BASE_FILE_NAME_LEN_SD_1);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 	else {
 		for (Index = XLOADER_NUM_DIGITS_IN_FILE_NAME - 1U;
@@ -100,9 +105,23 @@ static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
 			MultiBootOffset /= 10U;
 			BootNo[Index] += (char)Value;
 		}
-		(void)XPlmi_Strcat(SdEmmcFileName, "BOOT");
-		(void)XPlmi_Strcat(SdEmmcFileName, BootNo);
-		(void)XPlmi_Strcat(SdEmmcFileName, ".BIN");
+		Status = XPlmi_Strcat(SdEmmcFileName, "BOOT",
+			XLOADER_BASE_FILE_NAME_LEN_SD_1);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XPlmi_Strcat(SdEmmcFileName, BootNo,
+			XLOADER_BASE_FILE_NAME_LEN_SD_1);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XPlmi_Strcat(SdEmmcFileName, ".BIN",
+			XLOADER_BASE_FILE_NAME_LEN_SD_1);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	XLoader_Printf(DEBUG_INFO, "File name is %s\r\n", SdEmmcFileName);
