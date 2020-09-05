@@ -24,7 +24,8 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  kc   06/22/2020 Minor updates to PrintArray for better display
 *       kc   08/17/2020 Added redundancy checks to XPlmi_MemCmp
-*
+*       bsv  09/04/2020 Added checks to validate input params for XPlmi_Strcat
+*                       and XPlmi_Strcpy
 * </pre>
 *
 * @note
@@ -396,21 +397,33 @@ void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *St
  *
  * @param	DestPtr is pointer to destination string
  * @param	SrcPtr is pointer to source string
+ * @param	Size is the maximum number of bytes of the source string
+ *		to be copied
  *
- * @return	DEstination string post copy
+ * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr)
+int XPlmi_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size)
 {
+	int Status = XST_FAILURE;
 	u32 Count;
 
-	for (Count=0U; SrcPtr[Count] != '\0'; ++Count)
-	{
+	if ((SrcPtr == NULL) || (DestPtr == NULL) || (Size == 0U)) {
+		goto END;
+	}
+
+	for (Count = 0U; (SrcPtr[Count] != '\0') && (Count < Size); ++Count) {
 		DestPtr[Count] = SrcPtr[Count];
 	}
+	if (Count == Size) {
+		DestPtr[0U] = '\0';
+		goto END;
+	}
 	DestPtr[Count] = '\0';
+	Status = XST_SUCCESS;
 
-	return DestPtr;
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -419,23 +432,36 @@ char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr)
  *
  * @param	Str1Ptr is pointer to string1
  * @param	Str2Ptr is pointer to string2
+ * @param	Size is the maximum number of bytes Str1 can hold
  *
- * @return	String1 post concatenation
+ * @return	XST_SUCCESS on success and error code on failure
  *
- ******************************************************************************/
-char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr)
+ ******************************************************************************/int XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size)
 {
-	while (*Str1Ptr != '\0') {
-		Str1Ptr++;
+	int Status = XST_FAILURE;
+	u32 Count = 0U;
+	u32 CountTmp = 0U;
+
+	if ((Str1Ptr == NULL) || (Str2Ptr == NULL) || (Size == 0U)) {
+		goto END;
 	}
 
-	while(*Str2Ptr != '\0') {
-		*Str1Ptr = *Str2Ptr;
-		Str1Ptr++; Str2Ptr++;
+	while ((Count < Size) && (Str1Ptr[Count] != '\0')) {
+		Count++;
 	}
 
-	*Str1Ptr = '\0';
-	return --Str1Ptr;
+	while ((Str2Ptr[CountTmp] != '\0') && (Count < Size)) {
+		Str1Ptr[Count++] = Str2Ptr[CountTmp++];
+	}
+	if (Count == Size) {
+		Str1Ptr[0U] = '\0';
+		goto END;
+	}
+	Str1Ptr[Count] = '\0';
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/

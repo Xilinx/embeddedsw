@@ -30,6 +30,7 @@
 *       skd  07/14/2020 Added 64bit support for SD copy destination address
 *       bsv  07/16/2020 Force Cdn bit to 1 to improve performance
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  09/04/2020 Updated XLOADER_BASE_FILE_NAME_LEN_SD_1 macro value
 *
 * </pre>
 *
@@ -56,7 +57,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_BASE_FILE_NAME_LEN_SD_1 	(11U)
+#define XLOADER_BASE_FILE_NAME_LEN_SD_1 	(16U)
 #define XLOADER_NUM_DIGITS_IN_FILE_NAME 	(4U)
 #define XLOADER_SD_SBD_ADDR_SET_MASK		(0x100U)
 #define XLOADER_SD_SBD_ADDR_SHIFT			(0x9U)
