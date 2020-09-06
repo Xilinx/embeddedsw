@@ -214,6 +214,7 @@ static u32 XilNvm_EfuseReadFuses(void)
 	XNvm_Iv EfuseIv = {0U};
 	XNvm_EfuseUserData ReadUserFuses = {0U};
 	u32 RdRevocationIds[XNVM_NUM_OF_REVOKE_ID_FUSES];
+	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
 	u32 Status = (u32)XST_FAILURE;
 	u32 ReadIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
 	u32 ReadPpk[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
@@ -248,7 +249,7 @@ static u32 XilNvm_EfuseReadFuses(void)
 		xil_printf("\n\r");
 	}
 
-	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_META_HEADER_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_META_HEADER_IV_RANGE);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
@@ -261,7 +262,7 @@ static u32 XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\r");
 
-	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_BLACK_OBFUS_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_BLACK_IV);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
@@ -274,7 +275,7 @@ static u32 XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\r");
 
-	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_PLM_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_PLM_IV_RANGE);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
@@ -287,7 +288,7 @@ static u32 XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\r");
 
-	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_DATA_PARTITION_IV_TYPE);
+	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_DATA_PARTITION_IV_RANGE);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
@@ -321,7 +322,7 @@ static u32 XilNvm_EfuseReadFuses(void)
 
 	ReadUserFuses.StartUserFuseNum = XNVM_EFUSE_READ_USER_FUSE_NUM;
 	ReadUserFuses.NumOfUserFuses = XNVM_EFUSE_READ_NUM_OF_USER_FUSES;
-
+	ReadUserFuses.UserFuseData = UserFusesArr;
 	Status = XNvm_EfuseReadUserFuses(&ReadUserFuses);
 	if (Status != XST_SUCCESS) {
 		goto EFUSE_ERROR;
