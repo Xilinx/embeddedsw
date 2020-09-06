@@ -20,7 +20,8 @@
 * 2.0	kal  02/27/2019	Added eFuse rows, Cache offsets
 * 2.1   kal  07/09/2020 Replaced hardcoded CLK_REF_FREQ to the
 *                       XPAR_PSU_PSS_REF_CLK_FREQ_HZ
-*		am 	 08/19/2020 Resolved MISRA C violations.
+*	am   08/19/2020 Resolved MISRA C violations.
+*	kal  09/03/2020 Fixed Security CoE review comments
 *
 * </pre>
 *
@@ -77,6 +78,9 @@ extern "C" {
 #define XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET		(0x00000050U)
 #define XNVM_EFUSE_PD_REG_OFFSET			(0x00000054U)
 #define XNVM_EFUSE_TEST_CTRL_REG_OFFSET			(0x00000100U)
+
+/* Register: EFUSE_CTRL_CFG */
+#define XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK    		(0x00000004U)
 
 /* access_type: ro  */
 #define XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK	(0x00000800U)
@@ -227,6 +231,7 @@ extern "C" {
 #define XNVM_EFUSE_GLITCH_NUM_OF_ROWS			(1U)
 #define XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS		(127U)
 #define XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS		(1U)
+#define XNVM_EFUSE_PUF_AUX_NUM_OF_ROWS			(1U)
 #define XNVM_EFUSE_IV_NUM_OF_ROWS			(3U)
 #define XNVM_EFUSE_DNA_NUM_OF_ROWS			(4U)
 
@@ -241,7 +246,7 @@ extern "C" {
 #define XNVM_EFUSE_ROW_37_PROT_COLUMN			(21U)
 #define XNVM_EFUSE_ROW96_99_0_PROT_COLUMN		(22U)
 #define XNVM_EFUSE_ROW64_87_0_PROT_COLUMN		(23U)
-#define XNVM_EFUSE_ROW_57_PROT_COLUMN			(24U)
+#define XNVM_EFUSE_ROW_57_0_PROT_COLUMN			(24U)
 #define XNVM_EFUSE_ROW_43_0_PROT_COLUMN			(25U)
 #define XNVM_EFUSE_TBITS_0_COLUMN				(28U)
 #define XNVM_EFUSE_TBITS_2_COLUMN				(30U)
@@ -318,7 +323,7 @@ extern "C" {
 /* Timeout in term of number of times status register polled to check eFuse
  * Cache load is done
  */
-#define XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL		(0x1FFFFFFFU)
+#define XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL		(0x800U)
 
 /* Timeout in term of number of times status register polled to check eFuse
  * Crc check id done.
