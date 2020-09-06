@@ -27,7 +27,8 @@
 * 2.1   rpo  06/06/2020 Support added to write glitch configuration data.
 *       rpo  06/08/2020 Support added to program eFUSE halt boot bits to stop
 *                       at ROM stage.
-* 		am 	 08/19/2020 Resolved MISRA C violations.
+* 	am   08/19/2020 Resolved MISRA C violations.
+* 	kal  09/03/2020 Fixed Security CoE review comments
 *
 * </pre>
 *
@@ -177,145 +178,142 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY = 0x8600,/**<0x8600 - Error in
 						* DEC_ONLY programming */
 
-	XNVM_EFUSE_ERR_WRITE_META_HEADER_IV = 0x8700,/**<0x8700 - Error in
+	XNVM_EFUSE_ERR_WRITE_META_HEADER_IV_RANGE = 0x8700U,/**<0x8700U - Error in
 						* Meta header IV range
 						* programming */
 
-	XNVM_EFUSE_ERR_WRITE_BLK_OBFUS_IV = 0x8800,/**<0x8800 - Error in
+	XNVM_EFUSE_ERR_WRITE_BLK_IV = 0x8800U,/**<0x8800U - Error in
 						* Blk Obfus IV
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRITE_PLM_IV = 0x8900,/**<0x8900 - Error in
+	XNVM_EFUSE_ERR_WRITE_PLM_IV_RANGE = 0x8900U,/**<0x8900U - Error in
 						* PLM IV
 						* programming */
 
-
-	XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV = 0x8A00,/**<0x8A00 - Error in
+	XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV_RANGE = 0x8A00U,/**<0x8A00U -
+						* Error in
 						* Data Partition IV
 						* programming */
 
-
-	XNVM_EFUSE_ERR_WRTIE_AES_DIS = 0x8B00,/**<0x8B00 - Error in
+	XNVM_EFUSE_ERR_WRITE_AES_DIS = 0x8B00,/**<0x8B00 - Error in
 						* AES_DIS efuse
 						* programming */
 
-
-	XNVM_EFUSE_ERR_WRTIE_JTAG_ERROUT_DIS = 0x8C00,/**<0x8B00 - Error in
+	XNVM_EFUSE_ERR_WRITE_JTAG_ERROUT_DIS = 0x8C00,/**<0x8C00 - Error in
 						* JTAG_ERROUT_DIS efuse
 						* programming */
 
-
-	XNVM_EFUSE_ERR_WRTIE_JTAG_DIS = 0x8D00,/**<0x8D00 - Error in
+	XNVM_EFUSE_ERR_WRITE_JTAG_DIS = 0x8D00,/**<0x8D00 - Error in
 						* JTAG_DIS efuse
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_HWTSTBITS_DIS = 0x8E00,/**<0x8E00 - Error in
+	XNVM_EFUSE_ERR_WRITE_HWTSTBITS_DIS = 0x8E00,/**<0x8E00 - Error in
 						* HWTSTBITS_DIS efuse
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_IP_DIS_WR_LK = 0x8F00,/**<0x8F00 - Error in
+	XNVM_EFUSE_ERR_WRITE_IP_DIS_WR_LK = 0x8F00,/**<0x8F00 - Error in
 						* IP_DIS_WR_LK efuse
 						* programming */
 
 
 
-	XNVM_EFUSE_ERR_WRTIE_PPK0_WR_LK = 0x9000,/**<0x9000 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK0_WR_LK = 0x9000,/**<0x9000 - Error in
 						* PPK0_WR_LK efuse
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_PPK1_WR_LK = 0x9100,/**<0x9100 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK1_WR_LK = 0x9100,/**<0x9100 - Error in
 						* PPK1_WR_LK efuse
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_PPK2_WR_LK	= 0x9200,/**<0x9200 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK2_WR_LK	= 0x9200,/**<0x9200 - Error in
 						* PPK2_WR_LK efuse
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_0 = 0x9300,/**<0x9300 - Error in
+	XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_0 = 0x9300,/**<0x9300 - Error in
 						* AES_CRC_LK_BIT0 efuse
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_AES_CRC_LK_BIT_1 = 0x9400,/**<0x9400 - Error in
+	XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_1 = 0x9400,/**<0x9400 - Error in
 							 * AES_CRC_LK_BIT1 efuse
 							 * programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_AES_WR_LK = 0x9500,/**<0x9500 - Error in
+	XNVM_EFUSE_ERR_WRITE_AES_WR_LK = 0x9500,/**<0x9500 - Error in
 						* AES_WR_LK efuse
 						* programming */
 
 
 
 
-	XNVM_EFUSE_ERR_WRTIE_USER_KEY0_CRC_LK = 0x9600,/**<0x9600 - Error in
+	XNVM_EFUSE_ERR_WRITE_USER_KEY0_CRC_LK = 0x9600,/**<0x9600 - Error in
 							* USER_KEY0_CRC_LK
 							* efuse programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_USER_KEY0_WR_LK = 0x9700,/**<0x9700 - Error in
+	XNVM_EFUSE_ERR_WRITE_USER_KEY0_WR_LK = 0x9700,/**<0x9700 - Error in
 							* USER_KEY0_WR_LK efuse
 							* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_USER_KEY1_CRC_LK = 0x9800,/**<0x9800 - Error in
+	XNVM_EFUSE_ERR_WRITE_USER_KEY1_CRC_LK = 0x9800,/**<0x9800 - Error in
 							* USER_KEY1_CRC_LK
 							* efuse programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_USER_KEY1_WR_LK = 0x9900,/**<0x9900 - Error in
+	XNVM_EFUSE_ERR_WRITE_USER_KEY1_WR_LK = 0x9900,/**<0x9900 - Error in
 							* USER_KEY1_WR_LK efuse
 							* programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_0 = 0x9A00,/**<0x9600 - Error in
+	XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_0 = 0x9A00,/**<0x9600 - Error in
 							* SECDBG_DIS_BIT_0
 							* efuse programming */
 
 
-	XNVM_EFUSE_ERR_WRTIE_SECDBG_DIS_BIT_1 = 0x9B00,/**<0x9B00 - Error in
+	XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_1 = 0x9B00,/**<0x9B00 - Error in
 							* SECDBG_DIS_BIT_1
 							* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_0 = 0x9C00,/**<0x9C00 - Error in
+	XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_0 = 0x9C00,/**<0x9C00 - Error in
 							* SECLOCKDBG_DIS
 							* bit0
 							* programming */
-	XNVM_EFUSE_ERR_WRTIE_SECLOCKDBG_DIS_BIT_1 = 0x9D00,/**<0x9D00 - Error in
+	XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_1 = 0x9D00,/**<0x9D00 - Error in
 							* SECLOCKDBG_DIS
 							* bit1 efuse
 							* programming */
-	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_0 = 0x9E00,/**<0x9E00 - Error in
+	XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_0 = 0x9E00,/**<0x9E00 - Error in
 							* PMC_SC_EN_BIT_0
 							* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_1 = 0x9F00,/**<0x9F00 - Error in
+	XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_1 = 0x9F00,/**<0x9F00 - Error in
 							* PMC_SC_EN_BIT_1
 							* efuse programming */
 
-	XNVM_EFUSE_ERR_WRTIE_PMC_SC_EN_BIT_2 = 0xA000,/**<0xA000 - Error in
+	XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_2 = 0xA000,/**<0xA000 - Error in
 							* PMC_SC_EN_BIT_2
 							* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_SVD_WR_LK = 0xA100,/**<0xA100 - Error in
+	XNVM_EFUSE_ERR_WRITE_SVD_WR_LK = 0xA100,/**<0xA100 - Error in
 						* SVD_WR_LK
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_DNA_WR_LK = 0xA200,/**<0xA200 - Error in
+	XNVM_EFUSE_ERR_WRITE_DNA_WR_LK = 0xA200,/**<0xA200 - Error in
 						* DNA_WR_LK
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_BOOTENV_WR_LK = 0xA300,/**<0xA300 - Error in
+	XNVM_EFUSE_ERR_WRITE_BOOTENV_WR_LK = 0xA300,/**<0xA300 - Error in
 						* BOOTENV_WR_LK
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_CACHE_WR_LK = 0xA400,/**<0xA400 - Error in
+	XNVM_EFUSE_ERR_WRITE_CACHE_WR_LK = 0xA400,/**<0xA400 - Error in
 						* SVD_WR_LK
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_0 = 0xA500,/**<0xA500 - Error in
+	XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_0 = 0xA500,/**<0xA500 - Error in
 						* REG_INIT_DIS_BIT_0
 						* efuse programming */
-	XNVM_EFUSE_ERR_WRTIE_REG_INIT_DIS_BIT_1 = 0xA600,/**<0xA600 - Error in
+	XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_1 = 0xA600,/**<0xA600 - Error in
 						* REG_INIT_DIS_BIT_1
 						* efuse programming */
 	XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0 = 0xA700,/**<0xA700 - Error in
@@ -409,13 +407,14 @@ typedef enum {
 						* reading DNA efuses */
 	XNVM_EFUSE_ERR_RD_PPK_HASH = 0xD700,/**<0xD700 - Error in
 						* reading PPK hash efuses */
-	XNVM_EFUSE_ERR_RD_META_HEADER_IV = 0xD800,/**<0xD800 - Error in
+	XNVM_EFUSE_ERR_RD_META_HEADER_IV_RANGE = 0xD800U,/**<0xD800U - Error in
 						* reading Meta IV efuses */
-	XNVM_EFUSE_ERR_RD_BLACK_OBFUS_IV = 0xD900,/**<0xD900 - Error in
+	XNVM_EFUSE_ERR_RD_BLACK_IV = 0xD900U,/**<0xD900U - Error in
 						* reading Blk IV efuses */
-	XNVM_EFUSE_ERR_RD_PLM_IV = 0xDA00,/**<0xDA00 - Error in
+	XNVM_EFUSE_ERR_RD_PLM_IV_RANGE = 0xDA00U,/**<0xDA00U - Error in
 						* reading PLM Iv efuses */
-	XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV = 0xDB00,/**<0xDB00 - Error in
+	XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE = 0xDB00U,/**<0xDB00U - Error
+						* in
 						* reading Data Partition IV
 						* efuses */
 	XNVM_EFUSE_ERR_RD_DEC_ONLY = 0xDC00,/**<0xDC00 - Error in
@@ -493,10 +492,10 @@ typedef enum {
 }XNvm_EfuseType;
 
 typedef enum {
-	XNVM_EFUSE_META_HEADER_IV_TYPE,
-	XNVM_EFUSE_BLACK_OBFUS_IV_TYPE,
-	XNVM_EFUSE_PLM_IV_TYPE,
-	XNVM_EFUSE_DATA_PARTITION_IV_TYPE
+	XNVM_EFUSE_META_HEADER_IV_RANGE,
+	XNVM_EFUSE_BLACK_IV,
+	XNVM_EFUSE_PLM_IV_RANGE,
+	XNVM_EFUSE_DATA_PARTITION_IV_RANGE
 }XNvm_IvType;
 
 typedef enum {
