@@ -593,8 +593,7 @@ static int SendBankSelect(u32 BankSel)
 			goto END;
 		}
 	}
-
-	if (QspiFlashMake == XLOADER_SPANSION_ID) {
+	else if (QspiFlashMake == XLOADER_SPANSION_ID) {
 		/*
 		 * Send the Extended address register write command
 		 * written, no receive buffer required
@@ -642,19 +641,20 @@ static int SendBankSelect(u32 BankSel)
 			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
 			goto END;
 		}
-	}
 
-	if (ReadBuffer[0U] != BankSel) {
-		XLoader_Printf(DEBUG_INFO, "Bank Select %u != "
-				"Register Read %u\n\r",
-				BankSel, ReadBuffer[0U]);
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ,
-					Status);
-		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
-		goto END;
+		if (ReadBuffer[0U] != BankSel) {
+			XLoader_Printf(DEBUG_INFO, "Bank Select %u != "
+					"Register Read %u\n\r",
+					BankSel, ReadBuffer[0U]);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ,
+						Status);
+			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
+			goto END;
+		}
 	}
-
-	/* Winbond can be added here */
+	else {
+		/* MISRA-C compliance */
+	}
 
 	Status = XST_SUCCESS;
 END:
@@ -812,7 +812,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 
 		XLoader_Printf(DEBUG_DETAILED, "QSPI Read Src 0x%08x, "
-				"Dest 0x%0x%08x, Length %0lx\r\n",
+				"Dest 0x%0x%08x, Length %08x\r\n",
 				QspiAddr, (u32)(DestAddr >> 32U),
 				(u32)DestAddr, TransferBytes);
 
