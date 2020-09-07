@@ -394,7 +394,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM)) {
 		CpuNo = PdiPtr->NoOfHandoffCpus;
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
-			if (CpuNo == XLOADER_MAX_HANDOFF_CPUS) {
+			if (CpuNo >= XLOADER_MAX_HANDOFF_CPUS) {
 				Status = XPlmi_UpdateStatus(
 							XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
 				goto END;
