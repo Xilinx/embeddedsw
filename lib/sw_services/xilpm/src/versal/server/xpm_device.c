@@ -16,6 +16,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_requirement.h"
 #include "xpm_debug.h"
+#include "xpm_pldevice.h"
 
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
@@ -1559,6 +1560,23 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 				}
 				Status = XST_SUCCESS;
 			}
+		} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Parents[i])) &&
+			   ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Parents[i]))) {
+			if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(Id)) ||
+			    ((u32)XPM_NODESUBCL_DEV_PL != NODESUBCLASS(Id))) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			XPm_PlDevice *PlDevice = (XPm_PlDevice *)DevPtr;
+			XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(Parents[i]);
+			if (Parent == NULL) {
+				Status = XST_DEVICE_NOT_FOUND;
+				goto done;
+			}
+			PlDevice->Parent = Parent;
+			PlDevice->NextPeer = Parent->Child;
+			Parent->Child = PlDevice;
+			Status = XST_SUCCESS;
 		} else {
 			Status = XST_INVALID_PARAM;
 			goto done;
