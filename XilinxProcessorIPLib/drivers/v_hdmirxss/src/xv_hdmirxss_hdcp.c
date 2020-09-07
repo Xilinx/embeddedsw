@@ -710,10 +710,13 @@ int XV_HdmiRxSs_SetUserHdcpProtocol(XV_HdmiRxSs *InstancePtr,
 	XV_HdmiRx_DdcHdcpDisable(InstancePtr->HdmiRxPtr);
 
 	InstancePtr->UserHdcpProt = protocol;
+
+#ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
 	if (protocol == XV_HDMIRXSS_HDCP_14)
 		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, FALSE);
 	else
 		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, TRUE);
+#endif
 
 	if (protocol != XV_HDMIRXSS_HDCP_NOUSERPREF)
 		Status =  XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, protocol);
