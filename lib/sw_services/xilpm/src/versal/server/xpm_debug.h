@@ -469,6 +469,8 @@ extern "C" {
 /************************** (0x4900) - (0x497F) ******************************/
 /* Error during pldevice init */
 #define XPM_INT_ERR_PLDEVICE_INIT			0x4900U
+/* Error during pldevice initnode command */
+#define XPM_INT_ERR_PLDEVICE_INITNODE		0x4901U
 
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU

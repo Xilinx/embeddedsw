@@ -6,6 +6,57 @@
 #include "xpm_debug.h"
 #include "xpm_defs.h"
 
+static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	if (NULL == PlDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	/*
+	 * TBD: Init Start implementation
+	 */
+	(void)Args;
+	(void)NumArgs;
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	if (NULL == PlDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	/*
+	 * TBD: Init Finish implementation
+	 */
+	(void)Args;
+	(void)NumArgs;
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static struct XPm_PldInitNodeOps PldOps = {
+	.InitStart = PlInitStart,
+	.InitFinish = PlInitFinish,
+};
+
 /****************************************************************************/
 /**
  * @brief  Initialize rail node base class
@@ -31,6 +82,7 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 	PlDevice->Child = NULL;
 	PlDevice->PowerBitMask = (u8)0x0U;
 	PlDevice->WfPowerBitMask = (u8)0x0U;
+	PlDevice->Ops = &PldOps;
 
 	Status = XPmDevice_Init(&PlDevice->Device, PldId, BaseAddress, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
