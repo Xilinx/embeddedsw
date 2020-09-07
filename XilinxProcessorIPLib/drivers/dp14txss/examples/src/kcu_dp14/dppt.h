@@ -61,9 +61,9 @@
 #include "dppt_vdma.h"
 #include "dppt_vid_phy_config.h"
 #include "xvidframe_crc.h"
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
-
+#endif
 typedef struct
 {
 	 XVidC_VideoMode VideoMode_local;
@@ -117,10 +117,12 @@ typedef unsigned int    UINT32;
 #define TIMER_RESET_VALUE 		1000
 #define TIMER_HDCP_STABLIZATION_VALUE	100000000
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #define REMAP_RX_BASEADDR  XPAR_XV_AXI4S_REMAP_0_S_AXI_CTRL_BASEADDR
 #define REMAP_TX_BASEADDR  XPAR_XV_AXI4S_REMAP_1_S_AXI_CTRL_BASEADDR
 #define REMAP_RX_DEVICE_ID  XPAR_XV_AXI4S_REMAP_0_DEVICE_ID
 #define REMAP_TX_DEVICE_ID  XPAR_XV_AXI4S_REMAP_1_DEVICE_ID
+#endif
 #define CLK_WIZ_BASE  XPAR_DP_TX_HIER_VID_CLK_RST_HIER_CLK_WIZ_0_BASEADDR
 
 #define XPAR_VIDEO_FRAME_CRC_TX_BASEADDR \

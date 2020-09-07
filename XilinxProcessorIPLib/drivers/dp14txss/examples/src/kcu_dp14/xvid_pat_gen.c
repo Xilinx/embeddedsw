@@ -16,6 +16,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  shad   01/29/15 Initial release.
+* 1.1	ND	   09/02/20 Moved ComputeMandD_vidGen() to xvid_clk_gen.c
 * </pre>
 *
 ******************************************************************************/
@@ -45,6 +46,8 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 
 
 #define CLK_LOCK                        1
+
+#define NEW_PAT_GEN 1
 /************************** Constant Definitions *****************************/
 
 #define	PatternGeneratorEnable 0x0 //0 - Pattern Generator Enable
@@ -150,12 +153,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 				u8 Stream, u8 VSplitMode, u8 first_time);
 static void VidgenWriteConfig(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig, u8 Stream);
-//static void WaitTxVsyncs(XDp *InstancePtr, u32 LoopCount, u8 Stream);
-static void VidgenComputeMVid(XDp *InstancePtr,
-			Vpg_VidgenConfig *VidgenConfig);
-
-extern void ComputeMandD_vidGen(u32 VidFreq);
-
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream);
 
 void Vpg_Audio_start(void);
@@ -248,6 +245,7 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 ******************************************************************************/
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 {
+#if !NEW_PAT_GEN
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
 			(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
@@ -266,6 +264,11 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 			     TestPatternControl,
 			     StreamPattern_vpg[Stream - 1]);
 	}
+#else
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[Stream - 1], TestPatternControl,
+			(QuadPixelMode | StreamPattern_vpg[Stream - 1]));
+#endif
 }
 
 /*****************************************************************************/
@@ -283,6 +286,7 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 ******************************************************************************/
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 {
+#if !NEW_PAT_GEN
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
 			(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
@@ -300,6 +304,11 @@ void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 			     StreamOffset[0],
 			     TestPatternControl, Pattern);
 	}
+#else
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], TestPatternControl,
+			(QuadPixelMode | Pattern));
+#endif
 }
 
 /*****************************************************************************/
@@ -380,9 +389,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 
 	VmId = MsaConfig->Vtm.VmId;
 
-	ComputeMandD_vidGen(((MsaConfig->PixelClockHz / 1000) /
-			     MsaConfig->UserPixelWidth));
-
 	/* Configure MSA values from the Display Monitor Timing (DMT) table.
 	 * Will provide a way to optionally acquire these values from the EDID
 	 * of the sink.
@@ -394,7 +400,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	UserPixelWidth = MsaConfig->UserPixelWidth;
 	VidgenConfig->Misc0 = MsaConfig->Misc0;
 	VidgenConfig->Misc1 = MsaConfig->Misc1;
-
+#if !NEW_PAT_GEN
 	VidgenConfig->DePolarity = 0x0;
 	VidgenConfig->FrameLock0 = 0;
 	VidgenConfig->FrameLock1 = 0;
@@ -444,12 +450,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 		DSBypass = 1;
 	}
 
-	/* Calculate MVid */
-	/* Take the MVid to local Variable */
-
-	/* Compute M and D values */
-	VidgenComputeMVid(InstancePtr, VidgenConfig);
-
 	if (DSBypass == 1) {
 		VidgenConfig->DSMode = 0;
 	} else {
@@ -477,6 +477,13 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 					 VidgenConfig->Timing.F0PVFrontPorch +
 					 VidgenConfig->Timing.F0PVSyncWidth +
 					 VidgenConfig->Timing.F0PVBackPorch - 1;
+#else
+
+	VidgenConfig->Timing.VActive = MsaConfig->Vtm.Timing.VActive;
+	VidgenConfig->Timing.HActive =
+		MsaConfig->Vtm.Timing.HActive / 4;
+
+#endif
 }
 
 /*****************************************************************************/
@@ -499,6 +506,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 static void VidgenWriteConfig(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig, u8 Stream)
 {
+#if !NEW_PAT_GEN
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 		     StreamOffset[Stream - 1],
 		     VsyncPolarity,
@@ -590,7 +598,14 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 		     StreamOffset[Stream - 1],
 		     VEBLNK,
 		     VidgenConfig->Timing.F0PVTotal);
-
+#else
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+			StreamOffset[Stream - 1], VerticalResolution,
+				VidgenConfig->Timing.VActive);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+			StreamOffset[Stream - 1], HorizontalResolution,
+				VidgenConfig->Timing.HActive);
+#endif
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 		     StreamOffset[Stream - 1],
 		     MISC0,
@@ -601,238 +616,89 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 		     InstancePtr->TxInstance.MsaConfig[0].Misc1);
 }
 
-/*****************************************************************************/
-/**
-*
-* This function calculates the M-VID if synchronous mode is used.
-*
-* @param	InstancePtr is a pointer to the XDp instance.
-* @param	VidgenConfig is a pointer to Vpg_VidgenConfig used to update
-*		calculated M-VID value.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void VidgenComputeMVid(XDp *InstancePtr,
-			Vpg_VidgenConfig *VidgenConfig)
-{
-	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
-
-	u32 RefFreq;
-	u32 VidFreq = VidgenConfig->MVid;
-	u32 MIndex;
-	u32 DIndex;
-	u32 Div;
-	u32 Freq;
-	u32 Diff;
-	u32 Fvco;
-	u32 Minerr = 10000;
-	u32 MVal = 0;
-	u32 DVal = 0;
-	u32 DivVal = 0;
-
-	RefFreq = (LinkConfig->LinkRate == (XDP_TX_LINK_BW_SET_540GBPS)) ?
-			70000 / 2 :
-			(LinkConfig->LinkRate == (XDP_TX_LINK_BW_SET_270GBPS)) ? 
-				135000 / 2 : 81000 / 2;
-
-	if (InstancePtr->Config.PayloadDataWidth == 4) {
-		RefFreq /= 2;
-	}
-
-	for (MIndex = 20; MIndex <= 64; MIndex++) {
-		for (DIndex = 1; DIndex <= 80; DIndex++) {
-			Fvco = RefFreq * MIndex / DIndex;
-
-			if (Fvco >= 600000 && Fvco <= 900000) {
-				for (Div = 1; Div <= 128; Div++) {
-					Freq = Fvco/Div;
-
-					if (Freq >= VidFreq) {
-						Diff = Freq - VidFreq;
-					} else {
-						Diff = VidFreq - Freq;
-					}
-
-					if (Diff == 0) {
-						MVal = MIndex;
-						DVal = DIndex;
-						DivVal = Div;
-						MIndex = 257;
-						DIndex = 257;
-						Div = 257;
-						Minerr = 0;
-					} else if (Diff < Minerr) {
-						Minerr = Diff;
-						MVal = MIndex;
-						DVal = DIndex;
-						DivVal = Div;
-
-						if (Minerr < 100) {
-							MIndex = 257;
-							DIndex = 257;
-							Div = 257;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	VidgenConfig->MVid = MVal;
-	VidgenConfig->VidClkD = (DivVal & 0xff) | ((DVal & 0xff) << 8);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function waits for PLL lock
-*
-* @return	pass/fail result. If there is error, none-zero value will return
-*
-* @note		None.
-*
-******************************************************************************/
-int wait_for_lock_vidGen(void)
-{
-	u32 count, error;
-	count = error = 0;
-	volatile u32 rdata=0;
-	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & 1;
-	while (!rdata) {
-		if (count == 10000) {
-			error++;
-			break;
-		}
-		count++;
-		rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04);
-	}
-	return error;
-}
-
-
-/*****************************************************************************/
-/**
-*
-* This function computes M and D value
-*
-* @param	Video frequency
-*
-* @note		None.
-*
-******************************************************************************/
-void ComputeMandD_vidGen(u32 VidFreq){
-
-	u32 RefFreq;
-	u32 m, d, Div, Freq, Diff, Fvco;
-	u32 Minerr = 10000;
-	u32 MVal = 0;
-	u32 DVal = 0;
-	u32 DivVal = 0;
-	u32 rdata=0;
-
-	RefFreq = 100000;
-
-	for (m = 20; m <= 64; m++) {
-		for (d = 1; d <= 80; d++) {
-			Fvco = RefFreq * m / d;
-
-			if ( Fvco >= 600000 && Fvco <= 900000 ) {
-				for (Div = 1; Div <= 128; Div++ ) {
-					Freq = Fvco/Div;
-
-					if (Freq >= VidFreq) {
-						Diff = Freq - VidFreq;
-					} else {
-						Diff = VidFreq - Freq;
-					}
-
-					if (Diff == 0) {
-						MVal = m;
-						DVal = d;
-						DivVal = Div;
-						m = 257;
-						d = 257;
-						Div = 257;
-						Minerr = 0;
-					} else if (Diff < Minerr) {
-						Minerr = Diff;
-						MVal = m;
-						DVal = d;
-						DivVal = Div;
-
-						if (Minerr < 100) {
-							m = 257;
-							d = 257;
-							Div = 257;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	/* Progamming the clocking wizard */
-	u32 fail,error,count;
-	fail = error = count = 0;
-
-	fail = wait_for_lock_vidGen();
-	if(fail) {
-		error++;
-		xil_printf("\n ERROR: Clock is not locked for "
-				"default frequency : 0x%x\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-
-
-	/* SW reset applied */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x0, 0xA);
-
-	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
-	if (rdata) {
-		error++;
-		xil_printf("\n ERROR: Clock is locked : 0x%x \t "
-				"expected 0x00\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-
-	/* Wait cycles after SW reset */
-	for(count = 0 ; count < 2000 ; count++);
-	fail = wait_for_lock_vidGen();
-	if (fail) {
-		error++;
-		xil_printf("\n ERROR: Clock is not locked after SW "
-				"reset : 0x%x \t Expected : 0x1\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-
-	/* Configuring Multiply and Divide values */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x200, (MVal<<8) | DVal);
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x204, 0);
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x208, DivVal);
-
-	/* Load Clock Configuration Register values */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x07);
-
-	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
-	if (rdata) {
-		error++;
-		xil_printf("\n ERROR: Clock is locked : 0x%x "
-				"\t expected 0x00\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-
-	/* Clock Configuration Registers are used for dynamic reconfiguration */
-	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x02);
-
-	fail = wait_for_lock_vidGen();
-	if (fail) {
-		error++;
-		xil_printf("\n ERROR: Clock is not locked : 0x%x "
-				"\t Expected : 0x1\r\n",
-				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
-	}
-
-}
+///*****************************************************************************/
+///**
+//*
+//* This function calculates the M-VID if synchronous mode is used.
+//*
+//* @param	InstancePtr is a pointer to the XDp instance.
+//* @param	VidgenConfig is a pointer to Vpg_VidgenConfig used to update
+//*		calculated M-VID value.
+//*
+//* @return	None.
+//*
+//* @note		None.
+//*
+//******************************************************************************/
+//static void VidgenComputeMVid(XDp *InstancePtr,
+//			Vpg_VidgenConfig *VidgenConfig)
+//{
+//	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
+//
+//	u32 RefFreq;
+//	u32 VidFreq = VidgenConfig->MVid;
+//	u32 MIndex;
+//	u32 DIndex;
+//	u32 Div;
+//	u32 Freq;
+//	u32 Diff;
+//	u32 Fvco;
+//	u32 Minerr = 10000;
+//	u32 MVal = 0;
+//	u32 DVal = 0;
+//	u32 DivVal = 0;
+//
+//	RefFreq = (LinkConfig->LinkRate == (XDP_TX_LINK_BW_SET_540GBPS)) ?
+//			70000 / 2 :
+//			(LinkConfig->LinkRate == (XDP_TX_LINK_BW_SET_270GBPS)) ?
+//				135000 / 2 : 81000 / 2;
+//
+//	if (InstancePtr->Config.PayloadDataWidth == 4) {
+//		RefFreq /= 2;
+//	}
+//
+//	for (MIndex = 20; MIndex <= 64; MIndex++) {
+//		for (DIndex = 1; DIndex <= 80; DIndex++) {
+//			Fvco = RefFreq * MIndex / DIndex;
+//
+//			if (Fvco >= 600000 && Fvco <= 900000) {
+//				for (Div = 1; Div <= 128; Div++) {
+//					Freq = Fvco/Div;
+//
+//					if (Freq >= VidFreq) {
+//						Diff = Freq - VidFreq;
+//					} else {
+//						Diff = VidFreq - Freq;
+//					}
+//
+//					if (Diff == 0) {
+//						MVal = MIndex;
+//						DVal = DIndex;
+//						DivVal = Div;
+//						MIndex = 257;
+//						DIndex = 257;
+//						Div = 257;
+//						Minerr = 0;
+//					} else if (Diff < Minerr) {
+//						Minerr = Diff;
+//						MVal = MIndex;
+//						DVal = DIndex;
+//						DivVal = Div;
+//
+//						if (Minerr < 100) {
+//							MIndex = 257;
+//							DIndex = 257;
+//							Div = 257;
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	VidgenConfig->MVid = MVal;
+//	VidgenConfig->VidClkD = (DivVal & 0xff) | ((DVal & 0xff) << 8);
+//}
+//
+//
+//
