@@ -465,6 +465,11 @@ extern "C" {
 /* Timeout while waiting for new data flag */
 #define	XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT	0x4801U
 
+/*********************** PL Device specific Errors **************************/
+/************************** (0x4900) - (0x497F) ******************************/
+/* Error during pldevice init */
+#define XPM_INT_ERR_PLDEVICE_INIT			0x4900U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
