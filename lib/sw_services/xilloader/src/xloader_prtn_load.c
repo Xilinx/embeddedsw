@@ -61,6 +61,7 @@
 #include "xloader_secure.h"
 #include "xloader_ddr.h"
 #include "xplmi.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -226,19 +227,24 @@ END:
 static int XLoader_PrtnCopy(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 		XLoader_SecureParams* SecureParams)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 
-	if (SecureParams->SecureEn != (u8)TRUE) {
-		Status = PdiPtr->MetaHdr.DeviceCopy(DeviceCopy->SrcAddr,
-					DeviceCopy->DestAddr, DeviceCopy->Len, DeviceCopy->Flags);
+	if ((SecureParams->SecureEn == (u8)FALSE) &&
+			(SecureParams->SecureEnTmp == (u8)FALSE)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, PdiPtr->MetaHdr.DeviceCopy,
+					DeviceCopy->SrcAddr, DeviceCopy->DestAddr,
+					DeviceCopy->Len, DeviceCopy->Flags);
 	}
 	else {
-		Status = XLoader_SecureCopy(SecureParams, DeviceCopy->DestAddr,
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureCopy,
+					SecureParams, DeviceCopy->DestAddr,
 					DeviceCopy->Len);
 	}
-	if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
-			goto END;
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		Status = Status | StatusTmp;
+		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
+		goto END;
 	}
 
 END:
