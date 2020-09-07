@@ -62,7 +62,7 @@ int XLoader_CframeInit(void)
 	int Status = XST_FAILURE;
 	XCframe_Config *Config;
 
-	if (XLoader_CframeIns.IsReady) {
+	if (XLoader_CframeIns.IsReady != (u8)FALSE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
