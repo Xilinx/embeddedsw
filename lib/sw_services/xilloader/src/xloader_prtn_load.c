@@ -42,7 +42,7 @@
 *       bsv  08/06/2020 Code clean up
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       kal  08/23/2020 Added parallel DMA support for Qspi and Ospi for secure
-*
+*       kpt  09/07/2020 Fixed key rolling issue for secure cases
 * </pre>
 *
 * @note
@@ -342,7 +342,8 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 		}
 
 		Status = XLoader_GetLoadAddr(PrtnParams->DstnCpu,
-					&PrtnParams->DeviceCopy.DestAddr, PrtnParams->DeviceCopy.Len);
+					&PrtnParams->DeviceCopy.DestAddr,
+					(PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN));
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
@@ -613,8 +614,8 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 			}
 			Cdo.BufPtr = (u32 *)SecureParams->SecureData;
 			Cdo.BufLen = SecureParams->SecureDataLen / XIH_PRTN_WORD_LEN;
-			DeviceCopy->SrcAddr += ChunkLen;
-			DeviceCopy->Len -= ChunkLen;
+			DeviceCopy->SrcAddr += SecureParams->ProcessedLen;
+			DeviceCopy->Len -= SecureParams->ProcessedLen;
 
 			if ((SecureParams->IsDoubleBuffering == (u8)TRUE) &&
 						(LastChunk != (u8)TRUE)) {
@@ -785,7 +786,6 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	 * ProcessCdo, ProcessElf and PrtnCopy APIs expected unencrypted
 	 * length that is 16 byte aligned
 	 */
-	PrtnParams.DeviceCopy.Len = (PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN);
 	/*
 	 * Make unencrypted length 16 byte aligned.
 	 */
@@ -793,6 +793,11 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	if (TempVal != 0U) {
 		PrtnParams.DeviceCopy.Len += (XLOADER_DMA_LEN_ALIGN - TempVal);
 	}
+
+	/* To make sure total data length passed is without authentication
+	 * certificate size when authentication is enabled.
+	 */
+	PrtnParams.DeviceCopy.Len -= SecureParams.ProcessedLen;
 
 	if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO) {
 		Status = XLoader_ProcessCdo(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);

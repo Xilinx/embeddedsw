@@ -56,6 +56,7 @@
 *       kal  08/23/20 Added parallel DMA support for Qspi and Ospi for secure
 *       har  08/24/20 Added support for ECDSA P521 authentication
 *       kpt  08/27/20 Changed argument type from u8* to UINTPTR for SHA
+*       kpt  09/07/20 Fixed key rolling issue
 *
 * </pre>
 *
@@ -186,6 +187,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	SecurePtr->PdiPtr = PdiPtr;
 	SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
+	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
 
 	/* Get DMA instance */
@@ -285,6 +287,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 			goto END;
 		}
 		SecurePtr->SecureHdrLen += XLOADER_AUTH_CERT_MIN_SIZE;
+		SecurePtr->ProcessedLen = XLOADER_AUTH_CERT_MIN_SIZE;
 	}
 
 	/* Check if encryption is enabled */
@@ -389,7 +392,7 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 
 		/* Update variables for next chunk */
 		LoadAddr = LoadAddr + SecurePtr->SecureDataLen;
-		Len = Len - SecurePtr->SecureDataLen;
+		Len = Len - SecurePtr->ProcessedLen;
 
 		if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
 					(LastChunk != (u8)TRUE)) {
@@ -442,6 +445,7 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 
 	XPlmi_Printf(DEBUG_DETAILED,
 			"Processing Block %d \n\r", SecurePtr->BlockNum);
+	SecurePtr->ProcessedLen = 0U;
 	/* 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
 		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
@@ -561,6 +565,7 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	}
 
 	SecurePtr->NextBlkAddr = SrcAddr + TotalSize;
+	SecurePtr->ProcessedLen = TotalSize;
 	SecurePtr->BlockNum++;
 
 END:
