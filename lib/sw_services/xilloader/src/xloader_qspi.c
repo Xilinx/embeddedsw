@@ -215,7 +215,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	int Status = XST_FAILURE;
 	XQspiPsu_Config *QspiConfig;
 	QspiBootMode = (PdiSrc_t)DeviceFlags;
-	memset(&QspiPsuInstance, 0, sizeof(QspiPsuInstance));
+	(void)memset(&QspiPsuInstance, 0, sizeof(QspiPsuInstance));
 
 	/*
 	 * Initialize the QSPI driver so that it's ready to use
