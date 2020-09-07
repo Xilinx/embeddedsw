@@ -15,6 +15,8 @@
  * 1.0   KI   12/09/17 Initial release.
  * 1.1	 ND   2/14/19  mcdp related function call now need dprxss instance address
  *                     instead of base address  as first parameter
+ * 1.2	 ND	  09/02/20 Added support for New Av patgen. Added support for CRC for
+ *					   format 422 for pixel width engine and PPC changes.
 *******************************************************************************/
 
 #include "dppt.h"
@@ -89,7 +91,7 @@ static void Dprx_InterruptHandlerVideo(void *InstancePtr);
 static void Dprx_CheckSetupTx(void *InstancePtr);
 static void Dprx_DetectResolution(void *InstancePtr);
 static void Dprx_ResetVideoOutput(void *InstancePtr);
-
+extern void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
 
 volatile u8 prog_tx; /*This variable triggers detect_rx_video_and_startTx()*/
 volatile u8 rx_ran_once;
@@ -119,9 +121,10 @@ u8 bypass_vid_common;
 volatile u8 rx_linkup_trig;
 u8 edid_monitor[384];
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap          tx_remap;
-
+#endif
 
 
 
@@ -418,8 +421,10 @@ int main(void)
 	int m_aud = 0;
 	int n_aud = 0;
 
+	#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	XV_axi4s_remap_Config   *rx_remap_Config;
 	XV_axi4s_remap_Config   *tx_remap_Config;
+    #endif
 	u32 clk_reg0;
 	u32 clk_reg1;
 	u32 clk_reg2;
@@ -633,7 +638,7 @@ int main(void)
 					0x047868C0);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
 					0xFFF87FFD);
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	/* setting up remapper at here */
 	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
 	Status = XV_axi4s_remap_CfgInitialize(
@@ -666,7 +671,7 @@ int main(void)
 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
-
+#endif
 	app_help();
 
 	while (1) {
@@ -1299,8 +1304,8 @@ int main(void)
 								}
 
 								pat_update = 3;
-								Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
-										C_VideoUserStreamPattern[pat_update]);
+//								Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
+//										C_VideoUserStreamPattern[pat_update]);
 
 								start_tx(LineRate_init_tx, LaneCount_init_tx,
 									 user_config.VideoMode_local, 8, 1, pat_update);
@@ -1921,9 +1926,9 @@ int main(void)
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0x4) >> 16);
 						xil_printf("CRC - B/Cb  =  0x%x\r\n",
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0x8) & 0xFFFF);
-						xil_printf("Rxd Hactive =  0x%x\r\n",
+						xil_printf("Txd Hactive =  0x%x\r\n",
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0xC) & 0xFFFF);
-						xil_printf("Rxd Vactive =  0x%x\r\n",
+						xil_printf("Txd Vactive =  0x%x\r\n",
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0xC) >> 16);
 						break;
 
@@ -2486,6 +2491,26 @@ static void Dprx_DetectResolution(void *InstancePtr)
 			   DpHres, DpVres, recv_frame_clk_int,
 			   dp_conf.bpc);
 	}
+
+	    /*Reset CRC*/
+		XVidFrameCrc_Reset();
+
+	    /*Set pixel mode as per lane count - it is default behavior
+	      User has to adjust this accordingly if there is change in pixel
+	      width programming
+	     */
+	    u8 Rx_Mode_422 =(XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+	                                          XDP_RX_MSA_MISC0) >> 1) & 0x3;
+
+	    if (Rx_Mode_422 != 0x1) {
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+	                          VIDEO_FRAME_CRC_CONFIG,
+	                            4/*DpRxSsInst.UsrOpt.LaneCount*/);
+	    } else { // 422
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+	                              VIDEO_FRAME_CRC_CONFIG,
+	                                (/*DpRxSsInst.UsrOpt.LaneCount*/4 | 0x80000000));
+	    }
 }
 
 static void Dprx_ResetVideoOutput(void *InstancePtr)
@@ -2628,6 +2653,7 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 {
 	u32 Status;
 	u32 rxMsamisc0;
+	u8 format = user_config.user_format-1;
 	
 	/* Disabling TX and TX interrupts */
 	sink_power_cycle(400);
@@ -2714,6 +2740,7 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 
 	/* Need to start again as VTC values are reset */
 	xil_printf(".");
+	Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	clk_wiz_locked();
 
 	Status = DpTxSubsystem_Start(&DpTxSsInst, tx_with_msa);
@@ -2767,12 +2794,16 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 		     XDP_TX_INTERRUPT_MASK, 0x0);
 
 	/* Update CRC block */
-	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0,
-		     XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				 XDP_TX_USER_PIXEL_WIDTH));
-	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR, 0,
-		     XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				 XDP_TX_USER_PIXEL_WIDTH));
+	if (format != 2) {
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4);
+	} else { //422
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4 | 0x80000000);
+	}
+
 
 
 	if ((Status == XST_SUCCESS)) {
@@ -2785,7 +2816,9 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 			   Msa[0].Vtm.FrameRate);
 
 		resetIp();
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 		remap_start(dma_struct);
+#endif
 
 		Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				C_VideoUserStreamPattern[0]);
@@ -3544,7 +3577,6 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 	u8 rate;
 	u32 Status=0;
 
-	xil_printf("In DpPt_LinkrateChgHandler\r\n");
 	rate = get_LineRate();
 	// If the requested rate is same, do not re-program.
 	if (rate != prev_line_rate) {
@@ -3795,6 +3827,7 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 			u8 bpc, u8 pat, u8 pat_update)
 {
 	u32 Status;
+	u8 format = user_config.user_format-1;
 	/* Disabling TX and TX interrupts */
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -3834,7 +3867,7 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	 * User can change coefficients here - By default 601 is used for YCbCr
 	 * */
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
-			(user_config.user_format-1), XVIDC_BT_601, XDP_DR_CEA);
+			format, XVIDC_BT_601, XDP_DR_CEA);
 
 
 
@@ -3844,8 +3877,10 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	xil_printf(".");
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 			C_VideoUserStreamPattern[pat_update]);
-
 	xil_printf(".");
+    /* Generate the video clock using MMCM
+     */
+    Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	clk_wiz_locked();
 	XDp_TxDisableMainLink(DpTxSsInst.DpPtr);
 	/* Update VTC */
@@ -3879,9 +3914,15 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	/* Reset CRC*/
 	XVidFrameCrc_Reset();
 	/* Set Pixel width in CRC engine*/
-	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0,
-		     XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_USER_PIXEL_WIDTH));
+	if (format != 2) {
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4);
+	} else { //422
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4 | 0x80000000);
+	}
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_TX_INTERRUPT_MASK, 0x0);
@@ -4600,6 +4641,7 @@ void resetIp()
 	usleep(10000);          //hold reset line
 }
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 /*****************************************************************************/
 /**
  * This function sets parameters for remap IP
@@ -4646,7 +4688,7 @@ void remap_start(struct dma_chan_parms *dma_struct)
 	XV_axi4s_remap_Start(&rx_remap);
 	XV_axi4s_remap_Start(&tx_remap);
 }
-
+#endif
 
 void power_down_HLSIPs(void){
 	Xil_Out32(HLS_RESET, 0);
