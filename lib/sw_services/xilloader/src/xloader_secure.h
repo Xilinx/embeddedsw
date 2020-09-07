@@ -326,6 +326,7 @@ typedef struct {
 	/* Verified data is at */
 	u32 SecureData;
 	u32 SecureDataLen;
+	u32 ProcessedLen;
 	u32 RemainingEncLen;
 	u32 BlockNum;
 	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];
