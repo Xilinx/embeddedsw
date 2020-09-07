@@ -3421,10 +3421,6 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 	Index = NODEINDEX(DeviceId);
 
 	Power = XPmPower_GetById(PowerId);
-	if (NULL == Power) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
 
 	if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= Index) {
 		Status = XST_DEVICE_NOT_FOUND;
@@ -3468,21 +3464,32 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 	int Status = XST_FAILURE;
 	u32 DeviceId;
 	u32 SubClass;
-	u32 PowerId;
+	u32 PowerId = 0;
 
-	if (NumArgs < 3U) {
+	if (NumArgs < 1U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	DeviceId = Args[0];
 	SubClass = NODESUBCLASS(DeviceId);
-	PowerId = Args[1];
 
-	if (NULL == XPmPower_GetById(PowerId)) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
+	if (NumArgs > 1U) {
+		/*
+		 * Check for Num Args < 3U as device specific (except PLDevice)
+		 * AddNode functions currently don't implement any NumArgs checks
+		 */
+		if (NumArgs < 3U) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		PowerId = Args[1];
+		if (NULL == XPmPower_GetById(PowerId)) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
 	}
+
 
 	switch (SubClass) {
 	case (u32)XPM_NODESUBCL_DEV_CORE:
