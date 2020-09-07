@@ -836,41 +836,9 @@ static int XPlmi_Set(XPlmi_Cmd * Cmd)
 	u64 DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
 	u32 Len = Cmd->Payload[2U];
 	u32 Val = Cmd->Payload[3U];
-	u32 Src[XPLMI_SET_CHUNK_SIZE];
-	u32 Count;
-	u32 Index;
-	u32 SrcAddrLow = (u32)(&Src[0U]);
-	u64 SrcAddr = (u64)(SrcAddrLow);
-	u32 ChunkSize;
 
-	if (Val == XPLMI_DATA_INIT_PZM)	{
-		XPlmi_EccInit(DestAddr, Len * XPLMI_WORD_LEN);
-	} else {
-		if (Len < XPLMI_SET_CHUNK_SIZE) {
-			ChunkSize = Len;
-		} else {
-			ChunkSize = XPLMI_SET_CHUNK_SIZE;
-		}
+	Status = XPlmi_MemSet(DestAddr, Val, Len);
 
-		for (Index = 0U; Index < ChunkSize; ++Index) {
-			Src[Index] = Val;
-		}
-
-		Count = Len / XPLMI_SET_CHUNK_SIZE ;
-
-		/* DMA in chunks of 512 Bytes */
-		for (Index = 0U; Index < Count; ++Index) {
-			XPlmi_DmaXfr(SrcAddr, DestAddr, XPLMI_SET_CHUNK_SIZE,
-				XPLMI_PMCDMA_0);
-			DestAddr += (XPLMI_SET_CHUNK_SIZE * XPLMI_WORD_LEN);
-		}
-
-		/* DMA of residual bytes */
-		XPlmi_DmaXfr(SrcAddr, DestAddr, Len % XPLMI_SET_CHUNK_SIZE,
-			XPLMI_PMCDMA_0);
-	}
-
-	Status = XST_SUCCESS;
 	return Status;
 }
 

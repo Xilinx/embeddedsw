@@ -21,6 +21,7 @@
 *       kc   05/17/2019 Added ECC initiation function using PMC DMA
 * 1.02  bsv  04/04/2020 Code clean up
 *       bsv  04/07/2020 Renamed DMA to PMCDMA
+*       bm   09/02/2020 Add XPlmi_MemSet API
 *
 * </pre>
 *
@@ -86,6 +87,7 @@ extern "C" {
 #define XPLMI_DATA_INIT_PZM			(0xDEADBEEFU)
 #define XPLMI_PZM_WORD_LEN			(16U)
 
+#define XPLMI_SET_CHUNK_SIZE			(128U)
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -99,6 +101,7 @@ int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
 void XPlmi_WaitForNonBlkSrcDma(void);
 void XPlmi_WaitForNonBlkDma(void);
 void XPlmi_SetMaxOutCmds(u32 Val);
+int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
 
 #ifdef __cplusplus
 }
