@@ -205,6 +205,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 			XIH_PH_ATTRB_HASH_SHA3) {
 			SecurePtr->IsCheckSumEnabled = (u8)TRUE;
 			SecurePtr->SecureEn = (u8)TRUE;
+			SecurePtr->SecureEnTmp = (u8)TRUE;
 		}
 		else {
 			/* Only SHA3 checksum is supported */
@@ -250,6 +251,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 
 		SecurePtr->IsAuthenticated = (u8)TRUE;
 		SecurePtr->SecureEn = (u8)TRUE;
+		SecurePtr->SecureEnTmp = (u8)TRUE;
 
 		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
@@ -291,6 +293,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 			"Encryption is enabled\n\r");
 		SecurePtr->IsEncrypted = (u8)TRUE;
 		SecurePtr->SecureEn = (u8)TRUE;
+		SecurePtr->SecureEnTmp = (u8)TRUE;
 	}
 
 	/* Checksum could not be enabled with authentication or encryption */

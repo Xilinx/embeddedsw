@@ -529,7 +529,8 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 			ChunkLen = DeviceCopy->Len;
 		}
 
-		if (SecureParams->SecureEn != (u8)TRUE) {
+		if ((SecureParams->SecureEn == (u8)FALSE) &&
+			(SecureParams->SecureEnTmp == (u8)FALSE)) {
 			if (IsNextChunkCopyStarted == (u8)TRUE) {
 				IsNextChunkCopyStarted = (u8)FALSE;
 				/* Wait for copy to get completed */
