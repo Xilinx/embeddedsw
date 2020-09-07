@@ -887,6 +887,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			default:
+				Status = XST_SUCCESS;
 				break;
 		}
 	}
@@ -1571,6 +1572,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					Status = XST_SUCCESS;
 					break;
 				default:
+					Status = XST_FAILURE;
 					break;
 			}
 
