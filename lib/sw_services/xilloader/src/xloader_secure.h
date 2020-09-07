@@ -310,7 +310,8 @@ typedef struct {
 } XLoader_AuthJtagMessage;
 
 typedef struct {
-	u8 SecureEn;
+	volatile u8 SecureEn;
+	volatile u8 SecureEnTmp;
 	u8 IsNextChunkCopyStarted;
 	u8 IsCheckSumEnabled;
 	u8 IsEncrypted;
