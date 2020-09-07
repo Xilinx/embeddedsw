@@ -35,6 +35,7 @@
 #include "xpm_notifier.h"
 #include "xplmi_error_node.h"
 #include "xpm_rail.h"
+#include "xpm_pldevice.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
@@ -3411,8 +3412,8 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 	u32 DeviceId;
 	u32 Index;
 	XPm_Power *Power;
-	XPm_Device *Device;
 	u32 BaseAddr;
+	XPm_PlDevice *PlDevice;
 
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
@@ -3437,13 +3438,13 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
-	if (NULL == Device) {
+	PlDevice = (XPm_PlDevice *)XPm_AllocBytes(sizeof(XPm_PlDevice));
+	if (NULL == PlDevice) {
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
 
-	Status = XPmDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL);
+	Status = XPmPlDevice_Init(PlDevice, DeviceId, BaseAddr, Power, NULL, NULL);
 
 done:
 	return Status;
