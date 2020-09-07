@@ -64,6 +64,7 @@
 *       bm   08/19/2020 Added logic to store ImageInfo
 *       bsv  08/21/2020 Added XSECURE_TEMPORAL_CHECK macro to add
 *                       redundancy in security critical functions
+*       bm   09/07/2020 Clear PMC RAM chunk after loading PDIs and reloading images
 *
 * </pre>
 *
@@ -694,6 +695,13 @@ END:
 			Status = SStatus;
 		}
 	}
+
+	SStatus = XPlmi_MemSet(XPLMI_LOADER_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
+			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 
@@ -1253,6 +1261,13 @@ END:
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+
+	SStatus = XPlmi_MemSet(XPLMI_LOADER_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
+			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 
