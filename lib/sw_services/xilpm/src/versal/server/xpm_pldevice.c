@@ -40,3 +40,31 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+XStatus XPmPlDevice_GetParent(u32 PldId, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_PlDevice *PlDevice = NULL;
+	XPm_PlDevice *Parent = NULL;
+
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(PldId);
+	if (NULL == PlDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	/* For PLD0 returned value will be 0U */
+	Parent = PlDevice->Parent;
+	if (NULL != Parent) {
+		*Resp = Parent->Device.Node.Id;
+	} else {
+		*Resp = 0U;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
