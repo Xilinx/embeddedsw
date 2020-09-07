@@ -21,6 +21,7 @@
 *       kc   05/17/2019 Added ECC initiation function using PMC DMA
 * 1.02  bsv  04/04/2020 Code clean up
 *       bsv  04/07/2020 Renamed DMA to PMCDMA
+*       bm   09/02/2020 Add XPlmi_MemSet API
 *
 * </pre>
 *
@@ -599,6 +600,69 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 	/* Receive the data from destination channel */
 	return XPlmi_DmaChXfer(Addr, Len / XPLMI_WORD_LEN, XPMCDMA_DST_CHANNEL,
 		XPLMI_PMCDMA_0);
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to Set the memory with a value.
+ *
+ * @param	DestAddress is the address where the val need to be set
+ * @param	Val is the value that has to be set
+ * @param	Len is size of memory to be set in words
+ *
+ * @return	Status of the DMA transfer
+ *
+ *****************************************************************************/
+int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
+{
+	int Status = XST_FAILURE;
+	u32 Src[XPLMI_SET_CHUNK_SIZE];
+	u32 Count;
+	u32 Index;
+	u32 SrcAddrLow = (u32)(&Src[0U]);
+	u64 SrcAddr = (u64)(SrcAddrLow);
+	u32 ChunkSize;
+
+	if (Val == XPLMI_DATA_INIT_PZM)	{
+		Status = XPlmi_EccInit(DestAddr, Len * XPLMI_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	} else {
+
+		if (Len < XPLMI_SET_CHUNK_SIZE) {
+			ChunkSize = Len;
+		} else {
+			ChunkSize = XPLMI_SET_CHUNK_SIZE;
+		}
+
+		for (Index = 0U; Index < ChunkSize; ++Index) {
+			Src[Index] = Val;
+		}
+
+		Count = Len / XPLMI_SET_CHUNK_SIZE ;
+
+		/* DMA in chunks of 512 Bytes */
+		for (Index = 0U; Index < Count; ++Index) {
+			Status = XPlmi_DmaXfr(SrcAddr, DestAddr, XPLMI_SET_CHUNK_SIZE,
+					XPLMI_PMCDMA_0);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			DestAddr += (XPLMI_SET_CHUNK_SIZE * XPLMI_WORD_LEN);
+		}
+
+		/* DMA of residual bytes */
+		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len % XPLMI_SET_CHUNK_SIZE,
+				XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
