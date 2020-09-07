@@ -1677,6 +1677,7 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
 	case (u32)XPM_QID_CLOCK_GET_NUM_CLOCKS:
 	case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
+	case (u32)XPM_QID_PLD_GET_PARENT:
 		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], NULL, NULL);
 		break;
 
