@@ -1541,17 +1541,24 @@ static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash)
 		case XLOADER_PPK_SEL_0:
 			InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD;
 			PpkOffset = XLOADER_EFUSE_PPK0_START_OFFSET;
+			Status = XLOADER_SUCCESS;
 			break;
 		case XLOADER_PPK_SEL_1:
 			InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK1_INVLD;
 			PpkOffset = XLOADER_EFUSE_PPK1_START_OFFSET;
+			Status = XLOADER_SUCCESS;
 			break;
 		case XLOADER_PPK_SEL_2:
 			InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK2_INVLD;
 			PpkOffset = XLOADER_EFUSE_PPK2_START_OFFSET;
+			Status = XLOADER_SUCCESS;
 			break;
 		default:
-			goto END;
+			Status = XLOADER_FAILURE;
+			break;
+	}
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/* Read PPK invalid set bits */
