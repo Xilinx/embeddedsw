@@ -73,7 +73,6 @@ typedef struct {
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 #define XPLMI_READBACK_DEF_DST_ADDR		(0xFFFFFFFFFFFFFFFFUL)
-#define XPLMI_SET_CHUNK_SIZE			(128U)
 /* Max board name length supported is 256 bytes */
 #define XPLMI_MAX_NAME_LEN			(256U)
 #define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)
