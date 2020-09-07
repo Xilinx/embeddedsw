@@ -292,8 +292,12 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 	 * R5 TCM should be ECC initialized
 	 */
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
-		XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
 			Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
+			goto END;
+		}
 	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
@@ -301,46 +305,94 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
 		if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
-			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 					IOCTL_SET_RPU_OPER_MODE,
 					XPM_RPU_MODE_SPLIT, 0U, &Mode);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS,0U);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_B,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);
+				goto END;
+			}
 		}
 		else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
-			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 				IOCTL_SET_RPU_OPER_MODE,
 				XPM_RPU_MODE_SPLIT, 0U, &Mode);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
+				goto END;
+			}
 		}
 		else {
-			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 				IOCTL_SET_RPU_OPER_MODE,
 				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode);
-			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, 0);
+				goto END;
+			}
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 				IOCTL_SET_RPU_OPER_MODE,
 				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
-			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
+				goto END;
+			}
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
 					Pm_CapAccess | Pm_CapContext,
 					XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);
+				goto END;
+			}
 		}
 
 		Status = XLoader_GetLoadAddr(PrtnParams->DstnCpu,
@@ -543,13 +595,19 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 			if (IsNextChunkCopyStarted == (u8)TRUE) {
 				IsNextChunkCopyStarted = (u8)FALSE;
 				/* Wait for copy to get completed */
-				PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
+				Status = PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
 					DeviceCopy->Flags | XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
 			}
 			else {
 				/* Copy the data to PRAM buffer */
-				PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
+				Status = PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
 					DeviceCopy->Flags | XPLMI_DEVICE_COPY_STATE_BLK);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
 			}
 			/* Update variables for next chunk */
 			Cdo.BufPtr = (u32 *)ChunkAddr;
@@ -604,8 +662,11 @@ static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 				IsNextChunkCopyStarted = (u8)TRUE;
 
 				/* Initiate the data copy */
-				PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
+				Status = PdiPtr->DeviceCopy(DeviceCopy->SrcAddr, ChunkAddr, ChunkLen,
 					DeviceCopy->Flags | XPLMI_DEVICE_COPY_STATE_INITIATE);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
 			}
 		}
 		else {
