@@ -88,7 +88,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	int Status = XST_FAILURE;
 	XQspiPsu_Msg FlashMsg[2U] = {0U,};
 	u8 TxBfr;
-	u8 ReadBuffer[4U] __attribute__ ((aligned(32U)));
+	u8 ReadBuffer[4U] __attribute__ ((aligned(32U))) = {0U};
 
 	/*
 	 * Read ID
@@ -514,7 +514,7 @@ static int SendBankSelect(u32 BankSel)
 	int Status =  XST_FAILURE;
 	XQspiPsu_Msg FlashMsg[2U] = {0U,};
 	u8 TxBfr;
-	u8 ReadBuffer[10U] __attribute__ ((aligned(32U)));
+	u8 ReadBuffer[10U] __attribute__ ((aligned(32U))) = {0U};
 	u8 WriteBuffer[10U] __attribute__ ((aligned(32U)));
 
 	/*
