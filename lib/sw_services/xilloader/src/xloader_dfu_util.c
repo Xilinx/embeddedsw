@@ -570,6 +570,7 @@ static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr, SetupPacket
 		case XUSBPSU_STATE_DEFAULT:
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 	return Status;
@@ -647,6 +648,7 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
 		case XLOADER_STATE_DFU_ERROR:
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 
@@ -909,6 +911,7 @@ static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
 			}
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -1013,6 +1016,7 @@ static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 				TmpBuffer, XLOADER_DFU_STATUS_SIZE);
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 
@@ -1072,6 +1076,7 @@ static int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
 			/* Need to send all zeroes as reply*/
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 
@@ -1131,6 +1136,7 @@ static int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,
 			Status = XST_SUCCESS;
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 
