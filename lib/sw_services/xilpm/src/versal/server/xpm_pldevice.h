@@ -18,11 +18,16 @@ extern "C" {
  */
 typedef struct XPm_PlDeviceNode XPm_PlDevice;
 
+struct XPm_PldInitNodeOps {
+	XStatus (*InitStart)(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs);
+	XStatus (*InitFinish)(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs);
+};
+
 struct XPm_PlDeviceNode {
 	XPm_Device Device;
 	u8 PowerBitMask;
 	u8 WfPowerBitMask;
-	struct XPm_PowerDomainOps *Ops;
+	struct XPm_PldInitNodeOps *Ops;
 	XPm_PlDevice *Parent;
 	XPm_PlDevice *NextPeer;
 	XPm_PlDevice *Child;

@@ -36,6 +36,7 @@
 #include "xplmi_error_node.h"
 #include "xpm_rail.h"
 #include "xpm_pldevice.h"
+#include "xpm_debug.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
@@ -736,32 +737,11 @@ XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
 	return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function allows to initialize the node.
- *
- * @param  NodeId	Supported power domain nodes only
- * @param  Function	Function id
- * @param  Args		Arguments speicifc to function
- * @param  NumArgs  Number of arguments
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   none
- *
- ****************************************************************************/
-XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+
+static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PwrDomainNode;
-
-	if (((u32)XPM_NODECLASS_POWER != NODECLASS(NodeId)) ||
-	    ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) ||
-	    ((u32)XPM_NODEIDX_POWER_MAX <= NODEINDEX(NodeId))) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
 	if (NULL == PwrDomainNode) {
@@ -828,6 +808,84 @@ done:
 	return Status;
 }
 
+static XStatus PldInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_PlDevice *PlDevice = NULL;
+
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(NodeId);
+	if (NULL == PlDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
+		goto done;
+	}
+
+	if (NULL == PlDevice->Ops) {
+		DbgErr = XPM_INT_ERR_NO_FEATURE;
+		goto done;
+	}
+
+	switch (Function) {
+		case (u32)FUNC_INIT_START:
+			if (NULL == PlDevice->Ops->InitStart) {
+				DbgErr = XPM_INT_ERR_NO_FEATURE;
+				goto done;
+			}
+			Status = PlDevice->Ops->InitStart(PlDevice, Args, NumArgs);
+			break;
+		case (u32)FUNC_INIT_FINISH:
+			if (NULL == PlDevice->Ops->InitFinish) {
+				DbgErr = XPM_INT_ERR_NO_FEATURE;
+				goto done;
+			}
+			Status = PlDevice->Ops->InitFinish(PlDevice, Args, NumArgs);
+			break;
+		default:
+			DbgErr = XPM_INT_ERR_INVALID_FUNC;
+			break;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function allows to initialize the node.
+ *
+ * @param  NodeId	Supported power domain nodes only
+ * @param  Function	Function id
+ * @param  Args		Arguments speicifc to function
+ * @param  NumArgs  Number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	if (((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
+	    ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId)) &&
+	    ((u32)XPM_NODEIDX_POWER_MAX > NODEINDEX(NodeId))) {
+		Status = PwrDomainInitNode(NodeId, Function, Args, NumArgs);
+	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+		  ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) &&
+		  ((u32)XPM_NODEIDX_DEV_PLD_MAX > NODEINDEX(NodeId))) {
+		Status = PldInitNode(NodeId, Function, Args, NumArgs);
+	} else {
+		Status = XPM_PM_INVALID_NODE;
+		DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
 
 /****************************************************************************/
 /**
