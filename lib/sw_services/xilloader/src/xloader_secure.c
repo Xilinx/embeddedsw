@@ -2200,7 +2200,7 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
 				break;
 			}
 		}
-	} while (1U);
+	} while (TRUE);
 
 	return Status;
 }
