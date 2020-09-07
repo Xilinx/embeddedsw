@@ -750,10 +750,9 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 #endif
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
-	Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
+			PdiSrc, PdiAddr);
+
 	PdiSrc = PdiPtr->PdiSrc;
 	Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
 	if (Status != XST_SUCCESS) {
