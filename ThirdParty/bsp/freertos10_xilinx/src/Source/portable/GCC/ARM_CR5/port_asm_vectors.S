@@ -63,9 +63,14 @@ FIQLoop:
 
 Undefined:					/* Undefined handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =UndefinedExceptionAddr
+	sub     r1, lr, #4
+	str     r1, [r0]		/* Store address of instruction causing undefined exception */
+
+	bl	UndefinedException		/* UndefinedException: call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
-	b	_prestart
 	movs	pc, lr
+
 
 DataAbortHandler:				/* Data Abort handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
