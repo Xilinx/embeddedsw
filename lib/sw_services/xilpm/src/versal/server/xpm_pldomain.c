@@ -253,8 +253,13 @@ static XStatus InitGtyAddrArr(u32 *GtArrPtr, const u32 ArrLen)
 
 	for (i = (u32)XPM_NODEIDX_DEV_GT_MIN; i < (u32)XPM_NODEIDX_DEV_MAX; ++i) {
 		Device = XPmDevice_GetByIndex(i);
-		if ((Device == NULL) ||
-			(NODETYPE(Device->Node.Id) != (u32)XPM_NODETYPE_DEV_GT)) {
+		if ((NULL == Device) ||
+			((u32)XPM_NODETYPE_DEV_GT != NODETYPE(Device->Node.Id))) {
+			continue;
+		}
+
+		if ((NULL == Device->Power) ||
+			((u32)PM_POWER_PLD != Device->Power->Node.Id)) {
 			continue;
 		}
 
