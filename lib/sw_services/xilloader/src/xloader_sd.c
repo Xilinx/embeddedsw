@@ -99,11 +99,12 @@ static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
 		}
 	}
 	else {
-		for (Index = XLOADER_NUM_DIGITS_IN_FILE_NAME - 1U;
-			(MultiBootOffset > 0U); Index--) {
+		Index = XLOADER_NUM_DIGITS_IN_FILE_NAME - 1U;
+		while (MultiBootOffset > 0U) {
 			Value = (u8)(MultiBootOffset % 10U);
 			MultiBootOffset /= 10U;
 			BootNo[Index] += (char)Value;
+			Index--;
 		}
 		Status = XPlmi_Strcat(SdEmmcFileName, "BOOT",
 			XLOADER_BASE_FILE_NAME_LEN_SD_1);

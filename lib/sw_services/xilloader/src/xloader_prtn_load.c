@@ -128,7 +128,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	/* Validate and load the image partitions */
 	for (PrtnIndex = 0U;
 		PrtnIndex < PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
-		++PrtnIndex, ++PdiPtr->PrtnNum) {
+		++PrtnIndex) {
 		if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
 				PdiPtr->PrtnNum);
@@ -171,6 +171,8 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, PdiPtr->PrtnNum,
 			(PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].TotalDataWordLen) *
 			XPLMI_WORD_LEN);
+
+		++PdiPtr->PrtnNum;
 	}
 	Status = XST_SUCCESS;
 

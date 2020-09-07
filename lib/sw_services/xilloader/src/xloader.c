@@ -666,11 +666,12 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		PdiPtr->PrtnNum = PrtnNum;
 		for (PrtnIndex = 0U;
 			PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns;
-			PrtnIndex++, PdiPtr->PrtnNum++) {
+			PrtnIndex++) {
 			Status = XLoader_UpdateHandoffParam(PdiPtr);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+			PdiPtr->PrtnNum++;
 		}
 
 		Status = XLoader_StartImage(PdiPtr);
