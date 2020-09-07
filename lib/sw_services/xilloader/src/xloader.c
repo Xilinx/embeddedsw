@@ -455,7 +455,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		/* Read Boot header */
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
-		memset(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
+		(void)memset(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
 			0, sizeof(XilPdi_BootHdrFwRsvd));
 		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
 		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
@@ -595,8 +595,12 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 
 			if (PdiPtr->CopyToMem == (u8)TRUE) {
 				if (DdrRequested == (u8)FALSE) {
-					XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+					Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
 						Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
+					if (Status != XST_SUCCESS) {
+						Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
+						goto END;
+					}
 					DdrRequested = (u8)TRUE;
 				}
 				PdiPtr->CopyToMemAddr =
@@ -642,7 +646,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 				 * To preserve the PDI error, ignoring the
 				 * Error returned by XLoader_CframeErrorHandler
 				 */
-				XLoader_CframeErrorHandler(
+				(void)XLoader_CframeErrorHandler(
 				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 			}
 			goto END;
@@ -1155,28 +1159,49 @@ int XLoader_ReloadImage(u32 ImageId)
 	{
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
 				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_SD0:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
 				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_0, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
 				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_1, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_USB:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
 				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_USB_0, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_OSPI:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, 0);
+				goto END;
+			}
 			break;
 		default:
+			Status = XST_SUCCESS;
 			break;
 	}
 
@@ -1206,21 +1231,21 @@ END:
 	{
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
+			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
 			break;
 		case XLOADER_PDI_SRC_SD0:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
+			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
 			break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
+			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
 			break;
 		case XLOADER_PDI_SRC_USB:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
+			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
 			break;
 		case XLOADER_PDI_SRC_OSPI:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
+			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
 			break;
 		default:
 			break;
@@ -1582,7 +1607,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 				goto END;
 			}
 
-			memset(PdiPtr, 0, sizeof(XilPdi));
+			(void)memset(PdiPtr, 0, sizeof(XilPdi));
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 			Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
 			if (Status != XST_SUCCESS) {

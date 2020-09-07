@@ -180,7 +180,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u64 ChecksumOffset;
 	u64 AcOffset;
 
-	memset(SecurePtr, 0, sizeof(XLoader_SecureParams));
+	(void)memset(SecurePtr, 0, sizeof(XLoader_SecureParams));
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -1557,7 +1557,7 @@ static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash)
 			Status = XLOADER_FAILURE;
 			break;
 	}
-	if (Status != XST_SUCCESS) {
+	if (Status != XLOADER_SUCCESS) {
 		goto END;
 	}
 

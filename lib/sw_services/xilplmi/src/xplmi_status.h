@@ -329,6 +329,36 @@ typedef enum {
 							for bootable file crosses max limit */
 	XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE, /**< 0x341 - Error when QSPI flash Size is
 							not supported */
+	XLOADER_ERR_PM_DEV_PSM_PROC,		/**< 0x342 - Failed in XPM Request Device for
+							PM_DEV_PSM_PROC */
+	XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT,	/**<0x343 - Failed in XPM Device Ioctl for
+							RPU0_0 in SPLIT mode */
+	XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT,	/**< 0x344 - Failed in XPM Device Ioctl for
+							RPU0_1 in SPLIT mode */
+	XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, /**< 0x345 - Failed to XPM Device Ioctl for
+							RPU0_0 in LOCKSTEP mode */
+	XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP, /**< 0x346 - Failed to XPM Device Ioctl for
+							RPU0_1 in LOCKSTEP mode */
+	XLOADER_ERR_PM_DEV_TCM_0_A,		/**< 0x347 - Failed to XPM Request Device for
+							PM_DEV_TCM_0_A */
+	XLOADER_ERR_PM_DEV_TCM_0_B,		/**< 0x348 - Failed to XPM Request Device for
+							PM_DEV_TCM_0_B */
+	XLOADER_ERR_PM_DEV_TCM_1_A,		/**< 0x349 - Failed in XPM Request Device for
+							PM_DEV_TCM_1_A */
+	XLOADER_ERR_PM_DEV_TCM_1_B,		/***<0x34A - Failed in XPM Request Device for
+							PM_DEV_TCM_1_B */
+	XLOADER_ERR_PM_DEV_DDR_0,		/**< 0x34B - Failed to XPM Request Device for
+							PM_DEV_DDR_0 */
+	XLOADER_ERR_PM_DEV_QSPI,		/**< 0x34C - Failed to XPM Request Device for
+							PM_DEV_QSPI */
+	XLOADER_ERR_PM_DEV_SDIO_0,		/**< 0x34D - Failed to XPM Request Device for
+							PM_DEV_SDIO_0 */
+	XLOADER_ERR_PM_DEV_SDIO_1,		/**< 0x34E - Failed to XPM Request Device for
+							PM_DEV_SDIO_1 */
+	XLOADER_ERR_PM_DEV_USB_0,		/**< 0x34F - Failed to XPM Request Device for
+							PM_DEV_USB_0 */
+	XLOADER_ERR_PM_DEV_OSPI,		/**< 0x350 - Failed to XPM Request Device for
+							PM_DEV_OSPI */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

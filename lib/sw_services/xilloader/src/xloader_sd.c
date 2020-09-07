@@ -199,7 +199,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	u8 DrvNum = XLoader_GetDrvNumSD(UPdiSrc);
 	XLoader_IsSDRaw = (u8)FALSE;
 
-	memset(BootFile, 0, sizeof(BootFile));
+	(void)memset(BootFile, 0, sizeof(BootFile));
 
 	if ((PdiSrc == XLOADER_PDI_SRC_SD0) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
@@ -416,7 +416,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	XLoader_IsSDRaw = (u8)TRUE;
 	XSdPs_Config *SdConfig;
 
-	memset(&SdInstance, 0, sizeof(SdInstance));
+	(void)memset(&SdInstance, 0, sizeof(SdInstance));
 	if ((PdiSrc == XLOADER_PDI_SRC_SD0_RAW) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0_RAW)) {
 		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD0_CDN_CTRL);
