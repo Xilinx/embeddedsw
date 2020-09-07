@@ -472,11 +472,13 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	if (XLoader_IsAuthEnabled(PdiPtr) == (u8)TRUE) {
 		SecureParams.IsAuthenticated = (u8)TRUE;
 		SecureParams.SecureEn = (u8)TRUE;
+		SecureParams.SecureEnTmp = (u8)TRUE;
 	}
 
 	if (XLoader_IsEncEnabled(PdiPtr) == (u8)TRUE) {
 		SecureParams.IsEncrypted = (u8)TRUE;
 		SecureParams.SecureEn = (u8)TRUE;
+		SecureParams.SecureEnTmp = (u8)TRUE;
 	}
 
 	/* Validates if authentication/encryption is compulsory */
