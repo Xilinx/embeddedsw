@@ -96,6 +96,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 			Status = XST_SUCCESS;
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 	if (Status != XST_SUCCESS) {
