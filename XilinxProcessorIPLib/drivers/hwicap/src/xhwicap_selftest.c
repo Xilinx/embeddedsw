@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_selftest.c
-* @addtogroup hwicap_v11_3
+* @addtogroup hwicap_v11_4
 * @{
 *
 * This file contains a diagnostic self test function for the XHwIcap driver.

@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_device_write_frame.c
-* @addtogroup hwicap_v11_3
+* @addtogroup hwicap_v11_4
 * @{
 *
 * This file contains the function that writes the frame stored in the
