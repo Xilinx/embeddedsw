@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxis_switch.h
-* @addtogroup axis_switch_v1_3
+* @addtogroup axis_switch_v1_4
 * @{
 * @details
 *
