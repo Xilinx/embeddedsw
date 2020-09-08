@@ -470,14 +470,18 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	SecureParams.PdiPtr = PdiPtr;
-	if (XLoader_IsAuthEnabled(PdiPtr) == (u8)TRUE) {
-		SecureParams.IsAuthenticated = (u8)TRUE;
+	SecureParams.IsAuthenticated = XLoader_IsAuthEnabled(PdiPtr);
+	SecureParams.IsAuthenticatedTmp = XLoader_IsAuthEnabled(PdiPtr);
+	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
+		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
 		SecureParams.SecureEn = (u8)TRUE;
 		SecureParams.SecureEnTmp = (u8)TRUE;
 	}
 
-	if (XLoader_IsEncEnabled(PdiPtr) == (u8)TRUE) {
-		SecureParams.IsEncrypted = (u8)TRUE;
+	SecureParams.IsEncrypted = XLoader_IsEncEnabled(PdiPtr);
+	SecureParams.IsEncryptedTmp = XLoader_IsEncEnabled(PdiPtr);
+	if ((SecureParams.IsEncrypted == (u8)TRUE) ||
+		(SecureParams.IsEncryptedTmp == (u8)TRUE)) {
 		SecureParams.SecureEn = (u8)TRUE;
 		SecureParams.SecureEnTmp = (u8)TRUE;
 	}
@@ -491,7 +495,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	/* Authentication of IHT */
-	if (XLoader_IsAuthEnabled(PdiPtr) == TRUE) {
+	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
+		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
 			&SecureParams);
 	}
