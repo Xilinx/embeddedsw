@@ -7,7 +7,7 @@
 /**
 *
 * @file xmbox.h
-* @addtogroup mbox_v4_4
+* @addtogroup mbox_v4_5
 * @{
 * @details
 *
