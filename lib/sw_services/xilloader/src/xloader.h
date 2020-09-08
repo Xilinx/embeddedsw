@@ -340,8 +340,12 @@ static inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
  *****************************************************************************/
 static inline u8 XLoader_IsEncEnabled(XilPdi* PdiPtr)
 {
-	return (PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc != 0x0U) ? \
+	volatile u8 IsEnc = (u8)TRUE;
+	volatile u8 IsEncTemp = (u8)TRUE;
+	IsEnc = (PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc != 0x0U) ? \
 		(TRUE) : (FALSE);
+	IsEncTemp = IsEnc;
+	return (IsEnc | IsEncTemp);
 }
 
 /************************** Function Prototypes ******************************/
