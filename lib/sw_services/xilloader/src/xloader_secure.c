@@ -1553,10 +1553,12 @@ static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
 ******************************************************************************/
 static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash)
 {
-	u32 Status = XLOADER_FAILURE;
-	int HashStatus;
+	volatile u32 Status = XLOADER_FAILURE;
+	volatile int HashStatus;
+	volatile int HashStatusTmp;
 	u8 HashZeros[XLOADER_EFUSE_PPK_HASH_LEN] = {0U};
-	u32 ReadReg;
+	volatile u32 ReadReg;
+	volatile u32 ReadRegTmp;
 	u32 PpkOffset;
 	u32 InvalidMask;
 
@@ -1585,20 +1587,20 @@ static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash)
 	}
 
 	/* Read PPK invalid set bits */
-	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET);
-	if ((ReadReg & InvalidMask) != 0x0U) {
+	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & InvalidMask;
+	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & InvalidMask;
+	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
 		Status = XLOADER_SEC_PPK_INVALID_BIT_ERR;
 		goto END;
 	}
-	Status = XLoader_PpkCompare(PpkOffset, PpkHash);
-	if (Status == XLOADER_SUCCESS) {
-		/* Check if valid PPK hash is all zeros */
-		HashStatus = XPlmi_MemCmp(HashZeros, (void *)PpkOffset,
-					XLOADER_EFUSE_PPK_HASH_LEN);
-		if (HashStatus == XST_SUCCESS) {
-			Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0U);
-		}
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkCompare, PpkOffset,
+							PpkHash);
+	/* Check if valid PPK hash is all zeros */
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, XPlmi_MemCmp, HashZeros,
+						 (void *)PpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
+	if ((HashStatus == XST_SUCCESS) || (HashStatusTmp == XST_SUCCESS)) {
+		Status = XLoader_UpdateMinorErr(
+			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0U);
 	}
 
 END:
