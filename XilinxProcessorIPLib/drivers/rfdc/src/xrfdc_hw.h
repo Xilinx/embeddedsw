@@ -83,6 +83,8 @@
 *       cog    06/24/20 Masks, shifts and offsets for TDD Mode registers.
 *       cog    08/11/20 Refactor of clock distribution settings.
 *       cog    08/28/20 Fixed bug in the ADC powerdown mode.
+*       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
+*                       four LSBs of the CS Gain.
 *
 *</pre>
 *
@@ -2108,6 +2110,7 @@ extern "C" {
 #define XRFDC_ADC_DSA_CODE_MASK 0x001FU
 #define XRFDC_ADC_DSA_UPDT_MASK 0x0001U
 
+#define XRFDC_DAC_MC_CFG2_BLDGAIN_SHIFT 6U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT 6U
 #define XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT(X) ((X == 0) ? 5U : 4U)
 #define XRFDC_ADC_OVR_VOL_RANGE_SHIFT 24U
