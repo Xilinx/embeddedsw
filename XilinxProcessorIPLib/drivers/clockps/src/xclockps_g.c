@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps_g.c
-* @addtogroup xclockps_v1_2
+* @addtogroup xclockps_v1_3
 * @{
 *
 * This file contains a table that specifies the configuration of the clocking
