@@ -1231,11 +1231,13 @@ END:
 static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
-	u32 Status = XLOADER_FAILURE;
+	volatile u32 Status = XLOADER_FAILURE;
+	volatile u32 StatusTmp = XLOADER_FAILURE;
 	XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
 	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
-	u8 IsEfuseAuth = (u8)TRUE;
+	volatile u8 IsEfuseAuth = (u8)TRUE;
+	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
 	u32 AuthType;
 
 	AuthType = XLoader_GetAuthType(&AcPtr->AuthHdr);
@@ -1265,13 +1267,14 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	}
 
 	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
-	Status = XLoader_CheckNonZeroPpk();
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
 	/*
 	 * Only boot header authentication is allowed when
 	 * none of PPK hash bits are programmed
 	 */
-	if (Status != XLOADER_SUCCESS) {
+	if ((Status != XLOADER_SUCCESS) && (StatusTmp != XLOADER_SUCCESS)) {
 		IsEfuseAuth = (u8)FALSE;
+		IsEfuseAuthTmp = (u8)FALSE;
 		/* If BHDR authentication is not enabled return error */
 		if (XilPdi_IsBhdrAuthEnable(BootHdr) == 0x00U) {
 			XPlmi_Printf(DEBUG_INFO,
@@ -1285,7 +1288,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	/* Only efuse RSA authentication is allowed */
 	else {
 		IsEfuseAuth = (u8)TRUE;
-
+		IsEfuseAuthTmp = (u8)TRUE;
 		/* If BHDR authentication is enabled return error */
 		if (XilPdi_IsBhdrAuthEnable(BootHdr) != 0x00U) {
 			XPlmi_Printf(DEBUG_INFO, "Boot header authentication is not allowed"
@@ -1308,7 +1311,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	}
 
 	/* Check for SPK ID revocation */
-	if (IsEfuseAuth == (u8)TRUE) {
+	if ((IsEfuseAuth == (u8)TRUE) || (IsEfuseAuthTmp == (u8)TRUE)) {
 		Status = XLoader_VerifyRevokeId(AcPtr->SpkId);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
