@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps.c
-* @addtogroup xclockps_v1_2
+* @addtogroup xclockps_v1_3
 * @{
 *
 * Contains the implementation of interface functions of the clock driver.

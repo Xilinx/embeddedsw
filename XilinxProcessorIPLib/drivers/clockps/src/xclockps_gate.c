@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps_gate.c
-* @addtogroup xclockps_v1_2
+* @addtogroup xclockps_v1_3
 * @{
 *
 * This file handles Gate related definitions and operations
