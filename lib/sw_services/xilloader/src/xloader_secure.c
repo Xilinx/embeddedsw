@@ -1387,7 +1387,8 @@ END:
 ******************************************************************************/
 static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 {
-	u32 Status = XLOADER_FAILURE;
+	volatile u32 Status = XLOADER_FAILURE;
+	volatile u32 StatusTmp = XLOADER_FAILURE;
 	XSecure_Sha3Hash SpkHash;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
@@ -1405,6 +1406,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 
 	/* Hash the AH  and SPK*/
 	/* Update AH */
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3Update(&Sha3Instance,
 			(UINTPTR)&AcPtr->AuthHdr, XLOADER_AUTH_HEADER_SIZE);
 	if (Status != XLOADER_SUCCESS) {
@@ -1412,6 +1414,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 			XLOADER_SEC_SPK_HASH_CALCULATION_FAIL, Status);
 		goto END;
 	}
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3LastUpdate(&Sha3Instance);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -1420,6 +1423,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Update SPK */
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)&AcPtr->Spk,
 						XLOADER_SPK_SIZE);
 	if (Status != XLOADER_SUCCESS) {
@@ -1428,6 +1432,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3Finish(&Sha3Instance, &SpkHash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -1435,8 +1440,9 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	Status = XLoader_VerifySignature(SecurePtr, SpkHash.Hash, &AcPtr->Ppk,
-					(u8 *)&AcPtr->SPKSignature);
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature,
+								SecurePtr, SpkHash.Hash, &AcPtr->Ppk,
+								(u8 *)&AcPtr->SPKSignature);
 
 END:
 	return Status;
