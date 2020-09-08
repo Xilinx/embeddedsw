@@ -7,7 +7,7 @@
 /**
 *
 * @file xprc_hw.h
-* @addtogroup prc_v2_0
+* @addtogroup prc_v2_1
 * @{
 *
 * This header file contains identifiers and register-level driver functions
