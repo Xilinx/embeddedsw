@@ -57,6 +57,7 @@
 *       har  08/24/20 Added support for ECDSA P521 authentication
 *       kpt  08/27/20 Changed argument type from u8* to UINTPTR for SHA
 *       kpt  09/07/20 Fixed key rolling issue
+*       kpt  09/08/20 Added redundancy at security critical checks
 *
 * </pre>
 *
@@ -1388,7 +1389,6 @@ END:
 static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 {
 	volatile u32 Status = XLOADER_FAILURE;
-	volatile u32 StatusTmp = XLOADER_FAILURE;
 	XSecure_Sha3Hash SpkHash;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
@@ -1692,7 +1692,8 @@ static u32 XLoader_CheckNonZeroIV(void)
 ******************************************************************************/
 static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 {
-	u32 Status = XLOADER_FAILURE;
+	volatile u32 Status = XLOADER_FAILURE;
+	volatile u32 StatusTmp = XLOADER_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
@@ -1717,6 +1718,7 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 	}
 
 	XSecure_Sha3Start(&Sha3Instance);
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3LastUpdate(&Sha3Instance);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -1725,6 +1727,7 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Update PPK  */
+	Status = XLOADER_FAILURE;
 	if (SecurePtr->CheckJtagAuth == (u8)TRUE) {
 		Status = XSecure_Sha3Update(&Sha3Instance,
 		(UINTPTR)&(SecurePtr->AuthJtagMessage.PpkData), XLOADER_PPK_SIZE);
@@ -1739,6 +1742,7 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3Finish(&Sha3Instance, &Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -1746,12 +1750,16 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_0, Sha3Hash.Hash);
-	if (Status != XLOADER_SUCCESS) {
-		Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_1, Sha3Hash.Hash);
-		if(Status != XLOADER_SUCCESS) {
-			Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_2, Sha3Hash.Hash);
-			if (Status == XLOADER_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
+						 XLOADER_PPK_SEL_0, Sha3Hash.Hash);
+	if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
+						 XLOADER_PPK_SEL_1, Sha3Hash.Hash);
+		if((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
+						 XLOADER_PPK_SEL_2, Sha3Hash.Hash);
+			if ((Status == XLOADER_SUCCESS) &&
+				(StatusTmp == XLOADER_SUCCESS)) {
 				/* Selection matched with PPK2 HASH */
 				XPlmi_Printf(DEBUG_INFO, "PPK2 is valid\n\r");
 			}
