@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps_hw.h
-* @addtogroup xclockps_v1_2
+* @addtogroup xclockps_v1_3
 * @{
 *
 * This file contains the hardware details for the System Clock controller.
