@@ -188,6 +188,8 @@
 *       cog    08/28/20 Allow non bypass datapath modes if digital path is enabled.
 *       cog    09/01/20 Added warning message if trying to incorrectly set QMC phase and
 *                       QMC phase should only be allowed to be set in IQ pair.
+*       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
+*                       four LSBs of the CS Gain.
 *
 * </pre>
 *
@@ -5786,7 +5788,8 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 					XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK, CSCBldr[OptIdx]);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
 					(XRFDC_DAC_MC_CFG2_BLDGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
-					BldrOPCBias[OptIdx]);
+					(BldrOPCBias[OptIdx] | ((Code & XRFDC_DAC_VOP_BLDR_LOW_BITS_MASK)
+								<< XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT)));
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
 					(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
 					((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | CSCBiasProd[OptIdx]));

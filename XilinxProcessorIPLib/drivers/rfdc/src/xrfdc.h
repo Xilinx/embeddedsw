@@ -253,6 +253,8 @@
 *       cog    06/24/20 Added channel powerdon functionality.
 *       cog    06/24/20 Refactor to functionaize the FIFO width setting.
 *       cog    08/04/20 Added multiband macros.
+*       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
+*                       four LSBs of the CS Gain.
 *
 * </pre>
 *
@@ -1176,6 +1178,7 @@ typedef struct {
 
 #define XRFDC_DAC_VOP_CTRL_REG_UPDT_MASK 0x2U
 #define XRFDC_DAC_VOP_CTRL_TST_BLD_MASK 0x1U
+#define XRFDC_DAC_VOP_BLDR_LOW_BITS_MASK 0xFU
 
 #define XRFDC_PLL_LOCK_DLY_CNT 1000U
 
