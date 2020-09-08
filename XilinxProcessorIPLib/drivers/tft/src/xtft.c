@@ -7,7 +7,7 @@
 /**
 *
 * @file xtft.c
-* @addtogroup tft_v6_2
+* @addtogroup tft_v6_3
 * @{
 *
 * This file defines all the functions for the XTft driver. See the xtft.h
