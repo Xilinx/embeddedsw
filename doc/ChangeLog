@@ -68,8 +68,10 @@ Fix intr_mcdma example compilation on microblaze platform.
 
 axivdma_v6_8:
 Add the frame data check in the interrupt example.
-Fix driver tcl to read user-defined config parameters for the number
-of frame buffers in design.
+Revert the frames stores canonical definition changes to
+fix the compilation failures and add a workaround to match the
+number of frame stores of model parameter and user-defined config
+parameter.
 
 mcdma_v1_5:
 Add XMcDma_BdGetAppWord() function declaration to fix the gcc
