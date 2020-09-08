@@ -62,11 +62,11 @@ static u32 XSecure_RegisterTampIntHandler(void);
  *		- Returns error code on failure
  *
  *****************************************************************************/
-u32 XSecure_Init(void)
+int XSecure_Init(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
-	Status = XSecure_RegisterTampIntHandler();
+	Status = (int)XSecure_RegisterTampIntHandler();
 
 	return Status;
 }
