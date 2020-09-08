@@ -7,7 +7,7 @@
 /**
 *
 * @file xprc_selftest.c
-* @addtogroup prc_v2_0
+* @addtogroup prc_v2_1
 * @{
 *
 * This file contains the self-test functions for the XPrc driver.
