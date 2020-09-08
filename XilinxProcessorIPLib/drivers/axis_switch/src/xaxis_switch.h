@@ -70,6 +70,7 @@
 *                    fix for CR-969126.
 *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                    generation.
+* 1.4   sd   02/09/20 Updated makefile for parallel execution.
 * </pre>
 *
 ******************************************************************************/
