@@ -831,7 +831,8 @@ END:
 ******************************************************************************/
 u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 {
-	u32 Status = XLOADER_FAILURE;
+	volatile u32 Status = XLOADER_FAILURE;
+	volatile u32 StatusTmp = XLOADER_FAILURE;
 	int ClrStatus = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 Sha3Instance;
@@ -863,6 +864,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* calculate hash of the image header table */
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_HASH_CALC_FAIL,
@@ -884,6 +886,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
 	}
 
+	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3Digest(&Sha3Instance, (UINTPTR)ImgHdrTbl, XIH_IHT_LEN,
 								&Sha3Hash);
 	if (Status != XLOADER_SUCCESS) {
@@ -896,9 +899,9 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 		XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "IHT Hash");
 
 	/* Authenticating Image header table */
-	Status = XLoader_DataAuth(SecurePtr, Sha3Hash.Hash,
-			(u8 *)SecurePtr->AcPtr->BHSignature);
-	if (Status != XLOADER_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataAuth, SecurePtr,
+						  Sha3Hash.Hash, (u8 *)SecurePtr->AcPtr->BHSignature);
+	if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_AUTH_FAIL, Status);
 		XPlmi_Printf(DEBUG_INFO, "Authentication of image header table "
 					"is failed\n\r");
