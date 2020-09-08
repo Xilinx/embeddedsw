@@ -106,6 +106,7 @@
 *                     generation.
 * 6.1   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of tft in xparameters.h
+* 6.3   sd   02/09/20 Updated makefile for parallel execution.
 *</pre>
 *
 ****************************************************************************/
