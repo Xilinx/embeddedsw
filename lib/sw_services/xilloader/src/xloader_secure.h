@@ -315,7 +315,9 @@ typedef struct {
 	u8 IsNextChunkCopyStarted;
 	u8 IsCheckSumEnabled;
 	u8 IsEncrypted;
+	u8 IsEncryptedTmp;
 	u8 IsAuthenticated;
+	u8 IsAuthenticatedTmp;
 	u8 IsDoubleBuffering;
 	XLoader_AuthType SigType;
 	XilPdi *PdiPtr;

@@ -648,7 +648,10 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 ******************************************************************************/
 u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
 {
-	u32 Status = XLOADER_FAILURE;
+	volatile u32 Status = XLOADER_FAILURE;
+	volatile u32 StatusTmp = XLOADER_FAILURE;
+	volatile u32 ReadReg = 0x0U;
+	volatile u32 ReadRegTmp = 0x0U;
 	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
 
 	XPlmi_Printf(DEBUG_INFO,
@@ -657,10 +660,11 @@ u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
 	 * Checking if authentication is compulsory
 	 * If bits in PPK0/1/2 is programmed bh_auth is not allowed
 	 */
-	Status = XLoader_CheckNonZeroPpk();
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
 	/* Authentication is compulsory */
-	if (Status == XLOADER_SUCCESS) {
-		if (SecurePtr->IsAuthenticated == (u8)FALSE) {
+	if ((Status == XLOADER_SUCCESS) || (StatusTmp == XLOADER_SUCCESS)) {
+		if ((SecurePtr->IsAuthenticated == (u8)FALSE) &&
+			(SecurePtr->IsAuthenticatedTmp == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_INFO,
 				"HWROT is enabled, non authenticated PDI is"
 				" not allowed\n\r");
@@ -688,7 +692,8 @@ u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
 		}
 	}
 	else {
-		if (SecurePtr->IsAuthenticated == (u8)TRUE) {
+		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
 			if (XilPdi_IsBhdrAuthEnable(BootHdr) == 0x00U) {
 				XPlmi_Printf(DEBUG_INFO,
 				"eFUSE PPK(s) are zero and Boot header authentication"
@@ -716,10 +721,14 @@ u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
 		}
 	}
 
+	ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+			  XLOADER_EFUSE_SEC_DEC_MASK;
+	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+				 XLOADER_EFUSE_SEC_DEC_MASK;
 	/* Checking if encryption is compulsory */
-	if ((XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
-		XLOADER_EFUSE_SEC_DEC_MASK) != 0x0U) {
-		if (SecurePtr->IsEncrypted == (u8)FALSE) {
+	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
+		if ((SecurePtr->IsEncrypted == (u8)FALSE) &&
+			(SecurePtr->IsEncryptedTmp == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			" non encrypted meta header is not allowed\n\r");
 			Status = XPlmi_UpdateStatus(
@@ -755,15 +764,21 @@ END:
 ******************************************************************************/
 static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr)
 {
-	u32 Status = XLOADER_FAILURE;
-	u32 PufHdLocation;
+	volatile u32 Status = XLOADER_FAILURE;
+	volatile u32 StatusTmp = XLOADER_FAILURE;
+	volatile u32 IsEncKeySrc = 0U;
+	volatile u32 IsEncKeySrcTmp = 0U;
+	volatile u32 PufHdLocation = 0U;
+	volatile u32 PufHdLocationTmp = 0U;
 
 	/*
 	 * When ENC only is set, Meta header should be decrypted
 	 * with only efuse black key and pufhd should come from eFUSE
 	 */
-	if (SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc !=
-			XLOADER_EFUSE_BLK_KEY) {
+	IsEncKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
+	IsEncKeySrcTmp = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
+	if ((IsEncKeySrc != XLOADER_EFUSE_BLK_KEY) ||
+		(IsEncKeySrcTmp != XLOADER_EFUSE_BLK_KEY)) {
 		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			"Key src should be eFUSE blk key\n\r");
 		Status = XLOADER_SEC_ENC_ONLY_KEYSRC_ERR;
@@ -773,7 +788,11 @@ static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr)
 	PufHdLocation =
 		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl))
 					>> XIH_PH_ATTRB_PUFHD_SHIFT;
-	if (PufHdLocation == XLOADER_PUF_HD_BHDR) {
+	PufHdLocationTmp =
+		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl))
+					>> XIH_PH_ATTRB_PUFHD_SHIFT;
+	if ((PufHdLocation == XLOADER_PUF_HD_BHDR) ||
+		(PufHdLocationTmp == XLOADER_PUF_HD_BHDR)) {
 		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			"PUFHD should be from eFuse\n\r");
 		Status = XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR;
@@ -781,20 +800,18 @@ static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Check for non-zero Meta header and Black IV */
-	Status = XLoader_CheckNonZeroIV();
-	if (Status != XLOADER_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroIV);
+	if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			"  eFuse IV should be non-zero\n\r");
 		goto END;
 	}
 
-	/* Status Reset */
-	Status = XLOADER_FAILURE;
-
 	/* Validate MetaHdr IV range with eFUSE IV */
-	Status = XLoader_ValidateIV(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.IvMetaHdr,
-						(u32*)XLOADER_EFUSE_IV_METAHDR_START_OFFSET);
-	if (Status != XLOADER_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateIV,
+						 SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.IvMetaHdr,
+						 (u32*)XLOADER_EFUSE_IV_METAHDR_START_OFFSET);
+	if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			"  eFuse Meta header IV range is not matched\n\r");
 	}
