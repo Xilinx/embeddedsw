@@ -1523,12 +1523,12 @@ END:
 static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
 {
 	u32 Status = XLOADER_FAILURE;
-	int HashStatus = XST_FAILURE;
+	volatile int HashStatus = XST_FAILURE;
+	volatile int HashStatusTmp = XST_FAILURE;
 
-	HashStatus = XPlmi_MemCmp(PpkHash,
-			(void *)EfusePpkOffset,
-			XLOADER_EFUSE_PPK_HASH_LEN);
-	if (HashStatus != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, XPlmi_MemCmp, PpkHash,
+						  (void *)EfusePpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
+	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0U);
 	}
