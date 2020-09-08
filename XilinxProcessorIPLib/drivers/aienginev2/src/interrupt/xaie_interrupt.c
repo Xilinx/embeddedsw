@@ -26,6 +26,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_clock.h"
 #include "xaie_helper.h"
 #include "xaie_interrupt.h"
 #include "xaie_npi.h"
