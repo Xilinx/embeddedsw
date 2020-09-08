@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps_sinit.c
-* @addtogroup xclockps_v1_2
+* @addtogroup xclockps_v1_3
 * @{
 *
 * This file contains method for static initialization (compile-time) of the
