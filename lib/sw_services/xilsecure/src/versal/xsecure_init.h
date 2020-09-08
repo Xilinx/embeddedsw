@@ -36,7 +36,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-u32 XSecure_Init(void);
+int XSecure_Init(void);
 void XSecure_TamperInterruptHandler(u32 ErrorNodeId, u32 ErrorMask);
 
 #ifdef __cplusplus
