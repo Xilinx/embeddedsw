@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_srp.c
-* @addtogroup hwicap_v11_3
+* @addtogroup hwicap_v11_4
 * @{
 *
 * This file contains the functions of the XHwIcap driver used to access the

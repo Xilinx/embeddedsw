@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_device_read_frame.c
-* @addtogroup hwicap_v11_3
+* @addtogroup hwicap_v11_4
 * @{
 *
 * This file contains the function that reads a specified frame from the
