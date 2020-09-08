@@ -1298,28 +1298,22 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 			goto END;
 		}
 		/* Validate PPK hash */
-		Status = XLoader_PpkVerify(SecurePtr);
-		if (Status != XLOADER_SUCCESS) {
-			goto END;
-		}
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify,
+									SecurePtr);
 	}
 
 	/* Perform SPK Validation */
-	Status = XLoader_SpkAuthentication(SecurePtr);
-	if (Status != XLOADER_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SpkAuthentication,
+									SecurePtr);
 
 	/* Check for SPK ID revocation */
 	if ((IsEfuseAuth == (u8)TRUE) || (IsEfuseAuthTmp == (u8)TRUE)) {
-		Status = XLoader_VerifyRevokeId(AcPtr->SpkId);
-		if (Status != XLOADER_SUCCESS) {
-			goto END;
-		}
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyRevokeId,
+									  AcPtr->SpkId);
 	}
 
-	Status = XLoader_VerifySignature(SecurePtr, Hash, &AcPtr->Spk,
-					Signature);
+    XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature,
+								SecurePtr, Hash, &AcPtr->Spk, Signature);
 
 END:
 	return Status;
