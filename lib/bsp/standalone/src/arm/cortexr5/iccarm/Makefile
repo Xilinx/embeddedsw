@@ -27,10 +27,10 @@ INCLUDEFILES=*.h
 
 SRCFILES:=$(wildcard *.c)
 
-ASSEMBLY_SRCFILES:=$(wildcard *.S)
+ASSEMBLY_SRCFILES:=$(wildcard *.s)
 
 OBJECTS =	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.c))))
-ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.S))))
+ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.s))))
 
 
 libs: $(LIBS)
