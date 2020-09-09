@@ -615,7 +615,7 @@ static const  XAie_DmaSysProp Aie2ShimDmaSysProp =
 static const  XAie_DmaBdProp Aie2ShimDmaProp =
 {
 	.AddrAlignMask = 0xF,
-	.AddrAlignShift = 0x0,
+	.AddrAlignShift = 2U,
 	.AddrMask = (1UL << 48U) - 1U,
 	.LenActualOffset = 0U,
 	.Buffer = &Aie2ShimDmaBufferProp,
