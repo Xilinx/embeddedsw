@@ -142,6 +142,8 @@ AieRC XAie_Finish(XAie_DevInst *DevInst)
 		return RC;
 	}
 
+	DevInst->IsReady = 0;
+
 	return XAIE_OK;
 }
 
