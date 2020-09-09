@@ -7,7 +7,7 @@
 /**
 *
 * @file xdevcfg_sinit.c
-* @addtogroup devcfg_v3_6
+* @addtogroup devcfg_v3_7
 * @{
 *
 * This file contains method for static initialization (compile-time) of the
