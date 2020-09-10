@@ -20,10 +20,10 @@
 #include "xbir_qspimap.h"
 #include "string.h"
 #include "xbir_config.h"
+#include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
-#define XBIR_SYS_QSPI_MIN_PAGE_SIZE_MASK	(0x000000FFU)
-#define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8U * 1024U)	/* 8KB */
+#define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8192U)	/* 8KB */
 #define XBR_SYS_NUM_REDUNDANT_COPY		(2U)
 
 /**************************** Type Definitions *******************************/
@@ -31,7 +31,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void Xbir_SysReadAndCorrectBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
+static void Xbir_SysReadAndCorrectBootImgInfo (void);
 static int Xbir_SysReadSysInfoFromEeprom (Xbir_SysHeaderInfo* SomHeaderInfo,
 		Xbir_SysBoardInfo* SomBoardInfo, Xbir_SysHeaderInfo* CCHeaderInfo,
 		Xbir_SysBoardInfo* CCBoardInfo);
@@ -42,10 +42,12 @@ static int Xbir_SysValidateBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo,
 static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset);
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
+#if defined(XPAR_XIICPS_NUM_INSTANCES)
 static int Xbir_SysReadSomInfoFromEeprom (Xbir_SysHeaderInfo* SomHeaderInfo,
 		Xbir_SysBoardInfo* SomBoardInfo);
 static int Xbir_SysReadCCInfoFromEeprom (Xbir_SysHeaderInfo* CCHeaderInfo,
 		Xbir_SysBoardInfo* CCBoardInfo);
+#endif
 
 /************************** Variable Definitions *****************************/
 static const u32 Xbir_UtilCrcTable[] = {
@@ -84,11 +86,12 @@ static const u32 Xbir_UtilCrcTable[] = {
 };
 
 static Xbir_SysBootImgInfo BootImgStatus = \
-		{{0x00U, 0x4DU, 0x4FU, 0x53U}, 1U, 1U, 0xFD07FF0DU, \
-		{0U, 0U, 0U, 1U}, 0x200000U, 0xF80000U, 0x1E00000U};
+		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 1U, 0xAFA2BCBCU, \
+		{0U, 1U, 0U, 0U}, 0x200000U, 0x1000000U, 0x1E80000U};
 static u8 QspiBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE];
 static Xbir_SysBoardInfo SomBoardInfo = {0U};
 static Xbir_SysBoardInfo CCBoardInfo = {0U};
+
 /*****************************************************************************/
 /**
  * @brief
@@ -120,10 +123,11 @@ int Xbir_SysInit (void)
 	Status = Xbir_SysReadSysInfoFromEeprom (&SomHeaderInfo, &SomBoardInfo,
 			&CCHeaderInfo, &CCBoardInfo);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		Status = XST_SUCCESS;
+		//goto END;
 	}
 
-	Xbir_SysReadAndCorrectBootImgInfo(&BootImgStatus);
+	Xbir_SysReadAndCorrectBootImgInfo();
 	Xbir_SysShowBootImgInfo(&BootImgStatus);
 
 END:
@@ -236,11 +240,6 @@ int Xbir_SysUpdateBootImgStatus (u8 ImgABootable, u8 ImgBBootable,
 	u32 Addr;
 	u8 Idx = 0U;
 
-	if ((ImgABootable | ImgBBootable | ReqBootImg) > 0x01U) {
-		Status = XST_FAILURE;
-		goto END;
-	}
-
 	if ((BootImgStatus.PersistentState.ImgABootable == ImgABootable) &&
 		(BootImgStatus.PersistentState.ImgBBootable == ImgBBootable) &&
 		(BootImgStatus.PersistentState.RequestedBootImg == ReqBootImg)) {
@@ -324,12 +323,6 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 		WrBuff = QspiBuffer;
 	}
 
-	Status = Xbir_QspiFlashErase(WrAddr, DataSize);
-	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Boot Img Info erase failed\r\n");
-		goto END;
-	}
-
 	while (DataSize >= PageSize) {
 		Status = Xbir_QspiWrite(WrAddr, WrBuff, PageSize);
 		if (Status != XST_SUCCESS) {
@@ -373,7 +366,6 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 {
 	int Status = XST_FAILURE;
 	u32 Offset;
-	u32 Size;
 
 	if (XBIR_SYS_BOOT_IMG_A_ID == BootImgId) {
 		Offset = BootImgStatus.BootImgAOffset;
@@ -385,22 +377,12 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 		goto END;
 	}
 
-	/* TBD: Complete erase of image area didn't work, so if it is fixed in
-	 * QSPI, then we can remove erase loop created for erasing the image
-	 * region. Else we can remove this comment along with below commented
-	 * code line
-	 * */
-	/* Status = Xbir_QspiFlashErase(Offset, XBIR_QSPI_MAX_BOOT_IMG_SIZE);*/
-
-	for (Size = 0U; Size < XBIR_QSPI_MAX_BOOT_IMG_SIZE;
-		Size += XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE) {
-		Status = Xbir_QspiFlashErase(Offset + Size,
-			XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE);
-		if (Status != XST_SUCCESS) {
-			Xbir_Printf("\r\nERROR: Flash Erase failed (%08X)\r\n",
-				 Status);
-		}
+	Status = Xbir_QspiFlashErase(Offset, XBIR_QSPI_MAX_BOOT_IMG_SIZE);
+	if (Status != XST_SUCCESS) {
+		Xbir_Printf("\r\nERROR: Flash Erase failed (%08X)\r\n",
+			 Status);
 	}
+
 END:
 	return Status;
 }
@@ -411,21 +393,21 @@ END:
  * This function reads the boot image info from QSPI. It also try to correct the
  * corrupted boot image information stored in QSPI.
  *
- * @param	BootImgInfo	Pointer to boot image information
+ * @param	None
  *
  * @return	XST_SUCCESS on successful read of boot image information
  * 		Error code on failure
  *
  *****************************************************************************/
-static void Xbir_SysReadAndCorrectBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
+static void Xbir_SysReadAndCorrectBootImgInfo (void)
 {
 	int Status = XST_FAILURE;
 	int StatusA = XST_FAILURE;
 	int StatusB = XST_FAILURE;
 	u32 ChksumA;
 	u32 ChksumB;
-	Xbir_SysBootImgInfo BootImgInfoA;
-	Xbir_SysBootImgInfo BootImgInfoB;
+	Xbir_SysBootImgInfo BootImgInfoA __attribute__ ((aligned(32U))) = {0U};
+	Xbir_SysBootImgInfo BootImgInfoB __attribute__ ((aligned(32U))) = {0U};
 
 	/* Read Persistent State Registers */
 	StatusA = Xbir_QspiRead(XBIR_QSPI_MM_BOOT_IMG_INFO_ADDR,
@@ -442,10 +424,10 @@ static void Xbir_SysReadAndCorrectBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
 
 	/* Try to update Image B info if it is corrupted */
 	if (XST_SUCCESS == StatusA) {
-		memcpy(BootImgInfo, &BootImgInfoA, sizeof(BootImgInfoA));
+		memcpy(&BootImgStatus, &BootImgInfoA, sizeof(BootImgInfoA));
 		if ((StatusB != XST_SUCCESS) || (ChksumB != ChksumA)) {
 			Xbir_Printf("Boot image backup info corrupted...\r\n");
-			Status = Xbir_SysWrvBootImgInfo(BootImgInfo,
+			Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
 					XBIR_QSPI_MM_BOOT_IMG_INFO_BKP_ADDR);
 			if (Status == XST_SUCCESS) {
 				Xbir_Printf("Boot image backup info recovered...\r\n");
@@ -456,9 +438,9 @@ static void Xbir_SysReadAndCorrectBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
 		}
 	}
 	else if (XST_SUCCESS == StatusB) {
-		memcpy(BootImgInfo, &BootImgInfoB, sizeof(BootImgInfoB));
+		memcpy(&BootImgStatus, &BootImgInfoB, sizeof(BootImgInfoB));
 		Xbir_Printf("Boot image info corrupted...\r\n");
-		Status = Xbir_SysWrvBootImgInfo(BootImgInfo,
+		Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
 			XBIR_QSPI_MM_BOOT_IMG_INFO_ADDR);
 		if (Status == XST_SUCCESS) {
 			Xbir_Printf("Boot image info recovered...\r\n");
@@ -470,6 +452,23 @@ static void Xbir_SysReadAndCorrectBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
 	else {
 		Xbir_Printf("Use default Boot image info\r\n");
 		memcpy(&BootImgInfoA, &BootImgStatus, sizeof(BootImgStatus));
+		Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
+			XBIR_QSPI_MM_BOOT_IMG_INFO_ADDR);
+		if (Status == XST_SUCCESS) {
+			Xbir_Printf("Boot image info recovered...\r\n");
+		}
+		else {
+			Xbir_Printf("ERROR: Boot image recovery failed...\r\n");
+		}
+
+		Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
+					XBIR_QSPI_MM_BOOT_IMG_INFO_BKP_ADDR);
+		if (Status == XST_SUCCESS) {
+			Xbir_Printf("Boot image backup info recovered...\r\n");
+		}
+		else {
+			Xbir_Printf("ERROR: Boot image backup recovery failed...\r\n");
+		}
 	}
 
 	return;
@@ -491,13 +490,22 @@ static int Xbir_SysWriteBootImageInfo (Xbir_SysBootImgInfo *BootImgInfo,
 	u32 Offset)
 {
 	int Status = XST_FAILURE;
+	u16 PageSize = Xbir_QspiGetPageSize();
+	u8 WriteBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE] = {0U};
 
-	Status = Xbir_SysWriteFlash(Offset, (u8 *)BootImgInfo,
-		sizeof(Xbir_SysBootImgInfo), XBIR_SYS_LAST_DATA_CHUNK);
+	memcpy((void *)WriteBuffer, (void *)BootImgInfo, sizeof(Xbir_SysBootImgInfo));
+
+	Status = Xbir_QspiFlashErase(Offset, XBIR_QSPI_MAX_BOOT_IMG_INFO_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xbir_QspiWrite(Offset, WriteBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
 		Xbir_Printf("ERROR: Boot Img Info write failed\r\n");
 	}
 
+END:
 	return Status;
 }
 
@@ -556,17 +564,16 @@ static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo)
 	u32 Idx;
 	u32 Checksum = 0U;
 	u32 *Data = (u32 *) BootImgInfo;
-	u32 BootImgInfoSize = XBIR_BOOT_IMG_INFO_HDR_SIZE_IN_WORDS +
-		BootImgInfo->Len;
+	u32 BootImgInfoSize = sizeof(Xbir_SysBootImgInfo) / 4U;
 
+	BootImgInfo->Checksum = 0U;
 	for (Idx = 0U; Idx < BootImgInfoSize; Idx++) {
 		Checksum += Data[Idx];
 	}
 
-	// Exclude checksum in boot image info from calculated Checksum
-	Checksum -= BootImgInfo->Checksum;
+	BootImgInfo->Checksum =  0xFFFFFFFFU - Checksum;
 
-	return Checksum;
+	return BootImgInfo->Checksum;
 }
 
 /*****************************************************************************/
@@ -586,7 +593,7 @@ static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo)
 static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset)
 {
 	int Status = XST_FAILURE;
-	Xbir_SysBootImgInfo RdBootImgInfo;
+	Xbir_SysBootImgInfo RdBootImgInfo __attribute__ ((aligned(32U)));
 
 	Status = Xbir_SysWriteBootImageInfo(BootImgInfo, Offset);
 	if (Status != XST_SUCCESS) {
@@ -619,7 +626,7 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
 	Xbir_Printf("[Boot Image Info]\r\n");
 	Xbir_Printf("\t                 Ver: %u\r\n", BootImgInfo->Ver);
 	Xbir_Printf("\t              Length: %u\r\n", BootImgInfo->Len);
-	Xbir_Printf("\t            Checksum: %u\r\n", BootImgInfo->Checksum);
+	Xbir_Printf("\t            Checksum: 0x%08x\r\n", BootImgInfo->Checksum);
 	Xbir_Printf("\tPersistent State Reg: 0x%08X\r\n",
 		 *(u32 *)&BootImgInfo->PersistentState);
 	Xbir_Printf("\t        Img A Offset: 0x%08X\r\n",
@@ -754,34 +761,38 @@ END:
 static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size, u32* Crc)
 {
 	int Status = XST_FAILURE;
-	u32 CalcCrc = 0xFFFFFFFF;
+	u32 CalcCrc = 0xFFFFFFFFU;
 	u32 Idx;
 	u32 Len;
 	u32 Addr = Offset;
 	u32 RemainingSize = Size;
+	u8 ReadBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE]
+			__attribute__ ((aligned(32U))) = {0U};
 
 	while (RemainingSize > 0U) {
-		if (RemainingSize > sizeof(QspiBuffer)) {
-			Len = sizeof(QspiBuffer);
+		if (RemainingSize > sizeof(ReadBuffer)) {
+			Len = sizeof(ReadBuffer);
 		}
 		else {
 			Len = RemainingSize;
 		}
 
-		Status = Xbir_QspiRead(Addr, QspiBuffer, Len);
+		Xbir_Printf("SrcAddr: 0x%0x%08x Len: %0x\n\r", Addr, Len);
+		Status = Xbir_QspiRead(Addr, ReadBuffer, Len);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
 		for (Idx = 0U; Idx < Len; Idx++) {
 			CalcCrc = (CalcCrc >> 8U) ^
-				Xbir_UtilCrcTable[(CalcCrc ^ QspiBuffer[Idx]) & 0xFF];
+				Xbir_UtilCrcTable[(CalcCrc ^ ReadBuffer[Idx]) & 0xFFU];
 		}
 
 		RemainingSize -= Len;
 		Addr += Len;
 	}
 
-	*Crc = CalcCrc ^ 0xFFFFFFFF;
+	*Crc = CalcCrc ^ 0xFFFFFFFFU;
 	Status = XST_SUCCESS;
 
 END:

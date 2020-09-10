@@ -643,7 +643,7 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			}
 
 			FlashMsg[2U].TxBfrPtr = NULL;
-			FlashMsg[2U].RxBfrPtr = (u8 *)DestAddress;
+			FlashMsg[2U].RxBfrPtr = DestAddress;
 			FlashMsg[2U].ByteCount = TransferBytes;
 			FlashMsg[2U].Flags = XQSPIPSU_MSG_FLAG_RX;
 
@@ -837,16 +837,15 @@ int Xbir_QspiFlashErase(u32 Address, u32 Length)
 	XQspiPsu_Msg FlashMsg[5U];
 	u32 SectorOffset;
 
-	SectorOffset = Address & ~(FlashInfo.SectSize - 1U);
+	SectorOffset = Address & (FlashInfo.SectSize - 1U);
 	Address = Address - SectorOffset;
 	Length = Length + SectorOffset;
 
-	SectorOffset = Length &  ~(FlashInfo.SectSize - 1U);
+	SectorOffset = Length &  (FlashInfo.SectSize - 1U);
 	if (SectorOffset != 0U) {
 		Length = Length + FlashInfo.SectSize - SectorOffset;
 	}
-        NumSect = (Length / FlashInfo.SectSize);
-
+	NumSect = (Length / FlashInfo.SectSize);
 	WrEnableCmd = WRITE_ENABLE_CMD;
 
 	for (Sector = 0U; Sector < NumSect; Sector++) {
