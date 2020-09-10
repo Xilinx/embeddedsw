@@ -98,6 +98,8 @@
  *                       as Pointer to const,No brackets to then/else,
  *                       Literal value requires a U suffix,Casting operation to a pointer
  *                       Array has no bounds specified,Logical conjunctions need brackets.
+ * 1.10	 sne    08/28/20 Modify Makefile to support parallel make execution.
+ *
  * </pre>
  *
  ******************************************************************************/
