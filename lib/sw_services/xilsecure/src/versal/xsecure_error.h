@@ -19,7 +19,7 @@
  * 4.2   rpo  03/19/2020 Updated file version to sync with library version
  * 4.3   ana  06/05/2020 Added XSECURE_SHA3_FINISH_ERROR error code
  *       har  08/24/2020 Added ECDSA error codes
- *		 rpo  09/01/2020 Added Invalid argument error codes
+ *		 rpo  09/04/2020 Added Invalid argument error codes
  * </pre>
  *
  * @note
@@ -52,6 +52,8 @@ typedef enum {
 	XSECURE_SHA3_FINISH_ERROR,      /**<0x07 - Error when SHA3 finish fails */
 
 	XSECURE_SHA3_INVALID_PARAM,		/**< 0x08 - Invalid Argument */
+
+	XSECURE_SSS_INVALID_PARAM,		/**< 0x09 - Invalid Argument */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40U,
 					/**< 0x40 - user provided GCM tag does
