@@ -136,71 +136,12 @@ static XStatus CpmInitFinish(u32 *Args, u32 NumOfArgs)
 
 static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
-	XPm_CpmDomain *Cpm;
-	u32 Platform;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-	u32 IdCode;
 
-	/* Skip scan clear for S80 devices */
-	Platform = XPm_GetPlatform();
-	IdCode = XPm_GetIdCode();
-	if ((PLATFORM_VERSION_SILICON != Platform) ||
-	    (PLATFORM_VERSION_SILICON == Platform &&
-	     (PMC_TAP_IDCODE_DEV_SBFMLY_S80 ==
-	      (IdCode & (u32)PMC_TAP_IDCODE_DEV_SBFMLY_MASK)))) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XST_FAILURE;
-		goto done;
-	}
-
-	/* Unlock PCSR */
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-
-	/* Run scan clear on CPM */
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
-		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
-		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
-				 CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
-		goto done;
-	}
-	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
-				 CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK,
-				 XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
-		goto done;
-	}
-
-	/* Pulse CPM POR */
-	Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
-				     (u32)PM_RESET_ACTION_PULSE);
-
-	/* Unwrite trigger bits */
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
-		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-        PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET, 0);
-
-	/* Lock PCSR */
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
+	/* ScanClear is not supported till CPM4 so skip this */
+	return XST_SUCCESS;
 }
 
 static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
