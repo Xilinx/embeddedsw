@@ -17,7 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     03/26/20 Initial release
 * 4.2   har     03/26/20 Updated file version to sync with library version
-* 4.3	rpo	 	09/04/20 Asserts are not compiled by default for
+* 4.3	rpo	 	09/10/20 Asserts are not compiled by default for
 *						 secure libraries
 *
 * </pre>
@@ -61,14 +61,24 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
  *
  * @param	InstancePtr	Instance pointer to the XSecure_Sss.
  *
+ * @return  Status -  XST_SUCCESS/Error Code
+ *
  *****************************************************************************/
-void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
+int XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 {
-	/* Assert validates the input arguments */
-	XSecure_AssertVoid(InstancePtr != NULL);
+	int Status = XST_FAILURE;
+
+	/* Validates the input arguments */
+	if (InstancePtr == NULL) {
+		Status = XSECURE_SSS_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->Address = XSECURE_SSS_ADDRESS;
 
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }
 
 /*****************************************************************************/

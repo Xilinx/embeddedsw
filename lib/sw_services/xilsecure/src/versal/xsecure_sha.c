@@ -29,7 +29,7 @@
 *                     and removed redundant check
 *       kpt  08/15/20 Added validation for input arguments
 *            08/27/20 Added 64 bit support for SHA3
-*		rpo	 09/04/20 Asserts are not compiled by default for secure libraries
+*		rpo	 09/10/20 Asserts are not compiled by default for secure libraries
 *
 * </pre>
 * @note
@@ -80,7 +80,7 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr,
 					const UINTPTR InDataAddr, const u32 Size, u8 IsLast);
 static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 					const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate);
-static void XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
+static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 
 /************************** Variable Definitions *****************************/
 
@@ -95,7 +95,8 @@ static void XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
 * @param	DmaPtr 	Pointer to the XPmcDma instance.
 *
-* @return	XST_SUCCESS if initialization was successful
+* @return	XST_SUCCESS if initialization was successful or error upon
+*						failure
 *
 * @note		The base address is initialized directly with value from
 * 		xsecure_hw.h
@@ -116,7 +117,10 @@ u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 	InstancePtr->DmaPtr = DmaPtr;
 	InstancePtr->IsLastUpdate = FALSE;
 
-	XSecure_SssInitialize(&(InstancePtr->SssInstance));
+	Status = XSecure_SssInitialize(&(InstancePtr->SssInstance));
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 
@@ -134,8 +138,8 @@ END:
  *
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  *
- * @return	XST_SUCCESS if last update can be accepted
- *
+ * @return	XST_SUCCESS if initialization was successful or error upon
+ *						failure
  *
  *****************************************************************************/
 u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
@@ -164,19 +168,30 @@ END:
  * @param	Dst is the pointer to location where padding is to be applied
  * @param	MsgLen is the length of padding in bytes
  *
- * @return	None
+ * @return	XST_SUCCESS if initialization was successful or error upon
+ *						failure
  *
  * @note	None
  *
  ******************************************************************************/
-static void XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
+static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
 {
-	/* Assert validates the input arguments */
-	XSecure_AssertVoid(MsgLen != 0U);
+	int Status = XST_FAILURE;
+
+	/* Validates the input arguments */
+	if (MsgLen == 0U) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	(void)memset(Dst, 0, MsgLen);
 	Dst[0] =  XSECURE_SHA3_START_NIST_PADDING_MASK;
 	Dst[MsgLen -1U] |= XSECURE_SHA3_END_NIST_PADDING_MASK;
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -186,15 +201,21 @@ static void XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
  *
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  *
- * @return	None
+ * @return	XST_SUCCESS if initialization was successful or error upon
+ *						failure
  *
  *
  ******************************************************************************/
-void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
+int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 {
-	/* Asserts validate the input arguments */
-	XSecure_AssertVoid(InstancePtr != NULL);
-	XSecure_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED);
+	int Status = XST_FAILURE;
+
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		(InstancePtr->Sha3State != XSECURE_SHA3_INITIALIZED)) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->IsLastUpdate = FALSE;
@@ -210,6 +231,11 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 			XSECURE_SHA3_START_OFFSET,
 			XSECURE_SHA3_START_START);
 	InstancePtr->Sha3State = XSECURE_SHA3_ENGINE_STARTED;
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -310,8 +336,11 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 		PadLen = (PadLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
 			(XSECURE_SHA3_BLOCK_LEN - PadLen);
 
-		XSecure_Sha3NistPadd(&InstancePtr->PartialData[InstancePtr->PartialLen],
+		Status = XSecure_Sha3NistPadd(&InstancePtr->PartialData[InstancePtr->PartialLen],
 					PadLen);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
 
 		Size = PadLen + InstancePtr->PartialLen;
 		Status = XSecure_Sha3DmaTransfer(InstancePtr,
@@ -338,8 +367,11 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 		goto END;
 	}
 
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
+
 	/* Read out the Hash in reverse order.  */
-	XSecure_Sha3ReadHash(InstancePtr, Sha3Hash);
+	Status = XSecure_Sha3ReadHash(InstancePtr, Sha3Hash);
 
 END:
 	if (Size > 0x0U) {
@@ -384,7 +416,15 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 		goto END;
 	}
 
-	XSecure_Sha3Start(InstancePtr);
+
+	Status = XSecure_Sha3Start(InstancePtr);
+	if (Status != (u32)XST_SUCCESS){
+		goto END;
+	}
+
+	/* Status Reset */
+	Status = (u32)XST_FAILURE;
+
 	Status = XSecure_Sha3Update(InstancePtr, InDataAddr, Size);
 	if (Status != (u32)XST_SUCCESS){
 		goto END;
@@ -413,19 +453,23 @@ END:
  *				where output hash is stored into Hash
  *				which is member of the XSecure_Sha3Hash structure
  *
- * @return	None
+ * @return	Status Error code in case of failure
  *
  ******************************************************************************/
-void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
+int XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 RegVal;
 	u32 *HashPtr = (u32 *)Sha3Hash->Hash;
 
-	XSecure_AssertVoid(InstancePtr != NULL);
-	XSecure_AssertVoid(Sha3Hash != NULL);
-	XSecure_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
-
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		(Sha3Hash == NULL) ||
+		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED)) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	for (Index = 0U; Index < XSECURE_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
@@ -433,6 +477,11 @@ void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 			XSECURE_SHA3_DIGEST_0_OFFSET + (Index * XSECURE_WORD_SIZE));
 		HashPtr[XSECURE_SHA3_HASH_LENGTH_IN_WORDS - Index - 1] = RegVal;
 	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -610,7 +659,13 @@ u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 
-	XSecure_Sha3Start(SecureSha3);
+	Status = XSecure_Sha3Start(SecureSha3);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = (u32) XSECURE_SHA3_KAT_FAILED_ERROR;
+
 	Status = XSecure_Sha3LastUpdate(SecureSha3);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_SHA3_LAST_UPDATE_ERROR;
