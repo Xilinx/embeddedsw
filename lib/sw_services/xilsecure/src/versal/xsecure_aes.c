@@ -45,7 +45,7 @@
 *       kpt  08/18/2020 Added volatile keyword to status variable in case of
 *                       status reset
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
-*		rpo	 09/04/2020 Asserts are not compiled by default for
+*		rpo	 09/10/2020 Asserts are not compiled by default for
 *						secure libraries
 *
 * </pre>
@@ -371,7 +371,10 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_KEY_CLEAR_OFFSET, XSECURE_AES_KEY_CLEAR_ALL_AES_KEYS);
 
-	XSecure_SssInitialize(&(InstancePtr->SssInstance));
+	Status = XSecure_SssInitialize(&(InstancePtr->SssInstance));
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
