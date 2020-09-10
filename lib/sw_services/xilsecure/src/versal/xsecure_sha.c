@@ -29,7 +29,7 @@
 *                     and removed redundant check
 *       kpt  08/15/20 Added validation for input arguments
 *            08/27/20 Added 64 bit support for SHA3
-*		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
+*		rpo	 09/04/20 Asserts are not compiled by default for secure libraries
 *
 * </pre>
 * @note
@@ -103,9 +103,13 @@ static void XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 *****************************************************************************/
 u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 {
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(DmaPtr != NULL);
+	u32 Status = (u32)XST_FAILURE;
+
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) || (DmaPtr == NULL)) {
+		Status = (u32)XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->BaseAddress = XSECURE_SHA3_BASE;
 	InstancePtr->Sha3Len = 0U;
@@ -116,7 +120,10 @@ u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 
 	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 
-	return XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+
+END:
+	return Status;
 }
 
  /****************************************************************************/
@@ -133,13 +140,21 @@ u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
  *****************************************************************************/
 u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 {
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
+	u32 Status = (u32)XST_FAILURE;
+
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED)) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->IsLastUpdate = TRUE;
 
-	return XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -157,7 +172,7 @@ u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 static void XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
 {
 	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(MsgLen != 0U);
+	XSecure_AssertVoid(MsgLen != 0U);
 
 	(void)memset(Dst, 0, MsgLen);
 	Dst[0] =  XSECURE_SHA3_START_NIST_PADDING_MASK;
@@ -178,8 +193,8 @@ static void XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 {
 	/* Asserts validate the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED);
+	XSecure_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED);
 
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->IsLastUpdate = FALSE;
@@ -219,11 +234,13 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 	u32 TransferredBytes;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Asserts validate the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
-	Xil_AssertNonvoid(((InDataAddr != 0x00U) && (Size > 0x00U)) ||
-					  ((InDataAddr == 0x00U) && (Size == 0x00U)));
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) ||
+		((InDataAddr == 0x00U) && (Size > 0U))) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->Sha3Len += Size;
 	DataSize = Size;
@@ -278,12 +295,14 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 {
 	u32 PadLen;
 	volatile u32 Status = (u32)XST_FAILURE;
-	u32 Size;
+	u32 Size = 0U;
 
-	/* Asserts validate the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(Sha3Hash != NULL);
-	XSecure_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) || (Sha3Hash == NULL) ||
+		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED)) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	PadLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
 
@@ -357,11 +376,13 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 {
 	volatile u32 Status = (u32)XST_FAILURE;
 
-	/* Asserts validate the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Sha3Hash != NULL);
-	Xil_AssertNonvoid(((InDataAddr != 0x00U) && (Size > 0x00U)) ||
-					  ((InDataAddr == 0x00U) && (Size == 0x00U)));
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		(Sha3Hash == NULL) ||
+		((InDataAddr == 0x00U) && (Size > 0U))) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
 
 	XSecure_Sha3Start(InstancePtr);
 	Status = XSecure_Sha3Update(InstancePtr, InDataAddr, Size);
@@ -401,9 +422,10 @@ void XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 	u32 RegVal;
 	u32 *HashPtr = (u32 *)Sha3Hash->Hash;
 
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(Sha3Hash != NULL);
-	XSecure_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
+	XSecure_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(Sha3Hash != NULL);
+	XSecure_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
+
 
 	for (Index = 0U; Index < XSECURE_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
