@@ -23,6 +23,7 @@
 * 4.2   har     01/03/20 Added blind write check for SssCfg
 *       vns     01/24/20 Added assert statements to input arguments
 *       har     03/26/20 Removed code for SSS configuration
+*		rpo		09/08/20 Asserts are placed under XSECDEBUG macro
 * </pre>
 *
 ******************************************************************************/
@@ -50,7 +51,7 @@
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(BaseAddress != 0x00);
+	XSecure_AssertVoid(BaseAddress != 0x00);
 
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_UNSET);
@@ -70,7 +71,7 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 void XSecure_SetReset(u32 BaseAddress, u32 Offset)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(BaseAddress != 0x00);
+	XSecure_AssertVoid(BaseAddress != 0x00);
 
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 }
