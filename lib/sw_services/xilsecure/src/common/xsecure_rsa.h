@@ -79,7 +79,7 @@ extern "C" {
 #define XSECURE_RSA_BYTE_PAD1		(0X00U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
-
+#define XSECURE_RSA_INVALID_PARAM	(0x82U)
 /***************************** Type Definitions ******************************/
 
 /***************************** Function Prototypes ***************************/

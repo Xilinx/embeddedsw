@@ -42,6 +42,7 @@
 *                     and initialized with XST_FAILURE
 *       har  06/17/20 Removed references to unused algorithms
 *		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
+*		rpo	 09/04/20 Input validations are added
 *
 * </pre>
 *
@@ -92,12 +93,13 @@
 s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 							u8 *ModExpo)
 {
-	u32 Status = XST_FAILURE;
+	s32 Status = XST_FAILURE;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(Mod != NULL);
-	XSecure_AssertNonvoid(ModExpo != NULL);
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) || (Mod == NULL) || (ModExpo == NULL)) {
+		Status = XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 
 	Status = XSecure_RsaCfgInitialize(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
@@ -141,11 +143,12 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	volatile u32 sign_index;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(Signature != NULL);
-	XSecure_AssertNonvoid(Hash != NULL);
-	XSecure_AssertNonvoid(HashLen == XSECURE_HASH_TYPE_SHA3);
-
+	/* Validate the input arguments */
+	if ((Signature == NULL) || (Hash == NULL) ||
+		(HashLen != XSECURE_HASH_TYPE_SHA3)) {
+		Status = (u32)XSECURE_RSA_INVALID_PARAM;
+		goto ENDF;
+	}
 	PadLength = XSECURE_FSBL_SIG_SIZE - XSECURE_RSA_BYTE_PAD_LENGTH
 				- XSECURE_RSA_T_PAD_LENGTH - HashLen;
 
@@ -243,18 +246,18 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 {
 	s32 Status = XST_FAILURE;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(Result != NULL);
-	XSecure_AssertNonvoid(Input != NULL);
-	XSecure_AssertNonvoid(Size != 0x00U);
-	XSecure_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) || (Result == NULL) || (Input == NULL) ||
+		(Size == 0x00U) || (InstancePtr->RsaState != XSECURE_RSA_INITIALIZED)) {
+		Status = XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 
 	Status = (s32)XSecure_RsaOperation(InstancePtr, Input, Result,
 					XSECURE_RSA_SIGN_ENC, Size);
 
+END:
 	return Status;
-
 }
 
 /*****************************************************************************/
@@ -287,15 +290,15 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 				u8 *Result)
 {
-	s32 Status = (s32)XSECURE_RSA_DATA_VALUE_ERROR;
+	s32 Status = XSECURE_RSA_DATA_VALUE_ERROR;
 	u32 idx;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(Result != NULL);
-	XSecure_AssertNonvoid(Input != NULL);
-	XSecure_AssertNonvoid(Size != 0x00U);
-	XSecure_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) || (Result == NULL) || (Input == NULL) ||
+		(Size == 0x00U) || (InstancePtr->RsaState != XSECURE_RSA_INITIALIZED)) {
+		Status = XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 
 	/*
 	 * Input data should always be smaller than modulus
@@ -314,5 +317,6 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 		}
 	}
 
+END:
 	return Status;
 }
