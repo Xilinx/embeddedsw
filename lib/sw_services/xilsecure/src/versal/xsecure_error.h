@@ -102,7 +102,7 @@ typedef enum {
 	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR, /**< 0x81 - Error when RSA data
                                                        not matched with
 						       expected data  */
-	XSECURE_RSA_INVALID_PARAM,					 /**< 0x82 - Invalid Argument */
+	XSECURE_RSA_INVALID_PARAM_RESERVED,			 /**< 0x82 - Invalid Argument */
 	XSECURE_RSAKAT_INVALID_PARAM,				 /**< 0x83 - Invalid Argument */
 
 	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0U, /**< 0xC0 -ECC key is not valid */
