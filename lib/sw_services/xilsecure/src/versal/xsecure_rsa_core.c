@@ -32,6 +32,7 @@
 * 4.3   ana  06/04/20 Minor enhancement
 *       har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
 *		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
+*		rpo	 09/04/20 Input validations are added
 *
 * </pre>
 *
@@ -85,12 +86,16 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = (u32)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->BaseAddress = XSECURE_ECDSA_RSA_BASEADDR;
 	Status = (u32)XST_SUCCESS;
 
+END:
 	return Status;
 }
 
@@ -119,15 +124,15 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 ErrorCode = (u32)XST_FAILURE;
 	u32 Events;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(Input != NULL);
-	XSecure_AssertNonvoid(Result != NULL);
-	XSecure_AssertNonvoid((RsaOp == XSECURE_RSA_SIGN_ENC) ||
-			(RsaOp == XSECURE_RSA_SIGN_DEC));
-	XSecure_AssertNonvoid((KeySize == XSECURE_RSA_4096_KEY_SIZE) ||
-			(KeySize == XSECURE_RSA_3072_KEY_SIZE) ||
-			(KeySize == XSECURE_RSA_2048_KEY_SIZE));
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) || (Input == NULL) || (Result == NULL) ||
+		((RsaOp != XSECURE_RSA_SIGN_ENC) && (RsaOp != XSECURE_RSA_SIGN_DEC)) ||
+		((KeySize != XSECURE_RSA_4096_KEY_SIZE) &&
+		(KeySize !=XSECURE_RSA_3072_KEY_SIZE) &&
+		(KeySize != XSECURE_RSA_2048_KEY_SIZE))) {
+		ErrorCode = (u32)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->EncDec = RsaOp;
 	InstancePtr->SizeInWords = KeySize/XSECURE_WORD_SIZE;
