@@ -50,6 +50,9 @@ zdma_v1_10:
 Expose ZDMA scatter gather and enable APIs for direct use.
 Update zdma driver makefile for parallel execution.
 
+rtcpsu_v1_10:
+Update the Makefile for parallel execution.
+
 wdttb_v5_1:
 Fixed MISRAC violations.
 Corrected fabric watchdog interrupt id in example.
