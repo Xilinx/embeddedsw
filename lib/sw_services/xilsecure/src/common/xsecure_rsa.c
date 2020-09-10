@@ -42,7 +42,7 @@
 *                     and initialized with XST_FAILURE
 *       har  06/17/20 Removed references to unused algorithms
 *		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
-*		rpo	 09/04/20 Input validations are added
+*		rpo	 09/10/20 Input validations are added
 *
 * </pre>
 *

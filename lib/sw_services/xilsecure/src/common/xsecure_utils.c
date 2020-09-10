@@ -23,7 +23,7 @@
 * 4.2   har     01/03/20 Added blind write check for SssCfg
 *       vns     01/24/20 Added assert statements to input arguments
 *       har     03/26/20 Removed code for SSS configuration
-*		rpo		09/08/20 Asserts are placed under XSECDEBUG macro
+*		rpo		09/10/20 Asserts are placed under XSECDEBUG macro
 * </pre>
 *
 ******************************************************************************/

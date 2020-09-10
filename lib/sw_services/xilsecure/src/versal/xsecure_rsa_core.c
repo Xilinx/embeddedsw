@@ -32,7 +32,7 @@
 * 4.3   ana  06/04/20 Minor enhancement
 *       har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
 *		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
-*		rpo	 09/04/20 Input validations are added
+*		rpo	 09/10/20 Input validations are added
 *
 * </pre>
 *
