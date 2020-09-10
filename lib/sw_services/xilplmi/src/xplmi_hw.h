@@ -34,6 +34,7 @@
 *       kc   07/28/2020 Added PMC PS GPIO related macros
 *       kc   08/04/2020 Added CRP NPLL related macros
 *       bm   08/19/2020 Added ImageInfo Table related macros
+*       bm   09/08/2020 Added PMC RAM Usage for RunTime Configuration registers
 *
 * </pre>
 *
@@ -126,6 +127,7 @@ static inline void XPlmi_PpuWakeUpDis(void)
 /*
  * PMC RAM Memory usage:
  * 0xF2000000U to 0xF2010100U - Used by XilLoader to process CDO
+ * 0xF2014000U to 0xF2014FFFU - Used for PLM Runtime Configuration Registers
  * 0xF2019000U to 0xF201D000U - Used by XilPlmi to store PLM prints
  * 0xF201D000U to 0xF201E000U - Used by XilPlmi to store PLM Trace Events
  * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
@@ -148,7 +150,6 @@ static inline void XPlmi_PpuWakeUpDis(void)
 /* Image Info Table related macros */
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1DE00U)
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x200U)	/* 512B */
-
 
 /*
  * Definitions required from Efuse
