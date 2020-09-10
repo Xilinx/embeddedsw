@@ -7,7 +7,7 @@
 /**
 *
 * @file xrtcpsu_sinit.c
-* @addtogroup rtcpsu_v1_9
+* @addtogroup rtcpsu_v1_10
 * @{
 *
 * This file contains the implementation of the XRtcPsu driver's static
