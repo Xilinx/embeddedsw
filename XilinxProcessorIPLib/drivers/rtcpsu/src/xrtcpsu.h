@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  * @file xrtcpsu.h
- * @addtogroup rtcpsu_v1_9
+ * @addtogroup rtcpsu_v1_10
  * @{
  * @details
  *
