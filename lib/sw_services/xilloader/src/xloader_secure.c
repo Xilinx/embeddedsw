@@ -58,6 +58,8 @@
 *       kpt  08/27/20 Changed argument type from u8* to UINTPTR for SHA
 *       kpt  09/07/20 Fixed key rolling issue
 *       kpt  09/08/20 Added redundancy at security critical checks
+*		rpo  09/10/20 Added return type for XSecure_Sha3Start
+*
 *
 * </pre>
 *
@@ -1142,7 +1144,13 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Start(&Sha3Instance);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
+			Status);
+		goto END;
+	}
+
 
 	/* Hash should be calculated on AC + first chunk */
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) &&
@@ -1402,7 +1410,12 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Start(&Sha3Instance);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XLoader_UpdateMinorErr(
+			XLOADER_SEC_SPK_HASH_CALCULATION_FAIL, Status);
+		goto END;
+	}
 
 	/* Hash the AH  and SPK*/
 	/* Update AH */
@@ -1717,7 +1730,14 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	XSecure_Sha3Start(&Sha3Instance);
+	Status = XLOADER_FAILURE;
+	Status = XSecure_Sha3Start(&Sha3Instance);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XLoader_UpdateMinorErr(
+			XLOADER_SEC_PPK_HASH_CALCULATION_FAIL, Status);
+		goto END;
+	}
+
 	Status = XLOADER_FAILURE;
 	Status = XSecure_Sha3LastUpdate(&Sha3Instance);
 	if (Status != XLOADER_SUCCESS) {
@@ -1831,7 +1851,10 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	while (Counter <= (OutLen / HashLen)) {
 		XLoader_I2Osp(Counter, XIH_PRTN_WORD_LEN, Convert);
 
-		XSecure_Sha3Start(Sha3InstancePtr);
+		Status = XSecure_Sha3Start(Sha3InstancePtr);
+		if (Status != XLOADER_SUCCESS) {
+			goto END;
+		}
 		Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)Input, HashLen);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
@@ -1951,7 +1974,13 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 				XLOADER_RSA_PSS_SALT_LEN);
 
 	/* Hash on M prime */
-	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Start(&Sha3Instance);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XLoader_UpdateMinorErr(
+			XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
+		goto END;
+	}
+
 
 	 /* Padding 1 */
 	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)Xsecure_Varsocm.Padding1,
@@ -2713,7 +2742,12 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Start(&Sha3Instance);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+						 Status);
+		goto END;
+	}
 	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)SecurePtr->AcPtr,
 		XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE);
 	if (Status != XLOADER_SUCCESS) {
@@ -2866,7 +2900,13 @@ static u32 XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Start(&Sha3Instance);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_HASH_CALC_FAIL,
+						 Status);
+		goto END;
+	}
+
 	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)SecurePtr->AcPtr,
 		(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE));
 	if (Status != XLOADER_SUCCESS) {
@@ -3363,6 +3403,7 @@ int XLoader_AuthJtag()
 		goto END;
 	}
 
+	/* Reset the Status */
 	Status = XST_FAILURE;
 
 	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
@@ -3378,6 +3419,7 @@ int XLoader_AuthJtag()
 		goto END;
 	}
 
+	/* Reset the Status */
 	Status = XST_FAILURE;
 
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecureParams.PmcDmaInstPtr);
@@ -3387,9 +3429,18 @@ int XLoader_AuthJtag()
 		goto END;
 	}
 
+	/* Reset the Status */
 	Status = XST_FAILURE;
 
-	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Start(&Sha3Instance);
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
+						 Status);
+		goto END;
+	}
+
+	/* Reset the Status */
+	Status = XST_FAILURE;
 
 	Status = XSecure_Sha3LastUpdate(&Sha3Instance);
 	if (Status != XST_SUCCESS) {
@@ -3398,6 +3449,7 @@ int XLoader_AuthJtag()
 		goto END;
 	}
 
+	/* Reset the Status */
 	Status = XST_FAILURE;
 
 	Status = XSecure_Sha3Update(&Sha3Instance,
@@ -3409,6 +3461,7 @@ int XLoader_AuthJtag()
 		goto END;
 	}
 
+	/* Reset the Status */
 	Status = XST_FAILURE;
 
 	Status = XSecure_Sha3Finish(&Sha3Instance, &Sha3Hash);
@@ -3418,6 +3471,7 @@ int XLoader_AuthJtag()
 		goto END;
 	}
 
+	/* Reset the Status */
 	Status = XST_FAILURE;
 
 	/* Verify signature of Auth Jtag data */

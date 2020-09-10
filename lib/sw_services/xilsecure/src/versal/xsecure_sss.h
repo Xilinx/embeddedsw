@@ -19,6 +19,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     03/26/20 Initial Release
 * 4.2   har     03/26/20 Updated file version to sync with library version
+* 4.3	rpo  	09/10/20 Changed the return type of some prototypes
 *
 * </pre>
 * @endcond
@@ -67,7 +68,7 @@ typedef enum {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XSecure_SssInitialize(XSecure_Sss *InstancePtr);
+int XSecure_SssInitialize(XSecure_Sss *InstancePtr);
 u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
 		XSecure_SssSrc OutputSrc);
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);

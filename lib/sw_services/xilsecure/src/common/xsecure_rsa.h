@@ -56,6 +56,7 @@
 *                     xsecure_rsa_core.h
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
 *       kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
+*		rpo	 09/10/20 Added error code
 *
 * </pre>
 *

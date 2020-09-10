@@ -35,7 +35,7 @@
 *                     return XSECURE_IMAGE_HEADER_SIZE_ERR.
 *       ana  04/03/20 Removed support of storing key in global array
 *       rpo  04/09/20 Aligned buffers used by DMA to 64 bytes
-*		rpo	 09/04/20 Added a new error for RSA input validation parameter
+*		rpo	 09/10/20 Added a new error for RSA input validation parameter
 * </pre>
 *
 * @note
