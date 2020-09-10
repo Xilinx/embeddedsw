@@ -17,7 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     03/26/20 Initial release
 * 4.2   har     03/26/20 Updated file version to sync with library version
-* 4.3	rpo	 	09/01/20 Asserts are not compiled by default for
+* 4.3	rpo	 	09/04/20 Asserts are not compiled by default for
 *						 secure libraries
 *
 * </pre>
@@ -27,6 +27,7 @@
 /***************************** Include Files *********************************/
 #include "xsecure_sss.h"
 #include "xsecure_utils.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 /* XSecure_SssLookupTable[Input source][Resource] */
@@ -90,16 +91,20 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid((InputSrc == XSECURE_SSS_DMA0) ||
-		(InputSrc == XSECURE_SSS_DMA1));
-	XSecure_AssertNonvoid((OutputSrc == XSECURE_SSS_DMA0) ||
-		(OutputSrc == XSECURE_SSS_DMA1));
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		((InputSrc != XSECURE_SSS_DMA0) &&
+		(InputSrc != XSECURE_SSS_DMA1)) ||
+		((OutputSrc != XSECURE_SSS_DMA0) &&
+		(OutputSrc != XSECURE_SSS_DMA1))) {
+		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		goto END;
+	}
 
 	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_AES,
 			InputSrc, OutputSrc);
 
+END:
 	return Status;
 }
 
@@ -121,9 +126,12 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		((DmaId != XSECURE_SSS_DMA0) && (DmaId != XSECURE_SSS_DMA1))) {
+		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		goto END;
+	}
 
 	Status = XSecure_SssDmaSrc(DmaId, &InputSrc);
 	if (Status != XST_SUCCESS) {
@@ -156,9 +164,12 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) ||
+		((DmaId != XSECURE_SSS_DMA0) && (DmaId != XSECURE_SSS_DMA1))) {
+		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		goto END;
+	}
 
 	Status = XSecure_SssDmaSrc(DmaId, &Resource);
 	if (Status != XST_SUCCESS) {
