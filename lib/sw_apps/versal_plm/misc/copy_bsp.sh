@@ -92,6 +92,7 @@ cp $WORKING_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/microblaze_interrupts_g.c $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/bspconfig.h  $BSP_DIR/include/
 cp $WORKING_DIR/Makefile $BSP_DIR/../
+cp $WORKING_DIR/dep.mk $BSP_DIR/../
 cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/include/
 
 # copy the bsp drivers
