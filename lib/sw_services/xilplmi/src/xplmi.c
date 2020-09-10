@@ -23,6 +23,7 @@
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
 *       kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
+*       bm   09/08/2020 Added RunTime Configuration Init API to XPlmi_Init
 *
 * </pre>
 *
@@ -61,6 +62,7 @@ int XPlmi_Init(void )
 {
 	int Status = XST_FAILURE;
 
+	XPlmi_RunTimeConfigInit();
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -85,6 +87,29 @@ static const XPlmiInit LpdInitList[] = {
 	XPlmi_SysMonInit,
 	XPlmi_PsEmInit,
 };
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the Runtime Configuration Area with
+ * default values.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_RunTimeConfigInit(void)
+{
+	XPlmi_Out32(XPLMI_RTCFG_RTCA_ADDR, XPLMI_RTCFG_IDENTIFICATION);
+	XPlmi_Out32(XPLMI_RTCFG_VERSION_ADDR, XPLMI_RTCFG_VER);
+	XPlmi_Out32(XPLMI_RTCFG_SIZE_ADDR, XPLMI_RTCFG_SIZE);
+	XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_ADDRLOW_ADDR,
+				XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR);
+	XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_ADDRHIGH_ADDR,
+				XPLMI_RTCFG_IMGINFOTBL_ADDR_HIGH);
+	XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR,
+				XPLMI_RTCFG_IMGINFOTBL_LEN);
+}
 
 /*****************************************************************************/
 /**

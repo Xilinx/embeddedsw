@@ -22,6 +22,8 @@
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
 * 1.02  bm   08/19/2020 Added ImageInfo Table and related APIs
+*       bm   09/08/2020 Updated RunTime Configuration Registers in
+*                       XPlmi_StoreImageInfo
 *
 * </pre>
 *
@@ -34,6 +36,7 @@
 #include "xplmi_dma.h"
 #include "xplmi_debug.h"
 #include "xplmi_hw.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -341,6 +344,8 @@ int XPlmi_StoreImageInfo(XPlmi_ImageInfo *ImageInfo)
 	int Status = XST_FAILURE;
 	XPlmi_ImageInfo *ImageEntry;
 	u32 Index;
+	u32 ChangeCount;
+	u32 RtCfgLen;
 
 	ImageEntry = XPlmi_GetImageInfoEntry(ImageInfo->ImgID, &Index);
 	if (ImageEntry == NULL) {
@@ -353,6 +358,19 @@ int XPlmi_StoreImageInfo(XPlmi_ImageInfo *ImageInfo)
 	if ((Index + 1U) > ImageInfoTbl.Count) {
 		ImageInfoTbl.Count++;
 	}
+
+	/* Read ChangeCount and  increment it */
+	ChangeCount = ((XPlmi_In32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR) &
+			XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK)
+			>> XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT);
+	ChangeCount++;
+
+	/* Update ChangeCount and number of entries in the RunTime config register */
+	RtCfgLen = (ImageInfoTbl.Count & XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK);
+	RtCfgLen |= ((ChangeCount << XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT) &
+				XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK);
+	XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR, RtCfgLen);
+
 	Status = XST_SUCCESS;
 
 END:
