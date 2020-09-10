@@ -466,8 +466,8 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 {
 	int Status = XST_FAILURE;
 	const char *Str = JsonStr;
-	char Name[XBIR_SSI_JSON_MAX_NAME_LEN + 1U];
-	char Val[XBIR_SSI_JSON_MAX_VALUE_LEN + 1U];
+	char Name[XBIR_SSI_JSON_MAX_NAME_LEN + 1U] = {0U};
+	char Val[XBIR_SSI_JSON_MAX_VALUE_LEN + 1U] = {0U};
 	char Seperator;
 	const Xbir_SysPersistentState *BootImgStatus;
 
@@ -621,7 +621,7 @@ static const char* Xbir_SsiJsonGetSeperator (const char *JsonStr,
  * This function extracts the value from name value pair of JSON string.
  *
  * @param	JsonStr	Pointer to input JSON string
- * @param	Val	Pointer where value fro name value pair will be stored
+ * @param	Val	Pointer where value from name value pair will be stored
  *
  * @return	Pointer to remaining string after extrating the value
  *
