@@ -19,9 +19,6 @@ extern "C" {
 
 typedef struct XPm_PowerDomain XPm_PowerDomain;
 
-/* Extern Variable and Function */
-extern u32 SysmonAddresses[];
-
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 

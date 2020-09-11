@@ -37,13 +37,13 @@
 #include "xpm_rail.h"
 #include "xpm_pldevice.h"
 #include "xpm_debug.h"
+#include "xpm_device.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
 		XPm_DispatchWakeHandler, (void *)(NodeId))
 
 u32 ResetReason;
-u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];
 
 void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
@@ -598,6 +598,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PlatformVersion;
+	u32 SysmonAddr;
 
 	/*
 	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
@@ -609,9 +610,23 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 */
 	(void)XPmPlDomain_InitandHouseclean();
 
-	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
-	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
-	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PM_POWER_PMC, 1);
+	/* On Boot, Update PMC SAT0 & SAT1 sysmon trim */
+	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PMC_0);
+	if (0U == SysmonAddr) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 0);
+
+	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PMC_1);
+	if (0U == SysmonAddr) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 1);
+
 	PostTopologyHook();
 
 	/**
@@ -3662,8 +3677,8 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	SysmonAddresses[NODEINDEX(NodeId)] = BaseAddress;
-	Status = XST_SUCCESS;
+	Status = XPm_SetSysmonNode(NodeId, BaseAddress);
+
 done:
 	return Status;
 }
