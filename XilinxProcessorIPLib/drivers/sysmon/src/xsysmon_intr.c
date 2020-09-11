@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmon_intr.c
-* @addtogroup sysmon_v7_6
+* @addtogroup sysmon_v7_7
 * @{
 *
 * This file contains interrupt handling API functions of the System Monitor/ADC

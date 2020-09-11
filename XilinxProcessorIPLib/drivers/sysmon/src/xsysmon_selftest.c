@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmon_selftest.c
-* @addtogroup sysmon_v7_6
+* @addtogroup sysmon_v7_7
 * @{
 *
 * This file contains a diagnostic self test function for the XSysMon driver.
