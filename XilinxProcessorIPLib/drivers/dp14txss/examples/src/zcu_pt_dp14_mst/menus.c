@@ -155,8 +155,8 @@ void test_pattern_gen_help()
 			   "1 -->  Vesa LLC pattern 			\r\n"
 			   "3 -->  Vesa Color Squares			\r\n"
 			   "4 -->  Flat Red  screen 			\r\n"
-			   "5 -->  Flat Blue screen 			\r\n"
-			   "6 -->  Flat Green screen 			\r\n"
+			   "5 -->  Flat Green screen 			\r\n"
+			   "6 -->  Flat Blue screen 			\r\n"
 			   "7 -->  Flat Purple screen 			\r\n"
 			   "\r\n"
 			   "Press 'x' to return to main menu\r\n"
@@ -1512,7 +1512,6 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 		user_config.user_format = XVIDC_CSF_YCRCB_444 + 1;
 	}else
 		user_config.user_format = XVIDC_CSF_RGB + 1;
-
 
 	sink_power_cycle();
 
