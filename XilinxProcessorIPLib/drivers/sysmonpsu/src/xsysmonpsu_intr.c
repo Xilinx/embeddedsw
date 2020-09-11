@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsu_intr.c
-* @addtogroup sysmonpsu_v2_6
+* @addtogroup sysmonpsu_v2_7
 *
 * This file contains functions related to SYSMONPSU interrupt handling.
 *
