@@ -80,6 +80,7 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SysmonAddr;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -113,8 +114,15 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PS_FPD);
+	if (0U == SysmonAddr) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
 	/* Copy sysmon data */
-	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], PM_POWER_FPD, 0);
+	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_FPD, 0);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AMS_TRIM;
 		goto done;
