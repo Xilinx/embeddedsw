@@ -3,7 +3,7 @@ COMPILER=
 ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
-EXTRA_COMPILER_FLAGS=
+EXTRA_COMPILER_FLAGS=-Wall -Wextra
 LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
@@ -13,40 +13,58 @@ RELEASEDIR=../../../lib/
 INCLUDEDIR=../../../include/
 INCLUDES=-I./. -I$(INCLUDEDIR)
 
-INCLUDEFILES:=*.h
+INCLUDEFILES:=$(wildcard *.h) $(wildcard ./dp/*.h) $(wildcard ./vtc/*.h) $(wildcard ./hdcp1x/*.h)  $(wildcard ./hdcp22/*.h) $(wildcard ./dualsplitter/*.h)
 
-SRCFILES:=$(wildcard *.c)
-ASSEMBLY_SRCFILES:=$(wildcard *.S)
+SRCFILES:=$(wildcard *.c) $(notdir $(wildcard ./dp/*.c)) $(notdir $(wildcard ./vtc/*.c)) $(notdir $(wildcard ./hdcp1x/*.c))  $(notdir $(wildcard ./hdcp22/*.c)) $(notdir $(wildcard ./dualsplitter/*.c))
 
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c)) $(basename $(notdir $(wildcard ./dp/*.c))) $(basename $(notdir $(wildcard ./vtc/*.c))) $(basename $(notdir $(wildcard ./hdcp1x/*.c))) $(basename $(notdir $(wildcard ./hdcp22/*.c))) $(basename $(notdir $(wildcard ./dualsplitter/*.c)))))
 
-ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.S))))
-OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
-
-
-libs: $(OBJECTS) $(ASSEMBLY_OBJECTS)
+libs: $(OBJECTS)
 
 DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
 include $(wildcard $(DEPFILES))
 
-ASSEMBLY_DEPFILES := $(ASSEMBLY_SRCFILES:%.S=$(RELEASEDIR)%.d)
+include $(wildcard ../../../../dep.mk)
 
-include $(wildcard $(ASSEMBLY_DEPFILES))
+$(RELEASEDIR)%.o: ./dp/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
+$(RELEASEDIR)%.o: ./vtc/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+
+$(RELEASEDIR)%.o: ./hdcp1x/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+
+$(RELEASEDIR)%.o: ./hdcp22/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+
+$(RELEASEDIR)%.o: ./dualsplitter/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
 $(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
-
-$(RELEASEDIR)%.o: %.S
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
-
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
 .PHONY: include
-include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h)) $(addprefix $(INCLUDEDIR), $(subst dp/,,$(wildcard dp/*.h))) $(addprefix $(INCLUDEDIR), $(subst vtc/,,$(wildcard vtc/*.h))) $(addprefix $(INCLUDEDIR), $(subst hdcp1x/,,$(wildcard hdcp1x/*.h))) $(addprefix $(INCLUDEDIR), $(subst hdcp22/,,$(wildcard hdcp22/*.h))) $(addprefix $(INCLUDEDIR), $(subst dualsplitter/,,$(wildcard dualsplitter/*.h)))
+
+$(INCLUDEDIR)%.h: dp/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: vtc/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: hdcp1x/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: hdcp22/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: dualsplitter/%.h
+	$(CP) $< $@
 
 $(INCLUDEDIR)%.h: %.h
 	$(CP) $< $@
-
 
 clean:
 	rm -rf ${OBJECTS}

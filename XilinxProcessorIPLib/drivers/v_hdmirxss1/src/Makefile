@@ -13,40 +13,26 @@ RELEASEDIR=../../../lib/
 INCLUDEDIR=../../../include/
 INCLUDES=-I./. -I$(INCLUDEDIR)
 
-INCLUDEFILES:=*.h
-
 SRCFILES:=$(wildcard *.c)
-ASSEMBLY_SRCFILES:=$(wildcard *.S)
 
-
-ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.S))))
 OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-
-libs: $(OBJECTS) $(ASSEMBLY_OBJECTS)
+libs: $(OBJECTS)
 
 DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
 include $(wildcard $(DEPFILES))
 
-ASSEMBLY_DEPFILES := $(ASSEMBLY_SRCFILES:%.S=$(RELEASEDIR)%.d)
-
-include $(wildcard $(ASSEMBLY_DEPFILES))
-
+include $(wildcard ../../../../dep.mk)
 
 $(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
-
-$(RELEASEDIR)%.o: %.S
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
-
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $(realpath $<) -o $@
 
 .PHONY: include
 include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
 $(INCLUDEDIR)%.h: %.h
 	$(CP) $< $@
-
 
 clean:
 	rm -rf ${OBJECTS}
