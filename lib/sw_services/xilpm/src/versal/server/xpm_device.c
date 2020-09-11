@@ -63,6 +63,7 @@ static u32 PmNumDevices;
 static u32 PmNumPlDevices;
 static u32 PmNumOcmMemRegnDevices;
 static u32 PmNumDdrMemRegnDevices;
+static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX];
 
 static const XPm_StateCap XPmGenericDeviceStates[] = {
 	{
@@ -2085,4 +2086,57 @@ int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function stores the sysmon addresses so that they can be retrieved
+ * by index.
+ *
+ * @param Id: Sysmon node ID
+ * @param BaseAddress: Sysmon address
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	/*
+	 * We assume that the Node ID class, subclass and type has already
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((u32)XPM_NODEIDX_MONITOR_MAX > NodeIndex) {
+		PmSysmonAddresses[NodeIndex] = BaseAddress;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Returns address to sysmon node from given Node Index
+ *
+ * @param SysmonIndex: Node Index assigned to a Sysmon node
+ *
+ * @return Sysmon address to given node; else 0
+ *
+ ****************************************************************************/
+u32 XPm_GetSysmonByIndex(const u32 SysmonIndex)
+{
+	u32 BaseAddress = 0U;
+
+	/* Make sure we are working with only Index. */
+	u32 Index = (SysmonIndex & NODE_INDEX_MASK);
+	if ((u32)XPM_NODEIDX_MONITOR_MAX <= Index) {
+		goto done;
+	}
+
+	BaseAddress = PmSysmonAddresses[Index];
+
+done:
+	return BaseAddress;
 }

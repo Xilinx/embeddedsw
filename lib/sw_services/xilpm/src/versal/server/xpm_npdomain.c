@@ -16,6 +16,7 @@
 #include "xpm_bisr.h"
 #include "xpm_debug.h"
 #include "xpm_rail.h"
+#include "xpm_device.h"
 
 #define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
@@ -99,6 +100,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SlrType;
+	u32 SysmonAddr;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -173,8 +175,9 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	/* When NPD is powered, copy sysmon data */
 	for (i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */
-		if (0U != SysmonAddresses[i]) {
-			Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
+		SysmonAddr = XPm_GetSysmonByIndex(i);
+		if (0U != SysmonAddr) {
+			Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_AMS_TRIM;
 				goto done;
