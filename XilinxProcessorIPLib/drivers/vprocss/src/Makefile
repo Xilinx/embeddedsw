@@ -15,11 +15,9 @@ INCLUDES=-I./. -I$(INCLUDEDIR)
 
 INCLUDEFILES:=$(wildcard *.h) $(wildcard ./vdma/*.h)
 
-SRCFILES:=$(wildcard *.c) $(wildcard ./vdma/*.c)
+SRCFILES:=$(wildcard *.c) $(notdir $(wildcard ./vdma/*.c))
 
-
-OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename ./vdma/xvprocss_vdma.c $(wildcard *.c))))
-
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c)) $(basename $(notdir $(wildcard ./vdma/*.c)))))
 
 libs: $(OBJECTS)
 
@@ -27,9 +25,13 @@ DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
 include $(wildcard $(DEPFILES))
 
+include $(wildcard ../../../../dep.mk)
+
+$(RELEASEDIR)%.o: ./vdma/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
 $(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
 .PHONY: include
 include: $(addprefix $(INCLUDEDIR),$(wildcard *.h)) $(addprefix $(INCLUDEDIR), $(subst vdma/,,$(wildcard vdma/*.h)))
@@ -39,10 +41,6 @@ $(INCLUDEDIR)%.h: vdma/%.h
 
 $(INCLUDEDIR)%.h: %.h
 	$(CP) $< $@
-
-
-
-
 
 clean:
 	rm -rf ${OBJECTS}

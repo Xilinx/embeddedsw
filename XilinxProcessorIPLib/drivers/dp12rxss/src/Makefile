@@ -3,7 +3,7 @@ COMPILER=
 ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
-EXTRA_COMPILER_FLAGS=
+EXTRA_COMPILER_FLAGS=-Wall -Wextra
 LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
@@ -13,40 +13,46 @@ RELEASEDIR=../../../lib/
 INCLUDEDIR=../../../include/
 INCLUDES=-I./. -I$(INCLUDEDIR)
 
-INCLUDEFILES:=*.h
+INCLUDEFILES:=$(wildcard *.h) $(wildcard ./dp/*.h) $(wildcard ./iic/*.h) $(wildcard ./hdcp1x/*.h)
 
-SRCFILES:=$(wildcard *.c)
-ASSEMBLY_SRCFILES:=$(wildcard *.S)
+SRCFILES:=$(wildcard *.c) $(notdir $(wildcard ./dp/*.c)) $(notdir $(wildcard ./iic/*.c)) $(notdir $(wildcard ./hdcp1x/*.c))
 
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c)) $(basename $(notdir $(wildcard ./dp/*.c))) $(basename $(notdir $(wildcard ./iic/*.c))) $(basename $(notdir $(wildcard ./hdcp1x/*.c)))))
 
-ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.S))))
-OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
-
-
-libs: $(OBJECTS) $(ASSEMBLY_OBJECTS)
+libs: $(OBJECTS)
 
 DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
 include $(wildcard $(DEPFILES))
 
-ASSEMBLY_DEPFILES := $(ASSEMBLY_SRCFILES:%.S=$(RELEASEDIR)%.d)
+include $(wildcard ../../../../dep.mk)
 
-include $(wildcard $(ASSEMBLY_DEPFILES))
+$(RELEASEDIR)%.o: ./dp/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
+$(RELEASEDIR)%.o: ./iic/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+
+$(RELEASEDIR)%.o: ./hdcp1x/%.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
 $(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
-
-$(RELEASEDIR)%.o: %.S
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -MMD -MP -MF"$(@:%.o=%.d)"  -MT"$(@)" $< -o $@
-
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
 
 .PHONY: include
-include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h)) $(addprefix $(INCLUDEDIR), $(subst dp/,,$(wildcard dp/*.h))) $(addprefix $(INCLUDEDIR), $(subst iic/,,$(wildcard iic/*.h))) $(addprefix $(INCLUDEDIR), $(subst hdcp1x/,,$(wildcard hdcp1x/*.h)))
+
+$(INCLUDEDIR)%.h: dp/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: iic/%.h
+	$(CP) $< $@
+
+$(INCLUDEDIR)%.h: hdcp1x/%.h
+	$(CP) $< $@
 
 $(INCLUDEDIR)%.h: %.h
 	$(CP) $< $@
-
 
 clean:
 	rm -rf ${OBJECTS}
