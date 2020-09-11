@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsu.c
-* @addtogroup sysmonpsu_v2_6
+* @addtogroup sysmonpsu_v2_7
 *
 * Functions in this file are the minimum required functions for the XSysMonPsu
 * driver. See xsysmonpsu.h for a detailed description of the driver.
