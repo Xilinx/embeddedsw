@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmon.h
-* @addtogroup sysmon_v7_6
+* @addtogroup sysmon_v7_7
 * @{
 * @details
 *
