@@ -23,6 +23,7 @@
  *       mn   04/09/19 Add check for Carriage return when entering the test size
  *       mn   07/01/19 Add support to specify number of iteration for memtest
  * 1.1   mn   06/15/20 Improved random value generation for Read/Write Tests
+ *       mn   09/08/20 Modified code to support designs with only DDR1 region
  *
  * </pre>
  *
@@ -40,27 +41,33 @@
 #define XMT_MAX_MODE_NUM		15U
 
 #ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
-/*
- * If the Upper DDR is enabled calculate the DDR total size by adding both
- * DDR (Lower and Upper) regions sizes
- */
-#define XMT_DDR_MAX_SIZE		((XPAR_PSU_DDR_1_S_AXI_HIGHADDR -\
-				XPAR_PSU_DDR_1_S_AXI_BASEADDR) +\
-				(XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
-				XPAR_PSU_DDR_0_S_AXI_BASEADDR) + 2U)
-#define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#define XMT_DDR_0_SIZE			((XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
+					XPAR_PSU_DDR_0_S_AXI_BASEADDR) + 1U)
+#define XMT_DDR_0_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#define XMT_DDR_0_HIGHADDR		XPAR_PSU_DDR_0_S_AXI_HIGHADDR
+#else
+#define XMT_DDR_0_SIZE			0U
+#define XMT_DDR_0_BASEADDR		0U
+#define XMT_DDR_0_HIGHADDR		0U
+#endif
 
+#ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#define XMT_DDR_1_SIZE			((XPAR_PSU_DDR_1_S_AXI_HIGHADDR -\
+					XPAR_PSU_DDR_1_S_AXI_BASEADDR) + 1U)
+#define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#define XMT_DDR_1_HIGHADDR		XPAR_PSU_DDR_1_S_AXI_HIGHADDR
 #else
-/* Calculate the DDR size for Lower DDR */
-#define XMT_DDR_MAX_SIZE		(XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
-				XPAR_PSU_DDR_0_S_AXI_BASEADDR + 1U)
-#define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#endif
-#else
-#define XMT_DDR_MAX_SIZE		0U
+#define XMT_DDR_1_SIZE			0U
 #define XMT_DDR_1_BASEADDR		0U
+#define XMT_DDR_1_HIGHADDR		0U
 #endif
+
+#if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
+#define XMT_DDR_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
+#define XMT_DDR_BASEADDR		XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#endif
+#define XMT_DDR_MAX_SIZE		(XMT_DDR_0_SIZE + XMT_DDR_1_SIZE)
 
 
 /**************************** Type Definitions *******************************/
@@ -383,9 +390,9 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	XTime_GetTime(&tCur1);
 
 	UpperDdrOffset = 0U;
-	Addr = Start;
+	Addr = XMT_DDR_BASEADDR + Start;
 	for (Index = 0U; Index < Size; Index += 8U) {
-		if (Addr < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U) - 8U) {
+		if (Addr < (XMT_DDR_0_HIGHADDR + 1U) - 8U) {
 			Addr = Start + Index;
 		} else {
 			Addr = XMT_DDR_1_BASEADDR + UpperDdrOffset;
@@ -398,18 +405,22 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		if ((Start + Size) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
-			Xil_DCacheInvalidateRange(Start, Size);
+#if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
+		if ((XMT_DDR_BASEADDR + Start + Size) < (XMT_DDR_0_HIGHADDR + 1U)) {
+			Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
 		} else {
-			Xil_DCacheInvalidateRange(Start, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - Start);
-			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, Start + Size - XMT_DDR_1_BASEADDR);
+			Xil_DCacheInvalidateRange(Start, XMT_DDR_0_HIGHADDR + 1U - (XMT_DDR_BASEADDR + Start));
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, XMT_DDR_BASEADDR + Start + Size - XMT_DDR_1_BASEADDR);
 		}
+#elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
+		Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
+#endif
 	}
 
 	UpperDdrOffset = 0U;
-	Addr = Start;
+	Addr = XMT_DDR_BASEADDR + Start;
 	for (Index = 0U; Index < Size; Index += 8U) {
-		if (Addr < (2048*(u64)XMT_MB2BYTE) - 8U) {
+		if (Addr < (XMT_DDR_0_HIGHADDR + 1U) - 8U) {
 			Addr = Start + Index;
 		} else {
 			Addr = XMT_DDR_1_BASEADDR + UpperDdrOffset;
@@ -553,12 +564,14 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 
 	DataPtr = 0U;
 
+	StartAddr = XMT_DDR_BASEADDR + StartAddr;
+
 	/* Do the Write operation on memory size specified in argument */
 	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
-		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+		if (Index < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Addr = Index;
 		} else {
-			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XMT_DDR_0_HIGHADDR + 1U));
 		}
 
 		if (Offset == 8U) {
@@ -573,22 +586,26 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+#if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
+		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
 		} else {
-			Xil_DCacheInvalidateRange(StartAddr, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - StartAddr);
+			Xil_DCacheInvalidateRange(StartAddr, XMT_DDR_0_HIGHADDR + 1U - StartAddr);
 			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, StartAddr + (Len * XMT_KB2BYTE) - XMT_DDR_1_BASEADDR);
 		}
+#elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
+		Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+#endif
 	}
 
 	DataPtr = 0U;
 
 	/* Do the Read operation on memory size specified in argument */
 	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
-		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+		if (Index < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Addr = Index;
 		} else {
-			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XMT_DDR_0_HIGHADDR + 1U));
 		}
 
 		if (Offset == 8U) {
