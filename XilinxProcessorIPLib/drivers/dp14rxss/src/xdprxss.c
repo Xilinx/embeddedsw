@@ -47,6 +47,12 @@
 * 		    same for all the instances in multiple subsystems in the
 * 		    design. This driver wont support for different configuration
 * 		    of the subsystems.
+* 6.1  rg  08/13/20 Added below list APIs related to Adaptive-Sync feature.
+* 					XDpRxSs_SetAdaptiveSyncCaps
+* 					XDpRxSs_MaskAdaptiveIntr
+* 					XDpRxSs_UnMaskAdaptiveIntr
+* 					XDpRxSs_GetVblank
+* 					XDpRxSs_GetVtotal
 * </pre>
 *
 ******************************************************************************/
@@ -2082,5 +2088,146 @@ void XDpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr,
 	}
 }
 #endif
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets Adaptive-Sync capabilities to DisplayPort
+ * RX Subsystem
+ *
+ * @param InstancePtr is a pointer to the XDpRxSs instance.
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr)
+{
+	u32 RegVal;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	RegVal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_DTG_ENABLE);
+	RegVal &= XDP_RX_ADAPTIVESYNC_CAPS_MASK;
+	RegVal |= XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK |
+		  XDP_RX_MSA_TIMINGPAR_IGNORED_MASK;
+	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			 XDP_RX_DTG_ENABLE, RegVal);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function masks the Adaptive-Sync interrupts
+ * from DisplayPort RX Subsystem
+ *
+ * @param InstancePtr is a pointer to the XDpRxSs instance.
+ * @param Interrupts to mask
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask)
+{
+	u32 RegVal;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	RegVal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_INTERRUPT_MASK_2);
+	RegVal |= (Mask & XDP_RX_ADAPTIVESYNC_SDP_VBLANK_INTERRUPT_MASK);
+	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			 XDP_RX_INTERRUPT_MASK_2, RegVal);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function unmasks Adaptive-Sync interrupt
+ * from DisplayPort RX Subsystem
+ *
+ * @param InstancePtr is a pointer to the XDpRxSs instance.
+ * @param Interrupts to unmask
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask)
+{
+	u32 RegVal;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	RegVal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_INTERRUPT_MASK_2);
+	RegVal &= (~Mask);
+	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			 XDP_RX_INTERRUPT_MASK_2, RegVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the current vblank value of
+* the incoming video stream.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- The current vblank value
+*
+* @note		This function has to be called after
+		assertion of Bit-30 of XDP_RX_INTERRUPT_CAUSE_2
+		register
+*
+******************************************************************************/
+int XDpRxSs_GetVblank(XDpRxSs *InstancePtr)
+{
+	u32 VBlank;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Get the current vblank value */
+	VBlank = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_ADAPTIVE_VBLANK_VTOTAL);
+	VBlank &= XDP_RX_ADAPTIVE_VBLANK_MASK;
+
+	return VBlank;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the current VTotal value of
+* the incoming video stream.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* Note: This function has to be called after
+* assertion Bit-30 of XDP_RX_INTERRUPT_CAUSE_2 register
+*
+* @return
+*		- The current VTotal value
+*
+* @note		This function has to be called after
+		assertion of Bit-30 of XDP_RX_INTERRUPT_CAUSE_2
+		register
+*
+******************************************************************************/
+int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr)
+{
+	u32 VTotal;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Get stream map of the stream(s) */
+	VTotal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_ADAPTIVE_VBLANK_VTOTAL);
+	VTotal &= XDP_RX_ADAPTIVE_VTOTAL_MASK;
+
+	return VTotal;
+}
 
 /** @} */

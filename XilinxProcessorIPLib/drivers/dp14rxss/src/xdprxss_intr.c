@@ -596,6 +596,30 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 				Status = XST_FAILURE;
 			}
 			break;
+
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT:
+			if (InstancePtr->DpPtr->Config.DpProtocol ==
+				XDP_PROTOCOL_DP_1_4) {
+				XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP,
+					CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT:
+			if (InstancePtr->DpPtr->Config.DpProtocol ==
+				XDP_PROTOCOL_DP_1_4) {
+				XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
+					CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+
 		/* End of setting DP 1.4 callback(s) */
 
 		default:
