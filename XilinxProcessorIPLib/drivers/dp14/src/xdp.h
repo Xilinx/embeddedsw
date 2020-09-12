@@ -445,6 +445,8 @@ typedef enum {
 	XDP_RX_HANDLER_VBLANK_STREAM_2,
 	XDP_RX_HANDLER_VBLANK_STREAM_3,
 	XDP_RX_HANDLER_VBLANK_STREAM_4,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -1285,6 +1287,21 @@ typedef struct {
 						    data passed to the access
 						    lane set callback
 						    function. */
+	XDp_IntrHandler IntrAdapatveSyncSdpHandler;	/**< Callback function for
+							driver Adaptive-Sync
+							SDP packet received
+							interrupts */
+	void *IntrAdapatveSyncSdpCallbackRef;	/**< A pointer to the user
+							data passed to
+							Adaptive-sync SDP
+							packet received function */
+	XDp_IntrHandler IntrAdaptiveSyncVbHandler;	/**< Callback function for
+							driver Adaptive-Sync
+							vblank interrupts */
+	void *IntrAdaptiveSyncVbCallbackRef;	/**< A pointer to the user
+							data passed to
+							Adaptive-Sync vblank
+							function */
 	/* End of definitions for DP 1.4 interrupt callback(s) */
 } XDp_Rx;
 
