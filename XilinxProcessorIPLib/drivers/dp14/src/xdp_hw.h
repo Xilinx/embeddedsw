@@ -930,6 +930,8 @@
 #define XDP_RX_LINE_RESET_DISABLE	0x008	/**< RX line reset disable. */
 #define XDP_RX_DTG_ENABLE		0x00C	/**< Enables the display timing
 							generator (DTG). */
+#define XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK	0x80
+#define XDP_RX_MSA_TIMINGPAR_IGNORED_MASK	0x40
 #define XDP_RX_USER_PIXEL_WIDTH		0x010	/**< Selects the width of the
 							user data input port. */
 #define XDP_RX_INTERRUPT_MASK		0x014	/**< Masks the specified
