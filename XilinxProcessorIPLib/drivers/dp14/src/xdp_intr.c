@@ -463,6 +463,26 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			Status = XST_FAILURE;
 		}
 		break;
+
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler = CallbackFunc;
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpCallbackRef = CallbackRef;
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_FAILURE;
+		}
+		break;
+
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK:
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler = CallbackFunc;
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbCallbackRef = CallbackRef;
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_FAILURE;
+		}
+		break;
 		/* Interrupts for DP 1.4 : set callback end. */
 
 	case XDP_RX_HANDLER_DOWNREQ:
@@ -1040,6 +1060,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	/* DP 1.4 related interrupt handling */
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 		u32 IntrStatus1;
+		u32 IntrStatus2;
 
 		/* Determine what kind of interrupts have occurred.
 		 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
@@ -1048,6 +1069,10 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		/* Mask out required interrupts. */
 		IntrStatus1 &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
 					    XDP_RX_INTERRUPT_MASK_1);
+
+		/* Adaptive-Sync interrupts */
+		IntrStatus2 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_INTERRUPT_CAUSE_2);
 
 		/* The VerticalBlanking_Flag in the VB-ID field of the received
 		 * stream 2 indicates the start of the vertical blanking
@@ -1109,6 +1134,19 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrAccessErrorCounterHandler(
 				InstancePtr->RxInstance.IntrAccessErrorCounterCallbackRef);
 		}
+		/* Adaptive-Sync SDP packet received event*/
+		if ((IntrStatus2 & XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_SDP_MASK) &&
+				InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler) {
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler(
+				InstancePtr->RxInstance.IntrAccessErrorCounterCallbackRef);
+		}
+		/* vblank difference detected event */
+		if ((IntrStatus2 & XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_VB_MASK) &&
+				InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler(
+				InstancePtr->RxInstance.IntrAdaptiveSyncVbCallbackRef);
+		}
+
 	}
 
 }

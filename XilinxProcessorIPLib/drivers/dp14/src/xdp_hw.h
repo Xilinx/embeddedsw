@@ -908,6 +908,8 @@
 #define XDP_RX_LINE_RESET_DISABLE	0x008	/**< RX line reset disable. */
 #define XDP_RX_DTG_ENABLE		0x00C	/**< Enables the display timing
 							generator (DTG). */
+#define XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK	0x80
+#define XDP_RX_MSA_TIMINGPAR_IGNORED_MASK	0x40
 #define XDP_RX_USER_PIXEL_WIDTH		0x010	/**< Selects the width of the
 							user data input port. */
 #define XDP_RX_INTERRUPT_MASK		0x014	/**< Masks the specified
@@ -960,11 +962,9 @@
 #define XDP_RX_INTERRUPT_CAUSE_1	0x048	/**< Indicates the cause of a
 							pending host interrupts
 							for streams 2, 3, 4. */
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 #define XDP_RX_INTERRUPT_CAUSE_2	0x070	/**< Indicates the cause of
 						  pending host interrupts
-						  for DP RX HDCP22 */
-#endif
+						  for DP RX HDCP22, Adaptive-Sync */
 /* @} */
 
 #define XDP_RX_HSYNC_WIDTH		0x050	/**< Controls the timing of the
@@ -977,6 +977,9 @@
 							sync pulse generated
 							by the display timing
 							generator (DTG). */
+#define XDP_RX_INTERRUPT_MASK_2		0x005c	/**< Mask the specified
+							interrupt sources
+							for Adaptive-Sync */
 #define XDP_RX_FAST_I2C_DIVIDER		0x060	/**< Fast I2C mode clock divider
 							value. */
 #define XDP_RX_MST_ALLOC		0x06C	/**< Represents the content from
@@ -1454,6 +1457,12 @@
 							assertion for rd access of
 							error counter 0x210-0x217 register
 							only in PRBS mode. */
+#define XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_SDP_MASK 0x80000000 /**< Mask the interrupt
+							assertion for the Adaptive-Sync
+							packet is received */
+#define XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_VB_MASK	 0x40000000 /**< Mask the interrupt
+							assertion for the Adaptive-Sync
+							vblank */
 /* DP 1.4 definitions end. */
 #define XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK \
 					0x00080000 /**< Mask the interrupt
