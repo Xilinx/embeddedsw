@@ -237,10 +237,16 @@ typedef enum {
 						      *	event for stream 3
 						      *	interrupt type for
 						      *	DisplayPort core */
-	XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT     /**< Vertical blanking
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT,    /**< Vertical blanking
 						      *	event for stream 4
 						      *	interrupt type for
 						      *	DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT,	/**< Adaptive sync SDP
+							 * packet event for
+							 * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT	/**< Adaptive sync
+							 * vblank event for
+							 * DisplayPort core */
 } XDpRxSs_HandlerType;
 
 /**
@@ -650,6 +656,13 @@ void XDpRxSs_SetUserTimerHandler(XDpRxSs *InstancePtr,
 void XDpRxSs_DrvNoVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
+
+/* Adaptive-Sync Related Functions */
+void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr);
+void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
+void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
+int XDpRxSs_GetVblank(XDpRxSs *InstancePtr);
+int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr);
 
 void XDpRxSs_McDp6000_init(void *InstancePtr);
 

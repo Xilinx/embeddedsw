@@ -321,6 +321,9 @@
 							read data. */
 #define XDP_TX_GT_DRP_CHANNEL_STATUS	0x2A8	/**< Provides access to GT DRP
 							channel status. */
+#define XDP_RX_ADAPTIVE_VBLANK_VTOTAL	0x2F4	/**<  VTotal and VBlank
+						      of current video stream
+						      in Adaptive-Sync mode */
 /* @} */
 
 /** @name DPTX core registers: DisplayPort audio.
@@ -908,8 +911,6 @@
 #define XDP_RX_LINE_RESET_DISABLE	0x008	/**< RX line reset disable. */
 #define XDP_RX_DTG_ENABLE		0x00C	/**< Enables the display timing
 							generator (DTG). */
-#define XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK	0x80
-#define XDP_RX_MSA_TIMINGPAR_IGNORED_MASK	0x40
 #define XDP_RX_USER_PIXEL_WIDTH		0x010	/**< Selects the width of the
 							user data input port. */
 #define XDP_RX_INTERRUPT_MASK		0x014	/**< Masks the specified
@@ -1356,6 +1357,22 @@
 	(1 << ((Stream) - XDP_TX_STREAM_ID1))	/**< Used to disable the end of
 							the line reset to the
 							internal video pipe. */
+/* 0x00c: RX_DTG_ENABLE */
+#define XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK \
+					0x80	/**< Indicates DP protocol
+							converter is capable of
+							supporting Adaptive-Sync
+							SDP. */
+#define XDP_RX_MSA_TIMINGPAR_IGNORED_MASK \
+					0x40	/**< Indicates sink device is
+							capable of rendering
+							incoming video stream
+							without MSA timing
+							parameters. */
+#define XDP_RX_ADAPTIVESYNC_CAPS_MASK \
+					0xFFFFFF3F	/**< Adaptive-Sync
+								capability set
+								bit mask */
 /* 0x010: USER_PIXEL_WIDTH */
 #define XDP_RX_USER_PIXEL_WIDTH_1	0x1	/**< Single pixel wide
 							interface. */
@@ -1809,6 +1826,12 @@
 							porch). */
 #define XDP_RX_HSYNC_WIDTH_FRONT_PORCH_SHIFT 8	/**< Shift bits for the front
 							porch. */
+/* 0x005C: XDP_RX_INTERRUPT_MASK_2 */
+#define XDP_RX_ADAPTIVESYNC_SDP_VBLANK_INTERRUPT_MASK \
+					0xC0000000	/**< Adaptive-Sync SDP
+								and VBlank
+								interrupt mask.
+							*/
 /* 0x06C: MST_ALLOC */
 #define XDP_RX_MST_ALLOC_VCP_ID_MASK   0x00003F	/**< The virtual channel payload
 							ID that was issued as
@@ -2239,6 +2262,13 @@
 #define XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT \
 				0X40000000	/**< Timeout for MST mode. */
 
+/* 0x2F4: XDP_RX_ADAPTIVE_VBLANK_VTOTAL */
+#define XDP_RX_ADAPTIVE_VBLANK_MASK \
+				0x0000FFFF	/**< VBlank mask in Adaptive-
+							sync mode. */
+#define XDP_RX_ADAPTIVE_VTOTAL_MASK \
+				0xFFFF0000	/**< VTotal mask in Adaptive-
+							Sync mode. */
 /* 0x300: AUDIO CONTROL */
 #define XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
 
