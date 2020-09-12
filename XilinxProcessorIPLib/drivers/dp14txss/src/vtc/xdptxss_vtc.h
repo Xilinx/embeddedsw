@@ -50,6 +50,10 @@ extern "C" {
 
 u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 			u8 VtcAdjustBs);
+void XDpTxSs_VtcAdaptiveSyncSetup(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode,
+					u32 StretchLimit);
+void XDpTxSs_VtcDisableAdaptiveSync(XVtc *InstancePtr);
+
 
 /************************** Variable Declarations ****************************/
 
