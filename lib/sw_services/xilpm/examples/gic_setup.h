@@ -21,6 +21,10 @@ s32 GicSetupInterruptSystem(u32 IntId,
 		void *PeriphInstPtr, Xil_ExceptionHandler Handler);
 
 s32 GicInit();
+#if defined(versal)
+void GicSuspend();
+int GicResume();
+#endif /* versal */
 
 #ifdef __cplusplus
 }
