@@ -52,7 +52,6 @@ struct XPm_Master {
 	XIpiPsu *ipi;                 /**< IPI Instance */
 };
 
-enum XPmNodeId pm_get_subsystem_node(void);
 struct XPm_Master *pm_get_master(const u32 cpuid);
 struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 
