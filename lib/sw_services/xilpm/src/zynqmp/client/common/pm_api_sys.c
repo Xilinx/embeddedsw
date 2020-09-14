@@ -1414,21 +1414,21 @@ done:
 /**
  * @brief  Call this function to enable (activate) a clock
  *
- * @param  clock Identifier of the target clock to be enabled
+ * @param  clk Identifier of the target clock to be enabled
  *
  * @return Status of performing the operation as returned by the PMU-FW
  *
  * @note   If the access isn't permitted this function returns an error code.
  *
  ****************************************************************************/
-XStatus XPm_ClockEnable(const enum XPmClock clock)
+XStatus XPm_ClockEnable(const enum XPmClock clk)
 {
 	XStatus status = (XStatus)XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD1(payload, PM_CLOCK_ENABLE, clock);
+		PACK_PAYLOAD1(payload, PM_CLOCK_ENABLE, clk);
 		status = pm_ipi_send(primary_master, payload);
 
 		if (XST_SUCCESS != status) {
@@ -1447,21 +1447,21 @@ done:
 /**
  * @brief  Call this function to disable (gate) a clock
  *
- * @param  clock Identifier of the target clock to be disabled
+ * @param  clk Identifier of the target clock to be disabled
  *
  * @return Status of performing the operation as returned by the PMU-FW
  *
  * @note   If the access isn't permitted this function returns an error code.
  *
  ****************************************************************************/
-XStatus XPm_ClockDisable(const enum XPmClock clock)
+XStatus XPm_ClockDisable(const enum XPmClock clk)
 {
 	XStatus status = (XStatus)XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD1(payload, PM_CLOCK_DISABLE, clock);
+		PACK_PAYLOAD1(payload, PM_CLOCK_DISABLE, clk);
 		status = pm_ipi_send(primary_master, payload);
 
 		if (XST_SUCCESS != status) {
@@ -1480,20 +1480,20 @@ done:
 /**
  * @brief  Call this function to get status of a clock gate state
  *
- * @param  clock  Identifier of the target clock
+ * @param  clk  Identifier of the target clock
  * @param  status Location to store clock gate state (1=enabled, 0=disabled)
  *
  * @return Status of performing the operation as returned by the PMU-FW
  *
  ****************************************************************************/
-XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status)
+XStatus XPm_ClockGetStatus(const enum XPmClock clk, u32 *const status)
 {
 	XStatus ret = (XStatus)XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD1(payload, PM_CLOCK_GETSTATE, clock);
+		PACK_PAYLOAD1(payload, PM_CLOCK_GETSTATE, clk);
 		ret = pm_ipi_send(primary_master, payload);
 
 		if (XST_SUCCESS != ret) {
@@ -1512,7 +1512,7 @@ done:
 /**
  * @brief  Call this function to set divider for a clock
  *
- * @param  clock   Identifier of the target clock
+ * @param  clk   Identifier of the target clock
  * @param  divider Divider value to be set
  * @param  divId ID of the divider to be set
  *
@@ -1521,7 +1521,7 @@ done:
  * @note   If the access isn't permitted this function returns an error code.
  *
  ****************************************************************************/
-static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
+static XStatus XPm_ClockSetOneDivider(const enum XPmClock clk,
 				      const u32 divider,
 				      const u32 divId)
 {
@@ -1530,7 +1530,7 @@ static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD3(payload, PM_CLOCK_SETDIVIDER, clock, divId, divider);
+		PACK_PAYLOAD3(payload, PM_CLOCK_SETDIVIDER, clk, divId, divider);
 		status = pm_ipi_send(primary_master, payload);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -1548,7 +1548,7 @@ done:
 /**
  * @brief  Call this function to set divider for a clock
  *
- * @param  clock   Identifier of the target clock
+ * @param  clk   Identifier of the target clock
  * @param  divider Divider value to be set
  *
  * @return XST_INVALID_PARAM or status of performing the operation as returned
@@ -1557,27 +1557,27 @@ done:
  * @note   If the access isn't permitted this function returns an error code.
  *
  ****************************************************************************/
-XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
+XStatus XPm_ClockSetDivider(const enum XPmClock clk, const u32 divider)
 {
 	XStatus status = (XStatus)XST_INVALID_PARAM;
-	u8 mapping = XPm_GetClockDivType(clock);
+	u8 mapping = XPm_GetClockDivType(clk);
 	u32 div0 = 0U;
 	u32 div1 = 0U;
 
-	mapping = XPm_MapDivider(clock, divider, &div0, &div1);
+	mapping = XPm_MapDivider(clk, divider, &div0, &div1);
 	if (0U == mapping) {
 		goto done;
 	}
 
 	if (0U != (mapping & (1U << PM_CLOCK_DIV0_ID))) {
-		status = XPm_ClockSetOneDivider(clock, div0, PM_CLOCK_DIV0_ID);
+		status = XPm_ClockSetOneDivider(clk, div0, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
 	}
 
 	if (0U != (mapping & (1U << PM_CLOCK_DIV1_ID))) {
-		status = XPm_ClockSetOneDivider(clock, div1, PM_CLOCK_DIV1_ID);
+		status = XPm_ClockSetOneDivider(clk, div1, PM_CLOCK_DIV1_ID);
 	}
 
 done:
@@ -1588,13 +1588,13 @@ done:
 /**
  * @brief  Local function to get one divider (DIV0 or DIV1) of a clock
  *
- * @param  clock   Identifier of the target clock
+ * @param  clk   Identifier of the target clock
  * @param  divider Location to store the divider value
  *
  * @return Status of performing the operation as returned by the PMU-FW
  *
  ****************************************************************************/
-static XStatus XPm_ClockGetOneDivider(const enum XPmClock clock,
+static XStatus XPm_ClockGetOneDivider(const enum XPmClock clk,
 				      u32 *const divider,
 				      const u32 divId)
 {
@@ -1603,7 +1603,7 @@ static XStatus XPm_ClockGetOneDivider(const enum XPmClock clock,
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD2(payload, PM_CLOCK_GETDIVIDER, clock, divId);
+		PACK_PAYLOAD2(payload, PM_CLOCK_GETDIVIDER, clk, divId);
 		status = pm_ipi_send(primary_master, payload);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -1621,18 +1621,18 @@ done:
 /**
  * @brief  Call this function to get divider of a clock
  *
- * @param  clock   Identifier of the target clock
+ * @param  clk   Identifier of the target clock
  * @param  divider Location to store the divider value
  *
  * @return XST_INVALID_PARAM or status of performing the operation as returned
  * by the PMU-FW
  *
  ****************************************************************************/
-XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
+XStatus XPm_ClockGetDivider(const enum XPmClock clk, u32 *const divider)
 {
 	XStatus status = (XStatus)XST_INVALID_PARAM;
-	u8 type = XPm_GetClockDivType(clock);
-	u32 div;
+	u8 type = XPm_GetClockDivType(clk);
+	u32 div_val;
 
 	if ((NULL == divider) || (0U == type)) {
 		goto done;
@@ -1640,19 +1640,19 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 
 	*divider = 1U;
 	if (0U != (type & (1U << PM_CLOCK_DIV0_ID))) {
-		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV0_ID);
+		status = XPm_ClockGetOneDivider(clk, &div_val, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
-		*divider *= div;
+		*divider *= div_val;
 	}
 
 	if (0U != (type & (1U << PM_CLOCK_DIV1_ID))) {
-		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV1_ID);
+		status = XPm_ClockGetOneDivider(clk, &div_val, PM_CLOCK_DIV1_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
-		*divider *= div;
+		*divider *= div_val;
 	}
 
 done:
@@ -1663,7 +1663,7 @@ done:
 /**
  * @brief  Call this function to set parent for a clock
  *
- * @param  clock  Identifier of the target clock
+ * @param  clk  Identifier of the target clock
  * @param  parent Identifier of the target parent clock
  *
  * @return XST_INVALID_PARAM or status of performing the operation as returned
@@ -1672,21 +1672,21 @@ done:
  * @note   If the access isn't permitted this function returns an error code.
  *
  ****************************************************************************/
-XStatus XPm_ClockSetParent(const enum XPmClock clock,
+XStatus XPm_ClockSetParent(const enum XPmClock clk,
 			   const enum XPmClock parent)
 {
 	XStatus status = (XStatus)XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 	u32 select = 0U;
 
-	status = XPm_GetSelectByClockParent(clock, parent, &select);
+	status = XPm_GetSelectByClockParent(clk, parent, &select);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD2(payload, PM_CLOCK_SETPARENT, clock, select);
+		PACK_PAYLOAD2(payload, PM_CLOCK_SETPARENT, clk, select);
 		status = pm_ipi_send(primary_master, payload);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -1704,14 +1704,14 @@ done:
 /**
  * @brief  Call this function to get parent of a clock
  *
- * @param  clock  Identifier of the target clock
+ * @param  clk  Identifier of the target clock
  * @param  parent Location to store clock parent ID
  *
  * @return XST_INVALID_PARAM or status of performing the operation as returned
  * by the PMU-FW.
 
  ****************************************************************************/
-XStatus XPm_ClockGetParent(const enum XPmClock clock,
+XStatus XPm_ClockGetParent(const enum XPmClock clk,
 			   enum XPmClock* const parent)
 {
 	XStatus status = (XStatus)XST_FAILURE;
@@ -1720,7 +1720,7 @@ XStatus XPm_ClockGetParent(const enum XPmClock clock,
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD1(payload, PM_CLOCK_GETPARENT, clock);
+		PACK_PAYLOAD1(payload, PM_CLOCK_GETPARENT, clk);
 		status = pm_ipi_send(primary_master, payload);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -1732,7 +1732,7 @@ XStatus XPm_ClockGetParent(const enum XPmClock clock,
 			goto done;
 		}
 
-		status = XPm_GetClockParentBySelect(clock, select, parent);
+		status = XPm_GetClockParentBySelect(clk, select, parent);
 	}
 
 done:
@@ -1743,7 +1743,7 @@ done:
 /**
  * @brief  Call this function to set rate of a clock
  *
- * @param  clock  Identifier of the target clock
+ * @param  clk  Identifier of the target clock
  * @param  rate   Clock frequency (rate) to be set
  *
  * @return Status of performing the operation as returned by the PMU-FW
@@ -1751,9 +1751,9 @@ done:
  * @note   If the action isn't permitted this function returns an error code.
  *
  ****************************************************************************/
-XStatus XPm_ClockSetRate(const enum XPmClock clock, const u32 rate)
+XStatus XPm_ClockSetRate(const enum XPmClock clk, const u32 rate)
 {
-	pm_dbg("%s(%u, %u) not supported\n", __func__, clock, rate);
+	pm_dbg("%s(%u, %u) not supported\n", __func__, clk, rate);
 
 	return (XStatus)XST_NO_FEATURE;
 }
@@ -1762,15 +1762,15 @@ XStatus XPm_ClockSetRate(const enum XPmClock clock, const u32 rate)
 /**
  * @brief  Call this function to get rate of a clock
  *
- * @param  clock  Identifier of the target clock
+ * @param  clk  Identifier of the target clock
  * @param  rate   Location where the rate should be stored
  *
  * @return Status of performing the operation as returned by the PMU-FW
  *
  ****************************************************************************/
-XStatus XPm_ClockGetRate(const enum XPmClock clock, u32 *const rate)
+XStatus XPm_ClockGetRate(const enum XPmClock clk, u32 *const rate)
 {
-	pm_dbg("%s(%u, %u) not supported\n", __func__, clock, rate);
+	pm_dbg("%s(%u, %u) not supported\n", __func__, clk, rate);
 
 	return (XStatus)XST_NO_FEATURE;
 }
