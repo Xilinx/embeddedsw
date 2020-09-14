@@ -105,7 +105,7 @@ enum XPmBootStatus XPm_GetBootStatus(void)
 	}
 
 	pwrdn_req = pm_read(primary_master->pwrctl);
-	if (0 != (pwrdn_req & primary_master->pwrdn_mask)) {
+	if (0U != (pwrdn_req & primary_master->pwrdn_mask)) {
 		pwrdn_req &= ~primary_master->pwrdn_mask;
 		pm_write(primary_master->pwrctl, pwrdn_req);
 		ret = PM_RESUME;
