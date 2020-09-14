@@ -468,7 +468,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
 			/** HACK: Continuing even if CFI SC is not completed for ES1 */
-			if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+			if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 				Status = XST_SUCCESS;
 			} else {
 				DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
@@ -484,7 +484,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 			(u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: Hard Block Scan Clear / MBIST FAILED\r\n", __func__);
 			/** HACK: Continuing even if CFI SC is not pass for ES1 */
-			if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+			if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 				Status = XST_SUCCESS;
 			} else {
 				DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
