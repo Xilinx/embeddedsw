@@ -1069,9 +1069,9 @@ done:
  * @note   None
  *
  ****************************************************************************/
-u8 XPm_GetClockDivType(const enum XPmClock clock)
+u8 XPm_GetClockDivType(const enum XPmClock clockId)
 {
-	const XPmClockModel* const clk = XPm_GetClockById(clock);
+	const XPmClockModel* const clk = XPm_GetClockById(clockId);
 	u8 divs = 0U;
 
 	if (NULL == clk) {
@@ -1100,12 +1100,12 @@ done:
  * to get 2x divider values).
  *
  ****************************************************************************/
-u8 XPm_MapDivider(const enum XPmClock clock,
-		       const u32 div,
+u8 XPm_MapDivider(const enum XPmClock clockId,
+		       const u32 div_val,
 		       u32* const div0,
 		       u32* const div1)
 {
-	const XPmClockModel* const clk = XPm_GetClockById(clock);
+	const XPmClockModel* const clk = XPm_GetClockById(clockId);
 	u32 d0, d1 = 0U;
 	u8 mapped = 0U;
 
@@ -1119,14 +1119,14 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 	}
 
 	/* Check if given div value is out of range */
-	if (((!PM_CLOCK_HAS_DIV1(clk)) && (div > PM_DIV_WIDTH)) ||
-	    (div > PM_2xDIV_WIDTH)) {
+	if (((!PM_CLOCK_HAS_DIV1(clk)) && (div_val > PM_DIV_WIDTH)) ||
+	    (div_val > PM_2xDIV_WIDTH)) {
 		goto done;
 	}
 
 	/* Check if divider fits in Div0 only */
-	if (div <= PM_DIV_WIDTH) {
-		*div0 = div;
+	if (div_val <= PM_DIV_WIDTH) {
+		*div0 = div_val;
 		mapped = PM_CLOCK_TYPE_DIV0;
 		if (PM_CLOCK_HAS_DIV1(clk)) {
 			*div1 = 1U;
@@ -1136,8 +1136,8 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 	}
 	/* Divider has to be configured using both DIV0 and DIV1 */
 	for (d0 = 2U; d0 <= ((PM_DIV_WIDTH/2U) + 1U); d0++) {
-		if (0U == (div % d0)) {
-			d1 = div / d0;
+		if (0U == (div_val % d0)) {
+			d1 = div_val / d0;
 			break;
 		}
 	}
