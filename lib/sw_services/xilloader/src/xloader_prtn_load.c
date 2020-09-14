@@ -832,10 +832,6 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		PdiPtr->CopyToMemAddr += PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen;;
 	}
 
-	if (ToStoreInDdr == (u8)TRUE) {
-		PdiPtr->CopyToMemAddr += PrtnParams.DeviceCopy.Len;
-	}
-
 	if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) ||
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
 		(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
