@@ -161,15 +161,15 @@ void XPm_ClientWakeup(const struct XPm_Master *const master)
  */
 void XPm_ClientSuspendFinalize(void)
 {
-	u32 ctrlReg;
-
 	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
+	u64 ctrlReg;
 	ctrlReg = mfcp(SCTLR_EL3);
 	if ((XREG_CONTROL_DCACHE_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
 	}
 #else
+	u32 ctrlReg;
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
@@ -186,10 +186,11 @@ void XPm_ClientSuspendFinalize(void)
  */
 void XPm_ClientSetPrimaryMaster(void)
 {
-	u32 master_id;
 #ifdef __aarch64__
+	u64 master_id;
 	master_id = mfcp(MPIDR_EL1);
 #else
+	u32 master_id;
 	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY);
 #endif
 
