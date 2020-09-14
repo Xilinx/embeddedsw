@@ -140,14 +140,14 @@ enum XPm_ClockSubnodeType {
 #define CLK_DIVIDER_ALLOW_ZERO		BIT(2)
 #define CLK_DIVIDER_HIWORD_MASK		BIT(3)
 #define CLK_DIVIDER_ROUND_CLOSEST	BIT(4)
-#define CLK_DIVIDER_READ_ONLY		BIT(5)
+#define CLK_DIVIDER_READ_ONLY		BIT16(5)
 #define CLK_DIVIDER_MAX_AT_ZERO		BIT(6)
 
 /* Type Flags for mux clock */
 #define CLK_MUX_INDEX_ONE               BIT(0)
 #define CLK_MUX_INDEX_BIT               BIT(1)
 #define CLK_MUX_HIWORD_MASK             BIT(2)
-#define CLK_MUX_READ_ONLY               BIT(3)
+#define CLK_MUX_READ_ONLY               BIT16(3)
 #define CLK_MUX_ROUND_CLOSEST           BIT(4)
 #define CLK_MUX_BIG_ENDIAN              BIT(5)
 

@@ -861,9 +861,9 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 				if ((u8)TYPE_GATE == Type) {
 					Clkflags |= CLK_IS_CRITICAL;
 				} else if (((u8)TYPE_DIV1 == Type) || ((u8)TYPE_DIV2 == Type)) {
-					Typeflags |= (u16)CLK_DIVIDER_READ_ONLY;
+					Typeflags |= CLK_DIVIDER_READ_ONLY;
 				} else if ((u8)TYPE_MUX == Type) {
-					Typeflags |= (u16)CLK_MUX_READ_ONLY;
+					Typeflags |= CLK_MUX_READ_ONLY;
 				} else {
 					PmDbg("Unknown clock type\r\n");
 				}
