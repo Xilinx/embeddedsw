@@ -24,6 +24,12 @@
 /* Mask to get affinity level 0 */
 #define PM_CLIENT_AFL0_MASK              0xFFU
 
+#if defined (__GNUC__)
+#define WFI	__asm__("wfi");
+#elif defined (__ICCARM__)
+#define WFI	__asm("wfi");
+#endif
+
 static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
 	.pwrctl = RPU_RPU_0_PWRDWN,
@@ -171,11 +177,9 @@ void XPm_ClientSuspendFinalize(void)
 	}
 
 	pm_dbg("%s: Going to WFI...\n", __func__);
-#if defined (__GNUC__)
-	__asm__("wfi");
-#elif defined (__ICCARM__)
-	__asm("wfi");
-#endif
+
+	WFI;
+
 	pm_dbg("%s: WFI exit...\n", __func__);
 }
 

@@ -20,6 +20,8 @@
 /* Mask to get affinity level 0 */
 #define PM_AFL0_MASK   0xFFU
 
+#define WFI		__asm__ ("wfi")
+
 static struct XPm_Master pm_apu_0_master = {
 	.node_id = NODE_APU_0,
 	.pwrctl = APU_PWRCTL,
@@ -177,7 +179,7 @@ void XPm_ClientSuspendFinalize(void)
 #endif
 
 	pm_dbg("Going to WFI...\n");
-	__asm__("wfi");
+	WFI;
 	pm_dbg("WFI exit...\n");
 }
 
