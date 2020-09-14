@@ -599,7 +599,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 DynamicReconfigAddrOffset = 0;
 	u32 PermissionRegAddress = 0;
 	u32 PermissionRegMask = 0;
-	u32 Security = (u32)SECURITY_POLICY(Reqm->Flags);	/** < Device security policy */
+	u32 Security = SECURITY_POLICY((u32)Reqm->Flags);	/** < Device security policy */
 	u32 PlatformVersion;
 	u16 UsagePolicy = USAGE_POLICY(Reqm->Flags);	/** < Device usage policy */
 
@@ -920,13 +920,13 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 			Usage, Security, RdAllowed, WrAllowed, NSRegnCheck);
 
 	/* Setup config to be written; except enable */
-	CfgToWr = (u32)(((NSRegnCheck << XMPU_RXX_CONFIG_NSCHECKTYPE_SHIFT)
+	CfgToWr = ((((u32)NSRegnCheck << XMPU_RXX_CONFIG_NSCHECKTYPE_SHIFT)
 			& XMPU_RXX_CONFIG_NSCHECKTYPE_MASK)
-		 | ((Security << XMPU_RXX_CONFIG_REGIONNS_SHIFT)
+		 | (((u32)Security << XMPU_RXX_CONFIG_REGIONNS_SHIFT)
 			 & XMPU_RXX_CONFIG_REGIONNS_MASK)
-		 | ((WrAllowed << XMPU_RXX_CONFIG_WRALLOWED_SHIFT)
+		 | (((u32)WrAllowed << XMPU_RXX_CONFIG_WRALLOWED_SHIFT)
 			 & XMPU_RXX_CONFIG_WRALLOWED_MASK)
-		 | ((RdAllowed << XMPU_RXX_CONFIG_RDALLOWED_SHIFT)
+		 | (((u32)RdAllowed << XMPU_RXX_CONFIG_RDALLOWED_SHIFT)
 			 & XMPU_RXX_CONFIG_RDALLOWED_MASK));
 
 	/* Setup memory region config */
