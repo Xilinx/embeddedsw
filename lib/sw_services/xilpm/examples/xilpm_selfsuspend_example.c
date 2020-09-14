@@ -34,6 +34,8 @@
 #include "pm_api_sys.h"
 #include "timer.h"
 #include "pm_client.h"
+#include "pm_defs.h"
+#include "gic_setup.h"
 
 #define IPI_INT_ID	XPAR_XIPIPSU_0_INT_ID
 #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
@@ -63,6 +65,7 @@ static XStatus IpiConfigure(XIpiPsu *const IpiInstPtr)
 }
 extern void *_vector_table;
 
+#if !defined(versal)
 #ifdef __aarch64__
 	/* Use OCM for saving context */
 	#define CONTEXT_MEM_BASE	0xFFFC0000U
@@ -149,14 +152,16 @@ static void RestoreContext(void)
 
 	pm_dbg("Restored context (tick_count = %d)\n", TickCount);
 }
-
+#endif /* versal */
 
 /**
  * PrepareSuspend() - save context and request suspend
  */
 static void PrepareSuspend(void)
 {
+#if !defined(versal)
 	SaveContext();
+#endif
 /* usleep is used to prevents UART prints from overlapping */
 #ifdef __aarch64__
 	u64 vector_base = (u64)&_vector_table;
@@ -187,7 +192,6 @@ static void PrepareSuspend(void)
 	usleep(100000);
 	XPm_SetRequirement(NODE_TCM_1_B, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
-
 #endif /* __aarch64__ */
 }
 
@@ -214,9 +218,31 @@ static u32 InitApp(void)
 			pm_dbg("Exiting main...\n");
 			return XST_FAILURE;
 		}
+#if defined(versal) && defined(__arm__)
+		int ret = XPm_RequestNode(NODE_TCM_0_A, PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_NO);
+		if (XST_SUCCESS != ret) {
+			return ret;
+		}
+		ret = XPm_RequestNode(NODE_TCM_0_B, PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_NO);
+		if (XST_SUCCESS != ret) {
+			return ret;
+		}
+		ret = XPm_RequestNode(NODE_TCM_1_A, PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_NO);
+		if (XST_SUCCESS != ret) {
+			return ret;
+		}
+		ret = XPm_RequestNode(NODE_TCM_1_B, PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_NO);
+		if (XST_SUCCESS != ret) {
+			return ret;
+		}
+#endif /* versal && __arm__ */
 	} else if (PM_RESUME == status) {
 		pm_dbg("RESUMED\n");
+#if defined(versal)
+		GicResume();
+#else
 		RestoreContext();
+#endif
 		/* Timer is already counting, just enable interrupts */
 		Xil_ExceptionEnable();
 	} else {
@@ -240,6 +266,9 @@ int main(void)
 	while ((TickCount + 1) % 4);
 
 	PrepareSuspend();
+#if defined(versal)
+	GicSuspend();
+#endif /* versal */
 	XPm_SuspendFinalize();
 
 	/*
