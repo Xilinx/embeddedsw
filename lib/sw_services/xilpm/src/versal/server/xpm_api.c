@@ -311,7 +311,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
 	case PM_IOCTL:
-		Status = XPm_DevIoctl(SubsystemId, Pload[0], Pload[1],
+		Status = XPm_DevIoctl(SubsystemId, Pload[0], (pm_ioctl_id) Pload[1],
 				      Pload[2], Pload[3], ApiResponse);
 		break;
 	case PM_INIT_FINALIZE:
