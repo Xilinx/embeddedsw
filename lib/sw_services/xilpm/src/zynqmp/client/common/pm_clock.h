@@ -22,18 +22,18 @@
 extern "C" {
 #endif
 
-XStatus XPm_GetClockParentBySelect(const enum XPmClock clock,
+XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 				   const u32 select,
-				   enum XPmClock* const parent);
+				   enum XPmClock* const parentId);
 
-XStatus XPm_GetSelectByClockParent(const enum XPmClock clock,
-				   const enum XPmClock parent,
+XStatus XPm_GetSelectByClockParent(const enum XPmClock clockId,
+				   const enum XPmClock parentId,
 				   u32* const select);
 
-u8 XPm_GetClockDivType(const enum XPmClock clock);
+u8 XPm_GetClockDivType(const enum XPmClock clockId);
 
-u8 XPm_MapDivider(const enum XPmClock clock,
-		  const u32 div,
+u8 XPm_MapDivider(const enum XPmClock clockId,
+		  const u32 div_val,
 		  u32* const div0,
 		  u32* const div1);
 
