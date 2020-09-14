@@ -1554,14 +1554,12 @@ proc handle_stdout_parameter {drv_handle} {
        puts $config_file "\#ifdef __cplusplus"
        puts $config_file "}"
        puts $config_file "\#endif \n"
-       puts $config_file "\#ifdef VERSAL_PLM"
-       puts $config_file "void __attribute__((weak)) outbyte(char c)"
-       puts $config_file "\#else"
+       puts $config_file "\#ifndef VERSAL_PLM"
        puts $config_file "void outbyte(char c)"
-       puts $config_file "\#endif"
        puts $config_file "{"
        puts $config_file [format "\t %s(STDOUT_BASEADDRESS, c);" $outbyte_name]
        puts $config_file "}"
+       puts $config_file "\#endif"
        close $config_file
        set config_file [::hsi::utils::open_include_file "xparameters.h"]
        set stdout_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdout && IS_DATA==1" ]
@@ -1586,14 +1584,12 @@ proc handle_stdout_parameter {drv_handle} {
 		    puts $config_file "\#ifdef __cplusplus"
 		    puts $config_file "}"
 		    puts $config_file "\#endif \n"
-		    puts $config_file "\#ifdef VERSAL_PLM"
-		    puts $config_file "void __attribute__((weak)) outbyte(char c)"
-		    puts $config_file "\#else"
+		    puts $config_file "\#ifndef VERSAL_PLM"
 		    puts $config_file "void outbyte(char c)"
-		    puts $config_file "\#endif"
 		    puts $config_file "{"
 		    puts $config_file "    (void) c;"
 		    puts $config_file "}"
+		    puts $config_file "\#endif"
                     close $config_file
             }
      }
