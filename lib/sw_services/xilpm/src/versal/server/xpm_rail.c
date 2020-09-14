@@ -42,7 +42,7 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, u32 *Args)
 		Status = XST_NO_FEATURE;
 		break;
 	case (u32)XPM_RAILTYPE_PGOOD:
-		Rail->Source = Args[2];
+		Rail->Source = (XPm_PgoodSource)Args[2];
 		BaseAddress = Args[3];
 		Status = XST_SUCCESS;
 		break;
