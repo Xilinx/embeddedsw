@@ -190,6 +190,11 @@ static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
 		NumMemRegDevices = &PmNumDdrMemRegnDevices;
 		break;
 	default:
+		PmDbg("Memory type other than OCM or DDR\r\n");
+		break;
+	}
+
+	if (NULL == NumMemRegDevices) {
 		goto done;
 	}
 
