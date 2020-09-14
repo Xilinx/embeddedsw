@@ -187,20 +187,20 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value);
 XStatus XPm_MmioRead(const u32 address, u32 *const value);
 
 /* Clock API */
-XStatus XPm_ClockEnable(const enum XPmClock clock);
-XStatus XPm_ClockDisable(const enum XPmClock clock);
-XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status);
+XStatus XPm_ClockEnable(const enum XPmClock clk);
+XStatus XPm_ClockDisable(const enum XPmClock clk);
+XStatus XPm_ClockGetStatus(const enum XPmClock clk, u32 *const status);
 
-XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider);
-XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider);
+XStatus XPm_ClockSetDivider(const enum XPmClock clk, const u32 divider);
+XStatus XPm_ClockGetDivider(const enum XPmClock clk, u32 *const divider);
 
-XStatus XPm_ClockSetParent(const enum XPmClock clock,
+XStatus XPm_ClockSetParent(const enum XPmClock clk,
 			   const enum XPmClock parent);
-XStatus XPm_ClockGetParent(const enum XPmClock clock,
+XStatus XPm_ClockGetParent(const enum XPmClock clk,
 			   enum XPmClock *const parent);
 
-XStatus XPm_ClockSetRate(const enum XPmClock clock, const u32 rate);
-XStatus XPm_ClockGetRate(const enum XPmClock clock, u32 *const rate);
+XStatus XPm_ClockSetRate(const enum XPmClock clk, const u32 rate);
+XStatus XPm_ClockGetRate(const enum XPmClock clk, u32 *const rate);
 
 /* PLL API */
 XStatus XPm_PllSetParameter(const enum XPmNodeId node,
