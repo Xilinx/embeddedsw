@@ -39,6 +39,7 @@
 *       td   08/19/20 Fixed MISRA C violations Rule 10.3
 *       bsv  08/21/20 Included xil_util.h for XSECURE_TEMPORAL_CHECK macro
 *       har  08/24/20 Added macros related to ECDSA P521 support
+*       kal  09/14/20 Added new error code to XLoader_SecErrCodes
 *
 * </pre>
 *
@@ -407,6 +408,8 @@ typedef enum {
 			 /**< 0x20 eFuse IV should be non-zero for enc only */
 	XLOADER_SEC_IV_METAHDR_RANGE_ERROR,
 		   /**< 0x21 Metahdr IV Range not matched with eFuse IV */
+	XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR,
+		/**< 0x22 Metahdr DpaCm & eFuse DpaCm values are not matched */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,
