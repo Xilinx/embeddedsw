@@ -82,7 +82,7 @@ static const XPmClockSel2ClkIn advSel2ClkIn[] = {
 
 static XPmClockMux advMux = {
 	.inputs = advSel2ClkIn,
-	.size = PM_ARRAY_SIZE(advSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(advSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -102,7 +102,7 @@ static const XPmClockSel2ClkIn avdSel2ClkIn[] = {
 
 static XPmClockMux avdMux = {
 	.inputs = avdSel2ClkIn,
-	.size = PM_ARRAY_SIZE(avdSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(avdSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -122,7 +122,7 @@ static const XPmClockSel2ClkIn aiodSel2ClkIn[] = {
 
 static XPmClockMux aiodMux = {
 	.inputs = aiodSel2ClkIn,
-	.size = PM_ARRAY_SIZE(aiodSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(aiodSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -142,7 +142,7 @@ static const XPmClockSel2ClkIn vdrSel2ClkIn[] = {
 
 static XPmClockMux vdrMux = {
 	.inputs = vdrSel2ClkIn,
-	.size = PM_ARRAY_SIZE(vdrSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(vdrSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -159,7 +159,7 @@ static const XPmClockSel2ClkIn dvSel2ClkIn[] = {
 
 static XPmClockMux dvMux = {
 	.inputs = dvSel2ClkIn,
-	.size = PM_ARRAY_SIZE(dvSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(dvSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -179,7 +179,7 @@ static const XPmClockSel2ClkIn iovdSel2ClkIn[] = {
 
 static XPmClockMux iovdMux = {
 	.inputs = iovdSel2ClkIn,
-	.size = PM_ARRAY_SIZE(iovdSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(iovdSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -199,7 +199,7 @@ static const XPmClockSel2ClkIn ioadSel2ClkIn[] = {
 
 static XPmClockMux ioadMux = {
 	.inputs = ioadSel2ClkIn,
-	.size = PM_ARRAY_SIZE(ioadSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(ioadSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -219,7 +219,7 @@ static const XPmClockSel2ClkIn iodaSel2ClkIn[] = {
 
 static XPmClockMux iodaMux = {
 	.inputs = iodaSel2ClkIn,
-	.size = PM_ARRAY_SIZE(iodaSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(iodaSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -236,7 +236,7 @@ static const XPmClockSel2ClkIn iorSel2ClkIn[] = {
 
 static XPmClockMux iorMux = {
 	.inputs = iorSel2ClkIn,
-	.size = PM_ARRAY_SIZE(iorSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(iorSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -256,7 +256,7 @@ static const XPmClockSel2ClkIn iordFpdSel2ClkIn[] = {
 
 static XPmClockMux iordFpdMux = {
 	.inputs = iordFpdSel2ClkIn,
-	.size = PM_ARRAY_SIZE(iordFpdSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(iordFpdSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -276,7 +276,7 @@ static const XPmClockSel2ClkIn iordSel2ClkIn[] = {
 
 static XPmClockMux iordMux = {
 	.inputs = iordSel2ClkIn,
-	.size = PM_ARRAY_SIZE(iordSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(iordSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -296,7 +296,7 @@ static const XPmClockSel2ClkIn iorvSel2ClkIn[] = {
 
 static XPmClockMux iorvMux = {
 	.inputs = iorvSel2ClkIn,
-	.size = PM_ARRAY_SIZE(iorvSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(iorvSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -316,7 +316,7 @@ static const XPmClockSel2ClkIn riodSel2ClkIn[] = {
 
 static XPmClockMux riodMux = {
 	.inputs = riodSel2ClkIn,
-	.size = PM_ARRAY_SIZE(riodSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(riodSel2ClkIn),
 	.bits = 2U,
 	.shift = 0U,
 };
@@ -348,7 +348,7 @@ static const XPmClockSel2ClkIn iordPsRefSel2ClkIn[] = {
 
 static XPmClockMux iordPsRefMux = {
 	.inputs = iordPsRefSel2ClkIn,
-	.size = PM_ARRAY_SIZE(iordPsRefSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(iordPsRefSel2ClkIn),
 	.bits = 3U,
 	.shift = 0U,
 };
@@ -379,7 +379,7 @@ static const XPmClockSel2ClkIn can0Sel2ClkIn[] = {
 
 static XPmClockMux can0Mux = {
 	.inputs = can0Sel2ClkIn,
-	.size = PM_ARRAY_SIZE(can0Sel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(can0Sel2ClkIn),
 	.bits = 1U,
 	.shift = 7U,
 };
@@ -396,7 +396,7 @@ static const XPmClockSel2ClkIn can1Sel2ClkIn[] = {
 
 static XPmClockMux can1Mux = {
 	.inputs = can1Sel2ClkIn,
-	.size = PM_ARRAY_SIZE(can1Sel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(can1Sel2ClkIn),
 	.bits = 1U,
 	.shift = 22U,
 };
@@ -419,7 +419,7 @@ static const XPmClockSel2ClkIn gemTsuSel2ClkIn[] = {
 
 static XPmClockMux gemTsuMux = {
 	.inputs = gemTsuSel2ClkIn,
-	.size = PM_ARRAY_SIZE(gemTsuSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(gemTsuSel2ClkIn),
 	.bits = 2U,
 	.shift = 20U,
 };
@@ -436,7 +436,7 @@ static const XPmClockSel2ClkIn gem0RefSel2ClkIn[] = {
 
 static XPmClockMux gem0RefMux = {
 	.inputs = gem0RefSel2ClkIn,
-	.size = PM_ARRAY_SIZE(gem0RefSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(gem0RefSel2ClkIn),
 	.bits = 1U,
 	.shift = 1U,
 };
@@ -453,7 +453,7 @@ static const XPmClockSel2ClkIn gem1RefSel2ClkIn[] = {
 
 static XPmClockMux gem1RefMux = {
 	.inputs = gem1RefSel2ClkIn,
-	.size = PM_ARRAY_SIZE(gem1RefSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(gem1RefSel2ClkIn),
 	.bits = 1U,
 	.shift = 6U,
 };
@@ -470,7 +470,7 @@ static const XPmClockSel2ClkIn gem2RefSel2ClkIn[] = {
 
 static XPmClockMux gem2RefMux = {
 	.inputs = gem2RefSel2ClkIn,
-	.size = PM_ARRAY_SIZE(gem2RefSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(gem2RefSel2ClkIn),
 	.bits = 1U,
 	.shift = 11U,
 };
@@ -487,7 +487,7 @@ static const XPmClockSel2ClkIn gem3RefSel2ClkIn[] = {
 
 static XPmClockMux gem3RefMux = {
 	.inputs = gem3RefSel2ClkIn,
-	.size = PM_ARRAY_SIZE(gem3RefSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(gem3RefSel2ClkIn),
 	.bits = 1U,
 	.shift = 16U,
 };
@@ -504,7 +504,7 @@ static const XPmClockSel2ClkIn fpdWdtSel2ClkIn[] = {
 
 static XPmClockMux fpdWdtMux = {
 	.inputs = fpdWdtSel2ClkIn,
-	.size = PM_ARRAY_SIZE(fpdWdtSel2ClkIn),
+	.size = (u8)PM_ARRAY_SIZE(fpdWdtSel2ClkIn),
 	.bits = 1U,
 	.shift = 0U,
 };
@@ -978,7 +978,7 @@ XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 				   enum XPmClock* const parentId)
 {
 	const XPmClockModel* const clk = XPm_GetClockById(clockId);
-	XStatus status = XST_INVALID_PARAM;
+	XStatus status = (XStatus)XST_INVALID_PARAM;
 	u32 i;
 
 	if ((NULL == clk) || (NULL == clk->mux)) {
@@ -990,7 +990,7 @@ XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 		if (select <= 0x4DU) {
 			*parentId = PM_CLOCK_EXT_MIO0;
 			*parentId += select;
-			status = XST_SUCCESS;
+			status = (XStatus)XST_SUCCESS;
 		}
 		/* else select parameter is invalid (out of scope) */
 		goto done;
@@ -999,7 +999,7 @@ XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 	for (i = 0U; i < clk->mux->size; i++) {
 		if (clk->mux->inputs[i].select == select) {
 			*parentId = clk->mux->inputs[i].clkIn;
-			status = XST_SUCCESS;
+			status = (XStatus)XST_SUCCESS;
 			break;
 		}
 	}
@@ -1027,7 +1027,7 @@ XStatus XPm_GetSelectByClockParent(const enum XPmClock clockId,
 				   u32* const select)
 {
 	const XPmClockModel* const clk = XPm_GetClockById(clockId);
-	XStatus status = XST_INVALID_PARAM;
+	XStatus status = (XStatus)XST_INVALID_PARAM;
 	u32 i;
 
 	if ((NULL == clk) || (NULL == clk->mux)) {
@@ -1039,7 +1039,7 @@ XStatus XPm_GetSelectByClockParent(const enum XPmClock clockId,
 		u32 mioSel = parentId - PM_CLOCK_EXT_MIO0;
 		if (mioSel <= 0x4DU) {
 			*select = mioSel;
-			status = XST_SUCCESS;
+			status = (XStatus)XST_SUCCESS;
 		}
 		/* else parentId parameter is invalid (out of scope) */
 		goto done;
@@ -1048,7 +1048,7 @@ XStatus XPm_GetSelectByClockParent(const enum XPmClock clockId,
 	for (i = 0U; i < clk->mux->size; i++) {
 		if (clk->mux->inputs[i].clkIn == parentId) {
 			*select = clk->mux->inputs[i].select;
-			status = XST_SUCCESS;
+			status = (XStatus)XST_SUCCESS;
 			break;
 		}
 	}
