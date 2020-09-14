@@ -1036,7 +1036,7 @@ XStatus XPm_GetSelectByClockParent(const enum XPmClock clockId,
 
 	if (NULL == clk->mux->inputs) {
 		/* MIO mux */
-		u32 mioSel = parentId - PM_CLOCK_EXT_MIO0;
+		u32 mioSel = (u32)parentId - (u32)PM_CLOCK_EXT_MIO0;
 		if (mioSel <= 0x4DU) {
 			*select = mioSel;
 			status = (XStatus)XST_SUCCESS;

@@ -18,7 +18,7 @@
 #include <xpseudo_asm.h>
 
 /* Mask to get affinity level 0 */
-#define PM_AFL0_MASK   0xFF
+#define PM_AFL0_MASK   0xFFU
 
 static struct XPm_Master pm_apu_0_master = {
 	.node_id = NODE_APU_0,
