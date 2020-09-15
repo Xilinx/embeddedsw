@@ -128,7 +128,7 @@ static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
 static u32 XLoader_EcdsaSignVerify(XSecure_EcdsaCrvTyp CrvType, u8 *DataHash,
 	u8 *Key, u32 KeySize, u8 *Signature);
 static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
-	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
+	u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature);
 static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
 static u32 XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
@@ -2330,7 +2330,7 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
  *
  ******************************************************************************/
 static u32 XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
-		 u64 SrcAddr, u64 DstAddr, u32 Size)
+		 u64 SrcAddr, u64 DestAddr, u32 Size)
 {
 	volatile u32 Status = XLOADER_FAILURE;
 	volatile u32 StatusTmp = XLOADER_FAILURE;
@@ -2390,7 +2390,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 		ChunkSize = ChunkSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
 	}
 	Status = XLoader_DataDecrypt(SecurePtr,
-			 SrcAddr, DstAddr, ChunkSize);
+			 SrcAddr, DestAddr, ChunkSize);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);

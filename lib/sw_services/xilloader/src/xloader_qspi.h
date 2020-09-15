@@ -178,7 +178,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_QspiInit(u32 DeviceFlags);
-int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress);
 
 /************************** Variable Definitions *****************************/
