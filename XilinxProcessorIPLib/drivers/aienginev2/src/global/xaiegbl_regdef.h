@@ -110,10 +110,21 @@ typedef struct {
 } XAie_StrmPort;
 
 /*
+ * This typedef captures physical port to logical port mapping for stream
+ * switch modules
+ */
+typedef struct {
+	StrmSwPortType PortType;
+	u8 PortNum;
+} XAie_StrmSwPortMap;
+
+/*
  * This typedef contains the attributes for Stream Switch Module
  */
 typedef struct {
 	u8 NumSlaveSlots;
+	u8 MaxMasterPhyPortId;
+	u8 MaxSlavePhyPortId;
 	u32 SlvConfigBaseAddr;
 	u32 MstrConfigBaseAddr;
 	u32 PortOffset;		  /**< Offset between ports */
@@ -133,6 +144,8 @@ typedef struct {
 	const XAie_StrmPort *MstrConfig;
 	const XAie_StrmPort *SlvConfig;
 	const XAie_StrmPort *SlvSlotConfig;
+	const XAie_StrmSwPortMap *MasterPortMap;
+	const XAie_StrmSwPortMap *SlavePortMap;
 } XAie_StrmMod;
 
 /*
