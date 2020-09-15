@@ -3428,7 +3428,7 @@ END:
 * @return      XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-int XLoader_AuthJtag()
+int XLoader_AuthJtag(void)
 {
 	volatile int Status = XST_FAILURE;
 	u32 AuthJtagDis = 0U;
@@ -3565,7 +3565,7 @@ END:
 * @return      None
 *
 ******************************************************************************/
-static void XLoader_EnableJtag()
+static void XLoader_EnableJtag(void)
 {
 	/*
 	 * Enable secure/non-secure debug

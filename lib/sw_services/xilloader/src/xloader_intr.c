@@ -60,7 +60,7 @@
  * @return	Returns XST_SUCCESS
  *
  *****************************************************************************/
-int XLoader_IntrInit()
+int XLoader_IntrInit(void)
 {
 	int Status = XST_FAILURE;
 
