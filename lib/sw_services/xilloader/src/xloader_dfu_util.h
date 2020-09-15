@@ -354,15 +354,24 @@ struct XLoaderPs_DfuIf {
 };
 
 typedef struct {
-	u8 (*XLoaderPs_Ch9SetupDevDescReply)(struct Usb_DevData *, u8 *, u32);
-	u8 (*XLoaderPs_Ch9SetupCfgDescReply)(struct Usb_DevData *, u8 *, u32);
-	u8 (*XLoaderPs_Ch9SetupBosDescReply)(struct Usb_DevData *, u8 *, u32);
-	u8 (*XLoaderPs_Ch9SetupStrDescReply)(struct Usb_DevData *, u8 *, u32, u8);
-	int (*XLoaderPs_SetConfiguration)(struct Usb_DevData *, SetupPacket *);
-	int (*XLoaderPs_SetConfigurationApp)(struct Usb_DevData *, SetupPacket *);
-	void (*XLoaderPs_SetInterfaceHandler)(struct Usb_DevData *, SetupPacket *);
-	void (*XLoaderPs_ClassReq)(struct Usb_DevData *, SetupPacket *);
-	u32 (*XLoaderPs_GetDescReply)(struct Usb_DevData *, SetupPacket *,u8 *);
+	u8 (*XLoaderPs_Ch9SetupDevDescReply)(struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, u32 BufferLen);
+	u8 (*XLoaderPs_Ch9SetupCfgDescReply)(struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, u32 BufferLen);
+	u8 (*XLoaderPs_Ch9SetupBosDescReply)(struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, u32 BufferLen);
+	u8 (*XLoaderPs_Ch9SetupStrDescReply)(struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, u32 BufferLen, u8 Index);
+	int (*XLoaderPs_SetConfiguration)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	int (*XLoaderPs_SetConfigurationApp)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	void (*XLoaderPs_SetInterfaceHandler)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	void (*XLoaderPs_ClassReq)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	u32 (*XLoaderPs_GetDescReply)(struct Usb_DevData* InstancePtr,
+                SetupPacket *SetupData, u8 *BufPtr);
 }XLoader_Ch9Func_Container;
 
 typedef struct {

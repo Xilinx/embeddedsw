@@ -729,7 +729,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	int Status = XST_FAILURE;
 	XilPdi_PrtnHdr * PrtnHdr;
 	PdiSrc_t PdiSrc = PdiPtr->PdiSrc;
-	int (*DevCopy) (u64, u64, u32, u32) = NULL;
+	int (*DevCopy) (u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags) = NULL;
 	XLoader_SecureParams SecureParams = {0U};
 	XLoader_PrtnParams PrtnParams = {0U};
 	u32 PrtnType;
