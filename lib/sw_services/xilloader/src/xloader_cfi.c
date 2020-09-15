@@ -43,8 +43,8 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XCframe XLoader_CframeIns = {0U}; /** CFRAME Driver Instance */
-XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
+static XCframe XLoader_CframeIns = {0U}; /** CFRAME Driver Instance */
+static XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
 
 /*****************************************************************************/
 
