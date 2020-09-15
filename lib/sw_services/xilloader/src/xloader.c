@@ -684,7 +684,6 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	Status = XST_SUCCESS;
 
 END:
-	NoOfDelayedHandoffCpus = 0U;
 	if (DeviceOps[DeviceFlags].Release != NULL) {
 		SStatus = DeviceOps[DeviceFlags].Release();
 		if (Status == XST_SUCCESS) {
