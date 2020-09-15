@@ -111,7 +111,7 @@ static int XLoader_VerifyImgInfo(XPlmi_ImageInfo *ImageInfo);
 
 /************************** Variable Definitions *****************************/
 XilPdi SubsystemPdiIns = {0U};
-XilPdi_ATFHandoffParams ATFHandoffParams = {0};
+static XilPdi_ATFHandoffParams ATFHandoffParams = {0};
 XilPdi* BootPdiPtr = NULL;
 
 /*****************************************************************************/
@@ -1234,32 +1234,37 @@ END:
 	{
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
-			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
 			break;
 		case XLOADER_PDI_SRC_SD0:
-			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
 			break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
-			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
 			break;
 		case XLOADER_PDI_SRC_USB:
-			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
 			break;
 		case XLOADER_PDI_SRC_OSPI:
-			Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
 			break;
 		default:
+			SStatus = XST_SUCCESS;
 			break;
 	}
+	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
+		Status = SStatus;
+	}
+
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 
 	SStatus = XPlmi_MemSet(XPLMI_LOADER_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
 			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
-	if (Status == XST_SUCCESS) {
+	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = SStatus;
 	}
 
