@@ -73,10 +73,10 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_SdInit(u32 DeviceFlags);
-int XLoader_SdCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 int XLoader_SdRelease(void);
 int XLoader_RawInit(u32 DeviceFlags);
-int XLoader_RawCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 int XLoader_RawRelease(void);
 
 /************************** Variable Definitions *****************************/
