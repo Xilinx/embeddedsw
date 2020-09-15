@@ -62,7 +62,6 @@ static void XLoader_DfuSetIntf(struct Usb_DevData* XLoader_UsbInstancePtr,
         SetupPacket *SetupData);
 
 /**************************** Type Definitions *******************************/
-extern struct XUsbPsu UsbInstance;
 struct XLoaderPs_DfuIf DfuObj;
 extern u32 DownloadDone;
 extern u8* DfuVirtFlash;
