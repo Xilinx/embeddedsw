@@ -379,6 +379,11 @@ typedef struct {
 	void * Data_ptr;
 }XLoader_UsbCh9_Data;
 
+extern u32 DownloadDone;
+extern u8* DfuVirtFlash;
+extern XLoader_UsbCh9_Data Dfu_data;
+extern struct XLoaderPs_DfuIf DfuObj;
+
 /************************** Function Prototypes ******************************/
 void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr);
 void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState);

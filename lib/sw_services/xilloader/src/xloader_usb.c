@@ -41,10 +41,8 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-struct Usb_DevData UsbInstance;
-struct XUsbPsu UsbPrivateData;
-extern struct XLoaderPs_DfuIf DfuObj;
-extern XLoader_UsbCh9_Data Dfu_data;
+static struct Usb_DevData UsbInstance;
+static struct XUsbPsu UsbPrivateData;
 u8* DfuVirtFlash = (u8*)XLOADER_DDR_TEMP_BUFFER_ADDRESS;
 u32 DownloadDone = 0U;
 
