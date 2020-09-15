@@ -363,6 +363,517 @@ static const XAie_StrmPort AieTileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 	}
 };
 
+static const XAie_StrmSwPortMap AieTileStrmSwMasterPortMap[] =
+{
+	{
+		/* PhyPort 0 */
+		.PortType = CORE,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 1 */
+		.PortType = CORE,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 2 */
+		.PortType = DMA,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 3 */
+		.PortType = DMA,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 4 */
+		.PortType = CTRL,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 5 */
+		.PortType = FIFO,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 6 */
+		.PortType = FIFO,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 7 */
+		.PortType = SOUTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 8 */
+		.PortType = SOUTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 9 */
+		.PortType = SOUTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 10 */
+		.PortType = SOUTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 11 */
+		.PortType = WEST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 12 */
+		.PortType = WEST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 13 */
+		.PortType = WEST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 14 */
+		.PortType = WEST,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 15 */
+		.PortType = NORTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 16 */
+		.PortType = NORTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 17 */
+		.PortType = NORTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 18 */
+		.PortType = NORTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 19 */
+		.PortType = NORTH,
+		.PortNum = 4,
+	},
+	{
+		/* PhyPort 20 */
+		.PortType = NORTH,
+		.PortNum = 5,
+	},
+	{
+		/* PhyPort 21 */
+		.PortType = EAST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 22 */
+		.PortType = EAST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 23 */
+		.PortType = EAST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 24 */
+		.PortType = EAST,
+		.PortNum = 3,
+	},
+};
+
+static const XAie_StrmSwPortMap AieTileStrmSwSlavePortMap[] =
+{
+	{
+		/* PhyPort 0 */
+		.PortType = CORE,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 1 */
+		.PortType = CORE,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 2 */
+		.PortType = DMA,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 3 */
+		.PortType = DMA,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 4 */
+		.PortType = CTRL,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 5 */
+		.PortType = FIFO,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 6 */
+		.PortType = FIFO,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 7 */
+		.PortType = SOUTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 8 */
+		.PortType = SOUTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 9 */
+		.PortType = SOUTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 10 */
+		.PortType = SOUTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 11 */
+		.PortType = SOUTH,
+		.PortNum = 4,
+	},
+	{
+		/* PhyPort 12 */
+		.PortType = SOUTH,
+		.PortNum = 5,
+	},
+	{
+		/* PhyPort 13 */
+		.PortType = WEST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 14 */
+		.PortType = WEST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 15 */
+		.PortType = WEST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 16 */
+		.PortType = WEST,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 17 */
+		.PortType = NORTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 18 */
+		.PortType = NORTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 19 */
+		.PortType = NORTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 20 */
+		.PortType = NORTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 21 */
+		.PortType = EAST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 22 */
+		.PortType = EAST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 23 */
+		.PortType = EAST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 24 */
+		.PortType = EAST,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 25 */
+		.PortType = TRACE,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 26 */
+		.PortType = TRACE,
+		.PortNum = 1,
+	},
+};
+
+static const XAie_StrmSwPortMap AieShimStrmSwMasterPortMap[] =
+{
+	{
+		/* PhyPort 0 */
+		.PortType = CTRL,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 1 */
+		.PortType = FIFO,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 2 */
+		.PortType = FIFO,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 3 */
+		.PortType = SOUTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 4 */
+		.PortType = SOUTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 5 */
+		.PortType = SOUTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 6 */
+		.PortType = SOUTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 7 */
+		.PortType = SOUTH,
+		.PortNum = 4,
+	},
+	{
+		/* PhyPort 8 */
+		.PortType = SOUTH,
+		.PortNum = 5,
+	},
+	{
+		/* PhyPort 9 */
+		.PortType = WEST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 10 */
+		.PortType = WEST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 11 */
+		.PortType = WEST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 12 */
+		.PortType = WEST,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 13 */
+		.PortType = NORTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 14 */
+		.PortType = NORTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 15 */
+		.PortType = NORTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 16 */
+		.PortType = NORTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 17 */
+		.PortType = NORTH,
+		.PortNum = 4,
+	},
+	{
+		/* PhyPort 18 */
+		.PortType = NORTH,
+		.PortNum = 5,
+	},
+	{
+		/* PhyPort 19 */
+		.PortType = EAST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 20 */
+		.PortType = EAST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 21 */
+		.PortType = EAST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 22 */
+		.PortType = EAST,
+		.PortNum = 3,
+	},
+};
+
+static const XAie_StrmSwPortMap AieShimStrmSwSlavePortMap[] =
+{
+	{
+		/* PhyPort 0 */
+		.PortType = CTRL,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 1 */
+		.PortType = FIFO,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 2 */
+		.PortType = FIFO,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 3 */
+		.PortType = SOUTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 4 */
+		.PortType = SOUTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 5 */
+		.PortType = SOUTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 6 */
+		.PortType = SOUTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 7 */
+		.PortType = SOUTH,
+		.PortNum = 4,
+	},
+	{
+		/* PhyPort 8 */
+		.PortType = SOUTH,
+		.PortNum = 5,
+	},
+	{
+		/* PhyPort 9 */
+		.PortType = SOUTH,
+		.PortNum = 6,
+	},
+	{
+		/* PhyPort 10 */
+		.PortType = SOUTH,
+		.PortNum = 7,
+	},
+	{
+		/* PhyPort 11 */
+		.PortType = WEST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 12 */
+		.PortType = WEST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 13 */
+		.PortType = WEST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 14 */
+		.PortType = WEST,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 15 */
+		.PortType = NORTH,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 16 */
+		.PortType = NORTH,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 17 */
+		.PortType = NORTH,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 18 */
+		.PortType = NORTH,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 19 */
+		.PortType = EAST,
+		.PortNum = 0,
+	},
+	{
+		/* PhyPort 20 */
+		.PortType = EAST,
+		.PortNum = 1,
+	},
+	{
+		/* PhyPort 21 */
+		.PortType = EAST,
+		.PortNum = 2,
+	},
+	{
+		/* PhyPort 22 */
+		.PortType = EAST,
+		.PortNum = 3,
+	},
+	{
+		/* PhyPort 23 */
+		.PortType = TRACE,
+		.PortNum = 0,
+	},
+};
+
 /*
  * Data structure to capture all stream configs for XAIEGBL_TILE_TYPE_AIETILE
  */
@@ -387,7 +898,11 @@ static const XAie_StrmMod AieTileStrmSw =
 	.SlotArbitor = {XAIEGBL_CORE_STRSWISLVMECORE0SLO0_ARB_LSB, XAIEGBL_CORE_STRSWISLVMECORE0SLO0_ARB_MASK},
 	.MstrConfig = AieTileStrmMstr,
 	.SlvConfig = AieTileStrmSlv,
-	.SlvSlotConfig = AieTileStrmSlaveSlot
+	.SlvSlotConfig = AieTileStrmSlaveSlot,
+	.MaxMasterPhyPortId = 24U,
+	.MaxSlavePhyPortId = 26U,
+	.MasterPortMap = AieTileStrmSwMasterPortMap,
+	.SlavePortMap = AieTileStrmSwSlavePortMap,
 };
 
 /*
@@ -414,7 +929,11 @@ static const XAie_StrmMod AieShimStrmSw =
 	.SlotArbitor = {XAIEGBL_CORE_STRSWISLVMECORE0SLO0_ARB_LSB, XAIEGBL_CORE_STRSWISLVMECORE0SLO0_ARB_MASK},
 	.MstrConfig = AieShimStrmMstr,
 	.SlvConfig = AieShimStrmSlv,
-	.SlvSlotConfig = AieShimStrmSlaveSlot
+	.SlvSlotConfig = AieShimStrmSlaveSlot,
+	.MaxMasterPhyPortId = 22U,
+	.MaxSlavePhyPortId = 23U,
+	.MasterPortMap = AieShimStrmSwMasterPortMap,
+	.SlavePortMap = AieShimStrmSwSlavePortMap,
 };
 
 /* Register field attributes for PL interface down sizer for 32 and 64 bits */
