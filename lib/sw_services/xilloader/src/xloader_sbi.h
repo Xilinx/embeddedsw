@@ -50,7 +50,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_SbiInit(u32 DeviceFlags);
-int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

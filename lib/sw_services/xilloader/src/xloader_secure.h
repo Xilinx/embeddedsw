@@ -447,12 +447,12 @@ static inline u32 XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, u32 Minor2)
 /***************************** Function Prototypes ***************************/
 u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum);
-u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DstAddr,
-	u32 Size, u8 Last);
+u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
+	u32 BlockSize, u8 Last);
 u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
 u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
-	XilPdi_MetaHdr *ImgHdrTbl);
+	XilPdi_MetaHdr *MetaHdr);
 u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
 u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,

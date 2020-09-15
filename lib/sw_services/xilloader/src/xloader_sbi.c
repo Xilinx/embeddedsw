@@ -119,9 +119,9 @@ END:
  * @brief	This function is used to copy the data from SMAP/JTAG to
  * destination address through SBI interface.
  *
- * @param	SrcAddress is unused and is only passed for compatibility
+ * @param	SrcAddr is unused and is only passed for compatibility
  *		with the copy functions of other boot modes
- * @param	DestAddress is the address of the destination to which the data
+ * @param	DestAddr is the address of the destination to which the data
  *		should be copied to
  * @param	Length is number of bytes to be copied
  * @param	Flags indicate parameters for DMA transfer
@@ -129,14 +129,14 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_SbiCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 ReadFlags;
-	(void) (SrcAddress);
+	(void) (SrcAddr);
 
 	ReadFlags = Flags | XPLMI_PMCDMA_1;
-	Status = XPlmi_SbiDmaXfer(DestAddress, Length / XPLMI_WORD_LEN,
+	Status = XPlmi_SbiDmaXfer(DestAddr, Length / XPLMI_WORD_LEN,
 		ReadFlags);
 	if (Status != XST_SUCCESS) {
 		goto END;
