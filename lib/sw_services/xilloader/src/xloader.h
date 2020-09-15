@@ -349,8 +349,6 @@ static inline u8 XLoader_IsEncEnabled(XilPdi* PdiPtr)
 }
 
 /************************** Function Prototypes ******************************/
-extern XilPdi SubsystemPdiIns;
-
 int XLoader_Init(void);
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 int XLoader_LoadImage(XilPdi *PdiPtr);
