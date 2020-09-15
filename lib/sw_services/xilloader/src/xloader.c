@@ -236,7 +236,7 @@ static const XLoader_DeviceOps DeviceOps[] =
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_Init()
+int XLoader_Init(void)
 {
 	int Status = XST_FAILURE;
 
