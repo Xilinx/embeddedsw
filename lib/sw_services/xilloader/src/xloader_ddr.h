@@ -48,7 +48,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_DdrInit(u32 DeviceFlags);
-int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

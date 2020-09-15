@@ -38,13 +38,13 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /***************** Function Prototypes ***************************************/
-static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
+static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* InstancePtr,
         u8 *BufPtr, u32 BufferLen);
-static u8 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
+static u8 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* InstancePtr,
         u8 *BufPtr, u32 BufferLen);
-static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-        u8 *BufPtr, u32 BufferLen, u8 Index);
-static u8 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
+static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
+	u32 BufferLen, u8 Index);
+static u8 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* InstancePtr,
         u8 *BufPtr, u32 BufferLen);
 static int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
                 SetupPacket *SetupData);
@@ -54,17 +54,14 @@ static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr,
 	SetupPacket *SetupData);
 static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
         SetupPacket *SetupData);
-static void XLoader_DfuClassReq(struct Usb_DevData* XLoader_UsbInstancePtr,
-        SetupPacket *SetupData);
+static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr,
+	SetupPacket *SetupData);
 static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr,
 	SetupPacket *Ctrl);
-static void XLoader_DfuSetIntf(struct Usb_DevData* XLoader_UsbInstancePtr,
-        SetupPacket *SetupData);
+static void XLoader_DfuSetIntf(struct Usb_DevData* InstancePtr, SetupPacket *SetupData);
 
 /**************************** Type Definitions *******************************/
 struct XLoaderPs_DfuIf DfuObj;
-extern u32 DownloadDone;
-extern u8* DfuVirtFlash;
 
 /* Initialize a DFU data structure */
 XLoader_UsbCh9_Data Dfu_data = {
@@ -303,7 +300,7 @@ static void XLoader_DfuWaitForReset(void)
  *
  ******************************************************************************/
 static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
-	u32 BufLen, u8 Index)
+	u32 BufferLen, u8 Index)
 {
 	int Status = XST_FAILURE;
 	u32 LoopVar;
@@ -381,7 +378,7 @@ static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* InstancePtr, u8 *BufP
 	DescLen = StringDesc.Length;
 
 	/* Check if the provided buffer is big enough to hold the descriptor. */
-	if (DescLen > BufLen) {
+	if (DescLen > BufferLen) {
 		DescLen = 0U;
 		goto END;
 	}
@@ -399,13 +396,13 @@ END:
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	BufPtr is pointer to the buffer that is to be filled
  *			with the descriptor.
- * @param	BufLen is the size of the provided buffer.
+ * @param	BufferLen is the size of the provided buffer.
  *
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
 static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
-	u32 BufLen)
+	u32 BufferLen)
 {
 	int Status = XST_FAILURE;
 	u8 DevDescLength = 0U;
@@ -415,7 +412,7 @@ static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* InstancePtr, u8 *BufP
 		goto END;
 	}
 	DevDescLength = sizeof(XLoaderPs_UsbStdDevDesc);
-	if (BufLen < DevDescLength) {
+	if (BufferLen < DevDescLength) {
 		DevDescLength = 0U;
 		goto END;
 	}
@@ -488,7 +485,7 @@ END:
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	BufPtr is the pointer to the buffer that is to be filled with
  *			the descriptor.
- * @param	BufLen is the size of the provided buffer.
+ * @param	BufferLen is the size of the provided buffer.
  *
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
@@ -669,9 +666,9 @@ void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
  * @return	None
  *
  ******************************************************************************/
-void XLoader_DfuReset(struct Usb_DevData* InstancePtr)
+void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr)
 {
-	(void)(InstancePtr);
+	(void)(UsbInstancePtr);
 	if (DfuObj.DfuWaitForInterrupt == (u8)TRUE) {
 		/* Tell DFU that we got reset signal */
 		DfuObj.DfuWaitForInterrupt = (u8)FALSE;

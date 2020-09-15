@@ -55,7 +55,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XLoader_MakeSdFileName(char *SdEmmcFileName, u32 MultibootReg);
+static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset);
 static u8 XLoader_GetDrvNumSD(u32 DeviceFlags);
 
 /************************** Variable Definitions *****************************/
@@ -289,9 +289,9 @@ END:
  * @brief	This function is used to copy the data from SD/eMMC to
  * destination address.
  *
- * @param	SrcAddress is the address of the SD flash where copy should
+ * @param	SrcAddr is the address of the SD flash where copy should
  * 		start from
- * @param 	DestAddress is the address of the destination where it
+ * @param 	DestAddr is the address of the destination where it
  * 		should copy to
  * @param	Length of the bytes to be copied
  * @param	Flags are unused and only passed to maintain compatibility without
@@ -300,7 +300,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_SdCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	FRESULT Rc; /* Result code */
@@ -308,17 +308,17 @@ int XLoader_SdCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	u32 TrfLen;
 	(void)Flags;
 
-	Rc = f_lseek(&FFil, (FSIZE_t)SrcAddress);
+	Rc = f_lseek(&FFil, (FSIZE_t)SrcAddr);
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to seek to 0x%0x%08x\n",
-				(SrcAddress >> 32U), (u32)SrcAddress);
+				(SrcAddr >> 32U), (u32)SrcAddr);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_LSEEK, (int)Rc);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_LSEEK\n\r");
 		goto END;
 	}
 
-	if ((DestAddress >> 32U) == 0U) {
-		Rc = f_read(&FFil, (void*)(UINTPTR)DestAddress, Length, &Br);
+	if ((DestAddr >> 32U) == 0U) {
+		Rc = f_read(&FFil, (void*)(UINTPTR)DestAddr, Length, &Br);
 		if (Rc != FR_OK) {
 			XLoader_Printf(DEBUG_GENERAL, "SD: f_read returned %d\r\n", Rc);
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, (int)Rc);
@@ -342,7 +342,7 @@ int XLoader_SdCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 				XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
 				goto END;
 			}
-			Status = XPlmi_DmaXfr((u64)XPLMI_PMCRAM_BASEADDR, DestAddress,
+			Status = XPlmi_DmaXfr((u64)XPLMI_PMCRAM_BASEADDR, DestAddr,
 					(TrfLen / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
             if (Status != XST_SUCCESS) {
             Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER, Status);
@@ -351,7 +351,7 @@ int XLoader_SdCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
             }
 
 			Length -= TrfLen;
-			DestAddress += TrfLen;
+			DestAddr += TrfLen;
 		}
 	}
 	Status = XST_SUCCESS;
@@ -493,9 +493,9 @@ END:
  * @brief	This function is used to copy the data from SD/eMMC to
  * destination address in raw boot mode only.
  *
- * @param	SrcAddress is the address of the SD flash where copy should
+ * @param	SrcAddr is the address of the SD flash where copy should
  * 		start from
- * @param	DestAddress is the address of the destination where it
+ * @param	DestAddr is the address of the destination where it
  * 		should copy to
  * @param	Length of the bytes to be copied
  * @param	Flags param is unused and is only included for compliance with
@@ -504,7 +504,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u64 BlockNumber;
@@ -517,16 +517,16 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	(void) Flags;
 
 	RemainingBytes = Length;
-	BlockNumber = SrcAddress / XLOADER_SD_RAW_BLK_SIZE;
-	DataOffset = SrcAddress % XLOADER_SD_RAW_BLK_SIZE;
+	BlockNumber = SrcAddr / XLOADER_SD_RAW_BLK_SIZE;
+	DataOffset = SrcAddr % XLOADER_SD_RAW_BLK_SIZE;
 	/*
 	 * Setting the Read len for the first sector partial read
 	 */
 	SectorReadLen =  (u32)(XLOADER_SD_RAW_BLK_SIZE - DataOffset);
 
 	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%0x%08x, Dest 0x%0x%08x, "
-		       "Length 0x%0x, Flags 0x%0x\r\n", (u32)(SrcAddress >> 32U),
-		       (u32)(SrcAddress), (u32)(DestAddress >> 32U), (u32)DestAddress,
+		       "Length 0x%0x, Flags 0x%0x\r\n", (u32)(SrcAddr >> 32U),
+		       (u32)(SrcAddr), (u32)(DestAddr >> 32U), (u32)DestAddr,
 		       Length, Flags);
 
 	do
@@ -546,11 +546,11 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 			NoOfSectors = 1U;
 		}
 		else {
-			if((DestAddress >> 32U) == 0U) {
-				ReadBuffPtr = (u8 *)(UINTPTR)DestAddress;
+			if((DestAddr >> 32U) == 0U) {
+				ReadBuffPtr = (u8 *)(UINTPTR)DestAddr;
 			}
 			else {
-				SdInstance.Dma64BitAddr = DestAddress;
+				SdInstance.Dma64BitAddr = DestAddr;
 				ReadBuffPtr = NULL;
 			}
 			NoOfSectors = RemainingBytes / XLOADER_SD_RAW_BLK_SIZE;
@@ -569,7 +569,7 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 		 * Copy the temporary read data to actual destination
 		 */
 		if (SectorReadLen != XLOADER_SD_RAW_BLK_SIZE) {
-			Status = XPlmi_DmaXfr(((UINTPTR)ReadBuffPtr + DataOffset), DestAddress,
+			Status = XPlmi_DmaXfr(((UINTPTR)ReadBuffPtr + DataOffset), DestAddr,
 					(SectorReadLen / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER_SD_RAW, Status);
@@ -578,7 +578,7 @@ int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 			}
 		}
 		BlockNumber += NoOfSectors;
-		DestAddress += (NoOfSectors * SectorReadLen);
+		DestAddr += (NoOfSectors * SectorReadLen);
 		RemainingBytes -= (NoOfSectors * SectorReadLen);
 		SectorReadLen = XLOADER_SD_RAW_BLK_SIZE;
 		DataOffset = 0U;

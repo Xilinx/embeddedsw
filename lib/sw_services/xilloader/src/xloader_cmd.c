@@ -59,7 +59,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 extern XilPdi* BootPdiPtr;
-extern XLoader_DeviceOps DeviceOps[];
+extern XilPdi SubsystemPdiIns;
 static XPlmi_Module XPlmi_Loader;
 
 /************************** Function Prototypes ******************************/

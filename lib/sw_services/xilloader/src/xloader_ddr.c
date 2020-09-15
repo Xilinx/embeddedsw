@@ -72,8 +72,8 @@ int XLoader_DdrInit(u32 DeviceFlags)
  * @brief	This function is used to copy the data from DDR to destination
  * address.
  *
- * @param	SrcAddress of DDR
- * @param	DestAddress is the address of the destination where the data needs
+ * @param	SrcAddr of DDR
+ * @param	DestAddr is the address of the destination where the data needs
  *		to be copied.
  * @param	Length of the bytes to be copied
  * @param	Flags that denote blocking / non-blocking dma
@@ -81,7 +81,7 @@ int XLoader_DdrInit(u32 DeviceFlags)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_DdrCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 DmaFlags;
@@ -106,7 +106,7 @@ int XLoader_DdrCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		DmaFlags |= XPLMI_DMA_SRC_NONBLK;
 	}
-	Status = XPlmi_DmaXfr(SrcAddress, DestAddress,
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr,
 			Length / XPLMI_WORD_LEN, DmaFlags);
 
 END:
