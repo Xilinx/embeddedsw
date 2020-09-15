@@ -33,6 +33,8 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_events.h"
+#include "xaie_helper.h"
 #include "xaie_ss.h"
 
 /************************** Constant Definitions *****************************/
@@ -681,6 +683,123 @@ AieRC XAie_StrmPktSwSlaveSlotDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
 	XAie_Packet Pkt = XAie_PacketInit(0U, 0U);
 	return _XAie_StrmSlaveSlotConfig(DevInst, Loc, Slave, SlvPortNum,
 			SlotNum, Pkt, 0U, 0U, 0U, XAIE_DISABLE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to get the physical port id of the stream switch for a given
+* tile location, logical port type and port number.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Loc of AIE Tiles
+* @param	Port: XAIE_STRMSW_SLAVE/MASTER for Slave or Master ports
+* @param	PortType: Logical port type of the stream switch
+* @param	PortNum: Logical port number
+* @param	PhyPortId: Pointer to store the physical port id.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC XAie_StrmSwLogicalToPhysicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_StrmPortIntf Port, StrmSwPortType PortType, u8 PortNum,
+		u8 *PhyPortId)
+{
+	u8 TileType;
+	const XAie_StrmMod *StrmMod;
+
+	if((DevInst == XAIE_NULL) || (PhyPortId == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if((PortType >= SS_PORT_TYPE_MAX) || (Port > XAIE_STRMSW_MASTER)) {
+		XAIE_ERROR("Invalid Stream Switch Ports\n");
+		return XAIE_ERR_STREAM_PORT;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		return XAIE_INVALID_TILE;
+	}
+
+	/* Get stream switch module pointer from device instance */
+	StrmMod = DevInst->DevProp.DevMod[TileType].StrmSw;
+
+	if(Port == XAIE_STRMSW_SLAVE) {
+		return _XAie_GetSlaveIdx(StrmMod, PortType, PortNum, PhyPortId);
+	} else {
+		return _XAie_GetMstrIdx(StrmMod, PortType, PortNum, PhyPortId);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to get logical port id and port number for a given tile
+* location and physical port id.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Loc of AIE Tiles
+* @param	Port: XAIE_STRMSW_SLAVE/MASTER for Slave or Master ports
+* @param	PhyPortId: Physical port id
+* @param	PortType: Pointer to store the logical port type of the stream
+*		switch
+* @param	PortNum: Pointer to store the logical port number
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC XAie_StrmSwPhysicalToLogicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_StrmPortIntf Port, u8 PhyPortId, StrmSwPortType *PortType,
+		u8 *PortNum)
+{
+	u8 TileType, MaxPhyPorts;
+	const XAie_StrmSwPortMap *PortMap;
+	const XAie_StrmMod *StrmMod;
+
+	if((DevInst == XAIE_NULL) || (PortType == XAIE_NULL) ||
+			(PortNum == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Port > XAIE_STRMSW_MASTER) {
+		XAIE_ERROR("Invalid Stream Switch port interface\n");
+		return XAIE_ERR_STREAM_PORT;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		return XAIE_INVALID_TILE;
+	}
+
+	/* Get stream switch module pointer from device instance */
+	StrmMod = DevInst->DevProp.DevMod[TileType].StrmSw;
+
+	if(Port == XAIE_STRMSW_SLAVE) {
+		PortMap = StrmMod->SlavePortMap;
+		MaxPhyPorts = StrmMod->MaxSlavePhyPortId;
+	} else {
+		PortMap = StrmMod->MasterPortMap;
+		MaxPhyPorts = StrmMod->MaxMasterPhyPortId;
+	}
+
+	if(PhyPortId > MaxPhyPorts) {
+		XAIE_ERROR("Invalid physical port id\n");
+		return XAIE_ERR_STREAM_PORT;
+	}
+
+	*PortType = PortMap[PhyPortId].PortType;
+	*PortNum = PortMap[PhyPortId].PortNum;
+
+	return XAIE_OK;
 }
 
 /** @} */

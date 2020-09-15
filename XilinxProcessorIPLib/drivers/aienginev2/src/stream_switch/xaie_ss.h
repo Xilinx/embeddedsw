@@ -66,5 +66,11 @@ AieRC XAie_StrmPktSwSlaveSlotEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 AieRC XAie_StrmPktSwSlaveSlotDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
 		StrmSwPortType Slave, u8 SlvPortNum, u8 SlotNum);
+AieRC XAie_StrmSwLogicalToPhysicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_StrmPortIntf Port, StrmSwPortType PortType, u8 PortNum,
+		u8 *PhyPortId);
+AieRC XAie_StrmSwPhysicalToLogicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_StrmPortIntf Port, u8 PhyPortId, StrmSwPortType *PortType,
+		u8 *PortNum);
 
 #endif		/* end of protection macro */
