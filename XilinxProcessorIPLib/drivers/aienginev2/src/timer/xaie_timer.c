@@ -20,7 +20,8 @@
 * 1.1   Dishita 06/10/2020  Add XAie_WaitCycles API
 * 1.2   Dishita 06/17/2020  Resolve compiler warning
 * 1.3   Tejus   06/10/2020  Switch to new io backend apis.
-*
+* 1.4   Nishad  09/14/2020  Add check for invalid XAie_Reset value in
+*			    XAie_SetTimerResetEvent() API.
 * </pre>
 *
 ******************************************************************************/
@@ -206,6 +207,11 @@ AieRC XAie_SetTimerResetEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 	if((DevInst == XAIE_NULL) ||
 		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
 		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if (Reset > XAIE_RESETENABLE) {
+		XAIE_ERROR("Invalid reset value\n");
 		return XAIE_INVALID_ARGS;
 	}
 
