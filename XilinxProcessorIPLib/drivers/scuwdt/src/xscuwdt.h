@@ -104,6 +104,7 @@
 * 2.3   mus 08/31/20 Updated makefile to support parallel make and
 *                    incremental builds. It would help to reduce compilaton
 *                    time.
+* 2.3	sne 09/16/20 Fixed MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
