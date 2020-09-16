@@ -24,6 +24,7 @@
  *	 vak 13/03/18 Moved the setup interrupt system calls from driver to
  *		      example.
  * 1.5	 vak 13/02/19 Added support for versal
+ * 1.8   pm  15/09/20 Fixed C++ Compilation error.
  *
  * </pre>
  *
@@ -219,8 +220,10 @@ int main(void)
 					BulkInHandler);
 
 	/* setup interrupts */
-	Status = SetupInterruptSystem(UsbInstance.PrivateData, INTC_DEVICE_ID,
-					USB_INT_ID, (void *)&InterruptController);
+	Status = SetupInterruptSystem((struct XUsbPsu *)UsbInstance.PrivateData,
+					INTC_DEVICE_ID,
+					USB_INT_ID,
+					(void *)&InterruptController);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -252,7 +255,7 @@ int main(void)
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 							u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
 	if (Phase == USB_EP_STATE_COMMAND) {
 		ParseCBW(InstancePtr);
@@ -287,7 +290,7 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 						   u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
 	if (Phase == USB_EP_STATE_DATA_IN) {
 		/* Send the status */
