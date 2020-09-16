@@ -33,6 +33,10 @@
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of application
  * 6.0   jb   02/19/19 Added HDCP22 interrupts.
+ * 7.5   rg   08/19/20 Added a interrupt handler that addresses driver's
+ *                     internal callback function of application
+ *                     ExtPktCallbackHandler
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -310,6 +314,12 @@ int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
 	case XDP_TX_HANDLER_PEVSADJUST:
 		InstancePtr->TxInstance.PeVsAdjustCallback = CallbackFunc;
 		InstancePtr->TxInstance.PeVsAdjustCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_EXTPKT_TXD:
+		InstancePtr->TxInstance.ExtPktCallbackHandler = CallbackFunc;
+		InstancePtr->TxInstance.ExtPktCallbackHandlerRef = CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
@@ -723,6 +733,11 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 	HpdPulseDetected = IntrStatus &
 				XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
 
+	if(IntrStatus & XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_MASK){
+		if (InstancePtr->TxInstance.ExtPktCallbackHandler)
+			InstancePtr->TxInstance.ExtPktCallbackHandler(
+				InstancePtr->TxInstance.ExtPktCallbackHandlerRef);
+	}
 	if (HpdEventDetected) {
 		if (InstancePtr->TxInstance.DrvHpdEventHandler)
 			InstancePtr->TxInstance.DrvHpdEventHandler(
