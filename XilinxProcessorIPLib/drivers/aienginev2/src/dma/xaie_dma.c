@@ -24,6 +24,10 @@
 * 1.5   Tejus   04/13/2020  Remove use of range in apis
 * 1.6   Tejus   06/05/2020  Add api to enable fifo mode.
 * 1.7   Tejus   06/10/2020  Switch to new io backend apis.
+* 1.8   Nishad  09/15/2020  Add checks to validate XAie_DmaChReset, and
+*			    XAie_DmaFifoCounter values in
+*			    XAie_DmaChannelResetAll, and XAie_DmaConfigFifoMode,
+*			    respectively.
 * </pre>
 *
 ******************************************************************************/
@@ -434,6 +438,11 @@ AieRC XAie_DmaConfigFifoMode(XAie_DmaDesc *DmaDesc, XAie_DmaFifoCounter Counter)
 		return XAIE_FEATURE_NOT_SUPPORTED;
 	}
 
+	if(Counter > XAIE_DMA_FIFO_COUNTER_1) {
+		XAIE_ERROR("Invalid DMA FIFO counter\n");
+		return XAIE_INVALID_ARGS;
+	}
+
 	DmaDesc->FifoMode = Counter;
 
 	return XAIE_OK;
@@ -739,6 +748,11 @@ AieRC XAie_DmaChannelResetAll(XAie_DevInst *DevInst, XAie_LocType Loc,
 	if((DevInst == XAIE_NULL) ||
 			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
 		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Reset > DMA_CHANNEL_RESET) {
+		XAIE_ERROR("Invalid DMA channel reset value\n");
 		return XAIE_INVALID_ARGS;
 	}
 
