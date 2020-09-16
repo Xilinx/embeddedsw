@@ -27,7 +27,6 @@
 /***************************** Include Files *********************************/
 
 #include "xscuwdt.h"
-#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -36,9 +35,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
-/************************** Variable Definitions *****************************/
-extern XScuWdt_Config XScuWdt_ConfigTable[XPAR_XSCUWDT_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
