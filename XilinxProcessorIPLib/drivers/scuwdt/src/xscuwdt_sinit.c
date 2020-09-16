@@ -54,7 +54,7 @@ XScuWdt_Config *XScuWdt_LookupConfig(u16 DeviceId)
 	XScuWdt_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0U; Index < XPAR_XSCUWDT_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XSCUWDT_NUM_INSTANCES; Index++) {
 		if (XScuWdt_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XScuWdt_ConfigTable[Index];
 			break;
