@@ -143,6 +143,9 @@ typedef struct {
 	u32 IsStarted;		/**< Device watchdog timer is running */
 } XScuWdt;
 
+/************************** Variable Definitions *****************************/
+extern XScuWdt_Config XScuWdt_ConfigTable[];
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
 /**
