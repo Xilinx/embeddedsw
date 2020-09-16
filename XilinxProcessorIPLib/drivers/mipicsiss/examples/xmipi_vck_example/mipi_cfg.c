@@ -36,7 +36,8 @@
 #define HDMI_H_RES		(1920)
 #define HDMI_V_RES		(1080)
 
-
+#define DSI_H_RES		(1920)
+#define DSI_V_RES		(1200)
 
 #define UART_BASEADDR	XPAR_XUARTPSV_0_BASEADDR
 
@@ -121,6 +122,8 @@ u32 frmrd_start  = 0;
 u32 frm_cnt = 0;
 u32 frm_cnt1 = 0;
 
+
+void start_hdmi(XVidC_VideoMode VideoMode);
 /*****************************************************************************/
 /**
 * This function resets image processing pipe.
@@ -267,10 +270,14 @@ void InitVprocSs_Scaler(int count,int width,int height)
 	int status;
 	int widthIn, heightIn, widthOut, heightOut;
 
-	/* Fixed output to DSI */
-	widthOut = width;
-	heightOut = height;
+	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
+		widthOut = DSI_H_RES;
+		heightOut = DSI_V_RES;
+	} else {
 
+		widthOut = HDMI_H_RES;
+		heightOut = HDMI_V_RES;
+	}
 	/* Local variables */
 	XVidC_VideoMode resIdIn, resIdOut;
 	XVidC_VideoStream StreamIn;
@@ -765,6 +772,20 @@ void SetupIICIntrHandlers(void) {
 }
 /*****************************************************************************/
 /**
+ * This function stops VProc_SS scalar IP.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void DisableScaler(void)
+{
+	XVprocSs_Stop(&scaler_new_inst);
+}
+
+/*****************************************************************************/
+/**
  * This function initializes MIPI CSI2 RX SS and gets config parameters.
  *
  * @return	XST_SUCCESS if successful or else XST_FAILURE.
@@ -844,7 +865,7 @@ void EnableCSI(void)
  *****************************************************************************/
 void DisableCSI(void)
 {
-	usleep(1000000);
+	usleep(10000);
 	XCsiSs_Reset(&CsiRxSs);
 }
 
@@ -1250,7 +1271,7 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
     int stride;
     XVidC_VideoTiming const *TimingPtr;
 	int  widthIn, heightIn;
-	int  widthOut, heightOut;
+	int  widthOut, heightOut, widthOut_1,heightOut_1;
 	/* Local variables */
 	XVidC_VideoMode  resIdOut;
 
@@ -1263,9 +1284,6 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
 	Pipeline_Cfg.ActiveLanes = 4;
 	Pipeline_Cfg.VideoSrc = XVIDSRC_SENSOR;
-
-	/* Default DSI */
-	Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
 
 	Pipeline_Cfg.Live = TRUE;
 
@@ -1316,14 +1334,24 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
 	}
 
-	/* Fixed output to HDMI */
-	widthOut = 1920;
-	heightOut = 1080;
+	/* Programming HDMI Stream With Fixed Resolution (1920x1080) */
+	widthOut = HDMI_H_RES;
+	heightOut = HDMI_V_RES;
 
+	/* Programming v_proc_scaler with fixed output */
+	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
+		/* Fixed output to DSI (1920x1200) */
+		widthOut_1 = DSI_H_RES;
+		heightOut_1 = DSI_V_RES;}
+	else {
+		/* Fixed Output to HDMI (1920x1080) */
+		widthOut_1 = HDMI_H_RES;
+		heightOut_1 = HDMI_V_RES;
+	}
 
     usleep(1000);
+	Reset_IP_Pipe();
 
-    Reset_IP_Pipe();
 
 	resIdOut = XVidC_GetVideoModeId(widthOut, heightOut, XVIDC_FR_60HZ,
 					FALSE);
@@ -1350,13 +1378,13 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 	VidStream.Timing = *TimingPtr;
 	VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
-
+if(Pipeline_Cfg.VideoDestn == XVIDDES_HDMI){
 	xil_printf("\r\n********************************************\r\n");
 	xil_printf("Test Input Stream: %s (%s)\r\n",
 	           XVidC_GetVideoModeStr(VidStream.VmId),
 	           XVidC_GetColorFormatStr(Cfmt));
 	xil_printf("********************************************\r\n");
-
+}
 	 stride = CalcStride(Cfmt ,
 	                         frmbufwr.FrmbufWr.Config.AXIMMDataWidth,
 	                         &StreamOut);
@@ -1378,11 +1406,11 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
 	XVFrmbufRd_Start(&frmbufrd);
 
-	InitVprocSs_Scaler(1,widthOut, heightOut);
+
 	ConfigCSC(widthIn, heightIn);
 	ConfigGammaLut(widthIn, heightIn);
 	ConfigDemosaic(widthIn, heightIn);
-
+	InitVprocSs_Scaler(1,widthOut_1, heightOut_1);
 	EnableCSI();
 
 	xil_printf("CSI is Enabled\r\n");
@@ -1395,12 +1423,17 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	}
 	xil_printf("Sensor setup is Done\r\n");
 
-	/* Start Camera Sensor to capture video */
-	StartSensor();
-	xil_printf("Sensor is started \r\n");
+	/* Start HDMI */
+	if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI) {
+
+	  start_hdmi(XVIDC_VM_1920x1080_60_P);}
+	  /* Start Camera Sensor to capture video */
+      StartSensor();
+	  xil_printf("Sensor is started \r\n");
 
 
-	xil_printf(TXT_RST);
+	  xil_printf(TXT_RST);
 
-    return 0;
+      return 0;
+
 }
