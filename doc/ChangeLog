@@ -40,6 +40,10 @@ Fix RX pbuf freeing in GEM error handling path.
 Add axiethernet support on versal silicon.
 Add check in tcl for raw mode selection.
 
+scuwdt_v2_3
+Update the Makefile for parallel execution.
+Fixed MISRA-C violations.
+
 sdps_v3_10
 Add support for SD/eMMC Non-Blocking Read
 
