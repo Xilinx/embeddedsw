@@ -34,6 +34,7 @@
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xplmi_util.h"
+#include "xloader.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -115,7 +116,7 @@ int XPlm_PmInit(void)
 	 * Initialize the XilPm component. It registers the callback handlers,
 	 * variables, events
 	 */
-	Status = XPm_Init(XPlm_PmRequestCb);
+	Status = XPm_Init(XPlm_PmRequestCb, &XLoader_RestartImage);
 	if (Status != XST_SUCCESS)
 	{
 		Status = XPlmi_UpdateStatus(XPLM_ERR_PM_MOD, Status);
