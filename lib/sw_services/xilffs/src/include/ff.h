@@ -312,7 +312,7 @@ TCHAR* f_gets (TCHAR* buff, int len, FIL* fp);						/* Get a string from the fil
 #define f_rewind(fp) f_lseek((fp), 0)
 #define f_rewinddir(dp) f_readdir((dp), 0)
 #define f_rmdir(path) f_unlink(path)
-#define f_unmount(path) f_mount(0, path, 0)
+#define f_unmount(path) f_mount(NULL, path, 0)
 
 #ifndef EOF
 #define EOF (-1)
