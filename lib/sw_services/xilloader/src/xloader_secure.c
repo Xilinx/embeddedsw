@@ -457,7 +457,7 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	/* 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
 		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-				(SecurePtr->PrtnHdr->DataWordOfst * XIH_PRTN_WORD_LEN);
+				((u64)(SecurePtr->PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
 		if (SecurePtr->IsEncrypted == (u8)TRUE) {
 			SecurePtr->RemainingEncLen =
 					SecurePtr->PrtnHdr->EncDataWordLen * XIH_PRTN_WORD_LEN;
@@ -863,7 +863,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 
 	/* Copy Authentication certificate */
 	AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-			(ImgHdrTbl->AcOffset * XIH_PRTN_WORD_LEN);
+			((u64)(ImgHdrTbl->AcOffset) * XIH_PRTN_WORD_LEN);
 
 	SecurePtr->AcPtr = &AuthCert;
 	Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
@@ -2247,7 +2247,7 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
 		for (Index = 0U; Index < XLOADER_SECURE_IV_LEN; Index++) {
 			RegVal = XPlmi_In32(SecurePtr->AesInstance.BaseAddress +
 					(XSECURE_AES_IV_0_OFFSET +
-						(Index * XIH_PRTN_WORD_LEN)));
+					((u32)Index * XIH_PRTN_WORD_LEN)));
 			Iv[Index] = Xil_Htonl(RegVal);
 		}
 
@@ -3106,7 +3106,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 
 	for (Index = 0U; Index < XLOADER_SECURE_IV_LEN; Index++) {
 		Iv[Index] = Xil_Htonl(XPlmi_In32(SecurePtr->AesInstance.BaseAddress +
-		(XSECURE_AES_IV_0_OFFSET + (Index * XIH_PRTN_WORD_LEN))));
+		(XSECURE_AES_IV_0_OFFSET + ((u32)Index * XIH_PRTN_WORD_LEN))));
 	}
 
 	Status = XSecure_AesDecryptInit(&SecurePtr->AesInstance,

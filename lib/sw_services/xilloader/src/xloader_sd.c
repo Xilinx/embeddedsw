@@ -578,7 +578,7 @@ int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			}
 		}
 		BlockNumber += NoOfSectors;
-		DestAddr += (NoOfSectors * SectorReadLen);
+		DestAddr += ((u64)NoOfSectors * SectorReadLen);
 		RemainingBytes -= (NoOfSectors * SectorReadLen);
 		SectorReadLen = XLOADER_SD_RAW_BLK_SIZE;
 		DataOffset = 0U;
