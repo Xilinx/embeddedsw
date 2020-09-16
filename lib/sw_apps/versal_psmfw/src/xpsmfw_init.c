@@ -63,7 +63,7 @@ int XPsmFw_Init(void)
 {
 	int Status = XST_FAILURE;
 	
-#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	if (XST_SUCCESS != XPsmfw_IpiManagerInit()) {
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IPI Manager Initialization failed\r\n", __func__);
 	}
