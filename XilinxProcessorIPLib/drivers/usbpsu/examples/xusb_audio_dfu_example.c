@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/01/18 First release
+ * 1.8   pm   15/09/20 Fixed C++ Compilation error.
  *
  * </pre>
  *
@@ -129,7 +130,7 @@ static void set_audio_transfer_size(struct audio_if *f_audio)
  *****************************************************************************/
 static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *) Get_DrvData(InstancePtr->PrivateData);
 	struct audio_dfu_if *interface = (struct audio_dfu_if *)(ch9_ptr->data_ptr);
@@ -175,7 +176,7 @@ static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTx
  *****************************************************************************/
 static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *) Get_DrvData(InstancePtr->PrivateData);
 	struct audio_dfu_if *interface = (struct audio_dfu_if *)(ch9_ptr->data_ptr);
@@ -383,8 +384,8 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr,
 	set_audio_transfer_size(&comp_dev.f_audio);
 
 	/* setup interrupts */
-	Status = SetupInterruptSystem(UsbInstPtr->PrivateData, IntcDeviceID,
-			UsbIntrId, (void *)IntrInstPtr);
+	Status = SetupInterruptSystem((struct XUsbPsu *)UsbInstPtr->PrivateData,
+				IntcDeviceID, UsbIntrId, (void *)IntrInstPtr);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
