@@ -74,7 +74,7 @@ s32 XScuWdt_SelfTest(XScuWdt *InstancePtr)
 	 */
 	CtrlOrig = XScuWdt_GetControlReg(InstancePtr);
 	XScuWdt_SetControlReg(InstancePtr,
-			      CtrlOrig & (u32)(~XSCUWDT_CONTROL_WD_ENABLE_MASK));
+			      CtrlOrig & (~(u32)XSCUWDT_CONTROL_WD_ENABLE_MASK));
 
 	LoadOrig = XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,
 				   XSCUWDT_LOAD_OFFSET);
