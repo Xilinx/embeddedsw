@@ -462,6 +462,7 @@ typedef enum {
 	XDP_TX_HANDLER_LANECNTCHANGE,
 	XDP_TX_HANDLER_LINKRATECHANGE,
 	XDP_TX_HANDLER_PEVSADJUST,
+	XDP_TX_HANDLER_EXTPKT_TXD,
 	XDP_TX_NUM_HANDLERS
 } XDp_Tx_HandlerType;
 
@@ -973,6 +974,14 @@ typedef struct {
 							swing and pre-emphasis
 							adjust request callback
 							function. */
+	XDp_IntrHandler ExtPktCallbackHandler;	/**< Callback function to be
+							invoked once extended packet
+							is transmitted and controller
+							ready to accept new packet
+							has be handled within driver. */
+	void *ExtPktCallbackHandlerRef;		/**< A pointer to the user data
+							passed to the extended packet
+							done callback function. */
 } XDp_Tx;
 
 /**
