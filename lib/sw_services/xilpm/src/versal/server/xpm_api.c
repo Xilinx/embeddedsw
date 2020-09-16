@@ -45,7 +45,7 @@
 
 u32 ResetReason;
 
-void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
+void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX+1];
 static XPlmi_Module XPlmi_Pm =
@@ -54,6 +54,7 @@ static XPlmi_Module XPlmi_Pm =
 	XPlmi_PmCmds,
 	PM_API_MAX+1,
 };
+static int (*PmRestartCb)(u32 ImageId);
 
 /****************************************************************************/
 /**
@@ -506,7 +507,8 @@ static void XPm_CheckLastResetReason(void)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_Init(void (* const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload))
+XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
+		 int (*const RestartCb)(u32 ImageId))
 {
 	XStatus Status = XST_FAILURE;
 	unsigned int i;
@@ -582,6 +584,8 @@ XStatus XPm_Init(void (* const RequestCb)(const u32 SubsystemId, const XPmApiCbI
 	XPm_RegisterWakeUpHandlers();
 
 	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
+
+	PmRestartCb = RestartCb;
 
 done:
 	return Status;
@@ -1201,7 +1205,10 @@ static int XPm_SubsystemPwrUp(const u32 SubsystemId)
 			goto done;
 		}
 	}
-	Status = XLoader_RestartImage(SubsystemId);
+	Status = XPm_RestartCbWrapper(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 done:
 	return Status;
@@ -1269,7 +1276,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 				/* Power up LPD if not powered up */
 				Power = XPmPower_GetById(PM_POWER_LPD);
 				if ((NULL != Power) && ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
-					Status = XLoader_RestartImage(Power->Node.Id);
+					Status = XPm_RestartCbWrapper(Power->Node.Id);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
@@ -4143,5 +4150,27 @@ done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function restarts the given subsystem.
+ *
+ * @param  SubsystemId	Subsystem ID to restart
+ *
+ * @return XST_SUCCESS if successful else appropriate return code.
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_RestartCbWrapper(const u32 SubsystemId)
+{
+	int Status = XST_FAILURE;
+
+	if (NULL != PmRestartCb) {
+		Status = PmRestartCb(SubsystemId);
+	}
+
 	return Status;
 }

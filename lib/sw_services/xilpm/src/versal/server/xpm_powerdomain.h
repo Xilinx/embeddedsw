@@ -10,7 +10,6 @@
 #include "xpm_power.h"
 #include "xpm_reset.h"
 #include "xpm_domain_iso.h"
-#include "xloader.h"
 #include "xpm_rail.h"
 
 #ifdef __cplusplus

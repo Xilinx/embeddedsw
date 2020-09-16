@@ -10,7 +10,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_defs.h"
-#include "xloader.h"
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,7 +24,8 @@ extern "C" {
 /* Extern Variable and Function */
 extern u32 ResetReason;
 
-XStatus XPm_Init(void (* const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload));
+XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
+		 int (*const RestartCb)(u32 ImageId));
 
 int XPm_GetChipID(u32* IDCode, u32 *Version);
 
@@ -139,6 +140,7 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 IpiMask);
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
 XStatus XPm_HookAfterPlmCdo(void);
+int XPm_RestartCbWrapper(const u32 SubsystemId);
 
 #ifdef __cplusplus
 }
