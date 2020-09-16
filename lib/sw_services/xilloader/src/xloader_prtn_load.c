@@ -771,7 +771,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 
 		if (PdiPtr->DelayLoad == (u8)TRUE) {
 			PdiPtr->CopyToMemAddr +=
-					(PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen);
+					((u64)(PrtnParams.DeviceCopy.Len) - SecureParams.SecureHdrLen);
 			goto END;
 		}
 
@@ -829,7 +829,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		OfstAddr = PdiPtr->MetaHdr.FlashOfstAddr;
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->CopyToMemAddr -
 				((u64)PrtnHdr->DataWordOfst * XIH_PRTN_WORD_LEN);
-		PdiPtr->CopyToMemAddr += PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen;;
+		PdiPtr->CopyToMemAddr += ((u64)PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen);
 	}
 
 	if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) ||
