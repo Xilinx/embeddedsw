@@ -107,17 +107,17 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 	u32 Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 	u32 CfiErrStatus = Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
 	u32 CountVal = 0U;
+	u32 CfuIsrStatus = XPlmi_In32(CFU_APB_CFU_ISR);
+	u32 CfuStatus = XPlmi_In32(CFU_APB_CFU_STATUS);
 
 	if (CfiErrStatus == 0U) {
 		CfiErrStatus = Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;
 	}
 
 	XPlmi_Printf(DEBUG_GENERAL, "Error loading PL data: \n\r"
-	     "CFU_ISR: 0x%08x, CFU_STATUS: 0x%08x \n\r"
-	     "PMC ERR1: 0x%08x, PMC ERR2: 0x%08x\n\r",
-	     XPlmi_In32(CFU_APB_CFU_ISR),
-	     XPlmi_In32(CFU_APB_CFU_STATUS),
-	     Err1Status, Err2Status);
+		"CFU_ISR: 0x%08x, CFU_STATUS: 0x%08x \n\r"
+		"PMC ERR1: 0x%08x, PMC ERR2: 0x%08x\n\r",
+		CfuIsrStatus, CfuStatus, Err1Status, Err2Status);
 
 	if (CfiErrStatus != 0U) {
 		XCfupmc_CfiErrHandler(&XLoader_CfuIns);
