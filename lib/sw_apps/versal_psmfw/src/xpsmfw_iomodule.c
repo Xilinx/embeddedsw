@@ -41,7 +41,7 @@ static void XPsmFw_IpiHandler(void)
 	int Status = XST_FAILURE;
 
 	Mask = XPsmFw_Read32(IPI_PSM_ISR);
-#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	Status = XPsmFw_DispatchIpiHandler(Mask);
 #else
 	XPsmFw_Printf(DEBUG_ERROR, "PSM IPI channel is not enabled\r\n");
