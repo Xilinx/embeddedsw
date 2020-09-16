@@ -27,7 +27,7 @@
 #include "xpsmfw_ipi_manager.h"
 #include "ipi.h"
 
-#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
 static XIpiPsu *IpiInstPtr = &IpiInst;
