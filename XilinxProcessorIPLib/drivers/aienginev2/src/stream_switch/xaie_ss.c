@@ -27,6 +27,8 @@
 * 1.8   Tejus   06/10/2020  Switch to new io backend apis.
 * 1.9   Nishad  07/01/2020  Move _XAie_GetSlaveIdx() helper API common
 *			    directory.
+* 2.0   Nishad  09/15/2020  Add check to validate XAie_StrmSwPktHeader value in
+*			    _XAie_StrmPktSwMstrPortConfig()
 * </pre>
 *
 ******************************************************************************/
@@ -438,6 +440,11 @@ static AieRC _XAie_StrmPktSwMstrPortConfig(XAie_DevInst *DevInst,
 	if((DevInst == XAIE_NULL) ||
 			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
 		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(DropHeader > XAIE_SS_PKT_DROP_HEADER) {
+		XAIE_ERROR("Invalid stream switch packet drop header value\n");
 		return XAIE_INVALID_ARGS;
 	}
 
