@@ -83,8 +83,8 @@ ifeq ($(findstring cpu_init.S,$(wildcard *.S)),cpu_init.S)
 endif
 	${AS} --cpu=Cortex-R5 -o $*.o cpu_init_post.s --depend=$*.d
 
-%.o: %.c
-	${COMPILER} -c $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
 
 .PHONY: include
 include: $(addprefix $(INCLUDEDIR),$(wildcard *.h)) $(addprefix $(INCLUDEDIR), $(subst includes_ps/,,$(wildcard includes_ps/*.h)))
