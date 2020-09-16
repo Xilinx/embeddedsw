@@ -22,6 +22,8 @@
 * 1.2   Tejus   06/09/2020  Call IO init api from XAie_CfgInitialize
 * 1.3   Tejus   06/10/2020  Add api to change backend at runtime.
 * 1.4   Dishita 07/28/2020  Add api to turn ECC On and Off.
+* 1.5   Nishad  09/15/2020  Add check to validate XAie_MemCacheProp value in
+*			    XAie_MemAllocate().
 * </pre>
 *
 ******************************************************************************/
@@ -171,7 +173,7 @@ AieRC XAie_SetIOBackend(XAie_DevInst *DevInst, XAie_BackendType Backend)
 		return XAIE_INVALID_ARGS;
 	}
 
-	if(Backend == XAIE_IO_BACKEND_MAX) {
+	if(Backend >= XAIE_IO_BACKEND_MAX) {
 		XAIE_ERROR("Invalid backend request \n");
 		return XAIE_INVALID_ARGS;
 	}
@@ -224,6 +226,11 @@ XAie_MemInst* XAie_MemAllocate(XAie_DevInst *DevInst, u64 Size,
 			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
 		XAIE_ERROR("Invalid Device Instance\n");
 		return NULL;
+	}
+
+	if(Cache > XAIE_MEM_NONCACHEABLE) {
+		XAIE_ERROR("Invalid cache property\n");
+		return XAIE_INVALID_ARGS;
 	}
 
 	Backend = DevInst->Backend;
