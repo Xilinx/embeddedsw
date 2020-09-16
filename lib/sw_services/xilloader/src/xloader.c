@@ -423,7 +423,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_EMMC_RAW_BP2)) {
 
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
-				(RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
+				((u64)RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
 			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) || \
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32)) {
 #ifdef XLOADER_QSPI
@@ -1038,7 +1038,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 		goto END;
 	}
 
-	if ((PdiPtr->DelayLoad == FALSE) &&
+	if ((PdiPtr->DelayLoad == (u8)FALSE) &&
 		(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID !=
 		XPLMI_INVALID_IMG_ID)) {
 		Status = XPlmi_StoreImageInfo(&ImageInfo);
