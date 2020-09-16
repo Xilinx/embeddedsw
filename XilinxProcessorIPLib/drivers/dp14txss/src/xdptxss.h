@@ -98,6 +98,8 @@
 *                   and XDpTxSs_UsrHpdEventData
 * 5.0  jb  02/21/19 Added HDCP22 support.
 * 					Made the Timer counter available for both HDCP1x and 22.
+* 6.5  rg  09/01/20 Added handler type as enum for extended packet transmit
+*                   done interrupt.
 * </pre>
 *
 ******************************************************************************/
