@@ -446,7 +446,7 @@ u32 DpMST_PlatformInit(void)
 			return XST_FAILURE;
 	}
 
-	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
+	XDpRxSs_McDp6000_init(&DpRxSsInst);
 
 	/* issue HPD at here to inform DP source */
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
