@@ -57,6 +57,9 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 
 	PowerDomain->Children = NULL;
 	PowerDomain->DomainOps = Ops;
+	if (NULL != Parent) {
+		PowerDomain->Parents[0] = Parent->Node.Id;
+	}
 
 	if ((NULL != Ops) && (NULL != Ops->ScanClear)) {
 		InitMask |= BIT(FUNC_SCAN_CLEAR);
@@ -79,6 +82,34 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+XStatus XPmPowerDomain_AddParent(u32 Id, u32 *ParentNodes, u32 NumParents)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PowerDomain *PowerD;
+	u32 i;
+
+	PowerD = (XPm_PowerDomain *)XPmPower_GetById(Id);
+
+	if (NULL == PowerD) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if ((MAX_POWERDOMAIN_PARENTS - 1U) < NumParents) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	for (i = 0; i < NumParents; i++) {
+		PowerD->Parents[i + 1U] = ParentNodes[i];
+	}
+
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 

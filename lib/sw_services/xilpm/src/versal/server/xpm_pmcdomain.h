@@ -23,7 +23,7 @@ struct XPm_PmcDomain {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id);
+XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent);
 
 #ifdef __cplusplus
 }

@@ -601,14 +601,19 @@ XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	}
 
 	for (i = 0; i < NumParents; i++) {
-		PowerParent = XPmPower_GetById(Parents[i]);
-		if (NULL == PowerParent) {
-			Status = XST_INVALID_PARAM;
-			goto done;
+		if ((u32)XPM_NODESUBCL_POWER_DOMAIN ==
+		    NODESUBCLASS(Parents[i])) {
+			PowerParent = XPmPower_GetById(Parents[i]);
+			if (NULL == PowerParent) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			Power->Parent = PowerParent;
 		}
+	}
 
-		/* Todo: Handle more than one parent */
-		Power->Parent = PowerParent;
+	if ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(Id)) {
+		(void)XPmPowerDomain_AddParent(Id, Parents, NumParents);
 	}
 
 	Status = XST_SUCCESS;
