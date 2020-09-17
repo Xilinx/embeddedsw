@@ -39,6 +39,7 @@
 * 1.2   Dishita 04/16/2020  Fix compiler warnings
 * 1.3   Dishita 05/04/2020  Added Module argument to all apis
 * 1.4   Tejus   06/10/2020  Switch to new io backend apis.
+* 1.5   Dishita 09/15/2020  Add api to read perf counter control configuration.
 *
 * </pre>
 *
@@ -627,4 +628,104 @@ AieRC XAie_PerfCounterControlReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 	 */
 	return XAie_PerfCounterControlSet(DevInst, Loc, Module, Counter,
 		StartStopEvent, StartStopEvent);
+}
+
+/*****************************************************************************/
+/* This API reads the performance counter configuration for the given counter
+ * and tile location.
+*
+* @param        DevInst: Device Instance
+* @param        Loc: Location of the tile
+* @param        Module: Module of tile i.e.
+*                       XAIE_MEM_MOD, XAIE_CORE_MOD, XAIE_PL_MOD
+* @param        Counter: Performance Counter
+* @param        StartEvent: Pointer to store start event
+* @param        StopEvent: Pointer to store stop event
+* @param        ResetEvent: Pointer to store reset event
+*
+* @return       XAIE_OK on success
+*               XAIE_INVALID_ARGS if any argument is invalid
+*               XAIE_INVALID_TILE if tile type from Loc is invalid
+*
+* @note
+*
+******************************************************************************/
+AieRC XAie_PerfCounterGetControlConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, u8 Counter, XAie_Events *StartEvent,
+		XAie_Events *StopEvent, XAie_Events *ResetEvent)
+{
+	u32 StartStopRegOffset, ResetRegOffset, StartStopEvent, RegEvent;
+	u64 StartStopRegAddr, ResetRegAddr;
+	u8 TileType;
+	AieRC RC;
+	const XAie_PerfMod *PerfMod;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		return XAIE_INVALID_TILE;
+	}
+
+	/* check for module and tiletype combination */
+	RC = _XAie_CheckModule(DevInst, Loc, Module);
+	if(RC != XAIE_OK) {
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Module == XAIE_PL_MOD) {
+		PerfMod = &DevInst->DevProp.DevMod[TileType].PerfMod[0U];
+	} else {
+		PerfMod = &DevInst->DevProp.DevMod[TileType].PerfMod[Module];
+	}
+
+	/* Checking for valid Counter */
+	if(Counter >= PerfMod->MaxCounterVal) {
+		XAIE_ERROR("Invalid Counter number: %d\n", Counter);
+		return XAIE_INVALID_ARGS;
+	}
+
+	/* Compute absolute address and read the start stop event register */
+	StartStopRegOffset = PerfMod->PerfCtrlBaseAddr +
+			(Counter / 2U * PerfMod->PerfCtrlOffsetAdd);
+	StartStopRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+				StartStopRegOffset;
+	StartStopEvent = XAie_Read32(DevInst, StartStopRegAddr);
+
+	/* Get both start and stop event for given counter */
+	StartStopEvent >>= PerfMod->StartStopShift * (Counter % 2U);
+
+	/* Get start and stop event individually and store in event pointer */
+	RegEvent = StartStopEvent & PerfMod->Start.Mask;
+	RC = XAie_EventPhysicalToLogicalConv(DevInst, Loc, Module, RegEvent,
+			StartEvent);
+	if(RC != XAIE_OK)
+		return RC;
+
+	RegEvent = (StartStopEvent & PerfMod->Stop.Mask) >>
+			PerfMod->StartStopShift / 2U;
+	RC = XAie_EventPhysicalToLogicalConv(DevInst, Loc, Module, RegEvent,
+			StopEvent);
+	if(RC != XAIE_OK)
+		return RC;
+
+	/* Compute absolute address and read the reset event register */
+	ResetRegOffset = PerfMod->PerfCtrlResetBaseAddr;
+	ResetRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+			ResetRegOffset;
+	RegEvent = XAie_Read32(DevInst, ResetRegAddr);
+
+	/* Get reset event for given counter and store in the event pointer */
+	RegEvent = RegEvent >> Counter * PerfMod->ResetShift;
+	RegEvent &= PerfMod->Reset.Mask;
+	RC = XAie_EventPhysicalToLogicalConv(DevInst, Loc, Module, RegEvent,
+			ResetEvent);
+	if(RC != XAIE_OK)
+		return RC;
+
+	return XAIE_OK;
 }
