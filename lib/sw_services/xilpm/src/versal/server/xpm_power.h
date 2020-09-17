@@ -38,6 +38,13 @@ typedef enum {
 
 typedef struct XPm_Power XPm_Power;
 
+#define MAX_I2C_COMMAND_LEN	16
+
+struct XPm_I2cCmd {
+	u8 CmdLen; /** Total no of commands to configure this regulator */
+	u8 CmdArr[MAX_I2C_COMMAND_LEN]; /** Array of i2c command bytes. For example, Len1,bytes, Len2, bytes, Len3,bytes etc */
+};
+
 /**
  * The power node class.  This is the base class for all the power island and
  * power domain classes.

@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 #include "xplmi_util.h"
 #include "xpm_api.h"
 #include "xpm_defs.h"
@@ -609,7 +608,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
 	 * The problem is eliminated when PL Vgg frame housecleaning is run
 	 * so we need to do that ASAP after PLM is loaded.
-	 * Otherwise also, PL housecleaning needs to be trigerred asap to reduce
+	 * Otherwise also, PL housecleaning needs to be triggered asap to reduce
 	 * boot time.
 	 */
 	(void)XPmPlDomain_InitandHouseclean();
@@ -3024,7 +3023,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_CpmDomain *CpmDomain;
 	XPm_Rail *Rail;
 
-	if (NumArgs < 3U) {
+	if (1U > NumArgs) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -3140,12 +3139,15 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent);
 		break;
 	case (u32)XPM_NODETYPE_POWER_RAIL:
-		Rail = (XPm_Rail *)XPm_AllocBytes(sizeof(XPm_Rail));
+		Rail = (XPm_Rail *)XPmPower_GetById(PowerId);
 		if (NULL == Rail) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
+			Rail = (XPm_Rail *)XPm_AllocBytes(sizeof(XPm_Rail));
+			if (NULL == Rail) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
 		}
-		Status = XPmRail_Init(Rail, PowerId, Args);
+		Status = XPmRail_Init(Rail, PowerId, Args, NumArgs);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
