@@ -525,13 +525,13 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT);
-	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_RAM);
+	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
-	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_SOC);
+	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
-	/* If PL power is still not up, return error as PLD cant
+	/* If PL power is still not up, return error as PLD can't
 	   be initialized */
 	if (1U != HcleanDone) {
 		while ((XST_SUCCESS != IntRailPwrSts) ||
@@ -688,8 +688,8 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	XPm_Pmc *Pmc;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT);
-	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_RAM);
+	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 
 	/* Skip if already done */
@@ -750,7 +750,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 
 	if((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/*
-		 * EDT-995767: Theres a bug with ES1, due to which a small
+		 * EDT-995767: There is a bug with ES1, due to which a small
 		 * percent (<2%) of device may miss pl_por_b during power,
 		 * which could result CFRAME wait up in wrong state. The work
 		 * around requires to toggle PL_POR twice after PL supplies is
