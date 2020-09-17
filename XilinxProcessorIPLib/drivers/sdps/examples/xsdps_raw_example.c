@@ -23,6 +23,7 @@
 * Ver	Who	Date     Changes
 * ----- --- -------- ---------------------------------------------
 * 3.9 	mn  12/02/19 First release
+* 3.10	mn  09/17/20 Fix sector offset issue with Non-HCS SD cards
 *
 *</pre>
 *
@@ -149,7 +150,6 @@ static int SdpsRawTest(void)
 	/*
 	 * Read data from SD/eMMC.
 	 */
-	if (!(SdInstance.HCS)) Sector *= XSDPS_BLK_SIZE_512_MASK;
 	Status  = XSdPs_ReadPolled(&SdInstance, Sector, NUM_BLOCKS,
 				   DestinationAddress);
 	if (Status!=XST_SUCCESS) {
