@@ -280,7 +280,7 @@ extern "C" {
 
 #define XMT_CHECK_BIT(var, pos) ((var) & (1<<(pos)))
 #define XMT_YLFSR(a) ((a << 1) + (((a >> 60) & 1) ^ ((a >> 54) & 1) ^ 1))
-#define XMT_RANDOM_VALUE(x) (0x12345678+19*(x)+0x017c1e2313567c9b)
+#define XMT_RANDOM_VALUE(x) (0x12345678+19*(XMT_YLFSR(x))+0x017c1e2313567c9b)
 
 #define XMT_UPDATE_REG(Addr, Mask, Shift, Value) {\
     u32 Rd = 0;\
