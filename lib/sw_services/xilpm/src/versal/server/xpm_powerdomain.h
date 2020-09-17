@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 #ifndef XPM_POWERDOMAIN_H_
 #define XPM_POWERDOMAIN_H_
 
@@ -20,6 +19,7 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
+#define MAX_POWERDOMAIN_PARENTS			6U
 
 /**
  * The power domain node class.  This is the base class for all the power domain
@@ -43,6 +43,7 @@ struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	XPm_Power *Children; /**< List of children power nodes */
 	struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
+	u32 Parents[MAX_POWERDOMAIN_PARENTS]; /**< List of Parent Rail Ids */
 	u16 InitMask; /**< Mask to indicate house cleaning functions present */
 	u16 InitFlag; /**< Flag to indicate house cleaning functions performed */
 };
@@ -51,6 +52,7 @@ struct XPm_PowerDomain {
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops);
+XStatus XPmPowerDomain_AddParent(u32 Id, u32 *ParentNodes, u32 NumParents);
 XStatus XPm_PowerUpLPD(XPm_Node *Node);
 XStatus XPm_PowerDwnLPD(void);
 XStatus XPm_PowerUpFPD(XPm_Node *Node);

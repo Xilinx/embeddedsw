@@ -3080,7 +3080,8 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		Status = XPmPmcDomain_Init((XPm_PmcDomain *)PmcDomain, PowerId);
+		Status = XPmPmcDomain_Init((XPm_PmcDomain *)PmcDomain, PowerId,
+					   PowerParent);
 		break;
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_FULL:
 		PsFpDomain =

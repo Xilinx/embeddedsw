@@ -68,11 +68,12 @@ static struct XPm_PowerDomainOps PmcOps = {
 	.XmpuCtrl = PmcXmpuCtrl,
 };
 
-XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
+XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL, &PmcOps);
+	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, Parent,
+				     &PmcOps);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
