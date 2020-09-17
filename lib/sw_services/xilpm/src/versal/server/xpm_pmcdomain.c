@@ -3,11 +3,11 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 #include "xpm_common.h"
 #include "xpm_pmcdomain.h"
 #include "xpm_domain_iso.h"
 #include "xpm_prot.h"
+#include "xpm_debug.h"
 
 static XStatus (*HandlePowerEvent)(XPm_Node *Node, u32 Event);
 
@@ -71,6 +71,7 @@ static struct XPm_PowerDomainOps PmcOps = {
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, Parent,
 				     &PmcOps);
@@ -85,6 +86,15 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 	HandlePowerEvent = PmcDomain->Domain.Power.HandleEvent;
 	PmcDomain->Domain.Power.HandleEvent = HandlePmcDomainEvent;
 
+	/* For all domain, rail stats are updated with init node finish. For
+	pmc domain, init node commands are not received so update here */
+	Status = XPmPower_UpdateRailStats(&PmcDomain->Domain,
+					  (u8)XPM_POWER_STATE_ON);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_RAIL_CONTROL;
+	}
+
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }

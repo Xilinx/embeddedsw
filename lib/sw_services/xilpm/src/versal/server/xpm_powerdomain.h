@@ -69,6 +69,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask);
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx);
+XStatus XPmPower_UpdateRailStats(XPm_PowerDomain *PwrDomain, u8 State);
 
 #ifdef __cplusplus
 }
