@@ -37,6 +37,7 @@
 #include "xpm_pldevice.h"
 #include "xpm_debug.h"
 #include "xpm_device.h"
+#include "xpm_regulator.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
@@ -3022,6 +3023,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_AieDomain *AieDomain;
 	XPm_CpmDomain *CpmDomain;
 	XPm_Rail *Rail;
+	XPm_Regulator *Regulator;
 
 	if (1U > NumArgs) {
 		Status = XST_INVALID_PARAM;
@@ -3034,7 +3036,8 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	Shift = (u8)(Args[1] & 0xFFU);
 	ParentId = Args[2];
 
-	if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) {
+	if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX &&
+	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
@@ -3044,7 +3047,8 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	BitMask = BITNMASK(Shift, Width);
 
 	if ((ParentId != (u32)XPM_NODEIDX_POWER_MIN) &&
-		((u32)XPM_NODETYPE_POWER_RAIL != PowerType)) {
+	    ((u32)XPM_NODETYPE_POWER_RAIL != PowerType) &&
+	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
 		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -3149,6 +3153,17 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			}
 		}
 		Status = XPmRail_Init(Rail, PowerId, Args, NumArgs);
+		break;
+	case (u32)XPM_NODETYPE_POWER_REGULATOR:
+		Regulator = (XPm_Regulator *)XPmRegulator_GetById(PowerId);
+		if (Regulator == NULL) {
+			Regulator = (XPm_Regulator *)XPm_AllocBytes(sizeof(XPm_Regulator));
+			if (NULL == Regulator) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+		}
+		Status = XPmRegulator_Init(Regulator, PowerId, Args, NumArgs);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 #ifndef XPM_NODE_H_
 #define XPM_NODE_H_
 
@@ -92,6 +91,7 @@ typedef enum {
 	XPM_NODESUBCL_POWER_ISLAND=1,
 	XPM_NODESUBCL_POWER_DOMAIN,
 	XPM_NODESUBCL_POWER_RAIL,
+	XPM_NODESUBCL_POWER_REGULATOR,
 } XPm_PowerNodeSubclass;
 
 typedef enum {
@@ -164,6 +164,7 @@ typedef enum {
 	XPM_NODETYPE_POWER_DOMAIN_PL,
 	XPM_NODETYPE_POWER_ISLAND_XRAM,
 	XPM_NODETYPE_POWER_RAIL,
+	XPM_NODETYPE_POWER_REGULATOR,
 } XPm_PowerNodeType;
 
 typedef enum {
@@ -306,6 +307,12 @@ typedef enum {
 
 	XPM_NODEIDX_POWER_MAX,
 } XPm_PowerNodeIndex;
+
+typedef enum {
+	/* Regulator nodes */
+	XPM_NODEIDX_POWER_REGULATOR_0,
+	XPM_NODEIDX_POWER_REGULATOR_MAX = 8,
+} XPm_RegulatorNodeIndex;
 
 typedef enum {
 	XPM_NODEIDX_CLK_MIN,
