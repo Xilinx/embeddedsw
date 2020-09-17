@@ -56,14 +56,14 @@
 #define PM_POWER_XRAM_15			(0x4124026U)
 #define PM_POWER_CPM5				(0x4218027U)
 #define PM_POWER_ME2				(0x421c028U)
-#define PM_POWER_VCC_PMC            (0x4328029U)
-#define PM_POWER_VCCAUX_PMC         (0x432802aU)
-#define PM_POWER_VCCINT_PSLP            (0x432802bU)
-#define PM_POWER_VCCINT_PSFP            (0x432802cU)
-#define PM_POWER_VCC_SOC            (0x432802dU)
-#define PM_POWER_VCC_RAM            (0x432802eU)
-#define PM_POWER_VCCAUX             (0x432802fU)
-#define PM_POWER_VCCINT             (0x4328030U)
+#define PM_POWER_VCCINT_PMC			(0x4328029U)
+#define PM_POWER_VCCAUX_PMC			(0x432802aU)
+#define PM_POWER_VCCINT_PSLP			(0x432802bU)
+#define PM_POWER_VCCINT_PSFP			(0x432802cU)
+#define PM_POWER_VCCINT_SOC			(0x432802dU)
+#define PM_POWER_VCCINT_RAM			(0x432802eU)
+#define PM_POWER_VCCAUX				(0x432802fU)
+#define PM_POWER_VCCINT_PL			(0x4328030U)
 /** @}
  * @endcond
  */

@@ -32,7 +32,7 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_SOC);
+	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 
 	/* Check vccint_soc first to make sure power is on */
 	while (XST_SUCCESS != Status) {
@@ -105,7 +105,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCC_SOC);
+	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 
 	/* NPD pre bisr requirements - in case if bisr and mbist was skipped */
