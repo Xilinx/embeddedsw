@@ -13,6 +13,7 @@
 #include "xpm_pmc.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
+#include "xpm_psfpdomain.h"
 #include "xpm_pldomain.h"
 #include "xpm_bisr.h"
 #include "xpm_device.h"
@@ -273,48 +274,11 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
-		/* TODO: LPD CDO should be rexecuted. Right now we don't have separate LPD
-		 * CDO so calling house cleaning commands here
-		 */
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
+		PmInfo("Reloading LPD Image\r\n");
+		Status = XPm_RestartCbWrapper(Node->Id);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
+			DbgErr = XPM_INT_ERR_RELOAD_IMAGE;
 			goto done;
-		}
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_SCAN_CLEAR, NULL, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_SCAN_CLEAR;
-			goto done;
-		}
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_LBIST, NULL, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_LBIST;
-			goto done;
-		}
-
-		/*
-		 * Release SRST for PS-LPD
-		 */
-		Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_RST_RELEASE;
-			goto done;
-		}
-
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_BISR;
-			goto done;
-		}
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_MBIST_CLEAR, NULL, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_MBIST_CLEAR;
-			goto done;
-		}
-
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 		}
 	}
 
@@ -459,7 +423,13 @@ XStatus XPm_PowerDwnLPD(void)
 			DbgErr = (u32)XPM_INT_ERR_PS_POR;
 		}
 
-		/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
+		/* Power down LPD power rail */
+		Status = XPmPower_UpdateRailStats(&LpDomain->Domain,
+						  (u8)XPM_POWER_STATE_OFF);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_LPD_RAIL_CONTROL;
+			goto done;
+		}
 	}
 
 	LpDomain->LpdBisrFlags &= (u8)(~(LPD_BISR_DATA_COPIED | LPD_BISR_DONE));
@@ -504,6 +474,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm;
+	XPm_PsFpDomain *FpDomain = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	XPm_Core *ApuCore;
 	int HasResumeAddrStatus = XST_FAILURE;
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
@@ -575,6 +546,14 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	/* Assert POR for FPD */
 	Status = XPmReset_AssertbyId(PM_RST_FPD_POR, (u32)PM_RESET_ACTION_ASSERT);
 
+	/* Power down FPD power rail */
+	Status = XPmPower_UpdateRailStats(&FpDomain->Domain,
+					  (u8)XPM_POWER_STATE_OFF);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_RAIL_CONTROL;
+		goto done;
+	}
+
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
 		DbgErr = (u32)XPM_INT_ERR_INVALID_PROC;
@@ -610,24 +589,9 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
-		/* TODO: PLD CDO should be rexecuted. Right now we don't have separate PLD
-		 * CDO so calling house cleaning commands here
-		 */
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
+		Status = XPm_RestartCbWrapper(PM_DEV_PLD_0);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
-			goto done;
-		}
-
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_HOUSECLEAN_PL, NULL, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_PL;
-			goto done;
-		}
-
-		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
+			DbgErr = XPM_INT_ERR_RELOAD_IMAGE;
 		}
 	}
 done:
@@ -639,6 +603,7 @@ XStatus XPm_PowerDwnPLD(void)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_PlDomain *PldDomain = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 
 	/* Isolate PL-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
@@ -686,10 +651,15 @@ XStatus XPm_PowerDwnPLD(void)
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
-		goto done;
+	/* PMC PL CFRAME isolation should never be enabled for ES1 due to
+	   silicon issue so enable only for non ES1 platform */
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 != XPm_GetPlatformVersion())) {
+		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
+			goto done;
+		}
 	}
 
 	/* Isolate VCCINT_RAM from VCCINT */
@@ -699,6 +669,9 @@ XStatus XPm_PowerDwnPLD(void)
 		goto done;
 	}
 
+#if 0
+	/* Below isolations depend on NoC so should be taken care during NoC
+	power down */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VCCAUX_ISO;
@@ -711,6 +684,7 @@ XStatus XPm_PowerDwnPLD(void)
 		goto done;
 	}
 
+	/* TBD: Below isolation needs to be removed only if CPM is up */
 	/* Isolate PL_CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
@@ -732,6 +706,8 @@ XStatus XPm_PowerDwnPLD(void)
 		DbgErr = XPM_INT_ERR_PL_CPM_RST_CPI1_ISO;
 		goto done;
 	}
+#endif
+
 	/* Reset Houseclean flag for PL */
 	HcleanDone = 0U;
 
@@ -741,7 +717,14 @@ XStatus XPm_PowerDwnPLD(void)
 		DbgErr = XPM_INT_ERR_RST_ASSERT;
 	}
 
-	/* TODO: Send PMC_I2C command to turn of PLD power rail */
+	/* Power down PLD power rail */
+	Status = XPmPower_UpdateRailStats(&PldDomain->Domain,
+					  (u8)XPM_POWER_STATE_OFF);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
+		goto done;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1109,6 +1092,64 @@ done:
 	return Status;
 }
 
+XStatus XPmPower_UpdateRailStats(XPm_PowerDomain *PwrDomain, u8 State)
+{
+	XStatus Status = XST_FAILURE;
+	u16 i=0, j=0;
+	XPm_PowerDomain *ParentDomain;
+	XPm_Rail *ParentRail;
+
+	/* Update rail node usecounts */
+	for (i = 0; i < MAX_POWERDOMAIN_PARENTS && (0U != PwrDomain->Parents[i]); i++) {
+		/* If power domain is the parent, scan through its rails */
+		if ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(PwrDomain->Parents[i])) {
+			ParentDomain = (XPm_PowerDomain *)XPmPower_GetById(PwrDomain->Parents[i]);
+			for (j = 0; j < MAX_POWERDOMAIN_PARENTS && (0U != ParentDomain->Parents[j]); j++) {
+				if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(ParentDomain->Parents[j])) {
+					ParentRail = (XPm_Rail *)XPmPower_GetById(ParentDomain->Parents[j]);
+					if ((u8)XPM_POWER_STATE_ON == State) {
+						ParentRail->Power.UseCount++;
+					} else {
+						ParentRail->Power.UseCount--;
+					}
+				}
+			}
+		} else if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(PwrDomain->Parents[i])) {
+			ParentDomain = (XPm_PowerDomain *)XPmPower_GetById(PwrDomain->Parents[i]);
+			ParentRail = (XPm_Rail *)XPmPower_GetById(PwrDomain->Parents[i]);
+			if ((u8)XPM_POWER_STATE_ON == State) {
+				if (PM_POWER_PMC == PwrDomain->Power.Node.Id) {
+					ParentRail->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+				} else if ((u8)XPM_POWER_STATE_ON != ParentRail->Power.Node.State) {
+					PmDbg("Turning %x rail on now\r\n", ParentRail->Power.Node.Id);
+					Status = XPmRail_Control(ParentRail, (u8)XPM_POWER_STATE_ON);
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
+				}
+				ParentRail->Power.UseCount++;
+			} else {
+				ParentRail->Power.UseCount--;
+				if (ParentRail->Power.UseCount <= 0U) {
+					PmDbg("Turning %x rail off now\r\n", ParentRail->Power.Node.Id);
+					Status = XPmRail_Control(ParentRail, (u8)XPM_POWER_STATE_OFF);
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
+				}
+			}
+		} else {
+			PmDbg("Power parent error.\r\n");
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
 static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 				      enum XPmInitFunctions FuncId)
 {
@@ -1210,6 +1251,13 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_INITIALIZING;
+		Status = XPmPower_UpdateRailStats(PwrDomain,
+						  (u8)XPM_POWER_STATE_ON);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PWR_DOMAIN_RAIL_CONTROL;
+			goto done;
+		}
+
 		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_START);
 		if ((NULL != Ops) && (NULL != Ops->InitStart)) {
 			Status = Ops->InitStart(Args, NumArgs);

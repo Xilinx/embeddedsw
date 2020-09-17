@@ -31,6 +31,8 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_FUNC		0x3006U
 /* Power domain state is OFF */
 #define XPM_INT_ERR_PWR_DOMAIN_OFF		0x3007U
+/* Error due to rail control during init */
+#define XPM_INT_ERR_PWR_DOMAIN_RAIL_CONTROL	0X3008U
 
 /*********************** Generic House Cleaning Errors ***********************/
 /*************************** (0x3100) - (0x31FF) *****************************/
@@ -139,6 +141,8 @@ extern "C" {
 #define XPM_INT_ERR_LPD_PL_ISO			0x3208U
 /* Error during LPD-CPM Isolation enable/disable */
 #define XPM_INT_ERR_LPD_CPM_ISO			0x3209U
+/* Error during LPD rail control */
+#define XPM_INT_ERR_LPD_RAIL_CONTROL		0X320AU
 
 /************************* Device specific Errors ****************************/
 /************************** (0x3300) - (0x33FF) ******************************/
@@ -208,6 +212,8 @@ extern "C" {
 #define XPM_INT_ERR_FPD_PL_ISO			0x3503U
 /* Error during FPD-PL test Isolation disable/enable */
 #define XPM_INT_ERR_FPD_PL_TEST_ISO		0x3504U
+/* Error during fpd rail control */
+#define XPM_INT_ERR_FPD_RAIL_CONTROL		0X3505U
 
 /************************* Miscellaneous Errors ******************************/
 /************************** (0x3600) - (0x36FF) ******************************/
@@ -296,6 +302,8 @@ extern "C" {
 #define XPM_INT_ERR_PL_POR_STATUS		0x3716U
 /* Error during initialization of GTY Address Array */
 #define XPM_INT_ERR_GTY_INIT		0x3717U
+/* Error during PLD rail control */
+#define XPM_INT_ERR_PLD_RAIL_CONTROL		0X3718U
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
@@ -386,6 +394,8 @@ extern "C" {
 #define XPM_INT_ERR_PMC_PL_TEST_ISO		0x4201U
 /* Error during VCCAUX Isolation enable/disable */
 #define XPM_INT_ERR_VCCAUX_ISO			0x4202U
+/* Error during PMC rail control */
+#define XPM_INT_ERR_PMC_RAIL_CONTROL		0X4203U
 
 /************************** BISR specific errors *****************************/
 /************************** (0x4300) - (0x43FF) ******************************/
