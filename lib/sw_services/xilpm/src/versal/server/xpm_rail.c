@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "sleep.h"
 #include "xpm_common.h"
 #include "xpm_rail.h"
 #include "xpm_powerdomain.h"
@@ -32,12 +33,20 @@ static XStatus WaitForPowerRailUp(u32 VoltageRailMask)
 	}
 
 	Status = XPlmi_UtilPollForMask((Pmc->PmcGlobalBaseAddr +
-				     PWR_SUPPLY_STATUS_OFFSET),
-				     VoltageRailMask,
-				     XPM_POLL_TIMEOUT);
+					PWR_SUPPLY_STATUS_OFFSET),
+					VoltageRailMask,
+					XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		PmErr("Poll for power rail up timeout\r\n");
+		goto done;
 	}
+
+	/*
+	 * TODO: A delay is needed for a power rail to stabilize.
+	 * The value of this delay is board-dependent and should
+	 * come from cdo.
+	 */
+	usleep(I2C_SLEEP_US);
 
 done:
 	return Status;
