@@ -93,6 +93,8 @@
  * 5.3 Nava  06/29/20  Added asserts to validate input params.
  * 5.3 Nava  09/09/20  Replaced the asserts with input validations for non void
  *                     API's.
+ * 5.3 Nava  09/16/20  Added user configurable Enable/Disable Options for
+ *                     readback operations.
  * </pre>
  *
  * @note
@@ -172,7 +174,6 @@ typedef u32 (*XpbrServHndlr_t) (void);
 
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone(void);
-static u32 XFpga_PcapWaitForidle(void);
 static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitstreamAddr);
 static u32 XFpga_PcapInit(u32 Flags);
 static u32 XFpga_PLWaitForDone(void);
@@ -180,8 +181,6 @@ static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
 void XFpga_PsPlGpioResetsLow(void);
 void XFpga_PsPlGpioResetsHigh(void);
-static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
-static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
 static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 							u32 flags);
 static u32 XFpga_ValidateBitstreamImage(XFpga  *InstancePtr);
@@ -189,11 +188,20 @@ static u32 XFpga_PreConfigPcap(XFpga *InstancePtr);
 static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr);
 static u32 XFpga_PostConfigPcap(XFpga *InstancePtr);
 static u32 XFpga_PcapStatus(void);
-static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr);
-static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr);
 static void XFpga_SetFirmwareState(u8 State);
-static u8 XFpga_GetFirmwareState(void);
 static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos);
+#if defined(XFPGA_READ_CONFIG_REG)
+static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr);
+#endif
+#if defined(XFPGA_READ_CONFIG_DATA)
+static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr);
+static u32 XFpga_PcapWaitForidle(void);
+static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
+#endif
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
+static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
+static u8 XFpga_GetFirmwareState(void);
+#endif
 #ifdef XFPGA_SECURE_MODE
 static u32 XFpga_SecureLoadToPl(XFpga *InstancePtr);
 static u32 XFpga_WriteEncryptToPcap(XFpga *InstancePtr);
@@ -263,9 +271,12 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPlPcap;
 	InstancePtr->XFpga_PostConfig = XFpga_PostConfigPcap;
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_PcapStatus;
+#if defined(XFPGA_READ_CONFIG_REG)
 	InstancePtr->XFpga_GetConfigReg = XFpga_GetConfigRegPcap;
+#endif
+#if defined(XFPGA_READ_CONFIG_DATA)
 	InstancePtr->XFpga_GetConfigData = XFpga_GetPLConfigDataPcap;
-
+#endif
 	/* Initialize CSU DMA driver */
 	CsuDmaPtr = Xsecure_GetCsuDma();
 	if (CsuDmaPtr == NULL) {
@@ -679,6 +690,7 @@ END:
 	return Status;
 }
 
+#if defined(XFPGA_READ_CONFIG_DATA)
 /*****************************************************************************/
 /** This function waits for PCAP to come to idle state.
  *
@@ -698,6 +710,7 @@ static u32 XFpga_PcapWaitForidle(void)
 				PL_DONE_POLL_COUNT);
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /** This function is used to Validate the user provided crypto flags
@@ -1968,6 +1981,7 @@ static u32 XFpga_PcapStatus(void)
 	return Xil_In32(CSU_PCAP_STATUS);
 }
 
+#if defined(XFPGA_READ_CONFIG_REG)
 /*****************************************************************************/
 /**
  * @ingroup xfpga_apis
@@ -2093,7 +2107,9 @@ END:
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
 	return Status;
 }
+#endif
 
+#if defined(XFPGA_READ_CONFIG_DATA)
 /*****************************************************************************/
 /**
  *
@@ -2312,7 +2328,9 @@ END:
 
 	return Status;
 }
+#endif
 
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
 /****************************************************************************/
 /*
  *
@@ -2352,7 +2370,9 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
 		((u32)Register << (u32)XDC_REGISTER_SHIFT) |
 		((u32)OpCode << (u32)XDC_OP_SHIFT)) | (u32)Size);
 }
+#endif
 
+#if defined(XFPGA_READ_CONFIG_DATA)
 /****************************************************************************/
 /**
  *
@@ -2388,6 +2408,7 @@ static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size)
 	return ((u32)(((u32)XDC_TYPE_2 << (u32)XDC_TYPE_SHIFT) |
 		((u32)OpCode << (u32)XDC_OP_SHIFT)) | (u32)Size);
 }
+#endif
 
 /*****************************************************************************/
 /** Sets the library firmware state
@@ -2407,6 +2428,7 @@ static void XFpga_SetFirmwareState(u8 State)
 	Xil_Out32(PMU_GLOBAL_GEN_STORAGE5, RegVal);
 }
 
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
 /*****************************************************************************/
 /** Returns the library firmware state
  *
@@ -2419,6 +2441,7 @@ static u8 XFpga_GetFirmwareState(void)
 	return (Xil_In32(PMU_GLOBAL_GEN_STORAGE5) & XFPGA_STATE_MASK) >>
 		XFPGA_STATE_SHIFT;
 }
+#endif
 
 /*****************************************************************************/
 /* This function is responsible for  identifying the Bitstream Endianness,
