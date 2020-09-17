@@ -464,11 +464,15 @@ extern "C" {
 #define XPM_INT_ERR_RAIL_SOURCE			0x4800U
 /* Timeout while waiting for new data flag */
 #define	XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT	0x4801U
+/* I2c initiliazation error */
+#define XPM_INT_ERR_I2C_INIT			0x4802U
+/* I2c write error */
+#define XPM_INT_ERR_I2C_WRITE			0x4803U
 
 /*********************** PL Device specific Errors **************************/
 /************************** (0x4900) - (0x497F) ******************************/
 /* Error during pldevice init */
-#define XPM_INT_ERR_PLDEVICE_INIT			0x4900U
+#define XPM_INT_ERR_PLDEVICE_INIT		0x4900U
 /* Error during pldevice initnode command */
 #define XPM_INT_ERR_PLDEVICE_INITNODE		0x4901U
 

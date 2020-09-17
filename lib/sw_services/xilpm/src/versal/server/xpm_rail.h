@@ -29,10 +29,11 @@ typedef struct XPmRail {
 	XPm_PgoodSource Source;
 	u32 ParentId;
 	u8 NumModes; 		/** Num of modes supported */
-	struct XPm_I2cCmd I2cModes[MAX_MODES]; /** Modes information if parent regulator is controlled over i2c*/
+	struct XPm_I2cCmd I2cModes[MAX_MODES]; /** Modes information if parent regulator is controlled over i2c */
 } XPm_Rail;
 
 /************************** Function Prototypes ******************************/
+XStatus XPmRail_Control(XPm_Rail *Rail, u8 State);
 XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, u32 *Args, u32 NumArgs);
 
 #ifdef __cplusplus

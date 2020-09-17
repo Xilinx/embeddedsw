@@ -3,9 +3,231 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xpm_common.h"
 #include "xpm_rail.h"
+#include "xpm_powerdomain.h"
 #include "xpm_debug.h"
+#include "xpm_pmc.h"
 #include "xpm_node.h"
+#include "xpm_regs.h"
+#include "xpm_power.h"
+#include "xpm_regulator.h"
+
+#ifdef XPAR_PSV_PMC_I2C_0_DEVICE_ID
+#include "xiicps.h"
+
+#define IIC_SCLK_RATE		400000
+#define I2C_SLEEP_US 		1000U
+
+static XIicPs IicInstance;
+
+static XStatus WaitForPowerRailUp(u32 VoltageRailMask)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Pmc *Pmc;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	Status = XPlmi_UtilPollForMask((Pmc->PmcGlobalBaseAddr +
+				     PWR_SUPPLY_STATUS_OFFSET),
+				     VoltageRailMask,
+				     XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("Poll for power rail up timeout\r\n");
+	}
+
+done:
+	return Status;
+}
+
+static XStatus I2CInitialize(XIicPs *Iic)
+{
+	XStatus Status = XST_FAILURE;
+	XIicPs_Config *Config;
+
+	/* Request the PMC_I2C device */
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC,
+					 (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Config = XIicPs_LookupConfig(XPAR_PSV_PMC_I2C_0_DEVICE_ID);
+	if (NULL == Config) {
+		goto done;
+	}
+
+	Status = XIicPs_CfgInitialize(Iic, Config, Config->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XIicPs_Reset(Iic);
+
+	/* Set the I2C serial clock rate */
+	Status = XIicPs_SetSClk(Iic, IIC_SCLK_RATE);
+
+done:
+	return Status;
+}
+
+static XStatus I2CIdleBusWait(XIicPs *Iic)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Timeout;
+
+	Timeout = 100000;
+	while (0 != XIicPs_BusIsBusy(Iic)) {
+		usleep(10);
+		Timeout--;
+
+		if (0U == Timeout) {
+			PmErr("ERROR: I2C bus idle wait timeout\r\n");
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus I2CWrite(XIicPs *Iic, u16 SlaveAddr, u8 *Buffer, s32 ByteCount)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Continuously try to send in case of arbitration */
+	do {
+		if (0 != Iic->IsRepeatedStart) {
+			Status = I2CIdleBusWait(Iic);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		Status = XIicPs_MasterSendPolled(Iic, Buffer, ByteCount, SlaveAddr);
+	} while (XST_IIC_ARB_LOST == Status);
+
+	if (XST_SUCCESS != Status) {
+		PmErr("I2C write failure\r\n");
+	}
+
+done:
+	return Status;
+}
+
+XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u8 WriteBuffer[2] = {0};
+	u32 NodeIdx = NODEINDEX(Rail->Power.Node.Id);
+	XPm_Regulator *Regulator;
+	u16 RegulatorSlaveAddress, MuxAddress;
+	u32 i = 0, j = 0, k = 0, BytesLen = 0, Mode = 0;
+
+	if (State == Rail->Power.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if ((0U != Rail->ParentId) &&
+	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NODESUBCLASS(Rail->ParentId))) {
+		Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+		if (Regulator == NULL) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	} else {
+		PmDbg("Rail topology information unavailable so rail can not be controlled.\r\n");
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if ((u32)XIL_COMPONENT_IS_READY != IicInstance.IsReady) {
+		if (Regulator->ParentId == PM_DEV_I2C_PMC) {
+			Status = I2CInitialize(&IicInstance);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_I2C_INIT;
+				goto done;
+			}
+		} else {
+			PmDbg("Regulator not supported.\r\n");
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
+	RegulatorSlaveAddress = (u16)Regulator->Node.BaseAddress;
+	for (i = 0; i < Regulator->Config.CmdLen; i++) {
+		MuxAddress = (u16)Regulator->Config.CmdArr[j++];
+		BytesLen = Regulator->Config.CmdArr[j++];
+		for (k = 0; k < BytesLen; k++) {
+			WriteBuffer[k] = Regulator->Config.CmdArr[j++];
+		}
+		Status = I2CWrite(&IicInstance, MuxAddress, WriteBuffer,
+				  (s32)BytesLen);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_I2C_WRITE;
+			goto done;
+		}
+	}
+
+	i = 0; j = 0; k = 0;
+
+	Mode = ((u8)XPM_POWER_STATE_ON == State) ? 1U : 0U;
+	for (i = 0; i < Rail->I2cModes[Mode].CmdLen; i++) {
+		BytesLen = Rail->I2cModes[Mode].CmdArr[j++];
+		for (k = 0; k < BytesLen; k++) {
+			WriteBuffer[k] = Rail->I2cModes[Mode].CmdArr[j++];
+		}
+
+		Status = I2CWrite(&IicInstance, RegulatorSlaveAddress, WriteBuffer,
+				  (s32)BytesLen);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_I2C_WRITE;
+			goto done;
+		}
+	}
+
+	/* TBD: Mask can come through topology */
+	if ((u8)XPM_POWER_STATE_ON == State) {
+		if ((u32)XPM_NODEIDX_POWER_VCCINT_PSFP == NodeIdx) {
+			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK);
+		} else if ((u32)XPM_NODEIDX_POWER_VCCINT_PSLP == NodeIdx) {
+			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK);
+		} else if ((u32)XPM_NODEIDX_POWER_VCCINT_PL == NodeIdx) {
+			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK);
+		} else if ((u32)XPM_NODEIDX_POWER_VCCINT_RAM == NodeIdx) {
+			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK);
+		} else if ((u32)XPM_NODEIDX_POWER_VCCAUX == NodeIdx) {
+			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
+		} else if ((u32)XPM_NODEIDX_POWER_VCCINT_SOC == NodeIdx) {
+			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
+		}
+	}
+
+	Rail->Power.Node.State = State;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+#else
+
+XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
+{
+	(void)Rail;
+	(void)State;
+
+	return XST_SUCCESS;
+}
+
+#endif
 
 /****************************************************************************/
 /**
