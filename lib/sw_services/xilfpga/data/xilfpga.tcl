@@ -37,6 +37,8 @@
 # 5.2   Nava  03/14/20  Added Bitstream loading support by using IPI services
 #                       for ZynqMP platform.
 # 5.3   Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+# 5.3   Nava  09/16/20  Added user configurable Enable/Disable Options for
+#                       readback operations
 #
 ##############################################################################
 
@@ -161,6 +163,15 @@ proc generate {lib_handle} {
 	puts $conffile "#define XFPGA_SECURE_READBACK_MODE"
     }
 
+   set value  [common::get_property CONFIG.reg_readback_en $lib_handle]
+   if {$value == true} {
+       puts $conffile "#define XFPGA_READ_CONFIG_REG"
+   }
+
+   set value  [common::get_property CONFIG.data_readback_en $lib_handle]
+   if {$value == true} {
+       puts $conffile "#define XFPGA_READ_CONFIG_DATA"
+   }
    set value  [common::get_property CONFIG.debug_mode $lib_handle]
 
    if {$value == true} {
