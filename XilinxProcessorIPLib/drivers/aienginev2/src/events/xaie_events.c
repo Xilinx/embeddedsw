@@ -22,6 +22,8 @@
 * 1.2   Nishad  07/14/2020  Add APIs to reset individual stream switch port
 *			    event selection ID and combo event.
 * 1.6   Nishad  07/23/2020  Add API to block brodcast signals using bitmap.
+* 1.7   Dishita 09/16/2020  Add APIs to convert physical event to logical event
+*			    and vice versa.
 * </pre>
 *
 ******************************************************************************/
@@ -1198,5 +1200,118 @@ AieRC XAie_EventPCReset(XAie_DevInst *DevInst, XAie_LocType Loc, u8 PCEventId)
 	return _XAie_EventPCConfig(DevInst, Loc, PCEventId,
 					XAIE_EVENT_PC_RESET, XAIE_DISABLE);
 }
+/*****************************************************************************/
+/**
+* This API is used to convert XAie_Events enum to hardware event id.
+*
+* @param        DevInst: Device Instance
+* @param        Loc: Location of the tile
+* @param        Module: Module of tile.
+* @param        Event: Event to be converted
+* @param        HwEvent: Pointer to store physical event id
+*
+* @return       XAIE_OK on success
+*
+* @note
+*
+******************************************************************************/
+AieRC XAie_EventLogicalToPhysicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, XAie_Events Event, u8 *HwEvent)
+{
+	AieRC RC;
+	u8 TileType;
+	const XAie_EvntMod *EvntMod;
 
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		return XAIE_INVALID_TILE;
+	}
+
+	/* check for module and tiletype combination */
+	RC = _XAie_CheckModule(DevInst, Loc, Module);
+	if(RC != XAIE_OK) {
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Module == XAIE_PL_MOD) {
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
+	} else {
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Module];
+	}
+	/* check if the event passed as input is corresponding to the module */
+	if(Event < EvntMod->EventMin || Event > EvntMod->EventMax) {
+		XAIE_ERROR("Invalid Event id\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	/* Subtract the module offset from event number */
+	Event -= EvntMod->EventMin;
+
+	/* Getting the true event number from the enum to array mapping */
+	*HwEvent = EvntMod->XAie_EventNumber[Event];
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* This API is used to convert hardware event id to XAie_Events enum.
+*
+* @param        DevInst: Device Instance
+* @param        Loc: Location of the tile
+* @param        Module: Module of tile.
+* @param        PhysicalEvent: Physical event id to be converted
+* @param        EnumEvent: Pointer to store converted event
+*
+* @return       XAIE_OK on success
+*
+* @note
+*
+******************************************************************************/
+AieRC XAie_EventPhysicalToLogicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, u8 HwEvent, XAie_Events *EnumEvent)
+{
+	AieRC RC;
+	u8 TileType;
+	const XAie_EvntMod *EvntMod;
+
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		return XAIE_INVALID_TILE;
+	}
+
+	/* check for module and tiletype combination */
+	RC = _XAie_CheckModule(DevInst, Loc, Module);
+	if(RC != XAIE_OK) {
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Module == XAIE_PL_MOD) {
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
+	} else {
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Module];
+	}
+
+	for(u32 i = EvntMod->EventMin; i <= EvntMod->EventMax; i++) {
+		if(EvntMod->XAie_EventNumber[i - EvntMod->EventMin] == HwEvent) {
+			*EnumEvent = i;
+			return XAIE_OK;
+		}
+	}
+	XAIE_ERROR("Could not convert Physical event:%u to Logical event.\n", HwEvent);
+
+	return XAIE_INVALID_ARGS;
+}
 /** @} */
