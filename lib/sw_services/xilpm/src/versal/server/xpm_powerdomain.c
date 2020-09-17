@@ -1052,7 +1052,7 @@ XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask)
 	u32 Source;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (NULL == Rail) {
+	if ((NULL == Rail) || (XPM_PGOOD_SYSMON != Rail->Source)) {
 		Status = XPmPower_DetectorCheckPower(VoltageRailMask);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
@@ -1214,7 +1214,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				break;
 			}
 		} else if (PM_POWER_ME == PwrDomain->Power.Node.Id) {
-			/* Request AIE device once AIE intialization is done. */
+			/* Request AIE device once AIE initialization is done. */
 			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_AIE,
 						   XPM_MAX_CAPABILITY,
 						   XPM_MAX_QOS);
