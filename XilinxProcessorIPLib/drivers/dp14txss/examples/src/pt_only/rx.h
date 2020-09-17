@@ -73,7 +73,11 @@
 
 /* DP Specific Defines
  */
+#ifndef versal
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
+#else
 #define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
+#endif
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
