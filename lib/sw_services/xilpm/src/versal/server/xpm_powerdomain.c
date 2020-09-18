@@ -1065,8 +1065,10 @@ XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask)
 	XStatus Status = XST_FAILURE;
 	u32 Source;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 Platform = XPm_GetPlatform();
 
-	if ((NULL == Rail) || (XPM_PGOOD_SYSMON != Rail->Source)) {
+	if ((NULL == Rail) || (XPM_PGOOD_SYSMON != Rail->Source) ||
+	    (PLATFORM_VERSION_QEMU == Platform)) {
 		Status = XPmPower_DetectorCheckPower(VoltageRailMask);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
