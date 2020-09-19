@@ -33,6 +33,8 @@
 *                       selected as subsystem shutdown or restart or custom.
 *                       They have to be re-enabled again using SetAction
 *                       command.
+*       bsv  09/13/2020 Clear security critical data in case of exceptions,
+*                       also place AES, ECDSA_RSA and SHA3 in reset
 *
 * </pre>
 *
@@ -50,6 +52,15 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLM_AES_KEY_CLR_REG	(0xF11E0014U)
+#define XPLM_AES_ALL_KEYS_CLR_VAL	(0x3FFFF3U)
+#define XPLM_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
+#define XPLM_SHA3_RESET_REG		(0xF1210004U)
+#define XPLM_AES_RESET_REG		(0xF11E0010U)
+#define XPLM_ECDSA_RSA_RESET_REG	(0xF1200040U)
+#define XPLM_SHA3_RESET_VAL		(0x1U)
+#define XPLM_AES_RESET_VAL		(0x1U)
+#define XPLM_ECDSA_RSA_RESET_VAL	(0x1U)
 
 /************************** Function Prototypes ******************************/
 s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
@@ -60,6 +71,31 @@ static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask);
 
 /************************** Variable Definitions *****************************/
 u32 EmSubsystemId = 0U;
+
+/*****************************************************************************/
+/**
+ * @brief	This function is called to secure critical data in case of
+ * exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_SecureClear(void)
+{
+	/* Clear AES keys */
+	XPlmi_Out32(XPLM_AES_KEY_CLR_REG, XPLM_AES_ALL_KEYS_CLR_VAL);
+	(void)XPlmi_UtilPollForMask(XPLM_AES_KEY_ZEROED_STATUS_REG,
+			MASK_ALL, XPLMI_TIME_OUT_DEFAULT);
+
+	/* Place SHA3 in reset */
+	XPlmi_Out32(XPLM_SHA3_RESET_REG, XPLM_SHA3_RESET_VAL);
+	/* Place AES in reset */
+	XPlmi_Out32(XPLM_AES_RESET_REG, XPLM_AES_RESET_VAL);
+	/* Place ECDSA RSA in reset */
+	XPlmi_Out32(XPLM_ECDSA_RSA_RESET_REG, XPLM_ECDSA_RSA_RESET_VAL);
+}
 
 /*****************************************************************************/
 /**

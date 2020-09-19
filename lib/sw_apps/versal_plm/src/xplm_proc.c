@@ -19,6 +19,9 @@
 * 1.00  kc   03/27/2018 Initial release
 * 1.01  kc   03/23/2020 Minor code cleanup
 * 1.02  bsv  09/04/2020 Removed call to Xil_ExceptionInit
+*       bsv  09/13/2020 Clear security critical data in case of exceptions,
+*                       also place AES, ECDSA_RSA and SHA3 in reset
+*
 * </pre>
 *
 * @note
@@ -75,7 +78,8 @@ static void XPlm_ExceptionInit(void)
 
 /*****************************************************************************/
 /**
- * @brief This is a function handler for all exceptions
+ * @brief This is a function handler for all exceptions. It clears security
+ * critical data by clearing AES keys and by placing SHA3 in reset.
  *
  * @param	Data Pointer to Error Status that needs to be updated in
  * Error Register. Status is initialized during exception initialization
@@ -94,6 +98,7 @@ static void XPlm_ExceptionHandler(void *Data)
 		      mfmsr(), mfear(), mfedr(), mfesr(),
 		      mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
 
+	XPlmi_SecureClear();
 	XPlmi_ErrMgr(Status);
 
 	/* Just in case if it returns */
