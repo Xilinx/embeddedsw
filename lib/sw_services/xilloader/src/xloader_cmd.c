@@ -44,9 +44,6 @@
 #include "xplmi_modules.h"
 #include "xplmi_wdt.h"
 #include "xplmi_event_logging.h"
-#ifdef XPLM_SEM
-#include "xilsem.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 

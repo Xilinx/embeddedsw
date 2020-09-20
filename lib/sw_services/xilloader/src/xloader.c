@@ -747,17 +747,6 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Stop the SEM scan before PDI load */
-	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
-		Status = XSem_CfrStopScan();
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_SEM_STOP_SCAN, Status);
-			goto END;
-		}
-	}
-#endif
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
@@ -775,19 +764,6 @@ END:
 			(PdiSrc == XLOADER_PDI_SRC_SBI)) {
 		XLoader_SbiRecovery();
 	}
-
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Restart the SEM SCAN */
-	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
-		Status = XSem_CfrInit();
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_SEM_CFR_INIT, Status);
-			goto END1;
-		}
-	}
-END1:
-#endif
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	return Status;
 }
@@ -1009,6 +985,21 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	int Status = XST_FAILURE;
 	XPlmi_ImageInfo ImageInfo;
 
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/* Stop the SEM scan before PL load */
+	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
+		(NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
+		== (u32)XPM_NODESUBCL_DEV_PL)) {
+		Status = XSem_CfrStopScan();
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_SEM_STOP_SCAN, Status);
+			goto END;
+		}
+	}
+#endif
+
+
 	ImageInfo.ImgID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	ImageInfo.UID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].UID;
 	ImageInfo.PUID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PUID;
@@ -1050,6 +1041,19 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	/* Log the image load to the Trace Log buffer */
 	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
 
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/* Resume the SEM scan after PL load */
+	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
+		(NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
+		== (u32)XPM_NODESUBCL_DEV_PL)) {
+		Status = XSem_CfrInit();
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_CFR_INIT, Status);
+			goto END;
+		}
+	}
+#endif
+
 END:
 	return Status;
 }
@@ -1070,15 +1074,6 @@ int XLoader_RestartImage(u32 ImageId)
 {
 	int Status = XST_FAILURE;
 
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Stop the SEM scan before Image load */
-	Status = XSem_CfrStopScan();
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_STOP_SCAN, Status);
-		goto END;
-	}
-#endif
-
 	Status = XLoader_ReloadImage(ImageId);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1088,15 +1083,6 @@ int XLoader_RestartImage(u32 ImageId)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Restart the SEM SCAN */
-	Status = XSem_CfrInit();
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_CFR_INIT, Status);
-		goto END;
-	}
-#endif
 
 END:
 	return Status;
