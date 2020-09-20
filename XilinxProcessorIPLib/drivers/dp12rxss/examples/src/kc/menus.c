@@ -73,9 +73,9 @@ void test_pattern_gen_help()
 			   "2 -->  Black & White Vertical Lines \n\r"
 			   "3 -->  Vesa Color Squares			\n\r"
 			   "4 -->  Flat Red  screen 			\n\r"
-			   "5 -->  Flat Blue screen 			\n\r"
-			   "6 -->  Flat Green screen 			\n\r"
-			   "7 -->  Flat Purple screen 			\n\r"
+			   "5 -->  Flat Green screen 			\n\r"
+			   "6 -->  Flat Blue screen 			\n\r"
+			   "7 -->  Flat Yellow screen 			\n\r"
 			   "\r\n"
 			   "Press 'x' to return to main menu\n\r"
 			   "Press any key to show this menu again\n\r");
