@@ -679,6 +679,7 @@ END:
 int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
 {
 	int Status = XST_FAILURE;
+#ifndef PLM_DEBUG_MODE
 	u32 *MemPtr = (u32 *)(UINTPTR)Addr;
 	u32 NoWords = Len / XPLMI_WORD_LEN;
 	u32 Index;
@@ -698,6 +699,11 @@ int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
 	}
 
 END:
+#else
+	(void)Addr;
+	(void)Len;
+	Status = XST_SUCCESS;
+#endif
 	return Status;
 }
 
