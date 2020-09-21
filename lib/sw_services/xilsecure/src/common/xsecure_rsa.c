@@ -43,6 +43,7 @@
 *       har  06/17/20 Removed references to unused algorithms
 *		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
 *		rpo	 09/10/20 Input validations are added
+*		rpo  09/21/20 New error code added for crypto state mismatch
 *
 * </pre>
 *
@@ -248,8 +249,13 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (Result == NULL) || (Input == NULL) ||
-		(Size == 0x00U) || (InstancePtr->RsaState != XSECURE_RSA_INITIALIZED)) {
+		(Size == 0x00U)) {
 		Status = XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->RsaState != XSECURE_RSA_INITIALIZED) {
+		Status = XSECURE_RSA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -295,11 +301,15 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (Result == NULL) || (Input == NULL) ||
-		(Size == 0x00U) || (InstancePtr->RsaState != XSECURE_RSA_INITIALIZED)) {
+		(Size == 0x00U)) {
 		Status = XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
 
+	if (InstancePtr->RsaState != XSECURE_RSA_INITIALIZED) {
+		Status = XSECURE_RSA_STATE_MISMATCH_ERROR;
+		goto END;
+	}
 	/*
 	 * Input data should always be smaller than modulus
 	 * One byte is being checked at a time to make sure the input data

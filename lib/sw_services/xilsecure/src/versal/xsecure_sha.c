@@ -30,6 +30,7 @@
 *       kpt  08/15/20 Added validation for input arguments
 *            08/27/20 Added 64 bit support for SHA3
 *		rpo	 09/10/20 Asserts are not compiled by default for secure libraries
+*		rpo  09/21/20 New error code added for crypto state mismatch
 *
 * </pre>
 * @note
@@ -147,9 +148,13 @@ u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED)) {
-		Status = XSECURE_SHA3_INVALID_PARAM;
+	if (InstancePtr == NULL) {
+		Status = (u32)XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
+		Status = (u32)XSECURE_SHA3_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -211,9 +216,13 @@ int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(InstancePtr->Sha3State != XSECURE_SHA3_INITIALIZED)) {
+	if (InstancePtr == NULL) {
 		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->Sha3State != XSECURE_SHA3_INITIALIZED) {
+		Status = XSECURE_SHA3_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -262,9 +271,18 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ||
-		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) ||
 		((InDataAddr == 0x00U) && (Size > 0U))) {
 		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InDataAddr == 0x00U) && (Size > 0U)) {
+		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
+		Status = XSECURE_SHA3_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -324,9 +342,13 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 	u32 Size = 0U;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (Sha3Hash == NULL) ||
-		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED)) {
-		Status = XSECURE_SHA3_INVALID_PARAM;
+	if ((InstancePtr == NULL) || (Sha3Hash == NULL)) {
+		Status = (u32)XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
+		Status = (u32)XSECURE_SHA3_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -464,10 +486,13 @@ int XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 	u32 *HashPtr = (u32 *)Sha3Hash->Hash;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(Sha3Hash == NULL) ||
-		(InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED)) {
+	if ((InstancePtr == NULL) || (Sha3Hash == NULL)) {
 		Status = XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
+		Status = XSECURE_SHA3_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 

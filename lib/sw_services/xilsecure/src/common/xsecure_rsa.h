@@ -57,6 +57,7 @@
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
 *       kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
 *		rpo	 09/10/20 Added error code
+*		rpo  09/21/20 New error code added for crypto state mismatch
 *
 * </pre>
 *
@@ -80,7 +81,10 @@ extern "C" {
 #define XSECURE_RSA_BYTE_PAD1		(0X00U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
+/* Error Codes */
 #define XSECURE_RSA_INVALID_PARAM	(0x82U)
+#define XSECURE_RSA_STATE_MISMATCH_ERROR (0x84U)
+
 /***************************** Type Definitions ******************************/
 
 /***************************** Function Prototypes ***************************/
