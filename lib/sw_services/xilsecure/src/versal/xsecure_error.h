@@ -20,6 +20,7 @@
  * 4.3   ana  06/05/2020 Added XSECURE_SHA3_FINISH_ERROR error code
  *       har  08/24/2020 Added ECDSA error codes
  *		 rpo  09/10/2020 Added Invalid argument error codes
+ *		 rpo  09/21/2020 New error code added for crypto state mismatch
  * </pre>
  *
  * @note
@@ -54,6 +55,8 @@ typedef enum {
 	XSECURE_SHA3_INVALID_PARAM,		/**< 0x08 - Invalid Argument */
 
 	XSECURE_SSS_INVALID_PARAM,		/**< 0x09 - Invalid Argument */
+
+	XSECURE_SHA3_STATE_MISMATCH_ERROR,		/**< 0x0A - State mismatch */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40U,
 					/**< 0x40 - user provided GCM tag does
@@ -98,6 +101,7 @@ typedef enum {
 							expected data  */
 	XSECURE_AES_INVALID_PARAM,					 /**< 0x51 - Invalid Argument */
 	XSECURE_AESKAT_INVALID_PARAM,				 /**< 0x52 - Invalid Argument */
+	XSECURE_AES_STATE_MISMATCH_ERROR,			/**< 0x53 - State mismatch */
 
 	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80U, /**< 0x80 - RSA KAT fails  */
 
@@ -106,6 +110,7 @@ typedef enum {
 						       expected data  */
 	XSECURE_RSA_INVALID_PARAM_RESERVED,			 /**< 0x82 - Invalid Argument */
 	XSECURE_RSAKAT_INVALID_PARAM,				 /**< 0x83 - Invalid Argument */
+	XSECURE_RSA_STATE_MISMATCH_RESERVED,			/**< 0x84 - State mismatch */
 
 	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0U, /**< 0xC0 -ECC key is not valid */
 

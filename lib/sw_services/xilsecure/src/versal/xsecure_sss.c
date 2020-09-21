@@ -19,6 +19,7 @@
 * 4.2   har     03/26/20 Updated file version to sync with library version
 * 4.3	rpo	 	09/10/20 Asserts are not compiled by default for
 *						 secure libraries
+*		rpo  	09/21/20 New error code added for crypto state mismatch
 *
 * </pre>
 *
@@ -102,11 +103,19 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		((InputSrc != XSECURE_SSS_DMA0) &&
-		(InputSrc != XSECURE_SSS_DMA1)) ||
-		((OutputSrc != XSECURE_SSS_DMA0) &&
-		(OutputSrc != XSECURE_SSS_DMA1))) {
+	if (InstancePtr == NULL) {
+		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InputSrc != XSECURE_SSS_DMA0) &&
+		(InputSrc != XSECURE_SSS_DMA1)) {
+		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((OutputSrc != XSECURE_SSS_DMA0) &&
+		(OutputSrc != XSECURE_SSS_DMA1)) {
 		Status = (u32)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
