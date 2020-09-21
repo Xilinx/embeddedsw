@@ -33,6 +33,7 @@
 *       har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
 *		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
 *		rpo	 09/10/20 Input validations are added
+*		rpo  09/21/20 New error code added for crypto state mismatch
 *
 * </pre>
 *
@@ -125,14 +126,23 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Events;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (Input == NULL) || (Result == NULL) ||
-		((RsaOp != XSECURE_RSA_SIGN_ENC) && (RsaOp != XSECURE_RSA_SIGN_DEC)) ||
-		((KeySize != XSECURE_RSA_4096_KEY_SIZE) &&
-		(KeySize !=XSECURE_RSA_3072_KEY_SIZE) &&
-		(KeySize != XSECURE_RSA_2048_KEY_SIZE))) {
+	if ((InstancePtr == NULL) || (Input == NULL) || (Result == NULL)) {
 		ErrorCode = (u32)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
+
+	if ((RsaOp != XSECURE_RSA_SIGN_ENC) && (RsaOp != XSECURE_RSA_SIGN_DEC)) {
+		ErrorCode = (u32)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeySize != XSECURE_RSA_4096_KEY_SIZE) &&
+		(KeySize !=XSECURE_RSA_3072_KEY_SIZE) &&
+		(KeySize != XSECURE_RSA_2048_KEY_SIZE)) {
+		ErrorCode = (u32)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
+
 
 	InstancePtr->EncDec = RsaOp;
 	InstancePtr->SizeInWords = KeySize/XSECURE_WORD_SIZE;

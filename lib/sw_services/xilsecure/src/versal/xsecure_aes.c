@@ -47,6 +47,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *		rpo	 09/10/2020 Asserts are not compiled by default for
 *						secure libraries
+*		rpo  09/21/20 New error code added for crypto state mismatch
 *
 * </pre>
 *
@@ -408,9 +409,13 @@ u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ||
-		((DpaCmCfg != TRUE) && (DpaCmCfg != FALSE)) ||
-		(InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+		((DpaCmCfg != TRUE) && (DpaCmCfg != FALSE))) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -478,15 +483,31 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY) ||
-		(KeySrc > XSECURE_MAX_KEY_SOURCES) ||
-		(AesKeyLookupTbl[KeySrc].UsrWrAllowed != TRUE) ||
-		((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
-		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) ||
-		(KeyAddr == 0x00U) ||
-		(InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if (InstancePtr == NULL) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeySrc < XSECURE_AES_BBRAM_KEY) ||
+		(KeySrc > XSECURE_MAX_KEY_SOURCES)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((AesKeyLookupTbl[KeySrc].UsrWrAllowed != TRUE) ||
+		(KeyAddr == 0x00U)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
+		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -561,14 +582,25 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 	XSecure_AesKeySrc KeySrc;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		((KeyType != XSECURE_BLACK_KEY) &&
-		(KeyType != XSECURE_OBFUSCATED_KEY)) ||
-		(DecKeySrc > XSECURE_MAX_KEY_SOURCES) ||
-		(DecKeySrc < XSECURE_AES_BBRAM_KEY) ||
-		(IvAddr == 0x00U) ||
-		((KeySize != XSECURE_AES_KEY_SIZE_128) &&
-		(KeySize != XSECURE_AES_KEY_SIZE_256))) {
+	if ((InstancePtr == NULL) || (IvAddr == 0x00U)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeyType != XSECURE_BLACK_KEY) &&
+		(KeyType != XSECURE_OBFUSCATED_KEY)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((DecKeySrc > XSECURE_MAX_KEY_SOURCES) ||
+		(DecKeySrc < XSECURE_AES_BBRAM_KEY)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
+		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -698,14 +730,25 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if (((InstancePtr == NULL) ||
-		(KeySrc > XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) ||
-		(IvAddr == 0x00U) ||
-		((KeySize != XSECURE_AES_KEY_SIZE_128) &&
-		(KeySize != XSECURE_AES_KEY_SIZE_256)) ||
-		(InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if ((InstancePtr == NULL) || (IvAddr == 0x00U)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeySrc > XSECURE_MAX_KEY_SOURCES) ||
+		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
+		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -776,13 +819,23 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(InDataAddr == 0x00U) ||
-		(OutDataAddr == 0x00U) ||
-		((Size % XSECURE_WORD_SIZE) != 0x00U) ||
-		((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
-		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if ((InstancePtr == NULL) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -881,10 +934,13 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(GcmTagAddr == 0x00U) ||
-		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if ((InstancePtr == NULL) || (GcmTagAddr == 0x00U)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -994,13 +1050,23 @@ u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(InDataAddr == 0x00U) ||
-		(OutDataAddr == 0x00U) ||
-		((Size % XSECURE_WORD_SIZE) != 0x00U) ||
-		(GcmTagAddr == 0x00U) ||
-		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if ((InstancePtr == NULL) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (GcmTagAddr == 0x00U) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -1045,14 +1111,25 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if (((InstancePtr == NULL) ||
-		(KeySrc > XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) ||
-		(IvAddr == 0x00U) ||
-		((KeySize != XSECURE_AES_KEY_SIZE_128) &&
-		(KeySize != XSECURE_AES_KEY_SIZE_256)) ||
-		(InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if ((InstancePtr == NULL) || (IvAddr == 0x00U)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeySrc > XSECURE_MAX_KEY_SOURCES) ||
+		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeySize != XSECURE_AES_KEY_SIZE_128) &&
+		(KeySize != XSECURE_AES_KEY_SIZE_256)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -1113,13 +1190,23 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(InDataAddr == 0x00U) ||
-		(OutDataAddr == 0x00U) ||
-		((Size % XSECURE_WORD_SIZE) != 0x00U) ||
-		((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
-		(InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED)) {
+	if ((InstancePtr == NULL) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -1214,10 +1301,13 @@ u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(GcmTagAddr == 0x00U) ||
-		(InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED)) {
+	if ((InstancePtr == NULL) || (GcmTagAddr == 0x00U)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -1302,13 +1392,23 @@ u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	volatile u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(InDataAddr == 0x00U) ||
-		(OutDataAddr == 0x00U) ||
-		((Size % XSECURE_WORD_SIZE) != 0x00U) ||
-		(GcmTagAddr == 0x00U) ||
-		(InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED)) {
+	if (InstancePtr == NULL) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((GcmTagAddr == 0x00U) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -1377,11 +1477,19 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u8 Config)
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		((Config != XSECURE_AES_DISABLE_KUP_IV_UPDATE) &&
-		 (Config != XSECURE_AES_ENABLE_KUP_IV_UPDATE)) ||
-		 (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if (InstancePtr == NULL) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((Config != XSECURE_AES_DISABLE_KUP_IV_UPDATE) &&
+		 (Config != XSECURE_AES_ENABLE_KUP_IV_UPDATE)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -1417,11 +1525,15 @@ END:
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 {
 	u32 Status = (u32)XST_FAILURE;
+
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(Size == NULL) ||
-		(InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if ((InstancePtr == NULL) || (Size == NULL)) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -1552,13 +1664,22 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	u32 Mask;
 
 	/* Validate the input arguments */
-	if (((InstancePtr == NULL) ||
-		(KeySrc > XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) ||
-		(InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if (InstancePtr == NULL) {
 		Status = (u32)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
+
+	if ((KeySrc > XSECURE_MAX_KEY_SOURCES) ||
+		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+		Status = (u32)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = (u32)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END;
+	}
+
 
 	if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
