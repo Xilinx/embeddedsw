@@ -691,11 +691,13 @@ END:
 		}
 	}
 
+#ifndef PLM_DEBUG_MODE
 	SStatus = XPlmi_MemSet(XPLMI_LOADER_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
 			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
 	}
+#endif
 
 	return Status;
 }
@@ -1248,11 +1250,13 @@ END:
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 
+#ifndef PLM_DEBUG_MODE
 	SStatus = XPlmi_MemSet(XPLMI_LOADER_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
 			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
 	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = SStatus;
 	}
+#endif
 
 	return Status;
 }
