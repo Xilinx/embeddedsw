@@ -658,7 +658,7 @@ void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
 /* Adaptive-Sync Related Functions */
-void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr);
+void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr, u32 Enable);
 void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
 void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
 int XDpRxSs_GetVblank(XDpRxSs *InstancePtr);
