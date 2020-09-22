@@ -22,7 +22,6 @@
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
 * 1.02  kc   06/18/2020 Made static functions inline
-*       bm   08/19/2020 Added ImageInfo Table and related APIs
 *
 * </pre>
 *
@@ -57,30 +56,10 @@ typedef struct XPlmi_LogInfo {
 	u8 LogLevel;
 }XPlmi_LogInfo;
 
-typedef struct XPlmi_ImageInfo {
-	u32 ImgID; /**< Image ID */
-	u32 UID; /**< Unique ID */
-	u32 PUID; /**< Parent UID */
-	u32 FuncID; /**< Function ID */
-} XPlmi_ImageInfo;
-
-typedef struct XPlmi_ImageInfoTbl {
-	XPlmi_ImageInfo *TblPtr;
-	u32 Count;
-	u8 IsBufferFull;
-} XPlmi_ImageInfoTbl;
-
-enum {
-	XPLMI_ERR_IMAGE_INFO_TBL_OVERFLOW = 0x2,
-};
 
 /************************** Function Prototypes ******************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
 void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
-void XPlmi_InitImageInfoTbl(void);
-int XPlmi_StoreImageInfo(XPlmi_ImageInfo *ImageInfo);
-XPlmi_ImageInfo* XPlmi_GetImageInfoEntry(u32 ImgID, u32 *ImgIndex);
-int XPlmi_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /** Event Logging sub command IDs */
@@ -97,12 +76,6 @@ int XPlmi_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 
 /* Trace event IDs */
 #define XPLMI_TRACE_LOG_LOAD_IMAGE		(0x1U)
-
-/* Invalid Img ID */
-#define XPLMI_INVALID_IMG_ID			(0x0U)
-
-/* Macro for Image Index Not found */
-#define XPLMI_IMG_INDEX_NOT_FOUND	(0xFFFFFFFFU)
 
 /*
  * Trace log functions
