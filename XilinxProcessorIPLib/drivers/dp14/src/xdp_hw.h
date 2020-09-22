@@ -2263,12 +2263,10 @@
 				0X40000000	/**< Timeout for MST mode. */
 
 /* 0x2F4: XDP_RX_ADAPTIVE_VBLANK_VTOTAL */
+#define XDP_RX_ADAPTIVE_VTOTAL_SHIFT		16
 #define XDP_RX_ADAPTIVE_VBLANK_MASK \
 				0x0000FFFF	/**< VBlank mask in Adaptive-
 							sync mode. */
-#define XDP_RX_ADAPTIVE_VTOTAL_MASK \
-				0xFFFF0000	/**< VTotal mask in Adaptive-
-							Sync mode. */
 /* 0x300: AUDIO CONTROL */
 #define XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
 
