@@ -65,6 +65,8 @@
 *       bsv  08/21/2020 Added XSECURE_TEMPORAL_CHECK macro to add
 *                       redundancy in security critical functions
 *       bm   09/07/2020 Clear PMC RAM chunk after loading PDIs and reloading images
+*       bm   09/21/2020 Added ImageInfo related code and added compatibility
+*                       check required for DFx
 *
 * </pre>
 *
@@ -98,6 +100,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
+						sizeof(XLoader_ImageInfo))
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
@@ -107,7 +111,9 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl);
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
-static int XLoader_VerifyImgInfo(XPlmi_ImageInfo *ImageInfo);
+static int XLoader_VerifyImgInfo(XLoader_ImageInfo *ImageInfo);
+static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
+static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 
 /************************** Variable Definitions *****************************/
 XilPdi SubsystemPdiIns = {0U};
@@ -224,6 +230,13 @@ static const XLoader_DeviceOps DeviceOps[] =
 #else
 	{NULL, 0U, NULL, NULL, NULL},
 #endif
+};
+
+/* Image Info Table */
+static XLoader_ImageInfoTbl ImageInfoTbl = {
+	.TblPtr = (XLoader_ImageInfo *)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR,
+	.Count = 0U,
+	.IsBufferFull = FALSE,
 };
 
 /*****************************************************************************/
@@ -953,22 +966,335 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 	XPlmi_Out32(XLOADER_FPD_APU_CONFIG_0, RegVal);
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the given ImgID is a child of Parent ImgID
+ *
+ * @param	ChildImgID is the current ImgID whose relation is to be checked
+ * @param	ParentImgID is the ImgID with which the hierarchical ImgIDs are
+ * compared in order to get the correct parent-child relationship
+ * @param	IsChild is the pointer to the Relation that has to be
+ *		returned, TRUE if it is a Child, else FALSE
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild)
+{
+	int Status = XST_FAILURE;
+	u32 TempImgID;
+	u32 DummyArg = 0U;
+	u32 TempParentImgID;
+
+	TempImgID = ChildImgID;
+	while (1U) {
+		Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT,
+				TempImgID, DummyArg, DummyArg,
+				&TempParentImgID);
+		if (Status != XST_SUCCESS) {
+			Status = XLOADER_ERR_PARENT_QUERY_RELATION_CHECK;
+			goto END;
+		}
+
+		if (TempParentImgID == 0U) {
+			*IsChild = FALSE;
+			break;
+		}
+
+		if (TempParentImgID == ParentImgID) {
+			*IsChild = TRUE;
+			break;
+		}
+		TempImgID = TempParentImgID;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function invalidates the child image info entries
+ * corresponding to the parent image id in the ImageInfo Table
+ *
+ * @param	ParentImgID whose corresponding child image info entries are
+ * invalidated
+ * @param	Pointer to ChangeCount that has to be modified
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
+{
+	int Status = XST_FAILURE;
+	u32 TempCount = 0;
+	u32 IsChild;
+	u32 Index;
+
+	for (Index = 0U; Index < XLOADER_IMAGE_INFO_TBL_MAX_NUM; Index++) {
+		if (TempCount >= ImageInfoTbl.Count) {
+			break;
+		}
+		if (NODESUBCLASS(ImageInfoTbl.TblPtr[Index].ImgID) !=
+			(u32)XPM_NODESUBCL_DEV_PL) {
+			continue;
+		}
+		Status = XLoader_GetChildRelation(
+				ImageInfoTbl.TblPtr[Index].ImgID,
+				ParentImgID, &IsChild);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (IsChild == TRUE) {
+			ImageInfoTbl.TblPtr[Index].ImgID = XLOADER_INVALID_IMG_ID;
+			ImageInfoTbl.Count--;
+			(*ChangeCount)++;
+			if (ImageInfoTbl.IsBufferFull == TRUE) {
+				ImageInfoTbl.IsBufferFull = FALSE;
+			}
+		}
+		else if (ImageInfoTbl.TblPtr[Index].ImgID != XLOADER_INVALID_IMG_ID) {
+			TempCount++;
+		}
+		else {
+			/* For MISRA-C */
+		}
+	}
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the ImageInfoEntry by checking if an entry
+ * exists for that particular ImgId in the ImgInfoTbl
+ *
+ * @param	ImgId of the the entry that has to be stored
+ *
+ * @return	Address of ImageInfo Entry in the table
+ *
+ *****************************************************************************/
+XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID)
+{
+	XLoader_ImageInfo *ImageEntry = NULL;
+	u32 Index;
+	u32 EmptyImgIndex = (u32)XLOADER_IMG_INDEX_NOT_FOUND;
+	u32 TempCount = 0U;
+
+	/* Check for a existing valid image entry matching given ImgID */
+	for (Index = 0U; Index < XLOADER_IMAGE_INFO_TBL_MAX_NUM; Index++) {
+		if (TempCount < ImageInfoTbl.Count) {
+			TempCount++;
+			if ((ImageInfoTbl.TblPtr[Index].ImgID == ImgID) &&
+				(ImageInfoTbl.TblPtr[Index].ImgID !=
+				XLOADER_INVALID_IMG_ID)) {
+				ImageEntry = &ImageInfoTbl.TblPtr[Index];
+				goto END;
+			}
+			else if ((ImageInfoTbl.TblPtr[Index].ImgID ==
+				XLOADER_INVALID_IMG_ID) && (EmptyImgIndex ==
+				(u32)XLOADER_IMG_INDEX_NOT_FOUND)) {
+				EmptyImgIndex = Index;
+			}
+			else {
+				/* For MISRA-C */
+			}
+		}
+	}
+
+	/* If no valid image entry is found above, return empty entry */
+	if ((Index == XLOADER_IMAGE_INFO_TBL_MAX_NUM) && (ImageInfoTbl.Count <
+		XLOADER_IMAGE_INFO_TBL_MAX_NUM)) {
+		if (EmptyImgIndex == (u32)XLOADER_IMG_INDEX_NOT_FOUND) {
+			EmptyImgIndex = ImageInfoTbl.Count;
+		}
+		ImageEntry = &ImageInfoTbl.TblPtr[EmptyImgIndex];
+		ImageEntry->ImgID = XLOADER_INVALID_IMG_ID;
+	}
+
+END:
+	return ImageEntry;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function stores the ImageInfo to Image Info Table
+ *
+ * @param	Pointer to ImageInfo that has to be written.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_StoreImageInfo(XLoader_ImageInfo *ImageInfo)
+{
+	int Status = XST_FAILURE;
+	XLoader_ImageInfo *ImageEntry;
+	u32 ChangeCount;
+	u32 RtCfgLen;
+
+	/* Read ChangeCount */
+	ChangeCount = ((XPlmi_In32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR) &
+			XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK)
+			>> XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT);
+
+	if (NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL) {
+		Status = XLoader_InvalidateChildImgInfo(ImageInfo->ImgID,
+				&ChangeCount);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INVALIDATE_CHILD_IMG, Status);
+			goto END;
+		}
+	}
+
+	ImageEntry = XLoader_GetImageInfoEntry(ImageInfo->ImgID);
+	if (ImageEntry == NULL) {
+		ImageInfoTbl.IsBufferFull = TRUE;
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW, 0);
+		goto END;
+	}
+
+	if (ImageEntry->ImgID == XLOADER_INVALID_IMG_ID) {
+		ImageInfoTbl.Count++;
+	}
+	ChangeCount++;
+	(void)memcpy(ImageEntry, ImageInfo, sizeof(XLoader_ImageInfo));
+
+	/* Update ChangeCount and number of entries in the RunTime config register */
+	RtCfgLen = (ImageInfoTbl.Count & XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK);
+	RtCfgLen |= ((ChangeCount << XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT) &
+				XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK);
+	XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR, RtCfgLen);
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function loads the ImageInfo table to the given memory address
+ *
+ * @param	64 bit Destination Address
+ * @param	Max Size of Buffer present at Destination Address
+ * @param	NumEntries that are loaded from the Image Info Table
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
+{
+	int Status = XST_FAILURE;
+	u32 Len = ImageInfoTbl.Count;
+	u32 MaxLen = MaxSize / sizeof(XLoader_ImageInfo);
+	u32 Count = 0U;
+	u32 Index = 0U;
+	u64 SrcAddr = (u64)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
+	XLoader_ImageInfo *ImageInfo;
+
+	if (Len > MaxLen) {
+		Len = MaxLen;
+	}
+
+	while (Count < Len) {
+		if (Index >= XLOADER_IMAGE_INFO_TBL_MAX_NUM) {
+			break;
+		}
+		ImageInfo = (XLoader_ImageInfo *) (u32)SrcAddr;
+		if (ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) {
+			Status = XPlmi_DmaXfr(SrcAddr, DestAddr,
+					sizeof(XLoader_ImageInfo) / XPLMI_WORD_LEN,
+					XPLMI_PMCDMA_0);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Count++;
+			DestAddr += sizeof(XLoader_ImageInfo);
+		}
+		Index++;
+		SrcAddr += sizeof(XLoader_ImageInfo);
+	}
+
+	if (ImageInfoTbl.IsBufferFull == TRUE) {
+		Status = XLOADER_ERR_IMAGE_INFO_TBL_FULL;
+		XPlmi_Printf(DEBUG_INFO, "Image Info Table Overflowed\r\n");
+	}
+	*NumEntries = Len;
+
+END:
+	return Status;
+}
+
 /****************************************************************************/
 /**
 * @brief	This function validates the UIDs in Image Header
 *
 * @param	ImageInfo is pointer to the image info in image
 *
-* @return	XST_SUCCESS
+* @return	XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-static int XLoader_VerifyImgInfo(XPlmi_ImageInfo *ImageInfo)
+static int XLoader_VerifyImgInfo(XLoader_ImageInfo *ImageInfo)
 {
-	/* For MISRA C */
-	(void)ImageInfo;
+	int Status = XST_FAILURE;
+	XPm_DeviceStatus DeviceStatus;
+	XLoader_ImageInfo *ParentImageInfo;
+	u32 DummyArg = 0U;
+	u32 ParentImgID;
 
-	/* PlaceHolder for ImageInfo Validation */
-	return XST_SUCCESS;
+	if ((ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) &&
+		(ImageInfo->UID != XLOADER_INVALID_UID) &&
+		(NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL)) {
+		Status = XPmDevice_GetStatus(PM_SUBSYS_PMC, ImageInfo->ImgID,
+				&DeviceStatus);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_DEV_NOT_DEFINED,
+					Status);
+			goto END;
+		}
+
+		if (ImageInfo->PUID != XLOADER_INVALID_UID) {
+			Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT,
+					ImageInfo->ImgID, DummyArg, DummyArg,
+					&ParentImgID);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_PARENT_QUERY_VERIFY, Status);
+				goto END;
+			}
+
+			if (ParentImgID == XLOADER_INVALID_IMG_ID) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INVALID_PARENT_IMG_ID, 0);
+				goto END;
+			}
+
+			ParentImageInfo = XLoader_GetImageInfoEntry(ParentImgID);
+			if (ParentImageInfo == NULL) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY, 0);
+				goto END;
+			}
+
+			if (ParentImageInfo->UID != ImageInfo->PUID) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE, 0);
+				XPlmi_Printf(DEBUG_GENERAL, "Image is not "
+					"compatible with Parent Image\r\n");
+				goto END;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -985,7 +1311,7 @@ static int XLoader_VerifyImgInfo(XPlmi_ImageInfo *ImageInfo)
 int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
-	XPlmi_ImageInfo ImageInfo;
+	XLoader_ImageInfo ImageInfo;
 
 #if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
 	/* Stop the SEM scan before PL load */
@@ -1033,11 +1359,10 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 
 	if ((PdiPtr->DelayLoad == (u8)FALSE) &&
 		(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID !=
-		XPLMI_INVALID_IMG_ID)) {
-		Status = XPlmi_StoreImageInfo(&ImageInfo);
-		if (Status == XPLMI_ERR_IMAGE_INFO_TBL_OVERFLOW) {
-			Status = XST_SUCCESS;
-			XPlmi_Printf(DEBUG_INFO, "ImageInfo Table Overflowed\n\r");
+		XLOADER_INVALID_IMG_ID)) {
+		Status = XLoader_StoreImageInfo(&ImageInfo);
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
 	}
 	/* Log the image load to the Trace Log buffer */
