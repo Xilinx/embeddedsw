@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2020 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -350,6 +350,10 @@ static err_t low_level_init(struct netif *netif)
 
 	XAxiEthernet_Initialize(&xaxiemacif->axi_ethernet, mac_config,
 				mac_config->BaseAddress);
+
+#ifdef XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
+	enable_sgmii_clock(&xaxiemacif->axi_ethernet);
+#endif
 
 	/* figure out if the system has DMA */
 	if (XAxiEthernet_IsDma(&xaxiemacif->axi_ethernet)) {
