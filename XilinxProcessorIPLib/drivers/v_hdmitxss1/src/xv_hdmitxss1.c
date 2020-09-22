@@ -2526,7 +2526,13 @@ void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr)
 	  xil_printf("HDMI Video Mask is Enabled\r\n\r\n");
       }
 
-      XV_HdmiTx1_DebugInfo(InstancePtr->HdmiTx1Ptr);
+      /* Print stream information */
+      XVidC_ReportStreamInfo(&InstancePtr->HdmiTx1Ptr->Stream.Video);
+
+      /* Print timing information */
+      XVidC_ReportTiming(&InstancePtr->HdmiTx1Ptr->Stream.Video.Timing,
+                InstancePtr->HdmiTx1Ptr->Stream.Video.IsInterlaced);
+
       xil_printf("VIC: %0d\r\n", InstancePtr->HdmiTx1Ptr->Stream.Vic);
       xil_printf("Scrambled: %0d\r\n",
         (XV_HdmiTx1_IsStreamScrambled(InstancePtr->HdmiTx1Ptr)));
