@@ -7,7 +7,7 @@
 /**
 *
 * @file xcpu_cortexr5.h
-* @addtogroup cpu_cortexr5_v1_7
+* @addtogroup cpu_cortexr5_v1_8
 * @{
 * @details
 *
