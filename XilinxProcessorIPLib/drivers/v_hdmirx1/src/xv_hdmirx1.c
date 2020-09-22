@@ -2138,7 +2138,7 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 		if ((HTotal % 4) || (HActive % 4) || (HSyncWidth % 4) ) {
 			xil_printf(ANSI_COLOR_YELLOW"Format:%dx%d not " \
 					"supported\r\n",
-					VActive, HActive);
+					HActive, VActive);
 		}
 
 		/* Read Status register */
