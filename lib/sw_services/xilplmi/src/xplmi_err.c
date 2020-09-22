@@ -35,6 +35,7 @@
 *                       command.
 *       bsv  09/13/2020 Clear security critical data in case of exceptions,
 *                       also place AES, ECDSA_RSA and SHA3 in reset
+*       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
 *
 * </pre>
 *
@@ -52,15 +53,15 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLM_AES_KEY_CLR_REG	(0xF11E0014U)
-#define XPLM_AES_ALL_KEYS_CLR_VAL	(0x3FFFF3U)
-#define XPLM_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
-#define XPLM_SHA3_RESET_REG		(0xF1210004U)
-#define XPLM_AES_RESET_REG		(0xF11E0010U)
-#define XPLM_ECDSA_RSA_RESET_REG	(0xF1200040U)
-#define XPLM_SHA3_RESET_VAL		(0x1U)
-#define XPLM_AES_RESET_VAL		(0x1U)
-#define XPLM_ECDSA_RSA_RESET_VAL	(0x1U)
+#define XPLMI_AES_KEY_CLR_REG	(0xF11E0014U)
+#define XPLMI_AES_ALL_KEYS_CLR_VAL	(0x3FFFF3U)
+#define XPLMI_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
+#define XPLMI_SHA3_RESET_REG		(0xF1210004U)
+#define XPLMI_AES_RESET_REG		(0xF11E0010U)
+#define XPLMI_ECDSA_RSA_RESET_REG	(0xF1200040U)
+#define XPLMI_SHA3_RESET_VAL		(0x1U)
+#define XPLMI_AES_RESET_VAL		(0x1U)
+#define XPLMI_ECDSA_RSA_RESET_VAL	(0x1U)
 
 /************************** Function Prototypes ******************************/
 s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
@@ -68,6 +69,7 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask);
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask);
 static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask);
+static void XPlmi_SoftResetHandler(void);
 
 /************************** Variable Definitions *****************************/
 u32 EmSubsystemId = 0U;
@@ -85,16 +87,16 @@ u32 EmSubsystemId = 0U;
 void XPlmi_SecureClear(void)
 {
 	/* Clear AES keys */
-	XPlmi_Out32(XPLM_AES_KEY_CLR_REG, XPLM_AES_ALL_KEYS_CLR_VAL);
-	(void)XPlmi_UtilPollForMask(XPLM_AES_KEY_ZEROED_STATUS_REG,
+	XPlmi_Out32(XPLMI_AES_KEY_CLR_REG, XPLMI_AES_ALL_KEYS_CLR_VAL);
+	(void)XPlmi_UtilPollForMask(XPLMI_AES_KEY_ZEROED_STATUS_REG,
 			MASK_ALL, XPLMI_TIME_OUT_DEFAULT);
 
 	/* Place SHA3 in reset */
-	XPlmi_Out32(XPLM_SHA3_RESET_REG, XPLM_SHA3_RESET_VAL);
+	XPlmi_Out32(XPLMI_SHA3_RESET_REG, XPLMI_SHA3_RESET_VAL);
 	/* Place AES in reset */
-	XPlmi_Out32(XPLM_AES_RESET_REG, XPLM_AES_RESET_VAL);
+	XPlmi_Out32(XPLMI_AES_RESET_REG, XPLMI_AES_RESET_VAL);
 	/* Place ECDSA RSA in reset */
-	XPlmi_Out32(XPLM_ECDSA_RSA_RESET_REG, XPLM_ECDSA_RSA_RESET_VAL);
+	XPlmi_Out32(XPLMI_ECDSA_RSA_RESET_REG, XPLMI_ECDSA_RSA_RESET_VAL);
 }
 
 /*****************************************************************************/
@@ -136,15 +138,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, ++RegVal);
 
-		/* Make sure every thing completes */
-		DATA_SYNC;
-		INST_SYNC;
-
-		RegVal = XPlmi_In32(CRP_RST_PS);
-		XPlmi_Out32(CRP_RST_PS, RegVal |
-			CRP_RST_PS_PMC_SRST_MASK);
-
-		while(1U);
+		XPlmi_SoftResetHandler();
 	}
 }
 
@@ -411,9 +405,7 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 		while(1U);
 		break;
 	case XPLMI_EM_ACTION_SRST:
-		RegVal = XPlmi_In32(CRP_RST_PS);
-		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_SRST_MASK);
-		while(1U);
+		XPlmi_SoftResetHandler();
 		break;
 	case XPLMI_EM_ACTION_CUSTOM:
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
@@ -559,7 +551,6 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 			if ((Err1Status & (1U << Index)) &&
 				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-
 				/* PSM errors are handled in PsmErrHandler */
 				if (Index != XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
 				      XPlmi_EmDisable(
@@ -580,7 +571,6 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 				(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)))
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-
 				XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR2,
 						      Index);
 				ErrorTable[Index].Handler(
@@ -1161,4 +1151,33 @@ void XPlmi_DumpRegisters()
 		XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS));
 
 	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets clock source to IRO for ES1 silicon and resets
+ * the device.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_SoftResetHandler(void)
+{
+	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
+			PMC_TAP_VERSION_PMC_VERSION_MASK;
+
+	if (SiliconVal == XPLMI_SILICON_ES1_VAL) {
+		XPlmi_UtilRMW(CRP_SYSMON_REF_CTRL, CRP_SYSMON_REF_CTRL_SRCSEL_MASK,
+				0U);
+	}
+
+	/* Make sure every thing completes */
+	DATA_SYNC;
+	INST_SYNC;
+	XPlmi_Out32(CRP_RST_PS, CRP_RST_PS_PMC_SRST_MASK);
+	while (1U) {
+		;
+	}
 }
