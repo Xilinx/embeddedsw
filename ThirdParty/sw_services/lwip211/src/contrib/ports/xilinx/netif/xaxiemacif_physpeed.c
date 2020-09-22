@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2020 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -746,4 +746,34 @@ static void __attribute__ ((noinline)) AxiEthernetUtilPhyDelay(unsigned int Seco
 #else
     sleep(Seconds);
 #endif
+}
+
+void enable_sgmii_clock(XAxiEthernet *xaxiemacp)
+{
+	u16 phy_identifier;
+	u16 phy_model;
+	u8 phytype;
+
+	XAxiEthernet_PhySetMdioDivisor(xaxiemacp, XAE_MDIO_DIV_DFT);
+	u32 phy_addr = detect_phy(xaxiemacp);
+	/* Get the PHY Identifier and Model number */
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG, &phy_identifier);
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_2_REG, &phy_model);
+
+	if (phy_identifier == TI_PHY_IDENTIFIER) {
+		phy_model = phy_model & TI_PHY_DP83867_MODEL;
+		phytype = XAxiEthernet_GetPhysicalInterface(xaxiemacp);
+
+		if (phy_model == TI_PHY_DP83867_MODEL && phytype == XAE_PHY_TYPE_SGMII) {
+			/* Enable SGMII Clock by switching to 6-wire mode */
+			XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR,
+					      TI_PHY_REGCR_DEVAD_EN);
+			XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR,
+					      TI_PHY_SGMIITYPE);
+			XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR,
+					      TI_PHY_REGCR_DEVAD_EN | TI_PHY_REGCR_DEVAD_DATAEN);
+			XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR,
+					      TI_PHY_SGMIICLK_EN);
+		}
+	}
 }
