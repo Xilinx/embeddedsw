@@ -146,11 +146,11 @@ void XV_HdmiRx1_FrlModeEnable(XV_HdmiRx1 *InstancePtr, u8 LtpThreshold,
 			      XV_HdmiRx1_FrlLtp DefaultLtp, u8 FfeSuppFlag)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-/*	Xil_AssertVoid(DefaultLtp.Byte[0] >= 5 && DefaultLtp.Byte[0] <= 8);*/
-/*	Xil_AssertVoid(DefaultLtp.Byte[1] >= 5 && DefaultLtp.Byte[1] <= 8);*/
-/*	Xil_AssertVoid(DefaultLtp.Byte[2] >= 5 && DefaultLtp.Byte[2] <= 8);*/
-/*	Xil_AssertVoid((DefaultLtp.Byte[3] >= 5 && DefaultLtp.Byte[3] <= 8) ||*/
-/*    				DefaultLtp.Byte[3] == 0);*/
+	Xil_AssertVoid(DefaultLtp.Byte[0] >= 5 && DefaultLtp.Byte[0] <= 8);
+	Xil_AssertVoid(DefaultLtp.Byte[1] >= 5 && DefaultLtp.Byte[1] <= 8);
+	Xil_AssertVoid(DefaultLtp.Byte[2] >= 5 && DefaultLtp.Byte[2] <= 8);
+	Xil_AssertVoid((DefaultLtp.Byte[3] >= 5 && DefaultLtp.Byte[3] <= 8) ||
+				DefaultLtp.Byte[3] == 0);
 	Xil_AssertVoid(FfeSuppFlag == 0 || FfeSuppFlag == 1);
 
 /*	InstancePtr->Stream.Frl.DefaultLtp.Data = DefaultLtp.Data;*/
