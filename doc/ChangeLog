@@ -38,6 +38,7 @@ Fix check for base address in Zynq clock setup.
 Fix mkfs usage in lwip examples.
 Fix RX pbuf freeing in GEM error handling path.
 Add axiethernet support on versal silicon.
+Fix lwip application failure on VCU118 board.
 
 scuwdt_v2_3
 Update the Makefile for parallel execution.
