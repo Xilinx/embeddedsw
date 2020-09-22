@@ -28,6 +28,8 @@
 *                         critical functions. The macro requires a label to be
 *                         passed to "go to" in case of error.
 *      kpt       09/03/20 Added XSECURE_TEMPORAL_IMPL macro for redundancy
+*      kal       09/22/20 Changed the param type from const char to const char*
+*      			  to avoid copying key onto stack
 *
 * </pre>
 *
@@ -126,7 +128,7 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 			 u32 Timeout, u32* Events);
 
 /* Validate input hex character */
-u32 Xil_IsValidHexChar(const char Ch);
+u32 Xil_IsValidHexChar(const char *Ch);
 
 /* Validate the input string contains only hexadecimal characters */
 u32 Xil_ValidateHexStr(const char *HexStr);
