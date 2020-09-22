@@ -334,6 +334,11 @@ AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			}
 			break;
 		}
+		case XAIE_BACKEND_OP_REQUEST_TILES:
+		{
+			XAIE_DBG("Backend doesn't support Op %u.\n", Op);
+			return XAIE_FEATURE_NOT_SUPPORTED;
+		}
 		default:
 			XAIE_ERROR("Backend doesn't support Op %u.\n", Op);
 			RC = XAIE_FEATURE_NOT_SUPPORTED;
