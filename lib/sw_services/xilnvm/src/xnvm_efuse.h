@@ -114,7 +114,9 @@ typedef enum {
 	XNVM_EFUSE_ERR_PGM_TBIT_PATTERN,/**<0xB - Error in T-Bit pattern */
 	XNVM_EFUSE_ERR_CACHE_LOAD,/**<0xC - Error while loading the cache */
 	XNVM_EFUSE_ERR_CRC_VERIFICATION,/**<0xD - Error in Crc Verification */
-
+	XNVM_EFUSE_ERR_ANCHOR_BIT_PATTERN,/**<0xE - Error in Anchor bits pattern */
+	XNVM_EFUSE_ERR_IN_PROTECTION_CHECK,/**<0xF - Error in Protection row
+					* configuration */
 
 	XNVM_EFUSE_ERR_AES_ALREADY_PRGMD = 0x10,/**<0x10 - Aes key is
 						* already programmed */
@@ -486,26 +488,26 @@ typedef enum {
  * @{
  */
 typedef enum {
-	XNVM_EFUSE_PAGE_0,
+	XNVM_EFUSE_PAGE_0 = 0,
 	XNVM_EFUSE_PAGE_1,
 	XNVM_EFUSE_PAGE_2
 }XNvm_EfuseType;
 
 typedef enum {
-	XNVM_EFUSE_META_HEADER_IV_RANGE,
+	XNVM_EFUSE_META_HEADER_IV_RANGE = 0,
 	XNVM_EFUSE_BLACK_IV,
 	XNVM_EFUSE_PLM_IV_RANGE,
 	XNVM_EFUSE_DATA_PARTITION_IV_RANGE
 }XNvm_IvType;
 
 typedef enum {
-	XNVM_EFUSE_PPK0,
+	XNVM_EFUSE_PPK0 = 0,
 	XNVM_EFUSE_PPK1,
 	XNVM_EFUSE_PPK2
 }XNvm_PpkType;
 
 typedef enum {
-	XNVM_EFUSE_REVOCATION_ID_0,
+	XNVM_EFUSE_REVOCATION_ID_0 = 0,
 	XNVM_EFUSE_REVOCATION_ID_1,
 	XNVM_EFUSE_REVOCATION_ID_2,
 	XNVM_EFUSE_REVOCATION_ID_3,
@@ -516,7 +518,7 @@ typedef enum {
 }XNvm_RevocationId;
 
 typedef enum {
-	XNVM_EFUSE_SEC_AES_DIS,
+	XNVM_EFUSE_SEC_AES_DIS = 0,
 	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS,
 	XNVM_EFUSE_SEC_JTAG_DIS,
 	XNVM_EFUSE_SEC_HWTSTBITS_DIS,
@@ -713,7 +715,8 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke);
 int XNvm_EfuseWriteRevocationId(u32 RevokeId);
 int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses);
 int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType);
-int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr, u8 RevokeFuseNum);
+int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr,
+	XNvm_RevocationId RevokeFuseNum);
 int XNvm_EfuseReadUserFuses(const XNvm_EfuseUserData *UserFusesData);
 int XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits);
 int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
