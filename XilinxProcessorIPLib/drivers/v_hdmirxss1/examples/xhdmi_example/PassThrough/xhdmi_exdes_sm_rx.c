@@ -447,13 +447,16 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetTmdsAudSampFreq (XV_Rx *InstancePtr)
 	XHdmiC_SamplingFrequency SampFreq = XHDMIC_SAMPLING_FREQ;
 	XHdmiC_SamplingFrequencyVal SampFreqVal = XHDMIC_SAMPLING_FREQUENCY;
 	u32 NVal;
+	u32 CTSVal;
 
 	NVal = XV_HdmiRxSs1_GetAudioAcrNVal(InstancePtr->HdmiRxSs);
+	CTSVal =  XV_HdmiRxSs1_GetAudioAcrCtsVal(InstancePtr->HdmiRxSs);
 	RefClk = InstancePtr->VidPhy->HdmiRxRefClkHz;
 	InstancePtr->AcrNVal = NVal;
+	InstancePtr->AcrCtsVal = CTSVal;
 
 	if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
-		SampFreq = XHdmiC_TMDS_GetAudSampFreq(RefClk, NVal);
+		SampFreq = XHdmiC_TMDS_GetAudSampFreq(RefClk, NVal, CTSVal);
 		SampFreqVal = XHdmiC_GetAudSampFreqVal(SampFreq);
 	}
 	return SampFreqVal;
