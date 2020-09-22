@@ -2096,11 +2096,15 @@ void XDpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr,
  * RX Subsystem
  *
  * @param InstancePtr is a pointer to the XDpRxSs instance.
+ * @param Enable is to enable/disable the Adaptive-Sync
+ *        capabilities in DisplayPort Rx Subsystem
+ *
+ * @return XST_SUCCESS
  *
  * @note   None.
  *
  ******************************************************************************/
-void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr)
+void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr, u32 Enable)
 {
 	u32 RegVal;
 
@@ -2108,9 +2112,14 @@ void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr)
 	Xil_AssertVoid(InstancePtr);
 	RegVal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
 				 XDP_RX_DTG_ENABLE);
-	RegVal &= XDP_RX_ADAPTIVESYNC_CAPS_MASK;
-	RegVal |= XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK |
-		  XDP_RX_MSA_TIMINGPAR_IGNORED_MASK;
+	if (Enable) {
+		RegVal |= XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK |
+				XDP_RX_MSA_TIMINGPAR_IGNORED_MASK;
+	} else {
+		RegVal &= ~(XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK |
+				XDP_RX_MSA_TIMINGPAR_IGNORED_MASK);
+	}
+
 	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
 			 XDP_RX_DTG_ENABLE, RegVal);
 }
@@ -2225,7 +2234,7 @@ int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr)
 	/* Get stream map of the stream(s) */
 	VTotal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
 				 XDP_RX_ADAPTIVE_VBLANK_VTOTAL);
-	VTotal &= XDP_RX_ADAPTIVE_VTOTAL_MASK;
+	VTotal = VTotal >> XDP_RX_ADAPTIVE_VTOTAL_SHIFT;
 
 	return VTotal;
 }
