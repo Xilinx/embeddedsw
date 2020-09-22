@@ -67,6 +67,8 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   08/19/2020 Added minor error codes
 *       skd  08/21/2020 Added flash size macros
+*       bm   09/21/2020 Added ImageInfo related code and added compatibility
+*                       check required for DFx
 *
 * </pre>
 *
@@ -186,6 +188,16 @@ extern "C" {
 #define XLOADER_PDI_VERSION_1			(0x01030000U)
 #define XLOADER_PDI_VERSION_2			(0x00020000U)
 
+/* Invalid Img ID */
+#define XLOADER_INVALID_IMG_ID			(0x0U)
+
+/* Invalid UID */
+#define XLOADER_INVALID_UID			(0x0U)
+
+/* Macro for Image Index Not found */
+#define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)
+
+
 /* Boot Modes */
 typedef enum {
 	XLOADER_PDI_SRC_JTAG = (0x0),
@@ -217,6 +229,9 @@ enum {
 						in Command */
 	XLOADER_ERR_NO_VALID_IMG_FOUND,	 /**< 0x3 - No Valid Image Found
 						in the Image Info Table */
+	XLOADER_ERR_IMAGE_INFO_TBL_FULL, /**< 0x4 - Image Info Table is Full */
+	XLOADER_ERR_PARENT_QUERY_RELATION_CHECK, /**< 0x5 - Error on Parent Query while checking
+							for Child Relation */
 };
 
 /* Multiboot register offset mask */
@@ -309,6 +324,19 @@ typedef struct {
 	u32 DstnCpu;	/** < Destination Cpu */
 } XLoader_PrtnParams;
 
+typedef struct {
+	u32 ImgID; /**< Image ID */
+	u32 UID; /**< Unique ID */
+	u32 PUID; /**< Parent UID */
+	u32 FuncID; /**< Function ID */
+} XLoader_ImageInfo;
+
+typedef struct {
+	XLoader_ImageInfo *TblPtr;
+	u32 Count;
+	u8 IsBufferFull;
+} XLoader_ImageInfoTbl;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
@@ -358,6 +386,9 @@ int XLoader_ReloadImage(u32 ImageId);
 int XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
+int XLoader_StoreImageInfo(XLoader_ImageInfo *ImageInfo);
+XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
+int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);

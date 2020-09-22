@@ -51,6 +51,7 @@
 *       rama 08/21/2020 Added error code for STL
 *       bsv  09/13/2020 Clear security critical data in case of exceptions,
 *                       also place AES, ECDSA_RSA and SHA3 in reset
+*       bm   09/21/2020 Added error codes for DFx Compatibility Check
 *
 * </pre>
 *
@@ -361,6 +362,20 @@ typedef enum {
 							PM_DEV_USB_0 */
 	XLOADER_ERR_PM_DEV_OSPI,		/**< 0x350 - Failed to XPM Request Device for
 							PM_DEV_OSPI */
+	XLOADER_ERR_DEV_NOT_DEFINED,		/**< 0x351 - Device ID of the image to be loaded
+							is not defined */
+	XLOADER_ERR_PARENT_QUERY_VERIFY,	/**< 0x352 - Failed to Query Parent ID of a
+							Image while verifying its Image UIDs */
+	XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE,	/**< 0x353 - Error while checking compatibility
+							of a image with it's parent */
+	XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY,	/**< 0x354 - Error if No Valid Parent Image Entry
+							is found in the ImageInfo Table */
+	XLOADER_ERR_INVALIDATE_CHILD_IMG,	/**< 0x355 - Error while Invalidating the Child
+							Image Entry */
+	XLOADER_ERR_INVALID_PARENT_IMG_ID,	/**< 0x356 - Error when Invalid ParentImgID is
+							obtained when queried for parent ImgID */
+	XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW,	/**< 0x357 - Error when ImageInfo Table is
+							overflowed */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
