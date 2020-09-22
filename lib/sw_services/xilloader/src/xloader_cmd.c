@@ -29,6 +29,7 @@
 *       bsv  08/10/2020 Added subsystem restart support from DDR
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   08/19/2020 Added ImageInfo Cmds
+*       bm   09/21/2020 Modified ImageInfo related API calls
 *
 * </pre>
 *
@@ -188,22 +189,21 @@ END:
 static int XLoader_GetImageInfo(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-	XPlmi_ImageInfo *ImageInfo;
-	u32 Index;
+	XLoader_ImageInfo *ImageInfo;
 
-	if (Cmd->Payload[0U] == XPLMI_INVALID_IMG_ID) {
+	if (Cmd->Payload[0U] == XLOADER_INVALID_IMG_ID) {
 		Status = XLOADER_ERR_INVALID_IMGID;
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid ImgID\n\r");
 		goto END;
 	}
 
-	ImageInfo = XPlmi_GetImageInfoEntry(Cmd->Payload[0U], &Index);
+	ImageInfo = XLoader_GetImageInfoEntry(Cmd->Payload[0U]);
 	if (ImageInfo == NULL) {
 		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		goto END;
 	}
 	if ((ImageInfo->ImgID != Cmd->Payload[0U]) ||
-		(ImageInfo->ImgID == XPLMI_INVALID_IMG_ID)) {
+		(ImageInfo->ImgID == XLOADER_INVALID_IMG_ID)) {
 		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		XPlmi_Printf(DEBUG_GENERAL, "No Valid Image Entry Found\n\r");
 		goto END;
@@ -269,7 +269,7 @@ static int XLoader_GetImageInfoList(XPlmi_Cmd * Cmd)
 	DestAddr = (u64)Cmd->Payload[0U];
 	DestAddr = (((u64)Cmd->Payload[1U]) | (DestAddr << 32U));
 	MaxSize = (u32)(Cmd->Payload[2U] & XLOADER_BUFFER_MAX_SIZE_MASK);
-	Status = XPlmi_LoadImageInfoTbl(DestAddr, MaxSize, &NumEntries);
+	Status = XLoader_LoadImageInfoTbl(DestAddr, MaxSize, &NumEntries);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
