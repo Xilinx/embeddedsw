@@ -1285,7 +1285,7 @@ static u32 XilNvm_ValidateHash(const char *Hash, u32 Len)
 	}
 
 	for(Index = 0U; Index < strlen(Hash); Index++) {
-		if(Xil_IsValidHexChar(Hash[Index]) != (u32)XST_SUCCESS) {
+		if(Xil_IsValidHexChar(&Hash[Index]) != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}
