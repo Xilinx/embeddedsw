@@ -436,6 +436,11 @@ AieRC XAie_MetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			RC = XAIE_OK;
 			break;
 		}
+		case XAIE_BACKEND_OP_REQUEST_TILES:
+		{
+			XAIE_DBG("Backend doesn't support Op %u.\n", Op);
+			return XAIE_FEATURE_NOT_SUPPORTED;
+		}
 		default:
 			RC = XAIE_FEATURE_NOT_SUPPORTED;
 			break;

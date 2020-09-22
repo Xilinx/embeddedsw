@@ -405,16 +405,21 @@ AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	(void)DevInst;
 	switch(Op) {
 		case XAIE_BACKEND_OP_CONFIG_SHIMDMABD:
-			{
-				XAie_ShimDmaBdArgs *BdArgs =
-					(XAie_ShimDmaBdArgs *)Arg;
-				for(u8 i = 0; i < BdArgs->NumBdWords; i++) {
-					XAie_BaremetalIO_Write32(IOInst,
-							BdArgs->Addr + i * 4,
-							BdArgs->BdWords[i]);
-				}
-				break;
+		{
+			XAie_ShimDmaBdArgs *BdArgs =
+				(XAie_ShimDmaBdArgs *)Arg;
+			for(u8 i = 0; i < BdArgs->NumBdWords; i++) {
+				XAie_BaremetalIO_Write32(IOInst,
+						BdArgs->Addr + i * 4,
+						BdArgs->BdWords[i]);
 			}
+			break;
+		}
+		case XAIE_BACKEND_OP_REQUEST_TILES:
+		{
+			XAIE_DBG("Backend doesn't support Op %u.\n", Op);
+			return XAIE_FEATURE_NOT_SUPPORTED;
+		}
 		default:
 			XAIE_ERROR("Linux backend does not support operation "
 					"%d\n", Op);
