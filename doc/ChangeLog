@@ -225,10 +225,6 @@ scuwdt_v2_3
 Update the Makefile for parallel execution.
 Fixed MISRA-C violations.
 
-scuwdt_v2_3
-Update the Makefile for parallel execution.
-Fixed MISRA-C violations.
-
 sdps_v3_10
 Add support for SD/eMMC Non-Blocking Read
 
