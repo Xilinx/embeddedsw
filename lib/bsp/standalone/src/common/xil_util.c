@@ -20,7 +20,9 @@
 *                         API to use microsecond timeout instead of a free
 *                         counter.
 * 7.3   kal      06/30/20 Converted Xil_Ceil macro to API.
-*		rpo  	 08/19/20 Added function for read,modify,write
+*	rpo  	 08/19/20 Added function for read,modify,write
+*	kal	 09/22/20 Changed the param type from const char to const char*
+*			  to avoid copying key onto stack
 *
 * </pre>
 *
@@ -226,7 +228,7 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 /**
  * Checks whether the passed character is a valid hex digit
  *
- * @param   Ch - Input Character
+ * @param   Ch - Pointer to the input character
  *
  * @return
  *          XST_SUCCESS	- on valid hex digit
@@ -235,17 +237,20 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
  * @note    None.
  *
  ******************************************************************************/
-u32 Xil_IsValidHexChar(const char Ch)
+u32 Xil_IsValidHexChar(const char *Ch)
 {
-	char ValidChars[] = "0123456789abcdefABCDEF";
-	char *RetVal;
 	u32 Status = XST_FAILURE;
 
-	RetVal = strchr(ValidChars, (int)Ch);
-	if (RetVal != NULL) {
+	if(NULL == Ch) {
+		goto END;
+	}
+	if ((*Ch >= '0' && *Ch <='9')||
+		(*Ch >= 'a' && *Ch <='f')||
+		(*Ch >= 'A' && *Ch <='F')) {
+
 		Status = XST_SUCCESS;
 	}
-
+END:
 	return Status;
 }
 
@@ -279,7 +284,7 @@ u32 Xil_ValidateHexStr(const char *HexStr)
 	}
 
 	for (Idx = 0U; Idx < Len; Idx++) {
-		Status = Xil_IsValidHexChar(HexStr[Idx]);
+		Status = Xil_IsValidHexChar(&HexStr[Idx]);
 		if (Status != XST_SUCCESS) {
 			break;
 		}
