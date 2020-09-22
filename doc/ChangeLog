@@ -220,6 +220,7 @@ ticks to fix lwip timers issue.
 While using for loop to create a delay we are not seeing any delay
 with default O2 optimization. So, replace the for loop delay code
 with sleep for a 1-second delay to fix the issue.
+Fix lwip application failure on VCU118 board.
 
 scuwdt_v2_3
 Update the Makefile for parallel execution.
