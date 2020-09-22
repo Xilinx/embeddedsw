@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2020-09-22
+	* Fix lwip application failure on VCU118 board.
 2020-08-18
 	* Add axiethernet support on versal.
 2020-08-14
