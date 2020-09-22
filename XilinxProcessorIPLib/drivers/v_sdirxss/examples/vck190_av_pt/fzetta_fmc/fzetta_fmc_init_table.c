@@ -46,7 +46,7 @@ void fzetta_fmc_table_init(){
 
 		//Generic FMC Device Initialization Table
 		fzetta_fmc_reg fzetta_fmc_table_temp = {
-		.gpio_dev_id = XPAR_GPIO_3_DEVICE_ID,
+		.gpio_dev_id = XPAR_GPIO_2_DEVICE_ID,
 		.iic_dev_id  = XPAR_IIC_0_DEVICE_ID,
 		.spi_dev_id  = XPAR_SPI_0_DEVICE_ID,
 		.reglist =
