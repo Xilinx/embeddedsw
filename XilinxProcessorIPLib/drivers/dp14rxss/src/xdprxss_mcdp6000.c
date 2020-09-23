@@ -7,7 +7,7 @@
 /**
 *
 * @file mcdp6000.c
-* @addtogroup dprxss_v6_0
+* @addtogroup dprxss_v6_1
 * @{
 *
 * This file contains a set of functions to configure the MCDP6000.

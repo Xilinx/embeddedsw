@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp_intr.c
- * @addtogroup dp_v7_1
+ * @addtogroup dp_v7_2
  * @{
  *
  * This file contains functions related to XDp interrupt handling.

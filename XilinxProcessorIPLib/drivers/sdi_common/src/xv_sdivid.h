@@ -7,7 +7,7 @@
 /**
  *
  * @file xv_sdivid.h
- * @addtogroup sdi_common_v1_2
+ * @addtogroup sdi_common_v1_3
  * @{
  * @details
  *

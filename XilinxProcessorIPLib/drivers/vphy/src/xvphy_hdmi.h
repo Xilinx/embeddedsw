@@ -29,7 +29,7 @@
  * 1.7   gm   13/09/17 Removed XVphy_DruSetGain API
  * </pre>
  *
- * @addtogroup xvphy_v1_10
+ * @addtogroup xvphy_v1_11
  * @{
 *******************************************************************************/
 #include "xparameters.h"

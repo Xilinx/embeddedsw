@@ -7,7 +7,7 @@
 /**
 *
 * @file xvtc_hw.h
-* @addtogroup vtc_v8_2
+* @addtogroup vtc_v8_3
 * @{
 *
 * This header file contains identifiers and register-level core functions (or

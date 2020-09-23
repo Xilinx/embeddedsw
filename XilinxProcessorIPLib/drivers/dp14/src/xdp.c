@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp.c
- * @addtogroup dp_v7_3
+ * @addtogroup dp_v7_4
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
