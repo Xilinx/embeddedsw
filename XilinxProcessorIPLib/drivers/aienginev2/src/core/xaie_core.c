@@ -431,7 +431,8 @@ AieRC XAie_CoreDebugUnhalt(XAie_DevInst *DevInst, XAie_LocType Loc)
 *
 * @param	DevInst: Device Instance
 * @param	Loc: Location of the AIE tile.
-* @param	DoneBit: Pointer to store the value of Done bit.
+* @param	DoneBit: Pointer to store the value of Done bit. Returns 1 if
+*		Done bit is set, 0 otherwise.
 * @return	XAIE_OK on success, Error code on failure.
 *
 * @note		None.
@@ -463,7 +464,7 @@ AieRC XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
 	Data = XAie_Read32(DevInst, RegAddr);
-	*DoneBit = (u8)(Data & CoreMod->CoreSts->Done.Mask);
+	*DoneBit = (Data & CoreMod->CoreSts->Done.Mask) ? 1U : 0U;
 
 	return XAIE_OK;
 }
