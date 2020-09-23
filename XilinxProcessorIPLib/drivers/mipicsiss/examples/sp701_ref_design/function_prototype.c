@@ -35,7 +35,6 @@
 #include "xvprocss.h"
 #include "sleep.h"
 #include "xbasic_types.h"
-#include "xrgb2ycrcb.h"
 //HDMI
 #include "xv_tpg.h"
 #include "xvtc.h"
@@ -52,7 +51,7 @@
 XDsiTxSs DsiTxSs;
 XCsiSs CsiRxSs;
 XVprocSs scaler_new_inst;
-
+XVprocSs csc_new_inst;
 XAxiVdma AxiVdma;
 
 XV_tpg_Config		*tpg1_Config;
@@ -69,7 +68,6 @@ XV_demosaic InstancePtr;
 XV_demosaic_Config  *demosaic_Config;
 XGpio Gpio;
 
-XRgb2YCrCb      XRgbInstance;
 
 /************************** Constant Definitions *****************************/
 
@@ -111,7 +109,6 @@ XRgb2YCrCb      XRgbInstance;
 
 #define DEMOSAIC_DEVICE_ID XPAR_V_DEMOSAIC_0_DEVICE_ID
 
-#define XRGB2YCRCB_DEVICE_ID XPAR_V_RGB2YCRCB_0_DEVICE_ID
 
 #define GPIO_CHANNEL 1
 
@@ -1284,7 +1281,6 @@ void InitVprocSs_Scaler(int count) {
   StreamIn.ColorFormatId = XVIDC_CSF_RGB;
   StreamIn.ColorDepth = scaler_new_inst.Config.ColorDepth;
   StreamIn.PixPerClk = scaler_new_inst.Config.PixPerClock;
-  //StreamIn.FrameRate      = 30;
   StreamIn.IsInterlaced = 0;
 
   status = XVprocSs_SetVidStreamIn(&scaler_new_inst, &StreamIn);
@@ -1796,32 +1792,97 @@ void HaltVDMA()
 
 }
 
+void InitVprocSs_CSC(int count) {
+  XVprocSs_Config* p_vpss_cfg1;
+  int status;
+  int widthIn, heightIn, widthOut, heightOut;
 
+  widthOut = 1920;
+  heightOut = 1080;
 
+  // Local variables
+  XVidC_VideoMode resIdIn, resIdOut;
+  XVidC_VideoStream StreamIn, StreamOut;
 
+  widthIn = 1920;
+  heightIn = 1080;
+  StreamIn.FrameRate = 60; //rao
 
+  if (count) {
+    p_vpss_cfg1 = XVprocSs_LookupConfig(XPAR_V_PROC_SS_1_DEVICE_ID);
+	if (p_vpss_cfg1 == NULL) {
+	  xil_printf("ERROR! Failed to find VPSS-based scaler.\n\r");
+      return;
+	}
 
-int Enable_CSC(u16 DeviceId)
-{
-
-  XRgb2YCrCb_Config *Config;
-
-  /* Initialize the RGB2YCrCb driver so that it's ready to use look up
-   * the configuration in the config table, then initialize it.
-   */
-  Config = XRgb2YCrCb_LookupConfig(DeviceId);
-  if(NULL == Config){
-    return XST_FAILURE;
+	status = XVprocSs_CfgInitialize(&csc_new_inst, p_vpss_cfg1,
+				p_vpss_cfg1->BaseAddress);
+	if (status != XST_SUCCESS) {
+	  xil_printf("ERROR! Failed to initialize VPSS-based scaler.\n\r");
+	  return;
+	}
   }
 
-  XRgb2YCrCb_CfgInitialize(&XRgbInstance, Config, Config->BaseAddress);
+  XVprocSs_Stop(&csc_new_inst);
 
-  /* Enable the RGB2YCRCB core */
-  XRgb2YCrCb_Enable(&XRgbInstance);
+  // Get resolution ID from frame size
+  resIdIn = XVidC_GetVideoModeId(widthIn, heightIn, StreamIn.FrameRate,
+			FALSE);
 
-  return XST_SUCCESS;
+  // Setup Video Processing Subsystem
+  StreamIn.VmId = resIdIn;
+  StreamIn.Timing.HActive = widthIn;
+  StreamIn.Timing.VActive = heightIn;
+  StreamIn.ColorFormatId = XVIDC_CSF_RGB;
+  StreamIn.ColorDepth = csc_new_inst.Config.ColorDepth;
+  StreamIn.PixPerClk = csc_new_inst.Config.PixPerClock;
+  StreamIn.IsInterlaced = 0;
+
+  status = XVprocSs_SetVidStreamIn(&csc_new_inst, &StreamIn);
+  if (status != XST_SUCCESS) {
+	xil_printf("Unable to set input video stream parameters correctly\r\n");
+	return;
+  }
+
+  // Get resolution ID from frame size
+  resIdOut = XVidC_GetVideoModeId(widthOut, heightOut, 60, FALSE);
+
+  if (resIdOut != XVIDC_VM_1920x1080_60_P) {
+	xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1080_60_P\r\n",
+				resIdOut);
+  }
+
+
+  StreamOut.VmId = resIdOut;
+  StreamOut.Timing.HActive = widthOut;
+  StreamOut.Timing.VActive = heightOut;
+  StreamOut.ColorFormatId = XVIDC_CSF_YCRCB_444;
+  StreamOut.ColorDepth = csc_new_inst.Config.ColorDepth;
+  StreamOut.PixPerClk = csc_new_inst.Config.PixPerClock;
+  StreamOut.FrameRate = 60;
+  StreamOut.IsInterlaced = 0;
+
+  XVprocSs_SetVidStreamOut(&csc_new_inst, &StreamOut);
+  if (status != XST_SUCCESS) {
+	xil_printf("Unable to set output video stream parameters correctly\r\n");
+	return;
+  }
+
+  status = XVprocSs_SetSubsystemConfig(&csc_new_inst);
+  if (status != XST_SUCCESS) {
+    xil_printf("xvprocss_SetSubsystemConfig failed %d\r\n", status);
+    return;
+  }
+
+  XVprocSs_ReportSubsystemConfig(&scaler_new_inst);
+  XVprocSs_Start(&scaler_new_inst);
+
 
 }
+
+
+
+
 
 /*****************************************************************************/
 
@@ -1846,7 +1907,7 @@ int vdma_dsi() {
 
 int vdma_hdmi() {
 
-  Enable_CSC(XRGB2YCRCB_DEVICE_ID);
+  InitVprocSs_CSC(1);
 
   ResetVDMA();
 
