@@ -7,7 +7,7 @@
 /**
  *
  * @file xhdmic.h
- * @addtogroup hdmi_common_v1_3
+ * @addtogroup hdmi_common_v1_4
  * @{
  * @details
  *

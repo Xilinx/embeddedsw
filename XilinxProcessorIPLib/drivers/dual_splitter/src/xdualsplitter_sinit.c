@@ -7,7 +7,7 @@
 /**
 *
 * @file xdualsplitter_sinit.c
-* @addtogroup dual_splitter_v1_1
+* @addtogroup dual_splitter_v1_2
 * @{
 *
 * This file contains static initialization function for Xilinx Dual Splitter

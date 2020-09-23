@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_chsts.h
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * Format status related offsets & masks definitions related to the

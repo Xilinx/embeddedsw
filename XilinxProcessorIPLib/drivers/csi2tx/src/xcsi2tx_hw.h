@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xcsi2tx_hw.h
-* @addtogroup csi2tx_v1_2
+* @addtogroup csi2tx_v1_3
 * @{
 *
 * Hardware register & masks definition file. It defines the register interface.

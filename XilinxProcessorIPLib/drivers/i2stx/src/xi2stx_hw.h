@@ -7,7 +7,7 @@
 /**
  *
  * @file xi2stx_hw.h
- * @addtogroup i2stx_v2_1
+ * @addtogroup i2stx_v2_2
  * @{
  *
  * Hardware register & masks definition file. It defines the register interface.

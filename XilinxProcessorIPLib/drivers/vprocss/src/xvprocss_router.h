@@ -7,7 +7,7 @@
 /**
 *
 * @file xvprocss_router.h
-* @addtogroup vprocss_v2_7
+* @addtogroup vprocss_v2_8
 * @{
 * @details
 *

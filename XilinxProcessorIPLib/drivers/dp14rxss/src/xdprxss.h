@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v6_0
+* @addtogroup dprxss_v6_1
 * @{
 * @details
 *

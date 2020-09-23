@@ -7,7 +7,7 @@
 /**
 *
 * @file xdeint_hw.h
-* @addtogroup deinterlacer_v3_3
+* @addtogroup deinterlacer_v3_4
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or

@@ -7,7 +7,7 @@
 /**
 *
 * @file xdualsplitter_hw.h
-* @addtogroup dual_splitter_v1_1
+* @addtogroup dual_splitter_v1_2
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
