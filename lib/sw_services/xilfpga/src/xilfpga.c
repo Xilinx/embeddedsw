@@ -42,6 +42,8 @@
  *                      for ZynqMP platform.
  * 5.3 Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
  * 5.3 Nava   06/23/20  Added asserts to validate input params.
+ * 5.3 Nava   09/09/20  Replaced the asserts with input validations for non void
+ *                      API's.
  *</pre>
  *
  *@note
@@ -49,6 +51,10 @@
 /***************************** Include Files *********************************/
 #include "xilfpga.h"
 
+/************************** Function Prototypes ******************************/
+static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
+					UINTPTR BitstreamImageAddr,
+					UINTPTR AddrPtr_Size, u32 Flags);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -99,21 +105,13 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 {
 	u32 Status = XFPGA_FAILURE;
 
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(BitstreamImageAddr != (UINTPTR)NULL);
-#ifdef versal
-	Xil_AssertNonvoid((Flags != XFPGA_PDI_LOAD) ||
-			  (Flags != XFPGA_DELAYED_PDI_LOAD));
-#else
-	Xil_AssertNonvoid((Flags != XFPGA_FULLBIT_EN) ||
-			  (Flags != XFPGA_PARTIAL_EN) ||
-			  (Flags != XFPGA_SECURE_FLAGS));
-
-	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == 0U) {
-		Xil_AssertNonvoid(AddrPtr_Size != (UINTPTR)NULL);
+	/* Validate the input arguments */
+	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
+					      AddrPtr_Size, Flags);
+	if(Status != XFPGA_SUCCESS) {
+		goto END;
 	}
-#endif
+
 	/* Validate Bitstream Image */
 	Status = XFpga_PL_ValidateImage(InstancePtr, BitstreamImageAddr,
 			AddrPtr_Size, Flags);
@@ -185,21 +183,13 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 {
 	u32 Status = XFPGA_VALIDATE_ERROR;
 
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(BitstreamImageAddr != (UINTPTR)NULL);
-#ifdef versal
-	Xil_AssertNonvoid((Flags != XFPGA_PDI_LOAD) ||
-			  (Flags != XFPGA_DELAYED_PDI_LOAD));
-#else
-	Xil_AssertNonvoid((Flags != XFPGA_FULLBIT_EN) ||
-			  (Flags != XFPGA_PARTIAL_EN) ||
-			  (Flags != XFPGA_SECURE_FLAGS));
-
-	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == 0U) {
-		Xil_AssertNonvoid(AddrPtr_Size != (UINTPTR)NULL);
+	/* Validate the input arguments */
+	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
+					      AddrPtr_Size, Flags);
+	if(Status != XFPGA_SUCCESS) {
+		goto END;
 	}
-#endif
+
 	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
 	InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
 	InstancePtr->WriteInfo.Flags = Flags;
@@ -215,6 +205,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 		}
 	}
 
+END:
 	return Status;
 }
 
@@ -229,7 +220,11 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_PRE_CONFIG_ERROR;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
 
 	if (InstancePtr->XFpga_PreConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -242,7 +237,7 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 						  Status);
 		}
 	}
-
+END:
 	return Status;
 }
 
@@ -281,23 +276,16 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 {
 	 u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
 
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(BitstreamImageAddr != (UINTPTR)NULL);
-#ifdef versal
-	Xil_AssertNonvoid((Flags != XFPGA_PDI_LOAD) ||
-			  (Flags != XFPGA_DELAYED_PDI_LOAD));
-#else
-	Xil_AssertNonvoid((Flags != XFPGA_FULLBIT_EN) ||
-			  (Flags != XFPGA_PARTIAL_EN) ||
-			  (Flags != XFPGA_SECURE_FLAGS));
-	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == 0U) {
-		Xil_AssertNonvoid(AddrPtr_Size != (UINTPTR)NULL);
+	/* Validate the input arguments */
+	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
+					      AddrPtr_Size, Flags);
+	if(Status != XFPGA_SUCCESS) {
+		goto END;
 	}
-#endif
-	 InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
-	 InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
-	 InstancePtr->WriteInfo.Flags = Flags;
+
+	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
+	InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
+	InstancePtr->WriteInfo.Flags = Flags;
 
 	if (InstancePtr->XFpga_WriteToPl == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -311,6 +299,7 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		}
 	}
 
+END:
 	return Status;
 }
 
@@ -325,7 +314,11 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_POST_CONFIG_ERROR;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
 
 	if (InstancePtr->XFpga_PostConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -339,6 +332,7 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 		}
 	}
 
+END:
 	return Status;
 }
 
@@ -365,13 +359,14 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	u32 Status = XFPGA_FAILURE;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(ReadbackAddr != (UINTPTR)NULL);
-	Xil_AssertNonvoid(NumFrames != 0U);
+	if ((InstancePtr == NULL) || (ReadbackAddr == (UINTPTR)NULL) ||
+	    (NumFrames == 0U)) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = NumFrames;
-
 	if (InstancePtr->XFpga_GetConfigData == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -380,6 +375,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 		Status = InstancePtr->XFpga_GetConfigData(InstancePtr);
 	}
 
+END:
 	return Status;
 }
 
@@ -407,20 +403,24 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	u32 Status = XFPGA_FAILURE;
 
 	/* Assert validates the input arguments */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(ReadbackAddr != (UINTPTR)NULL);
-        Xil_AssertNonvoid((ConfigRegAddr != CRC) || (ConfigRegAddr != FAR1) ||
-			  (ConfigRegAddr != FDRI) || (ConfigRegAddr != FDRO) ||
-			  (ConfigRegAddr != CMD) || (ConfigRegAddr != CTL0) ||
-			  (ConfigRegAddr != MASK) || (ConfigRegAddr != STAT) ||
-			  (ConfigRegAddr != LOUT) || (ConfigRegAddr != COR0) ||
-			  (ConfigRegAddr != MFWR) || (ConfigRegAddr != CBC) ||
-			  (ConfigRegAddr != IDCODE) ||
-			  (ConfigRegAddr != AXSS) || (ConfigRegAddr != COR1) ||
-			  (ConfigRegAddr != WBSTAR) ||
-			  (ConfigRegAddr != TIMER) ||
-			  (ConfigRegAddr != BOOTSTS) ||
-			  (ConfigRegAddr != CTL1));
+	if ((InstancePtr == NULL) ||(ReadbackAddr == (UINTPTR)NULL)) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((ConfigRegAddr != CRC) && (ConfigRegAddr != FAR1) &&
+	    (ConfigRegAddr != FDRI) && (ConfigRegAddr != FDRO) &&
+	    (ConfigRegAddr != CMD) && (ConfigRegAddr != CTL0) &&
+	    (ConfigRegAddr != MASK) && (ConfigRegAddr != STAT) &&
+	    (ConfigRegAddr != LOUT) && (ConfigRegAddr != COR0) &&
+	    (ConfigRegAddr != MFWR) && (ConfigRegAddr != CBC) &&
+	    (ConfigRegAddr != IDCODE) && (ConfigRegAddr != AXSS) &&
+	    (ConfigRegAddr != COR1) && (ConfigRegAddr != WBSTAR) &&
+	    (ConfigRegAddr != TIMER) && (ConfigRegAddr != BOOTSTS) &&
+	    (ConfigRegAddr != CTL1)) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigRegAddr;
@@ -433,6 +433,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 		Status = InstancePtr->XFpga_GetConfigReg(InstancePtr);
 	}
 
+END:
 	return Status;
 }
 
@@ -448,7 +449,10 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 {
 	u32 RegVal = XFPGA_INVALID_INTERFACE_STATUS;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		goto END;
+	}
 
 	if (InstancePtr->XFpga_GetInterfaceStatus == NULL) {
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -457,6 +461,65 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 		RegVal = InstancePtr->XFpga_GetInterfaceStatus();
 	}
 
+END:
 	return RegVal;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief This function is used to validate the Bitstream parameters.
+ *
+ * @param InstancePtr Pointer to the XFgpa structure.
+ *
+ * @param BitstreamImageAddr Linear memory Bitstream image base address
+ *
+ * @param AddrPtr_Size Aes key address which is used for Decryption (or)
+ *                      In none Secure Bitstreams it is used to store size
+ *                      of Bitstream Image.
+ * @param Flags Flags are used to specify the type of Bitstream file.
+ *
+ * @return
+ *      - XFPGA_SUCCESS on success
+ *      - Error code on failure.
+ *
+ *****************************************************************************/
+static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
+					UINTPTR BitstreamImageAddr,
+					UINTPTR AddrPtr_Size, u32 Flags)
+{
+	u32 Status = XFPGA_INVALID_PARAM;
+
+	/* Validate the input arguments */
+	if ((InstancePtr == NULL) || (BitstreamImageAddr == NULL)) {
+		goto END;
+	}
+#ifdef versal
+	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
+		goto END;
+	}
+#else
+	if ((Flags & (~(XFPGA_SECURE_FLAGS | XFPGA_PARTIAL_EN))) != 0U) {
+		goto END;
+	}
+
+	if (((Flags & XFPGA_AUTHENTICATION_DDR_EN) != 0U) &&
+	    ((Flags & XFPGA_AUTHENTICATION_OCM_EN) != 0U)) {
+		goto END;
+	}
+
+	if (((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) &&
+	    ((Flags & XFPGA_ENCRYPTION_DEVKEY_EN) != 0U)) {
+		goto END;
+	}
+
+	if (((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) &&
+	    (AddrPtr_Size == (UINTPTR)NULL)) {
+		goto END;
+	}
+#endif
+	Status = XFPGA_SUCCESS;
+
+END:
+	return Status;
+}

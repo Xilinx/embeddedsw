@@ -21,6 +21,8 @@
  *                      errors properly.
  * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
  * 5.3  Nava  06/29/20  Added asserts to validate input params.
+ * 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
+ *                      API's.
  * </pre>
  *
  * @note
@@ -61,15 +63,18 @@ static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
  ******************************************************************************/
-u32 XFpga_Initialize(XFpga *InstancePtr) {
+u32 XFpga_Initialize(XFpga *InstancePtr)
+{
+	u32 Status = XFPGA_INVALID_PARAM;
 
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Validate the input arguments */
+	if (InstancePtr != NULL) {
+		(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
+		InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
+		Status = XFPGA_SUCCESS;
+	}
 
-	(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
-	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
-
-	return XFPGA_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -86,9 +91,6 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_FAILURE;
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);
 	if (Status != XST_SUCCESS) {

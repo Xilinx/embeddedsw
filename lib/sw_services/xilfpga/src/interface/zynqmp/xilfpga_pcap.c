@@ -91,6 +91,8 @@
  * 5.3 Nava  06/16/20  clear the AES key from the KUP register upon GCM-tag
  *                     check failure.
  * 5.3 Nava  06/29/20  Added asserts to validate input params.
+ * 5.3 Nava  09/09/20  Replaced the asserts with input validations for non void
+ *                     API's.
  * </pre>
  *
  * @note
@@ -249,8 +251,11 @@ static const u8 BootgenBinFormat[] = {
 u32 XFpga_Initialize(XFpga *InstancePtr) {
 	u32 Status = XFPGA_FAILURE;
 
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
 
 	(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
 	InstancePtr->XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage;
@@ -270,6 +275,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 		Status = XFPGA_SUCCESS;
 	}
 
+END:
 	return Status;
 }
 /*****************************************************************************/

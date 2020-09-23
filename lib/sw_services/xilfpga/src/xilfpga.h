@@ -65,6 +65,8 @@
  * 5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services
  *                      for ZynqMP platform.
  * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3  Nava  09/09/20  Added a new error code (XFPGA_INVALID_PARAM)
+ *                      for user API's input validation parameters.
  *
  * </pre>
  *
@@ -129,7 +131,8 @@ typedef struct XFpgatag{
 #define XFPGA_WRITE_BITSTREAM_ERROR	(0x4U)
 #define XFPGA_POST_CONFIG_ERROR		(0x5U)
 #define XFPGA_OPS_NOT_IMPLEMENTED	(0x6U)
-#define XFPGA_INPROGRESS			(0x7U)
+#define XFPGA_INPROGRESS		(0x7U)
+#define XFPGA_INVALID_PARAM		(0x8U)
 
 #define XFPGA_FULLBIT_EN			(0x00000000U)
 #define XFPGA_PARTIAL_EN			(0x00000001U)
