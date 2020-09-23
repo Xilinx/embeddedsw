@@ -109,8 +109,8 @@ END:
  *			- Returns error code on failure
  *
  * @note
- * K, the ephemeral private key, shall be an unpredictable (“cryptographically
- * secure”) random number unique for each signature.
+ * K, the ephemeral private key, shall be an unpredictable (cryptographically
+ * secure) random number unique for each signature.
  * Note that reuse or external predictability of this number generally breaks
  * the security of ECDSA.
  *****************************************************************************/
