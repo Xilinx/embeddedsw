@@ -1,5 +1,89 @@
 Changes for 2020.2
 ===============================
+
+
+csi2tx_v1_3:
+Makefile modification to support Parallel compilation.
+
+csi2txss_v1_4:
+Makefile modification to support Parallel compilation.
+
+deinterlacer_v3_4:
+Makefile modification to support Parallel compilation.
+
+dp12_v7_2:
+Makefile modification to support Parallel compilation.
+
+dp12rxss_v4_4:
+Makefile modification to support Parallel compilation.
+
+dp12txss_v5_3:
+Makefile modification to support Parallel compilation.
+
+dp14_v7_4:
+Makefile modification to support Parallel compilation.
+
+dp14rxss_v6_1:
+Makefile modification to support Parallel compilation.
+
+dphy_v1_5:
+Makefile modification to support Parallel compilation.
+
+dsi_v1_3:
+Makefile modification to support Parallel compilation.
+
+dsitxss_v2_1:
+Makefile modification to support Parallel compilation.
+
+hdcp1x_v4_5:
+Makefile modification to support Parallel compilation.
+
+hdcp22_cipher_v1_3:
+Makefile modification to support Parallel compilation.
+
+hdcp22_common_v2_2:
+Makefile modification to support Parallel compilation.
+
+hdcp22_mmult_v1_3:
+Makefile modification to support Parallel compilation.
+
+hdcp22_rng_v1_4:
+Makefile modification to support Parallel compilation.
+
+i2srx_v2_2:
+Makefile modification to support Parallel compilation.
+
+i2stx_v2_2:
+Makefile modification to support Parallel compilation.
+
+mpegtsmux_v1_2:
+Makefile modification to support Parallel compilation.
+
+sdi_common_v1_3:
+Makefile modification to support Parallel compilation.
+
+sdiaud_v2_2:
+Makefile modification to support Parallel compilation.
+
+v_hdmi_common_v1_4:
+Makefile modification to support Parallel compilation.
+
+v_hdmitx_v2_6:
+Makefile modification to support Parallel compilation.
+
+v_sditx_v3_1:
+Makefile modification to support Parallel compilation.
+
+v_sditxss_v4_1:
+Makefile modification to support Parallel compilation.
+
+vphy_v1_11:
+Makefile modification to support Parallel compilation.
+
+vtc_v8_3:
+Makefile modification to support Parallel compilation.
+
+
 v_sdirxss_v3_1:
 Add versal VCK190 audio video passthrough app
 
