@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss_hw.h
-* @addtogroup dprxss_v4_3
+* @addtogroup dprxss_v4_4
 * @{
 *
 * This header file contains identifiers and register-level core functions (or

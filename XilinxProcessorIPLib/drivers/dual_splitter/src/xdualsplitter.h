@@ -7,7 +7,7 @@
 /**
 *
 * @file xdualsplitter.h
-* @addtogroup dual_splitter_v1_1
+* @addtogroup dual_splitter_v1_2
 * @{
 * @details
 *
