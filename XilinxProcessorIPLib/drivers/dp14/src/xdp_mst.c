@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp_mst.c
- * @addtogroup dp_v7_3
+ * @addtogroup dp_v7_4
  * @{
  *
  * <pre>

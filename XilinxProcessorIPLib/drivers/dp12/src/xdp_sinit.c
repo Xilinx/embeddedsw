@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp_sinit.c
- * @addtogroup dp_v7_1
+ * @addtogroup dp_v7_2
  * @{
  *
  * This file contains static initialization methods for the XDp driver.

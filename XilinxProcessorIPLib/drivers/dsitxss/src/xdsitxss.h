@@ -7,7 +7,7 @@
 /**
 *
 * @file xdsitxss.h
-* @addtogroup dsitxss_v2_0
+* @addtogroup dsitxss_v2_1
 * @{
 * @details
 *

@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc_timings_table.c
- * @addtogroup video_common_v4_11
+ * @addtogroup video_common_v4_10
  * @{
  *
  * Contains video timings for various standard resolutions.

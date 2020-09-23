@@ -8,7 +8,7 @@
 *
 * @file xdphy.h
 *
-* @addtogroup dphy_v1_4
+* @addtogroup dphy_v1_5
 * @{
 * @details
 *

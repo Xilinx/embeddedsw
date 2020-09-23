@@ -7,7 +7,7 @@
 /**
 *
 * @file xvtc.h
-* @addtogroup vtc_v8_2
+* @addtogroup vtc_v8_3
 * @{
 * @details
 *
