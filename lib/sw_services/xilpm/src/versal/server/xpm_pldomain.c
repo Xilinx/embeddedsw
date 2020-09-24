@@ -457,8 +457,25 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		/* PL scan clear / MBIST */
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
 			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		/* Check that the register value written properly or not! */
+		PmChkRegRmw32((Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET),
+				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK,
+				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_PLHOUSECLN_CFU_MASK;
+			goto done;
+		}
+
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
 			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		/* Check that the register value written properly or not! */
+		PmChkRegRmw32((Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET),
+				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK,
+				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_PLHOUSECLN_CFU_FGCR;
+			goto done;
+		}
 
 		/* Poll for status */
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
