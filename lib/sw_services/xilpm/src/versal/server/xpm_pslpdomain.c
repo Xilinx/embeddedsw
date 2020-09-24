@@ -240,7 +240,9 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
-	u32 RegVal;
+	u32 RegAddr;
+	volatile u32 RegVal = 0U;
+	volatile u32 RegValTmp = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 
@@ -259,8 +261,13 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Check if Lbist is enabled*/
-	PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET, RegVal);
-	if ((RegVal & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) != EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) {
+	RegAddr = EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET;
+	RegVal = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
+	/* Required for redundancy */
+	RegValTmp = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
+	u32 LocalRegVal = RegValTmp; /* Copy volatile to local to avoid MISRA */
+	if ((EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != RegVal) &&
+	    (EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != LocalRegVal)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
