@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xilskey_puf_regeneration.c
+ * @file xilskey_puf_regeneration_example.c
  *
  * This file illustrates PUF regeneration then encrypt and decrypt of given data
  * using PUF
