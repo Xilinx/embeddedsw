@@ -239,6 +239,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	/* PMC_ERR1_STATUS is the write-to-clear register */
 	PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 		(PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 		PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK));
@@ -246,6 +247,14 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
 		PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
 		PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+			 PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
+			 PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER;
+		goto done;
+	}
 
 	/* 200 us is not enough and scan clear pass status is updated
 		after so increasing delay for scan clear to finish */
