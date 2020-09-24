@@ -38,6 +38,10 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XDPPSU_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /******************************* Include Files ********************************/
 
 #include "xdppsu_hw.h"
@@ -327,5 +331,9 @@ u32 XDpPsu_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag,
 							u8 **DataBlockPtr);
 
 void XDpPsu_SetColorEncode(XDpPsu *InstancePtr, XDpPsu_ColorEncoding ColorEncode);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDPPSU_H_ */

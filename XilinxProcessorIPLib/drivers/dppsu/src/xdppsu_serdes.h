@@ -23,6 +23,11 @@
 #ifndef XDPPSU_SERDES_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XDPPSU_SERDES_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /******************************* Include Files ********************************/
 #include "xdppsu_hw.h"
 #include "xstatus.h"
@@ -37,5 +42,9 @@
 void XDpPsu_CfgTxVsLevel(XDpPsu *InstancePtr, u8 Level, u8 TxLevel);
 void XDpPsu_CfgTxPeLevel(XDpPsu *InstancePtr, u8 Level, u8 TxLevel);
 void XDpPsu_SetVswingPreemp(XDpPsu *InstancePtr, u8 *AuxData);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

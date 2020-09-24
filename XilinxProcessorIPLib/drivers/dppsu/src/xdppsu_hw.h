@@ -29,6 +29,10 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XDPPSU_HW_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***************************** Include Files **********************************/
 
 #include "xil_io.h"
@@ -1201,5 +1205,8 @@
 #define XDpPsu_WriteReg(BaseAddress, RegOffset, Data) \
 				XDpPsu_Out32((BaseAddress) + (RegOffset), (Data))
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDPPSU_HW_H_ */
