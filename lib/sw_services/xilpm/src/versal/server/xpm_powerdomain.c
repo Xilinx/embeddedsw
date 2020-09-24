@@ -1160,7 +1160,8 @@ done:
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -1294,8 +1295,10 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->Lbist)) {
-			Status = Ops->Lbist(Args, NumArgs);
-			if (XST_SUCCESS != Status) {
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Lbist), (Args), (NumArgs));
+			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+			/* Required for redundancy */
+			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 				DbgErr = XPM_INT_ERR_FUNC_LBIST;
 				goto done;
 			}
@@ -1315,8 +1318,10 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->Mbist)) {
-			Status = Ops->Mbist(Args, NumArgs);
-			if (XST_SUCCESS != Status) {
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Mbist), (Args), (NumArgs));
+			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+			/* Required for redundancy */
+			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 				DbgErr = XPM_INT_ERR_FUNC_MBIST_CLEAR;
 				goto done;
 			}
