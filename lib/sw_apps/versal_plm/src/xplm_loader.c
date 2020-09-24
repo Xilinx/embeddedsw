@@ -71,7 +71,7 @@ int XPlm_LoaderInit(void)
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
-int XPlm_LoadBootPdi(void *Arg)
+int XPlm_LoadBootPdi(const void *Arg)
 {
 	int Status = XST_FAILURE;
 	PdiSrc_t BootMode;

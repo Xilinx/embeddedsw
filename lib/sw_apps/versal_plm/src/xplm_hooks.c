@@ -48,7 +48,7 @@
 * this only PMC module initialization is done. Most of the HW state will be
 * as POR.Please note that PS LPD UART is not initialized by this time
 *
-* @param	None
+* @param	Arg is not used
 * @return	XST_SUCCESS always
 *
 *****************************************************************************/
@@ -64,7 +64,7 @@ int XPlm_HookBeforePlmCdo(void *Arg)
 * @brief This function will be called after processing the PLM CDO. All the
 * PMC and LPD configuration(optional) will be completed by this time.
 *
-* @param	None
+* @param	Arg is not used
 * @return	XST_SUCCESS on success, any other value for error
 *
 *****************************************************************************/
@@ -83,7 +83,7 @@ int XPlm_HookAfterPlmCdo(void *Arg)
 /**
 * @brief This function will be called after loading the boot PDI.
 *
-* @param	None
+* @param	Arg is not used
 * @return	XST_SUCCESS always
 *
 *****************************************************************************/

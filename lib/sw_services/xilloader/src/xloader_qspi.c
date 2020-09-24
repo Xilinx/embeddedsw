@@ -213,14 +213,15 @@ END:
 int XLoader_QspiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
-	XQspiPsu_Config *QspiConfig;
+	const XQspiPsu_Config *QspiConfig =
+		XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE_ID);
+
 	QspiBootMode = (PdiSrc_t)DeviceFlags;
 	(void)memset(&QspiPsuInstance, 0, sizeof(QspiPsuInstance));
 
 	/*
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
-	QspiConfig = XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE_ID);
 	if (NULL == QspiConfig) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_INIT, 0);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_INIT\r\n");
