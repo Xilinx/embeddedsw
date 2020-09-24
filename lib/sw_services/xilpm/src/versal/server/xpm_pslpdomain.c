@@ -465,7 +465,8 @@ done:
  ****************************************************************************/
 static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 
@@ -562,9 +563,10 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
 
-
-	Status = XramMbist();
-	if (XST_SUCCESS != Status) {
+	/* Required for redundancy */
+	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (XramMbist));
+	XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 		DbgErr = XPM_INT_ERR_XRAM_MBIST;
 	}
 
