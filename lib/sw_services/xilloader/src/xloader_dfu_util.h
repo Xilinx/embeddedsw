@@ -302,12 +302,6 @@ typedef struct {
 } __attribute__((__packed__))XLoaderPs_Usb30Config;
 
 typedef struct {
-	XLoaderPs_UsbStdCfgDesc StdCfg;
-	XLoaderPs_UsbStdIfDesc IfCfgAltDfu;
-	XLoaderPs_UsbDfuFuncDesc DfuFuncDesc;
-} __attribute__((__packed__))XLoaderPs_DfuUsbConfig;
-
-typedef struct {
 	u8 Length;
 	u8 DescriptorType;
 	u16 TotalLength;
