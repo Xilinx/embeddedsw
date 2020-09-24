@@ -73,45 +73,13 @@ extern "C" {
 #define XLOADER_ADDR_2_OFST	(2U) /* Middle byte of address to read or write */
 #define XLOADER_ADDR_3_OFST	(3U) /* Middle byte of address to read or write */
 #define XLOADER_ADDR_4_OFST	(4U) /* LSB byte of address to read or write */
-#define XLOADER_DATA_OFST	(4U) /* Start of Data for Read/Write */
-#define XLOADER_DUMMY_OFST	(4U) /* Dummy byte offset for fast, dual and quad
-				     reads */
-#define XLOADER_DUMMY_SIZE	(1U) /* Number of dummy bytes for fast, dual and
-				     quad reads */
 #define XLOADER_DUMMY_CLOCKS	(8U) /* Number of dummy bytes for fast, dual and
 				     quad reads */
-#define XLOADER_RD_ID_SIZE	(4U) /* Read ID command + 3 bytes ID response */
-#define XLOADER_BANK_SEL_SIZE	(2U) /* BRWR or EARWR command + 1 byte bank value */
-#define XLOADER_WRITE_ENABLE_CMD_SIZE	(1U) /* WE command */
-
-/*
- * The following constants specify the extra bytes which are sent to the
- * FLASH on the QSPI interface, that are not data, but control information
- * which includes the command and address
- */
-#define XLOADER_OVERHEAD_SIZE	(4U)
 
 /*
  * Max limit of single DMA transfer is 512MB
  */
 #define XLOADER_DMA_DATA_TRAN_SIZE	(0x20000000U)
-
-/*
- * The following defines are for dual flash interface.
- */
-#define XLOADER_LQSPI_CR_FAST_QUAD_READ		(0x0000006BU) /* Fast Quad Read output */
-#define XLOADER_LQSPI_CR_1_DUMMY_BYTE		(0x00000100U) /* 1 Dummy Byte between
-						     address and return data */
-
-#define XLOADER_SINGLE_QSPI_IO_CONFIG_QUAD_READ	(LQSPI_CR_1_DUMMY_BYTE | \
-	LQSPI_CR_FAST_QUAD_READ)
-
-#define XLOADER_DUAL_QSPI_PARALLEL_IO_CONFIG_QUAD_READ	\
-	(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | XQspiPsu_LQSPI_CR_SEP_BUS_MASK | \
-	LQSPI_CR_1_DUMMY_BYTE | LQSPI_CR_FAST_QUAD_READ)
-
-#define XLOADER_DUAL_QSPI_STACK_IO_CONFIG_READ	(XQSPIPS_LQSPI_CR_TWO_MEM_MASK \
-	| LQSPI_CR_1_DUMMY_BYTE | LQSPI_CR_FAST_QUAD_READ)
 
 /*
  * Flash connection type as defined in Vivado
@@ -150,9 +118,6 @@ extern "C" {
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M       (0x3AU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G         (0x3BU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G		(0x3CU)
-
-/* TODO change to QSPI driver API */
-#define XLOADER_QSPIDMA_DST_CTRL	(0xF103080CU)
 
 /*Qspi width detection macros*/
 #define XLOADER_QSPI_BUSWIDTH_DETECT_VALUE	(0xAA995566U)
