@@ -9,6 +9,7 @@
 
 #include "xstatus.h"
 #include "xil_io.h"
+#include "xil_util.h"
 #include "xpm_err.h"
 #include "xplmi_debug.h"
 
