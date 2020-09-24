@@ -237,6 +237,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegVal;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegBitMask;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -260,25 +261,37 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Enable LBIST isolation */
-	PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN,
-		(PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
-		 PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK),
-		(PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
-		 PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
+		      (u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK);
+	PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask);
+	/* Check that Lbist isolation Enabled */
+	PmChkRegRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN;
+		goto done;
+	}
 
 	/* Trigger LBIST on LPD */
-	PmRmw32(PMC_ANALOG_LBIST_ENABLE,
-		(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
-		 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK),
-		(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
-		 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
+		      (u32)PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK);
+	PmRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask);
+	/* Check that Lbist triggered on LPD */
+	PmChkRegRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE;
+		goto done;
+	}
 
 	/* Release LBIST reset */
-	PmRmw32(PMC_ANALOG_LBIST_RST_N,
-		(PMC_ANALOG_LBIST_RST_N_LPD_MASK |
-		 PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK),
-		(PMC_ANALOG_LBIST_RST_N_LPD_MASK |
-		 PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_RST_N_LPD_MASK |
+		      (u32)PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK);
+	PmRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask);
+	/* Check that Lbist reset released */
+	PmChkRegRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N;
+		goto done;
+	}
 
 	Status = XPm_PollForMask(PMC_ANALOG_LBIST_DONE,
 				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
