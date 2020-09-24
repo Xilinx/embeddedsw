@@ -39,6 +39,7 @@ Fix mkfs usage in lwip examples.
 Fix RX pbuf freeing in GEM error handling path.
 Add axiethernet support on versal silicon.
 Add check in tcl for raw mode selection.
+Use Xil_In32 and Xil_Out32 functions to read/write registers.
 
 scuwdt_v2_3
 Update the Makefile for parallel execution.
