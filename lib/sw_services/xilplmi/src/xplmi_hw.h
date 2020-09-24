@@ -75,9 +75,23 @@ static inline u32 XPlmi_In32(UINTPTR Addr)
 	return Xil_In32(Addr);
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function writes 32-bit value to 32-bit register
+ *
+ * @param	Addr is the address of the register
+ * @param	Value is the value to store in register
+ *
+ * @return	None
+ *
+******************************************************************************/
+static inline void XPlmi_Out32(UINTPTR Addr, u32 Value)
+{
+	Xil_Out32(Addr, Value);
+}
+
 #define XPlmi_In64(Addr)		lwea(Addr)
 #define XPlmi_InByte64(Addr)	lbuea(Addr)
-#define XPlmi_Out32(Addr, Data)		Xil_Out32(Addr, Data)
 
 /*****************************************************************************/
 /**
