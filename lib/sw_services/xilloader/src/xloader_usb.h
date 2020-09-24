@@ -35,21 +35,7 @@ extern "C" {
 #include "xusbpsu.h"
 
 /************************** TypeDef Definitions *****************************/
-struct dfu_if {
-	struct Usb_DevData *InstancePtr;
-	u8 curr_state;
-	u8 next_state;
-	u8 status;
-	u8 got_reset;
-	u32 current_inf;	/**< Current interface */
-	u8 got_dnload_rqst;
-	u32 total_transfers;
-	u32 total_bytes_dnloaded;
-	u32 total_bytes_uploaded;
-	volatile u8 dfu_wait_for_interrupt;
-	u8 is_dfu;
-	u8 runtime_to_dfu;
-};
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_REQ_REPLY_LEN		(256U)	/* Max size of reply buffer. */
 
