@@ -486,6 +486,13 @@ extern "C" {
 /* Error during PMC_ANALOG_OD_MBIST_PG_EN register writing in LpdMbist */
 #define XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN		0x5004U
 
+/* Error during PMC_ANALOG_LBIST_RST_N  register writing in LpdLbist */
+#define XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N		0x5005U
+/* Error during PMC_ANALOG_LBIST_ISOLATION_EN  register writing in LpdLbist */
+#define XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN		0x5006U
+/* Error during PMC_ANALOG_LBIST_ENABLE register writing in LpdLbist */
+#define XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE		0x5007U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
