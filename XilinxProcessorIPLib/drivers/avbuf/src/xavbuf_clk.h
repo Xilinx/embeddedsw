@@ -27,6 +27,10 @@
 #ifndef XAVBUF_CLK_H_
 #define XAVBUF_CLK_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /******************************* Include Files ********************************/
 #include "xavbuf_hw.h"
 #include "xstatus.h"
@@ -68,4 +72,9 @@ typedef struct {
 /**************************** Function Prototypes *****************************/
 int XAVBuf_SetPixelClock(u64 FreqHz);
 int XAVBuf_SetAudioClock(u64 FreqHz);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XAVBUF_CLK_H_ */
