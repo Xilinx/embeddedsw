@@ -52,6 +52,7 @@
 *       bsv  09/13/2020 Clear security critical data in case of exceptions,
 *                       also place AES, ECDSA_RSA and SHA3 in reset
 *       bm   09/21/2020 Added error codes for DFx Compatibility Check
+*       bm   09/24/2020 Added error code for FuncID mismatch
 *
 * </pre>
 *
@@ -376,6 +377,9 @@ typedef enum {
 							obtained when queried for parent ImgID */
 	XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW,	/**< 0x357 - Error when ImageInfo Table is
 							overflowed */
+	XLOADER_ERR_FUNCTION_ID_MISMATCH,	/**< 0x358 - Error when Function ID given while
+							loading Image from DDR is not matching
+							with the ID stored in Image Header */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

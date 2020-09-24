@@ -54,7 +54,7 @@ static XPlmi_Module XPlmi_Pm =
 	XPlmi_PmCmds,
 	PM_API_MAX+1,
 };
-static int (*PmRestartCb)(u32 ImageId);
+static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 /****************************************************************************/
 /**
@@ -508,7 +508,7 @@ static void XPm_CheckLastResetReason(void)
  *
  ****************************************************************************/
 XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
-		 int (*const RestartCb)(u32 ImageId))
+		 int (*const RestartCb)(u32 ImageId, u32 *FuncId))
 {
 	XStatus Status = XST_FAILURE;
 	unsigned int i;
@@ -4187,7 +4187,7 @@ int XPm_RestartCbWrapper(const u32 SubsystemId)
 	int Status = XST_FAILURE;
 
 	if (NULL != PmRestartCb) {
-		Status = PmRestartCb(SubsystemId);
+		Status = PmRestartCb(SubsystemId, NULL);
 	}
 
 	return Status;
