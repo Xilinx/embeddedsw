@@ -806,7 +806,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 	gigeversion = ((Xil_In32(mac_baseaddr + 0xFC)) >> 16) & 0xFFF;
 	if (gigeversion == 2) {
 
-		*(volatile u32_t *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
+		Xil_Out32(SLCR_UNLOCK_ADDR, SLCR_UNLOCK_KEY_VALUE);
 
 		if (mac_baseaddr == ZYNQ_EMACPS_0_BASEADDR) {
 			slcrBaseAddress = SLCR_GEM0_CLK_CTRL_ADDR;
@@ -814,7 +814,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 			slcrBaseAddress = SLCR_GEM1_CLK_CTRL_ADDR;
 		}
 
-		if((*(volatile u32_t *)(UINTPTR)(slcrBaseAddress)) &
+		if(Xil_In32((UINTPTR)slcrBaseAddress) &
 			SLCR_GEM_SRCSEL_EMIO) {
 				return;
 		}
@@ -858,12 +858,12 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		}
 
 		if (SlcrDiv0 != 0 && SlcrDiv1 != 0) {
-			SlcrTxClkCntrl = *(volatile u32_t *)(UINTPTR)(slcrBaseAddress);
+			SlcrTxClkCntrl = Xil_In32((UINTPTR)slcrBaseAddress);
 			SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
 			SlcrTxClkCntrl |= (SlcrDiv1 << 20);
 			SlcrTxClkCntrl |= (SlcrDiv0 << 8);
-			*(volatile u32_t *)(UINTPTR)(slcrBaseAddress) = SlcrTxClkCntrl;
-			*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
+			Xil_Out32((UINTPTR)slcrBaseAddress, SlcrTxClkCntrl);
+			Xil_Out32(SLCR_LOCK_ADDR, SLCR_LOCK_KEY_VALUE);
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}
@@ -954,7 +954,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 								0, 0, 0, 0, 0, 0);
 			CrlApbGemCtrl = RegRead.Arg0 >> 32;
 		#else
-			CrlApbGemCtrl = *(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr);
+			CrlApbGemCtrl = Xil_In32((UINTPTR)CrlApbBaseAddr);
         #endif
 			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV0_MASK;
 			CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
@@ -968,7 +968,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 				0, 0, 0, 0, 0, 0);
 			} while((RegRead.Arg0 >> 32) != CrlApbGemCtrl);
 		#else
-			*(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr) = CrlApbGemCtrl;
+			Xil_Out32((UINTPTR)CrlApbBaseAddr, CrlApbGemCtrl);
         #endif
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
