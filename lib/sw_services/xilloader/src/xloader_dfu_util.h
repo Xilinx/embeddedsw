@@ -348,22 +348,22 @@ struct XLoaderPs_DfuIf {
 };
 
 typedef struct {
-	u8 (*XLoaderPs_Ch9SetupDevDescReply)(struct Usb_DevData* InstancePtr,
+	u8 (*XLoaderPs_Ch9SetupDevDescReply)(const struct Usb_DevData* InstancePtr,
 		u8 *BufPtr, u32 BufferLen);
-	u8 (*XLoaderPs_Ch9SetupCfgDescReply)(struct Usb_DevData* InstancePtr,
+	u8 (*XLoaderPs_Ch9SetupCfgDescReply)(const struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, const u32 BufferLen);
+	u8 (*XLoaderPs_Ch9SetupBosDescReply)(const struct Usb_DevData* InstancePtr,
 		u8 *BufPtr, u32 BufferLen);
-	u8 (*XLoaderPs_Ch9SetupBosDescReply)(struct Usb_DevData* InstancePtr,
-		u8 *BufPtr, u32 BufferLen);
-	u8 (*XLoaderPs_Ch9SetupStrDescReply)(struct Usb_DevData* InstancePtr,
-		u8 *BufPtr, u32 BufferLen, u8 Index);
+	u8 (*XLoaderPs_Ch9SetupStrDescReply)(const struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, const u32 BufferLen, u8 Index);
 	int (*XLoaderPs_SetConfiguration)(struct Usb_DevData* InstancePtr,
-		SetupPacket *SetupData);
+		const SetupPacket *SetupData);
 	int (*XLoaderPs_SetConfigurationApp)(struct Usb_DevData* InstancePtr,
 		SetupPacket *SetupData);
-	void (*XLoaderPs_SetInterfaceHandler)(struct Usb_DevData* InstancePtr,
-		SetupPacket *SetupData);
-	void (*XLoaderPs_ClassReq)(struct Usb_DevData* InstancePtr,
-		SetupPacket *SetupData);
+	void (*XLoaderPs_SetInterfaceHandler)(const struct Usb_DevData* InstancePtr,
+		const SetupPacket *SetupData);
+	void (*XLoaderPs_ClassReq)(const struct Usb_DevData* InstancePtr,
+		const SetupPacket *SetupData);
 	u32 (*XLoaderPs_GetDescReply)(struct Usb_DevData* InstancePtr,
                 SetupPacket *SetupData, u8 *BufPtr);
 }XLoader_Ch9Func_Container;
@@ -380,7 +380,7 @@ extern struct XLoaderPs_DfuIf DfuObj;
 
 /************************** Function Prototypes ******************************/
 void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr);
-void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState);
+void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState);
 
 #endif/*XLOADER_USB*/
 

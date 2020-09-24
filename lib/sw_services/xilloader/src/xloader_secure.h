@@ -444,7 +444,7 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
 u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
-u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr);
+u32 XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
 u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	u32 ChunkLen);

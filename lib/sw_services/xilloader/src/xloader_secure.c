@@ -121,15 +121,15 @@ static INLINE u32 XLoader_GetAuthPubAlgo(const u32* AuthHdrPtr)
 
 static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
-static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr);
+static u32 XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
 static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
-static u32 XLoader_EcdsaSignVerify(XSecure_EcdsaCrvTyp CrvType, u8 *DataHash,
-	u8 *Key, u32 KeySize, u8 *Signature);
-static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
+static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *DataHash,
+	const u8 *Key, const u32 KeySize, const u8 *Signature);
+static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature);
-static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
+static u32 XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
 static u32 XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 	u64 SrcAddr, u64 DestAddr, u32 Size);
@@ -138,24 +138,24 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 static u32 XLoader_CheckNonZeroPpk(void);
 static u32 XLoader_CheckNonZeroIV(void);
 static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr);
-static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash);
+static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 static u32 XLoader_VerifyRevokeId(u32 RevokeId);
-static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash);
+static u32 XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash);
 static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
-static u32 XLoader_ReadHdrs(XLoader_SecureParams *SecurePtr,
-	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
+static u32 XLoader_ReadHdrs(const XLoader_SecureParams *SecurePtr,
+	const XilPdi_MetaHdr *MetaHdr, const u64 BufferAddr);
 static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 static u32 XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 static u32 XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg);
 static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
-	XLoader_AesKekKey *KeyDetails);
+	const XLoader_AesKekKey *KeyDetails);
 static u32 XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
-static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr);
-static int XLoader_ValidateIV(u32 *IHPtr, u32 *EfusePtr);
-static void XLoader_ReadIV(u32 *IV, u32 *EfuseIV);
+static u32 XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr);
+static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
+static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV);
 static void XLoader_EnableJtag(void);
 
 /************************** Variable Definitions *****************************/
@@ -657,13 +657,13 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_SecureValidations(XLoader_SecureParams *SecurePtr)
+u32 XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 {
 	volatile u32 Status = XLOADER_FAILURE;
 	volatile u32 StatusTmp = XLOADER_FAILURE;
 	volatile u32 ReadReg = 0x0U;
 	volatile u32 ReadRegTmp = 0x0U;
-	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
+	const XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
 
 	XPlmi_Printf(DEBUG_INFO,
 		"Performing security checks \n\r");
@@ -773,7 +773,7 @@ END:
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_SecureEncOnlyValidations(XLoader_SecureParams *SecurePtr)
+static u32 XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr)
 {
 	volatile u32 Status = XLOADER_FAILURE;
 	volatile u32 StatusTmp = XLOADER_FAILURE;
@@ -1262,7 +1262,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	volatile u32 SStatus = XLOADER_FAILURE;
 	XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
-	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
+	const XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
 	volatile u8 IsEfuseAuth = (u8)TRUE;
 	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
 	u32 AuthType;
@@ -1359,11 +1359,11 @@ END:
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_VerifySignature(XLoader_SecureParams *SecurePtr,
+static u32 XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 		u8 *Hash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	volatile u32 Status = XLOADER_FAILURE;
-	XLoader_AuthCertificate *AcPtr =
+	const XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
 	u32 AuthType;
 
@@ -1412,7 +1412,7 @@ END:
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_SpkAuthentication(XLoader_SecureParams *SecurePtr)
+static u32 XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 {
 	volatile u32 Status = XLOADER_FAILURE;
 	XSecure_Sha3Hash SpkHash;
@@ -1558,7 +1558,7 @@ END:
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
+static u32 XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 {
 	u32 Status = XLOADER_FAILURE;
 	volatile int HashStatus = XST_FAILURE;
@@ -1589,12 +1589,12 @@ static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, u8 *PpkHash)
+static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 {
 	volatile u32 Status = XLOADER_FAILURE;
 	volatile int HashStatus;
 	volatile int HashStatusTmp;
-	u8 HashZeros[XLOADER_EFUSE_PPK_HASH_LEN] = {0U};
+	const u8 HashZeros[XLOADER_EFUSE_PPK_HASH_LEN] = {0U};
 	volatile u32 ReadReg;
 	volatile u32 ReadRegTmp;
 	u32 PpkOffset;
@@ -1925,7 +1925,7 @@ END:
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
+static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	volatile u32 Status = XLOADER_FAILURE;
@@ -2092,15 +2092,15 @@ END:
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_EcdsaSignVerify(XSecure_EcdsaCrvTyp CrvType, u8 *DataHash,
-	u8 *Key, u32 KeySize, u8 *Signature)
+static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *DataHash,
+	const u8 *Key, const u32 KeySize, const u8 *Signature)
 {
 	volatile u32 Status = XLOADER_FAILURE;
 	volatile u32 StatusTmp = XLOADER_FAILURE;
-	u8 *XKey = Key;
-	u8 *YKey = &Key[KeySize];
-	u8 *RSign = Signature;
-	u8 *SSign = &Signature[KeySize];
+	const u8 *XKey = Key;
+	const u8 *YKey = &Key[KeySize];
+	const u8 *RSign = Signature;
+	const u8 *SSign = &Signature[KeySize];
 	u8 Qx[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
 	u8 Qy[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
 	u8 SigR[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
@@ -2875,8 +2875,8 @@ END:
  *			Error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_ReadHdrs(XLoader_SecureParams *SecurePtr,
-			XilPdi_MetaHdr *MetaHdr, u64 BufferAddr)
+static u32 XLoader_ReadHdrs(const XLoader_SecureParams *SecurePtr,
+			const XilPdi_MetaHdr *MetaHdr, const u64 BufferAddr)
 {
 	u32 Status = XLOADER_FAILURE;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
@@ -2898,7 +2898,7 @@ static u32 XLoader_ReadHdrs(XLoader_SecureParams *SecurePtr,
 
 	/* Read IHT and PHT to buffers along with encryption overhead */
 	Status = MetaHdr->DeviceCopy(MetaHdr->FlashOfstAddr +
-					ImgHdrAddr, (u64 )BufferAddr,
+					ImgHdrAddr, BufferAddr,
 					TotalSize, 0x0U);
 	if (XLOADER_SUCCESS != Status) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_COPY_FAIL, Status);
@@ -3176,7 +3176,7 @@ static u32 XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
  *
  ******************************************************************************/
 static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
-					XLoader_AesKekKey *KeyDetails)
+					const XLoader_AesKekKey *KeyDetails)
 {
 	u32 Status = XLOADER_FAILURE;
 	XPuf_Data PufData;
@@ -3299,7 +3299,7 @@ END:
 * IV[31:0] defined by user in meta header should >= eFUSEIV[31:0]
 *
 ******************************************************************************/
-static int XLoader_ValidateIV(u32 *IHPtr, u32 *EfusePtr)
+static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 {
 	int Status = XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
 
@@ -3329,7 +3329,7 @@ END:
 * @return      None
 *
 ******************************************************************************/
-static void XLoader_ReadIV(u32 *IV, u32 *EfuseIV)
+static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV)
 {
 	u32 Index;
 
