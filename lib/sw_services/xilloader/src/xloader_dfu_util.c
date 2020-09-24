@@ -38,27 +38,28 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /***************** Function Prototypes ***************************************/
-static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* InstancePtr,
+static u8 XLoader_Ch9SetupDevDescReply(const struct Usb_DevData* InstancePtr,
         u8 *BufPtr, u32 BufferLen);
-static u8 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* InstancePtr,
+static u8 XLoader_Ch9SetupCfgDescReply(const struct Usb_DevData* InstancePtr,
+        u8 *BufPtr, const u32 BufferLen);
+static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8 *BufPtr,
+	const u32 BufferLen, u8 Index);
+static u8 XLoader_Ch9SetupBosDescReply(const struct Usb_DevData* InstancePtr,
         u8 *BufPtr, u32 BufferLen);
-static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
-	u32 BufferLen, u8 Index);
-static u8 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* InstancePtr,
-        u8 *BufPtr, u32 BufferLen);
-static int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
-                SetupPacket *SetupData);
-static int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,
-        SetupPacket *SetupData);
+static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
+                const SetupPacket *SetupData);
+static int XLoader_UsbReqSetFeature(const struct Usb_DevData *InstancePtr,
+        const SetupPacket *SetupData);
 static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData);
-static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
-        SetupPacket *SetupData);
-static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr,
-	SetupPacket *SetupData);
+	const SetupPacket *SetupData);
+static int XLoader_UsbReqGetDescriptor(const struct Usb_DevData *InstancePtr,
+        const SetupPacket *SetupData);
+static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr,
+	const SetupPacket *SetupData);
 static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr,
-	SetupPacket *Ctrl);
-static void XLoader_DfuSetIntf(struct Usb_DevData* InstancePtr, SetupPacket *SetupData);
+	const SetupPacket *Ctrl);
+static void XLoader_DfuSetIntf(const struct Usb_DevData* InstancePtr,
+	const SetupPacket *SetupData);
 
 /**************************** Type Definitions *******************************/
 struct XLoaderPs_DfuIf DfuObj;
@@ -299,17 +300,17 @@ static void XLoader_DfuWaitForReset(void)
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u8 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
-	u32 BufferLen, u8 Index)
+static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8 *BufPtr,
+	const u32 BufferLen, u8 Index)
 {
 	int Status = XST_FAILURE;
 	u32 LoopVar;
-	char* String;
+	const char* String;
 	u32 StringLen;
 	u8 DescLen = 0U;
 	XLoaderPs_UsbStdStringDesc StringDesc;
 	/* String Descriptors */
-	static char* StringList[XLOADER_USB_MODES_NUM]
+	static const char* StringList[XLOADER_USB_MODES_NUM]
 			[XLOADER_STRING_DESCRIPTORS_NUM] = {
 		{
 			"UNUSED",
@@ -401,7 +402,7 @@ END:
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u8 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
+static u8 XLoader_Ch9SetupDevDescReply(const struct Usb_DevData* InstancePtr, u8 *BufPtr,
 	u32 BufferLen)
 {
 	int Status = XST_FAILURE;
@@ -443,11 +444,11 @@ END:
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u8 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
-		u32 BufferLen)
+static u8 XLoader_Ch9SetupCfgDescReply(const struct Usb_DevData* InstancePtr, u8 *BufPtr,
+		const u32 BufferLen)
 {
 	int Status = XST_FAILURE;
-	u8 *Config;
+	const u8 *Config;
 	u8 CfgDescLen = 0U;
 
 	/* Check buffer pointer is OK and buffer is big enough. */
@@ -490,7 +491,7 @@ END:
  * @return 	Length of the descriptor in the buffer on success and 0 on error.
  *
  ******************************************************************************/
-static u8 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* InstancePtr, u8 *BufPtr,
+static u8 XLoader_Ch9SetupBosDescReply(const struct Usb_DevData* InstancePtr, u8 *BufPtr,
 	u32 BufferLen)
 {
 	u8 UsbBosDescLen = 0U;
@@ -546,7 +547,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr, SetupPacket *Ctrl)
+static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr, const SetupPacket *Ctrl)
 {
 	int Status = XST_FAILURE;
 
@@ -582,7 +583,7 @@ static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr, SetupPacket
  * @return	None
  *
  ******************************************************************************/
-void XLoader_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState)
+void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState)
 {
 	int Status = XST_FAILURE;
 	(void) InstancePtr;
@@ -685,7 +686,7 @@ void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr)
  * @return	None
  *
  ******************************************************************************/
-static void XLoader_DfuSetIntf(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
+static void XLoader_DfuSetIntf(const struct Usb_DevData* InstancePtr, const SetupPacket *SetupData)
 {
 	/* Setting the alternate setting requested */
 	DfuObj.CurrentInf = SetupData->wValue;
@@ -718,7 +719,7 @@ static void XLoader_DfuSetIntf(struct Usb_DevData* InstancePtr, SetupPacket *Set
  * @return	None
  *
  ******************************************************************************/
-static void XLoader_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
+static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const SetupPacket *SetupData)
 {
 	int Result;
 	u32 RxBytesLeft;
@@ -817,8 +818,8 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
-static int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData)
+static int XLoader_UsbReqGetDescriptor(const struct Usb_DevData *InstancePtr,
+	const SetupPacket *SetupData)
 {
 	int Status = XST_FAILURE;
 	u8 ReplyLen;
@@ -957,7 +958,7 @@ void XLoader_Ch9Handler(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
  * @return	None
  *
 ******************************************************************************/
-static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
+static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr, const SetupPacket *SetupData)
 {
 	int Status = XST_FAILURE;
 	u8 TmpBuffer[XLOADER_DFU_STATUS_SIZE] = {0U};
@@ -1043,8 +1044,8 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
-static int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData)
+static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
+		const SetupPacket *SetupData)
 {
 	int Status = XST_FAILURE;
 	u16 ShortVar;
@@ -1102,8 +1103,8 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
-static int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData)
+static int XLoader_UsbReqSetFeature(const struct Usb_DevData *InstancePtr,
+	const SetupPacket *SetupData)
 {
 	int Status = XST_FAILURE;
 	u8 EpNum = (u8)(SetupData->wIndex & XLOADER_USB_ENDPOINT_NUMBER_MASK);

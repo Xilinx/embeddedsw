@@ -53,7 +53,7 @@
  * modules. As a part of init functions, modules can initiate scan on both cfi
  * npi, scan will be decided based on the CIPS params in xparameters.h.
  *
- * @param	None
+ * @param	Arg is not used
  *
  * @return	Status as defined in XilSem library
  *

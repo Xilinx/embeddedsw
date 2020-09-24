@@ -73,13 +73,13 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr);
-static int XLoader_PrtnCopy(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
+static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
-static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu);
+static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
-static int XLoader_ProcessCdo (XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
+static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
-static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr* PrtnHdr,
+static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr* PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
 
 /************************** Variable Definitions *****************************/
@@ -226,7 +226,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_PrtnCopy(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
+static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 		XLoader_SecureParams* SecureParams)
 {
 	volatile int Status = XST_FAILURE;
@@ -267,7 +267,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ProcessElf(XilPdi* PdiPtr, XilPdi_PrtnHdr * PrtnHdr,
+static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams)
 {
 	int Status = XST_FAILURE;
@@ -445,10 +445,10 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 	u32 DstnCpu;
 	u32 CpuNo;
 	u32 PrtnNum = PdiPtr->PrtnNum;
-	XilPdi_PrtnHdr * PrtnHdr;
-
 	/* Assign the partition header to local variable */
-	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	const XilPdi_PrtnHdr * PrtnHdr =
+			&(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	if ((DstnCpu > XIH_PH_ATTRB_DSTN_CPU_NONE) &&
@@ -487,7 +487,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu)
+static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
@@ -520,7 +520,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ProcessCdo(XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
+static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 		XLoader_SecureParams* SecureParams)
 {
 	int Status = XST_FAILURE;
@@ -727,7 +727,6 @@ END:
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
-	XilPdi_PrtnHdr * PrtnHdr;
 	PdiSrc_t PdiSrc = PdiPtr->PdiSrc;
 	int (*DevCopy) (u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags) = NULL;
 	XLoader_SecureParams SecureParams = {0U};
@@ -739,9 +738,9 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	u8 ToStoreInDdr = (u8)FALSE;
 	u8 PdiType;
-
 	/* Assign the partition header to local variable */
-	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+
 	/* Update current Processing partition ID */
 	PdiPtr->CurPrtnId = PrtnHdr->PrtnId;
 	/* Read Partition Type */
