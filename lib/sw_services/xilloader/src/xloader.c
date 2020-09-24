@@ -67,6 +67,7 @@
 *       bm   09/07/2020 Clear PMC RAM chunk after loading PDIs and reloading images
 *       bm   09/21/2020 Added ImageInfo related code and added compatibility
 *                       check required for DFx
+*       bm   09/24/2020 Added FuncID to RestartImage
 *
 * </pre>
 *
@@ -1393,15 +1394,16 @@ END:
  * as part of the image load.
  *
  * @param	ImageId Id of the image present in PDI
+ * @param	FuncID is verified with the FuncID present in PDI
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_RestartImage(u32 ImageId)
+int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 {
 	int Status = XST_FAILURE;
 
-	Status = XLoader_ReloadImage(ImageId);
+	Status = XLoader_ReloadImage(ImageId, FuncID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1422,11 +1424,12 @@ END:
  * read the image partitions and loads them.
  *
  * @param	ImageId Id of the image present in PDI
+ * @param	FuncID is verified with the FuncID present in PDI
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_ReloadImage(u32 ImageId)
+int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;
@@ -1450,6 +1453,13 @@ int XLoader_ReloadImage(u32 ImageId)
 	if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
 		goto END;
+	}
+
+	if (FuncID != NULL) {
+		if (PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].FuncID != *FuncID) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_FUNCTION_ID_MISMATCH, 0);
+			goto END;
+		}
 	}
 
 	PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(

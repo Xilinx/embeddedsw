@@ -69,6 +69,7 @@
 *       skd  08/21/2020 Added flash size macros
 *       bm   09/21/2020 Added ImageInfo related code and added compatibility
 *                       check required for DFx
+*       bm   09/24/2020 Added FuncID argument to RestartImage and ReloadImage
 *
 * </pre>
 *
@@ -365,8 +366,8 @@ int XLoader_Init(void);
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 int XLoader_LoadImage(XilPdi *PdiPtr);
 int XLoader_StartImage(XilPdi *PdiPtr);
-int XLoader_RestartImage(u32 ImageId);
-int XLoader_ReloadImage(u32 ImageId);
+int XLoader_RestartImage(u32 ImageId, u32 *FuncID);
+int XLoader_ReloadImage(u32 ImageId, u32 *FuncID);
 int XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
