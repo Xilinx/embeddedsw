@@ -135,7 +135,20 @@ static XStatus AiePcsrWrite(u32 Mask, u32 Value)
 	BaseAddress = AieDev->Node.BaseAddress;
 
 	PmOut32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask);
+	/* Check mask value again for blind write check */
+	PmChkRegOut32(((BaseAddress + NPI_PCSR_MASK_OFFSET)), Mask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK;
+		goto done;
+	}
+
 	PmOut32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Value);
+	/* Check control value again for blind write check */
+	PmChkRegRmw32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Mask, Value, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL;
+		goto done;
+	}
 
 	Status = XST_SUCCESS;
 
