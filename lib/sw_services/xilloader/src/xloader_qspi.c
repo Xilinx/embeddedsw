@@ -685,7 +685,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 TransferBytes;
 	u32 DiscardByteCnt;
 	u32 BankSize;
-	u32 BankMask;
+	u64 BankMask;
 	u32 SrcAddrLow = (u32)SrcAddr;
 	XQspiPsu_Msg FlashMsg[3U] = {0U,};
 	u8 WriteBuffer[10U] __attribute__ ((aligned(32U))) = {0U};
@@ -743,7 +743,8 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	if (QspiMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		FlashMsg[2U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		BankSize =  XLOADER_BANKSIZE * 2U;
-		BankMask =  XLOADER_BANKMASK * 2U;
+		BankMask =  XLOADER_BANKMASK;
+		BankMask *= 2U;
 	}
 	else {
 		BankSize =  XLOADER_BANKSIZE;
@@ -804,10 +805,10 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			 * calculate Transfer Bytes in current bank. Else
 			 * transfer bytes are same
 			 */
-			if ((OrigAddr & BankMask) != ((OrigAddr + TransferBytes)
+			if ((OrigAddr & BankMask) != (((u64)OrigAddr + TransferBytes)
 				& BankMask)) {
-				TransferBytes = (OrigAddr & BankMask) +
-						BankSize - OrigAddr;
+				TransferBytes = (u32)((OrigAddr & BankMask) +
+						BankSize - OrigAddr);
 			}
 		}
 
