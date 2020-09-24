@@ -513,6 +513,11 @@ extern "C" {
 /* Error during PMC_ANALOG_SCAN_CLEAR_TRIGGER register writing in NpdScanClear */
 #define XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER		0x5009U
 
+/* Error during CFU_APB_CFU_MASK register writing in PlHouseClean */
+#define XPM_INT_ERR_REG_WRT_PLHOUSECLN_CFU_MASK		0x500AU
+/* Error during CFU_APB_CFU_FGCR register writing in PlHouseClean */
+#define XPM_INT_ERR_REG_WRT_PLHOUSECLN_CFU_FGCR		0x500BU
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
