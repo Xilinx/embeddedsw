@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xilskey_puf_registration.c
+ * @file xilskey_puf_registration_example.c
  *
  * This file illustrates how to do PUF registration and generating syndrome
  * data and obtaining helper data, debug 2 result, Auxiliary and CHash values
