@@ -387,7 +387,8 @@ done:
 
 static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XPM_ERR_MBIST_CLR;
+	volatile XStatus Status = XPM_ERR_MBIST_CLR;
+	volatile XStatus StatusTmp = XPM_ERR_MBIST_CLR;
 	XPm_CpmDomain *Cpm;
 	u32 RegValue, i;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -447,8 +448,10 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	for (i = 0; 0U != GtyAddresses[i]; ++i) {
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Mbist */
-		Status = Cpm5GtypMbist(GtyAddresses[i]);
-		if (Status != XST_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Cpm5GtypMbist), (GtyAddresses[i]));
+		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+		/* Required for redundancy */
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 			DbgErr = XPM_INT_ERR_MBIST;
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 			goto done;
