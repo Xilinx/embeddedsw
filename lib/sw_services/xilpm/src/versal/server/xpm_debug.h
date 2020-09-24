@@ -507,6 +507,9 @@ extern "C" {
 /* Error during PMC_ANALOG_LBIST_ENABLE register writing in LpdLbist */
 #define XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE		0x5007U
 
+/* Error during PMC_ANALOG_SCAN_CLEAR_TRIGGER register writing in LpdScanClear */
+#define XPM_INT_ERR_REG_WRT_LPDLSCNCLR_TRIGGER		0x5008U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
