@@ -28,7 +28,8 @@
 #define CRAM_TRIM_RW_READ_VOLTAGE	0x0600019FU
 static XCframe CframeIns={0}; /* CFRAME Driver Instance */
 static XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
-static u32 PlpdHouseCleanBypass = 0;
+static volatile u32 PlpdHouseCleanBypass = 0;
+static volatile u32 PlpdHouseCleanBypassTmp = 0;
 u32 HcleanDone = 0;
 
 static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
@@ -304,7 +305,9 @@ static XStatus GtyHouseClean(void)
 		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0);
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
-	if (0U == PlpdHouseCleanBypass) {
+
+	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
+	if ((0U == PlpdHouseCleanBypass) && (0U == LocalPlpdHCBypass)) {
 		/* Bisr repair - Bisr should be triggered only for Addresses for which repair
 		 * data is found and so not calling in loop. Trigger is handled in below routine
 		 * */
@@ -611,7 +614,8 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	/* Unlock CFU writes */
 	PldCfuLock(Pld, 0U);
 
-	if(0U == PlpdHouseCleanBypass) {
+	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
+	if ((0U == PlpdHouseCleanBypass) && (0U == LocalPlpdHCBypass)) {
 		Status = PlHouseClean(PLHCLEAN_INIT_NODE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PL_HC;
@@ -696,11 +700,13 @@ done:
 
 XStatus XPmPlDomain_InitandHouseclean(void)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	XStatus IntRailPwrSts = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
-	u32 Platform;
+	volatile u32 PlatformType = 0xFFU;
+	volatile u32 PlatformTypeTmp = 0xFFU;
 	u32 PlatformVersion;
 	XPm_Pmc *Pmc;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -748,11 +754,16 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	}
 
 	PlatformVersion = XPm_GetPlatformVersion();
-	Platform = XPm_GetPlatform();
+	PlatformType = XPm_GetPlatform();
+	/* Required for redundancy */
+	PlatformTypeTmp = XPm_GetPlatform();
+	u32 LocalPlatformType = PlatformTypeTmp; /* Copy volatile to local to avoid MISRA */
 
 	/* Check if housecleaning needs to be bypassed */
-	if (PLATFORM_VERSION_FCV == Platform) {
+	if ((PLATFORM_VERSION_FCV == PlatformType) ||
+	    (PLATFORM_VERSION_FCV == LocalPlatformType)) {
 		PlpdHouseCleanBypass = 1;
+		PlpdHouseCleanBypassTmp = 1;
 	}
 
 	/* Check for PL POR Status */
@@ -765,7 +776,9 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		goto done;
 	}
 
-	if((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	if ((PLATFORM_VERSION_SILICON == PlatformType) &&
+	    (PLATFORM_VERSION_SILICON == LocalPlatformType) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/*
 		 * EDT-995767: Theres a bug with ES1, due to which a small
 		 * percent (<2%) of device may miss pl_por_b during power,
@@ -847,9 +860,12 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 		goto done;
 	}
 
-	if(0U == PlpdHouseCleanBypass) {
-		Status = PlHouseClean(PLHCLEAN_EARLY_BOOT);
-		if (XST_SUCCESS != Status) {
+	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
+	if ((0U == PlpdHouseCleanBypass) && (0U == LocalPlpdHCBypass)) {
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PlHouseClean), (PLHCLEAN_EARLY_BOOT));
+		/* Required for redundancy */
+		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 			DbgErr = XPM_INT_ERR_PL_HC;
 			goto done;
 		}
