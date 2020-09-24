@@ -25,7 +25,7 @@ extern "C" {
 extern u32 ResetReason;
 
 XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
-		 int (*const RestartCb)(u32 ImageId));
+		 int (*const RestartCb)(u32 ImageId, u32 *FuncId));
 
 int XPm_GetChipID(u32* IDCode, u32 *Version);
 
