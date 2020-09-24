@@ -30,6 +30,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   08/19/2020 Added ImageInfo Cmds
 *       bm   09/21/2020 Modified ImageInfo related API calls
+*       bm   09/24/2020 Added FuncID parameter in LoadDdrCpyImg
 *
 * </pre>
 *
@@ -95,6 +96,7 @@ static int XLoader_Features(XPlmi_Cmd * Cmd)
  * @brief	This function provides load DDR copy image execution.
  * Command payload parameters are
  *	* Img ID - of ddr copied image
+ *	* Func ID - to verify with the FuncID of ddr copied image
  *
  * @param	Pointer to the command structure
  *
@@ -105,6 +107,7 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 ImgId = Cmd->Payload[0U];
+	u32 *FuncID = (Cmd->Len > 1U) ? (&Cmd->Payload[1U]) : NULL;
 	XilPdi* PdiPtr = BootPdiPtr;
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
@@ -112,7 +115,7 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
-	Status = XLoader_RestartImage(ImgId);
+	Status = XLoader_RestartImage(ImgId, FuncID);
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
