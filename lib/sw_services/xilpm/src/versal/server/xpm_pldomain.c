@@ -282,7 +282,8 @@ done:
 
 static XStatus GtyHouseClean(void)
 {
-	XStatus Status = XPM_ERR_HC_PL;
+	volatile XStatus Status = XPM_ERR_HC_PL;
+	volatile XStatus StatusTmp = XPM_ERR_HC_PL;
 	unsigned int i;
 	u32 GtyAddresses[MAX_DEV_GT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -336,8 +337,10 @@ static XStatus GtyHouseClean(void)
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
 				PCSR_UNLOCK_VAL);
 			/* Mbist */
-			Status = PldGtyMbist(GtyAddresses[i]);
-			if (XST_SUCCESS != Status) {
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddresses[i]));
+			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+			/* Required for redundancy */
+			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 				/* Gt Mem clear is found to be failing on some parts.
 				 Just print message and return not to break execution */
 				PmInfo("ERROR: GT Mem clear Failed\r\n");
