@@ -108,6 +108,20 @@ extern "C" {
 
 #endif
 
+#define PmChkRegRmw32(ADDR, MASK, VAL, STATUS)				\
+	do {									\
+		if (((u32)(VAL) & (u32)(MASK)) != ((u32)(XPm_In32((ADDR))) & (u32)(MASK))) {	\
+			(STATUS) = XPM_REG_WRITE_FAILED;			\
+		}								\
+	} while (0)								\
+
+#define PmChkRegOut32(ADDR, VAL, STATUS)					\
+	do {									\
+		if ((u32)(VAL) != XPm_In32((ADDR))) {				\
+			(STATUS) = XPM_REG_WRITE_FAILED;			\
+		}								\
+	} while (0)								\
+
 #define BIT(n)					(1U << (n))
 #define BIT8(n)					((u8)1U << (n))
 #define BIT16(n)				((u16)1U << (n))
