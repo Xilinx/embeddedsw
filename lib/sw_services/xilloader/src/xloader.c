@@ -109,9 +109,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
-static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl);
+static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
-static int XLoader_VerifyImgInfo(XLoader_ImageInfo *ImageInfo);
+static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 
@@ -1239,7 +1239,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-static int XLoader_VerifyImgInfo(XLoader_ImageInfo *ImageInfo)
+static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 {
 	int Status = XST_FAILURE;
 	XPm_DeviceStatus DeviceStatus;
@@ -1596,7 +1596,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-static int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
+static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 	XLoader_IdCodeInfo IdCodeInfo;

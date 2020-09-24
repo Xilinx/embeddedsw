@@ -331,7 +331,7 @@ typedef struct {
  * @return	TRUE if authentication is enabled and false otherwise
  *
  *****************************************************************************/
-static inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
+static inline u8 XLoader_IsAuthEnabled(const XilPdi* PdiPtr)
 {
 	volatile u8 IsAuth = (u8)TRUE;
 	volatile u8 IsAuthTemp = (u8)TRUE;
@@ -350,7 +350,7 @@ static inline u8 XLoader_IsAuthEnabled(XilPdi* PdiPtr)
  * @return	TRUE if encryption is enabled and false otherwise
  *
  *****************************************************************************/
-static inline u8 XLoader_IsEncEnabled(XilPdi* PdiPtr)
+static inline u8 XLoader_IsEncEnabled(const XilPdi* PdiPtr)
 {
 	volatile u8 IsEnc = (u8)TRUE;
 	volatile u8 IsEncTemp = (u8)TRUE;
