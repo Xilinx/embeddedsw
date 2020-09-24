@@ -1259,7 +1259,7 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
 	volatile u32 Status = XLOADER_FAILURE;
-	volatile u32 StatusTmp = XLOADER_FAILURE;
+	volatile u32 SStatus = XLOADER_FAILURE;
 	XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
 	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
@@ -1294,12 +1294,12 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	}
 
 	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_CheckNonZeroPpk);
 	/*
 	 * Only boot header authentication is allowed when
 	 * none of PPK hash bits are programmed
 	 */
-	if ((Status != XLOADER_SUCCESS) && (StatusTmp != XLOADER_SUCCESS)) {
+	if ((Status != XLOADER_SUCCESS) && (SStatus != XLOADER_SUCCESS)) {
 		IsEfuseAuth = (u8)FALSE;
 		IsEfuseAuthTmp = (u8)FALSE;
 		/* If BHDR authentication is not enabled return error */
