@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps.h
-* @addtogroup xclock_v1_2
+* @addtogroup xclock_v1_3
 * @{
 *
 * The Xilinx Clock controller driver provides APIs to control clock parameters.
