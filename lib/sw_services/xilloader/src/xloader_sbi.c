@@ -49,7 +49,6 @@
 #define XLOADER_SBI_CTRL_INTERFACE_SMAP                  (0x0U)
 #define XLOADER_SBI_CTRL_INTERFACE_JTAG                  (0x4U)
 #define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE             (0x8U)
-#define XLOADER_SBI_CTRL_ENABLE                          (0x1U)
 
 /************************** Function Prototypes ******************************/
 
