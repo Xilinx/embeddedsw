@@ -30,7 +30,6 @@
 
 /***************************** Include Files *********************************/
 #include "xfsbl_authentication.h"
-#ifdef XFSBL_SECURE
 
 /************************** Constant Definitions *****************************/
 
@@ -60,6 +59,7 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
 	}
 }
 
+#ifdef XFSBL_SECURE
 /*****************************************************************************
  *
  * This function selects the padding type to be used for SHA3 hash calculation
