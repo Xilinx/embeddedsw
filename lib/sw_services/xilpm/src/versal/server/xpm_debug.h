@@ -489,9 +489,16 @@ extern "C" {
 /*********************** Register blind write check errors********************/
 /************************** (0x5000) - (0x50FF) ******************************/
 /* AIE NPI_PCSR_MASK write check error */
-#define XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK	0x5000U
+#define XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK		0x5000U
 /* AIE NPI_PCSR_CONTROL write check error */
-#define XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL	0x5001U
+#define XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL		0x5001U
+
+/* Error during PMC_ANALOG_OD_MBIST_RST register writing in LpdMbist */
+#define XPM_INT_ERR_REG_WRT_LPDMBIST_RST		0x5002U
+/* Error during PMC_ANALOG_OD_MBIST_SETUP register writing in LpdMbist */
+#define XPM_INT_ERR_REG_WRT_LPDMBIST_SETUP		0x5003U
+/* Error during PMC_ANALOG_OD_MBIST_PG_EN register writing in LpdMbist */
+#define XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN		0x5004U
 
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
