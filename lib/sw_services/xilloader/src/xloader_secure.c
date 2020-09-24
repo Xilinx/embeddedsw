@@ -1901,7 +1901,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			 Size = (OutLen % HashLen);
 		}
 		(void)XPlmi_MemCpy(Out, HashStore.Hash, Size);
-		Out = Out + XLOADER_SHA3_LEN;
+		Out = &Out[XLOADER_SHA3_LEN];
 		Counter = Counter + 1U;
 	}
 
@@ -1971,8 +1971,8 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	(void)memcpy(Xsecure_Varsocm.EmHash, XSecure_RsaSha3Array +
-				XLOADER_RSA_PSS_MASKED_DB_LEN, XLOADER_SHA3_LEN);
+	(void)memcpy(Xsecure_Varsocm.EmHash, &XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
+				XLOADER_SHA3_LEN);
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
@@ -1996,7 +1996,7 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	(void)memcpy(Xsecure_Varsocm.Salt, Buffer + XLOADER_RSA_PSS_DB_LEN,
+	(void)memcpy(Xsecure_Varsocm.Salt, &Buffer[XLOADER_RSA_PSS_DB_LEN],
 				XLOADER_RSA_PSS_SALT_LEN);
 
 	/* Hash on M prime */
@@ -2098,9 +2098,9 @@ static u32 XLoader_EcdsaSignVerify(XSecure_EcdsaCrvTyp CrvType, u8 *DataHash,
 	volatile u32 Status = XLOADER_FAILURE;
 	volatile u32 StatusTmp = XLOADER_FAILURE;
 	u8 *XKey = Key;
-	u8 *YKey = Key + KeySize;
+	u8 *YKey = &Key[KeySize];
 	u8 *RSign = Signature;
-	u8 *SSign= Signature + KeySize;
+	u8 *SSign = &Signature[KeySize];
 	u8 Qx[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
 	u8 Qy[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
 	u8 SigR[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
