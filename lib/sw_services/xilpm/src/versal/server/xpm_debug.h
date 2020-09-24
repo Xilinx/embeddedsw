@@ -472,6 +472,13 @@ extern "C" {
 /* Error during pldevice initnode command */
 #define XPM_INT_ERR_PLDEVICE_INITNODE		0x4901U
 
+/*********************** Register blind write check errors********************/
+/************************** (0x5000) - (0x50FF) ******************************/
+/* AIE NPI_PCSR_MASK write check error */
+#define XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK	0x5000U
+/* AIE NPI_PCSR_CONTROL write check error */
+#define XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL	0x5001U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
