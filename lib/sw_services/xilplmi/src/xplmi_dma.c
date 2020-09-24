@@ -22,6 +22,7 @@
 * 1.02  bsv  04/04/2020 Code clean up
 *       bsv  04/07/2020 Renamed DMA to PMCDMA
 *       bm   09/02/2020 Add XPlmi_MemSet API
+*       bm   09/23/2020 Fix XPlmi_InitNVerifyMem for 64-bit address
 *
 * </pre>
 *
@@ -680,9 +681,10 @@ int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
 {
 	int Status = XST_FAILURE;
 #ifndef PLM_DEBUG_MODE
-	u32 *MemPtr = (u32 *)(UINTPTR)Addr;
+	u64 SrcAddr = Addr;
 	u32 NoWords = Len / XPLMI_WORD_LEN;
 	u32 Index;
+	u32 Data;
 
 	/* Initialize the data */
 	Status = XPlmi_EccInit(Addr, Len);
@@ -692,10 +694,12 @@ int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
 
 	/* Read and verify the initialized data */
 	for (Index = 0U; Index < NoWords; Index++) {
-		if (MemPtr[Index] != XPLMI_DATA_INIT_PZM) {
+		Data = XPlmi_In64(SrcAddr);
+		if (Data != XPLMI_DATA_INIT_PZM) {
 			Status = XST_FAILURE;
 			goto END;
 		}
+		SrcAddr += XPLMI_WORD_LEN;
 	}
 
 END:
