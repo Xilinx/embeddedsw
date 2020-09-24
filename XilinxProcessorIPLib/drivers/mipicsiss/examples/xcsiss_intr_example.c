@@ -627,11 +627,6 @@ void CsiSs_ErrEventHandler(void *InstancePtr, u32 Mask)
 	if (Mask & XCSISS_ISR_SLBF_MASK) {
 		xil_printf("Stream line buffer full Error \n\r");
 	}
-
-	if (Mask & XCSISS_ISR_STOP_MASK) {
-		xil_printf("Stop Error \n\r");
-		XCsiSs_IntrDisable(CsiSsInstance, XCSISS_ISR_STOP_MASK);
-	}
 }
 
 /*****************************************************************************/
