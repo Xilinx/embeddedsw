@@ -518,6 +518,13 @@ extern "C" {
 /* Error during CFU_APB_CFU_FGCR register writing in PlHouseClean */
 #define XPM_INT_ERR_REG_WRT_PLHOUSECLN_CFU_FGCR		0x500BU
 
+/* Error during CPM_SLCR_SECURE_OD_MBIST_RST_N register writing in CpmMbistClear */
+#define XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_RST	0x500CU
+/* Error during CPM_SLCR_SECURE_MBIST_SETUP register writing in CpmMbistClear */
+#define XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_SETUP	0x500DU
+/* Error during CPM_SLCR_SECURE_MBIST_PG_EN register writing in CpmMbistClear */
+#define XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_PGEN	0x500EU
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
