@@ -292,10 +292,33 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	/* Trigger Mbist */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
 		CPM_SLCR_SECURE_OD_MBIST_RESET_N_OFFSET, 0xFF);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_RESET_N_OFFSET),
+			  0xFF, 0xFF, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_RST;
+		goto done;
+	}
+
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
 		CPM_SLCR_SECURE_OD_MBIST_SETUP_OFFSET, 0xFF);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_SETUP_OFFSET),
+			  0xFF, 0xFF, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_SETUP;
+		goto done;
+	}
+
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
 		CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET, 0xFF);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET),
+			  0xFF, 0xFF, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_PGEN;
+		goto done;
+	}
 
 	/* Wait till its done */
 	Status = XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr +
