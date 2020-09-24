@@ -496,6 +496,9 @@ extern "C" {
 /* Error during PMC_ANALOG_SCAN_CLEAR_TRIGGER register writing in LpdScanClear */
 #define XPM_INT_ERR_REG_WRT_LPDLSCNCLR_TRIGGER		0x5008U
 
+/* Error during PMC_ANALOG_SCAN_CLEAR_TRIGGER register writing in NpdScanClear */
+#define XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER		0x5009U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
