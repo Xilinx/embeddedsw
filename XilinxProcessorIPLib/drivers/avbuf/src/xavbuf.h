@@ -31,6 +31,9 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XAVBUF_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 #include "xavbuf_hw.h"
@@ -272,5 +275,9 @@ void XAVBuf_EnableGraphicsBuffers(XAVBuf *InstancePtr, u8 Enable);
 void XAVBuf_EnableVideoBuffers(XAVBuf *InstancePtr, u8 Enable);
 void XAVBuf_EnableAudio0Buffers(XAVBuf *InstancePtr, u8 Enable);
 void XAVBuf_EnableAudio1Buffers(XAVBuf *InstancePtr, u8 Enable);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //XAVBUF_H_
