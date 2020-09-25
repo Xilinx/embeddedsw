@@ -711,7 +711,7 @@ int XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum)
 		* XIH_PRTN_WORD_LEN;
 	AlignLen = XIH_PRTN_ALIGN_LEN - (PrtnLen % XIH_PRTN_ALIGN_LEN);
 
-	if ((AlignLen != 0U) && (AlignLen != XIH_PRTN_ALIGN_LEN)) {
+	if (AlignLen != XIH_PRTN_ALIGN_LEN) {
 		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 						AlignAddr,
 						(u64 )(UINTPTR) &AlignBuf,
