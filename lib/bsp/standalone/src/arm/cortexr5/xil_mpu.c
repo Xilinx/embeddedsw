@@ -82,7 +82,12 @@ static const struct {
 	{ 0x100000000, REGION_4G },
 };
 
+#if defined (__GNUC__)
+XMpu_Config Mpu_Config __attribute__((section(".boot")));
+#elif defined (__ICCARM__)
+#pragma default_function_attributes = @ ".boot"
 XMpu_Config Mpu_Config;
+#endif
 
 /************************** Function Prototypes ******************************/
 void Xil_InitializeExistingMPURegConfig(void);

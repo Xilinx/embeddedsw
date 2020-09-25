@@ -18,6 +18,9 @@
 * 7.00  mus  03/16/19 Updated MPU region to mark DDR regions as
 *                     memory, based on the DDR size in hdf
 * 7.01  nis  09/02/19 Map AIE region if AIE instance is defined
+* 7.3   asa  09/25/20 Make changes to update the global array
+*                     Mpu_Config for the static regions created
+*                     during boot up.
 * </pre>
 *
 * @note
@@ -80,11 +83,13 @@ static const struct {
 void Init_MPU(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
+extern XMpu_Config Mpu_Config __attribute__((section(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
+extern XMpu_Config Mpu_Config;
 #endif
 /*****************************************************************************
 *
@@ -98,6 +103,14 @@ static void Xil_DisableMPURegions(void);
 *
 *
 ******************************************************************************/
+static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
+																u32 Attrib)
+{
+	Mpu_Config[RegNum].RegionStatus = MPU_REG_ENABLED;
+	Mpu_Config[RegNum].BaseAddress = Addr;
+	Mpu_Config[RegNum].Size = RegSize;
+	Mpu_Config[RegNum].Attribute = Attrib;
+}
 
 void Init_MPU(void)
 {
@@ -137,6 +150,7 @@ void Init_MPU(void)
 
 	Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -152,6 +166,7 @@ void Init_MPU(void)
 	RegSize = REGION_1G;
 	Attrib = STRONG_ORDERD_SHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 512M of device memory from 0xC0000000 to 0xDFFFFFFF for QSPI */
@@ -159,6 +174,7 @@ void Init_MPU(void)
 	RegSize = REGION_512M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 256M of device memory from 0xE0000000 to 0xEFFFFFFF for PCIe Low */
@@ -166,12 +182,14 @@ void Init_MPU(void)
 	RegSize = REGION_256M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 128M of device memory from 0xF0000000 to 0xF7FFFFFF for PMC */
 	Addr = 0xF0000000U;
 	RegSize = REGION_128M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
@@ -180,6 +198,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 1M of device memory from 0xF9000000 to 0xF90FFFFF for RPU_A53_GIC */
@@ -187,6 +206,7 @@ void Init_MPU(void)
 	RegSize = REGION_1M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFD000000 to 0xFDFFFFFF for FPS slaves */
@@ -194,6 +214,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFE000000 to 0xFEFFFFFF for Upper LPS slaves */
@@ -201,6 +222,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -211,6 +233,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/**
@@ -226,6 +249,7 @@ void Init_MPU(void)
 	RegSize = REGION_1G;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW  ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 #endif
 
@@ -234,6 +258,7 @@ void Init_MPU(void)
 	RegSize = REGION_256K;
 	Attrib = NORM_NSHARED_WB_WA| PRIV_RW_USER_RW  ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 
 	/* A total of 11 MPU regions are allocated with another 5 being free for users */
 
