@@ -62,6 +62,8 @@ typedef void (*NpiWrite32Func)(void *IOInst, u32 RegOff, u32 RegVal);
 void _XAie_NpiSetShimReset(XAie_DevInst *DevInst, u8 RstEnable);
 AieRC _XAie_NpiSetProtectedRegEnable(XAie_DevInst *DevInst,
 				    XAie_NpiProtRegReq *Req);
+AieRC _XAie_NpiIrqEnable(XAie_DevInst *DevInst, u8 NpiIrqID, u8 AieIrqID);
+AieRC _XAie_NpiIrqDisable(XAie_DevInst *DevInst, u8 NpiIrqID, u8 AieIrqID);
 
 #endif	/* End of protection macro */
 
