@@ -545,45 +545,6 @@ extern "C" {
 /* Error during CPM5_SLCR_SECURE register writing in Cpm5MbistClear */
 #define XPM_INT_ERR_REG_WRT_CPM5MBISTCLR_SLCRSECU_MBIST_TRIGGER		0x501AU
 
-/*********************** Register blind write check errors********************/
-/************************** (0x5000) - (0x50FF) ******************************/
-/* AIE NPI_PCSR_MASK write check error */
-#define XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK		0x5000U
-/* AIE NPI_PCSR_CONTROL write check error */
-#define XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL		0x5001U
-
-/* Error during PMC_ANALOG_OD_MBIST_RST register writing in LpdMbist */
-#define XPM_INT_ERR_REG_WRT_LPDMBIST_RST		0x5002U
-/* Error during PMC_ANALOG_OD_MBIST_SETUP register writing in LpdMbist */
-#define XPM_INT_ERR_REG_WRT_LPDMBIST_SETUP		0x5003U
-/* Error during PMC_ANALOG_OD_MBIST_PG_EN register writing in LpdMbist */
-#define XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN		0x5004U
-
-/* Error during PMC_ANALOG_LBIST_RST_N  register writing in LpdLbist */
-#define XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N		0x5005U
-/* Error during PMC_ANALOG_LBIST_ISOLATION_EN  register writing in LpdLbist */
-#define XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN		0x5006U
-/* Error during PMC_ANALOG_LBIST_ENABLE register writing in LpdLbist */
-#define XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE		0x5007U
-
-/* Error during PMC_ANALOG_SCAN_CLEAR_TRIGGER register writing in LpdScanClear */
-#define XPM_INT_ERR_REG_WRT_LPDLSCNCLR_TRIGGER		0x5008U
-
-/* Error during PMC_ANALOG_SCAN_CLEAR_TRIGGER register writing in NpdScanClear */
-#define XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER		0x5009U
-
-/* Error during CFU_APB_CFU_MASK register writing in PlHouseClean */
-#define XPM_INT_ERR_REG_WRT_PLHOUSECLN_CFU_MASK		0x500AU
-/* Error during CFU_APB_CFU_FGCR register writing in PlHouseClean */
-#define XPM_INT_ERR_REG_WRT_PLHOUSECLN_CFU_FGCR		0x500BU
-
-/* Error during CPM_SLCR_SECURE_OD_MBIST_RST_N register writing in CpmMbistClear */
-#define XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_RST	0x500CU
-/* Error during CPM_SLCR_SECURE_MBIST_SETUP register writing in CpmMbistClear */
-#define XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_SETUP	0x500DU
-/* Error during CPM_SLCR_SECURE_MBIST_PG_EN register writing in CpmMbistClear */
-#define XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_PGEN	0x500EU
-
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
