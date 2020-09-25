@@ -49,7 +49,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
+static int XilPdi_ValidateChecksum(void *Buffer, u32 Len);
 
 /************************** Variable Definitions *****************************/
 
@@ -287,11 +287,12 @@ inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 			XST_FAILURE if checksum validation fails
 *
 *****************************************************************************/
-static int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
+static int XilPdi_ValidateChecksum(void *Buffer, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 Checksum = 0U;
 	u32 Count;
+	u32 *BufferPtr = (u32 *)Buffer;
 
 	/* Len has to be at least equal to 2 */
 	if (Len < 2U)
@@ -307,16 +308,16 @@ static int XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
 		/*
 		 * Read the word from the header
 		 */
-		Checksum += Buffer[Count];
+		Checksum += BufferPtr[Count];
 	}
 
 	/* Invert checksum */
 	Checksum ^= 0xFFFFFFFFU;
 
 	/* Validate the checksum */
-	if (Buffer[Len - 1U] != Checksum) {
+	if (BufferPtr[Len - 1U] != Checksum) {
 		XilPdi_Printf("Error: Checksum 0x%0lx != %0lx\r\n",
-								Checksum, Buffer[Len - 1U]);
+								Checksum, BufferPtr[Len - 1U]);
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -342,7 +343,7 @@ int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl)
 	int Status = XST_FAILURE;
 
 	/* Check the check sum of the Image Header Table */
-	Status = XilPdi_ValidateChecksum((u32 *)ImgHdrTbl,
+	Status = XilPdi_ValidateChecksum(ImgHdrTbl,
 				XIH_IHT_LEN / XIH_PRTN_WORD_LEN);
 	if (XST_SUCCESS != Status) {
 		Status = XILPDI_ERR_IHT_CHECKSUM;
@@ -586,7 +587,7 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		}
 
 		Status = XilPdi_ValidateChecksum(
-		       (u32 *)&MetaHdrPtr->ImgHdr[ImgIndex], XIH_IH_LEN/4U);
+				&MetaHdrPtr->ImgHdr[ImgIndex], XIH_IH_LEN/4U);
 		if (XST_SUCCESS != Status) {
 			XilPdi_Printf("Image %u Checksum Failed \n\r",
 					ImgIndex);
@@ -652,7 +653,7 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		}
 
 		Status = XilPdi_ValidateChecksum(
-		       (u32 *)&MetaHdrPtr->PrtnHdr[PrtnIndex], XIH_PH_LEN / 4U);
+				&MetaHdrPtr->PrtnHdr[PrtnIndex], XIH_PH_LEN / 4U);
 		if (XST_SUCCESS != Status) {
 			XilPdi_Printf("Partition %u Checksum Failed \n\r",
 					PrtnIndex);
