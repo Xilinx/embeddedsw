@@ -191,8 +191,8 @@ volatile uint32_t ulHighFrequencyTimerTicks;
 #endif
 
 /* The space on the stack required to hold the FPU registers.  This is 32 128-bit
- * registers, plus a 32-bit status register. */
-#define portFPU_REGISTER_WORDS	( ( 64 * 2 ) + 1 )
+ * registers, that means (64 * 8) 64 double words */
+#define portFPU_REGISTER_DOUBLE_WORDS ( 64 )
 
 #if defined(GICv2)
 /* Used in the ASM code. */
@@ -295,12 +295,11 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 
 	*pxTopOfStack = ( StackType_t ) pxCode; /* Exception return address. */
 	pxTopOfStack--;
-
-	/* The task will start with a critical nesting count of 0 as interrupts are
-	enabled. */
-	*pxTopOfStack = portNO_CRITICAL_NESTING;
 	#if( configUSE_TASK_FPU_SUPPORT == 1 )
 	{
+	/* The task will start with a critical nesting count of 0 as interrupts are
+		enabled. */
+	*pxTopOfStack = portNO_CRITICAL_NESTING;
 	/* The task will start without a floating point context.  A task that uses
 	the floating point hardware must call vPortTaskUsesFPU() before executing
 	any floating point instructions. */
@@ -311,9 +310,13 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 	{
 		/* The task will start with a floating point context.  Leave enough
 		 * space for the registers - and ensure they are initialised to 0. */
-		pxTopOfStack -= portFPU_REGISTER_WORDS;
-		memset( pxTopOfStack, 0x00, portFPU_REGISTER_WORDS * sizeof( StackType_t ) );
+		pxTopOfStack -= (portFPU_REGISTER_DOUBLE_WORDS-1);
+		memset( pxTopOfStack, 0x00, portFPU_REGISTER_DOUBLE_WORDS * sizeof( StackType_t ) );
 
+		/* The task will start with a critical nesting count of 0 as interrupts are
+			enabled. */
+		pxTopOfStack--;
+		*pxTopOfStack = portNO_CRITICAL_NESTING;
 		pxTopOfStack--;
 		*pxTopOfStack = pdTRUE;
 		ullPortTaskHasFPUContext = pdTRUE;
