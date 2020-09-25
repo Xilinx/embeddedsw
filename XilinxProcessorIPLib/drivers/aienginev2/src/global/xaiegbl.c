@@ -230,7 +230,7 @@ XAie_MemInst* XAie_MemAllocate(XAie_DevInst *DevInst, u64 Size,
 
 	if(Cache > XAIE_MEM_NONCACHEABLE) {
 		XAIE_ERROR("Invalid cache property\n");
-		return XAIE_INVALID_ARGS;
+		return NULL;
 	}
 
 	Backend = DevInst->Backend;
@@ -399,6 +399,11 @@ AieRC XAie_MemAttach(XAie_DevInst *DevInst, XAie_MemInst *MemInst, u64 DevAddr,
 
 	if(MemInst == XAIE_NULL) {
 		XAIE_ERROR("Invalid memory instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Cache > XAIE_MEM_NONCACHEABLE) {
+		XAIE_ERROR("Invalid cache property\n");
 		return XAIE_INVALID_ARGS;
 	}
 
