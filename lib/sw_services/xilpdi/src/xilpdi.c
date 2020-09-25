@@ -466,8 +466,8 @@ END:
 *****************************************************************************/
 void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 {
-	(void)memcpy((u8 *)&(MetaHdrPtr->BootHdr.WidthDetection),
-			(u8 *)XIH_BH_PRAM_ADDR, (XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH));
+	(void)memcpy((void *)&(MetaHdrPtr->BootHdr.WidthDetection),
+			(void *)XIH_BH_PRAM_ADDR, (XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH));
 	/*
 	 * Print FW Rsvd fields Details
 	 */
@@ -519,7 +519,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 			goto END;
 		}
 	} else {
-		(void)memcpy((u8 *)&(MetaHdrPtr->ImgHdrTbl), SmapBusWidthCheck,
+		(void)memcpy((void *)&(MetaHdrPtr->ImgHdrTbl), (void *)SmapBusWidthCheck,
 				SMAP_BUS_WIDTH_LENGTH);
 
 		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
