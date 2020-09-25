@@ -307,7 +307,7 @@ AieRC XAie_DataMemBlockRead(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 
 	/* Remaining bytes */
 	if(RemBytes % XAIE_MEM_WORD_ALIGN_SIZE) {
-		u32 TempWord = XAieGbl_Read32(DmAddrRoundUp);
+		u32 TempWord = XAie_Read32(DevInst, DmAddrRoundUp);
 		for(u32 UnalignedByte = 0;
 			UnalignedByte < RemBytes % XAIE_MEM_WORD_ALIGN_SIZE;
 			UnalignedByte++)
