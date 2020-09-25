@@ -706,6 +706,8 @@ static AieRC _XAie_GroupErrorInit(XAie_DevInst *DevInst)
 *			* For shim tiles from column 44 to 49 broadcast lines
 *			  used follows the pattern as: 0 1 2 3 4 5.
 *			* NPI interrupt line #5.
+*		Currently, this API only supports Linux UIO, CDO, and debug
+*		backends.
 ******************************************************************************/
 AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 {
@@ -903,6 +905,14 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 			XAIE_ERROR("Failed to block direct broadcasts from AIE array\n");
 			return RC;
 		}
+	}
+
+	/* Enable NPI interrupt to PS GIC */
+	RC = _XAie_NpiIrqEnable(DevInst, XAIE_ERROR_NPI_INTR_ID,
+				XAIE_ERROR_NPI_INTR_ID);
+	if (RC != XAIE_OK) {
+		XAIE_ERROR("Failed to enable NPI interrupt\n");
+		return RC;
 	}
 
 	RC =  _XAie_GroupErrorInit(DevInst);
