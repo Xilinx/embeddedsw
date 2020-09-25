@@ -699,6 +699,11 @@ AieRC XAie_DmaChannelReset(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
 		return XAIE_INVALID_ARGS;
 	}
 
+	if(Reset > DMA_CHANNEL_RESET) {
+		XAIE_ERROR("Invalid DMA channel reset value\n");
+		return XAIE_INVALID_ARGS;
+	}
+
 	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
 	if((TileType == XAIEGBL_TILE_TYPE_SHIMPL) ||
 			(TileType == XAIEGBL_TILE_TYPE_SHIMNOC)) {
