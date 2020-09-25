@@ -194,4 +194,105 @@ AieRC _XAie_NpiSetProtectedRegEnable(XAie_DevInst *DevInst,
 	return RC;
 }
 
+/*****************************************************************************/
+/**
+*
+* This NPI function enables or disables AI-Engine NPI interrupts to PS GIC.
+*
+* @param	DevInst : AI engine partition device pointer
+* @param	Ops: XAIE_ENABLE or XAIE_DISABLE to enable/disable
+*		     interrupt.
+* @param	NpiIrqID: NPI IRQ ID.
+* @param	AieIrqID: AIE IRQ ID.
+*
+* @return	XAIE_OK for success, and error value for failure
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC _XAie_NpiIrqConfig(XAie_DevInst *DevInst, u8 Ops, u8 NpiIrqID,
+				u8 AieIrqID)
+{
+	u32 RegOff;
+	XAie_NpiMod *NpiMod;
+	XAie_BackendNpiWrReq IOReq;
+	AieRC RC;
+
+	NpiMod = _XAie_NpiGetMod(DevInst);
+	if (NpiMod == NULL) {
+		return XAIE_INVALID_ARGS;
+	}
+
+	/*
+	 * For generation of devices which don't support this feature, silently
+	 * return XAIE_OK as these registers are inactive.
+	 */
+	if (NpiMod->NpiIrqNum == XAIE_FEATURE_UNAVAILABLE) {
+		return XAIE_OK;
+
+	if (Ops > XAIE_ENABLE) {
+		XAIE_ERROR("Invalid NPI IRQ operations\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if (NpiIrqID >= NpiMod->NpiIrqNum || AieIrqID >= NpiMod->AieIrqNum) {
+		XAIE_ERROR("Invalid AIE or NPI IRQ ID\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if (Ops == XAIE_ENABLE) {
+		RegOff = NpiMod->BaseIrqRegOff +
+				(NpiIrqID + 1) * NpiMod->IrqEnableOff;
+	} else {
+		RegOff = NpiMod->BaseIrqRegOff +
+				(NpiIrqID + 1) * NpiMod->IrqDisableOff;
+	}
+
+	IOReq = _XAie_SetBackendNpiWrReq(RegOff, 1U << AieIrqID);
+
+	_XAie_NpiSetLock(DevInst, XAIE_DISABLE);
+	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIWR32, &IOReq);
+	_XAie_NpiSetLock(DevInst, XAIE_ENABLE);
+
+	return RC;
+}
+
+/*****************************************************************************/
+/**
+*
+* This NPI function enables AI-Engine NPI interrupts to PS GIC.
+*
+* @param	DevInst : AI engine partition device pointer
+* @param	NpiIrqID: NPI IRQ ID.
+* @param	AieIrqID: AIE IRQ ID.
+*
+* @return	XAIE_OK for success, and error value for failure
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC _XAie_NpiIrqEnable(XAie_DevInst *DevInst, u8 NpiIrqID, u8 AieIrqID)
+{
+	return _XAie_NpiIrqConfig(DevInst, XAIE_ENABLE, NpiIrqID, AieIrqID);
+}
+
+/*****************************************************************************/
+/**
+*
+* This NPI function disables AI-Engine NPI interrupts to PS GIC.
+*
+* @param	DevInst : AI engine partition device pointer
+* @param	NpiIrqID: NPI IRQ ID.
+* @param	AieIrqID: AIE IRQ ID.
+*
+* @return	XAIE_OK for success, and error value for failure
+*
+* @note		None.
+*
+*******************************************************************************/
+AieRC _XAie_NpiIrqDisable(XAie_DevInst *DevInst, u8 NpiIrqID, u8 AieIrqID)
+{
+	return _XAie_NpiIrqConfig(DevInst, XAIE_DISABLE, NpiIrqID, AieIrqID);
+}
+
 /** @} */
