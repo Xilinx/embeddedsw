@@ -34,6 +34,8 @@
 #define XAIE_NPI_PROT_REG_EN_MSK			0x00000001U
 #define XAIE_NPI_PROT_REG_EN_LSB			0U
 
+#define XAIE_NPI_IRQ_REG				0x00000030U
+
 /****************************** Type Definitions *****************************/
 
 /************************** Variable Definitions *****************************/
@@ -47,6 +49,11 @@ XAie_NpiMod _XAieNpiMod =
 	.PcsrLockOff = XAIE_NPI_PCSR_LOCK,
 	.ProtRegOff = XAIE_NPI_SPARE_REG,
 	.PcsrUnlockCode = XAIE_NPI_PCSR_UNLOCK_CODE,
+	.BaseIrqRegOff = XAIE_NPI_IRQ_REG,
+	.AieIrqNum = 0x4,
+	.NpiIrqNum = 0x4,
+	.IrqEnableOff = 0xC,
+	.IrqDisableOff = 0x10,
 	.ShimReset = {XAIE_NPI_PCSR_CONTROL_SHIM_RESET_LSB, XAIE_NPI_PCSR_CONTROL_SHIM_RESET_MSK},
 	.ProtRegEnable = {XAIE_NPI_PROT_REG_EN_LSB, XAIE_NPI_PROT_REG_EN_MSK},
 	.ProtRegFirstCol = {0, 0},

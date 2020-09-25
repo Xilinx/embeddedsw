@@ -43,6 +43,11 @@ typedef struct XAie_NpiMod {
 	u32 PcsrLockOff;
 	u32 ProtRegOff;
 	u32 PcsrUnlockCode;
+	u32 BaseIrqRegOff;
+	u8 AieIrqNum;
+	u8 NpiIrqNum;
+	u8 IrqEnableOff;
+	u8 IrqDisableOff;
 	XAie_RegFldAttr ShimReset;
 	XAie_RegFldAttr ProtRegEnable;
 	XAie_RegFldAttr ProtRegFirstCol;
