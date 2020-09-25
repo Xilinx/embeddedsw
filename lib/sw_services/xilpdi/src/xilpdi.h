@@ -243,13 +243,13 @@ extern "C" {
 /*
  * Errors during XilPdi processing
  */
-#define XILPDI_ERR_IHT_CHECKSUM		(0x1U)
-#define XILPDI_ERR_NO_OF_PRTNS		(0x2U)
-#define XILPDI_ERR_SBD			(0x3U)
-#define XILPDI_ERR_ZERO_LENGTH		(0x4U)
-#define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
-#define XILPDI_ERR_PRTN_TYPE		(0x6U)
-#define XILPDI_ERR_NO_OF_IMGS		(0x7U)
+#define XILPDI_ERR_IHT_CHECKSUM		(0x1)
+#define XILPDI_ERR_NO_OF_PRTNS		(0x2)
+#define XILPDI_ERR_SBD			(0x3)
+#define XILPDI_ERR_ZERO_LENGTH		(0x4)
+#define XILPDI_ERR_TOTAL_LENGTH		(0x5)
+#define XILPDI_ERR_PRTN_TYPE		(0x6)
+#define XILPDI_ERR_NO_OF_IMGS		(0x7)
 
 /*
  * Image Header Attributes

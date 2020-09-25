@@ -165,7 +165,7 @@ inline u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr)
 inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
 {
 	return ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DPA_CM_EN_MASK) != 0x0U) ?
-		TRUE : FALSE;
+		(u8)TRUE : (u8)FALSE;
 }
 
 /****************************************************************************/
@@ -180,7 +180,7 @@ inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
 inline u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl * IHdrTbl)
 {
 	return ((IHdrTbl->Attr & XIH_IHT_ATTR_DPA_CM_MASK) != 0x0U) ?
-		TRUE : FALSE;
+		(u8)TRUE : (u8)FALSE;
 }
 
 /****************************************************************************/
@@ -269,7 +269,7 @@ inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 	u32 BhAuth = (BootHdr->ImgAttrb & XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
 					XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT;
 
-	return ((BhAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ? TRUE : FALSE);
+	return ((BhAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ? (u8)TRUE : (u8)FALSE);
 }
 
 /****************************************************************************/
