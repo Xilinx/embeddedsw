@@ -577,7 +577,7 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 			(void *)MetaHdrPtr->XMemCpy(
 				(void *)&(MetaHdrPtr->ImgHdr[ImgIndex]),
 				(void *)(UINTPTR)(MetaHdrPtr->BufferAddr +
-					(ImgIndex * XIH_IH_LEN)), XIH_IH_LEN);
+					((u64)ImgIndex * XIH_IH_LEN)), XIH_IH_LEN);
 			Status = XST_SUCCESS;
 		}
 		if (XST_SUCCESS != Status) {
@@ -643,7 +643,7 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 			(void *)MetaHdrPtr->XMemCpy(
 				(void *)&(MetaHdrPtr->PrtnHdr[PrtnIndex]),
 				(void *)(UINTPTR)(MetaHdrPtr->BufferAddr +
-				(PrtnIndex * XIH_PH_LEN)), XIH_PH_LEN);
+				((u64)PrtnIndex * XIH_PH_LEN)), XIH_PH_LEN);
 			Status = XST_SUCCESS;
 		}
 		if (XST_SUCCESS != Status) {
