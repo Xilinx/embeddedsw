@@ -640,10 +640,10 @@ static inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 /************************** Function Prototypes ******************************/
 int XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
 int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl);
-void XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
-int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * ImgHdrPtr);
+int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);
 
 #ifdef __cplusplus
