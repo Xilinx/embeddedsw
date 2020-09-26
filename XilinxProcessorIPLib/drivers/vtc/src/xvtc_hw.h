@@ -307,7 +307,7 @@ extern "C" {
 #define XVTC_CTL_SW_MASK	0x00000001 /**< VTC Core Enable */
 #define XVTC_ADAPTIVE_ENABLE_MASK	0x00000001 /**< VTC Adaptive-Sync
 						      * enable mask */
-#define XVTC_ADAPTIVE_MODE_MASK		0x00000010 /**< VTC Adaptive-Sync
+#define XVTC_ADAPTIVE_MODE_MASK		0x00000002 /**< VTC Adaptive-Sync
 						      * mode mask */
 /*@}*/
 
