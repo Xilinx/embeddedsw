@@ -229,6 +229,7 @@ AieRC _XAie_NpiIrqConfig(XAie_DevInst *DevInst, u8 Ops, u8 NpiIrqID,
 	 */
 	if (NpiMod->NpiIrqNum == XAIE_FEATURE_UNAVAILABLE) {
 		return XAIE_OK;
+	}
 
 	if (Ops > XAIE_ENABLE) {
 		XAIE_ERROR("Invalid NPI IRQ operations\n");
