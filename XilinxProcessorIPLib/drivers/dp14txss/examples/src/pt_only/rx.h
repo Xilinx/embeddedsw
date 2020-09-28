@@ -73,10 +73,10 @@
 
 /* DP Specific Defines
  */
-#ifndef versal
-#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
-#else
+#ifdef versal
 #define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
+#else
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
 #endif
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 #define SET_TX_TO_2BYTE            \
@@ -176,6 +176,7 @@ typedef struct
 	u8 all_count;
 } XilAudioInfoFrame_rx;
 
+
 /*The structure defines Generic Frame Packet fields*/
 typedef struct
 {
@@ -192,7 +193,8 @@ XilAudioExtFrame  SdpExtFrame_q;
 
 void DpRxSs_Main(void);
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
-u32 DpRxSs_Setup(u8 freesync);
+u32 DpRxSs_Setup(u8 freesync, u8 vsc);
+void DpRxSs_SetVsc (u8 vsc);
 
 /* Interrupt helper functions */
 u32 DpRxSs_SetupIntrSystem(void);
