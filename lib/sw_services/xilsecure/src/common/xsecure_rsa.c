@@ -244,7 +244,7 @@ ENDF:
  * 			XSecure_RsaInitialize function
  *
 ******************************************************************************/
-int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result)
 {
 	int Status = XST_FAILURE;
@@ -295,7 +295,7 @@ END:
  *  		XSecure_RsaInitialize function
  *
 ******************************************************************************/
-int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result)
 {
 	int Status = (int)XSECURE_RSA_DATA_VALUE_ERROR;
