@@ -176,7 +176,7 @@ END:
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
-int XPlm_ProcessPlmCdo(const void *Arg)
+int XPlm_ProcessPlmCdo(void *Arg)
 {
 	int Status = XST_FAILURE;
 	XPlmiCdo Cdo;
