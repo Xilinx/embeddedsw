@@ -64,7 +64,7 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr);
 static int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
 static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr);
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
-	const u32* WrData, u8 RamOffset);
+	u32* WrData, u8 RamOffset);
 static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr);
 static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u32 *RdData);
 static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 Cfg1,
@@ -120,7 +120,7 @@ END:
  * 			- XST_FAILURE               - On failure
  *
 ******************************************************************************/
-int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, const u8 *Input,
+int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize)
 {
 	int Status = XST_FAILURE;
@@ -393,7 +393,7 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
  *
  ******************************************************************************/
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
-	const u32* WrData, u8 RamOffset)
+	u32* WrData, u8 RamOffset)
 {
 	u32 Index;
 	u32 DataOffset;
