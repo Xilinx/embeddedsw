@@ -99,10 +99,10 @@ int XSecure_RsaSignVerification(const u8 *Signature, const u8 *Hash,
 	u32 HashLen);
 
 /* XSecure_RsaPublicEncrypt performs same as XSecure_RsaDecrypt API */
-int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result);
 
-int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result);
 
 #ifdef __cplusplus
