@@ -215,11 +215,22 @@ void XPeriph_ConfigTpg(XPeriph *InstancePtr)
   //Stop TPG
   XV_tpg_DisableAutoRestart(pTpg);
 
-  XV_tpg_Set_height(pTpg, InstancePtr->TpgConfig.Height);
+  if (InstancePtr->TpgConfig.IsInterlaced)
+    XV_tpg_Set_height(pTpg, InstancePtr->TpgConfig.Height*2);
+  else
+    XV_tpg_Set_height(pTpg, InstancePtr->TpgConfig.Height);
+
   XV_tpg_Set_width(pTpg,  InstancePtr->TpgConfig.Width);
   XV_tpg_Set_colorFormat(pTpg, InstancePtr->TpgConfig.ColorFmt);
   XV_tpg_Set_bckgndId(pTpg, InstancePtr->TpgConfig.Pattern);
   XV_tpg_Set_ovrlayId(pTpg, 0);
+
+  if (InstancePtr->TpgConfig.IsInterlaced)
+  {
+    XV_tpg_Set_Interlaced(pTpg, 1);
+  } else
+    XV_tpg_Set_Interlaced(pTpg, 0);
+
 
   //Start TPG
   XV_tpg_EnableAutoRestart(pTpg);
