@@ -267,8 +267,7 @@ int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 	u32 TransferredBytes;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		((InDataAddr == 0x00U) && (Size > 0U))) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
