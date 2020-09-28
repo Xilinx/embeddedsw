@@ -17,7 +17,9 @@
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   rpo  07/01/2020 Initial release
  * 4.3   rpo  07/01/2020 Updated file version to sync with library version
-  * </pre>
+ *		 am	  09/24/2020 Resolved MISRA C violations
+ *
+ * </pre>
  *
  * @note
  *
@@ -37,7 +39,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_Init(void);
-void XSecure_TamperInterruptHandler(u32 ErrorNodeId, u32 ErrorMask);
+void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask);
 
 #ifdef __cplusplus
 }
