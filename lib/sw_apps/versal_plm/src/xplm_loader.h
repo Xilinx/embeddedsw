@@ -89,7 +89,7 @@ static inline u8 XLoader_IsJtagSbiMode(void)
 
 /************************** Function Prototypes ******************************/
 int XPlm_LoaderInit(void);
-int XPlm_LoadBootPdi(const void *Arg);
+int XPlm_LoadBootPdi(void *Arg);
 
 /************************** Variable Definitions *****************************/
 
