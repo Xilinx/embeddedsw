@@ -219,11 +219,11 @@ u32 DpRxSs_SetupIntrSystem(void)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && ENABLE_HDCP_IN_DESIGN)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
-#if (XPAR_DPRXSS_0_HDCP22_ENABLE > 0)
+#if ((XPAR_DPRXSS_0_HDCP22_ENABLE > 0) && ENABLE_HDCP_IN_DESIGN)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP22_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
@@ -1063,6 +1063,9 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 	SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
 	SdpExtFrame.Header[3] = (ExtFrame[0]&0xFF000000)>>24;
 
+	/*Populating Vsc header*/
+	VscPkt.Header=ExtFrame[0];
+
 	/*Payload Information*/
 	for (i = 0 ; i < 8 ; i++)
 	{
@@ -1072,6 +1075,9 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 		SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
 		SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
 		SdpExtFrame.Payload[(i*4)+3] = (ExtFrame[i+1]&0xFF000000)>>24;
+
+		/*Populating Vsc payload*/
+		VscPkt.Payload[i]=ExtFrame[i+1] ;
 	}
 
 }
