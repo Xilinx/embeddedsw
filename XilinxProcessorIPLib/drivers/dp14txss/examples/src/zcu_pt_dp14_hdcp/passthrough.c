@@ -83,8 +83,10 @@ void frameBuffer_stop_rd(XDpTxSs_MainStreamAttributes Msa[4]);
 void resetIp_rd(void);
 void resetIp_wr(void);
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 		u16 height, u8 color_format);
+#endif
 
 void DpPt_TxSetMsaValuesImmediate(void *InstancePtr);
 void edid_change(int page);
@@ -159,7 +161,14 @@ void DpPt_Main(void){
 	LoadEDID();
 #endif
 
-
+	/*Check if Sink supports Colorimetry through VSC*/
+	if(XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst) == XST_SUCCESS){
+		u32 result=0;
+		result=XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,VSC_CAP_APB_REG_OFFSET);
+		result=result | RX_VSC_CAP_ENABLE; 			//setting APB register bit[2] for DPCD 0X2210 address
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,VSC_CAP_APB_REG_OFFSET,result);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,	XDP_RX_AUDIO_CONTROL, 0x1); //enabling vsc
+	}
 
 	// disabling this when compliance is enabled
 #if !PHY_COMP
@@ -954,7 +963,9 @@ void DpPt_Main(void){
 				XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 				XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
 
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 				Vpg_Audio_stop();
+#endif
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE,
 						0x0);
 				XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
@@ -1211,8 +1222,10 @@ void DpPt_Main(void){
 				{
 					xil_printf(">>>> HDCPTX Authentication "
 							"failed , stopping passthrough video and starting ColorBar on TX \r\n");
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 					Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 									 0x11);
+#endif
 					TxAuthAttempts = 0;
 					break;
 				}
@@ -1328,8 +1341,12 @@ void start_tx_after_rx (void) {
 	}else if(Msa[0].ComponentFormat ==
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
 		user_config.user_format = XVIDC_CSF_YCRCB_444 + 1;
-	}else
+	}else if(Msa[0].ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+		user_config.user_format = XVIDC_CSF_YCRCB_420 + 1;
+	} else {
 		user_config.user_format = XVIDC_CSF_RGB + 1;
+	}
 
 	// This block is to use with 4K30 monitor.
 	if(max_cap_org <= 0x14 || monitor_8K == 0){

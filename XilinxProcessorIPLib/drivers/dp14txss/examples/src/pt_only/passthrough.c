@@ -59,7 +59,8 @@ int Dppt_DetectResolution(void *InstancePtr,
 		XDpTxSs_MainStreamAttributes Msa[4], u8 plugged);
 int Dppt_DetectColor(void *InstancePtr,
 		XDpTxSs_MainStreamAttributes Msa[4], u8 plugged);
-
+int Dppt_GetVideoMode (u8 vsc, u8 misc0);
+int Dppt_GetiColorimetry (u8 vsc, u8 misc0);
 
 
 void resetIp_rd(void);
@@ -112,19 +113,26 @@ int track_color = 0;
 u32 aud_start_delay = 0;
 u32 line_rst = 0;
 u8 supports_adaptive = 0;
+u8 supports_vsc = 0;
+extern u8 onetime;
+extern u16 vsync_counter;
+extern u16 ektpkt_counter;
+extern u16 fb_wr_count;
+extern u16 fb_rd_count;
 
 void DpPt_Main(void){
 	u32 Status;
 	u8 UserInput;
 	u32 ReadVal=0;
 	u16 DrpVal;
-
 	u8 edid_monitor[384];
 	u8 exit;
     u8 *LaneCount_tx = 0x4;
     u8 *LineRate_tx = 0x14;
     u8 rData;
+    u32 rxMsamisc1;
 
+	int i = 0;
 	char CmdKey[2];
 	unsigned int Command;
 
@@ -218,10 +226,11 @@ void DpPt_Main(void){
 							XDP_DPCD_MAX_LINK_RATE,  1, LineRate_tx);
 	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
 							XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_tx);
+
 #if ADAPTIVE
     XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_DOWNSP_COUNT_MSA_OUI, 1, &rData);
     if(rData & 0x40){
-		xil_printf ("Supports MSA less !!!!!\r\n");
+//    	xil_printf(ANSI_COLOR_GREEN"Monitor Supports Adaptive Sync !!!!!"ANSI_COLOR_RESET"\r\n");
 		supports_adaptive = 1;
     }
     else {
@@ -229,11 +238,12 @@ void DpPt_Main(void){
     }
 #endif
 
-//	if (Status == XST_SUCCESS) {
-//		xil_printf ("Monitor Capabilities are --> Link rate: %x, "
-//				"Lane Count: %d \r\n",LineRate_tx, LaneCount_tx);
-//	}
-
+    Status = XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst);
+    if (Status == XST_SUCCESS) {
+	supports_vsc = 1;
+    } else {
+	supports_vsc = 0;
+    }
 #endif
 
 
@@ -254,7 +264,7 @@ void DpPt_Main(void){
 	}
 
 	/* Setup DPRX SS, left to the user for implementation */
-	DpRxSs_Setup(supports_adaptive);
+	DpRxSs_Setup(supports_adaptive, supports_vsc);
 
 	DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
 	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
@@ -403,6 +413,9 @@ void DpPt_Main(void){
 				XDpTxSs_ReportLinkInfo(&DpTxSsInst);
 				XDpTxSs_ReportVtcInfo(&DpTxSsInst);
 
+//				onetime = 0;
+				xil_printf ("DP RX addr is %x\r\n",DpRxSsInst.DpPtr->Config.BaseAddr);
+				xil_printf ("DP TX addr is %x\r\n",DpTxSsInst.DpPtr->Config.BaseAddr);
 				break;
 
 				case '3':
@@ -430,13 +443,13 @@ void DpPt_Main(void){
 					XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
 #endif
 #endif
-					frameBuffer_stop_wr();
+//					frameBuffer_stop_wr();
 					frameBuffer_stop_rd();
 					//Waking up the monitor
 					sink_power_cycle();
 
 #ifndef versal
-					XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
+//					XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
 #endif
 					// This configures the vid_phy for line rate to start with
 					config_phy(LineRate_init_tx);
@@ -448,14 +461,31 @@ void DpPt_Main(void){
 
 					break;
 
+				case '6':
+					frameBuffer_stop_rd();
+					frameBuffer_start_rd(Msa, downshift4K);
+					break;
+
 				case '5':
-					xil_printf ("Stopping WR FB and starting..\r\n ");
-					XDp_RxDtgDis(DpRxSsInst.DpPtr);
-					XDp_RxDtgEn(DpRxSsInst.DpPtr);
-					frameBuffer_stop_wr();
-//					Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa,
-//									DpRxSsInst.link_up_trigger);
-//					frameBuffer_start_wr();
+					rxMsamisc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+								XDP_RX_MSA_MISC1);
+					if ((rxMsamisc1 >> 6) &0x1) {
+						xil_printf ("Colorimetry through VSC\r\n");
+						xil_printf ("Extended Packet contents (RX):\r\n");
+						for (i = 0; i < 9; i++) {
+							if (i == 0)
+								xil_printf ("Header: %x\r\n",ExtFrame_tx_vsc.Header);
+							else
+								xil_printf ("Data [%d]: %x\r\n",i-1,ExtFrame_tx_vsc.Payload[i-1]);
+						}
+					}
+					xil_printf ("Frame count on TX: %d\r\n", vsync_counter);
+					xil_printf ("ExtPkt count on TX: %d\r\n", ektpkt_counter);
+					xil_printf ("TX Interrupt mask register is %x\r\n", XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+							XDP_TX_INTERRUPT_MASK));
+					xil_printf ("FB wr intr count: %d\r\n", fb_wr_count);
+					xil_printf ("FB rd intr count: %d\r\n", fb_rd_count);
+					onetime = 0;
 					break;
 
 				case 'c':
@@ -555,8 +585,8 @@ void DpPt_Main(void){
 					break;
 
 				case 'n':
-                                        // This can be used to clone the edid when monitor is changed
-                                        // Ensure to unplug/plug RX cable for changes to take effect
+					// This can be used to clone the edid when monitor is changed
+					// Ensure to unplug/plug RX cable for changes to take effect
 
 					for (int i = 0; i < 128; i++) {
 						Edid_org[i] = 0;
@@ -630,7 +660,7 @@ void DpPt_Main(void){
 #if ADAPTIVE
 				    XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_DOWNSP_COUNT_MSA_OUI, 1, &rData);
 				    if(rData & 0x40){
-						xil_printf ("Supports MSA less !!!!!\r\n");
+						xil_printf ("Monitor Supports Adaptive Sync !!!!!\r\n");
 						XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 1);
 						supports_adaptive = 1;
 #if ADAPTIVE_TYPE
@@ -647,6 +677,23 @@ void DpPt_Main(void){
 						xil_printf (ANSI_COLOR_GREEN"DP RX not enabled for Adaptive Sync"ANSI_COLOR_RESET" \r\n");
 				    }
 #endif
+				    Status = XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst);
+				    if (Status == XST_SUCCESS) {
+						xil_printf ("Monitor Supports Colorimetry over VSC Ext packet !!!!!\r\n");
+						supports_vsc = 1;
+				    } else {
+					supports_vsc = 0;
+				    }
+//				    XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_EXT_DPCD_FEATURE, 1, &rData);
+//				    if(rData & 0x08){
+//						xil_printf ("Monitor Supports Colorimetry over VSC Ext packet !!!!!\r\n");
+//						supports_vsc = 1;
+//				    }
+//				    else {
+//				    	supports_vsc = 0;
+//				    }
+					DpRxSs_SetVsc(supports_vsc);
+
 					xil_printf ("Please unplug/plug DP RX cable for changes to take effect\r\n");
 
 					break;
@@ -730,9 +777,9 @@ void DpPt_Main(void){
 					xil_printf("DP Link Status --->\r\n");
 					XDpRxSs_ReportLinkInfo(&DpRxSsInst);
 					break;
-
-				case '7':
 #ifndef versal
+				case '7':
+
 					xil_printf("Video PHY Config/Status --->\r\n");
 					xil_printf(" RCS (0x10) = 0x%x\n\r",
 					  XVphy_ReadReg(VIDPHY_BASEADDR,XVPHY_REF_CLK_SEL_REG));
@@ -950,9 +997,9 @@ void DpPt_Main(void){
 		// Tx side process
 		// When there is no video on TX, stop the FB and I2S RX
 		if(DpTxSsInst.no_video_trigger == 1){ // stop frameBuffer if Tx is lost
-			frameBuffer_stop_rd();
+//			frameBuffer_stop_rd();
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
-			XDpTxSs_Stop(&DpTxSsInst);
+//			XDpTxSs_Stop(&DpTxSsInst);
 			DpTxSsInst.no_video_trigger = 0;
 			tx_done = 0;
 			i2s_started = 0;
@@ -1005,20 +1052,6 @@ void DpPt_Main(void){
 	}//end while(1)
 }
 
-
-
-/* Audio passThrough setting */
-void start_audio_passThrough(){
-
-	// Program the Infoframe data into TX
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	usleep(30000);
-	XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
-	usleep(30000);
-
-}
-
-
 /*This function starts the TX after RX. It checks for Monitor capability
  * and based on that it will modify the video.
  * For example, if the RX is trained at 8K, but the monitor is not capable of
@@ -1027,11 +1060,14 @@ void start_audio_passThrough(){
  * Similarly, is the received video is 4K@120, then it would modified to 4k@60
  */
 
+extern u8 tx_pass;
+
 void start_tx_after_rx (void) {
 	u32 Status;
 	u8 aux_data[0];
 	u32 dptx_sts=0;
 
+	tx_pass = 0;
 	rx_all_detect = 1;
 	VmId = XVidC_GetVideoModeId(
 			Msa[0].Vtm.Timing.HActive,
@@ -1104,8 +1140,10 @@ void start_tx_after_rx (void) {
 			LaneCount_init_tx = XDPTXSS_LANE_COUNT_SET_4;
 		}
 		// 4K120 will be changed to 4K60
-		else if(Msa[0].Vtm.FrameRate * Msa[0].Vtm.Timing.HActive *
-				Msa[0].Vtm.Timing.VActive > 4096*2160*60){
+		else if((Msa[0].Vtm.FrameRate * Msa[0].Vtm.Timing.HActive *
+				Msa[0].Vtm.Timing.VActive > 4096*2160*60) &&
+				(Msa[0].ComponentFormat !=
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422)){
 			xil_printf("\nMonitor is not capable of displaying 4K@120 "
 					"resolution. Forcing 4K@30 resolution\r\n");
 			// to keep 4Byte mode, it has to be 4K60
@@ -1170,6 +1208,7 @@ void start_tx_after_rx (void) {
 	}
 
 	frameBuffer_start_rd(Msa, downshift4K);
+
 #if ADAPTIVE
 	/* Putting VTC in Adaptive mode and
 	 * setting the MSA Ignore bit in Monitor
@@ -1182,6 +1221,7 @@ void start_tx_after_rx (void) {
          * Max Limit is programmed as 0xFFF
          */
         XDpTxSs_VtcAdaptiveSyncSetup(DpTxSsInst.VtcPtr[0], ADAPTIVE_TYPE, DPTXSS_VFP_STRETCH);
+
 #else
         /* Setting the VTC in guided mode and the initial
          * stretch value is programmed as 0
@@ -1263,10 +1303,10 @@ void unplug_proc (void) {
 	audio_init();
 #endif
 
-//	XDpTxSs_VtcDisableAdaptiveSync(&DpTxSsInst);
+	XDpTxSs_VtcDisableAdaptiveSync(DpTxSsInst.VtcPtr[0]);
 	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-	DpRxSs_Setup(supports_adaptive);
+	DpRxSs_Setup(supports_adaptive, supports_vsc);
 }
 
 void i2s_stop_proc (void) {
@@ -1345,58 +1385,24 @@ void audio_start_rx (void) {
 #ifdef versal
 			IDT_8T49N24x_SetClock(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR_1, appx_fs_dup, I2S_CLK_MULT*appx_fs_dup, FALSE);
 #else
-				I2cClk_Ps(appx_fs_dup, I2S_CLK_MULT*appx_fs_dup);
+			I2cClk_Ps(appx_fs_dup, I2S_CLK_MULT*appx_fs_dup);
 #endif
-				usleep(200000);
-				//Reset the MMCM that generates the clock to DAC/ADC
-				XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x1);
-				XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
+			usleep(200000);
+			//Reset the MMCM that generates the clock to DAC/ADC
+			XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x1);
+			XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
 #if I2S_AUDIO
-				//Giving some time for Si5328 to get accustomed to change
-				//Not starting I2S TX here
-				usleep(200000);
-				usleep(200000);
+			//Giving some time for Si5328 to get accustomed to change
+			//Not starting I2S TX here
+			usleep(200000);
+			usleep(200000);
 #endif
-				start_i2s_clk = 0;
-				i2s_tx_started = 1;
-				status_captured = 0;
-				i2s_started = 0;
+			start_i2s_clk = 0;
+			i2s_tx_started = 1;
+			status_captured = 0;
+			i2s_started = 0;
 		}
 		}
-
-#if WAIT_ON_AUD_INFO
-
-		if (AudioinfoFrame.frame_count > AUD_INFO_COUNT) {
-			//Disable Infoframe Intr
-			XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
-			            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
-			xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
-			xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
-			xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
-			xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
-			xilInfoFrame->info_length = AudioinfoFrame.info_length;
-			xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
-			xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
-			xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
-			xilInfoFrame->type = AudioinfoFrame.type;
-			xilInfoFrame->version = AudioinfoFrame.version;
-			audio_info_avail = 1;
-			AudioinfoFrame.frame_count = 0;
-			AudioinfoFrame.all_count = 0;
-		} else {
-			if (AudioinfoFrame.all_count > 200) {
-				//An audio infoframe was not received
-				//disabling the interrupt to avoid repeated calls
-				xil_printf ("*!*!\r\n");
-				XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
-				            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
-				AudioinfoFrame.all_count = 0;
-
-			}
-		}
-#else
-		audio_info_avail = 1;
-#endif
 #endif
 }
 
@@ -1405,45 +1411,32 @@ void audio_start_tx (void) {
 
 	// Audio on TX will be started only when RX receives Audio Infoframes
 	// and after a delay
-	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && audio_info_avail == 1
+	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0
 			&& aud_start_delay == AUD_START_DELAY) {
-	filter_count_b++;
-	if (filter_count_b == 50) {
-
-#if WAIT_ON_AUD_INFO
-	start_audio_passThrough();
-#endif
-
-	} else if (filter_count_b > 200) {
 
 #if I2S_AUDIO
-	if (appx_fs_dup != 0) {
-		XI2s_Tx_SetSclkOutDiv (&I2s_tx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
-		XI2s_Rx_SetSclkOutDiv (&I2s_rx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
-		XI2s_Rx_LatchAesChannelStatus (&I2s_rx);
-		//Start RX and TX I2S
-		//Put the ACR in External N/CTS update mode with loop control
-		XI2s_Rx_Enable(&I2s_rx, 1);
-		XI2s_Tx_Enable(&I2s_tx, 1);
-		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x4);
-		xil_printf ("Audio Sampling rate is %d Hz\r\n",appx_fs_dup);
-	}
+			if (appx_fs_dup != 0) {
+				XI2s_Tx_SetSclkOutDiv (&I2s_tx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
+				XI2s_Rx_SetSclkOutDiv (&I2s_rx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
+				XI2s_Rx_LatchAesChannelStatus (&I2s_rx);
+				//Start RX and TX I2S
+				//Put the ACR in External N/CTS update mode with loop control
+				XI2s_Rx_Enable(&I2s_rx, 1);
+				XI2s_Tx_Enable(&I2s_tx, 1);
+				XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x4);
+				xil_printf ("Audio Sampling rate is %d Hz\r\n",appx_fs_dup);
+			}
 #endif
-		//Bring the FIFO, I2S TX out of reset
-		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
-		usleep(1000);
-		//Program num channels and enable the TX audio
-		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CHANNELS, 0x1);
-		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x1);
-		xil_printf ("Starting audio....\r\n");
-		i2s_started = 1;
-		filter_count_b = 0;
-		audio_info_avail = 0;
-	}
-
-	} else {
-		filter_count_b = 0;
-	}
+			//Bring the FIFO, I2S TX out of reset
+			XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
+			usleep(1000);
+			//Program num channels and enable the TX audio
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CHANNELS, 0x1);
+			xil_printf ("Starting audio....\r\n");
+			i2s_started = 1;
+			filter_count_b = 0;
+			audio_info_avail = 0;
+		}
 #endif
 }
 
@@ -1540,7 +1533,9 @@ void dprx_tracking (void) {
 	if(tx_done == 1) {
 		track_color = Dppt_DetectColor(DpRxSsInst.DpPtr, Msa,
 		DpRxSsInst.link_up_trigger);
+//		track_color = 0;
 		if (track_color == 1) {
+			track_color = 0;
 			tx_after_rx = 1;
 			i2s_started = 0;
 			tx_done = 0;
@@ -1555,8 +1550,10 @@ void dprx_tracking (void) {
 	}
 }
 
+extern u8 prog_misc1;
+extern u8 prog_fb_rd;
+
 void dptx_tracking (void) {
-//	u32 Status;
 
 	// When TX is cable is connected, the application will re-initiate the
 	// TX training. Note that EDID is not updated.

@@ -43,10 +43,11 @@ u32 StreamOffset[4] = {0, XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET,
 u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 
 
-
+#define NEW_PAT_GEN 1
 
 
 /************************** Constant Definitions *****************************/
+
 
 #define	PatternGeneratorEnable 0x0 //0 - Pattern Generator Enable
 #define	VsyncPolarity 0x4 //0 Vsync Polarity 
@@ -214,7 +215,8 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 							0x1);
 			}
 		}
-	} else {
+	}
+	else {
 		/* Calculate VPG parameters */
 		VidgenSetConfig(InstancePtr, &VidgenConfig,
 					(XDP_TX_STREAM_ID1), 0, first_time);
@@ -222,15 +224,17 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 		/* Update VPG with parameter */
 		VidgenWriteConfig(InstancePtr, &VidgenConfig,
 					(XDP_TX_STREAM_ID1));
-
+#if !NEW_PAT_GEN
 		/* Enable VPG for only one stream */
 		XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
 				PatternGeneratorEnable, 0x1);
-
+#endif
 	}
 
 	return (XST_SUCCESS);
 }
+
+
 
 /*****************************************************************************/
 /**
@@ -247,8 +251,9 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 ******************************************************************************/
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 {
+#if !NEW_PAT_GEN
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
-			(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
+				(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			     StreamOffset[Stream - 1],
 			     TestPatternControl,
@@ -265,6 +270,16 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 			     TestPatternControl,
 			     StreamPattern_vpg[Stream - 1]);
 	}
+#else
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[Stream - 1], TestPatternControl,
+			(QuadPixelMode | StreamPattern_vpg[Stream - 1]));
+	usleep(MicrosecToWait);
+	/* Enable VPG for only one stream */
+	XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
+			PatternGeneratorEnable, 0x1);
+
+#endif
 }
 
 /*****************************************************************************/
@@ -282,6 +297,7 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 ******************************************************************************/
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 {
+#if !NEW_PAT_GEN
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
 			(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
@@ -299,6 +315,16 @@ void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 			     StreamOffset[0],
 			     TestPatternControl, Pattern);
 	}
+#else
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+		StreamOffset[0], TestPatternControl,
+			(QuadPixelMode | Pattern));
+	usleep(MicrosecToWait);
+	/* Enable VPG for only one stream */
+	XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,
+			PatternGeneratorEnable, 0x1);
+
+#endif
 }
 
 /*****************************************************************************/
@@ -401,7 +427,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	UserPixelWidth = MsaConfig->UserPixelWidth;
 	VidgenConfig->Misc0 = MsaConfig->Misc0;
 	VidgenConfig->Misc1 = MsaConfig->Misc1;
-
+#if !NEW_PAT_GEN
 	VidgenConfig->DePolarity = 0x0;
 	VidgenConfig->FrameLock0 = 0;
 	VidgenConfig->FrameLock1 = 0;
@@ -478,6 +504,13 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 					 VidgenConfig->Timing.F0PVFrontPorch +
 					 VidgenConfig->Timing.F0PVSyncWidth +
 					 VidgenConfig->Timing.F0PVBackPorch - 1;
+#else
+
+	VidgenConfig->Timing.VActive = MsaConfig->Vtm.Timing.VActive;
+	VidgenConfig->Timing.HActive =
+		MsaConfig->Vtm.Timing.HActive / 4;
+
+#endif
 }
 
 /*****************************************************************************/
@@ -500,6 +533,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 static void VidgenWriteConfig(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig, u8 Stream)
 {
+#if !NEW_PAT_GEN
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VsyncPolarity,
 				VidgenConfig->Timing.VSyncPolarity | 1);
@@ -590,8 +624,19 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VEBLNK,
 				VidgenConfig->Timing.F0PVTotal);
-
 	usleep(MicrosecToWait);
+#else
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+			StreamOffset[Stream - 1], VerticalResolution,
+				VidgenConfig->Timing.VActive);
+	usleep(MicrosecToWait);
+	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
+			StreamOffset[Stream - 1], HorizontalResolution,
+				VidgenConfig->Timing.HActive);
+	usleep(MicrosecToWait);
+#endif
+
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC0,
 				InstancePtr->TxInstance.MsaConfig[0].Misc0);

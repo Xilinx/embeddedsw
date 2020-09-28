@@ -1,8 +1,9 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xdptxss.h"
+#include "tx.h"
+
 #include "xclk_wiz.h"
-#include "main.h"
 
 #ifndef versal
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
@@ -30,8 +31,8 @@ XClk_Wiz ClkWiz_Dynamic;
 #endif
 
 /************************** Function Prototypes ******************************/
-void ComputeMandD(u32 VidFreq);
-void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
+extern void ComputeMandD(u32 VidFreq);
+extern void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
 
 /*****************************************************************************/
 
@@ -191,18 +192,20 @@ void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 	//	xil_printf ("MSA pixel width is %d\r\n",MsaConfig->UserPixelWidth);
 	//	xil_printf ("MSA pixel clock is %d\r\n",MsaConfig->PixelClockHz);
-
-	/* The clock generated from clk_wiz is not accurate. For example in case of 148.5Mhz
-	 * clock generated would be 148. Hence adding 1Mhz. This will make the TX vid_clk
-	 * a little more. This is needed to ensure that TX does not go into underflow
-	 * condition in case of Adaptive mode of 1
-	 */
 	#ifndef versal
-		ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) + (1000 * ADAPTIVE_TYPE));
+	if(DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat == XVIDC_CSF_YCRCB_420){
+		ComputeMandD(((MsaConfig->PixelClockHz/1000)/((MsaConfig->UserPixelWidth)*2)) );
+	} else {
+		ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
+	}
 	#else
 		*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x3F0) = 0;
-		XClk_Wiz_SetRateHz(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz)/MsaConfig->UserPixelWidth) + (1000000 * ADAPTIVE_TYPE));
+		//WA: updating right value
+	    ClkWiz_Dynamic.Config.RefClkFreq = 150;
+		XClk_Wiz_SetRate(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz/1000000)/MsaConfig->UserPixelWidth));
+
 		*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x14) = 0x3;
+
 		while(!(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK)) {
 		                if(Count == 10000) {
 		                        break;
@@ -210,6 +213,7 @@ void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 		                usleep(100);
 		                Count++;
 	    }
+
 		if (Count == 10000) {
 			xil_printf ("Clk_wizard failed to lock\r\n");
 		}
