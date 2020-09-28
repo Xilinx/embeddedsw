@@ -21,6 +21,7 @@
 * 4.3   har 08/24/20  Added APIs to generate and verify ECDSA public key and
 *                     signature
 *                     Added support for ECDSA P521 curve
+*		am	09/25/20  Resolved MISRA C violations
 *
 * </pre>
 *
@@ -49,41 +50,44 @@ static EcdsaCrvInfo* XSecure_EcdsaGetCrvData(XSecure_EcdsaCrvTyp CrvTyp);
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
- * @brief	This function generates Public Key for a given curve type.
+ * @brief	This function generates Public Key for a given curve type
  *
- * @param	CrvTyp is the type of ECDSA curve
- * @param	D is the pointer to the static private key
- * @param	Key is the pointer to the public key
+ * @param	CrvType - Is a type of ECDSA curve
+ * @param	D 	   - Pointer to static private key
+ * @param	Key    - Pointer to public key
  *
  * @return
- *			- Returns XST_SUCCESS on success.
- *			- Returns error code on failure
+ *		- XST_SUCCESS - On success
+ * 		- XSECURE_ECDSA_NON_SUPPORTED_CRV - When ECDSA Curve is not supported
+ * 		- XSECURE_ECDSA_INVALID_PARAM 	  - On invalid argument
+ * 		- XSECURE_ECDSA_GEN_KEY_ERR 	  - Error in generating Public key
  *
  *****************************************************************************/
-int XSecure_EcdsaGenerateKey(XSecure_EcdsaCrvTyp CrvTyp, const u8* D,
+int XSecure_EcdsaGenerateKey(XSecure_EcdsaCrvTyp CrvType, const u8* D,
 	XSecure_EcdsaKey *Key)
 {
-	int Status = XSECURE_ECDSA_NON_SUPPORTED_CRV;
+	int Status = (int)XSECURE_ECDSA_NON_SUPPORTED_CRV;
 	EcdsaCrvInfo *Crv = NULL;
 
-	if ((CrvTyp != XSECURE_ECDSA_NIST_P384) && (CrvTyp != XSECURE_ECDSA_NIST_P521)) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+	if ((CrvType != XSECURE_ECDSA_NIST_P384) &&
+			(CrvType != XSECURE_ECDSA_NIST_P521)) {
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((D == NULL) || (Key == NULL)) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
-	Crv = XSecure_EcdsaGetCrvData(CrvTyp);
+	Crv = XSecure_EcdsaGetCrvData(CrvType);
 	if(Crv != NULL) {
 		Status = Ecdsa_GeneratePublicKey(Crv, D, (EcdsaKey *)Key);
 		if (Status != XST_SUCCESS) {
-			Status = XSECURE_ECDSA_GEN_KEY_ERR;
+			Status = (int)XSECURE_ECDSA_GEN_KEY_ERR;
 		}
 	}
 
@@ -95,63 +99,71 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function generates signature for a given hash and curve type.
+ * @brief	This function generates signature for a given hash and curve type
  *
- * @param	CrvTyp is the type of ECDSA curve
- * @param	Hash is the pointer to the hash for which sign has to be generated
- * @param	HashLen is the length of the hash in bytes
- * @param	D is the pointer to the static private key
- * @param	K is an ephemeral private key
- * @param	Sign is the pointer to the signature
+ * @param	CrvType  - Is a type of ECDSA curve
+ * @param	Hash    - Pointer to the hash for which sign has to be generated
+ * @param	HashLen - Is a length of the hash in bytes
+ * @param	D       - Pointer to the static private key
+ * @param	K       - Is an ephemeral private key
+ * @param	Sign    - Pointer to the signature
  *
  * @return
- *			- Returns XST_SUCCESS on success.
- *			- Returns error code on failure
+ *	- XST_SUCCESS - On success
+ * 	- XSECURE_ECDSA_INVALID_PARAM               - On invalid argument
+ * 	- XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM       - When Bad random number used
+ *												  for sign generation
+ * 	- XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN - Incorrect hash length for sign
+ *												  generation
+ *	- XST_FAILURE                               - On failure
  *
  * @note
  * K, the ephemeral private key, shall be an unpredictable (cryptographically
- * secure) random number unique for each signature.
+ * secure) random number unique for each signature
  * Note that reuse or external predictability of this number generally breaks
- * the security of ECDSA.
+ * the security of ECDSA
+ *
  *****************************************************************************/
-int XSecure_EcdsaGenerateSign(XSecure_EcdsaCrvTyp CrvTyp, const u8* Hash,
+int XSecure_EcdsaGenerateSign(XSecure_EcdsaCrvTyp CrvType, const u8* Hash,
 	const u32 HashLen, const u8* D, const u8* K, XSecure_EcdsaSign *Sign)
 {
-	int Status = XSECURE_ECDSA_NON_SUPPORTED_CRV;
+	int Status = (int)XSECURE_ECDSA_NON_SUPPORTED_CRV;
 	int GenStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
 
-	if ((CrvTyp != XSECURE_ECDSA_NIST_P384) && (CrvTyp != XSECURE_ECDSA_NIST_P521)) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+	if ((CrvType != XSECURE_ECDSA_NIST_P384) &&
+			(CrvType != XSECURE_ECDSA_NIST_P521)) {
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((D == NULL) || (K == NULL) || (Hash == NULL) || (Sign == NULL)) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	if (HashLen > XSECURE_ECDSA_P521_SIZE_IN_BYTES) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
-	Crv = XSecure_EcdsaGetCrvData(CrvTyp);
+	Crv = XSecure_EcdsaGetCrvData(CrvType);
 	if(Crv != NULL) {
 		Xil_MemCpy(PaddedHash, Hash, HashLen);
 		GenStatus = Ecdsa_GenerateSign(Crv, PaddedHash, Crv->Bits, D,
 			K, (EcdsaSign *)Sign);
-		if ((GenStatus == ECDSA_GEN_SIGN_BAD_R) || (GenStatus == ECDSA_GEN_SIGN_BAD_S)) {
-			Status = XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM;
+		if ((GenStatus == (int)ECDSA_GEN_SIGN_BAD_R) ||
+				(GenStatus == (int)ECDSA_GEN_SIGN_BAD_S)) {
+			Status = (int)XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM;
 		}
-		else if (GenStatus == ECDSA_GEN_SIGN_INCORRECT_HASH_LEN) {
-			Status = XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN;
+		else if (GenStatus == (int)ECDSA_GEN_SIGN_INCORRECT_HASH_LEN) {
+			Status = (int)XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN;
 		}
-		else if (GenStatus != ECDSA_SUCCESS) {
+		else if (GenStatus != (int)ECDSA_SUCCESS) {
 			Status = XST_FAILURE;
 		}
 		else {
@@ -167,29 +179,33 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function validates the public key for a given curve type.
+ * @brief	This function validates the public key for a given curve type
  *
- * @param	CrvTyp is the type of ECDSA curve
- * @param	Key is the pointer to the public key
+ * @param	CrvType - Is a type of ECDSA curve
+ * @param	Key    - Pointer to the public key
  *
  * @return
- *			- Returns XST_SUCCESS on success.
- *			- Returns error code on failure
+ *		- XST_SUCCESS - On success
+ * 		- XSECURE_ECDSA_INVALID_PARAM   - On invalid argument
+ * 		- XSECURE_ECDSA_KEY_ZERO        - When Public key is zero
+ *		- XSECURE_ECDSA_KEY_WRONG_ORDER - Wrong order of Public key
+ * 		- XSECURE_ECDSA_KEY_NOT_ON_CRV  - When Key is not found on the curve
+ *		- XST_FAILURE                   - On failure
  *
  *****************************************************************************/
 int XSecure_EcdsaValidateKey(XSecure_EcdsaCrvTyp CrvType, XSecure_EcdsaKey *Key)
 {
-	int Status = XSECURE_ECDSA_NON_SUPPORTED_CRV;
+	int Status = (int)XSECURE_ECDSA_NON_SUPPORTED_CRV;
 	int ValidateStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 
 	if ((CrvType != XSECURE_ECDSA_NIST_P384) && (CrvType != XSECURE_ECDSA_NIST_P521)) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	if (Key == NULL) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
@@ -199,16 +215,16 @@ int XSecure_EcdsaValidateKey(XSecure_EcdsaCrvTyp CrvType, XSecure_EcdsaKey *Key)
 	Crv = XSecure_EcdsaGetCrvData(CrvType);
 	if(Crv != NULL) {
 		ValidateStatus = Ecdsa_ValidateKey(Crv, (EcdsaKey *)Key);
-		if (ValidateStatus == ECDSA_KEY_ZERO) {
-			Status = XSECURE_ECDSA_KEY_ZERO;
+		if (ValidateStatus == (int)ECDSA_KEY_ZERO) {
+			Status = (int)XSECURE_ECDSA_KEY_ZERO;
 		}
-		else if (ValidateStatus == ECDSA_KEY_WRONG_ORDER) {
-			Status = XSECURE_ECDSA_KEY_WRONG_ORDER;
+		else if (ValidateStatus == (int)ECDSA_KEY_WRONG_ORDER) {
+			Status = (int)XSECURE_ECDSA_KEY_WRONG_ORDER;
 		}
-		else if (ValidateStatus == ECDSA_KEY_NOT_ON_CRV) {
-			Status = XSECURE_ECDSA_KEY_NOT_ON_CRV;
+		else if (ValidateStatus == (int)ECDSA_KEY_NOT_ON_CRV) {
+			Status = (int)XSECURE_ECDSA_KEY_NOT_ON_CRV;
 		}
-		else if (ValidateStatus != ECDSA_SUCCESS) {
+		else if (ValidateStatus != (int)ECDSA_SUCCESS) {
 			Status = XST_FAILURE;
 		}
 		else {
@@ -227,37 +243,42 @@ END:
  * @brief	This function verifies the signature for a given hash, key and
  *			curve type
  *
- * @param	CrvTyp is the type of ECDSA curve
- * @param	Hash is the pointer to the hash for which sign has to be generated
- * @param	HashLen is the length of the hash in bytes
- * @param	Key is the pointer to the public key
- * @param	Sign is the pointer to the signature
+ * @param	CrvType  - Is a type of ECDSA curve
+ * @param	Hash    - Pointer to the hash for which sign has to be generated
+ * @param	HashLen - Is an length of hash in bytes
+ * @param	Key     - Pointer to the public key
+ * @param	Sign    - Pointer to the signature
  *
  * @return
- *			- Returns XST_SUCCESS on success.
- *			- Returns error code on failure
+ *	- XST_SUCCESS - On success
+ * 	- XSECURE_ECDSA_INVALID_PARAM 				- On invalid argument
+ * 	- XSECURE_ECDSA_BAD_SIGN      				- When signature provided for
+ *								    			  verification is bad
+ * 	- XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash length for sign
+ *												  verification
+ *	- XST_FAILURE                               - On failure
  *
  *****************************************************************************/
 int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, XSecure_EcdsaKey *Key, XSecure_EcdsaSign *Sign)
 {
-	int Status = XSECURE_ECDSA_NON_SUPPORTED_CRV;
+	int Status = (int)XSECURE_ECDSA_NON_SUPPORTED_CRV;
 	volatile int VerifyStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
 
 	if ((CrvType != XSECURE_ECDSA_NIST_P384) && (CrvType != XSECURE_ECDSA_NIST_P521)) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((Hash == NULL) || (Key == NULL) || (Sign == NULL)) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	if (HashLen > XSECURE_ECDSA_P521_SIZE_IN_BYTES) {
-		Status = XSECURE_ECDSA_INVALID_PARAM;
+		Status = (int)XSECURE_ECDSA_INVALID_PARAM;
 		goto END;
 	}
 
@@ -271,13 +292,13 @@ int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,
 			Crv, PaddedHash, Crv->Bits, (EcdsaKey *)Key, (EcdsaSign *)Sign);
 
 SIG_ERR:
-		if (ECDSA_BAD_SIGN == VerifyStatus) {
-			Status = XSECURE_ECDSA_BAD_SIGN;
+		if ((int)ECDSA_BAD_SIGN == VerifyStatus) {
+			Status = (int)XSECURE_ECDSA_BAD_SIGN;
 		}
-		else if (ECDSA_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatus) {
-			Status = XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN;
+		else if ((int)ECDSA_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatus) {
+			Status = (int)XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN;
 		}
-		else if (ECDSA_SUCCESS != VerifyStatus) {
+		else if ((int)ECDSA_SUCCESS != VerifyStatus) {
 			Status = XST_FAILURE;
 		}
 		else {
@@ -293,16 +314,19 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function performs known answer test(KAT) on ECDSA core.
+ * @brief	This function performs known answer test(KAT) on ECDSA core
+ *
+ * @param	None
  *
  * @return
- *		- Returns XST_SUCCESS on success.
- *		- Returns error code on failure
+ *		- XST_SUCCESS - On success
+ * 		- XSECURE_ECC_KAT_KEY_NOTVALID_ERROR - When ECC key is not valid
+ * 		- XSECURE_ECC_KAT_FAILED_ERROR       - When ECC KAT fails
  *
  *****************************************************************************/
-u32 XSecure_EcdsaKat(void)
+int XSecure_EcdsaKat(void)
 {
-	volatile u32 Status = XSECURE_ECC_KAT_FAILED_ERROR;
+	volatile int Status = (int)XSECURE_ECC_KAT_FAILED_ERROR;
 	const u32 QxCord[XSECURE_ECC_P384_DATA_SIZE_WORDS] = {
 		0x88371BE6U, 0xFD2D8761U, 0x30DA0A10U, 0xEA9DBD2EU,
 		0x30FB204AU, 0x1361EFBAU, 0xF9FDF2CEU, 0x48405353U,
@@ -336,23 +360,24 @@ u32 XSecure_EcdsaKat(void)
 	XSecure_EcdsaKey Key;
 	XSecure_EcdsaSign ExpectedSign;
 
-	Key.Qx = (u8*)QxCord;
-	Key.Qy = (u8*)QyCord;
-	ExpectedSign.SignR = (u8*)SignR;
-	ExpectedSign.SignS = (u8*)SignS;
+	Key.Qx = (u8 *)QxCord;
+	Key.Qy = (u8 *)QyCord;
+	ExpectedSign.SignR = (u8 *)SignR;
+	ExpectedSign.SignS = (u8 *)SignS;
 
 	Status = XSecure_EcdsaValidateKey(XSECURE_ECDSA_NIST_P384, &Key);
 	if(Status != XST_SUCCESS) {
-		Status = XSECURE_ECC_KAT_KEY_NOTVALID_ERROR;
+		Status = (int)XSECURE_ECC_KAT_KEY_NOTVALID_ERROR;
 		goto END;
 	}
 
-	Status = XSECURE_ECC_KAT_FAILED_ERROR;
+	Status = (int)XSECURE_ECC_KAT_FAILED_ERROR;
 
-	Status = XSecure_EcdsaVerifySign(XSECURE_ECDSA_NIST_P384, (u8*)HashVal, XSECURE_SHA3_LEN_BYTES,
-		&Key, &ExpectedSign);
+	Status = XSecure_EcdsaVerifySign(XSECURE_ECDSA_NIST_P384,
+				(u8 *)HashVal, XSECURE_SHA3_LEN_BYTES,
+				&Key, &ExpectedSign);
 	if(Status != XST_SUCCESS) {
-		Status = XSECURE_ECC_KAT_FAILED_ERROR;
+		Status = (int)XSECURE_ECC_KAT_FAILED_ERROR;
 		goto END;
 	}
 
@@ -362,13 +387,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief
- * This function gets the curve related information
+ * @brief	This function gets the curve related information
  *
- * @param	CrvTyp is the type of the ECDSA curve
+ * @param	CrvTyp - Is a type of the ECDSA curve
  *
- * @return
- *			- Crv which contains the curve information
+ * @return	- Crv - Which contains the curve information
  *
  *****************************************************************************/
 static EcdsaCrvInfo* XSecure_EcdsaGetCrvData(XSecure_EcdsaCrvTyp CrvTyp)
