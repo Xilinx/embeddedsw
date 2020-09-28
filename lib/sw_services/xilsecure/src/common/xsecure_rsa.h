@@ -95,14 +95,15 @@ int XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 				u8 *ModExpo);
 
 /* RSA Signature Validation, assuming PKCS padding */
-int XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
+int XSecure_RsaSignVerification(const u8 *Signature, const u8 *Hash,
+	u32 HashLen);
 
 /* XSecure_RsaPublicEncrypt performs same as XSecure_RsaDecrypt API */
-int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
-					u8 *Result);
+int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+	u32 Size, u8 *Result);
 
-int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
-					u8 *Result);
+int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+	u32 Size, u8 *Result);
 
 #ifdef __cplusplus
 }

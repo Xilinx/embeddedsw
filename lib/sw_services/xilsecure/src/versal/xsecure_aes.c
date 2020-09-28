@@ -93,15 +93,15 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 
-static int XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
-static int XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
-		XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize);
+static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr);
+static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize);
 static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
-		XPmcDma_Channel Channel, u8 EndianType);
-static int XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
-static int XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
-		const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
-static int XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,
+	XPmcDma_Channel Channel, u8 EndianType);
+static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr);
+static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
+	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
+static int XSecure_AesEncNDecInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
 
 /************************** Variable Definitions *****************************/
@@ -404,7 +404,7 @@ END:
  *			  (Enabling/Disabling in AES engine does not impact functionality)
  *
  ******************************************************************************/
-int XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg)
+int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 {
 	int Status = XST_FAILURE;
 	u32 ReadReg;
@@ -476,13 +476,13 @@ END:
  *		    - XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 KeyAddr)
+int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Offset;
 	u32 Index = 0U;
-	u32 *Key;
+	const u32 *Key;
 	u32 KeySizeInWords;
 
 	/* Validate the input arguments */
@@ -576,9 +576,9 @@ END:
  *			- XST_FAILURE 		        - If timeout has occurred
  *
  ******************************************************************************/
-int XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
-			XSecure_AesKeySrc DecKeySrc,
-			XSecure_AesKeySrc DstKeySrc, u64 IvAddr, XSecure_AesKeySize KeySize)
+int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
+	XSecure_AesKekType KeyType, XSecure_AesKeySrc DecKeySrc,
+	XSecure_AesKeySrc DstKeySrc, u64 IvAddr, XSecure_AesKeySize KeySize)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_AesKeySrc KeySrc;
@@ -725,7 +725,7 @@ END:
  *
  ******************************************************************************/
 int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 IvAddr)
+	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	int Status = XST_FAILURE;
 
@@ -812,7 +812,7 @@ END:
  *
  ******************************************************************************/
 int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-		u64 OutDataAddr, u32 Size, u8 IsLastChunk)
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
 
@@ -1048,7 +1048,7 @@ END:
  *
  ******************************************************************************/
 int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
+	u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -1108,7 +1108,7 @@ END:
  *
  ******************************************************************************/
 int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 IvAddr)
+	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	int Status = XST_FAILURE;
 
@@ -1187,7 +1187,7 @@ END:
  *
  ******************************************************************************/
 int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 IsLastChunk)
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
 
@@ -1392,7 +1392,7 @@ END:
  *
  ******************************************************************************/
 int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
+	u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -1444,7 +1444,7 @@ END:
  *			- XST_FAILURE - If a timeout has occurred
  *
  ******************************************************************************/
-static int XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
+static int XSecure_AesWaitKeyLoad(const XSecure_Aes *InstancePtr)
 {
 	int Status = XST_FAILURE;
 	/* Assert validates the input arguments */
@@ -1474,7 +1474,7 @@ static int XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
  *			- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  ******************************************************************************/
-int XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u8 Config)
+int XSecure_AesCfgKupIv(const XSecure_Aes *InstancePtr, u8 Config)
 {
 	int Status = XST_FAILURE;
 
@@ -1526,7 +1526,7 @@ END:
  *			- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  ******************************************************************************/
-int XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
+int XSecure_AesGetNxtBlkLen(const XSecure_Aes *InstancePtr, u32 *Size)
 {
 	int Status = XST_FAILURE;
 
@@ -1563,8 +1563,8 @@ END:
  *			- XST_FAILURE - If a timeout has occurred
  *
  ******************************************************************************/
-static int XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
-			XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize)
+static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize)
 {
 	int Status = XST_FAILURE;
 
@@ -1604,7 +1604,7 @@ static int XSecure_AesKeyLoad(XSecure_Aes *InstancePtr,
  *			- XST_FAILURE - On failure
  *
  ******************************************************************************/
-static int XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
+static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr)
 {
 	int Status = XST_FAILURE;
 	/* Assert validates the input arguments */
@@ -1629,7 +1629,7 @@ static int XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
  *			- XST_FAILURE - On failure
  *
  ******************************************************************************/
-static int XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr)
+static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
@@ -1658,7 +1658,7 @@ static int XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr)
  * 			- XSECURE_AES_KEY_CLEAR_ERROR - AES key clear error
  *
  ******************************************************************************/
-int XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
+int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 {
 	int Status = XST_FAILURE;
 	u32 Mask;
@@ -1724,8 +1724,7 @@ END:
  *
  ******************************************************************************/
 static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
-		XPmcDma_Channel Channel,
-		u8 EndianType)
+	XPmcDma_Channel Channel, u8 EndianType)
 {
 	XPmcDma_Configure ConfigValues = {0U};
 
@@ -1847,8 +1846,8 @@ END:
  * 		- XST_FAILURE                                 - On failure
  *
  *****************************************************************************/
-static int XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
-						const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr)
+static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
+	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Index;
@@ -1991,7 +1990,7 @@ END:
  *												 not matched with expected data
  *
  *****************************************************************************/
-int XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
+int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
 	const u32 Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
@@ -2024,14 +2023,14 @@ int XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance)
 	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
 	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
 
-	u32 *RM0 = &Output0[0U];
-	u32 *R0 = &Output0[4U];
-	u32 *Mm0 = &Output0[8U];
-	u32 *M0 = &Output0[12U];
-	u32 *RM1 = &Output1[0U];
-	u32 *R1 = &Output1[4U];
-	u32 *Mm1 = &Output1[8U];
-	u32 *M1 = &Output1[12U];
+	const u32 *RM0 = &Output0[0U];
+	const u32 *R0 = &Output0[4U];
+	const u32 *Mm0 = &Output0[8U];
+	const u32 *M0 = &Output0[12U];
+	const u32 *RM1 = &Output1[0U];
+	const u32 *R1 = &Output1[4U];
+	const u32 *Mm1 = &Output1[8U];
+	const u32 *M1 = &Output1[12U];
 
 	if (AesInstance == NULL) {
 		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
@@ -2135,8 +2134,8 @@ END:
  *          - XST_FAILURE - On failure
  *
  ******************************************************************************/
-static int XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,
-			XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr)
+static int XSecure_AesEncNDecInit(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
 
