@@ -49,6 +49,10 @@ SECTIONS
    *(.gnu.linkonce.t.*)
 } > microblaze_0_i_bram_ctrl_microblaze_0_d_bram_ctrl
 
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
+} > microblaze_0_i_bram_ctrl_microblaze_0_d_bram_ctrl
+
 .init : {
    KEEP (*(.init))
 } > microblaze_0_i_bram_ctrl_microblaze_0_d_bram_ctrl
