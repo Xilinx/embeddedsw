@@ -375,7 +375,7 @@ EcdsaCrvInfo XSecure_EcdsaCrvsDb[] =
  * @return  Returns the number of curves supported
  *
  *****************************************************************************/
-inline u32 XSecure_EcdsaCrvsGetCount(void)
+u32 XSecure_EcdsaCrvsGetCount(void)
 {
 	return sizeof(XSecure_EcdsaCrvsDb) / sizeof(EcdsaCrvInfo);
 }
