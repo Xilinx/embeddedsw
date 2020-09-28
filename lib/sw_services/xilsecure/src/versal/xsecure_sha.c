@@ -594,7 +594,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 		if ((PrevPartialLen != 0U) ||
 		    (((UINTPTR)Data & XPMCDMA_ADDR_LSB_MASK) != 0U)) {
 			XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
-				(void *)Data,
+				(const void *)Data,
 				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
 			DmableData = PartialData;
 			DmableDataLen = XSECURE_SHA3_BLOCK_LEN;
@@ -628,7 +628,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	   data padding */
 	if(RemainingDataLen > 0U) {
 		XSecure_MemCpy((void *)(PartialData + PrevPartialLen),
-			(void *)Data, (RemainingDataLen - PrevPartialLen));
+			(const void *)Data, (RemainingDataLen - PrevPartialLen));
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
 	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,
