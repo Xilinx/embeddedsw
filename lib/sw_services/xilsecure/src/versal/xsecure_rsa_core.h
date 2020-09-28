@@ -38,7 +38,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xsecure_utils.h"
 /************************** Constant Definitions ****************************/
-#define XSECURE_RSA_FAILED		(0x1U) /**< RSA Failed Error Code */
 #define XSECURE_RSA_DATA_VALUE_ERROR	(0x2U) /**< for RSA private decryption
 						* data should be lesser than
 						* modulus */
@@ -62,7 +61,6 @@ extern "C" {
 #define XSECURE_RSA_RAM_EXPO	(0U) /**< bit for RSA RAM Exponent */
 #define XSECURE_RSA_RAM_MOD		(1U) /**< bit for RSA RAM modulus */
 #define XSECURE_RSA_RAM_DIGEST	(2U) /**< bit for RSA RAM Digest */
-#define XSECURE_RSA_RAM_SPAD	(3U) /**< bit for RSA RAM SPAD */
 #define XSECURE_RSA_RAM_RES_Y	(4U) /**< bit for RSA RAM Result(Y) */
 #define XSECURE_RSA_RAM_RES_Q	(5U) /**< bit for RSA RAM Result(Q) */
 
@@ -70,8 +68,6 @@ extern "C" {
  *
  * Control Register opcode definitions
  */
-#define XSECURE_RSA_CONTROL_DCA	(0x08U) /**< Abort Operation */
-#define XSECURE_RSA_CONTROL_NOP	(0x00U) /**< No Operation */
 #define XSECURE_RSA_CONTROL_EXP	(0x01U) /**< Exponentiation Opcode */
 #define XSECURE_RSA_CONTROL_EXP_PRE	(0x05U) /**< Expo. using R*R mod M */
 
@@ -104,9 +100,7 @@ extern "C" {
  * Status Register Bit Definition
  */
 #define XSECURE_RSA_STATUS_DONE	(0x1U) /**< Operation Done */
-#define XSECURE_RSA_STATUS_BUSY	(0x2U) /**< RSA busy */
 #define XSECURE_RSA_STATUS_ERROR	(0x4U) /**< Error */
-#define XSECURE_RSA_STATUS_PROG_CNT	(0xF8U) /**< Progress Counter */
 /* @}*/
 
 typedef enum {
