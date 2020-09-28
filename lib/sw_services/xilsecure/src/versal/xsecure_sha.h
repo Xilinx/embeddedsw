@@ -72,13 +72,9 @@ extern "C" {
 
 #define XSECURE_SHA3_START_START	(1U << 0) /**< SHA Start Message */
 
-#define XSECURE_SHA3_RESET_RESET	(1U << 0) /**< SHA Reset Value */
-
 #define XSECURE_SHA3_DONE_DONE	(1U << 0) /**< SHA Done */
 
 #define XSECURE_SHA3_BLOCK_LEN		(104U) /**< SHA min block length */
-
-#define XSECURE_SHA3_LAST_PACKET	(0x1U) /**< Last Data Packet */
 
 #define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU) /** < PMC DMA Max Transfer
 							rate in bytes*/

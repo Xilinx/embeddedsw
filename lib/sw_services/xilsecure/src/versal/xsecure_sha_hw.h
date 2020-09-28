@@ -16,6 +16,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   har  03/20/20 Initial release
 * 4.2   har  03/20/20 Updated file version to sync with library version
+* 4.3	am	 09/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -48,8 +49,6 @@ extern "C" {
 
 #define XSECURE_SHA3_DIGEST_0_OFFSET (0x10U)
 					/**< SHA3 Digest: Reg 0 */
-#define XSECURE_SHA3_DIGEST_11_OFFSET (0x3CU)
-					/**< SHA3 Digest: Last Register */
 /* @} */
 
 #ifdef __cplusplus
