@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   har  08/24/20 First Release
 * 4.3   har  08/24/20 Updated file version to sync with library version
+*		am	 09/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -52,7 +53,7 @@ typedef enum {
 extern EcdsaCrvInfo XSecure_EcdsaCrvsDb[];
 
 /***************************** Function Prototypes ***************************/
-u32 XSecure_EcdsaCrvsGetCount();
+u32 XSecure_EcdsaCrvsGetCount(void);
 
 #ifdef __cplusplus
 }
