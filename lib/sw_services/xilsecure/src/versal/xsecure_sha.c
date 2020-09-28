@@ -67,7 +67,7 @@
  * 			- XST_FAILURE - If a timeout has occurred
  *
  ******************************************************************************/
-inline int XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
+static inline int XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
 {
 	return (int)Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_SHA3_DONE_OFFSET,
 			XSECURE_SHA3_DONE_DONE,
