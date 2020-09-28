@@ -217,6 +217,8 @@ xaxicdma_example_hybrid_intr.c example.
 Fix the data check failure in xaxicdma_example_hybrid_poll example
 by adding Cache operations for receive and destination buffers.
 Update axicdma driver makefile for parallel execution.
+Fix the compilation error for xreg_cortexa9.h preprocessor in
+xaxicdma_example_sg_intr and xaxicdma_example_simple_intr examples.
 
 axiethernet_v5_11:
 Fix bsp generation error for multiple axieth instance design.
