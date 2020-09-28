@@ -20,6 +20,7 @@
 * 4.3	rpo	 	09/10/20 Asserts are not compiled by default for
 *						 secure libraries
 *		rpo  	09/21/20 New error code added for crypto state mismatch
+*		am	 	09/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -50,19 +51,19 @@ static const u8 XSecure_SssLookupTable
 };
 
 /************************** Function Prototypes ******************************/
-static u32 XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
-static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
+static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
+static int XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 			XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
- * @brief
- * This function initializes the secure stream switch instance.
+ * @brief	This function initializes the secure stream switch instance
  *
- * @param	InstancePtr	Instance pointer to the XSecure_Sss.
+ * @param	InstancePtr	- Instance pointer to the XSecure_Sss
  *
- * @return  Status -  XST_SUCCESS/Error Code
+ * @return	- XST_SUCCESS - If initialization was successful
+ *			- XSECURE_SSS_INVALID_PARAM - On invalid parameter
  *
  *****************************************************************************/
 int XSecure_SssInitialize (XSecure_Sss *InstancePtr)
@@ -71,52 +72,53 @@ int XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 
 	/* Validates the input arguments */
 	if (InstancePtr == NULL) {
-		Status = XSECURE_SSS_INVALID_PARAM;
+		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
 
 	InstancePtr->Address = XSECURE_SSS_ADDRESS;
 
 	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief
- * This function configures the secure stream switch for AES engine.
+ * @brief	This function configures the secure stream switch for AES engine
  *
- * @param	InstancePtr	Instance pointer to the XSecure_Sss
- * @param	InputSrc	Input DMA to be selected for AES engine.
- * @param	OutputSrc	Output DMA to be selected for AES engine.
+ * @param	InstancePtr	- Instance pointer to the XSecure_Sss
+ * @param	InputSrc	- Input DMA to be selected for AES engine
+ * @param	OutputSrc	- Output DMA to be selected for AES engine
  *
- * @return	- XST_SUCCESS - on successful configuration of the switch
- *			- XST_FAILURE - on failure to configure switch
+ * @return	- XST_SUCCESS - On successful configuration of the switch
+ *			- XSECURE_SSS_INVALID_PARAM - On invalid parameter
+ *			- XST_FAILURE               - On failure to configure switch
  *
- * @note	InputSrc, OutputSrc are of type XSecure_SssSrc.
+ * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
  *
  *****************************************************************************/
-u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
+int XSecure_SssAes(XSecure_Sss *InstancePtr,
 		XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
-		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((InputSrc != XSECURE_SSS_DMA0) &&
 		(InputSrc != XSECURE_SSS_DMA1)) {
-		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((OutputSrc != XSECURE_SSS_DMA0) &&
 		(OutputSrc != XSECURE_SSS_DMA1)) {
-		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
 
@@ -129,26 +131,28 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief
- * This function configures the secure stream switch for SHA hardware engine.
+ * @brief	This function configures the secure stream switch for SHA hardware
+ *			engine
  *
- * @param	InstancePtr	Instance pointer to the XSecure_Sss
- * @param	DmaId		Device ID of DMA which is to be used as an
- *				input to the SHA engine.
+ * @param	InstancePtr	- Instance pointer to the XSecure_Sss
+ * @param	DmaId		- Device ID of DMA which is to be used as an input to
+ *						  the SHA engine
  *
- * @return	- XST_SUCCESS - on successful configuration of the switch.
- *			- XST_FAILURE - on failure to configure switch
+ * @return	- XST_SUCCESS - On successful configuration of the switch
+ *			- XSECURE_SSS_INVALID_PARAM - On invalid parameter
+ *			- XST_FAILURE               - On failure to configure switch
  *
  *****************************************************************************/
-u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
+int XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 {
+	int Status = XST_FAILURE;
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
-	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ||
-		((DmaId != XSECURE_SSS_DMA0) && (DmaId != XSECURE_SSS_DMA1))) {
-		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		((DmaId != (u16)XSECURE_SSS_DMA0) &&
+			(DmaId != (u16)XSECURE_SSS_DMA1))) {
+		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
 
@@ -157,7 +161,7 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 		goto END;
 	}
 
-	Status = (u32)XST_FAILURE;
+	Status = XST_FAILURE;
 
 	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_SHA, InputSrc,
 			XSECURE_SSS_INVALID);
@@ -168,25 +172,27 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief
- * This function configures secure stream switch to set DMA in loop back mode.
+ * @brief	This function configures secure stream switch to set DMA in
+ *			loop back mode
  *
- * @param	InstancePtr	Instance pointer to the XSecure_Sss
- * @param	DmaId		Device ID of DMA.
+ * @param	InstancePtr	- Instance pointer to the XSecure_Sss
+ * @param	DmaId		- Device ID of DMA
  *
- * @return	- XST_SUCCESS - on successful configuration of the switch.
- *			- XST_FAILURE - on failure to configure switch
+ * @return	- XST_SUCCESS - On successful configuration of the switch
+ *			- XSECURE_SSS_INVALID_PARAM - On invalid parameter
+ *			- XST_FAILURE               - On failure to configure switch
  *
  *****************************************************************************/
-u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
+int XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 {
+	int Status = XST_FAILURE;
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
-	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ||
-		((DmaId != XSECURE_SSS_DMA0) && (DmaId != XSECURE_SSS_DMA1))) {
-		Status = (u32)XSECURE_SSS_INVALID_PARAM;
+		((DmaId != (u16)XSECURE_SSS_DMA0) &&
+			(DmaId != (u16)XSECURE_SSS_DMA1))) {
+		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
 
@@ -195,7 +201,7 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 		goto END;
 	}
 
-	Status = (u32)XST_FAILURE;
+	Status = XST_FAILURE;
 
 	Status = XSecure_SssCfg(InstancePtr, Resource, Resource,
 				XSECURE_SSS_INVALID);
@@ -206,22 +212,20 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief
- * This function sets the DMA source of type XSecure_SssSrc based on the
- * provided DMA device ID.
+ * @brief	This function sets the DMA source of type XSecure_SssSrc based
+ * 			on the provided DMA device ID
  *
- * @param	InstancePtr	Instance pointer to the XSecure_Sss
- * @param	DmaId		Device ID of DMA.
- * @param	Resource	DMA source is updated into the pointer.
+ * @param	InstancePtr	- Instance pointer to the XSecure_Sss
+ * @param	DmaId		- Device ID of DMA
+ * @param	Resource	- DMA source is updated into the pointer
  *
- * @return
- *			- XST_SUCCESS if DMA ID is correct
- *			- XST_FAILURE on wrong DMA ID
+ * @return	- XST_SUCCESS - If DMA ID is correct
+ *			- XST_FAILURE - On wrong DMA ID
  *
  *****************************************************************************/
-static u32 XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
+static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(Resource != NULL);
@@ -229,41 +233,41 @@ static u32 XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 
 	if (DmaId == 0U) {
 		*Resource = XSECURE_SSS_DMA0;
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 	}
 	else {
 		*Resource = XSECURE_SSS_DMA1;
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 	}
+
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief
- * This function configures the secure stream switch.
+ * @brief	This function configures the secure stream switch
  *
- * @param	InstancePtr	Instance pointer to the XSecure_Sss
- * @param	Resource	Resource for which input and output paths to be
- *				configured.
- * @param	InputSrc	Input source to be selected for the resource.
- * @param	OutputSrc	Output source to be selected for the resource.
+ * @param	InstancePtr	- Instance pointer to the XSecure_Sss
+ * @param	Resource	- Resource for which input and output paths to be
+ *						  configured
+ * @param	InputSrc	- Input source to be selected for the resource
+ * @param	OutputSrc	- Output source to be selected for the resource
  *
- * @return	- XST_SUCCESS - on successful configuration of the switch
- *		    - XST_FAILURE - on unsuccessful configuration of the switch
+ * @return	- XST_SUCCESS - On successful configuration of the switch
+ *		    - XST_FAILURE - On unsuccessful configuration of the switch
  *
- * @note	Resource, InputSrc, OutputSrc are of type XSecure_SssSrc.
+ * @note	Resource, InputSrc, OutputSrc are of type XSecure_SssSrc
  *
  *****************************************************************************/
-static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
+static int XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 			XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
+	int Status = XST_FAILURE;
 	u32 InputSrcCfg = 0x0U;
 	u32 OutputSrcCfg = 0x0U;
 	volatile u32 InputSrcCfgRedundant = 0x0U;
 	volatile u32 OutputSrcCfgRedundant = 0x0U;
 	u32 SssCfg = 0x0U;
-	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);

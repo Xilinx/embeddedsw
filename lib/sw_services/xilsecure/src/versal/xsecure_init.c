@@ -19,6 +19,8 @@
 * 1.0   rpo 06/25/2020 Initial release
 * 4.3   rpo 06/25/2020 Updated file version to sync with library version
 *		rpo 08/19/2020 Clear the tamper interrupt source
+*		am	09/24/2020 Resolved MISRA C violations
+*
 * </pre>
 *
 * @note
@@ -37,15 +39,15 @@
 #define XPLMI_EVENT_ERROR_PMC_ERR2		(0x28104000U)
 #define	XPLMI_NODEIDX_ERROR_PMCAPB		(32U)
 #define XSECURE_TAMPER_INT_MASK			(8U)
-#define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200)
-#define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000)
+#define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200U)
+#define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000U)
 #define XSECURE_GD_STATUS 				(XSECURE_GD1_GLITCH_STATUS_MASK | \
 										 XSECURE_GD0_GLITCH_STATUS_MASK)
 #define PMC_ANALOG_GD_CTRL_REG			(0xF1160000U)
 #define PMC_GLOBAL_ISR_REG				(0xF1110010U)
 
 /************************** Function Prototypes ******************************/
-static u32 XSecure_RegisterTampIntHandler(void);
+static int XSecure_RegisterTampIntHandler(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -53,48 +55,50 @@ static u32 XSecure_RegisterTampIntHandler(void);
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the handler for tamper interrupt.
+ * @brief	This function registers the handler for tamper interrupt
  *
  * @param	None
  *
- * @return
- *		- Returns XST_SUCCESS on success.
- *		- Returns error code on failure
+ * @return	- XST_SUCCESS - On success
+ *     		- XPLMI_INVALID_ERROR_ID      - On invalid ID
+ *      	- XPLMI_INVALID_ERROR_HANDLER - On Null handler
  *
  *****************************************************************************/
 int XSecure_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = (int)XSecure_RegisterTampIntHandler();
+	Status = XSecure_RegisterTampIntHandler();
 
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the handler for tamper interrupt.
+ * @brief	This function registers the handler for tamper interrupt
  *
  * @param	None
  *
- * @return
- *		- Returns XST_SUCCESS on success.
- *		- Returns error code on failure
+ * @return	- XST_SUCCESS - On success
+ *     		- XPLMI_INVALID_ERROR_ID      - On invalid ID
+ *      	- XPLMI_INVALID_ERROR_HANDLER - On Null handler
  *
  *****************************************************************************/
-static u32 XSecure_RegisterTampIntHandler(void)
+static int XSecure_RegisterTampIntHandler(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
+
 	/**
 	 * Register handler
 	 */
-	Status = (u32)XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
+	Status = XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
 						XPLMI_NODEIDX_ERROR_PMCAPB,
 						XPLMI_EM_ACTION_CUSTOM,
 						XSecure_TamperInterruptHandler);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
+
 	/**
 	 * Enable tamper interrupt in PMC GLOBAL
 	 */
@@ -106,14 +110,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This is the handler for tamper interrupt.
+ * @brief	This is the handler for tamper interrupt
  *
  * @param	ErrorNodeId - Node Identifier
- * @param	ErrorMask - Mask Identifier
+ * @param	ErrorMask   - Mask Identifier
  *
- * @return
- *		- Returns XST_SUCCESS on success.
- *		- Returns error code on failure
+ * @return	None
  *
  *****************************************************************************/
 void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)

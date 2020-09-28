@@ -41,6 +41,7 @@
 * 4.3   ana  06/04/20 created XSecure_Sha3Hash structure variable
 *       kpt  08/26/20 Changed argument type from u8* to UINTPTR
 *		rpo  09/10/20 Changed the return type of some prototypes
+*		am	 09/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -121,27 +122,27 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 /* Initialization */
-u32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma *DmaPtr);
+int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma *DmaPtr);
 
 int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 
 /* Data Transfer */
-u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 						const u32 Size);
-u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
+int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
 
 /* Complete SHA digest calculation */
-u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 						const u32 Size, XSecure_Sha3Hash *Sha3Hash);
 
 int XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
-u32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
+int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
-u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
+int XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 
-u32 XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
+int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 
 #ifdef __cplusplus
 }

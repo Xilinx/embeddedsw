@@ -17,6 +17,8 @@
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   rpo  06/25/2020 Initial release
  * 4.3   rpo  06/25/2020 Updated file version to sync with library version
+ *		 am	  09/24/2020 Resolved MISRA C violations
+ *
  * </pre>
  *
  * @note
@@ -29,7 +31,6 @@
 extern "C" {
 #endif
 /***************************** Include Files *********************************/
-#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -38,7 +39,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-u32 XSecure_ProcessTamperResponse(void);
+int XSecure_ProcessTamperResponse(void);
 void XSecure_SecureLockDown(void);
 void XSecure_EnableTamperInterrupt(void);
 

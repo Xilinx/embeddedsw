@@ -21,6 +21,8 @@
  *       har  08/24/2020 Added ECDSA error codes
  *		 rpo  09/10/2020 Added Invalid argument error codes
  *		 rpo  09/21/2020 New error code added for crypto state mismatch
+ *		 am	  09/24/2020 Resolved MISRA C violations
+ *
  * </pre>
  *
  * @note
@@ -40,7 +42,7 @@ extern "C" {
  * @{
  */
 typedef enum {
-	XSECURE_SHA3_INIT_ERROR = 0x02U,      /**< 0x02 - Error when SHA3
+	XSECURE_SHA3_INIT_ERROR = 0x02,      /**< 0x02 - Error when SHA3
                                             init fails. */
 	XSECURE_SHA3_LAST_UPDATE_ERROR,    /**< 0x03 - Error when SHA3
                                             last update fails. */
@@ -58,7 +60,7 @@ typedef enum {
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,		/**< 0x0A - State mismatch */
 
-	XSECURE_AES_GCM_TAG_MISMATCH = 0x40U,
+	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,
 					/**< 0x40 - user provided GCM tag does
 						not match calculated tag */
 	XSECURE_AES_KEY_CLEAR_ERROR,
@@ -103,7 +105,7 @@ typedef enum {
 	XSECURE_AESKAT_INVALID_PARAM,				 /**< 0x52 - Invalid Argument */
 	XSECURE_AES_STATE_MISMATCH_ERROR,			/**< 0x53 - State mismatch */
 
-	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80U, /**< 0x80 - RSA KAT fails  */
+	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80, /**< 0x80 - RSA KAT fails  */
 
 	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR, /**< 0x81 - Error when RSA data
                                                        not matched with
@@ -112,7 +114,7 @@ typedef enum {
 	XSECURE_RSAKAT_INVALID_PARAM,				 /**< 0x83 - Invalid Argument */
 	XSECURE_RSA_STATE_MISMATCH_RESERVED,			/**< 0x84 - State mismatch */
 
-	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0U, /**< 0xC0 -ECC key is not valid */
+	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0, /**< 0xC0 -ECC key is not valid */
 
 	XSECURE_ECC_KAT_FAILED_ERROR,   /**< 0xC1 - ECC KAT fails */
 	XSECURE_ECDSA_NON_SUPPORTED_CRV, /**< 0xC2 - ECDSA Curve not supported */
