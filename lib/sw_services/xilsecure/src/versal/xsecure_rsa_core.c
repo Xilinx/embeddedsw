@@ -60,15 +60,15 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 
 /************************** Function Prototypes ******************************/
 
-static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr);
-static int XSecure_RsaZeroize(XSecure_Rsa *InstancePtr);
-static int XSecure_RsaZeroizeVerify(XSecure_Rsa *InstancePtr);
-static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
-							u8 RamOffset);
-static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr);
-static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData);
-static void XSecure_RsaDataLenCfg(XSecure_Rsa *InstancePtr, u32 Cfg0, u32 Cfg1,
-								u32 Cfg2, u32 Cfg5);
+static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr);
+static int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
+static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr);
+static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
+	const u32* WrData, u8 RamOffset);
+static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr);
+static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u32 *RdData);
+static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 Cfg1,
+	u32 Cfg2, u32 Cfg5);
 
 /************************** Variable Definitions *****************************/
 
@@ -120,8 +120,8 @@ END:
  * 			- XST_FAILURE               - On failure
  *
 ******************************************************************************/
-int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
-			u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize)
+int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, const u8 *Input,
+	u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize)
 {
 	int Status = XST_FAILURE;
 	int ErrorCode = XST_FAILURE;
@@ -278,7 +278,7 @@ END:
  * @return	None
  *
  ******************************************************************************/
-static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
+static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
 {
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
@@ -309,7 +309,7 @@ static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
+static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u32 *RdData)
 {
 	u32 Index;
 	u32 DataOffset;
@@ -355,11 +355,11 @@ END: ;
  *			where M is LSB 32 bits of the original modulus
  *
  ******************************************************************************/
-static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
+static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
 {
 	/* Calculate the MINV */
 	u8 Count;
-	u32 *ModPtr;
+	const u32 *ModPtr;
 	u32 ModVal;
 	u32 Inv;
 
@@ -392,8 +392,8 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
-							u8 RamOffset)
+static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
+	const u32* WrData, u8 RamOffset)
 {
 	u32 Index;
 	u32 DataOffset;
@@ -459,7 +459,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
  * 			- XSECURE_RSA_ZEROIZE_ERROR - On Zeroization Failure
  *
  *****************************************************************************/
-static int XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
+static int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
 {
 
 	int Status = XST_FAILURE;
@@ -507,7 +507,7 @@ static int XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
  * 			- XSECURE_RSA_ZEROIZE_ERROR - On Zeroize Verify Failure
  *
  *****************************************************************************/
-static int XSecure_RsaZeroizeVerify(XSecure_Rsa *InstancePtr)
+static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr)
 {
 	int Status = XST_FAILURE;
 	u32 RamOffset = (u32)XSECURE_RSA_RAM_EXPO;
@@ -561,8 +561,8 @@ END:
  * @return	None.
  *
 ******************************************************************************/
-static void XSecure_RsaDataLenCfg(XSecure_Rsa *InstancePtr, u32 Cfg0, u32 Cfg1,
-								u32 Cfg2, u32 Cfg5)
+static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
+	u32 Cfg1, u32 Cfg2, u32 Cfg5)
 {
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
@@ -747,7 +747,7 @@ int XSecure_RsaPublicEncryptKat(void)
 	}
 
 	Status = XSecure_RsaPublicEncrypt(&XSecureRsaInstance, (u8 *)RsaData,
-			XSECURE_RSA_4096_KEY_SIZE, (u8 *)RsaOutput);
+		XSECURE_RSA_4096_KEY_SIZE, (u8 *)RsaOutput);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR;
 		goto END;

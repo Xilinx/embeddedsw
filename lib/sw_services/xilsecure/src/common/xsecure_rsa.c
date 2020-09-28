@@ -137,12 +137,13 @@ END:
  *			- XST_FAILURE               - In case of mismatch
  *
  ******************************************************************************/
-int XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
+int XSecure_RsaSignVerification(const u8 *Signature, const u8 *Hash,
+	u32 HashLen)
 {
 	int Status = XST_FAILURE;
-	u8 * Tpadding = (u8 *)XNULL;
+	const u8 * Tpadding = (u8 *)XNULL;
 	u32 PadLength;
-	u8 * PadPtr = (u8 *)XNULL;
+	const u8 * PadPtr = (u8 *)XNULL;
 	volatile u32 sign_index;
 
 	/* Validate the input arguments */
@@ -243,8 +244,8 @@ ENDF:
  * 			XSecure_RsaInitialize function
  *
 ******************************************************************************/
-int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
-					u8 *Result)
+int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+	u32 Size, u8 *Result)
 {
 	int Status = XST_FAILURE;
 
@@ -294,8 +295,8 @@ END:
  *  		XSecure_RsaInitialize function
  *
 ******************************************************************************/
-int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
-				u8 *Result)
+int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, const u8 *Input,
+	u32 Size, u8 *Result)
 {
 	int Status = (int)XSECURE_RSA_DATA_VALUE_ERROR;
 	u32 Idx;

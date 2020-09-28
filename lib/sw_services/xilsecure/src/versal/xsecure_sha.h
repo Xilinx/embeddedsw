@@ -136,7 +136,8 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 						const u32 Size, XSecure_Sha3Hash *Sha3Hash);
 
-int XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
+int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
+	XSecure_Sha3Hash *Sha3Hash);
 
 int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
