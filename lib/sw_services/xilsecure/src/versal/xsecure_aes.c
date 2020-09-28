@@ -663,8 +663,10 @@ int XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 		(u32)IvAddr, (u32)(IvAddr >> 32U),
 		XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, TRUE);
 
-	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
-
+	Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
@@ -870,7 +872,10 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 				Size / XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
-	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -878,7 +883,11 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
 		/* Wait for the DST DMA completion. */
-		XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+		Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
+							 XPMCDMA_DST_CHANNEL);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
 		/* Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
@@ -962,7 +971,10 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, FALSE);
 
 	/* Wait for the Src DMA completion. */
-	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr,
@@ -1236,7 +1248,10 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 				Size / XSECURE_WORD_SIZE, IsLastChunk);
 
 	/* Wait for the SRC DMA completion. */
-	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -1244,8 +1259,11 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	if ((u32)OutDataAddr != XSECURE_AES_NO_CFG_DST_DMA) {
 		/* Wait for the DST DMA completion. */
-		XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
+		Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
 				XPMCDMA_DST_CHANNEL);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
 		/* Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(InstancePtr->PmcDmaPtr,
@@ -1315,7 +1333,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 				XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
 	}
 	if (Status != XST_SUCCESS) {
-			goto END;
+		goto END;
 	}
 
 	XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr,
@@ -1324,7 +1342,10 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 			XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, FALSE);
 
 	/* Wait for the DST DMA completion. */
-	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
@@ -1907,7 +1928,10 @@ static int XSecure_AesDpaCmDecryptKat(XSecure_Aes *AesInstance,
 	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
 
-	XPmcDma_WaitForDone(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	Status = XPmcDma_WaitForDone(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XST_FAILURE;
 
@@ -2154,8 +2178,10 @@ static int XSecure_AesEncNDecInit(XSecure_Aes *InstancePtr,
 			(u32)IvAddr, (u32)(IvAddr >> 32U),
 			XSECURE_SECURE_GCM_TAG_SIZE / XSECURE_WORD_SIZE, FALSE);
 
-	XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr,
-			XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,

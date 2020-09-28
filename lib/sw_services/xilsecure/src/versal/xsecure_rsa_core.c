@@ -740,8 +740,11 @@ int XSecure_RsaPublicEncryptKat(void)
 		0x224829B5U, 0x46DF012U,  0x5C6325E2U, 0x3C39F1FDU,
 		0xC0418AB2U, 0x4EF12694U, 0x1CF20CC0U, 0xAFC64ADAU};
 
-	XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)PubMod,
+	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)PubMod,
 		(u8 *)PubModExt, (u8 *)&PubExponent);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XSecure_RsaPublicEncrypt(&XSecureRsaInstance, (u8 *)RsaData,
 			XSECURE_RSA_4096_KEY_SIZE, (u8 *)RsaOutput);
