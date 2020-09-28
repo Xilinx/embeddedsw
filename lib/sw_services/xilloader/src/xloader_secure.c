@@ -3033,8 +3033,15 @@ static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	u64 SrcAddr = BufferAddr;
 	u32 DpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);
 	u32 EfuseDpaCmCfg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC1_OFFSET) &
-				(~XLOADER_EFUSE_SEC_DPA_DIS_MASK);
+				(XLOADER_EFUSE_SEC_DPA_DIS_MASK);
 	XLoader_AesKekKey KeyDetails;
+
+	if (DpaCmCfg != 0x0U) {
+		DpaCmCfg = 0x0U;
+	}
+	else {
+		DpaCmCfg = XLOADER_EFUSE_SEC_DPA_DIS_MASK;
+	}
 
 	if (SecurePtr->IsAuthenticated == (u8)TRUE) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
