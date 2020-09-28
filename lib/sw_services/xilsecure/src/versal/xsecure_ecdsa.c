@@ -374,7 +374,7 @@ int XSecure_EcdsaKat(void)
 	Status = (int)XSECURE_ECC_KAT_FAILED_ERROR;
 
 	Status = XSecure_EcdsaVerifySign(XSECURE_ECDSA_NIST_P384,
-				(u8 *)HashVal, XSECURE_SHA3_LEN_BYTES,
+				(const u8 *)HashVal, XSECURE_SHA3_LEN_BYTES,
 				&Key, &ExpectedSign);
 	if(Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ECC_KAT_FAILED_ERROR;
