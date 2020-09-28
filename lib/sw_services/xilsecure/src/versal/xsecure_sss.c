@@ -52,8 +52,9 @@ static const u8 XSecure_SssLookupTable
 
 /************************** Function Prototypes ******************************/
 static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
-static int XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
-			XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc);
+static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
+	XSecure_SssSrc Resource, XSecure_SssSrc InputSrc,
+	XSecure_SssSrc OutputSrc);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -99,8 +100,8 @@ END:
  * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
  *
  *****************************************************************************/
-int XSecure_SssAes(XSecure_Sss *InstancePtr,
-		XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
+int XSecure_SssAes(const XSecure_Sss *InstancePtr,
+	XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
 	int Status = XST_FAILURE;
 
@@ -143,7 +144,7 @@ END:
  *			- XST_FAILURE               - On failure to configure switch
  *
  *****************************************************************************/
-int XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
+int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
 {
 	int Status = XST_FAILURE;
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
@@ -183,7 +184,7 @@ END:
  *			- XST_FAILURE               - On failure to configure switch
  *
  *****************************************************************************/
-int XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
+int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId)
 {
 	int Status = XST_FAILURE;
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
@@ -259,8 +260,9 @@ static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
  * @note	Resource, InputSrc, OutputSrc are of type XSecure_SssSrc
  *
  *****************************************************************************/
-static int XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
-			XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
+static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
+	XSecure_SssSrc Resource, XSecure_SssSrc InputSrc,
+	XSecure_SssSrc OutputSrc)
 {
 	int Status = XST_FAILURE;
 	u32 InputSrcCfg = 0x0U;

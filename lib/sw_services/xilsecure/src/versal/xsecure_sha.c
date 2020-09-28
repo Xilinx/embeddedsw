@@ -67,7 +67,7 @@
  * 			- XST_FAILURE - If a timeout has occurred
  *
  ******************************************************************************/
-static inline int XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
+static inline int XSecure_Sha3WaitForDone(const XSecure_Sha3 *InstancePtr)
 {
 	return (int)Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_SHA3_DONE_OFFSET,
 			XSECURE_SHA3_DONE_DONE,
@@ -76,7 +76,7 @@ static inline int XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
 }
 
 /************************** Function Prototypes ******************************/
-static int XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr,
+static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
 					const UINTPTR InDataAddr, const u32 Size, u8 IsLast);
 static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 					const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate);
@@ -474,7 +474,8 @@ END:
  *			- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  ******************************************************************************/
-int XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
+int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
+	XSecure_Sha3Hash *Sha3Hash)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
@@ -520,8 +521,8 @@ END:
  * 			- XST_FAILURE - If there an error occurs
  *
  ******************************************************************************/
-static int XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr,
-						const UINTPTR InDataAddr, const u32 Size, u8 IsLast)
+static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
+	const UINTPTR InDataAddr, const u32 Size, u8 IsLast)
 {
 	int Status = XST_FAILURE;
 
@@ -577,7 +578,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	u8 IsLast;
 	u32 PrevPartialLen;
 	u8 *PartialData;
-	u8 *Data = (u8 *)InDataAddr;
+	const u8 *Data = (u8 *)InDataAddr;
 
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 	XSecure_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
@@ -626,8 +627,8 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	/* Handle remaining data during processing of next data chunk or during
 	   data padding */
 	if(RemainingDataLen > 0U) {
-		XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)Data,
-				     (RemainingDataLen - PrevPartialLen));
+		XSecure_MemCpy((void *)(PartialData + PrevPartialLen),
+			(void *)Data, (RemainingDataLen - PrevPartialLen));
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
 	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,

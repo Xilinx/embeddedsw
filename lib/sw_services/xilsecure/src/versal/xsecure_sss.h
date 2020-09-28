@@ -70,10 +70,10 @@ typedef enum {
 
 /************************** Function Prototypes ******************************/
 int XSecure_SssInitialize(XSecure_Sss *InstancePtr);
-int XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
-		XSecure_SssSrc OutputSrc);
-int XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
-int XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
+int XSecure_SssAes(const XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
+	XSecure_SssSrc OutputSrc);
+int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId);
+int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId);
 
 #ifdef __cplusplus
 }

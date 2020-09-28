@@ -161,44 +161,44 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
 
-int XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 DpaCmCfg);
+int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg);
 
-int XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc);
+int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc);
 
-int XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 KeyAddr);
+int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr);
 
-int XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
-			XSecure_AesKeySrc DecKeySrc, XSecure_AesKeySrc DstKeySrc,
-			u64 IvAddr, XSecure_AesKeySize KeySize);
+int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
+	XSecure_AesKekType KeyType, XSecure_AesKeySrc DecKeySrc,
+	XSecure_AesKeySrc DstKeySrc, u64 IvAddr, XSecure_AesKeySize KeySize);
 
-int XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u8 Config);
+int XSecure_AesCfgKupIv(const XSecure_Aes *InstancePtr, u8 Config);
 
-int XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size);
+int XSecure_AesGetNxtBlkLen(const XSecure_Aes *InstancePtr, u32 *Size);
 
 int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 IvAddr);
+	XSecure_AesKeySize KeySize, u64 IvAddr);
 
 int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+	u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
 int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 IvAddr);
+	XSecure_AesKeySize KeySize, u64 IvAddr);
 
 int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+	u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
 int XSecure_AesDecryptKat(XSecure_Aes *AesInstance);
 
-int XSecure_AesDecryptCmKat(XSecure_Aes *AesInstance);
+int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
 
 #ifdef __cplusplus
 }

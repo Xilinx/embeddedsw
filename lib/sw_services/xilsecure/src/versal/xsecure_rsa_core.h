@@ -142,8 +142,8 @@ typedef struct {
 int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 
 /* Versal specific RSA core encryption/decryption function */
-int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
-			u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize);
+int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, const u8 *Input,
+	u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize);
 
 /* This function performs KAT on RSA core */
 int XSecure_RsaPublicEncryptKat(void);
