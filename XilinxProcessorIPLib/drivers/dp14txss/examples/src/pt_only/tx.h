@@ -147,6 +147,8 @@ void DpPt_HpdEventHandler(void *InstancePtr);
 void DpPt_HpdPulseHandler(void *InstancePtr);
 void DpPt_LinkrateChgHandler (void *InstancePtr);
 void DpPt_pe_vs_adjustHandler(void *InstancePtr);
+void DpTxSs_ExtPacketHandler(void *InstancePtr);
+void DpTxSs_VsyncHandler(void *InstancePtr);
 
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 			u8 Edid1_org[128], u16 res_update);

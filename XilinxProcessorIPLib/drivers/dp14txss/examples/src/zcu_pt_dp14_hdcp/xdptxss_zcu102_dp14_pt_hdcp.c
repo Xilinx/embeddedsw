@@ -20,6 +20,7 @@
 * 1.00 KI 04/01/18 Initial release.
 * 1.01 ND 02/14/19 mcdp related function call now need dprxss instance address
 *                  instead of base address  as first parameter
+* 1.02 ND 09/27/20 Added support for Colorimetery over VSC packets and YUV420
 * </pre>
 *
 ******************************************************************************/
@@ -463,8 +464,6 @@ u32 DpSs_Main(void)
 #ifdef TxOnly
 	XDpTxSs_Config *ConfigPtr_tx;
 #endif
-//	u32 ReadVal=0;
-//	u16 DrpVal;
 
 	/* Do platform initialization in this function. This is hardware
 	 * system specific. It is up to the user to implement this function.
@@ -920,11 +919,11 @@ void CalculateCRC(void)
     if (VidFrameCRC_rx.Mode_422 != 0x1) {
 	XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                           VIDEO_FRAME_CRC_CONFIG,
-                            DpRxSsInst.UsrOpt.LaneCount);
+						  4/*DpRxSsInst.UsrOpt.LaneCount*/);
     } else { // 422
         XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                               VIDEO_FRAME_CRC_CONFIG,
-                                (DpRxSsInst.UsrOpt.LaneCount | 0x80000000));
+							  (/*DpRxSsInst.UsrOpt.LaneCount*/4 | 0x80000000));
 
     }
 
@@ -1124,15 +1123,19 @@ u32 DpSs_PlatformInit(void)
 	u32 Status;
 
 	/* Initialize CRC & Set default Pixel Mode to 1. */
+#ifdef VIDEO_FRAME_CRC_RX_BASEADDR
 #ifdef RxOnly
 	VidFrameCRC_rx.Base_Addr = VIDEO_FRAME_CRC_RX_BASEADDR;
 	XVidFrameCrc_Initialize(&VidFrameCRC_rx);
 #endif
+#endif
+
+#ifdef VIDEO_FRAME_CRC_TX_BASEADDR
 #ifdef TxOnly
 	VidFrameCRC_tx.Base_Addr = VIDEO_FRAME_CRC_TX_BASEADDR;
 	XVidFrameCrc_Initialize(&VidFrameCRC_tx);
 #endif
-
+#endif
 	/* Initialize Timer */
 	Status = XTmrCtr_Initialize(&TmrCtr, XTIMER0_DEVICE_ID);
 	if (Status != XST_SUCCESS){
@@ -1147,6 +1150,7 @@ u32 DpSs_PlatformInit(void)
 	IDT_8T49N24x_Configure(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR);
 
 	usleep(300000);
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
 	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
@@ -1179,6 +1183,7 @@ u32 DpSs_PlatformInit(void)
 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
+#endif
 
     XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
     if (NULL == XIic0Ps_ConfigPtr) {
@@ -1217,54 +1222,6 @@ u32 DpSs_PlatformInit(void)
 
 
 #if ENABLE_AUDIO
-
-//    XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_RX =
-//    		XAxisScr_LookupConfig(XPAR_DP_RX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
-//     if (ConfigPtr_AXIS_SWITCH_RX == NULL) {
-//             return XST_FAILURE;
-//     }
-//
-//     Status = XAxisScr_CfgInitialize(&axis_switch_rx,
-//    		 ConfigPtr_AXIS_SWITCH_RX, ConfigPtr_AXIS_SWITCH_RX->BaseAddress);
-//     if (Status != XST_SUCCESS) {
-//             return XST_FAILURE;
-//     }
-//
-//     XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX =
-//    		 XAxisScr_LookupConfig(XPAR_DP_TX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
-//      if (ConfigPtr_AXIS_SWITCH_TX == NULL) {
-//              return XST_FAILURE;
-//      }
-//
-//      Status = XAxisScr_CfgInitialize(&axis_switch_tx,
-//    		  ConfigPtr_AXIS_SWITCH_TX, ConfigPtr_AXIS_SWITCH_TX->BaseAddress);
-//      if (Status != XST_SUCCESS) {
-//              return XST_FAILURE;
-//      }
-//
-//
-//    Config = XI2s_Tx_LookupConfig(
-//    			XPAR_DP_RX_HIER_0_I2S_TRANSMITTER_0_DEVICE_ID);
-//    if (Config == NULL) {
-//         return XST_FAILURE;
-//    }
-//
-//    Status = XI2s_Tx_CfgInitialize(&I2s_tx, Config, Config->BaseAddress);
-//    if (Status != XST_SUCCESS) {
-//         return XST_FAILURE;
-//    }
-//
-//    Config_rx = XI2s_Rx_LookupConfig(
-//    			XPAR_DP_TX_HIER_0_I2S_RECEIVER_0_DEVICE_ID);
-//    if (Config == NULL) {
-//          return XST_FAILURE;
-//    }
-//
-//    Status = XI2s_Rx_CfgInitialize(&I2s_rx, Config_rx, Config_rx->BaseAddress);
-//    if (Status != XST_SUCCESS) {
-//          return XST_FAILURE;
-//    }
-
     aud_gpio_ConfigPtr =
             XGpio_LookupConfig(XPAR_DP_RX_HIER_0_AXI_GPIO_0_DEVICE_ID);
 
@@ -1803,6 +1760,10 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
                             XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
                     Cfmt = ColorFormats[8].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+            } else if(Msa[0].ComponentFormat ==
+					XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+		Cfmt = ColorFormats[6].MemFormat;
+		VidStream.ColorFormatId = ColorFormats[6].StreamFormat;
             } else {
                     Cfmt = ColorFormats[7].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
@@ -1818,7 +1779,11 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
                             XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
                     Cfmt = ColorFormats[4].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
-            } else {
+            } else if(Msa[0].ComponentFormat ==
+						XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+					Cfmt = ColorFormats[8].MemFormat;
+					VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+            }else {
                     Cfmt = ColorFormats[3].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
             }
@@ -1827,9 +1792,9 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
 	VidStream.PixPerClk  =  (int)DpRxSsInst.UsrOpt.LaneCount;
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_wr(Msa, downshift4K);
-
+#endif
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
@@ -1859,6 +1824,10 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
                             XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
                     Cfmt = ColorFormats[8].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+            } else if(Msa[0].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+					Cfmt = ColorFormats[6].MemFormat;
+					VidStream.ColorFormatId = ColorFormats[6].StreamFormat;
             } else {
                     Cfmt = ColorFormats[7].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
@@ -1875,6 +1844,10 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
                     Cfmt = ColorFormats[4].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
 
+            } else if(Msa[0].ComponentFormat ==
+					XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+			Cfmt = ColorFormats[10].MemFormat;
+		    VidStream.ColorFormatId = ColorFormats[10].StreamFormat;
             } else {
                     Cfmt = ColorFormats[3].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
@@ -1885,9 +1858,9 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
 
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_rd(Msa, downshift4K);
-
+#endif
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
@@ -1952,6 +1925,8 @@ void resetIp_wr()
 }
 
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+
 void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 		u16 height, u8 color_format){
 	XV_axi4s_remap_Set_width(remap, width);
@@ -1960,6 +1935,10 @@ void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 	XV_axi4s_remap_Set_inPixClk(remap, in_ppc);
 	XV_axi4s_remap_Set_outPixClk(remap, out_ppc);
 }
+#endif
+
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 {
@@ -1982,7 +1961,10 @@ void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	XV_axi4s_remap_EnableAutoRestart(&rx_remap);
 	XV_axi4s_remap_Start(&rx_remap);
 }
+#endif
 
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 {
@@ -2028,8 +2010,7 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 
 	XV_axi4s_remap_Start(&tx_remap);
 }
-
-u8 write_stop = 0;
+#endif
 
 
 void bufferWr_callback(void *InstancePtr){
@@ -2233,10 +2214,19 @@ int Dppt_DetectResolution(void *InstancePtr,
 	Msa[0].Misc0 = rxMsamisc0;
 	Msa[0].Misc1 = rxMsamisc1;
 	rxMsamisc0 = ((rxMsamisc0 >> 5) & 0x00000007);
+	rxMsamisc1=((rxMsamisc1 >> 6) &0x1);
+	u8 Bpc_raw_fmt[]={0, 6, 7, 8, 10, 12, 14, 16};
+	if(rxMsamisc1){
+		enable_tx_vsc_mode=1;
+	}
+	else{
+		enable_tx_vsc_mode=0;
+	}
+
 //	u8 comp = ((rxMsamisc0 >> 1) & 0x00000003);
 
 	u8 Bpc[] = {6, 8, 10, 12, 16};
-
+	u8 bpc =0;
 
 	Msa[0].Vtm.Timing.HActive = DpHres;
 	Msa[0].Vtm.Timing.VActive = DpVres;
@@ -2261,22 +2251,45 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 
 	Msa[0].SynchronousClockMode = rxMsamisc0 & 1;
-	u8 bpc = Bpc[rxMsamisc0];
+
+	if(rxMsamisc1 == 1){	//check VSC enabled here
+		u32 idx = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,RX_COLORIMETRY_INFO_SDP_REG);
+		idx = (idx >> 8) & 0x0F;
+		//check pixel encoding format
+		if(((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				RX_COLORIMETRY_INFO_SDP_REG) >> 4)& 0x0F) == 0x5){
+			///bpc programming if RAW format
+			bpc=Bpc_raw_fmt[idx];
+		}
+		else{
+			bpc = Bpc[idx];
+		}
+	}
+	else{	//bpc programming without VSC enabled
+		bpc = Bpc[rxMsamisc0];
+	}
 	Msa[0].BitsPerColor = bpc;
 
-	/* Check for YUV422, BPP has to be set using component value to 2 */
-	if( (Msa[0].Misc0 & 0x6 ) == 0x2  ) {
-	//YUV422
+	if(rxMsamisc1 == 1)
+	{
 		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
+	} else {
+		/* Check for YUV422, BPP has to be set using component value to 2 */
+		if( (Msa[0].Misc0 & 0x6 ) == 0x2  ) {
+			//YUV422
+				Msa[0].ComponentFormat =
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+			}
+			else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
+			//RGB or YUV444
+				Msa[0].ComponentFormat =
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+			}else
+				Msa[0].ComponentFormat =
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
 	}
-	else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
-	//RGB or YUV444
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-	}else
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+
 
 
 	u32 recv_clk_freq =
@@ -2393,34 +2406,44 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
 			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_MSA_VSTART));
-       XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
-                        StreamOffset[0], ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                        XDP_RX_MSA_MISC0)) & 0xFFFFFFFE));
+	/*Enable VSC pkt on every VSYNC on Rx receiving VSC packet*/
+	if(enable_tx_vsc_mode){
+    XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
+                        StreamOffset[0], (((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                                        XDP_RX_MSA_MISC0)) | VSC_EXT_PKT_VSYNC_ENABLE) & 0xFFFFFFFE));
+	} else {
+	    XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
+	                        StreamOffset[0], (((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+	                                        XDP_RX_MSA_MISC0))) & 0xFFFFFFFE));
+	}
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
 			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_MSA_MISC1));
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_USER_PIXEL_WIDTH +
 		StreamOffset[0], tx_ppc_set);
-//		XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_USER_PIXEL_WIDTH)
-//			);
 
-
-
-	/* Check for YUV422, BPP has to be set using component value to 2 */
-	if( ( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_MISC0))
-			 & 0x6 ) == 0x2  ) {
-	//YUV422
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+	if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroghVsc){
+		//YUV420
+			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+					XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
 	}
-	else if(( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_MISC0))
-			 & 0x6 ) == 0x4){
-	// YUV444
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-	}else
-	// RGB
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+	else{
+		/* Check for YUV422, BPP has to be set using component value to 2 */
+			if( ( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_MISC0))
+					 & 0x6 ) == 0x2  ) {
+			//YUV422
+				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+			}
+			else if(( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_MISC0))
+					 & 0x6 ) == 0x4){
+			// YUV444
+				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+			}else
+			// RGB
+				DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+	}
 }
 #endif

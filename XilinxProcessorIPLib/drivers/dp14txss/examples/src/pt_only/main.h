@@ -217,12 +217,13 @@
  *      In this mode, interrupt is enabled on RX. This interrupt is
  *      asserted when RX detects any change in rate
  */
-#define ADAPTIVE_TYPE (1 * ADAPTIVE)
+#define ADAPTIVE_TYPE (0 * ADAPTIVE)
 
 /* This value determines the amount by which the Vertical Front Porch is
  * stretched. When Adaptive Mode is 0x1, this specifies the Max limit of
- * stretching. When Adaptive mode is 0x0, this specifies the amount by
- * which the Vertical Front Porch is to be stretched
+ * stretching.
+ * In case of Mode 0, user shoukd manually program the amount of stretch
+ * in the VTC
  */
 #define DPTXSS_VFP_STRETCH 0xFFF
 
@@ -271,7 +272,7 @@
 /* Some Monitors require audio to be started after some delay
  * This param adds a delay to start the audio
  */
-#define AUD_START_DELAY 500000
+#define AUD_START_DELAY 5000 //00
 
 /* VPHY Specific Defines
  */
@@ -296,6 +297,9 @@
 #define TIMER_RESET_VALUE        1000
 
 #define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
+
+#define AUXFIFOSIZE 4
+#define XDP_DPCD_EXT_DPCD_FEATURE 0x2210
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -327,6 +331,8 @@ typedef struct
         unsigned char lane_count;
         unsigned char link_rate;
 } lane_link_rate_struct;
+
+XDp_TxVscExtPacket ExtFrame_tx_vsc;
 
 /************************** Function Prototypes ******************************/
 
@@ -437,3 +443,6 @@ XAxis_Switch axis_switch_tx;
 #define ANSI_COLOR_CYAN     "\x1b[36m"
 #define ANSI_COLOR_WHITE    "\x1b[37m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
+
+u8 use_vsc;
+u8 type_vsc;

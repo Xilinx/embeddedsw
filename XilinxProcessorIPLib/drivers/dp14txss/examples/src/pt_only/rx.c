@@ -26,11 +26,43 @@ volatile u16 DrpVal_lower_lane0=0;
 volatile u16 DrpVal_lower_lane1=0;
 volatile u16 DrpVal_lower_lane2=0;
 volatile u16 DrpVal_lower_lane3=0;
-extern u8 tx_after_rx;
 extern XDpTxSs DpTxSsInst;
 extern u32 vblank_init;
 extern u8 vblank_captured;
+extern u32 appx_fs_dup;
+extern u8 rx_trained;
+extern u8 start_i2s_clk;
+extern u8 i2s_tx_started;
+extern u8 rx_aud;
+extern u8 tx_after_rx;
+extern u8 tx_done;
+extern void mask_intr (void);
+
 //extern u8 audio_info_avail;
+u32 infofifo[64]; //RX and TX can store upto 4 infoframes each. fifo of 8
+u8 endindex = 0;
+u8 fifocount = 0;
+u32 hdrframe[9];
+u16 fifoOverflow=0;
+extern u8 tx_pass;
+extern u8 startindex;
+
+
+void DpRxSs_SetVsc (u8 vsc) {
+	u32 VSC_MASK = 0x00000004;
+	u32 RegVal = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_DTG_ENABLE);
+	if (vsc) {
+		RegVal |= VSC_MASK;
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_DTG_ENABLE, RegVal);
+		xil_printf (ANSI_COLOR_GREEN"DP RX enabled for VSC Colorimetry support"ANSI_COLOR_RESET" \r\n");
+	} else {
+		RegVal &= ~VSC_MASK;
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_DTG_ENABLE, RegVal);
+	}
+}
 
 /*****************************************************************************/
 /**
@@ -46,7 +78,7 @@ extern u8 vblank_captured;
 * @note        None.
 *
 ******************************************************************************/
-u32 DpRxSs_Setup(u8 freesync)
+u32 DpRxSs_Setup(u8 freesync, u8 vsc)
 {
 	u32 ReadVal;
 
@@ -151,6 +183,10 @@ u32 DpRxSs_Setup(u8 freesync)
 	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
 	XDpRxSs_SetAdaptiveSyncCaps(&DpRxSsInst, 0);
 #endif
+
+	//Setting VSC Colorimetry capability in RX
+	DpRxSs_SetVsc(vsc);
+
 	/*Enable Rx*/
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_LINK_ENABLE, 0x1);
@@ -274,8 +310,9 @@ void DpRxSs_AdaptiveVblankHandler(void *InstancePtr)
 	if (vblank_captured) {
 		delta = vblank - vblank_init;
 		/* Update the Stretch value in VTC */
-#if !ADAPTIVE_TYPE
+#if !ADAPTIVE_TYPE && ADAPTIVE
 		XDpTxSs_VtcAdaptiveSyncSetup(DpTxSsInst.VtcPtr[0], ADAPTIVE_TYPE, delta);
+		//xil_printf ("delta = %d\r\n",delta);
 #endif
 	}
 
@@ -350,12 +387,13 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 					 VidFrameCRC_rx.TEST_CRC_CNT));
 
 	DpRxSsInst.no_video_trigger = 1;
-
+	type_vsc = 0;
 	AudioinfoFrame.frame_count=0;
 	AudioinfoFrame.all_count=0;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
-
+	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+			XDP_RX_INTERRUPT_MASK_EXT_PKT_MASK);
 }
 
 /*****************************************************************************/
@@ -389,14 +427,6 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 * @note        None.
 *
 ******************************************************************************/
-extern u32 appx_fs_dup;
-extern u8 rx_trained;
-extern u8 start_i2s_clk;
-extern u8 i2s_tx_started;
-extern u8 rx_aud;
-extern u8 tx_after_rx;
-extern u8 tx_done;
-extern void mask_intr (void);
 
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
@@ -423,6 +453,11 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 	}
 	rx_trained = 0;
 	vblank_captured = 0;
+	endindex = 0;
+	fifocount = 0;
+	startindex = 0;
+	type_vsc = 0;
+
 	XDpRxSs_MaskAdaptiveIntr(&DpRxSsInst, 0xC0000000);
 }
 
@@ -498,6 +533,7 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	SdpExtFrame_q.Header[1] = 0;
 	SdpExtFrame.frame_count = 0;
 	SdpExtFrame.frame_count = 0;
+	type_vsc = 0;
 
 	// mask the TX interrupts to avoid spurious HPDs
 	mask_intr();
@@ -1074,37 +1110,32 @@ void LoadEDID(void)
 void DpRxSs_InfoPacketHandler(void *InstancePtr)
 {
 	u32 InfoFrame[9];
-	int i=1;
-	for(i = 1 ; i < 9 ; i++) {
-		InfoFrame[i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				XDP_RX_AUDIO_INFO_DATA(i));
+	int i=0;
+	for(i = 0 ; i < 8 ; i++) {
+		if (tx_pass) {
+			//Start putting into FIFO. These will be programmed into TX
+			infofifo[(endindex*8)+i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_AUDIO_INFO_DATA(1));
+		} else {
+			// Read of Ignore until TX is up and running
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+								XDP_RX_AUDIO_INFO_DATA(1));
+		}
 	}
+	if (tx_pass) {
+		if(endindex < (AUXFIFOSIZE - 1)) {
+			endindex++;
+		} else {
+			endindex = 0;
+		}
 
-	AudioinfoFrame.all_count++;
+		if (fifocount >= AUXFIFOSIZE) {
+	//		xil_printf ("Aux fifo overflow\r\n");
+			fifoOverflow++;
+		}
 
-	AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
-//	xil_printf ("%x\r\n",AudioinfoFrame.type);
-
-	if (AudioinfoFrame.type == 0x84) {
-	//storing the info frame here
-			AudioinfoFrame.frame_count++;
-
-			AudioinfoFrame.version = InfoFrame[1]>>26;
-			AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
-			AudioinfoFrame.sec_id = InfoFrame[1]&0xFF;
-			AudioinfoFrame.info_length = (InfoFrame[1]>>16)&0x3FF;
-
-			AudioinfoFrame.audio_channel_count = InfoFrame[2]&0x7;
-			AudioinfoFrame.audio_coding_type = (InfoFrame[2]>>4)&0xF;
-			AudioinfoFrame.sample_size = (InfoFrame[2]>>8)&0x3;
-			AudioinfoFrame.sampling_frequency = (InfoFrame[2]>>10)&0x7;
-			AudioinfoFrame.channel_allocation = (InfoFrame[2]>>24)&0xFF;
-
-			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
-			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
-
+		fifocount++;
 	}
-
 }
 
 /*****************************************************************************/
@@ -1120,10 +1151,13 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 * @note        None.
 *
 ******************************************************************************/
+
+
 void DpRxSs_ExtPacketHandler(void *InstancePtr)
 {
-	u32 ExtFrame[9];
+
 	int i=1;
+	u32 ExtFrame[9];
 
 	SdpExtFrame.frame_count++;
 
@@ -1135,6 +1169,18 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 	SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
 	SdpExtFrame.Header[3] = (ExtFrame[0]&0xFF000000)>>24;
 
+	if (SdpExtFrame.Header[2] == 0x05) {
+		/* This example supports only colorimetry extended
+		 * packets
+		 */
+		ExtFrame_tx_vsc.Header = ExtFrame[0];
+		type_vsc = 0x13;
+	} else {
+		/* For future use
+		 *
+		 */
+	}
+
 	/*Payload Information*/
 	for (i = 0 ; i < 8 ; i++)
 	{
@@ -1144,8 +1190,14 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 		SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
 		SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
 		SdpExtFrame.Payload[(i*4)+3] = (ExtFrame[i+1]&0xFF000000)>>24;
+		if (type_vsc == 0x13) {
+			ExtFrame_tx_vsc.Payload[i] = ExtFrame[i+1];
+		} else {
+			/* For future use
+			 *
+			 */
+		}
 	}
-
 }
 
 /*****************************************************************************/
