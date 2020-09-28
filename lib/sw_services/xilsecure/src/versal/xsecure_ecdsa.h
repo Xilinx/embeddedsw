@@ -22,6 +22,7 @@
 *       rpo  04/02/20 Added crypto KAT APIs
 * 4.3   har  08/24/20 Added function prototype for APIs to generate and verify
 *                     ECDSA public key and signature
+*		am	 09/25/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -64,7 +65,7 @@ int XSecure_EcdsaGenerateSign(XSecure_EcdsaCrvTyp CrvType, const u8* Hash,
 int XSecure_EcdsaValidateKey(XSecure_EcdsaCrvTyp CrvType, XSecure_EcdsaKey *Key);
 int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, XSecure_EcdsaKey *Key, XSecure_EcdsaSign *Sign);
-u32 XSecure_EcdsaKat(void);
+int XSecure_EcdsaKat(void);
 
 #ifdef __cplusplus
 }
