@@ -108,12 +108,20 @@ typedef  struct {
 					 */
 #endif
 	u8  IncludeRootComplex;		/**< Is IP built as root complex */
-
+#if defined(__aarch64__) || defined(__arch64__)
 	u64 Ecam;
 	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
 	u64	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
+#else
+	u32 Ecam;
+	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
+	u32	PMemBaseAddr;		/**< prefetchable memory base address */
+	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
+	u32	PMemMaxAddr;	/**< prefetchable memory max base address */
+#endif
+
 } XDmaPcie_Config;
 
 /**

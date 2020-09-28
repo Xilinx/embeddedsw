@@ -61,7 +61,9 @@ extern "C" {
 /* Cache Line/Latency Timer / Header Type / BIST Register Offset */
 #define XDMAPCIE_CFG_CAH_LAT_HD_REG 	0x0003
 
-#define XDMAPCIE_CFG_BAR_MEM_TYPE_MASK 	0x1
+#define XDMAPCIE_CFG_BAR_MEM_TYPE_MASK 	0x1	/* Memory or IO request */
+
+#define XDMAPCIE_CFG_BAR_MEM_AS_MASK	0x6	/* 32b or 64b address space */
 
 /* PCIe Base Addr */
 #define XDMAPCIE_CFG_BAR_BASE_OFFSET 	0x0004
@@ -100,9 +102,12 @@ extern "C" {
 #define XDMAPCIE_BAR_IO_MEM 				1
 #define XDMAPCIE_BAR_ADDR_MEM 			0
 
-#define XDMAPCIE_BAR_MEM_TYPE_64 		1
-#define XDMAPCIE_BAR_MEM_TYPE_32 		0
+#define XDMAPCIE_BAR_MEM_TYPE_64 		0x4
+#define XDMAPCIE_BAR_MEM_TYPE_32 		0x0
+
 #define XDMAPCIE_PRIMARY_BUS   			0x18
+
+#define XDMAPCIE_ECAM_MEMSIZE			16*1024*1024
 
 #define MB_SHIFT 					20
 #define HEX_NIBBLE 					4
