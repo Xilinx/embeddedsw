@@ -22,6 +22,8 @@
 *                     Added Crypto KAT APIs
 *       har  04/06/20 Added function for selection of PKCS padding
 * 4.3   har  06/17/20 Removed references to unused algorithms
+*		am	 09/24/20 Resolved MISRA C violations
+*
 * </pre>
 *
 ******************************************************************************/
@@ -36,11 +38,11 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xsecure_utils.h"
 /************************** Constant Definitions ****************************/
-#define XSECURE_RSA_FAILED		0x1U /**< RSA Failed Error Code */
-#define XSECURE_RSA_DATA_VALUE_ERROR	0x2U /**< for RSA private decryption
+#define XSECURE_RSA_FAILED		(0x1U) /**< RSA Failed Error Code */
+#define XSECURE_RSA_DATA_VALUE_ERROR	(0x2U) /**< for RSA private decryption
 						* data should be lesser than
 						* modulus */
-#define XSECURE_RSA_ZEROIZE_ERROR		0x80U /**< for RSA zeroization Error*/
+#define XSECURE_RSA_ZEROIZE_ERROR		(0x80U) /**< for RSA zeroization Error*/
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
@@ -113,7 +115,7 @@ typedef enum {
 } XSecure_RsaState;
 
 typedef enum {
-	XSECURE_RSA_SIGN_ENC = 0x0U,
+	XSECURE_RSA_SIGN_ENC = 0x0,
 	XSECURE_RSA_SIGN_DEC			/**< 0x1 */
 }XSecure_RsaOps;
 
@@ -137,16 +139,17 @@ typedef struct {
 /***************************** Function Prototypes ***************************/
 
 /* Versal specific RSA core initialization function */
-u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
+int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 
 /* Versal specific RSA core encryption/decryption function */
-u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
-			u8 *Result, u8 RsaOp, u32 Size);
+int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
+			u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize);
 
-u32 XSecure_RsaPublicEncryptKat(void);
+/* This function performs KAT on RSA core */
+int XSecure_RsaPublicEncryptKat(void);
 
 /* Versal specific function for selection of PKCS padding */
-u8* XSecure_RsaGetTPadding();
+u8* XSecure_RsaGetTPadding(void);
 
 #ifdef __cplusplus
 }

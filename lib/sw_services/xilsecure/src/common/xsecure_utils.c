@@ -24,6 +24,8 @@
 *       vns     01/24/20 Added assert statements to input arguments
 *       har     03/26/20 Removed code for SSS configuration
 *		rpo		09/10/20 Asserts are placed under XSECDEBUG macro
+* 4.3	am	    09/24/20 Resolved MISRA C violations
+*
 * </pre>
 *
 ******************************************************************************/
@@ -39,11 +41,10 @@
 
 /*****************************************************************************/
 /**
- * @brief
- * This function takes the hardware core out of reset.
+ * @brief	This function takes the hardware core out of reset
  *
- * @param	BaseAddress	Base address of the core.
- * @param	BaseAddress	Offset of the reset register.
+ * @param	BaseAddress	- Base address of the core
+ * @param	Offset	    - Offset of the reset register
  *
  * @return	None
  *
@@ -51,7 +52,7 @@
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 {
 	/* Assert validates the input arguments */
-	XSecure_AssertVoid(BaseAddress != 0x00);
+	XSecure_AssertVoid(BaseAddress != 0x00U);
 
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_UNSET);
@@ -59,11 +60,10 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 
 /*****************************************************************************/
 /**
- * @brief
- * This function places the hardware core into the reset.
+ * @brief	This function places the hardware core into the reset
  *
- * @param	BaseAddress	Base address of the core.
- * @param	BaseAddress	Offset of the reset register.
+ * @param	BaseAddress	- Base address of the core
+ * @param	Offset	    - Offset of the reset register
  *
  * @return	None
  *
@@ -71,8 +71,7 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 void XSecure_SetReset(u32 BaseAddress, u32 Offset)
 {
 	/* Assert validates the input arguments */
-	XSecure_AssertVoid(BaseAddress != 0x00);
+	XSecure_AssertVoid(BaseAddress != 0x00U);
 
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 }
-

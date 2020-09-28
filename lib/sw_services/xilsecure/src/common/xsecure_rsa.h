@@ -57,7 +57,7 @@
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
 *       kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
 *		rpo	 09/10/20 Added error code
-*		rpo  09/21/20 New error code added for crypto state mismatch
+* 4.3	am	 09/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -81,6 +81,7 @@ extern "C" {
 #define XSECURE_RSA_BYTE_PAD1		(0X00U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
+
 /* Error Codes */
 #define XSECURE_RSA_INVALID_PARAM	(0x82U)
 #define XSECURE_RSA_STATE_MISMATCH_ERROR (0x84U)
@@ -90,18 +91,18 @@ extern "C" {
 /***************************** Function Prototypes ***************************/
 
 /* Initialization */
-s32  XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
+int XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 				u8 *ModExpo);
 
 /* RSA Signature Validation, assuming PKCS padding */
-u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
+int XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
 
 /* XSecure_RsaPublicEncrypt performs same as XSecure_RsaDecrypt API */
-s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
-								u8 *Result);
+int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
+					u8 *Result);
 
-s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
-								u8 *Result);
+int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
+					u8 *Result);
 
 #ifdef __cplusplus
 }
