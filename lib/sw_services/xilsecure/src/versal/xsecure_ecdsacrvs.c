@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   har  08/24/20 Initial release
 * 4.3   har  08/24/20 Updated file version to sync with library version
+*		am	 09/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -367,18 +368,14 @@ EcdsaCrvInfo XSecure_EcdsaCrvsDb[] =
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
- * @brief	This function calculates the total number of curves supported.
+ * @brief	This function calculates the total number of curves supported
+ *
+ * @param	None
  *
  * @return  Returns the number of curves supported
  *
  *****************************************************************************/
-inline u32 XSecure_EcdsaCrvsGetCount()
+inline u32 XSecure_EcdsaCrvsGetCount(void)
 {
 	return sizeof(XSecure_EcdsaCrvsDb) / sizeof(EcdsaCrvInfo);
 }
-
-/************************** Function Prototypes ******************************/
-
-/************************** Variable Definitions *****************************/
-
-/************************** Function Definitions *****************************/
