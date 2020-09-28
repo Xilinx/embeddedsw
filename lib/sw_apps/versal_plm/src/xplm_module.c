@@ -119,7 +119,7 @@ static int XPlm_PlmiInit(void)
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_ModuleInit(const void *Arg)
+int XPlm_ModuleInit(void *Arg)
 {
 	int Status = XST_FAILURE;
 	u32 Index;

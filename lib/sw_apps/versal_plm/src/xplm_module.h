@@ -49,7 +49,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_ModuleInit(const void *Arg);
+int XPlm_ModuleInit(void *Arg);
 
 /************************** Variable Definitions *****************************/
 

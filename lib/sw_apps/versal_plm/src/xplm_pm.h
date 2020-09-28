@@ -46,7 +46,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 int XPlm_PmInit(void);
-int XPlm_ProcessPlmCdo(const void *Arg);
+int XPlm_ProcessPlmCdo(void *Arg);
 
 #ifdef __cplusplus
 }
