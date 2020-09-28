@@ -18,7 +18,8 @@
 extern "C" {
 #endif
 
-#define DEBUG_MODE
+/* User needs to enable this macro to enable prints of client library */
+/* #define DEBUG_MODE */
 
 #define PAYLOAD_ARG_CNT			(6U)	/* 1 for API ID + 5 for API arguments */
 #define RESPONSE_ARG_CNT		(4U)	/* 1 for status + 3 for values */
@@ -51,9 +52,9 @@ extern char ProcName[5];
 
 /* Conditional debugging prints */
 #ifdef DEBUG_MODE
-	#define XPm_Dbg(MSG, ...) 	XPm_Print(MSG, ##__VA_ARGS__);
+	#define XPm_Dbg(MSG, ...) 	do { XPm_Print(MSG, ##__VA_ARGS__); } while (0)
 #else
-	#define XPm_Dbg(MSG, ...)	{}
+	#define XPm_Dbg(MSG, ...)	do {} while (0)
 #endif
 
 #define pm_print		XPm_Dbg
