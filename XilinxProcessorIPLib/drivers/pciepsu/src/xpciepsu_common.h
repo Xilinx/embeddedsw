@@ -52,7 +52,9 @@ extern "C" {
 /* Cache Line/Latency Timer / Header Type / BIST Register Offset */
 #define XPCIEPSU_CFG_CAH_LAT_HD_REG 	0x0003
 
-#define XPCIEPSU_CFG_BAR_MEM_TYPE_MASK 	0x1
+#define XPCIEPSU_CFG_BAR_MEM_TYPE_MASK 	0x1	/* Memory or IO request */
+
+#define XPCIEPSU_CFG_BAR_MEM_AS_MASK	0x6	/* 32b or 64b address space */
 
 /* PCIe Base Addr */
 #define XPCIEPSU_CFG_BAR_BASE_OFFSET 	0x0004
@@ -91,9 +93,12 @@ extern "C" {
 #define XPCIEPSU_BAR_IO_MEM 				1
 #define XPCIEPSU_BAR_ADDR_MEM 			0
 
-#define XPCIEPSU_BAR_MEM_TYPE_64 		1
-#define XPCIEPSU_BAR_MEM_TYPE_32 		0
+#define XPCIEPSU_BAR_MEM_TYPE_64 		0x4
+#define XPCIEPSU_BAR_MEM_TYPE_32 		0x0
+
 #define XPCIEPSU_PRIMARY_BUS   			0x18
+
+#define XPCIEPSU_ECAM_MEMSIZE			16*1024*1024
 
 #define MB_SHIFT 					20
 #define HEX_NIBBLE 					4

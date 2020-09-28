@@ -71,6 +71,7 @@ extern "C" {
 
 typedef struct {
 	u16 DeviceId; /**< Unique ID of PCIe IP */
+#if defined(__aarch64__) || defined(__arch64__)
 	u64 BrigReg;  /**< Bridge Register base address */
 	u64 PciReg;		/**< pcie Register base address */
 	u64 Ecam;		/**< Ecam space base address */
@@ -78,6 +79,15 @@ typedef struct {
 	u64	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
+#else
+	u32 BrigReg;  /**< Bridge Register base address */
+	u32 PciReg;		/**< pcie Register base address */
+	u32 Ecam;		/**< Ecam space base address */
+	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
+	u32	PMemBaseAddr;		/**< prefetchable memory base address */
+	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
+	u32	PMemMaxAddr;	/**< prefetchable memory max base address */
+#endif
     u32 DmaBaseAddr;	/**< DMA base address */
 	u8	PcieMode;		/**< pcie mode rc or endpoint */
 } XPciePsu_Config;
