@@ -634,12 +634,8 @@ int XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 	if (KeyType == XSECURE_OBFUSCATED_KEY) {
 		KeySrc = XSECURE_AES_FAMILY_KEY;
 	}
-	else if (KeyType == XSECURE_BLACK_KEY) {
-		KeySrc = XSECURE_AES_PUF_KEY;
-	}
 	else {
-		Status = XST_FAILURE;
-		goto END;
+		KeySrc = XSECURE_AES_PUF_KEY;
 	}
 
 	/* Status Reset*/
