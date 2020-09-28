@@ -140,8 +140,6 @@ int XSecure_Sha3ReadHash(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
 int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
-int XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
-
 int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 
 #ifdef __cplusplus
