@@ -49,7 +49,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XilPdi_ValidateChecksum(void *Buffer, u32 Len);
+static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len);
 
 /************************** Variable Definitions *****************************/
 
@@ -68,12 +68,12 @@ static int XilPdi_ValidateChecksum(void *Buffer, u32 Len);
 			XST_FAILURE if checksum validation fails
 *
 *****************************************************************************/
-static int XilPdi_ValidateChecksum(void *Buffer, u32 Len)
+static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 Checksum = 0U;
 	u32 Count;
-	u32 *BufferPtr = (u32 *)Buffer;
+	const u32 *BufferPtr = (const u32 *)Buffer;
 
 	/* Len has to be at least equal to 2 */
 	if (Len < 2U)
@@ -119,7 +119,7 @@ END:
 *			Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl)
+int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 
@@ -185,7 +185,7 @@ END:
 *			Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-int XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr)
+int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 {
 	int Status = XST_FAILURE;
 	u32 PrtnType;
@@ -448,59 +448,6 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	}
 
 	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-/****************************************************************************/
-/**
-* @brief	This function reads aligned data of partition. Every partition
-* is aligned to 64 bytes.
-*
-* @param	MetaHdrPtr is pointer to Meta Header
-* @param	PrtnNum is the number of partition
-*
-* @return	XST_SUCCESS on successful reading of aligned data
-*			Errors as mentioned in xilpdi.h on failure
-*
-*****************************************************************************/
-int XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum)
-{
-	int Status = XST_FAILURE;
-	u32 PrtnLen;
-	u32 AlignLen;
-	XilPdi_PrtnHdr * PrtnHdr;
-	u32 AlignAddr;
-	u8 AlignBuf[XIH_PRTN_ALIGN_LEN];
-
-	/* Assign the Partition Header to local variable */
-	PrtnHdr = &(MetaHdrPtr->PrtnHdr[PrtnNum]);
-
-	/* Read the partition length */
-	PrtnLen = (PrtnHdr->TotalDataWordLen) * XIH_PRTN_WORD_LEN;
-
-	/* Check for last partition */
-	if (PrtnNum == (MetaHdrPtr->ImgHdrTbl.NoOfPrtns - 1U)) {
-		/* No alignment data present for last partition */
-		Status = XST_SUCCESS;
-		goto END;
-	}
-
-	/* Get the alignment data address */
-	AlignAddr = (PrtnHdr->DataWordOfst + PrtnHdr->TotalDataWordLen)
-		* XIH_PRTN_WORD_LEN;
-	AlignLen = XIH_PRTN_ALIGN_LEN - (PrtnLen % XIH_PRTN_ALIGN_LEN);
-
-	if (AlignLen != XIH_PRTN_ALIGN_LEN) {
-		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-						AlignAddr,
-						(u64 )(UINTPTR) &AlignBuf,
-						AlignLen, 0x0U);
-	} else {
-		/* No alignment data present */
-		Status = XST_SUCCESS;
-	}
 
 END:
 	return Status;
