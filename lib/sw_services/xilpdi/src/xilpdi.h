@@ -61,17 +61,10 @@ extern "C" {
 /* Boot header address in PRAM copied by ROM*/
 #define XIH_BH_PRAM_ADDR		(0xF201E000U)
 
-#define XIH_AC_PRAM_OFFSET		(0xF70U)
-
 /* Boot header Attr fields */
 #define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT	(14U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_VALUE	(0x3U)
-
-/* Boot Header PMC FW Rsvd Fields */
-#define XIH_BH_MH_START_OFST		(0xC4U)
-#define XIH_BH_MH_LEN_OFST		(0xC8U)
-#define XIH_BH_MH_AC_START_OFST		(0xCCU)
 
 /* Boot header PUF fields */
 #define XIH_BH_PUF_HD_OFFSET		(0x918U)
@@ -87,48 +80,11 @@ extern "C" {
 
 /* Defines for length of the headers */
 #define XIH_BH_LEN			(0x128U)
-#define XIH_FIELD_LEN			(4U)
-#define XIH_PFW_LEN_FIELD_LEN		(4U)
 #define XIH_IHT_LEN			(128U)
 #define XIH_IH_LEN			(64U)
 #define XIH_PH_LEN			(128U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
 #define XIH_PRTN_ALIGN_LEN		(64U)
-
-/* Img header table field offsets */
-#define XIH_IHT_VERSION_OFST		(0x0U)
-#define XIH_IHT_NO_OF_IMGS_OFST		(0x4U)
-#define XIH_IHT_IH_ADDR_OFST		(0x8U)
-#define XIH_IHT_NO_OF_PRTNS_OFST	(0xCU)
-#define XIH_IHT_PH_ADDR_OFST		(0x10U)
-#define XIH_IHT_SBD_ADDR_OFST		(0x14U)
-#define XIH_IHT_IDCODE			(0x18U)
-#define XIH_IHT_ATTR			(0x1CU)
-#define XIH_IHT_CHECKSUM_OFST		(0x3CU)
-
-/* Image Header fields */
-#define XIH_IH_PH_OFST			(0x0U)
-#define XIH_IH_NO_OF_PRTNS_OFST		(0x4U)
-#define XIH_IH_NEXT_IH_OFST		(0x8U)
-#define XIH_IH_ATTR_OFST		(0xCU)
-#define XIH_IH_NAME_OFST		(0x10U)
-#define XIH_IH_CHECKSUM_OFST		(0x3CU)
-
-/* Prtn Hdr Fields */
-#define XIH_PH_ENC_DATAWORD_LEN			(0x0U)
-#define XIH_PH_UNENC_DATAWORD_LEN		(0x4U)
-#define XIH_PH_TOTAL_DATAWORD_LEN		(0x8U)
-#define XIH_PH_NEXT_PRTN_OFST			(0xCU)
-#define XIH_PH_DSTN_EXECUTION_ADDR	        (0x10U)
-#define XIH_PH_DSTN_LOAD_ADDR			(0x18U)
-#define XIH_PH_DATA_WORD_OFST			(0x20U)
-#define XIH_PH_ATTRB_OFST			(0x24U)
-#define XIH_PH_SECTION_COUNT			(0x28U)
-#define XIH_PH_CHECKSUM_WORD_OFST		(0x2CU)
-#define XIH_PH_RSVD_x30				(0x30U)
-#define XIH_PH_AUTHCERTIFICATE_OFST		(0x34U)
-#define XIH_PH_RSVD_x38				(0x38U)
-#define XIH_PH_CHECKSUM				(0x3CU)
 
 /* IHT attributes */
 #define XIH_IHT_ATTR_PUFHD_MASK		(0xC000U)
@@ -152,7 +108,6 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_PCIE	        (0xAU)
 #define XIH_IHT_ATTR_SBD_OSPI			(0xCU)
 #define XIH_IHT_ATTR_SBD_SMAP			(0xDU)
-#define XIH_IHT_ATTR_SBD_SBI			(0xEU)
 #define XIH_IHT_ATTR_SBD_SD_0_RAW		(0xFU)
 #define XIH_IHT_ATTR_SBD_SD_1_RAW		(0x10U)
 #define XIH_IHT_ATTR_SBD_SD_LS_RAW		(0x11U)
@@ -164,7 +119,6 @@ extern "C" {
 #define XIH_PH_ATTRB_DPA_CM_EN_MASK		(0x18000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
 #define XIH_PH_ATTRB_HIVEC_MASK			(0x800000U)
-#define XIH_PH_ATTRB_CHUNKSIZE_MASK		(0x700000U)
 #define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
 #define XIH_PH_ATTRB_PRTN_OWNER_MASK	(0x30000U)
 #define XIH_PH_ATTRB_PUFHD_MASK			(0xC000U)
@@ -179,36 +133,20 @@ extern "C" {
 #define XIH_PH_ATTRB_PRTN_TYPE_RSVD		(0x0000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_ELF		(0x1000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_CDO		(0x2000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_CFI		(0x3000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_RAW		(0x4000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_RAW_ELF		(0x5000000U)
-#define XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC		(0x6000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK	(0x7000000U)
 
 #define XIH_PH_ATTRB_PRTN_OWNER_PLM				(0x00000U)
-#define XIH_PH_ATTRB_RSA_SIGNATURE				(0x8000U)
-#define XIH_PH_ATTRB_NOCHECKSUM					(0x0000U)
-#define XIH_PH_ATTRB_CHECKSUM_MD5				(0x1000U)
 #define XIH_PH_ATTRB_HASH_SHA3					(0x3000U)
 
 #define XIH_PH_ATTRB_DSTN_CPU_NONE				(0x0000U)
 #define XIH_PH_ATTRB_DSTN_CPU_A72_0				(0x100U)
 #define XIH_PH_ATTRB_DSTN_CPU_A72_1				(0x200U)
-#define XIH_PH_ATTRB_DSTN_CPU_A72_2				(0x300U)
-#define XIH_PH_ATTRB_DSTN_CPU_A72_3				(0x400U)
 #define XIH_PH_ATTRB_DSTN_CPU_R5_0				(0x500U)
 #define XIH_PH_ATTRB_DSTN_CPU_R5_1				(0x600U)
 #define XIH_PH_ATTRB_DSTN_CPU_R5_L				(0x700U)
 #define XIH_PH_ATTRB_DSTN_CPU_PSM				(0x800U)
 
-#define XIH_PH_ATTRB_ENCRYPTION					(0x80U)
-#define XIH_PH_ATTRB_DSTN_DEVICE_NONE			(0x0000U)
-#define XIH_PH_ATTRB_DSTN_DEVICE_PS				(0x0010U)
-#define XIH_PH_ATTRB_DSTN_DEVICE_PL				(0x0020U)
-#define XIH_PH_ATTRB_A72_EXEC_ST_AA32			(0x0008U)
 #define XIH_PH_ATTRB_A72_EXEC_ST_AA64			(0x0000U)
-
-#define XIH_INVALID_EXEC_ST						(0xFFFFU)
 
 /*
  * Below is the bit mapping of fields in the ATF Handoff parameters
@@ -231,11 +169,8 @@ extern "C" {
 
 #define XIH_ATTRB_EL_MASK			(0x18U)
 #define XIH_PRTN_FLAGS_EL_2			(0x10U)
-#define XIH_PRTN_FLAGS_DSTN_CPU_A72_MASK	(0x60U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_0		(0x00U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(0x20U)
-#define XIH_PRTN_FLAGS_DSTN_CPU_A72_2		(0x40U)
-#define XIH_PRTN_FLAGS_DSTN_CPU_A72_3		(0x60U)
 
 /* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
 #define XILPDI_MAX_ENTRIES_FOR_ATF	(8U)
@@ -245,7 +180,6 @@ extern "C" {
  */
 #define XILPDI_ERR_IHT_CHECKSUM		(0x1)
 #define XILPDI_ERR_NO_OF_PRTNS		(0x2)
-#define XILPDI_ERR_SBD			(0x3)
 #define XILPDI_ERR_ZERO_LENGTH		(0x4)
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5)
 #define XILPDI_ERR_PRTN_TYPE		(0x6)
@@ -254,17 +188,11 @@ extern "C" {
 /*
  * Image Header Attributes
  */
-#define XILPDI_IH_ATTRIB_IMAGE_OWNER_SHIFT		(0x3U)
-#define XILPDI_IH_ATTRIB_IMAGE_OWNER_WIDTH		(0x3U)
-#define XILPDI_IH_ATTRIB_IMAGE_OWNER_MASK		(0X00000038U)
 #define XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT		(0x6U)
-#define XILPDI_IH_ATTRIB_COPY_MEMORY_WIDTH		(0x1U)
 #define XILPDI_IH_ATTRIB_COPY_MEMORY_MASK		(0X00000040U)
 #define XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT		(0x7U)
-#define XILPDI_IH_ATTRIB_DELAY_LOAD_WIDTH		(0x1U)
 #define XILPDI_IH_ATTRIB_DELAY_LOAD_MASK		(0X00000080U)
 #define XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT	(0x8U)
-#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_WIDTH	(0x1U)
 #define XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK		(0X00000100U)
 
 #define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE		(0x0U)
