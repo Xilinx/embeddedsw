@@ -371,7 +371,7 @@ static inline u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	Checksum Type
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetChecksumType(XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetChecksumType(const XilPdi_PrtnHdr * PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK);
 }
@@ -566,13 +566,12 @@ static inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 }
 
 /************************** Function Prototypes ******************************/
-int XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
-int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl);
+int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr);
+int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);
 
 #ifdef __cplusplus
 }
