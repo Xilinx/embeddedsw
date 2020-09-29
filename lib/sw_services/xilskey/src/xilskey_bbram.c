@@ -110,6 +110,7 @@ extern int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr);
  */
 extern void Bbram_DeInit(void);
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /* BBRAM Algorithm - Initialization */
 extern int Bbram_Init_Ultra(void);
 
@@ -121,12 +122,15 @@ extern int Bbram_VerifyKey_Ultra(u32 *Crc);
 
 /* De-initialization */
 extern void Bbram_DeInit_Ultra(void);
+#endif
+
 /* Calculates CRC of a Row */
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /* Programming Zynq Bbram */
 static INLINE int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr);
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /* Programming Ultrascale Bbram */
 static INLINE int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr);
 
@@ -140,6 +144,7 @@ static INLINE void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
 /* To frame control word's ECC */
 static INLINE u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord);
 static INLINE u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask);
+#endif
 
 /*JTAG Tap Instance*/
 extern XilSKey_JtagSlr XilSKeyJtag;
@@ -204,12 +209,14 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 			return XST_FAILURE;
 		}
 	}
+#ifdef XSK_MICROBLAZE_PLATFORM
 	else {
 		Status = XilSKey_Bbram_Program_Ultra(InstancePtr);
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}
+#endif
 
 	return XST_SUCCESS;
 }
@@ -265,6 +272,7 @@ static INLINE int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /*****************************************************************************/
 /**
 *
@@ -527,3 +535,4 @@ static INLINE u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord)
 
 	return Value;
 }
+#endif

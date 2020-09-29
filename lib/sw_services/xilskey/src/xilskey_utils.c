@@ -1571,6 +1571,7 @@ END:
 }
 #endif
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /****************************************************************************/
 /**
 *
@@ -1617,3 +1618,4 @@ void XilSKey_GetSlrNum(u32 MasterSlrNum, u32 ConfigOrderIndex, u32 *SlrNum)
 		}
 	}
 }
+#endif
