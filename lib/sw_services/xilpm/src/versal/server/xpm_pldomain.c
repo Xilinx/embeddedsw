@@ -543,6 +543,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	XPm_PlDomain *Pld;
 	u32 PlPowerUpTime=0;
 	u32 Platform = XPm_GetPlatform();
+	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
@@ -594,6 +595,22 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 			goto done;
 		}
 	}
+
+	/*
+	 * NOTE:
+	 *   Refer CR-1072789 and  EDT-1007075
+	 * VNPI output reset to VCCINT connected slaves is clamped at the wrong value.
+	 * To work around this in S80, NPI_RESET should be toggled after VCCINT power up.
+	 */
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_S80 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_PULSE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_NPI;
+			Status = XPM_ERR_RESET;
+			goto done;
+		}
+	}
+
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;

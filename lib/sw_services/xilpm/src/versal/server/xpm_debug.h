@@ -319,6 +319,8 @@ extern "C" {
 #define XPM_INT_ERR_NIDB_BISR_REPAIR		0x3804U
 /* Error during PMC-SOC isolation enable/disable */
 #define XPM_INT_ERR_PMC_SOC_ISO			0x3805U
+/* Error during NPI reset assert/release */
+#define XPM_INT_ERR_RST_NPI			0x3806U
 
 /************************* Clock specific errors *****************************/
 /************************** (0x3900) - (0x39FF) ******************************/
