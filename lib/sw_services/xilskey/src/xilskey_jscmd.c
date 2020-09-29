@@ -2546,6 +2546,7 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /****************************************************************************/
 /**
 *
@@ -2574,10 +2575,8 @@ int Bbram_Init_Ultra(void)
 		jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuffer,
 				NULL, JS_IDLE);
 
-#ifdef XSK_MICROBLAZE_PLATFORM
 	/* Wait 100 msec */
 	Time = XSK_EFUSEPL_CLCK_FREQ_ULTRA/10000;
-#endif
 
 	XilSKey_Efuse_StartTimer();
 
@@ -2755,6 +2754,7 @@ void Bbram_DeInit_Ultra(void)
 		setPin (MIO_TCK, 0);
 	}
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -2815,6 +2815,7 @@ void Bbram_Close_Ultra(void)
 
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /****************************************************************************/
 /**
 *
@@ -2861,6 +2862,7 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 	return Status;
 
 }
+#endif
 
 /****************************************************************************/
 /**
