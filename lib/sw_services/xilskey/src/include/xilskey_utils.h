@@ -419,6 +419,7 @@ typedef enum {
 #define XSK_STRING_SIZE_96		(96U)
 
 /************************** Variable Definitions ****************************/
+#ifdef XSK_MICROBLAZE_PLATFORM
 typedef enum {
 	 XSK_SLR_NUM_0,
 	 XSK_SLR_NUM_1,
@@ -437,6 +438,8 @@ typedef enum {
 	XSK_TARGET_MAX_3_SLRS,
 	XSK_TARGET_MAX_4_SLRS
 }XSK_MaxSlrs;
+#endif
+
 /**
  * 	XADC Structure
  */
@@ -1080,7 +1083,9 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
+#ifdef XSK_MICROBLAZE_PLATFORM
 void XilSKey_GetSlrNum(u32 MasterSlr, u32 ConfigOrderIndex, u32 *SlrNum);
+#endif
  /** @}
 @endcond */
 /**
