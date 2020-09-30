@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxipmon_sinit.c
-* @addtogroup axipmon_v6_8
+* @addtogroup axipmon_v6_9
 * @{
 *
 * This file contains the implementation of the XAxiPmon driver's static
