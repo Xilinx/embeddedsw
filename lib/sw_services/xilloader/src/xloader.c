@@ -68,6 +68,7 @@
 *       bm   09/21/2020 Added ImageInfo related code and added compatibility
 *                       check required for DFx
 *       bm   09/24/2020 Added FuncID to RestartImage
+*       bsv  09/30/2020 Enable parallel DMA for SBI related boot modes
 *
 * </pre>
 *
@@ -706,7 +707,7 @@ END:
 	}
 
 #ifndef PLM_DEBUG_MODE
-	SStatus = XPlmi_MemSet(XPLMI_LOADER_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
+	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
 			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
@@ -1328,7 +1329,6 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	}
 #endif
 
-
 	ImageInfo.ImgID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	ImageInfo.UID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].UID;
 	ImageInfo.PUID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PUID;
@@ -1586,7 +1586,7 @@ END:
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 
 #ifndef PLM_DEBUG_MODE
-	SStatus = XPlmi_MemSet(XPLMI_LOADER_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
+	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
 			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
 	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = SStatus;

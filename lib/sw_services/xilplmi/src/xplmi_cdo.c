@@ -27,6 +27,8 @@
 *       kc   06/23/2020 Added code print command details for errors
 *       bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+*                       boot modes
 *
 * </pre>
 *
@@ -182,7 +184,6 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->DeferredError = FALSE;
 
 	memset(&CdoPtr->Cmd.KeyHoleParams, 0U, sizeof(XPlmi_KeyHoleParams));
-	CdoPtr->Cmd.KeyHoleParams.PdiSrc = 0xFFU;
 	/* Initialize the CDO buffer user params */
 	CdoPtr->CmdEndDetected = FALSE;
 	CdoPtr->Cdo1stChunk = TRUE;

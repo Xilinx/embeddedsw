@@ -59,7 +59,7 @@
 *       kpt  09/07/20 Fixed key rolling issue
 *       kpt  09/08/20 Added redundancy at security critical checks
 *		rpo  09/10/20 Added return type for XSecure_Sha3Start
-*
+*       bsv  09/30/20 Renamed XLOADER_CHUNK_MEMORY to XPLMI_PMCRAM_CHUNK_MEMORY
 *
 * </pre>
 *
@@ -188,7 +188,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	SecurePtr->PdiPtr = PdiPtr;
-	SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
+	SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
@@ -611,11 +611,11 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	u32 Status = XLOADER_FAILURE;
 	u32 CopyLen = ChunkLen;
 
-	if (SecurePtr->ChunkAddr == XPLMI_LOADER_CHUNK_MEMORY) {
-		SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY_1;
+	if (SecurePtr->ChunkAddr == XPLMI_PMCRAM_CHUNK_MEMORY) {
+		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	}
 	else {
-		SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
+		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	}
 
 	if (TotalLen <= ChunkLen) {
@@ -988,7 +988,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		}
 
 		XPlmi_Printf(DEBUG_INFO, "Headers are in encrypted format\n\r");
-		SecurePtr->ChunkAddr = XPLMI_LOADER_CHUNK_MEMORY;
+		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 
 		/* Read headers to a buffer */
 		Status = XLoader_ReadHdrs(SecurePtr, MetaHdr,
@@ -1165,7 +1165,6 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 			Status);
 		goto END;
 	}
-
 
 	/* Hash should be calculated on AC + first chunk */
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) &&
@@ -2006,7 +2005,6 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 			XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
 		goto END;
 	}
-
 
 	 /* Padding 1 */
 	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)Xsecure_Varsocm.Padding1,

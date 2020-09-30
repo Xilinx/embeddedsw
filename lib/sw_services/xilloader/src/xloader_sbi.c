@@ -25,6 +25,8 @@
 *       skd  07/14/2020 XLoader_SbiCopy prototype changed
 *       kc   08/10/2020 Added release of SBI reset in SbiInit
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+*                       boot modes
 *
 * </pre>
 *
@@ -134,7 +136,20 @@ int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 ReadFlags;
 	(void) (SrcAddr);
 
-	ReadFlags = Flags | XPLMI_PMCDMA_1;
+	ReadFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
+	/* Just wait for the Data to be copied */
+	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+		XPlmi_WaitForNonBlkDestDma(XPLMI_PMCDMA_1);
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/* Update the flags for NON blocking DMA call */
+	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
+		ReadFlags = XPLMI_DMA_DST_NONBLK;
+	}
+	Flags = Flags & (~(XPLMI_DEVICE_COPY_STATE_MASK));
+	ReadFlags |= (Flags | XPLMI_PMCDMA_1);
 	Status = XPlmi_SbiDmaXfer(DestAddr, Length / XPLMI_WORD_LEN,
 		ReadFlags);
 	if (Status != XST_SUCCESS) {

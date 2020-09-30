@@ -27,6 +27,7 @@
 *       kc   06/23/2020 Added code print command details for errors
 *       bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
+*       bsv  09/30/2020 Fix typo
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ typedef struct {
 	u32 ProcessedCdoLen;	/**< Processed CDO length */
 	u32 CmdState;		/**< Cmd processing state */
 	u32 CopiedCmdLen;	/**< Copied Command length */
-	u32 TempCmdBuf[8];	/**< temperary buffer to store commands
+	u32 TempCmdBuf[8U];	/**< Temporary buffer to store commands
 				 between iterations */
 	XPlmi_Cmd Cmd;		/**< Pointer to the cmd */
 	u32 CmdEndDetected;	/**< Flag to detect end of commands */

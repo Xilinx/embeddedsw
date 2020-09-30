@@ -25,6 +25,7 @@
 *       kc   07/28/2020 Added WDT MACRO to indicate WDT initialized
 *       skd  07/29/2020 Added device copy macros
 *       bm   09/08/2020 Added RunTime Configuration related registers
+*       bsv  09/30/2020 Added XPLMI_CHUNK_SIZE macro
 *
 * </pre>
 *
@@ -57,6 +58,10 @@ extern "C" {
 #define XPLMI_DEVICE_COPY_STATE_BLK			(0x0U << 5U)
 #define XPLMI_DEVICE_COPY_STATE_INITIATE	(0x1U << 5U)
 #define XPLMI_DEVICE_COPY_STATE_WAIT_DONE	(0x2U << 5U)
+/*
+ * PMCRAM CHUNK SIZE
+ */
+#define XPLMI_CHUNK_SIZE	(0x10000U)
 
 /**************************** Type Definitions *******************************/
 #define UART_INITIALIZED	((u8)(1U << 0U))
