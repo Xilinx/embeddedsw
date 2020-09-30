@@ -32,6 +32,7 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaie_core.h"
+#include "xaie_events.h"
 
 /************************** Constant Definitions *****************************/
 #define XAIETILE_CORE_STATUS_DEF_WAIT_USECS 500U
@@ -465,6 +466,141 @@ AieRC XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	Data = XAie_Read32(DevInst, RegAddr);
 	*DoneBit = (Data & CoreMod->CoreSts->Done.Mask) ? 1U : 0U;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/*
+*
+* This API configures the debug control register of aie core
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the aie tile.
+* @param	Event0: Event to halt the aie core
+* @param	Event1: Event to halt the aie core
+* @param	SingleStepEvent: Event to single step aie core
+* @param	ResumeCoreEvent: Event to resume aie core execution after
+*		debug halt
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_CoreConfigDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_Events Event0, XAie_Events Event1,
+		XAie_Events SingleStepEvent, XAie_Events ResumeCoreEvent)
+{
+	u8 TileType, MEvent1, MEvent0, MSStepEvent, MResumeCoreEvent;
+	u32 RegVal;
+	u64 RegAddr;
+	const XAie_CoreMod *CoreMod;
+	const XAie_EvntMod *EvntMod;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+	EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[XAIE_CORE_MOD];
+
+	if((Event0 < EvntMod->EventMin || Event0 > EvntMod->EventMax) ||
+			(Event1 < EvntMod->EventMin ||
+			 Event1 > EvntMod->EventMax) ||
+			(SingleStepEvent < EvntMod->EventMin ||
+			 SingleStepEvent > EvntMod->EventMax) ||
+			(ResumeCoreEvent < EvntMod->EventMin ||
+			 ResumeCoreEvent > EvntMod->EventMax)) {
+		XAIE_ERROR("Invalid event ID\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	Event0 -= EvntMod->EventMin;
+	Event1 -= EvntMod->EventMin;
+	SingleStepEvent -= EvntMod->EventMin;
+	ResumeCoreEvent -= EvntMod->EventMin;
+
+	MEvent0 = EvntMod->XAie_EventNumber[Event0];
+	MEvent1 = EvntMod->XAie_EventNumber[Event1];
+	MSStepEvent = EvntMod->XAie_EventNumber[SingleStepEvent];
+	MResumeCoreEvent = EvntMod->XAie_EventNumber[ResumeCoreEvent];
+
+	if((MEvent0 == XAIE_EVENT_INVALID) ||
+			(MEvent1 == XAIE_EVENT_INVALID) ||
+			(MSStepEvent == XAIE_EVENT_INVALID) ||
+			(MResumeCoreEvent == XAIE_EVENT_INVALID)) {
+		XAIE_ERROR("Invalid event ID\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	RegVal = XAie_SetField(MEvent0,
+			CoreMod->CoreDebug->DebugHaltCoreEvent0.Lsb,
+			CoreMod->CoreDebug->DebugHaltCoreEvent0.Mask) |
+		XAie_SetField(MEvent1,
+				CoreMod->CoreDebug->DebugHaltCoreEvent1.Lsb,
+				CoreMod->CoreDebug->DebugHaltCoreEvent1.Mask) |
+		XAie_SetField(MSStepEvent,
+				CoreMod->CoreDebug->DebugSStepCoreEvent.Lsb,
+				CoreMod->CoreDebug->DebugSStepCoreEvent.Mask) |
+		XAie_SetField(MResumeCoreEvent,
+				CoreMod->CoreDebug->DebugResumeCoreEvent.Lsb,
+				CoreMod->CoreDebug->DebugResumeCoreEvent.Mask);
+
+	RegAddr = CoreMod->CoreDebug->DebugCtrl1Offset +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	XAie_Write32(DevInst, RegAddr, RegVal);
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/*
+*
+* This API clears the configuration in debug control1 register to hardware
+* reset values.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the aie tile.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_CoreClearDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc)
+{
+	u8 TileType;
+	u64 RegAddr;
+	const XAie_CoreMod *CoreMod;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+
+	RegAddr = CoreMod->CoreDebug->DebugCtrl1Offset +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	XAie_Write32(DevInst, RegAddr, 0U);
 
 	return XAIE_OK;
 }
