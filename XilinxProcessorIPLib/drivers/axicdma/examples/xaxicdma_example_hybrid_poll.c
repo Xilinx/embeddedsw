@@ -26,7 +26,8 @@
  * comment out the "#undef DEBUG" in xdebug.h. You need to rebuild your
  * software executable.
  *
- * Make sure that MEMORY_BASE is defined properly as per the HW system.
+ * Make sure that MEMORY_BASE is defined properly as per the HW system
+ * and the transfer length should be cache-line size aligned.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -53,6 +54,7 @@
  *  	               and typecasting buffer address(CR-995116).
  * 4.8   sk   07/10/20 Fix CheckData failure by adding the Cache operations for
  *                     receive and destination buffers.
+ * 4.8	 sk   09/30/20 Modify the buffer length to make it cache-line aligned.
  * </pre>
  *
  ****************************************************************************/
@@ -100,7 +102,7 @@ extern void xil_printf(const char *format, ...);
 #define RX_BUFFER_HIGH      (MEMORY_BASE + 0x0068FFFF)
 
 
-#define BUFFER_BYTESIZE 80 	/* Length of the buffers for simple transfer */
+#define BUFFER_BYTESIZE 128 	/* Length of the buffers for simple transfer */
 #define MAX_PKT_LEN         1024  /* Length of BD for SG transfer */
 
 #define MARK_UNCACHEABLE        0x701
