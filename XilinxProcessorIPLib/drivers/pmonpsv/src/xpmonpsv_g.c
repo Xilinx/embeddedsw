@@ -7,7 +7,7 @@
 /**
 *
 * @file xpmonpsv_g.c
-* @addtogroup pmonpsv_v2_0
+* @addtogroup pmonpsv_v2_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration
