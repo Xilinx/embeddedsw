@@ -97,7 +97,12 @@ typedef struct {
  */
 typedef struct {
 	u32 RegOff;
+	u32 DebugCtrl1Offset;
 	XAie_RegFldAttr DebugHalt;
+	XAie_RegFldAttr DebugHaltCoreEvent1;
+	XAie_RegFldAttr DebugHaltCoreEvent0;
+	XAie_RegFldAttr DebugSStepCoreEvent;
+	XAie_RegFldAttr DebugResumeCoreEvent;
 } XAie_RegCoreDebug;
 
 /*
