@@ -24,6 +24,8 @@
 * 1.03  skd  07/14/2020 Added 64bit support for DDR source address
 *       bsv  07/29/2020 Added provision to use PMCDMA0 for Ddr Copy
 *       skd  07/29/2020 Updated device copy macros
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+*                       boot modes
 *
 * </pre>
 *
@@ -92,12 +94,11 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	else {
 		DmaFlags = XPLMI_PMCDMA_1;
 	}
-
+	DmaFlags |= (Flags & (~(XPLMI_DEVICE_COPY_STATE_MASK)));
 	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
-
 	/* Just wait for the Data to be copied */
 	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
-		XPlmi_WaitForNonBlkDma();
+		XPlmi_WaitForNonBlkDma(DmaFlags);
 		Status = XST_SUCCESS;
 		goto END;
 	}

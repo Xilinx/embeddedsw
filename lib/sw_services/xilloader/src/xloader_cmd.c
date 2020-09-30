@@ -96,7 +96,7 @@ static int XLoader_Features(XPlmi_Cmd * Cmd)
  * @brief	This function provides load DDR copy image execution.
  * Command payload parameters are
  *	* Img ID - of ddr copied image
- *	* Func ID - to verify with the FuncID of ddr copied image
+ *	* Func ID - to verify with the FuncID of the image copied to DDR
  *
  * @param	Pointer to the command structure
  *

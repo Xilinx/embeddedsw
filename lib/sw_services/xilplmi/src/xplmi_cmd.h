@@ -27,6 +27,8 @@
 *                       IDs
 *       skd  07/14/2020 Function pointer Func prototype changed
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+*                       boot modes
 *
 * </pre>
 *
@@ -60,13 +62,11 @@ typedef struct XPlmi_Cmd XPlmi_Cmd;
 typedef struct XPlmi_KeyHoleParams XPlmi_KeyHoleParams;
 
 struct XPlmi_KeyHoleParams {
-	u16 PdiSrc; /**< Source of Pdi */
 	/** < True implies copied in chunks of 64K */
 	/** < False implies complete bitstream is copied in one chunk */
 	u8 InChunkCopy;
 	u64 SrcAddr; /**< Boot Source address */
 	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
-	u8 IsDoubleBuffering;	/**< Indicates if parallel DMA is allowed or not */
 	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 };
 

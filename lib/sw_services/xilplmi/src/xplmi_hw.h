@@ -36,6 +36,8 @@
 *       bm   08/19/2020 Added ImageInfo Table related macros
 *       bm   09/08/2020 Added PMC RAM Usage for RunTime Configuration registers
 *       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP
+*                       and PCIE boot modes
 *
 * </pre>
 *
@@ -162,8 +164,8 @@ static inline void XPlmi_PpuWakeUpDis(void)
 #define XPLMI_PMCRAM_LEN			(0x20000U)
 
 /* Loader chunk memory */
-#define XPLMI_LOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
-#define XPLMI_LOADER_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
+#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
+#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
 
 /* Log Buffer default address and length */
 #define XPLMI_DEBUG_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x19000U)
