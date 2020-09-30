@@ -255,6 +255,7 @@
 *       cog    08/04/20 Added multiband macros.
 *       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
 *                       four LSBs of the CS Gain.
+*       cog    09/28/20 Change XRFdc_IsHighSpeedADC to accomodate 43dr parts.
 *
 * </pre>
 *
@@ -1308,7 +1309,7 @@ static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 	if (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == 0) {
 		return InstancePtr->ADC4GSPS;
 	} else {
-		return (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == XRFDC_NUM_SLICES_HSADC);
+		return (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices != XRFDC_NUM_SLICES_LSADC);
 	}
 }
 
