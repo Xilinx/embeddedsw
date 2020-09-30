@@ -46,6 +46,10 @@ AieRC XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 *DoneBit);
 AieRC XAie_CoreReset(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC XAie_CoreUnreset(XAie_DevInst *DevInst, XAie_LocType Loc);
+AieRC XAie_CoreConfigDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_Events Event0, XAie_Events Event1,
+		XAie_Events SingleStepEvent, XAie_Events ResumeCoreEvent);
+AieRC XAie_CoreClearDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc);
 
 #endif		/* end of protection macro */
 /** @} */
