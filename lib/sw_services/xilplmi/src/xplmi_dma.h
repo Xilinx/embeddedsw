@@ -21,7 +21,8 @@
 *       kc   05/17/2019 Added ECC initiation function using PMC DMA
 * 1.02  bsv  04/04/2020 Code clean up
 *       bsv  04/07/2020 Renamed DMA to PMCDMA
-*       bm   09/02/2020 Add XPlmi_MemSet API
+* 1.03  bm   09/02/2020 Add XPlmi_MemSet API
+*       bsv  09/30/2020 Added wait for non blocking SBI DMA
 *
 * </pre>
 *
@@ -98,8 +99,9 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 int XPlmi_EccInit(u64 Addr, u32 Len);
 int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
-void XPlmi_WaitForNonBlkSrcDma(void);
-void XPlmi_WaitForNonBlkDma(void);
+void XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags);
+void XPlmi_WaitForNonBlkDestDma(u32 DmaFlags);
+void XPlmi_WaitForNonBlkDma(u32 DmaFlags);
 void XPlmi_SetMaxOutCmds(u32 Val);
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
 
