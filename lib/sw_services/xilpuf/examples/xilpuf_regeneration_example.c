@@ -55,8 +55,10 @@
  * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
  * configured as XPUF_READ_FROM_RAM.
  *
- * #define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
+ * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
  * This option should be configured as TRUE to enable Global Variation Filter.
+ * It is recommended to always enable this option to ensure entropy. It can
+ * be configured as FALSE to disable Global Variation Filter.
  *
  ******************************************************************************/
 /***************************** Include Files *********************************/
@@ -70,7 +72,7 @@
 #define XPUF_CHASH				(0x00000000)
 #define XPUF_AUX				(0x00000000)
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000)
-#define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
+#define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 /* User Configurable parameters end */
 
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
