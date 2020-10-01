@@ -518,6 +518,11 @@ extern "C" {
 /* Error during MEM_CLEAR_TRIGGER_MASK in GTY_PSCR_CONTROL register */
 #define XPM_INT_ERR_REG_WRT_GTY_MEM_CLEAR_TRIGGER_MASK		0x5010U
 
+/* Error during CPM5_GTY_PCSR_MASK register */
+#define XPM_INT_ERR_REG_WRT_CPM5_GTY_PCSR_MASK			0x5011U
+/* Error during MEM_CLEAR_TRIGGER_MASK in CPM5_GTY_PSCR_CONTROL register */
+#define XPM_INT_ERR_REG_WRT_CPM5_GTY_MEM_CLEAR_TRIGGER_MASK	0x5012U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
