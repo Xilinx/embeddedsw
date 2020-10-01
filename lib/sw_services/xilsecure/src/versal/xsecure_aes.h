@@ -30,6 +30,7 @@
 * 4.3   ana  06/04/2020 Added NextBlkLen in Xsecure_Aes structure
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *		am	 09/24/2020 Resolved MISRA C violations
+*       har  09/30/2020 Deprecated Family Key support
 *
 * </pre>
 *
@@ -86,7 +87,6 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0		(0xEF858201U)
 #define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1		(0xEF858202U)
 #define XSECURE_AES_KEY_SEL_KUP_KEY			(0xBDC98200U)
-#define XSECURE_AES_KEY_SEL_FAMILY_KEY			(0xFEDE8200U)
 #define XSECURE_AES_KEY_SEL_PUF_KEY			(0xDBDE8200U)
 #define XSECURE_AES_KEY_SEL_USR_KEY_0			(0xBD858201U)
 #define XSECURE_AES_KEY_SEL_USR_KEY_1			(0xBD858202U)
@@ -102,12 +102,6 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef enum {
-	XSECURE_BLACK_KEY,
-	XSECURE_OBFUSCATED_KEY
-}XSecure_AesKekType;
-
-
-typedef enum {
 	XSECURE_AES_BBRAM_KEY = 0,
 	XSECURE_AES_BBRAM_RED_KEY,
 	XSECURE_AES_BH_KEY,
@@ -119,7 +113,6 @@ typedef enum {
 	XSECURE_AES_EFUSE_USER_RED_KEY_0,
 	XSECURE_AES_EFUSE_USER_RED_KEY_1,
 	XSECURE_AES_KUP_KEY,
-	XSECURE_AES_FAMILY_KEY,
 	XSECURE_AES_PUF_KEY,
 	XSECURE_AES_USER_KEY_0,
 	XSECURE_AES_USER_KEY_1,
@@ -169,8 +162,8 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr);
 
 int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
-	XSecure_AesKekType KeyType, XSecure_AesKeySrc DecKeySrc,
-	XSecure_AesKeySrc DstKeySrc, u64 IvAddr, XSecure_AesKeySize KeySize);
+	XSecure_AesKeySrc DecKeySrc,XSecure_AesKeySrc DstKeySrc, u64 IvAddr,
+	XSecure_AesKeySize KeySize);
 
 int XSecure_AesCfgKupIv(const XSecure_Aes *InstancePtr, u8 Config);
 

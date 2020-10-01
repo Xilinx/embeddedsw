@@ -49,7 +49,8 @@
 *						secure libraries
 *		rpo  09/21/2020 New error code added for crypto state mismatch
 *		am	 09/24/2020 Resolved MISRA C violations
-*       har  09/22/2020 Added blind-write checks for XSecure_AesCfgKupIv
+*       har  09/30/2020 Added blind-write checks for XSecure_AesCfgKupIv
+*                       Deprecated Family Key support
 *
 * </pre>
 *
@@ -226,17 +227,6 @@ static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  FALSE,
 	  XSECURE_AES_INVALID_CFG,
 	  XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK
-	},
-
-	/* FAMILY_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_FAMILY_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_INVALID_CFG
 	},
 
 	/* PUF_KEY */
@@ -551,15 +541,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function decrypts the key which is in KEK/Obfuscated key form
- * 			exists and not exist in either of the boot header/Efuse/BBRAM and
- * 			updates the mentioned destination red key register with
- *			corresponding red key
+ * @brief	This function decrypts the key which is in black key form
+ * 			in either of the boot header/Efuse/BBRAM and updates the mentioned
+ *          destination red key register with corresponding red key
  *
  * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	KeyType		- The source of key to be used for decryption is
- * 							- XSECURE_BLACK_KEY
- * 							- XSECURE_OBFUSCATED_KEY
  * @param	DecKeySrc	- Select key source which holds KEK and needs to be
  *						  decrypted
  * @param	DstKeySrc	- Select the key in which decrypted red key should be
@@ -577,20 +563,14 @@ END:
  *
  ******************************************************************************/
 int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
-	XSecure_AesKekType KeyType, XSecure_AesKeySrc DecKeySrc,
-	XSecure_AesKeySrc DstKeySrc, u64 IvAddr, XSecure_AesKeySize KeySize)
+	XSecure_AesKeySrc DecKeySrc, XSecure_AesKeySrc DstKeySrc, u64 IvAddr,
+	XSecure_AesKeySize KeySize)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_AesKeySrc KeySrc;
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (IvAddr == 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((KeyType != XSECURE_BLACK_KEY) &&
-		(KeyType != XSECURE_OBFUSCATED_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -630,13 +610,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-
-	if (KeyType == XSECURE_OBFUSCATED_KEY) {
-		KeySrc = XSECURE_AES_FAMILY_KEY;
-	}
-	else {
-		KeySrc = XSECURE_AES_PUF_KEY;
-	}
+	KeySrc = XSECURE_AES_PUF_KEY;
 
 	/* Status Reset*/
 	Status = XST_FAILURE;
