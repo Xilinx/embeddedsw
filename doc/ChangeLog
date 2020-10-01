@@ -123,6 +123,7 @@ Fix mkfs usage in lwip examples.
 Fix RX pbuf freeing in GEM error handling path.
 Add axiethernet support on versal silicon.
 Fix lwip application failure on VCU118 board.
+Use Xil_In32 and Xil_Out32 functions to read/write registers.
 
 scuwdt_v2_3
 Update the Makefile for parallel execution.
