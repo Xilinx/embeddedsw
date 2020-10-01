@@ -144,6 +144,7 @@ int XSecure_RsaPublicEncryptKat(void);
 
 /* Versal specific function for selection of PKCS padding */
 u8* XSecure_RsaGetTPadding(void);
+int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
 
 #ifdef __cplusplus
 }
