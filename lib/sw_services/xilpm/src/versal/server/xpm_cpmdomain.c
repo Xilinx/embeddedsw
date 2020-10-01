@@ -453,6 +453,14 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	 * MBIST Controllers */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_OFFSET,
 		CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_OFFSET),
+		      CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_MASK,
+		      CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5MBISTCLR_SLCRSECU_MBIST_TRIGGER;
+		goto done;
+	}
 
 	/* Poll for done */
 	/* If trigger action is performed in stages, then break down this step */
