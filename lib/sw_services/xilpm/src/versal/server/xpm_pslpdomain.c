@@ -419,7 +419,24 @@ static XStatus XramMbist(void)
 
 	/* Write to Memclear Trigger */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET),
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK,
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_XRAM_PCSR_MASK;
+		goto done;
+	}
+
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET),
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK,
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_XRAM_MEM_CLEAR_TRIGGER_0_MASK;
+		goto done;
+	}
 
 	/* Poll for Memclear done */
 	Status = XPm_PollForMask(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET,
