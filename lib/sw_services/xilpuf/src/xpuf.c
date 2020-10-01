@@ -43,6 +43,7 @@
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
 					/* Recommended software timeout is 1 second */
+#define XPUF_SHUTTER_GLB_VAR_FLTR_MASK	(0x0FFFFFFFU)
 
 typedef enum {
 	XPUF_REGISTRATION_STARTED,
@@ -317,6 +318,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 			XPUF_CFG1_INIT_VAL_12K);
 	}
 
+	PufData->ShutterValue = PufData->ShutterValue & XPUF_SHUTTER_GLB_VAR_FLTR_MASK;
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
 
