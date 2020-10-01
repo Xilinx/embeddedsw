@@ -527,6 +527,11 @@ extern "C" {
 /* Error during CPM_SLCR_SECURE_MBIST_PG_EN register writing in CpmMbistClear */
 #define XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_PGEN	0x500EU
 
+/* Error during GTY_PCSR_MASK register */
+#define XPM_INT_ERR_REG_WRT_GTY_PCSR_MASK			0x500FU
+/* Error during MEM_CLEAR_TRIGGER_MASK in GTY_PSCR_CONTROL register */
+#define XPM_INT_ERR_REG_WRT_GTY_MEM_CLEAR_TRIGGER_MASK		0x5010U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
