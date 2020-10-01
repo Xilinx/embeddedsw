@@ -540,6 +540,9 @@ extern "C" {
 /* Error during CPM_PCSR_PCR register writing in Cpm5ScanClear */
 #define XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_PCR		0x5019U
 
+/* Error during CPM5_SLCR_SECURE register writing in Cpm5MbistClear */
+#define XPM_INT_ERR_REG_WRT_CPM5MBISTCLR_SLCRSECU_MBIST_TRIGGER		0x501AU
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
