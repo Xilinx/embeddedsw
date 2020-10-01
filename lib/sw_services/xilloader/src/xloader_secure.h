@@ -40,6 +40,7 @@
 *       bsv  08/21/20 Included xil_util.h for XSECURE_TEMPORAL_CHECK macro
 *       har  08/24/20 Added macros related to ECDSA P521 support
 *       kal  09/14/20 Added new error code to XLoader_SecErrCodes
+*       har  09/30/20 Deprecated Family Key support
 *
 * </pre>
 *
@@ -129,24 +130,18 @@ extern "C" {
 /* AES key source */
 #define XLOADER_EFUSE_KEY			(0xA5C3C5A3U) /* eFuse Key */
 #define XLOADER_EFUSE_BLK_KEY		(0xA5C3C5A5U) /* eFUSE Black Key */
-#define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /* eFuse Obfuscated Key */
 
 #define XLOADER_BBRAM_KEY			(0x3A5C3C5AU) /* BBRAM Key */
 #define XLOADER_BBRAM_BLK_KEY		(0x3A5C3C59U) /* BBRAM Black Key */
-#define XLOADER_BBRAM_OBFUS_KEY		(0x3A5C3C57U) /* BBRAM Obfuscated Key */
 
 #define XLOADER_BH_BLK_KEY			(0xA35C7C53U) /*Boot Header Black Key */
-#define XLOADER_BH_OBFUS_KEY		(0xA35C7CA5U)
-									/* Boot Header Obfuscated Key */
 
 #define XLOADER_EFUSE_USR_KEY0		(0x5C3CA5A3U) /* eFuse User Key 0 */
 #define XLOADER_EFUSE_USR_BLK_KEY0	(0x5C3CA5A5U) /* eFUSE User key 0 Black */
-#define XLOADER_EFUSE_USR_OBFUS_KEY0 (0x5C3CA5A7U) /* eFuse User key 0
-													* Obfuscated */
+
 #define XLOADER_EFUSE_USR_KEY1		(0xC3A5C5A3U) /* eFuse User Key 1 */
 #define XLOADER_EFUSE_USR_BLK_KEY1	(0xC3A5C5A5U) /* eFUSE User key 1 Black */
-#define XLOADER_EFUSE_USR_OBFUS_KEY1 (0xC3A5C5A7U) /* eFuse User key 1
-													* Obfuscated */
+
 #define XLOADER_USR_KEY0			(0xC5C3A5A3U) /* User Key 0 */
 #define XLOADER_USR_KEY1			(0xC3A5C5B3U) /* User Key 1 */
 #define XLOADER_USR_KEY2			(0xC5C3A5C3U) /* User Key 2 */
@@ -283,7 +278,6 @@ typedef struct {
 	u32 PdiKeySrc;
 	u64 KekIvAddr;
 	u32 PufHdLocation;
-	XSecure_AesKekType KekType;
 	XSecure_AesKeySrc KeySrc;
 	XSecure_AesKeySrc KeyDst;
 } XLoader_AesKekKey;
