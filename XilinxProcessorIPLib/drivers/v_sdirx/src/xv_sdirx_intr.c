@@ -737,7 +737,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 								XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P);
 					else
 						SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I);
+							XVIDC_VM_2048x1080_48_I : XVIDC_VM_1920x1080_48_I);
 					break;
 				case XVIDC_FR_25HZ:
 					if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
@@ -755,7 +755,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 							XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P);
 					else
 						SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_100_I : XVIDC_VM_1920x1080_100_I);
+							XVIDC_VM_2048x1080_50_I : XVIDC_VM_1920x1080_50_I);
 					break;
 				case XVIDC_FR_30HZ:
 					if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
@@ -773,10 +773,10 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 							XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P);
 					else
 					SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_120_I : XVIDC_VM_1920x1080_120_I);
+							XVIDC_VM_2048x1080_60_I : XVIDC_VM_1920x1080_60_I);
 					break;
 				default:
-					SdiStream->VmId = XVIDC_VM_1920x1080_120_I;
+					SdiStream->VmId = XVIDC_VM_1920x1080_60_I;
 					break;
 				}
 				break;
@@ -1039,7 +1039,9 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			default:
 				xil_printf(" Error::: No ST352 valid payload available for 3G modes\n\r");
 			}
-			SdiStream->IsInterlaced = (~InstancePtr->Transport.TScan) & 0x1;
+
+			SdiStream->IsInterlaced = (payload & XST352_BYTE2_PIC_TYPE_MASK) ? 0 : 1;
+
 			break;
 
 		case XV_SDIRX_MODE_6G:
