@@ -49,6 +49,7 @@
 *						secure libraries
 *		rpo  09/21/2020 New error code added for crypto state mismatch
 *		am	 09/24/2020 Resolved MISRA C violations
+*       har  09/22/2020 Added blind-write checks for XSecure_AesCfgKupIv
 *
 * </pre>
 *
@@ -1499,10 +1500,13 @@ int XSecure_AesCfgKupIv(const XSecure_Aes *InstancePtr, u8 Config)
 				XSECURE_AES_KUP_WR_OFFSET, XSECURE_AES_DISABLE_KUP_IV_UPDATE);
 	}
 	else {
-		XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_KUP_WR_OFFSET,
+		Status = XSecure_SecureOut32((InstancePtr->BaseAddress +
+			XSECURE_AES_KUP_WR_OFFSET),
 			(XSECURE_AES_KUP_WR_KEY_SAVE_MASK |
 			XSECURE_AES_KUP_WR_IV_SAVE_MASK));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	Status = XST_SUCCESS;
