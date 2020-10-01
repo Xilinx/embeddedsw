@@ -108,8 +108,9 @@
  * #define PUF_SYN_LK				(FALSE)
  * This option should be configured as TRUE to program the PUF_SYN_LK eFUSE bit
  *
- * #define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
- * This option should be configured as TRUE to enable Global Variation Filter.
+ * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+ * It is recommended to always enable this option to ensure entropy. It can
+ * be configured as FALSE to disable Global Variation Filter.
  *
  ******************************************************************************/
 #ifndef XILPUF_EXAMPLE_H
@@ -147,7 +148,7 @@ extern "C" {
 
 #define XPUF_IV					"000000000000000000000000"
 #define XPUF_KEY_GENERATE_OPTION		(XPUF_REGISTRATION)
-#define XPUF_GLBL_VAR_FLTR_OPTION	(FALSE)
+#define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 #define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
