@@ -5781,11 +5781,12 @@ int main()
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);/*1, B */
 #elif defined (XPS_BOARD_VCU118)
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : ChId==4 ? 0x1C : 0x1A);
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : 0xD);/*0xc 0xb */
 			XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : ChId==1 ? 0x4 : 0x6);/*C */
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, A */
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : ChId==1 ? 0x4 : 0x6);/*C */
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, B */
+
 #else
 /* Place holder for future board support, Below Value just a random value */
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xB);
