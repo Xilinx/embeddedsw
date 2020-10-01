@@ -1057,7 +1057,7 @@ int main(void)
 	}
 #endif
 	/* Initialize menu */
-	XSdi_MenuInitialize(&SdiMenu, XPAR_UARTLITE_0_BASEADDR);
+	XSdi_MenuInitialize(&SdiMenu, XPAR_XUARTPSV_0_BASEADDR);
 
 	/* Enable exceptions. */
 	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
