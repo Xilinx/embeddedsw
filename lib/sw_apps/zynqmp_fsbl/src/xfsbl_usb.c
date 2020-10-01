@@ -38,7 +38,7 @@
 /************************** Constant Definitions ****************************/
 
 #define XFSBL_USB_DEVICE_ID		XPAR_XUSBPSU_0_DEVICE_ID
-#define XFSBL_REQ_REPLY_LEN		1024U	/**< Max size of reply buffer. */
+#define XFSBL_REQ_REPLY_LEN		256U	/**< Max size of reply buffer. */
 #define XFSBL_DOWNLOAD_COMPLETE		2U
 
 
@@ -267,8 +267,8 @@ static void XFsbl_StdDevReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 {
 	s32 SStatus;
 	u32 ReplyLen;
-	static u8 Reply[XFSBL_REQ_REPLY_LEN]={0};
-	static u8 TmpBuffer[DFU_STATUS_SIZE]={0};
+	u8 Reply[XFSBL_REQ_REPLY_LEN]={0};
+	u8 TmpBuffer[DFU_STATUS_SIZE]={0};
 	u8 EpNum = SetupData->wIndex & XFSBL_USB_ENDPOINT_NUMBER_MASK;
 	/*
 	 * Direction - 1 -- XUSBPSU_EP_DIR_IN
