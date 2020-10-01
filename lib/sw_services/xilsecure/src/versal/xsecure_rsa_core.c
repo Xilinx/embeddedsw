@@ -61,7 +61,6 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 /************************** Function Prototypes ******************************/
 
 static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr);
-static int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
 static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr);
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 	u32* WrData, u8 RamOffset);
@@ -459,15 +458,18 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
  * 			- XSECURE_RSA_ZEROIZE_ERROR - On Zeroization Failure
  *
  *****************************************************************************/
-static int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
+int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
 {
 
 	int Status = XST_FAILURE;
 	u32 RamOffset = (u32)XSECURE_RSA_RAM_EXPO;
 	u32 DataOffset;
 
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = (int)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_CTRL_OFFSET,
@@ -494,6 +496,7 @@ static int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_MINV_OFFSET, 0U);
 
+END:
 	return Status;
 }
 

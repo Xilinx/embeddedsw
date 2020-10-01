@@ -33,8 +33,6 @@
 *                       selected as subsystem shutdown or restart or custom.
 *                       They have to be re-enabled again using SetAction
 *                       command.
-*       bsv  09/13/2020 Clear security critical data in case of exceptions,
-*                       also place AES, ECDSA_RSA and SHA3 in reset
 *       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
 *
 * </pre>
@@ -53,15 +51,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_AES_KEY_CLR_REG	(0xF11E0014U)
-#define XPLMI_AES_ALL_KEYS_CLR_VAL	(0x3FFFF3U)
-#define XPLMI_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
-#define XPLMI_SHA3_RESET_REG		(0xF1210004U)
-#define XPLMI_AES_RESET_REG		(0xF11E0010U)
-#define XPLMI_ECDSA_RSA_RESET_REG	(0xF1200040U)
-#define XPLMI_SHA3_RESET_VAL		(0x1U)
-#define XPLMI_AES_RESET_VAL		(0x1U)
-#define XPLMI_ECDSA_RSA_RESET_VAL	(0x1U)
 
 /************************** Function Prototypes ******************************/
 s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
@@ -73,31 +62,6 @@ static void XPlmi_SoftResetHandler(void);
 
 /************************** Variable Definitions *****************************/
 u32 EmSubsystemId = 0U;
-
-/*****************************************************************************/
-/**
- * @brief	This function is called to secure critical data in case of
- * exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
- *
- * @param	None
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_SecureClear(void)
-{
-	/* Clear AES keys */
-	XPlmi_Out32(XPLMI_AES_KEY_CLR_REG, XPLMI_AES_ALL_KEYS_CLR_VAL);
-	(void)XPlmi_UtilPollForMask(XPLMI_AES_KEY_ZEROED_STATUS_REG,
-			MASK_ALL, XPLMI_TIME_OUT_DEFAULT);
-
-	/* Place SHA3 in reset */
-	XPlmi_Out32(XPLMI_SHA3_RESET_REG, XPLMI_SHA3_RESET_VAL);
-	/* Place AES in reset */
-	XPlmi_Out32(XPLMI_AES_RESET_REG, XPLMI_AES_RESET_VAL);
-	/* Place ECDSA RSA in reset */
-	XPlmi_Out32(XPLMI_ECDSA_RSA_RESET_REG, XPLMI_ECDSA_RSA_RESET_VAL);
-}
 
 /*****************************************************************************/
 /**
