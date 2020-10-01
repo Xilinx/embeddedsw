@@ -172,8 +172,25 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	/* Run scan clear on CPM */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
+		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
+		goto done;
+	}
+
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
 		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET),
+		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
+		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_PCR;
+		goto done;
+	}
 
 	/* Wait for Scan Clear do be done */
 	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
