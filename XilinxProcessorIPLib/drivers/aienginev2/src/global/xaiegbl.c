@@ -110,8 +110,6 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 		return RC;
 	}
 
-	DevInst->IsReady = 0;
-
 	return XAIE_OK;
 }
 
