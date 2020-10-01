@@ -360,8 +360,26 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((BaseAddress + GTY_PCSR_MASK_OFFSET),
+		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK,
+		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5_GTY_PCSR_MASK;
+		goto done;
+	}
+
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET,
-	GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
+		GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((BaseAddress + GTY_PCSR_CONTROL_OFFSET),
+		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK,
+		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5_GTY_MEM_CLEAR_TRIGGER_MASK;
+		goto done;
+	}
+
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
 	GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
