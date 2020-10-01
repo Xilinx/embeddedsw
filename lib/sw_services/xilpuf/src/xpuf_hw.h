@@ -22,6 +22,7 @@
 *                       xpuf.c
 *                       Renamed macros related to PUF Command register
 * 1.2	am	 08/19/2020 Resolved MISRA C violations.
+*       har  09/30/2020 Removed header files which were not required
 *
 * </pre>
 *
@@ -34,8 +35,6 @@ extern "C" {
 #endif
 
 /****************************** Include Files *********************************/
-#include "xil_io.h"
-
 /*************************** Constant Definitions *****************************/
 /*
  * PMC_GLOBAL Base Address

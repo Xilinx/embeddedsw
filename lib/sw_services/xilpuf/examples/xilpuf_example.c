@@ -22,7 +22,8 @@
   *                     Corrected endianness of PUF helper data
   * 1.2   har  07/03/20 Corrected the length of PUF ID passed in XPuf_ShowData
   *       am   08/14/20 Replacing function prototype and local status variable
-  *  					from u32 and s32 to int.
+  *                     from u32 and s32 to int.
+  *       har  09/30/20 Replaced XPuf_printf with xil_printf
   *
   *@note
   *
@@ -48,7 +49,6 @@
 						/* GCM tag Length in bytes */
 #define XPUF_HD_LEN_IN_WORDS			(386U)
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
-#define XPUF_DEBUG_INFO				(1U)
 
 /***************************** Type Definitions *******************************/
 
@@ -100,48 +100,40 @@ int main(void)
 
 	Status = XPuf_ValidateUserInput();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Successfully validated user "
-			"input %x\r\n", Status);
+		xil_printf("Successfully validated user input %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n User input validation failed"
-			"%x\r\n", Status);
+		xil_printf("User input validation failed %x\r\n", Status);
 		goto END;
 	}
 
-	/* Generate PUF KEY */
+	/* Generate PUF KEY and program helper data into eFUSE if required*/
 	Status = XPuf_GenerateKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Successfully generated "
-			"PUF KEY %x\r\n", Status);
+		xil_printf("Successfully generated PUF KEY %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n PUF KEY generation failed %x\r\n",
-			Status);
+		xil_printf("PUF KEY generation failed %x\r\n", Status);
 		goto END;
 	}
 
-	/* Encrypt red key using PUF KEY */
+	/* Encrypt red key using PUF KEY to generate black key*/
 	Status = XPuf_GenerateBlackKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\nSuccessfully encrypted red key"
-			"%x\r\n", Status);
+		xil_printf("Successfully encrypted red key %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\nEncryption/Decryption failed"
-			"%x\r\n", Status);
+		xil_printf("Encryption/Decryption failed %x\r\n", Status);
 		goto END;
 	}
 
-	/* Program black key and helper data into NVM */
+	/* Program black key into NVM */
 	Status = XPuf_ProgramBlackKey();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Successfully programmed Black"
-			"key %x\r\n", Status);
+		xil_printf("Successfully programmed Black key %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Programming into NVM"
-			"failed %x\r\n", Status);
+		xil_printf("Programming into NVM failed %x\r\n", Status);
 		goto END;
 	}
 
@@ -149,12 +141,10 @@ int main(void)
 	/* Program PUF security control bits */
 	Status = XPuf_WritePufSecCtrlBits();
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Successfully programmed "
-			"security control bit %x\r\n", Status);
+		xil_printf("Successfully programmed security control bit %x\r\n", Status);
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n Security control bit"
-			"programming failed %x\r\n", Status);
+		xil_printf("Security control bit programming failed %x\r\n", Status);
 	}
 #endif
 
@@ -164,7 +154,7 @@ int main(void)
 		XPuf_ShowPufSecCtrlBits();
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO, "Successfully ran xilpuf example\r\n");
+	xil_printf("Successfully ran xilpuf example\r\n");
 
 END:
 	return Status;
@@ -179,81 +169,80 @@ END:
  * @param	None.
  *
  * @return
- *		- XST_SUCCESS - If user input validation was successful.
+ *		- XST_SUCCESS - Successful validation of user input
  *		- XST_FAILURE - If user input validation failed.
  *
  ******************************************************************************/
 static int XPuf_ValidateUserInput(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfusePufSecCtrlBits ReadPufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 #if (XPUF_WRITE_HD_IN_EFUSE)
 	u32 Index;
 	u32 CheckHdZero = 0U;
-	XNvm_EfusePufHd RdPufHelperData;
+	XNvm_EfusePufHd PufHelperData;
 #endif
 
 	/* Checks for programming black key */
 	if ((XPUF_RED_KEY_LEN != XSECURE_AES_KEY_SIZE_256) &&
 		(XPUF_RED_KEY_LEN != XSECURE_AES_KEY_SIZE_128)) {
 		Status = XST_FAILURE;
-		xPuf_printf(XPUF_DEBUG_INFO, "Only 128 or 256 bit keys are"
-			"supported\r\n");
+		xil_printf("Only 128 or 256 bit keys are supported\r\n");
 		goto END;
 	}
 
-	if ((XPUF_RED_KEY_LEN_IN_BYTES == (XSECURE_AES_KEY_SIZE_128BIT_WORDS * sizeof(u32))) &&
+	if ((XPUF_RED_KEY_LEN_IN_BYTES == (XSECURE_AES_KEY_SIZE_128BIT_WORDS * XPUF_WORD_LENGTH)) &&
 		((XPUF_WRITE_BLACK_KEY_OPTION != XPUF_EFUSE_USER_0_KEY) &&
 		(XPUF_WRITE_BLACK_KEY_OPTION != XPUF_EFUSE_USER_1_KEY))) {
 		Status = XST_FAILURE;
-		xPuf_printf(XPUF_DEBUG_INFO, "128 bit key can be programmed in"
-			"eFUSE User0 key and eFUSE User1 key only\r\n");
+		xil_printf("128 bit key can be programmed in eFUSE User0 key and"
+		"eFUSE User1 key only\r\n");
 		goto END;
 	}
 
 	/* Checks for programming helper data */
-	Status = XNvm_EfuseReadPufSecCtrlBits(&ReadPufSecCtrlBits);
+	Status = XNvm_EfuseReadPufSecCtrlBits(&PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed while reading PUF security control bits\r\n");
 		goto END;
 	}
 
-	if(ReadPufSecCtrlBits.PufDis == TRUE) {
+	if(PufSecCtrlBits.PufDis == TRUE) {
 		Status = XST_FAILURE;
 		xil_printf("Puf is disabled\n\r");
 		goto END;
 	}
 
 	if ((XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND) &&
-		(ReadPufSecCtrlBits.PufRegenDis == TRUE)) {
+		(PufSecCtrlBits.PufRegenDis == TRUE)) {
 		Status = XST_FAILURE;
 		xil_printf("Puf on demand regeneration is disabled\n\r");
 		goto END;
 	}
 
 	if ((XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND) &&
-		(ReadPufSecCtrlBits.PufHdInvalid == TRUE)) {
+		(PufSecCtrlBits.PufHdInvalid == TRUE)) {
 		Status = XST_FAILURE;
 		xil_printf("Puf Helper data stored in efuse is invalidated\n\r");
 		goto END;
 	}
 
 #if (XPUF_WRITE_HD_IN_EFUSE)
-	if (ReadPufSecCtrlBits.PufSynLk == TRUE) {
+	if (PufSecCtrlBits.PufSynLk == TRUE) {
 		Status = XST_FAILURE;
 		xil_printf("Syndrome data is locked\n\r");
 		goto END;
 	}
 
-	Status = XNvm_EfuseReadPuf(&RdPufHelperData);
+	Status = XNvm_EfuseReadPuf(&PufHelperData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	for (Index = 0U; Index < XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS; Index++) {
-		CheckHdZero |= RdPufHelperData.EfuseSynData[Index];
+		CheckHdZero |= PufHelperData.EfuseSynData[Index];
 	}
-	if (CheckHdZero != 0U || (RdPufHelperData.Chash != 0U) ||
-		(RdPufHelperData.Aux != 0U)) {
+	if (CheckHdZero != 0U || (PufHelperData.Chash != 0U) ||
+		(PufHelperData.Aux != 0U)) {
 		Status = XST_FAILURE;
 		xil_printf("Helper data already programmed into eFUSE\r\n");
 		goto END;
@@ -305,7 +294,7 @@ static int XPuf_GenerateKey(void)
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
 
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
+	xil_printf("PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 	Status = XPuf_Registration(&PufData);
@@ -313,18 +302,16 @@ static int XPuf_GenerateKey(void)
 		goto END;
 	}
 
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data Start!!!\r\n");
+	xil_printf("PUF Helper data Start!!!\r\n");
 	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
-		XPUF_4K_PUF_SYN_LEN_IN_WORDS * sizeof(u32));
+		XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-2] = PufData.Chash;
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-1] = PufData.Aux;
-	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * sizeof(u32));
-	xPuf_printf(XPUF_DEBUG_INFO,"Chash: %02x", PufData.Chash);
-	xPuf_printf(XPUF_DEBUG_INFO,"\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO,"Aux: %02x", PufData.Aux);
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF Helper data End\r\n");
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
+	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
+	xil_printf("Chash: %02x \r\n", PufData.Chash);
+	xil_printf("Aux: %02x \r\n", PufData.Aux);
+	xil_printf("PUF Helper data End\r\n");
+	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 #if XPUF_WRITE_HD_IN_EFUSE
@@ -332,13 +319,12 @@ static int XPuf_GenerateKey(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\nFormatted syndrome "
-			"data written in eFuse");
+	xil_printf("Formatted syndrome data written in eFuse");
 	XPuf_ShowData((u8*)PufData.EfuseSynData,
-		XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * sizeof(u32));
+		XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * XPUF_WORD_LENGTH);
 	Xil_MemCpy(PrgmPufHelperData.EfuseSynData,
 		PufData.EfuseSynData,
-		XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * sizeof(u32));
+		XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * XPUF_WORD_LENGTH);
 
 	PrgmPufHelperData.Chash = PufData.Chash;
 	PrgmPufHelperData.Aux = PufData.Aux;
@@ -348,13 +334,11 @@ static int XPuf_GenerateKey(void)
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS)
 	{
-		xPuf_printf(XPUF_DEBUG_INFO, "Programming Helper data"
-			 "into eFUSE failed\r\n");
+		xil_printf("Programming Helper data into eFUSE failed\r\n");
 		goto END;
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\n PUF helper data "
-		"written in eFUSE\r\n");
+		xil_printf("PUF helper data written in eFUSE\r\n");
 	}
 #endif
 
@@ -364,25 +348,21 @@ static int XPuf_GenerateKey(void)
 		PufData.Chash = XPUF_CHASH;
 		PufData.Aux = XPUF_AUX;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\nReading helper"
-			"data from DDR\r\n");
+		xil_printf("Reading helper data from DDR\r\n");
 	}
 	else if (PufData.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
-		xPuf_printf(XPUF_DEBUG_INFO, "\r\nReading helper data "
-			"from eFUSE\r\n");
+		xil_printf("Reading helper data from eFUSE\r\n");
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "Invalid read option for "
-			"reading helper data\r\n");
+		xil_printf("Invalid read option for reading helper data\r\n");
 		goto END;
 	}
 	Status = XPuf_Regeneration(&PufData);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Puf Regeneration failed"
-			"with error:%x\r\n", Status);
+		xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 		goto END;
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
+	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 #else
 	#error "Invalid option selected for generating PUF KEY. Only Puf registration\
@@ -400,7 +380,7 @@ END:
  * @param	None.
  *
  * @return
- *		- XST_SUCCESS - if encryption was successful.
+ *		- XST_SUCCESS - if black key generation was successful
  *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *		- XST_FAILURE 				   - On failure of AES Encrypt
  *										 Initialization, AES Encrypt data and
@@ -421,29 +401,26 @@ static int XPuf_GenerateBlackKey(void)
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
 			XPUF_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_INFO,
-			"String Conversion error (IV):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (IV):%08x !!!\r\n", Status);
 			goto END;
 		}
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "Provided IV length is wrong\r\n");
+		xil_printf("Provided IV length is wrong\r\n");
 		goto END;
 	}
 
 	if (Xil_Strnlen(XPUF_RED_KEY, (XPUF_RED_KEY_LEN_IN_BYTES * 2U)) ==
 		(XPUF_RED_KEY_LEN_IN_BYTES * 2U)) {
-		Status = Xil_ConvertStringToHexBE(
-			(const char *) (XPUF_RED_KEY),
-				RedKey, XPUF_RED_KEY_LEN_IN_BITS);
+		Status = Xil_ConvertStringToHexBE((const char *) (XPUF_RED_KEY), RedKey,
+			XPUF_RED_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xPuf_printf(XPUF_DEBUG_INFO,
-			"String Conversion error (Red Key):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (Red Key):%08x !!!\r\n", Status);
 			goto END;
 		}
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO, "Provided red key length is wrong\r\n");
+		xil_printf("Provided red key length is wrong\r\n");
 		goto END;
 	}
 
@@ -459,36 +436,34 @@ static int XPuf_GenerateBlackKey(void)
 		goto END;
 	}
 
+	xil_printf("Red Key to be encrypted: \n\r");
+	XPuf_ShowData((u8*)RedKey, XPUF_RED_KEY_LEN_IN_BYTES);
+
+	xil_printf("IV: \n\r");
+	XPuf_ShowData((u8*)Iv, XPUF_IV_LEN_IN_BYTES);
+
 	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
 
-	xPuf_printf(XPUF_DEBUG_INFO, "Red Key to be encrypted: \n\r");
-	XPuf_ShowData((u8*)RedKey, XPUF_RED_KEY_LEN_IN_BYTES);
-
-	xPuf_printf(XPUF_DEBUG_INFO, "IV: \n\r");
-	XPuf_ShowData((u8*)Iv, XPUF_IV_LEN_IN_BYTES);
-
 	/* Encryption of Red Key */
 	Status = XSecure_AesEncryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
-		XSECURE_AES_KEY_SIZE_256, (u64)Iv);
+		XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Aes encrypt init is failed "
-			"%x\n\r", Status);
+		xil_printf("Aes encrypt init is failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptData(&SecureAes, (u64)RedKey,
-			(u64)BlackKey, XPUF_RED_KEY_LEN_IN_BYTES, (u64)GcmTag);
+	Status = XSecure_AesEncryptData(&SecureAes, (UINTPTR)RedKey,
+			(UINTPTR)BlackKey, XPUF_RED_KEY_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Black key generation failed"
-			"%x\n\r", Status);
+		xil_printf("Black key generation failed %x\n\r", Status);
 		goto END;
 	}
 
 	Status = XPuf_FormatAesKey(BlackKey, FormattedBlackKey,
 		XPUF_RED_KEY_LEN_IN_BYTES);
 	if (Status == XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Black Key: \n\r");
+		xil_printf("Black Key: \n\r");
 		XPuf_ShowData((u8*)FormattedBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
 	}
 
@@ -536,8 +511,8 @@ static int XPuf_ProgramBlackKey(void)
 			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
 			if (Status != XST_SUCCESS) {
-				xPuf_printf(XPUF_DEBUG_INFO,"Error in"
-				"programming Black key to eFuse %x\r\n", Status);
+				xil_printf("Error in programming Black key to eFuse %x\r\n",
+				Status);
 			}
 			break;
 
@@ -545,8 +520,8 @@ static int XPuf_ProgramBlackKey(void)
 			Status = XNvm_BbramWriteAesKey(FlashBlackKey,
 				 XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			if (Status != XST_SUCCESS) {
-				xPuf_printf(XPUF_DEBUG_INFO,"Error in "
-				   "programming Black key to BBRAM %x\r\n", Status);
+				xil_printf("Error in programming Black key to BBRAM %x\r\n",
+				Status);
 			}
 			break;
 
@@ -557,8 +532,8 @@ static int XPuf_ProgramBlackKey(void)
 			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
 			if (Status != XST_SUCCESS) {
-				xPuf_printf(XPUF_DEBUG_INFO,"Error in"
-				"programming Black key to eFuse %x\r\n", Status);
+				xil_printf("Error in programming Black key to eFuse %x\r\n",
+				Status);
 			}
 			break;
 
@@ -569,15 +544,14 @@ static int XPuf_ProgramBlackKey(void)
 			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
 			if (Status != XST_SUCCESS) {
-				xPuf_printf(XPUF_DEBUG_INFO,"Error in"
-				"programming Black key to eFuse %x\r\n", Status);
+				xil_printf("Error in programming Black key to eFuse %x\r\n",
+				Status);
 			}
 			break;
 
 		default:
 			Status = XST_SUCCESS;
-			xPuf_printf(XPUF_DEBUG_INFO, "Displayed black key on "
-				"UART\r\n");
+			xil_printf("Displayed black key on UART\r\n");
 			break;
 	}
 
@@ -618,8 +592,7 @@ static int XPuf_WritePufSecCtrlBits(void)
 
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Error in programming PUF Security"
-			"Control bits %x\r\n", Status);
+		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
 	}
 
 	return Status;
@@ -639,36 +612,36 @@ static int XPuf_WritePufSecCtrlBits(void)
 static void XPuf_ShowPufSecCtrlBits(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfusePufSecCtrlBits ReadPufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 
-	Status = XNvm_EfuseReadPufSecCtrlBits(&ReadPufSecCtrlBits);
+	Status = XNvm_EfuseReadPufSecCtrlBits(&PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed while reading PUF security control bits\r\n");
 		goto END;
 	}
 
-	if (ReadPufSecCtrlBits.PufSynLk == TRUE) {
+	if (PufSecCtrlBits.PufSynLk == TRUE) {
 		xil_printf("Programming Puf Syndrome data is disabled\n\r");
 	}
 	else {
 		xil_printf("Programming Puf Syndrome data is enabled\n\r");
 	}
 
-	if(ReadPufSecCtrlBits.PufDis == TRUE) {
+	if(PufSecCtrlBits.PufDis == TRUE) {
 		xil_printf("Puf is disabled\n\r");
 	}
 	else {
 		xil_printf("Puf is enabled\n\r");
 	}
 
-	if (ReadPufSecCtrlBits.PufRegenDis == TRUE) {
+	if (PufSecCtrlBits.PufRegenDis == TRUE) {
 		xil_printf("Puf on demand regeneration is disabled\n\r");
 	}
 	else {
 		xil_printf("Puf on demand regeneration is enabled\n\r");
 	}
 
-	if (ReadPufSecCtrlBits.PufHdInvalid == TRUE) {
+	if (PufSecCtrlBits.PufHdInvalid == TRUE) {
 		xil_printf("Puf Helper data stored in efuse is invalidated\n\r");
 	}
 	else {
@@ -689,7 +662,7 @@ END: ;
  * @param	KeyLen		 - Length of the input key in bytes.
  *
  * @return
- *		- XST_SUCCESS - On Successfully Format of AES key.
+ *		- XST_SUCCESS - On successfully formatting of AES key.
  *		- XST_FAILURE - On Failure.
  *
  ******************************************************************************/
@@ -697,14 +670,14 @@ static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen)
 {
 	int Status = XST_FAILURE;
 	u32 Index = 0U;
-	u32 Words = (KeyLen / sizeof(u32));
+	u32 Words = (KeyLen / XPUF_WORD_LENGTH);
 	u32 WordIndex = (Words / 2U);
 	u32* InputKey = (u32*)Key;
 	u32* OutputKey  = (u32*)FormattedKey;
 
-	if ((KeyLen != (XSECURE_AES_KEY_SIZE_128BIT_WORDS * sizeof(u32))) &&
-		(KeyLen != (XSECURE_AES_KEY_SIZE_256BIT_WORDS * sizeof(u32)))) {
-		xPuf_printf(XPUF_DEBUG_INFO, "Only 128-bit keys and 256-bit keys are supported");
+	if ((KeyLen != (XSECURE_AES_KEY_SIZE_128BIT_WORDS * XPUF_WORD_LENGTH)) &&
+		(KeyLen != (XSECURE_AES_KEY_SIZE_256BIT_WORDS * XPUF_WORD_LENGTH))) {
+		xil_printf("Only 128-bit keys and 256-bit keys are supported \r\n");
 		Status = XST_FAILURE;
 		goto END;
 	}
@@ -766,7 +739,7 @@ static void XPuf_ShowData(const u8* Data, u32 Len)
 	u32 Index;
 
 	for (Index = 0U; Index < Len; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO, "%02x", Data[Index]);
+		xil_printf("%02x", Data[Index]);
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
+	xil_printf("\r\n");
 }

@@ -21,6 +21,7 @@
  * 1.2   har  07/03/2020   Added XPuf_ShowData and replaced XPUF_ID_LENGTH with
  *                         XPUF_ID_LEN_IN_BYTES for printing PUF ID
  *       am   08/14/2020   Replacing local status variable from u32 to int.
+ *       har  09/30/2020   Replaced XPuf_printf with xil_printf
  *
  * @note
  *
@@ -60,6 +61,8 @@
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf.h"
+#include "xstatus.h"
+#include "xil_printf.h"
 
 /* User Configurable parameters start */
 #define XPUF_REGEN_OPTION			(XPUF_REGEN_ID_ONLY)
@@ -72,10 +75,8 @@
 
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
 							 XPUF_WORD_LENGTH)
-#define XPUF_DEBUG_INFO				(1U)
 
 /************************** Type Definitions **********************************/
-static XPuf_Data PufData;
 
 /************************** Function Prototypes ******************************/
 static void XPuf_ShowData(const u8* Data, u32 Len);
@@ -84,6 +85,7 @@ static void XPuf_ShowData(const u8* Data, u32 Len);
 int main(void)
 {
 	int Status = XST_FAILURE;
+	XPuf_Data PufData;
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
@@ -100,24 +102,20 @@ int main(void)
 	Status = XPuf_Regeneration(&PufData);
 
 	if (Status != XST_SUCCESS) {
-		xPuf_printf(XPUF_DEBUG_INFO,
-			"Puf Regeneration example failed with error : %x\r\n",
-			 Status);
+		xil_printf("Puf Regeneration example failed with error : %x\r\n",
+			Status);
 		goto END;
 	}
 
 	if (PufData.PufOperation == XPUF_REGEN_ID_ONLY) {
-		xPuf_printf(XPUF_DEBUG_INFO,
-		"PUF ID only regeneration is done!!\r\n");
+		xil_printf("PUF ID only regeneration is done!!\r\n");
 	}
 	else {
-		xPuf_printf(XPUF_DEBUG_INFO,
-			"PUF On Demand regeneration is done!!\r\n");
+		xil_printf("PUF On Demand regeneration is done!!\r\n");
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "PUF ID : ");
+	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
-	xPuf_printf(XPUF_DEBUG_INFO,
-		"Successfully ran Puf Regeneration example!!\r\n");
+	xil_printf("Successfully ran Puf Regeneration example!!\r\n");
 END:
 	return Status;
 }
@@ -138,7 +136,7 @@ static void XPuf_ShowData(const u8* Data, u32 Len)
 	u32 Index;
 
 	for (Index = 0U; Index < Len; Index++) {
-		xPuf_printf(XPUF_DEBUG_INFO, "%02x", Data[Index]);
+		xil_printf("%02x", Data[Index]);
 	}
-	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
+	xil_printf("\r\n");
 }
