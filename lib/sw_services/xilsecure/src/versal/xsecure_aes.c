@@ -81,6 +81,45 @@
 #define XSECURE_KAT_KEY_SIZE_IN_WORDS			(8U)
 #define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS		(16U)
 
+static const u32 KatKey[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
+			  {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
+			   0x4D3B0A53U, 0xF3C6E1AEU, 0xAFC2447AU, 0x7B534D99U};
+static const u32 KatIv[XSECURE_KAT_IV_SIZE_IN_WORDS] =
+			  {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
+static const u32 KatMessage[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
+			  {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
+static const u32 KatGcmTag[XSECURE_KAT_GCMTAG_SIZE_IN_WORDS] =
+			  {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
+static const u32 KatOutput[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
+			  {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
+
+static const u32 Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
+							{0x98076956U, 0x4f158c97U, 0x78ba50f2U, 0x5f7663e4U,
+                             0x97e60c2fU, 0x1b55a409U, 0xdd3acbd8U, 0xb687a0edU};
+
+static const u32 Data0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
+							  {0U, 0U, 0U, 0U, 0x86c237cfU, 0xead48ac1U,
+                               0xa0a60b3dU, 0U, 0U, 0U, 0U, 0U, 0x2481322dU,
+                               0x568dd5a8U, 0xed5e77d0U, 0x881ade93U};
+
+static const u32 Key1[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
+							{0x3ba3028aU, 0x84e787dfU, 0xe38a7a5dU, 0x707e72c8U,
+                             0x8cd04f4fU, 0x2883201fU, 0xa5b38c2dU, 0xe9deced3U};
+
+static const u32 Data1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
+							{0x0U, 0x0U, 0x0U, 0x0U, 0x96589f59U, 0x8e961c85U,
+                               0x3b3208d8U, 0x0U, 0x0U, 0x0U, 0x0U, 0x0U,
+                               0x328bde4aU, 0xfb2367d5U, 0x40ce658fU, 0xc9275e82U};
+
+static const u32 Ct0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x67020a3bU, 0x3adeecf6U, 0x0309b378U, 0x6ecad4ebU};
+static const u32 Ct1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x793391cbU, 0x6575906bU, 0x1a424078U, 0x632b0246U};
+static const u32 MiC0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x6400d21fU, 0x6363fc09U, 0x06d4f379U, 0x8809ca7eU};
+static const u32 MiC1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
+							{0x3c459ea7U, 0x5a8aad6fU, 0x878e2a4cU, 0x887f1c82U};
+
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u32 RegOffset;
@@ -1596,17 +1635,6 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	volatile int Status = XST_FAILURE;
 	u32 Index;
 
-	const u32 Key[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
-			  {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
-		       0x4D3B0A53U, 0xF3C6E1AEU, 0xAFC2447AU, 0x7B534D99U};
-	const u32 Iv[XSECURE_KAT_IV_SIZE_IN_WORDS] =
-			  {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
-	const u32 Message[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
-			  {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
-	const u32 GcmTag[XSECURE_KAT_GCMTAG_SIZE_IN_WORDS] =
-			  {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
-	const u32 Output[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
-			  {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
 	u32 DstVal[XSECURE_KAT_MSG_SIZE_IN_WORDS] = {0U};
 
 	if (AesInstance == NULL) {
@@ -1616,7 +1644,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
-			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Key);
+			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KatKey);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END;
@@ -1625,7 +1653,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	Status = XST_FAILURE;
 
 	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
-			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KatIv);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR;
 		goto END;
@@ -1633,8 +1661,8 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 
 	Status = XST_FAILURE;
 
-	Status = XSecure_AesDecryptData(AesInstance, (UINTPTR)Message,
-			(UINTPTR)DstVal, XSECURE_SECURE_GCM_TAG_SIZE, (UINTPTR)GcmTag);
+	Status = XSecure_AesDecryptData(AesInstance, (UINTPTR)KatMessage,
+			(UINTPTR)DstVal, XSECURE_SECURE_GCM_TAG_SIZE, (UINTPTR)KatGcmTag);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR;
 		goto END;
@@ -1643,7 +1671,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	/* Initialized to error */
 	Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
 	for (Index = 0U; Index < XSECURE_AES_BUFFER_SIZE; Index++) {
-		if (DstVal[Index] != Output[Index]) {
+		if (DstVal[Index] != KatOutput[Index]) {
 			/* Comparison failure of decrypted data */
 			Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
 			goto END;
@@ -1828,32 +1856,6 @@ END:
 int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
-	const u32 Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
-							{0x98076956U, 0x4f158c97U, 0x78ba50f2U, 0x5f7663e4U,
-                             0x97e60c2fU, 0x1b55a409U, 0xdd3acbd8U, 0xb687a0edU};
-
-	const u32 Data0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
-							  {0U, 0U, 0U, 0U, 0x86c237cfU, 0xead48ac1U,
-                               0xa0a60b3dU, 0U, 0U, 0U, 0U, 0U, 0x2481322dU,
-                               0x568dd5a8U, 0xed5e77d0U, 0x881ade93U};
-
-	const u32 Key1[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
-							{0x3ba3028aU, 0x84e787dfU, 0xe38a7a5dU, 0x707e72c8U,
-                             0x8cd04f4fU, 0x2883201fU, 0xa5b38c2dU, 0xe9deced3U};
-
-	const u32 Data1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
-							{0x0U, 0x0U, 0x0U, 0x0U, 0x96589f59U, 0x8e961c85U,
-                               0x3b3208d8U, 0x0U, 0x0U, 0x0U, 0x0U, 0x0U,
-                               0x328bde4aU, 0xfb2367d5U, 0x40ce658fU, 0xc9275e82U};
-
-	const u32 Ct0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x67020a3bU, 0x3adeecf6U, 0x0309b378U, 0x6ecad4ebU};
-	const u32 Ct1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x793391cbU, 0x6575906bU, 0x1a424078U, 0x632b0246U};
-	const u32 MiC0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x6400d21fU, 0x6363fc09U, 0x06d4f379U, 0x8809ca7eU};
-	const u32 MiC1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x3c459ea7U, 0x5a8aad6fU, 0x878e2a4cU, 0x887f1c82U};
 
 	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
 	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
