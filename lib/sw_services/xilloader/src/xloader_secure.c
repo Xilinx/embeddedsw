@@ -60,6 +60,7 @@
 *       kpt  09/08/20 Added redundancy at security critical checks
 *		rpo  09/10/20 Added return type for XSecure_Sha3Start
 *       bsv  09/30/20 Renamed XLOADER_CHUNK_MEMORY to XPLMI_PMCRAM_CHUNK_MEMORY
+*       har  09/30/20 Deprecated Family Key support
 *
 * </pre>
 *
@@ -1101,15 +1102,12 @@ void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr)
 			"key availability status\n\r");
 	switch(PdiPtr->MetaHdr.BootHdr.EncStatus) {
 	case XLOADER_BH_BLK_KEY:
-	case XLOADER_BH_OBFUS_KEY:
 		PdiPtr->KekStatus = XLOADER_BHDR_RED_KEY;
 		break;
 	case XLOADER_BBRAM_BLK_KEY:
-	case XLOADER_BBRAM_OBFUS_KEY:
 		PdiPtr->KekStatus = XLOADER_BBRAM_RED_KEY;
 		break;
 	case XLOADER_EFUSE_BLK_KEY:
-	case XLOADER_EFUSE_OBFUS_KEY:
 		PdiPtr->KekStatus = XLOADER_EFUSE_RED_KEY;
 		break;
 	default:
@@ -2428,38 +2426,11 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 		break;
 	case XLOADER_EFUSE_BLK_KEY:
 		if (((*KekStatus) & XLOADER_EFUSE_RED_KEY) == 0x0U) {
-			KeyDetails->KekType = XSECURE_BLACK_KEY;
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_RED_KEY;
 
 			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_EFUSE_RED_KEY;
-				*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
-		}
-		else {
-			Status = XLOADER_SUCCESS;
-			*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
-		}
-		break;
-	case XLOADER_EFUSE_OBFUS_KEY:
-		if (((*KekStatus) & XLOADER_EFUSE_RED_KEY) == 0x0U) {
-			/* If corresponding RED key is not available */
-			XPlmi_Printf(DEBUG_INFO,
-						"Decrypting EFUSE obfuscated key\n\r");
-
-			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
-					XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_KEY,
-					XSECURE_AES_EFUSE_RED_KEY,
-					(UINTPTR)KeyDetails->KekIvAddr,
-					XSECURE_AES_KEY_SIZE_256);
-			if (Status == XLOADER_SUCCESS) {
-				/* Update Status */
 				*KekStatus = (*KekStatus) | XLOADER_EFUSE_RED_KEY;
 				*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
 			}
@@ -2479,7 +2450,6 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 		break;
 	case XLOADER_BBRAM_BLK_KEY:
 		if (((*KekStatus) & XLOADER_BBRAM_RED_KEY) == 0x0U) {
-			KeyDetails->KekType = XSECURE_BLACK_KEY;
 			KeyDetails->KeySrc = XSECURE_AES_BBRAM_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BBRAM_RED_KEY;
 
@@ -2498,35 +2468,8 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 			*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
 		}
 		break;
-	case XLOADER_BBRAM_OBFUS_KEY:
-		if (((*KekStatus) & XLOADER_BBRAM_RED_KEY) == 0x0U) {
-			/* If corresponding RED key is not available */
-			XPlmi_Printf(DEBUG_INFO,
-						"Decrypting BBRAM obfuscated key\n\r");
-
-			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
-					XSECURE_OBFUSCATED_KEY, XSECURE_AES_BBRAM_KEY,
-					XSECURE_AES_BBRAM_RED_KEY,
-					(UINTPTR)KeyDetails->KekIvAddr,
-					XSECURE_AES_KEY_SIZE_256);
-			if (Status == XLOADER_SUCCESS) {
-				/* Update Status */
-				*KekStatus = (*KekStatus) | XLOADER_BBRAM_RED_KEY;
-				*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
-		}
-		else {
-			Status = XLOADER_SUCCESS;
-			*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
-		}
-		break;
 	case XLOADER_BH_BLK_KEY:
 		if (((*KekStatus) & XLOADER_BHDR_RED_KEY) == 0x0U) {
-			KeyDetails->KekType = XSECURE_BLACK_KEY;
 			KeyDetails->KeySrc = XSECURE_AES_BH_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BH_RED_KEY;
 
@@ -2552,75 +2495,17 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 			*KeySrc = XSECURE_AES_BH_RED_KEY;
 		}
 		break;
-	case XLOADER_BH_OBFUS_KEY:
-		if (((*KekStatus) & XLOADER_BHDR_RED_KEY) == 0x0U) {
-			/* If corresponding RED key is not available */
-			XPlmi_Printf(DEBUG_INFO,
-					"Decryting BH obfuscated key\n\r");
-			/* Write BH key into BH registers */
-			Status = XSecure_AesWriteKey(&SecurePtr->AesInstance,
-				XSECURE_AES_BH_KEY, XSECURE_AES_KEY_SIZE_256,
-					(UINTPTR)BootHdr->Kek);
-			if (Status != XLOADER_SUCCESS) {
-				break;
-			}
-			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
-					XSECURE_OBFUSCATED_KEY, XSECURE_AES_BH_KEY,
-					XSECURE_AES_BH_RED_KEY,
-				(UINTPTR)KeyDetails->KekIvAddr,
-				XSECURE_AES_KEY_SIZE_256);
-			if (Status == XLOADER_SUCCESS) {
-					*KekStatus = (*KekStatus) | XLOADER_BHDR_RED_KEY;
-					*KeySrc = XSECURE_AES_BH_RED_KEY;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
-		}
-		else {
-			Status = XLOADER_SUCCESS;
-			*KeySrc = XSECURE_AES_BH_RED_KEY;
-		}
-		break;
 	case XLOADER_EFUSE_USR_KEY0:
 		*KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
 		Status = XLOADER_SUCCESS;
 		break;
 	case XLOADER_EFUSE_USR_BLK_KEY0:
 		if (((*KekStatus) & XLOADER_EFUSE_USR0_RED_KEY) == 0x0U) {
-			KeyDetails->KekType = XSECURE_BLACK_KEY;
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_0;
 
 			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR0_RED_KEY;
-				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
-		}
-		else {
-			Status = XLOADER_SUCCESS;
-			*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
-		}
-		break;
-	case XLOADER_EFUSE_USR_OBFUS_KEY0:
-		if (((*KekStatus) & XLOADER_EFUSE_USR0_RED_KEY) == 0x0U) {
-			/* If corresponding RED key is not available */
-			XPlmi_Printf(DEBUG_INFO,
-						"Decrypting BBRAM obfuscated key\n\r");
-
-			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
-					XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_USER_KEY_0,
-					XSECURE_AES_EFUSE_USER_RED_KEY_0,
-					(UINTPTR)KeyDetails->KekIvAddr,
-					XSECURE_AES_KEY_SIZE_256);
-			if (Status == XLOADER_SUCCESS) {
-				/* Update Status */
 				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR0_RED_KEY;
 				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
 			}
@@ -2640,38 +2525,11 @@ static u32 XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
 		break;
 	case XLOADER_EFUSE_USR_BLK_KEY1:
 		if (((*KekStatus) & XLOADER_EFUSE_USR1_RED_KEY) == 0x0U) {
-			KeyDetails->KekType = XSECURE_BLACK_KEY;
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_1;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_1;
 
 			Status = XLoader_DecryptBlkKey(&SecurePtr->AesInstance, KeyDetails);
 			if (Status == XLOADER_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR1_RED_KEY;
-				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
-		}
-		else {
-			Status = XLOADER_SUCCESS;
-			*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
-		}
-		break;
-	case XLOADER_EFUSE_USR_OBFUS_KEY1:
-		if (((*KekStatus) & XLOADER_EFUSE_USR1_RED_KEY) == 0x0U) {
-			/* If corresponding RED key is not available */
-			XPlmi_Printf(DEBUG_INFO,
-						"Decrypting BBRAM obfuscated key\n\r");
-
-			Status = XSecure_AesKekDecrypt(&SecurePtr->AesInstance,
-					XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_USER_KEY_1,
-					XSECURE_AES_EFUSE_USER_RED_KEY_1,
-					(UINTPTR)KeyDetails->KekIvAddr,
-					XSECURE_AES_KEY_SIZE_256);
-			if (Status == XLOADER_SUCCESS) {
-				/* Update Status */
 				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR1_RED_KEY;
 				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
 			}
@@ -3214,8 +3072,7 @@ static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 		goto END;
 	}
 
-	Status = XSecure_AesKekDecrypt(AesInstPtr,
-				XSECURE_BLACK_KEY, KeyDetails->KeySrc,
+	Status = XSecure_AesKekDecrypt(AesInstPtr, KeyDetails->KeySrc,
 				KeyDetails->KeyDst, (UINTPTR)KeyDetails->KekIvAddr,
 				XSECURE_AES_KEY_SIZE_256);
 	if (Status != XLOADER_SUCCESS) {
