@@ -61,6 +61,9 @@
 *		rpo  09/10/20 Added return type for XSecure_Sha3Start
 *       bsv  09/30/20 Renamed XLOADER_CHUNK_MEMORY to XPLMI_PMCRAM_CHUNK_MEMORY
 *       har  09/30/20 Deprecated Family Key support
+*       bm   09/30/20 Added SecureClear API to clear security critical data
+*                     in case of exceptions and also place AES, ECDSA_RSA,
+*                     SHA3 in reset
 *
 * </pre>
 *
@@ -76,6 +79,8 @@
 #include "xsecure_error.h"
 #include "xsecure_aes_core_hw.h"
 #include "xsecure_aes.h"
+#include "xsecure_rsa_core.h"
+#include "xsecure_utils.h"
 #include "xplmi.h"
 #include "xplmi_modules.h"
 #include "xplmi_scheduler.h"
@@ -85,6 +90,14 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_AES_KEY_CLR_REG			(0xF11E0014U)
+#define XLOADER_AES_ALL_KEYS_CLR_VAL		(0x3FFFF3U)
+#define XLOADER_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
+#define XLOADER_SHA3_RESET_REG			(0xF1210004U)
+#define XLOADER_AES_RESET_REG			(0xF11E0010U)
+#define XLOADER_SHA3_RESET_VAL			(0x1U)
+#define XLOADER_AES_RESET_VAL			(0x1U)
+
 /*****************************************************************************/
 /**
 * @brief	This function returns authentication type by reading
@@ -3448,4 +3461,37 @@ static void XLoader_EnableJtag(void)
 	 */
 	XPlmi_Out32(XLOADER_CRP_RST_DBG_OFFSET,
 		XLOADER_CRP_RST_DBG_ENABLE_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is called to secure critical data in case of
+ * exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XLoader_SecureClear(void)
+{
+	XSecure_Rsa RsaInstance = {0U};
+
+	/* Clear AES keys */
+	XPlmi_Out32(XLOADER_AES_KEY_CLR_REG, XLOADER_AES_ALL_KEYS_CLR_VAL);
+	(void)XPlmi_UtilPollForMask(XLOADER_AES_KEY_ZEROED_STATUS_REG,
+			MASK_ALL, XPLMI_TIME_OUT_DEFAULT);
+	/* Place SHA3 in reset */
+	XPlmi_Out32(XLOADER_SHA3_RESET_REG, XLOADER_SHA3_RESET_VAL);
+	/* Place AES in reset */
+	XPlmi_Out32(XLOADER_AES_RESET_REG, XLOADER_AES_RESET_VAL);
+
+	/* Clear Rsa memory */
+	XSecure_RsaCfgInitialize(&RsaInstance);
+	XSecure_ReleaseReset(RsaInstance.BaseAddress,
+			XSECURE_ECDSA_RSA_RESET_OFFSET);
+	XSecure_RsaZeroize(&RsaInstance);
+	/* Place ECDSA RSA in reset */
+	XSecure_SetReset(RsaInstance.BaseAddress,
+			XSECURE_ECDSA_RSA_RESET_OFFSET);
 }

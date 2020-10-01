@@ -49,8 +49,6 @@
 *       har  08/11/2020 Added error code for authenticated JTAG
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       rama 08/21/2020 Added error code for STL
-*       bsv  09/13/2020 Clear security critical data in case of exceptions,
-*                       also place AES, ECDSA_RSA and SHA3 in reset
 *       bm   09/21/2020 Added error codes for DFx Compatibility Check
 *       bm   09/24/2020 Added error code for FuncID mismatch
 *
@@ -501,7 +499,6 @@ static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 /************************** Function Prototypes ******************************/
 void XPlmi_ErrMgr(int Status);
 void XPlmi_DumpRegisters(void);
-void XPlmi_SecureClear(void);
 
 /************************** Variable Definitions *****************************/
 
