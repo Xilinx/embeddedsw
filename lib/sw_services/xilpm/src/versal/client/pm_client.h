@@ -57,6 +57,13 @@ extern char ProcName[5];
 	#define XPm_Dbg(MSG, ...)	do {} while (0)
 #endif
 
+/* Define below macro to disable error prints for memory constrained applications */
+#ifndef DISABLE_ERROR_PRINTS
+	#define XPm_Err(MSG, ...) 	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (0)
+#else
+	#define XPm_Err(MSG, ...)	do {} while (0)
+#endif
+
 #define pm_print		XPm_Dbg
 #define pm_dbg			XPm_Dbg
 #define pm_read			XPm_Read
