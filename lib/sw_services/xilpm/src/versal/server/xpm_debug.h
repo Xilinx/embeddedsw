@@ -548,6 +548,12 @@ extern "C" {
 #define XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP		0x5016U
 /* Error during PSM_GLOBAL_MBIST_PG_EN register writing in FpdMbistClear */
 #define XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN		0x5017U
+
+/* Error during CPM_PCSR_MASK register writing in Cpm5ScanClear */
+#define XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK	0x5018U
+/* Error during CPM_PCSR_PCR register writing in Cpm5ScanClear */
+#define XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_PCR		0x5019U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
