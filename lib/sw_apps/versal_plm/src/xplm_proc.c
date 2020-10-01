@@ -31,6 +31,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_proc.h"
 #include "xplm_default.h"
+#include "xloader_secure.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -98,7 +99,7 @@ static void XPlm_ExceptionHandler(void *Data)
 		      mfmsr(), mfear(), mfedr(), mfesr(),
 		      mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
 
-	XPlmi_SecureClear();
+	XLoader_SecureClear();
 	XPlmi_ErrMgr(Status);
 
 	/* Just in case if it returns */
