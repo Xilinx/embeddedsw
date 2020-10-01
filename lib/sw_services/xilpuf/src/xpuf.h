@@ -25,6 +25,7 @@
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
 *		am 	 08/04/2020 Resolved MISRA C Violations
 *		am 	 08/19/2020 Resolved MISRA C violations.
+*       har  09/30/2020 Removed header files which were not required
 *
 * </pre>
 *
@@ -40,8 +41,6 @@ extern "C" {
 
 /****************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xil_io.h"
-#include "xil_printf.h"
 
 /*************************** Constant Definitions *****************************/
 /** @cond xpuf_internal
@@ -52,8 +51,6 @@ extern "C" {
 #else
 #define XPUF_DEBUG_GENERAL (0U)
 #endif
-
-#define xPuf_printf(type, ...)	if ((type) == (1U)) {xil_printf (__VA_ARGS__);}
 
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
