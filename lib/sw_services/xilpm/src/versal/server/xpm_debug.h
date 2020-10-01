@@ -542,6 +542,12 @@ extern "C" {
 /* Error during MEM_CLEAR_TRIGGER_MASK in XRAM_PSCR_CONTROL register */
 #define XPM_INT_ERR_REG_WRT_XRAM_MEM_CLEAR_TRIGGER_0_MASK 	0x5014U
 
+/* Error during PSM_GLOBAL_MBIST_RST register writing in FpdMbistClear */
+#define XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST		0x5015U
+/* Error during PSM_GLOBAL_MBIST_SETUP register writing in FpdMbistClear */
+#define XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP		0x5016U
+/* Error during PSM_GLOBAL_MBIST_PG_EN register writing in FpdMbistClear */
+#define XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN		0x5017U
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
