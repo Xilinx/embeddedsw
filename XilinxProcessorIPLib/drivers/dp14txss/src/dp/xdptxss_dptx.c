@@ -25,6 +25,8 @@
 * 4.0  aad 05/13/16 Use asynchronous clock mode by default.
 * 5.0  tu  08/03/17 Enabled video packing for bpc > 10
 * 5.0  aad 09/08/17 Case to handle HTotal > 4095, PPC = 1 in AXIStream Mode.
+* 6.4  rg  09/26/20 Added support for YUV420 color format.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -94,6 +96,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	u8 NumOfStreams;
 	u8 Edid[128];
 	XDp_TxTopologyNode *Sink1;
+	int i;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -613,6 +616,20 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Enabled main link!"
 		"\n\r\n\r");
 
+	/* Program the VSC Extended Packet */
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc)
+	{
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_TX_AUDIO_EXT_DATA(1), InstancePtr->TxInstance.VscPacket.Header);
+		for (i = 0; i < XDPTXSS_EXT_DATA_2ND_TO_9TH_WORD; i++) {
+			XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_EXT_DATA(i+2),
+				InstancePtr->TxInstance.VscPacket.Payload[i]);
+		}
+	}
+
+	/* Enable Audio*/
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
+
 	return XST_SUCCESS;
 }
 
@@ -761,10 +778,18 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 
 	LinkBw = (InstancePtr->TxInstance.LinkConfig.LaneCount *
 		  InstancePtr->TxInstance.LinkConfig.LinkRate * 27);
-	BitsPerPixel = (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) ?
-				(2 * Bpc) :
-				(3 * Bpc);
+	if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+	    XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+		/* YCbCr 4:2:2 color component format. */
+		BitsPerPixel = Bpc * 2;
+	} else if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+		/* YCbCr 4:2:0 color component format. */
+		BitsPerPixel = (Bpc * 15) / 10;
+	} else {
+		/* RGB or YCbCr 4:4:4 color component format. */
+		BitsPerPixel = Bpc * 3;
+	}
 
 	/* Check for maximum link rate supported */
 	if (InstancePtr->TxInstance.LinkConfig.MaxLinkRate <
