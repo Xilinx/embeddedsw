@@ -392,6 +392,10 @@ typedef enum {
 		   /**< 0x21 Metahdr IV Range not matched with eFuse IV */
 	XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR,
 		/**< 0x22 Metahdr DpaCm & eFuse DpaCm values are not matched */
+	XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL,
+		/**< 0x23 Error during memset for XSecure_RsaSha3Array */
+	XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL,
+		/**< 0x24 Error during memset for Xsecure_Varsocm */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,

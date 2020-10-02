@@ -162,7 +162,7 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 		String = StringList[1U][Index];
 	}
 
-	StringLen = strlen(String);
+	StringLen = XPlmi_StrLen(String, XLOADER_MAX_STR_DESC_LEN);
 
 	/*
 	 * Index 0 is LangId which is special as we can not represent
@@ -197,7 +197,10 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 		goto END;
 	}
 
-	(void)XPlmi_MemCpy(BufPtr, &StringDesc, DescLen);
+	Status = XPlmi_MemCpy(BufPtr, DescLen, &StringDesc, DescLen);
+	if (Status != XST_SUCCESS) {
+		DescLen = 0U;
+	}
 
 END:
 	return DescLen;
@@ -271,11 +274,17 @@ static u8 XLoader_Ch9SetupDevDescReply(const struct Usb_DevData* InstancePtr, u8
 	Status = XUsbPsu_IsSuperSpeed((struct XUsbPsu*)InstancePtr->PrivateData);
 	if(Status != XST_SUCCESS) {
 		/* USB 2.0 */
-		(void)XPlmi_MemCpy(BufPtr, &DDesc[0U], DevDescLength);
+		Status = XPlmi_MemCpy(BufPtr, DevDescLength, &DDesc[0U], DevDescLength);
+		if (Status != XST_SUCCESS) {
+			DevDescLength = 0U;
+		}
 	}
 	else {
 		/* USB 3.0 */
-		(void)XPlmi_MemCpy(BufPtr, &DDesc[1U], DevDescLength);
+		Status = XPlmi_MemCpy(BufPtr, DevDescLength, &DDesc[1U], DevDescLength);
+		if (Status != XST_SUCCESS) {
+			DevDescLength = 0U;
+		}
 	}
 
 END:
@@ -471,7 +480,10 @@ static u8 XLoader_Ch9SetupCfgDescReply(const struct Usb_DevData* InstancePtr, u8
 		goto END;
 	}
 
-	(void)XPlmi_MemCpy(BufPtr, Config, CfgDescLen);
+	Status = XPlmi_MemCpy(BufPtr, CfgDescLen, Config, CfgDescLen);
+	if (Status != XST_SUCCESS) {
+		CfgDescLen = 0U;
+	}
 
 END:
 	return CfgDescLen;
@@ -517,9 +529,15 @@ static u8 XLoader_Ch9SetupBosDescReply(const struct Usb_DevData* InstancePtr, u8
 		},
 	};
 
-	(void)XPlmi_MemCpy(BufPtr, &BosDesc, UsbBosDescLen);
+	(void)(InstancePtr);
 
-END:
+	UsbBosDescLen = sizeof(XLoaderPs_UsbBosDesc);
+
+	Status = XPlmi_MemCpy(BufPtr, BufferLen, &BosDesc, UsbBosDescLen);
+	if (Status != XST_SUCCESS) {
+		UsbBosDescLen = 0U;
+	}
+
 	return UsbBosDescLen;
 }
 
@@ -1047,13 +1065,19 @@ static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
 
 		case XLOADER_STATUS_DEVICE:
 			ShortVar = XLOADER_ENDPOINT_SELF_PWRD_STATUS;
-			(void)XPlmi_MemCpy(&Reply[0U], &ShortVar, sizeof(u16));/* Self powered */
+			Status = XPlmi_MemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));/* Self powered */
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 			break;
 		case XLOADER_STATUS_ENDPOINT:
 			ShortVar = (u16)XUsbPsu_IsEpStalled(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
 				EpNum, Direction);
-			(void)XPlmi_MemCpy(&Reply[0U], &ShortVar, sizeof(u16));
+			Status = XPlmi_MemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 			break;
 		case XLOADER_STATUS_INTERFACE:
 			/* Need to send all zeroes as reply*/

@@ -41,8 +41,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static struct Usb_DevData UsbInstance;
-static struct XUsbPsu UsbPrivateData;
 u8* DfuVirtFlash = (u8*)XLOADER_DDR_TEMP_BUFFER_ADDRESS;
 u32 DownloadDone = 0U;
 
@@ -60,11 +58,28 @@ int XLoader_UsbInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	Usb_Config *UsbConfigPtr;
+	struct XUsbPsu UsbPrivateData;
+	struct Usb_DevData UsbInstance;
+
 	(void) DeviceFlags;
 
-	(void)memset(&UsbInstance, 0, sizeof(UsbInstance));
-	(void)memset(&UsbPrivateData, 0, sizeof(struct XUsbPsu));
-	(void)memset(&DfuObj, 0, sizeof(DfuObj));
+	Status = XPlmi_MemSetBytes(&UsbInstance, sizeof(UsbInstance),
+				0U, sizeof(UsbInstance));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_USB_INSTANCE);
+		goto END;
+	}
+	Status = XPlmi_MemSetBytes(&UsbPrivateData, sizeof(struct XUsbPsu),
+				0U, sizeof(struct XUsbPsu));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_USB_PRIVATE_DATA);
+		goto END;
+	}
+	Status = XPlmi_MemSetBytes(&DfuObj, sizeof(DfuObj), 0U, sizeof(DfuObj));
+	if (Status != XST_SUCCESS) {
+		XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_DFU_OBJ);
+		goto END;
+	}
 
 	UsbConfigPtr = XUsbPsu_LookupConfig(XLOADER_USB_DEVICE_ID);
 	if (NULL == UsbConfigPtr) {

@@ -360,19 +360,24 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	}
 
-	/* First word of the response is status */
-	Cmd->Response[0] = (u32)Status;
-	(void)XPlmi_MemCpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
-
-	if (Status == XST_SUCCESS) {
+	if (XST_SUCCESS == Status) {
 		Cmd->ResumeHandler = NULL;
 	} else {
-		PmErr("Error %d while processing command 0x%x\r\n", Status, Cmd->CmdId);
+		PmErr("Error 0x%x while processing command 0x%x\r\n", Status, Cmd->CmdId);
 		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
 			Pload[0], Pload[1], Pload[2], Pload[3]);
 	}
+
+	/* First word of the response is status */
+	Cmd->Response[0] = (u32)Status;
+	Status = XPlmi_MemCpy(&Cmd->Response[1], sizeof(ApiResponse), ApiResponse, sizeof(ApiResponse));
+	if (XST_SUCCESS != Status) {
+		PmErr("Error 0x%x while copying the Cmd 0x%x return payload\r\n", Status, Cmd->CmdId);
+		goto done;
+	}
+
 done:
-	if(Status != XST_SUCCESS) {
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != Cmd->Response[0])) {
 		PmErr("Err Code: 0x%x\n\r", Status);
 	}
 	return Status;

@@ -465,8 +465,12 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		/* Read Boot header */
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
-		(void)memset(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
-			0, sizeof(XilPdi_BootHdrFwRsvd));
+		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
+			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD);
+			goto END;
+		}
 		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
 		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
 	}
@@ -1950,7 +1954,11 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 				goto END;
 			}
 
-			(void)memset(PdiPtr, 0, sizeof(XilPdi));
+			Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_PDIPTR);
+				goto END;
+			}
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 			Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
 			if (Status != XST_SUCCESS) {
