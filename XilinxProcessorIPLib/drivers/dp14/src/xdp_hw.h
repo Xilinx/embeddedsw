@@ -598,6 +598,10 @@
 							transmitted and the core
 							is ready to accept a new
 							packet. */
+#define XDP_TX_INTERRUPT_STATUS_VBLANK_STREAM1_MASK \
+				0x00000400	/** < For every Vsync
+							interrupt is generated */
+
 /* 0x144: INTERRUPT_MASK */
 #define XDP_TX_INTERRUPT_MASK_HPD_IRQ_MASK \
 				0x00000001	/**< Mask HPD IRQ interrupt. */
