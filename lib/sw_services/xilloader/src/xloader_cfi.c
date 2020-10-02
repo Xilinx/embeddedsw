@@ -44,7 +44,6 @@
 
 /************************** Variable Definitions *****************************/
 static XCframe XLoader_CframeIns = {0U}; /** CFRAME Driver Instance */
-static XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
 
 /*****************************************************************************/
 
@@ -109,6 +108,7 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 	u32 CountVal = 0U;
 	u32 CfuIsrStatus = XPlmi_In32(CFU_APB_CFU_ISR);
 	u32 CfuStatus = XPlmi_In32(CFU_APB_CFU_STATUS);
+	XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
 
 	if (CfiErrStatus == 0U) {
 		CfiErrStatus = Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;

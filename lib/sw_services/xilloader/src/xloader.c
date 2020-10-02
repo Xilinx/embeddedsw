@@ -116,6 +116,9 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
 static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
+static int XLoader_LoadImage(XilPdi *PdiPtr);
+static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID);
+static int XLoader_StartImage(XilPdi *PdiPtr);
 
 /************************** Variable Definitions *****************************/
 XilPdi SubsystemPdiIns = {0U};
@@ -794,7 +797,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_StartImage(XilPdi *PdiPtr)
+static int XLoader_StartImage(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
@@ -1310,7 +1313,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadImage(XilPdi *PdiPtr)
+static int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
 	XLoader_ImageInfo ImageInfo;
@@ -1429,7 +1432,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
+static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;
