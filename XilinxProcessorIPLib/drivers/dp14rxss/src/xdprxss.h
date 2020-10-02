@@ -87,6 +87,11 @@
 * 4.1  tu  09/08/17 Added three driver side interrupt handler for Video,
 *                   NoVideo and PowerChange events
 * 4.1  jb  02/19/19 Added support for HDCP22.
+* 6.1  rg  09/23/20 Added below list of APIs related to color encoding parameters
+*                   XDpRxss_GetBpc
+*                   XDpRxss_GetColorComponent
+*                   XDpRxss_GetColorimetry
+*                   XDpRxss_GetDynamicRange
 * </pre>
 *
 ******************************************************************************/
@@ -606,6 +611,10 @@ u32 XDpRxSs_ExposePort(XDpRxSs *InstancePtr, u8 Port);
 u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr);
 void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth);
+u8 XDpRxss_GetBpc(XDpRxSs *InstancePtr, u8 Stream);
+u8 XDpRxss_GetColorComponent(XDpRxSs *InstancePtr, u8 Stream);
+u8 XDpRxss_GetColorimetry(XDpRxSs *InstancePtr, u8 Stream);
+u8 XDpRxss_GetDynamicRange(XDpRxSs *InstancePtr, u8 Stream);
 
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 int XDpRxSs_HdcpSetProtocol(XDpRxSs *InstancePtr,
