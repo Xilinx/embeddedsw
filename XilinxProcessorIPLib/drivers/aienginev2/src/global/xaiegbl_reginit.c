@@ -53,6 +53,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_core_aie.h"
 #include "xaie_dma_aie.h"
 #include "xaie_events.h"
 #include "xaie_events_aie.h"
@@ -106,6 +107,18 @@ static const XAie_RegCoreDebug AieCoreDebugReg =
 	.DebugResumeCoreEvent.Mask = XAIEGBL_CORE_DBGCTRL1_DBGRESCOREEVT_MASK,
 	.DebugHalt.Lsb = XAIEGBL_CORE_DBGCTRL0_DBGHLTBIT_LSB,
 	.DebugHalt.Mask = XAIEGBL_CORE_DBGCTRL0_DBGHLTBIT_MASK
+};
+
+/*
+ * Global instance for core event registers in the core module.
+ */
+static const XAie_RegCoreEvents AieCoreEventReg =
+{
+	.EnableEventOff = XAIEGBL_CORE_ENAEVE,
+	.DisableEventOccurred.Lsb = XAIEGBL_CORE_ENAEVE_DISEVTOCC_LSB,
+	.DisableEventOccurred.Mask = XAIEGBL_CORE_ENAEVE_DISEVTOCC_MASK,
+	.DisableEvent.Lsb =  XAIEGBL_CORE_ENAEVE_DISEVT_LSB,
+	.DisableEvent.Mask =  XAIEGBL_CORE_ENAEVE_DISEVT_MASK,
 };
 
 /*
@@ -1065,7 +1078,9 @@ static const XAie_CoreMod AieCoreMod =
 	.EccEvntRegOff = 0x00032110,
 	.CoreCtrl = &AieCoreCtrlReg,
 	.CoreSts = &AieCoreStsReg,
-	.CoreDebug = &AieCoreDebugReg
+	.CoreDebug = &AieCoreDebugReg,
+	.CoreEvent = &AieCoreEventReg,
+	.ConfigureDone = &_XAie_CoreConfigureDone,
 };
 
 /* Data Memory Module for Tile data memory*/

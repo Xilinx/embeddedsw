@@ -106,6 +106,15 @@ typedef struct {
 } XAie_RegCoreDebug;
 
 /*
+ * This typedef contains the attributes for enable events register
+ */
+typedef struct {
+	u32 EnableEventOff;
+	XAie_RegFldAttr DisableEventOccurred;
+	XAie_RegFldAttr DisableEvent;
+} XAie_RegCoreEvents;
+
+/*
  * This typedef captures port base address and number of slave ports available
  * for stream switch master and salve ports
  */
@@ -156,7 +165,7 @@ typedef struct {
 /*
  * The typedef contains the attributes of Core Modules
  */
-typedef struct {
+typedef struct XAie_CoreMod {
 	u8 IsCheckerBoard;
 	u32 ProgMemAddr;
 	u32 ProgMemSize;
@@ -168,6 +177,9 @@ typedef struct {
 	const XAie_RegCoreSts *CoreSts;
 	const XAie_RegCoreCtrl *CoreCtrl;
 	const XAie_RegCoreDebug *CoreDebug;
+	const XAie_RegCoreEvents *CoreEvent;
+	AieRC (*ConfigureDone)(XAie_DevInst *DevInst, XAie_LocType Loc,
+			const struct XAie_CoreMod *CoreMod);
 } XAie_CoreMod;
 
 /*
