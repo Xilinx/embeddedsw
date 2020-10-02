@@ -45,6 +45,11 @@
 * 		    same for all the instances in multiple subsystems in the
 * 		    design. This driver wont support for different configuration
 * 		    of the subsystems.
+* 6.4  rg  09/26/20 Added below list of APIs related to VSC extended packets
+*                   XDpTxSs_CheckVscColorimetrySupport,
+*                   XDpTxSs_SetVscExtendedPacket,
+*                   XDpTxss_EnableVscColorimetry
+*
 * </pre>
 *
 ******************************************************************************/
@@ -1212,6 +1217,124 @@ u32 XDpTxSs_IsMstCapable(XDpTxSs *InstancePtr)
 	Status = XDp_TxMstCapable(InstancePtr->DpPtr);
 
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function will check if the immediate downstream RX device capable
+ * of receiving colorimetry information through VSC extended SDP packet.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device is capable of VSC extended packet.
+ *		- XST_NO_FEATURE if the RX device does not capable of
+ *		  VSC extended packet.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDpTxSs_CheckVscColorimetrySupport(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Check sink's capability for VSC extended packet support */
+	Status = XDp_TxCheckVscColorimetrySupport(InstancePtr->DpPtr);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function decodes the extended packet payload data bytes and fills up the
+ * driver extended packet structure members. And also copies extended packet
+ * header information to the driver structure.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param   VscPkt is a driver extended packet structure
+ *
+ * @return
+ * 		- XST_SUCCESS if VSC extended packet is set.
+ * 		- XST_FAILURE if VSC extended packet is not set.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt)
+{
+	XDp_TxVscExtPacket *VscPacket;
+	u32 DataByte;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	VscPacket = &InstancePtr->DpPtr->TxInstance.VscPacket;
+
+	/* Decoding Data byte 16 */
+	DataByte =  VscPkt.Payload[XDP_RX_AUDIO_EXT_DATA_DB16_TO_DB18] &
+						XDP_RX_AUDIO_EXT_DATA_DB16;
+	VscPacket->YCbCrColorimetry = (DataByte & XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK);
+	VscPacket->ComponentFormat  = (DataByte >> XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT);
+
+	/* Decoding Data byte 17 */
+	DataByte = ((VscPkt.Payload[XDP_RX_AUDIO_EXT_DATA_DB16_TO_DB18] &
+					XDP_RX_AUDIO_EXT_DATA_DB17) >> 8);
+
+	switch(DataByte & XDP_TX_MAIN_VSC_SDP_BDC_MASK) {
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_6BPC:
+			VscPacket->BitsPerColor = 6;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_8BPC:
+			VscPacket->BitsPerColor = 8;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_10BPC:
+			VscPacket->BitsPerColor = 10;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_12BPC:
+			VscPacket->BitsPerColor = 12;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC:
+		VscPacket->BitsPerColor = 16;
+		break;
+	default:
+		return XST_FAILURE;
+	}
+
+	VscPacket->DynamicRange = DataByte >> XDP_TX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT;
+
+	/* Update the Header bytes in driver */
+	VscPacket->Header = VscPkt.Header;
+
+	/* Update the Payload bytes in the driver */
+	memcpy(VscPacket->Payload, VscPkt.Payload,sizeof(VscPkt.Payload));
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function Enable / Disable the mechanism of sending colorimetry information
+ * through VSC extended packet.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param   Enable specifies to enable the flag
+ *       - 0 = Disable the sending colorimetry through VSC packet else enable
+ *             Enable the sending colorimetry through VSC packet
+ *
+ * @return
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc = Enable;
 }
 
 /*****************************************************************************/
