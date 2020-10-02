@@ -364,10 +364,7 @@ static inline u8 XLoader_IsEncEnabled(const XilPdi* PdiPtr)
 /************************** Function Prototypes ******************************/
 int XLoader_Init(void);
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
-int XLoader_LoadImage(XilPdi *PdiPtr);
-int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID);
-int XLoader_ReloadImage(u32 ImageId, u32 *FuncID);
 int XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
@@ -384,7 +381,6 @@ void XLoader_CmdsInit(void);
 
 /* Functions defined in xloader_intr.c */
 int XLoader_IntrInit(void);
-int XLoader_SbiLoadPdi(void *Data);
 void XLoader_SbiRecovery(void);
 void XLoader_ClearIntrSbiDataRdy(void);
 

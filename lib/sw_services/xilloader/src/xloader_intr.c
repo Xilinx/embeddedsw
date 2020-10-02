@@ -45,6 +45,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XLoader_SbiLoadPdi(void *Data);
 
 /************************** Variable Definitions *****************************/
 extern XilPdi SubsystemPdiIns;
@@ -88,7 +89,7 @@ int XLoader_IntrInit(void)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_SbiLoadPdi(void *Data)
+static int XLoader_SbiLoadPdi(void *Data)
 {
 	int Status = XST_FAILURE;
 	PdiSrc_t PdiSrc;

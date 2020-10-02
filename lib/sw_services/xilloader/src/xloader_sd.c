@@ -60,8 +60,6 @@ static u8 XLoader_GetDrvNumSD(u32 DeviceFlags);
 
 /************************** Variable Definitions *****************************/
 static FIL FFil;		/* File object */
-static FATFS fatfs;
-static u8 XLoader_IsSDRaw;
 static XSdPs SdInstance;
 static char BootFile[XLOADER_BASE_FILE_NAME_LEN_SD_1 + 1U] = {'\0'};
 static u32 SdCdnVal = 0U;

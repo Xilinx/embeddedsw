@@ -81,193 +81,6 @@ XLoader_UsbCh9_Data Dfu_data = {
         .Data_ptr = (void *)&DfuObj,
 };
 
-/* Device Descriptors */
-static XLoaderPs_UsbStdDevDesc __attribute__ ((aligned(16U))) DDesc[] = {
-	{/* USB 2.0 */
-		(u8)sizeof(XLoaderPs_UsbStdDevDesc), /**< Length */
-		XLOADER_USB_DEVICE_DESC, /**< DescriptorType */
-		XLOADER_USB2_BCD, /**< BcdUSB 2.0 */
-		XLOADER_USB2_BDEVICE_CLASS, /**< DeviceClass */
-		XLOADER_USB2_BDEVICE_SUBCLASS, /**< DeviceSubClass */
-		XLOADER_USB2_BDEVICE_PROTOCOL, /**< DeviceProtocol */
-		XLOADER_USB2_MAX_PACK_SIZE, /**< MaxPackedSize0 */
-		XLOADER_USB2_IDVENDOR, /**< IdVendor */
-		XLOADER_USB2_IDPRODUCT, /**< IdProduct */
-		XLOADER_USB2_BDEVICE, /**< BcdDevice */
-		XLOADER_USB2_MANUFACTURER, /**< Manufacturer */
-		XLOADER_USB2_IPRODUCT, /**< Product */
-		XLOADER_USB2_SERIAL_NUM, /**< SerialNumber */
-		XLOADER_USB2_NUM_CONFIG, /**< NumConfigurations */
-	},
-	{
-		/* USB 3.0 */
-		(u8)sizeof(XLoaderPs_UsbStdDevDesc), /**< Length */
-		XLOADER_USB_DEVICE_DESC, /**< DescriptorType */
-		XLOADER_USB3_BCD, /**< BcdUSB 3.0 */
-		XLOADER_USB3_BDEVICE_CLASS, /**< DeviceClass */
-		XLOADER_USB3_BDEVICE_SUBCLASS, /**< DeviceSubClass */
-		XLOADER_USB3_BDEVICE_PROTOCOL, /**< DeviceProtocol */
-		XLOADER_USB3_MAX_PACK_SIZE, /**< MaxPackedSize0 */
-		XLOADER_USB3_IDVENDOR, /**< IdVendor */
-		XLOADER_USB3_IDPRODUCT, /**< IdProduct */
-		XLOADER_USB3_BDEVICE, /**< BcdDevice */
-		XLOADER_USB3_MANUFACTURER, /**< Manufacturer */
-		XLOADER_USB3_IPRODUCT, /**< Product */
-		XLOADER_USB3_SERIAL_NUM, /**< SerialNumber */
-		XLOADER_USB3_NUM_CONFIG, /**< NumConfigurations */
-	},
-};
-
-static XLoaderPs_Usb30Config __attribute__ ((aligned(16U))) Config3 = {
-	/* Std Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdCfgDesc), /**< Length */
-		XLOADER_USB_CONFIG_DESC, /**< DescriptorType */
-		(u16) sizeof(XLoaderPs_Usb30Config), /**< TotalLength */
-		XLOADER_USB3_CONFIG_NUM_INTF, /**< NumInterfaces */
-		XLOADER_USB3_CONFIG_VAL, /**< ConfigurationValue */
-		XLOADER_USB3_CONFIGURATION, /**< Configuration */
-		XLOADER_USB3_CONFIG_ATTRB, /**< Attribute */
-		XLOADER_USB3_CONFIG_MAX_PWR, /**< MaxPower  */
-	},
-	/* Interface Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
-		XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB3_INTF_NUM, /**< InterfaceNumber */
-		XLOADER_USB3_INTF_ALT_SETTING, /**< AlternateSetting */
-		XLOADER_USB3_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
-		XLOADER_USB3_INTF_CLASS, /**< InterfaceClass */
-		XLOADER_USB3_INTF_SUBCLASS, /**< InterfaceSubClass */
-		XLOADER_USB3_INTF_PROT, /**< InterfaceProtocol */
-		XLOADER_USB3_INTERFACE, /**< Interface */
-	},
-	/* Bulk In Endpoint Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
-		XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB3_BULK_IN_EP_ADDR, /**< EndpointAddress */
-		XLOADER_USB3_BULK_IN_EP_ATTRB, /**< Attribute */
-		XLOADER_USB3_BULK_IN_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
-		XLOADER_USB3_BULK_IN_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
-		XLOADER_USB3_BULK_IN_EP_INTERVAL, /**< Interval */
-	},
-	/* SS Endpoint companion */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdEpSsCompDesc), /**< Length */
-		XLOADER_USB3_SS_EP_DESC_TYPE, /**< DescriptorType */
-		XLOADER_USB3_SS_EP_MAX_BURST, /**< MaxBurst */
-		XLOADER_USB3_SS_EP_ATTRB, /**< Attributes */
-		XLOADER_USB3_SS_EP_BYTES_PER_INTERVAL, /**< BytesPerInterval */
-	},
-	/* Bulk Out Endpoint Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
-		XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB3_BULK_OUT_EP_ADDR, /**< EndpointAddress */
-		XLOADER_USB3_BULK_OUT_EP_ATTRB, /**< Attribute  */
-		XLOADER_USB3_BULK_OUT_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
-		XLOADER_USB3_BULK_OUT_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
-		XLOADER_USB3_BULK_OUT_EP_INTERVAL, /**< Interval */
-	},
-	/* SS Endpoint companion */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdEpSsCompDesc), /**< Length */
-		XLOADER_USB3_SS_EP_DESC_TYPE, /**< DescriptorType */
-		XLOADER_USB3_SS_EP_MAX_BURST, /**< MaxBurst */
-		XLOADER_USB3_SS_EP_ATTRB, /**< Attributes */
-		XLOADER_USB3_SS_EP_BYTES_PER_INTERVAL, /**< BytesPerInterval */
-	},
-	/* DFU Interface descriptor */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
-		XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB3_DFU_INTF_NUM, /**< InterfaceNumber */
-		XLOADER_USB3_DFU_INTF_ALT_SETTING, /**< AlternateSetting */
-		XLOADER_USB3_DFU_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
-		XLOADER_USB3_DFU_INTF_CLASS, /**< InterfaceClass DFU application specific class code */
-		XLOADER_USB3_DFU_INTF_SUBCLASS, /**< InterfaceSubClass DFU device firmware upgrade code */
-		XLOADER_USB3_DFU_INTF_PROT, /**< InterfaceProtocol DFU mode protocol */
-		XLOADER_USB3_DFU_INTERFACE, /**< Interface DFU string descriptor */
-	},
-	/* DFU functional descriptor */
-	{
-		(u8)sizeof(XLoaderPs_UsbDfuFuncDesc), /**< Length*/
-		XLOADER_DFUFUNC_DESCR, /**< DescriptorType DFU functional descriptor type */
-		XLOADER_USB3_DFUFUNC_ATTRB, /**< Attributes Device is only download/upload capable */
-		XLOADER_USB3_DFUFUNC_DETACH_TIMEOUT_MS, /**< DetatchTimeOut 8192 ms */
-		XLOADER_DFU_MAX_TRANSFER, /**< TransferSize DFU block size 1024 */
-		XLOADER_USB3_DFU_VERSION, /**< DfuVersion 1.1 */
-	},
-};
-
-static XLoaderPs_UsbConfig __attribute__ ((aligned(16U))) Config2 = {
-	/* Std Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdCfgDesc), /**< Length */
-		XLOADER_USB_CONFIG_DESC, /**< DescriptorType */
-		(u16)sizeof(XLoaderPs_UsbConfig), /**< TotalLength */
-		XLOADER_USB2_CONFIG_NUM_INTF, /**< NumInterfaces */
-		XLOADER_USB2_CONFIG_VAL, /**< ConfigurationValue */
-		XLOADER_USB2_CONFIGURATION, /**< Configuration */
-		XLOADER_USB2_CONFIG_ATTRB, /**< Attribute */
-		XLOADER_USB2_CONFIG_MAX_PWR, /**< MaxPower  */
-	},
-	/* Interface Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
-		XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB2_INTF_NUM, /**< InterfaceNumber */
-		XLOADER_USB2_INTF_ALT_SETTING, /**< AlternateSetting */
-		XLOADER_USB2_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
-		XLOADER_USB2_INTF_CLASS, /**< InterfaceClass */
-		XLOADER_USB2_INTF_SUBCLASS, /**< InterfaceSubClass */
-		XLOADER_USB2_INTF_PROT, /**< InterfaceProtocol */
-		XLOADER_USB2_INTERFACE, /**< Interface */
-	},
-	/* Bulk In Endpoint Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
-		XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB2_BULK_IN_EP_ADDR, /**< EndpointAddress */
-		XLOADER_USB2_BULK_IN_EP_ATTRB, /**< Attribute  */
-		XLOADER_USB2_BULK_IN_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
-		XLOADER_USB2_BULK_IN_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
-		XLOADER_USB2_BULK_IN_EP_INTERVAL, /**< Interval */
-	},
-	/* Bulk Out Endpoint Config */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
-		XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB2_BULK_OUT_EP_ADDR, /**< EndpointAddress */
-		XLOADER_USB2_BULK_OUT_EP_ATTRB, /**< Attribute  */
-		XLOADER_USB2_BULK_OUT_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
-		XLOADER_USB2_BULK_OUT_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
-		XLOADER_USB2_BULK_OUT_EP_INTERVAL, /**< Interval */
-	},
-	/* DFU Interface Descriptor */
-	{
-		(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
-		XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
-		XLOADER_USB2_DFU_INTF_NUM, /**< InterfaceNumber */
-		XLOADER_USB2_DFU_INTF_ALT_SETTING, /**< AlternateSetting */
-		XLOADER_USB2_DFU_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
-		XLOADER_USB2_DFU_INTF_CLASS, /**< InterfaceClass DFU application specific class code */
-		XLOADER_USB2_DFU_INTF_SUBCLASS, /**< InterfaceSubClass DFU device firmware upgrade code */
-		XLOADER_USB2_DFU_INTF_PROT, /**< InterfaceProtocol DFU mode protocol */
-		XLOADER_USB2_DFU_INTERFACE, /**< Interface DFU string descriptor */
-	},
-	/* DFU functional descriptor */
-	{
-		(u8)sizeof(XLoaderPs_UsbDfuFuncDesc), /**< Length*/
-		XLOADER_DFUFUNC_DESCR, /**< DescriptorType DFU functional descriptor type */
-		XLOADER_USB2_DFUFUNC_ATTRB, /**< Attributes Device is only download/upload capable */
-		XLOADER_USB2_DFUFUNC_DETACH_TIMEOUT_MS, /**< DetatchTimeOut 8192 ms */
-		XLOADER_DFU_MAX_TRANSFER, /**< TransferSize DFU block size 1024 */
-		XLOADER_USB2_DFU_VERSION, /**< DfuVersion 1.1 */
-	},
-};
-
 /******************************************************************************/
 /**
  * @brief	This function waits for DFU reset.
@@ -407,6 +220,43 @@ static u8 XLoader_Ch9SetupDevDescReply(const struct Usb_DevData* InstancePtr, u8
 {
 	int Status = XST_FAILURE;
 	u8 DevDescLength = 0U;
+	/* Device Descriptors */
+	const XLoaderPs_UsbStdDevDesc __attribute__ ((aligned(16U))) DDesc[] = {
+		{/* USB 2.0 */
+			(u8)sizeof(XLoaderPs_UsbStdDevDesc), /**< Length */
+			XLOADER_USB_DEVICE_DESC, /**< DescriptorType */
+			XLOADER_USB2_BCD, /**< BcdUSB 2.0 */
+			XLOADER_USB2_BDEVICE_CLASS, /**< DeviceClass */
+			XLOADER_USB2_BDEVICE_SUBCLASS, /**< DeviceSubClass */
+			XLOADER_USB2_BDEVICE_PROTOCOL, /**< DeviceProtocol */
+			XLOADER_USB2_MAX_PACK_SIZE, /**< MaxPackedSize0 */
+			XLOADER_USB2_IDVENDOR, /**< IdVendor */
+			XLOADER_USB2_IDPRODUCT, /**< IdProduct */
+			XLOADER_USB2_BDEVICE, /**< BcdDevice */
+			XLOADER_USB2_MANUFACTURER, /**< Manufacturer */
+			XLOADER_USB2_IPRODUCT, /**< Product */
+			XLOADER_USB2_SERIAL_NUM, /**< SerialNumber */
+			XLOADER_USB2_NUM_CONFIG, /**< NumConfigurations */
+		},
+		{
+			/* USB 3.0 */
+			(u8)sizeof(XLoaderPs_UsbStdDevDesc), /**< Length */
+			XLOADER_USB_DEVICE_DESC, /**< DescriptorType */
+			XLOADER_USB3_BCD, /**< BcdUSB 3.0 */
+			XLOADER_USB3_BDEVICE_CLASS, /**< DeviceClass */
+			XLOADER_USB3_BDEVICE_SUBCLASS, /**< DeviceSubClass */
+			XLOADER_USB3_BDEVICE_PROTOCOL, /**< DeviceProtocol */
+			XLOADER_USB3_MAX_PACK_SIZE, /**< MaxPackedSize0 */
+			XLOADER_USB3_IDVENDOR, /**< IdVendor */
+			XLOADER_USB3_IDPRODUCT, /**< IdProduct */
+			XLOADER_USB3_BDEVICE, /**< BcdDevice */
+			XLOADER_USB3_MANUFACTURER, /**< Manufacturer */
+			XLOADER_USB3_IPRODUCT, /**< Product */
+			XLOADER_USB3_SERIAL_NUM, /**< SerialNumber */
+			XLOADER_USB3_NUM_CONFIG, /**< NumConfigurations */
+		},
+	};
+
 
 	/* Check buffer pointer is there and buffer is big enough. */
 	if (BufPtr == NULL) {
@@ -450,6 +300,154 @@ static u8 XLoader_Ch9SetupCfgDescReply(const struct Usb_DevData* InstancePtr, u8
 	int Status = XST_FAILURE;
 	const u8 *Config;
 	u8 CfgDescLen = 0U;
+	XLoaderPs_UsbConfig __attribute__ ((aligned(16U))) Config2 = {
+		/* Std Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdCfgDesc), /**< Length */
+			XLOADER_USB_CONFIG_DESC, /**< DescriptorType */
+			(u16)sizeof(XLoaderPs_UsbConfig), /**< TotalLength */
+			XLOADER_USB2_CONFIG_NUM_INTF, /**< NumInterfaces */
+			XLOADER_USB2_CONFIG_VAL, /**< ConfigurationValue */
+			XLOADER_USB2_CONFIGURATION, /**< Configuration */
+			XLOADER_USB2_CONFIG_ATTRB, /**< Attribute */
+			XLOADER_USB2_CONFIG_MAX_PWR, /**< MaxPower  */
+		},
+		/* Interface Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
+			XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB2_INTF_NUM, /**< InterfaceNumber */
+			XLOADER_USB2_INTF_ALT_SETTING, /**< AlternateSetting */
+			XLOADER_USB2_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
+			XLOADER_USB2_INTF_CLASS, /**< InterfaceClass */
+			XLOADER_USB2_INTF_SUBCLASS, /**< InterfaceSubClass */
+			XLOADER_USB2_INTF_PROT, /**< InterfaceProtocol */
+			XLOADER_USB2_INTERFACE, /**< Interface */
+		},
+		/* Bulk In Endpoint Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
+			XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB2_BULK_IN_EP_ADDR, /**< EndpointAddress */
+			XLOADER_USB2_BULK_IN_EP_ATTRB, /**< Attribute  */
+			XLOADER_USB2_BULK_IN_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
+			XLOADER_USB2_BULK_IN_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
+			XLOADER_USB2_BULK_IN_EP_INTERVAL, /**< Interval */
+		},
+		/* Bulk Out Endpoint Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
+			XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB2_BULK_OUT_EP_ADDR, /**< EndpointAddress */
+			XLOADER_USB2_BULK_OUT_EP_ATTRB, /**< Attribute  */
+			XLOADER_USB2_BULK_OUT_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
+			XLOADER_USB2_BULK_OUT_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
+			XLOADER_USB2_BULK_OUT_EP_INTERVAL, /**< Interval */
+		},
+		/* DFU Interface Descriptor */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
+			XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB2_DFU_INTF_NUM, /**< InterfaceNumber */
+			XLOADER_USB2_DFU_INTF_ALT_SETTING, /**< AlternateSetting */
+			XLOADER_USB2_DFU_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
+			XLOADER_USB2_DFU_INTF_CLASS, /**< InterfaceClass DFU application specific class code */
+			XLOADER_USB2_DFU_INTF_SUBCLASS, /**< InterfaceSubClass DFU device firmware upgrade code */
+			XLOADER_USB2_DFU_INTF_PROT, /**< InterfaceProtocol DFU mode protocol */
+			XLOADER_USB2_DFU_INTERFACE, /**< Interface DFU string descriptor */
+		},
+		/* DFU functional descriptor */
+		{
+			(u8)sizeof(XLoaderPs_UsbDfuFuncDesc), /**< Length*/
+			XLOADER_DFUFUNC_DESCR, /**< DescriptorType DFU functional descriptor type */
+			XLOADER_USB2_DFUFUNC_ATTRB, /**< Attributes Device is only download/upload capable */
+			XLOADER_USB2_DFUFUNC_DETACH_TIMEOUT_MS, /**< DetatchTimeOut 8192 ms */
+			XLOADER_DFU_MAX_TRANSFER, /**< TransferSize DFU block size 1024 */
+			XLOADER_USB2_DFU_VERSION, /**< DfuVersion 1.1 */
+		}
+	};
+	XLoaderPs_Usb30Config __attribute__ ((aligned(16U))) Config3 = {
+		/* Std Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdCfgDesc), /**< Length */
+			XLOADER_USB_CONFIG_DESC, /**< DescriptorType */
+			(u16) sizeof(XLoaderPs_Usb30Config), /**< TotalLength */
+			XLOADER_USB3_CONFIG_NUM_INTF, /**< NumInterfaces */
+			XLOADER_USB3_CONFIG_VAL, /**< ConfigurationValue */
+			XLOADER_USB3_CONFIGURATION, /**< Configuration */
+			XLOADER_USB3_CONFIG_ATTRB, /**< Attribute */
+			XLOADER_USB3_CONFIG_MAX_PWR, /**< MaxPower  */
+		},
+		/* Interface Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
+			XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB3_INTF_NUM, /**< InterfaceNumber */
+			XLOADER_USB3_INTF_ALT_SETTING, /**< AlternateSetting */
+			XLOADER_USB3_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
+			XLOADER_USB3_INTF_CLASS, /**< InterfaceClass */
+			XLOADER_USB3_INTF_SUBCLASS, /**< InterfaceSubClass */
+			XLOADER_USB3_INTF_PROT, /**< InterfaceProtocol */
+			XLOADER_USB3_INTERFACE, /**< Interface */
+		},
+		/* Bulk In Endpoint Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
+			XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB3_BULK_IN_EP_ADDR, /**< EndpointAddress */
+			XLOADER_USB3_BULK_IN_EP_ATTRB, /**< Attribute */
+			XLOADER_USB3_BULK_IN_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
+			XLOADER_USB3_BULK_IN_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
+			XLOADER_USB3_BULK_IN_EP_INTERVAL, /**< Interval */
+		},
+		/* SS Endpoint companion */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdEpSsCompDesc), /**< Length */
+			XLOADER_USB3_SS_EP_DESC_TYPE, /**< DescriptorType */
+			XLOADER_USB3_SS_EP_MAX_BURST, /**< MaxBurst */
+			XLOADER_USB3_SS_EP_ATTRB, /**< Attributes */
+			XLOADER_USB3_SS_EP_BYTES_PER_INTERVAL, /**< BytesPerInterval */
+		},
+		/* Bulk Out Endpoint Config */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdEpDesc), /**< Length */
+			XLOADER_USB_ENDPOINT_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB3_BULK_OUT_EP_ADDR, /**< EndpointAddress */
+			XLOADER_USB3_BULK_OUT_EP_ATTRB, /**< Attribute  */
+			XLOADER_USB3_BULK_OUT_EP_PKT_SIZE_LSB, /**< MaxPacketSize - LSB */
+			XLOADER_USB3_BULK_OUT_EP_PKT_SIZE_MSB, /**< MaxPacketSize - MSB */
+			XLOADER_USB3_BULK_OUT_EP_INTERVAL, /**< Interval */
+		},
+		/* SS Endpoint companion */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdEpSsCompDesc), /**< Length */
+			XLOADER_USB3_SS_EP_DESC_TYPE, /**< DescriptorType */
+			XLOADER_USB3_SS_EP_MAX_BURST, /**< MaxBurst */
+			XLOADER_USB3_SS_EP_ATTRB, /**< Attributes */
+			XLOADER_USB3_SS_EP_BYTES_PER_INTERVAL, /**< BytesPerInterval */
+		},
+		/* DFU Interface descriptor */
+		{
+			(u8)sizeof(XLoaderPs_UsbStdIfDesc), /**< Length */
+			XLOADER_USB_INTERFACE_CFG_DESC, /**< DescriptorType */
+			XLOADER_USB3_DFU_INTF_NUM, /**< InterfaceNumber */
+			XLOADER_USB3_DFU_INTF_ALT_SETTING, /**< AlternateSetting */
+			XLOADER_USB3_DFU_INTF_NUM_ENDPOINTS, /**< NumEndPoints */
+			XLOADER_USB3_DFU_INTF_CLASS, /**< InterfaceClass DFU application specific class code */
+			XLOADER_USB3_DFU_INTF_SUBCLASS, /**< InterfaceSubClass DFU device firmware upgrade code */
+			XLOADER_USB3_DFU_INTF_PROT, /**< InterfaceProtocol DFU mode protocol */
+			XLOADER_USB3_DFU_INTERFACE, /**< Interface DFU string descriptor */
+		},
+		/* DFU functional descriptor */
+		{
+			(u8)sizeof(XLoaderPs_UsbDfuFuncDesc), /**< Length*/
+			XLOADER_DFUFUNC_DESCR, /**< DescriptorType DFU functional descriptor type */
+			XLOADER_USB3_DFUFUNC_ATTRB, /**< Attributes Device is only download/upload capable */
+			XLOADER_USB3_DFUFUNC_DETACH_TIMEOUT_MS, /**< DetatchTimeOut 8192 ms */
+			XLOADER_DFU_MAX_TRANSFER, /**< TransferSize DFU block size 1024 */
+			XLOADER_USB3_DFU_VERSION, /**< DfuVersion 1.1 */
+		},
+	};
 
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (BufPtr == NULL) {
@@ -494,21 +492,9 @@ END:
 static u8 XLoader_Ch9SetupBosDescReply(const struct Usb_DevData* InstancePtr, u8 *BufPtr,
 	u32 BufferLen)
 {
+	int Status = XST_FAILURE;
 	u8 UsbBosDescLen = 0U;
-	(void)(InstancePtr);
-
-	/* Check buffer pointer is OK and buffer is big enough. */
-	if (BufPtr == NULL) {
-		goto END;
-	}
-
-	UsbBosDescLen = sizeof(XLoaderPs_UsbBosDesc);
-	if (BufferLen < UsbBosDescLen) {
-		UsbBosDescLen = 0U;
-		goto END;
-	}
-
-	XLoaderPs_UsbBosDesc __attribute__ ((aligned(16U))) BosDesc = {
+	const XLoaderPs_UsbBosDesc __attribute__ ((aligned(16U))) BosDesc = {
 		/* BOS descriptor */
 		{	(u8)sizeof(XLoaderPs_UsbStdBosDesc), /**< Length */
 			XLOADER_TYPE_BOS_DESC, /**< DescriptorType */
