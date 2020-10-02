@@ -443,8 +443,6 @@ void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
 u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	u32 ChunkLen);
 int XLoader_AddAuthJtagToScheduler(void);
-int XLoader_CheckAuthJtagIntStatus(void *Arg);
-int XLoader_AuthJtag(void);
 void XLoader_SecureClear(void);
 
 #ifdef __cplusplus
