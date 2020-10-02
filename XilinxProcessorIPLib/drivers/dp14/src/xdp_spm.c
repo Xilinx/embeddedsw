@@ -35,6 +35,7 @@
  *                     function.
  * 6.0   aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
  * 6.0   tu   09/06/17 Added Set UserPixelWidth support on tx side
+ * 7.4   rg   09/26/20 Added support for YUV420 color format.
  * </pre>
  *
 *******************************************************************************/
@@ -123,10 +124,6 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 				XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA) ||
 		       (MsaConfig->DynamicRange ==
 				XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_CEA));
-	Xil_AssertVoid((MsaConfig->YCbCrColorimetry ==
-			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601) ||
-		       (MsaConfig->YCbCrColorimetry ==
-			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709));
 	Xil_AssertVoid((MsaConfig->BitsPerColor == 6) ||
 		       (MsaConfig->BitsPerColor == 8) ||
 		       (MsaConfig->BitsPerColor == 10) ||
@@ -208,6 +205,11 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 		/* YCbCr 4:2:2 color component format. */
 		BitsPerPixel = MsaConfig->BitsPerColor * 2;
+	}
+	else if (MsaConfig->ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+		/* YCbCr 4:2:0 color component format. */
+		BitsPerPixel = (MsaConfig->BitsPerColor * 15) / 10;
 	}
 	else {
 		/* RGB or YCbCr 4:4:4 color component format. */
@@ -587,6 +589,10 @@ u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
 	MsaConfig->Misc0	    = 0;
 	MsaConfig->Misc1	    = 0;
 
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
+		Format = InstancePtr->TxInstance.VscPacket.ComponentFormat;
+	}
+
 	switch (Format) {
 	case XVIDC_CSF_RGB:
 		MsaConfig->ComponentFormat =
@@ -600,6 +606,10 @@ u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
 		MsaConfig->ComponentFormat =
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
 		break;
+	case XVIDC_CSF_YCRCB_420:
+		MsaConfig->ComponentFormat =
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
+		break;
 	case XVIDC_CSF_YONLY:
 		MsaConfig->Misc1 = XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK;
 		break;
@@ -607,16 +617,26 @@ u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
 		Status = XST_FAILURE;
 	}
 
-	if (ColorCoeffs == XVIDC_BT_601) {
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
 		MsaConfig->YCbCrColorimetry =
-			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
-	}
-	else if (ColorCoeffs == XVIDC_BT_709) {
-		MsaConfig->YCbCrColorimetry =
-			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709;
+				InstancePtr->TxInstance.VscPacket.YCbCrColorimetry;
 	}
 	else {
-		Status = XST_FAILURE;
+		if (ColorCoeffs == XVIDC_BT_601) {
+			MsaConfig->YCbCrColorimetry =
+				XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
+		}
+		else if (ColorCoeffs == XVIDC_BT_709) {
+			MsaConfig->YCbCrColorimetry =
+				XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709;
+		}
+		else {
+			Status = XST_FAILURE;
+		}
+	}
+
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
+		Range = InstancePtr->TxInstance.VscPacket.DynamicRange;
 	}
 
 	if (Range == XDP_DR_VESA) {
@@ -662,8 +682,13 @@ void XDp_TxCfgMsaSetBpc(XDp *InstancePtr, u8 Stream, u8 BitsPerColor)
 				(BitsPerColor == 10) || (BitsPerColor == 12) ||
 				(BitsPerColor == 16));
 
-	InstancePtr->TxInstance.MsaConfig[Stream - 1].BitsPerColor =
-								BitsPerColor;
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
+		InstancePtr->TxInstance.MsaConfig[Stream - 1].BitsPerColor =
+				InstancePtr->TxInstance.VscPacket.BitsPerColor;
+	} else {
+		InstancePtr->TxInstance.MsaConfig[Stream - 1].BitsPerColor =
+				BitsPerColor;
+	}
 
 	/* Calculate the rest of the MSA values. */
 	XDp_TxCfgMsaRecalculate(InstancePtr, Stream);
@@ -980,7 +1005,9 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 
 /******************************************************************************/
 /**
- * This function extracts the bits per color from MISC0 of the stream.
+ * This function extracts the bits per color from MISC0 or VSC SDP packet based
+ * on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  * @param	Stream is the stream number to make the calculations for.
@@ -993,6 +1020,8 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 {
 	u32 RegVal;
+	u32 ReadVal;
+	u8 ColorimetryThroughVsc;
 	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
 					XDP_RX_STREAM3_MSA_START_OFFSET,
 					XDP_RX_STREAM4_MSA_START_OFFSET};
@@ -1006,6 +1035,11 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 						(Stream == XDP_TX_STREAM_ID3) ||
 						(Stream == XDP_TX_STREAM_ID4));
 
+	/* Extract color depth from VSC packet */
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	ColorimetryThroughVsc = (ReadVal & XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK) >>
+							XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT;
+
 	/* Extract color depth from MISC0. */
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
 			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
@@ -1013,6 +1047,15 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 	/* Determine number of bits per color component. */
 	RegVal  &= XDP_MAIN_STREAMX_MISC0_BDC_MASK;
 	RegVal >>= XDP_MAIN_STREAMX_MISC0_BDC_SHIFT;
+
+	if (ColorimetryThroughVsc) {
+		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_SDP_PAYLOAD_STREAM1);
+		/* Decoding Data byte 17 */
+		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB17) >> 8) &
+					XDP_TX_MAIN_VSC_SDP_BDC_MASK;
+	}
+
 	switch (RegVal) {
 		case XDP_MAIN_STREAMX_MISC0_BDC_6BPC:
 			return XVIDC_BPC_6;
@@ -1031,7 +1074,9 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
- * This function extracts the color component format from MISC0 of the stream.
+ * This function extracts the color component format from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  * @param	Stream is the stream number to make the calculations for.
@@ -1044,6 +1089,7 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 {
 	u32 RegVal;
+	u8 ColorimetryThroughVsc;
 	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
 					XDP_RX_STREAM3_MSA_START_OFFSET,
 					XDP_RX_STREAM4_MSA_START_OFFSET};
@@ -1056,6 +1102,27 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
 						(Stream == XDP_TX_STREAM_ID4));
+
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	ColorimetryThroughVsc = (RegVal & XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK) >>
+							XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT;
+	if (ColorimetryThroughVsc)
+	{
+		/* Extract color component from VSC  packet */
+		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_SDP_PAYLOAD_STREAM1);
+		/* Decoding Data byte 16 */
+		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB16) >>
+				XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT);
+		if ((RegVal != XVIDC_CSF_RGB) && (RegVal != XVIDC_CSF_YCRCB_422) &&
+				(RegVal != XVIDC_CSF_YCRCB_444) &&
+				(RegVal != XVIDC_CSF_YCRCB_420))  {
+			return XVIDC_CSF_UNKNOWN;
+		}
+		else {
+			return RegVal;
+		}
+	}
 
 	/* Extract color component from MISC0. */
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
@@ -1129,6 +1196,11 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	if (ColorComponent == XVIDC_CSF_YCRCB_422) {
 		/* YCbCr422 color component format. */
 		BitsPerPixel = BitsPerColor * 2;
+	}
+	else if (ColorComponent ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+		/* YCbCr 4:2:0 color component format. */
+		BitsPerPixel = (BitsPerColor * 15) / 10;
 	}
 	else {
 		/* RGB or YCbCr 4:4:4 color component format. */
