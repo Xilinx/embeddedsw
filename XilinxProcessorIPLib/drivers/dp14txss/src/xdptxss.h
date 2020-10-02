@@ -176,10 +176,17 @@ typedef enum {
 	XDPTXSS_DRV_HANDLER_DP_HPD_PULSE,	/**< Driver's HPD pulse
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPTXSS_HANDLER_DP_EXT_PKT_EVENT	/**< Driver's extended
+	XDPTXSS_HANDLER_DP_EXT_PKT_EVENT,	/**< Driver's extended
 						  *  packet transmit done
 						  *  interrupt type for
 						  *  DisplayPort core */
+	XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT,	/**< Driver's extended
+						  *	 packet transmit done
+						  *	 interrupt type for
+						  *	 DisplayPort core */
+	XDPTXSS_HANDLER_DP_VSYNC	/**< A Vsync interrupt
+						  *  type for DisplayPort
+						  *  core */
 } XDpTxSs_HandlerType;
 
 /**
