@@ -37,6 +37,9 @@
 * 6.5  rg  09/01/20 Added switch case XDPTXSS_HANDLER_DP_EXT_PKT_EVENT
 *                   to register callback with extended packet transmit
 *                   done handler.
+* 6.4  rg  09/26/20 Added driver handler function XDpTxSs_WriteVscExtPktProcess
+*		    for programming the extended packet up on receiving extended
+*		    packet transmission done interrupt.
 * </pre>
 *
 ******************************************************************************/
@@ -336,6 +339,36 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 	if(Status != XST_SUCCESS){
 		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
 	}
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function writes the pixel encoding format and colorimetry formats in to
+* the extended packet registers at DP TX offset addresses "0x0330 to 0x0350".
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance that
+*		just interrupted.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpTxSs_WriteVscExtPktProcess(void *InstancePtr)
+{
+	int i;
+	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
+	XDp *XDpPtr = XDpTxSsPtr->DpPtr;
+
+	if (XDpPtr->TxInstance.ColorimetryThroughVsc) {
+		XDp_WriteReg(XDpPtr->Config.BaseAddr, XDP_TX_AUDIO_EXT_DATA(1),
+			XDpPtr->TxInstance.VscPacket.Header);
+		for (i = 0; i < XDPTXSS_EXT_DATA_2ND_TO_9TH_WORD; i++) {
+			XDp_WriteReg(XDpPtr->Config.BaseAddr, XDP_TX_AUDIO_EXT_DATA(i+2),
+					XDpPtr->TxInstance.VscPacket.Payload[i]);
+		}
 	}
 }
 
