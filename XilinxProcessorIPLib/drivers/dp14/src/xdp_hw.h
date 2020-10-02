@@ -872,10 +872,20 @@
 #define XDP_TX_GT_DRP_COMMAND_DRP_W_DATA_SHIFT \
 				16		/**< Shift bits for DRP write
 							data. */
+/* 0x330: XDP_TX_AUDIO_EXT_DATA */
+#define XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420 \
+				0x3		/**< Stream's component format
+							is YcbCr 4:2:0. */
+#define XDP_TX_MAIN_VSC_SDP_BDC_MASK \
+				0x07	/**< Bits Per Component
+							mask */
+#define XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT \
+				0x4		/**< component format shift */
 /* 0x400: XDP_TX_HDCP_ENABLE */
 #define XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK \
 				0x0001		/**< Disables bypass of the
 							HDCP core. */
+
 /* 0x404: XDP_TX_HDCP22_ENABLE */
 #define XDP_TX_HDCP22_ENABLE_BYPASS_DISABLE_MASK \
 	1		/**< Disables bypass of the
@@ -1294,6 +1304,8 @@
 							offset from the
 							corresponding registers
 							of stream 1. */
+#define XDP_RX_SDP_PAYLOAD_STREAM1	0x0644	/**< VSC SDP payload data from
+							DB16 to DB18 */
 /* @} */
 
 /** @name DPRX core registers: DPCD registers for HDCP.
@@ -2273,6 +2285,9 @@
 							sync mode. */
 /* 0x300: AUDIO CONTROL */
 #define XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
+
+/* 0x52C: MSA_MISC1 */
+#define XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT		0x6
 
 /* Definitions for DP 1.4. */
 /* 0x43C: Link training status reg*/

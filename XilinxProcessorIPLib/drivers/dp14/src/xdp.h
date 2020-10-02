@@ -362,6 +362,7 @@
  * 7.4   rg   09/01/20 Added XDp_TxColorimetryVsc API for reading sink device
  *                     capability for receiving colorimetry information through
  *                     VSC SDP packets.
+ * 7.4   rg   09/26/20 Added support yuv420 color format.
  *
  * </pre>
  *
@@ -612,6 +613,22 @@ typedef struct {
 						UserPixelWidth will be used as
 						the pixel width. */
 } XDp_TxMainStreamAttributes;
+
+/**
+ * This typedef contains the VSC extended packet information.
+ */
+typedef struct {
+	u32 BitsPerColor;	/**< Number of bits per color
+						color component. */
+	u8 ComponentFormat;	/**< The component format currently in
+							use by the video stream. */
+	u8 DynamicRange;	/**< The dynamic range currently in use
+							by the video stream. */
+	u8 YCbCrColorimetry;	/**< The YCbCr colorimetry currently in
+								use by the video stream. */
+	u32 Header;		/**< VSC packet header */
+	u32 Payload[8];	/*< VSC packet payload bytes from DB0 - DB28 */
+} XDp_TxVscExtPacket;
 
 /**
  * This typedef describes a stream when the driver is running in multi-stream
@@ -890,6 +907,9 @@ typedef struct {
 							during training. */
 	u8 IsTps4Supported;		/**< Is TPS4 supported by the
 							downstream sink */
+	u8 ColorimetryThroughVsc;		/**< Enable / Disable of sending
+                                                        colorimetry information
+                                                        through VSC packet */
 	XDp_TxSinkConfig RxConfig;		/**< Configuration structure for
 							the RX device. */
 	XDp_TxLinkConfig LinkConfig;		/**< Configuration structure for
@@ -904,6 +924,9 @@ typedef struct {
 							of attributes. When MST
 							mode is disabled, only
 							MsaConfig[0] is used. */
+	XDp_TxVscExtPacket VscPacket;            /**< Configuration structure
+                                                        for VSC extended packet
+                                                        data */
 	XDp_TxMstStream MstStreamConfig[4];	/**< Configuration structure
 							for a multi-stream
 							transport (MST)
