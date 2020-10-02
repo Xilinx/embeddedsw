@@ -49,6 +49,7 @@
 *                   XDpTxSs_CheckVscColorimetrySupport,
 *                   XDpTxSs_SetVscExtendedPacket,
 *                   XDpTxss_EnableVscColorimetry
+* 6.4  rg  09/26/20 Added support for YUV420 color format
 *
 * </pre>
 *
@@ -404,6 +405,8 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			    XDpTxSs_HpdEventProcess, InstancePtr);
 	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_HPD_PULSE,
 			    XDpTxSs_HpdPulseProcess, InstancePtr);
+	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT,
+			XDpTxSs_WriteVscExtPktProcess, InstancePtr);
 
 	return XST_SUCCESS;
 }
@@ -780,8 +783,12 @@ u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc)
 			(Bpc == XVIDC_BPC_16));
 
 	/* Set bits per color */
-	InstancePtr->UsrOpt.Bpc = Bpc;
-
+	if (InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc) {
+		InstancePtr->UsrOpt.Bpc =
+				InstancePtr->DpPtr->TxInstance.VscPacket.BitsPerColor;
+	} else {
+		InstancePtr->UsrOpt.Bpc = Bpc;
+	}
 	return XST_SUCCESS;
 }
 
