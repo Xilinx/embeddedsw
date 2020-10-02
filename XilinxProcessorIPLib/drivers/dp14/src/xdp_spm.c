@@ -1005,6 +1005,127 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 
 /******************************************************************************/
 /**
+ * This function extracts the colorimetry from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The dynamic range value for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+XDp_DynamicRange XDp_RxGetDynamicRange(XDp *InstancePtr, u8 Stream)
+{
+	u8 ColorimetryThroughVsc;
+	u32 RegVal;
+	u32 ReadVal;
+	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
+					XDP_RX_STREAM3_MSA_START_OFFSET,
+					XDP_RX_STREAM4_MSA_START_OFFSET};
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	/* Extract color depth from VSC packet */
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	ColorimetryThroughVsc = (ReadVal & XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK) >>
+					XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT;
+
+	/* Extract YCbCrColorimetry from MISC0. */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
+			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+
+	/* Determine number of bits per color component. */
+	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK;
+	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT;
+
+	if (ColorimetryThroughVsc) {
+		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_SDP_PAYLOAD_STREAM1);
+		RegVal = (((RegVal & XDP_RX_AUDIO_EXT_DATA_DB17) >> 8) >>
+				XDP_TX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT);
+	}
+
+	if (RegVal == XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA)
+		return XDP_DR_VESA;
+	else
+		return XDP_DR_CEA;
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the colorimetry from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The colorimetry format for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+XVidC_ColorStd XDp_RxGetColorimetry(XDp *InstancePtr, u8 Stream)
+{
+	u8 ColorimetryThroughVsc;
+	u32 RegVal;
+	u32 ReadVal;
+	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
+					XDP_RX_STREAM3_MSA_START_OFFSET,
+					XDP_RX_STREAM4_MSA_START_OFFSET};
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	/* Extract color depth from VSC packet */
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	ColorimetryThroughVsc = (ReadVal & XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK) >>
+					XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT;
+
+
+	/* Extract YCbCrColorimetry from MISC0. */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
+			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+
+	/* Determine number of  component. */
+	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_MASK;
+	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT;
+
+	if (ColorimetryThroughVsc) {
+		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_SDP_PAYLOAD_STREAM1);
+		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB16) &
+				XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK);
+	}
+
+	switch (RegVal) {
+		case XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601:
+			return XVIDC_BT_601;
+		case XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709:
+			return XVIDC_BT_709;
+		default:
+			return XVIDC_BT_UNKNOWN;
+	}
+}
+
+/******************************************************************************/
+/**
  * This function extracts the bits per color from MISC0 or VSC SDP packet based
  * on whether reception of colorimetry information through VSC SDP packets or
  * through MISC registers of the stream.
