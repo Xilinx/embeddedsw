@@ -56,6 +56,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xaie_core_aieml.h"
 #include "xaie_dma_aieml.h"
 #include "xaie_events.h"
 #include "xaie_events_aieml.h"
@@ -109,6 +110,18 @@ static const XAie_RegCoreDebug Aie2CoreDebugReg =
 	.DebugResumeCoreEvent.Mask = XAIEMLGBL_CORE_MODULE_DEBUG_CONTROL1_DEBUG_RESUME_CORE_EVENT_MASK,
 	.DebugHalt.Lsb = XAIEMLGBL_CORE_MODULE_DEBUG_CONTROL0_DEBUG_HALT_BIT_LSB,
 	.DebugHalt.Mask = XAIEMLGBL_CORE_MODULE_DEBUG_CONTROL0_DEBUG_HALT_BIT_MASK
+};
+
+/*
+ * Global instance for core event registers in the core module.
+ */
+static const XAie_RegCoreEvents Aie2CoreEventReg =
+{
+	.EnableEventOff = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS,
+	.DisableEventOccurred.Lsb = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS_DISABLE_EVENT_OCCURRED_LSB,
+	.DisableEventOccurred.Mask = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS_DISABLE_EVENT_OCCURRED_MASK,
+	.DisableEvent.Lsb = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS_DISABLE_EVENT_LSB,
+	.DisableEvent.Mask = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS_DISABLE_EVENT_MASK,
 };
 
 static const  XAie_DmaBdEnProp Aie2MemTileDmaBdEnProp =
@@ -1969,7 +1982,9 @@ static const  XAie_CoreMod Aie2CoreMod =
 	.EccEvntRegOff = XAIEMLGBL_CORE_MODULE_ECC_SCRUBBING_EVENT,
 	.CoreCtrl = &Aie2CoreCtrlReg,
 	.CoreSts = &Aie2CoreStsReg,
-	.CoreDebug = &Aie2CoreDebugReg
+	.CoreDebug = &Aie2CoreDebugReg,
+	.CoreEvent = &Aie2CoreEventReg,
+	.ConfigureDone = &_XAieMl_CoreConfigureDone,
 };
 
 /* Data Memory Module for Tile data memory*/
