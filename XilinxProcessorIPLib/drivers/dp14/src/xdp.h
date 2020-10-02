@@ -359,6 +359,9 @@
  *                     	Added new HDCP22 functions:
  *                     		XDp_GenerateCpIrq,
  *                     		XDp_EnableDisableHdcp22AuxDeffers
+ * 7.4   rg   09/01/20 Added XDp_TxColorimetryVsc API for reading sink device
+ *                     capability for receiving colorimetry information through
+ *                     VSC SDP packets.
  *
  * </pre>
  *
@@ -1391,6 +1394,9 @@ u32 XDp_TxSetEnhancedFrameMode(XDp *InstancePtr, u8 Enable);
 u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
 u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 u32 XDp_TxSetScrambler(XDp *InstancePtr, u8 Enable);
+
+/* xdp.c: TX functions for VSC extended packet. */
+u32 XDp_TxCheckVscColorimetrySupport(XDp *InstancePtr);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* xdp.c: General usage functions. */
