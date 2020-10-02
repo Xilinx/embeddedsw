@@ -494,6 +494,9 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);
 void XDpTxSs_SetUserTimerHandler(XDpTxSs *InstancePtr,
 		XDpTxSs_TimerHandler CallbackFunc, void *CallbackRef);
+u32 XDpTxSs_CheckVscColorimetrySupport(XDpTxSs *InstancePtr);
+u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt);
+void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable);
 
 /* DpTxSs Interrupt Related Internal Functions */
 void XDpTxSs_HpdEventProcess(void *InstancePtr);
