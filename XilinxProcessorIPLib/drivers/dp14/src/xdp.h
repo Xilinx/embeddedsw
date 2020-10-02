@@ -463,6 +463,8 @@ typedef enum {
 	XDP_TX_HANDLER_LINKRATECHANGE,
 	XDP_TX_HANDLER_PEVSADJUST,
 	XDP_TX_HANDLER_EXTPKT_TXD,
+	XDP_TX_HANDLER_DRV_EXTPKT_TXD,
+	XDP_TX_HANDLER_VSYNC,
 	XDP_TX_NUM_HANDLERS
 } XDp_Tx_HandlerType;
 
@@ -982,6 +984,19 @@ typedef struct {
 	void *ExtPktCallbackHandlerRef;		/**< A pointer to the user data
 							passed to the extended packet
 							done callback function. */
+	XDp_IntrHandler DrvExtPktCallbackHandler;	/** Callback function to be
+							invoked once extended packet
+							is transmitted and controller
+							ready to accept new packet
+							has be handled within driver. */
+	void *DrvExtPktCallbackHandlerRef;		/** A pointer to the user data
+							passed to the extended packet
+							done callback function. */
+	XDp_IntrHandler VsyncCallbackHandler;	/**< Callback function to be
+							invoked once every vertical sync pulse. */
+	void *VsyncCallbackHandlerRef;		/**< A pointer to the user data
+							passed to the vertical sync
+							callback function. */
 } XDp_Tx;
 
 /**
