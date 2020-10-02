@@ -341,10 +341,9 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 				NoOfImgs * XIH_IH_LEN, 0x0U);
 	} else {
 		/* Performs memory copy */
-		(void *)MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->ImgHdr[0U]),
-			(void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
+		Status = MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->ImgHdr[0U]),
+			NoOfImgs * XIH_IH_LEN, (void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
 			NoOfImgs * XIH_IH_LEN);
-		Status = XST_SUCCESS;
 	}
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed \n\r");
@@ -398,10 +397,9 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 			       NoOfPrtns * XIH_PH_LEN, 0x0U);
 	} else {
 		/* Performs memory copy */
-		(void *)MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->PrtnHdr[0U]),
-			(void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
+		Status = MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->PrtnHdr[0U]),
+			NoOfPrtns * XIH_PH_LEN, (void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
 			NoOfPrtns * XIH_PH_LEN);
-		Status = XST_SUCCESS;
 	}
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed \n\r");

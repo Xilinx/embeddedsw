@@ -199,7 +199,12 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u64 AcOffset;
 	volatile u32 AuthCertificateOfstTmp;
 
-	(void)memset(SecurePtr, 0, sizeof(XLoader_SecureParams));
+	Status = XPlmi_MemSetBytes(SecurePtr, sizeof(XLoader_SecureParams), 0U,
+				sizeof(XLoader_SecureParams));
+	if (Status != XLOADER_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_SECURE_PTR);
+		goto END;
+	}
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -1239,7 +1244,10 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
-		(void *)XPlmi_MemCpy(ExpHash, Data, XLOADER_SHA3_LEN);
+		Status = XPlmi_MemCpy(ExpHash, XLOADER_SHA3_LEN, Data, XLOADER_SHA3_LEN);
+		if (Status != XLOADER_SUCCESS) {
+			goto END;
+		}
 		/* Here Authentication overhead is removed in the chunk */
 		SecurePtr->SecureData = (UINTPTR)Data + XLOADER_SHA3_LEN;
 		SecurePtr->SecureDataLen = Size - XLOADER_SHA3_LEN;
@@ -1912,7 +1920,10 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			   */
 			 Size = (OutLen % HashLen);
 		}
-		(void)XPlmi_MemCpy(Out, HashStore.Hash, Size);
+		Status = XPlmi_MemCpy(Out, Size, HashStore.Hash, Size);
+		if (Status != XLOADER_SUCCESS) {
+			goto END;
+		}
 		Out = &Out[XLOADER_SHA3_LEN];
 		Counter = Counter + 1U;
 	}
@@ -1961,8 +1972,18 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	(void)memset(XSecure_RsaSha3Array, 0, XLOADER_PARTITION_SIG_SIZE);
-	(void)memset(&Xsecure_Varsocm, 0, sizeof(Xsecure_Varsocm));
+	Status = XPlmi_MemSetBytes(XSecure_RsaSha3Array, XLOADER_PARTITION_SIG_SIZE,
+				0U, XLOADER_PARTITION_SIG_SIZE);
+	if (Status != XLOADER_SUCCESS) {
+		XLoader_UpdateMinorErr(XLOADER_ERR_MEMSET, (int)XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL);
+		goto END;
+	}
+	Status = XPlmi_MemSetBytes(&Xsecure_Varsocm, sizeof(Xsecure_Varsocm),
+				0U, sizeof(Xsecure_Varsocm));
+	if (Status != XLOADER_SUCCESS) {
+		XLoader_UpdateMinorErr(XLOADER_ERR_MEMSET, (int)XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL);
+		goto END;
+	}
 
 	/* RSA signature encryption with public key components */
 	Status = (u32)XSecure_RsaPublicEncrypt(&RsaInstance, Signature,
@@ -1983,8 +2004,12 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	(void)memcpy(Xsecure_Varsocm.EmHash, &XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
+	Status = XPlmi_MemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
+				&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
 				XLOADER_SHA3_LEN);
+	if (Status != XLOADER_SUCCESS) {
+		goto END;
+	}
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
@@ -2008,8 +2033,12 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	(void)memcpy(Xsecure_Varsocm.Salt, &Buffer[XLOADER_RSA_PSS_DB_LEN],
+	Status = XPlmi_MemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
+				&Buffer[XLOADER_RSA_PSS_DB_LEN],
 				XLOADER_RSA_PSS_SALT_LEN);
+	if (Status != XLOADER_SUCCESS) {
+		goto END;
+	}
 
 	/* Hash on M prime */
 	Status = XSecure_Sha3Start(&Sha3Instance);
@@ -2901,7 +2930,7 @@ static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	volatile u32 StatusTmp = XLOADER_FAILURE;
 	u32 Iv[XLOADER_SECURE_IV_LEN];
 	u8 Index;
-	XSecure_AesKeySrc KeySrc = 0U;
+	XSecure_AesKeySrc KeySrc = XSECURE_AES_BBRAM_KEY;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 	u64 SrcAddr = BufferAddr;
 	u32 DpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);

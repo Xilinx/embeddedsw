@@ -295,8 +295,11 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, u32 *Args, u32 NumArgs)
 				Rail->I2cModes[i].CmdLen = (u8)(Args[k++] >> 8) &
 							   0xFFU;
 				for (j = 0; j < Rail->I2cModes[i].CmdLen; j++) {
-					(void)XPlmi_MemCpy(&Rail->I2cModes[i].CmdArr[j * 4U],
-							   &Args[k++], 4);
+					Status = XPlmi_MemCpy(&Rail->I2cModes[i].CmdArr[j * 4U], 4U,
+							   &Args[k++], 4U);
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
 				}
 			}
 

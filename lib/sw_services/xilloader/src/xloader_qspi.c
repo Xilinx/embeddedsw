@@ -217,7 +217,12 @@ int XLoader_QspiInit(u32 DeviceFlags)
 		XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE_ID);
 
 	QspiBootMode = (PdiSrc_t)DeviceFlags;
-	(void)memset(&QspiPsuInstance, 0, sizeof(QspiPsuInstance));
+	Status = XPlmi_MemSetBytes(&QspiPsuInstance, sizeof(QspiPsuInstance),
+				0U, sizeof(QspiPsuInstance));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_QSPI_PSU_INST);
+		goto END;
+	}
 
 	/*
 	 * Initialize the QSPI driver so that it's ready to use

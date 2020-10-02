@@ -221,7 +221,10 @@ XStatus XPmClock_AddClkName(u32 Id, char *Name)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	(void)XPlmi_MemCpy(Clk->Name, Name, MAX_NAME_BYTES);
+	Status = XPlmi_MemCpy(Clk->Name, MAX_NAME_BYTES, Name, MAX_NAME_BYTES);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Status = XST_SUCCESS;
 

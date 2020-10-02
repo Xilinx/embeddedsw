@@ -12,6 +12,8 @@
 static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 		XPm_Subsystem *Subsystem, XPm_Device *Device,  u32 Flags, u32 *Params, u32 NumParams)
 {
+	XStatus Status = XST_FAILURE;
+
 	/* Prepend to subsystem's device reqm list */
 	Reqm->NextDevice = Subsystem->Requirements;
 	Subsystem->Requirements = Reqm;
@@ -28,7 +30,10 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Flags = (u16)(Flags & REG_FLAGS_MASK);
 
 	if ((NULL != Params) && (0U != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
-		(void)XPlmi_MemCpy(Reqm->Params, Params, NumParams * sizeof(*Params));
+		Status = XPlmi_MemCpy(Reqm->Params, NumParams * sizeof(*Params), Params, NumParams * sizeof(*Params));
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		Reqm->NumParams = (u8)NumParams;
 	} else {
 		(void)memset(Reqm->Params, 0, sizeof(Reqm->Params));
@@ -42,7 +47,10 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Next.Latency = XPM_MAX_LATENCY;
 	Reqm->Next.QoS = XPM_MAX_QOS;
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 *Params, u32 NumParams)

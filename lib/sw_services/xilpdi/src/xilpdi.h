@@ -320,7 +320,7 @@ typedef struct {
 				0 for flash and 1 for buffer */
 	/**< PUF related fields */
 	u64 BufferAddr;
-	void* (*XMemCpy)(void * DestPtr, const void * SrcPtr, u32 Len);
+	int (*XMemCpy)(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
 
 /*
