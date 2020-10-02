@@ -98,8 +98,10 @@
 *                   and XDpTxSs_UsrHpdEventData
 * 5.0  jb  02/21/19 Added HDCP22 support.
 * 					Made the Timer counter available for both HDCP1x and 22.
-* 6.5  rg  09/01/20 Added handler type as enum for extended packet transmit
+* 6.4  rg  09/01/20 Added handler type as enum for extended packet transmit
 *                   done interrupt.
+* 6.4  rg  09/26/20 Added support for YUV420 color format.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -501,6 +503,7 @@ void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable);
 /* DpTxSs Interrupt Related Internal Functions */
 void XDpTxSs_HpdEventProcess(void *InstancePtr);
 void XDpTxSs_HpdPulseProcess(void *InstancePtr);
+void XDpTxSs_WriteVscExtPktProcess(void * InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions *******************/
 

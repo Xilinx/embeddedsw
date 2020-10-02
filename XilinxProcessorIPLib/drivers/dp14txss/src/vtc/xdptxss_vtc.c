@@ -25,6 +25,8 @@
 * 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
 * 6.4  rg  08/28/20 Added XDpTxSs_VtcAdaptiveSyncSetup and
 *                   XDpTxSs_VtcDisableAdaptiveSync API's.
+* 6.4  rg  09/26/20 Added support for YUV420 color format
+*
 * </pre>
 *
 ******************************************************************************/
@@ -108,15 +110,32 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 	/* Set source */
 	XVtc_SetSource(InstancePtr, &SourceSelect);
 
+	/* For YCbCr 4:2:0 color component format, consider
+	 * half of the actual Horizontal timing */
+	if (MsaConfig->ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420)
+	{
+		VideoTiming.HActiveVideo =
+			MsaConfig->Vtm.Timing.HActive / (UserPixelWidth * 2);
+		VideoTiming.HFrontPorch =
+			MsaConfig->Vtm.Timing.HFrontPorch / (UserPixelWidth * 2);
+		VideoTiming.HSyncWidth =
+			MsaConfig->Vtm.Timing.HSyncWidth / (UserPixelWidth * 2);
+		VideoTiming.HBackPorch =
+			MsaConfig->Vtm.Timing.HBackPorch / (UserPixelWidth * 2);
+	}
+	else {
 	/* Horizontal timing */
-	VideoTiming.HActiveVideo =
+		VideoTiming.HActiveVideo =
 			MsaConfig->Vtm.Timing.HActive / UserPixelWidth;
-	VideoTiming.HFrontPorch =
+		VideoTiming.HFrontPorch =
 			MsaConfig->Vtm.Timing.HFrontPorch / UserPixelWidth;
-	VideoTiming.HSyncWidth =
+		VideoTiming.HSyncWidth =
 			MsaConfig->Vtm.Timing.HSyncWidth / UserPixelWidth;
-	VideoTiming.HBackPorch =
+		VideoTiming.HBackPorch =
 			MsaConfig->Vtm.Timing.HBackPorch / UserPixelWidth;
+	}
+
 	if (VtcAdjustBs) {
 		u16 HBlank;
 		u16 HReducedBlank;
