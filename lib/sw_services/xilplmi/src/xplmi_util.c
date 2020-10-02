@@ -467,29 +467,47 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function copies Len bytes from source memory to destination
- * memory.
+ *			memory. If Len is greater than DestPtrLen, then DestPtr is also
+ *			filled with 0s till DestPtrLen bytes and is considered as a failure
  *
  * @param	DestPtr is pointer to destination address
+ * @param	DestPtrLen is the memory alloted to the destination buffer
  * @param	SrcPtr is pointer to source address
  * @param	Len is number of bytes to be copied
  *
- * @return	DestPtr post copy
+ * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
+int XPlmi_MemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len)
 {
-	u8 *Dst = DestPtr;
-	const u8 *Src = SrcPtr;
+	int Status = XST_FAILURE;
+	u8 *Dest = (u8 *)DestPtr;
+	const u8 *Src = (const u8 *)SrcPtr;
+
+	if ((DestPtr == NULL) || (SrcPtr == NULL)) {
+		goto END;
+	}
+
+	if (Len > DestPtrLen) {
+		while (DestPtrLen != 0U) {
+			*Dest = 0U;
+			Dest++;
+			DestPtrLen--;
+		}
+		goto END;
+	}
 
 	/* Loop and copy.  */
 	while (Len != 0U) {
-		*Dst = *Src;
-		Dst++;
+		*Dest = *Src;
+		Dest++;
 		Src++;
 		Len--;
 	}
+	Status = XST_SUCCESS;
 
-	return DestPtr;
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -539,4 +557,34 @@ int XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 
 END:
 	return RetVal;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function calculates the length the input string
+*
+* @param	String is the input string
+* @param	MaxStrLen is the maximum size possible for the string
+*
+* @return	The length of the input String on success, zero if String is
+* 			a null pointer, MaxStrLen if the null character is not found
+* 			within MaxStrLen bytes of String
+*
+*****************************************************************************/
+u32 XPlmi_StrLen(const char *String, const u32 MaxStrLen)
+{
+	u32 Index = 0U;
+
+	if (String == NULL) {
+		goto END;
+	}
+
+	for (; Index < MaxStrLen; Index++) {
+		if (String[Index] == '\0') {
+			break;
+		}
+	}
+
+END:
+	return Index;
 }

@@ -195,9 +195,13 @@ int XLoader_SdInit(u32 DeviceFlags)
 	u32 UPdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
 	PdiSrc_t PdiSrc = (PdiSrc_t)UPdiSrc;
 	u8 DrvNum = XLoader_GetDrvNumSD(UPdiSrc);
-	XLoader_IsSDRaw = (u8)FALSE;
+	FATFS FatFs;
 
-	(void)memset(BootFile, 0, sizeof(BootFile));
+	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_SD_BOOT_FILE);
+		goto END;
+	}
 
 	if ((PdiSrc == XLOADER_PDI_SRC_SD0) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
@@ -247,7 +251,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	BootFile[0U] = (char)DrvNum + 48;
 	BootFile[1U] = ':';
 	BootFile[2U] = '/';
-	Rc = f_mount(&fatfs, BootFile, 0U);
+	Rc = f_mount(&FatFs, BootFile, 0U);
 
 	XLoader_Printf(DEBUG_INFO,"SD: rc= %.8x\n\r", Rc);
 
@@ -411,10 +415,14 @@ int XLoader_RawInit(u32 DeviceFlags)
 	u32 UPdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
 	PdiSrc_t PdiSrc = (PdiSrc_t)UPdiSrc;
 	u8 DrvNum = XLoader_GetDrvNumSD(UPdiSrc);
-	XLoader_IsSDRaw = (u8)TRUE;
 	XSdPs_Config *SdConfig;
 
-	(void)memset(&SdInstance, 0, sizeof(SdInstance));
+	Status = XPlmi_MemSetBytes(&SdInstance, sizeof(SdInstance),
+				0U, sizeof(SdInstance));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_SD_INSTANCE);
+		goto END;
+	}
 	if ((PdiSrc == XLOADER_PDI_SRC_SD0_RAW) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0_RAW)) {
 		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD0_CDN_CTRL);

@@ -776,3 +776,76 @@ void XPlmi_SetMaxOutCmds(u32 Val)
 {
 	DmaCtrl.MaxOutCmds = Val;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to Set the memory with a value. If Len is
+ * 			greater than DestLen, then DestPtr is filled with Val till DestLen
+ * 			bytes and is considered as a failure.
+ *
+ * @param	DestPtr is the pointer where the val need to be set
+ * @param	DestLen is the memory allotted to destination buffer in bytes
+ * @param	Val is the value that has to be set
+ * @param	Len is size of memory to be set in bytes
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_MemSetBytes(void * DestPtr, u32 DestLen, u8 Val, u32 Len)
+{
+	int Status = XST_FAILURE;
+	u64 DestAddr = (u64)(u32)DestPtr;
+	u32 StartBytes = 0U;
+	u32 EndBytes;
+	u32 Index;
+	u32 LenWords;
+	u32 SetLen = Len;
+	u32 WordVal = ((u32)Val) | ((u32)Val << 8U) |
+			((u32)Val << 16U) | ((u32)Val << 24U);
+
+	if (DestPtr == NULL) {
+		goto END;
+	}
+
+	if ((DestAddr % XPLMI_WORD_LEN) != 0U) {
+		StartBytes = XPLMI_WORD_LEN - ((u32)DestAddr % XPLMI_WORD_LEN);
+	}
+
+	if (Len > DestLen) {
+		SetLen = DestLen;
+	}
+
+	if (SetLen < StartBytes) {
+		StartBytes = SetLen;
+	}
+
+	SetLen -= StartBytes;
+	LenWords = SetLen / XPLMI_WORD_LEN;
+	EndBytes = SetLen % XPLMI_WORD_LEN;
+
+	for (Index = 0U; Index < StartBytes; Index++) {
+		XPlmi_OutByte64(DestAddr + Index, Val);
+	}
+
+	if (LenWords > 0U) {
+		Status = XPlmi_MemSet(DestAddr + StartBytes, WordVal, LenWords);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	DestAddr = DestAddr + StartBytes + (LenWords * XPLMI_WORD_LEN);
+	for (Index = 0U; Index < EndBytes; Index++) {
+		XPlmi_OutByte64(DestAddr + Index, Val);
+	}
+
+	if (Len > DestLen) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
