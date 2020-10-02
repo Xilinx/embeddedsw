@@ -605,4 +605,41 @@ AieRC XAie_CoreClearDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc)
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/*
+*
+* This API configures the enable events register with disable event. This
+* configuration will be used to check if the core has triggered the disable
+* event.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the aie tile.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_CoreConfigureDone(XAie_DevInst *DevInst, XAie_LocType Loc)
+{
+	u8 TileType;
+	const XAie_CoreMod *CoreMod;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+
+	return CoreMod->ConfigureDone(DevInst, Loc, CoreMod);
+}
+
 /** @} */
