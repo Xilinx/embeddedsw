@@ -323,6 +323,18 @@ int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
 		Status = XST_SUCCESS;
 		break;
 
+	case XDP_TX_HANDLER_DRV_EXTPKT_TXD:
+		InstancePtr->TxInstance.DrvExtPktCallbackHandler = CallbackFunc;
+		InstancePtr->TxInstance.DrvExtPktCallbackHandlerRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_VSYNC:
+		InstancePtr->TxInstance.VsyncCallbackHandler = CallbackFunc;
+		InstancePtr->TxInstance.VsyncCallbackHandlerRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
@@ -737,7 +749,17 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 		if (InstancePtr->TxInstance.ExtPktCallbackHandler)
 			InstancePtr->TxInstance.ExtPktCallbackHandler(
 				InstancePtr->TxInstance.ExtPktCallbackHandlerRef);
+		if (InstancePtr->TxInstance.DrvExtPktCallbackHandler)
+			InstancePtr->TxInstance.DrvExtPktCallbackHandler(
+				InstancePtr->TxInstance.DrvExtPktCallbackHandlerRef);
 	}
+
+	if(IntrStatus & XDP_TX_INTERRUPT_STATUS_VBLANK_STREAM1_MASK){
+		if (InstancePtr->TxInstance.VsyncCallbackHandler)
+			InstancePtr->TxInstance.VsyncCallbackHandler(
+				InstancePtr->TxInstance.VsyncCallbackHandlerRef);
+	}
+
 	if (HpdEventDetected) {
 		if (InstancePtr->TxInstance.DrvHpdEventHandler)
 			InstancePtr->TxInstance.DrvHpdEventHandler(
