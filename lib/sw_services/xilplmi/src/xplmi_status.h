@@ -378,6 +378,7 @@ typedef enum {
 	XLOADER_ERR_FUNCTION_ID_MISMATCH,	/**< 0x358 - Error when Function ID given while
 							loading Image from DDR is not matching
 							with the ID stored in Image Header */
+	XLOADER_ERR_MEMSET,	/**< 0x359 - Error during memset */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
@@ -474,6 +475,8 @@ typedef enum {
 		/**< 0x627 Hash calculation failed before signature verification */
 	XLOADER_ERR_AUTH_JTAG_DMA_XFR,
 		/**< 0x628 Failed to get Auth Jtag data with DMA Xfr */
+	XLOADER_ERR_MEMSET_SECURE_PTR,
+		/**< 0x629 Error during memset for SecurePtr */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

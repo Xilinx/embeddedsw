@@ -48,6 +48,7 @@ extern "C" {
 #define XLOADER_DFUFUNC_DESCR				(u8)(0x21U)    /* DFU Functional Desc */
 #define XLOADER_USB_MODES_NUM				(2U)
 #define XLOADER_STRING_DESCRIPTORS_NUM			(6U)
+#define XLOADER_MAX_STR_DESC_LEN			(25U)
 
 /* DFU macros */
 #define XLOADER_DFU_MAX_TRANSFER		(u16)(1024U)

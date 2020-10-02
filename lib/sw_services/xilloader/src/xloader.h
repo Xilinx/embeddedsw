@@ -217,6 +217,22 @@ enum {
 	XLOADER_ERR_IMAGE_INFO_TBL_FULL, /**< 0x4 - Image Info Table is Full */
 	XLOADER_ERR_PARENT_QUERY_RELATION_CHECK, /**< 0x5 - Error on Parent Query while checking
 							for Child Relation */
+	XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD, /**< 0x6 - Error during memset on
+							XilPdi_BootHdrFwRsvd */
+	XLOADER_ERR_MEMSET_PDIPTR, /**< 0x7 - Error during memset on
+							PdiPtr */
+	XLOADER_ERR_MEMSET_QSPI_PSU_INST, /**< 0x8 - Error during memset on
+							QspiPsuInstance */
+	XLOADER_ERR_MEMSET_SD_BOOT_FILE, /**< 0x9 - Error during memset on
+							SD BootFile */
+	XLOADER_ERR_MEMSET_SD_INSTANCE, /**< 0xA - Error during memset on
+							SdInstance */
+	XLOADER_ERR_MEMSET_USB_INSTANCE, /**< 0xB - Error during memset on
+							UsbInstance */
+	XLOADER_ERR_MEMSET_USB_PRIVATE_DATA, /**< 0xC - Error during memset on
+							UsbPrivateData */
+	XLOADER_ERR_MEMSET_DFU_OBJ, /**< 0xD - Error during memset on
+							DfuObj */
 };
 
 /* Multiboot register offset mask */
