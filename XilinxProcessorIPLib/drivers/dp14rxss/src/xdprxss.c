@@ -53,6 +53,12 @@
 * 					XDpRxSs_UnMaskAdaptiveIntr
 * 					XDpRxSs_GetVblank
 * 					XDpRxSs_GetVtotal
+* 6.1  rg  09/23/20 Added below list of APIs related to color encoding
+*                   parameters,
+*                   XDpRxss_GetBpc
+*                   XDpRxss_GetColorComponent
+*                   XDpRxss_GetColorimetry
+*                   XDpRxss_GetDynamicRange
 * </pre>
 *
 ******************************************************************************/
@@ -783,6 +789,126 @@ void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth)
 
 	/* Set user pixel width */
 	XDp_RxSetUserPixelWidth(InstancePtr->DpPtr, UserPixelWidth);
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the bits per color from MISC0 or VSC SDP packet based
+ * on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The bits per color for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetBpc(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 Bpc;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	Bpc = XDp_RxGetBpc(InstancePtr->DpPtr, Stream);
+
+	return Bpc;
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the color component format from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The color component for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetColorComponent(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 ColorComponent;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	ColorComponent = XDp_RxGetColorComponent(InstancePtr->DpPtr, Stream);
+
+	return ColorComponent;
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the YCbCrColorimetry from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets
+ * or through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The colorimetry format for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetColorimetry(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 YCbCrColorimetry;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	YCbCrColorimetry = XDp_RxGetColorimetry(InstancePtr->DpPtr, Stream);
+
+	return YCbCrColorimetry;
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the dynamic range from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The dynamic range value for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetDynamicRange(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 DynamicRange;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	DynamicRange = XDp_RxGetDynamicRange(InstancePtr->DpPtr, Stream);
+
+	return DynamicRange;
 }
 
 /*****************************************************************************/
