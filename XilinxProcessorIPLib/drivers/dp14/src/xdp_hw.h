@@ -881,6 +881,11 @@
 							mask */
 #define XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT \
 				0x4		/**< component format shift */
+#define XDP_TX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT \
+				0x7		/**< Dynamic Range Shift */
+#define XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK \
+				0x0F	/**< YCbCr Colorimetry
+							mask */
 /* 0x400: XDP_TX_HDCP_ENABLE */
 #define XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK \
 				0x0001		/**< Disables bypass of the
@@ -2285,6 +2290,12 @@
 							sync mode. */
 /* 0x300: AUDIO CONTROL */
 #define XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
+
+/* 0x330: RX_AUDIO_EXT_DATA */
+#define XDP_RX_AUDIO_EXT_DATA_DB16_TO_DB18	4
+#define XDP_RX_AUDIO_EXT_DATA_DB16		0xFF
+#define XDP_RX_AUDIO_EXT_DATA_DB17		0xFF00
+
 
 /* 0x52C: MSA_MISC1 */
 #define XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT		0x6
