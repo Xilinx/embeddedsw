@@ -354,6 +354,8 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 * (XDPTXSS_HANDLER_DP_LINK_RATE_CHG)       XDP_TX_HANDLER_LINKRATECHANGE
 * (XDPTXSS_HANDLER_DP_PE_VS_ADJUST)        XDP_TX_HANDLER_PEVSADJUST
 * (XDPTXSS_HANDLER_DP_EXT_PKT_EVENT)       XDP_TX_HANDLER_EXTPKT_TXD
+* (XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT)   XDP_TX_HANDLER_DRV_EXTPKT_TXD
+* (XDPTXSS_HANDLER_DP_VSYNC)               XDP_TX_HANDLER_VSYNC
 * (XDPTXSS_HANDLER_HDCP_RPTR_EXCHG)        XHdcp1x_SetCallBack
 * (XDPTXSS_HANDLER_DP_SET_MSA)             XDP_TX_HANDLER_SETMSA
 * </pre>
@@ -438,6 +440,20 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 		case XDPTXSS_HANDLER_DP_EXT_PKT_EVENT:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 				XDP_TX_HANDLER_EXTPKT_TXD,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT:
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+					XDP_TX_HANDLER_DRV_EXTPKT_TXD,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_HANDLER_DP_VSYNC:
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+					XDP_TX_HANDLER_VSYNC,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
