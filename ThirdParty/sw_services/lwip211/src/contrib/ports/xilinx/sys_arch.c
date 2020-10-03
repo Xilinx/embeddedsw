@@ -985,7 +985,7 @@ void sys_init(void)
 
 u32_t sys_now(void)
 {
-	return xTaskGetTickCount();
+	return ((xTaskGetTickCount() * 1000) / configTICK_RATE_HZ);
 }
 
 /*---------------------------------------------------------------------------*
