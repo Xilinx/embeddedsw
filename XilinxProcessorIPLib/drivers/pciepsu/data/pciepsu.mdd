@@ -14,7 +14,7 @@ BEGIN driver pciepsu
  OPTION supported_peripherals = (psu_pcie_low psu_pcie_high1 psu_pcie_high2 psu_pcie psu_pcie_attrib_0 psu_pcie_dma );
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
- OPTION VERSION = 1.1;
+ OPTION VERSION = 1.2;
  OPTION NAME = pciepsu;
 
 END driver
