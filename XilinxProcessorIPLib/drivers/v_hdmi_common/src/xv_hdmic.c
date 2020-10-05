@@ -284,7 +284,10 @@ XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq(u32 TMDSCharRate,
   XHdmiC_TMDS_N_Table const *item;
   u8 i = 0;
   u8 j = 0;
-  u32 fs;
+  u64 fs;
+  u32 FsTol = 1000; /* Max Fs tolerance limit */
+
+  Xil_AssertNonvoid(CTSVal > 0);
 
   /* Look for standard TMDS rates */
   for(i = 0; i < sizeof(TMDSChar_N_Table)/sizeof(XHdmiC_TMDS_N_Table); i++) {
@@ -293,35 +296,41 @@ XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq(u32 TMDSCharRate,
 			(TMDSCharRate >= (item->TMDSCharRate - 10000))) {
 			for (j = 0; j < 7; j++) {
 				if(N == item->ACR_NVal[j]) {
-					return j;
+					/*
+					 * starts from
+					 * XHDMIC_SAMPLING_FREQUENCY_32K
+					 */
+					return (j + 1);
 					break;
 				}
 			}
 		}
   }
 
-  /* compute and approximate */
-  fs = (TMDSCharRate * N) / (128 * CTSVal);
+ /* compute and approximate */
+  fs = ((u64)TMDSCharRate * (u64)N) ;
+  fs = fs / (128 * CTSVal);
 
-  if ((XHDMIC_SAMPLING_FREQ_32K - 1) <= fs <= (XHDMIC_SAMPLING_FREQ_32K + 1))
+  if (((XHDMIC_SAMPLING_FREQ_32K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_32K + FsTol)))
 	  return XHDMIC_SAMPLING_FREQUENCY_32K;
-  else if ((XHDMIC_SAMPLING_FREQ_44_1K - 1) <= fs <=
-				  (XHDMIC_SAMPLING_FREQ_44_1K + 1))
+  else if (((XHDMIC_SAMPLING_FREQ_44_1K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_44_1K + FsTol)))
 	  return XHDMIC_SAMPLING_FREQUENCY_44_1K;
-  else if ((XHDMIC_SAMPLING_FREQ_48K - 1) <= fs <=
-				  (XHDMIC_SAMPLING_FREQ_48K + 1))
+  else if (((XHDMIC_SAMPLING_FREQ_48K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_48K + FsTol)))
 	  return XHDMIC_SAMPLING_FREQUENCY_48K;
-  else if ((XHDMIC_SAMPLING_FREQ_88_2K - 1) <= fs <=
-				  (XHDMIC_SAMPLING_FREQ_88_2K + 1))
+  else if (((XHDMIC_SAMPLING_FREQ_88_2K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_88_2K + FsTol)))
 	  return XHDMIC_SAMPLING_FREQUENCY_88_2K;
-  else if ((XHDMIC_SAMPLING_FREQ_96K - 1) <= fs <=
-				  (XHDMIC_SAMPLING_FREQ_96K + 1))
+  else if (((XHDMIC_SAMPLING_FREQ_96K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_96K + FsTol)))
 	  return XHDMIC_SAMPLING_FREQUENCY_96K;
-  else if ((XHDMIC_SAMPLING_FREQ_176_4K - 1) <= fs <=
-				  (XHDMIC_SAMPLING_FREQ_176_4K + 1))
+  else if (((XHDMIC_SAMPLING_FREQ_176_4K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_176_4K + FsTol)))
 	  return XHDMIC_SAMPLING_FREQUENCY_176_4K;
-  else if ((XHDMIC_SAMPLING_FREQ_192K - 1) <= fs <=
-				  (XHDMIC_SAMPLING_FREQ_192K + 1))
+  else if (((XHDMIC_SAMPLING_FREQ_192K - FsTol) <= fs) &&
+		  (fs <= (XHDMIC_SAMPLING_FREQ_192K + FsTol)))
 	  return XHDMIC_SAMPLING_FREQUENCY_192K;
   else
 	  return  XHDMIC_SAMPLING_FREQUENCY; /* invalid */
