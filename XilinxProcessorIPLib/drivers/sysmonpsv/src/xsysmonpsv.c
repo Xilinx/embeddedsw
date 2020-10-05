@@ -723,4 +723,150 @@ u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
 
 }
 
+/*****************************************************************************/
+/**
+*
+* This function sets the alarm mode for Temperature alarms.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	Mode sets the Hysteresis or Window mode.
+*		Mode = 1 Hysteresis Mode
+*		Mode = 0 Window Mode
+*
+* @return	None.
+* @note		None.
+*
+******************************************************************************/
+void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode)
+{
+	u32 RegVal;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Mode < 2);
+
+	RegVal = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
+				    XSYSMONPSV_ALARM_CONFIG);
+	RegVal &= ~(XSYSMONPSV_ALARM_CONFIG_DEV_ALARM_MODE_MASK);
+	RegVal |= (Mode << XSYSMONPSV_ALARM_CONFIG_DEV_ALARM_MODE_SHIFT);
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
+			    XSYSMONPSV_ALARM_CONFIG, RegVal);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the alarm mode for OT alarm.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	Mode sets the Hysteresis or Window mode.
+*               Mode = XSYSMONPSV_HYSTERESIS Hysteresis Mode
+*               Mode = XSYSMONPSV_WINDOW Window Mode
+*
+* @return	None.
+* @note		None.
+*
+******************************************************************************/
+void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode)
+{
+	u32 RegVal;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Mode < 2);
+
+	RegVal = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
+				    XSYSMONPSV_ALARM_CONFIG);
+	RegVal &= ~(XSYSMONPSV_ALARM_CONFIG_OT_ALARM_MODE_MASK);
+	RegVal |= (Mode << XSYSMONPSV_ALARM_CONFIG_OT_ALARM_MODE_SHIFT);
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
+			    XSYSMONPSV_ALARM_CONFIG, RegVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function reads the current Supply Alarm Config.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	Supply is the supply for which config is to be read.
+*
+* @return	XSYSMONPSV_ENABLE if enabled
+*		XSYSMONPSV_DISABLE if disbaled
+*		XSYSMONPSV_INVALID if invalid SupplyValue
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XSysMonPsv_ReadAlarmConfig(XSysMonPsv *InstancePtr,
+			       XSysMonPsv_Supply Supply)
+{
+	u32 Status;
+        u32 Shift;
+        u32 SupplyReg;
+        u32 Offset;
+
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	if(InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY)
+		return XSYSMONPSV_INVALID;
+
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset = 4 * (SupplyReg / 32);
+	Shift = SupplyReg % 32;
+
+	/* Read the Alarm flag */
+	Status = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset +
+				    XSYSMONPSV_ALARM_REG0) >> Shift;
+
+	return (Status & 0x1);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets Alarm config for a supply.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	Supply is the supply for which config is to be set.
+* @param	Config is the alarm config value.
+*               XSYSMONPSV_ENABLE to enable
+*		XSYSMONPSV_DISABLE to disable
+*
+* @return	XST_SUCCESS if successful
+*		XSYSMONPSV_INVALID if invalid SupplyValue
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr,
+			      XSysMonPsv_Supply Supply, u32 Config)
+{
+	u32 Status;
+        u32 Shift;
+        u32 Offset;
+        u32 SupplyReg;
+
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	if(InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY)
+		return XSYSMONPSV_INVALID;
+
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset = 4 * (SupplyReg / 32);
+	Shift = SupplyReg % 32;
+
+	/* Read the Alarm flag */
+	Status = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset +
+				    XSYSMONPSV_ALARM_REG0);
+	Status &= ~(1 << Shift);
+	Status |= (Config << Shift);
+
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset +
+			    XSYSMONPSV_ALARM_REG0, Status);
+
+	return XST_SUCCESS;
+
+}
+
 /** @} */
