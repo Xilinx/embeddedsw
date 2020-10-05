@@ -143,13 +143,14 @@ extern "C" {
  * This data type defines a handler that an application defines to communicate
  * with interrupt system to retrieve state information about an application.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
+ * @param	CallbackRef is a callback reference passed in by the upper layer
  *		when setting the handler, and is passed back to the upper layer
  *		when the handler is called. It is used to find the device driver
  *		instance.
+ * @param	Value is the which the event occured
  *
  ******************************************************************************/
-typedef void (*XSysMonPsv_Handler) (void *CallBackRef);
+typedef void (*XSysMonPsv_Handler) (void *CallbackRef, u32 *Value);
 
 
 /*@}*/
@@ -208,6 +209,20 @@ typedef struct {
 
 /*@}*/
 
+/**
+ * @name This is an interrupt callback structure where callbacks and the
+ * callback reference is stored.
+ * @{
+ */
+typedef struct {
+	XSysMonPsv_Handler Handler;	/**< Event handler */
+	void *CallbackRef;		/**< Callback reference for
+					  event handler */
+	XSysMonPsv_Supply Supply;	/**<Supply for which event is set */
+	u32 IsCallbackSet;
+} XSysMonPsv_EventHandler;
+
+/*@}*/
 
 /**
  * @name The XSysmonPsv driver instance data. The user is required to allocate a
@@ -217,9 +232,14 @@ typedef struct {
  */
 typedef struct {
 	XSysMonPsv_Config Config;	/**< Device configuration */
-	XSysMonPsv_Handler Handler;	/**< Event handler */
-	void *CallBackRef;		/**< Callback reference for
-                                          event handler */
+	XSysMonPsv_EventHandler
+		SupplyEvent[XSYSMONPSV_MAX_SUPPLIES];	/**< EventList will
+							  have callbacks for
+							  events supported
+							  by sysmon */
+	XSysMonPsv_EventHandler TempEvent; /**< Device Temperature event
+					    handler information */
+	XSysMonPsv_EventHandler OTEvent; /**< OT event handler information */
 	u32 IsReady;
 } XSysMonPsv;
 
@@ -419,7 +439,17 @@ u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr);
 void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask);
 void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 				XSysMonPsv_Supply Supply, u32 Mask);
-
+void XSysMonPsv_SetTempEventHandler(XSysMonPsv *InstancePtr,
+				    XSysMonPsv_Handler CallbackFunc,
+				    void *CallbackRef);
+void XSysMonPsv_SetOTEventHandler(XSysMonPsv *InstancePtr,
+				  XSysMonPsv_Handler CallbackFunc,
+				  void *CallbackRef);
+void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
+				      XSysMonPsv_Supply Supply,
+				      XSysMonPsv_Handler CallbackFunc,
+				      void *CallbackRef);
+void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr);
 /* Functions in xsysmonpsv_selftest.c */
 s32 XSysMonPsv_SelfTest(XSysMonPsv *InstancePtr);
 
