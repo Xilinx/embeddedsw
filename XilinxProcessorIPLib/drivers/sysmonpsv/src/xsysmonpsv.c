@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv.c
-* @addtogroup sysmonpsv_v1_4
+* @addtogroup sysmonpsv_v2_0
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
@@ -22,6 +22,8 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.0   aad    11/20/18 First release.
 * 1.2   aad    06/11/20 Corrected the configuration assignment
+* 2.0   aad    07/31/20 Added new APIs to set threshold values, alarm
+*                       config and modes for temperature and voltages
 *
 * </pre>
 *
@@ -337,7 +339,7 @@ void XSysMonPsv_StatusReset(XSysMonPsv *InstancePtr, u8 ResetSupply,
 *
 * @return	Device Temperature threshold in signed Q8.7 format.
 *
-* @note		None.
+* @note		To get the value in Deg Celsius, use XSysMonPsv_FixedToFloat.
 *
 ******************************************************************************/
 u16 XSysMonPsv_ReadDevTempThreshold(XSysMonPsv *InstancePtr,
@@ -348,6 +350,31 @@ u16 XSysMonPsv_ReadDevTempThreshold(XSysMonPsv *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets Device Temperature Threshold values.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	ThresholdType is an enum which indicates the type of threshold.
+* @param	Value is the raw ADC threshold value.
+*
+* @return	None.
+*
+* @note		To get the raw ADC value, use XSysMonPsv_FloatToFixed.
+*
+******************************************************************************/
+void XSysMonPsv_SetDevTempThreshold(XSysMonPsv *InstancePtr,
+				   XSysMonPsv_Threshold ThresholdType,
+				   u16 Value)
+{
+	u32 Offset = XSYSMONPSV_DEVICE_TEMP_TH + (ThresholdType * 4);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
 }
 
 /*****************************************************************************/
@@ -372,6 +399,31 @@ u16 XSysMonPsv_ReadOTTempThreshold(XSysMonPsv *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets OT Temperature Threshold values.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	ThresholdType is an enum which indicates the type of threshold.
+* @param	Value is the raw ADC threshold value.
+*
+* @return	None.
+*
+* @note		To get the raw ADC value, use XSysMonPsv_FloatToFixed.
+*
+******************************************************************************/
+void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
+				   XSysMonPsv_Threshold ThresholdType,
+				   u16 Value)
+{
+	u32 Offset = XSYSMONPSV_OT_TEMP_TH + (ThresholdType * 4);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
 }
 
 /*****************************************************************************/
@@ -593,4 +645,82 @@ u32 XSysMonPsv_IsAlarmCondition(XSysMonPsv *InstancePtr,
 	return Status;
 
 }
+/*****************************************************************************/
+/**
+*
+* This function sets the raw value for Upper Supply Threshold.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	Supply is an enum which indicates the desired supply to be
+*		configured
+* @param	ThresholdType is an enum which indicates the type of threshold
+*
+* @return	XSYSMONPSV_INVALID if the Supply hasn't been configured
+*		XST_SUCCESS otherwise
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XSysMonPsv_SetSupplyUpperThreshold(XSysMonPsv *InstancePtr,
+				  XSysMonPsv_Supply Supply, u32 Value)
+{
+	u32 Offset;
+	u8 SupplyReg;
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if(InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
+
+	Offset = XSYSMONPSV_SUPPLY_TH_UPPER;
+
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset += SupplyReg * 4;
+
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
+
+	return XST_SUCCESS;
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the raw value for Lower Supply Threshold.
+*
+* @param	InstancePtr is a pointer to the driver instance.
+* @param	Supply is an enum which indicates the desired supply to be
+*		configured
+* @param	ThresholdType is an enum which indicates the type of threshold
+*
+* @return	XSYSMONPSV_INVALID if the Supply hasn't been configured
+*               XST_SUCCESS otherwise
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
+				  XSysMonPsv_Supply Supply, u32 Value)
+{
+	u32 Offset;
+	u8 SupplyReg;
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if(InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
+
+	Offset = XSYSMONPSV_SUPPLY_TH_LOWER;
+
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset += SupplyReg * 4;
+
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
+
+	return XST_SUCCESS;
+
+}
+
 /** @} */
