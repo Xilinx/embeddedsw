@@ -16,10 +16,6 @@
 #define NOT_INITIALIZED	0xFFFFFFFFU
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
-static u32 Platform = NOT_INITIALIZED;
-static u32 PlatformVersion = NOT_INITIALIZED;
-static u32 SlrType = NOT_INITIALIZED;
-static u32 IdCode = NOT_INITIALIZED;
 
 void *XPm_AllocBytes(u32 Size)
 {
@@ -247,48 +243,56 @@ u32 XPm_ComputeParity(u32 Value)
 
 u32 XPm_GetPlatform(void)
 {
-	if (Platform == NOT_INITIALIZED) {
-		Platform = (XPm_In32(PMC_TAP_VERSION) &
+	static u32 DevPlatform = NOT_INITIALIZED;
+
+	if (NOT_INITIALIZED == DevPlatform) {
+		DevPlatform = (XPm_In32(PMC_TAP_VERSION) &
 		            PMC_TAP_VERSION_PLATFORM_MASK) >>
 			    PMC_TAP_VERSION_PLATFORM_SHIFT;
 	}
 
-	return Platform;
+	return DevPlatform;
 }
 
 u32 XPm_GetPlatformVersion(void)
 {
-	if (PlatformVersion == NOT_INITIALIZED) {
+	static u32 DevPlatformVersion = NOT_INITIALIZED;
+
+	if (NOT_INITIALIZED == DevPlatformVersion) {
 		if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
-			PlatformVersion = (XPm_In32(PMC_TAP_IDCODE) &
+			DevPlatformVersion = (XPm_In32(PMC_TAP_IDCODE) &
 				PMC_TAP_IDCODE_SI_REV_MASK) >>
 				PMC_TAP_IDCODE_SI_REV_SHIFT;
 		} else {
-			PlatformVersion = (XPm_In32(PMC_TAP_VERSION) &
+			DevPlatformVersion = (XPm_In32(PMC_TAP_VERSION) &
 				PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
 				PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT;
 		}
 	}
 
-	return PlatformVersion;
+	return DevPlatformVersion;
 }
 
 u32 XPm_GetSlrType(void)
 {
-	if (SlrType == NOT_INITIALIZED) {
-		SlrType = PMC_TAP_SLR_TYPE_MASK &
+	static u32 DevSlrType = NOT_INITIALIZED;
+
+	if (NOT_INITIALIZED == DevSlrType) {
+		DevSlrType = PMC_TAP_SLR_TYPE_MASK &
 			  XPm_In32(PMC_TAP_SLR_TYPE_OFFSET +
 				   PMC_TAP_BASEADDR);
 	}
 
-	return SlrType;
+	return DevSlrType;
 }
 
 u32 XPm_GetIdCode(void)
 {
-	if (IdCode == NOT_INITIALIZED) {
-		IdCode = XPm_In32(PMC_TAP_IDCODE);
+	static u32 DevIdCode = NOT_INITIALIZED;
+
+	if (NOT_INITIALIZED == DevIdCode) {
+		DevIdCode = XPm_In32(PMC_TAP_IDCODE);
 	}
 
-	return IdCode;
+	return DevIdCode;
 }
