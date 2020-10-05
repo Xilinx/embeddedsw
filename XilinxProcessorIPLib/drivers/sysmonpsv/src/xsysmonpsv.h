@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsv.h
-* @addtogroup sysmonpsv_v1_4
+* @addtogroup sysmonpsv_v2_0
 *
 * The XSysMon driver supports the Xilinx System Monitor device on Versal
 *
@@ -91,6 +91,9 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.0   aad    02/08/18 First release
 * 1.2	aad    06/14/20 Fixed temperature calculation for negative temp
+* 2.0   aad    07/31/20 Added new APIs to set threshold values, alarm
+*                       config and modes for temperature and voltages.
+*                       Added new interrupt handling structure.
 *
 * </pre>
 *
@@ -120,6 +123,14 @@ extern "C" {
 #define XSYSMONPSV_EXPONENT_RANGE_16	16
 #define XSYSMONPSV_QFMT_SIGN		15
 #define XSYSMONPSV_QFMT_FRACTION	7
+#define XSYSMONPSV_UP_SAT_SIGNED	32767
+#define XSYSMONPSV_UP_SAT		65535
+#define XSYSMONPSV_LOW_SAT_SIGNED	-32767
+#define XSYSMONPSV_LOW_SAT		0
+#define XSYSMONPSV_BIPOLAR_UP_SAT	0x7FFF
+#define XSYSMONPSV_BIPOLAR_LOW_SAT	0x8000
+#define XSYSMONPSV_UNIPOLAR_UP_SAT	0xFFFF
+#define XSYSMONPSV_UNIPOLAR_LOW_SAT	0x0000
 
 /**************************** Type Definitions *******************************/
 
@@ -169,13 +180,26 @@ typedef enum {
 /*@}*/
 
 /**
+ * @name This typedef defines types of supply values.
+ * @{
+ */
+typedef enum {
+	XSYSMONPSV_1V_UNIPOLAR,
+	XSYSMONPSV_2V_UNIPOLAR,
+	XSYSMONPSV_4V_UNIPOLAR,
+	XSYSMONPSV_1V_BIPOLAR,
+} XSysMonPsv_VoltageScale;
+
+/*@}*/
+
+/**
  * @name This typedef contains configuration information for a device.
  * @{
  */
 typedef struct {
 	u32 BaseAddress;	/**< Register base address */
 	u8 Supply_List[XSYSMONPSV_MAX_SUPPLIES];/**< Maps voltage supplies in
-						  use to the Supply registers */
+                                                  use to the Supply registers */
 } XSysMonPsv_Config;
 
 /*@}*/
@@ -191,7 +215,7 @@ typedef struct {
 	XSysMonPsv_Config Config;	/**< Device configuration */
 	XSysMonPsv_Handler Handler;	/**< Event handler */
 	void *CallBackRef;		/**< Callback reference for
-					  event handler */
+                                          event handler */
 	u32 IsReady;
 } XSysMonPsv;
 
@@ -248,12 +272,60 @@ static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
 		return (float)Mantissa/(float)Scale;
 	}
 }
+
+/****************************************************************************/
+/**
+*
+* This function converts raw AdcData into Voltage value.
+*
+* @param	Volts is the voltage value to be converted
+* @param	Type is the type of supply,
+*		Type = 0, Unipolar
+*		Type = 1, Bipolar
+*
+* @return	The Voltage in Raw ADC format.
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline u16 XSysMonPsv_VoltageToRaw(float Volts,
+					  XSysMonPsv_VoltageScale Type)
+{
+	u32 Format = 0;
+	u32 Exponent = 16;
+	u32 Scale;
+	int TmpVal;
+
+	if (Type != XSYSMONPSV_1V_BIPOLAR)
+		Exponent -= Type;
+	else
+		Format = 1;
+
+	Scale = 1 << (16 - Exponent);
+	TmpVal = (Volts * Scale);
+
+
+	if(Format) {
+		if (TmpVal > XSYSMONPSV_UP_SAT_SIGNED)
+			TmpVal = XSYSMONPSV_BIPOLAR_UP_SAT;
+		else if (TmpVal < XSYSMONPSV_LOW_SAT_SIGNED)
+			TmpVal = XSYSMONPSV_BIPOLAR_LOW_SAT;
+	} else {
+		if (TmpVal > XSYSMONPSV_UP_SAT)
+			TmpVal = XSYSMONPSV_UNIPOLAR_UP_SAT;
+		else if (TmpVal < XSYSMONPSV_LOW_SAT)
+			TmpVal = XSYSMONPSV_UNIPOLAR_LOW_SAT;
+	}
+
+	return TmpVal & 0xFFFF;
+}
+
 /****************************************************************************/
 /**
 *
 * This function converts the fixed point to degree celsius
 *
-* @param	Q8.7 representation of temperature value.
+* @param	FixedQFmt is Q8.7 representation of temperature value.
 *
 * @return	The Temperature in degree celsisus
 *
@@ -276,6 +348,23 @@ static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
 	return Temperature;
 }
 
+/****************************************************************************/
+/**
+*
+* This function converts the floating point to Fixed Q8.7 format
+*
+* @param	Temp is temperature value in Deg Celsius
+*
+* @return	temperature value in fixed Q8.7 format.
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline u16 XSysMonPsv_FloatToFixed(float Temp)
+{
+	return (u16) (Temp * (1U << 7));
+}
+
 /************************** Function Prototypes ******************************/
 
 /* Functions in xsysmonpsv.c */
@@ -290,8 +379,14 @@ void XSysMonPsv_StatusReset(XSysMonPsv *InstancePtr,
 			    u8 ResetSupply, u8 ResetTemperature);
 u16 XSysMonPsv_ReadDevTempThreshold(XSysMonPsv *InstancePtr,
 				    XSysMonPsv_Threshold ThresholdType);
+void XSysMonPsv_SetDevTempThreshold(XSysMonPsv *InstancePtr,
+				    XSysMonPsv_Threshold ThresholdType,
+				    u16 Value);
 u16 XSysMonPsv_ReadOTTempThreshold(XSysMonPsv *InstancePtr,
-				    XSysMonPsv_Threshold ThresholdType);
+				   XSysMonPsv_Threshold ThresholdType);
+void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
+				   XSysMonPsv_Threshold ThresholdType,
+				   u16 Value);
 u32 XSysMonPsv_ReadDeviceTemp(XSysMonPsv *InstancePtr, XSysMonPsv_Val Value);
 u32 XSysMonPsv_ReadSupplyThreshold(XSysMonPsv *InstancePtr,
 				   XSysMonPsv_Supply Supply,
@@ -301,6 +396,10 @@ u32 XSysMonPsv_ReadSupplyValue(XSysMonPsv *InstancePtr,
 u32 XSysMonPsv_IsNewData(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply);
 u32 XSysMonPsv_IsAlarmCondition(XSysMonPsv *InstancePtr,
 			       XSysMonPsv_Supply Supply);
+u32 XSysMonPsv_SetSupplyUpperThreshold(XSysMonPsv *InstancePtr,
+				  XSysMonPsv_Supply Supply, u32 Value);
+u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
+				  XSysMonPsv_Supply Supply, u32 Value);
 
 /* Interrupt functions in xsysmonpsv_intr.c */
 void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum);
