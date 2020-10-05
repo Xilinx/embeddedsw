@@ -1281,14 +1281,14 @@ u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt
 	VscPacket = &InstancePtr->DpPtr->TxInstance.VscPacket;
 
 	/* Decoding Data byte 16 */
-	DataByte =  VscPkt.Payload[XDP_RX_AUDIO_EXT_DATA_DB16_TO_DB18] &
-						XDP_RX_AUDIO_EXT_DATA_DB16;
+	DataByte =  VscPkt.Payload[XDP_TX_AUDIO_EXT_DATA_DB16_TO_DB18] &
+						XDP_TX_AUDIO_EXT_DATA_DB16;
 	VscPacket->YCbCrColorimetry = (DataByte & XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK);
 	VscPacket->ComponentFormat  = (DataByte >> XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT);
 
 	/* Decoding Data byte 17 */
-	DataByte = ((VscPkt.Payload[XDP_RX_AUDIO_EXT_DATA_DB16_TO_DB18] &
-					XDP_RX_AUDIO_EXT_DATA_DB17) >> 8);
+	DataByte = ((VscPkt.Payload[XDP_TX_AUDIO_EXT_DATA_DB16_TO_DB18] &
+					XDP_TX_AUDIO_EXT_DATA_DB17) >> 8);
 
 	switch(DataByte & XDP_TX_MAIN_VSC_SDP_BDC_MASK) {
 	case XDP_TX_MAIN_STREAMX_MISC0_BDC_6BPC:
