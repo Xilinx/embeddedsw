@@ -451,7 +451,10 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetTmdsAudSampFreq (XV_Rx *InstancePtr)
 
 	NVal = XV_HdmiRxSs1_GetAudioAcrNVal(InstancePtr->HdmiRxSs);
 	CTSVal =  XV_HdmiRxSs1_GetAudioAcrCtsVal(InstancePtr->HdmiRxSs);
-	RefClk = InstancePtr->VidPhy->HdmiRxRefClkHz;
+	if (InstancePtr->HdmiRxSs->TMDSClockRatio)
+		RefClk = InstancePtr->VidPhy->HdmiRxRefClkHz * 4;
+	else
+		RefClk = InstancePtr->VidPhy->HdmiRxRefClkHz ;
 	InstancePtr->AcrNVal = NVal;
 	InstancePtr->AcrCtsVal = CTSVal;
 
