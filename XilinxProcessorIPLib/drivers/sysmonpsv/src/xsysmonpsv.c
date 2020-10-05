@@ -40,9 +40,6 @@
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
-/************************** Function Prototypes *****************************/
-
-static void XSysMonPsv_StubHandler(void *CallBackRef);
 
 /************************** Variable Definitions ****************************/
 
@@ -80,35 +77,10 @@ s32 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)
 		InstancePtr->Config.Supply_List[i] = CfgPtr->Supply_List[i];
 	}
 
-	/* Set all handlers to stub values, let user configure this data later. */
-	InstancePtr->Handler = (XSysMonPsv_Handler)XSysMonPsv_StubHandler;
-
 	/* Indicate the instance is now ready to use, initialized without error */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-*
-* This function is a stub handler that is the default handler such that if the
-* application has not set the handler when interrupts are enabled, this
-* function will be called.
-*
-* @param	CallBackRef is unused by this function.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-static void XSysMonPsv_StubHandler(void *CallBackRef)
-{
-	(void) CallBackRef;
-
-	/* Assert occurs always since this is a stub and should never be called */
-	Xil_AssertVoidAlways();
 }
 
 /*****************************************************************************/
