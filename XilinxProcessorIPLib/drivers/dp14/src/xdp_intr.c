@@ -745,21 +745,6 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 	HpdPulseDetected = IntrStatus &
 				XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
 
-	if(IntrStatus & XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_MASK){
-		if (InstancePtr->TxInstance.ExtPktCallbackHandler)
-			InstancePtr->TxInstance.ExtPktCallbackHandler(
-				InstancePtr->TxInstance.ExtPktCallbackHandlerRef);
-		if (InstancePtr->TxInstance.DrvExtPktCallbackHandler)
-			InstancePtr->TxInstance.DrvExtPktCallbackHandler(
-				InstancePtr->TxInstance.DrvExtPktCallbackHandlerRef);
-	}
-
-	if(IntrStatus & XDP_TX_INTERRUPT_STATUS_VBLANK_STREAM1_MASK){
-		if (InstancePtr->TxInstance.VsyncCallbackHandler)
-			InstancePtr->TxInstance.VsyncCallbackHandler(
-				InstancePtr->TxInstance.VsyncCallbackHandlerRef);
-	}
-
 	if (HpdEventDetected) {
 		if (InstancePtr->TxInstance.DrvHpdEventHandler)
 			InstancePtr->TxInstance.DrvHpdEventHandler(
@@ -782,6 +767,21 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 				InstancePtr->TxInstance.HpdPulseHandler(
 				InstancePtr->TxInstance.HpdPulseCallbackRef);
 		}
+	}
+
+	if(IntrStatus & XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_MASK){
+		if (InstancePtr->TxInstance.ExtPktCallbackHandler)
+			InstancePtr->TxInstance.ExtPktCallbackHandler(
+				InstancePtr->TxInstance.ExtPktCallbackHandlerRef);
+		if (InstancePtr->TxInstance.DrvExtPktCallbackHandler)
+			InstancePtr->TxInstance.DrvExtPktCallbackHandler(
+				InstancePtr->TxInstance.DrvExtPktCallbackHandlerRef);
+	}
+
+	if(IntrStatus & XDP_TX_INTERRUPT_STATUS_VBLANK_STREAM1_MASK){
+		if (InstancePtr->TxInstance.VsyncCallbackHandler)
+			InstancePtr->TxInstance.VsyncCallbackHandler(
+				InstancePtr->TxInstance.VsyncCallbackHandlerRef);
 	}
 }
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
