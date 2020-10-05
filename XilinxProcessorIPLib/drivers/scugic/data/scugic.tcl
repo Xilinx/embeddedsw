@@ -1218,6 +1218,19 @@ proc get_psu_interrupt_id { ip_name port_name } {
 			}
 
 			if { $is_pl_ps_irq0 == 1 || $is_pl_ps_irq1 == 1 } {
+				incr itr
+				for { } {$itr < [llength $sink_pins]} {incr itr} {
+					set sink_pin2 [lindex $sink_pins $itr]
+					if { $is_pl_ps_irq0 == 1 } {
+						if {[string compare -nocase "$sink_pin2" "IRQ1_F2P"] == 0 } {
+							set is_pl_ps_irq1 1
+						}
+					} else {
+						if {[string compare -nocase "$sink_pin2" "IRQ0_F2P"] == 0 } {
+							set is_pl_ps_irq0 1
+						}
+					}
+				}
 				if { $traveresing_details == 1 } {
 					incr traversed_ports_count
 				}
