@@ -131,6 +131,10 @@ extern "C" {
 #define XSYSMONPSV_BIPOLAR_LOW_SAT	0x8000
 #define XSYSMONPSV_UNIPOLAR_UP_SAT	0xFFFF
 #define XSYSMONPSV_UNIPOLAR_LOW_SAT	0x0000
+#define XSYSMONPSV_ENABLE		1
+#define XSYSMONPSV_DISABLE		0
+#define XSYSMONPSV_HYSTERESIS		1
+#define XSYSMONPSV_WINDOW		0
 
 /**************************** Type Definitions *******************************/
 
@@ -400,6 +404,12 @@ u32 XSysMonPsv_SetSupplyUpperThreshold(XSysMonPsv *InstancePtr,
 				  XSysMonPsv_Supply Supply, u32 Value);
 u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
 				  XSysMonPsv_Supply Supply, u32 Value);
+void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode);
+void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode);
+u32 XSysMonPsv_ReadAlarmConfig(XSysMonPsv *InstancePtr,
+			       XSysMonPsv_Supply Supply);
+u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr,
+			      XSysMonPsv_Supply Supply, u32 Config);
 
 /* Interrupt functions in xsysmonpsv_intr.c */
 void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum);
