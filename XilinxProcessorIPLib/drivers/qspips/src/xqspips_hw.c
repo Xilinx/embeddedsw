@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips_hw.c
-* @addtogroup qspips_v3_7
+* @addtogroup qspips_v3_8
 * @{
 *
 * Contains low level functions, primarily reset related.
