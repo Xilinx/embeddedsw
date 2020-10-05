@@ -278,6 +278,7 @@ void InitVprocSs_Scaler(int count,int width,int height)
 		widthOut = HDMI_H_RES;
 		heightOut = HDMI_V_RES;
 	}
+	usleep(1000);
 	/* Local variables */
 	XVidC_VideoMode resIdIn, resIdOut;
 	XVidC_VideoStream StreamIn;
@@ -367,7 +368,7 @@ void InitVprocSs_Scaler(int count,int width,int height)
 	StreamOut.IsInterlaced = 0;
 
 	/* Get resolution ID from frame size */
-	resIdOut = XVidC_GetVideoModeId(1920, 1080, XVIDC_FR_60HZ,
+	resIdOut = XVidC_GetVideoModeId(widthOut, heightOut, XVIDC_FR_60HZ,
 					FALSE);
 
 
@@ -399,7 +400,7 @@ void InitVprocSs_Scaler(int count,int width,int height)
  *
  * @note	None.
  *
- *****************************************************************************/
+ ****************F*************************************************************/
 static void SendHandler(XIic *InstancePtr) {
 	TransmitComplete = 0;
 }
@@ -635,7 +636,7 @@ int SetupCameraSensor(void) {
 	}
 
 	/* Program sensor */
-	for (Index = 0; Index < (MaxIndex - 1); Index++) {
+	for (Index = 0; Index < (MaxIndex - 0); Index++) {
 
 		WriteBuffer[0] = sensor_cfg[Index].Address >> 8;
 		WriteBuffer[1] = sensor_cfg[Index].Address;
@@ -654,7 +655,7 @@ int SetupCameraSensor(void) {
 			break;
 		}
 	}
-	if (Index != (MaxIndex - 1)) {
+	if (Index != (MaxIndex - 0)) {
 		/* all registers are written into */
 		return XST_FAILURE;
 	}
@@ -1271,7 +1272,7 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
     int stride;
     XVidC_VideoTiming const *TimingPtr;
 	int  widthIn, heightIn;
-	int  widthOut, heightOut, widthOut_1,heightOut_1;
+	int  widthOut, heightOut;
 	/* Local variables */
 	XVidC_VideoMode  resIdOut;
 
@@ -1325,8 +1326,6 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	        widthIn  = 3840;
 	        heightIn = 2160;
 			break;
-
-
 		default:
 		    xil_printf("Invalid Input Selection ");
 			return XST_FAILURE;
@@ -1334,19 +1333,15 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
 	}
 
-	/* Programming HDMI Stream With Fixed Resolution (1920x1080) */
-	widthOut = HDMI_H_RES;
-	heightOut = HDMI_V_RES;
-
-	/* Programming v_proc_scaler with fixed output */
+	/* Programming Stream with fixed output */
 	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 		/* Fixed output to DSI (1920x1200) */
-		widthOut_1 = DSI_H_RES;
-		heightOut_1 = DSI_V_RES;}
+		widthOut = DSI_H_RES;
+		heightOut = DSI_V_RES;}
 	else {
 		/* Fixed Output to HDMI (1920x1080) */
-		widthOut_1 = HDMI_H_RES;
-		heightOut_1 = HDMI_V_RES;
+		widthOut = HDMI_H_RES;
+		heightOut = HDMI_V_RES;
 	}
 
     usleep(1000);
@@ -1378,14 +1373,12 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 	VidStream.Timing = *TimingPtr;
 	VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
-if(Pipeline_Cfg.VideoDestn == XVIDDES_HDMI){
 	xil_printf("\r\n********************************************\r\n");
 	xil_printf("Test Input Stream: %s (%s)\r\n",
 	           XVidC_GetVideoModeStr(VidStream.VmId),
 	           XVidC_GetColorFormatStr(Cfmt));
 	xil_printf("********************************************\r\n");
-}
-	 stride = CalcStride(Cfmt ,
+	stride = CalcStride(Cfmt ,
 	                         frmbufwr.FrmbufWr.Config.AXIMMDataWidth,
 	                         &StreamOut);
 	 xil_printf(" Stride is calculated %d \r\n",stride);
@@ -1410,7 +1403,7 @@ if(Pipeline_Cfg.VideoDestn == XVIDDES_HDMI){
 	ConfigCSC(widthIn, heightIn);
 	ConfigGammaLut(widthIn, heightIn);
 	ConfigDemosaic(widthIn, heightIn);
-	InitVprocSs_Scaler(1,widthOut_1, heightOut_1);
+	InitVprocSs_Scaler(1,widthOut, heightOut);
 	EnableCSI();
 
 	xil_printf("CSI is Enabled\r\n");
