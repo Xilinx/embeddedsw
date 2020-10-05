@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_hw.h
-* @addtogroup sysmonpsv_v1_4
+* @addtogroup sysmonpsv_v2_0
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions

@@ -134,7 +134,8 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
 			puts $file_handle $final_value
 		} elseif {[string compare -nocase $local_value ""] == 0} {
 			if {$index == 0} {
-				puts $file_handle "#define XPAR_XSYSMONPSV_0_NO_MEAS\t255"
+				puts $file_handle "#define XPAR_XSYSMONPSV_0_NO_MEAS\t161"
+				break
 			}
 		}
 
@@ -216,8 +217,12 @@ proc generate_sysmon_supplies {drv_handle file_name drv_string} {
 		 puts -nonewline $config_file [format "%s\t%s,\n" $comma $local_value]
 		} elseif {[string compare -nocase $local_value ""] == 0} {
 			if {$index == 0} {
+			        puts $config_file "\tEndList,"
 				puts $config_file "\tNO_SUPPLIES_CONFIGURED = XPAR_XSYSMONPSV_0_NO_MEAS,"
+				break
 			}
+			puts $config_file "\tEndList,"
+			break
 		}
 	    }
     }
