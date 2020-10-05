@@ -85,6 +85,8 @@
 *       cog    08/28/20 Fixed bug in the ADC powerdown mode.
 *       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
 *                       four LSBs of the CS Gain.
+*       cog    09/28/20 Added more DAC interrupts and fixed issue with
+*                       GetEnabledInterrupts.
 *
 *</pre>
 *
@@ -649,7 +651,7 @@ extern "C" {
  */
 
 #define XRFDC_ADC_DAT_PATH_ISR_MASK 0x000000FFU /**< ADC Data Path Overflow */
-#define XRFDC_DAC_DAT_PATH_ISR_MASK 0x000001FFU /**< DAC Data Path Overflow */
+#define XRFDC_DAC_DAT_PATH_ISR_MASK 0x0000FFFFU /**< DAC Data Path Overflow */
 #define XRFDC_DAT_ISR_DECI_IPATH_MASK 0x00000007U /**< Decimation I-Path overflow for stages 0,1,2 */
 #define XRFDC_DAT_ISR_INTR_QPATH_MASK 0x00000038U /**< Interpolation Q-Path overflow for stages 0,1,2 */
 #define XRFDC_DAT_ISR_QMC_GAIN_MASK 0x00000040U /**< QMC Gain/Phase overflow */
@@ -662,6 +664,8 @@ extern "C" {
  *
  * This register contains bits of QMC Gain/Phase overflow, offset overflow,
  * Decimation I-Path and Interpolation Q-Path overflow for stages 0,1,2.
+ * Inverse sinc overflow, Datapath Scaling, Interpolation I and Q, IMR, and Even Nyquist Zone overflow
+ * Mixer I and Q over/underflow.
  * Read/Write apart from the reserved bits.
  * @{
  */
@@ -670,8 +674,34 @@ extern "C" {
 #define XRFDC_DAT_IMR_INTR_QPATH_MASK 0x00000038U /**< Interpolation Q-Path overflow for stages 0,1,2 */
 #define XRFDC_DAT_IMR_QMC_GAIN_MASK 0x00000040U /**< QMC Gain/Phase overflow */
 #define XRFDC_DAT_IMR_QMC_OFFST_MASK 0x00000080U /**< QMC offset overflow */
+#define XRFDC_DAC_DAT_IMR_INV_SINC_MASK 0x00000100U /**< Inverse Sinc overflow */
+#define XRFDC_DAC_DAT_IMR_MXR_HLF_I_MASK 0x00000200U /**< Over or under flow mixer (Mixer half I) */
+#define XRFDC_DAC_DAT_IMR_MXR_HLF_Q_MASK 0x00000400U /**< Over or under flow mixer (Mixer half Q) */
+#define XRFDC_DAC_DAT_IMR_DP_SCALE_MASK 0x00000800U /**< DataPath Scaling overflow */
+#define XRFDC_DAC_DAT_IMR_INTR_IPATH3_MASK 0x00001000U /**< Interpolation I-Path overflow for stage 3 */
+#define XRFDC_DAC_DAT_IMR_INTR_QPATH3_MASK 0x00002000U /**< Interpolation Q-Path overflow for stage 3 */
+#define XRFDC_DAC_DAT_IMR_IMR_OV_MASK 0x00004000U /**< IMR overflow */
+#define XRFDC_DAC_DAT_IMR_INV_SINC_EVEN_NYQ_MASK 0x00008000U /**< 2nd Nyquist Zone Inverse SINC overflow */
 #define XRFDC_ADC_DAT_IMR_MASK 0x000000FFU /**< ADC DataPath mask */
-#define XRFDC_DAC_DAT_IMR_MASK 0x00000FFFU /**< DAC DataPath mask */
+#define XRFDC_DAC_DAT_IMR_MASK 0x0000FFFFU /**< DAC DataPath mask */
+
+/* @} */
+
+/** @name FIFO IMR - FIFO for Data Path interface
+ *
+ * This register contains bits of FIFO over/underflows
+ * Read/Write apart from the reserved bits.
+ * @{
+ */
+
+#define XRFDC_FIFO_USRD_OF_MASK 0x00000001U /**< User data overflow */
+#define XRFDC_FIFO_USRD_UF_MASK 0x00000002U /**< User data underflow */
+#define XRFDC_FIFO_MRGN_OF_MASK 0x00000004U /**< Marginal overflow */
+#define XRFDC_FIFO_MRGN_UF_MASK 0x00000008U /**< Marginal underflow */
+#define XRFDC_FIFO_ACTL_OF_MASK 0x00000010U /**< DAC Actual overflow */
+#define XRFDC_FIFO_ACTL_UF_MASK 0x00000020U /**< DAC Actual underflow */
+#define XRFDC_DAC_FIFO_IMR_SUPP_MASK 0x00000030U /**< DAC FIFO Mask */
+#define XRFDC_DAC_FIFO_IMR_MASK 0x0000003FU /**< DAC FIFO Mask */
 
 /* @} */
 
@@ -2053,14 +2083,18 @@ extern "C" {
 /* @} */
 
 #define XRFDC_IXR_FIFOUSRDAT_MASK 0x0000000FU
+#define XRFDC_DAC_IXR_FIFOUSRDAT_SUPP_MASK 0x30000000U
+#define XRFDC_DAC_IXR_FIFOUSRDAT_MASK 0x3000000FU
 #define XRFDC_IXR_FIFOUSRDAT_OBS_MASK 0x0000F000U
 #define XRFDC_IXR_FIFOUSRDAT_OF_MASK 0x00000001U
 #define XRFDC_IXR_FIFOUSRDAT_UF_MASK 0x00000002U
 #define XRFDC_IXR_FIFOMRGNIND_OF_MASK 0x00000004U
 #define XRFDC_IXR_FIFOMRGNIND_UF_MASK 0x00000008U
+#define XRFDC_DAC_IXR_FIFOACTIND_OF_MASK 0x20000000U
+#define XRFDC_DAC_IXR_FIFOACTIND_UF_MASK 0x10000000U
 #define XRFDC_ADC_IXR_DATAPATH_MASK 0x00000FF0U
 #define XRFDC_ADC_IXR_DMON_STG_MASK 0x000003F0U
-#define XRFDC_DAC_IXR_DATAPATH_MASK 0x00001FF0U
+#define XRFDC_DAC_IXR_DATAPATH_MASK 0x000FFFF0U
 #define XRFDC_DAC_IXR_INTP_STG_MASK 0x000003F0U
 #define XRFDC_DAC_IXR_INTP_I_STG0_MASK 0x00000010U
 #define XRFDC_DAC_IXR_INTP_I_STG1_MASK 0x00000020U
@@ -2077,6 +2111,13 @@ extern "C" {
 #define XRFDC_IXR_QMC_GAIN_PHASE_MASK 0x00000400U
 #define XRFDC_IXR_QMC_OFFST_MASK 0x00000800U
 #define XRFDC_DAC_IXR_INVSNC_OF_MASK 0x00001000U
+#define XRFDC_DAC_IXR_MXR_HLF_I_MASK 0x00002000U
+#define XRFDC_DAC_IXR_MXR_HLF_Q_MASK 0x00004000U
+#define XRFDC_DAC_IXR_DP_SCALE_MASK 0x00008000U
+#define XRFDC_DAC_IXR_INTP_I_STG3_MASK 0x00010000U
+#define XRFDC_DAC_IXR_INTP_Q_STG3_MASK 0x00020000U
+#define XRFDC_DAC_IXR_IMR_OV_MASK 0x00040000U
+#define XRFDC_DAC_IXR_INV_SINC_EVEN_NYQ_MASK 0x00080000U
 #define XRFDC_SUBADC_IXR_DCDR_MASK 0x00FF0000U
 #define XRFDC_SUBADC0_IXR_DCDR_OF_MASK 0x00010000U
 #define XRFDC_SUBADC0_IXR_DCDR_UF_MASK 0x00020000U
@@ -2092,7 +2133,9 @@ extern "C" {
 #define XRFDC_ADC_CMODE_OVR_MASK 0x10000000U
 #define XRFDC_ADC_CMODE_UNDR_MASK 0x20000000U
 #define XRFDC_ADC_DAT_OVR_MASK 0x40000000U
+#define XRFDC_DAT_OVR_MASK 0x40000000U
 #define XRFDC_ADC_FIFO_OVR_MASK 0x80000000U
+#define XRFDC_FIFO_OVR_MASK 0x80000000U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_MASK 0x0000F8F8U
 #define XRFDC_DAC_MC_CFG2_BLDGAIN_MASK 0x0000FFC0U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_MASK 0x0000FFC0U
@@ -2115,8 +2158,10 @@ extern "C" {
 #define XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT(X) ((X == 0) ? 5U : 4U)
 #define XRFDC_ADC_OVR_VOL_RANGE_SHIFT 24U
 #define XRFDC_ADC_DAT_FIFO_OVR_SHIFT 16U
+#define XRFDC_DAT_FIFO_OVR_SHIFT 16U
 #define XRFDC_ADC_SUBADC_DCDR_SHIFT 16U
 #define XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT 12U
+#define XRFDC_DAC_IXR_FIFOUSRDAT_SUPP_SHIFT 24U
 #define XRFDC_DATA_PATH_SHIFT 4U
 #define XRFDC_ADC_CMODE_SHIFT 10U
 #define XRFDC_COMMON_SHIFT 20U
