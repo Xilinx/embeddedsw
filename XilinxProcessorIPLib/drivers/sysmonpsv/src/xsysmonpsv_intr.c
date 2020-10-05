@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_intr.c
-* @addtogroup sysmonpsv_v1_4
+* @addtogroup sysmonpsv_v2_0
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
@@ -21,7 +21,8 @@
 * Ver   Who    Date	    Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   aad    11/20/18 First release.
-* 1.3   aad    06/23/20 Fixed the register to read enabled interrupts
+* 1.3   aad    06/23/20 Fixed the register to read enabled interrupts.
+* 2.0   aad    02/10/20	Added new Interrupt handler structure.
 *
 * </pre>
 *
@@ -30,8 +31,9 @@
 /***************************** Include Files *********************************/
 
 #include "xil_assert.h"
-#include "xsysmonpsv_hw.h"
 #include "xsysmonpsv.h"
+#include "xsysmonpsv_supplylist.h"
+
 
 /************************** Constant Definitions ****************************/
 #define XSYSMONPSV_INTR_OFFSET		0xC
@@ -243,6 +245,187 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 
 	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
 			    XSYSMONPSV_NEW_DATA_INT_SRC, Reg);
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a Device Temperature
+ * interrupt occurs
+ *
+ * @param	InstancePtr is a pointer to the XSysMonPsv instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XSysMonPsv_SetTempEventHandler(XSysMonPsv *InstancePtr,
+				    XSysMonPsv_Handler CallbackFunc,
+				    void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TempEvent.Handler = CallbackFunc;
+	InstancePtr->TempEvent.CallbackRef = CallbackRef;
+	InstancePtr->TempEvent.IsCallbackSet = 1U;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a OT Temperature
+ * interrupt occurs
+ *
+ * @param	InstancePtr is a pointer to the XSysMonPsv instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XSysMonPsv_SetOTEventHandler(XSysMonPsv *InstancePtr,
+				  XSysMonPsv_Handler CallbackFunc,
+				  void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->OTEvent.Handler = CallbackFunc;
+	InstancePtr->OTEvent.CallbackRef = CallbackRef;
+	InstancePtr->OTEvent.IsCallbackSet = 1U;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a Supply Voltage alarm
+ * interrupt occurs
+ *
+ * @param	InstancePtr is a pointer to the XSysMonPsv instance.
+ * @param	Supply is the supply for which the alarm is to be set.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
+				      XSysMonPsv_Supply Supply,
+				      XSysMonPsv_Handler CallbackFunc,
+				      void *CallbackRef)
+{
+	u32 SupplyReg;
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	InstancePtr->SupplyEvent[SupplyReg].Handler = CallbackFunc;
+	InstancePtr->SupplyEvent[SupplyReg].CallbackRef = CallbackRef;
+	InstancePtr->SupplyEvent[SupplyReg].Supply = Supply;
+	InstancePtr->SupplyEvent[SupplyReg].IsCallbackSet = 1U;
+
+}
+
+/******************************************************************************/
+/**
+ * This function is the interrupt handler for the XSysMonPsv driver.
+ *
+ * When an interrupt happens, it first detects what kind of interrupt happened,
+ * then decides which callback function to invoke.
+ *
+ * @param	InstancePtr is a pointer to the XSysMonPsv instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
+{
+	u8 DevTempDetected, OTTempDetected, SupplyAlarm;
+	/* Upper 16 bits contain Min Temp, Lower 16 bits contain Max Temp */
+	u32 TempMinMax, IntrStatus, SupplyReg, SupplyVal;
+	int SupplyNum = 0;
+	XSysMonPsv_EventHandler *EventHandler;
+	XSysMonPsv_Supply Supply;
+
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Determine what kind of interrupt occured */
+	IntrStatus = XSysMonPsv_IntrGetStatus(InstancePtr);
+
+	/* Clear interrupt status register */
+	XSysMonPsv_IntrClear(InstancePtr, IntrStatus);
+
+	SupplyAlarm = IntrStatus & (XSYSMONPSV_ISR_ALARM0_MASK |
+				    XSYSMONPSV_ISR_ALARM1_MASK |
+				    XSYSMONPSV_ISR_ALARM2_MASK |
+				    XSYSMONPSV_ISR_ALARM3_MASK |
+				    XSYSMONPSV_ISR_ALARM4_MASK);
+	DevTempDetected = IntrStatus & XSYSMONPSV_ISR_TEMP_MASK;
+	OTTempDetected = IntrStatus & XSYSMONPSV_ISR_OT_MASK;
+
+	/* Handle OT Event */
+	if(OTTempDetected && InstancePtr->OTEvent.IsCallbackSet) {
+		TempMinMax = XSysMonPsv_ReadDeviceTemp(InstancePtr,
+						       XSYSMONPSV_VAL_MIN);
+		TempMinMax = TempMinMax << 16;
+		TempMinMax |= XSysMonPsv_ReadDeviceTemp(InstancePtr,
+						       XSYSMONPSV_VAL_MAX);
+
+		InstancePtr->OTEvent.Handler(InstancePtr->OTEvent.CallbackRef,
+					     &TempMinMax);
+	}
+
+	/* Handle Dev Temp Event */
+	if(DevTempDetected && InstancePtr->TempEvent.IsCallbackSet) {
+		TempMinMax = XSysMonPsv_ReadDeviceTemp(InstancePtr,
+						       XSYSMONPSV_VAL_MIN);
+		TempMinMax = TempMinMax << 16;
+		TempMinMax |= XSysMonPsv_ReadDeviceTemp(InstancePtr,
+						       XSYSMONPSV_VAL_MAX);
+		InstancePtr->TempEvent.Handler(InstancePtr->TempEvent.CallbackRef,
+					       &TempMinMax);
+	}
+
+	if(SupplyAlarm) {
+		for(SupplyNum = 0; Supply < EndList; SupplyNum++) {
+			Supply = (XSysMonPsv_Supply) SupplyNum;
+			if(XSysMonPsv_IsAlarmCondition(InstancePtr, Supply)) {
+				SupplyReg =
+					InstancePtr->Config.Supply_List[Supply];
+				EventHandler =
+					&InstancePtr->SupplyEvent[SupplyReg];
+
+				if(EventHandler->IsCallbackSet) {
+					SupplyVal = XSysMonPsv_ReadSupplyValue(InstancePtr,
+									       Supply,
+									       XSYSMONPSV_VAL);
+					EventHandler->Handler(EventHandler->CallbackRef,
+							      &SupplyVal);
+				}
+			}
+
+		}
+
+	}
+
 }
 
 /** @} */
