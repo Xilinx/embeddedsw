@@ -187,7 +187,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 		CfgPtr->BrigReg, XPCIEPSU_E_ECAM_CONTROL,
 				XPciePsu_ReadReg(CfgPtr->BrigReg,
 					XPCIEPSU_E_ECAM_CONTROL) |
-					(PSU_ECAM_VALUE_DEFAULT << E_ECAM_SIZE_SHIFT));
+					(((u32)PSU_ECAM_VALUE_DEFAULT) << E_ECAM_SIZE_SHIFT));
 
 	/* Use NPMem ranges for ECAM in case of 32B processors*/
 #if !defined (__aarch64__) && !defined (__arch64__)
