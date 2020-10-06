@@ -20,7 +20,7 @@ typedef struct PmNode PmNode;
  * Macros
  ********************************************************************/
 #define INVALID_DIV_ID(divId)	\
-		((divId != PM_CLOCK_DIV0_ID) && (divId != PM_CLOCK_DIV1_ID))
+		(((divId) != PM_CLOCK_DIV0_ID) && ((divId) != PM_CLOCK_DIV1_ID))
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
