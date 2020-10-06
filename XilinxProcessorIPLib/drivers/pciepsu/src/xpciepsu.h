@@ -104,6 +104,10 @@ typedef struct {
 	u32 MaxSupportedBusNo;		/**< If this is RC IP, Max Number of  Buses */
 } XPciePsu;
 
+/***************************** Variable defintions ****************************/
+extern XPciePsu_Config XPciePsu_ConfigTable[];
+extern size_t XPciePsu_ConfigTableSize;
+
 /***************************** Function Prototypes ****************************/
 
 XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId);
