@@ -300,7 +300,7 @@
 #endif
 
 #define REPORT_IF_ERROR(status) \
-		if (XST_SUCCESS != status) { \
+		if (XST_SUCCESS != (status)) { \
 			PmErr("@line %d\r\n", __LINE__); \
 		}
 

@@ -49,7 +49,7 @@
 
 #define AES_PUF_KEY_SEL_MASK	0x2U
 
-#define INVALID_ACK_ARG(a)	((a < REQUEST_ACK_MIN) || (a > REQUEST_ACK_MAX))
+#define INVALID_ACK_ARG(a)	(((a) < REQUEST_ACK_MIN) || ((a) > REQUEST_ACK_MAX))
 
 /*
  * PM error numbers, mostly used to identify erroneous usage of EEMI. Note:
