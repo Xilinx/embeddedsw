@@ -13,8 +13,8 @@
 
 #define PINMUX_FN(name, fn, sel, do)	\
 	{ \
-		.select = sel, \
-		.fid = fn, \
+		.select = (sel), \
+		.fid = (fn), \
 		PIN_##do \
 	}
 
@@ -23,7 +23,7 @@
 		.slavesCnt = 0U
 
 #define PIN_BIND(c)	\
-		.slaves = c, \
+		.slaves = (c), \
 		.slavesCnt = ARRAY_SIZE(c)
 
 #define PINMUX(id)	\
@@ -31,7 +31,7 @@
 
 #define PINMUX_REF(pinmux)	\
 	{	\
-		.pinMux = pinmux,	\
+		.pinMux = (pinmux),	\
 		.pinMuxSize = ARRAY_SIZE(pinmux),	\
 	}
 
@@ -55,15 +55,15 @@
 
 #define PM_PIN_PARAM_GET_ADDR(pinId, regOffset)	\
 	(IOU_SLCR_BANK0_CTRL0 + \
-	PM_IOU_SLCR_BANK_OFFSET * (pinId / PM_PIN_PARAM_PER_REG) + regOffset)
+	PM_IOU_SLCR_BANK_OFFSET * ((pinId) / PM_PIN_PARAM_PER_REG) + (regOffset))
 
 #define IOU_SLCR_BANK1_CTRL5	(IOU_SLCR_BASE + 164U)
 
 #define FIX_BANK1_CTRL5(shift)	\
-	shift = ((shift < 12U) ? (shift + 14U) : (shift - 12U))
+	(shift) = (((shift) < 12U) ? ((shift) + 14U) : ((shift) - 12U))
 
 #define SWAP_BITS_BANK1_CTRL5(val)	\
-	val = ((val & 0x3FFFU) << 12U) | ((val >> 14U) & 0xFFFU)
+	(val) = (((val) & 0x3FFFU) << 12U) | (((val) >> 14U) & 0xFFFU)
 
 /**
  * PmPinMuxFn - PIN mux function model
