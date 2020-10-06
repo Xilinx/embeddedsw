@@ -539,9 +539,8 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 		goto done;
 	}
 
-	/* Set subsystem to online if suspended or powered off */
-	if ((Subsystem->State == (u8)SUSPENDED) ||
-	    (Subsystem->State == (u8)POWERED_OFF)) {
+	/* Set subsystem to online if powered off */
+	if (Subsystem->State == (u8)POWERED_OFF) {
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
 		if (XST_SUCCESS != Status) {
 			goto done;
