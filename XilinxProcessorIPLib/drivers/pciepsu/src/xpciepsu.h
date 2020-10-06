@@ -65,6 +65,12 @@ extern "C" {
 #define XPciePsu_WriteReg(BaseAddr, RegOffset, Val)                            \
 	Xil_Out32((BaseAddr) + (RegOffset), (Val))
 
+#if defined(__aarch64__) || defined(__arch64__)
+
+#define XPciePsu_WriteReg64(BaseAddr, RegOffset, Val)                            \
+	Xil_Out64((BaseAddr) + (RegOffset), (Val))
+#endif
+
 #define ARRAY_SIZE(x)	sizeof(x) / sizeof(x[0])
 
 /****************************** Type Definitions ******************************/
