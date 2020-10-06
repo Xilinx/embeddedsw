@@ -21,6 +21,8 @@
 #define PM_USB_STATE_UNUSED	0U
 #define PM_USB_STATE_OFF	1U
 #define PM_USB_STATE_ON		2U
+#define PM_USB_MAX_STATE	3U /* This macro show that the USB support
+				      how many types of power state, here  it's 3U */
 
 /* Power consumptions for USB defined by its states */
 #define DEFAULT_USB_POWER_ON	100U
@@ -33,7 +35,7 @@
 #define PM_USB_OFF_TO_ON_LATENCY	152U
 
 /* USB states */
-static const u8 pmUsbStates[] = {
+static const u8 pmUsbStates[PM_USB_MAX_STATE] = {
 	[PM_USB_STATE_UNUSED] = 0U,
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP | PM_CAP_POWER,
 	[PM_USB_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT |
@@ -140,7 +142,7 @@ static PmWakeEventGicProxy pmUsb0Wake = {
 	.group = 2U,
 };
 
-static u8 PmUsbPowers[] = {
+static u8 PmUsbPowers[PM_USB_MAX_STATE] = {
 	[PM_USB_STATE_UNUSED] = DEFAULT_USB_POWER_OFF,
 	[PM_USB_STATE_OFF] = DEFAULT_USB_POWER_OFF,
 	[PM_USB_STATE_ON] = DEFAULT_USB_POWER_ON,

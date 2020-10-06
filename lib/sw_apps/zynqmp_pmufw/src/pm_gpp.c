@@ -18,8 +18,9 @@
 /* A GPP has its own power islands and dependencies to the FPD power parent */
 #define PM_GPP_SLAVE_STATE_OFF	0U
 #define PM_GPP_SLAVE_STATE_ON	1U
+#define PM_GPP_SLAVE_MAX_STATE	2U
 
-static const u8 pmGppStates[] = {
+static const u8 pmGppStates[PM_GPP_SLAVE_MAX_STATE] = {
 	[PM_GPP_SLAVE_STATE_OFF] = 0U,
 	[PM_GPP_SLAVE_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
