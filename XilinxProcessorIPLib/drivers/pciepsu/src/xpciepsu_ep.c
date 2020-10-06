@@ -80,7 +80,7 @@ void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
 	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,
 			XPCIEPSU_E_BREG_CONTROL);
 	Val &= ~(BREG_SIZE_MASK | BREG_ENABLE_FORCE);
-	Val |= (BREG_SIZE << BREG_SIZE_SHIFT);
+	Val |= ((u32)BREG_SIZE) << BREG_SIZE_SHIFT;
 	Val |= BREG_ENABLE;
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			XPCIEPSU_E_BREG_CONTROL, Val);
