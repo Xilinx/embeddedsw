@@ -158,7 +158,7 @@ void XPciePsu_EP_WaitForEnumeration(XPciePsu *PciePsuPtr)
 * @param	BarHi
 *
 *******************************************************************************/
-void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
+static void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 		u32 *BarHi)
 {
 	Xil_AssertVoid(PciePsuPtr != NULL);

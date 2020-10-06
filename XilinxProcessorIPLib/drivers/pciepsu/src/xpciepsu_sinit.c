@@ -29,9 +29,6 @@
 
 /**************************** Variable Definitions ****************************/
 
-extern XPciePsu_Config XPciePsu_ConfigTable[];
-extern size_t XPciePsu_ConfigTableSize;
-
 /***************************** Function Prototypes ****************************/
 
 /******************************************************************************/
