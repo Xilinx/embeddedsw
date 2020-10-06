@@ -18,8 +18,9 @@
 
 /* Always-on slave has only one state */
 #define PM_AON_SLAVE_STATE	0U
+#define PM_AON_SLAVE_MAX_STATE	1U
 
-static const u8 pmAonFsmStates[] = {
+static const u8 pmAonFsmStates[PM_AON_SLAVE_MAX_STATE] = {
 	[PM_AON_SLAVE_STATE] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
@@ -36,11 +37,13 @@ static u8 pmSlaveAonPowers[] = {
 
 #define PM_GENERIC_SLAVE_STATE_UNUSED	0U
 #define PM_GENERIC_SLAVE_STATE_RUNNING	1U
+#define PM_GENERIC_SLAVE_MAX_STATE	2U
 
 /* Generic slaves state transition latency values */
 #define PM_GENERIC_SLAVE_UNUSED_TO_RUNNING_LATENCY	304U
 #define PM_GENERIC_SLAVE_RUNNING_TO_UNUSED_LATENCY	6U
-static const u8 pmGenericSlaveStates[] = {
+
+static const u8 pmGenericSlaveStates[PM_GENERIC_SLAVE_MAX_STATE] = {
 	[PM_GENERIC_SLAVE_STATE_UNUSED] = 0U,
 	[PM_GENERIC_SLAVE_STATE_RUNNING] = PM_CAP_CONTEXT | PM_CAP_WAKEUP |
 			PM_CAP_ACCESS | PM_CAP_CLOCK | PM_CAP_POWER,
