@@ -476,9 +476,10 @@ enum XPmNotifyEvent {
 #define PM_INIT_NODE			62U
 #define PM_FEATURE_CHECK		63U
 #define PM_ISO_CONTROL			64U
+#define PM_ACTIVATE_SUBSYSTEM		65U
 
 #define PM_API_MIN      PM_GET_API_VERSION
-#define PM_API_MAX      PM_ISO_CONTROL
+#define PM_API_MAX      PM_ACTIVATE_SUBSYSTEM
 
 #ifdef __cplusplus
 }
