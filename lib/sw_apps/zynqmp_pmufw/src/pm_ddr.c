@@ -733,7 +733,7 @@ static void ddr_disable_rd_drift(void)
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLF;
-	r |= (10U << DDRPHY_DQSDR1_DFTRDIDLF_SHIFT);
+	r |= ((u32)10U << DDRPHY_DQSDR1_DFTRDIDLF_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(1U), r);
 }
 
