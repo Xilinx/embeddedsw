@@ -97,6 +97,7 @@ End:
 
 }
 
+#if defined(__aarch64__) || defined(__arch64__)
 /******************************************************************************/
 /**
 * This function returns offset to the matching capability ID from the
@@ -137,6 +138,7 @@ u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 End:
 	return Location;
 }
+#endif
 
 /******************************************************************************/
 /**

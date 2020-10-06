@@ -205,9 +205,9 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	ECamValMin = XPciePsu_ReadReg(CfgPtr->BrigReg,
 			XPCIEPSU_E_ECAM_CAPABILITIES);
 
-	ECamSize = 0x1U << (((ECamVal & E_ECAM_SIZE_LOC) >> E_ECAM_SIZE_SHIFT) +
+	ECamSize = (u32)(0x1U << (((ECamVal & E_ECAM_SIZE_LOC) >> E_ECAM_SIZE_SHIFT) +
                           ((ECamValMin & E_ECAM_SIZE_MIN) >>
-                           E_ECAM_SIZE_SHIFT));
+                           E_ECAM_SIZE_SHIFT)));
 
 	/* Configure last bus numbers as max possible bus number */
 	InstancePtr->MaxSupportedBusNo = GET_MAX_BUS_NO(ECamSize);
@@ -481,7 +481,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		/* Compose function configuration space location */
 		Location = XPciePsu_ComposeExternalConfigAddress(
 			Bus, Device, Function,
-			XPCIEPSU_CFG_BAR_BASE_OFFSET + BarNo);
+			XPCIEPSU_CFG_BAR_BASE_OFFSET + (u16)BarNo);
 
 		/* Write data to that location */
 		XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
@@ -516,7 +516,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			/* Compose function configuration space location */
 			Location_1 = XPciePsu_ComposeExternalConfigAddress(
 				Bus, Device, Function,
-				XPCIEPSU_CFG_BAR_BASE_OFFSET + (BarNo + 1U));
+				XPCIEPSU_CFG_BAR_BASE_OFFSET + ((u16)BarNo + 1U));
 
 			/* Write data to that location */
 			XPciePsu_WriteReg((InstancePtr->Config.Ecam),
