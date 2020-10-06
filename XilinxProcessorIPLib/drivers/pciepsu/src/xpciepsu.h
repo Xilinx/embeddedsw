@@ -120,8 +120,10 @@ u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 
 u8 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId);
+#if defined(__aarch64__) || defined(__arch64__)
 u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function, u8 CapId);
+#endif
 u8 XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function);
 
