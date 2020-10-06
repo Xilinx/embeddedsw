@@ -34,6 +34,7 @@
 *                     masked data writes.
 *       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
 *       sk   02/20/20 Added support for DLL Master mode.
+* 1.3   sk   10/06/20 Clear the ISR for polled mode transfers.
 *
 * </pre>
 *
@@ -379,6 +380,12 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		}
 	}
 
+	/* Clear the ISR */
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_IRQ_STATUS_REG,
+		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_IRQ_STATUS_REG));
+
 	if (Status != (u32)XST_SUCCESS) {
 		(void)XOspiPsv_CheckOspiIdle(InstancePtr);
 	} else {
@@ -498,6 +505,12 @@ u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 		(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
+
+	/* Clear the ISR */
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_IRQ_STATUS_REG,
+		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_IRQ_STATUS_REG));
 
 	Status = XOspiPsv_CheckOspiIdle(InstancePtr);
 
@@ -674,6 +687,8 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 			/* Clear the ISR */
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_OSPIDMA_DST_I_STS, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_IRQ_STATUS_REG, XOSPIPSV_IRQ_MASK_REG_INDIRECT_OP_DONE_MASK_FLD_MASK);
 			if (InstancePtr->IsUnaligned != 0U) {
 				InstancePtr->RecvBufferPtr += Msg->ByteCount;
 				Msg->Addr += Msg->ByteCount;
