@@ -234,7 +234,7 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 		 */
 	}
 
-	rpmsg_init_ept(ept, name, addr, dest, cb, unbind_cb);
+	rpmsg_initialize_ept(ept, name, addr, dest, cb, unbind_cb);
 	rpmsg_register_endpoint(rdev, ept);
 	metal_mutex_release(&rdev->lock);
 

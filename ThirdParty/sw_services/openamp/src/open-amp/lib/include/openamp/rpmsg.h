@@ -271,6 +271,8 @@ static inline int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept,
  * Initialize an RPMsg endpoint with a name, source address,
  * remoteproc address, endpoint callback, and destroy endpoint callback.
  *
+ * API deprecated since release v2020.10
+ *
  * @ept: pointer to rpmsg endpoint
  * @name: service name associated to the endpoint
  * @src: local address of the endpoint
@@ -279,11 +281,11 @@ static inline int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept,
  * @ns_unbind_cb: end point service unbind callback, called when remote ept is
  *                destroyed.
  */
-static inline void rpmsg_init_ept(struct rpmsg_endpoint *ept,
-				  const char *name,
-				  uint32_t src, uint32_t dest,
-				  rpmsg_ept_cb cb,
-				  rpmsg_ns_unbind_cb ns_unbind_cb)
+__deprecated static inline void rpmsg_init_ept(struct rpmsg_endpoint *ept,
+					       const char *name,
+					       uint32_t src, uint32_t dest,
+					       rpmsg_ept_cb cb,
+					       rpmsg_ns_unbind_cb ns_unbind_cb)
 {
 	strncpy(ept->name, name ? name : "", sizeof(ept->name)-1);
 	ept->addr = src;
