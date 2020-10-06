@@ -338,6 +338,8 @@ Added support for Stacked mode.
 Added support for reading C_OSPI_MODE param.
 Added flash_config header file in the examples and added dependency.props file as required.
 Added support for ISSI and Gigadevice parts.
+Update the Makefile for parallel execution.
+Clear the ISR register for polled transfers.
 
 resetps_v1_4:
 Updated the Makefile to support parallel make execution.
