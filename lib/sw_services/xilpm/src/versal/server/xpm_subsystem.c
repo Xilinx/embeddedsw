@@ -172,7 +172,7 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 
 			if ((1U == Reqm->Allocated) ||
 			    (((u8)ONLINE == Reqm->Subsystem->State) &&
-			     (0U == (Reqm->Subsystem->Flags & SUBSYSTEM_INIT_FINALIZED)))) {
+			     !IS_SUBSYS_INIT_FINALIZED(Reqm->Subsystem->Flags))) {
 				DeviceInUse = 1;
 				break;
 			}
@@ -484,6 +484,10 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 		goto done;
 	}
 
+	if (((u32)POWERED_OFF == State) || ((u32)OFFLINE == State)) {
+		Subsystem->Flags &= ~SUBSYSTEM_IS_CONFIGURED;
+	}
+
 	Subsystem->State = (u8)State;
 
 	Status = XST_SUCCESS;
@@ -529,6 +533,12 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 		goto done;
 	}
 
+	/* Consider request as success if subsystem is already configured */
+	if (IS_SUBSYS_CONFIGURED(Subsystem->Flags)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Set subsystem to online if suspended or powered off */
 	if ((Subsystem->State == (u8)SUSPENDED) ||
 	    (Subsystem->State == (u8)POWERED_OFF)) {
@@ -555,6 +565,8 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 		Reqm = Reqm->NextDevice;
 	}
 	Status = XST_SUCCESS;
+
+	Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
 
 done:
 	return Status;
@@ -742,6 +754,8 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+
+	Subsystem->Flags &= ~SUBSYSTEM_IS_CONFIGURED;
 
 	/*
 	 * In case the application has not released its
