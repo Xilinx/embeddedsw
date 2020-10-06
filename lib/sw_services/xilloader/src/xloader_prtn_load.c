@@ -655,24 +655,21 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			}
 		}
 		else {
+			SecureParams->RemainingDataLen = DeviceCopy->Len;
+
 			Status = XLoader_ProcessSecurePrtn(SecureParams,
 					SecureParams->SecureData, ChunkLen, LastChunk);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+
+			if (SecureParams->IsDoubleBuffering == (u8)TRUE) {
+				SecureParams->ChunkAddr = SecureParams->NextChunkAddr;
+			}
 			Cdo.BufPtr = (u32 *)SecureParams->SecureData;
 			Cdo.BufLen = SecureParams->SecureDataLen / XIH_PRTN_WORD_LEN;
 			DeviceCopy->SrcAddr += SecureParams->ProcessedLen;
 			DeviceCopy->Len -= SecureParams->ProcessedLen;
-
-			if ((SecureParams->IsDoubleBuffering == (u8)TRUE) &&
-						(LastChunk != (u8)TRUE)) {
-				Status = XLoader_StartNextChunkCopy(
-						SecureParams, DeviceCopy->Len, ChunkLen);
-				if (Status != XST_SUCCESS) {
-					goto END;
-				}
-			}
 		}
 		/* Process the chunk */
 		Status = XPlmi_ProcessCdo(&Cdo);
