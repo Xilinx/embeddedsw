@@ -846,7 +846,7 @@ static void PmFpgaLoad(const PmMaster *const master,
     Status = XFpga_PL_BitStream_Load(&XFpgaInstance, BitStreamAddr,
 				     KeyAddr, Flags);
 
-    if ((XST_SUCCESS == Status) && ((Flags & XFPGA_AUTHENTICATION_OCM_EN) ==
+    if ((XST_SUCCESS == (s32)Status) && ((Flags & XFPGA_AUTHENTICATION_OCM_EN) ==
 		XFPGA_AUTHENTICATION_OCM_EN)) {
 	FSBL_Store_Restore_Info.IsOCM_Used = TRUE;
     }
