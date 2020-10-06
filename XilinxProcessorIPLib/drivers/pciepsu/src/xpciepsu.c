@@ -295,15 +295,20 @@ u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 {
 	u32 Location = 0U;
 	u32 Data;
-	u8	Ret = XST_SUCCESS;
+	u8 Ret = XST_SUCCESS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DataPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (((Bus == 0U) && !((Device == 0U) && (Function == 0U)))
-	    || (Bus > InstancePtr->MaxSupportedBusNo)) {
+	if ((Bus == 0U) && !((Device == 0U) && (Function == 0U))) {
 		*DataPtr = DATA_MASK_32;
+		goto End;
+	}
+
+	if (Bus > InstancePtr->MaxSupportedBusNo) {
+		XPciePsu_Dbg("Bus:%d greater than Max supported buses:%d\n",
+				Bus, InstancePtr->MaxSupportedBusNo);
 		Ret = XST_FAILURE;
 		goto End;
 	}
@@ -346,7 +351,13 @@ u8 XPciePsu_WriteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((Bus == 0U) || (Bus > InstancePtr->MaxSupportedBusNo)){
+	if (Bus == 0U) {
+		goto End;
+	}
+
+	if (Bus > InstancePtr->MaxSupportedBusNo) {
+		XPciePsu_Dbg("Bus:%d greater than Max supported buses:%d\n",
+				Bus, InstancePtr->MaxSupportedBusNo);
 		Ret = XST_FAILURE;
 		goto End;
 	}
@@ -688,9 +699,11 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 		     PCIeFunNum++) {
 
 			/* Vendor ID */
-			XPciePsu_ReadConfigSpace(
+			if (XPciePsu_ReadConfigSpace(
 				InstancePtr, BusNum, PCIeDevNum, PCIeFunNum,
-				XPCIEPSU_CFG_ID_REG, &ConfigData);
+				XPCIEPSU_CFG_ID_REG, &ConfigData) != (u8)XST_SUCCESS) {
+				return;
+			}
 
 			PCIeVendorID = (u16)(ConfigData & 0xFFFFU);
 			PCIeDeviceID = (u16)((ConfigData >> 16U) & 0xFFFFU);
@@ -714,10 +727,12 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					PCIeVendorID, PCIeDeviceID);
 
 				/* Header Type */
-				XPciePsu_ReadConfigSpace(
+				if (XPciePsu_ReadConfigSpace(
 					InstancePtr, BusNum, PCIeDevNum,
 					PCIeFunNum, XPCIEPSU_CFG_CAH_LAT_HD_REG,
-					&ConfigData);
+					&ConfigData) != (u8)XST_SUCCESS) {
+					return;
+				}
 
 				PCIeHeaderType =
 					ConfigData & XPCIEPSU_CFG_HEADER_TYPE_MASK;
@@ -743,20 +758,24 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					 * Initialize this end point
 					 * and return.
 					 */
-					XPciePsu_ReadConfigSpace(
+					if (XPciePsu_ReadConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,
-						&ConfigData);
+						&ConfigData) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 					ConfigData |= (XPCIEPSU_CFG_CMD_BUSM_EN
 						       | XPCIEPSU_CFG_CMD_MEM_EN);
 
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,
-						ConfigData);
+						ConfigData) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 					XPciePsu_Dbg(
 						"End Point has been "
@@ -799,38 +818,46 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 							      bus no */
 					Adr06 <<= TWO_HEX_NIBBLES;
 					Adr06 |= BusNum; /* Primary bus no */
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_BUS_NUMS_T1_REG,
-						Adr06);
+						Adr06) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 					/* Update start values of P and NP MMIO
 					 * base */
 					Adr08 |= ((InstancePtr->Config.NpMemBaseAddr
 						   & 0xFFF00000U)
 						  >> FOUR_HEX_NIBBLES);
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
-						XPCIEPSU_CFG_NP_MEM_T1_REG, Adr08);
+						XPCIEPSU_CFG_NP_MEM_T1_REG, Adr08) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 #if defined(__aarch64__) || defined(__arch64__)
 					Adr09 |= (u32)((InstancePtr->Config.PMemBaseAddr
 						   & 0xFFF00000U)
 						  >> FOUR_HEX_NIBBLES);
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
-						XPCIEPSU_CFG_P_MEM_T1_REG, Adr09);
+						XPCIEPSU_CFG_P_MEM_T1_REG, Adr09) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 					Adr0A |= (u32)(InstancePtr->Config.PMemBaseAddr
 						  >> EIGHT_HEX_NIBBLES);
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_UPPER_MEM_T1_REG,
-						Adr0A);
+						Adr0A) != (u8)XST_SUCCESS) {
+						return;
+					}
 #endif
 
 					/* Searches secondary bus devices. */
@@ -845,11 +872,13 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					/* setting subordinate bus no */
 					Adr06 |= (u32)LastBusNum
 						  << FOUR_HEX_NIBBLES;
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_BUS_NUMS_T1_REG,
-						Adr06);
+						Adr06) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 					/*
 					 * Update end values of MMIO limit
@@ -868,26 +897,32 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					XPciePsu_IncreamentNpMem(InstancePtr);
 					Adr08 |= (InstancePtr->Config.NpMemBaseAddr
 						  & 0xFFF00000U);
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
-						XPCIEPSU_CFG_NP_MEM_T1_REG, Adr08);
+						XPCIEPSU_CFG_NP_MEM_T1_REG, Adr08) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 #if defined(__aarch64__) || defined(__arch64__)
 					XPciePsu_IncreamentPMem(InstancePtr);
 					Adr09 |= (u32)(InstancePtr->Config.PMemBaseAddr
 						  & 0xFFF00000U);
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
-						XPCIEPSU_CFG_P_MEM_T1_REG, Adr09);
+						XPCIEPSU_CFG_P_MEM_T1_REG, Adr09) != (u8)XST_SUCCESS) {
+						return;
+					}
 					Adr0B |= (u32)(InstancePtr->Config.PMemBaseAddr
 						  >> EIGHT_HEX_NIBBLES);
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_LIMIT_MEM_T1_REG,
-						Adr0B);
+						Adr0B) != (u8)XST_SUCCESS) {
+						return;
+					}
 #endif
 
 					/* Increment P & NP mem to next aligned starting address.
@@ -903,20 +938,24 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					/*
 					 * Enable configuration
 					 */
-					XPciePsu_ReadConfigSpace(
+					if (XPciePsu_ReadConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,
-						&ConfigData);
+						&ConfigData) != (u8)XST_SUCCESS) {
+						return;
+					}
 
 					ConfigData |= (XPCIEPSU_CFG_CMD_BUSM_EN
 						       | XPCIEPSU_CFG_CMD_MEM_EN);
 
-					XPciePsu_WriteConfigSpace(
+					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_CMD_STATUS_REG,
-						ConfigData);
+						ConfigData) != (u8)XST_SUCCESS) {
+						return;
+					}
 				}
 			}
 			if ((PCIeFunNum == 0U) && (PCIeMultiFun == 0U)) {
@@ -971,8 +1010,8 @@ u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
 	/* Clear instance memory and make copy of configuration */
-	memset(InstancePtr, 0, sizeof(XPciePsu));
-	memcpy(&(InstancePtr->Config), CfgPtr, sizeof(XPciePsu_Config));
+	(void)memset(InstancePtr, 0, sizeof(XPciePsu));
+	(void)memcpy(&(InstancePtr->Config), CfgPtr, sizeof(XPciePsu_Config));
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
