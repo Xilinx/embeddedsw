@@ -358,6 +358,8 @@ void XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 {
 	XPmcDma* PmcDmaPtr = NULL;
 
+	XPlmi_SSSCfgDmaDma(DmaFlags);
+
 	if ((DmaFlags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
 		PmcDmaPtr = &PmcDma0;
 	}
