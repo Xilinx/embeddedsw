@@ -47,8 +47,8 @@
 static int XPciePsu_PhyReady(XPciePsu_Config *InstancePtr)
 {
 	s32 Status;
-	if (XPciePsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
-	    & XPCIEPSU_XPHY_RDY_LINKUP_BIT){
+	if ((XPciePsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
+	    & XPCIEPSU_XPHY_RDY_LINKUP_BIT) != 0U) {
 		Status = XPCIEPSU_LINKUP_SUCCESS;
 	} else {
 		Status = XPCIEPSU_LINKUP_FAIL;
@@ -69,8 +69,9 @@ static int XPciePsu_PhyReady(XPciePsu_Config *InstancePtr)
 static int XPciePsu_PcieLinkUp(XPciePsu_Config *InstancePtr)
 {
 	s32 Status;
-	if (XPciePsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
-	    & XPCIEPSU_PHY_LINKUP_BIT){
+
+	if ((XPciePsu_ReadReg(InstancePtr->PciReg, XPCIEPSU_PS_LINKUP_OFFSET)
+	    & XPCIEPSU_PHY_LINKUP_BIT) != 0U) {
 		Status =  XPCIEPSU_LINKUP_SUCCESS;
 	} else {
 		Status =  XPCIEPSU_LINKUP_FAIL;
@@ -95,7 +96,7 @@ static int XPciePsu_PcieLinkUpTimeout(XPciePsu_Config *InstancePtr)
 	s32 Status = XPCIEPSU_LINKUP_FAIL;
 	/* check if the link is up or not */
 	for (Retries = 0; Retries < XPCIEPSU_LINK_WAIT_MAX_RETRIES; Retries++) {
-		if (XPciePsu_PhyReady(InstancePtr)){
+		if (XPciePsu_PhyReady(InstancePtr) == XPCIEPSU_LINKUP_SUCCESS) {
 			Status =  XPCIEPSU_LINKUP_SUCCESS;
 			goto End;
 		}
@@ -131,7 +132,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 
 	BRegVal = XPciePsu_ReadReg(CfgPtr->BrigReg, XPCIEPSU_E_BREG_CAPABILITIES)
 		   & BREG_PRESENT;
-	if (!BRegVal) {
+	if (BRegVal == 0U) {
 		XPciePsu_Err("BREG is not present\r\n");
 		Status = XST_FAILURE;
 		goto End;
@@ -170,7 +171,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 
 	ECamVal = XPciePsu_ReadReg(CfgPtr->BrigReg,
 				XPCIEPSU_E_ECAM_CAPABILITIES) & E_ECAM_PRESENT;
-	if (!ECamVal) {
+	if (ECamVal == 0U) {
 		XPciePsu_Err("ECAM is not present\r\n");
 		Status = XST_FAILURE;
 		goto End;
@@ -204,7 +205,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	ECamValMin = XPciePsu_ReadReg(CfgPtr->BrigReg,
 			XPCIEPSU_E_ECAM_CAPABILITIES);
 
-	ECamSize = 0x1 << (((ECamVal & E_ECAM_SIZE_LOC) >> E_ECAM_SIZE_SHIFT) +
+	ECamSize = 0x1U << (((ECamVal & E_ECAM_SIZE_LOC) >> E_ECAM_SIZE_SHIFT) +
                           ((ECamValMin & E_ECAM_SIZE_MIN) >>
                            E_ECAM_SIZE_SHIFT));
 
@@ -213,7 +214,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 
 	/* Write primary, secondary and subordinate bus numbers */
 	ECamVal = FirstBusNo;
-	ECamVal |= (FirstBusNo + 1) << 8;
+	ECamVal |= (FirstBusNo + 1U) << 8U;
 	ECamVal |= (InstancePtr->MaxSupportedBusNo << E_ECAM_SIZE_SHIFT);
 
 	XPciePsu_WriteReg(CfgPtr->Ecam, XPCIEPSU_PRIMARY_BUS, ECamVal);
@@ -292,7 +293,7 @@ u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				    u8 Function, u16 Offset, u32 *DataPtr)
 {
-	u32 Location = 0;
+	u32 Location = 0U;
 	u32 Data;
 	u8	Ret = XST_SUCCESS;
 
@@ -300,7 +301,7 @@ u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	Xil_AssertNonvoid(DataPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (((Bus == 0) && !((Device == 0) && (Function == 0)))
+	if (((Bus == 0U) && !((Device == 0U) && (Function == 0U)))
 	    || (Bus > InstancePtr->MaxSupportedBusNo)) {
 		*DataPtr = DATA_MASK_32;
 		Ret = XST_FAILURE;
@@ -337,15 +338,15 @@ End:
 u8 XPciePsu_WriteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				     u8 Function, u16 Offset, u32 Data)
 {
-	u32 Location = 0;
-	u32 TestWrite = 0;
-	u8 Count = 3;
+	u32 Location = 0U;
+	u32 TestWrite = 0U;
+	u8 Count = 3U;
 	u8 Ret = XST_SUCCESS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((Bus == 0) || (Bus > InstancePtr->MaxSupportedBusNo)){
+	if ((Bus == 0U) || (Bus > InstancePtr->MaxSupportedBusNo)){
 		Ret = XST_FAILURE;
 		goto End;
 	}
@@ -358,7 +359,7 @@ u8 XPciePsu_WriteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
 
 	/* Read data from that location to verify write */
-	while (Count) {
+	while (Count != 0U) {
 		TestWrite =
 			XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
 
@@ -373,14 +374,14 @@ End:
 
 static int XPciePsu_PositionRightmostSetbit(u64 Size)
 {
-	int Position = 0;
-	int Bit = 1;
+	u32 Position = 0U;
+	u32 Bit = 1U;
 
 	/* ignore 4 bits */
-	Size = Size & (~(0xf));
+	Size = Size & (~(0xfU));
 
-	while (!(Size & Bit)) {
-		Bit = Bit << 1;
+	while ((Size & Bit) == 0U) {
+		Bit = Bit << 1U;
 		Position++;
 	}
 
@@ -486,7 +487,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
 
 		Size = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
-		if ((Size & (~(0xf))) == 0x00) {
+		if ((Size & (~(0xfU))) == 0x00U) {
 			/* return saying that BAR is not implemented */
 			XPciePsu_Dbg(
 				"bus: %d, device: %d, function: %d: BAR %d is "
@@ -496,7 +497,8 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		}
 
 		/* check for IO space or memory space */
-		if (Size & XPCIEPSU_CFG_BAR_MEM_TYPE_MASK) {
+		if ((Size & XPCIEPSU_CFG_BAR_MEM_TYPE_MASK) ==
+				XPCIEPSU_BAR_MEM_TYPE_IO) {
 			/* Device required IO address space */
 			XPciePsu_Dbg(
 				"bus: %d, device: %d, function: %d: BAR %d "
@@ -514,7 +516,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			/* Compose function configuration space location */
 			Location_1 = XPciePsu_ComposeExternalConfigAddress(
 				Bus, Device, Function,
-				XPCIEPSU_CFG_BAR_BASE_OFFSET + (BarNo + 1));
+				XPCIEPSU_CFG_BAR_BASE_OFFSET + (BarNo + 1U));
 
 			/* Write data to that location */
 			XPciePsu_WriteReg((InstancePtr->Config.Ecam),
@@ -535,7 +537,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			BarAddr =
 				XPciePsu_ReserveBarMem(
 						InstancePtr, MemAs,
-						((u64)2 << (TestWrite - 1)));
+						((u64)2 << (TestWrite - 1U)));
 
 			Tmp = (u32)BarAddr;
 
@@ -543,7 +545,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
 					  Tmp);
 
-			Tmp = (u32)(BarAddr >> 32);
+			Tmp = (u32)(BarAddr >> 32U);
 
 			/* Write actual bar address here */
 			XPciePsu_WriteReg((InstancePtr->Config.Ecam),
@@ -552,7 +554,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				"bus: %d, device: %d, function: %d: BAR %d, "
 				"ADDR: 0x%p size : %dK\r\n",
 				Bus, Device, Function, BarNo, BarAddr,
-				((2 << (TestWrite - 1)) / 1024));
+				((2U << (TestWrite - 1U)) / 1024U));
 #else
 			TestWrite = XPciePsu_PositionRightmostSetbit(Size);
 
@@ -560,7 +562,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			BarAddr =
 				XPciePsu_ReserveBarMem(
 						InstancePtr, MemAs,
-						((u32)2 << (TestWrite - 1)));
+						((u32)2U << (TestWrite - 1U)));
 
 			Tmp = (u32)BarAddr;
 
@@ -571,7 +573,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				"bus: %d, device: %d, function: %d: BAR %d, "
 				"ADDR: 0x%p size : %dK\r\n",
 				Bus, Device, Function, BarNo, BarAddr,
-				((2 << (TestWrite - 1)) / 1024));
+				((2U << (TestWrite - 1U)) / 1024U));
 #endif
 		} else {
 			/* 32 bit AS is required */
@@ -584,9 +586,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				XPciePsu_ReserveBarMem(
 						InstancePtr, MemAs,
 #if defined(__aarch64__) || defined(__arch64__)
-						((u64)2 << (TestWrite - 1)));
+						((u64)2U << (TestWrite - 1U)));
 #else
-						((u32)2 << (TestWrite - 1)));
+						((u32)2U << (TestWrite - 1U)));
 #endif
 
 			Tmp = (u32)BarAddr;
@@ -598,12 +600,12 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				"bus: %d, device: %d, function: %d: BAR %d, "
 				"ADDR: 0x%p size : %dK\r\n",
 				Bus, Device, Function, BarNo, BarAddr,
-				((2 << (TestWrite - 1)) / 1024));
+				((2U << (TestWrite - 1U)) / 1024U));
 		}
 		/* no need to probe next bar if present BAR requires 64 bit AS
 		 */
 		if ((Size & XPCIEPSU_CFG_BAR_MEM_AS_MASK) == XPCIEPSU_BAR_MEM_TYPE_64)
-			BarNo = BarNo + 1;
+			BarNo = BarNo + 1U;
 	}
 
 	return XST_SUCCESS;
@@ -680,9 +682,9 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 		return;
 	}
 
-	for (u32 PCIeDevNum = 0; PCIeDevNum < XPCIEPSU_CFG_MAX_NUM_OF_DEV;
+	for (u32 PCIeDevNum = 0U; PCIeDevNum < XPCIEPSU_CFG_MAX_NUM_OF_DEV;
 	     PCIeDevNum++) {
-		for (u32 PCIeFunNum = 0; PCIeFunNum < XPCIEPSU_CFG_MAX_NUM_OF_FUN;
+		for (u32 PCIeFunNum = 0U; PCIeFunNum < XPCIEPSU_CFG_MAX_NUM_OF_FUN;
 		     PCIeFunNum++) {
 
 			/* Vendor ID */
@@ -690,11 +692,11 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 				InstancePtr, BusNum, PCIeDevNum, PCIeFunNum,
 				XPCIEPSU_CFG_ID_REG, &ConfigData);
 
-			PCIeVendorID = (u16)(ConfigData & 0xFFFF);
-			PCIeDeviceID = (u16)((ConfigData >> 16) & 0xFFFF);
+			PCIeVendorID = (u16)(ConfigData & 0xFFFFU);
+			PCIeDeviceID = (u16)((ConfigData >> 16U) & 0xFFFFU);
 
 			if (PCIeVendorID == XPCIEPSU_CFG_FUN_NOT_IMP_MASK) {
-				if (PCIeFunNum == 0)
+				if (PCIeFunNum == 0U)
 					/*
 					 * We don't need to look
 					 * any further on this device.
@@ -733,7 +735,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 						InstancePtr, PCIeHeaderType,
 						BusNum, PCIeDevNum,
 						PCIeFunNum);
-					if (Ret != 0)
+					if (Ret != 0U)
 						return;
 
 					/*
@@ -787,7 +789,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					/* Sets primary and secondary bus
 					 * numbers */
 					Adr06 <<= TWO_HEX_NIBBLES;
-					Adr06 |= 0xFF; /* sub ordinate bus no 0xF
+					Adr06 |= 0xFFU; /* sub ordinate bus no 0xF
 						     */
 					Adr06 <<= TWO_HEX_NIBBLES;
 					Adr06 |= (++LastBusNum); /* secondary
@@ -803,7 +805,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					/* Update start values of P and NP MMIO
 					 * base */
 					Adr08 |= ((InstancePtr->Config.NpMemBaseAddr
-						   & 0xFFF00000)
+						   & 0xFFF00000U)
 						  >> FOUR_HEX_NIBBLES);
 					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
@@ -812,7 +814,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 
 #if defined(__aarch64__) || defined(__arch64__)
 					Adr09 |= ((InstancePtr->Config.PMemBaseAddr
-						   & 0xFFF00000)
+						   & 0xFFF00000U)
 						  >> FOUR_HEX_NIBBLES);
 					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
@@ -836,7 +838,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					 * update subordinate bus no
 					 * clearing subordinate bus no
 					 */
-					Adr06 &= (~(0xFF << FOUR_HEX_NIBBLES));
+					Adr06 &= (~(0xFFU << FOUR_HEX_NIBBLES));
 					/* setting subordinate bus no */
 					Adr06 |= (LastBusNum
 						  << FOUR_HEX_NIBBLES);
@@ -862,7 +864,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 					 */
 					XPciePsu_IncreamentNpMem(InstancePtr);
 					Adr08 |= (InstancePtr->Config.NpMemBaseAddr
-						  & 0xFFF00000);
+						  & 0xFFF00000U);
 					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
@@ -871,7 +873,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 #if defined(__aarch64__) || defined(__arch64__)
 					XPciePsu_IncreamentPMem(InstancePtr);
 					Adr09 |= (InstancePtr->Config.PMemBaseAddr
-						  & 0xFFF00000);
+						  & 0xFFF00000U);
 					XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
@@ -914,7 +916,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 						ConfigData);
 				}
 			}
-			if ((!PCIeFunNum) && (!PCIeMultiFun)) {
+			if ((PCIeFunNum == 0U) && (PCIeMultiFun == 0U)) {
 				/*
 				 * If it is function 0 and it is not a
 				 * multi function device, we don't need
@@ -939,7 +941,8 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 u8 XPciePsu_EnumerateBus(XPciePsu *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	XPciePsu_FetchDevicesInBus(InstancePtr, 0);
+	XPciePsu_FetchDevicesInBus(InstancePtr, 0U);
+
 	return XST_SUCCESS;
 }
 
