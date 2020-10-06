@@ -355,7 +355,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					      Pload[3], Cmd->IpiMask);
 		break;
 	default:
-		PmErr("CMD: INVALID PARAM\n\r");
+		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
 		break;
 	}
@@ -376,9 +376,12 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		goto done;
 	}
 
+	/* Restore the CmdHandler status */
+	Status = (int)Cmd->Response[0];
+
 done:
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != Cmd->Response[0])) {
-		PmErr("Cmd status: 0x%x, Response copy status: 0x%x\n\r", Cmd->Response[0], Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("Err Code: 0x%x\r\n", Status);
 	}
 	return Status;
 }
