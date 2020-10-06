@@ -280,7 +280,7 @@ static u32 PmResetPulseRom(const PmReset *const rstPtr)
 static u32 PmResetGetStatusGpioBankIOs(const PmReset* const rstPtr)
 {
 	const PmResetGpioBankIOs *rstGpioPtr = (PmResetGpioBankIOs*)rstPtr->derived;
-	u32 RegShift = MAX_REG_BITS/2 + rstGpioPtr->rstLine;
+	u32 RegShift = (u32)MAX_REG_BITS/2U + (u32)rstGpioPtr->rstLine;
 	u32 RegVal = 0;
 
 	/* Read the MIO/EMIO data register */

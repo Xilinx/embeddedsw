@@ -586,7 +586,7 @@ void PmSystemRestartDone(const PmMaster* const master)
 	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
 	caps = PmSystemGetRequirement(&pmSlaveDdr_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
-		req->currReq &= ~PM_CAP_ACCESS;
+		req->currReq &= ~(u8)PM_CAP_ACCESS;
 	}
 
 	/* Clear system requirement for PL once restart is done*/
