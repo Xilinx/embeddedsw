@@ -256,6 +256,8 @@
 *       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
 *                       four LSBs of the CS Gain.
 *       cog    09/28/20 Change XRFdc_IsHighSpeedADC to accomodate 43dr parts.
+*       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
+*                       consumption.
 *
 * </pre>
 *
@@ -988,6 +990,7 @@ typedef struct {
 
 #define XRFDC_SM_STATE0 0x0U
 #define XRFDC_SM_STATE1 0x1U
+#define XRFDC_SM_STATE3 0x3U
 #define XRFDC_SM_STATE15 0xFU
 
 #define XRFDC_DECIM_4G_DATA_TYPE 0x3U
