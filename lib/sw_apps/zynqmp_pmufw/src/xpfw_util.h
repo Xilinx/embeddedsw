@@ -14,7 +14,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xstatus.h"
 
-#define BIT(n)		(1U << (n))
+#define BIT(n)		((u32)1U << (n))
 
 
 /**
