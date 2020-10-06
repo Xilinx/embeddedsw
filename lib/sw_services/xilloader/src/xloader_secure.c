@@ -398,6 +398,8 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 			ChunkLen = Len;
 		}
 
+		SecurePtr->RemainingDataLen = Len;
+
 		/* Call security function */
 		Status = XLoader_ProcessSecurePrtn(SecurePtr, LoadAddr,
 					ChunkLen, LastChunk);
@@ -422,14 +424,8 @@ u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 		LoadAddr = LoadAddr + SecurePtr->SecureDataLen;
 		Len = Len - SecurePtr->ProcessedLen;
 
-		if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
-					(LastChunk != (u8)TRUE)) {
-
-			Status = XLoader_StartNextChunkCopy(SecurePtr,
-							Len, ChunkLen);
-			if (Status != XLOADER_SUCCESS) {
-				goto END;
-			}
+		if (SecurePtr->IsDoubleBuffering == (u8)TRUE) {
+			SecurePtr->ChunkAddr = SecurePtr->NextChunkAddr;
 		}
 	}
 
@@ -545,6 +541,16 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			goto END;
 		}
 
+		if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
+				(Last != (u8)TRUE)) {
+			Status = XLoader_StartNextChunkCopy(SecurePtr,
+					(SecurePtr->RemainingDataLen - TotalSize),
+					SrcAddr + TotalSize, BlockSize);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
 		/* Verify hash */
 		XSECURE_TEMPORAL_CHECK(END, Status,
 					XLoader_VerifyHashNUpdateNext,
@@ -575,6 +581,15 @@ u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 				goto END;
 			}
 
+			if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
+					(Last != (u8)TRUE)) {
+				Status = XLoader_StartNextChunkCopy(SecurePtr,
+						(SecurePtr->RemainingDataLen - TotalSize),
+						(SrcAddr + TotalSize), BlockSize);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+			}
 			SecurePtr->SecureData = SecurePtr->ChunkAddr;
 			SecurePtr->SecureDataLen = TotalSize;
 		}
@@ -619,7 +634,7 @@ END:
 * @brief	This function starts next chunk copy when security is enabled.
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-* @param	TotalLen is total length of the partition.
+* @param	NextBlkAddr is the address of the next chunk data to be copied.
 * @param 	ChunkLen is size of the data block to be copied.
 *
 * @return	XLOADER_SUCCESS on success
@@ -627,24 +642,23 @@ END:
 *
 ******************************************************************************/
 u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
-				u32 ChunkLen)
+				u32 NextBlkAddr, u32 ChunkLen)
 {
 	u32 Status = XLOADER_FAILURE;
 	u32 CopyLen = ChunkLen;
 
 	if (SecurePtr->ChunkAddr == XPLMI_PMCRAM_CHUNK_MEMORY) {
-		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY_1;
+		SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	}
 	else {
-		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
+		SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	}
-
 	if (TotalLen <= ChunkLen) {
 		if (((SecurePtr->IsEncrypted == (u8)TRUE) &&
 			((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecurePtr->IsCheckSumEnabled == (u8)TRUE))) ||
 			(SecurePtr->IsEncrypted == (u8)TRUE)) {
-			CopyLen = SecurePtr->RemainingEncLen;
+			CopyLen = SecurePtr->RemainingEncLen - CopyLen;
 		}
 	}
 	else {
@@ -657,8 +671,8 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	SecurePtr->IsNextChunkCopyStarted = (u8)TRUE;
 
 	/* Initiate the data copy */
-	Status = SecurePtr->PdiPtr->DeviceCopy(SecurePtr->NextBlkAddr,
-			SecurePtr->ChunkAddr,
+	Status = SecurePtr->PdiPtr->DeviceCopy(NextBlkAddr,
+			SecurePtr->NextChunkAddr,
 			CopyLen,
 			XPLMI_DEVICE_COPY_STATE_INITIATE);
 	if (Status != XLOADER_SUCCESS) {

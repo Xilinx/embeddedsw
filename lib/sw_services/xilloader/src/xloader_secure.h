@@ -308,10 +308,12 @@ typedef struct {
 	u8 IsCdo; /**< CDO or Elf */
 	u64 NextBlkAddr;
 	u32 ChunkAddr;
+	u32 NextChunkAddr;
 	/* Verified data is at */
 	u32 SecureData;
 	u32 SecureDataLen;
 	u32 ProcessedLen;
+	u32 RemainingDataLen;
 	u32 RemainingEncLen;
 	u32 BlockNum;
 	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];
@@ -445,7 +447,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 u32 XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
 u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
-	u32 ChunkLen);
+                                u32 NextBlkAddr, u32 ChunkLen);
 int XLoader_AddAuthJtagToScheduler(void);
 void XLoader_SecureClear(void);
 
