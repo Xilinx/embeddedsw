@@ -374,8 +374,9 @@ u8 XPciePsu_WriteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		TestWrite =
 			XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
 
-		if (TestWrite == Data)
+		if (TestWrite == Data) {
 			break;
+		}
 
 		Count--;
 	}
@@ -615,8 +616,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		}
 		/* no need to probe next bar if present BAR requires 64 bit AS
 		 */
-		if ((Size & XPCIEPSU_CFG_BAR_MEM_AS_MASK) == XPCIEPSU_BAR_MEM_TYPE_64)
+		if ((Size & XPCIEPSU_CFG_BAR_MEM_AS_MASK) == XPCIEPSU_BAR_MEM_TYPE_64) {
 			BarNo = BarNo + 1U;
+		}
 	}
 
 	return (s32)XST_SUCCESS;
@@ -709,12 +711,13 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 			PCIeDeviceID = (u16)((ConfigData >> 16U) & 0xFFFFU);
 
 			if (PCIeVendorID == XPCIEPSU_CFG_FUN_NOT_IMP_MASK) {
-				if (PCIeFunNum == 0U)
+				if (PCIeFunNum == 0U) {
 					/*
 					 * We don't need to look
 					 * any further on this device.
 					 */
 					break;
+				}
 			} else {
 				XPciePsu_Dbg(
 					"\n\rPCIeBus is %02X\r\nPCIeDev is "
@@ -1023,8 +1026,9 @@ u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
 		XPciePsu_Err("Bridge init failed\r\n");
 	}
 
-	if (InstancePtr->Config.Ecam == InstancePtr->Config.NpMemBaseAddr)
+	if (InstancePtr->Config.Ecam == InstancePtr->Config.NpMemBaseAddr) {
 		InstancePtr->Config.NpMemBaseAddr += XPCIEPSU_ECAM_MEMSIZE;
+	}
 
 	return (u32)Status;
 }
