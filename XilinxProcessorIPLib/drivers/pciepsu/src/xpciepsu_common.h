@@ -130,14 +130,14 @@ extern "C" {
 		do { \
 			xil_printf("pcie_psu: "); \
 			xil_printf(__VA_ARGS__);  \
-		} while (0U)
+		} while (0U != FALSE)
 
 #ifdef DEBUG_MODE
 #define XPciePsu_Dbg(...) \
 		do { \
 			xil_printf("pcie_psu: "); \
 			xil_printf(__VA_ARGS__);  \
-		} while (0U)
+		} while (0U != FALSE)
 #else
 	#define XPciePsu_Dbg(...)	{}
 #endif
