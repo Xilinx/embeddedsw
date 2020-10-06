@@ -46,6 +46,8 @@
 *       cog    04/06/20 Fix GCC warnings.
 * 8.1   cog    06/24/20 Upversion.
 *       cog    08/11/20 Refactor of clock distribution settings.
+*       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
+*                       consumption.
 * </pre>
 *
 ******************************************************************************/
@@ -594,10 +596,22 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	Delays[5] = &DistributionSettingsPtr->ADC[2].Delay;
 	Delays[6] = &DistributionSettingsPtr->ADC[1].Delay;
 	Delays[7] = &DistributionSettingsPtr->ADC[0].Delay;
-	Status = XRFdc_Shutdown(InstancePtr, XRFDC_ADC_TILE, -1);
-	if (Status != XRFDC_SUCCESS) {
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
+
+	for (Tile = 0; Tile < XRFDC_NUM_OF_TILES4; Tile++) {
+		Status = XRFdc_CheckTileEnabled(InstancePtr, XRFDC_ADC_TILE, Tile);
+		if (Status != XRFDC_SUCCESS) {
+			continue;
+		}
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_STATE_OFFSET,
+				XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
+		/* Trigger restart */
+		XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_OFFSET,
+			       XRFDC_RESTART_MASK);
+		Status |= XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
+		if (Status != XRFDC_SUCCESS) {
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 	Status = XRFdc_Shutdown(InstancePtr, XRFDC_DAC_TILE, -1);
 	if (Status != XRFDC_SUCCESS) {
@@ -1767,7 +1781,12 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	 * Stop the ADC or DAC tile by putting tile in reset state if not stopped already
 	 */
 	if (InitialPowerUpState != XRFDC_DISABLED) {
-		Status = XRFdc_Shutdown(InstancePtr, Type, Tile_Id);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_RESTART_STATE_OFFSET,
+				XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
+		/* Trigger restart */
+		XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_RESTART_OFFSET,
+			       XRFDC_RESTART_MASK);
+		Status |= XRFdc_WaitForState(InstancePtr, Type, Tile_Id, XRFDC_SM_STATE1);
 		if (Status != XRFDC_SUCCESS) {
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
