@@ -135,6 +135,40 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function activates subsystem by requesting all pre-alloc
+ * 	   devices which are essential for susbystem to be operational.
+ *
+ * @param  SubsystemId	ID of subsystem which is requesting to activate other
+ * 			subsystem (NULL in case of request from XSDB master)
+ * @param  IpiMask	IPI mask of requesting master
+ * @param  TargetSubsystemId	ID of subsystem which needs activation
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   This command is only allowed from XSDB master or from PMC subsystem
+ *
+ ****************************************************************************/
+static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 IpiMask,
+				     u32 TargetSubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Return error if request is not from XSDB master or PMC subsystem */
+	if ((XSDB_IPI_INT_MASK != IpiMask) && (PM_SUBSYS_PMC != SubsystemId)) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Configure target subsystem */
+	Status = XPmSubsystem_Configure(TargetSubsystemId);
+
+done:
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
@@ -175,10 +209,15 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 		Subsystem = XPmSubsystem_GetById(SubsystemId);
 		if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
-			/* Subsystem must not be offline here */
-			PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
-			Status = XPM_INVALID_SUBSYSID;
-			goto done;
+			if (XSDB_IPI_INT_MASK == Cmd->IpiMask) {
+				PmDbg("Command from XSDB master\r\n");
+			} else {
+				/* Subsystem must not be offline here */
+				PmErr("Invalid SubsystemId 0x%x\n\r",
+				      SubsystemId);
+				Status = XPM_INVALID_SUBSYSID;
+				goto done;
+			}
 		}
 	}
 
@@ -353,6 +392,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_RegisterNotifier(SubsystemId, Pload[0],
 					      Pload[1], Pload[2],
 					      Pload[3], Cmd->IpiMask);
+		break;
+	case PM_ACTIVATE_SUBSYSTEM:
+		Status = XPm_ActivateSubsystem(SubsystemId, Cmd->IpiMask,
+					       Pload[0]);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
@@ -763,7 +806,6 @@ XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
 	}
 	return Status;
 }
-
 
 static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 {
