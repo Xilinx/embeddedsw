@@ -117,7 +117,7 @@ extern "C" {
 #define XPCIEPSU_CFG_CAP_ID_LOC		GENMASK(7U, 0U)
 #define XPCIEPSU_CAP_PTR_LOC		GENMASK(7U, 0U)
 #define XPCIEPSU_CAP_SHIFT		8U
-#define XPCIEPSU_DOUBLEWORD(x)		(x / 4U)
+#define XPCIEPSU_DOUBLEWORD(x)		((x) / (4U))
 #define CAP_PRESENT			(1U)
 #define CAP_NOT_PRESENT			(0U)
 
