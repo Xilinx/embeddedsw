@@ -794,7 +794,8 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					Adr06 |= 0xFFU; /* sub ordinate bus no 0xF
 						     */
 					Adr06 <<= TWO_HEX_NIBBLES;
-					Adr06 |= (++LastBusNum); /* secondary
+					LastBusNum++;
+					Adr06 |= LastBusNum; /* secondary
 							      bus no */
 					Adr06 <<= TWO_HEX_NIBBLES;
 					Adr06 |= BusNum; /* Primary bus no */
