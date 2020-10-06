@@ -205,7 +205,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	ECamValMin = XPciePsu_ReadReg(CfgPtr->BrigReg,
 			XPCIEPSU_E_ECAM_CAPABILITIES);
 
-	ECamSize = (u32)(0x1U << (((ECamVal & E_ECAM_SIZE_LOC) >> E_ECAM_SIZE_SHIFT) +
+	ECamSize = (u32)(0x1UL << (((ECamVal & E_ECAM_SIZE_LOC) >> E_ECAM_SIZE_SHIFT) +
                           ((ECamValMin & E_ECAM_SIZE_MIN) >>
                            E_ECAM_SIZE_SHIFT)));
 
