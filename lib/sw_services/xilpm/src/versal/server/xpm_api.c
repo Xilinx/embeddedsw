@@ -378,7 +378,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 done:
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != Cmd->Response[0])) {
-		PmErr("Err Code: 0x%x\n\r", Status);
+		PmErr("Cmd status: 0x%x, Response copy status: 0x%x\n\r", Cmd->Response[0], Status);
 	}
 	return Status;
 }
