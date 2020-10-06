@@ -453,13 +453,13 @@ static void PmPowerForceDownRpu(PmPower* const power)
 	 * turned off, TCM also needs to be turned off. Otherwise, user may not
 	 * get correct state of TCM whether TCM can be accessed or not.
 	 */
-	PmNodeForceDown(&pmSlaveTcm0A_g.sram.slv.node);
-	PmNodeForceDown(&pmSlaveTcm0B_g.sram.slv.node);
-	PmNodeForceDown(&pmSlaveTcm1A_g.sram.slv.node);
-	PmNodeForceDown(&pmSlaveTcm1B_g.sram.slv.node);
+	(void)PmNodeForceDown(&pmSlaveTcm0A_g.sram.slv.node);
+	(void)PmNodeForceDown(&pmSlaveTcm0B_g.sram.slv.node);
+	(void)PmNodeForceDown(&pmSlaveTcm1A_g.sram.slv.node);
+	(void)PmNodeForceDown(&pmSlaveTcm1B_g.sram.slv.node);
 
 	/* Reset RPU AMBA */
-	PmResetAssertInt(PM_RESET_RPU_AMBA, PM_RESET_ACTION_ASSERT);
+	(void)PmResetAssertInt(PM_RESET_RPU_AMBA, PM_RESET_ACTION_ASSERT);
 }
 
 /**
