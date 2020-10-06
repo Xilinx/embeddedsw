@@ -190,6 +190,8 @@
 *                       QMC phase should only be allowed to be set in IQ pair.
 *       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
 *                       four LSBs of the CS Gain.
+*       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
+*                       consumption.
 *
 * </pre>
 *
@@ -825,6 +827,7 @@ static u32 XRFdc_RestartIPSM(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 Star
 	for (; Index < NoOfTiles; Index++) {
 		BaseAddr = XRFDC_CTRL_STS_BASE(Type, Index);
 		Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Index);
+
 		if ((Status != XRFDC_SUCCESS) && (Tile_Id != XRFDC_SELECT_ALL_TILES)) {
 			metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
 				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index, __func__);
@@ -834,6 +837,12 @@ static u32 XRFdc_RestartIPSM(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 Star
 				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index, __func__);
 			continue;
 		} else {
+			/*power saving for Gen 3 Quad ADCs*/
+			if ((InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) &&
+			    (XRFdc_IsHighSpeedADC(InstancePtr, Index) == 0U) && (Type != XRFDC_DAC_TILE) &&
+			    (End == XRFDC_SM_STATE1)) {
+				End = XRFDC_SM_STATE3;
+			}
 			/* Write Start and End states */
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_RESTART_STATE_OFFSET, XRFDC_PWR_STATE_MASK,
 					(Start << XRFDC_RSR_START_SHIFT) | End);
