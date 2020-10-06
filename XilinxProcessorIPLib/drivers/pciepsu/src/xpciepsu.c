@@ -554,7 +554,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				"bus: %d, device: %d, function: %d: BAR %d, "
 				"ADDR: 0x%p size : %dK\r\n",
 				Bus, Device, Function, BarNo, BarAddr,
-				((2U << (TestWrite - 1U)) / 1024U));
+				((2UL << (TestWrite - 1UL)) / 1024UL));
 #else
 			TestWrite = XPciePsu_PositionRightmostSetbit(Size);
 
@@ -573,7 +573,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				"bus: %d, device: %d, function: %d: BAR %d, "
 				"ADDR: 0x%p size : %dK\r\n",
 				Bus, Device, Function, BarNo, BarAddr,
-				((2U << (TestWrite - 1U)) / 1024U));
+				((2UL << (TestWrite - 1UL)) / 1024UL));
 #endif
 		} else {
 			/* 32 bit AS is required */
@@ -600,7 +600,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				"bus: %d, device: %d, function: %d: BAR %d, "
 				"ADDR: 0x%p size : %dK\r\n",
 				Bus, Device, Function, BarNo, BarAddr,
-				((2U << (TestWrite - 1U)) / 1024U));
+				((2UL << (TestWrite - 1UL)) / 1024UL));
 		}
 		/* no need to probe next bar if present BAR requires 64 bit AS
 		 */

@@ -89,7 +89,7 @@ u8 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		}
 
 
-		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & XPCIEPSU_CAP_PTR_LOC);
+		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & (u32)XPCIEPSU_CAP_PTR_LOC);
 	}
 
 End:
@@ -133,7 +133,7 @@ u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 			Location = (InstancePtr->Config.Ecam) + (Offset);
 			goto End;
 		}
-		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & XPCIEPSU_CAP_PTR_LOC);
+		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & (u32)XPCIEPSU_CAP_PTR_LOC);
 	}
 End:
 	return Location;
@@ -165,7 +165,7 @@ u8 XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		XPciePsu_ReadConfigSpace(InstancePtr, Bus, Device,
 				Function, (u16)XPCIEPSU_DOUBLEWORD(CapBase), &CapBase);
 		xil_printf("0x%X ", CapBase & XPCIEPSU_CFG_CAP_ID_LOC);
-		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & XPCIEPSU_CAP_PTR_LOC);
+		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & (u32)XPCIEPSU_CAP_PTR_LOC);
 	}
 	xil_printf("\r\n");
 	return XST_SUCCESS;
