@@ -58,13 +58,13 @@ extern "C" {
 /**************************** Constant Definitions ****************************/
 
 /******************** Macros (Inline Functions) Definitions *******************/
-#define XPCIEPSU_LOWER32BITS(data_64bit) (data_64bit & 0xFFFFFFFF)
-#define XPCIEPSU_UPPER32BITS(data_64bit) (data_64bit >> 32)
+#define XPCIEPSU_LOWER32BITS(data_64bit) (data_64bit & 0xFFFFFFFFU)
+#define XPCIEPSU_UPPER32BITS(data_64bit) (data_64bit >> 32U)
 
 /****************************** Type Definitions ******************************/
-#define INGRESS_SIZE				0x20
+#define INGRESS_SIZE				0x20U
 
-#define COMMAND_REG					(0x4U)
+#define COMMAND_REG				(0x4U)
 #define BAR0_OFFSET_LO				(0x10U)
 #define BAR0_OFFSET_HI				(0x14U)
 
@@ -80,7 +80,7 @@ extern "C" {
 #define INGRESS0_DST_BASE_LO		(0x818U)
 #define INGRESS0_DST_BASE_HI		(0x81CU)
 
-#define MSGF_DMA_MASK               (0x464)
+#define MSGF_DMA_MASK               (0x464U)
 
 #define PCIE_LINK_UP				0x000000001U
 #define ECAM_ENABLE					0x000000001U
@@ -90,12 +90,12 @@ extern "C" {
 #define BREG_SIZE					0x000000004U
 
 
-#define DMA0_CHAN_AXI_INTR              (0x68)
+#define DMA0_CHAN_AXI_INTR              (0x68U)
 #define AXI_INTR_ENABLE                 0x00000001U
 #define MSGF_DMA_INTR_ENABLE            0x00000001U
 
-#define BREG_SIZE_SHIFT					16
-#define INGRESS_SIZE_SHIFT				16
+#define BREG_SIZE_SHIFT					16U
+#define INGRESS_SIZE_SHIFT				16U
 
 #define BREG_SIZE_MASK					0x00030000U
 #define INGRESS_SIZE_MASK				0x001F0000U
@@ -104,7 +104,7 @@ extern "C" {
 
 #define INGRESS_RD_WR_ATTR				0xFF800000U
 
-#define ENUMERATION_WAIT_TIME			10
+#define ENUMERATION_WAIT_TIME			10U
 
 /***************************** Function Prototypes ****************************/
 void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr);
