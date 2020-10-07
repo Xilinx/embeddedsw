@@ -323,8 +323,8 @@ END:
 * TDD Cases:
 *
 ****************************************************************************/
-
-void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr)
+void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(
+		XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 
 #ifdef XSK_ZYNQ_PLATFORM
@@ -411,6 +411,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 				(int )XAdcPs_RawToVoltage(XAdcInstancePtr->V));
 
 #endif
+
 END:
 	return;
 }
@@ -1058,11 +1059,10 @@ END:
  *			XST_SUCCESS	- In case of Success
  *			XST_FAILURE - In case of Failure
  ****************************************************************************/
-
 u32 XilSKey_Efuse_IsValidChar(const char *c)
 {
-	char ValidChars[] = "0123456789abcdefABCDEF";
-	char *RetVal;
+	const char ValidChars[] = "0123456789abcdefABCDEF";
+	const char *RetVal;
 	u32 Status = (u32)XST_FAILURE;
 
 	if(c == NULL) {
@@ -1074,9 +1074,11 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
 	if(RetVal != NULL) {
 		Status = (u32)XST_SUCCESS;
 	}
+
 END:
 	return Status;
 }
+
 /****************************************************************************/
 /**
  * This API initializes the Timer based on platform
@@ -1164,10 +1166,10 @@ u32 XilSKey_Timer_Intialise(void)
  * @note	None.
  *
  ****************************************************************************/
-void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
+void XilSKey_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To)
 {
 	u32 Index, J = 0U;
-	u32 SrcLength = strlen((char *)Src);
+	u32 SrcLength = strlen((const char *)Src);
 
 	if (To >= SrcLength) {
 		goto END;
@@ -1177,6 +1179,7 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 		Dst[J] = Src[Index];
 		J = J + 1U;
 	}
+
 END:
 	Dst[J] = (u8)'\0';
 
@@ -1209,7 +1212,7 @@ END:
  @endcond
  *
  ****************************************************************************/
-u32 XilSKey_CrcCalculation(u8 *Key)
+u32 XilSKey_CrcCalculation(const u8 *Key)
 {
 	u32 CrcReturn = 0U;
 	u32 Index;
@@ -1226,7 +1229,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	u8 Row = 0U;
 #endif
 	u8 FullKey[65U] = {0U};
-	u32 Length = strlen((char *)Key);
+	u32 Length = strlen((const char *)Key);
 
 	if (Length > 64U) {
 		CrcReturn = (u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
@@ -1395,7 +1398,7 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
  *		XilSKey_CrcCalculation.
  *
  ****************************************************************************/
-u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
+u32 XilSkey_CrcCalculation_AesKey(const u8 *Key)
 {
 	u32 Crc = 0U;
 	u32 Index;
