@@ -42,7 +42,7 @@ include $(wildcard $(DEPFILES))
 include $(wildcard ../../../../dep.mk)
 
 $(XILFPGA_DIR)%.o: $(XILFPGA_DIR)%.c
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
 
 .PHONY: include
 include: libxilfpga_includes

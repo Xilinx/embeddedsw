@@ -26,7 +26,7 @@ include $(wildcard $(DEPFILES))
 include $(wildcard ../../../../dep.mk)
 
 $(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
 
 .PHONY: include
 include: $(addprefix $(INCLUDEDIR),$(wildcard xbasic_types.h) $(wildcard xenv.h) $(wildcard xenv_none.h) $(wildcard xenv_standalone.h) $(wildcard xenv_vxworks.h) $(wildcard xstatus.h) $(wildcard xutil.h) $(wildcard xversion.h) $(wildcard xdebug.h))
