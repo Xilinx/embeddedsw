@@ -623,9 +623,9 @@ static INLINE void XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 
 	ReadBackSecCtrlBits->Reserved1 = (u16)(RegData &
 			XSK_ZYNQMP_EFUSEPS_RESERVED1_MASK);
-	ReadBackSecCtrlBits->Reserved2 = (u16)(RegData &
+	ReadBackSecCtrlBits->Reserved2 = (u16)((RegData &
 			XSK_ZYNQMP_EFUSEPS_RESERVED2_MASK) >>
-				XSK_ZYNQMP_EFUSEPS_RESERVED_SHIFT;
+				XSK_ZYNQMP_EFUSEPS_RESERVED_SHIFT);
 }
 
 /*****************************************************************************/
