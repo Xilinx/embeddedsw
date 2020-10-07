@@ -342,6 +342,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(const XilSKey_Puf *InstancePtr)
 	}
 
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
+
 	/* Check for Zeros */
 	Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&RowDataVal,
 							XSK_EFUSEPS_READ_FROM_CACHE);
@@ -473,6 +474,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(const XilSKey_Puf *InstancePtr)
 	}
 
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
+
 	/* Check for Zeros */
 	Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&RowDataVal,
 							XSK_EFUSEPS_READ_FROM_CACHE);
