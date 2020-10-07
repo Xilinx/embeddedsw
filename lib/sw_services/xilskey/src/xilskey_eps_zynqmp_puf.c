@@ -54,6 +54,7 @@
 
 #include "xilskey_eps_zynqmp_puf.h"
 #include "xilskey_eps_zynqmp_hw.h"
+#include "xilskey_eps_zynqmp.h"
 #include "sleep.h"
 /************************** Constant Definitions *****************************/
 #define XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT	(500000U)
@@ -73,15 +74,6 @@ typedef enum {
 
 /************************** Function Prototypes *****************************/
 
-u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
-u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
-						XskEfusePs_Type EfuseType);
-u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
-						XskEfusePs_Type EfuseType);
-u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
-							u32 *RowData);
-u32 XilSKey_ZynqMp_EfusePs_Init(void);
-void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
 static INLINE u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void);
 
