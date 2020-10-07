@@ -1014,8 +1014,8 @@ END:
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 {
-	u32 RowDataVal = 0U;
 	u32 Status = (u32)XST_FAILURE;
+	u32 RowDataVal = 0U;
 
 	/*
 	 * By the time of checking PUF syndrome data T bits
@@ -1028,7 +1028,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	if ((RowDataVal & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
+	if ((RowDataVal & (~((u32)XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
 			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00U) {
 		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
@@ -1040,7 +1040,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	if ((RowDataVal & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
+	if ((RowDataVal & (~((u32)XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
 			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00U) {
 		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
