@@ -44,6 +44,7 @@
 * 6.9   kal     03/16/20 Added macro for AES key offset for IPI calls.
 *       ana     04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
 *                        as these are not required with only sha3 support.
+* 7.0	am		10/04/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -469,6 +470,15 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 u32 XilSKey_ZynqMp_EfusePs_CacheLoad(void);
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr);
 u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow);
+void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
+u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
+							u32 *RowData);
+u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
+u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
+						XskEfusePs_Type EfuseType);
+u32 XilSKey_ZynqMp_EfusePs_Init(void);
+u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
+						XskEfusePs_Type EfuseType);
 
 #ifdef __cplusplus
 }
