@@ -108,9 +108,9 @@ include $(wildcard $(ASSEMBLY_DEPFILES))
 include $(wildcard ../../../../dep.mk)
 
 %.o: %.S
-	@$(COMPILER) $(COMPILER_FLAGS) $(CC_FLAG) $(EXTRA_COMPILER_FLAGS) -march=armv8-a $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
+	@$(COMPILER) $(COMPILER_FLAGS) $(CC_FLAG) $(EXTRA_COMPILER_FLAGS) -march=armv8-a $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
 %.o: %.c
-	@$(COMPILER) $(COMPILER_FLAGS) $(CC_FLAG) $(EXTRA_COMPILER_FLAGS) -march=armv8-a $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $(realpath $<)
+	@$(COMPILER) $(COMPILER_FLAGS) $(CC_FLAG) $(EXTRA_COMPILER_FLAGS) -march=armv8-a $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
 
 .PHONY: include
 include: freertos_include include_standalone

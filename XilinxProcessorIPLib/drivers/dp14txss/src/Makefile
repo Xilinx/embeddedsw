@@ -28,22 +28,22 @@ include $(wildcard $(DEPFILES))
 include $(wildcard ../../../../dep.mk)
 
 $(RELEASEDIR)%.o: ./dp/%.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
 
 $(RELEASEDIR)%.o: ./vtc/%.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
 
 $(RELEASEDIR)%.o: ./hdcp1x/%.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
 
 $(RELEASEDIR)%.o: ./hdcp22/%.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
 
 $(RELEASEDIR)%.o: ./dualsplitter/%.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
 
 $(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $(realpath $<) -o $@
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS)  $< -o $@
 
 .PHONY: include
 include: $(addprefix $(INCLUDEDIR),$(wildcard *.h)) $(addprefix $(INCLUDEDIR), $(subst dp/,,$(wildcard dp/*.h))) $(addprefix $(INCLUDEDIR), $(subst vtc/,,$(wildcard vtc/*.h))) $(addprefix $(INCLUDEDIR), $(subst hdcp1x/,,$(wildcard hdcp1x/*.h))) $(addprefix $(INCLUDEDIR), $(subst hdcp22/,,$(wildcard hdcp22/*.h))) $(addprefix $(INCLUDEDIR), $(subst dualsplitter/,,$(wildcard dualsplitter/*.h)))
