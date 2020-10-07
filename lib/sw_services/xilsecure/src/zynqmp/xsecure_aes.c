@@ -48,6 +48,8 @@
 * 4.2   ana 04/02/20 Skipped zeroization when destination is PCAP
 *                    Added support of release and set reset for AES
 *       kpt 04/10/20 Resolved coverity warnings
+*       kal 10/07/20 Added KUP key clearing after use or in case of failure
+*
 * </pre>
 *
 * @note
@@ -173,6 +175,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	u32 Value;
 	u32 Addr;
 	u32 Status = (u32)XST_FAILURE;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -246,6 +249,11 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 END:
 	if (Status != (u32)XST_SUCCESS) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			Status = Status | KeyClearStatus;
+		}
+
 		XSecure_SetReset(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_RESET_OFFSET);
 	}
@@ -277,6 +285,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 {
 	u8 IsFinal = FALSE;
 	u32 Status = (u32)XST_FAILURE;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -331,6 +340,11 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 	Status = (u32)XST_SUCCESS;
 END:
 	if ((IsFinal == TRUE) || (Status != (u32)XST_SUCCESS)) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			Status = Status | KeyClearStatus;
+		}
+
 		XSecure_SetReset(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_RESET_OFFSET);
 	}
@@ -405,6 +419,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	u32 Value;
 	u32 Addr;
 	u32 Status = (u32)XST_FAILURE;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -492,6 +507,11 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
 END:
 	if (Status != (u32)XST_SUCCESS) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			Status = Status | KeyClearStatus;
+		}
+
 		XSecure_SetReset(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_RESET_OFFSET);
 	}
@@ -532,6 +552,7 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	u32 GcmStatus = (u32)XST_FAILURE;
 	u8 IsFinalUpdate = FALSE;
 	u32 NextBlkLen = 0U;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -629,8 +650,13 @@ END:
 	 * when the next block length of decryption is zero
 	 */
 	if(((IsFinalUpdate == TRUE) && (NextBlkLen == 0U)) ||
-						(GcmStatus != (u32)XST_SUCCESS)) {
-			XSecure_SetReset(InstancePtr->BaseAddress,
+		(GcmStatus != (u32)XST_SUCCESS)) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			GcmStatus = GcmStatus | KeyClearStatus;
+		}
+
+		XSecure_SetReset(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_RESET_OFFSET);
 	}
 	return (s32)GcmStatus;
