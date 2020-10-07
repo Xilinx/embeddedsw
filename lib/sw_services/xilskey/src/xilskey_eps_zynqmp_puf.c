@@ -312,7 +312,6 @@ END:
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 {
-
 	u32 Status = (u32)XST_FAILURE;
 	u8 Value[32] = {0U};
 	u8 Column;
@@ -351,9 +350,13 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	}
 
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
+
 	/* Check for Zeros */
-	XilSKey_ZynqMp_EfusePs_ReadPufChash(&RowDataVal,
+	Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&RowDataVal,
 							XSK_EFUSEPS_READ_FROM_CACHE);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	if (RowDataVal != 0X00U) {
 		Status = (u32)XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED;
@@ -374,6 +377,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 			}
 		}
 	}
+
 END:
 	/* Lock the controller back */
 	XilSKey_ZynqMp_EfusePs_CtrlrLock();
@@ -441,7 +445,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 {
-
 	u32 Status = (u32)XST_FAILURE;
 	u8 Value[32] = {0U};
 	u8 Column;
@@ -479,9 +482,13 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 	}
 
 	EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
+
 	/* Check for Zeros */
-	XilSKey_ZynqMp_EfusePs_ReadPufAux(&RowDataVal,
+	Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&RowDataVal,
 							XSK_EFUSEPS_READ_FROM_CACHE);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	if ((RowDataVal & XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK) != 0x00U) {
 		Status = (u32)XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED;
@@ -502,13 +509,13 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 			}
 		}
 	}
+
 END:
 	/* Lock the controller back */
 	XilSKey_ZynqMp_EfusePs_CtrlrLock();
 	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
 
 	return Status;
-
 }
 
 /*****************************************************************************/
