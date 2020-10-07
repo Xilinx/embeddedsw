@@ -27,6 +27,12 @@
 /************************** Function Prototypes  *****************************/
 AieRC _XAieMl_CoreConfigureDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const struct XAie_CoreMod *CoreMod);
+AieRC _XAieMl_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
+		const struct XAie_CoreMod *CoreMod);
+AieRC _XAieMl_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u32 TimeOut, const struct XAie_CoreMod *CoreMod);
+AieRC _XAieMl_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u8 *DoneBit, const struct XAie_CoreMod *CoreMod);
 
 #endif /* XAIECORE_AIEML_H */
 /** @} */
