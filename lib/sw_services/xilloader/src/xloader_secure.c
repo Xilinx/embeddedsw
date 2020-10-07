@@ -58,12 +58,13 @@
 *       kpt  08/27/20 Changed argument type from u8* to UINTPTR for SHA
 *       kpt  09/07/20 Fixed key rolling issue
 *       kpt  09/08/20 Added redundancy at security critical checks
-*		rpo  09/10/20 Added return type for XSecure_Sha3Start
+*       rpo  09/10/20 Added return type for XSecure_Sha3Start
 *       bsv  09/30/20 Renamed XLOADER_CHUNK_MEMORY to XPLMI_PMCRAM_CHUNK_MEMORY
 *       har  09/30/20 Deprecated Family Key support
 *       bm   09/30/20 Added SecureClear API to clear security critical data
 *                     in case of exceptions and also place AES, ECDSA_RSA,
 *                     SHA3 in reset
+*       kal  10/07/20 Added Missed DB check in XLoader_RsaSignVerify API
 *
 * </pre>
 *
@@ -97,6 +98,7 @@
 #define XLOADER_AES_RESET_REG			(0xF11E0010U)
 #define XLOADER_SHA3_RESET_VAL			(0x1U)
 #define XLOADER_AES_RESET_VAL			(0x1U)
+#define XLOADER_RSA_PSS_MSB_PADDING_MASK	(0x80U)
 
 /*****************************************************************************/
 /**
@@ -1966,6 +1968,7 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	volatile u32 Status = XLOADER_FAILURE;
+	volatile u32 DbTmp = 0U;
 	XSecure_Sha3Hash MPrimeHash = {0U};
 	volatile u8 HashTmp;
 	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
@@ -2044,6 +2047,35 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	/* XOR MGF output with masked DB from EM to get DB */
 	for (Index = 0U; Index < XLOADER_RSA_PSS_MASKED_DB_LEN; Index++) {
 		Buffer[Index] = Buffer[Index] ^ XSecure_RsaSha3Array[Index];
+	}
+
+	/* Check DB = PS <414 zeros> || 0x01 */
+	for (Index = 0U; Index < (XLOADER_RSA_PSS_DB_LEN - 1U); Index++) {
+		if (Index == 0x0U) {
+			Buffer[Index] = (Buffer[Index] &
+					(~XLOADER_RSA_PSS_MSB_PADDING_MASK));
+		}
+
+		if (Buffer[Index] != 0x0U) {
+			Status = XLoader_UpdateMinorErr(
+				XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
+				Status);
+			goto END;
+		}
+	}
+	if (Index != (XLOADER_RSA_PSS_DB_LEN - 1U)) {
+		Status = XLoader_UpdateMinorErr(
+				XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
+				Status);
+		goto END;
+	}
+
+	DbTmp = Buffer[Index];
+	if ((DbTmp != 0x01U) || (Buffer[Index] != 0x01U)) {
+		Status = XLoader_UpdateMinorErr(
+                                XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
+                                Status);
+		goto END;
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
