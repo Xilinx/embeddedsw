@@ -132,19 +132,9 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			u8 *UserFuses_Write, u8 *UserFuses_Read,
 			XilSKey_UsrFuses *UserFuses_ToBePrgrmd);
-void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
-u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
-u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
-							u32 *RowData);
-u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
-						XskEfusePs_Type EfuseType);
-u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
-						XskEfusePs_Type EfuseType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(u8 *SecBits_read);
-u32 XilSKey_ZynqMp_EfusePs_Init(void);
 static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow);
 static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow);
-u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption);
 static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuseNum);
 
 /************************** Function Definitions *****************************/
