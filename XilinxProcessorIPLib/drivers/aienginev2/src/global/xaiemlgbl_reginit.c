@@ -1985,6 +1985,9 @@ static const  XAie_CoreMod Aie2CoreMod =
 	.CoreDebug = &Aie2CoreDebugReg,
 	.CoreEvent = &Aie2CoreEventReg,
 	.ConfigureDone = &_XAieMl_CoreConfigureDone,
+	.Enable = &_XAieMl_CoreEnable,
+	.WaitForDone = &_XAieMl_CoreWaitForDone,
+	.ReadDoneBit = &_XAieMl_CoreReadDoneBit,
 };
 
 /* Data Memory Module for Tile data memory*/
