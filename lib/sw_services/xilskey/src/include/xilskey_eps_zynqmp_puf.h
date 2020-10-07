@@ -125,22 +125,23 @@ typedef struct {
 /** @}
 @endcond */
 /****************************Prototypes***************************************/
-u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(const XilSKey_Puf *InstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address);
 
-u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_WritePufChash(const XilSKey_Puf *InstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption);
 
-u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_WritePufAux(const XilSKey_Puf *InstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption);
 
-u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits);
+u32 XilSKey_Write_Puf_EfusePs_SecureBits(
+		const XilSKey_Puf_Secure *WriteSecureBits);
 u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption);
 
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr);
 
-u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr);
+u32 XilSKey_Puf_Regeneration(const XilSKey_Puf *InstancePtr);
 #ifdef __cplusplus
 }
 #endif
