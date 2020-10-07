@@ -398,6 +398,8 @@ typedef enum {
 		/**< 0x23 Error during memset for XSecure_RsaSha3Array */
 	XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL,
 		/**< 0x24 Error during memset for Xsecure_Varsocm */
+	XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
+		/**< 0x25 Failed to verify DB check */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,
