@@ -1783,7 +1783,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 	u32 Status = (u32)XST_FAILURE;
 	s32 RegNum;
 	u32 DataRead;
-	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
+	s32 Reg = (s32)XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1;
 	u32 * Ppk0hashPtr = Ppk0Hash;
 
 	/* Assert validates the input arguments */
@@ -1834,7 +1834,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 	u32 Status = (u32)XST_FAILURE;
 	s32 RegNum;
 	u32 DataRead;
-	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
+	s32 Reg = (s32)XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1;
 	u32 * Ppk1hashPtr = Ppk1Hash;
 
 	/* Assert validates the input arguments */
