@@ -700,15 +700,15 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 
 			Status = (u32)XST_SUCCESS;
 			xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
-			break;
 		}
-
-		Index++;
-		if (Index > MaxSyndromeSizeInWords)
-		{
-			xPuf_printf(Debug, "API: Overflow warning\r\n");
-			Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
-			break;
+		else {
+			Index++;
+			if (Index > MaxSyndromeSizeInWords)
+			{
+				xPuf_printf(Debug, "API: Overflow warning\r\n");
+				Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+				break;
+			}
 		}
 
 	} while (RegistrationStatus != XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE);
