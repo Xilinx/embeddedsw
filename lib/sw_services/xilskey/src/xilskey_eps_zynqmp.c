@@ -107,7 +107,7 @@ typedef struct {
 
 
 /************************** Variable Definitions ****************************/
-static u8 Init_Done;
+
 
 /************************** Function Prototypes *****************************/
 
@@ -2313,6 +2313,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_Init(void)
 {
 	u32 Status = (u32)XST_FAILURE;
+	static u8 Init_Done;
 
 #if defined (XSK_OVERRIDE_SYSMON_CFG)
 	if (Init_Done != TRUE) {
