@@ -25,6 +25,8 @@
 * 6.7	arc  01/05/19 Fixed MISRA-C violations.
 *       mmd  03/17/19 Added PUF syndrome data length in bytes for 4K mode
 * 6.9   kpt  02/27/20 Removed prototype XilSKey_Puf_Debug2
+* 7.0 	am	 10/04/20 Resolved MISRA C violations
+*
 * </pre>
 *
 *****************************************************************************/
@@ -52,7 +54,7 @@ extern "C" {
 				{xil_printf (__VA_ARGS__);}
 
 #define		XSK_ZYNQMP_PUF_MODE4K			(0U)
-#define		XSK_ZYNQMP_PUF_SYN_LEN			(386)
+#define		XSK_ZYNQMP_PUF_SYN_LEN			(386U)
 
 #define		XSK_ZYNQMP_MAX_RAW_4K_PUF_SYN_LEN	(140U)
 						/* In bytes */

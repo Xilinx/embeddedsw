@@ -59,6 +59,9 @@
 * 6.9   kpt     02/16/20 Fixed coverity warnings
 *               02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID
 *       vns     03/18/20 Fixed Armcc compilation errors
+* 7.0	am	 	10/04/20 Resolved MISRA C violations
+*
+* </pre>
 *
  *****************************************************************************/
 
@@ -654,12 +657,11 @@ END:
 	Boundary Cases
 	Memory Bounds of buffer checking
   ****************************************************************************/
-
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 {
+	u32 Status = (u32)XST_FAILURE;
 	u32 ConvertedLen;
 	u8 LowerNibble = 0U, UpperNibble = 0U;
-	u32 Status = (u32)XST_FAILURE;
 
 	/**
 	 * Check the parameters
@@ -677,18 +679,18 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 	/**
 	 * Len has to be multiple of 2
 	 */
-	if ((Len == 0U) || ((Len%2U) == 1U)) {
+	if ((Len == 0U) || ((Len % 2U) == 1U)) {
 		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
 		goto END;
 	}
 
-	if(Len != (strlen(Str)*4U)) {
+	if(Len != (strlen(Str) * 4U)) {
 		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
 		goto END;
 	}
 
 	ConvertedLen = 0U;
-	while (ConvertedLen < (Len/4U)) {
+	while (ConvertedLen < (Len / 4U)) {
 		/**
 		 * Convert char to nibble
 		 */
@@ -697,12 +699,12 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 			/**
 			 * Convert char to nibble
 			 */
-			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen+1],
+			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen + 1U],
 					&LowerNibble) == (u32)XST_SUCCESS) {
 				/**
 				 * Merge upper and lower nibble to Hex
 				 */
-				Buf[ConvertedLen/2] =
+				Buf[ConvertedLen / 2U] =
 						(UpperNibble << 4U) | LowerNibble;
 			}
 			else {
@@ -723,15 +725,15 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 		/**
 		 * Converted upper and lower nibbles
 		 */
-		xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,"Converted %c%c to %0x\n",
-				Str[ConvertedLen],Str[ConvertedLen+1],Buf[ConvertedLen/2]);
+		xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL, "Converted %c%c to %0x\n",
+				Str[ConvertedLen], Str[ConvertedLen + 1U], Buf[ConvertedLen / 2U]);
 		ConvertedLen += 2U;
 	}
 	Status = (u32)XST_SUCCESS;
+
 END:
 	return Status;
 }
-
 
 /****************************************************************************/
 /**
@@ -763,82 +765,80 @@ END:
 	Boundary Cases
 	Memory Bounds of buffer checking
   ****************************************************************************/
-
-
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 {
+	u32 Status = (u32)XST_FAILURE;
 	u32 ConvertedLen;
-		u8 LowerNibble = 0U, UpperNibble = 0U;
-		u32 StrIndex;
-		u32 Status = (u32)XST_FAILURE;
+	u8 LowerNibble = 0U, UpperNibble = 0U;
+	u32 StrIndex;
 
+	/**
+	 * Check the parameters
+	 */
+	if (Str == NULL) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
+
+	if (Buf == NULL) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
+
+	/**
+	 * Len has to be multiple of 2
+	 */
+	if ((Len == 0U) || ((Len % 2U) == 1U)) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
+
+	if(Len != (strlen(Str) * 4U)) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
+
+	StrIndex = (Len / 8U) - 1U;
+	ConvertedLen = 0U;
+	while (ConvertedLen < (Len / 4U)) {
 		/**
-		 * Check the parameters
+		 * Convert char to nibble
 		 */
-		if (Str == NULL) {
-			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
-			goto END;
-		}
-
-		if (Buf == NULL) {
-			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
-			goto END;
-		}
-
-		/**
-		 * Len has to be multiple of 2
-		 */
-		if ((Len == 0U) || ((Len % 2U) == 1U)) {
-			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
-			goto END;
-		}
-
-		if(Len != (strlen(Str)*4U)) {
-			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
-			goto END;
-		}
-
-		StrIndex = (Len/8U) - 1U;
-		ConvertedLen = 0U;
-		while (ConvertedLen < (Len/4U)) {
+		if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen],
+				&UpperNibble) == (u32)XST_SUCCESS) {
 			/**
 			 * Convert char to nibble
 			 */
-			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen],
-										&UpperNibble) == (u32)XST_SUCCESS) {
+			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen + 1U],
+					&LowerNibble) == (u32)XST_SUCCESS)	{
 				/**
-				 * Convert char to nibble
+				 * Merge upper and lower nibble to Hex
 				 */
-				if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen+1],
-						&LowerNibble) == (u32)XST_SUCCESS)	{
-					/**
-					 * Merge upper and lower nibble to Hex
-					 */
-					Buf[StrIndex] =
-							(UpperNibble << 4U) | LowerNibble;
-					StrIndex = StrIndex - 1U;
-				}
-				else {
-					/**
-					 * Error converting Lower nibble
-					 */
-					Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
-					goto END;
-				}
+				Buf[StrIndex] = (UpperNibble << 4U) | LowerNibble;
+				StrIndex = StrIndex - 1U;
 			}
 			else {
 				/**
-				 * Error converting Upper nibble
+				 * Error converting Lower nibble
 				 */
 				Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
 				goto END;
 			}
-			/**
-			 * Converted upper and lower nibbles
-			 */
-			ConvertedLen += 2U;
 		}
+		else {
+			/**
+			 * Error converting Upper nibble
+			 */
+			Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+			goto END;
+		}
+		/**
+		 * Converted upper and lower nibbles
+		 */
+		ConvertedLen += 2U;
+	}
 	Status = (u32)XST_SUCCESS;
+
 END:
 	return Status;
 }
@@ -867,12 +867,13 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 		goto END;
 	}
 	Length = Len * 4U;
-	for (Index = 0U; Index < Length; Index = Index+4U) {
-		Le[Index+3]=Be[Index];
-		Le[Index+2]=Be[Index+1];
-		Le[Index+1]=Be[Index+2];
-		Le[Index]=Be[Index+3];
+	for (Index = 0U; Index < Length; Index = Index + 4U) {
+		Le[Index + 3U] = Be[Index];
+		Le[Index + 2U] = Be[Index + 1U];
+		Le[Index + 1U] = Be[Index + 2U];
+		Le[Index] = Be[Index + 3U];
 	}
+
 END:
 	return;
 }
