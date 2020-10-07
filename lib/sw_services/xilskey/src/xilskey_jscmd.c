@@ -62,6 +62,8 @@
 *                        device series for different devices.
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
 * 6.9   vns     03/18/20 Fixed Armcc compilation errors
+* 7.0	am	 	10/04/20 Resolved MISRA C violations
+*
 * </pre>
 *
 *
@@ -123,7 +125,6 @@ typedef struct ftd_async_transfer_struct ftd_async_transfer_t;
 static js_port_t *g_port = NULL;
 static js_server_t *g_js = NULL;
 static js_port_descr_t *g_useport = NULL;
-extern u32 TimerTicksfor100ns;
 extern u32 TimerTicksfor1000ns;
 u32 GpoOutValue = 0;
 extern XSKEfusePl_Fpga PlFpgaFlag;

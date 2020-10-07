@@ -89,7 +89,7 @@ static XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
 static u16 XSysmonDevId; /* Sysmon PSU device ID */
 #endif
 
-u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/
+static u32 TimerTicksfor100ns; /**< Global static Variable to store ticks/100ns*/
 u32 TimerTicksfor1000ns; /**< Global Variable for 10 micro secs for microblaze */
 /************************** Function Prototypes *****************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
