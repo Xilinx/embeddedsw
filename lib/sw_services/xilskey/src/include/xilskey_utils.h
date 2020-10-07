@@ -67,6 +67,9 @@
 *                        XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED
 *                        XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED
 *                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
+* 7.0	am		10/04/20 Resolved MISRA C violations
+*
+* </pre>
 *
  *****************************************************************************/
 
@@ -1072,7 +1075,7 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t);
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len);
 void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits, u32 Len);
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len);
-u32 XilSKey_Efuse_ValidateKey(const char *key, u32 len);
+u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Efuse_IsValidChar(const char *c);
 /**
  * Common functions
