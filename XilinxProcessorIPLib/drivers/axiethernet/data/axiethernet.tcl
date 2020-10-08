@@ -34,6 +34,7 @@
 # 05/22/20 rsp Fix bsp generation error for multiple axieth instances design in
 #              which dma is not connected to one of the axieth instance.
 # 08/18/20 rsp Add versal support.
+# 10/08/20 rsp In versal for PMC and PSM processor generate dummy interrupt IDs.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -641,7 +642,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
     if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] ||
 	$intc_periph_type == [format "psv_acpu_gic"] } {
-	if {$proc_type == "psu_pmu"} {
+	if {$proc_type == "psu_pmu" || $proc_type == "psv_pmc" || $proc_type == "psv_psm"} {
 		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF$uSuffix" $canonical_tag]
 		add_field_to_periph_config_struct $deviceid 0xFF
 		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF$uSuffix" $canonical_tag]
@@ -744,9 +745,9 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
     # Now add to the config table in the proper order (RX first, then TX
     set proc  [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
-
     if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] ||
-	$intc_periph_type == [format "psv_acpu_gic"] && $proc_type != "psu_pmu"} {
+	$intc_periph_type == [format "psv_acpu_gic"] && $proc_type != "psu_pmu"
+	&& $proc_type != "psv_pmc" && $proc_type != "psv_psm"} {
 	set canonical_name [format "XPAR_%s_CONNECTED_MCDMARX%s_INTR" $canonical_tag $chan_id]
 	set chan_cnt [get_property CONFIG.c_num_s2mm_channels $target_periph]
 	if { $chan_cnt >= $chan_id } {
@@ -848,7 +849,8 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
 
     if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] ||
-	$intc_periph_type == [format "psv_acpu_gic"] && $proc_type != "psu_pmu"} {
+	$intc_periph_type == [format "psv_acpu_gic"] && $proc_type != "psu_pmu"
+	&& $proc_type != "psv_pmc" && $proc_type != "psv_psm"} {
 	set canonical_name [format "XPAR_%s_CONNECTED_MCDMATX%s_INTR" $canonical_tag $chan_id]
 	set chan_cnt [get_property CONFIG.c_num_mm2s_channels $target_periph]
 	if { $chan_cnt >= $chan_id } {
@@ -933,13 +935,14 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     # matches the original interrupt signal we were tracking.
     set proc  [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
-    if { $intc_periph_type != [format "ps7_scugic"]  && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psv_acpu_gic"] && $proc_type != "psu_pmu"} {
+    if { $intc_periph_type != [format "ps7_scugic"]  && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psv_acpu_gic"] && $proc_type != "psu_pmu" &&
+$proc_type != "psv_pmc" && $proc_type != "psv_psm"} {
 	 set ethernet_int_signal_name [get_pins -of_objects $periph INTERRUPT]
 	 set int_id [::hsi::utils::get_port_intr_id $periph $ethernet_int_signal_name]
 	 puts $file_handle "\#define $canonical_name $int_id$uSuffix"
          add_field_to_periph_config_struct $device_id $canonical_name
 	 set addentry 1
-    } elseif { $proc_type != "psu_pmu"} {
+    } elseif { $proc_type != "psu_pmu" && $proc_type != "psv_pmc" && $proc_type !="psv_psm"} {
         puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_INTERRUPT_INTR" $periph_name]
         add_field_to_periph_config_struct $device_id $canonical_name
 	set addentry 1
