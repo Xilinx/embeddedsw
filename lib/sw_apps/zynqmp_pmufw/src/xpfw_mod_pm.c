@@ -219,6 +219,8 @@ void ModPmInit(void)
 	} else if (XST_SUCCESS !=
 			XPfw_CoreSetIpiHandler(PmModPtr, PmIpiHandler, 0U)) {
 		XPfw_Printf(DEBUG_DETAILED,"PM: Set IPI handler failed\r\n");
+	} else {
+		/* For MISRA-C compliance */
 	}
 }
 #else /* ENABLE_PM */
