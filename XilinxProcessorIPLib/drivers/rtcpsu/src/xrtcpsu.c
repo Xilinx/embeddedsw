@@ -90,7 +90,7 @@ static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event);
  *
  ******************************************************************************/
 s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
-				u32 EffectiveAddr)
+			  UINTPTR EffectiveAddr)
 {
 	s32 Status;
 	u32 ControlRegister;
