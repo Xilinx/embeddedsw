@@ -122,7 +122,7 @@ void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr)
 	SchedPtr->Tick++;
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
 		/* Check if it this task can be triggered */
-		if (TRUE == is_task_active(SchedPtr, Idx)) {
+		if ((u32)TRUE == is_task_active(SchedPtr, Idx)) {
 			/* Mark the Task as TRIGGERED */
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_TRIGGERED;
 		}
@@ -144,7 +144,7 @@ void XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_DISABLED;
 			CallCount++;
 	                /* Remove the Non-Periodic Task */
-		        if (TRUE == is_task_non_periodic(SchedPtr, Idx)) {
+		        if ((u32)TRUE == is_task_non_periodic(SchedPtr, Idx)) {
 			        SchedPtr->TaskList[Idx].Callback = NULL;
 			}
 		}
