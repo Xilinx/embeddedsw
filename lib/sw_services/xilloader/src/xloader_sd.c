@@ -195,7 +195,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	u32 UPdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
 	PdiSrc_t PdiSrc = (PdiSrc_t)UPdiSrc;
 	u8 DrvNum = XLoader_GetDrvNumSD(UPdiSrc);
-	FATFS FatFs;
+	static FATFS FatFs;
 
 	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
 	if (Status != XST_SUCCESS) {
