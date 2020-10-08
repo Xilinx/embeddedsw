@@ -656,8 +656,14 @@ s32 XPfw_StoreFsblToDDR(void)
 			(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
 					FSBL_IMAGE_SIZE);
 
-			XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
-					FSBL_IMAGE_SIZE, (u8 *)FSBL_Store_Restore_Info.FSBLImageHash);
+			Status = (s32)XSecure_Sha3Digest(&Sha3Instance,
+							(u8 *)FSBL_STORE_ADDR, FSBL_IMAGE_SIZE,
+							(u8 *)FSBL_Store_Restore_Info.FSBLImageHash);
+			if (XST_SUCCESS != Status) {
+				XPfw_Printf(DEBUG_DETAILED, "FSBL image checksum calculation"
+											"failed\r\n");
+				goto END;
+			}
 			XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR\r\n");
 		} else {
 			XPfw_Printf(DEBUG_DETAILED, "FSBL copy to DDR is skipped.\r\n"
@@ -689,8 +695,13 @@ s32 XPfw_RestoreFsblToOCM(void)
 	u32 HashCalculated[SHA3_HASH_LENGTH_IN_WORDS] = {0U};
 	u32 Status = XST_SUCCESS;
 
-	XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
+	Status = (s32)XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
 				FSBL_IMAGE_SIZE, (u8 *)HashCalculated);
+	if (XST_SUCCESS != Status) {
+		XPfw_Printf(DEBUG_DETAILED, "FSBL image checksum calculation"
+									"failed\r\n");
+		goto END;
+	}
 
 	for (Index = 0U; Index < SHA3_HASH_LENGTH_IN_WORDS; Index++) {
 		if (FSBL_Store_Restore_Info.FSBLImageHash[Index] !=
@@ -712,6 +723,7 @@ s32 XPfw_RestoreFsblToOCM(void)
 				"Unable to do APU-only restart\r\n");
 	}
 
+END:
 	return Status;
 }
 #endif
