@@ -321,9 +321,6 @@
 							read data. */
 #define XDP_TX_GT_DRP_CHANNEL_STATUS	0x2A8	/**< Provides access to GT DRP
 							channel status. */
-#define XDP_RX_ADAPTIVE_VBLANK_VTOTAL	0x2F4	/**<  VTotal and VBlank
-						      of current video stream
-						      in Adaptive-Sync mode */
 /* @} */
 
 /** @name DPTX core registers: DisplayPort audio.
@@ -1140,6 +1137,9 @@
 							read data. */
 #define XDP_RX_GT_DRP_CH_STATUS		0x2A8	/**< Provides access to GT DRP
 							channel status. */
+#define XDP_RX_ADAPTIVE_VBLANK_VTOTAL	0x2F4	/**<  VTotal and VBlank
+						      of current video stream
+						      in Adaptive-Sync mode */
 /* @} */
 
 /** @name DPRX core registers: Audio.
@@ -2297,7 +2297,39 @@
 /* 0x330: RX_AUDIO_EXT_DATA */
 #define XDP_RX_AUDIO_EXT_DATA_DB16		0xFF
 #define XDP_RX_AUDIO_EXT_DATA_DB17		0xFF00
+#define XDP_RX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK \
+				0x0F	/**< YCbCr Colorimetry
+							mask */
+#define XDP_RX_MAIN_VSC_SDP_BDC_MASK \
+				0x07	/**< Bits Per Component
+							mask */
+#define XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT \
+				0x4		/**< component format shift */
+#define XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420 \
+				0x3		/**< Stream's component format
+							is YcbCr 4:2:0. */
 
+
+/* 0x528: MSA MISC0 */
+#define XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK \
+				0x00000008	/**< Dynamic range. */
+#define XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT \
+				3		/**< Shift bits for dynamic
+							range. */
+#define XDP_RX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT \
+				0x7		/**< Dynamic Range Shift */
+
+#define XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA \
+				0		/**< VESA range. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601 \
+				0	   /**< ITU BT601 YCbCr coefficients. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709 \
+				1	   /**< ITU BT709 YCbCr coefficients. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT \
+				4		/**< Shift bits for YCbCr
+							colorimetry. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_MASK \
+				0x00000010	/**< YCbCr colorimetry. */
 
 /* 0x52C: MSA_MISC1 */
 #define XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT		0x6
