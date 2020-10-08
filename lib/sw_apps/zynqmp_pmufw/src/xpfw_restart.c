@@ -693,7 +693,7 @@ s32 XPfw_RestoreFsblToOCM(void)
 {
 	u32 Index;
 	u32 HashCalculated[SHA3_HASH_LENGTH_IN_WORDS] = {0U};
-	u32 Status = XST_SUCCESS;
+	s32 Status = XST_SUCCESS;
 
 	Status = (s32)XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
 				FSBL_IMAGE_SIZE, (u8 *)HashCalculated);
