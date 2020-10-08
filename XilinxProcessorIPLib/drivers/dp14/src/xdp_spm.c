@@ -1045,17 +1045,17 @@ XDp_DynamicRange XDp_RxGetDynamicRange(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 
 	/* Determine number of bits per color component. */
-	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK;
-	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT;
+	RegVal  &= XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK;
+	RegVal >>= XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT;
 
 	if (ColorimetryThroughVsc) {
 		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 				XDP_RX_SDP_PAYLOAD_STREAM1);
 		RegVal = (((RegVal & XDP_RX_AUDIO_EXT_DATA_DB17) >> 8) >>
-				XDP_TX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT);
+				XDP_RX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT);
 	}
 
-	if (RegVal == XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA)
+	if (RegVal == XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA)
 		return XDP_DR_VESA;
 	else
 		return XDP_DR_CEA;
@@ -1104,20 +1104,20 @@ XVidC_ColorStd XDp_RxGetColorimetry(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 
 	/* Determine number of  component. */
-	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_MASK;
-	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT;
+	RegVal  &= XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_MASK;
+	RegVal >>= XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT;
 
 	if (ColorimetryThroughVsc) {
 		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 				XDP_RX_SDP_PAYLOAD_STREAM1);
 		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB16) &
-				XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK);
+				XDP_RX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK);
 	}
 
 	switch (RegVal) {
-		case XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601:
+		case XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601:
 			return XVIDC_BT_601;
-		case XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709:
+		case XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709:
 			return XVIDC_BT_709;
 		default:
 			return XVIDC_BT_UNKNOWN;
@@ -1174,7 +1174,7 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 				XDP_RX_SDP_PAYLOAD_STREAM1);
 		/* Decoding Data byte 17 */
 		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB17) >> 8) &
-					XDP_TX_MAIN_VSC_SDP_BDC_MASK;
+					XDP_RX_MAIN_VSC_SDP_BDC_MASK;
 	}
 
 	switch (RegVal) {
@@ -1234,7 +1234,7 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 						XDP_RX_SDP_PAYLOAD_STREAM1);
 		/* Decoding Data byte 16 */
 		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB16) >>
-				XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT);
+				XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT);
 		if ((RegVal != XVIDC_CSF_RGB) && (RegVal != XVIDC_CSF_YCRCB_422) &&
 				(RegVal != XVIDC_CSF_YCRCB_444) &&
 				(RegVal != XVIDC_CSF_YCRCB_420))  {
@@ -1319,7 +1319,7 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 		BitsPerPixel = BitsPerColor * 2;
 	}
 	else if (ColorComponent ==
-			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
 		/* YCbCr 4:2:0 color component format. */
 		BitsPerPixel = (BitsPerColor * 15) / 10;
 	}
