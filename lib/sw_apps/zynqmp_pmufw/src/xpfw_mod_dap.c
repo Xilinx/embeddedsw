@@ -70,4 +70,7 @@ void ModDapInit(void)
 	} else {
 		/* For MISRA-C compliance */
 	}
+	else {
+		/* Misra-C compliant */
+	}
 }
