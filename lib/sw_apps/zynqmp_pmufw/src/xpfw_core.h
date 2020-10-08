@@ -48,6 +48,8 @@ XStatus XPfw_CoreSetEventHandler(const XPfw_Module_t *ModPtr, XPfwModEventHandle
 XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t IpiHandlerFn, u16 IpiId);
 
 void XPfw_EnableSlvErr(void);
+void XPfw_Exception_Handler(void);
+
 #ifdef __cplusplus
 }
 #endif
