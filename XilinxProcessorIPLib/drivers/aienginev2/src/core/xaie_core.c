@@ -158,8 +158,6 @@ AieRC XAie_CoreDisable(XAie_DevInst *DevInst, XAie_LocType Loc)
 AieRC XAie_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc)
 {
 	u8 TileType;
-	u32 Mask, Value;
-	u64 RegAddr;
 	const XAie_CoreMod *CoreMod;
 
 	if((DevInst == XAIE_NULL) ||
@@ -175,14 +173,8 @@ AieRC XAie_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc)
 	}
 
 	CoreMod = DevInst->DevProp.DevMod[XAIEGBL_TILE_TYPE_AIETILE].CoreMod;
-	Mask = CoreMod->CoreCtrl->CtrlEn.Mask;
-	Value = 1U << CoreMod->CoreCtrl->CtrlEn.Lsb;
-	RegAddr = CoreMod->CoreCtrl->RegOff +
-		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
-
-	return XAIE_OK;
+	return CoreMod->Enable(DevInst, Loc, CoreMod);
 }
 
 /*****************************************************************************/
@@ -294,9 +286,8 @@ AieRC XAie_CoreUnreset(XAie_DevInst *DevInst, XAie_LocType Loc)
 ******************************************************************************/
 AieRC XAie_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc, u32 TimeOut)
 {
+	u8 TileType;
 	const XAie_CoreMod *CoreMod;
-	u32 Mask;
-	u32 Value;
 
 	if((DevInst == XAIE_NULL) ||
 			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
@@ -304,10 +295,21 @@ AieRC XAie_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc, u32 TimeOut)
 		return XAIE_INVALID_ARGS;
 	}
 
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
 	CoreMod = DevInst->DevProp.DevMod[XAIEGBL_TILE_TYPE_AIETILE].CoreMod;
-	Mask = CoreMod->CoreSts->Done.Mask;
-	Value = 1U << CoreMod->CoreSts->Done.Lsb;
-	return _XAie_CoreWaitStatus(DevInst, Loc, TimeOut, Mask, Value);
+
+	/* TimeOut passed by the user is per Core */
+	if(TimeOut == 0) {
+		/* Set timeout to default value */
+		TimeOut = XAIETILE_CORE_STATUS_DEF_WAIT_USECS;
+	}
+
+	return CoreMod->WaitForDone(DevInst, Loc, TimeOut, CoreMod);
 }
 
 /*****************************************************************************/
@@ -442,10 +444,8 @@ AieRC XAie_CoreDebugUnhalt(XAie_DevInst *DevInst, XAie_LocType Loc)
 AieRC XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 *DoneBit)
 {
-	u64 RegAddr;
 	const XAie_CoreMod *CoreMod;
 	u8 TileType;
-	u32 Data;
 
 	if((DevInst == XAIE_NULL) || (DoneBit == NULL) ||
 			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
@@ -461,13 +461,7 @@ AieRC XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
 
-	RegAddr = CoreMod->CoreSts->RegOff +
-		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
-
-	Data = XAie_Read32(DevInst, RegAddr);
-	*DoneBit = (Data & CoreMod->CoreSts->Done.Mask) ? 1U : 0U;
-
-	return XAIE_OK;
+	return CoreMod->ReadDoneBit(DevInst, Loc, DoneBit, CoreMod);
 }
 
 /*****************************************************************************/
