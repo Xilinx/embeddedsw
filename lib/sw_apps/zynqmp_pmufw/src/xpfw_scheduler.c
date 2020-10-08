@@ -30,13 +30,13 @@ static u32 is_task_active(XPfw_Scheduler_t *SchedPtr, u32 TaskListIndex)
 		&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)
 		&& (0U == (SchedPtr->Tick
 				% SchedPtr->TaskList[TaskListIndex].Interval))) {
-		ReturnVal = TRUE;
+		ReturnVal = (u32)TRUE;
 	} else if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
 			&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)) {
 		/* Non-Periodic */
-		ReturnVal = TRUE;
+		ReturnVal = (u32)TRUE;
 	} else {
-		ReturnVal = FALSE;
+		ReturnVal = (u32)FALSE;
 	}
 
 	return ReturnVal;
@@ -48,9 +48,9 @@ static u32 is_task_non_periodic(XPfw_Scheduler_t *SchedPtr, u32 TaskListIndex)
 
 	if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
 		&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)) {
-		ReturnVal = TRUE;
+		ReturnVal = (u32)TRUE;
 	} else {
-		ReturnVal = FALSE;
+		ReturnVal = (u32)FALSE;
 	}
 
 	return ReturnVal;
@@ -73,7 +73,7 @@ XStatus XPfw_SchedulerInit(XPfw_Scheduler_t *SchedPtr, u32 PitBaseAddr)
 		SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_DISABLED;
 	}
 
-	SchedPtr->Enabled = FALSE;
+	SchedPtr->Enabled = (u32)FALSE;
 	SchedPtr->PitBaseAddr = PitBaseAddr;
 	SchedPtr->Tick = 0U;
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 0U);
@@ -94,7 +94,7 @@ XStatus XPfw_SchedulerStart(XPfw_Scheduler_t *SchedPtr)
 		goto done;
 	}
 
-	SchedPtr->Enabled = TRUE;
+	SchedPtr->Enabled = (u32)TRUE;
 
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET,
 			COUNT_PER_TICK);
@@ -107,7 +107,7 @@ done:
 
 XStatus XPfw_SchedulerStop(XPfw_Scheduler_t *SchedPtr)
 {
-	SchedPtr->Enabled =FALSE;
+	SchedPtr->Enabled = (u32)FALSE;
 
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET, 0U );
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 0U );
