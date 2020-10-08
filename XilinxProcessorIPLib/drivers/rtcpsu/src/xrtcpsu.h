@@ -383,7 +383,7 @@ void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time);
 void XRtcPsu_SetInterruptMask(const XRtcPsu *InstancePtr, u32 Mask);
 void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask);
 void XRtcPsu_InterruptHandler(XRtcPsu *InstancePtr);
-void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
+void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FunctionPtr,
 			 void *CallBackRef);
 
 /* Functions in xrtcpsu_selftest.c */

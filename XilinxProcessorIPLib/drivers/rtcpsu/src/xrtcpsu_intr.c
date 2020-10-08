@@ -117,7 +117,7 @@ void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 * occurs that needs application's attention.
 *
 * @param	InstancePtr is a pointer to the XRtcPsu instance
-* @param	FuncPtr is the pointer to the callback function.
+* @param	FunctionPtr is the pointer to the callback function.
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
 *
@@ -129,7 +129,7 @@ void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 * is (nor should it)
 *
 *****************************************************************************/
-void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
+void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FunctionPtr,
 		 void *CallBackRef)
 {
 	/*
@@ -137,10 +137,10 @@ void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
 	 * CallBackRef not checked, no way to know what is valid
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(FuncPtr != NULL);
+	Xil_AssertVoid(FunctionPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->Handler = FuncPtr;
+	InstancePtr->Handler = FunctionPtr;
 	InstancePtr->CallBackRef = CallBackRef;
 }
 
