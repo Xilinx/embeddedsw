@@ -201,7 +201,7 @@ XStatus XPfw_CoreDispatchEvent(u32 EventId)
 			 * Check if Mod[Idx] and event handler are registered for this event
 			 */
 			if (((XPfw_EventGetModMask(EventId) & ((u32) 1U << Idx))
-					== ((u32) 1U << Idx)) && CorePtr->ModList[Idx].EventHandler != NULL) {
+					== ((u32) 1U << Idx)) && (CorePtr->ModList[Idx].EventHandler != NULL)) {
 				CorePtr->ModList[Idx].EventHandler(&CorePtr->ModList[Idx],
 						EventId);
 				CallCount++;
