@@ -498,5 +498,7 @@ void XPfw_Exception_Handler(void)
 			PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
 	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 			0x0U);
-	while(TRUE);
+	while(TRUE) {
+		;
+	}
 }
