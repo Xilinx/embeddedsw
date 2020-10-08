@@ -77,7 +77,4 @@ void ModLegacyInit(void)
 	} else {
 		/* For MISRA-C compliance */
 	}
-	else {
-		/* Misra-C compliant */
-	}
 }
