@@ -48,7 +48,6 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XRtcPsu_Config XRtcPsu_ConfigTable[XPAR_XRTCPSU_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**

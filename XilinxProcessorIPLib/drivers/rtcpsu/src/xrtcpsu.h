@@ -201,6 +201,7 @@ typedef struct {
 
 /************************* Variable Definitions ******************************/
 
+extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
