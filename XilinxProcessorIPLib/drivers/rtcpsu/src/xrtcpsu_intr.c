@@ -62,7 +62,7 @@
 * @note		None.
 *
 *****************************************************************************/
-void XRtcPsu_SetInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
+void XRtcPsu_SetInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
 {
 	/*
 	 * Clear the Status register to be sure of no pending interrupts.
@@ -97,7 +97,7 @@ void XRtcPsu_SetInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
+void XRtcPsu_ClearInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
 {
 	/*
 	 * XRTC_INT_MSK_RSTVAL contains the valid interrupts

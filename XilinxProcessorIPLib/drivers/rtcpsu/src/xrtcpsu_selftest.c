@@ -66,7 +66,7 @@
 * This function can hang if the hardware is not functioning properly.
 *
 ******************************************************************************/
-s32 XRtcPsu_SelfTest(const XRtcPsu *InstancePtr)
+s32 XRtcPsu_SelfTest(XRtcPsu *InstancePtr)
 {
 	s32 Status = (s32)XST_SUCCESS;
 	u32 SafetyCheck;
