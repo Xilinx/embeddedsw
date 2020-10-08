@@ -360,8 +360,8 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
  *
  *****************************************************************************/
 #define XRtcPsu_RoundOff(Number) \
-	(u32)(((Number) < (u32)0) ? ((Number) - (u32)0.5) : \
-		((Number) + (u32)0.5))
+	(u32)(((Number) < (float)0) ? ((Number) - (float)0.5) : \
+		((Number) + (float)0.5))
 
 /************************** Function Prototypes ******************************/
 
