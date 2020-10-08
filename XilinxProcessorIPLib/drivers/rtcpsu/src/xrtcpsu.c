@@ -66,7 +66,7 @@ static const u32 DaysInMonth[] = {31, 28, 31, 30, 31,
 
 /************************** Function Prototypes ******************************/
 
-static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event);
+static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event);
 
 /*****************************************************************************/
 /*
@@ -89,7 +89,7 @@ static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event);
  * @note		None.
  *
  ******************************************************************************/
-s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
+s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 			  UINTPTR EffectiveAddr)
 {
 	s32 Status;
@@ -166,9 +166,9 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
  * @note		None.
  *
  *****************************************************************************/
-static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event)
+static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
 {
-	(const void) CallBackRef;
+	(void) CallBackRef;
 	(void) Event;
 	/* Assert occurs always since this is a stub and should
 	 * never be called
@@ -508,7 +508,7 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
  *			This also clears interrupt status seconds bit.
  *
  *****************************************************************************/
-u32 XRtcPsu_IsSecondsEventGenerated(const XRtcPsu *InstancePtr)
+u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
 {
 	u32 Status;
 
@@ -539,7 +539,7 @@ u32 XRtcPsu_IsSecondsEventGenerated(const XRtcPsu *InstancePtr)
  *		This also clears interrupt status alarm bit.
  *
  *****************************************************************************/
-u32 XRtcPsu_IsAlarmEventGenerated(const XRtcPsu *InstancePtr)
+u32 XRtcPsu_IsAlarmEventGenerated(XRtcPsu *InstancePtr)
 {
 	u32 Status;
 
