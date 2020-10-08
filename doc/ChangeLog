@@ -141,6 +141,7 @@ Update zdma driver makefile for parallel execution.
 
 rtcpsu_v1_10:
 Update the Makefile for parallel execution.
+Fixed MISRA-C violations.
 
 wdttb_v5_1:
 Fixed MISRAC violations.
