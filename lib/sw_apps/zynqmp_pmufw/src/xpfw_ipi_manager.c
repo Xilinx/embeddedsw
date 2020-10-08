@@ -57,14 +57,14 @@ s32 XPfw_IpiManagerInit(void)
 	Status = XIpiPsu_CfgInitialize(Ipi0InstPtr, Ipi0CfgPtr,
 			Ipi0CfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
-		return Status;
+		goto Done;
 	}
 
 	/* Initialize the Instance pointer of IPI-1 channel */
 	Status = XIpiPsu_CfgInitialize(Ipi1InstPtr, Ipi1CfgPtr,
 			Ipi1CfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
-		return Status;
+		goto Done;
 	}
 
 	/* Enable IPI-0 and IPI-1 from all Masters */
