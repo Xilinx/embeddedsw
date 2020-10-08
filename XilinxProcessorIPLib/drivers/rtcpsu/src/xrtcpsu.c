@@ -147,7 +147,7 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
 	InstancePtr->TimeUpdated = (u32)0U;
 	InstancePtr->CurrTimeUpdated = (u32)0U;
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 	return Status;
 }
 
