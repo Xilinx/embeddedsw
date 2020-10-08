@@ -180,6 +180,12 @@ typedef struct XAie_CoreMod {
 	const XAie_RegCoreEvents *CoreEvent;
 	AieRC (*ConfigureDone)(XAie_DevInst *DevInst, XAie_LocType Loc,
 			const struct XAie_CoreMod *CoreMod);
+	AieRC (*WaitForDone)(XAie_DevInst *DevInst, XAie_LocType Loc,
+			u32 TimeOut, const struct XAie_CoreMod *CoreMod);
+	AieRC (*ReadDoneBit)(XAie_DevInst *DevInst, XAie_LocType Loc,
+			u8 *DoneBit, const struct XAie_CoreMod *CoreMod);
+	AieRC (*Enable)(XAie_DevInst *DevInst, XAie_LocType Loc,
+			const struct XAie_CoreMod *CoreMod);
 } XAie_CoreMod;
 
 /*
