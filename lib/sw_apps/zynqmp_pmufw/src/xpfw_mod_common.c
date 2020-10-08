@@ -5,9 +5,9 @@
 
 
 #include "xpfw_default.h"
+#include "xpfw_mod_common.h"
 #include "xpfw_config.h"
 #include "xpfw_core.h"
-#include "xpfw_module.h"
 #include "xpfw_error_manager.h"
 #include "xpfw_restart.h"
 #include "xpfw_mod_wdt.h"

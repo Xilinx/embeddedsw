@@ -38,6 +38,8 @@ extern FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info;
 s32 XPfw_RecoveryInit(void);
 void XPfw_RecoveryHandler(u8 ErrorId);
 void XPfw_RecoveryAck(PmMaster *Master);
+void XPfw_RecoveryStop(PmMaster *Master);
+void XPfw_RecoveryRestart(PmMaster *Master);
 
 #if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
 s32 XPfw_StoreFsblToDDR(void);
