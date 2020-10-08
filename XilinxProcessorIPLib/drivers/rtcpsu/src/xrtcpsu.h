@@ -162,7 +162,7 @@ typedef void (*XRtcPsu_Handler) (const void *CallBackRef, u32 Event);
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddr;		/**< Register base address */
+	UINTPTR BaseAddr;	/**< Register base address */
 } XRtcPsu_Config;
 
 /**
@@ -367,7 +367,7 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 
 /* Functions in xrtcpsu.c */
 s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
-				u32 EffectiveAddr);
+			  UINTPTR EffectiveAddr);
 
 void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic);
 void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt);
