@@ -75,4 +75,7 @@ void ModLegacyInit(void)
 			XPfw_CoreSetEventHandler(LegacyModPtr, LegacyEventHandler)) {
 		XPfw_Printf(DEBUG_DETAILED,"Legacy: Set Event handler failed\r\n");
 	}
+	else {
+		/* Misra-C compliant */
+	}
 }

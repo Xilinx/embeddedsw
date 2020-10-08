@@ -68,4 +68,7 @@ void ModDapInit(void)
 			XPfw_CoreSetEventHandler(DapModPtr, DapEventHandler)) {
 		XPfw_Printf(DEBUG_DETAILED,"DAP: Set Event handler failed\r\n");
 	}
+	else {
+		/* Misra-C compliant */
+	}
 }
