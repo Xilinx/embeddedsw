@@ -371,7 +371,7 @@ XStatus XPfw_CoreLoop(void)
 			}
 		#endif
 
-		} while (1);
+		} while (TRUE);
 
 	}
 	/* If we reach this point then there was an error */
@@ -498,5 +498,5 @@ void XPfw_Exception_Handler(void)
 			PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
 	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 			0x0U);
-	while(1);
+	while(TRUE);
 }
