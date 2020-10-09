@@ -960,7 +960,8 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	XStatus Status = XPM_ERR_DEVICE_INIT;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (NULL != XPmDevice_GetById(Id)) {
+	if ((NULL != XPmDevice_GetById(Id)) &&
+	   ((u32)XPM_NODESUBCL_DEV_PL != NODESUBCLASS(Id))) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_DEVICE_BUSY;
 		goto done;
