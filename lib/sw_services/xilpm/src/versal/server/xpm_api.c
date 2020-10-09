@@ -3578,17 +3578,27 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	/* Check if Device is already added or not. */
-	if (NULL != XPmDevice_GetById(DeviceId)) {
-		PmWarn("0x%x Device is already added\r\n", DeviceId);
-		Status = XST_DEVICE_BUSY;
-		goto done;
-	}
-
-	PlDevice = (XPm_PlDevice *)XPm_AllocBytes(sizeof(XPm_PlDevice));
+	/*
+	 * Note: This function is executed as part of pm_add_node cmd trigerred
+	 * through CDO. Since there's a possibility of the same RM (hence CDO)
+	 * being executed multiple times, we should not error out on addition
+	 * of same node multiple times. Memory is only allocated only if node
+	 * is not present in database. Since PLD0 represents static image and
+	 * not RM, we shouldn't allow it to be re-added
+	 */
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(DeviceId);
 	if (NULL == PlDevice) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
+		PlDevice = (XPm_PlDevice *)XPm_AllocBytes(sizeof(XPm_PlDevice));
+		if (NULL == PlDevice) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+	} else {
+		if ((u32)XPM_NODEIDX_DEV_PLD_0 == Index) {
+			Status = XST_DEVICE_BUSY;
+			goto done;
+		}
+		PmInfo("0x%x Device is already added\r\n", DeviceId);
 	}
 
 	Status = XPmPlDevice_Init(PlDevice, DeviceId, BaseAddr, Power, NULL, NULL);
