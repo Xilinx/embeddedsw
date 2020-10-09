@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -67,7 +66,8 @@
 *
 * @param	IpiMask IPI master ID
 * @param	EventId Id of the event as defined in XilPm
-* @param	Payload Data that needs to be sent to the IPI master
+* @param	Payload is pointer to the Data that needs to be sent to the IPI
+* 		master
 *
 * @return	None
 *

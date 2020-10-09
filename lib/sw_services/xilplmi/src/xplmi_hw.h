@@ -107,8 +107,8 @@ static inline void XPlmi_Out32(UINTPTR Addr, u32 Value)
 static inline void XPlmi_PpuWakeUpDis(void)
 {
 	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE,
-			XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) &
-			(~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK));
+		XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) &
+		(~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK));
 }
 
 #define XPlmi_Out64(Addr, Data)		swea(Addr, Data)

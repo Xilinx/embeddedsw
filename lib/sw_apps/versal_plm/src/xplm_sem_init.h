@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -20,7 +19,7 @@
 * 1.01  kc   02/10/2020 Updated scheduler to add/remove tasks
 *       kc   02/17/2020 Added configurable priority for scheduler tasks
 *       kc   02/26/2020 Added XPLM_SEM macro to include/disable SEM
-*						functionality
+*                       functionality
 *       kc   03/23/2020 Minor code cleanup
 *
 * </pre>
