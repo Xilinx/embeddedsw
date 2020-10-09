@@ -415,6 +415,7 @@ typedef union {
  */
 typedef struct {
 	u8 StartQSizeMax;
+	u32 MaxRepeatCount;
 	XAie_RegBdFldAttr EnToken;
 	XAie_RegBdFldAttr RptCount;
 	XAie_RegBdFldAttr StartBd;
@@ -442,6 +443,9 @@ typedef struct XAie_DmaMod {
 	u8  OutofOrderBdId;
 	u8  InterleaveMode;
 	u8  FifoMode;
+	u8  EnTokenIssue;
+	u8  RepeatCount;
+	u32 StartQueueBase;
 	u32 BaseAddr;
 	u32 IdxOffset;
 	u32 ChCtrlBase;
