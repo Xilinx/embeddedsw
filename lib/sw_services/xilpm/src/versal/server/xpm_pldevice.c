@@ -6,6 +6,39 @@
 #include "xpm_debug.h"
 #include "xpm_defs.h"
 
+static XStatus Pld_UnlinkChidren(XPm_PlDevice *PlDevice)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PlDevice *PldChild;
+	XPm_PlDevice *PldToUnlink;
+
+	if (NULL == PlDevice) {
+		Status = XPM_ERR_DEVICE;
+		goto done;
+	}
+
+	PldChild = PlDevice->Child;
+
+	while (NULL != PldChild) {
+		if (NULL != PldChild->Child) {
+			Status = Pld_UnlinkChidren(PldChild);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		PldToUnlink = PldChild;
+		PldChild = PldChild->NextPeer;
+		PldToUnlink->Parent = NULL;
+		PldToUnlink->NextPeer = NULL;
+	}
+
+	PlDevice->Child = NULL;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -16,13 +49,18 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	/*
-	 * TBD: Init Start implementation
-	 */
 	(void)Args;
 	(void)NumArgs;
 
-	Status = XST_SUCCESS;
+	/*
+	 * PL Init Start indicates that a new RM or static image has been
+	 * re/loaded. We must get rid of any existing child nodes if at all
+	 * there are any, since new topology can be formed with those
+	 */
+	Status = Pld_UnlinkChidren(PlDevice);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PLDEVICE_UNLINK_FAIL;
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
