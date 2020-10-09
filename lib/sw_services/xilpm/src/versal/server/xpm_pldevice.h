@@ -24,13 +24,13 @@ struct XPm_PldInitNodeOps {
 };
 
 struct XPm_PlDeviceNode {
-	XPm_Device Device;
-	u8 PowerBitMask;
-	u8 WfPowerBitMask;
-	struct XPm_PldInitNodeOps *Ops;
-	XPm_PlDevice *Parent;
-	XPm_PlDevice *NextPeer;
-	XPm_PlDevice *Child;
+	XPm_Device Device;              /**< Device: Base class */
+	u8 PowerBitMask;                /**< Current Power Domain Dependency */
+	u8 WfPowerBitMask;              /**< Desired Power Domain Dependency */
+	struct XPm_PldInitNodeOps *Ops; /**< Node Initialization Operations */
+	XPm_PlDevice *Parent;           /**< Parent of PLD */
+	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
+	XPm_PlDevice *Child;            /**< Child head PLD’s children */
 };
 
 /************************** Function Prototypes ******************************/
