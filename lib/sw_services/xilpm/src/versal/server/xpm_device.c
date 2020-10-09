@@ -1576,7 +1576,14 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 			}
 			XPm_PlDevice *PlDevice = (XPm_PlDevice *)DevPtr;
 			XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(Parents[i]);
-			if (Parent == NULL) {
+			/*
+			 * Along with checking validity of parent, check if parent has
+			 * a parent with exception being PLD_0. This is to prevent
+			 * broken trees
+			 */
+			if ((NULL == Parent) ||
+			   (((u32)XPM_NODEIDX_DEV_PLD_0 != NODEINDEX(Parent->Device.Node.Id)) &&
+			   (NULL == Parent->Parent))) {
 				Status = XST_DEVICE_NOT_FOUND;
 				goto done;
 			}
