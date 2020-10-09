@@ -380,7 +380,6 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	u16_t status_speed;
 	u32_t timeout_counter = 0;
 	u32_t phyregtemp;
-	int i;
 	u32_t RetStatus;
 
 	xil_printf("Start PHY autonegotiation \r\n");
@@ -401,7 +400,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	/*
 	 * Delay
 	 */
-	for(i=0;i<1000000000;i++);
+	sleep(1);
 
 	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
