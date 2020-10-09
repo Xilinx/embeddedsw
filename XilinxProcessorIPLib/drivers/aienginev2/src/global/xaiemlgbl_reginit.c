@@ -275,6 +275,7 @@ static const  XAie_DmaBdProp Aie2MemTileDmaProp =
 
 static const  XAie_DmaChProp Aie2MemTileDmaChProp =
 {
+	.MaxRepeatCount = 256U,
 	.CtrlId.Idx = 0,
 	.CtrlId.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_0_CTRL_CONTROLLER_ID_LSB,
 	.CtrlId.Mask =XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_0_CTRL_CONTROLLER_ID_MASK ,
@@ -315,6 +316,9 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.OutofOrderBdId = XAIE_FEATURE_AVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
+	.EnTokenIssue = XAIE_FEATURE_AVAILABLE,
+	.RepeatCount = XAIE_FEATURE_AVAILABLE,
+	.StartQueueBase = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_0_START_QUEUE,
 	.ChCtrlBase = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 6,  /* number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
@@ -458,6 +462,7 @@ static const  XAie_DmaBdProp Aie2TileDmaProp =
  */
 static const  XAie_DmaChProp Aie2DmaChProp =
 {
+	.MaxRepeatCount = 256U,
 	.CtrlId.Idx = 0,
 	.CtrlId.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_0_CTRL_CONTROLLER_ID_LSB,
 	.CtrlId.Mask =XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_0_CTRL_CONTROLLER_ID_MASK ,
@@ -498,6 +503,9 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.OutofOrderBdId = XAIE_FEATURE_AVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
+	.EnTokenIssue = XAIE_FEATURE_AVAILABLE,
+	.RepeatCount = XAIE_FEATURE_AVAILABLE,
+	.StartQueueBase = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_0_START_QUEUE,
 	.ChCtrlBase = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
@@ -656,6 +664,7 @@ static const  XAie_DmaBdProp Aie2ShimDmaProp =
  */
 static const  XAie_DmaChProp Aie2ShimDmaChProp =
 {
+	.MaxRepeatCount = 256U,
 	.CtrlId.Idx = 0U,
 	.CtrlId.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_0_CTRL_CONTROLLER_ID_LSB ,
 	.CtrlId.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_0_CTRL_CONTROLLER_ID_MASK ,
@@ -696,6 +705,9 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
 	.OutofOrderBdId = XAIE_FEATURE_AVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
+	.EnTokenIssue = XAIE_FEATURE_AVAILABLE,
+	.RepeatCount = XAIE_FEATURE_AVAILABLE,
+	.StartQueueBase = XAIEMLGBL_NOC_MODULE_DMA_S2MM_0_TASK_QUEUE,
 	.ChCtrlBase = XAIEMLGBL_NOC_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
