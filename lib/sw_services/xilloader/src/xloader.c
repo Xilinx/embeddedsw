@@ -69,6 +69,7 @@
 *                       check required for DFx
 *       bm   09/24/2020 Added FuncID to RestartImage
 *       bsv  09/30/2020 Enable parallel DMA for SBI related boot modes
+*       bsv  10/09/2020 Add subsystem restart support for SD raw boot modes
 *
 * </pre>
 *
@@ -1500,6 +1501,7 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 			}
 			break;
 		case XLOADER_PDI_SRC_SD0:
+		case XLOADER_PDI_SRC_SD0_RAW:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
 				Pm_CapAccess, XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
@@ -1510,6 +1512,11 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
+		case XLOADER_PDI_SRC_SD1_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP1:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
+		case XLOADER_PDI_SRC_SD1_LS_RAW:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
 				Pm_CapAccess, XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
@@ -1567,11 +1574,17 @@ END:
 			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
 			break;
 		case XLOADER_PDI_SRC_SD0:
+		case XLOADER_PDI_SRC_SD0_RAW:
 			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
 			break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
+		case XLOADER_PDI_SRC_SD1_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP1:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
+		case XLOADER_PDI_SRC_SD1_LS_RAW:
 			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
 			break;
 		case XLOADER_PDI_SRC_USB:
