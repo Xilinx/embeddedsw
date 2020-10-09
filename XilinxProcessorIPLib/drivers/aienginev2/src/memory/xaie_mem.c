@@ -151,7 +151,7 @@ AieRC XAie_DataMemRdWord(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 *******************************************************************************/
 AieRC XAie_DataMemBlockWrite(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
-		void *Src, u32 Size)
+		const void *Src, u32 Size)
 {
 	u64 DmAddrRoundDown, DmAddrRoundUp;
 	u32 BytePtr = 0;
