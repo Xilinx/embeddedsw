@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -67,8 +66,7 @@ static void XPlm_ExceptionInit(void)
 	     Index <= XIL_EXCEPTION_ID_LAST; Index++) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_EXCEPTION, (int)Index);
 		Xil_ExceptionRegisterHandler(Index,
-			     XPlm_ExceptionHandler,
-			     (void *)Status);
+			XPlm_ExceptionHandler, (void *)Status);
 	}
 
 	/** Write stack high and low register for stack protection */
@@ -94,10 +92,10 @@ static void XPlm_ExceptionHandler(void *Data)
 	int Status = (int) Data;
 
 	XPlmi_Printf(DEBUG_GENERAL, "Received Exception \n\r"
-		      "MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
-		      "R14: 0x%08x, R15: 0x%08x, R16: 0x%08x, R17: 0x%08x \n\r",
-		      mfmsr(), mfear(), mfedr(), mfesr(),
-		      mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
+		"MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
+		"R14: 0x%08x, R15: 0x%08x, R16: 0x%08x, R17: 0x%08x \n\r",
+		mfmsr(), mfear(), mfedr(), mfesr(),
+		mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
 
 	XLoader_SecureClear();
 	XPlmi_ErrMgr(Status);

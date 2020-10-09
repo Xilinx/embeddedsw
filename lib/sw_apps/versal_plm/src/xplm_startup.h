@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -20,7 +19,7 @@
 * 1.01  ma   08/01/2019 Removed LPD module init related code from PLM app
 *       rm   09/08/2019 Adding xilsem library in place of source code
 * 1.02  kc   02/26/2020 Added XPLM_SEM macro to include/disable SEM
-*						functionality
+*                       functionality
 *       kc   03/23/2020 Minor code cleanup
 *
 * </pre>

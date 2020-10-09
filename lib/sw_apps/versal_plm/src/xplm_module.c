@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -18,7 +17,7 @@
 * ====  ==== ======== ======================================================-
 * 1.00  kc   08/28/2018 Initial release
 * 1.01  sn   07/04/2019 Added code to enable SysMon's over-temperature
-*						interrupt
+*                       interrupt
 *       kc   08/01/2019 Added error management module in PLM
 *       ma   08/01/2019 Removed LPD module init related code from PLM app
 * 1.02  kc   03/23/2020 Minor code cleanup
@@ -36,6 +35,9 @@
 #include "xplmi_sysmon.h"
 #include "xpm_api.h"
 #include "xsecure_init.h"
+#include "xplmi_err.h"
+#include "xplm_loader.h"
+#include "xplm_pm.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -70,6 +72,7 @@ static int XPlm_SecureInit(void)
 
 	return Status;
 }
+
 /*****************************************************************************/
 /**
  * @brief This function initializes the Error module and registers the
@@ -138,7 +141,6 @@ int XPlm_ModuleInit(void *Arg)
 		XPlm_StlInit,
 #endif
 	};
-
 
 	(void) Arg;
 	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(ModuleList); Index++) {

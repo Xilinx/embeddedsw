@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -18,11 +17,11 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/20/2018 Initial release
 * 1.01  ma   08/24/2019 Added code to force bootmode to SBI
-*						for slave SLRs
+*                       for slave SLRs
 * 1.02  ana  02/29/2020 Implemented KAT support for crypto engines
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
-*						subsystem information
+*                       subsystem information
 *
 * </pre>
 *
@@ -38,7 +37,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
-#include "xplmi_hw.h"
 #include "xloader.h"
 
 /************************** Constant Definitions *****************************/
