@@ -1374,6 +1374,7 @@ static const XAie_DmaChStatus AieTileDmaChStatus[] =
 
 static const XAie_DmaChProp AieTileDmaChProp =
 {
+	.MaxRepeatCount = 0U,
 	.CtrlId = {0U},
 	.EnCompression = {0U},
 	.EnOutofOrder = {0U},
@@ -1408,6 +1409,9 @@ static const XAie_DmaMod AieTileDmaMod =
 	.OutofOrderBdId = XAIE_FEATURE_UNAVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_AVAILABLE,
 	.FifoMode = XAIE_FEATURE_AVAILABLE,
+	.EnTokenIssue = XAIE_FEATURE_UNAVAILABLE,
+	.RepeatCount = XAIE_FEATURE_UNAVAILABLE,
+	.StartQueueBase = XAIEGBL_MEM_DMAS2MM0STAQUE,
 	.ChCtrlBase = XAIEGBL_MEM_DMAS2MM0CTR,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
@@ -1560,6 +1564,7 @@ static const XAie_DmaChStatus AieShimDmaChStatus[] =
 
 static const XAie_DmaChProp AieShimDmaChProp =
 {
+	.MaxRepeatCount = 0U,
 	.CtrlId = {0U},
 	.EnCompression = {0U},
 	.EnOutofOrder = {0U},
@@ -1596,6 +1601,9 @@ static const XAie_DmaMod AieShimDmaMod =
 	.OutofOrderBdId = XAIE_FEATURE_UNAVAILABLE,
 	.InterleaveMode = XAIE_FEATURE_UNAVAILABLE,
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
+	.EnTokenIssue = XAIE_FEATURE_UNAVAILABLE,
+	.RepeatCount = XAIE_FEATURE_UNAVAILABLE,
+	.StartQueueBase = XAIEGBL_NOC_DMAS2MM0STAQUE,
 	.ChCtrlBase = XAIEGBL_NOC_DMAS2MM0CTR,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
