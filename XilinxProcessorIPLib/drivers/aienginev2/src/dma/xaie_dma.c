@@ -1388,6 +1388,94 @@ AieRC XAie_DmaGetMaxQueueSize(XAie_DevInst *DevInst, XAie_LocType Loc,
 /*****************************************************************************/
 /**
 *
+* This API pushes a Buffer Descriptor number, configures repeat count and token
+* status to start channel queue.
+*
+* @param	DevInst: Device Instance.
+* @param	Loc: Location of AIE Tile
+* @param	ChNum: Channel number of the DMA.
+* @param	Dir: Direction of the DMA Channel. (MM2S or S2MM)
+* @param	BdNum: Bd number to be pushed to the queue.
+* 		RepeatCount: Number of times the task is to be repeated.
+* 		EnTokenIssue: Determines whether or not issue a token when task
+* 			     is completed
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		This feature is not supported for AIE. For AIE-ML the enable
+*		token issue can be XAIE_ENABLE or XAIE_DISABLE.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum, u32 RepeatCount,
+		u8 EnTokenIssue)
+{
+	u8 TileType;
+	u32 Val = 0;
+	u64 Addr;
+	const XAie_DmaMod *DmaMod;
+
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Dir >= DMA_MAX) {
+		XAIE_ERROR("Invalid DMA direction\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_SHIMPL) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	DmaMod = DevInst->DevProp.DevMod[TileType].DmaMod;
+	if(DmaMod->RepeatCount == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Repeat count feature in start queue is not supported for this device generation\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	if(DmaMod->EnTokenIssue == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Enable token issue feature in start queue is not supported for this device generation\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+	if(ChNum > DmaMod->NumChannels) {
+		XAIE_ERROR("Invalid Channel number\n");
+		return XAIE_INVALID_CHANNEL_NUM;
+	}
+
+	if(BdNum > DmaMod->NumBds) {
+		XAIE_ERROR("Invalid BD number\n");
+		return XAIE_INVALID_BD_NUM;
+	}
+
+	if((RepeatCount < 1U) ||
+		(RepeatCount > DmaMod->ChProp->MaxRepeatCount)) {
+		XAIE_ERROR("Invalid Repeat Count: %d\n", RepeatCount);
+		return XAIE_INVALID_ARGS;
+	}
+
+	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->StartQueueBase + ChNum * DmaMod->ChIdxOffset +
+		Dir * DmaMod->ChIdxOffset * DmaMod->NumChannels;
+
+	Val = XAie_SetField(BdNum, DmaMod->ChProp->StartBd.Lsb,
+			DmaMod->ChProp->StartBd.Mask) |
+		XAie_SetField((RepeatCount - 1), DmaMod->ChProp->RptCount.Lsb,
+			DmaMod->ChProp->RptCount.Mask) |
+		XAie_SetField(EnTokenIssue, DmaMod->ChProp->EnToken.Lsb,
+			DmaMod->ChProp->EnToken.Mask);
+	XAie_Write32(DevInst, Addr, Val);
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
 * This API updates the length of the buffer descriptor in the dma module.
 *
 * @param	DevInst: Device Instance.
