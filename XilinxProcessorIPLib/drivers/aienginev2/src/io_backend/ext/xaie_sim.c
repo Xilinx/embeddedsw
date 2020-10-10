@@ -195,7 +195,6 @@ static AieRC XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	AieRC Ret = XAIE_ERR;
 	u32 RegVal;
 
-
 	/* Increment Timeout value to 1 if user passed value is 1 */
 	if(TimeOutUs == 0U)
 		TimeOutUs++;
