@@ -64,8 +64,8 @@ static u8 XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 {
 	u8 ReturnVal = (u8)FALSE;
 
-	if (XPlmi_IsTaskNonPeriodic(SchedPtr, TaskListIndex) == TRUE) {
-		ReturnVal = TRUE;
+	if (XPlmi_IsTaskNonPeriodic(SchedPtr, TaskListIndex) == (u8)TRUE) {
+		ReturnVal = (u8)TRUE;
 	} else {
 		if ((0U != SchedPtr->TaskList[TaskListIndex].Interval)
 		&& (NULL != SchedPtr->TaskList[TaskListIndex].CustomerFunc)
@@ -156,7 +156,7 @@ void XPlmi_SchedulerHandler(void *Data)
 	XPlmi_UtilRMW(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_IRQ_ACK, 0x20U);
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		/* Check if the task is triggered and has a valid Callback */
-		if (XPlmi_IsTaskActive(&Sched, Idx) == TRUE) {
+		if (XPlmi_IsTaskActive(&Sched, Idx) == (u8)TRUE) {
 			/* Add the Task to the PLM Task Queue */
 			Task = XPlmi_TaskCreate(Sched.TaskList[Idx].Priority,
 					Sched.TaskList[Idx].CustomerFunc, 0U);

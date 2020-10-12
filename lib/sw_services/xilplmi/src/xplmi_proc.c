@@ -300,7 +300,7 @@ int XPlmi_StartTimer(void)
 	 *  Use PIT1 and PIT2 in prescaler mode
 	 *  Setting for Prescaler mode
 	 */
-	XPlmi_Out32(IOModule.BaseAddress + XGO_OUT_OFFSET,
+	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
 		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
 	XPlmi_InitPitTimer((u8)XPLMI_PIT2, XPLMI_PIT2_RESET_VALUE);
 	XPlmi_InitPitTimer((u8)XPLMI_PIT1, XPLMI_PIT1_RESET_VALUE);

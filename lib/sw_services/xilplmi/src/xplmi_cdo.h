@@ -75,8 +75,8 @@ typedef struct {
 	u32 TempCmdBuf[8U];	/**< Temporary buffer to store commands
 				 between iterations */
 	XPlmi_Cmd Cmd;		/**< Pointer to the cmd */
-	u32 CmdEndDetected;	/**< Flag to detect end of commands */
-	u32 Cdo1stChunk;	/**< This is used for first time to validate
+	u8 CmdEndDetected;	/**< Flag to detect end of commands */
+	u8 Cdo1stChunk;		/**< This is used for first time to validate
 				CDO header*/
 	u32 ImgId;		/**< Info about which Image this belongs to */
 	u32 PrtnId;		/**< Info about which partition this belongs to*/
