@@ -415,13 +415,19 @@ typedef union {
  */
 typedef struct {
 	u8 StartQSizeMax;
+	u8 HasFoTMode;
+	u8 HasControllerId;
+	u8 HasEnCompression;
+	u8 HasEnOutOfOrder;
+	u8 MaxFoTMode;
 	u32 MaxRepeatCount;
 	XAie_RegBdFldAttr EnToken;
 	XAie_RegBdFldAttr RptCount;
 	XAie_RegBdFldAttr StartBd;
-	XAie_RegBdFldAttr CtrlId;
+	XAie_RegBdFldAttr ControllerId;
 	XAie_RegBdFldAttr EnCompression;
 	XAie_RegBdFldAttr EnOutofOrder;
+	XAie_RegBdFldAttr FoTMode;
 	XAie_RegBdFldAttr Reset;
 	XAie_RegBdFldAttr Enable;
 	XAie_RegBdFldAttr PauseMem;
