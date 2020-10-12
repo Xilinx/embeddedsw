@@ -87,7 +87,7 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_InitCdo(XPlmiCdo *CdoPtr);
+int XPlmi_InitCdo(XPlmiCdo *CdoPtr);
 int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr);
 
 /************************** Variable Definitions *****************************/

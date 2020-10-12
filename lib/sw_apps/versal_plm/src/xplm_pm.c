@@ -205,7 +205,10 @@ int XPlm_ProcessPlmCdo(void *Arg)
 	 */
 
 	/** Process the PLM CDO */
-	XPlmi_InitCdo(&Cdo);
+	Status = XPlmi_InitCdo(&Cdo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Cdo.ImgId = PM_SUBSYS_PMC;
 	Cdo.IpiMask = 0U;
 	Cdo.PrtnId = 0U;

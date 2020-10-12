@@ -135,14 +135,14 @@ void outbyte(char c)
 {
 #ifdef STDOUT_BASEADDRESS
 	if(((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED) {
-		XUartPsv_SendByte(STDOUT_BASEADDRESS, c);
+		XUartPsv_SendByte(STDOUT_BASEADDRESS, (u8)c);
 	}
 #endif
 
 	if (DebugLog.LogBuffer.CurrentAddr >=
 			(DebugLog.LogBuffer.StartAddr + DebugLog.LogBuffer.Len)) {
 		DebugLog.LogBuffer.CurrentAddr = DebugLog.LogBuffer.StartAddr;
-		DebugLog.LogBuffer.IsBufferFull = TRUE;
+		DebugLog.LogBuffer.IsBufferFull = (u8)TRUE;
 	}
 
 	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, c);

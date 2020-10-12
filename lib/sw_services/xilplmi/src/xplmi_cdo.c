@@ -168,11 +168,13 @@ END:
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
+int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 {
+	int Status = XST_FAILURE;
+
 	/* Initialize the CDO structure variables */
 	CdoPtr->CopiedCmdLen = 0U;
 	CdoPtr->CmdState = XPLMI_CMD_STATE_START;
@@ -181,12 +183,19 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->ProcessedCdoLen = 0U;
 	CdoPtr->ImgId = 0U;
 	CdoPtr->PrtnId = 0U;
-	CdoPtr->DeferredError = FALSE;
-
-	memset(&CdoPtr->Cmd.KeyHoleParams, 0U, sizeof(XPlmi_KeyHoleParams));
+	CdoPtr->DeferredError = (u8)FALSE;
+	Status = XPlmi_MemSetBytes(&CdoPtr->Cmd.KeyHoleParams,
+			sizeof(XPlmi_KeyHoleParams), 0U, sizeof(XPlmi_KeyHoleParams));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	/* Initialize the CDO buffer user params */
-	CdoPtr->CmdEndDetected = FALSE;
-	CdoPtr->Cdo1stChunk = TRUE;
+	CdoPtr->CmdEndDetected = (u8)FALSE;
+	CdoPtr->Cdo1stChunk = (u8)TRUE;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -313,7 +322,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	 */
 	if (BufPtr[0U] == XPLMI_CMD_END) {
 		XPlmi_Printf(DEBUG_INFO, "CMD END detected \n\r");
-		CdoPtr->CmdEndDetected = TRUE;
+		CdoPtr->CmdEndDetected = (u8)TRUE;
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -347,7 +356,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 
 	/* Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
-	CmdPtr->DeferredError = FALSE;
+	CmdPtr->DeferredError = (u8)FALSE;
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
@@ -400,7 +409,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		CdoPtr->Cdo1stChunk = FALSE;
+		CdoPtr->Cdo1stChunk = (u8)FALSE;
 		CdoPtr->CdoLen = BufPtr[3U];
 
 		BufPtr += XPLMI_CDO_HDR_LEN;

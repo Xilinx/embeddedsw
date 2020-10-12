@@ -57,7 +57,7 @@
 int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-	int CdoErr;
+	u32 CdoErr;
 	u32 ModuleId = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> 8U;
 	u32 ApiId = Cmd->CmdId & XPLMI_CMD_API_ID_MASK;
 	const XPlmi_Module * Module = NULL;
