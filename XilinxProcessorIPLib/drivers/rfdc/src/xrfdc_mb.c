@@ -31,6 +31,7 @@
 *       cog    08/04/20 Refactor multiband for Dual DAC tiles.
 *       cog    08/28/20 Prevent datapaths in bypass mode from being
 *                       configured for multiband.
+*       cog    10/12/20 Check generation before cheching datapath mode.
 *
 * </pre>
 *
@@ -680,7 +681,7 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 				goto RETURN_PATH;
 			}
-			if (Type == XRFDC_DAC_TILE) {
+			if ((InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) && (Type == XRFDC_DAC_TILE)) {
 				DatapathMode =
 					XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
 						    XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
@@ -701,7 +702,7 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 				goto RETURN_PATH;
 			}
-			if (Type == XRFDC_DAC_TILE) {
+			if ((InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) && (Type == XRFDC_DAC_TILE)) {
 				DatapathMode =
 					XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
 						    XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
