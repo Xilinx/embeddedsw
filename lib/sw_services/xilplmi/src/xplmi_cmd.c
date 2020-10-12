@@ -91,8 +91,8 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	/* Run the command handler */
 	Status = ModuleCmd->Handler(Cmd);
 	if (Status != XST_SUCCESS) {
-		CdoErr = XPLMI_ERR_CDO_CMD + (Cmd->CmdId & XPLMI_ERR_CDO_CMD_MASK);
-		Status = XPlmi_UpdateStatus(CdoErr, Status);
+		CdoErr = (u32)XPLMI_ERR_CDO_CMD + (Cmd->CmdId & XPLMI_ERR_CDO_CMD_MASK);
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)CdoErr, Status);
 		goto END;
 	}
 

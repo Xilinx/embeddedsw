@@ -190,8 +190,8 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 
 			for (GicPIndex = 0U;
 				GicPIndex < XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
-				if ((GicPNIntrStatus & (1U << GicPIndex)) &&
-					((GicPNIntrMask & (1U << GicPIndex)) == 0U) ) {
+				if (((GicPNIntrStatus & ((u32)1U << GicPIndex)) != (u32)FALSE) &&
+					((GicPNIntrMask & ((u32)1U << GicPIndex)) == (u32)FALSE)) {
 					if(g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler != NULL) {
 						XPlmi_GicIntrAddTask((GicIndex << 8U) |
 							(GicPIndex << 16U));

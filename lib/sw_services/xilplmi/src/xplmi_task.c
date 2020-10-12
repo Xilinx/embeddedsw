@@ -97,7 +97,7 @@ XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
  *****************************************************************************/
 static void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
 {
-	if (!metal_list_is_empty(&Task->TaskNode)) {
+	if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
 		metal_list_del(&Task->TaskNode);
 	}
 	Task->Delay = 0U;
