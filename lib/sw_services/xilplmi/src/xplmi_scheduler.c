@@ -159,7 +159,7 @@ void XPlmi_SchedulerHandler(void *Data)
 		if (XPlmi_IsTaskActive(&Sched, Idx) == (u8)TRUE) {
 			/* Add the Task to the PLM Task Queue */
 			Task = XPlmi_TaskCreate(Sched.TaskList[Idx].Priority,
-					Sched.TaskList[Idx].CustomerFunc, 0U);
+					Sched.TaskList[Idx].CustomerFunc, NULL);
 			if (Task == NULL) {
 				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0x0);
 				XPlmi_Printf(DEBUG_GENERAL, "Task Creation Err:0x%x\n\r", Status);
