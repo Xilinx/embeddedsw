@@ -57,7 +57,7 @@ static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XPlmi_IntrHandler(void *CallbackRef);
 
 /************************** Variable Definitions *****************************/
-static int PmcIroFreq; /* Frequency of the PMC IRO */
+static u32 PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
 static u32 PlmIntrMap [] = {
 	[XPLMI_CFRAME_SEU] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_CFRAME_SEU,
@@ -159,8 +159,8 @@ void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime * PerfTime)
 	u64 TDiff = TCur - TStart;
 
 	/* Convert TPerf into nanoseconds */
-	PerfNs = ((double)TDiff / (double)PmcIroFreq) * 1e9;
-	PerfTime->TPerfMs = PerfNs / 1e6;
+	PerfNs = (TDiff * (u64)1e9) / PmcIroFreq;
+	PerfTime->TPerfMs = PerfNs / (u64)1e6;
 	PerfTime->TPerfMsFrac = PerfNs % (u64)1e6;
 }
 
@@ -265,7 +265,7 @@ static void XPlmi_SetPmcIroFreq(void)
 int XPlmi_StartTimer(void)
 {
 	int Status =  XST_FAILURE;
-	int Pit3ResetValue;
+	u32 Pit3ResetValue;
 
 	/*
 	 * Initialize the IO Module so that it's ready to use,
@@ -358,7 +358,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 int XPlmi_SetUpInterruptSystem(void)
 {
 	int Status =  XST_FAILURE;
-	u32 IntrNum;
+	u8 IntrNum;
 
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
@@ -369,7 +369,7 @@ int XPlmi_SetUpInterruptSystem(void)
 		IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++) {
 		Status = XIOModule_Connect(&IOModule, IntrNum,
 			(XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
-			(void *)IntrNum);
+			(void *)(u32)IntrNum);
 		if (Status != XST_SUCCESS)
 		{
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
@@ -379,7 +379,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	IntrNum = XIN_IOMODULE_PIT_3_INTERRUPT_INTR;
 	Status = XIOModule_Connect(&IOModule, IntrNum,
 			(XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
-			(void *)IntrNum);
+			(void *)(u32)IntrNum);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
 				goto END;

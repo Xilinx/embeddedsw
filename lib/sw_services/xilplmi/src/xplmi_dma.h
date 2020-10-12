@@ -102,7 +102,7 @@ int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
 void XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags);
 void XPlmi_WaitForNonBlkDestDma(u32 DmaFlags);
 void XPlmi_WaitForNonBlkDma(u32 DmaFlags);
-void XPlmi_SetMaxOutCmds(u32 Val);
+void XPlmi_SetMaxOutCmds(u8 Val);
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
 int XPlmi_MemSetBytes(void * DestPtr, u32 DestLen, u8 Val, u32 Len);
 

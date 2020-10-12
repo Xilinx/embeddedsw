@@ -118,7 +118,7 @@ static void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
 void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task)
 {
 	Xil_AssertVoid(Task->Handler != NULL);
-	if (metal_list_is_empty(&Task->TaskNode)) {
+	if (metal_list_is_empty(&Task->TaskNode) != (int)FALSE) {
 		metal_list_add_tail(&TaskQueue[Task->Priority], &Task->TaskNode);
 	}
 }
@@ -177,7 +177,7 @@ void XPlmi_TaskDispatchLoop(void)
 		/* Priority based task handling */
 		for (Index = 0U; Index < XPLMI_TASK_PRIORITIES; Index++) {
 			/* If no pending tasks are present, go to sleep */
-			if (metal_list_is_empty(&TaskQueue[Index])) {
+			if (metal_list_is_empty(&TaskQueue[Index]) != (int)FALSE) {
 				XPlmi_Printf(DEBUG_DETAILED,
 				 "No pending tasks in Priority%d Queue\n\r",
 				 Index);
@@ -209,12 +209,12 @@ void XPlmi_TaskDispatchLoop(void)
 			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%06u ms: Task Time\n\r",
 				(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
-			if (Status != XPLMI_TASK_INPROGRESS) {
+			if (Status != (int)XPLMI_TASK_INPROGRESS) {
 				/* Delete the task that is handled */
 				XPlmi_TaskDelete(Task);
 			}
 			if ((Status != XST_SUCCESS) &&
-				(Status != XPLMI_TASK_INPROGRESS)) {
+				(Status != (int)XPLMI_TASK_INPROGRESS)) {
 				XPlmi_ErrMgr(Status);
 			}
 			continue;

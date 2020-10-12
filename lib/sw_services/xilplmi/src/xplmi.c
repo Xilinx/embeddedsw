@@ -154,9 +154,9 @@ void XPlm_PrintPlmBanner(void)
 	u32 Version;
 	u32 PsVersion;
 	u32 PmcVersion;
-	static u8 IsBannerPrinted = FALSE;
+	static u8 IsBannerPrinted = (u8)FALSE;
 
-	if (FALSE == IsBannerPrinted) {
+	if ((u8)FALSE == IsBannerPrinted) {
 		/* Print the PLM Banner */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "****************************************\n\r");
@@ -184,7 +184,7 @@ void XPlm_PrintPlmBanner(void)
 #endif
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "****************************************\n\r");
-		IsBannerPrinted = TRUE;
+		IsBannerPrinted = (u8)TRUE;
 	}
 }
 

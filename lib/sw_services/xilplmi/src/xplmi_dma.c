@@ -317,8 +317,8 @@ static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags
 		XPmcDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
 	}
 
-	XPmcDma_64BitTransfer(DmaPtr, Channel , Addr & 0xFFFFFFFFU,
-		(Addr >> 32U), Len, 0U);
+	XPmcDma_64BitTransfer(DmaPtr, Channel , (u32)(Addr & 0xFFFFFFFFU),
+		(u32)(Addr >> 32U), Len, 0U);
 
 	if (((Flags & XPLMI_DMA_SRC_NONBLK) != 0U) ||
 		((Flags & XPLMI_DMA_DST_NONBLK) != 0U)) {
