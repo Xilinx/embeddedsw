@@ -74,9 +74,6 @@ AieRC XAie_DmaChannelPauseStream(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 Pause);
 AieRC XAie_DmaChannelPauseMem(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
 		XAie_DmaDirection Dir, u8 Pause);
-AieRC XAie_DmaChannelConfig(XAie_DevInst *DevInst, XAie_DmaDesc *DmaDesc,
-		XAie_LocType Loc, u8 ChNum, XAie_DmaDirection Dir,
-		u8 RepeatCount, u8 EnTokenIssue, u8 ControllerId);
 AieRC XAie_DmaChannelPushBdToQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum);
 AieRC XAie_DmaChannelEnable(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
@@ -92,6 +89,19 @@ AieRC XAie_DmaGetMaxQueueSize(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum, u32 RepeatCount,
 		u8 EnTokenIssue);
+AieRC XAie_DmaWriteChannel(XAie_DevInst *DevInst,
+		XAie_DmaChannelDesc *DmaChannelDesc, XAie_LocType Loc,
+		u8 ChNum, XAie_DmaDirection Dir);
+AieRC XAie_DmaChannelSetFoTMode(XAie_DmaChannelDesc *DmaChannelDesc,
+		XAie_DmaChannelFoTMode FoTMode);
+AieRC XAie_DmaChannelSetControllerId(XAie_DmaChannelDesc *DmaChannelDesc,
+		u32 ControllerId);
+AieRC XAie_DmaChannelEnOutofOrder(XAie_DmaChannelDesc *DmaChannelDesc,
+		u8 EnOutofOrder);
+AieRC XAie_DmaChannelEnCompression(XAie_DmaChannelDesc *DmaChannelDesc,
+		u8 EnCompression);
+AieRC XAie_DmaChannelDescInit(XAie_DevInst *DevInst,
+		XAie_DmaChannelDesc *DmaChannelDesc, XAie_LocType Loc);
 AieRC XAie_DmaUpdateBdLen(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Len,
 		u8 BdNum);
 AieRC XAie_DmaUpdateBdAddr(XAie_DevInst *DevInst, XAie_LocType Loc, u64 Addr,
