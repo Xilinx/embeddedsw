@@ -21,6 +21,8 @@
 * 2.0   kal     09/30/19 Renamed example to xilnvm_bbram_versal_example
 *       kal     01/03/20 Added "Successfully ran" golden string when success
 *       kal     05/12/20 Adds Zeroization before every BBRAM write.
+* 2.1	am	10/10/20 Changed function return type and type of
+*			 status variable from u32 to int
 *
 * </pre>
 *
@@ -72,7 +74,7 @@
 u8 AesKey[XNVM_BBRAM_AES_KEY_LEN_IN_BYTES];
 
 /************************** Function Prototypes ******************************/
-u32 BbramWriteAesKey(void);
+int BbramWriteAesKey(void);
 
 /*****************************************************************************/
 /**
@@ -89,7 +91,7 @@ u32 BbramWriteAesKey(void);
 ******************************************************************************/
 int main(void)
 {
-	u32 Status;
+	int Status = XST_FAILURE;
 
 #if defined (XSK_ZYNQ_PLATFORM) || defined (XSK_MICROBLAZE_PLATFORM)
 	xil_printf("This example will not work for this platform\n\r");
@@ -110,7 +112,6 @@ int main(void)
 	return 0;
 }
 
-
 /*****************************************************************************/
 /**
 * BbramWriteAesKey function writes AES key defined by macro XNVM_BBRAM_AES_KEY
@@ -124,9 +125,9 @@ int main(void)
 *
 ******************************************************************************/
 /** //! [XNvm BBRAM example] */
-u32 BbramWriteAesKey(void)
+int BbramWriteAesKey(void)
 {
-	u32 Status = XST_SUCCESS;
+	int Status = XST_SUCCESS;
 
 	/* Validate the key */
 	Status = XNvm_ValidateAesKey((char *)XNVM_BBRAM_AES_KEY);
