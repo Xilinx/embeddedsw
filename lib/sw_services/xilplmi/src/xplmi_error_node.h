@@ -46,6 +46,7 @@ extern "C" {
 #define XPLMI_NODEIDX_ERROR_PMCERR1_MAX	(0x20U)
 #define XPLMI_NODEIDX_ERROR_PMCERR2_MAX	(0x40U)
 #define XPLMI_NODEIDX_ERROR_PSMERR1_MAX	(0x60U)
+#define XPLMI_NODEIDX_ERROR_PSMERR2_MAX	(0x75U)
 
 typedef enum {
 	/* Event subclasses */
@@ -186,7 +187,6 @@ typedef enum {
 	XPLMI_NODEIDX_ERROR_LPD_XMPU, /**< 0x72U */
 	XPLMI_NODEIDX_ERROR_LPD_XPPU, /**< 0x73U */
 	XPLMI_NODEIDX_ERROR_FPD_XMPU, /**< 0x74U */
-	XPLMI_NODEIDX_ERROR_PSMERR2_MAX, /**< 0x75U */
 } XPlmi_ErrorId;
 
 /**************************** Type Definitions *******************************/

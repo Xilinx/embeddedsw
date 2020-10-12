@@ -41,7 +41,7 @@
 #define XPLMI_SCHED_TICK	(10U)
 
 /************************** Function Prototypes ******************************/
-static int XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr,
+static u8 XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr,
 	u32 TaskListIndex);
 
 /************************** Variable Definitions *****************************/
@@ -60,9 +60,9 @@ static XPlmi_Scheduler_t Sched;
 * @return	TRUE or FALSE based on the task active status.
 *
 ****************************************************************************/
-static int XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
+static u8 XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 {
-	int ReturnVal = FALSE;
+	u8 ReturnVal = (u8)FALSE;
 
 	if (XPlmi_IsTaskNonPeriodic(SchedPtr, TaskListIndex) == TRUE) {
 		ReturnVal = TRUE;
@@ -72,7 +72,7 @@ static int XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 		&& (0U == (SchedPtr->Tick
 		% SchedPtr->TaskList[TaskListIndex].Interval))) {
 			/* Periodic */
-			ReturnVal = TRUE;
+			ReturnVal = (u8)TRUE;
 		}
 	}
 
@@ -90,13 +90,13 @@ static int XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 * @return	TRUE or FALSE based on the task peridocity status
 *
 ****************************************************************************/
-static int XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
+static u8 XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 {
-	int ReturnVal = FALSE;
+	u8 ReturnVal = (u8)FALSE;
 
 	if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
 		&& (NULL != SchedPtr->TaskList[TaskListIndex].CustomerFunc)) {
-		ReturnVal = TRUE;
+		ReturnVal = (u8)TRUE;
 	}
 
 	return ReturnVal;
@@ -124,7 +124,7 @@ int XPlmi_SchedulerInit(void)
 		Sched.TaskList[Idx].Status = XPLMI_TASK_STATUS_DISABLED;
 	}
 
-	Sched.Enabled = FALSE;
+	Sched.Enabled = (u8)FALSE;
 	Sched.PitBaseAddr = 0x0U;
 	Sched.Tick = 0U;
 

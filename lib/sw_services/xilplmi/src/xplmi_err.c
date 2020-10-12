@@ -77,7 +77,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 
 	/* Print the PLM error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
-	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, ErrStatus);
+	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, (u32)ErrStatus);
 
 	/*
 	 * Fallback if boot PDI is not done
@@ -410,7 +410,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 	Err2Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR2_STATUS);
 
 	if (Err1Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
 			if (((Err1Status & ((u32)1U << (Index - (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR))) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
@@ -421,7 +421,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 		}
 	}
 	if (Err2Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
 			if (((Err2Status & ((u32)1U << (Index - (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT))) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
@@ -509,7 +509,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	 */
 
 	if (Err1Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_BOOT_CR;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
 			if (((Err1Status & ((u32)1U << Index)) != (u32)FALSE) &&
 				(ErrorTable[Index].Handler != NULL) &&
@@ -528,7 +528,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	}
 
 	if (Err2Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_PMCAPB;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
 			if (((Err2Status &
 				((u32)1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX))) != (u32)FALSE)
@@ -985,7 +985,7 @@ void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 	PmSystemShutdown = SystemShutdown;
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_BOOT_CR;
 		Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, Index,
@@ -997,7 +997,7 @@ void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 		}
 	}
 
-	for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_PMCAPB;
 		Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, Index,
@@ -1035,7 +1035,7 @@ int XPlmi_PsEmInit(void)
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, MASK32_ALL_HIGH);
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR;
 		Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, Index,
@@ -1047,7 +1047,7 @@ int XPlmi_PsEmInit(void)
 		}
 	}
 
-	for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT;
 		Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
 		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
 			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, Index,

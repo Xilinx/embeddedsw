@@ -42,8 +42,8 @@ extern "C" {
 #define XPLMI_SCHED_MAX_TASK		(10U)
 
 /* Values for TaskPtr->Status */
-#define XPLMI_TASK_STATUS_TRIGGERED	(0x5AFEC0C0U)
-#define XPLMI_TASK_STATUS_DISABLED	(0x00000000U)
+#define XPLMI_TASK_STATUS_TRIGGERED	(0x5AFEC0C0)
+#define XPLMI_TASK_STATUS_DISABLED	(0x00000000)
 
 #define PMC_PMC_MB_IO_IRQ_ACK			(0xF028003CU)
 #define PMC_PMC_MB_IO_IRQ_ACK_SHIFT		(0x5U)
@@ -57,7 +57,7 @@ struct XPlmi_Task_t{
 	u32 OwnerId;
 	int Status;
 	XPlmi_Callback_t CustomerFunc;
-	u32 Priority;
+	TaskPriority_t Priority;
 };
 
 typedef struct {

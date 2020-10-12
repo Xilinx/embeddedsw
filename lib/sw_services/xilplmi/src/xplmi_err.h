@@ -67,12 +67,12 @@ extern "C" {
 #define XPLMI_RESTART_SUBTYPE_SUBSYS		(0U)
 
 /* PLMI ERROR Management error codes */
-#define XPLMI_INVALID_ERROR_ID		(1U)
-#define XPLMI_INVALID_ERROR_TYPE	(2U)
-#define XPLMI_INVALID_ERROR_HANDLER	(3U)
-#define XPLMI_INVALID_ERROR_ACTION	(4U)
-#define XPLMI_LPD_UNINITIALIZED		(5U)
-#define XPLMI_CANNOT_CHANGE_ACTION	(6U)
+#define XPLMI_INVALID_ERROR_ID		(1)
+#define XPLMI_INVALID_ERROR_TYPE	(2)
+#define XPLMI_INVALID_ERROR_HANDLER	(3)
+#define XPLMI_INVALID_ERROR_ACTION	(4)
+#define XPLMI_LPD_UNINITIALIZED		(5)
+#define XPLMI_CANNOT_CHANGE_ACTION	(6)
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
@@ -113,9 +113,11 @@ static inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
  * @return	Error event ID
  *
  *****************************************************************************/
-static inline u32 XPlmi_EventNodeType(u32 Id)
+static inline XPlmi_EventType XPlmi_EventNodeType(u32 Id)
 {
-	return ((Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT);
+	Id = (Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT;
+
+	return (XPlmi_EventType)Id;
 }
 
 /************************** Function Prototypes ******************************/
