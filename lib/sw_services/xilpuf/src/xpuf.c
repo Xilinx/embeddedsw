@@ -47,6 +47,7 @@
 #define XPUF_SHUTTER_GLB_VAR_FLTR_MASK	(0x0FFFFFFFU)
 
 typedef enum {
+	XPUF_REGISTRATION_NOT_STARTED,
 	XPUF_REGISTRATION_STARTED,
 	XPUF_REGISTRATION_COMPLETE
 } XPuf_PufRegistrationState;
@@ -154,9 +155,10 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
 int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
+	XPuf_PufRegistrationState RegistrationStatus =
+		XPUF_REGISTRATION_NOT_STARTED;
 	u32 MaxSyndromeSizeInWords;
 	u32 Idx = 0U;
-	XPuf_PufRegistrationState RegistrationStatus;
 
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
