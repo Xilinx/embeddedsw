@@ -24,6 +24,7 @@
 *       am   08/19/2020 Resolved MISRA C violations.
 *       har  09/30/2020 Updated XPUF_STATUS_WAIT_TIMEOUT as per the recommended
 *                       software timeout
+*       am   10/10/2020 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -487,7 +488,7 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	}
 
 	Xil_MemCpy(SynData, PufData->SyndromeData,
-		(u32)(XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH));
+		(XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH));
 
 	/**
 	 * Trimming logic for PUF Syndrome Data:
