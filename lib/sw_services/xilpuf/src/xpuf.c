@@ -168,7 +168,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	if (PufData->GlobalVarFilter == (u8)TRUE) {
+	if (PufData->GlobalVarFilter == TRUE) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
 				(XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
 	}
@@ -301,7 +301,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	if (PufData->GlobalVarFilter == (u8)TRUE) {
+	if (PufData->GlobalVarFilter == TRUE) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
 			(XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
 	}
