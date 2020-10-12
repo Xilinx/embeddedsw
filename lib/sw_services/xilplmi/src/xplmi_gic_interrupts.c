@@ -95,12 +95,12 @@ void XPlmi_GicIntrClearStatus(u32 PlmIntrId)
 	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
 	/* Enable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_STATUS,
-		1U << GicPVal,
-		1U << GicPVal);
+		(u32)1U << GicPVal,
+		(u32)1U << GicPVal);
 
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicPVal * XPLMI_GICPX_LEN),
-		1U << GicPxVal,
-		1U << GicPxVal);
+		(u32)1U << GicPxVal,
+		(u32)1U << GicPxVal);
 }
 
 /*****************************************************************************/
@@ -122,12 +122,12 @@ void XPlmi_GicIntrEnable(u32 PlmIntrId)
 	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK) >> 16U;
 	/* Enable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
-		1U << GicPVal,
-		1U << GicPVal);
+		(u32)1U << GicPVal,
+		(u32)1U << GicPVal);
 
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal * XPLMI_GICPX_LEN),
-		1U << GicPxVal,
-		1U << GicPxVal);
+		(u32)1U << GicPxVal,
+		(u32)1U << GicPxVal);
 }
 
 /*****************************************************************************/
@@ -149,8 +149,8 @@ void XPlmi_GicIntrDisable(u32 PlmIntrId)
 	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK) >> 16U;
 	/* Disable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal * XPLMI_GICPX_LEN),
-		1U<<GicPxVal,
-		1U<<GicPxVal);
+		(u32)1U << GicPxVal,
+		(u32)1U << GicPxVal);
 }
 
 /*****************************************************************************/
@@ -177,7 +177,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 			"GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
 
 	for (GicIndex = 0U; GicIndex < XPLMI_GICP_SOURCE_COUNT; GicIndex++) {
-		if (GicPIntrStatus & (1U << GicIndex)) {
+		if ((GicPIntrStatus & ((u32)1U << GicIndex)) != (u32)FALSE) {
 			GicPNIntrStatus =
 				XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS +
 				(GicIndex * XPLMI_GICPX_LEN));
@@ -197,7 +197,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 							(GicPIndex << 16U));
 						XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_DISABLE +
 							(GicIndex * XPLMI_GICPX_LEN)),
-							(1U << GicPIndex));
+							((u32)1U << GicPIndex));
 					} else {
 						XPlmi_Printf(DEBUG_GENERAL,
 						"%s: Error: Unhandled GIC"
@@ -205,10 +205,10 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 					}
 					XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_STATUS +
 						(GicIndex * XPLMI_GICPX_LEN)),
-						(1U << GicPIndex));
+						((u32)1U << GicPIndex));
 				}
 			}
-			XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, (1U << GicIndex));
+			XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, ((u32)1U << GicIndex));
 		}
 	}
 
