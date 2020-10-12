@@ -1374,10 +1374,16 @@ static const XAie_DmaChStatus AieTileDmaChStatus[] =
 
 static const XAie_DmaChProp AieTileDmaChProp =
 {
+	.HasFoTMode = XAIE_FEATURE_UNAVAILABLE,
+	.HasControllerId = XAIE_FEATURE_UNAVAILABLE,
+	.HasEnCompression = XAIE_FEATURE_UNAVAILABLE,
+	.HasEnOutOfOrder = XAIE_FEATURE_UNAVAILABLE,
+	.MaxFoTMode = 0U,
 	.MaxRepeatCount = 0U,
-	.CtrlId = {0U},
+	.ControllerId = {0U},
 	.EnCompression = {0U},
 	.EnOutofOrder = {0U},
+	.FoTMode ={0U},
 	.EnToken = {0U},
 	.RptCount = {0U},
 	.PauseStream = {0U},
@@ -1564,10 +1570,16 @@ static const XAie_DmaChStatus AieShimDmaChStatus[] =
 
 static const XAie_DmaChProp AieShimDmaChProp =
 {
+	.HasFoTMode = XAIE_FEATURE_UNAVAILABLE,
+	.HasControllerId = XAIE_FEATURE_UNAVAILABLE,
+	.HasEnCompression = XAIE_FEATURE_UNAVAILABLE,
+	.HasEnOutOfOrder = XAIE_FEATURE_UNAVAILABLE,
+	.MaxFoTMode = 0U,
 	.MaxRepeatCount = 0U,
-	.CtrlId = {0U},
+	.ControllerId = {0U},
 	.EnCompression = {0U},
 	.EnOutofOrder = {0U},
+	.FoTMode = {0U},
 	.EnToken = {0U},
 	.RptCount = {0U},
 	.Reset = {0U},
