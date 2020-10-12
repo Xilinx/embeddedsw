@@ -79,8 +79,8 @@ static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
 
 	RemLen = Len & (XPLMI_WORD_LEN - 1U);
 	for (Index = 0U; Index < RemLen; ++Index) {
-		XPlmi_OutByte64((DestAddr + (Len & ~(XPLMI_WORD_LEN - 1U)) + Index),
-		XPlmi_InByte64((SourceAddr + (Len & ~(XPLMI_WORD_LEN - 1U)) + Index)));
+		XPlmi_OutByte64((DestAddr + ((u64)Len & ~(XPLMI_WORD_LEN - 1U)) + Index),
+		XPlmi_InByte64((SourceAddr + ((u64)Len & ~(XPLMI_WORD_LEN - 1U)) + Index)));
 	}
 }
 
