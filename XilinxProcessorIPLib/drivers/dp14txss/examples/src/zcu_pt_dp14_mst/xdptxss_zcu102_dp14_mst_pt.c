@@ -1137,12 +1137,13 @@ void Dprx_InterruptHandlerPayloadAlloc(void *InstancePtr)
 	/* Virtual Channel Payload allocation,
 	 * de-allocation and partial deletion handler
 	 */
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 	u32 RegVal = 0;
-	XDp *DpPtr = (XDp *)InstancePtr;
+	XDp *DpPtr = DpRxSsPtr->DpPtr;
 	RegVal = XDp_ReadReg(DpPtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
 //	StreamIdRecv = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
 
-	XDp_RxAllocatePayloadStream((XDp *)InstancePtr);
+	XDp_RxAllocatePayloadStream(DpPtr);
 }
 
 void Dprx_InterruptHandlerActRx(void *InstancePtr)
