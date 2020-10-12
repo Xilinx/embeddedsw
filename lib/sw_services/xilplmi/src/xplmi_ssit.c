@@ -54,6 +54,7 @@
 int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
+	u32 ErrStatus = (u32)XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 
@@ -62,29 +63,29 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
 		PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK);
 
 	/* Wait for Master SLR to reach synchronization point */
-	Status = Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-	while ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) !=
+	ErrStatus = Xil_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
+	while ((ErrStatus & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) !=
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 		/* Check if there is an error from Master SLR */
-		if ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) ==
+		if ((ErrStatus & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) ==
 				PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 			XPlmi_Printf(DEBUG_GENERAL, "Received error from Master SLR\n\r");
 			XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 				PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
 
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_MASTER_SYNC, Status);
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_MASTER_SYNC, (int)ErrStatus);
 			goto END;
 		}
-		Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+		ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
 	}
 
 	/* Complete synchronization from slave */
 	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK, 0U);
 
-	Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-	while ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) ==
+	ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
+	while ((ErrStatus & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) ==
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
-		Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+		ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
 
 		/* Clear existing status to know the actual status from Master SLR */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
@@ -126,13 +127,13 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 		usleep(1U);
 		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 		PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_1_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_2_MASK;
 		}
 		--TimeOut;
@@ -152,13 +153,13 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 			usleep(1U);
 			ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 			PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK)) {
+			if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) == (u32)FALSE) {
 				SlavesReady &= (~SSIT_SLAVE_0_MASK);
 			}
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK)) {
+			if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) == (u32)FALSE) {
 				SlavesReady &= (~SSIT_SLAVE_1_MASK);
 			}
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK)) {
+			if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) == (u32)FALSE) {
 				SlavesReady &= (~SSIT_SLAVE_2_MASK);
 			}
 
