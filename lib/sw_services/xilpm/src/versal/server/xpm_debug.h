@@ -567,6 +567,6 @@ extern "C" {
 		if (XST_SUCCESS != (Status)) {		\
 			PmErr("0x%x\r\n", (DbgErr));	\
 		}					\
-	} while (0)					\
+	} while (XPM_FALSE_COND)
 
 #endif /* XPM_DEBUG_H_ */
