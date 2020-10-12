@@ -117,8 +117,8 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	}
 
 	/* PMC's PSM CR and NCR error actions must not be changed */
-	if ((ErrorMask == XPLMI_NODEIDX_ERROR_PMC_PSM_CR) ||
-		(ErrorMask == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
+	if ((ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR) ||
+		(ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"Error: XPlmi_CmdEmSetAction: Error Action "
 				"cannot be changed for error 0x%x\r\n", ErrorMask);
@@ -129,8 +129,8 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	/*
 	 * Allow error action setting for PSM errors only if LPD is initialized
 	 */
-	if ((ErrorMask >= XPLMI_NODEIDX_ERROR_PS_SW_CR) &&
-		(ErrorMask < XPLMI_NODEIDX_ERROR_PSMERR2_MAX) &&
+	if ((ErrorMask >= (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR) &&
+		(ErrorMask < (u32)XPLMI_NODEIDX_ERROR_PSMERR2_MAX) &&
 		((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED)) {
 		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized to configure "
 				"PSM errors and actions\n\r");

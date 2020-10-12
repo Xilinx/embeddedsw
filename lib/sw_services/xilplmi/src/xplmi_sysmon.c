@@ -68,10 +68,10 @@ int XPlmi_SysMonInit(void)
 		* Enable Over-temperature handling.  We need to unlock PCSR to
 		* enable SysMon interrupt.  Lock it back in after write.
 		*/
-		XPlmi_Out32(ConfigPtr->BaseAddress + XSYSMONPSV_PCSR_LOCK,
+		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK,
 			PCSR_UNLOCK_VAL);
-		XSysMonPsv_IntrEnable(SysMonInstPtr, XSYSMONPSV_IER0_OT_MASK, 0U);
-		XPlmi_Out32(ConfigPtr->BaseAddress + XSYSMONPSV_PCSR_LOCK, 0U);
+		XSysMonPsv_IntrEnable(SysMonInstPtr, (u32)XSYSMONPSV_IER0_OT_MASK, 0U);
+		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK, 0U);
 		Status = XST_SUCCESS;
 	}
 	XPlmi_Printf(DEBUG_DETAILED,

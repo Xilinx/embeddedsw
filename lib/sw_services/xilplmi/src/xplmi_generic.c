@@ -999,7 +999,7 @@ static u8* XPlmi_BoardNameRW(XPlmi_Cmd * Cmd, u8 GetFlag, u32 * Len)
 		(*Len) = XPLMI_MAX_NAME_WORDS;
 	}
 
-	if (GetFlag == FALSE) {
+	if (GetFlag == (u8)FALSE) {
 		/* Set Command */
 		Status = XPlmi_DmaXfr((u64)(u32)&Cmd->Payload[0U],
 				(u64)(u32)BoardName, (*Len), XPLMI_PMCDMA_0);
@@ -1272,7 +1272,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	DestAddr = ((DestAddr + Len) % Keyholesize) + BaseAddr;
 
 	/* The block is for qspi, ospi, ddr, sbi, jtag, smap and pcie boot modes */
-	if (Cmd->KeyHoleParams.InChunkCopy == FALSE) {
+	if (Cmd->KeyHoleParams.InChunkCopy == (u8)FALSE) {
 		/*
 		 * The block is for sbi and smap boot modes which
 		 * support fixed modes

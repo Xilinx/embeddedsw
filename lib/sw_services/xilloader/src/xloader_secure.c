@@ -218,7 +218,7 @@ u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	AuthCertificateOfstTmp = PrtnHdr->AuthCertificateOfst;
 
 	/* Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_GET_DMA, 0);
 		goto END;
@@ -892,7 +892,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 			" Image header table\n\r");
 
 	/* Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_GET_DMA, 0);
 		goto END;
@@ -1003,7 +1003,7 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	if (SecurePtr->IsEncrypted == (u8)TRUE) {
 
 		/* Get DMA instance */
-		SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+		SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 		if (SecurePtr->PmcDmaInstPtr == NULL) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
 			goto END;
@@ -2698,7 +2698,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 	XSecure_Sha3 Sha3Instance;
 
 	/* Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
 		goto END;
@@ -3410,7 +3410,7 @@ static int XLoader_AuthJtag(void)
 	/* Reset the Status */
 	Status = XST_FAILURE;
 
-	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecureParams.PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_GET_DMA, 0);
 		goto END;
