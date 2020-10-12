@@ -60,7 +60,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
+static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
 static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
 
@@ -94,7 +94,7 @@ static int XPlmi_Features(XPlmi_Cmd * Cmd)
 		Cmd->Response[1U] = (u32)XST_FAILURE;
 	}
 	Status = XST_SUCCESS;
-	Cmd->Response[0U] = Status;
+	Cmd->Response[0U] = (u32)Status;
 
 	return Status;
 }
@@ -226,7 +226,7 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
 			/* Defer the error till the end of CDO processing */
 			Status = XST_SUCCESS;
-			Cmd->DeferredError = TRUE;
+			Cmd->DeferredError = (u8)TRUE;
 		} else {
 			/* Return mask_poll status */
 		}
@@ -418,7 +418,7 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
 			/* Defer the error till the end of CDO processing */
 			Status = XST_SUCCESS;
-			Cmd->DeferredError = TRUE;
+			Cmd->DeferredError = (u8)TRUE;
 		} else {
 			/* Return mask_poll status */
 		}
@@ -929,8 +929,8 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	}
 
 	ChunkLen = Len - (Len & (XPLMI_WORD_LEN - 1U));
-	if ((DestAddr + (ChunkLen * XPLMI_WORD_LEN)) > (BaseAddr + Keyholesize)) {
-		ChunkLenTemp = ((BaseAddr + Keyholesize) - DestAddr) / XPLMI_WORD_LEN;
+	if ((DestAddr + ((u64)ChunkLen * XPLMI_WORD_LEN)) > (BaseAddr + Keyholesize)) {
+		ChunkLenTemp = (u32)(((BaseAddr + Keyholesize) - DestAddr) / XPLMI_WORD_LEN);
 		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ChunkLenTemp, Flags);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
@@ -1007,7 +1007,7 @@ static u8* XPlmi_BoardNameRW(XPlmi_Cmd * Cmd, u8 GetFlag, u32 * Len)
 			goto END;
 		}
 
-		BoardName[((*Len) * XPLMI_WORD_LEN)] = '\0';
+		BoardName[((*Len) * XPLMI_WORD_LEN)] = 0U;
 		BoardLen = (*Len);
 	}
 	else {
@@ -1034,7 +1034,7 @@ static int XPlmi_SetBoard(XPlmi_Cmd * Cmd)
 	int Status = XST_FAILURE;
 	u32 Len = Cmd->PayloadLen;
 
-	(void)XPlmi_BoardNameRW(Cmd, FALSE, &Len);
+	(void)XPlmi_BoardNameRW(Cmd, (u8)FALSE, &Len);
 
 	Status = XST_SUCCESS;
 
@@ -1062,7 +1062,7 @@ static int XPlmi_GetBoard(XPlmi_Cmd * Cmd)
 	u32 LowAddr = Cmd->Payload[1U];
 	u64 DestAddr = (HighAddr << 32U) | LowAddr;
 	u32 Len = Cmd->Payload[2U];
-	u8* BoardName = XPlmi_BoardNameRW(Cmd, TRUE, &Len);
+	u8* BoardName = XPlmi_BoardNameRW(Cmd, (u8)TRUE, &Len);
 
 	Status = XPlmi_DmaXfr((u64)(u32)&BoardName[0U], DestAddr, Len,
 			XPLMI_PMCDMA_0);
@@ -1217,7 +1217,7 @@ void XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
+static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	XPlmi_Cmd* Cmd)
 {
 	int Status = XST_FAILURE;
@@ -1289,7 +1289,7 @@ static int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		 * Hence the bitstream is copied in chunks of keyhole size.
 		 * This block of code will also get executed for SSIT.
 		 */
-		Len = Keyholesize - (DestAddr - BaseAddr);
+		Len = Keyholesize - (u32)(DestAddr - BaseAddr);
 		if (Len > RemData) {
 			Len = RemData;
 		}

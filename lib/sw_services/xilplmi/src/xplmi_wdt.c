@@ -95,7 +95,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 
 	if ((Periodicity < XPLMI_WDT_PERIODICITY_MIN) ||
 	    (Periodicity > XPLMI_WDT_PERIODICITY_MAX)) {
-		Status = XPLMI_ERR_WDT_PERIODICITY;
+		Status = (int)XPLMI_ERR_WDT_PERIODICITY;
 		goto END;
 	}
 
@@ -104,7 +104,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 	    (NodeId <= XPLMI_PM_STMIC_LMIO_25)) {
 		/* LPD MIO is used */
 		if ((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) {
-			Status = XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
+			Status = (int)XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
 			goto END;
 		}
 		LpdInitialized |= LPD_WDT_INITIALIZED;
@@ -126,7 +126,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 					(MioNum % XPLMI_MIO_NUM_PER_BANK));
 	}
 	else {
-		Status = XPLMI_ERR_WDT_NODE_ID;
+		Status = (int)XPLMI_ERR_WDT_NODE_ID;
 		goto END;
 	}
 

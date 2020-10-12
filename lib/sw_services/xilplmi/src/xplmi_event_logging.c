@@ -48,7 +48,7 @@ XPlmi_LogInfo DebugLog = {
 	.LogBuffer.StartAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
 	.LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN,
 	.LogBuffer.CurrentAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
-	.LogBuffer.IsBufferFull = FALSE,
+	.LogBuffer.IsBufferFull = (u8)FALSE,
 	.LogLevel = (u8)XPlmiDbgCurrentTypes,
 };
 
@@ -57,7 +57,7 @@ XPlmi_CircularBuffer TraceLog = {
 	.StartAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
 	.Len = XPLMI_TRACE_LOG_BUFFER_LEN,
 	.CurrentAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
-	.IsBufferFull = FALSE,
+	.IsBufferFull = (u8)FALSE,
 };
 
 
@@ -171,10 +171,10 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 	switch (LoggingCmd) {
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
 			if (Arg1 <= XPlmiDbgCurrentTypes) {
-				DebugLog.LogLevel = Arg1;
+				DebugLog.LogLevel = (u8)Arg1;
 				Status = XST_SUCCESS;
 			} else {
-				Status = XPLMI_ERR_INVALID_LOG_LEVEL;
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_LEVEL, Status);
 			}
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:
@@ -184,16 +184,16 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 						(Addr < XPLMI_DEBUG_LOG_BUFFER_ADDR)) ||
 						((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
 						(Addr <= XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR))) {
-					Status = XPLMI_ERR_INVALID_LOG_BUF_ADDR;
+					Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR, Status);
 				} else {
 					DebugLog.LogBuffer.StartAddr = Addr;
 					DebugLog.LogBuffer.CurrentAddr = Addr;
 					DebugLog.LogBuffer.Len = Arg3;
-					DebugLog.LogBuffer.IsBufferFull = FALSE;
+					DebugLog.LogBuffer.IsBufferFull = (u8)FALSE;
 					Status = XST_SUCCESS;
 				}
 			} else {
-				Status = XPLMI_ERR_INVALID_LOG_BUF_LEN;
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_LEN, Status);
 			}
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
@@ -201,9 +201,9 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 				(((u64)Arg1 << 32U) | Arg2));
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
-			Cmd->Response[1U] = DebugLog.LogBuffer.StartAddr >> 32U;
-			Cmd->Response[2U] = DebugLog.LogBuffer.StartAddr & 0xFFFFFFFFU;
-			Cmd->Response[3U] = (DebugLog.LogBuffer.CurrentAddr -
+			Cmd->Response[1U] = (u32)(DebugLog.LogBuffer.StartAddr >> 32U);
+			Cmd->Response[2U] = (u32)(DebugLog.LogBuffer.StartAddr & 0xFFFFFFFFU);
+			Cmd->Response[3U] = (u32)(DebugLog.LogBuffer.CurrentAddr -
 					DebugLog.LogBuffer.StartAddr);
 			Cmd->Response[4U] = DebugLog.LogBuffer.Len;
 			Cmd->Response[5U] = DebugLog.LogBuffer.IsBufferFull;
@@ -216,24 +216,24 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 					(Addr < XPLMI_TRACE_LOG_BUFFER_ADDR)) ||
 					((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
 					(Addr <= XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR))) {
-					Status = XPLMI_ERR_INVALID_LOG_BUF_ADDR;
+					Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR, Status);
 				} else {
 					TraceLog.StartAddr = Addr;
 					TraceLog.CurrentAddr = Addr;
 					TraceLog.Len = Arg3;
-					TraceLog.IsBufferFull = FALSE;
+					TraceLog.IsBufferFull = (u8)FALSE;
 					Status = XST_SUCCESS;
 				}
 			} else {
-				Status = XPLMI_ERR_INVALID_LOG_BUF_LEN;
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_LEN, Status);
 			}
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
 			Status = XPlmi_RetrieveBufferData(&TraceLog, (((u64)Arg1 << 32U) | Arg2));
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
-			Cmd->Response[1U] = TraceLog.StartAddr >> 32U;
-			Cmd->Response[2U] = TraceLog.StartAddr & 0xFFFFFFFFU;
+			Cmd->Response[1U] = (u32)(TraceLog.StartAddr >> 32U);
+			Cmd->Response[2U] = (u32)(TraceLog.StartAddr & 0xFFFFFFFFU);
 			Cmd->Response[3U] = (u32)(TraceLog.CurrentAddr -
 					TraceLog.StartAddr);
 			Cmd->Response[4U] = TraceLog.Len;
@@ -276,7 +276,7 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 		if (TraceLog.CurrentAddr >=
 				(TraceLog.StartAddr + TraceLog.Len)) {
 			TraceLog.CurrentAddr = TraceLog.StartAddr;
-			TraceLog.IsBufferFull = TRUE;
+			TraceLog.IsBufferFull = (u8)TRUE;
 		}
 
 		XPlmi_Out64(TraceLog.CurrentAddr, TraceData[Index]);
