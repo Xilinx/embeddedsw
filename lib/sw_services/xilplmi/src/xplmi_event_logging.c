@@ -72,7 +72,7 @@ XPlmi_CircularBuffer TraceLog = {
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u64 Len)
+static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
 {
 	u32 RemLen;
 	u32 Index;
@@ -94,27 +94,40 @@ static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u64 Len)
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr)
+static int XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr)
 {
+	int Status = XST_FAILURE;
 	u32 Len;
 
-	if (Buffer->IsBufferFull== TRUE) {
-		Len = ((Buffer->StartAddr + Buffer->Len) - Buffer->CurrentAddr);
-		XPlmi_DmaXfr(Buffer->CurrentAddr, DestAddr, (Len / XPLMI_WORD_LEN),
+	if (Buffer->IsBufferFull == (u8)TRUE) {
+		Len = (u32)((Buffer->StartAddr + Buffer->Len) - Buffer->CurrentAddr);
+		Status = XPlmi_DmaXfr(Buffer->CurrentAddr, DestAddr, (Len / XPLMI_WORD_LEN),
 			XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		/* Retrieve remaining bytes */
 		XPlmi_RetrieveRemBytes(Buffer->CurrentAddr, DestAddr, Len);
-		XPlmi_DmaXfr(Buffer->StartAddr, (DestAddr+Len),
+		Status = XPlmi_DmaXfr(Buffer->StartAddr, (DestAddr+Len),
 			((Buffer->Len - Len) / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		/* Retrieve remaining bytes */
 		XPlmi_RetrieveRemBytes(Buffer->StartAddr, (DestAddr+Len),
 				(Buffer->Len - Len));
 	} else {
-		XPlmi_DmaXfr(Buffer->StartAddr, DestAddr,
+		Status = XPlmi_DmaXfr(Buffer->StartAddr, DestAddr,
 			(Buffer->Len / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		/* Retrieve remaining bytes */
 		XPlmi_RetrieveRemBytes(Buffer->StartAddr, DestAddr, Buffer->Len);
 	}
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -184,9 +197,8 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			}
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
-			XPlmi_RetrieveBufferData(&DebugLog.LogBuffer,
+			Status = XPlmi_RetrieveBufferData(&DebugLog.LogBuffer,
 				(((u64)Arg1 << 32U) | Arg2));
-			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
 			Cmd->Response[1U] = DebugLog.LogBuffer.StartAddr >> 32U;
@@ -217,8 +229,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			}
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
-			XPlmi_RetrieveBufferData(&TraceLog, (((u64)Arg1 << 32U) | Arg2));
-			Status = XST_SUCCESS;
+			Status = XPlmi_RetrieveBufferData(&TraceLog, (((u64)Arg1 << 32U) | Arg2));
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
 			Cmd->Response[1U] = TraceLog.StartAddr >> 32U;
