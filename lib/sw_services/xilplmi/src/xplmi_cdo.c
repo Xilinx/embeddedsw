@@ -404,7 +404,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 #endif
 
 	/* Verify the header for the first chunk of CDO */
-	if (CdoPtr->Cdo1stChunk == TRUE) {
+	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
 		Status = XPlmi_CdoVerifyHeader(CdoPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -432,7 +432,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	 * In case CmdEnd is detected in previous iteration,
 	 * it just returns
 	 */
-	if (CdoPtr->CmdEndDetected == TRUE) {
+	if (CdoPtr->CmdEndDetected == (u8)TRUE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -468,7 +468,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		 * exit the loop
 		 */
 		if ((Status != XST_SUCCESS) ||
-			(CdoPtr->CmdEndDetected == TRUE)) {
+			(CdoPtr->CmdEndDetected == (u8)TRUE)) {
 			goto END;
 		}
 

@@ -148,12 +148,12 @@ XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 {
 	XPmcDma *PmcDmaPtr = NULL;
 
-	if (DeviceId == PMCDMA_0_DEVICE_ID) {
-		if (PmcDma0.IsReady != FALSE) {
+	if (DeviceId == (u32)PMCDMA_0_DEVICE_ID) {
+		if (PmcDma0.IsReady != (u32)FALSE) {
 			PmcDmaPtr = &PmcDma0;
 		}
-	} else if (DeviceId == PMCDMA_1_DEVICE_ID) {
-		if (PmcDma1.IsReady != FALSE) {
+	} else if (DeviceId == (u32)PMCDMA_1_DEVICE_ID) {
+		if (PmcDma1.IsReady != (u32)FALSE) {
 			PmcDmaPtr = &PmcDma1;
 		}
 	} else {
@@ -524,36 +524,36 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	}
 
 	/* Polling for transfer to be done */
-	if ((Flags & XPLMI_DMA_SRC_NONBLK) == FALSE) {
+	if ((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) {
 		XPmcDma_WaitForDone(DmaPtr, XPMCDMA_SRC_CHANNEL);
 	} else {
 		goto END;
 	}
 
-	if ((Flags & XPLMI_DMA_DST_NONBLK) == FALSE) {
+	if ((Flags & XPLMI_DMA_DST_NONBLK) == (u32)FALSE) {
 		XPmcDma_WaitForDone(DmaPtr, XPMCDMA_DST_CHANNEL);
 	}
 	/* To acknowledge the transfer has completed */
-	if ((Flags & XPLMI_DMA_SRC_NONBLK) == FALSE) {
+	if ((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) {
 		XPmcDma_IntrClear(DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	}
-	if ((Flags & XPLMI_DMA_DST_NONBLK) == FALSE) {
+	if ((Flags & XPLMI_DMA_DST_NONBLK) == (u32)FALSE) {
 		XPmcDma_IntrClear(DmaPtr, XPMCDMA_DST_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	}
 
 	/* Reverting the AXI Burst setting of PMC_DMA */
-	if (((Flags & XPLMI_DMA_SRC_NONBLK) == FALSE) &&
+	if (((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) &&
 		((Flags & XPLMI_SRC_CH_AXI_FIXED) == XPLMI_SRC_CH_AXI_FIXED)) {
 		DmaCtrl.AxiBurstType = 0U;
 		XPmcDma_SetConfig(DmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 	}
-	if (((Flags & XPLMI_DMA_DST_NONBLK) == FALSE) &&
+	if (((Flags & XPLMI_DMA_DST_NONBLK) == (u32)FALSE) &&
 		((Flags & XPLMI_DST_CH_AXI_FIXED) == XPLMI_DST_CH_AXI_FIXED)) {
 		DmaCtrl.AxiBurstType = 0U;
 		XPmcDma_SetConfig(DmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
 	}
 
-	if ((Flags & (XPLMI_DMA_SRC_NONBLK | XPLMI_DMA_DST_NONBLK)) == FALSE) {
+	if ((Flags & (XPLMI_DMA_SRC_NONBLK | XPLMI_DMA_DST_NONBLK)) == (u32)FALSE) {
 		XPlmi_Printf(DEBUG_INFO, "DMA Xfer completed \n\r");
 	}
 
@@ -774,7 +774,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_SetMaxOutCmds(u32 Val)
+void XPlmi_SetMaxOutCmds(u8 Val)
 {
 	DmaCtrl.MaxOutCmds = Val;
 }
