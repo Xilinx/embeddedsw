@@ -413,7 +413,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 	if (Err1Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
-			if ((Err1Status & (1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)))
+			if (((Err1Status & ((u32)1U << (Index - (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR))) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
 				XPlmi_HandlePsmError(
@@ -424,7 +424,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 	if (Err2Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
-			if ((Err2Status & (1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)))
+			if (((Err2Status & ((u32)1U << (Index - (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT))) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
 				XPlmi_HandlePsmError(
@@ -512,7 +512,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	if (Err1Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
-			if ((Err1Status & (1U << Index)) &&
+			if (((Err1Status & ((u32)1U << Index)) != (u32)FALSE) &&
 				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				/* PSM errors are handled in PsmErrHandler */
@@ -531,8 +531,8 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	if (Err2Status != 0U) {
 		for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
-			if ((Err2Status &
-				(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)))
+			if (((Err2Status &
+				((u32)1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX))) != (u32)FALSE)
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR2,

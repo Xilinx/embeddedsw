@@ -99,7 +99,7 @@ void XPlmi_SysMonOTDetect(void)
 	 * condition, we are done.
 	 */
 	Val = XPlmi_In32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET));
-	if (0U == (Val & XSYSMONPSV_ISR_OT_MASK)) {
+	if (0U == (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
 		goto END;
 	}
 
@@ -108,7 +108,7 @@ void XPlmi_SysMonOTDetect(void)
 
 	/* Wait until over-temperature condition is resolved. */
 	Count = 1000U;
-	while (0U != (Val & XSYSMONPSV_ISR_OT_MASK)) {
+	while (0U != (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
 		XPlmi_Out32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET),
 			XSYSMONPSV_ISR_OT_MASK);
 		usleep(1000U);
