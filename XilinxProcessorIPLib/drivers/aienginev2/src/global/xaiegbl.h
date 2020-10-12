@@ -318,14 +318,15 @@ typedef struct {
 } XAie_ZeroPadDesc;
 
 typedef struct {
-	u8 ControllerId;
 	u8 EnOutofOrderId;
-	u8 Reset;
 	u8 EnTokenIssue;
-	u8 PauseStream;
-	u8 PauseMem;
-	u8 Enable;
-} XAie_ChannelDesc;
+	u8 EnCompression;
+	u8 FoTMode;
+	u8 TileType;
+	u8 IsReady;
+	u32 ControllerId;
+	const XAie_DmaMod *DmaMod;
+} XAie_DmaChannelDesc;
 
 typedef struct {
 	XAie_PktDesc PktDesc;
@@ -337,7 +338,6 @@ typedef struct {
 	XAie_AddrDesc AddrDesc_2;
 	XAie_MultiDimDesc MultiDimDesc;
 	XAie_ZeroPadDesc ZeroPadDesc;
-	XAie_ChannelDesc ChDesc;
 	const XAie_DmaMod *DmaMod;
 	const XAie_LockMod *LockMod;
 	XAie_MemInst *MemInst;
@@ -364,6 +364,16 @@ typedef enum {
 	DMA_MM2S,
 	DMA_MAX
 } XAie_DmaDirection;
+
+/*
+ * This enum contains the FoT mode for aie Dma Channel.
+ */
+typedef enum {
+	DMA_FoT_DISABLED,
+	DMA_FoT_NO_COUNTS,
+	DMA_FoT_COUNTS_WITH_TASK_TOKENS,
+	DMA_FoT_COUNTS_FROM_MM_REG,
+} XAie_DmaChannelFoTMode;
 
 /*
  * This enum captures all the error codes from the driver
