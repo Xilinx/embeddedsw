@@ -862,7 +862,7 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
-	u32 SrcAddr;
+	u64 SrcAddr;
 	u32 Len = Cmd->PayloadLen;
 	u32 Flags;
 	u32 Keyholesize;
@@ -884,12 +884,12 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 		Cmd->ResumeData[1U] = Cmd->Payload[1U];
 		Cmd->ResumeData[2U] = Cmd->Payload[2U];
 		Keyholesize = Cmd->Payload[2U];
-		SrcAddr = (u32)(UINTPTR) &Cmd->Payload[3U];
+		SrcAddr = (u64)(UINTPTR) &Cmd->Payload[3U];
 		Len -= 3U;
 		Cmd->ResumeData[3U] = 0U;
 		DestOffset = 0U;
 	} else {
-		SrcAddr = (u32)(UINTPTR) &Cmd->Payload[0U];
+		SrcAddr = (u64)(UINTPTR) &Cmd->Payload[0U];
 		Keyholesize = Cmd->ResumeData[2U];
 		DestOffset = 3U;
 	}
