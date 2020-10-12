@@ -198,8 +198,8 @@ void XPlmi_PrintRomTime(void)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Get PMC ROM time */
-	PmcRomTime = (u64)((XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0)) |
-		(((u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1)) << 32U));
+	PmcRomTime = (u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0);
+	PmcRomTime |= (u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
 
 	/* Print time stamp of PLM */
 	XPlmi_GetPerfTime((u64) ((((u64)XPLMI_PIT1_RESET_VALUE) << 32U) |
