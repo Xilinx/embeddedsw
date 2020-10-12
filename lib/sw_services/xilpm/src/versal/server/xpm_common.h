@@ -29,6 +29,13 @@ extern "C" {
 #define FALSE	0U
 
 /**
+ * This macro defines "always false" value which is of boolean type.
+ * The purpose of macro is to have boolean value which can be used
+ * at loop condition instead of "0U" which is non-boolean value.
+ */
+#define XPM_FALSE_COND		(0U != 0U)
+
+/**
  * GCC Specific attribute to suppress unused variable/function warning
  */
 #ifndef maybe_unused
@@ -44,7 +51,7 @@ extern "C" {
 			xil_printf("%s %s: ", PrefixStr, __func__);			  \
 			xil_printf(__VA_ARGS__);					  \
 		}									  \
-	} while (0)
+	} while (XPM_FALSE_COND)
 
 /* Debug logs */
 #define PmAlert(...)	PmPrintCommon(DEBUG_GENERAL,  "ALERT", __VA_ARGS__)
@@ -59,39 +66,39 @@ extern "C" {
 	do {							\
 		(VAL) = XPm_In32(ADDR);				\
 		PmInfo("RD: 0x%08X -> 0x%08X\r\n", ADDR, VAL);	\
-	} while (0)
+	} while (XPM_FALSE_COND)
 
 #define PmOut32(ADDR, VAL)					\
 	do {							\
 		PmInfo("WR: 0x%08X <- 0x%08X\r\n", ADDR, VAL);	\
 		XPm_Out32(ADDR, VAL);				\
-	} while (0)
+	} while (XPM_FALSE_COND)
 
 #define PmRmw32(ADDR, MASK, VAL)				\
 	do {							\
 		XPm_RMW32(ADDR, MASK, VAL);			\
 		PmInfo("RMW: Addr=0x%08X, Mask=0x%08X, Val=0x%08X, Reg=0x%08X\r\n", \
 			ADDR, MASK, VAL, XPm_In32(ADDR));	\
-	} while (0)
+	} while (XPM_FALSE_COND)								\
 
 #define PmIn64(ADDR, VAL)					\
 	do {							\
 		(VAL) = XPm_In64(ADDR);				\
 		PmInfo("RD: 0x%016X -> 0x%08X\r\n", ADDR, VAL);	\
-	} while (0)
+	} while (XPM_FALSE_COND)								\
 
 #define PmOut64(ADDR, VAL)					\
 	do {							\
 		PmInfo("WR: 0x%016X <- 0x%08X\r\n", ADDR, VAL);	\
 		XPm_Out64(ADDR, VAL);				\
-	} while (0)
+	} while (XPM_FALSE_COND)								\
 
 #define PmRmw64(ADDR, MASK, VAL)				\
 	do {							\
 		XPm_RMW64(ADDR, MASK, VAL);			\
 		PmInfo("RMW: Addr=0x%016X, Mask=0x%08X, Val=0x%08X, Reg=0x%08X\r\n", \
 			ADDR, MASK, VAL, XPm_In64(ADDR));	\
-	} while (0)
+	} while (XPM_FALSE_COND)								\
 
 #else
 
@@ -114,14 +121,14 @@ extern "C" {
 		if (((u32)(VAL) & (u32)(MASK)) != ((u32)(XPm_In32((ADDR))) & (u32)(MASK))) {	\
 			(STATUS) = XPM_REG_WRITE_FAILED;			\
 		}								\
-	} while (0)								\
+	} while (XPM_FALSE_COND)								\
 
 #define PmChkRegOut32(ADDR, VAL, STATUS)					\
 	do {									\
 		if ((u32)(VAL) != XPm_In32((ADDR))) {				\
 			(STATUS) = XPM_REG_WRITE_FAILED;			\
 		}								\
-	} while (0)								\
+	} while (XPM_FALSE_COND)								\
 
 #define BIT(n)					(1U << (n))
 #define BIT8(n)					((u8)1U << (n))
