@@ -29,6 +29,10 @@
  *                        at ROM stage.
  *       kal   06/30/2020 Added read support to all SecCtrl efuses and
  *                        MiscCtrl eFuses also updated read pattern.
+ *	 am    10/10/2020 Changed function return type and type of
+ *			  status variable from u32 to int
+ *
+ * </pre>
  *
  ******************************************************************************/
 
@@ -48,42 +52,40 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-static u32 XilNvm_EfuseWriteFuses(void);
-static u32 XilNvm_EfusePerformCrcChecks(void);
-static u32 XilNvm_EfuseReadFuses(void);
-static u32 XilNvm_EfuseShowCtrlBits(void);
-static u32 XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseWriteFuses(void);
+static int XilNvm_EfusePerformCrcChecks(void);
+static int XilNvm_EfuseReadFuses(void);
+static int XilNvm_EfuseShowCtrlBits(void);
+static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
                                 XNvm_EfuseSecCtrlBits *SecCtrlBits);
-static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseMiscCtrlBits *MiscCtrlBits);
-static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseRevokeIds *RevokeId);
-static u32 XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseIvs *Ivs);
 
-static u32 XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
+static int XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseGlitchCfgBits *GlitchData);
 
-static u32 XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseAesKeys *AesKeys);
-static u32 XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfusePpkHash *PpkHash);
-static u32 XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseDecOnly *DecOnly);
-static u32 XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseUserData *Data);
-static u32 XilNvm_ValidateUserFuseStr(const char *UserFuseStr);
-static u32 XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len);
-static u32 XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len);
-static u32 XilNvm_ValidateIvString(const char *IvStr);
-static u32 XilNvm_ValidateHash(const char *Hash, u32 Len);
+static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr);
+static int XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len);
+static int XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len);
+static int XilNvm_ValidateIvString(const char *IvStr);
+static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
-
 /*****************************************************************************/
-
-int main()
+int main(void)
 {
-	u32 Status;
+	int Status = XST_FAILURE;
 
 	Status = XilNvm_EfuseWriteFuses();
 	if (Status != XST_SUCCESS) {
@@ -130,8 +132,9 @@ EFUSE_ERROR:
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseWriteFuses(void)
+static int XilNvm_EfuseWriteFuses(void)
 {
+	int Status = XST_FAILURE;
 	XNvm_EfuseIvs Ivs = {0U};
 	XNvm_EfuseData WriteEfuse = {NULL};
 	XNvm_EfuseGlitchCfgBits GlitchData = {0U};
@@ -143,7 +146,6 @@ static u32 XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseRevokeIds RevokeIds = {0U};
 	XNvm_EfuseUserData UserFuses = {0U};
 	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
-	u32 Status = (u32)XST_FAILURE;
 
 	Status = XilNvM_EfuseInitGlitchData(&WriteEfuse, &GlitchData);
 	if (Status != XST_SUCCESS) {
@@ -207,15 +209,15 @@ EFUSE_ERROR:
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseReadFuses(void)
+static int XilNvm_EfuseReadFuses(void)
 {
+	int Status = XST_FAILURE;
 	XNvm_Dna EfuseDna = {0U};
 	XNvm_PpkHash EfusePpk = {0U};
 	XNvm_Iv EfuseIv = {0U};
 	XNvm_EfuseUserData ReadUserFuses = {0U};
 	u32 RdRevocationIds[XNVM_NUM_OF_REVOKE_ID_FUSES];
 	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
-	u32 Status = (u32)XST_FAILURE;
 	u32 ReadIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
 	u32 ReadPpk[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
 	u32 RegData;
@@ -357,9 +359,9 @@ EFUSE_ERROR:
  *	- Error code - On Failure
  *
  ******************************************************************************/
-static u32 XilNvm_EfusePerformCrcChecks(void)
+static int XilNvm_EfusePerformCrcChecks(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
 		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
@@ -404,11 +406,12 @@ static u32 XilNvm_EfusePerformCrcChecks(void)
 		}
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 
 EFUSE_ERROR:
 	return Status;
 }
+
 /****************************************************************************/
 /**
  * This function is used to initialize Glitch config structure with user
@@ -425,10 +428,10 @@ EFUSE_ERROR:
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
-static u32 XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
+static int XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
 				XNvm_EfuseGlitchCfgBits *GlitchData)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	GlitchData->PrgmGlitch = XNVM_EFUSE_WRITE_GLITCH_CFG;
 
@@ -470,10 +473,12 @@ static u32 XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
 		WriteEfuse->GlitchCfgBits = GlitchData;
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
+
 ERROR:
 	return Status;
 }
+
 /****************************************************************************/
 /**
  * This function is used to initialize XNvm_EfuseAesKeys structure with user
@@ -490,10 +495,10 @@ ERROR:
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
                                         XNvm_EfuseAesKeys *AesKeys)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	AesKeys->PrgmAesKey = XNVM_EFUSE_WRITE_AES_KEY;
 	AesKeys->PrgmUserKey0 = XNVM_EFUSE_WRITE_USER_KEY_0;
@@ -529,6 +534,7 @@ static u32 XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 	}
 
 	Status = XST_SUCCESS;
+
 ERROR:
 	return Status;
 }
@@ -547,10 +553,10 @@ ERROR:
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
                                         XNvm_EfusePpkHash *PpkHash)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	PpkHash->PrgmPpk0Hash = XNVM_EFUSE_WRITE_PPK0_HASH;
 	PpkHash->PrgmPpk1Hash = XNVM_EFUSE_WRITE_PPK1_HASH;
@@ -601,6 +607,7 @@ static u32 XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 	}
 
 	Status = XST_SUCCESS;
+
 ERROR:
 	return Status;
 }
@@ -619,10 +626,10 @@ ERROR:
  *		- ErrorCode - On failure.
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
                                         XNvm_EfuseDecOnly *DecOnly)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	DecOnly->PrgmDecOnly = XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY;
 
@@ -643,7 +650,8 @@ static u32 XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
 		WriteEfuse->DecOnly = DecOnly;
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
+
 ERROR:
 	return Status;
 }
@@ -661,10 +669,10 @@ ERROR:
  *		- ErrCode - On failure
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 				XNvm_EfuseSecCtrlBits *SecCtrlBits)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	SecCtrlBits->Ppk0WrLk = XNVM_EFUSE_PPK0_WR_LK;
 	SecCtrlBits->Ppk1WrLk = XNVM_EFUSE_PPK1_WR_LK;
@@ -689,7 +697,7 @@ static u32 XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 		WriteEfuse->SecCtrlBits = SecCtrlBits;
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 
 	return Status;
 }
@@ -708,7 +716,7 @@ static u32 XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseMiscCtrlBits *MiscCtrlBits)
 {
 	MiscCtrlBits->Ppk0Invalid = XNVM_EFUSE_PPK0_INVLD;
@@ -742,10 +750,10 @@ static u32 XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseRevokeIds *RevokeIds)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if ((XNVM_EFUSE_WRITE_REVOCATION_ID_0 |
 		XNVM_EFUSE_WRITE_REVOCATION_ID_1 |
@@ -822,7 +830,8 @@ static u32 XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		WriteEfuse->RevokeIds = RevokeIds;
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
+
 ERROR:
 	return Status;
 }
@@ -840,10 +849,10 @@ ERROR:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 				XNvm_EfuseIvs *Ivs)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	Ivs->PrgmMetaHeaderIv = XNVM_EFUSE_WRITE_METAHEADER_IV;
 	Ivs->PrgmBlkObfusIv = XNVM_EFUSE_WRITE_BLACK_OBFUS_IV;
@@ -906,10 +915,10 @@ ERROR:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
                                         XNvm_EfuseUserData *Data)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if (XNVM_EFUSE_WRITE_USER_FUSES == TRUE) {
 		Status = XilNvm_ValidateUserFuseStr(
@@ -932,6 +941,7 @@ static u32 XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
 		WriteEfuse->UserFuses = Data;
 	}
 	Status = XST_SUCCESS;
+
 END:
 	return  Status;
 }
@@ -945,9 +955,9 @@ END:
  * 		- ErrorCode - On failure
  *
  ******************************************************************************/
-static u32 XilNvm_EfuseShowCtrlBits()
+static int XilNvm_EfuseShowCtrlBits(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits SecCtrlBits;
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits;
@@ -1157,8 +1167,7 @@ static u32 XilNvm_EfuseShowCtrlBits()
 		xil_printf("Ppk2 hash stored in efuse is valid\n\r");
 	}
 
-	return (u32)XST_SUCCESS;
-
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1176,9 +1185,9 @@ static u32 XilNvm_EfuseShowCtrlBits()
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static u32 XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len)
+static int XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if ((KeyStr == NULL) ||
 		(Dst == NULL) ||
@@ -1190,6 +1199,7 @@ static u32 XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len)
 		goto ERROR;
 	}
 	Status = Xil_ConvertStringToHexLE(KeyStr, Dst, Len);
+
 ERROR:
 	return Status;
 }
@@ -1209,9 +1219,9 @@ ERROR:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static u32 XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len)
+static int XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	if ((IvStr == NULL) ||
 		(Dst == NULL) ||
@@ -1224,6 +1234,7 @@ static u32 XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len)
 		goto ERROR;
 	}
 	Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
+
 ERROR:
 	return Status;
 }
@@ -1238,9 +1249,9 @@ ERROR:
  *	- XST_SUCCESS - On valid input UserFuse string
  *	- XST_INVALID_PARAM - On invalid length of the input string
  ******************************************************************************/
-static u32 XilNvm_ValidateUserFuseStr(const char *UserFuseStr)
+static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr)
 {
-        u32 Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+        int Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 
         if(NULL == UserFuseStr) {
                 goto END;
@@ -1251,6 +1262,7 @@ static u32 XilNvm_ValidateUserFuseStr(const char *UserFuseStr)
         }
 
         Status = XST_SUCCESS;
+
 END:
         return Status;
 }
@@ -1269,9 +1281,9 @@ END:
  *	- XST_FAILURE	- On non hexadecimal character in string
  *
  ******************************************************************************/
-static u32 XilNvm_ValidateHash(const char *Hash, u32 Len)
+static int XilNvm_ValidateHash(const char *Hash, u32 Len)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Index;
 
 	if ((NULL == Hash) || (Len == 0U)) {
@@ -1289,7 +1301,8 @@ static u32 XilNvm_ValidateHash(const char *Hash, u32 Len)
 			goto END;
 		}
 	}
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
+
 END :
 	return Status;
 }
@@ -1305,9 +1318,9 @@ END :
  *	XST_INVALID_PARAM - On invalid length of the input string
  *
  ******************************************************************************/
-static u32 XilNvm_ValidateIvString(const char *IvStr)
+static int XilNvm_ValidateIvString(const char *IvStr)
 {
-	u32 Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	int Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 
 	if(NULL == IvStr) {
 		goto END;
@@ -1316,9 +1329,9 @@ static u32 XilNvm_ValidateIvString(const char *IvStr)
 	if (strlen(IvStr) == XNVM_IV_STRING_LEN) {
 		Status = XST_SUCCESS;
 	}
+
 END:
 	return Status;
-
 }
 
 /******************************************************************************/
