@@ -672,12 +672,6 @@ AieRC XAie_PerfCounterGetControlConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	if(StartEvent == XAIE_NULL || StopEvent == XAIE_NULL ||
-			ResetEvent == XAIE_NULL) {
-		XAIE_ERROR("Invalid pointers to store Events\n");
-		return XAIE_INVALID_ARGS;
-	}
-
 	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		return XAIE_INVALID_TILE;
