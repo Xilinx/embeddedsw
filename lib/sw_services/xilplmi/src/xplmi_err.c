@@ -515,7 +515,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				/* PSM errors are handled in PsmErrHandler */
-				if (Index != XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
+				if (Index != (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
 				      XPlmi_EmDisable(
 					XPLMI_EVENT_ERROR_PMC_ERR1, Index);
 				}
