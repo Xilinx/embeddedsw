@@ -46,13 +46,13 @@ extern "C" {
 /** DMA XFER flags */
 #define XPLMI_SRC_CH_AXI_FIXED		(0x1U)
 #define XPLMI_DMA_SRC_NONBLK		(0x1U << 1U)
-#define XPLMI_DST_CH_AXI_FIXED		(0x1U << 16U)
-#define XPLMI_DMA_DST_NONBLK		(0x1U << 17U)
+#define XPLMI_DST_CH_AXI_FIXED		((u32)0x1U << 16U)
+#define XPLMI_DMA_DST_NONBLK		((u32)0x1U << 17U)
 #define XPLMI_PMCDMA_0				(0x100U)
 #define XPLMI_PMCDMA_1				(0x200U)
 #define XPLMI_DMA_SRC_NPI			(0x4U)
 #define XPLMI_DMA_DST_TYPE_SHIFT	(18U)
-#define XPLMI_DMA_DST_TYPE_MASK		(0x3U << 18U)
+#define XPLMI_DMA_DST_TYPE_MASK		((u32)0x3U << 18U)
 #define XPLMI_READ_AXI_FIXED		(0x1U)
 
 /* SSS configurations and masks */
