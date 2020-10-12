@@ -983,116 +983,6 @@ AieRC XAie_DmaChannelPauseMem(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
 /*****************************************************************************/
 /**
 *
-* This API configures the Dma channel for a particular range of tiles. This API
-* has to be called before enabling the channel. The OutofOrderBdId and
-* Compression/Decompression are enabled automatically if the Dma Descriptor has
-* these features enabled.
-*
-* @param	DevInst: Device Instance.
-* @param	DmaDesc: Initialized Dma Descriptor.
-* @param	Loc: Location of AIE Tile
-* @param	ChNum: Channel number of the DMA.
-* @param	Dir: Direction of the DMA Channel. (MM2S or S2MM)
-* @param	RepeatCount: Number of times to repeat the task.
-* @param	EnTokenIssue: XAIE_ENABLE to issue token when task is complete.
-* @param	ControllerId: Task complete token controller ID field
-*
-* @return	XAIE_OK on success, Error code on failure.
-*
-* @note		None.
-*
-******************************************************************************/
-AieRC XAie_DmaChannelConfig(XAie_DevInst *DevInst, XAie_DmaDesc *DmaDesc,
-		XAie_LocType Loc, u8 ChNum, XAie_DmaDirection Dir,
-		u8 RepeatCount, u8 EnTokenIssue, u8 ControllerId)
-{
-	u64 Addr;
-	u32 ChWord[XAIE_DMA_CHCTRL_NUM_WORDS] = {0U};
-	u32 ChWordMask[XAIE_DMA_CHCTRL_NUM_WORDS] = {0U};
-	const XAie_DmaMod *DmaMod;
-
-	if((DevInst == XAIE_NULL) || (DmaDesc == XAIE_NULL) ||
-			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
-		XAIE_ERROR("Invalid arguments\n");
-		return XAIE_INVALID_ARGS;
-	}
-
-	if(DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE) {
-		XAIE_ERROR("Feature not supported\n");
-		return XAIE_FEATURE_NOT_SUPPORTED;
-	}
-
-	if(Dir >= DMA_MAX) {
-		XAIE_ERROR("Invalid DMA direction\n");
-		return XAIE_INVALID_ARGS;
-	}
-
-	if((DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
-		XAIE_ERROR("Dma descriptor not initilized\n");
-		return XAIE_INVALID_DMA_DESC;
-	}
-
-	if(DmaDesc->TileType != _XAie_GetTileTypefromLoc(DevInst, Loc)) {
-		XAIE_ERROR("Tile type mismatch\n");
-		return XAIE_INVALID_TILE;
-	}
-
-	DmaMod = DevInst->DevProp.DevMod[DmaDesc->TileType].DmaMod;
-	if(ChNum > DmaMod->NumChannels) {
-		XAIE_ERROR("Invalid Channel number\n");
-		return XAIE_INVALID_CHANNEL_NUM;
-	}
-
-	/*
-	 * Register fields for these configurations are different for tile
-	 * types. The below implementation automatically sets up the correct
-	 * register values based on the tile type.
-	 */
-	ChWord[DmaMod->ChProp->CtrlId.Idx] |= XAie_SetField(ControllerId,
-			DmaMod->ChProp->CtrlId.Lsb,
-			DmaMod->ChProp->CtrlId.Mask);
-	ChWordMask[DmaMod->ChProp->CtrlId.Idx] |= DmaMod->ChProp->CtrlId.Mask;
-
-	ChWord[DmaMod->ChProp->RptCount.Idx] |= XAie_SetField(RepeatCount,
-			DmaMod->ChProp->RptCount.Lsb,
-			DmaMod->ChProp->RptCount.Mask);
-	ChWordMask[DmaMod->ChProp->RptCount.Idx] |=
-		DmaMod->ChProp->RptCount.Mask;
-
-	ChWord[DmaMod->ChProp->EnToken.Idx] |= XAie_SetField(EnTokenIssue,
-			DmaMod->ChProp->EnToken.Lsb,
-			DmaMod->ChProp->EnToken.Mask);
-	ChWordMask[DmaMod->ChProp->EnToken.Idx] |= DmaMod->ChProp->EnToken.Mask;
-
-	ChWord[DmaMod->ChProp->EnCompression.Idx] |=
-		XAie_SetField(DmaDesc->EnCompression,
-				DmaMod->ChProp->EnCompression.Lsb,
-				DmaMod->ChProp->EnCompression.Mask);
-	ChWordMask[DmaMod->ChProp->EnCompression.Idx] |=
-		DmaMod->ChProp->EnCompression.Mask;
-
-	ChWord[DmaMod->ChProp->EnOutofOrder.Idx] |=
-		XAie_SetField(DmaDesc->EnOutofOrderBdId,
-				DmaMod->ChProp->EnOutofOrder.Lsb,
-				DmaMod->ChProp->EnOutofOrder.Mask);
-	ChWordMask[DmaMod->ChProp->EnOutofOrder.Idx] |=
-		DmaMod->ChProp->EnOutofOrder.Mask;
-
-	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
-		DmaMod->ChCtrlBase + ChNum * DmaMod->ChIdxOffset +
-		Dir * DmaMod->ChIdxOffset * DmaMod->NumChannels;
-
-	for(u8 i = 0U; i < XAIE_DMA_CHCTRL_NUM_WORDS; i++) {
-		XAie_MaskWrite32(DevInst, Addr + (i * 4U),
-				ChWordMask[i], ChWord[i]);
-	}
-
-	return XAIE_OK;
-}
-
-/*****************************************************************************/
-/**
-*
 * This API pushes a Buffer Descriptor onto the MM2S or S2MM Channel queue.
 *
 * @param	DevInst: Device Instance.
@@ -1566,6 +1456,289 @@ AieRC XAie_DmaUpdateBdAddr(XAie_DevInst *DevInst, XAie_LocType Loc, u64 Addr,
 	}
 
 	return DmaMod->UpdateBdAddr(DevInst, DmaMod, Loc, Addr, BdNum);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API initializes the Dma Channel Descriptor for AIE DMAs for a given
+* location.
+*
+* @param	DevInst: Device Instance.
+* @param	DmaChannelDesc: Pointer to user allocated dma channel descriptor
+* @param	Loc: Location of AIE-ML Tile
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		This API should be called before setting individual fields for
+* 		Dma Channel Descriptor. This API works only for AIE-ML and has
+* 		no effect on AIE.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelDescInit(XAie_DevInst *DevInst,
+		XAie_DmaChannelDesc *DmaChannelDesc, XAie_LocType Loc)
+{
+	u8 TileType;
+	const XAie_DmaMod *DmaMod;
+
+	if((DevInst == XAIE_NULL) || (DmaChannelDesc == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_SHIMPL) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	DmaMod = DevInst->DevProp.DevMod[TileType].DmaMod;
+
+	memset((void *)DmaChannelDesc, 0U, sizeof(XAie_DmaChannelDesc));
+
+	DmaChannelDesc->TileType = TileType;
+	DmaChannelDesc->IsReady = XAIE_COMPONENT_IS_READY;
+	DmaChannelDesc->DmaMod = DmaMod;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* This API enables/disables the Encompression bit in the DMA Channel Descriptor.
+*
+* @param	DmaChannelDesc: Initialized Dma channel Descriptor.
+* @param	EnCompression: XAIE_ENABLE or XAIE_DISABLE for
+* 				Compression / Decompression.
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		The API sets the enable/disable choice for
+* 		Compression / Decompression in dma channel descriptor and does
+* 		not configure the descriptor field in the hardware.
+* 		This API works only for AIE-ML and has no effect on AIE.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelEnCompression(XAie_DmaChannelDesc *DmaChannelDesc,
+		u8 EnCompression)
+{
+	const XAie_DmaMod *DmaMod;
+
+	if((DmaChannelDesc == XAIE_NULL) ||
+			(DmaChannelDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaChannelDesc->DmaMod;
+	if(DmaMod->ChProp->HasEnCompression == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature not supported\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	DmaChannelDesc->EnCompression = EnCompression;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* This API enables/disables out of order mode in the DMA Channel Descriptor.
+*
+* @param	DmaChannelDesc: Initialized Dma Channel Descriptor.
+* @param	EnOutofOrder: XAIE_ENABLE or XAIE_DISABLE for out of order mode.
+* 				XAIE_DISABLE = in-order mode.
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		The API sets the enable/disable choice for
+* 		out of order mode in dma channel descriptor and does
+* 		not configure the descriptor field in the hardware.
+* 		This API works only for AIE-ML and has no effect on AIE.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelEnOutofOrder(XAie_DmaChannelDesc *DmaChannelDesc,
+		u8 EnOutofOrder)
+{
+	const XAie_DmaMod *DmaMod;
+
+	if((DmaChannelDesc == XAIE_NULL) ||
+			(DmaChannelDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaChannelDesc->DmaMod;
+	if(DmaMod->ChProp->HasEnOutOfOrder == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature not supported\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	DmaChannelDesc->EnOutofOrderId = EnOutofOrder;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* This api sets the task complete token controller id field in the DMA Channel
+* Descriptor.
+*
+* @param	DmaChannelDesc: Initialized dma channel descriptor.
+* @param	ControllerId: Task-complete-token controller ID field
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		The api sets the controller id in the dma channel descriptor and
+*		does not configure the descriptor field in the hardware. This
+*		API works only for AIE-ML and has no effect on AIE.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelSetControllerId(XAie_DmaChannelDesc *DmaChannelDesc,
+		u32 ControllerId)
+{
+	const XAie_DmaMod *DmaMod;
+
+	if((DmaChannelDesc == XAIE_NULL) ||
+			(DmaChannelDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaChannelDesc->DmaMod;
+	if(DmaMod->ChProp->HasControllerId == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature unavailable\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	if(ControllerId > DmaMod->ChProp->ControllerId.Mask >>
+			DmaMod->ChProp->ControllerId.Lsb) {
+		XAIE_ERROR("Invalid ControllerId: %d\n", ControllerId);
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaChannelDesc->ControllerId = ControllerId;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* This api sets the task complete token controller id field in the DMA Channel
+* Descriptor.
+*
+* @param	DmaChannelDesc: Initialized dma channel descriptor.
+* @param	FoTMode: Finish on TLAST mode (DMA_FoT_DISABLED,
+* 			DMA_FoT_NO_COUNTS, DMA_FoT_COUNTS_WITH_TASK_TOKENS or
+*			DMA_FoT_COUNTS_FROM_MM_REG)
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		The api sets the FoT Mode in the dma channel descriptor and
+*		does not configure the descriptor field in the hardware. This
+*		API works only for AIE-ML and has no effect on AIE.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelSetFoTMode(XAie_DmaChannelDesc *DmaChannelDesc,
+		XAie_DmaChannelFoTMode FoTMode)
+{
+	const XAie_DmaMod *DmaMod;
+
+	if((DmaChannelDesc == XAIE_NULL) ||
+			(DmaChannelDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaChannelDesc->DmaMod;
+	if(DmaMod->ChProp->HasFoTMode == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature unavailable\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	if(FoTMode > DmaMod->ChProp->MaxFoTMode) {
+		XAIE_ERROR("Invalid FoTMode: %d\n", FoTMode);
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaChannelDesc->FoTMode = FoTMode;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+=======
+* This API configures the Dma channel descriptor fields in the hardware for a
+* particular tile location. This includes FoT mode, Controller id, out of order
+* and Compression/Decompression.
+*
+*
+* @param	DevInst: Device Instance.
+* @param	DmaChannelDesc: Initialized Dma Channel Descriptor.
+* @param	Loc: Location of AIE Tile
+* @param	ChNum: Channel number of the DMA.
+* @param	Dir: Direction of the DMA Channel. (MM2S or S2MM)
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		This API works only for AIE-ML and has no effect on AIE.
+*
+******************************************************************************/
+AieRC XAie_DmaWriteChannel(XAie_DevInst *DevInst,
+		XAie_DmaChannelDesc *DmaChannelDesc, XAie_LocType Loc,
+		u8 ChNum, XAie_DmaDirection Dir)
+{
+	u64 Addr;
+	u32 Val;
+	const XAie_DmaMod *DmaMod;
+
+	if((DevInst == XAIE_NULL) || (DmaChannelDesc == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE) {
+		XAIE_ERROR("Feature not supported\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	if(Dir >= DMA_MAX) {
+		XAIE_ERROR("Invalid DMA direction\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if((DmaChannelDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Dma Channel descriptor not initilized\n");
+		return XAIE_INVALID_DMA_DESC;
+	}
+
+	if(DmaChannelDesc->TileType != _XAie_GetTileTypefromLoc(DevInst, Loc)) {
+		XAIE_ERROR("Tile type mismatch\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	DmaMod = DevInst->DevProp.DevMod[DmaChannelDesc->TileType].DmaMod;
+	if(ChNum > DmaMod->NumChannels) {
+		XAIE_ERROR("Invalid Channel number\n");
+		return XAIE_INVALID_CHANNEL_NUM;
+	}
+
+	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->ChCtrlBase + ChNum * DmaMod->ChIdxOffset +
+		Dir * DmaMod->ChIdxOffset * DmaMod->NumChannels;
+
+	Val = XAie_SetField(DmaChannelDesc->EnOutofOrderId, (DmaMod->ChProp->EnOutofOrder.Lsb),
+			(DmaMod->ChProp->EnOutofOrder.Mask)) |
+		XAie_SetField(DmaChannelDesc->EnCompression, (DmaMod->ChProp->EnCompression.Lsb),
+			(DmaMod->ChProp->EnCompression.Mask)) |
+		XAie_SetField(DmaChannelDesc->ControllerId, (DmaMod->ChProp->ControllerId.Lsb),
+			(DmaMod->ChProp->ControllerId.Mask)) |
+		XAie_SetField(DmaChannelDesc->FoTMode, (DmaMod->ChProp->FoTMode.Lsb),
+			(DmaMod->ChProp->FoTMode.Mask));
+	XAie_Write32(DevInst, Addr, Val);
+
+	return XAIE_OK;
 }
 
 /** @} */
