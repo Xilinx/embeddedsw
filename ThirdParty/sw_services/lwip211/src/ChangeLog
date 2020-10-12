@@ -1,5 +1,14 @@
 Change Log for lwip
 =================================
+2020-10-09
+	* Fix the optimization out of delay code with level O2 by
+	  replacing the for loop with sleep for 1 second.
+2020-10-04
+	* Modify the sys_now function to return milliseconds instead
+	  of ticks to fix lwip timers issue.
+2020-09-24
+	* Use Xil_In32 and Xil_Out32 functions to read/write
+	  registers.
 2020-09-22
 	* Fix lwip application failure on VCU118 board.
 2020-08-18
