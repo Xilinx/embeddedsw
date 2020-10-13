@@ -105,7 +105,7 @@ extern "C" {
 /* @}*/
 
 typedef enum {
-	XSECURE_RSA_UNINITIALIZED = 0,
+	XSECURE_RSA_UNINITIALIZED = 0x0,
 	XSECURE_RSA_INITIALIZED			/**< 0x1 */
 } XSecure_RsaState;
 

@@ -435,7 +435,7 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
 				XSECURE_RSA_RAM_MOD);
 
 	if (InstancePtr->ModExt != NULL) {
-	/* Initialize Modular extension (R*R Mod M) */
+		/* Initialize Modular extension (R*R Mod M) */
 		XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExt,
 				XSECURE_RSA_RAM_RES_Y);
 	}
@@ -460,12 +460,13 @@ static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u32 *RdData)
 
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
+	XSecure_AssertVoid(RdData != NULL);
 
 	TmpIndex = (int)(InstancePtr->SizeInWords) - 1;
 
 	/* Each of this loop will write 192 bits of data */
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
-							DataOffset++) {
+			DataOffset++) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
 			(XSECURE_RSA_RAM_RES_Y * XSECURE_RSA_MAX_RD_WR_CNT)
@@ -514,7 +515,7 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
 	Inv = (u32)2U - ModVal;
 
 	for (Count = 0U; Count < XSECURE_WORD_SIZE; ++Count) {
-		Inv = (Inv * (2U - ( ModVal * Inv ) ) );
+		Inv = Inv * (2U - (ModVal * Inv));
 	}
 
 	Inv = ~Inv + 1U;
@@ -549,7 +550,7 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 
 	/** Each of this loop will write 192 bits of data*/
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
-										DataOffset++) {
+			DataOffset++) {
 		for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
 			TmpIndex = (DataOffset * XSECURE_RSA_MAX_BUFF) + Index;
 
@@ -584,7 +585,7 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 		}
 
 		XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
+			XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
 			((u32)(RamOffset * (u32)XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset) |
 			XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK);
 	}
