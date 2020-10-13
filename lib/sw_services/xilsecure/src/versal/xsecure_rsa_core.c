@@ -201,6 +201,7 @@ static const u32 ExpectedOutput[XSECURE_RSA_4096_SIZE_WORDS] = {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSECURE_TIMEOUT_MAX		(0x1FFFFFU)
 
 /************************** Function Prototypes ******************************/
 
