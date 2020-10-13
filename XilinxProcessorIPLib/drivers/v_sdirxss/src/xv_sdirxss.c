@@ -54,6 +54,7 @@ static void XV_SdiRxSs_StreamDownCallback(void *CallbackRef);
 static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef);
 static void XV_SdiRxSs_OverFlowCallback(void *CallbackRef);
 static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef);
+static void XV_SdiRxSs_VsyncCallback(void *CallbackRef);
 static void XV_SdiRxSs_ReportTiming(XV_SdiRxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -133,6 +134,11 @@ static int XV_SdiRxSs_RegisterSubsysCallbacks(XV_SdiRxSs *InstancePtr)
 		XV_SdiRx_SetCallback(SdiRxSsPtr->SdiRxPtr,
 					XV_SDIRX_HANDLER_UNDERFLOW,
 					XV_SdiRxSs_UnderFlowCallback,
+					InstancePtr);
+
+		XV_SdiRx_SetCallback(SdiRxSsPtr->SdiRxPtr,
+					XV_SDIRX_HANDLER_VSYNC,
+					XV_SdiRxSs_VsyncCallback,
 					InstancePtr);
 
 	}
@@ -293,6 +299,29 @@ static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when the Rx Vsync occurs.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XV_SdiRxSs_VsyncCallback(void *CallbackRef)
+{
+	XV_SdiRxSs *SdiRxSsPtr = (XV_SdiRxSs *)CallbackRef;
+
+	/* Check if user callback has been registered */
+	if (SdiRxSsPtr->VsyncCallback) {
+		SdiRxSsPtr->VsyncCallback(SdiRxSsPtr->VsyncRef);
+	}
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is called when the RX stream is up.
 *
 * @param	None.
@@ -416,6 +445,7 @@ void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr)
 * (XV_SDIRXSS_HANDLER_STREAM_UP)           StreamUpCallback
 * (XV_SDIRXSS_HANDLER_OVERFLOW)		OverFlowCallback
 * (XV_SDIRXSS_HANDLER_UNDERFLOW)           UnderFlowCallback
+* (XV_SDIRXSS_HANDLER_VSYNC)		   VsyncCallback
 * </pre>
 *
 * @param    InstancePtr is a pointer to the SDI RX Subsystem instance.
@@ -474,6 +504,14 @@ void *CallbackFunc, void *CallbackRef)
 		InstancePtr->UnderFlowCallback =
 		(XV_SdiRxSs_Callback)CallbackFunc;
 		InstancePtr->UnderFlowRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+		/* Vsync */
+	case (XV_SDIRXSS_HANDLER_VSYNC):
+		InstancePtr->VsyncCallback =
+		(XV_SdiRxSs_Callback)CallbackFunc;
+		InstancePtr->VsyncRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
 
