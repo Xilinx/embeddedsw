@@ -57,6 +57,7 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSECURE_TIMEOUT_MAX             (0x1FFFFFU)
 
 /************************** Function Prototypes ******************************/
 

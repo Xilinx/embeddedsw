@@ -14,7 +14,7 @@
 *
 * This driver supports the following features:
 *
-* - RSA 4096 based decryption
+* - RSA 4096 based encryption or decryption
 * - verification/authentication of decrypted data
 *
 * <b>Initialization & Configuration</b>
@@ -30,7 +30,7 @@
 * modulus and exponent.
 *
 * @note
-*	-The format of the public key( modulus, exponent and precalculated
+*	-The format of the public key (modulus, exponent and precalculated
 *	 R^2 mod N should be same as specified by the bootgen
 *
 *	-For matching, PKCS paddding scheme has to be applied in the manner
@@ -99,10 +99,10 @@ int XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 int XSecure_RsaSignVerification(const u8 *Signature, const u8 *Hash,
 	u32 HashLen);
 
-/* XSecure_RsaPublicEncrypt performs same as XSecure_RsaDecrypt API */
+/* RSA Public Encrypt operation */
 int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result);
-
+/* RSA Private Decryption operation */
 int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result);
 
