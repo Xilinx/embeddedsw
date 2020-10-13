@@ -40,7 +40,7 @@
 *                       to XST_FAILURE
 *       har  07/12/2020 Removed magic number from XSecure_AesKeyZero
 *       har  07/21/2020 Corrected input parameters for config in
-*                       XSecure_AesCfgKupIv
+*                       XSecure_AesCfgKupKeynIv
 *       kpt  08/06/2020 Replaced magic numbers with macro's
 *       kpt  08/18/2020 Added volatile keyword to status variable in case of
 *                       status reset
@@ -49,7 +49,7 @@
 *                       secure libraries
 *       rpo  09/21/2020 New error code added for crypto state mismatch
 *       am   09/24/2020 Resolved MISRA C violations
-*       har  09/30/2020 Added blind-write checks for XSecure_AesCfgKupIv
+*       har  09/30/2020 Added blind-write checks for XSecure_AesCfgKupKeynIv
 *                       Deprecated Family Key support
 *                       Replaced repetitive code for DMA configuration with
 *                       XSecure_AesPmcDmaCfgByteSwap function
@@ -67,8 +67,8 @@
 #include "xsecure_aes_core_hw.h"
 #include "xil_util.h"
 #include "xsecure_error.h"
-/************************** Constant Definitions *****************************/
 
+/************************** Constant Definitions *****************************/
 #define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
 #define XSECURE_KEK_DEC_ENABLE			(0x1U)
 #define XSECURE_AES_DISABLE_KUP_IV_UPDATE	(0x0U)
@@ -153,7 +153,7 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr);
 static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
-static int XSecure_AesEncNDecInit(const XSecure_Aes *InstancePtr,
+static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
 static int XSecure_AesPmcDmaCfgByteSwap(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg AesDmaCfg, u32 Size);
@@ -384,7 +384,7 @@ static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 
 /*****************************************************************************/
 /**
- * @brief	This function initializes the instance pointer
+ * @brief	This function initializes the AES instance pointer
  *
  * @param	InstancePtr 	- Pointer to the XSecure_Aes instance
  * @param	PmcDmaPtr	- Pointer to the XPmcDma instance
@@ -402,7 +402,8 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (PmcDmaPtr == NULL)) {
+	if ((InstancePtr == NULL) || (PmcDmaPtr == NULL) ||
+			(PmcDmaPtr->IsReady != (u32)(XIL_COMPONENT_IS_READY))) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -414,7 +415,7 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 
 	/* Clear all key zeroization register */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-		XSECURE_AES_KEY_CLEAR_OFFSET, XSECURE_AES_KEY_CLEAR_ALL_AES_KEYS);
+		XSECURE_AES_KEY_CLEAR_OFFSET, XSECURE_AES_KEY_CLR_REG_CLR_MASK);
 
 	Status = XSecure_SssInitialize(&(InstancePtr->SssInstance));
 	if (Status != XST_SUCCESS) {
@@ -600,9 +601,6 @@ END:
  * 		corresponding red key
  *
  * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	KeyType		- The source of key to be used for decryption is
- * 				- XSECURE_BLACK_KEY
- * 				- XSECURE_OBFUSCATED_KEY
  * @param	DecKeySrc	- Select key source which holds KEK and needs to be
  *				  decrypted
  * @param	DstKeySrc	- Select the key in which decrypted red key should be
@@ -652,12 +650,16 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
+	if ((InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END;
+	}
+
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
 		XSECURE_AES_SOFT_RST_OFFSET);
 
 	KeySrc = XSECURE_AES_PUF_KEY;
 
-	/* Status Reset*/
 	Status = XST_FAILURE;
 
 	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
@@ -674,7 +676,6 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
-	/* Status Reset*/
 	Status = XST_FAILURE;
 
 	AesDmaCfg.SrcChannelCfg = TRUE;
@@ -705,19 +706,19 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_KEY_DEC_TRIG_OFFSET, XSECURE_KEK_DEC_ENABLE);
 
-	/* Status Reset*/
 	Status = XST_FAILURE;
 
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesKekWaitForDone(InstancePtr);
 
 END:
-	XSecure_SetReset(InstancePtr->BaseAddress,
-		XSECURE_AES_SOFT_RST_OFFSET);
-
 	/* Select key decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_KEY_DEC_OFFSET, XSECURE_AES_KEY_DEC_RESET_MASK);
+
+	XSecure_SetReset(InstancePtr->BaseAddress,
+		XSECURE_AES_SOFT_RST_OFFSET);
+
 	return Status;
 }
 
@@ -781,7 +782,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_DEC);
 
-	Status = XSecure_AesEncNDecInit(InstancePtr, KeySrc, KeySize, IvAddr);
+	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -793,8 +794,8 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 END:
 	if (Status != XST_SUCCESS) {
 		/*
-		 * To make sure that Decrypt init function
-		 * placing AES engine into reset on failure
+		 * Issue a soft to reset to AES engine and
+		 * set the AES state back to initilization state
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -869,8 +870,8 @@ END:
 				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	if (Status != XST_SUCCESS) {
 		/*
-		 * To make sure that Decrypt update function
-		 * placing AES engine into reset on failure
+		 * Issue a soft to reset to AES engine and
+		 * set the AES state back to initilization state
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -899,7 +900,8 @@ END:
 int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 RegVal;
+	volatile u32 RegVal;
+	volatile u32 RegValTmp;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
@@ -925,7 +927,6 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	/* Status Reset*/
 	Status = XST_FAILURE;
 
 	/* Wait for AES Decryption completion. */
@@ -934,35 +935,37 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	/* Clear endianness */
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-		XSECURE_DISABLE_BYTE_SWAP);
-
-	/* Status Reset */
 	Status = XST_FAILURE;
 
 	/* Get the AES status to know if GCM check passed. */
 	RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_STATUS_OFFSET);
+	RegValTmp = XSecure_ReadReg(InstancePtr->BaseAddress,
+			XSECURE_AES_STATUS_OFFSET);
 	RegVal &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
-	if (RegVal != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) {
+	RegValTmp &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
+
+	if ((RegVal != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) ||
+	   (RegValTmp != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK)) {
 		Status = (int)XSECURE_AES_GCM_TAG_MISMATCH;
 		goto END;
 	}
 
-	/* Status Reset */
 	Status = XST_FAILURE;
 
 	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
 
 END:
+	/* Clear endianness */
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+		XSECURE_DISABLE_BYTE_SWAP);
+
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	if ((InstancePtr->NextBlkLen == 0U) || (Status != XST_SUCCESS)) {
 		/*
-		 * To make sure that Decrypt final function
-		 * placing AES engine into reset on failure
+		 * Issue a soft to reset to AES engine
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		XSecure_SetReset(InstancePtr->BaseAddress,
@@ -986,7 +989,7 @@ END:
  *				  of bytes provided should be multiples of 4
  * @param	GcmTagAddr	- Address of a buffer which should contain GCM Tag
  *
- * @return	- XST_SUCCESS - On successful GCM tag verification
+ * @return	- XST_SUCCESS - On successful decryption and GCM tag verification
  *		- XSECURE_AES_INVALID_PARAM - On invalid parameter
  *		- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *		- XST_FAILURE - On failure
@@ -1025,7 +1028,6 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	/* Status Reset */
 	Status = XST_FAILURE;
 
 	/* Verify GCM tag */
@@ -1046,7 +1048,7 @@ END:
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	IvAddr		- Address to the buffer holding IV
  *
- * @return	- XST_SUCCESS - On successful init
+ * @return	- XST_SUCCESS - On successful initialization
  * 		- XSECURE_AES_INVALID_PARAM - On invalid parameter
  * 		- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
  * 		- XST_FAILURE - On failure
@@ -1093,12 +1095,11 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
 
-	Status = XSecure_AesEncNDecInit(InstancePtr, KeySrc, KeySize, IvAddr);
+	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Update the state */
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 
 END:
@@ -1227,7 +1228,6 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	/* Status Reset */
 	Status = XST_FAILURE;
 
 	/* Wait for AES Decryption completion. */
@@ -1244,6 +1244,9 @@ END:
 
 	XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
+
+	XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
+	XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
 	return Status;
 }
 
@@ -1260,6 +1263,8 @@ END:
  *				  be updated
  * @param	Size		- Size of data to be encrypted in bytes, whereas number
  *				  of bytes provided should be multiples of 4
+ * @param	GcmTagAddr	- Address to the buffer of GCM tag size, where the API
+ *				  updates GCM tag
  *
  * @return	- XST_SUCCESS - On successful encryption
  *		- XSECURE_AES_INVALID_PARAM - On invalid parameter
@@ -1300,37 +1305,11 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	/* Status Reset */
 	Status = XST_FAILURE;
 
-	/* Call Encrypt final */
 	Status = XSecure_AesEncryptFinal(InstancePtr, GcmTagAddr);
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function waits for AES engine completes key loading
- *
- * @param	InstancePtr - Pointer to the XSecure_Aes instance
- *
- * @return	- XST_SUCCESS - If the AES engine completes key loading
- *		- XST_FAILURE - If a timeout has occurred
- *
- ******************************************************************************/
-static int XSecure_AesWaitKeyLoad(const XSecure_Aes *InstancePtr)
-{
-	int Status = XST_FAILURE;
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
-					XSECURE_AES_STATUS_OFFSET),
-			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
-			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
-			XSECURE_AES_TIMEOUT_MAX);
-
 	return Status;
 }
 
@@ -1350,7 +1329,7 @@ static int XSecure_AesWaitKeyLoad(const XSecure_Aes *InstancePtr)
  *		- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  ******************************************************************************/
-int XSecure_AesCfgKupIv(const XSecure_Aes *InstancePtr, u8 Config)
+int XSecure_AesCfgKupKeyNIv(const XSecure_Aes *InstancePtr, u8 Config)
 {
 	int Status = XST_FAILURE;
 
@@ -1373,7 +1352,8 @@ int XSecure_AesCfgKupIv(const XSecure_Aes *InstancePtr, u8 Config)
 
 	if (Config == XSECURE_AES_DISABLE_KUP_IV_UPDATE) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_AES_KUP_WR_OFFSET, XSECURE_AES_DISABLE_KUP_IV_UPDATE);
+			XSECURE_AES_KUP_WR_OFFSET,
+			XSECURE_AES_DISABLE_KUP_IV_UPDATE);
 	}
 	else {
 		Status = XSecure_SecureOut32((InstancePtr->BaseAddress +
@@ -1400,7 +1380,7 @@ END:
  * @param	Size		- Pointer to a 32 bit variable where next block
  *				  length will be updated
  *
- * @return	- XST_SUCCESS - On successful configuration
+ * @return	- XST_SUCCESS - On success
  *		- XSECURE_AES_INVALID_PARAM - On invalid parameter
  *		- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
@@ -1431,102 +1411,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function configures and loads AES key from selected
- *		key source
-
- * @param	InstancePtr - Pointer to the XSecure_Aes instance
- * @param	KeySrc	    - Variable is of type XSecure_AesKeySrc which
- *			      mentions the key source to be loaded into AES engine
- * @param	KeySize	    - Size of the key selected
- *
- * @return	- XST_SUCCESS - On successful key load
- *		- XST_FAILURE - If a timeout has occurred
- *
- ******************************************************************************/
-static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
-	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize)
-{
-	int Status = XST_FAILURE;
-
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
-		(KeySrc >= XSECURE_AES_BBRAM_KEY));
-	XSecure_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
-			  (KeySize == XSECURE_AES_KEY_SIZE_256));
-
-	/* Load Key Size */
-	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_SIZE_OFFSET, (u32)KeySize);
-
-	/* AES key source selection */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_KEY_SEL_OFFSET,
-			AesKeyLookupTbl[KeySrc].KeySrcSelVal);
-
-	/* Trig loading of key. */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_KEY_LOAD_OFFSET,
-			XSECURE_AES_KEY_LOAD_VAL_MASK);
-
-	/* Wait for AES key loading.*/
-	Status = XSecure_AesWaitKeyLoad(InstancePtr);
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function waits for AES completion
- *
- * @param	InstancePtr - Pointer to the XSecure_Aes instance
- *
- * @return	- XST_SUCCESS - On successful key load
- *		- XST_FAILURE - On failure
- *
- ******************************************************************************/
-static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr)
-{
-	int Status = XST_FAILURE;
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-
-	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
-								XSECURE_AES_STATUS_OFFSET),
-								XSECURE_AES_STATUS_DONE_MASK,
-								XSECURE_AES_STATUS_DONE_MASK,
-								XSECURE_AES_TIMEOUT_MAX);
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function waits for AES key decryption completion
- *
- * @param	InstancePtr - Pointer to the XSecure_Aes instance
- *
- * @return	- XST_SUCCESS - On success
- *		- XST_FAILURE - On failure
- *
- ******************************************************************************/
-static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
-{
-	int Status = XST_FAILURE;
-
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-
-	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
-								XSECURE_AES_STATUS_OFFSET),
-								XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
-								XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
-								XSECURE_AES_TIMEOUT_MAX);
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function zeroizes the selected AES key storage register
  *
  * @param	InstancePtr	- Pointer to the XSecure_Aes instance
@@ -1549,7 +1433,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		goto END;
 	}
 
-	if ((KeySrc > XSECURE_MAX_KEY_SOURCES) ||
+	if ((KeySrc > XSECURE_AES_ALL_KEYS) ||
 		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1559,8 +1443,10 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
-
-	if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
+	if (KeySrc == XSECURE_AES_ALL_KEYS) {
+		Mask = XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK;
+	}
+	else if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
 	}
 	else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XSECURE_AES_INVALID_CFG) {
@@ -1585,35 +1471,8 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 
 END:
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
-					XSECURE_AES_KEY_CLEAR_ALL_AES_KEYS);
+		XSECURE_AES_KEY_CLR_REG_CLR_MASK);
 	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This is a helper function to enable/disable byte swapping feature
- * 		of PMC DMA
- *
- * @param	InstancePtr 	- Pointer to the XPmcDma instance
- * @param	Channel 	- Channel Type 	- XPMCDMA_SRC_CHANNEL
- *						- XPMCDMA_DST_CHANNEL
- * @param	EndianType 	- 1 : Enable Byte Swapping
- *				- 0 : Disable Byte Swapping
- *
- * @return	None
- *
- ******************************************************************************/
-static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
-	XPmcDma_Channel Channel, u8 EndianType)
-{
-	XPmcDma_Configure ConfigValues = {0U};
-
-	/* Assert validates the input arguments */
-	XSecure_AssertVoid(InstancePtr != NULL);
-
-	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
-	ConfigValues.EndianType = EndianType;
-	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
 
 /*****************************************************************************/
@@ -1685,150 +1544,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	}
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function performs KAT on AES core with DPACM enabled
- *
- * @param 	AesInstance	- InstancePtr Pointer to the XSecure_Aes instance
- * @param 	KeyPtr		- Key Pointer
- * @param 	DataPtr		- Data Pointer
- * @param 	OutputPtr	- Output where the decrypted data to be stored
- *
- * @return
- *		- XST_SUCCESS - On success
- * 		- XSECURE_AESKAT_INVALID_PARAM		      - Invalid Argument
- * 		- XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR - Error when AESDPACM key
- *								write fails
- * 		- XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR - Error when AESDPACM key
- *							      load fails
- * 		- XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR - Error when AESDPACM sss
- *							  configuration fails
- * 		- XSECURE_AESDPACM_KAT_FAILED_ERROR - Error when AESDPACM KAT fails
- * 		- XST_FAILURE - On failure
- *
- *****************************************************************************/
-static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
-	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Index;
-
-	if ((KeyPtr == NULL) ||
-	   (DataPtr == NULL) ||
-	   (OutputPtr == NULL) ||
-	   (AesInstance->PmcDmaPtr == NULL)) {
-		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
-		goto END;
-	}
-
-	XSecure_ReleaseReset(AesInstance->BaseAddress,
-				XSECURE_AES_SOFT_RST_OFFSET);
-
-	/* Configure AES for Encryption */
-	XSecure_WriteReg(AesInstance->BaseAddress,
-		XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
-
-	/* Configure AES in split mode */
-	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
-		(XSECURE_AES_SPLIT_CFG_KEY_SPLIT |
-		XSECURE_AES_SPLIT_CFG_DATA_SPLIT));
-
-	/* Write Key mask value */
-	for (Index = 0U; Index < XSECURE_AES_KEY_SIZE_256BIT_WORDS; Index++) {
-		XSecure_WriteReg(AesInstance->BaseAddress,
-			XSECURE_AES_KEY_MASK_INDEX + (u32)(Index * XSECURE_WORD_SIZE),
-			0x0U);
-	}
-
-	/* Write AES key */
-	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
-			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KeyPtr);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR;
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-
-	Status = XSecure_AesKeyLoad(AesInstance, XSECURE_AES_USER_KEY_7,
-			XSECURE_AES_KEY_SIZE_256);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR;
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-
-	Status = XSecure_SssAes(&AesInstance->SssInstance,
-			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
-	if(Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR;
-		goto END;
-	}
-
-	/* Start the message. */
-	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_START_MSG_OFFSET,
-		XSECURE_AES_START_MSG_VAL_MASK);
-
-	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
-		XSECURE_AES_DATA_SWAP_VAL_MASK);
-
-	/* Enable PMC DMA Src channel for byte swapping.*/
-	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
-		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
-
-	/* Enable PMC DMA Dst channel for byte swapping.*/
-	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
-		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
-
-	/* Configure the PMC DMA Tx/Rx for the incoming Block. */
-	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-		(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_DISABLE);
-
-	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-		(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
-
-	Status = XPmcDma_WaitForDone(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-
-	Status = XSecure_AesWaitForDone(AesInstance);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_KAT_FAILED_ERROR;
-		goto END;
-	}
-
-	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
-		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
-
-	/* Disable PMC DMA Dst channel for byte swapping. */
-	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
-		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
-
-	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
-		XSECURE_AES_DATA_SWAP_VAL_DISABLE);
-
-END:
-	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-		XPMCDMA_IXR_DONE_MASK);
-
-	/* Acknowledge the transfer has completed */
-	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-		XPMCDMA_IXR_DONE_MASK);
-
-	/* Configure AES in split mode */
-	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
-		XSECURE_AES_SPLIT_CFG_DATA_KEY_DISABLE);
-
-	/* AES reset */
-	XSecure_SetReset(AesInstance->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
-
+	XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
 	return Status;
 }
 
@@ -1958,7 +1674,310 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function initializes the AES engine for decryption
+ * @brief	This function performs KAT on AES core with DPACM enabled
+ *
+ * @param 	AesInstance	- InstancePtr Pointer to the XSecure_Aes instance
+ * @param 	KeyPtr		- Key Pointer
+ * @param 	DataPtr		- Data Pointer
+ * @param 	OutputPtr	- Output where the decrypted data to be stored
+ *
+ * @return
+ *		- XST_SUCCESS - On success
+ * 		- XSECURE_AESKAT_INVALID_PARAM		      - Invalid Argument
+ * 		- XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR - Error when AESDPACM key
+ *								write fails
+ * 		- XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR - Error when AESDPACM key
+ *							      load fails
+ * 		- XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR - Error when AESDPACM sss
+ *							  configuration fails
+ * 		- XSECURE_AESDPACM_KAT_FAILED_ERROR - Error when AESDPACM KAT fails
+ * 		- XST_FAILURE - On failure
+ *
+ *****************************************************************************/
+static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
+	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Index;
+	u32 ReadReg = 0U;
+
+	if ((KeyPtr == NULL) ||
+	   (DataPtr == NULL) ||
+	   (OutputPtr == NULL) ||
+	   (AesInstance->PmcDmaPtr == NULL)) {
+		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
+		goto END;
+	}
+
+	XSecure_ReleaseReset(AesInstance->BaseAddress,
+				XSECURE_AES_SOFT_RST_OFFSET);
+
+	/* Configure AES for Encryption */
+	XSecure_WriteReg(AesInstance->BaseAddress,
+		XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
+
+	/* Configure AES in split mode */
+	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
+		(XSECURE_AES_SPLIT_CFG_KEY_SPLIT |
+		XSECURE_AES_SPLIT_CFG_DATA_SPLIT));
+
+	ReadReg = XSecure_ReadReg(AesInstance->BaseAddress,
+		XSECURE_AES_CM_EN_OFFSET);
+
+	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_CM_EN_OFFSET,
+		XSECURE_AES_CM_EN_VAL_MASK);
+
+	/* Write Key mask value */
+	for (Index = 0U; Index < XSECURE_AES_KEY_SIZE_256BIT_WORDS; Index++) {
+		XSecure_WriteReg(AesInstance->BaseAddress,
+			XSECURE_AES_KEY_MASK_INDEX + (u32)(Index * XSECURE_WORD_SIZE),
+			0x0U);
+	}
+
+	/* Write AES key */
+	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
+			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KeyPtr);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR;
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	Status = XSecure_AesKeyLoad(AesInstance, XSECURE_AES_USER_KEY_7,
+			XSECURE_AES_KEY_SIZE_256);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR;
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	Status = XSecure_SssAes(&AesInstance->SssInstance,
+			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
+	if(Status != XST_SUCCESS) {
+		Status = (int)XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR;
+		goto END;
+	}
+
+	/* Start the message. */
+	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_START_MSG_OFFSET,
+		XSECURE_AES_START_MSG_VAL_MASK);
+
+	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
+		XSECURE_AES_DATA_SWAP_VAL_MASK);
+
+	/* Enable PMC DMA Src channel for byte swapping.*/
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
+
+	/* Enable PMC DMA Dst channel for byte swapping.*/
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
+
+	/* Configure the PMC DMA Tx/Rx for the incoming Block. */
+	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
+		(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_DISABLE);
+
+	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+		(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
+
+	Status = XPmcDma_WaitForDoneTimeout(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+
+	Status = XSecure_AesWaitForDone(AesInstance);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_AESDPACM_KAT_FAILED_ERROR;
+		goto END;
+	}
+
+	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
+		XSECURE_AES_DATA_SWAP_VAL_DISABLE);
+
+END:
+	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
+		XPMCDMA_IXR_DONE_MASK);
+
+	/* Acknowledge the transfer has completed */
+	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+		XPMCDMA_IXR_DONE_MASK);
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
+
+	/* Disable PMC DMA Dst channel for byte swapping. */
+	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
+		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
+
+	/* Configure AES in split mode */
+	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
+		XSECURE_AES_SPLIT_CFG_DATA_KEY_DISABLE);
+
+	/* Copy the initial status of DPACM */
+	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_CM_EN_OFFSET,
+		ReadReg);
+
+	/* AES reset */
+	XSecure_SetReset(AesInstance->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function waits for AES engine completes key loading
+ *
+ * @param	InstancePtr - Pointer to the XSecure_Aes instance
+ *
+ * @return	- XST_SUCCESS - If the AES engine completes key loading
+ *		- XST_FAILURE - If a timeout has occurred
+ *
+ ******************************************************************************/
+static int XSecure_AesWaitKeyLoad(const XSecure_Aes *InstancePtr)
+{
+	int Status = XST_FAILURE;
+
+	/* Assert validates the input arguments */
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+					XSECURE_AES_STATUS_OFFSET),
+			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
+			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
+			XSECURE_AES_TIMEOUT_MAX);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function configures and loads AES key from selected
+ *		key source
+
+ * @param	InstancePtr - Pointer to the XSecure_Aes instance
+ * @param	KeySrc	    - Variable is of type XSecure_AesKeySrc which
+ *			      mentions the key source to be loaded into AES engine
+ * @param	KeySize	    - Size of the key selected
+ *
+ * @return	- XST_SUCCESS - On successful key load
+ *		- XST_FAILURE - If a timeout has occurred
+ *
+ ******************************************************************************/
+static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize)
+{
+	int Status = XST_FAILURE;
+
+	/* Assert validates the input arguments */
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
+		(KeySrc >= XSECURE_AES_BBRAM_KEY));
+	XSecure_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
+			  (KeySize == XSECURE_AES_KEY_SIZE_256));
+
+	/* Load Key Size */
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_SIZE_OFFSET, (u32)KeySize);
+
+	/* AES key source selection */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_KEY_SEL_OFFSET,
+			AesKeyLookupTbl[KeySrc].KeySrcSelVal);
+
+	/* Trig loading of key. */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_KEY_LOAD_OFFSET,
+			XSECURE_AES_KEY_LOAD_VAL_MASK);
+
+	/* Wait for AES key loading.*/
+	Status = XSecure_AesWaitKeyLoad(InstancePtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function waits for AES completion
+ *
+ * @param	InstancePtr - Pointer to the XSecure_Aes instance
+ *
+ * @return	- XST_SUCCESS - On successful key load
+ *		- XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr)
+{
+	int Status = XST_FAILURE;
+
+	/* Assert validates the input arguments */
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+
+	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+				XSECURE_AES_STATUS_OFFSET),
+				XSECURE_AES_STATUS_DONE_MASK,
+				XSECURE_AES_STATUS_DONE_MASK,
+				XSECURE_AES_TIMEOUT_MAX);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function waits for AES key decryption completion
+ *
+ * @param	InstancePtr - Pointer to the XSecure_Aes instance
+ *
+ * @return	- XST_SUCCESS - On success
+ *		- XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
+{
+	int Status = XST_FAILURE;
+
+	/* Assert validates the input arguments */
+	XSecure_AssertNonvoid(InstancePtr != NULL);
+
+	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+				XSECURE_AES_STATUS_OFFSET),
+				XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
+				XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
+				XSECURE_AES_TIMEOUT_MAX);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This is a helper function to enable/disable byte swapping feature
+ * 		of PMC DMA
+ *
+ * @param	InstancePtr 	- Pointer to the XPmcDma instance
+ * @param	Channel 	- Channel Type 	- XPMCDMA_SRC_CHANNEL
+ *						- XPMCDMA_DST_CHANNEL
+ * @param	EndianType 	- 1 : Enable Byte Swapping
+ *				- 0 : Disable Byte Swapping
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
+	XPmcDma_Channel Channel, u8 EndianType)
+{
+	XPmcDma_Configure ConfigValues = {0U};
+
+	/* Assert validates the input arguments */
+	XSecure_AssertVoid(InstancePtr != NULL);
+
+	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
+	ConfigValues.EndianType = EndianType;
+	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes AES engine for encryption or decryption
  *
  * @param	InstancePtr	- Pointer to the XSecure_Aes instance
  * @param	KeySrc		- Key Source for decryption of the data
@@ -1966,13 +1985,12 @@ END:
  *              		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *              		- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	IvAddr		- Address to the buffer holding IV
- * @param	AesMode		- Aes Mode for Encryption or Decryption
  *
  * @return	- XST_SUCCESS - On successful initialization
  * 		- XST_FAILURE - On failure
  *
  ******************************************************************************/
-static int XSecure_AesEncNDecInit(const XSecure_Aes *InstancePtr,
+static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
@@ -1994,7 +2012,8 @@ static int XSecure_AesEncNDecInit(const XSecure_Aes *InstancePtr,
 	AesDmaCfg.SrcChannelCfg = TRUE;
 	AesDmaCfg.SrcDataAddr = IvAddr;
 	AesDmaCfg.IsLastChunkSrc = FALSE;
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, XSECURE_SECURE_GCM_TAG_SIZE);
+	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
+			XSECURE_SECURE_GCM_TAG_SIZE);
 
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		XSECURE_DISABLE_BYTE_SWAP);
@@ -2063,7 +2082,7 @@ static int XSecure_AesPmcDmaCfgByteSwap(const XSecure_Aes *InstancePtr,
 
 	if (AesDmaCfg.SrcChannelCfg == TRUE) {
 		/* Wait for the SRC DMA completion. */
-		Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -2076,7 +2095,7 @@ static int XSecure_AesPmcDmaCfgByteSwap(const XSecure_Aes *InstancePtr,
 	if ((AesDmaCfg.DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg.DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		/* Wait for the DEST DMA completion. */
-		Status = XPmcDma_WaitForDone(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
