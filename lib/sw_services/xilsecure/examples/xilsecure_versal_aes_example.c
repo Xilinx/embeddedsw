@@ -21,6 +21,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 4.1   vns    08/06/19 First Release
+* 4.3   har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
@@ -45,9 +46,12 @@
 	"1234567808F070B030D0509010E060A020C0408000A5DE08D85898A5A5FEDCA10134" \
 	"ABCDEF12345678900987654321123487654124456679874309713627463801AD1056"
 
-#define XSECURE_DATA_SIZE	(68)
-#define XSECURE_IV_SIZE		(12)
-#define XSECURE_KEY_SIZE	(32)
+#define XSECURE_DATA_SIZE		(68)
+#define XSECURE_DATA_SIZE_IN_BITS	(XSECURE_DATA_SIZE * 8U)
+#define XSECURE_IV_SIZE			(12)
+#define XSECURE_IV_SIZE_IN_BITS		(XSECURE_IV_SIZE * 8U)
+#define XSECURE_KEY_SIZE		(32)
+#define XSECURE_KEY_SIZE_IN_BITS	(XSECURE_KEY_SIZE * 8U)
 
 #define XSECURE_PMCDMA_DEVICEID	PMCDMA_0_DEVICE_ID
 
@@ -58,7 +62,6 @@
 /************************** Function Prototypes ******************************/
 
 static s32 SecureAesExample(void);
-static u32 Secure_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 
 /************************** Variable Definitions *****************************/
 static u8 Iv[XSECURE_IV_SIZE];
@@ -92,27 +95,27 @@ int main(void)
 	Xil_DCacheDisable();
 
 	/* Covert strings to buffers */
-	Status = Secure_ConvertStringToHexBE(
+	Status = Xil_ConvertStringToHexBE(
 			(const char *) (XSECURE_AES_KEY),
-				Key, XSECURE_KEY_SIZE * 2);
+				Key, XSECURE_KEY_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf(
 			"String Conversion error (KEY):%08x !!!\r\n", Status);
 		goto END;
 	}
 
-	Status = Secure_ConvertStringToHexBE(
+	Status = Xil_ConvertStringToHexBE(
 			(const char *) (XSECURE_IV),
-				Iv, XSECURE_IV_SIZE * 2);
+				Iv, XSECURE_IV_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf(
 			"String Conversion error (IV):%08x !!!\r\n", Status);
 		goto END;
 	}
 
-	Status = Secure_ConvertStringToHexBE(
+	Status = Xil_ConvertStringToHexBE(
 			(const char *) (XSECURE_DATA),
-				Data, XSECURE_DATA_SIZE * 2);
+				Data, XSECURE_DATA_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf(
 			"String Conversion error (Data):%08x !!!\r\n", Status);
@@ -264,76 +267,3 @@ END:
 }
 /** //! [Generic AES example] */
 /** @} */
-
-/****************************************************************************/
-/**
- * Converts the string into the equivalent Hex buffer.
- *	Ex: "abc123" -> {Buf[2] = 0x23, Buf[1] = 0xc1, Buf[0] = 0xab}
- *
- * @param	Str is a Input String. Will support the lower and upper
- *		case values. Value should be between 0-9, a-f and A-F
- *
- * @param	Buf is Output buffer.
- * @param	Len of the input string. Should have even values
- *
- * @return
- *		- XST_SUCCESS no errors occured.
- *		- ERROR when input parameters are not valid
- *		- an error when input buffer has invalid values
- *
- * @note	None.
- *
- *****************************************************************************/
-static u32 Secure_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
-{
-	u32 ConvertedLen = 0;
-	u8 LowerNibble, UpperNibble;
-	u32 Status = XST_FAILURE;
-
-	/* Check the parameters */
-	if (Str == NULL){
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	if (Buf == NULL){
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	/* Len has to be multiple of 2 */
-	if ((Len == 0) || (Len % 2 == 1)) {
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	ConvertedLen = 0;
-	while (ConvertedLen < Len) {
-		/* Convert char to nibble */
-		if (Xil_ConvertCharToNibble(Str[ConvertedLen],
-				&UpperNibble) ==XST_SUCCESS) {
-			/* Convert char to nibble */
-			if (Xil_ConvertCharToNibble(
-					Str[ConvertedLen + 1],
-					&LowerNibble) == XST_SUCCESS) {
-				/* Merge upper and lower nibble to Hex */
-				Buf[ConvertedLen / 2] =
-					(UpperNibble << 4) | LowerNibble;
-			} else {
-				/* Error converting Lower nibble */
-				Status = XST_FAILURE;
-				goto END;
-			}
-		} else {
-			/* Error converting Upper nibble */
-			Status = XST_FAILURE;
-			goto END;
-		}
-		ConvertedLen += 2;
-	}
-
-	Status = XST_SUCCESS;
-END:
-
-	return Status;
-}
