@@ -273,7 +273,8 @@ void RxStreamUpCallback(void *CallbackRef)
         StartTxAfterRx();
 
 	/* Waiting for SI5328 Lock */
-        usleep(10000);
+	Xil_Out32((UINTPTR)(XPAR_GPIO_1_BASEADDR), (u32)(0x00000001));
+	Xil_Out32((UINTPTR)(XPAR_GPIO_1_BASEADDR), (u32)(0x00000000));
         XV_SdiTxSs_StreamStart(&SdiTxSs);
 
         /* Print stream information */
