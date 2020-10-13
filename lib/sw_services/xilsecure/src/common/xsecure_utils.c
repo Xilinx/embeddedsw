@@ -52,9 +52,6 @@
  *****************************************************************************/
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 {
-	/* Assert validates the input arguments */
-	XSecure_AssertVoid(BaseAddress != 0x00U);
-
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_UNSET);
 }
@@ -71,8 +68,5 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
  *****************************************************************************/
 void XSecure_SetReset(u32 BaseAddress, u32 Offset)
 {
-	/* Assert validates the input arguments */
-	XSecure_AssertVoid(BaseAddress != 0x00U);
-
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 }
