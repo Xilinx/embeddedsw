@@ -1241,20 +1241,13 @@ static int XPm_SubsystemPwrUp(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Add a workaround to power on FPD before
-	 * subsystem wakeup if FPD is off.
-	 * TODO: This workaround will be reverted,
-	 * once recursive CDO loading support is available.
-	 */
-
-	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
-	if ((NULL != FpdPwrNode) &&
-	    ((u8)XPM_POWER_STATE_OFF == FpdPwrNode->Node.State)) {
-		Status = XPm_PowerUpFPD(&FpdPwrNode->Node);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+	/* Activate the subsystem by requesting its pre-alloc devices */
+	Status = XPmSubsystem_Configure(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
+
+	/* Reload the subsystem image */
 	Status = XPm_RestartCbWrapper(SubsystemId);
 	if (XST_SUCCESS != Status) {
 		goto done;
