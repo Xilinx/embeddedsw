@@ -2302,7 +2302,7 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	XDpTxSs_MainStreamAttributes *MsaConfig;
 	XVidC_VideoMode VidMode;
 	u32 FrameRate;
-	u32 ClkFreq;
+	u64 ClkFreq;
 	u32 Ival;
 	float Fval;
 	u8 LinkRate;
@@ -2311,8 +2311,9 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	LinkRate = InstancePtr->DpPtr->TxInstance.LinkConfig.LinkRate;
 
 	/*Calculate pixel clock in HZ */
-	ClkFreq = (LinkRate * 27 * MsaConfig->MVid) / MsaConfig->NVid;
-	MsaConfig->PixelClockHz = ((u32)ClkFreq) * 1000000;
+	ClkFreq = (((u64)(LinkRate * 27 * MsaConfig->MVid)) * 1000000) /
+								MsaConfig->NVid;
+	MsaConfig->PixelClockHz = (u32) ClkFreq;
 
 	/*Calculate frame rate */
 	Fval = (ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
