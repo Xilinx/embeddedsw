@@ -2260,7 +2260,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParams *SecurePtr,
 
 	/* Configure AES engine to push Key and IV */
 	XPlmi_Printf(DEBUG_DETAILED, "Decrypting Secure header\n\r");
-	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, (u8)TRUE);
+	Status = XSecure_AesCfgKupKeyNIv(&SecurePtr->AesInstance, (u8)TRUE);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLoader_UpdateMinorErr(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
@@ -2291,7 +2291,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParams *SecurePtr,
 
 	SecurePtr->RemainingEncLen = SecurePtr->RemainingEncLen -
 				XLOADER_SECURE_HDR_TOTAL_SIZE;
-	Status = XSecure_AesCfgKupIv(&SecurePtr->AesInstance, (u8)FALSE);
+	Status = XSecure_AesCfgKupKeyNIv(&SecurePtr->AesInstance, (u8)FALSE);
 	if (Status != XLOADER_SUCCESS) {
 		Status  = XLoader_UpdateMinorErr(
 				XLOADER_SEC_AES_OPERATION_FAILED, Status);
