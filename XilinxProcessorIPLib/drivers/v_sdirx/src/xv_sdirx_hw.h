@@ -116,6 +116,7 @@ extern "C" {
 /* Interrupt status register masks */
 #define XV_SDIRX_ISR_VIDEO_LOCK_MASK				(1<<0)
 #define XV_SDIRX_ISR_VIDEO_UNLOCK_MASK				(1<<1)
+#define XV_SDIRX_ISR_VSYNC_MASK					(1<<2)
 #define XV_SDIRX_ISR_OVERFLOW_MASK				(1<<9)
 #define XV_SDIRX_ISR_UNDERFLOW_MASK				(1<<10)
 #define XV_SDIRX_ISR_VIDEO_LOCK_SHIFT				0
@@ -124,11 +125,12 @@ extern "C" {
 #define XV_SDIRX_ISR_UNDERFLOW_SHIFT				10
 
 /* All interrupts status mask */
-#define XV_SDIRX_ISR_ALLINTR_MASK				0x00000603
+#define XV_SDIRX_ISR_ALLINTR_MASK				0x00000607
 
 /* Interrupt Enable Register masks */
 #define XV_SDIRX_IER_VIDEO_LOCK_MASK				(1<<0)
 #define XV_SDIRX_IER_VIDEO_UNLOCK_MASK				(1<<1)
+#define XV_SDIRX_IER_VSYNC_MASK					(1<<2)
 #define XV_SDIRX_IER_OVERFLOW_MASK				(1<<9)
 #define XV_SDIRX_IER_UNDERFLOW_MASK				(1<<10)
 #define XV_SDIRX_IER_VIDEO_LOCK_SHIFT				0
@@ -137,7 +139,7 @@ extern "C" {
 #define XV_SDIRX_IER_UNDERFLOW_SHIFT				10
 
 /* All interrupts enable mask */
-#define XV_SDIRX_IER_ALLINTR_MASK				0x00000603
+#define XV_SDIRX_IER_ALLINTR_MASK				0x00000607
 
 /* RX_ST352_VALID register masks */
 #define XV_SDIRX_RX_ST352_VLD_ST352_0				(1<<0)
