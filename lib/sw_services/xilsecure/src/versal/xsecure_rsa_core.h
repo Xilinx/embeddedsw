@@ -22,7 +22,8 @@
 *                     Added Crypto KAT APIs
 *       har  04/06/20 Added function for selection of PKCS padding
 * 4.3   har  06/17/20 Removed references to unused algorithms
-*		am	 09/24/20 Resolved MISRA C violations
+*       am   09/24/20 Resolved MISRA C violations
+*       har  10/12/20 Addressed security review comments
 *
 * </pre>
 *
@@ -41,7 +42,7 @@ extern "C" {
 #define XSECURE_RSA_DATA_VALUE_ERROR	(0x2U) /**< for RSA private decryption
 						* data should be lesser than
 						* modulus */
-#define XSECURE_RSA_ZEROIZE_ERROR		(0x80U) /**< for RSA zeroization Error*/
+#define XSECURE_RSA_ZEROIZE_ERROR	(0x80U) /**< for RSA zeroization Error*/
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
@@ -58,17 +59,17 @@ extern "C" {
 #define XSECURE_RSA_3072_SIZE_WORDS	(96)	/**< RSA 3072 Size in words */
 #define XSECURE_RSA_4096_SIZE_WORDS	(128U)	/**< RSA 4096 Size in words */
 
-#define XSECURE_RSA_RAM_EXPO	(0U) /**< bit for RSA RAM Exponent */
+#define XSECURE_RSA_RAM_EXPO		(0U) /**< bit for RSA RAM Exponent */
 #define XSECURE_RSA_RAM_MOD		(1U) /**< bit for RSA RAM modulus */
-#define XSECURE_RSA_RAM_DIGEST	(2U) /**< bit for RSA RAM Digest */
-#define XSECURE_RSA_RAM_RES_Y	(4U) /**< bit for RSA RAM Result(Y) */
-#define XSECURE_RSA_RAM_RES_Q	(5U) /**< bit for RSA RAM Result(Q) */
+#define XSECURE_RSA_RAM_DIGEST		(2U) /**< bit for RSA RAM Digest */
+#define XSECURE_RSA_RAM_RES_Y		(4U) /**< bit for RSA RAM Result(Y) */
+#define XSECURE_RSA_RAM_RES_Q		(5U) /**< bit for RSA RAM Result(Q) */
 
 /** @name Control Register
  *
  * Control Register opcode definitions
  */
-#define XSECURE_RSA_CONTROL_EXP	(0x01U) /**< Exponentiation Opcode */
+#define XSECURE_RSA_CONTROL_EXP		(0x01U) /**< Exponentiation Opcode */
 #define XSECURE_RSA_CONTROL_EXP_PRE	(0x05U) /**< Expo. using R*R mod M */
 
 /**
@@ -99,8 +100,8 @@ extern "C" {
  *
  * Status Register Bit Definition
  */
-#define XSECURE_RSA_STATUS_DONE	(0x1U) /**< Operation Done */
-#define XSECURE_RSA_STATUS_ERROR	(0x4U) /**< Error */
+#define XSECURE_RSA_STATUS_DONE		(0x1U) 	/**< Operation Done */
+#define XSECURE_RSA_STATUS_ERROR	(0x4U) 	/**< Error */
 /* @}*/
 
 typedef enum {
@@ -127,7 +128,7 @@ typedef struct {
 	u8* ModExpo; /**< Exponent */
 	u8 EncDec; /**< 0 for signature verification and 1 for generation */
 	u32 SizeInWords;/** RSA key size in words */
-	XSecure_RsaState RsaState;
+	XSecure_RsaState RsaState;/**< RSA State */
 } XSecure_Rsa;
 
 /***************************** Function Prototypes ***************************/

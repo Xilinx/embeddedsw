@@ -16,13 +16,14 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0 	vns  03/27/19 First Release
+* 1.0   vns  03/27/19 First Release
 * 4.0   vns  08/24/20 Updated file version to sync with library version
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
 *       rpo  04/02/20 Added crypto KAT APIs
 * 4.3   har  08/24/20 Added function prototype for APIs to generate and verify
 *                     ECDSA public key and signature
-*		am	 09/25/20 Resolved MISRA C violations
+*	am   09/25/20 Resolved MISRA C violations
+*	har  10/12/20 Addressed security review comments
 *
 * </pre>
 *
@@ -42,7 +43,7 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 #define XSECURE_ECDSA_P384_SIZE_IN_BYTES	(48U)
 #define XSECURE_ECDSA_P521_SIZE_IN_BYTES	(66U)
-#define XSECURE_SHA3_LEN_BYTES				(48U)
+#define XSECURE_SHA3_LEN_BYTES			(48U)
 #define XSECURE_ECC_P384_DATA_SIZE_WORDS	\
 						(XSECURE_ECDSA_P384_SIZE_IN_BYTES / XSECURE_WORD_SIZE)
 

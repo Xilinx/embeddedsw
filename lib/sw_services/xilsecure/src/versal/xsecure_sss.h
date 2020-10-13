@@ -19,8 +19,9 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     03/26/20 Initial Release
 * 4.2   har     03/26/20 Updated file version to sync with library version
-* 4.3	rpo  	09/10/20 Changed the return type of some prototypes
-*		am	    09/24/20 Resolved MISRA C violations
+* 4.3   rpo     09/10/20 Changed the return type of some prototypes
+*       am      09/24/20 Resolved MISRA C violations
+*       har     10/12/20 Addressed security review comments
 *
 * </pre>
 * @endcond
@@ -71,7 +72,7 @@ typedef enum {
 /************************** Function Prototypes ******************************/
 int XSecure_SssInitialize(XSecure_Sss *InstancePtr);
 int XSecure_SssAes(const XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
-	XSecure_SssSrc OutputSrc);
+		   XSecure_SssSrc OutputSrc);
 int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId);
 int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId);
 

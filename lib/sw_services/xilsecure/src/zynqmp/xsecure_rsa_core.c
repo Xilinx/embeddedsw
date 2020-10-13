@@ -30,6 +30,7 @@
 *                     RSA Zeroize Verification
 *       har  04/06/20 Moved PKCS padding related code for zynqmp here from the
 *                     common directory
+*       har  10/12/20 Addressed security review comments
 *
 * </pre>
 *

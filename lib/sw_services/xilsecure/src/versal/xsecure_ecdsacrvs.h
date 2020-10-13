@@ -17,7 +17,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   har  08/24/20 First Release
 * 4.3   har  08/24/20 Updated file version to sync with library version
-*		am	 09/24/20 Resolved MISRA C violations
+*       am   09/24/20 Resolved MISRA C violations
+*       har  10/12/20 Addressed security review comments
 *
 * </pre>
 *

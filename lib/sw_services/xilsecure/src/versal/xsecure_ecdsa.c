@@ -21,7 +21,8 @@
 * 4.3   har 08/24/20  Added APIs to generate and verify ECDSA public key and
 *                     signature
 *                     Added support for ECDSA P521 curve
-*		am	09/25/20  Resolved MISRA C violations
+*	am  09/25/20  Resolved MISRA C violations
+*       har 10/12/20  Addressed security review comments
 *
 * </pre>
 *
@@ -139,12 +140,12 @@ END:
  *
  * @return
  *	- XST_SUCCESS - On success
- * 	- XSECURE_ECDSA_INVALID_PARAM               - On invalid argument
- * 	- XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM       - When Bad random number used
- *												  for sign generation
+ * 	- XSECURE_ECDSA_INVALID_PARAM - On invalid argument
+ * 	- XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM - When Bad random number used
+ *						for sign generation
  * 	- XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN - Incorrect hash length for sign
- *												  generation
- *	- XST_FAILURE                               - On failure
+ *						      generation
+ *	- XST_FAILURE - On failure
  *
  * @note
  * K, the ephemeral private key, shall be an unpredictable (cryptographically
@@ -272,20 +273,19 @@ END:
  * @brief	This function verifies the signature for a given hash, key and
  *			curve type
  *
- * @param	CrvType  - Is a type of ECDSA curve
+ * @param	CrvType - Type of ECDSA curve
  * @param	Hash    - Pointer to the hash for which sign has to be generated
- * @param	HashLen - Is an length of hash in bytes
+ * @param	HashLen - Length of hash in bytes
  * @param	Key     - Pointer to the public key
  * @param	Sign    - Pointer to the signature
  *
  * @return
  *	- XST_SUCCESS - On success
- * 	- XSECURE_ECDSA_INVALID_PARAM 				- On invalid argument
- * 	- XSECURE_ECDSA_BAD_SIGN      				- When signature provided for
- *								    			  verification is bad
+ * 	- XSECURE_ECDSA_INVALID_PARAM - On invalid argument
+ * 	- XSECURE_ECDSA_BAD_SIGN - When signature provided for verification is bad
  * 	- XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash length for sign
- *												  verification
- *	- XST_FAILURE                               - On failure
+ *						      verification
+ *	- XST_FAILURE - On failure
  *
  *****************************************************************************/
 int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,

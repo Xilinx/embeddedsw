@@ -23,15 +23,16 @@
 *       vns  04/13/20 Improved SHA3Finish to handle if last update is set
 *       kpt  04/21/20 Fixed MISRA C violation
 * 4.3   ana  06/04/20 Minor enhancement and Updated Sha3 hash variable with
-*		      XSecure_Sha3Hash structure
+*                     XSecure_Sha3Hash structure
 *       kpt  08/15/20 Updated status value before reuse
 *                     Replaced magic number with macro's
 *                     and removed redundant check
 *       kpt  08/15/20 Added validation for input arguments
 *            08/27/20 Added 64 bit support for SHA3
-*		rpo	 09/10/20 Asserts are not compiled by default for secure libraries
-*		rpo  09/21/20 New error code added for crypto state mismatch
-*		am	 09/24/20 Resolved MISRA C violations
+*       rpo  09/10/20 Asserts are not compiled by default for secure libraries
+*       rpo  09/21/20 New error code added for crypto state mismatch
+*       am   09/24/20 Resolved MISRA C violations
+*       har  10/12/20 Addressed security review comments
 *
 * </pre>
 * @note
@@ -46,13 +47,13 @@
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_SHA3_HASH_LENGTH_IN_BITS	(384U)
-#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS	\
-				(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
+#define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
+#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
+					(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
 
 /* Nist padding masks */
-#define XSECURE_SHA3_START_NIST_PADDING_MASK      (0x06U)
-#define XSECURE_SHA3_END_NIST_PADDING_MASK        (0x80U)
+#define XSECURE_SHA3_START_NIST_PADDING_MASK		(0x06U)
+#define XSECURE_SHA3_END_NIST_PADDING_MASK		(0x80U)
 
 static const u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
 			0x86U, 0x89U, 0xACU, 0xE3U, 0xA5U, 0xF9U, 0xF5U, 0x71U, 0xD6U,
@@ -83,7 +84,7 @@ static const u32 DataValue[XSECURE_SHA3_BLOCK_LEN/4U] = {
  * @param	InstancePtr - Pointer to the XSecure_Sha3 instance
  *
  * @return	- XST_SUCCESS - If the SHA3 completes its operation
- * 			- XST_FAILURE - If a timeout has occurred
+ * 		- XST_FAILURE - If a timeout has occurred
  *
  ******************************************************************************/
 static inline int XSecure_Sha3WaitForDone(const XSecure_Sha3 *InstancePtr)
@@ -108,16 +109,16 @@ static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 /****************************************************************************/
 /**
  * @brief	This function initializes a XSecure_Sha3 structure with the default
- * 			values required for operating the SHA3 cryptographic engine
+ * 		values required for operating the SHA3 cryptographic engine
  *
  * @param	InstancePtr - Pointer to the XSecure_Sha3 instance
  * @param	DmaPtr 	    - Pointer to the XPmcDma instance
  *
  * @return	- XST_SUCCESS - If initialization was successful
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
  *
  * @note	The base address is initialized directly with value from
- * 			xsecure_hw.h
+ * 		xsecure_hw.h
  *
 *****************************************************************************/
 int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
@@ -151,14 +152,14 @@ END:
  /****************************************************************************/
  /**
  * @brief	This function is to notify this is the last update of data where
- * 			sha padding is also been included along with the data in the next
- * 			update call
+ * 		sha padding is also been included along with the data in the next
+ * 		update call
  *
  * @param	InstancePtr - Pointer to the XSecure_Sha3 instance
  *
  * @return	- XST_SUCCESS - If last update can be accepted
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *			- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  *****************************************************************************/
 int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
@@ -192,7 +193,7 @@ END:
  * @param	MsgLen - Is the length of padding in bytes
  *
  * @return	- XST_SUCCESS - On successful
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
@@ -218,13 +219,13 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function configures Secure Stream Switch and starts the
- *			SHA-3 engine
+ *		SHA-3 engine
  *
  * @param	InstancePtr - Pointer to the XSecure_Sha3 instance
  *
  * @return	- XST_SUCCESS - On successful
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *			- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  ******************************************************************************/
 int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
@@ -267,15 +268,15 @@ END:
 /**
  * @brief	This function updates the SHA3 engine with the input data
  *
- * @param	InstancePtr - Pointer to the XSecure_Sha3 instance
- * @param	InDataAddr 	- Starting address of the data which has to be updated
- *			              to SHA engine
- * @param	Size 		- Size of the input data in bytes
+ * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
+ * @param	InDataAddr	- Starting address of the data which has to be updated
+ *				  to SHA engine
+ * @param	Size		- Size of the input data in bytes
  *
  * @return	- XST_SUCCESS - If the update is successful
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *			- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
- * 			- XST_FAILURE - If there is a failure in SSS configuration
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ * 		- XST_FAILURE - If there is a failure in SSS configuration
  *
  ******************************************************************************/
 int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
@@ -338,17 +339,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function updates SHA3 engine with final data which includes
- * 			SHA3 padding and reads final hash on complete data
+ * 		SHA3 padding and reads final hash on complete data
  *
  * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
  * @param	Sha3Hash	- Pointer to XSecure_Sha3Hash structure, where
- *                        output hash is stored into Hash which is a member of
- *                        XSecure_Sha3Hash structure
+ * 				  output hash is stored into Hash which is a member of
+ * 				  XSecure_Sha3Hash structure
  *
  * @return	- XST_SUCCESS - If finished without any errors
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *			- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
- *			- XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		- XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
 int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
@@ -429,15 +430,15 @@ END:
  *
  * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
  * @param	InDataAddr 	- Starting address of the data on which sha3 hash
- * 			              should be calculated
+ * 				  should be calculated
  * @param	Size		- Size of the input data
  * @param	Sha3Hash	- Pointer to XSecure_Sha3Hash structure, where output
- *                        hash is stored into Hash which is a member of
- *                        XSecure_Sha3Hash structure
+ * 				  hash is stored into Hash which is a member of
+ *				  XSecure_Sha3Hash structure
  *
  * @return	- XST_SUCCESS - If digest calculation done successfully
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *			- XST_FAILURE - If any error from Sha3Update or Sha3Finish
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XST_FAILURE - If any error from Sha3Update or Sha3Finish
  *
  ******************************************************************************/
 int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
@@ -481,16 +482,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function reads the SHA3 hash of the data and it can be called
- * 			between calls to XSecure_Sha3Update
+ * 		between calls to XSecure_Sha3Update
  *
  * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
  * @param	Sha3Hash	- Pointer to XSecure_Sha3Hash structure, where output
- *						  hash is stored into Hash which is a member of
- *					      XSecure_Sha3Hash structure
+ *				  hash is stored into Hash which is a member of
+ *				  XSecure_Sha3Hash structure
  *
  * @return	- XST_SUCCESS - On successful
- *			- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *			- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  ******************************************************************************/
 int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
@@ -529,15 +530,15 @@ END:
 /**
  * @brief	This function Transfers Data through Dma
  *
- * @param	InstancePtr  - Pointer to the XSecure_Sha3 instance
- * @param	InDataAddr 	 - Starting address of the data which has to be updated
- *			               to SHA engine
- * @param	Size 		 - Size of the input data in bytes
- * @param	IsLastUpdate - Flag to indicate whether this is the last update
- *			               or not
+ * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
+ * @param	InDataAddr 	- Starting address of the data which has to be updated
+ *				  to SHA engine
+ * @param	Size 		- Size of the input data in bytes
+ * @param	IsLastUpdate	- Flag to indicate whether this is the last update
+ *				  or not
  *
  * @return	- XST_SUCCESS - If the update is successful
- * 			- XST_FAILURE - If there an error occurs
+ * 		- XST_FAILURE - If there an error occurs
  *
  ******************************************************************************/
 static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
@@ -576,15 +577,15 @@ ENDF:
 /**
  * @brief	This function updates hash for data block of size <= 512MB
  *
- * @param	InstancePtr  - Pointer to the XSecure_Sha3 instance
- * @param	InDataAddr 	 - Starting address of the data, which has to be updated
- *			               to SHA engine
- * @param	Size 	 	 - Size of the input data in bytes
- * @param	IsLastUpdate - Flag to indicate whether this is the last update
- *			               or not
+ * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
+ * @param	InDataAddr 	- Starting address of the data, which has to be updated
+ *				  to SHA engine
+ * @param	Size 	 	- Size of the input data in bytes
+ * @param	IsLastUpdate	- Flag to indicate whether this is the last update
+ *				  or not
  *
  * @return	- XST_SUCCESS - If the update is successful
- * 			- XST_FAILURE - If there is a failure
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
@@ -666,14 +667,14 @@ END:
  * @param	SecureSha3 - Pointer to the XSecure_Sha3 instance
  *
  * @return
- *	- XST_SUCCESS - When KAT Pass
- * 	- XSECURE_SHA3_INVALID_PARAM        - On invalid argument
- * 	- XSECURE_SHA3_LAST_UPDATE_ERROR    - Error when SHA3 last update fails
- * 	- XSECURE_SHA3_KAT_FAILED_ERROR     - Error when SHA3 hash not matched with
- *										  expected hash
+ * 	- XST_SUCCESS - When KAT Pass
+ * 	- XSECURE_SHA3_INVALID_PARAM 	 - On invalid argument
+ * 	- XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
+ * 	- XSECURE_SHA3_KAT_FAILED_ERROR	 - Error when SHA3 hash not matched with
+ * 					   expected hash
  * 	- XSECURE_SHA3_PMC_DMA_UPDATE_ERROR - Error when DMA driver fails to update
- *										  the data to SHA3
- * 	- XSECURE_SHA3_FINISH_ERROR         - Error when SHA3 finish fails
+ * 					      the data to SHA3
+ * 	- XSECURE_SHA3_FINISH_ERROR 	 - Error when SHA3 finish fails
  *
  ******************************************************************************/
 int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)

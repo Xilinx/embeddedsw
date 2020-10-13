@@ -18,8 +18,9 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   rpo 06/25/2020 Initial release
 * 4.3   rpo 06/25/2020 Updated file version to sync with library version
-*		rpo 08/19/2020 Clear the tamper interrupt source
-*		am	09/24/2020 Resolved MISRA C violations
+*	rpo 08/19/2020 Clear the tamper interrupt source
+*	am  09/24/2020 Resolved MISRA C violations
+*       har 10/12/2020 Addressed security review comments
 *
 * </pre>
 *
@@ -36,15 +37,15 @@
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_EVENT_ERROR_PMC_ERR2		(0x28104000U)
-#define	XPLMI_NODEIDX_ERROR_PMCAPB		(32U)
-#define XSECURE_TAMPER_INT_MASK			(8U)
+#define XPLMI_EVENT_ERROR_PMC_ERR2	(0x28104000U)
+#define	XPLMI_NODEIDX_ERROR_PMCAPB	(32U)
+#define XSECURE_TAMPER_INT_MASK		(8U)
 #define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200U)
 #define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000U)
-#define XSECURE_GD_STATUS 				(XSECURE_GD1_GLITCH_STATUS_MASK | \
-										 XSECURE_GD0_GLITCH_STATUS_MASK)
-#define PMC_ANALOG_GD_CTRL_REG			(0xF1160000U)
-#define PMC_GLOBAL_ISR_REG				(0xF1110010U)
+#define XSECURE_GD_STATUS 		(XSECURE_GD1_GLITCH_STATUS_MASK | \
+					 XSECURE_GD0_GLITCH_STATUS_MASK)
+#define PMC_ANALOG_GD_CTRL_REG		(0xF1160000U)
+#define PMC_GLOBAL_ISR_REG		(0xF1110010U)
 
 /************************** Function Prototypes ******************************/
 static int XSecure_RegisterTampIntHandler(void);
@@ -92,9 +93,9 @@ static int XSecure_RegisterTampIntHandler(void)
 	 * Register handler
 	 */
 	Status = XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-						XPLMI_NODEIDX_ERROR_PMCAPB,
-						XPLMI_EM_ACTION_CUSTOM,
-						XSecure_TamperInterruptHandler);
+				   XPLMI_NODEIDX_ERROR_PMCAPB,
+				   XPLMI_EM_ACTION_CUSTOM,
+				   XSecure_TamperInterruptHandler);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -137,7 +138,7 @@ void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
 	 * calls the handler. So it is necessary to re-enable the interrupt
 	 */
 	(void)XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-						XPLMI_NODEIDX_ERROR_PMCAPB,
-						XPLMI_EM_ACTION_CUSTOM,
-						XSecure_TamperInterruptHandler);
+				XPLMI_NODEIDX_ERROR_PMCAPB,
+				XPLMI_EM_ACTION_CUSTOM,
+				XSecure_TamperInterruptHandler);
 }
