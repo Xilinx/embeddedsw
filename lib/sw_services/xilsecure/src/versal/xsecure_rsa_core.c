@@ -31,10 +31,11 @@
 *       bvi  04/07/20 Renamed csudma as pmcdma
 * 4.3   ana  06/04/20 Minor enhancement
 *       har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
-*		rpo	 09/01/20 Asserts are not compiled by default for secure libraries
-*		rpo	 09/10/20 Input validations are added
-*		rpo  09/21/20 New error code added for crypto state mismatch
-*		am	 09/24/20 Resolved MISRA C violations
+*       rpo  09/01/20 Asserts are not compiled by default for secure libraries
+*       rpo  09/10/20 Input validations are added
+*       rpo  09/21/20 New error code added for crypto state mismatch
+*       am   09/24/20 Resolved MISRA C violations
+*       har  10/12/20 Addressed security review comments
 *
 * </pre>
 *
@@ -50,9 +51,12 @@
 
 /************************** Constant Definitions ****************************/
 /* PKCS padding for SHA-3 in Versal */
-static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
-			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
-			0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
+static const u8 XSecure_Silicon2_TPadSha3[] =
+			{0x30U, 0x41U, 0x30U, 0x0DU,
+			 0x06U, 0x09U, 0x60U, 0x86U,
+			 0x48U, 0x01U, 0x65U, 0x03U,
+			 0x04U, 0x02U, 0x09U, 0x05U,
+			 0x00U, 0x04U, 0x30U };
 
 static const u32 PubExponent = 0x1000100U;
 static const u32 PubMod[XSECURE_RSA_4096_SIZE_WORDS] = {
@@ -220,7 +224,7 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  *
  * @return	- XST_SUCCESS - On success
- *			- XSECURE_RSA_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_RSA_INVALID_PARAM - On invalid parameter
  *
 ******************************************************************************/
 int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
@@ -247,16 +251,16 @@ END:
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  * @param	Input		- Pointer to the buffer which contains the input
- *						  data to be encrypted/decrypted
+ *				  data to be encrypted/decrypted
  * @param	Result		- Pointer to buffer where resultant encrypted/decrypted
- *						  data to be stored
+ *				  data to be stored
  * @param	RsaOp		- Flag to inform the operation to be performed
- * 						  is either encryption/decryption
+ * 				  is either encryption/decryption
  * @param	KeySize		- Size of the key in bytes
  *
  * @return	- XST_SUCCESS - On success
- *			- XSECURE_RSA_INVALID_PARAM - On invalid parameter
- * 			- XST_FAILURE               - On failure
+ *		- XSECURE_RSA_INVALID_PARAM - On invalid parameter
+ * 		- XST_FAILURE - On failure
  *
 ******************************************************************************/
 int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
@@ -367,13 +371,13 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 
 	/* Check and wait for status */
 	Status = (int)Xil_WaitForEvents((InstancePtr->BaseAddress +
-						XSECURE_ECDSA_RSA_STATUS_OFFSET),
-						(XSECURE_RSA_STATUS_DONE |
-						XSECURE_RSA_STATUS_ERROR),
-						(XSECURE_RSA_STATUS_DONE |
-						XSECURE_RSA_STATUS_ERROR),
-						XSECURE_TIMEOUT_MAX,
-						&Events);
+					XSECURE_ECDSA_RSA_STATUS_OFFSET),
+					(XSECURE_RSA_STATUS_DONE |
+					XSECURE_RSA_STATUS_ERROR),
+					(XSECURE_RSA_STATUS_DONE |
+					XSECURE_RSA_STATUS_ERROR),
+					XSECURE_TIMEOUT_MAX,
+					&Events);
 
 	/* Time out occurred or RSA error observed*/
 	if (Status != XST_SUCCESS) {
@@ -410,7 +414,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function writes all the RSA data used for decryption
- * 			(Modulus, Exponent) at the corresponding offsets in RSA RAM
+ * 		(Modulus, Exponent) at the corresponding offsets in RSA RAM
  *
  * @param	InstancePtr - Pointer to the XSecure_Rsa instance
  *
@@ -424,16 +428,16 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
 
 	/* Initialize Modular exponentiation */
 	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExpo,
-					XSECURE_RSA_RAM_EXPO);
+				XSECURE_RSA_RAM_EXPO);
 
 	/* Initialize Modular. */
 	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->Mod,
-					XSECURE_RSA_RAM_MOD);
+				XSECURE_RSA_RAM_MOD);
 
 	if (InstancePtr->ModExt != NULL) {
 	/* Initialize Modular extension (R*R Mod M) */
 		XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExt,
-					XSECURE_RSA_RAM_RES_Y);
+				XSECURE_RSA_RAM_RES_Y);
 	}
 }
 
@@ -443,7 +447,7 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  * @param	RdData		- Pointer to the location where RSA output data
- *						  will be written
+ *				  will be written
  *
  * @return	None
  *
@@ -484,14 +488,14 @@ END: ;
 /*****************************************************************************/
 /**
  * @brief	This function calculates the MINV value and put it into RSA
- *			core registers
+ *		core registers
  *
  * @param	InstancePtr - Pointer to XSeure_Rsa instance
  *
  * @return	None
  *
  * @note	MINV is the 32-bit value of `-M mod 2**32`,
- *			where M is LSB 32 bits of the original modulus
+ *		where M is LSB 32 bits of the original modulus
  *
  ******************************************************************************/
 static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
@@ -589,13 +593,13 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 /*****************************************************************************/
 /**
  * @brief	This function clears whole RSA memory space. This function clears
- * 			stored exponent, modulus and exponentiation key components along
- *			with digest
+ * 		stored exponent, modulus and exponentiation key components along
+ *		with digest
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  *
  * @return	- XST_SUCCESS - On Success
- * 			- XSECURE_RSA_ZEROIZE_ERROR - On Zeroization Failure
+ * 		- XSECURE_RSA_ZEROIZE_ERROR - On Zeroization Failure
  *
  *****************************************************************************/
 int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
@@ -647,7 +651,7 @@ END:
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  *
  * @return	- XST_SUCCESS - On Success
- * 			- XSECURE_RSA_ZEROIZE_ERROR - On Zeroize Verify Failure
+ * 		- XSECURE_RSA_ZEROIZE_ERROR - On Zeroize Verify Failure
  *
  *****************************************************************************/
 static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr)
@@ -701,7 +705,7 @@ END:
  * @param	Cfg2		- Memory location size.
  * @param	Cfg5		- Number of groups.
  *
- * @return	None.
+ * @return	None
  *
 ******************************************************************************/
 static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
@@ -732,9 +736,9 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
  *
  * @return
  * 	- XST_SUCCESS - On success
- * 	- XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR 		  - When RSA KAT fails
+ * 	- XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
  * 	- XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
- *													matched with expected data
+ *							matched with expected data
  *
  *****************************************************************************/
 int XSecure_RsaPublicEncryptKat(void)
@@ -777,9 +781,9 @@ END:
 /**
  * @brief	This function returns PKCS padding as per the silicon version
  *
- * @param   None
+ * @param	None
  *
- * @return  - XSecure_Silicon2_TPadSha3
+ * @return	XSecure_Silicon2_TPadSha3
  *
 *****************************************************************************/
 u8* XSecure_RsaGetTPadding(void)
