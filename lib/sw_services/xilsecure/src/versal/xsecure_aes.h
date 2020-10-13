@@ -29,8 +29,9 @@
 *       bvi  04/07/2020 Renamed csudma as pmcdma
 * 4.3   ana  06/04/2020 Added NextBlkLen in Xsecure_Aes structure
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
-*		am	 09/24/2020 Resolved MISRA C violations
+*       am   09/24/2020 Resolved MISRA C violations
 *       har  09/30/2020 Deprecated Family Key support
+*       har  10/12/2020 Addressed security review comments
 *
 * </pre>
 *
@@ -54,7 +55,7 @@ extern "C" {
 @{
 */
 
-#define XSECURE_AES_BUFFER_SIZE					(4U)
+#define XSECURE_AES_BUFFER_SIZE				(4U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
@@ -62,7 +63,6 @@ extern "C" {
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED		(0x4U)
 
 #define XSECURE_SECURE_GCM_TAG_SIZE			(16U)
-						/**< GCM Tag Size in Bytes */
 #define XSECURE_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XSECURE_AES_KEY_SIZE_256BIT_WORDS		(8U)
 #define XSECURE_AES_TIMEOUT_MAX				(0x1FFFFU)
@@ -142,12 +142,12 @@ typedef enum {
 } XSecure_AesState;
 
 typedef struct {
-	u32 BaseAddress;
-	XPmcDma *PmcDmaPtr; /**< PMCDMA Instance Pointer */
-	XSecure_Sss SssInstance;
+	u32 BaseAddress;	   /**< AES Base address */
+	XPmcDma *PmcDmaPtr;	   /**< PMCDMA Instance Pointer */
+	XSecure_Sss SssInstance;   /**< Secure stream switch instance */
 	XSecure_AesState AesState; /**< Current Aes State  */
-	XSecure_AesKeySrc KeySrc;
-	u32 NextBlkLen;
+	XSecure_AesKeySrc KeySrc;  /**< Key Source */
+	u32 NextBlkLen;		   /**< Next Block Length */
 } XSecure_Aes;
 /** @}
 @endcond */

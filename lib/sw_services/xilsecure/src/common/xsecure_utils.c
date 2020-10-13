@@ -23,8 +23,9 @@
 * 4.2   har     01/03/20 Added blind write check for SssCfg
 *       vns     01/24/20 Added assert statements to input arguments
 *       har     03/26/20 Removed code for SSS configuration
-*		rpo		09/10/20 Asserts are placed under XSECDEBUG macro
-* 4.3	am	    09/24/20 Resolved MISRA C violations
+*       rpo     09/10/20 Asserts are placed under XSECDEBUG macro
+* 4.3	am      09/24/20 Resolved MISRA C violations
+*       har     10/12/20 Addressed security review comments
 *
 * </pre>
 *
@@ -44,7 +45,7 @@
  * @brief	This function takes the hardware core out of reset
  *
  * @param	BaseAddress	- Base address of the core
- * @param	Offset	    - Offset of the reset register
+ * @param	Offset		- Offset of the reset register
  *
  * @return	None
  *
@@ -63,7 +64,7 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
  * @brief	This function places the hardware core into the reset
  *
  * @param	BaseAddress	- Base address of the core
- * @param	Offset	    - Offset of the reset register
+ * @param	Offset		- Offset of the reset register
  *
  * @return	None
  *
