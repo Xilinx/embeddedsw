@@ -17,7 +17,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   rpo 06/25/2020 Initial release
 * 4.3   rpo 06/25/2020 Updated file version to sync with library version
-*		am	09/24/2020 Resolved MISRA C violations
+*       am  09/24/2020 Resolved MISRA C violations
+*       har 10/12/2020 Addressed security review comments
 *
 * </pre>
 *
@@ -34,14 +35,14 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define PMC_GLOBAL_IER_REG_ADDR					(0xF1110018U)
-#define PMC_GLOBAL_IER_TAMPER_INT				(0x00000008U)
-#define PMC_GLOBAL_ISR_REG_ADDR					(0xF1110010U)
-#define PMC_GLOBAL_ISR_TAMPER_INT				(0x00000008U)
-#define PMC_GLOBAL_TAMPER_RESP_0				(0xF1110530U)
-#define PMC_GLOBAL_SLD_MASK						((1U<<2U)|(1U<<3U))
-#define PMC_GLOBAL_TAMPER_TRIG					(0xF1110570U)
-#define PMC_GLOBAL_TAMPER_TRIG_VAL				(1U)
+#define PMC_GLOBAL_IER_REG_ADDR		(0xF1110018U)
+#define PMC_GLOBAL_IER_TAMPER_INT	(0x00000008U)
+#define PMC_GLOBAL_ISR_REG_ADDR		(0xF1110010U)
+#define PMC_GLOBAL_ISR_TAMPER_INT	(0x00000008U)
+#define PMC_GLOBAL_TAMPER_RESP_0	(0xF1110530U)
+#define PMC_GLOBAL_SLD_MASK		((1U<<2U)|(1U<<3U))
+#define PMC_GLOBAL_TAMPER_TRIG		(0xF1110570U)
+#define PMC_GLOBAL_TAMPER_TRIG_VAL	(1U)
 
 /************************** Function Prototypes ******************************/
 
