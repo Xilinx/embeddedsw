@@ -97,9 +97,9 @@ static inline int XSecure_Sha3WaitForDone(const XSecure_Sha3 *InstancePtr)
 
 /************************** Function Prototypes ******************************/
 static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
-					const UINTPTR InDataAddr, const u32 Size, u8 IsLast);
+	const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate);
 static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
-					const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate);
+	const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate);
 static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 
 /************************** Variable Definitions *****************************/
@@ -117,10 +117,7 @@ static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
  * @return	- XST_SUCCESS - If initialization was successful
  *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
  *
- * @note	The base address is initialized directly with value from
- * 		xsecure_hw.h
- *
-*****************************************************************************/
+ *****************************************************************************/
 int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 {
 	int Status = XST_FAILURE;
@@ -151,9 +148,9 @@ END:
 
  /****************************************************************************/
  /**
- * @brief	This function is to notify this is the last update of data where
- * 		sha padding is also been included along with the data in the next
- * 		update call
+ * @brief	This function notifies the SHA driver at the end of the SHA data
+ *		update and last update includes padding also. Typically called
+ *		before XSecure_Sha3Finish to prevent driver adding the padding.
  *
  * @param	InstancePtr - Pointer to the XSecure_Sha3 instance
  *
@@ -471,9 +468,6 @@ int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 	Status = XST_FAILURE;
 
 	Status = XSecure_Sha3Finish(InstancePtr, Sha3Hash);
-	if (Status != XST_SUCCESS){
-		goto END;
-	}
 
 END:
 	return Status;
@@ -528,7 +522,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function Transfers Data through Dma
+ * @brief	This function transfers data through DMA
  *
  * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
  * @param	InDataAddr 	- Starting address of the data which has to be updated
@@ -537,12 +531,12 @@ END:
  * @param	IsLastUpdate	- Flag to indicate whether this is the last update
  *				  or not
  *
- * @return	- XST_SUCCESS - If the update is successful
- * 		- XST_FAILURE - If there an error occurs
+ * @return	- XST_SUCCESS	- If the update is successful
+ * 		- XST_FAILURE	- In case of an error
  *
  ******************************************************************************/
 static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
-	const UINTPTR InDataAddr, const u32 Size, u8 IsLast)
+	const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate)
 {
 	int Status = XST_FAILURE;
 
@@ -556,7 +550,7 @@ static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
 		goto ENDF;
 	}
 	XPmcDma_Transfer(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
-					InDataAddr, (u32)Size/XSECURE_WORD_SIZE, IsLast);
+		InDataAddr, (u32)Size/XSECURE_WORD_SIZE, IsLastUpdate);
 
 	/* Checking the PMC DMA done bit should be enough. */
 	Status = XPmcDma_WaitForDoneTimeout(InstancePtr->DmaPtr,
