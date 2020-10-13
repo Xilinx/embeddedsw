@@ -21,6 +21,7 @@
 *                        string "hell" to "XILINX"
 *       kpt    08/27/20 Removed compilation warning and changed argument type
 *                       from u8* to UINTPTR for versal SHA3 function call
+*       har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
@@ -48,15 +49,15 @@
 
 /************************** Function Prototypes ******************************/
 
-u32 SecureSha3Example(void);
-u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash);
-void SecureSha3PrintHash(u8 *Hash);
+static u32 SecureSha3Example(void);
+static u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash);
+static void SecureSha3PrintHash(u8 *Hash);
 
 /************************** Variable Definitions *****************************/
 
-const char Data[SHA3_INPUT_DATA_LEN + 1U] = "XILINX";
+static const char Data[SHA3_INPUT_DATA_LEN + 1U] = "XILINX";
 
-u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
+static u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
 				     {0x70,0x69,0x77,0x35,0x0b,0x93,
 				      0x92,0xa0,0x48,0x2c,0xd8,0x23,
 				      0x38,0x47,0xd2,0xd9,0x2d,0x1a,
@@ -110,7 +111,7 @@ int main(void)
 *
 ****************************************************************************/
 /** //! [SHA3 example] */
-u32 SecureSha3Example()
+static u32 SecureSha3Example()
 {
 	XSecure_Sha3 Secure_Sha3;
 	XCsuDma CsuDma;
@@ -169,7 +170,7 @@ END:
 *		- XST_FAILURE - if the comparison fails.
 *
 ****************************************************************************/
-u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
+static u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
 {
 	u32 Index;
 	u32 Status = XST_FAILURE;
@@ -195,7 +196,7 @@ u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
 * This function prints the given hash on the console
 *
 ****************************************************************************/
-void SecureSha3PrintHash(u8 *Hash)
+static void SecureSha3PrintHash(u8 *Hash)
 {
 	u32 Index;
 
