@@ -122,7 +122,8 @@ typedef enum {
 	XSECURE_AES_USER_KEY_5,
 	XSECURE_AES_USER_KEY_6,
 	XSECURE_AES_USER_KEY_7,
-	XSECURE_AES_EXPANDED_KEYS
+	XSECURE_AES_EXPANDED_KEYS,
+	XSECURE_AES_ALL_KEYS,
 } XSecure_AesKeySrc;
 
 
@@ -165,7 +166,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc DecKeySrc,XSecure_AesKeySrc DstKeySrc, u64 IvAddr,
 	XSecure_AesKeySize KeySize);
 
-int XSecure_AesCfgKupIv(const XSecure_Aes *InstancePtr, u8 Config);
+int XSecure_AesCfgKupKeyNIv(const XSecure_Aes *InstancePtr, u8 Config);
 
 int XSecure_AesGetNxtBlkLen(const XSecure_Aes *InstancePtr, u32 *Size);
 
