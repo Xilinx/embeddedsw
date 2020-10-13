@@ -210,6 +210,7 @@ typedef struct {
 } XV_SdiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRX_BIT(n)		(1 << (n))
 
 /*****************************************************************************/
 /**

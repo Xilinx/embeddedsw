@@ -1306,6 +1306,21 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			u8 colorimetry = (payload & XST352_BYTE3_COLORIMETRY_MASK) >>
 				XST352_BYTE3_COLORIMETRY_SHIFT;
 
+			/*
+			 * Bit 7 and 4 of byte 3 form the colorimetry field for HD.
+			 * Checkout SMPTE 292-1:2018 Sec 9.5 for details
+			 */
+			if (InstancePtr->Transport.TMode == XSDIVID_MODE_HD ||
+					byte1 == XST352_BYTE1_ST372_DL_3GB) {
+				/* In case of no payload */
+				colorimetry = XST352_BYTE3_COLORIMETRY_BT709;
+
+				if (valid & XV_SDIRX_RX_ST352_VLD_ST352_0) {
+					colorimetry = ((XSDIRX_BIT(23) & payload) >> 23) << 1;
+					colorimetry |= (XSDIRX_BIT(20) & payload) >> 20;
+				}
+			}
+
 			/* Get the EOTF function */
 			switch(eotf) {
 			case XST352_BYTE2_EOTF_SDRTV:
