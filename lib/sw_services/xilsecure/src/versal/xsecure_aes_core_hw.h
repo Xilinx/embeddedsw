@@ -253,5 +253,4 @@ extern "C" {
 }
 #endif
 
-
 #endif /* XSECURE_AES_HW_H */

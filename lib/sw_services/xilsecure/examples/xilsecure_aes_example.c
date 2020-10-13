@@ -47,6 +47,7 @@
 *                       decryption of image is failing, to fix this modified
 *                       destination address, from now on image is overwritten
 *                       with decrypted data.
+* 4.3   har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
@@ -58,10 +59,10 @@
 
 /************************** Constant Definitions *****************************/
 /*
- * the hard coded aes key for decryption, in case user given key is being used
+ * The hard coded aes key for decryption, in case user given key is being used
  * it will be loaded in KUP before decryption
  */
-static const u8 csu_key[] = {
+static const u8 CsuKey[] = {
   0xf8, 0x78, 0xb8, 0x38, 0xd8, 0x58, 0x98, 0x18,
   0xe8, 0x68, 0xa8, 0x28, 0xc8, 0x48, 0x88, 0x08,
   0xf0, 0x70, 0xb0, 0x30, 0xd0, 0x50, 0x90, 0x10,
@@ -69,9 +70,9 @@ static const u8 csu_key[] = {
 };
 
 /*
- * the hard coded iv used for decryption secure header and block 0
+ * The hard coded iv used for decryption secure header and block 0
  */
-u8 csu_iv[] = {
+u8 CsuIv[] = {
  0xD2, 0x45, 0x0E, 0x07, 0xEA, 0x5D, 0xE0, 0x42, 0x6C, 0x0F, 0xA1, 0x33,
  0x00, 0x00, 0x00, 0x00
 };
@@ -176,15 +177,14 @@ int SecureAesExample(void)
 	PartitionLen = (XSecure_In32((UINTPTR)(ImageOffset + PhOffset +
 			XSECURE_PH_PARTITION_LEN_OFFSET)) * XSECURE_WORD_MUL);
 
-	*(csu_iv + XSECURE_IV_INDEX) =	(*(csu_iv + XSECURE_IV_INDEX)) +
+	*(CsuIv + XSECURE_IV_INDEX) =	(*(CsuIv + XSECURE_IV_INDEX)) +
 			(XSecure_In32((UINTPTR)(ImageOffset + PhOffset +
 				XSECURE_PH_PARTITION_IV_OFFSET)) &
 				XSECURE_PH_PARTITION_IV_MASK);
-	/*
-	 * Initialize the Aes driver so that it's ready to use
-	 */
+
+	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&Secure_Aes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
-			                           (u32 *)csu_iv, (u32 *)csu_key);
+			                           (u32 *)CsuIv, (u32 *)CsuKey);
 
 	Status = XSecure_AesDecrypt(&Secure_Aes, Dst,
 			(u8 *)(UINTPTR)(ImageOffset + PartitionOffset),
