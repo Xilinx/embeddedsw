@@ -54,8 +54,6 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 #define XSECURE_RESET_SET		(1U) /**< To set the core into reset */
 #define XSECURE_RESET_UNSET		(0U) /**< To take the core out of reset */
-
-#define XSECURE_TIMEOUT_MAX		(0x1FFFFFU)
 #define XSECURE_WORD_SIZE		(4U) /**< WORD size in BYTES */
 #define XSECURE_WORD_IN_BITS		(32U)/**< WORD size in BITS */
 
