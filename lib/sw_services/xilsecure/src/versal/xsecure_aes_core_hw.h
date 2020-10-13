@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes_hw.h
+* @file xsecure_aes_core_hw.h
 * This file contains AES core hardware definitions of versal.
 *
 * <pre>
@@ -25,8 +25,8 @@
 * @endcond
 ******************************************************************************/
 
-#ifndef XSECURE_AES_HW_H
-#define XSECURE_AES_HW_H
+#ifndef XSECURE_AES_CORE_HW_H
+#define XSECURE_AES_CORE_HW_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -253,4 +253,4 @@ extern "C" {
 }
 #endif
 
-#endif /* XSECURE_AES_HW_H */
+#endif /* XSECURE_AES_CORE_HW_H */
