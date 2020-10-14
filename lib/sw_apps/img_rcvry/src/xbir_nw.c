@@ -40,7 +40,7 @@ extern u8 TcpSlowTmrFlag;
 /*****************************************************************************/
 /**
  * @brief
- * This function configures the SoM network and assigns default IP address
+ * This function configures the SysBoard network and assigns default IP address
  *
  * @param	NetIf	Pointer to network interface instance
  *
@@ -84,7 +84,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function sets the default fixed IP address for the SoM.
+ * This function sets the default fixed IP address for the SysBoard.
  *
  * @param	Ip	Pointer to IP address
  * @param	Mask	Pointer to network mask

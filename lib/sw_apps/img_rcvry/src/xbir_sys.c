@@ -8,7 +8,8 @@
 *
 * @file xbir_sys.c
 *
-* This file contains SoM system APIs
+* This file contains System Board APIs used to read/update image related
+* information.
 *
 ******************************************************************************/
 
@@ -32,8 +33,8 @@
 
 /************************** Function Prototypes ******************************/
 static void Xbir_SysReadAndCorrectBootImgInfo (void);
-static int Xbir_SysReadSysInfoFromEeprom (Xbir_SysHeaderInfo* SomHeaderInfo,
-		Xbir_SysBoardInfo* SomBoardInfo, Xbir_SysHeaderInfo* CCHeaderInfo,
+static int Xbir_SysReadSysInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
+		Xbir_SysBoardInfo* SysBoardBoardInfo, Xbir_SysHeaderInfo* CCHeaderInfo,
 		Xbir_SysBoardInfo* CCBoardInfo);
 static int Xbir_SysWriteBootImageInfo (Xbir_SysBootImgInfo *BootImgInfo,
 	u32 Offset);
@@ -43,8 +44,8 @@ static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset);
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
-static int Xbir_SysReadSomInfoFromEeprom (Xbir_SysHeaderInfo* SomHeaderInfo,
-		Xbir_SysBoardInfo* SomBoardInfo);
+static int Xbir_SysReadSysBoardInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
+		Xbir_SysBoardInfo* SysBoardBoardInfo);
 static int Xbir_SysReadCCInfoFromEeprom (Xbir_SysHeaderInfo* CCHeaderInfo,
 		Xbir_SysBoardInfo* CCBoardInfo);
 #endif
@@ -89,7 +90,7 @@ static Xbir_SysBootImgInfo BootImgStatus = \
 		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 1U, 0xAFA2BCBCU, \
 		{0U, 1U, 0U, 0U}, 0x200000U, 0x1000000U, 0x1E80000U};
 static u8 QspiBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE];
-static Xbir_SysBoardInfo SomBoardInfo = {0U};
+static Xbir_SysBoardInfo SysBoardBoardInfo = {0U};
 static Xbir_SysBoardInfo CCBoardInfo = {0U};
 
 /*****************************************************************************/
@@ -107,7 +108,7 @@ static Xbir_SysBoardInfo CCBoardInfo = {0U};
 int Xbir_SysInit (void)
 {
 	int Status = XST_FAILURE;
-	Xbir_SysHeaderInfo SomHeaderInfo = {0U};
+	Xbir_SysHeaderInfo SysBoardHeaderInfo = {0U};
 	Xbir_SysHeaderInfo CCHeaderInfo = {0U};
 
 	Status = Xbir_QspiInit();
@@ -120,7 +121,7 @@ int Xbir_SysInit (void)
 		goto END;
 	}
 
-	Status = Xbir_SysReadSysInfoFromEeprom (&SomHeaderInfo, &SomBoardInfo,
+	Status = Xbir_SysReadSysInfoFromEeprom (&SysBoardHeaderInfo, &SysBoardBoardInfo,
 			&CCHeaderInfo, &CCBoardInfo);
 	if (Status != XST_SUCCESS) {
 		Status = XST_SUCCESS;
@@ -137,18 +138,18 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function return the SoM board information read from EEPROM. Note that
+ * This function return the SysBoard board information read from EEPROM. Note that
  * function Xbir_SysReadSysInfoFromEeprom should be called before calling this
  * function.
  *
  * @param	None
  *
- * @return	Pointer to SoM board information
+ * @return	Pointer to SysBoard board information
  *
  *****************************************************************************/
-const Xbir_SysBoardInfo* Xbir_SysGetSomInfo (void)
+const Xbir_SysBoardInfo* Xbir_SysGetSysBoardInfo (void)
 {
-	return &SomBoardInfo;
+	return &SysBoardBoardInfo;
 }
 
 /*****************************************************************************/
@@ -641,7 +642,7 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
 /*****************************************************************************/
 /**
  * @brief
- * This function reads the system information (SoM and carrier card) from
+ * This function reads the system information (SysBoard and carrier card) from
  * EEPROM and stores it into global variable for later access.
  *
  * @param	None
@@ -651,19 +652,19 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
  *		Error code on failure
  *
  *****************************************************************************/
-static int Xbir_SysReadSomInfoFromEeprom (Xbir_SysHeaderInfo* SomHeaderInfo,
-		Xbir_SysBoardInfo* SomBoardInfo)
+static int Xbir_SysReadSysBoardInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
+		Xbir_SysBoardInfo* SysBoardBoardInfo)
 {
 	int Status = XST_FAILURE;
 
-	Status = Xbir_IicEepromReadData((u8 *)SomHeaderInfo, sizeof(Xbir_SysHeaderInfo),
-			XBIR_IIC_SOM_EEPROM_ADDRESS + XBIR_IIC_EEPROM_HEADER_OFFSET);
+	Status = Xbir_IicEepromReadData((u8 *)SysBoardHeaderInfo, sizeof(Xbir_SysHeaderInfo),
+			XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS + XBIR_IIC_EEPROM_HEADER_OFFSET);
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
 
-	Status = Xbir_IicEepromReadData((u8 *)SomBoardInfo, sizeof(Xbir_SysBoardInfo),
-			XBIR_IIC_SOM_EEPROM_ADDRESS + XBIR_IIC_EEPROM_BOARD_OFFSET);
+	Status = Xbir_IicEepromReadData((u8 *)SysBoardBoardInfo, sizeof(Xbir_SysBoardInfo),
+			XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS + XBIR_IIC_EEPROM_BOARD_OFFSET);
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
@@ -675,7 +676,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function reads the system information (SoM and carrier card) from
+ * This function reads the system information (SysBoard and carrier card) from
  * EEPROM and stores it into global variable for later access.
  *
  * @param	None
@@ -710,7 +711,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function reads the system information (SoM and carrier card) from
+ * This function reads the system information (SysBoard and carrier card) from
  * EEPROM and stores it into global variable for later access.
  *
  * @param	None
@@ -720,14 +721,14 @@ END:
  *		Error code on failure
  *
  *****************************************************************************/
-static int Xbir_SysReadSysInfoFromEeprom (Xbir_SysHeaderInfo* SomHeaderInfo,
-		Xbir_SysBoardInfo* SomBoardInfo, Xbir_SysHeaderInfo* CCHeaderInfo,
+static int Xbir_SysReadSysInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
+		Xbir_SysBoardInfo* SysBoardBoardInfo, Xbir_SysHeaderInfo* CCHeaderInfo,
 		Xbir_SysBoardInfo* CCBoardInfo)
 {
 	int Status = XST_FAILURE;
 
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
-	Status = Xbir_SysReadSomInfoFromEeprom (SomHeaderInfo, SomBoardInfo);
+	Status = Xbir_SysReadSysBoardInfoFromEeprom (SysBoardHeaderInfo, SysBoardBoardInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
