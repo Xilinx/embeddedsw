@@ -4451,13 +4451,13 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 #endif
 		} else if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R2) {
 #if defined (XPS_BOARD_ZCU106)
-			if ((ChId == 2) || (ChId == 3)) {
+//			if ((ChId == 2) || (ChId == 3)) {
 				Data = 0xD;
-			} else {
-				Data = 0xA;
-			}
+//			} else {
+//				Data = 0xA;
+//			}
 #elif defined (XPS_BOARD_VCU118)
-			Data = 0x1F;
+			Data = 0xD; //0x1F;
 #elif defined (XPS_BOARD_ZCU102)
 			Data = 0xD;
 #endif
