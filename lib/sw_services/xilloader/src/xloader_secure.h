@@ -322,9 +322,7 @@ typedef struct {
 	XPmcDma *PmcDmaInstPtr;
 	XSecure_Aes AesInstance;
 	u32 SecureHdrLen;
-	u8 CheckJtagAuth;
-	XLoader_AuthJtagMessage AuthJtagMessage
-		__attribute__ ((aligned (16U)));
+	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
 } XLoader_SecureParams;
 
 typedef enum {
