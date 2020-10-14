@@ -27,7 +27,7 @@
 #define XBIR_SSI_JSON_OBJ_SEPERATOR		','
 #define XBIR_SSI_JSON_NAME_VAL_SEPERATOR	':'
 
-#define XBIR_SSI_JSON_SOM_INFO_NAME		"SomInfo"
+#define XBIR_SSI_JSON_SYS_BOARD_INFO_NAME	"SysBoardInfo"
 #define XBIR_SSI_JSON_CC_INFO_NAME		"CcInfo"
 #define XBIR_SSI_JSON_BRD_NAME			"BrdName"
 #define XBIR_SSI_JSON_REV_NAME			"RevisionNo"
@@ -88,7 +88,7 @@ static Xbir_SysBootImgId Xbir_SsiLastImgUpload;
 /*****************************************************************************/
 /**
  * @brief
- * This function builds the JSON payload with SoM and Carrier Card information.
+ * This function builds the JSON payload with SysBoard and Carrier Card information.
  *
  * @param	JsonStr		Json payload
  * @param	JsonStrLen	Json payload length
@@ -104,7 +104,7 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 	u16 Len = JsonStrLen;
 	char *Str = JsonStr;
 	const Xbir_SysBoardInfo *BrdInfo;
-	const Xbir_SysBoardInfo *SomInfo;
+	const Xbir_SysBoardInfo *SysBoardInfo;
 	const Xbir_SysBoardInfo *CcInfo;
 
 	/* 60U = For double quotes and spaces in JSON string*/
@@ -120,19 +120,19 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 		goto END;
 	}
 
-	SomInfo = Xbir_SysGetSomInfo();
+	SysBoardInfo = Xbir_SysGetSysBoardInfo();
 	CcInfo = Xbir_SysGetCcInfo();
 
 	Str[0U] = XBIR_SSI_JSON_OBJ_START;
 	Str += 1U;
 	Len -= 1U;
 	for (Idx = 0U; Idx < XBIR_SSI_CARD_COUNT; Idx++) {
-		BrdInfo = (0U == Idx) ? SomInfo : CcInfo;
+		BrdInfo = (0U == Idx) ? SysBoardInfo : CcInfo;
 		snprintf(Str, Len,
 			"\"%s\"%c%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
 			"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
 			"\"%s\"%c\"%s\"%c %c",
-			(0U == Idx) ? XBIR_SSI_JSON_SOM_INFO_NAME : XBIR_SSI_JSON_CC_INFO_NAME,
+			(0U == Idx) ? XBIR_SSI_JSON_SYS_BOARD_INFO_NAME : XBIR_SSI_JSON_CC_INFO_NAME,
 			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
 
 			XBIR_SSI_JSON_OBJ_START,
