@@ -25,6 +25,13 @@
 #include "xhdmi_exdes_sm_rx.h"
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
+#define XPS_BOARD_VCU118
+#else
+/* Place-holder for other boards in future */
+#endif
+
+
 /************************** Constant Definitions ****************************/
 
 static const XV_Rx_Hdmi_Events XHdmi_Rx_EventsPriorityQueue[] = {
@@ -2175,7 +2182,21 @@ static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr)
 			InstancePtr->VidPhy->Config.RxFrlRefClkSel){
 		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (TRUE));
 	}
+#ifdef XPS_BOARD_VCU118
+	u8 rate = HdmiRxSs.HdmiRx1Ptr->Stream.Frl.LineRate;
 
+	if (rate != 12) {
+		//LPM
+		XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);
+
+	} else {
+		//DFE
+		XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 0);
+
+	}
+#endif
 	XHdmiphy1_Hdmi21Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX,
 			       LineRate, NChannels);
 
