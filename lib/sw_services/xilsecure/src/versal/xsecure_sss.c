@@ -105,6 +105,8 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 	XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
 	int Status = XST_FAILURE;
+	u32 Mask = 0U;
+	u32 RegVal = Xil_In32(InstancePtr->Address);
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -121,6 +123,29 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 	if ((OutputSrc != XSECURE_SSS_DMA0) &&
 		(OutputSrc != XSECURE_SSS_DMA1)) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((InputSrc == XSECURE_SSS_DMA0) || (OutputSrc == XSECURE_SSS_DMA0)) {
+		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
+			Mask |= XSECURE_SSS_SBI;
+		}
+		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA0_VAL) {
+			Mask |= XSECURE_SSS_SHA;
+		}
+	}
+	if ((InputSrc == XSECURE_SSS_DMA1) || (OutputSrc == XSECURE_SSS_DMA1)) {
+		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA1_VAL) {
+			Mask |= XSECURE_SSS_SBI;
+		}
+		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA1_VAL) {
+			Mask |= XSECURE_SSS_SHA;
+		}
+	}
+
+	RegVal &= ~Mask;
+	Status = XSecure_SecureOut32(InstancePtr->Address, RegVal);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -149,6 +174,8 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
 {
 	int Status = XST_FAILURE;
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
+	u32 Mask = 0U;
+	u32 RegVal = Xil_In32(InstancePtr->Address);
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ||
@@ -164,6 +191,28 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
 	}
 
 	Status = XST_FAILURE;
+	if (InputSrc == XSECURE_SSS_DMA0) {
+		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
+			Mask |= XSECURE_SSS_SBI;
+		}
+		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA0_VAL) {
+			Mask |= XSECURE_SSS_SHA;
+		}
+	}
+	if (InputSrc == XSECURE_SSS_DMA1) {
+		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA1_VAL) {
+			Mask |= XSECURE_SSS_SBI;
+		}
+		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA1_VAL) {
+			Mask |= XSECURE_SSS_SHA;
+		}
+	}
+
+	RegVal &= ~Mask;
+	Status = XSecure_SecureOut32(InstancePtr->Address, RegVal);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_SHA, InputSrc,
 			XSECURE_SSS_INVALID);
@@ -271,6 +320,12 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 	volatile u32 InputSrcCfgRedundant = 0x0U;
 	volatile u32 OutputSrcCfgRedundant = 0x0U;
 	u32 SssCfg = 0x0U;
+	u32 InputMask = 0U;
+	u32 OutputMask = 0U;
+	u32 Mask = 0U;
+	u32 RegVal = 0U;
+	u32 InputShift;
+	u32 OutputShift;
 
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
@@ -285,28 +340,35 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 	 * Configure source of the input for given resource
 	 * i.e Configure given InputSrc as a input for given Resource
 	 */
+	InputShift = (XSECURE_SSS_CFG_LEN_IN_BITS * (u32)Resource);
 	InputSrcCfg = (u32) XSecure_SssLookupTable [Resource][InputSrc] <<
-		(XSECURE_SSS_CFG_LEN_IN_BITS * (u32)Resource);
+		InputShift;
 
 	/*
 	 * SSS allows configuring only input source for any Resources
 	 * connected to it. So to define output source of given Resource,
 	 *  configure given Resource as input to source mentioned by OutputSrc
 	 */
+	OutputShift = (XSECURE_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
 	OutputSrcCfg = (u32) XSecure_SssLookupTable [OutputSrc][Resource] <<
-			(XSECURE_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
+		OutputShift;
 
 	/* Recalculating to verify values */
 	InputSrcCfgRedundant = (u32) XSecure_SssLookupTable [Resource][InputSrc] <<
-                (XSECURE_SSS_CFG_LEN_IN_BITS * (u32)Resource);
+		InputShift;
 
 	OutputSrcCfgRedundant = (u32) XSecure_SssLookupTable [OutputSrc][Resource] <<
-                (XSECURE_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
+		OutputShift;
 
 	SssCfg = InputSrcCfg | OutputSrcCfg;
+	InputMask = (u32)XSECURE_SSS_SRC_SEL_MASK << InputShift;
+	OutputMask = (u32)XSECURE_SSS_SRC_SEL_MASK << OutputShift;
+	Mask = InputMask | OutputMask;
 
 	if ((SssCfg ^ (InputSrcCfgRedundant | OutputSrcCfgRedundant)) == 0U) {
-		Status = XSecure_SecureOut32(InstancePtr->Address, SssCfg);
+		RegVal = Xil_In32(InstancePtr->Address);
+		RegVal &= ~Mask;
+		Status = XSecure_SecureOut32(InstancePtr->Address, SssCfg | RegVal);
 	}
 
 	return Status;
