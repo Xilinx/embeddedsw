@@ -1407,8 +1407,8 @@ static u32 XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
 	u32 AuthType;
 
-	if (SecurePtr->CheckJtagAuth == (u8)TRUE) {
-		AuthType = XLoader_GetAuthPubAlgo(&(SecurePtr->AuthJtagMessage.AuthHdr));
+	if (SecurePtr->AuthJtagMessagePtr != NULL) {
+		AuthType = XLoader_GetAuthPubAlgo(&(SecurePtr->AuthJtagMessagePtr->AuthHdr));
 	}
 	else {
 		AuthType = XLoader_GetAuthPubAlgo(&AcPtr->AuthHdr);
@@ -1813,9 +1813,9 @@ static u32 XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
 
 	/* Update PPK  */
 	Status = XLOADER_FAILURE;
-	if (SecurePtr->CheckJtagAuth == (u8)TRUE) {
+	if (SecurePtr->AuthJtagMessagePtr != NULL) {
 		Status = XSecure_Sha3Update(&Sha3Instance,
-		(UINTPTR)&(SecurePtr->AuthJtagMessage.PpkData), XLOADER_PPK_SIZE);
+			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->PpkData), XLOADER_PPK_SIZE);
 	}
 	else {
 		Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)&AcPtr->Ppk,
@@ -3392,16 +3392,17 @@ static int XLoader_AuthJtag(void)
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	XSecure_Sha3 Sha3Instance = {0U};
 	static u8 AuthFailCounter = 0U;
+	XLoader_AuthJtagMessage AuthJtagMessage
+		__attribute__ ((aligned (16U))) = {0U};
 
+	SecureParams.AuthJtagMessagePtr = &AuthJtagMessage;
 	Status = XPlmi_DmaXfr(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET,
-			(u64)(u32)&(SecureParams.AuthJtagMessage),
+			(u64)(u32)SecureParams.AuthJtagMessagePtr,
 			XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DMA_XFR, 0);
 		goto END;
 	}
-
-	SecureParams.CheckJtagAuth = (u8)TRUE;
 
 	/* Check efuse bits for secure debug disable */
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
@@ -3468,7 +3469,7 @@ static int XLoader_AuthJtag(void)
 	Status = XST_FAILURE;
 
 	Status = XSecure_Sha3Update(&Sha3Instance,
-		 (UINTPTR)&(SecureParams.AuthJtagMessage.AuthHdr),
+		 (UINTPTR)&(SecureParams.AuthJtagMessagePtr->AuthHdr),
 		 XLOADER_AUTH_JTAG_DATA_AH_LENGTH);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
@@ -3491,8 +3492,8 @@ static int XLoader_AuthJtag(void)
 
 	/* Verify signature of Auth Jtag data */
 	Status = XLoader_VerifySignature(&SecureParams, Sha3Hash.Hash,
-		 &(SecureParams.AuthJtagMessage.PpkData),
-		 (u8*)&(SecureParams.AuthJtagMessage.EnableJtagSignature));
+		 &(SecureParams.AuthJtagMessagePtr->PpkData),
+		 (u8*)&(SecureParams.AuthJtagMessagePtr->EnableJtagSignature));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);
