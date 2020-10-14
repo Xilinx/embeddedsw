@@ -483,7 +483,7 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 	u32 RemainingBytes;
 	u32 TransferBytes;
 	u32 DiscardByteCnt;
-	XQspiPsu_Msg FlashMsg[5U];
+	XQspiPsu_Msg FlashMsg[5U] = {0U};
 	u8 WriteBuf[5U] __attribute__ ((aligned(32U))) = {0U};
 	u32 FlashSize = FlashInfo.FlashSize;
 

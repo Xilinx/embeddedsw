@@ -777,7 +777,6 @@ static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size, u32* Crc)
 			Len = RemainingSize;
 		}
 
-		Xbir_Printf("SrcAddr: 0x%0x%08x Len: %0x\n\r", Addr, Len);
 		Status = Xbir_QspiRead(Addr, ReadBuffer, Len);
 		if (Status != XST_SUCCESS) {
 			goto END;
