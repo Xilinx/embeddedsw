@@ -28,8 +28,8 @@
 #include "platform_info.h"
 #include "rsc_table.h"
 
-#define IPI_DEV_NAME         "ipi_dev"
-#define IPI_BUS_NAME         "generic"
+#define KICK_DEV_NAME         "poll_dev"
+#define KICK_BUS_NAME         "generic"
 
 /* Cortex R5 memory attributes */
 #define DEVICE_SHARED		0x00000001U /* device, shareable */
@@ -76,8 +76,8 @@ struct metal_device kick_device = {
 };
 
 static struct remoteproc_priv rproc_priv = {
-	.poll_dev_name = IPI_DEV_NAME,
-	.poll_dev_bus_name = IPI_BUS_NAME,
+	.kick_dev_name = KICK_DEV_NAME,
+	.kick_dev_bus_name = KICK_BUS_NAME,
 #ifndef RPMSG_NO_IPI
 	.ipi_chn_mask = IPI_CHN_BITMASK,
 #endif /* !RPMSG_NO_IPI */
@@ -108,20 +108,17 @@ platform_create_proc(int proc_index, int rsc_index)
 	rsc_table = get_resource_table(rsc_index, &rsc_size);
 	ML_INFO("rsc_table, rsc_size = %#x, %#x\r\n", rsc_table, rsc_size);
 
-#ifndef RPMSG_NO_IPI
 	/* Register IPI device */
-	ret = metal_register_generic_device(&ipi_device);
-	if (ret)
-		return ret;
-#endif /* !RPMSG_NO_IPI */
+	if (metal_register_generic_device(&kick_device))
+		return NULL;
 
 	/* Initialize remoteproc instance */
 	if (!remoteproc_init(&rproc_inst, &zynqmp_r5_a53_proc_ops, &rproc_priv))
 		return NULL;
 
 	ML_DBG("poll{name,bus,chn_mask} = %s,%s,%#x\r\n",
-		rproc_priv.poll_dev_name,
-		rproc_priv.poll_dev_bus_name,
+		rproc_priv.kick_dev_name,
+		rproc_priv.kick_dev_bus_name,
 		IPI_CHN_BITMASK);
 	/*
 	 * Mmap shared memories
