@@ -40,7 +40,19 @@ extern "C" {
 /** @cond xsecure_internal */
 #define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length is bits */
 #define XSECURE_SSS_ADDRESS		(0xF1110500U) /**< SSS base address */
-#define XSECURE_SSS_MAX_SRCS		(8U)	/**< Maximum resources */
+#define XSECURE_SSS_MAX_SRCS	(8U)	/**< Maximum resources */
+#define XSECURE_SSS_SBI_MASK	(0xF00000U)
+#define XSECURE_SSS_SHA_MASK	(0xF0000U)
+#define XSECURE_SSS_AES_MASK	(0xF000U)
+#define XSECURE_SSS_DMA1_MASK	(0xF0U)
+#define XSECURE_SSS_DMA0_MASK	(0xFU)
+#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)
+#define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)
+#define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)
+#define XSECURE_SSS_SHA_DMA0_VAL	(0xC0000U)
+#define XSECURE_SSS_SHA_DMA1_VAL	(0x70000U)
+#define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)
+#define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)
 
 /***************************** Type Definitions******************************/
 /**
