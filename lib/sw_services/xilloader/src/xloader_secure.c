@@ -638,6 +638,7 @@ END:
 * @brief	This function starts next chunk copy when security is enabled.
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+* @param	TotalLen is total length of the partition.
 * @param	NextBlkAddr is the address of the next chunk data to be copied.
 * @param 	ChunkLen is size of the data block to be copied.
 *
@@ -663,6 +664,9 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 			(SecurePtr->IsCheckSumEnabled == (u8)TRUE))) ||
 			(SecurePtr->IsEncrypted == (u8)TRUE)) {
 			CopyLen = SecurePtr->RemainingEncLen - CopyLen;
+		}
+		else {
+			CopyLen = TotalLen;
 		}
 	}
 	else {
