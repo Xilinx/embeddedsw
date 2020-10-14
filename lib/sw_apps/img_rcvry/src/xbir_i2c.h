@@ -35,7 +35,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* The values are specific to ZCU102 */
-#define XBIR_IIC_SOM_EEPROM_ADDRESS		(0x54U) /* 0x50 on SOM */
+#define XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS	(0x54U) /* 0x50 on System Board */
 #define XBIR_IIC_CC_EEPROM_ADDRESS		(0x54U)	/* 0X51 on CC */
 
 /* Error codes */

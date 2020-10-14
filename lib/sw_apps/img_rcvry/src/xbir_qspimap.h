@@ -7,7 +7,7 @@
 /**
 * @file xbir_qspimap.h
 *
-* This is the SOM QSPI image memory map definition.
+* This is the System Board QSPI image memory map definition.
 *
 ******************************************************************************/
 #ifndef XBIR_QSPI_MAP_H
