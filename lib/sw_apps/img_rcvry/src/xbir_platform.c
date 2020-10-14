@@ -8,7 +8,7 @@
 *
 * @file xbir_platform.c
 *
-* This file contains platform specific API's for SOM.
+* This file contains platform specific API's for System Board.
 *
 ******************************************************************************/
 

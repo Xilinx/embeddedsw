@@ -8,8 +8,8 @@
 *
 * @file xbir_sys.h
 *
-* This file contains list of SoM syste API defination provided by xbir_sys.c
-* file
+* This file contains list of System Board API definitions provided by
+* xbir_sys.c file
 *
 ******************************************************************************/
 
@@ -108,7 +108,7 @@ typedef enum {
 
 /************************** Function Prototypes ******************************/
 int Xbir_SysInit (void);
-const Xbir_SysBoardInfo* Xbir_SysGetSomInfo (void);
+const Xbir_SysBoardInfo* Xbir_SysGetSysBoardInfo (void);
 const Xbir_SysBoardInfo* Xbir_SysGetCcInfo (void);
 const Xbir_SysPersistentState * Xbir_SysGetBootImgStatus (void);
 int Xbir_SysUpdateBootImgStatus (u8 ImgABootable, u8 ImgBBootable,
