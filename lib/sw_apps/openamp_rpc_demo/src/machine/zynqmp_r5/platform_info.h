@@ -54,10 +54,10 @@ extern "C" {
 #endif /* RPMSG_NO_IPI */
 
 struct remoteproc_priv {
-	const char *poll_dev_name;
-	const char *poll_dev_bus_name;
-	struct metal_device *poll_dev;
-	struct metal_io_region *poll_io;
+	const char *kick_dev_name;
+	const char *kick_dev_bus_name;
+	struct metal_device *kick_dev;
+	struct metal_io_region *kick_io;
 #ifndef RPMSG_NO_IPI
 	unsigned int ipi_chn_mask; /**< IPI channel mask */
 	atomic_int ipi_nokick;
