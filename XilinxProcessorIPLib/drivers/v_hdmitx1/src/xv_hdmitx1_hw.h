@@ -340,6 +340,9 @@ extern "C" {
 						    * Format mask */
 #define XV_HDMITX1_AUD_CTRL_3DAUDFMT_SHIFT 16   /**< 3DAUD Control AUD Format
 						    * Format shift */
+#define XV_HDMITX1_AUD_CTRL_3DAUDFMT_EN \
+		(0x1 << XV_HDMITX1_AUD_CTRL_3DAUDFMT_SHIFT) /**< 3DAUD en */
+
 #define XV_HDMITX1_AUD_CTRL_AUDRST_MASK  (1<<5)
 #define XV_HDMITX1_AUD_CTRL_ACR_EN_MASK  (1<<6)
 #define XV_HDMITX1_AUD_CTRL_ACR_SEL_MASK (1<<7)

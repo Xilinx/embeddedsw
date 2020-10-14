@@ -2747,12 +2747,18 @@ int XV_HdmiTx1_SetAudioFormat(XV_HdmiTx1 *InstancePtr,
 			    (XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
 			    (XV_HDMITX1_AUD_CTRL_RUN_MASK));
 
+	/* default LPCM */
+	XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
+			    (XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
+			    (XV_HDMITX1_AUD_CTRL_AUDFMT_MASK |
+			     XV_HDMITX1_AUD_CTRL_3DAUDFMT_MASK));
+
 	switch (Value) {
 	case XV_HDMITX1_AUDFMT_3D:
 		/* 3D audio*/
 		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
 			    (XV_HDMITX1_AUD_CTRL_SET_OFFSET),
-			    (XV_HDMITX1_AUD_CTRL_3DAUDFMT_MASK & 0x1));
+			    XV_HDMITX1_AUD_CTRL_3DAUDFMT_EN);
 		break;
 
 	case XV_HDMITX1_AUDFMT_HBR:
@@ -2763,10 +2769,6 @@ int XV_HdmiTx1_SetAudioFormat(XV_HdmiTx1 *InstancePtr,
 		break;
 
 	default:
-		/* L-PCM*/
-		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
-				    (XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
-				    (XV_HDMITX1_AUD_CTRL_AUDFMT_MASK));
 		break;
 	}
 
