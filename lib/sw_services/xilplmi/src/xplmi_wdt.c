@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/28/2020 Initial release
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -110,7 +111,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 		LpdInitialized |= LPD_WDT_INITIALIZED;
 		MioNum = NodeId - XPLMI_PM_STMIC_LMIO_0;
 		WdtInstance.GpioAddr = PS_GPIO_DATA_0_OFFSET;
-		WdtInstance.GpioMask = ((u32)(1U) << MioNum);
+		WdtInstance.GpioMask = (u32)(1U) << MioNum;
 	}
 	else if ((NodeId >= XPLMI_PM_STMIC_PMIO_0) &&
 		 (NodeId <= XPLMI_PM_STMIC_PMIO_51)) {
@@ -122,8 +123,8 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 		else {
 			WdtInstance.GpioAddr = PMC_GPIO_DATA_1_OFFSET;
 		}
-		WdtInstance.GpioMask = ((u32)(1U) <<
-					(MioNum % XPLMI_MIO_NUM_PER_BANK));
+		WdtInstance.GpioMask = (u32)(1U) <<
+					(MioNum % XPLMI_MIO_NUM_PER_BANK);
 	}
 	else {
 		Status = (int)XPLMI_ERR_WDT_NODE_ID;

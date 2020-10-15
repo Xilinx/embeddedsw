@@ -18,6 +18,7 @@
 * 1.00  kc   02/12/2019 Initial release
 * 1.01  ma   02/28/2020 Error actions related changes
 *       bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -83,8 +84,8 @@ typedef enum {
 	XPLMI_NODEIDX_ERROR_NOCTYPE1_NCR, /**< 0xDU */
 	XPLMI_NODEIDX_ERROR_NOCUSER, /**< 0xEU */
 	XPLMI_NODEIDX_ERROR_MMCM, /**< 0xFU */
-	XPLMI_NODEIDX_ERROR_ME_CR, /**< 0x10U */
-	XPLMI_NODEIDX_ERROR_ME_NCR, /**< 0x11U */
+	XPLMI_NODEIDX_ERROR_AIE_CR, /**< 0x10U */
+	XPLMI_NODEIDX_ERROR_AIE_NCR, /**< 0x11U */
 	XPLMI_NODEIDX_ERROR_DDRMC_CR, /**< 0x12U */
 	XPLMI_NODEIDX_ERROR_DDRMC_NCR, /**< 0x13U */
 	XPLMI_NODEIDX_ERROR_GT_CR, /**< 0x14U */

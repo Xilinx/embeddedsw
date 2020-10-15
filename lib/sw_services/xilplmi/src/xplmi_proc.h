@@ -27,6 +27,7 @@
 *       kc   03/20/2020 Scheduler frequency is increased to 100ms for QEMU
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU event
+* 1.03  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -61,7 +62,11 @@ extern "C" {
 #define XPLMI_PIT1			(0U)
 #define XPLMI_PIT2			(1U)
 #define XPLMI_PIT3			(2U)
-#define XPLMI_IOMODULE_PMC_PIT3_IRQ			(0x5U)
+#define XPLMI_IOMODULE_PMC_PIT3_IRQ	(0x5U)
+#define XPLMI_PIT_FREQ_DIVISOR_QEMU	(10U)
+#define XPLMI_PIT_FREQ_DIVISOR		(100U)
+#define XPLMI_GIGA			(1e9)
+#define XPLMI_MEGA			(1e6)
 
 /**************************** Type Definitions *******************************/
 /*
@@ -92,6 +97,7 @@ enum {
 	XPLMI_CFRAME_SEU = 0U,
 	XPLMI_IPI_IRQ,	/**< 1U */
 	XPLMI_SBI_DATA_RDY, /**< 2U */
+	XPLMI_MAX_EXT_INTR, /**< 3U */
 };
 
 /*
@@ -110,14 +116,14 @@ int XPlmi_InitProc(void);
 int XPlmi_InitIOModule(void);
 u64 XPlmi_GetTimerValue(void);
 int XPlmi_SetUpInterruptSystem(void);
-void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime * PerfTime);
+void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime);
 void XPlmi_PlmIntrEnable(u32 IntrId);
-void XPlmi_PlmIntrDisable(u32 IntrId);
-void XPlmi_PlmIntrClear(u32 IntrId);
-void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data);
+int XPlmi_PlmIntrDisable(u32 IntrId);
+int XPlmi_PlmIntrClear(u32 IntrId);
+int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_PrintRomTime(void);
 void XPlmi_PrintPlmTimeStamp(void);
-void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime * PerfTime);
+void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime);
 
 /* Handler Table Structure */
 struct HandlerTable {

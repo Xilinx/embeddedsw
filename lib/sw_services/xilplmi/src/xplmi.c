@@ -24,6 +24,7 @@
 *						static
 *       kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *       bm   09/08/2020 Added RunTime Configuration Init API to XPlmi_Init
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -36,6 +37,7 @@
 #include "xplmi_err.h"
 #include "xplmi_sysmon.h"
 #include "xplmi_wdt.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
@@ -44,7 +46,6 @@ typedef int (*XPlmiInit)(void);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlm_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/
 u8 LpdInitialized = (u8)0U;
@@ -155,16 +156,18 @@ void XPlm_PrintPlmBanner(void)
 	u32 PsVersion;
 	u32 PmcVersion;
 	static u8 IsBannerPrinted = (u8)FALSE;
+	u32 BootMode;
+	u32 MultiBoot;
 
 	if ((u8)FALSE == IsBannerPrinted) {
 		/* Print the PLM Banner */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "****************************************\n\r");
+			"****************************************\n\r");
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "Xilinx Versal Platform Loader and Manager \n\r");
+			"Xilinx Versal Platform Loader and Manager \n\r");
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "Release %s.%s   %s  -  %s\n\r",
-                 SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
+			"Release %s.%s   %s  -  %s\n\r",
+			SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
 
 		/* Read the Version */
 		Version = XPlmi_In32(PMC_TAP_VERSION);
@@ -172,18 +175,19 @@ void XPlm_PrintPlmBanner(void)
 				PMC_TAP_VERSION_PS_VERSION_SHIFT);
 		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
 				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
+		BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) &
+				CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
+		MultiBoot = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
-					 "PMC: v%u.%u, PS: v%u.%u\n\r",
-					(PmcVersion / 16U), (PmcVersion % 16U),
-					(PmcVersion / 16U), (PmcVersion % 16U),
-					(PsVersion / 16U), (PsVersion % 16U));
-#ifdef DEBUG_UART_MDM
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: MDM UART\n\r");
-#else
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: PS UART\n\r");
-#endif
+				 "PMC: v%u.%u, PS: v%u.%u\n\r",
+				(PmcVersion / 16U), (PmcVersion % 16U),
+				(PmcVersion / 16U), (PmcVersion % 16U),
+				(PsVersion / 16U), (PsVersion % 16U));
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: %u, MULTIBOOT: 0x%x"
+				"\n\r", BootMode, MultiBoot);
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "****************************************\n\r");
+			"****************************************\n\r");
 		IsBannerPrinted = (u8)TRUE;
 	}
 }

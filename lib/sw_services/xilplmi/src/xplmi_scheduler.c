@@ -21,6 +21,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.02  kc   07/28/2020 Wdt handler added for every scheduler tick
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -52,12 +53,12 @@ static XPlmi_Scheduler_t Sched;
 /******************************************************************************/
 /**
 * @brief	The function checks the specified task is active or not, returns
-* corresponding status of the task.
+* corresponding status of the task
 *
-* @param    Scheduler pointer
-* @param    Task index.
+* @param    	SchedPtr is Scheduler pointer
+* @param    	TaskListIndex is Task index
 *
-* @return	TRUE or FALSE based on the task active status.
+* @return	TRUE or FALSE based on the task active status
 *
 ****************************************************************************/
 static u8 XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
@@ -121,11 +122,8 @@ int XPlmi_SchedulerInit(void)
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		Sched.TaskList[Idx].Interval = 0U;
 		Sched.TaskList[Idx].CustomerFunc = NULL;
-		Sched.TaskList[Idx].Status = XPLMI_TASK_STATUS_DISABLED;
 	}
 
-	Sched.Enabled = (u8)FALSE;
-	Sched.PitBaseAddr = 0x0U;
 	Sched.Tick = 0U;
 
 	/* Successfully completed init */

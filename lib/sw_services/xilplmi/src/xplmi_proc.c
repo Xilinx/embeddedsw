@@ -27,6 +27,7 @@
 *       kc   03/20/2020 Scheduler frequency is increased to 100ms for QEMU
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU event
+* 1.03  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -48,11 +49,11 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_MAP_PLMID(Lvl0, Lvl1, Lvl2)	\
-	(Lvl0<<0U | Lvl1<<8U | Lvl2<<16U)
+		((Lvl0 << 0U) | (Lvl1 << 8U) | (Lvl2 << 16U))
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
-			XInterruptHandler Handler, void * Data);
+			XInterruptHandler Handler, void *Data);
 static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XPlmi_IntrHandler(void *CallbackRef);
 
@@ -61,8 +62,7 @@ static u32 PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
 static u32 PlmIntrMap [] = {
 	[XPLMI_CFRAME_SEU] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_CFRAME_SEU,
-						0x0U,
-						0x0U),
+						0x0U, 0x0U),
 	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
 						XPLMI_PMC_GIC_IRQ_GICP0,
 						XPLMI_GICP0_SRC27),
@@ -75,7 +75,7 @@ static u32 PlmIntrMap [] = {
 /**
 * @brief	It initializes the Programmable Interval Timer.
 *
-* @param	TimerNo PIT Timer to be initialized
+* @param	Timer is PIT timer number to be initialized
 * @param	ResetValue is the reset value of timer when started.
 *
 * @return	None
@@ -87,14 +87,11 @@ static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 	 * When used in PIT1 prescalar to PIT2, PIT2 has least 32bits
 	 * So, PIT2 is reloaded to get 64bit timer value.
 	 */
-	if (XPLMI_PIT2 == Timer) {
+	if ((XPLMI_PIT2 == Timer) || (XPLMI_PIT3 == Timer)) {
 		XIOModule_Timer_SetOptions(&IOModule, Timer,
 				XTC_AUTO_RELOAD_OPTION);
 	}
-	if (XPLMI_PIT3 == Timer) {
-		XIOModule_Timer_SetOptions(&IOModule, Timer,
-				XTC_AUTO_RELOAD_OPTION);
-	}
+
 	/*
 	 * Set a reset value for the Programmable Interval Timers such that
 	 * they will expire earlier than letting them roll over from 0, the
@@ -137,7 +134,7 @@ u64 XPlmi_GetTimerValue(void)
 	if (TPit1 == 0U) {
 		TPit1 = XPLMI_PIT1_RESET_VALUE;
 	}
-	TimerValue = (((u64)TPit1) << 32U) | (u64)TPit2;
+	TimerValue = ((u64)TPit1 << 32U) | (u64)TPit2;
 	return TimerValue;
 }
 
@@ -153,15 +150,15 @@ u64 XPlmi_GetTimerValue(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime * PerfTime)
+void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
 {
 	u64 PerfNs;
 	u64 TDiff = TCur - TStart;
 
 	/* Convert TPerf into nanoseconds */
-	PerfNs = (TDiff * (u64)1e9) / PmcIroFreq;
-	PerfTime->TPerfMs = PerfNs / (u64)1e6;
-	PerfTime->TPerfMsFrac = PerfNs % (u64)1e6;
+	PerfNs = (TDiff * (u64)XPLMI_GIGA) / PmcIroFreq;
+	PerfTime->TPerfMs = PerfNs / (u64)XPLMI_MEGA;
+	PerfTime->TPerfMsFrac = PerfNs % (u64)XPLMI_MEGA;
 }
 
 /*****************************************************************************/
@@ -175,7 +172,7 @@ void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime * PerfTime)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime * PerfTime)
+void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 {
 	u64 TEnd = 0U;
 
@@ -202,7 +199,7 @@ void XPlmi_PrintRomTime(void)
 	PmcRomTime |= (u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
 
 	/* Print time stamp of PLM */
-	XPlmi_GetPerfTime((u64) ((((u64)XPLMI_PIT1_RESET_VALUE) << 32U) |
+	XPlmi_GetPerfTime((u64) (((u64)XPLMI_PIT1_RESET_VALUE << 32U) |
 		XPLMI_PIT2_RESET_VALUE), PmcRomTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%06u ms: ROM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
@@ -222,7 +219,7 @@ void XPlmi_PrintPlmTimeStamp(void)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Print time stamp of PLM */
-	XPlmi_MeasurePerfTime((u64) (((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
+	XPlmi_MeasurePerfTime((u64) (((u64)XPLMI_PIT1_RESET_VALUE << 32U) |
 		XPLMI_PIT2_RESET_VALUE), &PerfTime);
 	xil_printf("[%u.%06u]", (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
@@ -289,9 +286,9 @@ int XPlmi_StartTimer(void)
 	 * scheduler's poling time to 100ms for QEMU instead of 10ms
 	 */
 	if (XPLMI_PLATFORM == PMC_TAP_VERSION_QEMU) {
-		Pit3ResetValue = PmcIroFreq / 10U;
+		Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR_QEMU;
 	} else {
-		Pit3ResetValue = PmcIroFreq / 100U;
+		Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR;
 	}
 
 	XPlmi_SchedulerInit();
@@ -380,10 +377,10 @@ int XPlmi_SetUpInterruptSystem(void)
 	Status = XIOModule_Connect(&IOModule, IntrNum,
 			(XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
 			(void *)(u32)IntrNum);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
-				goto END;
-			}
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
+		goto END;
+	}
 
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GIC_IRQ);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_MB_RAM);
@@ -467,13 +464,19 @@ void XPlmi_PlmIntrEnable(u32 IntrId)
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
-* @return   None
+* @return   XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
-void XPlmi_PlmIntrDisable(u32 IntrId)
+int XPlmi_PlmIntrDisable(u32 IntrId)
 {
+	int Status = XST_FAILURE;
 	u32 PlmIntrId;
 	u32 IoModIntrNum;
+
+	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_DISABLE, 0U);
+		goto END;
+	}
 
 	PlmIntrId = PlmIntrMap[IntrId];
 	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
@@ -491,6 +494,10 @@ void XPlmi_PlmIntrDisable(u32 IntrId)
 		default:
 			break;
 	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -499,13 +506,19 @@ void XPlmi_PlmIntrDisable(u32 IntrId)
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
-* @return   None
+* @return   XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
-void XPlmi_PlmIntrClear(u32 IntrId)
+int XPlmi_PlmIntrClear(u32 IntrId)
 {
+	int Status = XST_FAILURE;
 	u32 PlmIntrId;
 	u32 IoModIntrNum;
+
+	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_CLEAR, 0U);
+		goto END;
+	}
 
 	PlmIntrId = PlmIntrMap[IntrId];
 	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
@@ -523,6 +536,10 @@ void XPlmi_PlmIntrClear(u32 IntrId)
 		default:
 			break;
 	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -537,7 +554,7 @@ void XPlmi_PlmIntrClear(u32 IntrId)
 *
 ****************************************************************************/
 static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
-			XInterruptHandler Handler, void * Data)
+			XInterruptHandler Handler, void *Data)
 {
 	int Status = XST_FAILURE;
 
@@ -563,13 +580,19 @@ END:
 * @param    Handler to be registered for the interrupt
 * @param    Data to be passed to handler
 *
-* @return   None
+* @return   XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
-void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data)
+int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 {
+	int Status = XST_FAILURE;
 	u32 PlmIntrId;
 	u32 IoModIntrNum;
+
+	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_REGISTER, 0U);
+		goto END;
+	}
 
 	PlmIntrId = PlmIntrMap[IntrId];
 	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
@@ -588,4 +611,8 @@ void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data)
 		default:
 			break;
 	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }

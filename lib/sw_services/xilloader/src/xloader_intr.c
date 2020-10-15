@@ -26,6 +26,7 @@
 *       bsv  04/09/2020 Code clean up of Xilloader
 *       bsv  08/12/2020 Remove misleading comments
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -69,8 +70,8 @@ int XLoader_IntrInit(void)
 	 * Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
 	 */
-	XPlmi_RegisterHandler(XPLMI_SBI_DATA_RDY, XLoader_SbiLoadPdi, (void *)0U);
-	Status = XST_SUCCESS;
+	Status = XPlmi_RegisterHandler(XPLMI_SBI_DATA_RDY, XLoader_SbiLoadPdi,
+			(void *)0U);
 
 	return Status;
 }
@@ -103,7 +104,10 @@ static int XLoader_SbiLoadPdi(void *Data)
 	 * Disable the SBI RDY interrupt so that PDI load does not
 	 * interrupt itself
 	 */
-	XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
+	Status = XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Store the command fields in resume data */
 	RegVal = XPlmi_In32(SLAVE_BOOT_SBI_CTRL) &
@@ -122,14 +126,16 @@ static int XLoader_SbiLoadPdi(void *Data)
 	PdiPtr->IpiMask = 0U;
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
-		/* Update the error code */
-		XPlmi_ErrMgr(Status);
 		goto END;
 	}
 	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Done\n\r");
 
 END:
-	XLoader_ClearIntrSbiDataRdy();
+	if (Status != XST_SUCCESS) {
+		/* Update the error code */
+		XPlmi_ErrMgr(Status);
+	}
+	Status = XLoader_ClearIntrSbiDataRdy();
 	return Status;
 }
 
@@ -140,11 +146,12 @@ END:
  *
  * @param	None
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XLoader_ClearIntrSbiDataRdy(void)
+int XLoader_ClearIntrSbiDataRdy(void)
 {
+	int Status = XST_FAILURE;
 	/* Clear the SBI interrupt */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
 		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
@@ -154,6 +161,12 @@ void XLoader_ClearIntrSbiDataRdy(void)
 		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
 	/* Clear and Enable GIC interrupt */
-	XPlmi_PlmIntrClear(XPLMI_SBI_DATA_RDY);
+	Status = XPlmi_PlmIntrClear(XPLMI_SBI_DATA_RDY);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
+
+END:
+	return Status;
 }

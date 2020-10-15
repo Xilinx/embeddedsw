@@ -19,6 +19,7 @@
 * 1.00  ma   08/13/2019 Initial release
 *       ma   08/24/2019 Added SSIT commands
 * 1.01  bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -51,12 +52,12 @@
  * @return	Returns the Status of SSIT Sync Master command
  *
  *****************************************************************************/
-int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
+int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 ErrStatus = (u32)XST_FAILURE;
 
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 	/* Initiate synchronization to master */
 	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK,
@@ -92,7 +93,7 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK);
 	}
 
-	XPlmi_Printf(DEBUG_DETAILED, "SSIT Sync Master successful\n\r");
+	XPlmi_Printf(DEBUG_INFO, "SSIT Sync Master successful\n\r");
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -110,7 +111,7 @@ END:
  * @return	Returns the Status of SSIT Sync Slaves command
  *
  *****************************************************************************/
-int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
+int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 SlavesMask = Cmd->Payload[0U];
@@ -119,7 +120,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 	u32 ErrorStatus = 0U;
 	u32 PmcErrStatus2;
 
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
@@ -140,7 +141,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 	}
 
 	if (((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
-		XPlmi_Printf(DEBUG_DETAILED, "Acknowledging from master\r\n");
+		XPlmi_Printf(DEBUG_INFO, "Acknowledging from master\r\n");
 		/* Acknowledge synchronization */
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK);
@@ -181,7 +182,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 
 	/* De-assert synchronization acknowledgement from master */
 	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK, 0U);
-	XPlmi_Printf(DEBUG_DETAILED, "SSIT Sync Slaves successful\n\r");
+	XPlmi_Printf(DEBUG_INFO, "SSIT Sync Slaves successful\n\r");
 	Status = XST_SUCCESS;
 
 END:
@@ -200,7 +201,7 @@ END:
  * @return	Returns the Status of SSIT Wait Slaves command
  *
  *****************************************************************************/
-int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
+int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 SlavesMask = Cmd->Payload[0U];
@@ -209,7 +210,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 	volatile u32 ErrorStatus = 0U;
 	volatile u32 PmcErrStatus2;
 
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
@@ -241,7 +242,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_DETAILED, "SSIT Wait Master successful\n\r");
+	XPlmi_Printf(DEBUG_INFO, "SSIT Wait Master successful\n\r");
 	Status = XST_SUCCESS;
 END:
 	return Status;

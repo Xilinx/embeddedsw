@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -29,6 +28,7 @@
 *						static
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -71,8 +71,8 @@ static u32 XPlmi_CmdSize(u32 *Buf, u32 Len)
 	if (Len >= Size) {
 		u32 CmdId = Buf[0U];
 		u32 PayloadLen = (CmdId & XPLMI_CMD_LEN_MASK) >> 16U;
-		if (PayloadLen == 255U) {
-			Size = 2U;
+		if (PayloadLen == XPLMI_MAX_SHORT_CMD_LEN) {
+			Size = XPLMI_LONG_CMD_HDR_LEN;
 			if (Len >= Size) {
 				PayloadLen = Buf[1U];
 			}
@@ -99,13 +99,13 @@ static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 	u32 HdrLen = 1U;
 
 	Cmd->CmdId = Buf[0U];
-	Cmd->Len = (Cmd->CmdId >> 16U) & 255U;
+	Cmd->Len = (Cmd->CmdId >> XPLMI_SHORT_CMD_LEN_SHIFT) & XPLMI_MAX_SHORT_CMD_LEN;
 	Cmd->Payload = Buf + 1U;
 	Cmd->ProcessedLen = 0U;
-	if (Cmd->Len == 255U) {
-		HdrLen = 2U;
+	if (Cmd->Len == XPLMI_MAX_SHORT_CMD_LEN) {
+		HdrLen = XPLMI_LONG_CMD_HDR_LEN;
 		Cmd->Len = Buf[1U];
-		Cmd->Payload = Buf + 2U;
+		Cmd->Payload = Buf + XPLMI_LONG_CMD_HDR_LEN;
 	}
 
 	/* Assign the available payloadlen in the buffer */
@@ -192,7 +192,6 @@ int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	/* Initialize the CDO buffer user params */
 	CdoPtr->CmdEndDetected = (u8)FALSE;
 	CdoPtr->Cdo1stChunk = (u8)TRUE;
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
