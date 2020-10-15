@@ -19,6 +19,7 @@
 * 1.00  ma   08/13/2019 Initial release
 *       ma   08/24/2019 Added SSIT commands
 * 1.01  bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -33,9 +34,7 @@
 extern "C" {
 #endif
 
-#include "xplmi_modules.h"
 #include "xplmi.h"
-#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 /**
@@ -43,20 +42,20 @@ extern "C" {
  */
 #define PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK	(1U)
 #define PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK	(4U)
-#define PMC_GLOBAL_SSIT_ERR_MASK			(0xE0000000U)
+#define PMC_GLOBAL_SSIT_ERR_MASK		(0xE0000000U)
 
-#define SSIT_SLAVE_0_MASK					(1U)
-#define SSIT_SLAVE_1_MASK					(2U)
-#define SSIT_SLAVE_2_MASK					(4U)
+#define SSIT_SLAVE_0_MASK			(1U)
+#define SSIT_SLAVE_1_MASK			(2U)
+#define SSIT_SLAVE_2_MASK			(4U)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd);
-int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd);
-int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd);
+int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);
+int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd);
+int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd);
 
 #ifdef __cplusplus
 }

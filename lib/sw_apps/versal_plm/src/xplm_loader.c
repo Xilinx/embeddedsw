@@ -22,6 +22,7 @@
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *                       subsystem information
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -132,7 +133,11 @@ END:
 	 * This is used to identify PLM has completed boot PDI
 	 */
 	XPlmi_SetBootPdiDone();
-	XLoader_ClearIntrSbiDataRdy();
+	Status = XLoader_ClearIntrSbiDataRdy();
+	if (Status != XST_SUCCESS) {
+		goto ERR_END;
+	}
+
 	/**
 	 * Enable the SBI RDY interrupt to get the next PDI
 	 */

@@ -19,6 +19,7 @@
 * 1.00  ma   10/08/2018 Initial release
 * 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
 * 1.02  bsv  04/04/2020 Code clean up
+* 1.03  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -37,8 +38,8 @@ extern "C" {
 #include "xplmi_ipi.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_GICP_SOURCE_COUNT				(0x5U)
-#define XPLMI_NO_OF_BITS_IN_REG				(32U)
+#define XPLMI_GICP_SOURCE_COUNT		(0x5U)
+#define XPLMI_NO_OF_BITS_IN_REG		(32U)
 
 #define XPLMI_GICP_MASK			(0xFF00U)
 #define XPLMI_GICPX_MASK		(0xFF0000U)
@@ -133,10 +134,10 @@ enum {
 
 /**************************** Type Definitions *******************************/
 /* Handler Table Structure */
-typedef int (*Function_t)(void *Data);
+typedef int (*GicIntHandler_t)(void *Data);
 struct GicIntrHandlerTable {
 	void *Data;
-	Function_t GicHandler;
+	GicIntHandler_t GicHandler;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -144,7 +145,7 @@ struct GicIntrHandlerTable {
 /************************** Function Prototypes ******************************/
 /* Functions defined in xplm_main.c */
 void XPlmi_GicIntrHandler(void *CallbackRef);
-void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data);
+void XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_GicIntrEnable(u32 PlmIntrId);
 void XPlmi_GicIntrDisable(u32 PlmIntrId);
 void XPlmi_GicIntrClearStatus(u32 PlmIntrId);

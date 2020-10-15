@@ -19,8 +19,9 @@
 * 1.00  sn   07/01/2019 Initial release
 *       sn   07/04/2019 Enabled SysMon's over-temperature interrupt
 *       sn   08/03/2019 Added code to wait until over-temperature condition
-*						 gets resolved before restart
+*                       gets resolved before restart
 * 1.01  bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -36,10 +37,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
-#include "xplmi_debug.h"
-#include "xplmi_modules.h"
-#include "xsysmonpsv.h"
 
 /************************** Constant Definitions *****************************/
 

@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -29,6 +28,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -43,8 +43,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_assert.h"
-#include "xil_types.h"
 #include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
@@ -52,10 +50,10 @@ extern "C" {
 #define XPLMI_CMD_MODULE_ID_MASK		(0xFF00U)
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
 #define XPLMI_CMD_RESP_SIZE			(8U)
-#define XPLMI_CMD_RESUME_DATALEN			(8U)
-#define XPLMI_CMD_HNDLR_MASK				(0xFF00U)
-#define XPLMI_CMD_HNDLR_PLM_VAL				(0x100U)
-#define XPLMI_CMD_HNDLR_EM_VAL				(0x800U)
+#define XPLMI_CMD_RESUME_DATALEN		(8U)
+#define XPLMI_CMD_HNDLR_MASK			(0xFF00U)
+#define XPLMI_CMD_HNDLR_PLM_VAL			(0x100U)
+#define XPLMI_CMD_HNDLR_EM_VAL			(0x800U)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;

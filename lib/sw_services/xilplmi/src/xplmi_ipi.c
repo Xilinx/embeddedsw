@@ -22,14 +22,15 @@
  *       ma   08/01/2019 Added LPD init code
  *       rv   02/04/2020 Set the 1st element of response array always to status
  *       bsv  02/13/2020 XilPlmi generic commands should not be supported
- * 						 via IPI
+ *                       via IPI
  *       ma   02/21/2020 Added code to allow event logging command via IPI
  *       ma   02/28/2020 Added code to disallow EM commands over IPI
  *       bsv  03/09/2020 Added code to support CDO features command
  *       ma   03/19/2020 Added features command for EM module
  *       bsv  04/04/2020 Code clean up
  * 1.02  bsv  06/02/2020 Added code to support GET BOARD command and disallow
- *						 SET BOARD command via IPI
+ *                       SET BOARD command via IPI
+ *       bm   10/14/2020 Code clean up
  *
  * </pre>
  *
@@ -148,12 +149,12 @@ int XPlmi_IpiDispatchHandler(void *Data)
 				Cmd.Response[0U] = (u32)Status;
 				/* Send response to caller */
 				XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
-							XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
+					XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
 				continue;
 			}
 
 			Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
-			if (Cmd.Len > 6U) {
+			if (Cmd.Len > XPLMI_MAX_IPI_CMD_LEN) {
 				Cmd.Len = Payload[1U];
 				Cmd.Payload = (u32 *)&Payload[2U];
 			} else {
@@ -206,11 +207,9 @@ int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 	int Status = XST_FAILURE;
 
 	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
-		if ((NULL == MsgPtr) ||
-			((MsgLen == 0U) || (MsgLen > XPLMI_IPI_MAX_MSG_LEN)) ||
-			((XIPIPSU_BUF_TYPE_MSG != Type) && (XIPIPSU_BUF_TYPE_RESP != Type))) {
-			/* Do nothing */
-		} else {
+		if ((NULL != MsgPtr) &&
+			((MsgLen != 0U) && (MsgLen <= XPLMI_IPI_MAX_MSG_LEN)) &&
+			((XIPIPSU_BUF_TYPE_MSG == Type) || (XIPIPSU_BUF_TYPE_RESP == Type))) {
 			Status = XIpiPsu_WriteMessage(&IpiInst, DestCpuMask,
 				MsgPtr, MsgLen, Type);
 			if (Status != XST_SUCCESS) {
@@ -241,11 +240,8 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 {
 	int Status = XST_FAILURE;
 
-	if ((NULL == MsgPtr) ||
-			((MsgLen == 0U) || (MsgLen > XPLMI_IPI_MAX_MSG_LEN)) ||
-			((XIPIPSU_BUF_TYPE_MSG != Type) && (XIPIPSU_BUF_TYPE_RESP != Type))) {
-		/* Do nothing */
-	} else {
+	if ((NULL != MsgPtr) && ((MsgLen != 0U) && (MsgLen <= XPLMI_IPI_MAX_MSG_LEN)) &&
+		((XIPIPSU_BUF_TYPE_MSG == Type) || (XIPIPSU_BUF_TYPE_RESP == Type))) {
 		/* Read Entire Message to Buffer */
 		Status = XIpiPsu_ReadMessage(&IpiInst, SrcCpuMask, MsgPtr, MsgLen,
 				Type);
