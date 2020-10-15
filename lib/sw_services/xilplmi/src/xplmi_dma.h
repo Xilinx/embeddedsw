@@ -23,6 +23,7 @@
 *       bsv  04/07/2020 Renamed DMA to PMCDMA
 * 1.03  bm   09/02/2020 Add XPlmi_MemSet API
 *       bsv  09/30/2020 Added wait for non blocking SBI DMA
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -48,9 +49,9 @@ extern "C" {
 #define XPLMI_DMA_SRC_NONBLK		(0x1U << 1U)
 #define XPLMI_DST_CH_AXI_FIXED		((u32)0x1U << 16U)
 #define XPLMI_DMA_DST_NONBLK		((u32)0x1U << 17U)
-#define XPLMI_PMCDMA_0				(0x100U)
-#define XPLMI_PMCDMA_1				(0x200U)
-#define XPLMI_DMA_SRC_NPI			(0x4U)
+#define XPLMI_PMCDMA_0			(0x100U)
+#define XPLMI_PMCDMA_1			(0x200U)
+#define XPLMI_DMA_SRC_NPI		(0x4U)
 #define XPLMI_DMA_DST_TYPE_SHIFT	(18U)
 #define XPLMI_DMA_DST_TYPE_MASK		((u32)0x3U << 18U)
 #define XPLMI_READ_AXI_FIXED		(0x1U)
@@ -58,7 +59,6 @@ extern "C" {
 /* SSS configurations and masks */
 #define XPLMI_SSSCFG_DMA0_MASK		(0x0000000FU)
 #define XPLMI_SSSCFG_DMA1_MASK		(0x000000F0U)
-#define XPLMI_SSSCFG_PTP1_MASK		(0x00000F00U)
 #define XPLMI_SSSCFG_AES_MASK		(0x0000F000U)
 #define XPLMI_SSSCFG_SHA_MASK		(0x000F0000U)
 #define XPLMI_SSSCFG_SBI_MASK		(0x00F00000U)
@@ -71,9 +71,6 @@ extern "C" {
 
 #define XPLMI_SSS_AES_DMA0			(0x0000E000U)
 #define XPLMI_SSS_AES_DMA1			(0x00005000U)
-
-#define XPLMI_SSS_PTPI_DMA0			(0x00000D00U)
-#define XPLMI_SSS_PTPI_DMA1			(0x00000A00U)
 
 #define XPLMI_SSS_DMA1_DMA1			(0x00000090U)
 #define XPLMI_SSS_DMA1_AES			(0x00000070U)
@@ -99,9 +96,9 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 int XPlmi_EccInit(u64 Addr, u32 Len);
 int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
-void XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags);
-void XPlmi_WaitForNonBlkDestDma(u32 DmaFlags);
-void XPlmi_WaitForNonBlkDma(u32 DmaFlags);
+int XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags);
+int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags);
+int XPlmi_WaitForNonBlkDma(u32 DmaFlags);
 void XPlmi_SetMaxOutCmds(u8 Val);
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
 int XPlmi_MemSetBytes(void * DestPtr, u32 DestLen, u8 Val, u32 Len);

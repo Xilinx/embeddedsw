@@ -26,6 +26,7 @@
 *       kc   08/17/2020 Added redundancy checks to XPlmi_MemCmp
 *       bsv  09/04/2020 Added checks to validate input params for XPlmi_Strcat
 *                       and XPlmi_Strcpy
+*       bm   10/14/2020 Code clean up
 * </pre>
 *
 * @note
@@ -250,7 +251,6 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
  * @param	HighAddr is higher 32-bits of 64-bit address
  * @param	LowAddr is lower 32-bits of 64-bit address
  * @param	Mask is the bit field to be updated
- * @param	Value is value to be updated
  * @param	TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -374,14 +374,14 @@ void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *St
 	u64 Addr = BufAddr;
 
 	if ((DebugType & XPlmiDbgCurrentTypes) != 0U) {
-		XPlmi_Printf(DebugType, "%s START, Len:0x%0x\r\n 0x%0x%08x: ",
+		XPlmi_Printf(DebugType, "%s START, Len:0x%08x\r\n 0x%08x%08x: ",
 			     Str, Len, (u32)(Addr >> 32U), (u32)Addr);
 		for (Index = 0U; Index < Len; Index++) {
 			XPlmi_Printf_WoTimeStamp(DebugType, "0x%08x ",
 				XPlmi_In64(Addr));
 			if (((Index + 1U) % XPLMI_WORD_LEN) == 0U) {
 				XPlmi_Printf_WoTimeStamp(DebugType,
-				"\r\n 0x%0x%08x: ", (u32)(Addr >> 32U), (u32)Addr);
+				"\r\n 0x%08x%08x: ", (u32)(Addr >> 32U), (u32)Addr);
 			}
 			Addr += XPLMI_WORD_LEN;
 		}
@@ -436,7 +436,8 @@ END:
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
- ******************************************************************************/int XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size)
+ ******************************************************************************/
+int XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size)
 {
 	int Status = XST_FAILURE;
 	u32 Count = 0U;
@@ -478,31 +479,33 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_MemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len)
+int XPlmi_MemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u8 *Dest = (u8 *)DestPtr;
 	const u8 *Src = (const u8 *)SrcPtr;
+	u32 DestLen = DestPtrLen;
+	u32 Size = Len;
 
 	if ((DestPtr == NULL) || (SrcPtr == NULL)) {
 		goto END;
 	}
 
-	if (Len > DestPtrLen) {
-		while (DestPtrLen != 0U) {
+	if (Len > DestLen) {
+		while (DestLen != 0U) {
 			*Dest = 0U;
 			Dest++;
-			DestPtrLen--;
+			DestLen--;
 		}
 		goto END;
 	}
 
 	/* Loop and copy.  */
-	while (Len != 0U) {
+	while (Size != 0U) {
 		*Dest = *Src;
 		Dest++;
 		Src++;
-		Len--;
+		Size--;
 	}
 	Status = XST_SUCCESS;
 
@@ -523,7 +526,7 @@ END:
  *			lower/greater value in Buf1Ptr
  *
  ******************************************************************************/
-int XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
+int XPlmi_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len)
 {
 	volatile int RetVal = 1;
 	const u8 *Buf1 = Buf1Ptr;

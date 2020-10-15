@@ -19,6 +19,7 @@
 * 1.01  kc   08/01/2019 Added error management framework
 * 1.02  ma   02/28/2020 Error actions related changes
 *       bsv  04/04/2020 Code clean up
+* 1.03  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -110,9 +111,18 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		(ErrorAction >= XPLMI_EM_ACTION_MAX) ||
 		(XPLMI_EM_ACTION_INVALID == ErrorAction)) {
 		XPlmi_Printf(DEBUG_GENERAL,
-				"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
-				"action %d received for error 0x%x", ErrorAction, ErrorMask);
+			"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
+			"action %d received for error 0x%x", ErrorAction, ErrorMask);
 		Status = XPLMI_INVALID_ERROR_ACTION;
+		goto END;
+	}
+
+	/* Do not allow invalid node id */
+	if ((NodeId != XPLMI_EVENT_ERROR_PMC_ERR1) &&
+		(NodeId != XPLMI_EVENT_ERROR_PMC_ERR2) &&
+		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR1) &&
+		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR2)) {
+		Status = XPLMI_INVALID_NODE_ID;
 		goto END;
 	}
 
@@ -120,8 +130,8 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	if ((ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR) ||
 		(ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
 		XPlmi_Printf(DEBUG_GENERAL,
-				"Error: XPlmi_CmdEmSetAction: Error Action "
-				"cannot be changed for error 0x%x\r\n", ErrorMask);
+			"Error: XPlmi_CmdEmSetAction: Error Action "
+			"cannot be changed for error 0x%x\r\n", ErrorMask);
 		Status = XPLMI_CANNOT_CHANGE_ACTION;
 		goto END;
 	}

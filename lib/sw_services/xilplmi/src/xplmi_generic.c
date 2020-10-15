@@ -34,6 +34,7 @@
 *       bm   08/03/2020 Added ReadBack Override support
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -52,6 +53,8 @@
 #include "xplmi_ssit.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_wdt.h"
+#include "xplmi_modules.h"
+#include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,6 +66,7 @@
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
 static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
+static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count);
 
 /************************** Variable Definitions *****************************/
 
@@ -84,7 +88,7 @@ static XPlmi_Module XPlmi_Generic;
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_Features(XPlmi_Cmd * Cmd)
+static int XPlmi_Features(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 
@@ -109,7 +113,7 @@ static int XPlmi_Features(XPlmi_Cmd * Cmd)
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_Nop(XPlmi_Cmd * Cmd)
+static int XPlmi_Nop(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 
@@ -122,19 +126,19 @@ static int XPlmi_Nop(XPlmi_Cmd * Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function reads the device ID and fills in the response buffer.
- *			Command: GetDeviceID
- *  			Reserved[31:24]=0 Length[23:16]=[0] PLM=1 CMD_DEVID=18
- *  			Payload = 0
- *  			The command reads PMC_TAP_IDCODE register and
- *				EFUSE_CACHE_IP_DISABLE_0 register and fills the command
- *				response array with these values.
+ *		Command: GetDeviceID
+ *  		Reserved[31:24]=0 Length[23:16]=[0] PLM=1 CMD_DEVID=18
+ *  		Payload = 0
+ *  		The command reads PMC_TAP_IDCODE register and
+ *		EFUSE_CACHE_IP_DISABLE_0 register and fills the command
+ *		response array with these values.
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_GetDeviceID( XPlmi_Cmd * Cmd)
+static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 ExtIdCode;
@@ -164,21 +168,21 @@ static int XPlmi_GetDeviceID( XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides 32 bit mask poll command execution.
  *  		Command payload parameters are
- *				* Address
- *				* Mask
- *				* Expected Value
- *				* Timeout in us
- *				* Deferred Error flag - Optional
- *				*	0 - Return error in case of failure,
- *				*	1 - Ignore error, return success always
- *				*	2 - Defer error till the end of partition load
+ *		- Address
+ *		- Mask
+ *		- Expected Value
+ *		- Timeout in us
+ *		- Deferred Error flag - Optional
+ *		-	0 - Return error in case of failure,
+ *		-	1 - Ignore error, return success always
+ *		-	2 - Defer error till the end of partition load
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
+static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 Addr = Cmd->Payload[0U];
@@ -192,29 +196,29 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 #endif
 
 	/* HACK - waiting for min of 1s **/
-	if (TimeOutInUs < 1000000U) {
-		TimeOutInUs = 1000000U;
+	if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
+		TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
 	}
 
 	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
-		"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
-		"Timeout: %u ...ERROR\r\n",  __func__,
-		Addr, Mask, ExpectedValue, TimeOutInUs);
+			"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
+			"Timeout: %u ...ERROR\r\n",  __func__,
+			Addr, Mask, ExpectedValue, TimeOutInUs);
 	} else {
 		XPlmi_Printf(DEBUG_INFO,
-		"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
-		"Timeout: %u ...Done\r\n",  __func__,
-		Addr, Mask, ExpectedValue, TimeOutInUs);
+			"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
+			"Timeout: %u ...Done\r\n",  __func__,
+			Addr, Mask, ExpectedValue, TimeOutInUs);
 	}
 #ifdef PLM_PRINT_PERF_POLL
 	XPlmi_MeasurePerfTime(PollTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-	" %u.%06u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
-	"Timeout: %u \r\n",
-	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
-	Addr, Mask, ExpectedValue, TimeOutInUs);
+		" %u.%06u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x,"
+		" ExpVal: 0x%0x, Timeout: %u \r\n",
+		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
+		Addr, Mask, ExpectedValue, TimeOutInUs);
 #endif
 
 	/* If command length is 5, flags are included */
@@ -239,16 +243,16 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides 32 bit mask write command execution.
  *  		Command payload parameters are
- *				* Address
- *				* Mask
- *				* Value
+ *		- Address
+ *		- Mask
+ *		- Value
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_MaskWrite(XPlmi_Cmd * Cmd)
+static int XPlmi_MaskWrite(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 Addr = Cmd->Payload[0U];
@@ -256,7 +260,7 @@ static int XPlmi_MaskWrite(XPlmi_Cmd * Cmd)
 	u32 Value = Cmd->Payload[2U];
 
 	XPlmi_Printf(DEBUG_DETAILED,
-		"%s, Addr: 0x%0x,  Mask 0x%0x, Value: 0x%0x\n\r",
+		"%s, Addr: 0x%08x,  Mask 0x%08x, Value: 0x%08x\n\r",
 		__func__, Addr, Mask, Value);
 
 	XPlmi_UtilRMW(Addr, Mask, Value);
@@ -269,15 +273,15 @@ static int XPlmi_MaskWrite(XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides 32 bit Write command execution.
  *  		Command payload parameters are
- *				* Address
- *				* Value
+ *		- Address
+ *		- Value
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_Write(XPlmi_Cmd * Cmd)
+static int XPlmi_Write(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 Addr = Cmd->Payload[0U];
@@ -296,15 +300,14 @@ static int XPlmi_Write(XPlmi_Cmd * Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides delay command execution.
- *  		Command payload parameter
-				Delay in micro seconds
+ *  		Command payload parameter delay in micro seconds
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_Delay(XPlmi_Cmd * Cmd)
+static int XPlmi_Delay(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 Delay;
@@ -324,15 +327,15 @@ static int XPlmi_Delay(XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides DMA write command execution.
  *  		Command payload parameters are
- *				* High Dest Addr
- *				* Low Dest Addr
+ *		- High Dest Addr
+ *		- Low Dest Addr
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_DmaWrite(XPlmi_Cmd * Cmd)
+static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
@@ -376,25 +379,25 @@ END:
 /**
  * @brief	This function provides 64 bit mask poll command execution.
  *  		Command payload parameters are
- *				* High Address
- *				* Low Address
- *				* Mask
- *				* Expected Value
- *				* Timeout in us
- *				* Deferred Error flag - Optional
- *				*	0 - Return error in case of failure,
- *				*	1 - Ignore error, return success always
- *				*	2 - Defer error till the end of partition load
+ *		- High Address
+ *		- Low Address
+ *		- Mask
+ *		- Expected Value
+ *		- Timeout in us
+ *		- Deferred Error flag - Optional
+ *			0 - Return error in case of failure,
+ *			1 - Ignore error, return success always
+ *			2 - Defer error till the end of partition load
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
+static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u64 Addr = (((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U]);
+	u64 Addr = ((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U];
 	u32 Mask = Cmd->Payload[2U];
 	u32 ExpectedValue = Cmd->Payload[3U];
 	u32 TimeOutInUs = Cmd->Payload[4U];
@@ -431,20 +434,20 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides 64 bit mask write command execution.
  *  		Command payload parameters are
- *				* High Address
- *				* Low Address
- *				* Mask
- *				* Value
+ *		- High Address
+ *		- Low Address
+ *		- Mask
+ *		- Value
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_MaskWrite64(XPlmi_Cmd * Cmd)
+static int XPlmi_MaskWrite64(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u64 Addr = (((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U]);
+	u64 Addr = ((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U];
 	u32 Mask = Cmd->Payload[2U];
 	u32 Value = Cmd->Payload[3U];
 	u32 ReadVal;
@@ -468,19 +471,19 @@ static int XPlmi_MaskWrite64(XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides 64 bit write command execution.
  *  		Command payload parameters are
- *				* High Address
- *				* Low Address
- *				* Value
+ *		- High Address
+ *		- Low Address
+ *		- Value
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_Write64(XPlmi_Cmd * Cmd)
+static int XPlmi_Write64(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u64 Addr = (((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U]);
+	u64 Addr = ((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U];
 	u32 Value = Cmd->Payload[2U];
 
 	XPlmi_Printf(DEBUG_DETAILED,
@@ -497,8 +500,8 @@ static int XPlmi_Write64(XPlmi_Cmd * Cmd)
 /**
  * @brief	The function reads data from Npi address space.
  *
- * @param	Npi Src Address
- * @param   Destination Address
+ * @param	Src Address in Npi address space.
+ * @param   	Destination Address
  * @param	Len is number of words to be read
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -507,11 +510,10 @@ static int XPlmi_Write64(XPlmi_Cmd * Cmd)
 static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 {
 	int Status = XST_FAILURE;
-	u32 RegVal;
 	u32 Count = 0U;
 	u32 Offset;
 	u32 ProcWords = 0U;
-	u32 RegValAddr = (u32)(&RegVal);
+	u32 XferLen;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 
 	/* Check if Readback Dest Addr is Overriden */
@@ -530,26 +532,32 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	 * 16 byte aligned. Use XPlmi_Out64 till the destination address
 	 * becomes 16 byte aligned.
 	 */
-	while ((ProcWords < Len) && (((SrcAddr + Count) & (0xFU)) != 0U)) {
-		RegVal = XPlmi_In64(SrcAddr + Count);
-		if (DestAddr != XPLMI_SBI_DEST_ADDR) {
-			XPlmi_Out64(DestAddr + ((u64)ProcWords * XPLMI_WORD_LEN), RegVal);
-		} else {
-			Status = XPlmi_DmaSbiXfer(RegValAddr, 1U, XPLMI_PMCDMA_1);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
+	if (((SrcAddr & XPLMI_SIXTEEN_BYTE_MASK) != 0U) ||
+		(Len < XPLMI_SIXTEEN_BYTE_WORDS)) {
+		if (Len < XPLMI_SIXTEEN_BYTE_WORDS) {
+			Count = Len;
 		}
-		Count += XPLMI_WORD_LEN;
-		++ProcWords;
+		else {
+			Count = (u32)(SrcAddr & XPLMI_SIXTEEN_BYTE_MASK);
+			Count = (u32)(((u32)XPLMI_SIXTEEN_BYTE_VALUE - Count) /
+					(u32)XPLMI_WORD_LEN);
+		}
+		Status = XPlmi_NpiUnalignedXfer(SrcAddr, DestAddr, Count);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		ProcWords += Count;
 	}
 
+	XferLen = (Len - ProcWords) & (~(XPLMI_WORD_LEN - 1U));
+	Offset = ProcWords * XPLMI_WORD_LEN;
+
 	if (DestAddr != XPLMI_SBI_DEST_ADDR) {
-		Status = XPlmi_DmaXfr((u64)(SrcAddr + Count), (u64)(DestAddr + Count),
-			((Len - ProcWords) & (~(XPLMI_WORD_LEN - 1U))), XPLMI_PMCDMA_0);
+		Status = XPlmi_DmaXfr((u64)(SrcAddr + Offset),
+				(u64)(DestAddr + Offset), XferLen, XPLMI_PMCDMA_0);
 	} else {
-		Status = XPlmi_DmaSbiXfer((u64)(SrcAddr + Count),
-			((Len - ProcWords) & (~(XPLMI_WORD_LEN - 1U))), XPLMI_PMCDMA_1);
+		Status = XPlmi_DmaSbiXfer((u64)(SrcAddr + Offset),
+				XferLen, XPLMI_PMCDMA_1);
 	}
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -558,21 +566,17 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	/* For NPI_READ command, Offset variable should
 	 *  be updated with the unaligned bytes.
 	 */
-	ProcWords = ProcWords + ((Len - ProcWords) & (~(XPLMI_WORD_LEN - 1U)));
+	ProcWords += XferLen;
 	Offset = ProcWords * XPLMI_WORD_LEN;
 
-	while (ProcWords < Len) {
-		RegVal = XPlmi_In64(SrcAddr + Offset);
-		if (DestAddr != XPLMI_SBI_DEST_ADDR) {
-			XPlmi_Out64(DestAddr + Offset, RegVal);
-		} else {
-			Status = XPlmi_DmaSbiXfer(RegValAddr, 1U, XPLMI_PMCDMA_1);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
+	if (ProcWords < Len) {
+		XferLen = Len - ProcWords;
+		Status = XPlmi_NpiUnalignedXfer((u64)(SrcAddr + Offset),
+				(u64)(DestAddr + Offset), XferLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
-		Offset += XPLMI_WORD_LEN;
-		ProcWords++;
+		ProcWords += XferLen;
 	}
 
 	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
@@ -581,6 +585,39 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 		ReadBackPtr->DestAddr += ((u64)Len * XPLMI_WORD_LEN);
 	}
 
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function does unaligned Npi transfer
+ *
+ * @param	SrcAddr is Source Address in Npi address space
+ * @param   	DestAddr is the Destination Address
+ * @param	Count is the number of words to transfer
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count)
+{
+	int Status = XST_FAILURE;
+	u32 RegVal;
+	u32 Index = 0;
+
+	if (DestAddr != XPLMI_SBI_DEST_ADDR) {
+		for (Index = 0; Index < Count; Index++) {
+			RegVal = XPlmi_In64(SrcAddr + (Index * XPLMI_WORD_LEN));
+			XPlmi_Out64(DestAddr + ((u64)Index * XPLMI_WORD_LEN), RegVal);
+		}
+		Status = XST_SUCCESS;
+	} else {
+		Status = XPlmi_DmaSbiXfer(SrcAddr, Count, XPLMI_PMCDMA_1);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 
 END:
 	return Status;
@@ -590,18 +627,18 @@ END:
 /**
  * @brief	This function provides DMA Xfer command execution.
  *  		Command payload parameters are
- *				* High Src Addr
- *				* Low Src Addr
- *				* High Dest Addr
- *				* Low Dest Addr
- *				* Params - AXI burst type (Fixed/INCR)
+ *		- High Src Addr
+ *		- Low Src Addr
+ *		- High Dest Addr
+ *		- Low Dest Addr
+ *		- Params - AXI burst type (Fixed/INCR)
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_DmaXfer(XPlmi_Cmd * Cmd)
+static int XPlmi_DmaXfer(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
@@ -636,10 +673,10 @@ static int XPlmi_DmaXfer(XPlmi_Cmd * Cmd)
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
 		if ((Flags & XPLMI_DMA_SRC_NPI) == XPLMI_DMA_SRC_NPI) {
-			Status = XPlmi_NpiRead(SrcAddr,DestAddr,Len);
+			Status = XPlmi_NpiRead(SrcAddr, DestAddr, Len);
 		} else {
-			Status = XPlmi_DmaSbiXfer(SrcAddr, Len, Cmd->ResumeData[5U]
-				| XPLMI_PMCDMA_1);
+			Status = XPlmi_DmaSbiXfer(SrcAddr, Len,
+					Cmd->ResumeData[5U] | XPLMI_PMCDMA_1);
 		}
 		if (Status != XST_SUCCESS) {
 			XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
@@ -686,14 +723,14 @@ END:
 /**
  * @brief	This function provides INIT_SEQ command execution.
  *  		Command payload parameters are
- *				* DATA
+ *		- DATA
  *
  * @param	Cmd is pointer to the command structure and unused
  *
  * @return	XPLMI_ERR_CMD_NOT_SUPPORTED
  *
  *****************************************************************************/
-static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
+static int XPlmi_InitSeq(XPlmi_Cmd *Cmd)
 {
 	/* For MISRA C */
 	(void)Cmd;
@@ -705,18 +742,18 @@ static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides CFI READ command execution.
  *  		Command payload parameters are
- *				* Params - SMPA/JTAG/DDR
- *				* High Dest Addr
- *				* Low Dest Addr
- *				* Read Length in number of words to be read from CFU
- *				* DATA (CFU READ Packets)
+ *		- Params - SMPA/JTAG/DDR
+ *		- High Dest Addr
+ *		- Low Dest Addr
+ *		- Read Length in number of words to be read from CFU
+ *		- DATA (CFU READ Packets)
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
+static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 SrcType = Cmd->Payload[0U];
@@ -727,7 +764,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 	u64 DestAddr;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 
-	XPlmi_SetMaxOutCmds(1U);
+	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_MIN_VAL);
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 		/* Check if Readback Dest Addr is Overriden */
@@ -747,8 +784,8 @@ static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 			DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
 		}
 		Status = XPlmi_DmaXfr(CFU_FDRO_ADDR, DestAddr, Len,
-			XPLMI_PMCDMA_1 | XPLMI_SRC_CH_AXI_FIXED |
-						XPLMI_DMA_SRC_NONBLK);
+				XPLMI_PMCDMA_1 | XPLMI_SRC_CH_AXI_FIXED |
+				XPLMI_DMA_SRC_NONBLK);
 	} else {
 		if (SrcType == XPLMI_READBK_INTF_TYPE_JTAG) {
 			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
@@ -771,21 +808,26 @@ static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	XPlmi_SetMaxOutCmds(8U);
-	SrcAddr = (u32)(&Cmd->Payload[4U]);
+	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_DEF_VAL);
+	SrcAddr = (u32)(&Cmd->Payload[XPLMI_CFI_DATA_OFFSET]);
 
 	Status = XPlmi_DmaXfr(SrcAddr, (u64)CFU_STREAM_ADDR,
-		Cmd->PayloadLen - 4U, XPLMI_PMCDMA_0);
+		Cmd->PayloadLen - XPLMI_CFI_DATA_OFFSET, XPLMI_PMCDMA_0);
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
-		XPlmi_WaitForNonBlkDma(XPLMI_PMCDMA_1);
+		Status = XPlmi_WaitForNonBlkDma(XPLMI_PMCDMA_1);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
 			ReadBackPtr->ProcessedLen += Len;
 			ReadBackPtr->DestAddr += ((u64)Len * XPLMI_WORD_LEN);
 		}
 		goto END;
-	} else {
-		XPlmi_WaitForNonBlkSrcDma(XPLMI_PMCDMA_1);
+	}
+	Status = XPlmi_WaitForNonBlkSrcDma(XPLMI_PMCDMA_1);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
@@ -820,17 +862,17 @@ END:
 /**
  * @brief	This function provides SET command execution.
  *  		Command payload parameters are
- *				* High Dest Addr
- *				* Low Dest Addr
- *				* Length (Length of words to set to value)
- *				* Value
+ *		- High Dest Addr
+ *		- Low Dest Addr
+ *		- Length (Length of words to set to value)
+ *		- Value
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_Set(XPlmi_Cmd * Cmd)
+static int XPlmi_Set(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddrHigh = Cmd->Payload[0U];
@@ -848,17 +890,17 @@ static int XPlmi_Set(XPlmi_Cmd * Cmd)
 /**
  * @brief	This function provides DMA key hole write command execution.
  *  		Command payload parameters are
- *				* High Dest Addr
- *				* Low Dest Addr
- *				* Keyhole Size in bytes
- *				* DATA...
+ *		- High Dest Addr
+ *		- Low Dest Addr
+ *		- Keyhole Size in bytes
+ *		- DATA
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
+static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
@@ -895,7 +937,7 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	}
 
 	DestAddr = (u64)Cmd->ResumeData[0U];
-	DestAddr = ((u64)Cmd->ResumeData[1U] | (DestAddr << 32U));
+	DestAddr = (u64)Cmd->ResumeData[1U] | (DestAddr << 32U);
 	BaseAddr = DestAddr;
 
 	if (Cmd->KeyHoleParams.Func != NULL) {
@@ -911,19 +953,20 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	if (Cmd->ProcessedLen != 0U) {
 		Count = Cmd->ResumeData[3U];
 		if (Count > 0U) {
-			while (Count < 4U) {
+			while (Count < XPLMI_KEYHOLE_RESUME_SIZE) {
 				CfiDataPtr = (u32*)(UINTPTR)SrcAddr;
 				Cmd->ResumeData[Count + XPLMI_WORD_LEN] = *CfiDataPtr;
 				SrcAddr += XPLMI_WORD_LEN;
 				--Len;
 				++Count;
 			}
-			Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr, 4U, Flags);
+			Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr,
+					XPLMI_KEYHOLE_RESUME_SIZE, Flags);
 			if(Status != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 				goto END;
 			}
-			DestAddr += (4U * XPLMI_WORD_LEN);
+			DestAddr += XPLMI_KEYHOLE_RESUME_SIZE * XPLMI_WORD_LEN;
 		}
 		Cmd->ResumeData[3U] = 0U;
 	}
@@ -983,35 +1026,35 @@ END:
  * on the parameters passed.
  *
  * @param	Cmd is pointer to the command structure
- * @param	Len is pointer to the number of bytes to be copied
  * @param	GetFlag is set to TRUE for read and FALSE for write
+ * @param	Len is pointer to the number of bytes to be copied
  *
  * @return	BoardName
  *
  *****************************************************************************/
-static u8* XPlmi_BoardNameRW(XPlmi_Cmd * Cmd, u8 GetFlag, u32 * Len)
+static u8* XPlmi_BoardNameRW(XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 {
 	int Status = XST_FAILURE;
 	static u8 BoardName[XPLMI_MAX_NAME_LEN + 1U] = {0U,};
 	static u32 BoardLen = 0U;
 
-	if ((*Len) > XPLMI_MAX_NAME_WORDS) {
-		(*Len) = XPLMI_MAX_NAME_WORDS;
+	if (*Len > XPLMI_MAX_NAME_WORDS) {
+		*Len = XPLMI_MAX_NAME_WORDS;
 	}
 
 	if (GetFlag == (u8)FALSE) {
 		/* Set Command */
 		Status = XPlmi_DmaXfr((u64)(u32)&Cmd->Payload[0U],
-				(u64)(u32)BoardName, (*Len), XPLMI_PMCDMA_0);
+				(u64)(u32)BoardName, *Len, XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		BoardName[((*Len) * XPLMI_WORD_LEN)] = 0U;
-		BoardLen = (*Len);
+		BoardName[*Len * XPLMI_WORD_LEN] = 0U;
+		BoardLen = *Len;
 	}
 	else {
-		(*Len) = BoardLen;
+		*Len = BoardLen;
 	}
 
 END:
@@ -1022,14 +1065,14 @@ END:
 /**
  * @brief	This function provides SET BOARD command execution.
  *  		Command payload parameters are
- *				* Board Name
+ *		- Board Name
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_SetBoard(XPlmi_Cmd * Cmd)
+static int XPlmi_SetBoard(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 Len = Cmd->PayloadLen;
@@ -1048,14 +1091,14 @@ static int XPlmi_SetBoard(XPlmi_Cmd * Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *		Command payload parameters are
- *				* High Addr
- *				* Low Addr
- *				* Max size in words
+ *		- High Addr
+ *		- Low Addr
+ *		- Max size in words
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_GetBoard(XPlmi_Cmd * Cmd)
+static int XPlmi_GetBoard(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 HighAddr = Cmd->Payload[0U];
@@ -1083,13 +1126,13 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *		Command payload parameters are
- *			* Node Id for PMC, PS MIO
- *			* Periodicity
+ *		- Node Id for PMC, PS MIO
+ *		- Periodicity
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_SetWdtParam(XPlmi_Cmd * Cmd)
+static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 NodeId = Cmd->Payload[0U];
@@ -1174,9 +1217,10 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
 /**
  * @brief	This function gets the ReadBack Properties Value after readback
  *
- * @param	None
+ * @param	ReadBackVal is the pointer to which the readback properties
+ *		instance is copied
  *
- * @return	ReadBack value
+ * @return	None
  *
  *****************************************************************************/
 void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
@@ -1189,11 +1233,12 @@ void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
 
 /*****************************************************************************/
 /**
- * @brief	This function gets the ReadBack Properties Value after readback
+ * @brief	This function sets the ReadBack Properties Value
  *
- * @param	None
+ * @param	ReadBack is the pointer to the Readback Instance that has to be
+ * 		set.
  *
- * @return	ReadBack value
+ * @return	None
  *
  *****************************************************************************/
 void XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
@@ -1245,8 +1290,8 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		SrcAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	}
 
-	Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr,
-			RemData, XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
+	Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr, RemData,
+			XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
@@ -1277,8 +1322,8 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		 * The block is for sbi and smap boot modes which
 		 * support fixed modes
 		 */
-		Status = Cmd->KeyHoleParams.Func(SrcAddr,
-				DestAddr, RemData, XPLMI_DST_CH_AXI_FIXED);
+		Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr, RemData,
+				XPLMI_DST_CH_AXI_FIXED);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 			goto END;
@@ -1307,19 +1352,23 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		while (RemData > 0U) {
 			if (RemData > Keyholesize) {
 				ChunkLen = Keyholesize;
-				Status = Cmd->KeyHoleParams.Func(SrcAddr,
-					DestAddr, ChunkLen, 0U);
+			} else {
+				ChunkLen = RemData;
+			}
+
+			Status = Cmd->KeyHoleParams.Func(SrcAddr,
+				DestAddr, ChunkLen, 0U);
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+					"DMA WRITE Key Hole Failed\n\r");
+				goto END;
+			}
+
+			if (RemData > Keyholesize) {
 				SrcAddr += ChunkLen;
 				RemData -= ChunkLen;
 			} else {
-				Status = Cmd->KeyHoleParams.Func(SrcAddr,
-					DestAddr, RemData, 0U);
 				break;
-			}
-			if (Status != XST_SUCCESS) {
-				XPlmi_Printf(DEBUG_GENERAL,
-				"DMA WRITE Key Hole Failed\n\r");
-				goto END;
 			}
 		}
 	}

@@ -30,6 +30,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
 *       bm   08/03/2020 Added ReadBack Props & related API
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -44,13 +45,8 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_types.h"
 #include "xplmi_debug.h"
-#include "xil_io.h"
-#include "xil_assert.h"
-#include "xplmi_modules.h"
 #include "xplmi_dma.h"
-#include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
 enum {
@@ -73,6 +69,16 @@ typedef struct {
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 #define XPLMI_READBACK_DEF_DST_ADDR		(0xFFFFFFFFFFFFFFFFUL)
+
+#define XPLMI_MASK_POLL_MIN_TIMEOUT		(1000000U)
+#define XPLMI_MAXOUT_CMD_MIN_VAL		(1U)
+#define XPLMI_MAXOUT_CMD_DEF_VAL		(8U)
+#define XPLMI_CFI_DATA_OFFSET			(4U)
+#define XPLMI_KEYHOLE_RESUME_SIZE		(4U)
+#define XPLMI_SIXTEEN_BYTE_MASK			(0xFU)
+#define XPLMI_SIXTEEN_BYTE_VALUE		(0x10U)
+#define XPLMI_SIXTEEN_BYTE_WORDS		(XPLMI_SIXTEEN_BYTE_VALUE / XPLMI_WORD_LEN)
+
 /* Max board name length supported is 256 bytes */
 #define XPLMI_MAX_NAME_LEN			(256U)
 #define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)

@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -28,6 +27,7 @@
 *       bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
 *       bsv  09/30/2020 Fix typo
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -42,8 +42,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xstatus.h"
-#include "xil_types.h"
 #include "xplmi_cmd.h"
 #include "xplmi_debug.h"
 #include "xplmi_status.h"
@@ -51,13 +49,22 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /** CDO Header definitions */
 #define XPLMI_CDO_HDR_IDN_WRD		(0x004F4443U)
-#define XPLMI_CDO_HDR_LEN			(0x5U)
+#define XPLMI_CDO_HDR_LEN		(0x5U)
 
 /* Commands defined */
-#define XPLMI_CMD_END				(0x00100U)
+#define XPLMI_CMD_END			(0x01FFU)
 
 #define XPLMI_CMD_STATE_START		(0U)
 #define XPLMI_CMD_STATE_RESUME		(1U)
+
+/* Define for Max short command length */
+#define XPLMI_MAX_SHORT_CMD_LEN		(255U)
+
+/* Define for Long command header length */
+#define XPLMI_LONG_CMD_HDR_LEN		(2U)
+
+/* Define for Short command length shift */
+#define XPLMI_SHORT_CMD_LEN_SHIFT	(16U)
 
 /**************************** Type Definitions *******************************/
 /**

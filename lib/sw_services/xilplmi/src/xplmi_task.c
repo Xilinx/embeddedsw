@@ -21,6 +21,7 @@
 * 1.02  kc   02/17/2020 Task dispatcher updated with round robin from FCFS
 *       bsv  04/04/2020 Code clean up
 * 1.03  kc   07/28/2020 WDT support added to set PLM live status
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -40,7 +41,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_TaskDelete(XPlmi_TaskNode * Task);
+static void XPlmi_TaskDelete(XPlmi_TaskNode *Task);
 
 /************************** Variable Definitions *****************************/
 static struct metal_list TaskQueue[XPLMI_TASK_PRIORITIES];
@@ -61,9 +62,9 @@ static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
  *
  *****************************************************************************/
 XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
-	int (*Handler)(void *Arg), void * PrivData)
+	int (*Handler)(void *Arg), void *PrivData)
 {
-	XPlmi_TaskNode * Task = NULL;
+	XPlmi_TaskNode *Task = NULL;
 	u32 Index;
 
 	/* Assign free task node */
@@ -95,7 +96,7 @@ XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
+static void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
 {
 	if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
 		metal_list_del(&Task->TaskNode);
@@ -115,7 +116,7 @@ static void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task)
+void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 {
 	Xil_AssertVoid(Task->Handler != NULL);
 	if (metal_list_is_empty(&Task->TaskNode) != (int)FALSE) {
@@ -186,8 +187,8 @@ void XPlmi_TaskDispatchLoop(void)
 				/* Skip the first element as it
 				 * is not proper task
 				 */
-				if ((Node[Index] == &TaskQueue[Index])) {
-					Node[Index] = (TaskQueue[Index].next);
+				if (Node[Index] == &TaskQueue[Index]) {
+					Node[Index] = TaskQueue[Index].next;
 				}
 				/* Get the next task in round robin */
 				Task = metal_container_of(Node[Index],

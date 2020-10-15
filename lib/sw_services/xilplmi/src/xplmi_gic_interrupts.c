@@ -19,6 +19,7 @@
 * 1.00  ma   10/08/2018 Initial release
 * 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
 * 1.02  bsv  04/04/2020 Code clean up
+* 1.03  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -63,7 +64,7 @@ static struct GicIntrHandlerTable
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data)
+void XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data)
 {
 	u32 GicPVal;
 	u32 GicPxVal;
@@ -91,8 +92,8 @@ void XPlmi_GicIntrClearStatus(u32 PlmIntrId)
 	u32 GicPxVal;
 
 	/* Get the GicP mask */
-	GicPVal = (PlmIntrId & XPLMI_GICP_MASK)>>8U;
-	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
+	GicPVal = (PlmIntrId & XPLMI_GICP_MASK) >> 8U;
+	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK) >> 16U;
 	/* Enable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_STATUS,
 		(u32)1U << GicPVal,
@@ -149,8 +150,7 @@ void XPlmi_GicIntrDisable(u32 PlmIntrId)
 	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK) >> 16U;
 	/* Disable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal * XPLMI_GICPX_LEN),
-		(u32)1U << GicPxVal,
-		(u32)1U << GicPxVal);
+		(u32)1U << GicPxVal, (u32)1U << GicPxVal);
 }
 
 /*****************************************************************************/
@@ -195,17 +195,17 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 					if(g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler != NULL) {
 						XPlmi_GicIntrAddTask((GicIndex << 8U) |
 							(GicPIndex << 16U));
-						XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_DISABLE +
-							(GicIndex * XPLMI_GICPX_LEN)),
-							((u32)1U << GicPIndex));
+						XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_DISABLE +
+							(GicIndex * XPLMI_GICPX_LEN),
+							(u32)1U << GicPIndex);
 					} else {
 						XPlmi_Printf(DEBUG_GENERAL,
 						"%s: Error: Unhandled GIC"
 						"interrupt received\n\r", __func__);
 					}
-					XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_STATUS +
-						(GicIndex * XPLMI_GICPX_LEN)),
-						((u32)1U << GicPIndex));
+					XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_STATUS +
+						(GicIndex * XPLMI_GICPX_LEN),
+						(u32)1U << GicPIndex);
 				}
 			}
 			XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, ((u32)1U << GicIndex));

@@ -55,7 +55,6 @@ typedef int (*XPlmi_Callback_t)(void *Data);
 struct XPlmi_Task_t{
 	u32 Interval;
 	u32 OwnerId;
-	int Status;
 	XPlmi_Callback_t CustomerFunc;
 	TaskPriority_t Priority;
 };
@@ -63,9 +62,7 @@ struct XPlmi_Task_t{
 typedef struct {
 	struct XPlmi_Task_t TaskList[XPLMI_SCHED_MAX_TASK];
 	u32 TaskCount;
-	u32 PitBaseAddr;
 	u32 Tick;
-	u32 Enabled;
 } XPlmi_Scheduler_t ;
 
 int XPlmi_SchedulerInit(void);

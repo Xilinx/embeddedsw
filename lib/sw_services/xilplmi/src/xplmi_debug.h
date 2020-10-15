@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -25,6 +24,7 @@
 *       ma   03/02/2020 Implement PLMI own outbyte to support logging as well
 *       bsv  04/04/2020 Code clean up
 * 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -41,7 +41,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_printf.h"
-#include "xparameters.h"
 #include "xplmi_config.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_proc.h"
@@ -53,7 +52,7 @@ extern "C" {
  */
 #define DEBUG_PRINT_ALWAYS	(0x00000001U)    /* unconditional messages */
 #define DEBUG_GENERAL		(0x00000002U)    /* general debug  messages */
-#define DEBUG_INFO			(0x00000004U)    /* More debug information */
+#define DEBUG_INFO		(0x00000004U)    /* More debug information */
 #define DEBUG_DETAILED		(0x00000008U)    /* More debug information */
 
 /**************************** Type Definitions *******************************/

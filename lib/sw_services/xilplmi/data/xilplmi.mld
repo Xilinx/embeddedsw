@@ -16,9 +16,9 @@ BEGIN LIBRARY xilplmi
   OPTION drc = plmi_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_psm psv_pmc psv_psm);
+  OPTION SUPPORTED_PERIPHERALS = (psv_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilplmi,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilinx versal Platform Loader and Manager Interface Library";
+  OPTION desc = "Xilinx Versal Platform Loader and Manager Interface Library";
   OPTION VERSION = 1.2;
   OPTION NAME = xilplmi;
 END LIBRARY

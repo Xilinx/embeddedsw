@@ -18,9 +18,10 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ma   02/18/2020 Initial release
 * 1.01  ma   02/21/2020 Added support for retrieve buffer information
-* 						event logging command through IPI
+*            event logging command through IPI
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -76,11 +77,14 @@ static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
 {
 	u32 RemLen;
 	u32 Index;
+	u32 Offset;
+	u8 RemData;
 
 	RemLen = Len & (XPLMI_WORD_LEN - 1U);
+	Offset = Len & ~(XPLMI_WORD_LEN - 1U);
 	for (Index = 0U; Index < RemLen; ++Index) {
-		XPlmi_OutByte64((DestAddr + ((u64)Len & ~(XPLMI_WORD_LEN - 1U)) + Index),
-		XPlmi_InByte64((SourceAddr + ((u64)Len & ~(XPLMI_WORD_LEN - 1U)) + Index)));
+		RemData = XPlmi_InByte64(SourceAddr + Offset + Index);
+		XPlmi_OutByte64(DestAddr + Offset + Index, RemData);
 	}
 }
 
@@ -108,13 +112,13 @@ static int XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr)
 		}
 		/* Retrieve remaining bytes */
 		XPlmi_RetrieveRemBytes(Buffer->CurrentAddr, DestAddr, Len);
-		Status = XPlmi_DmaXfr(Buffer->StartAddr, (DestAddr+Len),
-			((Buffer->Len - Len) / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
+		Status = XPlmi_DmaXfr(Buffer->StartAddr, DestAddr + Len,
+				((Buffer->Len - Len) / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		/* Retrieve remaining bytes */
-		XPlmi_RetrieveRemBytes(Buffer->StartAddr, (DestAddr+Len),
+		XPlmi_RetrieveRemBytes(Buffer->StartAddr, (DestAddr + Len),
 				(Buffer->Len - Len));
 	} else {
 		Status = XPlmi_DmaXfr(Buffer->StartAddr, DestAddr,
@@ -133,26 +137,26 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function provides Event Logging command execution.
- *			Command payload parameters are
- *	*		Sub command
- *	*		1 - Configure print log level
- *	*			@Arg1 - Log Level
- *	*		2 - Configure Debug Log buffer memory
- *	*			@Arg1 - High Address
- *	*			@Arg2 - Low Address
- *	*			@Arg3 - Length
- *	*		3 - Retrieve Debug Log buffer
- *	*			@Arg1 - High Address
- *	*			@Arg2 - Low Address
- *	*		4 - Retrieve Debug Log buffer information
- *	*		5 - Configure Trace Log buffer memory
- *	*			@Arg1 - High Address
- *	*			@Arg2 - Low Address
- *	*			@Arg3 - Length
- *	*		6 - Retrieve Trace Log buffer
- *	*			@Arg1 - High Address
- *	*			@Arg2 - Low Address
- *	*		7 - Retrieve Trace Log buffer information
+ *		Command payload parameters are
+ *		Sub command
+ *		1 - Configure print log level
+ *			@Arg1 - Log Level
+ *		2 - Configure Debug Log buffer memory
+ *			@Arg1 - High Address
+ *			@Arg2 - Low Address
+ *			@Arg3 - Length
+ *		3 - Retrieve Debug Log buffer
+ *			@Arg1 - High Address
+ *			@Arg2 - Low Address
+ *		4 - Retrieve Debug Log buffer information
+ *		5 - Configure Trace Log buffer memory
+ *			@Arg1 - High Address
+ *			@Arg2 - Low Address
+ *			@Arg3 - Length
+ *		6 - Retrieve Trace Log buffer
+ *			@Arg1 - High Address
+ *			@Arg2 - Low Address
+ *		7 - Retrieve Trace Log buffer information
  *
  * @param	Pointer to the command structure
 
@@ -179,11 +183,11 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:
 			if (Arg3 != 0U) {
-				Addr = (((u64)Arg1 << 32U) | Arg2);
+				Addr = ((u64)Arg1 << 32U) | Arg2;
 				if (((Addr >= XPLMI_PMCRAM_BASEADDR) &&
-						(Addr < XPLMI_DEBUG_LOG_BUFFER_ADDR)) ||
-						((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
-						(Addr <= XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR))) {
+					(Addr < XPLMI_DEBUG_LOG_BUFFER_ADDR)) ||
+					((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
+					(Addr <= XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR))) {
 					Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR, Status);
 				} else {
 					DebugLog.LogBuffer.StartAddr = Addr;
@@ -198,7 +202,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
 			Status = XPlmi_RetrieveBufferData(&DebugLog.LogBuffer,
-				(((u64)Arg1 << 32U) | Arg2));
+				((u64)Arg1 << 32U) | Arg2);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
 			Cmd->Response[1U] = (u32)(DebugLog.LogBuffer.StartAddr >> 32U);
@@ -211,7 +215,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM:
 			if (Arg3 != 0U) {
-				Addr = (((u64)Arg1 << 32U) | Arg2);
+				Addr = ((u64)Arg1 << 32U) | Arg2;
 				if (((Addr >= XPLMI_PMCRAM_BASEADDR) &&
 					(Addr < XPLMI_TRACE_LOG_BUFFER_ADDR)) ||
 					((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
@@ -229,7 +233,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			}
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
-			Status = XPlmi_RetrieveBufferData(&TraceLog, (((u64)Arg1 << 32U) | Arg2));
+			Status = XPlmi_RetrieveBufferData(&TraceLog, ((u64)Arg1 << 32U) | Arg2);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
 			Cmd->Response[1U] = (u32)(TraceLog.StartAddr >> 32U);
@@ -265,8 +269,8 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Get time stamp of PLM */
-	XPlmi_MeasurePerfTime((((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
-		XPLMI_PIT2_RESET_VALUE), &PerfTime);
+	XPlmi_MeasurePerfTime(((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
+		XPLMI_PIT2_RESET_VALUE, &PerfTime);
 
 	TraceData[0U] = TraceData[0U] | (Len << XPLMI_TRACE_LOG_LEN_SHIFT);
 	TraceData[1U] = (u32)PerfTime.TPerfMs;

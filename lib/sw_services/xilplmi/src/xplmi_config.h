@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -26,14 +25,15 @@
 * 1.03  bsv  04/04/2020 Code clean up
 * 1.04  kc   01/07/2020 Added MACRO to get performance number for keyhole
 * 1.05  rama 08/12/2020 Added macro to exclude STL by default
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-#ifndef XPLM_CONFIG_H
-#define XPLM_CONFIG_H
+#ifndef XPLMI_CONFIG_H
+#define XPLMI_CONFIG_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -115,19 +115,6 @@ extern "C" {
 //#define PLM_USB_EXCLUDE
 //#define PLM_SEM_EXCLUDE
 /**
- * @name PLM Error management options
- *
- *  PLM by default for any error during full PDI loading, does a fallback.
- *  Users will be given an option to disable fallback so that they can debug
- *  the error.
- *  	- PLM_ERR_FALLBACK (default)
- *  	- PLM_ERR_DISABLE_FALLBACK
- *
- *  TODO Check if we can classify critical and non critical errors at boot
- *
- *  Post Boot:
- */
-/**
  * @name PLM DEBUG MODE options
  *
  * By default, PLM would get built in release mode, which implies any
@@ -153,4 +140,4 @@ extern "C" {
 }
 #endif
 
-#endif  /* XPLM_CONFIG_H */
+#endif  /* XPLMI_CONFIG_H */
