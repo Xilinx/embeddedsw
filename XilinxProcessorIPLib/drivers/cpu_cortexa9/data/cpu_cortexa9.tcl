@@ -39,6 +39,8 @@
 #                     extra compiler flags. Now, user can remove default flags
 #                     from extra compiler flags. It fixes CR#998768.
 # 2.8   aru  04/18/19 Updated tcl to add assembler for ARMCC and IAR
+# 2.10  mus  10/15/20 Updated mdd and tcl file to set dependency flags based
+#                     on the compiler.
 ##############################################################################
 #uses "xillib.tcl"
 
