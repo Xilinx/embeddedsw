@@ -20,6 +20,7 @@
 * 1.02  kc    08/03/2020 Added status prints for CFU/CFI errors
 *       kal   08/12/2020 Added PlHouseCleaning in case of any PL error.
 *       td    08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv   10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -104,20 +105,21 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 	int Status = XST_FAILURE;
 	u32 Err1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	u32 Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-	u32 CfiErrStatus = Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
+	u32 CfiErrStatus;
 	u32 CountVal = 0U;
 	u32 CfuIsrStatus = XPlmi_In32(CFU_APB_CFU_ISR);
 	u32 CfuStatus = XPlmi_In32(CFU_APB_CFU_STATUS);
 	XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
 
-	if (CfiErrStatus == 0U) {
-		CfiErrStatus = Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;
-	}
-
 	XPlmi_Printf(DEBUG_GENERAL, "Error loading PL data: \n\r"
 		"CFU_ISR: 0x%08x, CFU_STATUS: 0x%08x \n\r"
 		"PMC ERR1: 0x%08x, PMC ERR2: 0x%08x\n\r",
 		CfuIsrStatus, CfuStatus, Err1Status, Err2Status);
+
+	CfiErrStatus = Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
+	if (CfiErrStatus == 0U) {
+		CfiErrStatus = Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;
+	}
 
 	if (CfiErrStatus != 0U) {
 		XCfupmc_CfiErrHandler(&XLoader_CfuIns);

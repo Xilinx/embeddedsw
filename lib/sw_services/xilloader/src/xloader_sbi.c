@@ -27,6 +27,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -40,6 +41,7 @@
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
 #include "xloader_sbi.h"
+#include "xplmi_dma.h"
 
 #if defined(XLOADER_SBI)
 /************************** Constant Definitions *****************************/
@@ -109,7 +111,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	 * error cases and PCIe boot modes.
 	 */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
-		     SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
+		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
 
 END:
 	return Status;
@@ -175,7 +177,7 @@ void XLoader_SbiRecovery(void)
 
 	SbiCtrl = XPlmi_In32(SLAVE_BOOT_SBI_CTRL);
 	/* Reset DMA1, SBI */
-	XPlmi_Out32(CRP_RST_SBI, 0x1U);
+	XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
 	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK,
 		      CRP_RST_PDMA_RESET1_MASK);
 	usleep(10U);

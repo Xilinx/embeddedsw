@@ -8,7 +8,7 @@
 *
 * @file xloader_qspi.h
 *
-* This is the header file which contains qspi declarations for the PLM.
+* This is the header file which contains qspi declarations for XilLoader.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,6 +27,7 @@
 *       skd  07/14/2020 XLoader_QspiCopy prototype changed
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       skd  08/21/2020 Removed flash size macros
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -44,8 +45,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_status.h"
 #ifdef XLOADER_QSPI
-#include "xqspipsu.h"
-#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -82,7 +81,7 @@ extern "C" {
 #define XLOADER_DMA_DATA_TRAN_SIZE	(0x20000000U)
 
 /*
- * Flash connection type as defined in Vivado
+ * Macros related to Qspi Bank Size
  */
 #define XLOADER_FLASH_SIZE_16MB			(0x1000000U)
 #define XLOADER_BANKSIZE			(XLOADER_FLASH_SIZE_16MB)

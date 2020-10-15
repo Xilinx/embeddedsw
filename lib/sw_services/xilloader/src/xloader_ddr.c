@@ -26,6 +26,7 @@
 *       skd  07/29/2020 Updated device copy macros
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -38,6 +39,7 @@
 #include "xplmi_util.h"
 #include "xloader_ddr.h"
 #include "xplmi.h"
+#include "xplmi_dma.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -88,6 +90,12 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	int Status = XST_FAILURE;
 	u32 DmaFlags;
 
+	if (((SrcAddr % XPLMI_WORD_LEN) != 0U) ||
+		((DestAddr % XPLMI_WORD_LEN) != 0U) ||
+		((Length % XPLMI_WORD_LEN) != 0U)) {
+		Status = XPlmi_UpdateStatus(XLOADER_DDR_COPY_UNSUPPORTED_PARAMS, 0);
+		goto END;
+	}
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
 		DmaFlags = XPLMI_PMCDMA_0;
 	}
@@ -107,8 +115,10 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		DmaFlags |= XPLMI_DMA_SRC_NONBLK;
 	}
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr,
-			Length / XPLMI_WORD_LEN, DmaFlags);
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Length / XPLMI_WORD_LEN, DmaFlags);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 END:
 	return Status;

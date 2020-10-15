@@ -9,7 +9,7 @@
 *
 * @file xloader_sd.c
 *
-* This is the file which contains sd related code for the PMC FW.
+* This is the file which contains sd related code for XilLoader.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -32,6 +32,7 @@
 *       bsv  07/16/2020 Force Cdn bit to 1 to improve performance
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv  09/04/2020 Added error checks for XPlmi_Strcat function calls
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -68,13 +69,13 @@ static u32 SdCdnReg = 0U;
 /*****************************************************************************/
 /**
  * @brief	This function creates the Boot image name for file system devices
-*  based on the multiboot register.
+ * based on the multiboot register.
  *
- * @param       SdEmmcFileName is the pointer to the file name
+ * @param	SdEmmcFileName is the pointer to the file name
  * @param	MultiBootOffset is the value of the multiboot register that
- *		would be suffixed to the filename
+ *			would be suffixed to the filename
  *
- * @return      XST_SUCCESS on success and error code on failure
+ * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
@@ -367,9 +368,9 @@ END:
  * @brief	This function is used to close the boot file and unmount the
  * file system.
  *
- * @param       None
+ * @param	None
  *
- * @return      XST_SUCCESS on success and error code on failure
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
  int XLoader_SdRelease(void)
@@ -601,9 +602,9 @@ END:
  * @brief	This function is used to restore the card detect value to
  * PMC_IOU_SLCR registers.
  *
- * @param       None
+ * @param	None
  *
- * @return      XST_SUCCESS on success always
+ * @return	XST_SUCCESS on success always
  *
  ****************************************************************************/
 int XLoader_RawRelease(void)

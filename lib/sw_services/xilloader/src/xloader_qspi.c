@@ -29,6 +29,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   09/01/2020 Updated Major error codes for Unsupported Qspi Flash
 *			IDs and Unsupported Flash Sizes
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -42,8 +43,8 @@
 #include "xplmi_dma.h"
 #include "xloader.h"
 #include "xplmi.h"
-
 #ifdef XLOADER_QSPI
+#include "xqspipsu.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -247,10 +248,8 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	Status = XQspiPsu_SetOptions(&QspiPsuInstance,
 				XQSPIPSU_MANUAL_START_OPTION);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_QSPI_MANUAL_START, Status);
-		XLoader_Printf(DEBUG_GENERAL,
-			"XLOADER_ERR_QSPI_MANUAL_START\r\n");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_MANUAL_START, Status);
+		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_MANUAL_START\r\n");
 		goto END;
 	}
 
@@ -260,34 +259,30 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance,
 				XQSPIPSU_CLK_PRESCALE_8);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_PRESCALER_CLK,
-					Status);
-		XLoader_Printf(DEBUG_GENERAL,
-			"XLOADER_ERR_QSPI_PRESCALER_CLK\r\n");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_PRESCALER_CLK, Status);
+		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_PRESCALER_CLK\r\n");
 		goto END;
 	}
 	XQspiPsu_SelectFlash(&QspiPsuInstance,
-	XQSPIPSU_SELECT_FLASH_CS_LOWER, XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+		XQSPIPSU_SELECT_FLASH_CS_LOWER, XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 
 	QspiMode = (u8)XPAR_XQSPIPSU_0_QSPI_MODE;
 	switch (QspiMode) {
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 			XLoader_Printf(DEBUG_INFO,
-			"QSPI is in single flash connection\r\n");
+				"QSPI is in single flash connection\r\n");
 			break;
 		case XQSPIPSU_CONNECTION_MODE_PARALLEL:
 			XLoader_Printf(DEBUG_INFO,
-			"QSPI is in Dual Parallel connection\r\n");
+				"QSPI is in Dual Parallel connection\r\n");
 			break;
 		case XQSPIPSU_CONNECTION_MODE_STACKED:
 			XLoader_Printf(DEBUG_INFO,
-			"QSPI is in Dual Stack connection\r\n");
+				"QSPI is in Dual Stack connection\r\n");
 			break;
 		default:
-			Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_QSPI_CONNECTION, Status);
-			XLoader_Printf(DEBUG_GENERAL,
-					"XLOADER_ERR_QSPI_CONNECTION\r\n");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_CONNECTION, Status);
+			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_QSPI_CONNECTION\r\n");
 			break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -354,7 +349,7 @@ END:
  * @brief	This function is used to initialize the qspi controller
  * and driver.
  *
- * @param       Image Offset Address in the PDI
+ * @param       ImageOffsetAddress is the Offset Address of the image in PDI
  *
  * @return      XST_SUCCESS on success and error code on failure
  *
@@ -382,8 +377,8 @@ int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 				(u64)(UINTPTR)(&QspiWidthBuffer),
 				XLOADER_QSPI_BUSWIDTH_LENGTH, 0U);
 
-	if ((Status == XST_SUCCESS) && (QspiWidthBuffer[0U] ==
-			XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)) {
+	if ((Status == XST_SUCCESS) &&
+		(QspiWidthBuffer[0U] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)) {
 		XLoader_Printf(DEBUG_INFO, "ConnectionType: QUAD\n\r");
 	}
 	else {
@@ -508,8 +503,6 @@ static u32 XLoader_GetQspiAddr(u32 Addr)
 /**
  * @brief	This functions selects the current bank
  *
- * @param	QspiPtr is a pointer to the QSPI driver component to use.
- * @param	Pointer to the write buffer which contains data to be transmitted
  * @param	BankSel is the bank to be selected in the flash device(s).
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -540,13 +533,10 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0U].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance,
-						&FlashMsg[0U], 1U);
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U], 1U);
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ,
-						Status);
-			XLoader_Printf(DEBUG_GENERAL,
-					"XLOADER_ERR_QSPI_READ\r\n");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ, Status);
+			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_QSPI_READ\r\n");
 			goto END;
 		}
 
@@ -670,13 +660,14 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to copy the data from QSPI flash to
- *destination address.
+ * destination address.
  *
  * @param	SrcAddr is the address of the QSPI flash where copy should
  * 		start from.
  * @param	DestAddr is the address of the destination where it
  * 		should copy to.
  * @param	Length of the bytes to be copied
+ * @param	Flags denote the blocking / non-blocking nature of copy
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -811,8 +802,8 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			 * calculate Transfer Bytes in current bank. Else
 			 * transfer bytes are same
 			 */
-			if ((OrigAddr & BankMask) != (((u64)OrigAddr + TransferBytes)
-				& BankMask)) {
+			if ((OrigAddr & BankMask) !=
+				(((u64)OrigAddr + TransferBytes) & BankMask)) {
 				TransferBytes = (u32)((OrigAddr & BankMask) +
 						BankSize - OrigAddr);
 			}
