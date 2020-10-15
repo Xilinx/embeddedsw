@@ -22,7 +22,7 @@
 *       bsv  03/09/2020 Added CDO features command for xilloader
 *       bsv  04/09/2020 Code clean up Xilloader
 * 1.04  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
-*						subsystem information
+*                       subsystem information
 *       kc   07/28/2020 PLM mode is set to configuration during PDI load
 *       bsv  07/29/2020 Removed hard coding of DDR back up address
 *       bm   08/03/2020 Added LoadReadBackPdi Cmd
@@ -31,6 +31,7 @@
 *       bm   08/19/2020 Added ImageInfo Cmds
 *       bm   09/21/2020 Modified ImageInfo related API calls
 *       bm   09/24/2020 Added FuncID parameter in LoadDdrCpyImg
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -54,12 +55,34 @@
 
 /* Get Image Info List Macros */
 #define XLOADER_NUM_ENTRIES_MASK		(0x0000FFFFU)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 extern XilPdi* BootPdiPtr;
 extern XilPdi SubsystemPdiIns;
 static XPlmi_Module XPlmi_Loader;
+
+#define XLOADER_CMD_FEATURES_CMD_ID_INDEX	(0U)
+#define XLOADER_CMD_DDR_CPY_IMGID_INDEX		(0U)
+#define XLOADER_CMD_DDR_CPY_FUNCID_INDEX	(1U)
+#define XLOADER_CMD_LOAD_PDI_PDISRC_INDEX	(0U)
+#define XLOADER_CMD_LOAD_PDI_PDIADDR_HIGH_INDEX		(1U)
+#define XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX		(2U)
+#define XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX		(0U)
+#define XLOADER_CMD_GET_IMG_INFO_LIST_DESTADDR_HIGH_INDEX	(0U)
+#define XLOADER_CMD_GET_IMG_INFO_LIST_DESTADDR_LOW_INDEX	(1U)
+#define XLOADER_CMD_GET_IMG_INFO_LIST_MAXLEN_INDEX	(2U)
+#define XLOADER_CMD_READBACK_PDIADDR_HIGH_INDEX		(3U)
+#define XLOADER_CMD_READBACK_PDIADDR_LOW_INDEX		(4U)
+#define XLOADER_CMD_READBACK_MAXLEN_INDEX		(5U)
+#define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
+#define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
+#define XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX	(1U)
+#define XLOADER_RESP_CMD_GET_IMG_INFO_UID_INDEX		(1U)
+#define XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX		(2U)
+#define XLOADER_RESP_CMD_GET_IMG_INFO_FUNCID_INDEX		(3U)
+#define XLOADER_RESP_CMD_GET_IMG_INFO_LIST_NUM_ENTRIES_INDEX	(1U)
 
 /************************** Function Prototypes ******************************/
 
@@ -71,24 +94,23 @@ static XPlmi_Module XPlmi_Loader;
  * @brief This function checks if a particular Loader Command ID is supported
  * or not. Command ID is the only payload parameter.
  *
- * @param Pointer to the command structure
+ * @param Cmd is pointer to the command structure
  *
  * @return Returns XST_SUCCESS
  *
  *****************************************************************************/
-static int XLoader_Features(XPlmi_Cmd * Cmd)
+static int XLoader_Features(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
-
-	if (Cmd->Payload[0U] < XPlmi_Loader.CmdCnt) {
-		Cmd->Response[1U] = XLOADER_SUCCESS;
+	if (Cmd->Payload[XLOADER_CMD_FEATURES_CMD_ID_INDEX] <
+		XPlmi_Loader.CmdCnt) {
+		Cmd->Response[XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED] = XLOADER_SUCCESS;
 	}
 	else {
-		Cmd->Response[1U] = XLOADER_FAILURE;
+		Cmd->Response[XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED] = XLOADER_FAILURE;
 	}
-	Status = XST_SUCCESS;
-	Cmd->Response[0U] = XLOADER_SUCCESS;
-	return Status;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = XLOADER_SUCCESS;
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -98,16 +120,17 @@ static int XLoader_Features(XPlmi_Cmd * Cmd)
  *	* Img ID - of ddr copied image
  *	* Func ID - to verify with the FuncID of the image copied to DDR
  *
- * @param	Pointer to the command structure
+ * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
+static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ImgId = Cmd->Payload[0U];
-	u32 *FuncID = (Cmd->Len > 1U) ? (&Cmd->Payload[1U]) : NULL;
+	u32 ImgId = Cmd->Payload[XLOADER_CMD_DDR_CPY_IMGID_INDEX];
+	u32 *FuncID = (Cmd->Len > XLOADER_CMD_DDR_CPY_FUNCID_INDEX) ?
+		(&Cmd->Payload[XLOADER_CMD_DDR_CPY_FUNCID_INDEX]) : NULL;
 	XilPdi* PdiPtr = BootPdiPtr;
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
@@ -124,7 +147,7 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
 
 END:
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
-	Cmd->Response[0U] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	return Status;
 }
 
@@ -133,15 +156,15 @@ END:
 /**
  * @brief	This function provides PDI execution from DDR.
  *  Command payload parameters are
- *	* PdiSrc - Boot Mode values, DDR, PCIe
- *	* PdiAddr - 64bit PDI address located in the Source
+ *	- PdiSrc - Boot Mode values, DDR, PCIe
+ *	- PdiAddr - 64bit PDI address located in the Source
  *
- * @param	Pointer to the command structure
+ * @param	Cmd is pointer to the command structure
  *
- * @return	Returns the Load PDI command
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
+static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	PdiSrc_t PdiSrc;
@@ -151,9 +174,10 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
 	/* Store the command fields in resume data */
-	PdiSrc = (PdiSrc_t)(Cmd->Payload[0U]);
-	PdiAddr = (u64)Cmd->Payload[1U];
-	PdiAddr = ((u64)(Cmd->Payload[2U]) | (PdiAddr << 32U));
+	PdiSrc = (PdiSrc_t)(Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDISRC_INDEX]);
+	PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_HIGH_INDEX];
+	PdiAddr = ((u64)(Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX]) |
+			(PdiAddr << 32U));
 
 	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Started\n\r");
 
@@ -169,7 +193,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 	XPlmi_Printf(DEBUG_GENERAL, "Subsystem PDI Load: Done\n\r");
 
 END:
-	Cmd->Response[0U] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	return Status;
 }
 
@@ -178,48 +202,51 @@ END:
  * @brief	This function provides ImageInfo stored in ImageInfoTbl for a
  *  given NodeID.
  *  Command payload parameters are
- *	* Node ID
+ *	- Node ID
  *  Command Response parameters are
- * 	* Unique ID
- * 	* Parent Unique ID
- * 	* Function ID
+ * 	- Unique ID
+ * 	- Parent Unique ID
+ * 	- Function ID
  *
- * @param	Pointer to the command structure
+ * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_GetImageInfo(XPlmi_Cmd * Cmd)
+static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	XLoader_ImageInfo *ImageInfo;
 
-	if (Cmd->Payload[0U] == XLOADER_INVALID_IMG_ID) {
+	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
+		XLOADER_INVALID_IMG_ID) {
 		Status = XLOADER_ERR_INVALID_IMGID;
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid ImgID\n\r");
 		goto END;
 	}
 
-	ImageInfo = XLoader_GetImageInfoEntry(Cmd->Payload[0U]);
+	ImageInfo = XLoader_GetImageInfoEntry(
+		Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX]);
 	if (ImageInfo == NULL) {
 		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		goto END;
 	}
-	if ((ImageInfo->ImgID != Cmd->Payload[0U]) ||
-		(ImageInfo->ImgID == XLOADER_INVALID_IMG_ID)) {
+	if ((ImageInfo->ImgID != Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX])
+		|| (ImageInfo->ImgID == XLOADER_INVALID_IMG_ID)) {
 		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		XPlmi_Printf(DEBUG_GENERAL, "No Valid Image Entry Found\n\r");
 		goto END;
 	}
 
-	Cmd->Response[1U] = ImageInfo->UID;
-	Cmd->Response[2U] = ImageInfo->PUID;
-	Cmd->Response[3U] = ImageInfo->FuncID;
+	Cmd->Response[XLOADER_RESP_CMD_GET_IMG_INFO_UID_INDEX] = ImageInfo->UID;
+	Cmd->Response[XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX] = ImageInfo->PUID;
+	Cmd->Response[XLOADER_RESP_CMD_GET_IMG_INFO_FUNCID_INDEX] =
+		ImageInfo->FuncID;
 
 	Status = XST_SUCCESS;
 
 END:
-	Cmd->Response[0U] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	return Status;
 }
 
@@ -229,19 +256,19 @@ END:
  * used by bootgen to set the Image Header IDs
  *
  *  Command payload parameters are
- *	* Node ID
- *	* Unique ID
- *	* Parent Unique ID
- *	* Function ID
- * @param	Pointer to the command structure
+ *	- Node ID
+ *	- Unique ID
+ *	- Parent Unique ID
+ *	- Function ID
+ * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XLoader_SetImageInfo(XPlmi_Cmd * Cmd)
+static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
 {
 	/* This acts as a placeholder for the implementation done by bootgen */
-	Cmd->Response[0U] = (u32)XST_SUCCESS;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)XST_SUCCESS;
 	return XST_SUCCESS;
 }
 
@@ -251,35 +278,40 @@ static int XLoader_SetImageInfo(XPlmi_Cmd * Cmd)
  * buffer address passed in the command.
  *
  *  Command payload parameters are
- *	* 64-bit Buffer Address
- *	* Max Size
+ *	- 64-bit Buffer Address
+ *	- Max Size
  *
  *  Command Response parameters are
- * 	* Number of Entries Returned
+ * 	- Number of Entries Returned
  *
- * @param	Pointer to the command structure
+ * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success, error code on failure
  *
  *****************************************************************************/
-static int XLoader_GetImageInfoList(XPlmi_Cmd * Cmd)
+static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
 	u32 MaxSize;
 	u32 NumEntries = 0U;
 
-	DestAddr = (u64)Cmd->Payload[0U];
-	DestAddr = (((u64)Cmd->Payload[1U]) | (DestAddr << 32U));
-	MaxSize = (u32)(Cmd->Payload[2U] & XLOADER_BUFFER_MAX_SIZE_MASK);
+	DestAddr =
+		(u64)Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_LIST_DESTADDR_HIGH_INDEX];
+	DestAddr =
+		(((u64)Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_LIST_DESTADDR_LOW_INDEX]) |
+		(DestAddr << 32U));
+	MaxSize = (u32)(Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_LIST_MAXLEN_INDEX] &
+			XLOADER_BUFFER_MAX_SIZE_MASK);
 	Status = XLoader_LoadImageInfoTbl(DestAddr, MaxSize, &NumEntries);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Cmd->Response[1U] = NumEntries & XLOADER_NUM_ENTRIES_MASK;
+	Cmd->Response[XLOADER_RESP_CMD_GET_IMG_INFO_LIST_NUM_ENTRIES_INDEX] =
+		NumEntries & XLOADER_NUM_ENTRIES_MASK;
 
 END:
-	Cmd->Response[0U] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	return Status;
 }
 
@@ -288,17 +320,17 @@ END:
  * @brief	This function provides loading of ReadBack PDI overriding
  *  destination address of readback data.
  *  Command payload parameters are
- *	* PdiSrc - Boot Mode values, DDR
- *	* PdiAddr - 64bit PDI address located in the Source
- *	* ReadbackDdrDestAddr - 64bit DDR destination address
- *	* MaxSize - MaxSize of the buffer present at destination address
+ *	- PdiSrc - Boot Mode values, DDR
+ *	- PdiAddr - 64bit PDI address located in the Source
+ *	- ReadbackDdrDestAddr - 64bit DDR destination address
+ *	- MaxSize - MaxSize of the buffer present at destination address
  *
- * @param	Pointer to the command structure
+ * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_LoadReadBackPdi(XPlmi_Cmd * Cmd)
+static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	XPlmi_ReadBackProps ReadBack;
@@ -306,10 +338,11 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd * Cmd)
 		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
 	};
 
-	ReadBack.DestAddr = (u64)Cmd->Payload[3U];
-	ReadBack.DestAddr = ((u64)(Cmd->Payload[4U]) |
-					(ReadBack.DestAddr << 32U));
-	ReadBack.MaxSize = Cmd->Payload[5U] & XLOADER_BUFFER_MAX_SIZE_MASK;
+	ReadBack.DestAddr = (u64)Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_HIGH_INDEX];
+	ReadBack.DestAddr = ((u64)(Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_LOW_INDEX]) |
+		(ReadBack.DestAddr << 32U));
+	ReadBack.MaxSize = Cmd->Payload[XLOADER_CMD_READBACK_MAXLEN_INDEX] &
+		XLOADER_BUFFER_MAX_SIZE_MASK;
 	ReadBack.ProcessedLen = 0U;
 
 	XPlmi_SetReadBackProps(&ReadBack);
@@ -321,8 +354,9 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd * Cmd)
 END:
 	XPlmi_GetReadBackPropsValue(&ReadBack);
 	XPlmi_SetReadBackProps(&DefaultReadBack);
-	Cmd->Response[0U] = (u32)Status;
-	Cmd->Response[1U] = ReadBack.ProcessedLen;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX] =
+		ReadBack.ProcessedLen;
 	return Status;
 }
 
@@ -330,12 +364,12 @@ END:
 /**
  * @brief	This function can act as a placeholder for Unimplemented cmds
  *
- * @param	Pointer to the command structure
+ * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XLoader_UnImplementedCmd(XPlmi_Cmd * Cmd)
+static int XLoader_UnImplementedCmd(XPlmi_Cmd *Cmd)
 {
 	/* For MISRA C */
 	(void)Cmd;

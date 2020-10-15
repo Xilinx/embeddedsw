@@ -21,6 +21,7 @@
 *						DdrCopy function
 * 1.02  bsv  04/09/2020 Code clean up of Xilloader
 * 1.03  skd  07/14/2020 Added 64bit support for DDR source address
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -36,9 +37,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_dma.h"
-#include "xplmi_status.h"
-#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 

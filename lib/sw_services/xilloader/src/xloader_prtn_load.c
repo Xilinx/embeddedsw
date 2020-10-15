@@ -45,6 +45,8 @@
 *       kpt  09/07/2020 Fixed key rolling issue for secure cases
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
+*       bsv  10/13/2020 Code clean up
+*
 * </pre>
 *
 * @note
@@ -155,11 +157,8 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 			Status = XST_SUCCESS;
 			continue;
 		}
-		else if (XST_SUCCESS != Status) {
+		if (XST_SUCCESS != Status) {
 			goto END;
-		}
-		else {
-			/* For MISRA C compliance */
 		}
 
 		/* Process Partition */
@@ -236,19 +235,22 @@ static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* Devi
 
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 			(SecureParams->SecureEnTmp == (u8)FALSE)) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, PdiPtr->MetaHdr.DeviceCopy,
-					DeviceCopy->SrcAddr, DeviceCopy->DestAddr,
-					DeviceCopy->Len, DeviceCopy->Flags);
+		Status = PdiPtr->MetaHdr.DeviceCopy(DeviceCopy->SrcAddr,
+			DeviceCopy->DestAddr,DeviceCopy->Len, DeviceCopy->Flags);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
+			goto END;
+		}
 	}
 	else {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureCopy,
 					SecureParams, DeviceCopy->DestAddr,
 					DeviceCopy->Len);
-	}
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		Status = Status | StatusTmp;
-		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
-		goto END;
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+			Status = Status | StatusTmp;
+			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
+			goto END;
+		}
 	}
 
 END:
@@ -316,7 +318,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
 					Pm_CapAccess | Pm_CapContext,
-					XPM_DEF_QOS,0U);
+					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
 				goto END;
@@ -459,7 +461,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
 			if (CpuNo >= XLOADER_MAX_HANDOFF_CPUS) {
 				Status = XPlmi_UpdateStatus(
-							XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
+					XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
 				goto END;
 			}
 			/* Update the CPU settings */
@@ -486,7 +488,8 @@ END:
  * @param	PdiPtr is pointer to XilPdi instance
  * @param	DstnCpu is the cpu which needs to be checked
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return	XST_SUCCESS if the DstnCpu is successfully added to Handoff list
+ *          XST_FAILURE if the DstnCpu is already added to Handoff list
  *
  *****************************************************************************/
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu)
@@ -540,10 +543,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	 * Initialize the Cdo Pointer and
 	 * check CDO header contents
 	 */
-	Status = XPlmi_InitCdo(&Cdo);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XPlmi_InitCdo(&Cdo);
 	Cdo.ImgId = PdiPtr->CurImgId;
 	Cdo.PrtnId = PdiPtr->CurPrtnId;
 	Cdo.IpiMask = PdiPtr->IpiMask;
@@ -577,12 +577,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	 * when available PRAM Size >= ChunkLen * 2
 	 */
 	if ((SecureParams->IsDoubleBuffering == (u8)TRUE) &&
-		((ChunkLen * 2U) <= XLOADER_CHUNK_SIZE)) {
-		/*
-		 * Do nothing
-		 */
-	}
-	else {
+		((ChunkLen * 2U) > XLOADER_CHUNK_SIZE)) {
 		/*
 		 * Blocking DMA will be used in case
 		 * DoubleBuffering is FALSE.
@@ -727,7 +722,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	/* If deferred error, flagging it after CDO process complete */
 	if (Cdo.DeferredError == (u8)TRUE) {
 		Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_DEFERRED_CDO_PROCESS, 0);
+			XLOADER_ERR_DEFERRED_CDO_PROCESS, 0);
 		goto END;
 	}
 	Status = XST_SUCCESS;
@@ -821,7 +816,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 					TrfLen = PrtnParams.DeviceCopy.Len;
 				}
 				Status = PdiPtr->DeviceCopy(PrtnParams.DeviceCopy.SrcAddr,
-							XPLMI_PMCRAM_CHUNK_MEMORY, TrfLen, 0U);
+					XPLMI_PMCRAM_CHUNK_MEMORY, TrfLen, 0U);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(XLOADER_ERR_DELAY_LOAD, Status);
 					goto END;
@@ -932,37 +927,35 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 
 	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) &&
 			((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS +
-					XLOADER_R5_TCM_BANK_LENGTH)) ||
+				XLOADER_R5_TCM_BANK_LENGTH)) ||
 			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
 			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
-					XLOADER_R5_TCM_BANK_LENGTH))))) {
-		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
+				XLOADER_R5_TCM_BANK_LENGTH))))) {
+		if (((Address % XLOADER_R5_TCM_BANK_LENGTH) + Len) >
+			XLOADER_R5_TCM_BANK_LENGTH) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
 
 		Address += XLOADER_R5_0_TCMA_BASE_ADDR;
 	}
-	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
-			((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS +
-						XLOADER_R5_TCM_BANK_LENGTH)) ||
-			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
-			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
-					XLOADER_R5_TCM_BANK_LENGTH))))) {
-		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
+	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) && ((Address <
+		(XLOADER_R5_TCMA_LOAD_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH)) ||
+		((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&(Address <
+		(XLOADER_R5_TCMB_LOAD_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH))))) {
+		if (((Address % XLOADER_R5_TCM_BANK_LENGTH) + Len) >
+			XLOADER_R5_TCM_BANK_LENGTH) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
 
 		Address += XLOADER_R5_1_TCMA_BASE_ADDR;
 	}
 	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
-			(Address < (XLOADER_R5_TCM_BANK_LENGTH * 4U))) {
-		if (Len > (XLOADER_R5_TCM_BANK_LENGTH * 4U)) {
-			Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
+		(Address < XLOADER_R5_TCM_TOTAL_LENGTH)) {
+		if (((Address % XLOADER_R5_TCM_TOTAL_LENGTH) + Len) >
+			XLOADER_R5_TCM_TOTAL_LENGTH) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
 

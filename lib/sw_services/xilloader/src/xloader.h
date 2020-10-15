@@ -70,6 +70,7 @@
 *       bm   09/21/2020 Added ImageInfo related code and added compatibility
 *                       check required for DFx
 *       bm   09/24/2020 Added FuncID argument to RestartImage and ReloadImage
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -110,6 +111,7 @@ extern "C" {
 #define XLOADER_R5_TCMA_LOAD_ADDRESS	(0x0U)
 #define XLOADER_R5_TCMB_LOAD_ADDRESS	(0x20000U)
 #define XLOADER_R5_TCM_BANK_LENGTH	(0x10000U)
+#define XLOADER_R5_TCM_TOTAL_LENGTH	(XLOADER_R5_TCM_BANK_LENGTH * 4U)
 
 /*
  * APU related macros
@@ -339,43 +341,6 @@ typedef struct {
 } XLoader_ImageInfoTbl;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/*****************************************************************************/
-/**
- * @brief	This function checks if authentication is enabled or not.
- *
- * @param	PdiPtr is instance pointer pointing to PDI details
- *
- * @return	TRUE if authentication is enabled and false otherwise
- *
- *****************************************************************************/
-static inline u8 XLoader_IsAuthEnabled(const XilPdi* PdiPtr)
-{
-	volatile u8 IsAuth = (u8)TRUE;
-	volatile u8 IsAuthTemp = (u8)TRUE;
-	IsAuth = (PdiPtr->MetaHdr.ImgHdrTbl.AcOffset != 0x0U) ? \
-		(TRUE) : (FALSE);
-	IsAuthTemp = IsAuth;
-	return (IsAuth | IsAuthTemp);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function checks if encryption is enabled or not.
- *
- * @param	PdiPtr is instance pointer pointing to PDI details
- *
- * @return	TRUE if encryption is enabled and false otherwise
- *
- *****************************************************************************/
-static inline u8 XLoader_IsEncEnabled(const XilPdi* PdiPtr)
-{
-	volatile u8 IsEnc = (u8)TRUE;
-	volatile u8 IsEncTemp = (u8)TRUE;
-	IsEnc = (PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc != 0x0U) ? \
-		(TRUE) : (FALSE);
-	IsEncTemp = IsEnc;
-	return (IsEnc | IsEncTemp);
-}
 
 /************************** Function Prototypes ******************************/
 int XLoader_Init(void);

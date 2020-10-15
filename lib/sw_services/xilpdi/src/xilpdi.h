@@ -33,6 +33,7 @@
 *                       address
 *       kpt  07/30/2020 Added maximum limit for number of images
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -357,7 +358,7 @@ typedef struct {
 * @return	Partition Owner
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_OWNER_MASK);
 }
@@ -371,7 +372,7 @@ static inline u32 XilPdi_GetPrtnOwner(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	Checksum Type
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetChecksumType(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetChecksumType(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK);
 }
@@ -385,7 +386,7 @@ static inline u32 XilPdi_GetChecksumType(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	Destination Cpu
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DSTN_CPU_MASK);
 }
@@ -399,7 +400,7 @@ static inline u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	Partition Type
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PRTN_TYPE_MASK);
 }
@@ -413,7 +414,7 @@ static inline u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	A72 Execution State
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_A72_EXEC_ST_MASK);
 }
@@ -427,7 +428,7 @@ static inline u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	HIVEC value
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_HIVEC_MASK);
 }
@@ -441,7 +442,7 @@ static inline u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	PUF header
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_PUFHD_MASK);
 }
@@ -455,7 +456,7 @@ static inline u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	TRUE / FALSE
 *
 *****************************************************************************/
-static inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
+static inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DPA_CM_EN_MASK) != 0x0U) ?
 		(u8)TRUE : (u8)FALSE;
@@ -470,7 +471,7 @@ static inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr * PrtnHdr)
 * @return	TRUE / FALSE
 *
 *****************************************************************************/
-static inline u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl * IHdrTbl)
+static inline u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
 {
 	return ((IHdrTbl->Attr & XIH_IHT_ATTR_DPA_CM_MASK) != 0x0U) ?
 		(u8)TRUE : (u8)FALSE;
@@ -485,7 +486,7 @@ static inline u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl * IHdrTbl)
 * @return	PUF Header Value
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl * IHdrTbl)
+static inline u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
 {
 	return (IHdrTbl->Attr & XIH_IHT_ATTR_PUFHD_MASK);
 }
@@ -541,7 +542,7 @@ static inline u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr)
 * @return 	Secondary Boot device
 *
 *****************************************************************************/
-static inline u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl * ImgHdrTbl)
+static inline u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl *ImgHdrTbl)
 {
 	return (ImgHdrTbl->Attr & XIH_IHT_ATTR_SBD_MASK);
 }
@@ -565,13 +566,51 @@ static inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
 	return ((BhAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ? (u8)TRUE : (u8)FALSE);
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function checks if authentication is enabled or not.
+ *
+ * @param	ImgHdrTblPtr is pointer to PDI Image Header Table
+ *
+ * @return	TRUE if authentication is enabled and false otherwise
+ *
+ *****************************************************************************/
+static inline u8 XilPdi_IsAuthEnabled(const XilPdi_ImgHdrTbl *ImgHdrTblPtr)
+{
+	volatile u8 IsAuth = (u8)TRUE;
+	volatile u8 IsAuthTemp = (u8)TRUE;
+	IsAuth = (ImgHdrTblPtr->AcOffset != 0x0U) ? \
+		(TRUE) : (FALSE);
+	IsAuthTemp = IsAuth;
+	return (IsAuth | IsAuthTemp);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if encryption is enabled or not.
+ *
+ * @param	ImgHdrTblPtr is pointer to PDI Image Header Table
+ *
+ * @return	TRUE if encryption is enabled and false otherwise
+ *
+ *****************************************************************************/
+static inline u8 XilPdi_IsEncEnabled(const XilPdi_ImgHdrTbl *ImgHdrTblPtr)
+{
+	volatile u8 IsEnc = (u8)TRUE;
+	volatile u8 IsEncTemp = (u8)TRUE;
+	IsEnc = (ImgHdrTblPtr->EncKeySrc != 0x0U) ? \
+		(TRUE) : (FALSE);
+	IsEncTemp = IsEnc;
+	return (IsEnc | IsEncTemp);
+}
+
 /************************** Function Prototypes ******************************/
-int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr);
-int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl);
-void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr *PrtnHdr);
+int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl *ImgHdrTbl);
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr *MetaHdrPtr);
 
 #ifdef __cplusplus
 }

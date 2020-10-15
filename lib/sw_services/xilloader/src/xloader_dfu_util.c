@@ -20,6 +20,7 @@
 *        bsv 04/09/2020 Code clean up
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs from xloader_usb.c
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
+*        bsv 10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -39,21 +40,21 @@
 
 /***************** Function Prototypes ***************************************/
 static u8 XLoader_Ch9SetupDevDescReply(const struct Usb_DevData* InstancePtr,
-        u8 *BufPtr, u32 BufferLen);
+	u8 *BufPtr, u32 BufferLen);
 static u8 XLoader_Ch9SetupCfgDescReply(const struct Usb_DevData* InstancePtr,
-        u8 *BufPtr, const u32 BufferLen);
-static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8 *BufPtr,
-	const u32 BufferLen, u8 Index);
+	u8 *BufPtr, const u32 BufferLen);
+static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr,
+	u8 *BufPtr, const u32 BufferLen, u8 Index);
 static u8 XLoader_Ch9SetupBosDescReply(const struct Usb_DevData* InstancePtr,
-        u8 *BufPtr, u32 BufferLen);
+	u8 *BufPtr, u32 BufferLen);
 static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
-                const SetupPacket *SetupData);
+	const SetupPacket *SetupData);
 static int XLoader_UsbReqSetFeature(const struct Usb_DevData *InstancePtr,
-        const SetupPacket *SetupData);
+	const SetupPacket *SetupData);
 static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr,
 	const SetupPacket *SetupData);
 static int XLoader_UsbReqGetDescriptor(const struct Usb_DevData *InstancePtr,
-        const SetupPacket *SetupData);
+	const SetupPacket *SetupData);
 static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr,
 	const SetupPacket *SetupData);
 static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr,
