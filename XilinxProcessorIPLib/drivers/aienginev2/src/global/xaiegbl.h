@@ -376,6 +376,13 @@ typedef enum {
 } XAie_DmaChannelFoTMode;
 
 /*
+ * This enum contains the positions for dma zero padding.
+ */
+typedef enum {
+	DMA_ZERO_PADDING_BEFORE,
+	DMA_ZERO_PADDING_AFTER,
+} XAie_DmaZeroPaddingPos;
+/*
  * This enum captures all the error codes from the driver
  */
 typedef enum{
