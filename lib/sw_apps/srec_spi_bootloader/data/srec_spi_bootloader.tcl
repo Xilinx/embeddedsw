@@ -1,10 +1,9 @@
 ###############################################################################
-###############################################################################
 # Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
-##############################################################################
+###############################################################################
 
 proc swapp_get_name {} {
     return "SREC SPI Bootloader";
@@ -12,8 +11,6 @@ proc swapp_get_name {} {
 
 proc swapp_get_description {} {
     return "Simple bootloader for loading SREC images from non volatile memory (SPI). This program assumes that you have an SREC image programmed into SPI flash already. The program also assumes that the target SREC image is an application for this processor that does not overlap the bootloader and resides in separate physical memory in the hardware. Typically this application is initialized into BRAM so that it bootloads the SREC image when the FPGA is powered up.
-
-Update the serial_flash_family and serial_flash_interface in xilisf library in BSP settings!
 
 Don't forget to modify blconfig.h to reflect the offset where your SREC image resides in non-volatile memory!";
 }
@@ -121,13 +118,6 @@ proc swapp_is_supported_sw {} {
 
     # check for stdout being set
     check_stdout_sw;
-
-	# make sure xilisf is available
-    set librarylist [hsi::get_libs -filter "NAME==xilisf"];
-
-	if { [llength $librarylist] == 0 } {
-		error "This application requires xilisf library in the Board Support Package.";
-	}
 
     return 1;
 }

@@ -7,9 +7,8 @@
 /*****************************************************************************/
 /*
  *      Simple SREC Bootloader
- *      This simple bootloader is provided with Xilinx EDK for you to easily re-use in your
- *      own software project. It is capable of booting an SREC format image file
- *      (Mototorola S-record format), given the location of the image in memory.
+ *      It is capable of booting an SREC format image file (Mototorola S-record format),
+ *      given the location of the image in memory.
  *      In particular, this bootloader is designed for images stored in non-volatile flash
  *      memory that is addressable from the processor.
  *
@@ -17,8 +16,8 @@
  *      to point to the memory location from which the bootloader has to pick up the
  *      flash image from.
  *
- *      You can include these sources in your software application project in SDK and
- *      build the project for the processor for which you want the bootload to happen.
+ *      You can include these sources in your software application project and build
+ *      the project for the processor for which you want the bootload to happen.
  *      You can also subsequently modify these sources to adapt the bootloader for any
  *      specific scenario that you might require it for.
  *
@@ -32,7 +31,8 @@
 #include "portab.h"
 #include "errors.h"
 #include "srec.h"
-#include <xilisf.h>		/* Serial Flash Library header file */
+#include "xparameters.h"
+#include "xspi.h"
 
 /* Defines */
 #define CR       13
@@ -49,68 +49,77 @@ static uint8_t load_exec ();
 static uint8_t flash_get_srec_line (uint8_t *buf);
 extern void init_stdout();
 uint8  grab_hex_byte (uint8 *buf);
-int IsfWaitForFlashNotBusy(void);
-
-/* Declarations for ISF/SPI */
-#warning "Set your Device ID here, as defined in xparameters.h"
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
 
 /*
  * The following constant defines the slave select signal that is used to
  * to select the Flash device on the SPI bus, this signal is typically
  * connected to the chip select of the device.
  */
-#define ISF_SPI_SELECT		0x01
+#define SPI_SELECT		0x01
 
 /*
  * Number of bytes per page in the flash device.
  */
-#define ISF_PAGE_SIZE		256
+#define PAGE_SIZE		256
 
+/*
+ * Byte Positions.
+ */
+#define BYTE1				0 /* Byte 1 position */
+#define BYTE2				1 /* Byte 2 position */
+#define BYTE3				2 /* Byte 3 position */
+#define BYTE4				3 /* Byte 4 position */
+#define BYTE5				4 /* Byte 5 position */
+
+#define READ_WRITE_EXTRA_BYTES		4 /* Read/Write extra bytes */
+#define	READ_WRITE_EXTRA_BYTES_4BYTE_MODE	5 /**< Command extra bytes */
+
+#define RD_ID_SIZE					4
+
+#define ISSI_ID_BYTE0			0x9D
+#define MICRON_ID_BYTE0			0x20
+
+#define ENTER_4B_ADDR_MODE		0xb7 /* Enter 4Byte Mode command */
+#define EXIT_4B_ADDR_MODE		0xe9 /* Exit 4Byte Mode command */
+#define EXIT_4B_ADDR_MODE_ISSI	0x29
+#define	WRITE_ENABLE			0x06 /* Write Enable command */
+
+#define ENTER_4B	1
+#define EXIT_4B		0
+
+#define	FLASH_16_MB	0x18
+#define FLASH_MAKE		0
+#define	FLASH_SIZE		2
+
+#define	READ_CMD	0x03
+
+/* Declarations */
+static void display_progress (uint32_t lines);
+static uint8_t load_exec ();
+static uint8_t flash_get_srec_line (uint8_t *buf);
+extern void init_stdout();
+uint8  grab_hex_byte (uint8 *buf);
+int FlashReadID(void);
+
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
 
 /*
  * The instances to support the device drivers are global such that they
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
-static XIsf Isf;
 static XSpi Spi;
 
 
-XIsf_ReadParam ReadParam;
+int mode = READ_WRITE_EXTRA_BYTES;
 
-int mode = XISF_CMD_SEND_EXTRA_BYTES;
-
-/*
- * The following variables are shared between non-interrupt processing and
- * interrupt processing such that they must be global.
- */
-volatile static int TransferInProgress;
-
-
-/*
- * The user needs to allocate a buffer to be used by the In-system and Serial
- * Flash Library to perform any read/write operations on the Serial Flash
- * device.
- * User applications must pass the address of this memory to the Library in
- * Serial Flash Initialization function, for the Library to work.
- * For Write operations:
- * - The size of this buffer should be equal to the Number of bytes to be
- * written to the Serial Flash + XISF_CMD_MAX_EXTRA_BYTES.
- * - The size of this buffer should be large enough for usage across all the
- * applications that use a common instance of the Serial Flash.
- * - A minimum of one byte and a maximum of ISF_PAGE_SIZE bytes can be written
- * to the Serial Flash, through a single Write operation.
- * The size of this buffer should be equal to XISF_CMD_MAX_EXTRA_BYTES, if the
- * application only reads from the Serial Flash (no write operations).
- */
-u8 IsfWriteBuffer[XISF_CMD_SEND_EXTRA_BYTES];
-
-
+u8 WriteBuffer[PAGE_SIZE + READ_WRITE_EXTRA_BYTES];
 /*
  * Buffer used during Read transactions.
  */
-u8 ReadBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES];
+u8 ReadBuffer[PAGE_SIZE + READ_WRITE_EXTRA_BYTES];
+
+u8 FlashID[3];
 
 extern int srec_line;
 
@@ -129,7 +138,7 @@ static srec_info_t srinfo;
 static uint8_t sr_buf[SREC_MAX_BYTES];
 static uint8_t sr_data_buf[SREC_DATA_MAX_BYTES];
 
-static uint8_t *flbuf;
+u32 flbuf;
 
 #ifdef VERBOSE
 static int8_t *errors[] = {
@@ -167,6 +176,27 @@ int main()
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	/*
+	 * Set the SPI device as a master and in manual slave select mode such
+	 * that the slave select signal does not toggle for every byte of a
+	 * transfer, this must be done before the slave select is set.
+	 */
+	Status = XSpi_SetOptions(&Spi, XSP_MASTER_OPTION |
+			     XSP_MANUAL_SSELECT_OPTION);
+	if(Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Select the flash device on the SPI bus, so that it can be
+	 * read and written using the SPI bus.
+	 */
+	Status = XSpi_SetSlaveSelect(&Spi, SPI_SELECT);
+	if(Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	/*
 	 * Start the SPI driver so that interrupts and the device are enabled.
 	 */
@@ -174,15 +204,12 @@ int main()
 
 	XSpi_IntrGlobalDisable(&Spi);
 
-	/*
-	 * Initialize the Serial Flash Library.
-	 */
-	Status = XIsf_Initialize(&Isf, &Spi, ISF_SPI_SELECT, IsfWriteBuffer);
+	init_stdout();
+
+	Status = FlashReadID( );
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
-	init_stdout();
 
 #ifdef VERBOSE
 	print ("Loading SREC image from flash @ address: ");
@@ -190,7 +217,7 @@ int main()
 	print ("\r\n");
 #endif
 
-	flbuf = (uint8_t*)FLASH_IMAGE_BASEADDR;
+	flbuf = (u32)FLASH_IMAGE_BASEADDR;
 	ret = load_exec ();
 
 	/* If we reach here, we are in error */
@@ -207,6 +234,118 @@ int main()
 #endif
 
 	return ret;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables writes to the Serial Flash memory.
+*
+* @param	Spi is a pointer to the instance of the Spi device.
+*
+* @return	XST_SUCCESS if successful else XST_FAILURE.
+*
+* @note		None
+*
+******************************************************************************/
+int FlashWriteEnable(XSpi *Spi)
+{
+	int Status;
+	u8 *NULLPtr = NULL;
+
+	/*
+	 * Prepare the WriteBuffer.
+	 */
+	WriteBuffer[BYTE1] = WRITE_ENABLE;
+
+	Status = XSpi_Transfer(Spi, WriteBuffer, NULLPtr, 1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This API enters the flash device into 4 bytes addressing mode.
+ *
+ * @param	Spi is a pointer to the instance of the Spi device.
+ * @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if it fails.
+ *
+ *
+ ******************************************************************************/
+int FlashEnterExit4BAddMode(XSpi *Spi, unsigned int Enable)
+{
+	int Status;
+	u8 *NULLPtr = NULL;
+
+	if((FlashID[FLASH_MAKE] == MICRON_ID_BYTE0) ||
+		(FlashID[FLASH_MAKE] == ISSI_ID_BYTE0)) {
+
+		Status = FlashWriteEnable(Spi);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
+	if (Enable) {
+		WriteBuffer[BYTE1] = ENTER_4B_ADDR_MODE;
+	} else {
+		if (FlashID[FLASH_MAKE] == ISSI_ID_BYTE0)
+			WriteBuffer[BYTE1] = EXIT_4B_ADDR_MODE_ISSI;
+		else
+			WriteBuffer[BYTE1] = EXIT_4B_ADDR_MODE;
+	}
+
+	Status = XSpi_Transfer(Spi, WriteBuffer, NULLPtr, 1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+/*****************************************************************************/
+/**
+*
+* This function reads serial FLASH ID connected to the SPI interface.
+*
+* @param	None.
+*
+* @return	XST_SUCCESS if read id, otherwise XST_FAILURE.
+*
+* @note		None.
+*
+******************************************************************************/
+int FlashReadID(void)
+{
+	int Status;
+	int i;
+
+	/* Read ID in Auto mode.*/
+	WriteBuffer[BYTE1] = 0x9f;
+	WriteBuffer[BYTE2] = 0xff;		/* 4 dummy bytes */
+	WriteBuffer[BYTE3] = 0xff;
+	WriteBuffer[BYTE4] = 0xff;
+	WriteBuffer[BYTE5] = 0xff;
+
+	Status = XSpi_Transfer(&Spi, WriteBuffer, ReadBuffer, 5);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	for(i = 0; i < 3; i++)
+		FlashID[i] = ReadBuffer[i + 1];
+#ifdef VERBOSE
+	xil_printf("FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[1], ReadBuffer[2],
+			ReadBuffer[3]);
+#endif
+	return XST_SUCCESS;
 }
 
 #ifdef VERBOSE
@@ -229,37 +368,13 @@ static uint8_t load_exec ()
 
 	srinfo.sr_data = sr_data_buf;
 
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
-    (XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
-	/*
-	 * Check if the flash part is micron or spansion in which case,
-	 * switch to 4 byte addressing mode if FlashSize is >128Mb.
-	 */
-	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
-		(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
-		(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
-
-		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+	if(FlashID[FLASH_SIZE] > FLASH_16_MB) {
+		Status = FlashEnterExit4BAddMode(&Spi, ENTER_4B);
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-
-		Status = IsfWaitForFlashNotBusy();
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-
-		XIsf_MicronFlashEnter4BAddMode(&Isf);
-
-		Status = IsfWaitForFlashNotBusy();
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		mode = XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE;
+		mode = READ_WRITE_EXTRA_BYTES_4BYTE_MODE;
 	}
-#endif
-
 	while (!done) {
 		if ((ret = flash_get_srec_line (sr_buf)) != 0)
 			return ret;
@@ -289,36 +404,14 @@ static uint8_t load_exec ()
 				break;
 		}
 	}
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-	(XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
-	/*
-	 * For micron or spansion flash part supporting 4 byte addressing mode,
-	 * exit from 4 Byte mode if FlashSize is >128Mb.
-	 */
-	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
-		(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
-		(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
 
-		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+	if(FlashID[FLASH_SIZE] > FLASH_16_MB) {
+		Status = FlashEnterExit4BAddMode(&Spi, EXIT_4B);
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-
-		Status = IsfWaitForFlashNotBusy();
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-
-		XIsf_MicronFlashExit4BAddMode(&Isf);
-
-		Status = IsfWaitForFlashNotBusy();
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		mode = XISF_CMD_SEND_EXTRA_BYTES;
+		mode = READ_WRITE_EXTRA_BYTES;
 	}
-#endif
 #ifdef VERBOSE
 	print ("\r\nExecuting program starting at address: ");
 	putnum ((uint32_t)laddr);
@@ -335,22 +428,31 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 	int Status;
 	int i;
 	int len;
+	u8 ReadCmd = READ_CMD;
 
 	/*
 	 * Read 1st 4bytes of a record. Its contains the information about
 	 * the type of the record and number of bytes that follow in the
 	 * rest of the record (address + data + checksum).
 	 */
-	ReadParam.Address = (u32)flbuf;
-	ReadParam.NumBytes = RECORD_TYPE + BYTE_COUNT;
-	ReadParam.ReadPtr = ReadBuffer;
+	if(mode == READ_WRITE_EXTRA_BYTES) {
+		WriteBuffer[BYTE1] = ReadCmd;
+		WriteBuffer[BYTE2] = (u8) (flbuf >> 16);
+		WriteBuffer[BYTE3] = (u8) (flbuf >> 8);
+		WriteBuffer[BYTE4] = (u8) flbuf;
+	} else {
+		WriteBuffer[BYTE1] = ReadCmd;
+		WriteBuffer[BYTE2] = (u8) (flbuf >> 24);
+		WriteBuffer[BYTE3] = (u8) (flbuf >> 16);
+		WriteBuffer[BYTE4] = (u8) (flbuf >> 8);
+		WriteBuffer[BYTE5] = (u8) flbuf;
+	}
 
-	Status = XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
+	Status = XSpi_Transfer(&Spi, WriteBuffer, ReadBuffer,
+				(RECORD_TYPE + BYTE_COUNT + mode));
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
-	IsfWaitForFlashNotBusy();
 
 	flbuf += RECORD_TYPE + BYTE_COUNT;
 
@@ -360,21 +462,28 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 	len = grab_hex_byte((ReadBuffer + mode + RECORD_TYPE)) * 2;
 
 	for(i = 0; i < (RECORD_TYPE + BYTE_COUNT); i++)
-	*buf++ = ReadBuffer[mode + i];
+		*buf++ = ReadBuffer[mode + i];
 
 	/*
 	 * Read address + data + checksum from the record.
 	 */
-	ReadParam.Address = (u32)flbuf;
-	ReadParam.NumBytes = len;
-	ReadParam.ReadPtr = ReadBuffer;
+	if(mode == READ_WRITE_EXTRA_BYTES) {
+		WriteBuffer[BYTE1] = ReadCmd;
+		WriteBuffer[BYTE2] = (u8) (flbuf >> 16);
+		WriteBuffer[BYTE3] = (u8) (flbuf >> 8);
+		WriteBuffer[BYTE4] = (u8) flbuf;
+	} else {
+		WriteBuffer[BYTE1] = ReadCmd;
+		WriteBuffer[BYTE2] = (u8) (flbuf >> 24);
+		WriteBuffer[BYTE3] = (u8) (flbuf >> 16);
+		WriteBuffer[BYTE4] = (u8) (flbuf >> 8);
+		WriteBuffer[BYTE5] = (u8) flbuf;
+	}
 
-	Status = XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
+	Status = XSpi_Transfer(&Spi, WriteBuffer, ReadBuffer, (len + mode));
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
-	IsfWaitForFlashNotBusy();
 
 	flbuf += (len + RECORD_TERMINATOR);
 
@@ -387,43 +496,13 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 	return 0;
 
 }
-
-int IsfWaitForFlashNotBusy(void)
-{
-	int Status;
-	u8 StatusReg;
-
-	while(1) {
-
-		/*
-		 * Get the Status Register.
-		 */
-		TransferInProgress = TRUE;
-		Status = XIsf_GetStatus(&Isf, ReadBuffer);
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-
-		/*
-		 * Check if the Serial Flash is ready to accept the next
-		 * command. If so break.
-		 */
-		StatusReg = ReadBuffer[BYTE2];
-		if((StatusReg & XISF_SR_IS_READY_MASK) == 0) {
-			break;
-		}
-	}
-
-	return XST_SUCCESS;
-}
-
 #ifdef __PPC__
 
 #include <unistd.h>
 
 /* Save some code and data space on PowerPC
    by defining a minimal exit */
-void exit (int ret)
+void exit (int ret):
 {
 	_exit (ret);
 }
