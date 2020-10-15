@@ -262,6 +262,8 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 /*Enable VSC Extended packet on every VSYC*/
 #define VSC_EXT_PKT_VSYNC_ENABLE		0x1000
 
+#define AUXFIFOSIZE 4
+#define XDP_DPCD_EXT_DPCD_FEATURE 0x2210
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
