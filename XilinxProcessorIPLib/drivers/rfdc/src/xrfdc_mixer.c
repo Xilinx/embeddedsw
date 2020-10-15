@@ -48,6 +48,8 @@
 *                       getting mixer parameters.
 * 8.1   cog    06/24/20 Upversion.
 *       cog    06/24/20 Explicitly set FIFO width when setting the mixer.
+*       cog    10/06/20 Should only get calibration mode when setting/getting the
+*                       mixer settings for Gen 1/2 devices.
 * </pre>
 *
 ******************************************************************************/
@@ -236,32 +238,30 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		/* Update NCO, CoarseMix freq based on calibration mode */
 		CoarseMixFreq = MixerSettingsPtr->CoarseMixFreq;
 		NCOFreq = MixerSettingsPtr->Freq;
-		if (Type == XRFDC_ADC_TILE) {
+		if ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) && (Type == XRFDC_ADC_TILE)) {
 			Status = XRFdc_GetCalibrationMode(InstancePtr, Tile_Id, Block_Id, &CalibrationMode);
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
-			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-				if (CalibrationMode == XRFDC_CALIB_MODE1) {
-					switch (CoarseMixFreq) {
-					case XRFDC_COARSE_MIX_BYPASS:
-						CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
-						break;
-					case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
-						CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
-						break;
-					case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
-						CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
-						break;
-					case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
-						CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
-						break;
-					default:
-						CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
-						break;
-					}
-					NCOFreq -= SamplingRate / 2.0;
+			if (CalibrationMode == XRFDC_CALIB_MODE1) {
+				switch (CoarseMixFreq) {
+				case XRFDC_COARSE_MIX_BYPASS:
+					CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+					break;
+				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
+					CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					break;
+				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
+					CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
+					break;
+				case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
+					CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					break;
+				default:
+					CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
+					break;
 				}
+				NCOFreq -= SamplingRate / 2.0;
 			}
 		}
 
@@ -974,37 +974,34 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 
 	/* Update NCO, CoarseMix freq based on calibration mode */
 	NCOFreq = MixerConfigPtr->Freq;
-	if (Type == XRFDC_ADC_TILE) {
+
+	if ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) && (Type == XRFDC_ADC_TILE)) {
 		Status = XRFdc_GetCalibrationMode(InstancePtr, Tile_Id, Block, &CalibrationMode);
 		if (Status != XRFDC_SUCCESS) {
 			return XRFDC_FAILURE;
 		}
-
-		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-			if (CalibrationMode == XRFDC_CALIB_MODE1) {
-				switch (MixerSettingsPtr->CoarseMixFreq) {
-				case XRFDC_COARSE_MIX_BYPASS:
-					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
-					break;
-				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
-					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
-					break;
-				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
-					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
-					MixerSettingsPtr->MixerMode =
-						(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ?
-							XRFDC_MIXER_MODE_R2R :
-							XRFDC_MIXER_MODE_C2C;
-					break;
-				case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
-					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
-					break;
-				default:
-					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
-					break;
-				}
-				NCOFreq = (MixerConfigPtr->Freq - (SamplingRate / 2.0));
+		if (CalibrationMode == XRFDC_CALIB_MODE1) {
+			switch (MixerSettingsPtr->CoarseMixFreq) {
+			case XRFDC_COARSE_MIX_BYPASS:
+				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				break;
+			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
+				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				break;
+			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
+				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
+				MixerSettingsPtr->MixerMode = (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ?
+								      XRFDC_MIXER_MODE_R2R :
+								      XRFDC_MIXER_MODE_C2C;
+				break;
+			case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
+				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				break;
+			default:
+				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
+				break;
 			}
+			NCOFreq = (MixerConfigPtr->Freq - (SamplingRate / 2.0));
 		}
 	}
 
