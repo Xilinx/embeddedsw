@@ -121,15 +121,14 @@ static AieRC _XAie_DmaLockConfig(XAie_DmaDesc *DmaDesc, XAie_Lock Acq,
 		return XAIE_INVALID_ARGS;
 	}
 
+	DmaMod = DmaDesc->DmaMod;
 	LockMod = DmaDesc->LockMod;
-	if((Acq.LockId >LockMod->NumLocks) ||
+	if((Acq.LockId > DmaMod->NumLocks) ||
 			(Acq.LockVal > LockMod->LockValUpperBound) ||
 			(Rel.LockVal > LockMod->LockValUpperBound)) {
 		XAIE_ERROR("Invalid Lock\n");
 		return XAIE_INVALID_LOCK_ID;
 	}
-
-	DmaMod = DmaDesc->DmaMod;
 
 	return DmaMod->SetLock(DmaDesc, Acq, Rel, AcqEn, RelEn);
 }
