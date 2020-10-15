@@ -22,6 +22,7 @@
 * 1.02  bsv  04/09/2020 Code clean up
 * 1.03  bsv  07/07/2020 Remove unused functions
 *       skd  07/14/2020 XLoader_SbiCopy prototype changed
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -37,10 +38,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_dma.h"
-#include "xplmi_status.h"
 #ifdef XLOADER_SBI
-#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 

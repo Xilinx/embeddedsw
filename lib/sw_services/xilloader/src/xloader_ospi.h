@@ -26,6 +26,7 @@
 *       bsv  07/08/2020 APIs specific to this file made static
 *       skd  07/14/2020 XLoader_OspiCopy prototype changed
 *       skd  08/21/2020 Added GIGADEVICE and ISSI flash ID macros
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -41,9 +42,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #ifdef XLOADER_OSPI
-#include "xparameters.h"	/* SDK generated parameters */
-#include "xospipsv.h"		/* OSPIPSV device driver */
-#include "xplmi_status.h"	/* PLMI error codes */
 
 /************************** Constant Definitions *****************************/
 /*
@@ -96,6 +94,7 @@ extern "C" {
 #define XLOADER_OSPI_READ_CFG_REG_CMD_BYTE_CNT		(2U)
 #define XLOADER_WRITE_CFG_REG_VAL		(0xE7U)
 #define XLOADER_WRITE_CFG_REG_VAL		(0xE7U)
+#define XLOADER_OSPI_WRITE_DONE_MASK	(0x80U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);

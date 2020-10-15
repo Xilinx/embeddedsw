@@ -70,6 +70,7 @@
 *       bm   09/24/2020 Added FuncID to RestartImage
 *       bsv  09/30/2020 Enable parallel DMA for SBI related boot modes
 *       bsv  10/09/2020 Add subsystem restart support for SD raw boot modes
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -364,7 +365,8 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
 	}
 
-	if (DeviceOps[DeviceFlags].Init == NULL) {
+	if ((DeviceFlags >= XPLMI_ARRAY_SIZE(DeviceOps)) ||
+		(DeviceOps[DeviceFlags].Init == NULL)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Unsupported Boot Mode:"
 					"Source:0x%x\n\r", DeviceFlags);
 		Status = XPlmi_UpdateStatus(XLOADER_UNSUPPORTED_BOOT_MODE,
@@ -398,10 +400,11 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		goto END;
 	}
 
-END:
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		BootPdiPtr = PdiPtr;
 	}
+
+END:
 	XPlmi_MeasurePerfTime(PdiInitTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
 		"%u.%06u ms: PDI initialization time\n\r",
@@ -443,16 +446,16 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
 				((u64)RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
+#ifdef XLOADER_QSPI
 			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) || \
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32)) {
-#ifdef XLOADER_QSPI
 				Status = XLoader_QspiGetBusWidth(
 					PdiPtr->MetaHdr.FlashOfstAddr);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
-#endif
 			}
+#endif
 		}
 		else {
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
@@ -484,18 +487,18 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	SecureParams.PdiPtr = PdiPtr;
-	SecureParams.IsAuthenticated = XLoader_IsAuthEnabled(PdiPtr);
-	SecureParams.IsAuthenticatedTmp = XLoader_IsAuthEnabled(PdiPtr);
-	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
-		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
-		SecureParams.SecureEn = (u8)TRUE;
-		SecureParams.SecureEnTmp = (u8)TRUE;
-	}
-
-	SecureParams.IsEncrypted = XLoader_IsEncEnabled(PdiPtr);
-	SecureParams.IsEncryptedTmp = XLoader_IsEncEnabled(PdiPtr);
+	SecureParams.IsAuthenticated =
+		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	SecureParams.IsAuthenticatedTmp =
+		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	SecureParams.IsEncrypted =
+		XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	SecureParams.IsEncryptedTmp =
+		XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 	if ((SecureParams.IsEncrypted == (u8)TRUE) ||
-		(SecureParams.IsEncryptedTmp == (u8)TRUE)) {
+		(SecureParams.IsEncryptedTmp == (u8)TRUE) ||
+		(SecureParams.IsAuthenticated == (u8)TRUE) ||
+		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
 		SecureParams.SecureEn = (u8)TRUE;
 		SecureParams.SecureEnTmp = (u8)TRUE;
 	}
@@ -610,8 +613,8 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			++PdiPtr->ImageNum) {
 		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 			PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
-			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
-			XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
+				&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
+				XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
 
 			if (PdiPtr->CopyToMem == (u8)TRUE) {
 				if (DdrRequested == (u8)FALSE) {
@@ -631,10 +634,9 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			PdiPtr->CopyToMem = (u8)FALSE;
 		}
 
-		PdiPtr->DelayHandoff = (XilPdi_GetDelayHandoff(
+		PdiPtr->DelayHandoff = XilPdi_GetDelayHandoff(
 			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
-			XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT);
-
+			XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT;
 		PdiPtr->DelayLoad = XilPdi_GetDelayLoad(
 			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 			XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT;
@@ -1346,7 +1348,6 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
 	/* Configure preallocs for subsystem */
 	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
 			== (u32)XPM_NODECLASS_SUBSYSTEM) {
@@ -1357,6 +1358,7 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 			goto END;
 		}
 	}
+
 	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[3U] = 0U;
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	/* Update current subsystem ID for EM */
@@ -1676,16 +1678,17 @@ static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	}
 
 	/*
-	*  EXT_IDCODE
-	*  [26:14]is0?  VC1902-ES1?  BYPASS?  Checks done
-	*  --------------------------------------------------------------------
-	*  Y            Y            Y        Check IDCODE[27:0] (skip Si Rev chk)
-	*  Y		Y            N        Check IDCODE[31:0]
-	*  Y		N            X        Invalid combination (Error out)
-	*  N		X            Y        Check IDCODE[27:0] (skip Si Rev chk), check ext_idcode
-	*  N		X            N        Check IDCODE[31:0], check ext_idcode
-	*  --------------------------------------------------------------------
-	*/
+	 *  EXT_IDCODE
+	 *  [26:14]is 0?  VC1902-ES1?  BYPASS?  Checks done
+	 *  --------------------------------------------------------------------
+	 *  		Y				Y		Y	Check IDCODE[27:0] (skip Si Rev chk)
+	 *  		Y				Y		N	Check IDCODE[31:0]
+	 *  		Y				N		X	Invalid combination (Error out)
+	 *  		N				X		Y	Check IDCODE[27:0] (skip Si Rev chk),
+	 *										check ext_idcode
+	 *  		N				X		N	Check IDCODE[31:0], check ext_idcode
+	 *  --------------------------------------------------------------------
+	 */
 
 	/*
 	 * Error out for the invalid combination of Extended IDCODE - Device.
@@ -1841,14 +1844,12 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 			{
 				case XIH_IHT_ATTR_SBD_QSPI32:
 					PdiSrc = XLOADER_PDI_SRC_QSPI32;
-					PdiAddr =
-					PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
 					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_QSPI24:
 					PdiSrc = XLOADER_PDI_SRC_QSPI24;
-					PdiAddr =
-					PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
 					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_0:
@@ -1963,7 +1964,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
-							XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE, 0);
+					XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE, 0);
 				goto END;
 			}
 
