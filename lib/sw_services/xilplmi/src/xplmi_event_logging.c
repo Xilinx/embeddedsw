@@ -269,8 +269,8 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Get time stamp of PLM */
-	XPlmi_MeasurePerfTime(((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
-		XPLMI_PIT2_RESET_VALUE, &PerfTime);
+	XPlmi_MeasurePerfTime(((u64)(XPLMI_PIT1_CYCLE_VALUE) << 32U) |
+		XPLMI_PIT2_CYCLE_VALUE, &PerfTime);
 
 	TraceData[0U] = TraceData[0U] | (Len << XPLMI_TRACE_LOG_LEN_SHIFT);
 	TraceData[1U] = (u32)PerfTime.TPerfMs;
