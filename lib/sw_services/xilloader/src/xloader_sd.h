@@ -8,7 +8,7 @@
 *
 * @file xloader_sd.h
 *
-* This is the header file which contains qspi declarations for the PLM.
+* This is the header file which contains SD declarations for XilLoader.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,6 +31,7 @@
 *       bsv  07/16/2020 Force Cdn bit to 1 to improve performance
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv  09/04/2020 Updated XLOADER_BASE_FILE_NAME_LEN_SD_1 macro value
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *

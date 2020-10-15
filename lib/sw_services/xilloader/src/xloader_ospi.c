@@ -28,6 +28,7 @@
 *       skd  07/14/2020 XLoader_OspiCopy prototype changed
 *       skd  07/29/2020 Added non-blocking DMA support for Ospi copy
 *       skd  08/21/2020 Added support for GIGADEVICE and ISSI flash parts
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -41,8 +42,11 @@
 #include "xplmi_proc.h"
 #include "xloader.h"
 #include "xplmi.h"
+#include "xparameters.h"	/* SDK generated parameters */
+#include "xplmi_status.h"	/* PLMI error codes */
 
 #ifdef XLOADER_OSPI
+#include "xospipsv.h"		/* OSPIPSV device driver */
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -646,7 +650,8 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 						Status);
 			goto END;
 		}
-		if ((FlashStatus & 0x80U) != 0U) {
+		if ((FlashStatus & XLOADER_OSPI_WRITE_DONE_MASK) ==
+			XLOADER_OSPI_WRITE_DONE_MASK) {
 			break;
 		}
 	}
