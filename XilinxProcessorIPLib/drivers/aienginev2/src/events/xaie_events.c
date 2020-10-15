@@ -462,7 +462,6 @@ AieRC XAie_EventSelectStrmPortReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 	}
 
 	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
-
 	if(TileType == XAIEGBL_TILE_TYPE_AIETILE)
 		Port = CORE;
 	else if(TileType == XAIEGBL_TILE_TYPE_SHIMPL ||
