@@ -5,7 +5,6 @@
 
 
 /*****************************************************************************/
-
 /*
  *      Simple SREC Bootloader
  *      This simple bootloader is provided with Xilinx EDK for you to easily re-use in your
@@ -37,6 +36,9 @@
 
 /* Defines */
 #define CR       13
+#define RECORD_TYPE	2
+#define BYTE_COUNT	2
+#define RECORD_TERMINATOR	2
 
 /* Comment the following line, if you want a smaller and faster bootloader which will be silent */
 #define VERBOSE
@@ -46,6 +48,8 @@ static void display_progress (uint32_t lines);
 static uint8_t load_exec ();
 static uint8_t flash_get_srec_line (uint8_t *buf);
 extern void init_stdout();
+uint8  grab_hex_byte (uint8 *buf);
+int IsfWaitForFlashNotBusy(void);
 
 /* Declarations for ISF/SPI */
 #warning "Set your Device ID here, as defined in xparameters.h"
@@ -74,6 +78,8 @@ static XSpi Spi;
 
 
 XIsf_ReadParam ReadParam;
+
+int mode = XISF_CMD_SEND_EXTRA_BYTES;
 
 /*
  * The following variables are shared between non-interrupt processing and
@@ -219,8 +225,40 @@ static uint8_t load_exec ()
 	uint8_t ret;
 	void (*laddr)();
 	int8_t done = 0;
+	int Status;
 
 	srinfo.sr_data = sr_data_buf;
+
+#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
+    (XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
+    (XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
+	/*
+	 * Check if the flash part is micron or spansion in which case,
+	 * switch to 4 byte addressing mode if FlashSize is >128Mb.
+	 */
+	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
+		(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
+		(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
+
+		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		XIsf_MicronFlashEnter4BAddMode(&Isf);
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		mode = XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE;
+	}
+#endif
 
 	while (!done) {
 		if ((ret = flash_get_srec_line (sr_buf)) != 0)
@@ -228,6 +266,7 @@ static uint8_t load_exec ()
 
 		if ((ret = decode_srec_line (sr_buf, &srinfo)) != 0)
 			return ret;
+
 #ifdef VERBOSE
 		display_progress (srec_line);
 #endif
@@ -250,124 +289,103 @@ static uint8_t load_exec ()
 				break;
 		}
 	}
+#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
+	/*
+	 * For micron or spansion flash part supporting 4 byte addressing mode,
+	 * exit from 4 Byte mode if FlashSize is >128Mb.
+	 */
+	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
+		(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
+		(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
 
+		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		XIsf_MicronFlashExit4BAddMode(&Isf);
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		mode = XISF_CMD_SEND_EXTRA_BYTES;
+	}
+#endif
 #ifdef VERBOSE
 	print ("\r\nExecuting program starting at address: ");
 	putnum ((uint32_t)laddr);
 	print ("\r\n");
 #endif
-
 	(*laddr)();
 
 	/* We will be dead at this point */
 	return 0;
 }
 
-
 static uint8_t flash_get_srec_line (uint8_t *buf)
 {
 	int Status;
-	uint8_t c;
-	int count = 0;
-	int mode = XISF_CMD_SEND_EXTRA_BYTES;
-	while (1) {
-		TransferInProgress = TRUE;
+	int i;
+	int len;
 
-		/*
-		 * Set the
-		 * - Address in the Serial Flash where the data is to be read from.
-		 * - Number of bytes to be read from the Serial Flash.
-		 * - Read Buffer to which the data is to be read.
-		 */
-		ReadParam.Address = flbuf++;
-		ReadParam.NumBytes = 1;
-		ReadParam.ReadPtr = ReadBuffer;
+	/*
+	 * Read 1st 4bytes of a record. Its contains the information about
+	 * the type of the record and number of bytes that follow in the
+	 * rest of the record (address + data + checksum).
+	 */
+	ReadParam.Address = (u32)flbuf;
+	ReadParam.NumBytes = RECORD_TYPE + BYTE_COUNT;
+	ReadParam.ReadPtr = ReadBuffer;
 
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
-    (XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
-		/*
-		 * Check if the flash part is micron or spansion in which case,
-		 * switch to 4 byte addressing mode if FlashSize is >128Mb.
-		 */
-		if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
-			(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
-			(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
-			Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
-			if(Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-
-			Status = IsfWaitForFlashNotBusy();
-			if(Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-
-			mode = XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE;
-			XIsf_MicronFlashEnter4BAddMode(&Isf);
-
-			Status = IsfWaitForFlashNotBusy();
-			if(Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-		}
-#endif
-		Status = XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-
-		IsfWaitForFlashNotBusy();
-		c  = ReadBuffer[mode];
-
-		if (c == 0xD) {
-			/* Eat up the 0xA too */
-			TransferInProgress = TRUE;
-			ReadParam.Address = flbuf++;
-			ReadParam.NumBytes = 1;
-			ReadParam.ReadPtr = ReadBuffer;
-
-			XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
-			IsfWaitForFlashNotBusy();
-			c  = ReadBuffer[mode];
-
-			return 0;
-		}
-
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
-    (XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
-		/*
-		 * For micron or spansion flash part supporting 4 byte addressing mode,
-		 * exit from 4 Byte mode if FlashSize is >128Mb.
-		 */
-		if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
-			(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
-			(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
-			Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
-			if(Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-
-			Status = IsfWaitForFlashNotBusy();
-			if(Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-
-			XIsf_MicronFlashExit4BAddMode(&Isf);
-
-			Status = IsfWaitForFlashNotBusy();
-			if(Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-		}
-#endif
-
-		*buf++ = c;
-		count++;
-		if (count > SREC_MAX_BYTES)
-			return LD_SREC_LINE_ERROR;
+	Status = XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
+	if(Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
+
+	IsfWaitForFlashNotBusy();
+
+	flbuf += RECORD_TYPE + BYTE_COUNT;
+
+	/*
+	 * Get the number of bytes (address + data + checksum) in a record.
+	 */
+	len = grab_hex_byte((ReadBuffer + mode + RECORD_TYPE)) * 2;
+
+	for(i = 0; i < (RECORD_TYPE + BYTE_COUNT); i++)
+	*buf++ = ReadBuffer[mode + i];
+
+	/*
+	 * Read address + data + checksum from the record.
+	 */
+	ReadParam.Address = (u32)flbuf;
+	ReadParam.NumBytes = len;
+	ReadParam.ReadPtr = ReadBuffer;
+
+	Status = XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
+	if(Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	IsfWaitForFlashNotBusy();
+
+	flbuf += (len + RECORD_TERMINATOR);
+
+	for(i = 0; i < len; i++)
+		*buf++ = ReadBuffer[mode + i];
+
+	if ((RECORD_TYPE + BYTE_COUNT + len) > SREC_MAX_BYTES)
+		return LD_SREC_LINE_ERROR;
+
+	return 0;
+
 }
 
 int IsfWaitForFlashNotBusy(void)
@@ -386,7 +404,6 @@ int IsfWaitForFlashNotBusy(void)
 			return XST_FAILURE;
 		}
 
-
 		/*
 		 * Check if the Serial Flash is ready to accept the next
 		 * command. If so break.
@@ -399,7 +416,6 @@ int IsfWaitForFlashNotBusy(void)
 
 	return XST_SUCCESS;
 }
-
 
 #ifdef __PPC__
 
