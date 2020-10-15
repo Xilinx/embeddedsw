@@ -168,6 +168,26 @@ typedef enum {
 				 command */
 	XPLMI_ERR_WDT_LPD_NOT_INITIALIZED, /**< 0x119 LPD MIO is used for WDT
 					     but LPD is not initialized */
+	XPLMI_ERR_INVALID_INTR_ID_DISABLE, /**< 0x11A Invalid Interrupt ID used
+					     to disable interrupt */
+	XPLMI_ERR_INVALID_INTR_ID_CLEAR,   /**< 0x11B Invalid Interrupt ID used
+					     to clear interrupt */
+	XPLMI_ERR_INVALID_INTR_ID_REGISTER, /**< 0x11C Invalid Interrupt ID used
+					     to register interrupt handler */
+	XPLMI_ERR_DMA_XFER_WAIT,	    /**< 0x11D Dma transfer wait failed */
+	XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC,   /**< 0x11E Non Block Dma transfer wait
+						failed in Src channel*/
+	XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST,  /**< 0x11F Non Block Dma transfer wait
+						failed in Dest channel WaitForDone */
+	XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT,   /**< 0x120 Non Block Src Dma transfer
+						wait failed */
+	XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT,  /**< 0x121 Non Block Dest Dma transfer
+						wait failed */
+	XPLMI_ERR_DMA_XFER_WAIT_SRC,	    /**< 0x122 Dma Xfer failed in Src Channel
+						wait for done */
+	XPLMI_ERR_DMA_XFER_WAIT_DEST,	    /**< 0x123 Dma Xfer failed in Dest Channel
+						wait for done */
+	XPLMI_ERR_UART_MEMSET,		    /**< 0x124 Memset of UartPsv Instance failed */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
@@ -183,7 +203,7 @@ typedef enum {
 					  if enabled */
 	XPLM_ERR_NPLL_LOCK,		/**< 0x204 - Unable to lock NOC PLL
 					  for master SLR devices */
-    XPLM_ERR_STL_MOD,		/**< 0x205 - Error initializing
+	XPLM_ERR_STL_MOD,		/**< 0x205 - Error initializing
 					  the STL Module */
 
 	/** Status codes used in XLOADER */

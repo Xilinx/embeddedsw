@@ -22,6 +22,7 @@
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
 * 1.02  kc   06/18/2020 Made static functions inline
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -88,9 +89,9 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
  */
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param	Header
+ * @param	Header of the Trace log
  * *
  * @return	None
  * *
@@ -103,10 +104,10 @@ static inline void XPlmi_TraceLog2(u32 Header)
 
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param 	Header
- * @param	Arg1
+ * @param 	Header of the Trace log
+ * @param	Arg1 of the Trace log
  *
  * @return	None
  *
@@ -119,11 +120,11 @@ static inline void XPlmi_TraceLog3(u32 Header, u32 Arg1)
 
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param 	Header
- * @param	Arg1
- * @param	Arg2
+ * @param 	Header of the Trace log
+ * @param	Arg1 of the Trace log
+ * @param	Arg2 of the Trace log
  *
  * @return	None
  *
@@ -136,12 +137,12 @@ static inline void XPlmi_TraceLog4(u32 Header, u32 Arg1, u32 Arg2)
 
 /*****************************************************************************/
 /**
- * @brief	This function writes to trace buffer.
+ * @brief	This function writes to trace buffer
  *
- * @param 	Header
- * @param	Arg1
- * @param	Arg2
- * @param	Arg3
+ * @param 	Header of the Trace log
+ * @param	Arg1 of the Trace log
+ * @param	Arg2 of the Trace log
+ * @param	Arg3 of the Trace log
  *
  * @return	None
  *

@@ -141,8 +141,7 @@ int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	ReadFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 	/* Just wait for the Data to be copied */
 	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
-		XPlmi_WaitForNonBlkDestDma(XPLMI_PMCDMA_1);
-		Status = XST_SUCCESS;
+		Status = XPlmi_WaitForNonBlkDestDma(XPLMI_PMCDMA_1);
 		goto END;
 	}
 

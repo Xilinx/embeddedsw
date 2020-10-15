@@ -106,8 +106,7 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 	/* Just wait for the Data to be copied */
 	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
-		XPlmi_WaitForNonBlkDma(DmaFlags);
-		Status = XST_SUCCESS;
+		Status = XPlmi_WaitForNonBlkDma(DmaFlags);
 		goto END;
 	}
 

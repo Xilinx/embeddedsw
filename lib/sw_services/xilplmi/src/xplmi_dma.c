@@ -25,6 +25,7 @@
 *       bm   09/23/2020 Fix XPlmi_InitNVerifyMem for 64-bit address
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -326,7 +327,11 @@ static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags
 		goto END;
 	}
 
-	XPmcDma_WaitForDone(DmaPtr, Channel);
+	Status = XPmcDma_WaitForDone(DmaPtr, Channel);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_XFER_WAIT, 0);
+		goto END;
+	}
 
 	/* To acknowledge the transfer has completed */
 	XPmcDma_IntrClear(DmaPtr, Channel, XPMCDMA_IXR_DONE_MASK);
@@ -351,11 +356,12 @@ END:
  *
  * @param	DmaFlags to differentiate between PMCDMA_0 and PMCDMA_1
  *
- * @return  None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XPlmi_WaitForNonBlkDma(u32 DmaFlags)
+int XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 {
+	int Status = XST_FAILURE;
 	XPmcDma* PmcDmaPtr = NULL;
 
 	XPlmi_SSSCfgDmaDma(DmaFlags);
@@ -368,8 +374,18 @@ void XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 	}
 
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
-	XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
-	XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST,
+				Status);
+		goto END;
+	}
+	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC,
+				Status);
+		goto END;
+	}
 
 	/* To acknowledge the transfer has completed */
 	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -380,6 +396,9 @@ void XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 	DmaCtrl.AxiBurstType = 0U;
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -389,11 +408,12 @@ void XPlmi_WaitForNonBlkDma(u32 DmaFlags)
  *
  * @param	DmaFlags to differentiate between PMCDMA_0 and PMCDMA_1
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
+int XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
 {
+	int Status = XST_FAILURE;
 	XPmcDma* PmcDmaPtr = NULL;
 
 	if ((DmaFlags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
@@ -404,13 +424,21 @@ void XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
 	}
 
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
-	XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT,
+				Status);
+		goto END;
+	}
 
 	/* To acknowledge the transfer has completed */
 	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 				XPMCDMA_IXR_DONE_MASK);
 	DmaCtrl.AxiBurstType = 0U;
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -420,11 +448,12 @@ void XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
  *
  * @param	DmaFlags to differentiate between PMCDMA_0 and PMCDMA_1
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
+int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
 {
+	int Status = XST_FAILURE;
 	XPmcDma* PmcDmaPtr = NULL;
 
 	if ((DmaFlags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
@@ -434,13 +463,21 @@ void XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
 		PmcDmaPtr = &PmcDma1;
 	}
 
-	XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT,
+				Status);
+		goto END;
+	}
 
 	/* To acknowledge the transfer has completed */
 	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 				XPMCDMA_IXR_DONE_MASK);
 	DmaCtrl.AxiBurstType = 0U;
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -525,13 +562,21 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 
 	/* Polling for transfer to be done */
 	if ((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) {
-		XPmcDma_WaitForDone(DmaPtr, XPMCDMA_SRC_CHANNEL);
+		Status = XPmcDma_WaitForDone(DmaPtr, XPMCDMA_SRC_CHANNEL);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_XFER_WAIT_SRC, 0);
+			goto END;
+		}
 	} else {
 		goto END;
 	}
 
 	if ((Flags & XPLMI_DMA_DST_NONBLK) == (u32)FALSE) {
-		XPmcDma_WaitForDone(DmaPtr, XPMCDMA_DST_CHANNEL);
+		Status = XPmcDma_WaitForDone(DmaPtr, XPMCDMA_DST_CHANNEL);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_XFER_WAIT_DEST, 0);
+			goto END;
+		}
 	}
 	/* To acknowledge the transfer has completed */
 	if ((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) {

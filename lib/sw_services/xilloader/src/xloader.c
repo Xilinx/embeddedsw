@@ -1362,7 +1362,7 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[3U] = 0U;
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	/* Update current subsystem ID for EM */
-	EmSubsystemId = PdiPtr->CurImgId;
+	XPlmi_SetEmSubsystemId(&PdiPtr->CurImgId);
 	Status = XLoader_LoadImagePrtns(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;

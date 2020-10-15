@@ -363,7 +363,7 @@ void XLoader_CmdsInit(void);
 /* Functions defined in xloader_intr.c */
 int XLoader_IntrInit(void);
 void XLoader_SbiRecovery(void);
-void XLoader_ClearIntrSbiDataRdy(void);
+int XLoader_ClearIntrSbiDataRdy(void);
 
 /************************** Variable Definitions *****************************/
 extern XilPdi* BootPdiPtr;

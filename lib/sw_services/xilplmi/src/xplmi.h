@@ -26,6 +26,7 @@
 *       skd  07/29/2020 Added device copy macros
 *       bm   09/08/2020 Added RunTime Configuration related registers
 *       bsv  09/30/2020 Added XPLMI_CHUNK_SIZE macro
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -40,11 +41,7 @@
 extern "C" {
 #endif
 
-#include "xplmi_gic_interrupts.h"
-#include "xplmi_proc.h"
 #include "xplmi_generic.h"
-#include "xplmi_util.h"
-#include "xplmi_task.h"
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
@@ -114,6 +111,7 @@ int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
 void XPlmi_ResetLpdInitialized(void);
 void XPlmi_RunTimeConfigInit(void);
+void XPlm_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/
 extern u8 LpdInitialized;
