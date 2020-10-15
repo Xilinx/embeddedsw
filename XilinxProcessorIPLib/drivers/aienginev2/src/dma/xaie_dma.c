@@ -1741,4 +1741,93 @@ AieRC XAie_DmaWriteChannel(XAie_DevInst *DevInst,
 	return XAIE_OK;
 }
 
+/******************************************************************************/
+/**
+* This api sets the number of zeros to be added before or after  the given
+* dimension for a dma descriptor.
+*
+* @param	DmaDesc: Initialized dma descriptor.
+* @param	NumZeros: No. of zeros to be added
+* @param	Dim: Dimension - 0, 1 or 2.
+* @param	Pos: Position for zeros padding i.e.
+* 			DMA_ZERO_PADDING_BEFORE or DMA_ZERO_PADDING_AFTER
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		The API sets up the value in the dma descriptor and does not
+*		configure the buffer descriptor field in the hardware.
+*
+*******************************************************************************/
+AieRC XAie_DmaSetZeroPadding(XAie_DmaDesc *DmaDesc, u8 Dim,
+		XAie_DmaZeroPaddingPos Pos, u8 NumZeros)
+{
+	const XAie_DmaMod *DmaMod;
+	if((DmaDesc == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaDesc->DmaMod;
+	if(DmaMod->ZeroPadding == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature unavailable\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	switch(Pos){
+	case DMA_ZERO_PADDING_BEFORE: {
+		switch(Dim){
+		case 0:
+		{
+			DmaDesc->ZeroPadDesc.D0_ZeroBefore = NumZeros;
+			break;
+		}
+		case 1:
+		{
+			DmaDesc->ZeroPadDesc.D1_ZeroBefore = NumZeros;
+			break;
+		}
+		case 2:
+		{
+			DmaDesc->ZeroPadDesc.D2_ZeroBefore = NumZeros;
+			break;
+		}
+		default:
+			XAIE_ERROR("Invalid Dimension: %d\n", Dim);
+			return XAIE_INVALID_ARGS;
+		}
+		break;
+	}
+
+	case DMA_ZERO_PADDING_AFTER: {
+		switch(Dim){
+		case 0:
+		{
+			DmaDesc->ZeroPadDesc.D0_ZeroAfter = NumZeros;
+			break;
+		}
+		case 1:
+		{
+			DmaDesc->ZeroPadDesc.D1_ZeroAfter = NumZeros;
+			break;
+		}
+		case 2:
+		{
+			DmaDesc->ZeroPadDesc.D2_ZeroAfter = NumZeros;
+			break;
+		}
+		default:
+			XAIE_ERROR("Invalid Dimension: %d\n", Dim);
+			return XAIE_INVALID_ARGS;
+		}
+		break;
+	}
+	default:
+		XAIE_ERROR("Invalid Position: %d\n", Pos);
+		return XAIE_INVALID_ARGS;
+	}
+
+	return XAIE_OK;
+}
+
 /** @} */
