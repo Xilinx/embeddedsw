@@ -103,7 +103,7 @@ void pt_help_menu()
 	//print(" 9 = Report RX, TX Frame stats\n\r");
 	print(" c = Check SUM on Rx and Tx\n\r");
 	print(" d = Quad selection ONLY FOR 8K --> 4K demo\n\r");
-	print(" n = Disable/Enable LineReset\r\n");
+//	print(" n = Disable/Enable LineReset\r\n");
 	print(" m = Display MCDP6000 stauts\n\r");
 	print(" u - Read from MCDP6000\r\n");
 	print(" o - Write to MCDP6000\r\n");
