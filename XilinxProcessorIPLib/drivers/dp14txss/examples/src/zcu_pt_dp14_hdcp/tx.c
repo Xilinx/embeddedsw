@@ -160,8 +160,78 @@ u32 DpTxSs_SetupIntrSystem(void)
 						&DpPt_LinkrateChgHandler, &DpTxSsInst);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_PE_VS_ADJUST),
 						&DpPt_pe_vs_adjustHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_EXT_PKT_EVENT),
+						&DpTxSs_ExtPacketHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_VSYNC),
+						&DpTxSs_VsyncHandler, &DpTxSsInst);
 
 	return (XST_SUCCESS);
+}
+
+extern u32 infofifo[32];
+extern u8 endindex;
+extern u8 fifocount;
+u8 startindex = 0;
+u16 vsync_counter = 0;
+u16 ektpkt_counter = 0;
+u8 tx_pass = 0;
+u8 onetime = 0;
+
+void DpTxSs_VsyncHandler(void *InstancePtr)
+{
+	tx_pass = 1;
+	u8 i = 0;
+	u32 fifosts = 0;
+
+	if(fifocount > AUXFIFOSIZE-1) {
+		startindex = endindex;
+	}
+
+	while (startindex != endindex) {
+		fifosts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						 0x6A0);
+		fifosts &= 0x00000003;
+		i = 0;
+		if (fifosts == 0) {
+			for (i = 0; i < 8; i++) {
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_INFO_DATA(1), infofifo[(startindex*8+i)]);
+			}
+		} else {
+//			xil_printf(ANSI_COLOR_RED"TX InfoFrame Fifo is full!!"ANSI_COLOR_RESET"\r\n");
+		}
+		if(startindex < (AUXFIFOSIZE - 1)) {
+			startindex++;
+		} else {
+			startindex = 0;
+		}
+
+	}
+
+	fifocount = 0;
+	vsync_counter++;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback function for Generic Packet Handling of
+* 32-Bytes payload.
+*
+* @param    InstancePtr is a pointer to the XDpTxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpTxSs_ExtPacketHandler(void *InstancePtr)
+{
+	/* This handler can be used to modify the extended pkt
+	 * The packet is written in the DP TX drivers
+	 */
+	ektpkt_counter++;
+
 }
 
 /*****************************************************************************/
@@ -338,6 +408,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 //		sink_power_down();
 		sink_power_up();
 		tx_is_reconnected++;
+		onetime = 0;
 //		usleep(50000);
 //		 This part has added to give HDCP a proper handle when hdp even happens
 //		 HDCP block will disable Tx side encryption when hpd detected
@@ -1039,7 +1110,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_INTERRUPT_MASK, 0x0);
 
-
+	vsync_counter = 0;
 	/*
 	 * Initialize CRC
 	 */
@@ -1078,6 +1149,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	}
 #endif
 	tx_started = 1;
+	tx_pass = 0;
 	return XST_SUCCESS;
 }
 

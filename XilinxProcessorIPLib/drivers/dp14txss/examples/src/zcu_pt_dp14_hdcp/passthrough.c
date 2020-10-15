@@ -95,8 +95,6 @@ void pt_help_menu();
 void select_rx_quad(void);
 void DpPt_LaneLinkRateHelpMenu(void);
 
-void start_audio_passThrough(u8 LineRate_init_tx);
-
 u8 edid_page;
 u8 tx_after_rx = 0;
 u8 rx_aud = 0;
@@ -128,6 +126,12 @@ int filter_count = 0;
 #if ENABLE_HDCP_IN_DESIGN
 int mon_is_hdcp22_cap = 0;	//0-hdcp1.3 cap 	1-hdcp2.2 cap
 #endif
+
+extern u8 onetime;
+extern u16 vsync_counter;
+extern u16 ektpkt_counter;
+extern u16 fb_wr_count;
+extern u16 fb_rd_count;
 
 void DpPt_Main(void){
 	u32 Status;
@@ -605,9 +609,9 @@ void DpPt_Main(void){
 					break;
 
 			case 'n':
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE,
-						~((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_LINE_RESET_DISABLE)) & 0x1));
+				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_LINE_RESET_DISABLE,
+						~((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_LINE_RESET_DISABLE)) & 0x1));
 
 
 
@@ -1266,30 +1270,6 @@ void DpPt_Main(void){
 
 }
 
-/* Audio passThrough setting */
-void start_audio_passThrough(u8 LineRate_init_tx){
-
-	// Copy the Audi Infoframe data from RX to TX
-//	xil_printf("Sending Audio Info frame\r\n");
-	xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
-	xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
-	xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
-	xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
-	xilInfoFrame->info_length = AudioinfoFrame.info_length;
-	xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
-	xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
-	xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
-	xilInfoFrame->type = AudioinfoFrame.type;
-	xilInfoFrame->version = AudioinfoFrame.version;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
-//	usleep(10000);
-	XDpTxSs_SendAudioInfoFrame(&(DpTxSsInst),xilInfoFrame);
-//	usleep(30000);
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CHANNELS, 0x1);
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
-}
-
-
 /*This function starts the TX after RX. It checks for Monitor capability
  * and based on that it will modify the video.
  * For example, if the RX is trained at 8K, but the monitor is not capable of
@@ -1297,10 +1277,11 @@ void start_audio_passThrough(u8 LineRate_init_tx){
  * It is expected that the Monitor would support 4K@30
  * Similarly, is the received video is 4K@120, then it would modified to 4k@60
  */
-
+extern u8 tx_pass;
 void start_tx_after_rx (void) {
 	u32 Status;
-
+	u8 aux_data[0];
+	tx_pass = 0;
 	rx_all_detect = 1;
 	VmId = XVidC_GetVideoModeId(Msa[0].Vtm.Timing.HActive,
 			Msa[0].Vtm.Timing.VActive, Msa[0].Vtm.FrameRate, 0);
@@ -1518,16 +1499,11 @@ void audio_start_rx (void) {
 }
 
 void audio_start_tx(void) {
-	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && AudioinfoFrame.frame_count > 50) {
+	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0)  {
 		filter_count_b++;
 		//Audio may not work properly on some monitors if this is started too early
 		//hence the delay here
-		if (filter_count_b == 190) {
-			start_audio_passThrough(LineRate_init_tx);
-
-		}
-
-		else if (filter_count_b > 200) {
+		if (filter_count_b > 200) {
 			XGpio_WriteReg(aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
 			xil_printf("Starting audio on DP TX..\r\n");
 			i2s_started = 1;

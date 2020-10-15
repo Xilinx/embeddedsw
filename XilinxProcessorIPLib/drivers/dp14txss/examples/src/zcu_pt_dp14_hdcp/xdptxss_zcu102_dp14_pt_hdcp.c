@@ -84,6 +84,8 @@ u8 frame_pointer_rd = 2;
 u8 not_to_read = 1;
 u8 not_to_write = 3;
 u8 fb_rd_start = 0;
+u32 vblank_init = 0;
+u8 vblank_captured = 0;
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
@@ -1798,7 +1800,7 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
-					256,
+					512,
 					&VidStream);
 	ConfigFrmbuf_wr(stride, Cfmt, &VidStream);
 }
@@ -1864,7 +1866,7 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
-					256,
+					512,
 					&VidStream);
 
 	// Tx side may change due to sink monitor capability
@@ -2272,8 +2274,21 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 	if(rxMsamisc1 == 1)
 	{
-		Msa[0].ComponentFormat =
-				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
+		int retval=0;
+		retval=XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
+		if(retval == XVIDC_CSF_RGB){
+			Msa[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+		}else if(retval == XVIDC_CSF_YCRCB_444){
+			Msa[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+		}else if(retval == XVIDC_CSF_YCRCB_422){
+			Msa[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		}else if(retval == XVIDC_CSF_YCRCB_420){
+			Msa[0].ComponentFormat =
+					XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
+		}
 	} else {
 		/* Check for YUV422, BPP has to be set using component value to 2 */
 		if( (Msa[0].Misc0 & 0x6 ) == 0x2  ) {
@@ -2342,12 +2357,13 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 	}
 
-	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
+
 	Msa[0].OverrideUserPixelWidth = 1;
 
+	usleep(5000);
 	XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-	XDp_RxDtgEn(DpRxSsInst.DpPtr);
+	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
 
 	xil_printf(
 		"*** Detected resolution: "
@@ -2361,6 +2377,7 @@ int Dppt_DetectResolution(void *InstancePtr,
 			Msa[0].Vtm.FrameRate,0);
 
 	frameBuffer_start_wr(VmId_1, Msa, 0);
+	XDp_RxDtgEn(DpRxSsInst.DpPtr);
 
 #if PHY_COMP
 		CalculateCRC();
@@ -2422,10 +2439,23 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_USER_PIXEL_WIDTH +
 		StreamOffset[0], tx_ppc_set);
 
-	if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroghVsc){
-		//YUV420
+	if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
+		u8 retval=0;
+		retval=XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
+		if(retval == XVIDC_CSF_RGB){
+			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+		}else if(retval == XVIDC_CSF_YCRCB_444){
+			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+		}else if(retval == XVIDC_CSF_YCRCB_422){
+			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		}else if(retval == XVIDC_CSF_YCRCB_420){
+			//YUV420
 			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
 					XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
+		}
 	}
 	else{
 		/* Check for YUV422, BPP has to be set using component value to 2 */
