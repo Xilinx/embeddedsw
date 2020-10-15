@@ -7,7 +7,7 @@
 /**
 *
 * @file xcpu_cortexa9.h
-* @addtogroup cpu_cortexa9_v2_9
+* @addtogroup cpu_cortexa9_v2_10
 * @{
 * @details
 *
