@@ -59,8 +59,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-extern XilPdi* BootPdiPtr;
-extern XilPdi SubsystemPdiIns;
 static XPlmi_Module XPlmi_Loader;
 
 #define XLOADER_CMD_FEATURES_CMD_ID_INDEX	(0U)
