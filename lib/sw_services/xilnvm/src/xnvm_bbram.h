@@ -33,9 +33,6 @@ extern "C" {
 
 /****************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xnvm_utils.h"
 
 /*************************** Constant Definitions *****************************/
 
