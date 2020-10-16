@@ -35,7 +35,7 @@ extern "C" {
 
 /*************************** Constant Definitions *****************************/
 /* BBRAM Controller base address definition */
-#define XNVM_BBRAM_BASE_ADDR			(0xF11f0000U)
+#define XNVM_BBRAM_BASE_ADDR			(0xF11F0000U)
 
 /* BBRAM Controller Register Map definition */
 #define XNVM_BBRAM_STATUS_REG			(0x00U)
@@ -64,26 +64,21 @@ extern "C" {
 /* Timeout in term of number of times status register polled to check BBRAM
  * is set to programming mode
  */
-#define XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL		(0x1FFFFU)
+#define XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL		(0x400U)
 
 /* Timeout in term of number of times status register polled to check BBRAM
  * AES CRC validation is complete
  */
-#define XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL	(0x1FFFFU)
+#define XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL	(0x400U)
 
 /* Timeout in term of number of times status register polled to check BBRAM
  * AES CRC validation is complete
  */
-#define XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL		(0x1FFFFU)
+#define XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL		(0x400U)
 
 /***************************** Type Definitions *******************************/
 
 /****************** Macros (Inline Functions) Definitions *********************/
-#define XNvm_BbramReadReg(Offset) \
-	Xil_In32(XNVM_BBRAM_BASE_ADDR + Offset)
-
-#define XNvm_BbramWriteReg(Offset, Data) \
-	Xil_Out32(XNVM_BBRAM_BASE_ADDR + Offset, Data)
 
 /*************************** Function Prototypes ******************************/
 
