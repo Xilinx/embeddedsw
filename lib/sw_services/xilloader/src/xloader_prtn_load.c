@@ -232,6 +232,7 @@ static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* Devi
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
+	u32 UStatus = (u32)XST_FAILURE;
 
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 			(SecureParams->SecureEnTmp == (u8)FALSE)) {
@@ -247,7 +248,8 @@ static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* Devi
 					SecureParams, DeviceCopy->DestAddr,
 					DeviceCopy->Len);
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-			Status = Status | StatusTmp;
+			UStatus = (u32)Status | (u32)StatusTmp;
+			Status = (int)UStatus;
 			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
 			goto END;
 		}
