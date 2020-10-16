@@ -28,9 +28,11 @@
 *******************************************************************************/
 
 /***************************** Include Files **********************************/
+#include "xil_io.h"
+#include "xstatus.h"
 #include "xnvm_bbram.h"
 #include "xnvm_bbram_hw.h"
-
+#include "xnvm_utils.h"
 
 /*************************** Constant Definitions *****************************/
 
@@ -40,6 +42,35 @@
 /***************************** Type Definitions *******************************/
 
 /****************** Macros (Inline Functions) Definitions *********************/
+
+/******************************************************************************/
+/**
+ * @brief	This function reads the given register.
+ *
+ * @param	Offset is the register offset of the register.
+ *
+ * @return	The 32-bit value of the register.
+ *
+ ******************************************************************************/
+static INLINE u32 XNvm_BbramReadReg(u32 Offset)
+{
+	return Xil_In32(XNVM_BBRAM_BASE_ADDR + Offset);
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function writes the value into the given register.
+ *
+ * @param	Offset is the register offset of the register.
+ * @param	Data is the 32-bit value to write to the register.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static INLINE void XNvm_BbramWriteReg(u32 Offset, u32 Data)
+{
+	Xil_Out32((XNVM_BBRAM_BASE_ADDR + Offset), Data);
+}
 
 /*************************** Function Prototypes ******************************/
 static int XNvm_BbramEnablePgmMode(void);
@@ -52,20 +83,23 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key);
 
 /******************************************************************************/
 /**
- * @brief	Validates CRC of the key stored in BBRAM with CRC of input key.
+ * @brief	This function does programming of key provided into BBRAM and
+ * 		validates CRC of the key stored in BBRAM with CRC of input key.
  *
- * @param   Key - Pointer to key which is to be matched with key stored in BBRAM
- * @param   KeyLen - XNVM_256_BITS_AES_KEY_LEN_IN_BYTES for 256-bit AES key
+ * @param	Key - Pointer to hex buffer which is pointing to key
+ * @param 	KeyLen - XNVM_256_BITS_AES_KEY_LEN_IN_BYTES for 256-bit AES key
  *
- * @return - XST_SUCCESS -Key is written to BBRAM.
- * 	   - XST_INVALID_PARAM -Invalid parameter passed.
- *         - XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT -Timeout during enabling
+ * @return 	- XST_SUCCESS -Key is written to BBRAM.
+ * 	   	- XST_INVALID_PARAM -Invalid parameter passed.
+ *         	- XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT -Timeout during
+ *         						enabling
  *							programming mode.
- *         - XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT -Timeout during disabling
+ *         	- XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT -Timeout during
+ *         						disabling
  *							programming mode.
- *         - XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT -CRC validation check
+ *         	- XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT - CRC validation check
  *							timed out.
- *         - XNVM_BBRAM_ERROR_AES_CRC_MISMATCH	-CRC mismatch.
+ *         	- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH - CRC mismatch.
  *
  ******************************************************************************/
 int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
