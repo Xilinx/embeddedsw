@@ -65,6 +65,7 @@
 *                     in case of exceptions and also place AES, ECDSA_RSA,
 *                     SHA3 in reset
 *       kal  10/07/20 Added Missed DB check in XLoader_RsaSignVerify API
+*       kal  10/16/20 Added a check for RSA EM MSB bit to make sure it is zero
 *
 * </pre>
 *
@@ -99,6 +100,7 @@
 #define XLOADER_SHA3_RESET_VAL			(0x1U)
 #define XLOADER_AES_RESET_VAL			(0x1U)
 #define XLOADER_RSA_PSS_MSB_PADDING_MASK	(0x80U)
+#define XLOADER_RSA_EM_MSB_INDEX		(0x0U)
 
 /*****************************************************************************/
 /**
@@ -2017,6 +2019,14 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 			XLOADER_RSA_SIG_EXP_BYTE) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED, 0U);
+		goto END;
+	}
+
+	if ((XSecure_RsaSha3Array[XLOADER_RSA_EM_MSB_INDEX] &
+		XLOADER_RSA_PSS_MSB_PADDING_MASK) !=
+		XLOADER_RSA_EM_MSB_EXP_BYTE) {
+		Status = XLoader_UpdateMinorErr(
+				XLOADER_SEC_MASKED_DB_MSB_ERROR, 0U);
 		goto END;
 	}
 
