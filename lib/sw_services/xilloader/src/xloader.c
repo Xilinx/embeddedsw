@@ -1060,11 +1060,11 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		if (IsChild == TRUE) {
+		if (IsChild == (u32)TRUE) {
 			ImageInfoTbl.TblPtr[Index].ImgID = XLOADER_INVALID_IMG_ID;
 			ImageInfoTbl.Count--;
 			(*ChangeCount)++;
-			if (ImageInfoTbl.IsBufferFull == TRUE) {
+			if (ImageInfoTbl.IsBufferFull == (u8)TRUE) {
 				ImageInfoTbl.IsBufferFull = (u8)FALSE;
 			}
 		}
@@ -1232,7 +1232,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 		SrcAddr += sizeof(XLoader_ImageInfo);
 	}
 
-	if (ImageInfoTbl.IsBufferFull == TRUE) {
+	if (ImageInfoTbl.IsBufferFull == (u8)TRUE) {
 		Status = XLOADER_ERR_IMAGE_INFO_TBL_FULL;
 		XPlmi_Printf(DEBUG_INFO, "Image Info Table Overflowed\r\n");
 	}
