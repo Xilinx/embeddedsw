@@ -1206,7 +1206,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 	u32 MaxLen = MaxSize / sizeof(XLoader_ImageInfo);
 	u32 Count = 0U;
 	u32 Index = 0U;
-	u64 SrcAddr = (u64)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
+	u32 SrcAddr = XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
 	XLoader_ImageInfo *ImageInfo;
 
 	if (Len > MaxLen) {
@@ -1217,9 +1217,9 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 		if (Index >= XLOADER_IMAGE_INFO_TBL_MAX_NUM) {
 			break;
 		}
-		ImageInfo = (XLoader_ImageInfo *) (u32)SrcAddr;
+		ImageInfo = (XLoader_ImageInfo *)SrcAddr;
 		if (ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) {
-			Status = XPlmi_DmaXfr(SrcAddr, DestAddr,
+			Status = XPlmi_DmaXfr((u64)SrcAddr, DestAddr,
 					sizeof(XLoader_ImageInfo) / XPLMI_WORD_LEN,
 					XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
