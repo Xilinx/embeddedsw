@@ -36,7 +36,6 @@ extern "C" {
 #endif
 
 /****************************** Include Files *********************************/
-#include "xil_io.h"
 #include "xparameters.h"
 
 /*************************** Constant Definitions *****************************/
@@ -95,14 +94,18 @@ extern "C" {
 
  /* eFUSE Cache Register Map definition */
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET    			(0x00000000U)
+#define XNVM_EFUSE_CACHE_ANLG_TRIM_3_OFFSET			(0x00000010U)
 #define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET			(0x00000094U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET			(0x000000A0U)
 #define XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET			(0x000000A8U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET		(0x000000ACU)
 #define XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET			(0x000000E4U)
 #define XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET			(0x000000E8U)
+#define XNVM_EFUSE_CACHE_ANLG_TRIM_6_OFFSET			(0x000000F4U)
+#define XNVM_EFUSE_CACHE_ANLG_TRIM_7_OFFSET			(0x000000F8U)
 #define XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET			(0x00000100U)
 #define XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET		(0x00000180U)
+#define XNVM_EFUSE_CACHE_TRIM_AMS_12_OFFSET			(0x000001B0U)
 
 /* access_type: ro  */
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK	(0xc0000000U)
@@ -171,7 +174,7 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_ROW_96_99_PROT_MASK		(0x00420000U)
 
 /* access_type: ro  */
-#define XNVM_EFUSE_CACHE_SECURITY_MISC_0_DEC_EFUSE_ONLY_MASK	(0x0000ffffU)
+#define XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)
 
 /* access_type: ro */
 #define XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_MASK	(0xc0000000U)
@@ -220,7 +223,6 @@ extern "C" {
 #define XNVM_EFUSE_DATA_PARTITION_IV_START_ROW	(122U)
 #define XNVM_EFUSE_PUF_SYN_START_ROW			(129U)
 #define XNVM_EFUSE_USER_FUSE_START_ROW			(129U)
-
 
 /* EFUSE ROW COUNT*/
 #define XNVM_EFUSE_AES_KEY_NUM_OF_ROWS			(8U)
@@ -330,7 +332,7 @@ extern "C" {
 /* Timeout in term of number of times status register polled to check eFuse
  * Crc check id done.
  */
-#define XNVM_POLL_TIMEOUT				(0xFFFFFFFFU)
+#define XNVM_POLL_TIMEOUT				(0x400U)
 
 #ifdef __cplusplus
 }
