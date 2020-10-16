@@ -680,7 +680,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			Cdo.Cmd.KeyHoleParams.ExtraWords *= XPLMI_WORD_LEN;
 			DeviceCopy->Len -= Cdo.Cmd.KeyHoleParams.ExtraWords;
 			DeviceCopy->SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
-			if ((IsNextChunkCopyStarted == TRUE) &&
+			if ((IsNextChunkCopyStarted == (u8)TRUE) &&
 					(Cdo.Cmd.KeyHoleParams.ExtraWords < ChunkLen)) {
 				/*
 				 * There are some CDO commands to be processed in
