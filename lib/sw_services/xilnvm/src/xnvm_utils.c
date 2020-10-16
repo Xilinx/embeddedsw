@@ -36,6 +36,7 @@
 
 /***************************** Include Files **********************************/
 #include "xnvm_utils.h"
+#include "xstatus.h"
 #include "xil_util.h"
 
 /*************************** Constant Definitions *****************************/
