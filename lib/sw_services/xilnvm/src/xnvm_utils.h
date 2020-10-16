@@ -40,7 +40,6 @@ extern "C" {
 
 /****************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xstatus.h"
 #include "xil_util.h"
 
 /*************************** Constant Definitions *****************************/
