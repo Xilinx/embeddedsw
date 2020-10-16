@@ -72,6 +72,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XLOADER_SHA3_LEN				(48U)
 #define XLOADER_RSA_SIG_EXP_BYTE		(0xBCU)
+#define XLOADER_RSA_EM_MSB_EXP_BYTE		(0x0U)
 #define XLOADER_I2OSP_INT_LIMIT			(256U)
 #define XLOADER_RSA_PSS_MASKED_DB_LEN	(463U)
 #define XLOADER_RSA_PSS_SALT_LEN		(XLOADER_SHA3_LEN)
@@ -396,8 +397,10 @@ typedef enum {
 		/**< 0x23 Error during memset for XSecure_RsaSha3Array */
 	XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL,
 		/**< 0x24 Error during memset for Xsecure_Varsocm */
+	XLOADER_SEC_MASKED_DB_MSB_ERROR,
+		/**< 0x25 Error in RSA EM MSB */
 	XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
-		/**< 0x25 Failed to verify DB check */
+		/**< 0x26 Failed to verify DB check */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,
