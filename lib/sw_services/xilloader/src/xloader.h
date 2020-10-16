@@ -385,6 +385,10 @@ int XLoader_ClearIntrSbiDataRdy(void);
 extern XilPdi* BootPdiPtr;
 extern XilPdi SubsystemPdiIns;
 
+/************************** Variable Definitions *****************************/
+extern XilPdi* BootPdiPtr;
+extern XilPdi SubsystemPdiIns;
+
 #ifdef __cplusplus
 }
 #endif
