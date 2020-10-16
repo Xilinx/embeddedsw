@@ -1009,12 +1009,12 @@ static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChil
 		}
 
 		if (TempParentImgID == 0U) {
-			*IsChild = FALSE;
+			*IsChild = (u32)FALSE;
 			break;
 		}
 
 		if (TempParentImgID == ParentImgID) {
-			*IsChild = TRUE;
+			*IsChild = (u32)TRUE;
 			break;
 		}
 		TempImgID = TempParentImgID;
@@ -1065,7 +1065,7 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
 			ImageInfoTbl.Count--;
 			(*ChangeCount)++;
 			if (ImageInfoTbl.IsBufferFull == TRUE) {
-				ImageInfoTbl.IsBufferFull = FALSE;
+				ImageInfoTbl.IsBufferFull = (u8)FALSE;
 			}
 		}
 		else if (ImageInfoTbl.TblPtr[Index].ImgID != XLOADER_INVALID_IMG_ID) {
@@ -1165,7 +1165,7 @@ int XLoader_StoreImageInfo(XLoader_ImageInfo *ImageInfo)
 
 	ImageEntry = XLoader_GetImageInfoEntry(ImageInfo->ImgID);
 	if (ImageEntry == NULL) {
-		ImageInfoTbl.IsBufferFull = TRUE;
+		ImageInfoTbl.IsBufferFull = (u8)TRUE;
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW, 0);
 		goto END;
 	}
