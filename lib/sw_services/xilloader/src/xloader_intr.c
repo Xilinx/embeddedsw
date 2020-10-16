@@ -48,7 +48,6 @@
 static int XLoader_SbiLoadPdi(void *Data);
 
 /************************** Variable Definitions *****************************/
-extern XilPdi SubsystemPdiIns;
 
 /*****************************************************************************/
 
