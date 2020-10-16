@@ -192,7 +192,7 @@ static XLoader_AuthCertificate AuthCert;
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
+int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum)
 {
 	u32 Status = XLOADER_FAILURE;
@@ -460,7 +460,7 @@ END:
 *
 ******************************************************************************/
 
-u32 XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
+int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 				u32 BlockSize, u8 Last)
 {
 	volatile u32 Status = XLOADER_FAILURE;
@@ -694,7 +694,7 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
+int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 {
 	volatile u32 Status = XLOADER_FAILURE;
 	volatile u32 StatusTmp = XLOADER_FAILURE;
@@ -984,7 +984,7 @@ END:
 * @return	XLOADER_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
+int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr)
 {
 	volatile u32 Status = XLOADER_FAILURE;
