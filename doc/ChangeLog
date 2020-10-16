@@ -1,6 +1,73 @@
 Changes for 2020.2
 ===============================
 
+xilpm_v3_2:
+versal: Add bit inversion logic for CPM-PL interface
+versal: Add support to activate subsystem
+versal: Correct error message in XPm_ProcessCmd
+versal: Toggle NPI Reset after VCCINT power up
+versal: Disable debug macro by default
+versal: Add redundancy checks
+versal: Add blind write checks
+Update self suspend example for versal
+versal: Skip the sysmon functionality for QEMU platform
+versal: Remove use of global sysmon access
+versal: Update the feature check list
+versal: Skip CPM scan clear till CPM4 version
+versal: Update MACROs used in xilpm with Canonical defines
+versal: Add base support for pldevices
+versal: Add check while initializing GT Adrress array
+versal: Enable GIC proxy for RPU when LPD gets power down
+versal: Add support of XPm_FeatureCheck api in xilpm client
+versal: Remove unused function
+server: Remove dead code lines
+versal: Add support for power nodes in register notifier
+versal: Skip handling of PL clocks and resets
+versal: Add support for M60 device
+versal: Update cram trim value for all silicon platforms
+versal: Add IOCTL support for AIE ISR Clear
+versal: Add a wrapper to retrigger PlHouseClean.
+versal: Fix MISRA rule violations
+versal: Efficiently handle GT nodes for housecleaning
+versal: add pl alt clock nodes
+versal: Correct logic for NPD MemIc startup sequences
+versal: Add support for power rail control
+versal: Remove redundant checks
+versal: Update the AieMemInit sequence for ME PMEMinitialization
+versal: Fix in XPmBisr_RepairME() for 64 bit register write
+versal: Skip CPM scan clear for S80 devices
+versal: Add custom reset routines for PL POR reset
+versal: Remove topology hack to change ps por reset type
+versal: Remove subsystem CDO
+versal: Send PLM->PSM IPI for a CCIX design
+versal: Add support for Aie clk gating
+zynqmp: Remove L2 cache from RPU prealloc section
+versal: Request PMC_GPIO for ES2 version also
+versal: Notify all registered subsystem whenever any event is generated
+versal: Fix handling of FPD-PL and LPD-PL isolations
+Correct typos in function header
+versal: Fix in GetLatencyFromState()
+versal: Do not allow wakup of already running core
+versal: Add validation check for TargetNode inXPm_SetWakeUpSource()
+versal: Make internal function as static in xpm_api.c file
+versal: Fix in XPm_USBDxState()
+versal: Remove IPI_PMC post topology hook
+versal: Disable PUDC_B pin for ES1 PL workaround
+versal: Add support for SV60 device
+versal: Add support for H6H_2 SLR device
+versal: Remove custom PL domain state machine
+versal: Use IDCODE for Platform Version check in silicon
+versal: Use PMC RAM as GGS registers in IOCTL
+versal: Enhance debug prints
+versal: Move PL POR Status check before ES1 workaround
+versal: Sync xpm_nodeid.h with auto generated xpm_nodeid.h
+versal: Use 2 PMC and 2 PSM PGGS registers in IOCTL
+versal: Move Ioctl related APIs to xpm_ioctl.c
+versal: Use "+" operator instead of "|" in Pm_In32 or Pm_Out32
+versal: XPPU bug fixes and enhancements
+versal: Optimize memory size used by prints
+versal: Add IOCTL to get reset reason
+versal: Add support to check last reset reason
 
 csi2tx_v1_3:
 Makefile modification to support Parallel compilation.
