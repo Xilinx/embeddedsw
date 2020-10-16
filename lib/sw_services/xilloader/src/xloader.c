@@ -999,7 +999,7 @@ static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChil
 	u32 TempParentImgID;
 
 	TempImgID = ChildImgID;
-	while (1U) {
+	while (TRUE) {
 		Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT,
 				TempImgID, DummyArg, DummyArg,
 				&TempParentImgID);
