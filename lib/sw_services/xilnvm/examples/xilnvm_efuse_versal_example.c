@@ -31,6 +31,7 @@
  *                        MiscCtrl eFuses also updated read pattern.
  *	 am    10/10/2020 Changed function return type and type of
  *			  status variable from u32 to int
+ *       kal   10/12/2020 Addressed Security review comments.
  *
  * </pre>
  *
@@ -65,7 +66,7 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseIvs *Ivs);
 
-static int XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseGlitchCfgBits *GlitchData);
 
 static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
@@ -94,16 +95,16 @@ int main(void)
 					"hence nothing is programmed\r\n");
 		}
 		else {
-			goto EFUSE_ERROR;
+			goto END;
 		}
 	}
 	Status = XilNvm_EfusePerformCrcChecks();
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 	Status = XilNvm_EfuseReadFuses();
 
-EFUSE_ERROR:
+END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nVersal Efuse example failed with err: %08x\n\r",
 									Status);
@@ -122,6 +123,18 @@ EFUSE_ERROR:
  * request.
  * XNvm_EfuseData is a global structure and members of this structure will be
  * filled with the data to be written to eFuse.
+ *
+ * typedef struct {
+ *	XNvm_EfuseAesKeys *AesKeys;
+ *	XNvm_EfusePpkHash *PpkHash;
+ *	XNvm_EfuseDecOnly *DecOnly;
+ *	XNvm_EfuseSecCtrlBits *SecCtrlBits;
+ *	XNvm_EfuseMiscCtrlBits *MiscCtrlBits;
+ *	XNvm_EfuseRevokeIds *RevokeIds;
+ *	XNvm_EfuseIvs *Ivs;
+ *	XNvm_EfuseUserData *UserFuses;
+ *	XNvm_EfuseGlitchCfgBits *GlitchCfgBits;
+ * }XNvm_EfuseData;
  *
  * Example :
  * XNvm_EfuseIvs is a write request to program IVs, if there is no request to
@@ -147,56 +160,55 @@ static int XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseUserData UserFuses = {0U};
 	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
 
-	Status = XilNvM_EfuseInitGlitchData(&WriteEfuse, &GlitchData);
+	Status = XilNvm_EfuseInitGlitchData(&WriteEfuse, &GlitchData);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	Status = XilNvm_EfuseInitAesKeys(&WriteEfuse, &AesKeys);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	Status = XilNvm_EfuseInitPpkHash(&WriteEfuse, &PpkHash);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	Status = XilNvm_EfuseInitDecOnly(&WriteEfuse, &DecOnly);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	Status = XilNvm_EfuseInitSecCtrl(&WriteEfuse, &SecCtrlBits);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	Status = XilNvm_EfuseInitMiscCtrl(&WriteEfuse, &MiscCtrlBits);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
-	Status = XilNvm_EfuseInitRevocationIds(&WriteEfuse,
-						&RevokeIds);
+	Status = XilNvm_EfuseInitRevocationIds(&WriteEfuse, &RevokeIds);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	Status = XilNvm_EfuseInitIVs(&WriteEfuse, &Ivs);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	UserFuses.UserFuseData = UserFusesArr;
 	Status = XilNvm_EfuseInitUserFuses(&WriteEfuse, &UserFuses);
 	if(Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	Status = XNvm_EfuseWrite(&WriteEfuse);
 
-EFUSE_ERROR:
+END:
 	return Status;
 }
 
@@ -226,7 +238,7 @@ static int XilNvm_EfuseReadFuses(void)
 
 	Status = XNvm_EfuseReadDna(&EfuseDna);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 	xil_printf("\r\nDNA:%08x%08x%08x%08x", EfuseDna.Dna[3],
 						EfuseDna.Dna[2],
@@ -236,7 +248,7 @@ static int XilNvm_EfuseReadFuses(void)
 	for (Index = XNVM_EFUSE_PPK0; Index <= XNVM_EFUSE_PPK2; Index++) {
 		Status = XNvm_EfuseReadPpkHash(&EfusePpk, Index);
 		if (Status != XST_SUCCESS) {
-			goto EFUSE_ERROR;
+			goto END;
 		}
 		else {
 
@@ -253,52 +265,48 @@ static int XilNvm_EfuseReadFuses(void)
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_META_HEADER_IV_RANGE);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 	xil_printf("\n\rMetaheader IV:");
 
 	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
-			Row >= 0; Row--) {
+	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_BLACK_IV);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 	xil_printf("\n\rBlack Obfuscated IV:");
 
 	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
-			Row >= 0; Row--) {
+	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_PLM_IV_RANGE);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 	xil_printf("\n\rPlm IV:");
 
 	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
-			Row >= 0; Row--) {
+	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_DATA_PARTITION_IV_RANGE);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 	xil_printf("\n\rData Partition IV:");
 
 	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U);
-			Row >= 0; Row--) {
+	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", ReadIv[Row]);
 	}
 	xil_printf("\n\r");
@@ -307,7 +315,7 @@ static int XilNvm_EfuseReadFuses(void)
 	for (Row = 0; Row < XNVM_NUM_OF_REVOKE_ID_FUSES; Row++) {
 		Status = XNvm_EfuseReadRevocationId(&RdRevocationIds[Row], Row);
 		if (Status != XST_SUCCESS) {
-			goto EFUSE_ERROR;
+			goto END;
 		}
 		xil_printf("RevocationId%d Fuse:%08x\n\r",
 				Row, RdRevocationIds[Row]);
@@ -317,7 +325,7 @@ static int XilNvm_EfuseReadFuses(void)
 
 	Status = XNvm_EfuseReadDecOnly(&RegData);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	xil_printf("\r\nDec_only : %x\r\n", RegData);
@@ -327,7 +335,7 @@ static int XilNvm_EfuseReadFuses(void)
 	ReadUserFuses.UserFuseData = UserFusesArr;
 	Status = XNvm_EfuseReadUserFuses(&ReadUserFuses);
 	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+		goto END;
 	}
 
 	for (Row = XNVM_EFUSE_READ_USER_FUSE_NUM;
@@ -341,18 +349,14 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\r");
 
 	Status = XilNvm_EfuseShowCtrlBits();
-	if (Status != XST_SUCCESS) {
-		goto EFUSE_ERROR;
-	}
-
-EFUSE_ERROR:
+END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
- * This function performs all CRC checks on user request with the provided
- * expected CRC values
+ * This function performs CRC validation of AES key and User Keys
+ * based on user input.
  *
  * @return
  *	- XST_SUCCESS - If the CRC checks are successful.
@@ -362,14 +366,15 @@ EFUSE_ERROR:
 static int XilNvm_EfusePerformCrcChecks(void)
 {
 	int Status = XST_FAILURE;
+	u32 Cnt = 0U;
 
 	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
 		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
 					XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
-		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+		Status= XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nAES CRC check is failed\n\r");
-			goto EFUSE_ERROR;
+			Cnt++;
 		}
 		else {
 			xil_printf("\r\nAES CRC check is passed\n\r");
@@ -384,7 +389,7 @@ static int XilNvm_EfusePerformCrcChecks(void)
 					XNVM_EFUSE_EXPECTED_USER_KEY0_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nUser Key 0 CRC check is failed\n\r");
-			goto EFUSE_ERROR;
+			Cnt++;
 		}
 		else {
 			xil_printf("\r\nUser Key 0 CRC check is passed\n\r");
@@ -399,36 +404,49 @@ static int XilNvm_EfusePerformCrcChecks(void)
 					XNVM_EFUSE_EXPECTED_USER_KEY1_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nUser Key 1 CRC check is failed\n\r");
-			goto EFUSE_ERROR;
+			Cnt++;
 		}
 		else {
 			xil_printf("\r\nUser Key 1 CRC check is passed\n\r");
 		}
 	}
 
-	Status = XST_SUCCESS;
+	if (Cnt == 0U) {
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = XST_FAILURE;
+	}
 
-EFUSE_ERROR:
 	return Status;
 }
 
 /****************************************************************************/
 /**
  * This function is used to initialize Glitch config structure with user
- * provided data to program below eFuses.
+ * provided data and assign the same to global structure XNvm_EfuseData to
+ * program below eFuses.
  * - Glitch Configuration Row write lock
  * - Glitch configuration data
+ *
+ * typedef struct {
+ *	u8 PrgmGlitch;
+ *	u8 GlitchDetWrLk;
+ *	u32 GlitchDetTrim;
+ *	u8 GdRomMonitorEn;
+ *	u8 GdHaltBootEn;
+ * }XNvm_EfuseGlitchCfgBits;
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
  * @param	GlitchData	Pointer to XNvm_EfuseGlitchCfgBits structure.
  *
  * @return
- *		- XST_SUCCESS - If programming is successful
+ *		- XST_SUCCESS - If initialization is successful
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
-static int XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
 				XNvm_EfuseGlitchCfgBits *GlitchData)
 {
 	int Status = XST_FAILURE;
@@ -440,7 +458,7 @@ static int XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
 					&(GlitchData->GlitchDetTrim),
 					XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 
 		/**
@@ -475,23 +493,34 @@ static int XilNvM_EfuseInitGlitchData(XNvm_EfuseData *WriteEfuse,
 
 	Status = XST_SUCCESS;
 
-ERROR:
+END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
  * This function is used to initialize XNvm_EfuseAesKeys structure with user
- * provided data to program below eFuses.
+ * provided data and assign it to global struture XNvm_EfuseData to program
+ * below eFuses.
  * - AES key
  * - AES User keys
+ *
+ * typedef struct {
+ *	u8 PrgmAesKey;
+ *	u8 PrgmUserKey0;
+ *	u8 PrgmUserKey1;
+ *	u32 AesKey[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
+ *	u32 UserKey0[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
+ *	u32 UserKey1[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
+ * }XNvm_EfuseAesKeys;
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
  * @param	AesKeys		Pointer to XNvm_EfuseAesKeys structure.
  *
  * @return
- *		- XST_SUCCESS - If programming is successful
+ *		- XST_SUCCESS - If initialization of XNvm_EfuseAesKeys structure
+ *				is successful
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
@@ -509,7 +538,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 					(u8 *)(AesKeys->AesKey),
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (AesKeys->PrgmUserKey0 == TRUE) {
@@ -517,7 +546,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 					(u8 *)(AesKeys->UserKey0),
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (AesKeys->PrgmUserKey1 == TRUE) {
@@ -525,7 +554,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 					(u8 *)(AesKeys->UserKey1),
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 
@@ -535,21 +564,32 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 
 	Status = XST_SUCCESS;
 
-ERROR:
+END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
- * This function is used to properly initialize the XNvm_EfusePpkHash structure
- * instance to program PPK0/PPK1/PPK2 hash eFuses.
+ * This function is used to initialize the XNvm_EfusePpkHash structure with
+ * user provided data and assign it to global struture XNvm_EfuseData to
+ * program PPK0/PPK1/PPK2 hash eFuses
+ *
+ * typedef struct {
+ *	u8 PrgmPpk0Hash;
+ *	u8 PrgmPpk1Hash;
+ *	u8 PrgmPpk2Hash;
+ *	u32 Ppk0Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+ *	u32 Ppk1Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+ *	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+ * }XNvm_EfusePpkHash;
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
  * @param	PpkHash		Pointer to XNvm_EfusePpkHash structure.
  *
  * @return
- *		- XST_SUCCESS - If programming is successful
+ *		- XST_SUCCESS - If initialization of XNvm_EfusePpkHash structure
+ *				is successful
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
@@ -566,39 +606,39 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK0_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK0_HASH,
 						(u8 *)(PpkHash->Ppk0Hash),
 			XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (PpkHash->PrgmPpk1Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK1_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK1_HASH,
 					(u8 *)(PpkHash->Ppk1Hash),
 					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (PpkHash->PrgmPpk2Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK2_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK2_HASH,
 					(u8 *)(PpkHash->Ppk2Hash),
 					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 
@@ -608,64 +648,75 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 
 	Status = XST_SUCCESS;
 
-ERROR:
+END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
- * This function is used to properly initialize the XNvm_EfuseDecOnly structure
- * to program DEC_ONLY eFuses.
+ * This function is used to initialize the XNvm_EfuseDecOnly structure with
+ * user provided data and assign the same to global struture XNvm_EfuseData to
+ * program DEC_ONLY eFuses.
+ *
+ * typedef struct {
+ *	u8 PrgmDecOnly;
+ * }XNvm_EfuseDecOnly;
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
  * @param	DecOnly		Pointer to XNvm_EfuseDecOnly structure.
  *
  * @return
- *		- XST_SUCCESS - If the programming is successful
+ *		- XST_SUCCESS - If initialization of XNvm_EfuseDecOnly structure
+ *				is successful
  *		- ErrorCode - On failure.
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
                                         XNvm_EfuseDecOnly *DecOnly)
 {
-	int Status = XST_FAILURE;
-
 	DecOnly->PrgmDecOnly = XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY;
 
 	if (DecOnly->PrgmDecOnly == TRUE) {
-		Status = Xil_ConvertStringToHex(XNVM_EFUSE_DEC_EFUSE_ONLY,
-					&(DecOnly->DecEfuseOnly),
-					XNVM_EFUSE_ROW_STRING_LEN);
-		if (Status != XST_SUCCESS) {
-			goto ERROR;
-		}
-
-		/**
-		 * DEC_ONLY data size is 16 bits Bit[15:0]
-		 */
-		DecOnly->DecEfuseOnly = DecOnly->DecEfuseOnly &
-					(XNVM_EFUSE_DEC_EFUSE_ONLY_MASK);
 
 		WriteEfuse->DecOnly = DecOnly;
 	}
 
-	Status = XST_SUCCESS;
-
-ERROR:
-	return Status;
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
 /**
- * This function is used to initialize the XNvm_EfuseSecCtrlBits structure to program
- * SECURITY_CONTROL eFuses.
+ * This function is used to initialize the XNvm_EfuseSecCtrlBits structure with
+ * user provided data and assign the same to global structure  XNvm_EfuseData to
+ * program SECURITY_CONTROL eFuses.
+ *
+ * typedef struct {
+ *	u8 AesDis;
+ *	u8 JtagErrOutDis;
+ *	u8 JtagDis;
+ *	u8 Ppk0WrLk;
+ *	u8 Ppk1WrLk;
+ *	u8 Ppk2WrLk;
+ *	u8 AesCrcLk;
+ *	u8 AesWrLk;
+ *	u8 UserKey0CrcLk;
+ *	u8 UserKey0WrLk;
+ *	u8 UserKey1CrcLk;
+ *	u8 UserKey1WrLk;
+ *	u8 SecDbgDis;
+ *	u8 SecLockDbgDis;
+ *	u8 BootEnvWrLk;
+ *	u8 RegInitDis;
+ * }XNvm_EfuseSecCtrlBits;
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
  *
  * @param	SecCtrlBits	Pointer to XNvm_EfuseSecCtrlBits structure.
+ *
  * @return
- *		- XST_SUCCESS - If the programming is successful
+ *		- XST_SUCCESS - If the initialization of XNvm_EfuseSecCtrlBits
+ *				structure is successful
  *		- ErrCode - On failure
  *
  ******************************************************************************/
@@ -704,15 +755,30 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 
 /*****************************************************************************/
 /**
- * This function is used to initialize XNvm_EfuseMiscCtrlBits structure to program
- * PPK INVLD eFuses.
+ * This function is used to initialize XNvm_EfuseMiscCtrlBits structure with
+ * user provided data and assign the same to global structure XNvm_EfuseData to
+ * program PPK INVLD eFuses.
+ *
+ * typedef struct {
+ *	u8 GlitchDetHaltBootEn;
+ *	u8 GlitchDetRomMonitorEn;
+ *	u8 HaltBootError;
+ *	u8 HaltBootEnv;
+ *	u8 CryptoKatEn;
+ *	u8 LbistEn;
+ *	u8 SafetyMissionEn;
+ *	u8 Ppk0Invalid;
+ *	u8 Ppk1Invalid;
+ *	u8 Ppk2Invalid;
+ * }XNvm_EfuseMiscCtrlBits;
  *
  * @param	MiscCtrlBits	Pointer to XNvm_EfuseMiscCtrlBits structure
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure
  *
  * @return
- *		- XST_SUCCESS - In programming is successful
+ *		- XST_SUCCESS - If the initialization XNvm_EfuseMiscCtrlBits
+ *				structure is successful
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
@@ -738,15 +804,22 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 
 /****************************************************************************/
 /**
- * This function is used to initialize XNvm_EfuseRevokeIds structure to program
- * Revocation ID eFuses
+ * This function is used to initialize XNvm_EfuseRevokeIds structure with user
+ * provided data and assign it to global structure  XNvm_EfuseData to program
+ * revocation ID eFuses
+ *
+ * typedef struct {
+ *	u8 PrgmRevokeId;
+ *	u32 RevokeId[XNVM_NUM_OF_REVOKE_ID_FUSES];
+ * }XNvm_EfuseRevokeIds;
  *
  * @param	WriteEfuse      Pointer to XNvm_EfuseData structure
  *
  * @param	RevokeIds	Pointer to XNvm_EfuseRevokeIds structure
  *
  * @return
- *		- XST_SUCCESS - If programming is successful
+ *		- XST_SUCCESS - If the initialization of XNvm_EfuseRevokeIds
+ *				structure is successful
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
@@ -773,56 +846,56 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_0],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_1_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_1],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_2_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_2],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_3_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_3],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_4_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_4],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_5_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_5],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_6_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_6],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_7_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_7],
 			XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 
@@ -831,21 +904,34 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 	}
 
 	Status = XST_SUCCESS;
-
-ERROR:
+END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
- * This function is used to initialize XNvm_EfuseIvs to program IV eFuses.
+ * This function is used to initialize XNvm_EfuseIvs structure with user
+ * provided data and assign the same to global structure XNvm_EfuseData to
+ * program IV eFuses.
+ *
+ * typedef struct {
+ *	u8 PrgmMetaHeaderIv;
+ *	u8 PrgmBlkObfusIv;
+ *	u8 PrgmPlmIv;
+ *	u8 PrgmDataPartitionIv;
+ *	u32 MetaHeaderIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+ *	u32 BlkObfusIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+ *	u32 PlmIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+ *	u32 DataPartitionIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
+ * }XNvm_EfuseIvs;
  *
  * @param	WriteEfuse      Pointer to XNvm_EfuseData structure
  *
  * @param	Ivs		Pointer to XNvm_EfuseIvs structure
  *
  * @return
- *		- XST_SUCCESS - If programming is successful
+ *		- XST_SUCCESS - If the initialization of XNvm_EfuseIvs structure
+ *				is successful
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
@@ -864,7 +950,7 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 						(u8 *)(Ivs->MetaHeaderIv),
 						XNVM_EFUSE_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (Ivs->PrgmBlkObfusIv == TRUE) {
@@ -872,7 +958,7 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 						(u8 *)(Ivs->BlkObfusIv),
 						XNVM_EFUSE_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (Ivs->PrgmPlmIv == TRUE) {
@@ -880,7 +966,7 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 						(u8 *)(Ivs->PlmIv),
 						XNVM_EFUSE_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (Ivs->PrgmDataPartitionIv == TRUE) {
@@ -888,7 +974,7 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 						(u8 *)(Ivs->DataPartitionIv),
 						XNVM_EFUSE_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			goto ERROR;
+			goto END;
 		}
 	}
 	if (Status == XST_SUCCESS) {
@@ -897,21 +983,29 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
 
 	Status = XST_SUCCESS;
 
-ERROR:
+END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
- * This function is used to initialize XNvm_UserEfuseData structure to
- * Program User Fuses
+ * This function is used to initialize XNvm_UserEfuseData structure with user
+ * provided data and assign the same to global structure XNvm_EfuseData to
+ * program User Fuses.
+ *
+ * typedef struct {
+ *	u32 StartUserFuseNum;
+ *	u32 NumOfUserFuses;
+ *	u32 *UserFuseData;
+ * }XNvm_EfuseUserData;
  *
  * @param	WriteEfuse      Pointer to XNvm_EfuseData structure
  *
  * @param	Data		Pointer to XNvm_UserEfuseData structure
  *
  * @return
- *		- XST_SUCCESS - If programming is successful
+ *		- XST_SUCCESS - If the initialization of XNvm_UserEfuseData
+ *				structure is successful
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
@@ -964,17 +1058,17 @@ static int XilNvm_EfuseShowCtrlBits(void)
 
 	Status = XNvm_EfuseReadSecCtrlBits(&SecCtrlBits);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	Status = XNvm_EfuseReadPufSecCtrlBits(&PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	Status = XNvm_EfuseReadMiscCtrlBits(&MiscCtrlBits);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	xil_printf("\r\nSecure and Control bits of eFuse:\n\r");
@@ -1167,7 +1261,9 @@ static int XilNvm_EfuseShowCtrlBits(void)
 		xil_printf("Ppk2 hash stored in efuse is valid\n\r");
 	}
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -1181,7 +1277,7 @@ static int XilNvm_EfuseShowCtrlBits(void)
  * @param	Len 	Length of the Aes key in bits
  *
  * @return
- *		- XST_SUCCESS - In case of Success
+ *		- XST_SUCCESS - If validation and conversion of key is success
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
@@ -1192,15 +1288,15 @@ static int XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len)
 	if ((KeyStr == NULL) ||
 		(Dst == NULL) ||
 		(Len != XNVM_EFUSE_AES_KEY_LEN_IN_BITS)) {
-		goto ERROR;
+		goto END;
 	}
 	Status = XNvm_ValidateAesKey(KeyStr);
 	if(Status != XST_SUCCESS) {
-		goto ERROR;
+		goto END;
 	}
 	Status = Xil_ConvertStringToHexLE(KeyStr, Dst, Len);
 
-ERROR:
+END:
 	return Status;
 }
 
@@ -1215,7 +1311,7 @@ ERROR:
  * @param	Len	Length of the IV in bits
  *
  * @return
- *		- XST_SUCCESS - In case of Success
+ *		- XST_SUCCESS - If validation and conversion of IV success
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
@@ -1226,16 +1322,16 @@ static int XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len)
 	if ((IvStr == NULL) ||
 		(Dst == NULL) ||
 		(Len != XNVM_EFUSE_IV_LEN_IN_BITS)) {
-		goto ERROR;
+		goto END;
 	}
 
 	Status = XilNvm_ValidateIvString(IvStr);
 	if(Status != XST_SUCCESS) {
-		goto ERROR;
+		goto END;
 	}
 	Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
 
-ERROR:
+END:
 	return Status;
 }
 

@@ -91,7 +91,7 @@ extern "C" {
 /***************************** Type Definitions *******************************/
 
 /**
- * @addtogroup xilsecure_versal_error_codes List of Error Codes
+ * @addtogroup xilnvm_versal_error_codes List of Error Codes
  * @{
  */
 
@@ -154,6 +154,9 @@ typedef enum {
 	XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD = 0xC0,/**<0xC0 - Blk obfus
 						* IV should be programmed for
 						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD = 0xD0,/**<0xD0 - Dec only eFuse
+						* is already programmed */
 
 	XNVM_EFUSE_ERR_BIT_CANT_REVERT = 0xF0,/**<0xF0 - Already programmed eFuse
 						* Bit, can't be reverted */
@@ -624,10 +627,10 @@ typedef struct {
 
 typedef struct {
 	u8 SysmonTempMonEn;
-        u8 SysmonVoltMonEn;
-        u8 LpdNocScEn;
-        u8 PmcMbistEn;
-        u8 LpdMbistEn;
+	u8 SysmonVoltMonEn;
+	u8 LpdNocScEn;
+	u8 PmcMbistEn;
+	u8 LpdMbistEn;
 }XNvm_EfuseSecurityMisc1Bits;
 
 typedef struct {
@@ -658,7 +661,6 @@ typedef struct {
 
 typedef struct {
 	u8 PrgmDecOnly;
-	u32 DecEfuseOnly;
 }XNvm_EfuseDecOnly;
 
 typedef struct {
