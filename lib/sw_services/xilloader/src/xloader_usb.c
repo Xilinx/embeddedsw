@@ -77,7 +77,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	}
 	Status = XPlmi_MemSetBytes(&DfuObj, sizeof(DfuObj), 0U, sizeof(DfuObj));
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_DFU_OBJ);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_DFU_OBJ);
 		goto END;
 	}
 
