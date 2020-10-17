@@ -5,7 +5,6 @@ PROCESSOR = psv_pmc_0
 LIBRARIES = ${PROCESSOR}/lib/libxil.a
 BSP_MAKEFILES := $(wildcard $(PROCESSOR)/libsrc/*/src/Makefile)
 SUBDIRS := $(patsubst %/Makefile, %, $(BSP_MAKEFILES))
-BSP_SEQUENTIAL_MAKEFILES := psv_pmc_0/libsrc/xilpdi/src/Makefile psv_pmc_0/libsrc/xilplmi/src/Makefile psv_pmc_0/libsrc/xilloader/src/Makefile psv_pmc_0/libsrc/xilpm/src/Makefile psv_pmc_0/libsrc/xilsecure/src/Makefile psv_pmc_0/libsrc/xilsem/src/Makefile psv_pmc_0/libsrc/xilpuf/src/Makefile psv_pmc_0/libsrc/cframe/src/Makefile psv_pmc_0/libsrc/cfupmc/src/Makefile psv_pmc_0/libsrc/csudma/src/Makefile psv_pmc_0/libsrc/emacps/src/Makefile psv_pmc_0/libsrc/gpiops/src/Makefile psv_pmc_0/libsrc/ipipsu/src/Makefile psv_pmc_0/libsrc/pmonpsv/src/Makefile psv_pmc_0/libsrc/qspipsu/src/Makefile psv_pmc_0/libsrc/rtcpsu/src/Makefile psv_pmc_0/libsrc/sysmonpsv/src/Makefile psv_pmc_0/libsrc/uartlite/src/Makefile psv_pmc_0/libsrc/uartpsv/src/Makefile psv_pmc_0/libsrc/zdma/src/Makefile
 BSP_PARALLEL_MAKEFILES := $(filter-out $(BSP_SEQUENTIAL_MAKEFILES),$(BSP_MAKEFILES))
 SEQ_SUBDIRS := $(patsubst %/Makefile, %, $(BSP_SEQUENTIAL_MAKEFILES))
 PAR_SUBDIRS := $(patsubst %/Makefile, %, $(BSP_PARALLEL_MAKEFILES))
