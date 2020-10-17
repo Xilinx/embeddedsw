@@ -10,11 +10,9 @@ void outbyte(char c);
 }
 #endif 
 
-#ifdef VERSAL_PLM
-void __attribute__((weak)) outbyte(char c)
-#else
+#ifndef VERSAL_PLM
 void outbyte(char c)
-#endif
 {
 	 XUartPsv_SendByte(STDOUT_BASEADDRESS, c);
 }
+#endif
