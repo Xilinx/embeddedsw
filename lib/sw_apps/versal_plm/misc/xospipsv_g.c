@@ -14,24 +14,19 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xemacps.h"
+#include "xospipsv.h"
 
 /*
 * The configuration table for devices
 */
 
-XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES] =
+XOspiPsv_Config XOspiPsv_ConfigTable[XPAR_XOSPIPSV_NUM_INSTANCES] =
 {
 	{
-		XPAR_PSV_ETHERNET_0_DEVICE_ID,
-		XPAR_PSV_ETHERNET_0_BASEADDR,
-		XPAR_PSV_ETHERNET_0_IS_CACHE_COHERENT
-	},
-	{
-		XPAR_PSV_ETHERNET_1_DEVICE_ID,
-		XPAR_PSV_ETHERNET_1_BASEADDR,
-		XPAR_PSV_ETHERNET_1_IS_CACHE_COHERENT
+		XPAR_PSV_PMC_OSPI_0_DEVICE_ID,
+		XPAR_PSV_PMC_OSPI_0_BASEADDR,
+		XPAR_PSV_PMC_OSPI_0_OSPI_CLK_FREQ_HZ,
+		XPAR_PSV_PMC_OSPI_0_IS_CACHE_COHERENT,
+		XPAR_PSV_PMC_OSPI_0_OSPI_MODE
 	}
 };
-
-
