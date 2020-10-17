@@ -21,6 +21,7 @@
 */
 
 typedef enum {
+	EndList,
 	NO_SUPPLIES_CONFIGURED = XPAR_XSYSMONPSV_0_NO_MEAS,
 } XSysMonPsv_Supply;
 
