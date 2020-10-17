@@ -25,6 +25,8 @@
 *       har  09/30/2020 Updated XPUF_STATUS_WAIT_TIMEOUT as per the recommended
 *                       software timeout
 *       am   10/10/2020 Resolved MISRA C violations
+*       har  10/17/2020 Added checks for mismatch between MSB of PUF shutter
+*                       value and Global Variation Filter option
 *
 * </pre>
 *
@@ -44,7 +46,7 @@
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
 					/* Recommended software timeout is 1 second */
-#define XPUF_SHUTTER_GLB_VAR_FLTR_MASK	(0x0FFFFFFFU)
+#define XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT	(31)
 
 typedef enum {
 	XPUF_REGISTRATION_NOT_STARTED,
@@ -165,6 +167,16 @@ int XPuf_Registration(XPuf_Data *PufData)
 		goto END;
 	}
 
+	/*
+	 * Error code shall be returned if MSB of PUF shutter value does not
+	 * match with Global Variation Filter option
+	 */
+	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
+		PufData->GlobalVarFilter) == TRUE) {
+		Status = XPUF_SHUTTER_GVF_MISMATCH;
+		goto END;
+	}
+
 	Status =  XPuf_ValidateAccessRules(PufData);
 	if(Status != XST_SUCCESS) {
 		goto END;
@@ -268,8 +280,18 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	u32 PufStatus;
 	u32 Debug = XPUF_DEBUG_GENERAL;
 
-	if (PufData == NULL) {
+	if ((PufData == NULL) || (PufData->PufOperation == XPUF_REGISTRATION)) {
 		Status = XPUF_ERROR_INVALID_PARAM;
+		goto END;
+	}
+
+	/*
+	 * Error code shall be returned if MSB of PUF shutter value does not
+	 * match with Global Variation Filter option
+	 */
+	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
+		PufData->GlobalVarFilter) == TRUE) {
+		Status = XPUF_SHUTTER_GVF_MISMATCH;
 		goto END;
 	}
 
@@ -321,7 +343,6 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 			XPUF_CFG1_INIT_VAL_12K);
 	}
 
-	PufData->ShutterValue = PufData->ShutterValue & XPUF_SHUTTER_GLB_VAR_FLTR_MASK;
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
 
