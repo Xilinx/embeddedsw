@@ -23,9 +23,12 @@
 *                       Added macros for supporting ID only regeneration and
 *                       black key programming
 * 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
-*		am 	 08/04/2020 Resolved MISRA C Violations
-*		am 	 08/19/2020 Resolved MISRA C violations.
+*       am   08/04/2020 Resolved MISRA C Violations
+*       am   08/19/2020 Resolved MISRA C violations.
 *       har  09/30/2020 Removed header files which were not required
+*       har  10/17/2020 Updated default PUF shutter value
+*                       Added error code for mismatch in MSB of PUF shutter value
+*                       and Global Variation Filter option
 *
 * </pre>
 *
@@ -56,7 +59,7 @@ extern "C" {
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
 #define XPUF_12K_PUF_SYN_LEN_IN_WORDS			(350U)
-#define XPUF_SHUTTER_VALUE				(0x1000040U)
+#define XPUF_SHUTTER_VALUE				(0x81000100U)
 #define XPUF_ID_LEN_IN_WORDS					(0x8U)
 #define XPUF_WORD_LENGTH				(0x4U)
 
@@ -77,6 +80,7 @@ extern "C" {
 #define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT	(0x04)
 #define XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		(0x07)
 #define XPUF_ERROR_REGISTRATION_INVALID			(0x08)
+#define XPUF_SHUTTER_GVF_MISMATCH			(0x09)
 
 /* Key regeneration time error codes */
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)

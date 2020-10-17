@@ -313,12 +313,6 @@ static int XPuf_GenerateKey(void)
 	xil_printf("PUF Helper data End\r\n");
 	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
-	if (PufData.GlobalVarFilter == TRUE) {
-		xil_printf("Global Variation Filter enabled\r\n");
-		xil_printf("PUF shutter value is updated to %x\r\n",
-			PufData.ShutterValue | (1 << 31U));
-		xil_printf("Use updated PUF shutter value for secure boot with black key\r\n");
-	}
 
 #if XPUF_WRITE_HD_IN_EFUSE
 	Status = XPuf_GenerateFuseFormat(&PufData);
