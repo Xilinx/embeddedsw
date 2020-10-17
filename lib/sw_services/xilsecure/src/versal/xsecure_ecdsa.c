@@ -186,14 +186,14 @@ int XSecure_EcdsaGenerateSign(XSecure_EcdsaCrvTyp CrvType, const u8* Hash,
 		Xil_MemCpy(PaddedHash, Hash, HashLen);
 		GenStatus = Ecdsa_GenerateSign(Crv, PaddedHash, Crv->Bits, D,
 			K, (EcdsaSign *)Sign);
-		if ((GenStatus == (int)ECDSA_GEN_SIGN_BAD_R) ||
-				(GenStatus == (int)ECDSA_GEN_SIGN_BAD_S)) {
+		if ((GenStatus == ECDSA_GEN_SIGN_BAD_R) ||
+				(GenStatus == ECDSA_GEN_SIGN_BAD_S)) {
 			Status = (int)XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM;
 		}
-		else if (GenStatus == (int)ECDSA_GEN_SIGN_INCORRECT_HASH_LEN) {
+		else if (GenStatus == ECDSA_GEN_SIGN_INCORRECT_HASH_LEN) {
 			Status = (int)XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN;
 		}
-		else if (GenStatus != (int)ECDSA_SUCCESS) {
+		else if (GenStatus != ECDSA_SUCCESS) {
 			Status = XST_FAILURE;
 		}
 		else {
@@ -245,16 +245,16 @@ int XSecure_EcdsaValidateKey(XSecure_EcdsaCrvTyp CrvType, XSecure_EcdsaKey *Key)
 	Crv = XSecure_EcdsaGetCrvData(CrvType);
 	if(Crv != NULL) {
 		ValidateStatus = Ecdsa_ValidateKey(Crv, (EcdsaKey *)Key);
-		if (ValidateStatus == (int)ECDSA_KEY_ZERO) {
+		if (ValidateStatus == ECDSA_KEY_ZERO) {
 			Status = (int)XSECURE_ECDSA_KEY_ZERO;
 		}
-		else if (ValidateStatus == (int)ECDSA_KEY_WRONG_ORDER) {
+		else if (ValidateStatus == ECDSA_KEY_WRONG_ORDER) {
 			Status = (int)XSECURE_ECDSA_KEY_WRONG_ORDER;
 		}
-		else if (ValidateStatus == (int)ECDSA_KEY_NOT_ON_CRV) {
+		else if (ValidateStatus == ECDSA_KEY_NOT_ON_CRV) {
 			Status = (int)XSECURE_ECDSA_KEY_NOT_ON_CRV;
 		}
-		else if (ValidateStatus != (int)ECDSA_SUCCESS) {
+		else if (ValidateStatus != ECDSA_SUCCESS) {
 			Status = XST_FAILURE;
 		}
 		else {
@@ -285,6 +285,10 @@ END:
  * 	- XSECURE_ECDSA_BAD_SIGN - When signature provided for verification is bad
  * 	- XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash length for sign
  *						      verification
+ *      - XSECURE_ECDSA_VER_SIGN_R_ZERO - R set to zero
+ *      - XSECURE_ECDSA_VER_SIGN_S_ZERO - S set to zero
+ *      - XSECURE_ECDSA_VER_SIGN_R_ORDER_ERROR - R is not within ECC order
+ *      - XSECURE_ECDSA_VER_SIGN_S_ORDER_ERROR - S is not within ECC order
  *	- XST_FAILURE - On failure
  *
  *****************************************************************************/
@@ -321,13 +325,25 @@ int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,
 			Crv, PaddedHash, Crv->Bits, (EcdsaKey *)Key, (EcdsaSign *)Sign);
 
 SIG_ERR:
-		if ((int)ECDSA_BAD_SIGN == VerifyStatus) {
+		if (ECDSA_BAD_SIGN == VerifyStatus) {
 			Status = (int)XSECURE_ECDSA_BAD_SIGN;
 		}
-		else if ((int)ECDSA_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatus) {
+		else if (ECDSA_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatus) {
 			Status = (int)XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN;
 		}
-		else if ((int)ECDSA_SUCCESS != VerifyStatus) {
+		else if (ECDSA_VER_SIGN_R_ZERO == VerifyStatus) {
+                        Status = (int)XSECURE_ECDSA_VER_SIGN_R_ZERO;
+                }
+		else if (ECDSA_VER_SIGN_S_ZERO == VerifyStatus) {
+                        Status = (int)XSECURE_ECDSA_VER_SIGN_S_ZERO;
+                }
+		else if (ECDSA_VER_SIGN_R_ORDER_ERROR == VerifyStatus) {
+                        Status = (int)XSECURE_ECDSA_VER_SIGN_R_ORDER_ERROR;
+                }
+		else if (ECDSA_VER_SIGN_S_ORDER_ERROR == VerifyStatus) {
+                        Status = (int)XSECURE_ECDSA_VER_SIGN_S_ORDER_ERROR;
+                }
+		else if (ECDSA_SUCCESS != VerifyStatus) {
 			Status = XST_FAILURE;
 		}
 		else {
