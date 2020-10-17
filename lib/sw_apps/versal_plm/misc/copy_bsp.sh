@@ -25,6 +25,7 @@ STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 
 # libraries dir
 SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
+BSP_SEQUENTIAL_MAKEFILES=
 
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
@@ -47,28 +48,33 @@ fi
 mkdir -p $BSP_DIR/libsrc/xilffs
 cp -r $SERVICES_DIR/xilffs/src $BSP_DIR/libsrc/xilffs/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilffs/src/Makefile
 
 mkdir -p $BSP_DIR/libsrc/xilpdi
 cp -r $SERVICES_DIR/xilpdi/src $BSP_DIR/libsrc/xilpdi/
 cp -r $SERVICES_DIR/xilpdi/src/*.h $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilpdi/src/Makefile
 
 mkdir -p $BSP_DIR/libsrc/xilplmi
 cp -r $SERVICES_DIR/xilplmi/src $BSP_DIR/libsrc/xilplmi/
-cp -r $SERVICES_DIR/xilplmi/src/*.h $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilplmi/src/Makefile
 
 mkdir -p $BSP_DIR/libsrc/xilpuf
 cp -r $SERVICES_DIR/xilpuf/src $BSP_DIR/libsrc/xilpuf/
 cp -r $SERVICES_DIR/xilpuf/src/*.h $BSP_DIR/include/
+set SP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilpuf/src/Makefile
 
 mkdir -p $BSP_DIR/libsrc/xilloader
 cp -r $SERVICES_DIR/xilloader/src $BSP_DIR/libsrc/xilloader/
 cp -r $SERVICES_DIR/xilloader/src/*.h $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilloader/src/Makefile
 
 mkdir -p $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal/common/* $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal/server/* $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilpm/src/versal/server/*.h $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilpm/src/versal/common/Makefile
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
@@ -78,6 +84,7 @@ cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/versal/*.h $BSP_DIR/include/
 mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 rm $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilsecure/src/Makefile
 
 mkdir -p $BSP_DIR/libsrc/xilsem
 cp -r $SERVICES_DIR/xilsem/src $BSP_DIR/libsrc/xilsem/
@@ -109,6 +116,7 @@ do
     cp -r $DRIVERS_DIR/$line/src/*.h $BSP_DIR/include/
 # copy all the HSM generated driver files DRIVER_g.c
 	cp $WORKING_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
+	set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/$line/src/Makefile
 done < $DRIVERS_LIST
 
 #copy the processor code.
@@ -140,3 +148,4 @@ cp $STANDALONE_DIR/microblaze/*.h  $BSP_DIR/include/
 
 # no inbyte and outbyte present in standalone
 cp $WORKING_DIR/inbyte.c $WORKING_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/
+export BSP_SEQUENTIAL_MAKEFILES
