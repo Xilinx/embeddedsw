@@ -132,7 +132,11 @@ typedef enum {
 	XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM,	     /**< 0xC9 - Bad random number used
 							for sign generation */
 	XSECURE_ECDSA_GEN_KEY_ERR,		     /**< 0xCA - Error in generating Public key */
-	XSECURE_ECDSA_INVALID_PARAM		     /**< 0xCB - Invalid argument */
+	XSECURE_ECDSA_INVALID_PARAM,		     /**< 0xCB - Invalid argument */
+	XSECURE_ECDSA_VER_SIGN_R_ZERO,               /**< 0xCC - R set to zero */
+	XSECURE_ECDSA_VER_SIGN_S_ZERO,               /**< 0xCD - S set to zero */
+	XSECURE_ECDSA_VER_SIGN_R_ORDER_ERROR,        /**< 0xCE - R is not within ECC order */
+	XSECURE_ECDSA_VER_SIGN_S_ORDER_ERROR         /**< 0xCF - S is not within ECC order */
 
 } XSecure_ErrorCodes;
 /**
