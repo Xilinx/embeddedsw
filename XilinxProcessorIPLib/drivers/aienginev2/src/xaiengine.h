@@ -24,11 +24,6 @@ extern "C" {
 #include <xaiengine/xaie_trace.h>
 #include <xaiengine/xaiegbl.h>
 #include <xaiengine/xaiegbl_defs.h>
-#include <xaiengine/xaielib.h>
-
-#ifdef __AIESIM__
-#include <xaiengine/xaiesim.h>
-#endif
 
 #ifdef __cplusplus
 }
