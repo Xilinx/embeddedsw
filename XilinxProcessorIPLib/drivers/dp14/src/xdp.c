@@ -3815,6 +3815,51 @@ void XDp_TxSendAudioInfoFrame(XDp *InstancePtr,
 	}
 }
 
+/******************************************************************************/
+/**
+ * This function will check if the immediate downstream RX device capable
+ * of receiving colorimetry information through VSC extended SDP packet.
+ *
+ * A DisplayPort Configuration Data (DPCD) version of 1.4 is required
+ * VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED bit in the DPCD
+ * DPRX_FEATURE_ENUMERATION_LIST register must be set for this function
+ * to return XST_SUCCESS.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device is capable of VSC extended packet.
+ *		- XST_NO_FEATURE if the RX device does not capable of
+ *		  VSC extended packet.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_TxCheckVscColorimetrySupport(XDp *InstancePtr)
+{
+	u32 Status;
+	u8 Data;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+
+	/* Check if the RX device has VSC EXT capabilities.. */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_FEATURE_ENUMERATION_LIST,
+				1, &Data);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	} else if ((Data & VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED) !=
+			VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED) {
+		return XST_NO_FEATURE;
+	}
+
+	return XST_SUCCESS;
+}
+
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
@@ -3859,51 +3904,6 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 		XDp_WaitUs(InstancePtr, 20);
 	}
 	while (PhyStatus != Mask);
-
-	return XST_SUCCESS;
-}
-
-/******************************************************************************/
-/**
- * This function will check if the immediate downstream RX device capable
- * of receiving colorimetry information through VSC extended SDP packet.
- *
- * A DisplayPort Configuration Data (DPCD) version of 1.4 is required
- * VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED bit in the DPCD
- * DPRX_FEATURE_ENUMERATION_LIST register must be set for this function
- * to return XST_SUCCESS.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- *
- * @return
- *		- XST_SUCCESS if the RX device is capable of VSC extended packet.
- *		- XST_NO_FEATURE if the RX device does not capable of
- *		  VSC extended packet.
- *
- * @note	None.
- *
-*******************************************************************************/
-u32 XDp_TxCheckVscColorimetrySupport(XDp *InstancePtr)
-{
-	u32 Status;
-	u8 Data;
-
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-
-
-	/* Check if the RX device has VSC EXT capabilities.. */
-	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_FEATURE_ENUMERATION_LIST,
-				1, &Data);
-	if (Status != XST_SUCCESS) {
-		/* The AUX read transaction failed. */
-		return Status;
-	} else if ((Data & VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED) !=
-			VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED) {
-		return XST_NO_FEATURE;
-	}
 
 	return XST_SUCCESS;
 }
