@@ -71,6 +71,8 @@
 *       bsv  09/30/2020 Enable parallel DMA for SBI related boot modes
 *       bsv  10/09/2020 Add subsystem restart support for SD raw boot modes
 *       bsv  10/13/2020 Code clean up
+*       kpt  10/19/2020 Renamed XLoader_UpdateKekRdKeyStatus to
+*                       XLoader_UpdateKekSrc
 *
 * </pre>
 *
@@ -461,7 +463,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		}
 		/* Update KEK red key availability status */
-		XLoader_UpdateKekRdKeyStatus(PdiPtr);
+		XLoader_UpdateKekSrc(PdiPtr);
 	}
 	else {
 		PdiPtr->ImageNum = 0U;

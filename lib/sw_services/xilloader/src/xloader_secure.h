@@ -41,6 +41,7 @@
 *       har  08/24/20 Added macros related to ECDSA P521 support
 *       kal  09/14/20 Added new error code to XLoader_SecErrCodes
 *       har  09/30/20 Deprecated Family Key support
+*       kpt  10/19/2020 Code clean up
 *
 * </pre>
 *
@@ -127,6 +128,9 @@ extern "C" {
 #define XLOADER_SECURE_GCM_TAG_SIZE		(16U) /**< GCM Tag Size in Bytes */
 #define XLOADER_SECURE_HDR_TOTAL_SIZE	\
 					(XLOADER_SECURE_HDR_SIZE + XLOADER_SECURE_GCM_TAG_SIZE)
+#define XLOADER_SECURE_METAHDR_RD_IMG_PRTN_HDRS (0x0U)
+#define XLOADER_SECURE_METAHDR_RD_IMG_HDRS      (0x1U)
+#define XLOADER_SECURE_METAHDR_RD_PRTN_HDRS     (0x2U)
 
 /* AES key source */
 #define XLOADER_EFUSE_KEY			(0xA5C3C5A3U) /* eFuse Key */
@@ -193,8 +197,9 @@ extern "C" {
 
 #define XLOADER_PUF_HD_BHDR						(0x3U)
 
-#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)(XLOADER_SEC_ERR_BUF_CLR_FAILED) << (8U))
-#define XLOADER_SEC_BUF_CLEAR_SUCCESS		((u32)(XLOADER_SEC_ERR_BUF_CLR_SUCCESS) << (8U))
+#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)XLOADER_SEC_ERR_CHUNK_CLR_FAILED << 8U)
+#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)XLOADER_SEC_ERR_BUF_CLR_FAILED << 8U)
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)XLOADER_SEC_ERR_BUF_CLR_SUCCESS << 8U)
 
 /* KEK key decryption status */
 #define XLOADER_BBRAM_RED_KEY					(0x00000001U)
@@ -281,7 +286,7 @@ typedef struct {
 	u32 PufHdLocation;
 	XSecure_AesKeySrc KeySrc;
 	XSecure_AesKeySrc KeyDst;
-} XLoader_AesKekKey;
+} XLoader_AesKekInfo;
 
 typedef struct {
 	u32 AuthHdr;
@@ -406,6 +411,7 @@ typedef enum {
 	 * cleared.In case of success/failure in clearing the buffer,
 	 * the following error codes shall be updated in the status
 	 */
+	XLOADER_SEC_ERR_CHUNK_CLR_FAILED = 0x20U,
 	XLOADER_SEC_ERR_BUF_CLR_SUCCESS = 0x40U,
 			/* Buffer is successfully cleared */
 	XLOADER_SEC_ERR_BUF_CLR_FAILED = 0x80U,
@@ -448,7 +454,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
-void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
+void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 	u32 NextBlkAddr, u32 ChunkLen);
 int XLoader_AddAuthJtagToScheduler(void);
