@@ -21,7 +21,6 @@
 * 1.1    rsp    20/02/18 Fix unused variable warning.
 *                        Remove TimeOut variable.CR-979061
 * 1.3    rsp    14/02/19 Populate HasRxLength value from config.
-* 1.5    vak    02/08/20 Add libmetal support for mcdma.
 *
 ******************************************************************************/
 
@@ -86,9 +85,9 @@ s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 	}
 
 	if (InstancePtr->Config.IsTxCacheCoherent)
-		XMcdma_InstSetARCache(InstancePtr, XMCDMA_AXCACHE);
+		XMcdma_SetARCache(InstancePtr, XMCDMA_AXCACHE);
 	if (InstancePtr->Config.IsRxCacheCoherent)
-		XMcdma_InstSetAWCache(InstancePtr, XMCDMA_AXCACHE);
+		XMcdma_SetAWCache(InstancePtr, XMCDMA_AXCACHE);
 
 	InstancePtr->IsReady = 1;
 
@@ -117,26 +116,13 @@ s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 {
 	int i;
-#if defined (__LIBMETAL__)
-	struct metal_device *device;
-	struct metal_io_region *io;
-#endif
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
-#if defined (__LIBMETAL__)
-	device = InstancePtr->device;
-	io = InstancePtr->io;
-#endif
 	memset(InstancePtr, 0, sizeof(XMcdma));
-#if defined (__LIBMETAL__)
-	InstancePtr->device = device;
-	InstancePtr->io = io;
-#endif
 
-	InstancePtr->RegBase = CfgPtr->BaseAddress;
 	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	InstancePtr->Config.AddrWidth = CfgPtr->AddrWidth;
@@ -222,7 +208,7 @@ void XMcDma_Reset(XMcdma *InstancePtr)
 	/* Reset the device - In MCDMA Resetting TX or RX will reset the
 	 * Entire MCDMA Engine
 	 */
-	XMcdma_InstWriteReg(InstancePtr, RegBase, XMCDMA_CCR_OFFSET, XMCDMA_CCR_RESET_MASK);
+	XMcdma_WriteReg(RegBase, XMCDMA_CCR_OFFSET, XMCDMA_CCR_RESET_MASK);
 
 	if (InstancePtr->Config.HasMM2S) {
 		for (Chan_id = 1; Chan_id <= InstancePtr->Config.TxNumChannels;
@@ -262,12 +248,12 @@ void XMcdma_SetSGAWCache(XMcdma *InstancePtr, u8 Value)
 		return;
 	}
 
-	Val = XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET);
+	Val = XMcdma_ReadReg(InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET);
 
 	Val &= ~XMCDMA_SGAWCACHE_MASK;
 	Val |= (Value << XMCDMA_SGAWCACHE_SHIFT);
 
-	XMcdma_InstWriteReg(InstancePtr, InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET, Val);
+	XMcdma_WriteReg(InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET, Val);
 }
 
 /*****************************************************************************/
@@ -293,11 +279,11 @@ void XMcdma_SetSGARCache(XMcdma *InstancePtr, u8 Value)
 		return;
 	}
 
-	Val = XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET);
+	Val = XMcdma_ReadReg(InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET);
 
 	Val = (Val & ~XMCDMA_SGARCACHE_MASK) | Value;
 
-	XMcdma_InstWriteReg(InstancePtr, InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET, Val);
+	XMcdma_WriteReg(InstancePtr->Config.BaseAddress, XMCDMA_SGCACHE_OFFSET, Val);
 }
 
 /*****************************************************************************/
@@ -325,7 +311,7 @@ u32 XMcdma_ResetIsDone(XMcdma *InstancePtr)
 	/* Check transmit channel */
 	if (InstancePtr->Config.HasMM2S) {
 		Chan = XMcdma_GetMcdmaTxChan(InstancePtr, Chan_id);
-		RegisterValue = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_CCR_OFFSET);
+		RegisterValue = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_CCR_OFFSET);
 
 		/* Reset is done when the reset bit is low */
 		if (RegisterValue & XMCDMA_CCR_RESET_MASK)
@@ -335,7 +321,7 @@ u32 XMcdma_ResetIsDone(XMcdma *InstancePtr)
 	/* Check receive channel */
 	if (InstancePtr->Config.HasS2MM) {
 		Chan = XMcdma_GetMcdmaRxChan(InstancePtr, Chan_id);
-		RegisterValue = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_CCR_OFFSET);
+		RegisterValue = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_CCR_OFFSET);
 
 		/* Reset is done when the reset bit is low */
 		if (RegisterValue & XMCDMA_CCR_RESET_MASK)
@@ -364,17 +350,11 @@ u32 XMcdma_Start(XMcdma_ChanCtrl *Chan)
 	u32 RegBase;
 	u32 StatReg;
 	u32 TimeOut;
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
-
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
 
 	RegBase = Chan->ChanBase;
 
-	XMcdma_InstWriteReg(InstancePtr, RegBase, XMCDMA_CCR_OFFSET,
-				XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_CCR_OFFSET)
+	XMcdma_WriteReg(RegBase, XMCDMA_CCR_OFFSET,
+				XMcdma_ReadReg(RegBase, XMCDMA_CCR_OFFSET)
 				| XMCDMA_CCR_RUNSTOP_MASK);
 
 	/* At the initialization time, hardware should finish reset quickly */
@@ -382,7 +362,7 @@ u32 XMcdma_Start(XMcdma_ChanCtrl *Chan)
 
 	while (TimeOut) {
 
-		StatReg = XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_CSR_OFFSET);
+		StatReg = XMcdma_ReadReg(RegBase, XMCDMA_CSR_OFFSET);
 		if(!(StatReg & XMCDMA_CSR_HALTED_MASK)) {
 			break;
 		}
@@ -419,18 +399,12 @@ u32 XMcdma_ChanHwStop(XMcdma_ChanCtrl *Chan)
 	u32 CtrlReg;
 	u32 TimeOut;
 	u32 Offset;
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
-
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
 
 	RegBase = Chan->ChanBase;
 	Offset = (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET;
 
-	XMcdma_InstWriteReg(InstancePtr, RegBase, XMCDMA_CR_OFFSET + Offset,
-				XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_CR_OFFSET + Offset)
+	XMcdma_WriteReg(RegBase, XMCDMA_CR_OFFSET + Offset,
+				XMcdma_ReadReg(RegBase, XMCDMA_CR_OFFSET + Offset)
 				& ~XMCDMA_CCR_RUNSTOP_MASK);
 
 	/* At the initialization time, hardware should finish reset quickly */
@@ -438,7 +412,7 @@ u32 XMcdma_ChanHwStop(XMcdma_ChanCtrl *Chan)
 
 	while (TimeOut) {
 
-		CtrlReg = XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_CR_OFFSET + Offset);
+		CtrlReg = XMcdma_ReadReg(RegBase, XMCDMA_CR_OFFSET + Offset);
 		if(!(CtrlReg & XMCDMA_CCR_RUNSTOP_MASK)) {
 			break;
 		}
@@ -470,16 +444,10 @@ u32 XMcdma_ChanHwStop(XMcdma_ChanCtrl *Chan)
 void XMcdma_EnableCh(XMcdma_ChanCtrl *Chan)
 {
 	u32 Reg;
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
 
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
-
-	Reg = XMcdma_InstReadReg(InstancePtr, (Chan)->ChanBase, XMCDMA_CHEN_OFFSET);
+	Reg = XMcdma_ReadReg((Chan)->ChanBase, XMCDMA_CHEN_OFFSET);
 	Reg |= (1 << (Chan->Chan_id -1));
-	XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase, XMCDMA_CHEN_OFFSET, Reg);
+	XMcdma_WriteReg(Chan->ChanBase, XMCDMA_CHEN_OFFSET, Reg);
 }
 
 /*****************************************************************************/
@@ -501,7 +469,7 @@ u16 XMcdma_GetChanServiced(XMcdma *InstancePtr)
 	u16 ServReg;
 	u16 Chan_id = 0;
 
-	ServReg = XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress,
+	ServReg = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
 				 XMCDMA_RX_OFFSET + XMCDMA_CHSER_OFFSET);
 	while(ServReg >>= 1)
 		Chan_id++;
@@ -530,7 +498,7 @@ u16 XMcdma_GetTxChanServiced(XMcdma *InstancePtr)
 	u16 ServReg;
 	u16 Chan_id = 0;
 
-	ServReg = XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress,
+	ServReg = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
 				 XMCDMA_CHSER_OFFSET);
 	while(ServReg >>= 1)
 		Chan_id++;
@@ -543,12 +511,6 @@ u16 XMcdma_GetTxChanServiced(XMcdma *InstancePtr)
 u32 XMCdma_GetChan_Weight(XMcdma_ChanCtrl *Chan)
 {
 	u32 Weight, Chanid;
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
-
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
 
 	if (Chan->IsRxChan) {
 		xil_printf("Invalid Channel\n\r");
@@ -556,10 +518,10 @@ u32 XMCdma_GetChan_Weight(XMcdma_ChanCtrl *Chan)
 	}
 
 	if (Chan->Chan_id > 8) {
-		Weight = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_TX_WRR_REG1_OFFSET);
+		Weight = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_TX_WRR_REG1_OFFSET);
 		Chanid = (Chan->Chan_id - 1) - 8;
 	} else {
-		Weight = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_TX_WRR_REG_OFFSET);
+		Weight = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_TX_WRR_REG_OFFSET);
 		Chanid = Chan->Chan_id - 1;
 	}
 
@@ -573,12 +535,6 @@ u32 XMCdma_SetChan_Weight(XMcdma_ChanCtrl *Chan, u8 Weight)
 {
 	u32 Chanid;
 	u32 Val;
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
-
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
 
 	if (Chan->IsRxChan) {
 		xil_printf("Invalid Channel\n\r");
@@ -591,10 +547,10 @@ u32 XMCdma_SetChan_Weight(XMcdma_ChanCtrl *Chan, u8 Weight)
 	}
 
 	if (Chan->Chan_id > 8) {
-		Val = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_TX_WRR_REG1_OFFSET);
+		Val = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_TX_WRR_REG1_OFFSET);
 		Chanid = (Chan->Chan_id - 1) - 8;
 	} else {
-		Val = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_TX_WRR_REG_OFFSET);
+		Val = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_TX_WRR_REG_OFFSET);
 		Chanid = Chan->Chan_id - 1;
 	}
 
@@ -602,9 +558,9 @@ u32 XMCdma_SetChan_Weight(XMcdma_ChanCtrl *Chan, u8 Weight)
 	Val |=  Weight << XMCDMA_TX_WRRCH_SHIFT(Chanid);
 
 	if (Chan->Chan_id > 8)
-		XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase, XMCDMA_TX_WRR_REG1_OFFSET, Val);
+		XMcdma_WriteReg(Chan->ChanBase, XMCDMA_TX_WRR_REG1_OFFSET, Val);
 	else
-		XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase, XMCDMA_TX_WRR_REG_OFFSET, Val);
+		XMcdma_WriteReg(Chan->ChanBase, XMCDMA_TX_WRR_REG_OFFSET, Val);
 
 	return XST_SUCCESS;
 }
@@ -613,19 +569,13 @@ u32 XMCdma_GetChan_PktDoneCnt(XMcdma_ChanCtrl *Chan)
 {
 	u32 Offset;
 	u32 PktCnt;
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
-
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
 
 	Offset = (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET;
 
 	if (Chan->IsRxChan)
-		PktCnt = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_RX_PKTCNT_STAT_OFFSET + Offset);
+		PktCnt = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_RX_PKTCNT_STAT_OFFSET + Offset);
 	else
-		PktCnt = XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_TX_PKTCNT_STAT_OFFSET + Offset);
+		PktCnt = XMcdma_ReadReg(Chan->ChanBase, XMCDMA_TX_PKTCNT_STAT_OFFSET + Offset);
 
 	return PktCnt;
 }
@@ -642,31 +592,25 @@ u32 XMCdma_GetChan_PktDoneCnt(XMcdma_ChanCtrl *Chan)
 void XMcdma_DumpChanRegs(XMcdma_ChanCtrl *Chan) {
 	u32 RegBase = Chan->ChanBase;
 	u32 Offset;
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
-
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
 
 	Offset = (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET;
 
 	xil_printf("Dump registers %x:\r\n", (unsigned int)RegBase);
 	xil_printf("Control REG: %08x\r\n",
-		(unsigned int)XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_CR_OFFSET + Offset));
+		(unsigned int)XMcdma_ReadReg(RegBase, XMCDMA_CR_OFFSET + Offset));
 	xil_printf("Status REG: %08x\r\n",
-		(unsigned int)XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_SR_OFFSET + Offset));
+		(unsigned int)XMcdma_ReadReg(RegBase, XMCDMA_SR_OFFSET + Offset));
 
 	xil_printf("Cur BD REG: %08x\r\n",
-		(unsigned int)XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_CDESC_OFFSET + Offset));
+		(unsigned int)XMcdma_ReadReg(RegBase, XMCDMA_CDESC_OFFSET + Offset));
 	xil_printf("Cur BD MSB REG: %08x\r\n",
-		(unsigned int)XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_CDESC_MSB_OFFSET + Offset));
+		(unsigned int)XMcdma_ReadReg(RegBase, XMCDMA_CDESC_MSB_OFFSET + Offset));
 	xil_printf("Tail BD REG: %08x\r\n",
-		(unsigned int)XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_TDESC_OFFSET + Offset));
+		(unsigned int)XMcdma_ReadReg(RegBase, XMCDMA_TDESC_OFFSET + Offset));
 	xil_printf("Tail BD MSB  REG: %08x\r\n",
-		(unsigned int)XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_TDESC_MSB_OFFSET + Offset));
+		(unsigned int)XMcdma_ReadReg(RegBase, XMCDMA_TDESC_MSB_OFFSET + Offset));
 
 	xil_printf("Packet Drop REG: %08x\r\n",
-		(unsigned int)XMcdma_InstReadReg(InstancePtr, RegBase, XMCDMA_PKTDROP_OFFSET + Offset));
+		(unsigned int)XMcdma_ReadReg(RegBase, XMCDMA_PKTDROP_OFFSET + Offset));
 	xil_printf("\r\n");
 }

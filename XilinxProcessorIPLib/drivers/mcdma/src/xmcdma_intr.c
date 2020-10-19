@@ -18,7 +18,6 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0    adk    18/07/17 Initial version.
-* 1.5    vak    02/08/20 Add libmetal support for mcdma.
 *
 ******************************************************************************/
 
@@ -68,18 +67,12 @@ void XMcdma_ChanIntrHandler(void *Instance)
 	u32 IrqStatus;
 	XMcdma_ChanCtrl *Chan = NULL;
 	Chan = (XMcdma_ChanCtrl *)((void *)Instance);
-	XMcdma *InstancePtr = XMcdma_GetChanInstancePtr(Chan);
 
-#if !defined(__LIBMETAL__)
-	/* When __LIBMETAL__ is not defined, InstancePtr is not used */
-	(void)InstancePtr;
-#endif
-
-	/* Get pending interrupts */
-	IrqStatus = XMcdma_InstChanGetIrq(InstancePtr, Chan);
+        /* Get pending interrupts */
+	IrqStatus = XMcdma_ChanGetIrq(Chan);
 
 	/* Acknowledge pending interrupts */
-	XMcdma_InstChanAckIrq(InstancePtr, Chan, IrqStatus);
+	XMcdma_ChanAckIrq(Chan, IrqStatus);
 
 	/*
 	 * If no interrupt is asserted, we do not do anything
@@ -198,7 +191,7 @@ void XMcdma_IntrHandler(void *Instance)
 
 	/* Serviced Channel Numbers */
 	while (1) {
-		Chan_SerMask = XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress,
+		Chan_SerMask = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
 					      XMCDMA_RX_OFFSET + XMCDMA_RXINT_SER_OFFSET);
 
 		if (!Chan_SerMask)
@@ -209,10 +202,10 @@ void XMcdma_IntrHandler(void *Instance)
 			if (Chan_SerMask & i) {
 				Chan = XMcdma_GetMcdmaRxChan(InstancePtr,
 							     Chan_id);
-				IrqStatus = XMcdma_InstChanGetIrq(InstancePtr, Chan);
+				IrqStatus = XMcdma_ChanGetIrq(Chan);
 
 				/* Acknowledge pending interrupts */
-				XMcdma_InstChanAckIrq(InstancePtr, Chan, IrqStatus);
+				XMcdma_ChanAckIrq(Chan, IrqStatus);
 
 				/* If no interrupt is asserted, we do not do anything */
 				 if (!(IrqStatus & XMCDMA_IRQ_ALL_MASK)) {
@@ -278,7 +271,7 @@ void XMcdma_TxIntrHandler(void *Instance)
 
 	/* Serviced Channel Numbers */
 	while(1) {
-		Chan_SerMask = XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress,
+		Chan_SerMask = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
 						XMCDMA_TXINT_SER_OFFSET);
 
 		if (!Chan_SerMask)
@@ -289,10 +282,10 @@ void XMcdma_TxIntrHandler(void *Instance)
 			if (Chan_SerMask & i) {
 				Chan = XMcdma_GetMcdmaTxChan(InstancePtr, Chan_id);
 
-				IrqStatus = XMcdma_InstChanGetIrq(InstancePtr, Chan);
+				IrqStatus = XMcdma_ChanGetIrq(Chan);
 
 				/* Acknowledge pending interrupts */
-				XMcdma_InstChanAckIrq(InstancePtr, Chan, IrqStatus);
+				XMcdma_ChanAckIrq(Chan, IrqStatus);
 
 				 /*
 				  * If no interrupt is asserted, we do not do anything

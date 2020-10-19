@@ -121,7 +121,6 @@
 *                        to program BD control and sideband information.
 * 1.5	sk	07/13/20 Add XMcDma_BdGetAppWord() function declaration to fix
 * 			 the gcc warning in mcdma integration test suite.
-* 1.5   vak     02/08/20 Add libmetal support for mcdma.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -134,19 +133,9 @@ extern "C" {
 
 #include "xmcdma_hw.h"
 #include "xmcdma_bd.h"
-
-#if defined(__LIBMETAL__ ) && !defined(__BAREMETAL__)
-#include "xmcdma_linux.h"
-#include "xmcdma_status.h"
-#else
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xil_cache.h"
-#endif
-
-#if defined(__LIBMETAL__)
-#include <metal/device.h>
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -288,39 +277,9 @@ typedef struct {
 	void *PktDropRef;                 /**< To be passed to the error
 	                                     * interrupt callback */
 
-	UINTPTR RegBase;
-#if defined(__LIBMETAL__)
-	struct metal_device *device;
-	struct metal_io_region *io;
-#endif
 } XMcdma;
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XMcdma_ChanInstancePtr(ptr, type, mem, chanid) \
-				((char *)ptr - (char *)(&(((type *)0)->mem[chanid])))
 
-static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
-	XMcdma *InstancePtr;
-
-	if (Chan->IsRxChan) {
-		InstancePtr = (XMcdma *)XMcdma_ChanInstancePtr(Chan, XMcdma, Rx_Chan, Chan->Chan_id);
-	} else {
-		InstancePtr = (XMcdma *)XMcdma_ChanInstancePtr(Chan, XMcdma, Tx_Chan, Chan->Chan_id);
-	}
-
-	return InstancePtr;
-}
-
-#if defined (__LIBMETAL__) && !defined(__BAREMETAL__)
-#define XMcdma_Virt2Phys(InstancePtr, Virt) \
-		metal_device_virt2da(InstancePtr->device, Virt)
-
-#define XMcdma_Phys2Virt(InstancePtr, Phys) \
-		metal_device_da2virt(InstancePtr->device, Phys)
-#else
-#define XMcdma_Virt2Phys(InstancePtr, Virt) (Virt)
-
-#define XMcdma_Phys2Virt(InstancePtr, Phys) (Phys)
-#endif
 /*****************************************************************************/
 /**
 * Disable Particular Channel in the MCDMA Core.
@@ -338,22 +297,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 
 /*****************************************************************************/
 /**
-* Disable Particular Channel in the MCDMA Core.
-*
-* @param	InstacePtr on which DMA engine works on.
-* @param	Chan is the MCDMA Channel to be worked on.
-* @param	ChanId is the channel to disable.
-*
-* @note		C-style signature:
-* 		XMcdma_InstDisableCh(XMcdma * InstancePtr, XMcdma_ChanCtrl *Chan, u32 ChanId)
-*****************************************************************************/
-#define XMcdma_InstDisableCh(InstancePtr, Chan, ChanId) \
-	(XMcdma_InstWriteReg(InstancePtr, Chan->ChanBase,(XMCDMA_CHEN_OFFSET), \
-		XMcdma_InstReadReg(InstancePtr, (Chan)->ChanBase, XMCDMA_CHEN_OFFSET) & \
-			~(ChanId & XMCDMA_CHEN_MASK)))
-
-/*****************************************************************************/
-/**
 * Get Channel number that last Serviced.
 *
 * @param	Chan is the MCDMA Channel to be worked on.
@@ -365,21 +308,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 *****************************************************************************/
 #define XMcdma_GetChan(Chan) \
 	XMcdma_ReadReg(Chan->ChanBase, XMCDMA_CHSER_OFFSET)
-
-/*****************************************************************************/
-/**
-* Get Channel number that last Serviced.
-*
-* @param	InstacePtr on which DMA engine works on.
-* @param	Chan is the MCDMA Channel to be worked on.
-*
-* @return	Channel Number that last serviced.
-*
-* @note		C-style signature:
-* 	 	XMcdma_InstGetChan(XMcdma *InstancePtr, XMcdma_ChanCtrl *Chan)
-*****************************************************************************/
-#define XMcdma_InstGetChan(InstancePtr, Chan) \
-	XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_CHSER_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -400,24 +328,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 
 /*****************************************************************************/
 /**
-* This function checks whether DMA is Idle or not
-*
-* @param	InstacePtr on which DMA engine works on.
-* @param	Chan is the MCDMA Channel to be worked on.
-*
-* @return
-*		- TRUE if MCDMA is idle
-*		- FALSE if MCDMA is not idle
-*
-* @note		None
-*
-*****************************************************************************/
-#define XMcdma_Instisidle(InstancePtr, Chan) \
-	(XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_SR_OFFSET) & \
-			XMCDMA_SR_IDLE_MASK)
-
-/*****************************************************************************/
-/**
  * This function enables interrupts specified by the Mask in specified
  * direction, Interrupts that are not in the mask are not affected.
  *
@@ -433,27 +343,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
      (XMcdma_WriteReg((Chan)->ChanBase, \
 			 (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET, \
 		 XMcdma_ReadReg((Chan)->ChanBase, (Chan->Chan_id - 1) *    \
-				XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET) | \
-			        ((Mask) & XMCDMA_IRQ_ALL_MASK)))
-
-/*****************************************************************************/
-/**
- * This function enables interrupts specified by the Mask in specified
- * direction, Interrupts that are not in the mask are not affected.
- *
- * @param	InstacePtr on which DMA engine works on.
- * @param	Chan is the MCDMA Channel to be worked on.
- * @param	Mask is the mask for the interrupts to be enabled
- *
- * @return	None
- *
- * @note	None
- *
- *****************************************************************************/
-#define XMcdma_InstIntrEnable(InstancePtr, Chan, Mask) 	\
-     (XMcdma_InstWriteReg(InstancePtr, (Chan)->ChanBase, \
-			 (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET, \
-		 XMcdma_InstReadReg(InstancePtr, (Chan)->ChanBase, (Chan->Chan_id - 1) *    \
 				XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET) | \
 			        ((Mask) & XMCDMA_IRQ_ALL_MASK)))
 
@@ -479,27 +368,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 
 /*****************************************************************************/
 /**
- * This function disables interrupts specified by the Mask. Interrupts that
- * are not in the mask are not affected.
- *
- * @param	InstacePtr on which DMA engine works on.
- * @param	Chan is the MCDMA Channel to be worked on.
- * @param	Mask is the mask for the interrupts to be disabled
- *
- * @return	None
- *
- * @note	None
- *
- *****************************************************************************/
-#define XMcdma_InstIntrDisable(InstancePtr, Chan, Mask) 	\
-	(XMcdma_InstWriteReg(InstancePtr, (Chan)->ChanBase,  \
-			(Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET, \
-			XMcdma_InstReadReg(InstancePtr, (Chan)->ChanBase, (Chan->Chan_id - 1) * \
-				       XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET) & \
-				       ~((Mask) & XMCDMA_IRQ_ALL_MASK)))
-
-/*****************************************************************************/
-/**
 * Gets global Packet drop Count
 *
 * @param	Chan is the MCDMA Channel to be worked on.
@@ -511,21 +379,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 *****************************************************************************/
 #define XMcdma_GetPktDrp_cnt(Chan) \
 	XMcdma_ReadReg(Chan->ChanBase, XMCDMA_CPKTDROP_OFFSET)
-
-/*****************************************************************************/
-/**
-* Gets global Packet drop Count
-*
-* @param	InstacePtr on which DMA engine works on.
-* @param	Chan is the MCDMA Channel to be worked on.
-*
-* @return	Packet Drop Count.
-*
-* @note		C-style signature:
-* 		XMcdma *XMcdma_GetPktDrp_cnt(XMcdma_ChanCtrl *Chan)
-*****************************************************************************/
-#define XMcdma_InstGetPktDrp_cnt(InstancePtr, Chan) \
-	XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, XMCDMA_CPKTDROP_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -603,23 +456,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 #define XMcdma_ChanGetIrq(Chan)				\
 	(XMcdma_ReadReg(Chan->ChanBase, ((Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + \
 		       XMCDMA_SR_OFFSET)) & XMCDMA_IRQ_ALL_MASK)
-
-/*****************************************************************************/
-/**
- * This function gets the interrupts that are asserted.
- *
- * @param	InstacePtr on which DMA engine works on.
- * @param       Chan is the MCDMA Channel to Operate on.
- *
- * @return	The bit mask for the interrupts asserted.
- *
- * @note	None
- *
- *****************************************************************************/
-#define XMcdma_InstChanGetIrq(InstancePtr, Chan)				\
-	(XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, ((Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + \
-		       XMCDMA_SR_OFFSET)) & XMCDMA_IRQ_ALL_MASK)
-
 /*****************************************************************************/
 /**
  * This function acknowledges the interrupts that are specified in Mask
@@ -634,24 +470,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
  *****************************************************************************/
 #define XMcdma_ChanAckIrq(Chan, Mask)		\
 	XMcdma_WriteReg((Chan)->ChanBase,	\
-			((Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_SR_OFFSET) ,\
-			(Mask) & XMCDMA_IRQ_ALL_MASK)
-
-/*****************************************************************************/
-/**
- * This function acknowledges the interrupts that are specified in Mask
- *
- * @param	InstacePtr on which DMA engine works on.
- * @param       Chan is the MCDMA Channel to Operate on.
- * @param	Mask is the mask for the interrupts to be acknowledge
- *
- * @return	None
- *
- * @note	None.
- *
- *****************************************************************************/
-#define XMcdma_InstChanAckIrq(InstancePtr, Chan, Mask)		\
-	XMcdma_InstWriteReg(InstancePtr, (Chan)->ChanBase,	\
 			((Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_SR_OFFSET) ,\
 			(Mask) & XMCDMA_IRQ_ALL_MASK)
 
@@ -674,25 +492,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 
 /*****************************************************************************/
 /**
-* Get Packet drop Count for the particular Channel
-*
-* @param	InstacePtr on which DMA engine works on.
-* @param	Chan is the MCDMA Channel to be worked on.
-* @param	ChanId is the Channel number to be worked on.
-*
-* @return	Packet Drop Count.
-*
-* @note		C-style signature:
-* 		XMcdma *XMcdma_InstGetChanPktDrp_Cnt(XMcdma *InstancePtr,
-*						     XMcdma_ChanCtrl *Chan,
-*						     u32 ChanId)
-*****************************************************************************/
-#define XMcdma_InstGetChanPktDrp_Cnt(InstancePtr, Chan, ChanId) \
-	XMcdma_InstReadReg(InstancePtr, Chan->ChanBase, ((ChanId - 1) * XMCDMA_NXTCHAN_OFFSET + \
-		       XMCDMA_PKTDROP_OFFSET))
-
-/*****************************************************************************/
-/**
  * This function sets the ARCACHE field with the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
@@ -705,23 +504,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
  *****************************************************************************/
 #define XMcdma_SetARCache(InstancePtr, Value)			     \
 	XMcdma_WriteReg(InstancePtr->Config.BaseAddress,	     \
-			XMCDMA_TXAXCACHE_OFFSET,  		     \
-			(Value) & XMCDMA_AXCACHE_MASK)
-
-/*****************************************************************************/
-/**
- * This function sets the ARCACHE field with the user specified value
- *
- * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the ARCACHE value to be written.
- *
- * @return	None
- *
- * @note	None.
- *
- *****************************************************************************/
-#define XMcdma_InstSetARCache(InstancePtr, Value)			     \
-	XMcdma_InstWriteReg(InstancePtr, InstancePtr->Config.BaseAddress,	     \
 			XMCDMA_TXAXCACHE_OFFSET,  		     \
 			(Value) & XMCDMA_AXCACHE_MASK)
 
@@ -744,23 +526,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 
 /*****************************************************************************/
 /**
- * This function sets the AWCACHE field with the user specified value
- *
- * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the AWCACHE value to be written.
- *
- * @return	None
- *
- * @note	None.
- *
- *****************************************************************************/
-#define XMcdma_InstSetAWCache(InstancePtr, Value)			     \
-	XMcdma_InstWriteReg(InstancePtr, InstancePtr->Config.BaseAddress,	     \
-			XMCDMA_RXAXCACHE_OFFSET + XMCDMA_RX_OFFSET,  \
-			(Value) & XMCDMA_AXCACHE_MASK)
-
-/*****************************************************************************/
-/**
  * Get Egress Channel Observer contents
  *
  * @param	InstancePtr is the driver instance we are working on.
@@ -778,23 +543,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 
 /*****************************************************************************/
 /**
- * Get Egress Channel Observer contents
- *
- * @param	InstancePtr is the driver instance we are working on.
- * @param	ObsId is the Egress Channel observer number to be worked on.
- *
- * @return	Channel Observer register contents.
- *
- * @note	C-style signature:
- * 		XMcdma *XMcdma_InstGetEgressObserver(XMcdma *InstancePtr,
- * 						     u32 ObsId)
-*****************************************************************************/
-#define XMcdma_InstGetEgressObserver(InstancePtr, ObsId)	\
-	XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress, (((ObsId - 1) * XMCDMA_NXTOBS_OFFSET) + \
-			   XMCDMA_CHOBS1_OFFSET))
-
-/*****************************************************************************/
-/**
  * Get Ingress Channel Observer contents
  *
  * @param	InstancePtr is the driver instance we are working on.
@@ -808,23 +556,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 *****************************************************************************/
 #define XMcdma_GetIngressObserver(InstancePtr, ObsId)	\
 	XMcdma_ReadReg(InstancePtr->Config.BaseAddress, (((ObsId - 1) * XMCDMA_NXTOBS_OFFSET) + \
-		       XMCDMA_RX_OFFSET + XMCDMA_CHOBS1_OFFSET))
-
-/*****************************************************************************/
-/**
- * Get Ingress Channel Observer contents
- *
- * @param	InstancePtr is the driver instance we are working on.
- * @param	ObsId is the Ingress Channel observer number to be worked on.
- *
- * @return	Channel Observer register contents.
- *
- * @note	C-style signature:
- * 		XMcdma *XMcdma_InstGetIngressObserver(XMcdma *InstancePtr,
- * 						      u32 ObsId)
-*****************************************************************************/
-#define XMcdma_InstGetIngressObserver(InstancePtr, ObsId)	\
-	XMcdma_InstReadReg(InstancePtr, InstancePtr->Config.BaseAddress, (((ObsId - 1) * XMCDMA_NXTOBS_OFFSET) + \
 		       XMCDMA_RX_OFFSET + XMCDMA_CHOBS1_OFFSET))
 
 #if defined (__aarch64__) || defined (__arch64__)
@@ -847,11 +578,6 @@ static inline XMcdma * XMcdma_GetChanInstancePtr(XMcdma_ChanCtrl *Chan) {
 /*@}*/
 
 /************************ Prototypes of functions **************************/
-#if defined(__LIBMETAL__)
-u32 XMcdma_RegisterMetal(XMcdma *InstancePtr, UINTPTR Baseaddr,
-			 struct metal_device **DevicePtr);
-#endif
-
 XMcdma_Config *XMcdma_LookupConfig(u16 DeviceId);
 XMcdma_Config *XMcdma_LookupConfigBaseAddr(UINTPTR Baseaddr);
 s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr);
