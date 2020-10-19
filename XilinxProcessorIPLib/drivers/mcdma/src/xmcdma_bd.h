@@ -16,17 +16,12 @@
 * 1.0	adk  18/07/17 Initial version.
 * 1.2	mj   05/03/18 Added macro XMcdma_BdSetSwId and XMcdma_BdGetSwId to set
 *                     and get Sw ID field from BD.
-* 1.5   vak  02/08/20  Add libmetal support for mcdma.
 *****************************************************************************/
 
 #ifndef XMCDMA_BD_H_
 #define XMCDMA_BD_H
 
-#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
-#include "xmcdma_linux.h"
-#else
 #include "xil_types.h"
-#endif
 
 typedef u32 XMcdma_Bd[16];
 
@@ -36,10 +31,6 @@ typedef u32 XMcdma_Bd[16];
  * Define methods to flush and invalidate cache for BDs should they be
  * located in cached memory.
  *****************************************************************************/
-#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
-#define XMCDMA_CACHE_FLUSH(BdPtr)
-#define XMCDMA_CACHE_INVALIDATE(BdPtr)
-#else
 #ifdef __aarch64__
 #define XMCDMA_CACHE_FLUSH(BdPtr)
 #define XMCDMA_CACHE_INVALIDATE(BdPtr)
@@ -50,7 +41,7 @@ typedef u32 XMcdma_Bd[16];
 #define XMCDMA_CACHE_INVALIDATE(BdPtr) \
         Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)
 #endif
-#endif
+
 
 /*****************************************************************************/
 /**
@@ -326,26 +317,6 @@ typedef u32 XMcdma_Bd[16];
 
 /****************************************************************************/
 /**
-* Check whether a DMA is started, meaning the channel is not halted.
-*
-* @param        XMcdma Instance pointer on which the DMA operates on.
-* @param        Chan is the channel instance to operate on.
-*
-* @return
-*               - 1 if channel is started
-*               - 0 otherwise
-*
-* @note
-*               C-style signature:
-*               int XMcdma_InstChanHwIsStarted(XMcdma_ChanCtrl *Chan)
-*
-*****************************************************************************/
-#define XMcdma_InstHwIsStarted(InstancePtr, Chan)                             	\
-        ((XMcdma_InstReadReg(InstancePtr, (Chan)->ChanBase, XMCDMA_CSR_OFFSET) 	\
-          & XMCDMA_CSR_HALTED_MASK) ? FALSE : TRUE)
-
-/****************************************************************************/
-/**
 * Check whether a DMA channel is started, meaning the channel is not halted.
 *
 * @param        Chan is the channel instance to operate on.
@@ -362,28 +333,6 @@ typedef u32 XMcdma_Bd[16];
 *****************************************************************************/
 #define XMcdma_ChanHwIsStarted(Chan, Chan_id) \
 	((XMcdma_ReadReg((Chan)->ChanBase, (XMCDMA_CR_OFFSET + \
-	 (Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET)) \
-	    & XMCDMA_CCR_RUNSTOP_MASK) ? TRUE : FALSE)
-
-/****************************************************************************/
-/**
-* Check whether a DMA channel is started, meaning the channel is not halted.
-*
-* @param        XMcdma Instance pointer on which the DMA operates on.
-* @param        Chan is the channel instance to operate on.
-* @param	Chan_id is the channel number to operate on.
-*
-* @return
-*               - 1 if channel is started
-*               - 0 otherwise
-*
-* @note
-*               C-style signature:
-*               int XMcdma_InstChanHwIsStarted(XMcdma_ChanCtrl *Chan, u32 Chan_id)
-*
-*****************************************************************************/
-#define XMcdma_InstChanHwIsStarted(InstancePtr, Chan, Chan_id) \
-	((XMcdma_InstReadReg(InstancePtr, (Chan)->ChanBase, (XMCDMA_CR_OFFSET + \
 	 (Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET)) \
 	    & XMCDMA_CCR_RUNSTOP_MASK) ? TRUE : FALSE)
 
