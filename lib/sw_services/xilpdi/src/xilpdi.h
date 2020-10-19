@@ -34,6 +34,8 @@
 *       kpt  07/30/2020 Added maximum limit for number of images
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv  10/13/2020 Code clean up
+*       kpt  10/19/2020 Added support to validate checksum of image headers and
+*                       partition headers
 *
 * </pre>
 *
@@ -611,6 +613,7 @@ void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr);
 
 #ifdef __cplusplus
 }

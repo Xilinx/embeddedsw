@@ -31,6 +31,8 @@
 * 1.03  bsv  07/29/2020 Updated function headers
 *       kpt  07/30/2020 Added check to validate number of images
 *       bm   09/29/2020 Code cleanup
+*       kpt  10/19/2020 Added support to validate checksum of image headers and
+*                       partition headers
 *
 * </pre>
 *
@@ -420,6 +422,43 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 
 	Status = XST_SUCCESS;
 
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function validates the Checksum of image and partition headers.
+ *
+ * @param	MetaHdrPtr is Pointer to the Meta header.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr)
+{
+	int Status = XST_FAILURE;
+	u32 Index;
+	for (Index = 0U; Index < MetaHdrPtr->ImgHdrTbl.NoOfImgs; Index++) {
+		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[Index],
+						XIH_IH_LEN / XIH_PRTN_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			XilPdi_Printf("Image %u Checksum Failed \n\r",
+					       Index);
+			goto END;
+		}
+	}
+	for (Index = 0U; Index < MetaHdrPtr->ImgHdrTbl.NoOfPrtns; Index++) {
+		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->PrtnHdr[Index],
+						XIH_PH_LEN / XIH_PRTN_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			XilPdi_Printf("Partition %u Checksum Failed \n\r",
+					       Index);
+			goto END;
+		}
+	}
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
