@@ -111,13 +111,13 @@ int main(void)
 ****************************************************************************/
 int SysMonPsvPolledExample()
 {
-	int Status, Timeout;
+	int Timeout;
 	XSysMonPsv_Config *ConfigPtr;
 	u32 IntrStatus;
 	u32 RawVoltage;
 	float Voltage;
 	XSysMonPsv *SysMonInstPtr = &SysMonInst;
-	XSysMonPsv_Supply Supply = 0;
+	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply) 0;
 	u32 CurrentMin, CurrentMax;
 	float TempMin, TempMax;
 
