@@ -53,37 +53,19 @@
  *                       and non-HPC designs. In Rx remove arch64 specific dsb
  *                       instruction by performing cache invalidate operation
  *                       for all supported architectures.
- * 1.5   vak  02/08/2020 Add libmetal support to mcdma.
- *
  * </pre>
  *
  * ***************************************************************************
  */
 /***************************** Include Files *********************************/
 #include "xmcdma.h"
+#include "xparameters.h"
+#include "xdebug.h"
 #include "xmcdma_hw.h"
 
-#if defined( __LIBMETAL__)
-#include <metal/log.h>
-#include <metal/device.h>
-#include <metal/sys.h>
-#include <metal/scatterlist.h>
-#if !defined(__BAREMETAL__)
-#include "xmcdma_linux.h"
-#else
-#include "xparameters.h"
-#include "xdebug.h"
 #ifdef __aarch64__
 #include "xil_mmu.h"
 #endif
-#endif
-#else
-#include "xparameters.h"
-#include "xdebug.h"
-#ifdef __aarch64__
-#include "xil_mmu.h"
-#endif
-#endif /* __LIBMETAL__ */
 
 
 /******************** Constant Definitions **********************************/
@@ -92,7 +74,8 @@
  * Device hardware build related constants.
  */
 
-#if defined(__BAREMETAL__)
+#define MCDMA_DEV_ID	XPAR_MCDMA_0_DEVICE_ID
+
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
@@ -123,7 +106,6 @@
 #define RX_BD_SPACE_BASE	(MEM_BASE_ADDR + 0x10000000)
 #define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x20000000)
 #define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x50000000)
-#endif
 
 #define NUMBER_OF_BDS_PER_PKT		10
 #define NUMBER_OF_PKTS_TO_TRANSFER 	100
@@ -137,26 +119,15 @@
 
 #define TEST_START_VALUE	0xC
 
-#if defined(__BAREMETAL__)
-#define MCDMA_BASE_ADDRESS XPAR_MCDMA_0_BASEADDR
-#else
-/* FIXME: find a way for finding the base address at runtime */
-#define MCDMA_BASE_ADDRESS 0xA0000000
-#warning CHECK IF MCDMA_BASE_ADDRESS IS PROPER
-#endif
-
-static int TxPattern[NUM_MAX_CHANNELS + 1];
-static int RxPattern[NUM_MAX_CHANNELS + 1];
-static int TestStartValue[] = {0xC, 0xB, 0x3, 0x55, 0x33, 0x20, 0x80, 0x66, 0x88};
+int TxPattern[NUM_MAX_CHANNELS + 1];
+int RxPattern[NUM_MAX_CHANNELS + 1];
+int TestStartValue[] = {0xC, 0xB, 0x3, 0x55, 0x33, 0x20, 0x80, 0x66, 0x88};
 
 /**************************** Type Definitions *******************************/
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
-#define ALIGNPAGESIZE(Len) ((Len % 4096) ? 4096 - ((Len % 4096)) : 0);
-#endif
 
 /************************** Function Prototypes ******************************/
 static int RxSetup(XMcdma *McDmaInstPtr);
@@ -175,175 +146,11 @@ XMcdma AxiMcdma;
 volatile int TxDone;
 volatile int RxDone;
 int num_channels;
-UINTPTR TxBufVirtPtr;
-UINTPTR TxBdVirtPtr;
-UINTPTR TxBufPhysPtr;
-UINTPTR TxBdPhysPtr;
-int TxBufLen;
-int TxBdLen;
 
-UINTPTR RxBufVirtPtr;
-UINTPTR RxBdVirtPtr;
-UINTPTR RxBufPhysPtr;
-UINTPTR RxBdPhysPtr;
-int RxBufLen;
-int RxBdLen;
-
-#if defined( __BAREMETAL__) && defined( __LIBMETAL__)
-static struct metal_device McdmaDevice = {
-	/* MCDMA device */
-	.name = "mcdma",
-	.bus = NULL,
-	.num_regions = 1,
-	.regions = {
-		{
-			.virt = (void *)MCDMA_BASE_ADDRESS,
-			.physmap = (void *)MCDMA_BASE_ADDRESS,
-			.size = 0x1000,
-			.page_shift = (unsigned)(-1),
-			.page_mask = (unsigned)(-1),
-			.mem_flags = 0x0,
-			.ops = {NULL},
-		}
-	},
-	.node = {NULL},
-	.irq_num = 0,
-	.irq_info = NULL,
-};
-#endif
-
-#if defined(__BAREMETAL__)
 /*
  * Buffer for transmit packet. Must be 32-bit aligned to be used by DMA.
  */
 UINTPTR *Packet = (UINTPTR *) TX_BUFFER_BASE;
-#endif
-
-
-#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
-unsigned int mapped = 0;
-
-struct mem_container {
-	int size;
-	void *virt;
-	unsigned long phys;
-	struct metal_generic_shmem *shm;
-} mem_cnt[NUMBER_OF_PKTS_TO_TRANSFER * 2];
-
-static unsigned long __XMcdma_MetalMap(struct metal_device *DevicePtr, void *vaddr, int size) {
-	struct metal_sg sg_out;
-	struct metal_sg sg_in;
-	int ret;
-
-	memset(&sg_out, 0, sizeof(struct metal_sg));
-	memset(&sg_in, 0, sizeof(struct metal_sg));
-
-	sg_in.virt = vaddr;
-	sg_in.len = size;
-	sg_in.io = NULL;
-
-	ret = metal_dma_map(DevicePtr, METAL_DMA_DEV_WR, &sg_in, 1, &sg_out);
-	if (ret < 0) {
-		printf("Failed to dma map addr: 0x%lx size: %d ret: %d\n", vaddr, size, ret);
-		return 0;
-	}
-
-	metal_device_add_dmamem(DevicePtr, sg_in.io);
-
-	return (unsigned long)*sg_in.io->physmap;
-}
-
-static void *XMcdma_MetalMap(struct metal_device *device, int size, unsigned long *phys)
-{
-	struct metal_generic_shmem *shm;
-	struct metal_scatter_list *sg;
-	struct metal_io_region *io;
-	char shm_name_internal[256];
-	int ret;
-	void *va;
-	unsigned int *a;
-
-	snprintf(shm_name_internal, 256, "ion.reserved/shm%d", mapped);
-
-	ret = metal_shmem_open(shm_name_internal,
-			       size, METAL_SHM_NOTCACHED, &shm);
-	if (ret) {
-		metal_log(METAL_LOG_ERROR,
-			  "failed to open shared memory %s.\n",
-			  shm_name_internal);
-		return NULL;
-	}
-
-	sg = metal_shm_attach(shm, device, METAL_SHM_DIR_DEV_RW);
-	if (sg == NULL) {
-		metal_shmem_close(shm);
-		shm = NULL;
-		va = aligned_alloc(4096, size);
-		if (va == NULL)
-			return NULL;
-
-		*phys = (unsigned long)__XMcdma_MetalMap(device, va, size);
-		if(*phys == 0)
-			return NULL;
-	} else {
-		io = sg->ios;
-		*phys = *(unsigned long *)io->physmap;
-		va = metal_io_virt(io, 0);
-		metal_device_add_dmamem(device, io);
-
-		if ((va == NULL) || (*phys == 0)) {
-			metal_shm_detach(shm, device);
-			metal_shmem_close(shm);
-			close(shm->id);
-			return NULL;
-		}
-	}
-
-	mem_cnt[mapped].phys = *phys;
-	mem_cnt[mapped].virt = va;
-	mem_cnt[mapped].size = size;
-	mem_cnt[mapped].shm = shm;
-	mapped++;
-
-	return va;
-}
-
-void XMcdma_MetalUnmap(struct metal_device *DevicePtr, void *virt, int size) {
-	struct metal_io_region io;
-	struct metal_sg sg;
-	struct mem_container *mem_cnt_ptr;
-
-	for (int i = 0; i < 4; i ++) {
-		if (mem_cnt[i].virt == virt) {
-			mem_cnt_ptr = &mem_cnt[i];
-			break;
-		}
-	}
-
-	if (mem_cnt_ptr->shm != NULL) {
-		metal_shm_detach(mem_cnt_ptr->shm, DevicePtr);
-		metal_shmem_close(mem_cnt_ptr->shm);
-		close(mem_cnt_ptr->shm->id);
-		mem_cnt_ptr->shm = NULL;
-	} else {
-		memset(&io, 0, sizeof(struct metal_io_region));
-		memset(&sg, 0, sizeof(struct metal_sg));
-
-		io.physmap = (metal_phys_addr_t)0;
-		io.virt = (void *)virt;
-		sg.virt = (void *)virt;
-		sg.len = size;
-		sg.io = &io;
-
-		metal_dma_unmap(DevicePtr, METAL_DMA_DEV_WR, &sg, 1);
-		munmap(virt, size);
-		free(virt);
-	}
-
-	return;
-}
-
-#endif
 
 /*****************************************************************************/
 /**
@@ -371,15 +178,9 @@ int main(void)
 	RxDone = 0;
 
 	XMcdma_Config *Mcdma_Config;
-#if defined(__LIBMETAL__)
-	struct metal_device *DevicePtr = NULL;
-	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
-        init_param.log_level = METAL_LOG_ERROR;
-#endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
-#if defined(__BAREMETAL__)
 #ifdef __aarch64__
 #if (TX_BD_SPACE_BASE < 0x100000000UL)
 	for (i = 0; i < (RX_BD_SPACE_BASE - TX_BD_SPACE_BASE) / BLOCK_SIZE_2MB; i++) {
@@ -390,51 +191,36 @@ int main(void)
 	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, NORM_NONCACHE);
 #endif
 #endif
-#endif
 
-#if defined( __LIBMETAL__)
-        if (metal_init(&init_param)) {
-                printf("ERROR: Failed to run metal initialization\n");
-                return XST_FAILURE;
-        }
-#endif
 
-        Mcdma_Config = XMcdma_LookupConfigBaseAddr(MCDMA_BASE_ADDRESS);
-        if (!Mcdma_Config) {
-                        xil_printf("No config found for %d\r\n", MCDMA_BASE_ADDRESS);
+	Mcdma_Config = XMcdma_LookupConfig(MCDMA_DEV_ID);
+	if (!Mcdma_Config) {
+			xil_printf("No config found for %d\r\n", MCDMA_DEV_ID);
 
-                        return XST_FAILURE;
-        }
+			return XST_FAILURE;
+	}
 
-#if defined (__BAREMETAL__) && defined (__LIBMETAL__)
-	DevicePtr = &McdmaDevice;
-#endif
 
-#if defined (__LIBMETAL__)
-        Status = XMcdma_RegisterMetal(&AxiMcdma, MCDMA_BASE_ADDRESS, &DevicePtr);
-        if (Status != XST_SUCCESS) {
-                printf("Libmetal register failed %d\r\n", Status);
-                return XST_FAILURE;
-        }
-#endif
+	Status = XMcDma_CfgInitialize(&AxiMcdma, Mcdma_Config);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Initialization failed %d\r\n", Status);
+		return XST_FAILURE;
+	}
 
-        Status = XMcDma_CfgInitialize(&AxiMcdma, Mcdma_Config);
-        if (Status != XST_SUCCESS) {
-                xil_printf("Initialization failed %d\r\n", Status);
-                return XST_FAILURE;
-        }
+	/* Read numbers of channels from IP config */
+	num_channels = Mcdma_Config->RxNumChannels;
 
-        /* Read numbers of channels from IP config */
-        num_channels = Mcdma_Config->RxNumChannels;
 	Status = TxSetup(&AxiMcdma);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
+
 	Status = RxSetup(&AxiMcdma);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
 
 	Status = SendPacket(&AxiMcdma);
 	if (Status != XST_SUCCESS) {
@@ -443,23 +229,17 @@ int main(void)
 	}
 
 	/* Check DMA transfer result */
-	while (1) {
-		Mcdma_Poll(&AxiMcdma);
-		if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels)
-			break;
-	}
+    while (1) {
+        Mcdma_Poll(&AxiMcdma);
+        if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels)
+              break;
+   }
+
 
 	xil_printf("AXI MCDMA SG Polling Test %s\r\n",
 		(Status == XST_SUCCESS)? "passed":"failed");
 
 	xil_printf("--- Exiting main() --- \r\n");
-
-#if defined(__LIBMETAL__) && !defined( __BAREMETAL__)
-	XMcdma_MetalUnmap(AxiMcdma.device, (void *)TxBufPhysPtr, TxBufLen);
-	XMcdma_MetalUnmap(AxiMcdma.device, (void *)TxBdPhysPtr, TxBdLen);
-	XMcdma_MetalUnmap(AxiMcdma.device, (void *)RxBufPhysPtr, RxBufLen);
-	XMcdma_MetalUnmap(AxiMcdma.device, (void *)RxBdPhysPtr, RxBdLen);
-#endif
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -486,52 +266,22 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 	XMcdma_ChanCtrl *Rx_Chan;
 	int ChanId;
 	int BdCount = NUMBER_OF_BDS_TO_TRANSFER;
-	UINTPTR BdVirtPtr;
-	UINTPTR BufPhysPtr;
-	UINTPTR BdPhysPtr;
+	UINTPTR RxBufferPtr;
+	UINTPTR RxBdSpacePtr;
 	int Status;
 	u32 i, j;
 	u32 buf_align;
-	u64 TempVal;
 
-#if defined(__BAREMETAL__)
-	BufPhysPtr = RX_BUFFER_BASE;
-	BdPhysPtr = RX_BD_SPACE_BASE;
-	BdVirtPtr = BdPhysPtr;
-#else
-	u32 MaxLen;
-	UINTPTR BufVirtPtr;
-
-	MaxLen = NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN;
-	MaxLen += ALIGNPAGESIZE(MaxLen);
-
-	BufVirtPtr = (UINTPTR)XMcdma_MetalMap(McDmaInstPtr->device, MaxLen, &BufPhysPtr);
-	if (!BufVirtPtr || !BufPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
-		return XST_FAILURE;
-	}
-
-	BdVirtPtr = (UINTPTR)XMcdma_MetalMap(McDmaInstPtr->device, MaxLen, &BdPhysPtr);
-	if (!BdVirtPtr || !BdPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__,  __LINE__);
-		return XST_FAILURE;
-	}
-
-	RxBufVirtPtr = BufVirtPtr;
-	RxBdVirtPtr = BdVirtPtr;
-	RxBufPhysPtr = BufPhysPtr;
-	RxBdPhysPtr = BdPhysPtr;
-	RxBufLen = MaxLen;
-	RxBdLen = MaxLen;
-#endif
+	RxBufferPtr = RX_BUFFER_BASE;
+	RxBdSpacePtr = RX_BD_SPACE_BASE;
 
 	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, ChanId);
 
 		/* Disable all interrupts */
-		XMcdma_InstIntrDisable(McDmaInstPtr, Rx_Chan, XMCDMA_IRQ_ALL_MASK);
+		XMcdma_IntrDisable(Rx_Chan, XMCDMA_IRQ_ALL_MASK);
 
-		Status = XMcDma_ChanBdCreate(Rx_Chan, BdVirtPtr, BdCount);
+		Status = XMcDma_ChanBdCreate(Rx_Chan, RxBdSpacePtr, BdCount);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx bd create failed with %d\r\n", Status);
 			return XST_FAILURE;
@@ -539,27 +289,25 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 
 		for (j = 0 ; j < NUMBER_OF_PKTS_TO_TRANSFER; j++) {
 			for (i = 0 ; i < NUMBER_OF_BDS_PER_PKT; i++) {
-				TempVal = (u64)XMcdma_Phys2Virt(McDmaInstPtr, (void *)BufPhysPtr);
-				/* Clear the receive buffer, so we can verify data */
-				memset((void *)TempVal, 0, MAX_PKT_LEN);
-
-				Status = XMcDma_ChanSubmit(Rx_Chan,
-							   (UINTPTR)TempVal,
+				Status = XMcDma_ChanSubmit(Rx_Chan, RxBufferPtr,
 							   MAX_PKT_LEN);
 				if (Status != XST_SUCCESS) {
 					xil_printf("ChanSubmit failed\n\r");
 					return XST_FAILURE;
 				}
 
-				if(!McDmaInstPtr->Config.IsRxCacheCoherent)
-					Xil_DCacheInvalidateRange(BufPhysPtr, MAX_PKT_LEN);
+				/* Clear the receive buffer, so we can verify data */
+				memset((void *)RxBufferPtr, 0, MAX_PKT_LEN);
 
-				BufPhysPtr += MAX_PKT_LEN;
+				if(!McDmaInstPtr->Config.IsRxCacheCoherent)
+					Xil_DCacheInvalidateRange(RxBufferPtr, MAX_PKT_LEN);
+
+				RxBufferPtr += MAX_PKT_LEN;
 				if (!Rx_Chan->Has_Rxdre) {
-					buf_align = BufPhysPtr % 64;
+					buf_align = RxBufferPtr % 64;
 					if (buf_align > 0)
 						buf_align = 64 - buf_align;
-					BufPhysPtr += buf_align;
+					RxBufferPtr += buf_align;
 				}
 			}
 		}
@@ -570,15 +318,15 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 				return XST_FAILURE;
 		}
 
-		BufPhysPtr += MAX_PKT_LEN;
+		RxBufferPtr += MAX_PKT_LEN;
 		if (!Rx_Chan->Has_Rxdre) {
-			buf_align = BufPhysPtr % 64;
+			buf_align = RxBufferPtr % 64;
 			if (buf_align > 0)
 				buf_align = 64 - buf_align;
-			BufPhysPtr += buf_align;
+			RxBufferPtr += buf_align;
 		}
-		BdVirtPtr += BdCount * Rx_Chan->Separation;
-		XMcdma_InstIntrEnable(McDmaInstPtr, Rx_Chan, XMCDMA_IRQ_ALL_MASK);
+		RxBdSpacePtr += BdCount * Rx_Chan->Separation;
+		XMcdma_IntrEnable(Rx_Chan, XMCDMA_IRQ_ALL_MASK);
 	 }
 
 	return XST_SUCCESS;
@@ -602,50 +350,22 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 	XMcdma_ChanCtrl *Tx_Chan;
 	int ChanId;
 	int BdCount = NUMBER_OF_BDS_TO_TRANSFER;
-	UINTPTR BdVirtPtr;
-	UINTPTR BufPhysPtr;
-	UINTPTR BdPhysPtr;
+	UINTPTR TxBufferPtr;
+	UINTPTR TxBdSpacePtr;
 	int Status;
 	u32 i, j;
 	u32 buf_align;
-	u64 TempVal;
 
-#if defined(__BAREMETAL__)
-	BufPhysPtr = TX_BUFFER_BASE;
-	BdPhysPtr = TX_BD_SPACE_BASE;
-	BdVirtPtr = BdPhysPtr;
-#else
-	u32 MaxLen;
-	UINTPTR BufVirtPtr;
-
-	MaxLen = NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN;
-	MaxLen += ALIGNPAGESIZE(MaxLen);
-
-	BufVirtPtr = (UINTPTR)XMcdma_MetalMap(McDmaInstPtr->device, MaxLen, &BufPhysPtr);
-	if (!BufVirtPtr || !BufPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
-		return XST_FAILURE;
-	}
-
-	BdVirtPtr = (UINTPTR)XMcdma_MetalMap(McDmaInstPtr->device, MaxLen, &BdPhysPtr);
-	if (!BdVirtPtr || !BdPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
-		return XST_FAILURE;
-	}
-
-	TxBufVirtPtr = BufVirtPtr;
-	TxBdVirtPtr = BdVirtPtr;
-	TxBufPhysPtr = BufPhysPtr;
-	TxBdPhysPtr = BdPhysPtr;
-	TxBufLen = MaxLen;
-	TxBdLen = MaxLen;
-#endif
+	TxBufferPtr = TX_BUFFER_BASE;
+	TxBdSpacePtr = TX_BD_SPACE_BASE;
 
 	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
+
 		/* Disable all interrupts */
-		XMcdma_InstIntrDisable(McDmaInstPtr, Tx_Chan, XMCDMA_IRQ_ALL_MASK);
-		Status = XMcDma_ChanBdCreate(Tx_Chan, BdVirtPtr, BdCount);
+		XMcdma_IntrDisable(Tx_Chan, XMCDMA_IRQ_ALL_MASK);
+
+		Status = XMcDma_ChanBdCreate(Tx_Chan, TxBdSpacePtr, BdCount);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx bd create failed with %d\r\n", Status);
 			return XST_FAILURE;
@@ -653,42 +373,39 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 
 		for (j = 0 ; j < NUMBER_OF_PKTS_TO_TRANSFER; j++) {
 			for (i = 0 ; i < NUMBER_OF_BDS_PER_PKT; i++) {
-				TempVal = (u64)XMcdma_Phys2Virt(McDmaInstPtr,
-							   (void *)BufPhysPtr);
-
-				/* Clear the Transmit buffer */
-				memset((void *)TempVal, 0, MAX_PKT_LEN);
-
-				Status = XMcDma_ChanSubmit(Tx_Chan,
-							   (UINTPTR)TempVal,
-							   MAX_PKT_LEN);
+				Status = XMcDma_ChanSubmit(Tx_Chan, TxBufferPtr,
+							  MAX_PKT_LEN);
 				if (Status != XST_SUCCESS) {
 					xil_printf("ChanSubmit failed\n\r");
 					return XST_FAILURE;
 				}
 
-				BufPhysPtr += MAX_PKT_LEN;
+				TxBufferPtr += MAX_PKT_LEN;
 				if (!Tx_Chan->Has_Txdre) {
-					buf_align = BufPhysPtr % 64;
+					buf_align = TxBufferPtr % 64;
 					if (buf_align > 0)
 						buf_align = 64 - buf_align;
-				    BufPhysPtr += buf_align;
+				    TxBufferPtr += buf_align;
 				}
+
+				/* Clear the receive buffer, so we can verify data */
+				memset((void *)TxBufferPtr, 0, MAX_PKT_LEN);
 
 			}
 		}
 
-		BufPhysPtr += MAX_PKT_LEN;
+		TxBufferPtr += MAX_PKT_LEN;
 		if (!Tx_Chan->Has_Txdre) {
-			buf_align = BufPhysPtr % 64;
+			buf_align = TxBufferPtr % 64;
 			if (buf_align > 0)
 				buf_align = 64 - buf_align;
-		    BufPhysPtr += buf_align;
+		    TxBufferPtr += buf_align;
 		}
 
-		BdVirtPtr += BdCount * Tx_Chan->Separation;
-		XMcdma_InstIntrEnable(McDmaInstPtr, Tx_Chan, XMCDMA_IRQ_ALL_MASK);
+		TxBdSpacePtr += BdCount * Tx_Chan->Separation;
+		XMcdma_IntrEnable(Tx_Chan, XMCDMA_IRQ_ALL_MASK);
 	 }
+
 
 	return XST_SUCCESS;
 }
@@ -751,7 +468,6 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
         XMcdma_ChanCtrl *Rx_Chan = 0, *Tx_Chan = 0;
         XMcdma_Bd *BdPtr1;
         u8 *RxPacket;
-	u64 TempVal;
         int ProcessedBdCount, i;
         int MaxTransferBytes;
         int RxPacketLength;
@@ -771,10 +487,8 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
 
         /* Check received data */
         for (i = 0; i < ProcessedBdCount; i++) {
-		TempVal = (u64)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_BUFA_OFFSET);
-		RxPacket = XMcdma_Phys2Virt(McDmaInstPtr, (void *)TempVal);
+		RxPacket = (void *)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_BUFA_OFFSET);
 		RxPacketLength = XMcDma_BdGetActualLength(BdPtr1, MaxTransferBytes);
-
 		/* Invalidate the DestBuffer before receiving the data,
 		 * in case the data cache is enabled
 		 */
@@ -785,9 +499,7 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
                         xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                         return XST_FAILURE;
                 }
-
-		TempVal = (u64)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_NDESC_OFFSET);
-		BdPtr1 = (XMcdma_Bd *)XMcdma_Phys2Virt(McDmaInstPtr, (void *)TempVal);
+                BdPtr1 = (XMcdma_Bd *) XMcdma_BdRead64(BdPtr1, XMCDMA_BD_NDESC_OFFSET);
         }
 
         return XST_SUCCESS;
@@ -799,7 +511,7 @@ static void Mcdma_Poll(XMcdma * McDmaInstPtr) {
         u32 i;
         u32 Chan_SerMask;
 
-        Chan_SerMask = XMcdma_InstReadReg(McDmaInstPtr, McDmaInstPtr->Config.BaseAddress,
+        Chan_SerMask = XMcdma_ReadReg(McDmaInstPtr->Config.BaseAddress,
                                       XMCDMA_RX_OFFSET + XMCDMA_RXCH_SER_OFFSET);
 
         for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask; i <<= 1, Chan_id++)
@@ -817,7 +529,6 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 	u8 *TxPacket;
 	u8 Value;
 	u32 ChanId;
-	u64 TempVal;
 
 	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
@@ -828,8 +539,7 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 				u32 CrBits = 0;
 
 				Value = TestStartValue[ChanId] + TxPattern[ChanId]++;
-				TempVal = (u64)XMcdma_BdRead64(BdCurPtr, XMCDMA_BD_BUFA_OFFSET);
-				TxPacket = (u8 *)XMcdma_Phys2Virt(McDmaInstPtr, (void *)TempVal);
+				TxPacket = (u8 *)XMcdma_BdRead64(BdCurPtr, XMCDMA_BD_BUFA_OFFSET);
 				for(Index1 = 0; Index1 < MAX_PKT_LEN; Index1++) {
 					TxPacket[Index1] = Value;
 
