@@ -52,6 +52,7 @@
 *       bm   09/21/2020 Added error codes for DFx Compatibility Check
 *       bm   09/24/2020 Added error code for FuncID mismatch
 *       bsv  10/13/2020 Code clean up
+*       kpt  10/19/2020 Added error code for glitch detection
 *
 * </pre>
 *
@@ -501,6 +502,8 @@ typedef enum {
 		/**< 0x628 Failed to get Auth Jtag data with DMA Xfr */
 	XLOADER_ERR_MEMSET_SECURE_PTR,
 		/**< 0x629 Error during memset for SecurePtr */
+	XLOADER_ERR_GLITCH_DETECTED,
+		/**< 0x62A Error glitch detected */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
