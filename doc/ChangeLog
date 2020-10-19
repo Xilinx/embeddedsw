@@ -65,6 +65,11 @@ Makefile modification to support Parallel compilation.
 sdiaud_v2_2:
 Makefile modification to support Parallel compilation.
 
+sysmonpsv_v2_0:
+Added new APIS for Threshold config, Alarm config.
+Added new interrupt callback structure.
+Fixed MISRAC issues
+
 v_hdmi_common_v1_4:
 Makefile modification to support Parallel compilation.
 
