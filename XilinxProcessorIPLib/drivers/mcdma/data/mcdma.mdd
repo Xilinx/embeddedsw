@@ -12,6 +12,5 @@ BEGIN driver mcdma
   OPTION copyfiles = all;
   OPTION VERSION = 1.5;
   OPTION NAME = mcdma;
-  OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
 
 END driver
