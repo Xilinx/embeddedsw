@@ -32,6 +32,9 @@
 #include "xaie_elfloader.h"
 #include "xaie_ecc.h"
 /************************** Constant Definitions *****************************/
+#define XAIESIM_CMDIO_CMD_SETSTACK       0U
+#define XAIESIM_CMDIO_CMD_LOADSYM        1U
+
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -421,7 +424,7 @@ AieRC XAie_LoadElfMem(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	MapPtr: Path to the Map file.
 * @param	StackSzPtr: Pointer to the stack range structure.
 *
-* @return	XAIESIM_SUCCESS on success, else XAIESIM_FAILURE.
+* @return	XAIE_SUCCESS on success, else XAIE_FAILURE.
 *
 * @note		None.
 *
@@ -430,7 +433,7 @@ static u32 XAieSim_GetStackRange(const char *MapPtr,
 		XAieSim_StackSz *StackSzPtr)
 {
 	FILE *Fd;
-	uint8 buffer[200U];
+	u8 buffer[200U];
 
 	/*
 	 * Read map file and look for line:
@@ -442,7 +445,7 @@ static u32 XAieSim_GetStackRange(const char *MapPtr,
 	Fd = fopen(MapPtr, "r");
 	if(Fd == NULL) {
 		XAIE_ERROR("Invalid Map file\n");
-		return XAIESIM_FAILURE;
+		return XAIE_FAILURE;
 	}
 
 	while(fgets(buffer, 200U, Fd) != NULL) {
@@ -456,9 +459,9 @@ static u32 XAieSim_GetStackRange(const char *MapPtr,
 	fclose(Fd);
 
 	if(StackSzPtr->start == 0xFFFFFFFFU) {
-		return XAIESIM_FAILURE;
+		return XAIE_FAILURE;
 	} else {
-		return XAIESIM_SUCCESS;
+		return XAIE_SUCCESS;
 	}
 }
 #endif
@@ -531,7 +534,7 @@ AieRC XAie_LoadElf(XAie_DevInst *DevInst, XAie_LocType Loc, const char *ElfPtr,
 	free(MapPath);
 	XAIE_DBG("Stack start:%08x, end:%08x\n", StackSz.start,
 			StackSz.end);
-	if(Status != XAIESIM_SUCCESS) {
+	if(Status != XAIE_SUCCESS) {
 		XAIE_ERROR("Stack range definition failed\n");
 		return Status;
 	}
