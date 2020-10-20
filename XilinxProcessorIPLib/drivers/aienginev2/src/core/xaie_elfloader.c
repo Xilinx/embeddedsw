@@ -64,6 +64,8 @@ static void _XAie_PrintElfHdr(const Elf32_Ehdr *Ehdr)
 	XAIE_DBG("e_shentsize\t: 0x%08x\n", Ehdr->e_shentsize);
 	XAIE_DBG("e_shnum\t\t: 0x%08x\n", Ehdr->e_shnum);
 	XAIE_DBG("e_shstrndx\t: 0x%08x\n", Ehdr->e_shstrndx);
+
+	(void)Ehdr;
 }
 
 /*****************************************************************************/
@@ -89,6 +91,8 @@ static void _XAie_PrintProgSectHdr(const Elf32_Phdr *Phdr)
 	XAIE_DBG("p_memsz\t\t: 0x%08x\n", Phdr->p_memsz);
 	XAIE_DBG("p_flags\t\t: 0x%08x\n", Phdr->p_flags);
 	XAIE_DBG("p_align\t\t: 0x%08x\n", Phdr->p_align);
+
+	(void)Phdr;
 }
 
 /*****************************************************************************/
