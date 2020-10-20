@@ -281,7 +281,6 @@ AieRC _XAie_EccOnPM(XAie_DevInst *DevInst, XAie_LocType Loc)
 ******************************************************************************/
 void _XAie_EccEvntResetPM(XAie_DevInst *DevInst, XAie_LocType Loc)
 {
-	AieRC RC;
 	u8 TileType;
 	u64 RegAddr;
 	const XAie_CoreMod *CoreMod;
