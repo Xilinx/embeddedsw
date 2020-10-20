@@ -13,6 +13,5 @@ BEGIN driver axidma
   OPTION copyfiles = all;
   OPTION VERSION = 9.12;
   OPTION NAME = axidma;
-  OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
 
 END driver
