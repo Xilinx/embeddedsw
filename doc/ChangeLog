@@ -196,6 +196,11 @@ Fix RX pbuf freeing in GEM error handling path.
 Add axiethernet support on versal silicon.
 Add check in tcl for raw mode selection.
 Use Xil_In32 and Xil_Out32 functions to read/write registers.
+Modify the sys_now function to return milliseconds instead of
+ticks to fix lwip timers issue.
+While using for loop to create a delay we are not seeing any delay
+with default O2 optimization. So, replace the for loop delay code
+with sleep for a 1-second delay to fix the issue.
 
 scuwdt_v2_3
 Update the Makefile for parallel execution.
@@ -283,6 +288,10 @@ Modify Makefile for parallel execution.
 
 llfifo_v5_5:
 Add type casting to fix gcc warnings in xllfifo.c and xstreamer.c.
+Consolidate and add all the macros of llfifo src path xdebug.h to
+common xdebug.h and remove xdebug.h file from llfifo src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
 
 axicdma_v4_8:
 Fix the compilation error for xreg_cortexa9.h preprocessor in
@@ -297,14 +306,27 @@ aligned in both the xaxicdma_example_hybrid_poll and
 xaxicdma_example_hybrid_intr examples and also add cache
 operations for destination and receive buffers. It fixes the
 xaxicdma_example_hybrid_intr data check failure.
+Consolidate and add all the macros of axicdma src path xdebug.h to
+common xdebug.h and remove xdebug.h file from axicdma src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
 
 axiethernet_v5_11:
 Fix bsp generation error for multiple axieth instance design.
 Add support for versal silicon.
+Consolidate and add all the macros of axiethernet src path xdebug.h
+to common xdebug.h and remove xdebug.h file from axiethernet src
+path to fix the build failure which is caused by using the same file
+name in BSP and drivers.
 
 axidma_v9_12:
 Fix the MaxTransferLen calculation for MM2S and S2MM in axidma micro
 mode.
+Update axidma driver makefile for parallel execution.
+Consolidate and add all the macros of axidma src path xdebug.h to
+common xdebug.h and remove xdebug.h file from axidma src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
 
 usbpsu_v1_8:
 Add hibernation support in versal.
@@ -319,6 +341,11 @@ Revert the frames stores canonical definition changes to
 fix the compilation failures and add a workaround to match the
 number of frame stores of model parameter and user-defined config
 parameter.
+Update axivdma driver makefile for parallel execution.
+Consolidate and add all the macros of axivdma src path xdebug.h to
+common xdebug.h and remove xdebug.h file from axivdma src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
 
 mcdma_v1_5:
 Add XMcDma_BdGetAppWord() function declaration to fix the gcc
@@ -398,6 +425,7 @@ csudma_v1_7:
 Reorganize transfer function and cache operations.
 Fix MISRA-C violations in csudma driver.
 Remove XCsuDma_IsBusy() check in XCsuDma_SetConfig() API.
+Update csudma driver makefile for parallel execution.
 
 emacps_v3_12:
 Remove emacps 1588 examples.
