@@ -22,6 +22,8 @@
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 * 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
 *                       XSdPs_Write APIs
+*       mn     10/15/20 Modify power cycle API to poll for SD bus lines to go
+*                       low for versal platform
 *
 * </pre>
 *
@@ -671,6 +673,23 @@ s32 XSdPs_ResetConfig(XSdPs *InstancePtr)
 	s32 Status;
 
 	XSdPs_DisableBusPower(InstancePtr);
+
+#ifdef versal
+	if ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
+			!= XSDPS_CAPS_EMB_SLOT) {
+		u32 Timeout = 200000U;
+		u32 PresentStateReg;
+
+		/* Check for SD Bus Lines low */
+		do {
+			PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+					XSDPS_PRES_STATE_OFFSET);
+			Timeout = Timeout - 1U;
+			usleep(1);
+		} while (((PresentStateReg & XSDPS_PSR_DAT30_SG_LVL_MASK) != 0U)
+				&& (Timeout != 0U));
+	}
+#endif
 
 	Status = XSdPs_Reset(InstancePtr, XSDPS_SWRST_ALL_MASK);
 	if (Status != XST_SUCCESS) {
