@@ -32,7 +32,7 @@
 #include "xaie_helper.h"
 #include "xaiegbl.h"
 #include "xaiegbl_defs.h"
-#include "xaielib.h"
+#include "xaiegbl_defs.h"
 
 #ifdef __AIESIM__
 #include "xaiesim.h"

@@ -46,7 +46,7 @@
 #include "xaie_helper.h"
 #include "xaiegbl.h"
 #include "xaiegbl_defs.h"
-#include "xaielib.h"
+#include "xaiegbl_defs.h"
 
 /************************** Function Prototypes  *****************************/
 AieRC XAie_PerfCounterGet(XAie_DevInst *DevInst, XAie_LocType Loc,
