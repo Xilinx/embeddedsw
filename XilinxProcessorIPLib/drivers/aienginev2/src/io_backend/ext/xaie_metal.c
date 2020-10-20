@@ -36,6 +36,7 @@
 #include <metal/shmem.h>
 #include <metal/shmem-provider.h>
 #include <metal/utilities.h>
+#include <unistd.h>
 
 #endif
 
@@ -293,7 +294,7 @@ u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 			Ret = XAIELIB_SUCCESS;
 			break;
 		}
-		XAieLib_usleep(MinTimeOutUs);
+		usleep(MinTimeOutUs);
 		Count--;
 	}
 

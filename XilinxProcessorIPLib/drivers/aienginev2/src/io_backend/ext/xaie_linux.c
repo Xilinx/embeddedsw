@@ -524,7 +524,7 @@ u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 			Ret = XAIELIB_SUCCESS;
 			break;
 		}
-		XAieLib_usleep(MinTimeOutUs);
+		usleep(MinTimeOutUs);
 		Count--;
 	}
 
