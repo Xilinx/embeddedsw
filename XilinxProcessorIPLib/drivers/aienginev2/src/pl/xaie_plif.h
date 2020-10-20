@@ -27,7 +27,7 @@
 
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
-#include "xaielib.h"
+#include "xaiegbl_defs.h"
 /**************************** Type Definitions *******************************/
 /*
  * This enum captures the AIE-PL interface bit widths available in the hardware.

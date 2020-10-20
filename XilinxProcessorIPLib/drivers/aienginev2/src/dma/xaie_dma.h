@@ -28,7 +28,7 @@
 #define XAIEDMA_H
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
-#include "xaielib.h"
+#include "xaiegbl_defs.h"
 
 /**************************** Type Definitions *******************************/
 /*

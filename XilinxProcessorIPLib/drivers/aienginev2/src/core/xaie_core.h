@@ -29,7 +29,7 @@
 
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
-#include "xaielib.h"
+#include "xaiegbl_defs.h"
 #include "xaie_helper.h"
 
 /************************** Constant Definitions *****************************/

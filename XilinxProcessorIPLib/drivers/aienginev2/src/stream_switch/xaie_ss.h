@@ -28,7 +28,7 @@
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
 #include "xaiegbl_defs.h"
-#include "xaielib.h"
+#include "xaiegbl_defs.h"
 #include "xaie_helper.h"
 
 /**************************** Type Definitions *******************************/

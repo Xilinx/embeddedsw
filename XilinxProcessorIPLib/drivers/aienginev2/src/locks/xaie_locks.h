@@ -26,7 +26,7 @@
 
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
-#include "xaielib.h"
+#include "xaiegbl_defs.h"
 /**************************** Type Definitions *******************************/
 /************************** Function Prototypes  *****************************/
 AieRC XAie_LockAcquire(XAie_DevInst *DevInst, XAie_LocType Loc, XAie_Lock Lock,
