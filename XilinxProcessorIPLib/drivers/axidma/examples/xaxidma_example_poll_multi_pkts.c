@@ -54,23 +54,12 @@
  *                     and typecasting buffer address(CR-992638).
  * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
- * 9.12  vak  08/21/20 Add support to LIBMETAL APIs.
  * </pre>
  *
  * ***************************************************************************
  */
 /***************************** Include Files *********************************/
 #include "xaxidma.h"
-
-#if defined( __LIBMETAL__)
-#include <metal/log.h>
-#include <metal/device.h>
-#include <metal/sys.h>
-#include <metal/scatterlist.h>
-
-#if !defined(__BAREMETAL__)
-#include "xaxidma_linux.h"
-#else
 #include "xparameters.h"
 #include "xdebug.h"
 
@@ -86,39 +75,15 @@
 extern void xil_printf(const char *format, ...);
 #endif
 
-#endif /* __BAREMETAL__ */
-#else /* __LIBMETAL__ */
-#include "xparameters.h"
-#include "xdebug.h"
-
-#ifdef __aarch64__
-#include "xil_mmu.h"
-#endif
-
-#if defined(XPAR_UARTNS550_0_BASEADDR)
-#include "xuartns550_l.h"       /* to use uartns550 */
-#endif
-
-#ifndef DEBUG
-extern void xil_printf(const char *format, ...);
-#endif
-
-#endif
 /******************** Constant Definitions **********************************/
 
 /*********************** TEMPORARY ******************************************/
 /*
  * Device hardware build related constants.
  */
-#if defined(__BAREMETAL__)
 #define DMA_BASE_ADDR		XPAR_AXIDMA_0_BASEADDR
-#else
-/* FIXME: Get the AXI DMA base address runtime */
-#warning CHECK IF THE BASE ADDRESS IS PROPER
-#define DMA_BASE_ADDR		0xA0000000
-#endif
+#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 
-#if defined(__BAREMETAL__)
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif defined (XPAR_MIG7SERIES_0_BASEADDR)
@@ -144,14 +109,7 @@ extern void xil_printf(const char *format, ...);
 #define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00020000)
 #define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00030000)
 #define RX_BUFFER_HIGH		(MEM_BASE_ADDR + 0x0003FFFF)
-#endif
 
-#define ADDR_MAP_SIZE           0x00001000
-
-#define TX_BD_SPACE_SIZE        0x00001000
-#define RX_BD_SPACE_SIZE        0x00001000
-
-#define BD_SIZE			0x40
 #define MAX_PKT_LEN		0x200
 #define NUMBER_OF_PACKETS 	0x10
 #define TEST_START_VALUE	0xC
@@ -161,12 +119,9 @@ extern void xil_printf(const char *format, ...);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
-#define ALIGNPAGESIZE(Len) ((Len % 4096) ? 4096 - ((Len % 4096)) : 0);
-#endif
 
 /************************** Function Prototypes ******************************/
-#if defined (__BAREMETAL__)  && defined(XPAR_UARTNS550_0_BASEADDR)
+#if defined(XPAR_UARTNS550_0_BASEADDR)
 static void Uart550_Setup(void);
 #endif
 
@@ -182,177 +137,10 @@ static int CheckDmaResult(XAxiDma * AxiDmaInstPtr);
  */
 XAxiDma AxiDma;
 
-static UINTPTR TxBufVirtPtr;
-static UINTPTR TxBdVirtPtr;
-static UINTPTR TxBufPhysPtr;
-static UINTPTR TxBdPhysPtr;
-static int TxBufLen;
-static int TxBdLen;
-
-static UINTPTR RxBufVirtPtr;
-static UINTPTR RxBdVirtPtr;
-static UINTPTR RxBufPhysPtr;
-static UINTPTR RxBdPhysPtr;
-static int RxBufLen;
-static int RxBdLen;
-
-#if defined( __BAREMETAL__) && defined( __LIBMETAL__)
-static struct metal_device AxidmaDevice = {
-	/* AXIDMA device */
-	.name = "axidma",
-	.bus = NULL,
-	.num_regions = 1,
-	.regions = {
-		{
-			.virt = (void *)DMA_BASE_ADDR,
-			.physmap = (void *)DMA_BASE_ADDR,
-			.size = ADDR_MAP_SIZE,
-			.page_shift = (unsigned)(-1),
-			.page_mask = (unsigned)(-1),
-			.mem_flags = 0x0,
-			.ops = {NULL},
-		}
-	},
-	.node = {NULL},
-	.irq_num = 0,
-	.irq_info = NULL,
-};
-#endif
-
-#if defined(__LIBMETAL__) && !defined(__BAREMETAL__)
-unsigned int mapped = 0;
-
-struct mem_container {
-	int size;
-	void *virt;
-	unsigned long phys;
-	struct metal_generic_shmem *shm;
-} mem_cnt[4];
-
-static unsigned long __XAxidma_MetalMap(struct metal_device *DevicePtr, void *vaddr, int size) {
-	struct metal_sg sg_out;
-	struct metal_sg sg_in;
-	int ret;
-
-	memset(&sg_out, 0, sizeof(struct metal_sg));
-	memset(&sg_in, 0, sizeof(struct metal_sg));
-
-	sg_in.virt = vaddr;
-	sg_in.len = size;
-	sg_in.io = NULL;
-
-	ret = metal_dma_map(DevicePtr, METAL_DMA_DEV_WR, &sg_in, 1, &sg_out);
-	if (ret < 0) {
-		metal_log(METAL_LOG_ERROR,
-			  "Failed to dma map addr: 0x%lx size: %d ret: %d\n",
-			  vaddr, size, ret);
-		return 0;
-	}
-
-	metal_device_add_dmamem(DevicePtr, sg_in.io);
-
-	return (unsigned long)*sg_in.io->physmap;
-}
-
-static void *XAxidma_MetalMap(struct metal_device *device, int size, unsigned long *phys)
-{
-	struct metal_generic_shmem *shm;
-	struct metal_scatter_list *sg;
-	struct metal_io_region *io;
-	char shm_name_internal[256];
-	int ret;
-	void *va;
-	unsigned int *a;
-
-	snprintf(shm_name_internal, 256, "ion.reserved/shm%d", mapped);
-
-	ret = metal_shmem_open(shm_name_internal,
-			       size, METAL_SHM_NOTCACHED, &shm);
-	if (ret) {
-		metal_log(METAL_LOG_ERROR,
-			  "failed to open shared memory %s.\n",
-			  shm_name_internal);
-		return NULL;
-	}
-
-	sg = metal_shm_attach(shm, device, METAL_SHM_DIR_DEV_RW);
-	if (sg == NULL) {
-		metal_shmem_close(shm);
-		shm = NULL;
-		va = aligned_alloc(4096, size);
-		if (va == NULL)
-			return NULL;
-
-		*phys = (unsigned long)__XAxidma_MetalMap(device, va, size);
-		if(*phys == 0)
-			return NULL;
-	} else {
-		io = sg->ios;
-		*phys = *(unsigned long *)io->physmap;
-		va = metal_io_virt(io, 0);
-		metal_device_add_dmamem(device, io);
-
-		if ((va == NULL) || (*phys == 0)) {
-			metal_shm_detach(shm, device);
-			metal_shmem_close(shm);
-			close(shm->id);
-			return NULL;
-		}
-	}
-
-	mem_cnt[mapped].phys = *phys;
-	mem_cnt[mapped].virt = va;
-	mem_cnt[mapped].size = size;
-	mem_cnt[mapped].shm = shm;
-	mapped++;
-
-	return va;
-}
-
-void XAxidma_MetalUnmap(struct metal_device *DevicePtr, void *virt, int size) {
-	struct metal_io_region io;
-	struct metal_sg sg;
-	struct mem_container *mem_cnt_ptr;
-
-	for (int i = 0; i < 4; i ++) {
-		if (mem_cnt[i].virt == virt) {
-			mem_cnt_ptr = &mem_cnt[i];
-			break;
-		}
-	}
-
-	if (mem_cnt_ptr->shm != NULL) {
-		metal_shm_detach(mem_cnt_ptr->shm, DevicePtr);
-		metal_shmem_close(mem_cnt_ptr->shm);
-		close(mem_cnt_ptr->shm->id);
-		mem_cnt_ptr->shm = NULL;
-	} else {
-		memset(&io, 0, sizeof(struct metal_io_region));
-		memset(&sg, 0, sizeof(struct metal_sg));
-
-		io.physmap = (metal_phys_addr_t)0;
-		io.virt = (void *)virt;
-		sg.virt = (void *)virt;
-		sg.len = size;
-		sg.io = &io;
-
-		metal_dma_unmap(DevicePtr, METAL_DMA_DEV_WR, &sg, 1);
-		munmap(virt, size);
-		free(virt);
-	}
-
-	return;
-}
-#endif
-
-#if defined(__BAREMETAL__)
-
 /*
  * Buffer for transmit packet.
  */
 u32 *Packet = (u32 *) TX_BUFFER_BASE;
-
-#endif
 
 static XAxiDma_Bd *LastRxBdPtr = NULL;
 
@@ -380,58 +168,24 @@ int main(void)
 	int Status;
 	XAxiDma_Config *Config;
 
-#if defined(__LIBMETAL__)
-	struct metal_device *DevicePtr = NULL;
-
-	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
-	init_param.log_level = METAL_LOG_CRITICAL;
-
-	if (metal_init(&init_param)) {
-		xil_printf("ERROR: Failed to run metal initialization\n");
-		return XST_FAILURE;
-	}
-#endif
-
-#if defined(__BAREMETAL__)
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 
 	Uart550_Setup();
 
 #endif
-#endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
-
-#if defined(__BAREMETAL__)
 #ifdef __aarch64__
 	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, NORM_NONCACHE);
 	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, NORM_NONCACHE);
 #endif
-#endif
 
-	Config = XAxiDma_LookupConfigBaseAddr(DMA_BASE_ADDR);
+	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
 	if (!Config) {
-		xil_printf("No config found for 0x%lx\r\n", DMA_BASE_ADDR);
+		xil_printf("No config found for %d\r\n", DMA_DEV_ID);
 
 		return XST_FAILURE;
 	}
-
-#if defined (__BAREMETAL__) && defined (__LIBMETAL__)
-	DevicePtr = &AxidmaDevice;
-#endif
-
-#if defined (__LIBMETAL__)
-	Status = XAxiDma_RegisterMetal(&AxiDma, DMA_BASE_ADDR, &DevicePtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Initialization failed %d\r\n", Status);
-		return XST_FAILURE;
-	}
-#endif
-
-#if !defined (__BAREMETAL__) && defined (__LIBMETAL__)
-	/* Set DMA as 32 bit addressing capable */
-	metal_device_set_dmacap(DevicePtr, 32);
-#endif
 
 	/* Initialize DMA engine */
 	Status = XAxiDma_CfgInitialize(&AxiDma, Config);
@@ -475,13 +229,6 @@ int main(void)
 	xil_printf("Successfully ran AXI DMA poll multi Example\r\n");
 	xil_printf("--- Exiting main() --- \r\n");
 
-#if defined (__LIBMETAL__) && !defined (__BAREMETAL__)
-	XAxidma_MetalUnmap(DevicePtr, (void *)TxBufVirtPtr, TxBufLen);
-	XAxidma_MetalUnmap(DevicePtr, (void *)TxBdVirtPtr, TxBdLen);
-	XAxidma_MetalUnmap(DevicePtr, (void *)RxBufVirtPtr, RxBufLen);
-	XAxidma_MetalUnmap(DevicePtr, (void *)RxBdVirtPtr, RxBdLen);
-#endif
-
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -489,7 +236,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-#if defined(__BAREMETAL__) && defined(XPAR_UARTNS550_0_BASEADDR)
+
+#if defined(XPAR_UARTNS550_0_BASEADDR)
 /*****************************************************************************/
 /*
 *
@@ -539,75 +287,26 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd BdTemplate;
 	XAxiDma_Bd *BdPtr;
 	XAxiDma_Bd *BdCurPtr;
-	UINTPTR BufVirtPtr;
-	UINTPTR BdVirtPtr;
-	UINTPTR BufPhysPtr;
-	UINTPTR BdPhysPtr;
 	u32 BdCount;
 	u32 FreeBdCount;
+	UINTPTR RxBufferPtr;
 	int i;
 
 	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);
 
 	/* Disable all RX interrupts before RxBD space setup */
 
-	XAxiDma_InstBdRingIntDisable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	XAxiDma_BdRingIntDisable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
 	/* Set delay and coalescing */
 	XAxiDma_BdRingSetCoalesce(RxRingPtr, Coalesce, Delay);
 
 	/* Setup Rx BD space */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-				RX_BD_SPACE_SIZE);
+				RX_BD_SPACE_HIGH - RX_BD_SPACE_BASE + 1);
 
-#if defined(__BAREMETAL__)
-	BufPhysPtr = RX_BUFFER_BASE;
-	BdPhysPtr = RX_BD_SPACE_BASE;
-	BufVirtPtr = BufPhysPtr;
-	BdVirtPtr = BdPhysPtr;
-
-	RxBufVirtPtr = BufVirtPtr;
-	RxBdVirtPtr = BdVirtPtr;
-	RxBufPhysPtr = BufPhysPtr;
-	RxBdPhysPtr = BdPhysPtr;
-
-	(void)RxBufLen;
-	(void)RxBdLen;
-#else
-	u32 MaxLen;
-
-	MaxLen = NUMBER_OF_PACKETS * MAX_PKT_LEN;
-	MaxLen += ALIGNPAGESIZE(MaxLen);
-
-	BufVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BufPhysPtr);
-	if (!BufVirtPtr || !BufPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
-
-		return XST_FAILURE;
-	}
-
-	RxBufLen = MaxLen;
-
-	MaxLen = BdCount * BD_SIZE;
-	MaxLen += ALIGNPAGESIZE(MaxLen);
-
-	BdVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BdPhysPtr);
-	if (!BdVirtPtr || !BdPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
-
-		return XST_FAILURE;
-	}
-
-	RxBdLen = MaxLen;
-
-	RxBufVirtPtr = BufVirtPtr;
-	RxBdVirtPtr = BdVirtPtr;
-	RxBufPhysPtr = BufPhysPtr;
-	RxBdPhysPtr = BdPhysPtr;
-#endif
-
-	Status = XAxiDma_BdRingCreate(RxRingPtr, BdPhysPtr,
-				BdVirtPtr,
+	Status = XAxiDma_BdRingCreate(RxRingPtr, RX_BD_SPACE_BASE,
+				RX_BD_SPACE_BASE,
 				XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 
 	if (Status != XST_SUCCESS) {
@@ -633,12 +332,14 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	}
 
 	BdCurPtr = BdPtr;
+	RxBufferPtr = RX_BUFFER_BASE;
+
 	for (i = 0; i < FreeBdCount; i++) {
 
-		Status = XAxiDma_BdSetBufAddr(BdCurPtr, BufPhysPtr);
+		Status = XAxiDma_BdSetBufAddr(BdCurPtr, RxBufferPtr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set buffer addr %x on BD %x failed %d\r\n",
-			(unsigned int)BufPhysPtr, (UINTPTR)BdCurPtr,
+			(unsigned int)RxBufferPtr, (UINTPTR)BdCurPtr,
 								Status);
 
 			return XST_FAILURE;
@@ -656,10 +357,9 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		/* Receive BDs do not need to set anything for the control
 		 * The hardware will set the SOF/EOF bits per stream status
 		 */
-		XAxiDma_BdSetCtrl(BdCurPtr, 0);
-		XAxiDma_BdSetId(BdCurPtr, BufVirtPtr);
-		BufPhysPtr += MAX_PKT_LEN;
-		BufVirtPtr += MAX_PKT_LEN;
+		XAxiDma_BdSetCtrl(BdPtr, 0);
+		XAxiDma_BdSetId(BdCurPtr, RxBufferPtr);
+		RxBufferPtr += MAX_PKT_LEN;
 
 		if (i == (FreeBdCount - 1)) {
 			LastRxBdPtr = BdCurPtr;
@@ -700,10 +400,6 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 {
 	XAxiDma_BdRing *TxRingPtr;
 	XAxiDma_Bd BdTemplate;
-	UINTPTR BufVirtPtr;
-	UINTPTR BdVirtPtr;
-	UINTPTR BufPhysPtr;
-	UINTPTR BdPhysPtr;
 	int Delay = 0;
 	int Coalesce = 1;
 	int Status;
@@ -713,63 +409,17 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 
 	/* Disable all TX interrupts before Tx BD space setup */
 
-	XAxiDma_InstBdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	XAxiDma_BdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
 	/* Set TX delay and coalesce */
 	XAxiDma_BdRingSetCoalesce(TxRingPtr, Coalesce, Delay);
 
 	/* Setup Tx BD space  */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-					TX_BD_SPACE_SIZE);
+				TX_BD_SPACE_HIGH - TX_BD_SPACE_BASE + 1);
 
-#if defined(__BAREMETAL__)
-	BufPhysPtr = TX_BUFFER_BASE;
-	BdPhysPtr = TX_BD_SPACE_BASE;
-	BufVirtPtr = BufPhysPtr;
-	BdVirtPtr = BdPhysPtr;
-
-	TxBufVirtPtr = BufVirtPtr;
-	TxBdVirtPtr = BdVirtPtr;
-	TxBufPhysPtr = BufPhysPtr;
-	TxBdPhysPtr = BdPhysPtr;
-
-	(void)TxBufLen;
-	(void)TxBdLen;
-#else
-	u32 MaxLen;
-
-	MaxLen = NUMBER_OF_PACKETS * MAX_PKT_LEN;
-	MaxLen += ALIGNPAGESIZE(MaxLen);
-
-	BufVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BufPhysPtr);
-	if (!BufVirtPtr || !BufPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
-
-		return XST_FAILURE;
-	}
-
-	TxBufLen = MaxLen;
-
-	MaxLen = BdCount * BD_SIZE;
-	MaxLen += ALIGNPAGESIZE(MaxLen);
-
-	BdVirtPtr = (UINTPTR)XAxidma_MetalMap(AxiDmaInstPtr->device, MaxLen, &BdPhysPtr);
-	if (!BdVirtPtr || !BdPhysPtr) {
-		xil_printf("%s: %d: Failed to XMcdma_MetalMap\n", __func__, __LINE__);
-
-		return XST_FAILURE;
-	}
-
-	TxBdLen = MaxLen;
-
-	TxBufVirtPtr = BufVirtPtr;
-	TxBdVirtPtr = BdVirtPtr;
-	TxBufPhysPtr = BufPhysPtr;
-	TxBdPhysPtr = BdPhysPtr;
-#endif
-
-	Status = XAxiDma_BdRingCreate(TxRingPtr, BdPhysPtr,
-				BdVirtPtr,
+	Status = XAxiDma_BdRingCreate(TxRingPtr, TX_BD_SPACE_BASE,
+				TX_BD_SPACE_BASE,
 				XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 		xil_printf("failed create BD ring in txsetup\r\n");
@@ -826,7 +476,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 
 	/* Create pattern in the packet to transmit
 	 */
-	TxPacket = (u8 *)TxBufVirtPtr;
+	TxPacket = (u8 *) Packet;
 
 	Value = TEST_START_VALUE;
 
@@ -841,7 +491,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 							NUMBER_OF_PACKETS);
-	Xil_DCacheFlushRange((UINTPTR)RxBufVirtPtr, MAX_PKT_LEN *
+	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
 						 NUMBER_OF_PACKETS);
 
 	TxRingPtr = XAxiDma_GetTxRing(AxiDmaInstPtr);
@@ -853,7 +503,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 	}
 
 	/* Set up the BDs using the information of the packet to transmit */
-	BufAddr = (UINTPTR)TxBufPhysPtr;
+	BufAddr = (UINTPTR)Packet;
 	CurBdPtr = BdPtr;
 
 	for (i = 0; i < NUMBER_OF_PACKETS; i++) {
@@ -936,7 +586,7 @@ static int CheckData(void)
 	int i = 0;
 	u8 Value;
 
-	RxPacket = (u8 *) RxBufVirtPtr;
+	RxPacket = (u8 *) RX_BUFFER_BASE;
 	Value = TEST_START_VALUE;
 
 	/* Invalidate the DestBuffer before receiving the data, in case the
