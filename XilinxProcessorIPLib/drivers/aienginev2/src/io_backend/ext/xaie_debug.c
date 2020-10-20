@@ -185,7 +185,7 @@ void XAie_DebugIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
 * @param	Value: 32-bit value to poll for
 * @param	TimeOutUs: Timeout in micro seconds.
 *
-* @return	XAIELIB_SUCCESS or XAIELIB_FAILURE.
+* @return	XAIE_SUCCESS or XAIE_FAILURE.
 *
 * @note		None.
 *
@@ -198,7 +198,7 @@ u32 XAie_DebugIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	printf("MP: 0x%lx, 0x%x, 0x%x, 0x%d\n", DebugIOInst->BaseAddr + RegOff,
 			Mask, Value, TimeOutUs);
 
-	return XAIELIB_FAILURE;
+	return XAIE_FAILURE;
 }
 
 /*****************************************************************************/
