@@ -32,14 +32,22 @@
 #define XAIEGBL_DEFS_H
 
 /***************************** Include Files *********************************/
-#include "xaielib.h"
+#include <stdint.h>
+#include <stdio.h>
 
 /************************** Constant Definitions *****************************/
+typedef int8_t			s8;
+typedef uint8_t			u8;
+typedef uint16_t		u16;
+typedef int32_t			s32;
+typedef uint32_t		u32;
+typedef uint64_t		u64;
+
 #define XAIE_DEV_GEN_AIE		1U
 
-#define XAIE_SUCCESS			XAIELIB_SUCCESS
-#define XAIE_FAILURE			XAIELIB_FAILURE
-#define XAIE_COMPONENT_IS_READY		XAIELIB_COMPONENT_IS_READY
+#define XAIE_SUCCESS			0U
+#define XAIE_FAILURE			1U
+#define XAIE_COMPONENT_IS_READY		1U
 
 #define XAIE_NULL			(void *)0U
 #define XAIE_ENABLE			1U
