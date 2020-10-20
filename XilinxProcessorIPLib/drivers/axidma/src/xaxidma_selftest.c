@@ -18,19 +18,13 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 8.1 	adk  29/01/15 First release
-* 9.12  vak  21/08/20 Update the code to add LIBMETAL APIs support.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#if defined(__BAREMETAL__)
 #include "xil_io.h"
-#else
-#include "xaxidma_linux.h"
-#endif
-
 #include "xaxidma.h"
 
 
