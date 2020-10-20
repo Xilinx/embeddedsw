@@ -34,10 +34,8 @@
 #include "xaiegbl_defs.h"
 #include "xaiegbl_defs.h"
 
-#ifdef __AIESIM__
-#include "xaiesim.h"
-#endif
 /************************** Constant Definitions *****************************/
+
 /************************** Variable Definitions *****************************/
 typedef struct {
 	u32 start;	/**< Stack start address */
