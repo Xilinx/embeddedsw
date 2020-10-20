@@ -21,6 +21,8 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XAIE_DMA_AIE_H
+#define XAIE_DMA_AIE_H
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
 
@@ -43,4 +45,5 @@ AieRC _XAie_DmaWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
 		u32 TimeOutUs);
 
+#endif /* XAIE_DMA_AIE_H */
 /** @} */
