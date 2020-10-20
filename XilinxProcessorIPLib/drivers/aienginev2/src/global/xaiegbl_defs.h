@@ -51,21 +51,8 @@
 #define XAIEGBL_TILE_TYPE_RESERVED	3U
 #define XAIEGBL_TILE_TYPE_MAX		4U
 
-#define XAIEGBL_CMDIO_COMMAND_SETSTACK	XAIELIB_CMDIO_COMMAND_SETSTACK
-#define XAIEGBL_CMDIO_COMMAND_LOADSYM	XAIELIB_CMDIO_COMMAND_LOADSYM
-#define XAIEGBL_TILE_BASE_ADDRESS        XAIELIB_TILE_BASE_ADDRESS
-
-#define XAie_print			XAieLib_print
-#define XAie_usleep			XAieLib_usleep
-
 #define XAie_SetField(Val, Lsb, Mask)	(((u32)Val << (Lsb)) & Mask)
 #define XAie_GetField(Val, Lsb, Mask)	(((u32)Val & Mask) >> Lsb)
-
-#define XAieGbl_Read32		XAieLib_Read32
-#define XAieGbl_Write32		XAieLib_Write32
-#define XAieGbl_MaskWrite32	XAieLib_MaskWrite32
-#define XAieGbl_WriteCmd	XAieLib_WriteCmd
-#define XAieGbl_MaskPoll	XAieLib_MaskPoll
 
 /************************** Variable Definitions *****************************/
 /************************** Function Prototypes  *****************************/

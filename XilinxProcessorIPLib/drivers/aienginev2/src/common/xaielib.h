@@ -58,21 +58,6 @@ typedef uint64_t		u64;
 
 /**************************     Inline Helpers   *****************************/
 /************************** Function Prototypes  *****************************/
-u32 XAieLib_Read32(u64 Addr);
-void XAieLib_Write32(u64 Addr, u32 Data);
-void XAieLib_MaskWrite32(u64 Addr, u32 Mask, u32 Data);
-void XAieLib_WriteCmd(u8 Command, u8 ColId, u8 RowId, u32 CmdWd0, u32 CmdWd1, u8 *CmdStr);
-u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs);
-
-int XAieLib_usleep(u64 Usec);
-
-void XAieLib_IntPrint(const char *Format, ...);
-
-#ifdef XAIE_DEBUG
-#define XAieLib_print		XAieLib_IntPrint
-#else
-#define XAieLib_print(...)	{}
-#endif
 
 #endif		/* end of protection macro */
 /** @} */
