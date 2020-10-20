@@ -195,7 +195,7 @@ void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
 * @param	Value: 32-bit value to poll for
 * @param	TimeOutUs: Timeout in micro seconds.
 *
-* @return	XAIELIB_SUCCESS or XAIELIB_FAILURE.
+* @return	XAIE_SUCCESS or XAIE_FAILURE.
 *
 * @note		None.
 * @note		Internal only.
@@ -208,7 +208,7 @@ u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	/* Round up to msec */
 	cdo_MaskPoll(CdoIOInst->BaseAddr + RegOff, Mask, Value,
 			(TimeOutUs + 999) / 1000);
-	return XAIELIB_SUCCESS;
+	return XAIE_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -400,7 +400,7 @@ u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	(void)Mask;
 	(void)Value;
 	(void)TimeOutUs;
-	return XAIELIB_FAILURE;
+	return XAIE_FAILURE;
 }
 
 void XAie_CdoIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
