@@ -35,6 +35,17 @@ static void mask_delay(u32 delay);
 
 static u32 mask_read(u32 add, u32 mask);
 
+static int serdes_rst_seq (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate);
+static int serdes_bist_static_settings(u32 lane_active);
+static int serdes_bist_run(u32 lane_active);
+static int serdes_bist_result(u32 lane_active);
+static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate);
+static int serdes_illcalib_pcie_gen2 (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate);
+static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate);
+static void config_reg (unsigned long addr,unsigned long shift,unsigned long mask,unsigned long value);
+static int sata_config_for_bist (int lane, int rate);
+static int sata_p0_p1_bist (int lane, int rate, unsigned long delay);
+static int sata_Phyctrl_config_mod1(int lane, int rate);
 static
 void PSU_Mask_Write(unsigned long offset, unsigned long mask,
 	unsigned long val)
@@ -5854,7 +5865,7 @@ unsigned long psu_ddr_init_data(void)
     * General Purpose Register 1
     * (OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E1U)
     */
-	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000E1U);
+	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000E3U);
 /*##################################################################### */
 
     /*
@@ -16354,7 +16365,7 @@ unsigned long psu_peripherals_init_data(void)
     * (OFFSET, MASK, VALUE)      (0XFF000034, 0x000000FFU ,0x00000005U)
     */
 	PSU_Mask_Write(UART0_BAUD_RATE_DIVIDER_REG0_OFFSET,
-		0x000000FFU, 0x00000005U);
+		0x000000FFU, 0x00000010U);
 /*##################################################################### */
 
     /*
@@ -16368,7 +16379,7 @@ unsigned long psu_peripherals_init_data(void)
     * (OFFSET, MASK, VALUE)      (0XFF000018, 0x0000FFFFU ,0x0000008FU)
     */
 	PSU_Mask_Write(UART0_BAUD_RATE_GEN_REG0_OFFSET,
-		0x0000FFFFU, 0x0000008FU);
+		0x0000FFFFU, 0x00000033U);
 /*##################################################################### */
 
     /*
@@ -16462,7 +16473,7 @@ unsigned long psu_peripherals_init_data(void)
     * (OFFSET, MASK, VALUE)      (0XFF010034, 0x000000FFU ,0x00000005U)
     */
 	PSU_Mask_Write(UART1_BAUD_RATE_DIVIDER_REG0_OFFSET,
-		0x000000FFU, 0x00000005U);
+		0x000000FFU, 0x00000010U);
 /*##################################################################### */
 
     /*
@@ -16476,7 +16487,7 @@ unsigned long psu_peripherals_init_data(void)
     * (OFFSET, MASK, VALUE)      (0XFF010018, 0x0000FFFFU ,0x0000008FU)
     */
 	PSU_Mask_Write(UART1_BAUD_RATE_GEN_REG0_OFFSET,
-		0x0000FFFFU, 0x0000008FU);
+		0x0000FFFFU, 0x00000033U);
 /*##################################################################### */
 
     /*
@@ -20213,6 +20224,7 @@ unsigned long psu_serdes_init_data(void)
 /*##################################################################### */
 
     /*
+		serdes_illcalib(2,3,3,0,4,0,1,1);
     * DISABLE ECO FOR PCIE
     */
     /*
@@ -22249,8 +22261,7 @@ unsigned long psu_ddr_phybringup_data(void)
 		>> 31;/*PGSR0*/
 		pll_locked &= (Xil_In32(0xFD0807E0) & 0x10000)
 		>> 16;/*DX0GSR0*/
-		pll_locked &= (Xil_In32(0xFD0809E0) & 0x10000)
-		>> 16;/*DX2GSR0*/
+		pll_locked &= (Xil_In32(0xFD0809E0) & 0x10000) >> 16 ; /*DX2GSR0*/
 		pll_locked &= (Xil_In32(0xFD080BE0) & 0x10000)
 		>> 16;/*DX4GSR0*/
 		pll_locked &= (Xil_In32(0xFD080DE0) & 0x10000)
@@ -22322,6 +22333,10 @@ unsigned long psu_ddr_phybringup_data(void)
 		regval = Xil_In32(0xFD080030);
 	}
 
+	regval = ((Xil_In32(0xFD080030) & 0x1FFF0000) >>18);
+	if(regval != 0) {
+		return(0);
+	}
 	prog_reg(0xFD08001CU, 0x00000018U, 0x00000003U, 0x00000000U);
 	prog_reg(0xFD08142CU, 0x00000030U, 0x00000004U, 0x00000000U);
 	prog_reg(0xFD08146CU, 0x00000030U, 0x00000004U, 0x00000000U);
@@ -22450,6 +22465,1505 @@ static u32 mask_read(u32 add, u32 mask)
 	return val;
 }
 
+#define SERDES_L0_TM_PLL_DIG_33 						   0XFD402084
+#define SERDES_L1_TM_PLL_DIG_33 						   0XFD406084
+#define SERDES_L2_TM_PLL_DIG_33 						   0XFD40A084
+#define SERDES_L3_TM_PLL_DIG_33 						   0XFD40E084
+#define SERDES_L0_TM_ANA_BYP_4	 						   0XFD401010
+#define SERDES_L1_TM_ANA_BYP_4	 						   0XFD405010
+#define SERDES_L2_TM_ANA_BYP_4	 						   0XFD409010
+#define SERDES_L3_TM_ANA_BYP_4	 						   0XFD40D010
+#define SERDES_L0_TM_ANA_BYP_7	 						   0XFD401018
+#define SERDES_L1_TM_ANA_BYP_7	 						   0XFD405018
+#define SERDES_L2_TM_ANA_BYP_7	 						   0XFD409018
+#define SERDES_L3_TM_ANA_BYP_7	 						   0XFD40D018
+#define SERDES_L0_TM_E_ILL7	 						   0XFD40193C
+#define SERDES_L1_TM_E_ILL7	 						   0XFD40593C
+#define SERDES_L2_TM_E_ILL7	 						   0XFD40993C
+#define SERDES_L3_TM_E_ILL7	 						   0XFD40D93C
+#define SERDES_L0_TM_IQ_ILL7	 						   0XFD401910
+#define SERDES_L1_TM_IQ_ILL7	 						   0XFD405910
+#define SERDES_L2_TM_IQ_ILL7	 						   0XFD409910
+#define SERDES_L3_TM_IQ_ILL7	 						   0XFD40D910
+#define SERDES_L0_TX_DIG_TM_61	 						   0XFD4000F4
+#define SERDES_L1_TX_DIG_TM_61	 						   0XFD4040F4
+#define SERDES_L2_TX_DIG_TM_61	 						   0XFD4080F4
+#define SERDES_L3_TX_DIG_TM_61	 						   0XFD40C0F4
+#define SERDES_L0_TM_DIG_6	 						   0XFD40106C
+#define SERDES_L1_TM_DIG_6	 						   0XFD40506C
+#define SERDES_L2_TM_DIG_6	 						   0XFD40906C
+#define SERDES_L3_TM_DIG_6	 						   0XFD40D06C
+#define SERDES_L0_TM_IQ_ILL1                                                0XFD4018F8
+#define SERDES_L0_TM_IQ_ILL2                                                0XFD4018FC
+#define SERDES_L0_TM_ILL12                                                  0XFD401990
+#define SERDES_L0_TM_E_ILL1                                                 0XFD401924
+#define SERDES_L0_TM_E_ILL2                                                 0XFD401928
+#define SERDES_L0_TM_IQ_ILL3                                                0XFD401900
+#define SERDES_L0_TM_E_ILL3                                                 0XFD40192C
+#define SERDES_L0_TM_ILL8                                                   0XFD401980
+#define SERDES_L0_TM_IQ_ILL8                                                0XFD401914
+#define SERDES_L0_TM_IQ_ILL9                                                0XFD401918
+#define SERDES_L0_TM_E_ILL8                                                 0XFD401940
+#define SERDES_L0_TM_E_ILL9                                                 0XFD401944
+#define SERDES_L0_TM_ILL13                                                  0XFD401994
+#define SERDES_L1_TM_MISC2                                                  0XFD40589C
+#define SERDES_L1_TM_IQ_ILL1                                                0XFD4058F8
+#define SERDES_L1_TM_IQ_ILL2                                                0XFD4058FC
+#define SERDES_L1_TM_ILL12                                                  0XFD405990
+#define SERDES_L1_TM_E_ILL1                                                 0XFD405924
+#define SERDES_L1_TM_E_ILL2                                                 0XFD405928
+#define SERDES_L1_TM_IQ_ILL3                                                0XFD405900
+#define SERDES_L1_TM_E_ILL3                                                 0XFD40592C
+#define SERDES_L1_TM_ILL8                                                   0XFD405980
+#define SERDES_L1_TM_IQ_ILL8                                                0XFD405914
+#define SERDES_L1_TM_IQ_ILL9                                                0XFD405918
+#define SERDES_L1_TM_E_ILL8                                                 0XFD405940
+#define SERDES_L1_TM_E_ILL9                                                 0XFD405944
+#define SERDES_L1_TM_ILL13                                                  0XFD405994
+#define SERDES_L2_TM_MISC2                                                  0XFD40989C
+#define SERDES_L2_TM_IQ_ILL1                                                0XFD4098F8
+#define SERDES_L2_TM_IQ_ILL2                                                0XFD4098FC
+#define SERDES_L2_TM_ILL12                                                  0XFD409990
+#define SERDES_L2_TM_E_ILL1                                                 0XFD409924
+#define SERDES_L2_TM_E_ILL2                                                 0XFD409928
+#define SERDES_L2_TM_IQ_ILL3                                                0XFD409900
+#define SERDES_L2_TM_E_ILL3                                                 0XFD40992C
+#define SERDES_L2_TM_ILL8                                                   0XFD409980
+#define SERDES_L2_TM_IQ_ILL8                                                0XFD409914
+#define SERDES_L2_TM_IQ_ILL9                                                0XFD409918
+#define SERDES_L2_TM_E_ILL8                                                 0XFD409940
+#define SERDES_L2_TM_E_ILL9                                                 0XFD409944
+#define SERDES_L2_TM_ILL13                                                  0XFD409994
+#define SERDES_L3_TM_MISC2                                                  0XFD40D89C
+#define SERDES_L3_TM_IQ_ILL1                                                0XFD40D8F8
+#define SERDES_L3_TM_IQ_ILL2                                                0XFD40D8FC
+#define SERDES_L3_TM_ILL12                                                  0XFD40D990
+#define SERDES_L3_TM_E_ILL1                                                 0XFD40D924
+#define SERDES_L3_TM_E_ILL2                                                 0XFD40D928
+#define SERDES_L3_TM_IQ_ILL3                                                0XFD40D900
+#define SERDES_L3_TM_E_ILL3                                                 0XFD40D92C
+#define SERDES_L3_TM_ILL8                                                   0XFD40D980
+#define SERDES_L3_TM_IQ_ILL8                                                0XFD40D914
+#define SERDES_L3_TM_IQ_ILL9                                                0XFD40D918
+#define SERDES_L3_TM_E_ILL8                                                 0XFD40D940
+#define SERDES_L3_TM_E_ILL9                                                 0XFD40D944
+#define SERDES_L3_TM_ILL13                                                  0XFD40D994
+#undef SERDES_UPHY_SPARE0
+#define SERDES_UPHY_SPARE0                                                         0XFD410098
+#undef SERDES_UPHY_SPARE1
+#define SERDES_UPHY_SPARE1                                                         0XFD41009C
+#undef SERDES_UPHY_SPARE2
+#define SERDES_UPHY_SPARE2                                                         0XFD4100A0
+#undef SERDES_UPHY_SPARE3
+#define SERDES_UPHY_SPARE3                                                         0XFD4100A4
+#define SERDES_L0_PLL_STATUS_READ_1                                                0XFD4023E4
+#define SERDES_L0_TM_MISC_ST_0	                                                   0XFD401AC8
+#define SERDES_L1_PLL_STATUS_READ_1                                                0XFD4063E4
+#define SERDES_L1_TM_MISC_ST_0	                                                   0XFD405AC8
+#define SERDES_L2_PLL_STATUS_READ_1                                                0XFD40A3E4
+#define SERDES_L2_TM_MISC_ST_0	                                                   0XFD409AC8
+#define SERDES_L3_PLL_STATUS_READ_1                                                0XFD40E3E4
+#define SERDES_L3_TM_MISC_ST_0	                                                   0XFD40DAC8
+#define SERDES_L0_BIST_CTRL_1     		0xFD403004
+#define SERDES_L0_BIST_CTRL_2     		0xFD403008
+#define SERDES_L0_BIST_RUN_LEN_L     		0xFD40300C
+#define SERDES_L0_BIST_ERR_INJ_POINT_L     	0xFD403010
+#define SERDES_L0_BIST_RUNLEN_ERR_INJ_H     	0xFD403014
+#define SERDES_L0_BIST_IDLE_TIME     		0xFD403018
+#define SERDES_L0_BIST_MARKER_L     		0xFD40301C
+#define SERDES_L0_BIST_IDLE_CHAR_L     		0xFD403020
+#define SERDES_L0_BIST_MARKER_IDLE_H     	0xFD403024
+#define SERDES_L0_BIST_LOW_PULSE_TIME     	0xFD403028
+#define SERDES_L0_BIST_TOTAL_PULSE_TIME     	0xFD40302C
+#define SERDES_L0_BIST_TEST_PAT_1     		0xFD403030
+#define SERDES_L0_BIST_TEST_PAT_2     		0xFD403034
+#define SERDES_L0_BIST_TEST_PAT_3     		0xFD403038
+#define SERDES_L0_BIST_TEST_PAT_4     		0xFD40303C
+#define SERDES_L0_BIST_TEST_PAT_MSBS     	0xFD403040
+#define SERDES_L0_BIST_PKT_NUM     		0xFD403044
+#define SERDES_L0_BIST_FRM_IDLE_TIME     	0xFD403048
+#define SERDES_L0_BIST_PKT_CTR_L     		0xFD40304C
+#define SERDES_L0_BIST_PKT_CTR_H     		0xFD403050
+#define SERDES_L0_BIST_ERR_CTR_L     		0xFD403054
+#define SERDES_L0_BIST_ERR_CTR_H     		0xFD403058
+#define SERDES_L0_BIST_FILLER_OUT     		0xFD403068
+#define SERDES_L0_BIST_FORCE_MK_RST     	0xFD40306C
+#define SERDES_L1_BIST_CTRL_1     		0xFD407004
+#define SERDES_L1_BIST_CTRL_2     		0xFD407008
+#define SERDES_L1_BIST_RUN_LEN_L     		0xFD40700C
+#define SERDES_L1_BIST_ERR_INJ_POINT_L     	0xFD407010
+#define SERDES_L1_BIST_RUNLEN_ERR_INJ_H     	0xFD407014
+#define SERDES_L1_BIST_IDLE_TIME     		0xFD407018
+#define SERDES_L1_BIST_MARKER_L     		0xFD40701C
+#define SERDES_L1_BIST_IDLE_CHAR_L     		0xFD407020
+#define SERDES_L1_BIST_MARKER_IDLE_H     	0xFD407024
+#define SERDES_L1_BIST_LOW_PULSE_TIME     	0xFD407028
+#define SERDES_L1_BIST_TOTAL_PULSE_TIME     	0xFD40702C
+#define SERDES_L1_BIST_TEST_PAT_1     		0xFD407030
+#define SERDES_L1_BIST_TEST_PAT_2     		0xFD407034
+#define SERDES_L1_BIST_TEST_PAT_3     		0xFD407038
+#define SERDES_L1_BIST_TEST_PAT_4     		0xFD40703C
+#define SERDES_L1_BIST_TEST_PAT_MSBS     	0xFD407040
+#define SERDES_L1_BIST_PKT_NUM     		0xFD407044
+#define SERDES_L1_BIST_FRM_IDLE_TIME     	0xFD407048
+#define SERDES_L1_BIST_PKT_CTR_L     		0xFD40704C
+#define SERDES_L1_BIST_PKT_CTR_H     		0xFD407050
+#define SERDES_L1_BIST_ERR_CTR_L     		0xFD407054
+#define SERDES_L1_BIST_ERR_CTR_H     		0xFD407058
+#define SERDES_L1_BIST_FILLER_OUT     		0xFD407068
+#define SERDES_L1_BIST_FORCE_MK_RST     	0xFD40706C
+#define SERDES_L2_BIST_CTRL_1     		0xFD40B004
+#define SERDES_L2_BIST_CTRL_2     		0xFD40B008
+#define SERDES_L2_BIST_RUN_LEN_L     		0xFD40B00C
+#define SERDES_L2_BIST_ERR_INJ_POINT_L     	0xFD40B010
+#define SERDES_L2_BIST_RUNLEN_ERR_INJ_H     	0xFD40B014
+#define SERDES_L2_BIST_IDLE_TIME     		0xFD40B018
+#define SERDES_L2_BIST_MARKER_L     		0xFD40B01C
+#define SERDES_L2_BIST_IDLE_CHAR_L     		0xFD40B020
+#define SERDES_L2_BIST_MARKER_IDLE_H     	0xFD40B024
+#define SERDES_L2_BIST_LOW_PULSE_TIME     	0xFD40B028
+#define SERDES_L2_BIST_TOTAL_PULSE_TIME     	0xFD40B02C
+#define SERDES_L2_BIST_TEST_PAT_1     		0xFD40B030
+#define SERDES_L2_BIST_TEST_PAT_2     		0xFD40B034
+#define SERDES_L2_BIST_TEST_PAT_3     		0xFD40B038
+#define SERDES_L2_BIST_TEST_PAT_4     		0xFD40B03C
+#define SERDES_L2_BIST_TEST_PAT_MSBS     	0xFD40B040
+#define SERDES_L2_BIST_PKT_NUM     		0xFD40B044
+#define SERDES_L2_BIST_FRM_IDLE_TIME     	0xFD40B048
+#define SERDES_L2_BIST_PKT_CTR_L     		0xFD40B04C
+#define SERDES_L2_BIST_PKT_CTR_H     		0xFD40B050
+#define SERDES_L2_BIST_ERR_CTR_L     		0xFD40B054
+#define SERDES_L2_BIST_ERR_CTR_H     		0xFD40B058
+#define SERDES_L2_BIST_FILLER_OUT     		0xFD40B068
+#define SERDES_L2_BIST_FORCE_MK_RST     	0xFD40B06C
+#define SERDES_L3_BIST_CTRL_1     		0xFD40F004
+#define SERDES_L3_BIST_CTRL_2     		0xFD40F008
+#define SERDES_L3_BIST_RUN_LEN_L     		0xFD40F00C
+#define SERDES_L3_BIST_ERR_INJ_POINT_L     	0xFD40F010
+#define SERDES_L3_BIST_RUNLEN_ERR_INJ_H     	0xFD40F014
+#define SERDES_L3_BIST_IDLE_TIME     		0xFD40F018
+#define SERDES_L3_BIST_MARKER_L     		0xFD40F01C
+#define SERDES_L3_BIST_IDLE_CHAR_L     		0xFD40F020
+#define SERDES_L3_BIST_MARKER_IDLE_H     	0xFD40F024
+#define SERDES_L3_BIST_LOW_PULSE_TIME     	0xFD40F028
+#define SERDES_L3_BIST_TOTAL_PULSE_TIME     	0xFD40F02C
+#define SERDES_L3_BIST_TEST_PAT_1     		0xFD40F030
+#define SERDES_L3_BIST_TEST_PAT_2     		0xFD40F034
+#define SERDES_L3_BIST_TEST_PAT_3     		0xFD40F038
+#define SERDES_L3_BIST_TEST_PAT_4     		0xFD40F03C
+#define SERDES_L3_BIST_TEST_PAT_MSBS     	0xFD40F040
+#define SERDES_L3_BIST_PKT_NUM     		0xFD40F044
+#define SERDES_L3_BIST_FRM_IDLE_TIME     	0xFD40F048
+#define SERDES_L3_BIST_PKT_CTR_L     		0xFD40F04C
+#define SERDES_L3_BIST_PKT_CTR_H     		0xFD40F050
+#define SERDES_L3_BIST_ERR_CTR_L     		0xFD40F054
+#define SERDES_L3_BIST_ERR_CTR_H     		0xFD40F058
+#define SERDES_L3_BIST_FILLER_OUT     		0xFD40F068
+#define SERDES_L3_BIST_FORCE_MK_RST     	0xFD40F06C
+#define SERDES_TX_PROT_BUS_WIDTH     		0xFD410040
+#define SERDES_RX_PROT_BUS_WIDTH     		0xFD410044
+#define SERDES_LPBK_CTRL0     			0xFD410038
+#define SERDES_LPBK_CTRL1     			0xFD41003C
+#define SERDES_L0_TM_DIG_22    			0xFD4010AC
+#define SERDES_L1_TM_DIG_22    			0xFD4050AC
+#define SERDES_L2_TM_DIG_22    			0xFD4090AC
+#define SERDES_L3_TM_DIG_22    			0xFD40D0AC
+#define SERDES_L0_DATA_BUS_WID     		0xFD403060
+#define SERDES_L1_DATA_BUS_WID     		0xFD407060
+#define SERDES_L2_DATA_BUS_WID     		0xFD40B060
+#define SERDES_L3_DATA_BUS_WID     		0xFD40F060
+#define SERDES_L0_TX_ANA_TM_3     		0XFD40000C
+#define SERDES_L1_TX_ANA_TM_3     		0XFD40400C
+#define SERDES_L2_TX_ANA_TM_3     		0XFD40800C
+#define SERDES_L3_TX_ANA_TM_3     		0XFD40C00C
+static int serdes_rst_seq (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
+{
+   Xil_Out32(SERDES_UPHY_SPARE0, 0x00000000); //do reset and powerdown
+   Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x00000040); //Enable control of RX reset
+   Xil_Out32(SERDES_L1_TM_ANA_BYP_4, 0x00000040); //Enable control of RX reset
+   Xil_Out32(SERDES_L2_TM_ANA_BYP_4, 0x00000040); //Enable control of RX reset
+   Xil_Out32(SERDES_L3_TM_ANA_BYP_4, 0x00000040); //Enable control of RX reset
+   Xil_Out32(SERDES_L0_TM_PLL_DIG_33, 0x00000080); //Enable control of TX reset
+   Xil_Out32(SERDES_L1_TM_PLL_DIG_33, 0x00000080); //Enable control of TX reset
+   Xil_Out32(SERDES_L2_TM_PLL_DIG_33, 0x00000080); //Enable control of TX reset
+   Xil_Out32(SERDES_L3_TM_PLL_DIG_33, 0x00000080); //Enable control of TX reset
+   Xil_Out32(SERDES_UPHY_SPARE0, 0x00000004); //de-assert full reset including powerup
+   mask_delay(500);
+   if (lane0_rate == 1) Xil_Out32(SERDES_UPHY_SPARE0, 0x0000000E);
+   Xil_Out32(SERDES_UPHY_SPARE0, 0x00000006); //remove electrical idle
+   if (lane0_rate == 1) {
+      Xil_Out32(SERDES_L0_TX_ANA_TM_3, 0x00000004);
+      Xil_Out32(SERDES_L1_TX_ANA_TM_3, 0x00000004);
+      Xil_Out32(SERDES_L2_TX_ANA_TM_3, 0x00000004);
+      Xil_Out32(SERDES_L3_TX_ANA_TM_3, 0x00000004);
+      Xil_Out32(SERDES_UPHY_SPARE0, 0x00000007);
+      mask_delay (4000);
+      Xil_Out32(SERDES_L0_TX_ANA_TM_3, 0x0000000C);
+      Xil_Out32(SERDES_L1_TX_ANA_TM_3, 0x0000000C);
+      Xil_Out32(SERDES_L2_TX_ANA_TM_3, 0x0000000C);
+      Xil_Out32(SERDES_L3_TX_ANA_TM_3, 0x0000000C);
+      mask_delay (150);
+      Xil_Out32(SERDES_UPHY_SPARE0, 0x0000000F);
+      mask_delay (1000);
+   }
+   if (lane0_protocol != 0) mask_poll(SERDES_L0_PLL_STATUS_READ_1, 0x00000010U);
+   if (lane1_protocol != 0) mask_poll(SERDES_L1_PLL_STATUS_READ_1, 0x00000010U);
+   if (lane2_protocol != 0) mask_poll(SERDES_L2_PLL_STATUS_READ_1, 0x00000010U);
+   if (lane3_protocol != 0) mask_poll(SERDES_L3_PLL_STATUS_READ_1, 0x00000010U);
+   mask_delay(500);
+   Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x000000C0); //De-assert RX Reset
+   Xil_Out32(SERDES_L1_TM_ANA_BYP_4, 0x000000C0); //De-assert RX Reset
+   Xil_Out32(SERDES_L2_TM_ANA_BYP_4, 0x000000C0); //De-assert RX Reset
+   Xil_Out32(SERDES_L3_TM_ANA_BYP_4, 0x000000C0); //De-assert RX Reset
+   Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x00000080);
+   Xil_Out32(SERDES_L1_TM_ANA_BYP_4, 0x00000080);
+   Xil_Out32(SERDES_L2_TM_ANA_BYP_4, 0x00000080);
+   Xil_Out32(SERDES_L3_TM_ANA_BYP_4, 0x00000080);
+   Xil_Out32(SERDES_L0_TM_PLL_DIG_33 , 0x000000C0); //De-assert TX Reset
+   Xil_Out32(SERDES_L1_TM_PLL_DIG_33 , 0x000000C0); //De-assert TX Reset
+   Xil_Out32(SERDES_L2_TM_PLL_DIG_33 , 0x000000C0); //De-assert TX Reset
+   Xil_Out32(SERDES_L3_TM_PLL_DIG_33 , 0x000000C0); //De-assert TX Reset
+   mask_delay(500);
+   Xil_Out32(SERDES_L0_TM_PLL_DIG_33 , 0x00000080);
+   Xil_Out32(SERDES_L1_TM_PLL_DIG_33 , 0x00000080);
+   Xil_Out32(SERDES_L2_TM_PLL_DIG_33 , 0x00000080);
+   Xil_Out32(SERDES_L3_TM_PLL_DIG_33 , 0x00000080);
+   mask_delay(500);
+   Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x00000000); //Disable controlling of rx reset
+   Xil_Out32(SERDES_L1_TM_ANA_BYP_4, 0x00000000); //Disable controlling of rx reset
+   Xil_Out32(SERDES_L2_TM_ANA_BYP_4, 0x00000000); //Disable controlling of rx reset
+   Xil_Out32(SERDES_L3_TM_ANA_BYP_4, 0x00000000); //Disable controlling of rx reset
+   Xil_Out32(SERDES_L0_TM_PLL_DIG_33 , 0x00000000); //Disable controlling of tx reset
+   Xil_Out32(SERDES_L1_TM_PLL_DIG_33 , 0x00000000); //Disable controlling of tx reset
+   Xil_Out32(SERDES_L2_TM_PLL_DIG_33 , 0x00000000); //Disable controlling of tx reset
+   Xil_Out32(SERDES_L3_TM_PLL_DIG_33 , 0x00000000); //Disable controlling of tx reset
+   mask_delay(500);
+   return 1;
+}
+static int serdes_bist_static_settings(u32 lane_active)
+{
+   if (lane_active == 0)
+   {
+      Xil_Out32(SERDES_L0_BIST_CTRL_1, (Xil_In32(SERDES_L0_BIST_CTRL_1) & 0xFFFFFF1F));
+      Xil_Out32(SERDES_L0_BIST_FILLER_OUT, 0x1 );
+      Xil_Out32(SERDES_L0_BIST_FORCE_MK_RST, 0x1 );
+      Xil_Out32(SERDES_L0_TM_DIG_22, 0x0020);
+      Xil_Out32(SERDES_L0_BIST_CTRL_2, 0x0);
+      Xil_Out32(SERDES_L0_BIST_RUN_LEN_L, 0xF4);
+      Xil_Out32(SERDES_L0_BIST_ERR_INJ_POINT_L, 0x0);
+      Xil_Out32(SERDES_L0_BIST_RUNLEN_ERR_INJ_H, 0x0);
+      Xil_Out32(SERDES_L0_BIST_IDLE_TIME,0x00);
+      Xil_Out32(SERDES_L0_BIST_MARKER_L, 0xFB);
+      Xil_Out32(SERDES_L0_BIST_IDLE_CHAR_L, 0xFF);
+      Xil_Out32(SERDES_L0_BIST_MARKER_IDLE_H, 0x0);
+      Xil_Out32(SERDES_L0_BIST_LOW_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L0_BIST_TOTAL_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L0_BIST_TEST_PAT_1, 0x4A);
+      Xil_Out32(SERDES_L0_BIST_TEST_PAT_2, 0x4A);
+      Xil_Out32(SERDES_L0_BIST_TEST_PAT_3, 0x4A);
+      Xil_Out32(SERDES_L0_BIST_TEST_PAT_4, 0x4A);
+      Xil_Out32(SERDES_L0_BIST_TEST_PAT_MSBS, 0x0);
+      Xil_Out32(SERDES_L0_BIST_PKT_NUM, 0x14);
+      Xil_Out32(SERDES_L0_BIST_FRM_IDLE_TIME,0x02);
+      Xil_Out32(SERDES_L0_BIST_CTRL_1, (Xil_In32(SERDES_L0_BIST_CTRL_1) & 0xFFFFFF1F));
+   }
+   if (lane_active == 1)
+   {
+      Xil_Out32(SERDES_L1_BIST_CTRL_1, (Xil_In32(SERDES_L1_BIST_CTRL_1) & 0xFFFFFF1F));
+      Xil_Out32(SERDES_L1_BIST_FILLER_OUT, 0x1 );
+      Xil_Out32(SERDES_L1_BIST_FORCE_MK_RST, 0x1 );
+      Xil_Out32(SERDES_L1_TM_DIG_22, 0x0020);
+      Xil_Out32(SERDES_L1_BIST_CTRL_2, 0x0);
+      Xil_Out32(SERDES_L1_BIST_RUN_LEN_L, 0xF4);
+      Xil_Out32(SERDES_L1_BIST_ERR_INJ_POINT_L, 0x0);
+      Xil_Out32(SERDES_L1_BIST_RUNLEN_ERR_INJ_H, 0x0);
+      Xil_Out32(SERDES_L1_BIST_IDLE_TIME,0x00);
+      Xil_Out32(SERDES_L1_BIST_MARKER_L, 0xFB);
+      Xil_Out32(SERDES_L1_BIST_IDLE_CHAR_L, 0xFF);
+      Xil_Out32(SERDES_L1_BIST_MARKER_IDLE_H, 0x0);
+      Xil_Out32(SERDES_L1_BIST_LOW_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L1_BIST_TOTAL_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L1_BIST_TEST_PAT_1, 0x4A);
+      Xil_Out32(SERDES_L1_BIST_TEST_PAT_2, 0x4A);
+      Xil_Out32(SERDES_L1_BIST_TEST_PAT_3, 0x4A);
+      Xil_Out32(SERDES_L1_BIST_TEST_PAT_4, 0x4A);
+      Xil_Out32(SERDES_L1_BIST_TEST_PAT_MSBS, 0x0);
+      Xil_Out32(SERDES_L1_BIST_PKT_NUM, 0x14);
+      Xil_Out32(SERDES_L1_BIST_FRM_IDLE_TIME,0x02);
+      Xil_Out32(SERDES_L1_BIST_CTRL_1, (Xil_In32(SERDES_L1_BIST_CTRL_1) & 0xFFFFFF1F));
+   }
+   if (lane_active == 2)
+   {
+      Xil_Out32(SERDES_L2_BIST_CTRL_1, (Xil_In32(SERDES_L2_BIST_CTRL_1) & 0xFFFFFF1F));
+      Xil_Out32(SERDES_L2_BIST_FILLER_OUT, 0x1 );
+      Xil_Out32(SERDES_L2_BIST_FORCE_MK_RST, 0x1 );
+      Xil_Out32(SERDES_L2_TM_DIG_22, 0x0020);
+      Xil_Out32(SERDES_L2_BIST_CTRL_2, 0x0);
+      Xil_Out32(SERDES_L2_BIST_RUN_LEN_L, 0xF4);
+      Xil_Out32(SERDES_L2_BIST_ERR_INJ_POINT_L, 0x0);
+      Xil_Out32(SERDES_L2_BIST_RUNLEN_ERR_INJ_H, 0x0);
+      Xil_Out32(SERDES_L2_BIST_IDLE_TIME,0x00);
+      Xil_Out32(SERDES_L2_BIST_MARKER_L, 0xFB);
+      Xil_Out32(SERDES_L2_BIST_IDLE_CHAR_L, 0xFF);
+      Xil_Out32(SERDES_L2_BIST_MARKER_IDLE_H, 0x0);
+      Xil_Out32(SERDES_L2_BIST_LOW_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L2_BIST_TOTAL_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L2_BIST_TEST_PAT_1, 0x4A);
+      Xil_Out32(SERDES_L2_BIST_TEST_PAT_2, 0x4A);
+      Xil_Out32(SERDES_L2_BIST_TEST_PAT_3, 0x4A);
+      Xil_Out32(SERDES_L2_BIST_TEST_PAT_4, 0x4A);
+      Xil_Out32(SERDES_L2_BIST_TEST_PAT_MSBS, 0x0);
+      Xil_Out32(SERDES_L2_BIST_PKT_NUM, 0x14);
+      Xil_Out32(SERDES_L2_BIST_FRM_IDLE_TIME,0x02);
+      Xil_Out32(SERDES_L2_BIST_CTRL_1, (Xil_In32(SERDES_L2_BIST_CTRL_1) & 0xFFFFFF1F));
+   }
+   if (lane_active == 3)
+   {
+      Xil_Out32(SERDES_L3_BIST_CTRL_1, (Xil_In32(SERDES_L3_BIST_CTRL_1) & 0xFFFFFF1F));
+      Xil_Out32(SERDES_L3_BIST_FILLER_OUT, 0x1 );
+      Xil_Out32(SERDES_L3_BIST_FORCE_MK_RST, 0x1 );
+      Xil_Out32(SERDES_L3_TM_DIG_22, 0x0020);
+      Xil_Out32(SERDES_L3_BIST_CTRL_2, 0x0);
+      Xil_Out32(SERDES_L3_BIST_RUN_LEN_L, 0xF4);
+      Xil_Out32(SERDES_L3_BIST_ERR_INJ_POINT_L, 0x0);
+      Xil_Out32(SERDES_L3_BIST_RUNLEN_ERR_INJ_H, 0x0);
+      Xil_Out32(SERDES_L3_BIST_IDLE_TIME,0x00);
+      Xil_Out32(SERDES_L3_BIST_MARKER_L, 0xFB);
+      Xil_Out32(SERDES_L3_BIST_IDLE_CHAR_L, 0xFF);
+      Xil_Out32(SERDES_L3_BIST_MARKER_IDLE_H, 0x0);
+      Xil_Out32(SERDES_L3_BIST_LOW_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L3_BIST_TOTAL_PULSE_TIME, 0x00);
+      Xil_Out32(SERDES_L3_BIST_TEST_PAT_1, 0x4A);
+      Xil_Out32(SERDES_L3_BIST_TEST_PAT_2, 0x4A);
+      Xil_Out32(SERDES_L3_BIST_TEST_PAT_3, 0x4A);
+      Xil_Out32(SERDES_L3_BIST_TEST_PAT_4, 0x4A);
+      Xil_Out32(SERDES_L3_BIST_TEST_PAT_MSBS, 0x0);
+      Xil_Out32(SERDES_L3_BIST_PKT_NUM, 0x14);
+      Xil_Out32(SERDES_L3_BIST_FRM_IDLE_TIME,0x02);
+      Xil_Out32(SERDES_L3_BIST_CTRL_1, (Xil_In32(SERDES_L3_BIST_CTRL_1) & 0xFFFFFF1F));
+   }
+   return (1);
+}
+static int serdes_bist_run(u32 lane_active)
+{
+   if (lane_active == 0) {
+     PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x00000003U, 0x00000000U); //Lane-0
+     PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x00000003U, 0x00000000U); //Lane-0
+     PSU_Mask_Write(SERDES_LPBK_CTRL0, 0x00000007U, 0x00000001U); //Lane-0
+     Xil_Out32(SERDES_L0_TM_DIG_22, 0x0020);
+     Xil_Out32(SERDES_L0_BIST_CTRL_1,(Xil_In32(SERDES_L0_BIST_CTRL_1) | 0x1));
+   }
+   if (lane_active == 1) {
+     PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x0000000CU, 0x00000000U); //Lane-1
+     PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x0000000CU, 0x00000000U); //Lane-1
+     PSU_Mask_Write(SERDES_LPBK_CTRL0, 0x00000070U, 0x00000010U); //Lane-1
+     Xil_Out32(SERDES_L1_TM_DIG_22, 0x0020);
+     Xil_Out32(SERDES_L1_BIST_CTRL_1,(Xil_In32(SERDES_L1_BIST_CTRL_1) | 0x1));
+   }
+   if (lane_active == 2) {
+     PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x00000030U, 0x00000000U); //Lane-2
+     PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x00000030U, 0x00000000U); //Lane-2
+     PSU_Mask_Write(SERDES_LPBK_CTRL1, 0x00000007U, 0x00000001U); //Lane-2
+     Xil_Out32(SERDES_L2_TM_DIG_22, 0x0020);
+     Xil_Out32(SERDES_L2_BIST_CTRL_1,(Xil_In32(SERDES_L2_BIST_CTRL_1) | 0x1));
+   }
+   if (lane_active == 3)  {
+     PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x000000C0U, 0x00000000U); //Lane-3
+     PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x000000C0U, 0x00000000U); //Lane-3
+     PSU_Mask_Write(SERDES_LPBK_CTRL1, 0x00000070U, 0x00000010U); //Lane-3
+     Xil_Out32(SERDES_L3_TM_DIG_22, 0x0020);
+     Xil_Out32(SERDES_L3_BIST_CTRL_1,(Xil_In32(SERDES_L3_BIST_CTRL_1) | 0x1));
+   }
+   mask_delay(5000); //5ms for each BIST run
+   return (1);
+}
+static int serdes_bist_result(u32 lane_active)
+{
+   u32 pkt_cnt_l0, pkt_cnt_h0, err_cnt_l0, err_cnt_h0;
+   if (lane_active == 0) {
+      pkt_cnt_l0 = Xil_In32(SERDES_L0_BIST_PKT_CTR_L);
+      pkt_cnt_h0 = Xil_In32(SERDES_L0_BIST_PKT_CTR_H);
+      err_cnt_l0 = Xil_In32(SERDES_L0_BIST_ERR_CTR_L);
+      err_cnt_h0 = Xil_In32(SERDES_L0_BIST_ERR_CTR_H);
+   }
+   if (lane_active == 1) {
+      pkt_cnt_l0 = Xil_In32(SERDES_L1_BIST_PKT_CTR_L);
+      pkt_cnt_h0 = Xil_In32(SERDES_L1_BIST_PKT_CTR_H);
+      err_cnt_l0 = Xil_In32(SERDES_L1_BIST_ERR_CTR_L);
+      err_cnt_h0 = Xil_In32(SERDES_L1_BIST_ERR_CTR_H);
+   }
+   if (lane_active == 2) {
+      pkt_cnt_l0 = Xil_In32(SERDES_L2_BIST_PKT_CTR_L);
+      pkt_cnt_h0 = Xil_In32(SERDES_L2_BIST_PKT_CTR_H);
+      err_cnt_l0 = Xil_In32(SERDES_L2_BIST_ERR_CTR_L);
+      err_cnt_h0 = Xil_In32(SERDES_L2_BIST_ERR_CTR_H);
+   }
+   if (lane_active == 3) {
+      pkt_cnt_l0 = Xil_In32(SERDES_L3_BIST_PKT_CTR_L);
+      pkt_cnt_h0 = Xil_In32(SERDES_L3_BIST_PKT_CTR_H);
+      err_cnt_l0 = Xil_In32(SERDES_L3_BIST_ERR_CTR_L);
+      err_cnt_h0 = Xil_In32(SERDES_L3_BIST_ERR_CTR_H);
+   }
+   if (lane_active == 0) Xil_Out32(SERDES_L0_BIST_CTRL_1,0x0);
+   if (lane_active == 1) Xil_Out32(SERDES_L1_BIST_CTRL_1,0x0);
+   if (lane_active == 2) Xil_Out32(SERDES_L2_BIST_CTRL_1,0x0);
+   if (lane_active == 3) Xil_Out32(SERDES_L3_BIST_CTRL_1,0x0);
+   if((err_cnt_l0 > 0) || (err_cnt_h0 > 0) || ((pkt_cnt_l0 == 0) && (pkt_cnt_h0 == 0)))
+     return (0); //BIST FAIL
+   return (1); //BIST PASS
+}
+static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
+{
+	u32 tempbistresult;
+	u32 currbistresult[4];
+	u32 prevbistresult[4];
+        u32 itercount = 0; //--> corresponds to 0x0B4
+        u32 ill12_val[4], ill1_val[4];
+        u32 loop=0;
+        u32 iterresult[8]; //result to update to OCM
+        u32 meancount[4];
+        u32 bistpasscount[4];
+        u32 meancountalt[4];
+        u32 meancountalt_bistpasscount[4];
+        u32 lane0_active;
+        u32 lane1_active;
+        u32 lane2_active;
+        u32 lane3_active;
+        lane0_active = (lane0_protocol == 1);
+        lane1_active = (lane1_protocol == 1);
+        lane2_active = (lane2_protocol == 1);
+        lane3_active = (lane3_protocol == 1);
+        for (loop=0; loop<=3; loop++)
+        {
+          iterresult[loop] = 0;
+          iterresult[loop+4] = 0;
+          meancountalt[loop] = 0;
+          meancountalt_bistpasscount[loop]=0;
+          meancount[loop] = 0;
+          prevbistresult[loop] = 0;
+          bistpasscount[loop] = 0;
+        }
+        if (lane0_active) serdes_bist_static_settings(0);
+        if (lane1_active) serdes_bist_static_settings(1);
+        if (lane2_active) serdes_bist_static_settings(2);
+        if (lane3_active) serdes_bist_static_settings(3);
+        itercount = 0;
+        do
+        {
+          if (lane0_active == 1) ill1_val[0] =  ((0x04 + itercount*8) % 0x100);
+          if (lane0_active == 1) ill12_val[0] = ((0x04 + itercount*8) >= 0x100) ? 0x10 : 0x00;
+          if (lane1_active == 1) ill1_val[1] =  ((0x04 + itercount*8) % 0x100);
+          if (lane1_active == 1) ill12_val[1] = ((0x04 + itercount*8) >= 0x100) ? 0x10 : 0x00;
+          if (lane2_active == 1) ill1_val[2] =  ((0x04 + itercount*8) % 0x100);
+          if (lane2_active == 1) ill12_val[2] = ((0x04 + itercount*8) >= 0x100) ? 0x10 : 0x00;
+          if (lane3_active == 1) ill1_val[3] =  ((0x04 + itercount*8) % 0x100);
+          if (lane3_active == 1) ill12_val[3] = ((0x04 + itercount*8) >= 0x100) ? 0x10 : 0x00;
+          if (lane0_active == 1) Xil_Out32(SERDES_L0_TM_E_ILL1,ill1_val[0]);
+          if (lane0_active == 1) PSU_Mask_Write(SERDES_L0_TM_ILL12, 0x000000F0U, ill12_val[0]);
+          if (lane1_active == 1) Xil_Out32(SERDES_L1_TM_E_ILL1,ill1_val[1]);
+          if (lane1_active == 1) PSU_Mask_Write(SERDES_L1_TM_ILL12, 0x000000F0U, ill12_val[1]);
+          if (lane2_active == 1) Xil_Out32(SERDES_L2_TM_E_ILL1,ill1_val[2]);
+          if (lane2_active == 1) PSU_Mask_Write(SERDES_L2_TM_ILL12, 0x000000F0U, ill12_val[2]);
+          if (lane3_active == 1) Xil_Out32(SERDES_L3_TM_E_ILL1,ill1_val[3]);
+          if (lane3_active == 1) PSU_Mask_Write(SERDES_L3_TM_ILL12, 0x000000F0U, ill12_val[3]);
+	  if (lane0_active == 1) PSU_Mask_Write(SERDES_L0_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+	  if (lane1_active == 1) PSU_Mask_Write(SERDES_L1_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+	  if (lane2_active == 1) PSU_Mask_Write(SERDES_L2_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+	  if (lane3_active == 1) PSU_Mask_Write(SERDES_L3_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+          if (lane0_active == 1) currbistresult[0] = 0;
+          if (lane1_active == 1) currbistresult[1] = 0;
+          if (lane2_active == 1) currbistresult[2] = 0;
+          if (lane3_active == 1) currbistresult[3] = 0;
+          serdes_rst_seq (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate);
+          if (lane3_active == 1) serdes_bist_run(3);
+          if (lane2_active == 1) serdes_bist_run(2);
+          if (lane1_active == 1) serdes_bist_run(1);
+          if (lane0_active == 1) serdes_bist_run(0);
+          tempbistresult = 0;
+          if (lane3_active == 1) tempbistresult = tempbistresult | serdes_bist_result(3);
+          tempbistresult = tempbistresult << 1;
+          if (lane2_active == 1) tempbistresult = tempbistresult | serdes_bist_result(2);
+          tempbistresult = tempbistresult << 1;
+          if (lane1_active == 1) tempbistresult = tempbistresult | serdes_bist_result(1);
+          tempbistresult = tempbistresult << 1;
+          if (lane0_active == 1) tempbistresult = tempbistresult | serdes_bist_result(0);
+          Xil_Out32(SERDES_UPHY_SPARE0, 0x0);
+          Xil_Out32(SERDES_UPHY_SPARE0, 0x2);
+          if (itercount < 32) {
+             iterresult[0] = ((iterresult[0]<<1) | ((tempbistresult&0x1)==0x1));
+             iterresult[1] = ((iterresult[1]<<1) | ((tempbistresult&0x2)==0x2));
+             iterresult[2] = ((iterresult[2]<<1) | ((tempbistresult&0x4)==0x4));
+             iterresult[3] = ((iterresult[3]<<1) | ((tempbistresult&0x8)==0x8));
+          } else {
+             iterresult[4] = ((iterresult[4]<<1) | ((tempbistresult&0x1)==0x1));
+             iterresult[5] = ((iterresult[5]<<1) | ((tempbistresult&0x2)==0x2));
+             iterresult[6] = ((iterresult[6]<<1) | ((tempbistresult&0x4)==0x4));
+             iterresult[7] = ((iterresult[7]<<1) | ((tempbistresult&0x8)==0x8));
+          }
+          currbistresult[0] = currbistresult[0] | ((tempbistresult&0x1)==1);
+          currbistresult[1] = currbistresult[1] | ((tempbistresult&0x2)==0x2);
+          currbistresult[2] = currbistresult[2] | ((tempbistresult&0x4)==0x4);
+          currbistresult[3] = currbistresult[3] | ((tempbistresult&0x8)==0x8);
+          for (loop=0; loop<=3; loop++)
+          {
+             if ((currbistresult[loop]==1) && (prevbistresult[loop]==1))
+                bistpasscount[loop] = bistpasscount[loop]+1; //acutal bistpasscount+1
+             if ((bistpasscount[loop]<4) && (currbistresult[loop]==0) && (itercount>2))
+             {
+                if (meancountalt_bistpasscount[loop] < bistpasscount[loop])
+                {
+                  meancountalt_bistpasscount[loop] = bistpasscount[loop];
+                  meancountalt[loop] = ((itercount-1)-((bistpasscount[loop]+1)/2));
+                }
+                bistpasscount[loop] = 0;
+             }
+             if ((meancount[loop]==0) && (bistpasscount[loop]>=4) && (currbistresult[loop]==0) && (prevbistresult[loop]==1))
+                meancount[loop] = (itercount-1)-((bistpasscount[loop]+1)/2);
+             prevbistresult[loop] = currbistresult[loop];
+          }
+        }while(++itercount<64);
+        for (loop=0; loop<=3; loop++)
+        {
+          if ((lane0_active == 0) && (loop == 0))  continue;
+          if ((lane1_active == 0) && (loop == 1))  continue;
+          if ((lane2_active == 0) && (loop == 2))  continue;
+          if ((lane3_active == 0) && (loop == 3))  continue;
+          Xil_Out32(0xFFFE0000+loop*4,iterresult[loop]);
+          Xil_Out32(0xFFFE0010+loop*4,iterresult[loop+4]);
+          Xil_Out32(0xFFFE0020+loop*4,bistpasscount[loop]);
+          Xil_Out32(0xFFFE0030+loop*4,meancount[loop]);
+          if (meancount[loop] == 0)
+            meancount[loop] = meancountalt[loop];
+          Xil_Out32(0xFFFE0040+loop*4,meancountalt[loop]);
+          ill1_val[loop] = ((0x04 + meancount[loop]*8) % 0x100);
+          ill12_val[loop] = ((0x04 + meancount[loop]*8) >= 0x100) ? 0x10 : 0x00;
+        }
+        if (lane0_active == 1) Xil_Out32(SERDES_L0_TM_E_ILL1,ill1_val[0]);
+        if (lane0_active == 1) PSU_Mask_Write(SERDES_L0_TM_ILL12, 0x000000F0U, ill12_val[0]);
+        if (lane1_active == 1) Xil_Out32(SERDES_L1_TM_E_ILL1,ill1_val[1]);
+        if (lane1_active == 1) PSU_Mask_Write(SERDES_L1_TM_ILL12, 0x000000F0U, ill12_val[1]);
+        if (lane2_active == 1) Xil_Out32(SERDES_L2_TM_E_ILL1,ill1_val[2]);
+        if (lane2_active == 1) PSU_Mask_Write(SERDES_L2_TM_ILL12, 0x000000F0U, ill12_val[2]);
+        if (lane3_active == 1) Xil_Out32(SERDES_L3_TM_E_ILL1,ill1_val[3]);
+        if (lane3_active == 1) PSU_Mask_Write(SERDES_L3_TM_ILL12, 0x000000F0U, ill12_val[3]);
+	if (lane0_active == 1) PSU_Mask_Write(SERDES_L0_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+	if (lane1_active == 1) PSU_Mask_Write(SERDES_L1_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+	if (lane2_active == 1) PSU_Mask_Write(SERDES_L2_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+	if (lane3_active == 1) PSU_Mask_Write(SERDES_L3_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+        Xil_Out32(SERDES_UPHY_SPARE0,0);
+        if (lane0_active == 1)
+        {
+           Xil_Out32(SERDES_L0_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L0_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L0_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L0_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L0_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L0_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L0_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L0_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L0_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L0_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L0_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L0_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L0_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L0_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L0_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L0_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L0_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x00000003U, 0x00000001U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x00000003U, 0x00000001U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL0, 0x00000007U, 0x00000000U); //Lane-0
+        }
+        if (lane1_active == 1)
+        {
+           Xil_Out32(SERDES_L1_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L1_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L1_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L1_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L1_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L1_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L1_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L1_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L1_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L1_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L1_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L1_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L1_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L1_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L1_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L1_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L1_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x0000000CU, 0x00000004U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x0000000CU, 0x00000004U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL0, 0x00000070U, 0x00000000U); //Lane-0
+        }
+        if (lane2_active == 1)
+        {
+           Xil_Out32(SERDES_L2_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L2_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L2_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L2_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L2_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L2_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L2_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L2_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L2_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L2_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L2_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L2_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L2_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L2_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L2_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L2_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L2_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x00000030U, 0x00000010U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x00000030U, 0x00000010U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL1, 0x00000007U, 0x00000000U); //Lane-0
+        }
+        if (lane3_active == 1)
+        {
+           Xil_Out32(SERDES_L3_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L3_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L3_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L3_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L3_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L3_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L3_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L3_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L3_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L3_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L3_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L3_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L3_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L3_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L3_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L3_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L3_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x000000C0U, 0x00000040U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x000000C0U, 0x00000040U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL1, 0x00000070U, 0x00000000U); //Lane-0
+        }
+        return 1;
+}
+static int serdes_illcalib_pcie_gen2 (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
+{
+	u32 tempbistresult;
+	u32 currbistresult[4];
+	u32 prevbistresult[4];
+        u32 itercount = 0; //--> corresponds to 0x0B4
+        u32 ill12_val[4], ill1_val[4];
+        u32 loop=0;
+        u64 iterresult[8]; //result to update to OCM
+        u32 meancount[4];
+        u32 bistpasscount[4];
+        u32 meancountalt[4];
+        u32 meancountalt_bistpasscount[4];
+        u32 lane0_active;
+        u32 lane1_active;
+        u32 lane2_active;
+        u32 lane3_active;
+        lane0_active = (lane0_protocol == 1);
+        lane1_active = (lane1_protocol == 1);
+        lane2_active = (lane2_protocol == 1);
+        lane3_active = (lane3_protocol == 1);
+        for (loop=0; loop<=3; loop++)
+        {
+          iterresult[loop] = 0;
+          iterresult[loop+4] = 0;
+          meancountalt[loop] = 0;
+          meancountalt_bistpasscount[loop]=0;
+          meancount[loop] = 0;
+          prevbistresult[loop] = 0;
+          bistpasscount[loop] = 0;
+        }
+        itercount = 0;
+        if (lane0_active) serdes_bist_static_settings(0);
+        if (lane1_active) serdes_bist_static_settings(1);
+        if (lane2_active) serdes_bist_static_settings(2);
+        if (lane3_active) serdes_bist_static_settings(3);
+        do
+        {
+          if (lane0_active == 1) ill1_val[0] = ((0x104 + itercount*8) % 0x100);
+          if (lane0_active == 1) ill12_val[0] = ((0x104 + itercount*8) >= 0x200) ? 0x02 : 0x01;
+          if (lane1_active == 1) ill1_val[1] = ((0x104 + itercount*8) % 0x100);
+          if (lane1_active == 1) ill12_val[1] = ((0x104 + itercount*8) >= 0x200) ? 0x02 : 0x01;
+          if (lane2_active == 1) ill1_val[2] = ((0x104 + itercount*8) % 0x100);
+          if (lane2_active == 1) ill12_val[2] = ((0x104 + itercount*8) >= 0x200) ? 0x02 : 0x01;
+          if (lane3_active == 1) ill1_val[3] = ((0x104 + itercount*8) % 0x100);
+          if (lane3_active == 1) ill12_val[3] = ((0x104 + itercount*8) >= 0x200) ? 0x02 : 0x01;
+          if (lane0_active == 1) Xil_Out32(SERDES_L0_TM_E_ILL2,ill1_val[0]);
+          if (lane0_active == 1) PSU_Mask_Write(SERDES_L0_TM_ILL12, 0x0000000FU, ill12_val[0]);
+          if (lane1_active == 1) Xil_Out32(SERDES_L1_TM_E_ILL2,ill1_val[1]);
+          if (lane1_active == 1) PSU_Mask_Write(SERDES_L1_TM_ILL12, 0x0000000FU, ill12_val[1]);
+          if (lane2_active == 1) Xil_Out32(SERDES_L2_TM_E_ILL2,ill1_val[2]);
+          if (lane2_active == 1) PSU_Mask_Write(SERDES_L2_TM_ILL12, 0x0000000FU, ill12_val[2]);
+          if (lane3_active == 1) Xil_Out32(SERDES_L3_TM_E_ILL2,ill1_val[3]);
+          if (lane3_active == 1) PSU_Mask_Write(SERDES_L3_TM_ILL12, 0x0000000FU, ill12_val[3]);
+	  if (lane0_active == 1) PSU_Mask_Write(SERDES_L0_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+	  if (lane1_active == 1) PSU_Mask_Write(SERDES_L1_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+	  if (lane2_active == 1) PSU_Mask_Write(SERDES_L2_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+	  if (lane3_active == 1) PSU_Mask_Write(SERDES_L3_TM_ANA_BYP_7, 0x00000030U, 0x00000010U);
+          if (lane0_active == 1) currbistresult[0] = 0;
+          if (lane1_active == 1) currbistresult[1] = 0;
+          if (lane2_active == 1) currbistresult[2] = 0;
+          if (lane3_active == 1) currbistresult[3] = 0;
+          serdes_rst_seq (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate);
+          if (lane3_active == 1) serdes_bist_run(3);
+          if (lane2_active == 1) serdes_bist_run(2);
+          if (lane1_active == 1) serdes_bist_run(1);
+          if (lane0_active == 1) serdes_bist_run(0);
+          tempbistresult = 0;
+          if (lane3_active == 1) tempbistresult = tempbistresult | serdes_bist_result(3);
+          tempbistresult = tempbistresult << 1;
+          if (lane2_active == 1) tempbistresult = tempbistresult | serdes_bist_result(2);
+          tempbistresult = tempbistresult << 1;
+          if (lane1_active == 1) tempbistresult = tempbistresult | serdes_bist_result(1);
+          tempbistresult = tempbistresult << 1;
+          if (lane0_active == 1) tempbistresult = tempbistresult | serdes_bist_result(0);
+          Xil_Out32(SERDES_UPHY_SPARE0, 0x0);
+          Xil_Out32(SERDES_UPHY_SPARE0, 0x2);
+          if (itercount < 32) {
+             if (lane0_active == 1) iterresult[0] = ((iterresult[0]<<1) | ((tempbistresult&0x1)==0x1));
+             if (lane1_active == 1) iterresult[1] = ((iterresult[1]<<1) | ((tempbistresult&0x2)==0x2));
+             if (lane2_active == 1) iterresult[2] = ((iterresult[2]<<1) | ((tempbistresult&0x4)==0x4));
+             if (lane3_active == 1) iterresult[3] = ((iterresult[3]<<1) | ((tempbistresult&0x8)==0x8));
+          } else {
+             if (lane0_active == 1) iterresult[4] = ((iterresult[4]<<1) | ((tempbistresult&0x1)==0x1));
+             if (lane1_active == 1) iterresult[5] = ((iterresult[5]<<1) | ((tempbistresult&0x2)==0x2));
+             if (lane2_active == 1) iterresult[6] = ((iterresult[6]<<1) | ((tempbistresult&0x4)==0x4));
+             if (lane3_active == 1) iterresult[7] = ((iterresult[7]<<1) | ((tempbistresult&0x8)==0x8));
+          }
+          if (lane0_active == 1) currbistresult[0] = currbistresult[0] | ((tempbistresult&0x1)==0x1);
+          if (lane1_active == 1) currbistresult[1] = currbistresult[1] | ((tempbistresult&0x2)==0x2);
+          if (lane2_active == 1) currbistresult[2] = currbistresult[2] | ((tempbistresult&0x4)==0x4);
+          if (lane3_active == 1) currbistresult[3] = currbistresult[3] | ((tempbistresult&0x8)==0x8);
+          for (loop=0; loop<=3; loop++)
+          {
+             if ((currbistresult[loop]==1) && (prevbistresult[loop]==1))
+                bistpasscount[loop] = bistpasscount[loop]+1; //acutal bistpasscount+1
+             if ((bistpasscount[loop]<4) && (currbistresult[loop]==0) && (itercount>2))
+             {
+                if (meancountalt_bistpasscount[loop] < bistpasscount[loop])
+                {
+                  meancountalt_bistpasscount[loop] = bistpasscount[loop];
+                  meancountalt[loop] = ((itercount-1)-((bistpasscount[loop]+1)/2));
+                }
+                bistpasscount[loop] = 0;
+             }
+             if ((meancount[loop]==0) && (bistpasscount[loop]>=4) && (currbistresult[loop]==0) && (prevbistresult[loop]==1))
+                meancount[loop] = (itercount-1)-((bistpasscount[loop]+1)/2);
+             prevbistresult[loop] = currbistresult[loop];
+          }
+        }while(++itercount<64);
+        for (loop=0; loop<=3; loop++)
+        {
+          if (meancount[loop] == 0)
+            meancount[loop] = meancountalt[loop];
+          ill1_val[loop] = ((0x104 + meancount[loop]*8) % 0x100);
+          ill12_val[loop] = ((0x104 + meancount[loop]*8) >= 0x200) ? 0x02 : 0x01;
+        }
+        if (lane0_active == 1) Xil_Out32(SERDES_L0_TM_E_ILL2,ill1_val[0]);
+        if (lane0_active == 1) PSU_Mask_Write(SERDES_L0_TM_ILL12, 0x0000000FU, ill12_val[0]);
+        if (lane1_active == 1) Xil_Out32(SERDES_L1_TM_E_ILL2,ill1_val[1]);
+        if (lane1_active == 1) PSU_Mask_Write(SERDES_L1_TM_ILL12, 0x0000000FU, ill12_val[1]);
+        if (lane2_active == 1) Xil_Out32(SERDES_L2_TM_E_ILL2,ill1_val[2]);
+        if (lane2_active == 1) PSU_Mask_Write(SERDES_L2_TM_ILL12, 0x0000000FU, ill12_val[2]);
+        if (lane3_active == 1) Xil_Out32(SERDES_L3_TM_E_ILL2,ill1_val[3]);
+        if (lane3_active == 1) PSU_Mask_Write(SERDES_L3_TM_ILL12, 0x0000000FU, ill12_val[3]);
+	PSU_Mask_Write(SERDES_L0_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+	PSU_Mask_Write(SERDES_L1_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+	PSU_Mask_Write(SERDES_L2_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+	PSU_Mask_Write(SERDES_L3_TM_ANA_BYP_7, 0x00000030U, 0x00000000U);
+        Xil_Out32(SERDES_UPHY_SPARE0,0);
+        if (lane0_active == 1)
+        {
+           Xil_Out32(SERDES_L0_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L0_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L0_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L0_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L0_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L0_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L0_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L0_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L0_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L0_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L0_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L0_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L0_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L0_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L0_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L0_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L0_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L0_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L0_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x00000003U, 0x00000001U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x00000003U, 0x00000001U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL0, 0x00000007U, 0x00000000U); //Lane-0
+        }
+        if (lane1_active == 1)
+        {
+           Xil_Out32(SERDES_L1_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L1_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L1_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L1_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L1_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L1_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L1_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L1_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L1_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L1_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L1_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L1_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L1_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L1_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L1_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L1_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L1_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L1_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L1_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x0000000CU, 0x00000004U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x0000000CU, 0x00000004U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL0, 0x00000070U, 0x00000000U); //Lane-0
+        }
+        if (lane2_active == 1)
+        {
+           Xil_Out32(SERDES_L2_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L2_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L2_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L2_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L2_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L2_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L2_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L2_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L2_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L2_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L2_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L2_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L2_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L2_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L2_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L2_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L2_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L2_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L2_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x00000030U, 0x00000010U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x00000030U, 0x00000010U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL1, 0x00000007U, 0x00000000U); //Lane-0
+        }
+        if (lane3_active == 1)
+        {
+           Xil_Out32(SERDES_L3_BIST_CTRL_1,0);
+           Xil_Out32(SERDES_L3_BIST_CTRL_2,0);
+           Xil_Out32(SERDES_L3_BIST_RUN_LEN_L,0);
+           Xil_Out32(SERDES_L3_BIST_ERR_INJ_POINT_L,0);
+           Xil_Out32(SERDES_L3_BIST_RUNLEN_ERR_INJ_H,0);
+           Xil_Out32(SERDES_L3_BIST_IDLE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_MARKER_L,0);
+           Xil_Out32(SERDES_L3_BIST_IDLE_CHAR_L,0);
+           Xil_Out32(SERDES_L3_BIST_MARKER_IDLE_H,0);
+           Xil_Out32(SERDES_L3_BIST_LOW_PULSE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_TOTAL_PULSE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_1,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_2,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_3,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_4,0);
+           Xil_Out32(SERDES_L3_BIST_TEST_PAT_MSBS,0);
+           Xil_Out32(SERDES_L3_BIST_PKT_NUM,0);
+           Xil_Out32(SERDES_L3_BIST_FRM_IDLE_TIME,0);
+           Xil_Out32(SERDES_L3_BIST_PKT_CTR_L,0);
+           Xil_Out32(SERDES_L3_BIST_PKT_CTR_H,0);
+           Xil_Out32(SERDES_L3_BIST_ERR_CTR_L,0);
+           Xil_Out32(SERDES_L3_BIST_ERR_CTR_H,0);
+           Xil_Out32(SERDES_L3_BIST_FILLER_OUT,1);
+           Xil_Out32(SERDES_L3_BIST_FORCE_MK_RST,0);
+           Xil_Out32(SERDES_L3_TM_DIG_22,0);
+           PSU_Mask_Write(SERDES_RX_PROT_BUS_WIDTH, 0x000000C0U, 0x00000040U); //Lane-0
+           PSU_Mask_Write(SERDES_TX_PROT_BUS_WIDTH, 0x000000C0U, 0x00000040U); //Lane-0
+           PSU_Mask_Write(SERDES_LPBK_CTRL1, 0x00000070U, 0x00000000U); //Lane-0
+        }
+        return 1;
+}
+#define SATA_AHCI_PORT0_CNTRL_PXCLB	0xFD0C0100
+#define SATA_AHCI_PORT0_CNTRL_PXCLBU	0xFD0C0104
+#define SATA_AHCI_PORT0_CNTRL_PXFB	0xFD0C0108
+#define SATA_AHCI_PORT0_CNTRL_PXFBU	0xFD0C010C
+#define SATA_AHCI_PORT0_CNTRL_PXIS	0xFD0C0110
+#define SATA_AHCI_PORT0_CNTRL_PXIE	0xFD0C0114
+#define SATA_AHCI_PORT0_CNTRL_PXCMD	0xFD0C0118
+#define SATA_AHCI_PORT0_CNTRL_PXTFD	0xFD0C0120
+#define SATA_AHCI_PORT0_CNTRL_PXSIG	0xFD0C0124
+#define SATA_AHCI_PORT0_CNTRL_PXSSTS	0xFD0C0128
+#define SATA_AHCI_PORT0_CNTRL_PXSCTL	0xFD0C012C
+#define SATA_AHCI_PORT0_CNTRL_PXSERR	0xFD0C0130
+#define SATA_AHCI_PORT0_CNTRL_PXSACT	0xFD0C0134
+#define SATA_AHCI_PORT0_CNTRL_PXCI	0xFD0C0138
+#define SATA_AHCI_PORT0_CNTRL_PXSNTF	0xFD0C013C
+#define SATA_AHCI_PORT0_CNTRL_PXFBS	0xFD0C0140
+#define SATA_AHCI_PORT0_CNTRL_PXDEVSLP	0xFD0C0144
+#define SATA_AHCI_PORT0_CNTRL_PBERR	0xFD0C0170
+#define SATA_AHCI_PORT0_CNTRL_CMDS	0xFD0C0174
+#define SATA_AHCI_PORT1_CNTRL_PXCLB	0xFD0C0180
+#define SATA_AHCI_PORT1_CNTRL_PXCLBU	0xFD0C0184
+#define SATA_AHCI_PORT1_CNTRL_PXFB	0xFD0C0188
+#define SATA_AHCI_PORT1_CNTRL_PXFBU	0xFD0C018C
+#define SATA_AHCI_PORT1_CNTRL_PXIS	0xFD0C0190
+#define SATA_AHCI_PORT1_CNTRL_PXIE	0xFD0C0194
+#define SATA_AHCI_PORT1_CNTRL_PXCMD	0xFD0C0198
+#define SATA_AHCI_PORT1_CNTRL_PXTFD	0xFD0C01A0
+#define SATA_AHCI_PORT1_CNTRL_PXSIG	0xFD0C01A4
+#define SATA_AHCI_PORT1_CNTRL_PXSSTS	0xFD0C01A8
+#define SATA_AHCI_PORT1_CNTRL_PXSCTL	0xFD0C01AC
+#define SATA_AHCI_PORT1_CNTRL_PXSERR	0xFD0C01B0
+#define SATA_AHCI_PORT1_CNTRL_PXSACT	0xFD0C01B4
+#define SATA_AHCI_PORT1_CNTRL_PXCI	0xFD0C01B8
+#define SATA_AHCI_PORT1_CNTRL_PXSNTF	0xFD0C01BC
+#define SATA_AHCI_PORT1_CNTRL_PXFBS	0xFD0C01C0
+#define SATA_AHCI_PORT1_CNTRL_PXDEVSLP	0xFD0C01C4
+#define SATA_AHCI_PORT1_CNTRL_PBERR	0xFD0C01F0
+#define SATA_AHCI_PORT1_CNTRL_CMDS	0xFD0C01F4
+#define SATA_AHCI_VENDOR_PCTRL	0xFD0C00A0
+#define SATA_AHCI_VENDOR_PCFG	0xFD0C00A4
+#define SATA_AHCI_VENDOR_PPCFG	0xFD0C00A8
+#define SATA_AHCI_VENDOR_PP2C	0xFD0C00AC
+#define SATA_AHCI_VENDOR_PP3C	0xFD0C00B0
+#define SATA_AHCI_VENDOR_PP4C	0xFD0C00B4
+#define SATA_AHCI_VENDOR_PP5C	0xFD0C00B8
+#define SATA_AHCI_VENDOR_AXICC	0xFD0C00BC
+#define SATA_AHCI_VENDOR_PAXIC	0xFD0C00C0
+#define SATA_AHCI_VENDOR_AXIPC	0xFD0C00C4
+#define SATA_AHCI_VENDOR_PTC	0xFD0C00C8
+#define SATA_AHCI_VENDOR_PTS	0xFD0C00CC
+#define SATA_AHCI_VENDOR_PLC	0xFD0C00D0
+#define SATA_AHCI_VENDOR_PLC1	0xFD0C00D4
+#define SATA_AHCI_VENDOR_PLC2	0xFD0C00D8
+#define SATA_AHCI_VENDOR_PLS	0xFD0C00DC
+#define SATA_AHCI_VENDOR_PLS1	0xFD0C00E0
+#define SATA_AHCI_VENDOR_PCMDC	0xFD0C00E4
+#define SATA_AHCI_VENDOR_PPCS	0xFD0C00E8
+#define SATA_AHCI_VENDOR_AMS	0xFD0C00EC
+#define SATA_AHCI_VENDOR_TCR	0xFD0C00F0
+#define SATA_AHCI_VENDOR_PCFG_PAD_SHIFT  0
+#define SATA_AHCI_VENDOR_PCFG_PAD_MASK   0x0000003F
+#define SATA_AHCI_VENDOR_PLC_S4A_SHIFT   6
+#define SATA_AHCI_VENDOR_PLC_S4A_MASK    0x00000040
+#define SATA_AHCI_VENDOR_PLC_AIR_SHIFT   8
+#define SATA_AHCI_VENDOR_PLC_AIR_MASK    0x0000FF00
+#define SATA_AHCI_VENDOR_PPCFG_PBPNA_SHIFT  26
+#define SATA_AHCI_VENDOR_PPCFG_PBPNA_MASK   0x04000000
+#define SATA_AHCI_VENDOR_PPCFG_PBCE_SHIFT   25
+#define SATA_AHCI_VENDOR_PPCFG_PBPE_SHIFT   24
+#define SATA_AHCI_VENDOR_PPCFG_PBPE_MASK    0x01000000
+#define SATA_AHCI_VENDOR_PPCFG_PBCE_MASK    0x02000000
+#define SATA_AHCI_VENDOR_PPCFG_PBPS_SHIFT   21
+#define SATA_AHCI_VENDOR_PPCFG_PBPS_WIDTH   3
+#define SATA_AHCI_VENDOR_PPCFG_PBPS_MASK    0x00e00000
+#define SATA_AHCI_VENDOR_PPCFG_PBPS_DEFVAL  0x0
+#define SATA_AHCI_PORT0_CNTRL_PXCMD_ST_SHIFT  0
+#define SATA_AHCI_PORT0_CNTRL_PXCMD_ST_MASK   0x00000001
+#define SATA_AHCI_PORT1_CNTRL_PXCMD_ST_SHIFT  0
+#define SATA_AHCI_PORT1_CNTRL_PXCMD_ST_MASK   0x00000001
+#define SIOU_SATA_MISC_CTRL                   0xFD3D0100
+#undef SERDES_PLL_REF_SEL0_OFFSET
+#define SERDES_PLL_REF_SEL0_OFFSET  0xFD410000
+#undef SERDES_PLL_REF_SEL1_OFFSET
+#define SERDES_PLL_REF_SEL1_OFFSET  0xFD410004
+#undef SERDES_PLL_REF_SEL2_OFFSET
+#define SERDES_PLL_REF_SEL2_OFFSET  0xFD410008
+#undef SERDES_PLL_REF_SEL3_OFFSET
+#define SERDES_PLL_REF_SEL3_OFFSET  0xFD41000C
+#undef SERDES_ICM_CFG0_OFFSET
+#define SERDES_ICM_CFG0_OFFSET     0xFD410010
+#undef SERDES_ICM_CFG1_OFFSET
+#define SERDES_ICM_CFG1_OFFSET     0xFD410014
+static void config_reg(unsigned long addr,unsigned long shift,unsigned long mask,unsigned long value) {
+  unsigned long rdata =0;
+  rdata  = Xil_In32(addr);
+  rdata  = rdata & (~mask);
+  rdata  = rdata | (value << shift);
+  Xil_Out32(addr,rdata);
+}
+static int sata_config_for_bist(int lane, int rate)
+{
+  unsigned int i;
+  unsigned int clb_addr    = 0xFFFF0000;
+  unsigned int fis_addr    = 0xFFFF0400;
+  unsigned int fb_addr     = 0xFFFF0800;
+  unsigned int clb_addr1   = 0xFFFF0C00;
+  unsigned int fis_addr1   = 0xFFFF1000;
+  unsigned int fb_addr1    = 0xFFFF1400;
+  unsigned int error_cnt = 0;
+  short int CR;
+  unsigned int rdata=0;
+  if ((lane == 0) || (lane == 2))
+     config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x2);
+  if ((lane == 1) || (lane == 3))
+     config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x3);
+  config_reg(SATA_AHCI_VENDOR_PLC,SATA_AHCI_VENDOR_PLC_S4A_SHIFT,SATA_AHCI_VENDOR_PLC_S4A_MASK,0x1);
+  config_reg(SATA_AHCI_VENDOR_PLC,SATA_AHCI_VENDOR_PLC_AIR_SHIFT,SATA_AHCI_VENDOR_PLC_AIR_MASK,0x4);
+  Xil_Out32(SATA_AHCI_VENDOR_PPCFG,0x08101FFF);
+  config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBPNA_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBPNA_MASK,0x1); //Near end retimed lop back
+  config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBCE_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBCE_MASK,0x1); // BIST clear error
+  config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBPE_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBPE_MASK,0x1); // Enables Test pattern gen
+  config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBPS_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBPS_MASK,0x4); // BIST pattern
+  if ((lane == 0) || (lane == 2))
+     Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXSERR,0xFFFFFFFF);
+  if ((lane == 1) || (lane == 3))
+     Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXSERR,0xFFFFFFFF);
+  i=0;
+  while((Xil_In32(SATA_AHCI_VENDOR_PPCS) & 0x1F) != 0x8) {
+     if (i++ == PSU_MASK_POLL_TIME) {error_cnt=1; break;}
+  }
+  mask_delay(500);
+  Xil_Out32(clb_addr + 0x00, 0x00000805);
+  Xil_Out32(clb_addr + 0x04, 0x00000000);
+  Xil_Out32(clb_addr + 0x08, fis_addr);
+  Xil_Out32(clb_addr + 0x0C, 0x00000000);
+  Xil_Out32(clb_addr + 0x10, 0x00000000);
+  Xil_Out32(clb_addr + 0x14, 0x00000000);
+  Xil_Out32(clb_addr + 0x18, 0x00000000);
+  Xil_Out32(clb_addr + 0x1c, 0x00000000);
+  Xil_Out32(fis_addr + 0x00, 0x00010058);
+  Xil_Out32(fis_addr + 0x04, 0xAAAAA034);
+  Xil_Out32(fis_addr + 0x08, 0xBBBBB034);
+  Xil_Out32(fis_addr + 0x0C, 0x00000000);
+  Xil_Out32(fis_addr + 0x10, 0x00000000);
+  Xil_Out32(fis_addr + 0x14, 0x00000000);
+  Xil_Out32(clb_addr1 + 0x00, 0x00000805);
+  Xil_Out32(clb_addr1 + 0x04, 0x00000000);
+  Xil_Out32(clb_addr1 + 0x08, fis_addr1);
+  Xil_Out32(clb_addr1 + 0x0C, 0x00000000);
+  Xil_Out32(clb_addr1 + 0x10, 0x00000000);
+  Xil_Out32(clb_addr1 + 0x14, 0x00000000);
+  Xil_Out32(clb_addr1 + 0x18, 0x00000000);
+  Xil_Out32(clb_addr1 + 0x1c, 0x00000000);
+  Xil_Out32(fis_addr1 + 0x00, 0x00010058);
+  Xil_Out32(fis_addr1 + 0x04, 0xCCCCC034);
+  Xil_Out32(fis_addr1 + 0x08, 0xDDDDD034);
+  Xil_Out32(fis_addr1 + 0x0C, 0x00000000);
+  Xil_Out32(fis_addr1 + 0x10, 0x00000000);
+  Xil_Out32(fis_addr1 + 0x14, 0x00000000);
+  mask_delay(500);
+  if ((lane == 0) || (lane == 2)) {
+     config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x2);
+     config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBPNA_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBPNA_MASK,0x0); //Near end retimed loop back
+  }
+  if ((lane == 1) || (lane == 3)) {
+     config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x3);
+     config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBPNA_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBPNA_MASK,0x0); //Near end retimed loop back
+  }
+  mask_delay(500);
+  if ((lane == 0) || (lane == 2))
+  {
+    Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXCLB,clb_addr);// set cmnd headr addr
+    Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXFB,fb_addr);// set Rx FIS base addr
+    rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PXCMD);
+    Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXCMD, (rdata | 0x00000010)); //set FRE to receive Rx FISES from Device
+    rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PXCMD);
+    CR     = (rdata & 0x00008000);
+    i=0;
+    while(CR != 0) { //cmd list running or idle
+      rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PXCMD);
+      CR     = (rdata & 0x00008000);
+      if (i++ == PSU_MASK_POLL_TIME) {error_cnt = (error_cnt<<1)|1; break;}
+    } //while
+    Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXCMD,(rdata | 0x1));
+  }
+  if ((lane == 1) || (lane == 3))
+  {
+    Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXCLB,clb_addr1);// set cmnd headr addr
+    Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXFB,fb_addr1);// set Rx FIS base addr
+    rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PXCMD);
+    Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXCMD, (rdata | 0x00000010)); //set FRE to receive Rx FISES from Device
+    rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PXCMD);
+    CR     = (rdata & 0x00008000);
+    i=0;
+    while(CR != 0) { //cmd list running or idle
+      rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PXCMD);
+      CR     = (rdata & 0x00008000);
+      if (i++ == PSU_MASK_POLL_TIME) {error_cnt = (error_cnt<<1)|1; break;}
+    } //while
+    Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXCMD,(rdata | 0x1));
+  }
+  return (error_cnt);
+}
+static int sata_p0_p1_bist (int lane, int rate, unsigned long delay) {
+      unsigned int i;
+      unsigned int ocm_addr_rxdata;
+      unsigned int rdata;
+      unsigned int error_cnt=0;
+      sata_Phyctrl_config_mod1(lane, rate); // SERDES Config
+      error_cnt = sata_config_for_bist (lane, rate);
+      if (error_cnt > 0) return error_cnt;
+      if ((lane == 0) || (lane == 2)) //port-0
+      {
+         error_cnt = error_cnt << 1;
+         i=0;
+         while(Xil_In32(SATA_AHCI_PORT0_CNTRL_PXCI) != 0) {
+            if (i++ == PSU_MASK_POLL_TIME) {error_cnt=error_cnt|1;}// kishore-tbd-break;
+         }
+         error_cnt = error_cnt << 1;
+         Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXCI, 0x1);
+         config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x2);
+         config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBCE_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBCE_MASK,0x0);
+         ocm_addr_rxdata = 0xFFFF1800;
+         rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PBERR); //Wait for PBERR[0] =0
+          i=0;
+         while((rdata & 0x1) == 1) {
+              Xil_Out32(ocm_addr_rxdata,(Xil_In32(SATA_AHCI_VENDOR_PPCS)));
+            rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PBERR);
+            if (i++ == PSU_MASK_POLL_TIME) {error_cnt=error_cnt|1;}// kishore-tbd-break;
+         }
+         error_cnt = error_cnt << 1;
+         Xil_Out32(SATA_AHCI_PORT0_CNTRL_PBERR,0x2); // Clear sticky bit PBERR[1] = 1
+         mask_delay(delay);
+         rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PBERR); // Check for sticky bit cleared
+         if((rdata & 0x2) != 0) {
+            error_cnt=error_cnt|1;
+         }
+         error_cnt = error_cnt << 1;
+           rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PXCI);
+       i=0;
+       while((rdata & 0x1) == 1) {
+           Xil_Out32(ocm_addr_rxdata,(Xil_In32(SATA_AHCI_VENDOR_PPCS)));
+           rdata  = Xil_In32(SATA_AHCI_PORT0_CNTRL_PXCI);
+       }
+       error_cnt = error_cnt << 1;
+         config_reg(SATA_AHCI_PORT0_CNTRL_PXCMD,SATA_AHCI_PORT0_CNTRL_PXCMD_ST_SHIFT,SATA_AHCI_PORT0_CNTRL_PXCMD_ST_MASK,0x0);
+      }
+      if ((lane == 1) || (lane == 3)) //port-0
+      {
+         i=0;
+         while(Xil_In32(SATA_AHCI_PORT1_CNTRL_PXCI) != 0) {
+            if (i++ == PSU_MASK_POLL_TIME) {error_cnt=error_cnt|1;}// kishore-tbd-break;
+         }
+         error_cnt = error_cnt << 1;
+         Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXCI, 0x1);
+         config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x3);
+         config_reg(SATA_AHCI_VENDOR_PPCFG,SATA_AHCI_VENDOR_PPCFG_PBCE_SHIFT,SATA_AHCI_VENDOR_PPCFG_PBCE_MASK,0x0);
+         ocm_addr_rxdata = 0xFFFF1800;
+         rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PBERR); //Wait for PBERR[0] =0
+         i=0;
+         while((rdata & 0x1) == 1) {
+           Xil_Out32(ocm_addr_rxdata,(Xil_In32(SATA_AHCI_VENDOR_PPCS)));
+           rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PBERR);
+           if (i++ == PSU_MASK_POLL_TIME) {error_cnt=error_cnt|1;}// kishore-tbd-break;
+         }
+         error_cnt = error_cnt << 1;
+         Xil_Out32(SATA_AHCI_PORT1_CNTRL_PBERR,0x2); // Clear sticky bit PBERR[1] = 1
+         mask_delay(delay);
+         rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PBERR); // Check for sticky bit cleared
+         if((rdata & 0x2) != 0) {
+            error_cnt=error_cnt|1;
+         }
+         error_cnt = error_cnt << 1;
+         rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PXCI);
+         i=0;
+         while((rdata & 0x1) == 1) {
+           Xil_Out32(ocm_addr_rxdata,(Xil_In32(SATA_AHCI_VENDOR_PPCS)));
+           rdata  = Xil_In32(SATA_AHCI_PORT1_CNTRL_PXCI);
+           if (i++ == PSU_MASK_POLL_TIME) {error_cnt=error_cnt|1; break;}
+         }
+         error_cnt = error_cnt << 1;
+         config_reg(SATA_AHCI_PORT1_CNTRL_PXCMD,SATA_AHCI_PORT1_CNTRL_PXCMD_ST_SHIFT,SATA_AHCI_PORT1_CNTRL_PXCMD_ST_MASK,0x0);
+      }
+  if (lane == 0) Xil_Out32(SERDES_L0_TM_DIG_22,0x0); //Internal Loopback
+  if (lane == 1) Xil_Out32(SERDES_L1_TM_DIG_22,0x0); //Internal Loopback
+  if (lane == 2) Xil_Out32(SERDES_L2_TM_DIG_22,0x0); //Internal Loopback
+  if (lane == 3) Xil_Out32(SERDES_L3_TM_DIG_22,0x0); //Internal Loopback
+  if (lane == 0) Xil_Out32(SERDES_LPBK_CTRL0,0x0);
+  if (lane == 1) Xil_Out32(SERDES_LPBK_CTRL0,0x0);
+  if (lane == 2) Xil_Out32(SERDES_LPBK_CTRL1,0x0);
+  if (lane == 3) Xil_Out32(SERDES_LPBK_CTRL1,0x0);
+  rdata  = Xil_In32(SERDES_UPHY_SPARE0);
+  rdata  = (rdata & 0xDF);
+  Xil_Out32(SERDES_UPHY_SPARE0,rdata);
+  return error_cnt;
+}
+static int sata_Phyctrl_config_mod1(int lane, int rate){
+ unsigned int rdata=0;
+  rdata = Xil_In32(CRF_APB_RST_FPD_TOP);
+  Xil_Out32(CRF_APB_RST_FPD_TOP, rdata | 0x00000002); //Bit 1
+  if (lane == 0) Xil_Out32(SIOU_SATA_MISC_CTRL,0x0);
+  if (lane == 1) Xil_Out32(SIOU_SATA_MISC_CTRL,0x0);
+  if (lane == 2) Xil_Out32(SIOU_SATA_MISC_CTRL,0x2);
+  if (lane == 3) Xil_Out32(SIOU_SATA_MISC_CTRL,0x3);
+  if (lane == 0) PSU_Mask_Write(SERDES_ICM_CFG0_OFFSET, 0x00000007U, 0x00000002U);
+  if (lane == 1) PSU_Mask_Write(SERDES_ICM_CFG0_OFFSET, 0x00000070U, 0x00000020U);
+  if (lane == 2) PSU_Mask_Write(SERDES_ICM_CFG1_OFFSET, 0x00000007U, 0x00000002U);
+  if (lane == 3) PSU_Mask_Write(SERDES_ICM_CFG1_OFFSET, 0x00000070U, 0x00000020U);
+  if (lane == 0) Xil_Out32(SERDES_L0_TM_DIG_22,0x20); //Internal Loopback
+  if (lane == 1) Xil_Out32(SERDES_L1_TM_DIG_22,0x20); //Internal Loopback
+  if (lane == 2) Xil_Out32(SERDES_L2_TM_DIG_22,0x20); //Internal Loopback
+  if (lane == 3) Xil_Out32(SERDES_L3_TM_DIG_22,0x20); //Internal Loopback
+  if (lane == 0) Xil_Out32(SERDES_LPBK_CTRL0,0x01);
+  if (lane == 1) Xil_Out32(SERDES_LPBK_CTRL0,0x10);
+  if (lane == 2) Xil_Out32(SERDES_LPBK_CTRL1,0x01);
+  if (lane == 3) Xil_Out32(SERDES_LPBK_CTRL1,0x10);
+  rdata  = Xil_In32(SERDES_UPHY_SPARE0);
+  rdata  = (rdata | 0x20);
+  Xil_Out32(SERDES_UPHY_SPARE0,rdata);
+  rdata = Xil_In32(CRF_APB_RST_FPD_TOP);
+  Xil_Out32(CRF_APB_RST_FPD_TOP, rdata & 0xFFFFFFFD);
+  if ((lane == 0) || (lane == 2)) {
+      Xil_Out32(SATA_AHCI_VENDOR_PAXIC,0x00410101); // AXI DATA BUS WIDTH=64
+      config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x2);
+  }
+  if ((lane == 1) || (lane == 3)) {
+      config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x2);
+      Xil_Out32(SATA_AHCI_VENDOR_PAXIC,0x00410101); // AXI DATA BUS WIDTH=64
+      config_reg(SATA_AHCI_VENDOR_PCFG,SATA_AHCI_VENDOR_PCFG_PAD_SHIFT,SATA_AHCI_VENDOR_PCFG_PAD_MASK,0x3);
+  }
+     #if defined(REF_125)
+       Xil_Out32(SATA_AHCI_VENDOR_PP2C,0x28184016);// COMRESET Timing
+       Xil_Out32(SATA_AHCI_VENDOR_PP3C,0x0E081405);// COMWAKE Timing
+       Xil_Out32(SATA_AHCI_VENDOR_PP4C,0x064A0813);// COMWAKE Timing
+     #else //@PM CLK 150 Mhz
+       Xil_Out32(SATA_AHCI_VENDOR_PP2C,0x28184D1B);// COMRESET Timing
+       Xil_Out32(SATA_AHCI_VENDOR_PP3C,0x0E081906);// COMWAKE Timing
+       Xil_Out32(SATA_AHCI_VENDOR_PP4C,0x064A0810);// COMWAKE Timing
+     #endif
+  if ((lane == 0) || (lane == 2)) {
+      if (rate == 1) Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXSCTL,0x00000310);// Limit Speed neg to 1.5G
+      if (rate == 2) Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXSCTL,0x00000320);// Limit Speed neg to 1.5G
+      if (rate == 3) Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXSCTL,0x00000330);// Limit Speed neg to 1.5G
+      Xil_Out32(SATA_AHCI_PORT0_CNTRL_PXSERR,0xFFFFFFFF);
+  }
+  if ((lane == 1) || (lane == 3)) {
+      if (rate == 1) Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXSCTL,0x00000310);// Limit Speed neg to 1.5G
+      if (rate == 2) Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXSCTL,0x00000320);// Limit Speed neg to 1.5G
+      if (rate == 3) Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXSCTL,0x00000330);// Limit Speed neg to 1.5G
+      Xil_Out32(SATA_AHCI_PORT1_CNTRL_PXSERR,0xFFFFFFFF);
+  }
+  return 0;
+}
+static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
+{
+  unsigned int rdata=0;
+  unsigned int error_cnt=0;
+  unsigned int sata_gen1=0;
+  unsigned int sata_gen2=1;
+  unsigned int temp_ill12=0;
+ if ((lane0_protocol == 2)||(lane0_protocol == 1))
+ {
+   Xil_Out32(SERDES_L0_TM_IQ_ILL7, 0xF3);
+   Xil_Out32(SERDES_L0_TM_E_ILL7, 0xF3);
+   Xil_Out32(SERDES_L0_TM_IQ_ILL8,0xF3);
+   Xil_Out32(SERDES_L0_TM_E_ILL8,0xF3);
+ }
+ if ((lane1_protocol == 2)||(lane1_protocol == 1))
+ {
+   Xil_Out32(SERDES_L1_TM_IQ_ILL7, 0xF3);
+   Xil_Out32(SERDES_L1_TM_E_ILL7, 0xF3);
+   Xil_Out32(SERDES_L1_TM_IQ_ILL8,0xF3);
+   Xil_Out32(SERDES_L1_TM_E_ILL8,0xF3);
+ }
+ if ((lane2_protocol == 2)||(lane2_protocol == 1))
+ {
+   Xil_Out32(SERDES_L2_TM_IQ_ILL7, 0xF3);
+   Xil_Out32(SERDES_L2_TM_E_ILL7, 0xF3);
+   Xil_Out32(SERDES_L2_TM_IQ_ILL8,0xF3);
+   Xil_Out32(SERDES_L2_TM_E_ILL8,0xF3);
+ }
+ if ((lane3_protocol == 2)||(lane3_protocol == 1))
+ {
+   Xil_Out32(SERDES_L3_TM_IQ_ILL7, 0xF3);
+   Xil_Out32(SERDES_L3_TM_E_ILL7, 0xF3);
+   Xil_Out32(SERDES_L3_TM_IQ_ILL8,0xF3);
+   Xil_Out32(SERDES_L3_TM_E_ILL8,0xF3);
+ }
+ if (sata_gen1 == 1)
+ {
+   if (lane0_protocol == 2)
+   {
+     error_cnt = sata_p0_p1_bist(0, 1, 1000);
+     if (error_cnt != 0) { //if bist fails revert to 0xF7
+       Xil_Out32(SERDES_L0_TM_IQ_ILL8,0xF7);
+       Xil_Out32(SERDES_L0_TM_E_ILL8,0xF7);
+       Xil_Out32(0xFFFE0050,error_cnt);
+     }
+   }
+   if (lane1_protocol == 2)
+   {
+     error_cnt = sata_p0_p1_bist(1, 1, 1000);
+     if (error_cnt != 0) { //if bist fails revert to 0xF7
+       Xil_Out32(SERDES_L1_TM_IQ_ILL8,0xF7);
+       Xil_Out32(SERDES_L1_TM_E_ILL8,0xF7);
+       Xil_Out32(0xFFFE0054,error_cnt);
+     }
+   }
+   if (lane2_protocol == 2)
+   {
+     error_cnt = sata_p0_p1_bist(2, 1, 1000);
+     if (error_cnt != 0) { //if bist fails revert to 0xF7
+       Xil_Out32(SERDES_L2_TM_IQ_ILL8,0xF7);
+       Xil_Out32(SERDES_L2_TM_E_ILL8,0xF7);
+       Xil_Out32(0xFFFE0058,error_cnt);
+     }
+   }
+   if (lane3_protocol == 2)
+   {
+     error_cnt = sata_p0_p1_bist(3, 1, 1000);
+     if (error_cnt != 0) { //if bist fails revert to 0xF7
+       Xil_Out32(SERDES_L3_TM_IQ_ILL8,0xF7);
+       Xil_Out32(SERDES_L3_TM_E_ILL8,0xF7);
+       Xil_Out32(0xFFFE005C,error_cnt);
+     }
+   }
+ }
+ if (sata_gen2 == 1)
+ {
+   if (lane0_protocol == 2)
+   {
+     if ((Xil_In32(SERDES_PLL_REF_SEL0_OFFSET) & 0x0000000F) == 0x0F)
+       PSU_Mask_Write(SERDES_L0_TM_IQ_ILL1, 0x000000FFU, 0x0000007DU);
+     if ((Xil_In32(SERDES_PLL_REF_SEL0_OFFSET) & 0x0000001F) == 0x11)
+       PSU_Mask_Write(SERDES_L0_TM_IQ_ILL1, 0x000000FFU, 0x00000096U);
+     PSU_Mask_Write(SERDES_L0_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
+     PSU_Mask_Write(SERDES_L0_TM_DIG_6, 0x0000000FU, 0x00000000U);
+     temp_ill12 = Xil_In32(SERDES_L0_TM_ILL12) & 0xF0;
+     serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 0, 0, 1, 0);
+     PSU_Mask_Write(SERDES_L0_TM_DIG_6, 0x0000000FU, 0x0000000FU);
+     PSU_Mask_Write(SERDES_L0_TX_DIG_TM_61, 0x0000000BU, 0x0000000BU);
+     Xil_Out32(SERDES_L0_TM_E_ILL2, Xil_In32(SERDES_L0_TM_E_ILL1));
+     temp_ill12 = temp_ill12 | (Xil_In32(SERDES_L0_TM_ILL12)>>4 & 0xF);
+     Xil_Out32(SERDES_L0_TM_ILL12, temp_ill12);
+     PSU_Mask_Write(SERDES_L0_TM_E_ILL1, 0x000000FFU, 0x0000009CU);
+   }
+   if (lane1_protocol == 2)
+   {
+     if ((Xil_In32(SERDES_PLL_REF_SEL1_OFFSET) & 0x0000000F) == 0x0F)
+       PSU_Mask_Write(SERDES_L1_TM_IQ_ILL1, 0x000000FFU, 0x0000007DU);
+     if ((Xil_In32(SERDES_PLL_REF_SEL1_OFFSET) & 0x0000001F) == 0x11)
+       PSU_Mask_Write(SERDES_L1_TM_IQ_ILL1, 0x000000FFU, 0x00000096U);
+     PSU_Mask_Write(SERDES_L1_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
+     PSU_Mask_Write(SERDES_L1_TM_DIG_6, 0x0000000FU, 0x00000000U);
+     temp_ill12 = Xil_In32(SERDES_L1_TM_ILL12) & 0xF0;
+     serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 1, 0, 0, 0);
+     PSU_Mask_Write(SERDES_L1_TM_DIG_6, 0x0000000FU, 0x0000000FU);
+     PSU_Mask_Write(SERDES_L1_TX_DIG_TM_61, 0x0000000BU, 0x0000000BU);
+     Xil_Out32(SERDES_L1_TM_E_ILL2, Xil_In32(SERDES_L1_TM_E_ILL1));
+     temp_ill12 = temp_ill12 | (Xil_In32(SERDES_L1_TM_ILL12)>>4 & 0xF);
+     Xil_Out32(SERDES_L1_TM_ILL12, temp_ill12);
+     PSU_Mask_Write(SERDES_L1_TM_E_ILL1, 0x000000FFU, 0x0000009CU);
+   }
+   if (lane2_protocol == 2)
+   {
+     if ((Xil_In32(SERDES_PLL_REF_SEL2_OFFSET) & 0x0000000F) == 0x0F)
+       PSU_Mask_Write(SERDES_L2_TM_IQ_ILL1, 0x000000FFU, 0x0000007DU);
+     if ((Xil_In32(SERDES_PLL_REF_SEL2_OFFSET) & 0x0000001F) == 0x11)
+       PSU_Mask_Write(SERDES_L2_TM_IQ_ILL1, 0x000000FFU, 0x00000096U);
+     PSU_Mask_Write(SERDES_L2_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
+     PSU_Mask_Write(SERDES_L2_TM_DIG_6, 0x0000000FU, 0x00000000U);
+     temp_ill12 = Xil_In32(SERDES_L2_TM_ILL12) & 0xF0;
+     serdes_illcalib_pcie_gen1 (0, 0, 1, 0, 0, 0, 0, 0);
+     PSU_Mask_Write(SERDES_L2_TM_DIG_6, 0x0000000FU, 0x0000000FU);
+     PSU_Mask_Write(SERDES_L2_TX_DIG_TM_61, 0x0000000BU, 0x0000000BU);
+     Xil_Out32(SERDES_L2_TM_E_ILL2, Xil_In32(SERDES_L2_TM_E_ILL1));
+     temp_ill12 = temp_ill12 | (Xil_In32(SERDES_L2_TM_ILL12)>>4 & 0xF);
+     Xil_Out32(SERDES_L2_TM_ILL12, temp_ill12);
+     PSU_Mask_Write(SERDES_L2_TM_E_ILL1, 0x000000FFU, 0x0000009CU);
+   }
+   if (lane3_protocol == 2)
+   {
+     if ((Xil_In32(SERDES_PLL_REF_SEL3_OFFSET) & 0x0000000F) == 0x0F)
+       PSU_Mask_Write(SERDES_L3_TM_IQ_ILL1, 0x000000FFU, 0x0000007DU);
+     if ((Xil_In32(SERDES_PLL_REF_SEL3_OFFSET) & 0x0000001F) == 0x11)
+       PSU_Mask_Write(SERDES_L3_TM_IQ_ILL1, 0x000000FFU, 0x00000096U);
+     PSU_Mask_Write(SERDES_L3_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
+     PSU_Mask_Write(SERDES_L3_TM_DIG_6, 0x0000000FU, 0x00000000U);
+     temp_ill12 = Xil_In32(SERDES_L3_TM_ILL12) & 0xF0;
+     serdes_illcalib_pcie_gen1 (1, 0, 0, 0, 0, 0, 0, 0);
+     PSU_Mask_Write(SERDES_L3_TM_DIG_6, 0x0000000FU, 0x0000000FU);
+     PSU_Mask_Write(SERDES_L3_TX_DIG_TM_61, 0x0000000BU, 0x0000000BU);
+     Xil_Out32(SERDES_L3_TM_E_ILL2, Xil_In32(SERDES_L3_TM_E_ILL1));
+     temp_ill12 = temp_ill12 | (Xil_In32(SERDES_L3_TM_ILL12)>>4 & 0xF);
+     Xil_Out32(SERDES_L3_TM_ILL12, temp_ill12);
+     PSU_Mask_Write(SERDES_L3_TM_E_ILL1, 0x000000FFU, 0x0000009CU);
+   }
+   rdata  = Xil_In32(SERDES_UPHY_SPARE0);
+   rdata  = (rdata & 0xDF);
+   Xil_Out32(SERDES_UPHY_SPARE0,rdata);
+ }
+  if (lane0_protocol == 1)
+  {
+   if (lane0_rate == 0)
+   {
+     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0);
+   }
+   else
+   {
+     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0);
+     serdes_illcalib_pcie_gen2 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate);
+   }
+  }
+  if (lane0_protocol == 3) Xil_Out32(SERDES_L0_TM_IQ_ILL8,0xF3);
+  if (lane0_protocol == 3) Xil_Out32(SERDES_L0_TM_E_ILL8,0xF3);
+  if (lane0_protocol == 3) Xil_Out32(SERDES_L0_TM_ILL12,0x20);
+  if (lane0_protocol == 3) Xil_Out32(SERDES_L0_TM_E_ILL1,0x37);
+  if (lane1_protocol == 3) Xil_Out32(SERDES_L1_TM_IQ_ILL8,0xF3);
+  if (lane1_protocol == 3) Xil_Out32(SERDES_L1_TM_E_ILL8,0xF3);
+  if (lane1_protocol == 3) Xil_Out32(SERDES_L1_TM_ILL12,0x20);
+  if (lane1_protocol == 3) Xil_Out32(SERDES_L1_TM_E_ILL1,0x37);
+  if (lane2_protocol == 3) Xil_Out32(SERDES_L2_TM_IQ_ILL8,0xF3);
+  if (lane2_protocol == 3) Xil_Out32(SERDES_L2_TM_E_ILL8,0xF3);
+  if (lane2_protocol == 3) Xil_Out32(SERDES_L2_TM_ILL12,0x20);
+  if (lane2_protocol == 3) Xil_Out32(SERDES_L2_TM_E_ILL1,0x37);
+  if (lane3_protocol == 3) Xil_Out32(SERDES_L3_TM_IQ_ILL8,0xF3);
+  if (lane3_protocol == 3) Xil_Out32(SERDES_L3_TM_E_ILL8,0xF3);
+  if (lane3_protocol == 3) Xil_Out32(SERDES_L3_TM_ILL12,0x20);
+  if (lane3_protocol == 3) Xil_Out32(SERDES_L3_TM_E_ILL1,0x37);
+  return 1;
+}
 
 /*Following SERDES programming sequences that a user need to follow to work
  * around the known limitation with SERDES. These sequences should done
