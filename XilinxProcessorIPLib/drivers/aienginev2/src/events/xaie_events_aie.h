@@ -25,6 +25,8 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XAIE_EVENTS_AIE_H
+#define XAIE_EVENTS_AIE_H
 
 /*
  * Macro of all the Events of AIE for all modules: Core, Memory of AIE tile
@@ -401,4 +403,6 @@
 #define XAIE_EVENTS_PL_USER_EVENT_1				125
 #define XAIE_EVENTS_PL_USER_EVENT_2				126
 #define XAIE_EVENTS_PL_USER_EVENT_3				127
+
+#endif /* XAIE_EVENTS_AIE_H */
 /** @} */
