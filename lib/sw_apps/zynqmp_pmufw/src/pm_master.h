@@ -24,8 +24,6 @@ extern "C" {
 #include "xil_types.h"
 #include "pm_gic_proxy.h"
 
-typedef struct PmMaster PmMaster;
-typedef struct PmRequirement PmRequirement;
 /*********************************************************************
  * Enum definitions
  ********************************************************************/
@@ -115,7 +113,7 @@ typedef struct {
  *              enter their states.
  * @name	Master name
  */
-typedef struct PmMaster {
+struct PmMaster {
 	PmSuspendRequest suspendRequest;
 	PmProc** const procs;
 	PmProc* wakeProc;
@@ -133,7 +131,7 @@ typedef struct PmMaster {
 	PmNodeId nid;
 	const u8 procsCnt;
 	u8 state;
-} PmMaster;
+};
 
 /**
  * PmMasterConfig - Structure to store master configuration data

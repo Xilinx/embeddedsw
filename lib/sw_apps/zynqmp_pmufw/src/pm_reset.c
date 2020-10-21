@@ -45,11 +45,11 @@ typedef struct PmResetOps {
  * @access	Access control bitmask (1 bit per master, see 'pmAllMasters')
  * @derived	Pointer to derived reset structure
  */
-typedef struct PmReset {
+struct PmReset {
 	const PmResetOps* const ops;
 	void* const derived;
 	u32 access;
-} PmReset;
+};
 
 /**
  * PmResetGeneric - Generic reset structure
