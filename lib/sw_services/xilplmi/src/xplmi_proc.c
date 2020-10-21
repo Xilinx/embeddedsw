@@ -121,7 +121,8 @@ static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 u64 XPlmi_GetTimerValue(void)
 {
 	u64 TimerValue;
-	u32 TPit1, TPit2;
+	u64 TPit1;
+	u32 TPit2;
 
 	TPit1 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT1);
 	TPit2 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT2);
@@ -135,7 +136,7 @@ u64 XPlmi_GetTimerValue(void)
 	if (TPit1 == 0U) {
 		TPit1 = XPLMI_PIT1_CYCLE_VALUE;
 	}
-	TimerValue = ((u64)TPit1 << 32U) | (u64)TPit2;
+	TimerValue = (TPit1 << 32U) | (u64)TPit2;
 
 	return TimerValue;
 }
@@ -201,8 +202,8 @@ void XPlmi_PrintRomTime(void)
 	PmcRomTime |= (u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
 
 	/* Print time stamp of PLM */
-	XPlmi_GetPerfTime((u64) (((u64)XPLMI_PIT1_CYCLE_VALUE << 32U) |
-		XPLMI_PIT2_CYCLE_VALUE), PmcRomTime, &PerfTime);
+	XPlmi_GetPerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
+		XPLMI_PIT2_CYCLE_VALUE, PmcRomTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%06u ms: ROM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
@@ -221,8 +222,8 @@ void XPlmi_PrintPlmTimeStamp(void)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Print time stamp of PLM */
-	XPlmi_MeasurePerfTime((u64) (((u64)XPLMI_PIT1_CYCLE_VALUE << 32U) |
-		XPLMI_PIT2_CYCLE_VALUE), &PerfTime);
+	XPlmi_MeasurePerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
+		XPLMI_PIT2_CYCLE_VALUE, &PerfTime);
 	xil_printf("[%u.%06u]", (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
 
