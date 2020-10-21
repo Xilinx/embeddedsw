@@ -528,7 +528,7 @@ static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_ErrMgr(int Status);
+void XPlmi_ErrMgr(int ErrStatus);
 
 /************************** Variable Definitions *****************************/
 
