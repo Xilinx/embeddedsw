@@ -84,7 +84,7 @@ int XPlmi_InitUart(void)
 	XUartPsv UartPsvIns;
 	XUartPsv_Config *Config;
 
-	for (Index = 0U; Index < XPAR_XUARTPSV_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u8)XPAR_XUARTPSV_NUM_INSTANCES; Index++) {
 
 		Status = XPlmi_MemSetBytes(&UartPsvIns, sizeof(XUartPsv),
 				0U, sizeof(XUartPsv));
