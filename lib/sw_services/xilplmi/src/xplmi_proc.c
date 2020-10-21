@@ -28,6 +28,7 @@
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU event
 * 1.03  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -49,7 +50,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_MAP_PLMID(Lvl0, Lvl1, Lvl2)	\
-		((Lvl0 << 0U) | (Lvl1 << 8U) | (Lvl2 << 16U))
+	(((Lvl0) << 0U) | ((Lvl1) << 8U) | ((Lvl2) << 16U))
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
