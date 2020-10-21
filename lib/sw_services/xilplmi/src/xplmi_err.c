@@ -120,7 +120,7 @@ void XPlmi_ErrMgr(int ErrStatus)
  * Structure to define error action type and handler if error to be handled
  * by PLM
  */
-static struct XPlmi_Error_t ErrorTable[] = {
+static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_PSMERR2_MAX] = {
 	[XPLMI_NODEIDX_ERROR_BOOT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
