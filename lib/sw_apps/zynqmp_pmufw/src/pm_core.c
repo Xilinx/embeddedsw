@@ -133,6 +133,7 @@ static void PmLogInt(const u32 line, const u32 errno, const u32 value,
 		PmWarn("Temperature not supported\r\n");
 		break;
 	default:
+		PmWarn("Invalid errno %lu\r\n", errno);
 		break;
 	}
 }
