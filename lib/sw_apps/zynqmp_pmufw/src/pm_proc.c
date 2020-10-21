@@ -644,6 +644,7 @@ s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = XST_PM_CONFLICT;
 		} else {
+			/* For MISRA compliance */
 		}
 
 		/* Reset latency requirement */
