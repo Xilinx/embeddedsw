@@ -1895,8 +1895,7 @@ static s32 PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	case PM_DDR_STATE_SR:
 		if (PM_DDR_STATE_ON == nextState) {
-			bool ddrss_is_reset = !Xil_In32(DDRC_STAT);
-
+			bool ddrss_is_reset = ((0U == Xil_In32(DDRC_STAT)) ? true : false);
 			pm_ddr_sr_exit(ddrss_is_reset);
 			XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {
