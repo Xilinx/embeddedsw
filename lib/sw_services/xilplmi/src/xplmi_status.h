@@ -53,6 +53,7 @@
 *       bm   09/24/2020 Added error code for FuncID mismatch
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Added error code for glitch detection
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -528,7 +529,6 @@ static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 
 /************************** Function Prototypes ******************************/
 void XPlmi_ErrMgr(int Status);
-void XPlmi_DumpRegisters(void);
 
 /************************** Variable Definitions *****************************/
 
