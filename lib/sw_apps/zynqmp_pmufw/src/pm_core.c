@@ -1538,7 +1538,7 @@ done:
  * PmInitFinalize() - Notification from a master that it has initialized PM
  * @master  Initiator of the request
  */
-void PmInitFinalize(PmMaster* const master)
+static void PmInitFinalize(PmMaster* const master)
 {
 	s32 status;
 
