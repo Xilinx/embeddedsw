@@ -641,7 +641,7 @@ done:
  */
 static void PmGetApiVersion(const PmMaster *const master)
 {
-	u32 version = (PM_VERSION_MAJOR << 16U) | PM_VERSION_MINOR;
+	u32 version = ((u32)PM_VERSION_MAJOR << 16U) | (u32)PM_VERSION_MINOR;
 
 	PmInfo("%s> GetApiVersion %d.%d\r\n", master->name, PM_VERSION_MAJOR,
 	       PM_VERSION_MINOR);

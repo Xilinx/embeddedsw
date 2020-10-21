@@ -622,7 +622,7 @@ static s32 PmClockGenSetDivider(PmClock* const clock, const u32 divId,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	XPfw_RMW32(clk->ctrlAddr, PM_DIV_MASK << shift, val << shift);
+	XPfw_RMW32(clk->ctrlAddr, (u32)PM_DIV_MASK << shift, (u32)val << shift);
 
 done:
 	return status;
@@ -779,8 +779,8 @@ static s32 PmClockCrossDomSetDivider(PmClock* const clock, const u32 divId,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	XPfw_RMW32(clk->ctrlAddr, PM_DIV_MASK << PM_DIV0_SHIFT,
-		   val << PM_DIV0_SHIFT);
+	XPfw_RMW32(clk->ctrlAddr, (u32)PM_DIV_MASK << PM_DIV0_SHIFT,
+		   (u32)val << PM_DIV0_SHIFT);
 
 done:
 	return status;
