@@ -107,7 +107,7 @@ typedef struct PmResetGpioBankIOs {
 
 bool PmResetMasterHasAccess(const PmMaster* const m, const PmReset* const r)
 {
-	return !!(r->access & m->ipiMask);
+	return ((0U != (r->access & m->ipiMask)) ? true : false);
 }
 
 /**

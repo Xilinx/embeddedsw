@@ -549,7 +549,7 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 		return;
 	}
 
-	if (!enable && ethWake->wakeEnabled) {
+	if ((0U == enable) && ethWake->wakeEnabled) {
 		/* Disable GEM Rx in network contorl register */
 		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
 			   ~ETH_RECV_ENABLE_MASK);
