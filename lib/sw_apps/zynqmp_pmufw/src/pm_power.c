@@ -362,7 +362,9 @@ static s32 __attribute__((noreturn)) PmPowerDownLpd(void)
 	/* Call user hook for powering down LPD */
 	PmHookPowerDownLpd();
 
-	while (true);
+	while (true) {
+		; /* For MISRA compliance */
+	}
 }
 
 /**
