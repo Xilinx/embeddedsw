@@ -531,7 +531,7 @@ static s32 PmProcTrSuspendToSleep(PmProc* const proc)
 		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SLEEP);
 
 		/* If suspended, remember which processor to wake-up first */
-		if (true == (u8)PmMasterIsSuspended(proc->master)) {
+		if (true == PmMasterIsSuspended(proc->master)) {
 			proc->master->wakeProc = proc;
 		}
 	}
@@ -621,7 +621,7 @@ s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else {
 			status = XST_SUCCESS;
 		}
-		if (true == (u8)PmIsRequestedToSuspend(proc->master)) {
+		if (true == PmIsRequestedToSuspend(proc->master)) {
 			status = PmMasterSuspendAck(proc->master,
 						    XST_PM_ABORT_SUSPEND);
 		}
