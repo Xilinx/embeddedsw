@@ -23,14 +23,6 @@ extern "C" {
 typedef u8 PmNodeId;
 typedef u8 PmStateId;
 
-/* Forward declaration */
-typedef struct PmPower PmPower;
-typedef struct PmClockHandle PmClockHandle;
-typedef struct PmNode PmNode;
-typedef struct PmSlave PmSlave;
-typedef struct PmProc PmProc;
-typedef struct PmNodeClass PmNodeClass;
-
 /* Function pointer for wake/sleep transition functions */
 typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 
@@ -87,7 +79,7 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
  * @flags       Node flags
  * @name	Node name
  */
-typedef struct PmNode {
+struct PmNode {
 	void* const derived;
 	PmNodeClass* const class;
 	PmPower* const parent;
@@ -99,7 +91,7 @@ typedef struct PmNode {
 	const PmNodeId nodeId;
 	PmStateId currState;
 	u8 flags;
-} PmNode;
+};
 
 /**
  * PmNodeClass - Node class models common behavior for a collection of nodes
@@ -116,7 +108,7 @@ typedef struct PmNode {
  * @bucketSize		Number of nodes in the bucket
  * @id			Nodes' class/type ID
  */
-typedef struct PmNodeClass {
+struct PmNodeClass {
 	void (*const clearConfig)(PmNode* const node);
 	void (*const construct)(PmNode* const node);
 	s32 (*const getWakeUpLatency)(const PmNode* const node, u32* const lat);
@@ -128,7 +120,7 @@ typedef struct PmNodeClass {
 	PmNode** const bucket;
 	const u32 bucketSize;
 	const u8 id;
-} PmNodeClass;
+};
 
 /*********************************************************************
  * Function declarations

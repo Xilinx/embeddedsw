@@ -37,7 +37,21 @@ extern "C" {
 #endif
 
 typedef u32 (*const PmTranHandler)(void);
+
 typedef struct PmNode PmNode;
+typedef struct PmMaster PmMaster;
+typedef struct PmRequirement PmRequirement;
+typedef struct PmPower PmPower;
+typedef struct PmPowerClass PmPowerClass;
+typedef struct PmClockHandle PmClockHandle;
+typedef struct PmSlave PmSlave;
+typedef struct PmProc PmProc;
+typedef struct PmNodeClass PmNodeClass;
+typedef struct PmClockClass PmClockClass;
+typedef struct PmSlaveTcm PmSlaveTcm;
+typedef struct PmReset PmReset;
+typedef struct PmSlaveClass PmSlaveClass;
+typedef struct PmWakeEvent PmWakeEvent;
 
 /*********************************************************************
  * Macros

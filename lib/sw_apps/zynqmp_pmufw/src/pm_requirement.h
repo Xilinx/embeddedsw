@@ -21,11 +21,6 @@ extern "C" {
 #include "xil_types.h"
 #include "pm_node.h"
 
-/* Forward declarations */
-typedef struct PmMaster PmMaster;
-typedef struct PmSlave PmSlave;
-typedef struct PmRequirement PmRequirement;
-
 typedef enum {
 	RELEASE_ONE,
 	RELEASE_ALL,
@@ -77,7 +72,7 @@ typedef enum {
  *              encoding has master requested or released node, and a bit to
  *              encode has master requested a wake-up of this slave.
  */
-typedef struct PmRequirement {
+struct PmRequirement {
 	PmSlave* slave;
 	PmMaster* master;
 	PmRequirement* nextSlave;
@@ -88,7 +83,7 @@ typedef struct PmRequirement {
 	u8 nextReq;
 	u32 latencyReq;
 	u8 info;
-} PmRequirement;
+};
 
 /*********************************************************************
  * Function declarations

@@ -21,13 +21,6 @@ extern "C" {
 #include "pm_common.h"
 
 /*********************************************************************
- * Structure definitions
- ********************************************************************/
-
-typedef struct PmReset PmReset;
-typedef struct PmMaster PmMaster;
-
-/*********************************************************************
  * Function declarations
  ********************************************************************/
 u32 PmResetGetStatusInt(const PmReset* const resetPtr, u32 *status);
