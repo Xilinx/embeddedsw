@@ -90,12 +90,12 @@ typedef struct PmClockCtrlMethods {
  * is relevant for certain clock, e.g. oscillator, the class doesn't have to
  * be defined.
  */
-typedef struct PmClockClass {
+struct PmClockClass {
 	PmClock* (*const request)(PmClock* const clock);
 	PmClock* (*const release)(PmClock* const clock);
 	u32 (*const getPerms)(const PmClock* const clock);
 	const PmClockCtrlMethods* const ctrl;
-} PmClockClass;
+};
 
 /*
  * PmClockPll - Structure for PLL-output clock
@@ -177,12 +177,12 @@ typedef struct PmClockGen {
  * @nextClock	Pointer to the next clock used by the node
  * @nextNode	Pointer to the next node that uses the clock
  */
-typedef struct PmClockHandle {
+struct PmClockHandle {
 	PmClockGen* clock;
 	PmNode* node;
 	PmClockHandle* nextClock;
 	PmClockHandle* nextNode;
-} PmClockHandle;
+};
 
 /**
  * PmClockRequestInt() - Wrapper function for a chained requesting of a clock
