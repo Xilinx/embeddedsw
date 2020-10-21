@@ -87,7 +87,7 @@ typedef struct PmTcmMemorySection {
  * Data initialization
  ********************************************************************/
 
-PmSystem pmSystem = {
+static PmSystem pmSystem = {
 	.psRestartPerms = 0U,
 	.systemRestartPerms = 0U,
 	.suspendType = PM_SUSPEND_TYPE_REGULAR,
@@ -98,7 +98,7 @@ PmSystem pmSystem = {
  * - OCM bank(s) store FSBL which is needed to restart APU, and should never be
  *   powered down unless the whole system goes down.
  */
-PmSystemRequirement pmSystemReqs[] = {
+static PmSystemRequirement pmSystemReqs[] = {
 	{
 		.slave = &pmSlaveOcm0_g.slv,
 		.caps = PM_CAP_CONTEXT,
