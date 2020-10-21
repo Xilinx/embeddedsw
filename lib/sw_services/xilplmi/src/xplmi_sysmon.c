@@ -106,18 +106,18 @@ void XPlmi_SysMonOTDetect(void)
 	 * If Interrupt Status Register does not indicate an over-temperature
 	 * condition, we are done.
 	 */
-	Val = XPlmi_In32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET));
+	Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
 	if (0U == (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
 		goto END;
 	}
 
-	XPlmi_Out32(XSYSMONPSV_BASEADDR + XSYSMONPSV_PCSR_LOCK,
+	XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_PCSR_LOCK,
 		PCSR_UNLOCK_VAL);
 
 	/* Wait until over-temperature condition is resolved. */
 	Count = 1000U;
 	while (0U != (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
-		XPlmi_Out32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET),
+		XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET,
 			XSYSMONPSV_ISR_OT_MASK);
 		usleep(1000U);
 		Count--;
@@ -126,10 +126,10 @@ void XPlmi_SysMonOTDetect(void)
 				"Warning: Over-temperature condition!\r\n");
 			Count = 1000U;
 		}
-		Val = XPlmi_In32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET));
+		Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
 	}
 
-	XPlmi_Out32(XSYSMONPSV_BASEADDR + XSYSMONPSV_PCSR_LOCK, 0);
+	XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_PCSR_LOCK, 0U);
 
 END:
 	return;

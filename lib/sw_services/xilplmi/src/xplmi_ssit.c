@@ -20,6 +20,7 @@
 *       ma   08/24/2019 Added SSIT commands
 * 1.01  bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -219,13 +220,13 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS) &
 			PMC_GLOBAL_SSIT_ERR_MASK;
 		PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_1_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_2_MASK;
 		}
 
