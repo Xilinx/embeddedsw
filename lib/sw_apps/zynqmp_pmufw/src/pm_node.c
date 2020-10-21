@@ -277,7 +277,7 @@ void PmNodeForceDownUnusable(void)
 				continue;
 			}
 			if (NULL != pmNodeClasses[i]->forceDown) {
-				pmNodeClasses[i]->forceDown(node);
+				(void)pmNodeClasses[i]->forceDown(node);
 			}
 		}
 	}
