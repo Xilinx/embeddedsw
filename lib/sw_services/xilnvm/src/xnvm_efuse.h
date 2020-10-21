@@ -29,6 +29,7 @@
 *                       at ROM stage.
 * 	am   08/19/2020 Resolved MISRA C violations.
 * 	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -183,20 +184,20 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY = 0x8600,/**<0x8600 - Error in
 						* DEC_ONLY programming */
 
-	XNVM_EFUSE_ERR_WRITE_META_HEADER_IV_RANGE = 0x8700U,/**<0x8700U - Error in
+	XNVM_EFUSE_ERR_WRITE_META_HEADER_IV_RANGE = 0x8700,/**<0x8700 - Error in
 						* Meta header IV range
 						* programming */
 
-	XNVM_EFUSE_ERR_WRITE_BLK_IV = 0x8800U,/**<0x8800U - Error in
+	XNVM_EFUSE_ERR_WRITE_BLK_IV = 0x8800,/**<0x8800 - Error in
 						* Blk Obfus IV
 						* programming */
 
 
-	XNVM_EFUSE_ERR_WRITE_PLM_IV_RANGE = 0x8900U,/**<0x8900U - Error in
+	XNVM_EFUSE_ERR_WRITE_PLM_IV_RANGE = 0x8900,/**<0x8900 - Error in
 						* PLM IV
 						* programming */
 
-	XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV_RANGE = 0x8A00U,/**<0x8A00U -
+	XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV_RANGE = 0x8A00,/**<0x8A00 -
 						* Error in
 						* Data Partition IV
 						* programming */
@@ -412,13 +413,13 @@ typedef enum {
 						* reading DNA efuses */
 	XNVM_EFUSE_ERR_RD_PPK_HASH = 0xD700,/**<0xD700 - Error in
 						* reading PPK hash efuses */
-	XNVM_EFUSE_ERR_RD_META_HEADER_IV_RANGE = 0xD800U,/**<0xD800U - Error in
+	XNVM_EFUSE_ERR_RD_META_HEADER_IV_RANGE = 0xD800,/**<0xD800 - Error in
 						* reading Meta IV efuses */
-	XNVM_EFUSE_ERR_RD_BLACK_IV = 0xD900U,/**<0xD900U - Error in
+	XNVM_EFUSE_ERR_RD_BLACK_IV = 0xD900,/**<0xD900 - Error in
 						* reading Blk IV efuses */
-	XNVM_EFUSE_ERR_RD_PLM_IV_RANGE = 0xDA00U,/**<0xDA00U - Error in
+	XNVM_EFUSE_ERR_RD_PLM_IV_RANGE = 0xDA00,/**<0xDA00 - Error in
 						* reading PLM Iv efuses */
-	XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE = 0xDB00U,/**<0xDB00U - Error
+	XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE = 0xDB00,/**<0xDB00 - Error
 						* in
 						* reading Data Partition IV
 						* efuses */

@@ -20,6 +20,7 @@
 * 2.0   kal  11/14/2019 Added error check when BBRAM keylen is not 128 or 256.
 * 2.1	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -104,7 +105,7 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key);
  ******************************************************************************/
 int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	const u32 *AesKey = NULL;
 	u32 BbramKeyAddr;
 	u8 Idx;
@@ -168,7 +169,7 @@ int XNvm_BbramLockUsrDataWrite(void)
 		Status = XST_SUCCESS;
 	}
 	else {
-		Status = XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE;
+		Status = (int)XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE;
 	}
 
 	return Status;
@@ -194,7 +195,7 @@ int XNvm_BbramWriteUsrData(u32 UsrData)
 	LockStatus = XNvm_BbramReadReg(XNVM_BBRAM_MSW_LOCK_REG);
 
 	if((LockStatus & XNVM_BBRAM_MSW_LOCK) == XNVM_BBRAM_MSW_LOCK) {
-		Status = XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED;
+		Status = (int)XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED;
 	}
 	else {
 		XNvm_BbramWriteReg(XNVM_BBRAM_8_REG, UsrData);
@@ -239,12 +240,13 @@ int XNvm_BbramZeroize(void)
 
 	/* Initiate zeroization */
 	XNvm_BbramWriteReg(XNVM_BBRAM_CTRL_REG, XNVM_BBRAM_CTRL_START_ZEROIZE);
-	Status = Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
-	                         XNVM_BBRAM_STATUS_ZEROIZED,
-	                         XNVM_BBRAM_STATUS_ZEROIZED,
-	                         XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL);
+	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
+		XNVM_BBRAM_STATUS_ZEROIZED,
+		XNVM_BBRAM_STATUS_ZEROIZED,
+		XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL);
+
 	if (Status != XST_SUCCESS) {
-		Status = XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT;
+		Status = (int)XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT;
 	}
 
 	return Status;
@@ -264,12 +266,13 @@ static int XNvm_BbramEnablePgmMode(void)
 
 	XNvm_BbramWriteReg(XNVM_BBRAM_PGM_MODE_REG,
 	                   XNVM_EFUSE_PGM_MODE_PASSCODE);
-	Status = Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
-	                         XNVM_BBRAM_STATUS_PGM_MODE_DONE,
-	                         XNVM_BBRAM_STATUS_PGM_MODE_DONE,
-	                         XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL);
+	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
+	        XNVM_BBRAM_STATUS_PGM_MODE_DONE,
+	        XNVM_BBRAM_STATUS_PGM_MODE_DONE,
+	        XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL);
+
 	if (Status != XST_SUCCESS) {
-		Status = XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT;
+		Status = (int)XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT;
 	}
 
 	return Status;
@@ -283,7 +286,7 @@ static int XNvm_BbramEnablePgmMode(void)
  ******************************************************************************/
 static inline int XNvm_BbramDisablePgmMode(void)
 {
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_PGM_MODE_REG);
 
 	XNvm_BbramWriteReg(XNVM_BBRAM_PGM_MODE_REG, 0x00U);
@@ -316,12 +319,13 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
 
 	Crc = XNvm_AesCrcCalc(Key);
 	XNvm_BbramWriteReg(XNVM_BBRAM_AES_CRC_REG, Crc);
-	Status = Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
-	                         XNVM_BBRAM_STATUS_AES_CRC_DONE,
-	                         XNVM_BBRAM_STATUS_AES_CRC_DONE,
-	                         XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL);
+	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
+	        XNVM_BBRAM_STATUS_AES_CRC_DONE,
+	        XNVM_BBRAM_STATUS_AES_CRC_DONE,
+	        XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL);
+
 	if (Status != XST_SUCCESS) {
-		Status = XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT;
+		Status = (int)XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT;
 		goto END;
 	}
 
@@ -334,7 +338,7 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
 		Status = XST_SUCCESS;
 	}
 	else {
-		Status = XNVM_BBRAM_ERROR_AES_CRC_MISMATCH;
+		Status = (int)XNVM_BBRAM_ERROR_AES_CRC_MISMATCH;
 	}
 
 END:
