@@ -542,8 +542,8 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				/* PSM errors are handled in PsmErrHandler */
 				if (Index != (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
-				      XPlmi_EmDisable(
-					XPLMI_EVENT_ERROR_PMC_ERR1, Index);
+					(void)XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR1,
+							Index);
 				}
 				ErrorTable[Index].Handler(
 					XPLMI_EVENT_ERROR_PMC_ERR1, Index);
@@ -560,8 +560,8 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 				((u32)1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX))) != (u32)FALSE)
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR2,
-					Index);
+				(void)XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR2,
+						      Index);
 				ErrorTable[Index].Handler(
 					XPLMI_EVENT_ERROR_PMC_ERR2, Index);
 				XPlmi_EmClearError(XPLMI_EVENT_ERROR_PMC_ERR2,

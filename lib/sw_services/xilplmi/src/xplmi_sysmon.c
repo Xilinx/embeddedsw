@@ -22,6 +22,7 @@
  *                       gets resolved before restart
  * 1.01  bsv  04/04/2020 Code clean up
  * 1.02  bm   10/14/2020 Code clean up
+ * 		 td   10/19/2020 MISRA C Fixes
  *
  * </pre>
  *
@@ -66,7 +67,10 @@ int XPlmi_SysMonInit(void)
 
 	ConfigPtr = XSysMonPsv_LookupConfig();
 	if (ConfigPtr != NULL) {
-		XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+		Status = XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
 		/*
 		* Enable Over-temperature handling.  We need to unlock PCSR to
@@ -76,11 +80,11 @@ int XPlmi_SysMonInit(void)
 			PCSR_UNLOCK_VAL);
 		XSysMonPsv_IntrEnable(SysMonInstPtr, (u32)XSYSMONPSV_IER0_OT_MASK, 0U);
 		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK, 0U);
-		Status = XST_SUCCESS;
 	}
 	XPlmi_Printf(DEBUG_DETAILED,
 		 "%s: SysMon init status: 0x%x\n\r", __func__, Status);
 
+END:
 	return Status;
 }
 

@@ -29,6 +29,7 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bm   10/14/2020 Code clean up
+*       td	 10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -237,12 +238,18 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 *Size)
 	 * command size is greater than copied length
 	 */
 	if (*Size > CdoPtr->CopiedCmdLen) {
-		memcpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen, BufPtr,
+		Status = Xil_SecureMemCpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen,
+			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN, BufPtr,
 			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_COPY_CMD, Status);
+			goto END;
+		}
 	}
 	CdoPtr->CopiedCmdLen = 0U;
 	Status = XST_SUCCESS;
 
+END:
 	return Status;
 }
 
@@ -334,7 +341,12 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	 */
 	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF)) {
 		/* Copy Cmd to temporary buffer */
-		memcpy(CdoPtr->TempCmdBuf, BufPtr, BufLen * XPLMI_WORD_LEN);
+		Status = Xil_SecureMemCpy(CdoPtr->TempCmdBuf, BufLen * XPLMI_WORD_LEN,
+				BufPtr, BufLen * XPLMI_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_CMD_EXEC, Status);
+			goto END;
+		}
 		CdoPtr->CopiedCmdLen = BufLen;
 		*Size = BufLen;
 		Status = XST_SUCCESS;
