@@ -22,6 +22,7 @@
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -54,7 +55,7 @@ XPlmi_LogInfo DebugLog = {
 };
 
 /* Trace log buffer */
-XPlmi_CircularBuffer TraceLog = {
+static XPlmi_CircularBuffer TraceLog = {
 	.StartAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
 	.Len = XPLMI_TRACE_LOG_BUFFER_LEN,
 	.CurrentAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
