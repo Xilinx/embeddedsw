@@ -155,6 +155,7 @@
 *       mn     03/08/18 Update Clock Divisor to the proper value
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 * 2.6   aad    11/18/19 Fixed typo in alarm macro comments
+* 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
