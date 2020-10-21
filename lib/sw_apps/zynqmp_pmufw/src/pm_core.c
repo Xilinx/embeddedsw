@@ -1559,23 +1559,23 @@ void PmInitFinalize(PmMaster* const master)
 static void PmClockSetParent(PmMaster* const master, const u32 clockId,
 		      const u32 select)
 {
-	PmClock* clock;
+	PmClock* clockPtr;
 	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockSetParent(%lu, %lu)\r\n", master->name, clockId,
 	       select);
-	clock = PmClockGetById(clockId);
-	if (NULL == clock) {
+	clockPtr = PmClockGetById(clockId);
+	if (NULL == clockPtr) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 #ifndef DISABLE_CLK_PERMS
-	status = PmClockCheckPermission(clock, master->ipiMask);
+	status = PmClockCheckPermission(clockPtr, master->ipiMask);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
 #endif
-	status = PmClockMuxSetParent(clock, select);
+	status = PmClockMuxSetParent(clockPtr, select);
 
 done:
 	IPI_RESPONSE1(master->ipiMask, (u32)status);
@@ -1588,17 +1588,17 @@ done:
  */
 static void PmClockGetParent(PmMaster* const master, const u32 clockId)
 {
-	PmClock* clock;
+	PmClock* clockPtr;
 	u32 select = 0U;
 	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockGetParent(%lu)\r\n", master->name, clockId);
-	clock = PmClockGetById(clockId);
-	if (NULL == clock) {
+	clockPtr = PmClockGetById(clockId);
+	if (NULL == clockPtr) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	status = PmClockMuxGetParent(clock, &select);
+	status = PmClockMuxGetParent(clockPtr, &select);
 
 done:
 	IPI_RESPONSE2(master->ipiMask, (u32)status, select);
@@ -1612,22 +1612,22 @@ done:
  */
 static void PmClockGateConfig(PmMaster* const master, const u32 clkId, const u8 enable)
 {
-	PmClock* clock;
+	PmClock* clockPtr;
 	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockGate(%lu, %lu)\r\n", master->name, clkId, enable);
-	clock = PmClockGetById(clkId);
-	if (NULL == clock) {
+	clockPtr = PmClockGetById(clkId);
+	if (NULL == clockPtr) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 #ifndef DISABLE_CLK_PERMS
-	status = PmClockCheckPermission(clock, master->ipiMask);
+	status = PmClockCheckPermission(clockPtr, master->ipiMask);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
 #endif
-	status = PmClockGateSetState(clock, enable);
+	status = PmClockGateSetState(clockPtr, enable);
 
 done:
 	IPI_RESPONSE1(master->ipiMask, (u32)status);
@@ -1640,17 +1640,17 @@ done:
  */
 static void PmClockGetStatus(PmMaster* const master, const u32 clockId)
 {
-	PmClock* clock;
+	PmClock* clockPtr;
 	s32 status = XST_SUCCESS;
 	u8 enable = 0x0U;
 
 	PmInfo("%s> ClockGetStatus(%lu)\r\n", master->name, clockId);
-	clock = PmClockGetById(clockId);
-	if (NULL == clock) {
+	clockPtr = PmClockGetById(clockId);
+	if (NULL == clockPtr) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	status = PmClockGateGetState(clock, &enable);
+	status = PmClockGateGetState(clockPtr, &enable);
 
 done:
 	IPI_RESPONSE2(master->ipiMask, (u32)status, enable);
@@ -1666,23 +1666,23 @@ done:
 static void PmClockSetDivider(PmMaster* const master, const u32 clockId,
 		       const u32 divId, const u32 val)
 {
-	PmClock* clock;
+	PmClock* clockPtr;
 	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> ClockSetDivider(%lu, %lu, %lu)\r\n", master->name, clockId,
 	       divId, val);
-	clock = PmClockGetById(clockId);
-	if (NULL == clock || 0U == val || INVALID_DIV_ID(divId)) {
+	clockPtr = PmClockGetById(clockId);
+	if (NULL == clockPtr || 0U == val || INVALID_DIV_ID(divId)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 #ifndef DISABLE_CLK_PERMS
-	status = PmClockCheckPermission(clock, master->ipiMask);
+	status = PmClockCheckPermission(clockPtr, master->ipiMask);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
 #endif
-	status = PmClockDividerSetVal(clock, divId, val);
+	status = PmClockDividerSetVal(clockPtr, divId, val);
 
 done:
 	IPI_RESPONSE1(master->ipiMask, (u32)status);
@@ -1697,20 +1697,20 @@ done:
 static void PmClockGetDivider(PmMaster* const master, const u32 clockId,
 		       const u32 divId)
 {
-	PmClock* clock;
+	PmClock* clockPtr;
 	s32 status = XST_SUCCESS;
-	u32 div = 0U;
+	u32 divVal = 0U;
 
 	PmInfo("%s> ClockGetDivider(%lu)\r\n", master->name, clockId);
-	clock = PmClockGetById(clockId);
-	if (NULL == clock) {
+	clockPtr = PmClockGetById(clockId);
+	if (NULL == clockPtr) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	status = PmClockDividerGetVal(clock, divId, &div);
+	status = PmClockDividerGetVal(clockPtr, divId, &divVal);
 
 done:
-	IPI_RESPONSE2(master->ipiMask, (u32)status, div);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, divVal);
 }
 
 /**
