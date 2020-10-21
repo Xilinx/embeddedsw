@@ -44,7 +44,7 @@
 #include "xparameters.h"
 
 /* PLM specific outbyte function */
-void outbyte(char c);
+void outbyte(char8 c);
 
 /************************** Constant Definitions *****************************/
 
@@ -141,7 +141,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void outbyte(char c)
+void outbyte(char8 c)
 {
 #ifdef STDOUT_BASEADDRESS
 	if(((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED) {
