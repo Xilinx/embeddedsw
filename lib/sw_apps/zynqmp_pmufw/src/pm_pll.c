@@ -709,10 +709,8 @@ s32 PmPllSetModeInt(PmPll* const pll, const u32 mode)
 	}
 
 	/* Deassert bypass if the PLL has locked */
-	if (XST_SUCCESS == status) {
-		XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
-			   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
-	}
+	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
+		   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
 
 done:
 	return status;
