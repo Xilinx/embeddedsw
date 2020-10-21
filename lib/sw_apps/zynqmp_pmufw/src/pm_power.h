@@ -21,9 +21,6 @@ extern "C" {
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
 
-typedef struct PmPowerClass PmPowerClass;
-typedef struct PmSlaveTcm PmSlaveTcm;
-
 /*********************************************************************
  * Macros
  ********************************************************************/
@@ -54,7 +51,7 @@ typedef struct PmSlaveTcm PmSlaveTcm;
  *              power node
  * @useCount    How many nodes currently use this power node
  */
-typedef struct PmPower {
+struct PmPower {
 	PmNode node;
 	PmPowerClass* const class;
 	PmNode** const children;
@@ -65,7 +62,7 @@ typedef struct PmPower {
 	u32 forcePerms;
 	const u8 childCnt;
 	u8 useCount;
-} PmPower;
+};
 
 /**
  * PmPowerDomain - Structure for power domains (do not have power parent)
@@ -94,10 +91,10 @@ typedef struct PmPowerIslandRpu {
  * @construct	Constructor for the power node, call only once on startup
  * @forceDown	Puts power node in the lowest power state
  */
-typedef struct PmPowerClass {
+struct PmPowerClass {
 	void (*const construct)(PmPower* const power);
 	void (*const forceDown)(PmPower* const power);
-} PmPowerClass;
+};
 
 /*********************************************************************
  * Global data declarations

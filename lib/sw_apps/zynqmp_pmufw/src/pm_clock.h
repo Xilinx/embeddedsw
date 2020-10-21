@@ -13,9 +13,6 @@ extern "C" {
 
 #include "pm_pll.h"
 
-typedef struct PmClockClass PmClockClass;
-typedef struct PmNode PmNode;
-
 /*********************************************************************
  * Macros
  ********************************************************************/
