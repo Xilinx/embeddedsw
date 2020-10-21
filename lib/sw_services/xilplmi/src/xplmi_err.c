@@ -34,6 +34,7 @@
 *                       command.
 *       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -62,6 +63,7 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask);
 static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask);
 static void XPlmi_SoftResetHandler(void);
 static void XPlmi_SysmonClkSetIro(void);
+static void XPlmi_PORHandler(void);
 
 /************************** Variable Definitions *****************************/
 static u32 EmSubsystemId = 0U;
@@ -353,6 +355,26 @@ static struct XPlmi_Error_t ErrorTable[] = {
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
+/*****************************************************************************/
+/**
+ * @brief	This function triggers Power on Reset
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_PORHandler(void) {
+	u32 RegVal;
+
+	XPlmi_SysmonClkSetIro();
+	RegVal = XPlmi_In32(CRP_RST_PS);
+	XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
+	while(TRUE) {
+		;
+	}
+}
+
 /****************************************************************************/
 /**
 * @brief    This function handles the PSM error routed to PLM.
@@ -365,14 +387,9 @@ static struct XPlmi_Error_t ErrorTable[] = {
 ****************************************************************************/
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 {
-	u32 RegVal;
-
 	switch (ErrorTable[ErrorIndex].Action) {
 	case XPLMI_EM_ACTION_POR:
-		XPlmi_SysmonClkSetIro();
-		RegVal = XPlmi_In32(CRP_RST_PS);
-		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
-		while(1U);
+		XPlmi_PORHandler();
 		break;
 	case XPLMI_EM_ACTION_SRST:
 		XPlmi_SoftResetHandler();
