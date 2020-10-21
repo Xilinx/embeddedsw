@@ -3502,6 +3502,8 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 	int Status = XST_FAILURE;
 	u32 Data;
 	u32 Row = StartRow;
+	u8 Count = RowCount;
+	const u32* DataPtr = RowData;
 	u32 Idx;
 
 	if ((EfuseType != XNVM_EFUSE_PAGE_0) &&
@@ -3511,14 +3513,14 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
-	if ((RowData == NULL) || (RowCount == 0U)) {
+	if ((DataPtr == NULL) || (Count == 0U)) {
 
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	do {
-		Data = *RowData;
+		Data = *DataPtr;
 		Idx = 0U;
 		while(Data != 0U) {
 			if((Data & 0x01U) == 0x01U) {
@@ -3532,11 +3534,11 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 			Data = Data >> 1U;
 		}
 
-		RowCount--;
+		Count--;
 		Row++;
-		RowData++;
+		DataPtr++;
 	}
-	while (RowCount > 0U);
+	while (Count > 0U);
 
 	Status = XST_SUCCESS;
 END:
@@ -3854,14 +3856,19 @@ static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
 {
 	int Status = XST_FAILURE;
 	u32 Row = StartRow;
+	u8 Count = RowCount;
+	u32* Data = RowData;
 
 	do {
-		Status = XNvm_EfuseReadCache(Row, RowData);
-		RowCount--;
+		Status = XNvm_EfuseReadCache(Row, Data);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
+		Count--;
 		Row++;
-		RowData++;
+		Data++;
 	}
-	while ((RowCount > 0U) && (XST_SUCCESS == Status));
+	while (Count > 0U);
 
 	return Status;
 }
