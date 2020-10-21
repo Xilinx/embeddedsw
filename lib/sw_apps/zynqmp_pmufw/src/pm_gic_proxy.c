@@ -116,7 +116,7 @@ static void PmGicProxyDisable(void)
 	/* Disable FPD GPI1 wake event */
 	DISABLE_WAKE(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK);
 
-	pmGicProxy.flags &= ~PM_GIC_PROXY_IS_ENABLED;
+	pmGicProxy.flags &= ~(u8)PM_GIC_PROXY_IS_ENABLED;
 }
 
 /**

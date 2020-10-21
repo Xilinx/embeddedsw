@@ -64,7 +64,7 @@ void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState)
 	 * new state is other than OFF.
 	 */
 	if (NODE_IS_OFF(node)) {
-		node->flags &= ~NODE_IDLE_DONE;
+		node->flags &= ~(u8)NODE_IDLE_DONE;
 	}
 
 	node->currState = newState;
@@ -156,7 +156,7 @@ void* PmNodeGetDerived(const u8 nodeClass, const u32 nodeId)
 	PmNodeClass* class = PmNodeGetClassById(nodeClass);
 
 	if (NULL != class) {
-		node = PmNodeGetFromClass(class, nodeId);
+		node = PmNodeGetFromClass(class, (u8)nodeId);
 	}
 
 	if (NULL != node) {

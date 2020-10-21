@@ -32,8 +32,8 @@ extern "C" {
  */
 #ifndef bool
 	typedef u8 bool;
-	#define true	1U
-	#define false	0U
+	#define true	(bool)1U
+	#define false	(bool)0U
 #endif
 
 typedef u32 (*const PmTranHandler)(void);
