@@ -196,9 +196,14 @@ typedef enum {
 						CdoCmdExecute */
 	XPLMI_ERR_MEMCPY_IMAGE_INFO,	/**< 0x127 Error during memcpy of
 						XLoader_ImageInfo */
-	XPLMI_ERR_UART_PSV_SET_BAUD_RATE,	/**<0x128 Error during setting
+	XPLMI_ERR_UART_PSV_SET_BAUD_RATE,	/**< 0x128 Error during setting
 						XUartPsv_SetBaudRate to XPLMI_UART_BAUD_RATE */
-	XPLMI_ERR_IPI_WRITE, /**<0x129 Error during XPlmi_IpiWrite */
+	XPLMI_ERR_IO_MOD_INTR_NUM_REGISTER, /**< 0x129 Invalid IoModule Interrupt
+						Number used to register interrupt handler */
+	XPLMI_ERR_IO_MOD_INTR_NUM_CLEAR,	/**< 0x12A Invalid IoModule interrupt
+						Number used to clear interrupt */
+	XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE,	/**< 0x12B Invalid IoModule interrupt
+						Number used to disable interrupt */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
