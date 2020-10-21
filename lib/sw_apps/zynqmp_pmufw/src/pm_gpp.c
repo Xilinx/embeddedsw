@@ -224,13 +224,13 @@ PmSlave pmSlaveGpu_g = {
 };
 
 #pragma weak pmUserHookVcuPwrDn
-u32 pmUserHookVcuPwrDn(void)
+static u32 pmUserHookVcuPwrDn(void)
 {
 	return XST_SUCCESS;
 }
 
 #pragma weak pmUserHookVcuPwrUp
-u32 pmUserHookVcuPwrUp(void)
+static u32 pmUserHookVcuPwrUp(void)
 {
 	return XST_SUCCESS;
 }

@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 #include "pm_slave.h"
+#include "pm_gpp.h"
 
 /*********************************************************************
  * Global data declarations
@@ -47,7 +48,6 @@ extern PmSlave pmSlaveIpiPl0_g;
 extern PmSlave pmSlaveIpiPl1_g;
 extern PmSlave pmSlaveIpiPl2_g;
 extern PmSlave pmSlaveIpiPl3_g;
-extern PmSlave pmSlaveGpu_g;
 extern PmSlave pmSlavePcie_g;
 extern PmSlave pmSlavePcap_g;
 extern PmSlave pmSlaveRtc_g;
