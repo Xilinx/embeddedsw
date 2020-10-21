@@ -35,6 +35,7 @@
 *                       Read provision is expanded to all Misc Ctrl eFuses.
 *	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -386,7 +387,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 Crc)
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 		XNVM_EFUSE_AES_CRC_REG_OFFSET, Crc);
 
-	Status = Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR +
+	Status = (int)Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_STATUS_REG_OFFSET),
 				XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK,
 				XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK,
@@ -453,7 +454,7 @@ int XNvm_EfuseCheckAesUserKey0Crc(u32 Crc)
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 		XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET, Crc);
 
-	Status = Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR +
+	Status = (int)Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR +
 			XNVM_EFUSE_STATUS_REG_OFFSET),
 			XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK,
 			XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK,
@@ -522,7 +523,7 @@ int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc)
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 		XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET, Crc);
 
-	Status = Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR +
+	Status = (int)Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR +
 			XNVM_EFUSE_STATUS_REG_OFFSET),
 			XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK,
 			XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK,
@@ -1030,7 +1031,7 @@ int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 	 * correct eFuses.
 	 */
 	PufSynRowNum = XNVM_EFUSE_PUF_SYN_START_ROW +
-			(XNVM_NUM_OF_ROWS_PER_PAGE * XNVM_EFUSE_PAGE_2);
+		(XNVM_NUM_OF_ROWS_PER_PAGE * (u32)XNVM_EFUSE_PAGE_2);
 
 	Status = XNvm_EfuseReadCacheRange(PufSynRowNum,
 					XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS,
@@ -1188,8 +1189,8 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
 	if ((PpkRevoke != XNVM_EFUSE_PPK0) &&
 		(PpkRevoke != XNVM_EFUSE_PPK1) &&
 		(PpkRevoke != XNVM_EFUSE_PPK2)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-                goto END;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
 	}
 	if (PpkRevoke == XNVM_EFUSE_PPK0) {
 		MiscCtrlBits.Ppk0Invalid = TRUE;
@@ -2296,7 +2297,7 @@ static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 	}
 	if ((StartRow > (XNVM_NUM_OF_ROWS_PER_PAGE - 1U) ||
 		(EndRow > (XNVM_NUM_OF_ROWS_PER_PAGE - 1U)))) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -2466,8 +2467,7 @@ static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 				XNVM_EFUSE_MISC_CTRL_ROW,
 				(u32)XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0);
 		if (Status != XST_SUCCESS) {
-			Status =
-				(Status |
+			Status = (Status |
 				 XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0);
 			goto END;
 		}
@@ -2475,8 +2475,7 @@ static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 				XNVM_EFUSE_MISC_CTRL_ROW,
 				(u32)XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1);
 		if (Status != XST_SUCCESS) {
-			Status =
-				(Status |
+			Status = (Status |
 				 XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1);
 			goto END;
 		}
@@ -2689,12 +2688,11 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 Row)
 	if ((Row != XNVM_EFUSE_META_HEADER_IV_START_ROW) &&
 		(Row != XNVM_EFUSE_PLM_IV_START_ROW) &&
 		(Row != XNVM_EFUSE_DATA_PARTITION_IV_START_ROW)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	Status = XNvm_EfuseReadCacheRange(Row,
-					XNVM_EFUSE_IV_NUM_OF_ROWS,
-					IvRowsRd);
+		XNVM_EFUSE_IV_NUM_OF_ROWS, IvRowsRd);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -2950,7 +2948,7 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *WriteReq)
 			}
 		}
 		else {
-			Status = (u32)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
+			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
 			goto END;
 		}
 	}
@@ -3156,7 +3154,7 @@ static int XNvm_EfuseIsPufHelperDataEmpty(void)
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PUF_CHASH_ROW,
 					(XNVM_EFUSE_PUF_CHASH_ROW +
 					XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS));
-	if (Status != (u32)XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD;
 		goto END;
 	}
@@ -3176,11 +3174,10 @@ static int XNvm_EfuseIsPufHelperDataEmpty(void)
 	 * correct eFuses.
 	 */
 	PufSynRowNum = XNVM_EFUSE_PUF_SYN_START_ROW +
-		(XNVM_NUM_OF_ROWS_PER_PAGE * XNVM_EFUSE_PAGE_2);
+		(XNVM_NUM_OF_ROWS_PER_PAGE * (u32)XNVM_EFUSE_PAGE_2);
 
 	Status = XNvm_EfuseCheckZeros(PufSynRowNum,
-					(PufSynRowNum +
-					XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS));
+		(PufSynRowNum + XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS));
 	if (Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
 		goto END;
@@ -3224,8 +3221,8 @@ static int XNvm_EfusePrgmUserFuses(const XNvm_EfuseUserData *WriteUserFuses)
 		goto END;
 	}
 	Status = XNvm_EfusePgmAndVerifyRows(StartRow,
-				(u8)(WriteUserFuses->NumOfUserFuses),
-				XNVM_EFUSE_PAGE_0, UserFusesDataToPrgm);
+		(u8)(WriteUserFuses->NumOfUserFuses),
+		XNVM_EFUSE_PAGE_0, UserFusesDataToPrgm);
 END:
 	return Status;
 }
@@ -3282,7 +3279,7 @@ static int XNvm_EfuseValidateUserFusesWriteReq(
 		if ((UserFuseValueRd &
 			WriteUserFuses->UserFuseData[Row - StartRow]) !=
 			UserFuseValueRd) {
-			Status = (u32)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
+			Status = (int)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
 			goto END;
 		}
 	}
@@ -3531,7 +3528,7 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 	do {
 		Data = *RowData;
 		Idx = 0U;
-		while(Data != FALSE) {
+		while(Data != 0U) {
 			if((Data & 0x01U) == 0x01U) {
 				Status = XNvm_EfusePgmAndVerifyBit(
 					EfuseType, Row, Idx);
@@ -3721,39 +3718,39 @@ static inline void XNvm_EfuseInitTimers(void)
 
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
-	Tpgm = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TPGM_DIV - 1) /
+	Tpgm = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TPGM_DIV - 1U) /
 							XNVM_EFUSE_TPGM_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TPGM_REG_OFFSET, Tpgm);
 
 	/* TRD = ceiling(217ns/REF_CLK_PERIOD) */
-	Trd = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TRD_DIV - 1) /
+	Trd = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TRD_DIV - 1U) /
 							XNVM_EFUSE_TRD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRD_REG_OFFSET, Trd);
 
 	/* TRDM = ceiling(500ns/REF_CLK_PERIOD)*/
-	Trdm = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TRMD_DIV - 1) /
+	Trdm = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TRMD_DIV - 1U) /
 							XNVM_EFUSE_TRMD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRDM_REG_OFFSET, Trdm);
 
 	/* TSU_H_PS = ceiling(208ns/REF_CLK_PERIOD) */
-	Tsu_h_ps = ((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_PS_DIV - 1) /
+	Tsu_h_ps = ((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_PS_DIV - 1U) /
 							XNVM_EFUSE_TSU_H_PS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_REG_OFFSET,
 				Tsu_h_ps);
 
 	/* TSU_H_PS_CS = ceiling(143ns/REF_CLK_PERIOD) */
-	Tsu_h_ps_cs = ((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_PS_CS_DIV - 1) /
+	Tsu_h_ps_cs = ((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_PS_CS_DIV - 1U) /
 							XNVM_EFUSE_TSU_H_PS_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_CS_REG_OFFSET,
 				Tsu_h_ps_cs);
 
 	/* TSU_H_CS = ceiling(184ns/REF_CLK_PERIOD) */
-	Tsu_h_cs = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_CS_DIV - 1) /
+	Tsu_h_cs = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_CS_DIV - 1U) /
 							XNVM_EFUSE_TSU_H_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_CS_REG_OFFSET,
@@ -3822,11 +3819,11 @@ static int XNvm_EfuseReadCache(u32 Row, u32* RowData)
 	u32 IsrStatus;
 
 	if (Row > (XNVM_EFUSE_TOTAL_NUM_OF_ROWS - 1U)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 	if (RowData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -3896,20 +3893,22 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	u32 PgmAddr;
 	u32 EventMask;
 
-	PgmAddr = (Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
-				(Row << XNVM_EFUSE_ADDR_ROW_SHIFT) |
-				(Col << XNVM_EFUSE_ADDR_COLUMN_SHIFT);
+	PgmAddr = ((u32)Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
+		(Row << XNVM_EFUSE_ADDR_ROW_SHIFT) |
+		(Col << XNVM_EFUSE_ADDR_COLUMN_SHIFT);
 
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_PGM_ADDR_REG_OFFSET, PgmAddr);
-	Status = Xil_WaitForEvents((XNVM_EFUSE_CTRL_BASEADDR +
-				XNVM_EFUSE_ISR_REG_OFFSET),
-				(XNVM_EFUSE_ISR_PGM_DONE |
-				XNVM_EFUSE_ISR_PGM_ERROR),
-				(XNVM_EFUSE_ISR_PGM_DONE |
-				XNVM_EFUSE_ISR_PGM_ERROR),
-				XNVM_EFUSE_PGM_TIMEOUT_VAL,
-				&EventMask);
+		XNVM_EFUSE_PGM_ADDR_REG_OFFSET, PgmAddr);
+
+	Status = (int)Xil_WaitForEvents((XNVM_EFUSE_CTRL_BASEADDR +
+		XNVM_EFUSE_ISR_REG_OFFSET),
+		(XNVM_EFUSE_ISR_PGM_DONE |
+		XNVM_EFUSE_ISR_PGM_ERROR),
+		(XNVM_EFUSE_ISR_PGM_DONE |
+		XNVM_EFUSE_ISR_PGM_ERROR),
+		XNVM_EFUSE_PGM_TIMEOUT_VAL,
+		&EventMask);
+
 	if (XST_TIMEOUT == Status) {
 		Status = (int)XNVM_EFUSE_ERR_PGM_TIMEOUT;
 	} else if ((EventMask & XNVM_EFUSE_ISR_PGM_ERROR)
@@ -3961,16 +3960,19 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 		goto END;
 	}
 
-	RdAddr = (Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
-				(Row << XNVM_EFUSE_ADDR_ROW_SHIFT);
+	RdAddr = ((u32)Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
+		(Row << XNVM_EFUSE_ADDR_ROW_SHIFT);
+
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_RD_ADDR_REG_OFFSET, RdAddr);
-	Status = Xil_WaitForEvents((XNVM_EFUSE_CTRL_BASEADDR +
-				XNVM_EFUSE_ISR_REG_OFFSET),
-				XNVM_EFUSE_ISR_RD_DONE,
-				XNVM_EFUSE_ISR_RD_DONE,
-				XNVM_EFUSE_RD_TIMEOUT_VAL,
-				&EventMask);
+		XNVM_EFUSE_RD_ADDR_REG_OFFSET, RdAddr);
+
+	Status = (int)Xil_WaitForEvents((XNVM_EFUSE_CTRL_BASEADDR +
+		XNVM_EFUSE_ISR_REG_OFFSET),
+		XNVM_EFUSE_ISR_RD_DONE,
+		XNVM_EFUSE_ISR_RD_DONE,
+		XNVM_EFUSE_RD_TIMEOUT_VAL,
+		&EventMask);
+
 	if (XST_TIMEOUT == Status) {
 		Status = (int)XNVM_EFUSE_ERR_RD_TIMEOUT;
 	} else if ((EventMask & XNVM_EFUSE_ISR_RD_DONE)
@@ -4037,6 +4039,7 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
  ******************************************************************************/
 static int XNvm_EfuseProtectionChecks(void)
 {
+	int Status = XST_FAILURE;
 	volatile u32 RegVal;
 	volatile u32 RegValTmp;
 	volatile u32 ProtVal;
@@ -4044,7 +4047,6 @@ static int XNvm_EfuseProtectionChecks(void)
 	volatile u32 RowVal;
 	volatile u32 RowValTmp;
 	u32 MiscCtrlProtMask;
-	u32 Status = XST_FAILURE;
 	u8 Index;
 
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
@@ -4305,7 +4307,7 @@ static int XNvm_EfuseCacheLoad(void)
 				XNVM_EFUSE_STATUS_CACHE_DONE,
 				XNVM_EFUSE_STATUS_CACHE_DONE,
 				XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL);
-	if (CacheStatus != XST_SUCCESS) {
+	if (CacheStatus != (u32)XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_CACHE_LOAD;
 		goto END;
 	}
@@ -4348,7 +4350,7 @@ static int XNvm_EfuseCheckForTBits(void)
 				XNVM_EFUSE_STATUS_REG_OFFSET);
 	if ((ReadReg & TbitMask) != TbitMask)
 	{
-		Status = XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
+		Status = (int)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
 		goto END;
 	}
 

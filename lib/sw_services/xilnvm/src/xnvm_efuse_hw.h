@@ -22,6 +22,7 @@
 *                       XPAR_PSU_PSS_REF_CLK_FREQ_HZ
 *	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -47,7 +48,7 @@ extern "C" {
 #define XNVM_CRP_EFUSE_REF_CLK_REG_OFFSET		(0x00000134U)
 
 #define XNVM_CRP_EFUSE_REF_CLK_SELSRC_SHIFT		(2U)
-#define XNVM_CRP_EFUSE_REF_CLK_IN			(0x01 <<\
+#define XNVM_CRP_EFUSE_REF_CLK_IN			((u32)0x01U << \
 					XNVM_CRP_EFUSE_REF_CLK_SELSRC_SHIFT)
 
 #define XNVM_CRP_EFUSE_REF_CLK_SELSRC		(XNVM_CRP_EFUSE_REF_CLK_IN)
