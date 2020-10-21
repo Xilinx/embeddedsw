@@ -215,7 +215,10 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
-		(ErrorStatus == 0x0U) && (TimeOut != 0x0U)) {
+			(TimeOut != 0x0U)) {
+		if (ErrorStatus != 0x0U) {
+			break;
+		}
 		usleep(1U);
 		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS) &
 			PMC_GLOBAL_SSIT_ERR_MASK;
