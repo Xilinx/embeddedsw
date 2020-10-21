@@ -1489,12 +1489,14 @@ static bool ddr4_is_old_mapping(void)
 {
 	u32 bg_b0, col_b4;
 	bool old_mapping = false;
+	u32 ddrcMstr;
 
 	bg_b0 = Xil_In32(DDRC_ADDRMAP(8U)) & DDRC_ADDRMAP8_ADDRMAP_BG_B0;
 	col_b4 = (Xil_In32(DDRC_ADDRMAP(2U)) & DDRC_ADDRMAP2_ADDRMAP_COL_B4) >>
 		DDRC_ADDRMAP2_ADDRMAP_COL_B4_SHIFT;
+	ddrcMstr = Xil_In32(DDRC_MSTR);
 	if (((bg_b0 + 2U) > (col_b4 + 4U)) ||
-			(DDRC_MSTR_DDR4 != (Xil_In32(DDRC_MSTR) &
+			(DDRC_MSTR_DDR4 != (ddrcMstr &
 					    DDRC_MSTR_DDR_TYPE))) {
 		old_mapping = true;
 	}
