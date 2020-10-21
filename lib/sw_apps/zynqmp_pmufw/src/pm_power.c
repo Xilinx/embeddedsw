@@ -303,11 +303,14 @@ void PmFpdRestoreContext(void)
 static s32 PmPowerDownFpd(void)
 {
 	s32 status;
+	u32 dbg0, dbg1, dbg2, dbg3;
 
-	if (0U != (A53_DBG_EDPRCR_REG_MASK & (XPfw_Read32(A53_DBG_0_EDPRCR_REG) |
-				XPfw_Read32(A53_DBG_1_EDPRCR_REG) |
-				XPfw_Read32(A53_DBG_2_EDPRCR_REG) |
-				XPfw_Read32(A53_DBG_3_EDPRCR_REG)))) {
+	dbg0 = XPfw_Read32(A53_DBG_0_EDPRCR_REG);
+	dbg1 = XPfw_Read32(A53_DBG_1_EDPRCR_REG);
+	dbg2 = XPfw_Read32(A53_DBG_2_EDPRCR_REG);
+	dbg3 = XPfw_Read32(A53_DBG_3_EDPRCR_REG);
+
+	if (0U != (A53_DBG_EDPRCR_REG_MASK & (dbg0 | dbg1 | dbg2 | dbg3 ))) {
 		PmInfo("Skipped FPD pwrdn (debugger connected)\r\n");
 		return XST_SUCCESS;
 	}
