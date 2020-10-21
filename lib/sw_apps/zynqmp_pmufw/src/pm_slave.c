@@ -301,7 +301,7 @@ static u32 PmGetLatencyFromState(const PmSlave* const slave,
 			  const PmStateId state)
 {
 	u32 i, latency = 0U;
-	PmStateId highestState = (PmStateId)slave->slvFsm->statesCnt - 1;
+	PmStateId highestState = (PmStateId)slave->slvFsm->statesCnt - 1U;
 
 	for (i = 0U; i < slave->slvFsm->transCnt; i++) {
 		if ((state == slave->slvFsm->trans[i].fromState) &&

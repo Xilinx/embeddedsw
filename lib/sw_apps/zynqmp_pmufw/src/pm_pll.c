@@ -619,7 +619,7 @@ s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
 	 * is not using vpll and vpll is used for other stuff.
 	 */
 	if (NODE_VPLL == pll->node.nodeId && PM_PLL_PARAM_FBDIV == paramId) {
-		if (pll->childCount > 1) {
+		if (pll->childCount > 1U) {
 			PmErr("More than 1 devices are using VPLL which is forbidden\r\n");
 			status = XST_PM_MULT_USER;
 			goto done;
