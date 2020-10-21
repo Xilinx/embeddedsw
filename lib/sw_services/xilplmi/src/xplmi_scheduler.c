@@ -22,6 +22,7 @@
 * 1.02  kc   07/28/2020 Wdt handler added for every scheduler tick
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -110,12 +111,11 @@ static u8 XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex
 *
 * @param    None.
 *
-* @return	XST_SUCCESS
+* @return	None
 *
 ****************************************************************************/
-int XPlmi_SchedulerInit(void)
+void XPlmi_SchedulerInit(void)
 {
-	int Status = XST_FAILURE;
 	u32 Idx;
 
 	/* Disable all the tasks */
@@ -125,10 +125,6 @@ int XPlmi_SchedulerInit(void)
 	}
 
 	Sched.Tick = 0U;
-
-	/* Successfully completed init */
-	Status = XST_SUCCESS;
-	return Status;
 }
 
 /******************************************************************************/
