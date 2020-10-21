@@ -2003,7 +2003,7 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		setAddress = pload[2] & 0x1U;
 		/* addresses are word-aligned, ignore bit 0 */
 		address = ((u64) pload[3]) << 32ULL;
-		address += pload[2] & ~0x1U;
+		address += ((u64)pload[2] & ~((u64)0x1));
 		PmRequestWakeup(master, pload[1], setAddress, address, pload[4]);
 		break;
 	case PM_SET_WAKEUP_SOURCE:
