@@ -6,7 +6,7 @@
 /****************************************************************************/
 /**
 * @file xaxipcie_g.c
-* @addtogroup axipcie_v3_2
+* @addtogroup axipcie_v3_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration
