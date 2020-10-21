@@ -129,6 +129,7 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
+	int StatusTmp = XST_FAILURE;
 
 	/* For MISRA C */
 	(void )Data;
@@ -184,7 +185,10 @@ int XPlmi_IpiDispatchHandler(void *Data)
 
 END:
 	/* Clear and enable the GIC IPI interrupt */
-	XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
+	StatusTmp = XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
+	if ((StatusTmp != XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = StatusTmp;
+	}
 	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
 
 	return Status;
