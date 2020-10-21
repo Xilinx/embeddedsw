@@ -21,6 +21,7 @@
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs from xloader_usb.c
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *        bsv 10/13/2020 Code clean up
+*        td	 10/19/2020	MISRA C Fixes
 *
 * </pre>
 *
@@ -31,8 +32,8 @@
 #include "xparameters.h"	/* XPAR parameters */
 #include "xusbpsu.h"		/* USB controller driver */
 #include "xloader_usb.h"
-#include "xplmi_util.h"
 #include "xloader.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -163,7 +164,7 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 		String = StringList[1U][Index];
 	}
 
-	StringLen = XPlmi_StrLen(String, XLOADER_MAX_STR_DESC_LEN);
+	StringLen = Xil_Strnlen(String, XLOADER_MAX_STR_DESC_LEN);
 
 	/*
 	 * Index 0 is LangId which is special as we can not represent
@@ -198,7 +199,7 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy(BufPtr, DescLen, &StringDesc, DescLen);
+	Status = Xil_SecureMemCpy(BufPtr, DescLen, &StringDesc, DescLen);
 	if (Status != XST_SUCCESS) {
 		DescLen = 0U;
 	}
@@ -275,14 +276,14 @@ static u8 XLoader_Ch9SetupDevDescReply(const struct Usb_DevData* InstancePtr, u8
 	Status = XUsbPsu_IsSuperSpeed((struct XUsbPsu*)InstancePtr->PrivateData);
 	if(Status != XST_SUCCESS) {
 		/* USB 2.0 */
-		Status = XPlmi_MemCpy(BufPtr, DevDescLength, &DDesc[0U], DevDescLength);
+		Status = Xil_SecureMemCpy(BufPtr, DevDescLength, &DDesc[0U], DevDescLength);
 		if (Status != XST_SUCCESS) {
 			DevDescLength = 0U;
 		}
 	}
 	else {
 		/* USB 3.0 */
-		Status = XPlmi_MemCpy(BufPtr, DevDescLength, &DDesc[1U], DevDescLength);
+		Status = Xil_SecureMemCpy(BufPtr, DevDescLength, &DDesc[1U], DevDescLength);
 		if (Status != XST_SUCCESS) {
 			DevDescLength = 0U;
 		}
@@ -481,7 +482,7 @@ static u8 XLoader_Ch9SetupCfgDescReply(const struct Usb_DevData* InstancePtr, u8
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy(BufPtr, CfgDescLen, Config, CfgDescLen);
+	Status = Xil_SecureMemCpy(BufPtr, CfgDescLen, Config, CfgDescLen);
 	if (Status != XST_SUCCESS) {
 		CfgDescLen = 0U;
 	}
@@ -534,7 +535,7 @@ static u8 XLoader_Ch9SetupBosDescReply(const struct Usb_DevData* InstancePtr, u8
 
 	UsbBosDescLen = sizeof(XLoaderPs_UsbBosDesc);
 
-	Status = XPlmi_MemCpy(BufPtr, BufferLen, &BosDesc, UsbBosDescLen);
+	Status = Xil_SecureMemCpy(BufPtr, BufferLen, &BosDesc, UsbBosDescLen);
 	if (Status != XST_SUCCESS) {
 		UsbBosDescLen = 0U;
 	}
@@ -1066,7 +1067,7 @@ static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
 
 		case XLOADER_STATUS_DEVICE:
 			ShortVar = XLOADER_ENDPOINT_SELF_PWRD_STATUS;
-			Status = XPlmi_MemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));/* Self powered */
+			Status = Xil_SecureMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));/* Self powered */
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -1075,7 +1076,7 @@ static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
 			ShortVar = (u16)XUsbPsu_IsEpStalled(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
 				EpNum, Direction);
-			Status = XPlmi_MemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));
+			Status = Xil_SecureMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}

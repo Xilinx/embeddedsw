@@ -190,6 +190,15 @@ typedef enum {
 	XPLMI_ERR_DMA_XFER_WAIT_DEST,	    /**< 0x123 Dma Xfer failed in Dest Channel
 						wait for done */
 	XPLMI_ERR_UART_MEMSET,		    /**< 0x124 Memset of UartPsv Instance failed */
+	XPLMI_ERR_MEMCPY_COPY_CMD,		/**< 0x125 Error during memcpy of
+						CdoCopyCmd */
+	XPLMI_ERR_MEMCPY_CMD_EXEC,		/**< 0x126 Error during memcpy of
+						CdoCmdExecute */
+	XPLMI_ERR_MEMCPY_IMAGE_INFO,	/**< 0x127 Error during memcpy of
+						XLoader_ImageInfo */
+	XPLMI_ERR_UART_PSV_SET_BAUD_RATE,	/**<0x128 Error during setting
+						XUartPsv_SetBaudRate to XPLMI_UART_BAUD_RATE */
+	XPLMI_ERR_IPI_WRITE, /**<0x129 Error during XPlmi_IpiWrite */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

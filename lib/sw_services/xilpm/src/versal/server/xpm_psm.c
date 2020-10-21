@@ -56,7 +56,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	if (1U == Is_PsmPoweredDown) {
 		/* Restore the context of reserved PSM RAM memory */
-		Status = XPlmi_MemCpy((void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp),
+		Status = Xil_SecureMemCpy((void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp),
 					&PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp));
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -88,7 +88,7 @@ static XStatus XPmPsm_PowerDown(XPm_Core *Core)
 	}
 
 	/* Store the context of reserved PSM RAM memory */
-	Status = XPlmi_MemCpy(&PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp),
+	Status = Xil_SecureMemCpy(&PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp),
 				(void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp));
 	if (XST_SUCCESS != Status) {
 		goto done;
