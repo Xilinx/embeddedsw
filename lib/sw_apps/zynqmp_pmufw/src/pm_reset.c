@@ -307,23 +307,23 @@ static u32 PmResetPulseGpioBankIOs(const PmReset* const rstPtr)
 	if( rstGpioPtr->isMaskDataLsw == false ) {
 		DirmShift = MAX_REG_BITS/2;
 	}
-	RegVal = Xil_In32(GpioDirReg) | (1U << (DirmShift + GpioRstLine));
+	RegVal = Xil_In32(GpioDirReg) | ((u32)1 << (DirmShift + GpioRstLine));
 	Xil_Out32(GpioDirReg, RegVal);
 
 	/* Assert the MIO/EMIO with the required Mask */
-	MaskVal = (1U << GpioRstLine) | GPIO_PIN_MASK_BITS;
-	RegVal = MaskVal & (~(1U << (MAX_REG_BITS/2 + GpioRstLine)));
+	MaskVal = ((u32)1 << GpioRstLine) | GPIO_PIN_MASK_BITS;
+	RegVal = MaskVal & (~((u32)1 << (MAX_REG_BITS/2 + GpioRstLine)));
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 
 	/* De-assert the MIO/EMIO with the required Mask */
-	RegVal = (~(1U << (MAX_REG_BITS/2 + GpioRstLine))) & GPIO_PIN_MASK_BITS;
+	RegVal = (~((u32)1 << (MAX_REG_BITS/2 + GpioRstLine))) & GPIO_PIN_MASK_BITS;
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 
 	/* Assert the MIO/EMIO with the required Mask */
-	MaskVal = (1U << GpioRstLine) | GPIO_PIN_MASK_BITS;
-	RegVal = MaskVal & (~(1U << (MAX_REG_BITS/2 + GpioRstLine)));
+	MaskVal = ((u32)1 << GpioRstLine) | GPIO_PIN_MASK_BITS;
+	RegVal = MaskVal & (~((u32)1 << (MAX_REG_BITS/2 + GpioRstLine)));
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 

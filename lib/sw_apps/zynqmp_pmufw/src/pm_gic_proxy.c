@@ -43,7 +43,7 @@ static void PmWakeEventGicProxySet(PmWakeEvent* const wake, const u32 ipiMask,
 		pmGicProxy.groups[gicWake->group].setMask &= ~gicWake->mask;
 	} else {
 		u32 addr = GIC_PROXY_BASE_ADDR +
-			   GIC_PROXY_GROUP_OFFSET(gicWake->group) +
+			   GIC_PROXY_GROUP_OFFSET((u32)gicWake->group) +
 			   GIC_PROXY_IRQ_STATUS_OFFSET;
 
 		/* Write 1 into status register to clear interrupt */
