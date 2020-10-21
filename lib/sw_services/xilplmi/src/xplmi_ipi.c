@@ -31,6 +31,7 @@
  * 1.02  bsv  06/02/2020 Added code to support GET BOARD command and disallow
  *                       SET BOARD command via IPI
  *       bm   10/14/2020 Code clean up
+ *       td   10/19/2020 MISRA C Fixes
  *
  * </pre>
  *
@@ -264,7 +265,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-inline int XPlmi_IpiTrigger(u32 DestCpuMask)
+int XPlmi_IpiTrigger(u32 DestCpuMask)
 {
 	int Status = XST_FAILURE;
 
@@ -283,7 +284,7 @@ inline int XPlmi_IpiTrigger(u32 DestCpuMask)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-inline int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
+int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 {
 	int Status = XST_FAILURE;
 
