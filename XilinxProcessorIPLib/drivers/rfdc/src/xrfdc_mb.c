@@ -32,6 +32,7 @@
 *       cog    08/28/20 Prevent datapaths in bypass mode from being
 *                       configured for multiband.
 *       cog    10/12/20 Check generation before cheching datapath mode.
+*       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 *
 * </pre>
 *
@@ -841,5 +842,195 @@ static void XRFdc_SetSignalFlow(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 M
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_DAC_MB_CFG_OFFSET, ReadReg);
 	}
 }
+/*****************************************************************************/
+/**
+*
+* Get Data Converter connected for digital data paths I & Q.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is Digital Data Path number.
+* @param    ConnectedData is Digital Data Path number.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+******************************************************************************/
+u32 XRFdc_GetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int *ConnectedIData,
+			     int *ConnectedQData)
+{
+	u32 Status;
+	u32 Index;
+	u32 MBConfig;
+	u32 XBarReg;
+	u32 IQ;
+	u32 NumConverters;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(ConnectedIData != NULL);
+	Xil_AssertNonvoid(ConnectedQData != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	*ConnectedIData = -1;
+	*ConnectedQData = -1;
+	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n %s %u digital path %u not enabled in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	MBConfig = XRFdc_ReadReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_MB_CONFIG_OFFSET);
+	Index = Block_Id;
+	if ((Block_Id == XRFDC_BLK_ID1) || (Block_Id == XRFDC_BLK_ID3)) {
+		Index--;
+	}
+	if (Type == XRFDC_ADC_TILE) {
+		NumConverters = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].NumSlices;
+		XBarReg = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index),
+				      XRFDC_ADC_SWITCH_MATRX_OFFSET, XRFDC_SEL_CB_TO_MIX1_MASK);
+	} else {
+		NumConverters = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices;
+		XBarReg = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Index),
+				      XRFDC_DAC_MB_CFG_OFFSET, (XRFDC_DAC_MB_SEL_MASK | XRFDC_ALT_BOND_MASK));
+	}
+	IQ = (XBarReg == XRFDC_DISABLED) ? XRFDC_DISABLED : XRFDC_ENABLED;
+
+	switch (MBConfig) {
+	case XRFDC_MB_MODE_4X:
+		*ConnectedIData = XRFDC_BLK_ID0;
+		if (IQ == XRFDC_ENABLED) {
+			*ConnectedQData = XRFDC_BLK_ID1;
+		}
+		break;
+	case XRFDC_MB_MODE_SB:
+		if (IQ == XRFDC_ENABLED) {
+			if ((Block_Id == XRFDC_BLK_ID0) ||
+			    ((Block_Id == XRFDC_BLK_ID2) && (NumConverters == XRFDC_QUAD_TILE))) {
+				*ConnectedIData = Block_Id;
+				*ConnectedQData = Block_Id + 1;
+			}
+		} else {
+			if ((Block_Id == XRFDC_BLK_ID0) ||
+			    ((Block_Id == XRFDC_BLK_ID1) && (NumConverters == XRFDC_DUAL_TILE) &&
+			     (Type == XRFDC_ADC_TILE)) ||
+			    ((Block_Id == XRFDC_BLK_ID2) && (NumConverters == XRFDC_DUAL_TILE)) ||
+			    (NumConverters == XRFDC_QUAD_TILE)) {
+				*ConnectedIData = Block_Id;
+			}
+		}
+		break;
+	case XRFDC_MB_MODE_2X_BLK01_BLK23_ALT:
+		if (Block_Id < XRFDC_BLK_ID2) {
+			*ConnectedIData = XRFDC_BLK_ID0;
+			*ConnectedQData = XRFDC_BLK_ID1;
+		}
+		break;
+	case XRFDC_MB_MODE_2X_BLK01_BLK23:
+		if (Block_Id < XRFDC_BLK_ID2) {
+			*ConnectedIData = XRFDC_BLK_ID0;
+		} else {
+			*ConnectedIData = XRFDC_BLK_ID2;
+		}
+		if (IQ == XRFDC_ENABLED) {
+			*ConnectedQData = *ConnectedIData + 1;
+		}
+		break;
+	case XRFDC_MB_MODE_2X_BLK01:
+		if (Block_Id < XRFDC_BLK_ID2) {
+			*ConnectedIData = XRFDC_BLK_ID0;
+			if (IQ == XRFDC_ENABLED) {
+				*ConnectedQData = XRFDC_BLK_ID1;
+			}
+		} else {
+			if (IQ == XRFDC_ENABLED) {
+				if ((Block_Id == XRFDC_BLK_ID2) && (NumConverters == XRFDC_QUAD_TILE)) {
+					*ConnectedIData = XRFDC_BLK_ID2;
+					*ConnectedQData = XRFDC_BLK_ID3;
+				}
+			} else {
+				if (((Block_Id == XRFDC_BLK_ID2) && (NumConverters == XRFDC_DUAL_TILE)) ||
+				    (NumConverters == XRFDC_QUAD_TILE)) {
+					*ConnectedIData = Block_Id;
+				}
+			}
+		}
+		break;
+	case XRFDC_MB_MODE_2X_BLK23:
+		if (Block_Id < XRFDC_BLK_ID2) {
+			if (IQ == XRFDC_ENABLED) {
+				if (Block_Id == XRFDC_BLK_ID0) {
+					*ConnectedIData = XRFDC_BLK_ID0;
+					*ConnectedQData = XRFDC_BLK_ID1;
+				}
+			} else {
+				if ((Block_Id != XRFDC_BLK_ID1) || (NumConverters == XRFDC_QUAD_TILE)) {
+					*ConnectedIData = Block_Id;
+				}
+			}
+		} else {
+			if ((NumConverters == XRFDC_QUAD_TILE) || (IQ == XRFDC_DISABLED)) {
+				*ConnectedIData = XRFDC_BLK_ID2;
+				if (IQ == XRFDC_ENABLED) {
+					*ConnectedQData = XRFDC_BLK_ID3;
+				}
+			}
+		}
+		break;
+	default:
+		metal_log(METAL_LOG_ERROR, "\nUndefined Multiband Mode (%u) in %s\r\n", MBConfig, __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if ((Type == XRFDC_DAC_TILE) && (NumConverters == XRFDC_DUAL_TILE) && (*ConnectedQData == XRFDC_BLK_ID1)) {
+		*ConnectedQData = XRFDC_BLK_ID2;
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Get Data Converter connected for digital data path I
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is Digital Data Path number.
+*
+* @return
+*           - Return Data converter Id.
+*
+******************************************************************************/
+int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
+{
+	int ConnectedIData;
+	int ConnectedQData;
+	(void)XRFdc_GetConnectedIQData(InstancePtr, Type, Tile_Id, Block_Id, &ConnectedIData, &ConnectedQData);
+	return ConnectedIData;
+}
+/*****************************************************************************/
+/**
+*
+* Get Data Converter connected for digital data path Q
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is Digital Data Path number.
+*
+* @return
+*           - Return Data converter Id.
+*
+******************************************************************************/
+int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
+{
+	int ConnectedIData;
+	int ConnectedQData;
+	(void)XRFdc_GetConnectedIQData(InstancePtr, Type, Tile_Id, Block_Id, &ConnectedIData, &ConnectedQData);
+	return ConnectedQData;
+}
 /** @} */

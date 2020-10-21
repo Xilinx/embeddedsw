@@ -59,6 +59,8 @@
 *       cog    08/04/20 Connected Q data for Dual DACs should be block 2.
 *       cog    08/28/20 Make suitable for the default Petalinux designs
 *                       for Gen 1/2 devices.
+*       cog    09/21/20 Fixed case where partial reconfiguration was being
+*                       implemented.
 *
 * </pre>
 *
@@ -1174,6 +1176,10 @@ printf("\n Configuring the Clock \r\n");
 		printf("\n ADC0 MB Config is %d \r\n", XRFdc_GetMultibandConfig(RFdcInstPtr, XRFDC_ADC_TILE, Tile));
 		printf("\n ================================================\r\n");
 
+		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_ADC_TILE, Tile, 0x1, XRFDC_MB_DATATYPE_R2C, 0x1);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
 		Status = XRFdc_MultiBand(RFdcInstPtr, XRFDC_ADC_TILE, Tile, 0x2, XRFDC_MB_DATATYPE_R2C, 0x2);
 		if (Status != XRFDC_SUCCESS) {
 			return XRFDC_FAILURE;
