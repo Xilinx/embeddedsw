@@ -1013,25 +1013,27 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 	/* Set the default actions as defined in the Error table */
 	for (Index = (u32)XPLMI_NODEIDX_ERROR_BOOT_CR;
 		Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_EmInit: Failed to "
-				"set action for PMC ERR1: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_EmInit: Failed to "
+						"set action for PMC ERR1: %u\r\n", Index);
+			}
 		}
 	}
 
 	for (Index = (u32)XPLMI_NODEIDX_ERROR_PMCAPB;
 		Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_EmInit: Failed to "
-				"set action for PMC ERR2: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_EmInit: Failed to "
+						"set action for PMC ERR2: %u\r\n", Index);
+			}
 		}
 	}
 }
@@ -1063,25 +1065,27 @@ int XPlmi_PsEmInit(void)
 	/* Set the default actions as defined in the Error table */
 	for (Index = (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR;
 		Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_PsEmInit: Failed to "
-				"set action for PSM ERR1: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_PsEmInit: Failed to "
+						"set action for PSM ERR1: %u\r\n", Index);
+			}
 		}
 	}
 
 	for (Index = (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT;
 		Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_PsEmInit: Failed to "
-				"set action for PSM ERR2: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_PsEmInit: Failed to "
+						"set action for PSM ERR2: %u\r\n", Index);
+			}
 		}
 	}
 	Status = XST_SUCCESS;
