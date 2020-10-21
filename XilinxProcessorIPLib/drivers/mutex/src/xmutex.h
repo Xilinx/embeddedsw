@@ -7,7 +7,7 @@
 /**
 *
 * @file xmutex.h
-* @addtogroup mutex_v4_7
+* @addtogroup mutex_v4_6
 * @{
 * @details
 *
