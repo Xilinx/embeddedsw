@@ -42,6 +42,7 @@
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 * 2.5   mn     07/06/18 Fixed Cppcheck warnings
 *       mn     07/31/18 Modified code for MISRA-C:2012 Compliance.
+* 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -78,7 +79,7 @@ static void XSysMonPsu_StubHandler(void *CallBackRef);
 *		after this function is invoked.
 *
 * @return
-*		- XST_SUCCESS if successful.
+*		- XSYSMON_SUCCESS if successful.
 *
 * @note		The user needs to first call the XSysMonPsu_LookupConfig() API
 *		which returns the Configuration structure pointer which is
@@ -130,7 +131,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	IntrStatus = XSysMonPsu_IntrGetStatus(InstancePtr);
 	XSysMonPsu_IntrClear(InstancePtr, IntrStatus);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
