@@ -29,7 +29,9 @@
 *                         passed to "go to" in case of error.
 *      kpt       09/03/20 Added XSECURE_TEMPORAL_IMPL macro for redundancy
 *      kal       09/22/20 Changed the param type from const char to const char*
-*      			  to avoid copying key onto stack
+*						  to avoid copying key onto stack
+*	   td		 10/16/20 Added Xil_Strcpy, Xil_Strcat, Xil_SecureMemCpy and
+* 						  Xil_MemCmp functions
 *
 * </pre>
 *
@@ -144,6 +146,18 @@ u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 
 /*Read, Modify and Write to an address*/
 void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
+
+/* Copies source string to destination string */
+int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
+
+/* Appends string2 to string1 */
+int Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size);
+
+/* Copies Len bytes from source memory to destination memory */
+int Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
+
+/* Compares Len bytes from memory1 and memory2 */
+int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
 
 #ifdef __cplusplus
 }

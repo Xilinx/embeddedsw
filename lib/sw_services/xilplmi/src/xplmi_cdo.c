@@ -40,6 +40,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_cdo.h"
 #include "xplmi_proc.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_LEN_TEMPBUF		(0x8U)
