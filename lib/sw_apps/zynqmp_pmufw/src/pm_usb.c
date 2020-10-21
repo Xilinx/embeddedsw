@@ -90,7 +90,7 @@ static s32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		    (PM_USB_STATE_UNUSED == nextState)) {
 			/* ON -> OFF*/
 			XPfw_AibEnable(usb->aibId);
-			status = usb->PwrDn();
+			status = (s32)usb->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -99,7 +99,7 @@ static s32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_USB_STATE_UNUSED:
 		if (PM_USB_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = usb->PwrUp();
+			status = (s32)usb->PwrUp();
 			XPfw_AibDisable(usb->aibId);
 			if (XST_SUCCESS == status) {
 				status = PmResetAssertInt(usb->rstId,

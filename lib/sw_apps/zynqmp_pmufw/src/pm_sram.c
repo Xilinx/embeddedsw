@@ -86,12 +86,12 @@ static s32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 			/* ON -> RET */
 			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
 				   sram->retCtrlMask);
-			status = sram->PwrDn();
+			status = (s32)sram->PwrDn();
 		} else if (PM_SRAM_STATE_OFF == nextState) {
 			/* ON -> OFF*/
 			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
 				   ~sram->retCtrlMask);
-			status = sram->PwrDn();
+			status = (s32)sram->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -99,12 +99,12 @@ static s32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_SRAM_STATE_RET:
 		if (PM_SRAM_STATE_ON == nextState) {
 			/* RET -> ON */
-			status = sram->PwrUp();
+			status = (s32)sram->PwrUp();
 		} else if (PM_SRAM_STATE_OFF == nextState) {
 			/* RET -> OFF */
 			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
 				   ~sram->retCtrlMask);
-			status = sram->PwrDn();
+			status = (s32)sram->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -112,7 +112,7 @@ static s32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_SRAM_STATE_OFF:
 		if (PM_SRAM_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = sram->PwrUp();
+			status = (s32)sram->PwrUp();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -169,7 +169,7 @@ done:
  */
 static void PmTcm0EccInit(const PmSlaveTcm* const tcm)
 {
-	(void)memset((u32 *)tcm->base, 0U, tcm->size);
+	(void)memset((u32 *)tcm->base, (s32)0U, tcm->size);
 }
 
 /**
@@ -184,7 +184,7 @@ static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
 	if (0U != (ctrl & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK)) {
 		base -= 0x80000U;
 	}
-	(void)memset((u32 *)base, 0U, tcm->size);
+	(void)memset((u32 *)base, (s32)0U, tcm->size);
 }
 
 /**
@@ -252,7 +252,7 @@ static u8 PmSramPowers[] = {
  */
 static u32 PmL2PwrDn(void)
 {
-	s32 status;
+	u32 status;
 
 	/* Now call PMU-ROM function to power down L2 RAM */
 	status = XpbrPwrDnL2Bank0Handler();
