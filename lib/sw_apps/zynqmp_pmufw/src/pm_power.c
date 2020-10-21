@@ -304,10 +304,10 @@ static s32 PmPowerDownFpd(void)
 {
 	s32 status;
 
-	if (A53_DBG_EDPRCR_REG_MASK & (XPfw_Read32(A53_DBG_0_EDPRCR_REG) |
+	if (0U != (A53_DBG_EDPRCR_REG_MASK & (XPfw_Read32(A53_DBG_0_EDPRCR_REG) |
 				XPfw_Read32(A53_DBG_1_EDPRCR_REG) |
 				XPfw_Read32(A53_DBG_2_EDPRCR_REG) |
-				XPfw_Read32(A53_DBG_3_EDPRCR_REG))) {
+				XPfw_Read32(A53_DBG_3_EDPRCR_REG)))) {
 		PmInfo("Skipped FPD pwrdn (debugger connected)\r\n");
 		return XST_SUCCESS;
 	}
@@ -362,7 +362,7 @@ static s32 __attribute__((noreturn)) PmPowerDownLpd(void)
 	/* Call user hook for powering down LPD */
 	PmHookPowerDownLpd();
 
-	while (1);
+	while (true);
 }
 
 /**
