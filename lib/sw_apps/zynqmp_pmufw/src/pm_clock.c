@@ -402,7 +402,7 @@ static void PmClockGenInitParent(PmClock* const clockPtr)
 		}
 	}
 
-	if (clk->parent) {
+	if (NULL != clk->parent) {
 		if (clk->parent->class == &pmClockClassPll) {
 			PmClockPll* pclk = (PmClockPll*)clk->parent->derived;
 			pclk->pll->childCount++;
