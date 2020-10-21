@@ -375,7 +375,7 @@ void PmMasterClearConfig(void)
 		PmMaster* next;
 
 		/* Clear the configuration of the master */
-		mst->wakeProc = 0U;
+		mst->wakeProc = NULL;
 		mst->ipiMask = 0U;
 		mst->wakePerms = 0U;
 		mst->suspendPerms = 0U;
@@ -679,7 +679,7 @@ s32 PmWakeMasterBySlave(const PmSlave * const slave)
 	s32 finalStatus = XST_SUCCESS;
 	s32 status;
 
-	while (mst) {
+	while (NULL != mst) {
 		PmRequirement *masterReq = PmRequirementGet(mst, slave);
 
 		if ((masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) != 0U) {
