@@ -476,7 +476,7 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 	u32 IoModIntrNum;
 
 	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_DISABLE, 0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_DISABLE, 0);
 		goto END;
 	}
 
@@ -518,7 +518,7 @@ int XPlmi_PlmIntrClear(u32 IntrId)
 	u32 IoModIntrNum;
 
 	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_CLEAR, 0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_CLEAR, 0);
 		goto END;
 	}
 
@@ -592,7 +592,7 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 	u32 IoModIntrNum;
 
 	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_REGISTER, 0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_REGISTER, 0);
 		goto END;
 	}
 
