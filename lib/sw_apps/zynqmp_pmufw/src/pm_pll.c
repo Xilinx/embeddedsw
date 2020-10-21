@@ -49,7 +49,7 @@ typedef struct PmPllParam {
 	u8 bits;
 } PmPllParam;
 
-static PmPllParam pllParams[] = {
+static PmPllParam pllParams[PM_PLL_MAX_PARAM] = {
 	[PM_PLL_PARAM_DIV2] = {
 		.regOffset = PM_PLL_CTRL_OFFSET,
 		.shift = 16U,
