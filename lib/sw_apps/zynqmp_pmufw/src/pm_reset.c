@@ -1927,7 +1927,7 @@ inline u32 PmResetGetStatusInt(const PmReset* const resetPtr, u32 *status)
 {
 	s32 ret = XST_NO_FEATURE;
 
-	if (resetPtr->ops->getStatus) {
+	if (NULL != resetPtr->ops->getStatus) {
 		*status = resetPtr->ops->getStatus(resetPtr);
 		ret = XST_SUCCESS;
 	}
