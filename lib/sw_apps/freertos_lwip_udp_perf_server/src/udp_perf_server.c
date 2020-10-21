@@ -143,7 +143,7 @@ static void reset_stats(void)
 {
 	server.client_id++;
 	/* Save start time */
-	server.start_time = sys_now() * portTICK_RATE_MS;
+	server.start_time = sys_now();
 	server.end_time = 0; /* ms */
 	server.total_bytes = 0;
 	server.cnt_datagrams = 0;
@@ -197,7 +197,7 @@ static void udp_recv_perf_traffic(int sock)
 		}
 
 		if (recv_id < 0) {
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 			u64_t diff_ms = now - server.start_time;
 			/* Send Ack */
 			if (sendto(sock, recv_buf, count, 0,
@@ -232,7 +232,7 @@ static void udp_recv_perf_traffic(int sock)
 		server.total_bytes += count;
 
 		if (REPORT_INTERVAL_TIME) {
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 
 			server.i_report.cnt_datagrams++;
 
