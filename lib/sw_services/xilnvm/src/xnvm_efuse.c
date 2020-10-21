@@ -982,7 +982,7 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 			goto END;
 		}
 	}
-	else if (IvType == XNVM_EFUSE_DATA_PARTITION_IV_RANGE) {
+	else {
 		Status = XNvm_EfuseReadCacheRange(
 					XNVM_EFUSE_DATA_PARTITION_IV_START_ROW,
 					XNVM_EFUSE_IV_NUM_OF_ROWS,
@@ -991,10 +991,6 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 		Status = (Status | XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE);
 			goto END;
 		}
-	}
-	else {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
 	}
 
 	Status = XST_SUCCESS;
@@ -1198,12 +1194,8 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
 	else if (PpkRevoke == XNVM_EFUSE_PPK1) {
 		MiscCtrlBits.Ppk1Invalid = TRUE;
 	}
-	else if (PpkRevoke == XNVM_EFUSE_PPK2) {
-		MiscCtrlBits.Ppk2Invalid = TRUE;
-	}
 	else {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
+		MiscCtrlBits.Ppk2Invalid = TRUE;
 	}
 
 	EfuseData.MiscCtrlBits = &MiscCtrlBits;
