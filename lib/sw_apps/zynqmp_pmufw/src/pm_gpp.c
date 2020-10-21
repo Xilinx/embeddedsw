@@ -53,7 +53,7 @@ static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_ON:
 		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
 			/* ON -> OFF*/
-			status = gpp->PwrDn();
+			status = (s32)gpp->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -61,9 +61,9 @@ static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_OFF:
 		if (PM_GPP_SLAVE_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = gpp->PwrUp();
+			status = (s32)gpp->PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != gpp->reset)) {
-				status = gpp->reset();
+				status = (s32)gpp->reset();
 			}
 		} else {
 			status = XST_NO_FEATURE;
@@ -153,11 +153,11 @@ static s32 PmGpuFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_ON:
 		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
 			/* ON -> OFF*/
-			status = pmSlaveGpuPP0_g.PwrDn();
+			status = (s32)pmSlaveGpuPP0_g.PwrDn();
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
-			status = pmSlaveGpuPP1_g.PwrDn();
+			status = (s32)pmSlaveGpuPP1_g.PwrDn();
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
@@ -168,17 +168,17 @@ static s32 PmGpuFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_OFF:
 		if (PM_GPP_SLAVE_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = pmSlaveGpuPP0_g.PwrUp();
+			status = (s32)pmSlaveGpuPP0_g.PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP0_g.reset)) {
-				status = pmSlaveGpuPP0_g.reset();
+				status = (s32)pmSlaveGpuPP0_g.reset();
 			}
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
 
-			status = pmSlaveGpuPP1_g.PwrUp();
+			status = (s32)pmSlaveGpuPP1_g.PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP1_g.reset)) {
-				status = pmSlaveGpuPP1_g.reset();
+				status = (s32)pmSlaveGpuPP1_g.reset();
 			}
 			if (XST_SUCCESS != status) {
 				goto done;

@@ -578,7 +578,7 @@ static s32 PmClockGenGetGateState(PmClock* const clock, u8* const enable)
 	s32 status = PmClockGateGetShift(clk, &shift);
 
 	if (XST_SUCCESS == status) {
-		*enable = (XPfw_Read32(clk->ctrlAddr) >> shift) & 1U;
+		*enable = (u8)((XPfw_Read32(clk->ctrlAddr) >> shift) & 1U);
 	}
 
 	return status;
@@ -2785,7 +2785,7 @@ void PmClockRelease(PmNode* const node)
 		PmClockReleaseInt(&ch->clock->base);
 		ch = ch->nextClock;
 	}
-	node->flags &= ~NODE_LOCKED_CLOCK_FLAG;
+	node->flags &= ~(u8)NODE_LOCKED_CLOCK_FLAG;
 
 done:
 	return;

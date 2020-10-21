@@ -1167,7 +1167,7 @@ static PmResetGeneric pmResetLpdSwdt = {
  */
 static u32 PmResetPulseFpd(void)
 {
-	return XPfw_ResetFpd();
+	return (u32)XPfw_ResetFpd();
 }
 
 static PmResetRom pmResetFpd = {
@@ -1707,7 +1707,7 @@ static PmResetRom pmResetPsOnly = {
  */
 static u32 PmResetPulseRpuLs(void)
 {
-	return XPfw_ResetRpu();
+	return (u32)XPfw_ResetRpu();
 }
 
 static PmResetRom pmResetRpuLs = {
@@ -1925,14 +1925,14 @@ err:
 
 inline u32 PmResetGetStatusInt(const PmReset* const resetPtr, u32 *status)
 {
-	int ret = XST_NO_FEATURE;
+	s32 ret = XST_NO_FEATURE;
 
 	if (resetPtr->ops->getStatus) {
 		*status = resetPtr->ops->getStatus(resetPtr);
 		ret = XST_SUCCESS;
 	}
 
-	return ret;
+	return (u32)ret;
 }
 
 /**

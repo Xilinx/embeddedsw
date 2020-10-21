@@ -69,7 +69,7 @@ static PmRequirement* PmRequirementMalloc(void)
 void PmRequirementFreeAll(void)
 {
 	/* Clear the used content of pmReqData */
-	(void)memset(pmReqData, 0U, pmReqTop * sizeof(PmRequirement));
+	(void)memset(pmReqData, (s32)0U, pmReqTop * sizeof(PmRequirement));
 
 	/* Reset top of the heap */
 	pmReqTop = 0U;
@@ -123,7 +123,7 @@ s32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
 	}
 
 	/* Schedule setting of the requirement for later */
-	masterReq->nextReq = caps;
+	masterReq->nextReq = (u8)caps;
 
 done:
 	return status;
@@ -152,7 +152,7 @@ s32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 
 	/* Configure requested capabilities */
 	tmpCaps = masterReq->currReq;
-	masterReq->currReq = caps;
+	masterReq->currReq = (u8)caps;
 	status = PmUpdateSlave(masterReq->slave);
 
 	if (XST_SUCCESS == status) {
@@ -160,7 +160,7 @@ s32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 		masterReq->nextReq = masterReq->currReq;
 	} else {
 		/* Remember the last setting, will report an error */
-		masterReq->currReq = tmpCaps;
+		masterReq->currReq = (u8)tmpCaps;
 	}
 
 done:
@@ -268,7 +268,7 @@ s32 PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 				}
 			}
 
-			req->currReq = tmpReq;
+			req->currReq = (u8)tmpReq;
 
 			/* Update slave setting */
 			status = PmUpdateSlave(req->slave);
@@ -356,7 +356,7 @@ void PmRequirementClockRestore(const PmMaster* const master)
 void PmRequirementClear(PmRequirement* const req)
 {
 	/* Clear flag - master is not using slave anymore */
-	req->info &= ~PM_MASTER_REQUESTED_SLAVE_MASK;
+	req->info &= ~(u8)PM_MASTER_REQUESTED_SLAVE_MASK;
 
 	/* Release current and next requirements */
 	req->currReq = 0U;
@@ -435,12 +435,12 @@ s32 PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 
 	if (0U != (PM_MASTER_REQUESTED_SLAVE_MASK & flags)) {
 		req->info |= PM_MASTER_REQUESTED_SLAVE_MASK;
-		req->currReq = currReq;
-		req->nextReq = currReq;
+		req->currReq = (u8)currReq;
+		req->nextReq = (u8)currReq;
 		PmClockSave(&req->slave->node);
 	}
-	req->preReq = currReq;
-	req->defaultReq = defaultReq;
+	req->preReq = (u8)currReq;
+	req->defaultReq = (u8)defaultReq;
 	req->latencyReq = MAX_LATENCY;
 	goto done;
 

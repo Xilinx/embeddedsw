@@ -210,7 +210,7 @@ static void PmPllRestoreContext(PmPll* const pll)
 			PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
 	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
 	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
-	pll->flags &= ~PM_PLL_CONTEXT_SAVED;
+	pll->flags &= ~(u8)PM_PLL_CONTEXT_SAVED;
 }
 
 /**
@@ -584,7 +584,7 @@ void PmPllRequest(PmPll* const pll)
  */
 void PmPllRelease(PmPll* const pll)
 {
-	pll->flags &= ~PM_PLL_REQUESTED;
+	pll->flags &= ~(u8)PM_PLL_REQUESTED;
 	PmPllSuspend(pll);
 }
 

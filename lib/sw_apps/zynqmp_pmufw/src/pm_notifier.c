@@ -128,7 +128,7 @@ static void PmUnregisterEvent(const u32 entry, const u32 event)
 	pmNotifiers[entry].eventMask &= ~event;
 	pmNotifiers[entry].wakeMask &= ~event;
 	if (0U == pmNotifiers[entry].eventMask) {
-		(void)memset(&pmNotifiers[entry], 0U, sizeof(PmNotifier));
+		(void)memset(&pmNotifiers[entry], (s32)0U, sizeof(PmNotifier));
 	}
 }
 
@@ -163,7 +163,7 @@ void PmNotifierUnregisterAll(const PmMaster* const mst)
 
 	for (i = 0U; i < ARRAY_SIZE(pmNotifiers); i++) {
 		if (mst == pmNotifiers[i].master) {
-			(void)memset(&pmNotifiers[i], 0U, sizeof(PmNotifier));
+			(void)memset(&pmNotifiers[i], (s32)0U, sizeof(PmNotifier));
 		}
 	}
 }
