@@ -839,7 +839,7 @@ static void PmFpgaLoad(const PmMaster *const master,
 #endif
 
 	Status = XFpga_Initialize(&XFpgaInstance);
-	if (Status != XST_SUCCESS) {
+	if (XST_SUCCESS != (s32)Status) {
 		goto done;
 	}
     Status = XFpga_PL_BitStream_Load(&XFpgaInstance, BitStreamAddr,
@@ -869,7 +869,7 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 	XFpga XFpgaInstance = {0U};
 
 	Status = XFpga_Initialize(&XFpgaInstance);
-	if (Status != XST_SUCCESS) {
+	if (XST_SUCCESS != (s32)Status) {
 		goto done;
 	}
 
@@ -913,7 +913,7 @@ static void PmFpgaRead(const PmMaster *const master,
 #endif
 
 	Status = XFpga_Initialize(&XFpgaInstance);
-	if (Status != XST_SUCCESS) {
+	if (XST_SUCCESS != (s32)Status) {
 		goto done;
 	}
 
