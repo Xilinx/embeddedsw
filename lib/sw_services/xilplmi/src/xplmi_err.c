@@ -64,6 +64,7 @@ static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask);
 static void XPlmi_SoftResetHandler(void);
 static void XPlmi_SysmonClkSetIro(void);
 static void XPlmi_PORHandler(void);
+static void XPlmi_DumpRegisters(void);
 
 /************************** Variable Definitions *****************************/
 static u32 EmSubsystemId = 0U;
@@ -1097,7 +1098,7 @@ int XPlmi_PsEmInit(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_DumpRegisters()
+static void XPlmi_DumpRegisters(void)
 {
 	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
 
