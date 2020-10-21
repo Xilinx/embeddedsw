@@ -596,7 +596,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 	 * Select the number of acquisition cycles. The acquisition cycles is
 	 * only valid for the external channels.
 	 */
-	if (IncreaseAcqCycles == TRUE) {
+	if (IncreaseAcqCycles == 1U) {
 		if (((Channel >= XSM_CH_AUX_MIN) && (Channel <= XSM_CH_AUX_MAX))
 		    || (Channel == XSM_CH_VPVN)) {
 			RegValue |= XSYSMONPSU_CFG_REG0_ACQ_MASK;
@@ -610,7 +610,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 	 * Select the input mode. The input mode is only valid for the
 	 * external channels.
 	 */
-	if (IsDifferentialMode == TRUE) {
+	if (IsDifferentialMode == 1U) {
 
 		if (((Channel >= XSM_CH_AUX_MIN) && (Channel <= XSM_CH_AUX_MAX))
 		    || (Channel == XSM_CH_VPVN)) {
@@ -622,7 +622,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 	}
 
 	/* Select the ADC mode. */
-	if (IsEventMode == TRUE) {
+	if (IsEventMode == 1U) {
 		RegValue |= XSYSMONPSU_CFG_REG0_EC_MASK;
 	}
 
@@ -908,7 +908,7 @@ void XSysMonPsu_SetSequencerEvent(XSysMonPsu *InstancePtr, u32 IsEventMode,
 					XSYSMONPSU_CFG_REG0_OFFSET);
 
 	/* Set the ADC mode. */
-	if (IsEventMode == TRUE) {
+	if (IsEventMode == 1U) {
 		RegValue |= XSYSMONPSU_CFG_REG0_EC_MASK;
 	} else {
 		RegValue &= (u32)(~XSYSMONPSU_CFG_REG0_EC_MASK);
