@@ -66,7 +66,8 @@
 *                     SHA3 in reset
 *       kal  10/07/20 Added Missed DB check in XLoader_RsaSignVerify API
 *       kal  10/16/20 Added a check for RSA EM MSB bit to make sure it is zero
-*       kpt  10/19/2020 Code clean up
+*       kpt  10/19/20 Code clean up
+*       td   10/19/20 MISRA C Fixes
 *
 * </pre>
 *
@@ -1058,7 +1059,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Read and verify headers to structures */
 		MetaHdr->Flag = XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF;
 		MetaHdr->BufferAddr = SecurePtr->ChunkAddr;
-		MetaHdr->XMemCpy = XPlmi_MemCpy;
+		MetaHdr->XMemCpy = Xil_SecureMemCpy;
 
 		/* Read IHT and PHT to structures and verify checksum */
 		Status = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
@@ -1247,7 +1248,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 	}
 	else {
-		Status = XPlmi_MemCmp(ExpHash, BlkHash.Hash, XLOADER_SHA3_LEN);
+		Status = Xil_MemCmp(ExpHash, BlkHash.Hash, XLOADER_SHA3_LEN);
 		if (Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO,"Hash mismatch error\n\r");
 			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
@@ -1262,7 +1263,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
-		Status = XPlmi_MemCpy(ExpHash, XLOADER_SHA3_LEN, Data, XLOADER_SHA3_LEN);
+		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN, Data, XLOADER_SHA3_LEN);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -1600,8 +1601,8 @@ static u32 XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 	volatile int HashStatus = XST_FAILURE;
 	volatile int HashStatusTmp = XST_FAILURE;
 
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, XPlmi_MemCmp, PpkHash,
-		(void *)EfusePpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_MemCmp, PpkHash,
+						  (void *)EfusePpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
 	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0U);
 	}
@@ -1670,7 +1671,7 @@ static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 
 	Status = XLOADER_FAILURE;
 	/* Check if valid PPK hash is all zeros */
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, XPlmi_MemCmp, HashZeros,
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_MemCmp, HashZeros,
 						 (void *)PpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
 	if ((HashStatus == XST_SUCCESS) && (HashStatusTmp == XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(
@@ -1936,7 +1937,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			 */
 			 Size = (OutLen % HashLen);
 		}
-		Status = XPlmi_MemCpy(Out, Size, HashStore.Hash, Size);
+		Status = Xil_SecureMemCpy(Out, Size, HashStore.Hash, Size);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -2030,7 +2031,7 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = XPlmi_MemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
+	Status = Xil_SecureMemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
 				&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
 				XLOADER_SHA3_LEN);
 	if (Status != XLOADER_SUCCESS) {
@@ -2088,7 +2089,7 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = XPlmi_MemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
+	Status = Xil_SecureMemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
 				&Buffer[XLOADER_RSA_PSS_DB_LEN],
 				XLOADER_RSA_PSS_SALT_LEN);
 	if (Status != XLOADER_SUCCESS) {
