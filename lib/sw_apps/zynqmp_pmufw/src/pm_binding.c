@@ -171,6 +171,7 @@ s32 XPfw_PmWakeHandler(const u32 srcMask)
 	} else if (0U != (PMU_IOMODULE_GPI1_USB_1_WAKE_MASK & srcMask)) {
 		status = PmWakeMasterBySlave(&pmSlaveUsb1_g.slv);
 	} else {
+		/* For MISRA compliance */
 	}
 
 	return status;
