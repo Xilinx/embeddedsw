@@ -161,7 +161,7 @@ static s32 PmPllLock(const PmPll* const pll)
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
 		   ~PM_PLL_CTRL_RESET_MASK);
 	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, 1U << pll->lockShift,
+	status = XPfw_UtilPollForMask(pll->statusAddr, (u32)1 << pll->lockShift,
 				      PM_PLL_LOCK_TIMEOUT);
 
 #ifdef ENABLE_EM

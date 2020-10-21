@@ -556,7 +556,7 @@ static s32 PmClockGenSetGateState(PmClock* const clock, const u8 enable)
 	s32 status = PmClockGateGetShift(clk, &shift);
 
 	if (XST_SUCCESS == status) {
-		XPfw_RMW32(clk->ctrlAddr, 1U << shift, enable << shift);
+		XPfw_RMW32(clk->ctrlAddr, (u32)1 << shift, (u32)enable << shift);
 	}
 
 	return status;

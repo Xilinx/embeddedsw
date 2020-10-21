@@ -442,7 +442,7 @@ PmMaster* PmMasterGetNextFromIpiMask(u32* const mask)
 		goto done;
 	}
 
-	ipiMask = 1U << __builtin_ctz(*mask);
+	ipiMask = (u32)1 << __builtin_ctz(*mask);
 	master = PmGetMasterByIpiMask(ipiMask);
 	*mask &= ~ipiMask;
 
