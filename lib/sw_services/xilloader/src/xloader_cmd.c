@@ -32,6 +32,7 @@
 *       bm   09/21/2020 Modified ImageInfo related API calls
 *       bm   09/24/2020 Added FuncID parameter in LoadDdrCpyImg
 *       bsv  10/13/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -343,18 +344,32 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 		XLOADER_BUFFER_MAX_SIZE_MASK;
 	ReadBack.ProcessedLen = 0U;
 
-	XPlmi_SetReadBackProps(&ReadBack);
-	Status = XLoader_LoadSubsystemPdi(Cmd);
+	Status = XPlmi_SetReadBackProps(&ReadBack);
 	if (Status != XST_SUCCESS) {
+		Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 		goto END;
 	}
+	Status = XLoader_LoadSubsystemPdi(Cmd);
+	if (Status != XST_SUCCESS) {
+		goto END1;
+	}
 
-END:
-	XPlmi_GetReadBackPropsValue(&ReadBack);
-	XPlmi_SetReadBackProps(&DefaultReadBack);
+END1:
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	Status = XPlmi_GetReadBackPropsValue(&ReadBack);
+	if (Status != XST_SUCCESS) {
+		if (Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] == (u32)XST_SUCCESS) {
+			Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+		}
+		goto END;
+	}
 	Cmd->Response[XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX] =
 		ReadBack.ProcessedLen;
+END:
+	Status = XPlmi_SetReadBackProps(&DefaultReadBack);
+	if (Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] == (u32)XST_SUCCESS) {
+		Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	}
 	return Status;
 }
 

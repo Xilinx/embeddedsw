@@ -24,6 +24,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -108,8 +109,12 @@ int XPlmi_InitUart(void)
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_CFG, Status);
 			goto END;
 		}
-		XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);
-
+		Status = XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_PSV_SET_BAUD_RATE,
+					Status);
+			goto END;
+		}
 	}
 
 #ifndef PLM_PRINT_NO_UART

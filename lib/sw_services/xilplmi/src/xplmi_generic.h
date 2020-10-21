@@ -31,6 +31,7 @@
 * 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
 *       bm   08/03/2020 Added ReadBack Props & related API
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -99,8 +100,8 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
-void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBack);
-void XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack);
+int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
+int XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack);
 
 /************************** Variable Definitions *****************************/
 
