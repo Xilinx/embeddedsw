@@ -777,7 +777,7 @@ static PmMioPin pmPinMuxCtrl[] = {
 	DEFINE_PIN(74), DEFINE_PIN(75), DEFINE_PIN(76), DEFINE_PIN(77),
 };
 
-static PmPinParam pmPinParams[] = {
+static PmPinParam pmPinParams[PINCTRL_MAX_CONFIG] = {
 	[PINCTRL_CONFIG_SLEW_RATE] = {
 		.offset = 0x14U,
 		.flags = 0U,

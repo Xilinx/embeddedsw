@@ -1727,7 +1727,7 @@ static PmReset pmResetPl = {
 	.derived = &pmResetPl,
 };
 
-static PmReset* const pmAllResets[] = {
+static PmReset* const pmAllResets[PM_RESET_MAX_LINE] = {
 	[PM_RESET_PCIE_CFG - PM_RESET_BASE] = &pmResetPcieCfg.rst,
 	[PM_RESET_PCIE_BRIDGE - PM_RESET_BASE] = &pmResetPcieBridge.rst,
 	[PM_RESET_PCIE_CTRL - PM_RESET_BASE] = &pmResetPcieCtrl.rst,
