@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xstreamer.c
-* @addtogroup llfifo_v5_6
+* @addtogroup llfifo_v5_5
 * @{
 *
 * See xtreamer.h for a description on how to use this driver.
