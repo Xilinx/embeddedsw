@@ -990,7 +990,7 @@ static void restore_ddrphy_odtcr(PmRegisterContext *context)
 static void ddr_io_retention_set(bool en)
 {
 	u32 r = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
-	if (0U != en) {
+	if (false != en) {
 		r |= PMU_GLOBAL_DDR_CNTRL_RET_MASK;
 	} else {
 		r &= ~PMU_GLOBAL_DDR_CNTRL_RET_MASK;
@@ -1551,7 +1551,7 @@ static u32 ddr_training_size(void)
 		size = LPDDR4_SIZE;
 		break;
 	case DDRC_MSTR_DDR4:
-		if (0U != ddr4_is_old_mapping()) {
+		if (false != ddr4_is_old_mapping()) {
 			size = DDR4_SIZE_OLD;
 		} else {
 			size = DDR4_SIZE;

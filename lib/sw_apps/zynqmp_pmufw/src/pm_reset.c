@@ -312,18 +312,18 @@ static u32 PmResetPulseGpioBankIOs(const PmReset* const rstPtr)
 
 	/* Assert the MIO/EMIO with the required Mask */
 	MaskVal = ((u32)1 << GpioRstLine) | GPIO_PIN_MASK_BITS;
-	RegVal = MaskVal & (~((u32)1 << (MAX_REG_BITS/2 + GpioRstLine)));
+	RegVal = MaskVal & (~((u32)1 << ((u32)MAX_REG_BITS/2U + GpioRstLine)));
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 
 	/* De-assert the MIO/EMIO with the required Mask */
-	RegVal = (~((u32)1 << (MAX_REG_BITS/2 + GpioRstLine))) & GPIO_PIN_MASK_BITS;
+	RegVal = (~((u32)1 << ((u32)MAX_REG_BITS/2U + GpioRstLine))) & GPIO_PIN_MASK_BITS;
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 
 	/* Assert the MIO/EMIO with the required Mask */
 	MaskVal = ((u32)1 << GpioRstLine) | GPIO_PIN_MASK_BITS;
-	RegVal = MaskVal & (~((u32)1 << (MAX_REG_BITS/2 + GpioRstLine)));
+	RegVal = MaskVal & (~((u32)1 << ((u32)MAX_REG_BITS/2U + GpioRstLine)));
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 

@@ -151,7 +151,7 @@ static PmNode* PmPowerDfsGetNext(void)
 {
 	PmNode* node = NULL;
 
-	while ((NULL != pmDfs.power) || (false == (u8)PmPowerStackIsEmpty())) {
+	while ((NULL != pmDfs.power) || (false == PmPowerStackIsEmpty())) {
 		if (NULL == pmDfs.power) {
 			PmPowerStackPop(&pmDfs.power, &pmDfs.it);
 		}
@@ -396,7 +396,7 @@ done:
  */
 static s32 PmPowerUpFpd(void)
 {
-	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
+	if (0U != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
 				PMU_GLOBAL_PWR_STATE_FP_MASK)) {
 		PmInfo("Skipped FPD pwrup (FPD is on)\r\n");
 		return XST_SUCCESS;
