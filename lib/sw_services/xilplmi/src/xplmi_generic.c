@@ -46,7 +46,6 @@
 /***************************** Include Files *********************************/
 #include "xplmi_generic.h"
 #include "xstatus.h"
-#include "xplmi_util.h"
 #include "xplmi_proc.h"
 #include "xplmi_hw.h"
 #include "xcfupmc.h"
@@ -56,6 +55,7 @@
 #include "xplmi_wdt.h"
 #include "xplmi_modules.h"
 #include "xplmi_cmd.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
