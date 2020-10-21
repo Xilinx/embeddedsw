@@ -1488,7 +1488,7 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 	default:
 		PmLog(PM_ERRNO_INVALID_TYPE, type, master->name);
 		status = XST_INVALID_PARAM;
-		goto done;
+		break;
 	}
 
 done:
