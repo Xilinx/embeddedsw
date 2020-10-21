@@ -488,16 +488,18 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicIntrDisable(PlmIntrId);
+			Status = XST_SUCCESS;
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
 			XIOModule_Disable(&IOModule, (u8 )IoModIntrNum);
+			Status = XST_SUCCESS;
 			break;
 
 		default:
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE, 0);
 			break;
 	}
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -530,16 +532,18 @@ int XPlmi_PlmIntrClear(u32 IntrId)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicIntrClearStatus(PlmIntrId);
+			Status = XST_SUCCESS;
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
 			XIOModule_Acknowledge(&IOModule, (u8 )IoModIntrNum);
+			Status = XST_SUCCESS;
 			break;
 
 		default:
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_CLEAR, 0);
 			break;
 	}
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -604,17 +608,18 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
+			Status = XST_SUCCESS;
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
-			(void )XPlmi_IoModuleRegisterHandler(IoModIntrNum,
+			Status = XPlmi_IoModuleRegisterHandler(IoModIntrNum,
 				      (XInterruptHandler)Handler, Data);
 			break;
 
 		default:
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_REGISTER, 0);
 			break;
 	}
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
