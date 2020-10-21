@@ -2295,7 +2295,7 @@ static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
-	if ((StartRow > (XNVM_NUM_OF_ROWS_PER_PAGE - 1U) ||
+	if (((StartRow > (XNVM_NUM_OF_ROWS_PER_PAGE - 1U)) ||
 		(EndRow > (XNVM_NUM_OF_ROWS_PER_PAGE - 1U)))) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
@@ -3827,7 +3827,7 @@ static int XNvm_EfuseReadCache(u32 Row, u32* RowData)
 		goto END;
 	}
 
-	CacheData = Xil_In32(XNVM_EFUSE_CACHE_BASEADDR + Row * sizeof(u32));
+	CacheData = Xil_In32(XNVM_EFUSE_CACHE_BASEADDR + (Row * sizeof(u32)));
 	IsrStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_ISR_REG_OFFSET);
 	if ((IsrStatus & XNVM_EFUSE_ISR_CACHE_ERROR)
