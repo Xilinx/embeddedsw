@@ -609,7 +609,7 @@ static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count)
 
 	if (DestAddr != XPLMI_SBI_DEST_ADDR) {
 		for (Index = 0; Index < Count; Index++) {
-			RegVal = XPlmi_In64(SrcAddr + (Index * XPLMI_WORD_LEN));
+			RegVal = XPlmi_In64(SrcAddr + ((u64)Index * XPLMI_WORD_LEN));
 			XPlmi_Out64(DestAddr + ((u64)Index * XPLMI_WORD_LEN), RegVal);
 		}
 		Status = XST_SUCCESS;
