@@ -833,6 +833,8 @@ static void ddr_enable_drift(void)
 		/* enable read and write drift for LPDDR4 */
 		ddr_enable_rd_drift();
 		ddr_enable_wr_drift();
+	} else {
+		/* For MISRA compliance */
 	}
 	drift_enable_req = 0U;
 	/* do not enable drift for DDR3/4, and LPDDR2 is not supported */
@@ -917,6 +919,8 @@ static void store_state(PmRegisterContext *context)
 			   context->addr == DDRPHY_DX8SLNOSC(4U)) {
 			/* assert FIFO reset */
 			context->value &= ~DDRPHY_DX8SLBOSC_PHYFRST;
+		} else {
+			/* For MISRA compliance */
 		}
 #ifdef DDRSR_DEBUG_STATE
 		ddr_print_dbg("%s: addr:%lx, value:%lx\r\n",
@@ -1581,6 +1585,8 @@ static u64 hif_to_axi_addr(u64 hif_addr)
 	} else if (hif_addr < (DDR_LO_SIZE + DDR_HI_SIZE)) {
 		/* HIF address in high DDR address range */
 		axi_addr = hif_addr + (DDR_HI_ADDR - DDR_LO_SIZE);
+	} else {
+		/* For MISRA compliance */
 	}
 
 	return axi_addr;

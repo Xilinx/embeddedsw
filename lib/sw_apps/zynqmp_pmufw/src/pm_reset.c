@@ -123,6 +123,8 @@ static void PmResetAssertCommon(const u32 ctrlAddr, const u32 mask,
 		XPfw_RMW32(ctrlAddr, mask, 0U);
 	} else if (PM_RESET_ACTION_ASSERT == action) {
 		XPfw_RMW32(ctrlAddr, mask, mask);
+	} else {
+		/* For MISRA compliance */
 	}
 }
 
