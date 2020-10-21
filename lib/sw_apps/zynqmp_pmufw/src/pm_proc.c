@@ -166,7 +166,7 @@ done:
  */
 static s32 PmProcApu0Sleep(void)
 {
-	return XpbrACPU0SleepHandler();
+	return (s32)XpbrACPU0SleepHandler();
 }
 
 /**
@@ -175,7 +175,7 @@ static s32 PmProcApu0Sleep(void)
  */
 static s32 PmProcApu1Sleep(void)
 {
-	return XpbrACPU1SleepHandler();
+	return (s32)XpbrACPU1SleepHandler();
 }
 
 /**
@@ -184,7 +184,7 @@ static s32 PmProcApu1Sleep(void)
  */
 static s32 PmProcApu2Sleep(void)
 {
-	return XpbrACPU2SleepHandler();
+	return (s32)XpbrACPU2SleepHandler();
 }
 
 /**
@@ -193,7 +193,7 @@ static s32 PmProcApu2Sleep(void)
  */
 static s32 PmProcApu3Sleep(void)
 {
-	return XpbrACPU3SleepHandler();
+	return (s32)XpbrACPU3SleepHandler();
 }
 
 /**
@@ -252,7 +252,7 @@ static s32 PmProcRpu1Sleep(void)
  */
 static s32 PmProcApu0Wake(void)
 {
-	return XpbrACPU0WakeHandler();
+	return (s32)XpbrACPU0WakeHandler();
 }
 
 /**
@@ -261,7 +261,7 @@ static s32 PmProcApu0Wake(void)
  */
 static s32 PmProcApu1Wake(void)
 {
-	return XpbrACPU1WakeHandler();
+	return (s32)XpbrACPU1WakeHandler();
 }
 
 /**
@@ -270,7 +270,7 @@ static s32 PmProcApu1Wake(void)
  */
 static s32 PmProcApu2Wake(void)
 {
-	return XpbrACPU2WakeHandler();
+	return (s32)XpbrACPU2WakeHandler();
 }
 
 /**
@@ -279,7 +279,7 @@ static s32 PmProcApu2Wake(void)
  */
 static s32 PmProcApu3Wake(void)
 {
-	return XpbrACPU3WakeHandler();
+	return (s32)XpbrACPU3WakeHandler();
 }
 
 /**
@@ -290,7 +290,7 @@ static s32 PmProcRpu0Wake(void)
 {
 	s32 status;
 
-	status = XpbrRstR50Handler();
+	status = (s32)XpbrRstR50Handler();
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
@@ -309,7 +309,7 @@ static s32 PmProcRpu1Wake(void)
 {
 	s32 status;
 
-	status = XpbrRstR51Handler();
+	status = (s32)XpbrRstR51Handler();
 	if (XST_SUCCESS != status) {
 		goto done;
 	}

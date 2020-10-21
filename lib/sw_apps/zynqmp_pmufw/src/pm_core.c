@@ -178,7 +178,7 @@ static void PmProcessAckRequest(const u32 ack,
 {
 	if (REQUEST_ACK_BLOCKING == ack) {
 		/* Return status immediately */
-		IPI_RESPONSE1(master->ipiMask, status);
+		IPI_RESPONSE1(master->ipiMask, (u32)status);
 	} else if (REQUEST_ACK_NON_BLOCKING == ack) {
 		/* Return acknowledge through callback */
 		PmAcknowledgeCb(master, nodeId, status, oppoint);
@@ -207,7 +207,7 @@ static void PmSelfSuspend(const PmMaster *const master,
 	s32 status;
 	u32 worstCaseLatency = 0U;
 	/* the node ID must refer to a processor belonging to this master */
-	PmProc* proc = PmGetProcOfThisMaster(master, node);
+	PmProc* proc = PmGetProcOfThisMaster(master, (PmNodeId)node);
 
 	PmInfo("%s> SelfSuspend(%lu, %lu, %lu, 0x%llx)\r\n", master->name, node,
 	       latency, state, address);
@@ -242,7 +242,7 @@ static void PmSelfSuspend(const PmMaster *const master,
 	}
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -280,7 +280,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 	}
 
 	/* Check whether the target is placeholder in PU */
-	target = PmMasterGetPlaceholder(node);
+	target = PmMasterGetPlaceholder((PmNodeId)node);
 
 	if (NULL == target) {
 		PmLog(PM_ERRNO_INVALID_NODE, node, master->name);
@@ -313,7 +313,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 done:
 	if (XST_SUCCESS != status) {
 		/* Something went wrong, acknowledge immediately */
-		PmProcessAckRequest(ack, master, node, status, 0U);
+		PmProcessAckRequest(ack, master, (PmNodeId)node, (u32)status, 0U);
 	}
 }
 
@@ -368,7 +368,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 	oppoint = nodePtr->currState;
 
 done:
-	PmProcessAckRequest(ack, master, node, status, oppoint);
+	PmProcessAckRequest(ack, master, (PmNodeId)node, (u32)status, oppoint);
 }
 
 /**
@@ -385,7 +385,7 @@ static void PmAbortSuspend(const PmMaster *const master,
 			   const u32 node)
 {
 	s32 status;
-	PmProc* proc = PmGetProcOfThisMaster(master, node);
+	PmProc* proc = PmGetProcOfThisMaster(master, (PmNodeId)node);
 
 	PmInfo("%s> AbortSuspend(%lu, %lu)\r\n", master->name, node, reason);
 
@@ -403,7 +403,7 @@ static void PmAbortSuspend(const PmMaster *const master,
 	status = PmProcFsm(proc, PM_PROC_EVENT_ABORT_SUSPEND);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -455,7 +455,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	oppoint = proc->node.currState;
 
 done:
-	PmProcessAckRequest(ack, master, node, status, oppoint);
+	PmProcessAckRequest(ack, master, (PmNodeId)node, (u32)status, oppoint);
 }
 
 /**
@@ -505,7 +505,7 @@ static void PmReleaseNode(const PmMaster *master,
 
 done:
 	PmInfo("%s> ReleaseNode(%lu)\r\n", master->name, node);
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -566,7 +566,7 @@ static void PmRequestNode(const PmMaster *master,
 	status = PmRequirementRequest(masterReq, capabilities);
 
 done:
-	PmProcessAckRequest(ack, master, node, status, oppoint);
+	PmProcessAckRequest(ack, master, (PmNodeId)node, (u32)status, oppoint);
 }
 
 /**
@@ -632,7 +632,7 @@ static void PmSetRequirement(const PmMaster *master,
 	oppoint = masterReq->slave->node.currState;
 
 done:
-	PmProcessAckRequest(ack, master, node, status, oppoint);
+	PmProcessAckRequest(ack, master, (PmNodeId)node, (u32)status, oppoint);
 }
 
 /**
@@ -679,7 +679,7 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 	status = PmResetDoAssert(resetPtr, action);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -701,10 +701,10 @@ static void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 		goto done;
 	}
 
-	status = PmResetGetStatusInt(resetPtr, &resetStatus);
+	status = (s32)PmResetGetStatusInt(resetPtr, &resetStatus);
 
 done:
-	IPI_RESPONSE2(master->ipiMask, status, resetStatus);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, resetStatus);
 }
 
 /**
@@ -737,7 +737,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	XPfw_RMW32(address, mask, value);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -764,7 +764,7 @@ static void PmMmioRead(const PmMaster *const master, const u32 address)
 	status = XST_SUCCESS;
 
 done:
-	IPI_RESPONSE2(master->ipiMask, status, value);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, value);
 }
 
 #if defined (ENABLE_WDT) &&	\
@@ -855,7 +855,7 @@ static void PmFpgaLoad(const PmMaster *const master,
 				PM_NOTIFY_STL_NO_OP_EXIT);
 #endif
   done:
-       IPI_RESPONSE1(master->ipiMask, Status);
+       IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
 /**
@@ -879,7 +879,7 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 	}
 
  done:
-	IPI_RESPONSE2(master->ipiMask, Status, Value);
+	IPI_RESPONSE2(master->ipiMask, (u32)Status, Value);
 }
 
 #if defined(ENABLE_FPGA_READ_CONFIG_DATA) || defined(ENABLE_FPGA_READ_CONFIG_REG)
@@ -942,7 +942,7 @@ static void PmFpgaRead(const PmMaster *const master,
 #endif
 
  done:
-	IPI_RESPONSE2(master->ipiMask, Status, Value);
+	IPI_RESPONSE2(master->ipiMask, (u32)Status, Value);
 }
 #endif
 #endif
@@ -982,7 +982,7 @@ static void PmSecureSha(const PmMaster *const master,
 	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
 				PM_NOTIFY_STL_NO_OP_EXIT);
 #endif
-	IPI_RESPONSE1(master->ipiMask, Status);
+	IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
 /**
@@ -1022,7 +1022,7 @@ static void PmSecureRsa(const PmMaster *const master,
 				PM_NOTIFY_STL_NO_OP_EXIT);
 #endif
 
-	IPI_RESPONSE1(master->ipiMask, Status);
+	IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
 /**
@@ -1067,7 +1067,7 @@ static void PmSecureAes(const PmMaster *const master,
 #endif
 
 END:
-	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
+	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, (u32)Status);
 }
 
 /**
@@ -1112,7 +1112,7 @@ static void PmSecureImage(const PmMaster *const master,
 		 PmErr("Failed image loading  with error : %x\r\n", Status);
 	}
 
-	IPI_RESPONSE3(master->ipiMask, Status, Addr.AddrHigh, Addr.AddrLow);
+	IPI_RESPONSE3(master->ipiMask, (u32)Status, Addr.AddrHigh, Addr.AddrLow);
 }
 #endif
 
@@ -1135,7 +1135,7 @@ static void PmEfuseAccess(const PmMaster *const master,
 	Status = XST_NOT_ENABLED;
 #endif
 
-	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, Status);
+	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, (u32)Status);
 }
 
 /**
@@ -1179,7 +1179,7 @@ static void PmSetWakeupSource(const PmMaster *const master,
 
 	/* Check if given target node is valid */
 	if ((targetNode != master->nid) &&
-	    (NULL == PmGetProcOfThisMaster(master, targetNode))) {
+	    (NULL == PmGetProcOfThisMaster(master, (PmNodeId)targetNode))) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1205,7 +1205,7 @@ static void PmSetWakeupSource(const PmMaster *const master,
 
 	/* Set/clear request info according to the enable flag */
 	if (0U == enable) {
-		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+		req->info &= ~(u8)PM_MASTER_WAKEUP_REQ_MASK;
 	} else if (1U == enable) {
 		req->info |= PM_MASTER_WAKEUP_REQ_MASK;
 	} else {
@@ -1219,7 +1219,7 @@ static void PmSetWakeupSource(const PmMaster *const master,
 done:
 	PmInfo("%s> SetWakeupSource(%lu, %lu, %lu)\r\n", master->name,
 	       targetNode, sourceNode, enable);
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1270,7 +1270,7 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 	}
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1312,7 +1312,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 	status = PmUpdateSlave(masterReq->slave);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1337,7 +1337,7 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 	 * Respond using the saved IPI mask of the caller (master's IPI mask
 	 * may change after setting the configuration)
 	 */
-	IPI_RESPONSE1(callerIpiMask, status);
+	IPI_RESPONSE1(callerIpiMask, (u32)status);
 }
 
 /**
@@ -1443,7 +1443,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	}
 
 done:
-	IPI_RESPONSE4(master->ipiMask, status, oppoint, currReq, usage);
+	IPI_RESPONSE4(master->ipiMask, (u32)status, oppoint, currReq, usage);
 }
 
 /**
@@ -1493,7 +1493,7 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 done:
 	PmInfo("%s> PmGetOpChar(%lu, %lu, %lu)\r\n", master->name, node, type,
 	       result);
-	IPI_RESPONSE2(master->ipiMask, status, result);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, result);
 }
 
 /**
@@ -1531,7 +1531,7 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 	}
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1547,7 +1547,7 @@ void PmInitFinalize(PmMaster* const master)
 #ifdef ENABLE_UNUSED_RPU_PWR_DWN
 	PmForceDownUnusableRpuCores();
 #endif
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1578,7 +1578,7 @@ static void PmClockSetParent(PmMaster* const master, const u32 clockId,
 	status = PmClockMuxSetParent(clock, select);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1601,7 +1601,7 @@ static void PmClockGetParent(PmMaster* const master, const u32 clockId)
 	status = PmClockMuxGetParent(clock, &select);
 
 done:
-	IPI_RESPONSE2(master->ipiMask, status, select);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, select);
 }
 
 /**
@@ -1630,7 +1630,7 @@ static void PmClockGateConfig(PmMaster* const master, const u32 clkId, const u8 
 	status = PmClockGateSetState(clock, enable);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1653,7 +1653,7 @@ static void PmClockGetStatus(PmMaster* const master, const u32 clockId)
 	status = PmClockGateGetState(clock, &enable);
 
 done:
-	IPI_RESPONSE2(master->ipiMask, status, enable);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, enable);
 }
 
 /**
@@ -1685,7 +1685,7 @@ static void PmClockSetDivider(PmMaster* const master, const u32 clockId,
 	status = PmClockDividerSetVal(clock, divId, val);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1710,7 +1710,7 @@ static void PmClockGetDivider(PmMaster* const master, const u32 clockId,
 	status = PmClockDividerGetVal(clock, divId, &div);
 
 done:
-	IPI_RESPONSE2(master->ipiMask, status, div);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, div);
 }
 
 /**
@@ -1742,7 +1742,7 @@ static void PmPllSetParam(PmMaster* const master, const u32 pllId, const u32 par
 	status = PmPllSetParameterInt(pll, paramId, value);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1765,7 +1765,7 @@ static void PmPllGetParam(PmMaster* const master, const u32 pllId, const u32 par
 	status = PmPllGetParameterInt(pll, paramId, &value);
 
 done:
-	IPI_RESPONSE2(master->ipiMask, status, value);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, value);
 }
 
 /**
@@ -1794,7 +1794,7 @@ static void PmPllSetMode(PmMaster* const master, const u32 pllId, const u32 mode
 	status = PmPllSetModeInt(pll, mode);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1817,7 +1817,7 @@ static void PmPllGetMode(PmMaster* const master, const u32 pllId)
 	mode = PmPllGetModeInt(pll);
 
 done:
-	IPI_RESPONSE2(master->ipiMask, status, mode);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, mode);
 }
 
 /**
@@ -1833,7 +1833,7 @@ static void PmPinCtrlRequest(PmMaster* const master, const u32 pinId)
 
 	status = PmPinCtrlRequestInt(master->ipiMask, pinId);
 
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1849,7 +1849,7 @@ static void PmPinCtrlRelease(PmMaster* const master, const u32 pinId)
 
 	status = PmPinCtrlReleaseInt(master->ipiMask, pinId);
 
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1866,7 +1866,7 @@ static void PmPinCtrlGetFunction(PmMaster* const master, const u32 pinId)
 
 	status = PmPinCtrlGetFunctionInt(pinId, &fnId);
 
-	IPI_RESPONSE2(master->ipiMask, status, fnId);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, fnId);
 }
 
 /**
@@ -1888,7 +1888,7 @@ static void PmPinCtrlSetFunction(PmMaster* const master, const u32 pinId,
 	status = PmPinCtrlSetFunctionInt(master, pinId, fnId);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**
@@ -1907,7 +1907,7 @@ static void PmPinCtrlConfigParamGet(PmMaster* const master, const u32 pinId,
 		paramId);
 	status = PmPinCtrlGetParam(pinId, paramId, &value);
 
-	IPI_RESPONSE2(master->ipiMask, status, value);
+	IPI_RESPONSE2(master->ipiMask, (u32)status, value);
 }
 
 /**
@@ -1931,7 +1931,7 @@ static void PmPinCtrlConfigParamSet(PmMaster* const master, const u32 pinId,
 	status = PmPinCtrlSetParam(pinId, paramId, val);
 
 done:
-	IPI_RESPONSE1(master->ipiMask, status);
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
 /**

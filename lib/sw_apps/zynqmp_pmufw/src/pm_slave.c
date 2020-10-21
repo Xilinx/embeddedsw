@@ -301,7 +301,7 @@ static u32 PmGetLatencyFromState(const PmSlave* const slave,
 			  const PmStateId state)
 {
 	u32 i, latency = 0U;
-	PmStateId highestState = slave->slvFsm->statesCnt - 1;
+	PmStateId highestState = (PmStateId)slave->slvFsm->statesCnt - 1;
 
 	for (i = 0U; i < slave->slvFsm->transCnt; i++) {
 		if ((state == slave->slvFsm->trans[i].fromState) &&
@@ -341,14 +341,14 @@ static s32 PmConstrainStateByLatency(const PmSlave* const slave,
 			/* State candidate has no required capabilities */
 			continue;
 		}
-		wkupLat = PmGetLatencyFromState(slave, i);
+		wkupLat = PmGetLatencyFromState(slave, (PmStateId)i);
 		if (wkupLat > minLatency) {
 			/* State does not satisfy latency requirement */
 			continue;
 		}
 
 		status = XST_SUCCESS;
-		*state = i;
+		*state = (PmStateId)i;
 		break;
 	}
 
@@ -572,7 +572,7 @@ s32 PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 			status = XST_FAILURE;
 			goto done;
 		}
-		req->currReq = caps;
+		req->currReq = (u8)caps;
 	}
 
 done:

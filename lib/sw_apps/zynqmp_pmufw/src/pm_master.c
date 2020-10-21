@@ -435,7 +435,7 @@ PmMaster* PmGetMasterByIpiMask(const u32 mask)
 PmMaster* PmMasterGetNextFromIpiMask(u32* const mask)
 {
 	PmMaster* master = NULL;
-	u32 masterCnt = __builtin_popcount(*mask);
+	u32 masterCnt = (u32)__builtin_popcount(*mask);
 	u32 ipiMask;
 
 	if (0U == masterCnt) {
@@ -536,7 +536,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 	PmRequirement* req = master->reqs;
 
 	while (NULL != req) {
-		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+		req->info &= ~(u8)PM_MASTER_WAKEUP_REQ_MASK;
 		req = req->nextSlave;
 	}
 
@@ -544,7 +544,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 	if (NULL != master->gic) {
 		master->gic->clear();
 	}
-	PmMasterConfigWakeEvents(master, 0U);
+	PmMasterConfigWakeEvents(master, false);
 }
 
 /**
@@ -601,10 +601,10 @@ s32 PmMasterSuspendAck(PmMaster* const mst, const s32 response)
 
 	if (REQUEST_ACK_NON_BLOCKING == mst->suspendRequest.acknowledge) {
 		PmAcknowledgeCb(mst->suspendRequest.initiator,
-				mst->procs[0]->node.nodeId, response,
+				mst->procs[0]->node.nodeId, (u32)response,
 				mst->procs[0]->node.currState);
 	} else if (REQUEST_ACK_BLOCKING == mst->suspendRequest.acknowledge) {
-		IPI_RESPONSE1(mst->ipiMask, response);
+		IPI_RESPONSE1(mst->ipiMask, (u32)response);
 	} else {
 		/* No acknowledge */
 	}
@@ -832,7 +832,7 @@ s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 			if (true == condition) {
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
-			PmMasterConfigWakeEvents(master, 1U);
+			PmMasterConfigWakeEvents(master, true);
 #ifdef ENABLE_POS
 			if (true == isPoS) {
 				status = PmSystemFinalizePowerOffSuspend();
