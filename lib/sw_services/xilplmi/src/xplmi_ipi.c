@@ -128,7 +128,7 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	u32 SrcCpuMask;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
-	XPlmi_Cmd Cmd;
+	XPlmi_Cmd Cmd = {0U};
 
 	/* For MISRA C */
 	(void )Data;
