@@ -218,7 +218,7 @@ int XNvm_BbramWriteUsrData(u32 UsrData)
  *
  * @note    None.
  ******************************************************************************/
-inline u32 XNvm_BbramReadUsrData(void)
+u32 XNvm_BbramReadUsrData(void)
 {
 	return XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
 }
