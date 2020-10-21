@@ -73,10 +73,10 @@ static void PmGicProxyEnable(void)
 			   GIC_PROXY_IRQ_ENABLE_OFFSET;
 
 		/* Clear GIC Proxy group interrupt */
-		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_STATUS, 1U << g);
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_STATUS, (u32)1 << g);
 
 		/* Enable GIC Proxy group interrupt */
-		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_ENABLE, 1U << g);
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_ENABLE, (u32)1 << g);
 
 		/* Enable interrupts in the group that are set as wake */
 		XPfw_Write32(addr, pmGicProxy.groups[g].setMask);
@@ -110,7 +110,7 @@ static void PmGicProxyDisable(void)
 		XPfw_Write32(disableAddr, ~0U);
 
 		/* Disable GIC Proxy group interrupt */
-		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_DISABLE, 1U << g);
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_DISABLE, (u32)1 << g);
 	}
 
 	/* Disable FPD GPI1 wake event */

@@ -159,7 +159,7 @@ typedef struct PmNode PmNode;
 /* Number of payload elements (api id and api's arguments) */
 #define PAYLOAD_ELEM_CNT		(PAYLOAD_API_ID + PAYLOAD_API_ARGS_CNT)
 
-#define MASK_OF_BITS(bits)		((1U << (bits)) - 1U)
+#define MASK_OF_BITS(bits)		(((u32)1 << (bits)) - 1U)
 
 /*********************************************************************
  * Structure definitions
