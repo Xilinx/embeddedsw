@@ -106,8 +106,8 @@ typedef struct PmProc {
 	PmNode node;
 	u64 resumeAddress;
 	PmMaster* master;
-	s32 (*const saveResumeAddr)(PmProc* const, u64);
-	void (*const restoreResumeAddr)(PmProc* const);
+	s32 (*const saveResumeAddr)(PmProc* const proc, u64 address);
+	void (*const restoreResumeAddr)(PmProc* const proc);
 	void (*const init)(PmProc* const proc);
 	s32 (*const sleep)(void);
 	s32 (*const wake)(void);
