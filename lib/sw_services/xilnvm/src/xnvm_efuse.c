@@ -4047,7 +4047,7 @@ static int XNvm_EfuseProtectionChecks(void)
 	volatile u32 RowVal;
 	volatile u32 RowValTmp;
 	u32 MiscCtrlProtMask;
-	u8 Index;
+	u32 Index;
 
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET);
