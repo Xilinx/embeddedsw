@@ -780,7 +780,7 @@ void PmForceDownUnusableRpuCores(void)
 	 * for that core is cleared. So check that bit and force down that core.
 	 */
 	if (0U == (value & RPU0_STATUS_MASK)) {
-		PmProcForceDown(&pmProcRpu0_g.node);
+		(void)PmProcForceDown(&pmProcRpu0_g.node);
 	}
 	if (0U == (value & RPU1_STATUS_MASK)) {
 		mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
@@ -796,11 +796,11 @@ void PmForceDownUnusableRpuCores(void)
 				PmClockRelease(&proc->node);
 			}
 			if (NULL != proc->master) {
-				PmMasterFsm(proc->master,
+				(void)PmMasterFsm(proc->master,
 					    PM_MASTER_EVENT_FORCED_PROC);
 			}
 		} else {
-			PmProcFsm(&pmProcRpu1_g, PM_PROC_EVENT_FORCE_PWRDN);
+			(void)PmProcFsm(&pmProcRpu1_g, PM_PROC_EVENT_FORCE_PWRDN);
 		}
 	}
 

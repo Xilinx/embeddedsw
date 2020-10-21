@@ -442,7 +442,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	}
 
 	if (1U == setAddress) {
-		proc->saveResumeAddr(proc, address);
+		(void)proc->saveResumeAddr(proc, address);
 	} else {
 		if (false == PmProcHasResumeAddr(proc)) {
 			PmLog(PM_ERRNO_NO_ADDRESS, 0U, master->name);

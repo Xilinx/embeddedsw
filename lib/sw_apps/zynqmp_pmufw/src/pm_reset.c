@@ -1890,7 +1890,7 @@ s32 PmResetDoAssert(const PmReset *reset, u32 action)
 		}
 		break;
 	case PM_RESET_ACTION_PULSE:
-		reset->ops->pulse(reset);
+		status = (s32)reset->ops->pulse(reset);
 		break;
 	default:
 		PmWarn("invalid assert %lu\r\n", action);

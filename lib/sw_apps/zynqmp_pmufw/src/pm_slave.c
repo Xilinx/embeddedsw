@@ -651,7 +651,7 @@ static s32 PmSlaveForceDown(PmNode* const node)
 	status = PmUpdateSlave(slave);
 
 	if ((NULL != slave->class) && (NULL != slave->class->forceDown)) {
-		slave->class->forceDown(slave);
+		status = slave->class->forceDown(slave);
 	}
 
 	return status;
@@ -684,7 +684,7 @@ static s32 PmSlaveInit(PmNode* const node)
 	}
 
 	if ((NULL != slave->class) && (NULL != slave->class->init)) {
-		slave->class->init(slave);
+		status = slave->class->init(slave);
 	}
 
 done:
