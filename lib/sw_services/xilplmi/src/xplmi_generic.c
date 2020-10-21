@@ -35,6 +35,7 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -813,6 +814,9 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 
 	Status = XPlmi_DmaXfr(SrcAddr, (u64)CFU_STREAM_ADDR,
 		Cmd->PayloadLen - XPLMI_CFI_DATA_OFFSET, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 		Status = XPlmi_WaitForNonBlkDma(XPLMI_PMCDMA_1);
@@ -1223,12 +1227,15 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
+int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
 {
+	int Status = XST_FAILURE;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
-	(void)memcpy(ReadBackVal, ReadBackPtr, sizeof(XPlmi_ReadBackProps));
 
-	return;
+	Status = Xil_SecureMemCpy(ReadBackVal, sizeof(XPlmi_ReadBackProps),
+			ReadBackPtr, sizeof(XPlmi_ReadBackProps));
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1241,12 +1248,15 @@ void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
+int XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
 {
+	int Status = XST_FAILURE;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
-	(void)memcpy(ReadBackPtr, ReadBack, sizeof(XPlmi_ReadBackProps));
 
-	return;
+	Status = Xil_SecureMemCpy(ReadBackPtr, sizeof(XPlmi_ReadBackProps),
+			ReadBack, sizeof(XPlmi_ReadBackProps));
+
+	return Status;
 }
 
 /*****************************************************************************/
