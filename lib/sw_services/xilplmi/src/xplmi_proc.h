@@ -28,6 +28,7 @@
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU event
 * 1.03  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -114,8 +115,6 @@ typedef struct XPlmi_PerfTime {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_StartTimer(void);
-int XPlmi_InitProc(void);
-int XPlmi_InitIOModule(void);
 u64 XPlmi_GetTimerValue(void);
 int XPlmi_SetUpInterruptSystem(void);
 void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime);
