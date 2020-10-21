@@ -7,7 +7,7 @@
 /**
 *
 * @file xllfifo_hw.h
-* @addtogroup llfifo_v5_6
+* @addtogroup llfifo_v5_5
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
