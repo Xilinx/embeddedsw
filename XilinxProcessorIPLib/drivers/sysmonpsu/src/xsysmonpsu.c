@@ -320,7 +320,7 @@ u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
 				(((u32)Channel - XSM_CH_SUPPLY7) << 2U)));
 	} else {
 		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + XSM_AMS_CH_OFFSET +
-				(((u32)Channel - XSM_CH_VCC_PSLL0) << 2U)));
+				(((UINTPTR)Channel - XSM_CH_VCC_PSLL0) << 2U)));
 	}
 
 	return AdcData;
@@ -463,7 +463,7 @@ void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
 
 	/* Write the averaging value into the Configuration Register 0. */
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET)
-						& (u32)(~XSYSMONPSU_CFG_REG0_AVRGNG_MASK);
+						& (~((u32)XSYSMONPSU_CFG_REG0_AVRGNG_MASK));
 	RegValue |= (((u32) Average << XSYSMONPSU_CFG_REG0_AVRGNG_SHIFT));
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET,
 			 RegValue);
@@ -684,7 +684,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(AlmEnableMask <=
 			(XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK |
-			(XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK << XSM_CFG_ALARM_SHIFT)));
+			((u32)XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK << XSM_CFG_ALARM_SHIFT)));
 	Xil_AssertVoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
@@ -694,7 +694,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_CFG_REG1_OFFSET);
-	RegValue &= (u32)(~XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
+	RegValue &= ~((u32)XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
 	RegValue |= (~AlmEnableMask & (u32)XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
 
 	/*
@@ -707,7 +707,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 	if (SysmonBlk == XSYSMON_PS) {
 		RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_CFG_REG3_OFFSET);
-		RegValue &= (u32)(~XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
+		RegValue &= ~((u32)XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
 		RegValue |= (~(AlmEnableMask >> XSM_CFG_ALARM_SHIFT) &
 				(u32)XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
@@ -819,7 +819,7 @@ void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
 	/* Set the specified sequencer mode in the Configuration Register 1. */
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_CFG_REG1_OFFSET);
-	RegValue &= (u32)(~ XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);
+	RegValue &= ~((u32)XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);
 	RegValue |= (((u32)SequencerMode  << XSYSMONPSU_CFG_REG1_SEQ_MDE_SHIFT) &
 					XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
@@ -911,7 +911,7 @@ void XSysMonPsu_SetSequencerEvent(XSysMonPsu *InstancePtr, u32 IsEventMode,
 	if (IsEventMode == 1U) {
 		RegValue |= XSYSMONPSU_CFG_REG0_EC_MASK;
 	} else {
-		RegValue &= (u32)(~XSYSMONPSU_CFG_REG0_EC_MASK);
+		RegValue &= ~((u32)XSYSMONPSU_CFG_REG0_EC_MASK);
 	}
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET,
