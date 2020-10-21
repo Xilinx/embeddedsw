@@ -14,7 +14,7 @@ extern "C" {
 /**
  * CSU Base Address
  */
-#define CSU_BASEADDR	0XFFCA0000
+#define CSU_BASEADDR	0XFFCA0000U
 
 #define CSU_VERSION_EMPTY_SHIFT		20
 #define CSU_VERSION_PL_STATE_SHIFT	29
