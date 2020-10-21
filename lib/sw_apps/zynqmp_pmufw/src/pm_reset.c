@@ -336,7 +336,7 @@ static u32 PmResetPulseGpioBankIOs(const PmReset* const rstPtr)
  * @action	States whether to assert or release reset
  */
 #pragma weak PmUserHookResetAssertPl
-void PmUserHookResetAssertPl(const PmReset *const rstPtr, const u32 action)
+static void PmUserHookResetAssertPl(const PmReset *const rstPtr, const u32 action)
 {
 }
 

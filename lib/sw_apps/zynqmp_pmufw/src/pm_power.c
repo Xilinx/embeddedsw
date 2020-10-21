@@ -83,7 +83,7 @@ static PmPowerDfs pmDfs;
  * @power	Power node pushed on stack
  * @index	Index of a child which should be visited upon pop
  */
-void PmPowerStackPush(PmPower* const power, const u8 index)
+static void PmPowerStackPush(PmPower* const power, const u8 index)
 {
 	/* Stack overflow should never happen */
 	if (ARRAY_SIZE(pmPowerStack) == pmDfs.sp) {
@@ -102,7 +102,7 @@ done:
  * @power	Pointer to the location where to store popped power node pointer
  * @index	Pointer to the location where to store popped index
  */
-void PmPowerStackPop(PmPower** const power, u8* const index)
+static void PmPowerStackPop(PmPower** const power, u8* const index)
 {
 	if (0U == pmDfs.sp) {
 		/* This should never happen */

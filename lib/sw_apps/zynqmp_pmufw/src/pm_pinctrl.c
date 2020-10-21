@@ -130,7 +130,7 @@ static const PmSlave* pmGemTsuSlaves[] = { &pmSlaveEth0_g,
 					   &pmSlaveEth2_g,
 					   &pmSlaveEth3_g };
 
-PmPinMuxFn PmPinMuxFunArr[] = {
+static PmPinMuxFn PmPinMuxFunArr[] = {
 	PINMUX_FN(Can0,		FID(CAN0),	0x20U,	BIND(pmCan0Slaves)),
 	PINMUX_FN(Can1,		FID(CAN1),	0x20U,	BIND(pmCan1Slaves)),
 	PINMUX_FN(Eth0,		FID(ETHERNET0),	0x02U,	BIND(pmEth0Slaves)),

@@ -656,7 +656,7 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 	}
 }
 
-PmWakeEventClass pmWakeEventClassEth_g = {
+static PmWakeEventClass pmWakeEventClassEth_g = {
 	.set = PmWakeEventEthSet,
 	.config = PmWakeEventEthConfig,
 };
