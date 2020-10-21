@@ -100,7 +100,9 @@ void XPlmi_ErrMgr(int ErrStatus)
 			CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
 #endif
 		{
-			while(1U);
+			while (TRUE) {
+				;
+			}
 		}
 
 #ifndef PLM_DEBUG_MODE
@@ -1156,7 +1158,7 @@ static void XPlmi_SoftResetHandler(void)
 	DATA_SYNC;
 	INST_SYNC;
 	XPlmi_Out32(CRP_RST_PS, CRP_RST_PS_PMC_SRST_MASK);
-	while (1U) {
+	while (TRUE) {
 		;
 	}
 }
