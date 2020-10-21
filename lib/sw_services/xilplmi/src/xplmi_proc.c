@@ -61,7 +61,7 @@ static void XPlmi_IntrHandler(void *CallbackRef);
 /************************** Variable Definitions *****************************/
 static u32 PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
-static u32 PlmIntrMap [] = {
+static u32 PlmIntrMap[XPLMI_MAX_EXT_INTR] = {
 	[XPLMI_CFRAME_SEU] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_CFRAME_SEU,
 						0x0U, 0x0U),
 	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
