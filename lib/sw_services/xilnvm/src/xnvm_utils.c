@@ -123,7 +123,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 		}
 
 		/* Get 5-bit from Address */
-		Value = XNVM_AES_KEY_SIZE_IN_WORDS - Idx;
+		Value = XNVM_AES_KEY_SIZE_IN_WORDS - (u32)Idx;
 		for (BitNo = 0U; BitNo < 5U; BitNo++) {
 			Temp1Crc = Crc >> 1U;
 			Temp2Crc = Temp1Crc ^ REVERSE_POLYNOMIAL;
