@@ -377,7 +377,7 @@ typedef void (*XSysMonPsu_Handler) (void *CallBackRef);
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	u16 InputClockMHz;	/**< Input clock frequency */
 } XSysMonPsu_Config;
 
@@ -580,20 +580,21 @@ typedef struct {
 * @return 	Returns the effective baseaddress of the sysmon instance.
 *
 *****************************************************************************/
-static inline u32 XSysMonPsu_GetEffBaseAddress(u32 BaseAddress, u32 SysmonBlk)
-	{
-		u32 EffBaseAddr;
+static inline UINTPTR XSysMonPsu_GetEffBaseAddress(UINTPTR BaseAddress,
+					       u32 SysmonBlk)
+{
+	UINTPTR EffBaseAddr;
 
-		if (SysmonBlk == XSYSMON_PS) {
-			EffBaseAddr = BaseAddress + XPS_BA_OFFSET;
-		} else if(SysmonBlk == XSYSMON_PL) {
-			EffBaseAddr = BaseAddress + XPL_BA_OFFSET;
-		} else {
-			EffBaseAddr = BaseAddress;
-		}
-
-		return EffBaseAddr;
+	if (SysmonBlk == XSYSMON_PS) {
+		EffBaseAddr = BaseAddress + XPS_BA_OFFSET;
+	} else if(SysmonBlk == XSYSMON_PL) {
+		EffBaseAddr = BaseAddress + XPL_BA_OFFSET;
+	} else {
+		EffBaseAddr = BaseAddress;
 	}
+
+	return EffBaseAddr;
+}
 
 /************************** Function Prototypes ******************************/
 

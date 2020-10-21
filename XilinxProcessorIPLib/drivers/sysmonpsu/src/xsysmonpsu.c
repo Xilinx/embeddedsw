@@ -210,7 +210,7 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 u32 XSysMonPsu_GetStatus(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -291,7 +291,7 @@ void XSysMonPsu_StartAdcConversion(XSysMonPsu *InstancePtr)
 u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
 {
 	u16 AdcData;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -314,7 +314,7 @@ u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
 	 * and return the value.
 	 */
 	if (Channel <= XSM_CH_AUX_MAX) {
-		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + ((u32)Channel << 2U)));
+		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + ((UINTPTR)Channel << 2U)));
 	} else if ((Channel >= XSM_CH_SUPPLY7) && (Channel <= XSM_CH_TEMP_REMTE)){
 		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + XSM_ADC_CH_OFFSET +
 				(((u32)Channel - XSM_CH_SUPPLY7) << 2U)));
@@ -351,7 +351,7 @@ u16 XSysMonPsu_GetCalibCoefficient(XSysMonPsu *InstancePtr, u8 CoeffType,
 		u32 SysmonBlk)
 {
 	u16 CalibData;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -396,7 +396,7 @@ u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
 		u32 SysmonBlk)
 {
 	u16 MinMaxData;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -448,7 +448,7 @@ u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
 void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -493,7 +493,7 @@ void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
 u8 XSysMonPsu_GetAvg(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 Average;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -556,7 +556,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 				u32 IsDifferentialMode, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 	s32 Status;
 
 	/* Assert the arguments. */
@@ -677,7 +677,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 		u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -745,7 +745,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 u32 XSysMonPsu_GetAlarmEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 	u32 ReadReg;
 
 	/* Assert the arguments. */
@@ -802,7 +802,7 @@ void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
 		u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -849,7 +849,7 @@ void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
 u8 XSysMonPsu_GetSequencerMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u8 SequencerMode;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -890,7 +890,7 @@ void XSysMonPsu_SetSequencerEvent(XSysMonPsu *InstancePtr, u32 IsEventMode,
 		u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -937,7 +937,7 @@ s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	s32 Mode;
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -987,7 +987,7 @@ s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1034,7 +1034,7 @@ void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk
 u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1089,7 +1089,7 @@ void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor,
             u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1136,7 +1136,7 @@ void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor,
 u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u16 Divisor;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1174,7 +1174,7 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u16 Divisor;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 	u32 RegValue;
 	u32 InputFreq;
 	u32 Count = 0U;
@@ -1258,7 +1258,7 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1324,7 +1324,7 @@ End:
 u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 RegVal;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1381,7 +1381,7 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1446,7 +1446,7 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 RegVal;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1504,7 +1504,7 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1573,7 +1573,7 @@ End:
 u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 InputMode;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1632,7 +1632,7 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1698,7 +1698,7 @@ End:
 u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 RegValAcq;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1747,7 +1747,7 @@ u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u16 Value, u32 SysmonBlk)
 {
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1789,7 +1789,7 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u32 SysmonBlk)
 {
 	u16 AlarmThreshold;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
