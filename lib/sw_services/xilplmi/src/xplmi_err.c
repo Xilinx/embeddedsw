@@ -108,7 +108,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 #ifndef PLM_DEBUG_MODE
 		/* Update Multiboot register */
 		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
-		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, ++RegVal);
+		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
 
 		XPlmi_SoftResetHandler();
 #endif
