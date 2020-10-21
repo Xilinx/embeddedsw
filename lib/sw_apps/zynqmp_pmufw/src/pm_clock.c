@@ -186,15 +186,15 @@ typedef struct PmClockHandle {
 
 /**
  * PmClockRequestInt() - Wrapper function for a chained requesting of a clock
- * @clock	Pointer to the clock to be requested
+ * @clockPtr	Pointer to the clock to be requested
  *
  * @note	This function implements non-recursive chained requesting of
  *		a clock and all its parents. Such an approach is required
  *		because recursion is not allowed due to the MISRA.
  */
-static void PmClockRequestInt(PmClock* const clock)
+static void PmClockRequestInt(PmClock* const clockPtr)
 {
-	PmClock* clk = clock;
+	PmClock* clk = clockPtr;
 
 	while (NULL != clk) {
 		if ((clk->class != NULL) && (clk->class->request != NULL)) {
@@ -207,15 +207,15 @@ static void PmClockRequestInt(PmClock* const clock)
 
 /**
  * PmClockReleaseInt() - Wrapper function for a chained releasing of a clock
- * @clock	Pointer to the clock to be released
+ * @clockPtr	Pointer to the clock to be released
  *
  * @note	This function implements non-recursive chained releasing of
  *		a clock and all its parents. Such an approach is required
  *		because recursion is not allowed due to the MISRA.
  */
-static void PmClockReleaseInt(PmClock* const clock)
+static void PmClockReleaseInt(PmClock* const clockPtr)
 {
-	PmClock* clk = clock;
+	PmClock* clk = clockPtr;
 
 	while (NULL != clk) {
 		if ((clk->class != NULL) && (clk->class->release != NULL)) {
@@ -231,14 +231,14 @@ static void PmClockReleaseInt(PmClock* const clock)
 
 /**
  * PmClockRequestPll() - PLL specific request clock method
- * @clock	Pointer to a PLL clock
+ * @clockPtr	Pointer to a PLL clock
  *
  * @return	This function always returns NULL because the PLL has no clock
  *		parent (its parent is a PLL which is not modeled as a clock)
  */
-static PmClock* PmClockRequestPll(PmClock* const clock)
+static PmClock* PmClockRequestPll(PmClock* const clockPtr)
 {
-	PmClockPll* pclk = (PmClockPll*)clock->derived;
+	PmClockPll* pclk = (PmClockPll*)clockPtr->derived;
 
 	if (0U == pclk->useCount++) {
 		PmPllRequest(pclk->pll);
@@ -249,14 +249,14 @@ static PmClock* PmClockRequestPll(PmClock* const clock)
 
 /**
  * PmClockReleasePll() - PLL specific release clock method
- * @clock	Pointer to a PLL clock
+ * @clockPtr	Pointer to a PLL clock
  *
  * @return	This function always returns NULL because the PLL has no clock
  *		parent (its parent is a PLL which is not modeled as a clock)
  */
-static PmClock* PmClockReleasePll(PmClock* const clock)
+static PmClock* PmClockReleasePll(PmClock* const clockPtr)
 {
-	PmClockPll* pclk = (PmClockPll*)clock->derived;
+	PmClockPll* pclk = (PmClockPll*)clockPtr->derived;
 
 	if (0U == --pclk->useCount) {
 		PmPllRelease(pclk->pll);
@@ -267,14 +267,14 @@ static PmClock* PmClockReleasePll(PmClock* const clock)
 
 /**
  * PmClockGetPllPerms() - Get permissions (which master can control this clock)
- * @clock	Pointer to a PLL clock
+ * @clockPtr	Pointer to a PLL clock
  *
  * @return	This function ORed ipi masks of masters that are allowed to
  *		control this clock
  */
-static u32 PmClockGetPllPerms(const PmClock* const clock)
+static u32 PmClockGetPllPerms(const PmClock* const clockPtr)
 {
-	const PmClockPll* pclk = (PmClockPll*)clock->derived;
+	const PmClockPll* pclk = (PmClockPll*)clockPtr->derived;
 
 	return PmPllGetPermissions(pclk->pll);
 }
@@ -341,13 +341,13 @@ static PmClockPll pmClockIOpll = {
 
 /**
  * PmClockRequestGen() - Request clock method for generic clocks
- * @clock	Pointer to a generic clock
+ * @clockPtr	Pointer to a generic clock
  *
  * @return	Pointer to the parent clock
  */
-static PmClock* PmClockRequestGen(PmClock* const clock)
+static PmClock* PmClockRequestGen(PmClock* const clockPtr)
 {
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	PmClock* parent = NULL;
 
 	if (0U == clk->useCount++) {
@@ -359,13 +359,13 @@ static PmClock* PmClockRequestGen(PmClock* const clock)
 
 /**
  * PmClockReleaseGen() - Release clock method for generic clocks
- * @clock	Pointer to a generic clock
+ * @clockPtr	Pointer to a generic clock
  *
  * @return	Pointer to the parent clock
  */
-static PmClock* PmClockReleaseGen(PmClock* const clock)
+static PmClock* PmClockReleaseGen(PmClock* const clockPtr)
 {
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	PmClock* parent = NULL;
 
 	if (0U == --clk->useCount) {
@@ -377,7 +377,7 @@ static PmClock* PmClockReleaseGen(PmClock* const clock)
 
 /**
  * PmClockGenInitParent() - Initialize parent method for generic clocks
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  *
  * @note	After the the PMU-FW is loaded the only way to change the
  *		parent is using set parent method, which updates the parent
@@ -385,9 +385,9 @@ static PmClock* PmClockReleaseGen(PmClock* const clock)
  *		pointer. The get parent function should not be called before the
  *		clocks are initialized.
  */
-static void PmClockGenInitParent(PmClock* const clock)
+static void PmClockGenInitParent(PmClock* const clockPtr)
 {
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	u32 select, i;
 
 	if (NULL == clk->mux) {
@@ -415,7 +415,7 @@ done:
 
 /**
  * PmClockGenSetParent() - Set parent method for generic clocks
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  * @select	Mux select value
  *
  * @return	Status of performing the operation:
@@ -423,11 +423,11 @@ done:
  *		XST_NO_FEATURE if clock has no multiplexer
  *		XST_INVALID_PARAM if given parent is invalid/cannot be set
  */
-static s32 PmClockGenSetParent(PmClock* const clock, const u32 select)
+static s32 PmClockGenSetParent(PmClock* const clockPtr, const u32 select)
 {
 	s32 status;
 	u32 i;
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	PmClock* new_parent = NULL;
 
 	if (NULL == clk->mux) {
@@ -488,14 +488,14 @@ done:
 
 /**
  * PmClockGenGetParent() - Get parent method for generic clocks
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  * @select	Location to store clock select value
  *
  * @return	Status of getting the mux select value
  */
-static s32 PmClockGenGetParent(PmClock* const clock, u32 *const select)
+static s32 PmClockGenGetParent(PmClock* const clockPtr, u32 *const select)
 {
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	s32 status = XST_NO_FEATURE;
 	u32 val;
 
@@ -542,17 +542,17 @@ static s32 PmClockGateGetShift(const PmClockGen* const clk, u8* const shift)
 
 /**
  * PmClockGenSetGateState() - Set state of generic clock gate
- * @clock	Generic clock
+ * @clockPtr	Generic clock
  * @enable	Gate flag to set: 0=disable, 1=enable
  *
  * @return	Status of setting the gate state:
  *		XST_SUCCESS if state is set
  *		XST_NO_FEATURE if the given clock has no gate
  */
-static s32 PmClockGenSetGateState(PmClock* const clock, const u8 enable)
+static s32 PmClockGenSetGateState(PmClock* const clockPtr, const u8 enable)
 {
 	u8 shift = 0x0U;
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	s32 status = PmClockGateGetShift(clk, &shift);
 
 	if (XST_SUCCESS == status) {
@@ -564,17 +564,17 @@ static s32 PmClockGenSetGateState(PmClock* const clock, const u8 enable)
 
 /**
  * PmClockGenGetGateState() - Get state of generic clock gate
- * @clock	Generic clock
+ * @clockPtr	Generic clock
  * @enable	Location where the state should be stored
  *
  * @return	Status of getting the gate state:
  *		XST_SUCCESS if enable location is updated
  *		XST_NO_FEATURE if the given clock has no gate
  */
-static s32 PmClockGenGetGateState(PmClock* const clock, u8* const enable)
+static s32 PmClockGenGetGateState(PmClock* const clockPtr, u8* const enable)
 {
 	u8 shift = 0x0U;
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	s32 status = PmClockGateGetShift(clk, &shift);
 
 	if (XST_SUCCESS == status) {
@@ -586,7 +586,7 @@ static s32 PmClockGenGetGateState(PmClock* const clock, u8* const enable)
 
 /**
  * PmClockGenSetDivider() - Generic clock method to set clock divider
- * @clock	Target clock
+ * @clockPtr	Target clock
  * @divId	Identifier of the divider to be set
  * @val		Divider value to be set
  *
@@ -596,11 +596,11 @@ static s32 PmClockGenGetGateState(PmClock* const clock, u8* const enable)
  *		XST_INVALID_PARAM the requested value is out of physically
  *		configurable divider's scope
  */
-static s32 PmClockGenSetDivider(PmClock* const clock, const u32 divId,
+static s32 PmClockGenSetDivider(PmClock* const clockPtr, const u32 divId,
 				const u32 val)
 {
 	s32 status = XST_SUCCESS;
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	u8 shift;
 
 	if (((PM_CLOCK_DIV0_ID == divId) && !PM_CLOCK_HAS_DIV0(clk)) ||
@@ -630,7 +630,7 @@ done:
 
 /**
  * PmClockGenGetDivider() - Generic clock method to get clock divider
- * @clock	Target clock
+ * @clockPtr	Target clock
  * @divId	Identifier of the divider whose value should be get
  * @val		Location where the divider value needs to be stored
  *
@@ -638,11 +638,11 @@ done:
  *		XST_SUCCESS the divider value is stored in 'div' location
  *		XST_NO_FEATURE if clock has no divider
  */
-static s32 PmClockGenGetDivider(PmClock* const clock, const u32 divId,
+static s32 PmClockGenGetDivider(PmClock* const clockPtr, const u32 divId,
 				u32* const val)
 {
 	s32 status = XST_SUCCESS;
-	PmClockGen* clk = (PmClockGen*)clock->derived;
+	PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	u32 reg;
 	u8 shift;
 
@@ -669,15 +669,15 @@ done:
 
 /**
  * PmClockGenGetPerms() - Get permissions (which master can control this clock)
- * @clock	Pointer to a PLL clock
+ * @clockPtr	Pointer to a PLL clock
  *
  * @return	This function ORed ipi masks of masters that are allowed to
  *		control this clock
  */
-static u32 PmClockGenGetPerms(const PmClock* const clock)
+static u32 PmClockGenGetPerms(const PmClock* const clockPtr)
 {
 	PmClockHandle* ch;
-	const PmClockGen* clk = (PmClockGen*)clock->derived;
+	const PmClockGen* clk = (PmClockGen*)clockPtr->derived;
 	u32 permissions = 0U;
 
 	/* If this is a system clock no one has permission to control it */
@@ -717,13 +717,13 @@ static PmClockClass pmClockClassGen = {
 /* Pll output cross domain clock models */
 /**
  * PmClockRequestCrossDom() - Request clock method for cross-domain clocks
- * @clock	Pointer to a cross-domain clock
+ * @clockPtr	Pointer to a cross-domain clock
  *
  * @return	Pointer to the parent clock
  */
-static PmClock* PmClockRequestCrossDom(PmClock* const clock)
+static PmClock* PmClockRequestCrossDom(PmClock* const clockPtr)
 {
-	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	PmClockCrossDom* clk = (PmClockCrossDom*)clockPtr->derived;
 	PmClock* parent = NULL;
 
 	if (0U == clk->useCount++) {
@@ -735,13 +735,13 @@ static PmClock* PmClockRequestCrossDom(PmClock* const clock)
 
 /**
  * PmClockReleaseCrossDom() - Release clock method for cross-domain clocks
- * @clock	Pointer to a cross-domain clock
+ * @clockPtr	Pointer to a cross-domain clock
  *
  * @return	Pointer to the parent clock
  */
-static PmClock* PmClockReleaseCrossDom(PmClock* const clock)
+static PmClock* PmClockReleaseCrossDom(PmClock* const clockPtr)
 {
-	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	PmClockCrossDom* clk = (PmClockCrossDom*)clockPtr->derived;
 	PmClock* parent = NULL;
 
 	if (0U == --clk->useCount) {
@@ -753,7 +753,7 @@ static PmClock* PmClockReleaseCrossDom(PmClock* const clock)
 
 /**
  * PmClockCrossDomSetDivider() - Cross-domain clock method to set clock divider
- * @clock	Target clock
+ * @clockPtr	Target clock
  * @divId	Identifier of the divider to be set
  * @val		Divider value to be set
  *
@@ -763,11 +763,11 @@ static PmClock* PmClockReleaseCrossDom(PmClock* const clock)
  *		XST_INVALID_PARAM the requested value is out of physically
  *		configurable divider's scope
  */
-static s32 PmClockCrossDomSetDivider(PmClock* const clock, const u32 divId,
+static s32 PmClockCrossDomSetDivider(PmClock* const clockPtr, const u32 divId,
 				     const u32 val)
 {
 	s32 status = XST_SUCCESS;
-	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	PmClockCrossDom* clk = (PmClockCrossDom*)clockPtr->derived;
 
 	if (PM_CLOCK_DIV0_ID != divId) {
 		/* Cross-domain clocks have only one divisor */
@@ -788,7 +788,7 @@ done:
 
 /**
  * PmClockCrossDomGetDivider() - Cross-domain clock method to get clock divider
- * @clock	Target clock
+ * @clockPtr	Target clock
  * @divId	Identifier of the divider whose value should be get
  * @val		Location where the divider value needs to be stored
  *
@@ -796,11 +796,11 @@ done:
  *		XST_SUCCESS the divider value is stored in 'div' location
  *		XST_NO_FEATURE if clock has no divider
  */
-static s32 PmClockCrossDomGetDivider(PmClock* const clock, const u32 divId,
+static s32 PmClockCrossDomGetDivider(PmClock* const clockPtr, const u32 divId,
 				     u32* const val)
 {
 	s32 status = XST_SUCCESS;
-	PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	PmClockCrossDom* clk = (PmClockCrossDom*)clockPtr->derived;
 
 	if (PM_CLOCK_DIV0_ID != divId) {
 		/* Cross-domain clocks have only one divisor */
@@ -815,14 +815,14 @@ done:
 
 /**
  * PmClockCrossDomGetPerms() - Get permissions (which master can control clock)
- * @clock	Pointer to a cross-domain clock
+ * @clockPtr	Pointer to a cross-domain clock
  *
  * @return	This function ORed ipi masks of masters that are allowed to
  *		control this clock
  */
-static u32 PmClockCrossDomGetPerms(const PmClock* const clock)
+static u32 PmClockCrossDomGetPerms(const PmClock* const clockPtr)
 {
-	const PmClockCrossDom* clk = (PmClockCrossDom*)clock->derived;
+	const PmClockCrossDom* clk = (PmClockCrossDom*)clockPtr->derived;
 	u32 permissions = 0U;
 
 	/* Inherit permissions from PLL output clock (parent) */
@@ -2800,35 +2800,35 @@ done:
 PmClock* PmClockGetById(const u32 clockId)
 {
 	u32 i;
-	PmClock* clock = NULL;
+	PmClock* clockPtr = NULL;
 
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
 		if (clockId == pmClocks[i]->id) {
-			clock = pmClocks[i];
+			clockPtr = pmClocks[i];
 			break;
 		}
 	}
 
-	return clock;
+	return clockPtr;
 }
 
 /**
  * PmClockCheckForCtrl() - Common function for checking validity
- * @clock	Clock to be checked
+ * @clockPtr	Clock to be checked
  *
  * @return	XST_INVALID_PARAM if clock argument in NULL
  *		XST_SUCCESS if clock is valid, has class and control methods
  *		XST_NO_FEATURE otherwise
  */
-static s32 PmClockCheckForCtrl(const PmClock* const clock)
+static s32 PmClockCheckForCtrl(const PmClock* const clockPtr)
 {
 	s32 status = XST_SUCCESS;
 
-	if (NULL == clock) {
+	if (NULL == clockPtr) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if ((NULL == clock->class) || (NULL == clock->class->ctrl)) {
+	if ((NULL == clockPtr->class) || (NULL == clockPtr->class->ctrl)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2839,71 +2839,71 @@ done:
 
 /**
  * PmClockMuxSetParent() - Configure clock mux
- * @clock	Pointer to the clock structure
+ * @clockPtr	Pointer to the clock structure
  * @select	Mux select value
  *
  * @return	XST_SUCCESS if the mux is configured
  * 		XST_NO_FEATURE if the clock has no mux
  * 		XST_INVALID_PARAM if select value is invalid
  */
-s32 PmClockMuxSetParent(PmClock* const clock, const u32 select)
+s32 PmClockMuxSetParent(PmClock* const clockPtr, const u32 select)
 {
-	s32 status = PmClockCheckForCtrl(clock);
+	s32 status = PmClockCheckForCtrl(clockPtr);
 
-	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->setParent)) {
+	if ((XST_SUCCESS != status) || (NULL == clockPtr->class->ctrl->setParent)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
-	status = clock->class->ctrl->setParent(clock, select);
+	status = clockPtr->class->ctrl->setParent(clockPtr, select);
 done:
 	return status;
 }
 
 /**
  * PmClockMuxGetParent() - Get clock parent (mux select value)
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  * @select	Location to store mux select value of the current parent
  *
  * @return	Status of getting the parent: XST_SUCCESS if the parent pointer
  *		is stored into 'parent' or error code
  */
-s32 PmClockMuxGetParent(PmClock* const clock, u32 *const select)
+s32 PmClockMuxGetParent(PmClock* const clockPtr, u32 *const select)
 {
-	s32 status = PmClockCheckForCtrl(clock);
+	s32 status = PmClockCheckForCtrl(clockPtr);
 
-	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->getParent)) {
+	if ((XST_SUCCESS != status) || (NULL == clockPtr->class->ctrl->getParent)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
 
-	status = clock->class->ctrl->getParent(clock, select);
+	status = clockPtr->class->ctrl->getParent(clockPtr, select);
 done:
 	return status;
 }
 
 /**
  * PmClockGateSetState() - Activate/gate the clock
- * @clock	Pointer to the clock structure
+ * @clockPtr	Pointer to the clock structure
  * @enable	1=enable the clock, 0=disable the clock
  *
  * @return	XST_SUCCESS if the clock is configured
  * 		XST_NO_FEATURE if the clock has no gate
  */
-s32 PmClockGateSetState(PmClock* const clock, const u8 enable)
+s32 PmClockGateSetState(PmClock* const clockPtr, const u8 enable)
 {
-	s32 status = PmClockCheckForCtrl(clock);
+	s32 status = PmClockCheckForCtrl(clockPtr);
 
-	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->setGate)) {
+	if ((XST_SUCCESS != status) || (NULL == clockPtr->class->ctrl->setGate)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
 #if ((STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR) && defined(DEBUG_MODE))
-	if (&pmClockUart0.base == clock) {
+	if (&pmClockUart0.base == clockPtr) {
 		goto done;
 	}
 #endif
 #if ((STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR) && defined(DEBUG_MODE))
-	if (&pmClockUart1.base == clock) {
+	if (&pmClockUart1.base == clockPtr) {
 		goto done;
 	}
 #endif
@@ -2911,38 +2911,38 @@ s32 PmClockGateSetState(PmClock* const clock, const u8 enable)
 	 * This is added because equivalent functionality added in commit
 	 * 2a1b15d8b2 has been removed from PmMmioWrite in pm_core.c
 	 */
-	if (&pmClockAms.base == clock) {
+	if (&pmClockAms.base == clockPtr) {
 		goto done;
 	}
-	status = clock->class->ctrl->setGate(clock, enable);
+	status = clockPtr->class->ctrl->setGate(clockPtr, enable);
 done:
 	return status;
 }
 
 /**
  * PmClockGateGetState() - Get state of the clock gate
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  * @enable	Location where the state will be returned
  *
  * @return	XST_SUCCESS if the clock state is get/enable location is updated
  *		XST_NO_FEATURE if the clock has no gate
  */
-s32 PmClockGateGetState(PmClock* const clock, u8* const enable)
+s32 PmClockGateGetState(PmClock* const clockPtr, u8* const enable)
 {
-	s32 status = PmClockCheckForCtrl(clock);
+	s32 status = PmClockCheckForCtrl(clockPtr);
 
-	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->getGate)) {
+	if ((XST_SUCCESS != status) || (NULL == clockPtr->class->ctrl->getGate)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
-	status = clock->class->ctrl->getGate(clock, enable);
+	status = clockPtr->class->ctrl->getGate(clockPtr, enable);
 done:
 	return status;
 }
 
 /**
  * PmClockDividerSetVal() - Set divider of the clock
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  * @divId	Identifier for the divider to be set
  * @val		Divider value to be set
  *
@@ -2951,22 +2951,22 @@ done:
  *		XST_NO_FEATURE the target clock has no divider
  *		XST_INVALID_PARAM if given clock is NULL
  */
-s32 PmClockDividerSetVal(PmClock* const clock, const u32 divId, const u32 val)
+s32 PmClockDividerSetVal(PmClock* const clockPtr, const u32 divId, const u32 val)
 {
-	s32 status = PmClockCheckForCtrl(clock);
+	s32 status = PmClockCheckForCtrl(clockPtr);
 
-	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->setDivider)) {
+	if ((XST_SUCCESS != status) || (NULL == clockPtr->class->ctrl->setDivider)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
-	status = clock->class->ctrl->setDivider(clock, divId, val);
+	status = clockPtr->class->ctrl->setDivider(clockPtr, divId, val);
 done:
 	return status;
 }
 
 /**
  * PmClockDividerGetVal() - Get divider of the clock
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  * @divId	Identifier of the clock's divider
  * @val		Location where the divider value needs to be stored
  *
@@ -2975,39 +2975,39 @@ done:
  *		XST_NO_FEATURE the target clock has no divider
  *		XST_INVALID_PARAM if given clock is NULL
  */
-s32 PmClockDividerGetVal(PmClock* const clock, const u32 divId, u32* const val)
+s32 PmClockDividerGetVal(PmClock* const clockPtr, const u32 divId, u32* const val)
 {
-	s32 status = PmClockCheckForCtrl(clock);
+	s32 status = PmClockCheckForCtrl(clockPtr);
 
-	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->getDivider)) {
+	if ((XST_SUCCESS != status) || (NULL == clockPtr->class->ctrl->getDivider)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
-	status = clock->class->ctrl->getDivider(clock, divId, val);
+	status = clockPtr->class->ctrl->getDivider(clockPtr, divId, val);
 done:
 	return status;
 }
 
 /**
  * PmClockCheckPermission() - Check permission for master to control the clock
- * @clock	Pointer to the target clock
+ * @clockPtr	Pointer to the target clock
  * @ipiMask	Master's IPI mask
  *
  * @return	Status of performing the check:
  *		XST_SUCCESS the permission is granted
  *		XST_PM_NO_ACCESS if control is not allowed
  */
-s32 PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask)
+s32 PmClockCheckPermission(const PmClock* const clockPtr, const u32 ipiMask)
 {
 	s32 status = XST_SUCCESS;
 	u32 perms;
 
-	if ((NULL == clock) || (NULL == clock->class) ||
-	    (NULL == clock->class->getPerms)) {
+	if ((NULL == clockPtr) || (NULL == clockPtr->class) ||
+	    (NULL == clockPtr->class->getPerms)) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
-	perms = clock->class->getPerms(clock);
+	perms = clockPtr->class->getPerms(clockPtr);
 	/*
 	 * Access is not allowed if master is not permissible or the resource
 	 * is shared (multiple masters are permissible)
