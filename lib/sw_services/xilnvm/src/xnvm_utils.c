@@ -27,6 +27,7 @@
 *       		achieved by bit-wise operators.
 * 2.1	am   08/19/2020 Resolved MISRA C violations.
 * 	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -83,7 +84,7 @@ int XNvm_ValidateAesKey(const char *Key)
 		goto END;
 	}
 
-	Status = Xil_ValidateHexStr(Key);
+	Status = (int)Xil_ValidateHexStr(Key);
 END:
 	return Status;
 }
