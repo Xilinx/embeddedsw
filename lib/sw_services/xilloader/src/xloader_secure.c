@@ -68,6 +68,8 @@
 *       kal  10/16/20 Added a check for RSA EM MSB bit to make sure it is zero
 *       kpt  10/19/20 Code clean up
 *       td   10/19/20 MISRA C Fixes
+*       bsv  10/19/20 Parallel DMA related changes
+*       har  10/19/20 Replaced ECDSA in function calls
 *
 * </pre>
 *
@@ -145,7 +147,7 @@ static u32 XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
 static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
-static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *DataHash,
+static u32 XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u8 *DataHash,
 	const u8 *Key, const u32 KeySize, const u8 *Signature);
 static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature);
@@ -1321,15 +1323,15 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_RSA_KAT_MASK;
 	}
-	if(((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_ECDSA_KAT_MASK) == 0U)
+	if(((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_ECC_KAT_MASK) == 0U)
 		&& (AuthType == XLOADER_AC_AH_PUB_ALG_ECDSA)) {
-		Status = XSecure_EcdsaKat();
+		Status = XSecure_EllipticKat();
 		if(Status != XLOADER_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n\r");
+			XPlmi_Printf(DEBUG_GENERAL, "ECC KAT Failed\n\r");
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECDSA_KAT_MASK;
+		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECC_KAT_MASK;
 	}
 
 	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
@@ -1426,13 +1428,13 @@ static u32 XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
 		/* ECDSA P384 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
-			XSECURE_ECDSA_NIST_P384, Hash, (u8 *)Key->PubModulus,
+			XSECURE_ECC_NIST_P384, Hash, (u8 *)Key->PubModulus,
 			XLOADER_ECDSA_P384_KEYSIZE, Signature);
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
 		/* ECDSA P521 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
-			XSECURE_ECDSA_NIST_P521, Hash, (u8 *)Key->PubModulus,
+			XSECURE_ECC_NIST_P521, Hash, (u8 *)Key->PubModulus,
 			XLOADER_ECDSA_P521_KEYSIZE, Signature);
 	}
 	else {
@@ -2182,7 +2184,7 @@ END:
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *DataHash,
+static u32 XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u8 *DataHash,
 	const u8 *Key, const u32 KeySize, const u8 *Signature)
 {
 	volatile u32 Status = XLOADER_FAILURE;
@@ -2197,8 +2199,8 @@ static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *
 	u8 SigS[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
 	u8 Hash[XLOADER_SHA3_LEN] = {0U};
 	u32 Index;
-	XSecure_EcdsaKey PublicKey = {0};
-	XSecure_EcdsaSign Sign = {0};
+	XSecure_EllipticKey PublicKey = {0};
+	XSecure_EllipticSign Sign = {0};
 
 	for (Index = 0U; Index < KeySize; Index++) {
 		Qx[Index] = XKey[KeySize - Index - 1U];
@@ -2217,8 +2219,8 @@ static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *
 	Sign.SignS = SigS;
 
 	/* Validate point on the curve */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EcdsaValidateKey,
-				CrvType, &PublicKey);
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EllipticValidateKey,
+		CrvType, &PublicKey);
 	if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "\nFailed at "
 			"ECDSA Key validation\n\r");
@@ -2227,7 +2229,7 @@ static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *
 	}
 	else {
 		/* Verify ECDSA */
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EcdsaVerifySign,
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EllipticVerifySign,
 			CrvType, Hash, XLOADER_SHA3_LEN, &PublicKey, &Sign);
 		if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_ECDSA_AUTH_FAIL, Status);

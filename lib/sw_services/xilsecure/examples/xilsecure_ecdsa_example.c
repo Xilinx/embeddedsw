@@ -8,7 +8,7 @@
 *
 * @file xilsecure_ecdsa_example.c
 *
-* This example tests the Xilsecure ECDSA APIs
+* This example tests the Xilsecure elliptic APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,7 +24,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#include "xsecure_ecdsa.h"
+#include "xsecure_elliptic.h"
 #include "xstatus.h"
 #include "xil_printf.h"
 
@@ -72,12 +72,12 @@ END:
 int XSecure_TestP384()
 {
 	int Status = XST_FAILURE;
-	u8 Qx[XSECURE_ECDSA_P384_SIZE_IN_BYTES] = {0U};
-	u8 Qy[XSECURE_ECDSA_P384_SIZE_IN_BYTES] = {0U};
-	u8 R[XSECURE_ECDSA_P384_SIZE_IN_BYTES] = {0U};
-	u8 S[XSECURE_ECDSA_P384_SIZE_IN_BYTES] = {0U};
-	XSecure_EcdsaKey Key = { Qx, Qy };
-	XSecure_EcdsaSign GeneratedSign = { R, S };
+	u8 Qx[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
+	u8 Qy[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
+	u8 R[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
+	u8 S[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
+	XSecure_EllipticKey Key = { Qx, Qy };
+	XSecure_EllipticSign GeneratedSign = { R, S };
 	const u8 Hash[] = {
 		0x89U, 0x1EU, 0x78U, 0x0AU, 0x0EU, 0xF7U, 0x8AU, 0x2BU,
 		0xCBU, 0xD6U, 0x30U, 0x6CU, 0x9DU, 0x14U, 0x11U, 0x74U,
@@ -105,7 +105,7 @@ int XSecure_TestP384()
 		0x83U, 0xEAU, 0x0BU, 0x8CU, 0x1FU, 0xEFU, 0x44U, 0x2EU
 	};
 
-	Status = XSecure_EcdsaGenerateKey(XSECURE_ECDSA_NIST_P384, D, &Key);
+	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P384, D, &Key);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Key generation failed for P384 curve %x \r\n", Status);
 		goto END;
@@ -113,14 +113,14 @@ int XSecure_TestP384()
 
 	xil_printf("Generated Key\r\n");
 	xil_printf("Qx :");
-	XSecure_ShowData(Key.Qx, XSECURE_ECDSA_P384_SIZE_IN_BYTES);
+	XSecure_ShowData(Key.Qx, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 	xil_printf("Qy :");
-	XSecure_ShowData(Key.Qy, XSECURE_ECDSA_P384_SIZE_IN_BYTES);
+	XSecure_ShowData(Key.Qy, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
-	Status = XSecure_EcdsaGenerateSign(XSECURE_ECDSA_NIST_P384, Hash,
-		XSECURE_ECDSA_P384_SIZE_IN_BYTES, D, K, &GeneratedSign);
+	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, Hash,
+		XSECURE_ECC_P384_SIZE_IN_BYTES, D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign generation failed for P384 curve %x \r\n", Status);
 		goto END;
@@ -128,19 +128,19 @@ int XSecure_TestP384()
 
 	xil_printf("Generated Sign\r\n");
 	xil_printf("R :");
-	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECDSA_P384_SIZE_IN_BYTES);
+	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	xil_printf("\r\n S :");
-	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECDSA_P384_SIZE_IN_BYTES);
+	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
-	Status = XSecure_EcdsaValidateKey(XSECURE_ECDSA_NIST_P384, &Key);
+	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P384, &Key);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Key validation failed for P384 curve %x \r\n", Status);
 		goto END;
 	}
 
-	Status = XSecure_EcdsaVerifySign(XSECURE_ECDSA_NIST_P384, Hash,
-		XSECURE_ECDSA_P384_SIZE_IN_BYTES, &Key, &GeneratedSign);
+	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P384, Hash,
+		XSECURE_ECC_P384_SIZE_IN_BYTES, &Key, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign verification failed for P384 curve %x \r\n", Status);
 	}
@@ -158,13 +158,13 @@ int XSecure_TestP521()
 {
 	int Status = XST_FAILURE;
 	
-	u8 Qx[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
-	u8 Qy[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
-	u8 R[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
-	u8 S[XSECURE_ECDSA_P521_SIZE_IN_BYTES] = {0U};
+	u8 Qx[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 Qy[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 R[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 S[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
 
-	XSecure_EcdsaKey Key = { Qx, Qy };
-	XSecure_EcdsaSign GeneratedSign = { R, S };
+	XSecure_EllipticKey Key = { Qx, Qy };
+	XSecure_EllipticSign GeneratedSign = { R, S };
 
 	const u8 Hash[] = {
 		0x32U, 0xF9U, 0xE1U, 0x0BU, 0xE6U, 0x1DU, 0xF7U, 0xB6U,
@@ -202,7 +202,7 @@ int XSecure_TestP521()
 		0x00U, 0x00U,
 };
 
-	Status = XSecure_EcdsaGenerateKey(XSECURE_ECDSA_NIST_P521, D, &Key);
+	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P521, D, &Key);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Key generation failed for P521 curve %x \r\n", Status);
 		goto END;
@@ -210,14 +210,14 @@ int XSecure_TestP521()
 
 	xil_printf("Generated Key \r\n");
 	xil_printf("Qx :");
-	XSecure_ShowData(Key.Qx, XSECURE_ECDSA_P521_SIZE_IN_BYTES);
+	XSecure_ShowData(Key.Qx, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 	xil_printf("Qy :");
-	XSecure_ShowData(Key.Qy, XSECURE_ECDSA_P521_SIZE_IN_BYTES);
+	XSecure_ShowData(Key.Qy, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
-	Status = XSecure_EcdsaGenerateSign(XSECURE_ECDSA_NIST_P521, Hash,
-		XSECURE_ECDSA_P521_SIZE_IN_BYTES, D, K, &GeneratedSign);
+	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P521, Hash,
+		XSECURE_ECC_P521_SIZE_IN_BYTES, D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign generation failed for P521 curve %x \r\n", Status);
 		goto END;
@@ -225,20 +225,20 @@ int XSecure_TestP521()
 
 	xil_printf("Generated Sign\r\n");
 	xil_printf("R :");
-	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECDSA_P521_SIZE_IN_BYTES);
+	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 	xil_printf("S :");
-	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECDSA_P521_SIZE_IN_BYTES);
+	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
-	Status = XSecure_EcdsaValidateKey(XSECURE_ECDSA_NIST_P521, &Key);
+	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P521, &Key);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Key validation failed for P521 curve %x \r\n", Status);
 		goto END;
 	}
 
-	Status = XSecure_EcdsaVerifySign(XSECURE_ECDSA_NIST_P521, Hash,
-		XSECURE_ECDSA_P521_SIZE_IN_BYTES, &Key, &GeneratedSign);
+	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P521, Hash,
+		XSECURE_ECC_P521_SIZE_IN_BYTES, &Key, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign verification failed for P521 curve %x \r\n", Status);
 	}
