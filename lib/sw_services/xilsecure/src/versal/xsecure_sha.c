@@ -33,6 +33,7 @@
 *       rpo  09/21/20 New error code added for crypto state mismatch
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+*       am   10/19/20 Resolved MISRA C violations
 *
 * </pre>
 * @note
@@ -291,7 +292,7 @@ int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 
 	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
 		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	InstancePtr->Sha3Len += Size;
@@ -308,7 +309,7 @@ int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 				(InDataAddr + TransferredBytes),
 				XSECURE_PMC_DMA_MAX_TRANSFER, FALSE);
 		if (Status != XST_SUCCESS) {
-			goto END;
+			goto END_RST;
 		}
 		DataSize = DataSize - XSECURE_PMC_DMA_MAX_TRANSFER;
 		TransferredBytes = TransferredBytes +
@@ -318,13 +319,15 @@ int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 				(InDataAddr + TransferredBytes),
 				DataSize, (u8)InstancePtr->IsLastUpdate);
 
-END:
+END_RST:
 	if (Status != XST_SUCCESS) {
 		/* Set SHA under reset on failure condition */
 		XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_SHA3_RESET_OFFSET);
 		InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 	}
+
+END:
 	return Status;
 }
 
@@ -358,7 +361,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 
 	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
 		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	PadLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
@@ -370,7 +373,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 		Status = XSecure_Sha3NistPadd(&InstancePtr->PartialData[InstancePtr->PartialLen],
 					PadLen);
 		if (Status != XST_SUCCESS) {
-			goto END;
+			goto END_RST;
 		}
 
 		Size = PadLen + InstancePtr->PartialLen;
@@ -378,14 +381,14 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 					(UINTPTR)InstancePtr->PartialData,
 					Size, TRUE);
 		if (Status != XST_SUCCESS) {
-			goto END;
+			goto END_RST;
 		}
 	}
 	else {
 		Size = InstancePtr->PartialLen;
 		if (Size != 0x0U) {
 			Status = XST_FAILURE;
-			goto END;
+			goto END_RST;
 		}
 	}
 
@@ -395,7 +398,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 	/* Check the SHA3 DONE bit. */
 	Status = XSecure_Sha3WaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	/* Status Reset */
@@ -404,7 +407,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 	/* Read out the Hash in reverse order.  */
 	Status = XSecure_Sha3ReadHash(InstancePtr, Sha3Hash);
 
-END:
+END_RST:
 	if (Size > 0x0U) {
 		(void)memset((void*)InstancePtr->PartialData, 0, Size);
 	}
@@ -413,6 +416,8 @@ END:
 					XSECURE_SHA3_RESET_OFFSET);
 
 	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
+
+END:
 	return Status;
 }
 
@@ -677,7 +682,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 
 	Status = XSecure_Sha3Start(SecureSha3);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
@@ -685,7 +690,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	Status = XSecure_Sha3LastUpdate(SecureSha3);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA3_LAST_UPDATE_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
@@ -694,7 +699,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 			XSECURE_SHA3_BLOCK_LEN);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA3_PMC_DMA_UPDATE_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
@@ -702,14 +707,14 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	Status = XSecure_Sha3Finish(SecureSha3, &OutVal);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA3_FINISH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
 		if (OutVal.Hash[Index] != ExpectedHash[Index]) {
 			Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-			goto END;
+			goto END_RST;
 		}
 	}
 
@@ -717,8 +722,10 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		Status = XST_SUCCESS;
 	}
 
-END:
+END_RST:
 	XSecure_SetReset(SecureSha3->BaseAddress,
 			XSECURE_SHA3_RESET_OFFSET);
+
+END:
 	return Status;
 }
