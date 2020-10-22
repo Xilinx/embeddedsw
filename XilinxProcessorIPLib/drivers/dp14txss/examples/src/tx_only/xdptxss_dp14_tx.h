@@ -144,7 +144,12 @@
 #define NUM_CLOCK_REGS                  6
 
 #ifdef versal
-#define XINTC_DEVICE_ID			XPAR_SCUGIC_0_DEVICE_ID
+#define GT_QUAD_BASE  					XPAR_GT_QUAD_HIER_0_GT_QUAD_BASE_BASEADDR
+#define TXCLKDIV_REG					0x3694
+#define	DIV 						0x00000278
+#define DIV_MASK 					0x000003FF
+
+#define XINTC_DEVICE_ID			        XPAR_SCUGIC_0_DEVICE_ID
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZARD_1_BASEADDR
 #define XVPHY_DEVICE_ID					0
 #define IIC_BASE_ADDR 					0
@@ -155,6 +160,19 @@
 #define VERSAL_540G                     2
 #define VERSAL_270G                     1
 #define VERSAL_162G                     0
+/* For Versal the DP and GT are interfaced in RAW16 mode
+ * 8b10b is implemented in Fabric. This requires two clocks to be
+ * generated from GT, /16 clock and /20 clock,
+ * ch0txoutclk generates /16 clk
+ * ch1tcoutclk is used to generate /20 clk
+ * In case if the hardware is built for 1 lane, then a MMCM is to be
+ * used to generate the /20 clock
+ * Refer to the PassThrough design to see generation of /20 clk on RX side
+ * Similarly, the /20 clk for TX be generated for 1 lane design.
+ * if the hardware is generated for 2 or 4 lanes, then there is no need of
+ * MMCM.
+ */
+#define VERSAL_FABRIC_8B10B             1
 #else
 #ifndef PLATFORM_MB
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
