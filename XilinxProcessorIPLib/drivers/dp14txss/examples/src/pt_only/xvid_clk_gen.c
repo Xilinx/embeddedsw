@@ -25,8 +25,8 @@
 #define DIV_MIN 1
 
 #ifdef versal
-XClk_Wiz_Config *CfgPtr_Dynamic;
-XClk_Wiz ClkWiz_Dynamic;
+extern XClk_Wiz_Config *CfgPtr_Dynamic;
+extern XClk_Wiz ClkWiz_Dynamic;
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -200,15 +200,15 @@ void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 	#ifndef versal
 		ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) + (1000 * ADAPTIVE_TYPE));
 	#else
-		*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x3F0) = 0;
+		XClk_Wiz_WriteReg (CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0x0);
 		XClk_Wiz_SetRateHz(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz)/MsaConfig->UserPixelWidth) + (1000000 * ADAPTIVE_TYPE));
-		*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x14) = 0x3;
-		while(!(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK)) {
-		                if(Count == 10000) {
-		                        break;
-		                }
-		                usleep(100);
-		                Count++;
+		XClk_Wiz_WriteReg (CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);
+		while(!((XClk_Wiz_ReadReg (CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_STATUS_OFFSET)) & CLK_LOCK)) {
+			if(Count == 10000) {
+					break;
+			}
+			usleep(100);
+			Count++;
 	    }
 		if (Count == 10000) {
 			xil_printf ("Clk_wizard failed to lock\r\n");
