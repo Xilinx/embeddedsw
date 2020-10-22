@@ -393,6 +393,7 @@ typedef struct {
 					the device */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
 	u8 Use_Startup;		/**< 1 if Starup block is used in h/w */
+	u16 FifosDepth;		/**< TX and RX FIFO Depth */
 } XSpi_Config;
 
 /**
