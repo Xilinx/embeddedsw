@@ -272,7 +272,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Events;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (Input == NULL) || (Result == NULL)) {
+	if (InstancePtr == NULL) {
 		ErrorCode = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}

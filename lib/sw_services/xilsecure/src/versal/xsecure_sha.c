@@ -289,11 +289,6 @@ int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 		goto END;
 	}
 
-	if ((InDataAddr == 0x00U) && (Size > 0U)) {
-		Status = (int)XSECURE_SHA3_INVALID_PARAM;
-		goto END;
-	}
-
 	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
 		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
 		goto END;
@@ -444,9 +439,7 @@ int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 	volatile int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		(Sha3Hash == NULL) ||
-		((InDataAddr == 0x00U) && (Size > 0U))) {
+	if ((InstancePtr == NULL) || (Sha3Hash == NULL)) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
