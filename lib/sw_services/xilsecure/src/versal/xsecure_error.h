@@ -116,27 +116,27 @@ typedef enum {
 	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x83 - Invalid Argument */
 	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x84 - State mismatch */
 
-	XSECURE_ECC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
+	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
 
-	XSECURE_ECC_KAT_FAILED_ERROR,		     /**< 0xC1 - ECC KAT fails */
-	XSECURE_ECDSA_NON_SUPPORTED_CRV,	     /**< 0xC2 - ECDSA Curve not supported */
-	XSECURE_ECDSA_KEY_ZERO,			     /**< 0xC3 - Public key is zero */
-	XSECURE_ECDSA_KEY_WRONG_ORDER,		     /**< 0xC4 - Wrong order of Public key */
-	XSECURE_ECDSA_KEY_NOT_ON_CRV,		     /**< 0xC5 - Key not found on curve */
-	XSECURE_ECDSA_BAD_SIGN,			     /**< 0xC6 - Signature provided for
+	XSECURE_ELLIPTIC_KAT_FAILED_ERROR,		/**< 0xC1 - Elliptic KAT fails */
+	XSECURE_ELLIPTIC_NON_SUPPORTED_CRV,		/**< 0xC2 - Elliptic Curve not supported */
+	XSECURE_ELLIPTIC_KEY_ZERO,			/**< 0xC3 - Public key is zero */
+	XSECURE_ELLIPTIC_KEY_WRONG_ORDER,		/**< 0xC4 - Wrong order of Public key */
+	XSECURE_ELLIPTIC_KEY_NOT_ON_CRV,		/**< 0xC5 - Key not found on curve */
+	XSECURE_ELLIPTIC_BAD_SIGN,			/**< 0xC6 - Signature provided for
 							verification is bad */
-	XSECURE_ECDSA_GEN_SIGN_INCORRECT_HASH_LEN,   /**< 0xC7 - Incorrect hash length
+	XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN,   /**< 0xC7 - Incorrect hash length
 							for sign generation */
-	XSECURE_ECDSA_VER_SIGN_INCORRECT_HASH_LEN,   /**< 0xC8 - Incorrect hash length
+	XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN,   /**< 0xC8 - Incorrect hash length
 							for sign verification */
-	XSECURE_ECDSA_GEN_SIGN_BAD_RAND_NUM,	     /**< 0xC9 - Bad random number used
+	XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM,	        /**< 0xC9 - Bad random number used
 							for sign generation */
-	XSECURE_ECDSA_GEN_KEY_ERR,		     /**< 0xCA - Error in generating Public key */
-	XSECURE_ECDSA_INVALID_PARAM,		     /**< 0xCB - Invalid argument */
-	XSECURE_ECDSA_VER_SIGN_R_ZERO,               /**< 0xCC - R set to zero */
-	XSECURE_ECDSA_VER_SIGN_S_ZERO,               /**< 0xCD - S set to zero */
-	XSECURE_ECDSA_VER_SIGN_R_ORDER_ERROR,        /**< 0xCE - R is not within ECC order */
-	XSECURE_ECDSA_VER_SIGN_S_ORDER_ERROR         /**< 0xCF - S is not within ECC order */
+	XSECURE_ELLIPTIC_GEN_KEY_ERR,		     /**< 0xCA - Error in generating Public key */
+	XSECURE_ELLIPTIC_INVALID_PARAM,		     /**< 0xCB - Invalid argument */
+	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO,               /**< 0xCC - R set to zero */
+	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO,               /**< 0xCD - S set to zero */
+	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR,        /**< 0xCE - R is not within ECC order */
+	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR         /**< 0xCF - S is not within ECC order */
 
 } XSecure_ErrorCodes;
 /**
