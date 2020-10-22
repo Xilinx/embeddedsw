@@ -169,11 +169,20 @@ typedef struct {
 	 * eFuse write to FUSE_RSA block in Ultrascale
 	 */
 	u32 RSARead;		/* only For Ultrascale */
-	/* If XTRUE will disable eFUSE write to FUSE_USER block in Ultrascale */
+	/**
+	 * If XTRUE will disable eFUSE write to FUSE_USER block
+	 * in Ultrascale
+	 */
 	u32 UserKeyWrite;	/* only For Ultrascale */
-	/* If XTRUE will disable eFUSE write to FUSE_SEC block in Ultrascale */
+	/**
+	 * If XTRUE will disable eFUSE write to FUSE_SEC block
+	 * in Ultrascale
+	 */
 	u32 SecureWrite;	/* only For Ultrascale */
-	/* If XTRUE will disable eFUSE write to FUSE_RSA block in Ultrascale */
+	/**
+	 *  If XTRUE will disable eFUSE write to FUSE_RSA block
+	 *  in Ultrascale
+	 */
 	u32 RSAWrite;	/* only For Ultrascale */
 	/**
 	 * If TRUE will disable eFUSE write to 128BIT FUSE_USER
@@ -186,7 +195,8 @@ typedef struct {
 	 */
 	u32 SecureRead;		/* only For Ultrascale */
 	/**
-	 * If XTRUE will force eFUSE key to be used if booting Secure Image In Zynq
+	 * If XTRUE will force eFUSE key to be used if booting
+	 * Secure Image In Zynq
 	 */
 	u32 AESKeyExclusive;	/* Only for Zynq */
 	/**
@@ -195,7 +205,8 @@ typedef struct {
 	 */
 	u32 JtagDisable;	/* for Zynq and Ultrascale */
 	/**
-	 * If XTRUE will force to use Secure boot with eFUSE key only for both Zynq and Ultrascale
+	 * If XTRUE will force to use Secure boot with eFUSE key only
+	 * for both Zynq and Ultrascale
 	 */
 	u32 UseAESOnly;		/* For Zynq and Ultrascale */
 	/**
@@ -203,7 +214,8 @@ typedef struct {
 	 */
 	 u32 EncryptOnly;	/* For Ultrascale only */
 	/**
-	 * If XTRUE then sets the disable's Xilinx internal test access in Ultrascale
+	 * If XTRUE then sets the disable's Xilinx internal test access
+	 * in Ultrascale
 	 */
 	u32 IntTestAccessDisable;	/* Only for Ultrascale */
 	/**
@@ -317,32 +329,44 @@ typedef struct {
      * GPIO device ID
      */
 	u32 JtagGpioID; /* Only for Ultrascale*/
-	/*
+	/**
 	 * Hardware module Start signal's GPIO pin
 	 * number
 	 */
 	u32 HwmGpioStart; /* Only for Ultrascale*/
-	/*
+	/**
 	 * Hardware module Ready signal's GPIO pin
 	 * number
 	 */
 	u32 HwmGpioReady; /* Only for Ultrascale*/
-	/*
+	/**
 	 * Hardware module End signal's GPIO pin
 	 * number
 	 */
 	u32 HwmGpioEnd; /* Only for Ultrascale*/
-	/* TDI AXI GPIO pin number for Ultrascale */
+	/**
+	 * TDI AXI GPIO pin number for Ultrascale
+	 */
 	u32 JtagGpioTDI;	/* Only for Ultrascale */
-	/* TDO AXI GPIO pin number for Ultrascale */
+	/**
+	 *  TDO AXI GPIO pin number for Ultrascale
+	 */
 	u32 JtagGpioTDO;	/* Only for Ultrascale */
-	/* TMS AXI GPIO pin number for Ultrascale */
+	/**
+	 *  TMS AXI GPIO pin number for Ultrascale
+	 */
 	u32 JtagGpioTMS;	/* Only for Ultrascale */
-	/* TCK AXI GPIO pin number for Ultrascale */
+	/**
+	 *  TCK AXI GPIO pin number for Ultrascale
+	 */
 	u32 JtagGpioTCK;	/* Only for Ultrascale */
-	/* AXI GPIO Channel number of all Inputs TDO */
+	/**
+	 *  AXI GPIO Channel number of all Inputs TDO
+	 */
 	u32 GpioInputCh;	/* Only for Ultrascale */
-	/* AXI GPIO Channel number for all Outputs TDI/TMS/TCK */
+	/**
+	 *  AXI GPIO Channel number for all Outputs TDI/TMS/TCK
+	 */
 	u32 GpioOutPutCh;	/* Only for Ultrascale */
 	/**
 	 * AES key read only for Zynq
@@ -358,9 +382,13 @@ typedef struct {
 	 * key directly
 	 */
 	u32 CrcOfAESKey;	/* Only for Ultrascale */
-	/* Flag is True is AES's CRC is matched, otherwise False */
+	/**
+	 *  Flag is True is AES's CRC is matched, otherwise False
+	 */
 	 u8 AESKeyMatched;	/* Only for Ultrascale */
-	/* RSA key read back for Ultrascale */
+	/**
+	 *  RSA key read back for Ultrascale
+	 */
 	u8 RSAHashReadback[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES];
 				/* Only for Ultrascale */
 	/**
@@ -372,15 +400,29 @@ typedef struct {
 	 * Internal variable to check if timer, XADC and JTAG are initialized.
 	 */
 	u32 SystemInitDone;
-	/* Stores Fpga series of Efuse */
+	/**
+	 *  Stores Fpga series of Efuse
+	 */
 	XSKEfusePl_Fpga FpgaFlag;
-	/* CRC of AES key to verify programmed AES key */
-    u32 CrcToVerify; /* Only for Ultrascale */
-    /* Number of SLRs to iterate through */
-    u32 NumSlr;
-    /* Current SLR to iterate through */
-    u32 MasterSlr;
-    u32 SlrConfigOrderIndex;
+	/**
+	 *  CRC of AES key to verify programmed AES key
+	 */
+	u32 CrcToVerify; /* Only for Ultrascale */
+	/**
+	 *  Number of SLRs to iterate through
+	 */
+	u32 NumSlr;
+	/**
+	 *  Current SLR to iterate through
+	 */
+	u32 MasterSlr;
+	/**
+	 * Master SLR
+	 */
+	u32 SlrConfigOrderIndex;
+	/**
+	 * SLR Config Order Index
+	 */
 
 }XilSKey_EPl;
 /** @}
