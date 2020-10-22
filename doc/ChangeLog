@@ -417,6 +417,60 @@ Clear the ISR register for polled transfers.
 resetps_v1_4:
 Updated the Makefile to support parallel make execution.
 
+xilsecure_v4_3:
+Added hash comparison and modified input data string "hell" to "XILINX"
+in xilsecure_sha_example.c.
+Initialized Status variable with XST_FAILURE in xilsecure library.
+Removed SHA2 related reference is xilsecure library.
+Added Validation of input parameters.
+Added startup acitivities initiated by PLM.
+Limited the accessing of file as interrupts to be registered only when
+psv_pmc is defined.
+Added tamper response process.
+Added support for ECDSA P521 curve.
+Added example for ECDSA.
+Added sha3 64bit support.
+Asserts are disabled by default.
+Added check for all DPACM efuse bits.
+Added Temporal redundancy check for XSecure_EcdsaVerifySign.
+Added input validations for SHA, AES, RSA, SSS and void functions.
+Masked asserts by default.
+Added additional errors for crypto state mismatch.
+Resolved MISRA-C vilations in XilSecure library.
+Added blindwrite checks for XSecure_AesCfgKupIv.
+Deprecated family key support.
+Replaced repetitive code with function for configuration of PMC DMA channels.
+Moved SecureClear API to xilloader.
+Changed const variables used in KAT functions to file static variables.
+Clear KUP register after use or in failure.
+Fixed hang in secure cases caused due to SSS configuration in case of Parallel
+DMA enabled.
+Validate SIGR and SIGS is within [1, n - 1].
+
+xilskey_v7_0:
+Fixed bug in XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc return Status.
+Rmoved SHA2 related references from xilskey library.
+Black key array size increased to accommodate GCM tag also.
+Added shutter value to xilskey puf registration example.
+Added successfully ran print to xilskey examples.
+Renamed xilskey puf registration and regeneration example files.
+Added platform specific macro to Xilskey_GetSlrNum to make sure it
+compiles only for Ultrascale designs.
+Resolved MISRA-C violations and Coverity Warnings.
+
+xilnvm_v2_1:
+Support added to write glitch configuration data.
+Support added to program eFUSE halt boot bits to stop at ROM stage.
+Minor enhancements and few bug fixes are done and modified the read pattern in
+efuse example.
+Resolved MISRA-C violations and Coverity warnings.
+
+xilpuf_v1_2:
+Corrected the length of PUF ID passed in XPuf_ShowData.
+Resolved MISRA-C violations and Coverity warnings.
+Enabled Global Variation Filter by default.
+Changes default shutter value of PUF.
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
