@@ -196,6 +196,21 @@
 
 #ifdef versal
 #define XVPHY_DEVICE_ID					0
+#define GT_QUAD_BASE                    XPAR_GT_QUAD_GT_QUAD_BASE_BASEADDR
+#define CH1CLKDIV_REG					0x3694
+#define DIV 							0x00000278
+#define DIV_MASK 						0x000003FF
+
+/* In Versal, GT, DP is implemented in RAW16 mode and requires
+ * two clocks. One is /16 and other is /20
+ * In case of RX, the /20 clock is derived using MMCM
+ * In case of TX, the /20 clock is derived from txch1outclk by
+ * modifying GT parameter.
+ * If the hardware is of 1 lane, then /20 clock for TX also has
+ * to be derived using MMCM similar to the RX.
+ */
+
+#define VERSAL_FABRIC_8B10B             1
 #endif
 
 /* The following FLAG enables the Adaptive Sync feature of the
