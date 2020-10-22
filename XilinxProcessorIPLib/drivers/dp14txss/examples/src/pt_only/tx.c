@@ -1501,7 +1501,6 @@ u32 config_phy(int LineRate_init_tx){
          dptx_sts &= ALL_LANE;
          DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
          retry++;
-    //        xil_printf ("tmp is %d\r\n", tmp);
       }
     if(retry==255)
     {
@@ -1511,7 +1510,8 @@ u32 config_phy(int LineRate_init_tx){
 
 	if (Status != XST_SUCCESS) {
 		xil_printf (
-			"+++++++ TX GT configuration encountered a failure +++++++\r\n");
+				"+++\r\n");
+//			"+++++++ TX GT configuration encountered a failure +++++++\r\n");
 	}
 
 	return Status;
