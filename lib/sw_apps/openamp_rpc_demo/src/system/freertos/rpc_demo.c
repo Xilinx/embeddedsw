@@ -165,7 +165,7 @@ static void processing(void *unused_arg)
 			LPERROR("Failed to create rpmsg virtio device.\n");
 		} else {
 			app(rpdev, platform);
-			platform_release_rpmsg_vdev(rpdev);
+			platform_release_rpmsg_vdev(rpdev, platform);
 		}
 	}
 
