@@ -27,6 +27,8 @@
 *                         CR-1049218
 * 7.30  kpt      09/21/20 Moved Xil_EndianSwap16 and Xil_EndianSwap32 to
 *                         xil_io.h and made them as static inline
+*       am       10/13/20 Changed the return type of Xil_SecureOut32 function
+*                         from u32 to int
 *
 * </pre>
 ******************************************************************************/
@@ -241,11 +243,11 @@ static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
  *        	- XST_FAILURE on failure
  *
  *****************************************************************************/
-static INLINE u32 Xil_SecureOut32(UINTPTR Addr, u32 Value)
+static INLINE int Xil_SecureOut32(UINTPTR Addr, u32 Value)
 {
+	int Status = XST_FAILURE;
 	u32 ReadReg;
 	u32 ReadRegTemp;
-	u32 Status = (u32)XST_FAILURE;
 
 	Xil_Out32(Addr, Value);
 
@@ -253,7 +255,7 @@ static INLINE u32 Xil_SecureOut32(UINTPTR Addr, u32 Value)
 	ReadRegTemp = Xil_In32(Addr);
 
 	if( (ReadReg == Value) && (ReadRegTemp == Value) ) {
-		Status = (u32)XST_SUCCESS;
+		Status = XST_SUCCESS;
 	}
 
 	return Status;
