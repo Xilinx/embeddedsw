@@ -838,11 +838,6 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
 	if ((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1011,11 +1006,6 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
 	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
@@ -1140,11 +1130,6 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -1279,11 +1264,6 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((InDataAddr == 0x00U) || (OutDataAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
