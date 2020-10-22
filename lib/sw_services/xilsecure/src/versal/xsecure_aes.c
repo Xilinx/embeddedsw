@@ -562,7 +562,13 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 
 	if ((XSECURE_AES_BH_KEY == KeySrc) &&
 			(XSECURE_AES_KEY_SIZE_128 == KeySize)) {
-		Status = XST_FAILURE;
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	Offset = AesKeyLookupTbl[KeySrc].RegOffset;
+	if (Offset == XSECURE_AES_INVALID_CFG) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -571,12 +577,6 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	}
 	else {
 		KeySizeInWords = XSECURE_AES_KEY_SIZE_256BIT_WORDS;
-	}
-
-	Offset = AesKeyLookupTbl[KeySrc].RegOffset;
-	if (Offset == XSECURE_AES_INVALID_CFG) {
-		Status = XST_FAILURE;
-		goto END;
 	}
 
 	Offset = Offset + (KeySizeInWords * XSECURE_WORD_SIZE) -
