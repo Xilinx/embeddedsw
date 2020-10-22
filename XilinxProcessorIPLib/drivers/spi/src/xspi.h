@@ -279,6 +279,8 @@
 *		       passing the correct interrupt controller instance to
 *		       SpiIntrExample() function (CR-1035793).
 * 4.7	akm  09/02/20 Updated the Makefile to support parallel make execution.
+* 4.7   akm  10/22/20 Removed dependency of Tx_Full flag while writing DTR
+*                     in between multiple transfers.
 * </pre>
 *
 ******************************************************************************/
@@ -424,6 +426,7 @@ typedef struct {
 	void *StatusRef;	/**< Callback reference for status handler */
 	u32 FlashBaseAddr;    	/**< Used in XIP Mode */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
+	u16 FifosDepth;		/**< TX and RX FIFO Depth */
 } XSpi;
 
 /***************** Macros (Inline Functions) Definitions *********************/
