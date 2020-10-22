@@ -637,8 +637,6 @@ static INLINE void XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 *		XST_SUCCESS - if all the conditions for programming is satisfied
 *		Errorcode - if any of the conditions are not met
 *
-* @note		None.
-*
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 					XilSKey_ZynqMpEPs *InstancePtr)
@@ -757,8 +755,6 @@ END:
 *		XST_SUCCESS - On success
 *		XST_FAILURE - on Failure
 *
-* @note		None.
-*
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 			u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType)
@@ -794,7 +790,8 @@ END:
 }
 
 /*****************************************************************************/
-/* This function programs and verifies the particular bit of eFUSE array
+/**
+* This function programs and verifies the particular bit of eFUSE array
 *
 * @param	Row specifies the row number.
 * @param	Column specifies the column number.
@@ -803,8 +800,6 @@ END:
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
@@ -862,7 +857,7 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function returns particular row data directly from eFUSE array.
 *
 * @param	Row specifies the row number to read.
@@ -873,8 +868,6 @@ END:
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
@@ -941,8 +934,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
 *
-* @note		None.
-*
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType)
@@ -988,12 +979,10 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 
 }
 
-/*****************************************************************************/
-/*
+/***************************************************************************/
+/**
 * This function reloads the cache of eFUSE so that can be directly read from
 * cache.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS on successful cache reload
@@ -1052,17 +1041,13 @@ END:
 
 }
 
-/*****************************************************************************/
-/*
+/***************************************************************************/
+/**
 * This function sets all the required parameters to program eFUSE array.
-*
-* @param	None.
 *
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
@@ -1095,15 +1080,9 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
 
 }
 
-/*****************************************************************************/
-/*
+/***************************************************************************/
+/**
 * This function sets timers for programming and reading from eFUSE.
-*
-* @param	None
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
@@ -1147,8 +1126,8 @@ void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
 
 }
 
-/*****************************************************************************/
-/*
+/***************************************************************************/
+/**
 * This function programs secure control bits specified by user.
 *
 * @param	InstancePtr is an instance of efuseps of Zynq MP.
@@ -1156,8 +1135,6 @@ void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
@@ -1185,8 +1162,8 @@ END:
 
 }
 
-/*****************************************************************************/
-/*
+/***************************************************************************/
+/**
 * This function programs secure control bits of eFUSE
 *
 * @param	InstancePtr is an instance of efuseps of ZynqMp.
@@ -1194,8 +1171,6 @@ END:
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
@@ -1470,8 +1445,6 @@ END:
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
@@ -1906,8 +1879,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
 * @param	DnaRead	Pointer to an array of 3 x u32 words which holds the
 *		readback DNA.
 *
-* @return	None.
-*
 ******************************************************************************/
 void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)
 {
@@ -1931,7 +1902,7 @@ void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function is used verify eFUSE keys for Zeros
 *
 * @param	RowStart is row number from which verification has to be
@@ -1942,8 +1913,6 @@ void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)
 *
 * @return	XST_SUCCESS if keys are not programmed.
 * 			Errorcode on failure.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
@@ -1978,8 +1947,6 @@ u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 * @return
 * 		- XST_SUCCESS if keys are not programmed
 *		- ErrorCode if keys are already programmed.
-*
-* @note		None.
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
@@ -2344,7 +2311,7 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function initializes sysmonpsu driver.
 *
 * @return
@@ -2377,8 +2344,8 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/*
+/***************************************************************************/
+/**
 * This function is used by PMUFW IPI call handler for programming eFUSE
 *
 * @param	AddrHigh	Higher 32-bit address of the XilSKey_Efuse structure.
@@ -2420,8 +2387,6 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
@@ -2803,8 +2768,6 @@ END:
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
 *
-* @note		None.
-*
 ******************************************************************************/
 static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer,
 					u32 Size, u8 UsrFuseNum)
@@ -2844,8 +2807,6 @@ END:
 * @return
 *		XST_SUCCESS - On success
 *		ErrorCode - on Failure
-*
-* @note		None.
 *
 ******************************************************************************/
 static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow)

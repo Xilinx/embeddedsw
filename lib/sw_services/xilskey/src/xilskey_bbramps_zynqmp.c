@@ -76,7 +76,6 @@ extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 * 		- Error code from XskZynqMp_Ps_Bbram_ErrorCodes enum if it fails
 * 		- XST_SUCCESS if programming is done.
 *
-*
 ******************************************************************************/
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 {
@@ -145,10 +144,6 @@ END:
 *
 * This function zeroize's Bbram Key.
 *
-* @param	None.
-*
-* @return	None.
-*
 * @note		BBRAM key will be zeroized.
 *
 ******************************************************************************/
@@ -204,13 +199,9 @@ END:
 *
 * This function enables programming and zeroizes Bbram.
 *
-* @param	None
-*
 * @return
 *		- Error code from XskZynqMp_Ps_Bbram_ErrorCodes enum if it fails
 *		- XST_SUCCESS if programming is done.
-*
-* @note		None.
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
@@ -288,8 +279,6 @@ static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
 *		calculated.
 *
 * @return	CRC of AES key
-*
-* @note		None.
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)

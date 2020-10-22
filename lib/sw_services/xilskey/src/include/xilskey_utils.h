@@ -950,10 +950,10 @@ typedef enum {
 					*  when an PUF generation timedout. */
 	XSK_EFUSEPS_ERROR_PUF_ACCESS = 0xE900,/**< 0xE900<br>Error
 					*  when an PUF Access violation. */
-	XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED = 0XEA00,/** 0xEA00<br>Error
+	XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED = 0XEA00,/**< 0xEA00<br>Error
 					*  When PUF Chash already programmed
 					*  in eFuse. */
-	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/** 0xEB00<br>Error
+	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/**< 0xEB00<br>Error
 					*  When PUF AUX already programmed
 					* in eFuse. */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
