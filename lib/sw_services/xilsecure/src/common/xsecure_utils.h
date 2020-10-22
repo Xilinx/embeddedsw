@@ -31,6 +31,7 @@
 *                        secure libraries
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
+*       am      10/10/20 Resolved Coverity warning
 *
 * </pre>
 * @endcond
@@ -90,7 +91,7 @@ extern "C" {
  ******************************************************************************/
 static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	Status = Xil_In32(BaseAddress + RegOffset);
 
