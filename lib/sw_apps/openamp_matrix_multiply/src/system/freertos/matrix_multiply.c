@@ -143,7 +143,7 @@ static void processing(void *unused_arg)
 			ML_ERR("Failed to create rpmsg virtio device.\n");
 		} else {
 			app(rpdev, platform);
-			platform_release_rpmsg_vdev(rpdev);
+			platform_release_rpmsg_vdev(rpdev, platform);
 		}
 	}
 
