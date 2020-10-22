@@ -370,6 +370,8 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 				XSECURE_RSA_CONTROL_EXP);
 	}
 
+	ErrorCode = XST_FAILURE;
+
 	/* Check and wait for status */
 	Status = (int)Xil_WaitForEvents((InstancePtr->BaseAddress +
 					XSECURE_ECDSA_RSA_STATUS_OFFSET),
@@ -394,6 +396,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	/* Copy the result */
 	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
 
+	ErrorCode = XST_SUCCESS;
 END:
 	/* Revert configuring endianness for data */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
