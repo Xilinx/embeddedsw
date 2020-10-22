@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ecdsa.h
-* @addtogroup xsecure_ecdsa_apis XilSecure ECDSA APIs
+* @file xsecure_elliptic.h
+* @addtogroup xsecure_elliptic_apis XilSecure Elliptic APIs
 * @{
 * @cond xsecure_internal
 *
@@ -22,15 +22,17 @@
 *       rpo  04/02/20 Added crypto KAT APIs
 * 4.3   har  08/24/20 Added function prototype for APIs to generate and verify
 *                     ECDSA public key and signature
-*	am   09/25/20 Resolved MISRA C violations
-*	har  10/12/20 Addressed security review comments
+*       am   09/25/20 Resolved MISRA C violations
+*       har  10/12/20 Addressed security review comments
+*       har  10/14/20 Replaced ecdsa with elliptic in names of function and
+*                     macros
 *
 * </pre>
 *
 * @endcond
 ******************************************************************************/
-#ifndef XSECURE_ECDSA_H_
-#define XSECURE_ECDSA_H_
+#ifndef XSECURE_ELLIPTIC_H_
+#define XSECURE_ELLIPTIC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,35 +40,36 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xsecure_ecdsacrvs.h"
+#include "xsecure_ellipticcrvs.h"
 
 /************************** Constant Definitions ****************************/
-#define XSECURE_ECDSA_P384_SIZE_IN_BYTES	(48U)
-#define XSECURE_ECDSA_P521_SIZE_IN_BYTES	(66U)
-#define XSECURE_SHA3_LEN_BYTES			(48U)
+#define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
+#define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
+#define XSECURE_SHA3_LEN_BYTES		(48U)
 #define XSECURE_ECC_P384_DATA_SIZE_WORDS	\
-						(XSECURE_ECDSA_P384_SIZE_IN_BYTES / XSECURE_WORD_SIZE)
+					(XSECURE_ECC_P384_SIZE_IN_BYTES / XSECURE_WORD_SIZE)
 
 /***************************** Type Definitions ******************************/
 typedef struct {
 	u8 *Qx;
 	u8 *Qy;
-} XSecure_EcdsaKey;
+} XSecure_EllipticKey;
 
 typedef struct {
 	u8 *SignR;
 	u8 *SignS;
-} XSecure_EcdsaSign;
+} XSecure_EllipticSign;
 
 /***************************** Function Prototypes ***************************/
-int XSecure_EcdsaGenerateKey(XSecure_EcdsaCrvTyp CrvType, const u8* D,
-	XSecure_EcdsaKey *Key);
-int XSecure_EcdsaGenerateSign(XSecure_EcdsaCrvTyp CrvType, const u8* Hash,
-	const u32 HashLen, const u8* D, const u8* K, XSecure_EcdsaSign *Sign);
-int XSecure_EcdsaValidateKey(XSecure_EcdsaCrvTyp CrvType, XSecure_EcdsaKey *Key);
-int XSecure_EcdsaVerifySign(XSecure_EcdsaCrvTyp CrvType, const u8 *Hash,
-	const u32 HashLen, XSecure_EcdsaKey *Key, XSecure_EcdsaSign *Sign);
-int XSecure_EcdsaKat(void);
+int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
+	XSecure_EllipticKey *Key);
+int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType, const u8* Hash,
+	const u32 HashLen, const u8* D, const u8* K, XSecure_EllipticSign *Sign);
+int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
+	XSecure_EllipticKey *Key);
+int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
+	const u32 HashLen, XSecure_EllipticKey *Key, XSecure_EllipticSign *Sign);
+int XSecure_EllipticKat(void);
 
 #ifdef __cplusplus
 }
