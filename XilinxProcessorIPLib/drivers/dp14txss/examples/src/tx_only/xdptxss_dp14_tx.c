@@ -12,12 +12,14 @@
 *
 * Ver  Who      Date      Changes
 * ---- ---      --------  --------------------------------------------------.
-* 1.00 Nishant  19/12/19 	Added support for vck190, VCU118
-* 			 				DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
-* 			 				set_vphy() renamed to config_phy() and has two
-* 			 				parameters for linerate and lanecount.
-* 			 				The application files are common for ZCU102, VCU118
-* 			 				and VCK190 TX Only design
+* 1.00 Nishant  19/12/19  	Added support for vck190, VCU118
+* 			  				DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
+* 			  				set_vphy() renamed to config_phy() and has two
+* 			  				parameters for linerate and lanecount.
+* 			  				The application files are common for ZCU102, VCU118
+* 			  				and VCK190 TX Only design
+* 1.01 KU		22/10/20	Added support for fabric 8b10b implementation of
+* 			  				of DP1.4
 *
 *
 * </pre>
@@ -298,6 +300,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 	u32 ReadVal=0;
 	u16 DrpVal;
 	u32 dptx_sts = 0;
+	u32 retval = 0;
 
 	user_config_struct user_config;
 	user_config.user_bpc = 8;
@@ -416,7 +419,18 @@ u32 DpTxSs_Main(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-
+#ifdef versal
+#if (VERSAL_FABRIC_8B10B == 1)
+	// unlocking NPI space
+	//Prgramming ch1outclk div to generate /20 clock
+	XDp_WriteReg(GT_QUAD_BASE, 0xC, 0xF9E8D7C6);
+	retval= XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
+	retval &= ~DIV_MASK;
+	retval |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, retval);
+//	retval=XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
+#endif
+#endif
 
 	/* Setup Video Phy, left to the user for implementation */
 	DpTxSs_PhyInit(XVPHY_DEVICE_ID);
@@ -439,8 +453,6 @@ u32 DpTxSs_Main(u16 DeviceId)
 	/* Do not return in order to allow interrupt handling to run. HPD events
 	 * (connect, disconnect, and pulse) will be detected and handled.
 	 */
-
-
 	DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
 	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = 0x0;
@@ -1340,6 +1352,16 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 								XDP_DPCD_MAX_LINK_RATE, 1, LineRate_init);
 			Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
 								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
+			// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
+			XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1, &rData);
+			if(rData & 0x80){ // if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled
+				XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData); // read maxLineRate
+				if(rData == XDP_DPCD_LINK_BW_SET_810GBPS){
+					*LineRate_init = 0x1E;
+					xil_printf ("Monitor Capability is %x\r\n", *LineRate_init);
+				}
+			}
+
 			if (Status != XST_SUCCESS)
 				xil_printf ("Failed to read sink capabilities\r\n");
 		}

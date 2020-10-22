@@ -693,12 +693,14 @@ void main_loop(){
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 										XDP_TX_INTERRUPT_MASK, 0xFFF);
 #ifdef versal
+#if (VERSAL_FABRIC_8B10B == 0)
 						if (user_tx_LineRate == XDP_TX_LINK_BW_SET_810GBPS) {
 							xil_printf ("The device on VCK190 does not support 8.1G\r\n");
 							xil_printf ("Setting linerate to 5.4G\r\n");
 							user_tx_LineRate = XDP_TX_LINK_BW_SET_540GBPS;
 
 						}
+#endif
 #endif
 						LineRate_init_tx = user_tx_LineRate;
 						prev_line_rate = user_tx_LineRate;
