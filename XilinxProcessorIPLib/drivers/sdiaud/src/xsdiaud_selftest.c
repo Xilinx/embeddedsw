@@ -241,11 +241,17 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 	/* Config.IsEmbed is '0' for Embed and '1' for Extract */
 	if (InstancePtr->Config.IsEmbed == SdiAud_IsEmbed) {
 		XSdiAud_Core_RegMap = XSdiAud_Embed_RegMap;
-		XSdiAud_Core_RegMap[4].DefaultVal = (1 << SdiAud_NumCh) - 1;
+
+		if (SdiAud_NumCh < XSDIAUD_32_CHANNELS)
+			XSdiAud_Core_RegMap[4].DefaultVal = (1 << SdiAud_NumCh) - 1;
+
 		count = XSDIAUD_EMBREG_CNT;
 	} else {
 		XSdiAud_Core_RegMap = XSdiAud_Extract_RegMap;
-		XSdiAud_Core_RegMap[3].DefaultVal = (1 << SdiAud_NumCh) - 1;
+
+		if (SdiAud_NumCh < XSDIAUD_32_CHANNELS)
+			XSdiAud_Core_RegMap[3].DefaultVal = (1 << SdiAud_NumCh) - 1;
+
 		count = XSDIAUD_EXTREG_CNT;
 	}
 
