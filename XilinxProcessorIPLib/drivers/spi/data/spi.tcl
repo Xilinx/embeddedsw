@@ -22,6 +22,8 @@
 # 4.2   sk  11/09/15 Removed delete filename statement CR# 784758.
 # 4.3   ms  04/18/17 Modified tcl file to add suffix U for all macros
 #                    definitions of spi in xparameters.h
+# 4.7	akm 10/22/20 Modified tcl file to add XPAR_SPI_0_FIFO_DEPTH to the
+#		     config structure.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -116,13 +118,13 @@ proc xdefine_axispi_params_instance {file_handle periph device_id} {
     }
     
     set value [common::get_property CONFIG.C_FIFO_EXIST $periph]
+    set fifo_depth 0
     if {[llength $value] == 0} {
          set value1 [common::get_property CONFIG.C_FIFO_DEPTH $periph]
          if {[llength $value1] == 0} {
     	    set value1 0
          } else {
-           set value1 [common::get_property CONFIG.C_FIFO_DEPTH $periph]
-           puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "FIFO_DEPTH"] $value1$uSuffix"
+           set fifo_depth $value1
            if {$value1 == 0} {
               set value1 0
            } else {
@@ -133,6 +135,7 @@ proc xdefine_axispi_params_instance {file_handle periph device_id} {
         set value1 $value
     }
     puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "FIFO_EXIST"] $value1$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "FIFO_DEPTH"] $fifo_depth$uSuffix"
     
     set value [common::get_property CONFIG.C_SPI_SLAVE_ONLY $periph]
     if {[llength $value] == 0} {
@@ -215,14 +218,15 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
         puts $file_handle "\#define $canonical_name [common::get_property CONFIG.C_HIGHADDR $periph]$uSuffix"
     }
     set canonical_name  [format "%s_FIFO_EXIST" $canonical_tag]
+    set canonical_name1  [format "%s_FIFO_DEPTH" $canonical_tag]
     set value [common::get_property CONFIG.C_FIFO_EXIST $periph]
+    set fifo_depth 0
     if {[llength $value] == 0} {
         set value1 [common::get_property CONFIG.C_FIFO_DEPTH $periph]
         if {[llength $value1] == 0} {
 	    set value1 0
     	} else {
-    	   set canonical_name1  [format "%s_FIFO_DEPTH" $canonical_tag]
-	   puts $file_handle "\#define $canonical_name1 $value1$uSuffix"
+           set fifo_depth $value1
     	   if {$value1 == 0} {
     	   	set value1 0
     	   } else {
@@ -235,6 +239,8 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
     puts $file_handle "\#define $canonical_name $value1$uSuffix"
     add_field_to_periph_config_struct_spi $device_id $canonical_name
     
+    puts $file_handle "\#define $canonical_name1 $fifo_depth$uSuffix"
+
     set canonical_name  [format "%s_SPI_SLAVE_ONLY" $canonical_tag]
     set value [common::get_property CONFIG.C_SPI_SLAVE_ONLY $periph]
     if {[llength $value] == 0} {
@@ -285,6 +291,8 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
     set canonical_name  [format "%s_USE_STARTUP" $canonical_tag]
     puts $file_handle "\#define $canonical_name $use_startup_value$uSuffix"
     add_field_to_periph_config_struct_spi $device_id $canonical_name
+
+    add_field_to_periph_config_struct_spi $device_id $canonical_name1
 }
 
 proc xdefine_axispi_config_file {file_name drv_string} {
