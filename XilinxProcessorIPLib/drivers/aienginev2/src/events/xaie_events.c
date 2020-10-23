@@ -459,10 +459,6 @@ AieRC XAie_EventSelectStrmPortReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 	}
 
 	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
-	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
-		XAIE_ERROR("Invalid tile type\n");
-		return XAIE_INVALID_TILE;
-	}
 
 	if(TileType == XAIEGBL_TILE_TYPE_AIETILE)
 		Port = CORE;
@@ -471,6 +467,10 @@ AieRC XAie_EventSelectStrmPortReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		Port = CTRL;
 	else if(TileType == XAIEGBL_TILE_TYPE_RESERVED)
 		Port = DMA;
+	else if(TileType == XAIEGBL_TILE_TYPE_MAX){
+		XAIE_ERROR("Failed to reset event select strm port. Invalid tile type\n");
+		return XAIE_INVALID_TILE;
+	}
 
 	return _XAie_EventSelectStrmPortConfig(DevInst, Loc, SelectId,
 			XAIE_STRMSW_SLAVE, Port, 0U);
