@@ -371,15 +371,12 @@ Fix self test failure on zynqmp platform.
 Fix resource error in importing xemaclite_internal_loopback_example.
 Update the makefile for parallel execution.
 
-<<<<<<< HEAD
-=======
 csudma_v1_7:
 Reorganize transfer function and cache operations.
 Fix MISRA-C violations in csudma driver.
 Remove XCsuDma_IsBusy() check in XCsuDma_SetConfig() API.
 Update csudma driver makefile for parallel execution.
 
->>>>>>> 1931a4d... doc: Changelog: Update changelog for Dma, ethernet, csudma, llfifo and lwip
 emacps_v3_12:
 Remove emacps 1588 examples.
 
@@ -510,6 +507,7 @@ Added support for checksum in FSBL if secure code is excluded
 zynq_fsbl:
 Add support for 2Gb flash parts in Zynq FSBL
 
+<<<<<<< HEAD
 New Files Added for 2020.2:
 MIT SPDX License:
 XilinxProcessorIPLib/drivers/aienginev2/data/aienginev2.mdd
@@ -719,6 +717,8 @@ SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/ion.h
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xlnx-ai-engine.h
 
+=======
+>>>>>>> b52f3ce... The patch updates ChangeLog with changes in versal_plm, xilpdi, xilplmi, xiloader, zynqmp_fsbl and zynq_fsbl components.
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
