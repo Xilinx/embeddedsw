@@ -466,6 +466,64 @@ Resolved MISRA-C violations and Coverity warnings.
 Enabled Global Variation Filter by default.
 Changes default shutter value of PUF.
 
+versal_plm:
+Increased stack size to 6KB
+Updated flags for PLM to -Os and LTO
+Added startup task for xilsecure
+MISRA-C fixes
+
+xilpdi_v1_2:
+Validated unauthenticated fields in Metaheader for ENC only cases
+Added eFuse IV support
+MISRA-C fixes
+
+xilplmi_v1_2:
+Added APIs in XilPlmi to handle SET BOARD and GET BOARD commands
+Added printing command details for errors
+Added APIs to for parallel DMA support
+Added MACRO to disable prints to UART
+Added support for external WDT in PLM
+Added support to configure NPLL for master SLR devices
+Added disabling and clearing of errors for custom actions
+Added redundancy checks to XPlmi_MemCmp
+Made XPlmi_Strcpy and XPlmi_Strcat safe functions
+Added basic PLM Runtime Configuration Registers
+Set the clock source to IRO before SRST for ES1
+Store and Verify DFx metadata
+Add FuncID to XLoader_RestartImage
+MISRA-C fixes
+
+xilloader_v1_2:
+Added support for OSPI dual stacked mode
+Unmount file system after loading PDIs in XilLoader
+Added 64 bit destination address support for qspi, ospi, SBI and DDR boot
+modes
+Added support for macronix part P/N:MX25U12835F
+Forced set Cdn bit to 1 for SD boot modes
+Added support for configuring preallocs before loading image
+MISRA-C fixes
+Parallel DMA support for secure partitions
+Implemented image restore feature
+Validated unauthenticated fields in Metaheader for ENC only
+Added eFuse IV support
+Added Load Readback Pdi Cmd
+Added SBI reset release in SbiInit
+Added PlHouseCleaning in case of PL loading error
+Added support for Authenticated JTAG
+Added redundancy in calling security critical APIs
+Added ImageInfo cmds
+Added support for GigaDevice OSPI flash parts
+Added code to clear Chunk Buffer after loading PDI
+Added code to store and verify DFx metadata
+Added SD raw boot support to subsystem restart
+
+zynqmp_fsbl:
+Added armclang support for cortexr5 fsbl
+Added support for checksum in FSBL if secure code is excluded
+
+zynq_fsbl:
+Add support for 2Gb flash parts in Zynq FSBL
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
