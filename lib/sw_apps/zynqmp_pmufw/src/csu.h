@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _CSU_H_
-#define _CSU_H_
+#ifndef CSU_H_
+#define CSU_H_
 
 #ifdef __cplusplus
 extern "C" {

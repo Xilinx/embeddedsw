@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _APU_H_
-#define _APU_H_
+#ifndef APU_H_
+#define APU_H_
 
 #ifdef __cplusplus
 extern "C" {
