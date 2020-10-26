@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _CRF_APB_H_
-#define _CRF_APB_H_
+#ifndef CRF_APB_H_
+#define CRF_APB_H_
 
 #ifdef __cplusplus
 extern "C" {
