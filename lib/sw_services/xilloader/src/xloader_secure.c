@@ -1679,7 +1679,7 @@ static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 		Status = XLoader_UpdateMinorErr(
 			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0U);
 	}
-	else if((HashStatus == XST_FAILURE) && (HashStatusTmp == XST_FAILURE)) {
+	else if((HashStatus != XST_SUCCESS) && (HashStatusTmp != XST_SUCCESS)) {
 		Status = XLOADER_SUCCESS;
 	}
 	else {
