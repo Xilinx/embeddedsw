@@ -393,7 +393,7 @@ void NodeUsbIdle(u32 BaseAddress)
 #define XDPDMA_NUM_CHANNEL	6U	/* Number of channels */
 #define XDPDMA_CH_CNTL_ENABLE	BIT(0)
 #define XDPDMA_CH_CNTL_PAUSE	BIT(1)
-#define XDPDMA_EINTR_ALL	0xffffffff
+#define XDPDMA_EINTR_ALL	0xffffffffU
 
 /**
  * XDpDmaStopChannels - Stop DPDMA channels

@@ -14,7 +14,7 @@ extern "C" {
 /**
  * RSA_CORE Base Address
  */
-#define RSA_CORE_BASEADDR      0XFFCE0000
+#define RSA_CORE_BASEADDR      0XFFCE0000U
 
 /**
  * Register: RSA_CORE_RSA_WR_DATA
