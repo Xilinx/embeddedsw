@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef _RPU_H_
-#define _RPU_H_
+#ifndef RPU_H_
+#define RPU_H_
 
 #ifdef __cplusplus
 extern "C" {

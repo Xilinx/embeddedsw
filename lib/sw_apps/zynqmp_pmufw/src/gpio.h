@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _GPIO_H_
-#define _GPIO_H_
+#ifndef GPIO_H_
+#define GPIO_H_
 
 #ifdef __cplusplus
 extern "C" {

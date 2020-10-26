@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _RSA_H_
-#define _RSA_H_
+#ifndef RSA_H_
+#define RSA_H_
 
 #ifdef __cplusplus
 extern "C" {
