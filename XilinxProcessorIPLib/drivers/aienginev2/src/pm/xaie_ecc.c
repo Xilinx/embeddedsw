@@ -31,7 +31,7 @@
 /***************************** Macro Definitions *****************************/
 #define XAIE_BROADCAST_CHANNEL_6		6U
 #define XAIE_ECC_SCRUB_CLOCK_COUNT		1000000U
-#define XAIE_ECC_CORE_PERCOUNTER_ID		0U
+#define XAIE_ECC_PERFCOUNTER_ID			0U
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -55,7 +55,7 @@ static AieRC _XAie_EccPerfCntConfig(XAie_DevInst *DevInst, XAie_LocType Loc)
 
 	/* Reserve perf counter 0 of Core Module for ECC */
 	XAie_UserRsc ReturnRsc = {Loc, XAIE_CORE_MOD, XAIE_PERFCNT_RSC,
-		XAIE_ECC_CORE_PERCOUNTER_ID};
+		XAIE_ECC_PERFCOUNTER_ID};
 	RC = XAie_RequestAllocatedPerfcnt(DevInst, 1U, &ReturnRsc);
 	if(RC != XAIE_OK) {
 		XAIE_ERROR("Unable to reserve perf counter for ECC\n");
@@ -70,7 +70,7 @@ static AieRC _XAie_EccPerfCntConfig(XAie_DevInst *DevInst, XAie_LocType Loc)
 	* short enough to capture ECC reasonably.
 	*/
 	RC = XAie_PerfCounterEventValueSet(DevInst, Loc, XAIE_CORE_MOD,
-		XAIE_ECC_CORE_PERCOUNTER_ID, XAIE_ECC_SCRUB_CLOCK_COUNT);
+		XAIE_ECC_PERFCOUNTER_ID, XAIE_ECC_SCRUB_CLOCK_COUNT);
 	if(RC != XAIE_OK) {
 		XAIE_ERROR("Unable to set performance counter event value\n");
 		return RC;
@@ -78,18 +78,20 @@ static AieRC _XAie_EccPerfCntConfig(XAie_DevInst *DevInst, XAie_LocType Loc)
 
 	/* Set reset perf counter control reg with perf cnt 0 as reset event */
 	RC = XAie_PerfCounterResetControlSet(DevInst, Loc, XAIE_CORE_MOD,
-		XAIE_ECC_CORE_PERCOUNTER_ID, XAIE_EVENT_PERF_CNT_0_CORE);
+		XAIE_ECC_PERFCOUNTER_ID, XAIE_EVENT_PERF_CNT_0_CORE);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Unable to configure performance counter control with reset event\n");
+		XAIE_ERROR("Unable to configure performance counter control"
+				" with reset event\n");
 		return RC;
 	}
 
 	/* Set start stop perf counter control with true event */
 	RC = XAie_PerfCounterControlSet(DevInst, Loc, XAIE_CORE_MOD,
-		XAIE_ECC_CORE_PERCOUNTER_ID, XAIE_EVENT_TRUE_CORE,
+		XAIE_ECC_PERFCOUNTER_ID, XAIE_EVENT_TRUE_CORE,
 		XAIE_EVENT_TRUE_CORE);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Unable to configure performance counter control with start stop event\n");
+		XAIE_ERROR("Unable to configure performance counter control"
+				" with start stop event\n");
 	}
 
 	return XAIE_OK;
@@ -200,7 +202,7 @@ AieRC _XAie_EccOnDM(XAie_DevInst *DevInst, XAie_LocType Loc)
 	/* Configure Performance counter 0 to generate event to trigger ECC */
 	RC = _XAie_EccPerfCntConfig(DevInst, Loc);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Unable to configure performance counter 0 to generate event for ECC\n");
+		XAIE_ERROR("Unable to configure performance counter for ECC\n");
 		return RC;
 	}
 
@@ -267,7 +269,7 @@ AieRC _XAie_EccOnPM(XAie_DevInst *DevInst, XAie_LocType Loc)
 	/* Configure Performance counter 0 to generate event to trigger ECC */
 	RC = _XAie_EccPerfCntConfig(DevInst, Loc);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Unable to configure performance counter 0 to generate event for ECC\n");
+		XAIE_ERROR("Unable to configure performance counter for ECC\n");
 		return RC;
 	}
 
@@ -306,4 +308,109 @@ void _XAie_EccEvntResetPM(XAie_DevInst *DevInst, XAie_LocType Loc)
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 			CoreMod->EccEvntRegOff;
 	XAie_Write32(DevInst, RegAddr, 0U);
+}
+
+/*****************************************************************************/
+/**
+* This API configures performance counter 0 of Mem tile module to trigger ECC On
+* for memory of the given Mem tile location.
+*
+* @param        DevInst: Device Instance
+* @param        Loc: Location of Mem tile
+*
+* @return       XAIE_OK on success
+*
+* @note         This API is internal, hence all the argument checks are taken
+*               care of in the caller API.
+*               The performance counter 0 of Mem Tile module is used by driver
+*               to turn ECC on with the decided ECC scrub clock count.
+*               This value is chosen such that its long enough not to trigger
+*               ECC as often because core is stalled when ECC scrubber runs and
+*               it is short enough to capture ECC reasonably.
+*
+******************************************************************************/
+static AieRC _XAie_EccPerfCntConfigMemTile(XAie_DevInst *DevInst,
+		XAie_LocType Loc)
+{
+	AieRC RC;
+
+	RC = XAie_PerfCounterEventValueSet(DevInst, Loc, XAIE_MEM_MOD,
+		XAIE_ECC_PERFCOUNTER_ID, XAIE_ECC_SCRUB_CLOCK_COUNT);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to set performance counter event value\n");
+		return RC;
+	}
+
+	/* Set reset perf counter control reg with perf cnt 0 as reset event */
+	RC = XAie_PerfCounterResetControlSet(DevInst, Loc, XAIE_MEM_MOD,
+		XAIE_ECC_PERFCOUNTER_ID, XAIE_EVENT_PERF_CNT0_EVENT_MEM_TILE +
+		XAIE_ECC_PERFCOUNTER_ID);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to configure performance counter control"
+				" with reset event\n");
+		return RC;
+	}
+
+	/* Set start stop perf counter control with true event */
+	RC = XAie_PerfCounterControlSet(DevInst, Loc, XAIE_MEM_MOD,
+		XAIE_ECC_PERFCOUNTER_ID, XAIE_EVENT_TRUE_MEM_TILE,
+		XAIE_EVENT_TRUE_MEM_TILE);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to configure performance counter control"
+				" with start stop event\n");
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* This API configures registers to turn ECC On for Mem tile memory of the given
+* Mem tile location
+*
+* @param        DevInst: Device Instance
+* @param        Loc: Location of Mem tile
+*
+* @return       XAIE_OK on success
+*
+* @note         This API is internal.
+*               To turn ECC On for mem tile memory, the performance counter 0
+*               of Mem tile is used to generate event every 10^6 clock cycle to
+*               trigger ECC ON. ECC scrubbing event register of mem tile module
+*               is configured with that generated event.
+*
+******************************************************************************/
+AieRC _XAie_EccOnMemTile(XAie_DevInst *DevInst, XAie_LocType Loc)
+{
+	AieRC RC;
+	u8 TileType;
+	u32 RegVal;
+	u64 RegAddr;
+	const XAie_MemMod *MemMod;
+	const XAie_EvntMod *EvntMod;
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	/* Check if tile type is Mem tile */
+	if(TileType != XAIEGBL_TILE_TYPE_MEMTILE) {
+		XAIE_ERROR("ECC cannot be enabled for this tile.\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	MemMod = DevInst->DevProp.DevMod[TileType].MemMod;
+	EvntMod = DevInst->DevProp.DevMod[TileType].EvntMod;
+
+	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+			MemMod->EccEvntRegOff;
+	RegVal = EvntMod->XAie_EventNumber[XAIE_EVENT_PERF_CNT0_EVENT_MEM_TILE +
+			XAIE_ECC_PERFCOUNTER_ID - EvntMod->EventMin];
+	XAie_Write32(DevInst, RegAddr, RegVal);
+
+	/* Configure Performance counter 0 to generate event to trigger ECC */
+	RC = _XAie_EccPerfCntConfigMemTile(DevInst, Loc);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to configure performance counter for ECC\n");
+		return RC;
+	}
+
+	return XAIE_OK;
 }
