@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _CSUDMA_H_
-#define _CSUDMA_H_
+#ifndef CSUDMA_H_
+#define CSUDMA_H_
 
 #ifdef __cplusplus
 extern "C" {
