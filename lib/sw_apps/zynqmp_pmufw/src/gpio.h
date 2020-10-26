@@ -41,7 +41,7 @@ extern "C" {
 #define GPIO5_EMIO94_MSW_DATA_BIT    14
 #define GPIO5_EMIO95_MSW_DATA_BIT    15
 
-#define GPIO_PIN_MASK_BITS         0xFFFF0000
+#define GPIO_PIN_MASK_BITS         0xFFFF0000U
 
 #ifdef __cplusplus
 }
