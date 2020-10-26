@@ -14,7 +14,7 @@ extern "C" {
 /**
  * RSA Base Address
  */
-#define RSA_BASEADDR      0XFFCE002C
+#define RSA_BASEADDR      0XFFCE002CU
 
 /**
  * Register: RSA_WR_DATA_0
@@ -23,7 +23,7 @@ extern "C" {
 
 #define RSA_WR_DATA_0_WR_DATA_SHIFT   0
 #define RSA_WR_DATA_0_WR_DATA_WIDTH   32
-#define RSA_WR_DATA_0_WR_DATA_MASK    0XFFFFFFFF
+#define RSA_WR_DATA_0_WR_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_WR_DATA_1
@@ -32,7 +32,7 @@ extern "C" {
 
 #define RSA_WR_DATA_1_WR_DATA_SHIFT   0
 #define RSA_WR_DATA_1_WR_DATA_WIDTH   32
-#define RSA_WR_DATA_1_WR_DATA_MASK    0XFFFFFFFF
+#define RSA_WR_DATA_1_WR_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_WR_DATA_2
@@ -41,7 +41,7 @@ extern "C" {
 
 #define RSA_WR_DATA_2_WR_DATA_SHIFT   0
 #define RSA_WR_DATA_2_WR_DATA_WIDTH   32
-#define RSA_WR_DATA_2_WR_DATA_MASK    0XFFFFFFFF
+#define RSA_WR_DATA_2_WR_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_WR_DATA_3
@@ -50,7 +50,7 @@ extern "C" {
 
 #define RSA_WR_DATA_3_WR_DATA_SHIFT   0
 #define RSA_WR_DATA_3_WR_DATA_WIDTH   32
-#define RSA_WR_DATA_3_WR_DATA_MASK    0XFFFFFFFF
+#define RSA_WR_DATA_3_WR_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_WR_DATA_4
@@ -59,7 +59,7 @@ extern "C" {
 
 #define RSA_WR_DATA_4_WR_DATA_SHIFT   0
 #define RSA_WR_DATA_4_WR_DATA_WIDTH   32
-#define RSA_WR_DATA_4_WR_DATA_MASK    0XFFFFFFFF
+#define RSA_WR_DATA_4_WR_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_WR_DATA_5
@@ -68,7 +68,7 @@ extern "C" {
 
 #define RSA_WR_DATA_5_WR_DATA_SHIFT   0
 #define RSA_WR_DATA_5_WR_DATA_WIDTH   32
-#define RSA_WR_DATA_5_WR_DATA_MASK    0XFFFFFFFF
+#define RSA_WR_DATA_5_WR_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_WR_ADDR
@@ -77,7 +77,7 @@ extern "C" {
 
 #define RSA_WR_ADDR_WR_ADDR_SHIFT   0
 #define RSA_WR_ADDR_WR_ADDR_WIDTH   32
-#define RSA_WR_ADDR_WR_ADDR_MASK    0XFFFFFFFF
+#define RSA_WR_ADDR_WR_ADDR_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RD_DATA_0
@@ -86,7 +86,7 @@ extern "C" {
 
 #define RSA_RD_DATA_0_RD_DATA_SHIFT   0
 #define RSA_RD_DATA_0_RD_DATA_WIDTH   32
-#define RSA_RD_DATA_0_RD_DATA_MASK    0XFFFFFFFF
+#define RSA_RD_DATA_0_RD_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RD_DATA_1
@@ -95,7 +95,7 @@ extern "C" {
 
 #define RSA_RD_DATA_1_RD_DATA_SHIFT   0
 #define RSA_RD_DATA_1_RD_DATA_WIDTH   32
-#define RSA_RD_DATA_1_RD_DATA_MASK    0XFFFFFFFF
+#define RSA_RD_DATA_1_RD_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RD_DATA_2
@@ -104,7 +104,7 @@ extern "C" {
 
 #define RSA_RD_DATA_2_RD_DATA_SHIFT   0
 #define RSA_RD_DATA_2_RD_DATA_WIDTH   32
-#define RSA_RD_DATA_2_RD_DATA_MASK    0XFFFFFFFF
+#define RSA_RD_DATA_2_RD_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RD_DATA_3
@@ -113,7 +113,7 @@ extern "C" {
 
 #define RSA_RD_DATA_3_RD_DATA_SHIFT   0
 #define RSA_RD_DATA_3_RD_DATA_WIDTH   32
-#define RSA_RD_DATA_3_RD_DATA_MASK    0XFFFFFFFF
+#define RSA_RD_DATA_3_RD_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RD_DATA_4
@@ -122,7 +122,7 @@ extern "C" {
 
 #define RSA_RD_DATA_4_RD_DATA_SHIFT   0
 #define RSA_RD_DATA_4_RD_DATA_WIDTH   32
-#define RSA_RD_DATA_4_RD_DATA_MASK    0XFFFFFFFF
+#define RSA_RD_DATA_4_RD_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RD_DATA_5
@@ -131,7 +131,7 @@ extern "C" {
 
 #define RSA_RD_DATA_5_RD_DATA_SHIFT   0
 #define RSA_RD_DATA_5_RD_DATA_WIDTH   32
-#define RSA_RD_DATA_5_RD_DATA_MASK    0XFFFFFFFF
+#define RSA_RD_DATA_5_RD_DATA_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RD_ADDR
@@ -140,7 +140,7 @@ extern "C" {
 
 #define RSA_RD_ADDR_RD_ADDR_SHIFT   0
 #define RSA_RD_ADDR_RD_ADDR_WIDTH   32
-#define RSA_RD_ADDR_RD_ADDR_MASK    0XFFFFFFFF
+#define RSA_RD_ADDR_RD_ADDR_MASK    0XFFFFFFFFU
 
 /**
  * Register: RSA_RSA_CFG
