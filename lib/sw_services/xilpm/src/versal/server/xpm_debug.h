@@ -251,6 +251,8 @@ extern "C" {
 #define XPM_INT_ERR_RPU_CORE_HALT		0x360FU
 /* Error during PSM RAM ECC init */
 #define XPM_INT_ERR_ECC_INIT_PSM_RAM		0x3610U
+/* Invalid state transition */
+#define XPM_INT_ERR_INVALID_STATE_TRANS	0x3611U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
@@ -493,6 +495,22 @@ extern "C" {
 #define XPM_INT_ERR_PLDEVICE_SET_BIT		0x4903U
 /* Error during pldevice unlinking */
 #define XPM_INT_ERR_PLDEVICE_UNSET_BIT		0x4904U
+/* Error during pldevice unused to initializing transition */
+#define XPM_INT_ERR_PLDEVICE_UNUSED_TO_INIT_EVT		0x4905U
+/* Error during pldevice running to initializing transition */
+#define XPM_INT_ERR_PLDEVICE_RUNNING_TO_INIT_EVT		0x4906U
+/* Error during pldevice initializing to running transition */
+#define XPM_INT_ERR_PLDEVICE_INIT_TO_RUNNING_EVT		0x4907U
+/* Error during pldevice initializing to unused transition */
+#define XPM_INT_ERR_PLDEVICE_INIT_TO_UNUSED_EVT		0x4908U
+/* Error managing PLD Power Domain dependency */
+#define XPM_INT_ERR_PLDEVICE_PWR_MANAGE			0x4909U
+/* Invalid PL Device Parent State */
+#define XPM_INT_ERR_INVALID_PLDEVICE_PARENT_STATE		0x490AU
+/* Invalid PL Device Parent*/
+#define XPM_INT_ERR_INVALID_PLDEVICE_PARENT			0x490BU
+/* Unknown PL Power Bit Mask */
+#define XPM_INT_ERR_PLDEVICE_INVALID_BITMASK			0x490CU
 
 /*********************** Register blind write check errors********************/
 /************************** (0x5000) - (0x50FF) ******************************/

@@ -35,6 +35,7 @@ static const char *PmDevStates[] = {
 	"PWR_OFF",
 	"SUSPENDING",
 	"RUNTIME_SUSPEND",
+	"INITIALIZING",
 };
 
 static const char *PmDevEvents[] = {
@@ -853,7 +854,8 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
-	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
+	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
+		((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
@@ -913,7 +915,8 @@ static XStatus Release(XPm_Device *Device,
 
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
-	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
+	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
+		((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
@@ -1923,7 +1926,8 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
-	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
+	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
+		((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}

@@ -6,8 +6,12 @@
 #include "xpm_debug.h"
 #include "xpm_defs.h"
 
+#define PWR_DOMAIN_UNUSED_BITMASK		0U
 #define PWR_DOMAIN_NOC_BITMASK			BIT(0)
 #define PWR_DOMAIN_PL_BITMASK			BIT(1)
+#define MAX_PWR_DOMAIN_BITMASK			(PWR_DOMAIN_NOC_BITMASK |\
+						  PWR_DOMAIN_PL_BITMASK)
+#define NOT_INITIALIZED			0xFFU
 
 typedef struct {
 	const u8 BitMask;
@@ -23,9 +27,6 @@ static const XPm_NodeIdBitMap PmPwrBitMap[] = {
 		.NodeId = PM_POWER_PLD,
 	},
 };
-
-static XStatus Pld_SetBitPwrBitMask(u8 *BitMask, const u32 NodeId);
-static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId) __attribute__((unused));
 
 static XStatus Pld_SetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
 {
@@ -59,7 +60,18 @@ static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
 	return Status;
 }
 
-static XStatus Pld_UnlinkChidren(XPm_PlDevice *PlDevice)
+/****************************************************************************/
+/**
+ * @brief	Release a PlDevice's children from PMC Subsystem and unlink
+ *
+ * @param PlDevice	PlDevice whose children need to released and unlinked
+ *
+ * @return	XStatus	Returns XST_SUCCESS or appropriate error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PlDevice *PldChild;
@@ -74,11 +86,18 @@ static XStatus Pld_UnlinkChidren(XPm_PlDevice *PlDevice)
 
 	while (NULL != PldChild) {
 		if (NULL != PldChild->Child) {
-			Status = Pld_UnlinkChidren(PldChild);
+			Status = Pld_ReleaseChildren(PldChild);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
 		}
+		PldChild->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
+		PldChild->Device.Node.State = (u8)XPM_DEVSTATE_INITIALIZING;
+		Status = XPmDevice_Release(PM_SUBSYS_PMC, PldChild->Device.Node.Id);
+		if(XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		PldToUnlink = PldChild;
 		PldChild = PldChild->NextPeer;
 		PldToUnlink->Parent = NULL;
@@ -92,6 +111,266 @@ done:
 	return Status;
 }
 
+static const XPm_StateCap PlDeviceStates[] = {
+	{
+		.State = (u8)XPM_DEVSTATE_UNUSED,
+		.Cap = (u32)XPM_MIN_CAPABILITY,
+	}, {
+		.State = (u8)XPM_DEVSTATE_INITIALIZING,
+		.Cap = (u32)PM_CAP_ACCESS,
+	}, {
+		.State = (u8)XPM_DEVSTATE_RUNNING,
+		.Cap = (u32)PM_CAP_ACCESS,
+	},
+};
+
+static const XPm_StateTran PlDeviceTransitions[] = {
+	{
+		.FromState = (u32)XPM_DEVSTATE_INITIALIZING,
+		.ToState = (u32)XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = (u32)XPM_DEVSTATE_UNUSED,
+		.ToState = (u32)XPM_DEVSTATE_INITIALIZING,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = (u32)XPM_DEVSTATE_INITIALIZING,
+		.ToState = (u32)XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = (u32)XPM_DEVSTATE_RUNNING,
+		.ToState = (u32)XPM_DEVSTATE_INITIALIZING,
+		.Latency = XPM_DEF_LATENCY,
+	},
+};
+
+static XStatus Pld_HandlePowerEvent(u8 *BitMask, u32 PwrNodeId, u32 Action)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_Power *Power = NULL;
+
+	if (NOT_INITIALIZED == Action) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Power = XPmPower_GetById(PwrNodeId);
+	if (NULL == Power) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	Status = Power->HandleEvent(&Power->Node, Action);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_INVALID_EVENT;
+		goto done;
+	}
+
+	if ((u32)XPM_POWER_EVENT_PWR_UP == Action) {
+		Status = Pld_SetBitPwrBitMask(BitMask, PwrNodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_SET_BIT;
+		}
+	} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Action) {
+		Status = Pld_UnsetBitPwrBitMask(BitMask, PwrNodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_UNSET_BIT;
+		}
+	} else {
+		DbgErr = XPM_INT_ERR_INVALID_EVENT;
+	}
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+
+}
+
+/****************************************************************************/
+/**
+ * @brief	Manage power domain dependency for PLD
+ *
+ * @param PlDevice	PlDevice nose whose power domain dependency needs to be
+ *			managed
+ *
+ * @return	XStatus	Returns XST_SUCCESS or appropriate error code
+ *
+ * @note	Power Domain dependencies for PLD are dynamic in nature. Based
+ *		on its changes in power domain dependency generate necessary
+ *		events for power domain nodes
+ *
+ ****************************************************************************/
+static XStatus Pld_ManagePower(XPm_PlDevice *PlDevice)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u8 PlPowerBitMask;
+	u8 PlWfPowerBitMask;
+	u8 BitMask;
+	u32 PwrNodeId;
+	u32 i;
+	u32 PwrEvtAction;
+
+	if (NULL == PlDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	PlPowerBitMask = PlDevice->PowerBitMask;
+	PlWfPowerBitMask = PlDevice->WfPowerBitMask;
+
+	if (MAX_PWR_DOMAIN_BITMASK < PlWfPowerBitMask) {
+		DbgErr = XPM_INT_ERR_PLDEVICE_INVALID_BITMASK;
+		goto done;
+	}
+
+	for (i = 0; i < ARRAY_SIZE(PmPwrBitMap); ++i) {
+		BitMask = PmPwrBitMap[i].BitMask;
+		PwrNodeId = PmPwrBitMap[i].NodeId;
+		PwrEvtAction = NOT_INITIALIZED;
+
+		if ((0U == (PlPowerBitMask & BitMask)) &&
+		  (BitMask == (PlWfPowerBitMask & BitMask))) {
+			PwrEvtAction = (u32)XPM_POWER_EVENT_PWR_UP;
+		} else if ((BitMask == (PlPowerBitMask & BitMask)) &&
+			   (0U == (PlWfPowerBitMask & BitMask))) {
+			PwrEvtAction = (u32)XPM_POWER_EVENT_PWR_DOWN;
+		} else {
+			continue;
+		}
+
+		Status = Pld_HandlePowerEvent(&PlPowerBitMask, PwrNodeId, PwrEvtAction);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_PWR_MANAGE;
+			goto done;
+		}
+	}
+
+	if (PlPowerBitMask != PlDevice->PowerBitMask) {
+		PlDevice->PowerBitMask  = PlPowerBitMask;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	State machine for PL Device state management
+ *
+ * @param Device	Device structure whose states need to be managed
+ * @param NextState	Desired next state for the Device in consideration
+ *
+ * @return	XStatus	Returns XST_SUCCESS or appropriate error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus HandlePlDeviceState(XPm_Device* const Device, const u32 NextState)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_PlDevice *PlDevice;
+	XPm_PlDevice *Parent = NULL;
+	u8 CurrState;
+
+	if (NULL == Device) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	if ((u32)XPM_NODESUBCL_DEV_PL != NODESUBCLASS(Device->Node.Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_SUBCLASS;
+		goto done;
+	}
+
+	PlDevice = (XPm_PlDevice *)Device;
+	Parent = PlDevice->Parent;
+
+	/* Every PLD has a Parent except PLD0 */
+	if ((NULL == Parent) && (PM_DEV_PLD_0 != PlDevice->Device.Node.Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_PLDEVICE_PARENT;
+		goto done;
+	}
+
+	CurrState = Device->Node.State;
+
+	if ((u8)NextState == CurrState) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * Parent PLD state should be in running or initializing state before
+	 * any activity on current PLD, except PLD0 as it does not have parent.
+	 */
+	if ((NULL != Parent) &&
+	  ((u8)XPM_DEVSTATE_RUNNING != Parent->Device.Node.State) &&
+	  ((u8)XPM_DEVSTATE_INITIALIZING != Parent->Device.Node.State)) {
+		DbgErr = XPM_INT_ERR_INVALID_PLDEVICE_PARENT_STATE;
+		goto done;
+	}
+
+	PmDbg ("ID=0x%x FromState=0x%x ToState=0x%x\n\r", PlDevice->Device.Node.Id,
+		   CurrState, NextState);
+	switch (CurrState) {
+		case (u8)XPM_DEVSTATE_UNUSED:
+			if ((u8)XPM_DEVSTATE_INITIALIZING == NextState) {
+				DbgErr = XPM_INT_ERR_PLDEVICE_UNUSED_TO_INIT_EVT;
+				Status = XST_SUCCESS;
+			} else {
+				DbgErr = XPM_INT_ERR_INVALID_STATE_TRANS;
+			}
+			break;
+		case (u8)XPM_DEVSTATE_RUNNING:
+			if ((u8)XPM_DEVSTATE_INITIALIZING == NextState) {
+				DbgErr = XPM_INT_ERR_PLDEVICE_RUNNING_TO_INIT_EVT;
+				Status = XST_SUCCESS;
+			} else {
+				DbgErr = XPM_INT_ERR_INVALID_STATE_TRANS;
+			}
+			break;
+		case (u8)XPM_DEVSTATE_INITIALIZING:
+			if ((u8)XPM_DEVSTATE_RUNNING == NextState) {
+				DbgErr = XPM_INT_ERR_PLDEVICE_INIT_TO_RUNNING_EVT;
+				Status = XST_SUCCESS;
+			} else if ((u8)XPM_DEVSTATE_UNUSED == NextState) {
+				DbgErr = XPM_INT_ERR_PLDEVICE_INIT_TO_UNUSED_EVT;
+				Status = XST_SUCCESS;
+			} else {
+				DbgErr = XPM_INT_ERR_INVALID_STATE_TRANS;
+			}
+			break;
+		default:
+			DbgErr = XPM_INT_ERR_INVALID_STATE;
+			break;
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = Pld_ManagePower(PlDevice);
+
+	if (XST_SUCCESS == Status) {
+		Device->Node.State = (u8)NextState;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static const XPm_DeviceFsm XPmPlDeviceFsm = {
+	DEFINE_DEV_STATES(PlDeviceStates),
+	DEFINE_DEV_TRANS(PlDeviceTransitions),
+	.EnterState = HandlePlDeviceState,
+};
+
 static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -103,7 +382,7 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	PlDevice->WfPowerBitMask = 0U;
+	PlDevice->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
 
 	for (i = 0; i < NumArgs; ++i) {
 		Status = Pld_SetBitPwrBitMask(&PlDevice->WfPowerBitMask, Args[i]);
@@ -118,7 +397,7 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 	 * re/loaded. We must get rid of any existing child nodes if at all
 	 * there are any, since new topology can be formed with those
 	 */
-	Status = Pld_UnlinkChidren(PlDevice);
+	Status = Pld_ReleaseChildren(PlDevice);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLDEVICE_UNLINK_FAIL;
 	}
@@ -139,7 +418,7 @@ static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	PlDevice->WfPowerBitMask = 0U;
+	PlDevice->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
 
 	for (i = 0; i < NumArgs; ++i) {
 		Status = Pld_SetBitPwrBitMask(&PlDevice->WfPowerBitMask, Args[i]);
@@ -188,6 +467,7 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 	PlDevice->WfPowerBitMask = (u8)0x0U;
 	PlDevice->Ops = &PldOps;
 
+	(void)XPmPlDeviceFsm;
 	Status = XPmDevice_Init(&PlDevice->Device, PldId, BaseAddress, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLDEVICE_INIT;

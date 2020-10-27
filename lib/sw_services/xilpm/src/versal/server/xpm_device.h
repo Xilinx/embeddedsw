@@ -45,6 +45,7 @@ typedef enum {
 	XPM_DEVSTATE_PWR_OFF,	/* Power down */
 	XPM_DEVSTATE_SUSPENDING,
 	XPM_DEVSTATE_RUNTIME_SUSPEND,
+	XPM_DEVSTATE_INITIALIZING,
 } XPm_DeviceState;
 
 /* Device events */
