@@ -70,6 +70,7 @@ extern "C" {
 #define XPLMI_PIT_FREQ_DIVISOR		(100U)
 #define XPLMI_GIGA			(1e9)
 #define XPLMI_MEGA			(1e6)
+#define XPLMI_KILO 			(1e3)
 
 /**************************** Type Definitions *******************************/
 /*

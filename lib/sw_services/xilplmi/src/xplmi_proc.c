@@ -157,9 +157,10 @@ void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
 {
 	u64 PerfNs;
 	u64 TDiff = TCur - TStart;
+	u32 PmcIroFreqKhz = PmcIroFreq / (u32)XPLMI_KILO;
 
 	/* Convert TPerf into nanoseconds */
-	PerfNs = (TDiff * (u64)XPLMI_GIGA) / PmcIroFreq;
+	PerfNs = (TDiff * (u64)(XPLMI_GIGA / PmcIroFreqKhz)) / (u64)XPLMI_KILO;
 	PerfTime->TPerfMs = PerfNs / (u64)XPLMI_MEGA;
 	PerfTime->TPerfMsFrac = PerfNs % (u64)XPLMI_MEGA;
 }
