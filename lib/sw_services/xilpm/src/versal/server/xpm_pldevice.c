@@ -6,6 +6,59 @@
 #include "xpm_debug.h"
 #include "xpm_defs.h"
 
+#define PWR_DOMAIN_NOC_BITMASK			BIT(0)
+#define PWR_DOMAIN_PL_BITMASK			BIT(1)
+
+typedef struct {
+	const u8 BitMask;
+	const u32 NodeId;
+} XPm_NodeIdBitMap;
+
+static const XPm_NodeIdBitMap PmPwrBitMap[] = {
+	{
+		.BitMask = PWR_DOMAIN_NOC_BITMASK,
+		.NodeId = PM_POWER_NOC,
+	}, {
+		.BitMask = PWR_DOMAIN_PL_BITMASK,
+		.NodeId = PM_POWER_PLD,
+	},
+};
+
+static XStatus Pld_SetBitPwrBitMask(u8 *BitMask, const u32 NodeId);
+static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId) __attribute__((unused));
+
+static XStatus Pld_SetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(PmPwrBitMap); ++i) {
+		if (PmPwrBitMap[i].NodeId == NodeId) {
+			*BitMask |= PmPwrBitMap[i].BitMask;
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+	return Status;
+}
+
+static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i;
+
+	for (i = 0; i < ARRAY_SIZE(PmPwrBitMap); ++i) {
+		if (PmPwrBitMap[i].NodeId == NodeId) {
+			*BitMask &= ~(PmPwrBitMap[i].BitMask);
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+	return Status;
+}
+
 static XStatus Pld_UnlinkChidren(XPm_PlDevice *PlDevice)
 {
 	XStatus Status = XST_FAILURE;
@@ -42,15 +95,23 @@ done:
 static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_START;
+	u32 i;
 
 	if (NULL == PlDevice) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
-	(void)Args;
-	(void)NumArgs;
+	PlDevice->WfPowerBitMask = 0U;
+
+	for (i = 0; i < NumArgs; ++i) {
+		Status = Pld_SetBitPwrBitMask(&PlDevice->WfPowerBitMask, Args[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_SET_BIT;
+			goto done;
+		}
+	}
 
 	/*
 	 * PL Init Start indicates that a new RM or static image has been
@@ -70,18 +131,23 @@ done:
 static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
+	u32 i;
 
 	if (NULL == PlDevice) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
-	/*
-	 * TBD: Init Finish implementation
-	 */
-	(void)Args;
-	(void)NumArgs;
+	PlDevice->WfPowerBitMask = 0U;
+
+	for (i = 0; i < NumArgs; ++i) {
+		Status = Pld_SetBitPwrBitMask(&PlDevice->WfPowerBitMask, Args[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_SET_BIT;
+			goto done;
+		}
+	}
 
 	Status = XST_SUCCESS;
 

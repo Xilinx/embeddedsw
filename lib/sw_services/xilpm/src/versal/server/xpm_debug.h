@@ -488,7 +488,11 @@ extern "C" {
 /* Error during pldevice initnode command */
 #define XPM_INT_ERR_PLDEVICE_INITNODE		0x4901U
 /* Error during pldevice unlinking */
-#define XPM_INT_ERR_PLDEVICE_UNLINK_FAIL		0x4902U
+#define XPM_INT_ERR_PLDEVICE_UNLINK_FAIL	0x4902U
+/* Error during pldevice unlinking */
+#define XPM_INT_ERR_PLDEVICE_SET_BIT		0x4903U
+/* Error during pldevice unlinking */
+#define XPM_INT_ERR_PLDEVICE_UNSET_BIT		0x4904U
 
 /*********************** Register blind write check errors********************/
 /************************** (0x5000) - (0x50FF) ******************************/
