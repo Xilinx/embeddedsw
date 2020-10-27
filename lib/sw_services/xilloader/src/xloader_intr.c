@@ -7,7 +7,9 @@
 /**
 *
 * @file xloader_intr.c
-*
+* @addtogroup xloader_apis XilLoader Versal APIs
+* @{
+* @cond xloader_internal
 * This file contains the code related to the interrupt handling.
 *
 * <pre>
@@ -27,10 +29,12 @@
 *       bsv  08/12/2020 Remove misleading comments
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   10/14/2020 Code clean up
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -46,6 +50,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+/**
+ * @{
+ * @cond xloader_internal
+ */
 static int XLoader_SbiLoadPdi(void *Data);
 
 /************************** Variable Definitions *****************************/
@@ -76,6 +84,10 @@ int XLoader_IntrInit(void)
 	return Status;
 }
 
+/**
+ * @}
+ * @endcond
+ */
 /*****************************************************************************/
 /**
  * @brief	This function is the interrupt handler for SBI data ready.
@@ -139,6 +151,10 @@ END:
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xloader_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	This function clears the previous SBI data ready
@@ -170,3 +186,10 @@ int XLoader_ClearIntrSbiDataRdy(void)
 END:
 	return Status;
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+/** @} */
