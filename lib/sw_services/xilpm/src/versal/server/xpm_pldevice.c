@@ -371,6 +371,18 @@ static const XPm_DeviceFsm XPmPlDeviceFsm = {
 	.EnterState = HandlePlDeviceState,
 };
 
+/****************************************************************************/
+/**
+ * @brief  Start Node initialization for PlDevice
+ *
+ * @param  Args: Arguments for PlDevice
+ * @param  NumArgs: Number of arguments for PlDevice
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note Arguments consist of Power Domain Node Ids that PlDevice depends on
+ *
+ ****************************************************************************/
 static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -447,6 +459,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Finish Node initialization for PlDevice
+ *
+ * @param  Args: Arguments for PlDevice
+ * @param  NumArgs: Number of arguments for PlDevice
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note Arguments consist of Power Domain Node Ids that PlDevice depends on
+ *
+ ****************************************************************************/
 static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -515,11 +539,17 @@ static struct XPm_PldInitNodeOps PldOps = {
 
 /****************************************************************************/
 /**
- * @brief  Initialize rail node base class
+ * @brief  Initialize PLDevice node base class
  *
  * @param  PlDevice: Pointer to an uninitialized PlDevice struct
- * @param  PldId: Node Id assigned to a Pld node
- * @param  Args: Arguments for pld node
+ * @param  PldId: Node Id assigned to a PlDevice node
+ * @param  BaseAddress: Baseaddress that is passed from topology
+ * @param  Power: Power Node dependency. Will no longer be used when PlDevice
+ *		   topology is activated
+ * @param  Clock: Clocks that PlDevice is dependent on. No longer in use as
+ *		   it's managed by CDO
+ * @param  Reset: PlDevice reset dependency. No longer in use as it's managed
+ *		   by CDO
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
