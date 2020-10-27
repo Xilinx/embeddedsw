@@ -8,7 +8,10 @@
 /**
 *
 * @file xnvm_bbram.h
+* @addtogroup xnvm_bbram_apis XilNvm bbram APIs
+* @{
 *
+* @cond xnvm_internal
 * This file contains NVM library BBRAM API's declaration
 *
 * <pre>
@@ -18,12 +21,14 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
 * 2.1	am   08/19/2020 Resolved MISRA C violations
-*	am   10/13/2020 Resolved MISRA C violations
+*		am   10/13/2020 Resolved MISRA C violations
+*		ana  10/15/2020 Updated doxygen comments.
 *
 * </pre>
 *
 * @note
 *
+* @endcond
 *******************************************************************************/
 #ifndef XNVM_BBRAM_H
 #define XNVM_BBRAM_H
@@ -36,6 +41,9 @@ extern "C" {
 #include "xil_types.h"
 
 /*************************** Constant Definitions *****************************/
+/**@cond xnvm_internal
+ * @{
+ */
 
 /* AES Key size in bytes */
 #define XNVM_BBRAM_AES_KEY_SIZE          XNVM_256_BITS_AES_KEY_LEN_IN_BYTES
@@ -49,6 +57,11 @@ extern "C" {
 #define XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE      (XNVM_EFUSE_BBRAM_TAG | 0x04U)
 #define XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED    (XNVM_EFUSE_BBRAM_TAG | 0x05U)
 #define XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT          (XNVM_EFUSE_BBRAM_TAG | 0x06U)
+
+/**
+ * @}
+ * @endcond
+ */
 
 /***************************** Type Definitions *******************************/
 
@@ -74,3 +87,5 @@ int XNvm_BbramZeroize(void);
 #endif
 
 #endif
+
+/* @} */

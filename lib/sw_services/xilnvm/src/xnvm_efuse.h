@@ -27,9 +27,10 @@
 * 2.1   rpo  06/06/2020 Support added to write glitch configuration data.
 *       rpo  06/08/2020 Support added to program eFUSE halt boot bits to stop
 *                       at ROM stage.
-* 	am   08/19/2020 Resolved MISRA C violations.
-* 	kal  09/03/2020 Fixed Security CoE review comments
-*	am   10/13/2020 Resolved MISRA C violations
+* 		am   08/19/2020 Resolved MISRA C violations.
+* 		kal  09/03/2020 Fixed Security CoE review comments
+*		am   10/13/2020 Resolved MISRA C violations
+*		ana  10/15/2020 Updated doxygen comments.
 *
 * </pre>
 *
@@ -92,7 +93,7 @@ extern "C" {
 /***************************** Type Definitions *******************************/
 
 /**
- * @addtogroup xilnvm_versal_error_codes List of Error Codes
+ * @addtogroup xilnvm_versal_error_codes XilNvm Error Codes
  * @{
  */
 
