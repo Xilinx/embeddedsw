@@ -7,6 +7,9 @@
 /**
 *
 * @file xsecure_rsa_core.h
+* @addtogroup xsecure_rsa_zynqmp_apis XilSecure RSA ZynqMP APIs
+* @{
+* @cond xsecure_internal
 * This file contains zynqmp specific RSA core APIs.
 *
 * <pre>
@@ -20,8 +23,10 @@
 * 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
 *       har  04/06/20 Added function for selection of PKCS padding
 * 4.3   har  06/17/20 Removed references to unused algorithms
+*       ana  10/15/20 Updated doxygen tags
 * </pre>
 *
+* @endcond
 ******************************************************************************/
 #ifndef XSECURE_RSA_CORE_H
 #define XSECURE_RSA_CORE_H
@@ -167,3 +172,5 @@ u8* XSecure_RsaGetTPadding();
 #endif
 
 #endif /* XSECURE_RSA_CORE_H */
+
+/* @} */

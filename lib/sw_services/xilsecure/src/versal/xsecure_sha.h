@@ -7,7 +7,7 @@
 /**
 *
 * @file xsecure_sha.h
-* @addtogroup xsecure_sha3_apis SHA-3
+* @addtogroup xsecure_sha3_versal_apis XilSecure SHA3 Versal APIs
 * @{
 * @cond xsecure_internal
 * This file Contains the function prototypes, defines and macros for
@@ -43,6 +43,7 @@
 *       rpo  09/10/20 Changed the return type of some prototypes
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+*       ana  10/15/20 Updated doxygen tags
 *
 * </pre>
 *
@@ -64,8 +65,8 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
-@{
-*/
+ * @{
+ */
 
 /**
 * SHA3 Memory Map
@@ -114,8 +115,9 @@ typedef struct {
 	XSecure_Sha3State Sha3State; /**< SHA engine state */
 } XSecure_Sha3;
 /**
-@}
-@endcond */
+ * @}
+ * @endcond
+ */
 
 /***************************** Function Prototypes ***************************/
 /* Initialization */
@@ -145,4 +147,5 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 #endif
 
 #endif /** XSECURE_SHA_H */
+
 /* @} */
