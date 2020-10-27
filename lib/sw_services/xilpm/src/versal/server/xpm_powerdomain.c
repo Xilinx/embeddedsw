@@ -589,11 +589,24 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
-		Status = XPm_RestartCbWrapper(PM_DEV_PLD_0);
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_RELOAD_IMAGE;
+			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
+			goto done;
+		}
+
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_HOUSECLEAN_PL, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_PL;
+			goto done;
+		}
+
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 		}
 	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
