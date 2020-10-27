@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_aes.h
-* @addtogroup xsecure_aes_versal_apis XilSecure AES VERSAL APIs
+* @addtogroup xsecure_aes_versal_apis XilSecure AES Versal APIs
 * @{
 * @cond xsecure_internal
 *
@@ -32,6 +32,7 @@
 *       am   09/24/2020 Resolved MISRA C violations
 *       har  09/30/2020 Deprecated Family Key support
 *       har  10/12/2020 Addressed security review comments
+*       ana  10/15/2020 Updated doxygen tags
 *
 * </pre>
 *
@@ -52,8 +53,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /** @cond xsecure_internal
-@{
-*/
+ * @{
+ */
 
 #define XSECURE_AES_BUFFER_SIZE				(4U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
@@ -98,7 +99,8 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
 
 /** @}
-@endcond */
+ * @endcond
+ */
 
 /**************************** Type Definitions *******************************/
 typedef enum {
@@ -133,8 +135,8 @@ typedef enum {
 }XSecure_AesKeySize;
 
 /** @cond xsecure_internal
-@{
-*/
+ * @{
+ */
 typedef enum {
 	XSECURE_AES_UNINITIALIZED,
 	XSECURE_AES_INITIALIZED,
@@ -151,7 +153,8 @@ typedef struct {
 	u32 NextBlkLen;		   /**< Next Block Length */
 } XSecure_Aes;
 /** @}
-@endcond */
+ * @endcond
+ */
 /************************** Function Prototypes ******************************/
 int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
 
@@ -199,3 +202,5 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
 #endif
 
 #endif /* XSECURE_AES_H_ */
+
+/* @} */

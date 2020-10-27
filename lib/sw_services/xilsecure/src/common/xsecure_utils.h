@@ -8,10 +8,6 @@
 /**
 *
 * @file xsecure_utils.h
-* @addtogroup xsecure_common_apis XILSECURE_UTILITIES
-* @{
-* @cond xsecure_internal
-* This file contains common APIs which are used across the library.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -34,7 +30,7 @@
 *       am      10/10/20 Resolved Coverity warning
 *
 * </pre>
-* @endcond
+*
 ******************************************************************************/
 
 #ifndef XSECURE_UTILS_H_
@@ -132,4 +128,3 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset);
 #endif
 
 #endif /* XSECURE_UTILS_H_ */
-/**@}*/

@@ -23,6 +23,7 @@
  *	 rpo  09/21/2020 New error code added for crypto state mismatch
  *	 am   09/24/2020 Resolved MISRA C violations
  *       har  10/12/2020 Addressed security review comments
+ *       ana  10/15/2020 Updated doxygen comments
  *
  * </pre>
  *
@@ -41,7 +42,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
- * @addtogroup xilsecure_versal_error_codes List of Error Codes
+ * @addtogroup xilsecure_versal_error_codes XilSecure Error Codes
  * @{
  */
 typedef enum {
