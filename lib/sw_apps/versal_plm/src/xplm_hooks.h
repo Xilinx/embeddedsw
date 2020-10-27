@@ -8,6 +8,9 @@
 *
 * @file xplm_hooks.h
 *
+* @addtogroup xplm_apis XPlm Versal APIs
+* @{
+* @cond xplm_internal
 * This file contains the declarations for the hooks provided in PLM
 *
 * <pre>
@@ -20,10 +23,12 @@
 *       kc   08/29/2019 Added xilpm hook to be called after plm cdo
 * 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
 *       kc   03/23/2020 Minor code cleanup
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 #ifndef XPLM_HOOK_H
@@ -53,3 +58,5 @@ int XPlm_HookAfterBootPdi(void *Arg);
 #endif
 
 #endif  /* XPLM_HOOK_H */
+
+/* @} */
