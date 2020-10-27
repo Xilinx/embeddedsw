@@ -8,7 +8,9 @@
 /**
 *
 * @file xplmi_generic.c
-*
+* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @{
+* @cond xplmi_internal
 * This is the file which contains general commands.
 *
 * <pre>
@@ -36,10 +38,12 @@
 *                       boot modes
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -64,6 +68,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
 static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
@@ -77,6 +85,10 @@ static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count);
  *
  *****************************************************************************/
 static XPlmi_Module XPlmi_Generic;
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -497,6 +509,10 @@ static int XPlmi_Write64(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	The function reads data from Npi address space.
@@ -623,6 +639,10 @@ static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count)
 END:
 	return Status;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -1024,6 +1044,10 @@ END:
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	This function stores the board name in a local variable based
@@ -1064,6 +1088,10 @@ static u8* XPlmi_BoardNameRW(XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 END:
 	return BoardName;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -1149,6 +1177,10 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	Contains the array of PLM generic commands
@@ -1390,3 +1422,10 @@ END1:
 END:
 	return Status;
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+ /** @} */
