@@ -7,7 +7,7 @@
 /**
 *
 * @file xsecure_sha.h
-* @addtogroup xsecure_sha3_apis SHA-3
+* @addtogroup xsecure_sha3_zynqmp_apis XilSecure SHA3 ZynqMP APIs
 * @{
 * @cond xsecure_internal
 * This file Contains the function prototypes, defines and macros for
@@ -48,6 +48,7 @@
 * 4.2   har  11/07/19 Typo correction to enable compilation in C++
 *       har  03/23/20 Moved to zynqmp directory
 *                     Replaced function like macro with inline function
+*       ana  10/15/20 Updated doxygen tags
 
 * </pre>
 *
@@ -154,4 +155,5 @@ u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 #endif
 
 #endif /** XSECURE_SHA_H */
+
 /* @} */
