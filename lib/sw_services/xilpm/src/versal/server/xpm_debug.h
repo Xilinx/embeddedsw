@@ -180,6 +180,12 @@ extern "C" {
 #define XPM_INT_ERR_DEVICE_BUSY			0x330FU
 /* Error during power up device parent power domain */
 #define XPM_INT_ERR_DEVICE_PWR_PARENT_UP	0x3310U
+/* Error during device request */
+#define XPM_INT_ERR_DEVICE_REQUEST		0x3311U
+/* Error during device release */
+#define XPM_INT_ERR_DEVICE_RELEASE		0x3312U
+/* Error during device change state */
+#define XPM_INT_ERR_DEVICE_CHANGE_STATE	0x3313U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
@@ -511,6 +517,8 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_PLDEVICE_PARENT			0x490BU
 /* Unknown PL Power Bit Mask */
 #define XPM_INT_ERR_PLDEVICE_INVALID_BITMASK			0x490CU
+/* Error when RM is run for child when parent is in unused state */
+#define XPM_INT_ERR_RUN_PARENT_IMAGE_FIRST			0x490DU
 
 /*********************** Register blind write check errors********************/
 /************************** (0x5000) - (0x50FF) ******************************/
