@@ -275,7 +275,7 @@ static XStatus HandlePlDeviceState(XPm_Device* const Device, const u32 NextState
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_PlDevice *PlDevice;
-	XPm_PlDevice *Parent = NULL;
+	const XPm_PlDevice *Parent = NULL;
 	u8 CurrState;
 
 	if (NULL == Device) {
@@ -387,7 +387,7 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_START;
-	XPm_PlDevice *Parent;
+	const XPm_PlDevice *Parent;
 	u32 i;
 
 	if (NULL == PlDevice) {
@@ -475,7 +475,7 @@ static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
-	XPm_PlDevice *Parent;
+	const XPm_PlDevice *Parent;
 	u32 i;
 
 	if (NULL == PlDevice) {
