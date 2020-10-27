@@ -7,7 +7,9 @@
 /**
 *
 * @file xloader_cmd.c
-*
+* @addtogroup xloader_apis XilLoader Versal APIs
+* @{
+* @cond xloader_internal
 * This file contains the xloader commands implementation.
 *
 * <pre>
@@ -33,10 +35,12 @@
 *       bm   09/24/2020 Added FuncID parameter in LoadDdrCpyImg
 *       bsv  10/13/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -51,6 +55,10 @@
 
 /************************** Constant Definitions *****************************/
 
+/**
+ * @{
+ * @cond xloader_internal
+ */
 /* READBACK Cmd Macros */
 #define XLOADER_BUFFER_MAX_SIZE_MASK		(0x7FFFFFFFU)
 
@@ -111,6 +119,10 @@ static int XLoader_Features(XPlmi_Cmd *Cmd)
 
 	return XST_SUCCESS;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -373,6 +385,10 @@ END:
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xloader_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	This function can act as a placeholder for Unimplemented cmds
@@ -432,3 +448,10 @@ void XLoader_CmdsInit(void)
 {
 	XPlmi_ModuleRegister(&XPlmi_Loader);
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+/** @} */
