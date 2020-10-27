@@ -7,7 +7,9 @@
 /**
 *
 * @file xplmi_err_cmd.c
-*
+* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @{
+* @cond xplmi_internal
 * This file contains error management commands code for the PLM.
 *
 * <pre>
@@ -20,10 +22,12 @@
 * 1.02  ma   02/28/2020 Error actions related changes
 *       bsv  04/04/2020 Code clean up
 * 1.03  bm   10/14/2020 Code clean up
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -47,7 +51,15 @@
  * @brief	Contains the module ID and PLM error commands array
  *
  *****************************************************************************/
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 static XPlmi_Module XPlmi_ErrModule;
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -157,6 +169,10 @@ END:
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	Contains the array of PLM error commands
@@ -193,3 +209,10 @@ void XPlmi_ErrModuleInit(void)
 {
 	XPlmi_ModuleRegister(&XPlmi_ErrModule);
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+ /** @} */

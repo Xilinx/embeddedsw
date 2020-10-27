@@ -8,7 +8,9 @@
 /**
 *
 * @file xplmi_event_logging.c
-*
+* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @{
+* @cond xplmi_internal
 * This is the file which contains event logging related code.
 *
 * <pre>
@@ -23,10 +25,12 @@
 *       bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
 * 		td   10/19/2020 MISRA C Fixes
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -46,6 +50,10 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 XPlmi_LogInfo DebugLog = {
 	.LogBuffer.StartAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
 	.LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN,
@@ -134,6 +142,10 @@ static int XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr)
 END:
 	return Status;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -254,6 +266,10 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	This function stores the trace events to the Trace Log buffer.
@@ -288,3 +304,10 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 		TraceLog.CurrentAddr += XPLMI_WORD_LEN;
 	}
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+/** @} */
