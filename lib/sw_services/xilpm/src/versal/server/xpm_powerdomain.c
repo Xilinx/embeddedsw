@@ -1254,7 +1254,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PldPwrNodeDependency[NUM_PLD0_PWR_DOMAIN_DEPENDENCY] = {PM_POWER_PLD};
-	XPm_PlDevice *PlDevice;
+	const XPm_PlDevice *PlDevice;
 
 	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
 						  PwrDomain->Power.Node.Id);
