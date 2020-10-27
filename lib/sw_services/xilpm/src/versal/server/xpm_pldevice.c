@@ -375,10 +375,24 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_START;
+	XPm_PlDevice *Parent;
 	u32 i;
 
 	if (NULL == PlDevice) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	Parent = PlDevice->Parent;
+	if ((NULL == Parent) && (PM_DEV_PLD_0 != PlDevice->Device.Node.Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_PLDEVICE_PARENT;
+		goto done;
+	}
+
+	/* RM for a PLD cannot run if parent is in unused or initializing state */
+	if ((NULL != Parent) &&
+	    ((u8)XPM_DEVSTATE_RUNNING != Parent->Device.Node.State)) {
+		DbgErr = XPM_INT_ERR_RUN_PARENT_IMAGE_FIRST;
 		goto done;
 	}
 
@@ -390,6 +404,32 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 			DbgErr = XPM_INT_ERR_PLDEVICE_SET_BIT;
 			goto done;
 		}
+	}
+
+	/*
+	 * Sufficient to only check for Unused state before Requesting PLD as:
+	 * 1. PLD has been newly created by add_node (hence state is unused) and
+	 *    needs to be requested
+	 * 2. PLD has been powered down and released, therefore in unused state
+	 */
+	if ((u8)XPM_DEVSTATE_UNUSED == PlDevice->Device.Node.State) {
+		Status = XPmDevice_Request(PM_SUBSYS_PMC, PlDevice->Device.Node.Id,
+						   (u32)PM_CAP_ACCESS,
+						   XPM_MAX_QOS);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_REQUEST;
+			goto done;
+		}
+	} else if ((u8)XPM_DEVSTATE_RUNNING == PlDevice->Device.Node.State) {
+		Status = XPmDevice_ChangeState(&PlDevice->Device,
+			   (u32)XPM_DEVSTATE_INITIALIZING);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_CHANGE_STATE;
+			goto done;
+		}
+	} else {
+		DbgErr = XPM_INT_ERR_INVALID_STATE;
+		goto done;
 	}
 
 	/*
@@ -411,10 +451,33 @@ static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
+	XPm_PlDevice *Parent;
 	u32 i;
 
 	if (NULL == PlDevice) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	/*
+	 * InitFinish should only be executed if device is currently in initial-
+	 * izing state
+	 */
+	if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
+		DbgErr = XPM_INT_ERR_INVALID_STATE;
+		goto done;
+	}
+
+	Parent = PlDevice->Parent;
+	if ((NULL == Parent) && (PM_DEV_PLD_0 != PlDevice->Device.Node.Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_PLDEVICE_PARENT;
+		goto done;
+	}
+
+	/* RM for a PLD cannot run if parent is in unused or initializing state */
+	if ((NULL != Parent) &&
+	    ((u8)XPM_DEVSTATE_RUNNING != Parent->Device.Node.State)) {
+		DbgErr = XPM_INT_ERR_RUN_PARENT_IMAGE_FIRST;
 		goto done;
 	}
 
@@ -428,7 +491,17 @@ static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 		}
 	}
 
-	Status = XST_SUCCESS;
+	if (PWR_DOMAIN_UNUSED_BITMASK == PlDevice->WfPowerBitMask) {
+		Status = XPmDevice_Release(PM_SUBSYS_PMC, PlDevice->Device.Node.Id);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_RELEASE;
+		}
+	} else {
+		Status = XPmDevice_ChangeState(&PlDevice->Device, (u32)XPM_DEVSTATE_RUNNING);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_CHANGE_STATE;
+		}
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -467,12 +540,15 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 	PlDevice->WfPowerBitMask = (u8)0x0U;
 	PlDevice->Ops = &PldOps;
 
-	(void)XPmPlDeviceFsm;
 	Status = XPmDevice_Init(&PlDevice->Device, PldId, BaseAddress, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLDEVICE_INIT;
+		goto done;
 	}
 
+	PlDevice->Device.DeviceFsm = &XPmPlDeviceFsm;
+
+done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }

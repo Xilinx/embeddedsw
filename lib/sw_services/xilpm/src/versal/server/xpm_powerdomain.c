@@ -21,8 +21,11 @@
 #include "xpm_regs.h"
 #include "xpm_api.h"
 #include "xpm_debug.h"
+#include "xpm_pldevice.h"
 
 #define SYSMON_CHECK_POWER_TIMEOUT	2000000U
+#define NUM_PLD0_PWR_DOMAIN_DEPENDENCY	1U
+#define PWR_DOMAIN_UNUSED_BITMASK	0U
 
 static u8 SystemResetFlag;
 static u8 DomainPORFlag;
@@ -1250,6 +1253,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	volatile XStatus StatusTmp = XST_FAILURE;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 PldPwrNodeDependency[NUM_PLD0_PWR_DOMAIN_DEPENDENCY] = {PM_POWER_PLD};
+	XPm_PlDevice *PlDevice;
 
 	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
 						  PwrDomain->Power.Node.Id);
@@ -1299,14 +1304,35 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		}
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
 		XPmNotifier_Event(PwrDomain->Power.Node.Id, (u32)EVENT_STATE_CHANGE);
+		/*
+		 * Note: Fallback mechanism for PLD topology. In case PL topology
+		 * is not enabled in vivado, run pld0 init node commands after plpd
+		 * init node finish. Determine this by checking the state of pld0,
+		 * wf/powerbitmask values. If state is unused, wf/powerbitmask are 0U,
+		 * it means PL topology is not active
+		 */
 		if (PM_POWER_PLD == PwrDomain->Power.Node.Id) {
-			/* Request PLD0 device once PL is housecleaned. */
-			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_PLD_0,
-						   XPM_MAX_CAPABILITY,
-						   XPM_MAX_QOS);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_REQ_PL_DEVICE;
-				break;
+			PlDevice = (XPm_PlDevice *)XPmDevice_GetById(PM_DEV_PLD_0);
+			if (NULL == PlDevice) {
+				DbgErr = XST_DEVICE_NOT_FOUND;
+				Status = XST_FAILURE;
+				goto done;
+			}
+			if (((u8)XPM_DEVSTATE_UNUSED == PlDevice->Device.Node.State) &&
+				(PWR_DOMAIN_UNUSED_BITMASK == PlDevice->WfPowerBitMask) &&
+				(PWR_DOMAIN_UNUSED_BITMASK == PlDevice->PowerBitMask)) {
+				Status = XPm_InitNode(PM_DEV_PLD_0, (u32)FUNC_INIT_START,
+					  PldPwrNodeDependency, NUM_PLD0_PWR_DOMAIN_DEPENDENCY);
+				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
+					break;
+				}
+				Status = XPm_InitNode(PM_DEV_PLD_0, (u32)FUNC_INIT_FINISH,
+					  PldPwrNodeDependency, NUM_PLD0_PWR_DOMAIN_DEPENDENCY);
+				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
+					break;
+				}
 			}
 		} else if (PM_POWER_ME == PwrDomain->Power.Node.Id) {
 			/* Request AIE device once AIE initialization is done. */
