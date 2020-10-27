@@ -7,7 +7,9 @@
 /**
 *
 * @file xplmi_wdt.h
-*
+* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @{
+* @cond xplmi_internal
 * This file contains declarations related to WDT
 *
 * <pre>
@@ -16,10 +18,12 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/28/2020 Initial release
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -34,6 +38,10 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 #define XPLMI_MODE_OPERATIONAL		(1U)
 #define XPLMI_MODE_CONFIGURATION	(2U)
 
@@ -45,7 +53,15 @@ extern "C" {
 void XPlmi_SetPlmMode(u8 Mode);
 void XPlmi_SetPlmLiveStatus(void);
 void XPlmi_ClearPlmLiveStatus(void);
+/**
+ * @}
+ * @endcond
+ */
 int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity);
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 void XPlmi_DisableWdt(void);
 void XPlmi_WdtHandler(void);
 
@@ -54,3 +70,10 @@ void XPlmi_WdtHandler(void);
 #endif
 
 #endif  /* XPLMI_WDT_H */
+
+/**
++ * @}
++ * @endcond
++ */
+
+/** @} */
