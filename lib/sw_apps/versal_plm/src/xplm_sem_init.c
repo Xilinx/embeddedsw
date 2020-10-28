@@ -21,6 +21,7 @@
 *       kc   02/26/2020 Added XPLM_SEM macro to include/disable SEM
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
+*       hb   10/29/2020 Updated OwnerId for NPI scan scheduler
 *
 * </pre>
 *
@@ -74,8 +75,8 @@ int XPlm_SemInit(void *Arg)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	} else {
-		Status = XPlmi_SchedulerAddTask(0x0U, XSem_NpiRunScan, 100U,
-						XPLM_TASK_PRIORITY_0);
+		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_SEM_ID,
+				XSem_NpiRunScan, 100U, XPLM_TASK_PRIORITY_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
