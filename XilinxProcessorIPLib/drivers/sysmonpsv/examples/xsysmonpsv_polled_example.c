@@ -22,9 +22,10 @@
 *
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
-* 1.0   add    02/27/19 First release
-* 1.1   add    07/16/19 Added register unlock
-* 1.1   add    07/21/19 Added Temperature measurement
+* 1.0   aad    02/27/19 First release
+* 1.1   aad    07/16/19 Added register unlock
+* 1.1   aad    07/21/19 Added Temperature measurement
+* 2.0   aad    10/29/20 Graceful exit when no supplies enabled
 *
 * </pre>
 *
@@ -152,31 +153,32 @@ int SysMonPsvPolledExample()
 	XSysMonPsv_SetNewDataIntSrc(SysMonInstPtr, Supply,
 				    XSYSMONPSV_IER0_NEW_DATA0_MASK);
 
-	XSysMonPsv_IntrEnable(SysMonInstPtr, XSYSMONPSV_IER0_NEW_DATA0_MASK,
-			      INTR_0);
-
 	Timeout = 0;
-	/* Wait till new data is available */
-	do {
-		Timeout++;
-		if(Timeout > SYSMONPSV_TIMEOUT)
-			return XST_FAILURE;
-	} while (!(XSysMonPsv_IntrGetStatus(SysMonInstPtr) &
-		  XSYSMONPSV_IER0_NEW_DATA0_MASK));
+	if(Supply != EndList) {
+		/* Wait till new data is available */
+		do {
+			Timeout++;
+			if(Timeout > SYSMONPSV_TIMEOUT)
+				return XST_FAILURE;
+		} while (!(XSysMonPsv_IntrGetStatus(SysMonInstPtr) &
+			  XSYSMONPSV_IER0_NEW_DATA0_MASK));
 
-	/* Read the desired Supply from the enabled supplies from the
-	 * configuration using enum XSysmonPsv_Supply from
-	 * xsysmonpsv_supplylist.h
-	 * This enum is generated depending on the configuration selected
-	 * for sysmon in the PCW.
-	 */
+		/* Read the desired Supply from the enabled supplies from the
+		 * configuration using enum XSysmonPsv_Supply from
+		 * xsysmonpsv_supplylist.h
+		 * This enum is generated depending on the configuration selected
+		 * for sysmon in the PCW.
+		 */
 
-	RawVoltage = XSysMonPsv_ReadSupplyValue(SysMonInstPtr, Supply,
-						XSYSMONPSV_VAL);
+		RawVoltage = XSysMonPsv_ReadSupplyValue(SysMonInstPtr, Supply,
+							XSYSMONPSV_VAL);
 
-	Voltage = XSysMonPsv_RawToVoltage(RawVoltage);
+		Voltage = XSysMonPsv_RawToVoltage(RawVoltage);
 
-	printf("Voltage =%fv \r\n", Voltage);
+		printf("Voltage =%fv \r\n", Voltage);
+	} else {
+		printf("No Supplies Enabled\r\n");
+	}
 
 	/* There is no polling mechanism to read the new temperature data */
 	CurrentMin = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL_VREF_MIN);
