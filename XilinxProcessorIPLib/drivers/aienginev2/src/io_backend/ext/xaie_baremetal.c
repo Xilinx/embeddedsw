@@ -35,7 +35,6 @@
 #endif
 
 #include "xaie_helper.h"
-#include "xaie_baremetal.h"
 #include "xaie_io.h"
 
 /****************************** Type Definitions *****************************/
@@ -45,27 +44,6 @@ typedef struct {
 
 /************************** Variable Definitions *****************************/
 static XAie_BaremetalIO BaremetalIO;
-
-const XAie_Backend BaremetalBackend =
-{
-	.Type = XAIE_IO_BACKEND_BAREMETAL,
-	.Ops.Init = XAie_BaremetalIO_Init,
-	.Ops.Finish = XAie_BaremetalIO_Finish,
-	.Ops.Write32 = XAie_BaremetalIO_Write32,
-	.Ops.Read32 = XAie_BaremetalIO_Read32,
-	.Ops.MaskWrite32 = XAie_BaremetalIO_MaskWrite32,
-	.Ops.MaskPoll = XAie_BaremetalIO_MaskPoll,
-	.Ops.BlockWrite32 = XAie_BaremetalIO_BlockWrite32,
-	.Ops.BlockSet32 = XAie_BaremetalIO_BlockSet32,
-	.Ops.CmdWrite = XAie_BaremetalIO_CmdWrite,
-	.Ops.RunOp = XAie_BaremetalIO_RunOp,
-	.Ops.MemAllocate = XAie_BaremetalMemAllocate,
-	.Ops.MemFree = XAie_BaremetalMemFree,
-	.Ops.MemSyncForCPU = XAie_BaremetalMemSyncForCPU,
-	.Ops.MemSyncForDev = XAie_BaremetalMemSyncForDev,
-	.Ops.MemAttach = XAie_BaremetalMemAttach,
-	.Ops.MemDetach = XAie_BaremetalMemDetach,
-};
 
 /************************** Function Definitions *****************************/
 #ifdef __AIEBAREMETAL__
@@ -83,7 +61,7 @@ const XAie_Backend BaremetalBackend =
 * the reference count reaches a zero. Internal only.
 *
 *******************************************************************************/
-AieRC XAie_BaremetalIO_Finish(void *IOInst)
+static AieRC XAie_BaremetalIO_Finish(void *IOInst)
 {
 	return XAIE_OK;
 }
@@ -100,7 +78,7 @@ AieRC XAie_BaremetalIO_Finish(void *IOInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_BaremetalIO_Init(XAie_DevInst *DevInst)
+static AieRC XAie_BaremetalIO_Init(XAie_DevInst *DevInst)
 {
 	XAie_BaremetalIO *IOInst = &BaremetalIO;
 
@@ -124,7 +102,7 @@ AieRC XAie_BaremetalIO_Init(XAie_DevInst *DevInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
+static void XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 {
 	XAie_BaremetalIO *BaremetalIOInst = (XAie_BaremetalIO *)IOInst;
 
@@ -144,7 +122,7 @@ void XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 * @note		Internal only.
 *
 *******************************************************************************/
-u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
+static u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
 {
 	XAie_BaremetalIO *BaremetalIOInst = (XAie_BaremetalIO *)IOInst;
 
@@ -167,7 +145,8 @@ u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
+static void XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value)
 {
 	u32 RegVal = XAie_BaremetalIO_Read32(IOInst, RegOff);
 
@@ -193,8 +172,8 @@ void XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
 * @note		Internal only.
 *
 *******************************************************************************/
-u32 XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
-		u32 TimeOutUs)
+static u32 XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value, u32 TimeOutUs)
 {
 	u32 Ret = XAIE_FAILURE;
 	u32 Count, MinTimeOutUs;
@@ -240,7 +219,7 @@ u32 XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static void XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 		u32 Size)
 {
 	for(u32 i = 0U; i < Size; i++) {
@@ -265,7 +244,8 @@ void XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_BaremetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
+static void XAie_BaremetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+		u32 Size)
 {
 	for(u32 i = 0U; i < Size; i++)
 		XAie_BaremetalIO_Write32(IOInst, RegOff+ i * 4U, Data);
@@ -285,7 +265,7 @@ void XAie_BaremetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
 * @note		Internal only.
 *
 *******************************************************************************/
-XAie_MemInst* XAie_BaremetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
+static XAie_MemInst* XAie_BaremetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
 		XAie_MemCacheProp Cache)
 {
 	XAie_MemInst *MemInst;
@@ -325,7 +305,7 @@ XAie_MemInst* XAie_BaremetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_BaremetalMemFree(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemFree(XAie_MemInst *MemInst)
 {
 	free(MemInst->VAddr);
 	free(MemInst);
@@ -345,7 +325,7 @@ AieRC XAie_BaremetalMemFree(XAie_MemInst *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_BaremetalMemSyncForCPU(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemSyncForCPU(XAie_MemInst *MemInst)
 {
 	Xil_DCacheInvalidateRange((u64)MemInst->VAddr, MemInst->Size);
 
@@ -364,21 +344,21 @@ AieRC XAie_BaremetalMemSyncForCPU(XAie_MemInst *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_BaremetalMemSyncForDev(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemSyncForDev(XAie_MemInst *MemInst)
 {
 	Xil_DCacheFlushRange((u64)MemInst->VAddr, MemInst->Size);
 
 	return XAIE_OK;
 }
 
-AieRC XAie_BaremetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+static AieRC XAie_BaremetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
 {
 	(void)MemInst;
 	(void)MemHandle;
 	return XAIE_OK;
 }
 
-AieRC XAie_BaremetalMemDetach(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemDetach(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_OK;
@@ -399,7 +379,7 @@ AieRC XAie_BaremetalMemDetach(XAie_MemInst *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
+static AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		XAie_BackendOpCode Op, void *Arg)
 {
 	(void)DevInst;
@@ -431,14 +411,14 @@ AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 
 #else
 
-AieRC XAie_BaremetalIO_Finish(void *IOInst)
+static AieRC XAie_BaremetalIO_Finish(void *IOInst)
 {
 	/* no-op */
 	(void)IOInst;
 	return XAIE_OK;
 }
 
-AieRC XAie_BaremetalIO_Init(XAie_DevInst *DevInst)
+static AieRC XAie_BaremetalIO_Init(XAie_DevInst *DevInst)
 {
 	/* no-op */
 	(void)DevInst;
@@ -447,7 +427,7 @@ AieRC XAie_BaremetalIO_Init(XAie_DevInst *DevInst)
 	return XAIE_INVALID_BACKEND;
 }
 
-void XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
+static void XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 {
 	/* no-op */
 	(void)IOInst;
@@ -455,7 +435,7 @@ void XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 	(void)Value;
 }
 
-u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
+static u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
 {
 	/* no-op */
 	(void)IOInst;
@@ -463,7 +443,8 @@ u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
 	return 0;
 }
 
-void XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
+static void XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value)
 {
 	/* no-op */
 	(void)IOInst;
@@ -472,8 +453,8 @@ void XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
 	(void)Value;
 }
 
-u32 XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
-		u32 TimeOutUs)
+static u32 XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value, u32 TimeOutUs)
 {
 	/* no-op */
 	(void)IOInst;
@@ -484,7 +465,7 @@ u32 XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	return XAIE_FAILURE;
 }
 
-void XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static void XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 		u32 Size)
 {
 	/* no-op */
@@ -494,7 +475,8 @@ void XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 	(void)Size;
 }
 
-void XAie_BaremetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
+static void XAie_BaremetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+		u32 Size)
 {
 	/* no-op */
 	(void)IOInst;
@@ -503,7 +485,7 @@ void XAie_BaremetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
 	(void)Size;
 }
 
-XAie_MemInst* XAie_BaremetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
+static XAie_MemInst* XAie_BaremetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
 		XAie_MemCacheProp Cache)
 {
 	(void)DevInst;
@@ -512,38 +494,38 @@ XAie_MemInst* XAie_BaremetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
 	return NULL;
 }
 
-AieRC XAie_BaremetalMemFree(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemFree(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_BaremetalMemSyncForCPU(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemSyncForCPU(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_BaremetalMemSyncForDev(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemSyncForDev(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_BaremetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+static AieRC XAie_BaremetalMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
 {
 	(void)MemInst;
 	(void)MemHandle;
 	return XAIE_ERR;
 }
 
-AieRC XAie_BaremetalMemDetach(XAie_MemInst *MemInst)
+static AieRC XAie_BaremetalMemDetach(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
+static AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		XAie_BackendOpCode Op, void *Arg)
 {
 	(void)IOInst;
@@ -555,7 +537,7 @@ AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 
 #endif /* __AIEBAREMETAL__ */
 
-void XAie_BaremetalIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
+static void XAie_BaremetalIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 		u32 CmdWd0, u32 CmdWd1, const char *CmdStr)
 {
 	/* no-op */
@@ -567,5 +549,26 @@ void XAie_BaremetalIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 	(void)CmdWd1;
 	(void)CmdStr;
 }
+
+const XAie_Backend BaremetalBackend =
+{
+	.Type = XAIE_IO_BACKEND_BAREMETAL,
+	.Ops.Init = XAie_BaremetalIO_Init,
+	.Ops.Finish = XAie_BaremetalIO_Finish,
+	.Ops.Write32 = XAie_BaremetalIO_Write32,
+	.Ops.Read32 = XAie_BaremetalIO_Read32,
+	.Ops.MaskWrite32 = XAie_BaremetalIO_MaskWrite32,
+	.Ops.MaskPoll = XAie_BaremetalIO_MaskPoll,
+	.Ops.BlockWrite32 = XAie_BaremetalIO_BlockWrite32,
+	.Ops.BlockSet32 = XAie_BaremetalIO_BlockSet32,
+	.Ops.CmdWrite = XAie_BaremetalIO_CmdWrite,
+	.Ops.RunOp = XAie_BaremetalIO_RunOp,
+	.Ops.MemAllocate = XAie_BaremetalMemAllocate,
+	.Ops.MemFree = XAie_BaremetalMemFree,
+	.Ops.MemSyncForCPU = XAie_BaremetalMemSyncForCPU,
+	.Ops.MemSyncForDev = XAie_BaremetalMemSyncForDev,
+	.Ops.MemAttach = XAie_BaremetalMemAttach,
+	.Ops.MemDetach = XAie_BaremetalMemDetach,
+};
 
 /** @} */
