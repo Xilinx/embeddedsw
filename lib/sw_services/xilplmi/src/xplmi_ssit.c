@@ -31,7 +31,6 @@
 /***************************** Include Files *********************************/
 #include "xplmi_ssit.h"
 #include "xplmi_hw.h"
-#include "pmc_global.h"
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
