@@ -452,6 +452,8 @@ const XAie_Backend SimBackend =
 	.Ops.MemFree = XAie_SimMemFree,
 	.Ops.MemSyncForCPU = XAie_SimMemSyncForCPU,
 	.Ops.MemSyncForDev = XAie_SimMemSyncForDev,
+	.Ops.MemAttach = XAie_SimMemAttach,
+	.Ops.MemDetach = XAie_SimMemDetach,
 };
 
 /** @} */
