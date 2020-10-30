@@ -34,7 +34,6 @@
 
 #endif
 
-#include "xaie_cdo.h"
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaie_npi.h"
@@ -45,28 +44,6 @@ typedef struct {
 	u64 BaseAddr;
 	u64 NpiBaseAddr;
 } XAie_CdoIO;
-
-/************************** Variable Definitions *****************************/
-const XAie_Backend CdoBackend =
-{
-	.Type = XAIE_IO_BACKEND_CDO,
-	.Ops.Init = XAie_CdoIO_Init,
-	.Ops.Finish = XAie_CdoIO_Finish,
-	.Ops.Write32 = XAie_CdoIO_Write32,
-	.Ops.Read32 = XAie_CdoIO_Read32,
-	.Ops.MaskWrite32 = XAie_CdoIO_MaskWrite32,
-	.Ops.MaskPoll = XAie_CdoIO_MaskPoll,
-	.Ops.BlockWrite32 = XAie_CdoIO_BlockWrite32,
-	.Ops.BlockSet32 = XAie_CdoIO_BlockSet32,
-	.Ops.CmdWrite = XAie_CdoIO_CmdWrite,
-	.Ops.RunOp = XAie_CdoIO_RunOp,
-	.Ops.MemAllocate = XAie_CdoMemAllocate,
-	.Ops.MemFree = XAie_CdoMemFree,
-	.Ops.MemSyncForCPU = XAie_CdoMemSyncForCPU,
-	.Ops.MemSyncForDev = XAie_CdoMemSyncForDev,
-	.Ops.MemAttach = XAie_CdoMemAttach,
-	.Ops.MemDetach = XAie_CdoMemDetach,
-};
 
 /************************** Function Definitions *****************************/
 #ifdef __AIECDO__
@@ -84,7 +61,7 @@ const XAie_Backend CdoBackend =
 * the reference count reaches a zero. Internal only.
 *
 *******************************************************************************/
-AieRC XAie_CdoIO_Finish(void *IOInst)
+static AieRC XAie_CdoIO_Finish(void *IOInst)
 {
 	free(IOInst);
 	return XAIE_OK;
@@ -102,7 +79,7 @@ AieRC XAie_CdoIO_Finish(void *IOInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_CdoIO_Init(XAie_DevInst *DevInst)
+static AieRC XAie_CdoIO_Init(XAie_DevInst *DevInst)
 {
 	XAie_CdoIO *IOInst;
 
@@ -134,7 +111,7 @@ AieRC XAie_CdoIO_Init(XAie_DevInst *DevInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
+static void XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 {
 	XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
 
@@ -155,7 +132,7 @@ void XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 * @note		Internal only.
 *
 *******************************************************************************/
-u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
+static u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
 {
 	/* no-op */
 	return 0;
@@ -178,7 +155,8 @@ u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
+static void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value)
 {
 	XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
 	cdo_MaskWrite32(CdoIOInst->BaseAddr + RegOff, Mask, Value);
@@ -201,7 +179,7 @@ void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
 * @note		Internal only.
 *
 *******************************************************************************/
-u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
 	XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
@@ -227,7 +205,8 @@ u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_CdoIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
+static void XAie_CdoIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+		u32 Size)
 {
 	XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
 
@@ -251,7 +230,7 @@ void XAie_CdoIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_CdoIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
+static void XAie_CdoIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
 {
 	XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
 
@@ -298,7 +277,7 @@ static void _XAie_CdoIO_NpiWrite32(void *IOInst, u32 RegOff, u32 RegVal)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
+static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		     XAie_BackendOpCode Op, void *Arg)
 {
 	AieRC RC = XAIE_OK;
@@ -350,14 +329,14 @@ AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 
 #else
 
-AieRC XAie_CdoIO_Finish(void *IOInst)
+static AieRC XAie_CdoIO_Finish(void *IOInst)
 {
 	/* no-op */
 	(void)IOInst;
 	return XAIE_OK;
 }
 
-AieRC XAie_CdoIO_Init(XAie_DevInst *DevInst)
+static AieRC XAie_CdoIO_Init(XAie_DevInst *DevInst)
 {
 	/* no-op */
 	(void)DevInst;
@@ -366,7 +345,7 @@ AieRC XAie_CdoIO_Init(XAie_DevInst *DevInst)
 	return XAIE_INVALID_BACKEND;
 }
 
-void XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
+static void XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 {
 	/* no-op */
 	(void)IOInst;
@@ -374,7 +353,7 @@ void XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 	(void)Value;
 }
 
-u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
+static u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
 {
 	/* no-op */
 	(void)IOInst;
@@ -382,7 +361,8 @@ u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
 	return 0;
 }
 
-void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
+static void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value)
 {
 	/* no-op */
 	(void)IOInst;
@@ -391,7 +371,7 @@ void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
 	(void)Value;
 }
 
-u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
 	/* no-op */
@@ -403,7 +383,8 @@ u32 XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	return XAIE_FAILURE;
 }
 
-void XAie_CdoIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
+static void XAie_CdoIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+		u32 Size)
 {
 	/* no-op */
 	(void)IOInst;
@@ -412,7 +393,7 @@ void XAie_CdoIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
 	(void)Size;
 }
 
-void XAie_CdoIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
+static void XAie_CdoIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
 {
 	/* no-op */
 	(void)IOInst;
@@ -421,7 +402,7 @@ void XAie_CdoIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
 	(void)Size;
 }
 
-AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
+static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		     XAie_BackendOpCode Op, void *Arg)
 {
 	(void)IOInst;
@@ -433,8 +414,8 @@ AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 
 #endif /* __AIECDO__ */
 
-void XAie_CdoIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command, u32 CmdWd0,
-		u32 CmdWd1, const char *CmdStr)
+static void XAie_CdoIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
+		u32 CmdWd0, u32 CmdWd1, const char *CmdStr)
 {
 	/* no-op */
 	(void)IOInst;
@@ -446,7 +427,7 @@ void XAie_CdoIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command, u32 CmdWd0,
 	(void)CmdStr;
 }
 
-XAie_MemInst* XAie_CdoMemAllocate(XAie_DevInst *DevInst, u64 Size,
+static XAie_MemInst* XAie_CdoMemAllocate(XAie_DevInst *DevInst, u64 Size,
 		XAie_MemCacheProp Cache)
 {
 	(void)DevInst;
@@ -455,35 +436,56 @@ XAie_MemInst* XAie_CdoMemAllocate(XAie_DevInst *DevInst, u64 Size,
 	return NULL;
 }
 
-AieRC XAie_CdoMemFree(XAie_MemInst *MemInst)
+static AieRC XAie_CdoMemFree(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_CdoMemSyncForCPU(XAie_MemInst *MemInst)
+static AieRC XAie_CdoMemSyncForCPU(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_CdoMemSyncForDev(XAie_MemInst *MemInst)
+static AieRC XAie_CdoMemSyncForDev(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_CdoMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+static AieRC XAie_CdoMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
 {
 	(void)MemInst;
 	(void)MemHandle;
 	return XAIE_ERR;
 }
 
-AieRC XAie_CdoMemDetach(XAie_MemInst *MemInst)
+static AieRC XAie_CdoMemDetach(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
+
+const XAie_Backend CdoBackend =
+{
+	.Type = XAIE_IO_BACKEND_CDO,
+	.Ops.Init = XAie_CdoIO_Init,
+	.Ops.Finish = XAie_CdoIO_Finish,
+	.Ops.Write32 = XAie_CdoIO_Write32,
+	.Ops.Read32 = XAie_CdoIO_Read32,
+	.Ops.MaskWrite32 = XAie_CdoIO_MaskWrite32,
+	.Ops.MaskPoll = XAie_CdoIO_MaskPoll,
+	.Ops.BlockWrite32 = XAie_CdoIO_BlockWrite32,
+	.Ops.BlockSet32 = XAie_CdoIO_BlockSet32,
+	.Ops.CmdWrite = XAie_CdoIO_CmdWrite,
+	.Ops.RunOp = XAie_CdoIO_RunOp,
+	.Ops.MemAllocate = XAie_CdoMemAllocate,
+	.Ops.MemFree = XAie_CdoMemFree,
+	.Ops.MemSyncForCPU = XAie_CdoMemSyncForCPU,
+	.Ops.MemSyncForDev = XAie_CdoMemSyncForDev,
+	.Ops.MemAttach = XAie_CdoMemAttach,
+	.Ops.MemDetach = XAie_CdoMemDetach,
+};
 
 /** @} */
