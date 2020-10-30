@@ -43,7 +43,6 @@
 
 #include "xaie_helper.h"
 #include "xaie_io.h"
-#include "xaie_linux.h"
 #include "xaie_npi.h"
 
 /***************************** Macro Definitions *****************************/
@@ -82,28 +81,6 @@ typedef struct XAie_LinuxMem {
 
 #endif /* __AIELINUX__ */
 
-/************************** Variable Definitions *****************************/
-const XAie_Backend LinuxBackend =
-{
-	.Type = XAIE_IO_BACKEND_LINUX,
-	.Ops.Init = XAie_LinuxIO_Init,
-	.Ops.Finish = XAie_LinuxIO_Finish,
-	.Ops.Write32 = XAie_LinuxIO_Write32,
-	.Ops.Read32 = XAie_LinuxIO_Read32,
-	.Ops.MaskWrite32 = XAie_LinuxIO_MaskWrite32,
-	.Ops.MaskPoll = XAie_LinuxIO_MaskPoll,
-	.Ops.BlockWrite32 = XAie_LinuxIO_BlockWrite32,
-	.Ops.BlockSet32 = XAie_LinuxIO_BlockSet32,
-	.Ops.CmdWrite = XAie_LinuxIO_CmdWrite,
-	.Ops.RunOp = XAie_LinuxIO_RunOp,
-	.Ops.MemAllocate = XAie_LinuxMemAllocate,
-	.Ops.MemFree = XAie_LinuxMemFree,
-	.Ops.MemSyncForCPU = XAie_LinuxMemSyncForCPU,
-	.Ops.MemSyncForDev = XAie_LinuxMemSyncForDev,
-	.Ops.MemAttach = XAie_LinuxMemAttach,
-	.Ops.MemDetach = XAie_LinuxMemDetach,
-};
-
 /************************** Function Definitions *****************************/
 #ifdef __AIELINUX__
 
@@ -120,7 +97,7 @@ const XAie_Backend LinuxBackend =
 * the reference count reaches a zero. Internal only.
 *
 *******************************************************************************/
-AieRC XAie_LinuxIO_Finish(void *IOInst)
+static AieRC XAie_LinuxIO_Finish(void *IOInst)
 {
 	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
 
@@ -349,7 +326,7 @@ static AieRC _XAie_LinuxIO_MapMemory(XAie_DevInst *DevInst,
 * to initialize just increments the reference count. Internal only.
 *
 *******************************************************************************/
-AieRC XAie_LinuxIO_Init(XAie_DevInst *DevInst)
+static AieRC XAie_LinuxIO_Init(XAie_DevInst *DevInst)
 {
 	AieRC RC;
 	XAie_LinuxIO *IOInst;
@@ -412,7 +389,7 @@ AieRC XAie_LinuxIO_Init(XAie_DevInst *DevInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Value)
+static void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 {
 	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
 	int Ret;
@@ -446,7 +423,7 @@ void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 * @note		Internal only.
 *
 *******************************************************************************/
-u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
+static u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
 {
 	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
 
@@ -469,7 +446,8 @@ u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
+static void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value)
 {
 	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
 	int Ret;
@@ -506,7 +484,7 @@ void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Value)
 * @note		Internal only.
 *
 *******************************************************************************/
-u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
 	u32 Ret = XAIE_FAILURE;
@@ -745,7 +723,8 @@ static u32* _XAie_GetVirtAddrFromOffset(XAie_LinuxIO *IOInst, u64 RegOff,
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
+static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+		u32 Size)
 {
 	XAie_LinuxIO *Inst = (XAie_LinuxIO *)IOInst;
 	u32 *VirtAddr;
@@ -780,7 +759,8 @@ void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
 * @note		Internal only.
 *
 *******************************************************************************/
-void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
+static void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+		u32 Size)
 {
 	XAie_LinuxIO *Inst = (XAie_LinuxIO *)IOInst;
 	u32 *VirtAddr;
@@ -841,7 +821,7 @@ static AieRC _XAie_LinuxMemAttach(XAie_LinuxIO *IOInst, XAie_LinuxMem *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-XAie_MemInst* XAie_LinuxMemAllocate(XAie_DevInst *DevInst, u64 Size,
+static XAie_MemInst* XAie_LinuxMemAllocate(XAie_DevInst *DevInst, u64 Size,
 		XAie_MemCacheProp Cache)
 {
 	AieRC RC;
@@ -998,7 +978,7 @@ static AieRC _XAie_LinuxMemDetach(XAie_LinuxIO *IOInst, XAie_LinuxMem *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_LinuxMemFree(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemFree(XAie_MemInst *MemInst)
 {
 	AieRC RC;
 	XAie_LinuxMem *LinuxMemInst =
@@ -1030,7 +1010,7 @@ AieRC XAie_LinuxMemFree(XAie_MemInst *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_LinuxMemSyncForCPU(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemSyncForCPU(XAie_MemInst *MemInst)
 {
 	struct dma_buf_sync Sync;
 	int Ret;
@@ -1060,7 +1040,7 @@ AieRC XAie_LinuxMemSyncForCPU(XAie_MemInst *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst)
 {
 	struct dma_buf_sync Sync;
 	int Ret;
@@ -1091,7 +1071,7 @@ AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+static AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
 {
 	XAie_DevInst *DevInst = MemInst->DevInst;
 	XAie_LinuxMem *LinuxMemInst;
@@ -1129,7 +1109,7 @@ AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
 * @note		None.
 *
 *******************************************************************************/
-AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
 {
 	XAie_DevInst *DevInst = MemInst->DevInst;
 	XAie_LinuxMem *LinuxMemInst =
@@ -1322,7 +1302,7 @@ static AieRC _XAie_LinuxIO_ReleaseTiles(void *IOInst,
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
+static AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		XAie_BackendOpCode Op, void *Arg)
 {
 	(void)DevInst;
@@ -1341,14 +1321,14 @@ AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 
 #else
 
-AieRC XAie_LinuxIO_Finish(void *IOInst)
+static AieRC XAie_LinuxIO_Finish(void *IOInst)
 {
 	/* no-op */
 	(void)IOInst;
 	return XAIE_OK;
 }
 
-AieRC XAie_LinuxIO_Init(XAie_DevInst *DevInst)
+static AieRC XAie_LinuxIO_Init(XAie_DevInst *DevInst)
 {
 	/* no-op */
 	(void)DevInst;
@@ -1357,7 +1337,7 @@ AieRC XAie_LinuxIO_Init(XAie_DevInst *DevInst)
 	return XAIE_INVALID_BACKEND;
 }
 
-u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
+static u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
 {
 	/* no-op */
 	(void)IOInst;
@@ -1365,7 +1345,7 @@ u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
 	return 0;
 }
 
-void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Data)
+static void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 {
 	/* no-op */
 	(void)IOInst;
@@ -1373,7 +1353,8 @@ void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 	(void)Data;
 }
 
-void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Data)
+static void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Data)
 {
 	/* no-op */
 	(void)IOInst;
@@ -1382,7 +1363,7 @@ void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask, u32 Data)
 	(void)Data;
 }
 
-u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
 	/* no-op */
@@ -1394,7 +1375,8 @@ u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	return XAIE_FAILURE;
 }
 
-void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
+static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+		u32 Size)
 {
 	/* no-op */
 	(void)IOInst;
@@ -1403,7 +1385,8 @@ void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data, u32 Size)
 	(void)Size;
 }
 
-void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
+static void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+		u32 Size)
 {
 	/* no-op */
 	(void)IOInst;
@@ -1412,7 +1395,7 @@ void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data, u32 Size)
 	(void)Size;
 }
 
-XAie_MemInst* XAie_LinuxMemAllocate(XAie_DevInst *DevInst, u64 Size,
+static XAie_MemInst* XAie_LinuxMemAllocate(XAie_DevInst *DevInst, u64 Size,
 		XAie_MemCacheProp Cache)
 {
 	(void)DevInst;
@@ -1421,25 +1404,25 @@ XAie_MemInst* XAie_LinuxMemAllocate(XAie_DevInst *DevInst, u64 Size,
 	return NULL;
 }
 
-AieRC XAie_LinuxMemFree(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemFree(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_LinuxMemSyncForCPU(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemSyncForCPU(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemSyncForDev(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
 }
 
-AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
+static AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		XAie_BackendOpCode Op, void *Arg)
 {
 	(void)IOInst;
@@ -1449,14 +1432,14 @@ AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
 
-AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
+static AieRC XAie_LinuxMemAttach(XAie_MemInst *MemInst, u64 MemHandle)
 {
 	(void)MemInst;
 	(void)MemHandle;
 	return XAIE_ERR;
 }
 
-AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
+static AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
 {
 	(void)MemInst;
 	return XAIE_ERR;
@@ -1464,8 +1447,8 @@ AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
 
 #endif /* __AIELINUX__ */
 
-void XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command, u32 CmdWd0,
-		u32 CmdWd1, const char *CmdStr)
+static void XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
+		u32 CmdWd0, u32 CmdWd1, const char *CmdStr)
 {
 	/* no-op */
 	(void)IOInst;
@@ -1476,5 +1459,26 @@ void XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command, u32 CmdWd0,
 	(void)CmdWd1;
 	(void)CmdStr;
 }
+
+const XAie_Backend LinuxBackend =
+{
+	.Type = XAIE_IO_BACKEND_LINUX,
+	.Ops.Init = XAie_LinuxIO_Init,
+	.Ops.Finish = XAie_LinuxIO_Finish,
+	.Ops.Write32 = XAie_LinuxIO_Write32,
+	.Ops.Read32 = XAie_LinuxIO_Read32,
+	.Ops.MaskWrite32 = XAie_LinuxIO_MaskWrite32,
+	.Ops.MaskPoll = XAie_LinuxIO_MaskPoll,
+	.Ops.BlockWrite32 = XAie_LinuxIO_BlockWrite32,
+	.Ops.BlockSet32 = XAie_LinuxIO_BlockSet32,
+	.Ops.CmdWrite = XAie_LinuxIO_CmdWrite,
+	.Ops.RunOp = XAie_LinuxIO_RunOp,
+	.Ops.MemAllocate = XAie_LinuxMemAllocate,
+	.Ops.MemFree = XAie_LinuxMemFree,
+	.Ops.MemSyncForCPU = XAie_LinuxMemSyncForCPU,
+	.Ops.MemSyncForDev = XAie_LinuxMemSyncForDev,
+	.Ops.MemAttach = XAie_LinuxMemAttach,
+	.Ops.MemDetach = XAie_LinuxMemDetach,
+};
 
 /** @} */
