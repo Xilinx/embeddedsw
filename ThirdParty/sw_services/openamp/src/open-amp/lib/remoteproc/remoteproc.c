@@ -29,10 +29,11 @@ remoteproc_check_fw_format(const void *img_data, size_t img_len)
 		return NULL;
 }
 
+/* try the internal list added by remoteproc_add_mem first and then get_mem callback */
 static struct remoteproc_mem *
 remoteproc_get_mem(struct remoteproc *rproc, const char *name,
 		   metal_phys_addr_t pa, metal_phys_addr_t da,
-		   void *va, size_t size)
+		   void *va, size_t size, struct remoteproc_mem *buf)
 {
 	struct metal_list *node;
 	struct remoteproc_mem *mem;
@@ -72,7 +73,11 @@ remoteproc_get_mem(struct remoteproc *rproc, const char *name,
 			return NULL;
 		}
 	}
-	return NULL;
+
+	if (!rproc->ops->get_mem)
+		return NULL;
+
+	return rproc->ops->get_mem(rproc, name, pa, da, va, size, buf);
 }
 
 static metal_phys_addr_t
@@ -282,9 +287,10 @@ remoteproc_get_io_with_name(struct remoteproc *rproc,
 			    const char *name)
 {
 	struct remoteproc_mem *mem;
+	struct remoteproc_mem buf;
 
 	mem = remoteproc_get_mem(rproc, name,
-				 METAL_BAD_PHYS, METAL_BAD_PHYS, NULL, 0);
+				 METAL_BAD_PHYS, METAL_BAD_PHYS, NULL, 0, &buf);
 	if (mem)
 		return mem->io;
 	else
@@ -296,8 +302,9 @@ remoteproc_get_io_with_pa(struct remoteproc *rproc,
 			  metal_phys_addr_t pa)
 {
 	struct remoteproc_mem *mem;
+	struct remoteproc_mem buf;
 
-	mem = remoteproc_get_mem(rproc, NULL, pa, METAL_BAD_PHYS, NULL, 0);
+	mem = remoteproc_get_mem(rproc, NULL, pa, METAL_BAD_PHYS, NULL, 0, &buf);
 	if (mem)
 		return mem->io;
 	else
@@ -310,8 +317,9 @@ remoteproc_get_io_with_da(struct remoteproc *rproc,
 			  unsigned long *offset)
 {
 	struct remoteproc_mem *mem;
+	struct remoteproc_mem buf;
 
-	mem = remoteproc_get_mem(rproc, NULL, METAL_BAD_PHYS, da, NULL, 0);
+	mem = remoteproc_get_mem(rproc, NULL, METAL_BAD_PHYS, da, NULL, 0, &buf);
 	if (mem) {
 		struct metal_io_region *io;
 		metal_phys_addr_t pa;
@@ -329,9 +337,10 @@ struct metal_io_region *
 remoteproc_get_io_with_va(struct remoteproc *rproc, void *va)
 {
 	struct remoteproc_mem *mem;
+	struct remoteproc_mem buf;
 
 	mem = remoteproc_get_mem(rproc, NULL, METAL_BAD_PHYS, METAL_BAD_PHYS,
-				 va, 0);
+				 va, 0, &buf);
 	if (mem)
 		return mem->io;
 	else
@@ -346,6 +355,7 @@ void *remoteproc_mmap(struct remoteproc *rproc,
 	void *va = NULL;
 	metal_phys_addr_t lpa, lda;
 	struct remoteproc_mem *mem;
+	struct remoteproc_mem buf;
 
 	if (!rproc)
 		return NULL;
@@ -359,7 +369,7 @@ void *remoteproc_mmap(struct remoteproc *rproc,
 		lda =  *da;
 	else
 		lda = METAL_BAD_PHYS;
-	mem = remoteproc_get_mem(rproc, NULL, lpa, lda, NULL, size);
+	mem = remoteproc_get_mem(rproc, NULL, lpa, lda, NULL, size, &buf);
 	if (mem) {
 		if (lpa != METAL_BAD_PHYS)
 			lda = remoteproc_patoda(mem, lpa);
