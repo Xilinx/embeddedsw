@@ -395,6 +395,7 @@ struct remoteproc {
  *        memory may not be off.
  * @shutdown: shutdown the remoteproc and release its resources.
  * @notify: notify the remote
+ * @get_mem: get remoteproc memory I/O region.
  */
 struct remoteproc_ops {
 	struct remoteproc *(*init)(struct remoteproc *rproc,
@@ -410,6 +411,27 @@ struct remoteproc_ops {
 	int (*stop)(struct remoteproc *rproc);
 	int (*shutdown)(struct remoteproc *rproc);
 	int (*notify)(struct remoteproc *rproc, uint32_t id);
+	/**
+	 * get_mem
+	 *
+	 * get remoteproc memory I/O region by either name, virtual
+	 * address, physical address or device address.
+	 *
+	 * @rproc - pointer to remoteproc instance
+	 * @name - memory name
+	 * @pa - physical address
+	 * @da - device address
+	 * @va - virtual address
+	 * @size - memory size
+	 *
+	 * @returns remoteproc memory pointed by buf if success, otherwise NULL
+	 */
+	struct remoteproc_mem *(*get_mem)(struct remoteproc *rproc,
+					  const char *name,
+					  metal_phys_addr_t pa,
+					  metal_phys_addr_t da,
+					  void *va, size_t size,
+					  struct remoteproc_mem *buf);
 };
 
 /* Remoteproc error codes */
