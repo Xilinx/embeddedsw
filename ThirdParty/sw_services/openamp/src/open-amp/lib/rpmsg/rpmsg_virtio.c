@@ -143,7 +143,7 @@ static void *rpmsg_virtio_get_tx_buffer(struct rpmsg_virtio_device *rvdev,
 #ifndef VIRTIO_SLAVE_ONLY
 	if (role == RPMSG_MASTER) {
 		data = virtqueue_get_buffer(rvdev->svq, len, idx);
-		if (!data) {
+		if (!data && rvdev->svq->vq_free_cnt) {
 			data = rpmsg_virtio_shm_pool_get_buffer(rvdev->shpool,
 							RPMSG_BUFFER_SIZE);
 			*len = RPMSG_BUFFER_SIZE;
