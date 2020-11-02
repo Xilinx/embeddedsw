@@ -912,11 +912,11 @@ static void store_state(PmRegisterContext *context)
 		} else if (context->addr == DDRPHY_PGCR(0U)) {
 			/* assert FIFO reset */
 			context->value &= ~DDRPHY_PGCR0_PHYFRST;
-		} else if (context->addr == DDRPHY_DX8SLNOSC(0U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(1U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(2U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(3U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(4U)) {
+		} else if ((context->addr == DDRPHY_DX8SLNOSC(0U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(1U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(2U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(3U)) ||
+			   (context->addr == DDRPHY_DX8SLNOSC(4U))) {
 			/* assert FIFO reset */
 			context->value &= ~DDRPHY_DX8SLBOSC_PHYFRST;
 		} else {
