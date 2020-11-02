@@ -923,7 +923,7 @@ s32 PmMasterWake(const PmMaster* const mst)
  */
 static void PmGetStartAddress (PmMaster* const master, u64 *address)
 {
-	if (master == &pmMasterRpu_g || master == &pmMasterRpu0_g) {
+	if ((master == &pmMasterRpu_g) || (master == &pmMasterRpu0_g)) {
 		u32 i;
 		*address = PM_PROC_RPU_HIVEC_ADDR;	/* Highvec */
 
