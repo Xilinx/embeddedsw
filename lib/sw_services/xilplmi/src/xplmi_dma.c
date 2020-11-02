@@ -365,8 +365,6 @@ int XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 	int Status = XST_FAILURE;
 	XPmcDma* PmcDmaPtr = NULL;
 
-	XPlmi_SSSCfgDmaDma(DmaFlags);
-
 	if ((DmaFlags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
 		PmcDmaPtr = &PmcDma0;
 	}
