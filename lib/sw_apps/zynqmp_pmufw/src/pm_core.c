@@ -274,7 +274,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 	       ack, latency, state);
 
 	/* Only these two acknowledges are allowed for request suspend */
-	if (REQUEST_ACK_NO != ack && REQUEST_ACK_NON_BLOCKING != ack) {
+	if ((REQUEST_ACK_NO != ack) && (REQUEST_ACK_NON_BLOCKING != ack)) {
 		PmLog(PM_ERRNO_INVALID_ACK, ack, master->name);
 		status = XST_INVALID_PARAM;
 		goto done;
@@ -339,7 +339,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 	PmNode* nodePtr = PmGetNodeById(node);
 	PmPower *power;
 
-	if (NULL == nodePtr || INVALID_ACK_ARG(ack)) {
+	if ((NULL == nodePtr) || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -533,7 +533,7 @@ static void PmRequestNode(const PmMaster *master,
 
 	/* Check if node is slave. If it is, handle request via requirements */
 	slave = (PmSlave*)PmNodeGetSlave(node);
-	if (NULL == slave || INVALID_ACK_ARG(ack)) {
+	if ((NULL == slave) || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -599,7 +599,7 @@ static void PmSetRequirement(const PmMaster *master,
 	       capabilities, qos, ack);
 
 	/* Set requirement call applies only to slaves */
-	if (NULL == slave || INVALID_ACK_ARG(ack)) {
+	if ((NULL == slave) || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -769,11 +769,11 @@ done:
 }
 
 #if defined (ENABLE_WDT) &&	\
-	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT || \
-	XPFW_CFG_PMU_SHA3_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT ||  \
-	XPFW_CFG_PMU_RSA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT ||   \
-	XPFW_CFG_PMU_AES_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT ||   \
-	XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
+	((XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT) ||	\
+	 (XPFW_CFG_PMU_SHA3_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT) || 	\
+	 (XPFW_CFG_PMU_RSA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT) ||	\
+	 (XPFW_CFG_PMU_AES_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT) ||	\
+	 (XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT))
 
 /* Notification IDs used to inform R5 about STL status
  *
@@ -1519,8 +1519,8 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if ((0U != wake && 1U != wake) || (0U != enable && 1U != enable) ||
-	    (EVENT_STATE_CHANGE != event && EVENT_ZERO_USERS != event)) {
+	if (((0U != wake) && (1U != wake)) || ((0U != enable) && (1U != enable)) ||
+	    ((EVENT_STATE_CHANGE != event) && (EVENT_ZERO_USERS != event))) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1673,7 +1673,8 @@ static void PmClockSetDivider(PmMaster* const master, const u32 clockId,
 	PmInfo("%s> ClockSetDivider(%lu, %lu, %lu)\r\n", master->name, clockId,
 	       divId, val);
 	clockPtr = PmClockGetById(clockId);
-	if (NULL == clockPtr || 0U == val || INVALID_DIV_ID(divId)) {
+	if ((NULL == clockPtr) || (0U == val) ||
+	    INVALID_DIV_ID(divId)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
