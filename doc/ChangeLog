@@ -1,5 +1,24 @@
 Changes for 2020.2
 ===============================
+rfdc_v8_0::
+Added observation FIFO interrupts
+Interrupt setting functions only error out if both analogue and digital paths are disabled
+Added more DAC interrupts and fixed issue with GetEnabledInterrupts
+Multiband now reads its settings from the bitfile
+Now driver explicitly sets FIFO width when setting the mixer
+Now driver only gets calibration mode when setting/getting the mixer settings for Gen 1/2 devices
+Expand range of DSA for production Si
+Expand range of VOP for production Si
+Support for Dual Band IQ for new bondout
+Added observation FIFO and decimation functionality
+Added channel powerdown functionality
+Refactor to functionalize the FIFO width setting
+Fixed metal log print error in XRFdc_SetQMCSettings
+Fixed issues with the connected data initialization for multiband
+Allow non bypass datapath modes if digital path is enabled
+Added warning message if trying to incorrectly set QMC phase and QMC phase should only be allowed to be set in IQ pair
+Changed shutdown end state for Gen 3 Quad ADCs to reduce power consumption
+Refactor of clock distribution settings for improved power performance
 
 xilpm_v3_2:
 versal: Add bit inversion logic for CPM-PL interface
