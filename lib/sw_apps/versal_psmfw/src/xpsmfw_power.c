@@ -584,8 +584,8 @@ static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	IdCodeSubFamily = XPsmFw_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK;
 
 	if ((PLATFORM_VERSION_SILICON == PlatformType) &&
-	    ((IDCODE_DEV_SBFMLY_S80 == IdCodeSubFamily) ||
-	     (IDCODE_DEV_SBFMLY_S80_SVD_2 == IdCodeSubFamily))) {
+	    ((IDCODE_DEV_SBFMLY_VC1902 == IdCodeSubFamily) ||
+	     (IDCODE_DEV_SBFMLY_VM1802 == IdCodeSubFamily))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
