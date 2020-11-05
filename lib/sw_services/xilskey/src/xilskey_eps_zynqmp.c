@@ -113,26 +113,26 @@ typedef struct {
 
 static INLINE u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 				XilSKey_ZynqMpEPs *InstancePtr);
-static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
+static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(const u8 *Data,
 		u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
-				XilSKey_ZynqMpEPs *InstancePtr);
+				const XilSKey_ZynqMpEPs *InstancePtr);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
-				XilSKey_ZynqMpEPs *InstancePtr);
+				const XilSKey_ZynqMpEPs *InstancePtr);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
-				XilSKey_ZynqMpEPs *InstancePtr);
+				const XilSKey_ZynqMpEPs *InstancePtr);
 static INLINE void XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 	XilSKey_SecCtrlBits *ReadBackSecCtrlBits);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
-				XilSKey_ZynqMpEPs *InstancePtr);
+				const XilSKey_ZynqMpEPs *InstancePtr);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
-	XilSKey_ZynqMpEPs *InstancePtr, XilSKey_UsrFuses *ToBePrgrmd);
+	const XilSKey_ZynqMpEPs *InstancePtr, XilSKey_UsrFuses *ToBePrgrmd);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
-			u8 *UserFuses_Write, u8 *UserFuses_Read,
+			const u8 *UserFuses_Write, const u8 *UserFuses_Read,
 			XilSKey_UsrFuses *UserFuses_ToBePrgrmd);
-static INLINE u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(u8 *SecBits_read);
+static INLINE u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(const u8 *SecBits_read);
 static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow);
 static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow);
 static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuseNum);
@@ -747,7 +747,7 @@ END:
 *		XST_FAILURE - on Failure
 *
 ******************************************************************************/
-static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
+static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(const u8 *Data,
 			u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType)
 {
 	u8 Row;
@@ -1129,7 +1129,7 @@ void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
-				XilSKey_ZynqMpEPs *InstancePtr)
+				const XilSKey_ZynqMpEPs *InstancePtr)
 {
 
 	u32 Status = (u32)XST_FAILURE;
@@ -1148,9 +1148,9 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
+
 END:
 	return Status;
-
 }
 
 /***************************************************************************/
@@ -1165,7 +1165,7 @@ END:
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
-				XilSKey_ZynqMpEPs *InstancePtr)
+				const XilSKey_ZynqMpEPs *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
@@ -1439,7 +1439,7 @@ END:
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
-					XilSKey_ZynqMpEPs *InstancePtr)
+					const XilSKey_ZynqMpEPs *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
@@ -1941,7 +1941,7 @@ u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
-					XilSKey_ZynqMpEPs *InstancePtr)
+					const XilSKey_ZynqMpEPs *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u32 PpkHashVal[XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM] = {0U};
@@ -2021,7 +2021,7 @@ END:
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
-				u8 *UserFuses_Write, u8 *UserFuses_Read,
+				const u8 *UserFuses_Write, const u8 *UserFuses_Read,
 				XilSKey_UsrFuses *UserFuses_ToBePrgrmd)
 {
 	u32 UserFuseColumn;
@@ -2063,13 +2063,13 @@ END:
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
-	XilSKey_ZynqMpEPs *InstancePtr, XilSKey_UsrFuses *ToBePrgrmd)
+	const XilSKey_ZynqMpEPs *InstancePtr, XilSKey_UsrFuses *ToBePrgrmd)
 {
+	u32 Status = (u32)XST_FAILURE;
 	u8 UserFuses_Read[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
 	u8 UserFuses_Write[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
 	u32 UserFuseRead;
 	XilSKey_UsrFuses *UserEFuseToPrg;
-	u32 Status = (u32)XST_FAILURE;
 
 	if (InstancePtr->PrgrmUser0Fuse == TRUE) {
 		UserFuseRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -2241,6 +2241,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		}
 	}
 	Status = (u32)XST_SUCCESS;
+
 END:
 	return Status;
 }
@@ -2261,11 +2262,10 @@ END:
 *		but from silicon V3.0 bits 11:25 should be programmed
 *
 ******************************************************************************/
-static INLINE u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
-					u8 *SecBits_read)
+static INLINE u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(const u8 *SecBits_read)
 {
-	u32 Bit;
 	u32 Status = (u32)XST_FAILURE;
+	u32 Bit;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row = XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW;
 	u32 BitStart = 0U;
@@ -2297,6 +2297,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
 		}
 	}
 	Status = (u32)XST_SUCCESS;
+
 END:
 	return Status;
 }
@@ -2352,7 +2353,7 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
+	const XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 
 	/* Read bits */
 	if (EfuseAccess->Flag == 0x0U) {
@@ -2385,7 +2386,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
+	const XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 	u8 *Val = (u8 *)(UINTPTR)EfuseAccess->Src;
 	u32 *Val32;
 	XilSKey_ZynqMpEPs EfuseInstance = {0};
@@ -2805,7 +2806,7 @@ static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32) | (u64)AddrLow;
-	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
+	const XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 	u32 *Val = (u32 *)(UINTPTR)EfuseAccess->Src;
 	u8 UsrEfuseNo;
 

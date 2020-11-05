@@ -1066,7 +1066,8 @@ u32 XilSKey_EfusePs_XAdcInit (void );
 #if defined (XSK_ZYNQ_ULTRA_MP_PLATFORM) && !defined (XSK_OVERRIDE_SYSMON_CFG)
 u32 XilSKey_EfusePs_XAdcCfgValidate (void);
 #endif
-void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr);
+void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(
+		XSKEfusePs_XAdc *XAdcInstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void);
 void XilSKey_Efuse_StartTimer(void);
 u64 XilSKey_Efuse_GetTime(void);
@@ -1085,7 +1086,7 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
-void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
+void XilSKey_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To);
 #ifdef XSK_MICROBLAZE_PLATFORM
 void XilSKey_GetSlrNum(u32 MasterSlr, u32 ConfigOrderIndex, u32 *SlrNum);
 #endif
@@ -1095,8 +1096,8 @@ void XilSKey_GetSlrNum(u32 MasterSlr, u32 ConfigOrderIndex, u32 *SlrNum);
  * @addtogroup xilskey_cmn_crc xilskey common file
  * @{
 */
-u32 XilSKey_CrcCalculation(u8 *Key);
-u32 XilSkey_CrcCalculation_AesKey(u8 *Key);
+u32 XilSKey_CrcCalculation(const u8 *Key);
+u32 XilSkey_CrcCalculation_AesKey(const u8 *Key);
 /***************************************************************************/
 
 #ifdef __cplusplus
