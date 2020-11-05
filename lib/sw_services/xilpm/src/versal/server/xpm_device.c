@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 #include "xplmi_dma.h"
+#include "xplmi.h"
 #include "xpm_device.h"
 #include "xpm_core.h"
 #include "xpm_regs.h"

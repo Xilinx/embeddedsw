@@ -41,6 +41,7 @@
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
 #include "xloader_sbi.h"
+#include "xplmi.h"
 #include "xplmi_dma.h"
 
 #if defined(XLOADER_SBI)

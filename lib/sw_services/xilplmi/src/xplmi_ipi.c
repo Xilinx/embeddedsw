@@ -39,6 +39,7 @@
  *
  ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xplmi.h"
 #include "xplmi_ipi.h"
 #include "xplmi_proc.h"
 #include "xplmi_generic.h"
