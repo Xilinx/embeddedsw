@@ -348,6 +348,7 @@ fix the build failure which is caused by using the same file name
 in BSP and drivers.
 
 usbpsu_v1_8:
+Updated makefile for parallel make execution
 Add hibernation support in versal.
 
 xxvethernet_v1_5:
@@ -568,6 +569,188 @@ Added support for GigaDevice OSPI flash parts
 Added code to clear Chunk Buffer after loading PDI
 Added code to store and verify DFx metadata
 Added SD raw boot support to subsystem restart
+
+axipmon_v6_9:
+Updated makefile for parallel make execution
+
+axis_switch_v1_4:
+Updated makefile for parallel make execution
+
+bram_v4_5:
+Updated makefile for parallel make execution
+
+clockps_v1_3:
+Modify Makefile to support parallel make execution
+
+coresightps_dcc_v1_8:
+Updated makefile for parallel make execution
+
+cpu_cortexa53_v1_8:
+Updated makefile for parallel make execution and incremental build support.
+
+cpu_cortexa72_v1_2:
+Updated makefile for parallel make execution and incremental build support.
+
+cpu_cortexa9_v2_10:
+Updated makefile for parallel make execution and incremental build support.
+
+cpu_cortexr5_v1_8:
+Updated makefile for parallel make execution and incremental build support.
+Updated tcl to support armclang compiler for Cortex-R5.
+
+ddrcpsu_v1_3:
+Updated makefile for parallel make execution
+
+ddrps_v1_2:
+Updated makefile for parallel make execution
+
+ddrpsv_v1_3:
+Updated makefile for parallel make execution
+Added detailed defines for all NOC IPs in design and derive canonicals
+Fixed xddrpsv_handle_address_details proc
+
+dmaps_v2_7:
+Updated makefile for parallel make execution
+
+hwicap_v11_4:
+Updated makefile for parallel make execution
+
+iic_v3_7:
+Updated makefile for parallel make execution
+Added conditional flushing of RxFIFO
+
+intc_v3_12:
+Added software interrupt support.
+Updated tcl to support interrupts traversed through OR gate.
+Updated makefile for parallel make execution and incremental build support.
+
+iomodule_v2_9:
+Updated makefile for parallel make execution and incremental build support.
+
+mbox_v4_5:
+Updated makefile for parallel make execution
+
+nandps_v2_6:
+Update Makefile for parallel make execution
+Remove realpath command
+
+nandpsu_v1_7:
+Update Makefile for parallel make execution
+Remove realpath command
+
+pmonpsv_v2_1:
+Updated makefile for parallel make execution
+
+prc_v2_1:
+Updated makefile for parallel make execution
+
+prd_v2_1:
+Updated makefile for parallel make execution
+
+qspips_v3_8:
+Updated Makefile to support parallel make execution
+
+qspipsu_v1_12:
+Update Makefile for parallel make execution
+Update driver example to remove redundant code
+Add support for Macronix and ISSI serial nor flash
+Remove realpath command
+
+scugic_v4_3:
+Updated makefile for parallel make execution and incremental build support.
+Updated tcl to support interrupt ID generation for broader range of HW designs
+having slice/conact/OR gate combinations
+
+scutimer_v2_3:
+Update Makefile for parallel make execution
+
+scuwdt_v2_3:
+Update Makefile for parallel make execution.
+Fixed MISRA-C violations.
+
+sdps_v3_10:
+Updated makefile for parallel make execution
+Added support to Check Transfer Completion Separately from Read and Write APIs
+Added support for SD/eMMC Non-Blocking Read
+Prevent removing pull up on D3 line
+Read 16Bit value for Block Size Register
+Fixed sector offset issue with Non-HCS cards in SDPS Raw example
+Modify power cycle API to poll for SD bus lines to go low
+
+spi_v4_7:
+Updated the Makefile to support parallel make execution
+Update tcl file to add XPAR_SPI_0_FIFO_DEPTH to the configuration structure
+Fill txfifo with data less than or equal to fifo depth
+Remove realpath command
+
+srio_v1_4:
+Updated makefile for parallel make execution and incremental build support.
+
+tft_v6_3:
+Updated makefile for parallel make execution
+
+tmr_inject_v1_3:
+Updated makefile for parallel make execution and incremental build support.
+
+tmr_manager_v1_2:
+Updated makefile for parallel make execution and incremental build support.
+
+tmrctr_v4_7:
+Updated makefile for parallel make execution and incremental build
+support.
+
+trafgen_v4_4:
+Updated makefile for parallel make execution
+
+ttcps_v3_12:
+Updated makefile for parallel make execution and incremental build support.
+
+uartns550_v3_7:
+Updated makefile for parallel make execution
+
+uartpsv_v1_3:
+Updated makefile for parallel make execution
+Fixed MISRA-C violations
+
+usb_v5_5:
+Updated makefile for parallel make execution
+
+usbps_v2_6:
+Updated makefile for parallel make execution
+
+xilffs_v4_4:
+Updated makefile for parallel make execution
+
+xilfpga_v5_3:
+Added user configurable Enable/Disable Options for the PL configuration
+registers readback and configuration Data readback functionality
+Replaced the asserts with input validations checks for non void API's
+Updated Makefile for parallel make execution
+Fixed ReqBuffer garbage data issue
+clearing the AES key from the KUP register if the Aes Decryption Result is
+GCM_TAG_MISMATCH
+fix to avoid the user memory-erasing
+fix for incorrect secure flags check
+Added support for versal platform
+
+standalone_v7_3:
+Corrected CPACR_EL1 settings in A53 64 bit boot code
+Added armclang compiler support for Cortex-R5 BSP
+Updated makefile for parallel make execution and incremental build support.
+Fix  Cortex-A72 BSP translation table entries for DDR regions
+Added selftest routine for Microblaze
+Modified Init_MPU function in Cortex-R5 BSP, to update Mpu_Config.
+Moved strcpy, strcat, memcpy, memcmp functions from XilPlmi to
+standalone/src/common/xil_util.c
+Fixed issues reported by MISRA C and coverity too
+
+freertos10_xilinx_v1_7:
+Updated porting layer, to support FreeRTOS based applications as EL1 domU guest over Xen.
+Updated makefile for parallel make execution and incremental build support.
+Updated pxPortInitialiseStack function in A53 porting layer to make it in sync
+with portRESTORE_CONTEXT. It fixes FreeRTOS crash issue, when configUSE_TASK_FPU_SUPPORT is set to 2.
+Added new example freertos_intr_example, to demonstrate interrupt
+handling from FreeRTOS based applications.
 
 zynqmp_fsbl:
 Added armclang support for cortexr5 fsbl
