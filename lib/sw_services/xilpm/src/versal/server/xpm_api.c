@@ -657,7 +657,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 	u32 SysmonAddr;
 
 	/*
-	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
+	 * There is a silicon problem where on 2-4% of Versal ES1 XCVC1902 devices
 	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
 	 * The problem is eliminated when PL Vgg frame housecleaning is run
 	 * so we need to do that ASAP after PLM is loaded.

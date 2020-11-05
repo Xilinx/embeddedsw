@@ -383,7 +383,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	}
 
 	/*
-	 * Note: S80 ES1 has a Si errata where stage 1  portion of PCIe design
+	 * Note: XCVC1902 ES1 has a Si errata where stage 1  portion of PCIe design
 	 * did not work for certain configurations. This issue is resolved in ES2.
 	 * Resolution in ES2 is to invert spare bit w.r.t. PL_CPM_PCIEA0_FabricEn
 	 * (corresponds to XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR iso node). In ES1
