@@ -28,6 +28,8 @@
 *                       and XPlmi_Strcpy
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  bsv  11/05/2020 Added prints while polling in UtilPoll APIs
+*
 * </pre>
 *
 * @note
@@ -45,6 +47,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_MASK_PRINT_PERIOD	(1000000U)
 
 /************************** Function Prototypes ******************************/
 
@@ -116,13 +119,12 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 {
 	int Status = XST_FAILURE;
 	u32 RegValue;
-	u32 TimeOut = TimeOutInUs;
-
+	u32 TimeLapsed = 0U;
 	/*
 	 * If timeout value is zero, max time out value is taken
 	 */
-	if (TimeOut == 0U) {
-		TimeOut = XPLMI_TIME_OUT_DEFAULT;
+	if (TimeOutInUs == 0U) {
+		TimeOutInUs = XPLMI_TIME_OUT_DEFAULT;
 	}
 	/*
 	 * Read the Register value
@@ -131,7 +133,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	/*
 	 * Loop while the MAsk is not set or we timeout
 	 */
-	while (((RegValue & Mask) != ExpectedValue) && (TimeOut > 0U)) {
+	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOutInUs)) {
 		usleep(1U);
 		/*
 		 * Latch up the Register value again
@@ -140,9 +142,13 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 		/*
 		 * Decrement the TimeOut Count
 		 */
-		TimeOut--;
+		TimeLapsed++;
+		if ((TimeLapsed % XPLMI_MASK_PRINT_PERIOD) == 0U) {
+			XPlmi_Printf(DEBUG_GENERAL, "Polling 0x%0x Mask: 0x%0x "
+				"ExpectedValue: 0x%0x\n\r", RegAddr, Mask, ExpectedValue);
+		}
 	}
-	if (TimeOut > 0U) {
+	if (TimeLapsed < TimeOutInUs) {
 		Status = XST_SUCCESS;
 	}
 
@@ -166,13 +172,13 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 {
 	int Status = XST_FAILURE;
 	u32 ReadValue;
-	u32 TimeOut = TimeOutInUs;
+	u32 TimeLapsed = 0U;
 
 	/*
 	 * If timeout value is zero, max time out value is taken
 	 */
-	if (TimeOut == 0U) {
-		TimeOut = XPLMI_TIME_OUT_DEFAULT;
+	if (TimeOutInUs == 0U) {
+		TimeOutInUs = XPLMI_TIME_OUT_DEFAULT;
 	}
 	/*
 	 * Read the Register value
@@ -181,7 +187,7 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	/*
 	 * Loop while the Mask is not set or we timeout
 	 */
-	while (((ReadValue & Mask) != ExpectedValue) && (TimeOut > 0U)) {
+	while (((ReadValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOutInUs)) {
 		usleep(1U);
 		/*
 		 * Latch up the value again
@@ -190,9 +196,14 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 		/*
 		 * Decrement the TimeOut Count
 		 */
-		TimeOut--;
+		TimeLapsed++;
+		if ((TimeLapsed % XPLMI_MASK_PRINT_PERIOD) == 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "Polling 0x%0x%08x Mask: 0x%0x "
+			"ExpectedValue: 0x%0x\n\r", (u32)(RegAddr >> 32U),
+			(u32)(RegAddr & MASK_ALL), Mask, ExpectedValue);
+		}
 	}
-	if (TimeOut > 0U) {
+	if (TimeLapsed < TimeOutInUs) {
 		Status = XST_SUCCESS;
 	}
 
