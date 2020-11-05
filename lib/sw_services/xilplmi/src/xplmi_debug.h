@@ -44,7 +44,6 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_proc.h"
-#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 /**
