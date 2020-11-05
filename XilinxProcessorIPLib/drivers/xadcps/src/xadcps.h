@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps.h
-* @addtogroup xadcps_v2_5
+* @addtogroup xadcps_v2_6
 * @{
 * @details
 *
@@ -154,6 +154,7 @@
 *                       examples to recognize it as documentation block
 *                       for doxygen generation.
 * 2.3   mn     07/09/18 Fix Doxygen warning
+* 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
 *
 * </pre>
 *
@@ -179,21 +180,21 @@ extern "C" {
  * @name Indexes for the different channels.
  * @{
  */
-#define XADCPS_CH_TEMP		0x0  /**< On Chip Temperature */
-#define XADCPS_CH_VCCINT	0x1  /**< VCCINT */
-#define XADCPS_CH_VCCAUX	0x2  /**< VCCAUX */
-#define XADCPS_CH_VPVN		0x3  /**< VP/VN Dedicated analog inputs */
-#define XADCPS_CH_VREFP		0x4  /**< VREFP */
-#define XADCPS_CH_VREFN		0x5  /**< VREFN */
-#define XADCPS_CH_VBRAM		0x6  /**< On-chip VBRAM Data Reg, 7 series */
-#define XADCPS_CH_SUPPLY_CALIB	0x07 /**< Supply Calib Data Reg */
-#define XADCPS_CH_ADC_CALIB	0x08 /**< ADC Offset Channel Reg */
-#define XADCPS_CH_GAINERR_CALIB 0x09 /**< Gain Error Channel Reg  */
-#define XADCPS_CH_VCCPINT	0x0D /**< On-chip PS VCCPINT Channel , Zynq */
-#define XADCPS_CH_VCCPAUX	0x0E /**< On-chip PS VCCPAUX Channel , Zynq */
-#define XADCPS_CH_VCCPDRO	0x0F /**< On-chip PS VCCPDRO Channel , Zynq */
-#define XADCPS_CH_AUX_MIN	 16 /**< Channel number for 1st Aux Channel */
-#define XADCPS_CH_AUX_MAX	 31 /**< Channel number for Last Aux channel */
+#define XADCPS_CH_TEMP		0x0U  /**< On Chip Temperature */
+#define XADCPS_CH_VCCINT	0x1U  /**< VCCINT */
+#define XADCPS_CH_VCCAUX	0x2U  /**< VCCAUX */
+#define XADCPS_CH_VPVN		0x3U  /**< VP/VN Dedicated analog inputs */
+#define XADCPS_CH_VREFP		0x4U  /**< VREFP */
+#define XADCPS_CH_VREFN		0x5U  /**< VREFN */
+#define XADCPS_CH_VBRAM		0x6U  /**< On-chip VBRAM Data Reg, 7 series */
+#define XADCPS_CH_SUPPLY_CALIB	0x07U /**< Supply Calib Data Reg */
+#define XADCPS_CH_ADC_CALIB	0x08U /**< ADC Offset Channel Reg */
+#define XADCPS_CH_GAINERR_CALIB 0x09U /**< Gain Error Channel Reg  */
+#define XADCPS_CH_VCCPINT	0x0DU /**< On-chip PS VCCPINT Channel , Zynq */
+#define XADCPS_CH_VCCPAUX	0x0EU /**< On-chip PS VCCPAUX Channel , Zynq */
+#define XADCPS_CH_VCCPDRO	0x0FU /**< On-chip PS VCCPDRO Channel , Zynq */
+#define XADCPS_CH_AUX_MIN	 16U /**< Channel number for 1st Aux Channel */
+#define XADCPS_CH_AUX_MAX	 31U /**< Channel number for Last Aux channel */
 
 /*@}*/
 
@@ -202,9 +203,9 @@ extern "C" {
  * @name Indexes for reading the Calibration Coefficient Data.
  * @{
  */
-#define XADCPS_CALIB_SUPPLY_COEFF     0 /**< Supply Offset Calib Coefficient */
-#define XADCPS_CALIB_ADC_COEFF        1 /**< ADC Offset Calib Coefficient */
-#define XADCPS_CALIB_GAIN_ERROR_COEFF 2 /**< Gain Error Calib Coefficient*/
+#define XADCPS_CALIB_SUPPLY_COEFF     0U /**< Supply Offset Calib Coefficient */
+#define XADCPS_CALIB_ADC_COEFF        1U /**< ADC Offset Calib Coefficient */
+#define XADCPS_CALIB_GAIN_ERROR_COEFF 2U /**< Gain Error Calib Coefficient*/
 /*@}*/
 
 
@@ -212,20 +213,20 @@ extern "C" {
  * @name Indexes for reading the Minimum/Maximum Measurement Data.
  * @{
  */
-#define XADCPS_MAX_TEMP		0 /**< Maximum Temperature Data */
-#define XADCPS_MAX_VCCINT	1 /**< Maximum VCCINT Data */
-#define XADCPS_MAX_VCCAUX	2 /**< Maximum VCCAUX Data */
-#define XADCPS_MAX_VBRAM	3 /**< Maximum VBRAM Data */
-#define XADCPS_MIN_TEMP		4 /**< Minimum Temperature Data */
-#define XADCPS_MIN_VCCINT	5 /**< Minimum VCCINT Data */
-#define XADCPS_MIN_VCCAUX	6 /**< Minimum VCCAUX Data */
-#define XADCPS_MIN_VBRAM	7 /**< Minimum VBRAM Data */
-#define XADCPS_MAX_VCCPINT	8 /**< Maximum VCCPINT Register , Zynq */
-#define XADCPS_MAX_VCCPAUX	9 /**< Maximum VCCPAUX Register , Zynq */
-#define XADCPS_MAX_VCCPDRO	0xA /**< Maximum VCCPDRO Register , Zynq */
-#define XADCPS_MIN_VCCPINT	0xC /**< Minimum VCCPINT Register , Zynq */
-#define XADCPS_MIN_VCCPAUX	0xD /**< Minimum VCCPAUX Register , Zynq */
-#define XADCPS_MIN_VCCPDRO	0xE /**< Minimum VCCPDRO Register , Zynq */
+#define XADCPS_MAX_TEMP		0U /**< Maximum Temperature Data */
+#define XADCPS_MAX_VCCINT	1U /**< Maximum VCCINT Data */
+#define XADCPS_MAX_VCCAUX	2U /**< Maximum VCCAUX Data */
+#define XADCPS_MAX_VBRAM	3U /**< Maximum VBRAM Data */
+#define XADCPS_MIN_TEMP		4U /**< Minimum Temperature Data */
+#define XADCPS_MIN_VCCINT	5U /**< Minimum VCCINT Data */
+#define XADCPS_MIN_VCCAUX	6U /**< Minimum VCCAUX Data */
+#define XADCPS_MIN_VBRAM	7U /**< Minimum VBRAM Data */
+#define XADCPS_MAX_VCCPINT	8U /**< Maximum VCCPINT Register , Zynq */
+#define XADCPS_MAX_VCCPAUX	9U /**< Maximum VCCPAUX Register , Zynq */
+#define XADCPS_MAX_VCCPDRO	0xAU /**< Maximum VCCPDRO Register , Zynq */
+#define XADCPS_MIN_VCCPINT	0xCU /**< Minimum VCCPINT Register , Zynq */
+#define XADCPS_MIN_VCCPAUX	0xDU /**< Minimum VCCPAUX Register , Zynq */
+#define XADCPS_MIN_VCCPDRO	0xEU /**< Minimum VCCPDRO Register , Zynq */
 
 /*@}*/
 
@@ -234,22 +235,22 @@ extern "C" {
  * @name Alarm Threshold(Limit) Register (ATR) indexes.
  * @{
  */
-#define XADCPS_ATR_TEMP_UPPER	 0 /**< High user Temperature */
-#define XADCPS_ATR_VCCINT_UPPER  1 /**< VCCINT high voltage limit register */
-#define XADCPS_ATR_VCCAUX_UPPER  2 /**< VCCAUX high voltage limit register */
-#define XADCPS_ATR_OT_UPPER	 3 /**< VCCAUX high voltage limit register */
-#define XADCPS_ATR_TEMP_LOWER	 4 /**< Upper Over Temperature limit Reg */
-#define XADCPS_ATR_VCCINT_LOWER	 5 /**< VCCINT high voltage limit register */
-#define XADCPS_ATR_VCCAUX_LOWER	 6 /**< VCCAUX low voltage limit register  */
-#define XADCPS_ATR_OT_LOWER	 7 /**< Lower Over Temperature limit */
-#define XADCPS_ATR_VBRAM_UPPER_  8 /**< VRBAM Upper Alarm Reg, 7 Series */
-#define XADCPS_ATR_VCCPINT_UPPER 9 /**< VCCPINT Upper Alarm Reg, Zynq */
-#define XADCPS_ATR_VCCPAUX_UPPER 0xA /**< VCCPAUX Upper Alarm Reg, Zynq */
-#define XADCPS_ATR_VCCPDRO_UPPER 0xB /**< VCCPDRO Upper Alarm Reg, Zynq */
-#define XADCPS_ATR_VBRAM_LOWER	 0xC /**< VRBAM Lower Alarm Reg, 7 Series */
-#define XADCPS_ATR_VCCPINT_LOWER 0xD /**< VCCPINT Lower Alarm Reg , Zynq */
-#define XADCPS_ATR_VCCPAUX_LOWER 0xE /**< VCCPAUX Lower Alarm Reg , Zynq */
-#define XADCPS_ATR_VCCPDRO_LOWER 0xF /**< VCCPDRO Lower Alarm Reg , Zynq */
+#define XADCPS_ATR_TEMP_UPPER	 0U /**< High user Temperature */
+#define XADCPS_ATR_VCCINT_UPPER  1U /**< VCCINT high voltage limit register */
+#define XADCPS_ATR_VCCAUX_UPPER  2U /**< VCCAUX high voltage limit register */
+#define XADCPS_ATR_OT_UPPER	 3U /**< VCCAUX high voltage limit register */
+#define XADCPS_ATR_TEMP_LOWER	 4U /**< Upper Over Temperature limit Reg */
+#define XADCPS_ATR_VCCINT_LOWER	 5U /**< VCCINT high voltage limit register */
+#define XADCPS_ATR_VCCAUX_LOWER	 6U /**< VCCAUX low voltage limit register  */
+#define XADCPS_ATR_OT_LOWER	 7U /**< Lower Over Temperature limit */
+#define XADCPS_ATR_VBRAM_UPPER_  8U /**< VRBAM Upper Alarm Reg, 7 Series */
+#define XADCPS_ATR_VCCPINT_UPPER 9U /**< VCCPINT Upper Alarm Reg, Zynq */
+#define XADCPS_ATR_VCCPAUX_UPPER 0xAU /**< VCCPAUX Upper Alarm Reg, Zynq */
+#define XADCPS_ATR_VCCPDRO_UPPER 0xBU /**< VCCPDRO Upper Alarm Reg, Zynq */
+#define XADCPS_ATR_VBRAM_LOWER	 0xCU /**< VRBAM Lower Alarm Reg, 7 Series */
+#define XADCPS_ATR_VCCPINT_LOWER 0xDU /**< VCCPINT Lower Alarm Reg , Zynq */
+#define XADCPS_ATR_VCCPAUX_LOWER 0xEU /**< VCCPAUX Lower Alarm Reg , Zynq */
+#define XADCPS_ATR_VCCPDRO_LOWER 0xFU /**< VCCPDRO Lower Alarm Reg , Zynq */
 
 /*@}*/
 
@@ -258,10 +259,10 @@ extern "C" {
  * @name Averaging to be done for the channels.
  * @{
  */
-#define XADCPS_AVG_0_SAMPLES	0  /**< No Averaging */
-#define XADCPS_AVG_16_SAMPLES	1  /**< Average 16 samples */
-#define XADCPS_AVG_64_SAMPLES	2  /**< Average 64 samples */
-#define XADCPS_AVG_256_SAMPLES	3  /**< Average 256 samples */
+#define XADCPS_AVG_0_SAMPLES	0U  /**< No Averaging */
+#define XADCPS_AVG_16_SAMPLES	1U  /**< Average 16 samples */
+#define XADCPS_AVG_64_SAMPLES	2U  /**< Average 64 samples */
+#define XADCPS_AVG_256_SAMPLES	3U  /**< Average 256 samples */
 
 /*@}*/
 
@@ -270,12 +271,12 @@ extern "C" {
  * @name Channel Sequencer Modes of operation
  * @{
  */
-#define XADCPS_SEQ_MODE_SAFE		0  /**< Default Safe Mode */
-#define XADCPS_SEQ_MODE_ONEPASS		1  /**< Onepass through Sequencer */
-#define XADCPS_SEQ_MODE_CONTINPASS	2  /**< Continuous Cycling Sequencer */
-#define XADCPS_SEQ_MODE_SINGCHAN	3  /**< Single channel -No Sequencing */
-#define XADCPS_SEQ_MODE_SIMUL_SAMPLING	4  /**< Simultaneous sampling */
-#define XADCPS_SEQ_MODE_INDEPENDENT	8  /**< Independent mode */
+#define XADCPS_SEQ_MODE_SAFE		0U  /**< Default Safe Mode */
+#define XADCPS_SEQ_MODE_ONEPASS		1U  /**< Onepass through Sequencer */
+#define XADCPS_SEQ_MODE_CONTINPASS	2U  /**< Continuous Cycling Sequencer */
+#define XADCPS_SEQ_MODE_SINGCHAN	3U  /**< Single channel -No Sequencing */
+#define XADCPS_SEQ_MODE_SIMUL_SAMPLING	4U  /**< Simultaneous sampling */
+#define XADCPS_SEQ_MODE_INDEPENDENT	8U  /**< Independent mode */
 
 /*@}*/
 
@@ -285,9 +286,9 @@ extern "C" {
  * @name Power Down Modes
  * @{
  */
-#define XADCPS_PD_MODE_NONE		0  /**< No Power Down  */
-#define XADCPS_PD_MODE_ADCB		1  /**< Power Down ADC B */
-#define XADCPS_PD_MODE_XADC		2  /**< Power Down ADC A and ADC B */
+#define XADCPS_PD_MODE_NONE		0U  /**< No Power Down  */
+#define XADCPS_PD_MODE_ADCB		1U  /**< Power Down ADC B */
+#define XADCPS_PD_MODE_XADC		2U  /**< Power Down ADC A and ADC B */
 /*@}*/
 
 /**************************** Type Definitions ******************************/

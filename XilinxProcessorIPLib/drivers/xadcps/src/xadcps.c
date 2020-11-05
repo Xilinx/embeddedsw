@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps.c
-* @addtogroup xadcps_v2_5
+* @addtogroup xadcps_v2_6
 * @{
 *
 * This file contains the driver API functions that can be used to access
@@ -32,6 +32,8 @@
 * 2.2	bss	   04/27/14 Modified to use correct Device Config base address
 *						(CR#854437).
 * 2.3   mn     07/09/18 Fix Doxygen warning
+* 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -338,8 +340,7 @@ u16 XAdcPs_GetAdcData(XAdcPs *InstancePtr, u8 Channel)
 			 (Channel <= XADCPS_CH_AUX_MAX)));
 
 	RegData = XAdcPs_ReadInternalReg(InstancePtr,
-						(XADCPS_TEMP_OFFSET +
-						Channel));
+					(XADCPS_TEMP_OFFSET + (u32)Channel));
 	return (u16) RegData;
 }
 
@@ -378,7 +379,7 @@ u16 XAdcPs_GetCalibCoefficient(XAdcPs *InstancePtr, u8 CoeffType)
 	 */
 	RegData = XAdcPs_ReadInternalReg(InstancePtr,
 					(XADCPS_ADC_A_SUPPLY_CALIB_OFFSET +
-					CoeffType));
+					(u32)CoeffType));
 	return (u16) RegData;
 }
 
@@ -422,7 +423,7 @@ u16 XAdcPs_GetMinMaxMeasurement(XAdcPs *InstancePtr, u8 MeasurementType)
 	 */
 	RegData = XAdcPs_ReadInternalReg(InstancePtr,
 					(XADCPS_MAX_TEMP_OFFSET +
-					MeasurementType));
+					 (u32)MeasurementType));
 	return (u16) RegData;
 }
 
@@ -567,11 +568,11 @@ int XAdcPs_SetSingleChParams(XAdcPs *InstancePtr,
 			(Channel == XADCPS_CH_ADC_CALIB) ||
 			((Channel >= XADCPS_CH_VCCPINT) &&
 			(Channel <= XADCPS_CH_AUX_MAX)));
-	Xil_AssertNonvoid((IncreaseAcqCycles == TRUE) ||
-			(IncreaseAcqCycles == FALSE));
-	Xil_AssertNonvoid((IsEventMode == TRUE) || (IsEventMode == FALSE));
-	Xil_AssertNonvoid((IsDifferentialMode == TRUE) ||
-			(IsDifferentialMode == FALSE));
+	Xil_AssertNonvoid((IncreaseAcqCycles == 0x1) ||
+			(IncreaseAcqCycles == 0x0));
+	Xil_AssertNonvoid((IsEventMode == 0x1) || (IsEventMode == 0x0));
+	Xil_AssertNonvoid((IsDifferentialMode == 0x1) ||
+			(IsDifferentialMode == 0x0));
 
 	/*
 	 * Check if the device is in single channel mode else return failure
@@ -592,7 +593,7 @@ int XAdcPs_SetSingleChParams(XAdcPs *InstancePtr,
 	 * Select the number of acquisition cycles. The acquisition cycles is
 	 * only valid for the external channels.
 	 */
-	if (IncreaseAcqCycles == TRUE) {
+	if (IncreaseAcqCycles == 0x1) {
 		if (((Channel >= XADCPS_CH_AUX_MIN) &&
 			(Channel <= XADCPS_CH_AUX_MAX)) ||
 			(Channel == XADCPS_CH_VPVN)){
@@ -607,10 +608,9 @@ int XAdcPs_SetSingleChParams(XAdcPs *InstancePtr,
 	 * Select the input mode. The input mode is only valid for the
 	 * external channels.
 	 */
-	if (IsDifferentialMode == TRUE) {
+	if (IsDifferentialMode == 0x1) {
 
-		if (((Channel >= XADCPS_CH_AUX_MIN) &&
-			(Channel <= XADCPS_CH_AUX_MAX)) ||
+		if ((Channel >= XADCPS_CH_AUX_MIN) ||
 			(Channel == XADCPS_CH_VPVN)){
 			RegValue |= XADCPS_CFR0_DU_MASK;
 		} else {
@@ -621,14 +621,14 @@ int XAdcPs_SetSingleChParams(XAdcPs *InstancePtr,
 	/*
 	 * Select the ADC mode.
 	 */
-	if (IsEventMode == TRUE) {
+	if (IsEventMode == 0x1) {
 		RegValue |= XADCPS_CFR0_EC_MASK;
 	}
 
 	/*
 	 * Write the given values into the Configuration Register 0.
 	 */
-	RegValue |= (Channel & XADCPS_CFR0_CHANNEL_MASK);
+	RegValue |= ((u32)Channel & XADCPS_CFR0_CHANNEL_MASK);
 	XAdcPs_WriteInternalReg(InstancePtr, XADCPS_CFR0_OFFSET,
 				RegValue);
 
@@ -671,8 +671,8 @@ void XAdcPs_SetAlarmEnables(XAdcPs *InstancePtr, u16 AlmEnableMask)
 
 	RegValue = XAdcPs_ReadInternalReg(InstancePtr, XADCPS_CFR1_OFFSET);
 
-	RegValue &= (u32)~XADCPS_CFR1_ALM_ALL_MASK;
-	RegValue |= (~AlmEnableMask & XADCPS_CFR1_ALM_ALL_MASK);
+	RegValue &= ~XADCPS_CFR1_ALM_ALL_MASK;
+	RegValue |= (~(u32)AlmEnableMask & XADCPS_CFR1_ALM_ALL_MASK);
 
 	/*
 	 * Enable/disables the alarm enables for the specified alarm bits in the
@@ -772,8 +772,8 @@ void XAdcPs_SetCalibEnables(XAdcPs *InstancePtr, u16 Calibration)
 	RegValue = XAdcPs_ReadInternalReg(InstancePtr,
 					XADCPS_CFR1_OFFSET);
 
-	RegValue &= (~ XADCPS_CFR1_CAL_VALID_MASK);
-	RegValue |= (Calibration & XADCPS_CFR1_CAL_VALID_MASK);
+	RegValue &= ~XADCPS_CFR1_CAL_VALID_MASK;
+	RegValue |= ((u32)Calibration & XADCPS_CFR1_CAL_VALID_MASK);
 	XAdcPs_WriteInternalReg(InstancePtr, XADCPS_CFR1_OFFSET,
 				RegValue);
 
@@ -858,8 +858,8 @@ void XAdcPs_SetSequencerMode(XAdcPs *InstancePtr, u8 SequencerMode)
 	RegValue = XAdcPs_ReadInternalReg(InstancePtr,
 					XADCPS_CFR1_OFFSET);
 	RegValue &= (~ XADCPS_CFR1_SEQ_VALID_MASK);
-	RegValue |= ((SequencerMode  << XADCPS_CFR1_SEQ_SHIFT) &
-					XADCPS_CFR1_SEQ_VALID_MASK);
+	RegValue |= (((u32)SequencerMode  << XADCPS_CFR1_SEQ_SHIFT) &
+			  XADCPS_CFR1_SEQ_VALID_MASK);
 	XAdcPs_WriteInternalReg(InstancePtr, XADCPS_CFR1_OFFSET,
 				RegValue);
 
@@ -934,7 +934,7 @@ void XAdcPs_SetAdcClkDivisor(XAdcPs *InstancePtr, u8 Divisor)
 	 * Write the divisor value into the Configuration Register #2.
 	 */
 	XAdcPs_WriteInternalReg(InstancePtr, XADCPS_CFR2_OFFSET,
-			  Divisor << XADCPS_CFR2_CD_SHIFT);
+				((u32)Divisor << XADCPS_CFR2_CD_SHIFT));
 
 }
 
@@ -1393,8 +1393,8 @@ void XAdcPs_SetAlarmThreshold(XAdcPs *InstancePtr, u8 AlarmThrReg, u16 Value)
 	/*
 	 * Write the value into the specified Alarm Threshold Register.
 	 */
-	XAdcPs_WriteInternalReg(InstancePtr, XADCPS_ATR_TEMP_UPPER_OFFSET +
-					AlarmThrReg,Value);
+	XAdcPs_WriteInternalReg(InstancePtr, (XADCPS_ATR_TEMP_UPPER_OFFSET +
+					(u32)AlarmThrReg), Value);
 
 }
 
@@ -1429,7 +1429,8 @@ u16 XAdcPs_GetAlarmThreshold(XAdcPs *InstancePtr, u8 AlarmThrReg)
 	 * the value
 	 */
 	RegData = XAdcPs_ReadInternalReg(InstancePtr,
-				(XADCPS_ATR_TEMP_UPPER_OFFSET + AlarmThrReg));
+					 (XADCPS_ATR_TEMP_UPPER_OFFSET +
+					  (u32)AlarmThrReg));
 
 	return (u16) RegData;
 }
@@ -1461,9 +1462,9 @@ void XAdcPs_EnableUserOverTemp(XAdcPs *InstancePtr)
 	/*
 	 * Read the OT upper Alarm Threshold Register.
 	 */
-	OtUpper = XAdcPs_ReadInternalReg(InstancePtr,
-				   XADCPS_ATR_OT_UPPER_OFFSET);
-	OtUpper &= ~(XADCPS_ATR_OT_UPPER_ENB_MASK);
+	OtUpper = (u16)(XAdcPs_ReadInternalReg(InstancePtr,
+					       XADCPS_ATR_OT_UPPER_OFFSET));
+	OtUpper &= ~((u16)XADCPS_ATR_OT_UPPER_ENB_MASK);
 
 	/*
 	 * Preserve the powerdown value and write OT enable value the into the
@@ -1471,7 +1472,7 @@ void XAdcPs_EnableUserOverTemp(XAdcPs *InstancePtr)
 	 */
 	OtUpper |= XADCPS_ATR_OT_UPPER_ENB_VAL;
 	XAdcPs_WriteInternalReg(InstancePtr,
-			  XADCPS_ATR_OT_UPPER_OFFSET, OtUpper);
+				XADCPS_ATR_OT_UPPER_OFFSET, (u32)OtUpper);
 }
 
 /****************************************************************************/
@@ -1501,12 +1502,12 @@ void XAdcPs_DisableUserOverTemp(XAdcPs *InstancePtr)
 	/*
 	 * Read the OT Upper Alarm Threshold Register.
 	 */
-	OtUpper = XAdcPs_ReadInternalReg(InstancePtr,
-					 XADCPS_ATR_OT_UPPER_OFFSET);
-	OtUpper &= ~(XADCPS_ATR_OT_UPPER_ENB_MASK);
+	OtUpper = (u16)(XAdcPs_ReadInternalReg(InstancePtr,
+					       XADCPS_ATR_OT_UPPER_OFFSET));
+	OtUpper &= ~((u16)XADCPS_ATR_OT_UPPER_ENB_MASK);
 
 	XAdcPs_WriteInternalReg(InstancePtr,
-			  XADCPS_ATR_OT_UPPER_OFFSET, OtUpper);
+				XADCPS_ATR_OT_UPPER_OFFSET, (u32)OtUpper);
 }
 
 
@@ -1534,7 +1535,7 @@ void XAdcPs_SetSequencerEvent(XAdcPs *InstancePtr, int IsEventMode)
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((IsEventMode == TRUE) || (IsEventMode == FALSE));
+	Xil_AssertVoid((IsEventMode == 0x1) || (IsEventMode == 0x0));
 
 	/*
 	 * Read the Configuration Register 0.
@@ -1546,7 +1547,7 @@ void XAdcPs_SetSequencerEvent(XAdcPs *InstancePtr, int IsEventMode)
 	/*
 	 * Set the ADC mode.
 	 */
-	if (IsEventMode == TRUE) {
+	if (IsEventMode == 0x1) {
 		RegValue |= XADCPS_CFR0_EC_MASK;
 	} else {
 		RegValue &= ~XADCPS_CFR0_EC_MASK;
@@ -1587,7 +1588,7 @@ int XAdcPs_GetSamplingMode(XAdcPs *InstancePtr)
 	Mode = XAdcPs_ReadInternalReg(InstancePtr,
 				   XADCPS_CFR0_OFFSET) &
 				   XADCPS_CFR0_EC_MASK;
-	if (Mode) {
+	if (Mode > 0U) {
 
 		return 1;
 	}
@@ -1625,7 +1626,7 @@ void XAdcPs_SetMuxMode(XAdcPs *InstancePtr, int MuxMode, u8 Channel)
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((MuxMode == TRUE) || (MuxMode == FALSE));
+	Xil_AssertVoid((MuxMode == 0x1) || (MuxMode == 0x0));
 
 	/*
 	 * Read the Configuration Register 0.
@@ -1636,9 +1637,9 @@ void XAdcPs_SetMuxMode(XAdcPs *InstancePtr, int MuxMode, u8 Channel)
 	/*
 	 * Select the Mux mode and the channel to be used.
 	 */
-	if (MuxMode == TRUE) {
+	if (MuxMode == 0x1) {
 		RegValue |= XADCPS_CFR0_MUX_MASK;
-		RegValue |= (Channel & XADCPS_CFR0_CHANNEL_MASK);
+		RegValue |= ((u32)Channel & XADCPS_CFR0_CHANNEL_MASK);
 
 	}
 
@@ -1754,14 +1755,17 @@ void XAdcPs_WriteInternalReg(XAdcPs *InstancePtr, u32 RegOffset, u32 Data)
 {
 	u32 RegData;
 
-	/*
+	/**
 	 * Write the Data into the FIFO Register.
 	 */
-	RegData = XAdcPs_FormatWriteData(RegOffset, Data, TRUE);
+	RegData = (XADCPS_JTAG_CMD_WRITE_MASK) |
+		((RegOffset << XADCPS_JTAG_ADDR_SHIFT) & XADCPS_JTAG_ADDR_MASK) |
+		(Data & XADCPS_JTAG_DATA_MASK);
 
 	XAdcPs_WriteFifo(InstancePtr, RegData);
 
-	/* Read the Read FIFO after any write since for each write
+	/**
+	 * Read the Read FIFO after any write since for each write
 	 * one location of Read FIFO gets updated
 	 */
 	XAdcPs_ReadFifo(InstancePtr);
@@ -1788,7 +1792,8 @@ u32 XAdcPs_ReadInternalReg(XAdcPs *InstancePtr, u32 RegOffset)
 
 	u32 RegData;
 
-	RegData = XAdcPs_FormatWriteData(RegOffset, 0x0, FALSE);
+	RegData = (XADCPS_JTAG_CMD_READ_MASK) |
+		((RegOffset << XADCPS_JTAG_ADDR_SHIFT) & XADCPS_JTAG_ADDR_MASK);
 
 	/* Read cmd to FIFO*/
 	XAdcPs_WriteFifo(InstancePtr, RegData);

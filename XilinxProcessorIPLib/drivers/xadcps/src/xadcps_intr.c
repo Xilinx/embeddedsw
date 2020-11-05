@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps_intr.c
-* @addtogroup xadcps_v2_5
+* @addtogroup xadcps_v2_6
 * @{
 *
 * This file contains interrupt handling API functions of the XADC
