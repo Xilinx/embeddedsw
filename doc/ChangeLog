@@ -733,6 +733,27 @@ with portRESTORE_CONTEXT. It fixes FreeRTOS crash issue, when configUSE_TASK_FPU
 Added new example freertos_intr_example, to demonstrate interrupt
 handling from FreeRTOS based applications.
 
+dpdma_v1_3:
+Fixed MISRAC rule violations
+Moved variable declarations from header file to .c files
+Fixed C++ compilation issues.
+
+dppsu_v1_3:
+Fixed gcc warnings
+Used lane count number from MPSoC IP configuration
+Extern "C" added to header files
+
+tpg_v3_3:
+Updated makefile for parallel make execution
+
+audio_formatter_v1_2:
+Updated makefile for parallel make execution
+
+xilsem_v1_2 :
+Status: Pre-Production
+Added debug API
+Resolved CRAM SEU error correction bugs
+
 zynqmp_fsbl:
 Added armclang support for cortexr5 fsbl
 Added support for checksum in FSBL if secure code is excluded
