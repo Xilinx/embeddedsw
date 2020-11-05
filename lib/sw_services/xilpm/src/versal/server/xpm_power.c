@@ -242,7 +242,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
                         }
 		}
 		/*
-		 * For S80 ES1, there is a bug in LPD which requires the
+		 * For XCVC1902 ES1, there is a bug in LPD which requires the
 		 * LPD_INT and RPU power domain signals needs to be
 		 * asserted, to prevent repair vector corruption(EDT-993543).
 		 * To fix this bug rerun LPD BISR whenever the RPU power

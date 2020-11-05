@@ -617,9 +617,9 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	 * NOTE:
 	 *   Refer CR-1072789 and  EDT-1007075
 	 * VNPI output reset to VCCINT connected slaves is clamped at the wrong value.
-	 * To work around this in S80, NPI_RESET should be toggled after VCCINT power up.
+	 * To work around this in XCVC1902, NPI_RESET should be toggled after VCCINT power up.
 	 */
-	if (PMC_TAP_IDCODE_DEV_SBFMLY_S80 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
 		Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_PULSE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_RST_NPI;
