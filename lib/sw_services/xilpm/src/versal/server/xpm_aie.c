@@ -362,7 +362,7 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* TODO: Configure TOP_ROW and ROW_OFFSET by reading from EFUSE */
-	/* Hardcode ME_TOP_ROW value for S80 device */
+	/* Hardcode ME_TOP_ROW value for XCVC1902 device */
 	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), 0x00000008U);
 
 	Status = XST_SUCCESS;

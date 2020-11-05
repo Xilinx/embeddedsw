@@ -597,10 +597,10 @@ static int XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 		goto done;
 	}
 
-	/* Only needed for S80 ES1 devices */
+	/* Only needed for XCVC1902 ES1 devices */
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
-	    (PMC_TAP_IDCODE_DEV_SBFMLY_S80 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		/* Check whether given subsystem has access to the device */
 		Status = XPm_IsAccessAllowed(SubsystemId, AieDeviceId);
 		if (XST_SUCCESS != Status) {
