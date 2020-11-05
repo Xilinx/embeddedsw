@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps_sinit.c
-* @addtogroup xadcps_v2_5
+* @addtogroup xadcps_v2_6
 * @{
 *
 * This file contains the implementation of the XAdcPs driver's static
@@ -22,6 +22,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a ssb    12/22/11 First release based on the XPS/AXI XADC driver
+* 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
 *
 * </pre>
 *
@@ -65,7 +66,7 @@ XAdcPs_Config *XAdcPs_LookupConfig(u16 DeviceId)
 	XAdcPs_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index=0; Index < 1; Index++) {
+	for (Index = 0U; Index < 1U; Index++) {
 		if (XAdcPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XAdcPs_ConfigTable[Index];
 			break;

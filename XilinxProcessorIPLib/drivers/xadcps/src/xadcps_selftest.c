@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps_selftest.c
-* @addtogroup xadcps_v2_5
+* @addtogroup xadcps_v2_6
 * @{
 *
 * This file contains a diagnostic self test function for the XAdcPs driver.
@@ -25,6 +25,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a ssb    12/22/11 First release based on the XPS/AXI xadc driver
+* 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
 *
 * </pre>
 *
@@ -40,7 +41,7 @@
  * The following constant defines the test value to be written
  * to the Alarm Threshold Register
  */
-#define XADCPS_ATR_TEST_VALUE 		0x55
+#define XADCPS_ATR_TEST_VALUE 		0x55U
 
 /**************************** Type Definitions ******************************/
 
