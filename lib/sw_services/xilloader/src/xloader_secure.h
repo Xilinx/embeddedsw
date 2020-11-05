@@ -408,6 +408,10 @@ typedef enum {
 		/**< 0x25 Error in RSA EM MSB */
 	XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
 		/**< 0x26 Failed to verify DB check */
+	XLOADER_SEC_MEMSET_ERROR,
+		/**< 0x27 Error during XPlmi_MemSetBytes */
+	XLOADER_SEC_GLITCH_DETECTED_ERROR,
+		/**<0x28 Error glitch detected */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,
@@ -439,11 +443,14 @@ typedef enum {
  *                       0x82 : Incorrect authentication type selected and
  *                               error in clearing buffer
  ******************************************************************************/
-static inline u32 XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, u32 Minor2)
+static inline int XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, int Minor2)
 {
 	u32 UMinor1 = (u32)Minor1;
+	u32 UMinor2 = (u32)Minor2;
 
-	return ((UMinor1 << 8U) | Minor2);
+	UMinor1 = (UMinor1 << 8U) | UMinor2;
+
+	return (int)UMinor1;
 }
 
 /***************************** Function Prototypes ***************************/
@@ -451,14 +458,14 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum);
 int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
-u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
-u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
+int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
+int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
-u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
-	u32 NextBlkAddr, u32 ChunkLen);
+int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
+	u64 NextBlkAddr, u32 ChunkLen);
 int XLoader_AddAuthJtagToScheduler(void);
 void XLoader_SecureClear(void);
 
