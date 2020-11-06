@@ -563,6 +563,7 @@ AieRC XAie_LoadElf(XAie_DevInst *DevInst, XAie_LocType Loc, const char *ElfPtr,
 	/* Get the file size of the elf */
 	Ret = fseek(Fd, 0L, SEEK_END);
 	if(Ret != 0U) {
+		fclose(Fd);
 		XAIE_ERROR("Failed to get end of file\n");
 		return XAIE_INVALID_ELF;
 	}
@@ -574,12 +575,15 @@ AieRC XAie_LoadElf(XAie_DevInst *DevInst, XAie_LocType Loc, const char *ElfPtr,
 	/* Read entire elf file into memory */
 	ElfMem = (unsigned char*) malloc(ElfSz);
 	if(ElfMem == NULL) {
+		fclose(Fd);
 		XAIE_ERROR("Memory allocation failed\n");
 		return XAIE_ERR;
 	}
 
 	Ret = fread((void*)ElfMem, ElfSz, 1U, Fd);
 	if(Ret == 0U) {
+		fclose(Fd);
+		free(ElfMem);
 		XAIE_ERROR("Failed to read Elf into memory\n");
 		return XAIE_ERR;
 	}
