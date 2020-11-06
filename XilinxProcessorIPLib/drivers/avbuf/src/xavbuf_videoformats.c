@@ -7,7 +7,7 @@
 /**
  *
  * @file xavbuf_videoformats.c
- * @addtogroup xavbuf_v2_3
+ * @addtogroup xavbuf_v2_4
  * @{
  *
  * Contains attributes of the video formats mapped to the hardware
