@@ -53,7 +53,7 @@ extern "C" {
 #define XIS_SIZE_4K									(4096U)
 #define XIS_IMAGE_A									(0U)
 #define XIS_IMAGE_B									(1U)
-#define XIS_IDENTIFICATION_STRING					(0x004D4F53)
+#define XIS_IDENTIFICATION_STRING					(0x4D554241)
 #define XIS_IDENTIFICATION_STRING_OFFSET			(0x0U)
 #define XIS_VERSION_OFFSET							(0x4U)
 #define XIS_LENGTH_OF_REGISTERS						(0x4U)
