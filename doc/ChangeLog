@@ -754,6 +754,12 @@ Status: Pre-Production
 Added debug API
 Resolved CRAM SEU error correction bugs
 
+devcfg_v3_7:
+Updated makefile for parallel make execution
+
+avbuf_v2_4:
+Extern "C" added to header file for c++ compilatio
+
 zynqmp_fsbl:
 Added armclang support for cortexr5 fsbl
 Added support for checksum in FSBL if secure code is excluded
