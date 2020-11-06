@@ -611,4 +611,28 @@
  * 7.2 dp     04/30/20  Added clobber to mtcpsr macro.
  * 7.2 mus    05/02/20  Added unaligned exception support for 64 bit version of
  *                      microblaze processor.
+ * 7.3 mus    05/12/20  Updated bootcode in Cortex-A53 64 bit BSP, to correct CPACR_EL1
+ *                      settings
+ *     kc     06/18/20  Updated microblaze makefile to not to compile microblaze_interrupt_handler.c
+ *                      with LTO flags
+ *     dp     07/07/20  Added armclang support for Cortex-R5 BSP
+ *     mus    07/08/20  Updated standalone.tcl to fix bug in selecting TTC as sleep timer CR#1069210
+ *     mus    07/28/20  Updated exception registeration related APIs for ARM
+ *                      processors, it fixes CR#1069524
+ *     mus    08/25/20  Updated makefiles across standalone BSP, to support parallel make
+ *                      and incremental builds.
+ *     au     09/14/20  Updated standalone tcl, to remove "weak" attribute from outbyte
+ *                      for psv_pmc processor.It fixes CR#1070099
+ *     mus    09/16/20  Updated translation table for Cortex-A72, to fix the translation
+ *                      table entries for DDR regions. It fixes CR#1073099.
+ *     sa     09/10/20  Added microblaze selftest routines to microblaze BSP
+ *     mus    10/10/20  Updated IAR port for ARM processors, to fix scanf functionality.
+ *                      It fixes CR#1079543
+ *     sk     10/25/20  Updated src/common/xdebug.h to consolidate content from xdebug.h
+ *                      files in standlone driver. It fixes CR#1080080
+ *     td     10/25/20  Moved strcpy, strcat, memcmp function from XilPlmi library
+ *                      to xil_util.h
+ *     am     10/26/20  Updated src/common/xil_io.h and xil_util.h to fix issues
+ *                      reported by MISRA C and coverity tool.
+ *
  *****************************************************************************************/
