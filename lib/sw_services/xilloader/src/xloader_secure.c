@@ -3027,6 +3027,14 @@ static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 			Status);
 		goto END;
 	}
+
+	if (DpaCmCfg == XLOADER_EFUSE_SEC_DPA_DIS_MASK) {
+		DpaCmCfg = 0x0U;
+	}
+	else {
+		DpaCmCfg = 0x1U;
+	}
+
 	/* Configure DPA CM */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SetAesDpaCm,
 		&SecurePtr->AesInstance, DpaCmCfg);
@@ -3128,12 +3136,13 @@ static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 					const XLoader_AesKekInfo *KeyDetails)
 {
 	u32 Status = XLOADER_FAILURE;
-	XPuf_Data PufData;
+	XPuf_Data PufData = {0U};
 
 	XPlmi_Printf(DEBUG_INFO, "Decrypting PUF KEK\n\r");
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
+	PufData.GlobalVarFilter = TRUE;
 
 	if (KeyDetails->PufHdLocation == XLOADER_PUF_HD_BHDR) {
 		PufData.ReadOption = XPUF_READ_FROM_RAM;
