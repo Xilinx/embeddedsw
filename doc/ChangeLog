@@ -779,6 +779,16 @@ Updated makefile for parallel make execution
 avbuf_v2_4:
 Extern "C" added to header file for c++ compilatio
 
+axipcie_v3_3:
+Updated makefile for parallel make execution
+
+pciepsu_v1_2:
+Updated makefile for parallel make execution
+
+xdmapcie_v1_2:
+Updated makefile for parallel make execution
+Versal root port PL-PCIE4 bridge support
+
 zynqmp_fsbl:
 Added armclang support for cortexr5 fsbl
 Added support for checksum in FSBL if secure code is excluded
