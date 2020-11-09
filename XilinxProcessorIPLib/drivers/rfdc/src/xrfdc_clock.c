@@ -48,6 +48,10 @@
 *       cog    08/11/20 Refactor of clock distribution settings.
 *       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
 *                       consumption.
+*       cog    11/09/20 Restrict division of external clock.
+*                       PLL must be used if using ADC0, ADC3, DAC0 or DAC3 as a
+*                       clock source.
+*                       PLL must be used if distributing from DAC to ADC.
 * </pre>
 *
 ******************************************************************************/
@@ -362,6 +366,47 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 			metal_log(METAL_LOG_ERROR, "\n Sourcing from Tile that is not Distributing in %s\r\n",
 				  __func__);
 			goto RETURN_PATH;
+		}
+
+		if (*Source < XRFDC_CLK_DST_TILE_227) {
+			if ((DistributionSettingsPtr->DAC[XRFDC_CLK_DST_TILE_228 - *Source].DistributedClock ==
+			     XRFDC_DIST_OUT_OUTDIV) ||
+			    ((DistributionSettingsPtr->DAC[XRFDC_CLK_DST_TILE_228 - *Source].DistributedClock ==
+			      XRFDC_DIST_OUT_RX) &&
+			     (DistributionSettingsPtr->DAC[XRFDC_CLK_DST_TILE_228 - *Source].PLLEnable ==
+			      XRFDC_DISABLED))) {
+				if (Type == XRFDC_ADC_TILE) {
+					Status = XRFDC_FAILURE;
+					metal_log(
+						METAL_LOG_ERROR,
+						"\n Distribution full rate clock from DAC to ADC not Supported in %s\r\n",
+						__func__);
+					goto RETURN_PATH;
+				} else if ((*Source == XRFDC_CLK_DST_TILE_228) || (*Source == XRFDC_CLK_DST_TILE_231)) {
+					Status = XRFDC_FAILURE;
+					metal_log(
+						METAL_LOG_ERROR,
+						"\n Distribution full rate clock from DAC edge tiles not Supported in %s\r\n",
+						__func__);
+					goto RETURN_PATH;
+				}
+			}
+		} else {
+			if ((DistributionSettingsPtr->ADC[XRFDC_CLK_DST_TILE_224 - *Source].DistributedClock ==
+			     XRFDC_DIST_OUT_OUTDIV) ||
+			    ((DistributionSettingsPtr->ADC[XRFDC_CLK_DST_TILE_224 - *Source].DistributedClock ==
+			      XRFDC_DIST_OUT_RX) &&
+			     (DistributionSettingsPtr->ADC[XRFDC_CLK_DST_TILE_224 - *Source].PLLEnable ==
+			      XRFDC_DISABLED))) {
+				if ((*Source == XRFDC_CLK_DST_TILE_224) || (*Source == XRFDC_CLK_DST_TILE_227)) {
+					Status = XRFDC_FAILURE;
+					metal_log(
+						METAL_LOG_ERROR,
+						"\n Distribution full rate clock from ADC edge tiles not Supported in %s\r\n",
+						__func__);
+					goto RETURN_PATH;
+				}
+			}
 		}
 		if ((CurrentTile < XRFDC_CLK_DST_TILE_227) &&
 		    (*Source > XRFDC_CLK_DST_TILE_228)) { /*Cut between ADC0 MUX8 && DAC3 STH*/
@@ -1825,55 +1870,22 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	} else {
 		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 			OpDiv = PLLFreq / PLLFS;
-			if ((OpDiv == 0) || ((OpDiv > 3) && (OpDiv % 2))) {
-				metal_log(METAL_LOG_ERROR, "\n No valid output divisor available for %s %u in %s\r\n",
+			if (OpDiv != 1U) {
+				metal_log(METAL_LOG_ERROR, "\n Can't divide full rate clock for %s %u in %s\r\n",
 					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
 			}
+			PLLBypVal = XRFDC_DISABLED;
+			DivideMode = XRFDC_PLL_OUTDIV_MODE_1;
+			DivideValue = XRFDC_DISABLED;
 
-			switch (OpDiv) {
-			case 1U:
-				/*This is a special case where we want to totally bypass the entire block.
-				  This means we set NO register vlaues*/
-				PLLBypVal = XRFDC_DISABLED;
-				DivideMode = XRFDC_PLL_OUTDIV_MODE_1;
-				DivideValue = XRFDC_DISABLED;
-				break;
-			case 2U:
-				PLLBypVal = XRFDC_PLL_DIVIDER0_BYP_PLL_MASK;
-				DivideMode = XRFDC_PLL_OUTDIV_MODE_2;
-				DivideValue = XRFDC_DISABLED;
-				break;
-			case 3U:
-				PLLBypVal = XRFDC_PLL_DIVIDER0_BYP_PLL_MASK;
-				DivideMode = XRFDC_PLL_OUTDIV_MODE_3;
-				DivideValue = XRFDC_PLL_OUTDIV_MODE_3_VAL;
-				break;
-			default:
-				PLLBypVal = XRFDC_PLL_DIVIDER0_BYP_PLL_MASK;
-				DivideMode = XRFDC_PLL_OUTDIV_MODE_N;
-				DivideValue = ((OpDiv - 4U) >> 1);
-				break;
-			}
-
-			if (OpDiv == 1) {
-				if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
-					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
-							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC);
-				} else {
-					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
-							 XRFDC_HSCOM_PWR_STATS_DIST_EXT);
-				}
-
+			if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+						 XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC);
 			} else {
-				if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
-					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
-							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC);
-				} else {
-					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
-							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV);
-				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+						 XRFDC_HSCOM_PWR_STATS_DIST_EXT);
 			}
 			XRFdc_ClrSetReg(InstancePtr, XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR,
 					XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_MASK,
