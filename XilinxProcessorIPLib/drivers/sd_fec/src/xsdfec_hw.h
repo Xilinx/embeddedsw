@@ -127,9 +127,9 @@
 /**
  * LDPC_CODE_REG0 register
  */
-#define XSDFEC_LDPC_CODE_REG0_ADDR_BASE 0x02000 // Resgiter base address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG0_ADDR_HIGH 0x021fc // Resgiter upper address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG0_DEPTH         508 // Register depth
+#define XSDFEC_LDPC_CODE_REG0_ADDR_BASE 0x02000 // Register base address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG0_ADDR_HIGH 0x027f0 // Register upper address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG0_DEPTH         128 // Register word depth
 #define XSDFEC_LDPC_CODE_REG0_STEP           16
 #define XSDFEC_LDPC_CODE_REG0_N_LSB           0 // LSB for LDPC_CODE_REG0_N field
 #define XSDFEC_LDPC_CODE_REG0_N_MASK 0x0000ffff // Bit mask for LDPC_CODE_REG0_N field
@@ -138,9 +138,9 @@
 /**
  * LDPC_CODE_REG1 register
  */
-#define XSDFEC_LDPC_CODE_REG1_ADDR_BASE 0x02004 // Resgiter base address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG1_ADDR_HIGH 0x02200 // Resgiter upper address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG1_DEPTH         508 // Register depth
+#define XSDFEC_LDPC_CODE_REG1_ADDR_BASE 0x02004 // Register base address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG1_ADDR_HIGH 0x027f4 // Register upper address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG1_DEPTH         128 // Register word depth
 #define XSDFEC_LDPC_CODE_REG1_STEP           16
 #define XSDFEC_LDPC_CODE_REG1_PSIZE_LSB           0 // LSB for LDPC_CODE_REG1_PSIZE field
 #define XSDFEC_LDPC_CODE_REG1_PSIZE_MASK 0x000003ff // Bit mask for LDPC_CODE_REG1_PSIZE field
@@ -151,9 +151,9 @@
 /**
  * LDPC_CODE_REG2 register
  */
-#define XSDFEC_LDPC_CODE_REG2_ADDR_BASE 0x02008 // Resgiter base address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG2_ADDR_HIGH 0x02204 // Resgiter upper address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG2_DEPTH         508 // Register depth
+#define XSDFEC_LDPC_CODE_REG2_ADDR_BASE 0x02008 // Register base address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG2_ADDR_HIGH 0x027f8 // Register upper address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG2_DEPTH         128 // Register word depth
 #define XSDFEC_LDPC_CODE_REG2_STEP           16
 #define XSDFEC_LDPC_CODE_REG2_NLAYERS_LSB           0 // LSB for LDPC_CODE_REG2_NLAYERS field
 #define XSDFEC_LDPC_CODE_REG2_NLAYERS_MASK 0x000001ff // Bit mask for LDPC_CODE_REG2_NLAYERS field
@@ -170,9 +170,9 @@
 /**
  * LDPC_CODE_REG3 register
  */
-#define XSDFEC_LDPC_CODE_REG3_ADDR_BASE 0x0200c // Resgiter base address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG3_ADDR_HIGH 0x02208 // Resgiter upper address relative to BaseAddress
-#define XSDFEC_LDPC_CODE_REG3_DEPTH         508 // Register depth
+#define XSDFEC_LDPC_CODE_REG3_ADDR_BASE 0x0200c // Register base address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG3_ADDR_HIGH 0x027fc // Register upper address relative to BaseAddress
+#define XSDFEC_LDPC_CODE_REG3_DEPTH         128 // Register word depth
 #define XSDFEC_LDPC_CODE_REG3_STEP           16
 #define XSDFEC_LDPC_CODE_REG3_SC_OFF_LSB           0 // LSB for LDPC_CODE_REG3_SC_OFF field
 #define XSDFEC_LDPC_CODE_REG3_SC_OFF_MASK 0x000000ff // Bit mask for LDPC_CODE_REG3_SC_OFF field
@@ -183,9 +183,10 @@
 /**
  * LDPC_SC_TABLE register
  */
-#define XSDFEC_LDPC_SC_TABLE_ADDR_BASE 0x10000 // Resgiter base address relative to BaseAddress
-#define XSDFEC_LDPC_SC_TABLE_ADDR_HIGH 0x10100 // Resgiter upper address relative to BaseAddress
-#define XSDFEC_LDPC_SC_TABLE_DEPTH         256 // Register depth
+#define XSDFEC_LDPC_SC_TABLE_ADDR_BASE 0x10000 // Register base address relative to BaseAddress
+#define XSDFEC_LDPC_SC_TABLE_ADDR_HIGH 0x103fc // Register upper address relative to BaseAddress
+#define XSDFEC_LDPC_SC_TABLE_DEPTH         256 // Register word depth
+#define XSDFEC_LDPC_SC_TABLE_STEP            4
 #define XSDFEC_LDPC_SC_TABLE_SCALE_0_LSB           0 // LSB for LDPC_SC_TABLE_SCALE_0 field
 #define XSDFEC_LDPC_SC_TABLE_SCALE_0_MASK 0x0000000f // Bit mask for LDPC_SC_TABLE_SCALE_0 field
 #define XSDFEC_LDPC_SC_TABLE_SCALE_1_LSB           4 // LSB for LDPC_SC_TABLE_SCALE_1 field
@@ -197,9 +198,10 @@
 /**
  * LDPC_LA_TABLE register
  */
-#define XSDFEC_LDPC_LA_TABLE_ADDR_BASE 0x18000 // Resgiter base address relative to BaseAddress
-#define XSDFEC_LDPC_LA_TABLE_ADDR_HIGH 0x18400 // Resgiter upper address relative to BaseAddress
-#define XSDFEC_LDPC_LA_TABLE_DEPTH        1024 // Register depth
+#define XSDFEC_LDPC_LA_TABLE_ADDR_BASE 0x18000 // Register base address relative to BaseAddress
+#define XSDFEC_LDPC_LA_TABLE_ADDR_HIGH 0x18ffc // Register upper address relative to BaseAddress
+#define XSDFEC_LDPC_LA_TABLE_DEPTH        1024 // Register word depth
+#define XSDFEC_LDPC_LA_TABLE_STEP            4
 #define XSDFEC_LDPC_LA_TABLE_CPLD_LSB           0 // LSB for LDPC_LA_TABLE_CPLD field
 #define XSDFEC_LDPC_LA_TABLE_CPLD_MASK 0x0000007f // Bit mask for LDPC_LA_TABLE_CPLD field
 #define XSDFEC_LDPC_LA_TABLE_ACCUM_LSB           7 // LSB for LDPC_LA_TABLE_ACCUM field
@@ -209,9 +211,10 @@
 /**
  * LDPC_QC_TABLE register
  */
-#define XSDFEC_LDPC_QC_TABLE_ADDR_BASE 0x20000 // Resgiter base address relative to BaseAddress
-#define XSDFEC_LDPC_QC_TABLE_ADDR_HIGH 0x22000 // Resgiter upper address relative to BaseAddress
-#define XSDFEC_LDPC_QC_TABLE_DEPTH        8192 // Register depth
+#define XSDFEC_LDPC_QC_TABLE_ADDR_BASE 0x20000 // Register base address relative to BaseAddress
+#define XSDFEC_LDPC_QC_TABLE_ADDR_HIGH 0x27ffc // Register upper address relative to BaseAddress
+#define XSDFEC_LDPC_QC_TABLE_DEPTH        8192 // Register word depth
+#define XSDFEC_LDPC_QC_TABLE_STEP            4
 #define XSDFEC_LDPC_QC_TABLE_COLUMN_LSB           0 // LSB for LDPC_QC_TABLE_COLUMN field
 #define XSDFEC_LDPC_QC_TABLE_COLUMN_MASK 0x000000ff // Bit mask for LDPC_QC_TABLE_COLUMN field
 #define XSDFEC_LDPC_QC_TABLE_ROTATION_LSB           8 // LSB for LDPC_QC_TABLE_ROTATION field
