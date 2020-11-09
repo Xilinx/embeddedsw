@@ -789,6 +789,23 @@ xdmapcie_v1_2:
 Updated makefile for parallel make execution
 Versal root port PL-PCIE4 bridge support
 
+cframe_v1_2:
+Updated makefile for parallel make execution
+
+cfupmc_v1_2:
+Updated makefile for parallel make execution
+
+sysmon_v7_7:
+Updated makefile for parallel make execution and incremental build support.
+Corrected Macros according to documentation
+
+sysmonpsu_v2_7:
+Updated makefile for parallel make execution and incremental build support.
+Fixed MISRAC mandatory and Advisory issues.
+
+xadcps_v2_5:
+Updated makefile for parallel make execution
+
 zynqmp_fsbl:
 Added armclang support for cortexr5 fsbl
 Added support for checksum in FSBL if secure code is excluded
