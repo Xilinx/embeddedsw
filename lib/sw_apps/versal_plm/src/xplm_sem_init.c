@@ -22,6 +22,7 @@
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
 *       hb   10/29/2020 Updated OwnerId for NPI scan scheduler
+* 1.02  rb   10/30/2020 Updated XilSEM Init API
 *
 * </pre>
 *
@@ -61,32 +62,10 @@
 int XPlm_SemInit(void *Arg)
 {
 	int Status = XST_FAILURE;
-
 	(void)Arg;
-#ifdef XSEM_CFRSCAN_EN
-	Status = XSem_CfrInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
 
-#ifdef XSEM_NPISCAN_EN
-	Status = XSem_NpiInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	} else {
-		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_SEM_ID,
-				XSem_NpiRunScan, 100U, XPLM_TASK_PRIORITY_0);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-#endif
-	Status = XST_SUCCESS;
+	Status = XSem_Init();
 
-#if defined(XSEM_CFRSCAN_EN) || defined(XSEM_NPISCAN_EN)
-END:
-#endif
 	return Status;
 }
 #endif
