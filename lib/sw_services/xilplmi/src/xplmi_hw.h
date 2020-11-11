@@ -323,8 +323,33 @@ static inline void XPlmi_Out32(UINTPTR Addr, u32 Value)
 	Xil_Out32(Addr, Value);
 }
 
-#define XPlmi_In64(Addr)		lwea(Addr)
-#define XPlmi_InByte64(Addr)	lbuea(Addr)
+/*****************************************************************************/
+/**
+ * @brief        This function reads a 64-bit register
+ *
+ * @param        Addr is the address of the register
+ *
+ * @return       32-bit value from 64-bit register
+ *
+ ******************************************************************************/
+static inline u32 XPlmi_In64(u64 Addr)
+{
+	return lwea(Addr);
+}
+
+/*****************************************************************************/
+/**
+ * @brief        This function reads an 8-bit value from a 64-bit register
+ *
+ * @param        Addr is the address of the register
+ *
+ * @return       8-bit value from 64-bit register
+ *
+ ******************************************************************************/
+static inline u8 XPlmi_InByte64(u64 Addr)
+{
+	return (u8)lbuea(Addr);
+}
 
 /*****************************************************************************/
 /**
@@ -342,8 +367,35 @@ static inline void XPlmi_PpuWakeUpDis(void)
 		(~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK));
 }
 
-#define XPlmi_Out64(Addr, Data)		swea(Addr, Data)
-#define XPlmi_OutByte64(Addr, Data)	sbea(Addr, Data)
+/*****************************************************************************/
+/**
+ * @brief	This function writes 32-bit value to 64-bit register
+ *
+ * @param	Addr is the address of the register
+ * @param	Value is the value to store in register
+ *
+ * @return	None
+ *
+******************************************************************************/
+static inline void XPlmi_Out64(u64 Addr, u32 Data)
+{
+	swea(Addr, Data);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function writes 8-bit value to 64-bit register
+ *
+ * @param	Addr is the address of the register
+ * @param	Value is the value to store in register
+ *
+ * @return	None
+ *
+******************************************************************************/
+static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
+{
+	sbea(Addr, Data);
+}
 
 /*
  * Register: PMC Global PLM Error
