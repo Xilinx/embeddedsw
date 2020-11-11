@@ -47,9 +47,6 @@
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-/* Instance of SysMon Driver */
-static XSysMonPsv SysMonInst;
-static XSysMonPsv *SysMonInstPtr = &SysMonInst;
 
 /*****************************************************************************/
 /**
@@ -63,6 +60,9 @@ static XSysMonPsv *SysMonInstPtr = &SysMonInst;
 int XPlmi_SysMonInit(void)
 {
 	int Status = XST_FAILURE;
+	/* Instance of SysMon Driver */
+	static XSysMonPsv SysMonInst;
+	static XSysMonPsv *SysMonInstPtr = &SysMonInst;
 	XSysMonPsv_Config *ConfigPtr;
 
 	ConfigPtr = XSysMonPsv_LookupConfig();

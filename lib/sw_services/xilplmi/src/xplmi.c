@@ -76,21 +76,6 @@ END:
 	return Status;
 }
 
-/*
- * It contains all the PS LPD init functions to be run for every module that
- * is present as a part of PLM.
- */
-static const XPlmiInit LpdInitList[] = {
-#ifdef DEBUG_UART_PS
-	XPlmi_InitUart,
-#endif
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	XPlmi_IpiInit,
-#endif
-	XPlmi_SysMonInit,
-	XPlmi_PsEmInit,
-};
-
 /*****************************************************************************/
 /**
  * @brief	This function initializes the Runtime Configuration Area with
@@ -129,6 +114,20 @@ void XPlmi_LpdInit(void)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
+	/*
+	 * It contains all the PS LPD init functions to be run for every module that
+	 * is present as a part of PLM.
+	 */
+	const XPlmi_InitHandler LpdInitList[] = {
+#ifdef DEBUG_UART_PS
+		XPlmi_InitUart,
+#endif
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+		XPlmi_IpiInit,
+#endif
+		XPlmi_SysMonInit,
+		XPlmi_PsEmInit,
+	};
 
 	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(LpdInitList); Index++) {
 		Status = LpdInitList[Index]();
