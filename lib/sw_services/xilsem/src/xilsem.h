@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rm   09/22/2019 Initial release
+* 1.01  rb   10/30/2020 Added XSem_Init declaration
 *
 * </pre>
 *
@@ -45,7 +46,7 @@ int XSem_NpiInit(void);
 int XSem_NpiRunScan();
 int XSem_CfrStopScan(void);
 int XSem_CfrStartScan(void);
-
+int XSem_Init(void);
 
 #ifdef __cplusplus
 }
