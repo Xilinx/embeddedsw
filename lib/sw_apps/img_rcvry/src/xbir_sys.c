@@ -124,8 +124,7 @@ int Xbir_SysInit (void)
 	Status = Xbir_SysReadSysInfoFromEeprom (&SysBoardHeaderInfo, &SysBoardBoardInfo,
 			&CCHeaderInfo, &CCBoardInfo);
 	if (Status != XST_SUCCESS) {
-		Status = XST_SUCCESS;
-		//goto END;
+		goto END;
 	}
 
 	Xbir_SysReadAndCorrectBootImgInfo();
