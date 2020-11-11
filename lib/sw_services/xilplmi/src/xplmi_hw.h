@@ -493,8 +493,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XLOADER_SD_0
 #endif
 
-#if (!defined(PLM_SD_EXCLUDE) && (XPAR_XSDPS_0_BASEADDR == 0xF1050000U) ||\
-			(XPAR_XSDPS_1_BASEADDR == 0xF1050000U))
+#if ((!defined(PLM_SD_EXCLUDE)) && ((XPAR_XSDPS_0_BASEADDR == 0xF1050000U) ||\
+			(XPAR_XSDPS_1_BASEADDR == 0xF1050000U)))
 #define XLOADER_SD_1
 #endif
 
