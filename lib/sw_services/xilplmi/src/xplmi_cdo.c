@@ -384,7 +384,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 				 "CMD Payload");
 		goto END;
 	}
-	if(CmdPtr->Len == CmdPtr->PayloadLen - 1U) {
+	if(CmdPtr->Len == (CmdPtr->PayloadLen - 1U)) {
 		CdoPtr->ProcessedCdoLen +=  CdoPtr->Cmd.KeyHoleParams.ExtraWords;
 		CmdPtr->PayloadLen = CmdPtr->Len;
 		CdoPtr->CmdState = XPLMI_CMD_STATE_START;
