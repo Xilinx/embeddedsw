@@ -42,14 +42,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XPLMI_SCHED_MAX_TASK		(10U)
 
-/* Values for TaskPtr->Status */
-#define XPLMI_TASK_STATUS_TRIGGERED	(0x5AFEC0C0)
-#define XPLMI_TASK_STATUS_DISABLED	(0x00000000)
-
 #define PMC_PMC_MB_IO_IRQ_ACK			(0xF028003CU)
-#define PMC_PMC_MB_IO_IRQ_ACK_SHIFT		(0x5U)
-#define PMC_PMC_MB_IO_IRQ_ACK_WIDTH		(0x1U)
-#define PMC_PMC_MB_IO_IRQ_ACK_MASK		(0X0000020U)
 
 typedef int (*XPlmi_Callback_t)(void *Data);
 

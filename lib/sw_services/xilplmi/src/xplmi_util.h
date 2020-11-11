@@ -54,13 +54,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_ARRAY_SIZE(x)	(u32)(sizeof(x) / sizeof(x[0U]))
 #define MASK_ALL	(0XFFFFFFFFU)
-#define ENABLE_ALL	(0XFFFFFFFFU)
-#define ALL_HIGH	(0XFFFFFFFFU)
-#define FLAG_ALL	(0XFFFFFFFFU)
 #define MASK32_ALL_HIGH	(0xFFFFFFFFU)
-#define MASK32_ALL_LOW	(0x0U)
-#define XPLMI_ACCESS_ALLOWED	(0x01U)
-#define XPLMI_ACCESS_DENIED		(0x00U)
 #define XPLMI_TIME_OUT_DEFAULT	(0x10000000U)
 #define XPLMI_WORD_LEN			(4U)
 
