@@ -156,6 +156,6 @@ void outbyte(char8 c)
 		DebugLog.LogBuffer.IsBufferFull = (u8)TRUE;
 	}
 
-	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, c);
+	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, (u8)c);
 	++DebugLog.LogBuffer.CurrentAddr;
 }
