@@ -103,12 +103,12 @@ static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 
 	Cmd->CmdId = Buf[0U];
 	Cmd->Len = (Cmd->CmdId >> XPLMI_SHORT_CMD_LEN_SHIFT) & XPLMI_MAX_SHORT_CMD_LEN;
-	Cmd->Payload = Buf + 1U;
+	Cmd->Payload = &Buf[1U];
 	Cmd->ProcessedLen = 0U;
 	if (Cmd->Len == XPLMI_MAX_SHORT_CMD_LEN) {
 		HdrLen = XPLMI_LONG_CMD_HDR_LEN;
 		Cmd->Len = Buf[1U];
-		Cmd->Payload = Buf + XPLMI_LONG_CMD_HDR_LEN;
+		Cmd->Payload = &Buf[XPLMI_LONG_CMD_HDR_LEN];
 	}
 
 	/* Assign the available payloadlen in the buffer */
@@ -240,7 +240,7 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 *Size)
 	 * command size is greater than copied length
 	 */
 	if (*Size > CdoPtr->CopiedCmdLen) {
-		Status = Xil_SecureMemCpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen,
+		Status = Xil_SecureMemCpy(&(CdoPtr->TempCmdBuf[CdoPtr->CopiedCmdLen]),
 			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN, BufPtr,
 			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN);
 		if (Status != XST_SUCCESS) {
@@ -425,7 +425,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->Cdo1stChunk = (u8)FALSE;
 		CdoPtr->CdoLen = BufPtr[3U];
 
-		BufPtr += XPLMI_CDO_HDR_LEN;
+		BufPtr = &BufPtr[XPLMI_CDO_HDR_LEN];
 		BufLen -= XPLMI_CDO_HDR_LEN;
 		CdoPtr->BufLen -= XPLMI_CDO_HDR_LEN;
 	}
@@ -487,11 +487,11 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 
 		/* Update the parameters for next iteration */
 		if (CopiedCmdLen != 0U) {
-			BufPtr = CdoPtr->BufPtr + (Size - CopiedCmdLen);
+			BufPtr = &(CdoPtr->BufPtr[Size - CopiedCmdLen]);
 			BufLen = CdoPtr->BufLen - (Size - CopiedCmdLen);
 			CopiedCmdLen = 0U;
 		} else {
-			BufPtr += Size;
+			BufPtr = &BufPtr[Size];
 			BufLen -= Size;
 		}
 	}
