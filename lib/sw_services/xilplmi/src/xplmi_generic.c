@@ -934,7 +934,7 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
 	u32 Keyholesize;
 	u32 ChunkLen;
 	u32 Count;
-	u32* CfiDataPtr;
+	const u32* CfiDataPtr;
 	u64 BaseAddr;
 	u32 DestOffset;
 	u32 ChunkLenTemp = 0U;
@@ -1060,7 +1060,7 @@ END:
  * @return	BoardName
  *
  *****************************************************************************/
-static u8* XPlmi_BoardNameRW(XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
+static u8* XPlmi_BoardNameRW(const XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 {
 	int Status = XST_FAILURE;
 	static u8 BoardName[XPLMI_MAX_NAME_LEN + 1U] = {0U,};
@@ -1262,7 +1262,7 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
 {
 	int Status = XST_FAILURE;
-	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
+	const XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 
 	Status = Xil_SecureMemCpy(ReadBackVal, sizeof(XPlmi_ReadBackProps),
 			ReadBackPtr, sizeof(XPlmi_ReadBackProps));
@@ -1280,7 +1280,7 @@ int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
  * @return	None
  *
  *****************************************************************************/
-int XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
+int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack)
 {
 	int Status = XST_FAILURE;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();

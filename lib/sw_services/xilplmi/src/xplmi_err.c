@@ -1196,7 +1196,7 @@ static void XPlmi_SysmonClkSetIro(void) {
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_SetEmSubsystemId(u32 *Id)
+void XPlmi_SetEmSubsystemId(const u32 *Id)
 {
 	EmSubsystemId = *Id;
 }

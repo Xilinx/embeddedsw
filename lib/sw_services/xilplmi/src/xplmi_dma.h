@@ -88,7 +88,7 @@ int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags);
 int XPlmi_WaitForNonBlkDma(u32 DmaFlags);
 void XPlmi_SetMaxOutCmds(u8 Val);
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
-int XPlmi_MemSetBytes(void * DestPtr, u32 DestLen, u8 Val, u32 Len);
+int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len);
 
 #ifdef __cplusplus
 }

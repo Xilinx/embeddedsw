@@ -68,7 +68,7 @@
  * @return	Size of the command
  *
  *****************************************************************************/
-static u32 XPlmi_CmdSize(u32 *Buf, u32 Len)
+static u32 XPlmi_CmdSize(const u32 *Buf, u32 Len)
 {
 	u32 Size = 1U;
 	if (Len >= Size) {
@@ -128,11 +128,11 @@ static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
+static int XPlmi_CdoVerifyHeader(const XPlmiCdo *CdoPtr)
 {
 	int Status = XST_FAILURE;
 	u32 CheckSum = 0U;
-	u32 *CdoHdr = CdoPtr->BufPtr;
+	const u32 *CdoHdr = CdoPtr->BufPtr;
 	u32 Index;
 
 	if (CdoHdr[1U] != XPLMI_CDO_HDR_IDN_WRD) {
@@ -212,7 +212,7 @@ END:
  * @return	XST_SUCCESS
  *
  *****************************************************************************/
-static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 *Size)
+static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, const u32 *BufPtr, u32 *Size)
 {
 	int Status = XST_FAILURE;
 

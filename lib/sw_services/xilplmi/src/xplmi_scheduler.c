@@ -43,7 +43,7 @@
 #define XPLMI_SCHED_TICK	(10U)
 
 /************************** Function Prototypes ******************************/
-static u8 XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr,
+static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 	u32 TaskListIndex);
 
 /************************** Variable Definitions *****************************/
@@ -92,7 +92,7 @@ static u8 XPlmi_IsTaskActive(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 * @return	TRUE or FALSE based on the task peridocity status
 *
 ****************************************************************************/
-static u8 XPlmi_IsTaskNonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
+static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 {
 	u8 ReturnVal = (u8)FALSE;
 

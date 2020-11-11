@@ -130,7 +130,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
-void XPlmi_SetEmSubsystemId(u32 *Id);
+void XPlmi_SetEmSubsystemId(const u32 *Id);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);

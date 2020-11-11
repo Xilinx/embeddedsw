@@ -834,7 +834,7 @@ void XPlmi_SetMaxOutCmds(u8 Val)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_MemSetBytes(void * DestPtr, u32 DestLen, u8 Val, u32 Len)
+int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr = (u64)(u32)DestPtr;

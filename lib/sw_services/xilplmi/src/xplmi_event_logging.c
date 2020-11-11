@@ -107,7 +107,7 @@ static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
  * @return	None
  *
  *****************************************************************************/
-static int XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr)
+static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer, u64 DestAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Len;

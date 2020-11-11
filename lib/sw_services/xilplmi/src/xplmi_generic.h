@@ -99,7 +99,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
-int XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack);
+int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack);
 
 /************************** Variable Definitions *****************************/
 
