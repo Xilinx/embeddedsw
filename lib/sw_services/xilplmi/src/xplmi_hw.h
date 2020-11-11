@@ -592,7 +592,6 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 #define XPLMI_SBI_CTRL_INTERFACE_SMAP			(0x0U)
 #define XPLMI_SBI_CTRL_INTERFACE_JTAG			(0x4U)
-#define XPLMI_SBI_CTRL_ENABLE					(0x1U)
 
 /*
  * Definitions required from psm_gloabl_reg

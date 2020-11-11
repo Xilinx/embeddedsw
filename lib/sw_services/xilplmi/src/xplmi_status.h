@@ -81,10 +81,6 @@ extern "C" {
  * YYYY - Minor error code - Libraries / Drivers error code
  *		as defined in respective modules
  */
-#define XPLMI_CORRECTABLE_ERROR_MASK			(1U << 31U)
-#define XPLMI_UNCORRECTABLE_ERROR_MASK			(1U << 30U)
-
-#define XPLMI_STATUS_MASK				(0xFFFF0000U)
 #define XPLMI_STATUS_MODULE_MASK			(0xFFFFU)
 #define XPLMI_ERR_CDO_CMD_MASK				(0x1FFFU)
 #define XPLMI_STATUS_SHIFT				(16U)
