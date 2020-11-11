@@ -57,6 +57,7 @@ static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 			XInterruptHandler Handler, void *Data);
 static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XPlmi_IntrHandler(void *CallbackRef);
+static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime);
 
 /************************** Variable Definitions *****************************/
 static u32 PmcIroFreq; /* Frequency of the PMC IRO */
@@ -153,7 +154,7 @@ u64 XPlmi_GetTimerValue(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
+static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
 {
 	u64 PerfNs;
 	u64 TDiff = TCur - TStart;
