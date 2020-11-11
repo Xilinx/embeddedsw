@@ -46,7 +46,6 @@ static void XPlmi_TaskDelete(XPlmi_TaskNode *Task);
 
 /************************** Variable Definitions *****************************/
 static struct metal_list TaskQueue[XPLMI_TASK_PRIORITIES];
-static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
 
 /*****************************************************************************/
 
@@ -65,6 +64,7 @@ static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
 XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 	int (*Handler)(void *Arg), void *PrivData)
 {
+	static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
 	XPlmi_TaskNode *Task = NULL;
 	u32 Index;
 

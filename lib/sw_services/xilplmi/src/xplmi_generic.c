@@ -1181,37 +1181,6 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
  * @{
  * @cond xplmi_internal
  */
-/*****************************************************************************/
-/**
- * @brief	Contains the array of PLM generic commands
- *
- *****************************************************************************/
-static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
-{
-	XPLMI_MODULE_COMMAND(XPlmi_Features),
-	XPLMI_MODULE_COMMAND(XPlmi_MaskPoll),
-	XPLMI_MODULE_COMMAND(XPlmi_MaskWrite),
-	XPLMI_MODULE_COMMAND(XPlmi_Write),
-	XPLMI_MODULE_COMMAND(XPlmi_Delay),
-	XPLMI_MODULE_COMMAND(XPlmi_DmaWrite),
-	XPLMI_MODULE_COMMAND(XPlmi_MaskPoll64),
-	XPLMI_MODULE_COMMAND(XPlmi_MaskWrite64),
-	XPLMI_MODULE_COMMAND(XPlmi_Write64),
-	XPLMI_MODULE_COMMAND(XPlmi_DmaXfer),
-	XPLMI_MODULE_COMMAND(XPlmi_InitSeq),
-	XPLMI_MODULE_COMMAND(XPlmi_CfiRead),
-	XPLMI_MODULE_COMMAND(XPlmi_Set),
-	XPLMI_MODULE_COMMAND(XPlmi_DmaWriteKeyHole),
-	XPLMI_MODULE_COMMAND(XPlmi_SsitSyncMaster),
-	XPLMI_MODULE_COMMAND(XPlmi_SsitSyncSlaves),
-	XPLMI_MODULE_COMMAND(XPlmi_SsitWaitSlaves),
-	XPLMI_MODULE_COMMAND(XPlmi_Nop),
-	XPLMI_MODULE_COMMAND(XPlmi_GetDeviceID),
-	XPLMI_MODULE_COMMAND(XPlmi_EventLogging),
-	XPLMI_MODULE_COMMAND(XPlmi_SetBoard),
-	XPLMI_MODULE_COMMAND(XPlmi_GetBoard),
-	XPLMI_MODULE_COMMAND(XPlmi_SetWdtParam),
-};
 
 /*****************************************************************************/
 /**
@@ -1224,6 +1193,34 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
  *****************************************************************************/
 void XPlmi_GenericInit(void)
 {
+	/* Contains the array of PLM generic commands */
+	static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
+	{
+		XPLMI_MODULE_COMMAND(XPlmi_Features),
+		XPLMI_MODULE_COMMAND(XPlmi_MaskPoll),
+		XPLMI_MODULE_COMMAND(XPlmi_MaskWrite),
+		XPLMI_MODULE_COMMAND(XPlmi_Write),
+		XPLMI_MODULE_COMMAND(XPlmi_Delay),
+		XPLMI_MODULE_COMMAND(XPlmi_DmaWrite),
+		XPLMI_MODULE_COMMAND(XPlmi_MaskPoll64),
+		XPLMI_MODULE_COMMAND(XPlmi_MaskWrite64),
+		XPLMI_MODULE_COMMAND(XPlmi_Write64),
+		XPLMI_MODULE_COMMAND(XPlmi_DmaXfer),
+		XPLMI_MODULE_COMMAND(XPlmi_InitSeq),
+		XPLMI_MODULE_COMMAND(XPlmi_CfiRead),
+		XPLMI_MODULE_COMMAND(XPlmi_Set),
+		XPLMI_MODULE_COMMAND(XPlmi_DmaWriteKeyHole),
+		XPLMI_MODULE_COMMAND(XPlmi_SsitSyncMaster),
+		XPLMI_MODULE_COMMAND(XPlmi_SsitSyncSlaves),
+		XPLMI_MODULE_COMMAND(XPlmi_SsitWaitSlaves),
+		XPLMI_MODULE_COMMAND(XPlmi_Nop),
+		XPLMI_MODULE_COMMAND(XPlmi_GetDeviceID),
+		XPLMI_MODULE_COMMAND(XPlmi_EventLogging),
+		XPLMI_MODULE_COMMAND(XPlmi_SetBoard),
+		XPLMI_MODULE_COMMAND(XPlmi_GetBoard),
+		XPLMI_MODULE_COMMAND(XPlmi_SetWdtParam),
+	};
+
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;
 	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
 	XPlmi_Generic.CmdCnt = XPLMI_ARRAY_SIZE(XPlmi_GenericCmds);
