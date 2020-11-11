@@ -45,17 +45,17 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /* Circular buffer Structure */
-typedef struct XPlmi_CircularBuffer {
+typedef struct {
 	u64 StartAddr;
 	u64 CurrentAddr;
 	u32 Len;
 	u8 IsBufferFull;
-}XPlmi_CircularBuffer;
+} XPlmi_CircularBuffer;
 
-typedef struct XPlmi_LogInfo {
+typedef struct {
 	XPlmi_CircularBuffer LogBuffer;
 	u8 LogLevel;
-}XPlmi_LogInfo;
+} XPlmi_LogInfo;
 
 
 /************************** Function Prototypes ******************************/

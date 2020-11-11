@@ -107,10 +107,10 @@ enum {
 /*
  * Performance measurement structure
  */
-typedef struct XPlmi_PerfTime {
+typedef struct {
 	u64 TPerfMs;
 	u64 TPerfMsFrac;
-}XPlmi_PerfTime;
+} XPlmi_PerfTime;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
