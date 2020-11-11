@@ -38,7 +38,7 @@
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_EVENT_ERROR_PMC_ERR2	(0x28104000U)
-#define	XPLMI_NODEIDX_ERROR_PMCAPB	(32U)
+#define	XSECURE_NODEIDX_ERROR_PMCAPB	(32U)
 #define XSECURE_TAMPER_INT_MASK		(8U)
 #define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200U)
 #define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000U)
@@ -93,7 +93,7 @@ static int XSecure_RegisterTampIntHandler(void)
 	 * Register handler
 	 */
 	Status = XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-				   XPLMI_NODEIDX_ERROR_PMCAPB,
+				   XSECURE_NODEIDX_ERROR_PMCAPB,
 				   XPLMI_EM_ACTION_CUSTOM,
 				   XSecure_TamperInterruptHandler);
 	if(Status != XST_SUCCESS) {
@@ -138,7 +138,7 @@ void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
 	 * calls the handler. So it is necessary to re-enable the interrupt
 	 */
 	(void)XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-				XPLMI_NODEIDX_ERROR_PMCAPB,
+				XSECURE_NODEIDX_ERROR_PMCAPB,
 				XPLMI_EM_ACTION_CUSTOM,
 				XSecure_TamperInterruptHandler);
 }
