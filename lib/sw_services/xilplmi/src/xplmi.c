@@ -42,7 +42,7 @@
 
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
-typedef int (*XPlmiInit)(void);
+typedef int (*XPlmi_InitHandler)(void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -60,7 +60,7 @@ u8 LpdInitialized = (u8)0U;
 * @return   None.
 *
 ****************************************************************************/
-int XPlmi_Init(void )
+int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
 
