@@ -111,7 +111,6 @@ extern "C" {
 int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
 void XPlmi_ResetLpdInitialized(void);
-void XPlmi_RunTimeConfigInit(void);
 void XPlmi_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/

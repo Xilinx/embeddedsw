@@ -56,7 +56,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
+static s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask);
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask);

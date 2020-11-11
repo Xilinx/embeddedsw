@@ -114,7 +114,6 @@ int XPlmi_PlmIntrClear(u32 IntrId);
 int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_PrintRomTime(void);
 void XPlmi_PrintPlmTimeStamp(void);
-void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime);
 
 /* Handler Table Structure */
 struct HandlerTable {

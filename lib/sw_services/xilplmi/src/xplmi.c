@@ -47,6 +47,7 @@ typedef int (*XPlmi_InitHandler)(void);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XPlmi_RunTimeConfigInit(void);
 
 /************************** Variable Definitions *****************************/
 u8 LpdInitialized = (u8)0U;
@@ -100,7 +101,7 @@ static const XPlmiInit LpdInitList[] = {
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_RunTimeConfigInit(void)
+static void XPlmi_RunTimeConfigInit(void)
 {
 	XPlmi_Out32(XPLMI_RTCFG_RTCA_ADDR, XPLMI_RTCFG_IDENTIFICATION);
 	XPlmi_Out32(XPLMI_RTCFG_VERSION_ADDR, XPLMI_RTCFG_VER);

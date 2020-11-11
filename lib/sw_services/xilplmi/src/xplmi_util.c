@@ -75,34 +75,6 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
 
 /*****************************************************************************/
 /**
- * @brief	This function will Read, Modify and Write to a register and then
- * read back to validate if the value read is the same as the expected value.
- *
- * @param	RegAddr is the address of the register
- * @param	Mask denotes the bits to be modified
- * @param	Value is the value to be written to the register
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value)
-{
-	int Status = XST_FAILURE;
-	u32 Val;
-
-	Val = XPlmi_In32(RegAddr);
-	Val = (Val & (~Mask)) | (Mask & Value);
-
-	XPlmi_Out32(RegAddr, Val);
-	if (XPlmi_In32(RegAddr) == Val) {
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function polls a register till the masked bits are set to
  * expected value or till timeout occurs.
  *
@@ -297,56 +269,6 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs
 		Status = XST_SUCCESS;
 	}
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function will Read, Modify and Write to a 64 bit register.
- *
- * @param	HighAddr is higher 32-bits of 64-bit address
- * @param	LowAaddr is lower 32-bits of 64-bit address
- * @param	Mask is the bit field to be updated
- * @param	Value is value to be updated
- *
- * @return	None
- *
- ******************************************************************************/
-void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
-{
-	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
-	u32 ReadVal;
-
-	ReadVal = lwea(Addr);
-	ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
-	swea(Addr, ReadVal);
-}
-
-/*****************************************************************************/
-/**
- * @brief	The function writes data to 64 bit address and validates the
- * operation by reading back the contents of the address.
- *
- * @param	HighAddr is higher 32-bits of 64-bit address
- * @param	LowAaddr is lower 32-bits of 64-bit address
- * @param	Mask is the bit field to be updated
- * @param	Value is value to be updated
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- ******************************************************************************/
-int XPlmi_UtilSafetyRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
-{
-	int Status = XST_FAILURE;
-	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
-	u32 ReadVal;
-
-	ReadVal = XPlmi_In64(Addr);
-	ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
-	XPlmi_Out64(Addr, ReadVal);
-	if (XPlmi_In64(Addr) == ReadVal) {
-		Status = XST_SUCCESS;
-	}
 	return Status;
 }
 
