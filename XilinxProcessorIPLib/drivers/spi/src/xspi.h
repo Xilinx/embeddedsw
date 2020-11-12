@@ -338,6 +338,18 @@ extern "C" {
 #define XSP_MANUAL_SSELECT_OPTION	0x10
 /*@}*/
 
+/** @name TWI Direction options
+ *
+ * The following options are given to XSpi_DirectionSwitcher as parameter. The
+ * XSpi_DirectionSwitcher callback have to implement the switch in both
+ * direction based on this option.
+ *
+ * @{
+ */
+#define XSP_SDIO_TO_OUTPUT		0x0
+#define XSP_SDIO_TO_INPUT		0x1
+/*@}*/
+
 /**************************** Type Definitions *******************************/
 
 /******************************************************************************/
@@ -363,6 +375,21 @@ extern "C" {
 *******************************************************************************/
 typedef void (*XSpi_StatusHandler) (void *CallBackRef, u32 StatusEvent,
 					unsigned int ByteCount);
+                    
+/******************************************************************************/
+/**
+* The handler data type allows the user to define a callback function to
+* handle MISO/MOSI direction switch to handle TWI interface.
+*
+* @param Direction	Indicates the desired direction. The set of values is
+*           TWI Direction options: XSP_SDIO_TO_OUTPUT tells that the SDIO should
+*           be configured as output to transfer data from FPGA to far-end.
+*           XSP_SDIO_TO_OUTPUT tells that the SDIO should
+*           be configured as input to transfer data from far-end to FPGA.
+*
+*******************************************************************************/
+typedef void (*XSpi_DirectionSwitcher) (int Direction);
+
 
 /**
  * XSpi statistics
@@ -422,6 +449,9 @@ typedef struct {
 	void *StatusRef;	/**< Callback reference for status handler */
 	u32 FlashBaseAddr;    	/**< Used in XIP Mode */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
+    
+	XSpi_DirectionSwitcher DirectionSwitcher; /**< Direction Switcher callback for TWI mode*/
+	int SwitchDirectionAfter; /**< Call DirectionSwitcher after such transferred bytes */
 } XSpi;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -809,6 +839,7 @@ void XSpi_SetStatusHandler(XSpi *InstancePtr, void *CallBackRef,
 			   XSpi_StatusHandler FuncPtr);
 void XSpi_InterruptHandler(void *InstancePtr);
 
+void XSpi_Fill_Tx_FIFO(XSpi *InstancePtr);
 
 /*
  * Functions for selftest, in xspi_selftest.c

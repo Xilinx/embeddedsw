@@ -165,6 +165,8 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 	InstancePtr->IsBusy = FALSE;
 
 	InstancePtr->StatusHandler = StubStatusHandler;
+	InstancePtr->DirectionSwitcher = NULL;
+	InstancePtr->SwitchDirectionAfter = -1;
 
 	InstancePtr->SendBufferPtr = NULL;
 	InstancePtr->RecvBufferPtr = NULL;
@@ -603,6 +605,23 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 	ControlReg = XSpi_GetControlReg(InstancePtr);
 	XSpi_SetControlReg(InstancePtr, ControlReg |
 			   XSP_CR_TRANS_INHIBIT_MASK);
+               
+	if(InstancePtr->DirectionSwitcher != NULL){
+	    /*
+	    * If DirectionSwitcher function pointer is defined, SPI used in
+	    * TWI mode, when the direction of the common MOSI/MISO (aka. SDIO)
+	    * must be switched during the transmission.
+	    * If the SPI device is configured as master the SDIO have to be
+	    * output else SDIO have to be input at the beginning of the
+	    * transmission.
+	    */
+	    if(ControlReg & XSP_CR_MASTER_MODE_MASK ){
+	        InstancePtr->DirectionSwitcher(XSP_SDIO_TO_OUTPUT);
+	    } else {
+	        InstancePtr->DirectionSwitcher(XSP_SDIO_TO_INPUT);
+	    }
+	}
+               
 	/*
 	 * Fill the DTR/FIFO with as many bytes as it will take (or as many as
 	 * we have to send). We use the tx full status bit to know if the device
@@ -614,6 +633,23 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 	while (((StatusReg & XSP_SR_TX_FULL_MASK) == 0) &&
 		(InstancePtr->RemainingBytes > 0)) {
+			
+		/*
+		 * If DirectionSwitcher function pointer is defined, SPI used in
+		 * TWI mode.
+		 */
+		if(InstancePtr->DirectionSwitcher != NULL) {
+			/*
+			 * If the SwitchDirectionAfter has been written to DTR/FIFO, the real
+			 * transmit has to be wait, then the DirectionSwitcher must be called
+			 * before further transmit.
+			 */
+			if(InstancePtr->SwitchDirectionAfter +
+				InstancePtr->RemainingBytes == InstancePtr->RequestedBytes) {
+				break;
+			}
+		}
+			
 		if (DataWidth == XSP_DATAWIDTH_BYTE) {
 			/*
 			 * Data Transfer Width is Byte (8 bit).
@@ -740,6 +776,38 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 						(DataWidth >> 3);
 				ByteCount -= (DataWidth >> 3);
 				StatusReg = XSpi_GetStatusReg(InstancePtr);
+			}
+			
+			/*
+			 * If DirectionSwitcher function pointer is defined, SPI used in
+			 * TWI mode.
+			 */
+			if(InstancePtr->DirectionSwitcher != NULL) {
+				/*
+				 * If SwitchDirectionAfter bytes arroved the direction of
+				 * the common MOSI/MISO (aka. SDIO) must be switched
+				 */
+				if(InstancePtr->SwitchDirectionAfter + ByteCount ==
+					InstancePtr->RequestedBytes) {
+				    /*
+					 * If the SPI device is configured as master the SDIO have to be
+					 * switched to input during the transmission.
+					 */
+					if(ControlReg & XSP_CR_MASTER_MODE_MASK ) {
+						InstancePtr->DirectionSwitcher(XSP_SDIO_TO_INPUT);
+					} else {
+						InstancePtr->DirectionSwitcher(XSP_SDIO_TO_OUTPUT);
+					}
+				/*
+				 * If the SwitchDirectionAfter has been written to DTR/FIFO, the real
+				 * transmit has to be wait, then the DirectionSwitcher must be called
+				 * before further transmit.
+				 */
+				} else if(InstancePtr->SwitchDirectionAfter +
+					InstancePtr->RemainingBytes == InstancePtr->RequestedBytes) {
+					//
+					continue;
+				}
 			}
 
 			if (InstancePtr->RemainingBytes > 0) {
