@@ -8,8 +8,8 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-    return "Image Recovery tool for SOM. The tool writes \
-	user selected images on the SOM board.";
+    return "Image Recovery tool which writes \
+	user selected images on the board.";
 }
 
 proc swapp_get_supported_processors {} {
