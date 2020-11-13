@@ -24,6 +24,7 @@
 *       har     10/12/20 Addressed security review comments
 *       bsv     10/19/20 Changed register writes to PMC SSS Cfg switch to mask
 *                        writes
+*       kpt     11/12/20 Fixed SSS Cfg issue
 *
 * </pre>
 *
@@ -58,6 +59,8 @@ static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
 static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 			   XSecure_SssSrc Resource, XSecure_SssSrc InputSrc,
 			   XSecure_SssSrc OutputSrc);
+static u32 XSecure_SssMask(XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc,
+			   u32 Value);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -128,23 +131,7 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 		goto END;
 	}
 
-	if ((InputSrc == XSECURE_SSS_DMA0) || (OutputSrc == XSECURE_SSS_DMA0)) {
-		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
-			Mask |= XSECURE_SSS_SBI;
-		}
-		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA0_VAL) {
-			Mask |= XSECURE_SSS_SHA;
-		}
-	}
-	if ((InputSrc == XSECURE_SSS_DMA1) || (OutputSrc == XSECURE_SSS_DMA1)) {
-		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA1_VAL) {
-			Mask |= XSECURE_SSS_SBI;
-		}
-		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA1_VAL) {
-			Mask |= XSECURE_SSS_SHA;
-		}
-	}
-
+	Mask = XSecure_SssMask(InputSrc, OutputSrc, RegVal);
 	RegVal &= ~Mask;
 	Status = XSecure_SecureOut32(InstancePtr->Address, RegVal);
 	if (Status != XST_SUCCESS) {
@@ -193,23 +180,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
 	}
 
 	Status = XST_FAILURE;
-	if (InputSrc == XSECURE_SSS_DMA0) {
-		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
-			Mask |= XSECURE_SSS_SBI;
-		}
-		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA0_VAL) {
-			Mask |= XSECURE_SSS_SHA;
-		}
-	}
-	if (InputSrc == XSECURE_SSS_DMA1) {
-		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA1_VAL) {
-			Mask |= XSECURE_SSS_SBI;
-		}
-		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA1_VAL) {
-			Mask |= XSECURE_SSS_SHA;
-		}
-	}
-
+	Mask = XSecure_SssMask(InputSrc, XSECURE_SSS_INVALID, RegVal);
 	RegVal &= ~Mask;
 	Status = XSecure_SecureOut32(InstancePtr->Address, RegVal);
 	if (Status != XST_SUCCESS) {
@@ -374,4 +345,55 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 	}
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function masks the secure stream switch value
+ *
+ * @param	InputSrc	- Input source to be selected for the resource
+ * @param	OutputSrc	- Output source to be selected for the resource
+ * @param   Value       - Register Value of SSS cfg register
+ *
+ * @return	Mask        - Mask value of corresponding InputSrc and OutputSrc
+ *
+ * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
+ *
+ *****************************************************************************/
+ static u32 XSecure_SssMask(XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc,
+							u32 Value)
+{
+	u32 Mask = 0U;
+	u32 RegVal = Value;
+
+	if ((InputSrc == XSECURE_SSS_DMA0) || (OutputSrc == XSECURE_SSS_DMA0)) {
+		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
+			Mask |= XSECURE_SSS_SBI_MASK;
+		}
+		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA0_VAL) {
+			Mask |= XSECURE_SSS_SHA_MASK;
+		}
+		if ((RegVal & XSECURE_SSS_AES_MASK) == XSECURE_SSS_AES_DMA0_VAL) {
+			Mask |= XSECURE_SSS_AES_MASK;
+		}
+		if ((RegVal & XSECURE_SSS_DMA0_MASK) != 0U) {
+			Mask |= XSECURE_SSS_DMA0_MASK;
+		}
+	}
+	if ((InputSrc == XSECURE_SSS_DMA1) || (OutputSrc == XSECURE_SSS_DMA1)) {
+		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA1_VAL) {
+			Mask |= XSECURE_SSS_SBI_MASK;
+		}
+		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA1_VAL) {
+			Mask |= XSECURE_SSS_SHA_MASK;
+		}
+		if ((RegVal & XSECURE_SSS_AES_MASK) == XSECURE_SSS_AES_DMA1_VAL) {
+			Mask |= XSECURE_SSS_AES_MASK;
+		}
+		if ((RegVal & XSECURE_SSS_DMA1_MASK) != 0U) {
+			Mask |= XSECURE_SSS_DMA1_MASK;
+		}
+	}
+
+	return Mask;
 }
