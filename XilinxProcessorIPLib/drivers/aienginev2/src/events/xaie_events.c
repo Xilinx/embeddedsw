@@ -467,7 +467,7 @@ AieRC XAie_EventSelectStrmPortReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		Port = CTRL;
 	else if(TileType == XAIEGBL_TILE_TYPE_RESERVED)
 		Port = DMA;
-	else if(TileType == XAIEGBL_TILE_TYPE_MAX){
+	else {
 		XAIE_ERROR("Failed to reset event select strm port. Invalid tile type\n");
 		return XAIE_INVALID_TILE;
 	}
