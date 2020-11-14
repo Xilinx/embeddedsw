@@ -1354,6 +1354,7 @@ AieRC XAie_EventPhysicalToLogicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	Module: Module of tile.
 *			for AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
 *			for Shim tile - XAIE_PL_MOD.
+*			for Mem tile - XAIE_MEM_MOD.
 * @param	Events: List of XAie_Events.
 * @param	Status: Buffer to return status of event.
 *
