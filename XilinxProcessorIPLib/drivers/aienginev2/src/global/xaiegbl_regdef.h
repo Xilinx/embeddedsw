@@ -531,6 +531,7 @@ typedef struct XAie_EvntMod {
 	u8 NumPCEvents;
 	XAie_RegFldAttr PCAddr;
 	XAie_RegFldAttr PCValid;
+	u32 BaseStatusRegOff;
 } XAie_EvntMod;
 
 /* This typedef contains attributes of timer module */
