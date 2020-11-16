@@ -42,20 +42,10 @@
 #define IOU_SLCR_MIO_PIN_4_OFFSET                                                  (0XFF180010U)
 #undef IOU_SLCR_MIO_PIN_5_OFFSET
 #define IOU_SLCR_MIO_PIN_5_OFFSET                                                  (0XFF180014U)
-#undef IOU_SLCR_MIO_PIN_6_OFFSET
-#define IOU_SLCR_MIO_PIN_6_OFFSET                                                  (0XFF180018U)
-#undef IOU_SLCR_MIO_PIN_7_OFFSET
-#define IOU_SLCR_MIO_PIN_7_OFFSET                                                  (0XFF18001CU)
-#undef IOU_SLCR_MIO_PIN_8_OFFSET
-#define IOU_SLCR_MIO_PIN_8_OFFSET                                                  (0XFF180020U)
-#undef IOU_SLCR_MIO_PIN_9_OFFSET
-#define IOU_SLCR_MIO_PIN_9_OFFSET                                                  (0XFF180024U)
-#undef IOU_SLCR_MIO_PIN_10_OFFSET
-#define IOU_SLCR_MIO_PIN_10_OFFSET                                                 (0XFF180028U)
-#undef IOU_SLCR_MIO_PIN_11_OFFSET
-#define IOU_SLCR_MIO_PIN_11_OFFSET                                                 (0XFF18002CU)
+
 #undef IOU_SLCR_MIO_PIN_12_OFFSET
 #define IOU_SLCR_MIO_PIN_12_OFFSET                                                 (0XFF180030U)
+
 #undef IOU_SLCR_MIO_PIN_16_OFFSET
 #define IOU_SLCR_MIO_PIN_16_OFFSET                                                 (0XFF180040U)
 #undef IOU_SLCR_MIO_PIN_17_OFFSET
@@ -64,8 +54,15 @@
 #define IOU_SLCR_MIO_PIN_18_OFFSET                                                 (0XFF180048U)
 #undef IOU_SLCR_MIO_PIN_19_OFFSET
 #define IOU_SLCR_MIO_PIN_19_OFFSET                                                 (0XFF18004CU)
+#undef IOU_SLCR_MIO_PIN_36_OFFSET
+#define IOU_SLCR_MIO_PIN_36_OFFSET                                                 (0xFF180090U)
+#undef IOU_SLCR_MIO_PIN_37_OFFSET
+#define IOU_SLCR_MIO_PIN_37_OFFSET                                                 (0xFF180094U)
+
 #undef IOU_SLCR_MIO_MST_TRI0_OFFSET
 #define IOU_SLCR_MIO_MST_TRI0_OFFSET                                               (0XFF180204U)
+#undef IOU_SLCR_MIO_MST_TRI1_OFFSET
+#define IOU_SLCR_MIO_MST_TRI1_OFFSET                                               (0XFF180208U)
 
 #undef IOU_SLCR_IOU_TAPDLY_BYPASS_OFFSET
 #define IOU_SLCR_IOU_TAPDLY_BYPASS_OFFSET                                          (0XFF180390U)
