@@ -56,6 +56,10 @@ int main(void)
 {
 	int Status = XST_FAILURE;
 	u32 MultiBootVal;
+#if defined(XIS_UPDATE_A_B_MECHANISM) && defined(XPAR_XGPIOPS_NUM_INSTANCES)
+	u32 GpioStatus;
+	u32 OffsetVal;
+#endif
 
 	Status = Psu_Init();
 	if (Status != XST_SUCCESS) {
@@ -79,6 +83,19 @@ int main(void)
 		goto END;
 	}
 #elif defined(XIS_UPDATE_A_B_MECHANISM)
+#if defined(XPAR_XGPIOPS_NUM_INSTANCES)
+	Status = GpioInit();
+	if(Status != XST_SUCCESS) {
+		XIs_Printf(DEBUG_GENERAL, "Gpio Init Failed\r\n");
+	}
+	GpioStatus = GetGpioStatus();
+	if(GpioStatus == 0U) {
+		OffsetVal = (u32)(XIS_RECOVERY_ADDRESS / XIS_SIZE_32KB);
+		XIs_UpdateMultiBootValue(OffsetVal);
+		goto END;
+	}
+#endif
+
 	Status = XIs_UpdateABMultiBootValue();
 	if (Status != XST_SUCCESS) {
 		XIs_Printf(DEBUG_GENERAL, "A/B Image Multiboot"

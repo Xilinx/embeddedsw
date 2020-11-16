@@ -62,6 +62,7 @@ static u8 WriteDataBuffer[10U] __attribute__ ((aligned(32U)));
 static u32 MacronixFlash = 0U;
 static u32 PageSize = 0U;
 
+/************************** Function Definitions *****************************/
 /******************************************************************************
  *
  * This function reads serial FLASH ID connected to the SPI interface.
