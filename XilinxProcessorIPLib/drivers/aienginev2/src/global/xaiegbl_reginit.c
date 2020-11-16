@@ -2501,6 +2501,7 @@ static const XAie_EvntMod AieTileEvntMod[] =
 		.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
 		.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 		.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
+		.BaseStatusRegOff = XAIEGBL_MEM_EVTSTA0,
 	},
 	{
 		.XAie_EventNumber = AieTileCoreModEventMapping,
@@ -2537,6 +2538,7 @@ static const XAie_EvntMod AieTileEvntMod[] =
 		.NumPCEvents = 4U,
 		.PCAddr = {XAIEGBL_CORE_PCEVT0_PCADD_LSB, XAIEGBL_CORE_PCEVT0_PCADD_MASK},
 		.PCValid = {XAIEGBL_CORE_PCEVT0_VAL_LSB, XAIEGBL_CORE_PCEVT0_VAL_MASK},
+		.BaseStatusRegOff = XAIEGBL_CORE_EVTSTA0,
 	},
 };
 
@@ -2590,6 +2592,7 @@ static const XAie_EvntMod AieNocEvntMod =
 	.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
+	.BaseStatusRegOff = XAIEGBL_PL_EVTSTA0,
 };
 
 /* Data structure to capture PL module events properties.
@@ -2642,6 +2645,7 @@ static const XAie_EvntMod AiePlEvntMod =
 	.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
+	.BaseStatusRegOff = XAIEGBL_PL_EVTSTA0,
 };
 
 /* Data structure to capture core and mem module timer properties */
