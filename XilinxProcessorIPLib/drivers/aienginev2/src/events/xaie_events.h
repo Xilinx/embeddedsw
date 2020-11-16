@@ -493,5 +493,7 @@ AieRC XAie_EventPhysicalToLogicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, u8 HwEvent, XAie_Events *EnumEvent);
 AieRC XAie_EventLogicalToPhysicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, XAie_Events Event, u8 *HwEvent);
+AieRC XAie_EventReadStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, XAie_Events Events, u8 *Status);
 
 #endif		/* end of protection macro */

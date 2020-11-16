@@ -1314,4 +1314,68 @@ AieRC XAie_EventPhysicalToLogicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	return XAIE_INVALID_ARGS;
 }
+
+/*****************************************************************************/
+/**
+*
+* This API returns the status of event.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of AIE Tile
+* @param	Module: Module of tile.
+*			for AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
+*			for Shim tile - XAIE_PL_MOD.
+* @param	Events: List of XAie_Events.
+* @param	Status: Buffer to return status of event.
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		None
+******************************************************************************/
+AieRC XAie_EventReadStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, XAie_Events Events, u8 *Status)
+{
+	AieRC RC;
+	u64 RegAddr;
+	u32 RegOff;
+	u8 TileType, PhyEvent;
+	const XAie_EvntMod *EvntMod;
+
+	if((Status == XAIE_NULL) || (DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY) ) {
+		XAIE_ERROR("Invalid device instance or buffer pointer\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		XAIE_ERROR("Invalid tile type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	RC = _XAie_CheckModule(DevInst, Loc, Module);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Invalid module\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(Module == XAIE_PL_MOD)
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
+	else
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Module];
+
+	RC = XAie_EventLogicalToPhysicalConv(DevInst, Loc, Module, Events,
+								&PhyEvent);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Invalid event ID\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	RegOff = EvntMod->BaseStatusRegOff + (PhyEvent / 32U) * 4U;
+	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOff;
+	*Status =  (XAie_Read32(DevInst, RegAddr) >> (PhyEvent % 32U)) & 1U;
+
+	return XAIE_OK;
+}
+
 /** @} */
