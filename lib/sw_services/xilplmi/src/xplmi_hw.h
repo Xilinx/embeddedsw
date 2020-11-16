@@ -39,6 +39,7 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP
 *                       and PCIE boot modes
 *       td   10/30/2020 Fixed MISRA C Rule 2.5 and added PMC_GLOBAL macros
+* 1.04  bm   11/10/2020 Added ROM_VALIDATION_DIGEST macro
 *
 * </pre>
 *
@@ -643,6 +644,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #define PMC_IOU_SLCR_SD1_CDN_CTRL    (PMC_IOU_SLCR_BASEADDR + 0X000004CCU)
 #define PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK    (0X00000001U)
+
+/*
+ * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
+ */
+#define PMC_GLOBAL_ROM_VALIDATION_DIGEST_0    (PMC_GLOBAL_BASEADDR + 0X00000704U)
 
 /*
  * Definitions required for PMC, PS GPIO

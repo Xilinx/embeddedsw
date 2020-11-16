@@ -26,6 +26,7 @@
 *       bm   09/08/2020 Added RunTime Configuration Init API to XPlmi_Init
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  bm   10/28/2020 Added ROM Version Print
 *
 * </pre>
 *
@@ -41,6 +42,13 @@
 #include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
+#define XPLMI_DIGEST_PMC_1_0_ROM_1_0	(0x2B004AC7U)
+#define XPLMI_DIGEST_PMC_2_0_ROM_2_0	(0xB576B550U)
+
+#define XPLMI_ROM_VERSION_1_0		(0x10U)
+#define XPLMI_ROM_VERSION_2_0		(0x20U)
+#define XPLMI_INVALID_ROM_VERSION	(0x0U)
+
 /**************************** Type Definitions *******************************/
 typedef int (*XPlmi_InitHandler)(void);
 
@@ -48,6 +56,7 @@ typedef int (*XPlmi_InitHandler)(void);
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_RunTimeConfigInit(void);
+static void XPlmi_PrintRomVersion(void);
 
 /************************** Variable Definitions *****************************/
 u8 LpdInitialized = (u8)0U;
@@ -185,11 +194,45 @@ void XPlmi_PrintPlmBanner(void)
 				(PmcVersion / 16U), (PmcVersion % 16U),
 				(PmcVersion / 16U), (PmcVersion % 16U),
 				(PsVersion / 16U), (PsVersion % 16U));
+		XPlmi_PrintRomVersion();
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: %u, MULTIBOOT: 0x%x"
 				"\n\r", BootMode, MultiBoot);
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"****************************************\n\r");
 		IsBannerPrinted = (u8)TRUE;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function prints ROM version using ROM digest value.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_PrintRomVersion(void)
+{
+	u32 RomDigest;
+	u8 RomVersion;
+
+	RomDigest = XPlmi_In32(PMC_GLOBAL_ROM_VALIDATION_DIGEST_0);
+	switch (RomDigest) {
+		case XPLMI_DIGEST_PMC_1_0_ROM_1_0:
+			RomVersion = XPLMI_ROM_VERSION_1_0;
+			break;
+		case XPLMI_DIGEST_PMC_2_0_ROM_2_0:
+			RomVersion = XPLMI_ROM_VERSION_2_0;
+			break;
+		default:
+			RomVersion = XPLMI_INVALID_ROM_VERSION;
+			break;
+	}
+
+	if (RomVersion != XPLMI_INVALID_ROM_VERSION) {
+		XPlmi_Printf(DEBUG_INFO, "ROM Version: v%u.%u\n\r",
+			(RomVersion / 16U), (RomVersion % 16U));
 	}
 }
 
