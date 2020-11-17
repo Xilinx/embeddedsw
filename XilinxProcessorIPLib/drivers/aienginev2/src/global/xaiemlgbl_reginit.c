@@ -273,6 +273,23 @@ static const  XAie_DmaBdProp Aie2MemTileDmaProp =
 	.SysProp = NULL
 };
 
+static const XAie_DmaChStatus Aie2MemTileDmaChStatus =
+{
+	/* This database is common for mm2s and s2mm channels */
+	.Aie2DmaChStatus.Status.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
+	.Aie2DmaChStatus.Status.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
+	.Aie2DmaChStatus.TaskQSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
+	.Aie2DmaChStatus.TaskQSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
+	.Aie2DmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
+	.Aie2DmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
+	.Aie2DmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
+	.Aie2DmaChStatus.StalledLockRel.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
+	.Aie2DmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
+	.Aie2DmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
+	.Aie2DmaChStatus.StalledTCT.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
+	.Aie2DmaChStatus.StalledTCT.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
+};
+
 static const  XAie_DmaChProp Aie2MemTileDmaChProp =
 {
 	.HasFoTMode = XAIE_FEATURE_AVAILABLE,
@@ -308,6 +325,8 @@ static const  XAie_DmaChProp Aie2MemTileDmaChProp =
 	.PauseStream = {0U},
 	.PauseMem = {0U},
 	.Enable = {0U},
+	.StartQSizeMax = 4U,
+	.DmaChStatus = &Aie2MemTileDmaChStatus,
 };
 
 /* Mem Tile Dma Module */
@@ -330,6 +349,8 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.ChCtrlBase = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 6,  /* number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
+	.ChStatusBase = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0,
+	.ChStatusOffset = 0x20,
 	.BdProp = &Aie2MemTileDmaProp,
 	.ChProp = &Aie2MemTileDmaChProp,
 	.DmaBdInit = &_XAieMl_MemTileDmaInit,
@@ -465,6 +486,23 @@ static const  XAie_DmaBdProp Aie2TileDmaProp =
 	.SysProp = NULL
 };
 
+static const XAie_DmaChStatus Aie2TileDmaChStatus =
+{
+	/* This database is common for mm2s and s2mm channels */
+	.Aie2DmaChStatus.Status.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
+	.Aie2DmaChStatus.Status.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
+	.Aie2DmaChStatus.TaskQSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
+	.Aie2DmaChStatus.TaskQSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
+	.Aie2DmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
+	.Aie2DmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
+	.Aie2DmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
+	.Aie2DmaChStatus.StalledLockRel.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
+	.Aie2DmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
+	.Aie2DmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
+	.Aie2DmaChStatus.StalledTCT.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
+	.Aie2DmaChStatus.StalledTCT.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
+};
+
 /* Data structure to capture register offsets and masks for Mem Tile and
  * Tile Dma Channels
  */
@@ -503,6 +541,8 @@ static const  XAie_DmaChProp Aie2DmaChProp =
 	.PauseStream = {0U},
 	.PauseMem = {0U},
 	.Enable = {0U},
+	.StartQSizeMax = 4U,
+	.DmaChStatus = &Aie2TileDmaChStatus,
 };
 
 /* Tile Dma Module */
@@ -525,6 +565,8 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.ChCtrlBase = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
+	.ChStatusBase = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0,
+	.ChStatusOffset = 0x10,
 	.BdProp = &Aie2TileDmaProp,
 	.ChProp = &Aie2DmaChProp,
 	.DmaBdInit = &_XAieMl_TileDmaInit,
@@ -675,6 +717,23 @@ static const  XAie_DmaBdProp Aie2ShimDmaProp =
 	.SysProp = &Aie2ShimDmaSysProp
 };
 
+static const XAie_DmaChStatus Aie2ShimDmaChStatus =
+{
+	/* This database is common for mm2s and s2mm channels */
+	.Aie2DmaChStatus.Status.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
+	.Aie2DmaChStatus.Status.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
+	.Aie2DmaChStatus.TaskQSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
+	.Aie2DmaChStatus.TaskQSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
+	.Aie2DmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
+	.Aie2DmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
+	.Aie2DmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
+	.Aie2DmaChStatus.StalledLockRel.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
+	.Aie2DmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
+	.Aie2DmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
+	.Aie2DmaChStatus.StalledTCT.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
+	.Aie2DmaChStatus.StalledTCT.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
+};
+
 /* Data structure to capture register offsets and masks for Mem Tile and
  * Tile Dma Channels
  */
@@ -713,6 +772,8 @@ static const  XAie_DmaChProp Aie2ShimDmaChProp =
 	.PauseStream = {0U},
 	.PauseMem = {0U},
 	.Enable = {0U},
+	.StartQSizeMax = 4U,
+	.DmaChStatus = &Aie2ShimDmaChStatus,
 };
 
 /* Tile Dma Module */
@@ -735,6 +796,8 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
 	.ChCtrlBase = XAIEMLGBL_NOC_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
+	.ChStatusBase = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0,
+	.ChStatusOffset = 0x8,
 	.BdProp = &Aie2ShimDmaProp,
 	.ChProp = &Aie2ShimDmaChProp,
 	.DmaBdInit = &_XAieMl_ShimDmaInit,
