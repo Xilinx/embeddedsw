@@ -32,6 +32,8 @@
 #define XAIEML_MEMTILEDMA_NUM_BD_WORDS			8U
 #define XAIEML_DMA_STEPSIZE_DEFAULT			1U
 #define XAIEML_DMA_ITERWRAP_DEFAULT			1U
+#define XAIEML_DMA_STATUS_IDLE				0x0
+#define XAIEML_DMA_STATUS_CHNUM_OFFSET			0x4
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -583,18 +585,37 @@ AieRC _XAieMl_DmaGetPendingBdCount(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
 		u8 *PendingBd)
 {
-	/*
-	 * TODO: The register database required for this api has changed b/w
-	 * r0p6 and r0p13. Implement this once the register database if freezed.
-	 */
-	(void)DevInst;
-	(void)Loc;
-	(void)DmaMod;
-	(void)ChNum;
-	(void)Dir;
-	(void)PendingBd;
+	u64 Addr;
+	u32 Mask, StatusReg, TaskQSize;
 
-	return XAIE_FEATURE_NOT_SUPPORTED;
+	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->ChStatusBase + ChNum * XAIEML_DMA_STATUS_CHNUM_OFFSET +
+		Dir * DmaMod->ChStatusOffset;
+
+	StatusReg = XAie_Read32(DevInst, Addr);
+
+	TaskQSize = XAie_GetField(StatusReg,
+			DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.TaskQSize.Lsb,
+			DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.TaskQSize.Mask);
+	if(TaskQSize > DmaMod->ChProp->StartQSizeMax) {
+		XAIE_ERROR("Invalid start queue size from register\n");
+		return XAIE_ERR;
+	}
+
+	Mask = DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.Status.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledLockAcq.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledLockRel.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledStreamStarve.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledTCT.Mask;
+
+	/* Check if BD is being used by a channel */
+	if(StatusReg & Mask) {
+		TaskQSize++;
+	}
+
+	*PendingBd = TaskQSize;
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -618,18 +639,31 @@ AieRC _XAieMl_DmaWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
 		u32 TimeOutUs)
 {
-	/*
-	 * TODO: The register database required for this api has changed b/w
-	 * r0p6 and r0p13. Implement this once the register database if freezed.
-	 */
-	(void)DevInst;
-	(void)Loc;
-	(void)DmaMod;
-	(void)ChNum;
-	(void)Dir;
-	(void)TimeOutUs;
+	u64 Addr;
+	u32 Mask, Value;
 
-	return XAIE_FEATURE_NOT_SUPPORTED;
+	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->ChStatusBase + ChNum * XAIEML_DMA_STATUS_CHNUM_OFFSET +
+		Dir * DmaMod->ChStatusOffset;
+
+	Mask = DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.Status.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.TaskQSize.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledLockAcq.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledLockRel.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledStreamStarve.Mask |
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.StalledTCT.Mask;
+
+	/* This will check the stalled and start queue size bits to be zero */
+	Value = XAIEML_DMA_STATUS_IDLE <<
+		DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.Status.Lsb;
+
+	if(XAie_MaskPoll(DevInst, Addr, Mask, Value, TimeOutUs) !=
+			XAIE_SUCCESS) {
+		XAIE_DBG("Wait for done timed out\n");
+		return XAIE_ERR;
+	}
+
+	return XAIE_OK;
 }
 
 /** @} */
