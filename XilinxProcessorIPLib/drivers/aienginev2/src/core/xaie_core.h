@@ -86,5 +86,7 @@ AieRC XAie_CoreConfigureDone(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC XAie_ClearCoreDisableEventOccurred(XAie_DevInst *DevInst,
 		XAie_LocType Loc);
 
+AieRC XAie_CoreConfigAccumulatorControl(XAie_DevInst *DevInst,
+		XAie_LocType Loc, StrmSwPortType InDir, StrmSwPortType OutDir);
 #endif		/* end of protection macro */
 /** @} */

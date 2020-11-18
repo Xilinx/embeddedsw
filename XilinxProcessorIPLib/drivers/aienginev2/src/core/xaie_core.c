@@ -825,4 +825,76 @@ AieRC XAie_ClearCoreDisableEventOccurred(XAie_DevInst *DevInst,
 	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
 }
 
+/*****************************************************************************/
+/*
+*
+* This API configures the core accumulator control register to specify the
+* direction of cascade stream.
+*
+* @param       DevInst: Device Instance
+* @param       Loc: Location of the aie tile.
+* @param       InDir: Input direction. Valid values: NORTH, WEST
+* @param       OutDir: Output direction. Valid values: SOUTH, EAST
+*
+* @return      XAIE_OK on success, Error code on failure.
+*
+* @note                None.
+*
+******************************************************************************/
+AieRC XAie_CoreConfigAccumulatorControl(XAie_DevInst *DevInst,
+               XAie_LocType Loc, StrmSwPortType InDir, StrmSwPortType OutDir)
+{
+	u8 TileType;
+	const XAie_CoreMod *CoreMod;
+	const XAie_RegCoreAccumCtrl *AccumCtrl;
+	u32 RegVal;
+	u64 RegAddr;
+
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+	AccumCtrl = CoreMod->CoreAccumCtrl;
+
+	if (AccumCtrl == XAIE_NULL) {
+		XAIE_ERROR("Configure accum control is not supported.\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	if ((InDir != NORTH && InDir != WEST) ||
+		(OutDir != SOUTH && OutDir != EAST)) {
+		XAIE_ERROR("Configure accum control failed, invalid direction.\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	RegAddr = AccumCtrl->RegOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	/*
+	 * Here is the directions in the enum sequence:
+	 *  * SOUTH, WEST, NORTH, EAST
+	 *  * For input , 0 == NORTH, 1 == WEST
+	 *  * For output, 0 == SOUTH, 1 == EAST
+	 */
+	RegVal = XAie_SetField((InDir - SOUTH) % 2U,
+			AccumCtrl->CascadeInput.Lsb,
+			AccumCtrl->CascadeInput.Mask) |
+		XAie_SetField((OutDir - SOUTH) % 2U,
+			AccumCtrl->CascadeOutput.Lsb,
+			AccumCtrl->CascadeOutput.Mask);
+
+	XAie_Write32(DevInst, RegAddr, RegVal);
+
+	return XAIE_OK;
+}
+
 /** @} */
