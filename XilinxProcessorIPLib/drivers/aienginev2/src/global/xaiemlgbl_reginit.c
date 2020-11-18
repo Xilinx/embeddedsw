@@ -124,6 +124,18 @@ static const XAie_RegCoreEvents Aie2CoreEventReg =
 	.DisableEvent.Mask = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS_DISABLE_EVENT_MASK,
 };
 
+/*
+ * Global instance for core accumulator control register.
+ */
+static const XAie_RegCoreAccumCtrl AieMlCoreAccumCtrlReg =
+{
+	.RegOff = XAIEMLGBL_CORE_MODULE_ACCUMULATOR_CONTROL,
+	.CascadeInput.Lsb = XAIEMLGBL_CORE_MODULE_ACCUMULATOR_CONTROL_INPUT_LSB,
+	.CascadeInput.Mask = XAIEMLGBL_CORE_MODULE_ACCUMULATOR_CONTROL_INPUT_MASK,
+	.CascadeOutput.Lsb = XAIEMLGBL_CORE_MODULE_ACCUMULATOR_CONTROL_OUTPUT_LSB,
+	.CascadeOutput.Mask = XAIEMLGBL_CORE_MODULE_ACCUMULATOR_CONTROL_OUTPUT_MASK,
+};
+
 static const  XAie_DmaBdEnProp Aie2MemTileDmaBdEnProp =
 {
 	.NxtBd.Idx = 1U,
@@ -2083,6 +2095,7 @@ static const  XAie_CoreMod Aie2CoreMod =
 	.CoreSts = &Aie2CoreStsReg,
 	.CoreDebug = &Aie2CoreDebugReg,
 	.CoreEvent = &Aie2CoreEventReg,
+	.CoreAccumCtrl = &AieMlCoreAccumCtrlReg,
 	.ConfigureDone = &_XAieMl_CoreConfigureDone,
 	.Enable = &_XAieMl_CoreEnable,
 	.WaitForDone = &_XAieMl_CoreWaitForDone,

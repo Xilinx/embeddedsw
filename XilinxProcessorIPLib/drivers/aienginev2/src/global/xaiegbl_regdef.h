@@ -131,6 +131,15 @@ typedef struct {
 } XAie_RegCoreEvents;
 
 /*
+ * This typedef contains the attributes for core accumulator control register
+ */
+typedef struct {
+	XAie_RegFldAttr CascadeInput;
+	XAie_RegFldAttr CascadeOutput;
+	u32 RegOff;
+} XAie_RegCoreAccumCtrl;
+
+/*
  * This typedef captures port base address and number of slave ports available
  * for stream switch master and salve ports
  */
@@ -196,6 +205,7 @@ typedef struct XAie_CoreMod {
 	const XAie_RegCoreCtrl *CoreCtrl;
 	const XAie_RegCoreDebug *CoreDebug;
 	const XAie_RegCoreEvents *CoreEvent;
+	const XAie_RegCoreAccumCtrl *CoreAccumCtrl;
 	AieRC (*ConfigureDone)(XAie_DevInst *DevInst, XAie_LocType Loc,
 			const struct XAie_CoreMod *CoreMod);
 	AieRC (*WaitForDone)(XAie_DevInst *DevInst, XAie_LocType Loc,
