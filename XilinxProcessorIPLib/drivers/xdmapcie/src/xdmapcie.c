@@ -95,6 +95,15 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	return (XST_SUCCESS);
 }
 
+static u8 XdmaPcie_IsValidAddr(u64 Addr)
+{
+	if (Addr == 0U) {
+		return FALSE;
+	} else {
+		return TRUE;
+	}
+}
+
 /******************************************************************************/
 /**
 * This function reserves bar memory address.
@@ -113,7 +122,8 @@ static u64 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr,
 {
 	u64 Ret = 0;
 
-	if (MemBarArdSize == XDMAPCIE_BAR_MEM_TYPE_64) {
+	if ((MemBarArdSize == XDMAPCIE_BAR_MEM_TYPE_64) &&
+	    (XdmaPcie_IsValidAddr(InstancePtr->Config.PMemBaseAddr) == TRUE)) {
 		Ret = InstancePtr->Config.PMemBaseAddr;
 		InstancePtr->Config.PMemBaseAddr = InstancePtr->Config.PMemBaseAddr
 							+ Size;
@@ -529,20 +539,22 @@ static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
 						XDMAPCIE_CFG_NP_MEM_T1_REG, Adr08);
 
 #if defined(__aarch64__) || defined(__arch64__)
-					Adr09 |= ((InstancePtr->Config.PMemBaseAddr
-						   & 0xFFF00000)
-						  >> FOUR_HEX_NIBBLES);
-					XDmaPcie_WriteRemoteConfigSpace(
-						InstancePtr, BusNum,
-						PCIeDevNum, PCIeFunNum,
-						XDMAPCIE_CFG_P_MEM_T1_REG, Adr09);
-					Adr0A |= (InstancePtr->Config.PMemBaseAddr
-						  >> EIGHT_HEX_NIBBLES);
-					XDmaPcie_WriteRemoteConfigSpace(
-						InstancePtr, BusNum,
-						PCIeDevNum, PCIeFunNum,
-						XDMAPCIE_CFG_P_UPPER_MEM_T1_REG,
-						Adr0A);
+					if (XdmaPcie_IsValidAddr(InstancePtr->Config.PMemBaseAddr) == TRUE) {
+						Adr09 |= ((InstancePtr->Config.PMemBaseAddr
+							   & 0xFFF00000)
+							  >> FOUR_HEX_NIBBLES);
+						XDmaPcie_WriteRemoteConfigSpace(
+							InstancePtr, BusNum,
+							PCIeDevNum, PCIeFunNum,
+							XDMAPCIE_CFG_P_MEM_T1_REG, Adr09);
+						Adr0A |= (InstancePtr->Config.PMemBaseAddr
+							  >> EIGHT_HEX_NIBBLES);
+						XDmaPcie_WriteRemoteConfigSpace(
+							InstancePtr, BusNum,
+							PCIeDevNum, PCIeFunNum,
+							XDMAPCIE_CFG_P_UPPER_MEM_T1_REG,
+							Adr0A);
+					}
 #endif
 
 					/* Searches secondary bus devices. */
@@ -586,20 +598,22 @@ static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
 						XDMAPCIE_CFG_NP_MEM_T1_REG, Adr08);
 
 #if defined(__aarch64__) || defined(__arch64__)
-					XDmaPcie_IncreamentPMem(InstancePtr);
-					Adr09 |= (InstancePtr->Config.PMemBaseAddr
-						  & 0xFFF00000);
-					XDmaPcie_WriteRemoteConfigSpace(
-						InstancePtr, BusNum,
-						PCIeDevNum, PCIeFunNum,
-						XDMAPCIE_CFG_P_MEM_T1_REG, Adr09);
-					Adr0B |= (InstancePtr->Config.PMemBaseAddr
-						  >> EIGHT_HEX_NIBBLES);
-					XDmaPcie_WriteRemoteConfigSpace(
-						InstancePtr, BusNum,
-						PCIeDevNum, PCIeFunNum,
-						XDMAPCIE_CFG_P_LIMIT_MEM_T1_REG,
-						Adr0B);
+					if (XdmaPcie_IsValidAddr(InstancePtr->Config.PMemBaseAddr) == TRUE) {
+						XDmaPcie_IncreamentPMem(InstancePtr);
+						Adr09 |= (InstancePtr->Config.PMemBaseAddr
+							  & 0xFFF00000);
+						XDmaPcie_WriteRemoteConfigSpace(
+							InstancePtr, BusNum,
+							PCIeDevNum, PCIeFunNum,
+							XDMAPCIE_CFG_P_MEM_T1_REG, Adr09);
+						Adr0B |= (InstancePtr->Config.PMemBaseAddr
+							  >> EIGHT_HEX_NIBBLES);
+						XDmaPcie_WriteRemoteConfigSpace(
+							InstancePtr, BusNum,
+							PCIeDevNum, PCIeFunNum,
+							XDMAPCIE_CFG_P_LIMIT_MEM_T1_REG,
+							Adr0B);
+					}
 #endif
 
 					/* Increment P & NP mem to next aligned starting address.
@@ -609,7 +623,9 @@ static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
 					 */
 					XDmaPcie_IncreamentNpMem(InstancePtr);
 #if defined(__aarch64__) || defined(__arch64__)
-					XDmaPcie_IncreamentPMem(InstancePtr);
+					if (XdmaPcie_IsValidAddr(InstancePtr->Config.PMemBaseAddr) == TRUE) {
+						XDmaPcie_IncreamentPMem(InstancePtr);
+					}
 #endif
 
 					/*
