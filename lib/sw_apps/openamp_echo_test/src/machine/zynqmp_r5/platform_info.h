@@ -1,5 +1,8 @@
 /*
- * Copyright (C) 2021 Xilinx, Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2014, Mentor Graphics Corporation
+ * All rights reserved.
+ * Copyright (c) 2017 Xilinx, Inc.
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
