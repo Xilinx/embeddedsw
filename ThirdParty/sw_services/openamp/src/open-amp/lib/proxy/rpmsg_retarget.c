@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014, Mentor Graphics Corporation
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #include <errno.h>
 #include <metal/mutex.h>
 #include <metal/spinlock.h>
