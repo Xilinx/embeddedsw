@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014, Mentor Graphics Corporation
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef RPMSG_RETARGET_H
 #define RPMSG_RETARGET_H
 
