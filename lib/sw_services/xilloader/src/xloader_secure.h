@@ -199,9 +199,13 @@ extern "C" {
 
 #define XLOADER_PUF_HD_BHDR						(0x3U)
 
-#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)XLOADER_SEC_ERR_CHUNK_CLR_FAILED << 8U)
-#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)XLOADER_SEC_ERR_BUF_CLR_FAILED << 8U)
-#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)XLOADER_SEC_ERR_BUF_CLR_SUCCESS << 8U)
+/* In case of failure of any security operation, the buffer must be
+ * cleared.In case of success/failure in clearing the buffer,
+ * the following error codes shall be updated in the status
+ */
+#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)0x20U << 8U)
+#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U) /* Error in clearing buffer */
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U) /* Buffer is successfully cleared */
 
 /* KEK key decryption status */
 #define XLOADER_BBRAM_RED_KEY					(0x00000001U)
@@ -333,7 +337,7 @@ typedef struct {
 } XLoader_SecureParams;
 
 typedef enum {
-	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02U,
+	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02,
 			/**< 0x02 Incorrect Authentication type selected */
 	XLOADER_SEC_PPK_HASH_CALCULATION_FAIL,
 			/**< 0x03 PPK Hash calculation failed */
@@ -412,16 +416,6 @@ typedef enum {
 		/**< 0x27 Error during XPlmi_MemSetBytes */
 	XLOADER_SEC_GLITCH_DETECTED_ERROR,
 		/**<0x28 Error glitch detected */
-
-	/* In case of failure of any security operation, the buffer must be
-	 * cleared.In case of success/failure in clearing the buffer,
-	 * the following error codes shall be updated in the status
-	 */
-	XLOADER_SEC_ERR_CHUNK_CLR_FAILED = 0x20U,
-	XLOADER_SEC_ERR_BUF_CLR_SUCCESS = 0x40U,
-			/* Buffer is successfully cleared */
-	XLOADER_SEC_ERR_BUF_CLR_FAILED = 0x80U,
-			/* Error in clearing buffer */
 } XLoader_SecErrCodes;
 
 /*****************************************************************************/
