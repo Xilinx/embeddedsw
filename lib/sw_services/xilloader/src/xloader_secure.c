@@ -181,6 +181,8 @@ static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV);
 static void XLoader_EnableJtag(void);
 static int XLoader_AuthJtag(void);
 static int XLoader_CheckAuthJtagIntStatus(void *Arg);
+static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
+		u32 TotalLen, u64 NextBlkAddr, u32 ChunkLen);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert;
@@ -630,8 +632,8 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
-				u64 NextBlkAddr, u32 ChunkLen)
+static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
+		u32 TotalLen, u64 NextBlkAddr, u32 ChunkLen)
 {
 	int Status = XST_FAILURE;
 	u32 CopyLen = ChunkLen;

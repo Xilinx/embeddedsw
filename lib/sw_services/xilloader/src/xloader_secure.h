@@ -458,8 +458,6 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
-int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
-	u64 NextBlkAddr, u32 ChunkLen);
 int XLoader_AddAuthJtagToScheduler(void);
 void XLoader_SecureClear(void);
 
