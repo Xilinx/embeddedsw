@@ -33,6 +33,7 @@
 *       bm   09/29/2020 Code cleanup
 *       kpt  10/19/2020 Added support to validate checksum of image headers and
 *                       partition headers
+* 1.04  td   11/23/2020 Coverity Warning Fixes
 *
 * </pre>
 *
@@ -338,7 +339,7 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	/* Performs device copy */
 	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
 		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-				MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN,
+				((u64)MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN),
 				(u64)(UINTPTR)&(MetaHdrPtr->ImgHdr[0U]),
 				NoOfImgs * XIH_IH_LEN, 0x0U);
 	} else {
@@ -394,7 +395,7 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	/* Performs device copy */
 	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
 		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-				MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN,
+				((u64)MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN),
 				(u64)(UINTPTR)&(MetaHdrPtr->PrtnHdr[0U]),
 			       NoOfPrtns * XIH_PH_LEN, 0x0U);
 	} else {
