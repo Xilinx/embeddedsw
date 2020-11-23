@@ -1570,9 +1570,9 @@ static int XLoader_VerifyRevokeId(u32 RevokeId)
 	Mod = RevokeId % XLOADER_WORD_IN_BITS;
 	ModTmp = RevokeId % XLOADER_WORD_IN_BITS;
 	Value = (XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(Quo * XIH_PRTN_WORD_LEN)) & (1U << Mod));
+		(Quo * XIH_PRTN_WORD_LEN)) & ((u32)1U << Mod));
 	ValueTmp = (XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(QuoTmp * XIH_PRTN_WORD_LEN)) & (1U << ModTmp));
+		(QuoTmp * XIH_PRTN_WORD_LEN)) & ((u32)1U << ModTmp));
 	if((Value != 0x00U) || (ValueTmp != 0x00U)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_ID_REVOKED, 0x0);
 		goto END;
@@ -3059,7 +3059,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 
 	for (Index = 0U; Index < XLOADER_SECURE_IV_LEN; Index++) {
 		Offset = SecurePtr->AesInstance.BaseAddress +
-			(XSECURE_AES_IV_0_OFFSET + (Index * XIH_PRTN_WORD_LEN));
+			(XSECURE_AES_IV_0_OFFSET + ((u32)Index * XIH_PRTN_WORD_LEN));
 		RegVal = XPlmi_In32(Offset);
 		Iv[Index] = Xil_Htonl(RegVal);
 	}
