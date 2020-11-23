@@ -365,7 +365,6 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID);
 int XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
-int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 
