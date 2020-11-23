@@ -93,7 +93,7 @@ typedef enum {
  ******************************************************************************/
 static INLINE u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
 {
-	return Xil_In32(BaseAddress + RegOffset);
+	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
 }
 
 /******************************************************************************/
@@ -109,7 +109,7 @@ static INLINE u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
  ******************************************************************************/
 static INLINE void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 {
-	Xil_Out32(BaseAddress + RegOffset, Data);
+	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), Data);
 }
 
 /*************************** Function Prototypes ******************************/
