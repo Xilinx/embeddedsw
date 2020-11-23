@@ -88,7 +88,6 @@ extern "C" {
 #define XIH_IH_LEN			(64U)
 #define XIH_PH_LEN			(128U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
-#define XIH_PRTN_ALIGN_LEN		(64U)
 
 /* IHT attributes */
 #define XIH_IHT_ATTR_PUFHD_MASK		(0xC000U)
