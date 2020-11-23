@@ -1534,24 +1534,25 @@ END:
 static int XLoader_VerifyRevokeId(u32 RevokeId)
 {
 	int Status = XST_FAILURE;
-	u32 RevokeAll;
+	u32 RevokeAll = MASK_ALL;
 	volatile u32 Quo;
 	volatile u32 QuoTmp;
 	volatile u32 Mod;
 	volatile u32 ModTmp;
 	volatile u32 Value;
 	volatile u32 ValueTmp;
+	u32 Index;
 
 	/* TBD this API should ultilize XilNvm library */
 	XPlmi_Printf(DEBUG_DETAILED, "Validating SPKID\n\r");
-	RevokeAll = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET) &
-		XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_1_OFFSET) &
-		XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_2_OFFSET) &
-		XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_3_OFFSET) &
-		XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_4_OFFSET) &
-		XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_5_OFFSET) &
-		XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_6_OFFSET) &
-		XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_7_OFFSET);
+	for (Index = XLOADER_EFUSE_REVOCATION_ID_0_OFFSET;
+			Index <= XLOADER_EFUSE_REVOCATION_ID_7_OFFSET;
+			Index += sizeof(u32)) {
+		RevokeAll &= XPlmi_In32(Index);
+		if (RevokeAll != MASK_ALL) {
+			break;
+		}
+	}
 	/* If all bits of REVOCATION_ID are programmed */
 	if(RevokeAll == MASK_ALL) {
 		XPlmi_Printf(DEBUG_INFO, "All IDs are invalid\n\r");
@@ -1571,10 +1572,12 @@ static int XLoader_VerifyRevokeId(u32 RevokeId)
 	QuoTmp = RevokeId / XLOADER_WORD_IN_BITS;
 	Mod = RevokeId % XLOADER_WORD_IN_BITS;
 	ModTmp = RevokeId % XLOADER_WORD_IN_BITS;
-	Value = (XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(Quo * XIH_PRTN_WORD_LEN)) & ((u32)1U << Mod));
-	ValueTmp = (XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(QuoTmp * XIH_PRTN_WORD_LEN)) & ((u32)1U << ModTmp));
+	Value = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
+		(Quo * XIH_PRTN_WORD_LEN));
+	Value &= ((u32)1U << Mod);
+	ValueTmp = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
+		(QuoTmp * XIH_PRTN_WORD_LEN));
+	ValueTmp &= ((u32)1U << ModTmp);
 	if((Value != 0x00U) || (ValueTmp != 0x00U)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_ID_REVOKED, 0x0);
 		goto END;
