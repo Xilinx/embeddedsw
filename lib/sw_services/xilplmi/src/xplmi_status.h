@@ -415,6 +415,7 @@ typedef enum {
 	XLOADER_DDR_COPY_UNSUPPORTED_PARAMS,	/**< 0x35A - Error when source address,
 							destination address or length params passed to
 							XLoader_DdrCopy are not word aligned */
+	XLOADER_ERR_INIT_CDO,	/**< 0x35B - XPlmi_InitCdo failed */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
