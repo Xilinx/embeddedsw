@@ -37,6 +37,8 @@
 * 							New Interrupt added for Vsync On TX
 * 							This application does not support Y420
 * 							Added support for Fabric 8b10b for Versal
+* 1.08 KU 11/19/20 2021.1 - Updated the CRC IP register programming
+* 							for VSC based resolution.
 *
 * </pre>
 *
@@ -886,6 +888,7 @@ void CalculateCRC(void)
 {
 
     u32 RegVal;
+    u8 color_mode = 0;
  /* Reset CRC Test Counter in DP DPCD Space. */
     /* Read Config Register */
     RegVal = XVidFrameCrc_ReadReg(VidFrameCRC_rx.Base_Addr,
@@ -911,9 +914,18 @@ void CalculateCRC(void)
       width programming
      */
 
-    VidFrameCRC_rx.Mode_422 =
-                    (XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                          XDP_RX_MSA_MISC0) >> 1) & 0x3;
+//    VidFrameCRC_rx.Mode_422 =
+//                    (XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+//                                          XDP_RX_MSA_MISC0) >> 1) & 0x3;
+
+	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
+
+	if(color_mode == 2){
+		VidFrameCRC_rx.Mode_422 = 0x1;
+	} else {
+		VidFrameCRC_rx.Mode_422 = 0x0;
+	}
+
 
     if (VidFrameCRC_rx.Mode_422 != 0x1) {
 	XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
