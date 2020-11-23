@@ -21,6 +21,7 @@
 * 2.1	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
+* 2.2   am   11/23/2020 Resolved MISRA C violation Rule 10.6
 *
 * </pre>
 *
@@ -55,7 +56,7 @@
  ******************************************************************************/
 static INLINE u32 XNvm_BbramReadReg(u32 Offset)
 {
-	return Xil_In32(XNVM_BBRAM_BASE_ADDR + Offset);
+	return Xil_In32((UINTPTR)(XNVM_BBRAM_BASE_ADDR + Offset));
 }
 
 /******************************************************************************/
@@ -70,7 +71,7 @@ static INLINE u32 XNvm_BbramReadReg(u32 Offset)
  ******************************************************************************/
 static INLINE void XNvm_BbramWriteReg(u32 Offset, u32 Data)
 {
-	Xil_Out32((XNVM_BBRAM_BASE_ADDR + Offset), Data);
+	Xil_Out32((UINTPTR)(XNVM_BBRAM_BASE_ADDR + Offset), Data);
 }
 
 /*************************** Function Prototypes ******************************/
