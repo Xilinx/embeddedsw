@@ -74,6 +74,7 @@
 *       kpt  10/19/2020 Renamed XLoader_UpdateKekRdKeyStatus to
 *                       XLoader_UpdateKekSrc
 *       td	 10/19/2020 MISRA C Fixes
+* 1.03  td   11/23/2020 Coverity Warning Fixes
 *
 * </pre>
 *
@@ -436,7 +437,11 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	 * Read meta header from PDI source
 	 */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
+			goto END;
+		}
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
 		if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
@@ -473,7 +478,11 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		PdiPtr->PrtnNum = 0U;
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		/* Read Boot header */
-		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
+			goto END;
+		}
 		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
 			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
 		if (Status != XST_SUCCESS) {

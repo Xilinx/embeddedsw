@@ -36,6 +36,7 @@
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Added support to validate checksum of image headers and
 *                       partition headers
+* 1.05  td   11/23/2020 Coverity Warning Fixes
 *
 * </pre>
 *
@@ -609,7 +610,7 @@ static inline u8 XilPdi_IsEncEnabled(const XilPdi_ImgHdrTbl *ImgHdrTblPtr)
 /************************** Function Prototypes ******************************/
 int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr *PrtnHdr);
 int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl *ImgHdrTbl);
-void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr *MetaHdrPtr);
