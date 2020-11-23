@@ -463,7 +463,7 @@ int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 				u32 BlockSize, u8 Last)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	int ClrStatus = XST_FAILURE;
 	u32 TotalSize = BlockSize;
 	u64 SrcAddr;
@@ -480,10 +480,10 @@ int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			SecurePtr->RemainingEncLen =
 					SecurePtr->PrtnHdr->EncDataWordLen * XIH_PRTN_WORD_LEN;
 			/* Verify encrypted partition is revoked or not */
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
+			XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifyRevokeId,
 					SecurePtr->PrtnHdr->EncRevokeID);
 			if ((Status != XST_SUCCESS) ||
-				(StatusTmp != XST_SUCCESS)) {
+				(SStatus != XST_SUCCESS)) {
 				XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
 				goto END;
 			}
