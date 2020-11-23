@@ -197,7 +197,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	u32 UPdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
 	PdiSrc_t PdiSrc = (PdiSrc_t)UPdiSrc;
 	u8 DrvNum = XLoader_GetDrvNumSD(UPdiSrc);
-	static FATFS FatFs;
+	static FATFS FatFileSystem;
 
 	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
 	if (Status != XST_SUCCESS) {
@@ -253,7 +253,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	BootFile[0U] = (char)DrvNum + 48;
 	BootFile[1U] = ':';
 	BootFile[2U] = '/';
-	Rc = f_mount(&FatFs, BootFile, 0U);
+	Rc = f_mount(&FatFileSystem, BootFile, 0U);
 
 	XLoader_Printf(DEBUG_INFO,"SD: rc= %.8x\n\r", Rc);
 

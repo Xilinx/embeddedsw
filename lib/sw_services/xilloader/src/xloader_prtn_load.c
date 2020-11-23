@@ -277,8 +277,8 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 {
 	int Status = XST_FAILURE;
 	u32 Mode = 0U;
-	u32 Pm_CapAccess = (u32)PM_CAP_ACCESS;
-	u32 Pm_CapContext = (u32)PM_CAP_CONTEXT;
+	u32 CapAccess = (u32)PM_CAP_ACCESS;
+	u32 CapContext = (u32)PM_CAP_CONTEXT;
 
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
@@ -298,7 +298,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	 */
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-			Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
+			CapAccess | CapContext, XPM_DEF_QOS, 0U);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
 			goto END;
@@ -318,14 +318,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_B,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);
@@ -341,14 +341,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
@@ -371,28 +371,28 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
-					Pm_CapAccess | Pm_CapContext,
+					CapAccess | CapContext,
 					XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);

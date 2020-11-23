@@ -600,8 +600,8 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 	u8 DdrRequested = (u8)FALSE;
-	u32 Pm_CapAccess = (u32)PM_CAP_ACCESS;
-	u32 Pm_CapContext = (u32)PM_CAP_CONTEXT;
+	u32 CapAccess = (u32)PM_CAP_ACCESS;
+	u32 CapContext = (u32)PM_CAP_CONTEXT;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -623,7 +623,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			if (PdiPtr->CopyToMem == (u8)TRUE) {
 				if (DdrRequested == (u8)FALSE) {
 					Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
-						Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
+						CapAccess | CapContext, XPM_DEF_QOS, 0U);
 					if (Status != XST_SUCCESS) {
 						Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
 						goto END;
@@ -1458,7 +1458,7 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 	u32 PrtnNum = 0U;
 	u32 Index = 0U;
-	u32 Pm_CapAccess = (u32)PM_CAP_ACCESS;
+	u32 CapAccess = (u32)PM_CAP_ACCESS;
 
 	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
 		++Index) {
@@ -1505,7 +1505,7 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
-				Pm_CapAccess, XPM_DEF_QOS, 0U);
+				CapAccess, XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, 0);
 				goto END;
@@ -1514,7 +1514,7 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 		case XLOADER_PDI_SRC_SD0:
 		case XLOADER_PDI_SRC_SD0_RAW:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
-				Pm_CapAccess, XPM_DEF_QOS, 0U);
+				CapAccess, XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_0, 0);
 				goto END;
@@ -1529,7 +1529,7 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
 		case XLOADER_PDI_SRC_SD1_LS_RAW:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
-				Pm_CapAccess, XPM_DEF_QOS, 0U);
+				CapAccess, XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_1, 0);
 				goto END;
@@ -1537,7 +1537,7 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 			break;
 		case XLOADER_PDI_SRC_USB:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
-				Pm_CapAccess, XPM_DEF_QOS, 0U);
+				CapAccess, XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_USB_0, 0);
 				goto END;
@@ -1545,7 +1545,7 @@ static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 			break;
 		case XLOADER_PDI_SRC_OSPI:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
-				Pm_CapAccess, XPM_DEF_QOS, 0U);
+				CapAccess, XPM_DEF_QOS, 0U);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, 0);
 				goto END;
