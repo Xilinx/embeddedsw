@@ -1999,7 +1999,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	Status = XPlmi_MemSetBytes(XSecure_RsaSha3Array, XLOADER_PARTITION_SIG_SIZE,
 				0U, XLOADER_PARTITION_SIG_SIZE);
 	if (Status != XST_SUCCESS) {
-		XLoader_UpdateMinorErr(XLOADER_SEC_MEMSET_ERROR,
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_MEMSET_ERROR,
 				(int)XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL);
 		goto END;
 	}
@@ -3564,10 +3564,10 @@ void XLoader_SecureClear(void)
 	XPlmi_Out32(XLOADER_AES_RESET_REG, XLOADER_AES_RESET_VAL);
 
 	/* Clear Rsa memory */
-	XSecure_RsaCfgInitialize(&RsaInstance);
+	(void)XSecure_RsaCfgInitialize(&RsaInstance);
 	XSecure_ReleaseReset(RsaInstance.BaseAddress,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);
-	XSecure_RsaZeroize(&RsaInstance);
+	(void)XSecure_RsaZeroize(&RsaInstance);
 	/* Place ECDSA RSA in reset */
 	XSecure_SetReset(RsaInstance.BaseAddress,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);

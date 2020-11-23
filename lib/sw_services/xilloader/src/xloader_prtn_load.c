@@ -544,7 +544,11 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	 * Initialize the Cdo Pointer and
 	 * check CDO header contents
 	 */
-	XPlmi_InitCdo(&Cdo);
+	Status = XPlmi_InitCdo(&Cdo);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_CDO, Status);
+		goto END;
+	}
 	Cdo.ImgId = PdiPtr->CurImgId;
 	Cdo.PrtnId = PdiPtr->CurPrtnId;
 	Cdo.IpiMask = PdiPtr->IpiMask;
