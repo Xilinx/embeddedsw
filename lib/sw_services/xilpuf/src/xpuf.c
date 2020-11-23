@@ -27,6 +27,7 @@
 *       am   10/10/2020 Resolved MISRA C violations
 *       har  10/17/2020 Added checks for mismatch between MSB of PUF shutter
 *                       value and Global Variation Filter option
+* 1.3   am   11/23/2020 Resolved MISRA C violation Rule 10.6
 *
 * </pre>
 *
@@ -106,7 +107,7 @@ static inline int XPuf_WaitForPufDoneStatus(void)
  * ***************************************************************************/
 static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
 {
-	return Xil_In32(BaseAddress + RegOffset);
+	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
 }
 
 /*****************************************************************************/
@@ -124,7 +125,7 @@ static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
  *****************************************************************************/
 static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 {
-	Xil_Out32(BaseAddress + RegOffset, Data);
+	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), Data);
 }
 
 /************************** Function Prototypes ******************************/
