@@ -29,10 +29,12 @@
 *                         passed to "go to" in case of error.
 *      kpt       09/03/20 Added XSECURE_TEMPORAL_IMPL macro for redundancy
 *      kal       09/22/20 Changed the param type from const char to const char*
-*				  to avoid copying key onto stack
-*      td	 10/16/20 Added Xil_Strcpy, Xil_Strcat, Xil_SecureMemCpy and
-* 				  Xil_MemCmp functions
+*                         to avoid copying key onto stack
+*      td        10/16/20 Added Xil_Strcpy, Xil_Strcat, Xil_SecureMemCpy and
+*                         Xil_MemCmp functions
 *      am        10/13/20 Resolved Coverity warning
+*      td        11/19/20 Updated XSECURE_TEMPORAL_CHECK and
+*                         XSECURE_TEMPORAL_IMPL to fix MISRA C Rule 15.3
 *
 * </pre>
 *
@@ -76,12 +78,12 @@ extern "C" {
  *
  ******************************************************************************/
 #define XSECURE_TEMPORAL_IMPL(Var, VarTmp, Function, ...) \
-		({ \
+		{ \
 			Var = XST_FAILURE; \
 			VarTmp = XST_FAILURE; \
 			Var = Function(__VA_ARGS__); \
 			VarTmp = Var; \
-		})
+		}
 
 /******************************************************************************/
 /**
@@ -102,7 +104,7 @@ extern "C" {
  *
  ******************************************************************************/
 #define XSECURE_TEMPORAL_CHECK(Label, Status, Function, ...)   \
-	({ \
+	{ \
 		volatile int StatusTmp = XST_FAILURE; \
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Function, __VA_ARGS__); \
 		if ((Status != XST_SUCCESS) || \
@@ -110,7 +112,7 @@ extern "C" {
 			Status |= StatusTmp;\
 			goto Label; \
 		} \
-	 })
+	 }
 #endif
 
 /*************************** Function Prototypes ******************************/
