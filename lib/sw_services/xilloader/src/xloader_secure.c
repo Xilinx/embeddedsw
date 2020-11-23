@@ -2427,7 +2427,7 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	XSecure_AesKeySrc KeySrc = 0;
+	XSecure_AesKeySrc KeySrc = XSECURE_AES_BBRAM_KEY;
 	u32 ChunkSize = Size;
 	volatile u32 DpaCmCfg;
 	volatile u32 DpaCmCfgTmp;
