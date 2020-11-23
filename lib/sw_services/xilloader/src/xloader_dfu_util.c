@@ -1068,25 +1068,23 @@ static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
 		case XLOADER_STATUS_DEVICE:
 			ShortVar = XLOADER_ENDPOINT_SELF_PWRD_STATUS;
 			Status = Xil_SecureMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));/* Self powered */
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 			break;
 		case XLOADER_STATUS_ENDPOINT:
 			ShortVar = (u16)XUsbPsu_IsEpStalled(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
 				EpNum, Direction);
 			Status = Xil_SecureMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 			break;
 		case XLOADER_STATUS_INTERFACE:
+			Status = XST_SUCCESS;
 			/* Need to send all zeroes as reply*/
 			break;
 		default:
-			Status = XST_FAILURE;
+			Status = XST_SUCCESS;
 			break;
+	}
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	if (SetupData->wLength != 0U) {
