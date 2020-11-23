@@ -54,6 +54,7 @@
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Added error code for glitch detection
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  td   11/23/2020 Added error code for XilPdi_ReadBootHdr failure
 *
 * </pre>
 *
@@ -416,6 +417,7 @@ typedef enum {
 							destination address or length params passed to
 							XLoader_DdrCopy are not word aligned */
 	XLOADER_ERR_INIT_CDO,	/**< 0x35B - XPlmi_InitCdo failed */
+	XLOADER_ERR_READ_BOOT_HDR,	/**< 0x35C - Error during XilPdi_ReadBootHdr */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

@@ -45,6 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xilpdi.h"
 #include "xil_io.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -242,13 +243,22 @@ END:
 *
 * @param	MetaHdrPtr is pointer to Meta Header
 *
-* @return	None
+* @return	XST_SUCCESS on successful read
+*           Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
+int XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 {
-	(void)memcpy((void *)&(MetaHdrPtr->BootHdr.WidthDetection),
-			(void *)XIH_BH_PRAM_ADDR, (XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH));
+	int Status = XST_FAILURE;
+
+	Status = Xil_SecureMemCpy((void *)&(MetaHdrPtr->BootHdr.WidthDetection),
+			(XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH),
+			(void *)(UINTPTR)XIH_BH_PRAM_ADDR,
+			(XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH));
+	if (Status != XST_SUCCESS) {
+		XilPdi_Printf("Boot Header memcpy failed\n\r");
+		goto END;
+	}
 	/*
 	 * Print FW Rsvd fields Details
 	 */
@@ -256,6 +266,9 @@ void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		MetaHdrPtr->BootHdr.ImgAttrb);
 	XilPdi_Printf("Meta Header Offset: 0x%0lx \n\r",
 		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst);
+
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -292,8 +305,13 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 		(SMAP_BUS_WIDTH_32_WORD1 == SmapBusWidthCheck[0U])) {
 		Offset = 0U;
 	} else {
-		(void)memcpy((void *)&(MetaHdrPtr->ImgHdrTbl),
-			(void *)SmapBusWidthCheck, SMAP_BUS_WIDTH_LENGTH);
+		Status = Xil_SecureMemCpy((void *)&(MetaHdrPtr->ImgHdrTbl),
+				SMAP_BUS_WIDTH_LENGTH, (void *)SmapBusWidthCheck,
+				SMAP_BUS_WIDTH_LENGTH);
+		if (XST_SUCCESS != Status) {
+			XilPdi_Printf("Image Header Table memcpy failed\n\r");
+			goto END;
+		}
 		Offset = SMAP_BUS_WIDTH_LENGTH;
 	}
 
