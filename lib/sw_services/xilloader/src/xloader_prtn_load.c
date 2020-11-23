@@ -248,7 +248,7 @@ static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* Devi
 					SecureParams, DeviceCopy->DestAddr,
 					DeviceCopy->Len);
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-			Status = Status | StatusTmp;
+			Status |= StatusTmp;
 			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
 			goto END;
 		}
