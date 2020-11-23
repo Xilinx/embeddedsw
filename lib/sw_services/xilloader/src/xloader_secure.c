@@ -1112,7 +1112,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 
 END:
 	if ((Status != XST_SUCCESS) &&
-		(Status != XLOADER_ERR_HDR_NOT_SECURE)) {
+		(Status != (int)XLOADER_ERR_HDR_NOT_SECURE)) {
 		ClearIHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->ImgHdr[0U],
 			(MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN));
 		ClearPHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->PrtnHdr[0U],
@@ -1125,7 +1125,7 @@ END:
 		}
 	}
 	else {
-		if (Status == XLOADER_ERR_HDR_NOT_SECURE) {
+		if (Status == (int)XLOADER_ERR_HDR_NOT_SECURE) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, 0);
 		}
 	}
@@ -3110,7 +3110,7 @@ static int XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
 	Status = XSecure_AesSetDpaCm(AesInstPtr, DpaCmCfg);
 
 	/* If DPA CM request is to disable and device also not supports DPA CM */
-	if ((Status == XSECURE_AES_DPA_CM_NOT_SUPPORTED) &&
+	if ((Status == (int)XSECURE_AES_DPA_CM_NOT_SUPPORTED) &&
 		(DpaCmCfg == (u8)FALSE)) {
 		Status = XST_SUCCESS;
 	}
