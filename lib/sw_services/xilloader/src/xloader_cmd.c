@@ -227,7 +227,7 @@ END:
 static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	XLoader_ImageInfo *ImageInfo;
+	const XLoader_ImageInfo *ImageInfo;
 
 	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
 		XLOADER_INVALID_IMG_ID) {

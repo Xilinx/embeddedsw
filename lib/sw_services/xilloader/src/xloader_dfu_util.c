@@ -125,7 +125,7 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 	u8 DescLen = 0U;
 	XLoaderPs_UsbStdStringDesc StringDesc;
 	/* String Descriptors */
-	static const char* StringList[XLOADER_USB_MODES_NUM]
+	static const char* const StringList[XLOADER_USB_MODES_NUM]
 			[XLOADER_STRING_DESCRIPTORS_NUM] = {
 		{
 			"UNUSED",

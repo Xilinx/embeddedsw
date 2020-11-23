@@ -123,7 +123,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 static int XLoader_LoadImage(XilPdi *PdiPtr);
-static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID);
+static int XLoader_ReloadImage(u32 ImageId, const u32 *FuncID);
 static int XLoader_StartImage(XilPdi *PdiPtr);
 
 /************************** Variable Definitions *****************************/
@@ -1145,7 +1145,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_StoreImageInfo(XLoader_ImageInfo *ImageInfo)
+int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 {
 	int Status = XST_FAILURE;
 	XLoader_ImageInfo *ImageEntry;
@@ -1216,7 +1216,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 	u32 Count = 0U;
 	u32 Index = 0U;
 	u32 SrcAddr = XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
-	XLoader_ImageInfo *ImageInfo;
+	const XLoader_ImageInfo *ImageInfo;
 
 	if (Len > MaxLen) {
 		Len = MaxLen;
@@ -1264,7 +1264,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 {
 	int Status = XST_FAILURE;
 	XPm_DeviceStatus DeviceStatus;
-	XLoader_ImageInfo *ParentImageInfo;
+	const XLoader_ImageInfo *ParentImageInfo;
 	u32 DummyArg = 0U;
 	u32 ParentImgID;
 
@@ -1448,7 +1448,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
+static int XLoader_ReloadImage(u32 ImageId, const u32 *FuncID)
 {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;

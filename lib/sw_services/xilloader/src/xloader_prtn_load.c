@@ -76,7 +76,7 @@
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
 
 /************************** Function Prototypes ******************************/
-static int XLoader_PrtnHdrValidation(XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
+static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr);
 static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
@@ -193,7 +193,7 @@ END:
  *			else XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_PrtnHdrValidation(XilPdi_PrtnHdr * PrtnHdr, u32 PrtnNum)
+static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr * PrtnHdr, u32 PrtnNum)
 {
 	int Status = (int)XLOADER_SUCCESS_NOT_PRTN_OWNER;
 

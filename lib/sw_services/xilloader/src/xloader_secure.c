@@ -144,7 +144,7 @@ static INLINE u32 XLoader_GetAuthPubAlgo(const u32 *AuthHdrPtr)
 static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
-static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
+static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
 static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u8 *DataHash,
@@ -155,11 +155,11 @@ static int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
 static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 	u64 SrcAddr, u64 DestAddr, u32 Size);
-static int XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
+static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekInfo *KeyDetails, XSecure_AesKeySrc *KeySrc);
 static int XLoader_CheckNonZeroPpk(void);
 static int XLoader_CheckNonZeroIV(void);
-static int XLoader_PpkVerify(XLoader_SecureParams *SecurePtr);
+static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr);
 static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 static int XLoader_VerifyRevokeId(u32 RevokeId);
 static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash);
@@ -171,8 +171,8 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
-static int XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg);
-static int XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
+static int XLoader_SetAesDpaCm(const XSecure_Aes *AesInstPtr, u32 DpaCmCfg);
+static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 	const XLoader_AesKekInfo *KeyDetails);
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
 static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr);
@@ -1295,7 +1295,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
+static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
@@ -1775,7 +1775,7 @@ static int XLoader_CheckNonZeroIV(void)
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static int XLoader_PpkVerify(XLoader_SecureParams *SecurePtr)
+static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
@@ -2501,7 +2501,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static int XLoader_AesKeySelect(XLoader_SecureParams *SecurePtr,
+static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		XLoader_AesKekInfo *KeyDetails, XSecure_AesKeySrc *KeySrc)
 {
 	int Status = XST_FAILURE;
@@ -3102,7 +3102,7 @@ END:
  *		not successful
  *
  ******************************************************************************/
-static int XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
+static int XLoader_SetAesDpaCm(const XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
 {
 	int Status = XST_FAILURE;
 
@@ -3129,7 +3129,7 @@ static int XLoader_SetAesDpaCm(XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static int XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
+static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 					const XLoader_AesKekInfo *KeyDetails)
 {
 	int Status = XST_FAILURE;
