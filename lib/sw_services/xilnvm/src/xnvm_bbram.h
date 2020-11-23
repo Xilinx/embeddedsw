@@ -21,8 +21,9 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
 * 2.1	am   08/19/2020 Resolved MISRA C violations
-*		am   10/13/2020 Resolved MISRA C violations
-*		ana  10/15/2020 Updated doxygen comments.
+*       am   10/13/2020 Resolved MISRA C violations
+*       ana  10/15/2020 Updated doxygen comments
+* 2.2   am   11/23/2020 Resolved MISRA C violation
 *
 * </pre>
 *
@@ -50,7 +51,7 @@ extern "C" {
 #define XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS (XNVM_BBRAM_AES_KEY_SIZE / sizeof(u32))
 
 /* BBRAM API error codes */
-#define XNVM_EFUSE_BBRAM_TAG                       (0x8100U)
+#define XNVM_EFUSE_BBRAM_TAG                       (u32)(0x8100U)
 #define XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  (XNVM_EFUSE_BBRAM_TAG | 0x00U)
 #define XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT     (XNVM_EFUSE_BBRAM_TAG | 0x02U)
 #define XNVM_BBRAM_ERROR_AES_CRC_MISMATCH         (XNVM_EFUSE_BBRAM_TAG | 0x03U)
