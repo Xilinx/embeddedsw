@@ -7,7 +7,7 @@
 /**
 *
 * @file xgpiops_g.c
-* @addtogroup gpiops_v3_8
+* @addtogroup gpiops_v3_9
 * @{
 *
 * This file contains a configuration table that specifies the configuration
