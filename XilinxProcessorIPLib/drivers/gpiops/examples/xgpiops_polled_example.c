@@ -17,11 +17,21 @@
 * 23(DS50 on zcu102 board).
 * For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
 * zc702 board) and Output Pin is 10(DS23 on zc702 board).
-* In Versal Platform we have two GPIOPS instances(PMC GPIO and PS GPIO),PMC GPIO
-* contain 4 banks and 116 pins, PS GPIO contains 2 banks and 58 pins.
+* This example supports the VCK190 and VMK180 for Versal, but requires a PL
+* shim. See Answer Record AR# 75677 for details.
+* On the Versal Platform we have two GPIOPS instances :PMC GPIO and PS GPIO
+* PMC GPIO contain 4 banks and 116 pins, organized as follows:
+*   Bank 0  I/Os:  25:0   (MIO)
+*   Bank 1: I/Os:  51:26  (MIO)
+*   Bank 3: I/Os:  83:52  (EMIO)
+*   Bank 4: I/Os: 115:84  (EMIO)
+* PS GPIO contains 2 banks and 58 pins
+*   Bank 0  I/Os:  25:0   (MIO)
+*   Bank 3: I/Os:  57:26  (EMIO)
+* See Figure 61 in AM011 Versal TRM for details.
 * Driver supports both PS GPIO and PMC GPIO.
-* For accessing PMC GPIOs application need to configure "GPIO.PmcGpio =1" else
-* it works for PS GPIO.
+* For accessing PMC GPIOs application you need to set "GPIO.PmcGpio = 1"
+* otherwise it accesses PS GPIO.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -36,6 +46,7 @@
 *                     for zcu102 and zc702 boards.
 * 3.7	sne  12/04/19 Reverted versal example support.
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
+* 3.9	sne  11/19/20 Added versal PmcGpio example support.
 *
 * </pre>
 *
@@ -160,6 +171,14 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 			Input_Pin = 14;
 			Output_Pin = 10;
 			break;
+#ifdef versal
+		case XPLAT_VERSAL:
+			/* Accessing PMC GPIO by setting field to 1 */
+			Gpio.PmcGpio =  1;
+			Input_Pin    = 56;
+			Output_Pin   = 52;
+			break;
+#endif
 	}
 
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,
