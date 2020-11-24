@@ -23,11 +23,21 @@
 * zc702 board) and Output Pin is 10(DS23 on zc702 board). SW15 on zc702 board
 * is a combination of sw13 and sw14. To operate either of the input
 * pins, keep SW15 low(both should be 00).
-* In Versal Platform we have two GPIOPS instances(PMC GPIO and PS GPIO),PMC GPIO
-* contain 4 banks and 116 pins, PS GPIO contains 2 banks and 58 pins.
+* This example supports the VCK190 and VMK180 for Versal, but requires a PL
+* shim. See Answer Record AR# 75677 for details.
+* On the Versal Platform we have two GPIOPS instances :PMC GPIO and PS GPIO
+* PMC GPIO contain 4 banks and 116 pins, organized as follows:
+*   Bank 0  I/Os:  25:0   (MIO)
+*   Bank 1: I/Os:  51:26  (MIO)
+*   Bank 3: I/Os:  83:52  (EMIO)
+*   Bank 4: I/Os: 115:84  (EMIO)
+* PS GPIO contains 2 banks and 58 pins
+*   Bank 0  I/Os:  25:0   (MIO)
+*   Bank 3: I/Os:  57:26  (EMIO)
+* See Figure 61 in AM011 Versal TRM for details.
 * Driver supports both PS GPIO and PMC GPIO.
-* For accessing PMC GPIOs application need to configure "GPIO->PmcGpio =1" else
-* it works for PS GPIO.
+* For accessing PMC GPIOs application you need to set "GPIO.PmcGpio = 1"
+* otherwise it accesses PS GPIO.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -40,6 +50,7 @@
 *                     to input pin for proper working of interrupt example.
 * 3.7	sne  12/04/19 Reverted versal example support.
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
+* 3.9	sne  11/19/20 Added versal PmcGpio example support.
 *
 *</pre>
 *
@@ -63,10 +74,18 @@
  */
 #define GPIO_DEVICE_ID		XPAR_XGPIOPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#ifdef versal
+#define GPIO_INTERRUPT_ID	XPMC_GPIO_INT_ID
+#else
 #define GPIO_INTERRUPT_ID	XPAR_XGPIOPS_0_INTR
+#endif
 
 /* The following constants define the GPIO banks that are used. */
+#ifdef versal
+#define GPIO_BANK	XGPIOPS_BANK3  /* Bank 3 of the GPIO Device */
+#else
 #define GPIO_BANK	XGPIOPS_BANK0  /* Bank 0 of the GPIO Device */
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -90,6 +109,7 @@ static XGpioPs Gpio; /* The Instance of the GPIO Driver */
 static XScuGic Intc; /* The Instance of the Interrupt Controller Driver */
 
 static u32 AllButtonsPressed; /* Intr status of the bank */
+static u32 Input_Bank_Pin; /* Pin Number within Bank */
 static u32 Input_Pin; /* Switch button */
 static u32 Output_Pin; /* LED button */
 
@@ -163,14 +183,25 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 	Type_of_board = XGetPlatform_Info();
 	switch (Type_of_board) {
 		case XPLAT_ZYNQ_ULTRA_MP:
+			Input_Bank_Pin = 22;
 			Input_Pin = 22;
 			Output_Pin = 23;
 			break;
 
 		case XPLAT_ZYNQ:
+			Input_Bank_Pin = 14;
 			Input_Pin = 14;
 			Output_Pin = 10;
 			break;
+#ifdef versal
+		case XPLAT_VERSAL:
+			/* Accessing PMC GPIO by setting field to 1 */
+			Gpio->PmcGpio  =  1;
+			Input_Bank_Pin =  4;
+			Input_Pin      = 56;
+			Output_Pin     = 52;
+			break;
+#endif
 	}
 	XGpioPs_CfgInitialize(Gpio, ConfigPtr, ConfigPtr->BaseAddr);
 
@@ -303,15 +334,15 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 		return Status;
 	}
 
-	/* Enable falling edge interrupts for all the pins in bank 0. */
+	/* Enable falling edge interrupts for all the pins in GPIO bank. */
 	XGpioPs_SetIntrType(Gpio, GPIO_BANK, 0x00, 0xFFFFFFFF, 0x00);
 
 	/* Set the handler for gpio interrupts. */
 	XGpioPs_SetCallbackHandler(Gpio, (void *)Gpio, IntrHandler);
 
 
-	/* Enable the GPIO interrupts of Bank 0. */
-	XGpioPs_IntrEnable(Gpio, GPIO_BANK, (1 << Input_Pin));
+	/* Enable the GPIO interrupts of GPIO Bank. */
+	XGpioPs_IntrEnable(Gpio, GPIO_BANK, (1 << Input_Bank_Pin));
 
 
 	/* Enable the interrupt for the GPIO device. */
