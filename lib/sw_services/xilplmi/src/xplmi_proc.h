@@ -29,6 +29,7 @@
 *       kc   04/23/2020 Added interrupt support for SEU event
 * 1.03  bm   10/14/2020 Code clean up
 * 		td   10/19/2020 MISRA C Fixes
+* 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
 *
 * </pre>
 *
@@ -70,7 +71,6 @@ extern "C" {
 #define XPLMI_PIT_FREQ_DIVISOR		(100U)
 #define XPLMI_GIGA			(1e9)
 #define XPLMI_MEGA			(1e6)
-#define XPLMI_KILO 			(1e3)
 
 /**************************** Type Definitions *******************************/
 /*

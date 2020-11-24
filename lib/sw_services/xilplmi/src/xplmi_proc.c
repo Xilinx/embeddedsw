@@ -29,6 +29,7 @@
 *       kc   04/23/2020 Added interrupt support for SEU event
 * 1.03  bm   10/14/2020 Code clean up
 * 		td   10/19/2020 MISRA C Fixes
+* 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
 *
 * </pre>
 *
@@ -158,11 +159,13 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
 {
 	u64 PerfNs;
 	u64 TDiff = TCur - TStart;
-	u32 PmcIroFreqKhz = PmcIroFreq / (u32)XPLMI_KILO;
+	double PerfTemp;
 
 	/* Convert TPerf into nanoseconds */
-	PerfNs = (TDiff * (u64)(XPLMI_GIGA / PmcIroFreqKhz)) / (u64)XPLMI_KILO;
-	PerfTime->TPerfMs = PerfNs / (u64)XPLMI_MEGA;
+	PerfTemp = ((double)TDiff * XPLMI_GIGA) / (double)PmcIroFreq;
+	PerfNs = (u64)PerfTemp;
+	PerfTemp /= XPLMI_MEGA;
+	PerfTime->TPerfMs = (u64)PerfTemp;
 	PerfTime->TPerfMsFrac = PerfNs % (u64)XPLMI_MEGA;
 }
 
