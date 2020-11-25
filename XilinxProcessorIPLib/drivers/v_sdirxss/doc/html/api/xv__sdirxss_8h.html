@@ -177,8 +177,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a1c43a11c0334d76865b099c1c9e126f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirxss_8h.html#a1c43a11c0334d76865b099c1c9e126f8">XV_SdiRxSs_IntrDisable</a> (<a class="el" href="struct_x_v___sdi_rx_ss.html">XV_SdiRxSs</a> *InstancePtr, u32 IntrMask)</td></tr>
 <tr class="memdesc:a1c43a11c0334d76865b099c1c9e126f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to configure the SDI RX interrupts that are to be handled by the application.  <a href="#a1c43a11c0334d76865b099c1c9e126f8"></a><br/></td></tr>
 <tr class="separator:a1c43a11c0334d76865b099c1c9e126f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5fe6048ab8f1692c136fd89d6fdf4e46"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xv__sdirxss__v3__0.html#ga5fe6048ab8f1692c136fd89d6fdf4e46">XV_SdiRxSs_SelfTest</a> (<a class="el" href="struct_x_v___sdi_rx_ss.html">XV_SdiRxSs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga5fe6048ab8f1692c136fd89d6fdf4e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs self test on SDI Rx Subsystem sub-cores.  <a href="group__xv__sdirxss__v3__0.html#ga5fe6048ab8f1692c136fd89d6fdf4e46"></a><br/></td></tr>
+<tr class="memitem:ga5fe6048ab8f1692c136fd89d6fdf4e46"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xv__sdirxss__v3__1.html#ga5fe6048ab8f1692c136fd89d6fdf4e46">XV_SdiRxSs_SelfTest</a> (<a class="el" href="struct_x_v___sdi_rx_ss.html">XV_SdiRxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga5fe6048ab8f1692c136fd89d6fdf4e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs self test on SDI Rx Subsystem sub-cores.  <a href="group__xv__sdirxss__v3__1.html#ga5fe6048ab8f1692c136fd89d6fdf4e46"></a><br/></td></tr>
 <tr class="separator:ga5fe6048ab8f1692c136fd89d6fdf4e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4deea5c587f6a732de2f6b127fc12b4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirxss_8h.html#a4deea5c587f6a732de2f6b127fc12b4d">XV_SdiRxSs_LogReset</a> (<a class="el" href="struct_x_v___sdi_rx_ss.html">XV_SdiRxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a4deea5c587f6a732de2f6b127fc12b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will reset the driver's logging mechanism.  <a href="#a4deea5c587f6a732de2f6b127fc12b4d"></a><br/></td></tr>
@@ -210,6 +210,9 @@ Bitmasks for interrupt callbacks</h2></td></tr>
 <tr class="memitem:ac9d6ff476ec7de9b18e4e295ee43e6ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9d6ff476ec7de9b18e4e295ee43e6ad"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDIRXSS_IER_UNDERFLOW_MASK</b>&#160;&#160;&#160;XV_SDIRX_IER_UNDERFLOW_MASK</td></tr>
 <tr class="separator:ac9d6ff476ec7de9b18e4e295ee43e6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847a1e3426d0d6595d7fe2ba3ff37c33"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a847a1e3426d0d6595d7fe2ba3ff37c33"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDIRXSS_IER_VSYNC_MASK</b>&#160;&#160;&#160;XV_SDIRX_IER_VSYNC_MASK</td></tr>
+<tr class="separator:a847a1e3426d0d6595d7fe2ba3ff37c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c4f02dc3957cfd8b878e32286f7dabd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c4f02dc3957cfd8b878e32286f7dabd"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SDIRXSS_IER_ALLINTR_MASK</b>&#160;&#160;&#160;XV_SDIRX_IER_ALLINTR_MASK</td></tr>
 <tr class="separator:a0c4f02dc3957cfd8b878e32286f7dabd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,10 +235,14 @@ Bitmasks for interrupt callbacks</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ade9ffd7c4cd3343a53668c77788e00ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the enum for various logging events.  <a href="xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00ba">More...</a><br/></td></tr>
 <tr class="separator:ade9ffd7c4cd3343a53668c77788e00ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71eb8685e51a780aecf07c5fb886de7a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7a">XV_SdiRxSs_HandlerType</a> { <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad6257bbb5378ebec6138b4dbf23cc110">XV_SDIRXSS_HANDLER_STREAM_DOWN</a> = 1, 
+<tr class="memitem:a71eb8685e51a780aecf07c5fb886de7a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7a">XV_SdiRxSs_HandlerType</a> { <br/>
+&#160;&#160;<a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad6257bbb5378ebec6138b4dbf23cc110">XV_SDIRXSS_HANDLER_STREAM_DOWN</a> = 1, 
 <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad1b227af4ef5b379fc2f057c18e0cc5d">XV_SDIRXSS_HANDLER_STREAM_UP</a>, 
 <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa8ab2a3880e6098ce868fbab44c229c7b">XV_SDIRXSS_HANDLER_OVERFLOW</a>, 
-<a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8">XV_SDIRXSS_HANDLER_UNDERFLOW</a>
+<a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8">XV_SDIRXSS_HANDLER_UNDERFLOW</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aaac802805650e3aed2d81f7d34965d77c">XV_SDIRXSS_HANDLER_VSYNC</a>
+<br/>
  }</td></tr>
 <tr class="memdesc:a71eb8685e51a780aecf07c5fb886de7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7a">More...</a><br/></td></tr>
 <tr class="separator:a71eb8685e51a780aecf07c5fb886de7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -329,6 +336,9 @@ Bitmasks for interrupt callbacks</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8"></a>XV_SDIRXSS_HANDLER_UNDERFLOW</em>&nbsp;</td><td class="fielddoc">
 <p>Handler for under flow event. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a71eb8685e51a780aecf07c5fb886de7aaac802805650e3aed2d81f7d34965d77c"></a>XV_SDIRXSS_HANDLER_VSYNC</em>&nbsp;</td><td class="fielddoc">
+<p>Handler for vsync event. </p>
 </td></tr>
 </table>
 
@@ -429,7 +439,7 @@ Bitmasks for interrupt callbacks</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if initialization is successful else XST_FAILURE </dd></dl>
 
-<p>References <a class="el" href="struct_x_v___sdi_rx_ss___config.html#a532428467186a468acb210613f45d5cf">XV_SdiRxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a881d8188fa81829cfb38a44aea36e7a1">XV_SdiRxSs::Config</a>, <a class="el" href="struct_x_v___sdi_rx_ss___config.html#aa9c6885d233a376917639c53e89ccdb5">XV_SdiRxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a636607ca5e3a96b200e1786330c58e20">XV_SdiRxSs::IsReady</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ae3d8d6ae92334dc0e542d1af1f8d9a3e">XV_SdiRxSs::SdiRxPtr</a>, and <a class="el" href="group__v__sdirxss__v3__0.html#ga8acb662b4cdd74817ee6b48f166f3e25">XV_SdiRxSs_SubcoreInitSdiRx()</a>.</p>
+<p>References <a class="el" href="struct_x_v___sdi_rx_ss___config.html#a532428467186a468acb210613f45d5cf">XV_SdiRxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a881d8188fa81829cfb38a44aea36e7a1">XV_SdiRxSs::Config</a>, <a class="el" href="struct_x_v___sdi_rx_ss___config.html#aa9c6885d233a376917639c53e89ccdb5">XV_SdiRxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a636607ca5e3a96b200e1786330c58e20">XV_SdiRxSs::IsReady</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ae3d8d6ae92334dc0e542d1af1f8d9a3e">XV_SdiRxSs::SdiRxPtr</a>, and <a class="el" href="group__v__sdirxss__v3__1.html#ga8acb662b4cdd74817ee6b48f166f3e25">XV_SdiRxSs_SubcoreInitSdiRx()</a>.</p>
 
 <p>Referenced by <a class="el" href="xsdi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="group__xv__sdirxss__v1__0.html#ga1b3ce12885916b1fa3043eb74e804d9c">SdiRxSs_SelfTestExample()</a>.</p>
 
@@ -747,7 +757,7 @@ Bitmasks for interrupt callbacks</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_v___sdi_rx_ss___log.html#a23c2cddf5a657c4e288e0866596c70de">XV_SdiRxSs_Log::DataBuffer</a>, <a class="el" href="struct_x_v___sdi_rx_ss___log.html#abcbcd469377f7579be30243c760b3709">XV_SdiRxSs_Log::HeadIndex</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#aa8bead632dc99af35c9ab20fdd034741">XV_SdiRxSs::Log</a>, <a class="el" href="struct_x_v___sdi_rx_ss___log.html#a993b179ac73b296c64a86ed0a9633c80">XV_SdiRxSs_Log::TailIndex</a>, and <a class="el" href="xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa51fc4231632e2b7294e582fe600c6ef9">XV_SDIRXSS_LOG_EVT_DUMMY</a>.</p>
 
-<p>Referenced by <a class="el" href="xv__sdirxss_8h.html#a691319ac2baf302e4f0b833c0aafc963">XV_SdiRxSs_Start()</a>, <a class="el" href="xv__sdirxss_8h.html#ac4e45bc8ac7c85d1ad5958be34844543">XV_SdiRxSs_Stop()</a>, and <a class="el" href="group__v__sdirxss__v3__0.html#ga8acb662b4cdd74817ee6b48f166f3e25">XV_SdiRxSs_SubcoreInitSdiRx()</a>.</p>
+<p>Referenced by <a class="el" href="xv__sdirxss_8h.html#a691319ac2baf302e4f0b833c0aafc963">XV_SdiRxSs_Start()</a>, <a class="el" href="xv__sdirxss_8h.html#ac4e45bc8ac7c85d1ad5958be34844543">XV_SdiRxSs_Stop()</a>, and <a class="el" href="group__v__sdirxss__v3__1.html#ga8acb662b4cdd74817ee6b48f166f3e25">XV_SdiRxSs_SubcoreInitSdiRx()</a>.</p>
 
 </div>
 </div>
@@ -940,6 +950,7 @@ HandlerType                     Callback Function Type
 (XV_SDIRXSS_HANDLER_STREAM_UP)           StreamUpCallback
 (XV_SDIRXSS_HANDLER_OVERFLOW)           OverFlowCallback
 (XV_SDIRXSS_HANDLER_UNDERFLOW)           UnderFlowCallback
+(XV_SDIRXSS_HANDLER_VSYNC)                 VsyncCallback
 </pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the SDI RX Subsystem instance. </td></tr>
@@ -956,7 +967,7 @@ HandlerType                     Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
-<p>References <a class="el" href="struct_x_v___sdi_rx_ss.html#aaffb32640f027e8c29f4c294bd596f91">XV_SdiRxSs::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a892f4e96be351528cdcb82981de135a2">XV_SdiRxSs::OverFlowRef</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ac6c1423b80178dbe9027b9dd102be539">XV_SdiRxSs::StreamDownCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a56622168a811b7efd1cd27e589dae982">XV_SdiRxSs::StreamDownRef</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ab19763b0e65000dfd9cd08c1e7e2548d">XV_SdiRxSs::StreamUpCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a07acf3741b57e00a15a0d2e72ffaf5f3">XV_SdiRxSs::StreamUpRef</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a89a31dc3dfb044fd53dba357318ca5c6">XV_SdiRxSs::UnderFlowCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ad02aa1a78244c26c1258f856267aaa4a">XV_SdiRxSs::UnderFlowRef</a>, <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa8ab2a3880e6098ce868fbab44c229c7b">XV_SDIRXSS_HANDLER_OVERFLOW</a>, <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad6257bbb5378ebec6138b4dbf23cc110">XV_SDIRXSS_HANDLER_STREAM_DOWN</a>, <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad1b227af4ef5b379fc2f057c18e0cc5d">XV_SDIRXSS_HANDLER_STREAM_UP</a>, and <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8">XV_SDIRXSS_HANDLER_UNDERFLOW</a>.</p>
+<p>References <a class="el" href="struct_x_v___sdi_rx_ss.html#aaffb32640f027e8c29f4c294bd596f91">XV_SdiRxSs::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a892f4e96be351528cdcb82981de135a2">XV_SdiRxSs::OverFlowRef</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ac6c1423b80178dbe9027b9dd102be539">XV_SdiRxSs::StreamDownCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a56622168a811b7efd1cd27e589dae982">XV_SdiRxSs::StreamDownRef</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ab19763b0e65000dfd9cd08c1e7e2548d">XV_SdiRxSs::StreamUpCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a07acf3741b57e00a15a0d2e72ffaf5f3">XV_SdiRxSs::StreamUpRef</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a89a31dc3dfb044fd53dba357318ca5c6">XV_SdiRxSs::UnderFlowCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#ad02aa1a78244c26c1258f856267aaa4a">XV_SdiRxSs::UnderFlowRef</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a8b5be4429ab297ed402e86bb8c5100c1">XV_SdiRxSs::VsyncCallback</a>, <a class="el" href="struct_x_v___sdi_rx_ss.html#a59da686c56a37ff371157f97ff09fab2">XV_SdiRxSs::VsyncRef</a>, <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa8ab2a3880e6098ce868fbab44c229c7b">XV_SDIRXSS_HANDLER_OVERFLOW</a>, <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad6257bbb5378ebec6138b4dbf23cc110">XV_SDIRXSS_HANDLER_STREAM_DOWN</a>, <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad1b227af4ef5b379fc2f057c18e0cc5d">XV_SDIRXSS_HANDLER_STREAM_UP</a>, <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8">XV_SDIRXSS_HANDLER_UNDERFLOW</a>, and <a class="el" href="xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aaac802805650e3aed2d81f7d34965d77c">XV_SDIRXSS_HANDLER_VSYNC</a>.</p>
 
 <p>Referenced by <a class="el" href="xsdi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

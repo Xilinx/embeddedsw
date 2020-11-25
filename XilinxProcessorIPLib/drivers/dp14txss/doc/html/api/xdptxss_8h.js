@@ -25,12 +25,6 @@ var xdptxss_8h =
       [ "DP159_FORWARDED_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5", null ],
       [ "ONBOARD_REF_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73", null ],
       [ "DP159_FORWARDED_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5", null ],
-      [ "ONBOARD_REF_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73", null ],
-      [ "DP159_FORWARDED_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5", null ],
-      [ "ONBOARD_REF_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73", null ],
-      [ "DP159_FORWARDED_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5", null ],
-      [ "ONBOARD_REF_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73", null ],
-      [ "DP159_FORWARDED_CLK", "dppt__vid__phy__config_8h.html#aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5", null ],
       [ "XDPTXSS_HANDLER_DP_HPD_EVENT", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aada7e7ea8c4b1a96639dff7572b1b808a13", null ],
       [ "XDPTXSS_HANDLER_DP_HPD_PULSE", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aada2dcc3ec7427726dcdc6300edde59ac63", null ],
       [ "XDPTXSS_HANDLER_DP_LANE_COUNT_CHG", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aadaee4fa531bcea610eba60bc2211195a8b", null ],
@@ -38,7 +32,10 @@ var xdptxss_8h =
       [ "XDPTXSS_HANDLER_DP_PE_VS_ADJUST", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aadaefc0cc637a174c917c67653e1de97eb7", null ],
       [ "XDPTXSS_HANDLER_DP_SET_MSA", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aada5a3c630df559c9b5b9dddbccf6a2a584", null ],
       [ "XDPTXSS_DRV_HANDLER_DP_HPD_EVENT", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aada9eac5af176ad710029df8782ca5cb8d9", null ],
-      [ "XDPTXSS_DRV_HANDLER_DP_HPD_PULSE", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aadab00fc184bcc666e69d228a45ad865e7e", null ]
+      [ "XDPTXSS_DRV_HANDLER_DP_HPD_PULSE", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aadab00fc184bcc666e69d228a45ad865e7e", null ],
+      [ "XDPTXSS_HANDLER_DP_EXT_PKT_EVENT", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aadad089ac49b97d4e86751910a6d06118d1", null ],
+      [ "XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aadaaff95339657cdeb6242adf677b858260", null ],
+      [ "XDPTXSS_HANDLER_DP_VSYNC", "xdptxss_8h.html#gga22c23bc4a70466cc2eb177c2ce4f7aadaf5f73d6f5ad8f1520e116e61926a012a", null ]
     ] ],
     [ "XDpTxSs_HdcpContentStreamType", "xdptxss_8h.html#gaae1bc2b9516826173bbfa1f1a24174ae", [
       [ "XDPTXSS_HDCP_STREAMTYPE_0", "xdptxss_8h.html#ggaae1bc2b9516826173bbfa1f1a24174aea330d42256357722b8aebae2eaf589687", null ],
@@ -52,7 +49,9 @@ var xdptxss_8h =
     ] ],
     [ "XDpTxSs_CfgInitialize", "xdptxss_8h.html#gafb7b3b467a12177fb0c8053f4b7d70a1", null ],
     [ "XDpTxSs_CheckLinkStatus", "xdptxss_8h.html#ga50fc785403847b8c3932a2213553e28d", null ],
+    [ "XDpTxSs_CheckVscColorimetrySupport", "xdptxss_8h.html#ga5cbce36366702edc6f84f6e3db7954e2", null ],
     [ "XDpTxSs_DpIntrHandler", "xdptxss_8h.html#ga829a4aa9071cbd2fd3903ccf98e4d02b", null ],
+    [ "XDpTxss_EnableVscColorimetry", "xdptxss_8h.html#ga8b49899ee70890ac856017d9fdc8a321", null ],
     [ "XDpTxSs_GetEdid", "xdptxss_8h.html#ga67a126cda8e59ab3a9622bc2ba2e900d", null ],
     [ "XDpTxSs_GetRemoteEdid", "xdptxss_8h.html#ga882a24d1900a5530bac270beca25d173", null ],
     [ "XDpTxSs_GetRxCapabilities", "xdptxss_8h.html#ga1a8026694798f9f8b6c8e43fcccd15ec", null ],
@@ -79,9 +78,11 @@ var xdptxss_8h =
     [ "XDpTxSs_SetUserPixelWidth", "xdptxss_8h.html#gac5ce68495e3cc42e29d65322f4fa0976", null ],
     [ "XDpTxSs_SetUserTimerHandler", "xdptxss_8h.html#gae6148ed6282e7c51a715ff3e86ff91e1", null ],
     [ "XDpTxSs_SetVidMode", "xdptxss_8h.html#gac94df5d299e1a088c159a2be61840680", null ],
+    [ "XDpTxSs_SetVscExtendedPacket", "xdptxss_8h.html#ga48c38cc38ea4138373e2c879046f908e", null ],
     [ "XDpTxSs_Start", "xdptxss_8h.html#ga883ba3d77b48aaaee5858de1e5620c76", null ],
     [ "XDpTxSs_StartCustomMsa", "xdptxss_8h.html#ga51a71c98f5346be40c4c76e091e121f8", null ],
     [ "XDpTxSs_Stop", "xdptxss_8h.html#gaf70f2f11d0e48e80c92673f3e208fc23", null ],
     [ "XDpTxSs_VtcAdjustBSTimingDisable", "xdptxss_8h.html#ga4b650b6b1316984487bcbc9b6bbb26a1", null ],
-    [ "XDpTxSs_VtcAdjustBSTimingEnable", "xdptxss_8h.html#ga77e0e444121e167b215442fd9f941ea0", null ]
+    [ "XDpTxSs_VtcAdjustBSTimingEnable", "xdptxss_8h.html#ga77e0e444121e167b215442fd9f941ea0", null ],
+    [ "XDpTxSs_WriteVscExtPktProcess", "xdptxss_8h.html#ga11f03003da62db46a59a9e0ff5ce6646", null ]
 ];

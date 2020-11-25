@@ -1,5 +1,6 @@
 var struct_x_v___hdmi_rx1___frl =
 [
+    [ "CurFrlRate", "struct_x_v___hdmi_rx1___frl.html#af43d413c9a668400e3c0b8fbac302e19", null ],
     [ "DefaultLtp", "struct_x_v___hdmi_rx1___frl.html#a0f554039b7fe90c629cb245a727540b7", null ],
     [ "FfeLevels", "struct_x_v___hdmi_rx1___frl.html#a2590b69cbb7cef7c8752f1ff553ab021", null ],
     [ "FfeSuppFlag", "struct_x_v___hdmi_rx1___frl.html#a52827fe0fcf8a35db1def1910fada68d", null ],

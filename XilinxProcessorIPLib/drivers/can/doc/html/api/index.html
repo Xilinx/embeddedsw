@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b>Interrupts</b></p>
 <p>The driver has no dependencies on the interrupt controller. The driver provides an interrupt handler. User of this driver needs to provide callback functions. An interrupt handler example is available with the driver.</p>
 <p><b>Virtual Memory</b></p>
-<p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space and invoking function <a class="el" href="group__can__v3__4.html#gae0829418cbc177e93388daebe5fba0c6" title="This routine initializes of a specific XCan instance/driver.">XCan_VmInitialize()</a>, instead of <a class="el" href="group__can__v3__4.html#gacbd9f5e256dcbd948afe916d13bc7b35" title="This routine initializes a specific XCan instance/driver.">XCan_Initialize()</a>, to initialize the device at first.</p>
+<p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space and invoking function <a class="el" href="group__can__v3__5.html#gae0829418cbc177e93388daebe5fba0c6" title="This routine initializes of a specific XCan instance/driver.">XCan_VmInitialize()</a>, instead of <a class="el" href="group__can__v3__5.html#gacbd9f5e256dcbd948afe916d13bc7b35" title="This routine initializes a specific XCan instance/driver.">XCan_Initialize()</a>, to initialize the device at first.</p>
 <p><b>Threads</b></p>
 <p>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</p>
 <p><b>Device Reset</b></p>
@@ -141,7 +141,7 @@ $(document).ready(function(){initNavTree('index.html','');});
         ms   03/17/17 Added readme.txt file in examples folder for doxygen
                       generation.
   3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
-  </pre> </div></div><!-- contents -->
+  3.5   sne  08/28/20 Modify Makefile to support parallel make execution.</pre><pre>  </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

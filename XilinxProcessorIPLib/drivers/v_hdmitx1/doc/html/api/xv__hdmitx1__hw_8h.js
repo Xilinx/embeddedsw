@@ -1,5 +1,7 @@
 var xv__hdmitx1__hw_8h =
 [
+    [ "XV_HDMITX1_3DAUD_CTRL_CH_MASK", "xv__hdmitx1__hw_8h.html#a07040ad23704877ed3f55d8f25456b95", null ],
+    [ "XV_HDMITX1_3DAUD_CTRL_CH_SHIFT", "xv__hdmitx1__hw_8h.html#a73acb585d91a8a036c65d832a7ff030d", null ],
     [ "XV_HDMITX1_ANLZ_HBP_HS_HPB_SZ_MASK", "xv__hdmitx1__hw_8h.html#afb2c02dfd40e7248cb5137d1fda16451", null ],
     [ "XV_HDMITX1_ANLZ_HBP_HS_HPB_SZ_SHIFT", "xv__hdmitx1__hw_8h.html#a0b0c1fc1bd8023ff5443e48be1a37d52", null ],
     [ "XV_HDMITX1_ANLZ_HBP_HS_HS_SZ_MASK", "xv__hdmitx1__hw_8h.html#a2a337b11e7ed5c655aaa779fcb92238e", null ],
@@ -15,6 +17,9 @@ var xv__hdmitx1__hw_8h =
     [ "XV_HDMITX1_AUD_ACR_CTS_VLD_MASK", "xv__hdmitx1__hw_8h.html#aee33576540fac84d5350f1a5d26b27bf", null ],
     [ "XV_HDMITX1_AUD_ACR_N_MASK", "xv__hdmitx1__hw_8h.html#a7b80b4e0c5104151bce62e9a679cd3cb", null ],
     [ "XV_HDMITX1_AUD_ACR_N_OFFSET", "xv__hdmitx1__hw_8h.html#a07578cb7628cd825336759685d553253", null ],
+    [ "XV_HDMITX1_AUD_CTRL_3DAUDFMT_EN", "xv__hdmitx1__hw_8h.html#a7098260b81b3a81f1325d55f3fc5e25a", null ],
+    [ "XV_HDMITX1_AUD_CTRL_3DAUDFMT_MASK", "xv__hdmitx1__hw_8h.html#a52b9186ae2de6f7846338a83b0d7047f", null ],
+    [ "XV_HDMITX1_AUD_CTRL_3DAUDFMT_SHIFT", "xv__hdmitx1__hw_8h.html#a2c371de5a34ac6143c1696f80581d23c", null ],
     [ "XV_HDMITX1_AUD_CTRL_AUDFMT_MASK", "xv__hdmitx1__hw_8h.html#a93c2f397d3ac840e116f0d2d9dd74262", null ],
     [ "XV_HDMITX1_AUD_CTRL_AUDFMT_SHIFT", "xv__hdmitx1__hw_8h.html#ac103acef218d3189d2317c829c70e60e", null ],
     [ "XV_HDMITX1_AUD_CTRL_CH_MASK", "xv__hdmitx1__hw_8h.html#a29066f63afe9beeadac7a04ef1fecb3b", null ],

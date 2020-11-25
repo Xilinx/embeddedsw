@@ -71,132 +71,118 @@ $(document).ready(function(){initNavTree('xloader_8c.html','');});
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
 1.00  kc   07/25/2018 Initial release
-1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+      tp   04/05/2019 Added API to reload a particular image
+      kc   04/09/2019 Added support for PCIe secondary boot mode and
+                                        partial PDI load
+      bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
+                                        R5-1 split mode functionality
+      bsv  06/17/2019 Added support for CFI and CFU error handling
+      bsv  06/26/2019 Added secondary boot support
+      kc   07/16/2019 Added code to print execution time
+      rv   07/29/2019 Added code to request boot source before subsystem restart
+      vnsl 07/30/2019 Added APIs to load secure headers
+      scs  08/29/2019 Added API to validate extended ID Code
+      bsv  08/30/2019 Added fallback and multiboot support in PLM
+      kc   09/05/2019 Added code to use PMCDMA0 and PMCDMA1 in parallel
+      kc   09/13/2019 SBI reset is removed for SMAP boot mode to ensure smap
+                                        bus width value remains unchanged
+1.01  bsv  10/31/2019 Added USB secondary boot mode support
+      kc   12/02/2019 Added performance time stamps
+      ma   12/12/2019 Added support for passing hand off parameters to ATF
+      bsv  12/30/2019 Added SMAP secondary boot mode support
+      ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
                       time and print
-      har  02/18/2020 Removed code to return error codes for security related
+      bsv  02/12/2020 Added support for SD/eMMC raw boot mode
+      bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
+      bsv  02/25/2020 Added macros to handle u32 return values from drivers
+      vnsl 02/26/2020 Added boot header reading call during partial PDI
+      kc   02/27/2020 Added SEM support for partial reconfiguration
+      bsv  02/28/2020 Added support for delay handoff
+      har  02/28/2020 Removed code to return error codes for security related
                       errors
-</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      vnsl 03/01/2020 Added PUF KEK decrypt support
+      bsv  03/14/2020 Added eMMC0 FS and raw boot mode support
+      bsv  04/09/2020 Code clean up
+1.02    ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
+                                        initial boot pdi to partial pdi structure variables
+      bsv  06/22/2020 Cfi error handler should only be called for PL image
+      bsv  07/01/2020 Added DevRelease to DevOps
+      kc   07/28/2020 PLM mode is set to configuration during PDI load
+      bsv  07/29/2020 Added support for delay load attribute
+      bsv  08/06/2020 Code clean up
+      bsv  08/10/2020 Added subsystem restart support from DDR
+      har  08/11/2020 Added task to scheduler for checking Authenticated JTAG
+                      interrupt status
+      bsv  08/16/2020 Reinitialized Status variable to XST_FAILURE for
+                      security reasons
+      td   08/19/2020 Fixed MISRA C violations Rule 10.3
+      bm   08/19/2020 Added logic to store ImageInfo
+      bsv  08/21/2020 Added XSECURE_TEMPORAL_CHECK macro to add
+                      redundancy in security critical functions
+      bm   09/07/2020 Clear PMC RAM chunk after loading PDIs and reloading images
+      bm   09/21/2020 Added ImageInfo related code and added compatibility
+                      check required for DFx
+      bm   09/24/2020 Added FuncID to RestartImage
+      bsv  09/30/2020 Enable parallel DMA for SBI related boot modes
+      bsv  10/09/2020 Add subsystem restart support for SD raw boot modes
+      bsv  10/13/2020 Code clean up
+      kpt  10/19/2020 Renamed XLoader_UpdateKekRdKeyStatus to
+                      XLoader_UpdateKekSrc
+      td         10/19/2020 MISRA C Fixes</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad8bac3e312d727cd2c378873d4d7c3cd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#ad8bac3e312d727cd2c378873d4d7c3cd">XLoader_Init</a> ()</td></tr>
-<tr class="memdesc:ad8bac3e312d727cd2c378873d4d7c3cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the loader instance and registers loader commands with PLM.  <a href="#ad8bac3e312d727cd2c378873d4d7c3cd"></a><br/></td></tr>
-<tr class="separator:ad8bac3e312d727cd2c378873d4d7c3cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b44d28ee968b80296defb4a04d55633"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a0b44d28ee968b80296defb4a04d55633">XLoader_PdiInit</a> (XilPdi *PdiPtr, u32 PdiSrc, u64 PdiAddr)</td></tr>
-<tr class="memdesc:a0b44d28ee968b80296defb4a04d55633"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the PDI instance with required details and read the meta header.  <a href="#a0b44d28ee968b80296defb4a04d55633"></a><br/></td></tr>
-<tr class="separator:a0b44d28ee968b80296defb4a04d55633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24d3dedeae23e7abd1a34b3f9575dfb7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a24d3dedeae23e7abd1a34b3f9575dfb7">XLoader_ReadAndValidateHdrs</a> (XilPdi *PdiPtr, u32 RegVal)</td></tr>
-<tr class="memdesc:a24d3dedeae23e7abd1a34b3f9575dfb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads bootheader and metaheader and validates them.  <a href="#a24d3dedeae23e7abd1a34b3f9575dfb7"></a><br/></td></tr>
-<tr class="separator:a24d3dedeae23e7abd1a34b3f9575dfb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a487cb608d16455054946bae2fb8224c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a487cb608d16455054946bae2fb8224c2">XLoader_LoadAndStartSubSystemImages</a> (XilPdi *PdiPtr)</td></tr>
-<tr class="memdesc:a487cb608d16455054946bae2fb8224c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to load and start images.  <a href="#a487cb608d16455054946bae2fb8224c2"></a><br/></td></tr>
-<tr class="separator:a487cb608d16455054946bae2fb8224c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eb0801d267d58abd7f89ed58ec11bac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a0eb0801d267d58abd7f89ed58ec11bac">XLoader_LoadAndStartSubSystemPdi</a> (XilPdi *PdiPtr)</td></tr>
-<tr class="memdesc:a0eb0801d267d58abd7f89ed58ec11bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to load the primary and secondary PDIs.  <a href="#a0eb0801d267d58abd7f89ed58ec11bac"></a><br/></td></tr>
-<tr class="separator:a0eb0801d267d58abd7f89ed58ec11bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5105c63b9e5038dad33ef1920170a61"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#aa5105c63b9e5038dad33ef1920170a61">XLoader_LoadPdi</a> (XilPdi *PdiPtr, u32 PdiSrc, u64 PdiAddr)</td></tr>
-<tr class="memdesc:aa5105c63b9e5038dad33ef1920170a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides loading PDI.  <a href="#aa5105c63b9e5038dad33ef1920170a61"></a><br/></td></tr>
-<tr class="separator:aa5105c63b9e5038dad33ef1920170a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdd3f08598453e93f5b6ce59411c1824"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#abdd3f08598453e93f5b6ce59411c1824">XLoader_StartImage</a> (XilPdi *PdiPtr)</td></tr>
-<tr class="memdesc:abdd3f08598453e93f5b6ce59411c1824"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to start the subsystems in the PDI.  <a href="#abdd3f08598453e93f5b6ce59411c1824"></a><br/></td></tr>
-<tr class="separator:abdd3f08598453e93f5b6ce59411c1824"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a291bc215c329b8ef808be1d12f1d677d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a291bc215c329b8ef808be1d12f1d677d">XLoader_A72Config</a> (u32 CpuId, u32 ExecState, u32 VInitHi)</td></tr>
-<tr class="memdesc:a291bc215c329b8ef808be1d12f1d677d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Aarch state and vector location for APU.  <a href="#a291bc215c329b8ef808be1d12f1d677d"></a><br/></td></tr>
-<tr class="separator:a291bc215c329b8ef808be1d12f1d677d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c05678024cae63ae3f79fa499c702ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a8c05678024cae63ae3f79fa499c702ad">XLoader_LoadImage</a> (XilPdi *PdiPtr, u32 ImageId)</td></tr>
-<tr class="memdesc:a8c05678024cae63ae3f79fa499c702ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used load a image in PDI.  <a href="#a8c05678024cae63ae3f79fa499c702ad"></a><br/></td></tr>
-<tr class="separator:a8c05678024cae63ae3f79fa499c702ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5cbf62e248d4dffe20b25be0f700a7b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#af5cbf62e248d4dffe20b25be0f700a7b">XLoader_RestartImage</a> (u32 ImageId)</td></tr>
-<tr class="memdesc:af5cbf62e248d4dffe20b25be0f700a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to restart the image in PDI.  <a href="#af5cbf62e248d4dffe20b25be0f700a7b"></a><br/></td></tr>
-<tr class="separator:af5cbf62e248d4dffe20b25be0f700a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcd269cdc5e18290755b30ff17983108"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#abcd269cdc5e18290755b30ff17983108">XLoader_ReloadImage</a> (u32 ImageId)</td></tr>
-<tr class="memdesc:abcd269cdc5e18290755b30ff17983108"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to reload the image only in PDI.  <a href="#abcd269cdc5e18290755b30ff17983108"></a><br/></td></tr>
-<tr class="separator:abcd269cdc5e18290755b30ff17983108"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a107597aee6b3a0a45e213514be707eae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a107597aee6b3a0a45e213514be707eae">XLoader_IdCodeCheck</a> (XilPdi_ImgHdrTbl *ImgHdrTbl)</td></tr>
-<tr class="memdesc:a107597aee6b3a0a45e213514be707eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the checks of IDCODE and EXTENDED IDCODE.  <a href="#a107597aee6b3a0a45e213514be707eae"></a><br/></td></tr>
-<tr class="separator:a107597aee6b3a0a45e213514be707eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18ac7658ccf689f822947b104ff5038d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a18ac7658ccf689f822947b104ff5038d">XLoader_SetATFHandoffParameters</a> (const XilPdi_PrtnHdr *PartitionHeader)</td></tr>
-<tr class="memdesc:a18ac7658ccf689f822947b104ff5038d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handoff parameters to the ARM Trusted Firmware(ATF).  <a href="#a18ac7658ccf689f822947b104ff5038d"></a><br/></td></tr>
-<tr class="separator:a18ac7658ccf689f822947b104ff5038d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10d788638d3f2c70ec33a6f99eb40e65"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a10d788638d3f2c70ec33a6f99eb40e65">XLoader_LoadAndStartSecPdi</a> (XilPdi *PdiPtr)</td></tr>
-<tr class="memdesc:a10d788638d3f2c70ec33a6f99eb40e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to load the primary and secondary PDIs.  <a href="#a10d788638d3f2c70ec33a6f99eb40e65"></a><br/></td></tr>
-<tr class="separator:a10d788638d3f2c70ec33a6f99eb40e65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb10f2e97fecfb15aae4fed081b02502"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#acb10f2e97fecfb15aae4fed081b02502">XLoader_Init</a> (void)</td></tr>
+<tr class="memdesc:acb10f2e97fecfb15aae4fed081b02502"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the loader instance and registers loader commands with PLM.  <a href="#acb10f2e97fecfb15aae4fed081b02502"></a><br/></td></tr>
+<tr class="separator:acb10f2e97fecfb15aae4fed081b02502"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8493673eccf135010606bf9449bc5ee4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__apis.html#ga8493673eccf135010606bf9449bc5ee4">XLoader_LoadPdi</a> (XilPdi *PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)</td></tr>
+<tr class="memdesc:ga8493673eccf135010606bf9449bc5ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides loading PDI.  <a href="group__xloader__apis.html#ga8493673eccf135010606bf9449bc5ee4"></a><br/></td></tr>
+<tr class="separator:ga8493673eccf135010606bf9449bc5ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1174525d720931317820d083d51efdd7"><td class="memItemLeft" align="right" valign="top">XLoader_ImageInfo *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a1174525d720931317820d083d51efdd7">XLoader_GetImageInfoEntry</a> (u32 ImgID)</td></tr>
+<tr class="memdesc:a1174525d720931317820d083d51efdd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the ImageInfoEntry by checking if an entry exists for that particular ImgId in the ImgInfoTbl.  <a href="#a1174525d720931317820d083d51efdd7"></a><br/></td></tr>
+<tr class="separator:a1174525d720931317820d083d51efdd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4536a8f912fdc415818238dfba96782"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#af4536a8f912fdc415818238dfba96782">XLoader_StoreImageInfo</a> (XLoader_ImageInfo *ImageInfo)</td></tr>
+<tr class="memdesc:af4536a8f912fdc415818238dfba96782"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stores the ImageInfo to Image Info Table.  <a href="#af4536a8f912fdc415818238dfba96782"></a><br/></td></tr>
+<tr class="separator:af4536a8f912fdc415818238dfba96782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304b923a96834575c1fee9eed2ffb870"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a304b923a96834575c1fee9eed2ffb870">XLoader_LoadImageInfoTbl</a> (u64 DestAddr, u32 MaxSize, u32 *NumEntries)</td></tr>
+<tr class="memdesc:a304b923a96834575c1fee9eed2ffb870"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function loads the ImageInfo table to the given memory address.  <a href="#a304b923a96834575c1fee9eed2ffb870"></a><br/></td></tr>
+<tr class="separator:a304b923a96834575c1fee9eed2ffb870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dbbecc3b2545a3e076d421f086715e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a3dbbecc3b2545a3e076d421f086715e6">XLoader_RestartImage</a> (u32 ImageId, u32 *FuncID)</td></tr>
+<tr class="memdesc:a3dbbecc3b2545a3e076d421f086715e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to restart the image in PDI.  <a href="#a3dbbecc3b2545a3e076d421f086715e6"></a><br/></td></tr>
+<tr class="separator:a3dbbecc3b2545a3e076d421f086715e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b1966d6afb00e55785154bac01c8228"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8c.html#a0b1966d6afb00e55785154bac01c8228">XLoader_SetATFHandoffParameters</a> (const XilPdi_PrtnHdr *PrtnHdr)</td></tr>
+<tr class="memdesc:a0b1966d6afb00e55785154bac01c8228"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handoff parameters to the ARM Trusted Firmware(ATF).  <a href="#a0b1966d6afb00e55785154bac01c8228"></a><br/></td></tr>
+<tr class="separator:a0b1966d6afb00e55785154bac01c8228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a291bc215c329b8ef808be1d12f1d677d"></a>
+<a class="anchor" id="a1174525d720931317820d083d51efdd7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XLoader_A72Config </td>
+          <td class="memname">XLoader_ImageInfo* XLoader_GetImageInfoEntry </td>
           <td>(</td>
           <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>CpuId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ExecState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>VInitHi</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function sets Aarch state and vector location for APU. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CpuId</td><td>CPU ID </td></tr>
-    <tr><td class="paramname">ExecState</td><td>CPU execution state </td></tr>
-    <tr><td class="paramname">VinitHi</td><td>resembles highvec configuration for CPU</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#abdd3f08598453e93f5b6ce59411c1824">XLoader_StartImage()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a107597aee6b3a0a45e213514be707eae"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_IdCodeCheck </td>
-          <td>(</td>
-          <td class="paramtype">XilPdi_ImgHdrTbl *&#160;</td>
-          <td class="paramname"><em>ImgHdrTbl</em></td><td>)</td>
+          <td class="paramname"><em>ImgID</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function performs the checks of IDCODE and EXTENDED IDCODE. </p>
-<p>It also supports bypass of subset of these checks.</p>
+<p>This function returns the ImageInfoEntry by checking if an entry exists for that particular ImgId in the ImgInfoTbl. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ImgHdrTbl</td><td>pointer to the image header table.</td></tr>
+    <tr><td class="paramname">ImgId</td><td>of the the entry that has to be stored</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Address of ImageInfo Entry in the table </dd></dl>
 
-<p>Referenced by <a class="el" href="xloader_8h.html#a24d3dedeae23e7abd1a34b3f9575dfb7">XLoader_ReadAndValidateHdrs()</a>.</p>
+<p>Referenced by <a class="el" href="xloader_8c.html#af4536a8f912fdc415818238dfba96782">XLoader_StoreImageInfo()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad8bac3e312d727cd2c378873d4d7c3cd"></a>
+<a class="anchor" id="acb10f2e97fecfb15aae4fed081b02502"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -219,160 +205,31 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xloader_8h.html#a953be1ba88ede7dedb1f86081b14f221">XLoader_CframeInit()</a>, <a class="el" href="xloader_8h.html#a4f6f0449e783f3de6ccb58f932b55d5a">XLoader_CmdsInit()</a>, and <a class="el" href="xloader_8h.html#a11387289357f0d56f5ee8f21f16aba70">XLoader_IntrInit()</a>.</p>
+<p>References <a class="el" href="xloader__secure_8c.html#a434f49bc94a9078a86451ac5bde637cc">XLoader_AddAuthJtagToScheduler()</a>, and <a class="el" href="xloader__cfi_8c.html#a953be1ba88ede7dedb1f86081b14f221">XLoader_CframeInit()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a10d788638d3f2c70ec33a6f99eb40e65"></a>
+<a class="anchor" id="a304b923a96834575c1fee9eed2ffb870"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int XLoader_LoadAndStartSecPdi </td>
+          <td class="memname">int XLoader_LoadImageInfoTbl </td>
           <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is used to load the primary and secondary PDIs. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is Pdi instance pointer</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xloader_8c.html#a487cb608d16455054946bae2fb8224c2">XLoader_LoadAndStartSubSystemImages()</a>, and <a class="el" href="xloader_8c.html#a0b44d28ee968b80296defb4a04d55633">XLoader_PdiInit()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a0eb0801d267d58abd7f89ed58ec11bac">XLoader_LoadAndStartSubSystemPdi()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a487cb608d16455054946bae2fb8224c2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_LoadAndStartSubSystemImages </td>
-          <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is used to load and start images. </p>
-<p>It reads meta header, loads the images as present in the PDI and starts images based on hand-off information present in PDI.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is Pdi instance pointer</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xloader_8h.html#a055a1373c753cc950f9e63f7a105a6f9">XLoader_CframeErrorHandler()</a>, <a class="el" href="xloader_8c.html#a8c05678024cae63ae3f79fa499c702ad">XLoader_LoadImage()</a>, <a class="el" href="xloader_8c.html#abdd3f08598453e93f5b6ce59411c1824">XLoader_StartImage()</a>, and <a class="el" href="xloader_8h.html#ac7c56a671903c86db21b907d2ce28fd0">XLoader_UpdateHandoffParam()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a10d788638d3f2c70ec33a6f99eb40e65">XLoader_LoadAndStartSecPdi()</a>, and <a class="el" href="xloader_8h.html#a0eb0801d267d58abd7f89ed58ec11bac">XLoader_LoadAndStartSubSystemPdi()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0eb0801d267d58abd7f89ed58ec11bac"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_LoadAndStartSubSystemPdi </td>
-          <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is used to load the primary and secondary PDIs. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is Pdi instance pointer</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xloader_8c.html#a10d788638d3f2c70ec33a6f99eb40e65">XLoader_LoadAndStartSecPdi()</a>, and <a class="el" href="xloader_8c.html#a487cb608d16455054946bae2fb8224c2">XLoader_LoadAndStartSubSystemImages()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#aa5105c63b9e5038dad33ef1920170a61">XLoader_LoadPdi()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8c05678024cae63ae3f79fa499c702ad"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_LoadImage </td>
-          <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ImageId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is used load a image in PDI. </p>
-<p>PDI can have multiple images present in it. This can be used to load a single image like PL, APU, RPU. This will load all the partitions that are present in that image.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is Pdi instance pointer </td></tr>
-    <tr><td class="paramname">ImageId</td><td>is Id of the image present in PDI</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xloader_8h.html#abbad8b8a9c420061c16ddc178bf7bbe3">XLoader_LoadImagePrtns()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a487cb608d16455054946bae2fb8224c2">XLoader_LoadAndStartSubSystemImages()</a>, and <a class="el" href="xloader_8h.html#abcd269cdc5e18290755b30ff17983108">XLoader_ReloadImage()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa5105c63b9e5038dad33ef1920170a61"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_LoadPdi </td>
-          <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>PdiSrc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">u64&#160;</td>
-          <td class="paramname"><em>PdiAddr</em>&#160;</td>
+          <td class="paramname"><em>DestAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>MaxSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>NumEntries</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -382,141 +239,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function provides loading PDI. </p>
+<p>This function loads the ImageInfo table to the given memory address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is the instance pointer that points to PDI details </td></tr>
-    <tr><td class="paramname">PdiSrc</td><td>is source of PDI. It can be in Boot Device or DDR. </td></tr>
-    <tr><td class="paramname">PdiAddr</td><td>is the address at PDI is located in the PDI source</td></tr>
+    <tr><td class="paramname">64</td><td>bit Destination Address </td></tr>
+    <tr><td class="paramname">Max</td><td>Size of Buffer present at Destination Address </td></tr>
+    <tr><td class="paramname">NumEntries</td><td>that are loaded from the Image Info Table</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xloader_8c.html#a0eb0801d267d58abd7f89ed58ec11bac">XLoader_LoadAndStartSubSystemPdi()</a>, and <a class="el" href="xloader_8c.html#a0b44d28ee968b80296defb4a04d55633">XLoader_PdiInit()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader__intr_8c.html#aa5801b9234e5e434c154089af232ca27">XLoader_SbiLoadPdi()</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="a0b44d28ee968b80296defb4a04d55633"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_PdiInit </td>
-          <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>PdiSrc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u64&#160;</td>
-          <td class="paramname"><em>PdiAddr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function initializes the PDI instance with required details and read the meta header. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is instance pointer pointing to PDI details </td></tr>
-    <tr><td class="paramname">PdiSrc</td><td>is source of PDI. It can be any boot Device or DDR </td></tr>
-    <tr><td class="paramname">PdiAddr</td><td>is the address at which PDI is located in the PDI source</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xloader_8c.html#a24d3dedeae23e7abd1a34b3f9575dfb7">XLoader_ReadAndValidateHdrs()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a10d788638d3f2c70ec33a6f99eb40e65">XLoader_LoadAndStartSecPdi()</a>, and <a class="el" href="xloader_8h.html#aa5105c63b9e5038dad33ef1920170a61">XLoader_LoadPdi()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a24d3dedeae23e7abd1a34b3f9575dfb7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_ReadAndValidateHdrs </td>
-          <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>RegVal</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads bootheader and metaheader and validates them. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is instance pointer pointing to PDI details </td></tr>
-    <tr><td class="paramname">RegVal</td><td>is the value of the Multiboot register</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xloader_8c.html#a107597aee6b3a0a45e213514be707eae">XLoader_IdCodeCheck()</a>, <a class="el" href="xloader__secure_8c.html#a1b10ea2912a55b2478297925b1cf79aa">XLoader_ImgHdrTblAuth()</a>, <a class="el" href="xloader_8h.html#ad3db212e48343933a8eae406b9eec57c">XLoader_IsAuthEnabled()</a>, <a class="el" href="xloader_8h.html#adbafb963970e6b1831afa56e57363a6c">XLoader_IsEncEnabled()</a>, <a class="el" href="xloader__secure_8c.html#aebcdb6b11fdd5dc4259c91a7708e0afe">XLoader_ReadAndVerifySecureHdrs()</a>, <a class="el" href="xloader__secure_8c.html#adf7d1daf739d26c84c9e308f5656f1f6">XLoader_SecureValidations()</a>, and <a class="el" href="xloader__secure_8c.html#a7096cfa8b13ed9ed85886baf61d4491b">XLoader_UpdateKekRdKeyStatus()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a0b44d28ee968b80296defb4a04d55633">XLoader_PdiInit()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abcd269cdc5e18290755b30ff17983108"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XLoader_ReloadImage </td>
-          <td>(</td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ImageId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is used to reload the image only in PDI. </p>
-<p>This function will take ImageId as an input and based on the subsystem info available, it will read the image partitions and loads them.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ImageId</td><td>Id of the image present in PDI</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>returns XST_SUCCESS on success </dd></dl>
-
-<p>References <a class="el" href="xloader_8c.html#a8c05678024cae63ae3f79fa499c702ad">XLoader_LoadImage()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#af5cbf62e248d4dffe20b25be0f700a7b">XLoader_RestartImage()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5cbf62e248d4dffe20b25be0f700a7b"></a>
+<a class="anchor" id="a3dbbecc3b2545a3e076d421f086715e6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -524,8 +260,18 @@ Functions</h2></td></tr>
           <td class="memname">int XLoader_RestartImage </td>
           <td>(</td>
           <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ImageId</em></td><td>)</td>
+          <td class="paramname"><em>ImageId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>FuncID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -534,17 +280,16 @@ Functions</h2></td></tr>
 <p>This function will take ImageId as an input and based on the subsystem info available, it will read the image partitions, loads them and hand-off to the required CPUs as part of the image load.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ImageId</td><td>Id of the image present in PDI</td></tr>
+    <tr><td class="paramname">ImageId</td><td>Id of the image present in PDI </td></tr>
+    <tr><td class="paramname">FuncID</td><td>is verified with the FuncID present in PDI</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>returns XST_SUCCESS on success </dd></dl>
-
-<p>References <a class="el" href="xloader_8c.html#abcd269cdc5e18290755b30ff17983108">XLoader_ReloadImage()</a>, and <a class="el" href="xloader_8c.html#abdd3f08598453e93f5b6ce59411c1824">XLoader_StartImage()</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a18ac7658ccf689f822947b104ff5038d"></a>
+<a class="anchor" id="a0b1966d6afb00e55785154bac01c8228"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -552,7 +297,7 @@ Functions</h2></td></tr>
           <td class="memname">void XLoader_SetATFHandoffParameters </td>
           <td>(</td>
           <td class="paramtype">const XilPdi_PrtnHdr *&#160;</td>
-          <td class="paramname"><em>PartitionHeader</em></td><td>)</td>
+          <td class="paramname"><em>PrtnHdr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -562,7 +307,7 @@ Functions</h2></td></tr>
 <p>Some of the inputs for this are taken from image partition header. A pointer to the structure containing these parameters is stored in the PMC_GLOBAL.GLOBAL_GEN_STORAGE4 register, which ATF reads.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">PartitionHeader</td><td>is pointer to Partition header details</td></tr>
+    <tr><td class="paramname">PrtnHdr</td><td>is pointer to Partition header details</td></tr>
   </table>
   </dd>
 </dl>
@@ -570,32 +315,30 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abdd3f08598453e93f5b6ce59411c1824"></a>
+<a class="anchor" id="af4536a8f912fdc415818238dfba96782"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int XLoader_StartImage </td>
+          <td class="memname">int XLoader_StoreImageInfo </td>
           <td>(</td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em></td><td>)</td>
+          <td class="paramtype">XLoader_ImageInfo *&#160;</td>
+          <td class="paramname"><em>ImageInfo</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is used to start the subsystems in the PDI. </p>
+<p>This function stores the ImageInfo to Image Info Table. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>Pdi instance pointer</td></tr>
+    <tr><td class="paramname">Pointer</td><td>to ImageInfo that has to be written.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xloader_8c.html#a291bc215c329b8ef808be1d12f1d677d">XLoader_A72Config()</a>.</p>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a487cb608d16455054946bae2fb8224c2">XLoader_LoadAndStartSubSystemImages()</a>, and <a class="el" href="xloader_8h.html#af5cbf62e248d4dffe20b25be0f700a7b">XLoader_RestartImage()</a>.</p>
+<p>References <a class="el" href="xloader_8c.html#a1174525d720931317820d083d51efdd7">XLoader_GetImageInfoEntry()</a>.</p>
 
 </div>
 </div>

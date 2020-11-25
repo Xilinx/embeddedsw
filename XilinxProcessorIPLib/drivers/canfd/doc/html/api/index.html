@@ -128,15 +128,15 @@ $(document).ready(function(){initNavTree('index.html','');});
   1.0   nsk  15/05/15 Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> for correct AFRID and AFRMSK Registers
                       Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and <a class="el" href="xcanfd_8h.html">xcanfd.h</a> to get configurable
                       TxBuffers in <a class="el" href="struct_x_can_fd___config.html" title="This typedef contains configuration information for a device.">XCanFd_Config</a> Struct and
-                      <a class="el" href="group__canfd__v2__3.html#gab41b6198a5a28b106e241e7c785fbcae" title="This Routine returns the Free Buffer out of 32 Transmit Buffers.">XCanFd_GetFreeBuffer()</a>.
+                      <a class="el" href="group__canfd__v2__4.html#gab41b6198a5a28b106e241e7c785fbcae" title="This Routine returns the Free Buffer out of 32 Transmit Buffers.">XCanFd_GetFreeBuffer()</a>.
                       Modified XCANFD_BTR_TS1_MASK in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a>.
                       Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> while sending data when EDL is Zero.
                       Updated driver tcl file to get configurable TxBuffers.
                       (CR 861772).
-  1.0   nsk  16/06/15 Updated <a class="el" href="group__canfd__v2__3.html#gae93c2c9dd933e4258b9d4118c4bf6220" title="This function receives a CAN Frame in MAIL BOX Mode.">XCanFd_Recv_Mailbox()</a>, <a class="el" href="group__canfd__v2__3.html#gaaa893768ea4f0db5796f31ab3d8ca431" title="This function allows the CAN device to enter one of the following operation modes:">XCanFd_EnterMode()</a>
-                      <a class="el" href="group__canfd__v2__3.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5" title="This routine returns current operation mode the CAN device is in.">XCanFd_GetMode()</a> in <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and Added new definition
+  1.0   nsk  16/06/15 Updated <a class="el" href="group__canfd__v2__4.html#gae93c2c9dd933e4258b9d4118c4bf6220" title="This function receives a CAN Frame in MAIL BOX Mode.">XCanFd_Recv_Mailbox()</a>, <a class="el" href="group__canfd__v2__4.html#gaaa893768ea4f0db5796f31ab3d8ca431" title="This function allows the CAN device to enter one of the following operation modes:">XCanFd_EnterMode()</a>
+                      <a class="el" href="group__canfd__v2__4.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5" title="This routine returns current operation mode the CAN device is in.">XCanFd_GetMode()</a> in <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and Added new definition
                       for Register bits in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a> and updated
-                      <a class="el" href="group__canfd__v2__3.html#ga9576c384b9ef2e8436298b5947010f90" title="This routine is the interrupt handler for the CAN driver.">XCanFd_IntrHandler()</a> in <a class="el" href="xcanfd__intr_8c.html">xcanfd_intr.c</a> as per new RTL.
+                      <a class="el" href="group__canfd__v2__4.html#ga9576c384b9ef2e8436298b5947010f90" title="This routine is the interrupt handler for the CAN driver.">XCanFd_IntrHandler()</a> in <a class="el" href="xcanfd__intr_8c.html">xcanfd_intr.c</a> as per new RTL.
                       Changes in RTL, Added new bits to MSR,SR,ISR,IER,ICR
                       Registers and modified TS2 bits in BTR and F_SJW bits
                       in F_BTR Registers.
@@ -199,10 +199,10 @@ $(document).ready(function(){initNavTree('index.html','');});
                       <a class="el" href="xcanfd_8c.html">xcanfd.c</a> CR# 1018379
   2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
                       prescalar value properly in <a class="el" href="xcanfd__config_8c.html">xcanfd_config.c</a> CR# 1016013
-  2.1   nsk  03/09/19 Updated <a class="el" href="group__canfd__v2__3.html#ga10fa6a0030a1dc8ca563745ffb5f9c95" title="This function returns Data Length Code(in Bytes),we need to pass DLC Field value in DLC Register...">XCanFd_GetDlc2len()</a>, for CAN frames, to handle
+  2.1   nsk  03/09/19 Updated <a class="el" href="group__canfd__v2__4.html#ga10fa6a0030a1dc8ca563745ffb5f9c95" title="This function returns Data Length Code(in Bytes),we need to pass DLC Field value in DLC Register...">XCanFd_GetDlc2len()</a>, for CAN frames, to handle
                       number of data bytes greater than 8. CR# 1022045
   2.1   nsk  03/09/19 Fix for TrrMask to not to get written when using
-                      <a class="el" href="group__canfd__v2__3.html#ga786ce457feaacaa6e7e076d8dd6f8931" title="This function writes the Data into specific Buffer.we have 32 TxBuffers we can Add data to each Buffe...">XCanFd_Addto_Queue()</a>. CR# 1022093
+                      <a class="el" href="group__canfd__v2__4.html#ga786ce457feaacaa6e7e076d8dd6f8931" title="This function writes the Data into specific Buffer.we have 32 TxBuffers we can Add data to each Buffe...">XCanFd_Addto_Queue()</a>. CR# 1022093
   2.1   nsk  03/09/19 Added support for PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
                       CR# 1021963
   2.2   sn   06/11/19 Corrected below incorrect Mask values for CANFD2.0 in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a>
@@ -215,7 +215,8 @@ $(document).ready(function(){initNavTree('index.html','');});
   2.3   sne  12/18/19 Added Protocol Exception Event and BusOff event support
                       CR#1048363 &amp; CR#1046723.
   2.3   sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
-  2.3   sne  03/09/20 Initialize IsPl of config structure.</pre><pre>  </pre> </div></div><!-- contents -->
+  2.3   sne  03/09/20 Initialize IsPl of config structure.
+  2.4   sne  08/28/20 Modify Makefile to support parallel make execution.</pre><pre>  </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

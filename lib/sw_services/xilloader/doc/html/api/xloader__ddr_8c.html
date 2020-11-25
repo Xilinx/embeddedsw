@@ -70,33 +70,42 @@ $(document).ready(function(){initNavTree('xloader__ddr_8c.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
-1.00  kc   03/12/2019 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  kc   03/12/2019 Initial release
+1.01  kc   09/04/2019 Added support to use non blocking DMA in
+                                        DdrCopy function
+1.02  bsv  04/09/2020 Code clean up of Xilloader
+1.03  skd  07/14/2020 Added 64bit support for DDR source address
+      bsv  07/29/2020 Added provision to use PMCDMA0 for Ddr Copy
+      skd  07/29/2020 Updated device copy macros
+      bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+                      boot modes
+      bsv  10/13/2020 Code clean up</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a9df79c2616e31ed2a2060900a4222464"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__ddr_8c.html#a9df79c2616e31ed2a2060900a4222464">XLoader_DdrInit</a> (u32 DeviceFlags)</td></tr>
 <tr class="memdesc:a9df79c2616e31ed2a2060900a4222464"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to initialize for DDR init.  <a href="#a9df79c2616e31ed2a2060900a4222464"></a><br/></td></tr>
 <tr class="separator:a9df79c2616e31ed2a2060900a4222464"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29afb9a69484852e16fdb305f08a84da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__ddr_8c.html#a29afb9a69484852e16fdb305f08a84da">XLoader_DdrCopy</a> (u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)</td></tr>
-<tr class="memdesc:a29afb9a69484852e16fdb305f08a84da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to copy the data from DDR to destination address.  <a href="#a29afb9a69484852e16fdb305f08a84da"></a><br/></td></tr>
-<tr class="separator:a29afb9a69484852e16fdb305f08a84da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d20a86fe76b49ca6c68d62b58b54799"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__ddr_8c.html#a1d20a86fe76b49ca6c68d62b58b54799">XLoader_DdrCopy</a> (u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)</td></tr>
+<tr class="memdesc:a1d20a86fe76b49ca6c68d62b58b54799"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to copy the data from DDR to destination address.  <a href="#a1d20a86fe76b49ca6c68d62b58b54799"></a><br/></td></tr>
+<tr class="separator:a1d20a86fe76b49ca6c68d62b58b54799"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a29afb9a69484852e16fdb305f08a84da"></a>
+<a class="anchor" id="a1d20a86fe76b49ca6c68d62b58b54799"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int XLoader_DdrCopy </td>
           <td>(</td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>SrcAddress</em>, </td>
+          <td class="paramtype">u64&#160;</td>
+          <td class="paramname"><em>SrcAddr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u64&#160;</td>
-          <td class="paramname"><em>DestAddress</em>, </td>
+          <td class="paramname"><em>DestAddr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -121,8 +130,8 @@ Functions</h2></td></tr>
 <p>This function is used to copy the data from DDR to destination address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">SrcAddress</td><td>of DDR </td></tr>
-    <tr><td class="paramname">DestAddress</td><td>is the address of the destination where the data needs to be copied. </td></tr>
+    <tr><td class="paramname">SrcAddr</td><td>of DDR </td></tr>
+    <tr><td class="paramname">DestAddr</td><td>is the address of the destination where the data needs to be copied. </td></tr>
     <tr><td class="paramname">Length</td><td>of the bytes to be copied </td></tr>
     <tr><td class="paramname">Flags</td><td>that denote blocking / non-blocking dma</td></tr>
   </table>

@@ -96,6 +96,8 @@ MODIFICATION HISTORY:</pre><pre> . Updated the debug print on type casting to av
 4.6   rsp  09/13/19 Add error prints for failing scenarios.
                     Fix cache maintenance ops for source and dest buffer.
 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
+4.8      sk   09/28/20 Fix the compilation error for xreg_cortexa9.h
+                       preprocessor on R5 processor.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -193,7 +195,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the hardware build has problems with interrupt, then this function hangs </dd></dl>
 
-<p>References <a class="el" href="group__axicdma__v4__7.html#gab746b095007351c2fb2c1a7cf3693f2c">XAxiCdma_CfgInitialize()</a>, <a class="el" href="group__axicdma__v4__7.html#ga9f146fe224ea4c9a86477de3030dd79a">XAxiCdma_IntrEnable()</a>, <a class="el" href="group__axicdma__v4__7.html#ga3ecc6331ed89e613e7f1fb53f45a4cb0">XAxiCdma_LookupConfig()</a>, and <a class="el" href="group__axicdma__v4__7.html#gad2b921e876e581f84be0e7c152d13221">XAXICDMA_XR_IRQ_ALL_MASK</a>.</p>
+<p>References <a class="el" href="group__axicdma__v4__8.html#gab746b095007351c2fb2c1a7cf3693f2c">XAxiCdma_CfgInitialize()</a>, <a class="el" href="group__axicdma__v4__8.html#ga9f146fe224ea4c9a86477de3030dd79a">XAxiCdma_IntrEnable()</a>, <a class="el" href="group__axicdma__v4__8.html#ga3ecc6331ed89e613e7f1fb53f45a4cb0">XAxiCdma_LookupConfig()</a>, and <a class="el" href="group__axicdma__v4__8.html#gad2b921e876e581f84be0e7c152d13221">XAXICDMA_XR_IRQ_ALL_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="xaxicdma__example__simple__intr_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 

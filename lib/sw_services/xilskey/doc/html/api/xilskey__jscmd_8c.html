@@ -113,7 +113,7 @@ MODIFICATION HISTORY:</pre></dd></dl>
                        device series for different devices.
       psl     08/23/19 Added Debug define to avoid writing of eFuse.
 6.9   vns     03/18/20 Fixed Armcc compilation errors
-</pre> </div><table class="memberdecls">
+7.0     am              10/04/20 Resolved MISRA C violations</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a99170739fdd9b31819ccf42fe4d9fb23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#a99170739fdd9b31819ccf42fe4d9fb23">KINTEX_ULTRA_MB_DAP_ID</a>&#160;&#160;&#160;0x03822093</td></tr>
@@ -179,27 +179,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2240f1d411f1eef6605ee6da1426c5ba"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#a2240f1d411f1eef6605ee6da1426c5ba">JtagAES_Check_Ultrascale</a> (u32 *Crc, u8 MarginOption)</td></tr>
 <tr class="memdesc:a2240f1d411f1eef6605ee6da1426c5ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies the AES key of Ultrascale's EFUSE with provided CRC value.  <a href="#a2240f1d411f1eef6605ee6da1426c5ba"></a><br/></td></tr>
 <tr class="separator:a2240f1d411f1eef6605ee6da1426c5ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af50c6494e6b53a2b40fc15617880d8a8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#af50c6494e6b53a2b40fc15617880d8a8">Bbram_Init_Ultra</a> (void)</td></tr>
-<tr class="memdesc:af50c6494e6b53a2b40fc15617880d8a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the UltraScale's BBRAM algorithm initialization.  <a href="#af50c6494e6b53a2b40fc15617880d8a8"></a><br/></td></tr>
-<tr class="separator:af50c6494e6b53a2b40fc15617880d8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9c6aefde370d3532a60eedd50768b61"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#aa9c6aefde370d3532a60eedd50768b61">Bbram_ProgramKey_Ultra</a> (XilSKey_Bbram *InstancePtr)</td></tr>
-<tr class="memdesc:aa9c6aefde370d3532a60eedd50768b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the Ultrascale's BBRAM program key.  <a href="#aa9c6aefde370d3532a60eedd50768b61"></a><br/></td></tr>
-<tr class="separator:aa9c6aefde370d3532a60eedd50768b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33df6309bf7b8106c25c4f7f8bb2a9e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#a33df6309bf7b8106c25c4f7f8bb2a9e4">Bbram_DeInit_Ultra</a> (void)</td></tr>
-<tr class="memdesc:a33df6309bf7b8106c25c4f7f8bb2a9e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does de-initialization of UltraScale.  <a href="#a33df6309bf7b8106c25c4f7f8bb2a9e4"></a><br/></td></tr>
-<tr class="separator:a33df6309bf7b8106c25c4f7f8bb2a9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdb9b1c206a7bc8f6b18653dc3b5e5e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#afdb9b1c206a7bc8f6b18653dc3b5e5e1">Bbram_Close_Ultra</a> (void)</td></tr>
 <tr class="memdesc:afdb9b1c206a7bc8f6b18653dc3b5e5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function close UltraScale.  <a href="#afdb9b1c206a7bc8f6b18653dc3b5e5e1"></a><br/></td></tr>
 <tr class="separator:afdb9b1c206a7bc8f6b18653dc3b5e5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad65f9915a3a19e1702dd25ca19ff42a1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#ad65f9915a3a19e1702dd25ca19ff42a1">Bbram_VerifyKey_Ultra</a> (u32 *Crc32)</td></tr>
-<tr class="memdesc:ad65f9915a3a19e1702dd25ca19ff42a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies the programmed BBRAM by reading CRC of programmed AES key and control word.  <a href="#ad65f9915a3a19e1702dd25ca19ff42a1"></a><br/></td></tr>
-<tr class="separator:ad65f9915a3a19e1702dd25ca19ff42a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a3fc39199cdd376d4a000bf17fb195c88"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#a3fc39199cdd376d4a000bf17fb195c88">TimerTicksfor100ns</a></td></tr>
-<tr class="memdesc:a3fc39199cdd376d4a000bf17fb195c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Variable to store ticks/100ns.  <a href="#a3fc39199cdd376d4a000bf17fb195c88"></a><br/></td></tr>
-<tr class="separator:a3fc39199cdd376d4a000bf17fb195c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82232deb8afce5110fd62446f36c26b2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__jscmd_8c.html#a82232deb8afce5110fd62446f36c26b2">TimerTicksfor1000ns</a></td></tr>
 <tr class="memdesc:a82232deb8afce5110fd62446f36c26b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Variable for 10 micro secs for microblaze.  <a href="#a82232deb8afce5110fd62446f36c26b2"></a><br/></td></tr>
 <tr class="separator:a82232deb8afce5110fd62446f36c26b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -363,32 +348,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a33df6309bf7b8106c25c4f7f8bb2a9e4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Bbram_DeInit_Ultra </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function does de-initialization of UltraScale. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">none</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>none</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="abae9797f8dabe8fe6089a60337059572"></a>
 <div class="memitem">
 <div class="memproto">
@@ -417,38 +376,6 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 
 <p>References <a class="el" href="xilskey__utils_8c.html#a2a71bd701b24852c007d5ebad8acc257">XilSKey_Efuse_IsTimerExpired()</a>, and <a class="el" href="xilskey__utils_8c.html#ab2eaa24ca4b7d40aab0d75804d217616">XilSKey_Efuse_SetTimeOut()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af50c6494e6b53a2b40fc15617880d8a8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Bbram_Init_Ultra </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function implements the UltraScale's BBRAM algorithm initialization. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_FAILURE - In case of failure</li>
-<li>XST_SUCCESS - In case of Success</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xilskey__utils_8c.html#a5432562161e850c2e780652305b230a7">XilSKey_Efuse_GetTime()</a>, <a class="el" href="xilskey__utils_8c.html#a2a71bd701b24852c007d5ebad8acc257">XilSKey_Efuse_IsTimerExpired()</a>, and <a class="el" href="xilskey__utils_8c.html#a3f78c13955deedf337289569a5dc0387">XilSKey_Efuse_StartTimer()</a>.</p>
 
 </div>
 </div>
@@ -481,36 +408,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa9c6aefde370d3532a60eedd50768b61"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Bbram_ProgramKey_Ultra </td>
-          <td>(</td>
-          <td class="paramtype">XilSKey_Bbram *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function implements the Ultrascale's BBRAM program key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BBRAM</td><td>instance pointer</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_FAILURE - In case of failure</li>
-<li>XST_SUCCESS - In case of Success</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a0099206e41d3ca07d3d0feeb8a1802bb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -538,32 +435,6 @@ Variables</h2></td></tr>
   - XST_SUCCESS - In case of Success
 </pre></dd></dl>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ad65f9915a3a19e1702dd25ca19ff42a1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Bbram_VerifyKey_Ultra </td>
-          <td>(</td>
-          <td class="paramtype">u32 *&#160;</td>
-          <td class="paramname"><em>Crc32</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function verifies the programmed BBRAM by reading CRC of programmed AES key and control word. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">none</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>none</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>BBRAM verification cannot be done separately, The program and verify will only work together in and in that order. </dd></dl>
 
 </div>
 </div>
@@ -941,22 +812,6 @@ Variables</h2></td></tr>
 <p>Global Variable for 10 micro secs for microblaze. </p>
 
 <p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#ad71fe773dff0bd882d39c2936e319c63">JtagWrite_Ultrascale()</a>, and <a class="el" href="xilskey__utils_8c.html#a2983af8944dad03a6326987278142199">XilSKey_Timer_Intialise()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3fc39199cdd376d4a000bf17fb195c88"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 TimerTicksfor100ns</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Global Variable to store ticks/100ns. </p>
-
-<p>Referenced by <a class="el" href="xilskey__utils_8c.html#ab2eaa24ca4b7d40aab0d75804d217616">XilSKey_Efuse_SetTimeOut()</a>, and <a class="el" href="xilskey__utils_8c.html#a2983af8944dad03a6326987278142199">XilSKey_Timer_Intialise()</a>.</p>
 
 </div>
 </div>

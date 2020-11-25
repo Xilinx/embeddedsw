@@ -162,8 +162,8 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab77b7b905d096c308ecc7eb2384eda95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___hdmi_rx_ss___config.html">XV_HdmiRxSs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__hdmirxss__v5__5.html#gab77b7b905d096c308ecc7eb2384eda95">XV_HdmiRxSs_LookupConfig</a> (u32 DeviceId)</td></tr>
-<tr class="memdesc:gab77b7b905d096c308ecc7eb2384eda95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="group__v__hdmirxss__v5__5.html#gab77b7b905d096c308ecc7eb2384eda95"></a><br/></td></tr>
+<tr class="memitem:gab77b7b905d096c308ecc7eb2384eda95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___hdmi_rx_ss___config.html">XV_HdmiRxSs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__hdmirxss__v6__0.html#gab77b7b905d096c308ecc7eb2384eda95">XV_HdmiRxSs_LookupConfig</a> (u32 DeviceId)</td></tr>
+<tr class="memdesc:gab77b7b905d096c308ecc7eb2384eda95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="group__v__hdmirxss__v6__0.html#gab77b7b905d096c308ecc7eb2384eda95"></a><br/></td></tr>
 <tr class="separator:gab77b7b905d096c308ecc7eb2384eda95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83b64b06cb5e7c1c3736c26c19adedad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a83b64b06cb5e7c1c3736c26c19adedad">XV_HdmiRxSs_SetUserTimerHandler</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, XVidC_DelayHandler CallbackFunc, void *CallbackRef)</td></tr>
 <tr class="memdesc:a83b64b06cb5e7c1c3736c26c19adedad"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs a custom delay/sleep function to be used by the <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data.">XV_HdmiRxSs</a> driver.  <a href="#a83b64b06cb5e7c1c3736c26c19adedad"></a><br/></td></tr>
@@ -334,10 +334,14 @@ Handler Types</h2></td></tr>
 <br/>
  }</td></tr>
 <tr class="separator:a801bb980bfbb34a0663bbe062e040a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a700e347f920cf2a9e9e8c29ec87b828d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d">XV_HdmiRxSs_HdcpProtocol</a> { <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da60bae6631c611be7225e9993e5a9b754">XV_HDMIRXSS_HDCP_NONE</a>, 
+<tr class="memitem:a700e347f920cf2a9e9e8c29ec87b828d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d">XV_HdmiRxSs_HdcpProtocol</a> { <br/>
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da60bae6631c611be7225e9993e5a9b754">XV_HDMIRXSS_HDCP_NONE</a>, 
 <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dae1ff0bdf7f9aa784e7b74a7c9f977f3a">XV_HDMIRXSS_HDCP_14</a>, 
 <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16">XV_HDMIRXSS_HDCP_22</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0">XV_HDMIRXSS_HDCP_BOTH</a>
+<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0">XV_HDMIRXSS_HDCP_BOTH</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da7792890688deaccdde8df92f23fb5b5f">XV_HDMIRXSS_HDCP_NOUSERPREF</a>
+<br/>
  }</td></tr>
 <tr class="memdesc:a700e347f920cf2a9e9e8c29ec87b828d"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify the HDCP protection schemes.  <a href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d">More...</a><br/></td></tr>
 <tr class="separator:a700e347f920cf2a9e9e8c29ec87b828d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -504,6 +508,10 @@ Handler Types</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0"></a>XV_HDMIRXSS_HDCP_BOTH</em>&nbsp;</td><td class="fielddoc">
 <p>Both HDCP 1.4 and 2.2. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a700e347f920cf2a9e9e8c29ec87b828da7792890688deaccdde8df92f23fb5b5f"></a>XV_HDMIRXSS_HDCP_NOUSERPREF</em>&nbsp;</td><td class="fielddoc">
+<p>Control user selection. </p>
+<p>to be used only with API XV_HdmiRxSs_SetUserHdcpProtocol </p>
 </td></tr>
 </table>
 
@@ -685,7 +693,7 @@ Handler Types</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if initialization is successful else XST_FAILURE </dd></dl>
 
-<p>References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a50546d3a788308c4bfb0becf4ad5788c">XV_HdmiRxSs::AppMajVer</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a9d621556655d6495476016c5e9e6506a">XV_HdmiRxSs::AppMinVer</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#a63cf365a205b7f982be654194c765353">XV_HdmiRxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#af4a869965ee18d575d19b4319be08ff0">XV_HdmiRxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#a42505911ca30fec2643df7f350e0831e">XV_HdmiRxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#ab59a7cdab6e09550acf80932ad5838b6">XV_HdmiRxSs::IsReady</a>, <a class="el" href="xv__hdmirxss_8c.html#aa5df94d11c03edb51e4ce320e1b4701e">XV_HdmiRxSs_GetDrmInfoframe()</a>, <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dae1ff0bdf7f9aa784e7b74a7c9f977f3a">XV_HDMIRXSS_HDCP_14</a>, <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16">XV_HDMIRXSS_HDCP_22</a>, <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0">XV_HDMIRXSS_HDCP_BOTH</a>, <a class="el" href="xv__hdmirxss_8c.html#ad9f6e6e2ae968974f36910a74ede0e2f">XV_HdmiRxSs_Reset()</a>, and <a class="el" href="group__v__hdmirxss__v5__5.html#gabddcd7be105900eea60e7c51158ae22d">XV_HdmiRxSs_SubcoreInitHdmiRx()</a>.</p>
+<p>References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a50546d3a788308c4bfb0becf4ad5788c">XV_HdmiRxSs::AppMajVer</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a9d621556655d6495476016c5e9e6506a">XV_HdmiRxSs::AppMinVer</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#a63cf365a205b7f982be654194c765353">XV_HdmiRxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#af4a869965ee18d575d19b4319be08ff0">XV_HdmiRxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#a42505911ca30fec2643df7f350e0831e">XV_HdmiRxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#ab59a7cdab6e09550acf80932ad5838b6">XV_HdmiRxSs::IsReady</a>, <a class="el" href="xv__hdmirxss_8c.html#aa5df94d11c03edb51e4ce320e1b4701e">XV_HdmiRxSs_GetDrmInfoframe()</a>, <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dae1ff0bdf7f9aa784e7b74a7c9f977f3a">XV_HDMIRXSS_HDCP_14</a>, <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16">XV_HDMIRXSS_HDCP_22</a>, <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0">XV_HDMIRXSS_HDCP_BOTH</a>, <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da7792890688deaccdde8df92f23fb5b5f">XV_HDMIRXSS_HDCP_NOUSERPREF</a>, <a class="el" href="xv__hdmirxss_8c.html#ad9f6e6e2ae968974f36910a74ede0e2f">XV_HdmiRxSs_Reset()</a>, and <a class="el" href="group__v__hdmirxss__v6__0.html#gabddcd7be105900eea60e7c51158ae22d">XV_HdmiRxSs_SubcoreInitHdmiRx()</a>.</p>
 
 </div>
 </div>
@@ -1305,7 +1313,7 @@ Handler Types</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_v___hdmi_rx_ss___log.html#a8c9419f9b31d006d30ec0aef79cb9a29">XV_HdmiRxSs_Log::DataBuffer</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___log.html#ae329bb88bfdcda126c89890443a66a8e">XV_HdmiRxSs_Log::HeadIndex</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#acfe6927763f451fd1648926fcfb2cc37">XV_HdmiRxSs::Log</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___log.html#a88f784a8fadd929060a2d86c9c7afe3b">XV_HdmiRxSs_Log::TailIndex</a>, and <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a7358229960ff258552c62dce8a49b98f">XV_HDMIRXSS_LOG_EVT_DUMMY</a>.</p>
 
-<p>Referenced by <a class="el" href="xv__hdmirxss_8h.html#abdc056437ab2bb79bc929f7791db5f95">XV_HdmiRxSs_RefClockChangeInit()</a>, <a class="el" href="xv__hdmirxss_8h.html#ad9f6e6e2ae968974f36910a74ede0e2f">XV_HdmiRxSs_Reset()</a>, <a class="el" href="xv__hdmirxss_8h.html#a6156f804fb138799bb3bd9a243dd36cf">XV_HdmiRxSs_SetStream()</a>, <a class="el" href="xv__hdmirxss_8h.html#a506f350efc853af55fab90462724c5fd">XV_HdmiRxSs_Start()</a>, <a class="el" href="xv__hdmirxss_8h.html#a0fa499b01743a173ef1719c45cd40a79">XV_HdmiRxSs_Stop()</a>, and <a class="el" href="group__v__hdmirxss__v5__5.html#gabddcd7be105900eea60e7c51158ae22d">XV_HdmiRxSs_SubcoreInitHdmiRx()</a>.</p>
+<p>Referenced by <a class="el" href="xv__hdmirxss_8h.html#abdc056437ab2bb79bc929f7791db5f95">XV_HdmiRxSs_RefClockChangeInit()</a>, <a class="el" href="xv__hdmirxss_8h.html#ad9f6e6e2ae968974f36910a74ede0e2f">XV_HdmiRxSs_Reset()</a>, <a class="el" href="xv__hdmirxss_8h.html#a6156f804fb138799bb3bd9a243dd36cf">XV_HdmiRxSs_SetStream()</a>, <a class="el" href="xv__hdmirxss_8h.html#a506f350efc853af55fab90462724c5fd">XV_HdmiRxSs_Start()</a>, <a class="el" href="xv__hdmirxss_8h.html#a0fa499b01743a173ef1719c45cd40a79">XV_HdmiRxSs_Stop()</a>, and <a class="el" href="group__v__hdmirxss__v6__0.html#gabddcd7be105900eea60e7c51158ae22d">XV_HdmiRxSs_SubcoreInitHdmiRx()</a>.</p>
 
 </div>
 </div>

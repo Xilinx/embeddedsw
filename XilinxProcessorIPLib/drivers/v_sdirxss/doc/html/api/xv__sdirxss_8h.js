@@ -11,7 +11,8 @@ var xv__sdirxss_8h =
       [ "XV_SDIRXSS_HANDLER_STREAM_DOWN", "xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad6257bbb5378ebec6138b4dbf23cc110", null ],
       [ "XV_SDIRXSS_HANDLER_STREAM_UP", "xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad1b227af4ef5b379fc2f057c18e0cc5d", null ],
       [ "XV_SDIRXSS_HANDLER_OVERFLOW", "xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa8ab2a3880e6098ce868fbab44c229c7b", null ],
-      [ "XV_SDIRXSS_HANDLER_UNDERFLOW", "xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8", null ]
+      [ "XV_SDIRXSS_HANDLER_UNDERFLOW", "xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8", null ],
+      [ "XV_SDIRXSS_HANDLER_VSYNC", "xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aaac802805650e3aed2d81f7d34965d77c", null ]
     ] ],
     [ "XV_SdiRxSs_LogEvent", "xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00ba", [
       [ "XV_SDIRXSS_LOG_EVT_NONE", "xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baac87b23eb6dafee43b46fa934dbe65383", null ],

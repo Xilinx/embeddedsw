@@ -80,14 +80,92 @@ MODIFICATION HISTORY:</pre><pre>Ver  Who Date     Changes
 4.1  als 08/03/16 Use video common API rather than internal structure when
                   checking for interlaced mode.
 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
-</pre> </div><table class="memberdecls">
+6.4  rg  08/28/20 Added XDpTxSs_VtcAdaptiveSyncSetup and
+                  XDpTxSs_VtcDisableAdaptiveSync API's.
+6.4  rg  09/26/20 Added support for YUV420 color format</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab2e0f13f1f5cbd8904c67cc63f2df32d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__vtc_8c.html#ab2e0f13f1f5cbd8904c67cc63f2df32d">XDpTxSs_VtcSetup</a> (XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig, u8 VtcAdjustBs)</td></tr>
 <tr class="memdesc:ab2e0f13f1f5cbd8904c67cc63f2df32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures Video Timing Controller with video timing parameters from MSA config structure.  <a href="#ab2e0f13f1f5cbd8904c67cc63f2df32d"></a><br/></td></tr>
 <tr class="separator:ab2e0f13f1f5cbd8904c67cc63f2df32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d161ae13fce1ba336d10b2a3f734381"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__vtc_8c.html#a4d161ae13fce1ba336d10b2a3f734381">XDpTxSs_VtcAdaptiveSyncSetup</a> (XVtc *InstancePtr, XVtc_AdaptiveSyncMode mode, u32 StretchLimit)</td></tr>
+<tr class="memdesc:a4d161ae13fce1ba336d10b2a3f734381"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures Video Timing Controller with Adaptive-Sync mode to be work on and sets vertical front porch stretch limit.  <a href="#a4d161ae13fce1ba336d10b2a3f734381"></a><br/></td></tr>
+<tr class="separator:a4d161ae13fce1ba336d10b2a3f734381"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4a9803bf0a143987eb905e0dd02cd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__vtc_8c.html#a4d4a9803bf0a143987eb905e0dd02cd3">XDpTxSs_VtcDisableAdaptiveSync</a> (XVtc *InstancePtr)</td></tr>
+<tr class="memdesc:a4d4a9803bf0a143987eb905e0dd02cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables Adaptive-Sync feature in Video Timing Controller.  <a href="#a4d4a9803bf0a143987eb905e0dd02cd3"></a><br/></td></tr>
+<tr class="separator:a4d4a9803bf0a143987eb905e0dd02cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a4d161ae13fce1ba336d10b2a3f734381"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDpTxSs_VtcAdaptiveSyncSetup </td>
+          <td>(</td>
+          <td class="paramtype">XVtc *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVtc_AdaptiveSyncMode&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>StretchLimit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function configures Video Timing Controller with Adaptive-Sync mode to be work on and sets vertical front porch stretch limit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XVtc instance. </td></tr>
+    <tr><td class="paramname">mode</td><td>is a Adaptive-Sync mechanism to be work on </td></tr>
+    <tr><td class="paramname">StretchLimit</td><td>is a max limit of vertical front porch stretching</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4d4a9803bf0a143987eb905e0dd02cd3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDpTxSs_VtcDisableAdaptiveSync </td>
+          <td>(</td>
+          <td class="paramtype">XVtc *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function disables Adaptive-Sync feature in Video Timing Controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XVtc instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ab2e0f13f1f5cbd8904c67cc63f2df32d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -132,7 +210,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#a87878b159735f42a419a35fa296606da">start_tx()</a>, and <a class="el" href="group__dptxss__v6__3.html#gafb7b3b467a12177fb0c8053f4b7d70a1">XDpTxSs_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#a87878b159735f42a419a35fa296606da">start_tx()</a>, and <a class="el" href="group__dptxss__v6__4.html#gafb7b3b467a12177fb0c8053f4b7d70a1">XDpTxSs_CfgInitialize()</a>.</p>
 
 </div>
 </div>

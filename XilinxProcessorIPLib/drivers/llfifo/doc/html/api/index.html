@@ -84,8 +84,8 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>This sequence is described here. Check the routine functional descriptions for information on how to use a specific API routine.</p>
 <h3>Receive</h3>
 <p>A frame is received by using the following sequence:<br/>
- 1) call <a class="el" href="group__llfifo__v5__4.html#gaad292ddf2a2c9dde261b93da802c8080" title="XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the next frame from the ...">XLlFifo_iRxGetLen()</a> to get the length of the incoming frame<br/>
- 2) call <a class="el" href="group__llfifo__v5__4.html#gaed3ae31c8c24f46139fbd709027329ec" title="XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by InstancePtr.">XLlFifo_RxGetWord()</a> one or more times to read the number of bytes reported by the hardware<br/>
+ 1) call <a class="el" href="group__llfifo__v5__5.html#gaad292ddf2a2c9dde261b93da802c8080" title="XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the next frame from the ...">XLlFifo_iRxGetLen()</a> to get the length of the incoming frame<br/>
+ 2) call <a class="el" href="group__llfifo__v5__5.html#gaed3ae31c8c24f46139fbd709027329ec" title="XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by InstancePtr.">XLlFifo_RxGetWord()</a> one or more times to read the number of bytes reported by the hardware<br/>
  3) call XLlFifo_iRxOccupancy() to know the availability of the data in the FIFO.<br/>
 </p>
 <p>For example: </p>
@@ -102,9 +102,9 @@ $(document).ready(function(){initNavTree('index.html','');});
         }</pre><pre> </pre><p>This FIFO hardware core does <b>not</b> support a sequence where the calling code calls iRxGetLen() twice in a row and then receive the data for two frames. Each frame must be read in by calling iRxGetLen() just prior to reading the data.</p>
 <h3>Transmit</h3>
 <p>A frame is transmittted by using the following sequence:<br/>
- 1) <a class="el" href="group__llfifo__v5__4.html#gac02405b23499d780e7bc1dfe371281a6" title="XLlFifo_iTxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel ...">XLlFifo_iTxVacancy()</a> one or more times to know the availability of unused 32-bit words in the FIFO channel.<br/>
- 2) call <a class="el" href="group__llfifo__v5__4.html#ga29654d755dce84b861022179c99ca7a3" title="XLlFifo_TxPutWord writes the 32 bit word, Word to the FIFO specified by InstancePtr.">XLlFifo_TxPutWord()</a> one or more times to write all the of bytes in the next frame.<br/>
- 3) call <a class="el" href="group__llfifo__v5__4.html#gaa49ecc1529434fd932d8a65d63a1a04d" title="XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO...">XLlFifo_iTxSetLen()</a> to begin the transmission of frame just written.<br/>
+ 1) <a class="el" href="group__llfifo__v5__5.html#gac02405b23499d780e7bc1dfe371281a6" title="XLlFifo_iTxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel ...">XLlFifo_iTxVacancy()</a> one or more times to know the availability of unused 32-bit words in the FIFO channel.<br/>
+ 2) call <a class="el" href="group__llfifo__v5__5.html#ga29654d755dce84b861022179c99ca7a3" title="XLlFifo_TxPutWord writes the 32 bit word, Word to the FIFO specified by InstancePtr.">XLlFifo_TxPutWord()</a> one or more times to write all the of bytes in the next frame.<br/>
+ 3) call <a class="el" href="group__llfifo__v5__5.html#gaa49ecc1529434fd932d8a65d63a1a04d" title="XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO...">XLlFifo_iTxSetLen()</a> to begin the transmission of frame just written.<br/>
 </p>
 <p>For example: </p>
 <pre>
@@ -175,6 +175,7 @@ $(document).ready(function(){initNavTree('index.html','');});
  5.2 adk    03/07/17 CR#978769 Fix doxygen issues in the driver.
                        Updated comments in the usage section as per example code.
                        Fix doxygen warnings in the driver.
+ 5.5 sd     09/04/20  Makefile update for parallel execution.
  </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

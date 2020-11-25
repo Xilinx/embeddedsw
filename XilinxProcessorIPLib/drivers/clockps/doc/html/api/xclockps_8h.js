@@ -340,5 +340,5 @@ var xclockps_8h =
       [ "XCLOCK_TYPE_FIXEDFACTOR", "xclockps_8h.html#gga27ee342ef73604418931cd810442e4f7ab0c0e7d4c382e0817157812a991e84fb", null ],
       [ "XCLOCK_TYPE_MAX", "xclockps_8h.html#gga27ee342ef73604418931cd810442e4f7a00e30c33fe37dafe2627dff4647a5342", null ]
     ] ],
-    [ "XClock_LookupConfig", "xclockps_8h.html#gafb556a0f90b7f144d6c2735f38a12dc0", null ]
+    [ "XClock_LookupConfig", "xclockps_8h.html#ga0bdb892df1c4e48be4ce1a4d2140468e", null ]
 ];

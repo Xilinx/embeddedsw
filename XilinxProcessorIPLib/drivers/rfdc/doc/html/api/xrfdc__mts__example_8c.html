@@ -69,7 +69,8 @@ $(document).ready(function(){initNavTree('xrfdc__mts__example_8c.html','');});
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>RFSoC MultiTile Sync Example test application. </p>
-<p>This example calls the RFdc Multi-tile-sync (MTS) API with the following configuration: Tiles to Sync: DAC0, DAC1, ADC0, ADC1, ADC2, ADC3. </p>
+<p>This example calls the RFdc Multi-tile-sync (MTS) API with the following configuration: Tiles to Sync: DAC0, DAC1, ADC0, ADC1, ADC2, ADC3.</p>
+<p>MTS expects the PL clock, the AXI stream clock and the FS to all be compatible for it to function correctly. More information surrounding this can be found in PG269. </p>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
 <hr/>
@@ -82,7 +83,8 @@ $(document).ready(function(){initNavTree('xrfdc__mts__example_8c.html','');});
              02/21/19 Set frequency and sample rate to appropriate values
                       for MTS.
              02/21/19 Set metal log level to DEBUG.
-7.0   cog    07/25/19 Updated example for new metal register API.</pre><pre></pre> </div><table class="memberdecls">
+7.0   cog    07/25/19 Updated example for new metal register API.
+8.1   cog    08/28/20 Make the example toatally generic, updated information.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad715e4bd581993df1ad8add6b078331b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__mts__example_8c.html#ad715e4bd581993df1ad8add6b078331b">RFdcMTS_Example</a> (u16 RFdcDeviceId)</td></tr>
@@ -158,7 +160,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="group__rfdc__v8__0.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">XRFdc_CfgInitialize()</a>, <a class="el" href="group__rfdc__v8__0.html#ga2390330eaf525d57a9500d298d712db1">XRFdc_DynamicPLLConfig()</a>, <a class="el" href="group__rfdc__v8__0.html#ga1299f0dcedca852a5a37e7bb1aa4d646">XRFdc_GetDecimationFactor()</a>, <a class="el" href="group__rfdc__v8__0.html#ga24bd6bd466b879bbccb7795cc7bce579">XRFdc_GetInterpolationFactor()</a>, <a class="el" href="group__rfdc__v8__0.html#ga80407a3a6737440fa38fc79eee240ad2">XRFdc_LookupConfig()</a>, <a class="el" href="group__rfdc__v8__0.html#ga2124a64f5322e966da50385f38e0a222">XRFdc_MultiConverter_Init()</a>, <a class="el" href="group__rfdc__v8__0.html#ga032b44b96776ed88ed58464b1d014d63">XRFdc_MultiConverter_Sync()</a>, and <a class="el" href="group__rfdc__v8__0.html#ga415b909c08102db406ea819a6c744add">XRFdc_RegisterMetal()</a>.</p>
+<p>References <a class="el" href="group__rfdc__v8__1.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">XRFdc_CfgInitialize()</a>, <a class="el" href="group__rfdc__v8__1.html#ga1299f0dcedca852a5a37e7bb1aa4d646">XRFdc_GetDecimationFactor()</a>, <a class="el" href="group__rfdc__v8__1.html#ga24bd6bd466b879bbccb7795cc7bce579">XRFdc_GetInterpolationFactor()</a>, <a class="el" href="group__rfdc__v8__1.html#ga80407a3a6737440fa38fc79eee240ad2">XRFdc_LookupConfig()</a>, <a class="el" href="group__rfdc__v8__1.html#ga2124a64f5322e966da50385f38e0a222">XRFdc_MultiConverter_Init()</a>, <a class="el" href="group__rfdc__v8__1.html#ga032b44b96776ed88ed58464b1d014d63">XRFdc_MultiConverter_Sync()</a>, and <a class="el" href="group__rfdc__v8__1.html#ga415b909c08102db406ea819a6c744add">XRFdc_RegisterMetal()</a>.</p>
 
 <p>Referenced by <a class="el" href="xrfdc__mts__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

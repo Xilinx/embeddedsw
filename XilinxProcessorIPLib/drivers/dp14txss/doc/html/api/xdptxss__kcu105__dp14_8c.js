@@ -18,8 +18,6 @@ var xdptxss__kcu105__dp14_8c =
     [ "Print_ExtPkt", "xdptxss__kcu105__dp14_8c.html#a5b27aa5d150120cd4f5b26b14aa6b6af", null ],
     [ "Print_InfoPkt", "xdptxss__kcu105__dp14_8c.html#a199e36a60274e8ebc2a321abf6bcb2b8", null ],
     [ "reconfig_clkwiz", "xdptxss__kcu105__dp14_8c.html#acf0853b5aa779393103aec06655a8363", null ],
-    [ "remap_set", "xdptxss__kcu105__dp14_8c.html#a6cc3a1315e428f4ad868e802509f649b", null ],
-    [ "remap_start", "xdptxss__kcu105__dp14_8c.html#a168c85710af4079bf2b90ddc7f764006", null ],
     [ "reset_clkwiz", "xdptxss__kcu105__dp14_8c.html#a813500920ecee36360482a8078fcd5c5", null ],
     [ "resetIp", "xdptxss__kcu105__dp14_8c.html#a56361447f4b2f2b7e4c28bd94e142116", null ],
     [ "sink_power_cycle", "xdptxss__kcu105__dp14_8c.html#a0f0a1dce20baa6103b48f0bf9fe44cde", null ],

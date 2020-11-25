@@ -71,7 +71,20 @@ $(document).ready(function(){initNavTree('xplmi__util_8c.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
-1.00  kc   02/21/2017 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  kc   02/21/2017 Initial release
+1.01  bsv  04/18/2019 Added support for NPI readback and CFI readback
+      kc   04/26/2019 Updated Delay and Poll timeout based on timers
+      rm   06/27/2019 Added APIs for safety register writes
+      vnsl 07/19/2019 Added XPlmi_MemCmp API to check for PPK and SPK integrity
+1.02  bsv  02/17/2020 Added 64-bit / 128-bit safety write APIs for xilsem
+      bsv  04/04/2020 Code clean up
+1.03  kc   06/22/2020 Minor updates to PrintArray for better display
+      kc   08/17/2020 Added redundancy checks to XPlmi_MemCmp
+      bsv  09/04/2020 Added checks to validate input params for XPlmi_Strcat
+                      and XPlmi_Strcpy
+      bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -84,12 +97,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ae4d6969e94f607fe3a8765e6abb9572d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#ae4d6969e94f607fe3a8765e6abb9572d">XPlmi_UtilPoll</a> (u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)</td></tr>
 <tr class="memdesc:ae4d6969e94f607fe3a8765e6abb9572d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function polls a register till the masked bits are set to expected value or till timeout occurs.  <a href="#ae4d6969e94f607fe3a8765e6abb9572d"></a><br/></td></tr>
 <tr class="separator:ae4d6969e94f607fe3a8765e6abb9572d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60bb1cabffefae6018bbc6f5fce21663"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#a60bb1cabffefae6018bbc6f5fce21663">XPlmi_UtilPoll64</a> (u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)</td></tr>
-<tr class="memdesc:a60bb1cabffefae6018bbc6f5fce21663"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function polls a 64 bit address till the masked bits are set to expected value or till timeout occurs.  <a href="#a60bb1cabffefae6018bbc6f5fce21663"></a><br/></td></tr>
-<tr class="separator:a60bb1cabffefae6018bbc6f5fce21663"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a933075557f29b06e9c0be86c1348a03a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#a933075557f29b06e9c0be86c1348a03a">XPlmi_UtilPollForMask</a> (u32 RegAddr, u32 Mask, u32 TimeOutCount)</td></tr>
-<tr class="memdesc:a933075557f29b06e9c0be86c1348a03a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function polls a 64 bit register till the masked bits are set to expected value or till timeout occurs.  <a href="#a933075557f29b06e9c0be86c1348a03a"></a><br/></td></tr>
-<tr class="separator:a933075557f29b06e9c0be86c1348a03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ce17d2d9dd4664486f0507a0554baa7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#a4ce17d2d9dd4664486f0507a0554baa7">XPlmi_UtilPoll64</a> (u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)</td></tr>
+<tr class="memdesc:a4ce17d2d9dd4664486f0507a0554baa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function polls a 64 bit address till the masked bits are set to expected value or till timeout occurs.  <a href="#a4ce17d2d9dd4664486f0507a0554baa7"></a><br/></td></tr>
+<tr class="separator:a4ce17d2d9dd4664486f0507a0554baa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b89dae983863fe5532461884763916"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#a37b89dae983863fe5532461884763916">XPlmi_UtilPollForMask</a> (u32 RegAddr, u32 Mask, u32 TimeOutInUs)</td></tr>
+<tr class="memdesc:a37b89dae983863fe5532461884763916"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function polls a 64 bit register till the masked bits are set to expected value or till timeout occurs.  <a href="#a37b89dae983863fe5532461884763916"></a><br/></td></tr>
+<tr class="separator:a37b89dae983863fe5532461884763916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4d0e99ec9cbb522cf183a747468c595"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#af4d0e99ec9cbb522cf183a747468c595">XPlmi_UtilPollForMask64</a> (u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs)</td></tr>
 <tr class="memdesc:af4d0e99ec9cbb522cf183a747468c595"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function polls a 64 bit register till the masked bits are set to expected value or till timeout occurs.  <a href="#af4d0e99ec9cbb522cf183a747468c595"></a><br/></td></tr>
 <tr class="separator:af4d0e99ec9cbb522cf183a747468c595"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,106 +118,8 @@ Functions</h2></td></tr>
 <tr class="memitem:aff799212d34304e12f04ae18e7fbb918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#aff799212d34304e12f04ae18e7fbb918">XPlmi_PrintArray</a> (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str)</td></tr>
 <tr class="memdesc:aff799212d34304e12f04ae18e7fbb918"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to print the entire array in bytes as specified by the debug type.  <a href="#aff799212d34304e12f04ae18e7fbb918"></a><br/></td></tr>
 <tr class="separator:aff799212d34304e12f04ae18e7fbb918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1177424cfd790fd1029713a266549da"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#ae1177424cfd790fd1029713a266549da">XPlmi_Strcpy</a> (char *DestPtr, const char *SrcPtr)</td></tr>
-<tr class="memdesc:ae1177424cfd790fd1029713a266549da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions copies source string to destination string.  <a href="#ae1177424cfd790fd1029713a266549da"></a><br/></td></tr>
-<tr class="separator:ae1177424cfd790fd1029713a266549da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a24c62a26b4cd28072480cab08ab576"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#a2a24c62a26b4cd28072480cab08ab576">XPlmi_Strcat</a> (char *Str1Ptr, const char *Str2Ptr)</td></tr>
-<tr class="memdesc:a2a24c62a26b4cd28072480cab08ab576"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function appends string2 to string1.  <a href="#a2a24c62a26b4cd28072480cab08ab576"></a><br/></td></tr>
-<tr class="separator:a2a24c62a26b4cd28072480cab08ab576"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade41870652da6b0a4fc2519ae69ef389"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#ade41870652da6b0a4fc2519ae69ef389">XPlmi_MemCpy</a> (void *DestPtr, const void *SrcPtr, u32 Len)</td></tr>
-<tr class="memdesc:ade41870652da6b0a4fc2519ae69ef389"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function copies Len bytes from source memory to destination memory.  <a href="#ade41870652da6b0a4fc2519ae69ef389"></a><br/></td></tr>
-<tr class="separator:ade41870652da6b0a4fc2519ae69ef389"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedfbc0342e78b331cbf192f6dab0e798"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__util_8c.html#aedfbc0342e78b331cbf192f6dab0e798">XPlmi_MemCmp</a> (const void *Buf1Ptr, const void *Buf2Ptr, u32 Len)</td></tr>
-<tr class="memdesc:aedfbc0342e78b331cbf192f6dab0e798"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function compares Len bytes from memory1 and memory2.  <a href="#aedfbc0342e78b331cbf192f6dab0e798"></a><br/></td></tr>
-<tr class="separator:aedfbc0342e78b331cbf192f6dab0e798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aedfbc0342e78b331cbf192f6dab0e798"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_MemCmp </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>Buf1Ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>Buf2Ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function compares Len bytes from memory1 and memory2. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Buf1Ptr</td><td>is pointer to memory1 </td></tr>
-    <tr><td class="paramname">Buf2Ptr</td><td>is pointer to memory2 </td></tr>
-    <tr><td class="paramname">Len</td><td>is number of byets to be compared</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>0 if contents of both the memory regions are same, -1/1 if first non matching character has lower/greater value in Buf1Ptr </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ade41870652da6b0a4fc2519ae69ef389"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* XPlmi_MemCpy </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>DestPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>SrcPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function copies Len bytes from source memory to destination memory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">DestPtr</td><td>is pointer to destination address </td></tr>
-    <tr><td class="paramname">SrcPtr</td><td>is pointer to source address </td></tr>
-    <tr><td class="paramname">Len</td><td>is number of bytes to be copied</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>DestPtr post copy </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aff799212d34304e12f04ae18e7fbb918"></a>
 <div class="memitem">
 <div class="memproto">
@@ -253,80 +168,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>Referenced by <a class="el" href="xplmi__dma_8h.html#ad66ad937d5422e0cac3b831a2c966cbb">XPlmi_StartDma()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2a24c62a26b4cd28072480cab08ab576"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* XPlmi_Strcat </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>Str1Ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>Str2Ptr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function appends string2 to string1. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Str1Ptr</td><td>is pointer to string1 </td></tr>
-    <tr><td class="paramname">Str2Ptr</td><td>is pointer to string2</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>String1 post concatenation </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ae1177424cfd790fd1029713a266549da"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* XPlmi_Strcpy </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>DestPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>SrcPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This functions copies source string to destination string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">DestPtr</td><td>is pointer to destination string </td></tr>
-    <tr><td class="paramname">SrcPtr</td><td>is pointer to source string</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>DEstination string post copy </dd></dl>
-
 </div>
 </div>
 <a class="anchor" id="ae4d6969e94f607fe3a8765e6abb9572d"></a>
@@ -370,17 +211,16 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">RegAddr</td><td>is the address of the register </td></tr>
     <tr><td class="paramname">Mask</td><td>denotes the bits to be modified </td></tr>
+    <tr><td class="paramname">ExpectedValue</td><td>is the value for which the register is polled </td></tr>
     <tr><td class="paramname">TimeOutInUs</td><td>is the max time in microseconds for which the register would be polled for the expected value</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>Referenced by <a class="el" href="xplmi__generic_8h.html#acf8aedc08d324616a8d65fa1dbbd0c1d">XPlmi_CfiRead()</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="a60bb1cabffefae6018bbc6f5fce21663"></a>
+<a class="anchor" id="a4ce17d2d9dd4664486f0507a0554baa7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -388,7 +228,7 @@ Functions</h2></td></tr>
           <td class="memname">int XPlmi_UtilPoll64 </td>
           <td>(</td>
           <td class="paramtype">u64&#160;</td>
-          <td class="paramname"><em>Addr</em>, </td>
+          <td class="paramname"><em>RegAddr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -419,10 +259,10 @@ Functions</h2></td></tr>
 <p>This function polls a 64 bit address till the masked bits are set to expected value or till timeout occurs. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Addr</td><td>64 bit address </td></tr>
+    <tr><td class="paramname">RegAddr</td><td>64 bit address </td></tr>
     <tr><td class="paramname">Mask</td><td>is the bit field to be polled </td></tr>
     <tr><td class="paramname">Expected</td><td>Value is value to be polled </td></tr>
-    <tr><td class="paramname">TimeOutCount</td><td>is delay time in micro sec</td></tr>
+    <tr><td class="paramname">TimeOutInUs</td><td>is delay time in micro sec</td></tr>
   </table>
   </dd>
 </dl>
@@ -430,7 +270,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a933075557f29b06e9c0be86c1348a03a"></a>
+<a class="anchor" id="a37b89dae983863fe5532461884763916"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -450,7 +290,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>TimeOutCount</em>&#160;</td>
+          <td class="paramname"><em>TimeOutInUs</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -465,7 +305,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">RegAddr</td><td>is the register address </td></tr>
     <tr><td class="paramname">Mask</td><td>is the bit field to be updated </td></tr>
-    <tr><td class="paramname">TimeOutCount</td><td>is delay time in micro sec</td></tr>
+    <tr><td class="paramname">TimeOutInUs</td><td>is delay time in micro sec</td></tr>
   </table>
   </dd>
 </dl>
@@ -515,8 +355,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">HighAddr</td><td>is higher 32-bits of 64-bit address </td></tr>
     <tr><td class="paramname">LowAddr</td><td>is lower 32-bits of 64-bit address </td></tr>
     <tr><td class="paramname">Mask</td><td>is the bit field to be updated </td></tr>
-    <tr><td class="paramname">Value</td><td>is value to be updated </td></tr>
-    <tr><td class="paramname">TimeOutCount</td><td>is delay time in micro sec</td></tr>
+    <tr><td class="paramname">TimeOutInUs</td><td>is delay time in micro sec</td></tr>
   </table>
   </dd>
 </dl>
@@ -565,7 +404,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>Referenced by <a class="el" href="xplmi__generic_8h.html#acf8aedc08d324616a8d65fa1dbbd0c1d">XPlmi_CfiRead()</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#a64f199ea60fffcc44880211105e5cd81">XPlmi_GicIntrClearStatus()</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#ac69c1e59c1ea696536895ba1dbdd9105">XPlmi_GicIntrDisable()</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#add24b9974749089b0de6341979dffe91">XPlmi_GicIntrEnable()</a>, <a class="el" href="xplmi__scheduler_8c.html#a2b8f088fb0494d901a6016348fb33f41">XPlmi_SchedulerHandler()</a>, <a class="el" href="xplmi__ssit_8h.html#af24bb1ce85073deed1339422ee5d915f">XPlmi_SsitSyncMaster()</a>, <a class="el" href="xplmi__ssit_8h.html#ad6d0e16deb820f98b18689dc9966f3ff">XPlmi_SsitSyncSlaves()</a>, <a class="el" href="xplmi__ssit_8h.html#a5cb88dc15cd3354f65b346c3e92c2d88">XPlmi_SsitWaitSlaves()</a>, <a class="el" href="xplmi__dma_8c.html#aea7c6af3d3ea99384048fca65778b219">XPlmi_SSSCfgDmaDma()</a>, <a class="el" href="xplmi__dma_8c.html#a965de9c852af80939cada22466bb75d2">XPlmi_SSSCfgDmaPzm()</a>, <a class="el" href="xplmi__dma_8c.html#a8816762dab4a93c3b80dc2aea7d8e7fd">XPlmi_SSSCfgDmaSbi()</a>, and <a class="el" href="xplmi__dma_8c.html#ab0dff6c0483189f36c4fbf2e7fd808ae">XPlmi_SSSCfgSbiDma()</a>.</p>
+<p>Referenced by <a class="el" href="xplmi__gic__interrupts_8c.html#a64f199ea60fffcc44880211105e5cd81">XPlmi_GicIntrClearStatus()</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#ac69c1e59c1ea696536895ba1dbdd9105">XPlmi_GicIntrDisable()</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#add24b9974749089b0de6341979dffe91">XPlmi_GicIntrEnable()</a>, <a class="el" href="xplmi__scheduler_8h.html#a2b8f088fb0494d901a6016348fb33f41">XPlmi_SchedulerHandler()</a>, <a class="el" href="group__xplmi__apis.html#gaf24bb1ce85073deed1339422ee5d915f">XPlmi_SsitSyncMaster()</a>, <a class="el" href="group__xplmi__apis.html#gad6d0e16deb820f98b18689dc9966f3ff">XPlmi_SsitSyncSlaves()</a>, and <a class="el" href="group__xplmi__apis.html#ga5cb88dc15cd3354f65b346c3e92c2d88">XPlmi_SsitWaitSlaves()</a>.</p>
 
 </div>
 </div>

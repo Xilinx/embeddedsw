@@ -1,6 +1,7 @@
 var struct_x_v___hdmi_tx1___stream =
 [
     [ "Audio", "struct_x_v___hdmi_tx1___stream.html#ac110c3e0296b6f95e3647410e3ddadd2", null ],
+    [ "CorePixPerClk", "struct_x_v___hdmi_tx1___stream.html#a7fa66e3baa8894a6c59b3fbc96d18354", null ],
     [ "Frl", "struct_x_v___hdmi_tx1___stream.html#aeb7e0c79ea8b44c2eac37ce9a063587e", null ],
     [ "IsConnected", "struct_x_v___hdmi_tx1___stream.html#afa7e042159e99edf7f02139af8cba046", null ],
     [ "IsScrambled", "struct_x_v___hdmi_tx1___stream.html#a195ea9a4cc60940fab80604ebb6a2651", null ],

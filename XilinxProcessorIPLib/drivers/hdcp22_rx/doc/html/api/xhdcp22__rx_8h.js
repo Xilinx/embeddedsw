@@ -79,7 +79,7 @@ var xhdcp22__rx_8h =
       [ "XHDCP22_RX_TOPOLOGY_DEVICECNT", "xhdcp22__rx_8h.html#gga24ebd9fd04b5494042a06c219e9beaf9a2f7a4917785b5b59f21ac719b8faa2cd", null ],
       [ "XHDCP22_RX_TOPOLOGY_MAXDEVSEXCEEDED", "xhdcp22__rx_8h.html#gga24ebd9fd04b5494042a06c219e9beaf9af654bdb1ee21e47a2cc92539b0d5be6f", null ],
       [ "XHDCP22_RX_TOPOLOGY_MAXCASCADEEXCEEDED", "xhdcp22__rx_8h.html#gga24ebd9fd04b5494042a06c219e9beaf9ab6e5c3ffb051ca5d7a0abb24714f2121", null ],
-      [ "XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM", "xhdcp22__rx_8h.html#gga24ebd9fd04b5494042a06c219e9beaf9a682c7025c0e4901ad4056778fbb22aff", null ],
+      [ "XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM", "xhdcp22__rx_8h.html#gga24ebd9fd04b5494042a06c219e9beaf9a260437a11c6601980e14bbde91e3db66", null ],
       [ "XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM", "xhdcp22__rx_8h.html#gga24ebd9fd04b5494042a06c219e9beaf9a6006f444022b60860d6e0b077f8b05df", null ],
       [ "XHDCP22_RX_TOPOLOGY_INVALID", "xhdcp22__rx_8h.html#gga24ebd9fd04b5494042a06c219e9beaf9aadf11eba9ddfff54ca0ecdc7180aabe8", null ]
     ] ],

@@ -81,6 +81,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a294dfd0caf934682685fafc257d49e2b"><td class="memItemLeft" align="right" valign="top">XVidC_VideoStream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx1___stream.html#a294dfd0caf934682685fafc257d49e2b">Video</a></td></tr>
 <tr class="memdesc:a294dfd0caf934682685fafc257d49e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Video stream for HDMI TX.  <a href="#a294dfd0caf934682685fafc257d49e2b"></a><br/></td></tr>
 <tr class="separator:a294dfd0caf934682685fafc257d49e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa66e3baa8894a6c59b3fbc96d18354"><td class="memItemLeft" align="right" valign="top">XVidC_PixelsPerClock&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx1___stream.html#a7fa66e3baa8894a6c59b3fbc96d18354">CorePixPerClk</a></td></tr>
+<tr class="memdesc:a7fa66e3baa8894a6c59b3fbc96d18354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core operates at a fixed 4PPC.  <a href="#a7fa66e3baa8894a6c59b3fbc96d18354"></a><br/></td></tr>
+<tr class="separator:a7fa66e3baa8894a6c59b3fbc96d18354"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac110c3e0296b6f95e3647410e3ddadd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___hdmi_tx1___audio_stream.html">XV_HdmiTx1_AudioStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_tx1___stream.html#ac110c3e0296b6f95e3647410e3ddadd2">Audio</a></td></tr>
 <tr class="memdesc:ac110c3e0296b6f95e3647410e3ddadd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio stream for HDMI TX.  <a href="#ac110c3e0296b6f95e3647410e3ddadd2"></a><br/></td></tr>
 <tr class="separator:ac110c3e0296b6f95e3647410e3ddadd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,6 +144,22 @@ Data Fields</h2></td></tr>
 <p>Audio stream for HDMI TX. </p>
 
 <p>Referenced by <a class="el" href="xv__hdmitx1_8h.html#ade49d67af0d4ac0c3d5756a5cfdfe15f">XV_HdmiTx1_CfgInitialize()</a>, <a class="el" href="xv__hdmitx1_8h.html#ad22b60a3d798ee469dcc71a04100843d">XV_HdmiTx1_FRLACRStart()</a>, and <a class="el" href="xv__hdmitx1_8h.html#a7f1498e69d193cbd626999414e863558">XV_HdmiTx1_TMDSACRStart()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7fa66e3baa8894a6c59b3fbc96d18354"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XVidC_PixelsPerClock XV_HdmiTx1_Stream::CorePixPerClk</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Core operates at a fixed 4PPC. </p>
+
+<p>Referenced by <a class="el" href="xv__hdmitx1_8h.html#ade49d67af0d4ac0c3d5756a5cfdfe15f">XV_HdmiTx1_CfgInitialize()</a>, and <a class="el" href="xv__hdmitx1_8h.html#a606cf8a2a1153de19c66925b9d462636">XV_HdmiTx1_SetPixelRate()</a>.</p>
 
 </div>
 </div>
@@ -353,7 +372,7 @@ Data Fields</h2></td></tr>
 
 <p>Video stream for HDMI TX. </p>
 
-<p>Referenced by <a class="el" href="xv__hdmitx1_8h.html#a2fdc16b8be464514b4d72ddfb947cee9">XV_HdmiTx1_GetTmdsClk()</a>, <a class="el" href="xv__hdmitx1_8h.html#ab0ff2a9927fe900b25456955341dfa31">XV_HdmiTx1_Info()</a>, <a class="el" href="xv__hdmitx1_8h.html#a25379b09e782626e79fd3b785b671f2e">XV_HdmiTx1_SetColorDepth()</a>, <a class="el" href="xv__hdmitx1_8h.html#a0aa5bbd57a95785df766d6d5a919479a">XV_HdmiTx1_SetColorFormat()</a>, <a class="el" href="xv__hdmitx1_8h.html#a606cf8a2a1153de19c66925b9d462636">XV_HdmiTx1_SetPixelRate()</a>, and <a class="el" href="xv__hdmitx1_8h.html#aee8e31932584949e17952a06d7515352">XV_HdmiTx1_SetStream()</a>.</p>
+<p>Referenced by <a class="el" href="xv__hdmitx1_8h.html#a2fdc16b8be464514b4d72ddfb947cee9">XV_HdmiTx1_GetTmdsClk()</a>, <a class="el" href="xv__hdmitx1_8h.html#ab0ff2a9927fe900b25456955341dfa31">XV_HdmiTx1_Info()</a>, <a class="el" href="xv__hdmitx1_8h.html#a25379b09e782626e79fd3b785b671f2e">XV_HdmiTx1_SetColorDepth()</a>, <a class="el" href="xv__hdmitx1_8h.html#a0aa5bbd57a95785df766d6d5a919479a">XV_HdmiTx1_SetColorFormat()</a>, and <a class="el" href="xv__hdmitx1_8h.html#aee8e31932584949e17952a06d7515352">XV_HdmiTx1_SetStream()</a>.</p>
 
 </div>
 </div>

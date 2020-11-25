@@ -86,8 +86,13 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a84aedb9b7aa201a737728818d6349a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">FRL Timer.  <a href="#a84aedb9b7aa201a737728818d6349a55"></a><br/></td></tr>
 <tr class="separator:a84aedb9b7aa201a737728818d6349a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa021105f3952e9e9736f572d7eaf2639"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_rx1___frl.html#aa021105f3952e9e9736f572d7eaf2639">LineRate</a></td></tr>
-<tr class="memdesc:aa021105f3952e9e9736f572d7eaf2639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current FRL Rate.  <a href="#aa021105f3952e9e9736f572d7eaf2639"></a><br/></td></tr>
+<tr class="memdesc:aa021105f3952e9e9736f572d7eaf2639"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">             Current Line
+</pre><p> Rate from FRL rate  <a href="#aa021105f3952e9e9736f572d7eaf2639"></a><br/></td></tr>
 <tr class="separator:aa021105f3952e9e9736f572d7eaf2639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af43d413c9a668400e3c0b8fbac302e19"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_rx1___frl.html#af43d413c9a668400e3c0b8fbac302e19">CurFrlRate</a></td></tr>
+<tr class="memdesc:af43d413c9a668400e3c0b8fbac302e19"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">     Current FRL Rate
+</pre><p> supported  <a href="#af43d413c9a668400e3c0b8fbac302e19"></a><br/></td></tr>
+<tr class="separator:af43d413c9a668400e3c0b8fbac302e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e7fe7b2df2ad8498ac0605f9c8de79b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___hdmi_rx1___frl.html#a5e7fe7b2df2ad8498ac0605f9c8de79b">Lanes</a></td></tr>
 <tr class="memdesc:a5e7fe7b2df2ad8498ac0605f9c8de79b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">            Current number of
 </pre><p> lanes used  <a href="#a5e7fe7b2df2ad8498ac0605f9c8de79b"></a><br/></td></tr>
@@ -116,6 +121,23 @@ Data Fields</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This typedef contains audio stream specific data structure. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="af43d413c9a668400e3c0b8fbac302e19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XV_HdmiRx1_Frl::CurFrlRate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><pre class="fragment">     Current FRL Rate
+</pre><p> supported </p>
+
+<p>Referenced by <a class="el" href="xv__hdmirx1_8h.html#ae8f2b92316ba8599c678aa9168d2eb24">XV_HdmiRx1_CfgInitialize()</a>, <a class="el" href="xv__hdmirx1__frl_8c.html#ad8f801766bca274f8235adde45ddc085">XV_HdmiRx1_ConfigFrlLtpDetection()</a>, and <a class="el" href="xv__hdmirx1__frl_8c.html#a580b1f726297a49e552e2e90aa7a80f4">XV_HdmiRx1_RetrieveFrlRateLanes()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a0f554039b7fe90c629cb245a727540b7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +229,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Current FRL Rate. </p>
+<p><pre class="fragment">             Current Line
+</pre><p> Rate from FRL rate </p>
 
 <p>Referenced by <a class="el" href="xv__hdmirx1__frl_8c.html#a580b1f726297a49e552e2e90aa7a80f4">XV_HdmiRx1_RetrieveFrlRateLanes()</a>.</p>
 
@@ -257,7 +280,7 @@ Data Fields</h2></td></tr>
 <p><pre class="fragment">    Fixed Rate Link
 </pre><p> State </p>
 
-<p>Referenced by <a class="el" href="xv__hdmirx1_8h.html#af7fd5d8f18778311dec6be080788f6f2">XV_HdmiRx1_Clear()</a>, <a class="el" href="xv__hdmirx1__frl_8c.html#adaa4205184958f79b8aa3d2e39b97661">XV_HdmiRx1_ExecFrlState()</a>, <a class="el" href="xv__hdmirx1__frl_8c.html#a07be19e39e2a3e90ea9ac937f6adfc58">XV_HdmiRx1_FrlLinkRetrain()</a>, and <a class="el" href="xv__hdmirx1__frl_8c.html#a8b8df1df4274fd34afc6ad600c4d1605">XV_HdmiRx1_FrlModeEnable()</a>.</p>
+<p>Referenced by <a class="el" href="xv__hdmirx1_8h.html#af7fd5d8f18778311dec6be080788f6f2">XV_HdmiRx1_Clear()</a>, <a class="el" href="xv__hdmirx1__frl_8c.html#ad8f801766bca274f8235adde45ddc085">XV_HdmiRx1_ConfigFrlLtpDetection()</a>, <a class="el" href="xv__hdmirx1__frl_8c.html#adaa4205184958f79b8aa3d2e39b97661">XV_HdmiRx1_ExecFrlState()</a>, <a class="el" href="xv__hdmirx1__frl_8c.html#a07be19e39e2a3e90ea9ac937f6adfc58">XV_HdmiRx1_FrlLinkRetrain()</a>, and <a class="el" href="xv__hdmirx1__frl_8c.html#a8b8df1df4274fd34afc6ad600c4d1605">XV_HdmiRx1_FrlModeEnable()</a>.</p>
 
 </div>
 </div>

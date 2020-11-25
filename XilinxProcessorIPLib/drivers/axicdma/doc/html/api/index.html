@@ -165,13 +165,13 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>The driver also provides API functions to get the status of a completed BD, along with get functions for other fields in the BD.</p>
 <p>The following two diagrams show the correct flow of BDs:</p>
 <p>The first diagram shows a complete cycle for BDs, starting from requesting the BDs to freeing the BDs. </p>
-<pre></pre><pre>         <a class="el" href="group__axicdma__v4__7.html#ga27dd0cdc27b7a724533db75336c4acc6" title="This function requests number of BDs from the BD ring.">XAxiCdma_BdRingAlloc()</a>                   <a class="el" href="group__axicdma__v4__7.html#ga3c5cd26d9fd3311c2ccfa4253c587e68" title="This function tries to enqueue the number of BDs to the hardware.">XAxiCdma_BdRingToHw()</a>
+<pre></pre><pre>         <a class="el" href="group__axicdma__v4__8.html#ga27dd0cdc27b7a724533db75336c4acc6" title="This function requests number of BDs from the BD ring.">XAxiCdma_BdRingAlloc()</a>                   <a class="el" href="group__axicdma__v4__8.html#ga3c5cd26d9fd3311c2ccfa4253c587e68" title="This function tries to enqueue the number of BDs to the hardware.">XAxiCdma_BdRingToHw()</a>
  Free ------------------------&gt; Pre-process ----------------------&gt; Hardware
                                                                     |
   /|\                                                               |
-   |   <a class="el" href="group__axicdma__v4__7.html#gab204e3f92e4edd3865ecf6b344f0b864" title="This function returns the BDs back to the free pool of the BD ring.">XAxiCdma_BdRingFree()</a>                <a class="el" href="group__axicdma__v4__7.html#gafce6a8283bdec8b9c35169c7cd29f4dc" title="This function tries to retrieve completed BDs from the hardware.">XAxiCdma_BdRingFromHw()</a> |
-   +--------------------------- Post-process &lt;----------------------+</pre><pre> </pre><p>The second diagram shows when a DMA transfer is to be cancelled before enqueuing to the hardware, application can return the requested BDs to the free group using <a class="el" href="group__axicdma__v4__7.html#ga9be6e4072c2a17f4519ffa9f9ec3332f" title="This function tries to free the number of BDs back to the ring.">XAxiCdma_BdRingUnAlloc()</a>. </p>
-<pre></pre><pre>         <a class="el" href="group__axicdma__v4__7.html#ga9be6e4072c2a17f4519ffa9f9ec3332f" title="This function tries to free the number of BDs back to the ring.">XAxiCdma_BdRingUnAlloc()</a>
+   |   <a class="el" href="group__axicdma__v4__8.html#gab204e3f92e4edd3865ecf6b344f0b864" title="This function returns the BDs back to the free pool of the BD ring.">XAxiCdma_BdRingFree()</a>                <a class="el" href="group__axicdma__v4__8.html#gafce6a8283bdec8b9c35169c7cd29f4dc" title="This function tries to retrieve completed BDs from the hardware.">XAxiCdma_BdRingFromHw()</a> |
+   +--------------------------- Post-process &lt;----------------------+</pre><pre> </pre><p>The second diagram shows when a DMA transfer is to be cancelled before enqueuing to the hardware, application can return the requested BDs to the free group using <a class="el" href="group__axicdma__v4__8.html#ga9be6e4072c2a17f4519ffa9f9ec3332f" title="This function tries to free the number of BDs back to the ring.">XAxiCdma_BdRingUnAlloc()</a>. </p>
+<pre></pre><pre>         <a class="el" href="group__axicdma__v4__8.html#ga9be6e4072c2a17f4519ffa9f9ec3332f" title="This function tries to free the number of BDs back to the ring.">XAxiCdma_BdRingUnAlloc()</a>
    Free &lt;----------------------- Pre-process</pre><pre> </pre><p><b>Physical/Virtual Addresses</b></p>
 <p>Addresses for the transfer buffers are physical addresses.</p>
 <p>For SG transfers, the next BD pointer in a BD is also a physical address.</p>
@@ -190,7 +190,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Invalidate the memory region for BDs when BDs are retrieved from the hardware.</li>
 </ul>
 <p><b>BD alignment for SG Transfers</b></p>
-<p>The hardware has requirement for the minimum alignment of the BDs, XAXICDMA_BD_MINIMUM_ALIGNMENT. It is OK to have an alignment larger than the required minimum alignment, however, it must be multiple of the minimum alignment. The alignment is passed into <a class="el" href="group__axicdma__v4__7.html#gab36598e09c09ffa680b6c0f207baf9f5" title="This function creates the BD ring for the driver instance.">XAxiCdma_BdRingCreate()</a>.</p>
+<p>The hardware has requirement for the minimum alignment of the BDs, XAXICDMA_BD_MINIMUM_ALIGNMENT. It is OK to have an alignment larger than the required minimum alignment, however, it must be multiple of the minimum alignment. The alignment is passed into <a class="el" href="group__axicdma__v4__8.html#gab36598e09c09ffa680b6c0f207baf9f5" title="This function creates the BD ring for the driver instance.">XAxiCdma_BdRingCreate()</a>.</p>
 <p><b>Error Handling</b></p>
 <p>The hardware halts upon all error conditions. The driver will reset the hardware once the error occurs.</p>
 <p>The IrqMask argument in the callback function notifies the application about error conditions for the transfer.</p>

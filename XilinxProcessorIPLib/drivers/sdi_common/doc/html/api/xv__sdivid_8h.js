@@ -16,6 +16,12 @@ var xv__sdivid_8h =
       [ "XSDIVID_CA_CH8", "xv__sdivid_8h.html#gga2ecc9a594782bf41d84861f7c3688f2ba68391820f176b2033f355355058c824e", null ],
       [ "XSDIVID_CA_UNKNOWN", "xv__sdivid_8h.html#gga2ecc9a594782bf41d84861f7c3688f2baa144e3dee9dfd02d81e601c86c5a9ebd", null ]
     ] ],
+    [ "XSdiVid_Eotf", "xv__sdivid_8h.html#gad1946f86f6027858636522f889b33518", [
+      [ "XSDIVID_EOTF_SDRTV", "xv__sdivid_8h.html#ggad1946f86f6027858636522f889b33518a282095844f2013c5ffd0184c0d143730", null ],
+      [ "XSDIVID_EOTF_HLG", "xv__sdivid_8h.html#ggad1946f86f6027858636522f889b33518a9752438fbae6428b8c298572843fa3fe", null ],
+      [ "XSDIVID_EOTF_SMPTE2084", "xv__sdivid_8h.html#ggad1946f86f6027858636522f889b33518ac9293ad96fa39493396fc10ce89fdcf9", null ],
+      [ "XSDIVID_EOTF_UNKNOWN", "xv__sdivid_8h.html#ggad1946f86f6027858636522f889b33518ab98bb408207866317e4d896ce17cd8ed", null ]
+    ] ],
     [ "XSdiVid_Standard", "xv__sdivid_8h.html#gab3db4da5e79bd6512d3a9c2f30d0aa9a", [
       [ "XSDIVID_VM_483_576_SD", "xv__sdivid_8h.html#ggab3db4da5e79bd6512d3a9c2f30d0aa9aaf76b9b749887e65501a367f2e9ad46bb", null ],
       [ "XSDIVID_VM_720_HD", "xv__sdivid_8h.html#ggab3db4da5e79bd6512d3a9c2f30d0aa9aa50f0724e3bc3dd11fbcb6239b387d349", null ],

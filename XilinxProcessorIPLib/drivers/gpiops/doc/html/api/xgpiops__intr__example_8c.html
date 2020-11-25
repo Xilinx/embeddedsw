@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('xgpiops__intr__example_8c.html','');})
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example using the GPIO driver (<a class="el" href="struct_x_gpio_ps.html" title="The XGpioPs driver instance data.">XGpioPs</a>) in an interrupt driven mode of operation. </p>
 <p>The example uses the interrupt capability of the GPIO to detect push button events and set the output LEDs based on the input.</p>
-<dl class="section note"><dt>Note</dt><dd>This example assumes that there is a Uart device in the HW design. This example is to provide support only for zcu102 on ZynqMp Platform and only for zc702 on Zynq Platform. For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is 23(DS50 on zcu102 board). For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on zc702 board) and Output Pin is 10(DS23 on zc702 board). SW15 on zc702 board is a combination of sw13 and sw14. To operate either of the input pins, keep SW15 low(both should be 00).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This example assumes that there is a Uart device in the HW design. This example is to provide support only for zcu102 on ZynqMp Platform and only for zc702 on Zynq Platform. For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is 23(DS50 on zcu102 board). For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on zc702 board) and Output Pin is 10(DS23 on zc702 board). SW15 on zc702 board is a combination of sw13 and sw14. To operate either of the input pins, keep SW15 low(both should be 00). In Versal Platform we have two GPIOPS instances(PMC GPIO and PS GPIO),PMC GPIO contain 4 banks and 116 pins, PS GPIO contains 2 banks and 58 pins. Driver supports both PS GPIO and PMC GPIO. For accessing PMC GPIOs application need to configure "GPIO-&gt;PmcGpio =1" else it works for PS GPIO.</dd></dl>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who  Date     Changes
 </p>
@@ -81,7 +81,7 @@ $(document).ready(function(){initNavTree('xgpiops__intr__example_8c.html','');})
                      for zcu102 and zc702 boards, configured Interrupt pin
                      to input pin for proper working of interrupt example.
  3.7    sne  12/04/19 Reverted versal example support.
-</pre> </div><table class="memberdecls">
+ 3.8    sne  09/17/20 Added description for Versal PS and PMC GPIO pins.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpiops__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>

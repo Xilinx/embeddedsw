@@ -77,7 +77,7 @@ $(document).ready(function(){initNavTree('example.html','');});
 <p>For testing the example in <a class="el" href="xemacps__example__intr__dma_8c.html" title="Implements examples that utilize the EmacPs&#39;s interrupt driven DMA packet transfer mode to send and r...">xemacps_example_intr_dma.c</a> which uses PHY loopback, a single hardware system is sufficient.</p>
 <p>To run and test the binary created for IEEE1588 (PTP), the user needs to have two EmacPs based hardware systems connected back-to-back. One would act as a Master and other as a slave.</p>
 <p>The user must include the three files(<a class="el" href="xemacps__example_8h.html" title="Defines common data types, prototypes, and includes the proper headers for use with the EMACPS exampl...">xemacps_example.h</a>, <a class="el" href="xemacps__example__util_8c.html" title="This file implements the utility functions for the XEmacPs example code.">xemacps_example_util.c</a>, <a class="el" href="xemacps__example__intr__dma_8c.html" title="Implements examples that utilize the EmacPs&#39;s interrupt driven DMA packet transfer mode to send and r...">xemacps_example_intr_dma.c</a>) for building the binary to see how Ethernet packets are sent and received in PHY loopback mode.</p>
-<p>The user must include the three files(<a class="el" href="xemacps__ieee1588__example_8c.html" title="This is top level c file for the IEEE1588 (PTP) standalone example.">xemacps_ieee1588_example.c</a>, <a class="el" href="xemacps__ieee1588_8h.html" title="Defines hash defines, common data types and prototypes to be used with the PTP standalone example sou...">xemacps_ieee1588.h</a>, <a class="el" href="xemacps__ieee1588_8c.html" title="This file implements the following functionalities.">xemacps_ieee1588.c</a>) for building the binary to see how IEEE1588 (PTP) works.</p>
+<p>The user must include the three files(xemacps_ieee1588_example.c, xemacps_ieee1588.h, xemacps_ieee1588.c) for building the binary to see how IEEE1588 (PTP) works.</p>
 <h1><a class="anchor" id="ex1"></a>
 xemacps_example.h</h1>
 <p>This file demonstrate the usage of EmacPs. This headerfile defines common data types, prototypes, and includes the proper headers for use with the Emacps examples.</p>
@@ -93,24 +93,24 @@ xemacps_example_util.c</h1>
 <h1><a class="anchor" id="ex4"></a>
 xemacps_ieee1588.c</h1>
 <p>Contains an example on how to demonstrate the IEEE1588 protocol. This example is the C file that has the programe entry "main". It also has initialization code for EmacPs, Timer etc and has initialization code for PTP packets.</p>
-<p>For details, see <a class="el" href="xemacps__ieee1588_8c.html" title="This file implements the following functionalities.">xemacps_ieee1588.c</a>.</p>
+<p>For details, see xemacps_ieee1588.c.</p>
 <h1><a class="anchor" id="ex5"></a>
 xemacps_ieee1588.h</h1>
 <p>Contains an example on how to demonstrate the IEEE1588 protocol. This headerfile defines hash defines, common data types and prototypes to be used with the PTP standalone examples source code.</p>
-<p>For details, see <a class="el" href="xemacps__ieee1588_8h.html" title="Defines hash defines, common data types and prototypes to be used with the PTP standalone example sou...">xemacps_ieee1588.h</a>.</p>
+<p>For details, see xemacps_ieee1588.h.</p>
 <h1><a class="anchor" id="ex6"></a>
 xemacps_ieee1588_example.c</h1>
 <p>Contains an example on how to demonstrate the IEEE1588 protocol. This example processes the protocol packets.</p>
-<p>For details, see <a class="el" href="xemacps__ieee1588__example_8c.html" title="This is top level c file for the IEEE1588 (PTP) standalone example.">xemacps_ieee1588_example.c</a>.</p>
+<p>For details, see xemacps_ieee1588_example.c.</p>
 <h2><a class="anchor" id="HOW"></a>
 THE IEEE1588 EXAMPLE WORKS</h2>
 <ul>
 <li>The example should be run between two boards, both having capability to time stamp the PTP packets. For example, it can be run between two Zynq boards, e.g. zc706 0r zc702. Additionally this example is also tested between a Zynq board and a ML605 board. However, on ML605 board we need to run a slightly modified AVB example (for AxiEthernet) available in Perforce for AxiEthernet driver.</li>
-<li>The example can be run in PTP MASTER mode or PTP SLAVE mode. To run it in PTP MASTER mode please define the flag IEEE1588_MASTER (with -DIEEE1588_MASTER) in the compiler options or just define it in <a class="el" href="xemacps__ieee1588_8h.html" title="Defines hash defines, common data types and prototypes to be used with the PTP standalone example sou...">xemacps_ieee1588.h</a>. If this flag is defined then the software runs in MASTER mode or else in SLAVE mode.</li>
+<li>The example can be run in PTP MASTER mode or PTP SLAVE mode. To run it in PTP MASTER mode please define the flag IEEE1588_MASTER (with -DIEEE1588_MASTER) in the compiler options or just define it in xemacps_ieee1588.h. If this flag is defined then the software runs in MASTER mode or else in SLAVE mode.</li>
 <li>The example by default initializes the PHY and GEM for 100 Mbps speed. Additionally autonegotiation can be used. To use autonegotiation, please define the flag PHY_AUTONEGOTIATION. However this feature is applicable only for Zynq boards.</li>
 <li>ScuTimer is used to generate interrupts every 500 mseconds. This timer interrupt is used to send various protocol packets. For example, Sync/ FollowUp packets are sent every 1 seconds. Announce frames are sent every 5 seconds and PDelay packets are sent every 4 seconds.</li>
 <li>In a typical test setup, 2 Zynq boards are connected back to back using a crossed cable. Please build the SDK projects (with the above 3 files) in MASTER mode and download the elf to one Zynq board. Then build the SDK project in SLAVE mode and download and run it in the other board. You can start seeing the console messages.</li>
-<li>There are two debug levels. By default debug level 1 is defined to see some of the important PTP messages. For example, the link delay and the time correction values. The other debug level can be defined to see the messages from ISR. It can be handy to debug issues if any. To define the 1st debug level, define the flag DEBUG_XEMACPS_LEVEL1 in <a class="el" href="xemacps__ieee1588_8h.html" title="Defines hash defines, common data types and prototypes to be used with the PTP standalone example sou...">xemacps_ieee1588.h</a>. To define the other debug level, define the flag DEBUG_LEVEL_TWO.</li>
+<li>There are two debug levels. By default debug level 1 is defined to see some of the important PTP messages. For example, the link delay and the time correction values. The other debug level can be defined to see the messages from ISR. It can be handy to debug issues if any. To define the 1st debug level, define the flag DEBUG_XEMACPS_LEVEL1 in xemacps_ieee1588.h. To define the other debug level, define the flag DEBUG_LEVEL_TWO.</li>
 <li>Signalling frames are not implemented. So at runtime, we cannot change mode between MASTER and SLAVE. Clock adjustment is implemented, but clock rate adjustment is not implemented. </li>
 </ul>
 </div></div><!-- contents -->

@@ -71,7 +71,12 @@ $(document).ready(function(){initNavTree('xplmi__sysmon_8h.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
-1.00  sn   07/01/2019 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  sn   07/01/2019 Initial release
+      sn   07/04/2019 Enabled SysMon's over-temperature interrupt
+      sn   08/03/2019 Added code to wait until over-temperature condition
+                      gets resolved before restart
+1.01  bsv  04/04/2020 Code clean up
+1.02  bm   10/14/2020 Code clean up</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -131,7 +136,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>Referenced by <a class="el" href="xplmi__err_8h.html#ad04872383366f1d1a8384529d65526b5">XPlmi_EmInit()</a>.</p>
+<p>Referenced by <a class="el" href="xplmi__err_8h.html#a11988ecd93a57b28993c7c9ee32b8a9e">XPlmi_EmInit()</a>.</p>
 
 </div>
 </div>

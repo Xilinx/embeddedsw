@@ -45,8 +45,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "aes_8c.html",
-"struct_x_v___hdmi_rx_ss1___config.html",
-"xv__hdmirxss1_8c.html#a53b3c25bffdf06fb415bcfc143789d91"
+"struct_x_v___hdmi_rx_ss1.html#ad0c54d632c1b244ddedfa1ea263d2a24",
+"xv__hdmirxss1_8h.html#ad720d316ed02be13ce06db41537bcfe5af9119a76acf2f756e81276ff2842e781"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

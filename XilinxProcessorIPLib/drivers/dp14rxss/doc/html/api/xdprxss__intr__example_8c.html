@@ -318,7 +318,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__dprxss__v6__0.html#gaae2cb38734654cfeca1d77b0439c243e">XDpRxSs_HandleDownReq()</a>.</p>
+<p>References <a class="el" href="group__dprxss__v6__1.html#gaae2cb38734654cfeca1d77b0439c243e">XDpRxSs_HandleDownReq()</a>.</p>
 
 </div>
 </div>
@@ -337,7 +337,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is the callback function for when arrival of external (audio) packet interrupt occurs. </p>
-<p>This function is the callback function for Generic Packet Handling of 32-Bytes payload.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_dp_rx_ss.html" title="The DisplayPort RX Subsystem driver instance data.">XDpRxSs</a> instance.</td></tr>
@@ -346,10 +345,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_dp_rx_ss.html#aeaf3eee6d864238c89084759cfe0f6eb">XDpRxSs::DpPtr</a>.</p>
-
-<p>Referenced by <a class="el" href="xdprxss__zcu102__rx_8h.html#a75e16ac2339e265fe970c93f8158886f">Dp_SetupIntrSystem()</a>, and <a class="el" href="xdprxss__mst__example_8c.html#a0a7486431cab68af81fb7ba9f2bc4793">DpRxSs_SetupIntrSystem()</a>.</p>
 
 </div>
 </div>
@@ -368,7 +363,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is the callback function for when an info packet interrupt occurs. </p>
-<p>This function is the callback function for Info Packet Handling.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_dp_rx_ss.html" title="The DisplayPort RX Subsystem driver instance data.">XDpRxSs</a> instance.</td></tr>
@@ -377,10 +371,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_dp_rx_ss.html#aeaf3eee6d864238c89084759cfe0f6eb">XDpRxSs::DpPtr</a>.</p>
-
-<p>Referenced by <a class="el" href="xdprxss__zcu102__rx_8h.html#a75e16ac2339e265fe970c93f8158886f">Dp_SetupIntrSystem()</a>, and <a class="el" href="xdprxss__mst__example_8c.html#a0a7486431cab68af81fb7ba9f2bc4793">DpRxSs_SetupIntrSystem()</a>.</p>
 
 </div>
 </div>
@@ -413,7 +403,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If system setup was successful, this function is blocking in order to illustrate interrupt handling taking place for different types interrupts. Refer <a class="el" href="xdprxss_8h.html">xdprxss.h</a> file for more info. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_rx_ss___config.html#a51ebda7704c9682d7b8fc8073da88ad8">XDpRxSs_Config::BaseAddress</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#a26fb3eace6447299bbdedd12b314a6a8">DpRxSs_PlatformInit()</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#ae690e4e95545e8f6b37672430f1f910a">DpRxSs_Setup()</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#a0a7486431cab68af81fb7ba9f2bc4793">DpRxSs_SetupIntrSystem()</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#a7a1d8bd7b1560f85570729e72d6e3aee">DpRxSs_VideoPhyInit()</a>, <a class="el" href="struct_x_dp_rx_ss___usr_opt.html#a3b30d496a7ebaea9b6f78a4edd47e07a">XDpRxSs_UsrOpt::MstSupport</a>, <a class="el" href="struct_x_dp_rx_ss.html#afc12f403a17670fcf650b2056576785d">XDpRxSs::UsrOpt</a>, <a class="el" href="group__dprxss__v6__0.html#ga25f3b6123ff5cbf277c4117617980738">XDpRxSs_CfgInitialize()</a>, <a class="el" href="group__dprxss__v6__0.html#ga81fb45e531552358b584b48d5d1d65f5">XDpRxSs_LookupConfig()</a>, <a class="el" href="group__dprxss__v6__0.html#ga180a0386c25a456d436bbfc9fec05c02">XDpRxSs_SetLaneCount()</a>, <a class="el" href="group__dprxss__v6__0.html#gae447b427e7616d143f2170881fa79bb1">XDpRxSs_SetLinkRate()</a>, and <a class="el" href="group__dprxss__v6__0.html#ga5ada36b95407b1169e183bbb7b9847d6">XDpRxSs_Start()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_rx_ss___config.html#a51ebda7704c9682d7b8fc8073da88ad8">XDpRxSs_Config::BaseAddress</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#a26fb3eace6447299bbdedd12b314a6a8">DpRxSs_PlatformInit()</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#ae690e4e95545e8f6b37672430f1f910a">DpRxSs_Setup()</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#a0a7486431cab68af81fb7ba9f2bc4793">DpRxSs_SetupIntrSystem()</a>, <a class="el" href="xdprxss__dp14__rx_8c.html#a7a1d8bd7b1560f85570729e72d6e3aee">DpRxSs_VideoPhyInit()</a>, <a class="el" href="struct_x_dp_rx_ss___usr_opt.html#a3b30d496a7ebaea9b6f78a4edd47e07a">XDpRxSs_UsrOpt::MstSupport</a>, <a class="el" href="struct_x_dp_rx_ss.html#afc12f403a17670fcf650b2056576785d">XDpRxSs::UsrOpt</a>, <a class="el" href="group__dprxss__v6__1.html#ga25f3b6123ff5cbf277c4117617980738">XDpRxSs_CfgInitialize()</a>, <a class="el" href="group__dprxss__v6__1.html#ga81fb45e531552358b584b48d5d1d65f5">XDpRxSs_LookupConfig()</a>, <a class="el" href="group__dprxss__v6__1.html#ga180a0386c25a456d436bbfc9fec05c02">XDpRxSs_SetLaneCount()</a>, <a class="el" href="group__dprxss__v6__1.html#gae447b427e7616d143f2170881fa79bb1">XDpRxSs_SetLinkRate()</a>, and <a class="el" href="group__dprxss__v6__1.html#ga5ada36b95407b1169e183bbb7b9847d6">XDpRxSs_Start()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdprxss__intr__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
@@ -833,7 +823,6 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int main </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>

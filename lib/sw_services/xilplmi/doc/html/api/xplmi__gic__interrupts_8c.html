@@ -71,14 +71,16 @@ $(document).ready(function(){initNavTree('xplmi__gic__interrupts_8c.html','');})
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ====  ==== ======== ======================================================-
-1.00  mg   10/08/2018 Initial release
-1.01  mg   04/02/2020 Remove defines which are already part of <a class="el" href="pmc__global_8h.html" title="Copyright (c) 2013 - 2020 Xilinx, Inc.">pmc_global.h</a></pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  ma   10/08/2018 Initial release
+1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+1.02  bsv  04/04/2020 Code clean up
+1.03  bm   10/14/2020 Code clean up</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aae98031b1083e26ed598e3cc76c1cf88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__gic__interrupts_8c.html#aae98031b1083e26ed598e3cc76c1cf88">XPlmi_GicRegisterHandler</a> (u32 PlmIntrId, Function_t Handler, void *Data)</td></tr>
-<tr class="memdesc:aae98031b1083e26ed598e3cc76c1cf88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will register the GIC handler.  <a href="#aae98031b1083e26ed598e3cc76c1cf88"></a><br/></td></tr>
-<tr class="separator:aae98031b1083e26ed598e3cc76c1cf88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661badd195ab22817b5f04641c14e581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__gic__interrupts_8c.html#a661badd195ab22817b5f04641c14e581">XPlmi_GicRegisterHandler</a> (u32 PlmIntrId, GicIntHandler_t Handler, void *Data)</td></tr>
+<tr class="memdesc:a661badd195ab22817b5f04641c14e581"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will register the GIC handler.  <a href="#a661badd195ab22817b5f04641c14e581"></a><br/></td></tr>
+<tr class="separator:a661badd195ab22817b5f04641c14e581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64f199ea60fffcc44880211105e5cd81"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__gic__interrupts_8c.html#a64f199ea60fffcc44880211105e5cd81">XPlmi_GicIntrClearStatus</a> (u32 PlmIntrId)</td></tr>
 <tr class="memdesc:a64f199ea60fffcc44880211105e5cd81"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will clear the GIC interrupt.  <a href="#a64f199ea60fffcc44880211105e5cd81"></a><br/></td></tr>
 <tr class="separator:a64f199ea60fffcc44880211105e5cd81"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -91,43 +93,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a181880f216f7b6be3b58b920b2ba89fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__gic__interrupts_8c.html#a181880f216f7b6be3b58b920b2ba89fb">XPlmi_GicIntrHandler</a> (void *CallbackRef)</td></tr>
 <tr class="memdesc:a181880f216f7b6be3b58b920b2ba89fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is handler for GIC interrupts.  <a href="#a181880f216f7b6be3b58b920b2ba89fb"></a><br/></td></tr>
 <tr class="separator:a181880f216f7b6be3b58b920b2ba89fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8a338ceafbc2b9234ebcdaa80c7f5a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__gic__interrupts_8c.html#aa8a338ceafbc2b9234ebcdaa80c7f5a1">XPlmi_GicIntrAddTask</a> (u32 Index)</td></tr>
-<tr class="memdesc:aa8a338ceafbc2b9234ebcdaa80c7f5a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function adds the GiCTaskHandler to the TaskQueue.  <a href="#aa8a338ceafbc2b9234ebcdaa80c7f5a1"></a><br/></td></tr>
-<tr class="separator:aa8a338ceafbc2b9234ebcdaa80c7f5a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3bd614068c7ce03fc879a2de3cc79e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__gic__interrupts_8c.html#aa3bd614068c7ce03fc879a2de3cc79e8">XPlmi_GicTaskHandler</a> (void *Arg)</td></tr>
-<tr class="memdesc:aa3bd614068c7ce03fc879a2de3cc79e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is GicTaskhandler with executes the registered handler.  <a href="#aa3bd614068c7ce03fc879a2de3cc79e8"></a><br/></td></tr>
-<tr class="separator:aa3bd614068c7ce03fc879a2de3cc79e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aa8a338ceafbc2b9234ebcdaa80c7f5a1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XPlmi_GicIntrAddTask </td>
-          <td>(</td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Index</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function adds the GiCTaskHandler to the TaskQueue. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Index</td><td>is the interrupt index with GicPx and its corresponding bit details. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xplmi__gic__interrupts_8c.html#aa3bd614068c7ce03fc879a2de3cc79e8">XPlmi_GicTaskHandler()</a>, <a class="el" href="xplmi__task_8c.html#a4c1092af407ef2e303f0437270fe7d75">XPlmi_TaskCreate()</a>, and <a class="el" href="xplmi__task_8c.html#adbfc56f5e2b34a2bd07996a3231becb2">XPlmi_TaskTriggerNow()</a>.</p>
-
-<p>Referenced by <a class="el" href="xplmi__gic__interrupts_8c.html#a181880f216f7b6be3b58b920b2ba89fb">XPlmi_GicIntrHandler()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a64f199ea60fffcc44880211105e5cd81"></a>
 <div class="memitem">
 <div class="memproto">
@@ -153,7 +120,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="xplmi__util_8c.html#aa6f19eeebb4a42d17f8e2f62b01b0080">XPlmi_UtilRMW()</a>.</p>
 
-<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a11f4727eae1ebdc03c03a94a3a2a4ad8">XPlmi_PlmIntrClear()</a>.</p>
+<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a7afb3d630cbe8ab2e65abde74817eb55">XPlmi_PlmIntrClear()</a>.</p>
 
 </div>
 </div>
@@ -182,7 +149,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="xplmi__util_8c.html#aa6f19eeebb4a42d17f8e2f62b01b0080">XPlmi_UtilRMW()</a>.</p>
 
-<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a20682f3a61648dccc15b573906c4b7c7">XPlmi_PlmIntrDisable()</a>.</p>
+<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a9b50989f370478d03d3dea18f7b8cd13">XPlmi_PlmIntrDisable()</a>.</p>
 
 </div>
 </div>
@@ -238,11 +205,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="xplmi__gic__interrupts_8c.html#aa8a338ceafbc2b9234ebcdaa80c7f5a1">XPlmi_GicIntrAddTask()</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="aae98031b1083e26ed598e3cc76c1cf88"></a>
+<a class="anchor" id="a661badd195ab22817b5f04641c14e581"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -255,7 +220,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Function_t&#160;</td>
+          <td class="paramtype">GicIntHandler_t&#160;</td>
           <td class="paramname"><em>Handler</em>, </td>
         </tr>
         <tr>
@@ -284,35 +249,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 <p>Register Handler </p>
 
-<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a723ae7be0f6a159909a532d0a90f11b1">XPlmi_RegisterHandler()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa3bd614068c7ce03fc879a2de3cc79e8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_GicTaskHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>Arg</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This is GicTaskhandler with executes the registered handler. </p>
-<p>In case of SUCCESS or error, IRQ status is cleared and enabled again. If the task is in still progress, then interrupt is not cleared and Task handler is called again from TaskDispatcher.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Arg</td><td>is index of the interrupt handler.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>Referenced by <a class="el" href="xplmi__gic__interrupts_8c.html#aa8a338ceafbc2b9234ebcdaa80c7f5a1">XPlmi_GicIntrAddTask()</a>.</p>
+<p>Referenced by <a class="el" href="xplmi__proc_8h.html#ae4d39d395ef91b45f9cbdc1c1c03d289">XPlmi_RegisterHandler()</a>.</p>
 
 </div>
 </div>

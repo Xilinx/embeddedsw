@@ -71,7 +71,14 @@ $(document).ready(function(){initNavTree('xilpuf__enc__dec__data__example_8c.htm
 </p>
 <hr/>
 <p>
- 1.0    har   01/30/19 Initial release</pre><pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+ 1.0   har  01/30/20 Initial release
+ 1.1   har  01/30/20 Updated file version to 1.1 to sync with library version
+       har  03/08/20 Added function to print array
+                     Corrected endianness of PUF helper data
+ 1.2   har  07/03/20 Corrected the length of PUF ID passed in XPuf_ShowData
+       am   08/14/20 Replacing function prototype and local status variable
+                     from u32 and s32 to int.
+       har  09/30/20 Replaced XPuf_printf with xil_printf</pre><pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 <h2>User configurable parameters for PUF</h2>
 </pre><pre>
  #define XPUF_DATA                              "000000000000000000000000"
@@ -99,7 +106,9 @@ $(document).ready(function(){initNavTree('xilpuf__enc__dec__data__example_8c.htm
  and invalid for PUF registration. AUX value should be supplied if
  XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.</pre><pre> #define XPUF_SYN_DATA_ADDRESS          (0x00000000)
  Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
- configured as XPUF_READ_FROM_RAM.
+ configured as XPUF_READ_FROM_RAM.</pre><pre> #define XPUF_GLBL_VAR_FLTR_OPTION      (TRUE)
+ It is recommended to always enable this option to ensure entropy. It can
+ be configured as FALSE to disable Global Variation Filter.
 </pre></div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

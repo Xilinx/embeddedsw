@@ -71,20 +71,48 @@ $(document).ready(function(){initNavTree('xloader__prtn__load_8c.html','');});
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
 1.00  kc   02/21/2017 Initial release
-1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
-                      time and print</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.01  vnsl 04/28/2019 Added security support
+      kc   05/09/2019 Added code for PSM RAM ECC initialization
+      bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
+                                        R5-1 split mode functionality
+      bsv  06/24/2019 Moved ECC initialization code from Xilloader to Xilpm
+      js   06/27/2019 Updated PSM arguments
+      vnsl 07/09/2019 Added PPK and SPK integrity checks
+      vnsl 07/09/2019 Added authentication + encryption support
+      kc   09/05/2019 Added code to use PMCDMA0 and PMCDMA1 in parallel
+1.02  ma   12/12/2019 Added support for passing hand off parameters to ATF
+      kc   12/17/2019 Added support for deferred error mechanism for mask poll
+      bsv  01/12/2020 Changes related to bitstream loading
+      bsv  01/30/2002 Enabled direct DMA from boot devices to CFI
+      ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+                      time and print
+      bsv  02/28/2020 Added support for delay handoff
+      ma   03/02/2020 Added support for logging trace events
+      bsv  04/09/2020 Code clean up of Xilloader
+1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get subsystem info
+      kal  07/20/2020 Added double buffering support for secure CDOs
+      bsv  07/29/2020 Added delay load support
+      skd  07/29/2020 Added parallel DMA support for Qspi and Ospi
+      bsv  08/06/2020 Code clean up
+      td   08/19/2020 Fixed MISRA C violations Rule 10.3
+      kal  08/23/2020 Added parallel DMA support for Qspi and Ospi for secure
+      kpt  09/07/2020 Fixed key rolling issue for secure cases
+      bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+                      boot modes
+      bsv  10/13/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abbad8b8a9c420061c16ddc178bf7bbe3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__prtn__load_8c.html#abbad8b8a9c420061c16ddc178bf7bbe3">XLoader_LoadImagePrtns</a> (XilPdi *PdiPtr, u32 ImgNum, u32 PrtnNum)</td></tr>
-<tr class="memdesc:abbad8b8a9c420061c16ddc178bf7bbe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function loads the partition.  <a href="#abbad8b8a9c420061c16ddc178bf7bbe3"></a><br/></td></tr>
-<tr class="separator:abbad8b8a9c420061c16ddc178bf7bbe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7c56a671903c86db21b907d2ce28fd0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__prtn__load_8c.html#ac7c56a671903c86db21b907d2ce28fd0">XLoader_UpdateHandoffParam</a> (XilPdi *PdiPtr, u32 PrtnNum)</td></tr>
-<tr class="memdesc:ac7c56a671903c86db21b907d2ce28fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to update the handoff parameters.  <a href="#ac7c56a671903c86db21b907d2ce28fd0"></a><br/></td></tr>
-<tr class="separator:ac7c56a671903c86db21b907d2ce28fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb74ee2f2a0e0dcce9bfdae7750bbc14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__prtn__load_8c.html#acb74ee2f2a0e0dcce9bfdae7750bbc14">XLoader_LoadImagePrtns</a> (XilPdi *PdiPtr)</td></tr>
+<tr class="memdesc:acb74ee2f2a0e0dcce9bfdae7750bbc14"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function loads the partition.  <a href="#acb74ee2f2a0e0dcce9bfdae7750bbc14"></a><br/></td></tr>
+<tr class="separator:acb74ee2f2a0e0dcce9bfdae7750bbc14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafe5cd1245a7aaf54eb6c3d1a1146578"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__prtn__load_8c.html#aafe5cd1245a7aaf54eb6c3d1a1146578">XLoader_UpdateHandoffParam</a> (XilPdi *PdiPtr)</td></tr>
+<tr class="memdesc:aafe5cd1245a7aaf54eb6c3d1a1146578"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to update the handoff parameters.  <a href="#aafe5cd1245a7aaf54eb6c3d1a1146578"></a><br/></td></tr>
+<tr class="separator:aafe5cd1245a7aaf54eb6c3d1a1146578"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="abbad8b8a9c420061c16ddc178bf7bbe3"></a>
+<a class="anchor" id="acb74ee2f2a0e0dcce9bfdae7750bbc14"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -92,24 +120,8 @@ Functions</h2></td></tr>
           <td class="memname">int XLoader_LoadImagePrtns </td>
           <td>(</td>
           <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>PdiPtr</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ImgNum</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>PrtnNum</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -117,19 +129,15 @@ Functions</h2></td></tr>
 <p>This function loads the partition. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is pointer to XilPdi Instance </td></tr>
-    <tr><td class="paramname">ImgNum</td><td>is the image number to be loaded </td></tr>
-    <tr><td class="paramname">PrtnNum</td><td>is the partition number in the image to be loaded</td></tr>
+    <tr><td class="paramname">PdiPtr</td><td>is pointer to XilPdi instance</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>Referenced by <a class="el" href="xloader_8h.html#a8c05678024cae63ae3f79fa499c702ad">XLoader_LoadImage()</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="ac7c56a671903c86db21b907d2ce28fd0"></a>
+<a class="anchor" id="aafe5cd1245a7aaf54eb6c3d1a1146578"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -137,18 +145,8 @@ Functions</h2></td></tr>
           <td class="memname">int XLoader_UpdateHandoffParam </td>
           <td>(</td>
           <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>PdiPtr</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>PrtnNum</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -156,14 +154,11 @@ Functions</h2></td></tr>
 <p>This function is used to update the handoff parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">PdiPtr</td><td>is pointer to XilPdi Instance </td></tr>
-    <tr><td class="paramname">PrtnNum</td><td>is the partition number in the image to be loaded</td></tr>
+    <tr><td class="paramname">PdiPtr</td><td>is pointer to XilPdi instance</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a487cb608d16455054946bae2fb8224c2">XLoader_LoadAndStartSubSystemImages()</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
 </div>
 </div>

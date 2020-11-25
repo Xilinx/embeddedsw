@@ -104,11 +104,11 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>The Data Transmit Register/FIFO Underflow interrupt &ndash; indicates that, as slave, the QSPI device was required to transmit but there was no data available to transmit in the transmit register (or FIFO). This may not be an error if the master is not expecting data. But in the case where the master is expecting data, this serves as a notification of such a condition. The driver reports this condition to the upper layer software through the status handler.</p>
 <p>The Data Receive Register/FIFO Overrun interrupt &ndash; indicates that the QSPI device received data and subsequently dropped the data because the data receive register and FIFO was full. The driver reports this condition to the upper layer software through the status handler. This likely indicates a problem with the higher layer protocol, or a problem with the slave performance.</p>
 <p><b>Polled Operation</b></p>
-<p>Transfer in polled mode is supported through a separate interface function <a class="el" href="group__qspips__v3__7.html#ga92bcb2ff87e82a4f27e9a49db023d08d" title="Transfers specified data on the QSPI bus in polled mode.">XQspiPs_PolledTransfer()</a>. Unlike the transfer function in the interrupt mode, this function blocks until all data has been sent/received.</p>
+<p>Transfer in polled mode is supported through a separate interface function <a class="el" href="group__qspips__v3__8.html#ga92bcb2ff87e82a4f27e9a49db023d08d" title="Transfers specified data on the QSPI bus in polled mode.">XQspiPs_PolledTransfer()</a>. Unlike the transfer function in the interrupt mode, this function blocks until all data has been sent/received.</p>
 <p><b>Device Busy</b></p>
 <p>Some operations are disallowed when the device is busy. The driver tracks whether a device is busy. The device is considered busy when a data transfer request is outstanding, and is considered not busy only when that transfer completes (or is aborted with a mode fault error).</p>
 <p><b>Device Configuration</b></p>
-<p>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the <a class="el" href="xqspips__g_8c.html">xqspips_g.c</a> file or passed in via <a class="el" href="group__qspips__v3__7.html#gaf348b6ee07c1e3e7d01857a789e658d4" title="Initializes a specific XQspiPs instance such that the driver is ready to use.">XQspiPs_CfgInitialize()</a>. A table is defined where each entry contains configuration information for an QSPI device, including the base address for the device.</p>
+<p>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the <a class="el" href="xqspips__g_8c.html">xqspips_g.c</a> file or passed in via <a class="el" href="group__qspips__v3__8.html#gaf348b6ee07c1e3e7d01857a789e658d4" title="Initializes a specific XQspiPs instance such that the driver is ready to use.">XQspiPs_CfgInitialize()</a>. A table is defined where each entry contains configuration information for an QSPI device, including the base address for the device.</p>
 <p><b>RTOS Independence</b></p>
 <p>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</p>
 <p>NOTE: This driver was always tested with endianness set to little-endian.</p>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('index.html','');});
                      LQSPI Config register. Renamed Fixed burst error to
                      data FSM error in  LQSPI Status register.</pre><pre> 2.02a hk  05/07/13 Added ConnectionMode to config structure.
                          Corresponds to C_QSPI_MODE - 0:Single, 1:Stacked, 2:Parallel
-                         Added enable and disable to the <a class="el" href="group__qspips__v3__7.html#gacbdefc29998bb7b4a61e62f8ef3ed127" title="Read the flash in Linear QSPI mode.">XQspiPs_LqspiRead()</a> function
+                         Added enable and disable to the <a class="el" href="group__qspips__v3__8.html#gacbdefc29998bb7b4a61e62f8ef3ed127" title="Read the flash in Linear QSPI mode.">XQspiPs_LqspiRead()</a> function
                          Removed XQspi_Reset() in Set_Options() function when
                          LQSPI_MODE_OPTION is set.
             Added instructions for bank selection, die erase and
@@ -215,11 +215,12 @@ $(document).ready(function(){initNavTree('index.html','');});
  3.6   akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
                     configuration register values of both the Flashes in dual
                     parellel connection.
- 3.7    akm 11/19/19 Fixed Coverity unused value warning in <a class="el" href="group__qspips__v3__7.html#ga92bcb2ff87e82a4f27e9a49db023d08d" title="Transfers specified data on the QSPI bus in polled mode.">XQspiPs_PolledTransfer()</a>
-                        and <a class="el" href="group__qspips__v3__7.html#gaeafbee8d795ef8805ab7c8756f5e2274" title="Transfers specified data on the QSPI bus.">XQspiPs_Transfer()</a> APIs.
- 3.7    akm 03/19/20 Modified <a class="el" href="group__qspips__v3__7.html#ga92bcb2ff87e82a4f27e9a49db023d08d" title="Transfers specified data on the QSPI bus in polled mode.">XQspiPs_PolledTransfer()</a>, <a class="el" href="group__qspips__v3__7.html#gaeafbee8d795ef8805ab7c8756f5e2274" title="Transfers specified data on the QSPI bus.">XQspiPs_Transfer()</a> and
-                        <a class="el" href="group__qspips__v3__7.html#ga44c9e0841d774e9c4958e2cdd8c23220" title="The interrupt handler for QSPI interrupts.">XQspiPs_InterruptHandler()</a> APIs to fill TX FIFO with valid
-                        data when RX buffer is not NULL.</pre><pre> </pre> </div></div><!-- contents -->
+ 3.7    akm 11/19/19 Fixed Coverity unused value warning in <a class="el" href="group__qspips__v3__8.html#ga92bcb2ff87e82a4f27e9a49db023d08d" title="Transfers specified data on the QSPI bus in polled mode.">XQspiPs_PolledTransfer()</a>
+                        and <a class="el" href="group__qspips__v3__8.html#gaeafbee8d795ef8805ab7c8756f5e2274" title="Transfers specified data on the QSPI bus.">XQspiPs_Transfer()</a> APIs.
+ 3.7    akm 03/19/20 Modified <a class="el" href="group__qspips__v3__8.html#ga92bcb2ff87e82a4f27e9a49db023d08d" title="Transfers specified data on the QSPI bus in polled mode.">XQspiPs_PolledTransfer()</a>, <a class="el" href="group__qspips__v3__8.html#gaeafbee8d795ef8805ab7c8756f5e2274" title="Transfers specified data on the QSPI bus.">XQspiPs_Transfer()</a> and
+                        <a class="el" href="group__qspips__v3__8.html#ga44c9e0841d774e9c4958e2cdd8c23220" title="The interrupt handler for QSPI interrupts.">XQspiPs_InterruptHandler()</a> APIs to fill TX FIFO with valid
+                        data when RX buffer is not NULL.
+ 3.8    akm 09/02/20 Updated the Makefile to support parallel make execution.</pre><pre> </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

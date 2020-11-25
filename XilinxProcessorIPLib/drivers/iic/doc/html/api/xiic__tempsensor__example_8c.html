@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('xiic__tempsensor__example_8c.html','')
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains an interrupt based design example which uses the Xilinx IIC device and driver to exercise the temperature sensor on the ML300 board. </p>
 <p>This example only performs read operations (receive) from the IIC temperature sensor of the platform.</p>
-<p>The <a class="el" href="group__iic__v3__6.html#ga337bf0d322d4a7d9b4f8baa30e00ab45" title="This function receives data as a master from a slave device on the IIC bus.">XIic_MasterRecv()</a> API is used to receive the data.</p>
+<p>The <a class="el" href="group__iic__v3__7.html#ga337bf0d322d4a7d9b4f8baa30e00ab45" title="This function receives data as a master from a slave device on the IIC bus.">XIic_MasterRecv()</a> API is used to receive the data.</p>
 <p>This example assumes that there is an interrupt controller in the hardware system and the IIC device is connected to the interrupt controller.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <p>7-bit addressing is used to access the tempsensor.</p>
@@ -168,7 +168,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_iic___config.html#ae783f76b6713be6d9b77060d77328102">XIic_Config::BaseAddress</a>, <a class="el" href="group__iic__v3__6.html#gace6af337aea33e4f162897b40591e0ac">XII_ADDR_TO_SEND_TYPE</a>, <a class="el" href="group__iic__v3__6.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>, <a class="el" href="group__iic__v3__6.html#ga1dcc65dd7cb7863bf6769aed5d785304">XIic_LookupConfig()</a>, <a class="el" href="group__iic__v3__6.html#ga337bf0d322d4a7d9b4f8baa30e00ab45">XIic_MasterRecv()</a>, <a class="el" href="group__iic__v3__6.html#gad944f42c3d9972fc2c986a7eed726297">XIic_SetAddress()</a>, <a class="el" href="group__iic__v3__6.html#ga86b4b2b307df26df2ecac39337c78bed">XIic_SetRecvHandler()</a>, <a class="el" href="group__iic__v3__6.html#gaa74a6884f6dfc826a10768d7d0333991">XIic_SetStatusHandler()</a>, and <a class="el" href="group__iic__v3__6.html#ga5f4e497710a9c3719f27d40faa74a10f">XIic_Start()</a>.</p>
+<p>References <a class="el" href="struct_x_iic___config.html#ae783f76b6713be6d9b77060d77328102">XIic_Config::BaseAddress</a>, <a class="el" href="group__iic__v3__7.html#gace6af337aea33e4f162897b40591e0ac">XII_ADDR_TO_SEND_TYPE</a>, <a class="el" href="group__iic__v3__7.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>, <a class="el" href="group__iic__v3__7.html#ga1dcc65dd7cb7863bf6769aed5d785304">XIic_LookupConfig()</a>, <a class="el" href="group__iic__v3__7.html#ga337bf0d322d4a7d9b4f8baa30e00ab45">XIic_MasterRecv()</a>, <a class="el" href="group__iic__v3__7.html#gad944f42c3d9972fc2c986a7eed726297">XIic_SetAddress()</a>, <a class="el" href="group__iic__v3__7.html#ga86b4b2b307df26df2ecac39337c78bed">XIic_SetRecvHandler()</a>, <a class="el" href="group__iic__v3__7.html#gaa74a6884f6dfc826a10768d7d0333991">XIic_SetStatusHandler()</a>, and <a class="el" href="group__iic__v3__7.html#ga5f4e497710a9c3719f27d40faa74a10f">XIic_Start()</a>.</p>
 
 <p>Referenced by <a class="el" href="xiic__tempsensor__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

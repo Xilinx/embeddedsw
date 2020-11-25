@@ -72,21 +72,28 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- ---------- -------------------------------------------------------
 1.0   kal  08/01/2019 Initial release
       har  09/24/2019 Fixed MISRA-C violations
-      har  01/27/2020 Added support for helper data programming ID only
-                regeneration and XPuf_Validate_Access_Rules
-</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.1   har  01/27/2020 Added support for on-demand regeneration from efuse cache,
+                      ID only regeneration and XPuf_Validate_Access_Rules
+1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
+      am   08/04/2020 Resolved MISRA C Violations
+      am   08/19/2020 Resolved MISRA C violations.
+      har  09/30/2020 Updated XPUF_STATUS_WAIT_TIMEOUT as per the recommended
+                      software timeout
+      am   10/10/2020 Resolved MISRA C violations
+      har  10/17/2020 Added checks for mismatch between MSB of PUF shutter
+                      value and Global Variation Filter option</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae25c45427621137267653e4b5a070c16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#gae25c45427621137267653e4b5a070c16">XPuf_GenerateFuseFormat</a> (XPuf_Data *PufData)</td></tr>
-<tr class="memdesc:gae25c45427621137267653e4b5a070c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the PUF Syndrome data to eFUSE writing format.  <a href="group__xpuf__apis.html#gae25c45427621137267653e4b5a070c16"></a><br/></td></tr>
-<tr class="separator:gae25c45427621137267653e4b5a070c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3ef4725a4c7afa7de979a3592b6aacf"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#gae3ef4725a4c7afa7de979a3592b6aacf">XPuf_Registration</a> (XPuf_Data *PufData)</td></tr>
-<tr class="memdesc:gae3ef4725a4c7afa7de979a3592b6aacf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs PUF registration.  <a href="group__xpuf__apis.html#gae3ef4725a4c7afa7de979a3592b6aacf"></a><br/></td></tr>
-<tr class="separator:gae3ef4725a4c7afa7de979a3592b6aacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga982bc4fb489b3349090665bfed6f0ae4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#ga982bc4fb489b3349090665bfed6f0ae4">XPuf_Regeneration</a> (XPuf_Data *PufData)</td></tr>
-<tr class="memdesc:ga982bc4fb489b3349090665bfed6f0ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function regenerate PUF data using helper data stored in eFUSE or in and external memory.  <a href="group__xpuf__apis.html#ga982bc4fb489b3349090665bfed6f0ae4"></a><br/></td></tr>
-<tr class="separator:ga982bc4fb489b3349090665bfed6f0ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2607f20a8f0199c8f0eb53d0dfc9f0a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#gae2607f20a8f0199c8f0eb53d0dfc9f0a">XPuf_Registration</a> (XPuf_Data *PufData)</td></tr>
+<tr class="memdesc:gae2607f20a8f0199c8f0eb53d0dfc9f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs PUF registration.  <a href="group__xpuf__apis.html#gae2607f20a8f0199c8f0eb53d0dfc9f0a"></a><br/></td></tr>
+<tr class="separator:gae2607f20a8f0199c8f0eb53d0dfc9f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f60c4624b046d3f5c74d8cb01f8f90d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#ga2f60c4624b046d3f5c74d8cb01f8f90d">XPuf_Regeneration</a> (XPuf_Data *PufData)</td></tr>
+<tr class="memdesc:ga2f60c4624b046d3f5c74d8cb01f8f90d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function regenerate PUF data using helper data stored in eFUSE or external memory.  <a href="group__xpuf__apis.html#ga2f60c4624b046d3f5c74d8cb01f8f90d"></a><br/></td></tr>
+<tr class="separator:ga2f60c4624b046d3f5c74d8cb01f8f90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03c85715b04394967ebb2274f09f510a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#ga03c85715b04394967ebb2274f09f510a">XPuf_GenerateFuseFormat</a> (XPuf_Data *PufData)</td></tr>
+<tr class="memdesc:ga03c85715b04394967ebb2274f09f510a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the PUF Syndrome data to eFUSE writing format.  <a href="group__xpuf__apis.html#ga03c85715b04394967ebb2274f09f510a"></a><br/></td></tr>
+<tr class="separator:ga03c85715b04394967ebb2274f09f510a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

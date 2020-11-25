@@ -82,7 +82,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <h2>Interrupts and Asynchronous Callbacks</h2>
 <p>The driver has no dependencies on the interrupt controller. It provides no interrupt handlers. The application/OS software should set up its own interrupt handlers if required based on the target DMA device.</p>
 <h2>Device Reset</h2>
-<p>When an Xxv Ethernet device is connected up to a MCDMA core in hardware, reset is controlled by the latter. If a reset is performed, the calling code should also reconfigure and reapply the proper settings in the Xxv Ethernet device. When an Xxv Ethernet device reset is required, <a class="el" href="group__xxvethernet__v1__4.html#gabd5dad43d5d82fd52bd8b9101f50a96e" title="XXxvEthernet_Reset does not perform a soft reset of the XxvEthernet core.">XXxvEthernet_Reset()</a> should be utilized. For GT/Serdes reset, refer to the example.</p>
+<p>When an Xxv Ethernet device is connected up to a MCDMA core in hardware, reset is controlled by the latter. If a reset is performed, the calling code should also reconfigure and reapply the proper settings in the Xxv Ethernet device. When an Xxv Ethernet device reset is required, <a class="el" href="group__xxvethernet__v1__5.html#gabd5dad43d5d82fd52bd8b9101f50a96e" title="XXxvEthernet_Reset does not perform a soft reset of the XxvEthernet core.">XXxvEthernet_Reset()</a> should be utilized. For GT/Serdes reset, refer to the example.</p>
 <h2>Transferring Data</h2>
 <p>The Xxv Ethernet core by itself is not capable of transmitting or receiving data in any meaningful way. Instead the Xxv Ethernet device needs to be connected to a FIFO or DMA core in hardware, currently MCDMA is supported.</p>
 <p>This Xxv Ethernet driver is modeled in a similar fashion where the application code or O/S adapter driver needs to make use of a separate MCDMA driver in connection with this driver to establish meaningful communication over Ethernet.</p>
@@ -102,7 +102,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <p>
 1.0   hk   6/16/17  First release
       hk   2/15/18  Add support for USXGMII
-1.1   mj   3/30/18  Add Macro <a class="el" href="group__xxvethernet__v1__4.html#ga3344d63068c5bd9e67e0e978aa5f519a" title="XXxvEthernet_IsMcDma reports if the device is currently connected to MCDMA.">XXxvEthernet_IsMcDma(InstancePtr)</a> to check
+1.1   mj   3/30/18  Add Macro <a class="el" href="group__xxvethernet__v1__5.html#ga3344d63068c5bd9e67e0e978aa5f519a" title="XXxvEthernet_IsMcDma reports if the device is currently connected to MCDMA.">XXxvEthernet_IsMcDma(InstancePtr)</a> to check
                     McDma is connected or not.
 1.4   rsp  05/08/20 Include sleep.h header
 </pre> </div></div><!-- contents -->

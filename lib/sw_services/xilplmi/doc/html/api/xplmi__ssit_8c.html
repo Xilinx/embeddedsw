@@ -72,110 +72,23 @@ $(document).ready(function(){initNavTree('xplmi__ssit_8c.html','');});
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
 1.00  ma   08/13/2019 Initial release
-1.01   ma   01/22/2020 Fix SSIT Sync Slaves sequence and also implement
-                      proper timeout for SSIT Sync Slaves and Wait Slaves
-                      commands by using usleep</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      ma   08/24/2019 Added SSIT commands
+1.01  bsv  04/04/2020 Code clean up
+1.02  bm   10/14/2020 Code clean up
+                td   10/19/2020 MISRA C Fixes</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af24bb1ce85073deed1339422ee5d915f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__ssit_8c.html#af24bb1ce85073deed1339422ee5d915f">XPlmi_SsitSyncMaster</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:af24bb1ce85073deed1339422ee5d915f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides SSIT Sync Master command execution.  <a href="#af24bb1ce85073deed1339422ee5d915f"></a><br/></td></tr>
-<tr class="separator:af24bb1ce85073deed1339422ee5d915f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6d0e16deb820f98b18689dc9966f3ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__ssit_8c.html#ad6d0e16deb820f98b18689dc9966f3ff">XPlmi_SsitSyncSlaves</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:ad6d0e16deb820f98b18689dc9966f3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides SSIT Sync Slaves command execution.  <a href="#ad6d0e16deb820f98b18689dc9966f3ff"></a><br/></td></tr>
-<tr class="separator:ad6d0e16deb820f98b18689dc9966f3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cb88dc15cd3354f65b346c3e92c2d88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__ssit_8c.html#a5cb88dc15cd3354f65b346c3e92c2d88">XPlmi_SsitWaitSlaves</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:a5cb88dc15cd3354f65b346c3e92c2d88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides SSIT Wait Slaves command execution.  <a href="#a5cb88dc15cd3354f65b346c3e92c2d88"></a><br/></td></tr>
-<tr class="separator:a5cb88dc15cd3354f65b346c3e92c2d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf24bb1ce85073deed1339422ee5d915f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__apis.html#gaf24bb1ce85073deed1339422ee5d915f">XPlmi_SsitSyncMaster</a> (XPlmi_Cmd *Cmd)</td></tr>
+<tr class="memdesc:gaf24bb1ce85073deed1339422ee5d915f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides SSIT Sync Master command execution.  <a href="group__xplmi__apis.html#gaf24bb1ce85073deed1339422ee5d915f"></a><br/></td></tr>
+<tr class="separator:gaf24bb1ce85073deed1339422ee5d915f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6d0e16deb820f98b18689dc9966f3ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__apis.html#gad6d0e16deb820f98b18689dc9966f3ff">XPlmi_SsitSyncSlaves</a> (XPlmi_Cmd *Cmd)</td></tr>
+<tr class="memdesc:gad6d0e16deb820f98b18689dc9966f3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides SSIT Sync Slaves command execution.  <a href="group__xplmi__apis.html#gad6d0e16deb820f98b18689dc9966f3ff"></a><br/></td></tr>
+<tr class="separator:gad6d0e16deb820f98b18689dc9966f3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5cb88dc15cd3354f65b346c3e92c2d88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__apis.html#ga5cb88dc15cd3354f65b346c3e92c2d88">XPlmi_SsitWaitSlaves</a> (XPlmi_Cmd *Cmd)</td></tr>
+<tr class="memdesc:ga5cb88dc15cd3354f65b346c3e92c2d88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides SSIT Wait Slaves command execution.  <a href="group__xplmi__apis.html#ga5cb88dc15cd3354f65b346c3e92c2d88"></a><br/></td></tr>
+<tr class="separator:ga5cb88dc15cd3354f65b346c3e92c2d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="af24bb1ce85073deed1339422ee5d915f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_SsitSyncMaster </td>
-          <td>(</td>
-          <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides SSIT Sync Master command execution. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to the command structure</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the Status of SSIT Sync Master command </dd></dl>
-
-<p>References <a class="el" href="xplmi__ssit_8h.html#a88e58a13556497a4aa0951c7e240351a">PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a416b516857a8c226e9d3d8ca69cd2e5f">XPLMI_ERR_SSIT_MASTER_SYNC</a>, and <a class="el" href="xplmi__util_8c.html#aa6f19eeebb4a42d17f8e2f62b01b0080">XPlmi_UtilRMW()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad6d0e16deb820f98b18689dc9966f3ff"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_SsitSyncSlaves </td>
-          <td>(</td>
-          <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides SSIT Sync Slaves command execution. </p>
-<pre class="fragment">            Command payload parameters are
-                    * Slaves Mask
-                    * Timeout
-</pre><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to the command structure</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the Status of SSIT Sync Slaves command </dd></dl>
-
-<p>References <a class="el" href="xplmi__ssit_8h.html#a88e58a13556497a4aa0951c7e240351a">PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57abab859474788188c34e50ac8b707d27f">XPLMI_ERR_SSIT_SLAVE_SYNC</a>, and <a class="el" href="xplmi__util_8c.html#aa6f19eeebb4a42d17f8e2f62b01b0080">XPlmi_UtilRMW()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5cb88dc15cd3354f65b346c3e92c2d88"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_SsitWaitSlaves </td>
-          <td>(</td>
-          <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides SSIT Wait Slaves command execution. </p>
-<pre class="fragment">                     Command payload parameters are
-                    * Slaves Mask
-                    * Timeout
-</pre><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to the command structure</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the Status of SSIT Wait Slaves command </dd></dl>
-
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57abab859474788188c34e50ac8b707d27f">XPLMI_ERR_SSIT_SLAVE_SYNC</a>, and <a class="el" href="xplmi__util_8c.html#aa6f19eeebb4a42d17f8e2f62b01b0080">XPlmi_UtilRMW()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

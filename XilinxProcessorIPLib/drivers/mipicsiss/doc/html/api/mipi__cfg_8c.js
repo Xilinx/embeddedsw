@@ -6,6 +6,7 @@ var mipi__cfg_8c =
     [ "ConfigDemosaic", "mipi__cfg_8c.html#a5cc10afcf20d68eb7ad335b5a6ef4c13", null ],
     [ "ConfigGammaLut", "mipi__cfg_8c.html#aa251d18c526e8bb62900891757ee18fb", null ],
     [ "DisableCSI", "mipi__cfg_8c.html#af9c3d5144d636d012b7ca70db1290ce2", null ],
+    [ "DisableScaler", "mipi__cfg_8c.html#aaabb459a43a4fde3d6805e6d53c899c6", null ],
     [ "EnableCSI", "mipi__cfg_8c.html#a34f1d639e40a40f098ceee99ce0857ac", null ],
     [ "FrmbufrdDoneCallback", "mipi__cfg_8c.html#a2d3f9370f5f5df1e96d9d2ca884b746e", null ],
     [ "FrmbufwrDoneCallback", "mipi__cfg_8c.html#abf6ef522f31c833d9f931f5d9a8b976c", null ],

@@ -103,10 +103,17 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 4.1   psl 07/02/19 Fixed Coverity warning.
       mmd 07/05/19 Optimized the code
       psl 07/31/19 Fixed MISRA-C violations.
-4.2   kal 03/12/20 Authenticate SizeofImgHdr before use, incase of failure
+4.2   kal 03/12/20 Authenticate SizeofImgHdr before use, in case of failure
                    return XSECURE_IMAGE_HEADER_SIZE_ERR.
                    Added support to hold Aes engine in reset after secure
-                   image processing.</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+                   image processing.
+      vns 03/24/20 Cleared locally copied user key
+                   Corrected IV calculation
+      ana 04/03/20 Removed the support of storing key in global array
+      rpo 04/09/20 Aligned the buffers used by DMA to 64 bytes
+      kpt 04/10/20 Resolved coverity warnings
+      ana 04/24/20 Removed support of boot header RSA with 0x1 and 0x2
+</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -277,7 +284,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="group__xsecure__rsa__apis.html#ga2e759029b6bc0d8e61e47a81bc7e7ec6">XSecure_RsaInitialize()</a>, <a class="el" href="group__xsecure__rsa__apis.html#gae54d119a4a52eec29567c569d0da69b8">XSecure_RsaPublicEncrypt()</a>, and <a class="el" href="group__xsecure__rsa__apis.html#gaf4c5685bc34b6c524013b72654a7d2e0">XSecure_RsaSignVerification()</a>.</p>
+<p>References <a class="el" href="group__xsecure__rsa__versal__apis.html#gae3637356df5720621bbd9924fa45a8d8">XSECURE_HASH_TYPE_SHA3</a>, <a class="el" href="group__xsecure__rsa__common__apis.html#ga097e8ed2f4933286ea5ef93210572b6b">XSecure_RsaInitialize()</a>, <a class="el" href="group__xsecure__rsa__common__apis.html#gaec27a8c75f48094d78c14c2a77bc4564">XSecure_RsaPublicEncrypt()</a>, and <a class="el" href="group__xsecure__rsa__common__apis.html#gafbbbb29f6e16f26aa9e648fba575b444">XSecure_RsaSignVerification()</a>.</p>
 
 </div>
 </div>
@@ -500,7 +507,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="group__xsecure__sha3__apis.html#gaa11b46ae20210a953d2bf3f661994c94">XSecure_Sha3Digest()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaa2676a1e79fbf8389decc36e66e47f0b">XSecure_Sha3Initialize()</a>, and <a class="el" href="group__xsecure__sha3__apis.html#ga2e99ff8e049c773e83e4568f73cc92c1">XSecure_Sha3PadSelection()</a>.</p>
+<p>References <a class="el" href="group__xsecure__rsa__versal__apis.html#gae3637356df5720621bbd9924fa45a8d8">XSECURE_HASH_TYPE_SHA3</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#ga964c6f72fbc99f375e2fabce98e25621">XSecure_Sha3Digest()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gaae7a415bcdd835997f8f287d771060e3">XSecure_Sha3Initialize()</a>, and <a class="el" href="group__xsecure__sha3__zynqmp__apis.html#ga2e99ff8e049c773e83e4568f73cc92c1">XSecure_Sha3PadSelection()</a>.</p>
 
 </div>
 </div>
@@ -553,7 +560,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Returns Status XST_SUCCESS on success and error code on failure.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Data to be encrypted/Decrypted + Modulus + Exponent Modulus and Data should always be key size Exponent : private key's exponent is key size while decrypting the signature and 32 bit for public key for encrypting the signature In this API we are not taking exponentiation value. </dd></dl>
 
-<p>References <a class="el" href="group__xsecure__rsa__apis.html#ga2e759029b6bc0d8e61e47a81bc7e7ec6">XSecure_RsaInitialize()</a>, <a class="el" href="group__xsecure__rsa__apis.html#gad23020ad9f80de70287109dcfe5fe532">XSecure_RsaPrivateDecrypt()</a>, and <a class="el" href="group__xsecure__rsa__apis.html#gae54d119a4a52eec29567c569d0da69b8">XSecure_RsaPublicEncrypt()</a>.</p>
+<p>References <a class="el" href="group__xsecure__rsa__common__apis.html#ga097e8ed2f4933286ea5ef93210572b6b">XSecure_RsaInitialize()</a>, <a class="el" href="group__xsecure__rsa__common__apis.html#gac9580b4adbe4854231a0101d89046189">XSecure_RsaPrivateDecrypt()</a>, and <a class="el" href="group__xsecure__rsa__common__apis.html#gaec27a8c75f48094d78c14c2a77bc4564">XSecure_RsaPublicEncrypt()</a>.</p>
 
 </div>
 </div>
@@ -668,7 +675,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns Status XST_SUCCESS on success and error code on failure. </dd></dl>
 
-<p>References <a class="el" href="xsecure_8c.html#a4fd45abb6cdf3c35aa46792bf312dbed">XSecure_CsuDmaInit()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaf5690b50eb7a823de23bde6086986e48">XSecure_Sha3Finish()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaa2676a1e79fbf8389decc36e66e47f0b">XSecure_Sha3Initialize()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaf5b5bd6216ac55a6a9baf719e6bdd725">XSecure_Sha3Start()</a>, and <a class="el" href="group__xsecure__sha3__apis.html#gaf7010e1b3b34eaafcb2f8691468c4e38">XSecure_Sha3Update()</a>.</p>
+<p>References <a class="el" href="xsecure_8c.html#a4fd45abb6cdf3c35aa46792bf312dbed">XSecure_CsuDmaInit()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gaa37ef7b49e853ef0abe0c4e489dd9508">XSecure_Sha3Finish()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gaae7a415bcdd835997f8f287d771060e3">XSecure_Sha3Initialize()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gaf9f2e88632b99c219a468dbbec3eb1fa">XSecure_Sha3Start()</a>, and <a class="el" href="group__xsecure__sha3__versal__apis.html#gab3c4bf50a683332f1a443b1f4f8b0808">XSecure_Sha3Update()</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xsecure__sha3__versal__apis.html#ga56962fc3f5090340f69a4fa56ef264ad">XSecure_Sha3Kat()</a>.</p>
 
 </div>
 </div>
@@ -720,7 +729,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="group__xsecure__rsa__apis.html#ga2e759029b6bc0d8e61e47a81bc7e7ec6">XSecure_RsaInitialize()</a>, <a class="el" href="group__xsecure__rsa__apis.html#gae54d119a4a52eec29567c569d0da69b8">XSecure_RsaPublicEncrypt()</a>, <a class="el" href="group__xsecure__rsa__apis.html#gaf4c5685bc34b6c524013b72654a7d2e0">XSecure_RsaSignVerification()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaf5690b50eb7a823de23bde6086986e48">XSecure_Sha3Finish()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaa2676a1e79fbf8389decc36e66e47f0b">XSecure_Sha3Initialize()</a>, <a class="el" href="group__xsecure__sha3__apis.html#ga2e99ff8e049c773e83e4568f73cc92c1">XSecure_Sha3PadSelection()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaf5b5bd6216ac55a6a9baf719e6bdd725">XSecure_Sha3Start()</a>, <a class="el" href="group__xsecure__sha3__apis.html#gaf7010e1b3b34eaafcb2f8691468c4e38">XSecure_Sha3Update()</a>, <a class="el" href="xsecure_8h.html#ae45390b22ac9391c5ed89ec8de0dc345">XSECURE_SPKID_EFUSE</a>, and <a class="el" href="xsecure_8h.html#a5d075fa45db8f19df86efdb173bd6f74">XSECURE_USER_EFUSE</a>.</p>
+<p>References <a class="el" href="group__xsecure__rsa__versal__apis.html#gae3637356df5720621bbd9924fa45a8d8">XSECURE_HASH_TYPE_SHA3</a>, <a class="el" href="group__xsecure__rsa__common__apis.html#ga097e8ed2f4933286ea5ef93210572b6b">XSecure_RsaInitialize()</a>, <a class="el" href="group__xsecure__rsa__common__apis.html#gaec27a8c75f48094d78c14c2a77bc4564">XSecure_RsaPublicEncrypt()</a>, <a class="el" href="group__xsecure__rsa__common__apis.html#gafbbbb29f6e16f26aa9e648fba575b444">XSecure_RsaSignVerification()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gaa37ef7b49e853ef0abe0c4e489dd9508">XSecure_Sha3Finish()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gaae7a415bcdd835997f8f287d771060e3">XSecure_Sha3Initialize()</a>, <a class="el" href="group__xsecure__sha3__zynqmp__apis.html#ga2e99ff8e049c773e83e4568f73cc92c1">XSecure_Sha3PadSelection()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gaf9f2e88632b99c219a468dbbec3eb1fa">XSecure_Sha3Start()</a>, <a class="el" href="group__xsecure__sha3__versal__apis.html#gab3c4bf50a683332f1a443b1f4f8b0808">XSecure_Sha3Update()</a>, <a class="el" href="xsecure_8h.html#ae45390b22ac9391c5ed89ec8de0dc345">XSECURE_SPKID_EFUSE</a>, and <a class="el" href="xsecure_8h.html#a5d075fa45db8f19df86efdb173bd6f74">XSECURE_USER_EFUSE</a>.</p>
 
 <p>Referenced by <a class="el" href="xsecure_8h.html#a65d3059c55b42f10354592056c053610">XSecure_VerifySpk()</a>.</p>
 

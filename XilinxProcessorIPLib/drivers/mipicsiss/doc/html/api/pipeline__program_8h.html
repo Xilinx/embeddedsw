@@ -81,9 +81,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a0e803ea72f41466ba56bd78511996d8a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#a0e803ea72f41466ba56bd78511996d8a">SetupDSI</a> (void)</td></tr>
 <tr class="memdesc:a0e803ea72f41466ba56bd78511996d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs MIPI DSI SS with the required timing paramters.  <a href="#a0e803ea72f41466ba56bd78511996d8a"></a><br/></td></tr>
 <tr class="separator:a0e803ea72f41466ba56bd78511996d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac67647426334e9f2273c17cbd24f4c15"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#ac67647426334e9f2273c17cbd24f4c15">InitTreadyGpio</a> (void)</td></tr>
-<tr class="memdesc:ac67647426334e9f2273c17cbd24f4c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes GPIO IP for tready selection and gets config parameters.  <a href="#ac67647426334e9f2273c17cbd24f4c15"></a><br/></td></tr>
-<tr class="separator:ac67647426334e9f2273c17cbd24f4c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846e1e9bf2b5575fd4dcd158ca6e044b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#a846e1e9bf2b5575fd4dcd158ca6e044b">InitStreamMuxGpio</a> (void)</td></tr>
+<tr class="memdesc:a846e1e9bf2b5575fd4dcd158ca6e044b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes GPIO IP for Stream Switch selection and gets config parameters.  <a href="#a846e1e9bf2b5575fd4dcd158ca6e044b"></a><br/></td></tr>
+<tr class="separator:a846e1e9bf2b5575fd4dcd158ca6e044b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9af254929ec07e0b8e29ff28e18ec709"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#a9af254929ec07e0b8e29ff28e18ec709">InitializeCsiRxSs</a> (void)</td></tr>
 <tr class="memdesc:a9af254929ec07e0b8e29ff28e18ec709"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs MIPI CSI SS with the required timing paramters.  <a href="#a9af254929ec07e0b8e29ff28e18ec709"></a><br/></td></tr>
 <tr class="separator:a9af254929ec07e0b8e29ff28e18ec709"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,11 +93,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a27a98e798ed33a22a64a35485322bbdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#a27a98e798ed33a22a64a35485322bbdc">SetColorDepth</a> (void)</td></tr>
 <tr class="memdesc:a27a98e798ed33a22a64a35485322bbdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets colour depth value getting from MIPI CSI2 RX SS.  <a href="#a27a98e798ed33a22a64a35485322bbdc"></a><br/></td></tr>
 <tr class="separator:a27a98e798ed33a22a64a35485322bbdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7e2dc72f4d696dd2e05919f1f626af2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#ac7e2dc72f4d696dd2e05919f1f626af2">SelectDSIOuptut</a> (void)</td></tr>
-<tr class="memdesc:ac7e2dc72f4d696dd2e05919f1f626af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs GPIO to 0 to select tready from MIPI DSI SS.  <a href="#ac7e2dc72f4d696dd2e05919f1f626af2"></a><br/></td></tr>
-<tr class="separator:ac7e2dc72f4d696dd2e05919f1f626af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56f64108083ce8ee138d8f0448b28fd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#a56f64108083ce8ee138d8f0448b28fd9">SelectHDMIOutput</a> (void)</td></tr>
-<tr class="memdesc:a56f64108083ce8ee138d8f0448b28fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs GPIO to '1' to select tready from HDMI.  <a href="#a56f64108083ce8ee138d8f0448b28fd9"></a><br/></td></tr>
+<tr class="memdesc:a56f64108083ce8ee138d8f0448b28fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs GPIO to '0' to select HDMI Stream path in AXI-Stream switch.  <a href="#a56f64108083ce8ee138d8f0448b28fd9"></a><br/></td></tr>
 <tr class="separator:a56f64108083ce8ee138d8f0448b28fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f5ca95d93d51e6aeaa5b5e53b226ac5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#a1f5ca95d93d51e6aeaa5b5e53b226ac5">InitIIC</a> (void)</td></tr>
 <tr class="memdesc:a1f5ca95d93d51e6aeaa5b5e53b226ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes, reads, and verifies the data to the IIC EEPROM.  <a href="#a1f5ca95d93d51e6aeaa5b5e53b226ac5"></a><br/></td></tr>
@@ -105,9 +102,6 @@ Functions</h2></td></tr>
 <tr class="memitem:af24a60bdd8657b70cd5138a7db89ef6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#af24a60bdd8657b70cd5138a7db89ef6c">SetupIICIntrHandlers</a> (void)</td></tr>
 <tr class="memdesc:af24a60bdd8657b70cd5138a7db89ef6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets send, receive and error handlers for IIC interrupts.  <a href="#af24a60bdd8657b70cd5138a7db89ef6c"></a><br/></td></tr>
 <tr class="separator:af24a60bdd8657b70cd5138a7db89ef6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb01e2a9be230281dc95655303e9e68f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#abb01e2a9be230281dc95655303e9e68f">MuxInit</a> (void)</td></tr>
-<tr class="memdesc:abb01e2a9be230281dc95655303e9e68f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the IIC MUX to select EEPROM.  <a href="#abb01e2a9be230281dc95655303e9e68f"></a><br/></td></tr>
-<tr class="separator:abb01e2a9be230281dc95655303e9e68f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9909ac1b3c8acfa727d8b5d0bd7eda39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline__program_8h.html#a9909ac1b3c8acfa727d8b5d0bd7eda39">SetupCameraSensor</a> (void)</td></tr>
 <tr class="memdesc:a9909ac1b3c8acfa727d8b5d0bd7eda39"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function setup Camera sensor programming wrt resolution selected.  <a href="#a9909ac1b3c8acfa727d8b5d0bd7eda39"></a><br/></td></tr>
 <tr class="separator:a9909ac1b3c8acfa727d8b5d0bd7eda39"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,7 +175,7 @@ Functions</h2></td></tr>
 </li>
 </ul>
 
-<p>References <a class="el" href="group__csiss__v1__3.html#ga0436d17627c2acd4ed542efbbb584fab">XCsiSs_Reset()</a>.</p>
+<p>References <a class="el" href="group__csiss__v1__4.html#ga0436d17627c2acd4ed542efbbb584fab">XCsiSs_Reset()</a>.</p>
 
 </div>
 </div>
@@ -222,6 +216,8 @@ Functions</h2></td></tr>
 </ul>
 </li>
 </ul>
+
+<p>Referenced by <a class="el" href="function__prototype_8h.html#a56361447f4b2f2b7e4c28bd94e142116">resetIp()</a>.</p>
 
 </div>
 </div>
@@ -303,9 +299,7 @@ Functions</h2></td></tr>
 </li>
 </ul>
 
-<p>References <a class="el" href="group__csiss__v1__3.html#gaf30fdaf13ba08d8612f8e20ab21d8ff2">XCsiSs_Activate()</a>, <a class="el" href="group__csiss__v1__3.html#ga3b35fe38bf1b55eb8107f892caf67103">XCsiSs_Configure()</a>, and <a class="el" href="group__csiss__v1__3.html#ga0436d17627c2acd4ed542efbbb584fab">XCsiSs_Reset()</a>.</p>
-
-<p>Referenced by <a class="el" href="mipi__imx274_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>References <a class="el" href="group__csiss__v1__4.html#gaf30fdaf13ba08d8612f8e20ab21d8ff2">XCsiSs_Activate()</a>.</p>
 
 </div>
 </div>
@@ -329,6 +323,8 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="pipeline__program_8c.html#a6414a464273ff75b3d990354df4951d0">InitVDMA()</a>.</p>
 
+<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a571466dbec30928cd622090965a7ef0f"></a>
@@ -348,6 +344,8 @@ Functions</h2></td></tr>
 <p>This function programs MIPI DSI SS with the required timing paramters. </p>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
@@ -372,9 +370,9 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful or else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csi_ss___config.html#accf7178f1f7fc0ba40fee2e61ca159bc">XCsiSs_Config::BaseAddr</a>, <a class="el" href="group__csiss__v1__3.html#ga8fde229b1ad93697e0cf3f1710b2db7e">XCsiSs_CfgInitialize()</a>, and <a class="el" href="group__csiss__v1__3.html#gaff8115edc1de28ca0524d489e736480c">XCsiSs_LookupConfig()</a>.</p>
+<p>References <a class="el" href="struct_x_csi_ss___config.html#accf7178f1f7fc0ba40fee2e61ca159bc">XCsiSs_Config::BaseAddr</a>, <a class="el" href="group__csiss__v1__4.html#ga8fde229b1ad93697e0cf3f1710b2db7e">XCsiSs_CfgInitialize()</a>, and <a class="el" href="group__csiss__v1__4.html#gaff8115edc1de28ca0524d489e736480c">XCsiSs_LookupConfig()</a>.</p>
 
-<p>Referenced by <a class="el" href="mipi__cfg_8c.html#a2d0ec58c173704967ea5ce9df76e70e4">config_csi_cap_path()</a>, and <a class="el" href="mipi__imx274_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="mipi__cfg_8c.html#a2d0ec58c173704967ea5ce9df76e70e4">config_csi_cap_path()</a>, and <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
@@ -395,6 +393,8 @@ Functions</h2></td></tr>
 <p>This function initializes Axi VDMA IP and gets config parameters. </p>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful or else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
@@ -426,16 +426,16 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="mipi__cfg_8c.html#a2d0ec58c173704967ea5ce9df76e70e4">config_csi_cap_path()</a>, and <a class="el" href="mipi__imx274_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="mipi__cfg_8c.html#a2d0ec58c173704967ea5ce9df76e70e4">config_csi_cap_path()</a>, and <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac67647426334e9f2273c17cbd24f4c15"></a>
+<a class="anchor" id="a846e1e9bf2b5575fd4dcd158ca6e044b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 InitTreadyGpio </td>
+          <td class="memname">u32 InitStreamMuxGpio </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -444,7 +444,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function initializes GPIO IP for tready selection and gets config parameters. </p>
+<p>This function initializes GPIO IP for Stream Switch selection and gets config parameters. </p>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful or else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
@@ -476,34 +476,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abb01e2a9be230281dc95655303e9e68f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int MuxInit </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function initializes the IIC MUX to select EEPROM. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if pass, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="function__prototype_8c.html#a543bfe01334807607bf16cb859c92ed4">FmcWriteData()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ae0af0a350e50fea795e63a85a698c2c7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -522,25 +494,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-</div>
-</div>
-<a class="anchor" id="ac7e2dc72f4d696dd2e05919f1f626af2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SelectDSIOuptut </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function programs GPIO to 0 to select tready from MIPI DSI SS. </p>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
@@ -558,7 +512,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function programs GPIO to '1' to select tready from HDMI. </p>
+<p>This function programs GPIO to '0' to select HDMI Stream path in AXI-Stream switch. </p>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+<p>This function programs GPIO to '0' to select HDMI Stream path in AXI-Stream switch.</p>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
@@ -583,6 +540,8 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csi_ss.html#a9e11a24b49b049a215fe243afd1e9741">XCsiSs::Config</a>, <a class="el" href="pipeline__program_8c.html#af976f4549bce7619166766cf79567e19">GetColorDepth()</a>, and <a class="el" href="struct_x_csi_ss___config.html#a7c808fba33fd373f15f4c7e98bea29b9">XCsiSs_Config::PixelFormat</a>.</p>
+
+<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>

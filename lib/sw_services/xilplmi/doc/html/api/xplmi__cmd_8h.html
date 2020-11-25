@@ -71,7 +71,20 @@ $(document).ready(function(){initNavTree('xplmi__cmd_8h.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
-1.00  kc   08/23/2018 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  kc   08/23/2018 Initial release
+1.01  bsv  01/09/2020 Changes related to bitsteram loading
+      bsv  02/13/2020 Added code to prevent Plmi generic commands from
+                                        getting executed via IPI
+      ma   02/28/2020 Added code to prevent EM commands from getting executed
+                                        via IPI
+      bsv  04/03/2020 Code clean up Xilpdi
+1.02  kc   06/22/2020 Updated command handler error codes to include command
+                      IDs
+      skd  07/14/2020 Function pointer Func prototype changed
+      td   08/19/2020 Fixed MISRA C violations Rule 10.3
+      bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+                      boot modes
+      bm   10/14/2020 Code clean up</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -91,7 +104,7 @@ Functions</h2></td></tr>
           <td class="memname">int XPlmi_CmdExecute </td>
           <td>(</td>
           <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
+          <td class="paramname"><em>CmdPtr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -101,13 +114,13 @@ Functions</h2></td></tr>
 <p>Command handler shall execute the command till the payload length.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to command structure</td></tr>
+    <tr><td class="paramname">CmdPtr</td><td>is pointer to command structure</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a60d83e4808e366a70f784c43c35da87b">XPLMI_ERR_CMD_APIID</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a312255e5ad24e0084999b00d9c72ee49">XPLMI_ERR_CMD_HANDLER</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a0bc8c093b7db4622f373d7b900e8abe9">XPLMI_ERR_CMD_HANDLER_NULL</a>, and <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57ad27a71614dd8ad14b370fb67a4192515">XPLMI_ERR_MODULE_MAX</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9246a5be90e1b01b6069b9fec3013728">XPLMI_ERR_CDO_CMD</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b">XPLMI_ERR_CMD_APIID</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9">XPLMI_ERR_CMD_HANDLER_NULL</a>, and <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad27a71614dd8ad14b370fb67a4192515">XPLMI_ERR_MODULE_MAX</a>.</p>
 
 </div>
 </div>
@@ -119,7 +132,7 @@ Functions</h2></td></tr>
           <td class="memname">int XPlmi_CmdResume </td>
           <td>(</td>
           <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
+          <td class="paramname"><em>CmdPtr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -129,13 +142,13 @@ Functions</h2></td></tr>
 <p>Resume handler shall execute the command till the payload length.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to command structure</td></tr>
+    <tr><td class="paramname">CmdPtr</td><td>is pointer to command structure</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a4324ffd6a296b2c56088013409d1d160">XPLMI_ERR_RESUME_HANDLER</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a4324ffd6a296b2c56088013409d1d160">XPLMI_ERR_RESUME_HANDLER</a>.</p>
 
 </div>
 </div>

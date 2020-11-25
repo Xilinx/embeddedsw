@@ -146,6 +146,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae22807a3a551bad262834a45e20fd93b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#ae22807a3a551bad262834a45e20fd93b">XV_SdiTxSs_IntrDisable</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, u32 IntrMask)</td></tr>
 <tr class="memdesc:ae22807a3a551bad262834a45e20fd93b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to configure the SDI TX interrupts that are to be handled by the application.  <a href="#ae22807a3a551bad262834a45e20fd93b"></a><br/></td></tr>
 <tr class="separator:ae22807a3a551bad262834a45e20fd93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a522f2b168a1f80a62edcc622c4121d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#a8a522f2b168a1f80a62edcc622c4121d">XV_SdiTxSs_SetEotf</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XVidC_Eotf Eotf, XVidC_ColorStd Colorimetry)</td></tr>
+<tr class="memdesc:a8a522f2b168a1f80a62edcc622c4121d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to update the Eotf and colorimetry fields of stream video structure.  <a href="#a8a522f2b168a1f80a62edcc622c4121d"></a><br/></td></tr>
+<tr class="separator:a8a522f2b168a1f80a62edcc622c4121d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e4ab17028b7fba1d87736a18436a212"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditxss_8c.html#a1e4ab17028b7fba1d87736a18436a212">XV_SdiTxSs_GetPayload</a> (<a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream)</td></tr>
 <tr class="memdesc:a1e4ab17028b7fba1d87736a18436a212"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the final ST352 payload value for all SDI modes with given video mode and SDI data stream number.  <a href="#a1e4ab17028b7fba1d87736a18436a212"></a><br/></td></tr>
 <tr class="separator:a1e4ab17028b7fba1d87736a18436a212"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,7 +214,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if initialization is successful else XST_FAILURE </dd></dl>
 
-<p>References <a class="el" href="struct_x_v___sdi_tx_ss___config.html#ac217e83b31add4264129e7350e1c90ed">XV_SdiTxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#af7d89922bc62fa37fbd2bb092e4d313a">XV_SdiTxSs::Config</a>, <a class="el" href="struct_x_v___sdi_tx_ss___config.html#a919c6a7eb0a3a5d713811e906b4a5443">XV_SdiTxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a007ef3d8344c1cbd5ab2c5d2eed76854">XV_SdiTxSs::IsReady</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a8b4c009d37093d905ec9ddc0675e4d87">XV_SdiTxSs::VtcPtr</a>, <a class="el" href="group__v__sditxss__v4__0.html#ga947c864c39e22328573d30b2cd0f4ca3">XV_SdiTxSs_SubcoreInitSdiTx()</a>, and <a class="el" href="group__v__sditxss__v4__0.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
+<p>References <a class="el" href="struct_x_v___sdi_tx_ss___config.html#ac217e83b31add4264129e7350e1c90ed">XV_SdiTxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#af7d89922bc62fa37fbd2bb092e4d313a">XV_SdiTxSs::Config</a>, <a class="el" href="struct_x_v___sdi_tx_ss___config.html#a919c6a7eb0a3a5d713811e906b4a5443">XV_SdiTxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a007ef3d8344c1cbd5ab2c5d2eed76854">XV_SdiTxSs::IsReady</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a8b4c009d37093d905ec9ddc0675e4d87">XV_SdiTxSs::VtcPtr</a>, <a class="el" href="group__v__sditxss__v4__1.html#ga947c864c39e22328573d30b2cd0f4ca3">XV_SdiTxSs_SubcoreInitSdiTx()</a>, and <a class="el" href="group__v__sditxss__v4__1.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
 
 <p>Referenced by <a class="el" href="xsdi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="group__xv__sditxss__v1__0.html#ga2b21d762f221a77fcb9b345149c7cd78">SdiTxSs_SelfTestExample()</a>.</p>
 
@@ -841,6 +844,53 @@ HandlerType                     Callback Function Type
 <p>References <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>.</p>
 
 <p>Referenced by <a class="el" href="xsdi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8a522f2b168a1f80a62edcc622c4121d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiTxSs_SetEotf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx_ss.html">XV_SdiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_Eotf&#160;</td>
+          <td class="paramname"><em>Eotf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorStd&#160;</td>
+          <td class="paramname"><em>Colorimetry</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to update the Eotf and colorimetry fields of stream video structure. </p>
+<p>If SDI TX is already streaming, then this function updates the payload registers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to <a class="el" href="struct_x_v___sdi_tx_ss.html" title="The XV_SdiTxSs driver instance data.">XV_SdiTxSs</a> instance </td></tr>
+    <tr><td class="paramname">Eotf</td><td>is a variable of type XVidC_Eotf </td></tr>
+    <tr><td class="paramname">Colorimetry</td><td>is a variable of type XVidC_ColorStd</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_v___sdi_tx_ss.html#a937df31c09d932687e6cd1fae650b084">XV_SdiTxSs::IsStreamUp</a>, and <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>.</p>
 
 </div>
 </div>

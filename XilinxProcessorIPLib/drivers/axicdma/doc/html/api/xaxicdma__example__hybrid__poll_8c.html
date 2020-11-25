@@ -72,7 +72,7 @@ $(document).ready(function(){initNavTree('xaxicdma__example__hybrid__poll_8c.htm
 <p>The completion of the transfer is checked through polling. Using polling mode can give better performance on an idle system, where the DMA engine is lowly loaded, and the application has nothing else to do. The polling mode can yield better turn-around time for DMA transfers.</p>
 <p>Modify NUMBER_OF_BDS_TO_TRANSFER for a different number of BDs to be transferred in the SG transfer.</p>
 <p>To see the debug print, you need a uart16550 or uartlite in your system, and please set "-DDEBUG" in your compiler options for the example, also comment out the "#undef DEBUG" in xdebug.h. You need to rebuild your software executable.</p>
-<p>Make sure that MEMORY_BASE is defined properly as per the HW system.</p>
+<p>Make sure that MEMORY_BASE is defined properly as per the HW system and the transfer length should be cache-line size aligned.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -96,6 +96,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     generation of examples.
 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for storing
                        and typecasting buffer address(CR-995116).
+4.8   sk   07/10/20 Fix CheckData failure by adding the Cache operations for
+                    receive and destination buffers.
+4.8      sk   09/30/20 Modify the buffer length to make it cache-line aligned.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -169,7 +172,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the hardware build has problems with interrupt, then this function hangs </dd></dl>
 
-<p>References <a class="el" href="group__axicdma__v4__7.html#gab746b095007351c2fb2c1a7cf3693f2c">XAxiCdma_CfgInitialize()</a>, <a class="el" href="group__axicdma__v4__7.html#gabdccf08d74f4e037b06a36a2e9db2877">XAxiCdma_IntrDisable()</a>, <a class="el" href="group__axicdma__v4__7.html#ga3ecc6331ed89e613e7f1fb53f45a4cb0">XAxiCdma_LookupConfig()</a>, and <a class="el" href="group__axicdma__v4__7.html#gad2b921e876e581f84be0e7c152d13221">XAXICDMA_XR_IRQ_ALL_MASK</a>.</p>
+<p>References <a class="el" href="group__axicdma__v4__8.html#gab746b095007351c2fb2c1a7cf3693f2c">XAxiCdma_CfgInitialize()</a>, <a class="el" href="group__axicdma__v4__8.html#gabdccf08d74f4e037b06a36a2e9db2877">XAxiCdma_IntrDisable()</a>, <a class="el" href="group__axicdma__v4__8.html#ga3ecc6331ed89e613e7f1fb53f45a4cb0">XAxiCdma_LookupConfig()</a>, and <a class="el" href="group__axicdma__v4__8.html#gad2b921e876e581f84be0e7c152d13221">XAXICDMA_XR_IRQ_ALL_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="xaxicdma__example__hybrid__poll_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 

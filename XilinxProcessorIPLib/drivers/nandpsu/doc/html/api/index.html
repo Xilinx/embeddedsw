@@ -66,7 +66,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This file implements a driver to support Arasan NAND controller present in Zynq Ultrascale Mp. <b>Driver Initialization</b></p>
-<p>The function call <a class="el" href="group__nandpsu__v1__6.html#ga8268e05a9d1a0339dc2ec672d7dd8c79" title="This function initializes a specific XNandPsu instance.">XNandPsu_CfgInitialize()</a> should be called by the application before any other function in the driver. The initialization function takes device specific data (like device id, instance id, and base address) and initializes the <a class="el" href="struct_x_nand_psu.html" title="The XNandPsu structure contains the driver instance data.">XNandPsu</a> instance with the device specific data.</p>
+<p>The function call <a class="el" href="group__nandpsu__v1__7.html#ga8268e05a9d1a0339dc2ec672d7dd8c79" title="This function initializes a specific XNandPsu instance.">XNandPsu_CfgInitialize()</a> should be called by the application before any other function in the driver. The initialization function takes device specific data (like device id, instance id, and base address) and initializes the <a class="el" href="struct_x_nand_psu.html" title="The XNandPsu structure contains the driver instance data.">XNandPsu</a> instance with the device specific data.</p>
 <p><b>Device Geometry</b></p>
 <p>NAND flash device is memory device and it is segmented into areas called Logical Unit(s) (LUN) and further in to blocks and pages. A NAND flash device can have multiple LUN. LUN is sequential raw of multiple blocks of the same size. A block is the smallest erasable unit of data within the Flash array of a LUN. The size of each block is based on a power of 2. There is no restriction on the number of blocks within the LUN. A block contains a number of pages. A page is the smallest addressable unit for read and program operations. The arrangement of LUN, blocks, and pages is referred to by this module as the part's geometry.</p>
 <p>The cells within the part can be programmed from a logic 1 to a logic 0 and not the other way around. To change a cell back to a logic 1, the entire block containing that cell must be erased. When a block is erased all bytes contain the value 0xFF. The number of times a block can be erased is finite. Eventually the block will wear out and will no longer be capable of erasure. As of this writing, the typical flash block can be erased 100,000 or more times.</p>
@@ -92,11 +92,11 @@ $(document).ready(function(){initNavTree('index.html','');});
   2.0   sb     01/12/2015  Removed Null checks for Buffer passed
                            as parameter to Read API's</p>
 <ul>
-<li><a class="el" href="group__nandpsu__v1__6.html#gad7e291db556ad9d33fbd06aa6ab79cb6" title="This function reads from the flash.">XNandPsu_Read()</a></li>
+<li><a class="el" href="group__nandpsu__v1__7.html#gad7e291db556ad9d33fbd06aa6ab79cb6" title="This function reads from the flash.">XNandPsu_Read()</a></li>
 <li>XNandPsu_ReadPage
                            Modified</li>
-<li><a class="el" href="group__nandpsu__v1__6.html#ga785eaf418c8f7e7c3fb6098ba327b720" title="This function sends ONFI Set Feature command to flash.">XNandPsu_SetFeature()</a></li>
-<li><a class="el" href="group__nandpsu__v1__6.html#gaa6725c5aa761078a438094bad802045e" title="This function sends ONFI Get Feature command to flash.">XNandPsu_GetFeature()</a>
+<li><a class="el" href="group__nandpsu__v1__7.html#ga785eaf418c8f7e7c3fb6098ba327b720" title="This function sends ONFI Set Feature command to flash.">XNandPsu_SetFeature()</a></li>
+<li><a class="el" href="group__nandpsu__v1__7.html#gaa6725c5aa761078a438094bad802045e" title="This function sends ONFI Get Feature command to flash.">XNandPsu_GetFeature()</a>
                            and made them public.
                            Removed Failure Return for BCF Error check in
                            XNandPsu_ReadPage() and added BCH_Error counter

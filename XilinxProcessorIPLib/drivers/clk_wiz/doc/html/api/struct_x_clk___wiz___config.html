@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('struct_x_clk___wiz___config.html','');
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XClk_Wiz_Config Struct Reference<div class="ingroups"><a class="el" href="group__clk__wiz__v1__3.html">Clk_wiz_v1_3</a></div></div>  </div>
+<div class="title">XClk_Wiz_Config Struct Reference<div class="ingroups"><a class="el" href="group__clk__wiz__v1__4.html">Clk_wiz_v1_4</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -126,6 +126,12 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a0de53434f6ee216e1a4ceb6939279772"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">            specify if this user clock is
 </pre><p> going as input to the PLL/MMCM  <a href="#a0de53434f6ee216e1a4ceb6939279772"></a><br/></td></tr>
 <tr class="separator:a0de53434f6ee216e1a4ceb6939279772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad31069e5533e4b2eedc3cdc35c43994e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_clk___wiz___config.html#ad31069e5533e4b2eedc3cdc35c43994e">PrimInClkFreq</a></td></tr>
+<tr class="memdesc:ad31069e5533e4b2eedc3cdc35c43994e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input Clock.  <a href="#ad31069e5533e4b2eedc3cdc35c43994e"></a><br/></td></tr>
+<tr class="separator:ad31069e5533e4b2eedc3cdc35c43994e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad27e675e3da734bc59621ddb146dc927"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_clk___wiz___config.html#ad27e675e3da734bc59621ddb146dc927">NumClocks</a></td></tr>
+<tr class="memdesc:ad27e675e3da734bc59621ddb146dc927"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of clocks.  <a href="#ad27e675e3da734bc59621ddb146dc927"></a><br/></td></tr>
+<tr class="separator:ad27e675e3da734bc59621ddb146dc927"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The configuration structure for CLK_WIZ Controller This structure passes the hardware building information to the driver. </p>
@@ -142,7 +148,7 @@ Data Fields</h2></td></tr>
 
 <p>Base address of CLK_WIZ Controller. </p>
 
-<p>Referenced by <a class="el" href="xclk__wiz__intr__example_8c.html#aaf3c110063d937f1fbe69c0e299fe55d">Clk_Wiz_Reconfig()</a>, <a class="el" href="xclk__wiz__versal__example_8c.html#ab29b199c8ec2cd0ed0fee03752826661">ClkWiz_Example()</a>, <a class="el" href="xclk__wiz__intr__example_8c.html#a1fb9a1ea241c6aaff3831259bcc6448f">ClkWiz_IntrExample()</a>, <a class="el" href="xclk__wiz__intr__example_8c.html#ab6b07f0022d7f609127ba69fcce3a6ca">Wait_For_Lock()</a>, <a class="el" href="xclk__wiz__versal__example_8c.html#a7ac72face0b386c645cdba25e6d99967">XClk_WaitForLock()</a>, <a class="el" href="group__clk__wiz__v1__3.html#ga96e21929b605502ed7b693c0a2132b4e">XClk_Wiz_CfgInitialize()</a>, and <a class="el" href="group__clk__wiz__v1__3.html#gadaf78e2da6e9c9dc9bd7a86f97d6b79e">XClk_Wiz_SetRate()</a>.</p>
+<p>Referenced by <a class="el" href="xclk__wiz__intr__example_8c.html#aaf3c110063d937f1fbe69c0e299fe55d">Clk_Wiz_Reconfig()</a>, <a class="el" href="xclk__wiz__setrate__example_8c.html#ab29b199c8ec2cd0ed0fee03752826661">ClkWiz_Example()</a>, <a class="el" href="xclk__wiz__intr__example_8c.html#a1fb9a1ea241c6aaff3831259bcc6448f">ClkWiz_IntrExample()</a>, <a class="el" href="xclk__wiz__intr__example_8c.html#ab6b07f0022d7f609127ba69fcce3a6ca">Wait_For_Lock()</a>, <a class="el" href="xclk__wiz__versal__example_8c.html#a7ac72face0b386c645cdba25e6d99967">XClk_WaitForLock()</a>, <a class="el" href="group__clk__wiz__v1__4.html#ga96e21929b605502ed7b693c0a2132b4e">XClk_Wiz_CfgInitialize()</a>, <a class="el" href="group__clk__wiz__v1__4.html#gac6b82e8b7e00bc66dd233345a4cb5c41">XClk_Wiz_DisableClock()</a>, <a class="el" href="group__clk__wiz__v1__4.html#ga0965f9b5b43c453ca70e8b43f03490ca">XClk_Wiz_EnableClock()</a>, <a class="el" href="group__clk__wiz__v1__4.html#gadaf78e2da6e9c9dc9bd7a86f97d6b79e">XClk_Wiz_SetRate()</a>, and <a class="el" href="group__clk__wiz__v1__4.html#ga0408e2c4fba6d9237aeb72db5c38164b">XClk_Wiz_SetRateHz()</a>.</p>
 
 </div>
 </div>
@@ -262,6 +268,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad27e675e3da734bc59621ddb146dc927"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XClk_Wiz_Config::NumClocks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of clocks. </p>
+
+<p>Referenced by <a class="el" href="group__clk__wiz__v1__4.html#gadaf78e2da6e9c9dc9bd7a86f97d6b79e">XClk_Wiz_SetRate()</a>, and <a class="el" href="group__clk__wiz__v1__4.html#ga0408e2c4fba6d9237aeb72db5c38164b">XClk_Wiz_SetRateHz()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aa33af9f12cf74c2bf9a704e595e68512"></a>
 <div class="memitem">
 <div class="memproto">
@@ -273,6 +295,22 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Holds the value of precision. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad31069e5533e4b2eedc3cdc35c43994e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double XClk_Wiz_Config::PrimInClkFreq</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Input Clock. </p>
+
+<p>Referenced by <a class="el" href="group__clk__wiz__v1__4.html#ga0456881555560b358b47fb336542a4d3">XClk_Wiz_SetInputRate()</a>.</p>
 
 </div>
 </div>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>XPrc_LookupConfig(DeviceId) - Use the device identifier to find the static configuration structure defined in xprc_g.c. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</li>
 </ul>
 <ul>
-<li>XPrc_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) is used for initialization. The user needs to first call the <a class="el" href="group__prc__v2__0.html#ga61ee29cca9dae9f18fb9a635f5c0a4b2" title="This function Looks for the device configuration based on the unique device ID.">XPrc_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__prc__v2__0.html#ga860a4c5ba01881e1547b8150affa7c0d" title="This function initializes a PRC instance.">XPrc_CfgInitialize()</a> API.</li>
+<li>XPrc_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) is used for initialization. The user needs to first call the <a class="el" href="group__prc__v2__1.html#ga61ee29cca9dae9f18fb9a635f5c0a4b2" title="This function Looks for the device configuration based on the unique device ID.">XPrc_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__prc__v2__1.html#ga860a4c5ba01881e1547b8150affa7c0d" title="This function initializes a PRC instance.">XPrc_CfgInitialize()</a> API.</li>
 </ul>
 <p><b> Threads </b></p>
 <p>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</p>

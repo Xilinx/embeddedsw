@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that application developers leave asserts on during development.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <p>This driver requires EmacLite hardware version 1.01a and higher. It is not compatible with earlier versions of the EmacLite hardware. Use version 1.00a software driver for hardware version 1.00a/b.</p>
-<p>The RX hardware is enabled from powerup and there is no disable. It is possible that frames have been received prior to the initialization of the driver. If this situation is possible, call <a class="el" href="group__emaclite__v4__5.html#gae7ced3b39bd2f06d037660e884c0706b" title="Flush the Receive buffers.">XEmacLite_FlushReceive()</a> to empty the receive buffers after initialization.</p>
+<p>The RX hardware is enabled from powerup and there is no disable. It is possible that frames have been received prior to the initialization of the driver. If this situation is possible, call <a class="el" href="group__emaclite__v4__6.html#gae7ced3b39bd2f06d037660e884c0706b" title="Flush the Receive buffers.">XEmacLite_FlushReceive()</a> to empty the receive buffers after initialization.</p>
 <p>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes

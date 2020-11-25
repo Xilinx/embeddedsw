@@ -68,7 +68,6 @@ $(document).ready(function(){initNavTree('xsecure__rsa_8c.html','');});
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains the implementation of the interface functions for RSA driver. </p>
-<p>Refer to the header file xsecure_sha.h for more detailed information.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 ----- ---- -------- -------------------------------------------------------
@@ -93,22 +92,30 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 4.1   kal  05/20/19 Updated doxygen tags
 4.2   kpt  01/07/20 Resolved CR-1049149,1049107,1049116,1049115,1049118
                     and Replaced Magic Numbers with Macros
-</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      har  04/19/20 Removed platform specific code
+4.3   har  06/17/20 Renamed ErrorCode as Status in XSecure_RsaPublicEncrypt
+                    and initialized with XST_FAILURE
+      har  06/17/20 Removed references to unused algorithms
+      rpo  09/01/20 Asserts are not compiled by default for secure libraries
+      rpo  09/10/20 Input validations are added
+      rpo  09/21/20 New error code added for crypto state mismatch
+      am   09/24/20 Resolved MISRA C violations
+      har  10/12/20 Addressed security review comments</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2e759029b6bc0d8e61e47a81bc7e7ec6"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__apis.html#ga2e759029b6bc0d8e61e47a81bc7e7ec6">XSecure_RsaInitialize</a> (<a class="el" href="struct_x_secure___rsa.html">XSecure_Rsa</a> *InstancePtr, u8 *Mod, u8 *ModExt, u8 *ModExpo)</td></tr>
-<tr class="memdesc:ga2e759029b6bc0d8e61e47a81bc7e7ec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes a a <a class="el" href="struct_x_secure___rsa.html" title="The RSA driver instance data structure.">XSecure_Rsa</a> structure with the default values required for operating the RSA cryptographic engine.  <a href="group__xsecure__rsa__apis.html#ga2e759029b6bc0d8e61e47a81bc7e7ec6"></a><br/></td></tr>
-<tr class="separator:ga2e759029b6bc0d8e61e47a81bc7e7ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf4c5685bc34b6c524013b72654a7d2e0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__apis.html#gaf4c5685bc34b6c524013b72654a7d2e0">XSecure_RsaSignVerification</a> (u8 *Signature, u8 *Hash, u32 HashLen)</td></tr>
-<tr class="memdesc:gaf4c5685bc34b6c524013b72654a7d2e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies the RSA decrypted data provided is either matching with the provided expected hash by taking care of PKCS padding.  <a href="group__xsecure__rsa__apis.html#gaf4c5685bc34b6c524013b72654a7d2e0"></a><br/></td></tr>
-<tr class="separator:gaf4c5685bc34b6c524013b72654a7d2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae54d119a4a52eec29567c569d0da69b8"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__apis.html#gae54d119a4a52eec29567c569d0da69b8">XSecure_RsaPublicEncrypt</a> (<a class="el" href="struct_x_secure___rsa.html">XSecure_Rsa</a> *InstancePtr, u8 *Input, u32 Size, u8 *Result)</td></tr>
-<tr class="memdesc:gae54d119a4a52eec29567c569d0da69b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles the RSA encryption with the public key components provided when initializing the RSA cryptographic core with the XSecure_RsaInitialize function.  <a href="group__xsecure__rsa__apis.html#gae54d119a4a52eec29567c569d0da69b8"></a><br/></td></tr>
-<tr class="separator:gae54d119a4a52eec29567c569d0da69b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad23020ad9f80de70287109dcfe5fe532"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__apis.html#gad23020ad9f80de70287109dcfe5fe532">XSecure_RsaPrivateDecrypt</a> (<a class="el" href="struct_x_secure___rsa.html">XSecure_Rsa</a> *InstancePtr, u8 *Input, u32 Size, u8 *Result)</td></tr>
-<tr class="memdesc:gad23020ad9f80de70287109dcfe5fe532"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles the RSA decryption with the private key components provided when initializing the RSA cryptographic core with the XSecure_RsaInitialize function.  <a href="group__xsecure__rsa__apis.html#gad23020ad9f80de70287109dcfe5fe532"></a><br/></td></tr>
-<tr class="separator:gad23020ad9f80de70287109dcfe5fe532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga097e8ed2f4933286ea5ef93210572b6b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__common__apis.html#ga097e8ed2f4933286ea5ef93210572b6b">XSecure_RsaInitialize</a> (<a class="el" href="struct_x_secure___rsa.html">XSecure_Rsa</a> *InstancePtr, u8 *Mod, u8 *ModExt, u8 *ModExpo)</td></tr>
+<tr class="memdesc:ga097e8ed2f4933286ea5ef93210572b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes a a <a class="el" href="struct_x_secure___rsa.html" title="The RSA driver instance data structure.">XSecure_Rsa</a> structure with the default values required for operating the RSA cryptographic engine.  <a href="group__xsecure__rsa__common__apis.html#ga097e8ed2f4933286ea5ef93210572b6b"></a><br/></td></tr>
+<tr class="separator:ga097e8ed2f4933286ea5ef93210572b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbbbb29f6e16f26aa9e648fba575b444"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__common__apis.html#gafbbbb29f6e16f26aa9e648fba575b444">XSecure_RsaSignVerification</a> (const u8 *Signature, const u8 *Hash, u32 HashLen)</td></tr>
+<tr class="memdesc:gafbbbb29f6e16f26aa9e648fba575b444"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies the RSA decrypted data provided is either matching with the provided expected hash by taking care of PKCS padding.  <a href="group__xsecure__rsa__common__apis.html#gafbbbb29f6e16f26aa9e648fba575b444"></a><br/></td></tr>
+<tr class="separator:gafbbbb29f6e16f26aa9e648fba575b444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec27a8c75f48094d78c14c2a77bc4564"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__common__apis.html#gaec27a8c75f48094d78c14c2a77bc4564">XSecure_RsaPublicEncrypt</a> (<a class="el" href="struct_x_secure___rsa.html">XSecure_Rsa</a> *InstancePtr, u8 *Input, u32 Size, u8 *Result)</td></tr>
+<tr class="memdesc:gaec27a8c75f48094d78c14c2a77bc4564"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles the RSA encryption with the public key components provided when initializing the RSA cryptographic core with the XSecure_RsaInitialize function.  <a href="group__xsecure__rsa__common__apis.html#gaec27a8c75f48094d78c14c2a77bc4564"></a><br/></td></tr>
+<tr class="separator:gaec27a8c75f48094d78c14c2a77bc4564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9580b4adbe4854231a0101d89046189"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__common__apis.html#gac9580b4adbe4854231a0101d89046189">XSecure_RsaPrivateDecrypt</a> (<a class="el" href="struct_x_secure___rsa.html">XSecure_Rsa</a> *InstancePtr, u8 *Input, u32 Size, u8 *Result)</td></tr>
+<tr class="memdesc:gac9580b4adbe4854231a0101d89046189"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles the RSA decryption with the private key components provided when initializing the RSA cryptographic core with the XSecure_RsaInitialize function.  <a href="group__xsecure__rsa__common__apis.html#gac9580b4adbe4854231a0101d89046189"></a><br/></td></tr>
+<tr class="separator:gac9580b4adbe4854231a0101d89046189"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

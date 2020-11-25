@@ -61,8 +61,7 @@ $(document).ready(function(){initNavTree('xplmi__generic_8h.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">xplmi_generic.h File Reference</div>  </div>
 </div><!--header-->
@@ -72,29 +71,30 @@ $(document).ready(function(){initNavTree('xplmi__generic_8h.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
-1.00  kc   08/23/2018 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  kc   08/23/2018 Initial release
+1.01  bsv  04/18/2019 Added support for NPI and CFI readback
+      bsv  05/01/2019 Added support to load CFI bitstreams larger
+                                        than 64K
+      ma   08/24/2019 Added SSIT commands
+1.02  bsv  12/13/2019 Added support for NOP and SET commands
+      kc   12/17/2019 Add deferred error mechanism for mask poll
+      bsv  01/09/2020 Changes related to bitstream loading
+      bsv  01/31/2020 Added API to read device ID from hardware
+      ma   03/18/2020 Added event logging code
+      bsv  03/09/2020 Added support for CDO features command
+      bsv  04/04/2020 Code clean up
+1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
+      bm   08/03/2020 Added ReadBack Props &amp; related API
+      bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ , <a class="el" href="xplmi__generic_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba9b2fbd390d243c83ebf1ed6ed21dafc6">XPLMI_ERR_MASKPOLL64</a>, 
-<a class="el" href="xplmi__generic_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba41ef4049633ec33f9b28df1fdfca525b">XPLMI_ERR_CMD_NOT_SUPPORTED</a>
+<a class="el" href="xplmi__generic_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba41ef4049633ec33f9b28df1fdfca525b">XPLMI_ERR_CMD_NOT_SUPPORTED</a>, 
+<a class="el" href="xplmi__generic_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5468f15a7ff9adb37a6d1958c5a576ce">XPLMI_ERR_READBACK_BUFFER_OVERFLOW</a>
  }</td></tr>
 <tr class="separator:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a57b8257d770ac770695244bea2333d17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__generic_8h.html#a57b8257d770ac770695244bea2333d17">XPlmi_GenericInit</a> (void)</td></tr>
-<tr class="memdesc:a57b8257d770ac770695244bea2333d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function registers the PLM generic commands to the PLMI.  <a href="#a57b8257d770ac770695244bea2333d17"></a><br/></td></tr>
-<tr class="separator:a57b8257d770ac770695244bea2333d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf8aedc08d324616a8d65fa1dbbd0c1d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__generic_8h.html#acf8aedc08d324616a8d65fa1dbbd0c1d">XPlmi_CfiRead</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:acf8aedc08d324616a8d65fa1dbbd0c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides CFI READ command execution.  <a href="#acf8aedc08d324616a8d65fa1dbbd0c1d"></a><br/></td></tr>
-<tr class="separator:acf8aedc08d324616a8d65fa1dbbd0c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e80fec21d11099b9116f8f31857d501"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__generic_8h.html#a0e80fec21d11099b9116f8f31857d501">XPlmi_DmaWriteKeyHole</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:a0e80fec21d11099b9116f8f31857d501"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides DMA key hole write command execution.  <a href="#a0e80fec21d11099b9116f8f31857d501"></a><br/></td></tr>
-<tr class="separator:a0e80fec21d11099b9116f8f31857d501"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b68582c8a15101811abf2fcf163b4f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__generic_8h.html#a2b68582c8a15101811abf2fcf163b4f4">XPlmi_CfiWrite</a> (u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len, XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:a2b68582c8a15101811abf2fcf163b4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides DMA transfer to CFI bypassing PMCRAM.  <a href="#a2b68582c8a15101811abf2fcf163b4f4"></a><br/></td></tr>
-<tr class="separator:a2b68582c8a15101811abf2fcf163b4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a class="anchor" id="a06fc87d81c62e9abb8790b6e5713c55b"></a>
@@ -108,166 +108,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a06fc87d81c62e9abb8790b6e5713c55ba9b2fbd390d243c83ebf1ed6ed21dafc6"></a>XPLMI_ERR_MASKPOLL64</em>&nbsp;</td><td class="fielddoc">
-<p>0x11U </p>
+<p>0x11 </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a06fc87d81c62e9abb8790b6e5713c55ba41ef4049633ec33f9b28df1fdfca525b"></a>XPLMI_ERR_CMD_NOT_SUPPORTED</em>&nbsp;</td><td class="fielddoc">
-<p>0x12U </p>
+<p>0x12 </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a06fc87d81c62e9abb8790b6e5713c55ba5468f15a7ff9adb37a6d1958c5a576ce"></a>XPLMI_ERR_READBACK_BUFFER_OVERFLOW</em>&nbsp;</td><td class="fielddoc">
+<p>0x13 </p>
 </td></tr>
 </table>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="acf8aedc08d324616a8d65fa1dbbd0c1d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_CfiRead </td>
-          <td>(</td>
-          <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides CFI READ command execution. </p>
-<pre class="fragment">            Command payload parameters are
-                    * Params - SMPA/JTAG/DDR
-                    * High Dest Addr
-                    * Low Dest Addr
-                    * Read Length in number of words to be read from CFU
-                    * DATA (CFU READ Packets)
-</pre><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to the command structure</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xplmi__dma_8c.html#ae4cd56e91b16d199fb266354472b1bea">XPlmi_DmaSbiXfer()</a>, <a class="el" href="xplmi__dma_8c.html#a1b0be0d5fccf58e120aa3d786fd0ddb3">XPlmi_DmaXfr()</a>, <a class="el" href="xplmi__dma_8c.html#a11146950289d1cf8a909b5bff23641fd">XPlmi_SetMaxOutCmds()</a>, <a class="el" href="xplmi__dma_8h.html#aacecf17b21ad9e14d9fd5890868a257a">XPLMI_SRC_CH_AXI_FIXED</a>, <a class="el" href="xplmi__util_8c.html#ae4d6969e94f607fe3a8765e6abb9572d">XPlmi_UtilPoll()</a>, <a class="el" href="xplmi__util_8c.html#aa6f19eeebb4a42d17f8e2f62b01b0080">XPlmi_UtilRMW()</a>, <a class="el" href="xplmi__dma_8c.html#a5b03529620cee0cd0299b0b6835708ea">XPlmi_WaitForNonBlkDma()</a>, and <a class="el" href="xplmi__dma_8c.html#a4c3cb74eb8cdbb81b7ee79055b06a38d">XPlmi_WaitForNonBlkSrcDma()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2b68582c8a15101811abf2fcf163b4f4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_CfiWrite </td>
-          <td>(</td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>SrcAddr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u64&#160;</td>
-          <td class="paramname"><em>DestAddr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Keyholesize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Len</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides DMA transfer to CFI bypassing PMCRAM. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SrcAddr</td><td>is the address to read cfi data from </td></tr>
-    <tr><td class="paramname">DestAddr</td><td>is the addres to write cfi data to. </td></tr>
-    <tr><td class="paramname">Keyholesize</td><td>is the size of the DMA key hole in bytes </td></tr>
-    <tr><td class="paramname">Len</td><td>is number of words already transferred </td></tr>
-    <tr><td class="paramname">Cmd</td><td>is pointer to the command structure</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xplmi__dma_8c.html#a1b0be0d5fccf58e120aa3d786fd0ddb3">XPlmi_DmaXfr()</a>.</p>
-
-<p>Referenced by <a class="el" href="xplmi__generic_8h.html#a0e80fec21d11099b9116f8f31857d501">XPlmi_DmaWriteKeyHole()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0e80fec21d11099b9116f8f31857d501"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_DmaWriteKeyHole </td>
-          <td>(</td>
-          <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides DMA key hole write command execution. </p>
-<pre class="fragment">            Command payload parameters are
-                    * High Dest Addr
-                    * Low Dest Addr
-                    * Keyhole Size in bytes
-                    * DATA...
-</pre><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to the command structure</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xplmi__generic_8c.html#a2b68582c8a15101811abf2fcf163b4f4">XPlmi_CfiWrite()</a>, and <a class="el" href="xplmi__dma_8c.html#a1b0be0d5fccf58e120aa3d786fd0ddb3">XPlmi_DmaXfr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a57b8257d770ac770695244bea2333d17"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XPlmi_GenericInit </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function registers the PLM generic commands to the PLMI. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>Referenced by <a class="el" href="xplmi_8h.html#a0a5441022583a43e3fc046059c9e7469">XPlmi_Init()</a>.</p>
 
 </div>
 </div>

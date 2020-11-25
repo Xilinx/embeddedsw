@@ -11,6 +11,7 @@ var xv__sditx_8c =
     [ "XV_SdiTx_GetPayloadAspectRatio", "xv__sditx_8c.html#a3d8f2e0c2502a48c491cb4721acdb6c9", null ],
     [ "XV_SdiTx_GetPayloadByte1", "xv__sditx_8c.html#a5ee0bcd2e0e6d1562a544de6637f3917", null ],
     [ "XV_SdiTx_GetPayloadColorFormat", "xv__sditx_8c.html#aa60f9aed2a1327102dca89b7625d76c5", null ],
+    [ "XV_SdiTx_GetPayloadEotf", "xv__sditx_8c.html#ae81108eeead7b3d065966dd3f8d54de8", null ],
     [ "XV_SdiTx_GetPayloadFrameRate", "xv__sditx_8c.html#a085862f588f6e146ab45315e310ff8d2", null ],
     [ "XV_SdiTx_GetPayloadIsInterlaced", "xv__sditx_8c.html#aa62624c8510d26109bfeaf2e0b73a9f0", null ],
     [ "XV_SdiTx_ReportDetectedError", "xv__sditx_8c.html#aee1111d7059109893a1d72030ad1a9ac", null ],

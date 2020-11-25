@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('struct_x_spi.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSpi Struct Reference<div class="ingroups"><a class="el" href="group__spi__v4__6.html">Spi_v4_6</a></div></div>  </div>
+<div class="title">XSpi Struct Reference<div class="ingroups"><a class="el" href="group__spi__v4__7.html">Spi_v4_7</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -127,7 +127,7 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a35871d4554b45a9078edfabb763cc1a5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi.html#a35871d4554b45a9078edfabb763cc1a5">IsBusy</a></td></tr>
 <tr class="memdesc:a35871d4554b45a9078edfabb763cc1a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A transfer is in progress (state)  <a href="#a35871d4554b45a9078edfabb763cc1a5"></a><br/></td></tr>
 <tr class="separator:a35871d4554b45a9078edfabb763cc1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a032c4db15af79e91cc2fcf564dea1b55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__spi__v4__6.html#gaa9c3c5101d73a626380c46bcc906069e">XSpi_StatusHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi.html#a032c4db15af79e91cc2fcf564dea1b55">StatusHandler</a></td></tr>
+<tr class="memitem:a032c4db15af79e91cc2fcf564dea1b55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__spi__v4__7.html#gaa9c3c5101d73a626380c46bcc906069e">XSpi_StatusHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi.html#a032c4db15af79e91cc2fcf564dea1b55">StatusHandler</a></td></tr>
 <tr class="memdesc:a032c4db15af79e91cc2fcf564dea1b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status Handler.  <a href="#a032c4db15af79e91cc2fcf564dea1b55"></a><br/></td></tr>
 <tr class="separator:a032c4db15af79e91cc2fcf564dea1b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4075b1e4be099fe87f575b777628a78"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi.html#aa4075b1e4be099fe87f575b777628a78">StatusRef</a></td></tr>
@@ -139,6 +139,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a36bd7deea43721717288da63415e8fdd"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi.html#a36bd7deea43721717288da63415e8fdd">XipMode</a></td></tr>
 <tr class="memdesc:a36bd7deea43721717288da63415e8fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">0 if Non-XIP, 1 if XIP Mode  <a href="#a36bd7deea43721717288da63415e8fdd"></a><br/></td></tr>
 <tr class="separator:a36bd7deea43721717288da63415e8fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eecae22fb1721baf7731eebf9145ed8"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi.html#a4eecae22fb1721baf7731eebf9145ed8">FifosDepth</a></td></tr>
+<tr class="memdesc:a4eecae22fb1721baf7731eebf9145ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX and RX FIFO Depth.  <a href="#a4eecae22fb1721baf7731eebf9145ed8"></a><br/></td></tr>
+<tr class="separator:a4eecae22fb1721baf7731eebf9145ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="struct_x_spi.html" title="The XSpi driver instance data.">XSpi</a> driver instance data. </p>
@@ -156,7 +159,7 @@ Data Fields</h2></td></tr>
 
 <p>Base address of device (IPIF) </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi__v4__6.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__6.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi__v4__7.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__7.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -172,7 +175,23 @@ Data Fields</h2></td></tr>
 
 <p>Data Transfer Width 8 or 16 or 32. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4eecae22fb1721baf7731eebf9145ed8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XSpi::FifosDepth</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TX and RX FIFO Depth. </p>
+
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -188,7 +207,7 @@ Data Fields</h2></td></tr>
 
 <p>Used in XIP Mode. </p>
 
-<p>Referenced by <a class="el" href="xspi__winbond__flash__xip__example_8c.html#af3fb7f2668aa93bc45fb9ca9c252f219">SpiXipExample()</a>, and <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="xspi__winbond__flash__xip__example_8c.html#af3fb7f2668aa93bc45fb9ca9c252f219">SpiXipExample()</a>, and <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -204,7 +223,7 @@ Data Fields</h2></td></tr>
 
 <p>Device is configured with FIFOs or not. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__6.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__7.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>.</p>
 
 </div>
 </div>
@@ -220,7 +239,7 @@ Data Fields</h2></td></tr>
 
 <p>A transfer is in progress (state) </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi__v4__6.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>, <a class="el" href="group__spi__v4__6.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, <a class="el" href="group__spi__v4__6.html#gad4bb67cfcfe73844ffb1917b11d5284c">XSpi_Stop()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi__v4__7.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>, <a class="el" href="group__spi__v4__7.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, <a class="el" href="group__spi__v4__7.html#gad4bb67cfcfe73844ffb1917b11d5284c">XSpi_Stop()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -236,7 +255,7 @@ Data Fields</h2></td></tr>
 
 <p>Device is initialized and ready. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf243ac522e14869af82545ffc11d5821">XSpi_ClearStats()</a>, <a class="el" href="group__spi__v4__6.html#gaf55cfd2072ed2047c0fe0b65bd0fcf6a">XSpi_GetOptions()</a>, <a class="el" href="group__spi__v4__6.html#ga8043891b8f68a3291bd035be74aa6b94">XSpi_GetSlaveSelect()</a>, <a class="el" href="group__spi__v4__6.html#ga8a40aee30eb6f0240b75e6ccd7596a53">XSpi_GetStats()</a>, <a class="el" href="group__spi__v4__6.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__6.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>, <a class="el" href="group__spi__v4__6.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>, <a class="el" href="group__spi__v4__6.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, <a class="el" href="group__spi__v4__6.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>, <a class="el" href="group__spi__v4__6.html#ga87fdaad742a2669200c9b2617e5c86ea">XSpi_Start()</a>, <a class="el" href="group__spi__v4__6.html#gad4bb67cfcfe73844ffb1917b11d5284c">XSpi_Stop()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf243ac522e14869af82545ffc11d5821">XSpi_ClearStats()</a>, <a class="el" href="group__spi__v4__7.html#gaf55cfd2072ed2047c0fe0b65bd0fcf6a">XSpi_GetOptions()</a>, <a class="el" href="group__spi__v4__7.html#ga8043891b8f68a3291bd035be74aa6b94">XSpi_GetSlaveSelect()</a>, <a class="el" href="group__spi__v4__7.html#ga8a40aee30eb6f0240b75e6ccd7596a53">XSpi_GetStats()</a>, <a class="el" href="group__spi__v4__7.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__7.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>, <a class="el" href="group__spi__v4__7.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>, <a class="el" href="group__spi__v4__7.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, <a class="el" href="group__spi__v4__7.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>, <a class="el" href="group__spi__v4__7.html#ga87fdaad742a2669200c9b2617e5c86ea">XSpi_Start()</a>, <a class="el" href="group__spi__v4__7.html#gad4bb67cfcfe73844ffb1917b11d5284c">XSpi_Stop()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -252,7 +271,7 @@ Data Fields</h2></td></tr>
 
 <p>Device has been started. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__6.html#ga87fdaad742a2669200c9b2617e5c86ea">XSpi_Start()</a>, <a class="el" href="group__spi__v4__6.html#gad4bb67cfcfe73844ffb1917b11d5284c">XSpi_Stop()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__7.html#ga87fdaad742a2669200c9b2617e5c86ea">XSpi_Start()</a>, <a class="el" href="group__spi__v4__7.html#gad4bb67cfcfe73844ffb1917b11d5284c">XSpi_Stop()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -268,7 +287,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of slave selects for this device. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__6.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__7.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>.</p>
 
 </div>
 </div>
@@ -284,7 +303,7 @@ Data Fields</h2></td></tr>
 
 <p>Buffer to receive. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -300,7 +319,7 @@ Data Fields</h2></td></tr>
 
 <p>Bytes left to transfer (state) </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -316,7 +335,7 @@ Data Fields</h2></td></tr>
 
 <p>Total bytes to transfer (state) </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -332,7 +351,7 @@ Data Fields</h2></td></tr>
 
 <p>Buffer to send. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -348,7 +367,7 @@ Data Fields</h2></td></tr>
 
 <p>Device is configured to be slave only. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__6.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__7.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>.</p>
 
 </div>
 </div>
@@ -364,7 +383,7 @@ Data Fields</h2></td></tr>
 
 <p>Mask that matches the number of SS bits. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi__v4__6.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__6.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort()</a>, <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi__v4__7.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__7.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -380,7 +399,7 @@ Data Fields</h2></td></tr>
 
 <p>Slave select register. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#ga8043891b8f68a3291bd035be74aa6b94">XSpi_GetSlaveSelect()</a>, <a class="el" href="group__spi__v4__6.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__6.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#ga8043891b8f68a3291bd035be74aa6b94">XSpi_GetSlaveSelect()</a>, <a class="el" href="group__spi__v4__7.html#ga343938fcdf672bec329d876a146178cd">XSpi_Reset()</a>, <a class="el" href="group__spi__v4__7.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -396,7 +415,7 @@ Data Fields</h2></td></tr>
 
 <p>Standard/Dual/Quad mode. </p>
 
-<p>Referenced by <a class="el" href="xspi__intr__example_8c.html#abd314964daed3d1fb324ef61ed37f276">SpiIntrExample()</a>, <a class="el" href="xspi__polled__example_8c.html#a0dd02b93ca6a7d528f41113065a1e3cb">SpiPolledExample()</a>, <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__6.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>.</p>
+<p>Referenced by <a class="el" href="xspi__intr__example_8c.html#abd314964daed3d1fb324ef61ed37f276">SpiIntrExample()</a>, <a class="el" href="xspi__polled__example_8c.html#a0dd02b93ca6a7d528f41113065a1e3cb">SpiPolledExample()</a>, <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__7.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>.</p>
 
 </div>
 </div>
@@ -412,7 +431,7 @@ Data Fields</h2></td></tr>
 
 <p>Statistics. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf243ac522e14869af82545ffc11d5821">XSpi_ClearStats()</a>, <a class="el" href="group__spi__v4__6.html#ga8a40aee30eb6f0240b75e6ccd7596a53">XSpi_GetStats()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf243ac522e14869af82545ffc11d5821">XSpi_ClearStats()</a>, <a class="el" href="group__spi__v4__7.html#ga8a40aee30eb6f0240b75e6ccd7596a53">XSpi_GetStats()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -421,14 +440,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__spi__v4__6.html#gaa9c3c5101d73a626380c46bcc906069e">XSpi_StatusHandler</a> XSpi::StatusHandler</td>
+          <td class="memname"><a class="el" href="group__spi__v4__7.html#gaa9c3c5101d73a626380c46bcc906069e">XSpi_StatusHandler</a> XSpi::StatusHandler</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Status Handler. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>.</p>
 
 </div>
 </div>
@@ -444,7 +463,7 @@ Data Fields</h2></td></tr>
 
 <p>Callback reference for status handler. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__6.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, and <a class="el" href="group__spi__v4__7.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>.</p>
 
 </div>
 </div>
@@ -460,7 +479,7 @@ Data Fields</h2></td></tr>
 
 <p>0 if Non-XIP, 1 if XIP Mode </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__6.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi__v4__7.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest()</a>.</p>
 
 </div>
 </div>

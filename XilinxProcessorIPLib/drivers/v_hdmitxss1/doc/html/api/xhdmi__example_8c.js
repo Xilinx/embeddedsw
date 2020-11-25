@@ -15,8 +15,6 @@ var xhdmi__example_8c =
     [ "Exdes_UsToTicks", "xhdmi__example_8c.html#a612937a608699c646da276707e5df28d", null ],
     [ "Hdmiphy1ErrorCallback", "xhdmi__example_8c.html#a49f86eb6133d393764f7512a55c8b918", null ],
     [ "Hdmiphy1ProcessError", "xhdmi__example_8c.html#a00804c9887066c8b73a180344f5c4dbc", null ],
-    [ "HdmiTxErrorCallback", "xhdmi__example_8c.html#a3bf24d48b2b51a0d60d1c430597906d6", null ],
-    [ "HdmiTxProcessError", "xhdmi__example_8c.html#a04a00def0aca7a1b04c0ed325c924ee1", null ],
     [ "I2cClk", "xhdmi__example_8c.html#a13f636ef2d93d7ee10e421e5f604a510", null ],
     [ "I2cMuxSel", "xhdmi__example_8c.html#a36c1cdc84fe5db0377211f7640779576", null ],
     [ "Info", "xhdmi__example_8c.html#a14b96491d9e48ad8fadbbb391d097ab6", null ],

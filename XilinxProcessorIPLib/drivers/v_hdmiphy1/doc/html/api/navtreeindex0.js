@@ -6,7 +6,6 @@ var NAVTREEINDEX0 =
 "functions_vars.html":[0,1,1],
 "globals.html":[1,0],
 "globals.html":[1,0,0],
-"globals_0x78.html":[1,0,1],
 "globals_defs.html":[1,6],
 "globals_enum.html":[1,4],
 "globals_eval.html":[1,5],
@@ -117,10 +116,9 @@ var NAVTREEINDEX0 =
 "xhdmiphy1_8h.html#gga0babc37b8b55084caeefe57eef4fbd62acc72e5cef6738556e7e65c2cde266ea1":[2,1,9,1],
 "xhdmiphy1_8h.html#gga0babc37b8b55084caeefe57eef4fbd62ad8ada93f051d62d2696dd936142fcdcf":[2,1,9,6],
 "xhdmiphy1_8h.html#gga0babc37b8b55084caeefe57eef4fbd62aeb2a3b0bb09ea6ddddd9bbf968f22525":[2,1,9,7],
-"xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a5cbb4014f308cb04fbeebf989e359122":[2,1,6,1],
-"xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a98faa3846183fa3e2f28a1aa414e6f1e":[2,1,6,2],
-"xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a9cc9f15a988f4e9a2f610a91b0b788f3":[2,1,6,3],
-"xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547aae21b79b0cfbdbc053f499466bc44b0b":[2,1,6,0],
+"xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a5cbb4014f308cb04fbeebf989e359122":[2,1,6,0],
+"xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a98faa3846183fa3e2f28a1aa414e6f1e":[2,1,6,1],
+"xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a9cc9f15a988f4e9a2f610a91b0b788f3":[2,1,6,2],
 "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0a540efa0ad171c67927e0364e77bf0ab0":[2,1,6,4],
 "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0a8237da6c8720d2611ec2eb56927e9fd6":[2,1,6,1],
 "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0abb6da8fd6d31dd97dea1910021b0d8f7":[2,1,6,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "xhdmiphy1_8h.html#ggac87909fabb3f765c0be156e7082aea8ea653a29b2662036898e1a2d0139f1191f":[2,1,17,2],
 "xhdmiphy1_8h.html#ggac87909fabb3f765c0be156e7082aea8eab6d1eb265bfe0ca0a4261af92b7659d5":[2,1,17,4],
 "xhdmiphy1_8h.html#ggac87909fabb3f765c0be156e7082aea8eaff000ad279481562b7d3eb24dcca9ab4":[2,1,17,3],
-"xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4618e557ec32d01bede36da5194b1ac5":[2,1,10,2]
+"xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4618e557ec32d01bede36da5194b1ac5":[2,1,10,2],
+"xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a95b2ddb09d855294152b039776ce4e32":[2,1,10,1],
+"xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1ac73ff0db8b5c939871761014ab1d4167":[2,1,10,0]
 };

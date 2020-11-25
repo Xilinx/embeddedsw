@@ -90,49 +90,73 @@ Functions</h2></td></tr>
 <tr class="memitem:gafe8ae7aba73e1e4b667aed0bad8f64aa"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gafe8ae7aba73e1e4b667aed0bad8f64aa">XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits</a> (XilSKey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption)</td></tr>
 <tr class="memdesc:gafe8ae7aba73e1e4b667aed0bad8f64aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to read the PS eFUSE secure control bits from cache or eFUSE based on user input provided.  <a href="#gafe8ae7aba73e1e4b667aed0bad8f64aa"></a><br/></td></tr>
 <tr class="separator:gafe8ae7aba73e1e4b667aed0bad8f64aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba4a03dfa30f51139e6db70eac6583be"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gaba4a03dfa30f51139e6db70eac6583be">XilSKey_ZynqMp_EfusePs_CacheLoad</a> (void)</td></tr>
+<tr class="memdesc:gaba4a03dfa30f51139e6db70eac6583be"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reloads the cache of eFUSE so that can be directly read from cache.  <a href="#gaba4a03dfa30f51139e6db70eac6583be"></a><br/></td></tr>
+<tr class="separator:gaba4a03dfa30f51139e6db70eac6583be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5b46f3a03d5163f08b7782f669a78748"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write</a> (XilSKey_ZynqMpEPs *InstancePtr)</td></tr>
 <tr class="memdesc:ga5b46f3a03d5163f08b7782f669a78748"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to program the PS eFUSE of ZynqMP, based on user inputs.  <a href="#ga5b46f3a03d5163f08b7782f669a78748"></a><br/></td></tr>
 <tr class="separator:ga5b46f3a03d5163f08b7782f669a78748"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabdeede282f5a1fe2e48d673be558a6e6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gabdeede282f5a1fe2e48d673be558a6e6">XilSKey_ZynqMp_EfusePs_WritePufHelprData</a> (XilSKey_Puf *InstancePtr)</td></tr>
-<tr class="memdesc:gabdeede282f5a1fe2e48d673be558a6e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs the PS eFUSEs with the PUF helper data.  <a href="#gabdeede282f5a1fe2e48d673be558a6e6"></a><br/></td></tr>
-<tr class="separator:gabdeede282f5a1fe2e48d673be558a6e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf92ce5c0ea8ffaa5e15fc9125ae3363f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gaf92ce5c0ea8ffaa5e15fc9125ae3363f">XilSkey_ZynqMpEfuseAccess</a> (const u32 AddrHigh, const u32 AddrLow)</td></tr>
+<tr class="memdesc:gaf92ce5c0ea8ffaa5e15fc9125ae3363f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used by PMUFW IPI call handler for programming eFUSE.  <a href="#gaf92ce5c0ea8ffaa5e15fc9125ae3363f"></a><br/></td></tr>
+<tr class="separator:gaf92ce5c0ea8ffaa5e15fc9125ae3363f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga32901f95760a2e693f484f5a57d1ad06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga32901f95760a2e693f484f5a57d1ad06">XilSKey_ZynqMp_EfusePs_SetTimerValues</a> (void)</td></tr>
+<tr class="memdesc:ga32901f95760a2e693f484f5a57d1ad06"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets timers for programming and reading from eFUSE.  <a href="#ga32901f95760a2e693f484f5a57d1ad06"></a><br/></td></tr>
+<tr class="separator:ga32901f95760a2e693f484f5a57d1ad06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ccf425dc11a9659dd31419233c1382b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga5ccf425dc11a9659dd31419233c1382b">XilSKey_ZynqMp_EfusePs_ReadRow</a> (u8 Row, XskEfusePs_Type EfuseType, u32 *RowData)</td></tr>
+<tr class="memdesc:ga5ccf425dc11a9659dd31419233c1382b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns particular row data directly from eFUSE array.  <a href="#ga5ccf425dc11a9659dd31419233c1382b"></a><br/></td></tr>
+<tr class="separator:ga5ccf425dc11a9659dd31419233c1382b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0bbd694e7fdef850812aeccbf6da42a8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga0bbd694e7fdef850812aeccbf6da42a8">XilSKey_ZynqMp_EfusePs_SetWriteConditions</a> (void)</td></tr>
+<tr class="memdesc:ga0bbd694e7fdef850812aeccbf6da42a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets all the required parameters to program eFUSE array.  <a href="#ga0bbd694e7fdef850812aeccbf6da42a8"></a><br/></td></tr>
+<tr class="separator:ga0bbd694e7fdef850812aeccbf6da42a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga481698e87679ed2fbabb51ae433e2998"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga481698e87679ed2fbabb51ae433e2998">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</a> (u8 Row, u8 Column, XskEfusePs_Type EfuseType)</td></tr>
+<tr class="memdesc:ga481698e87679ed2fbabb51ae433e2998"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs and verifies the particular bit of eFUSE array.  <a href="#ga481698e87679ed2fbabb51ae433e2998"></a><br/></td></tr>
+<tr class="separator:ga481698e87679ed2fbabb51ae433e2998"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbf6b819a248562326af345bd43947c9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gabbf6b819a248562326af345bd43947c9">XilSKey_ZynqMp_EfusePs_Init</a> (void)</td></tr>
+<tr class="memdesc:gabbf6b819a248562326af345bd43947c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes sysmonpsu driver.  <a href="#gabbf6b819a248562326af345bd43947c9"></a><br/></td></tr>
+<tr class="separator:gabbf6b819a248562326af345bd43947c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5467284f0486d3afa7953eb51876757b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga5467284f0486d3afa7953eb51876757b">XilSKey_ZynqMp_EfusePs_CheckForZeros</a> (u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType)</td></tr>
+<tr class="memdesc:ga5467284f0486d3afa7953eb51876757b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used verify eFUSE keys for Zeros.  <a href="#ga5467284f0486d3afa7953eb51876757b"></a><br/></td></tr>
+<tr class="separator:ga5467284f0486d3afa7953eb51876757b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b392432af864665cf95a540ab576388"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b392432af864665cf95a540ab576388">XilSKey_ZynqMp_EfusePs_WritePufHelprData</a> (const XilSKey_Puf *InstancePtr)</td></tr>
+<tr class="memdesc:ga5b392432af864665cf95a540ab576388"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs the PS eFUSEs with the PUF helper data.  <a href="#ga5b392432af864665cf95a540ab576388"></a><br/></td></tr>
+<tr class="separator:ga5b392432af864665cf95a540ab576388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga244ec0ae43d34ee6500c06dd91f9d372"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga244ec0ae43d34ee6500c06dd91f9d372">XilSKey_ZynqMp_EfusePs_ReadPufHelprData</a> (u32 *Address)</td></tr>
 <tr class="memdesc:ga244ec0ae43d34ee6500c06dd91f9d372"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the PUF helper data from eFUSE.  <a href="#ga244ec0ae43d34ee6500c06dd91f9d372"></a><br/></td></tr>
 <tr class="separator:ga244ec0ae43d34ee6500c06dd91f9d372"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3fe884c21385ce40eab0b646e53d0865"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga3fe884c21385ce40eab0b646e53d0865">XilSKey_ZynqMp_EfusePs_WritePufChash</a> (XilSKey_Puf *InstancePtr)</td></tr>
-<tr class="memdesc:ga3fe884c21385ce40eab0b646e53d0865"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs eFUSE with CHash value.  <a href="#ga3fe884c21385ce40eab0b646e53d0865"></a><br/></td></tr>
-<tr class="separator:ga3fe884c21385ce40eab0b646e53d0865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf1587f5d17256fdbca55efa1cc0eeac0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gaf1587f5d17256fdbca55efa1cc0eeac0">XilSKey_ZynqMp_EfusePs_WritePufChash</a> (const XilSKey_Puf *InstancePtr)</td></tr>
+<tr class="memdesc:gaf1587f5d17256fdbca55efa1cc0eeac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs eFUSE with CHash value.  <a href="#gaf1587f5d17256fdbca55efa1cc0eeac0"></a><br/></td></tr>
+<tr class="separator:gaf1587f5d17256fdbca55efa1cc0eeac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaea3d5e3e09a52ed2a9a3027c065cca23"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gaea3d5e3e09a52ed2a9a3027c065cca23">XilSKey_ZynqMp_EfusePs_ReadPufChash</a> (u32 *Address, u8 ReadOption)</td></tr>
 <tr class="memdesc:gaea3d5e3e09a52ed2a9a3027c065cca23"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads eFUSE PUF CHash data from the eFUSE array or cache based on the user read option.  <a href="#gaea3d5e3e09a52ed2a9a3027c065cca23"></a><br/></td></tr>
 <tr class="separator:gaea3d5e3e09a52ed2a9a3027c065cca23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga51f9159d6cdb68ad3c69c628212fdff3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga51f9159d6cdb68ad3c69c628212fdff3">XilSKey_ZynqMp_EfusePs_WritePufAux</a> (XilSKey_Puf *InstancePtr)</td></tr>
-<tr class="memdesc:ga51f9159d6cdb68ad3c69c628212fdff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs eFUSE PUF auxiliary data.  <a href="#ga51f9159d6cdb68ad3c69c628212fdff3"></a><br/></td></tr>
-<tr class="separator:ga51f9159d6cdb68ad3c69c628212fdff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67de13526ea1502e25b09f80094f2246"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga67de13526ea1502e25b09f80094f2246">XilSKey_ZynqMp_EfusePs_WritePufAux</a> (const XilSKey_Puf *InstancePtr)</td></tr>
+<tr class="memdesc:ga67de13526ea1502e25b09f80094f2246"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs eFUSE PUF auxiliary data.  <a href="#ga67de13526ea1502e25b09f80094f2246"></a><br/></td></tr>
+<tr class="separator:ga67de13526ea1502e25b09f80094f2246"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad1be2e29f7eba2e556ac69870cd2e028"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gad1be2e29f7eba2e556ac69870cd2e028">XilSKey_ZynqMp_EfusePs_ReadPufAux</a> (u32 *Address, u8 ReadOption)</td></tr>
 <tr class="memdesc:gad1be2e29f7eba2e556ac69870cd2e028"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads eFUSE PUF auxiliary data from eFUSE array or cache based on user read option.  <a href="#gad1be2e29f7eba2e556ac69870cd2e028"></a><br/></td></tr>
 <tr class="separator:gad1be2e29f7eba2e556ac69870cd2e028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga552ff7cc4b8c9c232c90418af54b76fe"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga552ff7cc4b8c9c232c90418af54b76fe">XilSKey_Write_Puf_EfusePs_SecureBits</a> (XilSKey_Puf_Secure *WriteSecureBits)</td></tr>
-<tr class="memdesc:ga552ff7cc4b8c9c232c90418af54b76fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs the eFUSE PUF secure bits.  <a href="#ga552ff7cc4b8c9c232c90418af54b76fe"></a><br/></td></tr>
-<tr class="separator:ga552ff7cc4b8c9c232c90418af54b76fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9491848827417a1fb9e25947487e27bf"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga9491848827417a1fb9e25947487e27bf">XilSKey_Write_Puf_EfusePs_SecureBits</a> (const XilSKey_Puf_Secure *WriteSecureBits)</td></tr>
+<tr class="memdesc:ga9491848827417a1fb9e25947487e27bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function programs the eFUSE PUF secure bits.  <a href="#ga9491848827417a1fb9e25947487e27bf"></a><br/></td></tr>
+<tr class="separator:ga9491848827417a1fb9e25947487e27bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga64b5db9c2f22e5e5092d58ac7ad4d7f9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga64b5db9c2f22e5e5092d58ac7ad4d7f9">XilSKey_Read_Puf_EfusePs_SecureBits</a> (XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption)</td></tr>
 <tr class="memdesc:ga64b5db9c2f22e5e5092d58ac7ad4d7f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to read the PS eFUSE PUF secure bits from cache or from eFUSE array.  <a href="#ga64b5db9c2f22e5e5092d58ac7ad4d7f9"></a><br/></td></tr>
 <tr class="separator:ga64b5db9c2f22e5e5092d58ac7ad4d7f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4f7dae2403511abb09eb0504751f35f4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#ga4f7dae2403511abb09eb0504751f35f4">XilSKey_Puf_Registration</a> (XilSKey_Puf *InstancePtr)</td></tr>
 <tr class="memdesc:ga4f7dae2403511abb09eb0504751f35f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs registration of PUF which generates a new KEK and associated CHash, Auxiliary and PUF-syndrome data which are unique for each silicon.  <a href="#ga4f7dae2403511abb09eb0504751f35f4"></a><br/></td></tr>
 <tr class="separator:ga4f7dae2403511abb09eb0504751f35f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafa462b6ea47f413baabbaf8f7db7a0c4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gafa462b6ea47f413baabbaf8f7db7a0c4">XilSKey_Puf_Regeneration</a> (XilSKey_Puf *InstancePtr)</td></tr>
-<tr class="memdesc:gafa462b6ea47f413baabbaf8f7db7a0c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function regenerates the PUF data so that the PUF's output can be used as the key source to the AES-GCM hardware cryptographic engine.  <a href="#gafa462b6ea47f413baabbaf8f7db7a0c4"></a><br/></td></tr>
-<tr class="separator:gafa462b6ea47f413baabbaf8f7db7a0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaccdc46658f23f994c89596961a8580c7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__zynqmp__efuse.html#gaccdc46658f23f994c89596961a8580c7">XilSKey_Puf_Regeneration</a> (const XilSKey_Puf *InstancePtr)</td></tr>
+<tr class="memdesc:gaccdc46658f23f994c89596961a8580c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function regenerates the PUF data so that the PUF's output can be used as the key source to the AES-GCM hardware cryptographic engine.  <a href="#gaccdc46658f23f994c89596961a8580c7"></a><br/></td></tr>
+<tr class="separator:gaccdc46658f23f994c89596961a8580c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gafa462b6ea47f413baabbaf8f7db7a0c4"></a>
+<a class="anchor" id="gaccdc46658f23f994c89596961a8580c7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XilSKey_Puf_Regeneration </td>
           <td>(</td>
-          <td class="paramtype">XilSKey_Puf *&#160;</td>
+          <td class="paramtype">const XilSKey_Puf *&#160;</td>
           <td class="paramname"><em>InstancePtr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -187,7 +211,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aac840ba4043d600d19b7699544a2f461f">XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa9e49ab4ac302de7f5e31c12e97cf2ab0">XSK_EFUSEPS_ERROR_PUF_DATA_UNDERFLOW</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa8cc0fae305d80ef7c765388160da60ad">XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aad68fd75ddf9629a4acaa5c42a7116d18">XSK_EFUSEPS_ERROR_PUF_TIMEOUT</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
 </div>
 </div>
@@ -235,18 +259,18 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga552ff7cc4b8c9c232c90418af54b76fe"></a>
+<a class="anchor" id="ga9491848827417a1fb9e25947487e27bf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XilSKey_Write_Puf_EfusePs_SecureBits </td>
           <td>(</td>
-          <td class="paramtype">XilSKey_Puf_Secure *&#160;</td>
+          <td class="paramtype">const XilSKey_Puf_Secure *&#160;</td>
           <td class="paramname"><em>WriteSecureBits</em></td><td>)</td>
           <td></td>
         </tr>
@@ -266,9 +290,37 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaba96fe0fc4b478d5e2f1440c7b8b1c6c">XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aadd63eed9124336e7c533a4cd61bcd42b">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aac3e4d7e897e349f879d6089308c53db2">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaaae389f21cedce3366b4857b0db9d962">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK</a>.</p>
+<p>References <a class="el" href="group__xilskey__zynqmp__efuse.html#gaba4a03dfa30f51139e6db70eac6583be">XilSKey_ZynqMp_EfusePs_CacheLoad()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga0bbd694e7fdef850812aeccbf6da42a8">XilSKey_ZynqMp_EfusePs_SetWriteConditions()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga481698e87679ed2fbabb51ae433e2998">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit()</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaba96fe0fc4b478d5e2f1440c7b8b1c6c">XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aadd63eed9124336e7c533a4cd61bcd42b">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aac3e4d7e897e349f879d6089308c53db2">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaaae389f21cedce3366b4857b0db9d962">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaba4a03dfa30f51139e6db70eac6583be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XilSKey_ZynqMp_EfusePs_CacheLoad </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function reloads the cache of eFUSE so that can be directly read from cache. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS on successful cache reload</li>
+<li>ErrorCode on failure</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Not recommended to call this API frequently, if this API is called all the cache memory is reloded by reading eFUSE array, reading eFUSE bit multiple times may diminish the life time. </dd></dl>
+
+<p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaf7d4f28944a4d6037b6b75661e3a65be">XSK_EFUSEPS_ERROR_CACHE_LOAD</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga9491848827417a1fb9e25947487e27bf">XilSKey_Write_Puf_EfusePs_SecureBits()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>.</p>
 
 </div>
 </div>
@@ -298,11 +350,79 @@ Functions</h2></td></tr>
 <li>ErrorCode on failure</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>For Calculating the CRC of the AES key use the <a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878" title="This function Calculates CRC value based on hexadecimal string passed.">XilSKey_CrcCalculation()</a> function or <a class="el" href="group__xilskey__cmn__crc.html#ga02438c062fe2cacd064617d984b2f8a2" title="Calculates CRC value of the provided key.">XilSkey_CrcCalculation_AesKey()</a> function </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For Calculating the CRC of the AES key use the <a class="el" href="group__xilskey__cmn__crc.html#gaf973666d5d2787e571a17f6c12d6cd29" title="This function Calculates CRC value based on hexadecimal string passed.">XilSKey_CrcCalculation()</a> function or <a class="el" href="group__xilskey__cmn__crc.html#ga0552daa4e1f376eaac1360aba6d23930" title="Calculates CRC value of the provided key.">XilSkey_CrcCalculation_AesKey()</a> function </dd></dl>
 
-<p>References <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
+<p>References <a class="el" href="group__xilskey__zynqmp__efuse.html#ga32901f95760a2e693f484f5a57d1ad06">XilSKey_ZynqMp_EfusePs_SetTimerValues()</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga5467284f0486d3afa7953eb51876757b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XilSKey_ZynqMp_EfusePs_CheckForZeros </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>RowStart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>RowEnd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XskEfusePs_Type&#160;</td>
+          <td class="paramname"><em>EfuseType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used verify eFUSE keys for Zeros. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RowStart</td><td>is row number from which verification has to be started. </td></tr>
+    <tr><td class="paramname">RowEnd</td><td>is row number till which verification has to be ended. </td></tr>
+    <tr><td class="paramname">EfuseType</td><td>is the type of the eFUSE in which these rows reside.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if keys are not programmed. Errorcode on failure. </dd></dl>
+
+<p>References <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5ccf425dc11a9659dd31419233c1382b">XilSKey_ZynqMp_EfusePs_ReadRow()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gabbf6b819a248562326af345bd43947c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XilSKey_ZynqMp_EfusePs_Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function initializes sysmonpsu driver. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - On success ErrorCode - on Failure </dd></dl>
+
+<p>References <a class="el" href="xilskey__utils_8c.html#ac23b7512fa6d7680514d181ef2a51963">XilSKey_EfusePs_XAdcInit()</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga67de13526ea1502e25b09f80094f2246">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaf1587f5d17256fdbca55efa1cc0eeac0">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b392432af864665cf95a540ab576388">XilSKey_ZynqMp_EfusePs_WritePufHelprData()</a>.</p>
 
 </div>
 </div>
@@ -323,11 +443,10 @@ Functions</h2></td></tr>
 <p>This function is used to read DNA from eFUSE. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DnaRead</td><td>Pointer to an array of 3 x u32 words which holds the readback DNA.</td></tr>
+    <tr><td class="paramname">DnaRead</td><td>Pointer to an array of 3 x u32 words which holds the readback DNA. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
 
@@ -472,7 +591,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga51f9159d6cdb68ad3c69c628212fdff3">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga67de13526ea1502e25b09f80094f2246">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>.</p>
 
 </div>
 </div>
@@ -519,7 +638,9 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Cache reload is required for obtaining updated values for reading from cache.. </dd></dl>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gafa462b6ea47f413baabbaf8f7db7a0c4">XilSKey_Puf_Regeneration()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga3fe884c21385ce40eab0b646e53d0865">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>.</p>
+<p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
+
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaccdc46658f23f994c89596961a8580c7">XilSKey_Puf_Regeneration()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#gaf1587f5d17256fdbca55efa1cc0eeac0">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>.</p>
 
 </div>
 </div>
@@ -551,9 +672,56 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function only reads from eFUSE non-volatile memory. There is no option to read from Cache. </dd></dl>
 
-<p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>.</p>
+<p>References <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5ccf425dc11a9659dd31419233c1382b">XilSKey_ZynqMp_EfusePs_ReadRow()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga32901f95760a2e693f484f5a57d1ad06">XilSKey_ZynqMp_EfusePs_SetTimerValues()</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga5ccf425dc11a9659dd31419233c1382b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XilSKey_ZynqMp_EfusePs_ReadRow </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XskEfusePs_Type&#160;</td>
+          <td class="paramname"><em>EfuseType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>RowData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns particular row data directly from eFUSE array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Row</td><td>specifies the row number to read. </td></tr>
+    <tr><td class="paramname">EfuseType</td><td>specifies the eFUSE type. </td></tr>
+    <tr><td class="paramname">RowData</td><td>is a pointer to 32 bit variable to hold the data read from provided data</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - On success ErrorCode - on Failure </dd></dl>
+
+<p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa0c98a5e3fb9e7f9ba4feba35f2e7fd9f">XSK_EFUSEPS_ERROR_READ</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aabcbe521939011f2d89555b7f781a1d79">XSK_EFUSEPS_ERROR_READ_NOT_DONE</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5467284f0486d3afa7953eb51876757b">XilSKey_ZynqMp_EfusePs_CheckForZeros()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga244ec0ae43d34ee6500c06dd91f9d372">XilSKey_ZynqMp_EfusePs_ReadPufHelprData()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga481698e87679ed2fbabb51ae433e2998">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit()</a>.</p>
 
 </div>
 </div>
@@ -602,7 +770,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
 </div>
 </div>
@@ -707,6 +875,51 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga32901f95760a2e693f484f5a57d1ad06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XilSKey_ZynqMp_EfusePs_SetTimerValues </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets timers for programming and reading from eFUSE. </p>
+
+<p>References <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga1456bb1e5601881e5064de0adcfc999e">XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga244ec0ae43d34ee6500c06dd91f9d372">XilSKey_ZynqMp_EfusePs_ReadPufHelprData()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga0bbd694e7fdef850812aeccbf6da42a8">XilSKey_ZynqMp_EfusePs_SetWriteConditions()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga0bbd694e7fdef850812aeccbf6da42a8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets all the required parameters to program eFUSE array. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - On success ErrorCode - on Failure </dd></dl>
+
+<p>References <a class="el" href="group__xilskey__zynqmp__efuse.html#ga32901f95760a2e693f484f5a57d1ad06">XilSKey_ZynqMp_EfusePs_SetTimerValues()</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa6ce361f6a2493eee8972b1a8c363d80a">XSK_EFUSEPS_ERROR_IN_TBIT_PATTERN</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga9491848827417a1fb9e25947487e27bf">XilSKey_Write_Puf_EfusePs_SecureBits()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga67de13526ea1502e25b09f80094f2246">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaf1587f5d17256fdbca55efa1cc0eeac0">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b392432af864665cf95a540ab576388">XilSKey_ZynqMp_EfusePs_WritePufHelprData()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga5b46f3a03d5163f08b7782f669a78748"></a>
 <div class="memitem">
 <div class="memproto">
@@ -736,18 +949,65 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>After eFUSE programming is complete, the cache is automatically reloaded so all programmed eFUSE bits can be directly read from cache. </dd></dl>
 <p>Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)</p>
 
-<p>References <a class="el" href="group__xilskey__cmn__crc.html#ga02438c062fe2cacd064617d984b2f8a2">XilSkey_CrcCalculation_AesKey()</a>, <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga1456bb1e5601881e5064de0adcfc999e">XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aae5d02c7b329fd3e6e76712cc822e0c90">XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa6cab76eded6a371c6416b960a49030fb">XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa48364ba8b27a6b28dde3ad4043fe2502">XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa034607eb313bb1dca1545036012b130a">XSK_EFUSEPS_ERROR_VERIFICATION</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa582aed56f7438d5a840b227e43b56bae">XSK_EFUSEPS_ERROR_WRITE_AES_KEY</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aab5dbeb589e78612310fafdedd3e90d21">XSK_EFUSEPS_ERROR_WRITE_PPK0_HASH</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaf0ad4df13576f66d1c0f6db4141f0bae">XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aade6ed8f5dad424294515463008df2a82">XSK_EFUSEPS_ERROR_WRITE_SPK_ID</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa1f2b77a28a4c9e17b6345252191548ad">XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa236e954cca52738d5fe10c2db640043e">XSK_EFUSEPS_ERROR_WRITE_USER1_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaacb5cd2f128436ac08752510bb86aad9">XSK_EFUSEPS_ERROR_WRITE_USER2_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aadcfa43e3a116e3d8ea18cf18f9947b1e">XSK_EFUSEPS_ERROR_WRITE_USER3_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa90aeced2e0e09c9bb1496a5149c48479">XSK_EFUSEPS_ERROR_WRITE_USER4_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa7970f0e9d2fa264063880f69e8443c58">XSK_EFUSEPS_ERROR_WRITE_USER5_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aad1da451468fbd1b196bc653cde0a1b28">XSK_EFUSEPS_ERROR_WRITE_USER6_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaf72349a1d00039c6179cb758cc1dfec1">XSK_EFUSEPS_ERROR_WRITE_USER7_FUSE</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
+<p>References <a class="el" href="group__xilskey__cmn__crc.html#ga0552daa4e1f376eaac1360aba6d23930">XilSkey_CrcCalculation_AesKey()</a>, <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaba4a03dfa30f51139e6db70eac6583be">XilSKey_ZynqMp_EfusePs_CacheLoad()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga1456bb1e5601881e5064de0adcfc999e">XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gabbf6b819a248562326af345bd43947c9">XilSKey_ZynqMp_EfusePs_Init()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga0bbd694e7fdef850812aeccbf6da42a8">XilSKey_ZynqMp_EfusePs_SetWriteConditions()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aae5d02c7b329fd3e6e76712cc822e0c90">XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa6cab76eded6a371c6416b960a49030fb">XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa48364ba8b27a6b28dde3ad4043fe2502">XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa034607eb313bb1dca1545036012b130a">XSK_EFUSEPS_ERROR_VERIFICATION</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa582aed56f7438d5a840b227e43b56bae">XSK_EFUSEPS_ERROR_WRITE_AES_KEY</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aab5dbeb589e78612310fafdedd3e90d21">XSK_EFUSEPS_ERROR_WRITE_PPK0_HASH</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaf0ad4df13576f66d1c0f6db4141f0bae">XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aade6ed8f5dad424294515463008df2a82">XSK_EFUSEPS_ERROR_WRITE_SPK_ID</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa1f2b77a28a4c9e17b6345252191548ad">XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa236e954cca52738d5fe10c2db640043e">XSK_EFUSEPS_ERROR_WRITE_USER1_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaacb5cd2f128436ac08752510bb86aad9">XSK_EFUSEPS_ERROR_WRITE_USER2_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aadcfa43e3a116e3d8ea18cf18f9947b1e">XSK_EFUSEPS_ERROR_WRITE_USER3_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa90aeced2e0e09c9bb1496a5149c48479">XSK_EFUSEPS_ERROR_WRITE_USER4_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa7970f0e9d2fa264063880f69e8443c58">XSK_EFUSEPS_ERROR_WRITE_USER5_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aad1da451468fbd1b196bc653cde0a1b28">XSK_EFUSEPS_ERROR_WRITE_USER6_FUSE</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaf72349a1d00039c6179cb758cc1dfec1">XSK_EFUSEPS_ERROR_WRITE_USER7_FUSE</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga51f9159d6cdb68ad3c69c628212fdff3"></a>
+<a class="anchor" id="ga481698e87679ed2fbabb51ae433e2998"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XskEfusePs_Type&#160;</td>
+          <td class="paramname"><em>EfuseType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function programs and verifies the particular bit of eFUSE array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Row</td><td>specifies the row number. </td></tr>
+    <tr><td class="paramname">Column</td><td>specifies the column number. </td></tr>
+    <tr><td class="paramname">EfuseType</td><td>specifies the eFUSE type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - On success ErrorCode - on Failure </dd></dl>
+
+<p>References <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5ccf425dc11a9659dd31419233c1382b">XilSKey_ZynqMp_EfusePs_ReadRow()</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa034607eb313bb1dca1545036012b130a">XSK_EFUSEPS_ERROR_VERIFICATION</a>, and <a class="el" href="xilskey__eps__zynqmp__hw_8h.html#a9600c88345f2ca86156d134c33e7ae62">XSK_ZYNQMP_EFUSEPS_BASEADDR</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga9491848827417a1fb9e25947487e27bf">XilSKey_Write_Puf_EfusePs_SecureBits()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga67de13526ea1502e25b09f80094f2246">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#gaf1587f5d17256fdbca55efa1cc0eeac0">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga67de13526ea1502e25b09f80094f2246"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XilSKey_ZynqMp_EfusePs_WritePufAux </td>
           <td>(</td>
-          <td class="paramtype">XilSKey_Puf *&#160;</td>
+          <td class="paramtype">const XilSKey_Puf *&#160;</td>
           <td class="paramname"><em>InstancePtr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -768,20 +1028,20 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>To generate auxiliary data, please use XilSKey_Puf_Registration function. </dd></dl>
 
-<p>References <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gad1be2e29f7eba2e556ac69870cd2e028">XilSKey_ZynqMp_EfusePs_ReadPufAux()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaed84f9e28f19156244a8c8dfe014040f">XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED</a>.</p>
+<p>References <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gabbf6b819a248562326af345bd43947c9">XilSKey_ZynqMp_EfusePs_Init()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gad1be2e29f7eba2e556ac69870cd2e028">XilSKey_ZynqMp_EfusePs_ReadPufAux()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga0bbd694e7fdef850812aeccbf6da42a8">XilSKey_ZynqMp_EfusePs_SetWriteConditions()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga481698e87679ed2fbabb51ae433e2998">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit()</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaed84f9e28f19156244a8c8dfe014040f">XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga3fe884c21385ce40eab0b646e53d0865"></a>
+<a class="anchor" id="gaf1587f5d17256fdbca55efa1cc0eeac0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XilSKey_ZynqMp_EfusePs_WritePufChash </td>
           <td>(</td>
-          <td class="paramtype">XilSKey_Puf *&#160;</td>
+          <td class="paramtype">const XilSKey_Puf *&#160;</td>
           <td class="paramname"><em>InstancePtr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -802,20 +1062,20 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>To generate the CHash value, please use XilSKey_Puf_Registration function. </dd></dl>
 
-<p>References <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaea3d5e3e09a52ed2a9a3027c065cca23">XilSKey_ZynqMp_EfusePs_ReadPufChash()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>.</p>
+<p>References <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gabbf6b819a248562326af345bd43947c9">XilSKey_ZynqMp_EfusePs_Init()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaea3d5e3e09a52ed2a9a3027c065cca23">XilSKey_ZynqMp_EfusePs_ReadPufChash()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga0bbd694e7fdef850812aeccbf6da42a8">XilSKey_ZynqMp_EfusePs_SetWriteConditions()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga481698e87679ed2fbabb51ae433e2998">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit()</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa9096db2e0e44bf178f5966cb13f5c80e">XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="gabdeede282f5a1fe2e48d673be558a6e6"></a>
+<a class="anchor" id="ga5b392432af864665cf95a540ab576388"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData </td>
           <td>(</td>
-          <td class="paramtype">XilSKey_Puf *&#160;</td>
+          <td class="paramtype">const XilSKey_Puf *&#160;</td>
           <td class="paramname"><em>InstancePtr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -836,9 +1096,45 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>To generate PufSyndromeData please use XilSKey_Puf_Registration API </dd></dl>
 
-<p>References <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>.</p>
+<p>References <a class="el" href="xilskey__utils_8c.html#a45d2897e5b27bd01b0b7e20ecea133af">XilSKey_Efuse_ConvertBitsToBytes()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gabbf6b819a248562326af345bd43947c9">XilSKey_ZynqMp_EfusePs_Init()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga0bbd694e7fdef850812aeccbf6da42a8">XilSKey_ZynqMp_EfusePs_SetWriteConditions()</a>, <a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__puf__registration_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaf92ce5c0ea8ffaa5e15fc9125ae3363f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XilSkey_ZynqMpEfuseAccess </td>
+          <td>(</td>
+          <td class="paramtype">const u32&#160;</td>
+          <td class="paramname"><em>AddrHigh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const u32&#160;</td>
+          <td class="paramname"><em>AddrLow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used by PMUFW IPI call handler for programming eFUSE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AddrHigh</td><td>Higher 32-bit address of the XilSKey_Efuse structure. </td></tr>
+    <tr><td class="paramname">AddrLow</td><td>Lower 32-bit address of the XilSKey_Efuse structure.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - On success ErrorCode - on Failure </dd></dl>
 
 </div>
 </div>

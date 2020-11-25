@@ -86,8 +86,8 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Alarm is generated.</li>
 <li>A new second is generated.</li>
 </ul>
-<p>The application can control which interrupts are enabled using the <a class="el" href="group__rtcpsu__v1__9.html#gac891e59c8f357874275535410142b2eb" title="This function sets the interrupt mask.">XRtcPsu_SetInterruptMask()</a> function.</p>
-<p>In order to use interrupts, it is necessary for the user to connect the driver interrupt handler, <a class="el" href="group__rtcpsu__v1__9.html#ga01ca03d23194687c8026dc2f38da6ff7" title="This function is the interrupt handler for the driver.">XRtcPsu_InterruptHandler()</a>, to the interrupt system of the application. A separate handler should be provided by the application to communicate with the interrupt system, and conduct application specific interrupt handling. An application registers its own handler through the <a class="el" href="group__rtcpsu__v1__9.html#ga6c782a1e080607664a88ae6dcb994c30" title="This function sets the handler that will be called when an event (interrupt) occurs that needs applic...">XRtcPsu_SetHandler()</a> function.</p>
+<p>The application can control which interrupts are enabled using the <a class="el" href="group__rtcpsu__v1__10.html#ga645920d3519722e8dc815d07db527367" title="This function sets the interrupt mask.">XRtcPsu_SetInterruptMask()</a> function.</p>
+<p>In order to use interrupts, it is necessary for the user to connect the driver interrupt handler, <a class="el" href="group__rtcpsu__v1__10.html#ga01ca03d23194687c8026dc2f38da6ff7" title="This function is the interrupt handler for the driver.">XRtcPsu_InterruptHandler()</a>, to the interrupt system of the application. A separate handler should be provided by the application to communicate with the interrupt system, and conduct application specific interrupt handling. An application registers its own handler through the <a class="el" href="group__rtcpsu__v1__10.html#ga40b45bedf590e3e65eb525f1827768e4" title="This function sets the handler that will be called when an event (interrupt) occurs that needs applic...">XRtcPsu_SetHandler()</a> function.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
 </p>
@@ -119,7 +119,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
                       as Pointer to const,No brackets to then/else,
                       Literal value requires a U suffix,Casting operation to a pointer
                       Array has no bounds specified,Logical conjunctions need brackets.
-</pre> </div></div><!-- contents -->
+1.10     sne    08/28/20 Modify Makefile to support parallel make execution.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

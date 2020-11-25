@@ -60,114 +60,18 @@ $(document).ready(function(){initNavTree('xplmi__event__logging_8c.html','');});
 </script>
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xplmi_event_logging.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This is the file which contains event logging related code. </p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
------ ---- -------- -------------------------------------------------------
-1.00  ma   03/02/2020 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af48d925ddd447c3e5b00eab9f221429b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__event__logging_8c.html#af48d925ddd447c3e5b00eab9f221429b">XPlmi_EventLogging</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:af48d925ddd447c3e5b00eab9f221429b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides Event Logging command execution.  <a href="#af48d925ddd447c3e5b00eab9f221429b"></a><br/></td></tr>
-<tr class="separator:af48d925ddd447c3e5b00eab9f221429b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38ae02f65d2fb5eb9b5096d9606dc2a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__event__logging_8c.html#a38ae02f65d2fb5eb9b5096d9606dc2a8">XPlmi_StoreTraceLog</a> (u32 *TraceData, u32 Len)</td></tr>
-<tr class="memdesc:a38ae02f65d2fb5eb9b5096d9606dc2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stores the trace events to the Trace Log buffer.  <a href="#a38ae02f65d2fb5eb9b5096d9606dc2a8"></a><br/></td></tr>
-<tr class="separator:a38ae02f65d2fb5eb9b5096d9606dc2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:gaf48d925ddd447c3e5b00eab9f221429b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__apis.html#gaf48d925ddd447c3e5b00eab9f221429b">XPlmi_EventLogging</a> (XPlmi_Cmd *Cmd)</td></tr>
+<tr class="memdesc:gaf48d925ddd447c3e5b00eab9f221429b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides Event Logging command execution.  <a href="group__xplmi__apis.html#gaf48d925ddd447c3e5b00eab9f221429b"></a><br/></td></tr>
+<tr class="separator:gaf48d925ddd447c3e5b00eab9f221429b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="af48d925ddd447c3e5b00eab9f221429b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XPlmi_EventLogging </td>
-          <td>(</td>
-          <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides Event Logging command execution. </p>
-<pre class="fragment">            Command payload parameters are
- *          Sub command
- *          1 - Configure print log level
- *                  @Arg1 - Log Level
- *          2 - Configure Debug Log buffer memory
- *                  @Arg1 - High Address
- *                  @Arg2 - Low Address
- *                  @Arg3 - Length
- *          3 - Retrieve Debug Log buffer
- *                  @Arg1 - High Address
- *                  @Arg2 - Low Address
- *          4 - Retrieve Debug Log buffer information
- *          5 - Configure Trace Log buffer memory
- *                  @Arg1 - High Address
- *                  @Arg2 - Low Address
- *                  @Arg3 - Length
- *          6 - Retrieve Trace Log buffer
- *                  @Arg1 - High Address
- *                  @Arg2 - Low Address
- *          7 - Retrieve Trace Log buffer information
-</pre><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Pointer</td><td>to the command structure</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the Status of Event Logging API </dd></dl>
-
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a777aa098e6b8b57901453fc03d841e4d">XPLMI_ERR_INVALID_LOG_BUF_ADDR</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a48977c4cc219c00035bbb9fc2bafb2ac">XPLMI_ERR_INVALID_LOG_BUF_LEN</a>, and <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a7466fdb1702f55644534e57cd36d8be4">XPLMI_ERR_INVALID_LOG_LEVEL</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a38ae02f65d2fb5eb9b5096d9606dc2a8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XPlmi_StoreTraceLog </td>
-          <td>(</td>
-          <td class="paramtype">u32 *&#160;</td>
-          <td class="paramname"><em>TraceData</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function stores the trace events to the Trace Log buffer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">TraceData</td><td>to be stored to buffer </td></tr>
-    <tr><td class="paramname">Len</td><td>is number of words in TraceData</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xplmi__proc_8c.html#a8073ed79bd5fcddf3ac6313fb0d905da">XPlmi_MeasurePerfTime()</a>, and <a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -9,6 +9,8 @@ var xv__hdmirx1__hw_8h =
     [ "XV_HDMIRX1_AUD_CTS_OFFSET", "xv__hdmirx1__hw_8h.html#a29e933929edb889a5cf22e2b358bcbd6", null ],
     [ "XV_HDMIRX1_AUD_ID_OFFSET", "xv__hdmirx1__hw_8h.html#ae9b202d8c94989184154789ae50cf7e4", null ],
     [ "XV_HDMIRX1_AUD_N_OFFSET", "xv__hdmirx1__hw_8h.html#aa108342fb6a7cb47e297368082ba4943", null ],
+    [ "XV_HDMIRX1_AUD_STA_3DAUD_CH_MASK", "xv__hdmirx1__hw_8h.html#a43a10555bb908231f981067b8551250f", null ],
+    [ "XV_HDMIRX1_AUD_STA_3DAUD_CH_SHIFT", "xv__hdmirx1__hw_8h.html#af5e43e9852b0db94bde0c0c7dfdea59c", null ],
     [ "XV_HDMIRX1_AUD_STA_ACR_UPD_MASK", "xv__hdmirx1__hw_8h.html#a0890e7e5521f5fcd3ef91bef2426ba42", null ],
     [ "XV_HDMIRX1_AUD_STA_ACT_EVT_MASK", "xv__hdmirx1__hw_8h.html#a0764f4406426ea7680979d7cf13f5409", null ],
     [ "XV_HDMIRX1_AUD_STA_ACT_MASK", "xv__hdmirx1__hw_8h.html#a1379c3a28e0344be55fa32908b17626e", null ],

@@ -84,7 +84,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <p><b>Initialization &amp; Configuration</b></p>
 <p>The device driver enables higher layer software (e.g., an application) to communicate to the ZDMA core.</p>
-<p><a class="el" href="group__zdma__v1__9.html#gad882e6d7430871e5b71643c8be2512d5" title="This function initializes an ZDMA core.">XZDma_CfgInitialize()</a> API is used to initialize the ZDMA core. The user needs to first call the <a class="el" href="group__zdma__v1__9.html#ga1f24016eafb7226d1f8754082a24d95d" title="XZDma_LookupConfig returns a reference to an XZDma_Config structure based on the unique device id...">XZDma_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__zdma__v1__9.html#gad882e6d7430871e5b71643c8be2512d5" title="This function initializes an ZDMA core.">XZDma_CfgInitialize()</a> API.</p>
+<p><a class="el" href="group__zdma__v1__10.html#gad882e6d7430871e5b71643c8be2512d5" title="This function initializes an ZDMA core.">XZDma_CfgInitialize()</a> API is used to initialize the ZDMA core. The user needs to first call the <a class="el" href="group__zdma__v1__10.html#ga1f24016eafb7226d1f8754082a24d95d" title="XZDma_LookupConfig returns a reference to an XZDma_Config structure based on the unique device id...">XZDma_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__zdma__v1__10.html#gad882e6d7430871e5b71643c8be2512d5" title="This function initializes an ZDMA core.">XZDma_CfgInitialize()</a> API.</p>
 <p><b> Interrupts </b> The driver provides an interrupt handler XZDma_IntrHandler for handling the interrupt from the ZDMA core. The users of this driver have to register this handler with the interrupt system and provide the callback functions by using XZDma_SetCallBack API. In this version Descriptor done option is disabled.</p>
 <p><b> Virtual Memory </b></p>
 <p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</p>
@@ -130,6 +130,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
 1.7     adk     08/03/19 Added support for versal IP.
 1.7   adk     18/03/19 Updated the writeonly mode example data verification
                  check to support versal adma IP.
+1.10  hk      04/29/20 Enable Scatter Gather setup and Enable APIs for use
+                       in applications directly.
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

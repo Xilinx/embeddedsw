@@ -68,13 +68,13 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="textblock"><p><a class="el" href="struct_x_iic.html" title="The XIic driver instance data.">XIic</a> is the driver for an IIC master or slave device.In order to reduce the memory requirements of the driver the driver is partitioned such that there are optional parts of the driver. Slave, master, and multimaster features are optional such that all these files are not required at the same time. In order to use the slave and multimaster features of the driver, the user must call functions (XIic_SlaveInclude and XIic_MultiMasterInclude) to dynamically include the code. These functions may be called at any time.</p>
 <p>Two sets of higher level API's are available in the <a class="el" href="struct_x_iic.html" title="The XIic driver instance data.">XIic</a> driver that can be used for Transmission/Reception in Master mode :</p>
 <ul>
-<li><a class="el" href="group__iic__v3__6.html#ga977382e8a20bd5e690229f82af2e7603" title="This function sends data as a master on the IIC bus.">XIic_MasterSend()</a>/ <a class="el" href="group__iic__v3__6.html#ga337bf0d322d4a7d9b4f8baa30e00ab45" title="This function receives data as a master from a slave device on the IIC bus.">XIic_MasterRecv()</a> which is used in normal mode.</li>
-<li><a class="el" href="group__iic__v3__6.html#gac4c6388d0db3b08ddcd47f0b2459ff3c" title="This function sends data as a Dynamic master on the IIC bus.">XIic_DynMasterSend()</a>/ <a class="el" href="group__iic__v3__6.html#ga4d7985d95cd029ab0b0f2a5ccc614793" title="This function receives data as a master from a slave device on the IIC bus.">XIic_DynMasterRecv()</a> which is used in Dynamic mode.</li>
+<li><a class="el" href="group__iic__v3__7.html#ga977382e8a20bd5e690229f82af2e7603" title="This function sends data as a master on the IIC bus.">XIic_MasterSend()</a>/ <a class="el" href="group__iic__v3__7.html#ga337bf0d322d4a7d9b4f8baa30e00ab45" title="This function receives data as a master from a slave device on the IIC bus.">XIic_MasterRecv()</a> which is used in normal mode.</li>
+<li><a class="el" href="group__iic__v3__7.html#gac4c6388d0db3b08ddcd47f0b2459ff3c" title="This function sends data as a Dynamic master on the IIC bus.">XIic_DynMasterSend()</a>/ <a class="el" href="group__iic__v3__7.html#ga4d7985d95cd029ab0b0f2a5ccc614793" title="This function receives data as a master from a slave device on the IIC bus.">XIic_DynMasterRecv()</a> which is used in Dynamic mode.</li>
 </ul>
 <p>Similarly two sets of lower level API's are available in <a class="el" href="struct_x_iic.html" title="The XIic driver instance data.">XIic</a> driver that can be used for Transmission/Reception in Master mode:</p>
 <ul>
-<li><a class="el" href="group__iic__v3__6.html#ga907c577b53407fb0bfc98d0ca37ee221" title="Send data as a master on the IIC bus.">XIic_Send()</a>/ <a class="el" href="group__iic__v3__6.html#ga7a848238d75ff57837afa5a58f11f326" title="Receive data as a master on the IIC bus.">XIic_Recv()</a> which is used in normal mode</li>
-<li><a class="el" href="group__iic__v3__6.html#gadeaf11cda2466ae1c6036a3de0f52874" title="Send data as a master on the IIC bus.">XIic_DynSend()</a>/ <a class="el" href="group__iic__v3__6.html#ga9979fbd483e1c8c495c9eb2bfd7ad6e9" title="Receive data as a master on the IIC bus.">XIic_DynRecv()</a> which is used in Dynamic mode.</li>
+<li><a class="el" href="group__iic__v3__7.html#ga907c577b53407fb0bfc98d0ca37ee221" title="Send data as a master on the IIC bus.">XIic_Send()</a>/ <a class="el" href="group__iic__v3__7.html#ga7a848238d75ff57837afa5a58f11f326" title="Receive data as a master on the IIC bus.">XIic_Recv()</a> which is used in normal mode</li>
+<li><a class="el" href="group__iic__v3__7.html#gadeaf11cda2466ae1c6036a3de0f52874" title="Send data as a master on the IIC bus.">XIic_DynSend()</a>/ <a class="el" href="group__iic__v3__7.html#ga9979fbd483e1c8c495c9eb2bfd7ad6e9" title="Receive data as a master on the IIC bus.">XIic_DynRecv()</a> which is used in Dynamic mode.</li>
 </ul>
 <p>The user should use a single set of APIs as per his requirement and should not intermix them.</p>
 <p>All the driver APIs can be used for read, write and combined mode of operations on the IIC bus.</p>
@@ -83,10 +83,10 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>The <a class="el" href="struct_x_iic___config.html" title="This typedef contains configuration information for the device.">XIic_Config</a> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</p>
 <p>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in one of the following ways:</p>
 <ul>
-<li><a class="el" href="group__iic__v3__6.html#gad36c610ec3139cef71f3795f9ce81308" title="Initializes a specific XIic instance.">XIic_Initialize()</a> - The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.</li>
+<li><a class="el" href="group__iic__v3__7.html#gad36c610ec3139cef71f3795f9ce81308" title="Initializes a specific XIic instance.">XIic_Initialize()</a> - The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.</li>
 </ul>
 <ul>
-<li><a class="el" href="group__iic__v3__6.html#ga301f08e1fa6e74bf4c2885702bf0ff70" title="Initializes a specific XIic instance.">XIic_CfgInitialize()</a> - The driver uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</li>
+<li><a class="el" href="group__iic__v3__7.html#ga301f08e1fa6e74bf4c2885702bf0ff70" title="Initializes a specific XIic instance.">XIic_CfgInitialize()</a> - The driver uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</li>
 </ul>
 <p><b>General Purpose Output</b> The IIC hardware provides a General Purpose Output Register that allows the user to connect general purpose outputs to devices, such as a write protect, for an EEPROM. This register is parameterizable in the hardware such that there could be zero bits in this register and in this case it will cause a bus error if read or written.</p>
 <p><b>Bus Throttling</b></p>
@@ -163,8 +163,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
               file
 1.14a ecm  11/13/08 changed BB polling loops in DynRecv to handle race
               condition, CR491889. DynSend was correct from v1.13.b
-1.15a ktn  02/17/09 Fixed <a class="el" href="group__iic__v3__6.html#ga3e8f77e5df8d92a4b27627e03b5e1807" title="This function gets the addresses for the IIC device driver.">XIic_GetAddress()</a> to return correct device address.
-1.16a ktn  07/17/09 Updated the <a class="el" href="group__iic__v3__6.html#ga0a4d9b646c26bcf932561699d69d52b1" title="Runs a limited self-test on the driver/device.">XIic_SelfTest()</a> to test only Interrupt
+1.15a ktn  02/17/09 Fixed <a class="el" href="group__iic__v3__7.html#ga3e8f77e5df8d92a4b27627e03b5e1807" title="This function gets the addresses for the IIC device driver.">XIic_GetAddress()</a> to return correct device address.
+1.16a ktn  07/17/09 Updated the <a class="el" href="group__iic__v3__7.html#ga0a4d9b646c26bcf932561699d69d52b1" title="Runs a limited self-test on the driver/device.">XIic_SelfTest()</a> to test only Interrupt
               Registers.
 2.00a ktn  10/22/09 Converted all register accesses to 32 bit access.,
               Removed the macro XIIC_RESET, XIic_Reset API should be

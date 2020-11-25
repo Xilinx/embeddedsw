@@ -73,7 +73,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:af215e9abbe11273d3dd56283fed78093"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the specified interrupts in the device.  <a href="#af215e9abbe11273d3dd56283fed78093"></a><br/></td></tr>
 <tr class="separator:af215e9abbe11273d3dd56283fed78093"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4ecf364c69e54ddaadd4b7d2706fcf8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__intr_8c.html#af4ecf364c69e54ddaadd4b7d2706fcf8">XSysMonPsv_IntrGetEnabled</a> (XSysMonPsv *InstancePtr, u8 IntrNum)</td></tr>
-<tr class="memdesc:af4ecf364c69e54ddaadd4b7d2706fcf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the enabled interrupts read from the Interrupt Enable Register (IER).  <a href="#af4ecf364c69e54ddaadd4b7d2706fcf8"></a><br/></td></tr>
+<tr class="memdesc:af4ecf364c69e54ddaadd4b7d2706fcf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the enabled interrupts read from the Interrupt Mask Register (IMR).  <a href="#af4ecf364c69e54ddaadd4b7d2706fcf8"></a><br/></td></tr>
 <tr class="separator:af4ecf364c69e54ddaadd4b7d2706fcf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5de90395d396c7106b2d4c1290fed3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__intr_8c.html#ac5de90395d396c7106b2d4c1290fed3c">XSysMonPsv_IntrDisable</a> (XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)</td></tr>
 <tr class="memdesc:ac5de90395d396c7106b2d4c1290fed3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the specified interrupts in the device.  <a href="#ac5de90395d396c7106b2d4c1290fed3c"></a><br/></td></tr>
@@ -87,8 +87,49 @@ Functions</h2></td></tr>
 <tr class="memitem:a77add816aad89432fc3b4f87f7671133"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__intr_8c.html#a77add816aad89432fc3b4f87f7671133">XSysMonPsv_SetNewDataIntSrc</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply, u32 Mask)</td></tr>
 <tr class="memdesc:a77add816aad89432fc3b4f87f7671133"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets a supply as a source new data interrupt.  <a href="#a77add816aad89432fc3b4f87f7671133"></a><br/></td></tr>
 <tr class="separator:a77add816aad89432fc3b4f87f7671133"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac473d0e2f5281785bfb58e03efeb8e57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__intr_8c.html#ac473d0e2f5281785bfb58e03efeb8e57">XSysMonPsv_SetTempEventHandler</a> (XSysMonPsv *InstancePtr, <a class="el" href="xsysmonpsv_8h.html#a8118eb3c304a12083666b3f8010522c4">XSysMonPsv_Handler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr class="memdesc:ac473d0e2f5281785bfb58e03efeb8e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs a callback function for when a Device Temperature interrupt occurs.  <a href="#ac473d0e2f5281785bfb58e03efeb8e57"></a><br/></td></tr>
+<tr class="separator:ac473d0e2f5281785bfb58e03efeb8e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30dc13213cfc9952ed630595c6c9e56b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__intr_8c.html#a30dc13213cfc9952ed630595c6c9e56b">XSysMonPsv_SetOTEventHandler</a> (XSysMonPsv *InstancePtr, <a class="el" href="xsysmonpsv_8h.html#a8118eb3c304a12083666b3f8010522c4">XSysMonPsv_Handler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr class="memdesc:a30dc13213cfc9952ed630595c6c9e56b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs a callback function for when a OT Temperature interrupt occurs.  <a href="#a30dc13213cfc9952ed630595c6c9e56b"></a><br/></td></tr>
+<tr class="separator:a30dc13213cfc9952ed630595c6c9e56b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac25ffe4192dc0e86a6e78ed36d8ce467"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__intr_8c.html#ac25ffe4192dc0e86a6e78ed36d8ce467">XSysMonPsv_SetSupplyEventHandler</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply, <a class="el" href="xsysmonpsv_8h.html#a8118eb3c304a12083666b3f8010522c4">XSysMonPsv_Handler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr class="memdesc:ac25ffe4192dc0e86a6e78ed36d8ce467"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs a callback function for when a Supply Voltage alarm interrupt occurs.  <a href="#ac25ffe4192dc0e86a6e78ed36d8ce467"></a><br/></td></tr>
+<tr class="separator:ac25ffe4192dc0e86a6e78ed36d8ce467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf5c920a63c23acb19508854a53449ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__intr_8c.html#abf5c920a63c23acb19508854a53449ec">XSysMonPsv_AlarmEventHandler</a> (XSysMonPsv *InstancePtr)</td></tr>
+<tr class="memdesc:abf5c920a63c23acb19508854a53449ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the XSysMonPsv driver.  <a href="#abf5c920a63c23acb19508854a53449ec"></a><br/></td></tr>
+<tr class="separator:abf5c920a63c23acb19508854a53449ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="abf5c920a63c23acb19508854a53449ec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_AlarmEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is the interrupt handler for the XSysMonPsv driver. </p>
+<p>When an interrupt happens, it first detects what kind of interrupt happened, then decides which callback function to invoke.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XSysMonPsv instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv_8h.html#a9f2a84fb9f82598f93afc703d3428794">XSysMonPsv_IntrClear()</a>, <a class="el" href="xsysmonpsv_8h.html#a7af4abdb0829809ed0a356cfcbefd7d5">XSysMonPsv_IntrGetStatus()</a>, <a class="el" href="xsysmonpsv_8c.html#a6fddf588f4735de4c0ec9264e5caefe5">XSysMonPsv_IsAlarmCondition()</a>, <a class="el" href="xsysmonpsv_8c.html#a73941bc6fe25213dade609e6225a73d7">XSysMonPsv_ReadDeviceTemp()</a>, <a class="el" href="xsysmonpsv_8c.html#ae7ecf0eb6d26336afedb0202fa16f2ed">XSysMonPsv_ReadSupplyValue()</a>, <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505a56a91826917510fcc752511fdd4b52b8">XSYSMONPSV_VAL</a>, <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505acb23f67288c8437be6cb93270f826722">XSYSMONPSV_VAL_MAX</a>, and <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505a1bfbb3f9141e8cceba6b562c4cfd7156">XSYSMONPSV_VAL_MIN</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a9f2a84fb9f82598f93afc703d3428794"></a>
 <div class="memitem">
 <div class="memproto">
@@ -126,7 +167,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#ad6a0d0fc444bc07d4bea0576fb87bb9d">XSYSMONPSV_ISR_OFFSET</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
 
-<p>Referenced by <a class="el" href="xsysmonpsv__intr__example_8c.html#a08f29d1a3ede32c28ff1b454b3b68a28">SysMonPsvIntrExample()</a>, and <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>.</p>
+<p>Referenced by <a class="el" href="xsysmonpsv__intr__example_8c.html#a08f29d1a3ede32c28ff1b454b3b68a28">SysMonPsvIntrExample()</a>, <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>, and <a class="el" href="xsysmonpsv__intr_8c.html#abf5c920a63c23acb19508854a53449ec">XSysMonPsv_AlarmEventHandler()</a>.</p>
 
 </div>
 </div>
@@ -248,8 +289,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns the enabled interrupts read from the Interrupt Enable Register (IER). </p>
-<p>Use the XSYSMONPSV_IER0_* and XSYSMONPSV_IER1_* constants defined in <a class="el" href="xsysmonpsv__hw_8h.html">xsysmonpsv_hw.h</a> to interpret the returned value.</p>
+<p>This function returns the enabled interrupts read from the Interrupt Mask Register (IMR). </p>
+<p>Use the XSYSMONPSV_IMR0_* and XSYSMONPSV_IMR1_* constants defined in <a class="el" href="xsysmonpsv__hw_8h.html">xsysmonpsv_hw.h</a> to interpret the returned value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XSysMonPsv instance. </td></tr>
@@ -260,7 +301,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A 32-bit value representing the contents of the Interrupt Mask Registers.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xsysmonpsv__hw_8h.html#aedc7b72f6668bf1ebcec44de5916a982">XSYSMONPSV_IER0_OFFSET</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>.</p>
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#a9de4efb4a2df1c68f18b7836960ccfdd">XSYSMONPSV_IMR0_OFFSET</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>.</p>
 
 </div>
 </div>
@@ -291,7 +332,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#ad6a0d0fc444bc07d4bea0576fb87bb9d">XSYSMONPSV_ISR_OFFSET</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>.</p>
 
-<p>Referenced by <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>.</p>
+<p>Referenced by <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>, and <a class="el" href="xsysmonpsv__intr_8c.html#abf5c920a63c23acb19508854a53449ec">XSysMonPsv_AlarmEventHandler()</a>.</p>
 
 </div>
 </div>
@@ -340,6 +381,145 @@ Functions</h2></td></tr>
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#a34740673a7286f3f6a5a387416130cdc">XSYSMONPSV_NEW_DATA_INT_SRC</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a30dc13213cfc9952ed630595c6c9e56b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_SetOTEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xsysmonpsv_8h.html#a8118eb3c304a12083666b3f8010522c4">XSysMonPsv_Handler</a>&#160;</td>
+          <td class="paramname"><em>CallbackFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>CallbackRef</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function installs a callback function for when a OT Temperature interrupt occurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XSysMonPsv instance. </td></tr>
+    <tr><td class="paramname">CallbackFunc</td><td>is the address to the callback function. </td></tr>
+    <tr><td class="paramname">CallbackRef</td><td>is the user data item that will be passed to the callback function when it is invoked.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac25ffe4192dc0e86a6e78ed36d8ce467"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_SetSupplyEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XSysMonPsv_Supply&#160;</td>
+          <td class="paramname"><em>Supply</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xsysmonpsv_8h.html#a8118eb3c304a12083666b3f8010522c4">XSysMonPsv_Handler</a>&#160;</td>
+          <td class="paramname"><em>CallbackFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>CallbackRef</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function installs a callback function for when a Supply Voltage alarm interrupt occurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XSysMonPsv instance. </td></tr>
+    <tr><td class="paramname">Supply</td><td>is the supply for which the alarm is to be set. </td></tr>
+    <tr><td class="paramname">CallbackFunc</td><td>is the address to the callback function. </td></tr>
+    <tr><td class="paramname">CallbackRef</td><td>is the user data item that will be passed to the callback function when it is invoked.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac473d0e2f5281785bfb58e03efeb8e57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_SetTempEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xsysmonpsv_8h.html#a8118eb3c304a12083666b3f8010522c4">XSysMonPsv_Handler</a>&#160;</td>
+          <td class="paramname"><em>CallbackFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>CallbackRef</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function installs a callback function for when a Device Temperature interrupt occurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XSysMonPsv instance. </td></tr>
+    <tr><td class="paramname">CallbackFunc</td><td>is the address to the callback function. </td></tr>
+    <tr><td class="paramname">CallbackRef</td><td>is the user data item that will be passed to the callback function when it is invoked.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>

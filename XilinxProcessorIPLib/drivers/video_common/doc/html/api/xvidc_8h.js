@@ -101,6 +101,14 @@ var xvidc_8h =
       [ "XVIDC_BT_NUM_SUPPORTED", "xvidc_8h.html#ggabde81f3f568095c842d4669a4c62ed88afc96158759c2c712c45272bc20d150bb", null ],
       [ "XVIDC_BT_UNKNOWN", "xvidc_8h.html#ggabde81f3f568095c842d4669a4c62ed88ad5e86f7245212557fd6b430fe52792f2", null ]
     ] ],
+    [ "XVidC_Eotf", "xvidc_8h.html#gae3a2bcd6e9ee30dfff64cd236b6841bf", [
+      [ "XVIDC_EOTF_TG_SDR", "xvidc_8h.html#ggae3a2bcd6e9ee30dfff64cd236b6841bfafca12f2f9ad7e056f9322bc4cdb84c40", null ],
+      [ "XVIDC_EOTF_TG_HDR", "xvidc_8h.html#ggae3a2bcd6e9ee30dfff64cd236b6841bfa3710706869c1e0e39b0316bd53f30397", null ],
+      [ "XVIDC_EOTF_SMPTE2084", "xvidc_8h.html#ggae3a2bcd6e9ee30dfff64cd236b6841bfae91a3b7df10b4a26ed5e8dd36704cb69", null ],
+      [ "XVIDC_EOTF_HLG", "xvidc_8h.html#ggae3a2bcd6e9ee30dfff64cd236b6841bfa38cc7c1e93523fedcba3cf5d72436b16", null ],
+      [ "XVIDC_EOTF_NUM_SUPPORTED", "xvidc_8h.html#ggae3a2bcd6e9ee30dfff64cd236b6841bfa56c3d8da435ce6ce663c2376bc63c36e", null ],
+      [ "XVIDC_EOTF_UNKNOWN", "xvidc_8h.html#ggae3a2bcd6e9ee30dfff64cd236b6841bfaf97213f4b2d8490447ab099f5af30438", null ]
+    ] ],
     [ "XVidC_FrameRate", "xvidc_8h.html#gac192cb9c275d8ef2c985646f420c1a4e", [
       [ "XVIDC_FR_24HZ", "xvidc_8h.html#ggac192cb9c275d8ef2c985646f420c1a4ea1fe3647f03cbb443333af7cb1aff7678", null ],
       [ "XVIDC_FR_25HZ", "xvidc_8h.html#ggac192cb9c275d8ef2c985646f420c1a4ea9da54881008a986fcd1effacb56ad4e1", null ],

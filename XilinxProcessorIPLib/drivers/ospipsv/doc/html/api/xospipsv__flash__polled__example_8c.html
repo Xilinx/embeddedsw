@@ -84,7 +84,8 @@ $(document).ready(function(){initNavTree('xospipsv__flash__polled__example_8c.ht
        sk   02/04/19 Add support for SDR+PHY and DDR+PHY modes.
  1.0   akm 03/29/19 Fixed data alignment issues on IAR compiler.
  1.1   sk  07/23/19 Based on RX Tuning, updated the dummy cycles.
-       sk  08/08/19 Issue device reset to bring back to default state.</pre><pre></pre> </div><table class="memberdecls">
+       sk  08/08/19 Issue device reset to bring back to default state.
+ 1.3   sk  05/27/20 Added Stacked mode support.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a47495bff6dd24133e2922fd1d1af277a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xospipsv__flash__polled__example_8c.html#a47495bff6dd24133e2922fd1d1af277a">OspiPsvPolledFlashExample</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *OspiPsvInstancePtr, u16 OspiPsvDeviceId)</td></tr>
@@ -105,6 +106,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1355d0e2c6bb04d1f65ca815d71d5996"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xospipsv__flash__polled__example_8c.html#a1355d0e2c6bb04d1f65ca815d71d5996">FlashRead</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</td></tr>
 <tr class="memdesc:a1355d0e2c6bb04d1f65ca815d71d5996"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs read.  <a href="#a1355d0e2c6bb04d1f65ca815d71d5996"></a><br/></td></tr>
 <tr class="separator:a1355d0e2c6bb04d1f65ca815d71d5996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae08db22955675661860c9008890b0138"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xospipsv__flash__polled__example_8c.html#ae08db22955675661860c9008890b0138">GetRealAddr</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *OspiPsvPtr, u32 Address)</td></tr>
+<tr class="memdesc:ae08db22955675661860c9008890b0138"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions translates the address based on the type of interconnection.  <a href="#ae08db22955675661860c9008890b0138"></a><br/></td></tr>
+<tr class="separator:ae08db22955675661860c9008890b0138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a223a0d4b5dd8fb7fca1b1e42872d3521"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xospipsv__flash__polled__example_8c.html#a223a0d4b5dd8fb7fca1b1e42872d3521">BulkErase</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *OspiPsvPtr, u8 *WriteBfrPtr)</td></tr>
 <tr class="memdesc:a223a0d4b5dd8fb7fca1b1e42872d3521"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs a bulk erase operation when the flash device has a single die.  <a href="#a223a0d4b5dd8fb7fca1b1e42872d3521"></a><br/></td></tr>
 <tr class="separator:a223a0d4b5dd8fb7fca1b1e42872d3521"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -394,7 +398,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_ospi_psv___msg.html#af8358bd6a8075c4abacf9b0a7b10a490">XOspiPsv_Msg::Addr</a>, <a class="el" href="struct_x_ospi_psv___msg.html#aed44f5b363f17a6ebb50ec89b032f112">XOspiPsv_Msg::Addrsize</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a3df927f0564ffc2896abff80b63e5601">XOspiPsv_Msg::Addrvalid</a>, <a class="el" href="struct_x_ospi_psv___msg.html#ab46554545943ecf8f1a0152c237489f4">XOspiPsv_Msg::ByteCount</a>, <a class="el" href="struct_x_ospi_psv___msg.html#aee5814ae840542f0968358c6c00371d8">XOspiPsv_Msg::Dummy</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a960350cdb6c3c5dc679c637ca1e21be0">XOspiPsv_Msg::Flags</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a5a9c4b0b141795207120a3d62c6d5144">XOspiPsv_Msg::IsDDROpCode</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a55ac289317d94775757cac9529ea51c2">XOspiPsv_Msg::Opcode</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a9d8c2658ecdf8c0e9d7f4196844cccf0">XOspiPsv_Msg::Proto</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a584672579015305052780c6b14e5a576">XOspiPsv_Msg::RxBfrPtr</a>, <a class="el" href="struct_x_ospi_psv.html#acf4693770163d8061cd9eb4bdaa32605">XOspiPsv::SdrDdrMode</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a95f5d41c7ebd3d5b5da41c6289049e6f">XOspiPsv_Msg::TxBfrPtr</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a08e2382b1a337e871524e10a23f1b984">XOspiPsv_Get_Proto()</a>, and <a class="el" href="group__ospipsv__v1__2.html#ga808cc2759798221d0d4f44eef27c0629">XOspiPsv_PollTransfer()</a>.</p>
+<p>References <a class="el" href="struct_x_ospi_psv___msg.html#af8358bd6a8075c4abacf9b0a7b10a490">XOspiPsv_Msg::Addr</a>, <a class="el" href="struct_x_ospi_psv___msg.html#aed44f5b363f17a6ebb50ec89b032f112">XOspiPsv_Msg::Addrsize</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a3df927f0564ffc2896abff80b63e5601">XOspiPsv_Msg::Addrvalid</a>, <a class="el" href="struct_x_ospi_psv___msg.html#ab46554545943ecf8f1a0152c237489f4">XOspiPsv_Msg::ByteCount</a>, <a class="el" href="struct_x_ospi_psv___msg.html#aee5814ae840542f0968358c6c00371d8">XOspiPsv_Msg::Dummy</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a960350cdb6c3c5dc679c637ca1e21be0">XOspiPsv_Msg::Flags</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a5a9c4b0b141795207120a3d62c6d5144">XOspiPsv_Msg::IsDDROpCode</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a55ac289317d94775757cac9529ea51c2">XOspiPsv_Msg::Opcode</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a9d8c2658ecdf8c0e9d7f4196844cccf0">XOspiPsv_Msg::Proto</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a584672579015305052780c6b14e5a576">XOspiPsv_Msg::RxBfrPtr</a>, <a class="el" href="struct_x_ospi_psv.html#acf4693770163d8061cd9eb4bdaa32605">XOspiPsv::SdrDdrMode</a>, <a class="el" href="struct_x_ospi_psv___msg.html#a95f5d41c7ebd3d5b5da41c6289049e6f">XOspiPsv_Msg::TxBfrPtr</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a08e2382b1a337e871524e10a23f1b984">XOspiPsv_Get_Proto()</a>, and <a class="el" href="group__ospipsv__v1__3.html#ga808cc2759798221d0d4f44eef27c0629">XOspiPsv_PollTransfer()</a>.</p>
 
 <p>Referenced by <a class="el" href="xospipsv__flash__non__blocking__read__example_8c.html#add3e41c7ec3ce5d1ae9f84b65b180829">OspiPsvFlashNonBlockingReadExample()</a>, and <a class="el" href="xospipsv__flash__polled__example_8c.html#a47495bff6dd24133e2922fd1d1af277a">OspiPsvPolledFlashExample()</a>.</p>
 
@@ -524,6 +528,44 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae08db22955675661860c9008890b0138"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 GetRealAddr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *&#160;</td>
+          <td class="paramname"><em>OspiPsvPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Address</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This functions translates the address based on the type of interconnection. </p>
+<p>In case of stacked, this function asserts the corresponding slave select.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OspiPsvPtr</td><td>is a pointer to the OSPIPSV driver component to use. </td></tr>
+    <tr><td class="paramname">Address</td><td>which is to be accessed (for erase, write or read)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>RealAddr is the translated address - for single it is unchanged; for stacked, the lower flash size is subtracted;</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In addition to get the actual address to work on flash this function also selects the CS based on the configuration detected. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -587,7 +629,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xospipsv__flash__intr__example_8c.html#a929e1c114b2752e00136aa5ebb3cbeda">FlashEnterExit4BAddMode()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a6d28e30d23e136e4af00a436d43c9923">FlashErase()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a8337d4d551570e7ecaa44321605280a7">FlashIoWrite()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a6fff73aa13d90cd15521ab1f7de503dc">FlashLinearWrite()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a1355d0e2c6bb04d1f65ca815d71d5996">FlashRead()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a19dbfab221d6a11c3fa45674c1304f2e">FlashReadID()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a92ee697864550c95e476b41c43c0764f">FlashSetSDRDDRMode()</a>, <a class="el" href="group__ospipsv__v1__2.html#gae5a31f79cc2df46027e4b9f26cad97ad">XOspiPsv_CfgInitialize()</a>, <a class="el" href="group__ospipsv__v1__2.html#ga16fcc38cab80027ea601c99569517067">XOspiPsv_DeviceReset()</a>, <a class="el" href="group__ospipsv__v1__2.html#ga19324f8c6c1156b26c84cc9d413a4801">XOspiPsv_GetOptions()</a>, <a class="el" href="group__ospipsv__v1__2.html#gaf44a1c9ce528880318fbfd61c256b0d3">XOspiPsv_LookupConfig()</a>, <a class="el" href="group__ospipsv__v1__2.html#ga2d17525a71d9df7268fcc4269f19270c">XOspiPsv_SelectFlash()</a>, <a class="el" href="group__ospipsv__v1__2.html#ga45c51bcfa1e2d996298847c2b7910ba6">XOspiPsv_SetClkPrescaler()</a>, and <a class="el" href="group__ospipsv__v1__2.html#gab47df170b16816d4cc11dee6c3008e3c">XOspiPsv_SetOptions()</a>.</p>
+<p>References <a class="el" href="struct_x_ospi_psv.html#a587249b499cdfc3e3da286143039006c">XOspiPsv::Config</a>, <a class="el" href="struct_x_ospi_psv___config.html#a5ca4fb3ed8b0107599596c5cbf8e8591">XOspiPsv_Config::ConnectionMode</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a929e1c114b2752e00136aa5ebb3cbeda">FlashEnterExit4BAddMode()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a6d28e30d23e136e4af00a436d43c9923">FlashErase()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a8337d4d551570e7ecaa44321605280a7">FlashIoWrite()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a6fff73aa13d90cd15521ab1f7de503dc">FlashLinearWrite()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a1355d0e2c6bb04d1f65ca815d71d5996">FlashRead()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a19dbfab221d6a11c3fa45674c1304f2e">FlashReadID()</a>, <a class="el" href="xospipsv__flash__intr__example_8c.html#a92ee697864550c95e476b41c43c0764f">FlashSetSDRDDRMode()</a>, <a class="el" href="group__ospipsv__v1__3.html#gae5a31f79cc2df46027e4b9f26cad97ad">XOspiPsv_CfgInitialize()</a>, <a class="el" href="group__ospipsv__v1__3.html#ga16fcc38cab80027ea601c99569517067">XOspiPsv_DeviceReset()</a>, <a class="el" href="group__ospipsv__v1__3.html#ga19324f8c6c1156b26c84cc9d413a4801">XOspiPsv_GetOptions()</a>, <a class="el" href="group__ospipsv__v1__3.html#gaf44a1c9ce528880318fbfd61c256b0d3">XOspiPsv_LookupConfig()</a>, <a class="el" href="group__ospipsv__v1__3.html#ga2d17525a71d9df7268fcc4269f19270c">XOspiPsv_SelectFlash()</a>, <a class="el" href="group__ospipsv__v1__3.html#ga45c51bcfa1e2d996298847c2b7910ba6">XOspiPsv_SetClkPrescaler()</a>, <a class="el" href="group__ospipsv__v1__3.html#gab47df170b16816d4cc11dee6c3008e3c">XOspiPsv_SetOptions()</a>, and <a class="el" href="group__ospipsv__v1__3.html#ga74efb98d92b16935c3ea41e4f77cecea">XOspiPsv_SetSdrDdrMode()</a>.</p>
 
 <p>Referenced by <a class="el" href="xospipsv__flash__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

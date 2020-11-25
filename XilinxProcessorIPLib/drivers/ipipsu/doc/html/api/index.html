@@ -76,20 +76,20 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b>Initialization</b> The config data for the driver is loaded and is based on the HW build. The <a class="el" href="struct_x_ipi_psu___config.html" title="This typedef contains configuration information for the device.">XIpiPsu_Config</a> data structure contains all the data related to the IPI driver instance and also the available Target CPUs.</p>
 <p><b>Sending an IPI</b> The following steps can be followed to send an IPI:</p>
 <ul>
-<li>Write the Message into Message Buffer using <a class="el" href="group__ipipsu__v2__6.html#ga21edd11331c715ee4b2c7a34471eac0d" title="Send a Message to Destination.">XIpiPsu_WriteMessage()</a></li>
-<li>Trigger IPI using <a class="el" href="group__ipipsu__v2__6.html#ga8aa0005ec03abef3b3c1a506cb924e6e" title="Trigger an IPI to a Destination CPU.">XIpiPsu_TriggerIpi()</a></li>
-<li>Wait for Ack using <a class="el" href="group__ipipsu__v2__6.html#gaf633cefd9970c417079c0922577933e8" title="Poll for an acknowledgement using Observation Register.">XIpiPsu_PollForAck()</a></li>
-<li>Read response using <a class="el" href="group__ipipsu__v2__6.html#ga64113249dac23760b5cc0e9d038f8361" title="Read an Incoming Message from a Source.">XIpiPsu_ReadMessage()</a></li>
+<li>Write the Message into Message Buffer using <a class="el" href="group__ipipsu__v2__7.html#ga21edd11331c715ee4b2c7a34471eac0d" title="Send a Message to Destination.">XIpiPsu_WriteMessage()</a></li>
+<li>Trigger IPI using <a class="el" href="group__ipipsu__v2__7.html#ga8aa0005ec03abef3b3c1a506cb924e6e" title="Trigger an IPI to a Destination CPU.">XIpiPsu_TriggerIpi()</a></li>
+<li>Wait for Ack using <a class="el" href="group__ipipsu__v2__7.html#gaf633cefd9970c417079c0922577933e8" title="Poll for an acknowledgement using Observation Register.">XIpiPsu_PollForAck()</a></li>
+<li>Read response using <a class="el" href="group__ipipsu__v2__7.html#ga64113249dac23760b5cc0e9d038f8361" title="Read an Incoming Message from a Source.">XIpiPsu_ReadMessage()</a></li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="group__ipipsu__v2__6.html#ga4a62cac5d53ded4028a5f1586e390645" title="Get the OBSERVATION REGISTER of the current IPI instance.">XIpiPsu_GetObsStatus()</a> before sending an IPI to ensure that the previous IPI was serviced by the target</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="group__ipipsu__v2__7.html#ga4a62cac5d53ded4028a5f1586e390645" title="Get the OBSERVATION REGISTER of the current IPI instance.">XIpiPsu_GetObsStatus()</a> before sending an IPI to ensure that the previous IPI was serviced by the target</dd></dl>
 <p><b>Receiving an IPI</b> To receive an IPI, the following sequence can be followed:</p>
 <ul>
 <li>Register an interrupt handler for the IPIs interrupt ID</li>
-<li>Enable the required sources using <a class="el" href="group__ipipsu__v2__6.html#gaa4e2694e0d28168f195f87583a34190c" title="Enable interrupts specified in Mask.">XIpiPsu_InterruptEnable()</a></li>
+<li>Enable the required sources using <a class="el" href="group__ipipsu__v2__7.html#gaa4e2694e0d28168f195f87583a34190c" title="Enable interrupts specified in Mask.">XIpiPsu_InterruptEnable()</a></li>
 <li>In the interrupt handler, Check for source using XIpiPsu_GetInterruptStatus</li>
-<li>Read the message form source using <a class="el" href="group__ipipsu__v2__6.html#ga64113249dac23760b5cc0e9d038f8361" title="Read an Incoming Message from a Source.">XIpiPsu_ReadMessage()</a></li>
-<li>Write the response using <a class="el" href="group__ipipsu__v2__6.html#ga21edd11331c715ee4b2c7a34471eac0d" title="Send a Message to Destination.">XIpiPsu_WriteMessage()</a></li>
-<li>Ack the IPI using <a class="el" href="group__ipipsu__v2__6.html#ga2919c49f2a05d552dedb148069e84045" title="Clear the STATUS REGISTER of the current IPI instance.">XIpiPsu_ClearInterruptStatus()</a></li>
+<li>Read the message form source using <a class="el" href="group__ipipsu__v2__7.html#ga64113249dac23760b5cc0e9d038f8361" title="Read an Incoming Message from a Source.">XIpiPsu_ReadMessage()</a></li>
+<li>Write the response using <a class="el" href="group__ipipsu__v2__7.html#ga21edd11331c715ee4b2c7a34471eac0d" title="Send a Message to Destination.">XIpiPsu_WriteMessage()</a></li>
+<li>Ack the IPI using <a class="el" href="group__ipipsu__v2__7.html#ga2919c49f2a05d552dedb148069e84045" title="Clear the STATUS REGISTER of the current IPI instance.">XIpiPsu_ClearInterruptStatus()</a></li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>XIpiPsu_Reset can be used at startup to clear the status and disable all sources</dd></dl>
 <pre>
@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('index.html','');});
  2.5  sdd 12/17/18  Add the cpp extern macro.
  2.6  sdd 04/09/20  Restructure the code for modularity and readability
                       Added file  <a class="el" href="xipipsu__buf_8c.html">xipipsu_buf.c</a> and <a class="el" href="xipipsu__buf_8h.html">xipipsu_buf.h</a> as part of it.
+ 2.7  sdd 09/03/20  Makefile update for parallel execution.
  </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

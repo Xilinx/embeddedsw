@@ -69,22 +69,22 @@ $(document).ready(function(){initNavTree('group__xilskey__cmn__crc.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8cc36ec60e5fcc3d8918007474165878"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878">XilSKey_CrcCalculation</a> (u8 *Key)</td></tr>
-<tr class="memdesc:ga8cc36ec60e5fcc3d8918007474165878"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Calculates CRC value based on hexadecimal string passed.  <a href="#ga8cc36ec60e5fcc3d8918007474165878"></a><br/></td></tr>
-<tr class="separator:ga8cc36ec60e5fcc3d8918007474165878"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga02438c062fe2cacd064617d984b2f8a2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#ga02438c062fe2cacd064617d984b2f8a2">XilSkey_CrcCalculation_AesKey</a> (u8 *Key)</td></tr>
-<tr class="memdesc:ga02438c062fe2cacd064617d984b2f8a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC value of the provided key.  <a href="#ga02438c062fe2cacd064617d984b2f8a2"></a><br/></td></tr>
-<tr class="separator:ga02438c062fe2cacd064617d984b2f8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf973666d5d2787e571a17f6c12d6cd29"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#gaf973666d5d2787e571a17f6c12d6cd29">XilSKey_CrcCalculation</a> (const u8 *Key)</td></tr>
+<tr class="memdesc:gaf973666d5d2787e571a17f6c12d6cd29"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Calculates CRC value based on hexadecimal string passed.  <a href="#gaf973666d5d2787e571a17f6c12d6cd29"></a><br/></td></tr>
+<tr class="separator:gaf973666d5d2787e571a17f6c12d6cd29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0552daa4e1f376eaac1360aba6d23930"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#ga0552daa4e1f376eaac1360aba6d23930">XilSkey_CrcCalculation_AesKey</a> (const u8 *Key)</td></tr>
+<tr class="memdesc:ga0552daa4e1f376eaac1360aba6d23930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC value of the provided key.  <a href="#ga0552daa4e1f376eaac1360aba6d23930"></a><br/></td></tr>
+<tr class="separator:ga0552daa4e1f376eaac1360aba6d23930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga8cc36ec60e5fcc3d8918007474165878"></a>
+<a class="anchor" id="gaf973666d5d2787e571a17f6c12d6cd29"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XilSKey_CrcCalculation </td>
           <td>(</td>
-          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramtype">const u8 *&#160;</td>
           <td class="paramname"><em>Key</em></td><td>)</td>
           <td></td>
         </tr>
@@ -103,20 +103,20 @@ Functions</h2></td></tr>
 <li>On failure returns the error code when string length is greater than 64</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If the length of the string provided is less than 64, this function appends the string with zeros. For calculation of AES key's CRC one can use u32 <a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878" title="This function Calculates CRC value based on hexadecimal string passed.">XilSKey_CrcCalculation(u8 *Key)</a> API or reverse polynomial 0x82F63B78. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the length of the string provided is less than 64, this function appends the string with zeros. For calculation of AES key's CRC one can use u32 XilSKey_CrcCalculation(u8 *Key) API or reverse polynomial 0x82F63B78. </dd></dl>
 
-<p>References <a class="el" href="xilskey__utils_8c.html#aaeb26ca3e2bcdbf7207734864aa58af1">XilSKey_Efuse_ConvertStringToHexBE()</a>, <a class="el" href="xilskey__bbram_8c.html#a37c270a53d567eed209d11b83d16cca7">XilSKey_RowCrcCalculation()</a>, <a class="el" href="xilskey__utils_8c.html#a93ffc4ad8029d08636f36f187aca7821">XilSKey_StrCpyRange()</a>, and <a class="el" href="group__xilskey__plefuse__error__codes.html#gga8fd80cd0c662e8df2920d23077b48d65ae55d28ebd5f89397eda7ba2640fa5e02">XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH</a>.</p>
+<p>References <a class="el" href="xilskey__utils_8c.html#aaeb26ca3e2bcdbf7207734864aa58af1">XilSKey_Efuse_ConvertStringToHexBE()</a>, <a class="el" href="xilskey__bbram_8c.html#a37c270a53d567eed209d11b83d16cca7">XilSKey_RowCrcCalculation()</a>, <a class="el" href="xilskey__utils_8c.html#aa3e7785a12e355331700a9884840e46d">XilSKey_StrCpyRange()</a>, and <a class="el" href="group__xilskey__plefuse__error__codes.html#gga8fd80cd0c662e8df2920d23077b48d65ae55d28ebd5f89397eda7ba2640fa5e02">XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga02438c062fe2cacd064617d984b2f8a2"></a>
+<a class="anchor" id="ga0552daa4e1f376eaac1360aba6d23930"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XilSkey_CrcCalculation_AesKey </td>
           <td>(</td>
-          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramtype">const u8 *&#160;</td>
           <td class="paramname"><em>Key</em></td><td>)</td>
           <td></td>
         </tr>

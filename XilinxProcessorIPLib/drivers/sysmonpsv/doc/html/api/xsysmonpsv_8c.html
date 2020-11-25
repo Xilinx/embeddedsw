@@ -69,9 +69,9 @@ $(document).ready(function(){initNavTree('xsysmonpsv_8c.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a23f2afefb37b472e032aa11325af369f"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a23f2afefb37b472e032aa11325af369f">XSysMonPsv_CfgInitialize</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)</td></tr>
-<tr class="memdesc:a23f2afefb37b472e032aa11325af369f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes XSysMonPsv device/instance.  <a href="#a23f2afefb37b472e032aa11325af369f"></a><br/></td></tr>
-<tr class="separator:a23f2afefb37b472e032aa11325af369f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aec1b9759a733a3efa72ccc9a872006"><td class="memItemLeft" align="right" valign="top">s64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a6aec1b9759a733a3efa72ccc9a872006">XSysMonPsv_CfgInitialize</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)</td></tr>
+<tr class="memdesc:a6aec1b9759a733a3efa72ccc9a872006"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes XSysMonPsv device/instance.  <a href="#a6aec1b9759a733a3efa72ccc9a872006"></a><br/></td></tr>
+<tr class="separator:a6aec1b9759a733a3efa72ccc9a872006"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac319313983216b9248dbca42ce6b0d68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#ac319313983216b9248dbca42ce6b0d68">XSysMonPsv_SystemReset</a> (XSysMonPsv *InstancePtr)</td></tr>
 <tr class="memdesc:ac319313983216b9248dbca42ce6b0d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets the SystemMonitor.  <a href="#ac319313983216b9248dbca42ce6b0d68"></a><br/></td></tr>
 <tr class="separator:ac319313983216b9248dbca42ce6b0d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -96,9 +96,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a79627c08e07dc99d132f0f098cc53fb6"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a79627c08e07dc99d132f0f098cc53fb6">XSysMonPsv_ReadDevTempThreshold</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Threshold ThresholdType)</td></tr>
 <tr class="memdesc:a79627c08e07dc99d132f0f098cc53fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the device temperature threshold for min and max values in signed Q8.7 format.  <a href="#a79627c08e07dc99d132f0f098cc53fb6"></a><br/></td></tr>
 <tr class="separator:a79627c08e07dc99d132f0f098cc53fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35f84afc8e8e8905ebc046aacf33a2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#aa35f84afc8e8e8905ebc046aacf33a2c">XSysMonPsv_SetDevTempThreshold</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Threshold ThresholdType, u16 Value)</td></tr>
+<tr class="memdesc:aa35f84afc8e8e8905ebc046aacf33a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Device Temperature Threshold values.  <a href="#aa35f84afc8e8e8905ebc046aacf33a2c"></a><br/></td></tr>
+<tr class="separator:aa35f84afc8e8e8905ebc046aacf33a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa922507e6e5783cb3c05d2aa5f7d5902"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#aa922507e6e5783cb3c05d2aa5f7d5902">XSysMonPsv_ReadOTTempThreshold</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Threshold ThresholdType)</td></tr>
 <tr class="memdesc:aa922507e6e5783cb3c05d2aa5f7d5902"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the OT temperature threshold for min and max values in signed Q8.7 format.  <a href="#aa922507e6e5783cb3c05d2aa5f7d5902"></a><br/></td></tr>
 <tr class="separator:aa922507e6e5783cb3c05d2aa5f7d5902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad88ab34f5b255e5e09fc81ce1c569996"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#ad88ab34f5b255e5e09fc81ce1c569996">XSysMonPsv_SetOTTempThreshold</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Threshold ThresholdType, u16 Value)</td></tr>
+<tr class="memdesc:ad88ab34f5b255e5e09fc81ce1c569996"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets OT Temperature Threshold values.  <a href="#ad88ab34f5b255e5e09fc81ce1c569996"></a><br/></td></tr>
+<tr class="separator:ad88ab34f5b255e5e09fc81ce1c569996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73941bc6fe25213dade609e6225a73d7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a73941bc6fe25213dade609e6225a73d7">XSysMonPsv_ReadDeviceTemp</a> (XSysMonPsv *InstancePtr, <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505">XSysMonPsv_Val</a> Value)</td></tr>
 <tr class="memdesc:a73941bc6fe25213dade609e6225a73d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the temperature values for the device in signed Q8.7 format.  <a href="#a73941bc6fe25213dade609e6225a73d7"></a><br/></td></tr>
 <tr class="separator:a73941bc6fe25213dade609e6225a73d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,14 +120,32 @@ Functions</h2></td></tr>
 <tr class="memitem:a6fddf588f4735de4c0ec9264e5caefe5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a6fddf588f4735de4c0ec9264e5caefe5">XSysMonPsv_IsAlarmCondition</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)</td></tr>
 <tr class="memdesc:a6fddf588f4735de4c0ec9264e5caefe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is to be used to check if the supply value has exceeded the set threshold values.  <a href="#a6fddf588f4735de4c0ec9264e5caefe5"></a><br/></td></tr>
 <tr class="separator:a6fddf588f4735de4c0ec9264e5caefe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dca84e2abf699d1a1a0d76acb073045"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a9dca84e2abf699d1a1a0d76acb073045">XSysMonPsv_SetSupplyUpperThreshold</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply, u32 Value)</td></tr>
+<tr class="memdesc:a9dca84e2abf699d1a1a0d76acb073045"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the raw value for Upper Supply Threshold.  <a href="#a9dca84e2abf699d1a1a0d76acb073045"></a><br/></td></tr>
+<tr class="separator:a9dca84e2abf699d1a1a0d76acb073045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78e37e43c6d1606da22b65dc0e3d9973"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a78e37e43c6d1606da22b65dc0e3d9973">XSysMonPsv_SetSupplyLowerThreshold</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply, u32 Value)</td></tr>
+<tr class="memdesc:a78e37e43c6d1606da22b65dc0e3d9973"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the raw value for Lower Supply Threshold.  <a href="#a78e37e43c6d1606da22b65dc0e3d9973"></a><br/></td></tr>
+<tr class="separator:a78e37e43c6d1606da22b65dc0e3d9973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8f51a313ccb628e58b51568219d0e5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#aa8f51a313ccb628e58b51568219d0e5b">XSysMonPsv_SetTempMode</a> (XSysMonPsv *InstancePtr, u32 Mode)</td></tr>
+<tr class="memdesc:aa8f51a313ccb628e58b51568219d0e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the alarm mode for Temperature alarms.  <a href="#aa8f51a313ccb628e58b51568219d0e5b"></a><br/></td></tr>
+<tr class="separator:aa8f51a313ccb628e58b51568219d0e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab64ac7f0373fe5636c7126d67432affd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#ab64ac7f0373fe5636c7126d67432affd">XSysMonPsv_SetOTMode</a> (XSysMonPsv *InstancePtr, u32 Mode)</td></tr>
+<tr class="memdesc:ab64ac7f0373fe5636c7126d67432affd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the alarm mode for OT alarm.  <a href="#ab64ac7f0373fe5636c7126d67432affd"></a><br/></td></tr>
+<tr class="separator:ab64ac7f0373fe5636c7126d67432affd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac931f4f5a2f878aff7e5fa181e59ec1"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#aac931f4f5a2f878aff7e5fa181e59ec1">XSysMonPsv_ReadAlarmConfig</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)</td></tr>
+<tr class="memdesc:aac931f4f5a2f878aff7e5fa181e59ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the current Supply Alarm Config.  <a href="#aac931f4f5a2f878aff7e5fa181e59ec1"></a><br/></td></tr>
+<tr class="separator:aac931f4f5a2f878aff7e5fa181e59ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8efd8eda79de2a197d32b0479452d172"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv_8c.html#a8efd8eda79de2a197d32b0479452d172">XSysMonPsv_SetAlarmConfig</a> (XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply, u32 Config)</td></tr>
+<tr class="memdesc:a8efd8eda79de2a197d32b0479452d172"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Alarm config for a supply.  <a href="#a8efd8eda79de2a197d32b0479452d172"></a><br/></td></tr>
+<tr class="separator:a8efd8eda79de2a197d32b0479452d172"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a23f2afefb37b472e032aa11325af369f"></a>
+<a class="anchor" id="a6aec1b9759a733a3efa72ccc9a872006"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">s32 XSysMonPsv_CfgInitialize </td>
+          <td class="memname">s64 XSysMonPsv_CfgInitialize </td>
           <td>(</td>
           <td class="paramtype">XSysMonPsv *&#160;</td>
           <td class="paramname"><em>InstancePtr</em>, </td>
@@ -153,7 +177,7 @@ Functions</h2></td></tr>
 <li>XST_SUCCESS if successful.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The user needs to first call the <a class="el" href="xsysmonpsv_8h.html#a00b971717cc516fac2e07b91bedfcd4b" title="This function looks for the device configuration based on the unique device ID.">XSysMonPsv_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="xsysmonpsv_8c.html#a23f2afefb37b472e032aa11325af369f" title="This function initializes XSysMonPsv device/instance.">XSysMonPsv_CfgInitialize()</a> API. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The user needs to first call the <a class="el" href="xsysmonpsv_8h.html#a00b971717cc516fac2e07b91bedfcd4b" title="This function looks for the device configuration based on the unique device ID.">XSysMonPsv_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="xsysmonpsv_8c.html#a6aec1b9759a733a3efa72ccc9a872006" title="This function initializes XSysMonPsv device/instance.">XSysMonPsv_CfgInitialize()</a> API. </dd></dl>
 
 <p>Referenced by <a class="el" href="xsysmonpsv__intr__example_8c.html#a08f29d1a3ede32c28ff1b454b3b68a28">SysMonPsvIntrExample()</a>, and <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>.</p>
 
@@ -233,6 +257,8 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#a87c8cb949820a8865031d158d1c011b7">XSYSMONPSV_ALARM_FLAG0</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+<p>Referenced by <a class="el" href="xsysmonpsv__intr_8c.html#abf5c920a63c23acb19508854a53449ec">XSysMonPsv_AlarmEventHandler()</a>.</p>
 
 </div>
 </div>
@@ -353,6 +379,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aac931f4f5a2f878aff7e5fa181e59ec1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSysMonPsv_ReadAlarmConfig </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XSysMonPsv_Supply&#160;</td>
+          <td class="paramname"><em>Supply</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function reads the current Supply Alarm Config. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">Supply</td><td>is the supply for which config is to be read.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XSYSMONPSV_ENABLE if enabled XSYSMONPSV_DISABLE if disbaled XSYSMONPSV_INVALID if invalid SupplyValue</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#a9113de15440d133d50790fe91a6d45c0">XSYSMONPSV_ALARM_REG0</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a73941bc6fe25213dade609e6225a73d7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -391,7 +456,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#af0370703ede011a34abca3fe003a9fd3">XSYSMONPSV_DEVICE_TEMP_MAX</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a1dc13e5fe83b2345990971199aa14de6">XSYSMONPSV_DEVICE_TEMP_MAX_MAX</a>, <a class="el" href="xsysmonpsv__hw_8h.html#ace21addbb92c3b2f249745f6fbfe6c02">XSYSMONPSV_DEVICE_TEMP_MIN</a>, <a class="el" href="xsysmonpsv__hw_8h.html#adfdafb6f5efb4bb8c41cc6f8a573bfc7">XSYSMONPSV_DEVICE_TEMP_MIN_MIN</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505acb23f67288c8437be6cb93270f826722">XSYSMONPSV_VAL_MAX</a>, <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505a1bfbb3f9141e8cceba6b562c4cfd7156">XSYSMONPSV_VAL_MIN</a>, <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505a6e437e7da0fd20cee019bda131c97b8a">XSYSMONPSV_VAL_VREF_MAX</a>, and <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505a57998cc0e9c0fd1158e979bc97b3e249">XSYSMONPSV_VAL_VREF_MIN</a>.</p>
 
-<p>Referenced by <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>.</p>
+<p>Referenced by <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>, and <a class="el" href="xsysmonpsv__intr_8c.html#abf5c920a63c23acb19508854a53449ec">XSysMonPsv_AlarmEventHandler()</a>.</p>
 
 </div>
 </div>
@@ -428,7 +493,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Device Temperature threshold in signed Q8.7 format.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>To get the value in Deg Celsius, use XSysMonPsv_FixedToFloat. </dd></dl>
 
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#aac05d015664e75023a8e6109b2cdc44a">XSYSMONPSV_DEVICE_TEMP_TH</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>.</p>
 
@@ -563,7 +628,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, <a class="el" href="xsysmonpsv__hw_8h.html#aea6632703187e0a828a7c4200132af8a">XSYSMONPSV_SUPPLY</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a8ff24a80c31d09b5acaee2cf50c4353e">XSYSMONPSV_SUPPLY_MAX</a>, <a class="el" href="xsysmonpsv__hw_8h.html#ac4132112779f5cf2f23760051bb9631b">XSYSMONPSV_SUPPLY_MIN</a>, <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505a56a91826917510fcc752511fdd4b52b8">XSYSMONPSV_VAL</a>, and <a class="el" href="xsysmonpsv_8h.html#aa1e85ec17384eefd9610c431f3fa2505a1bfbb3f9141e8cceba6b562c4cfd7156">XSYSMONPSV_VAL_MIN</a>.</p>
 
-<p>Referenced by <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>.</p>
+<p>Referenced by <a class="el" href="xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802">SysMonPsvPolledExample()</a>, and <a class="el" href="xsysmonpsv__intr_8c.html#abf5c920a63c23acb19508854a53449ec">XSysMonPsv_AlarmEventHandler()</a>.</p>
 
 </div>
 </div>
@@ -606,6 +671,183 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8efd8eda79de2a197d32b0479452d172"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSysMonPsv_SetAlarmConfig </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XSysMonPsv_Supply&#160;</td>
+          <td class="paramname"><em>Supply</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Config</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets Alarm config for a supply. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">Supply</td><td>is the supply for which config is to be set. </td></tr>
+    <tr><td class="paramname">Config</td><td>is the alarm config value. XSYSMONPSV_ENABLE to enable XSYSMONPSV_DISABLE to disable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful XSYSMONPSV_INVALID if invalid SupplyValue</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#a9113de15440d133d50790fe91a6d45c0">XSYSMONPSV_ALARM_REG0</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa35f84afc8e8e8905ebc046aacf33a2c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_SetDevTempThreshold </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XSysMonPsv_Threshold&#160;</td>
+          <td class="paramname"><em>ThresholdType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets Device Temperature Threshold values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">ThresholdType</td><td>is an enum which indicates the type of threshold. </td></tr>
+    <tr><td class="paramname">Value</td><td>is the raw ADC threshold value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>To get the raw ADC value, use XSysMonPsv_FloatToFixed. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#aac05d015664e75023a8e6109b2cdc44a">XSYSMONPSV_DEVICE_TEMP_TH</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab64ac7f0373fe5636c7126d67432affd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_SetOTMode </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the alarm mode for OT alarm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">Mode</td><td>sets the Hysteresis or Window mode. Mode = XSYSMONPSV_HYSTERESIS Hysteresis Mode Mode = XSYSMONPSV_WINDOW Window Mode</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#a35e24db1f28444d3b345dc871a709994">XSYSMONPSV_ALARM_CONFIG</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad88ab34f5b255e5e09fc81ce1c569996"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_SetOTTempThreshold </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XSysMonPsv_Threshold&#160;</td>
+          <td class="paramname"><em>ThresholdType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets OT Temperature Threshold values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">ThresholdType</td><td>is an enum which indicates the type of threshold. </td></tr>
+    <tr><td class="paramname">Value</td><td>is the raw ADC threshold value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>To get the raw ADC value, use XSysMonPsv_FloatToFixed. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#a500d95cba9f8ed4024ce1a243c7581dd">XSYSMONPSV_OT_TEMP_TH</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a639f4a61cb52833a215b341a42a0f968"></a>
 <div class="memitem">
 <div class="memproto">
@@ -642,6 +884,137 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xsysmonpsv__hw_8h.html#a5d71db49f452734e44cf43a6c5b123e8">XSYSMONPSV_CONFIG0</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a78e37e43c6d1606da22b65dc0e3d9973"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSysMonPsv_SetSupplyLowerThreshold </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XSysMonPsv_Supply&#160;</td>
+          <td class="paramname"><em>Supply</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the raw value for Lower Supply Threshold. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">Supply</td><td>is an enum which indicates the desired supply to be configured </td></tr>
+    <tr><td class="paramname">ThresholdType</td><td>is an enum which indicates the type of threshold</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XSYSMONPSV_INVALID if the Supply hasn't been configured XST_SUCCESS otherwise</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#aa118f452e9166fa0d8862b396311462f">XSYSMONPSV_SUPPLY_TH_LOWER</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9dca84e2abf699d1a1a0d76acb073045"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSysMonPsv_SetSupplyUpperThreshold </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XSysMonPsv_Supply&#160;</td>
+          <td class="paramname"><em>Supply</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the raw value for Upper Supply Threshold. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">Supply</td><td>is an enum which indicates the desired supply to be configured </td></tr>
+    <tr><td class="paramname">ThresholdType</td><td>is an enum which indicates the type of threshold</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XSYSMONPSV_INVALID if the Supply hasn't been configured XST_SUCCESS otherwise</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#a7ee33c6423739a515a684980176551e0">XSYSMONPSV_SUPPLY_TH_UPPER</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa8f51a313ccb628e58b51568219d0e5b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XSysMonPsv_SetTempMode </td>
+          <td>(</td>
+          <td class="paramtype">XSysMonPsv *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the alarm mode for Temperature alarms. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramname">Mode</td><td>sets the Hysteresis or Window mode. Mode = 1 Hysteresis Mode Mode = 0 Window Mode</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xsysmonpsv__hw_8h.html#a35e24db1f28444d3b345dc871a709994">XSYSMONPSV_ALARM_CONFIG</a>, <a class="el" href="xsysmonpsv__hw_8h.html#a041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>, and <a class="el" href="xsysmonpsv__hw_8h.html#a8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>.</p>
 
 </div>
 </div>

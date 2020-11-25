@@ -9,7 +9,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
+      [ "All", "globals.html", "globals_dup" ],
       [ "Functions", "globals_func.html", null ],
       [ "Variables", "globals_vars.html", null ],
       [ "Typedefs", "globals_type.html", null ],
@@ -32,7 +32,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xzdma__readonlymode__example_8c.html#a422668353271c6d61d0b749f6f7cd048"
+"xzdma__linkedlist__example_8c.html#a32bbf61a3a6cafc997ccb8f449ba8f4c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,6 +1,5 @@
 var xospipsv__hw_8h =
 [
-    [ "XOSPIPSV_BASEADDR", "xospipsv__hw_8h.html#ga4cafcaa913a74072968b00d24114ebde", null ],
     [ "XOSPIPSV_CONFIG_REG", "xospipsv__hw_8h.html#ga9c99065c7fc6263398815f5ad38c036b", null ],
     [ "XOSPIPSV_DEV_DELAY_REG", "xospipsv__hw_8h.html#gacb2e5eb9980cb8a699b455079785ba26", null ],
     [ "XOSPIPSV_DEV_INSTR_RD_CONFIG_REG", "xospipsv__hw_8h.html#ga0466ff50900fa461773b2c91f1b19e98", null ],

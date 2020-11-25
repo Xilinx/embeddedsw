@@ -72,15 +72,38 @@ $(document).ready(function(){initNavTree('xloader__secure_8h.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 ----- ---- -------- -------------------------------------------------------
-1.0   vns  04/23/19 First release
-      har  02/18/20 Added minor error codes for security
-</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  vns  04/23/19 First release
+1.01  vns  07/09/19 Added PPK and SPK integrity checks
+                    Updated chunk size for secure partition
+                    Added encryption + authentication support
+      vns  07/23/19 Added functions to load secure headers
+      vns  08/23/19 Added buffer cleaning on failure
+                    Added different key sources support
+1.02  vns  02/23/20 Added DPA CM enable/disable functionality
+      har  02/28/20 Added minor error codes for security
+      vns  03/01/20 Added PUF KEK decrypt support
+      ana  04/02/20 Added crypto engine KAT test function calls
+      bsv  04/07/20 Change CSUDMA name to PMCDMA
+      vns  04/13/20 Moved Aes instance to Secure structure
+1.03  ana  06/04/20 Removed XLOADER_ECDSA_INDEXVAL macro and
+                    updated u32 datatype to u8 datatype
+      tar  07/23/20 Fixed MISRA-C required violations
+      kpt  07/30/20 Added minor error codes for ENC only and macros
+                    related to IV
+      bsv  08/06/20 Added delay load support for secure cases
+      har  08/11/20 Added XLoader_AuthJtagMessage structure  and macros for
+                    Authenticated JTAG
+      td   08/19/20 Fixed MISRA C violations Rule 10.3
+      bsv  08/21/20 Included xil_util.h for XSECURE_TEMPORAL_CHECK macro
+      har  08/24/20 Added macros related to ECDSA P521 support
+      kal  09/14/20 Added new error code to XLoader_SecErrCodes
+      har  09/30/20 Deprecated Family Key support
+      bsv  10/19/20 Parallel DMA changes
+      kpt  10/19/2020 Code clean up
+      har  10/19/20 Replaced ECDSA in header files</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a562fb62c7e9ace28492aae97665b58af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a562fb62c7e9ace28492aae97665b58af">XLOADER_UPDATE_MIN_ERR</a>(Minor1, Minor2)&#160;&#160;&#160;((Minor1&lt;&lt;8U) | (Minor2))</td></tr>
-<tr class="memdesc:a562fb62c7e9ace28492aae97665b58af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro updates security related minor error codes for Xilloader.  <a href="#a562fb62c7e9ace28492aae97665b58af"></a><br/></td></tr>
-<tr class="separator:a562fb62c7e9ace28492aae97665b58af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56f1ee324996c3af7c3ac4c84482804e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a56f1ee324996c3af7c3ac4c84482804e">XLOADER_SECURE_HDR_SIZE</a>&#160;&#160;&#160;(48U)</td></tr>
 <tr class="memdesc:a56f1ee324996c3af7c3ac4c84482804e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure Header Size in Bytes.  <a href="#a56f1ee324996c3af7c3ac4c84482804e"></a><br/></td></tr>
 <tr class="separator:a56f1ee324996c3af7c3ac4c84482804e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,34 +155,56 @@ Enumerations</h2></td></tr>
 <br/>
 &#160;&#160;<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9">XLOADER_SEC_AES_KEK_DEC</a>, 
 <a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80">XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</a>, 
-<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884">XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</a>
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884">XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</a>, 
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6">XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d">XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</a>, 
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496">XLOADER_SEC_METAHDR_IV_ZERO_ERR</a>, 
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb">XLOADER_SEC_BLACK_IV_ZERO_ERR</a>, 
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63">XLOADER_SEC_IV_METAHDR_RANGE_ERROR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130">XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</a>, 
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea">XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</a>, 
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48">XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</a>, 
+<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b">XLOADER_SEC_MASKED_DB_MSB_ERROR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xloader__secure_8h.html#ae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115">XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</a>
 <br/>
  }</td></tr>
 <tr class="separator:ae8e595a7e8a42347e6c48aee19445f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:afbb837913598a7731fb042c5d3b3949a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#afbb837913598a7731fb042c5d3b3949a">XLoader_SecureInit</a> (XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr, u32 PrtnNum)</td></tr>
-<tr class="memdesc:afbb837913598a7731fb042c5d3b3949a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes XLoader_SecureParms's instance.  <a href="#afbb837913598a7731fb042c5d3b3949a"></a><br/></td></tr>
-<tr class="separator:afbb837913598a7731fb042c5d3b3949a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c0318eb55566d5db7ece7fa8d1aaccd"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a3c0318eb55566d5db7ece7fa8d1aaccd">XLoader_SecurePrtn</a> (XLoader_SecureParms *SecurePtr, u64 DstAddr, u32 Size, u8 Last)</td></tr>
-<tr class="memdesc:a3c0318eb55566d5db7ece7fa8d1aaccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs authentication, checksum and decryption of the partition.  <a href="#a3c0318eb55566d5db7ece7fa8d1aaccd"></a><br/></td></tr>
-<tr class="separator:a3c0318eb55566d5db7ece7fa8d1aaccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a781d42840e026dd859f97edfe6183d1e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a781d42840e026dd859f97edfe6183d1e">XLoader_SecureCopy</a> (XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)</td></tr>
-<tr class="memdesc:a781d42840e026dd859f97edfe6183d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function loads secure non-cdo partitions.  <a href="#a781d42840e026dd859f97edfe6183d1e"></a><br/></td></tr>
-<tr class="separator:a781d42840e026dd859f97edfe6183d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b10ea2912a55b2478297925b1cf79aa"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a1b10ea2912a55b2478297925b1cf79aa">XLoader_ImgHdrTblAuth</a> (XLoader_SecureParms *SecurePtr)</td></tr>
-<tr class="memdesc:a1b10ea2912a55b2478297925b1cf79aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates the image header table if authentication is enabled.  <a href="#a1b10ea2912a55b2478297925b1cf79aa"></a><br/></td></tr>
-<tr class="separator:a1b10ea2912a55b2478297925b1cf79aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5747479a59a0a57136277fbd7a7397ec"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a5747479a59a0a57136277fbd7a7397ec">XLoader_ReadAndVerifySecureHdrs</a> (XLoader_SecureParms *SecurePtr, XilPdi_MetaHdr *ImgHdrTbl)</td></tr>
-<tr class="memdesc:a5747479a59a0a57136277fbd7a7397ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates and/or decrypts the image headers and partition headers and copies the contents to corresponding structures.  <a href="#a5747479a59a0a57136277fbd7a7397ec"></a><br/></td></tr>
-<tr class="separator:a5747479a59a0a57136277fbd7a7397ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf7d1daf739d26c84c9e308f5656f1f6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#adf7d1daf739d26c84c9e308f5656f1f6">XLoader_SecureValidations</a> (XLoader_SecureParms *SecurePtr)</td></tr>
-<tr class="memdesc:adf7d1daf739d26c84c9e308f5656f1f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if authentication/encryption is compulsory.  <a href="#adf7d1daf739d26c84c9e308f5656f1f6"></a><br/></td></tr>
-<tr class="separator:adf7d1daf739d26c84c9e308f5656f1f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7096cfa8b13ed9ed85886baf61d4491b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a7096cfa8b13ed9ed85886baf61d4491b">XLoader_UpdateKekRdKeyStatus</a> (XilPdi *PdiPtr)</td></tr>
-<tr class="memdesc:a7096cfa8b13ed9ed85886baf61d4491b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates KEK red key availability status from boot header.  <a href="#a7096cfa8b13ed9ed85886baf61d4491b"></a><br/></td></tr>
-<tr class="separator:a7096cfa8b13ed9ed85886baf61d4491b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9410756c2dbe4b6bd6cdfce81a5bd7fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a9410756c2dbe4b6bd6cdfce81a5bd7fa">XLoader_SecureInit</a> (XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr, u32 PrtnNum)</td></tr>
+<tr class="memdesc:a9410756c2dbe4b6bd6cdfce81a5bd7fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes XLoader_SecureParams's instance.  <a href="#a9410756c2dbe4b6bd6cdfce81a5bd7fa"></a><br/></td></tr>
+<tr class="separator:a9410756c2dbe4b6bd6cdfce81a5bd7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fba46f5d65dcef04792356860bb86c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a9fba46f5d65dcef04792356860bb86c1">XLoader_ProcessSecurePrtn</a> (XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 BlockSize, u8 Last)</td></tr>
+<tr class="memdesc:a9fba46f5d65dcef04792356860bb86c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs authentication, checksum and decryption of the partition.  <a href="#a9fba46f5d65dcef04792356860bb86c1"></a><br/></td></tr>
+<tr class="separator:a9fba46f5d65dcef04792356860bb86c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d75e848694fe8d78a9e0f3d2e3ab35e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a6d75e848694fe8d78a9e0f3d2e3ab35e">XLoader_SecureCopy</a> (XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)</td></tr>
+<tr class="memdesc:a6d75e848694fe8d78a9e0f3d2e3ab35e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function loads secure non-cdo partitions.  <a href="#a6d75e848694fe8d78a9e0f3d2e3ab35e"></a><br/></td></tr>
+<tr class="separator:a6d75e848694fe8d78a9e0f3d2e3ab35e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf5df2c65d24bccc89f89708dd046fe"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a4cf5df2c65d24bccc89f89708dd046fe">XLoader_ImgHdrTblAuth</a> (XLoader_SecureParams *SecurePtr)</td></tr>
+<tr class="memdesc:a4cf5df2c65d24bccc89f89708dd046fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates the image header table.  <a href="#a4cf5df2c65d24bccc89f89708dd046fe"></a><br/></td></tr>
+<tr class="separator:a4cf5df2c65d24bccc89f89708dd046fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4b3b88f124856db12efa0ce4d6c81d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#ac4b3b88f124856db12efa0ce4d6c81d0">XLoader_ReadAndVerifySecureHdrs</a> (XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr *MetaHdr)</td></tr>
+<tr class="memdesc:ac4b3b88f124856db12efa0ce4d6c81d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates and/or decrypts the image headers and partition headers and copies the contents to the corresponding structures.  <a href="#ac4b3b88f124856db12efa0ce4d6c81d0"></a><br/></td></tr>
+<tr class="separator:ac4b3b88f124856db12efa0ce4d6c81d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d852b900fa863fa8719bba0e2699423"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a7d852b900fa863fa8719bba0e2699423">XLoader_SecureValidations</a> (const XLoader_SecureParams *SecurePtr)</td></tr>
+<tr class="memdesc:a7d852b900fa863fa8719bba0e2699423"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if authentication/encryption is compulsory.  <a href="#a7d852b900fa863fa8719bba0e2699423"></a><br/></td></tr>
+<tr class="separator:a7d852b900fa863fa8719bba0e2699423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f2f49ea5dfc64e0c168cceffb6fc50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#ab4f2f49ea5dfc64e0c168cceffb6fc50">XLoader_UpdateKekSrc</a> (XilPdi *PdiPtr)</td></tr>
+<tr class="memdesc:ab4f2f49ea5dfc64e0c168cceffb6fc50"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates KEK red key availability status from boot header.  <a href="#ab4f2f49ea5dfc64e0c168cceffb6fc50"></a><br/></td></tr>
+<tr class="separator:ab4f2f49ea5dfc64e0c168cceffb6fc50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55dddb87d5abd1ad7afa513ccef6b511"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a55dddb87d5abd1ad7afa513ccef6b511">XLoader_StartNextChunkCopy</a> (XLoader_SecureParams *SecurePtr, u32 TotalLen, u32 NextBlkAddr, u32 ChunkLen)</td></tr>
+<tr class="memdesc:a55dddb87d5abd1ad7afa513ccef6b511"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts next chunk copy when security is enabled.  <a href="#a55dddb87d5abd1ad7afa513ccef6b511"></a><br/></td></tr>
+<tr class="separator:a55dddb87d5abd1ad7afa513ccef6b511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434f49bc94a9078a86451ac5bde637cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a434f49bc94a9078a86451ac5bde637cc">XLoader_AddAuthJtagToScheduler</a> (void)</td></tr>
+<tr class="memdesc:a434f49bc94a9078a86451ac5bde637cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function adds periodic checks of the status of Auth JTAG interrupt status to the scheduler.  <a href="#a434f49bc94a9078a86451ac5bde637cc"></a><br/></td></tr>
+<tr class="separator:a434f49bc94a9078a86451ac5bde637cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa48f065b9034488270dce71f24532018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#aa48f065b9034488270dce71f24532018">XLoader_SecureClear</a> (void)</td></tr>
+<tr class="memdesc:aa48f065b9034488270dce71f24532018"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called to secure critical data in case of exceptions.  <a href="#aa48f065b9034488270dce71f24532018"></a><br/></td></tr>
+<tr class="separator:aa48f065b9034488270dce71f24532018"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="ad22d703d340b323fd3249d058e682feb"></a>
@@ -187,42 +232,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Secure Header Size in Bytes. </p>
-
-</div>
-</div>
-<a class="anchor" id="a562fb62c7e9ace28492aae97665b58af"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XLOADER_UPDATE_MIN_ERR</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Minor1, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Minor2&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;((Minor1&lt;&lt;8U) | (Minor2))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This macro updates security related minor error codes for Xilloader. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Minor1</td><td>To specify the cause of failure of security operation </td></tr>
-    <tr><td class="paramname">Minor2</td><td>Libraries / Drivers error code as defined in respective modules </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>If MSB of Minor1 is set then error in clearing of security buffer (16th bit) If bit next to MSB is set then security buffer was successfully cleared (15th bit) For eg: 0x02 : Incorrect authentication type selected 0x42 : Incorrect authentication type selected and buffer was successfully cleared 0x82 : Incorrect authentication type selected and error in clearing buffer </dd></dl>
 
 </div>
 </div>
@@ -353,165 +362,94 @@ Functions</h2></td></tr>
 <p>0x19 PUF regeneration error </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9"></a>XLOADER_SEC_AES_KEK_DEC</em>&nbsp;</td><td class="fielddoc">
-<p>0x20 AES KEK decryption </p>
+<p>0x1A AES KEK decryption </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80"></a>XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</em>&nbsp;</td><td class="fielddoc">
-<p>0x21 RSA ENC 0xbc value is not matched </p>
+<p>0x1B RSA ENC 0xbc value is not matched </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884"></a>XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</em>&nbsp;</td><td class="fielddoc">
-<p>0x22 RSA PSS verification hash is not matched </p>
+<p>0x1C RSA PSS verification hash is not matched </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6"></a>XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</em>&nbsp;</td><td class="fielddoc">
+<p>0x1D Keysrc should be efuse black key for enc only </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d"></a>XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</em>&nbsp;</td><td class="fielddoc">
+<p>0x1E PUFHD location should be from eFuse for enc only </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496"></a>XLOADER_SEC_METAHDR_IV_ZERO_ERR</em>&nbsp;</td><td class="fielddoc">
+<p>0x1F eFuse IV should be non-zero for enc only </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb"></a>XLOADER_SEC_BLACK_IV_ZERO_ERR</em>&nbsp;</td><td class="fielddoc">
+<p>0x20 eFuse IV should be non-zero for enc only </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63"></a>XLOADER_SEC_IV_METAHDR_RANGE_ERROR</em>&nbsp;</td><td class="fielddoc">
+<p>0x21 Metahdr IV Range not matched with eFuse IV </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130"></a>XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</em>&nbsp;</td><td class="fielddoc">
+<p>0x22 Metahdr DpaCm &amp; eFuse DpaCm values are not matched </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea"></a>XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</em>&nbsp;</td><td class="fielddoc">
+<p>0x23 Error during memset for XSecure_RsaSha3Array </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48"></a>XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</em>&nbsp;</td><td class="fielddoc">
+<p>0x24 Error during memset for Xsecure_Varsocm </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b"></a>XLOADER_SEC_MASKED_DB_MSB_ERROR</em>&nbsp;</td><td class="fielddoc">
+<p>0x25 Error in RSA EM MSB </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115"></a>XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</em>&nbsp;</td><td class="fielddoc">
+<p>0x26 Failed to verify DB check </p>
 </td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a1b10ea2912a55b2478297925b1cf79aa"></a>
+<a class="anchor" id="a434f49bc94a9078a86451ac5bde637cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLoader_AddAuthJtagToScheduler </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function adds periodic checks of the status of Auth JTAG interrupt status to the scheduler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS otherwise error code is returned </dd></dl>
+
+<p>Referenced by <a class="el" href="xloader_8c.html#acb10f2e97fecfb15aae4fed081b02502">XLoader_Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4cf5df2c65d24bccc89f89708dd046fe"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XLoader_ImgHdrTblAuth </td>
           <td>(</td>
-          <td class="paramtype">XLoader_SecureParms *&#160;</td>
+          <td class="paramtype">XLoader_SecureParams *&#160;</td>
           <td class="paramname"><em>SecurePtr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function authenticates the image header table if authentication is enabled. </p>
+<p>This function authenticates the image header table. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParms instance</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a24d3dedeae23e7abd1a34b3f9575dfb7">XLoader_ReadAndValidateHdrs()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5747479a59a0a57136277fbd7a7397ec"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XLoader_ReadAndVerifySecureHdrs </td>
-          <td>(</td>
-          <td class="paramtype">XLoader_SecureParms *&#160;</td>
-          <td class="paramname"><em>SecurePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XilPdi_MetaHdr *&#160;</td>
-          <td class="paramname"><em>MetaHdr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function authenticates and/or decrypts the image headers and partition headers and copies the contents to corresponding structures. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SecurePtr</td><td>Pointer to the XLoader_SecureParms instance. </td></tr>
-    <tr><td class="paramname">MetaHdr</td><td>Pointer to the Meta header table.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a24d3dedeae23e7abd1a34b3f9575dfb7">XLoader_ReadAndValidateHdrs()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a781d42840e026dd859f97edfe6183d1e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XLoader_SecureCopy </td>
-          <td>(</td>
-          <td class="paramtype">XLoader_SecureParms *&#160;</td>
-          <td class="paramname"><em>SecurePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u64&#160;</td>
-          <td class="paramname"><em>DestAddr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function loads secure non-cdo partitions. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParms instance. </td></tr>
-    <tr><td class="paramname">DestAddr</td><td>is load address of the partition </td></tr>
-    <tr><td class="paramname">Size</td><td>is unencrypted size of the partition.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
-
-<p>References <a class="el" href="xloader__secure_8c.html#a42a38682197b27b5eb6e61b5eba14aad">XLoader_SecurePrtn()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afbb837913598a7731fb042c5d3b3949a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XLoader_SecureInit </td>
-          <td>(</td>
-          <td class="paramtype">XLoader_SecureParms *&#160;</td>
-          <td class="paramname"><em>SecurePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XilPdi *&#160;</td>
-          <td class="paramname"><em>PdiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>PrtnNum</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function initializes XLoader_SecureParms's instance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParms instance. </td></tr>
-    <tr><td class="paramname">PdiPtr</td><td>is pointer to the XilPdi instance </td></tr>
-    <tr><td class="paramname">PrtnNum</td><td>is the partition number to be processed</td></tr>
+    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParams instance</td></tr>
   </table>
   </dd>
 </dl>
@@ -519,14 +457,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3c0318eb55566d5db7ece7fa8d1aaccd"></a>
+<a class="anchor" id="a9fba46f5d65dcef04792356860bb86c1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XLoader_SecurePrtn </td>
+          <td class="memname">int XLoader_ProcessSecurePrtn </td>
           <td>(</td>
-          <td class="paramtype">XLoader_SecureParms *&#160;</td>
+          <td class="paramtype">XLoader_SecureParams *&#160;</td>
           <td class="paramname"><em>SecurePtr</em>, </td>
         </tr>
         <tr>
@@ -558,7 +496,7 @@ Functions</h2></td></tr>
 <p>This function performs authentication, checksum and decryption of the partition. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParms instance </td></tr>
+    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParams instance </td></tr>
     <tr><td class="paramname">DestAddr</td><td>is the address to which data is copied </td></tr>
     <tr><td class="paramname">BlockSize</td><td>is size of the data block to be processed which doesn't include padding lengths and hash. </td></tr>
     <tr><td class="paramname">Last</td><td>notifies if the block to be processed is last or not</td></tr>
@@ -567,18 +505,170 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
 
-<p>Referenced by <a class="el" href="xloader__secure_8h.html#a781d42840e026dd859f97edfe6183d1e">XLoader_SecureCopy()</a>.</p>
+<p>References <a class="el" href="xloader__secure_8c.html#a55dddb87d5abd1ad7afa513ccef6b511">XLoader_StartNextChunkCopy()</a>.</p>
+
+<p>Referenced by <a class="el" href="xloader__secure_8h.html#a6d75e848694fe8d78a9e0f3d2e3ab35e">XLoader_SecureCopy()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="adf7d1daf739d26c84c9e308f5656f1f6"></a>
+<a class="anchor" id="ac4b3b88f124856db12efa0ce4d6c81d0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XLoader_SecureValidations </td>
+          <td class="memname">int XLoader_ReadAndVerifySecureHdrs </td>
           <td>(</td>
-          <td class="paramtype">XLoader_SecureParms *&#160;</td>
+          <td class="paramtype">XLoader_SecureParams *&#160;</td>
+          <td class="paramname"><em>SecurePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XilPdi_MetaHdr *&#160;</td>
+          <td class="paramname"><em>MetaHdr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function authenticates and/or decrypts the image headers and partition headers and copies the contents to the corresponding structures. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SecurePtr</td><td>Pointer to the XLoader_SecureParams instance. </td></tr>
+    <tr><td class="paramname">MetaHdr</td><td>Pointer to the Meta header table.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa48f065b9034488270dce71f24532018"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XLoader_SecureClear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is called to secure critical data in case of exceptions. </p>
+<p>The function also places AES, ECDSA_RSA and SHA3 in reset.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6d75e848694fe8d78a9e0f3d2e3ab35e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XLoader_SecureCopy </td>
+          <td>(</td>
+          <td class="paramtype">XLoader_SecureParams *&#160;</td>
+          <td class="paramname"><em>SecurePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u64&#160;</td>
+          <td class="paramname"><em>DestAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function loads secure non-cdo partitions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParams instance. </td></tr>
+    <tr><td class="paramname">DestAddr</td><td>is load address of the partition </td></tr>
+    <tr><td class="paramname">Size</td><td>is unencrypted size of the partition.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
+
+<p>References <a class="el" href="xloader__secure_8c.html#a9fba46f5d65dcef04792356860bb86c1">XLoader_ProcessSecurePrtn()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9410756c2dbe4b6bd6cdfce81a5bd7fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLoader_SecureInit </td>
+          <td>(</td>
+          <td class="paramtype">XLoader_SecureParams *&#160;</td>
+          <td class="paramname"><em>SecurePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XilPdi *&#160;</td>
+          <td class="paramname"><em>PdiPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>PrtnNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function initializes XLoader_SecureParams's instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParams instance. </td></tr>
+    <tr><td class="paramname">PdiPtr</td><td>is pointer to the XilPdi instance </td></tr>
+    <tr><td class="paramname">PrtnNum</td><td>is the partition number to be processed</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7d852b900fa863fa8719bba0e2699423"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLoader_SecureValidations </td>
+          <td>(</td>
+          <td class="paramtype">const XLoader_SecureParams *&#160;</td>
           <td class="paramname"><em>SecurePtr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -588,22 +678,72 @@ Functions</h2></td></tr>
 <p>This function checks if authentication/encryption is compulsory. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParms instance.</td></tr>
+    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParams instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success and error code on failure </dd></dl>
 
-<p>Referenced by <a class="el" href="xloader_8h.html#a24d3dedeae23e7abd1a34b3f9575dfb7">XLoader_ReadAndValidateHdrs()</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="a7096cfa8b13ed9ed85886baf61d4491b"></a>
+<a class="anchor" id="a55dddb87d5abd1ad7afa513ccef6b511"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XLoader_UpdateKekRdKeyStatus </td>
+          <td class="memname">u32 XLoader_StartNextChunkCopy </td>
+          <td>(</td>
+          <td class="paramtype">XLoader_SecureParams *&#160;</td>
+          <td class="paramname"><em>SecurePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>TotalLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>NextBlkAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>ChunkLen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function starts next chunk copy when security is enabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SecurePtr</td><td>is pointer to the XLoader_SecureParams instance. </td></tr>
+    <tr><td class="paramname">TotalLen</td><td>is total length of the partition. </td></tr>
+    <tr><td class="paramname">NextBlkAddr</td><td>is the address of the next chunk data to be copied. </td></tr>
+    <tr><td class="paramname">ChunkLen</td><td>is size of the data block to be copied.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLOADER_SUCCESS on success XLOADER_FAILURE on failure </dd></dl>
+
+<p>Referenced by <a class="el" href="xloader__secure_8h.html#a9fba46f5d65dcef04792356860bb86c1">XLoader_ProcessSecurePrtn()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab4f2f49ea5dfc64e0c168cceffb6fc50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XLoader_UpdateKekSrc </td>
           <td>(</td>
           <td class="paramtype">XilPdi *&#160;</td>
           <td class="paramname"><em>PdiPtr</em></td><td>)</td>
@@ -620,8 +760,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xloader_8h.html#a24d3dedeae23e7abd1a34b3f9575dfb7">XLoader_ReadAndValidateHdrs()</a>.</p>
 
 </div>
 </div>

@@ -72,7 +72,7 @@ $(document).ready(function(){initNavTree('xilskey__utils_8c.html','');});
 <p>MODIFICATION HISTORY:</p>
 <p>Ver Who Date Changes </p>
 <hr/>
-<p> 1.00a rpoolla 04/26/13 First release 2.00 hk 22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX. CR#768077 2.1 kvn 04/01/15 Fixed warnings. CR#716453. 3.00 vns 31/07/15 Added efuse functionality for Ultrascale. 4.0 vns 10/01/15 Modified conditional compilation to support ZynqMp platform also. Added new API Xsk_Ceil Modified Xilskey_CrcCalculation() API for providing support for efuse ZynqMp also. 6.0 vns 07/07/16 Modified XilSKey_Timer_Intialise API to initialize TimerTicks to 10us. As Hardware module only takes care of programming time(5us), through software we only need to control hardware module. Modified sysmon read to 16 bit resolution as sysmon driver has modified conversion formulae to 16 bit resolution. vns 07/18/16 Initialized sysmonpsu driver and added XilSKey_ZynqMP_EfusePs_ReadSysmonVol and XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions 6.6 vns 06/06/18 Added doxygen tags 6.7 arc 01/05/19 Fixed MISRA-C violations. vns 02/09/19 Fixed buffer overflow access in <a class="el" href="xilskey__utils_8c.html#a65f56a1dfb7f9691f8e5d917057e500d" title="Converts the string into the equivalent Hex buffer.">XilSKey_Efuse_ConvertStringToHexLE()</a> arc 25/02/19 Added asserts for pointer parameter for NULL verification Fixed Length parameter as length in bits for XilSKey_Efuse_ConvertStringToHexBE and added length validations arc 03/13/19 Added assert to validate lengths in <a class="el" href="xilskey__utils_8c.html#a82b698427d44bba130cd7c115384434f" title="Validate the key for proper characters &amp; proper length.">XilSKey_Efuse_ValidateKey()</a> arc 03/15/19 Modified initial default status value as XST_FAILURE 6.7 psl 03/21/19 Fixed MISRA-C violation. vns 03/23/19 Fixed CRC calculation for Ultra plus arc 04/04/19 Fixed CPP warnings. 6.8 psl 06/07/19 Added doxygen tags. psl 06/25/19 Fixed Coverity warnings. psl 06/28/19 Added doxygen tags. psl 07/29/19 Fixed MISRA-C violation. vns 08/29/19 Initialized Status variables mmd 07/31/19 Avoided reconfiguration of sysmon, if it is in use 6.9 kpt 02/16/20 Fixed coverity warnings 02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID vns 03/18/20 Fixed Armcc compilation errors </p>
+<p> 1.00a rpoolla 04/26/13 First release 2.00 hk 22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX. CR#768077 2.1 kvn 04/01/15 Fixed warnings. CR#716453. 3.00 vns 31/07/15 Added efuse functionality for Ultrascale. 4.0 vns 10/01/15 Modified conditional compilation to support ZynqMp platform also. Added new API Xsk_Ceil Modified Xilskey_CrcCalculation() API for providing support for efuse ZynqMp also. 6.0 vns 07/07/16 Modified XilSKey_Timer_Intialise API to initialize TimerTicks to 10us. As Hardware module only takes care of programming time(5us), through software we only need to control hardware module. Modified sysmon read to 16 bit resolution as sysmon driver has modified conversion formulae to 16 bit resolution. vns 07/18/16 Initialized sysmonpsu driver and added XilSKey_ZynqMP_EfusePs_ReadSysmonVol and XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions 6.6 vns 06/06/18 Added doxygen tags 6.7 arc 01/05/19 Fixed MISRA-C violations. vns 02/09/19 Fixed buffer overflow access in <a class="el" href="xilskey__utils_8c.html#a65f56a1dfb7f9691f8e5d917057e500d" title="Converts the string into the equivalent Hex buffer.">XilSKey_Efuse_ConvertStringToHexLE()</a> arc 25/02/19 Added asserts for pointer parameter for NULL verification Fixed Length parameter as length in bits for XilSKey_Efuse_ConvertStringToHexBE and added length validations arc 03/13/19 Added assert to validate lengths in <a class="el" href="xilskey__utils_8c.html#a82b698427d44bba130cd7c115384434f" title="Validate the key for proper characters &amp; proper length.">XilSKey_Efuse_ValidateKey()</a> arc 03/15/19 Modified initial default status value as XST_FAILURE 6.7 psl 03/21/19 Fixed MISRA-C violation. vns 03/23/19 Fixed CRC calculation for Ultra plus arc 04/04/19 Fixed CPP warnings. 6.8 psl 06/07/19 Added doxygen tags. psl 06/25/19 Fixed Coverity warnings. psl 06/28/19 Added doxygen tags. psl 07/29/19 Fixed MISRA-C violation. vns 08/29/19 Initialized Status variables mmd 07/31/19 Avoided reconfiguration of sysmon, if it is in use 6.9 kpt 02/16/20 Fixed coverity warnings 02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID vns 03/18/20 Fixed Armcc compilation errors 7.0 am 10/04/20 Resolved MISRA C violations</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -124,27 +124,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a2983af8944dad03a6326987278142199"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#a2983af8944dad03a6326987278142199">XilSKey_Timer_Intialise</a> (void)</td></tr>
 <tr class="memdesc:a2983af8944dad03a6326987278142199"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API initializes the Timer based on platform.  <a href="#a2983af8944dad03a6326987278142199"></a><br/></td></tr>
 <tr class="separator:a2983af8944dad03a6326987278142199"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93ffc4ad8029d08636f36f187aca7821"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#a93ffc4ad8029d08636f36f187aca7821">XilSKey_StrCpyRange</a> (u8 *Src, u8 *Dst, u32 From, u32 To)</td></tr>
-<tr class="memdesc:a93ffc4ad8029d08636f36f187aca7821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies one string to other from specified location.  <a href="#a93ffc4ad8029d08636f36f187aca7821"></a><br/></td></tr>
-<tr class="separator:a93ffc4ad8029d08636f36f187aca7821"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8cc36ec60e5fcc3d8918007474165878"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878">XilSKey_CrcCalculation</a> (u8 *Key)</td></tr>
-<tr class="memdesc:ga8cc36ec60e5fcc3d8918007474165878"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Calculates CRC value based on hexadecimal string passed.  <a href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878"></a><br/></td></tr>
-<tr class="separator:ga8cc36ec60e5fcc3d8918007474165878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e7785a12e355331700a9884840e46d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#aa3e7785a12e355331700a9884840e46d">XilSKey_StrCpyRange</a> (const u8 *Src, u8 *Dst, u32 From, u32 To)</td></tr>
+<tr class="memdesc:aa3e7785a12e355331700a9884840e46d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies one string to other from specified location.  <a href="#aa3e7785a12e355331700a9884840e46d"></a><br/></td></tr>
+<tr class="separator:aa3e7785a12e355331700a9884840e46d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf973666d5d2787e571a17f6c12d6cd29"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#gaf973666d5d2787e571a17f6c12d6cd29">XilSKey_CrcCalculation</a> (const u8 *Key)</td></tr>
+<tr class="memdesc:gaf973666d5d2787e571a17f6c12d6cd29"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Calculates CRC value based on hexadecimal string passed.  <a href="group__xilskey__cmn__crc.html#gaf973666d5d2787e571a17f6c12d6cd29"></a><br/></td></tr>
+<tr class="separator:gaf973666d5d2787e571a17f6c12d6cd29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7577067134914b99bca5e54b62bd4e6f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#a7577067134914b99bca5e54b62bd4e6f">XilSKey_Efuse_ReverseHex</a> (u32 Input)</td></tr>
 <tr class="memdesc:a7577067134914b99bca5e54b62bd4e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API reverse the value.  <a href="#a7577067134914b99bca5e54b62bd4e6f"></a><br/></td></tr>
 <tr class="separator:a7577067134914b99bca5e54b62bd4e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga02438c062fe2cacd064617d984b2f8a2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#ga02438c062fe2cacd064617d984b2f8a2">XilSkey_CrcCalculation_AesKey</a> (u8 *Key)</td></tr>
-<tr class="memdesc:ga02438c062fe2cacd064617d984b2f8a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC value of the provided key.  <a href="group__xilskey__cmn__crc.html#ga02438c062fe2cacd064617d984b2f8a2"></a><br/></td></tr>
-<tr class="separator:ga02438c062fe2cacd064617d984b2f8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3f5f2d317a8712474b339b1f79b5abb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#af3f5f2d317a8712474b339b1f79b5abb">XilSKey_GetSlrNum</a> (u32 MasterSlrNum, u32 ConfigOrderIndex, u32 *SlrNum)</td></tr>
-<tr class="memdesc:af3f5f2d317a8712474b339b1f79b5abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides correct SLR number to be accessed for corresponding config order index.  <a href="#af3f5f2d317a8712474b339b1f79b5abb"></a><br/></td></tr>
-<tr class="separator:af3f5f2d317a8712474b339b1f79b5abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0552daa4e1f376eaac1360aba6d23930"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilskey__cmn__crc.html#ga0552daa4e1f376eaac1360aba6d23930">XilSkey_CrcCalculation_AesKey</a> (const u8 *Key)</td></tr>
+<tr class="memdesc:ga0552daa4e1f376eaac1360aba6d23930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC value of the provided key.  <a href="group__xilskey__cmn__crc.html#ga0552daa4e1f376eaac1360aba6d23930"></a><br/></td></tr>
+<tr class="separator:ga0552daa4e1f376eaac1360aba6d23930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a3fc39199cdd376d4a000bf17fb195c88"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#a3fc39199cdd376d4a000bf17fb195c88">TimerTicksfor100ns</a></td></tr>
-<tr class="memdesc:a3fc39199cdd376d4a000bf17fb195c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Variable to store ticks/100ns.  <a href="#a3fc39199cdd376d4a000bf17fb195c88"></a><br/></td></tr>
-<tr class="separator:a3fc39199cdd376d4a000bf17fb195c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82232deb8afce5110fd62446f36c26b2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#a82232deb8afce5110fd62446f36c26b2">TimerTicksfor1000ns</a></td></tr>
 <tr class="memdesc:a82232deb8afce5110fd62446f36c26b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Variable for 10 micro secs for microblaze.  <a href="#a82232deb8afce5110fd62446f36c26b2"></a><br/></td></tr>
 <tr class="separator:a82232deb8afce5110fd62446f36c26b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,7 +189,7 @@ Variables</h2></td></tr>
 <p>Convert from LSB -&gt; MSB - Little Endian</p>
 <p>If len is not Byte aligned</p>
 
-<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga51f9159d6cdb68ad3c69c628212fdff3">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga3fe884c21385ce40eab0b646e53d0865">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#gabdeede282f5a1fe2e48d673be558a6e6">XilSKey_ZynqMp_EfusePs_WritePufHelprData()</a>.</p>
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga67de13526ea1502e25b09f80094f2246">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaf1587f5d17256fdbca55efa1cc0eeac0">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b392432af864665cf95a540ab576388">XilSKey_ZynqMp_EfusePs_WritePufHelprData()</a>.</p>
 
 </div>
 </div>
@@ -260,7 +254,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa14eb0608d56293234ccabb2175f25685">XSK_EFUSEPS_ERROR_PARAMETER_NULL</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa5a5231e00dec43e9a65815750d918240">XSK_EFUSEPS_ERROR_STRING_INVALID</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__bbram__example_8c.html#aa2a34496cba738813e2c992e8d15a260">XilSKey_Bbram_InitData()</a>, <a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878">XilSKey_CrcCalculation()</a>, and <a class="el" href="xilskey__efuse__example_8c.html#ae591d283de7547921dda96ed1630dae9">XilSKey_EfusePs_InitData()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__bbram__example_8c.html#aa2a34496cba738813e2c992e8d15a260">XilSKey_Bbram_InitData()</a>, <a class="el" href="group__xilskey__cmn__crc.html#gaf973666d5d2787e571a17f6c12d6cd29">XilSKey_CrcCalculation()</a>, and <a class="el" href="xilskey__efuse__example_8c.html#ae591d283de7547921dda96ed1630dae9">XilSKey_EfusePs_InitData()</a>.</p>
 
 </div>
 </div>
@@ -348,7 +342,7 @@ Variables</h2></td></tr>
 </pre></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#af50c6494e6b53a2b40fc15617880d8a8">Bbram_Init_Ultra()</a>, <a class="el" href="xilskey__utils_8c.html#a2a71bd701b24852c007d5ebad8acc257">XilSKey_Efuse_IsTimerExpired()</a>, and <a class="el" href="xilskey__utils_8c.html#ab2eaa24ca4b7d40aab0d75804d217616">XilSKey_Efuse_SetTimeOut()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__utils_8c.html#a2a71bd701b24852c007d5ebad8acc257">XilSKey_Efuse_IsTimerExpired()</a>, and <a class="el" href="xilskey__utils_8c.html#ab2eaa24ca4b7d40aab0d75804d217616">XilSKey_Efuse_SetTimeOut()</a>.</p>
 
 </div>
 </div>
@@ -379,7 +373,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="xilskey__utils_8c.html#a5432562161e850c2e780652305b230a7">XilSKey_Efuse_GetTime()</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#abae9797f8dabe8fe6089a60337059572">Bbram_Init()</a>, <a class="el" href="xilskey__jscmd_8c.html#af50c6494e6b53a2b40fc15617880d8a8">Bbram_Init_Ultra()</a>, <a class="el" href="xilskey__jscmd_8c.html#a8a1a649f81c76f0a81196ac2d6a411bc">JtagWrite()</a>, <a class="el" href="xilskey__jscmd_8c.html#ad71fe773dff0bd882d39c2936e319c63">JtagWrite_Ultrascale()</a>, and <a class="el" href="xilskey__epshw_8h.html#a2c6ad78fcde90b22766572624ce2f236">XilSKey_EfusePs_WriteEfuseBit()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#abae9797f8dabe8fe6089a60337059572">Bbram_Init()</a>, <a class="el" href="xilskey__jscmd_8c.html#a8a1a649f81c76f0a81196ac2d6a411bc">JtagWrite()</a>, <a class="el" href="xilskey__jscmd_8c.html#ad71fe773dff0bd882d39c2936e319c63">JtagWrite_Ultrascale()</a>, and <a class="el" href="xilskey__epshw_8h.html#a2c6ad78fcde90b22766572624ce2f236">XilSKey_EfusePs_WriteEfuseBit()</a>.</p>
 
 </div>
 </div>
@@ -474,7 +468,7 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 <p>us: time to wait in microseconds. Convert to clock ticks and add to current time.</p>
 
-<p>References <a class="el" href="xilskey__jscmd_8c.html#a3fc39199cdd376d4a000bf17fb195c88">TimerTicksfor100ns</a>, and <a class="el" href="xilskey__utils_8c.html#a5432562161e850c2e780652305b230a7">XilSKey_Efuse_GetTime()</a>.</p>
+<p>References <a class="el" href="xilskey__utils_8c.html#a5432562161e850c2e780652305b230a7">XilSKey_Efuse_GetTime()</a>.</p>
 
 <p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#abae9797f8dabe8fe6089a60337059572">Bbram_Init()</a>, <a class="el" href="xilskey__jscmd_8c.html#a8a1a649f81c76f0a81196ac2d6a411bc">JtagWrite()</a>, and <a class="el" href="xilskey__epshw_8h.html#a2c6ad78fcde90b22766572624ce2f236">XilSKey_EfusePs_WriteEfuseBit()</a>.</p>
 
@@ -506,7 +500,7 @@ Variables</h2></td></tr>
 </pre></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#af50c6494e6b53a2b40fc15617880d8a8">Bbram_Init_Ultra()</a>, <a class="el" href="xilskey__jscmd_8c.html#ad71fe773dff0bd882d39c2936e319c63">JtagWrite_Ultrascale()</a>, and <a class="el" href="group__xilskey__zynq__efuse.html#ga2d1b1773c0c6581bd74e179db3609f97">XilSKey_EfusePs_Write()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#ad71fe773dff0bd882d39c2936e319c63">JtagWrite_Ultrascale()</a>, and <a class="el" href="group__xilskey__zynq__efuse.html#ga2d1b1773c0c6581bd74e179db3609f97">XilSKey_EfusePs_Write()</a>.</p>
 
 </div>
 </div>
@@ -672,7 +666,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa8c89cd8b9e9c6d0779f6e5b5574aee70">XSK_EFUSEPS_ERROR_XADC_CONFIG</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aab30340b6600f1c3acf5453278ea1e179">XSK_EFUSEPS_ERROR_XADC_INITIALIZE</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aab4aee982f881935192dde3de2a9ca432">XSK_EFUSEPS_ERROR_XADC_SELF_TEST</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xilskey__zynq__efuse.html#ga96663504db788916d03c667fecb856ba">XilSKey_EfusePs_Read()</a>, and <a class="el" href="group__xilskey__zynq__efuse.html#ga2d1b1773c0c6581bd74e179db3609f97">XilSKey_EfusePs_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__xilskey__zynq__efuse.html#ga96663504db788916d03c667fecb856ba">XilSKey_EfusePs_Read()</a>, <a class="el" href="group__xilskey__zynq__efuse.html#ga2d1b1773c0c6581bd74e179db3609f97">XilSKey_EfusePs_Write()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#gabbf6b819a248562326af345bd43947c9">XilSKey_ZynqMp_EfusePs_Init()</a>.</p>
 
 </div>
 </div>
@@ -721,49 +715,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af3f5f2d317a8712474b339b1f79b5abb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XilSKey_GetSlrNum </td>
-          <td>(</td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>MasterSlrNum</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ConfigOrderIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32 *&#160;</td>
-          <td class="paramname"><em>SlrNum</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides correct SLR number to be accessed for corresponding config order index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ConfigOrderIndex</td><td>provide config order index of SLR </td></tr>
-    <tr><td class="paramname">SlrNum</td><td>Pointer to SLR number, where this API updates with corresponding SLR number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If master SLR of target device is SLR0 then both config order index and SLR number are same in order. If master SLR of target device is SLR1 then config order and SLR numbers are as below. SLR 1 = config order index 0 SLR 0 = config order index 1 SLR 2 = config order index 2 SLR 3 = config order index 3 Configuration order index is the order of SLRs starting from master followed by slaves. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a37c270a53d567eed209d11b83d16cca7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -806,18 +757,18 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Crc of current row.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878">XilSKey_CrcCalculation()</a>, and <a class="el" href="group__xilskey__cmn__crc.html#ga02438c062fe2cacd064617d984b2f8a2">XilSkey_CrcCalculation_AesKey()</a>.</p>
+<p>Referenced by <a class="el" href="group__xilskey__cmn__crc.html#gaf973666d5d2787e571a17f6c12d6cd29">XilSKey_CrcCalculation()</a>, and <a class="el" href="group__xilskey__cmn__crc.html#ga0552daa4e1f376eaac1360aba6d23930">XilSkey_CrcCalculation_AesKey()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a93ffc4ad8029d08636f36f187aca7821"></a>
+<a class="anchor" id="aa3e7785a12e355331700a9884840e46d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void XilSKey_StrCpyRange </td>
           <td>(</td>
-          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramtype">const u8 *&#160;</td>
           <td class="paramname"><em>Src</em>, </td>
         </tr>
         <tr>
@@ -859,7 +810,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878">XilSKey_CrcCalculation()</a>.</p>
+<p>Referenced by <a class="el" href="group__xilskey__cmn__crc.html#gaf973666d5d2787e571a17f6c12d6cd29">XilSKey_CrcCalculation()</a>.</p>
 
 </div>
 </div>
@@ -887,7 +838,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>RefClk will be returned.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xilskey__jscmd_8c.html#a82232deb8afce5110fd62446f36c26b2">TimerTicksfor1000ns</a>, and <a class="el" href="xilskey__jscmd_8c.html#a3fc39199cdd376d4a000bf17fb195c88">TimerTicksfor100ns</a>.</p>
+<p>References <a class="el" href="xilskey__jscmd_8c.html#a82232deb8afce5110fd62446f36c26b2">TimerTicksfor1000ns</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xilskey__zynq__efuse.html#ga96663504db788916d03c667fecb856ba">XilSKey_EfusePs_Read()</a>, and <a class="el" href="group__xilskey__zynq__efuse.html#ga2d1b1773c0c6581bd74e179db3609f97">XilSKey_EfusePs_Write()</a>.</p>
 
@@ -920,7 +871,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa96ee07ded33dd971b232c958d1f01404">XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa41ccfd591ae3757c9fb94a91128d27ad">XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga51f9159d6cdb68ad3c69c628212fdff3">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga3fe884c21385ce40eab0b646e53d0865">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#gabdeede282f5a1fe2e48d673be558a6e6">XilSKey_ZynqMp_EfusePs_WritePufHelprData()</a>.</p>
+<p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga67de13526ea1502e25b09f80094f2246">XilSKey_ZynqMp_EfusePs_WritePufAux()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#gaf1587f5d17256fdbca55efa1cc0eeac0">XilSKey_ZynqMp_EfusePs_WritePufChash()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b392432af864665cf95a540ab576388">XilSKey_ZynqMp_EfusePs_WritePufHelprData()</a>.</p>
 
 </div>
 </div>
@@ -938,22 +889,6 @@ Variables</h2></td></tr>
 <p>Global Variable for 10 micro secs for microblaze. </p>
 
 <p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#ad71fe773dff0bd882d39c2936e319c63">JtagWrite_Ultrascale()</a>, and <a class="el" href="xilskey__utils_8c.html#a2983af8944dad03a6326987278142199">XilSKey_Timer_Intialise()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3fc39199cdd376d4a000bf17fb195c88"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 TimerTicksfor100ns</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Global Variable to store ticks/100ns. </p>
-
-<p>Referenced by <a class="el" href="xilskey__utils_8c.html#ab2eaa24ca4b7d40aab0d75804d217616">XilSKey_Efuse_SetTimeOut()</a>, and <a class="el" href="xilskey__utils_8c.html#a2983af8944dad03a6326987278142199">XilSKey_Timer_Intialise()</a>.</p>
 
 </div>
 </div>

@@ -81,6 +81,7 @@ var xv__hdmirx1_8h =
       [ "XV_HDMIRX1_AUDFMT_UNKNOWN", "xv__hdmirx1_8h.html#a0cb25172092121e6869edaabb46d0d43a481f9736b6491be3a9a1e0a1c348ea50", null ],
       [ "XV_HDMIRX1_AUDFMT_LPCM", "xv__hdmirx1_8h.html#a0cb25172092121e6869edaabb46d0d43a88787b781568979cb53adc2846e578b1", null ],
       [ "XV_HDMIRX1_AUDFMT_HBR", "xv__hdmirx1_8h.html#a0cb25172092121e6869edaabb46d0d43a8189e0c72e558ff1524402e68fde96c3", null ],
+      [ "XV_HDMIRX1_AUDFMT_3D", "xv__hdmirx1_8h.html#a0cb25172092121e6869edaabb46d0d43aaf3fc039e824ae94c663640d0dfccf34", null ],
       [ "XV_HDMIRX1_EDID_SIZE_256B", "xv__hdmirx1_8h.html#a57e6477754dd3efaa2bf2401de7621fcacfa4004e6531d4bdd137645d3a3d48bc", null ],
       [ "XV_HDMIRX1_EDID_SIZE_512B", "xv__hdmirx1_8h.html#a57e6477754dd3efaa2bf2401de7621fca2e460501f4a42f24d8f8eac5a390c7e7", null ],
       [ "XV_HDMIRX1_EDID_SIZE_1024B", "xv__hdmirx1_8h.html#a57e6477754dd3efaa2bf2401de7621fca74dd3847ae949d62c7f1b46c571650e1", null ],

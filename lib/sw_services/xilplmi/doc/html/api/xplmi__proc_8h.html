@@ -74,55 +74,38 @@ $(document).ready(function(){initNavTree('xplmi__proc_8h.html','');});
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
 1.00  kc   02/07/2019 Initial release
-1.01  ma   02/03/2020 Change Performance measurement functions generic to be
-                      used for logging</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+      sn   07/04/2019 Added support for enabling GIC proxy for sysmon
+      kc   07/16/2019 Added PERF macro to print task times
+      kc   07/16/2019 Added logic to determine the IRO frequency
+      kc   08/01/2019 Added PLM and ROM boot times
+1.02  kc   02/10/2020 Updated scheduler to add/remove tasks
+      ma   02/28/2020 Added support for new error actions
+      kc   03/20/2020 Scheduler frequency is increased to 100ms for QEMU
+      bsv  04/04/2020 Code clean up
+      kc   04/23/2020 Added interrupt support for SEU event
+1.03  bm   10/14/2020 Code clean up
+                td   10/19/2020 MISRA C Fixes</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a9461d038928fe43ee9abd7e82f39a080"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>&#160;&#160;&#160;(0xFFFFFFFEU)</td></tr>
+<tr class="memitem:a9461d038928fe43ee9abd7e82f39a080"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>&#160;&#160;&#160;(0xFFFFFFFDU)</td></tr>
 <tr class="memdesc:a9461d038928fe43ee9abd7e82f39a080"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIT related macros.  <a href="#a9461d038928fe43ee9abd7e82f39a080"></a><br/></td></tr>
 <tr class="separator:a9461d038928fe43ee9abd7e82f39a080"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a0411cd49bb5b71852cecd93bcbf0ca2d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ , <br/>
-&#160;&#160;<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa0979d959305b8ec2bbf1791a5807b89">XPLMI_IOMODULE_PPU1_MB_RAM</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daee685399724b52bfc66a421cd755427a">XPLMI_IOMODULE_ERR_IRQ</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa12e5823e3a8665dbc2a0e3716c6fbd0">XPLMI_IOMODULE_RESERVED_19</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da08d600eafee49cf496894c38db8ce5ba">XPLMI_IOMODULE_CFRAME_SEU</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dad3c466a1e5a973c8847327acd437146a">XPLMI_IOMODULE_RESERVED_21</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da9d9cdf095aad21e011ea6dd283ed9a28">XPLMI_IOMODULE_PMC_GPI</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacddfd7e2466bda8b95f9341c27db38fa">XPLMI_IOMODULE_PL_IRQ</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da59fca19e0f85c6bbea64f8a7ae8e1e37">XPLMI_IOMODULE_SSIT_IRQ_2</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da95a0d46c5824467cb736728bb32cff1a">XPLMI_IOMODULE_SSIT_IRQ_1</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacd406facd0fe856fadc07c8922b6c4cf">XPLMI_IOMODULE_SSIT_IRQ_0</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da68b74b835ee0ee6b9bfc94a7f23447de">XPLMI_IOMODULE_PWRDN_REQ</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dad11edb4f3d1514785334a769dd19ab1c">XPLMI_IOMODULE_PWRUP_REQ</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dad8ad2a21ab4cfe168e89818e9490838b">XPLMI_IOMODULE_SRST_REQ</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3a9077ff1273edc59cfc577668f30460">XPLMI_IOMODULE_ISO_REQ</a>, 
-<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da4510e7e657bdcecffb70ebb357ec65c0">XPLMI_IOMODULE_WAKEUP_REQ</a>
-<br/>
+<tr class="memitem:a0411cd49bb5b71852cecd93bcbf0ca2d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ , <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daab6904b0db8a6221b3e80fa14f968ce7">XPLMI_IPI_IRQ</a>, 
+<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacc409464688ebd0a075ff43a53026022">XPLMI_SBI_DATA_RDY</a>, 
+<a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8c5c5018645ab34c394e93fd37f9a74f">XPLMI_MAX_EXT_INTR</a>
  }</td></tr>
 <tr class="separator:a0411cd49bb5b71852cecd93bcbf0ca2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abed82baf7f470b522273a3e37c24c600"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ , <a class="el" href="xplmi__proc_8h.html#abed82baf7f470b522273a3e37c24c600aab6904b0db8a6221b3e80fa14f968ce7">XPLMI_IPI_IRQ</a>, 
-<a class="el" href="xplmi__proc_8h.html#abed82baf7f470b522273a3e37c24c600acc409464688ebd0a075ff43a53026022">XPLMI_SBI_DATA_RDY</a>
- }</td></tr>
-<tr class="separator:abed82baf7f470b522273a3e37c24c600"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6a06f27ace14ec259567129b574d70ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a6a06f27ace14ec259567129b574d70ee">XPlmi_InitPitTimer</a> (u8 Timer, u32 ResetValue)</td></tr>
-<tr class="memdesc:a6a06f27ace14ec259567129b574d70ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">It initializes the Programmable Interval Timer.  <a href="#a6a06f27ace14ec259567129b574d70ee"></a><br/></td></tr>
-<tr class="separator:a6a06f27ace14ec259567129b574d70ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1faf13fb43ee71846b7ec8c5f22b986e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a1faf13fb43ee71846b7ec8c5f22b986e">XPlmi_StartTimer</a> (void)</td></tr>
-<tr class="memdesc:a1faf13fb43ee71846b7ec8c5f22b986e"><td class="mdescLeft">&#160;</td><td class="mdescRight">It initializes the IO module strutures and PIT timers.  <a href="#a1faf13fb43ee71846b7ec8c5f22b986e"></a><br/></td></tr>
+<tr class="memdesc:a1faf13fb43ee71846b7ec8c5f22b986e"><td class="mdescLeft">&#160;</td><td class="mdescRight">It initializes the IO module structures and PIT timers.  <a href="#a1faf13fb43ee71846b7ec8c5f22b986e"></a><br/></td></tr>
 <tr class="separator:a1faf13fb43ee71846b7ec8c5f22b986e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28492cdcffc2121602ae8bf7df733294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a28492cdcffc2121602ae8bf7df733294">XPlmi_IntrHandler</a> (void *CallbackRef)</td></tr>
-<tr class="memdesc:a28492cdcffc2121602ae8bf7df733294"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is default interrupt handler for the device.  <a href="#a28492cdcffc2121602ae8bf7df733294"></a><br/></td></tr>
-<tr class="separator:a28492cdcffc2121602ae8bf7df733294"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6434f3174d49ba6aac80cdac0f22f8df"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a6434f3174d49ba6aac80cdac0f22f8df">XPlmi_GetTimerValue</a> (void)</td></tr>
 <tr class="memdesc:a6434f3174d49ba6aac80cdac0f22f8df"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to read the 64 bit timer value.  <a href="#a6434f3174d49ba6aac80cdac0f22f8df"></a><br/></td></tr>
 <tr class="separator:a6434f3174d49ba6aac80cdac0f22f8df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,15 +118,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ae14df54ed318152d61bbb0edb8998dc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#ae14df54ed318152d61bbb0edb8998dc3">XPlmi_PlmIntrEnable</a> (u32 IntrId)</td></tr>
 <tr class="memdesc:ae14df54ed318152d61bbb0edb8998dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will enable the interrupt.  <a href="#ae14df54ed318152d61bbb0edb8998dc3"></a><br/></td></tr>
 <tr class="separator:ae14df54ed318152d61bbb0edb8998dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20682f3a61648dccc15b573906c4b7c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a20682f3a61648dccc15b573906c4b7c7">XPlmi_PlmIntrDisable</a> (u32 IntrId)</td></tr>
-<tr class="memdesc:a20682f3a61648dccc15b573906c4b7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will disable the interrupt.  <a href="#a20682f3a61648dccc15b573906c4b7c7"></a><br/></td></tr>
-<tr class="separator:a20682f3a61648dccc15b573906c4b7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11f4727eae1ebdc03c03a94a3a2a4ad8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a11f4727eae1ebdc03c03a94a3a2a4ad8">XPlmi_PlmIntrClear</a> (u32 IntrId)</td></tr>
-<tr class="memdesc:a11f4727eae1ebdc03c03a94a3a2a4ad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will clear the interrupt.  <a href="#a11f4727eae1ebdc03c03a94a3a2a4ad8"></a><br/></td></tr>
-<tr class="separator:a11f4727eae1ebdc03c03a94a3a2a4ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a723ae7be0f6a159909a532d0a90f11b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a723ae7be0f6a159909a532d0a90f11b1">XPlmi_RegisterHandler</a> (u32 IntrId, Function_t Handler, void *Data)</td></tr>
-<tr class="memdesc:a723ae7be0f6a159909a532d0a90f11b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will register the handler and enable the interrupt.  <a href="#a723ae7be0f6a159909a532d0a90f11b1"></a><br/></td></tr>
-<tr class="separator:a723ae7be0f6a159909a532d0a90f11b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b50989f370478d03d3dea18f7b8cd13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a9b50989f370478d03d3dea18f7b8cd13">XPlmi_PlmIntrDisable</a> (u32 IntrId)</td></tr>
+<tr class="memdesc:a9b50989f370478d03d3dea18f7b8cd13"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will disable the interrupt.  <a href="#a9b50989f370478d03d3dea18f7b8cd13"></a><br/></td></tr>
+<tr class="separator:a9b50989f370478d03d3dea18f7b8cd13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7afb3d630cbe8ab2e65abde74817eb55"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#a7afb3d630cbe8ab2e65abde74817eb55">XPlmi_PlmIntrClear</a> (u32 IntrId)</td></tr>
+<tr class="memdesc:a7afb3d630cbe8ab2e65abde74817eb55"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will clear the interrupt.  <a href="#a7afb3d630cbe8ab2e65abde74817eb55"></a><br/></td></tr>
+<tr class="separator:a7afb3d630cbe8ab2e65abde74817eb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4d39d395ef91b45f9cbdc1c1c03d289"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#ae4d39d395ef91b45f9cbdc1c1c03d289">XPlmi_RegisterHandler</a> (u32 IntrId, GicIntHandler_t Handler, void *Data)</td></tr>
+<tr class="memdesc:ae4d39d395ef91b45f9cbdc1c1c03d289"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will register the handler and enable the interrupt.  <a href="#ae4d39d395ef91b45f9cbdc1c1c03d289"></a><br/></td></tr>
+<tr class="separator:ae4d39d395ef91b45f9cbdc1c1c03d289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8b4f2b936edc4e2060961f9bbcb0ff3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__proc_8h.html#af8b4f2b936edc4e2060961f9bbcb0ff3">XPlmi_PrintRomTime</a> (void)</td></tr>
 <tr class="memdesc:af8b4f2b936edc4e2060961f9bbcb0ff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function prints the ROM time.  <a href="#af8b4f2b936edc4e2060961f9bbcb0ff3"></a><br/></td></tr>
 <tr class="separator:af8b4f2b936edc4e2060961f9bbcb0ff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,14 +143,14 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_PIT1_RESET_VALUE&#160;&#160;&#160;(0xFFFFFFFEU)</td>
+          <td class="memname">#define XPLMI_PIT1_RESET_VALUE&#160;&#160;&#160;(0xFFFFFFFDU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>PIT related macros. </p>
 
-<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a6434f3174d49ba6aac80cdac0f22f8df">XPlmi_GetTimerValue()</a>, <a class="el" href="xplmi__proc_8h.html#a161d819b7e4971a43da00b9c8d3ddc6a">XPlmi_PrintPlmTimeStamp()</a>, <a class="el" href="xplmi__proc_8h.html#af8b4f2b936edc4e2060961f9bbcb0ff3">XPlmi_PrintRomTime()</a>, <a class="el" href="xplmi__proc_8h.html#a1faf13fb43ee71846b7ec8c5f22b986e">XPlmi_StartTimer()</a>, and <a class="el" href="xplmi__event__logging_8c.html#a38ae02f65d2fb5eb9b5096d9606dc2a8">XPlmi_StoreTraceLog()</a>.</p>
+<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a1faf13fb43ee71846b7ec8c5f22b986e">XPlmi_StartTimer()</a>.</p>
 
 </div>
 </div>
@@ -182,70 +165,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2daa0979d959305b8ec2bbf1791a5807b89"></a>XPLMI_IOMODULE_PPU1_MB_RAM</em>&nbsp;</td><td class="fielddoc">
-<p>17U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2daee685399724b52bfc66a421cd755427a"></a>XPLMI_IOMODULE_ERR_IRQ</em>&nbsp;</td><td class="fielddoc">
-<p>18U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2daa12e5823e3a8665dbc2a0e3716c6fbd0"></a>XPLMI_IOMODULE_RESERVED_19</em>&nbsp;</td><td class="fielddoc">
-<p>19U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da08d600eafee49cf496894c38db8ce5ba"></a>XPLMI_IOMODULE_CFRAME_SEU</em>&nbsp;</td><td class="fielddoc">
-<p>20U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2dad3c466a1e5a973c8847327acd437146a"></a>XPLMI_IOMODULE_RESERVED_21</em>&nbsp;</td><td class="fielddoc">
-<p>21U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da9d9cdf095aad21e011ea6dd283ed9a28"></a>XPLMI_IOMODULE_PMC_GPI</em>&nbsp;</td><td class="fielddoc">
-<p>22U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2dacddfd7e2466bda8b95f9341c27db38fa"></a>XPLMI_IOMODULE_PL_IRQ</em>&nbsp;</td><td class="fielddoc">
-<p>23U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da59fca19e0f85c6bbea64f8a7ae8e1e37"></a>XPLMI_IOMODULE_SSIT_IRQ_2</em>&nbsp;</td><td class="fielddoc">
-<p>24U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da95a0d46c5824467cb736728bb32cff1a"></a>XPLMI_IOMODULE_SSIT_IRQ_1</em>&nbsp;</td><td class="fielddoc">
-<p>25U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2dacd406facd0fe856fadc07c8922b6c4cf"></a>XPLMI_IOMODULE_SSIT_IRQ_0</em>&nbsp;</td><td class="fielddoc">
-<p>26U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da68b74b835ee0ee6b9bfc94a7f23447de"></a>XPLMI_IOMODULE_PWRDN_REQ</em>&nbsp;</td><td class="fielddoc">
-<p>27U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2dad11edb4f3d1514785334a769dd19ab1c"></a>XPLMI_IOMODULE_PWRUP_REQ</em>&nbsp;</td><td class="fielddoc">
-<p>28U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2dad8ad2a21ab4cfe168e89818e9490838b"></a>XPLMI_IOMODULE_SRST_REQ</em>&nbsp;</td><td class="fielddoc">
-<p>29U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da3a9077ff1273edc59cfc577668f30460"></a>XPLMI_IOMODULE_ISO_REQ</em>&nbsp;</td><td class="fielddoc">
-<p>30U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da4510e7e657bdcecffb70ebb357ec65c0"></a>XPLMI_IOMODULE_WAKEUP_REQ</em>&nbsp;</td><td class="fielddoc">
-<p>31U </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a class="anchor" id="abed82baf7f470b522273a3e37c24c600"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">anonymous enum</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="abed82baf7f470b522273a3e37c24c600aab6904b0db8a6221b3e80fa14f968ce7"></a>XPLMI_IPI_IRQ</em>&nbsp;</td><td class="fielddoc">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2daab6904b0db8a6221b3e80fa14f968ce7"></a>XPLMI_IPI_IRQ</em>&nbsp;</td><td class="fielddoc">
 <p>1U </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="abed82baf7f470b522273a3e37c24c600acc409464688ebd0a075ff43a53026022"></a>XPLMI_SBI_DATA_RDY</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2dacc409464688ebd0a075ff43a53026022"></a>XPLMI_SBI_DATA_RDY</em>&nbsp;</td><td class="fielddoc">
 <p>2U </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da8c5c5018645ab34c394e93fd37f9a74f"></a>XPLMI_MAX_EXT_INTR</em>&nbsp;</td><td class="fielddoc">
+<p>3U </p>
 </td></tr>
 </table>
 
@@ -321,72 +248,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 64 bit timer value </dd></dl>
 
-<p>References <a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>.</p>
-
 <p>Referenced by <a class="el" href="xplmi__dma_8h.html#a1b0be0d5fccf58e120aa3d786fd0ddb3">XPlmi_DmaXfr()</a>, <a class="el" href="xplmi__proc_8h.html#a8073ed79bd5fcddf3ac6313fb0d905da">XPlmi_MeasurePerfTime()</a>, <a class="el" href="xplmi__cdo_8h.html#aaa4e2fe96baa321cd17c045bffb049b5">XPlmi_ProcessCdo()</a>, and <a class="el" href="xplmi__task_8h.html#ac417102cdb74ac7c522ce119729870ff">XPlmi_TaskDispatchLoop()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6a06f27ace14ec259567129b574d70ee"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XPlmi_InitPitTimer </td>
-          <td>(</td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Timer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ResetValue</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>It initializes the Programmable Interval Timer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">TimerNo</td><td>PIT Timer to be initialized </td></tr>
-    <tr><td class="paramname">ResetValue</td><td>is the reset value of timer when started.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>Referenced by <a class="el" href="xplmi__proc_8h.html#a1faf13fb43ee71846b7ec8c5f22b986e">XPlmi_StartTimer()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a28492cdcffc2121602ae8bf7df733294"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XPlmi_IntrHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallbackRef</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is default interrupt handler for the device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallbackRef</td><td>is presently the interrupt number that is received.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
 </div>
 </div>
@@ -426,16 +288,16 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="xplmi__proc_8c.html#a454ef32c6aaf1c0fd4c11e489baac635">XPlmi_GetPerfTime()</a>, and <a class="el" href="xplmi__proc_8c.html#a6434f3174d49ba6aac80cdac0f22f8df">XPlmi_GetTimerValue()</a>.</p>
 
-<p>Referenced by <a class="el" href="xplmi__dma_8h.html#a1b0be0d5fccf58e120aa3d786fd0ddb3">XPlmi_DmaXfr()</a>, <a class="el" href="xplmi__proc_8h.html#a161d819b7e4971a43da00b9c8d3ddc6a">XPlmi_PrintPlmTimeStamp()</a>, <a class="el" href="xplmi__cdo_8h.html#aaa4e2fe96baa321cd17c045bffb049b5">XPlmi_ProcessCdo()</a>, <a class="el" href="xplmi__event__logging_8c.html#a38ae02f65d2fb5eb9b5096d9606dc2a8">XPlmi_StoreTraceLog()</a>, and <a class="el" href="xplmi__task_8h.html#ac417102cdb74ac7c522ce119729870ff">XPlmi_TaskDispatchLoop()</a>.</p>
+<p>Referenced by <a class="el" href="xplmi__dma_8h.html#a1b0be0d5fccf58e120aa3d786fd0ddb3">XPlmi_DmaXfr()</a>, <a class="el" href="xplmi__proc_8h.html#a161d819b7e4971a43da00b9c8d3ddc6a">XPlmi_PrintPlmTimeStamp()</a>, <a class="el" href="xplmi__cdo_8h.html#aaa4e2fe96baa321cd17c045bffb049b5">XPlmi_ProcessCdo()</a>, and <a class="el" href="xplmi__task_8h.html#ac417102cdb74ac7c522ce119729870ff">XPlmi_TaskDispatchLoop()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a11f4727eae1ebdc03c03a94a3a2a4ad8"></a>
+<a class="anchor" id="a7afb3d630cbe8ab2e65abde74817eb55"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XPlmi_PlmIntrClear </td>
+          <td class="memname">int XPlmi_PlmIntrClear </td>
           <td>(</td>
           <td class="paramtype">u32&#160;</td>
           <td class="paramname"><em>IntrId</em></td><td>)</td>
@@ -451,18 +313,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__gic__interrupts_8c.html#a64f199ea60fffcc44880211105e5cd81">XPlmi_GicIntrClearStatus()</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da08d600eafee49cf496894c38db8ce5ba">XPLMI_IOMODULE_CFRAME_SEU</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0b195d84d0762413a8f6934844144aa4">XPLMI_ERR_INVALID_INTR_ID_CLEAR</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a60a1f46ac7e7acd9a552566c5902946b">XPLMI_ERR_IO_MOD_INTR_NUM_CLEAR</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#a64f199ea60fffcc44880211105e5cd81">XPlmi_GicIntrClearStatus()</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8c5c5018645ab34c394e93fd37f9a74f">XPLMI_MAX_EXT_INTR</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a20682f3a61648dccc15b573906c4b7c7"></a>
+<a class="anchor" id="a9b50989f370478d03d3dea18f7b8cd13"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XPlmi_PlmIntrDisable </td>
+          <td class="memname">int XPlmi_PlmIntrDisable </td>
           <td>(</td>
           <td class="paramtype">u32&#160;</td>
           <td class="paramname"><em>IntrId</em></td><td>)</td>
@@ -478,9 +340,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__gic__interrupts_8c.html#ac69c1e59c1ea696536895ba1dbdd9105">XPlmi_GicIntrDisable()</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da08d600eafee49cf496894c38db8ce5ba">XPLMI_IOMODULE_CFRAME_SEU</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a7274c4845b9e5c8ea38db7bf98dc1c27">XPLMI_ERR_INVALID_INTR_ID_DISABLE</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3acab391d80d94b13e4ed62111a7e45dbf">XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#ac69c1e59c1ea696536895ba1dbdd9105">XPlmi_GicIntrDisable()</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8c5c5018645ab34c394e93fd37f9a74f">XPLMI_MAX_EXT_INTR</a>.</p>
 
 </div>
 </div>
@@ -507,7 +369,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="xplmi__gic__interrupts_8c.html#add24b9974749089b0de6341979dffe91">XPlmi_GicIntrEnable()</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da08d600eafee49cf496894c38db8ce5ba">XPLMI_IOMODULE_CFRAME_SEU</a>.</p>
+<p>References <a class="el" href="xplmi__gic__interrupts_8c.html#add24b9974749089b0de6341979dffe91">XPlmi_GicIntrEnable()</a>.</p>
 
 </div>
 </div>
@@ -534,7 +396,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="xplmi__proc_8c.html#a8073ed79bd5fcddf3ac6313fb0d905da">XPlmi_MeasurePerfTime()</a>, and <a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>.</p>
+<p>References <a class="el" href="xplmi__proc_8c.html#a8073ed79bd5fcddf3ac6313fb0d905da">XPlmi_MeasurePerfTime()</a>.</p>
 
 </div>
 </div>
@@ -561,16 +423,16 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="xplmi__proc_8c.html#a454ef32c6aaf1c0fd4c11e489baac635">XPlmi_GetPerfTime()</a>, and <a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>.</p>
+<p>References <a class="el" href="xplmi__proc_8c.html#a454ef32c6aaf1c0fd4c11e489baac635">XPlmi_GetPerfTime()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a723ae7be0f6a159909a532d0a90f11b1"></a>
+<a class="anchor" id="ae4d39d395ef91b45f9cbdc1c1c03d289"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XPlmi_RegisterHandler </td>
+          <td class="memname">int XPlmi_RegisterHandler </td>
           <td>(</td>
           <td class="paramtype">u32&#160;</td>
           <td class="paramname"><em>IntrId</em>, </td>
@@ -578,7 +440,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Function_t&#160;</td>
+          <td class="paramtype">GicIntHandler_t&#160;</td>
           <td class="paramname"><em>Handler</em>, </td>
         </tr>
         <tr>
@@ -599,14 +461,14 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">IntrId</td><td>Interrupt ID as specified in the <a class="el" href="xplmi__proc_8h.html" title="This file contains declarations for PROC C file in PLM.">xplmi_proc.h</a> </td></tr>
-    <tr><td class="paramname">Handler</td><td>to the registered for the interrupt </td></tr>
+    <tr><td class="paramname">Handler</td><td>to be registered for the interrupt </td></tr>
     <tr><td class="paramname">Data</td><td>to be passed to handler</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__gic__interrupts_8c.html#aae98031b1083e26ed598e3cc76c1cf88">XPlmi_GicRegisterHandler()</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da08d600eafee49cf496894c38db8ce5ba">XPLMI_IOMODULE_CFRAME_SEU</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a3d21d1314d3f74046dbeff8d8e290d77">XPLMI_ERR_INVALID_INTR_ID_REGISTER</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0eb946db11e8d053cf0c881f932d5e61">XPLMI_ERR_IO_MOD_INTR_NUM_REGISTER</a>, <a class="el" href="xplmi__gic__interrupts_8c.html#a661badd195ab22817b5f04641c14e581">XPlmi_GicRegisterHandler()</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8c5c5018645ab34c394e93fd37f9a74f">XPLMI_MAX_EXT_INTR</a>.</p>
 
 </div>
 </div>
@@ -634,7 +496,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if handlers are registered properly </dd></dl>
 <p>Clear Break In Progress to get interrupts</p>
 
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a868076ab45c6a96de5be65fbdde41bf8">XPLMI_ERR_IOMOD_CONNECT</a>, <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daee685399724b52bfc66a421cd755427a">XPLMI_IOMODULE_ERR_IRQ</a>, <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da9d9cdf095aad21e011ea6dd283ed9a28">XPLMI_IOMODULE_PMC_GPI</a>, and <a class="el" href="xplmi__proc_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa0979d959305b8ec2bbf1791a5807b89">XPLMI_IOMODULE_PPU1_MB_RAM</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8">XPLMI_ERR_IOMOD_CONNECT</a>.</p>
 
 <p>Referenced by <a class="el" href="xplmi_8h.html#a0a5441022583a43e3fc046059c9e7469">XPlmi_Init()</a>.</p>
 
@@ -654,7 +516,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>It initializes the IO module strutures and PIT timers. </p>
+<p>It initializes the IO module structures and PIT timers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">None</td><td></td></tr>
@@ -663,7 +525,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a7274c600f366b41f46b600dc017e8fdb">XPLMI_ERR_IOMOD_INIT</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a205a1f9abcc195ccbe39887a08006f42">XPLMI_ERR_IOMOD_START</a>, <a class="el" href="xplmi__proc_8c.html#a6a06f27ace14ec259567129b574d70ee">XPlmi_InitPitTimer()</a>, <a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>, and <a class="el" href="xplmi__scheduler_8c.html#a1c3673d9325fc829a7cfc28956078468">XPlmi_SchedulerInit()</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb">XPLMI_ERR_IOMOD_INIT</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a205a1f9abcc195ccbe39887a08006f42">XPLMI_ERR_IOMOD_START</a>, <a class="el" href="xplmi__proc_8h.html#a9461d038928fe43ee9abd7e82f39a080">XPLMI_PIT1_RESET_VALUE</a>, and <a class="el" href="xplmi__scheduler_8c.html#a60b1ab6a37c63ae05e12619b0ec7f708">XPlmi_SchedulerInit()</a>.</p>
 
 </div>
 </div>

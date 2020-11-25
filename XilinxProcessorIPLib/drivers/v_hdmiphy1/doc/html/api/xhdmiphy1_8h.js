@@ -28,7 +28,6 @@ var xhdmiphy1_8h =
       [ "XHDMIPHY1_GT_STATE_RESET", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0adbd966511bbee7acb1ce508578605fb6", null ],
       [ "XHDMIPHY1_GT_STATE_ALIGN", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0a540efa0ad171c67927e0364e77bf0ab0", null ],
       [ "XHDMIPHY1_GT_STATE_READY", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0af0bd0b978b52982e2caf6a30afc3f57d", null ],
-      [ "XHDMIPHY1_GT_TYPE_GTHE3", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547aae21b79b0cfbdbc053f499466bc44b0b", null ],
       [ "XHDMIPHY1_GT_TYPE_GTHE4", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a5cbb4014f308cb04fbeebf989e359122", null ],
       [ "XHDMIPHY1_GT_TYPE_GTYE4", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a98faa3846183fa3e2f28a1aa414e6f1e", null ],
       [ "XHDMIPHY1_GT_TYPE_GTYE5", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a9cc9f15a988f4e9a2f610a91b0b788f3", null ]

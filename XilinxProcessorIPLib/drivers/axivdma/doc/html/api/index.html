@@ -81,11 +81,11 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>A caller can manually setup the configuration structure, or call XAxiVdma_LoopkupConfig().</p>
 <p>The sequence of initialization of the driver is:</p>
 <ol type="1">
-<li><a class="el" href="group__axivdma__v6__7.html#ga0188e06158c255eba62f52141cff5d84" title="Look up the hardware configuration for a device instance.">XAxiVdma_LookupConfig()</a> to get the configuration structure, or manually setup the structure.</li>
-<li><a class="el" href="group__axivdma__v6__7.html#ga7dff0c11a9aa88a19519734702904dca" title="Initialize the driver with hardware configuration.">XAxiVdma_CfgInitialize()</a> to initialize the driver &amp; device.</li>
-<li><a class="el" href="group__axivdma__v6__7.html#gaf331929e09bf1454dc2835b6ecc4ff30" title="Set the number of frame store buffers to use.">XAxiVdma_SetFrmStore()</a> to set the desired frame store number which is optional.</li>
+<li><a class="el" href="group__axivdma__v6__8.html#ga0188e06158c255eba62f52141cff5d84" title="Look up the hardware configuration for a device instance.">XAxiVdma_LookupConfig()</a> to get the configuration structure, or manually setup the structure.</li>
+<li><a class="el" href="group__axivdma__v6__8.html#ga7dff0c11a9aa88a19519734702904dca" title="Initialize the driver with hardware configuration.">XAxiVdma_CfgInitialize()</a> to initialize the driver &amp; device.</li>
+<li><a class="el" href="group__axivdma__v6__8.html#gaf331929e09bf1454dc2835b6ecc4ff30" title="Set the number of frame store buffers to use.">XAxiVdma_SetFrmStore()</a> to set the desired frame store number which is optional.</li>
 <li>If interrupt is desired:<ul>
-<li>Set frame counter using <a class="el" href="group__axivdma__v6__7.html#gaabe404c2a5c1483bc95be749c7540ba4" title="Set the frame counter and delay counter for both channels.">XAxiVdma_SetFrameCounter()</a></li>
+<li>Set frame counter using <a class="el" href="group__axivdma__v6__8.html#gaabe404c2a5c1483bc95be749c7540ba4" title="Set the frame counter and delay counter for both channels.">XAxiVdma_SetFrameCounter()</a></li>
 <li>Set call back functions for each channel. There are two types of call backfunctions: general and error</li>
 <li>Enable interrupts that the user cares about</li>
 </ul>
@@ -94,13 +94,13 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b>Start a DMA Transaction </b></p>
 <p>If you are using the driver API to start the transfer, then there are two ways to start a DMA transaction:</p>
 <ol type="1">
-<li>Invoke <a class="el" href="group__axivdma__v6__7.html#ga1dc126d885558e03cf06a4d9c05d5668" title="Start a write operation.">XAxiVdma_StartWriteFrame()</a> or <a class="el" href="group__axivdma__v6__7.html#gab2646b6aeea2ff64c4b42319ffb49804" title="Start a read operation.">XAxiVdma_StartReadFrame()</a> to start a DMA operation, depending on the purpose of the transfer (Read or Write).</li>
+<li>Invoke <a class="el" href="group__axivdma__v6__8.html#ga1dc126d885558e03cf06a4d9c05d5668" title="Start a write operation.">XAxiVdma_StartWriteFrame()</a> or <a class="el" href="group__axivdma__v6__8.html#gab2646b6aeea2ff64c4b42319ffb49804" title="Start a read operation.">XAxiVdma_StartReadFrame()</a> to start a DMA operation, depending on the purpose of the transfer (Read or Write).</li>
 </ol>
 <ol type="1">
 <li>Or, call the phased functions as the following:<ul>
-<li>Call <a class="el" href="group__axivdma__v6__7.html#ga3c50e96d431d9f1ee7d6200266c0dbd3" title="Configure one DMA channel using the configuration structure.">XAxiVdma_DmaConfig()</a> to set up a DMA operation configuration</li>
-<li>Call <a class="el" href="group__axivdma__v6__7.html#ga8fa5b3e7978fda9bde7498a9d4af3c73" title="Configure buffer addresses for one DMA channel.">XAxiVdma_DmaSetBufferAddr()</a> to set up the DMA buffers</li>
-<li>Call <a class="el" href="group__axivdma__v6__7.html#gadf310ae3bd4c0ae9ebf3e445a2fbe444" title="Start one DMA channel.">XAxiVdma_DmaStart()</a> to kick off the DMA operation</li>
+<li>Call <a class="el" href="group__axivdma__v6__8.html#ga3c50e96d431d9f1ee7d6200266c0dbd3" title="Configure one DMA channel using the configuration structure.">XAxiVdma_DmaConfig()</a> to set up a DMA operation configuration</li>
+<li>Call <a class="el" href="group__axivdma__v6__8.html#ga8fa5b3e7978fda9bde7498a9d4af3c73" title="Configure buffer addresses for one DMA channel.">XAxiVdma_DmaSetBufferAddr()</a> to set up the DMA buffers</li>
+<li>Call <a class="el" href="group__axivdma__v6__8.html#gadf310ae3bd4c0ae9ebf3e445a2fbe444" title="Start one DMA channel.">XAxiVdma_DmaStart()</a> to kick off the DMA operation</li>
 </ul>
 </li>
 </ol>
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>You can do other setup for the hardware.</li>
 <li>If you are done with all the setup, now write the tail of your BD ring to the XAXIVDMA_TDESC_OFFSET register to start the transfer.</li>
 </ul>
-<p>You can refer to <a class="el" href="group__axivdma__v6__7.html#ga3b9c24a02c4b4f99d40820a647de811d" title="Start a transfer.">XAxiVdma_ChannelStartTransfer()</a> to see how this order is preserved there. The function is in <a class="el" href="xaxivdma__channel_8c.html">xaxivdma_channel.c</a>.</p>
+<p>You can refer to <a class="el" href="group__axivdma__v6__8.html#ga3b9c24a02c4b4f99d40820a647de811d" title="Start a transfer.">XAxiVdma_ChannelStartTransfer()</a> to see how this order is preserved there. The function is in <a class="el" href="xaxivdma__channel_8c.html">xaxivdma_channel.c</a>.</p>
 <p>Note a Read VDMA could work with one out of multiple write VDMA instances and vice versa. The PointNum in structure <a class="el" href="struct_x_axi_vdma___dma_setup.html" title="The XAxiVdma_DmaSetup structure contains all the necessary information to start a frame write or read...">XAxiVdma_DmaSetup</a> decides which VDMA instance this VDMA is working with.</p>
 <p><b>Interrupt Handling </b></p>
 <p>Each VDMA channel supports 2 kinds of interrupts:</p>
@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>XAXIVDMA_TDESC_OFFSET register has 0</li>
 </ul>
 <p>If there is an active transfer going on when reset (or stop) is issued to the hardware, the current transfer will gracefully finish. For a maximum transfer length of (0x1FFF * 0xFFFF) bytes, on a 100 MHz system, it can take as long as 1.34 seconds, assuming that the system responds to DMA engine's requests quickly.</p>
-<p>To ensure that the hardware finishes the reset, please use <a class="el" href="group__axivdma__v6__7.html#ga3e01bd69f101126d5962f7078ee3e520" title="This function checks one DMA channel for reset completion.">XAxiVdma_ResetNotDone()</a> to check for completion of the reset.</p>
+<p>To ensure that the hardware finishes the reset, please use <a class="el" href="group__axivdma__v6__8.html#ga3e01bd69f101126d5962f7078ee3e520" title="This function checks one DMA channel for reset completion.">XAxiVdma_ResetNotDone()</a> to check for completion of the reset.</p>
 <p>To start a transfer after a reset, the following actions are the minimal requirement before setting RUN/STOP bit high to avoid crashing the system:</p>
 <ul>
 <li>XAXIVDMA_CDESC_OFFSET register has a valid BD pointer, it should be the head of the BD ring.</li>
@@ -147,7 +147,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>To start a transfer after a stop:</p>
 <ul>
 <li>If there are error bits in the status register, then a reset is necessary. Please refer to the <b>Reset</b> section for more details on how to start a transfer after a reset.</li>
-<li>If there are no error bits in the status register, then you can call <a class="el" href="group__axivdma__v6__7.html#gadf310ae3bd4c0ae9ebf3e445a2fbe444" title="Start one DMA channel.">XAxiVdma_DmaStart()</a> to start the transfer again. Note that the transfer always starts from the first video frame.</li>
+<li>If there are no error bits in the status register, then you can call <a class="el" href="group__axivdma__v6__8.html#gadf310ae3bd4c0ae9ebf3e445a2fbe444" title="Start one DMA channel.">XAxiVdma_DmaStart()</a> to start the transfer again. Note that the transfer always starts from the first video frame.</li>
 </ul>
 <p><b> Examples</b></p>
 <p>We provide one example on how to use the AXI VDMA with AXI Video IPs. This example does not work by itself. To make it work, you must have two other Video IPs to connect to the VDMA. One of the Video IP does the write and the other does the read.</p>
@@ -186,13 +186,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <li>XAxiVdma_ChannelConfig API is changed to support
                 modified Park Offset Register bits.</li>
 <li>Added APIs:
-                <a class="el" href="group__axivdma__v6__7.html#gaa3376589f8781eec1f0d619e1a0d3078" title="Configure Frame Sync Source and valid only when C_USE_FSYNC is enabled.">XAxiVdma_FsyncSrcSelect()</a>
-                <a class="el" href="group__axivdma__v6__7.html#gacf7ed6b0ef406b80e49ff25634f6d5f1" title="Configure Gen Lock Source.">XAxiVdma_GenLockSourceSelect()</a></li>
+                <a class="el" href="group__axivdma__v6__8.html#gaa3376589f8781eec1f0d619e1a0d3078" title="Configure Frame Sync Source and valid only when C_USE_FSYNC is enabled.">XAxiVdma_FsyncSrcSelect()</a>
+                <a class="el" href="group__axivdma__v6__8.html#gacf7ed6b0ef406b80e49ff25634f6d5f1" title="Configure Gen Lock Source.">XAxiVdma_GenLockSourceSelect()</a></li>
 <li>Modified structures <a class="el" href="struct_x_axi_vdma___config.html" title="This typedef contains the hardware configuration information for a VDMA device.">XAxiVdma_Config</a> and <a class="el" href="struct_x_axi_vdma.html" title="The XAxiVdma driver instance data.">XAxiVdma</a> to
                 include new parameters.
 4.01a srt  06/13/12 - Added APIs:
-                <a class="el" href="group__axivdma__v6__7.html#ga4d93d3dea2f117948c175371d983a0e1" title="Check for DMA Channel Errors.">XAxiVdma_GetDmaChannelErrors()</a>
-                <a class="el" href="group__axivdma__v6__7.html#gac01b1199d15a3a95cafb01f61dd1d0d3" title="Clear DMA Channel Errors.">XAxiVdma_ClearDmaChannelErrors()</a>
+                <a class="el" href="group__axivdma__v6__8.html#ga4d93d3dea2f117948c175371d983a0e1" title="Check for DMA Channel Errors.">XAxiVdma_GetDmaChannelErrors()</a>
+                <a class="el" href="group__axivdma__v6__8.html#gac01b1199d15a3a95cafb01f61dd1d0d3" title="Clear DMA Channel Errors.">XAxiVdma_ClearDmaChannelErrors()</a>
                 XAxiVdma_ClearChannelErrors()</li>
 <li>XAxiVdma_ChannelErrors API is changed to remove
                 Mismatch error logic.</li>

@@ -18,7 +18,8 @@ var NAVTREE =
     [ "Examples", "example.html", [
       [ "xospipsv_flash_polled_example.c", "example.html#ex1", null ],
       [ "xospipsv_flash_intr_example.c", "example.html#ex2", null ],
-      [ "xospipsv_flash_non_blocking_read_example.c", "example.html#ex3", null ]
+      [ "xospipsv_flash_non_blocking_read_example.c", "example.html#ex3", null ],
+      [ "xospipsv_flash_config.h", "example.html#ex4", null ]
     ] ]
   ] ]
 ];

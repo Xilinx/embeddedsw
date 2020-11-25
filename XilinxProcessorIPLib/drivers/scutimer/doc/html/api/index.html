@@ -72,7 +72,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <p><b> Initialization and Configuration </b></p>
 <p>The device driver enables higher layer software (e.g., an application) to communicate with the Timer.</p>
-<p><a class="el" href="group__scutimer__v2__2.html#ga59badd651be237aab4099cedd96621d2" title="Initialize a specific timer instance/driver.">XScuTimer_CfgInitialize()</a> API is used to initialize the Timer. The user needs to first call the <a class="el" href="group__scutimer__v2__2.html#ga1e7db0f5795151c2d6538dae1fd07a16" title="Lookup the device configuration based on the unique device ID.">XScuTimer_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__scutimer__v2__2.html#ga59badd651be237aab4099cedd96621d2" title="Initialize a specific timer instance/driver.">XScuTimer_CfgInitialize()</a> API.</p>
+<p><a class="el" href="group__scutimer__v2__3.html#ga59badd651be237aab4099cedd96621d2" title="Initialize a specific timer instance/driver.">XScuTimer_CfgInitialize()</a> API is used to initialize the Timer. The user needs to first call the <a class="el" href="group__scutimer__v2__3.html#ga1e7db0f5795151c2d6538dae1fd07a16" title="Lookup the device configuration based on the unique device ID.">XScuTimer_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__scutimer__v2__3.html#ga59badd651be237aab4099cedd96621d2" title="Initialize a specific timer instance/driver.">XScuTimer_CfgInitialize()</a> API.</p>
 <p><b> Interrupts </b></p>
 <p>The Timer hardware supports interrupts.</p>
 <p>This driver does not provide a Interrupt Service Routine (ISR) for the device. It is the responsibility of the application to provide one if needed. Refer to the interrupt example provided with this driver for details on using the Timer in interrupt mode.</p>
@@ -101,6 +101,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
       ms  03/17/17 Added readme.txt file in examples folder for doxygen
                    generation.
+2.3   mus 08/31/20 Updated makefile to support parallel make and
+                   incremental builds, it would help to reduce compilation
+                   time.
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

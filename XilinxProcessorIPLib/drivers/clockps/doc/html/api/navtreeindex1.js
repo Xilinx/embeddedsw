@@ -115,6 +115,6 @@ var NAVTREEINDEX1 =
 "xclockps__mux_8c.html":[2,7],
 "xclockps__pll_8c.html":[2,8],
 "xclockps__sinit_8c.html":[2,9],
-"xclockps__sinit_8c.html#ga143d2ae8c8728081cbf24ad5fe089111":[2,9,1],
-"xclockps__sinit_8c.html#gafb556a0f90b7f144d6c2735f38a12dc0":[2,9,0]
+"xclockps__sinit_8c.html#ga0bdb892df1c4e48be4ce1a4d2140468e":[2,9,0],
+"xclockps__sinit_8c.html#ga143d2ae8c8728081cbf24ad5fe089111":[2,9,1]
 };

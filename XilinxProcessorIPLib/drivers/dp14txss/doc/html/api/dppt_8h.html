@@ -161,9 +161,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a088ca823ba94627912b524b454504a22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dppt_8h.html#a088ca823ba94627912b524b454504a22">Vpg_Audio_stop</a> ()</td></tr>
 <tr class="memdesc:a088ca823ba94627912b524b454504a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stops audio pattern generator.  <a href="#a088ca823ba94627912b524b454504a22"></a><br/></td></tr>
 <tr class="separator:a088ca823ba94627912b524b454504a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a168c85710af4079bf2b90ddc7f764006"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dppt_8h.html#a168c85710af4079bf2b90ddc7f764006">remap_start</a> (struct dma_chan_parms *dma_struct)</td></tr>
-<tr class="memdesc:a168c85710af4079bf2b90ddc7f764006"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts remap IP.  <a href="#a168c85710af4079bf2b90ddc7f764006"></a><br/></td></tr>
-<tr class="separator:a168c85710af4079bf2b90ddc7f764006"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56361447f4b2f2b7e4c28bd94e142116"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dppt_8h.html#a56361447f4b2f2b7e4c28bd94e142116">resetIp</a> ()</td></tr>
 <tr class="memdesc:a56361447f4b2f2b7e4c28bd94e142116"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function toggles HW reset line for all IP's.  <a href="#a56361447f4b2f2b7e4c28bd94e142116"></a><br/></td></tr>
 <tr class="separator:a56361447f4b2f2b7e4c28bd94e142116"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -223,7 +220,7 @@ Functions</h2></td></tr>
 <p>This function detects incoming video and find out video parameters Based on the parameters, set up Tx and VDMA, then start Tx output. </p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__3.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__3.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__4.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
 
 </div>
 </div>
@@ -292,7 +289,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="group__dptxss__v6__3.html#ga84de784579ceabd123fdf1136dde0c7d">XDpTxSs_IsConnected()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="group__dptxss__v6__4.html#ga84de784579ceabd123fdf1136dde0c7d">XDpTxSs_IsConnected()</a>.</p>
 
 </div>
 </div>
@@ -314,7 +311,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="xdptxss__kcu105__dp14_8c.html#abf837d981cd312ee75c7a534bccca419">hpd_pulse_con_event</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="xdptxss__zcu102__tx_8h.html#a957770bf97085325697a6b292757c4b5">hpd_pulse_con_event</a>.</p>
 
 </div>
 </div>
@@ -359,7 +356,7 @@ Functions</h2></td></tr>
 <p>This function is sets up Interrupt system and start it. </p>
 <dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__dptxss__v6__3.html#ga829a4aa9071cbd2fd3903ccf98e4d02b">XDpTxSs_DpIntrHandler()</a>.</p>
+<p>References <a class="el" href="group__dptxss__v6__4.html#ga829a4aa9071cbd2fd3903ccf98e4d02b">XDpTxSs_DpIntrHandler()</a>.</p>
 
 </div>
 </div>
@@ -547,6 +544,8 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a40dd23eb6e5ea766a4f13761eebbd773"></a>
@@ -572,7 +571,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Use the XDpTxSs_SetCallback driver function to set this function as the handler for HPD event. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="dppt_8h.html#acbbbb90b2f7ea876d4b492c7ca63712c">update_edid()</a>, <a class="el" href="group__dptxss__v6__3.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__3.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="dppt_8h.html#acbbbb90b2f7ea876d4b492c7ca63712c">update_edid()</a>, <a class="el" href="group__dptxss__v6__4.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__4.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
 
 </div>
 </div>
@@ -599,7 +598,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Use the XDpTxSs_SetCallback driver function to set this function as the handler for HPD pulse. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__3.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__3.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__4.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
 
 </div>
 </div>
@@ -721,27 +720,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a168c85710af4079bf2b90ddc7f764006"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void remap_start </td>
-          <td>(</td>
-          <td class="paramtype">struct dma_chan_parms *&#160;</td>
-          <td class="paramname"><em>dma_struct</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function starts remap IP. </p>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xdptxss__kcu105__dp14_8c.html#a6cc3a1315e428f4ad868e802509f649b">remap_set()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a813500920ecee36360482a8078fcd5c5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -797,8 +775,6 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>.</p>
 
-<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#a447f6616df8f90d9d99ca9f8ff9d3f9d">DpPt_HpdEventHandler()</a>, <a class="el" href="xdptxss__vcu118__tx_8h.html#a7dadc9e5bc73c77fe35d1f21a6ee8184">hpd_pulse_con()</a>, <a class="el" href="xdptxss__kcu105__dp14_8c.html#a87878b159735f42a419a35fa296606da">start_tx()</a>, and <a class="el" href="xdptxss__kcu105__dp14_8c.html#adac5f2cdc61511609847ab58554d635a">switch_to_Tx_only()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a87878b159735f42a419a35fa296606da"></a>
@@ -852,9 +828,7 @@ Functions</h2></td></tr>
 <p>This is for Tx only mode This function will start outputing internal video patern image Setup GT, DP, patern and generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a592b9288cac79421f5aba71c924ad115">XDpTxSs_UsrOpt::NumOfStreams</a>, <a class="el" href="dppt_8h.html#a0f0a1dce20baa6103b48f0bf9fe44cde">sink_power_cycle()</a>, <a class="el" href="struct_x_dp_tx_ss.html#a1dccdffc912017829be08ef808b5923f">XDpTxSs::UsrOpt</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a212975289ac5ab6ddd4974c5d236c8f9">XDpTxSs_UsrOpt::VtcAdjustBs</a>, <a class="el" href="struct_x_dp_tx_ss.html#add09119ff74df49fec0c006814c86da9">XDpTxSs::VtcPtr</a>, <a class="el" href="group__dptxss__v6__3.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss__v6__3.html#ga8edde5017977263b22afd3abb4ad6a10">XDpTxSs_SetBpc()</a>, <a class="el" href="group__dptxss__v6__3.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, <a class="el" href="group__dptxss__v6__3.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>, <a class="el" href="group__dptxss__v6__3.html#gac94df5d299e1a088c159a2be61840680">XDpTxSs_SetVidMode()</a>, and <a class="el" href="xdptxss__vtc_8c.html#ab2e0f13f1f5cbd8904c67cc63f2df32d">XDpTxSs_VtcSetup()</a>.</p>
-
-<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#adac5f2cdc61511609847ab58554d635a">switch_to_Tx_only()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a592b9288cac79421f5aba71c924ad115">XDpTxSs_UsrOpt::NumOfStreams</a>, <a class="el" href="struct_x_dp_tx_ss.html#a1dccdffc912017829be08ef808b5923f">XDpTxSs::UsrOpt</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a212975289ac5ab6ddd4974c5d236c8f9">XDpTxSs_UsrOpt::VtcAdjustBs</a>, <a class="el" href="struct_x_dp_tx_ss.html#add09119ff74df49fec0c006814c86da9">XDpTxSs::VtcPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss__v6__4.html#ga8edde5017977263b22afd3abb4ad6a10">XDpTxSs_SetBpc()</a>, <a class="el" href="group__dptxss__v6__4.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, <a class="el" href="group__dptxss__v6__4.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>, <a class="el" href="group__dptxss__v6__4.html#gac94df5d299e1a088c159a2be61840680">XDpTxSs_SetVidMode()</a>, and <a class="el" href="xdptxss__vtc_8c.html#ab2e0f13f1f5cbd8904c67cc63f2df32d">XDpTxSs_VtcSetup()</a>.</p>
 
 </div>
 </div>
@@ -885,7 +859,7 @@ Functions</h2></td></tr>
 <p>This function will be used when no incoming video at pass-through mode If no video, switching to internal patern generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="dppt__vid__phy__config_8c.html#a677a29cae75ee8a62aba28151fbdd327">PHY_Configuration_Tx()</a>, <a class="el" href="dppt_8h.html#a0f0a1dce20baa6103b48f0bf9fe44cde">sink_power_cycle()</a>, <a class="el" href="dppt_8h.html#a87878b159735f42a419a35fa296606da">start_tx()</a>, <a class="el" href="group__dptxss__v6__3.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__3.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__4.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
 
 </div>
 </div>
@@ -967,7 +941,7 @@ Functions</h2></td></tr>
 <p>Application needs to know if it changed and need to detect new parameter. Based on the parameter, re-set and re-start VDAM and Tx</p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="group__dptxss__v6__3.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="group__dptxss__v6__4.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
 
 </div>
 </div>
@@ -1009,6 +983,8 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
+<p>References <a class="el" href="group___video_f_m_c.html#gaf00f400af9574a116f5d50997152cfba">I2C_IDT8N49_ADDR</a>, <a class="el" href="group___video_f_m_c.html#ga57222e901113b502f13494add3c4de91">I2C_LMK03318_ADDR</a>, <a class="el" href="group___video_f_m_c.html#ga9e3c02ccaf71eeda39e2524f2fb02a41">I2C_MUX_ADDR</a>, <a class="el" href="group___video_f_m_c.html#ga183b83e0a3cd48b9fcafcbced07db03c">I2C_VFMCEXP_0_ADDR</a>, <a class="el" href="group___video_f_m_c.html#ga3533962d24b154c228d21d6fb051451d">I2C_VFMCEXP_1_ADDR</a>, <a class="el" href="group___i_d_t__8_t49_n24x.html#ga8682f371519c86ef2e8880298dd12e54">IDT_8T49N24x_Init()</a>, and <a class="el" href="group___t_i___l_m_k03318.html#gad23a875ad2640e133b3c60b9b2614854">TI_LMK03318_PowerDown()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a306e207aa67909d2660b4d99c74d6518"></a>
@@ -1029,6 +1005,8 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
+<p>References <a class="el" href="xdptxss__zcu102__tx_8h.html#a306e207aa67909d2660b4d99c74d6518">Vpg_Audio_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a088ca823ba94627912b524b454504a22"></a>
@@ -1048,6 +1026,8 @@ Functions</h2></td></tr>
 <p>This function stops audio pattern generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xdptxss__zcu102__tx_8h.html#a7a23d7ce2380ce84a5b92fbeb9c1c565">Vpg_Audio_stop()</a>.</p>
 
 </div>
 </div>

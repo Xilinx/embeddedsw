@@ -81,11 +81,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae1275a9698afaa2a133781b0443b50d3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__apis.html#gae1275a9698afaa2a133781b0443b50d3">BbramWriteAesKey</a> (void)</td></tr>
-<tr class="memdesc:gae1275a9698afaa2a133781b0443b50d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">BbramWriteAesKey function writes AES key defined by macro XNVM_BBRAM_AES_KEY in BBRAM.  <a href="#gae1275a9698afaa2a133781b0443b50d3"></a><br/></td></tr>
-<tr class="separator:gae1275a9698afaa2a133781b0443b50d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__apis.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Bbram AES key Write example function.  <a href="#ga840291bc02cba5474a4cb46a9b9566fe"></a><br/></td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Bbram AES key write example function.  <a href="#ga840291bc02cba5474a4cb46a9b9566fe"></a><br/></td></tr>
 <tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -101,8 +98,6 @@ Functions</h2></td></tr>
 
 <p>AES key length in Bits. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__apis.html#gae1275a9698afaa2a133781b0443b50d3">BbramWriteAesKey()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ga063185be808d423aa306a8ab64e793e5"></a>
@@ -116,8 +111,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>AES key length in Bytes. </p>
-
-<p>Referenced by <a class="el" href="group__xnvm__apis.html#gae1275a9698afaa2a133781b0443b50d3">BbramWriteAesKey()</a>.</p>
 
 </div>
 </div>
@@ -136,34 +129,6 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gae1275a9698afaa2a133781b0443b50d3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 BbramWriteAesKey </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>BbramWriteAesKey function writes AES key defined by macro XNVM_BBRAM_AES_KEY in BBRAM. </p>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the Aes decryption was successful</li>
-<li>XST_FAILURE if the Aes decryption failed</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.//! [XNvm BBRAM example] </dd></dl>
-
-<p>References <a class="el" href="group__xnvm__apis.html#ga1549af470b2278bd56555178fa8622b5">XNVM_BBRAM_AES_KEY_LEN_IN_BITS</a>, <a class="el" href="group__xnvm__apis.html#ga063185be808d423aa306a8ab64e793e5">XNVM_BBRAM_AES_KEY_LEN_IN_BYTES</a>, <a class="el" href="xnvm__bbram_8c.html#a22e8cbe7f33a28cd5b28acc317f01f44">XNvm_BbramWriteAesKey()</a>, and <a class="el" href="xnvm__utils_8c.html#affc42d0069f571dd36ba01f26b74b30b">XNvm_ValidateAesKey()</a>.</p>
-
-<p>Referenced by <a class="el" href="group__xnvm__apis.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ga840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +143,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the Bbram AES key Write example function. </p>
+<p>Main function to call the Bbram AES key write example function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">None</td><td></td></tr>
@@ -186,12 +151,10 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_FAILURE if the Test Failed .</li>
+<li>XST_FAILURE if the BBRAM programming failed.</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="group__xnvm__apis.html#gae1275a9698afaa2a133781b0443b50d3">BbramWriteAesKey()</a>.</p>
 
 </div>
 </div>

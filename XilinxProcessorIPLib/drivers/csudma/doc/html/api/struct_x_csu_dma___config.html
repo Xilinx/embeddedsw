@@ -83,10 +83,10 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:acc07f2d1d1829d10fd8434e005e4ae1f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">            DeviceId is the unique ID of the
 </pre><p> device  <a href="#acc07f2d1d1829d10fd8434e005e4ae1f"></a><br/></td></tr>
 <tr class="separator:acc07f2d1d1829d10fd8434e005e4ae1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ae2bdbc7b887da084a72d1447332a90"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csu_dma___config.html#a5ae2bdbc7b887da084a72d1447332a90">BaseAddress</a></td></tr>
-<tr class="memdesc:a5ae2bdbc7b887da084a72d1447332a90"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">    BaseAddress is the physical base address
-</pre><p> of the device's registers  <a href="#a5ae2bdbc7b887da084a72d1447332a90"></a><br/></td></tr>
-<tr class="separator:a5ae2bdbc7b887da084a72d1447332a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85e9f7798c5aa5ad4fbc9a8d0ba62990"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">BaseAddress</a></td></tr>
+<tr class="memdesc:a85e9f7798c5aa5ad4fbc9a8d0ba62990"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">    BaseAddress is the physical base address
+</pre><p> of the device's registers  <a href="#a85e9f7798c5aa5ad4fbc9a8d0ba62990"></a><br/></td></tr>
+<tr class="separator:a85e9f7798c5aa5ad4fbc9a8d0ba62990"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bb59cb926fea92ce59604ca3423e505"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csu_dma___config.html#a8bb59cb926fea92ce59604ca3423e505">DmaType</a></td></tr>
 <tr class="memdesc:a8bb59cb926fea92ce59604ca3423e505"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">              DMA type
 </pre><p> 0 &ndash; CSUDMA 1 &ndash; PMC DMA 0 2 &ndash; PMC DMA 1  <a href="#a8bb59cb926fea92ce59604ca3423e505"></a><br/></td></tr>
@@ -96,12 +96,12 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>This typedef contains configuration information for a CSU_DMA core. </p>
 <p>Each CSU_DMA core should have a configuration structure associated. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a5ae2bdbc7b887da084a72d1447332a90"></a>
+<a class="anchor" id="a85e9f7798c5aa5ad4fbc9a8d0ba62990"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XCsuDma_Config::BaseAddress</td>
+          <td class="memname">UINTPTR XCsuDma_Config::BaseAddress</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -109,7 +109,7 @@ Data Fields</h2></td></tr>
 <p><pre class="fragment">    BaseAddress is the physical base address
 </pre><p> of the device's registers </p>
 
-<p>Referenced by <a class="el" href="group__csudma__v1__6.html#ga83a1043112b6067b1901d2bdcb29563d">XCsuDma_64BitTransfer()</a>, <a class="el" href="group__csudma__v1__6.html#ga64394cb7de1a6bc3e31fca2f4a5e59bb">XCsuDma_CfgInitialize()</a>, <a class="el" href="group__csudma__v1__6.html#ga78bdd79674e2b5c92b9701cacfde1fe1">XCsuDma_ClearCheckSum()</a>, <a class="el" href="group__csudma__v1__6.html#gadf3599e4d07ef05586a217ebbbd02999">XCsuDma_DisableIntr()</a>, <a class="el" href="group__csudma__v1__6.html#gad892a65e65ac14f48f7d7f53020511cf">XCsuDma_EnableIntr()</a>, <a class="el" href="group__csudma__v1__6.html#ga25049be545d8ec6eae2426b6248a8e4f">XCsuDma_GetAddr()</a>, <a class="el" href="group__csudma__v1__6.html#ga17f1a7ba935f4bf3626050e0b0e0142b">XCsuDma_GetCheckSum()</a>, <a class="el" href="group__csudma__v1__6.html#gaab0b66bca3f38d26d38ff47544fa6b11">XCsuDma_GetConfig()</a>, <a class="el" href="group__csudma__v1__6.html#ga6ed420e8bfd9ab489a2d2c3e984ca7a2">XCsuDma_GetIntrMask()</a>, <a class="el" href="group__csudma__v1__6.html#gad5fd579fb9c166e59ee1f9d3b39250c7">XCsuDma_GetSize()</a>, <a class="el" href="group__csudma__v1__6.html#ga1db5eabd96920efb06fb03c919420601">XCsuDma_IntrClear()</a>, <a class="el" href="group__csudma__v1__6.html#ga6169fa380a4d55e41d7ab96589372e8f">XCsuDma_IntrGetStatus()</a>, <a class="el" href="group__csudma__v1__6.html#gaa3450f812658f927f289b997b12a4174">XCsuDma_IsPaused()</a>, <a class="el" href="group__csudma__v1__6.html#ga00b5080126710866186d0bfafd26e9b6">XCsuDma_Pause()</a>, <a class="el" href="group__csudma__v1__6.html#gaeee3f2d5bcf265b57c9f214f2bc15a28">XCsuDma_Resume()</a>, <a class="el" href="group__csudma__v1__6.html#ga774ab551d0ef59fd880ff834f2d83804">XCsuDma_SelfTest()</a>, <a class="el" href="xcsudma__selftest__example_8c.html#a82ba0686cfea1568bb5a181810625de1">XCsuDma_SelfTestExample()</a>, <a class="el" href="group__csudma__v1__6.html#gac9b6265e467b03cc903cd66781e95e63">XCsuDma_SetConfig()</a>, <a class="el" href="group__csudma__v1__6.html#gace70d2b6c66ded008944dfd456c1bf5c">XCsuDma_Transfer()</a>, and <a class="el" href="group__csudma__v1__6.html#ga73867b4acb189982642e4c1ae4f92fb9">XCsuDma_WaitForDoneTimeout()</a>.</p>
+<p>Referenced by <a class="el" href="group__csudma__v1__7.html#ga83a1043112b6067b1901d2bdcb29563d">XCsuDma_64BitTransfer()</a>, <a class="el" href="group__csudma__v1__7.html#gad0f7217bd295de82623179efb34adb96">XCsuDma_CfgInitialize()</a>, <a class="el" href="group__csudma__v1__7.html#ga78bdd79674e2b5c92b9701cacfde1fe1">XCsuDma_ClearCheckSum()</a>, <a class="el" href="group__csudma__v1__7.html#gadf3599e4d07ef05586a217ebbbd02999">XCsuDma_DisableIntr()</a>, <a class="el" href="group__csudma__v1__7.html#gad892a65e65ac14f48f7d7f53020511cf">XCsuDma_EnableIntr()</a>, <a class="el" href="group__csudma__v1__7.html#ga25049be545d8ec6eae2426b6248a8e4f">XCsuDma_GetAddr()</a>, <a class="el" href="group__csudma__v1__7.html#ga17f1a7ba935f4bf3626050e0b0e0142b">XCsuDma_GetCheckSum()</a>, <a class="el" href="group__csudma__v1__7.html#gaab0b66bca3f38d26d38ff47544fa6b11">XCsuDma_GetConfig()</a>, <a class="el" href="group__csudma__v1__7.html#ga6ed420e8bfd9ab489a2d2c3e984ca7a2">XCsuDma_GetIntrMask()</a>, <a class="el" href="group__csudma__v1__7.html#gad5fd579fb9c166e59ee1f9d3b39250c7">XCsuDma_GetSize()</a>, <a class="el" href="group__csudma__v1__7.html#ga1db5eabd96920efb06fb03c919420601">XCsuDma_IntrClear()</a>, <a class="el" href="group__csudma__v1__7.html#ga6169fa380a4d55e41d7ab96589372e8f">XCsuDma_IntrGetStatus()</a>, <a class="el" href="group__csudma__v1__7.html#gaa3450f812658f927f289b997b12a4174">XCsuDma_IsPaused()</a>, <a class="el" href="group__csudma__v1__7.html#ga00b5080126710866186d0bfafd26e9b6">XCsuDma_Pause()</a>, <a class="el" href="group__csudma__v1__7.html#gaeee3f2d5bcf265b57c9f214f2bc15a28">XCsuDma_Resume()</a>, <a class="el" href="group__csudma__v1__7.html#ga774ab551d0ef59fd880ff834f2d83804">XCsuDma_SelfTest()</a>, <a class="el" href="xcsudma__selftest__example_8c.html#a82ba0686cfea1568bb5a181810625de1">XCsuDma_SelfTestExample()</a>, <a class="el" href="group__csudma__v1__7.html#gac9b6265e467b03cc903cd66781e95e63">XCsuDma_SetConfig()</a>, <a class="el" href="group__csudma__v1__7.html#gacf79144df19e9cd4116dd9f507037ff1">XCsuDma_Transfer()</a>, and <a class="el" href="group__csudma__v1__7.html#ga73867b4acb189982642e4c1ae4f92fb9">XCsuDma_WaitForDoneTimeout()</a>.</p>
 
 </div>
 </div>
@@ -141,7 +141,7 @@ Data Fields</h2></td></tr>
 <p><pre class="fragment">              DMA type
 </pre><p> 0 &ndash; CSUDMA 1 &ndash; PMC DMA 0 2 &ndash; PMC DMA 1 </p>
 
-<p>Referenced by <a class="el" href="group__csudma__v1__6.html#ga64394cb7de1a6bc3e31fca2f4a5e59bb">XCsuDma_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__csudma__v1__7.html#gad0f7217bd295de82623179efb34adb96">XCsuDma_CfgInitialize()</a>.</p>
 
 </div>
 </div>

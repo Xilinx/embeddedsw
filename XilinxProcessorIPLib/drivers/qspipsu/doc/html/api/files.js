@@ -4,6 +4,7 @@ var files =
     [ "xqspipsu.h", "xqspipsu_8h.html", "xqspipsu_8h" ],
     [ "xqspipsu_control.c", "xqspipsu__control_8c.html", "xqspipsu__control_8c" ],
     [ "xqspipsu_control.h", "xqspipsu__control_8h.html", "xqspipsu__control_8h" ],
+    [ "xqspipsu_flash_config.h", "xqspipsu__flash__config_8h.html", null ],
     [ "xqspipsu_g.c", "xqspipsu__g_8c.html", "xqspipsu__g_8c" ],
     [ "xqspipsu_generic_flash_interrupt_example.c", "xqspipsu__generic__flash__interrupt__example_8c.html", "xqspipsu__generic__flash__interrupt__example_8c" ],
     [ "xqspipsu_generic_flash_lqspi_example.c", "xqspipsu__generic__flash__lqspi__example_8c.html", "xqspipsu__generic__flash__lqspi__example_8c" ],

@@ -71,7 +71,10 @@ $(document).ready(function(){initNavTree('xplmi__error__node_8h.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
-1.00  ma   02/26/2020 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  kc   02/12/2019 Initial release
+1.01  ma   02/28/2020 Error actions related changes
+      bsv  04/04/2020 Code clean up
+1.02  bm   10/14/2020 Code clean up</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -102,9 +105,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da9755ce234c400ac7d4457322cac58870">XPLMI_NODEIDX_ERROR_NOCTYPE1_NCR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da8ed526dfc720bbc536192866522a40ba">XPLMI_NODEIDX_ERROR_NOCUSER</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daab33b934e96a70e122bf0b1b215c4ec8">XPLMI_NODEIDX_ERROR_MMCM</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dafab90977bcaa618c536e150187bcc446">XPLMI_NODEIDX_ERROR_ME_CR</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da28bf08add0a48b86f04fa7a21af7011c">XPLMI_NODEIDX_ERROR_AIE_CR</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da7dcfde5e73aba3a1b3142aa019d72557">XPLMI_NODEIDX_ERROR_ME_NCR</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da1e000ba74902a5181dfcdb6be24fcb5e">XPLMI_NODEIDX_ERROR_AIE_NCR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dac34601567100b880c071954a49a2815b">XPLMI_NODEIDX_ERROR_DDRMC_CR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da66d6e924b2a51566419c123178b98699">XPLMI_NODEIDX_ERROR_DDRMC_NCR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da4d52a4a324c95b0d1c40dc86304a5dd4">XPLMI_NODEIDX_ERROR_GT_CR</a>, 
@@ -122,117 +125,112 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da2dafdf6bd84806739a8533aafd3b3f6b">XPLMI_NODEIDX_ERROR_SSIT3</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da9e7e3c9ee6bc21e0bfd178a8cb688773">XPLMI_NODEIDX_ERROR_SSIT4</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da871db417d26dd67ff2cb6d712204d83a">XPLMI_NODEIDX_ERROR_SSIT5</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da11b2e3f0bc43c797b6e0b4bb0130fc3f">XPLMI_NODEIDX_ERROR_PMCERR1_MAX</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da7dde011884daaca01d9af2393fe5b6e7">XPLMI_NODEIDX_ERROR_PMCAPB</a> = 32U, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da7dde011884daaca01d9af2393fe5b6e7">XPLMI_NODEIDX_ERROR_PMCAPB</a> = 32U, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab889dcdc5bf017be58d859351223511e">XPLMI_NODEIDX_ERROR_PMCROM</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab889dcdc5bf017be58d859351223511e">XPLMI_NODEIDX_ERROR_PMCROM</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daf1676e2ca469b1dddcf9f63ef3507098">XPLMI_NODEIDX_ERROR_MB_FATAL0</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da9fbab5cfcf6e963789cb5b9b9b9e1777">XPLMI_NODEIDX_ERROR_MB_FATAL1</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da176b0713d9e756c22b262f46fe8fd555">XPLMI_NODEIDX_ERROR_PMCPAR</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da176b0713d9e756c22b262f46fe8fd555">XPLMI_NODEIDX_ERROR_PMCPAR</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da7949431d5641f0988844934481350d56">XPLMI_NODEIDX_ERROR_PMC_CR</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da7949431d5641f0988844934481350d56">XPLMI_NODEIDX_ERROR_PMC_CR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dadfbeefd30b78b183ab8d6a66b2824c2d">XPLMI_NODEIDX_ERROR_PMC_NCR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da0dfd30337411f8d061aacf32a1d8e7c5">XPLMI_NODEIDX_ERROR_PMCSMON0</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da64b86a6fe2784d71b574d24fdb430a52">XPLMI_NODEIDX_ERROR_PMCSMON1</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da64b86a6fe2784d71b574d24fdb430a52">XPLMI_NODEIDX_ERROR_PMCSMON1</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da6a4bb2b097b3000a42a45a1abc8c390f">XPLMI_NODEIDX_ERROR_PMCSMON2</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da6a4bb2b097b3000a42a45a1abc8c390f">XPLMI_NODEIDX_ERROR_PMCSMON2</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dad77249c2d256ed2ae120a55366206f6b">XPLMI_NODEIDX_ERROR_PMCSMON3</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab0e8f10c61b248616857e2e44222aae2">XPLMI_NODEIDX_ERROR_PMCSMON4</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da5e906f99c22e8d53cfc5ba5c3e5d21b0">XPLMI_NODEIDX_ERROR_PMC_RSRV1</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da5e906f99c22e8d53cfc5ba5c3e5d21b0">XPLMI_NODEIDX_ERROR_PMC_RSRV1</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da7fe4559864893eda8de319c652fd9826">XPLMI_NODEIDX_ERROR_PMC_RSRV2</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da7fe4559864893eda8de319c652fd9826">XPLMI_NODEIDX_ERROR_PMC_RSRV2</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da0d9fce1f008c74f2e6c5445155d61200">XPLMI_NODEIDX_ERROR_PMC_RSRV3</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dac191a69a3c55fdf952e629ed678706df">XPLMI_NODEIDX_ERROR_PMCSMON8</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da2ee241c081c3ac49d992c433f3c1eff9">XPLMI_NODEIDX_ERROR_PMCSMON9</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da2ee241c081c3ac49d992c433f3c1eff9">XPLMI_NODEIDX_ERROR_PMCSMON9</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daeae9cd2a200bc1d4a7c6329f2e3eed8a">XPLMI_NODEIDX_ERROR_CFI</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daeae9cd2a200bc1d4a7c6329f2e3eed8a">XPLMI_NODEIDX_ERROR_CFI</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da495c122a4d6495a21a3bcb5150a4f670">XPLMI_NODEIDX_ERROR_SEUCRC</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daf73657e780a486112b9aff9bccb3f7f6">XPLMI_NODEIDX_ERROR_SEUECC</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da96b5b66217b9e9b68d23bbc188876915">XPLMI_NODEIDX_ERROR_PMC_RSRV4</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da96b5b66217b9e9b68d23bbc188876915">XPLMI_NODEIDX_ERROR_PMC_RSRV4</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab51c347c2c472411fec92e7477df05eb">XPLMI_NODEIDX_ERROR_PMC_RSRV5</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab51c347c2c472411fec92e7477df05eb">XPLMI_NODEIDX_ERROR_PMC_RSRV5</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da56f1be287d2e05859a68f9115ad53a24">XPLMI_NODEIDX_ERROR_RTCALARM</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da70735b2b6b25c37d899f61d6896351be">XPLMI_NODEIDX_ERROR_NPLL</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da3cace19bc62f83903221bb018ec13a2e">XPLMI_NODEIDX_ERROR_PPLL</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da3cace19bc62f83903221bb018ec13a2e">XPLMI_NODEIDX_ERROR_PPLL</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dabf6e6ac8cae0a2996ea9c53b1f160625">XPLMI_NODEIDX_ERROR_CLKMON</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dabf6e6ac8cae0a2996ea9c53b1f160625">XPLMI_NODEIDX_ERROR_CLKMON</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab929c4608dc0e2213f202c23821e5d73">XPLMI_NODEIDX_ERROR_PMCTO</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da935eeb548418d35c37fd019ea0ee7be5">XPLMI_NODEIDX_ERROR_PMCXMPU</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dae386469ac71dc9ab55c3eafe46f6c89f">XPLMI_NODEIDX_ERROR_PMCXPPU</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dae386469ac71dc9ab55c3eafe46f6c89f">XPLMI_NODEIDX_ERROR_PMCXPPU</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da79e1423c269b31a43480ecd148925f44">XPLMI_NODEIDX_ERROR_SSIT0</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da79e1423c269b31a43480ecd148925f44">XPLMI_NODEIDX_ERROR_SSIT0</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da99a61d54b65d3a7f53e79b339de48ce6">XPLMI_NODEIDX_ERROR_SSIT1</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da1af03e81d7e6135a7a3bc9c1b9aed778">XPLMI_NODEIDX_ERROR_SSIT2</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da03d30401816fa3fd9fb956581df1d253">XPLMI_NODEIDX_ERROR_PMCERR2_MAX</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da18c87d6d9b7582e467de245894f570eb">XPLMI_NODEIDX_ERROR_PS_SW_CR</a> = 64U, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da411f7b5c3d8b875c2d2a3e546041949a">XPLMI_NODEIDX_ERROR_PS_SW_NCR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da411f7b5c3d8b875c2d2a3e546041949a">XPLMI_NODEIDX_ERROR_PS_SW_NCR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da400e24e957d9c7f753aca9aabea58fcb">XPLMI_NODEIDX_ERROR_PSM_B_CR</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da8987364696f2bfd6c8700bf3841605ac">XPLMI_NODEIDX_ERROR_PSM_B_NCR</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da8987364696f2bfd6c8700bf3841605ac">XPLMI_NODEIDX_ERROR_PSM_B_NCR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da89eac6d7f6f3c9aaf989e378fa6ee3f1">XPLMI_NODEIDX_ERROR_MB_FATAL</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da792b8c13eb8d7517f8b5e0e5c8f17a29">XPLMI_NODEIDX_ERROR_PSM_CR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da792b8c13eb8d7517f8b5e0e5c8f17a29">XPLMI_NODEIDX_ERROR_PSM_CR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dac289ebea03de81c06bbb509e3b8f6dc8">XPLMI_NODEIDX_ERROR_PSM_NCR</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dadabd445e92eb8a8a3ecd658444cb6100">XPLMI_NODEIDX_ERROR_OCM_ECC</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dadabd445e92eb8a8a3ecd658444cb6100">XPLMI_NODEIDX_ERROR_OCM_ECC</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da34c0ac425feabb1c2f4660b2391b0004">XPLMI_NODEIDX_ERROR_L2_ECC</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daff810d8483225136c0a992ccbf15dd4b">XPLMI_NODEIDX_ERROR_RPU_ECC</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daff810d8483225136c0a992ccbf15dd4b">XPLMI_NODEIDX_ERROR_RPU_ECC</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daa1a7cc4f0456eb95c4d1c19520fdff0f">XPLMI_NODEIDX_ERROR_RPU_LS</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da5730df2b5ed53a8ca2952fc71dd1c1fe">XPLMI_NODEIDX_ERROR_RPU_CCF</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da5730df2b5ed53a8ca2952fc71dd1c1fe">XPLMI_NODEIDX_ERROR_RPU_CCF</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da8b70367f541f3d3d4e4503e8427fe217">XPLMI_NODEIDX_ERROR_GIC_AXI</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab331528ea4ce3eee26628391cd982e58">XPLMI_NODEIDX_ERROR_GIC_ECC</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab331528ea4ce3eee26628391cd982e58">XPLMI_NODEIDX_ERROR_GIC_ECC</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da3836f047805f4b647d4615792b05f5ed">XPLMI_NODEIDX_ERROR_APLL_LOCK</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da25c19b3abb35f50b5b4086472db92799">XPLMI_NODEIDX_ERROR_RPLL_LOCK</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da25c19b3abb35f50b5b4086472db92799">XPLMI_NODEIDX_ERROR_RPLL_LOCK</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dac4b3d754f46633209cab009067c67d97">XPLMI_NODEIDX_ERROR_CPM_CR</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dafdd3e856eb2407fe879ce1149b67edf1">XPLMI_NODEIDX_ERROR_CPM_NCR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dafdd3e856eb2407fe879ce1149b67edf1">XPLMI_NODEIDX_ERROR_CPM_NCR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daf3de0caac04f87161189dcf7c597f321">XPLMI_NODEIDX_ERROR_LPD_APB</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daf9644861fdcb05e32913d9d889c7625a">XPLMI_NODEIDX_ERROR_FPD_APB</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daf9644861fdcb05e32913d9d889c7625a">XPLMI_NODEIDX_ERROR_FPD_APB</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da2b1de790e00446dcaa1b5e6d86a3ec2e">XPLMI_NODEIDX_ERROR_LPD_PAR</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daab236d99ea2aafdded3858ef4fdbbb71">XPLMI_NODEIDX_ERROR_FPD_PAR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daab236d99ea2aafdded3858ef4fdbbb71">XPLMI_NODEIDX_ERROR_FPD_PAR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da46db06f435d86b4fcaf0a3dff4ceea1d">XPLMI_NODEIDX_ERROR_IOU_PAR</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da57d85536f7ae60d3bb39edde34d85aaf">XPLMI_NODEIDX_ERROR_PSM_PAR</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da57d85536f7ae60d3bb39edde34d85aaf">XPLMI_NODEIDX_ERROR_PSM_PAR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da5fc9a51fa71300ba70251a02ca21f367">XPLMI_NODEIDX_ERROR_LPD_TO</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dac5db9b5fe6a06eafc38eb02d16802bb1">XPLMI_NODEIDX_ERROR_FPD_TO</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dac5db9b5fe6a06eafc38eb02d16802bb1">XPLMI_NODEIDX_ERROR_FPD_TO</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daaa8758a022d4529900a97983726d9f71">XPLMI_NODEIDX_ERROR_PSM_TO</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da5f0f2a8cfb0aa5b204ce2e5d52ad231c">XPLMI_NODEIDX_ERROR_XRAM_CR</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da5f0f2a8cfb0aa5b204ce2e5d52ad231c">XPLMI_NODEIDX_ERROR_XRAM_CR</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dafd2b422ac53a5b24ef641cf4a0238564">XPLMI_NODEIDX_ERROR_XRAM_NCR</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da4f2984e2cfeb857f11a3d2d3596e98f2">XPLMI_NODEIDX_ERROR_PSM_RSRV1</a>, 
+<br/>
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da4f2984e2cfeb857f11a3d2d3596e98f2">XPLMI_NODEIDX_ERROR_PSM_RSRV1</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daa2144fe1e8508f6605dc874c3f94daca">XPLMI_NODEIDX_ERROR_PSM_RSRV2</a>, 
-<br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dacc9c582c04259c466b837051aff7c161">XPLMI_NODEIDX_ERROR_PSM_RSRV3</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daa422fdb4b5b81ae926e18350352e273c">XPLMI_NODEIDX_ERROR_PSMERR1_MAX</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dacc9c582c04259c466b837051aff7c161">XPLMI_NODEIDX_ERROR_PSM_RSRV3</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da0d282eec6bd79d2b93affd01dd25534a">XPLMI_NODEIDX_ERROR_LPD_SWDT</a> = 96U, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dae7ec5b96149c943273bd6b8465e59391">XPLMI_NODEIDX_ERROR_FPD_SWDT</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da1655eb25d08ff895661411959dff0677">XPLMI_NODEIDX_ERROR_PSM_RSRV4</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dae7ec5b96149c943273bd6b8465e59391">XPLMI_NODEIDX_ERROR_FPD_SWDT</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da1655eb25d08ff895661411959dff0677">XPLMI_NODEIDX_ERROR_PSM_RSRV4</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dae57b33040d0ebe5da7356c58c5996159">XPLMI_NODEIDX_ERROR_PSM_RSRV5</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da994d947c9ac8ce46edd1290393ee504d">XPLMI_NODEIDX_ERROR_PSM_RSRV6</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daab409d12480a76bf71c30d489df3474a">XPLMI_NODEIDX_ERROR_PSM_RSRV7</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab2d7331da0d534c483b73d4b90b08af9">XPLMI_NODEIDX_ERROR_PSM_RSRV8</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8daab409d12480a76bf71c30d489df3474a">XPLMI_NODEIDX_ERROR_PSM_RSRV7</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dab2d7331da0d534c483b73d4b90b08af9">XPLMI_NODEIDX_ERROR_PSM_RSRV8</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da8fdf6f514eee9a4e83fa301b7b8d91d8">XPLMI_NODEIDX_ERROR_PSM_RSRV9</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8dae3703753668135b0dbca3d75c7f6b446">XPLMI_NODEIDX_ERROR_PSM_RSRV10</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da246a4cb6eb50c36245c13231f5d98c8e">XPLMI_NODEIDX_ERROR_PSM_RSRV11</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da109731a8e353caaf27f02a1ee53a8c61">XPLMI_NODEIDX_ERROR_PSM_RSRV12</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da246a4cb6eb50c36245c13231f5d98c8e">XPLMI_NODEIDX_ERROR_PSM_RSRV11</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da109731a8e353caaf27f02a1ee53a8c61">XPLMI_NODEIDX_ERROR_PSM_RSRV12</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da4aeb6bc56b3b879b91f472fdddabdbcd">XPLMI_NODEIDX_ERROR_PSM_RSRV13</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da71b69d7fea3b63961df5345576208a93">XPLMI_NODEIDX_ERROR_PSM_RSRV14</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da6efd34034be5f34b29119e2dce3c4e28">XPLMI_NODEIDX_ERROR_PSM_RSRV15</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da382898b1fb164111a423531023957022">XPLMI_NODEIDX_ERROR_PSM_RSRV16</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da6efd34034be5f34b29119e2dce3c4e28">XPLMI_NODEIDX_ERROR_PSM_RSRV15</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da382898b1fb164111a423531023957022">XPLMI_NODEIDX_ERROR_PSM_RSRV16</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da9ac9f0ff7d65a77e4805b9964b3dc07f">XPLMI_NODEIDX_ERROR_PSM_RSRV17</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da448c63b8c9938293865505d2f71c8c5e">XPLMI_NODEIDX_ERROR_PSM_RSRV18</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da3112f8b6f8fef1d42ab49ea5c34e5afb">XPLMI_NODEIDX_ERROR_PSM_RSRV19</a>, 
 <br/>
-&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da0aa0b8c2df17ac6983bdc61b696bceb7">XPLMI_NODEIDX_ERROR_LPD_XMPU</a>, 
+&#160;&#160;<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da3112f8b6f8fef1d42ab49ea5c34e5afb">XPLMI_NODEIDX_ERROR_PSM_RSRV19</a>, 
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da0aa0b8c2df17ac6983bdc61b696bceb7">XPLMI_NODEIDX_ERROR_LPD_XMPU</a>, 
 <a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da8d6f547687e38920867036bf37db3b38">XPLMI_NODEIDX_ERROR_LPD_XPPU</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da1c423d90030d7c8bbe6ec2436cb0d594">XPLMI_NODEIDX_ERROR_FPD_XMPU</a>, 
-<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da6e516709a5beb6f013f1f91309a17f75">XPLMI_NODEIDX_ERROR_PSMERR2_MAX</a>
+<a class="el" href="xplmi__error__node_8h.html#a063f7a16c890f2d738e478f8dcab7f8da1c423d90030d7c8bbe6ec2436cb0d594">XPLMI_NODEIDX_ERROR_FPD_XMPU</a>
 <br/>
  }</td></tr>
 <tr class="separator:a063f7a16c890f2d738e478f8dcab7f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -293,10 +291,10 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8daab33b934e96a70e122bf0b1b215c4ec8"></a>XPLMI_NODEIDX_ERROR_MMCM</em>&nbsp;</td><td class="fielddoc">
 <p>0xFU </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8dafab90977bcaa618c536e150187bcc446"></a>XPLMI_NODEIDX_ERROR_ME_CR</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da28bf08add0a48b86f04fa7a21af7011c"></a>XPLMI_NODEIDX_ERROR_AIE_CR</em>&nbsp;</td><td class="fielddoc">
 <p>0x10U </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da7dcfde5e73aba3a1b3142aa019d72557"></a>XPLMI_NODEIDX_ERROR_ME_NCR</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da1e000ba74902a5181dfcdb6be24fcb5e"></a>XPLMI_NODEIDX_ERROR_AIE_NCR</em>&nbsp;</td><td class="fielddoc">
 <p>0x11U </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8dac34601567100b880c071954a49a2815b"></a>XPLMI_NODEIDX_ERROR_DDRMC_CR</em>&nbsp;</td><td class="fielddoc">
@@ -340,9 +338,6 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da871db417d26dd67ff2cb6d712204d83a"></a>XPLMI_NODEIDX_ERROR_SSIT5</em>&nbsp;</td><td class="fielddoc">
 <p>0x1FU </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da11b2e3f0bc43c797b6e0b4bb0130fc3f"></a>XPLMI_NODEIDX_ERROR_PMCERR1_MAX</em>&nbsp;</td><td class="fielddoc">
-<p>0x20U </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da7dde011884daaca01d9af2393fe5b6e7"></a>XPLMI_NODEIDX_ERROR_PMCAPB</em>&nbsp;</td><td class="fielddoc">
 <p>0x20U </p>
@@ -440,9 +435,6 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da1af03e81d7e6135a7a3bc9c1b9aed778"></a>XPLMI_NODEIDX_ERROR_SSIT2</em>&nbsp;</td><td class="fielddoc">
 <p>0x3FU </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da03d30401816fa3fd9fb956581df1d253"></a>XPLMI_NODEIDX_ERROR_PMCERR2_MAX</em>&nbsp;</td><td class="fielddoc">
-<p>0x40U </p>
-</td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da18c87d6d9b7582e467de245894f570eb"></a>XPLMI_NODEIDX_ERROR_PS_SW_CR</em>&nbsp;</td><td class="fielddoc">
 <p>0x40U </p>
 </td></tr>
@@ -539,9 +531,6 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8dacc9c582c04259c466b837051aff7c161"></a>XPLMI_NODEIDX_ERROR_PSM_RSRV3</em>&nbsp;</td><td class="fielddoc">
 <p>0x5FU </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8daa422fdb4b5b81ae926e18350352e273c"></a>XPLMI_NODEIDX_ERROR_PSMERR1_MAX</em>&nbsp;</td><td class="fielddoc">
-<p>0x60U </p>
-</td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da0d282eec6bd79d2b93affd01dd25534a"></a>XPLMI_NODEIDX_ERROR_LPD_SWDT</em>&nbsp;</td><td class="fielddoc">
 <p>0x60U </p>
 </td></tr>
@@ -604,9 +593,6 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da1c423d90030d7c8bbe6ec2436cb0d594"></a>XPLMI_NODEIDX_ERROR_FPD_XMPU</em>&nbsp;</td><td class="fielddoc">
 <p>0x74U </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a063f7a16c890f2d738e478f8dcab7f8da6e516709a5beb6f013f1f91309a17f75"></a>XPLMI_NODEIDX_ERROR_PSMERR2_MAX</em>&nbsp;</td><td class="fielddoc">
-<p>0x75U </p>
 </td></tr>
 </table>
 

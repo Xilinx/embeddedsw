@@ -43,6 +43,7 @@ var xv__hdmitx1_8h =
     [ "XV_HdmiTx1_Callback", "xv__hdmitx1_8h.html#a5bb0fa4a27e544cf4df3fa3aad14011a", [
       [ "XV_HDMITX1_AUDFMT_LPCM", "xv__hdmitx1_8h.html#afd608daa8882c5fa37f9b47e732415abaade1f061ff92bd82aa4db1baa8a93269", null ],
       [ "XV_HDMITX1_AUDFMT_HBR", "xv__hdmitx1_8h.html#afd608daa8882c5fa37f9b47e732415aba6fa79c8481fafe7b7323a85e996a546d", null ],
+      [ "XV_HDMITX1_AUDFMT_3D", "xv__hdmitx1_8h.html#afd608daa8882c5fa37f9b47e732415abaefdf29b91170981fa1478757192551ec", null ],
       [ "XV_HDMITX1_EXTERNAL_CTS_N", "xv__hdmitx1_8h.html#a3feb2d8f651db69c07d0a28f2f367ab9a6047e235ba0cd9005c4e7ab3c52c571e", null ],
       [ "XV_HDMITX1_INTERNAL_CTS_N", "xv__hdmitx1_8h.html#a3feb2d8f651db69c07d0a28f2f367ab9abc51aeef1395e77cb5513dbcac8b3ea7", null ]
     ] ],

@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('struct_x_spi___config.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSpi_Config Struct Reference<div class="ingroups"><a class="el" href="group__spi__v4__6.html">Spi_v4_6</a></div></div>  </div>
+<div class="title">XSpi_Config Struct Reference<div class="ingroups"><a class="el" href="group__spi__v4__7.html">Spi_v4_7</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -113,6 +113,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a58bbefc01bd6996673fe28065a6cffec"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi___config.html#a58bbefc01bd6996673fe28065a6cffec">Use_Startup</a></td></tr>
 <tr class="memdesc:a58bbefc01bd6996673fe28065a6cffec"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if Starup block is used in h/w  <a href="#a58bbefc01bd6996673fe28065a6cffec"></a><br/></td></tr>
 <tr class="separator:a58bbefc01bd6996673fe28065a6cffec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7bb33207908d8d68f0a98965ddedaa"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi___config.html#acc7bb33207908d8d68f0a98965ddedaa">FifosDepth</a></td></tr>
+<tr class="memdesc:acc7bb33207908d8d68f0a98965ddedaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX and RX FIFO Depth.  <a href="#acc7bb33207908d8d68f0a98965ddedaa"></a><br/></td></tr>
+<tr class="separator:acc7bb33207908d8d68f0a98965ddedaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This typedef contains configuration information for the device. </p>
@@ -130,7 +133,7 @@ Data Fields</h2></td></tr>
 <p><pre class="fragment"> AXI Full Interface Base address of
 </pre><p> the device </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -160,7 +163,7 @@ Data Fields</h2></td></tr>
 
 <p>Base address of the device. </p>
 
-<p>Referenced by <a class="el" href="xspi__atmel__flash__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="xspi__intr__example_8c.html#abd314964daed3d1fb324ef61ed37f276">SpiIntrExample()</a>, <a class="el" href="xspi__polled__example_8c.html#a0dd02b93ca6a7d528f41113065a1e3cb">SpiPolledExample()</a>, <a class="el" href="xspi__selftest__example_8c.html#aa80f2f9d52f6c35db2d43a56802a81c8">SpiSelfTestExample()</a>, <a class="el" href="xspi__winbond__flash__xip__example_8c.html#af3fb7f2668aa93bc45fb9ca9c252f219">SpiXipExample()</a>, and <a class="el" href="group__spi__v4__6.html#gaa1fb3e31ba804cc87dc309847fb02471">XSpi_Initialize()</a>.</p>
+<p>Referenced by <a class="el" href="xspi__atmel__flash__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="xspi__intr__example_8c.html#abd314964daed3d1fb324ef61ed37f276">SpiIntrExample()</a>, <a class="el" href="xspi__polled__example_8c.html#a0dd02b93ca6a7d528f41113065a1e3cb">SpiPolledExample()</a>, <a class="el" href="xspi__selftest__example_8c.html#aa80f2f9d52f6c35db2d43a56802a81c8">SpiSelfTestExample()</a>, <a class="el" href="xspi__winbond__flash__xip__example_8c.html#af3fb7f2668aa93bc45fb9ca9c252f219">SpiXipExample()</a>, and <a class="el" href="group__spi__v4__7.html#gaa1fb3e31ba804cc87dc309847fb02471">XSpi_Initialize()</a>.</p>
 
 </div>
 </div>
@@ -176,7 +179,7 @@ Data Fields</h2></td></tr>
 
 <p>Data transfer Width. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -194,6 +197,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acc7bb33207908d8d68f0a98965ddedaa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XSpi_Config::FifosDepth</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TX and RX FIFO Depth. </p>
+
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a192c8c69aaaf2672a35c9a228b055ffe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -206,7 +225,7 @@ Data Fields</h2></td></tr>
 
 <p>Does device have FIFOs? </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -222,7 +241,7 @@ Data Fields</h2></td></tr>
 
 <p>Num of slave select bits on the device. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -238,7 +257,7 @@ Data Fields</h2></td></tr>
 
 <p>Is the device slave only? </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -254,7 +273,7 @@ Data Fields</h2></td></tr>
 
 <p>Standard/Dual/Quad mode. </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -270,7 +289,7 @@ Data Fields</h2></td></tr>
 
 <p>1 if Starup block is used in h/w </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -286,7 +305,7 @@ Data Fields</h2></td></tr>
 
 <p>0 if Non-XIP, 1 if XIP Mode </p>
 
-<p>Referenced by <a class="el" href="group__spi__v4__6.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__spi__v4__7.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>.</p>
 
 </div>
 </div>

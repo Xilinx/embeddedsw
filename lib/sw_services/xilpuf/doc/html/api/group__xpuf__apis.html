@@ -68,23 +68,23 @@ $(document).ready(function(){initNavTree('group__xpuf__apis.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae3ef4725a4c7afa7de979a3592b6aacf"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#gae3ef4725a4c7afa7de979a3592b6aacf">XPuf_Registration</a> (XPuf_Data *PufData)</td></tr>
-<tr class="memdesc:gae3ef4725a4c7afa7de979a3592b6aacf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs PUF registration.  <a href="#gae3ef4725a4c7afa7de979a3592b6aacf"></a><br/></td></tr>
-<tr class="separator:gae3ef4725a4c7afa7de979a3592b6aacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga982bc4fb489b3349090665bfed6f0ae4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#ga982bc4fb489b3349090665bfed6f0ae4">XPuf_Regeneration</a> (XPuf_Data *PufData)</td></tr>
-<tr class="memdesc:ga982bc4fb489b3349090665bfed6f0ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function regenerate PUF data using helper data stored in eFUSE or in and external memory.  <a href="#ga982bc4fb489b3349090665bfed6f0ae4"></a><br/></td></tr>
-<tr class="separator:ga982bc4fb489b3349090665bfed6f0ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae25c45427621137267653e4b5a070c16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#gae25c45427621137267653e4b5a070c16">XPuf_GenerateFuseFormat</a> (XPuf_Data *PufData)</td></tr>
-<tr class="memdesc:gae25c45427621137267653e4b5a070c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the PUF Syndrome data to eFUSE writing format.  <a href="#gae25c45427621137267653e4b5a070c16"></a><br/></td></tr>
-<tr class="separator:gae25c45427621137267653e4b5a070c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2607f20a8f0199c8f0eb53d0dfc9f0a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#gae2607f20a8f0199c8f0eb53d0dfc9f0a">XPuf_Registration</a> (XPuf_Data *PufData)</td></tr>
+<tr class="memdesc:gae2607f20a8f0199c8f0eb53d0dfc9f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs PUF registration.  <a href="#gae2607f20a8f0199c8f0eb53d0dfc9f0a"></a><br/></td></tr>
+<tr class="separator:gae2607f20a8f0199c8f0eb53d0dfc9f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f60c4624b046d3f5c74d8cb01f8f90d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#ga2f60c4624b046d3f5c74d8cb01f8f90d">XPuf_Regeneration</a> (XPuf_Data *PufData)</td></tr>
+<tr class="memdesc:ga2f60c4624b046d3f5c74d8cb01f8f90d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function regenerate PUF data using helper data stored in eFUSE or external memory.  <a href="#ga2f60c4624b046d3f5c74d8cb01f8f90d"></a><br/></td></tr>
+<tr class="separator:ga2f60c4624b046d3f5c74d8cb01f8f90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03c85715b04394967ebb2274f09f510a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__apis.html#ga03c85715b04394967ebb2274f09f510a">XPuf_GenerateFuseFormat</a> (XPuf_Data *PufData)</td></tr>
+<tr class="memdesc:ga03c85715b04394967ebb2274f09f510a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the PUF Syndrome data to eFUSE writing format.  <a href="#ga03c85715b04394967ebb2274f09f510a"></a><br/></td></tr>
+<tr class="separator:ga03c85715b04394967ebb2274f09f510a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gae25c45427621137267653e4b5a070c16"></a>
+<a class="anchor" id="ga03c85715b04394967ebb2274f09f510a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XPuf_GenerateFuseFormat </td>
+          <td class="memname">int XPuf_GenerateFuseFormat </td>
           <td>(</td>
           <td class="paramtype">XPuf_Data *&#160;</td>
           <td class="paramname"><em>PufData</em></td><td>)</td>
@@ -96,11 +96,11 @@ Functions</h2></td></tr>
 <p>Converts the PUF Syndrome data to eFUSE writing format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">PufData</td><td>- Pointer to XPuf_Data structure</td></tr>
+    <tr><td class="paramname">PufData</td><td>- Pointer to XPuf_Data structure which includes options to configure PUF</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>none</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS Syndrome data is successfully trimmed XPUF_ERROR_INVALID_PARAM PufData instance pointer is NULL XST_FAILURE Unexpected event</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Formatted data will be available at PufData-&gt;EfuseSynData. </dd></dl>
 <h2>Trimming logic for PUF Syndrome Data:</h2>
 <p>Space allocated in eFUSE for syndrome data = 4060bits eFUSE02 - 2032bits eFUSE03 - 2028bits</p>
@@ -114,12 +114,12 @@ Input
 
 </div>
 </div>
-<a class="anchor" id="ga982bc4fb489b3349090665bfed6f0ae4"></a>
+<a class="anchor" id="ga2f60c4624b046d3f5c74d8cb01f8f90d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XPuf_Regeneration </td>
+          <td class="memname">int XPuf_Regeneration </td>
           <td>(</td>
           <td class="paramtype">XPuf_Data *&#160;</td>
           <td class="paramname"><em>PufData</em></td><td>)</td>
@@ -128,24 +128,24 @@ Input
       </table>
 </div><div class="memdoc">
 
-<p>This function regenerate PUF data using helper data stored in eFUSE or in and external memory. </p>
+<p>This function regenerate PUF data using helper data stored in eFUSE or external memory. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
+    <tr><td class="paramname">PufData</td><td>- Pointer to XPuf_Data structure which includes options to configure PUF</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - PUF Regeneration successful XPUF_ERROR_INVALID_REGENERATION_TYPE -Selection of invalid regeneration type XPUF_ERROR_CHASH_NOT_PROGRAMMED- Helper data not provided XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout before Status was done XST_FAILURE - Unexpected event</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS PUF Regeneration successful. XPUF_ERROR_INVALID_PARAM PufData is NULL. XPUF_ERROR_INVALID_REGENERATION_TYPE Selection of invalid regeneration type. XPUF_ERROR_CHASH_NOT_PROGRAMMED Helper data not provided. XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT Timeout occurred while waiting for PUF done bit XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY Key ready bit and ID ready bit is not set XPUF_ERROR_PUF_DONE_ID_NT_RDY Id ready bit is not set XST_FAILURE Unexpected event.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="gae3ef4725a4c7afa7de979a3592b6aacf"></a>
+<a class="anchor" id="gae2607f20a8f0199c8f0eb53d0dfc9f0a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XPuf_Registration </td>
+          <td class="memname">int XPuf_Registration </td>
           <td>(</td>
           <td class="paramtype">XPuf_Data *&#160;</td>
           <td class="paramname"><em>PufData</em></td><td>)</td>
@@ -157,11 +157,11 @@ Input
 <p>This functions performs PUF registration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">PufData</td><td>- Pointer to XPuf_Data structure</td></tr>
+    <tr><td class="paramname">PufData</td><td>- Pointer to XPuf_Data structure which includes options to configure PUF</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - PUF registration successful XPUF_ERROR_INVALID_PARAM - PufData is NULL XPUF_ERROR_INVALID_SYNDROME_MODE - Incorrect Registration mode XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occured while waiting for PUF Syndrome data XPUF_ERROR_SYNDROME_DATA_OVERFLOW - Syndrome data overflow reported by PUF controller or more than required data is provided by PUF controller XPUF_ERROR_SYNDROME_DATA_UNDERFLOW - Number of syndrome data words are less than expected number of words XST_FAILURE - Unexpected event</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS PUF registration successful. XPUF_ERROR_INVALID_PARAM PufData is NULL. XPUF_ERROR_INVALID_SYNDROME_MODE Incorrect Registration mode XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT Timeout occurred while waiting for PUF Syndrome data. XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT Timeout occurred while waiting for PUF done bit XST_FAILURE Unexpected event.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Helper data will be available in PufData-&gt;SyndromeData, PufData-&gt;Chash, PufData-&gt;Aux </dd></dl>
 
 </div>

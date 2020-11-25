@@ -2,9 +2,8 @@ var NAVTREEINDEX0 =
 {
 "files.html":[1],
 "globals.html":[0,0],
-"globals_defs.html":[0,3],
+"globals_defs.html":[0,2],
 "globals_func.html":[0,1],
-"globals_vars.html":[0,2],
 "index.html":[],
 "pages.html":[],
 "xdpdma_8c.html":[1,0],
@@ -111,7 +110,6 @@ var NAVTREEINDEX0 =
 "xdpdma__intr_8c.html#aecdf54c8a3174a7547021952de639875":[1,3,2],
 "xdpdma__sinit_8c.html":[1,4],
 "xdpdma__sinit_8c.html#ga45c3b90c332325198b482ac90809695a":[1,4,0],
-"xdpdma__sinit_8c.html#gaecb83dbd58832d8dd94ffb21c9fa3c97":[1,4,1],
 "xdpdma__video__example_8c.html":[1,5],
 "xdpdma__video__example_8c.html#a1feaf56ba2ce7c1f4770cbab7da31276":[1,5,3],
 "xdpdma__video__example_8c.html#a6be070431bed335091e0e9feb7bea7ac":[1,5,5],

@@ -71,7 +71,7 @@ $(document).ready(function(){initNavTree('xdptxss__kcu105__dp14_8c.html','');});
 <div class="textblock"><p>MODIFICATION HISTORY: </p>
 <p>Ver Who Date Changes </p>
 <hr/>
-<p> 1.0 KI 12/09/17 Initial release. 1.1 ND 2/14/19 mcdp related function call now need dprxss instance address instead of base address as first parameter </p>
+<p> 1.0 KI 12/09/17 Initial release. 1.1 ND 2/14/19 mcdp related function call now need dprxss instance address instead of base address as first parameter 1.2 ND 09/02/20 Added support for New Av patgen. Added support for CRC for format 422 for pixel width engine and PPC changes. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -129,12 +129,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a56361447f4b2f2b7e4c28bd94e142116"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__kcu105__dp14_8c.html#a56361447f4b2f2b7e4c28bd94e142116">resetIp</a> ()</td></tr>
 <tr class="memdesc:a56361447f4b2f2b7e4c28bd94e142116"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function toggles HW reset line for all IP's.  <a href="#a56361447f4b2f2b7e4c28bd94e142116"></a><br/></td></tr>
 <tr class="separator:a56361447f4b2f2b7e4c28bd94e142116"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cc3a1315e428f4ad868e802509f649b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__kcu105__dp14_8c.html#a6cc3a1315e428f4ad868e802509f649b">remap_set</a> (XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width, u16 height, u8 color_format)</td></tr>
-<tr class="memdesc:a6cc3a1315e428f4ad868e802509f649b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets parameters for remap IP.  <a href="#a6cc3a1315e428f4ad868e802509f649b"></a><br/></td></tr>
-<tr class="separator:a6cc3a1315e428f4ad868e802509f649b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a168c85710af4079bf2b90ddc7f764006"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__kcu105__dp14_8c.html#a168c85710af4079bf2b90ddc7f764006">remap_start</a> (struct dma_chan_parms *dma_struct)</td></tr>
-<tr class="memdesc:a168c85710af4079bf2b90ddc7f764006"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts remap IP.  <a href="#a168c85710af4079bf2b90ddc7f764006"></a><br/></td></tr>
-<tr class="separator:a168c85710af4079bf2b90ddc7f764006"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5261c0e9a724d7ccdcf46f15f1c2c2e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__kcu105__dp14_8c.html#a5261c0e9a724d7ccdcf46f15f1c2c2e6">DpRxSs_InfoPacketHandler</a> (void *InstancePtr)</td></tr>
 <tr class="memdesc:a5261c0e9a724d7ccdcf46f15f1c2c2e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the callback function for Info Packet Handling.  <a href="#a5261c0e9a724d7ccdcf46f15f1c2c2e6"></a><br/></td></tr>
 <tr class="separator:a5261c0e9a724d7ccdcf46f15f1c2c2e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,7 +199,7 @@ Variables</h2></td></tr>
 <p>This function detects incoming video and find out video parameters Based on the parameters, set up Tx and VDMA, then start Tx output. </p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__3.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__3.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__4.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
 
 </div>
 </div>
@@ -265,7 +259,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="dppt_8h.html#a0f0a1dce20baa6103b48f0bf9fe44cde">sink_power_cycle()</a>, and <a class="el" href="group__dptxss__v6__3.html#ga84de784579ceabd123fdf1136dde0c7d">XDpTxSs_IsConnected()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="group__dptxss__v6__4.html#ga84de784579ceabd123fdf1136dde0c7d">XDpTxSs_IsConnected()</a>.</p>
 
 </div>
 </div>
@@ -287,7 +281,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="xdptxss__kcu105__dp14_8c.html#abf837d981cd312ee75c7a534bccca419">hpd_pulse_con_event</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="xdptxss__zcu102__tx_8h.html#a957770bf97085325697a6b292757c4b5">hpd_pulse_con_event</a>.</p>
 
 </div>
 </div>
@@ -314,8 +308,6 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="dppt__vid__phy__config_8c.html#a677a29cae75ee8a62aba28151fbdd327">PHY_Configuration_Tx()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a890c2e771e74249226516be4a096a2cd"></a>
@@ -334,7 +326,7 @@ Variables</h2></td></tr>
 <p>This function is sets up Interrupt system and start it. </p>
 <dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__dptxss__v6__3.html#ga829a4aa9071cbd2fd3903ccf98e4d02b">XDpTxSs_DpIntrHandler()</a>.</p>
+<p>References <a class="el" href="group__dptxss__v6__4.html#ga829a4aa9071cbd2fd3903ccf98e4d02b">XDpTxSs_DpIntrHandler()</a>.</p>
 
 </div>
 </div>
@@ -521,7 +513,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Use the XDpTxSs_SetCallback driver function to set this function as the handler for HPD event. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="dppt_8h.html#acbbbb90b2f7ea876d4b492c7ca63712c">update_edid()</a>, <a class="el" href="group__dptxss__v6__3.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__3.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="dppt_8h.html#acbbbb90b2f7ea876d4b492c7ca63712c">update_edid()</a>, <a class="el" href="group__dptxss__v6__4.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__4.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
 
 </div>
 </div>
@@ -548,7 +540,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Use the XDpTxSs_SetCallback driver function to set this function as the handler for HPD pulse. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__3.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__3.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss__v6__4.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
 
 </div>
 </div>
@@ -637,82 +629,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6cc3a1315e428f4ad868e802509f649b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void remap_set </td>
-          <td>(</td>
-          <td class="paramtype">XV_axi4s_remap *&#160;</td>
-          <td class="paramname"><em>remap</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>in_ppc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>out_ppc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>color_format</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function sets parameters for remap IP. </p>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#a168c85710af4079bf2b90ddc7f764006">remap_start()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a168c85710af4079bf2b90ddc7f764006"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void remap_start </td>
-          <td>(</td>
-          <td class="paramtype">struct dma_chan_parms *&#160;</td>
-          <td class="paramname"><em>dma_struct</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function starts remap IP. </p>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xdptxss__kcu105__dp14_8c.html#a6cc3a1315e428f4ad868e802509f649b">remap_set()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a813500920ecee36360482a8078fcd5c5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -768,8 +684,6 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>.</p>
 
-<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#a447f6616df8f90d9d99ca9f8ff9d3f9d">DpPt_HpdEventHandler()</a>, <a class="el" href="xdptxss__vcu118__tx_8h.html#a7dadc9e5bc73c77fe35d1f21a6ee8184">hpd_pulse_con()</a>, <a class="el" href="xdptxss__kcu105__dp14_8c.html#a87878b159735f42a419a35fa296606da">start_tx()</a>, and <a class="el" href="xdptxss__kcu105__dp14_8c.html#adac5f2cdc61511609847ab58554d635a">switch_to_Tx_only()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a87878b159735f42a419a35fa296606da"></a>
@@ -823,9 +737,7 @@ Variables</h2></td></tr>
 <p>This is for Tx only mode This function will start outputing internal video patern image Setup GT, DP, patern and generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a592b9288cac79421f5aba71c924ad115">XDpTxSs_UsrOpt::NumOfStreams</a>, <a class="el" href="dppt_8h.html#a0f0a1dce20baa6103b48f0bf9fe44cde">sink_power_cycle()</a>, <a class="el" href="struct_x_dp_tx_ss.html#a1dccdffc912017829be08ef808b5923f">XDpTxSs::UsrOpt</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a212975289ac5ab6ddd4974c5d236c8f9">XDpTxSs_UsrOpt::VtcAdjustBs</a>, <a class="el" href="struct_x_dp_tx_ss.html#add09119ff74df49fec0c006814c86da9">XDpTxSs::VtcPtr</a>, <a class="el" href="group__dptxss__v6__3.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss__v6__3.html#ga8edde5017977263b22afd3abb4ad6a10">XDpTxSs_SetBpc()</a>, <a class="el" href="group__dptxss__v6__3.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, <a class="el" href="group__dptxss__v6__3.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>, <a class="el" href="group__dptxss__v6__3.html#gac94df5d299e1a088c159a2be61840680">XDpTxSs_SetVidMode()</a>, and <a class="el" href="xdptxss__vtc_8c.html#ab2e0f13f1f5cbd8904c67cc63f2df32d">XDpTxSs_VtcSetup()</a>.</p>
-
-<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#adac5f2cdc61511609847ab58554d635a">switch_to_Tx_only()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a592b9288cac79421f5aba71c924ad115">XDpTxSs_UsrOpt::NumOfStreams</a>, <a class="el" href="struct_x_dp_tx_ss.html#a1dccdffc912017829be08ef808b5923f">XDpTxSs::UsrOpt</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a212975289ac5ab6ddd4974c5d236c8f9">XDpTxSs_UsrOpt::VtcAdjustBs</a>, <a class="el" href="struct_x_dp_tx_ss.html#add09119ff74df49fec0c006814c86da9">XDpTxSs::VtcPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss__v6__4.html#ga8edde5017977263b22afd3abb4ad6a10">XDpTxSs_SetBpc()</a>, <a class="el" href="group__dptxss__v6__4.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, <a class="el" href="group__dptxss__v6__4.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>, <a class="el" href="group__dptxss__v6__4.html#gac94df5d299e1a088c159a2be61840680">XDpTxSs_SetVidMode()</a>, and <a class="el" href="xdptxss__vtc_8c.html#ab2e0f13f1f5cbd8904c67cc63f2df32d">XDpTxSs_VtcSetup()</a>.</p>
 
 </div>
 </div>
@@ -856,7 +768,7 @@ Variables</h2></td></tr>
 <p>This function will be used when no incoming video at pass-through mode If no video, switching to internal patern generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="dppt__vid__phy__config_8c.html#a677a29cae75ee8a62aba28151fbdd327">PHY_Configuration_Tx()</a>, <a class="el" href="dppt_8h.html#a0f0a1dce20baa6103b48f0bf9fe44cde">sink_power_cycle()</a>, <a class="el" href="dppt_8h.html#a87878b159735f42a419a35fa296606da">start_tx()</a>, <a class="el" href="group__dptxss__v6__3.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__3.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="group__dptxss__v6__4.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, and <a class="el" href="group__dptxss__v6__4.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
 
 </div>
 </div>
@@ -938,7 +850,7 @@ Variables</h2></td></tr>
 <p>Application needs to know if it changed and need to detect new parameter. Based on the parameter, re-set and re-start VDAM and Tx</p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="group__dptxss__v6__3.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, and <a class="el" href="group__dptxss__v6__4.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>.</p>
 
 </div>
 </div>
@@ -977,14 +889,14 @@ Variables</h2></td></tr>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver  Who      Date      Changes
 -&mdash; &mdash;      -----&mdash;  -----------------------------------------------&mdash;.
-1.00 Nishant  19/12/19 Added support for vck190, VCU118
-                         DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
-                         <a class="el" href="xdptxss__vcu118__tx_8h.html#a75e1b936f3b4d120f3a75d5c5728c2ac" title="This function sets VPHY based on the linerate.">set_vphy()</a> renamed to config_phy() and has two
-                         parameters for linerate and lanecount.
-                         The application files are common for ZCU102, VCU118
-                         and VCK190 TX Only design</pre><pre></pre> 
-<p>Referenced by <a class="el" href="xdptxss__kcu105__dp14_8c.html#a9e50f6016fe9f36c15696a53f9cbf5fa">DpPt_HpdPulseHandler()</a>.</p>
-
+1.00 Nishant  19/12/19          Added support for vck190, VCU118
+                                                        DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
+                                                        <a class="el" href="xdptxss__zcu102__tx_8h.html#a75e1b936f3b4d120f3a75d5c5728c2ac" title="This function sets VPHY based on the linerate.">set_vphy()</a> renamed to config_phy() and has two
+                                                        parameters for linerate and lanecount.
+                                                        The application files are common for ZCU102, VCU118
+                                                        and VCK190 TX Only design
+1.01 KU         22/10/20        Added support for fabric 8b10b implementation of
+                                                        of DP1.4</pre><pre></pre> 
 </div>
 </div>
 <a class="anchor" id="ab0fb3d1ea8d00f1033f476917741a776"></a>

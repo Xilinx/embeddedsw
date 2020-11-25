@@ -78,6 +78,7 @@ var xclk__wiz__hw_8h =
     [ "XCLK_WIZ_ISR_CLKALL_MINFREQ_MASK", "xclk__wiz__hw_8h.html#ga9cfc8a66cb70f62b8546fb4b9a448d50", null ],
     [ "XCLK_WIZ_ISR_CLKALL_STOP_MASK", "xclk__wiz__hw_8h.html#ga82daa29abf414a316c26355e3771cf88", null ],
     [ "XCLK_WIZ_ISR_OFFSET", "xclk__wiz__hw_8h.html#ga54bfc49d1a188b798cb96cfd40a0dc54", null ],
+    [ "XCLK_WIZ_RECONFIG_OFFSET", "xclk__wiz__hw_8h.html#ga8d853c1eaeeb4b89d06b7de0ff13d999", null ],
     [ "XCLK_WIZ_REG12_EDGE_SHIFT", "xclk__wiz__hw_8h.html#ga142028c206e507df8633d0b91b0ef273", null ],
     [ "XCLK_WIZ_REG1_EDGE_SHIFT", "xclk__wiz__hw_8h.html#gafa257e031d2c60c9fdd568df2fa023d0", null ],
     [ "XCLK_WIZ_REG1_EN", "xclk__wiz__hw_8h.html#ga8162c60bfa65bf8e6856f4ab94845337", null ],
@@ -85,5 +86,6 @@ var xclk__wiz__hw_8h =
     [ "XCLK_WIZ_REG1_PREDIV2", "xclk__wiz__hw_8h.html#ga92d4bacb8f557d499888a14e1c48b3c9", null ],
     [ "XCLK_WIZ_REG3_MX", "xclk__wiz__hw_8h.html#ga2ce6c2a6375c78f8b9923d2330941dae", null ],
     [ "XCLK_WIZ_REG3_PREDIV2", "xclk__wiz__hw_8h.html#ga0e335ce1a067f54477c247e74a4dbc3d", null ],
-    [ "XCLK_WIZ_REG3_USED", "xclk__wiz__hw_8h.html#ga9c0c8a7ada27a0cfba39c0f3aa922c7d", null ]
+    [ "XCLK_WIZ_REG3_USED", "xclk__wiz__hw_8h.html#ga9c0c8a7ada27a0cfba39c0f3aa922c7d", null ],
+    [ "XCLK_WIZ_STATUS_OFFSET", "xclk__wiz__hw_8h.html#ga1130a3203681c537950cc8229a696105", null ]
 ];

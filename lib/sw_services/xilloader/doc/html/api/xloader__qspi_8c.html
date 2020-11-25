@@ -69,10 +69,20 @@ $(document).ready(function(){initNavTree('xloader__qspi_8c.html','');});
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
 1.00  kc   02/21/2018 Initial release
-      har  08/28/2018 Fixed MISRA C violations
-1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
-                      time and print
-</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.01  sb   08/23/2019 Added QSPI buswidth detection logic
+      har  08/28/2019 Fixed MISRA C violations
+      bsv  08/30/2019 Added fallback and multiboot support in PLM
+      bsv  09/12/2019 Added support for Macronix 1.8V flash parts
+1.02  bsv  02/04/2020 Reset qspi instance in init functions for LPD off
+                                        suspend and resume to work
+      bsv  04/09/2020 Code clean up
+1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
+      skd  07/14/2020 XLoader_QspiCopy prototype changed
+      skd  07/29/2020 Added non-blocking DMA support for Qspi copy
+      td   08/19/2020 Fixed MISRA C violations Rule 10.3
+      bm   09/01/2020 Updated Major error codes for Unsupported Qspi Flash
+                IDs and Unsupported Flash Sizes
+      bsv  10/13/2020 Code clean up</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

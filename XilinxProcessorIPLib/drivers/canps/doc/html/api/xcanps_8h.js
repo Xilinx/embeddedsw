@@ -51,5 +51,6 @@ var xcanps_8h =
     [ "XCanPs_SetBitTiming", "xcanps_8h.html#gac42876be22acc7e24262120000c4c548", null ],
     [ "XCanPs_SetHandler", "xcanps_8h.html#ga0204f292cdab7478127acd765d97dd8d", null ],
     [ "XCanPs_SetRxIntrWatermark", "xcanps_8h.html#ga6c86f833053ec1121fcfad4176dea686", null ],
-    [ "XCanPs_SetTxIntrWatermark", "xcanps_8h.html#gaf4147148a66b44ca844ecbe3340ecce3", null ]
+    [ "XCanPs_SetTxIntrWatermark", "xcanps_8h.html#gaf4147148a66b44ca844ecbe3340ecce3", null ],
+    [ "XCanPs_ConfigTable", "xcanps_8h.html#ga4bd6f5f133ed9b167ae8f607f2a85da3", null ]
 ];

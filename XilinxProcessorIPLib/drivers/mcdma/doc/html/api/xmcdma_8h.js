@@ -34,6 +34,7 @@ var xmcdma_8h =
     ] ],
     [ "XMcdma_BdChainFree", "xmcdma_8h.html#gac503b02c1b13e908931f84facd8eae44", null ],
     [ "XMcdma_BdChainFromHW", "xmcdma_8h.html#gaab94e04161d34aae300d76dd51948117", null ],
+    [ "XMcDma_BdGetAppWord", "xmcdma_8h.html#ga9295d5a6e89fe6a6471371191078b7fc", null ],
     [ "XMcDma_BdSetAppWord", "xmcdma_8h.html#ga357821499f1231555343dc309c59c67a", null ],
     [ "XMcdma_BdSetBufAddr", "xmcdma_8h.html#ga2a2cc690650d389e820be2aa8a078024", null ],
     [ "XMcDma_BdSetCtrl", "xmcdma_8h.html#ga2388e0cd3c27b0c675f308b74a0e6b21", null ],

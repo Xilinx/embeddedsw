@@ -68,7 +68,9 @@ $(document).ready(function(){initNavTree('xilpuf__example_8h.html','');});
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who     Date     Changes
  ----- ------  -------- ------------------------------------------------------
- 1.0   har     04/05/20 First release</pre><pre> </pre><h2>User configurable parameters for PUF</h2>
+ 1.0   har     01/31/20 First release
+ 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
+ 1.2   am      08/14/20 Changed unsigned to signed enum object.</pre><pre> </pre><h2>User configurable parameters for PUF</h2>
 <p>#define XPUF_RED_KEY "0000000000000000000000000000000000000000000000000000000000000000" Red Key to be encrypted by PUF KEY should be provided in string format.It should be either 32 or 64 characters long as only 128 bit and 256 bit key are supported.</p>
 <p>#define XPUF_RED_KEY_LEN (XPUF_RED_KEY_SIZE_256) (or) (XPUF_RED_KEY_SIZE_128) XPUF_RED_KEY_LEN can be configured as one of the two provided options. This configuration should be done on the basis of the length of the red key in bits. Only 128 bit and 256 bit key are supported. By default the length of red key is configured as 256 bit.</p>
 <p>#define XPUF_IV "000000000000000000000000" IV should be provided in string format.It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string.The value mentioned here will be converted to hex buffer.It is used with the AES-GCM cryptographic hardware in order to encrypt red key.</p>
@@ -84,7 +86,8 @@ $(document).ready(function(){initNavTree('xilpuf__example_8h.html','');});
 <p>#define PUF_DIS (FALSE) This option should be configured as TRUE to program the PUF_DIS eFUSE bit</p>
 <p>#define PUF_REGEN_DIS (FALSE) This option should be configured as TRUE to program the PUF_REGEN_DIS eFUSE bit</p>
 <p>#define PUF_HD_INVLD (FALSE) This option should be configured as TRUE to program the PUF_HD_INVLD eFUSE bit</p>
-<p>#define PUF_SYN_LK (FALSE) This option should be configured as TRUE to program the PUF_SYN_LK eFUSE bit </p>
+<p>#define PUF_SYN_LK (FALSE) This option should be configured as TRUE to program the PUF_SYN_LK eFUSE bit</p>
+<p>#define XPUF_GLBL_VAR_FLTR_OPTION (TRUE) It is recommended to always enable this option to ensure entropy. It can be configured as FALSE to disable Global Variation Filter. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

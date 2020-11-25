@@ -69,8 +69,7 @@ $(document).ready(function(){initNavTree('xrfdc__selftest__example_8c.html','');
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a selftest example for using the rfdc hardware and RFSoC Data Converter driver. </p>
-<p>This example does some writes to the hardware to do some sanity checks and does a reset to restore the original settings.</p>
-<p>For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro while compiling this example.</p>
+<p>This example does some writes to the hardware to do some sanity checks. To remove external dependencies, this test does not require the IP state machine to complete (i.e. this is configuration only).</p>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
 <hr/>
@@ -85,7 +84,11 @@ $(document).ready(function(){initNavTree('xrfdc__selftest__example_8c.html','');
       mus    08/18/18 Updated to remove xparameters.h dependency for linux
                       platform.
 7.0   cog    07/25/19 Updated example for new metal register API.
-7.1   cog    12/09/19 Added routing of clocks for ZCU216.</pre><pre></pre> </div><table class="memberdecls">
+7.1   cog    12/09/19 Added routing of clocks for ZCU216.
+8.1   cog    06/29/20 Changing setlftest to a test with no external
+                      dependencies. The previous example including clocking
+                      will be in supplemental example(s).
+      cog    07/03/20 The metal_phys parameter is baremetal only.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>

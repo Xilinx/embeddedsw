@@ -71,12 +71,12 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Timer mode</li>
 <li>Auto reload (timer mode only)</li>
 </ul>
-<p>The watchdog counter register is a down counter and starts decrementing when the watchdog is started. In watchdog mode, when the counter reaches 0, the Reset flag is set in the Reset status register and the WDRESETREQ pin is asserted, causing a system reset. The Reset flag is not reset by normal processor reset and is cleared when written with a value of 1. This enables the user to differentiate a normal reset and a reset caused by watchdog time-out. The user needs to call <a class="el" href="group__scuwdt__v2__2.html#ga9487e2c385d8dc9cf5f1f27539ca079f" title="Re-start the watchdog timer.">XScuWdt_RestartWdt()</a> periodically, to avoid the watchdog from being timed-out.</p>
+<p>The watchdog counter register is a down counter and starts decrementing when the watchdog is started. In watchdog mode, when the counter reaches 0, the Reset flag is set in the Reset status register and the WDRESETREQ pin is asserted, causing a system reset. The Reset flag is not reset by normal processor reset and is cleared when written with a value of 1. This enables the user to differentiate a normal reset and a reset caused by watchdog time-out. The user needs to call <a class="el" href="group__scuwdt__v2__3.html#ga9487e2c385d8dc9cf5f1f27539ca079f" title="Re-start the watchdog timer.">XScuWdt_RestartWdt()</a> periodically, to avoid the watchdog from being timed-out.</p>
 <p>The IsWdtExpired function can be used to check if the watchdog was the cause of the last reset. In this situation, call Initialize then call IsWdtExpired. If the result is true, watchdog timeout caused the last system reset. The application then needs to clear the Reset flag.</p>
 <p>In timer mode, when the counter reaches 0, the Event flag is set in the Interrupt status register and if interrupts are enabled, interrupt ID 30 is set as pending in the interrupt distributor. The IsTimerExpired function is used to check if the watchdog counter has decremented to 0 in timer mode. If auto-reload mode is enabled, the Counter register is automatically reloaded from the Load register.</p>
 <p><b> Initialization and Configuration </b></p>
 <p>The device driver enables higher layer software (e.g., an application) to communicate with the Watchdog Timer.</p>
-<p><a class="el" href="group__scuwdt__v2__2.html#ga1fee56fc3ec3c8b003e6ae0528703b1c" title="Initialize a specific watchdog timer instance/driver.">XScuWdt_CfgInitialize()</a> API is used to initialize the Watchdog Timer. The user needs to first call the <a class="el" href="group__scuwdt__v2__2.html#ga899e316b67b7eab6cec1f5b99df25e4d" title="Lookup the device configuration based on the unique device ID.">XScuWdt_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__scuwdt__v2__2.html#ga1fee56fc3ec3c8b003e6ae0528703b1c" title="Initialize a specific watchdog timer instance/driver.">XScuWdt_CfgInitialize()</a> API.</p>
+<p><a class="el" href="group__scuwdt__v2__3.html#ga1fee56fc3ec3c8b003e6ae0528703b1c" title="Initialize a specific watchdog timer instance/driver.">XScuWdt_CfgInitialize()</a> API is used to initialize the Watchdog Timer. The user needs to first call the <a class="el" href="group__scuwdt__v2__3.html#ga899e316b67b7eab6cec1f5b99df25e4d" title="Lookup the device configuration based on the unique device ID.">XScuWdt_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__scuwdt__v2__3.html#ga1fee56fc3ec3c8b003e6ae0528703b1c" title="Initialize a specific watchdog timer instance/driver.">XScuWdt_CfgInitialize()</a> API.</p>
 <p><b>Interrupts</b></p>
 <p>The SCU Watchdog Timer supports interrupts in Timer mode.</p>
 <p>This driver does not provide a Interrupt Service Routine (ISR) for the device. It is the responsibility of the application to provide one if needed. Refer to the interrupt example provided with this driver for details on using the Timer in interrupt mode.</p>
@@ -105,6 +105,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
       ms  03/17/17 Added readme.txt file in examples folder for doxygen
                    generation.
+2.3   mus 08/31/20 Updated makefile to support parallel make and
+                   incremental builds. It would help to reduce compilaton
+                   time.
+2.3     sne 09/16/20 Fixed MISRA-C violations.
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

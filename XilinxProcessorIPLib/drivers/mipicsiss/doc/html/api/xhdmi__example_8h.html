@@ -63,6 +63,7 @@ $(document).ready(function(){initNavTree('xhdmi__example_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xhdmi_example.h File Reference</div>  </div>
@@ -91,6 +92,12 @@ Macros</h2></td></tr>
 <tr class="memitem:a71bd0b63917e21a117972939353bda39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmi__example_8h.html#a71bd0b63917e21a117972939353bda39">I2C_CLK_ADDR</a>&#160;&#160;&#160;0x68</td></tr>
 <tr class="memdesc:a71bd0b63917e21a117972939353bda39"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C Clk Address.  <a href="#a71bd0b63917e21a117972939353bda39"></a><br/></td></tr>
 <tr class="separator:a71bd0b63917e21a117972939353bda39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a13f636ef2d93d7ee10e421e5f604a510"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmi__example_8h.html#a13f636ef2d93d7ee10e421e5f604a510">I2cClk</a> (u32 InFreq, u32 OutFreq)</td></tr>
+<tr class="memdesc:a13f636ef2d93d7ee10e421e5f604a510"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function setup SI5324 clock generator either in free or locked mode.  <a href="#a13f636ef2d93d7ee10e421e5f604a510"></a><br/></td></tr>
+<tr class="separator:a13f636ef2d93d7ee10e421e5f604a510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -138,6 +145,74 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>I2C Mux Address. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a13f636ef2d93d7ee10e421e5f604a510"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int I2cClk </td>
+          <td>(</td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>InFreq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>OutFreq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function setup SI5324 clock generator either in free or locked mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InFreq</td><td>specifies an input frequency for the si5324. </td></tr>
+    <tr><td class="paramname">OutFreq</td><td>specifies the output frequency of si5324.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Zero if error in programming external clock ele '1' if success</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Index</td><td>specifies an index for selecting mode frequency. </td></tr>
+    <tr><td class="paramname">Mode</td><td>specifies either free or locked mode.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>Zero if error in programming external clock.</li>
+<li>One if programmed external clock.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Index</td><td>specifies an index for selecting mode frequency. </td></tr>
+    <tr><td class="paramname">Mode</td><td>specifies either free or locked mode.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>Zero if error in programming external clock.</li>
+<li>One if programmed external clock.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xmipi__example_8c.html#a71bd0b63917e21a117972939353bda39">I2C_CLK_ADDR</a>.</p>
+
+<p>Referenced by <a class="el" href="xhdmi__example_8c.html#ab95c1e72946010427c5c708682b5ac81">config_hdmi()</a>, <a class="el" href="xmipi__menu_8c.html#adc524e092889eb6825e874b8a94fa38b">EnableColorBar()</a>, and <a class="el" href="xmipi__example_8c.html#a09a07df362490e4ba97f77a9ce5edd74">StartTxAfterRx()</a>.</p>
 
 </div>
 </div>

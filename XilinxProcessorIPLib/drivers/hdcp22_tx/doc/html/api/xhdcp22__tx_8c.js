@@ -36,6 +36,7 @@ var xhdcp22__tx_8c =
     [ "XHdcp22Tx_LogWr", "xhdcp22__tx_8c.html#ga13dade65f38f5ab12c831b69e28cb8d3", null ],
     [ "XHdcp22Tx_Poll", "xhdcp22__tx_8c.html#ga3b241b90bc8c251efc52890691a4d31e", null ],
     [ "XHdcp22Tx_Reset", "xhdcp22__tx_8c.html#ga6db0e5cde70480f6457e37d3eea52567", null ],
+    [ "XHdcp22Tx_RevokeReceiverId", "xhdcp22__tx_8c.html#gadb7cd328bf4728b91678482c13224e5c", null ],
     [ "XHdcp22Tx_SetCallback", "xhdcp22__tx_8c.html#ga9cb19e51fda89c401121edafbda166da", null ],
     [ "XHdcp22Tx_SetContentStreamType", "xhdcp22__tx_8c.html#ga7ebdf8bc4dec78be947ea2328f68a0e5", null ],
     [ "XHdcp22Tx_SetMessagePollingValue", "xhdcp22__tx_8c.html#gaef47325dea03dc622618744b86ccf2fb", null ],

@@ -108,6 +108,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af24a60bdd8657b70cd5138a7db89ef6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mipi__cfg_8c.html#af24a60bdd8657b70cd5138a7db89ef6c">SetupIICIntrHandlers</a> (void)</td></tr>
 <tr class="memdesc:af24a60bdd8657b70cd5138a7db89ef6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets send, receive and error handlers for IIC interrupts.  <a href="#af24a60bdd8657b70cd5138a7db89ef6c"></a><br/></td></tr>
 <tr class="separator:af24a60bdd8657b70cd5138a7db89ef6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaabb459a43a4fde3d6805e6d53c899c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mipi__cfg_8c.html#aaabb459a43a4fde3d6805e6d53c899c6">DisableScaler</a> (void)</td></tr>
+<tr class="memdesc:aaabb459a43a4fde3d6805e6d53c899c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stops VProc_SS scalar IP.  <a href="#aaabb459a43a4fde3d6805e6d53c899c6"></a><br/></td></tr>
+<tr class="separator:aaabb459a43a4fde3d6805e6d53c899c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9af254929ec07e0b8e29ff28e18ec709"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mipi__cfg_8c.html#a9af254929ec07e0b8e29ff28e18ec709">InitializeCsiRxSs</a> (void)</td></tr>
 <tr class="memdesc:a9af254929ec07e0b8e29ff28e18ec709"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes MIPI CSI2 RX SS and gets config parameters.  <a href="#a9af254929ec07e0b8e29ff28e18ec709"></a><br/></td></tr>
 <tr class="separator:a9af254929ec07e0b8e29ff28e18ec709"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -307,7 +310,27 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__csiss__v1__3.html#ga0436d17627c2acd4ed542efbbb584fab">XCsiSs_Reset()</a>.</p>
+<p>References <a class="el" href="group__csiss__v1__4.html#ga0436d17627c2acd4ed542efbbb584fab">XCsiSs_Reset()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaabb459a43a4fde3d6805e6d53c899c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DisableScaler </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function stops VProc_SS scalar IP. </p>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -329,7 +352,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__csiss__v1__3.html#gaf30fdaf13ba08d8612f8e20ab21d8ff2">XCsiSs_Activate()</a>, <a class="el" href="group__csiss__v1__3.html#ga3b35fe38bf1b55eb8107f892caf67103">XCsiSs_Configure()</a>, and <a class="el" href="group__csiss__v1__3.html#ga0436d17627c2acd4ed542efbbb584fab">XCsiSs_Reset()</a>.</p>
+<p>References <a class="el" href="group__csiss__v1__4.html#gaf30fdaf13ba08d8612f8e20ab21d8ff2">XCsiSs_Activate()</a>, <a class="el" href="group__csiss__v1__4.html#ga3b35fe38bf1b55eb8107f892caf67103">XCsiSs_Configure()</a>, and <a class="el" href="group__csiss__v1__4.html#ga0436d17627c2acd4ed542efbbb584fab">XCsiSs_Reset()</a>.</p>
 
 </div>
 </div>
@@ -408,7 +431,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful or else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csi_ss___config.html#accf7178f1f7fc0ba40fee2e61ca159bc">XCsiSs_Config::BaseAddr</a>, <a class="el" href="group__csiss__v1__3.html#ga8fde229b1ad93697e0cf3f1710b2db7e">XCsiSs_CfgInitialize()</a>, and <a class="el" href="group__csiss__v1__3.html#gaff8115edc1de28ca0524d489e736480c">XCsiSs_LookupConfig()</a>.</p>
+<p>References <a class="el" href="struct_x_csi_ss___config.html#accf7178f1f7fc0ba40fee2e61ca159bc">XCsiSs_Config::BaseAddr</a>, <a class="el" href="group__csiss__v1__4.html#ga8fde229b1ad93697e0cf3f1710b2db7e">XCsiSs_CfgInitialize()</a>, and <a class="el" href="group__csiss__v1__4.html#gaff8115edc1de28ca0524d489e736480c">XCsiSs_LookupConfig()</a>.</p>
 
 </div>
 </div>
@@ -599,8 +622,6 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_csi_ss.html#a9e11a24b49b049a215fe243afd1e9741">XCsiSs::Config</a>, <a class="el" href="pipeline__program_8c.html#af976f4549bce7619166766cf79567e19">GetColorDepth()</a>, and <a class="el" href="struct_x_csi_ss___config.html#a7c808fba33fd373f15f4c7e98bea29b9">XCsiSs_Config::PixelFormat</a>.</p>
 
-<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a9909ac1b3c8acfa727d8b5d0bd7eda39"></a>
@@ -622,8 +643,6 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="pipeline__program_8c.html#a4e91fc11192ec41418d32f523f3ca435">SensorReadData()</a>, and <a class="el" href="pipeline__program_8c.html#a5029f37b87848470fe3f36f722c75b90">SensorWriteData()</a>.</p>
-
-<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
@@ -690,8 +709,6 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="pipeline__program_8c.html#a5029f37b87848470fe3f36f722c75b90">SensorWriteData()</a>.</p>
-
-<p>Referenced by <a class="el" href="xmipi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>

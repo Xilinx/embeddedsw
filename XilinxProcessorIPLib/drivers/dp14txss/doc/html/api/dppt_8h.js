@@ -20,7 +20,6 @@ var dppt_8h =
     [ "I2C_Scan", "dppt_8h.html#a624cc22e5b6956b5f86d03d84c501966", null ],
     [ "Print_ExtPkt", "dppt_8h.html#a5b27aa5d150120cd4f5b26b14aa6b6af", null ],
     [ "Print_InfoPkt", "dppt_8h.html#a199e36a60274e8ebc2a321abf6bcb2b8", null ],
-    [ "remap_start", "dppt_8h.html#a168c85710af4079bf2b90ddc7f764006", null ],
     [ "reset_clkwiz", "dppt_8h.html#a813500920ecee36360482a8078fcd5c5", null ],
     [ "resetIp", "dppt_8h.html#a56361447f4b2f2b7e4c28bd94e142116", null ],
     [ "sink_power_cycle", "dppt_8h.html#a0f0a1dce20baa6103b48f0bf9fe44cde", null ],

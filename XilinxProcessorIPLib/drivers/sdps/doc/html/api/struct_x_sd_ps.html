@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('struct_x_sd_ps.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSdPs Struct Reference<div class="ingroups"><a class="el" href="group__sdps__v3__9.html">Sdps_v3_9</a></div></div>  </div>
+<div class="title">XSdPs Struct Reference<div class="ingroups"><a class="el" href="group__sdps__v3__10.html">Sdps_v3_10</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -145,11 +145,33 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a227dd8d81f553fb5d647a3a21b42d0c6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_ps.html#a227dd8d81f553fb5d647a3a21b42d0c6">SlcrBaseAddr</a></td></tr>
 <tr class="memdesc:a227dd8d81f553fb5d647a3a21b42d0c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLCR base address.  <a href="#a227dd8d81f553fb5d647a3a21b42d0c6"></a><br/></td></tr>
 <tr class="separator:a227dd8d81f553fb5d647a3a21b42d0c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae169220856ab624877027540c585b93"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_ps.html#aae169220856ab624877027540c585b93">IsBusy</a></td></tr>
+<tr class="memdesc:aae169220856ab624877027540c585b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busy Flag.  <a href="#aae169220856ab624877027540c585b93"></a><br/></td></tr>
+<tr class="separator:aae169220856ab624877027540c585b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f2cc68e1e0155d5a70c6d7323fe39c9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_ps.html#a9f2cc68e1e0155d5a70c6d7323fe39c9">BlkSize</a></td></tr>
+<tr class="memdesc:a9f2cc68e1e0155d5a70c6d7323fe39c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block Size.  <a href="#a9f2cc68e1e0155d5a70c6d7323fe39c9"></a><br/></td></tr>
+<tr class="separator:a9f2cc68e1e0155d5a70c6d7323fe39c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="struct_x_sd_ps.html" title="The XSdPs driver instance data.">XSdPs</a> driver instance data. </p>
 <p>The user is required to allocate a variable of this type for every SD device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a9f2cc68e1e0155d5a70c6d7323fe39c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdPs::BlkSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Block Size. </p>
+
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga15e41cb3481e66918efd4ad7db154b62">XSdPs_Read()</a>, <a class="el" href="group__sdps__v3__10.html#ga8dfe3686ed74d09a2a46a7b5cddcde47">XSdPs_ReadPolled()</a>, <a class="el" href="group__sdps__v3__10.html#ga1af3178b4b24c991b431eb7a0aa3b23b">XSdPs_SetBlkSize()</a>, and <a class="el" href="group__sdps__v3__10.html#gac51519692c6bb54d91aaecb8bcf957d1">XSdPs_Write()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aa22055804ffd9cbe6885b2abe40fee86"></a>
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +184,7 @@ Data Fields</h2></td></tr>
 
 <p>Current operating bus speed. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga489b7d969537f9d455ec128a390a749d">XSdPs_CalcBusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#ga8683eac6348837f171e31b10d27c8f13">XSdPs_MmcCardEnum()</a>, and <a class="el" href="group__sdps__v3__9.html#gabb269de0a2001e73f252206fa07ce1e7">XSdPs_SdCardEnum()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga489b7d969537f9d455ec128a390a749d">XSdPs_CalcBusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#ga8683eac6348837f171e31b10d27c8f13">XSdPs_MmcCardEnum()</a>, and <a class="el" href="group__sdps__v3__10.html#gabb269de0a2001e73f252206fa07ce1e7">XSdPs_SdCardEnum()</a>.</p>
 
 </div>
 </div>
@@ -178,7 +200,7 @@ Data Fields</h2></td></tr>
 
 <p>Current operating bus width. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__9.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__9.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, <a class="el" href="group__sdps__v3__9.html#gaf6a7c6b7c9f7a52aac051af0aa6ef729">XSdPs_MmcModeInit()</a>, and <a class="el" href="group__sdps__v3__9.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__10.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__10.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, <a class="el" href="group__sdps__v3__10.html#gaf6a7c6b7c9f7a52aac051af0aa6ef729">XSdPs_MmcModeInit()</a>, and <a class="el" href="group__sdps__v3__10.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
 
 </div>
 </div>
@@ -194,7 +216,7 @@ Data Fields</h2></td></tr>
 
 <p>Card version. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga121220c9912174a846e46a4c1ef388d3">XSdPs_CardIfCond()</a>, <a class="el" href="group__sdps__v3__9.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, and <a class="el" href="group__sdps__v3__9.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga121220c9912174a846e46a4c1ef388d3">XSdPs_CardIfCond()</a>, <a class="el" href="group__sdps__v3__10.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, and <a class="el" href="group__sdps__v3__10.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>.</p>
 
 </div>
 </div>
@@ -210,7 +232,7 @@ Data Fields</h2></td></tr>
 
 <p>Card ID Register. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>.</p>
 
 </div>
 </div>
@@ -240,7 +262,7 @@ Data Fields</h2></td></tr>
 
 <p>Type of card - SD/MMC/eMMC. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__9.html#ga489b7d969537f9d455ec128a390a749d">XSdPs_CalcBusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__9.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga959b013962a6b53aa1c52f8ed78153be">XSdPs_FrameCmd()</a>, <a class="el" href="group__sdps__v3__9.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>, <a class="el" href="group__sdps__v3__9.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, <a class="el" href="group__sdps__v3__9.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, and <a class="el" href="group__sdps__v3__9.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__10.html#ga489b7d969537f9d455ec128a390a749d">XSdPs_CalcBusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__10.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga959b013962a6b53aa1c52f8ed78153be">XSdPs_FrameCmd()</a>, <a class="el" href="group__sdps__v3__10.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>, <a class="el" href="group__sdps__v3__10.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, <a class="el" href="group__sdps__v3__10.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, and <a class="el" href="group__sdps__v3__10.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>.</p>
 
 </div>
 </div>
@@ -256,7 +278,7 @@ Data Fields</h2></td></tr>
 
 <p>Configuration structure. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__9.html#gacd492dfefb8a2fe67964993032250bd4">XSdPs_CalcClock()</a>, <a class="el" href="group__sdps__v3__9.html#ga121220c9912174a846e46a4c1ef388d3">XSdPs_CardIfCond()</a>, <a class="el" href="group__sdps__v3__9.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__9.html#ga6b65625dd94d082f21d8dedfdfd8db97">XSdPs_CardSetVoltage18()</a>, <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga273b141e9bacac12fd3b3123b7827faa">XSdPs_Change_SdBusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#gaf0101a5bb2238bcf0279c3e4c0a33ccb">XSdPs_CheckBusHigh()</a>, <a class="el" href="group__sdps__v3__9.html#ga3c9d104a1d7f9e14d8b2b79fbb47702d">XSdPs_CheckBusIdle()</a>, <a class="el" href="group__sdps__v3__9.html#ga9c1007ef091d85466eb133a80b9f3213">XSdPs_CheckCardDetect()</a>, <a class="el" href="group__sdps__v3__9.html#gae561ac5fb9655a8c8523a7afd848f8cd">XSdPs_CheckResetDone()</a>, <a class="el" href="group__sdps__v3__9.html#gaaa85509249cb90b33c8a201a751bdd8f">XSdps_CheckTransferDone()</a>, <a class="el" href="group__sdps__v3__9.html#gafa42ece30f32bbc385f0533873461b2d">XSdPs_CheckVoltage18()</a>, <a class="el" href="group__sdps__v3__9.html#ga1c5c45efb0402b9d8e6a33d036dbd220">XSdPs_CmdTransfer()</a>, <a class="el" href="group__sdps__v3__9.html#gacae52488893efc2acb048af3660254f5">XSdPs_ConfigDma()</a>, <a class="el" href="group__sdps__v3__9.html#ga5d77b69b0e2e4ca66556dc8a90f834c4">XSdPs_ConfigInterrupt()</a>, <a class="el" href="group__sdps__v3__9.html#ga8644655cee22998e56ef1dba7871ac89">XSdPs_ConfigPower()</a>, <a class="el" href="group__sdps__v3__9.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, <a class="el" href="group__sdps__v3__9.html#gaa42580dd8c7438e838e274579d9c4be3">XSdPs_DisableBusPower()</a>, <a class="el" href="group__sdps__v3__9.html#gad837da458a367f226a76d8eda9a09214">XSdPs_DllReset()</a>, <a class="el" href="group__sdps__v3__9.html#gaf51d4f72c727b7d28592ac797fe5d467">XSdPs_DllRstCtrl()</a>, <a class="el" href="group__sdps__v3__9.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__9.html#gaca5e99fecb052c0552ab2d7a692a21ad">XSdPs_EnableBusPower()</a>, <a class="el" href="group__sdps__v3__9.html#gad6793165c476a72b093f179766ab176f">XSdPs_EnableClock()</a>, <a class="el" href="group__sdps__v3__9.html#gafc7e71cb62142d0ef939336195102666">XSdPs_Get_BusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#ga864452e1802367600d196ccc37310f7c">XSdPs_Get_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga69e8d7cd927da4273a12d0d5fb3f36ff">XSdPs_Get_Mmc_ExtCsd()</a>, <a class="el" href="group__sdps__v3__9.html#gaa26e9b4a046701024b01b1b0cb48ed08">XSdPs_Get_Status()</a>, <a class="el" href="group__sdps__v3__9.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>, <a class="el" href="group__sdps__v3__9.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, <a class="el" href="group__sdps__v3__9.html#ga90976f95bfd56ede8ee75175610c4c58">XSdPs_HostConfig()</a>, <a class="el" href="group__sdps__v3__9.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__9.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, <a class="el" href="group__sdps__v3__9.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, <a class="el" href="group__sdps__v3__9.html#ga88cdddd905825791ef9b682eb5adfff8">XSdPs_Idle()</a>, <a class="el" href="group__sdps__v3__9.html#ga15e41cb3481e66918efd4ad7db154b62">XSdPs_Read()</a>, <a class="el" href="group__sdps__v3__9.html#ga8dfe3686ed74d09a2a46a7b5cddcde47">XSdPs_ReadPolled()</a>, <a class="el" href="group__sdps__v3__9.html#gab802e347cc12cdd73d4d9dd7737535e6">XSdPs_Reset()</a>, <a class="el" href="group__sdps__v3__9.html#ga8e9a576dfdb4440a795eb6e712994050">XSdPs_SdCardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>, <a class="el" href="group__sdps__v3__9.html#ga0446c3fbdc875f25c1bbf74efa3ff970">XSdPs_SendCmd()</a>, <a class="el" href="group__sdps__v3__9.html#ga1af3178b4b24c991b431eb7a0aa3b23b">XSdPs_SetBlkSize()</a>, <a class="el" href="group__sdps__v3__9.html#ga45d325b142a6526ec0468d1fbc34c471">XSdPs_SetClock()</a>, <a class="el" href="group__sdps__v3__9.html#ga2e868dda7aa547805fe79f9e840059e5">XSdPs_SetExecTuning()</a>, <a class="el" href="group__sdps__v3__9.html#ga8fc46805b1c3026474ca3b26142a9133">XSdPs_Setup32ADMA2DescTbl()</a>, <a class="el" href="group__sdps__v3__9.html#gaed024f423e3600d7ec230f7ca8bb1118">XSdPs_Setup64ADMA2DescTbl()</a>, <a class="el" href="group__sdps__v3__9.html#gad03504fb7e11f640d478e5db67f2beb3">XSdPs_SetupADMA2DescTbl64Bit()</a>, <a class="el" href="group__sdps__v3__9.html#ga38aad34c4dd588d187c6053a9514c52e">XSdPs_SetupCmd()</a>, <a class="el" href="group__sdps__v3__9.html#ga4fde94c65a7c6e64e2444cb33e7d0431">XSdPs_SetupReadDma()</a>, <a class="el" href="group__sdps__v3__9.html#ga78d4cd8fc91d6c32b6ed35bd86581cb3">XSdPs_SetupTransfer()</a>, <a class="el" href="group__sdps__v3__9.html#ga1dcb11223d1894628593253fd7144c42">XSdPs_SetupVoltageSwitch()</a>, <a class="el" href="group__sdps__v3__9.html#ga7deb56821f069d713aa76a10b83c4baa">XSdPs_SetupWriteDma()</a>, <a class="el" href="group__sdps__v3__9.html#gab75b25b7d98ac1e72aa60cda683ffcda">XSdPs_SetVoltage18()</a>, and <a class="el" href="group__sdps__v3__9.html#ga69aa57979c1ef9b9ec3fbdc6d8ab7277">XSdPs_WritePolled()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__10.html#gacd492dfefb8a2fe67964993032250bd4">XSdPs_CalcClock()</a>, <a class="el" href="group__sdps__v3__10.html#ga121220c9912174a846e46a4c1ef388d3">XSdPs_CardIfCond()</a>, <a class="el" href="group__sdps__v3__10.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__10.html#ga6b65625dd94d082f21d8dedfdfd8db97">XSdPs_CardSetVoltage18()</a>, <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga273b141e9bacac12fd3b3123b7827faa">XSdPs_Change_SdBusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#gaf0101a5bb2238bcf0279c3e4c0a33ccb">XSdPs_CheckBusHigh()</a>, <a class="el" href="group__sdps__v3__10.html#ga3c9d104a1d7f9e14d8b2b79fbb47702d">XSdPs_CheckBusIdle()</a>, <a class="el" href="group__sdps__v3__10.html#ga9c1007ef091d85466eb133a80b9f3213">XSdPs_CheckCardDetect()</a>, <a class="el" href="group__sdps__v3__10.html#ga555d8f458181719d701f93a9bd023ed2">XSdPs_CheckReadTransfer()</a>, <a class="el" href="group__sdps__v3__10.html#gae561ac5fb9655a8c8523a7afd848f8cd">XSdPs_CheckResetDone()</a>, <a class="el" href="group__sdps__v3__10.html#gaaa85509249cb90b33c8a201a751bdd8f">XSdps_CheckTransferDone()</a>, <a class="el" href="group__sdps__v3__10.html#gafa42ece30f32bbc385f0533873461b2d">XSdPs_CheckVoltage18()</a>, <a class="el" href="group__sdps__v3__10.html#ga1c5c45efb0402b9d8e6a33d036dbd220">XSdPs_CmdTransfer()</a>, <a class="el" href="group__sdps__v3__10.html#gacae52488893efc2acb048af3660254f5">XSdPs_ConfigDma()</a>, <a class="el" href="group__sdps__v3__10.html#ga5d77b69b0e2e4ca66556dc8a90f834c4">XSdPs_ConfigInterrupt()</a>, <a class="el" href="group__sdps__v3__10.html#ga8644655cee22998e56ef1dba7871ac89">XSdPs_ConfigPower()</a>, <a class="el" href="group__sdps__v3__10.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, <a class="el" href="group__sdps__v3__10.html#gaa42580dd8c7438e838e274579d9c4be3">XSdPs_DisableBusPower()</a>, <a class="el" href="group__sdps__v3__10.html#gad837da458a367f226a76d8eda9a09214">XSdPs_DllReset()</a>, <a class="el" href="group__sdps__v3__10.html#gaf51d4f72c727b7d28592ac797fe5d467">XSdPs_DllRstCtrl()</a>, <a class="el" href="group__sdps__v3__10.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__10.html#gaca5e99fecb052c0552ab2d7a692a21ad">XSdPs_EnableBusPower()</a>, <a class="el" href="group__sdps__v3__10.html#gad6793165c476a72b093f179766ab176f">XSdPs_EnableClock()</a>, <a class="el" href="group__sdps__v3__10.html#gafc7e71cb62142d0ef939336195102666">XSdPs_Get_BusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#ga864452e1802367600d196ccc37310f7c">XSdPs_Get_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga69e8d7cd927da4273a12d0d5fb3f36ff">XSdPs_Get_Mmc_ExtCsd()</a>, <a class="el" href="group__sdps__v3__10.html#gaa26e9b4a046701024b01b1b0cb48ed08">XSdPs_Get_Status()</a>, <a class="el" href="group__sdps__v3__10.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>, <a class="el" href="group__sdps__v3__10.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, <a class="el" href="group__sdps__v3__10.html#ga90976f95bfd56ede8ee75175610c4c58">XSdPs_HostConfig()</a>, <a class="el" href="group__sdps__v3__10.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__10.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, <a class="el" href="group__sdps__v3__10.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, <a class="el" href="group__sdps__v3__10.html#ga88cdddd905825791ef9b682eb5adfff8">XSdPs_Idle()</a>, <a class="el" href="group__sdps__v3__10.html#ga8dfe3686ed74d09a2a46a7b5cddcde47">XSdPs_ReadPolled()</a>, <a class="el" href="group__sdps__v3__10.html#gab802e347cc12cdd73d4d9dd7737535e6">XSdPs_Reset()</a>, <a class="el" href="group__sdps__v3__10.html#ga43c82653cd80c9c1eb82db2eec0d7718">XSdPs_ResetConfig()</a>, <a class="el" href="group__sdps__v3__10.html#ga8e9a576dfdb4440a795eb6e712994050">XSdPs_SdCardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>, <a class="el" href="group__sdps__v3__10.html#ga0446c3fbdc875f25c1bbf74efa3ff970">XSdPs_SendCmd()</a>, <a class="el" href="group__sdps__v3__10.html#ga1af3178b4b24c991b431eb7a0aa3b23b">XSdPs_SetBlkSize()</a>, <a class="el" href="group__sdps__v3__10.html#ga45d325b142a6526ec0468d1fbc34c471">XSdPs_SetClock()</a>, <a class="el" href="group__sdps__v3__10.html#ga2e868dda7aa547805fe79f9e840059e5">XSdPs_SetExecTuning()</a>, <a class="el" href="group__sdps__v3__10.html#ga8fc46805b1c3026474ca3b26142a9133">XSdPs_Setup32ADMA2DescTbl()</a>, <a class="el" href="group__sdps__v3__10.html#gaed024f423e3600d7ec230f7ca8bb1118">XSdPs_Setup64ADMA2DescTbl()</a>, <a class="el" href="group__sdps__v3__10.html#gad03504fb7e11f640d478e5db67f2beb3">XSdPs_SetupADMA2DescTbl64Bit()</a>, <a class="el" href="group__sdps__v3__10.html#ga38aad34c4dd588d187c6053a9514c52e">XSdPs_SetupCmd()</a>, <a class="el" href="group__sdps__v3__10.html#ga4fde94c65a7c6e64e2444cb33e7d0431">XSdPs_SetupReadDma()</a>, <a class="el" href="group__sdps__v3__10.html#ga78d4cd8fc91d6c32b6ed35bd86581cb3">XSdPs_SetupTransfer()</a>, <a class="el" href="group__sdps__v3__10.html#ga1dcb11223d1894628593253fd7144c42">XSdPs_SetupVoltageSwitch()</a>, <a class="el" href="group__sdps__v3__10.html#ga7deb56821f069d713aa76a10b83c4baa">XSdPs_SetupWriteDma()</a>, <a class="el" href="group__sdps__v3__10.html#gab75b25b7d98ac1e72aa60cda683ffcda">XSdPs_SetVoltage18()</a>, and <a class="el" href="group__sdps__v3__10.html#ga69aa57979c1ef9b9ec3fbdc6d8ab7277">XSdPs_WritePolled()</a>.</p>
 
 </div>
 </div>
@@ -272,7 +294,7 @@ Data Fields</h2></td></tr>
 
 <p>64 Bit DMA Address </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gad03504fb7e11f640d478e5db67f2beb3">XSdPs_SetupADMA2DescTbl64Bit()</a>, <a class="el" href="group__sdps__v3__9.html#ga4fde94c65a7c6e64e2444cb33e7d0431">XSdPs_SetupReadDma()</a>, and <a class="el" href="group__sdps__v3__9.html#ga7deb56821f069d713aa76a10b83c4baa">XSdPs_SetupWriteDma()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gad03504fb7e11f640d478e5db67f2beb3">XSdPs_SetupADMA2DescTbl64Bit()</a>, <a class="el" href="group__sdps__v3__10.html#ga4fde94c65a7c6e64e2444cb33e7d0431">XSdPs_SetupReadDma()</a>, and <a class="el" href="group__sdps__v3__10.html#ga7deb56821f069d713aa76a10b83c4baa">XSdPs_SetupWriteDma()</a>.</p>
 
 </div>
 </div>
@@ -288,7 +310,7 @@ Data Fields</h2></td></tr>
 
 <p>Host controller version. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gacd492dfefb8a2fe67964993032250bd4">XSdPs_CalcClock()</a>, <a class="el" href="group__sdps__v3__9.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga1f8661e4ae53a7c29b3fd44cc56a3673">XSdPs_Change_ClkFreq()</a>, <a class="el" href="group__sdps__v3__9.html#ga9c1007ef091d85466eb133a80b9f3213">XSdPs_CheckCardDetect()</a>, <a class="el" href="group__sdps__v3__9.html#gacae52488893efc2acb048af3660254f5">XSdPs_ConfigDma()</a>, <a class="el" href="group__sdps__v3__9.html#gaa42580dd8c7438e838e274579d9c4be3">XSdPs_DisableBusPower()</a>, <a class="el" href="group__sdps__v3__9.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__9.html#gaca5e99fecb052c0552ab2d7a692a21ad">XSdPs_EnableBusPower()</a>, <a class="el" href="group__sdps__v3__9.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, <a class="el" href="group__sdps__v3__9.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gabb269de0a2001e73f252206fa07ce1e7">XSdPs_SdCardEnum()</a>, <a class="el" href="group__sdps__v3__9.html#gaf9b8a29b65e1213b11ad22312e5f84be">XSdPs_SetupADMA2DescTbl()</a>, and <a class="el" href="group__sdps__v3__9.html#ga78d4cd8fc91d6c32b6ed35bd86581cb3">XSdPs_SetupTransfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gacd492dfefb8a2fe67964993032250bd4">XSdPs_CalcClock()</a>, <a class="el" href="group__sdps__v3__10.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga1f8661e4ae53a7c29b3fd44cc56a3673">XSdPs_Change_ClkFreq()</a>, <a class="el" href="group__sdps__v3__10.html#ga9c1007ef091d85466eb133a80b9f3213">XSdPs_CheckCardDetect()</a>, <a class="el" href="group__sdps__v3__10.html#gacae52488893efc2acb048af3660254f5">XSdPs_ConfigDma()</a>, <a class="el" href="group__sdps__v3__10.html#gaa42580dd8c7438e838e274579d9c4be3">XSdPs_DisableBusPower()</a>, <a class="el" href="group__sdps__v3__10.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__10.html#gaca5e99fecb052c0552ab2d7a692a21ad">XSdPs_EnableBusPower()</a>, <a class="el" href="group__sdps__v3__10.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, <a class="el" href="group__sdps__v3__10.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gabb269de0a2001e73f252206fa07ce1e7">XSdPs_SdCardEnum()</a>, <a class="el" href="group__sdps__v3__10.html#gaf9b8a29b65e1213b11ad22312e5f84be">XSdPs_SetupADMA2DescTbl()</a>, and <a class="el" href="group__sdps__v3__10.html#ga78d4cd8fc91d6c32b6ed35bd86581cb3">XSdPs_SetupTransfer()</a>.</p>
 
 </div>
 </div>
@@ -304,7 +326,7 @@ Data Fields</h2></td></tr>
 
 <p>High capacity support in card. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>.</p>
 
 </div>
 </div>
@@ -320,7 +342,7 @@ Data Fields</h2></td></tr>
 
 <p>Capabilities of host controller. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga9c1007ef091d85466eb133a80b9f3213">XSdPs_CheckCardDetect()</a>, <a class="el" href="group__sdps__v3__9.html#ga8644655cee22998e56ef1dba7871ac89">XSdPs_ConfigPower()</a>, <a class="el" href="group__sdps__v3__9.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, and <a class="el" href="group__sdps__v3__9.html#ga78d4cd8fc91d6c32b6ed35bd86581cb3">XSdPs_SetupTransfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga9c1007ef091d85466eb133a80b9f3213">XSdPs_CheckCardDetect()</a>, <a class="el" href="group__sdps__v3__10.html#ga8644655cee22998e56ef1dba7871ac89">XSdPs_ConfigPower()</a>, <a class="el" href="group__sdps__v3__10.html#ga87790bbe65eea7bf873f401121f4a6f7">XSdPs_IdentifyCard()</a>, <a class="el" href="group__sdps__v3__10.html#ga43c82653cd80c9c1eb82db2eec0d7718">XSdPs_ResetConfig()</a>, and <a class="el" href="group__sdps__v3__10.html#ga78d4cd8fc91d6c32b6ed35bd86581cb3">XSdPs_SetupTransfer()</a>.</p>
 
 </div>
 </div>
@@ -338,6 +360,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aae169220856ab624877027540c585b93"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSdPs::IsBusy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Busy Flag. </p>
+
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga555d8f458181719d701f93a9bd023ed2">XSdPs_CheckReadTransfer()</a>, <a class="el" href="group__sdps__v3__10.html#ga8dfe3686ed74d09a2a46a7b5cddcde47">XSdPs_ReadPolled()</a>, <a class="el" href="group__sdps__v3__10.html#ga4910d9a9023501be9878c9bf02d3970f">XSdPs_StartReadTransfer()</a>, and <a class="el" href="group__sdps__v3__10.html#ga69aa57979c1ef9b9ec3fbdc6d8ab7277">XSdPs_WritePolled()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ab0fec7949e73bc680a138fbf644bd692"></a>
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +388,7 @@ Data Fields</h2></td></tr>
 
 <p>Device is initialized and ready. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga1f8661e4ae53a7c29b3fd44cc56a3673">XSdPs_Change_ClkFreq()</a>, <a class="el" href="group__sdps__v3__9.html#gafc7e71cb62142d0ef939336195102666">XSdPs_Get_BusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#ga864452e1802367600d196ccc37310f7c">XSdPs_Get_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga69e8d7cd927da4273a12d0d5fb3f36ff">XSdPs_Get_Mmc_ExtCsd()</a>, <a class="el" href="group__sdps__v3__9.html#gaa26e9b4a046701024b01b1b0cb48ed08">XSdPs_Get_Status()</a>, <a class="el" href="group__sdps__v3__9.html#ga88cdddd905825791ef9b682eb5adfff8">XSdPs_Idle()</a>, <a class="el" href="group__sdps__v3__9.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8">XSdPs_Pullup()</a>, <a class="el" href="group__sdps__v3__9.html#ga8dfe3686ed74d09a2a46a7b5cddcde47">XSdPs_ReadPolled()</a>, <a class="el" href="group__sdps__v3__9.html#ga17d43f52a8948d5ec4f315641336d115">XSdPs_Select_Card()</a>, <a class="el" href="group__sdps__v3__9.html#gaee773eef8e260b4498dc607061eb18f6">XSdPs_Set_Mmc_ExtCsd()</a>, <a class="el" href="group__sdps__v3__9.html#ga1af3178b4b24c991b431eb7a0aa3b23b">XSdPs_SetBlkSize()</a>, and <a class="el" href="group__sdps__v3__9.html#ga69aa57979c1ef9b9ec3fbdc6d8ab7277">XSdPs_WritePolled()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga1f8661e4ae53a7c29b3fd44cc56a3673">XSdPs_Change_ClkFreq()</a>, <a class="el" href="group__sdps__v3__10.html#ga555d8f458181719d701f93a9bd023ed2">XSdPs_CheckReadTransfer()</a>, <a class="el" href="group__sdps__v3__10.html#gafc7e71cb62142d0ef939336195102666">XSdPs_Get_BusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#ga864452e1802367600d196ccc37310f7c">XSdPs_Get_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga69e8d7cd927da4273a12d0d5fb3f36ff">XSdPs_Get_Mmc_ExtCsd()</a>, <a class="el" href="group__sdps__v3__10.html#gaa26e9b4a046701024b01b1b0cb48ed08">XSdPs_Get_Status()</a>, <a class="el" href="group__sdps__v3__10.html#ga88cdddd905825791ef9b682eb5adfff8">XSdPs_Idle()</a>, <a class="el" href="group__sdps__v3__10.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8">XSdPs_Pullup()</a>, <a class="el" href="group__sdps__v3__10.html#ga8dfe3686ed74d09a2a46a7b5cddcde47">XSdPs_ReadPolled()</a>, <a class="el" href="group__sdps__v3__10.html#ga17d43f52a8948d5ec4f315641336d115">XSdPs_Select_Card()</a>, <a class="el" href="group__sdps__v3__10.html#gaee773eef8e260b4498dc607061eb18f6">XSdPs_Set_Mmc_ExtCsd()</a>, <a class="el" href="group__sdps__v3__10.html#ga1af3178b4b24c991b431eb7a0aa3b23b">XSdPs_SetBlkSize()</a>, <a class="el" href="group__sdps__v3__10.html#ga4910d9a9023501be9878c9bf02d3970f">XSdPs_StartReadTransfer()</a>, and <a class="el" href="group__sdps__v3__10.html#ga69aa57979c1ef9b9ec3fbdc6d8ab7277">XSdPs_WritePolled()</a>.</p>
 
 </div>
 </div>
@@ -366,7 +404,7 @@ Data Fields</h2></td></tr>
 
 <p>Input Tap Delay. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, <a class="el" href="group__sdps__v3__9.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__9.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, and <a class="el" href="group__sdps__v3__9.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, <a class="el" href="group__sdps__v3__10.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__10.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, and <a class="el" href="group__sdps__v3__10.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
 
 </div>
 </div>
@@ -382,7 +420,7 @@ Data Fields</h2></td></tr>
 
 <p>Bus Speed Mode. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga489b7d969537f9d455ec128a390a749d">XSdPs_CalcBusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga273b141e9bacac12fd3b3123b7827faa">XSdPs_Change_SdBusSpeed()</a>, <a class="el" href="group__sdps__v3__9.html#gaa0025016d626fdafc3ed1dc856834f12">XSdPs_CheckEmmcTiming()</a>, <a class="el" href="group__sdps__v3__9.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__9.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__9.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, <a class="el" href="group__sdps__v3__9.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gaf6a7c6b7c9f7a52aac051af0aa6ef729">XSdPs_MmcModeInit()</a>, <a class="el" href="group__sdps__v3__9.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>, and <a class="el" href="group__sdps__v3__9.html#ga172c91b6b33e2e94ded0c3d58797411d">XSdPs_SetTapDelay()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga489b7d969537f9d455ec128a390a749d">XSdPs_CalcBusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga6bc000fb4ce51502058f2e351c90fc19">XSdPs_Change_BusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga273b141e9bacac12fd3b3123b7827faa">XSdPs_Change_SdBusSpeed()</a>, <a class="el" href="group__sdps__v3__10.html#gaa0025016d626fdafc3ed1dc856834f12">XSdPs_CheckEmmcTiming()</a>, <a class="el" href="group__sdps__v3__10.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__10.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__10.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, <a class="el" href="group__sdps__v3__10.html#gae55b1aa663629e99a9da94619c7487c5">XSdPs_MmcCardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gaf6a7c6b7c9f7a52aac051af0aa6ef729">XSdPs_MmcModeInit()</a>, <a class="el" href="group__sdps__v3__10.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>, and <a class="el" href="group__sdps__v3__10.html#ga172c91b6b33e2e94ded0c3d58797411d">XSdPs_SetTapDelay()</a>.</p>
 
 </div>
 </div>
@@ -398,7 +436,7 @@ Data Fields</h2></td></tr>
 
 <p>Output Tap Delay. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, <a class="el" href="group__sdps__v3__9.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__9.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, and <a class="el" href="group__sdps__v3__9.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, <a class="el" href="group__sdps__v3__10.html#gafe05874a0c1191faf537b69af39cdef5">XSdPs_Identify_UhsMode()</a>, <a class="el" href="group__sdps__v3__10.html#ga0941061de89eef852f88a589b743983c">XSdPs_IdentifyEmmcMode()</a>, and <a class="el" href="group__sdps__v3__10.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
 
 </div>
 </div>
@@ -414,7 +452,7 @@ Data Fields</h2></td></tr>
 
 <p>Relative Card Address. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#ga864452e1802367600d196ccc37310f7c">XSdPs_Get_BusWidth()</a>, <a class="el" href="group__sdps__v3__9.html#gaa26e9b4a046701024b01b1b0cb48ed08">XSdPs_Get_Status()</a>, <a class="el" href="group__sdps__v3__9.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>, <a class="el" href="group__sdps__v3__9.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, <a class="el" href="group__sdps__v3__9.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8">XSdPs_Pullup()</a>, and <a class="el" href="group__sdps__v3__9.html#ga17d43f52a8948d5ec4f315641336d115">XSdPs_Select_Card()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gaf11db1719933123762fecb790a2977da">XSdPs_Change_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#ga864452e1802367600d196ccc37310f7c">XSdPs_Get_BusWidth()</a>, <a class="el" href="group__sdps__v3__10.html#gaa26e9b4a046701024b01b1b0cb48ed08">XSdPs_Get_Status()</a>, <a class="el" href="group__sdps__v3__10.html#ga9645b197623dae8c5183bb3d31c7b0eb">XSdPs_GetCardId()</a>, <a class="el" href="group__sdps__v3__10.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, <a class="el" href="group__sdps__v3__10.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8">XSdPs_Pullup()</a>, and <a class="el" href="group__sdps__v3__10.html#ga17d43f52a8948d5ec4f315641336d115">XSdPs_Select_Card()</a>.</p>
 
 </div>
 </div>
@@ -444,7 +482,7 @@ Data Fields</h2></td></tr>
 
 <p>Sector Count. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__9.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, and <a class="el" href="group__sdps__v3__9.html#gaf6a7c6b7c9f7a52aac051af0aa6ef729">XSdPs_MmcModeInit()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga643a4036059e0a3094c22f46b1adccc8">XSdPs_EmmcModeInit()</a>, <a class="el" href="group__sdps__v3__10.html#ga24e128116e1fd880b3ed1ffe7709e75d">XSdPs_GetCsd()</a>, and <a class="el" href="group__sdps__v3__10.html#gaf6a7c6b7c9f7a52aac051af0aa6ef729">XSdPs_MmcModeInit()</a>.</p>
 
 </div>
 </div>
@@ -460,7 +498,7 @@ Data Fields</h2></td></tr>
 
 <p>SLCR base address. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, and <a class="el" href="group__sdps__v3__9.html#gaf51d4f72c727b7d28592ac797fe5d467">XSdPs_DllRstCtrl()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#gabcd75a06ca4fb42ebcec4526282dffdf">XSdPs_CfgInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#gacf453a36b7ec19fb4b5dbfda827cc6a7">XSdPs_ConfigTapDelay()</a>, and <a class="el" href="group__sdps__v3__10.html#gaf51d4f72c727b7d28592ac797fe5d467">XSdPs_DllRstCtrl()</a>.</p>
 
 </div>
 </div>
@@ -476,7 +514,7 @@ Data Fields</h2></td></tr>
 
 <p>1.8V Switch support </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__9.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__9.html#ga273b141e9bacac12fd3b3123b7827faa">XSdPs_Change_SdBusSpeed()</a>, and <a class="el" href="group__sdps__v3__9.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga3c3ab46b98e997b8439af4b149445811">XSdPs_CardInitialize()</a>, <a class="el" href="group__sdps__v3__10.html#ga6c8f3a195672b1225b967c936c2e26ca">XSdPs_CardOpCond()</a>, <a class="el" href="group__sdps__v3__10.html#ga273b141e9bacac12fd3b3123b7827faa">XSdPs_Change_SdBusSpeed()</a>, and <a class="el" href="group__sdps__v3__10.html#gab81250892c84553ab4738f038ed35edf">XSdPs_SdModeInit()</a>.</p>
 
 </div>
 </div>
@@ -492,7 +530,7 @@ Data Fields</h2></td></tr>
 
 <p>Transfer Mode. </p>
 
-<p>Referenced by <a class="el" href="group__sdps__v3__9.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__9.html#ga90976f95bfd56ede8ee75175610c4c58">XSdPs_HostConfig()</a>, <a class="el" href="group__sdps__v3__9.html#ga0446c3fbdc875f25c1bbf74efa3ff970">XSdPs_SendCmd()</a>, <a class="el" href="group__sdps__v3__9.html#ga4fde94c65a7c6e64e2444cb33e7d0431">XSdPs_SetupReadDma()</a>, and <a class="el" href="group__sdps__v3__9.html#ga7deb56821f069d713aa76a10b83c4baa">XSdPs_SetupWriteDma()</a>.</p>
+<p>Referenced by <a class="el" href="group__sdps__v3__10.html#ga089a1b91f436e99b0663b91c3038e9ce">XSdPs_AutoTuning()</a>, <a class="el" href="group__sdps__v3__10.html#ga90976f95bfd56ede8ee75175610c4c58">XSdPs_HostConfig()</a>, <a class="el" href="group__sdps__v3__10.html#ga0446c3fbdc875f25c1bbf74efa3ff970">XSdPs_SendCmd()</a>, <a class="el" href="group__sdps__v3__10.html#ga4fde94c65a7c6e64e2444cb33e7d0431">XSdPs_SetupReadDma()</a>, and <a class="el" href="group__sdps__v3__10.html#ga7deb56821f069d713aa76a10b83c4baa">XSdPs_SetupWriteDma()</a>.</p>
 
 </div>
 </div>

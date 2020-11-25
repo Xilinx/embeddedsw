@@ -2,6 +2,8 @@ var xdptxss_8c =
 [
     [ "XDpTxSs_CfgInitialize", "xdptxss_8c.html#gafb7b3b467a12177fb0c8053f4b7d70a1", null ],
     [ "XDpTxSs_CheckLinkStatus", "xdptxss_8c.html#ga50fc785403847b8c3932a2213553e28d", null ],
+    [ "XDpTxSs_CheckVscColorimetrySupport", "xdptxss_8c.html#ga5cbce36366702edc6f84f6e3db7954e2", null ],
+    [ "XDpTxss_EnableVscColorimetry", "xdptxss_8c.html#ga8b49899ee70890ac856017d9fdc8a321", null ],
     [ "XDpTxSs_GetEdid", "xdptxss_8c.html#ga67a126cda8e59ab3a9622bc2ba2e900d", null ],
     [ "XDpTxSs_GetRemoteEdid", "xdptxss_8c.html#ga882a24d1900a5530bac270beca25d173", null ],
     [ "XDpTxSs_GetRxCapabilities", "xdptxss_8c.html#ga1a8026694798f9f8b6c8e43fcccd15ec", null ],
@@ -15,6 +17,7 @@ var xdptxss_8c =
     [ "XDpTxSs_SetTransportMode", "xdptxss_8c.html#gaba3d0d5532d6ad4e89b9f58ae215a4d1", null ],
     [ "XDpTxSs_SetUserPixelWidth", "xdptxss_8c.html#gac5ce68495e3cc42e29d65322f4fa0976", null ],
     [ "XDpTxSs_SetVidMode", "xdptxss_8c.html#gac94df5d299e1a088c159a2be61840680", null ],
+    [ "XDpTxSs_SetVscExtendedPacket", "xdptxss_8c.html#ga48c38cc38ea4138373e2c879046f908e", null ],
     [ "XDpTxSs_Start", "xdptxss_8c.html#ga883ba3d77b48aaaee5858de1e5620c76", null ],
     [ "XDpTxSs_StartCustomMsa", "xdptxss_8c.html#ga51a71c98f5346be40c4c76e091e121f8", null ],
     [ "XDpTxSs_Stop", "xdptxss_8c.html#gaf70f2f11d0e48e80c92673f3e208fc23", null ],

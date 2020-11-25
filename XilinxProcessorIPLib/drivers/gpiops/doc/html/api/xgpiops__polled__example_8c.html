@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('xgpiops__polled__example_8c.html','');
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains an example for using GPIO hardware and driver. </p>
 <p>This example provides the usage of APIs for reading/writing to the individual pins. Please see <a class="el" href="xgpiops_8h.html">xgpiops.h</a> file for description of the pin numbering.</p>
-<dl class="section note"><dt>Note</dt><dd>This example assumes that there is a Uart device in the HW design. This example is to provide support only for zcu102 on ZynqMp Platform and only for zc702 on Zynq Platform. For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is 23(DS50 on zcu102 board). For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on zc702 board) and Output Pin is 10(DS23 on zc702 board).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This example assumes that there is a Uart device in the HW design. This example is to provide support only for zcu102 on ZynqMp Platform and only for zc702 on Zynq Platform. For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is 23(DS50 on zcu102 board). For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on zc702 board) and Output Pin is 10(DS23 on zc702 board). In Versal Platform we have two GPIOPS instances(PMC GPIO and PS GPIO),PMC GPIO contain 4 banks and 116 pins, PS GPIO contains 2 banks and 58 pins. Driver supports both PS GPIO and PMC GPIO. For accessing PMC GPIOs application need to configure "GPIO.PmcGpio =1" else it works for PS GPIO.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -83,7 +83,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 3.3   ms   04/17/17 Added notes about input and output pin description
                     for zcu102 and zc702 boards.
 3.7     sne  12/04/19 Reverted versal example support.
-</pre> </div><table class="memberdecls">
+3.8     sne  09/17/20 Added description for Versal PS and PMC GPIO pins.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab92c6abab68712971c3b15511c0b6f24"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpiops__polled__example_8c.html#ab92c6abab68712971c3b15511c0b6f24">GpioPolledExample</a> (u16 DeviceId, u32 *DataRead)</td></tr>
@@ -133,7 +133,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function will not return if the test is running. </dd></dl>
 
-<p>References <a class="el" href="struct_x_gpio_ps___config.html#af6895118cd185deea6b71ff3b67c65da">XGpioPs_Config::BaseAddr</a>, and <a class="el" href="group__gpiops__v3__7.html#ga9c49687af4625a0ed49f376d3ff1b045">XGpioPs_LookupConfig()</a>.</p>
+<p>References <a class="el" href="struct_x_gpio_ps___config.html#af6895118cd185deea6b71ff3b67c65da">XGpioPs_Config::BaseAddr</a>, and <a class="el" href="group__gpiops__v3__8.html#ga9c49687af4625a0ed49f376d3ff1b045">XGpioPs_LookupConfig()</a>.</p>
 
 <p>Referenced by <a class="el" href="xgpiops__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

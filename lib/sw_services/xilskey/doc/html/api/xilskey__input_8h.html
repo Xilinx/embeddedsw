@@ -471,7 +471,7 @@ $(document).ready(function(){initNavTree('xilskey__input_8h.html','');});
    #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_0
    XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
 </pre><p> #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_1 XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_2 XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_3 XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</p>
-<p>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS is the default value for all SLRs and is hexadecimal CRC value of FUSE_AES with all Zeros. Please provide CRC of the AES key programmed. For Checking CRC of FUSE_AES XSK_EFUSEPL_CHECK_AES_KEY_ULTRA macro should be TRUE otherwise CRC check will not be performed. For calculation of AES key's CRC one can use u32 <a class="el" href="group__xilskey__cmn__crc.html#ga8cc36ec60e5fcc3d8918007474165878" title="This function Calculates CRC value based on hexadecimal string passed.">XilSKey_CrcCalculation(u8 *Key)</a> API</p>
+<p>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS is the default value for all SLRs and is hexadecimal CRC value of FUSE_AES with all Zeros. Please provide CRC of the AES key programmed. For Checking CRC of FUSE_AES XSK_EFUSEPL_CHECK_AES_KEY_ULTRA macro should be TRUE otherwise CRC check will not be performed. For calculation of AES key's CRC one can use u32 XilSKey_CrcCalculation(u8 *Key) API</p>
 <p>NOTE:Please make sure you have sufficient heap and stack to run this application. For more information on creating vivado design please refer to xapp1283.</p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who      Date     Changes

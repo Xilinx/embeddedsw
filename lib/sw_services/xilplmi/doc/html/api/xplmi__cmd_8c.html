@@ -67,23 +67,29 @@ $(document).ready(function(){initNavTree('xplmi__cmd_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This is the file which contains . </p>
+<div class="textblock"><p>This is the file which contains command execution code. </p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
-1.00  kc   08/23/2018 Initial release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.00  kc   08/23/2018 Initial release
+1.01  bsv  04/03/2020 Code clean up Xilpdi
+1.02  kc   06/22/2020 Updated command handler error codes to include command
+                      IDs
+      bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a56a7bfa0ce6a751aafb05ef04bc46a4f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__cmd_8c.html#a56a7bfa0ce6a751aafb05ef04bc46a4f">XPlmi_CmdExecute</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:a56a7bfa0ce6a751aafb05ef04bc46a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will call the command handler registered with the command.  <a href="#a56a7bfa0ce6a751aafb05ef04bc46a4f"></a><br/></td></tr>
-<tr class="separator:a56a7bfa0ce6a751aafb05ef04bc46a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19e75723c2ba03ac97216fa7f6580e30"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__cmd_8c.html#a19e75723c2ba03ac97216fa7f6580e30">XPlmi_CmdResume</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:a19e75723c2ba03ac97216fa7f6580e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resumes the command after being partially executed.  <a href="#a19e75723c2ba03ac97216fa7f6580e30"></a><br/></td></tr>
-<tr class="separator:a19e75723c2ba03ac97216fa7f6580e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3723fdc064e5a4d8086bea79bd3a28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__cmd_8c.html#a2a3723fdc064e5a4d8086bea79bd3a28">XPlmi_CmdExecute</a> (XPlmi_Cmd *CmdPtr)</td></tr>
+<tr class="memdesc:a2a3723fdc064e5a4d8086bea79bd3a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will call the command handler registered with the command.  <a href="#a2a3723fdc064e5a4d8086bea79bd3a28"></a><br/></td></tr>
+<tr class="separator:a2a3723fdc064e5a4d8086bea79bd3a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa11661885e3bac1064946e813eb22172"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__cmd_8c.html#aa11661885e3bac1064946e813eb22172">XPlmi_CmdResume</a> (XPlmi_Cmd *CmdPtr)</td></tr>
+<tr class="memdesc:aa11661885e3bac1064946e813eb22172"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resumes the command after being partially executed.  <a href="#aa11661885e3bac1064946e813eb22172"></a><br/></td></tr>
+<tr class="separator:aa11661885e3bac1064946e813eb22172"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a56a7bfa0ce6a751aafb05ef04bc46a4f"></a>
+<a class="anchor" id="a2a3723fdc064e5a4d8086bea79bd3a28"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -91,7 +97,7 @@ Functions</h2></td></tr>
           <td class="memname">int XPlmi_CmdExecute </td>
           <td>(</td>
           <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
+          <td class="paramname"><em>CmdPtr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -101,17 +107,17 @@ Functions</h2></td></tr>
 <p>Command handler shall execute the command till the payload length.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to command structure</td></tr>
+    <tr><td class="paramname">CmdPtr</td><td>is pointer to command structure</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a60d83e4808e366a70f784c43c35da87b">XPLMI_ERR_CMD_APIID</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a312255e5ad24e0084999b00d9c72ee49">XPLMI_ERR_CMD_HANDLER</a>, <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a0bc8c093b7db4622f373d7b900e8abe9">XPLMI_ERR_CMD_HANDLER_NULL</a>, and <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57ad27a71614dd8ad14b370fb67a4192515">XPLMI_ERR_MODULE_MAX</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9246a5be90e1b01b6069b9fec3013728">XPLMI_ERR_CDO_CMD</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b">XPLMI_ERR_CMD_APIID</a>, <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9">XPLMI_ERR_CMD_HANDLER_NULL</a>, and <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad27a71614dd8ad14b370fb67a4192515">XPLMI_ERR_MODULE_MAX</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a19e75723c2ba03ac97216fa7f6580e30"></a>
+<a class="anchor" id="aa11661885e3bac1064946e813eb22172"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -119,7 +125,7 @@ Functions</h2></td></tr>
           <td class="memname">int XPlmi_CmdResume </td>
           <td>(</td>
           <td class="paramtype">XPlmi_Cmd *&#160;</td>
-          <td class="paramname"><em>Cmd</em></td><td>)</td>
+          <td class="paramname"><em>CmdPtr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -129,13 +135,13 @@ Functions</h2></td></tr>
 <p>Resume handler shall execute the command till the payload length.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Cmd</td><td>is pointer to command structure</td></tr>
+    <tr><td class="paramname">CmdPtr</td><td>is pointer to command structure</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success and error code on failure </dd></dl>
 
-<p>References <a class="el" href="xplmi__status_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a4324ffd6a296b2c56088013409d1d160">XPLMI_ERR_RESUME_HANDLER</a>.</p>
+<p>References <a class="el" href="xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a4324ffd6a296b2c56088013409d1d160">XPLMI_ERR_RESUME_HANDLER</a>.</p>
 
 </div>
 </div>
