@@ -1105,8 +1105,6 @@ void XCanFd_InterruptEnable_RxBuffFull(XCanFd *InstancePtr, u32 Mask,
 void XCanFd_InterruptDisable_RxBuffFull(XCanFd *InstancePtr, u32 Mask,
 						u32 RxBuffNumber);
 
-/* Functions in xcanfd_sinit.c */
-XCanFd_Config *XCanFd_LookupConfig(u16 Deviceid);
 
 #ifdef __cplusplus
 }
