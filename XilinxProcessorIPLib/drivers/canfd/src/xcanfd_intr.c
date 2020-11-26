@@ -504,6 +504,8 @@ void XCanFd_IntrHandler(void *InstancePtr)
 int XCanFd_SetHandler(XCanFd *InstancePtr, u32 HandlerType,
 		    void *CallBackFunc, void *CallBackRef)
 {
+	u32 Status;
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -511,27 +513,32 @@ int XCanFd_SetHandler(XCanFd *InstancePtr, u32 HandlerType,
 	case XCANFD_HANDLER_SEND:
 		InstancePtr->SendHandler = (XCanFd_SendRecvHandler) CallBackFunc;
 		InstancePtr->SendRef = CallBackRef;
+		Status = XST_SUCCESS;
 		break;
 
 	case XCANFD_HANDLER_RECV:
 		InstancePtr->RecvHandler = (XCanFd_SendRecvHandler) CallBackFunc;
 		InstancePtr->RecvRef = CallBackRef;
+		Status = XST_SUCCESS;
 		break;
 
 	case XCANFD_HANDLER_ERROR:
 		InstancePtr->ErrorHandler = (XCanFd_ErrorHandler) CallBackFunc;
 		InstancePtr->ErrorRef = CallBackRef;
+		Status = XST_SUCCESS;
 		break;
 
 	case XCANFD_HANDLER_EVENT:
 		InstancePtr->EventHandler = (XCanFd_EventHandler) CallBackFunc;
 		InstancePtr->EventRef = CallBackRef;
+		Status = XST_SUCCESS;
 		break;
 
 	default:
-		return (XST_INVALID_PARAM);
+		Status = XST_INVALID_PARAM;
+		break;
 
 	}
-	return (XST_SUCCESS);
+	return Status;
 }
 /** @} */

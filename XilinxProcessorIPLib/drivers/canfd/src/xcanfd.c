@@ -349,15 +349,6 @@ void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode)
 					XCANFD_SRR_OFFSET, XCANFD_SRR_CEN_MASK);
 		break;
 
-		case XCANFD_MODE_LOOPBACK:
-
-			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
-					XCANFD_MSR_OFFSET,
-					(XCANFD_MSR_LBACK_MASK | MsrReg));
-			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
-					XCANFD_SRR_OFFSET, XCANFD_SRR_CEN_MASK);
-		break;
-
 		case XCANFD_MODE_SNOOP:
 
 			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -403,6 +394,14 @@ void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode)
 		     XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
                                 XCANFD_SRR_OFFSET, XCANFD_SRR_CEN_MASK);
 
+		break;
+
+		default:
+			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+					XCANFD_MSR_OFFSET,
+					(XCANFD_MSR_LBACK_MASK | MsrReg));
+			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+					XCANFD_SRR_OFFSET, XCANFD_SRR_CEN_MASK);
 		break;
 	}
 }
