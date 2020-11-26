@@ -254,6 +254,7 @@ exclusion
 * 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
 * 2.3	sne  03/09/20 Initialize IsPl of config structure.
 * 2.4   sne  08/28/20 Modify Makefile to support parallel make execution.
+* 2.5	sne  11/23/20 Fixed MISRAC violations.
 *
 * </pre>
 *

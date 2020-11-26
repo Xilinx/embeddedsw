@@ -135,21 +135,33 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	 * Configure the Baud Rate Prescalar in
 	 * Arbitration Phase
 	 */
-	XCanFd_SetBaudRatePrescaler(InstancePtr, TEST_BRPR_BAUD_PRESCALAR);
+	Status = (u32)XCanFd_SetBaudRatePrescaler(InstancePtr, TEST_BRPR_BAUD_PRESCALAR);
+	if (Status != (u32)XST_SUCCESS) {
+		return (s32)Status;
+	}
 
 	/*
 	 * Configure the Bit Timing Values in
 	 * Arbitration Phase.
 	 */
-	XCanFd_SetBitTiming(InstancePtr, TEST_BTR_SYNCJUMPWIDTH,
+	Status = (u32)XCanFd_SetBitTiming(InstancePtr, TEST_BTR_SYNCJUMPWIDTH,
 		TEST_BTR_SECOND_TIMESEGMENT,TEST_BTR_FIRST_TIMESEGMENT);
+	if (Status != (u32)XST_SUCCESS) {
+		return (s32)Status;
+	}
 
 	 /* Configure the Baud Rate Prescalar in Data Phase */
-	XCanFd_SetFBaudRatePrescaler(InstancePtr, TEST_FBRPR_BAUD_PRESCALAR);
+	Status = (u32)XCanFd_SetFBaudRatePrescaler(InstancePtr, TEST_FBRPR_BAUD_PRESCALAR);
+	if (Status != (u32)XST_SUCCESS) {
+		return (s32)Status;
+	}
 
 	/* Configure the Bit Timing Values in Data Phase */
-	XCanFd_SetFBitTiming(InstancePtr,TEST_FBTR_SYNCJUMPWIDTH,
+	Status = (u32)XCanFd_SetFBitTiming(InstancePtr,TEST_FBTR_SYNCJUMPWIDTH,
 		TEST_FBTR_SECOND_TIMESEGMENT,TEST_FBTR_FIRST_TIMESEGMENT);
+	if (Status != (u32)XST_SUCCESS) {
+		return (s32)Status;
+	}
 
 	XCanFd_EnterMode(InstancePtr, XCANFD_MODE_LOOPBACK);
 	Status = XCanFd_GetMode(InstancePtr);
@@ -179,10 +191,13 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 		for (BuffNr= 0;BuffNr < InstancePtr->CanFdConfig.NumofRxMbBuf;
 				BuffNr++)
 		{
-			XCanFd_RxBuff_MailBox_DeActive(InstancePtr,BuffNr);
-			XCanFd_Set_MailBox_IdMask(InstancePtr,BuffNr,
+			(void)XCanFd_RxBuff_MailBox_DeActive(InstancePtr,BuffNr);
+			(void)XCanFd_Set_MailBox_IdMask(InstancePtr,BuffNr,
 				TEST_MAIL_BOX_MASK,IdValue);
-			XCanFd_RxBuff_MailBox_Active(InstancePtr,BuffNr);
+			Status = XCanFd_RxBuff_MailBox_Active(InstancePtr,BuffNr);
+			if (Status != (u32)XST_SUCCESS) {
+				return (s32)Status;
+			}
 		}
 	}
 	else {

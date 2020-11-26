@@ -151,8 +151,10 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 	XCanFd_Reset(InstancePtr);
 	/* Update all AFID and AFMASK registers with Zero */
 	for (FilterIndex = 1; FilterIndex <= MAX_FILTER_INDEX; FilterIndex++) {
-		XCanFd_AcceptFilterSet(InstancePtr, FilterIndex,
-				       (u32)0, (u32)0);
+		if (XCanFd_AcceptFilterSet(InstancePtr, FilterIndex,
+					   (u32)0, (u32)0) != (s32)0) {
+			return (s32)XST_FAILURE;
+		}
 	}
 
 	return (s32)XST_SUCCESS;
