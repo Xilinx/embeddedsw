@@ -544,8 +544,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer)	\
-		(((XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, \
-				XCANFD_TRR_OFFSET) & ((u32)1 << TxBuffer)) \
+		(((XCanFd_ReadReg((InstancePtr)->CanFdConfig.BaseAddress, \
+				XCANFD_TRR_OFFSET) & ((u32)1 << (TxBuffer))) \
 				== (u32)1) ? FALSE : TRUE)
 
 
@@ -776,7 +776,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_GET_RX_MODE(InstancePtr)\
-		InstancePtr->CanFdConfig.Rx_Mode
+		((InstancePtr)->CanFdConfig.Rx_Mode)
 
 /*****************************************************************************/
 /**
