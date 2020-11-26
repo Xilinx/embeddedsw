@@ -620,7 +620,7 @@ u32 XCanFd_SetRxFilterPartition(XCanFd *InstancePtr, u8 FilterPartition)
         Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				      XCANFD_WIR_OFFSET);
 		Value &= (~XCANFD_WMR_RXFP_MASK);
-		Value |= (( FilterPartition << XCANFD_WMR_RXFP_SHIFT) &
+		Value |= (((u32)FilterPartition << XCANFD_WMR_RXFP_SHIFT) &
 		                XCANFD_WMR_RXFP_MASK );
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				   XCANFD_WIR_OFFSET,Value);
