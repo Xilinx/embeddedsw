@@ -193,6 +193,7 @@
 *       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
 *                       consumption.
 * 9.0   cog    11/25/20 Upversion.
+*       cog    11/25/20 Added autocalibration mode for Gen 3 devices.
 *
 * </pre>
 *
@@ -4145,7 +4146,7 @@ u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mod
 * @param    Tile_Id Valid values are 0-3.
 * @param    Block_Id is ADC/DAC block number inside the tile. Valid values
 *           are 0-3.
-* @param    CalibrationMode valid values are 1 and 2.
+* @param    CalibrationMode valid values are 0(Gen 3 only), 1 and 2.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -4163,6 +4164,7 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	u32 NoOfBlocks;
 	XRFdc_Mixer_Settings Mixer_Settings = { 0 };
 	u32 NyquistZone = 0U;
+	u8 CalibrationModeReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -4192,12 +4194,14 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
-	if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value (%u) for ADC %u block %u in %s\r\n",
-			  CalibrationMode, Tile_Id, Block_Id, __func__);
-		return XRFDC_FAILURE;
-	}
+
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2)) {
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration mode value (%u) for ADC %u block %u in %s\r\n",
+				  CalibrationMode, Tile_Id, Block_Id, __func__);
+			return XRFDC_FAILURE;
+		}
 		/* Get Mixer Configurations */
 		Status = XRFdc_GetMixerSettings(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &Mixer_Settings);
 		if (Status != XRFDC_SUCCESS) {
@@ -4214,13 +4218,11 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET);
 			ReadReg &= ~XRFDC_TI_DCB_MODE_MASK;
-			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-				if (CalibrationMode == XRFDC_CALIB_MODE1) {
-					if (((Index % 2U) != 0U) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
-						ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
-					} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
-						ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
-					}
+			if (CalibrationMode == XRFDC_CALIB_MODE1) {
+				if (((Index % 2U) != 0U) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
+					ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
+				} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
+					ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
 				}
 			}
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, ReadReg);
@@ -4240,11 +4242,28 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 			return XRFDC_FAILURE;
 		}
 	} else {
+		if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2) &&
+		    (CalibrationMode != XRFDC_CALIB_MODE_AUTO)) {
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration mode value (%u) for ADC %u block %u in %s\r\n",
+				  CalibrationMode, Tile_Id, Block_Id, __func__);
+			return XRFDC_FAILURE;
+		}
+		switch (CalibrationMode) {
+		case XRFDC_CALIB_MODE1:
+			CalibrationModeReg = XRFDC_CALIB_MODE_NEG_ABS_SUM;
+			break;
+		case XRFDC_CALIB_MODE2:
+			CalibrationModeReg = XRFDC_CALIB_MODE_ABS_DIFF;
+			break;
+		default:
+			CalibrationModeReg = XRFDC_CALIB_MODE_MIXED;
+			break;
+		}
 		for (; Index < NoOfBlocks; Index++) {
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK,
-					((CalibrationMode == XRFDC_CALIB_MODE1) ? XRFDC_CALIB_MODE_NEG_ABS_SUM :
-										  XRFDC_CALIB_MODE_ABS_DIFF));
+					CalibrationModeReg);
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].CalibrationMode =
 				CalibrationMode;
 		}
@@ -4315,9 +4334,17 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *
 	} else {
 		*CalibrationModePtr =
 			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK);
-		*CalibrationModePtr = (*CalibrationModePtr == XRFDC_CALIB_MODE_NEG_ABS_SUM) ?
-					      XRFDC_CALIB_MODE1 :
-					      XRFDC_CALIB_MODE2; /*mode 0 same as XRFDC_CALIB_MODE_MIXER*/
+		switch (*CalibrationModePtr) {
+		case XRFDC_CALIB_MODE_NEG_ABS_SUM:
+			*CalibrationModePtr = XRFDC_CALIB_MODE1;
+			break;
+		case XRFDC_CALIB_MODE_ABS_DIFF:
+			*CalibrationModePtr = XRFDC_CALIB_MODE2;
+			break;
+		default:
+			*CalibrationModePtr = XRFDC_CALIB_MODE_AUTO;
+			break;
+		}
 	}
 
 	Status = XRFDC_SUCCESS;
