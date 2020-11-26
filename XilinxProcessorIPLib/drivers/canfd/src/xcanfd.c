@@ -1288,7 +1288,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 	Xil_AssertVoid(FilterIndex < XCANFD_NOOF_AFR);
 	Xil_AssertVoid((FilterIndex > MIN_FILTER_INDEX) && (FilterIndex <= MAX_FILTER_INDEX));
 
-	FilterIndex--;
+	FilterIndex = FilterIndex - (u32)1;
 	*MaskValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_AFMR_OFFSET(FilterIndex));
 
