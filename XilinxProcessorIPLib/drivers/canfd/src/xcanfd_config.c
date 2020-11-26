@@ -576,7 +576,7 @@ u32 XCanFd_SetTxEventIntrWatermark(XCanFd *InstancePtr, u8 Threshold)
 		Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TXEVENT_WIR_OFFSET);
 		Value &= (~XCANFD_TXEVENT_WIR_MASK);
-		Value |= ( Threshold  & XCANFD_TXEVENT_WIR_MASK);
+		Value |= ((u32)Threshold  & XCANFD_TXEVENT_WIR_MASK);
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TXEVENT_WIR_OFFSET,Value);
 		Status = XST_SUCCESS;
