@@ -475,8 +475,9 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 	/* Poll TRR to check pending transmission requests */
 
-	if(InstancePtr->GlobalTrrMask == 0)
+	if(InstancePtr->GlobalTrrMask == 0) {
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
+	}
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
 	Value = (~TrrVal) & InstancePtr->GlobalTrrMask;
 	Value = XCanFD_Check_TrrVal_Set_Bit(Value);
@@ -591,8 +592,9 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		return XST_FIFO_NO_ROOM;
 	}
 
-	if(InstancePtr->GlobalTrrMask == 0)
+	if(InstancePtr->GlobalTrrMask == 0) {
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
+	}
 	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
 	InstancePtr->GlobalTrrValue = XCanFD_Check_TrrVal_Set_Bit(MaskValue);
 	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(InstancePtr->GlobalTrrValue);
@@ -1114,9 +1116,9 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 		}
 
 		return XST_FAILURE;
-	}
-	else
+	} else {
 		return XST_FAILURE;
+	}
 
 }
 
@@ -1315,8 +1317,9 @@ XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex)
 	XCanFd_Config *CfgPtr;
 
 	/* Check parameter */
-	if (InstanceIndex >= XPAR_XCANFD_NUM_INSTANCES)
+	if (InstanceIndex >= XPAR_XCANFD_NUM_INSTANCES) {
 		return NULL;
+	}
 
 	CfgPtr = &XCanFd_ConfigTable[InstanceIndex];
 
@@ -1449,24 +1452,25 @@ int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 ******************************************************************************/
 u8 XCanFd_GetLen2Dlc(int len)
 {
-	if(len <= 8)
+	if(len <= 8) {
 		return len;
-	else if(len <= 12)
+	} else if(len <= 12) {
 		return 9;
-	else if(len <= 16)
+	} else if(len <= 16) {
 		return 10;
-	else if(len <= 20)
+	} else if(len <= 20) {
 		return 11;
-	else if(len <= 24)
+	} else if(len <= 24) {
 		return 12;
-	else if(len <= 32)
+	} else if(len <= 32) {
 		return 13;
-	else if(len <= 48)
+	} else if(len <= 48) {
 		return 14;
-	else if(len <= 64)
+	} else if(len <= 64) {
 		return 15;
-	else
+	} else {
 		return XST_INVALID_DLC;
+	}
 }
 
 /*****************************************************************************/
@@ -1494,12 +1498,14 @@ u32 XCanFd_GetFreeBuffer(XCanFd *InstancePtr)
 	RegVal = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET);
 	while((RegVal & ((u32)1 << Index)) != (u32)0) {
 		Index++;
-		if(Index == MAX_BUFFER_INDEX)
+		if(Index == MAX_BUFFER_INDEX) {
 			break;
+		}
 
 	}
-	if(Index == MAX_BUFFER_INDEX)
+	if(Index == MAX_BUFFER_INDEX) {
 		return XST_NOBUFFER;
+	}
 
 	return RegVal;
 }
@@ -1575,6 +1581,7 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 void XCanFd_PollQueue_Buffer(XCanFd *InstancePtr)
 {
 	u32 BufferNumber;
+	u32 Value;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1582,9 +1589,13 @@ void XCanFd_PollQueue_Buffer(XCanFd *InstancePtr)
 	if (InstancePtr->MultiBuffTrr!=0) {
 		for (BufferNumber = 0;BufferNumber < MAX_BUFFER_VAL;BufferNumber++) {
 			if ((InstancePtr->MultiBuffTrr & ((u32)TRR_POS_MASK << BufferNumber))
-				!= (u32)0)
-				while (XCanFd_IsBufferTransmitted(InstancePtr,
-					BufferNumber) == FALSE);
+				!= (u32)0) {
+				Value = (u32)XCanFd_IsBufferTransmitted(InstancePtr, BufferNumber);
+				while (Value == (u32)FALSE) {
+					Value = (u32)XCanFd_IsBufferTransmitted(
+							InstancePtr, BufferNumber);
+				}
+			}
 		}
 		InstancePtr->MultiBuffTrr = 0;
 	}
@@ -1906,6 +1917,7 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 void XCanFd_Pee_BusOff_Handler(XCanFd *InstancePtr)
 {
 	u32 RegValue;
+	u32 Value;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -1913,8 +1925,12 @@ void XCanFd_Pee_BusOff_Handler(XCanFd *InstancePtr)
 				  XCANFD_TRR_OFFSET);
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_TCR_OFFSET, RegValue);
-	while ((XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-			      XCANFD_TRR_OFFSET)) != (u32)0);
+	Value = (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+			      XCANFD_TRR_OFFSET));
+	while (Value != (u32)0) {
+	Value = (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+			      XCANFD_TRR_OFFSET));
+	}
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_TRR_OFFSET, RegValue);
 }
