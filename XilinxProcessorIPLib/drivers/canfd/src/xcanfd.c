@@ -763,9 +763,10 @@ u32 XCanFd_Recv_TXEvents_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 				XCANFD_TXEID_OFFSET(ReadIndex));
 
 		/* Read DLC from DLC Register*/
-		FramePtr[1] = CanEDL = XCanFd_ReadReg(
+		CanEDL = XCanFd_ReadReg(
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TXEDLC_OFFSET(ReadIndex));
+		FramePtr[1] = CanEDL;
 
 		/* Set the IRI bit causes core to increment RI in FSR Register */
 		Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -836,9 +837,10 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 				BaseAddress,XCANFD_RXID_OFFSET(RxBufferIndex));
 
 		/* Read CanFd DLC */
-		FramePtr[1] = CanEDL = XCanFd_ReadReg(InstancePtr->CanFdConfig.
+		CanEDL = XCanFd_ReadReg(InstancePtr->CanFdConfig.
 					BaseAddress,
 					XCANFD_RXDLC_OFFSET(RxBufferIndex));
+		FramePtr[1] = CanEDL;
 
 		Dlc = XCanFd_GetDlc2len(FramePtr[1] &
 			XCANFD_DLCR_DLC_MASK,
@@ -1807,14 +1809,15 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 
 /* Read DLC from DLC Register*/
 	if (fifo_no == XCANFD_RX_FIFO_0) {
-		FramePtr[1] = CanEDL = XCanFd_ReadReg(
+		CanEDL = XCanFd_ReadReg(
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RXDLC_OFFSET(ReadIndex));
 	} else {
-		FramePtr[1] = CanEDL = XCanFd_ReadReg(
+		CanEDL = XCanFd_ReadReg(
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_FIFO_1_RXDLC_OFFSET(ReadIndex));
 	}
+		FramePtr[1] = CanEDL;
 		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
 				(CanEDL & XCANFD_DLCR_EDL_MASK));
 
