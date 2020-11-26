@@ -860,7 +860,6 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 						      +(DwIndex*XCANFD_DW_BYTES))));
 						      DwIndex++;
 			}
-			DwIndex=0;
 		}
 		else {
 			/* Legacy CAN Frame */
