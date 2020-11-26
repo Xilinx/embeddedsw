@@ -339,6 +339,9 @@ typedef struct {
 	u32 IsPl;		/**< IsPl, 1= AXI CANFD instance,0= CANFD instance */
 } XCanFd_Config;
 
+/************************** Variable Definitions *****************************/
+extern XCanFd_Config XCanFd_ConfigTable[];
+
 /*****************************************************************************/
 /**
 * Callback type for frame sending and reception interrupts.

@@ -82,8 +82,6 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XCanFd_Config XCanFd_ConfigTable[];
-
 /************************** Function Prototypes ******************************/
 
 static void StubHandler(void);
