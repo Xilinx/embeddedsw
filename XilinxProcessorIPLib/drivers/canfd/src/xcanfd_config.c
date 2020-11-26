@@ -151,9 +151,9 @@ int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (SyncJumpWidth > XCANFD_MAX_SJW_VALUE ||
-	    TimeSegment2 > XCANFD_MAX_TS2_VALUE ||
-	    TimeSegment1 > XCANFD_MAX_TS1_VALUE) {
+	if ((SyncJumpWidth > XCANFD_MAX_SJW_VALUE) ||
+	    (TimeSegment2 > XCANFD_MAX_TS2_VALUE) ||
+	    (TimeSegment1 > XCANFD_MAX_TS1_VALUE)) {
 		return XST_INVALID_PARAM;
 	}
 
@@ -323,9 +323,9 @@ int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	if (SyncJumpWidth > XCANFD_MAX_F_SJW_VALUE ||
-	    TimeSegment2 > XCANFD_MAX_F_TS2_VALUE ||
-	    TimeSegment1 > XCANFD_MAX_F_TS1_VALUE) {
+	if ((SyncJumpWidth > XCANFD_MAX_F_SJW_VALUE) ||
+	    (TimeSegment2 > XCANFD_MAX_F_TS2_VALUE) ||
+	    (TimeSegment1 > XCANFD_MAX_F_TS1_VALUE)) {
 		return XST_INVALID_PARAM;
 	}
 
