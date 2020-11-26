@@ -157,8 +157,8 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	 * Create a frame to send with known values so we can verify them
 	 * on receive.
 	 */
-	TxFrame[0] = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
-	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue(TEST_CANFD_DLC);
+	TxFrame[0] = XCanFd_CreateIdValue((u32)TEST_MESSAGE_ID, (u32)0, (u32)0, (u32)0, (u32)0);
+	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue((u32)TEST_CANFD_DLC);
 
 	Dlc = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
 		EDL_CANFD);
@@ -170,7 +170,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 
 	/*Check the design, if it is in MailBox Mode */
 	if (XCANFD_GET_RX_MODE(InstancePtr) == 1) {
-		IdValue = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
+		IdValue = XCanFd_CreateIdValue((u32)TEST_MESSAGE_ID, (u32)0, (u32)0, (u32)0, (u32)0);
 		for (BuffNr= 0;BuffNr < InstancePtr->CanFdConfig.NumofRxMbBuf;
 				BuffNr++)
 		{
@@ -208,7 +208,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 		EDL_CANFD);
 
 	/* Verify Identifier and Data Length Code. */
-	if (RxFrame[0] != XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0)) {
+	if (RxFrame[0] != XCanFd_CreateIdValue((u32)TEST_MESSAGE_ID, (u32)0, (u32)0, (u32)0, (u32)0)) {
 		return XST_FAILURE;
 	}
 	if (TEST_CANFD_DLC != XCanFd_GetLen2Dlc(Dlc)) {
