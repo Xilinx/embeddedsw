@@ -454,11 +454,11 @@ typedef struct {
 *****************************************************************************/
 #define XCanFd_CreateIdValue(StandardId, SubRemoteTransReq, IdExtension, \
 		ExtendedId, RemoteTransReq) \
-	((((StandardId) << XCANFD_IDR_ID1_SHIFT) & XCANFD_IDR_ID1_MASK) | \
-	(((SubRemoteTransReq) << XCANFD_IDR_SRR_SHIFT) & XCANFD_IDR_SRR_MASK) | \
-	(((IdExtension) << XCANFD_IDR_IDE_SHIFT) & XCANFD_IDR_IDE_MASK) | \
-	(((ExtendedId) << XCANFD_IDR_ID2_SHIFT) & XCANFD_IDR_ID2_MASK) | \
-	((RemoteTransReq) & XCANFD_IDR_RTR_MASK))
+	((((StandardId) << (u32)XCANFD_IDR_ID1_SHIFT) & (u32)XCANFD_IDR_ID1_MASK) | \
+	(((SubRemoteTransReq) << (u32)XCANFD_IDR_SRR_SHIFT) & (u32)XCANFD_IDR_SRR_MASK) | \
+	(((IdExtension) << (u32)XCANFD_IDR_IDE_SHIFT) & (u32)XCANFD_IDR_IDE_MASK) | \
+	(((ExtendedId) << (u32)XCANFD_IDR_ID2_SHIFT) & (u32)XCANFD_IDR_ID2_MASK) | \
+	((RemoteTransReq) & (u32)XCANFD_IDR_RTR_MASK))
 
 /****************************************************************************/
 /**
@@ -497,7 +497,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCanFd_Create_CanFD_Dlc_BrsValue(DataLengCode) \
-	((((DataLengCode) << XCANFD_DLCR_DLC_SHIFT) & XCANFD_DLCR_DLC_MASK) \
+	((((DataLengCode) << (u32)XCANFD_DLCR_DLC_SHIFT) & (u32)XCANFD_DLCR_DLC_MASK) \
 			|(XCANFD_DLCR_EDL_MASK) |(XCANFD_DLCR_BRS_MASK))
 
 /****************************************************************************/
@@ -544,8 +544,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer)	\
-		((XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, \
-				XCANFD_TRR_OFFSET) & (1 << TxBuffer)) ? FALSE : TRUE)
+		(((XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, \
+				XCANFD_TRR_OFFSET) & ((u32)1 << TxBuffer)) \
+				== (u32)1) ? FALSE : TRUE)
 
 
 /****************************************************************************/
@@ -1011,22 +1012,8 @@ typedef struct {
 * @note		None.
 *
 *****************************************************************************/
-#define XCanFD_Check_TrrVal_Set_Bit(Var)      Var&(-Var)
+#define XCanFD_Check_TrrVal_Set_Bit(Var)      ((Var)&(~(Var) + (u32)1))
 
-/****************************************************************************/
-/**
-*
-* This routine returns Number with right most bit set
-* from the target input value.
-*
-* @param	Target value.
-*
-* @return	Number with right most bit set from the target value.
-*
-* @note		None.
-*
-*****************************************************************************/
-#define XCanFD_Check_TrrVal_Set_Bit(Var)      Var&(-Var)
 
 /* Functions in xcan.c */
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,

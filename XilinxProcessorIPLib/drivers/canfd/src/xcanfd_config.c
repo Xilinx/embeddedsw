@@ -411,7 +411,7 @@ void XCanFd_SetBitRateSwitch_EnableNominal(XCanFd *InstancePtr)
 
 	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_MSR_OFFSET);
-	if (!(Result & XCANFD_SRR_CEN_MASK)) {
+	if ((Result & XCANFD_SRR_CEN_MASK) == (u32)0) {
 		Result = Result | XCANFD_MSR_BRSD_MASK;
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_MSR_OFFSET,Result);
@@ -445,7 +445,7 @@ void XCanFd_SetBitRateSwitch_DisableNominal(XCanFd *InstancePtr)
 
 	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_MSR_OFFSET);
-	if (!(Result & XCANFD_SRR_CEN_MASK)) {
+	if ((Result & XCANFD_SRR_CEN_MASK) == (u32)0) {
 		Result = Result & (~XCANFD_MSR_BRSD_MASK);
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_MSR_OFFSET,Result);
@@ -486,8 +486,8 @@ u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, s8 Threshold)
 		Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 					XCANFD_WIR_OFFSET);
 		Value &= (~XCANFD_WIR_MASK);
-		Value |= (( Threshold ) &
-				XCANFD_WIR_MASK);
+		Value |= (((u32)Threshold) &
+				(u32)XCANFD_WIR_MASK);
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_WIR_OFFSET,Value);
 		Status = XST_SUCCESS;
@@ -531,7 +531,7 @@ u32 XCanFd_SetRxIntrWatermarkFifo1(XCanFd *InstancePtr, s8 Threshold)
 		Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_WIR_OFFSET);
 		Value &= (~XCANFD_WMR_RXFWM_1_MASK);
-		Value |= (( Threshold << XCANFD_WMR_RXFWM_1_SHIFT ) &
+		Value |= (((u32)Threshold << (u32)XCANFD_WMR_RXFWM_1_SHIFT) &
 		                XCANFD_WMR_RXFWM_1_MASK);
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_WIR_OFFSET,Value);
