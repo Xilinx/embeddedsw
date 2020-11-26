@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v9_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -33,6 +33,7 @@
 *                       configured for multiband.
 *       cog    10/12/20 Check generation before cheching datapath mode.
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
+* 9.0   cog    11/25/20 Upversion.
 *
 * </pre>
 *

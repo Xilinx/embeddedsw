@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_sinit.c
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v9_0
 * @{
 *
 * The implementation of the XRFdc component's static initialization
@@ -33,6 +33,7 @@
 *       cog    08/02/19 Formatting changes.
 * 8.0   cog    02/10/20 Updated addtogroup.
 * 8.1   cog    06/24/20 Upversion.
+* 9.0   cog    11/25/20 Upversion.
 *
 * </pre>
 *

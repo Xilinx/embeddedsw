@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v9_0
 * @{
 * @details
 *
@@ -259,6 +259,7 @@
 *       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
 *                       consumption.
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
+* 9.0   cog    11/25/20 Upversion.
 *
 * </pre>
 *
@@ -2038,7 +2039,7 @@ RETURN_PATH:
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion(void)
 {
-	return 8.1;
+	return 9.0;
 }
 
 /************************** Function Prototypes ******************************/

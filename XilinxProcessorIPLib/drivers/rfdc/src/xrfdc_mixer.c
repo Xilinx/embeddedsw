@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mixer.c
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v9_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -50,6 +50,7 @@
 *       cog    06/24/20 Explicitly set FIFO width when setting the mixer.
 *       cog    10/06/20 Should only get calibration mode when setting/getting the
 *                       mixer settings for Gen 1/2 devices.
+* 9.0   cog    11/25/20 Upversion.
 * </pre>
 *
 ******************************************************************************/

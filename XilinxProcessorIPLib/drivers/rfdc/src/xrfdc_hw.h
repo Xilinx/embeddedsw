@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v9_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -88,6 +88,7 @@
 *       cog    09/28/20 Added more DAC interrupts and fixed issue with
 *                       GetEnabledInterrupts.
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
+* 9.0   cog    11/25/20 Upversion.
 *
 *</pre>
 *
