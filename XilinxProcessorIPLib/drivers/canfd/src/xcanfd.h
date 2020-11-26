@@ -1037,8 +1037,6 @@ void XCanFd_GetBusErrorCounter(XCanFd *InstancePtr, u8 *RxErrorCount,
 							u8 *TxErrorCount);
 
 int XCanFd_Send(XCanFd *InstancePtr,u32 *FramePtr,u32 *TxBufferNumber);
-int XCanFd_Recv(XCanFd *InstancePtr, u32 *FramePtr);
-int XCanFd_SendHighPriority(XCanFd *InstancePtr, u32 *FramePtr);
 void XCanFd_AcceptFilterEnable(XCanFd *InstancePtr, u32 FilterIndexMask);
 void XCanFd_AcceptFilterDisable(XCanFd *InstancePtr, u32 FilterIndexMask);
 u32 XCanFd_AcceptFilterGetEnabled(XCanFd *InstancePtr);
