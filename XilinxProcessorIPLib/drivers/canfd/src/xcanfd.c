@@ -1365,7 +1365,7 @@ static void StubHandler(void)
 int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 {
 
-	u32 NofBytes=0;
+	u32 NofBytes;
 
 	if ((Edl == 0U) && ((Dlc >> XCANFD_DLCR_DLC_SHIFT) > 8)) {
 		Dlc = XCANFD_DLC8;
@@ -1433,6 +1433,7 @@ int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 				NofBytes = 64;
 				break;
 		default	:
+				NofBytes = 0;
 				break;
 	}
 	return NofBytes;
