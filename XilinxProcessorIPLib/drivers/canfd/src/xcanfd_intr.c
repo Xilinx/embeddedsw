@@ -539,6 +539,6 @@ int XCanFd_SetHandler(XCanFd *InstancePtr, u32 HandlerType,
 		break;
 
 	}
-	return Status;
+	return (s32)Status;
 }
 /** @} */

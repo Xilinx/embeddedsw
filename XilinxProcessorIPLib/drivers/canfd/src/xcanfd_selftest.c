@@ -122,7 +122,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	 */
 
 	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	/*
@@ -164,7 +164,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	TxFrame[0] = XCanFd_CreateIdValue((u32)TEST_MESSAGE_ID, (u32)0, (u32)0, (u32)0, (u32)0);
 	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue((u32)TEST_CANFD_DLC);
 
-	Dlc = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
+	Dlc = (u32)XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
 		EDL_CANFD);
 	FramePtr = (u8 *) (&TxFrame[2]);
 
@@ -192,9 +192,9 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	}
 
 	/* Send the frame. */
-	Status = XCanFd_Send(InstancePtr,TxFrame,&TxBuffer);
+	Status = (u32)XCanFd_Send(InstancePtr,TxFrame,&TxBuffer);
 	if (Status != (u32)XST_SUCCESS) {
-		return Status;
+		return (s32)Status;
 	}
 
 	/* Wait until buffer is transmitted. */
@@ -210,29 +210,29 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 		Status = XCanFd_Recv_Sequential(InstancePtr, RxFrame);
 	}
 	if (Status != (u32)XST_SUCCESS) {
-		return Status;
+		return (s32)Status;
 	}
-	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
+	Dlc = (u32)XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
 		EDL_CANFD);
 
 	/* Verify Identifier and Data Length Code. */
 	if (RxFrame[0] != XCanFd_CreateIdValue((u32)TEST_MESSAGE_ID, (u32)0, (u32)0, (u32)0, (u32)0)) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
-	if ((u8)TEST_CANFD_DLC != XCanFd_GetLen2Dlc((u8)Dlc)) {
-		return XST_FAILURE;
+	if ((u8)TEST_CANFD_DLC != (u8)XCanFd_GetLen2Dlc((s32)Dlc)) {
+		return (s32)XST_FAILURE;
 	}
 
 	/* Verify Data field contents. */
 	FramePtr = (u8 *)(&RxFrame[2]);
 	for (Index = 0; Index < Dlc; Index++) {
 		if (*FramePtr++ != (u8)Index) {
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 	}
 
 	XCanFd_Reset(InstancePtr);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 /** @} */

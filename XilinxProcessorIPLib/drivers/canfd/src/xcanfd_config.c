@@ -77,13 +77,13 @@ int XCanFd_SetBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler)
 	 * Mode
 	 */
 	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_BRPR_OFFSET,
 			   (u32) Prescaler);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -154,12 +154,12 @@ int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 	if ((SyncJumpWidth > (u8)XCANFD_MAX_SJW_VALUE) ||
 	    (TimeSegment2 > (u8)XCANFD_MAX_TS2_VALUE) ||
 	    (TimeSegment1 > (u16)XCANFD_MAX_TS1_VALUE)) {
-		return XST_INVALID_PARAM;
+		return (s32)XST_INVALID_PARAM;
 	}
 
 	/* Return error code if the device is NOT in Configuration Mode */
 	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	Value = ((u32) TimeSegment1) & XCANFD_BTR_TS1_MASK;
@@ -171,7 +171,7 @@ int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_BTR_OFFSET, Value);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -247,7 +247,7 @@ int XCanFd_SetFBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler)
 	 * Mode
 	 */
 	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 	RegValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_F_BRPR_OFFSET);
@@ -256,7 +256,7 @@ int XCanFd_SetFBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler)
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 		XCANFD_F_BRPR_OFFSET,RegValue);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -326,12 +326,12 @@ int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 	if ((SyncJumpWidth > (u8)XCANFD_MAX_F_SJW_VALUE) ||
 	    (TimeSegment2 > (u8)XCANFD_MAX_F_TS2_VALUE) ||
 	    (TimeSegment1 > (u8)XCANFD_MAX_F_TS1_VALUE)) {
-		return XST_INVALID_PARAM;
+		return (s32)XST_INVALID_PARAM;
 	}
 
 	/* Return error code if the device is NOT in Configuration Mode */
 	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	Value = ((u32) TimeSegment1) & XCANFD_F_BTR_TS1_MASK;
@@ -343,7 +343,7 @@ int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_F_BTR_OFFSET,Value);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/

@@ -155,7 +155,7 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 				       (u32)0, (u32)0);
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -482,10 +482,10 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
 	Value = (~TrrVal) & InstancePtr->GlobalTrrMask;
 	Value = XCanFD_Check_TrrVal_Set_Bit(Value);
-	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(Value);
+	FreeTxBuffer =  (u32)XCanfd_TrrVal_Get_SetBit_Position(Value);
 
 	if (FreeTxBuffer == (u32)XST_NOBUFFER){
-		return XST_FIFO_NO_ROOM;
+		return (s32)XST_FIFO_NO_ROOM;
 	}
 	else {
 
@@ -502,7 +502,7 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		if ((CanEDL & XCANFD_DLCR_EDL_MASK) != (u32)0) {
 
 			/* CAN FD Frames. */
-			Dlc = XCanFd_GetDlc2len(FramePtr[1] &
+			Dlc = (u32)XCanFd_GetDlc2len(FramePtr[1] &
 				XCANFD_DLCR_DLC_MASK,
 				(CanEDL & XCANFD_DLCR_EDL_MASK));
 			/* Write Data to Data Register */
@@ -520,7 +520,7 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		else {
 
 			/* Legacy CAN Frames */
-			Dlc = XCanFd_GetDlc2len(FramePtr[1] &
+			Dlc = (u32)XCanFd_GetDlc2len(FramePtr[1] &
 				XCANFD_DLCR_DLC_MASK,
 				(CanEDL & XCANFD_DLCR_EDL_MASK));
 			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
@@ -546,7 +546,7 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 	/* Make That buffer as transmitted */
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -590,7 +590,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
 	if (InstancePtr->MultiBuffTrr == TRR_MASK_INIT_VAL) {
-		return XST_FIFO_NO_ROOM;
+		return (s32)XST_FIFO_NO_ROOM;
 	}
 
 	if(InstancePtr->GlobalTrrMask == (u32)0) {
@@ -598,11 +598,11 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	}
 	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
 	InstancePtr->GlobalTrrValue = XCanFD_Check_TrrVal_Set_Bit(MaskValue);
-	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(InstancePtr->GlobalTrrValue);
+	FreeTxBuffer =  (u32)XCanfd_TrrVal_Get_SetBit_Position(InstancePtr->GlobalTrrValue);
 	InstancePtr->GlobalTrrMask ^= InstancePtr->GlobalTrrValue;
 
 	if (FreeTxBuffer == (u32)XST_NOBUFFER){
-		return XST_FIFO_NO_ROOM;
+		return (s32)XST_FIFO_NO_ROOM;
 	}
 	else {
 
@@ -619,7 +619,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		CanEDL = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TXDLC_OFFSET(FreeTxBuffer));
 
-		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
+		Dlc = (u32)XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
 			(CanEDL & XCANFD_DLCR_EDL_MASK));
 
 		if ((CanEDL & XCANFD_DLCR_EDL_MASK) != (u32)0) {
@@ -655,7 +655,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		*TxBufferNumber = FreeTxBuffer;
 
 
-		return XST_SUCCESS;
+		return (s32)XST_SUCCESS;
 	}
 }
 
@@ -845,7 +845,7 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 					XCANFD_RXDLC_OFFSET(RxBufferIndex));
 		FramePtr[1] = CanEDL;
 
-		Dlc = XCanFd_GetDlc2len(FramePtr[1] &
+		Dlc = (u32)XCanFd_GetDlc2len(FramePtr[1] &
 			XCANFD_DLCR_DLC_MASK,
 			(CanEDL & XCANFD_DLCR_EDL_MASK));
 		/* A CanFD Frame is received */
@@ -1092,7 +1092,7 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 						XCANFD_TCR_OFFSET);
 				}
 
-				return XST_SUCCESS;
+				return (s32)XST_SUCCESS;
 			}
 			else {
 
@@ -1112,13 +1112,13 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 						XCANFD_TCR_OFFSET);
 				}
 
-				return XST_SUCCESS;
+				return (s32)XST_SUCCESS;
 			}
 		}
 
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	} else {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 }
@@ -1244,7 +1244,7 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 	EnabledFilters = XCanFd_AcceptFilterGetEnabled(InstancePtr);
 
 	if ((EnabledFilters & FilterIndex) == FilterIndex) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 	FilterIndex--;
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -1254,7 +1254,7 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 			XCANFD_AFIDR_OFFSET(FilterIndex),IdValue);
 
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -1436,7 +1436,7 @@ int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 				NofBytes = 0;
 				break;
 	}
-	return NofBytes;
+	return (s32)NofBytes;
 }
 
 /*****************************************************************************/
@@ -1455,7 +1455,7 @@ int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 u8 XCanFd_GetLen2Dlc(int len)
 {
 	if(len <= 8) {
-		return len;
+		return (u8)len;
 	} else if(len <= 12) {
 		return 9;
 	} else if(len <= 16) {
@@ -1561,7 +1561,7 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 	InstancePtr->GlobalTrrValue = TRR_INIT_VAL;
 	InstancePtr->GlobalTrrMask  = TRR_MASK_INIT_VAL;
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 
 }
 
@@ -1644,7 +1644,7 @@ int XCanFd_GetNofMessages_Stored_Rx_Fifo(XCanFd *InstancePtr, u8 fifo_no)
 		FillLevel >>= XCANFD_FSR_FL_1_SHIFT;
 	}
 
-	return FillLevel;
+	return (s32)FillLevel;
 
 }
 
@@ -1679,7 +1679,7 @@ int XCanFd_GetNofMessages_Stored_TXE_FIFO(XCanFd *InstancePtr)
 	FillLevel = Result & XCANFD_TXE_FL_MASK;
 	FillLevel >>= XCANFD_TXE_FL_SHIFT;
 
-	return FillLevel;
+	return (s32)FillLevel;
 
 }
 
@@ -1795,7 +1795,7 @@ static int XCanfd_TrrVal_Get_SetBit_Position(u32 u) {
 	u -= (u32)1;
 	uCount = u - ((u >> SHIFT1) & FAST_MATH_MASK1) - ((u >> SHIFT2) & FAST_MATH_MASK2);
 	lCount = ((uCount + (uCount >> SHIFT3)) & FAST_MATH_MASK3) % EXTRACTION_MASK;
-	return lCount;
+	return (s32)lCount;
 
 }
 
@@ -1844,7 +1844,7 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 				XCANFD_FIFO_1_RXDLC_OFFSET(ReadIndex));
 	}
 		FramePtr[1] = CanEDL;
-		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
+		Dlc = (u32)XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
 				(CanEDL & XCANFD_DLCR_EDL_MASK));
 
 		if ((CanEDL & XCANFD_DLCR_EDL_MASK) != (u32)0) {
