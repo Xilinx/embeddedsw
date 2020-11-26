@@ -121,7 +121,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	 * it is not Configuration Mode.
 	 */
 
-	if (XCanFd_GetMode(InstancePtr) != XCANFD_MODE_CONFIG) {
+	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
 		return XST_FAILURE;
 	}
 
@@ -153,7 +153,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 
 	XCanFd_EnterMode(InstancePtr, XCANFD_MODE_LOOPBACK);
 	Status = XCanFd_GetMode(InstancePtr);
-	while (Status != XCANFD_MODE_LOOPBACK) {
+	while (Status != (u32)XCANFD_MODE_LOOPBACK) {
 		Status = XCanFd_GetMode(InstancePtr);
 	}
 
@@ -174,7 +174,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	}
 
 	/*Check the design, if it is in MailBox Mode */
-	if (XCANFD_GET_RX_MODE(InstancePtr) == 1) {
+	if (XCANFD_GET_RX_MODE(InstancePtr) == (u32)1) {
 		IdValue = XCanFd_CreateIdValue((u32)TEST_MESSAGE_ID, (u32)0, (u32)0, (u32)0, (u32)0);
 		for (BuffNr= 0;BuffNr < InstancePtr->CanFdConfig.NumofRxMbBuf;
 				BuffNr++)
@@ -193,7 +193,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 
 	/* Send the frame. */
 	Status = XCanFd_Send(InstancePtr,TxFrame,&TxBuffer);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		return Status;
 	}
 
@@ -203,13 +203,13 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 		Value = (u32)XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer);
 	}
 
-	if (XCANFD_GET_RX_MODE(InstancePtr) == 1) {
+	if (XCANFD_GET_RX_MODE(InstancePtr) == (u32)1) {
 		Status = XCanFd_Recv_Mailbox(InstancePtr, RxFrame);
 	}
 	else{
 		Status = XCanFd_Recv_Sequential(InstancePtr, RxFrame);
 	}
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		return Status;
 	}
 	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
@@ -219,7 +219,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	if (RxFrame[0] != XCanFd_CreateIdValue((u32)TEST_MESSAGE_ID, (u32)0, (u32)0, (u32)0, (u32)0)) {
 		return XST_FAILURE;
 	}
-	if (TEST_CANFD_DLC != XCanFd_GetLen2Dlc(Dlc)) {
+	if ((u8)TEST_CANFD_DLC != XCanFd_GetLen2Dlc((u8)Dlc)) {
 		return XST_FAILURE;
 	}
 

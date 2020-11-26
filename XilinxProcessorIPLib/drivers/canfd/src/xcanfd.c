@@ -280,21 +280,21 @@ void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((OperationMode == XCANFD_MODE_CONFIG) ||
-			(OperationMode == XCANFD_MODE_SLEEP) ||
-			(OperationMode == XCANFD_MODE_NORMAL) ||
-			(OperationMode == XCANFD_MODE_LOOPBACK) ||
-			(OperationMode == XCANFD_MODE_SNOOP) ||
-			(OperationMode == XCANFD_MODE_PEE) ||
-			(OperationMode == XCANFD_MODE_ABR) ||
-			(OperationMode == XCANFD_MODE_DAR) ||
-			(OperationMode == XCANFD_MODE_SBR));
+	Xil_AssertVoid((OperationMode == (u32)XCANFD_MODE_CONFIG) ||
+			(OperationMode == (u32)XCANFD_MODE_SLEEP) ||
+			(OperationMode == (u32)XCANFD_MODE_NORMAL) ||
+			(OperationMode == (u32)XCANFD_MODE_LOOPBACK) ||
+			(OperationMode == (u32)XCANFD_MODE_SNOOP) ||
+			(OperationMode == (u32)XCANFD_MODE_PEE) ||
+			(OperationMode == (u32)XCANFD_MODE_ABR) ||
+			(OperationMode == (u32)XCANFD_MODE_DAR) ||
+			(OperationMode == (u32)XCANFD_MODE_SBR));
 
 	CurrentMode = XCanFd_GetMode(InstancePtr);
 	MsrReg = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_MSR_OFFSET) & XCANFD_MSR_CONFIG_MASK;
-	if ((CurrentMode == XCANFD_MODE_NORMAL) &&
-		(OperationMode == XCANFD_MODE_SLEEP)) {
+	if ((CurrentMode == (u8)XCANFD_MODE_NORMAL) &&
+		(OperationMode == (u8)XCANFD_MODE_SLEEP)) {
 
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_MSR_OFFSET,
@@ -302,8 +302,8 @@ void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode)
 		return;
 	}
 
-	else if ((CurrentMode == XCANFD_MODE_SLEEP) &&
-		 (OperationMode == XCANFD_MODE_NORMAL)) {
+	else if ((CurrentMode == (u8)XCANFD_MODE_SLEEP) &&
+		 (OperationMode == (u8)XCANFD_MODE_NORMAL)) {
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_MSR_OFFSET, MsrReg);
 		return;
@@ -323,7 +323,7 @@ void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode)
 	 * Check if the device has entered Configuration Mode, if not, return
 	 * to the caller.
 	 */
-	if (XCanFd_GetMode(InstancePtr) != XCANFD_MODE_CONFIG) {
+	if (XCanFd_GetMode(InstancePtr) != (u8)XCANFD_MODE_CONFIG) {
 		return;
 	}
 
@@ -433,8 +433,8 @@ void XCanFd_GetBusErrorCounter(XCanFd *InstancePtr, u8 *RxErrorCount,
 	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_ECR_OFFSET);
 
-	*RxErrorCount = (Result & XCANFD_ECR_REC_MASK) >> XCANFD_ECR_REC_SHIFT;
-	*TxErrorCount = Result & XCANFD_ECR_TEC_MASK;
+	*RxErrorCount = (u8)((Result & XCANFD_ECR_REC_MASK) >> XCANFD_ECR_REC_SHIFT);
+	*TxErrorCount = (u8)(Result & XCANFD_ECR_TEC_MASK);
 }
 
 /*****************************************************************************/
@@ -476,7 +476,7 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 	/* Poll TRR to check pending transmission requests */
 
-	if(InstancePtr->GlobalTrrMask == 0) {
+	if(InstancePtr->GlobalTrrMask == (u32)0) {
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	}
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
@@ -484,7 +484,7 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	Value = XCanFD_Check_TrrVal_Set_Bit(Value);
 	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(Value);
 
-	if (FreeTxBuffer == XST_NOBUFFER){
+	if (FreeTxBuffer == (u32)XST_NOBUFFER){
 		return XST_FIFO_NO_ROOM;
 	}
 	else {
@@ -507,9 +507,9 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 				(CanEDL & XCANFD_DLCR_EDL_MASK));
 			/* Write Data to Data Register */
 
-			for (Len = 0;Len < Dlc;Len += 4) {
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
 				OutValue = Xil_EndianSwap32(
-						FramePtr[2+DwIndex]);
+						FramePtr[(u32)2+DwIndex]);
 				XCanFd_WriteReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 					(XCANFD_TXDW_OFFSET(FreeTxBuffer)+
@@ -523,9 +523,9 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 			Dlc = XCanFd_GetDlc2len(FramePtr[1] &
 				XCANFD_DLCR_DLC_MASK,
 				(CanEDL & XCANFD_DLCR_EDL_MASK));
-			for (Len = 0;Len < Dlc;Len += 4) {
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
 				OutValue = Xil_EndianSwap32(
-						FramePtr[2+DwIndex]);
+						FramePtr[(u32)2+DwIndex]);
 				XCanFd_WriteReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 					(XCANFD_TXDW_OFFSET(FreeTxBuffer)+
@@ -593,7 +593,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		return XST_FIFO_NO_ROOM;
 	}
 
-	if(InstancePtr->GlobalTrrMask == 0) {
+	if(InstancePtr->GlobalTrrMask == (u32)0) {
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	}
 	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
@@ -601,7 +601,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	FreeTxBuffer =  XCanfd_TrrVal_Get_SetBit_Position(InstancePtr->GlobalTrrValue);
 	InstancePtr->GlobalTrrMask ^= InstancePtr->GlobalTrrValue;
 
-	if (FreeTxBuffer == XST_NOBUFFER){
+	if (FreeTxBuffer == (u32)XST_NOBUFFER){
 		return XST_FIFO_NO_ROOM;
 	}
 	else {
@@ -625,9 +625,9 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		if ((CanEDL & XCANFD_DLCR_EDL_MASK) != (u32)0) {
 
 			/* CAN FD Frames */
-			for (Len = 0;Len < Dlc;Len += 4) {
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
 				OutValue = Xil_EndianSwap32(
-						FramePtr[2+DwIndex]);
+						FramePtr[(u32)2+DwIndex]);
 				XCanFd_WriteReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 						(XCANFD_TXDW_OFFSET(
@@ -640,9 +640,9 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		else {
 
 			/* Legacy CAN Frames */
-			for (Len = 0;Len < Dlc;Len += 4) {
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
 				OutValue = Xil_EndianSwap32(
-						FramePtr[2+DwIndex]);
+						FramePtr[(u32)2+DwIndex]);
 				XCanFd_WriteReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 						(XCANFD_TXDW_OFFSET(
@@ -854,8 +854,8 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 
 			/* Read all Bytes from DW Register */
 
-			for (Len = 0;Len < Dlc;Len += 4) {
-				FramePtr[2+DwIndex] = Xil_EndianSwap32(
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
+				FramePtr[(u32)2+DwIndex] = Xil_EndianSwap32(
 						      XCanFd_ReadReg(
 						      InstancePtr->CanFdConfig.
 						      BaseAddress,
@@ -867,8 +867,8 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 		}
 		else {
 			/* Legacy CAN Frame */
-			for (Len = 0;Len < Dlc;Len += 4) {
-				FramePtr[2+DwIndex] = Xil_EndianSwap32(
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
+				FramePtr[(u32)2+DwIndex] = Xil_EndianSwap32(
 						      XCanFd_ReadReg(
 						      InstancePtr->CanFdConfig.
 						      BaseAddress,
@@ -918,11 +918,11 @@ u32 XCanFd_RxBuff_MailBox_Active(XCanFd *InstancePtr, u32 RxBuffer)
 		NoCtrlStatus = CONTROL_STATUS_1;
 	}
 	else if (RxBuffer <=DESIGN_RANGE_2) {
-		RxBuffer -= (DESIGN_RANGE_1+1);
+		RxBuffer -= (DESIGN_RANGE_1+(u32)1);
 		NoCtrlStatus = CONTROL_STATUS_2;
 	}
 	else {
-		RxBuffer -= (DESIGN_RANGE_2+1);
+		RxBuffer -= (DESIGN_RANGE_2+(u32)1);
 		NoCtrlStatus = CONTROL_STATUS_3;
 	}
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -969,11 +969,11 @@ u32 XCanFd_Set_MailBox_IdMask(XCanFd *InstancePtr, u32 RxBuffer,
 		NoCtrlStatus = CONTROL_STATUS_1;
 	}
 	else if (RxBuffer <=DESIGN_RANGE_2) {
-		RxBuffer -= (DESIGN_RANGE_1+1);
+		RxBuffer -= (DESIGN_RANGE_1+(u32)1);
 		NoCtrlStatus = CONTROL_STATUS_2;
 	}
 	else {
-		RxBuffer -= (DESIGN_RANGE_2+1);
+		RxBuffer -= (DESIGN_RANGE_2+(u32)1);
 		NoCtrlStatus = CONTROL_STATUS_3;
 	}
 
@@ -1025,11 +1025,11 @@ u32 XCanFd_RxBuff_MailBox_DeActive(XCanFd *InstancePtr, u32 RxBuffer)
 		NoCtrlStatus = CONTROL_STATUS_1;
 	}
 	else if (RxBuffer <=DESIGN_RANGE_2) {
-		RxBuffer -= (DESIGN_RANGE_1+1);
+		RxBuffer -= (DESIGN_RANGE_1+(u32)1);
 		NoCtrlStatus = CONTROL_STATUS_2;
 	}
 	else {
-		RxBuffer -= (DESIGN_RANGE_2+1);
+		RxBuffer -= (DESIGN_RANGE_2+(u32)1);
 		NoCtrlStatus = CONTROL_STATUS_3;
 	}
 
@@ -1367,7 +1367,7 @@ int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 
 	u32 NofBytes;
 
-	if ((Edl == 0U) && ((Dlc >> XCANFD_DLCR_DLC_SHIFT) > 8)) {
+	if ((Edl == (u32)0U) && ((Dlc >> XCANFD_DLCR_DLC_SHIFT) > (u32)8)) {
 		Dlc = XCANFD_DLC8;
 	}
 
@@ -1471,7 +1471,7 @@ u8 XCanFd_GetLen2Dlc(int len)
 	} else if(len <= 64) {
 		return 15;
 	} else {
-		return XST_INVALID_DLC;
+		return (u8)XST_INVALID_DLC;
 	}
 }
 
@@ -1588,8 +1588,8 @@ void XCanFd_PollQueue_Buffer(XCanFd *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->MultiBuffTrr!=0) {
-		for (BufferNumber = 0;BufferNumber < MAX_BUFFER_VAL;BufferNumber++) {
+	if (InstancePtr->MultiBuffTrr!= (u32)0) {
+		for (BufferNumber = (u32)0;BufferNumber < MAX_BUFFER_VAL;BufferNumber++) {
 			if ((InstancePtr->MultiBuffTrr & ((u32)TRR_POS_MASK << BufferNumber))
 				!= (u32)0) {
 				Value = (u32)XCanFd_IsBufferTransmitted(InstancePtr, BufferNumber);
@@ -1599,7 +1599,7 @@ void XCanFd_PollQueue_Buffer(XCanFd *InstancePtr)
 				}
 			}
 		}
-		InstancePtr->MultiBuffTrr = 0;
+		InstancePtr->MultiBuffTrr = (u32)0;
 	}
 
 }
@@ -1628,7 +1628,7 @@ int XCanFd_GetNofMessages_Stored_Rx_Fifo(XCanFd *InstancePtr, u8 fifo_no)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (fifo_no == XCANFD_RX_FIFO_0) {
+	if (fifo_no == (u8)XCANFD_RX_FIFO_0) {
 
 		Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_FSR_OFFSET);
@@ -1792,7 +1792,7 @@ static int XCanfd_TrrVal_Get_SetBit_Position(u32 u) {
 	u32 uCount;
 	u32 lCount;
 
-	u -= 1;
+	u -= (u32)1;
 	uCount = u - ((u >> SHIFT1) & FAST_MATH_MASK1) - ((u >> SHIFT2) & FAST_MATH_MASK2);
 	lCount = ((uCount + (uCount >> SHIFT3)) & FAST_MATH_MASK3) % EXTRACTION_MASK;
 	return lCount;
@@ -1823,7 +1823,7 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 	u32 Dlc=0;
 	u32 Len;
 /* Read ID from ID Register*/
-	if (fifo_no == XCANFD_RX_FIFO_0) {
+	if (fifo_no == (u8)XCANFD_RX_FIFO_0) {
 		FramePtr[0] = XCanFd_ReadReg(
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RXID_OFFSET(ReadIndex));
@@ -1834,7 +1834,7 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 	}
 
 /* Read DLC from DLC Register*/
-	if (fifo_no == XCANFD_RX_FIFO_0) {
+	if (fifo_no == (u8)XCANFD_RX_FIFO_0) {
 		CanEDL = XCanFd_ReadReg(
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RXDLC_OFFSET(ReadIndex));
@@ -1850,15 +1850,15 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 		if ((CanEDL & XCANFD_DLCR_EDL_MASK) != (u32)0) {
 
 			/* Can Fd frames */
-			for (Len = 0;Len < Dlc;Len += 4) {
-				if (fifo_no == XCANFD_RX_FIFO_0) {
-					FramePtr[2+DwIndex] = Xil_EndianSwap32(
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
+				if (fifo_no == (u8)XCANFD_RX_FIFO_0) {
+					FramePtr[(u32)2+DwIndex] = Xil_EndianSwap32(
 					XCanFd_ReadReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 					(XCANFD_RXDW_OFFSET(ReadIndex)+
 					(DwIndex*XCANFD_DW_BYTES))));
 				} else {
-					FramePtr[2+DwIndex] = Xil_EndianSwap32(
+					FramePtr[(u32)2+DwIndex] = Xil_EndianSwap32(
 					XCanFd_ReadReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 					(XCANFD_FIFO_1_RXDW_OFFSET(ReadIndex)+
@@ -1870,14 +1870,14 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 		else {
 
 			/* Legacy CAN Frame */
-			for (Len = 0;Len < Dlc;Len += 4) {
-				if (fifo_no == XCANFD_RX_FIFO_0) {
-					FramePtr[2+DwIndex] = Xil_EndianSwap32(
+			for (Len = (u32)0;Len < Dlc;Len += (u32)4) {
+				if (fifo_no == (u8)XCANFD_RX_FIFO_0) {
+					FramePtr[(u32)2+DwIndex] = Xil_EndianSwap32(
 					XCanFd_ReadReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 					(XCANFD_RXDW_OFFSET(ReadIndex)+(Len))));
 				} else {
-					FramePtr[2+DwIndex] = Xil_EndianSwap32(
+					FramePtr[(u32)2+DwIndex] = Xil_EndianSwap32(
 					XCanFd_ReadReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 					(XCANFD_FIFO_1_RXDW_OFFSET(ReadIndex)+(Len))));
@@ -1887,7 +1887,7 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 		}
 
 		/* Set the IRI bit causes core to increment RI in FSR Register */
-		if (fifo_no == XCANFD_RX_FIFO_0) {
+		if (fifo_no == (u8)XCANFD_RX_FIFO_0) {
 			FsrVal = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 					XCANFD_FSR_OFFSET);
 			FsrVal |= XCANFD_FSR_IRI_MASK;
