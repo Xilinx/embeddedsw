@@ -108,6 +108,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 
 	u32 IdValue;
 	u32 BuffNr;
+	u32 Value;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -151,7 +152,10 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 		TEST_FBTR_SECOND_TIMESEGMENT,TEST_FBTR_FIRST_TIMESEGMENT);
 
 	XCanFd_EnterMode(InstancePtr, XCANFD_MODE_LOOPBACK);
-	while (XCanFd_GetMode(InstancePtr) != XCANFD_MODE_LOOPBACK);
+	Status = XCanFd_GetMode(InstancePtr);
+	while (Status != XCANFD_MODE_LOOPBACK) {
+		Status = XCanFd_GetMode(InstancePtr);
+	}
 
 	/*
 	 * Create a frame to send with known values so we can verify them
@@ -194,7 +198,10 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	}
 
 	/* Wait until buffer is transmitted. */
-	while (XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer) == FALSE);
+	Value = (u32)XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer);
+	while ( Value == (u32)FALSE) {
+		Value = (u32)XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer);
+	}
 
 	if (XCANFD_GET_RX_MODE(InstancePtr) == 1) {
 		Status = XCanFd_Recv_Mailbox(InstancePtr, RxFrame);
