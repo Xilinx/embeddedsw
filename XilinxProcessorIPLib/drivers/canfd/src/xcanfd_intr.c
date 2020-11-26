@@ -228,7 +228,7 @@ void XCanFd_InterruptEnable_RxBuffFull(XCanFd *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((RxBuffNumber == 0)) {
+	if ((RxBuffNumber == (u32)0)) {
 		IntrValue = XCanFd_ReadReg(
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RXBFLL1_OFFSET);
@@ -275,7 +275,7 @@ void XCanFd_InterruptDisable_RxBuffFull(XCanFd *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((RxBuffNumber == 0)) {
+	if ((RxBuffNumber == (u32)0)) {
 		IntrValue =
 			XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RXBFLL1_OFFSET);
