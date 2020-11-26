@@ -314,8 +314,10 @@ void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode)
 	 * enter Configuration Mode before switching into the target operation
 	 * mode.
 	 */
-	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
-		XCANFD_SRR_OFFSET, 0);
+	else {
+		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+			XCANFD_SRR_OFFSET, 0);
+	}
 
 	/*
 	 * Check if the device has entered Configuration Mode, if not, return
