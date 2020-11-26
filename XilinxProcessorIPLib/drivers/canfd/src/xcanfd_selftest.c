@@ -165,7 +165,8 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	FramePtr = (u8 *) (&TxFrame[2]);
 
 	for (Index = 0; Index < Dlc; Index++) {
-		*FramePtr++ = (u8) Index;
+		*FramePtr = (u8) Index;
+		FramePtr = FramePtr +(u8)1;
 	}
 
 	/*Check the design, if it is in MailBox Mode */
