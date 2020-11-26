@@ -574,7 +574,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_TXID_OFFSET(FreeBuffer) \
-	(XCANFD_TXFIFO_0_BASE_ID_OFFSET+(FreeTxBuffer*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_TXFIFO_0_BASE_ID_OFFSET+((UINTPTR)FreeTxBuffer*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -586,7 +586,7 @@ typedef struct {
 *
  *****************************************************************************/
 #define XCANFD_TXDLC_OFFSET(FreeBuffer) \
-	(XCANFD_TXFIFO_0_BASE_DLC_OFFSET+(FreeTxBuffer*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_TXFIFO_0_BASE_DLC_OFFSET+((UINTPTR)FreeTxBuffer*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -598,7 +598,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_TXDW_OFFSET(FreeBuffer) \
-	(XCANFD_TXFIFO_0_BASE_DW0_OFFSET+(FreeTxBuffer*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_TXFIFO_0_BASE_DW0_OFFSET+((UINTPTR)FreeTxBuffer*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -611,7 +611,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_TXEID_OFFSET(TXEVENTIndex) \
-	(XCANFD_TXEFIFO_0_BASE_ID_OFFSET+(TXEVENTIndex*XCANFD_TXE_MESSAGE_SIZE))
+	(XCANFD_TXEFIFO_0_BASE_ID_OFFSET+((UINTPTR)TXEVENTIndex*XCANFD_TXE_MESSAGE_SIZE))
 
 /*****************************************************************************/
 /**
@@ -624,7 +624,7 @@ typedef struct {
 *
  *****************************************************************************/
 #define XCANFD_TXEDLC_OFFSET(TXEVENTIndex) \
-	(XCANFD_TXEFIFO_0_BASE_DLC_OFFSET+(TXEVENTIndex*XCANFD_TXE_MESSAGE_SIZE))
+	(XCANFD_TXEFIFO_0_BASE_DLC_OFFSET+((UINTPTR)TXEVENTIndex*XCANFD_TXE_MESSAGE_SIZE))
 /*****************************************************************************/
 /**
 * This macro Returns the RXBUFFER ID Offset
@@ -635,7 +635,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_RXID_OFFSET(ReadIndex) \
-	(XCANFD_RXFIFO_0_BASE_ID_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_RXFIFO_0_BASE_ID_OFFSET+((UINTPTR)ReadIndex*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -647,7 +647,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_RXDLC_OFFSET(ReadIndex) \
-	(XCANFD_RXFIFO_0_BASE_DLC_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_RXFIFO_0_BASE_DLC_OFFSET+((UINTPTR)ReadIndex*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -659,7 +659,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_RXDW_OFFSET(ReadIndex) \
-	(XCANFD_RXFIFO_0_BASE_DW0_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_RXFIFO_0_BASE_DW0_OFFSET+((UINTPTR)ReadIndex*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -672,7 +672,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_FIFO_1_RXID_OFFSET(ReadIndex) \
-	(XCANFD_RXFIFO_1_BUFFER_0_BASE_ID_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_RXFIFO_1_BUFFER_0_BASE_ID_OFFSET+((UINTPTR)ReadIndex*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -685,7 +685,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_FIFO_1_RXDLC_OFFSET(ReadIndex) \
-	(XCANFD_RXFIFO_1_BUFFER_0_BASE_DLC_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_RXFIFO_1_BUFFER_0_BASE_DLC_OFFSET+((UINTPTR)ReadIndex*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
@@ -698,7 +698,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_FIFO_1_RXDW_OFFSET(ReadIndex) \
-	(XCANFD_RXFIFO_1_BUFFER_0_BASE_DW0_OFFSET+(ReadIndex*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_RXFIFO_1_BUFFER_0_BASE_DW0_OFFSET+((UINTPTR)ReadIndex*XCANFD_MAX_FRAME_SIZE))
 /*****************************************************************************/
 /**
 * This macro Returns the RCS Register Offset
@@ -711,7 +711,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_RCS_OFFSET(NoCtrlStatus)	\
-		(XCANFD_RCS0_OFFSET+(NoCtrlStatus*4))
+		(XCANFD_RCS0_OFFSET+((UINTPTR)NoCtrlStatus*4U))
 
 /*****************************************************************************/
 /**
@@ -724,7 +724,7 @@ typedef struct {
 *****************************************************************************/
 #define XCANFD_AFMR_OFFSET(FilterIndex)	\
 		(XCANFD_AFMR_BASE_OFFSET+\
-		(FilterIndex*8))
+		((UINTPTR)FilterIndex*8U))
 
 /*****************************************************************************/
 /**
@@ -737,7 +737,7 @@ typedef struct {
 *****************************************************************************/
 #define XCANFD_AFIDR_OFFSET(FilterIndex)	\
 		(XCANFD_AFIDR_BASE_OFFSET+\
-		(FilterIndex*8))
+		((UINTPTR)FilterIndex*8U))
 
 /*****************************************************************************/
 /**
@@ -749,7 +749,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_MAILBOX_MASK_OFFSET(BufferNr)	\
-	(XCANFD_MAILBOX_RB_MASK_BASE_OFFSET+(BufferNr*4))
+	(XCANFD_MAILBOX_RB_MASK_BASE_OFFSET+((UINTPTR)BufferNr*4U))
 
 /*****************************************************************************/
 /**
@@ -761,7 +761,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCANFD_MAILBOX_ID_OFFSET(BufferNr)	\
-	(XCANFD_RXFIFO_0_BASE_ID_OFFSET+(BufferNr*XCANFD_MAX_FRAME_SIZE))
+	(XCANFD_RXFIFO_0_BASE_ID_OFFSET+((UINTPTR)BufferNr*XCANFD_MAX_FRAME_SIZE))
 
 /*****************************************************************************/
 /**
