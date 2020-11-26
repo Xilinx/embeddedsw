@@ -392,7 +392,7 @@ void XCanFd_IntrHandler(void *InstancePtr)
 	PendingIntr &= XCanFd_InterruptGetEnabled(CanPtr);
 
 	/* An error interrupt is occurring */
-	if ((PendingIntr & XCANFD_IXR_ERROR_MASK)) {
+	if ((PendingIntr & XCANFD_IXR_ERROR_MASK) != (u32)0) {
 		ErrorStatus = XCanFd_GetBusErrorStatus(CanPtr);
 		CanPtr->ErrorHandler(CanPtr->ErrorRef, ErrorStatus);
 
@@ -429,7 +429,7 @@ void XCanFd_IntrHandler(void *InstancePtr)
 			XCANFD_IXR_PEE_MASK | XCANFD_IXR_TSCNT_OFLW_MASK |
 			XCANFD_IXR_BSRD_MASK |
 			XCANFD_IXR_TXEOFLW_MASK);
-	if (EventIntr) {
+	if (EventIntr != (u32)0) {
 
 		CanPtr->EventHandler(CanPtr->EventRef, EventIntr);
 	}
@@ -447,13 +447,13 @@ void XCanFd_IntrHandler(void *InstancePtr)
 	 * when a message is received and becomes FULL.
 	 */
 	if ((PendingIntr & (XCANFD_IXR_RXFWMFLL_MASK | XCANFD_IXR_RXOK_MASK \
-			| XCANFD_IXR_RXRBF_MASK | XCANFD_IXR_RXFWMFLL_1_MASK ))) {
+			| XCANFD_IXR_RXRBF_MASK | XCANFD_IXR_RXFWMFLL_1_MASK)) !=(u32)0) {
 
 		CanPtr->RecvHandler(CanPtr->RecvRef);
 	}
 
 	/* A frame was transmitted successfully */
-	if ((PendingIntr & ( XCANFD_IXR_TXOK_MASK | XCANFD_IXR_TXEWMFLL_MASK))) {
+	if ((PendingIntr & (XCANFD_IXR_TXOK_MASK | XCANFD_IXR_TXEWMFLL_MASK)) != (u32)0) {
 		CanPtr->SendHandler(CanPtr->SendRef);
 	}
 
