@@ -29,6 +29,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bsv  11/05/2020 Added prints while polling in UtilPoll APIs
+*       td   11/23/2020 MISRA C Rule 17.8 Fixes
 *
 * </pre>
 *
@@ -92,11 +93,13 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	int Status = XST_FAILURE;
 	u32 RegValue;
 	u32 TimeLapsed = 0U;
+	u32 TimeOut = TimeOutInUs;
+
 	/*
 	 * If timeout value is zero, max time out value is taken
 	 */
-	if (TimeOutInUs == 0U) {
-		TimeOutInUs = XPLMI_TIME_OUT_DEFAULT;
+	if (TimeOut == 0U) {
+		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
 	/*
 	 * Read the Register value
@@ -105,7 +108,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	/*
 	 * Loop while the MAsk is not set or we timeout
 	 */
-	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOutInUs)) {
+	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
 		usleep(1U);
 		/*
 		 * Latch up the Register value again
@@ -120,7 +123,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 				"ExpectedValue: 0x%0x\n\r", RegAddr, Mask, ExpectedValue);
 		}
 	}
-	if (TimeLapsed < TimeOutInUs) {
+	if (TimeLapsed < TimeOut) {
 		Status = XST_SUCCESS;
 	}
 
@@ -145,12 +148,13 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	int Status = XST_FAILURE;
 	u32 ReadValue;
 	u32 TimeLapsed = 0U;
+	u32 TimeOut = TimeOutInUs;
 
 	/*
 	 * If timeout value is zero, max time out value is taken
 	 */
-	if (TimeOutInUs == 0U) {
-		TimeOutInUs = XPLMI_TIME_OUT_DEFAULT;
+	if (TimeOut == 0U) {
+		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
 	/*
 	 * Read the Register value
@@ -159,7 +163,7 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	/*
 	 * Loop while the Mask is not set or we timeout
 	 */
-	while (((ReadValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOutInUs)) {
+	while (((ReadValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
 		usleep(1U);
 		/*
 		 * Latch up the value again
@@ -175,7 +179,7 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 			(u32)(RegAddr & MASK_ALL), Mask, ExpectedValue);
 		}
 	}
-	if (TimeLapsed < TimeOutInUs) {
+	if (TimeLapsed < TimeOut) {
 		Status = XST_SUCCESS;
 	}
 

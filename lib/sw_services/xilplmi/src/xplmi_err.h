@@ -28,6 +28,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
+* 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *
 * </pre>
 *
@@ -116,9 +117,11 @@ static inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
  *****************************************************************************/
 static inline XPlmi_EventType XPlmi_EventNodeType(u32 Id)
 {
-	Id = (Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT;
+	u32 EventTypeId;
 
-	return (XPlmi_EventType)Id;
+	EventTypeId = (Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT;
+
+	return (XPlmi_EventType)EventTypeId;
 }
 
 /************************** Function Prototypes ******************************/

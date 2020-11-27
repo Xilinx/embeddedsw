@@ -27,6 +27,7 @@
 *                       boot modes
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *
 * </pre>
 *
@@ -718,6 +719,7 @@ int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
 	u32 SrcAddrLow = (u32)(&Src[0U]);
 	u64 SrcAddr = (u64)(SrcAddrLow);
 	u32 ChunkSize;
+	u32 DestOffset = 0U;
 
 	if (Val == XPLMI_DATA_INIT_PZM)	{
 		Status = XPlmi_EccInit(DestAddr, Len * XPLMI_WORD_LEN);
@@ -740,17 +742,17 @@ int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
 
 		/* DMA in chunks of 512 Bytes */
 		for (Index = 0U; Index < Count; ++Index) {
-			Status = XPlmi_DmaXfr(SrcAddr, DestAddr, XPLMI_SET_CHUNK_SIZE,
-					XPLMI_PMCDMA_0);
+			Status = XPlmi_DmaXfr(SrcAddr, (DestAddr + (u64)DestOffset),
+					XPLMI_SET_CHUNK_SIZE, XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			DestAddr += (XPLMI_SET_CHUNK_SIZE * XPLMI_WORD_LEN);
+			DestOffset += (XPLMI_SET_CHUNK_SIZE * XPLMI_WORD_LEN);
 		}
 
 		/* DMA of residual bytes */
-		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len % XPLMI_SET_CHUNK_SIZE,
-				XPLMI_PMCDMA_0);
+		Status = XPlmi_DmaXfr(SrcAddr, (DestAddr + (u64)DestOffset),
+				Len % XPLMI_SET_CHUNK_SIZE, XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
