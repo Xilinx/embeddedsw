@@ -44,6 +44,7 @@
 *       bsv  10/19/20 Parallel DMA changes
 *       kpt  10/19/2020 Code clean up
 *       har  10/19/20 Replaced ECDSA in header files
+*       har  11/27/20 Added macros related to PDI DpaCm configuration
 *
 * </pre>
 *
@@ -240,6 +241,8 @@ extern "C" {
 #define XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK			(0U)
 #define XLOADER_CRP_RST_DBG_ENABLE_MASK				(0U)
 
+#define XLOADER_PDI_DPACM_ENABLED				(1U)
+#define XLOADER_PDI_DPACM_DISABLED				(0U)
 /**************************** Type Definitions *******************************/
 
 typedef struct {

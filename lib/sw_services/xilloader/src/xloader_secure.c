@@ -70,6 +70,9 @@
 *       td   10/19/20 MISRA C Fixes
 *       bsv  10/19/20 Parallel DMA related changes
 *       har  10/19/20 Replaced ECDSA in function calls
+*       har  11/12/20 Initialized GVF in PufData structure with MSB of shutter
+*                     value
+*                     Improved checks for sync in PDI DPACM Cfg and Efuse DPACM Cfg
 *
 * </pre>
 *
@@ -105,6 +108,7 @@
 #define XLOADER_AES_RESET_VAL			(0x1U)
 #define XLOADER_RSA_PSS_MSB_PADDING_MASK	(u8)(0x80U)
 #define XLOADER_RSA_EM_MSB_INDEX		(0x0U)
+#define XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT	(31U)
 
 /*****************************************************************************/
 /**
@@ -2985,19 +2989,12 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XSecure_AesKeySrc KeySrc = XSECURE_AES_BBRAM_KEY;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 	u64 SrcAddr = BufferAddr;
-	u32 DpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);
+	u32 PdiDpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);
 	u32 EfuseDpaCmCfg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC1_OFFSET) &
 		(XLOADER_EFUSE_SEC_DPA_DIS_MASK);
 	XLoader_AesKekInfo KeyDetails;
 	u32 Offset;
 	u32 RegVal;
-
-	if (DpaCmCfg != 0x0U) {
-		DpaCmCfg = 0x0U;
-	}
-	else {
-		DpaCmCfg = XLOADER_EFUSE_SEC_DPA_DIS_MASK;
-	}
 
 	if (SecurePtr->IsAuthenticated == (u8)TRUE) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
@@ -3030,16 +3027,18 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	if (DpaCmCfg != EfuseDpaCmCfg) {
+	if (((PdiDpaCmCfg == XLOADER_PDI_DPACM_ENABLED) && (EfuseDpaCmCfg == XLOADER_EFUSE_SEC_DPA_DIS_MASK)) ||
+		((PdiDpaCmCfg == XLOADER_PDI_DPACM_DISABLED) && (EfuseDpaCmCfg != XLOADER_EFUSE_SEC_DPA_DIS_MASK))) {
 		XPlmi_Printf(DEBUG_INFO, "MetaHdr DpaCmCfg not matching with DpaCm "
 			"eFuses\n\r");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR,
 			Status);
 		goto END;
 	}
+
 	/* Configure DPA CM */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SetAesDpaCm,
-		&SecurePtr->AesInstance, DpaCmCfg);
+		&SecurePtr->AesInstance, PdiDpaCmCfg);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_DPA_CM_ERR, Status);
 		goto END;
@@ -3138,12 +3137,14 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 					const XLoader_AesKekInfo *KeyDetails)
 {
 	int Status = XST_FAILURE;
-	XPuf_Data PufData;
+	XPuf_Data PufData = {0U};
 
 	XPlmi_Printf(DEBUG_INFO, "Decrypting PUF KEK\n\r");
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
+	PufData.GlobalVarFilter = (u8)(PufData.ShutterValue >>
+		XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
 
 	if (KeyDetails->PufHdLocation == XLOADER_PUF_HD_BHDR) {
 		PufData.ReadOption = XPUF_READ_FROM_RAM;
