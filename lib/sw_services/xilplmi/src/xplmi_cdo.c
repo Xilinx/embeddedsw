@@ -30,6 +30,7 @@
 *                       boot modes
 *       bm   10/14/2020 Code clean up
 *       td	 10/19/2020 MISRA C Fixes
+* 1.03  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *
 * </pre>
 *
@@ -215,6 +216,7 @@ END:
 static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, const u32 *BufPtr, u32 *Size)
 {
 	int Status = XST_FAILURE;
+	u8 Index = 0U;
 
 	/* Copy the remaining cmd data */
 	if (CdoPtr->CopiedCmdLen == 1U) {
@@ -224,9 +226,9 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, const u32 *BufPtr, u32 *Size)
 		 * Copy the 2nd argument to tempbuf to get the
 		 * size correctly
 		 */
-		CdoPtr->TempCmdBuf[1U] = BufPtr[0U];
+		CdoPtr->TempCmdBuf[1U] = BufPtr[Index];
 		CdoPtr->CopiedCmdLen++;
-		BufPtr++;
+		Index++;
 	}
 
 	/* If size is greater than tempbuf, copy only tempbuf size */
@@ -241,7 +243,7 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, const u32 *BufPtr, u32 *Size)
 	 */
 	if (*Size > CdoPtr->CopiedCmdLen) {
 		Status = Xil_SecureMemCpy(&(CdoPtr->TempCmdBuf[CdoPtr->CopiedCmdLen]),
-			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN, BufPtr,
+			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN, &BufPtr[Index],
 			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_COPY_CMD, Status);

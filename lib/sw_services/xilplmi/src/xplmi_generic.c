@@ -39,6 +39,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
+* 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *
 * </pre>
 *
@@ -532,11 +533,12 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	u32 ProcWords = 0U;
 	u32 XferLen;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
+	u64 Dest = DestAddr;
 
 	/* Check if Readback Dest Addr is Overriden */
 	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
-			(XPLMI_SBI_DEST_ADDR != DestAddr)) {
-		DestAddr = ReadBackPtr->DestAddr;
+			(XPLMI_SBI_DEST_ADDR != Dest)) {
+		Dest = ReadBackPtr->DestAddr;
 		if ((Len + ReadBackPtr->ProcessedLen) > ReadBackPtr->MaxSize) {
 			Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
 			XPlmi_Printf(DEBUG_GENERAL,
@@ -559,7 +561,7 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 			Count = (u32)(((u32)XPLMI_SIXTEEN_BYTE_VALUE - Count) /
 					(u32)XPLMI_WORD_LEN);
 		}
-		Status = XPlmi_NpiUnalignedXfer(SrcAddr, DestAddr, Count);
+		Status = XPlmi_NpiUnalignedXfer(SrcAddr, Dest, Count);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -569,9 +571,9 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	XferLen = (Len - ProcWords) & (~(XPLMI_WORD_LEN - 1U));
 	Offset = ProcWords * XPLMI_WORD_LEN;
 
-	if (DestAddr != XPLMI_SBI_DEST_ADDR) {
+	if (Dest != XPLMI_SBI_DEST_ADDR) {
 		Status = XPlmi_DmaXfr((u64)(SrcAddr + Offset),
-				(u64)(DestAddr + Offset), XferLen, XPLMI_PMCDMA_0);
+				(u64)(Dest + Offset), XferLen, XPLMI_PMCDMA_0);
 	} else {
 		Status = XPlmi_DmaSbiXfer((u64)(SrcAddr + Offset),
 				XferLen, XPLMI_PMCDMA_1);
@@ -589,7 +591,7 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	if (ProcWords < Len) {
 		XferLen = Len - ProcWords;
 		Status = XPlmi_NpiUnalignedXfer((u64)(SrcAddr + Offset),
-				(u64)(DestAddr + Offset), XferLen);
+				(u64)(Dest + Offset), XferLen);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -597,7 +599,7 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	}
 
 	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
-			(XPLMI_SBI_DEST_ADDR != DestAddr)) {
+			(XPLMI_SBI_DEST_ADDR != Dest)) {
 		ReadBackPtr->ProcessedLen += Len;
 		ReadBackPtr->DestAddr += ((u64)Len * XPLMI_WORD_LEN);
 	}
@@ -1308,52 +1310,55 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	u64 BaseAddr;
 	u32 RemData;
 	u32 ChunkLen;
+	u64 Dest = DestAddr;
+	u64 Src = SrcAddr;
+	u32 LenTmp = Len;
 
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, XPLMI_PMCDMA_0);
+	Status = XPlmi_DmaXfr(Src, Dest, LenTmp, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 
-	BaseAddr = DestAddr;
-	DestAddr = (((u64)Len * XPLMI_WORD_LEN) % Keyholesize) + BaseAddr;
+	BaseAddr = Dest;
+	Dest = (((u64)LenTmp * XPLMI_WORD_LEN) % Keyholesize) + BaseAddr;
 	RemData = (Cmd->Len - Cmd->PayloadLen) * XPLMI_WORD_LEN;
 	if (RemData == 0U) {
 		goto END;
 	}
 
-	if (SrcAddr < XPLMI_PMCRAM_CHUNK_MEMORY_1) {
-		SrcAddr = XPLMI_PMCRAM_CHUNK_MEMORY_1;
+	if (Src < XPLMI_PMCRAM_CHUNK_MEMORY_1) {
+		Src = XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	}
 	else {
-		SrcAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
+		Src = XPLMI_PMCRAM_CHUNK_MEMORY;
 	}
 
-	Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr, RemData,
+	Status = Cmd->KeyHoleParams.Func(Src, Dest, RemData,
 			XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 	if (RemData > (XPLMI_CHUNK_SIZE / 2U)) {
-		Len = (XPLMI_CHUNK_SIZE / 2U);
+		LenTmp = (XPLMI_CHUNK_SIZE / 2U);
 	}
 	else {
-		Len = RemData;
+		LenTmp = RemData;
 	}
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, (Len / XPLMI_WORD_LEN),
+	Status = XPlmi_DmaXfr(Src, Dest, (LenTmp / XPLMI_WORD_LEN),
 			XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 
-	RemData = RemData - Len;
+	RemData = RemData - LenTmp;
 	if (RemData == 0U) {
 		goto END1;
 	}
-	SrcAddr = Cmd->KeyHoleParams.SrcAddr + Len;
-	DestAddr = ((DestAddr + Len) % Keyholesize) + BaseAddr;
+	Src = Cmd->KeyHoleParams.SrcAddr + LenTmp;
+	Dest = ((Dest + LenTmp) % Keyholesize) + BaseAddr;
 
 	/* The block is for qspi, ospi, ddr, sbi, jtag, smap and pcie boot modes */
 	if (Cmd->KeyHoleParams.InChunkCopy == (u8)FALSE) {
@@ -1361,7 +1366,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		 * The block is for sbi and smap boot modes which
 		 * support fixed modes
 		 */
-		Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr, RemData,
+		Status = Cmd->KeyHoleParams.Func(Src, Dest, RemData,
 				XPLMI_DST_CH_AXI_FIXED);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
@@ -1373,21 +1378,21 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		 * Hence the bitstream is copied in chunks of keyhole size.
 		 * This block of code will also get executed for SSIT.
 		 */
-		Len = Keyholesize - (u32)(DestAddr - BaseAddr);
-		if (Len > RemData) {
-			Len = RemData;
+		LenTmp = Keyholesize - (u32)(Dest - BaseAddr);
+		if (LenTmp > RemData) {
+			LenTmp = RemData;
 		}
-		Status = Cmd->KeyHoleParams.Func(SrcAddr, DestAddr, Len, 0U);
+		Status = Cmd->KeyHoleParams.Func(Src, Dest, LenTmp, 0U);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 			goto END;
 		}
-		RemData = RemData - Len;
+		RemData = RemData - LenTmp;
 		if (RemData == 0U) {
 			goto END1;
 		}
-		DestAddr = BaseAddr;
-		SrcAddr += Len;
+		Dest = BaseAddr;
+		Src += LenTmp;
 		while (RemData > 0U) {
 			if (RemData > Keyholesize) {
 				ChunkLen = Keyholesize;
@@ -1395,8 +1400,8 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 				ChunkLen = RemData;
 			}
 
-			Status = Cmd->KeyHoleParams.Func(SrcAddr,
-				DestAddr, ChunkLen, 0U);
+			Status = Cmd->KeyHoleParams.Func(Src,
+				Dest, ChunkLen, 0U);
 			if (Status != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
 					"DMA WRITE Key Hole Failed\n\r");
@@ -1404,7 +1409,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 			}
 
 			if (RemData > Keyholesize) {
-				SrcAddr += ChunkLen;
+				Src += ChunkLen;
 				RemData -= ChunkLen;
 			} else {
 				break;
