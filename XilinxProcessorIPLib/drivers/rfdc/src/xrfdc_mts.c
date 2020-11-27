@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup rfdc_v9_0
+* @addtogroup rfdc_v10_0
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
@@ -41,13 +41,14 @@
 *       cog    02/20/20 Double sysref frequency if in IQ mode.
 * 8.1   cog    06/24/20 Upversion.
 * 9.0   cog    11/25/20 Upversion.
+* 10.0  cog    11/26/20 Refactor and split files.
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xrfdc_mts.h"
+#include "xrfdc.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -1305,4 +1306,55 @@ u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *EnablePtr
 RETURN_PATH:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+*
+* Get Master Tile for ADC/DAC tiles.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+*
+* @return
+*           - Return Master Tile for ADC/DAC tiles
+*
+******************************************************************************/
+u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
+{
+	u32 MasterTile;
+
+	if (Type == XRFDC_ADC_TILE) {
+		MasterTile = InstancePtr->RFdc_Config.MasterADCTile;
+	} else {
+		MasterTile = InstancePtr->RFdc_Config.MasterDACTile;
+	}
+
+	return MasterTile;
+}
+
+/*****************************************************************************/
+/**
+*
+* Get Sysref source for ADC/DAC tile.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+*
+* @return
+*           - Return Sysref source for ADC/DAC tile
+*
+******************************************************************************/
+u32 XRFdc_GetSysRefSource(XRFdc *InstancePtr, u32 Type)
+{
+	u32 SysRefSource;
+
+	if (Type == XRFDC_ADC_TILE) {
+		SysRefSource = InstancePtr->RFdc_Config.ADCSysRefSource;
+	} else {
+		SysRefSource = InstancePtr->RFdc_Config.DACSysRefSource;
+	}
+
+	return SysRefSource;
+}
+
 /** @} */

@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mixer.c
-* @addtogroup rfdc_v9_0
+* @addtogroup rfdc_v10_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -51,6 +51,7 @@
 *       cog    10/06/20 Should only get calibration mode when setting/getting the
 *                       mixer settings for Gen 1/2 devices.
 * 9.0   cog    11/25/20 Upversion.
+* 10.0  cog    11/26/20 Refactor and split files.
 * </pre>
 *
 ******************************************************************************/
@@ -1036,6 +1037,95 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Resets the NCO phase of the current block phase accumulator.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n %s %u digital path %u not enabled in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	Index = Block_Id;
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Type == XRFDC_ADC_TILE)) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_NCO_RST_OFFSET, XRFDC_NCO_PHASE_RST_MASK,
+				XRFDC_NCO_PHASE_RST_MASK);
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Get Mixer Input Data Type for ADC/DAC block.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+*
+* @return
+*           - Return MixerInputDataType of ADC/DAC block.
+*
+******************************************************************************/
+u32 XRFdc_GetDataType(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
+{
+	u32 MixerInputDataType;
+
+	if (Type == XRFDC_ADC_TILE) {
+		MixerInputDataType = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id]
+					     .ADCBlock_Digital_Config[Block_Id]
+					     .MixerInputDataType;
+	} else {
+		MixerInputDataType = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id]
+					     .DACBlock_Digital_Config[Block_Id]
+					     .MixerInputDataType;
+	}
+
+	return MixerInputDataType;
 }
 
 /** @} */

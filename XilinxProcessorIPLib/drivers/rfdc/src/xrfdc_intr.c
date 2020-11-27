@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_intr.c
-* @addtogroup rfdc_v9_0
+* @addtogroup rfdc_v10_0
 * @{
 *
 * This file contains functions related to RFdc interrupt handling.
@@ -51,6 +51,7 @@
 *       cog    09/28/20 Added more DAC interrupts and fixed issue with
 *                       GetEnabledInterrupts.
 * 9.0   cog    11/25/20 Upversion.
+* 10.0  cog    11/26/20 Refactor and split files.
 *
 * </pre>
 *

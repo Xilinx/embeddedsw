@@ -33,6 +33,7 @@
 *              02/21/19 Set metal log level to DEBUG.
 * 7.0   cog    07/25/19 Updated example for new metal register API.
 * 8.1   cog    08/28/20 Make the example toatally generic, updated information.
+* 10.0  cog    11/26/20 xrfdc_mts.h is now integrated to xrfdc.h.
 *
 * </pre>
 *
@@ -44,8 +45,6 @@
 #include "xparameters.h"
 #endif
 #include "xrfdc.h"
-#include "xrfdc_mts.h"
-
 /************************** Constant Definitions ****************************/
 
 /*
