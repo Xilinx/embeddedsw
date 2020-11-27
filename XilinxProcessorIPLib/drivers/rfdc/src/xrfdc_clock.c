@@ -7,10 +7,10 @@
 /**
 *
 * @file xrfdc_clock.c
-* @addtogroup rfdc_v9_0
+* @addtogroup rfdc_v10_0
 * @{
 *
-* Contains the interface functions of the Mixer Settings in XRFdc driver.
+* Contains the interface functions of the Clock Settings in XRFdc driver.
 * See xrfdc.h for a detailed description of the device and driver.
 *
 * <pre>
@@ -53,6 +53,7 @@
 *                       clock source.
 *                       PLL must be used if distributing from DAC to ADC.
 * 9.0   cog    11/25/20 Upversion.
+* 10.0  cog    11/26/20 Refactor and split files.
 * </pre>
 *
 ******************************************************************************/

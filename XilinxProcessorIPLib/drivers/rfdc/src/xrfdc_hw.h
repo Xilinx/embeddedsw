@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v9_0
+* @addtogroup rfdc_v10_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -89,6 +89,7 @@
 *                       GetEnabledInterrupts.
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 * 9.0   cog    11/25/20 Upversion.
+* 10.0  cog    11/26/20 Refactor and split files.
 *
 *</pre>
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup rfdc_v9_0
+* @addtogroup rfdc_v10_0
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
@@ -25,6 +25,7 @@
 *       cog    02/10/20 Added Silicon_Revision.
 * 8.1   cog    06/24/20 Upversion.
 * 9.0   cog    11/25/20 Upversion.
+* 10.0  cog    11/26/20 Refactor and split files.
 *
 * </pre>
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup rfdc_v9_0
+* @addtogroup rfdc_v10_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -34,6 +34,7 @@
 *       cog    10/12/20 Check generation before cheching datapath mode.
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 * 9.0   cog    11/25/20 Upversion.
+* 10.0  cog    11/26/20 Refactor and split files.
 *
 * </pre>
 *
@@ -992,6 +993,7 @@ u32 XRFdc_GetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Bloc
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -1013,6 +1015,7 @@ int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 	(void)XRFdc_GetConnectedIQData(InstancePtr, Type, Tile_Id, Block_Id, &ConnectedIData, &ConnectedQData);
 	return ConnectedIData;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -1034,4 +1037,51 @@ int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 	(void)XRFdc_GetConnectedIQData(InstancePtr, Type, Tile_Id, Block_Id, &ConnectedIData, &ConnectedQData);
 	return ConnectedQData;
 }
+
+/*****************************************************************************/
+/**
+*
+* Set Data Converter connected for digital data path I and Q
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is Digital Data Path number.
+* @param    ConnectedIData is Converter Id to which DigitalPathI connected.
+* @param    ConnectedQData is Converter Id to which DigitalPathQ connected.
+*
+* @return
+*           - None.
+*
+******************************************************************************/
+void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData,
+					    int ConnectedQData)
+{
+	if (Type == XRFDC_ADC_TILE) {
+		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = ConnectedIData;
+		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = ConnectedQData;
+	} else {
+		InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedIData = ConnectedIData;
+		InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedQData = ConnectedQData;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Get Multiband Config data
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+*
+* @return
+*           - Return Multiband Configuration.
+*
+******************************************************************************/
+u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
+{
+	return XRFdc_ReadReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_MB_CONFIG_OFFSET);
+}
+
 /** @} */
