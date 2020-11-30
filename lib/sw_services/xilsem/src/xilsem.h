@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rm   09/22/2019 Initial release
 * 1.01  rb   10/30/2020 Added XSem_Init declaration
+* 1.02  gm   11/30/2020 Added SEM Start and Stop API declaration
 *
 * </pre>
 *
@@ -47,6 +48,8 @@ int XSem_NpiRunScan();
 int XSem_CfrStopScan(void);
 int XSem_CfrStartScan(void);
 int XSem_Init(void);
+int XSem_StartScan (void);
+int XSem_StopScan (void);
 
 #ifdef __cplusplus
 }
