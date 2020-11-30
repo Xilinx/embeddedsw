@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic.c
-* @addtogroup iic_v3_7
+* @addtogroup iic_v3_8
 * @{
 *
 * Contains required functions for the XIic component. See xiic.h for more
