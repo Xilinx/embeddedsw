@@ -26,6 +26,9 @@
 *                       Menu option updated for EDID and Training based on
 *                       MaxRate configuration
 *                       Added support for 16 BPC
+* 1.02  KU     30/11/20 AVI InfoFrame Version set to 3 for resolutions
+* 						VIC > 127
+*
 * </pre>
 *
 ******************************************************************************/
@@ -134,7 +137,7 @@ static void XHdcp_EnforceBlanking(XV_Rx *UpstreamInstancePtr,
 #endif
 #endif
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 		       XV_FrmbufRd_l2 *RdInstancePtr,
 		       XGpioPs *rstInstancePtr);
@@ -259,7 +262,7 @@ Exdes_Debug_Printf exdes_aux_debug_print = NULL;
 Exdes_Debug_Printf exdes_hdcp_debug_print = NULL;
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 /* Scratch pad for HDMI + Frame Buffer ExDes */
 u8  StartStream = (FALSE);
 u8  StartToRead = (FALSE);
@@ -961,7 +964,7 @@ void Exdes_SysTimerIntrHandler(void *CallbackRef)
 }
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 /*****************************************************************************/
 /**
 *
@@ -1140,7 +1143,7 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 }
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-	    (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+	    (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 
 /*****************************************************************************/
 /**
@@ -1736,10 +1739,16 @@ void Exdes_ChangeColorbarOutput(XVidC_VideoMode   VideoMode,
 		(void)memset((void *)VSIFPtr, 0, sizeof(XHdmiC_VSIF));
 
 		/* Update AVI InfoFrame */
-		AviInfoFramePtr->Version = 2;
 		AviInfoFramePtr->ColorSpace =
 				XV_HdmiC_XVidC_To_IfColorformat(ColorFormat);
 		AviInfoFramePtr->VIC = HdmiTxSs.HdmiTx1Ptr->Stream.Vic;
+
+		if ((AviInfoFramePtr->VIC > 127) || (AviInfoFramePtr->ColorSpace > 3)) {
+			AviInfoFramePtr->Version = 3;
+		} else {
+			AviInfoFramePtr->Version = 2;
+		}
+
 	}
 }
 #endif
@@ -1846,9 +1855,14 @@ void Exdes_UpdateAviInfoFrame(XVidC_VideoStream *HdmiTxSsVidStreamPtr)
 	AviInfoFramePtr = XV_HdmiTxSs1_GetAviInfoframe(&HdmiTxSs);
 	Colorformat = HdmiTxSs.HdmiTx1Ptr->Stream.Video.ColorFormatId;
 
-	AviInfoFramePtr->Version = 2;
 	AviInfoFramePtr->ColorSpace = XV_HdmiC_XVidC_To_IfColorformat(Colorformat);
 	AviInfoFramePtr->VIC = HdmiTxSs.HdmiTx1Ptr->Stream.Vic;
+
+	if ((AviInfoFramePtr->VIC > 127) || (AviInfoFramePtr->ColorSpace > 3)) {
+		AviInfoFramePtr->Version = 3;
+	} else {
+		AviInfoFramePtr->Version = 2;
+	}
 
 	if ((HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_1440x480_60_I) ||
 	    (HdmiTxSsVidStreamPtr->VmId == XVIDC_VM_1440x576_50_I)) {
@@ -2712,7 +2726,7 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 	 * Important to do this here - without this, we will get
 	 * overwhelmed with RX Bridge Overflow interrupts. */
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 #else
 	XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
 #endif
@@ -2808,7 +2822,7 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 
 		/* Set the FRL Cke source to Internal as this has FB. */
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 		/* Set the FRL Cke source to Internal as this has FB. */
 		XV_Tx_SetFRLCkeSrcToExternal(xhdmi_exdes_ctrlr.hdmi_tx_ctlr, FALSE);
 #else
@@ -2911,7 +2925,7 @@ TxInputSourceType Exdes_DetermineTxSrc()
 					XV_HdmiTxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs)) {
 			} else {
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 				xil_printf(ANSI_COLOR_YELLOW "RX and TX"
 						" transport mode (FRL or TMDS)"
 						" mismatch. Video may be cropped to match"
@@ -4003,7 +4017,7 @@ void XV_Tx_HdmiTrigCb_SetupTxTmdsRefClk(void *InstancePtr)
 		 */
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 		if (XV_HdmiRxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_rx_ctlr->HdmiRxSs) ==
 				XV_HdmiTxSs1_GetTransportMode(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs)) {
 			Status = I2cClk(0,
@@ -4181,7 +4195,7 @@ void XV_Tx_HdmiTrigCb_StreamOn(void *InstancePtr)
 		EXDES_DBG_PRINT("%s,%d: Rx VRST - true \r\n",
 				__func__, __LINE__);
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 #else
 		XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
 #endif
@@ -4194,7 +4208,7 @@ void XV_Tx_HdmiTrigCb_StreamOn(void *InstancePtr)
 					__func__, __LINE__);
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-            (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+            (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 			xil_printf("%s,%d: Config Video Frame Buffer - "
 				   "True \r\n", __func__, __LINE__);
 			/* Config and Run the Video Frame Buffer */
@@ -4769,7 +4783,7 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 	}
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 	//Start FB write and consume
 	XV_ConfigVidFrameBuf_wr(&FrameBufWr);
 	XV_HdmiRxSs1_VRST(&HdmiRxSs, FALSE);
