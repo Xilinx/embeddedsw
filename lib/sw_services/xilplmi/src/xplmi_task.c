@@ -23,6 +23,7 @@
 * 1.03  kc   07/28/2020 WDT support added to set PLM live status
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  kc   11/30/2020 Disable interrupts while updating shared data
 *
 * </pre>
 *
@@ -34,6 +35,7 @@
 #include "xplmi_task.h"
 #include "xplmi_debug.h"
 #include "xplmi_wdt.h"
+#include "mb_interface.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -103,8 +105,8 @@ static void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
 		metal_list_del(&Task->TaskNode);
 	}
 	Task->Delay = 0U;
-	Task->Handler = NULL;
 	Task->PrivData = NULL;
+	Task->Handler = NULL;
 }
 
 /*****************************************************************************/
@@ -176,6 +178,7 @@ void XPlmi_TaskDispatchLoop(void)
 		Task = NULL;
 		XPlmi_SetPlmLiveStatus();
 
+		microblaze_disable_interrupts();
 		/* Priority based task handling */
 		for (Index = 0U; Index < XPLMI_TASK_PRIORITIES; Index++) {
 			/* If no pending tasks are present, go to sleep */
@@ -198,6 +201,7 @@ void XPlmi_TaskDispatchLoop(void)
 				break;
 			}
 		}
+		microblaze_enable_interrupts();
 
 		if (Task != NULL) {
 #ifdef PLM_DEBUG_INFO
@@ -213,7 +217,9 @@ void XPlmi_TaskDispatchLoop(void)
 #endif
 			if (Status != (int)XPLMI_TASK_INPROGRESS) {
 				/* Delete the task that is handled */
+				microblaze_disable_interrupts();
 				XPlmi_TaskDelete(Task);
+				microblaze_enable_interrupts();
 			}
 			if ((Status != XST_SUCCESS) &&
 				(Status != (int)XPLMI_TASK_INPROGRESS)) {
