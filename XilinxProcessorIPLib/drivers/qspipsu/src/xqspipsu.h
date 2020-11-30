@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_12
+ * @addtogroup qspipsu_v1_13
  * @{
  * @details
  *
