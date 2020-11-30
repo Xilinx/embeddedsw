@@ -6603,6 +6603,33 @@ END:
 }
 #endif
 
+static s32 XFsbl_IicWaitForIdle(u32 addr)
+{
+	s32 Status;
+	u32 value;
+	u64 timeout;
+
+	Status = XFSBL_SUCCESS;
+	timeout = XFSBL_IIC_BUS_TIMEOUT>>7;
+	if ((XFSBL_IIC_BUS_TIMEOUT&0x7F)!=0)
+		timeout++;
+	for(;;) {
+		value = Xil_In32(addr);
+		if ((value & XIICPS_SR_BA_MASK) == 0)
+			break;
+		else {
+			usleep(128);
+			timeout--;
+			if (timeout==0) {
+				Status = XFSBL_FAILURE;
+				break;
+			}
+		}
+	}
+
+	return Status;
+}
+
 /*****************************************************************************/
 /**
  * This function Reads the DDR4 SPD from EEPROM via I2C
@@ -6615,12 +6642,12 @@ END:
  *****************************************************************************/
 static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 {
-	XIicPs IicInstance;		/* The instance of the IIC device. */
+	/* The instance of the IIC device. */
+	XIicPs IicInstance;
 	XIicPs_Config *ConfigIic;
 	u8 TxArray;
 	s32 Status;
 	u32 UStatus;
-	u32 Regval = 0U;
 
 	/* Lookup for I2C-1U device */
 	ConfigIic = XIicPs_LookupConfig(XPAR_PSU_I2C_1_DEVICE_ID);
@@ -6654,9 +6681,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval & XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
@@ -6675,10 +6700,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval &
-				XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
@@ -6695,10 +6717,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval &
-				XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
@@ -6717,10 +6736,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval &
-				XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
@@ -6739,10 +6755,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval &
-				XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
@@ -6760,10 +6773,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval &
-				XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
@@ -6782,10 +6792,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval &
-				XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
@@ -6804,10 +6811,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle.
 	 */
-	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
-			XIICPS_SR_OFFSET, Regval, (Regval &
-				XIICPS_SR_BA_MASK) == 0x0U,
-			XFSBL_IIC_BUS_TIMEOUT);
+	Status = XFsbl_IicWaitForIdle(IicInstance.Config.BaseAddress + XIICPS_SR_OFFSET);
 	if (Status != XST_SUCCESS) {
 		UStatus = XFSBL_FAILURE;
 		goto END;

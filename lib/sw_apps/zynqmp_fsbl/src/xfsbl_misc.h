@@ -64,7 +64,6 @@ const char *XFsbl_GetSiliconIdName(void);
 const char *XFsbl_GetProcEng(void);
 u32 XFsbl_CheckSupportedCpu(u32 CpuId);
 u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size);
-s32 XFsbl_PollTimeout(u32 Addr,u32 Value, u32 cond, u32 TimeOutInUs);
 
 #ifndef ARMA53_64
 void XFsbl_RegisterHandlers(void);
