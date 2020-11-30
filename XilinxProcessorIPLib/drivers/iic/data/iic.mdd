@@ -30,7 +30,7 @@ BEGIN driver iic
   OPTION supported_peripherals = (axi_iic);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.7;
+  OPTION VERSION = 3.8;
   OPTION NAME = iic;
 
 END driver
