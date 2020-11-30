@@ -56,6 +56,7 @@
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XIic_CfgInitialize API.
 * 3.3   als  06/27/16 XIic_IsIicBusy now static inline in xiic.h.
+* 3.8	rna  11/30/20 Corrected the order of Assert in XIic_SetRecvHandler.
 * </pre>
 *
 ****************************************************************************/
@@ -611,8 +612,8 @@ u32 XIic_IsSlave(XIic *InstancePtr)
 void XIic_SetRecvHandler(XIic *InstancePtr, void *CallBackRef,
 			 XIic_Handler FuncPtr)
 {
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(FuncPtr != NULL);
 
 	InstancePtr->RecvHandler = FuncPtr;
