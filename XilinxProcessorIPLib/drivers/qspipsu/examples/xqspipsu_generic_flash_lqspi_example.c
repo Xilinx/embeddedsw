@@ -60,6 +60,7 @@
 * 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
 * 1.9   akm 04/03/19 Fixed compilation error in XQspiPsu_LqspiRead()
 *                     function on IAR compiler.
+* 1.13  akm 11/30/20 Removed unwanted header files.
 *
 *</pre>
 *
@@ -69,9 +70,7 @@
 
 #include "xqspipsu_flash_config.h"
 #include "xscugic.h"		/* Interrupt controller device driver */
-#include "xil_exception.h"
 #include "xil_printf.h"
-#include "xil_cache.h"
 
 /************************** Constant Definitions *****************************/
 

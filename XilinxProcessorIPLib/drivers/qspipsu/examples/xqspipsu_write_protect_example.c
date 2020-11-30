@@ -44,6 +44,7 @@
 * 1.9	akm 02/27/19 Added support for IS25LP128, IS25WP128, IS25LP256,
 *  		     IS25WP256, IS25LP512, IS25WP512 Flash Devices
 * 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
+* 1.13  akm 11/30/20 Removed unwanted header files.
 *
 *</pre>
 *
@@ -53,9 +54,7 @@
 
 #include "xqspipsu_flash_config.h"
 #include "xscugic.h"		/* Interrupt controller device driver */
-#include "xil_exception.h"
 #include "xil_printf.h"
-#include "xil_cache.h"
 
 /************************** Constant Definitions *****************************/
 

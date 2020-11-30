@@ -57,6 +57,7 @@
 *                     IS25WP256, IS25LP512, IS25WP512 Flash Devices
 * 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
 * 1.10  akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
+* 1.13  akm 11/30/20 Removed unwanted header files.
 *
 *</pre>
 *
@@ -66,7 +67,6 @@
 
 #include "xqspipsu_flash_config.h"
 #include "xil_printf.h" 
-#include "xil_cache.h"
 
 /************************** Constant Definitions *****************************/
 

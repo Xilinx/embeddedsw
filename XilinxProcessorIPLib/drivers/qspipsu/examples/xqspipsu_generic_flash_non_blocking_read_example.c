@@ -34,6 +34,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.11   akm  02/19/20 First release
+* 1.13   akm  11/30/20 Removed unwanted header files.
 *
 *</pre>
 *
@@ -43,7 +44,6 @@
 
 #include "xqspipsu_flash_config.h"
 #include "xil_printf.h"
-#include "xil_cache.h"
 
 /************************** Constant Definitions *****************************/
 
