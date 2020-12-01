@@ -34,6 +34,7 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 *       am   10/19/20 Resolved MISRA C violations
+* 4.4   am   11/24/20 Resolved MISRA C violations
 *
 * </pre>
 * @note
@@ -610,7 +611,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
 			DmableData = PartialData;
 			DmableDataLen = XSECURE_SHA3_BLOCK_LEN;
-			Data += XSECURE_SHA3_BLOCK_LEN - PrevPartialLen;
+			Data = &Data[XSECURE_SHA3_BLOCK_LEN - PrevPartialLen];
 			RemainingDataLen = RemainingDataLen - DmableDataLen;
 		}
 		else {
@@ -618,7 +619,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 			DmableData = Data;
 			DmableDataLen = RemainingDataLen -
 				(RemainingDataLen % XSECURE_SHA3_BLOCK_LEN);
-			Data += DmableDataLen;
+			Data = &Data[DmableDataLen];
 			RemainingDataLen -= DmableDataLen;
 		}
 
@@ -639,8 +640,8 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	/* Handle remaining data during processing of next data chunk or during
 	   data padding */
 	if(RemainingDataLen > 0U) {
-		XSecure_MemCpy((void *)(PartialData + PrevPartialLen),
-			(const void *)Data, (RemainingDataLen - PrevPartialLen));
+		XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
+			(const void *)Data, RemainingDataLen - PrevPartialLen);
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
 	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,
