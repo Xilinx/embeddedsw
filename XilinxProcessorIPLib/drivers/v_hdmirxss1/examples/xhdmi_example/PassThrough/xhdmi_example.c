@@ -27,7 +27,8 @@
 *                       MaxRate configuration
 *                       Added support for 16 BPC
 * 1.02  KU     30/11/20 AVI InfoFrame Version set to 3 for resolutions
-* 						VIC > 127
+* 			VIC > 127
+* 			Onsemi redriver tweaked for TMDS mode in TX
 *
 * </pre>
 *
