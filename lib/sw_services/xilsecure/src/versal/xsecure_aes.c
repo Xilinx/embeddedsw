@@ -1359,7 +1359,7 @@ int XSecure_AesCfgKupKeyNIv(const XSecure_Aes *InstancePtr, u8 Config)
 			XSECURE_AES_DISABLE_KUP_IV_UPDATE);
 	}
 	else {
-		Status = XSecure_SecureOut32((InstancePtr->BaseAddress +
+		Status = XSecure_SecureOut32((UINTPTR)(InstancePtr->BaseAddress +
 			XSECURE_AES_KUP_WR_OFFSET),
 			(XSECURE_AES_KUP_WR_KEY_SAVE_MASK |
 			XSECURE_AES_KUP_WR_IV_SAVE_MASK));

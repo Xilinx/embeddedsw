@@ -28,6 +28,7 @@
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
 *       am      10/10/20 Resolved Coverity warning
+* 4.4   am      11/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -89,7 +90,7 @@ static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	Status = Xil_In32(BaseAddress + RegOffset);
+	Status = Xil_In32((UINTPTR)(BaseAddress + RegOffset));
 
 	return Status;
 }
@@ -110,7 +111,7 @@ static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
 static inline void XSecure_WriteReg(u32 BaseAddress,
 					u32 RegOffset, u32 RegisterValue)
 {
-	Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue));
+	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), RegisterValue);
 }
 
 #define XSecure_In32		(Xil_In32)
