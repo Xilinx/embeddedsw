@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.c
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v9_0
 * @{
 *
 * Contains the interface functions of the XRFdc driver.
@@ -192,6 +192,7 @@
 *                       four LSBs of the CS Gain.
 *       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
 *                       consumption.
+* 9.0   cog    11/25/20 Upversion.
 *
 * </pre>
 *

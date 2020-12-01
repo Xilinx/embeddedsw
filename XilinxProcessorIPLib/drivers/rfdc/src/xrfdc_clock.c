@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_clock.c
-* @addtogroup rfdc_v8_1
+* @addtogroup rfdc_v9_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -52,6 +52,7 @@
 *                       PLL must be used if using ADC0, ADC3, DAC0 or DAC3 as a
 *                       clock source.
 *                       PLL must be used if distributing from DAC to ADC.
+* 9.0   cog    11/25/20 Upversion.
 * </pre>
 *
 ******************************************************************************/
