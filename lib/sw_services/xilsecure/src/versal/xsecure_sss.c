@@ -25,6 +25,7 @@
 *       bsv     10/19/20 Changed register writes to PMC SSS Cfg switch to mask
 *                        writes
 *       kpt     11/12/20 Fixed SSS Cfg issue
+* 4.4   am      11/24/20 Resolved Coverity warnings
 *
 * </pre>
 *
@@ -111,7 +112,7 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 {
 	int Status = XST_FAILURE;
 	u32 Mask = 0U;
-	u32 RegVal = Xil_In32(InstancePtr->Address);
+	u32 RegVal;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -131,6 +132,7 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 		goto END;
 	}
 
+	RegVal = Xil_In32(InstancePtr->Address);
 	Mask = XSecure_SssMask(InputSrc, OutputSrc, RegVal);
 	RegVal &= ~Mask;
 	Status = XSecure_SecureOut32(InstancePtr->Address, RegVal);
@@ -164,7 +166,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
 	int Status = XST_FAILURE;
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
 	u32 Mask = 0U;
-	u32 RegVal = Xil_In32(InstancePtr->Address);
+	u32 RegVal;
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ||
@@ -180,6 +182,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
 	}
 
 	Status = XST_FAILURE;
+	RegVal = Xil_In32(InstancePtr->Address);
 	Mask = XSecure_SssMask(InputSrc, XSECURE_SSS_INVALID, RegVal);
 	RegVal &= ~Mask;
 	Status = XSecure_SecureOut32(InstancePtr->Address, RegVal);
