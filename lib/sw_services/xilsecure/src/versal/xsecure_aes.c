@@ -1617,8 +1617,8 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 
 	Status = XST_FAILURE;
 
-	if (((*(RM0) == 0U) && (*(RM0 + 1U) == 0U) && (*(RM0 + 2U) == 0U) &&
-				(*(RM0 + 3U) == 0U)) ||
+	if (((RM0[0U] == 0U) && (RM0[1U] == 0U) && (RM0[2U] == 0U) &&
+				(RM0[3U] == 0U)) ||
 			((RM0[0U] == RM1[0U]) && (RM0[1U] == RM1[1U]) &&
 				(RM0[2U] == RM1[2U]) && (RM0[3U] == RM1[3U])) ||
 			((RM0[0U] == Mm0[0U]) && (RM0[1U] == Mm0[1U]) &&
@@ -1629,8 +1629,8 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if (((*(RM1) == 0U) && (*(RM1 + 1U) == 0U) && (*(RM1 + 2U) == 0U) &&
-				(*(RM1 + 3U) == 0U)) ||
+	if (((RM1[0U] == 0U) && (RM1[1U] == 0U) && (RM1[2U] == 0U) &&
+				(RM1[3U] == 0U)) ||
 			((RM1[0U] == RM0[0U]) && (RM1[1U] == RM0[1U]) &&
 				(RM1[2U] == RM0[2U]) && (RM1[3U] == RM0[3U])) ||
 			((RM1[0U] == Mm0[0U]) && (RM1[1U] == Mm0[1U]) &&
@@ -1641,8 +1641,8 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if (((*(Mm0) == 0U) && (*(Mm0 + 1U) == 0U) && (*(Mm0 + 2U) == 0U) &&
-				(*(Mm0 + 3U) == 0U)) ||
+	if (((Mm0[0U] == 0U) && (Mm0[1U] == 0U) && (Mm0[2U] == 0U) &&
+				(Mm0[3U] == 0U)) ||
 			((Mm0[0U] == RM0[0U]) && (Mm0[1U] == RM0[1U]) &&
 				(Mm0[2U] == RM0[2U]) && (Mm0[3U] == RM0[3U])) ||
 			((Mm0[0U] == RM1[0U]) && (Mm0[1U] == RM1[1U]) &&
@@ -1653,8 +1653,8 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if (((*(Mm1) == 0U) && (*(Mm1 + 1U) == 0U) && (*(Mm1 + 2U) == 0U) &&
-				(*(Mm1 + 3U) == 0U)) ||
+	if (((Mm1[0U] == 0U) && (Mm1[1U] == 0U) && (Mm1[2U] == 0U) &&
+				(Mm1[3U] == 0U)) ||
 			((Mm1[0U] == RM0[0U]) && (Mm1[1U] == RM0[1U]) &&
 				(Mm1[2U] == RM0[2U]) && (Mm1[3U] == RM0[3U])) ||
 			((Mm1[0U] == RM1[0U]) && (Mm1[1U] == RM1[1U]) &&

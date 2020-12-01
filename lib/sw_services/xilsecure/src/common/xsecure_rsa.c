@@ -46,6 +46,7 @@
 *       rpo  09/21/20 New error code added for crypto state mismatch
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+* 4.4   am   11/24/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -310,13 +311,13 @@ int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	 * is smaller than the modulus
 	 */
 	for (Idx = 0U; Idx < Size; Idx++) {
-		if ((*(u8 *)(InstancePtr->Mod + Idx)) > (*(u8 *)(Input + Idx))) {
+		if (InstancePtr->Mod[Idx] > Input[Idx]) {
 			Status = XSecure_RsaOperation(InstancePtr, Input, Result,
 						XSECURE_RSA_SIGN_DEC, Size);
 			break;
 		}
 
-		if ((*(u8 *)(InstancePtr->Mod + Idx)) < (*(u8 *)(Input + Idx))) {
+		if (InstancePtr->Mod[Idx] < Input[Idx]) {
 			break;
 		}
 	}
