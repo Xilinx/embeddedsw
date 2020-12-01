@@ -1200,6 +1200,7 @@ END1:
 int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
@@ -1243,8 +1244,15 @@ END:
 	XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 
-	XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
-	XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
+	SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
+	SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
 
 END1:
 	return Status;
@@ -1491,13 +1499,14 @@ END1:
 int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 Index;
 
 	u32 DstVal[XSECURE_KAT_MSG_SIZE_IN_WORDS] = {0U};
 
 	if (AesInstance == NULL) {
 		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
-		goto END;
+		goto END1;
 	}
 
 	/* Write AES key */
@@ -1541,7 +1550,12 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	}
 
 END:
-	XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
+	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
+	if(Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
+END1:
 	return Status;
 }
 
