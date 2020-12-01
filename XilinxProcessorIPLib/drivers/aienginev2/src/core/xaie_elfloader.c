@@ -29,8 +29,11 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include <stdlib.h>
+
 #include "xaie_elfloader.h"
 #include "xaie_ecc.h"
+#include "xaie_mem.h"
 /************************** Constant Definitions *****************************/
 #define XAIESIM_CMDIO_CMD_SETSTACK       0U
 #define XAIESIM_CMDIO_CMD_LOADSYM        1U
@@ -278,8 +281,7 @@ static AieRC _XAie_WriteProgramSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 		}
 
 		BytesToWrite = SectionSize - OverFlowBytes;
-		Addr = (SectionAddr & AddrMask) +
-			_XAie_GetTileAddr(DevInst, TgtLoc.Row, TgtLoc.Col);
+		Addr = (SectionAddr & AddrMask);
 
 		/* Turn ECC On if EccStatus flag is set. */
 		if(DevInst->EccStatus) {
@@ -290,9 +292,12 @@ static AieRC _XAie_WriteProgramSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 			}
 		}
 
-		/* ceil(number of 32bit words to write)*/
-		XAie_BlockWrite32(DevInst, Addr, (u32 *)ProgSec,
-				(BytesToWrite + 4U - 1U) / 4U);
+		RC = XAie_DataMemBlockWrite(DevInst, TgtLoc, Addr,
+				(void*)ProgSec, BytesToWrite);
+		if(RC != XAIE_OK) {
+			XAIE_ERROR("Write to data memory failed\n");
+			return RC;
+		}
 
 		SectionSize -= BytesToWrite;
 		SectionAddr += BytesToWrite;
@@ -303,6 +308,8 @@ static AieRC _XAie_WriteProgramSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 	SectionSize = Phdr->p_memsz - Phdr->p_filesz;
 	SectionAddr = Phdr->p_paddr + Phdr->p_filesz;
 	while(SectionSize > 0U) {
+
+		void *TempSrc;
 
 		RC = _XAie_GetTargetTileLoc(DevInst, Loc, SectionAddr, &TgtLoc);
 		if(RC != XAIE_OK) {
@@ -321,8 +328,7 @@ static AieRC _XAie_WriteProgramSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 		}
 
 		BytesToWrite = SectionSize - OverFlowBytes;
-		Addr = (SectionAddr & AddrMask) +
-			_XAie_GetTileAddr(DevInst, TgtLoc.Row, TgtLoc.Col);
+		Addr = (SectionAddr & AddrMask);
 
 		/* Turn ECC On if the EccStatus flag is set */
 		if(DevInst->EccStatus) {
@@ -333,9 +339,22 @@ static AieRC _XAie_WriteProgramSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 			}
 		}
 
-		/* ceil(number of 32bit words to write)*/
-		XAie_BlockSet32(DevInst, Addr, 0U,
-				(BytesToWrite + 4U - 1U) / 4U);
+		/* Allocate temporary buffer and set it to 0 */
+		TempSrc = calloc(BytesToWrite, sizeof(char));
+		if(TempSrc == XAIE_NULL) {
+			XAIE_ERROR("Memory allocation failed for temporary "\
+					"buffer\n");
+			return XAIE_ERR;
+		}
+
+		RC = XAie_DataMemBlockWrite(DevInst, TgtLoc, Addr, TempSrc,
+				BytesToWrite);
+		free(TempSrc);
+		if(RC != XAIE_OK) {
+			XAIE_ERROR("Write to data memory failed for .bss "
+					"section.\n");
+			return RC;
+		}
 
 		SectionSize -= BytesToWrite;
 		SectionAddr += BytesToWrite;
