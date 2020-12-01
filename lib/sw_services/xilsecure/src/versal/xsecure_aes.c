@@ -55,6 +55,7 @@
 *                       XSecure_AesPmcDmaCfgByteSwap function
 *       har  10/12/2020 Addressed security review comments
 *       am   10/10/2020 Resolved Coverity warnings
+* 4.4   am   11/24/2020 Resolved MISRA C and Coverity warnings
 *
 * </pre>
 *
@@ -537,7 +538,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	}
 
 	if ((KeySrc < XSECURE_AES_BBRAM_KEY) ||
-		(KeySrc > XSECURE_MAX_KEY_SOURCES)) {
+		(KeySrc >= XSECURE_MAX_KEY_SOURCES)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -632,7 +633,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	if ((DecKeySrc > XSECURE_MAX_KEY_SOURCES) ||
+	if ((DecKeySrc >= XSECURE_MAX_KEY_SOURCES) ||
 		(DecKeySrc < XSECURE_AES_BBRAM_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
@@ -752,7 +753,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END1;
 	}
 
-	if ((KeySrc > XSECURE_MAX_KEY_SOURCES) ||
+	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
 		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1063,7 +1064,7 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END1;
 	}
 
-	if ((KeySrc > XSECURE_MAX_KEY_SOURCES) ||
+	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
 		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
