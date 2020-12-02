@@ -137,6 +137,7 @@ int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 ReadFlags;
+	u32 ParallelDmaFlags = Flags & (~(XPLMI_DEVICE_COPY_STATE_MASK));
 	(void) (SrcAddr);
 
 	ReadFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
@@ -150,8 +151,7 @@ int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		ReadFlags = XPLMI_DMA_DST_NONBLK;
 	}
-	Flags = Flags & (~(XPLMI_DEVICE_COPY_STATE_MASK));
-	ReadFlags |= (Flags | XPLMI_PMCDMA_1);
+	ReadFlags |= (ParallelDmaFlags | XPLMI_PMCDMA_1);
 	Status = XPlmi_SbiDmaXfer(DestAddr, Length / XPLMI_WORD_LEN,
 		ReadFlags);
 	if (Status != XST_SUCCESS) {

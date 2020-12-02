@@ -162,9 +162,8 @@ int XLoader_UsbCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	int Status = XST_FAILURE;
 	(void)Flags;
 
-	SrcAddress += XLOADER_DDR_TEMP_BUFFER_ADDRESS;
-	Status = XPlmi_DmaXfr(SrcAddress, DestAddress, Length / XPLMI_WORD_LEN,
-			XPLMI_PMCDMA_1);
+	Status = XPlmi_DmaXfr(SrcAddress + XLOADER_DDR_TEMP_BUFFER_ADDRESS,
+			DestAddress, Length / XPLMI_WORD_LEN, XPLMI_PMCDMA_1);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

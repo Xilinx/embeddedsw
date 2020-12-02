@@ -343,29 +343,28 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 			SdRawBootVal = RegVal & XLOADER_SD_RAWBOOT_MASK;
 			if (SdRawBootVal == XLOADER_SD_RAWBOOT_VAL) {
 				if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD0) {
-					PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
+					PdiPtr->PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
 				}
 				else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1) {
-					PdiSrc = XLOADER_PDI_SRC_SD1_RAW;
+					PdiPtr->PdiSrc = XLOADER_PDI_SRC_SD1_RAW;
 				}
 				else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1_LS) {
-					PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
+					PdiPtr->PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
 				}
 				else {
-					PdiSrc = XLOADER_PDI_SRC_EMMC_RAW;
+					PdiPtr->PdiSrc = XLOADER_PDI_SRC_EMMC_RAW;
 				}
 			}
 			else if (SdRawBootVal == XLOADER_EMMC_BP1_RAW_VAL) {
-				PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP1;
+				PdiPtr->PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP1;
 			}
 			else if (SdRawBootVal == XLOADER_EMMC_BP2_RAW_VAL) {
-				PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP2;
+				PdiPtr->PdiSrc = XLOADER_PDI_SRC_EMMC_RAW_BP2;
 			}
 			else {
 				/* For MISRA-C compliance */
 			}
-			PdiPtr->PdiSrc = PdiSrc;
-			UPdiSrc = (u32)PdiSrc;
+			UPdiSrc = (u32)(PdiPtr->PdiSrc);
 			DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 		}
 		RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
@@ -388,11 +387,11 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
 		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Monolithic/Master Device\n\r");
-		Status = DeviceOps[DeviceFlags].Init(PdiSrc);
+		Status = DeviceOps[DeviceFlags].Init(PdiPtr->PdiSrc);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		if (PdiSrc == XLOADER_PDI_SRC_USB) {
+		if (PdiPtr->PdiSrc == XLOADER_PDI_SRC_USB) {
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 		}
 	}
@@ -792,8 +791,6 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
 			PdiSrc, PdiAddr);
-
-	PdiSrc = PdiPtr->PdiSrc;
 	Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1227,6 +1224,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 	u32 Index = 0U;
 	u32 SrcAddr = XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
 	const XLoader_ImageInfo *ImageInfo;
+	u64 ImageInfoOffset = 0U;
 
 	if (Len > MaxLen) {
 		Len = MaxLen;
@@ -1238,14 +1236,14 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 		}
 		ImageInfo = (XLoader_ImageInfo *)SrcAddr;
 		if (ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) {
-			Status = XPlmi_DmaXfr((u64)SrcAddr, DestAddr,
+			Status = XPlmi_DmaXfr((u64)SrcAddr, (DestAddr + ImageInfoOffset),
 					sizeof(XLoader_ImageInfo) / XPLMI_WORD_LEN,
 					XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			Count++;
-			DestAddr += sizeof(XLoader_ImageInfo);
+			ImageInfoOffset += sizeof(XLoader_ImageInfo);
 		}
 		Index++;
 		SrcAddr += sizeof(XLoader_ImageInfo);
