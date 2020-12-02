@@ -897,6 +897,8 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	XPlmi_Printf(DEBUG_DETAILED, "Authentication of"
 			" Image header table\n\r");
 
+	SecurePtr->AcPtr = &AuthCert;
+
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
@@ -908,7 +910,6 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 			((u64)(ImgHdrTbl->AcOffset) * XIH_PRTN_WORD_LEN);
 
-	SecurePtr->AcPtr = &AuthCert;
 	Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
 		(UINTPTR)SecurePtr->AcPtr, XLOADER_AUTH_CERT_MIN_SIZE, 0U);
 	if (Status != XST_SUCCESS) {
