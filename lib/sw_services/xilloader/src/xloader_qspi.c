@@ -686,6 +686,8 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 SrcAddrLow = (u32)SrcAddr;
 	XQspiPsu_Msg FlashMsg[3U] = {0U,};
 	u8 WriteBuffer[10U] __attribute__ ((aligned(32U))) = {0U};
+	u64 DestOffset = 0U;
+	u32 ParallelDmaFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 
 #ifdef PLM_PRINT_PERF_DMA
 	u64 QspiCopyTime = XPlmi_GetTimerValue();
@@ -696,9 +698,8 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			"Length 0x%08x, Flags 0x%0x\r\n", SrcAddrLow,
 			(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 
-	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 	/* Just wait for the Data to be copied */
-	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+	if (ParallelDmaFlags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
 		do {
 			Status = XQspiPsu_CheckDmaDone(&QspiPsuInstance);
 		} while (Status != XST_SUCCESS);
@@ -811,8 +812,8 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 		XLoader_Printf(DEBUG_DETAILED, "QSPI Read Src 0x%08x, "
 				"Dest 0x%0x%08x, Length %08x\r\n",
-				QspiAddr, (u32)(DestAddr >> 32U),
-				(u32)DestAddr, TransferBytes);
+				QspiAddr, (u32)((DestAddr + DestOffset) >> 32U),
+				(u32)(DestAddr + DestOffset), TransferBytes);
 
 		/*
 		 * Setup the read command with the specified address
@@ -836,7 +837,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		WriteBuffer[XLOADER_ADDR_1_OFST] = (u8)(QspiAddr & 0xFFU);
 
 		FlashMsg[0U].TxBfrPtr = WriteBuffer;
-		FlashMsg[2U].RxAddr64bit = DestAddr;
+		FlashMsg[2U].RxAddr64bit = DestAddr + DestOffset;
 		FlashMsg[2U].ByteCount = TransferBytes;
 
 		/*
@@ -844,7 +845,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * of bytes from the Flash, send the read command and address and
 		 * receive the specified number of bytes of data in the data buffer
 		 */
-		if ((Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) &&
+		if ((ParallelDmaFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) &&
 				(RemainingBytes == TransferBytes)) {
 			Status = XQspiPsu_StartDmaTransfer(&QspiPsuInstance, &FlashMsg[0U],
 						XPLMI_ARRAY_SIZE(FlashMsg));
@@ -867,7 +868,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 * Update the variables
 		 */
 		RemainingBytes -= TransferBytes;
-		DestAddr += TransferBytes;
+		DestOffset += TransferBytes;
 		SrcAddrLow += TransferBytes;
 	}
 
@@ -879,7 +880,8 @@ END:
 	XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%06u ms QSPI Copy time:"
 	"SrcAddr: 0x%08x, DestAddr: 0x%0x08x, %u Bytes, Flags: 0x%0x\n\r",
 	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, SrcAddrLow,
-	(u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
+	(u32)((DestAddr + DestOffset) >> 32U), (u32)(DestAddr + DestOffset), Length,
+	ParallelDmaFlags);
 #endif
 	return Status;
 }

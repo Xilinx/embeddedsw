@@ -1923,6 +1923,7 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	XSecure_Sha3Hash HashStore = {0U};
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
 	u32 Size = XLOADER_SHA3_LEN;
+	u8 *OutTmp = Out;
 
 	while (Counter <= (OutLen / HashLen)) {
 		XLoader_I2Osp(Counter, XIH_PRTN_WORD_LEN, Convert);
@@ -1951,11 +1952,11 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			 */
 			 Size = (OutLen % HashLen);
 		}
-		Status = Xil_SecureMemCpy(Out, Size, HashStore.Hash, Size);
+		Status = Xil_SecureMemCpy(OutTmp, Size, HashStore.Hash, Size);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Out = &Out[XLOADER_SHA3_LEN];
+		OutTmp = &OutTmp[XLOADER_SHA3_LEN];
 		Counter = Counter + 1U;
 	}
 
@@ -2439,6 +2440,7 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 	volatile u32 DpaCmCfg;
 	volatile u32 DpaCmCfgTmp;
 	XLoader_AesKekInfo KeyDetails;
+	u64 SrcOffset = 0U;
 
 	SecurePtr->SecureDataLen = 0U;
 
@@ -2482,10 +2484,11 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
+		SrcOffset += XLOADER_SECURE_HDR_TOTAL_SIZE;
 		ChunkSize = ChunkSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
 	}
-	Status = XLoader_DataDecrypt(SecurePtr, SrcAddr, DestAddr, ChunkSize);
+	Status = XLoader_DataDecrypt(SecurePtr, (SrcAddr + SrcOffset), DestAddr,
+			ChunkSize);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_AES_OPERATION_FAILED,
 			Status);

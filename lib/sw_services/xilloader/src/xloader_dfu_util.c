@@ -124,6 +124,7 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 	u32 StringLen;
 	u8 DescLen = 0U;
 	XLoaderPs_UsbStdStringDesc StringDesc;
+	u8 StrIndex;
 	/* String Descriptors */
 	static const char* const StringList[XLOADER_USB_MODES_NUM]
 			[XLOADER_STRING_DESCRIPTORS_NUM] = {
@@ -175,8 +176,8 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 		StringDesc.Length = XLOADER_STRING_DESC_ZERO_SIZE;
 		StringDesc.DescriptorType = XLOADER_STRING_DESC_ZERO_DESC_TYPE;
 		StringDesc.LangId[0U] = XLOADER_STRING_DESC_LANG_ID_ZERO;
-		for (Index = 1U; Index < XLOADER_STRING_SIZE; ++Index) {
-			StringDesc.LangId[Index] = 0U;
+		for (StrIndex = 1U; StrIndex < XLOADER_STRING_SIZE; ++StrIndex) {
+			StringDesc.LangId[StrIndex] = 0U;
 		}
 	}
 	else {
