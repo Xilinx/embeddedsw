@@ -439,7 +439,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
-			XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
 			goto END;
 		}
 		PdiPtr->ImageNum = 1U;
@@ -480,7 +480,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		/* Read Boot header */
 		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
-			XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
 			goto END;
 		}
 		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
