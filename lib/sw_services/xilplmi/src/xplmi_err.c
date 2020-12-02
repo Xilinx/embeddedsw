@@ -140,7 +140,7 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_PSMERR2_MAX] = {
 	[XPLMI_NODEIDX_ERROR_PMC_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_PSM_NCR] =
-	{ .Handler = XPlmi_ErrPSMIntrHandler,
+	{ .Handler = NULL,
 			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_DDRMB_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
@@ -539,15 +539,19 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 		for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
 			if (((Err1Status & ((u32)1U << Index)) != (u32)FALSE) &&
-				(ErrorTable[Index].Handler != NULL) &&
-				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
+					((ErrorTable[Index].Handler != NULL) ||
+					(Index == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) &&
+					(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				/* PSM errors are handled in PsmErrHandler */
-				if (Index != (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
+				if (Index != XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
 					(void)XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR1,
 							Index);
+					ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR1,
+							Index);
 				}
-				ErrorTable[Index].Handler(
-					XPLMI_EVENT_ERROR_PMC_ERR1, Index);
+				else {
+					XPlmi_ErrPSMIntrHandler(XPLMI_EVENT_ERROR_PMC_ERR1, Index);
+				}
 				XPlmi_EmClearError(XPLMI_EVENT_ERROR_PMC_ERR1,
 					Index);
 			}
